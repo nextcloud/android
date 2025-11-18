@@ -205,8 +205,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 
     lint {
@@ -247,7 +247,7 @@ kapt.useBuildCache = true
 
 ksp.arg("room.schemaLocation", "$projectDir/schemas")
 
-kotlin.compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
+kotlin.compilerOptions.jvmTarget.set(JvmTarget.JVM_24)
 
 spotless.kotlin {
     target("**/*.kt")

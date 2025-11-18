@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV ANDROID_HOME=/usr/lib/android-sdk
 
 RUN apt-get update -y
-RUN apt-get install -y unzip wget openjdk-17-jdk vim
+RUN apt-get install -y unzip wget openjdk-24-jdk vim
 
 RUN wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip -O /tmp/commandlinetools.zip
 RUN cd /tmp && unzip commandlinetools.zip
