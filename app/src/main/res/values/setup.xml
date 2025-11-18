@@ -126,7 +126,7 @@
     <string name="report_issue_empty_link" translatable="false">https://github.com/nextcloud/android/issues/new/choose</string>
 
     <!-- login data links -->
-    <string name="login_data_own_scheme" translatable="false">nc</string>
+    <string name="login_data_own_scheme" translatable="false">aedinex</string>
     <!-- url for webview login, with the protocol prefix and with full url (normally /index.php/login/flow)
     If set, will replace all other login methods available -->
     <string name="webview_login_url" translatable="false"></string>
