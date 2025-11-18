@@ -27,8 +27,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 
     lint.targetSdk = 36
@@ -36,7 +36,7 @@ android {
 }
 
 kotlin.compilerOptions {
-    jvmTarget.set(JvmTarget.JVM_17)
+    jvmTarget.set(JvmTarget.JVM_24)
     freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
 }
 
