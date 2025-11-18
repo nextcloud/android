@@ -163,7 +163,7 @@ public final class MediaProvider {
                                          final ViewThemeUtils viewThemeUtils) {
         if (activity != null &&
             !PermissionUtil.checkStoragePermission(activity.getApplicationContext())) {
-            PermissionUtil.requestStoragePermissionIfNeeded(activity, viewThemeUtils);
+            PermissionUtil.requestStoragePermissionIfNeeded(activity);
         }
     }
 

@@ -69,11 +69,7 @@ class StoragePermissionDialogFragment :
                 dismiss()
             }
             .setNegativeButton(R.string.storage_permission_media_read_only) { _, _ ->
-                PermissionUtil.requestStoragePermission(
-                    activity = this.requireActivity(),
-                    readOnly = true,
-                    viewThemeUtils = viewThemeUtils
-                )
+                PermissionUtil.requestRequiredStoragePermissions(requireActivity())
                 dismiss()
             }
             .setNeutralButton(R.string.storage_permission_dont_ask) { _, _ ->

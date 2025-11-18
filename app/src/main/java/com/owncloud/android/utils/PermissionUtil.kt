@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2021 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH
  * SPDX-FileCopyrightText: 2015 Andy Scherzinger
@@ -22,16 +23,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
-import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
-import com.owncloud.android.utils.PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE
-import com.owncloud.android.utils.PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES
-import com.owncloud.android.utils.theme.ViewThemeUtils
 
 object PermissionUtil {
+    private const val TAG = "PermissionUtil"
+
     const val PERMISSIONS_EXTERNAL_STORAGE = 1
     const val PERMISSIONS_READ_CONTACTS_AUTOMATIC = 2
     const val PERMISSIONS_WRITE_CONTACTS = 4
@@ -45,151 +44,70 @@ object PermissionUtil {
 
     const val PERMISSION_CHOICE_DIALOG_TAG = "PERMISSION_CHOICE_DIALOG"
 
-    /**
-     * Wrapper method for ContextCompat.checkSelfPermission().
-     * Determine whether *the app* has been granted a particular permission.
-     *
-     * @param permission The name of the permission being checked.
-     * @return `true` if app has the permission, or `false` if not.
-     */
+    // region Permission Check Helpers
     @JvmStatic
     fun checkSelfPermission(context: Context, permission: String): Boolean =
         ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
 
-    /**
-     * Wrapper method for ActivityCompat.shouldShowRequestPermissionRationale().
-     * Gets whether you should show UI with rationale for requesting a permission.
-     * You should do this only if you do not have the permission and the context in
-     * which the permission is requested does not clearly communicate to the user
-     * what would be the benefit from granting this permission.
-     *
-     * @param activity   The target activity.
-     * @param permission A permission to be requested.
-     * @return Whether to show permission rationale UI.
-     */
-    @JvmStatic
-    fun shouldShowRequestPermissionRationale(activity: Activity, permission: String): Boolean =
-        ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
+    fun checkPermissions(context: Context, permissions: Array<String>): Boolean =
+        permissions.all { checkSelfPermission(context, it) }
+    // endregion
 
     /**
-     * Checks if the application has storage/media access permissions.
-     *
-     * This function handles the evolution of Android storage permissions across different API levels:
-     * - Android 11+ (API 30+): Checks for MANAGE_EXTERNAL_STORAGE (full file system access)
-     * - Android 13+ (API 33+): Checks for granular media permissions (READ_MEDIA_IMAGES, READ_MEDIA_VIDEO)
-     * - Android 14+ (API 34+): Also checks for limited/partial media access (READ_MEDIA_VISUAL_USER_SELECTED)
-     * - Below Android 11: Uses legacy WRITE_EXTERNAL_STORAGE permission
+     * Request storage permission as needed.
+     * Will handle:
+     * - Full file access (Android 11+)
+     * - Media permissions (Android 13+)
+     * - Legacy storage (Android < 11)
      */
     @JvmStatic
-    fun checkStoragePermission(context: Context): Boolean {
-        // Check if we have full storage manager access (Android 11+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
-            return true
-        }
-
-        // For Android 13+, check all media permissions (full OR limited access)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            return checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) ||
-                checkSelfPermission(context, Manifest.permission.READ_MEDIA_VIDEO) ||
-                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE &&
-                    checkSelfPermission(context, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED))
-        }
-
-        return checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    }
-
-    fun checkPermissions(context: Context, permissions: Array<String>): Boolean = permissions.all {
-        ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
-    }
-
-    /**
-     * Request relevant external storage permission depending on SDK, if needed.
-     *
-     * Activities should implement [Activity.onRequestPermissionsResult]
-     * and handle the [PERMISSIONS_EXTERNAL_STORAGE] code, as well as [Activity.onActivityResult]
-     * with `requestCode=`[REQUEST_CODE_MANAGE_ALL_FILES]
-     *
-     * @param activity The target activity.
-     */
-    @JvmStatic
-    fun requestStoragePermissionIfNeeded(
-        activity: AppCompatActivity,
-        viewThemeUtils: ViewThemeUtils,
-    ) {
+    fun requestStoragePermissionIfNeeded(activity: AppCompatActivity) {
         if (checkStoragePermission(activity)) {
             Log_OC.d(TAG, "Storage permissions are already granted")
             return
         }
 
+        requestMediaLocationPermissionIfNeeded(activity)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && canRequestAllFilesPermission(activity)) {
-            // can request All Files, show choice
-            showPermissionChoiceDialog(activity)
+            showStoragePermissionDialogFragment(activity)
             return
         }
 
-        // can not request all files, request read-only access
-        requestStoragePermission(
-            activity,
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.R,
-            viewThemeUtils
+        requestRequiredStoragePermissions(activity)
+    }
+
+    fun requestRequiredStoragePermissions(activity: Activity) {
+        val permissions = getRequiredStoragePermissions()
+        if (checkPermissions(activity, permissions)) {
+            return
+        }
+
+        requestPermissions(activity, permissions)
+    }
+
+    private fun getRequiredStoragePermissions() = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> arrayOf(
+            Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED,
+            Manifest.permission.READ_MEDIA_IMAGES,
+            Manifest.permission.READ_MEDIA_VIDEO
+        )
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> arrayOf(
+            Manifest.permission.READ_MEDIA_IMAGES,
+            Manifest.permission.READ_MEDIA_VIDEO
+        )
+        else -> arrayOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
         )
     }
 
-    /**
-     * Request a storage permission
-     */
-    // TODO inject this class to avoid passing ViewThemeUtils around
-    @Suppress("NestedBlockDepth")
-    fun requestStoragePermission(
-        activity: Activity,
-        readOnly: Boolean,
-        viewThemeUtils: ViewThemeUtils
-    ) {
-        // determine required permissions
-        val permissions = if (readOnly && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                // use granular media permissions
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                    arrayOf(
-                        Manifest.permission.READ_MEDIA_IMAGES,
-                        Manifest.permission.READ_MEDIA_VIDEO,
-                        Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
-                    )
-                } else {
-                    arrayOf(
-                        Manifest.permission.READ_MEDIA_IMAGES,
-                        Manifest.permission.READ_MEDIA_VIDEO
-                    )
-                }
-            } else {
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-            }
-        } else {
-            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        }
-
-        fun doRequest() {
-            ActivityCompat.requestPermissions(
-                activity,
-                permissions,
-                PERMISSIONS_EXTERNAL_STORAGE
-            )
-        }
-
-        // Check if we should show an explanation
-        if (permissions.any { shouldShowRequestPermissionRationale(activity, it) }) {
-            // Show explanation to the user and then request permission
-            Snackbar.make(
-                activity.findViewById(android.R.id.content),
-                R.string.permission_storage_access,
-                Snackbar.LENGTH_INDEFINITE
-            ).setAction(R.string.common_ok) {
-                doRequest()
-            }.also { viewThemeUtils.material.themeSnackbar(it) }.show()
-        } else {
-            // No explanation needed, request the permission.
-            doRequest()
-        }
+    private fun requestPermissions(activity: Activity, permissions: Array<String>) {
+        ActivityCompat.requestPermissions(
+            activity,
+            permissions,
+            PERMISSIONS_EXTERNAL_STORAGE
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -215,9 +133,7 @@ object PermissionUtil {
      * sdk >= 30: Choice between All Files access or read_external_storage
      */
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun showPermissionChoiceDialog(
-        activity: AppCompatActivity
-    ) {
+    private fun showStoragePermissionDialogFragment(activity: AppCompatActivity) {
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
         val existingDialog = activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG)
         if (preferences.isStoragePermissionRequested || existingDialog != null) {
@@ -277,12 +193,12 @@ object PermissionUtil {
      */
     @Suppress("ReturnCount")
     @JvmStatic
-    fun requestMediaLocationPermission(activity: Activity) {
+    fun requestMediaLocationPermissionIfNeeded(activity: Activity) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             return
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
+        if (checkFullFileAccess()) {
             return
         }
 
@@ -296,4 +212,43 @@ object PermissionUtil {
             PERMISSIONS_MEDIA_LOCATION
         )
     }
+
+    // region Storage permission checks
+    /**
+     * Checks if the application has storage/media access permissions.
+     *
+     * - Android 11+ (API 30+): Checks for MANAGE_EXTERNAL_STORAGE (full file system access)
+     * - Android 13+ (API 33+): Checks for granular media permissions (READ_MEDIA_IMAGES, READ_MEDIA_VIDEO)
+     * - Android 14+ (API 34+): Also checks for limited/partial media access (READ_MEDIA_VISUAL_USER_SELECTED)
+     * - Below Android 11: Uses legacy WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE permission
+     */
+    @JvmStatic
+    fun checkStoragePermission(context: Context): Boolean = checkFullFileAccess() ||
+        checkMediaAccess(context) ||
+        (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && checkLegacyStoragePermissions(context))
+
+    fun checkFullFileAccess(): Boolean =
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()
+
+    fun checkMediaAccess(context: Context): Boolean = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
+            checkSelfPermission(context, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED) ||
+                checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) ||
+                checkSelfPermission(context, Manifest.permission.READ_MEDIA_VIDEO)
+        }
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> {
+            checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) ||
+                checkSelfPermission(context, Manifest.permission.READ_MEDIA_VIDEO)
+        }
+        else -> false
+    }
+
+    fun checkLegacyStoragePermissions(context: Context): Boolean = checkPermissions(
+        context,
+        arrayOf(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+    )
+    // endregion
 }

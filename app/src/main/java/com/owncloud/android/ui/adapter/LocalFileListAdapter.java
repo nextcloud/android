@@ -13,7 +13,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -23,15 +22,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButton;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.FileHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.adapter.storagePermissionBanner.StoragePermissionBannerViewHolder;
 import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
-import com.owncloud.android.ui.interfaces.StoragePermissionWarningListener;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -76,15 +74,13 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private static final int PAGE_SIZE = 50;
     private int currentOffset = 0;
-    private final StoragePermissionWarningListener storagePermissionWarningListener;
 
     public LocalFileListAdapter(boolean localFolderPickerMode,
                                 LocalFileListFragmentInterface localFileListFragmentInterface,
                                 AppPreferences preferences,
                                 Context context,
                                 final ViewThemeUtils viewThemeUtils,
-                                boolean isWithinEncryptedFolder,
-                                StoragePermissionWarningListener storagePermissionWarningListener) {
+                                boolean isWithinEncryptedFolder) {
         this.preferences = preferences;
         mContext = context;
         mLocalFolderPicker = localFolderPickerMode;
@@ -92,7 +88,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         checkedFiles = new HashSet<>();
         this.viewThemeUtils = viewThemeUtils;
         this.isWithinEncryptedFolder = isWithinEncryptedFolder;
-        this.storagePermissionWarningListener = storagePermissionWarningListener;
         setHasStableIds(true);
     }
 
@@ -360,7 +355,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             case VIEWTYPE_HEADER:
                 View headerItemView = LayoutInflater.from(mContext).inflate(R.layout.storage_permission_warning_banner, parent, false);
-                return new LocalFileListHeaderViewHolder(headerItemView, storagePermissionWarningListener);
+                return new StoragePermissionBannerViewHolder(headerItemView, preferences);
             default:
                 throw new IllegalArgumentException("Invalid viewType: " + viewType);
         }
@@ -584,25 +579,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             super(itemView);
 
             footerText = itemView.findViewById(R.id.footerText);
-        }
-    }
-
-    private static class LocalFileListHeaderViewHolder extends RecyclerView.ViewHolder {
-        private LocalFileListHeaderViewHolder(View itemView, StoragePermissionWarningListener listener) {
-            super(itemView);
-
-            MaterialButton fullFileAccess = itemView.findViewById(R.id.fullFileAccess);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                fullFileAccess.setOnClickListener(v -> listener.openAllFilesAccessSettings());
-            } else {
-                fullFileAccess.setVisibility(View.GONE);
-            }
-
-            MaterialButton mediaAccess = itemView.findViewById(R.id.mediaReadOnly);
-            MaterialButton dontShowAgain = itemView.findViewById(R.id.dontShowStoragePermissionBanner);
-
-            mediaAccess.setOnClickListener(v -> listener.openMediaPermissions());
-            dontShowAgain.setOnClickListener(v -> listener.dontShowStoragePermissionBannerAgain());
         }
     }
 

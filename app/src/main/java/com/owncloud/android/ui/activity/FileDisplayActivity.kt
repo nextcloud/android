@@ -364,7 +364,7 @@ class FileDisplayActivity :
                 if (dialog != null && dialog.isShowing) {
                     dialog.dismiss()
                     supportFragmentManager.beginTransaction().remove(fragment).commitNowAllowingStateLoss()
-                    requestStoragePermissionIfNeeded(this, viewThemeUtils)
+                    requestStoragePermissionIfNeeded(this)
                 }
             }
         }
@@ -379,7 +379,7 @@ class FileDisplayActivity :
             // storage permissions handled in onRequestPermissionsResult
             requestNotificationPermission(this)
         } else {
-            requestStoragePermissionIfNeeded(this, viewThemeUtils)
+            requestStoragePermissionIfNeeded(this)
         }
 
         if (intent.getParcelableArgument(
@@ -462,7 +462,7 @@ class FileDisplayActivity :
             // handle notification permission on API level >= 33
             PermissionUtil.PERMISSIONS_POST_NOTIFICATIONS ->
                 // dialogue was dismissed -> prompt for storage permissions
-                requestStoragePermissionIfNeeded(this, viewThemeUtils)
+                requestStoragePermissionIfNeeded(this)
 
             // If request is cancelled, result arrays are empty.
             PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE ->
