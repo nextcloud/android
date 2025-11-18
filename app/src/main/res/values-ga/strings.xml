@@ -44,6 +44,7 @@
     <string name="app_widget_description">Taispeáin giuirléid amháin ón deais</string>
     <string name="appbar_search_in">Cuardaigh i %s</string>
     <string name="appear_offline">Le feiceáil as líne</string>
+    <string name="assistant_generation_warning">Gineadh an t-ábhar seo le hintleacht shaorga agus is féidir botúin a dhéanamh ann.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Cuir tasc nua leis</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Cruthaigh tasc nua ón mbun ar dheis</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Clóscríobh roinnt téacs</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">Tharla earráid agus an tasc á scriosadh</string>
     <string name="assistant_screen_task_delete_success_message">D\'éirigh leis an tasc a scriosadh</string>
     <string name="assistant_screen_task_list_empty_message">Tá liosta tascanna folamh.</string>
+    <string name="assistant_screen_task_list_empty_warning">Tá an liosta tascanna folamh. Seiceáil cumraíocht aip an chúntóra.</string>
     <string name="assistant_screen_task_list_error_state_message">Ní féidir liosta tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Scrios Tasc</string>
     <string name="assistant_screen_task_output_empty_text">Níl an t-aschur tasc réidh fós.</string>
@@ -663,6 +665,7 @@
     <string name="pass_code_configure_your_pass_code">Cuir isteach do phaschód</string>
     <string name="pass_code_configure_your_pass_code_explanation">Iarrfar an paschód gach uair a thosófar an app</string>
     <string name="pass_code_enter_pass_code">Cuir isteach do phaschód le do thoil</string>
+    <string name="pass_code_explanation">Iarrfar an pasfhocal gach uair a osclófar nó a athosclófar an aip tar éis 5 soicind.</string>
     <string name="pass_code_mismatch">Níl na paschóid mar an gcéanna</string>
     <string name="pass_code_reenter_your_pass_code">Cuir isteach do phaschód arís le do thoil</string>
     <string name="pass_code_remove_your_pass_code">Scrios do phaschód</string>

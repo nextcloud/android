@@ -44,6 +44,7 @@
     <string name="app_widget_description">Mostra um widget do painel</string>
     <string name="appbar_search_in">Pesquisar em %s</string>
     <string name="appear_offline">Aparecer off-line</string>
+    <string name="assistant_generation_warning">Este conteúdo foi gerado por IA e pode conter erros.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Adicionar nova tarefa</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Criar uma nova tarefa no canto inferior direito</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Digite algum texto</string>
