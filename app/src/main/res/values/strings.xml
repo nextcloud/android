@@ -6,21 +6,21 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <resources>
-    <string name="bottom_navigation_menu_files_label">All files</string>
+    <string name="bottom_navigation_menu_files_label">Music Library</string>
     <string name="bottom_navigation_menu_favorites_label">Favorites</string>
-    <string name="bottom_navigation_menu_assistant_label">Assistant</string>
-    <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="bottom_navigation_menu_assistant_label">Playlists</string>
+    <string name="bottom_navigation_menu_media_label">Now Playing</string>
     <string name="file_list_error_headline">Poor connection</string>
     <string name="file_list_error_description">Check your internet connection or try again later</string>
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="about_version_with_build">version %1$s, build #%2$s</string>
-    <string name="appbar_search_in">Search in %s</string>
-    <string name="actionbar_open_with">Open with</string>
-    <string name="actionbar_mkdir">New folder</string>
+    <string name="appbar_search_in">Search music in %s</string>
+    <string name="actionbar_open_with">Play with</string>
+    <string name="actionbar_mkdir">New playlist</string>
     <string name="actionbar_settings">Settings</string>
-    <string name="actionbar_see_details">Details</string>
-    <string name="actionbar_send_file">Send</string>
+    <string name="actionbar_see_details">Track info</string>
+    <string name="actionbar_send_file">Share</string>
     <string name="actionbar_sort">Sort</string>
     <string name="sort_by">Sort by</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -82,14 +82,14 @@
 
     <string name="recommended_files_title">Recommended files</string>
 
-    <string name="drawer_item_assistant">Assistant</string>
-    <string name="drawer_item_all_files">All files</string>
-    <string name="drawer_item_personal_files">Personal files</string>
+    <string name="drawer_item_assistant">Playlists</string>
+    <string name="drawer_item_all_files">All Music</string>
+    <string name="drawer_item_personal_files">My Music</string>
     <string name="drawer_item_home">Home</string>
-    <string name="drawer_item_favorites">Favorites</string>
-    <string name="drawer_item_on_device">On device</string>
-    <string name="drawer_item_recently_modified">Recently modified</string>
-    <string name="drawer_item_shared">Shared</string>
+    <string name="drawer_item_favorites">Favorite Tracks</string>
+    <string name="drawer_item_on_device">Local Music</string>
+    <string name="drawer_item_recently_modified">Recently Added</string>
+    <string name="drawer_item_shared">Shared Music</string>
     <string name="drawer_item_uploads_list">Uploads</string>
     <string name="drawer_item_activities">Activities</string>
     <string name="drawer_item_notifications">Notifications</string>
@@ -1465,4 +1465,83 @@
     <string name="sort_folders_before_files">Sort folders before files</string>
     <string name="sort_favorites_first">Sort favorites first</string>
     <string name="prefs_category_files">Files</string>
+
+    <!-- AediNex Music - Music Player Strings -->
+    <string name="music_player_play">Play</string>
+    <string name="music_player_pause">Pause</string>
+    <string name="music_player_next">Next</string>
+    <string name="music_player_previous">Previous</string>
+    <string name="music_player_shuffle">Shuffle</string>
+    <string name="music_player_repeat">Repeat</string>
+    <string name="music_player_repeat_one">Repeat one</string>
+    <string name="music_player_repeat_all">Repeat all</string>
+    <string name="music_player_repeat_off">Repeat off</string>
+    <string name="music_player_queue">Queue</string>
+    <string name="music_player_equalizer">Equalizer</string>
+    <string name="music_player_lyrics">Lyrics</string>
+    <string name="music_player_now_playing">Now Playing</string>
+    <string name="music_player_up_next">Up Next</string>
+
+    <!-- Music Library -->
+    <string name="music_library_artists">Artists</string>
+    <string name="music_library_albums">Albums</string>
+    <string name="music_library_songs">Songs</string>
+    <string name="music_library_genres">Genres</string>
+    <string name="music_library_playlists">Playlists</string>
+    <string name="music_library_folders">Folders</string>
+    <string name="music_library_recent">Recently Played</string>
+    <string name="music_library_most_played">Most Played</string>
+
+    <!-- Music Actions -->
+    <string name="music_action_play_now">Play Now</string>
+    <string name="music_action_play_next">Play Next</string>
+    <string name="music_action_add_to_queue">Add to Queue</string>
+    <string name="music_action_add_to_playlist">Add to Playlist</string>
+    <string name="music_action_create_playlist">Create Playlist</string>
+    <string name="music_action_delete_playlist">Delete Playlist</string>
+    <string name="music_action_download">Download</string>
+    <string name="music_action_remove_download">Remove Download</string>
+    <string name="music_action_share">Share Track</string>
+    <string name="music_action_set_as_ringtone">Set as Ringtone</string>
+    <string name="music_action_go_to_artist">Go to Artist</string>
+    <string name="music_action_go_to_album">Go to Album</string>
+
+    <!-- Music Info -->
+    <string name="music_info_artist">Artist</string>
+    <string name="music_info_album">Album</string>
+    <string name="music_info_track">Track</string>
+    <string name="music_info_duration">Duration</string>
+    <string name="music_info_year">Year</string>
+    <string name="music_info_genre">Genre</string>
+    <string name="music_info_bitrate">Bitrate</string>
+    <string name="music_info_sample_rate">Sample Rate</string>
+    <string name="music_info_unknown_artist">Unknown Artist</string>
+    <string name="music_info_unknown_album">Unknown Album</string>
+
+    <!-- Music Settings -->
+    <string name="music_settings_audio_quality">Audio Quality</string>
+    <string name="music_settings_streaming_quality">Streaming Quality</string>
+    <string name="music_settings_download_quality">Download Quality</string>
+    <string name="music_settings_gapless_playback">Gapless Playback</string>
+    <string name="music_settings_crossfade">Crossfade</string>
+    <string name="music_settings_audio_focus">Audio Focus</string>
+    <string name="music_settings_headset_controls">Headset Controls</string>
+    <string name="music_settings_folder_locations">Music Folder Locations</string>
+    <string name="music_settings_scan_library">Scan Music Library</string>
+    <string name="music_settings_clear_cache">Clear Music Cache</string>
+
+    <!-- Music Notifications -->
+    <string name="music_notification_channel_name">Music Playback</string>
+    <string name="music_notification_channel_description">Controls for music playback</string>
+    <string name="music_notification_playing">Playing</string>
+    <string name="music_notification_paused">Paused</string>
+
+    <!-- Audio Format Support -->
+    <string name="audio_format_mp3">MP3</string>
+    <string name="audio_format_flac">FLAC</string>
+    <string name="audio_format_ogg">OGG Vorbis</string>
+    <string name="audio_format_m4a">M4A/AAC</string>
+    <string name="audio_format_wav">WAV</string>
+    <string name="audio_format_opus">Opus</string>
+    <string name="audio_format_wma">WMA</string>
 </resources>
