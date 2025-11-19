@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package third_parties.fresco
+package thirdparties.fresco
 
 import android.graphics.Canvas
 import android.graphics.Paint

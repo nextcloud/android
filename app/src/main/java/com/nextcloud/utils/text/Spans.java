@@ -10,7 +10,7 @@ package com.nextcloud.utils.text;
 import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
-import third_parties.fresco.BetterImageSpan;
+import thirdparties.fresco.BetterImageSpan;
 
 public class Spans {
 

@@ -29,6 +29,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
@@ -50,6 +51,7 @@ import com.google.android.material.chip.ChipDrawable;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.text.Spans;
 import com.nextcloud.utils.text.Spans;
@@ -78,7 +80,7 @@ import java.util.Optional;
 import androidx.annotation.NonNull;
 import androidx.annotation.XmlRes;
 import androidx.recyclerview.widget.RecyclerView;
-import third_parties.fresco.BetterImageSpan;
+import thirdparties.fresco.BetterImageSpan;
 
 /**
  * Adapter for the activity view.
