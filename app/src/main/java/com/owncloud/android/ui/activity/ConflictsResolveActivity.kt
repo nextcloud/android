@@ -19,15 +19,14 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.OfflineOperationEntity
-import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsNotificationManager
 import com.nextcloud.client.jobs.operation.FileOperationHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
-import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getDecryptedPath
 import com.nextcloud.utils.extensions.logFileSize
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
@@ -107,18 +106,19 @@ class ConflictsResolveActivity :
 
     private fun setupOnConflictDecisionMadeListener(upload: OCUpload?) {
         listener = OnConflictDecisionMadeListener { decision: Decision? ->
-            val user = user.orElseThrow { RuntimeException() }
-
-            val offlineOperation = if (offlineOperationPath != null) {
-                fileDataStorageManager.offlineOperationDao.getByPath(offlineOperationPath!!)
-            } else {
-                null
+            if (user.isEmpty) {
+                Log_OC.e(TAG, "cannot resolve conflict user not exists")
+                return@OnConflictDecisionMadeListener
+            }
+            val user = user.get()
+            val offlineOperation = offlineOperationPath?.let {
+                fileDataStorageManager.offlineOperationDao.getByPath(it)
             }
 
             when (decision) {
                 Decision.KEEP_LOCAL -> uploadFileByDecision(upload, user, NameCollisionPolicy.OVERWRITE)
                 Decision.KEEP_BOTH -> uploadFileByDecision(upload, user, NameCollisionPolicy.RENAME)
-                Decision.KEEP_SERVER -> keepServer(upload)
+                Decision.KEEP_SERVER -> uploadFileByDecision(upload, user, NameCollisionPolicy.SKIP)
                 Decision.KEEP_OFFLINE_FOLDER -> keepOfflineFolder(offlineOperation)
                 Decision.KEEP_SERVER_FOLDER -> keepServerFile(offlineOperation)
                 Decision.KEEP_BOTH_FOLDER -> keepBothFolder(offlineOperation)
@@ -126,6 +126,7 @@ class ConflictsResolveActivity :
             }
 
             updateThumbnailIfNeeded(decision)
+            deleteLocalFileIfNeeded()
             dismissConflictResolveNotification()
             finish()
         }
@@ -197,35 +198,30 @@ class ConflictsResolveActivity :
 
         FileUploadHelper.instance().run {
             removeFileUpload(upload.remotePath, upload.accountName)
-            uploadUpdatedFile(
-                user,
-                arrayOf(file),
-                localBehaviour,
-                policy
-            )
-        }
-    }
 
-    private fun keepServer(upload: OCUpload?) {
-        if (!shouldDeleteLocal()) {
-            // Overwrite local file
-            file?.let {
-                FileDownloadHelper.instance().downloadFile(
-                    user.orElseThrow { RuntimeException() },
-                    it,
-                    conflictUploadId = conflictUploadId
+            if (policy != NameCollisionPolicy.SKIP) {
+                uploadUpdatedFile(
+                    user,
+                    arrayOf(file),
+                    localBehaviour,
+                    policy
                 )
             }
         }
+    }
 
-        upload?.let {
-            FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
+    private fun deleteLocalFileIfNeeded() {
+        if (localBehaviour != FileUploadWorker.LOCAL_BEHAVIOUR_DELETE) {
+            return
+        }
 
-            UploadNotificationManager(
-                applicationContext,
-                viewThemeUtils,
-                upload.uploadId.toInt()
-            ).dismissOldErrorNotification(it.remotePath, it.localPath)
+        try {
+            val result = file?.storagePath?.toFile()?.delete()
+            if (result == true) {
+                Log_OC.d(TAG, "local file deleted")
+            }
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "local file deletion: ", e)
         }
     }
 
@@ -407,11 +403,6 @@ class ConflictsResolveActivity :
     } else {
         getString(R.string.conflict_dialog_error)
     }
-
-    /**
-     * @return whether the local version of the files is to be deleted.
-     */
-    private fun shouldDeleteLocal(): Boolean = localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
 
     companion object {
         /**
