@@ -17,7 +17,6 @@ import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -28,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.di.Injectable;
@@ -292,9 +292,18 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         final MenuItem item = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
         viewThemeUtils.androidx.themeToolbarSearchView(mSearchView);
-        viewThemeUtils.platform.tintTextDrawable(this, menu.findItem(R.id.action_choose_storage_path).getIcon());
 
         mSearchView.setOnSearchClickListener(v -> mToolbarSpinner.setVisibility(View.GONE));
+
+        MenuItem chooseStoragePathItem = menu.findItem(R.id.action_choose_storage_path);
+        if (chooseStoragePathItem != null) {
+            chooseStoragePathItem.setVisible(PermissionUtil.checkStoragePermission(this));
+
+            final var chooseStoragePathDrawable = chooseStoragePathItem.getIcon();
+            if (chooseStoragePathDrawable != null) {
+                viewThemeUtils.platform.tintDrawable(this, chooseStoragePathDrawable, ColorRole.ON_SURFACE);
+            }
+        }
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -305,7 +314,10 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         int itemId = item.getItemId();
 
         if (itemId == android.R.id.home) {
-            if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
+            if (!PermissionUtil.checkStoragePermission(this)) {
+                setResult(RESULT_CANCELED);
+                finish();
+            } else if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
                 getOnBackPressedDispatcher().onBackPressed();
             }
         } else if (itemId == R.id.action_select_all) {
