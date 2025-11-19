@@ -689,6 +689,8 @@
     <string name="signup_with_provider">Абониране при доставчик</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешавате ли на %1$s да достъпва вашия Nextcloud профил %2$s?</string>
     <string name="sort_by">Сортиране по</string>
+    <string name="sort_favorites_first">Първо сортирайте любимите</string>
+    <string name="sort_folders_before_files">Сортиране на папки преди файлове</string>
     <string name="ssl_validator_btn_details_hide">Скриване</string>
     <string name="ssl_validator_btn_details_see">Подробности</string>
     <string name="ssl_validator_header">Идентичността на сървъра не може да бъде потвърдена</string>
