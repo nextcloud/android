@@ -46,16 +46,18 @@ fun TaskTypesRow(
         modifier = Modifier.background(color = colorResource(R.color.actionbar_color)),
         horizontalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = Modifier.width(11.dp))
+        if (data.any { it.isChat() }) {
+            Spacer(modifier = Modifier.width(11.dp))
 
-        IconButton(
-            onClick = { navigateToConversationList() }
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_history_back_arrow),
-                contentDescription = "open conversation list button",
-                tint = colorResource(R.color.text_color)
-            )
+            IconButton(
+                onClick = { navigateToConversationList() }
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_history_back_arrow),
+                    contentDescription = "open conversation list button",
+                    tint = colorResource(R.color.text_color)
+                )
+            }
         }
 
         PrimaryScrollableTabRow(
