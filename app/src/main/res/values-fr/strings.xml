@@ -44,6 +44,7 @@
     <string name="app_widget_description">Affiche un widget du tableau de bord</string>
     <string name="appbar_search_in">Recherche dans %s</string>
     <string name="appear_offline">Apparaître hors-ligne</string>
+    <string name="assistant_generation_warning">Ce contenu a été généré par IA et peut faire des erreurs.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Ajouter une nouvelle tâche</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Créer une nouvelle tâche en bas à droite</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tapez du texte</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">Une erreur est survenue lors de la suppression de la tâche</string>
     <string name="assistant_screen_task_delete_success_message">Tâche supprimée avec succès</string>
     <string name="assistant_screen_task_list_empty_message">La liste des tâches est vide.</string>
+    <string name="assistant_screen_task_list_empty_warning">La liste des tâches est vide. Vérifiez la configuration de l’application de l’assistant.</string>
     <string name="assistant_screen_task_list_error_state_message">Impossible de récupérer la liste des tâches, veuillez vérifier votre connexion Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Supprimer la tâche</string>
     <string name="assistant_screen_task_output_empty_text">Le résultat de la tâche n\'est pas encore prêt.</string>
@@ -663,6 +665,7 @@
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
     <string name="pass_code_configure_your_pass_code_explanation">Le code de sécurité sera demandé à chaque ouverture de l\'application</string>
     <string name="pass_code_enter_pass_code">Veuillez saisir votre code de sécurité</string>
+    <string name="pass_code_explanation">Le code de sécurité sera demandé chaque fois que l’application est ouverte ou rouverte après 5 secondes.</string>
     <string name="pass_code_mismatch">Les codes de sécurité ne sont pas identiques</string>
     <string name="pass_code_reenter_your_pass_code">Veuillez saisir de nouveau votre code de sécurité</string>
     <string name="pass_code_remove_your_pass_code">Supprimer votre code de sécurité</string>
@@ -1220,6 +1223,11 @@
         <item quantity="one">%d fichier va être exporté. Voir la notification pour plus de détails.</item>
         <item quantity="many">%d fichiers vont être exportés. Voir la notification pour plus de détails.</item>
         <item quantity="other">%d fichiers vont être exportés. Voir la notification pour plus de détails.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Vous pouvez téléverser uniquement 1%d fichier à la fois.</item>
+        <item quantity="many">Vous pouvez téléverser jusqu\'à %d fichiers à la fois.</item>
+        <item quantity="other">Vous pouvez téléverser jusqu\'à %d fichiers à la fois.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d dossier</item>
