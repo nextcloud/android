@@ -38,7 +38,6 @@ object PermissionUtil {
     const val PERMISSIONS_READ_CALENDAR_AUTOMATIC = 6
     const val PERMISSIONS_WRITE_CALENDAR = 7
     const val PERMISSIONS_POST_NOTIFICATIONS = 8
-    const val PERMISSIONS_MEDIA_LOCATION = 9
 
     const val REQUEST_CODE_MANAGE_ALL_FILES = 19203
 
@@ -67,8 +66,6 @@ object PermissionUtil {
             return
         }
 
-        requestMediaLocationPermissionIfNeeded(activity)
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && canRequestAllFilesPermission(activity)) {
             showStoragePermissionDialogFragment(activity)
             return
@@ -83,26 +80,6 @@ object PermissionUtil {
             return
         }
 
-        requestPermissions(activity, permissions)
-    }
-
-    private fun getRequiredStoragePermissions() = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> arrayOf(
-            Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED,
-            Manifest.permission.READ_MEDIA_IMAGES,
-            Manifest.permission.READ_MEDIA_VIDEO
-        )
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> arrayOf(
-            Manifest.permission.READ_MEDIA_IMAGES,
-            Manifest.permission.READ_MEDIA_VIDEO
-        )
-        else -> arrayOf(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        )
-    }
-
-    private fun requestPermissions(activity: Activity, permissions: Array<String>) {
         ActivityCompat.requestPermissions(
             activity,
             permissions,
@@ -185,34 +162,6 @@ object PermissionUtil {
         }
     }
 
-    /**
-     * Request media location permission. Required on API level >= 34.
-     * Does not have any effect on API level < 34.
-     *
-     * @param activity target activity
-     */
-    @Suppress("ReturnCount")
-    @JvmStatic
-    fun requestMediaLocationPermissionIfNeeded(activity: Activity) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            return
-        }
-
-        if (checkFullFileAccess()) {
-            return
-        }
-
-        if (checkSelfPermission(activity, Manifest.permission.ACCESS_MEDIA_LOCATION)) {
-            return
-        }
-
-        ActivityCompat.requestPermissions(
-            activity,
-            arrayOf(Manifest.permission.ACCESS_MEDIA_LOCATION),
-            PERMISSIONS_MEDIA_LOCATION
-        )
-    }
-
     // region Storage permission checks
     /**
      * Checks if the application has storage/media access permissions.
@@ -223,32 +172,37 @@ object PermissionUtil {
      * - Below Android 11: Uses legacy WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE permission
      */
     @JvmStatic
-    fun checkStoragePermission(context: Context): Boolean = checkFullFileAccess() ||
-        checkMediaAccess(context) ||
-        (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && checkLegacyStoragePermissions(context))
+    fun checkStoragePermission(context: Context): Boolean = checkFullFileAccess() || checkMediaAccess(context)
 
     fun checkFullFileAccess(): Boolean =
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()
 
-    fun checkMediaAccess(context: Context): Boolean = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
-            checkSelfPermission(context, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED) ||
-                checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) ||
-                checkSelfPermission(context, Manifest.permission.READ_MEDIA_VIDEO)
-        }
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> {
-            checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) ||
-                checkSelfPermission(context, Manifest.permission.READ_MEDIA_VIDEO)
-        }
-        else -> false
+    fun checkMediaAccess(context: Context): Boolean = checkPermissions(context, getRequiredStoragePermissions())
+
+    private fun getRequiredStoragePermissions() = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> getApiLevel34StoragePermissions()
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getApiLevel33StoragePermissions()
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> getApiLevel29StoragePermissions()
+        else -> getLegacyStoragePermissions()
     }
 
-    fun checkLegacyStoragePermissions(context: Context): Boolean = checkPermissions(
-        context,
-        arrayOf(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-    )
+    private fun getApiLevel34StoragePermissions(): Array<String> = listOf(
+        Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
+    ).plus(getApiLevel33StoragePermissions()).toTypedArray()
+
+    private fun getApiLevel33StoragePermissions(): Array<String> = listOf(
+        Manifest.permission.READ_MEDIA_IMAGES,
+        Manifest.permission.READ_MEDIA_VIDEO,
+        Manifest.permission.ACCESS_MEDIA_LOCATION
+    ).toTypedArray()
+
+    private fun getApiLevel29StoragePermissions(): Array<String> = listOf(
+        Manifest.permission.ACCESS_MEDIA_LOCATION
+    ).plus(getLegacyStoragePermissions()).toTypedArray()
+
+    private fun getLegacyStoragePermissions(): Array<String> = listOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ).toTypedArray()
     // endregion
 }

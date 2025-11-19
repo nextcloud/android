@@ -504,8 +504,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         // is not available in FolderPickerActivity
         viewThemeUtils.material.themeFAB(mFabMain);
         mFabMain.setOnClickListener(v -> {
-            PermissionUtil.requestMediaLocationPermissionIfNeeded(fileActivity);
-
             var currentDir = getCurrentFile();
             if (currentDir == null) {
                 Log_OC.w(TAG, "currentDir is null cannot open bottom sheet dialog");
