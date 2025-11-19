@@ -38,9 +38,6 @@ object PermissionUtil {
     const val PERMISSIONS_READ_CALENDAR_AUTOMATIC = 6
     const val PERMISSIONS_WRITE_CALENDAR = 7
     const val PERMISSIONS_POST_NOTIFICATIONS = 8
-
-    const val REQUEST_CODE_MANAGE_ALL_FILES = 19203
-
     const val PERMISSION_CHOICE_DIALOG_TAG = "PERMISSION_CHOICE_DIALOG"
 
     // region Permission Check Helpers

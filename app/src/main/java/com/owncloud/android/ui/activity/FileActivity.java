@@ -27,6 +27,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
@@ -100,6 +101,7 @@ import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -110,6 +112,8 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -194,6 +198,18 @@ public abstract class FileActivity extends DrawerActivity
     private NetworkChangeReceiver networkChangeReceiver;
 
     private FilesRepository filesRepository;
+
+    private final ActivityResultLauncher<Intent> manageAllFilesLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (Environment.isExternalStorageManager()) {
+            // User granted MANAGE_EXTERNAL_STORAGE
+            // Now request media permissions to get MEDIA_LOCATION
+            PermissionUtil.INSTANCE.requestRequiredStoragePermissions(this);
+        }
+    });
+
+    public ActivityResultLauncher<Intent> getManageAllFilesLauncher() {
+        return manageAllFilesLauncher;
+    }
 
     private void registerNetworkChangeReceiver() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);

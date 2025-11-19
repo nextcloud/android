@@ -17,9 +17,10 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.R
+import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.utils.PermissionUtil
-import com.owncloud.android.utils.PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -65,7 +66,8 @@ class StoragePermissionDialogFragment :
             .setMessage(message)
             .setPositiveButton(R.string.storage_permission_full_access) { _, _ ->
                 val intent = PermissionUtil.getManageAllFilesIntent(requireActivity())
-                requireActivity().startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
+                val fileActivity = getTypedActivity(FileActivity::class.java)
+                fileActivity?.manageAllFilesLauncher?.launch(intent)
                 dismiss()
             }
             .setNegativeButton(R.string.storage_permission_media_read_only) { _, _ ->
