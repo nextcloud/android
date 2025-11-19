@@ -17,8 +17,6 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Spannable;
@@ -29,7 +27,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
@@ -41,19 +38,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.chip.ChipDrawable;
-import com.bumptech.glide.GenericRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.caverock.androidsvg.SVG;
-import com.google.android.material.chip.ChipDrawable;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.GlideHelper;
-import com.nextcloud.utils.GlideHelper;
-import com.nextcloud.utils.text.Spans;
 import com.nextcloud.utils.text.Spans;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -168,15 +156,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             if (!TextUtils.isEmpty(activity.getRichSubjectElement().getRichSubject())) {
                 activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
-                //  activityViewHolder.binding.subject.setMovementMethod(LinkMovementMethod.getInstance());
-//                activityViewHolder.binding.subject.setText(addClickablePart(activity.getRichSubjectElement()),
-//                                                           TextView.BufferType.SPANNABLE);
-
-                activityViewHolder.binding.subject.setText(searchAndReplaceWithMentionSpan("actor",
-                                                                                           activity.getRichSubjectElement().getRichSubject(),
-                                                                                           "1",
-                                                                                           "label",
-                                                                                           R.xml.chip_others));
+                activityViewHolder.binding.subject.setText(addClickablePart(activity.getRichSubjectElement()));
                 
                 activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
             } else if (!TextUtils.isEmpty(activity.getSubject())) {
@@ -392,16 +372,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return spannableString;
     }
 
-    private Drawable getDrawableForMentionChipSpan(int chipResource, String text) {
-        ChipDrawable chip = ChipDrawable.createFromResource(context, chipResource);
-        chip.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-        chip.setText(text);
-        chip.setChipIconResource(R.drawable.accent_circle);
-        chip.setBounds(0, 0, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
-
-        return chip;
-    }
-
     private SpannableStringBuilder addClickablePart(RichElement richElement) {
         String text = richElement.getRichSubject();
         SpannableStringBuilder ssb = new SpannableStringBuilder(text);
@@ -436,18 +406,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                           );
                     
                     ssb.setSpan(mentionChipSpan, idx1, idx2, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-
-//            if (chipXmlRes == R.xml.chip_you) {
-//                spannableString.setSpan(
-//                    viewThemeUtils.talk.themeForegroundColorSpan(context),
-//                    start,
-//                    end,
-//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//                                       );
-//            }
-//            if ("user" == type && conversationUser.userId != id && !isFederated) {
-//                spannableString.setSpan(clickableSpan, start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-//            }
                 } else {
                     String name = richObject.getName();
                     ssb.replace(idx1, idx2, name);
