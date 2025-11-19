@@ -47,7 +47,13 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
- * Wrapper activity which will be launched if keep-in-sync file will be modified by external application.
+ * Activity responsible for resolving file conflicts.
+ *
+ * - **file**: The new local file selected by the user. This represents the local
+ *   version that may conflict with the remote version.
+ *
+ * The activity allows the user to choose between keeping the local file, keeping the server file,
+ * keeping both, or applying similar logic for offline operations.
  */
 @Suppress("TooManyFunctions")
 class ConflictsResolveActivity :
@@ -61,9 +67,14 @@ class ConflictsResolveActivity :
 
     private var conflictUploadId: Long = 0
     private var offlineOperationPath: String? = null
-    private var existingFile: OCFile? = null
     private var localBehaviour = FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
     private lateinit var offlineOperationNotificationManager: OfflineOperationsNotificationManager
+
+    /**
+     * The existing file stored on the server (remote version).
+     * Retrieved either from the local DB or from the server via ReadFileRemoteOperation.
+     */
+    private var existingFile: OCFile? = null
 
     @JvmField
     var listener: OnConflictDecisionMadeListener? = null
@@ -96,9 +107,6 @@ class ConflictsResolveActivity :
 
     private fun setupOnConflictDecisionMadeListener(upload: OCUpload?) {
         listener = OnConflictDecisionMadeListener { decision: Decision? ->
-
-
-            // version
             val user = user.orElseThrow { RuntimeException() }
 
             val offlineOperation = if (offlineOperationPath != null) {
@@ -108,8 +116,8 @@ class ConflictsResolveActivity :
             }
 
             when (decision) {
-                Decision.KEEP_LOCAL -> keepLocal(upload, user)
-                Decision.KEEP_BOTH -> keepBoth(upload, user)
+                Decision.KEEP_LOCAL -> uploadFileByDecision(upload, user, NameCollisionPolicy.OVERWRITE)
+                Decision.KEEP_BOTH -> uploadFileByDecision(upload, user, NameCollisionPolicy.RENAME)
                 Decision.KEEP_SERVER -> keepServer(upload)
                 Decision.KEEP_OFFLINE_FOLDER -> keepOfflineFolder(offlineOperation)
                 Decision.KEEP_SERVER_FOLDER -> keepServerFile(offlineOperation)
@@ -117,35 +125,31 @@ class ConflictsResolveActivity :
                 else -> Unit
             }
 
-            upload?.remotePath?.let { oldFilePath ->
-                val oldFile = storageManager.getFileByDecryptedRemotePath(oldFilePath)
-                updateThumbnailIfNeeded(decision, file, oldFile)
-            }
-
-            dismissConflictResolveNotification(file)
+            updateThumbnailIfNeeded(decision)
+            dismissConflictResolveNotification()
             finish()
         }
     }
 
-    private fun updateThumbnailIfNeeded(decision: Decision?, file: OCFile?, oldFile: OCFile?) {
-        if (decision == Decision.KEEP_BOTH || decision == Decision.KEEP_LOCAL) {
-            // When the user chooses to replace the remote file with the new local file,
-            // remove the old file's thumbnail so a new one can be generated
-            if (decision == Decision.KEEP_LOCAL) {
-                ThumbnailsCacheManager.removeFromCache(oldFile)
-            }
-
+    private fun updateThumbnailIfNeeded(decision: Decision?) {
+        if (decision == Decision.KEEP_BOTH) {
             file?.isUpdateThumbnailNeeded = true
             fileDataStorageManager.saveFile(file)
         }
+
+        if (decision == Decision.KEEP_LOCAL || decision == Decision.KEEP_BOTH) {
+            ThumbnailsCacheManager.removeFromCache(existingFile)
+            existingFile?.isUpdateThumbnailNeeded = true
+            fileDataStorageManager.saveFile(existingFile)
+        }
     }
 
-    private fun dismissConflictResolveNotification(file: OCFile?) {
-        file ?: return
-
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        val tag = NotificationUtils.createUploadNotificationTag(file)
-        notificationManager.cancel(tag, FileUploadWorker.NOTIFICATION_ERROR_ID)
+    private fun dismissConflictResolveNotification() {
+        file?.let {
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            val tag = NotificationUtils.createUploadNotificationTag(it)
+            notificationManager.cancel(tag, FileUploadWorker.NOTIFICATION_ERROR_ID)
+        }
     }
 
     private fun keepBothFolder(offlineOperation: OfflineOperationEntity?) {
@@ -185,40 +189,21 @@ class ConflictsResolveActivity :
         }
     }
 
-    /**
-     * Removes the existing remote file and uploads the newly selected local file.
-     */
-    private fun keepLocal(upload: OCUpload?, user: User) {
+    private fun uploadFileByDecision(upload: OCUpload?, user: User, policy: NameCollisionPolicy) {
         if (upload == null) {
             Log_OC.e(TAG, "upload is null cannot upload a new file")
             return
         }
 
-        lifecycleScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                fileDataStorageManager.removeFile(existingFile, true, false)
-            }
-
-            if (result) {
-                backgroundJobManager.startFilesUploadJob(user,
-                    longArrayOf(upload.uploadId),
-                    true
-                )
-            }
+        FileUploadHelper.instance().run {
+            removeFileUpload(upload.remotePath, upload.accountName)
+            uploadUpdatedFile(
+                user,
+                arrayOf(file),
+                localBehaviour,
+                policy
+            )
         }
-    }
-
-    private fun keepBoth(upload: OCUpload?, user: User) {
-        upload?.let {
-            FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
-        }
-
-        FileUploadHelper.instance().uploadUpdatedFile(
-            user,
-            arrayOf(file),
-            localBehaviour,
-            NameCollisionPolicy.RENAME
-        )
     }
 
     private fun keepServer(upload: OCUpload?) {
