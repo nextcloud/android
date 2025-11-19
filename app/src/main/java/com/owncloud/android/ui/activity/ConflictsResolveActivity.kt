@@ -125,14 +125,16 @@ class ConflictsResolveActivity :
                 else -> Unit
             }
 
-            updateThumbnailIfNeeded(decision)
-            deleteLocalFileIfNeeded()
-            dismissConflictResolveNotification()
-            finish()
+            lifecycleScope.launch(Dispatchers.Main) {
+                updateThumbnailIfNeeded(decision)
+                deleteLocalFileIfNeeded()
+                dismissConflictResolveNotification()
+                finish()
+            }
         }
     }
 
-    private fun updateThumbnailIfNeeded(decision: Decision?) {
+    private suspend fun updateThumbnailIfNeeded(decision: Decision?) = withContext(Dispatchers.IO) {
         if (decision == Decision.KEEP_BOTH) {
             file?.isUpdateThumbnailNeeded = true
             fileDataStorageManager.saveFile(file)
@@ -210,16 +212,11 @@ class ConflictsResolveActivity :
         }
     }
 
-    private fun deleteLocalFileIfNeeded() {
-        if (localBehaviour != FileUploadWorker.LOCAL_BEHAVIOUR_DELETE) {
-            return
-        }
-
+    @Suppress("TooGenericExceptionCaught")
+    private suspend fun deleteLocalFileIfNeeded() = withContext(Dispatchers.IO) {
+        if (localBehaviour != FileUploadWorker.LOCAL_BEHAVIOUR_DELETE) return@withContext
         try {
-            val result = file?.storagePath?.toFile()?.delete()
-            if (result == true) {
-                Log_OC.d(TAG, "local file deleted")
-            }
+            file?.storagePath?.toFile()?.delete()
         } catch (e: Exception) {
             Log_OC.e(TAG, "local file deletion: ", e)
         }
@@ -243,41 +240,39 @@ class ConflictsResolveActivity :
     override fun onStart() {
         super.onStart()
 
-        if (account == null) {
+        if (account == null || file == null) {
             showErrorAndFinish()
             return
         }
 
-        if (file == null) {
-            Log_OC.e(TAG, "newly selected local file cannot be null")
-            showErrorAndFinish()
-            return
+        if (offlineOperationPath != null) {
+            handleOfflineConflict(offlineOperationPath!!, file!!)
+        } else {
+            handleServerConflict()
         }
-
-        offlineOperationPath?.let { path ->
-            file?.let { ocFile ->
-                val offlineOperation = fileDataStorageManager.offlineOperationDao.getByPath(path)
-
-                if (offlineOperation == null) {
-                    showErrorAndFinish()
-                    return
-                }
-
-                val (ft, _) = prepareDialog()
-                val dialog = ConflictsResolveDialog.newInstance(
-                    context = this,
-                    leftFile = offlineOperation,
-                    rightFile = ocFile
-                )
-                dialog.show(ft, "conflictDialog")
-                return
-            }
-        }
-
-        initExistingFile()
     }
 
-    private fun initExistingFile() {
+    private fun handleOfflineConflict(path: String, file: OCFile) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val offlineOperation = fileDataStorageManager.offlineOperationDao.getByPath(path)
+            if (offlineOperation == null) {
+                withContext(Dispatchers.Main) { showErrorAndFinish() }
+                return@launch
+            }
+
+            withContext(Dispatchers.Main) {
+                val ft = prepareDialog().first
+                val dialog = ConflictsResolveDialog.newInstance(
+                    context = this@ConflictsResolveActivity,
+                    leftFile = offlineOperation,
+                    rightFile = file
+                )
+                dialog.show(ft, "conflictDialog")
+            }
+        }
+    }
+
+    private fun handleServerConflict() {
         lifecycleScope.launch {
             val resolved = withContext(Dispatchers.IO) {
                 resolveExistingFileFromDbOrServer()
@@ -306,7 +301,7 @@ class ConflictsResolveActivity :
         }
     }
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "TooGenericExceptionCaught", "ReturnCount")
     private fun resolveExistingFileFromDbOrServer(): OCFile? {
         val candidate = file ?: return null
 
@@ -351,7 +346,6 @@ class ConflictsResolveActivity :
         Log_OC.e(TAG, "DB still missing entry for ${remoteFile.remotePath}")
         return null
     }
-
 
     @SuppressLint("CommitTransaction")
     private fun prepareDialog(): Pair<FragmentTransaction, User> {
