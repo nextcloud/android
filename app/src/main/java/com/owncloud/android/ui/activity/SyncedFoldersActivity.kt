@@ -288,16 +288,14 @@ class SyncedFoldersActivity :
                 contentResolver,
                 perFolderMediaItemLimit,
                 this@SyncedFoldersActivity,
-                false,
-                viewThemeUtils
+                false
             )
             mediaFolders.addAll(
                 MediaProvider.getVideoFolders(
                     contentResolver,
                     perFolderMediaItemLimit,
                     this@SyncedFoldersActivity,
-                    false,
-                    viewThemeUtils
+                    false
                 )
             )
 
