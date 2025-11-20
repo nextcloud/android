@@ -38,9 +38,15 @@ class GalleryImageGenerationJob(
 ) {
     companion object {
         private const val TAG = "GalleryImageGenerationJob"
-        private val semaphore = Semaphore(3)
+        private val semaphore = Semaphore(
+            maxOf(
+                3,
+                Runtime.getRuntime().availableProcessors() / 2
+            )
+        )
     }
 
+    @Suppress("TooGenericExceptionCaught")
     suspend fun run(
         file: OCFile,
         imageView: ImageView,
@@ -188,7 +194,7 @@ class GalleryImageGenerationJob(
         return result
     }
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "TooGenericExceptionCaught")
     private suspend fun getThumbnailFromServerAndAddToCache(file: OCFile, thumbnail: Bitmap?): Bitmap? {
         var thumbnail = thumbnail
         try {
