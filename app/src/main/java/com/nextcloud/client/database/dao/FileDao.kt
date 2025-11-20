@@ -111,4 +111,27 @@ interface FileDao {
     """
     )
     fun searchFilesInFolder(parentId: Long, fileOwner: String, query: String): List<FileEntity>
+
+    @Query(
+        """
+    SELECT * 
+    FROM filelist 
+    WHERE file_owner = :fileOwner 
+      AND share_by_link = 1
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    suspend fun getSharedFiles(fileOwner: String): List<FileEntity>
+
+    @Query(
+        """
+    SELECT * 
+    FROM filelist 
+    WHERE file_owner = :fileOwner 
+      AND favorite = 1
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    suspend fun getFavoriteFiles(fileOwner: String): List<FileEntity>
+
 }
