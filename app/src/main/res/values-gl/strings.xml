@@ -188,7 +188,7 @@
     <string name="community_testing_headline">Axúdenos facendo probas</string>
     <string name="community_testing_report_text">Informe dun incidente no GitHub</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
-    <string name="confirm_removal">Retirar o cifrado local</string>
+    <string name="confirm_removal">Retirar a cifraxe local</string>
     <string name="confirmation_remove_file_alert">Confirma que quere eliminar %1$s?</string>
     <string name="confirmation_remove_files_alert">Confirma que quere eliminar os elementos seleccionados?</string>
     <string name="confirmation_remove_folder_alert">Confirma que quere eliminar %1$s e todo o seu contido?</string>
@@ -319,21 +319,21 @@
     <string name="encrypted">Definir como cifrado</string>
     <string name="end_to_end_encryption_certificate_unavailable">Non é posíbel recuperar o certificado de servidor</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Produciuse un fallo ao verificar a chave pública</string>
-    <string name="end_to_end_encryption_confirm_button">Configurar o cifrado</string>
+    <string name="end_to_end_encryption_confirm_button">Configurar a cifraxe</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Pechar</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Introduza a súa frase de contrasinal para acceder aos seus ficheiros</string>
     <string name="end_to_end_encryption_folder_not_empty">Este cartafol non está baleiro</string>
     <string name="end_to_end_encryption_generating_keys">Xerando chave novas…</string>
     <string name="end_to_end_encryption_keywords_description">As 12 palabras xuntas forman un contrasinal moi forte, permitíndolle só a Vde. ver e facer uso dos seus  ficheiros cifrados. Escríbaas e mantéñaas nun lugar seguro.</string>
-    <string name="end_to_end_encryption_not_enabled">Cifrado de extremo a extremo desactivado no servidor.</string>
-    <string name="end_to_end_encryption_passphrase_title">Tome nota do seu contrasinal de cifrado de 12 palabras</string>
+    <string name="end_to_end_encryption_not_enabled">Cifraxe de extremo a extremo desactivado no servidor.</string>
+    <string name="end_to_end_encryption_passphrase_title">Tome nota do seu contrasinal de cifraxe de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contrasinal…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando chaves…</string>
     <string name="end_to_end_encryption_server_private_key_unavailable">Non é posíbel recuperar a chave privada</string>
     <string name="end_to_end_encryption_server_public_key_unavailable">Non é posíbel recuperar a chave pública</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando as chaves</string>
-    <string name="end_to_end_encryption_title">Configurar o cifrado</string>
+    <string name="end_to_end_encryption_title">Configurar a cifraxe</string>
     <string name="end_to_end_encryption_unexpected_error_occurred">Produciuse un erro non agardado ao descargar as chaves</string>
     <string name="end_to_end_encryption_unsuccessful">Non foi posíbel gardar as súas chaves. Ténteo de novo</string>
     <string name="end_to_end_encryption_wrong_password">Produciuse un erro ao descifrar. Contrasinal incorrecto?</string>
@@ -353,7 +353,7 @@
     <string name="error_retrieving_file">Produciuse un erro ao recuperar o ficheiro</string>
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
     <string name="error_setting_status_message">Produciuse un erro ao axustar a mensaxe de estado!</string>
-    <string name="error_showing_encryption_dialog">Produciuse un erro ao amosar o diálogo de configuración do cifrado!</string>
+    <string name="error_showing_encryption_dialog">Produciuse un erro ao amosar o diálogo de configuración da cifraxe!</string>
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
     <string name="error_starting_doc_scan">Produciuse un erro ao iniciar o escaneamento do documento</string>
     <string name="error_uploading_direct_camera_upload">Produciuse un fallo ao enviar os ficheiros multimedia capturados.</string>
@@ -711,8 +711,8 @@
     <string name="prefs_data_storage_location">Localización do almacenamento de datos</string>
     <string name="prefs_data_storage_location_summary">Xestionar a localización do almacenamento de datos</string>
     <string name="prefs_davx5_setup_error">Produciuse un erro non agardado ao configurar DAVx⁵ (anteriormente coñecido como DAVdroid)</string>
-    <string name="prefs_e2e_active">O cifrado de extremo a extremo está configurado.</string>
-    <string name="prefs_e2e_mnemonic">Mnemotécnico do cifrado E2E</string>
+    <string name="prefs_e2e_active">A cifraxe de extremo a extremo está configurado.</string>
+    <string name="prefs_e2e_mnemonic">Mnemotécnico da cifraxe E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para amosar o mnemotécnico, active as credenciais do dispositivo
 </string>
     <string name="prefs_enable_media_scan_notifications">Amosar as notificacións de escaneo de medios</string>
@@ -727,7 +727,7 @@
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Arquivar en subcartafoles baseados na data</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcartafoles</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Opcións de subcartafol</string>
-    <string name="prefs_keys_exist">Engadir cifrado de extremo a extremo a este cliente</string>
+    <string name="prefs_keys_exist">Engadir cifraxe de extremo a extremo a este cliente</string>
     <string name="prefs_license">Licenza</string>
     <string name="prefs_lock">Código de acceso da aplicación</string>
     <string name="prefs_lock_device_credentials_enabled">Credenciais do dispositivo activadas</string>
@@ -738,8 +738,8 @@
     <string name="prefs_lock_using_passcode">Código de acceso</string>
     <string name="prefs_manage_accounts">Xestionar contas</string>
     <string name="prefs_recommend">Recomendar a un amigo</string>
-    <string name="prefs_remove_e2e">Retirar o cifrado localmente</string>
-    <string name="prefs_setup_e2e">Configurar o cifrado de extremo a extremo</string>
+    <string name="prefs_remove_e2e">Retirar a cifraxe localmente</string>
+    <string name="prefs_setup_e2e">Configurar a cifraxe de extremo a extremo</string>
     <string name="prefs_show_ecosystem_apps">Amosar o conmutador de aplicacións</string>
     <string name="prefs_show_ecosystem_apps_summary">Suxestión de aplicacións de Nextcloud na cabeceira de navegación</string>
     <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
@@ -776,8 +776,8 @@
     <string name="reload">Volver cargar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Produciuse un fallo ao atopar o ficheiro!</string>
-    <string name="remove_e2e">Pode retirar o cifrado de extremo a extremo localmente neste cliente</string>
-    <string name="remove_e2e_message">Pode retirar o cifrado de extremo a extremo localmente neste cliente. Os ficheiros cifrados permanecerán no servidor, mais xa non se sincronizarán con este computador.</string>
+    <string name="remove_e2e">Pode retirar a cifraxe de extremo a extremo localmente neste cliente</string>
+    <string name="remove_e2e_message">Pode retirar a cifraxe de extremo a extremo localmente neste cliente. Os ficheiros cifrados permanecerán no servidor, mais xa non se sincronizarán con este computador.</string>
     <string name="remove_fail_msg">Produciuse un fallo na eliminación</string>
     <string name="remove_local_account">Retirar a conta local</string>
     <string name="remove_local_account_details">Retirar a conta do dispositivo e eliminar todos os ficheiros locais</string>
@@ -831,7 +831,7 @@
     <string name="set_note">Definir a nota</string>
     <string name="set_online_status">Estado en liña</string>
     <string name="set_picture_as">Usar a imaxe como</string>
-    <string name="setup_e2e">Durante a configuración do cifrado de extremo a extremo, recibirá un mnemotécnico ao chou de 12 palabras, que necesitará para abrir os seus ficheiros noutros dispositivos. Isto só se almacenará neste dispositivo e pódese amosar de novo nesta pantalla. Anóteo nun lugar seguro!</string>
+    <string name="setup_e2e">Durante a configuración da cifraxe de extremo a extremo, recibirá un mnemotécnico ao chou de 12 palabras, que necesitará para abrir os seus ficheiros noutros dispositivos. Isto só se almacenará neste dispositivo e pódese amosar de novo nesta pantalla. Anóteo nun lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_allow_download_and_sync_permission">Permitir a descarga e a sincronización</string>
     <string name="share_cannot_update_empty_note">Non foi posíbel actualizar a compartición. Engada unha nota e ténteo de novo.</string>
@@ -1061,7 +1061,7 @@
     <string name="upload_missing_storage_permission_description">Non é posíbel enviar os ficheiros cargar sen acceso ao almacenamento local. Toque para conceder permiso.</string>
     <string name="upload_missing_storage_permission_title">Envío detido — É necesario permiso de almacenamento</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
-    <string name="upload_old_android">O cifrado só é posíbel con &gt;= Android 5.0</string>
+    <string name="upload_old_android">A cifraxe só é posíbel con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. En troques, gustaríalle movelos?</string>
     <string name="upload_quota_exceeded">Superouse a cota de almacenamento</string>
     <string name="upload_scan_doc_upload">Escanear o documento desde a cámara</string>
