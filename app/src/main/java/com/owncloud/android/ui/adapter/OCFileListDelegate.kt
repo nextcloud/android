@@ -10,7 +10,7 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
-import android.os.AsyncTask
+import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -20,6 +20,8 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.client.jobs.gallery.GalleryImageGenerationJob
+import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.getSubfiles
@@ -31,7 +33,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.GalleryImageGenerationTask.GalleryListener
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FolderPickerActivity
@@ -140,19 +141,82 @@ class OCFileListDelegate(
 
     private fun getGalleryDrawable(
         file: OCFile,
-        width: Int,
-        task: ThumbnailsCacheManager.GalleryImageGenerationTask
-    ): ThumbnailsCacheManager.AsyncGalleryImageDrawable {
-        val drawable = MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, context, viewThemeUtils)
+        width: Int
+    ): BitmapDrawable {
+        val placeholder = MimeTypeUtil.getFileTypeIcon(
+            file.mimeType,
+            file.fileName,
+            context,
+            viewThemeUtils
+        )
             ?: ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
             ?: Color.GRAY.toDrawable()
 
-        val thumbnail = BitmapUtils.drawableToBitmap(drawable, width / 2, width / 2)
+        val bitmap = BitmapUtils.drawableToBitmap(
+            placeholder,
+            width / 2,
+            width / 2
+        )
 
-        return ThumbnailsCacheManager.AsyncGalleryImageDrawable(context.resources, thumbnail, task)
+        return BitmapDrawable(context.resources, bitmap)
     }
 
+    private val scope = CoroutineScope(Dispatchers.IO)
+
     @Suppress("ComplexMethod")
+    private fun setGalleryImage(
+        file: OCFile,
+        thumbnailView: ImageView,
+        shimmerThumbnail: LoaderImageView?,
+        galleryRowHolder: GalleryRowHolder,
+        width: Int
+    )  {
+        scope.launch {
+            try {
+                withContext(Dispatchers.Main) {
+                    val asyncDrawable = getGalleryDrawable(file, width)
+
+                    if (shimmerThumbnail != null) {
+                        Log_OC.d(tag, "setGalleryImage.startShimmer()")
+                        DisplayUtils.startShimmer(shimmerThumbnail, thumbnailView)
+                    }
+
+                    thumbnailView.setImageDrawable(asyncDrawable)
+                }
+
+                GalleryImageGenerationJob(
+                    user,
+                    storageManager,
+                    thumbnailView,
+                    file,
+                    file.remoteId,
+                    object: GalleryImageGenerationListener {
+                        override fun onSuccess() {
+                            galleryRowHolder.binding.rowLayout.invalidate()
+                            Log_OC.d(tag, "setGalleryImage.onSuccess()")
+                            DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                        }
+
+                        override fun onNewGalleryImage() {
+                            Log_OC.d(tag, "setGalleryImage.redraw()")
+                            galleryRowHolder.redraw()
+                        }
+
+                        override fun onError() {
+                            Log_OC.d(tag, "setGalleryImage.onError()")
+                            DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                        }
+                    },
+                    ContextCompat.getColor(context, R.color.bg_default)
+                ).execute()
+            } catch (e: IllegalArgumentException) {
+                Log_OC.d(tag, "ThumbnailGenerationTask : " + e.message)
+            }
+        }
+    }
+
+    /*
+         @Suppress("ComplexMethod")
     private fun setGalleryImage(
         file: OCFile,
         thumbnailView: ImageView,
@@ -214,6 +278,8 @@ class OCFileListDelegate(
             Log_OC.d(tag, "ThumbnailGenerationTask : " + e.message)
         }
     }
+     */
+
 
     fun setThumbnail(thumbnail: ImageView, shimmerThumbnail: LoaderImageView?, file: OCFile) {
         DisplayUtils.setThumbnail(

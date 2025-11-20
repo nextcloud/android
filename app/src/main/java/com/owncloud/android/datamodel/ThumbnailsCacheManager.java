@@ -106,7 +106,7 @@ public final class ThumbnailsCacheManager {
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient;
-    private static final int THUMBNAIL_SIZE_IN_KB = 512;
+    public static final int THUMBNAIL_SIZE_IN_KB = 512;
     private static final int RESIZED_IMAGE_SIZE_IN_KB = 10240;
 
     public static final Bitmap mDefaultImg = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
@@ -458,6 +458,19 @@ public final class ThumbnailsCacheManager {
 
             void onError();
         }
+    }
+
+    public static Bitmap getScaledThumbnailAfterSave(Bitmap thumbnail, String imageKey) {
+        Bitmap result = BitmapExtensionsKt.scaleUntil(thumbnail, THUMBNAIL_SIZE_IN_KB);
+
+        synchronized (mThumbnailsDiskCacheLock) {
+            if (mThumbnailCache != null) {
+                Log_OC.d(TAG, "Scaling bitmap before caching: " + imageKey);
+                mThumbnailCache.put(imageKey, result);
+            }
+        }
+
+        return result;
     }
 
     public static class ResizedImageGenerationTask extends AsyncTask<Object, Void, Bitmap> {
@@ -1416,7 +1429,11 @@ public final class ThumbnailsCacheManager {
         mThumbnailCache = null;
     }
 
-    private static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
+    public static void setClient(OwnCloudClient client) {
+        mClient = client;
+    }
+
+    public static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
         Bitmap thumbnail;
         String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
 
