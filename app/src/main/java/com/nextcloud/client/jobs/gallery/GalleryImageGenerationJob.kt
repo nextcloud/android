@@ -8,8 +8,12 @@
 package com.nextcloud.client.jobs.gallery
 
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toDrawable
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.allocationKilobyte
 import com.owncloud.android.MainApp
@@ -20,7 +24,9 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.ImageDimension
+import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
@@ -35,9 +41,31 @@ class GalleryImageGenerationJob(
         private val semaphore = Semaphore(3)
     }
 
-    suspend fun run(file: OCFile, imageView: ImageView, listener: GalleryImageGenerationListener) {
+    suspend fun run(
+        file: OCFile,
+        imageView: ImageView,
+        width: Int,
+        viewThemeUtils: ViewThemeUtils,
+        listener: GalleryImageGenerationListener
+    ) {
         try {
-            execute(file, imageView, listener)
+            var newImage = false
+
+            if (file.remoteId == null && !file.isPreviewAvailable) {
+                listener.onError()
+                return
+            }
+
+            val bitmap: Bitmap? = getBitmap(imageView, file, width, viewThemeUtils, onThumbnailGeneration = {
+                newImage = true
+            })
+
+            if (bitmap == null) {
+                listener.onError()
+                return
+            }
+
+            setThumbnail(bitmap, file, imageView, newImage, listener)
         } catch (e: Exception) {
             Log_OC.e(TAG, "gallery image generation job: ", e)
             withContext(Dispatchers.Main) {
@@ -46,27 +74,38 @@ class GalleryImageGenerationJob(
         }
     }
 
-    private suspend fun execute(file: OCFile, imageView: ImageView, listener: GalleryImageGenerationListener) {
-        var newImage = false
+    private fun getPlaceholder(
+        file: OCFile,
+        width: Int,
+        viewThemeUtils: ViewThemeUtils
+    ): BitmapDrawable {
+        val context = MainApp.getAppContext()
 
-        if (file.remoteId == null && !file.isPreviewAvailable) {
-            listener.onError()
-            return
-        }
+        val placeholder = MimeTypeUtil.getFileTypeIcon(
+            file.mimeType,
+            file.fileName,
+            context,
+            viewThemeUtils
+        )
+            ?: ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
+            ?: Color.GRAY.toDrawable()
 
-        val bitmap: Bitmap? = getBitmap(file, onThumbnailGeneration = {
-            newImage = true
-        })
+        val bitmap = BitmapUtils.drawableToBitmap(
+            placeholder,
+            width / 2,
+            width / 2
+        )
 
-        if (bitmap == null) {
-            listener.onError()
-            return
-        }
-
-        setThumbnail(bitmap, file, imageView, newImage, listener)
+        return BitmapDrawable(context.resources, bitmap)
     }
 
-    private suspend fun getBitmap(file: OCFile, onThumbnailGeneration: () -> Unit): Bitmap? =
+    private suspend fun getBitmap(
+        imageView: ImageView,
+        file: OCFile,
+        width: Int,
+        viewThemeUtils: ViewThemeUtils,
+        onThumbnailGeneration: () -> Unit
+    ): Bitmap? =
         withContext(Dispatchers.IO) {
             if (file.remoteId == null && !file.isPreviewAvailable) {
                 Log_OC.w(TAG, "file has no remoteId and no preview")
@@ -83,6 +122,13 @@ class GalleryImageGenerationJob(
             }
 
             Log_OC.d(TAG, "generating new thumbnail for: ${file.fileName}")
+
+            // only add placeholder if new thumbnail will be generated because cached image will appear so quickly
+            withContext(Dispatchers.Main) {
+                val placeholderDrawable = getPlaceholder(file, width, viewThemeUtils)
+                imageView.setImageDrawable(placeholderDrawable)
+            }
+
             onThumbnailGeneration()
             semaphore.withPermit {
                 return@withContext getThumbnailFromServerAndAddToCache(file, cachedThumbnail)
