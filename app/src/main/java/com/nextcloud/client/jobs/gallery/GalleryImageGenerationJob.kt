@@ -37,15 +37,42 @@ class GalleryImageGenerationJob(
 
     suspend fun run(file: OCFile, imageView: ImageView, listener: GalleryImageGenerationListener) {
         semaphore.withPermit {
-            execute(file, imageView, listener)
+            try {
+                execute(file, imageView, listener)
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "gallery image generation job: ", e)
+                withContext(Dispatchers.Main) {
+                    listener.onError()
+                }
+            }
         }
     }
 
-    private suspend fun execute(file: OCFile, imageView: ImageView,  listener: GalleryImageGenerationListener) {
-        val key = file.remoteId
+    private suspend fun execute(file: OCFile, imageView: ImageView, listener: GalleryImageGenerationListener) {
         var newImage = false
-        val bitmap: Bitmap? = withContext(Dispatchers.IO) {
+
+        if (file.remoteId == null && !file.isPreviewAvailable) {
+            listener.onError()
+            return
+        }
+
+        val bitmap: Bitmap? = getBitmap(file, onThumbnailGeneration = {
+            newImage = true
+        })
+
+        if (bitmap == null) {
+            listener.onError()
+            return
+        }
+
+        setThumbnail(bitmap, file, imageView, newImage, listener)
+    }
+
+    private suspend fun getBitmap(file: OCFile, onThumbnailGeneration: () -> Unit): Bitmap? =
+        withContext(Dispatchers.IO) {
+            val key = file.remoteId
             var thumbnail: Bitmap?
+
             if (file.remoteId != null || file.isPreviewAvailable) {
                 thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
@@ -55,37 +82,39 @@ class GalleryImageGenerationJob(
                     return@withContext getThumbnailFromCache(file, thumbnail, key)
                 }
 
-                newImage = true
+                onThumbnailGeneration()
                 return@withContext getThumbnailFromServerAndAddToCache(file, thumbnail)
             }
+
             return@withContext null
         }
 
-        withContext(Dispatchers.Main) {
-            if (bitmap != null) {
-                val tagId = file.fileId.toString()
-                if (imageView.tag?.toString() == tagId) {
-                    if ("image/png".equals(file.mimeType, ignoreCase = true)) {
-                        imageView.setBackgroundColor(
-                            ContextCompat.getColor(
-                                MainApp.getAppContext(),
-                                R.color.bg_default
-                            )
-                        )
-                    }
+    private suspend fun setThumbnail(
+        bitmap: Bitmap,
+        file: OCFile,
+        imageView: ImageView,
+        newImage: Boolean,
+        listener: GalleryImageGenerationListener
+    ) = withContext(Dispatchers.Main) {
+        val tagId = file.fileId.toString()
+        if (imageView.tag?.toString() != tagId) return@withContext
 
-                    if (newImage) {
-                        listener.onNewGalleryImage()
-                    }
-
-                    imageView.setImageBitmap(bitmap)
-                    imageView.invalidate()
-                }
-                listener.onSuccess()
-            } else {
-                listener.onError()
-            }
+        if ("image/png".equals(file.mimeType, ignoreCase = true)) {
+            imageView.setBackgroundColor(
+                ContextCompat.getColor(
+                    MainApp.getAppContext(),
+                    R.color.bg_default
+                )
+            )
         }
+
+        if (newImage) {
+            listener.onNewGalleryImage()
+        }
+
+        imageView.setImageBitmap(bitmap)
+        imageView.invalidate()
+        listener.onSuccess()
     }
 
     private fun getThumbnailFromCache(file: OCFile, thumbnail: Bitmap, key: String): Bitmap {
@@ -113,6 +142,7 @@ class GalleryImageGenerationJob(
         return result
     }
 
+    @Suppress("DEPRECATION")
     private suspend fun getThumbnailFromServerAndAddToCache(file: OCFile, thumbnail: Bitmap?): Bitmap? {
         var thumbnail = thumbnail
         try {

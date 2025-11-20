@@ -171,94 +171,38 @@ class OCFileListDelegate(
         shimmerThumbnail: LoaderImageView?,
         galleryRowHolder: GalleryRowHolder,
         width: Int
-    )  {
-        scope.launch {
-            try {
-                val cachedBitmap = withContext(Dispatchers.IO) {
-                    ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
-                    )
-                }
-
-                if (cachedBitmap != null && !file.isUpdateThumbnailNeeded) {
-                    withContext(Dispatchers.Main) {
-                        thumbnailView.setImageBitmap(cachedBitmap)
-                        DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
-                    }
-                } else {
-                    withContext(Dispatchers.Main) {
-                        val asyncDrawable = getGalleryDrawable(file, width)
-
-                        if (shimmerThumbnail != null) {
-                            Log_OC.d(tag, "setGalleryImage.startShimmer()")
-                            DisplayUtils.startShimmer(shimmerThumbnail, thumbnailView)
-                        }
-
-                        thumbnailView.setImageDrawable(asyncDrawable)
-                    }
-
-                    galleryImageGenerationJob.run(file, thumbnailView, object : GalleryImageGenerationListener {
-                        override fun onSuccess() {
-                            galleryRowHolder.binding.rowLayout.invalidate()
-                            Log_OC.d(tag, "setGalleryImage.onSuccess()")
-                            DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
-                        }
-
-                        override fun onNewGalleryImage() {
-                            Log_OC.d(tag, "setGalleryImage.redraw()")
-                            galleryRowHolder.redraw()
-                        }
-
-                        override fun onError() {
-                            Log_OC.d(tag, "setGalleryImage.onError()")
-                            DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
-                        }
-                    })
-                }
-            } catch (e: IllegalArgumentException) {
-                Log_OC.d(tag, "ThumbnailGenerationTask : " + e.message)
-            }
-        }
-    }
-
-    /*
-         @Suppress("ComplexMethod")
-    private fun setGalleryImage(
-        file: OCFile,
-        thumbnailView: ImageView,
-        shimmerThumbnail: LoaderImageView?,
-        galleryRowHolder: GalleryRowHolder,
-        width: Int
     ) {
-        if (!ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
-            Log_OC.d(tag, "setGalleryImage.cancelPotentialThumbnailWork()")
-            return
-        }
-
-        for (task in asyncTasks) {
-            if (file.remoteId != null && task.imageKey != null && file.remoteId == task.imageKey) {
-                return
-            }
-        }
-
-        try {
-            val task = ThumbnailsCacheManager.GalleryImageGenerationTask(
-                thumbnailView,
-                user,
-                storageManager,
-                asyncGalleryTasks,
-                file.remoteId,
-                ContextCompat.getColor(context, R.color.bg_default)
-            )
-
-            val asyncDrawable = getGalleryDrawable(file, width, task)
-
-            if (shimmerThumbnail != null) {
-                Log_OC.d(tag, "setGalleryImage.startShimmer()")
-                DisplayUtils.startShimmer(shimmerThumbnail, thumbnailView)
+        scope.launch {
+            val cachedBitmap = withContext(Dispatchers.IO) {
+                ThumbnailsCacheManager.getBitmapFromDiskCache(
+                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
+                )
             }
 
-            task.setListener(object : GalleryListener {
+            if (cachedBitmap != null && !file.isUpdateThumbnailNeeded) {
+                withContext(Dispatchers.Main) {
+                    thumbnailView.setImageBitmap(cachedBitmap)
+                    DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                }
+                Log_OC.d(TAG, "thumbnail generation skipped, using cache: ${file.fileName}")
+                return@launch
+            }
+
+            Log_OC.d(TAG, "generating thumbnail: ${file.fileName}")
+
+            // adds placeholder first
+            withContext(Dispatchers.Main) {
+                val asyncDrawable = getGalleryDrawable(file, width)
+
+                if (shimmerThumbnail != null) {
+                    Log_OC.d(tag, "setGalleryImage.startShimmer()")
+                    DisplayUtils.startShimmer(shimmerThumbnail, thumbnailView)
+                }
+
+                thumbnailView.setImageDrawable(asyncDrawable)
+            }
+
+            galleryImageGenerationJob.run(file, thumbnailView, object : GalleryImageGenerationListener {
                 override fun onSuccess() {
                     galleryRowHolder.binding.rowLayout.invalidate()
                     Log_OC.d(tag, "setGalleryImage.onSuccess()")
@@ -275,17 +219,8 @@ class OCFileListDelegate(
                     DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
                 }
             })
-
-            thumbnailView.setImageDrawable(asyncDrawable)
-
-            asyncGalleryTasks.add(task)
-            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, file)
-        } catch (e: IllegalArgumentException) {
-            Log_OC.d(tag, "ThumbnailGenerationTask : " + e.message)
         }
     }
-     */
-
 
     fun setThumbnail(thumbnail: ImageView, shimmerThumbnail: LoaderImageView?, file: OCFile) {
         DisplayUtils.setThumbnail(
