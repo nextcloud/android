@@ -1301,10 +1301,10 @@
     <string name="error_creating_file_from_template">Error creating file from template</string>
     <string name="no_send_app">No app available for sending the selected files</string>
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
-    <string name="storage_permission_dont_show_again">Dont show again</string>
+    <string name="storage_permission_dont_show_again">Don\'t show again</string>
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
-    <string name="storage_permission_dont_ask">Dont ask</string>
+    <string name="storage_permission_dont_ask">Don\'t ask</string>
     <string name="subtitle_photos_videos">Photos and videos</string>
     <string name="show_images">Show photos</string>
     <string name="subtitle_photos_only">Photos only</string>
