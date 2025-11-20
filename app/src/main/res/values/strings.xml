@@ -1290,7 +1290,7 @@
     <string name="no_actions">No actions for this user</string>
     <string name="search_error">Error getting search results</string>
     <string name="load_more_results">Load more results</string>
-    <string name="storage_permission_banner_text">Storage permission is required for auto-upload and file uploads.</string>
+    <string name="storage_permission_banner_text">Storage permission is required for Auto-upload and file uploads.</string>
     <string name="file_management_permission_optional">Storage permissions</string>
     <string name="file_management_permission_optional_text">%1$s works best with permissions to access storage. You can choose full access to all files, or read-only access to photos and videos.</string>
     <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
