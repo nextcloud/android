@@ -173,42 +173,55 @@ class OCFileListDelegate(
     )  {
         scope.launch {
             try {
-                withContext(Dispatchers.Main) {
-                    val asyncDrawable = getGalleryDrawable(file, width)
-
-                    if (shimmerThumbnail != null) {
-                        Log_OC.d(tag, "setGalleryImage.startShimmer()")
-                        DisplayUtils.startShimmer(shimmerThumbnail, thumbnailView)
-                    }
-
-                    thumbnailView.setImageDrawable(asyncDrawable)
+                val cachedBitmap = withContext(Dispatchers.IO) {
+                    ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
+                    )
                 }
 
-                GalleryImageGenerationJob(
-                    user,
-                    storageManager,
-                    thumbnailView,
-                    file,
-                    file.remoteId,
-                    object: GalleryImageGenerationListener {
-                        override fun onSuccess() {
-                            galleryRowHolder.binding.rowLayout.invalidate()
-                            Log_OC.d(tag, "setGalleryImage.onSuccess()")
-                            DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                if (cachedBitmap != null && !file.isUpdateThumbnailNeeded) {
+                    withContext(Dispatchers.Main) {
+                        thumbnailView.setImageBitmap(cachedBitmap)
+                        DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        val asyncDrawable = getGalleryDrawable(file, width)
+
+                        if (shimmerThumbnail != null) {
+                            Log_OC.d(tag, "setGalleryImage.startShimmer()")
+                            DisplayUtils.startShimmer(shimmerThumbnail, thumbnailView)
                         }
 
-                        override fun onNewGalleryImage() {
-                            Log_OC.d(tag, "setGalleryImage.redraw()")
-                            galleryRowHolder.redraw()
-                        }
+                        thumbnailView.setImageDrawable(asyncDrawable)
+                    }
 
-                        override fun onError() {
-                            Log_OC.d(tag, "setGalleryImage.onError()")
-                            DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
-                        }
-                    },
-                    ContextCompat.getColor(context, R.color.bg_default)
-                ).execute()
+                    GalleryImageGenerationJob(
+                        user,
+                        storageManager,
+                        thumbnailView,
+                        file,
+                        file.remoteId,
+                        object: GalleryImageGenerationListener {
+                            override fun onSuccess() {
+                                galleryRowHolder.binding.rowLayout.invalidate()
+                                Log_OC.d(tag, "setGalleryImage.onSuccess()")
+                                DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                            }
+
+                            override fun onNewGalleryImage() {
+                                Log_OC.d(tag, "setGalleryImage.redraw()")
+                                galleryRowHolder.redraw()
+                            }
+
+                            override fun onError() {
+                                Log_OC.d(tag, "setGalleryImage.onError()")
+                                DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                            }
+                        },
+                        ContextCompat.getColor(context, R.color.bg_default)
+                    ).run()
+                }
             } catch (e: IllegalArgumentException) {
                 Log_OC.d(tag, "ThumbnailGenerationTask : " + e.message)
             }

@@ -20,6 +20,8 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.ImageDimension
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 
 class GalleryImageGenerationJob(
@@ -33,9 +35,16 @@ class GalleryImageGenerationJob(
 ) {
     companion object {
         private const val TAG = "GalleryImageGenerationJob"
+        private val semaphore = Semaphore(3)
     }
 
-    suspend fun execute() {
+    suspend fun run() {
+        semaphore.withPermit {
+            execute()
+        }
+    }
+
+    private suspend fun execute() {
         var newImage = false
         val bitmap: Bitmap? = withContext(Dispatchers.IO) {
             var thumbnail: Bitmap?
