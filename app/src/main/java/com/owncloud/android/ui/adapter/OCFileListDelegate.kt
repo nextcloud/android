@@ -162,6 +162,7 @@ class OCFileListDelegate(
     }
 
     private val scope = CoroutineScope(Dispatchers.IO)
+    private val galleryImageGenerationJob = GalleryImageGenerationJob(user, storageManager)
 
     @Suppress("ComplexMethod")
     private fun setGalleryImage(
@@ -196,31 +197,23 @@ class OCFileListDelegate(
                         thumbnailView.setImageDrawable(asyncDrawable)
                     }
 
-                    GalleryImageGenerationJob(
-                        user,
-                        storageManager,
-                        thumbnailView,
-                        file,
-                        file.remoteId,
-                        object: GalleryImageGenerationListener {
-                            override fun onSuccess() {
-                                galleryRowHolder.binding.rowLayout.invalidate()
-                                Log_OC.d(tag, "setGalleryImage.onSuccess()")
-                                DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
-                            }
+                    galleryImageGenerationJob.run(file, thumbnailView, object : GalleryImageGenerationListener {
+                        override fun onSuccess() {
+                            galleryRowHolder.binding.rowLayout.invalidate()
+                            Log_OC.d(tag, "setGalleryImage.onSuccess()")
+                            DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                        }
 
-                            override fun onNewGalleryImage() {
-                                Log_OC.d(tag, "setGalleryImage.redraw()")
-                                galleryRowHolder.redraw()
-                            }
+                        override fun onNewGalleryImage() {
+                            Log_OC.d(tag, "setGalleryImage.redraw()")
+                            galleryRowHolder.redraw()
+                        }
 
-                            override fun onError() {
-                                Log_OC.d(tag, "setGalleryImage.onError()")
-                                DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
-                            }
-                        },
-                        ContextCompat.getColor(context, R.color.bg_default)
-                    ).run()
+                        override fun onError() {
+                            Log_OC.d(tag, "setGalleryImage.onError()")
+                            DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                        }
+                    })
                 }
             } catch (e: IllegalArgumentException) {
                 Log_OC.d(tag, "ThumbnailGenerationTask : " + e.message)

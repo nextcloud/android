@@ -9,9 +9,11 @@ package com.nextcloud.client.jobs.gallery
 
 import android.graphics.Bitmap
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.allocationKilobyte
 import com.owncloud.android.MainApp
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
@@ -26,25 +28,21 @@ import kotlinx.coroutines.withContext
 
 class GalleryImageGenerationJob(
     private val user: User,
-    private val storageManager: FileDataStorageManager,
-    private val imageView: ImageView,
-    private val file: OCFile,
-    private val key: String,
-    private val listener: GalleryImageGenerationListener,
-    private val backgroundColor: Int
+    private val storageManager: FileDataStorageManager
 ) {
     companion object {
         private const val TAG = "GalleryImageGenerationJob"
         private val semaphore = Semaphore(3)
     }
 
-    suspend fun run() {
+    suspend fun run(file: OCFile, imageView: ImageView, listener: GalleryImageGenerationListener) {
         semaphore.withPermit {
-            execute()
+            execute(file, imageView, listener)
         }
     }
 
-    private suspend fun execute() {
+    private suspend fun execute(file: OCFile, imageView: ImageView,  listener: GalleryImageGenerationListener) {
+        val key = file.remoteId
         var newImage = false
         val bitmap: Bitmap? = withContext(Dispatchers.IO) {
             var thumbnail: Bitmap?
@@ -54,11 +52,11 @@ class GalleryImageGenerationJob(
                 )
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded) {
-                    return@withContext getThumbnailFromCache(thumbnail)
+                    return@withContext getThumbnailFromCache(file, thumbnail, key)
                 }
 
                 newImage = true
-                return@withContext getThumbnailFromServerAndAddToCache(thumbnail)
+                return@withContext getThumbnailFromServerAndAddToCache(file, thumbnail)
             }
             return@withContext null
         }
@@ -68,7 +66,12 @@ class GalleryImageGenerationJob(
                 val tagId = file.fileId.toString()
                 if (imageView.tag?.toString() == tagId) {
                     if ("image/png".equals(file.mimeType, ignoreCase = true)) {
-                        imageView.setBackgroundColor(backgroundColor)
+                        imageView.setBackgroundColor(
+                            ContextCompat.getColor(
+                                MainApp.getAppContext(),
+                                R.color.bg_default
+                            )
+                        )
                     }
 
                     if (newImage) {
@@ -85,7 +88,7 @@ class GalleryImageGenerationJob(
         }
     }
 
-    private fun getThumbnailFromCache(thumbnail: Bitmap): Bitmap {
+    private fun getThumbnailFromCache(file: OCFile, thumbnail: Bitmap, key: String): Bitmap {
         val size = ThumbnailsCacheManager.getThumbnailDimension().toFloat()
 
         val imageDimension = file.imageDimension
@@ -110,7 +113,7 @@ class GalleryImageGenerationJob(
         return result
     }
 
-    private suspend fun getThumbnailFromServerAndAddToCache(thumbnail: Bitmap?): Bitmap? {
+    private suspend fun getThumbnailFromServerAndAddToCache(file: OCFile, thumbnail: Bitmap?): Bitmap? {
         var thumbnail = thumbnail
         try {
             val client = withContext(Dispatchers.IO) {
