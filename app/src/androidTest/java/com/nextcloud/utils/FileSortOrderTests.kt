@@ -42,19 +42,23 @@ class FileSortOrderTests {
         size?.let { fileLength = it }
     }
 
-    private fun <T> runSortTest(
+    private fun runSortFiles(
         name: String,
-        items: MutableList<T>,
+        items: MutableList<File>,
         sorter: FileSortOrder,
-        expected: List<T>,
-        isCloud: Boolean = false
+        expected: List<File>
     ) {
-        val actual = if (isCloud) {
-            sorter.sortCloudFiles(items as MutableList<OCFile>, false, false)
-        } else {
-            sorter.sortLocalFiles(items as MutableList<File>)
-        }
+        val actual = sorter.sortLocalFiles(items)
+        assertEquals(name, expected, actual)
+    }
 
+    private fun runSortCloudFiles(
+        name: String,
+        items: MutableList<OCFile>,
+        sorter: FileSortOrder,
+        expected: List<OCFile>
+    ) {
+        val actual = sorter.sortCloudFiles(items, foldersBeforeFiles = false, favoritesFirst = false)
         assertEquals(name, expected, actual)
     }
 
@@ -104,14 +108,14 @@ class FileSortOrderTests {
         val file2 = tmpFile("file2", 2000)
         val file3 = tmpFile("file3", 1500)
 
-        runSortTest(
+        runSortFiles(
             "old→new asc",
             mutableListOf(file1, file2, file3),
             FileSortOrderByDate(SORT_OLD_TO_NEW_ID, true),
             listOf(file1, file3, file2)
         )
 
-        runSortTest(
+        runSortFiles(
             "old→new desc",
             mutableListOf(file1, file2, file3),
             FileSortOrderByDate(SORT_OLD_TO_NEW_ID, false),
@@ -125,14 +129,14 @@ class FileSortOrderTests {
         val file2 = tmpFile("file2", 2000)
         val file3 = tmpFile("file3", 1500)
 
-        runSortTest(
+        runSortFiles(
             "new→old asc",
             mutableListOf(file1, file2, file3),
             FileSortOrderByDate(SORT_NEW_TO_OLD_ID, true),
             listOf(file1, file3, file2)
         )
 
-        runSortTest(
+        runSortFiles(
             "new→old desc",
             mutableListOf(file1, file2, file3),
             FileSortOrderByDate(SORT_NEW_TO_OLD_ID, false),
@@ -146,12 +150,11 @@ class FileSortOrderTests {
         val file2 = ocFile("/2", mod = 3000)
         val file3 = ocFile("/3", mod = 2000)
 
-        runSortTest(
+        runSortCloudFiles(
             "cloud old→new asc",
             mutableListOf(file1, file2, file3),
             FileSortOrderByDate(SORT_OLD_TO_NEW_ID, true),
             listOf(file1, file3, file2),
-            isCloud = true
         )
     }
 
@@ -172,14 +175,14 @@ class FileSortOrderTests {
         val file2 = tmpFile("banana")
         val file3 = tmpFile("cherry")
 
-        runSortTest(
+        runSortFiles(
             "A→Z asc",
             mutableListOf(file3, folder, file1, file2),
             FileSortOrderByName(SORT_A_TO_Z_ID, true),
             listOf(folder, file1, file2, file3)
         )
 
-        runSortTest(
+        runSortFiles(
             "A→Z desc",
             mutableListOf(file3, folder, file1, file2),
             FileSortOrderByName(SORT_A_TO_Z_ID, false),
@@ -193,12 +196,11 @@ class FileSortOrderTests {
         val file2 = ocFile("/a.txt")
         val file3 = ocFile("/c.txt")
 
-        runSortTest(
+        runSortCloudFiles(
             "cloud A→Z asc",
             mutableListOf(file1, file2, file3),
             FileSortOrderByName(SORT_A_TO_Z_ID, true),
-            listOf(file2, file1, file3),
-            isCloud = true
+            listOf(file2, file1, file3)
         )
     }
 
@@ -223,28 +225,28 @@ class FileSortOrderTests {
         val d1 = tmpFolder("folder1")
         val d2 = tmpFolder("folder2")
 
-        runSortTest(
+        runSortFiles(
             "small→big asc",
             mutableListOf(file1, file2, file3),
             FileSortOrderBySize(SORT_SMALL_TO_BIG_ID, true),
             listOf(file1, file3, file2)
         )
 
-        runSortTest(
+        runSortFiles(
             "small→big desc",
             mutableListOf(file1, file2, file3),
             FileSortOrderBySize(SORT_SMALL_TO_BIG_ID, false),
             listOf(file2, file3, file1)
         )
 
-        runSortTest(
+        runSortFiles(
             "big→small asc (folders first)",
             mutableListOf(file1, file2, file3, d1, d2),
             FileSortOrderBySize(SORT_BIG_TO_SMALL_ID, true),
             listOf(d1, d2, file1, file3, file2)
         )
 
-        runSortTest(
+        runSortFiles(
             "big→small desc (folders first)",
             mutableListOf(file1, file2, file3, d1, d2),
             FileSortOrderBySize(SORT_BIG_TO_SMALL_ID, false),
@@ -258,12 +260,11 @@ class FileSortOrderTests {
         val file2 = ocFile("/2", size = 300)
         val file3 = ocFile("/3", size = 200)
 
-        runSortTest(
+        runSortCloudFiles(
             "cloud small→big asc",
             mutableListOf(file1, file2, file3),
             FileSortOrderBySize(SORT_SMALL_TO_BIG_ID, true),
-            listOf(file1, file3, file2),
-            isCloud = true
+            listOf(file1, file3, file2)
         )
     }
 
