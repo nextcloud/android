@@ -32,10 +32,7 @@ import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 
-class GalleryImageGenerationJob(
-    private val user: User,
-    private val storageManager: FileDataStorageManager
-) {
+class GalleryImageGenerationJob(private val user: User, private val storageManager: FileDataStorageManager) {
     companion object {
         private const val TAG = "GalleryImageGenerationJob"
         private val semaphore = Semaphore(
@@ -80,11 +77,7 @@ class GalleryImageGenerationJob(
         }
     }
 
-    private fun getPlaceholder(
-        file: OCFile,
-        width: Int,
-        viewThemeUtils: ViewThemeUtils
-    ): BitmapDrawable {
+    private fun getPlaceholder(file: OCFile, width: Int, viewThemeUtils: ViewThemeUtils): BitmapDrawable {
         val context = MainApp.getAppContext()
 
         val placeholder = MimeTypeUtil.getFileTypeIcon(
@@ -111,35 +104,34 @@ class GalleryImageGenerationJob(
         width: Int,
         viewThemeUtils: ViewThemeUtils,
         onThumbnailGeneration: () -> Unit
-    ): Bitmap? =
-        withContext(Dispatchers.IO) {
-            if (file.remoteId == null && !file.isPreviewAvailable) {
-                Log_OC.w(TAG, "file has no remoteId and no preview")
-                return@withContext null
-            }
-
-            val key = file.remoteId
-            val cachedThumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
-            )
-            if (cachedThumbnail != null && !file.isUpdateThumbnailNeeded) {
-                Log_OC.d(TAG, "cached thumbnail is used for: ${file.fileName}")
-                return@withContext getThumbnailFromCache(file, cachedThumbnail, key)
-            }
-
-            Log_OC.d(TAG, "generating new thumbnail for: ${file.fileName}")
-
-            // only add placeholder if new thumbnail will be generated because cached image will appear so quickly
-            withContext(Dispatchers.Main) {
-                val placeholderDrawable = getPlaceholder(file, width, viewThemeUtils)
-                imageView.setImageDrawable(placeholderDrawable)
-            }
-
-            onThumbnailGeneration()
-            semaphore.withPermit {
-                return@withContext getThumbnailFromServerAndAddToCache(file, cachedThumbnail)
-            }
+    ): Bitmap? = withContext(Dispatchers.IO) {
+        if (file.remoteId == null && !file.isPreviewAvailable) {
+            Log_OC.w(TAG, "file has no remoteId and no preview")
+            return@withContext null
         }
+
+        val key = file.remoteId
+        val cachedThumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+            ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
+        )
+        if (cachedThumbnail != null && !file.isUpdateThumbnailNeeded) {
+            Log_OC.d(TAG, "cached thumbnail is used for: ${file.fileName}")
+            return@withContext getThumbnailFromCache(file, cachedThumbnail, key)
+        }
+
+        Log_OC.d(TAG, "generating new thumbnail for: ${file.fileName}")
+
+        // only add placeholder if new thumbnail will be generated because cached image will appear so quickly
+        withContext(Dispatchers.Main) {
+            val placeholderDrawable = getPlaceholder(file, width, viewThemeUtils)
+            imageView.setImageDrawable(placeholderDrawable)
+        }
+
+        onThumbnailGeneration()
+        semaphore.withPermit {
+            return@withContext getThumbnailFromServerAndAddToCache(file, cachedThumbnail)
+        }
+    }
 
     private suspend fun setThumbnail(
         bitmap: Bitmap,

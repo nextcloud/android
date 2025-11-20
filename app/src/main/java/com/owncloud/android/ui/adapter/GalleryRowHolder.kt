@@ -27,7 +27,6 @@ import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.files.model.ImageDimension
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
