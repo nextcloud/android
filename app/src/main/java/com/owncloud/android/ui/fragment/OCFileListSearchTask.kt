@@ -68,13 +68,15 @@ class OCFileListSearchTask(
             }?.map { fileDataStorageManager?.createFileInstance(it) }
 
             withContext(Dispatchers.Main) {
-                fragment.adapter.setData(
-                    filesInDb,
-                    fragment.currentSearchType,
-                    fileDataStorageManager,
-                    fragment.mFile,
-                    true
-                )
+                if (fragment.isAdded && fragment.searchFragment) {
+                    fragment.adapter.setData(
+                        filesInDb,
+                        fragment.currentSearchType,
+                        fileDataStorageManager,
+                        fragment.mFile,
+                        false
+                    )
+                }
             }
 
             val result: RemoteOperationResult<List<Any>>? = try {
