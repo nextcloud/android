@@ -36,14 +36,12 @@ class GalleryImageGenerationJob(
     }
 
     suspend fun run(file: OCFile, imageView: ImageView, listener: GalleryImageGenerationListener) {
-        semaphore.withPermit {
-            try {
-                execute(file, imageView, listener)
-            } catch (e: Exception) {
-                Log_OC.e(TAG, "gallery image generation job: ", e)
-                withContext(Dispatchers.Main) {
-                    listener.onError()
-                }
+        try {
+            execute(file, imageView, listener)
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "gallery image generation job: ", e)
+            withContext(Dispatchers.Main) {
+                listener.onError()
             }
         }
     }
@@ -70,23 +68,25 @@ class GalleryImageGenerationJob(
 
     private suspend fun getBitmap(file: OCFile, onThumbnailGeneration: () -> Unit): Bitmap? =
         withContext(Dispatchers.IO) {
-            val key = file.remoteId
-            var thumbnail: Bitmap?
-
-            if (file.remoteId != null || file.isPreviewAvailable) {
-                thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
-                )
-
-                if (thumbnail != null && !file.isUpdateThumbnailNeeded) {
-                    return@withContext getThumbnailFromCache(file, thumbnail, key)
-                }
-
-                onThumbnailGeneration()
-                return@withContext getThumbnailFromServerAndAddToCache(file, thumbnail)
+            if (file.remoteId == null && !file.isPreviewAvailable) {
+                Log_OC.w(TAG, "file has no remoteId and no preview")
+                return@withContext null
             }
 
-            return@withContext null
+            val key = file.remoteId
+            val cachedThumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
+            )
+            if (cachedThumbnail != null && !file.isUpdateThumbnailNeeded) {
+                Log_OC.d(TAG, "cached thumbnail is used for: ${file.fileName}")
+                return@withContext getThumbnailFromCache(file, cachedThumbnail, key)
+            }
+
+            Log_OC.d(TAG, "generating new thumbnail for: ${file.fileName}")
+            onThumbnailGeneration()
+            semaphore.withPermit {
+                return@withContext getThumbnailFromServerAndAddToCache(file, cachedThumbnail)
+            }
         }
 
     private suspend fun setThumbnail(

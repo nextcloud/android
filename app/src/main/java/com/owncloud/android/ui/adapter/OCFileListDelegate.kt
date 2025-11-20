@@ -71,7 +71,6 @@ class OCFileListDelegate(
     private var highlightedItem: OCFile? = null
     var isMultiSelect = false
     private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
-    private val asyncGalleryTasks: MutableList<ThumbnailsCacheManager.GalleryImageGenerationTask> = ArrayList()
     private val ioScope = CoroutineScope(Dispatchers.IO)
 
     fun setHighlightedItem(highlightedItem: OCFile?) {
@@ -173,24 +172,7 @@ class OCFileListDelegate(
         width: Int
     ) {
         scope.launch {
-            val cachedBitmap = withContext(Dispatchers.IO) {
-                ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
-                )
-            }
-
-            if (cachedBitmap != null && !file.isUpdateThumbnailNeeded) {
-                withContext(Dispatchers.Main) {
-                    thumbnailView.setImageBitmap(cachedBitmap)
-                    DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
-                }
-                Log_OC.d(TAG, "thumbnail generation skipped, using cache: ${file.fileName}")
-                return@launch
-            }
-
-            Log_OC.d(TAG, "generating thumbnail: ${file.fileName}")
-
-            // adds placeholder first
+            // add placeholder first
             withContext(Dispatchers.Main) {
                 val asyncDrawable = getGalleryDrawable(file, width)
 
