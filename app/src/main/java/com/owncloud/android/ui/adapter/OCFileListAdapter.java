@@ -1001,16 +1001,34 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        // early exit
-        if (!objects.isEmpty() && mStorageManager != null) {
-            if (searchType == SearchType.SHARED_FILTER) {
-                parseShares(objects);
-            } else {
-                if (searchType != SearchType.GALLERY_SEARCH) {
-                    parseVirtuals(objects, searchType);
+        boolean areObjectsOCFile = false;
+        for (Object item : objects) {
+            if (item instanceof OCFile) {
+                areObjectsOCFile = true;
+                break;
+            }
+        }
+
+        if (areObjectsOCFile) {
+            List<OCFile> files = objects.stream()
+                .filter(OCFile.class::isInstance)
+                .map(OCFile.class::cast)
+                .toList();
+
+            mFiles.addAll(files);
+        } else {
+            if (!objects.isEmpty() && mStorageManager != null) {
+                if (searchType == SearchType.SHARED_FILTER) {
+                    parseShares(objects);
+                } else {
+                    if (searchType != SearchType.GALLERY_SEARCH) {
+                        parseVirtuals(objects, searchType);
+                    }
                 }
             }
         }
+
+
 
         if (searchType == SearchType.GALLERY_SEARCH ||
             searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
