@@ -23,6 +23,7 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
+@Suppress("MagicNumber", "TooManyFunctions")
 class FileSortOrderTests {
 
     private fun tmpFile(prefix: String, lastModified: Long? = null, size: Int? = null): File =
@@ -57,6 +58,7 @@ class FileSortOrderTests {
         assertEquals(name, expected, actual)
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun testConcurrency(files: MutableList<File>, sorter: FileSortOrder, iterations: Int = 50) {
         val latch = CountDownLatch(iterations * 2)
         val errors = mutableListOf<Throwable>()
