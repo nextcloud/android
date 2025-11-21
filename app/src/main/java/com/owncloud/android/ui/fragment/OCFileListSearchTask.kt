@@ -77,7 +77,7 @@ class OCFileListSearchTask(
             val sortedFilesInDb = sortSearchData(filesInDb, searchType, null, setNewSortOrder = {
                 fragment.adapter.setSortOrder(it)
             })
-            updateAdapterData(fragment, sortedFilesInDb, false)
+            updateAdapterData(fragment, sortedFilesInDb)
 
             // updating cache and refreshing adapter
             val result = fetchRemoteResults()
@@ -90,6 +90,8 @@ class OCFileListSearchTask(
 
                     return@launch
                 }
+
+                fragment.adapter.prepareForSearchData(fileDataStorageManager, fragment.currentSearchType)
 
                 val newList = if (searchType == SearchType.SHARED_FILTER) {
                     OCShareToOCFileConverter.parseAndSaveShares(
@@ -106,7 +108,7 @@ class OCFileListSearchTask(
                     fragment.adapter.setSortOrder(it)
                 })
 
-                updateAdapterData(fragment, sortedNewList, true)
+                updateAdapterData(fragment, sortedNewList)
 
                 return@launch
             }
@@ -154,14 +156,14 @@ class OCFileListSearchTask(
         }
     }
 
-    private suspend fun updateAdapterData(fragment: OCFileListFragment, newList: List<OCFile>, clear: Boolean) =
+    private suspend fun updateAdapterData(fragment: OCFileListFragment, newList: List<OCFile>) =
         withContext(Dispatchers.Main) {
             if (!fragment.isAdded || !fragment.searchFragment) {
                 Log_OC.e(TAG, "cannot update adapter data, fragment is not ready")
                 return@withContext
             }
 
-            fragment.adapter.setSearchData(newList, fragment.currentSearchType, fileDataStorageManager, clear)
+            fragment.adapter.updateAdapter(newList, null)
         }
 
     private suspend fun sortSearchData(
