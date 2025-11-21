@@ -9,11 +9,8 @@ package com.owncloud.android.ui.adapter.helper
 
 import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.extensions.filterByMimeType
 import com.nextcloud.utils.extensions.filterFilenames
-import com.nextcloud.utils.extensions.filterHiddenFiles
-import com.nextcloud.utils.extensions.filterTempFilter
-import com.nextcloud.utils.extensions.limitToPersonalFiles
+import com.nextcloud.utils.extensions.isTempFile
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -27,6 +24,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.ArrayList
 
 class OCFileListAdapterHelper {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
@@ -43,36 +41,56 @@ class OCFileListAdapterHelper {
         onComplete: (List<OCFile>, FileSortOrder) -> Unit
     ) {
         job = scope.launch {
-            var result = getFolderContent(directory, storageManager, onlyOnDevice)
+            val showHiddenFiles = preferences.isShowHiddenFilesEnabled()
+            val hasMimeTypeFilter = limitToMimeType.isNotEmpty()
+            val isRootAndPersonalOnly = (OCFile.ROOT_PATH == directory.remotePath && MainApp.isOnlyPersonFiles())
+            val isSharedView = (DrawerActivity.menuItemId == R.id.nav_shared)
+            val isFavoritesView = (DrawerActivity.menuItemId == R.id.nav_favorites)
 
-            if (!preferences.isShowHiddenFilesEnabled()) {
-                result = result.filterHiddenFiles()
+            val rawResult = getFolderContent(directory, storageManager, onlyOnDevice)
+            val filtered = ArrayList<OCFile>(rawResult.size)
+
+            for (file in rawResult) {
+                if (!showHiddenFiles && file.isHidden) {
+                    continue
+                }
+
+                if (hasMimeTypeFilter && !(file.isFolder || file.mimeType.startsWith(limitToMimeType))) {
+                    continue
+                }
+
+                if (isRootAndPersonalOnly) {
+                    val isPersonal = file.ownerId?.let { ownerId ->
+                        ownerId == userId && !file.isSharedWithMe && !file.mounted()
+                    } == true
+
+                    if (!isPersonal) {
+                        continue
+                    }
+                }
+
+                if (isSharedView && !file.isShared) {
+                    continue
+                }
+
+                if (isFavoritesView && !file.isFavorite) {
+                    continue
+                }
+
+                if (file.isTempFile()) {
+                    continue
+                }
+
+                filtered.add(file)
             }
 
-            if (!limitToMimeType.isEmpty()) {
-                result = result.filterByMimeType(limitToMimeType)
-            }
-
-            if (OCFile.ROOT_PATH == directory.remotePath && MainApp.isOnlyPersonFiles()) {
-                result = result.limitToPersonalFiles(userId)
-            }
-
-            if (DrawerActivity.menuItemId == R.id.nav_shared) {
-                result = result.filter { it.isShared }
-            }
-
-            if (DrawerActivity.menuItemId == R.id.nav_favorites) {
-                result = result.filter { it.isFavorite }
-            }
-
-            result = result.filterTempFilter()
-            result = result.filterFilenames()
-            result = mergeOCFilesForLivePhoto(result)
-            result = addOfflineOperations(result, directory.fileId, storageManager)
-            val (newList, newSortOrder) = sortData(directory, result, preferences)
+            val afterFilenameFilter = filtered.filterFilenames()
+            val merged = mergeOCFilesForLivePhoto(afterFilenameFilter)
+            val finalList = addOfflineOperations(merged, directory.fileId, storageManager)
+            val (sortedList, sortOrder) = sortData(directory, finalList, preferences)
 
             withContext(Dispatchers.Main) {
-                onComplete(newList, newSortOrder)
+                onComplete(sortedList, sortOrder)
             }
         }
     }

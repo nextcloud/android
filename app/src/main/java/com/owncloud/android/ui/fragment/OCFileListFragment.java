@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -716,8 +717,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
-    public void setLoadingEmptyListState() {
-        setEmptyListMessage(EmptyListState.LOADING);
+    public void setNewEmptyListState(Parcelable emptyListState) {
+        setEmptyListMessage(emptyListState);
     }
 
     @Override

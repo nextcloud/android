@@ -199,7 +199,8 @@ class OCFileListSearchTask(
     }
 
     @Suppress("DEPRECATION")
-    private suspend fun parseAndSaveVirtuals(data: List<Any>, fragment: OCFileListFragment) = withContext(Dispatchers.IO) {
+    private suspend fun parseAndSaveVirtuals(data: List<Any>, fragment: OCFileListFragment) =
+        withContext(Dispatchers.IO) {
             val fileDataStorageManager = fileDataStorageManager ?: return@withContext
             val activity = fragment.activity ?: return@withContext
             val now = System.currentTimeMillis()
