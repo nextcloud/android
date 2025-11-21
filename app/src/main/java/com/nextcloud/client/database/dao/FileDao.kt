@@ -136,5 +136,4 @@ interface FileDao {
     """
     )
     suspend fun getFavoriteFiles(fileOwner: String): List<FileEntity>
-
 }

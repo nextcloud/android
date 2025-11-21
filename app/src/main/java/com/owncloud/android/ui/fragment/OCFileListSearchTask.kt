@@ -41,7 +41,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.lang.ref.WeakReference
 
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "ReturnCount", "TooGenericExceptionCaught")
 @SuppressLint("NotifyDataSetChanged")
 class OCFileListSearchTask(
     containerActivity: FileFragment.ContainerActivity,
@@ -74,7 +74,7 @@ class OCFileListSearchTask(
 
             // using cached data
             val filesInDb = loadCachedDbFiles(event.searchType)
-            val sortedFilesInDb = sortSearchData(filesInDb, searchType, null, setNewSortOrder =  {
+            val sortedFilesInDb = sortSearchData(filesInDb, searchType, null, setNewSortOrder = {
                 fragment.adapter.setSortOrder(it)
             })
             updateAdapterData(fragment, sortedFilesInDb, false)
@@ -194,67 +194,65 @@ class OCFileListSearchTask(
         return@withContext newList
     }
 
-    private suspend fun parseAndSaveVirtuals(
-        data: List<Any>,
-        fragment: OCFileListFragment
-    ): List<OCFile> = withContext(Dispatchers.IO) {
-        val fileDataStorageManager = fileDataStorageManager ?: return@withContext listOf()
-        val activity = fragment.activity ?: return@withContext listOf()
-        val now = System.currentTimeMillis()
+    private suspend fun parseAndSaveVirtuals(data: List<Any>, fragment: OCFileListFragment): List<OCFile> =
+        withContext(Dispatchers.IO) {
+            val fileDataStorageManager = fileDataStorageManager ?: return@withContext listOf()
+            val activity = fragment.activity ?: return@withContext listOf()
+            val now = System.currentTimeMillis()
 
-        val (virtualType, onlyMedia) = when (fragment.currentSearchType) {
-            SearchType.FAVORITE_SEARCH -> VirtualFolderType.FAVORITE to false
-            SearchType.GALLERY_SEARCH  -> VirtualFolderType.GALLERY to true
-            else                       -> VirtualFolderType.NONE to false
-        }
-
-        val contentValuesList = ArrayList<ContentValues>(data.size)
-        val resultFiles = LinkedHashSet<OCFile>()
-
-        for (obj in data) {
-            try {
-                val remoteFile = obj as? RemoteFile ?: continue
-                var ocFile = FileStorageUtils.fillOCFile(remoteFile).apply {
-                    FileStorageUtils.searchForLocalFileInDefaultPath(this, currentUser.accountName)
-                }
-                ocFile = fileDataStorageManager.saveFileWithParent(ocFile, activity)
-                ocFile = handleEncryptionIfNeeded(ocFile, fileDataStorageManager, activity)
-
-                if (fragment.currentSearchType != SearchType.GALLERY_SEARCH && ocFile.isFolder) {
-                    RefreshFolderOperation(
-                        ocFile,
-                        now,
-                        true,
-                        false,
-                        fileDataStorageManager,
-                        currentUser,
-                        activity
-                    ).execute(currentUser, activity)
-                }
-
-                val isMediaAllowed =
-                    !onlyMedia || MimeTypeUtil.isImage(ocFile) || MimeTypeUtil.isVideo(ocFile)
-
-                if (isMediaAllowed) {
-                    resultFiles.add(ocFile)
-                }
-
-                contentValuesList.add(
-                    ContentValues(2).apply {
-                        put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, virtualType.toString())
-                        put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
-                    }
-                )
-            } catch (_: Exception) {
+            val (virtualType, onlyMedia) = when (fragment.currentSearchType) {
+                SearchType.FAVORITE_SEARCH -> VirtualFolderType.FAVORITE to false
+                SearchType.GALLERY_SEARCH -> VirtualFolderType.GALLERY to true
+                else -> VirtualFolderType.NONE to false
             }
+
+            val contentValuesList = ArrayList<ContentValues>(data.size)
+            val resultFiles = LinkedHashSet<OCFile>()
+
+            for (obj in data) {
+                try {
+                    val remoteFile = obj as? RemoteFile ?: continue
+                    var ocFile = FileStorageUtils.fillOCFile(remoteFile).apply {
+                        FileStorageUtils.searchForLocalFileInDefaultPath(this, currentUser.accountName)
+                    }
+                    ocFile = fileDataStorageManager.saveFileWithParent(ocFile, activity)
+                    ocFile = handleEncryptionIfNeeded(ocFile, fileDataStorageManager, activity)
+
+                    if (fragment.currentSearchType != SearchType.GALLERY_SEARCH && ocFile.isFolder) {
+                        RefreshFolderOperation(
+                            ocFile,
+                            now,
+                            true,
+                            false,
+                            fileDataStorageManager,
+                            currentUser,
+                            activity
+                        ).execute(currentUser, activity)
+                    }
+
+                    val isMediaAllowed =
+                        !onlyMedia || MimeTypeUtil.isImage(ocFile) || MimeTypeUtil.isVideo(ocFile)
+
+                    if (isMediaAllowed) {
+                        resultFiles.add(ocFile)
+                    }
+
+                    contentValuesList.add(
+                        ContentValues(2).apply {
+                            put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, virtualType.toString())
+                            put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
+                        }
+                    )
+                } catch (_: Exception) {
+                }
+            }
+
+            // Save timestamp + virtual entries
+            preferences.setPhotoSearchTimestamp(System.currentTimeMillis())
+            fileDataStorageManager.saveVirtuals(contentValuesList)
+
+            resultFiles.toList()
         }
-
-        // Save timestamp + virtual entries
-        preferences.setPhotoSearchTimestamp(System.currentTimeMillis())
-        fileDataStorageManager.saveVirtuals(contentValuesList)
-
-        resultFiles.toList()
-    }
 
     private fun handleEncryptionIfNeeded(
         ocFile: OCFile,
@@ -282,11 +280,15 @@ class OCFileListSearchTask(
         when (metadata) {
             is DecryptedFolderMetadataFileV1 ->
                 RefreshFolderOperation.updateFileNameForEncryptedFileV1(
-                    fileDataStorage, metadata, ocFile
+                    fileDataStorage,
+                    metadata,
+                    ocFile
                 )
             is DecryptedFolderMetadataFile ->
                 RefreshFolderOperation.updateFileNameForEncryptedFile(
-                    fileDataStorage, metadata, ocFile
+                    fileDataStorage,
+                    metadata,
+                    ocFile
                 )
         }
 
