@@ -99,6 +99,7 @@ class OCFileListSearchTask(
                     )
                 } else {
                     parseAndSaveVirtuals(result.resultData ?: listOf(), fragment)
+                    fragment.adapter.files
                 }
 
                 val sortedNewList = sortSearchData(newList, searchType, null, setNewSortOrder = {
@@ -138,6 +139,7 @@ class OCFileListSearchTask(
         return rows.mapNotNull { storage.createFileInstance(it) }
     }
 
+    @Suppress("DEPRECATION")
     private suspend fun fetchRemoteResults(): RemoteOperationResult<List<Any>>? {
         val fragment = fragmentReference.get() ?: return null
         val context = fragment.context ?: return null
@@ -194,10 +196,10 @@ class OCFileListSearchTask(
         return@withContext newList
     }
 
-    private suspend fun parseAndSaveVirtuals(data: List<Any>, fragment: OCFileListFragment): List<OCFile> =
-        withContext(Dispatchers.IO) {
-            val fileDataStorageManager = fileDataStorageManager ?: return@withContext listOf()
-            val activity = fragment.activity ?: return@withContext listOf()
+    @Suppress("DEPRECATION")
+    private suspend fun parseAndSaveVirtuals(data: List<Any>, fragment: OCFileListFragment) = withContext(Dispatchers.IO) {
+            val fileDataStorageManager = fileDataStorageManager ?: return@withContext
+            val activity = fragment.activity ?: return@withContext
             val now = System.currentTimeMillis()
 
             val (virtualType, onlyMedia) = when (fragment.currentSearchType) {
@@ -206,15 +208,13 @@ class OCFileListSearchTask(
                 else -> VirtualFolderType.NONE to false
             }
 
-            val contentValuesList = ArrayList<ContentValues>(data.size)
-            val resultFiles = LinkedHashSet<OCFile>()
+            val contentValuesList = ArrayList<ContentValues>()
 
             for (obj in data) {
                 try {
                     val remoteFile = obj as? RemoteFile ?: continue
-                    var ocFile = FileStorageUtils.fillOCFile(remoteFile).apply {
-                        FileStorageUtils.searchForLocalFileInDefaultPath(this, currentUser.accountName)
-                    }
+                    var ocFile = FileStorageUtils.fillOCFile(remoteFile)
+                    FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, currentUser.accountName)
                     ocFile = fileDataStorageManager.saveFileWithParent(ocFile, activity)
                     ocFile = handleEncryptionIfNeeded(ocFile, fileDataStorageManager, activity)
 
@@ -234,15 +234,14 @@ class OCFileListSearchTask(
                         !onlyMedia || MimeTypeUtil.isImage(ocFile) || MimeTypeUtil.isVideo(ocFile)
 
                     if (isMediaAllowed) {
-                        resultFiles.add(ocFile)
+                        fragment.adapter.addVirtualFile(ocFile)
                     }
 
-                    contentValuesList.add(
-                        ContentValues(2).apply {
-                            put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, virtualType.toString())
-                            put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
-                        }
-                    )
+                    val cv = ContentValues().apply {
+                        put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, virtualType.toString())
+                        put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
+                    }
+                    contentValuesList.add(cv)
                 } catch (_: Exception) {
                 }
             }
@@ -250,10 +249,9 @@ class OCFileListSearchTask(
             // Save timestamp + virtual entries
             preferences.setPhotoSearchTimestamp(System.currentTimeMillis())
             fileDataStorageManager.saveVirtuals(contentValuesList)
-
-            resultFiles.toList()
         }
 
+    @Suppress("DEPRECATION")
     private fun handleEncryptionIfNeeded(
         ocFile: OCFile,
         fileDataStorage: FileDataStorageManager,

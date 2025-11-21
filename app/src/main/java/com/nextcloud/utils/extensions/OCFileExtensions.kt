@@ -11,6 +11,7 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.FileStorageUtils
 
+@Suppress("ReturnCount")
 fun List<OCFile>.hasSameContentAs(other: List<OCFile>): Boolean {
     if (this.size != other.size) return false
 
