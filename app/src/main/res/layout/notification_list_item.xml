@@ -37,9 +37,10 @@
         <TextView
             android:id="@+id/subject"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
             android:paddingBottom="@dimen/standard_half_padding"
+            android:paddingTop="@dimen/standard_half_padding"
             android:textAppearance="?android:attr/textAppearanceListItem"
             android:textColor="@color/text_color"
             android:textSize="@dimen/txt_size_16sp"
