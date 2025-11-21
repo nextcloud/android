@@ -62,6 +62,7 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.diffUtil.OCFileListDiffUtil;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
@@ -137,6 +138,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private ArrayList<OCFile> recommendedFiles = new ArrayList<>();
     private RecommendedFilesAdapter recommendedFilesAdapter;
+    private final OCFileListDiffUtil diffUtil = new OCFileListDiffUtil();
 
     public OCFileListAdapter(
         Activity activity,
@@ -1011,46 +1013,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return;
         }
 
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
-            @Override
-            public int getOldListSize() {
-                return mFiles.size() + (shouldShowHeader() ? 2 : 1);
-            }
-
-            @Override
-            public int getNewListSize() {
-                return newList.size() + (shouldShowHeader() ? 2 : 1);
-            }
-
-            @Override
-            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                if (oldItemPosition >= mFiles.size() || newItemPosition >= newList.size()) return false;
-                return mFiles.get(oldItemPosition).equals(newList.get(newItemPosition));
-            }
-
-            @Override
-            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                if (oldItemPosition >= mFiles.size() || newItemPosition >= newList.size()) return false;
-
-                OCFile oldFile = mFiles.get(oldItemPosition);
-                OCFile newFile = newList.get(newItemPosition);
-
-                return oldFile.getModificationTimestamp() == newFile.getModificationTimestamp() &&
-                    oldFile.getFileLength() == newFile.getFileLength() &&
-                    Objects.equals(oldFile.getFileName(), newFile.getFileName()) &&
-                    oldFile.isFavorite() == newFile.isFavorite() &&
-                    oldFile.isEncrypted() == newFile.isEncrypted() &&
-                    oldFile.isSharedWithMe() == newFile.isSharedWithMe() &&
-                    oldFile.isSharedWithSharee() == newFile.isSharedWithSharee() &&
-                    oldFile.isSharedViaLink() == newFile.isSharedViaLink() &&
-                    oldFile.isLocked() == newFile.isLocked() &&
-                    oldFile.getUnreadCommentsCount() == newFile.getUnreadCommentsCount() &&
-                    Objects.equals(oldFile.getEtag(), newFile.getEtag()) &&
-                    Objects.equals(oldFile.getLinkedFileIdForLivePhoto(), newFile.getLinkedFileIdForLivePhoto()) &&
-                    oldFile.getTags().equals(newFile.getTags()) &&
-                    oldFile.isOfflineOperation() == newFile.isOfflineOperation();
-            }
-        });
+        diffUtil.updateLists(mFiles, newList, shouldShowHeader());
+        final var diffResult = DiffUtil.calculateDiff(diffUtil);
 
         mFiles.clear();
         mFiles.addAll(newList);
