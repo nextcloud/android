@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.ui.interfaces;
 
+import android.os.Parcelable;
 import android.view.View;
 
 import com.owncloud.android.datamodel.OCFile;
@@ -36,5 +37,5 @@ public interface OCFileListFragmentInterface {
 
     void onHeaderClicked();
 
-    void setLoadingEmptyListState();
+    void setNewEmptyListState(Parcelable state);
 }

@@ -59,6 +59,7 @@ import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.helper.OCFileListAdapterHelper;
+import com.owncloud.android.ui.fragment.EmptyListState;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
@@ -859,7 +860,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return;
         }
 
-        ocFileListFragmentInterface.setLoadingEmptyListState();
+        ocFileListFragmentInterface.setNewEmptyListState(EmptyListState.LOADING);
 
         helper.prepareFileList(directory,
                                updatedStorageManager,
@@ -895,6 +896,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         searchType = null;
 
         activity.runOnUiThread(this::notifyDataSetChanged);
+
+        if (mFiles.isEmpty()) {
+            ocFileListFragmentInterface.setNewEmptyListState(SearchType.NO_SEARCH);
+        }
     }
 
     public void prepareForSearchData(FileDataStorageManager storageManager, SearchType searchType) {
