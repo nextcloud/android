@@ -41,6 +41,9 @@ interface FileDao {
     @Query("SELECT * FROM filelist WHERE parent = :parentId ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
     fun getFolderContent(parentId: Long): List<FileEntity>
 
+    @Query("SELECT * FROM filelist WHERE parent = :parentId ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
+    suspend fun getFolderContentSuspended(parentId: Long): List<FileEntity>
+
     @Query(
         "SELECT * FROM filelist WHERE modified >= :startDate" +
             " AND modified < :endDate" +
