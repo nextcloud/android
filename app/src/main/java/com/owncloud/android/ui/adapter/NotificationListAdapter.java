@@ -11,9 +11,11 @@
 package com.owncloud.android.ui.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -27,9 +29,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.ChipDrawable;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
+import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.GlideHelper;
+import com.nextcloud.utils.text.Spans;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.NotificationListItemBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -50,11 +55,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import thirdparties.fresco.BetterImageSpan;
 
 /**
  * This Adapter populates a RecyclerView with all notifications for an account within the app.
  */
-public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
+public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> 
+    implements DisplayUtils.AvatarGenerationListener {
     private static final String FILE = "file";
     private static final String ACTION_TYPE_WEB = "WEB";
     private final StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
@@ -64,14 +71,17 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     private final NextcloudClient client;
     private final NotificationsActivity notificationsActivity;
     private final ViewThemeUtils viewThemeUtils;
+    private final CurrentAccountProvider currentAccountProvider;
 
     public NotificationListAdapter(NextcloudClient client,
                                    NotificationsActivity notificationsActivity,
-                                   ViewThemeUtils viewThemeUtils) {
+                                   ViewThemeUtils viewThemeUtils, 
+                                   CurrentAccountProvider currentAccountProvider) {
         this.notificationsList = new ArrayList<>();
         this.client = client;
         this.notificationsActivity = notificationsActivity;
         this.viewThemeUtils = viewThemeUtils;
+        this.currentAccountProvider = currentAccountProvider;
         foregroundColorSpanBlack = new ForegroundColorSpan(
             notificationsActivity.getResources().getColor(R.color.text_color));
     }
@@ -107,12 +117,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                                                                                         notification.getLink()));
             holder.binding.subject.setText(subject);
         } else {
-            if (!TextUtils.isEmpty(notification.subjectRich)) {
-                holder.binding.subject.setText(makeSpecialPartsBold(notification));
-            } else {
-                holder.binding.subject.setText(subject);
-            }
-
             if (file != null && !TextUtils.isEmpty(file.id)) {
                 holder.binding.subject.setOnClickListener(v -> {
                     Intent intent = new Intent(notificationsActivity, FileDisplayActivity.class);
@@ -122,6 +126,12 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                     notificationsActivity.startActivity(intent);
                 });
             }
+        }
+
+        if (TextUtils.isEmpty(notification.subjectRich)) {
+            holder.binding.subject.setText(subject);
+        } else {
+            holder.binding.subject.setText(makeSpecialPartsBold(notification));
         }
 
         if (notification.getMessage() != null && !notification.getMessage().isEmpty()) {
@@ -308,6 +318,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     private SpannableStringBuilder makeSpecialPartsBold(Notification notification) {
         String text = notification.getSubjectRich();
         SpannableStringBuilder ssb = new SpannableStringBuilder(text);
+        Context context = notificationsActivity;
 
         int openingBrace = text.indexOf('{');
         int closingBrace;
@@ -318,18 +329,54 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             RichObject richObject = notification.subjectRichParameters.get(replaceablePart);
             if (richObject != null) {
-                String name = richObject.getName();
-                ssb.replace(openingBrace, closingBrace, name);
-                text = ssb.toString();
-                closingBrace = openingBrace + name.length();
+                if ("user".equals(richObject.getType())) {
+                    String name = richObject.getName();
 
-                ssb.setSpan(styleSpanBold, openingBrace, closingBrace, 0);
-                ssb.setSpan(foregroundColorSpanBlack, openingBrace, closingBrace, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    ChipDrawable drawableForChip = getDrawableForMentionChipSpan(R.xml.chip_others, name);
+
+                    Spans.MentionChipSpan mentionChipSpan = new Spans.MentionChipSpan(drawableForChip,
+                                                                                      BetterImageSpan.ALIGN_CENTER,
+                                                                                      richObject.id,
+                                                                                      name
+                    );
+
+                    DisplayUtils.setAvatar(
+                        currentAccountProvider.getUser(),
+                        richObject.id,
+                        name,
+                        this,
+                        context.getResources().getDimension(R.dimen.standard_padding),
+                        context.getResources(),
+                        drawableForChip,
+                        context
+                                          );
+
+                    ssb.setSpan(mentionChipSpan, openingBrace, closingBrace, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                } else {
+                    String name = richObject.getName();
+                    ssb.replace(openingBrace, closingBrace, name);
+                    text = ssb.toString();
+                    closingBrace = openingBrace + name.length();
+
+                    ssb.setSpan(styleSpanBold, openingBrace, closingBrace, 0);
+                    ssb.setSpan(foregroundColorSpanBlack, openingBrace, closingBrace, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
             }
             openingBrace = text.indexOf('{', closingBrace);
         }
 
         return ssb;
+    }
+
+    private ChipDrawable getDrawableForMentionChipSpan(int chipResource, String text) {
+        ChipDrawable chip = ChipDrawable.createFromResource(notificationsActivity, chipResource);
+        chip.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+        chip.setLayoutDirection(notificationsActivity.getResources().getConfiguration().getLayoutDirection());
+        chip.setText(text);
+        chip.setChipIconResource(R.drawable.accent_circle);
+        chip.setBounds(0, 0, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+
+        return chip;
     }
 
     public void removeNotification(NotificationViewHolder holder) {
@@ -358,6 +405,16 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     @Override
     public int getItemCount() {
         return notificationsList.size();
+    }
+
+    @Override
+    public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
+        ((ChipDrawable) callContext).setChipIcon(avatarDrawable);
+    }
+
+    @Override
+    public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
+        return true;
     }
 
     public static class NotificationViewHolder extends RecyclerView.ViewHolder {

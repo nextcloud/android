@@ -295,7 +295,7 @@ class NotificationsActivity :
     private fun initializeAdapter() {
         initializeClient()
         if (adapter == null) {
-            adapter = NotificationListAdapter(client, this, viewThemeUtils)
+            adapter = NotificationListAdapter(client, this, viewThemeUtils, accountManager)
             binding.list.adapter = adapter
         }
     }
