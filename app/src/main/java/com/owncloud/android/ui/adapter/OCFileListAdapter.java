@@ -845,6 +845,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @NonNull FileDataStorageManager updatedStorageManager,
         boolean onlyOnDevice,
         @NonNull String limitToMimeType) {
+
         this.onlyOnDevice = onlyOnDevice;
 
         if (!updatedStorageManager.equals(mStorageManager)) {
@@ -853,18 +854,22 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             this.user = account;
         }
 
-        if (mStorageManager != null) {
-            helper.prepareFileList(directory, updatedStorageManager, onlyOnDevice, limitToMimeType, preferences, userId, new Function2<>() {
-                @Override
-                public Unit invoke(List<? extends OCFile> newList, FileSortOrder fileSortOrder) {
-                    updateAdapter((List<OCFile>) newList, directory);
-                    return Unit.INSTANCE;
-                }
-            });
+        if (mStorageManager == null) {
+            updateAdapter(new ArrayList<>(), null);
             return;
         }
 
-        updateAdapter(new ArrayList<>(), null);
+        helper.prepareFileList(directory,
+                               updatedStorageManager,
+                               onlyOnDevice,
+                               limitToMimeType,
+                               preferences,
+                               userId,
+                               (newList, fileSortOrder) ->
+        {
+            updateAdapter((List<OCFile>) newList, directory);
+            return Unit.INSTANCE;
+        });
     }
 
     private void updateAdapter(List<OCFile> newFiles, OCFile directory) {
@@ -887,11 +892,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             clearSearchData(searchType);
         }
 
-        activity.runOnUiThread(() -> {
-            mFiles.clear();
-            mFiles.addAll(newList);
-            notifyDataSetChanged();
-        });
+        updateAdapter(newList, null);
     }
 
     private void initStorageManagerShowShareAvatar(FileDataStorageManager storageManager) {
