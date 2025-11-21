@@ -972,6 +972,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return mFiles;
     }
 
+    public void addVirtualFile(@NonNull OCFile file) {
+        if (mFiles.isEmpty() || !mFiles.contains(file)) {
+            mFiles.add(file);
+        }
+    }
+
     @Override
     public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
         super.onViewRecycled(holder);
