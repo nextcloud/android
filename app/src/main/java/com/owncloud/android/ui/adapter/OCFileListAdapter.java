@@ -39,7 +39,6 @@ import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
-import com.nextcloud.utils.extensions.OCFileListAdapterExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -84,8 +83,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
@@ -140,7 +137,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private ArrayList<OCFile> recommendedFiles = new ArrayList<>();
     private RecommendedFilesAdapter recommendedFilesAdapter;
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public OCFileListAdapter(
         Activity activity,
@@ -969,73 +965,42 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mFilesAll.addAll(newFiles);
     }
 
-    public synchronized void setData(List<Object> objects,
-                        SearchType searchType,
-                        FileDataStorageManager storageManager,
-                        @Nullable OCFile folder,
-                        boolean clear) {
-        executorService.execute(() -> {
-            if (storageManager != null && mStorageManager == null) {
-                mStorageManager = storageManager;
+    public void setSearchData(List<OCFile> newList, SearchType searchType, FileDataStorageManager storageManager, boolean clear) {
+        initStorageManagerShowShareAvatar(storageManager);
+        if (clear) {
+            clearSearchData(searchType);
+        }
+        new Handler(Looper.getMainLooper()).post(() -> updateData(newList));
+    }
+
+    private void initStorageManagerShowShareAvatar(FileDataStorageManager storageManager) {
+        if (mStorageManager == null) {
+            mStorageManager = (storageManager != null)
+                ? storageManager
+                : new FileDataStorageManager(user, activity.getContentResolver());
+
+            if (storageManager != null) {
                 ocFileListDelegate.setShowShareAvatar(true);
             }
+        }
+    }
 
-            if (mStorageManager == null) {
-                mStorageManager = new FileDataStorageManager(user, activity.getContentResolver());
-            }
+    private void clearSearchData(SearchType searchType) {
+        preferences.setPhotoSearchTimestamp(0);
 
-            List<OCFile> newList = new ArrayList<>();
+        VirtualFolderType type = switch (searchType) {
+            case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
+            case GALLERY_SEARCH  -> VirtualFolderType.GALLERY;
+            default              -> VirtualFolderType.NONE;
+        };
 
-            if (clear) {
-                preferences.setPhotoSearchTimestamp(0);
+        if (type != VirtualFolderType.GALLERY) {
+            mStorageManager.deleteVirtuals(type);
+        }
+    }
 
-                VirtualFolderType type = switch (searchType) {
-                    case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
-                    case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
-                    default -> VirtualFolderType.NONE;
-                };
-
-                if (type != VirtualFolderType.GALLERY) {
-                    mStorageManager.deleteVirtuals(type);
-                }
-            }
-
-            boolean containsOCFiles = false;
-            for (Object item : objects) {
-                if (item instanceof OCFile) {
-                    containsOCFiles = true;
-                    break;
-                }
-            }
-
-            if (containsOCFiles) {
-                newList = OCFileListAdapterExtensionsKt.parseCachedFiles(this, objects);
-            } else if (!objects.isEmpty()) {
-                if (searchType == SearchType.SHARED_FILTER) {
-                    newList = OCFileListAdapterExtensionsKt.parseAndSaveShares(this, objects);
-                } else {
-                    newList = OCFileListAdapterExtensionsKt.parseAndSaveVirtuals(this, objects, searchType);
-                }
-            }
-
-            if (searchType == SearchType.GALLERY_SEARCH ||
-                searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
-                newList = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(newList);
-            } else if (searchType != SearchType.SHARED_FILTER) {
-                boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
-                boolean favoritesFirst = preferences.isSortFavoritesFirst();
-
-                if (searchType == SearchType.FAVORITE_SEARCH) {
-                    sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView);
-                } else {
-                    sortOrder = preferences.getSortOrderByFolder(folder);
-                }
-                newList = sortOrder.sortCloudFiles(newList, foldersBeforeFiles, favoritesFirst);
-            }
-
-            List<OCFile> finalNewList = newList;
-            new Handler(Looper.getMainLooper()).post(() -> updateData(finalNewList));
-        });
+    public void setSortOrder(FileSortOrder newSortOrder) {
+        sortOrder = newSortOrder;
     }
 
     public void updateData(List<OCFile> newList) {
@@ -1049,12 +1014,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
             @Override
             public int getOldListSize() {
-                return mFiles.size();
+                return mFiles.size() + (shouldShowHeader() ? 2 : 1);
             }
 
             @Override
             public int getNewListSize() {
-                return newList.size();
+                return newList.size() + (shouldShowHeader() ? 2 : 1);
             }
 
             @Override
@@ -1233,6 +1198,5 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void cleanup() {
         ocFileListDelegate.cleanup();
-        executorService.shutdown();
     }
 }

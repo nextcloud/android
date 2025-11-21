@@ -1931,7 +1931,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         final User currentUser = accountManager.getUser();
         final var remoteOperation = getSearchRemoteOperation(currentUser, event);
-        searchTask = new OCFileListSearchTask(mContainerActivity, this, remoteOperation, currentUser, event, SharedListFragment.TASK_TIMEOUT);
+        searchTask = new OCFileListSearchTask(mContainerActivity, this, remoteOperation, currentUser, event, SharedListFragment.TASK_TIMEOUT, preferences);
         searchTask.execute();
     }
 
