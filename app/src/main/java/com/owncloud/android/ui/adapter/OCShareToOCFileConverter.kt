@@ -7,10 +7,14 @@
  */
 package com.owncloud.android.ui.adapter
 
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
+import com.owncloud.android.utils.FileStorageUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 object OCShareToOCFileConverter {
     private const val MILLIS_PER_SECOND = 1000
@@ -34,6 +38,27 @@ object OCShareToOCFileConverter {
         return groupedByPath
             .map { (path: String, shares: List<OCShare>) -> buildOcFile(path, shares) }
             .sortedByDescending { it.firstShareTimestamp }
+    }
+
+    suspend fun parseAndSaveShares(
+        data: List<Any>,
+        storageManager: FileDataStorageManager?,
+        accountName: String
+    ): List<OCFile> = withContext(Dispatchers.IO) {
+        if (data.isEmpty()) {
+            return@withContext listOf()
+        }
+
+        val shares = data.filterIsInstance<OCShare>()
+        if (shares.isEmpty()) {
+            return@withContext listOf()
+        }
+
+        val files = buildOCFilesFromShares(shares).onEach { file ->
+            FileStorageUtils.searchForLocalFileInDefaultPath(file, accountName)
+        }
+        storageManager?.saveShares(shares)
+        files
     }
 
     private fun buildOcFile(path: String, shares: List<OCShare>): OCFile {
