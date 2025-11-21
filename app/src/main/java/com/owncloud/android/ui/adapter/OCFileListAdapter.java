@@ -36,6 +36,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.LinkHelper;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -78,6 +79,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -873,6 +875,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void updateAdapter(List<OCFile> newFiles, OCFile directory) {
+        boolean hasSameContent = OCFileExtensionsKt.hasSameContentAs(mFiles, newFiles);
+
+        if (hasSameContent) {
+            Log_OC.d(TAG, "same data passed skipping update");
+            return;
+        }
+
+        Log_OC.d(TAG, "updating the adapter");
+
         mFiles = new ArrayList<>(newFiles);
         mFilesAll.clear();
         mFilesAll.addAll(mFiles);
