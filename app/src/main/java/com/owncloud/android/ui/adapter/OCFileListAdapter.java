@@ -960,16 +960,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return mFiles;
     }
 
-    private void prepareListOfHiddenFiles() {
-        listOfHiddenFiles.clear();
-
-        mFiles.forEach(file -> {
-            if (file.shouldHide()) {
-                listOfHiddenFiles.add(file.getFileName());
-            }
-        });
-    }
-
     @Override
     public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
         super.onViewRecycled(holder);
