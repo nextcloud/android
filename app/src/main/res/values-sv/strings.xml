@@ -44,6 +44,7 @@
     <string name="app_widget_description">Visa en widget från dashboard</string>
     <string name="appbar_search_in">Sök i %s</string>
     <string name="appear_offline">Visa som frånkopplad</string>
+    <string name="assistant_generation_warning">Detta innehåll genererades av AI och kan innehålla fel.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lägg till ny uppgift</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Skapa en ny uppgift från nedre högra hörnet</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv någon text</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">Ett fel uppstod när uppgiften skulle tas bort</string>
     <string name="assistant_screen_task_delete_success_message">Uppgiften har raderats</string>
     <string name="assistant_screen_task_list_empty_message">Uppgiftslistan är tom.</string>
+    <string name="assistant_screen_task_list_empty_warning">Uppgiftslistan är tom. Kontrollera konfigurationen för assistentappen.</string>
     <string name="assistant_screen_task_list_error_state_message">Det går inte att hämta uppgiftslistan, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ta bort uppgift</string>
     <string name="assistant_screen_task_output_empty_text">Uppgiftens resultat är inte redo än.</string>
@@ -415,6 +417,8 @@
     <string name="file_list_empty_unified_search_no_results">Inga sökresultat funna på din sökning</string>
     <string name="file_list_empty_unified_search_start_search">Starta din sökning</string>
     <string name="file_list_empty_unified_search_start_search_description">Skriv i sökfältet ovan för att hitta filer, kontakter, kalenderhändelser och mer i ditt konto.</string>
+    <string name="file_list_error_description">Kontrollera din internetanslutning eller försök igen senare</string>
+    <string name="file_list_error_headline">Dålig anslutning</string>
     <string name="file_list_folder">mapp</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Läser in…</string>
@@ -661,6 +665,7 @@
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koden kommer efterfrågas varje gång du startar appen</string>
     <string name="pass_code_enter_pass_code">Vänligen ange ditt lösenord</string>
+    <string name="pass_code_explanation">Lösenkoden begärs varje gång appen öppnas eller öppnas igen efter 5 sekunder</string>
     <string name="pass_code_mismatch">Koderna matchar inte</string>
     <string name="pass_code_reenter_your_pass_code">Vänligen ange ditt lösenord igen</string>
     <string name="pass_code_remove_your_pass_code">Ta bort ditt lösenord</string>
@@ -1110,6 +1115,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Otillförlitligt servercertifikat</string>
     <string name="uploads_view_upload_status_fetching_server_version">Hämtar serverversion</string>
     <string name="uploads_view_upload_status_service_interrupted">App avslutad</string>
+    <string name="uploads_view_upload_status_skip">Överhoppad</string>
+    <string name="uploads_view_upload_status_skip_reason">En fil med samma namn finns redan.</string>
     <string name="uploads_view_upload_status_succeeded">Slutförande</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Samma fil hittades på server, hoppar över uppladdning.</string>
     <string name="uploads_view_upload_status_unknown_fail">Okänt fel</string>
@@ -1202,6 +1209,10 @@
     <plurals name="export_start">
         <item quantity="one">%d fil kommer exporteras. Se avisering för detaljer.</item>
         <item quantity="other">%d filer kommer exporteras. Se avisering för detaljer.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Du kan bara ladda upp %d fil åt gången.</item>
+        <item quantity="other">Du kan ladda upp max %d iler samtidigt.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mapp</item>

@@ -44,6 +44,7 @@
     <string name="app_widget_description">顯示儀表板中的一個小部件</string>
     <string name="appbar_search_in">%s內搜尋</string>
     <string name="appear_offline">顯示為離線</string>
+    <string name="assistant_generation_warning">此內容為人工智能產生，可能有錯。</string>
     <string name="assistant_screen_add_task_alert_dialog_title">添加新任務</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">從右下角創建新任務</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">刪除任務時發生了錯誤</string>
     <string name="assistant_screen_task_delete_success_message">任務已刪除</string>
     <string name="assistant_screen_task_list_empty_message">任務清單是空的。</string>
+    <string name="assistant_screen_task_list_empty_warning">任務清單是空的。請檢查小幫手應用程式設定。</string>
     <string name="assistant_screen_task_list_error_state_message">無法擷取任務清單，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">刪除任務</string>
     <string name="assistant_screen_task_output_empty_text">任務輸出尚未就緒。</string>
@@ -415,6 +417,8 @@
     <string name="file_list_empty_unified_search_no_results">未找到與您的查詢相符的結果</string>
     <string name="file_list_empty_unified_search_start_search">開始搜尋</string>
     <string name="file_list_empty_unified_search_start_search_description">在上方搜索欄中輸入內容，以在您的帳戶中尋找檔案、聯絡人、日曆活動等。</string>
+    <string name="file_list_error_description">請檢查您的網際網路連線或稍後再試</string>
+    <string name="file_list_error_headline">連線品質不佳</string>
     <string name="file_list_folder">資料夾</string>
     <string name="file_list_live">直播</string>
     <string name="file_list_loading">載入中…</string>
@@ -661,6 +665,7 @@
     <string name="pass_code_configure_your_pass_code">輸入通行碼</string>
     <string name="pass_code_configure_your_pass_code_explanation">每次應用程式開啟時，都需要輸入通行碼</string>
     <string name="pass_code_enter_pass_code">請輸入通行碼</string>
+    <string name="pass_code_explanation">每次應用程式開啟或 5 秒後重新開啟時，都需要輸入通行碼。</string>
     <string name="pass_code_mismatch">兩個通行碼不相符</string>
     <string name="pass_code_reenter_your_pass_code">再次輸入通行碼</string>
     <string name="pass_code_remove_your_pass_code">刪除您的通行碼</string>
@@ -1109,6 +1114,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">不信任的伺服器憑證</string>
     <string name="uploads_view_upload_status_fetching_server_version">取得伺服器的版本中...</string>
     <string name="uploads_view_upload_status_service_interrupted">App 中斷運作</string>
+    <string name="uploads_view_upload_status_skip">略過</string>
+    <string name="uploads_view_upload_status_skip_reason">已存在同名檔案。</string>
     <string name="uploads_view_upload_status_succeeded">完成</string>
     <string name="uploads_view_upload_status_succeeded_same_file">遠端找到相同的檔案，跳過上傳。</string>
     <string name="uploads_view_upload_status_unknown_fail">錯誤不詳</string>
@@ -1186,6 +1193,9 @@
     </plurals>
     <plurals name="export_start">
         <item quantity="other">%d 個檔案將被導出。 詳情見通知。</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="other">您一次最多可以上傳 %d 個檔案。</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d個資料夾</item>
