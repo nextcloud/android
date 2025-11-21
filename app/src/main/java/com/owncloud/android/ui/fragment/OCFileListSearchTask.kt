@@ -27,7 +27,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
-import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.ui.adapter.OCShareToOCFileConverter
 import com.owncloud.android.ui.events.SearchEvent
@@ -93,7 +92,11 @@ class OCFileListSearchTask(
                 }
 
                 val newList = if (searchType == SearchType.SHARED_FILTER) {
-                    parseAndSaveShares(result.resultData ?: listOf())
+                    OCShareToOCFileConverter.parseAndSaveShares(
+                        result.resultData ?: listOf(),
+                        fileDataStorageManager,
+                        currentUser.accountName
+                    )
                 } else {
                     parseAndSaveVirtuals(result.resultData ?: listOf(), fragment)
                 }
@@ -189,16 +192,6 @@ class OCFileListSearchTask(
         }
 
         return@withContext newList
-    }
-
-    private suspend fun parseAndSaveShares(data: List<Any>): List<OCFile> = withContext(Dispatchers.IO) {
-        val shares = data.filterIsInstance<OCShare>()
-        val files: List<OCFile> = OCShareToOCFileConverter.buildOCFilesFromShares(shares)
-        for (file in files) {
-            FileStorageUtils.searchForLocalFileInDefaultPath(file, currentUser.accountName)
-        }
-        fileDataStorageManager?.saveShares(shares)
-        return@withContext files
     }
 
     private suspend fun parseAndSaveVirtuals(

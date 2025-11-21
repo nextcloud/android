@@ -23,11 +23,8 @@ import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.ui.adapter.OCShareToOCFileConverter
 import com.owncloud.android.utils.EspressoIdlingResource
-import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.ScreenshotTest
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -172,7 +169,7 @@ internal class SharedListFragmentIT : AbstractIT() {
                     fragment.mEmptyListContainer?.visibility = View.GONE
 
                     val newList = runBlocking {
-                        parseAndSaveShares(shares)
+                        OCShareToOCFileConverter.parseAndSaveShares(shares, storageManager, user.accountName)
                     }
                     fragment.adapter.setSearchData(
                         newList,
@@ -189,15 +186,5 @@ internal class SharedListFragmentIT : AbstractIT() {
                 }
             }
         }
-    }
-
-    private suspend fun parseAndSaveShares(data: List<Any>): List<OCFile> = withContext(Dispatchers.IO) {
-        val shares = data.filterIsInstance<OCShare>()
-        val files: List<OCFile> = OCShareToOCFileConverter.buildOCFilesFromShares(shares)
-        for (file in files) {
-            FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
-        }
-        fileDataStorageManager?.saveShares(shares)
-        return@withContext files
     }
 }
