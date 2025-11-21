@@ -23,12 +23,16 @@ import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class OCFileListAdapterHelper {
-    private val scope = CoroutineScope(Dispatchers.IO)
+    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private var job: Job? = null
 
+    @Suppress("LongParameterList")
     fun prepareFileList(
         directory: OCFile,
         storageManager: FileDataStorageManager,
@@ -38,7 +42,7 @@ class OCFileListAdapterHelper {
         userId: String,
         onComplete: (List<OCFile>, FileSortOrder) -> Unit
     ) {
-        scope.launch {
+        job = scope.launch {
             var result = getFolderContent(directory, storageManager, onlyOnDevice)
 
             if (!preferences.isShowHiddenFilesEnabled()) {
@@ -73,7 +77,11 @@ class OCFileListAdapterHelper {
         }
     }
 
-    private fun addOfflineOperations(files: List<OCFile>, fileId: Long, storageManager: FileDataStorageManager): List<OCFile> {
+    private fun addOfflineOperations(
+        files: List<OCFile>,
+        fileId: Long,
+        storageManager: FileDataStorageManager
+    ): List<OCFile> {
         val offlineOperations = storageManager.offlineOperationsRepository.convertToOCFiles(fileId)
         if (offlineOperations.isEmpty()) return files
 
@@ -84,6 +92,7 @@ class OCFileListAdapterHelper {
         return files + newFiles
     }
 
+    @Suppress("NestedBlockDepth")
     fun mergeOCFilesForLivePhoto(files: List<OCFile>): List<OCFile> {
         val filesToRemove = mutableSetOf<OCFile>()
 
@@ -113,15 +122,25 @@ class OCFileListAdapterHelper {
         return files.filter { it !in filesToRemove }
     }
 
-    private suspend fun sortData(directory: OCFile, files: List<OCFile>, preferences: AppPreferences): Pair<List<OCFile>, FileSortOrder> = withContext(
-        Dispatchers.IO) {
+    private suspend fun sortData(
+        directory: OCFile,
+        files: List<OCFile>,
+        preferences: AppPreferences
+    ): Pair<List<OCFile>, FileSortOrder> = withContext(
+        Dispatchers.IO
+    ) {
         val sortOrder = preferences.getSortOrderByFolder(directory)
         val foldersBeforeFiles: Boolean = preferences.isSortFoldersBeforeFiles()
         val favoritesFirst: Boolean = preferences.isSortFavoritesFirst()
-        return@withContext sortOrder.sortCloudFiles(files.toMutableList(), foldersBeforeFiles, favoritesFirst).toList() to sortOrder
+        return@withContext sortOrder.sortCloudFiles(files.toMutableList(), foldersBeforeFiles, favoritesFirst)
+            .toList() to sortOrder
     }
 
-    private suspend fun getFolderContent(ocFile: OCFile, storageManager: FileDataStorageManager, onlyOnDevice: Boolean): List<OCFile> = withContext(Dispatchers.IO) {
+    private suspend fun getFolderContent(
+        ocFile: OCFile,
+        storageManager: FileDataStorageManager,
+        onlyOnDevice: Boolean
+    ): List<OCFile> = withContext(Dispatchers.IO) {
         if (!ocFile.isFolder || !ocFile.fileExists()) {
             return@withContext emptyList()
         }
@@ -136,5 +155,10 @@ class OCFileListAdapterHelper {
                 null
             }
         }
+    }
+
+    fun cleanup() {
+        job?.cancel()
+        job = null
     }
 }

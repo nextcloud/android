@@ -57,7 +57,6 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.adapter.diffUtil.OCFileListDiffUtil;
 import com.owncloud.android.ui.adapter.helper.OCFileListAdapterHelper;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
@@ -83,7 +82,6 @@ import java.util.UUID;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import kotlin.Pair;
@@ -134,7 +132,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private ArrayList<OCFile> recommendedFiles = new ArrayList<>();
     private RecommendedFilesAdapter recommendedFilesAdapter;
-    private final OCFileListDiffUtil diffUtil = new OCFileListDiffUtil();
     private final OCFileListAdapterHelper helper = new OCFileListAdapterHelper();
 
     public OCFileListAdapter(
@@ -860,21 +857,28 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             helper.prepareFileList(directory, updatedStorageManager, onlyOnDevice, limitToMimeType, preferences, userId, new Function2<>() {
                 @Override
                 public Unit invoke(List<? extends OCFile> newList, FileSortOrder fileSortOrder) {
-                    mFiles = new ArrayList<>(newList);
-                    mFilesAll.clear();
-                    mFilesAll.addAll(mFiles);
-                    currentDirectory = directory;
-                    searchType = null;
-                    activity.runOnUiThread(() -> notifyDataSetChanged());
+                    updateAdapter((List<OCFile>) newList, directory);
                     return Unit.INSTANCE;
                 }
             });
-        } else {
-            mFiles = new ArrayList<>(); // Create new instance instead of clear
-            mFilesAll.clear();
-            searchType = null;
-            activity.runOnUiThread(this::notifyDataSetChanged);
+            return;
         }
+
+        updateAdapter(new ArrayList<>(), null);
+    }
+
+    private void updateAdapter(List<OCFile> newFiles, OCFile directory) {
+        mFiles = new ArrayList<>(newFiles);
+        mFilesAll.clear();
+        mFilesAll.addAll(mFiles);
+
+        if (directory != null) {
+            currentDirectory = directory;
+        }
+
+        searchType = null;
+
+        activity.runOnUiThread(this::notifyDataSetChanged);
     }
 
     public void setSearchData(List<OCFile> newList, SearchType searchType, FileDataStorageManager storageManager, boolean clear) {
@@ -882,7 +886,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (clear) {
             clearSearchData(searchType);
         }
-        new Handler(Looper.getMainLooper()).post(() -> updateData(newList));
+
+        activity.runOnUiThread(() -> {
+            mFiles.clear();
+            mFiles.addAll(newList);
+            notifyDataSetChanged();
+        });
     }
 
     private void initStorageManagerShowShareAvatar(FileDataStorageManager storageManager) {
@@ -913,23 +922,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void setSortOrder(FileSortOrder newSortOrder) {
         sortOrder = newSortOrder;
-    }
-
-    public void updateData(List<OCFile> newList) {
-        if (mFiles.isEmpty() && newList.isEmpty()) {
-            return;
-        }
-        if (mFiles == newList) {
-            return;
-        }
-
-        diffUtil.updateLists(mFiles, newList, shouldShowHeader());
-        final var diffResult = DiffUtil.calculateDiff(diffUtil);
-
-        mFiles.clear();
-        mFiles.addAll(newList);
-
-        diffResult.dispatchUpdatesTo(this);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -1072,5 +1064,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void cleanup() {
         ocFileListDelegate.cleanup();
+        helper.cleanup();
     }
 }
