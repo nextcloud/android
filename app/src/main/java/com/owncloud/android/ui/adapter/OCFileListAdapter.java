@@ -106,8 +106,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final boolean hideItemOptions;
     private boolean gridView;
     public ArrayList<String> listOfHiddenFiles = new ArrayList<>();
-    public FileDataStorageManager mStorageManager;
-    public User user;
+    private FileDataStorageManager mStorageManager;
+    private User user;
     private final OCFileListFragmentInterface ocFileListFragmentInterface;
     private final boolean isRTL;
 
