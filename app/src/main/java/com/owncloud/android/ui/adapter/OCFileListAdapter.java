@@ -98,8 +98,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     CommonOCFileListAdapterInterface, PopupTextProvider {
 
     private final String userId;
-    public final Activity activity;
-    public final AppPreferences preferences;
+    private final Activity activity;
+    private final AppPreferences preferences;
     private final OCCapability capability;
     private List<OCFile> mFiles = new ArrayList<>();
     private final List<OCFile> mFilesAll = new ArrayList<>();
