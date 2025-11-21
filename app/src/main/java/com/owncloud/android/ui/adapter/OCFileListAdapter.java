@@ -79,7 +79,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -88,7 +87,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import kotlin.Pair;
 import kotlin.Unit;
-import kotlin.jvm.functions.Function2;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
 
 /**
@@ -861,6 +859,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return;
         }
 
+        ocFileListFragmentInterface.setLoadingEmptyListState();
+
         helper.prepareFileList(directory,
                                updatedStorageManager,
                                onlyOnDevice,
@@ -874,7 +874,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         });
     }
 
-    private void updateAdapter(List<OCFile> newFiles, OCFile directory) {
+    public void updateAdapter(List<OCFile> newFiles, OCFile directory) {
         boolean hasSameContent = OCFileExtensionsKt.hasSameContentAs(mFiles, newFiles);
 
         if (hasSameContent) {
@@ -897,13 +897,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         activity.runOnUiThread(this::notifyDataSetChanged);
     }
 
-    public void setSearchData(List<OCFile> newList, SearchType searchType, FileDataStorageManager storageManager, boolean clear) {
+    public void prepareForSearchData(FileDataStorageManager storageManager, SearchType searchType) {
         initStorageManagerShowShareAvatar(storageManager);
-        if (clear) {
-            clearSearchData(searchType);
-        }
-
-        updateAdapter(newList, null);
+        clearSearchData(searchType);
     }
 
     private void initStorageManagerShowShareAvatar(FileDataStorageManager storageManager) {

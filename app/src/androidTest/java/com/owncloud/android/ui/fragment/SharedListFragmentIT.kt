@@ -171,13 +171,10 @@ internal class SharedListFragmentIT : AbstractIT() {
                     val newList = runBlocking {
                         OCShareToOCFileConverter.parseAndSaveShares(shares, storageManager, user.accountName)
                     }
-                    fragment.adapter.setSearchData(
-                        newList,
-                        SearchType.SHARED_FILTER,
-                        storageManager,
-                        true
-                    )
-
+                    fragment.adapter.run {
+                        prepareForSearchData(storageManager, SearchType.SHARED_FILTER)
+                        updateAdapter(newList, null)
+                    }
                     EspressoIdlingResource.decrement()
 
                     val screenShotName = createName(testClassName + "_" + "showSharedFiles", "")
