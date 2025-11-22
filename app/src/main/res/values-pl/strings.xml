@@ -44,6 +44,7 @@
     <string name="app_widget_description">Pokazuje jeden widżet z pulpitu nawigacyjnego</string>
     <string name="appbar_search_in">Szukaj w %s</string>
     <string name="appear_offline">Wyglądaj jako offline</string>
+    <string name="assistant_generation_warning">Ta treść została wygenerowana przez AI i może zawierać błędy</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Dodaj nowe zadanie</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Utwórz nowe zadanie w prawym dolnym rogu</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Wpisz jakiś tekst</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">Wystąpił błąd podczas usuwania zadania</string>
     <string name="assistant_screen_task_delete_success_message">Zadanie pomyślnie usunięte</string>
     <string name="assistant_screen_task_list_empty_message">Lista zadań jest pusta.</string>
+    <string name="assistant_screen_task_list_empty_warning">Lista zadań jest pusta. Sprawdź konfigurację asystenta aplikacji.</string>
     <string name="assistant_screen_task_list_error_state_message">Nie można pobrać listy zadań. Sprawdź swoje połączenie internetowe.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Usuń zadanie</string>
     <string name="assistant_screen_task_output_empty_text">Wynik zadanie nie jest jeszcze gotowy</string>
@@ -415,6 +417,8 @@
     <string name="file_list_empty_unified_search_no_results">Nie znaleziono wyników dla Twojego zapytania</string>
     <string name="file_list_empty_unified_search_start_search">Rozpocznij wyszukiwanie</string>
     <string name="file_list_empty_unified_search_start_search_description">Wpisz w pasku wyszukiwania powyżej, aby znaleźć pliki, kontakty, wydarzenia z kalendarza i inne elementy na swoim koncie.</string>
+    <string name="file_list_error_description">Sprawdzanie połączenie z Internetem lub spróbuj później</string>
+    <string name="file_list_error_headline">Słabe połączenie</string>
     <string name="file_list_folder">katalog</string>
     <string name="file_list_live">NA ŻYWO</string>
     <string name="file_list_loading">Wczytywanie…</string>
@@ -661,6 +665,7 @@
     <string name="pass_code_configure_your_pass_code">Wprowadź kod PIN</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji</string>
     <string name="pass_code_enter_pass_code">Podaj kod PIN</string>
+    <string name="pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji lub przy ponownym otwarciu po 5 sekundach.</string>
     <string name="pass_code_mismatch">Podane kody PIN nie są takie same</string>
     <string name="pass_code_reenter_your_pass_code">Wpisz ponownie kod PIN</string>
     <string name="pass_code_remove_your_pass_code">Usuń swój kod PIN</string>
@@ -1109,6 +1114,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certyfikat serwera nie jest zaufany</string>
     <string name="uploads_view_upload_status_fetching_server_version">Pobieram wersję serwera…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikacja została zatrzymana</string>
+    <string name="uploads_view_upload_status_skip">Pominięto</string>
+    <string name="uploads_view_upload_status_skip_reason">Plik o tej samej nazwie już istnieje.</string>
     <string name="uploads_view_upload_status_succeeded">Ukończono</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Ten sam plik znaleziony zdalnie, pomijanie przesyłania</string>
     <string name="uploads_view_upload_status_unknown_fail">Nieznany błąd</string>
@@ -1231,6 +1238,12 @@
         <item quantity="few">Zostaną wyeksportowane %d pliki. Zobacz powiadomienie, aby uzyskać szczegółowe informacje.</item>
         <item quantity="many">Zostanie wyeksportowanych %d plików. Zobacz powiadomienie, aby uzyskać szczegółowe informacje.</item>
         <item quantity="other">Zostanie wyeksportowanych %d plików. Zobacz powiadomienie, aby uzyskać szczegółowe informacje.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Możesz wysłać do %d pliku na raz.</item>
+        <item quantity="few">Możesz wysłać do %d plików na raz.</item>
+        <item quantity="many">Możesz wysłać do %d plików na raz.</item>
+        <item quantity="other">Możesz wysłać do %d plików na raz.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d katalog</item>
