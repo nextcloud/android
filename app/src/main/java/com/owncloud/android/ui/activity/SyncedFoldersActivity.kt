@@ -860,6 +860,9 @@ class SyncedFoldersActivity :
      */
     private fun checkIfBatteryOptimizationEnabled(): Boolean {
         val powerManager = getSystemService(POWER_SERVICE) as PowerManager?
+        Log_OC.d(TAG, "IS_BATTERY_OPT_RES_1: " + (powerManager == null))
+        val res = powerManager?.isIgnoringBatteryOptimizations(BuildConfig.APPLICATION_ID)
+        Log_OC.d(TAG, "IS_BATTERY_OPT_RES_2: $res")
         return when {
             powerManager != null -> !powerManager.isIgnoringBatteryOptimizations(BuildConfig.APPLICATION_ID)
             else -> !appInfo.isDebugBuild
