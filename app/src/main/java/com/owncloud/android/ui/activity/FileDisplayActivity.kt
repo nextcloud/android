@@ -127,6 +127,7 @@ import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.ui.events.SyncEventFinished
 import com.owncloud.android.ui.events.TokenPushEvent
 import com.owncloud.android.ui.fragment.EmptyListState
+import com.owncloud.android.ui.fragment.ExtendedListFragment
 import com.owncloud.android.ui.fragment.FileDetailFragment
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
@@ -1290,7 +1291,13 @@ class FileDisplayActivity :
 
     override fun onResume() {
         Log_OC.v(TAG, "onResume() start")
+
         super.onResume()
+        if (SettingsActivity.onBackPressed) {
+            Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
+            return
+        }
+
         isFileDisplayActivityResumed = true
 
         // Instead of onPostCreate, starting the loading in onResume for children fragments
@@ -2774,6 +2781,11 @@ class FileDisplayActivity :
 
     public override fun onStart() {
         super.onStart()
+        if (SettingsActivity.onBackPressed) {
+            Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
+            return
+        }
+
         val optionalUser = user
         val storageManager = getStorageManager()
         if (optionalUser.isPresent && storageManager != null) {
