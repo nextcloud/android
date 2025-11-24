@@ -217,16 +217,16 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
-    public static boolean onBackPressed = false;
+    public static boolean isBackPressed = false;
 
     @SuppressLint("GestureBackNavigation")
     @Override
     public void onBackPressed() {
-        onBackPressed = true;
+        isBackPressed = true;
         super.onBackPressed();
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             Log_OC.d(TAG, "User returned from settings activity, reset onBackPressed flag.");
-            onBackPressed = false;
+            isBackPressed = false;
         }, 2000);
     }
 
