@@ -127,7 +127,6 @@ import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.ui.events.SyncEventFinished
 import com.owncloud.android.ui.events.TokenPushEvent
 import com.owncloud.android.ui.fragment.EmptyListState
-import com.owncloud.android.ui.fragment.ExtendedListFragment
 import com.owncloud.android.ui.fragment.FileDetailFragment
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
