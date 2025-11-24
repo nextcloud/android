@@ -116,6 +116,7 @@ import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask.CheckAvailableSpaceListener
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
+import com.owncloud.android.ui.dialog.DeleteBatchTracker
 import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.dialog.SendShareDialog.SendShareDialogDownloader
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
@@ -2073,6 +2074,13 @@ class FileDisplayActivity :
         }
     }
 
+    val deleteBatchTracker = DeleteBatchTracker(onAllDeletesFinished = {
+        if (leftFragment is GalleryFragment) {
+            val galleryFragment = leftFragment as GalleryFragment
+            galleryFragment.onRefresh()
+        }
+    })
+
     /**
      * Updates the view associated to the activity after the finish of an operation trying to remove a file.
      *
@@ -2080,6 +2088,8 @@ class FileDisplayActivity :
      * @param result    Result of the removal.
      */
     private fun onRemoveFileOperationFinish(operation: RemoveFileOperation, result: RemoteOperationResult<*>) {
+        deleteBatchTracker.onSingleDeleteFinished()
+
         if (!operation.isInBackground) {
             DisplayUtils.showSnackMessage(
                 this,
@@ -2101,9 +2111,6 @@ class FileDisplayActivity :
             val parentFile = storageManager.getFileById(removedFile.parentId)
             if (parentFile != null && parentFile == getCurrentDir()) {
                 updateListOfFilesFragment(false)
-            } else if (this.leftFragment is GalleryFragment) {
-                val galleryFragment = leftFragment as GalleryFragment
-                galleryFragment.onRefresh()
             } else if (leftFragment is OCFileListFragment &&
                 SearchRemoteOperation.SearchType.FAVORITE_SEARCH == leftFragment.searchEvent?.searchType
             ) {
@@ -2117,7 +2124,6 @@ class FileDisplayActivity :
                 }
             }
             supportInvalidateOptionsMenu()
-            refreshGalleryFragmentIfNeeded()
             fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
         } else {
             if (result.isSslRecoverableException) {
