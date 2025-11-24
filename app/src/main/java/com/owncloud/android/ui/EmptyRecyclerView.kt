@@ -37,6 +37,7 @@ class EmptyRecyclerView @JvmOverloads constructor(context: Context, attrs: Attri
         emptyView = view
     }
 
+    @Suppress("ReturnCount")
     private fun configureEmptyView() {
         val view = emptyView ?: run {
             Log_OC.e(TAG, "cannot configure empty view, view is null")
