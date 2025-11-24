@@ -310,6 +310,7 @@
     <string name="error_report_issue_text">ئىز قوغلىغۇچىلارغا دوكلات قىلىش مەسىلىسى؟ (GitHub ھېساباتىنى تەلەپ قىلىدۇ)</string>
     <string name="error_retrieving_file">ھۆججەتنى ئەسلىگە كەلتۈرۈشتە خاتالىق</string>
     <string name="error_retrieving_templates">قېلىپلارنى ئەسلىگە كەلتۈرۈشتە خاتالىق</string>
+    <string name="error_setting_status_message">ھالەت ئۇچۇرىنى بەلگىلەشتە خاتالىق</string>
     <string name="error_showing_encryption_dialog">شىفىرلاش تەڭشەش دىئالوگىنى كۆرسىتىشتە خاتالىق!</string>
     <string name="error_starting_direct_camera_upload">كامېرا باشلاشتا خاتالىق</string>
     <string name="error_starting_doc_scan">ھۆججەت تەكشۈرۈشنى باشلاشتا خاتالىق</string>
@@ -349,6 +350,7 @@
     <string name="file_already_exists">ھۆججەت ئىسمى ئاللىبۇرۇن مەۋجۇت</string>
     <string name="file_delete">ئۆچۈرۈش</string>
     <string name="file_detail_activity_error">ھۆججەت ئۈچۈن پائالىيەتلەرنى ئەسلىگە كەلتۈرۈشتە خاتالىق</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">ئالاقىداشلارنى تاللاش ئۈچۈن بىرەر ئەپ يوق</string>
     <string name="file_details_no_content">تەپسىلاتلارنى يۈكلىيەلمىدى</string>
     <string name="file_icon">ھۆججەت</string>
     <string name="file_keep">ساقلاڭ</string>
@@ -701,6 +703,7 @@
     <string name="request_account_deletion">ھېسابات ئۆچۈرۈشنى تەلەپ قىلىڭ</string>
     <string name="request_account_deletion_button">ئۆچۈرۈشنى تەلەپ قىلىڭ</string>
     <string name="request_account_deletion_details">مۇلازىمەت تەمىنلىگۈچى تەرىپىدىن ھېساباتنى مەڭگۈلۈك ئۆچۈرۈۋېتىشنى تەلەپ قىلىڭ</string>
+    <string name="resharing_is_not_allowed">تۈزۈم ياكى ئىجازەت قايتا-ھەمبەھىرلەشنى توسىدۇ</string>
     <string name="restore">ھۆججەتنى ئەسلىگە كەلتۈرۈش</string>
     <string name="restore_backup">زاپاسلاشنى ئەسلىگە كەلتۈرۈڭ</string>
     <string name="restore_button_description">ئۆچۈرۈلگەن ھۆججەتنى ئەسلىگە كەلتۈرۈڭ</string>
@@ -731,6 +734,7 @@
     <string name="send">ئەۋەتىڭ</string>
     <string name="sendbutton_description">كۇنۇپكا سىنبەلگىسىنى ئەۋەتىڭ</string>
     <string name="set_as">تەڭشەك</string>
+    <string name="set_message">ئۇچۇر بەلگىلە</string>
     <string name="set_online_status">توردىكى ئورنى</string>
     <string name="set_picture_as">رەسىمنى ئىشلىتىڭ</string>
     <string name="setup_e2e">ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى تەڭشەش جەريانىدا ، ئىختىيارى 12 سۆزلۈك mnemonic تاپشۇرۇۋالىسىز ، بۇ ھۆججەتلەرنى باشقا ئۈسكۈنىلەردە ئېچىشىڭىز كېرەك. بۇ پەقەت بۇ ئۈسكۈنىدە ساقلىنىدۇ ، بۇ ئېكراندا قايتا كۆرسەتكىلى بولىدۇ. ئۇنى بىخەتەر ئورۇنغا خاتىرىلەڭ!</string>
@@ -768,6 +772,7 @@
     <string name="share_read_permission">ئوقۇ</string>
     <string name="share_remote_clarification">%1$s (يىراق)</string>
     <string name="share_room_clarification">%1$s (سۆھبەت)</string>
+    <string name="share_search">ئىسمى ، فېدېراتسىيە بۇلۇت كىملىكى ياكى ئېلخەت ئادرېسى…</string>
     <string name="share_send_new_email">يېڭى ئېلېكترونلۇق خەت ئەۋەتىڭ</string>
     <string name="share_send_note">تاپشۇرۇۋالغۇچىغا دىققەت قىلىڭ</string>
     <string name="share_settings">تەڭشەك</string>
@@ -1103,4 +1108,8 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
     </plurals>
-    </resources>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d چۈشۈرۈش قالدى</item>
+        <item quantity="other">%1$d چۈشۈرۈش قالدى</item>
+    </plurals>
+</resources>

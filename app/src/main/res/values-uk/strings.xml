@@ -44,6 +44,7 @@
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
     <string name="appear_offline">Перебуваю поза мережею</string>
+    <string name="assistant_generation_warning">Вміст створено ШІ, він може містити помилки.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додати нове завдання</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Створити нове завдання праворуч внизу</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Вставте будь-який текст</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">Помилка під час вилучення завдання</string>
     <string name="assistant_screen_task_delete_success_message">Завдання вилучено</string>
     <string name="assistant_screen_task_list_empty_message">Список завдань порожній</string>
+    <string name="assistant_screen_task_list_empty_warning">Список завдань порожній. Перевірте налаштування застосунку асистента.</string>
     <string name="assistant_screen_task_list_error_state_message">Неможливо отримати список завдань. Перевірте з\'єднання з мережею</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Вилучити завдання</string>
     <string name="assistant_screen_task_output_empty_text">Поки неможливо показати завдання</string>
@@ -663,6 +665,7 @@
     <string name="pass_code_configure_your_pass_code">Зазначте пароль</string>
     <string name="pass_code_configure_your_pass_code_explanation">Щоразу під час запуску застосунку вам потрібно буде зазначати пароль</string>
     <string name="pass_code_enter_pass_code">Введіть пароль на застосунок</string>
+    <string name="pass_code_explanation">Код доступу буде запитуватися щоразу, як застосунок відкриватимуть або повторно відкриють через 5 секунд.</string>
     <string name="pass_code_mismatch">Парольні фрази не збігаються</string>
     <string name="pass_code_reenter_your_pass_code">Будь ласка, зазначте пароль ще раз</string>
     <string name="pass_code_remove_your_pass_code">Вилучити пароль</string>
