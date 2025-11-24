@@ -111,7 +111,7 @@ class OCFileListAdapterHelper {
     }
 
     @Suppress("NestedBlockDepth")
-    fun mergeOCFilesForLivePhoto(files: List<OCFile>): List<OCFile> {
+    private fun mergeOCFilesForLivePhoto(files: List<OCFile>): List<OCFile> {
         val filesToRemove = mutableSetOf<OCFile>()
 
         for (i in files.indices) {
