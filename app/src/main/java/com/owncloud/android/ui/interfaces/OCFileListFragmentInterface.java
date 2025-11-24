@@ -35,6 +35,4 @@ public interface OCFileListFragmentInterface {
     boolean isLoading();
 
     void onHeaderClicked();
-
-    void toggleEmptyListViewState(boolean show);
 }

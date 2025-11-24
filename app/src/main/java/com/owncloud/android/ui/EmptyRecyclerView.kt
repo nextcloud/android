@@ -1,104 +1,102 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui;
+package com.owncloud.android.ui
 
-import android.content.Context;
-import android.util.AttributeSet;
-import android.view.View;
+import android.content.Context
+import android.util.AttributeSet
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.utils.extensions.setVisibleIf
+import com.owncloud.android.lib.common.utils.Log_OC
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-
-/**
- * Extends RecyclerView to show a custom view if no data is available Inspired by http://alexzh.com/tutorials/how-to-setemptyview-to-recyclerview
- */
-public class EmptyRecyclerView extends RecyclerView {
-    private View mEmptyView;
-    private boolean hasFooter = false;
-
-    public EmptyRecyclerView(Context context) {
-        super(context);
+class EmptyRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
+    RecyclerView(context, attrs, defStyle) {
+    companion object {
+        private const val TAG = "EmptyRecyclerView"
     }
 
-    public EmptyRecyclerView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+    private var emptyView: View? = null
+    private var hasFooter = false
+    private var previousVisibilityState: Boolean? = null
+
+    override fun setAdapter(adapter: Adapter<*>?) {
+        this.adapter?.unregisterAdapterDataObserver(observer)
+        super.setAdapter(adapter)
+        adapter?.registerAdapterDataObserver(observer)
+        previousVisibilityState = null
+        configureEmptyView()
     }
 
-    public EmptyRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    fun setEmptyView(view: View?) {
+        emptyView = view
     }
 
-    @Override
-    public void setAdapter(Adapter adapter) {
-        Adapter oldAdapter = getAdapter();
-        super.setAdapter(adapter);
-        if (oldAdapter != null) {
-            oldAdapter.unregisterAdapterDataObserver(observer);
+    private fun configureEmptyView() {
+        val view = emptyView ?: run {
+            Log_OC.e(TAG, "cannot configure empty view, view is null")
+            return
         }
-        if (adapter != null) {
-            adapter.registerAdapterDataObserver(observer);
+
+        val recyclerViewAdapter = adapter ?: run {
+            Log_OC.e(TAG, "cannot configure empty view, recyclerViewAdapter is null")
+            return
+        }
+
+        val emptyCount = if (hasFooter) 1 else 0
+        val empty = (recyclerViewAdapter.itemCount == emptyCount)
+
+        if (previousVisibilityState == empty) {
+            Log_OC.d(TAG, "no need to configure empty view, state didn't change")
+            return
+        }
+
+        Log_OC.d(TAG, "changing empty view state, adapter item count: ${recyclerViewAdapter.itemCount}")
+
+        previousVisibilityState = empty
+        view.setVisibleIf(empty)
+        view.isFocusable = empty
+        setVisibleIf(!empty)
+    }
+
+    private val observer: AdapterDataObserver = object : AdapterDataObserver() {
+        override fun onChanged() {
+            super.onChanged()
+            configureEmptyView()
+        }
+
+        override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+            super.onItemRangeChanged(positionStart, itemCount)
+            configureEmptyView()
+        }
+
+        override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
+            super.onItemRangeChanged(positionStart, itemCount, payload)
+            configureEmptyView()
+        }
+
+        override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+            super.onItemRangeMoved(fromPosition, toPosition, itemCount)
+            configureEmptyView()
+        }
+
+        override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+            super.onItemRangeInserted(positionStart, itemCount)
+            configureEmptyView()
+        }
+
+        override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+            super.onItemRangeRemoved(positionStart, itemCount)
+            configureEmptyView()
         }
     }
 
-    public void setEmptyView(View view) {
-        this.mEmptyView = view;
-        initEmptyView();
-    }
-
-    private void initEmptyView() {
-        if (mEmptyView != null) {
-            int emptyCount = hasFooter ? 1 : 0;
-            boolean empty = getAdapter() == null || getAdapter().getItemCount() == emptyCount;
-            mEmptyView.setVisibility(empty ? VISIBLE : GONE);
-            mEmptyView.setFocusable(false);
-            this.setVisibility(empty ? GONE : VISIBLE);
-        }
-    }
-
-    private final AdapterDataObserver observer = new AdapterDataObserver() {
-        @Override
-        public void onChanged() {
-            super.onChanged();
-            initEmptyView();
-        }
-
-        @Override
-        public void onItemRangeChanged(int positionStart, int itemCount) {
-            super.onItemRangeChanged(positionStart, itemCount);
-            initEmptyView();
-        }
-
-        @Override
-        public void onItemRangeChanged(int positionStart, int itemCount, @Nullable Object payload) {
-            super.onItemRangeChanged(positionStart, itemCount, payload);
-            initEmptyView();
-        }
-
-        @Override
-        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
-            super.onItemRangeMoved(fromPosition, toPosition, itemCount);
-            initEmptyView();
-        }
-
-        @Override
-        public void onItemRangeInserted(int positionStart, int itemCount) {
-            super.onItemRangeInserted(positionStart, itemCount);
-            initEmptyView();
-        }
-
-        @Override
-        public void onItemRangeRemoved(int positionStart, int itemCount) {
-            super.onItemRangeRemoved(positionStart, itemCount);
-            initEmptyView();
-        }
-    };
-
-    public void setHasFooter(boolean bool) {
-        hasFooter = bool;
+    fun setHasFooter(bool: Boolean) {
+        hasFooter = bool
     }
 }

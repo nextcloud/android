@@ -716,11 +716,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
-    public void toggleEmptyListViewState(boolean show) {
-        toggleEmptyListView(show);
-    }
-
-    @Override
     public void showTemplate(@NonNull Creator creator, @NonNull String headline) {
         ChooseTemplateDialogFragment.newInstance(mFile, creator, headline).show(requireActivity().getSupportFragmentManager(),
                                                                                 DIALOG_CREATE_DOCUMENT);
