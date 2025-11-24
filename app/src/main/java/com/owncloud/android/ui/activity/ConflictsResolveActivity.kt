@@ -19,16 +19,14 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.OfflineOperationEntity
-import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsNotificationManager
 import com.nextcloud.client.jobs.operation.FileOperationHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
-import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getDecryptedPath
-import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
@@ -42,14 +40,19 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
- * Wrapper activity which will be launched if keep-in-sync file will be modified by external application.
+ * Activity responsible for resolving file conflicts.
+ *
+ * - **file**: The new local file selected by the user. This represents the local
+ *   version that may conflict with the remote version.
+ *
+ * The activity allows the user to choose between keeping the local file, keeping the server file,
+ * keeping both, or applying similar logic for offline operations.
  */
 @Suppress("TooManyFunctions")
 class ConflictsResolveActivity :
@@ -63,10 +66,14 @@ class ConflictsResolveActivity :
 
     private var conflictUploadId: Long = 0
     private var offlineOperationPath: String? = null
-    private var existingFile: OCFile? = null
-    private var newFile: OCFile? = null
     private var localBehaviour = FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
     private lateinit var offlineOperationNotificationManager: OfflineOperationsNotificationManager
+
+    /**
+     * The existing file stored on the server (remote version).
+     * Retrieved either from the local DB or from the server via ReadFileRemoteOperation.
+     */
+    private var existingFile: OCFile? = null
 
     @JvmField
     var listener: OnConflictDecisionMadeListener? = null
@@ -81,8 +88,6 @@ class ConflictsResolveActivity :
             localBehaviour = upload.localAction
         }
 
-        // new file was modified locally in file system
-        newFile = file
         setupOnConflictDecisionMadeListener(upload)
         offlineOperationNotificationManager = OfflineOperationsNotificationManager(this, viewThemeUtils)
     }
@@ -90,76 +95,69 @@ class ConflictsResolveActivity :
     private fun getArguments(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             conflictUploadId = savedInstanceState.getLong(EXTRA_CONFLICT_UPLOAD_ID)
-            existingFile = savedInstanceState.getParcelableArgument(EXTRA_EXISTING_FILE, OCFile::class.java)
             localBehaviour = savedInstanceState.getInt(EXTRA_LOCAL_BEHAVIOUR)
             offlineOperationPath = savedInstanceState.getString(EXTRA_OFFLINE_OPERATION_PATH)
         } else {
             offlineOperationPath = intent.getStringExtra(EXTRA_OFFLINE_OPERATION_PATH)
             conflictUploadId = intent.getLongExtra(EXTRA_CONFLICT_UPLOAD_ID, -1)
-            existingFile = intent.getParcelableArgument(EXTRA_EXISTING_FILE, OCFile::class.java)
             localBehaviour = intent.getIntExtra(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)
         }
     }
 
     private fun setupOnConflictDecisionMadeListener(upload: OCUpload?) {
         listener = OnConflictDecisionMadeListener { decision: Decision? ->
-
-            // local file got changed, so either upload it or replace it again by server
-            val file = newFile
-
-            // version
-            val user = user.orElseThrow { RuntimeException() }
-
-            val offlineOperation = if (offlineOperationPath != null) {
-                fileDataStorageManager.offlineOperationDao.getByPath(offlineOperationPath!!)
-            } else {
-                null
+            if (user.isEmpty) {
+                Log_OC.e(TAG, "cannot resolve conflict user not exists")
+                return@OnConflictDecisionMadeListener
+            }
+            val user = user.get()
+            val offlineOperation = offlineOperationPath?.let {
+                fileDataStorageManager.offlineOperationDao.getByPath(it)
             }
 
             when (decision) {
-                Decision.KEEP_LOCAL -> keepLocal(file, upload, user)
-                Decision.KEEP_BOTH -> keepBoth(file, upload, user)
-                Decision.KEEP_SERVER -> keepServer(file, upload)
-                Decision.KEEP_OFFLINE_FOLDER -> keepOfflineFolder(file, offlineOperation)
+                Decision.KEEP_LOCAL -> uploadFileByDecision(upload, user, NameCollisionPolicy.OVERWRITE)
+                Decision.KEEP_BOTH -> uploadFileByDecision(upload, user, NameCollisionPolicy.RENAME)
+                Decision.KEEP_SERVER -> uploadFileByDecision(upload, user, NameCollisionPolicy.SKIP)
+                Decision.KEEP_OFFLINE_FOLDER -> keepOfflineFolder(offlineOperation)
                 Decision.KEEP_SERVER_FOLDER -> keepServerFile(offlineOperation)
-                Decision.KEEP_BOTH_FOLDER -> keepBothFolder(offlineOperation, file)
+                Decision.KEEP_BOTH_FOLDER -> keepBothFolder(offlineOperation)
                 else -> Unit
             }
 
-            upload?.remotePath?.let { oldFilePath ->
-                val oldFile = storageManager.getFileByDecryptedRemotePath(oldFilePath)
-                updateThumbnailIfNeeded(decision, file, oldFile)
+            lifecycleScope.launch(Dispatchers.Main) {
+                updateThumbnailIfNeeded(decision)
+                deleteLocalFileIfNeeded()
+                dismissConflictResolveNotification()
+                finish()
             }
-
-            dismissConflictResolveNotification(file)
-            finish()
         }
     }
 
-    private fun updateThumbnailIfNeeded(decision: Decision?, file: OCFile?, oldFile: OCFile?) {
-        if (decision == Decision.KEEP_BOTH || decision == Decision.KEEP_LOCAL) {
-            // When the user chooses to replace the remote file with the new local file,
-            // remove the old file's thumbnail so a new one can be generated
-            if (decision == Decision.KEEP_LOCAL) {
-                ThumbnailsCacheManager.removeFromCache(oldFile)
-            }
-
+    private suspend fun updateThumbnailIfNeeded(decision: Decision?) = withContext(Dispatchers.IO) {
+        if (decision == Decision.KEEP_BOTH) {
             file?.isUpdateThumbnailNeeded = true
             fileDataStorageManager.saveFile(file)
         }
+
+        if (decision == Decision.KEEP_LOCAL || decision == Decision.KEEP_BOTH) {
+            ThumbnailsCacheManager.removeFromCache(existingFile)
+            existingFile?.isUpdateThumbnailNeeded = true
+            fileDataStorageManager.saveFile(existingFile)
+        }
     }
 
-    private fun dismissConflictResolveNotification(file: OCFile?) {
-        file ?: return
-
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        val tag = NotificationUtils.createUploadNotificationTag(file)
-        notificationManager.cancel(tag, FileUploadWorker.NOTIFICATION_ERROR_ID)
+    private fun dismissConflictResolveNotification() {
+        file?.let {
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            val tag = NotificationUtils.createUploadNotificationTag(it)
+            notificationManager.cancel(tag, FileUploadWorker.NOTIFICATION_ERROR_ID)
+        }
     }
 
-    private fun keepBothFolder(offlineOperation: OfflineOperationEntity?, serverFile: OCFile?) {
+    private fun keepBothFolder(offlineOperation: OfflineOperationEntity?) {
         offlineOperation ?: return
-        fileDataStorageManager.keepOfflineOperationAndServerFile(offlineOperation, serverFile)
+        fileDataStorageManager.keepOfflineOperationAndServerFile(offlineOperation, file)
         backgroundJobManager.startOfflineOperations()
         offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
     }
@@ -172,14 +170,14 @@ class ConflictsResolveActivity :
         offlineOperationNotificationManager.dismissNotification(id)
     }
 
-    private fun keepOfflineFolder(serverFile: OCFile?, offlineOperation: OfflineOperationEntity?) {
-        serverFile ?: return
+    private fun keepOfflineFolder(offlineOperation: OfflineOperationEntity?) {
+        file ?: return
         offlineOperation ?: return
 
         lifecycleScope.launch(Dispatchers.IO) {
             val client = clientRepository.getOwncloudClient() ?: return@launch
             val isSuccess = fileOperationHelper.removeFile(
-                serverFile,
+                file!!,
                 onlyLocalCopy = false,
                 inBackground = false,
                 client = client
@@ -194,52 +192,33 @@ class ConflictsResolveActivity :
         }
     }
 
-    private fun keepLocal(file: OCFile?, upload: OCUpload?, user: User) {
-        upload?.let {
-            FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
+    private fun uploadFileByDecision(upload: OCUpload?, user: User, policy: NameCollisionPolicy) {
+        if (upload == null) {
+            Log_OC.e(TAG, "upload is null cannot upload a new file")
+            return
         }
 
-        FileUploadHelper.instance().uploadUpdatedFile(
-            user,
-            arrayOf(file),
-            localBehaviour,
-            NameCollisionPolicy.OVERWRITE
-        )
-    }
+        FileUploadHelper.instance().run {
+            removeFileUpload(upload.remotePath, upload.accountName)
 
-    private fun keepBoth(file: OCFile?, upload: OCUpload?, user: User) {
-        upload?.let {
-            FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
-        }
-
-        FileUploadHelper.instance().uploadUpdatedFile(
-            user,
-            arrayOf(file),
-            localBehaviour,
-            NameCollisionPolicy.RENAME
-        )
-    }
-
-    private fun keepServer(file: OCFile?, upload: OCUpload?) {
-        if (!shouldDeleteLocal()) {
-            // Overwrite local file
-            file?.let {
-                FileDownloadHelper.instance().downloadFile(
-                    user.orElseThrow { RuntimeException() },
-                    file,
-                    conflictUploadId = conflictUploadId
+            if (policy != NameCollisionPolicy.SKIP) {
+                uploadUpdatedFile(
+                    user,
+                    arrayOf(file),
+                    localBehaviour,
+                    policy
                 )
             }
         }
+    }
 
-        upload?.let {
-            FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
-
-            UploadNotificationManager(
-                applicationContext,
-                viewThemeUtils,
-                upload.uploadId.toInt()
-            ).dismissOldErrorNotification(it.remotePath, it.localPath)
+    @Suppress("TooGenericExceptionCaught")
+    private suspend fun deleteLocalFileIfNeeded() = withContext(Dispatchers.IO) {
+        if (localBehaviour != FileUploadWorker.LOCAL_BEHAVIOUR_DELETE) return@withContext
+        try {
+            file?.storagePath?.toFile()?.delete()
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "local file deletion: ", e)
         }
     }
 
@@ -249,7 +228,6 @@ class ConflictsResolveActivity :
 
         outState.run {
             putLong(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
-            putParcelable(EXTRA_EXISTING_FILE, existingFile)
             putInt(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)
         }
     }
@@ -262,62 +240,111 @@ class ConflictsResolveActivity :
     override fun onStart() {
         super.onStart()
 
-        if (account == null) {
-            finish()
+        if (account == null || file == null) {
+            showErrorAndFinish()
             return
         }
 
-        if (newFile == null) {
-            Log_OC.e(TAG, "No file received")
-            finish()
-            return
+        if (offlineOperationPath != null) {
+            handleOfflineConflict(offlineOperationPath!!, file!!)
+        } else {
+            handleServerConflict()
         }
+    }
 
-        offlineOperationPath?.let { path ->
-            newFile?.let { ocFile ->
-                val offlineOperation = fileDataStorageManager.offlineOperationDao.getByPath(path)
+    private fun handleOfflineConflict(path: String, file: OCFile) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val offlineOperation = fileDataStorageManager.offlineOperationDao.getByPath(path)
+            if (offlineOperation == null) {
+                withContext(Dispatchers.Main) { showErrorAndFinish() }
+                return@launch
+            }
 
-                if (offlineOperation == null) {
-                    showErrorAndFinish()
-                    return
-                }
-
-                val (ft, _) = prepareDialog()
+            withContext(Dispatchers.Main) {
+                val ft = prepareDialog().first
                 val dialog = ConflictsResolveDialog.newInstance(
-                    context = this,
+                    context = this@ConflictsResolveActivity,
                     leftFile = offlineOperation,
-                    rightFile = ocFile
+                    rightFile = file
                 )
                 dialog.show(ft, "conflictDialog")
-                return
             }
         }
+    }
 
-        if (existingFile == null) {
-            val remotePath = fileDataStorageManager.retrieveRemotePathConsideringEncryption(newFile) ?: return
-            val operation = ReadFileRemoteOperation(remotePath)
+    private fun handleServerConflict() {
+        lifecycleScope.launch {
+            val resolved = withContext(Dispatchers.IO) {
+                resolveExistingFileFromDbOrServer()
+            }
 
-            @Suppress("TooGenericExceptionCaught")
-            lifecycleScope.launch(Dispatchers.IO) {
-                try {
-                    val result = operation.execute(account, this@ConflictsResolveActivity)
-                    if (result.isSuccess) {
-                        existingFile = FileStorageUtils.fillOCFile(result.data[0] as RemoteFile)
-                        existingFile?.lastSyncDateForProperties = System.currentTimeMillis()
-                        startDialog(remotePath)
-                    } else {
-                        Log_OC.e(TAG, "ReadFileRemoteOp returned failure with code: " + result.httpCode)
-                        showErrorAndFinish(result.httpCode)
-                    }
-                } catch (e: Exception) {
-                    Log_OC.e(TAG, "Error when trying to fetch remote file", e)
+            withContext(Dispatchers.Main) {
+                if (resolved == null) {
+                    Log_OC.e(TAG, "existing file cannot be resolved from DB or server")
                     showErrorAndFinish()
+                    return@withContext
                 }
+
+                existingFile = resolved
+
+                val remotePath = fileDataStorageManager
+                    .retrieveRemotePathConsideringEncryption(existingFile)
+
+                if (remotePath == null) {
+                    Log_OC.e(TAG, "failed to obtain remotePath for existing file")
+                    showErrorAndFinish()
+                    return@withContext
+                }
+
+                startDialog(remotePath)
             }
-        } else {
-            val remotePath = fileDataStorageManager.retrieveRemotePathConsideringEncryption(existingFile) ?: return
-            startDialog(remotePath)
         }
+    }
+
+    @Suppress("DEPRECATION", "TooGenericExceptionCaught", "ReturnCount")
+    private fun resolveExistingFileFromDbOrServer(): OCFile? {
+        val candidate = file ?: return null
+
+        val remotePath = try {
+            fileDataStorageManager.retrieveRemotePathConsideringEncryption(candidate)
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Error calculating decrypted remote path", e)
+            return null
+        } ?: return null
+
+        // check db first
+        var dbFile = fileDataStorageManager.getFileByDecryptedRemotePath(remotePath)
+        if (dbFile != null && dbFile.fileId != -1L) {
+            return dbFile
+        }
+
+        Log_OC.w(TAG, "DB entry missing for $remotePath → fetching from server…")
+
+        val account = account ?: return null
+        val result = try {
+            val op = ReadFileRemoteOperation(remotePath)
+            op.execute(account, this@ConflictsResolveActivity)
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Error calling ReadFileRemoteOperation", e)
+            return null
+        }
+
+        if (!result.isSuccess || result.data.isEmpty()) {
+            Log_OC.e(TAG, "Remote file fetch failed (http ${result.httpCode})")
+            return null
+        }
+
+        val remoteFile = result.data[0] as? RemoteFile ?: return null
+        dbFile = fileDataStorageManager.getFileByDecryptedRemotePath(remoteFile.remotePath)
+
+        if (dbFile != null && dbFile.fileId != -1L) {
+            dbFile.lastSyncDateForProperties = System.currentTimeMillis()
+            fileDataStorageManager.saveFile(dbFile)
+            return dbFile
+        }
+
+        Log_OC.e(TAG, "DB still missing entry for ${remoteFile.remotePath}")
+        return null
     }
 
     @SuppressLint("CommitTransaction")
@@ -341,11 +368,11 @@ class ConflictsResolveActivity :
     private fun startDialog(remotePath: String) {
         val (ft, user) = prepareDialog()
 
-        if (existingFile != null && storageManager.fileExists(remotePath) && newFile != null) {
+        if (existingFile != null && storageManager.fileExists(remotePath) && file != null) {
             val dialog = ConflictsResolveDialog.newInstance(
                 title = storageManager.getDecryptedPath(existingFile!!),
                 context = this,
-                leftFile = newFile!!,
+                leftFile = file!!,
                 rightFile = existingFile!!,
                 user = user
             )
@@ -371,11 +398,6 @@ class ConflictsResolveActivity :
         getString(R.string.conflict_dialog_error)
     }
 
-    /**
-     * @return whether the local version of the files is to be deleted.
-     */
-    private fun shouldDeleteLocal(): Boolean = localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
-
     companion object {
         /**
          * A nullable upload entry that must be removed when and if the conflict is resolved.
@@ -386,7 +408,6 @@ class ConflictsResolveActivity :
          * Specify the upload local behaviour when there is no CONFLICT_UPLOAD.
          */
         const val EXTRA_LOCAL_BEHAVIOUR = "LOCAL_BEHAVIOUR"
-        const val EXTRA_EXISTING_FILE = "EXISTING_FILE"
         private const val EXTRA_OFFLINE_OPERATION_PATH = "EXTRA_OFFLINE_OPERATION_PATH"
 
         private val TAG = ConflictsResolveActivity::class.java.simpleName
