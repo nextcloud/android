@@ -15,6 +15,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +26,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -212,6 +215,19 @@ public class SettingsActivity extends PreferenceActivity
         if (isApiLevel35OrHigher) {
             adjustTopMarginForActionBar();
         }
+    }
+
+    public static boolean onBackPressed = false;
+
+    @SuppressLint("GestureBackNavigation")
+    @Override
+    public void onBackPressed() {
+        onBackPressed = true;
+        super.onBackPressed();
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            Log_OC.d(TAG, "User returned from settings activity, reset onBackPressed flag.");
+            onBackPressed = false;
+        }, 2000);
     }
 
     private void adjustTopMarginForActionBar() {
