@@ -484,27 +484,26 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         return post.getResponseBodyAsString();
     }
 
-    private void launchDefaultWebBrowser(String url) {
-        if (url == null || url.isBlank()) {
-            DisplayUtils.showSnackMessage(this, R.string.invalid_url);
-            return;
-        }
-
-        try {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            PackageManager packageManager = getPackageManager();
-
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent);
-            } else {
-                DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_no_web_browser_found);
-            }
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Exception launchDefaultWebBrowser: " + e);
-            DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
-        }
+private void launchDefaultWebBrowser(String url) {
+    if (url == null || url.isBlank()) {
+        DisplayUtils.showSnackMessage(this, R.string.invalid_url);
+        return;
     }
+
+    try {
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        CustomTabsIntent customTabsIntent = builder.build();
+
+        customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        customTabsIntent.launchUrl(this, Uri.parse(url));
+
+        isRedirectedToTheDefaultBrowser = true;
+    } catch (Exception e) {
+        Log_OC.e(TAG, "Exception launchDefaultWebBrowser (CustomTab): " + e);
+        DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
+    }
+}
+
 
     private Pair<String, String> extractPollUrlAndToken() {
         if (authObject != null) {
