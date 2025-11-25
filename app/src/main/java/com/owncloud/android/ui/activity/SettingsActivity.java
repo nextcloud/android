@@ -54,6 +54,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -76,6 +77,7 @@ import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -374,6 +376,7 @@ public class SettingsActivity extends PreferenceActivity
 
         setupAutoUploadPreference(preferenceCategorySync);
         setupInternalTwoWaySyncPreference();
+        setupFullFileAccessPreference();
     }
 
     private void setupMoreCategory() {
@@ -616,6 +619,20 @@ public class SettingsActivity extends PreferenceActivity
         twoWaySync.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(this, InternalTwoWaySyncActivity.class);
             startActivity(intent);
+            return true;
+        });
+    }
+
+    private void setupFullFileAccessPreference() {
+        Preference fullFileAccessPref = findPreference("fullFileAccess");
+
+        PreferenceScreen screen = getPreferenceScreen();
+        if (PermissionUtil.checkFullFileAccess()) {
+            screen.removePreference(fullFileAccessPref);
+        }
+
+        fullFileAccessPref.setOnPreferenceClickListener(preference -> {
+            ContextExtensionsKt.openAllFilesAccessSettings(this);
             return true;
         });
     }

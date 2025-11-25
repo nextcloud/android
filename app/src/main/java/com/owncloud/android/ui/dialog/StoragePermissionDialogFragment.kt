@@ -40,8 +40,14 @@ class StoragePermissionDialogFragment :
     @Inject
     lateinit var preferences: AppPreferences
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isCancelable = false
+    }
+
     override fun onStart() {
         super.onStart()
+        dialog?.setCanceledOnTouchOutside(false)
         dialog?.let {
             val alertDialog = it as AlertDialog
 

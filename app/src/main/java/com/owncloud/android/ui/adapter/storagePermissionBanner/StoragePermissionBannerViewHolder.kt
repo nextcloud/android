@@ -9,14 +9,14 @@ package com.owncloud.android.ui.adapter.storagePermissionBanner
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.R
 import com.owncloud.android.databinding.StoragePermissionWarningBannerBinding
 
-class StoragePermissionBannerViewHolder(itemView: View, private val appPreferences: AppPreferences) :
+class StoragePermissionBannerViewHolder(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
     init {
         StoragePermissionWarningBannerBinding.bind(itemView).apply {
-            setup(appPreferences)
+            setup(R.string.storage_permission_banner_upload_text)
         }
     }
 }

@@ -184,8 +184,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private boolean shouldShowHeader() {
-        return !PermissionUtil.checkStoragePermission(mContext)
-            && preferences.showStoragePermissionBanner();
+        return !PermissionUtil.checkStoragePermission(mContext);
     }
 
     @Override
@@ -355,7 +354,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             case VIEWTYPE_HEADER:
                 View headerItemView = LayoutInflater.from(mContext).inflate(R.layout.storage_permission_warning_banner, parent, false);
-                return new StoragePermissionBannerViewHolder(headerItemView, preferences);
+                return new StoragePermissionBannerViewHolder(headerItemView);
             default:
                 throw new IllegalArgumentException("Invalid viewType: " + viewType);
         }

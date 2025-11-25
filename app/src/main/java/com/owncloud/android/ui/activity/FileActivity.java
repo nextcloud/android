@@ -27,7 +27,6 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
@@ -88,7 +87,6 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.events.DialogEvent;
 import com.owncloud.android.ui.events.DialogEventType;
-import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -101,7 +99,6 @@ import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -200,11 +197,6 @@ public abstract class FileActivity extends DrawerActivity
     private FilesRepository filesRepository;
 
     private final ActivityResultLauncher<Intent> manageAllFilesLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (Environment.isExternalStorageManager()) {
-            // User granted MANAGE_EXTERNAL_STORAGE
-            // Now request media permissions to get MEDIA_LOCATION
-            PermissionUtil.INSTANCE.requestRequiredStoragePermissions(this);
-        }
     });
 
     public ActivityResultLauncher<Intent> getManageAllFilesLauncher() {

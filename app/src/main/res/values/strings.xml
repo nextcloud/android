@@ -120,6 +120,10 @@
     <string name="prefs_daily_backup_summary">Daily backup of your calendar and contacts</string>
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
     <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
+
+    <string name="prefs_full_file_access_title">Full File Access</string>
+    <string name="prefs_full_file_access_summary">Allow the app to access and manage all files on your device.</string>
+
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to a friend</string>
     <string name="prefs_imprint">Imprint</string>
@@ -465,6 +469,7 @@
     <string name="ssl_validator_null_cert">The certificate could not be shown.</string>
     <string name="ssl_validator_no_info_about_error">- No information about the error</string>
 
+    <string name="placeholder_storage_permission_banner_text" translatable="false">Storage permission is required for Auto-upload and file uploads.</string>
     <string name="placeholder_timestamp" translatable="false">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time" translatable="false">12:23:45</string>
     <string name="placeholder_sentence" translatable="false">This is a placeholder</string>
@@ -1290,7 +1295,8 @@
     <string name="no_actions">No actions for this user</string>
     <string name="search_error">Error getting search results</string>
     <string name="load_more_results">Load more results</string>
-    <string name="storage_permission_banner_text">Storage permission is required for Auto-upload and file uploads.</string>
+    <string name="storage_permission_banner_auto_upload_text">Storage permission is required for Auto-upload.</string>
+    <string name="storage_permission_banner_upload_text">Storage permission is required for file uploads.</string>
     <string name="file_management_permission_optional">Storage permissions</string>
     <string name="file_management_permission_optional_text">%1$s works best with permissions to access storage. You can choose full access to all files, or read-only access to photos and videos.</string>
     <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
@@ -1301,7 +1307,6 @@
     <string name="error_creating_file_from_template">Error creating file from template</string>
     <string name="no_send_app">No app available for sending the selected files</string>
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
-    <string name="storage_permission_dont_show_again">Don\'t show again</string>
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_permission_dont_ask">Don\'t ask</string>

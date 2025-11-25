@@ -206,13 +206,10 @@ class SyncedFoldersActivity :
     private fun setupStoragePermissionWarningBanner() {
         val storagePermissionWarningBanner = binding.storagePermissionWarningBanner.root
         StoragePermissionWarningBannerBinding.bind(storagePermissionWarningBanner).apply {
-            setup(appPreferences)
+            setup(R.string.storage_permission_banner_auto_upload_text)
         }
-        storagePermissionWarningBanner.setVisibleIf(shouldShowStoragePermissionWarningBanner())
+        storagePermissionWarningBanner.setVisibleIf(!PermissionUtil.checkStoragePermission(this))
     }
-
-    private fun shouldShowStoragePermissionWarningBanner(): Boolean = !PermissionUtil.checkStoragePermission(this) &&
-        preferences.showStoragePermissionBanner()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater

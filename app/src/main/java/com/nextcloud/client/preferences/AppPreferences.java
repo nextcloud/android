@@ -376,10 +376,6 @@ public interface AppPreferences {
 
     void setStoragePermissionRequested(boolean value);
 
-    boolean showStoragePermissionBanner();
-
-    void setShowStoragePermissionBanner(boolean value);
-
     void setInAppReviewData(@NonNull AppReviewShownModel appReviewShownModel);
 
     @Nullable

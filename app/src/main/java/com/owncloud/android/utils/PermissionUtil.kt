@@ -171,6 +171,7 @@ object PermissionUtil {
     @JvmStatic
     fun checkStoragePermission(context: Context): Boolean = checkFullFileAccess() || checkMediaAccess(context)
 
+    @JvmStatic
     fun checkFullFileAccess(): Boolean =
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()
 
@@ -183,16 +184,19 @@ object PermissionUtil {
         else -> getLegacyStoragePermissions()
     }
 
+    @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     private fun getApiLevel34StoragePermissions(): Array<String> = listOf(
         Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
     ).plus(getApiLevel33StoragePermissions()).toTypedArray()
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun getApiLevel33StoragePermissions(): Array<String> = listOf(
         Manifest.permission.READ_MEDIA_IMAGES,
         Manifest.permission.READ_MEDIA_VIDEO,
         Manifest.permission.ACCESS_MEDIA_LOCATION
     ).toTypedArray()
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun getApiLevel29StoragePermissions(): Array<String> = listOf(
         Manifest.permission.ACCESS_MEDIA_LOCATION
     ).plus(getLegacyStoragePermissions()).toTypedArray()

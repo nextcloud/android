@@ -7,26 +7,25 @@
 package com.owncloud.android.ui.adapter.storagePermissionBanner
 
 import android.view.View
-import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.BuildHelper.isFlavourGPlay
 import com.nextcloud.utils.extensions.openAllFilesAccessSettings
 import com.nextcloud.utils.extensions.openMediaPermissions
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.owncloud.android.MainApp
 import com.owncloud.android.databinding.StoragePermissionWarningBannerBinding
 import com.owncloud.android.utils.PermissionUtil
 
-fun StoragePermissionWarningBannerBinding.setup(appPreferences: AppPreferences) {
+fun StoragePermissionWarningBannerBinding.setup(descriptionId: Int) {
     val context = this.root.context
 
-    fullFileAccess.setVisibleIf(!PermissionUtil.checkFullFileAccess())
+    description.text = context.getString(descriptionId)
+
+    val isBrandedAndFlavourGplay = (MainApp.isClientBranded() && isFlavourGPlay())
+    fullFileAccess.setVisibleIf(!PermissionUtil.checkFullFileAccess() && !isBrandedAndFlavourGplay)
     fullFileAccess.setOnClickListener { context.openAllFilesAccessSettings() }
 
     mediaReadOnly.setVisibleIf(!PermissionUtil.checkMediaAccess(context))
     mediaReadOnly.setOnClickListener { context.openMediaPermissions() }
-
-    dontShowStoragePermissionBanner.setOnClickListener {
-        root.visibility = View.GONE
-        appPreferences.setShowStoragePermissionBanner(false)
-    }
 
     root.visibility = if (PermissionUtil.checkFullFileAccess() || PermissionUtil.checkMediaAccess(context)) {
         View.GONE

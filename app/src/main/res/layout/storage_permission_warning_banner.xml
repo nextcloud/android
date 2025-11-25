@@ -6,6 +6,7 @@
   -->
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -36,11 +37,12 @@
                 app:tint="@color/log_level_warning" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="@string/storage_permission_banner_text"
+                tools:text="@string/placeholder_storage_permission_banner_text"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textColor="@color/text_color" />
         </LinearLayout>
@@ -50,14 +52,6 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/dontShowStoragePermissionBanner"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:textColor="@color/highlight_textColor_Warning"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/storage_permission_dont_show_again" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mediaReadOnly"

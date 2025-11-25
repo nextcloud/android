@@ -79,6 +79,11 @@
             android:title="@string/internal_two_way_sync"
             android:key="internal_two_way_sync"
             android:summary="@string/prefs_two_way_sync_summary" />
+
+        <Preference
+            android:title="@string/prefs_full_file_access_title"
+            android:key="fullFileAccess"
+            android:summary="@string/prefs_full_file_access_summary" />
     </PreferenceCategory>
 
 	<PreferenceCategory
