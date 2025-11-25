@@ -9,7 +9,11 @@
         "dependencies",
         "3. to review"
     ],
-    autoApprove: true,
+	"schedule": [
+		"before 5am on monday"
+	],
+	"rebaseWhen": "conflicted",
+    "autoApprove": true,
     "automerge": true,
     "automergeType": "pr"
 }

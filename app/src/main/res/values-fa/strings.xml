@@ -312,6 +312,7 @@
     <string name="etm_transfer_type">انتقال</string>
     <string name="etm_transfer_type_download">بارگیری</string>
     <string name="etm_transfer_type_upload">بارگذاری</string>
+    <string name="external_shares">اشتراک خارجی</string>
     <string name="fab_label">اضافه یا بارگذاری کنید</string>
     <string name="failed_to_download">ارسال فایل برای مدیر بارگیری انجام نشد</string>
     <string name="failed_to_print">چاپ پرونده انجام نشد</string>
@@ -435,6 +436,7 @@
     <string name="instant_upload_existing">فایل های موجود را نیز بارگذاری کنید</string>
     <string name="instant_upload_on_charging">فقط هنگامی که گوشی شارژ می شود آپلود کنید</string>
     <string name="instant_upload_path">آپلود فوری</string>
+    <string name="internal_shares">اشتراک داخلی</string>
     <string name="invalid_url">نشانی وب نامعتبر است</string>
     <string name="invisible">نامرئی</string>
     <string name="label_empty">برچسب نمی تواند خالی باشد</string>
@@ -681,6 +683,7 @@
     <string name="set_picture_as">استفاده از تصویر به عنوان</string>
     <string name="setup_e2e">در طول راه اندازی رمزگذاری سرتاسری، یک یادگاری تصادفی ۱۲ کلمه‌ای دریافت خواهید کرد که باید فایل‌های خود را در دستگاه‌های دیگر باز کنید. این فقط در این دستگاه ذخیره می شود و می تواند دوباره در این صفحه نمایش داده شود. لطفا آن را در یک مکان امن یادداشت کنید!</string>
     <string name="share">هم‌رسانی</string>
+    <string name="share_allow_download_and_sync_permission">اجازه دانلود و همگام‌سازی</string>
     <string name="share_create_permission">ایجاد</string>
     <string name="share_custom_permission">Custom permissions</string>
     <string name="share_delete_permission">حذف</string>
@@ -706,6 +709,7 @@
     <string name="share_no_password_title">تنظیم گذرواژه</string>
     <string name="share_not_allowed_when_file_drop">اشتراک‌گذاری مجدد در حین ارائه فایل به صورت امن امکان‌پذیر نمی‌باشد</string>
     <string name="share_permission_can_edit">توانایی ویرایش</string>
+    <string name="share_permission_file_request">درخواست فایل</string>
     <string name="share_permission_secure_file_drop">دراپ فایل امن</string>
     <string name="share_permission_view_only">تنها مشاهده</string>
     <string name="share_re_share_permission">اشتراک‌گذاری</string>
