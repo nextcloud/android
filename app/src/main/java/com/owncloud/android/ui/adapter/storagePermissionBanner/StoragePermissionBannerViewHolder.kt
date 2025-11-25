@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.R
 import com.owncloud.android.databinding.StoragePermissionWarningBannerBinding
 
-class StoragePermissionBannerViewHolder(itemView: View) :
-    RecyclerView.ViewHolder(itemView) {
+class StoragePermissionBannerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     init {
         StoragePermissionWarningBannerBinding.bind(itemView).apply {
             setup(R.string.storage_permission_banner_upload_text)
