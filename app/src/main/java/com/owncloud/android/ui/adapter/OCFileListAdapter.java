@@ -47,6 +47,7 @@ import com.owncloud.android.databinding.ListHeaderBinding;
 import com.owncloud.android.databinding.ListItemBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.OCFileListAdapterDataProviderImpl;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
@@ -58,6 +59,7 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.helper.OCFileListAdapterDataProvider;
 import com.owncloud.android.ui.adapter.helper.OCFileListAdapterHelper;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
@@ -107,6 +109,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean gridView;
     public ArrayList<String> listOfHiddenFiles = new ArrayList<>();
     private FileDataStorageManager mStorageManager;
+    private OCFileListAdapterDataProvider adapterDataProvider;
     private User user;
     private final OCFileListFragmentInterface ocFileListFragmentInterface;
     private final boolean isRTL;
@@ -160,6 +163,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (mStorageManager == null) {
             mStorageManager = new FileDataStorageManager(user, activity.getContentResolver());
         }
+
+        adapterDataProvider = new OCFileListAdapterDataProviderImpl(mStorageManager);
 
         userId = AccountManager
             .get(activity)
@@ -850,6 +855,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (!updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
+            adapterDataProvider = new OCFileListAdapterDataProviderImpl(mStorageManager);
             ocFileListDelegate.setShowShareAvatar(true);
             this.user = account;
         }
@@ -860,7 +866,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         helper.prepareFileList(directory,
-                               updatedStorageManager,
+                               adapterDataProvider,
                                onlyOnDevice,
                                limitToMimeType,
                                preferences,
@@ -907,6 +913,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 : new FileDataStorageManager(user, activity.getContentResolver());
 
             if (storageManager != null) {
+                adapterDataProvider = new OCFileListAdapterDataProviderImpl(mStorageManager);
                 ocFileListDelegate.setShowShareAvatar(true);
             }
         }
