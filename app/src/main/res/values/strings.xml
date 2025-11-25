@@ -6,7 +6,7 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <resources>
-    <string name="bottom_navigation_menu_files_label">All Files</string>
+    <string name="bottom_navigation_menu_files_label">All files</string>
     <string name="bottom_navigation_menu_favorites_label">Favorites</string>
     <string name="bottom_navigation_menu_assistant_label">Assistant</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
@@ -120,7 +120,7 @@
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar and contacts sync set up</string>
     <string name="prefs_daily_backup_summary">Daily backup of your calendar and contacts</string>
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
-    <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
+    <string name="prefs_synced_folders_summary">Manage folders for auto upload</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to a friend</string>
     <string name="prefs_imprint">Imprint</string>
@@ -243,7 +243,7 @@
     <string name="folder_download_success_notification_title">%s folder successfully synchronized</string>
     <string name="folder_download_error_notification_title">An error occurred during synchronization of the %s folder</string>
     <string name="folder_download_counter">%1$d of %2$d &#183; %3$s</string>
-    <string name="folder_download_insufficient_disk_space_notification_title">Insufficient disk space, synchronization canceled</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Insufficient disk space, synchronization cancelled</string>
 
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
@@ -285,7 +285,7 @@
     <string name="downloader_download_failed_ticker">Download failed</string>
     <string name="downloader_download_failed_content">Could not download %1$s</string>
     <string name="downloader_not_downloaded_yet">Not downloaded yet</string>
-    <string name="downloader_file_download_cancelled">Certain files were canceled during the download by user</string>
+    <string name="downloader_file_download_cancelled">Certain files were cancelled during the download by user</string>
     <string name="downloader_file_download_failed">Error occurred while downloading files</string>
     <string name="downloader_unexpected_error">Unexpected error occurred while downloading files</string>
     <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
@@ -1032,7 +1032,7 @@
     <string name="no_browser_available">No app available to handle links</string>
     <string name="no_pdf_app_available">No App available to handle PDF</string>
     <string name="no_email_app_available">No App available to handle mail address</string>
-    <string name="no_map_app_availble">No App available to handle maps</string>
+    <string name="no_map_app_available">No App available to handle maps</string>
     <string name="share_via_link_hide_download">Hide download</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="grid_file_features_live_photo_content_description">This icon indicates availability of live photo</string>
@@ -1455,7 +1455,7 @@
     <string name="document_storage_provider_cannot_create_file_inside_folder">Can’t create file: missing permission.</string>
     <string name="document_storage_provider_cannot_create_folder_inside_folder">Can’t create folder: missing permission.</string>
     <string name="link_not_followed_due_to_security_settings">Link not followed due to security settings.</string>
-    <string name="extented_list_fragment_empty_list_message_no_write_permission">You don’t have permission to create or upload files in this folder.</string>
+    <string name="extended_list_fragment_empty_list_message_no_write_permission">You don’t have permission to create or upload files in this folder.</string>
     <string name="busy">Busy</string>
     <string name="mute_all_notifications">Mute all notifications</string>
     <string name="appear_offline">Appear offline</string>
