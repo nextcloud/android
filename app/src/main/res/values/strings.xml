@@ -121,8 +121,8 @@
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
     <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
 
-    <string name="prefs_full_file_access_title">Full File Access</string>
-    <string name="prefs_full_file_access_summary">Allow the app to access and manage all files on your device.</string>
+    <string name="prefs_all_files_access_title">All files access</string>
+    <string name="prefs_all_files_access_summary">Allow the app to access and manage all files on your device.</string>
 
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to a friend</string>

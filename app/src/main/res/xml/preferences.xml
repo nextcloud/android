@@ -81,9 +81,9 @@
             android:summary="@string/prefs_two_way_sync_summary" />
 
         <Preference
-            android:title="@string/prefs_full_file_access_title"
-            android:key="fullFileAccess"
-            android:summary="@string/prefs_full_file_access_summary" />
+            android:title="@string/prefs_all_files_access_title"
+            android:key="allFilesAccess"
+            android:summary="@string/prefs_all_files_access_summary" />
     </PreferenceCategory>
 
 	<PreferenceCategory
