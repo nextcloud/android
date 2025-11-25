@@ -31,7 +31,7 @@
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Pending operation</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
-    <string name="unexpected_error_occurred">Unexpected error occurred</string>
+    <string name="unexpected_error_occurred">Unexpected error occurred</strin
     <string name="app_config_disable_multiaccount_title">Disable Multi Account</string>
     <string name="app_config_disable_sharing_title">Disable Sharing</string>
     <string name="app_config_disable_clipboard_title">Disable Clipboard</string>
@@ -42,7 +42,7 @@
     <string name="app_config_proxy_host_title">Proxy Hostname</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
     <string name="app_config_enforce_protection_title">Enforce Protection</string>
-    <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
+    <string name="offline_operations_file_does_not_exists_yet">File does not exist yet. Please upload the file first.</string>
 
     <string name="offline_operations_worker_notification_remove_conflict_text">Cancelled deletion of %s. The file has been modified on the server.</string>
     <string name="offline_operations_worker_notification_rename_conflict_text">Cancelled rename of %s. A file with the same name exists on the server.</string>
