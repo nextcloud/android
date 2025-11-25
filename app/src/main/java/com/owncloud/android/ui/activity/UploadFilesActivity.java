@@ -308,36 +308,69 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         return super.onCreateOptionsMenu(menu);
     }
 
+    private static final String rootDir = "/storage/emulated/0";
+
+    private boolean isRoot() {
+        if (mCurrentDir == null) {
+            return false;
+        }
+
+        return mCurrentDir.getAbsolutePath().equals(rootDir);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval = true;
         int itemId = item.getItemId();
 
         if (itemId == android.R.id.home) {
-            if (!PermissionUtil.checkStoragePermission(this)) {
-                setResult(RESULT_CANCELED);
-                finish();
-            } else if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
-                getOnBackPressedDispatcher().onBackPressed();
-            }
-        } else if (itemId == R.id.action_select_all) {
+            handleHomePressed();
+            return true;
+        }
+
+        if (itemId == R.id.action_select_all) {
             mSelectAll = !item.isChecked();
             item.setChecked(mSelectAll);
             mFileListFragment.selectAllFiles(mSelectAll);
             setSelectAllMenuItem(item, mSelectAll);
-        } else if (itemId == R.id.action_choose_storage_path) {
-            showLocalStoragePathPickerDialog();
-        } else {
-            retval = super.onOptionsItemSelected(item);
+            return true;
         }
 
-        return retval;
+        if (itemId == R.id.action_choose_storage_path) {
+            showLocalStoragePathPickerDialog();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void cancelAndFinish() {
+        setResult(RESULT_CANCELED);
+        finish();
+    }
+
+    private void handleHomePressed() {
+        boolean root = isRoot();
+        boolean hasPermission = PermissionUtil.checkStoragePermission(this);
+
+        if (root && !hasPermission) {
+            cancelAndFinish();
+            return;
+        }
+
+        if (mCurrentDir == null || mCurrentDir.getParentFile() == null) {
+            return;
+        }
+
+        if (root) {
+            cancelAndFinish();
+        } else {
+            getOnBackPressedDispatcher().onBackPressed();
+        }
     }
 
     private void showLocalStoragePathPickerDialog() {
         if (!PermissionUtil.checkStoragePermission(this)) {
-            setResult(RESULT_CANCELED);
-            finish();
+            cancelAndFinish();
             return;
         }
 
@@ -634,9 +667,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.upload_files_btn_cancel) {
-            setResult(RESULT_CANCELED);
-            finish();
-
+            cancelAndFinish();
         } else if (v.getId() == R.id.upload_files_btn_upload && PermissionUtil.checkStoragePermission(this)) {
             if (mCurrentDir != null) {
                 preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
@@ -734,8 +765,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         super.onStart();
         final Account account = getAccount();
         if (mAccountOnCreation == null || !mAccountOnCreation.equals(account)) {
-            setResult(RESULT_CANCELED);
-            finish();
+            cancelAndFinish();
         }
     }
 
