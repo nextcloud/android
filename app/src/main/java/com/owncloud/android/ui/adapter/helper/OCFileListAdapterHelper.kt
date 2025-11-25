@@ -13,7 +13,6 @@ import com.nextcloud.utils.extensions.filterFilenames
 import com.nextcloud.utils.extensions.isTempFile
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.utils.FileSortOrder
@@ -33,7 +32,7 @@ class OCFileListAdapterHelper {
     @Suppress("LongParameterList")
     fun prepareFileList(
         directory: OCFile,
-        storageManager: FileDataStorageManager,
+        dataProvider: OCFileListAdapterDataProvider,
         onlyOnDevice: Boolean,
         limitToMimeType: String,
         preferences: AppPreferences,
@@ -41,66 +40,83 @@ class OCFileListAdapterHelper {
         onComplete: (List<OCFile>, FileSortOrder) -> Unit
     ) {
         job = scope.launch {
-            val showHiddenFiles = preferences.isShowHiddenFilesEnabled()
-            val hasMimeTypeFilter = limitToMimeType.isNotEmpty()
-            val isRootAndPersonalOnly = (OCFile.ROOT_PATH == directory.remotePath && MainApp.isOnlyPersonFiles())
-            val isSharedView = (DrawerActivity.menuItemId == R.id.nav_shared)
-            val isFavoritesView = (DrawerActivity.menuItemId == R.id.nav_favorites)
-
-            val rawResult = getFolderContent(directory, storageManager, onlyOnDevice)
-            val filtered = ArrayList<OCFile>(rawResult.size)
-
-            for (file in rawResult) {
-                if (!showHiddenFiles && file.isHidden) {
-                    continue
-                }
-
-                if (hasMimeTypeFilter && !(file.isFolder || file.mimeType.startsWith(limitToMimeType))) {
-                    continue
-                }
-
-                if (isRootAndPersonalOnly) {
-                    val isPersonal = file.ownerId?.let { ownerId ->
-                        ownerId == userId && !file.isSharedWithMe && !file.mounted()
-                    } == true
-
-                    if (!isPersonal) {
-                        continue
-                    }
-                }
-
-                if (isSharedView && !file.isShared) {
-                    continue
-                }
-
-                if (isFavoritesView && !file.isFavorite) {
-                    continue
-                }
-
-                if (file.isTempFile()) {
-                    continue
-                }
-
-                filtered.add(file)
-            }
-
-            val afterFilenameFilter = filtered.filterFilenames()
-            val merged = mergeOCFilesForLivePhoto(afterFilenameFilter)
-            val finalList = addOfflineOperations(merged, directory.fileId, storageManager)
-            val (sortedList, sortOrder) = sortData(directory, finalList, preferences)
-
+            val (sortedList, sortOrder) = prepareFileList(
+                directory,
+                dataProvider,
+                onlyOnDevice,
+                limitToMimeType,
+                preferences,
+                userId
+            )
             withContext(Dispatchers.Main) {
                 onComplete(sortedList, sortOrder)
             }
         }
     }
 
+    suspend fun prepareFileList(
+        directory: OCFile,
+        dataProvider: OCFileListAdapterDataProvider,
+        onlyOnDevice: Boolean,
+        limitToMimeType: String,
+        preferences: AppPreferences,
+        userId: String
+    ): Pair<List<OCFile>, FileSortOrder> {
+        val showHiddenFiles = preferences.isShowHiddenFilesEnabled()
+        val hasMimeTypeFilter = limitToMimeType.isNotEmpty()
+        val isRootAndPersonalOnly = (OCFile.ROOT_PATH == directory.remotePath && MainApp.isOnlyPersonFiles())
+        val isSharedView = (DrawerActivity.menuItemId == R.id.nav_shared)
+        val isFavoritesView = (DrawerActivity.menuItemId == R.id.nav_favorites)
+
+        val rawResult = getFolderContent(directory, dataProvider, onlyOnDevice)
+        val filtered = ArrayList<OCFile>(rawResult.size)
+
+        for (file in rawResult) {
+            if (!showHiddenFiles && file.isHidden) {
+                continue
+            }
+
+            if (hasMimeTypeFilter && !(file.isFolder || file.mimeType.startsWith(limitToMimeType))) {
+                continue
+            }
+
+            if (isRootAndPersonalOnly) {
+                val isPersonal = file.ownerId?.let { ownerId ->
+                    ownerId == userId && !file.isSharedWithMe && !file.mounted()
+                } == true
+
+                if (!isPersonal) {
+                    continue
+                }
+            }
+
+            if (isSharedView && !file.isShared) {
+                continue
+            }
+
+            if (isFavoritesView && !file.isFavorite) {
+                continue
+            }
+
+            if (file.isTempFile()) {
+                continue
+            }
+
+            filtered.add(file)
+        }
+
+        val afterFilenameFilter = filtered.filterFilenames()
+        val merged = mergeOCFilesForLivePhoto(afterFilenameFilter)
+        val finalList = addOfflineOperations(merged, directory.fileId, dataProvider)
+        return sortData(directory, finalList, preferences)
+    }
+
     private fun addOfflineOperations(
         files: List<OCFile>,
         fileId: Long,
-        storageManager: FileDataStorageManager
+        dataProvider: OCFileListAdapterDataProvider
     ): List<OCFile> {
-        val offlineOperations = storageManager.offlineOperationsRepository.convertToOCFiles(fileId)
+        val offlineOperations = dataProvider.convertToOCFiles(fileId)
         if (offlineOperations.isEmpty()) return files
 
         val newFiles = offlineOperations.filter { offlineFile ->
@@ -128,6 +144,7 @@ class OCFileListAdapterHelper {
                             nextFile.livePhotoVideo = file
                             filesToRemove.add(file)
                         }
+
                         MimeTypeUtil.isVideo(nextFile.mimeType) -> {
                             file.livePhotoVideo = nextFile
                             filesToRemove.add(nextFile)
@@ -156,17 +173,17 @@ class OCFileListAdapterHelper {
 
     private suspend fun getFolderContent(
         ocFile: OCFile,
-        storageManager: FileDataStorageManager,
+        dataProvider: OCFileListAdapterDataProvider,
         onlyOnDevice: Boolean
     ): List<OCFile> = withContext(Dispatchers.IO) {
         if (!ocFile.isFolder || !ocFile.fileExists()) {
             return@withContext emptyList()
         }
 
-        val fileEntities: List<FileEntity> = storageManager.fileDao.getFolderContentSuspended(ocFile.fileId)
+        val fileEntities: List<FileEntity> = dataProvider.getFolderContent(ocFile.fileId)
 
         return@withContext fileEntities.mapNotNull { fileEntity ->
-            val file = storageManager.createFileInstance(fileEntity)
+            val file = dataProvider.createFileInstance(fileEntity)
             if (!onlyOnDevice || file.existsOnDevice()) {
                 file
             } else {
