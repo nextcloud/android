@@ -31,7 +31,7 @@
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Pending operation</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
-    <string name="unexpected_error_occurred">Unexpected error occurred</strin
+    <string name="unexpected_error_occurred">Unexpected error occurred</string>
     <string name="app_config_disable_multiaccount_title">Disable Multi Account</string>
     <string name="app_config_disable_sharing_title">Disable Sharing</string>
     <string name="app_config_disable_clipboard_title">Disable Clipboard</string>
