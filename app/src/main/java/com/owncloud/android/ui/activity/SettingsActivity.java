@@ -376,7 +376,7 @@ public class SettingsActivity extends PreferenceActivity
 
         setupAutoUploadPreference(preferenceCategorySync);
         setupInternalTwoWaySyncPreference();
-        setupFullFileAccessPreference();
+        setupFullFileAccessPreference(preferenceCategorySync);
     }
 
     private void setupMoreCategory() {
@@ -623,15 +623,14 @@ public class SettingsActivity extends PreferenceActivity
         });
     }
 
-    private void setupFullFileAccessPreference() {
+    private void setupFullFileAccessPreference(PreferenceCategory category) {
         Preference allFilesAccess = findPreference("allFilesAccess");
 
-        PreferenceScreen screen = getPreferenceScreen();
         if (PermissionUtil.checkFullFileAccess()) {
-            screen.removePreference(allFilesAccess);
+            category.removePreference(allFilesAccess);
         } else {
             if (allFilesAccess.getParent() == null) {
-                screen.addPreference(allFilesAccess);
+                category.addPreference(allFilesAccess);
             }
         }
 
