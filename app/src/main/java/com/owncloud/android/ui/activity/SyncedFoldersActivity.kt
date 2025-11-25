@@ -203,10 +203,10 @@ class SyncedFoldersActivity :
         setupStoragePermissionWarningBanner()
     }
 
-    private fun setupStoragePermissionWarningBanner() {
+    fun setupStoragePermissionWarningBanner() {
         val storagePermissionWarningBanner = binding.storagePermissionWarningBanner.root
         StoragePermissionWarningBannerBinding.bind(storagePermissionWarningBanner).apply {
-            setup(R.string.storage_permission_banner_auto_upload_text)
+            setup(this@SyncedFoldersActivity, R.string.storage_permission_banner_auto_upload_text)
         }
         storagePermissionWarningBanner.setVisibleIf(!PermissionUtil.checkStoragePermission(this))
     }

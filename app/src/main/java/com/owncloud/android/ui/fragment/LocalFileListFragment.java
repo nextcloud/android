@@ -9,6 +9,7 @@
  */
 package com.owncloud.android.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -420,5 +421,8 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         boolean isWithinEncryptedFolder();
     }
 
-
+    @SuppressLint("NotifyDataSetChanged")
+    public void setupStoragePermissionWarningBanner() {
+        mAdapter.notifyDataSetChanged();
+    }
 }

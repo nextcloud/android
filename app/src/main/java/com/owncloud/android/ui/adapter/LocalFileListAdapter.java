@@ -10,6 +10,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -57,7 +58,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final String TAG = LocalFileListAdapter.class.getSimpleName();
 
     private final AppPreferences preferences;
-    private Context mContext;
+    private final Activity mContext;
     private List<File> mFiles = new ArrayList<>();
     private List<File> mFilesAll = new ArrayList<>();
     private boolean mLocalFolderPicker;
@@ -78,7 +79,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     public LocalFileListAdapter(boolean localFolderPickerMode,
                                 LocalFileListFragmentInterface localFileListFragmentInterface,
                                 AppPreferences preferences,
-                                Context context,
+                                Activity context,
                                 final ViewThemeUtils viewThemeUtils,
                                 boolean isWithinEncryptedFolder) {
         this.preferences = preferences;
@@ -354,7 +355,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             case VIEWTYPE_HEADER:
                 View headerItemView = LayoutInflater.from(mContext).inflate(R.layout.storage_permission_warning_banner, parent, false);
-                return new StoragePermissionBannerViewHolder(headerItemView);
+                return new StoragePermissionBannerViewHolder(mContext, headerItemView);
             default:
                 throw new IllegalArgumentException("Invalid viewType: " + viewType);
         }

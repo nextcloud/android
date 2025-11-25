@@ -87,6 +87,7 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.events.DialogEvent;
 import com.owncloud.android.ui.events.DialogEventType;
+import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -109,8 +110,6 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -195,13 +194,6 @@ public abstract class FileActivity extends DrawerActivity
     private NetworkChangeReceiver networkChangeReceiver;
 
     private FilesRepository filesRepository;
-
-    private final ActivityResultLauncher<Intent> manageAllFilesLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-    });
-
-    public ActivityResultLauncher<Intent> getManageAllFilesLauncher() {
-        return manageAllFilesLauncher;
-    }
 
     private void registerNetworkChangeReceiver() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);

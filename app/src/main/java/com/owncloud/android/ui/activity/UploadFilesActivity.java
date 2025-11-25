@@ -789,4 +789,10 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
         super.onStop();
     }
+
+    public void setupStoragePermissionWarningBanner() {
+        if (getListOfFilesFragment() instanceof LocalFileListFragment fragment) {
+            fragment.setupStoragePermissionWarningBanner();
+        }
+    }
 }

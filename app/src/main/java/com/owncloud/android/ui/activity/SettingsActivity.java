@@ -95,6 +95,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
+import static com.owncloud.android.ui.activity.DrawerActivity.REQ_ALL_FILES_ACCESS;
+
 /**
  * An Activity that allows the user to change the application's settings.
  * It proxies the necessary calls via {@link androidx.appcompat.app.AppCompatDelegate} to be used with AppCompat.
@@ -635,7 +637,7 @@ public class SettingsActivity extends PreferenceActivity
         }
 
         allFilesAccess.setOnPreferenceClickListener(preference -> {
-            ContextExtensionsKt.openAllFilesAccessSettings(this);
+            ContextExtensionsKt.openAllFilesAccessSettings(this, REQ_ALL_FILES_ACCESS);
             return true;
         });
     }
@@ -1087,6 +1089,9 @@ public class SettingsActivity extends PreferenceActivity
                 storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
             }
+        } else if (requestCode == REQ_ALL_FILES_ACCESS) {
+            final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
+            setupFullFileAccessPreference(preferenceCategorySync);
         }
     }
 
