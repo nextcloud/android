@@ -120,7 +120,7 @@
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar and contacts sync set up</string>
     <string name="prefs_daily_backup_summary">Daily backup of your calendar and contacts</string>
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
-    <string name="prefs_synced_folders_summary">Manage folders for auto upload</string>
+    <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to a friend</string>
     <string name="prefs_imprint">Imprint</string>
@@ -343,7 +343,7 @@
         <item quantity="one">You can upload only %d file at once.</item>
         <item quantity="other">You can upload up to %d files at once.</item>
     </plurals>
-    <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and delete the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
+    <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is sycned with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and delete the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist anymore</string>
     <string name="foreign_files_move">Move all</string>
     <string name="foreign_files_success">All files were moved</string>
@@ -549,8 +549,8 @@
     <string name="preview_image_error_no_local_file">There is no local file to preview</string>
 
     <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local folder</string>
-    <string name="prefs_synced_folders_local_path_title">Local folder</string>
-    <string name="prefs_synced_folders_remote_path_title">Remote folder</string>
+    <string name="prefs_sycned_folders_local_path_title">Local folder</string>
+    <string name="prefs_sycned_folders_remote_path_title">Remote folder</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Store in subfolders based on date</string>
     <string name="prefs_instant_upload_exclude_hidden_title">Exclude hidden</string>
@@ -733,7 +733,7 @@
     <string name="offline_mode_info_description">Even without an internet connection, you can organize your folders, create files. Once you\'re back online, your pending actions will automatically sync.</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
     <string name="actionbar_search">Search</string>
-    <string name="drawer_synced_folders">Auto upload</string>
+    <string name="drawer_sycned_folders">Auto upload</string>
     <string name="drawer_community">Community</string>
     <string name="community_testing_headline">Help by testing</string>
     <string name="community_testing_bug_text">Found a bug? Oddments?</string>
@@ -758,14 +758,14 @@
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
-    <string name="synced_folders_no_results">No media folders found</string>
-    <plurals name="synced_folders_show_hidden_folders">
+    <string name="sycned_folders_no_results">No media folders found</string>
+    <plurals name="sycned_folders_show_hidden_folders">
         <item quantity="one">Show %1$d hidden folder</item>
         <item quantity="other">Show %1$d hidden folders</item>
     </plurals>
-    <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
-    <string name="synced_folders_preferences_folder_path">For %1$s</string>
-    <string name="synced_folders_plus" translatable="false">+</string>
+    <string name="sycned_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extented auto uploading.</string>
+    <string name="sycned_folders_preferences_folder_path">For %1$s</string>
+    <string name="sycned_folders_plus" translatable="false">+</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"
@@ -824,14 +824,14 @@
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="privacy">Privacy</string>
     <string name="file_not_found">File not found</string>
-    <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
+    <string name="file_not_sycned">File could not be sycned. Showing latest available version.</string>
 
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Set up a custom folder</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
     <string name="autoupload_hide_folder">Hide folder</string>
     <string name="autoupload_configure">Configure</string>
-    <string name="synced_folders_configure_folders">Configure folders</string>
+    <string name="sycned_folders_configure_folders">Configure folders</string>
 
     <string name="empty" translatable="false" />
     <string name="test_server_button">Test server connection</string>
@@ -851,24 +851,24 @@
     <string name="sync_in_progress">Fetching most recent version of the file.</string>
 
     <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
-    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx⁵ (formerly known as DAVdroid) for easy setup of calendar and contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync and share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders sycned\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx⁵ (formerly known as DAVdroid) for easy setup of calendar and contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync and share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
 
     <string name="contactlist_item_icon">User icon for contact list</string>
     <string name="activity_icon">Activity</string>
     <string name="file_icon">File</string>
     <string name="user_icon">User</string>
     <string name="favorite_icon">Favorite</string>
-    <string name="synced_icon">Synced</string>
+    <string name="sycned_icon">sycned</string>
     <string name="checkbox">Checkbox</string>
     <string name="shared_icon_share">share</string>
     <string name="shared_icon_shared_via_link">shared via link</string>
     <string name="shared_icon_shared">shared</string>
     <string name="overflow_menu">More menu</string>
-    <string name="synced_folders_type">Type</string>
+    <string name="sycned_folders_type">Type</string>
 
     <string name="sync_status_button">Sync status button</string>
     <string name="sync_warning_button">Sync warning button</string>
-    <string name="synced_folder_settings_button">Settings button</string>
+    <string name="sycned_folder_settings_button">Settings button</string>
     <string name="upload_item_action_button">Upload item action button</string>
     <string name="forward">Forward</string>
     <string name="what_s_new_image">What\'s new image</string>
@@ -1032,7 +1032,7 @@
     <string name="no_browser_available">No app available to handle links</string>
     <string name="no_pdf_app_available">No App available to handle PDF</string>
     <string name="no_email_app_available">No App available to handle mail address</string>
-    <string name="no_map_app_available">No App available to handle maps</string>
+    <string name="no_map_app_availble">No App available to handle maps</string>
     <string name="share_via_link_hide_download">Hide download</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="grid_file_features_live_photo_content_description">This icon indicates availability of live photo</string>
@@ -1345,7 +1345,7 @@
     <string name="prefs_remove_e2e">Remove encryption locally</string>
     <string name="remove_e2e">You can remove end-to-end encryption locally on this client</string>
     <string name="confirm_removal">Remove local encryption</string>
-    <string name="remove_e2e_message">You can remove end-to-end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
+    <string name="remove_e2e_message">You can remove end-to-end encryption locally on this client. The encrypted files will remain on server, but will not be sycned to this computer any longer.</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="error_showing_encryption_dialog">Error showing encryption setup dialog!</string>
     <string name="prefs_keys_exist">Add end-to-end encryption to this client</string>
@@ -1393,7 +1393,7 @@
     <string name="prefs_category_sync">Sync</string>
     <string name="internal_two_way_sync">Internal two way sync</string>
     <string name="prefs_two_way_sync_summary">Manage internal folders for two way sync</string>
-    <string name="internal_two_way_sync_not_yet">Not yet, soon to be synced</string>
+    <string name="internal_two_way_sync_not_yet">Not yet, soon to be sycned</string>
     <string name="gplay_restriction">Google restricted downloading APK/AAB files!</string>
     <string name="file_list_empty_local_search">No file or folder matching your search</string>
     <string name="unified_search_fragment_search_in_this_folder">In this folder</string>
@@ -1455,7 +1455,7 @@
     <string name="document_storage_provider_cannot_create_file_inside_folder">Can’t create file: missing permission.</string>
     <string name="document_storage_provider_cannot_create_folder_inside_folder">Can’t create folder: missing permission.</string>
     <string name="link_not_followed_due_to_security_settings">Link not followed due to security settings.</string>
-    <string name="extended_list_fragment_empty_list_message_no_write_permission">You don’t have permission to create or upload files in this folder.</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">You don’t have permission to create or upload files in this folder.</string>
     <string name="busy">Busy</string>
     <string name="mute_all_notifications">Mute all notifications</string>
     <string name="appear_offline">Appear offline</string>
