@@ -42,12 +42,7 @@ class FileSortOrderTests {
         size?.let { fileLength = it }
     }
 
-    private fun runSortFiles(
-        name: String,
-        items: MutableList<File>,
-        sorter: FileSortOrder,
-        expected: List<File>
-    ) {
+    private fun runSortFiles(name: String, items: MutableList<File>, sorter: FileSortOrder, expected: List<File>) {
         val actual = sorter.sortLocalFiles(items)
         assertEquals(name, expected, actual)
     }
@@ -154,7 +149,7 @@ class FileSortOrderTests {
             "cloud old→new asc",
             mutableListOf(file1, file2, file3),
             FileSortOrderByDate(SORT_OLD_TO_NEW_ID, true),
-            listOf(file1, file3, file2),
+            listOf(file1, file3, file2)
         )
     }
 
