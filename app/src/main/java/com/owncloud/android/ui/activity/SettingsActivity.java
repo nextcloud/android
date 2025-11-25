@@ -624,18 +624,18 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupFullFileAccessPreference() {
-        Preference fullFileAccessPref = findPreference("allFilesAccess");
+        Preference allFilesAccess = findPreference("allFilesAccess");
 
         PreferenceScreen screen = getPreferenceScreen();
         if (PermissionUtil.checkFullFileAccess()) {
-            screen.removePreference(fullFileAccessPref);
+            screen.removePreference(allFilesAccess);
         } else {
-            if (fullFileAccessPref.getParent() == null) {
-                screen.addPreference(fullFileAccessPref);
+            if (allFilesAccess.getParent() == null) {
+                screen.addPreference(allFilesAccess);
             }
         }
 
-        fullFileAccessPref.setOnPreferenceClickListener(preference -> {
+        allFilesAccess.setOnPreferenceClickListener(preference -> {
             ContextExtensionsKt.openAllFilesAccessSettings(this);
             return true;
         });
