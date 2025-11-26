@@ -31,7 +31,8 @@ class OCFileListAdapterHelperTest {
 
     private val preferences = mockk<AppPreferences>(relaxed = true)
     private val dataProvider = MockOCFileListAdapterDataProvider()
-    private lateinit var directory: OCFile
+
+    private val userId = "user123"
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
@@ -39,439 +40,177 @@ class OCFileListAdapterHelperTest {
         mockkStatic(MainApp::class)
         every { MainApp.getAppContext() } returns context
         every { MainApp.isOnlyPersonFiles() } returns false
-        directory = OCFile(OCFile.ROOT_PATH).apply {
-            setFolder()
-            fileId = 101L
-            ownerId = "user123"
-            remoteId = "0"
-            fileId = 0
-        }
     }
 
-    @Test
-    fun `prepareFileList with multiple folders and sort z to a`() = runBlocking {
-        val userId = "user123"
-        val directory = OCFile(OCFile.ROOT_PATH).apply {
+    private inner class Sut {
+        val root = directory("/", id = 0)
+
+        fun directory(path: String, id: Long) = OCFile(path).apply {
             setFolder()
-            fileId = 101L
-            ownerId = "user123"
-            remoteId = "0"
-            fileId = 0
-        }
-        val subDirectory = OCFile("/subDir").apply {
-            setFolder()
-            fileId = 102L
-            ownerId = "user123"
-            remoteId = "1"
-            fileId = 1
+            fileId = id
             parentId = 0
+            ownerId = userId
+            remoteId = id.toString()
+            remotePath = path
+            mimeType = MimeType.DIRECTORY
+            storagePath = ""
+            etag = "etag_$id"
         }
-        val subDirectory2 = OCFile("/subDir2").apply {
-            setFolder()
-            fileId = 103L
-            ownerId = "user123"
-            remoteId = "2"
-            fileId = 2
-            parentId = 0
+
+        fun file(
+            parent: OCFile,
+            name: String,
+            id: Long,
+            mime: String = MimeType.FILE,
+            hidden: Boolean = false,
+            favorite: Boolean = false,
+            shared: Boolean = false,
+            localId: Long = -1,
+            localPath: String = ""
+        ) = OCFile("/$name").apply {
+            parentId = parent.fileId
+            fileId = id
+            remotePath = "/$name"
+            ownerId = userId
+            mimeType = mime
+            isHidden = hidden
+            isFavorite = favorite
+            isSharedViaLink = shared
+            this.localId = localId
+            etag = "etag_$id"
+            storagePath = localPath
         }
-        val file1 = createTestOCFile(
-            directory.fileId,
-            "/image.jpg",
-            11,
-            ownerId = "user123",
-            mimeType = MimeType.JPEG,
-            localPath = "/local/image.jpg"
-        )
-        val file2 = createTestOCFile(
-            directory.fileId,
-            "/video.mp4",
-            12,
-            ownerId = "user123",
-            mimeType = "video/mp4",
-            localPath = "/local/video.mp4"
-        )
-        val subFile1 = createTestOCFile(
-            subDirectory.fileId,
-            "/video2.mp4",
-            21,
-            ownerId = "user123",
-            mimeType = "video/mp4",
-            localPath = "/local/video.mp4"
-        )
 
-        val files =
-            listOf(directory, subDirectory, subDirectory2, file1, file2, subFile1)
-        dataProvider.setEntities(files)
+        fun prepare(files: List<OCFile>, offline: OCFile? = null) {
+            dataProvider.setEntities(files)
+            offline?.let { dataProvider.setOfflineFile(it) }
+        }
 
-        every { preferences.isShowHiddenFilesEnabled() } returns false
-        every { preferences.getSortOrderByFolder(directory) } returns FileSortOrder.SORT_Z_TO_A
-        every { preferences.isSortFoldersBeforeFiles() } returns true
-        every { preferences.isSortFavoritesFirst() } returns true
-
-        val (list, sort) = helper.prepareFileList(
+        suspend fun run(directory: OCFile, mime: String = "") = helper.prepareFileList(
             directory = directory,
             dataProvider = dataProvider,
             onlyOnDevice = false,
-            limitToMimeType = "",
+            limitToMimeType = mime,
             preferences = preferences,
             userId = userId
         )
+    }
 
-        val expected = listOf(
-            "subDir2",
-            "subDir",
-            "video.mp4",
-            "image.jpg"
-        )
+    private fun stubPreferences(
+        showHidden: Boolean = false,
+        sort: FileSortOrder,
+        folderFirst: Boolean = true,
+        favFirst: Boolean = false
+    ) {
+        every { preferences.isShowHiddenFilesEnabled() } returns showHidden
+        every { preferences.getSortOrderByFolder(any()) } returns sort
+        every { preferences.isSortFoldersBeforeFiles() } returns folderFirst
+        every { preferences.isSortFavoritesFirst() } returns favFirst
+    }
 
-        assertEquals(expected, list.map { it.fileName })
+    @Test
+    fun `prepareFileList with multiple folders and sort Z to A`() = runBlocking {
+        val env = Sut()
+        val root = env.root
+
+        val sub1 = env.directory("/subDir", 1)
+        val sub2 = env.directory("/subDir2", 2)
+
+        val fImage = env.file(root, "image.jpg", 11, MimeType.JPEG)
+        val fVideo = env.file(root, "video.mp4", 12, MimeType.MP4)
+        val fSub = env.file(sub1, "video2.mp4", 21, MimeType.MP4)
+
+        env.prepare(listOf(root, sub1, sub2, fImage, fVideo, fSub))
+
+        stubPreferences(sort = FileSortOrder.SORT_Z_TO_A)
+
+        val (list, sort) = env.run(root)
+
+        assertEquals(listOf("subDir2", "subDir", "video.mp4", "image.jpg"), list.map { it.fileName })
         assertEquals(FileSortOrder.SORT_Z_TO_A, sort)
     }
 
     @Test
-    fun `prepareFileList with multiple folders and favorites firsts`() = runBlocking {
-        val userId = "user123"
-        val directory = OCFile(OCFile.ROOT_PATH).apply {
-            setFolder()
-            fileId = 101L
-            ownerId = "user123"
-            remoteId = "0"
-            fileId = 0
-        }
-        val subDirectory = OCFile("/subDir").apply {
-            setFolder()
-            fileId = 102L
-            ownerId = "user123"
-            remoteId = "1"
-            fileId = 1
-            parentId = 0
-        }
-        val subDirectory2 = OCFile("/subDir2").apply {
-            setFolder()
-            fileId = 103L
-            ownerId = "user123"
-            remoteId = "2"
-            fileId = 2
-            parentId = 0
-        }
-        val file1 = createTestOCFile(
-            directory.fileId,
-            "/image.jpg",
-            11,
-            ownerId = "user123",
-            mimeType = MimeType.JPEG,
-            localPath = "/local/image.jpg"
-        )
-        val file2 = createTestOCFile(
-            directory.fileId,
-            "/video.mp4",
-            12,
-            ownerId = "user123",
-            mimeType = "video/mp4",
-            localPath = "/local/video.mp4"
-        )
-        val subFile1 = createTestOCFile(
-            subDirectory.fileId,
-            "/video2.mp4",
-            21,
-            ownerId = "user123",
-            mimeType = "video/mp4",
-            localPath = "/local/video.mp4"
-        )
-        val file3 = createTestOCFile(
-            directory.fileId,
-            "/fav_image.jpg",
-            19,
-            ownerId = "user123",
-            mimeType = MimeType.JPEG,
-            localPath = "/local/image9.jpg",
-            isFavorite = true
-        )
+    fun `prepareFileList with multiple folders and favorites first`() = runBlocking {
+        val env = Sut()
+        val root = env.root
 
-        val files =
-            listOf(directory, subDirectory, subDirectory2, file1, file2, subFile1, file3)
-        dataProvider.setEntities(files)
+        val sub1 = env.directory("/subDir", 1)
+        val sub2 = env.directory("/subDir2", 2)
 
-        every { preferences.isShowHiddenFilesEnabled() } returns false
-        every { preferences.getSortOrderByFolder(directory) } returns FileSortOrder.SORT_A_TO_Z
-        every { preferences.isSortFoldersBeforeFiles() } returns true
-        every { preferences.isSortFavoritesFirst() } returns true
+        val fImage = env.file(root, "image.jpg", 11, MimeType.JPEG)
+        val fVideo = env.file(root, "video.mp4", 12, MimeType.MP4)
+        val fFav = env.file(root, "fav_image.jpg", 19, MimeType.JPEG, favorite = true)
+        val fSub = env.file(sub1, "video2.mp4", 21, MimeType.MP4)
 
-        val (list, sort) = helper.prepareFileList(
-            directory = directory,
-            dataProvider = dataProvider,
-            onlyOnDevice = false,
-            limitToMimeType = "",
-            preferences = preferences,
-            userId = userId
+        env.prepare(listOf(root, sub1, sub2, fImage, fVideo, fFav, fSub))
+
+        stubPreferences(sort = FileSortOrder.SORT_A_TO_Z, favFirst = true)
+
+        val (list, sort) = env.run(root)
+
+        assertEquals(
+            listOf("fav_image.jpg", "subDir", "subDir2", "image.jpg", "video.mp4"),
+            list.map { it.fileName }
         )
-
-        val expected = listOf(
-            "fav_image.jpg",
-            "subDir",
-            "subDir2",
-            "image.jpg",
-            "video.mp4"
-        )
-
-        assertEquals(expected, list.map { it.fileName })
         assertEquals(FileSortOrder.SORT_A_TO_Z, sort)
     }
 
     @Test
     fun `prepareFileList with multiple folders`() = runBlocking {
-        val userId = "user123"
-        val directory = OCFile(OCFile.ROOT_PATH).apply {
-            setFolder()
-            fileId = 101L
-            ownerId = "user123"
-            remoteId = "0"
-            fileId = 0
-        }
-        val subDirectory = OCFile("/subDir").apply {
-            setFolder()
-            fileId = 102L
-            ownerId = "user123"
-            remoteId = "1"
-            fileId = 1
-            parentId = 0
-        }
-        val subDirectory2 = OCFile("/subDir2").apply {
-            setFolder()
-            fileId = 103L
-            ownerId = "user123"
-            remoteId = "2"
-            fileId = 2
-            parentId = 0
-        }
-        val file1 = createTestOCFile(
-            directory.fileId,
-            "/image.jpg",
-            11,
-            ownerId = "user123",
-            mimeType = MimeType.JPEG,
-            localPath = "/local/image.jpg"
-        )
-        val file2 = createTestOCFile(
-            directory.fileId,
-            "/video.mp4",
-            12,
-            ownerId = "user123",
-            mimeType = "video/mp4",
-            localPath = "/local/video.mp4"
-        )
-        val subFile1 = createTestOCFile(
-            subDirectory.fileId,
-            "/video2.mp4",
-            21,
-            ownerId = "user123",
-            mimeType = "video/mp4",
-            localPath = "/local/video.mp4"
-        )
+        val env = Sut()
+        val root = env.root
 
-        val files =
-            listOf(directory, subDirectory, subDirectory2, file1, file2, subFile1)
-        dataProvider.setEntities(files)
+        val sub1 = env.directory("/subDir", 1)
+        val sub2 = env.directory("/subDir2", 2)
 
-        every { preferences.isShowHiddenFilesEnabled() } returns false
-        every { preferences.getSortOrderByFolder(directory) } returns FileSortOrder.SORT_A_TO_Z
-        every { preferences.isSortFoldersBeforeFiles() } returns true
-        every { preferences.isSortFavoritesFirst() } returns false
+        val fImg = env.file(root, "image.jpg", 11, MimeType.JPEG)
+        val fVid = env.file(root, "video.mp4", 12, MimeType.MP4)
+        val fSubVid = env.file(sub1, "video2.mp4", 21, MimeType.MP4)
 
-        val (list, sort) = helper.prepareFileList(
-            directory = directory,
-            dataProvider = dataProvider,
-            onlyOnDevice = false,
-            limitToMimeType = "",
-            preferences = preferences,
-            userId = userId
-        )
+        env.prepare(listOf(root, sub1, sub2, fImg, fVid, fSubVid))
 
-        val expected = listOf(
-            "subDir",
-            "subDir2",
-            "image.jpg",
-            "video.mp4"
-        )
+        stubPreferences(sort = FileSortOrder.SORT_A_TO_Z)
 
-        assertEquals(expected, list.map { it.fileName })
+        val (list, sort) = env.run(root)
+
+        assertEquals(listOf("subDir", "subDir2", "image.jpg", "video.mp4"), list.map { it.fileName })
         assertEquals(FileSortOrder.SORT_A_TO_Z, sort)
     }
 
     @Test
-    fun `prepareFileList dont show hidden files and sort a to z`() = runBlocking {
-        val userId = "user123"
+    fun `prepareFileList hides hidden files and sorts A to Z`() = runBlocking {
+        val env = Sut()
+        val root = env.root
 
-        val directory = OCFile(OCFile.ROOT_PATH).apply {
-            setFolder()
-            fileId = 101L
-            ownerId = "user123"
-            remoteId = "0"
-            fileId = 0
-        }
-        val hidden = createTestOCFile(
-            directory.fileId,
-            "/.hidden.jpg",
-            1,
-            ownerId = "user123",
-            mimeType = MimeType.JPEG,
-            isHidden = true,
-            localPath = "/local/hidden.jpg"
-        )
-        val image = createTestOCFile(
-            directory.fileId,
-            "/image.jpg",
-            2,
-            ownerId = "user123",
-            mimeType = MimeType.JPEG,
-            localPath = "/local/image.jpg"
-        )
-        val video = createTestOCFile(
-            directory.fileId,
-            "/video.mp4",
-            3,
-            ownerId = "user123",
-            mimeType = "video/mp4",
-            localPath = "/local/video.mp4"
-        )
-        val temp = createTestOCFile(
-            directory.fileId,
-            "/temp.tmp",
-            4,
-            ownerId = "user123",
-            mimeType = MimeType.FILE,
-            localPath = "/local/temp.tmp"
-        )
-        val otherUsersFile =
-            createTestOCFile(
-                202,
-                "/other.jpg",
-                5,
-                ownerId = "x",
-                mimeType = MimeType.JPEG,
-                localPath = "/local/other.jpg"
-            )
-        val personal = createTestOCFile(
-            directory.fileId,
-            "/personal.jpg",
-            6,
-            ownerId = "user123",
-            mimeType = MimeType.JPEG,
-            localPath = "/local/personal.jpg"
-        )
-        val shared = createTestOCFile(
-            directory.fileId,
-            "/shared.jpg",
-            7,
-            ownerId = "user123",
-            mimeType = MimeType.JPEG,
-            isSharedViaLink = true,
-            localPath = "/local/shared.jpg"
-        )
-        val favorite = createTestOCFile(
-            directory.fileId,
-            "/favorite.jpg",
-            8,
-            ownerId = "user123",
-            mimeType = MimeType.JPEG,
-            isFavorite = true,
-            localPath = "/local/favorite.jpg"
-        )
-        val livePhotoImg = createTestOCFile(
-            directory.fileId,
-            "/live.jpg",
-            9,
-            ownerId = "user123",
-            mimeType = MimeType.JPEG,
-            localId = 77,
-            localPath = "/local/live.jpg"
-        )
-        val livePhotoVideo = createTestOCFile(
-            directory.fileId,
-            "/live_video.mp4",
-            10,
-            ownerId = "user123",
-            mimeType = "video/mp4",
-            localPath = "/local/live_video.mp4"
-        ).apply {
-            setLivePhoto("77")
-        }
-        val offlineOCFile = createTestOCFile(
-            directory.fileId,
-            "/offline.jpg",
-            11,
-            ownerId = "user123",
-            mimeType = MimeType.JPEG,
-            localPath = "/local/offline.jpg"
-        )
+        val fHidden = env.file(root, ".hidden.jpg", 1, MimeType.JPEG, hidden = true)
+        val fImg = env.file(root, "image.jpg", 2, MimeType.JPEG)
+        val fVid = env.file(root, "video.mp4", 3, MimeType.MP4)
+        val fTemp = env.file(root, "temp.tmp", 4, MimeType.FILE)
+        val fOther = env.file(env.directory("/other", 202), "other.jpg", 5, MimeType.JPEG)
+        val fPersonal = env.file(root, "personal.jpg", 6, MimeType.JPEG)
+        val fShared = env.file(root, "shared.jpg", 7, MimeType.JPEG, shared = true)
+        val fFav = env.file(root, "favorite.jpg", 8, MimeType.JPEG, favorite = true)
+        val fLiveImg = env.file(root, "live.jpg", 9, MimeType.JPEG, localId = 77)
+        val fLiveVid = env.file(root, "live_video.mp4", 10, MimeType.MP4).apply { setLivePhoto("77") }
+        val offline = env.file(root, "offline.jpg", 11, MimeType.JPEG)
 
-        val files =
+        env.prepare(
             listOf(
-                directory,
-                hidden,
-                image,
-                video,
-                temp,
-                otherUsersFile,
-                personal,
-                shared,
-                favorite,
-                livePhotoImg,
-                livePhotoVideo
-            )
-        dataProvider.setEntities(files)
-        dataProvider.setOfflineFile(offlineOCFile)
-
-        every { preferences.isShowHiddenFilesEnabled() } returns false
-        every { preferences.getSortOrderByFolder(directory) } returns FileSortOrder.SORT_A_TO_Z
-        every { preferences.isSortFoldersBeforeFiles() } returns true
-        every { preferences.isSortFavoritesFirst() } returns false
-
-        val (list, sort) = helper.prepareFileList(
-            directory = directory,
-            dataProvider = dataProvider,
-            onlyOnDevice = false,
-            limitToMimeType = "image",
-            preferences = preferences,
-            userId = userId
+                root, fHidden, fImg, fVid, fTemp, fOther, fPersonal,
+                fShared, fFav, fLiveImg, fLiveVid
+            ),
+            offline = offline
         )
 
-        val expected = listOf(
-            "favorite.jpg",
-            "image.jpg",
-            "live.jpg",
-            "offline.jpg",
-            "personal.jpg",
-            "shared.jpg"
-        )
+        stubPreferences(sort = FileSortOrder.SORT_A_TO_Z)
 
-        assertEquals(expected, list.map { it.fileName })
+        val (list, sort) = env.run(root, mime = "image")
+
+        assertEquals(
+            listOf("favorite.jpg", "image.jpg", "live.jpg", "offline.jpg", "personal.jpg", "shared.jpg"),
+            list.map { it.fileName }
+        )
         assertEquals(FileSortOrder.SORT_A_TO_Z, sort)
-    }
-
-    private fun createTestOCFile(
-        parentId: Long,
-        path: String,
-        fileId: Long,
-        ownerId: String? = null,
-        mimeType: String? = MimeType.FILE,
-        isHidden: Boolean = false,
-        isFavorite: Boolean = false,
-        isSharedViaLink: Boolean = false,
-        localId: Long = -1,
-        etag: String = "etag_$fileId",
-        localPath: String? = null
-    ): OCFile = OCFile(path).apply {
-        this.parentId = parentId
-        this.fileId = fileId
-        this.remotePath = path
-        this.ownerId = ownerId
-        this.mimeType = mimeType
-        this.isHidden = isHidden
-        this.isFavorite = isFavorite
-        this.isSharedViaLink = isSharedViaLink
-        this.localId = localId
-        this.etag = etag
-        this.storagePath = localPath
     }
 }
