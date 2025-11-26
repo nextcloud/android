@@ -894,7 +894,7 @@ class FileDisplayActivity :
             searchView?.postDelayed({
                 searchView?.isIconified = false
                 searchView?.requestFocusFromTouch()
-            }, 100)
+            }, SEARCH_VIEW_FOCUS_DELAY)
         }
 
         searchView?.let { viewThemeUtils.androidx.themeToolbarSearchView(it) }
@@ -3052,6 +3052,7 @@ class FileDisplayActivity :
         private const val DIALOG_TAG_SHOW_TOS = "DIALOG_TAG_SHOW_TOS"
 
         private const val ON_RESUMED_RESET_DELAY = 10000L
+        private const val SEARCH_VIEW_FOCUS_DELAY = 100L
 
         const val ACTION_DETAILS: String = "com.owncloud.android.ui.activity.action.DETAILS"
 

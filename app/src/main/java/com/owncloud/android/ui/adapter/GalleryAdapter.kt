@@ -43,7 +43,7 @@ import me.zhanghai.android.fastscroll.PopupTextProvider
 import java.util.Calendar
 import java.util.Date
 
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "TooManyFunctions")
 class GalleryAdapter(
     val context: Context,
     user: User,
