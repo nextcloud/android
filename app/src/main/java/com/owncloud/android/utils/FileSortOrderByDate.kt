@@ -26,11 +26,10 @@ class FileSortOrderByDate(name: String, ascending: Boolean) : FileSortOrder(name
         favoritesFirst: Boolean
     ): MutableList<OCFile> {
         val multiplier = if (isAscending) 1 else -1
-        val copy = files.toMutableList()
-        copy.sortWith { o1: OCFile, o2: OCFile ->
+        files.sortWith { o1: OCFile, o2: OCFile ->
             multiplier * o1.modificationTimestamp.compareTo(o2.modificationTimestamp)
         }
-        return super.sortCloudFiles(copy, foldersBeforeFiles, favoritesFirst)
+        return super.sortCloudFiles(files, foldersBeforeFiles, favoritesFirst)
     }
 
     /**
@@ -40,11 +39,10 @@ class FileSortOrderByDate(name: String, ascending: Boolean) : FileSortOrder(name
      */
     override fun sortTrashbinFiles(files: MutableList<TrashbinFile>): List<TrashbinFile> {
         val multiplier = if (isAscending) 1 else -1
-        val copy = files.toMutableList()
-        copy.sortWith { o1: TrashbinFile, o2: TrashbinFile ->
+        files.sortWith { o1: TrashbinFile, o2: TrashbinFile ->
             multiplier * o1.deletionTimestamp.compareTo(o2.deletionTimestamp)
         }
-        return super.sortTrashbinFiles(copy)
+        return super.sortTrashbinFiles(files)
     }
 
     /**
@@ -54,10 +52,9 @@ class FileSortOrderByDate(name: String, ascending: Boolean) : FileSortOrder(name
      */
     override fun sortLocalFiles(files: MutableList<File>): List<File> {
         val multiplier = if (isAscending) 1 else -1
-        val copy = files.toMutableList()
-        copy.sortWith { o1: File, o2: File ->
+        files.sortWith { o1: File, o2: File ->
             multiplier * o1.lastModified().compareTo(o2.lastModified())
         }
-        return copy
+        return files
     }
 }
