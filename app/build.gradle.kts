@@ -24,7 +24,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.spotless)
-    alias(libs.plugins.kapt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.parcelize)
@@ -243,8 +242,6 @@ android {
 
 }
 
-kapt.useBuildCache = true
-
 ksp.arg("room.schemaLocation", "$projectDir/schemas")
 
 kotlin.compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
@@ -461,7 +458,6 @@ dependencies {
 
     // region Markdown rendering
     implementation(libs.bundles.markdown.rendering)
-    kapt(libs.prism4j.bundler)
     // endregion
 
     // region Image cropping / rotation
