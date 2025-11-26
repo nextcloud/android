@@ -95,7 +95,7 @@ class UnifiedSearchFragment :
         fun newInstance(
             query: String?,
             listOfHiddenFiles: ArrayList<String>?,
-            currentDirPath: String
+            currentDirPath: String?
         ): UnifiedSearchFragment = UnifiedSearchFragment().apply {
             arguments = Bundle().apply {
                 putString(ARG_QUERY, query)
@@ -141,8 +141,9 @@ class UnifiedSearchFragment :
         super.onCreate(savedInstanceState)
         vm = ViewModelProvider(this, vmFactory)[UnifiedSearchViewModel::class.java]
         initialQuery = savedInstanceState?.getString(ARG_QUERY) ?: arguments?.getString(ARG_QUERY)
-        val currentDirPath = savedInstanceState?.getString(CURRENT_DIR_PATH) ?: arguments?.getString(CURRENT_DIR_PATH)
-        currentDir = storageManager.getFileByDecryptedRemotePath(currentDirPath)
+        savedInstanceState?.getString(CURRENT_DIR_PATH) ?: arguments?.getString(CURRENT_DIR_PATH)?.let {
+            currentDir = storageManager.getFileByDecryptedRemotePath(it)
+        }
         listOfHiddenFiles =
             savedInstanceState?.getStringArrayList(ARG_HIDDEN_FILES) ?: arguments?.getStringArrayList(ARG_HIDDEN_FILES)
                 ?: ArrayList()
