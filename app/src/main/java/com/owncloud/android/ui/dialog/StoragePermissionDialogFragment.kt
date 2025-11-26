@@ -69,7 +69,7 @@ class StoragePermissionDialogFragment :
         val dialogBuilder = MaterialAlertDialogBuilder(requireContext())
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton(R.string.storage_permission_full_access) { _, _ ->
+            .setPositiveButton(R.string.storage_permission_all_files_access) { _, _ ->
                 val intent = PermissionUtil.getManageAllFilesIntent(requireActivity())
                 activity?.startActivity(intent)
                 dismiss()

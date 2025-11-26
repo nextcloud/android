@@ -53,7 +53,7 @@ object PermissionUtil {
     /**
      * Request storage permission as needed.
      * Will handle:
-     * - Full file access (Android 11+)
+     * - All files access (Android 11+)
      * - Media permissions (Android 13+)
      * - Legacy storage (Android < 11)
      */
@@ -164,16 +164,16 @@ object PermissionUtil {
     /**
      * Checks if the application has storage/media access permissions.
      *
-     * - Android 11+ (API 30+): Checks for MANAGE_EXTERNAL_STORAGE (full file system access)
+     * - Android 11+ (API 30+): Checks for MANAGE_EXTERNAL_STORAGE (all files system access)
      * - Android 13+ (API 33+): Checks for granular media permissions (READ_MEDIA_IMAGES, READ_MEDIA_VIDEO)
      * - Android 14+ (API 34+): Also checks for limited/partial media access (READ_MEDIA_VISUAL_USER_SELECTED)
      * - Below Android 11: Uses legacy WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE permission
      */
     @JvmStatic
-    fun checkStoragePermission(context: Context): Boolean = checkFullFileAccess() || checkMediaAccess(context)
+    fun checkStoragePermission(context: Context): Boolean = checkAllFilesAccess() || checkMediaAccess(context)
 
     @JvmStatic
-    fun checkFullFileAccess(): Boolean =
+    fun checkAllFilesAccess(): Boolean =
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()
 
     fun checkMediaAccess(context: Context): Boolean = checkPermissions(context, getRequiredStoragePermissions())

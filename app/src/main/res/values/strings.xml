@@ -122,7 +122,7 @@
     <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
 
     <string name="prefs_all_files_access_title">All files access</string>
-    <string name="prefs_all_files_access_summary">Allow the app to access and manage all files on your device.</string>
+    <string name="prefs_all_files_access_summary">Allow the app to access and manage all files on your device</string>
 
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to a friend</string>
@@ -1307,7 +1307,7 @@
     <string name="error_creating_file_from_template">Error creating file from template</string>
     <string name="no_send_app">No app available for sending the selected files</string>
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
-    <string name="storage_permission_full_access">Full access</string>
+    <string name="storage_permission_all_files_access">All files access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_permission_dont_ask">Don\'t ask</string>
     <string name="subtitle_photos_videos">Photos and videos</string>

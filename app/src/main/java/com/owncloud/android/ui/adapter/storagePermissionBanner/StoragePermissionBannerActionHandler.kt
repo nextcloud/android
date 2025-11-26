@@ -22,13 +22,13 @@ fun StoragePermissionWarningBannerBinding.setup(activity: Activity, descriptionI
     description.text = activity.getString(descriptionId)
 
     val isBrandedAndFlavourGplay = (MainApp.isClientBranded() && isFlavourGPlay())
-    fullFileAccess.setVisibleIf(!PermissionUtil.checkFullFileAccess() && !isBrandedAndFlavourGplay)
-    fullFileAccess.setOnClickListener { activity.openAllFilesAccessSettings(REQ_ALL_FILES_ACCESS) }
+    allFilesAccess.setVisibleIf(!PermissionUtil.checkAllFilesAccess() && !isBrandedAndFlavourGplay)
+    allFilesAccess.setOnClickListener { activity.openAllFilesAccessSettings(REQ_ALL_FILES_ACCESS) }
 
     mediaReadOnly.setVisibleIf(!PermissionUtil.checkMediaAccess(activity))
     mediaReadOnly.setOnClickListener { activity.openMediaPermissions(REQ_MEDIA_ACCESS) }
 
-    root.visibility = if (PermissionUtil.checkFullFileAccess() || PermissionUtil.checkMediaAccess(activity)) {
+    root.visibility = if (PermissionUtil.checkAllFilesAccess() || PermissionUtil.checkMediaAccess(activity)) {
         View.GONE
     } else {
         View.VISIBLE

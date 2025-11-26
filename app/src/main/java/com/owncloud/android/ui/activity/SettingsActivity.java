@@ -378,7 +378,7 @@ public class SettingsActivity extends PreferenceActivity
 
         setupAutoUploadPreference(preferenceCategorySync);
         setupInternalTwoWaySyncPreference();
-        setupFullFileAccessPreference(preferenceCategorySync);
+        setupAllFilesAccessPreference(preferenceCategorySync);
     }
 
     private void setupMoreCategory() {
@@ -625,10 +625,10 @@ public class SettingsActivity extends PreferenceActivity
         });
     }
 
-    private void setupFullFileAccessPreference(PreferenceCategory category) {
+    private void setupAllFilesAccessPreference(PreferenceCategory category) {
         Preference allFilesAccess = findPreference("allFilesAccess");
 
-        if (PermissionUtil.checkFullFileAccess()) {
+        if (PermissionUtil.checkAllFilesAccess()) {
             category.removePreference(allFilesAccess);
         } else {
             if (allFilesAccess.getParent() == null) {
@@ -1091,7 +1091,7 @@ public class SettingsActivity extends PreferenceActivity
             }
         } else if (requestCode == REQ_ALL_FILES_ACCESS) {
             final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
-            setupFullFileAccessPreference(preferenceCategorySync);
+            setupAllFilesAccessPreference(preferenceCategorySync);
         }
     }
 

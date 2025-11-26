@@ -61,11 +61,11 @@
                 android:text="@string/storage_permission_media_read_only" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/fullFileAccess"
+                android:id="@+id/allFilesAccess"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/storage_permission_full_access" />
+                android:text="@string/storage_permission_all_files_access" />
 
         </LinearLayout>
 
