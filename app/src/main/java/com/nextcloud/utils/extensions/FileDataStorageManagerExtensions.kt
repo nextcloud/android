@@ -9,6 +9,22 @@ package com.nextcloud.utils.extensions
 
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.shares.OCShare
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
+suspend fun FileDataStorageManager.saveShares(shares: List<OCShare>, accountName: String) {
+    withContext(Dispatchers.IO) {
+        shareDao.clearSharesForAccount(accountName)
+
+        val entities = shares.map { share ->
+            share.toEntity(accountName)
+        }
+
+        shareDao.insertAll(entities)
+    }
+}
+
 
 fun FileDataStorageManager.searchFilesByName(file: OCFile, accountName: String, query: String): List<OCFile> =
     fileDao.searchFilesInFolder(file.fileId, accountName, query).map {
