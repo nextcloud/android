@@ -601,7 +601,6 @@
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">삭제 작업 대기중</string>
     <string name="offline_mode">네트워크에 연결할 수 없음</string>
     <string name="offline_mode_info_description">인터넷 연결이 없더라도, 폴더를 구성하고, 파일을 생성할 수 있습니다. 다시 온라인 상태가 되면 대기 중이던 동작들이 자동적으로 동기화될 것입니다.</string>
-    <string name="offline_operations_file_does_not_exists_yet">파일이 아직 존재하지 않습니다. 먼저 파일을 업로드해 주세요.</string>
     <string name="offline_operations_worker_notification_error_text">오프라인 작업을 완료할 수 없습니다. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">오프라인 작업</string>
     <string name="oneHour">1시간</string>

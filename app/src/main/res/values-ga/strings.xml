@@ -648,7 +648,6 @@
     <string name="offline_mode">Gan nasc idirlín</string>
     <string name="offline_mode_info_description">Fiú gan nasc idirlín, is féidir leat do fhillteáin a eagrú, comhaid a chruthú. Nuair a bheidh tú ar ais ar líne, déanfar do ghníomhartha ar feitheamh a shioncronú go huathoibríoch.</string>
     <string name="offline_mode_info_title">Tá tú as líne, ach leanann an obair ar aghaidh</string>
-    <string name="offline_operations_file_does_not_exists_yet">Níl an comhad ann, fós. Íoslódáil an comhad ar dtús.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Níorbh fhéidir %s a chruthú. Tá comhad leis an ainm céanna ar an bhfreastalaí.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Níorbh fhéidir %s a chruthú. Tá fillteán leis an ainm céanna ann ar an bhfreastalaí.</string>
     <string name="offline_operations_worker_notification_error_text">Ní féidir an oibríocht as líne a chríochnú. %s</string>

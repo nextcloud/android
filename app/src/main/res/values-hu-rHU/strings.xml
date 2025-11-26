@@ -634,7 +634,6 @@
     <string name="offline_mode">Nincs internetkapcsolat</string>
     <string name="offline_mode_info_description">Akár internetkapcsolat nélkül is rendszerezheti a mappákat és hozhat létre fájlokat. Amint újra online lesz, a függőben lévő műveletek automatikusan szinkronizálva lesznek.</string>
     <string name="offline_mode_info_title">Nincs kapcsolat, de a munka folytatódik</string>
-    <string name="offline_operations_file_does_not_exists_yet">A fájl még nem létezik. Először töltse fel a fájlt.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">A(z) %s nem hozható létre. Már létezik ilyen nevű fájl a kiszolgálón.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">A(z) %s nem hozható létre. Már létezik ilyen nevű mappa a kiszolgálón.</string>
     <string name="offline_operations_worker_notification_error_text">A kapcsolat nélküli művelet nem fejezhető be. %s</string>

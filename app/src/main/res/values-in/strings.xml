@@ -645,7 +645,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="offline_mode">Tidak ada koneksi ke internet</string>
     <string name="offline_mode_info_description">Bahkan tanpa koneksi internet, Anda tetap dapat mengatur folder dan membuat file. Setelah Anda kembali online, semua tindakan yang tertunda akan disinkronkan secara otomatis.</string>
     <string name="offline_mode_info_title">Anda offline, tapi kerja tetap lanjut</string>
-    <string name="offline_operations_file_does_not_exists_yet">File masih belum tersedia. Tolong unggah filenya terlebih dahulu.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Tidak dapat membuat %s. Berkas dengan nama yang sama sudah ada di server.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Tidak dapat membuat %s. Folder dengan nama yang sama sudah ada di server.</string>
     <string name="offline_operations_worker_notification_error_text">Operasi offline tidak dapat diselesaikan. %s</string>
