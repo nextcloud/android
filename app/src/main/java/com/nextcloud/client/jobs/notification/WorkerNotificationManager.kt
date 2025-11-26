@@ -46,6 +46,14 @@ open class WorkerNotificationManager(
         notificationManager.notify(id, notificationBuilder.build())
     }
 
+    fun showNotification(notification: Notification) {
+        notificationManager.notify(id, notification)
+    }
+
+    fun showNotification(id: Int, notification: Notification) {
+        notificationManager.notify(id, notification)
+    }
+
     @Suppress("MagicNumber")
     fun setProgress(percent: Int, progressText: String?, indeterminate: Boolean) {
         notificationBuilder.run {
