@@ -95,6 +95,7 @@ class OCFileListSearchTask(
 
                 val newList = if (searchType == SearchType.SHARED_FILTER) {
                     OCShareToOCFileConverter.parseAndSaveShares(
+                        sortedFilesInDb,
                         result.resultData ?: listOf(),
                         fileDataStorageManager,
                         currentUser.accountName

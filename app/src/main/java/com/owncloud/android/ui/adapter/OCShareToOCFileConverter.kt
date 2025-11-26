@@ -45,6 +45,7 @@ object OCShareToOCFileConverter {
     }
 
     suspend fun parseAndSaveShares(
+        cachedFiles: List<OCFile>,
         data: List<Any>,
         storageManager: FileDataStorageManager?,
         accountName: String
@@ -58,11 +59,27 @@ object OCShareToOCFileConverter {
             return@withContext emptyList()
         }
 
-        val files = buildOCFilesFromShares(shares)
+        val cachedPaths = cachedFiles.map { it.decryptedRemotePath }.toSet()
+
+        // Group shares by path to identify unique files
+        val sharesByPath = shares
+            .filter { it.path != null }
+            .groupBy { it.path!! }
+
+        // Identify ONLY new file paths that aren't in cache
+        val newSharesByPath = sharesByPath.filterKeys { path ->
+            path !in cachedPaths
+        }
+
+        if (newSharesByPath.isEmpty()) {
+            return@withContext cachedFiles
+        }
+
+        val newShares = newSharesByPath.values.flatten()
+        val newFiles = buildOCFilesFromShares(newShares)
         val baseSavePath = FileStorageUtils.getSavePath(accountName)
 
-        // Parallelized file lookup
-        val resolvedFiles = files.map { file ->
+        val resolvedNewFiles = newFiles.map { file ->
             async {
                 if (!file.isFolder && (file.storagePath == null || !File(file.storagePath).exists())) {
                     val fullPath = baseSavePath + file.decryptedRemotePath
@@ -77,11 +94,9 @@ object OCShareToOCFileConverter {
             }
         }.awaitAll()
 
-        storageManager?.saveShares(shares, accountName)
-
-        resolvedFiles
+        storageManager?.saveShares(newShares, accountName)
+        cachedFiles + resolvedNewFiles
     }
-
 
     private fun buildOcFile(path: String, shares: List<OCShare>): OCFile {
         require(shares.all { it.path == path })
