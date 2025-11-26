@@ -29,8 +29,7 @@ class FileSortOrderByName internal constructor(name: String?, ascending: Boolean
         foldersBeforeFiles: Boolean,
         favoritesFirst: Boolean
     ): MutableList<OCFile> {
-        val copy = files.toMutableList()
-        val sortedByName = sortOnlyByName(copy)
+        val sortedByName = sortOnlyByName(files)
         return super.sortCloudFiles(sortedByName, foldersBeforeFiles, favoritesFirst)
     }
 
@@ -40,14 +39,12 @@ class FileSortOrderByName internal constructor(name: String?, ascending: Boolean
      * @param files files to sort
      */
     override fun sortTrashbinFiles(files: MutableList<TrashbinFile>): List<TrashbinFile> {
-        val copy = files.toMutableList()
-        val sortedByName = sortServerFiles(copy)
+        val sortedByName = sortServerFiles(files)
         return super.sortTrashbinFiles(sortedByName)
     }
 
     private fun <T : ServerFileInterface> sortServerFiles(files: MutableList<T>): MutableList<T> {
-        val copy = files.toMutableList()
-        copy.sortWith { o1: ServerFileInterface, o2: ServerFileInterface ->
+        files.sortWith { o1: ServerFileInterface, o2: ServerFileInterface ->
             when {
                 o1.isFolder && o2.isFolder -> sortMultiplier * AlphanumComparator.compare(o1, o2)
                 o1.isFolder -> -1
@@ -55,13 +52,12 @@ class FileSortOrderByName internal constructor(name: String?, ascending: Boolean
                 else -> sortMultiplier * AlphanumComparator.compare(o1, o2)
             }
         }
-        return copy
+        return files
     }
 
     private fun sortOnlyByName(files: MutableList<OCFile>): MutableList<OCFile> {
-        val copy = files.toMutableList()
-        copy.sortWith { o1: OCFile, o2: OCFile -> sortMultiplier * AlphanumComparator.compare(o1, o2) }
-        return copy
+        files.sortWith { o1: OCFile, o2: OCFile -> sortMultiplier * AlphanumComparator.compare(o1, o2) }
+        return files
     }
 
     /**
@@ -70,8 +66,7 @@ class FileSortOrderByName internal constructor(name: String?, ascending: Boolean
      * @param files files to sort
      */
     override fun sortLocalFiles(files: MutableList<File>): List<File> {
-        val copy = files.toMutableList()
-        copy.sortWith { o1: File, o2: File ->
+        files.sortWith { o1: File, o2: File ->
             when {
                 o1.isDirectory && o2.isDirectory -> sortMultiplier * o1.path.lowercase(Locale.getDefault())
                     .compareTo(o2.path.lowercase(Locale.getDefault()))
@@ -83,6 +78,6 @@ class FileSortOrderByName internal constructor(name: String?, ascending: Boolean
                 )
             }
         }
-        return copy
+        return files
     }
 }
