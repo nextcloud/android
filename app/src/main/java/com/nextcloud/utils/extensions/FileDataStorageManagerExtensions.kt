@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 
 suspend fun FileDataStorageManager.saveShares(shares: List<OCShare>, accountName: String) {
     withContext(Dispatchers.IO) {
-        shareDao.clearSharesForAccount(accountName)
+        //shareDao.clearSharesForAccount(accountName)
 
         val entities = shares.map { share ->
             share.toEntity(accountName)

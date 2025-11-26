@@ -1653,25 +1653,6 @@ public class FileDataStorageManager {
         return cursor.getInt(index);
     }
 
-    private void resetShareFlagsInFolder(OCFile folder) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, Boolean.FALSE);
-        contentValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, Boolean.FALSE);
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PARENT + " = ?";
-        String[] whereArgs = new String[]{user.getAccountName(), String.valueOf(folder.getFileId())};
-
-        if (getContentResolver() != null) {
-            getContentResolver().update(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs);
-
-        } else {
-            try {
-                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in resetShareFlagsInFiles" + e.getMessage(), e);
-            }
-        }
-    }
-
     private void resetShareFlagInAFile(String filePath) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, Boolean.FALSE);
