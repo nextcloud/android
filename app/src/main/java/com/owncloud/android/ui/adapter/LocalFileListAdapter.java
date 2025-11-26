@@ -10,6 +10,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -28,10 +29,12 @@ import com.nextcloud.utils.FileHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.adapter.storagePermissionBanner.StoragePermissionBannerViewHolder;
 import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
@@ -54,8 +57,8 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private static final String TAG = LocalFileListAdapter.class.getSimpleName();
 
-    private AppPreferences preferences;
-    private Context mContext;
+    private final AppPreferences preferences;
+    private final Activity mContext;
     private List<File> mFiles = new ArrayList<>();
     private List<File> mFilesAll = new ArrayList<>();
     private boolean mLocalFolderPicker;
@@ -68,6 +71,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final int VIEWTYPE_ITEM = 0;
     private static final int VIEWTYPE_FOOTER = 1;
     private static final int VIEWTYPE_IMAGE = 2;
+    private static final int VIEWTYPE_HEADER = 3;
 
     private static final int PAGE_SIZE = 50;
     private int currentOffset = 0;
@@ -75,7 +79,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     public LocalFileListAdapter(boolean localFolderPickerMode,
                                 LocalFileListFragmentInterface localFileListFragmentInterface,
                                 AppPreferences preferences,
-                                Context context,
+                                Activity context,
                                 final ViewThemeUtils viewThemeUtils,
                                 boolean isWithinEncryptedFolder) {
         this.preferences = preferences;
@@ -134,7 +138,15 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemCount() {
-        return mFiles.size() + 1;
+        // footer always exists
+        int count = mFiles.size() + 1;
+
+        // check header section visibility
+        if (shouldShowHeader()) {
+            count += 1;
+        }
+
+        return count;
     }
 
     @Override
@@ -149,75 +161,119 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemViewType(int position) {
-        if (position == mFiles.size()) {
-            return VIEWTYPE_FOOTER;
-        } else {
-            if (MimeTypeUtil.isImageOrVideo(getItem(position))) {
-                return VIEWTYPE_IMAGE;
-            } else {
-                return VIEWTYPE_ITEM;
-            }
+        boolean header = shouldShowHeader();
+        int headerOffset = header ? 1 : 0;
+
+        if (header && position == 0) {
+            return VIEWTYPE_HEADER;
         }
+
+        // footer position
+        if (position == mFiles.size() + headerOffset) {
+            return VIEWTYPE_FOOTER;
+        }
+
+        // real file position
+        int fileIndex = position - headerOffset;
+        File file = mFiles.get(fileIndex);
+
+        if (MimeTypeUtil.isImageOrVideo(file)) {
+            return VIEWTYPE_IMAGE;
+        } else {
+            return VIEWTYPE_ITEM;
+        }
+    }
+
+    private boolean shouldShowHeader() {
+        return !PermissionUtil.checkStoragePermission(mContext);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof LocalFileListFooterViewHolder) {
-            ((LocalFileListFooterViewHolder) holder).footerText.setText(getFooterText());
-        } else {
-            File file = null;
-            if (mFiles.size() > position && mFiles.get(position) != null) {
-                file = mFiles.get(position);
-            }
+        boolean headerVisible = shouldShowHeader();
+        int headerOffset = headerVisible ? 1 : 0;
 
-            if (file != null) {
-                File finalFile = file;
-
-                LocalFileListGridItemViewHolder gridViewHolder = (LocalFileListGridItemViewHolder) holder;
-
-                if (mLocalFolderPicker) {
-                    gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
-                    gridViewHolder.checkbox.setVisibility(View.GONE);
-                } else {
-                    gridViewHolder.checkbox.setVisibility(View.VISIBLE);
-                    if (isCheckedFile(file)) {
-                        gridViewHolder.itemLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.selected_item_background));
-
-                        gridViewHolder.checkbox.setImageDrawable(
-                            viewThemeUtils.platform.tintDrawable(mContext, R.drawable.ic_checkbox_marked, ColorRole.PRIMARY));
-                    } else {
-                        gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
-                        gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
-                    }
-                    gridViewHolder.checkbox.setOnClickListener(v -> localFileListFragmentInterface
-                        .onItemCheckboxClicked(finalFile));
-                }
-
-                gridViewHolder.thumbnail.setTag(file.hashCode());
-                setThumbnail(file, gridViewHolder.thumbnail, mContext, viewThemeUtils);
-
-                gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
-                    .onItemClicked(finalFile));
-
-                if (holder instanceof LocalFileListItemViewHolder itemViewHolder) {
-                    if (file.isDirectory()) {
-                        itemViewHolder.fileSize.setVisibility(View.GONE);
-                        itemViewHolder.fileSeparator.setVisibility(View.GONE);
-                        if (isWithinEncryptedFolder) {
-                            itemViewHolder.checkbox.setVisibility(View.GONE);
-                        }
-                    } else {
-                        itemViewHolder.fileSize.setVisibility(View.VISIBLE);
-                        itemViewHolder.fileSeparator.setVisibility(View.VISIBLE);
-                        itemViewHolder.fileSize.setText(DisplayUtils.bytesToHumanReadable(file.length()));
-                    }
-                    itemViewHolder.lastModification.setText(DisplayUtils.getRelativeTimestamp(mContext,
-                            file.lastModified()));
-                }
-
-                gridViewHolder.fileName.setText(file.getName());
-            }
+        // --- HEADER ---
+        if (headerVisible && position == 0) {
+            // Header has no dynamic binding
+            return;
         }
+
+        // --- FOOTER ---
+        if (position == mFiles.size() + headerOffset) {
+            LocalFileListFooterViewHolder footer = (LocalFileListFooterViewHolder) holder;
+            footer.footerText.setText(getFooterText());
+            return;
+        }
+
+        int fileIndex = position - headerOffset;
+        if (fileIndex < 0 || fileIndex >= mFiles.size()) {
+            return;
+        }
+
+        File file = mFiles.get(fileIndex);
+        if (file == null) {
+            return;
+        }
+
+        LocalFileListGridItemViewHolder grid = (LocalFileListGridItemViewHolder) holder;
+
+        // Background + checkbox logic
+        if (mLocalFolderPicker) {
+            grid.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
+            grid.checkbox.setVisibility(View.GONE);
+        } else {
+            grid.checkbox.setVisibility(View.VISIBLE);
+
+            if (isCheckedFile(file)) {
+                grid.itemLayout.setBackgroundColor(
+                    ContextCompat.getColor(mContext, R.color.selected_item_background)
+                                                  );
+                grid.checkbox.setImageDrawable(
+                    viewThemeUtils.platform.tintDrawable(mContext, R.drawable.ic_checkbox_marked, ColorRole.PRIMARY)
+                                              );
+            } else {
+                grid.itemLayout.setBackgroundColor(
+                    mContext.getResources().getColor(R.color.bg_default)
+                                                  );
+                grid.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
+            }
+
+            grid.checkbox.setOnClickListener(v ->
+                                                 localFileListFragmentInterface.onItemCheckboxClicked(file)
+                                            );
+        }
+
+        // Thumbnail
+        grid.thumbnail.setTag(file.hashCode());
+        setThumbnail(file, grid.thumbnail, mContext, viewThemeUtils);
+
+        grid.itemLayout.setOnClickListener(v ->
+                                               localFileListFragmentInterface.onItemClicked(file)
+                                          );
+
+        if (holder instanceof LocalFileListItemViewHolder item) {
+            if (file.isDirectory()) {
+                item.fileSize.setVisibility(View.GONE);
+                item.fileSeparator.setVisibility(View.GONE);
+
+                if (isWithinEncryptedFolder) {
+                    item.checkbox.setVisibility(View.GONE);
+                }
+
+            } else {
+                item.fileSize.setVisibility(View.VISIBLE);
+                item.fileSeparator.setVisibility(View.VISIBLE);
+                item.fileSize.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+            }
+
+            item.lastModification.setText(
+                DisplayUtils.getRelativeTimestamp(mContext, file.lastModified())
+                                         );
+        }
+
+        // Filename
+        grid.fileName.setText(file.getName());
     }
 
     public static void setThumbnail(File file,
@@ -297,6 +353,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 View itemView = LayoutInflater.from(mContext).inflate(R.layout.list_footer, parent, false);
                 return new LocalFileListFooterViewHolder(itemView);
 
+            case VIEWTYPE_HEADER:
+                View headerItemView = LayoutInflater.from(mContext).inflate(R.layout.storage_permission_warning_banner, parent, false);
+                return new StoragePermissionBannerViewHolder(mContext, headerItemView);
             default:
                 throw new IllegalArgumentException("Invalid viewType: " + viewType);
         }

@@ -19,7 +19,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -505,8 +504,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         // is not available in FolderPickerActivity
         viewThemeUtils.material.themeFAB(mFabMain);
         mFabMain.setOnClickListener(v -> {
-            PermissionUtil.requestMediaLocationPermission(fileActivity);
-
             var currentDir = getCurrentFile();
             if (currentDir == null) {
                 Log_OC.w(TAG, "currentDir is null cannot open bottom sheet dialog");

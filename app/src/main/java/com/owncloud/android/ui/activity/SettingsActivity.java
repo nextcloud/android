@@ -54,6 +54,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -76,6 +77,7 @@ import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -92,6 +94,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+
+import static com.owncloud.android.ui.activity.DrawerActivity.REQ_ALL_FILES_ACCESS;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -374,6 +378,7 @@ public class SettingsActivity extends PreferenceActivity
 
         setupAutoUploadPreference(preferenceCategorySync);
         setupInternalTwoWaySyncPreference();
+        setupAllFilesAccessPreference(preferenceCategorySync);
     }
 
     private void setupMoreCategory() {
@@ -616,6 +621,23 @@ public class SettingsActivity extends PreferenceActivity
         twoWaySync.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(this, InternalTwoWaySyncActivity.class);
             startActivity(intent);
+            return true;
+        });
+    }
+
+    private void setupAllFilesAccessPreference(PreferenceCategory category) {
+        Preference allFilesAccess = findPreference("allFilesAccess");
+
+        if (PermissionUtil.checkAllFilesAccess()) {
+            category.removePreference(allFilesAccess);
+        } else {
+            if (allFilesAccess.getParent() == null) {
+                category.addPreference(allFilesAccess);
+            }
+        }
+
+        allFilesAccess.setOnPreferenceClickListener(preference -> {
+            ContextExtensionsKt.openAllFilesAccessSettings(this, REQ_ALL_FILES_ACCESS);
             return true;
         });
     }
@@ -1067,6 +1089,9 @@ public class SettingsActivity extends PreferenceActivity
                 storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
             }
+        } else if (requestCode == REQ_ALL_FILES_ACCESS) {
+            final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
+            setupAllFilesAccessPreference(preferenceCategorySync);
         }
     }
 

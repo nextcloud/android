@@ -15,6 +15,7 @@ package com.owncloud.android.ui.activity;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
+import android.app.ComponentCaller;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -52,7 +53,6 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkConstants;
-import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -145,6 +145,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     private static final int MENU_ITEM_EXTERNAL_LINK = 111;
     private static final int MAX_LOGO_SIZE_PX = 1000;
     private static final int RELATIVE_THRESHOLD_WARNING = 80;
+    public static final int REQ_ALL_FILES_ACCESS = 3001;
+    public static final int REQ_MEDIA_ACCESS = 3000;
 
     /**
      * Reference to the drawer layout.
@@ -1431,5 +1433,22 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     public BottomNavigationView getBottomNavigationView() {
        return bottomNavigationView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data, @NonNull ComponentCaller caller) {
+        super.onActivityResult(requestCode, resultCode, data, caller);
+
+        if (requestCode == REQ_ALL_FILES_ACCESS || requestCode == REQ_MEDIA_ACCESS) {
+            checkStoragePermissionWarningBannerVisibility();
+        }
+    }
+
+    private void checkStoragePermissionWarningBannerVisibility() {
+        if (this instanceof SyncedFoldersActivity syncedFoldersActivity) {
+            syncedFoldersActivity.setupStoragePermissionWarningBanner();
+        } else if (this instanceof UploadFilesActivity uploadFilesActivity) {
+            uploadFilesActivity.setupStoragePermissionWarningBanner();
+        }
     }
 }
