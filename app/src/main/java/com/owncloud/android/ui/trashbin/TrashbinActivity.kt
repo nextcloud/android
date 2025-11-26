@@ -168,14 +168,23 @@ class TrashbinActivity :
         binding.swipeContainingList.setOnRefreshListener { loadFolder() }
         viewThemeUtils?.material?.colorMaterialTextButton(findViewById(R.id.sort_button))
 
-        findViewById<View>(R.id.sort_button).setOnClickListener {
-            DisplayUtils.openSortingOrderDialogFragment(
-                supportFragmentManager,
-                preferences?.getSortOrderByType(
-                    FileSortOrder.Type.trashBinView,
-                    FileSortOrder.SORT_NEW_TO_OLD
+        val sortOrder = preferences?.getSortOrderByType(
+            FileSortOrder.Type.trashBinView,
+            FileSortOrder.SORT_NEW_TO_OLD
+        )
+
+        findViewById<TextView>(R.id.sort_button).apply {
+            setOnClickListener {
+                DisplayUtils.openSortingOrderDialogFragment(
+                    supportFragmentManager,
+                    preferences?.getSortOrderByType(
+                        FileSortOrder.Type.trashBinView,
+                        FileSortOrder.SORT_NEW_TO_OLD
+                    )
                 )
-            )
+            }
+
+            setText(DisplayUtils.getSortOrderStringId(sortOrder))
         }
 
         loadFolder()
