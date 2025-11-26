@@ -1100,6 +1100,10 @@
         <item quantity="one">%1$d file</item>
         <item quantity="other">%1$d files</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d تۈر</item>
+        <item quantity="other">%1$d تۈرلەر</item>
+    </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Show %1$d hidden folder</item>
         <item quantity="other">Show %1$d hidden folders</item>
