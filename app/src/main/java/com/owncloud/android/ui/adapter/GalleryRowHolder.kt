@@ -26,7 +26,6 @@ import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.files.model.ImageDimension
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
@@ -92,13 +91,8 @@ class GalleryRowHolder(
         val fileDrawable = ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
         val thumbnailSize = defaultThumbnailSize.toInt()
         val bitmap = BitmapUtils.drawableToBitmap(fileDrawable, thumbnailSize, thumbnailSize)
-        val drawable = ThumbnailsCacheManager.AsyncGalleryImageDrawable(
-            context.resources,
-            bitmap,
-            null
-        )
         val rowCellImageView = ImageView(context).apply {
-            setImageDrawable(drawable)
+            setImageBitmap(bitmap)
         }
 
         return FrameLayout(context).apply {
