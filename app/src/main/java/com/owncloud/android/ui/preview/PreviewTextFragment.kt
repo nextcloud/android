@@ -55,6 +55,7 @@ import io.noties.markwon.syntax.Prism4jThemeDefault
 import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
 import io.noties.prism4j.annotations.PrismBundle
+import third_parties.io.noties.prism4j.languages.MarkwonGrammarLocator
 import javax.inject.Inject
 
 @PrismBundle(
