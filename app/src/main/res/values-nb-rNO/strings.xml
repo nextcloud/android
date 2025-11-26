@@ -577,7 +577,6 @@
     <string name="notifications_no_results_headline">Ingen varsler</string>
     <string name="notifications_no_results_message">Kom innom senere og ta en titt.</string>
     <string name="offline_mode">Ingen internettforbindelse</string>
-    <string name="offline_operations_file_does_not_exists_yet">Filen finnes ikke, ennå. Vennligst last opp filen først.</string>
     <string name="oneHour">1 time</string>
     <string name="online">Pålogget</string>
     <string name="online_status">Online status</string>

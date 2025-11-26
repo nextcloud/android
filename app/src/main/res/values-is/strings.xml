@@ -634,7 +634,6 @@
     <string name="offline_mode">Engin internettenging</string>
     <string name="offline_mode_info_description">Jafnvel án tengingar við internetið geturðu skipulagt möppurnar þínar og útbúið skrár. Um leið og tenging næst aftur, munu aðgerðirnar þínar sem verið hafa í bið, samstillast sjálfkrafa við netþjóninn.</string>
     <string name="offline_mode_info_title">Tækið er ekki tengt við netið, en vinnan heldur áfram</string>
-    <string name="offline_operations_file_does_not_exists_yet">Skráin er ekki til, ennþá. Sendu fyrst inn skrána.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Ekki tókst að búa til %s. Skrá með sama heiti er þegar til á netþjóninum.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Ekki tókst að búa til %s. Mappa með sama heiti er þegar til á netþjóninum.</string>
     <string name="offline_operations_worker_notification_error_text">Ekki tókst að ljúka ónettengdu aðgerðinni. %s</string>

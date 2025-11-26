@@ -648,7 +648,6 @@
     <string name="offline_mode">Brak połączenia z Internetem</string>
     <string name="offline_mode_info_description">Nawet bez połączenia internetowego możesz organizować swoje katalogi, tworzyć pliki. Gdy tylko wrócisz do połączenia z internetem, Twoje oczekujące działania zostaną automatycznie zsynchronizowane.</string>
     <string name="offline_mode_info_title">Jesteś offline, ale praca trwa</string>
-    <string name="offline_operations_file_does_not_exists_yet">Plik jeszcze nie istnieje. Wyślij najpierw plik.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Nie można utworzyć %s. Plik o tej samej nazwie już istnieje na serwerze.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Nie można utworzyć %s. Folder o tej samej nazwie już istnieje na serwerze.</string>
     <string name="offline_operations_worker_notification_error_text">Operacja offline nie może zostać ukończona. %s</string>

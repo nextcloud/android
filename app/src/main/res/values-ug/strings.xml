@@ -577,7 +577,6 @@
     <string name="notifications_no_results_message">كېيىن قايتا تەكشۈرۈپ بېقىڭ.</string>
     <string name="offline_mode">تور ئۇلىنىشى يوق</string>
     <string name="offline_mode_info_description">تورغا ئۇلانمىسىڭىزمۇ ھۆججەت قىسقۇچلىرىڭىزنى رەتلىيەلەيسىز ، ھۆججەت قۇرالايسىز. تورغا قايتىپ كەلگەندىن كېيىن ، ساقلاۋاتقان ھەرىكەتلىرىڭىز ئاپتوماتىك ماسقەدەملىنىدۇ.</string>
-    <string name="offline_operations_file_does_not_exists_yet">ھۆججەت مەۋجۇت ئەمەس. ئاۋۋال ھۆججەتنى يۈكلەڭ.</string>
     <string name="offline_operations_worker_notification_error_text">تورسىز مەشغۇلاتنى تاماملىغىلى بولمايدۇ. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">تورسىز مەشغۇلات</string>
     <string name="oneHour">1 سائەت</string>

@@ -557,7 +557,6 @@
     <string name="notifications_no_results_headline">Ei ilmoituksia</string>
     <string name="notifications_no_results_message">Katso myöhemmin uudestaan.</string>
     <string name="offline_mode">Ei internetyhteyttä</string>
-    <string name="offline_operations_file_does_not_exists_yet">Tiedostoa ei vielä ole. Lataa tiedosto ensin.</string>
     <string name="oneHour">1 tunti</string>
     <string name="online">Online</string>
     <string name="online_status">Online-tila</string>

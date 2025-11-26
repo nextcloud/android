@@ -596,7 +596,6 @@
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Operazione di Rimozione in Sospeso</string>
     <string name="offline_mode">Nessuna connessione a Internet</string>
     <string name="offline_mode_info_description">Puoi organizzare le tue cartelle, creare file anche senza connessione Internet. Una volta tornato online le azioni in sospeso verranno sincronizzate automaticamente.</string>
-    <string name="offline_operations_file_does_not_exists_yet">Il file non esiste ancora. Per favore carica prima il file.</string>
     <string name="offline_operations_worker_notification_error_text">L\'operazione offline non può essere completata. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operazioni Offline</string>
     <string name="oneHour">1 ora</string>
