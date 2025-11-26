@@ -13,6 +13,7 @@ import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.autoRename.AutoRename
+import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -171,6 +172,11 @@ class EncryptionUtilsV2 {
         context: Context,
         arbitraryDataProvider: ArbitraryDataProvider
     ): DecryptedFolderMetadataFile {
+        if (signature.isEmpty()) {
+            context.showToast(R.string.e2e_signature_is_empty)
+            throw IllegalStateException("Cannot decryptFolderMetadataFile, signature is empty")
+        }
+
         val parent =
             storageManager.getFileById(ocFile.parentId) ?: throw IllegalStateException("Cannot retrieve metadata")
 
@@ -945,10 +951,6 @@ class EncryptionUtilsV2 {
         oldCounter: Long,
         signature: String
     ) {
-        if (signature.isEmpty()) {
-            return
-        }
-
         if (decryptedFolderMetadataFile.metadata.counter < oldCounter) {
             MainApp.showMessage(R.string.e2e_counter_too_old)
             return
@@ -982,20 +984,19 @@ class EncryptionUtilsV2 {
         return CMSSignedData(cmsProcessableByteArray, contentInfo)
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun verifySignedData(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
-        val signer: SignerInformation = data.signerInfos.signers.iterator().next() as SignerInformation
+        val signer = data.signerInfos.signers.first() as SignerInformation
+        val verifierBuilder = JcaSimpleSignerInfoVerifierBuilder()
 
-        certs.forEach {
-            try {
-                if (signer.verify(JcaSimpleSignerInfoVerifierBuilder().build(it))) {
-                    return true
-                }
-            } catch (e: java.lang.Exception) {
-                Log_OC.e(TAG, "Error caught at verifySignedData: $e")
+        return certs.any { cert ->
+            runCatching {
+                signer.verify(verifierBuilder.build(cert))
+            }.getOrElse {
+                Log_OC.e(TAG, "Exception verifySignedData: $it")
+                false
             }
         }
-
-        return false
     }
 
     private fun signMessage(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
