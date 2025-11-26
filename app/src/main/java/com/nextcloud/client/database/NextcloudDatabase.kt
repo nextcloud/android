@@ -21,6 +21,7 @@ import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.dao.OfflineOperationDao
 import com.nextcloud.client.database.dao.RecommendedFileDao
+import com.nextcloud.client.database.dao.ShareDao
 import com.nextcloud.client.database.dao.SyncedFolderDao
 import com.nextcloud.client.database.dao.UploadDao
 import com.nextcloud.client.database.entity.ArbitraryDataEntity
@@ -106,6 +107,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
     abstract fun fileSystemDao(): FileSystemDao
     abstract fun syncedFolderDao(): SyncedFolderDao
     abstract fun assistantDao(): AssistantDao
+    abstract fun shareDao(): ShareDao
 
     companion object {
         const val FIRST_ROOM_DB_VERSION = 65
