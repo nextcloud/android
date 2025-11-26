@@ -262,6 +262,13 @@ class FileUploadWorker(
             val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
             uploadsStorageManager.updateStatus(entity, result.isSuccess)
             currentUploadFileOperation = null
+
+            if (result.code == ResultCode.QUOTA_EXCEEDED) {
+                Log_OC.w(TAG, "Quota exceeded, stopping uploads")
+                notificationManager.showQuotaExceedNotification(operation, result.code)
+                break
+            }
+
             sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
         }
 
