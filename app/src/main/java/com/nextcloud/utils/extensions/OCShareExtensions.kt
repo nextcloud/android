@@ -16,7 +16,7 @@ fun List<OCShare>.mergeDistinctByToken(other: List<OCShare>): List<OCShare> = (t
 
 fun OCShare.toEntity(accountName: String): ShareEntity {
     return ShareEntity(
-        id = id.toInt(),
+        id = remoteId.toInt(), // so that db is not keep updating same files
         idRemoteShared = remoteId.toInt(),
         path = path,
         itemSource = itemSource.toInt(),
