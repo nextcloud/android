@@ -31,7 +31,7 @@ jobs:
             -   uses: gradle/actions/wrapper-validation@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
             -   name: Build ${{ matrix.flavor }}
                 run: |
-                    echo "org.gradle.jvmargs=-Xmx2g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" >> gradle.properties
+                    echo "org.gradle.jvmargs=-Xmx3g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" >> gradle.properties
                     echo "org.gradle.caching=true" >> gradle.properties
                     echo "org.gradle.parallel=true" >> gradle.properties
                     echo "org.gradle.configureondemand=true" >> gradle.properties
