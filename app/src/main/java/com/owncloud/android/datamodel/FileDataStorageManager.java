@@ -870,6 +870,9 @@ public class FileDataStorageManager {
                     } else {
                         deleted = getContentResolver().delete(file_uri, where, whereArgs);
                     }
+                    
+                    removeSharesForFile(ocFile.getRemotePath());
+                    
                     success = deleted > 0;
                 }
 
@@ -927,6 +930,9 @@ public class FileDataStorageManager {
         } else {
             deleted = getContentResolver().delete(folderUri, where, whereArgs);
         }
+
+        removeSharesForFile(folder.getRemotePath());
+        
         return deleted > 0;
     }
 
@@ -1708,7 +1714,7 @@ public class FileDataStorageManager {
 
     // TODO shares null?
     public void saveShares(List<OCShare> shares) {
-        cleanShares();
+        // cleanShares();
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(shares.size());
 
         // prepare operations to insert or update files to save in the given folder
@@ -1871,7 +1877,7 @@ public class FileDataStorageManager {
         resetShareFlagInAFile(remotePath);
         ArrayList<ContentProviderOperation> operations = prepareRemoveSharesInFile(remotePath, new ArrayList<>());
         // apply operations in batch
-        if (operations.size() > 0) {
+        if (!operations.isEmpty()) {
             Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
             try {
                 if (getContentResolver() != null) {
@@ -1928,11 +1934,19 @@ public class FileDataStorageManager {
         for (OCShare share : shares) {
             contentValues = createContentValueForShare(share);
 
-            // adding a new share resource
-            operations.add(ContentProviderOperation
-                               .newInsert(ProviderTableMeta.CONTENT_URI_SHARE)
-                               .withValues(contentValues)
-                               .build());
+            if (getSharesByPathAndType(share.getPath(), share.getShareType(), share.getShareWith()).isEmpty()) {
+                // adding a new share resource
+                operations.add(ContentProviderOperation
+                                   .newInsert(ProviderTableMeta.CONTENT_URI_SHARE)
+                                   .withValues(contentValues)
+                                   .build());
+            } else {
+                // update
+                operations.add(ContentProviderOperation
+                                   .newUpdate(ProviderTableMeta.CONTENT_URI_SHARE)
+                                   .withValues(contentValues)
+                                   .build());
+            }
         }
 
         return operations;
