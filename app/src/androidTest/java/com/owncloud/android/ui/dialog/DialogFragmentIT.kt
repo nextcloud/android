@@ -527,7 +527,6 @@ class DialogFragmentIT : AbstractIT() {
                 sut.show()
             }
 
-
             sut!!.behavior.setState(BottomSheetBehavior.STATE_EXPANDED)
             val viewGroup = sut.window?.findViewById<ViewGroup>(android.R.id.content) ?: return
             hideCursors(viewGroup)
@@ -698,7 +697,6 @@ class DialogFragmentIT : AbstractIT() {
         }
         return null
     }
-
 
     private fun hideCursors(viewGroup: ViewGroup) {
         for (i in 0..<viewGroup.childCount) {

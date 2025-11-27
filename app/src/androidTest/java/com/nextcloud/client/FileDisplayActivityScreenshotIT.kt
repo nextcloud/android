@@ -91,7 +91,6 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
                 onView(ViewMatchers.withId(R.id.nav_view))
                     .perform(NavigationViewActions.navigateTo(R.id.nav_all_files))
 
-
                 val fragment = activity!!.listOfFilesFragment
                 fragment!!.setFabEnabled(false)
                 fragment.setEmptyListMessage(EmptyListState.LOADING)

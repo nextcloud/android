@@ -66,7 +66,6 @@ class SendFilesDialogTest : AbstractIT() {
         }
     }
 
-
     @Test
     @ScreenshotTest
     fun showDialog() {
