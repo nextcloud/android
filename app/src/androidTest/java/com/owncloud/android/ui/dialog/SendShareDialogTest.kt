@@ -18,7 +18,6 @@ import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.OCCapability
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Test
 
@@ -29,25 +28,23 @@ class SendShareDialogTest : AbstractIT() {
     @ScreenshotTest
     fun showDialog() {
         launchActivity<TestActivity>().use { scenario ->
+            var sut: SendShareDialog? = null
             scenario.onActivity { activity ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    val fm: FragmentManager = activity.supportFragmentManager
-                    val ft = fm.beginTransaction()
-                    ft.addToBackStack(null)
-
-                    val file = OCFile("/1.jpg").apply {
-                        mimeType = "image/jpg"
-                    }
-                    EspressoIdlingResource.decrement()
-
-                    val sut = SendShareDialog.newInstance(file, false, OCCapability())
-                    sut.show(ft, "TAG_SEND_SHARE_DIALOG")
-                    val screenShotName = createName(testClassName + "_" + "showDialog", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut.requireDialog().window?.decorView, screenShotName)
+                val fm: FragmentManager = activity.supportFragmentManager
+                val ft = fm.beginTransaction()
+                ft.addToBackStack(null)
+                fm.executePendingTransactions()
+                val file = OCFile("/1.jpg").apply {
+                    mimeType = "image/jpg"
                 }
+
+                sut = SendShareDialog.newInstance(file, false, OCCapability())
+                sut.show(ft, "TAG_SEND_SHARE_DIALOG")
             }
+
+            val screenShotName = createName(testClassName + "_" + "showDialog", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+            screenshotViaName(sut!!.requireDialog().window?.decorView, screenShotName)
         }
     }
 }
