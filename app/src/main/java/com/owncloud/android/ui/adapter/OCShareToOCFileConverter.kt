@@ -59,24 +59,7 @@ object OCShareToOCFileConverter {
             return@withContext emptyList()
         }
 
-        val cachedPaths = cachedFiles.map { it.decryptedRemotePath }.toSet()
-
-        // Group shares by path to identify unique files
-        val sharesByPath = shares
-            .filter { it.path != null }
-            .groupBy { it.path!! }
-
-        // Identify ONLY new file paths that aren't in cache
-        val newSharesByPath = sharesByPath.filterKeys { path ->
-            path !in cachedPaths
-        }
-
-        if (newSharesByPath.isEmpty()) {
-            return@withContext cachedFiles
-        }
-
-        val newShares = newSharesByPath.values.flatten()
-        val newFiles = buildOCFilesFromShares(newShares)
+        val newFiles = buildOCFilesFromShares(shares)
         val baseSavePath = FileStorageUtils.getSavePath(accountName)
 
         val resolvedNewFiles = newFiles.map { file ->
@@ -94,7 +77,7 @@ object OCShareToOCFileConverter {
             }
         }.awaitAll()
 
-        storageManager?.saveShares(newShares, accountName)
+        // storageManager?.saveShares(newShares, accountName)
         cachedFiles + resolvedNewFiles
     }
 
