@@ -13,6 +13,7 @@ import android.accounts.OperationCanceledException;
 import android.content.ActivityNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
+
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;

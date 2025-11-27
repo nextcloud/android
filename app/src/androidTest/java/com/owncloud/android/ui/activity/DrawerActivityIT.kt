@@ -12,7 +12,6 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import android.net.Uri
 import android.view.View
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
@@ -40,7 +39,6 @@ class DrawerActivityIT : AbstractIT() {
     val retryTestRule = RetryTestRule()
 
     @Test
-    @UiThread
     fun switchAccountViaAccountList() {
         launchActivity<FileDisplayActivity>().use { scenario ->
             scenario.onActivity { sut ->

@@ -7,7 +7,6 @@
  */
 package com.nextcloud.client.etm
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -35,7 +34,6 @@ class EtmActivityTest : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun overview() {
         launchActivity<EtmActivity>().use { scenario ->
@@ -50,7 +48,6 @@ class EtmActivityTest : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun accounts() {
         launchActivity<EtmActivity>().use { scenario ->

@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.activity
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -36,7 +35,6 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun open() {
         launchActivity<ReceiveExternalFilesActivity>().use { scenario ->

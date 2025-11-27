@@ -8,7 +8,6 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -38,7 +37,6 @@ class ContactsPreferenceActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun openVCF() {
         val file = getFile("vcard.vcf")
@@ -64,7 +62,6 @@ class ContactsPreferenceActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun openContactsPreference() {
         launchActivity<ContactsPreferenceActivity>().use { scenario ->

@@ -9,7 +9,6 @@
  */
 package com.owncloud.android.ui.fragment
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -50,7 +49,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     var storagePermissionRule: TestRule = grant()
 
     @Test
-    @UiThread
     @ScreenshotTest
     @Suppress("MagicNumber")
     fun showFiles() {
@@ -121,7 +119,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
      * Use same values as {@link FileDetailSharingFragmentIT listSharesFileAllShareTypes }
      */
     @Test
-    @UiThread
     @ScreenshotTest
     fun showSharedFiles() {
         launchActivity<TestActivity>().use { scenario ->
@@ -257,7 +254,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
      * Use same values as {@link FileDetailSharingFragmentIT listSharesFileAllShareTypes }
      */
     @Test
-    @UiThread
     @ScreenshotTest
     fun showFolderTypes() {
         launchActivity<TestActivity>().use { scenario ->
@@ -347,7 +343,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     @Suppress("MagicNumber")
     fun showRichWorkspace() {
@@ -389,7 +384,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     fun shouldShowHeader() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { activity ->

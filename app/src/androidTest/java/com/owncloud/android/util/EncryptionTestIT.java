@@ -25,8 +25,8 @@ import com.owncloud.android.datamodel.e2e.v1.decrypted.Encrypted;
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.CsrHelper;
-import com.owncloud.android.utils.crypto.CryptoHelper;
 import com.owncloud.android.utils.EncryptionUtils;
+import com.owncloud.android.utils.crypto.CryptoHelper;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -75,10 +75,10 @@ import static com.owncloud.android.utils.EncryptionUtils.serializeJSON;
 import static com.owncloud.android.utils.EncryptionUtils.verifySHA512;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertArrayEquals;
 
 public class EncryptionTestIT extends AbstractIT {
     @Rule public RetryTestRule retryTestRule = new RetryTestRule();

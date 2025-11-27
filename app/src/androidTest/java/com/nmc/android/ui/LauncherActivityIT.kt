@@ -6,7 +6,6 @@
  */
 package com.nmc.android.ui
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -38,7 +37,6 @@ class LauncherActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     fun testSplashScreenWithEmptyTitlesShouldHideTitles() {
         launchActivity<LauncherActivity>().use { scenario ->
             scenario.onActivity { _ ->
@@ -56,7 +54,6 @@ class LauncherActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     fun testSplashScreenWithTitlesShouldShowTitles() {
         launchActivity<LauncherActivity>().use { scenario ->
             scenario.onActivity {

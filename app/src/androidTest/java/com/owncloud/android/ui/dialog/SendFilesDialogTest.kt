@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.dialog
 
-import androidx.annotation.UiThread
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.launchActivity
@@ -84,7 +83,6 @@ class SendFilesDialogTest : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showDialog() {
         showDialog(FILES_SAME_TYPE) { sut ->
@@ -95,7 +93,6 @@ class SendFilesDialogTest : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showDialog_Screenshot() {
         showDialog(FILES_SAME_TYPE) { sut ->
@@ -106,7 +103,6 @@ class SendFilesDialogTest : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showDialogDifferentTypes() {
         showDialog(FILES_MIXED_TYPE) { sut ->
@@ -117,7 +113,6 @@ class SendFilesDialogTest : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showDialogDifferentTypes_Screenshot() {
         showDialog(FILES_MIXED_TYPE) { sut ->

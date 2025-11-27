@@ -6,7 +6,6 @@
  */
 package com.owncloud.android
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
@@ -48,7 +47,6 @@ class ScreenshotsIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun gridViewScreenshot() {
         launchActivity<FileDisplayActivity>().use { scenario ->
@@ -71,7 +69,6 @@ class ScreenshotsIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun listViewScreenshot() {
         launchActivity<FileDisplayActivity>().use { scenario ->
@@ -94,7 +91,6 @@ class ScreenshotsIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun drawerScreenshot() {
         launchActivity<FileDisplayActivity>().use { scenario ->
@@ -115,7 +111,6 @@ class ScreenshotsIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun multipleAccountsScreenshot() {
         launchActivity<FileDisplayActivity>().use { scenario ->
@@ -136,7 +131,6 @@ class ScreenshotsIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun autoUploadScreenshot() {
         launchActivity<SyncedFoldersActivity>().use { scenario ->
@@ -151,7 +145,6 @@ class ScreenshotsIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun davdroidScreenshot() {
         launchActivity<SettingsActivity>().use { scenario ->

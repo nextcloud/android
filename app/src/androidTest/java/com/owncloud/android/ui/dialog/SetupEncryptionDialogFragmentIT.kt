@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.dialog
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -38,7 +37,6 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showMnemonic() {
         launchActivity<TestActivity>().use { scenario ->
@@ -77,7 +75,6 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun error() {
         launchActivity<TestActivity>().use { scenario ->

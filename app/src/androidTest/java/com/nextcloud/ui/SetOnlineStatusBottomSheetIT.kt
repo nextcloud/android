@@ -8,7 +8,6 @@
  */
 package com.nextcloud.ui
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -36,7 +35,6 @@ class SetOnlineStatusBottomSheetIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     fun open() {
         launchActivity<FileDisplayActivity>().use { scenario ->
             scenario.onActivity { activity ->

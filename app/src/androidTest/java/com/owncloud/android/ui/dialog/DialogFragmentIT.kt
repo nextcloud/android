@@ -19,7 +19,6 @@ import android.view.ViewGroup
 import android.webkit.SslErrorHandler
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.annotation.UiThread
 import androidx.fragment.app.DialogFragment
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.launchActivity
@@ -102,7 +101,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testRenameFileDialog() {
         if (Looper.myLooper() == null) {
@@ -118,7 +116,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testLoadingDialog() {
         newInstance("Wait…").run {
@@ -127,7 +124,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testConfirmationDialogWithOneAction() {
         ConfirmationDialogFragment.newInstance(
@@ -144,7 +140,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testConfirmationDialogWithTwoAction() {
         ConfirmationDialogFragment.newInstance(
@@ -161,7 +156,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testConfirmationDialogWithThreeAction() {
         ConfirmationDialogFragment.newInstance(
@@ -178,7 +172,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testConfirmationDialogWithThreeActionRTL() {
         enableRTL()
@@ -197,7 +190,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testRemoveFileDialog() {
         RemoveFilesDialogFragment.newInstance(OCFile("/Test.md")).run {
@@ -206,7 +198,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testRemoveFilesDialog() {
         val toDelete = ArrayList<OCFile>().apply {
@@ -219,7 +210,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testRemoveFolderDialog() {
         val dialog = RemoveFilesDialogFragment.newInstance(OCFile("/Folder/"))
@@ -227,7 +217,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testRemoveFoldersDialog() {
         val toDelete = ArrayList<OCFile>()
@@ -239,7 +228,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testNewFolderDialog() {
         if (Looper.myLooper() == null) {
@@ -250,7 +238,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testEnforcedPasswordDialog() {
         if (Looper.myLooper() == null) {
@@ -261,7 +248,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testOptionalPasswordDialog() {
         if (Looper.myLooper() == null) {
@@ -272,7 +258,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testAccountChooserDialog() {
         val intent = Intent(targetContext, FileDisplayActivity::class.java)
@@ -387,7 +372,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     @Throws(AccountUtils.AccountNotFoundException::class)
     fun testAccountChooserDialogWithStatusDisabled() {
@@ -440,7 +424,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testBottomSheet() {
         if (Looper.myLooper() == null) {
@@ -567,7 +550,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testOnlineStatusBottomSheet() {
         if (Looper.myLooper() == null) {
@@ -596,7 +578,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testProfileBottomSheet() {
         if (Looper.myLooper() == null) {
@@ -658,7 +639,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testSslUntrustedCertDialog() {
         if (Looper.myLooper() == null) {
@@ -676,7 +656,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testStoragePermissionDialog() {
         if (Looper.myLooper() == null) {
@@ -688,7 +667,6 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testFileActionsBottomSheet() {
         if (Looper.myLooper() == null) {

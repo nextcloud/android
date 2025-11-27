@@ -8,7 +8,6 @@
  */
 package com.nextcloud.client
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -40,7 +39,6 @@ class UploadListActivityActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun openDrawer() {
         launchActivity<UploadListActivity>().use { scenario ->

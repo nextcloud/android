@@ -10,18 +10,17 @@ package com.owncloud.android.ui.trashbin
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Intent
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.MainApp
 import com.owncloud.android.extensions.launchAndCapture
 import com.owncloud.android.lib.common.accounts.AccountUtils
+import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
 import org.junit.Before
@@ -47,7 +46,6 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun error() {
         launchActivity<TrashbinActivity>().use { scenario ->
@@ -69,7 +67,6 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun files() {
         launchAndCapture<TrashbinActivity>(testClassName, "files", before = { sut ->
@@ -83,7 +80,6 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun empty() {
         launchAndCapture<TrashbinActivity>(testClassName, "empty", before = { sut ->
@@ -97,7 +93,6 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun loading() {
         launchAndCapture<TrashbinActivity>(testClassName, "loading", before = { sut ->
@@ -108,7 +103,6 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun normalUser() {
         launchAndCapture<TrashbinActivity>(testClassName, "normalUser", before = { sut ->
@@ -119,7 +113,6 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun differentUser() {
         val temp = Account("differentUser@https://nextcloud.localhost", MainApp.getAccountType(targetContext))

@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.dialog
 
-import androidx.annotation.UiThread
 import androidx.fragment.app.FragmentManager
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
@@ -27,7 +26,6 @@ class SendShareDialogTest : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.dialog.SendShareDialogTest"
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showDialog() {
         launchActivity<TestActivity>().use { scenario ->

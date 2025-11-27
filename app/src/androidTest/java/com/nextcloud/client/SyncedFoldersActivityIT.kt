@@ -10,7 +10,6 @@ package com.nextcloud.client
 
 import android.content.Intent
 import android.os.Looper
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -44,7 +43,6 @@ class SyncedFoldersActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun open() {
         launchActivity<SyncedFoldersActivity>().use { scenario ->
@@ -63,7 +61,6 @@ class SyncedFoldersActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testSyncedFolderDialog() {
         val item = SyncedFolderDisplayItem(
@@ -105,7 +102,6 @@ class SyncedFoldersActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showPowerCheckDialog() {
         if (Looper.myLooper() == null) {

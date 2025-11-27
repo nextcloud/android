@@ -10,7 +10,6 @@ package com.nextcloud.client
 
 import android.content.Intent
 import android.os.Looper
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -50,7 +49,6 @@ class SettingsActivityIT : AbstractIT() {
     var storagePermissionRule: TestRule = grant()
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun open() {
         launchActivity<SettingsActivity>().use { scenario ->
@@ -65,7 +63,6 @@ class SettingsActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showMnemonic_Error() {
         launchActivity<SettingsActivity>().use { scenario ->
@@ -82,7 +79,6 @@ class SettingsActivityIT : AbstractIT() {
 
     @Suppress("DEPRECATION")
     @Test
-    @UiThread
     fun showMnemonic() {
         if (Looper.myLooper() == null) {
             Looper.prepare()

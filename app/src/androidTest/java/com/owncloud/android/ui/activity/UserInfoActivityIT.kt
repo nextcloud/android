@@ -8,7 +8,6 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -37,7 +36,6 @@ class UserInfoActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun fullUserInfoDetail() {
         val intent = Intent(targetContext, UserInfoActivity::class.java).apply {

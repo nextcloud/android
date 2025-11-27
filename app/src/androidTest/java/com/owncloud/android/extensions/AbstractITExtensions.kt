@@ -11,29 +11,31 @@ import android.app.Activity
 import android.content.Intent
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.EspressoIdlingResource
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 
 inline fun <reified T : Activity> AbstractIT.launchAndCapture(
     testClassName: String,
     actionName: String,
     intent: Intent? = null,
+    incrementIdlingResource: Boolean = false,
     crossinline before: (T) -> Unit
 ) {
     launchActivity<T>(intent).use { scenario ->
         scenario.onActivity { activity ->
-            onIdleSync {
-                EspressoIdlingResource.increment()
-                before(activity)
-                EspressoIdlingResource.decrement()
+            if (incrementIdlingResource) EspressoIdlingResource.increment()
+            before(activity)
+            if (incrementIdlingResource) EspressoIdlingResource.decrement()
+        }
 
-                val screenshotName = createName(testClassName + "_" + actionName, "")
-                onView(isRoot()).check(matches(isDisplayed()))
-                screenshotViaName(activity, screenshotName)
-            }
+        onView(isRoot()).check(matches(isDisplayed()))
+
+        scenario.onActivity { activity ->
+            val screenshotName = createName("${testClassName}_$actionName", "")
+            screenshotViaName(activity, screenshotName)
         }
     }
 }

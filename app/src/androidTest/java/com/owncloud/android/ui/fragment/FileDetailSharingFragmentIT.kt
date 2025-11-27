@@ -9,7 +9,6 @@
 package com.owncloud.android.ui.fragment
 
 import android.view.View
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -95,14 +94,12 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun listSharesFileNone() {
         show(file)
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun listSharesFileResharingNotAllowed() {
         file.permissions = ""
@@ -111,7 +108,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun listSharesDownloadLimit() {
         launchActivity<TestActivity>().use { scenario ->
@@ -168,7 +164,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
      * Use same values as {@link OCFileListFragmentStaticServerIT showSharedFiles }
      */
     @Test
-    @UiThread
     @ScreenshotTest
     @Suppress("MagicNumber")
     fun listSharesFileAllShareTypes() {

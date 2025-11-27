@@ -9,7 +9,6 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -58,7 +57,6 @@ class UploadFilesActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun noneSelected() {
         launchActivity<UploadFilesActivity>().use { scenario ->
@@ -86,7 +84,6 @@ class UploadFilesActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun localFolderPickerMode() {
         val intent = Intent(targetContext, UploadFilesActivity::class.java).apply {
@@ -120,7 +117,6 @@ class UploadFilesActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun search() {
         launchActivity<UploadFilesActivity>().use { scenario ->
@@ -149,7 +145,6 @@ class UploadFilesActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun selectAll() {
         launchActivity<UploadFilesActivity>().use { scenario ->
