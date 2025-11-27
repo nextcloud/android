@@ -187,6 +187,7 @@
     <string name="create_new_folder">پوشه جدید</string>
     <string name="create_new_presentation">ارائه جدید</string>
     <string name="create_new_spreadsheet">صفحهٔ گستردهٔ جدید</string>
+    <string name="create_rich_workspace">اضافه کردن توضیحات پوشه</string>
     <string name="credentials_disabled">اعتبارنامه غیرفعال است</string>
     <string name="daily_backup">پشتیبان روزانه</string>
     <string name="data_to_back_up">داده برای پشتیبان‌گیری</string>

@@ -1,18 +1,19 @@
-A plataforma de produtividade auto-alojada que o/a mantém no controlo.
-\Características:
-* Interface simples e moderna, adequada ao tema do seu servidor
+A plataforma de produtividade auto-hospedada que o mantém no controlo.
+
+Características:
+* Interface moderna e fácil de utilizar, adequada ao tema do seu servidor
 * Envie ficheiros para o seu servidor Nextcloud
-* Partilhe-os com outros
+* Partilhe-os com outras pessoas
 * Mantenha os seus ficheiros e pastas favoritos sincronizados
-* Pesquise em todas as pastas no seu servidor
-* Envie automaticamente fotografias e vídeos gravados pelo seu dispositivo
-* Mantenha-se informado/a com as notificações
-* Suporte para contas múltiplas
-* Proteja o acesso aos seus dados com impressão digital ou PIN
-* Integração com DAVx5 (anterior designado por DAVdroid) para uma configuração simples da sincronização do calendário &contactos
+* Pesquise em todas as pastas do seu servidor
+* Upload automático de fotografias e vídeos tirados pelo seu dispositivo
+* Mantenha-se actualizado com notificações
+* Suporte a múltiplas contas
+* Acesso seguro aos seus dados com impressão digital ou PIN
+* Integração com o DAVx⁵ (anteriormente conhecido como DAVdroid) para uma fácil configuração da sincronização de calendário e contactos
 
-Por favor reporte todas as questões em https://github.com/nextcloud/android/issues e debata esta aplicação em https://help.nextcloud.com/c/clients/android
+Por favor, comunique todos os problemas em https://github.com/nextcloud/android/issues e discuta esta aplicação em https://help.nextcloud.com/c/clients/android
 
-Novo no Nextcloud? Nextcloud é um servidor privado de sincronização, partilha e comunicação. É software livre e pode alojá-lo você mesmo/a ou pagar uma companhia para o fazer por si. Desta forma você controla as suas fotografias, os seus dados de calendários e contactos, os seus documentos e tudo o resto.
+Novo no Nextcloud? O Nextcloud é um servidor privado de sincronização, partilha e comunicação de ficheiros. É um software livre e pode hospedá-lo você mesmo ou contratar uma empresa para o fazer por si. Desta forma, controla as suas fotografias, o seu calendário e dados de contacto, os seus documentos e tudo o resto. 
 
-Conheça o Nextcloud em https://nextcloud.com
+Veja o Nextcloud em https://nextcloud.com

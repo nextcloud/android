@@ -541,6 +541,7 @@
     <string name="set_online_status">מצב מקוון</string>
     <string name="set_picture_as">שימוש בתמונה בתור</string>
     <string name="share">שיתוף</string>
+    <string name="share_create_permission">יצירה</string>
     <string name="share_delete_permission">מחיקה</string>
     <string name="share_dialog_title">שיתוף</string>
     <string name="share_edit_permission">עריכה</string>
