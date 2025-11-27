@@ -8,6 +8,7 @@
  */
 package com.owncloud.android.ui.dialog
 
+import android.Manifest
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.app.Dialog
@@ -23,10 +24,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import androidx.test.rule.GrantPermissionRule
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -37,6 +38,7 @@ import com.nextcloud.client.account.RegisteredUser
 import com.nextcloud.client.account.Server
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.documentscan.AppScanOptionalFeature
+import com.nextcloud.ui.ChooseAccountDialogFragment
 import com.nextcloud.ui.ChooseAccountDialogFragment.Companion.newInstance
 import com.nextcloud.ui.SetOnlineStatusBottomSheet
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
@@ -68,14 +70,13 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.Companion.newInstan
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.ScreenshotTest
 import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import io.mockk.mockk
 import org.junit.After
-import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import java.net.URI
 import java.util.function.Supplier
@@ -85,15 +86,11 @@ class DialogFragmentIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.dialog.DialogFragmentIT"
     private val serverUrl = "https://nextcloud.localhost"
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
+    @get:Rule
+    val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.POST_NOTIFICATIONS
+    )
 
     @After
     fun quitLooperIfNeeded() {
@@ -130,7 +127,7 @@ class DialogFragmentIT : AbstractIT() {
             R.string.upload_list_empty_text_auto_upload,
             arrayOf(),
             R.string.filedetails_sync_file,
-            R.string.common_ok,
+            R.drawable.ic_warning,
             -1,
             -1,
             -1
@@ -146,7 +143,7 @@ class DialogFragmentIT : AbstractIT() {
             R.string.upload_list_empty_text_auto_upload,
             arrayOf(),
             R.string.filedetails_sync_file,
-            R.string.common_ok,
+            R.drawable.ic_warning,
             R.string.common_cancel,
             -1,
             -1
@@ -162,7 +159,7 @@ class DialogFragmentIT : AbstractIT() {
             R.string.upload_list_empty_text_auto_upload,
             arrayOf(),
             R.string.filedetails_sync_file,
-            R.string.common_ok,
+            R.drawable.ic_warning,
             R.string.common_cancel,
             R.string.common_confirm,
             -1
@@ -179,7 +176,7 @@ class DialogFragmentIT : AbstractIT() {
             R.string.upload_list_empty_text_auto_upload,
             arrayOf(),
             -1,
-            R.string.common_ok,
+            R.drawable.ic_warning,
             R.string.common_cancel,
             R.string.common_confirm,
             -1
@@ -262,8 +259,9 @@ class DialogFragmentIT : AbstractIT() {
     fun testAccountChooserDialog() {
         val intent = Intent(targetContext, FileDisplayActivity::class.java)
         ActivityScenario.launch<FileDisplayActivity>(intent).use { scenario ->
+            var sut: ChooseAccountDialogFragment? = null
+
             scenario.onActivity { activity: FileDisplayActivity ->
-                EspressoIdlingResource.increment()
 
                 val userAccountManager = activity.userAccountManager
                 val accountManager = AccountManager.get(targetContext)
@@ -306,67 +304,69 @@ class DialogFragmentIT : AbstractIT() {
                 }
                 fileDataStorageManager.saveCapabilities(capability)
 
-                EspressoIdlingResource.decrement()
+                sut = newInstance(
+                    RegisteredUser(
+                        newAccount,
+                        OwnCloudAccount(newAccount, targetContext),
+                        Server(URI.create(serverUrl), OwnCloudVersion.nextcloud_20)
+                    )
+                )
 
-                try {
-                    onIdleSync {
-                        val sut = newInstance(
-                            RegisteredUser(
-                                newAccount,
-                                OwnCloudAccount(newAccount, targetContext),
-                                Server(URI.create(serverUrl), OwnCloudVersion.nextcloud_20)
-                            )
-                        )
-                        showDialog(activity, sut)
+                sut.show(activity.supportFragmentManager, null)
+            }
 
-                        sut.setStatus(
-                            Status(
-                                StatusType.DND,
-                                "Busy fixing 🐛…",
-                                "",
-                                -1
-                            ),
-                            targetContext
-                        )
-                        screenshot(sut, "dnd")
+            val dialogInstance = waitForDialog(sut!!) ?: throw IllegalStateException("Dialog was not created")
 
-                        sut.setStatus(
-                            Status(
-                                StatusType.ONLINE,
-                                "",
-                                "",
-                                -1
-                            ),
-                            targetContext
-                        )
-                        screenshot(sut, "online")
-
-                        sut.setStatus(
-                            Status(
-                                StatusType.ONLINE,
-                                "Let's have some fun",
-                                "🎉",
-                                -1
-                            ),
-                            targetContext
-                        )
-                        screenshot(sut, "fun")
-
-                        sut.setStatus(
-                            Status(StatusType.OFFLINE, "", "", -1),
-                            targetContext
-                        )
-                        screenshot(sut, "offline")
-
-                        sut.setStatus(
-                            Status(StatusType.AWAY, "Vacation", "🌴", -1),
-                            targetContext
-                        )
-                        screenshot(sut, "away")
-                    }
-                } catch (e: AccountUtils.AccountNotFoundException) {
-                    throw java.lang.RuntimeException(e)
+            scenario.onActivity {
+                val viewGroup = dialogInstance.window?.findViewById<ViewGroup>(android.R.id.content)
+                if (viewGroup != null) {
+                    hideCursors(viewGroup)
                 }
+
+                sut.setStatus(
+                    Status(
+                        StatusType.DND,
+                        "Busy fixing 🐛…",
+                        "",
+                        -1
+                    ),
+                    targetContext
+                )
+                screenshot(sut, "dnd")
+
+                sut.setStatus(
+                    Status(
+                        StatusType.ONLINE,
+                        "",
+                        "",
+                        -1
+                    ),
+                    targetContext
+                )
+                screenshot(sut, "online")
+
+                sut.setStatus(
+                    Status(
+                        StatusType.ONLINE,
+                        "Let's have some fun",
+                        "🎉",
+                        -1
+                    ),
+                    targetContext
+                )
+                screenshot(sut, "fun")
+
+                sut.setStatus(
+                    Status(StatusType.OFFLINE, "", "", -1),
+                    targetContext
+                )
+                screenshot(sut, "offline")
+
+                sut.setStatus(
+                    Status(StatusType.AWAY, "Vacation", "🌴", -1),
+                    targetContext
+                )
+                screenshot(sut, "away")
             }
         }
     }
@@ -387,39 +387,38 @@ class DialogFragmentIT : AbstractIT() {
         accountManager.setAuthToken(newAccount, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password")
 
         launchActivity<FileDisplayActivity>().use { scenario ->
+            var sut: ChooseAccountDialogFragment? = null
             scenario.onActivity { fda ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    val userAccountManager = fda.userAccountManager
-                    val newUser = userAccountManager.getUser(newAccount.name).get()
-                    val fileDataStorageManager = FileDataStorageManager(
-                        newUser,
-                        targetContext.contentResolver
-                    )
+                val userAccountManager = fda.userAccountManager
+                val newUser = userAccountManager.getUser(newAccount.name).get()
+                val fileDataStorageManager = FileDataStorageManager(
+                    newUser,
+                    targetContext.contentResolver
+                )
 
-                    val capability = OCCapability().apply {
-                        userStatus = CapabilityBooleanType.FALSE
-                    }
-
-                    fileDataStorageManager.saveCapabilities(capability)
-                    EspressoIdlingResource.decrement()
-
-                    val sut =
-                        newInstance(
-                            RegisteredUser(
-                                newAccount,
-                                OwnCloudAccount(newAccount, targetContext),
-                                Server(
-                                    URI.create(serverUrl),
-                                    OwnCloudVersion.nextcloud_20
-                                )
-                            )
-                        )
-
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    showDialog(fda, sut)
+                val capability = OCCapability().apply {
+                    userStatus = CapabilityBooleanType.FALSE
                 }
+
+                fileDataStorageManager.saveCapabilities(capability)
+
+                sut = newInstance(
+                    RegisteredUser(
+                        newAccount,
+                        OwnCloudAccount(newAccount, targetContext),
+                        Server(
+                            URI.create(serverUrl),
+                            OwnCloudVersion.nextcloud_20
+                        )
+                    )
+                )
+
+                sut.show(fda.supportFragmentManager, null)
             }
+
+            waitForDialog(sut!!) ?: throw IllegalStateException("Dialog was not created")
+
+            onView(isRoot()).check(matches(isDisplayed()))
         }
     }
 
@@ -451,101 +450,92 @@ class DialogFragmentIT : AbstractIT() {
         val intent = Intent(targetContext, FileDisplayActivity::class.java)
 
         launchActivity<FileDisplayActivity>(intent).use { scenario ->
+            var sut: OCFileListBottomSheetDialog? = null
             scenario.onActivity { fda ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
+                var directEditing = DirectEditing()
+                val creators = directEditing.creators.toMutableMap()
+                val editors = directEditing.editors.toMutableMap()
 
-                    // add direct editing info
-                    var directEditing = DirectEditing()
-                    val creators = directEditing.creators.toMutableMap()
-                    val editors = directEditing.editors.toMutableMap()
+                creators["1"] = Creator(
+                    "1",
+                    "text",
+                    "text file",
+                    ".md",
+                    "application/octet-stream",
+                    false
+                )
 
-                    creators.put(
-                        "1",
-                        Creator(
-                            "1",
-                            "text",
-                            "text file",
-                            ".md",
-                            "application/octet-stream",
-                            false
-                        )
-                    )
-                    creators.put(
-                        "2",
-                        Creator(
-                            "2",
-                            "md",
-                            "markdown file",
-                            ".md",
-                            "application/octet-stream",
-                            false
-                        )
-                    )
-                    editors.put(
-                        "text",
-                        Editor(
-                            "1",
-                            "Text",
-                            ArrayList(mutableListOf(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)),
-                            ArrayList(),
-                            false
-                        )
-                    )
+                creators["2"] = Creator(
+                    "2",
+                    "md",
+                    "markdown file",
+                    ".md",
+                    "application/octet-stream",
+                    false
+                )
 
-                    directEditing = DirectEditing(editors, creators)
-                    val json = Gson().toJson(directEditing)
+                editors["text"] = Editor(
+                    "1",
+                    "Text",
+                    ArrayList(mutableListOf(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)),
+                    ArrayList(),
+                    false
+                )
 
-                    ArbitraryDataProviderImpl(targetContext).storeOrUpdateKeyValue(
-                        user.accountName,
-                        ArbitraryDataProvider.DIRECT_EDITING,
-                        json
-                    )
+                directEditing = DirectEditing(editors, creators)
+                val json = Gson().toJson(directEditing)
 
-                    // activate templates
-                    val capability = fda.capabilities.apply {
-                        richDocuments = CapabilityBooleanType.TRUE
-                        richDocumentsDirectEditing = CapabilityBooleanType.TRUE
-                        richDocumentsTemplatesAvailable = CapabilityBooleanType.TRUE
-                        accountName = user.accountName
-                    }
-                    CapabilityUtils.updateCapability(capability)
+                ArbitraryDataProviderImpl(targetContext).storeOrUpdateKeyValue(
+                    user.accountName,
+                    ArbitraryDataProvider.DIRECT_EDITING,
+                    json
+                )
 
-                    val appScanOptionalFeature: AppScanOptionalFeature = object : AppScanOptionalFeature() {
-                        override fun getScanContract(): ActivityResultContract<Unit, String?> =
-                            throw UnsupportedOperationException("Document scan is not available")
-                    }
-
-                    val materialSchemesProvider = getMaterialSchemesProvider()
-                    val viewThemeUtils = ViewThemeUtils(
-                        materialSchemesProvider.getMaterialSchemesForCurrentUser(),
-                        ColorUtil(targetContext)
-                    )
-
-                    val editorUtils = EditorUtils(ArbitraryDataProviderImpl(targetContext))
-
-                    val sut = OCFileListBottomSheetDialog(
-                        fda,
-                        action,
-                        info,
-                        user,
-                        ocFile,
-                        fda.themeUtils,
-                        viewThemeUtils,
-                        editorUtils,
-                        appScanOptionalFeature
-                    )
-                    EspressoIdlingResource.decrement()
-
-                    sut.show()
-                    sut.behavior.setState(BottomSheetBehavior.STATE_EXPANDED)
-                    val viewGroup = sut.window?.findViewById<ViewGroup>(android.R.id.content) ?: return@onIdleSync
-                    hideCursors(viewGroup)
-                    val screenShotName = createName(testClassName + "_" + "testBottomSheet", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut.window?.decorView, screenShotName)
+                val capability = fda.capabilities.apply {
+                    richDocuments = CapabilityBooleanType.TRUE
+                    richDocumentsDirectEditing = CapabilityBooleanType.TRUE
+                    richDocumentsTemplatesAvailable = CapabilityBooleanType.TRUE
+                    accountName = user.accountName
                 }
+                CapabilityUtils.updateCapability(capability)
+
+                val appScanOptionalFeature: AppScanOptionalFeature = object : AppScanOptionalFeature() {
+                    override fun getScanContract(): ActivityResultContract<Unit, String?> =
+                        throw UnsupportedOperationException("Document scan is not available")
+                }
+
+                val materialSchemesProvider = getMaterialSchemesProvider()
+                val viewThemeUtils = ViewThemeUtils(
+                    materialSchemesProvider.getMaterialSchemesForCurrentUser(),
+                    ColorUtil(targetContext)
+                )
+
+                val editorUtils = EditorUtils(ArbitraryDataProviderImpl(targetContext))
+
+                sut = OCFileListBottomSheetDialog(
+                    fda,
+                    action,
+                    info,
+                    user,
+                    ocFile,
+                    fda.themeUtils,
+                    viewThemeUtils,
+                    editorUtils,
+                    appScanOptionalFeature
+                )
+
+                sut.show()
             }
+
+
+            sut!!.behavior.setState(BottomSheetBehavior.STATE_EXPANDED)
+            val viewGroup = sut.window?.findViewById<ViewGroup>(android.R.id.content) ?: return
+            hideCursors(viewGroup)
+
+            val screenShotName = createName(testClassName + "_" + "testBottomSheet", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            screenshotViaName(sut.window?.decorView, screenShotName)
         }
     }
 
@@ -556,23 +546,22 @@ class DialogFragmentIT : AbstractIT() {
             Looper.prepare()
         }
 
-        // show dialog
         val intent = Intent(targetContext, FileDisplayActivity::class.java)
 
         launchActivity<FileDisplayActivity>(intent).use { scenario ->
+            var sut: SetOnlineStatusBottomSheet? = null
             scenario.onActivity { fda ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    val sut = SetOnlineStatusBottomSheet(
-                        Status(StatusType.DND, "Focus time", "\uD83E\uDD13", -1)
-                    )
-                    EspressoIdlingResource.decrement()
-                    sut.show(fda.supportFragmentManager, "set_online_status")
+                sut = SetOnlineStatusBottomSheet(
+                    Status(StatusType.DND, "Focus time", "\uD83E\uDD13", -1)
+                )
+                sut.show(fda.supportFragmentManager, "set_online_status")
+            }
 
-                    val screenShotName = createName(testClassName + "_" + "testOnlineStatusBottomSheet", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut.view, screenShotName)
-                }
+            val screenShotName = createName(testClassName + "_" + "testOnlineStatusBottomSheet", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            scenario.onActivity {
+                screenshotViaName(sut!!.view, screenShotName)
             }
         }
     }
@@ -584,7 +573,6 @@ class DialogFragmentIT : AbstractIT() {
             Looper.prepare()
         }
 
-        // Fixed values for HoverCard
         val actions: MutableList<Action> = ArrayList()
         actions.add(
             Action(
@@ -613,27 +601,25 @@ class DialogFragmentIT : AbstractIT() {
         )
 
         val hoverCard = HoverCard("christine", "Christine Scott", actions)
-
-        // show dialog
         val intent = Intent(targetContext, FileDisplayActivity::class.java)
 
         launchActivity<FileDisplayActivity>(intent).use { scenario ->
+            var sut: ProfileBottomSheetDialog? = null
             scenario.onActivity { fda ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    val sut = ProfileBottomSheetDialog(
-                        fda,
-                        user,
-                        hoverCard,
-                        fda.viewThemeUtils
-                    )
-                    EspressoIdlingResource.decrement()
-                    sut.show()
+                sut = ProfileBottomSheetDialog(
+                    fda,
+                    user,
+                    hoverCard,
+                    fda.viewThemeUtils
+                )
+                sut.show()
+            }
 
-                    val screenShotName = createName(testClassName + "_" + "testProfileBottomSheet", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut.window?.decorView, screenShotName)
-                }
+            val screenShotName = createName(testClassName + "_" + "testProfileBottomSheet", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            scenario.onActivity {
+                screenshotViaName(sut!!.window?.decorView, screenShotName)
             }
         }
     }
@@ -685,37 +671,34 @@ class DialogFragmentIT : AbstractIT() {
     private fun showDialog(dialog: DialogFragment) {
         launchActivity<FileDisplayActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    showDialog(sut, dialog)
-                }
+                dialog.show(sut.supportFragmentManager, null)
             }
-        }
-    }
 
-    private fun showDialog(sut: FileDisplayActivity, dialog: DialogFragment) {
-        dialog.show(sut.supportFragmentManager, null)
-        onIdleSync {
-            val dialogInstance = waitForDialog(dialog)
-                ?: throw IllegalStateException("Dialog was not created")
+            val dialogInstance = waitForDialog(dialog) ?: throw IllegalStateException("Dialog was not created")
 
-            val viewGroup = dialogInstance.window?.findViewById<ViewGroup>(android.R.id.content) ?: return@onIdleSync
-            hideCursors(viewGroup)
+            scenario.onActivity {
+                val viewGroup = dialogInstance.window?.findViewById<ViewGroup>(android.R.id.content)
+                if (viewGroup != null) {
+                    hideCursors(viewGroup)
+                }
+                screenshot(dialogInstance.window?.decorView)
+            }
 
             onView(isRoot()).check(matches(isDisplayed()))
-            screenshot(dialogInstance.window?.decorView)
         }
     }
 
     private fun waitForDialog(dialogFragment: DialogFragment, timeoutMs: Long = 5000): Dialog? {
         val start = System.currentTimeMillis()
         while (System.currentTimeMillis() - start < timeoutMs) {
-            val dialog = dialogFragment.dialog
-            if (dialog != null) return dialog
-            Thread.sleep(100)
+            if (dialogFragment.isAdded && dialogFragment.dialog != null) {
+                return dialogFragment.dialog
+            }
+            Thread.sleep(50)
         }
         return null
     }
+
 
     private fun hideCursors(viewGroup: ViewGroup) {
         for (i in 0..<viewGroup.childCount) {
