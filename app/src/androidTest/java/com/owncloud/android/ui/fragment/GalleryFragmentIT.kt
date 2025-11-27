@@ -14,7 +14,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
@@ -25,7 +24,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.ImageDimension
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
 import org.junit.Assert.assertNotNull
@@ -39,8 +37,6 @@ class GalleryFragmentIT : AbstractIT() {
 
     @Before
     fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-
         // initialise thumbnails cache on background thread
         @Suppress("DEPRECATION")
         ThumbnailsCacheManager.initDiskCacheAsync()
@@ -48,7 +44,6 @@ class GalleryFragmentIT : AbstractIT() {
 
     @After
     fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
         ThumbnailsCacheManager.clearCache()
     }
 
@@ -56,18 +51,16 @@ class GalleryFragmentIT : AbstractIT() {
     @ScreenshotTest
     fun showEmpty() {
         launchActivity<TestActivity>().use { scenario ->
-            scenario.onActivity { activity ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    val sut = GalleryFragment()
-                    activity.addFragment(sut)
-                    EspressoIdlingResource.decrement()
-
-                    val screenShotName = createName(testClassName + "_" + "showEmpty", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(activity, screenShotName)
-                }
+            var activity: TestActivity? = null
+            scenario.onActivity { testActivity ->
+                activity = testActivity
+                val sut = GalleryFragment()
+                activity.addFragment(sut)
             }
+
+            val screenShotName = createName(testClassName + "_" + "showEmpty", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+            screenshotViaName(activity, screenShotName)
         }
     }
 
@@ -75,22 +68,20 @@ class GalleryFragmentIT : AbstractIT() {
     @ScreenshotTest
     fun showGallery() {
         launchActivity<TestActivity>().use { scenario ->
-            scenario.onActivity { activity ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    createImage(10000001, 700, 300)
-                    createImage(10000002, 500, 300)
-                    createImage(10000007, 300, 400)
+            var activity: TestActivity? = null
+            scenario.onActivity { testActivity ->
+                activity = testActivity
+                createImage(10000001, 700, 300)
+                createImage(10000002, 500, 300)
+                createImage(10000007, 300, 400)
 
-                    val sut = GalleryFragment()
-                    activity.addFragment(sut)
-                    EspressoIdlingResource.decrement()
-
-                    val screenShotName = createName(testClassName + "_" + "showGallery", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(activity, screenShotName)
-                }
+                val sut = GalleryFragment()
+                activity.addFragment(sut)
             }
+
+            val screenShotName = createName(testClassName + "_" + "showGallery", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+            screenshotViaName(activity, screenShotName)
         }
     }
 
