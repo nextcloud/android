@@ -1637,6 +1637,7 @@ class FileDisplayActivity :
     }
 
     // endregion
+
     /**
      * Once the file upload has finished -> update view
      */
@@ -2342,6 +2343,7 @@ class FileDisplayActivity :
      * change.
      * @param ignoreFocus reloads file list even without focus, e.g. on tablet mode, focus can still be in detail view
      */
+
     /**
      * Starts an operation to refresh the requested folder.
      *
