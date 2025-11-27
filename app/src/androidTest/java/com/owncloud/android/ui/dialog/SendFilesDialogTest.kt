@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
@@ -20,11 +19,8 @@ import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 
 class SendFilesDialogTest : AbstractIT() {
@@ -52,35 +48,24 @@ class SendFilesDialogTest : AbstractIT() {
         )
     }
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
-
     private fun showDialog(files: Set<OCFile>, onComplete: (SendFilesDialog) -> Unit) {
         launchActivity<TestActivity>().use { scenario ->
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            var dialog: SendFilesDialog? = null
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-
-                    val fm: FragmentManager = sut.supportFragmentManager
-                    val ft = fm.beginTransaction()
-                    ft.addToBackStack(null)
-
-                    val dialog = SendFilesDialog.newInstance(files)
-                    dialog.show(ft, "TAG_SEND_SHARE_DIALOG")
-                    onComplete(dialog)
-
-                    EspressoIdlingResource.decrement()
-                }
+                val fm: FragmentManager = sut.supportFragmentManager
+                val ft = fm.beginTransaction()
+                ft.addToBackStack(null)
+                dialog = SendFilesDialog.newInstance(files)
+                dialog.show(ft, "TAG_SEND_SHARE_DIALOG")
+                fm.executePendingTransactions()
             }
+
+            onComplete(dialog!!)
         }
     }
+
 
     @Test
     @ScreenshotTest
@@ -97,7 +82,6 @@ class SendFilesDialogTest : AbstractIT() {
     fun showDialog_Screenshot() {
         showDialog(FILES_SAME_TYPE) { sut ->
             val screenShotName = createName(testClassName + "_" + "showDialog_Screenshot", "")
-            onView(isRoot()).check(matches(isDisplayed()))
             screenshotViaName(sut.requireDialog().window?.decorView, screenShotName)
         }
     }
