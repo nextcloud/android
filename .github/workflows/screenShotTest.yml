@@ -69,14 +69,14 @@ jobs:
             -   name: Configure gradle daemon
                 run: |
                     mkdir -p $HOME/.gradle
-                    echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" > $HOME/.gradle/gradle.properties
+                    echo "org.gradle.jvmargs=-Xmx1g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" > $HOME/.gradle/gradle.properties
                     echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties
                     echo "org.gradle.parallel=true" >> $HOME/.gradle/gradle.properties
                     echo "org.gradle.configureondemand=true" >> $HOME/.gradle/gradle.properties
                     echo "kapt.incremental.apt=true" >> $HOME/.gradle/gradle.properties
 
             -   name: Build gplay
-                run: ./gradlew assembleGenericDebug
+                run: ./gradlew --no-daemon --no-configuration-cache assembleGenericDebug
 
             -   name: Delete old comments
                 env:
@@ -95,7 +95,7 @@ jobs:
                     sdcard-path-or-size: 100M
                     target: google_apis
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
-                    script: ./gradlew uninstallAll genericDebugExecuteScreenshotTests -Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED" -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=${{ matrix.color }} -Pandroid.testInstrumentationRunnerArguments.DARKMODE=${{ matrix.scheme }}
+                    script: ./gradlew --no-daemon --no-configuration-cache uninstallAll genericDebugExecuteScreenshotTests -Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED" -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=${{ matrix.color }} -Pandroid.testInstrumentationRunnerArguments.DARKMODE=${{ matrix.scheme }}
             -   name: upload failing results
                 if: ${{ failure() }}
                 env:
