@@ -371,7 +371,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                 activity.storageManager.saveFile(folder)
                 activity.addFragment(sut)
                 activity.supportFragmentManager.executePendingTransactions()
-
             }
 
             val testFolder: OCFile = activity!!.storageManager.getFileByEncryptedRemotePath("/test/")
