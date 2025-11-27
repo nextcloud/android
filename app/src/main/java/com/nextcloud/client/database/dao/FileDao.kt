@@ -127,7 +127,6 @@ interface FileDao {
             share_by_link = 1
          OR shared_via_users = 1
          OR permissions LIKE '%S%'
-         OR COALESCE(sharees, '') NOT IN ('', 'null', '[]')
       )
     ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
     """
