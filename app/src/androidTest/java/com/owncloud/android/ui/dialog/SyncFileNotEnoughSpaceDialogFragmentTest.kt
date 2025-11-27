@@ -6,7 +6,6 @@
  */
 package com.owncloud.android.ui.dialog
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -38,7 +37,6 @@ class SyncFileNotEnoughSpaceDialogFragmentTest : AbstractIT() {
 
     @Test
     @ScreenshotTest
-    @UiThread
     fun showNotEnoughSpaceDialogForFolder() {
         launchActivity<FileDisplayActivity>().use { scenario ->
             scenario.onActivity { sut ->
@@ -64,7 +62,6 @@ class SyncFileNotEnoughSpaceDialogFragmentTest : AbstractIT() {
 
     @Test
     @ScreenshotTest
-    @UiThread
     fun showNotEnoughSpaceDialogForFile() {
         launchActivity<FileDisplayActivity>().use { scenario ->
             scenario.onActivity { sut ->

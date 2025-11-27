@@ -10,7 +10,6 @@ package com.owncloud.android.ui.activity
 
 import android.content.Intent
 import android.view.View
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -44,7 +43,6 @@ class FolderPickerActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     fun getActivityFile() {
         launchActivity<FolderPickerActivity>().use { scenario ->
             scenario.onActivity { sut ->
@@ -65,7 +63,6 @@ class FolderPickerActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     fun getParentFolder_isNotRootFolder() {
         launchActivity<FolderPickerActivity>().use { scenario ->
             scenario.onActivity { sut ->
@@ -90,7 +87,6 @@ class FolderPickerActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     fun getParentFolder_isRootFolder() {
         launchActivity<FolderPickerActivity>().use { scenario ->
             scenario.onActivity { sut ->
@@ -116,7 +112,6 @@ class FolderPickerActivityIT : AbstractIT() {
 
     @Suppress("DEPRECATION")
     @Test
-    @UiThread
     fun nullFile() {
         launchActivity<FolderPickerActivity>().use { scenario ->
             scenario.onActivity { sut ->
@@ -136,7 +131,6 @@ class FolderPickerActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     fun getParentFolder() {
         launchActivity<FolderPickerActivity>().use { scenario ->
             scenario.onActivity { sut ->
@@ -159,7 +153,6 @@ class FolderPickerActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun open() {
         launchActivity<FolderPickerActivity>().use { scenario ->
@@ -177,7 +170,6 @@ class FolderPickerActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testMoveOrCopy() {
         val intent = Intent(targetContext, FolderPickerActivity::class.java)
@@ -193,7 +185,6 @@ class FolderPickerActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testChooseLocationAction() {
         val intent = Intent(targetContext, FolderPickerActivity::class.java).apply {

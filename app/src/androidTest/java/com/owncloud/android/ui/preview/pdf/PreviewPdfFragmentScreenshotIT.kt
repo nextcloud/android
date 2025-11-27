@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.preview.pdf
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -42,7 +41,6 @@ class PreviewPdfFragmentScreenshotIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showPdf() {
         launchActivity<TestActivity>().use { scenario ->

@@ -8,7 +8,6 @@
 package com.owncloud.android.ui.fragment
 
 import android.view.View
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -46,7 +45,6 @@ internal class SharedListFragmentIT : AbstractIT() {
     var storagePermissionRule: TestRule = grant()
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showSharedFiles() {
         launchActivity<TestActivity>().use { scenario ->

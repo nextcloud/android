@@ -9,7 +9,6 @@
  */
 package com.owncloud.android.ui.fragment
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -54,7 +53,6 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showFileDetailActivitiesFragment() {
         launchActivity<TestActivity>().use { scenario ->
@@ -73,7 +71,6 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showFileDetailSharingFragment() {
         launchActivity<TestActivity>().use { scenario ->
@@ -92,7 +89,6 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showFileDetailDetailsFragment() {
         launchActivity<TestActivity>().use { scenario ->
@@ -114,7 +110,6 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     @Suppress("MagicNumber")
     fun showDetailsActivities() {
@@ -188,7 +183,6 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showDetailsActivitiesNone() {
         launchActivity<TestActivity>().use { scenario ->
@@ -209,7 +203,6 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showDetailsActivitiesError() {
         launchActivity<TestActivity>().use { scenario ->
@@ -233,7 +226,6 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showDetailsSharing() {
         launchActivity<TestActivity>().use { scenario ->

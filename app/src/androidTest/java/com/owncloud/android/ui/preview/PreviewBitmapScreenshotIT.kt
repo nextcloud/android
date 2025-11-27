@@ -9,7 +9,6 @@
 package com.owncloud.android.ui.preview
 
 import android.content.Intent
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -41,7 +40,6 @@ class PreviewBitmapScreenshotIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showBitmap() {
         val pngFile = getFile(PNG_FILE_ASSET)

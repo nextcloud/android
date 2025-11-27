@@ -9,7 +9,6 @@
 package com.nextcloud.client
 
 import android.Manifest
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -56,7 +55,6 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun open() {
         try {
@@ -88,7 +86,6 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showMediaThenAllFiles() {
         try {
@@ -130,7 +127,6 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun drawer() {
         try {

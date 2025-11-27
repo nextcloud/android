@@ -7,18 +7,17 @@
  */
 package com.owncloud.android.ui.activity
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.lib.resources.notifications.models.RichObject
+import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
 import org.junit.Before
@@ -39,7 +38,6 @@ class NotificationsActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun empty() {
         launchActivity<NotificationsActivity>().use { scenario ->
@@ -57,7 +55,6 @@ class NotificationsActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     @SuppressWarnings("MagicNumber")
     fun showNotifications() {
@@ -154,7 +151,6 @@ class NotificationsActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun error() {
         launchActivity<NotificationsActivity>().use { scenario ->

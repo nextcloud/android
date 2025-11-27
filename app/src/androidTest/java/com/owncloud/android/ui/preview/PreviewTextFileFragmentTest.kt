@@ -6,7 +6,6 @@
  */
 package com.owncloud.android.ui.preview
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -39,7 +38,6 @@ class PreviewTextFileFragmentTest : AbstractIT() {
 
     @Test
     @ScreenshotTest
-    @UiThread
     @Throws(IOException::class)
     fun displaySimpleTextFile() {
         launchActivity<FileDisplayActivity>().use { scenario ->
@@ -64,7 +62,6 @@ class PreviewTextFileFragmentTest : AbstractIT() {
 
     @Test
     @ScreenshotTest
-    @UiThread
     @Throws(IOException::class)
     fun displayJavaSnippetFile() {
         launchActivity<FileDisplayActivity>().use { scenario ->

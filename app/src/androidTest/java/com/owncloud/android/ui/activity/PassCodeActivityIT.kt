@@ -9,7 +9,6 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
@@ -38,7 +37,6 @@ class PassCodeActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun check() {
         val intent = Intent(targetContext, PassCodeActivity::class.java).apply {
@@ -62,7 +60,6 @@ class PassCodeActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun request() {
         val intent = Intent(targetContext, PassCodeActivity::class.java).apply {
@@ -86,7 +83,6 @@ class PassCodeActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun delete() {
         val intent = Intent(targetContext, PassCodeActivity::class.java).apply {

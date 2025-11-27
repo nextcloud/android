@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.fragment
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -40,7 +39,6 @@ class UnifiedSearchFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     fun showSearchResult() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { activity ->
@@ -76,7 +74,6 @@ class UnifiedSearchFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     fun search() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { activity ->

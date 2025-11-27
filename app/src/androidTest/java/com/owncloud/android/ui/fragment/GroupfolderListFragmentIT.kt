@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.fragment
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -38,7 +37,6 @@ class GroupfolderListFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showGroupfolder() {
         launchActivity<TestActivity>().use { scenario ->
@@ -67,7 +65,6 @@ class GroupfolderListFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showGroupfolders() {
         launchActivity<TestActivity>().use { scenario ->

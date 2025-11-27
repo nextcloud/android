@@ -7,7 +7,6 @@
  */
 package com.owncloud.android.providers
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -19,7 +18,6 @@ import org.junit.Test
 
 class UsersAndGroupsSearchProviderIT : AbstractOnServerIT() {
     @Test
-    @UiThread
     fun searchUser() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { sut ->

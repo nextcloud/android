@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.activity
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -38,7 +37,6 @@ class ManageAccountsActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun open() {
         launchActivity<ManageAccountsActivity>().use { scenario ->
@@ -53,7 +51,6 @@ class ManageAccountsActivityIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun userInfoDetail() {
         launchActivity<ManageAccountsActivity>().use { scenario ->

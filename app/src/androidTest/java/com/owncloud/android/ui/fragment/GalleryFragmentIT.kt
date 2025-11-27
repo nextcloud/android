@@ -12,7 +12,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -54,7 +53,6 @@ class GalleryFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showEmpty() {
         launchActivity<TestActivity>().use { scenario ->
@@ -74,7 +72,6 @@ class GalleryFragmentIT : AbstractIT() {
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showGallery() {
         launchActivity<TestActivity>().use { scenario ->
