@@ -603,8 +603,7 @@ open class FolderPickerActivity :
         }
 
         private fun checkCredentials(syncResult: RemoteOperationResult<*>, event: String?) {
-            if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED == event && !syncResult.isSuccess
-            ) {
+            if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED == event && !syncResult.isSuccess) {
                 if (ResultCode.UNAUTHORIZED == syncResult.code ||
                     (
                         syncResult.isException &&
