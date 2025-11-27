@@ -14,12 +14,15 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.owncloud.android.R
@@ -68,4 +71,23 @@ fun Context.getActivity(): Activity? = when (this) {
     is Activity -> this
     is ContextWrapper -> baseContext.getActivity()
     else -> null
+}
+
+fun Activity.openMediaPermissions(requestCode: Int) {
+    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+        data = Uri.fromParts("package", packageName, null)
+    }
+    startActivityForResult(intent, requestCode)
+}
+
+fun Activity.openAllFilesAccessSettings(requestCode: Int) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+        return
+    }
+
+    val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
+        data = "package:$packageName".toUri()
+    }
+
+    startActivityForResult(intent, requestCode)
 }

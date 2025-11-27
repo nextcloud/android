@@ -41,7 +41,6 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
-import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -131,7 +130,7 @@ class ConflictsResolveActivity :
                 updateThumbnailIfNeeded(decision, file, oldFile)
             }
 
-            dismissConflictResolveNotification(file)
+            dismissConflictResolveNotification()
             finish()
         }
     }
@@ -149,12 +148,9 @@ class ConflictsResolveActivity :
         }
     }
 
-    private fun dismissConflictResolveNotification(file: OCFile?) {
-        file ?: return
-
+    private fun dismissConflictResolveNotification() {
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        val tag = NotificationUtils.createUploadNotificationTag(file)
-        notificationManager.cancel(tag, FileUploadWorker.NOTIFICATION_ERROR_ID)
+        notificationManager.cancel(conflictUploadId.toInt())
     }
 
     private fun keepBothFolder(offlineOperation: OfflineOperationEntity?, serverFile: OCFile?) {

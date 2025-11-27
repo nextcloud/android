@@ -594,7 +594,6 @@
     <string name="oc_file_list_adapter_offline_operation_description_text">Operació pendent</string>
     <string name="offline_mode">No hi ha connexió a internet</string>
     <string name="offline_mode_info_description">Fins i tot sense connexió a Internet, podeu organitzar les vostres carpetes i crear fitxers. Quan torneu a estar en línia, les accions pendents se sincronitzaran automàticament.</string>
-    <string name="offline_operations_file_does_not_exists_yet">El fitxer encara no existeix. Pugeu primer el fitxer.</string>
     <string name="offline_operations_worker_notification_error_text">No es pot completar l\'operació fora de línia. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operacions fora de línia</string>
     <string name="oneHour">1 hora</string>

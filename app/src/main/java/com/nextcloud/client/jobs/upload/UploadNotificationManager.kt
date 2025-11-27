@@ -10,10 +10,8 @@ package com.nextcloud.client.jobs.upload
 import android.app.PendingIntent
 import android.content.Context
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
-import com.nextcloud.utils.extensions.isFileSpecificError
 import com.nextcloud.utils.numberFormatter.NumberFormatter
 import com.owncloud.android.R
-import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -77,86 +75,6 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         dismissOldErrorNotification(currentOperation)
     }
 
-    fun notifyForFailedResult(
-        uploadFileOperation: UploadFileOperation,
-        resultCode: RemoteOperationResult.ResultCode,
-        conflictsResolveIntent: PendingIntent?,
-        cancelUploadActionIntent: PendingIntent?,
-        credentialIntent: PendingIntent?,
-        errorMessage: String
-    ) {
-        if (uploadFileOperation.isMissingPermissionThrown) {
-            return
-        }
-
-        val textId = getFailedResultTitleId(resultCode)
-
-        notificationBuilder.run {
-            setTicker(context.getString(textId))
-            setContentTitle(context.getString(textId))
-            setAutoCancel(false)
-            setOngoing(false)
-            setProgress(0, 0, false)
-            clearActions()
-
-            conflictsResolveIntent?.let {
-                addAction(
-                    R.drawable.ic_cloud_upload,
-                    R.string.upload_list_resolve_conflict,
-                    it
-                )
-            }
-
-            cancelUploadActionIntent?.let {
-                addAction(
-                    R.drawable.ic_delete,
-                    R.string.upload_list_cancel_upload,
-                    cancelUploadActionIntent
-                )
-            }
-
-            credentialIntent?.let {
-                setContentIntent(it)
-            }
-
-            setContentText(errorMessage)
-        }
-
-        if (resultCode.isFileSpecificError()) {
-            showNewNotification(uploadFileOperation)
-        } else {
-            showNotification()
-        }
-    }
-
-    private fun getFailedResultTitleId(resultCode: RemoteOperationResult.ResultCode): Int {
-        val needsToUpdateCredentials = (resultCode == RemoteOperationResult.ResultCode.UNAUTHORIZED)
-
-        return if (needsToUpdateCredentials) {
-            R.string.uploader_upload_failed_credentials_error
-        } else if (resultCode == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
-            R.string.uploader_upload_failed_sync_conflict_error
-        } else {
-            R.string.uploader_upload_failed_ticker
-        }
-    }
-
-    fun addAction(icon: Int, textId: Int, intent: PendingIntent) {
-        notificationBuilder.addAction(
-            icon,
-            context.getString(textId),
-            intent
-        )
-    }
-
-    private fun showNewNotification(operation: UploadFileOperation) {
-        notificationManager.notify(
-            NotificationUtils.createUploadNotificationTag(operation.file),
-            FileUploadWorker.NOTIFICATION_ERROR_ID,
-            notificationBuilder.build()
-        )
-    }
-
     fun showSameFileAlreadyExistsNotification(filename: String) {
         notificationBuilder.run {
             setAutoCancel(true)
@@ -172,6 +90,17 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             notificationId,
             notificationBuilder.build()
         )
+    }
+
+    fun showQuotaExceedNotification(operation: UploadFileOperation) {
+        val notification = notificationBuilder.run {
+            setContentTitle(context.getString(R.string.upload_quota_exceeded))
+            setContentText("")
+            clearActions()
+            setProgress(0, 0, false)
+        }.build()
+
+        showNotification(operation.file.fileId.toInt(), notification)
     }
 
     fun showConnectionErrorNotification() {

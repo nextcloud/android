@@ -646,7 +646,6 @@
     <string name="offline_mode">无网络连接</string>
     <string name="offline_mode_info_description">即使没有互联网连接，你也可以组织文件夹、创建文件。一旦您重新在线，你的待处理操作将自动同步。</string>
     <string name="offline_mode_info_title">您已离线，但工作仍在继续</string>
-    <string name="offline_operations_file_does_not_exists_yet">文件尚不存在。请先上传文件。</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">无法创建 %s。服务器上存在同名文件。</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">无法创建 %s。服务器上存在同名文件夹。</string>
     <string name="offline_operations_worker_notification_error_text">无法完成离线操作。%s</string>

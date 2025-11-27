@@ -12,7 +12,7 @@
     android:background="@drawable/rounded_rect_8dp"
     android:layout_marginTop="@dimen/standard_half_margin"
     android:layout_marginHorizontal="@dimen/standard_half_margin"
-    android:backgroundTint="@color/grey_200"
+    android:backgroundTint="@color/task_container"
     android:elevation="4dp"
     android:padding="@dimen/standard_double_margin"
     xmlns:android="http://schemas.android.com/apk/res/android"

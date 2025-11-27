@@ -38,9 +38,11 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isDialogFragmentReady
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
+import com.owncloud.android.databinding.StoragePermissionWarningBannerBinding
 import com.owncloud.android.databinding.SyncedFoldersLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.MediaFolder
@@ -53,6 +55,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter
+import com.owncloud.android.ui.adapter.storagePermissionBanner.setup
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
@@ -197,7 +200,15 @@ class SyncedFoldersActivity :
             setTheme(R.style.FallbackThemingTheme)
         }
         binding.emptyList.emptyListViewAction.setOnClickListener { showHiddenItems() }
-        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true)
+        setupStoragePermissionWarningBanner()
+    }
+
+    fun setupStoragePermissionWarningBanner() {
+        val storagePermissionWarningBanner = binding.storagePermissionWarningBanner.root
+        StoragePermissionWarningBannerBinding.bind(storagePermissionWarningBanner).apply {
+            setup(this@SyncedFoldersActivity, R.string.storage_permission_banner_auto_upload_text)
+        }
+        storagePermissionWarningBanner.setVisibleIf(!PermissionUtil.checkStoragePermission(this))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -274,16 +285,14 @@ class SyncedFoldersActivity :
                 contentResolver,
                 perFolderMediaItemLimit,
                 this@SyncedFoldersActivity,
-                false,
-                viewThemeUtils
+                false
             )
             mediaFolders.addAll(
                 MediaProvider.getVideoFolders(
                     contentResolver,
                     perFolderMediaItemLimit,
                     this@SyncedFoldersActivity,
-                    false,
-                    viewThemeUtils
+                    false
                 )
             )
 
@@ -519,7 +528,7 @@ class SyncedFoldersActivity :
             android.R.id.home -> finish()
             R.id.action_create_custom_folder -> {
                 Log_OC.d(TAG, "Show custom folder dialog")
-                if (PermissionUtil.checkExternalStoragePermission(this)) {
+                if (PermissionUtil.checkStoragePermission(this)) {
                     val emptyCustomFolder = SyncedFolderDisplayItem(
                         SyncedFolder.UNPERSISTED_ID,
                         null,
@@ -542,7 +551,7 @@ class SyncedFoldersActivity :
                     )
                     onSyncFolderSettingsClick(0, emptyCustomFolder)
                 } else {
-                    PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true)
+                    PermissionUtil.requestStoragePermissionIfNeeded(this)
                 }
                 result = super.onOptionsItemSelected(item)
             }

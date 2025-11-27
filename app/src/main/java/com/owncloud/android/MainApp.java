@@ -628,7 +628,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         updateAutoUploadEntries(clock);
 
         if (getAppContext() != null) {
-            if (PermissionUtil.checkExternalStoragePermission(getAppContext())) {
+            if (PermissionUtil.checkStoragePermission(getAppContext())) {
                 splitOutAutoUploadEntries(clock, viewThemeUtils);
             } else {
                 preferences.setAutoUploadSplitEntriesEnabled(true);
@@ -904,13 +904,11 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             final List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver,
                                                                                       1,
                                                                                       null,
-                                                                                      true,
-                                                                                      viewThemeUtils);
+                                                                                      true);
             final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver,
                                                                                       1,
                                                                                       null,
-                                                                                      true,
-                                                                                      viewThemeUtils);
+                                                                                      true);
 
             ArrayList<Long> idsToDelete = new ArrayList<>();
             List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();

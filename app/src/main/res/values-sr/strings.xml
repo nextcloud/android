@@ -644,7 +644,6 @@
     <string name="offline_mode">Нема везе са интернетом</string>
     <string name="offline_mode_info_description">Чак и без везе са интернетом можете да организујете фолдере, креирате фајлове. Када поново будете на мрежи, ваше акције на чекању ће се аутоматски синхронизовати.</string>
     <string name="offline_mode_info_title">Ван мреже сте, али се рад наставља</string>
-    <string name="offline_operations_file_does_not_exists_yet">Фајл још увек не постоји. Молимо вас да најпре отпремите фајл.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Није могао да се креира %s. На серверу постоји фајл са истим именом.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Није могао да се креира %s. На серверу постоји фолдер са истим именом.</string>
     <string name="offline_operations_worker_notification_error_text">Операција ван мреже не може да се заврши. %s</string>

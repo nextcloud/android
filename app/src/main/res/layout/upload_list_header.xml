@@ -68,5 +68,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/upload_list_title"
-        layout="@layout/auto_upload_battery_saver_warning_card" />
+        layout="@layout/auto_upload_battery_saver_warning_banner" />
 </RelativeLayout>

@@ -120,6 +120,10 @@
     <string name="prefs_daily_backup_summary">Daily backup of your calendar and contacts</string>
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
     <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
+
+    <string name="prefs_all_files_access_title">All files access</string>
+    <string name="prefs_all_files_access_summary">Allow the app to access and manage all files on your device</string>
+
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to a friend</string>
     <string name="prefs_imprint">Imprint</string>
@@ -465,6 +469,7 @@
     <string name="ssl_validator_null_cert">The certificate could not be shown.</string>
     <string name="ssl_validator_no_info_about_error">- No information about the error</string>
 
+    <string name="placeholder_storage_permission_banner_text" translatable="false">Storage permission is required for Auto-upload and file uploads.</string>
     <string name="placeholder_timestamp" translatable="false">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time" translatable="false">12:23:45</string>
     <string name="placeholder_sentence" translatable="false">This is a placeholder</string>
@@ -1227,6 +1232,7 @@
     <string name="direct_login_text">Login with %1$s to %2$s</string>
     <string name="direct_login_failed">Login via direct link failed!</string>
 
+    <string name="e2e_signature_is_empty">Could not verify metadata, signature is empty.</string>
     <string name="e2e_counter_too_old">Counter is too old</string>
     <string name="e2e_hash_not_found">Hash not found</string>
     <string name="e2e_signature_does_not_match">Signature does not match</string>
@@ -1290,9 +1296,9 @@
     <string name="no_actions">No actions for this user</string>
     <string name="search_error">Error getting search results</string>
     <string name="load_more_results">Load more results</string>
-    <string name="file_management_permission">Permissions needed</string>
+    <string name="storage_permission_banner_auto_upload_text">Storage permission is required for Auto-upload.</string>
+    <string name="storage_permission_banner_upload_text">Storage permission is required for file uploads.</string>
     <string name="file_management_permission_optional">Storage permissions</string>
-    <string name="file_management_permission_text">%1$s needs file management permissions to upload files. You can choose full access to all files, or read-only access to photos and videos.</string>
     <string name="file_management_permission_optional_text">%1$s works best with permissions to access storage. You can choose full access to all files, or read-only access to photos and videos.</string>
     <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
     <string name="file_list_empty_unified_search_start_search">Start your search</string>
@@ -1302,8 +1308,9 @@
     <string name="error_creating_file_from_template">Error creating file from template</string>
     <string name="no_send_app">No app available for sending the selected files</string>
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
-    <string name="storage_permission_full_access">Full access</string>
+    <string name="storage_permission_all_files_access">All files access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
+    <string name="storage_permission_dont_ask">Don\'t ask</string>
     <string name="subtitle_photos_videos">Photos and videos</string>
     <string name="show_images">Show photos</string>
     <string name="subtitle_photos_only">Photos only</string>
