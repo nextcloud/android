@@ -9,40 +9,25 @@ package com.nextcloud.client.etm
 
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 
 class EtmActivityTest : AbstractIT() {
     private val testClassName = "com.nextcloud.client.etm.EtmActivityTest"
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
-
     @Test
     @ScreenshotTest
     fun overview() {
         launchActivity<EtmActivity>().use { scenario ->
+            val screenShotName = createName(testClassName + "_" + "overview", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
             scenario.onActivity { sut ->
-                onIdleSync {
-                    val screenShotName = createName(testClassName + "_" + "overview", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                screenshotViaName(sut, screenShotName)
             }
         }
     }
@@ -51,16 +36,12 @@ class EtmActivityTest : AbstractIT() {
     @ScreenshotTest
     fun accounts() {
         launchActivity<EtmActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.vm.onPageSelected(1)
-                    EspressoIdlingResource.decrement()
+            val screenShotName = createName(testClassName + "_" + "accounts", "")
+            onView(isRoot()).check(matches(isDisplayed()))
 
-                    val screenShotName = createName(testClassName + "_" + "accounts", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+            scenario.onActivity { sut ->
+                sut.vm.onPageSelected(1)
+                screenshotViaName(sut, screenShotName)
             }
         }
     }

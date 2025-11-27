@@ -47,7 +47,8 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
 
     @get:Rule
     val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.POST_NOTIFICATIONS
     )
 
     companion object {
@@ -60,24 +61,21 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
         try {
             launchActivity<FileDisplayActivity>().use { scenario ->
                 scenario.onActivity { sut ->
-                    onIdleSync {
-                        EspressoIdlingResource.increment()
-
-                        sut.run {
-                            listOfFilesFragment?.let {
-                                it.setFabEnabled(false)
-                                resetScrolling(true)
-                                it.setEmptyListMessage(EmptyListState.LOADING)
-                                it.isLoading = false
-                            }
+                    sut.run {
+                        listOfFilesFragment?.let {
+                            it.setFabEnabled(false)
+                            resetScrolling(true)
+                            it.setEmptyListMessage(EmptyListState.LOADING)
+                            it.isLoading = false
                         }
-
-                        EspressoIdlingResource.decrement()
-
-                        val screenShotName = createName(testClassName + "_" + "open", "")
-                        onView(isRoot()).check(matches(isDisplayed()))
-                        screenshotViaName(sut, screenShotName)
                     }
+                }
+
+                val screenShotName = createName(testClassName + "_" + "open", "")
+                onView(isRoot()).check(matches(isDisplayed()))
+
+                scenario.onActivity { sut ->
+                    screenshotViaName(sut, screenShotName)
                 }
             }
         } catch (e: SecurityException) {
@@ -90,36 +88,32 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     fun showMediaThenAllFiles() {
         try {
             launchActivity<FileDisplayActivity>().use { scenario ->
+                var activity: FileDisplayActivity? = null
                 scenario.onActivity { sut ->
-                    onIdleSync {
-                        EspressoIdlingResource.increment()
-                        val fragment = sut.listOfFilesFragment
-                        Assert.assertNotNull(fragment)
-                        fragment!!.setFabEnabled(false)
-                        fragment.setEmptyListMessage(EmptyListState.LOADING)
-                        fragment.isLoading = false
-                        EspressoIdlingResource.decrement()
-
-                        onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
-
-                        onView(ViewMatchers.withId(R.id.nav_view))
-                            .perform(NavigationViewActions.navigateTo(R.id.nav_gallery))
-
-                        onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
-                        onView(ViewMatchers.withId(R.id.nav_view))
-                            .perform(NavigationViewActions.navigateTo(R.id.nav_all_files))
-
-                        EspressoIdlingResource.increment()
-                        fragment.setFabEnabled(false)
-                        fragment.setEmptyListMessage(EmptyListState.LOADING)
-                        fragment.isLoading = false
-                        EspressoIdlingResource.decrement()
-
-                        val screenShotName = createName(testClassName + "_" + "showMediaThenAllFiles", "")
-                        onView(isRoot()).check(matches(isDisplayed()))
-                        screenshotViaName(sut, screenShotName)
-                    }
+                    activity = sut
+                    val fragment = sut.listOfFilesFragment
+                    Assert.assertNotNull(fragment)
+                    fragment!!.setFabEnabled(false)
+                    fragment.setEmptyListMessage(EmptyListState.LOADING)
+                    fragment.isLoading = false
                 }
+
+                onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
+                onView(ViewMatchers.withId(R.id.nav_view))
+                    .perform(NavigationViewActions.navigateTo(R.id.nav_gallery))
+                onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
+                onView(ViewMatchers.withId(R.id.nav_view))
+                    .perform(NavigationViewActions.navigateTo(R.id.nav_all_files))
+
+
+                val fragment = activity!!.listOfFilesFragment
+                fragment!!.setFabEnabled(false)
+                fragment.setEmptyListMessage(EmptyListState.LOADING)
+                fragment.isLoading = false
+
+                val screenShotName = createName(testClassName + "_" + "showMediaThenAllFiles", "")
+                onView(isRoot()).check(matches(isDisplayed()))
+                screenshotViaName(activity, screenShotName)
             }
         } catch (e: SecurityException) {
             Log_OC.e(TAG, "Error caught at open $e")
@@ -131,29 +125,26 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     fun drawer() {
         try {
             launchActivity<FileDisplayActivity>().use { scenario ->
+                onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
+
                 scenario.onActivity { sut ->
-                    onIdleSync {
-                        onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
+                    sut.run {
+                        hideInfoBox()
+                        resetScrolling(true)
 
-                        EspressoIdlingResource.increment()
-
-                        sut.run {
-                            hideInfoBox()
-                            resetScrolling(true)
-
-                            listOfFilesFragment?.let {
-                                it.setFabEnabled(false)
-                                it.setEmptyListMessage(EmptyListState.LOADING)
-                                it.isLoading = false
-                            }
+                        listOfFilesFragment?.let {
+                            it.setFabEnabled(false)
+                            it.setEmptyListMessage(EmptyListState.LOADING)
+                            it.isLoading = false
                         }
-
-                        EspressoIdlingResource.decrement()
-
-                        val screenShotName = createName(testClassName + "_" + "drawer", "")
-                        onView(isRoot()).check(matches(isDisplayed()))
-                        screenshotViaName(sut, screenShotName)
                     }
+                }
+
+                val screenShotName = createName(testClassName + "_" + "drawer", "")
+                onView(isRoot()).check(matches(isDisplayed()))
+
+                scenario.onActivity { sut ->
+                    screenshotViaName(sut, screenShotName)
                 }
             }
         } catch (e: SecurityException) {
