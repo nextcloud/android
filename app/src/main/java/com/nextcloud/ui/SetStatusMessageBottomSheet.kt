@@ -49,15 +49,17 @@ import java.util.Locale
 import javax.inject.Inject
 
 private const val POS_DONT_CLEAR = 0
-private const val POS_HALF_AN_HOUR = 1
-private const val POS_AN_HOUR = 2
-private const val POS_FOUR_HOURS = 3
-private const val POS_TODAY = 4
-private const val POS_END_OF_WEEK = 5
+private const val POS_FIFTEEN_MINUTES = 1
+private const val POS_HALF_AN_HOUR = 2
+private const val POS_AN_HOUR = 3
+private const val POS_FOUR_HOURS = 4
+private const val POS_TODAY = 5
+private const val POS_END_OF_WEEK = 6
 
 private const val ONE_SECOND_IN_MILLIS = 1000
 private const val ONE_MINUTE_IN_SECONDS = 60
 private const val THIRTY_MINUTES = 30
+private const val FIFTEEN_MINUTES = 15
 private const val FOUR_HOURS = 4
 private const val LAST_HOUR_OF_DAY = 23
 private const val LAST_MINUTE_OF_HOUR = 59
@@ -135,6 +137,7 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
         val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         adapter.add(getString(R.string.dontClear))
+        adapter.add(getString(R.string.fifteenMinutes))
         adapter.add(getString(R.string.thirtyMinutes))
         adapter.add(getString(R.string.oneHour))
         adapter.add(getString(R.string.fourHours))
@@ -191,6 +194,10 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
     private fun setClearStatusAfterValue(item: Int) {
         clearAt = when (item) {
             POS_DONT_CLEAR -> null // don't clear
+            POS_FIFTEEN_MINUTES -> {
+                // 15 minutes
+                System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + FIFTEEN_MINUTES * ONE_MINUTE_IN_SECONDS
+            }
             POS_HALF_AN_HOUR -> {
                 // 30 minutes
                 System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + THIRTY_MINUTES * ONE_MINUTE_IN_SECONDS
@@ -296,6 +303,9 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
     }
 
     override fun onClick(predefinedStatus: PredefinedStatus) {
+        val oldListener = binding.clearStatusAfterSpinner.onItemSelectedListener
+        binding.clearStatusAfterSpinner.onItemSelectedListener = null
+
         selectedPredefinedMessageId = predefinedStatus.id
         clearAt = clearAtToUnixTime(predefinedStatus.clearAt)
         binding.emoji.setText(predefinedStatus.icon)
@@ -315,11 +325,14 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
                 CLEAR_AT_TYPE_END_OF -> updateClearAtViewsForEndOf(clearAt)
             }
         }
+
         setClearStatusAfterValue(binding.clearStatusAfterSpinner.selectedItemPosition)
+        binding.clearStatusAfterSpinner.onItemSelectedListener = oldListener
     }
 
     private fun updateClearAtViewsForPeriod(clearAt: ClearAt) {
         when (clearAt.time) {
+            "900" -> binding.clearStatusAfterSpinner.setSelection(POS_FIFTEEN_MINUTES)
             "1800" -> binding.clearStatusAfterSpinner.setSelection(POS_HALF_AN_HOUR)
             "3600" -> binding.clearStatusAfterSpinner.setSelection(POS_AN_HOUR)
             "14400" -> binding.clearStatusAfterSpinner.setSelection(POS_FOUR_HOURS)
