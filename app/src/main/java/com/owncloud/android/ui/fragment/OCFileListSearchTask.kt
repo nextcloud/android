@@ -128,18 +128,13 @@ class OCFileListSearchTask(
 
     private suspend fun loadCachedDbFiles(searchType: SearchRemoteOperation.SearchType): List<OCFile> {
         val storage = fileDataStorageManager ?: return emptyList()
-
-        val rows = when (searchType) {
-            SearchRemoteOperation.SearchType.SHARED_FILTER ->
-                storage.fileDao.getSharedFiles(currentUser.accountName)
-
-            SearchRemoteOperation.SearchType.FAVORITE_SEARCH ->
-                storage.fileDao.getFavoriteFiles(currentUser.accountName)
-
-            else -> null
-        } ?: return emptyList()
-
-        return rows.mapNotNull { storage.createFileInstance(it) }
+        return if (searchType == SearchRemoteOperation.SearchType.SHARED_FILTER) {
+            storage.fileDao
+                .getSharedFiles(currentUser.accountName)
+        } else {
+            storage.fileDao
+                .getFavoriteFiles(currentUser.accountName)
+        } .mapNotNull { storage.createFileInstance(it) }
     }
 
     @Suppress("DEPRECATION")
