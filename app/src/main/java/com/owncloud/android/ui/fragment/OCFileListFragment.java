@@ -1915,13 +1915,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         prepareCurrentSearch(event);
         searchFragment = true;
-        setEmptyListMessage(EmptyListState.LOADING);
-        mAdapter.setData(new ArrayList<>(),
-                         NO_SEARCH,
-                         mContainerActivity.getStorageManager(),
-                         mFile,
-                         true);
-
         setFabVisible(false);
 
         Runnable switchViewsRunnable = () -> {
@@ -1937,10 +1930,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
 
         final User currentUser = accountManager.getUser();
-
         final var remoteOperation = getSearchRemoteOperation(currentUser, event);
-
-        searchTask = new OCFileListSearchTask(mContainerActivity, this, remoteOperation, currentUser, event, SharedListFragment.TASK_TIMEOUT);
+        searchTask = new OCFileListSearchTask(mContainerActivity, this, remoteOperation, currentUser, event, SharedListFragment.TASK_TIMEOUT, preferences);
         searchTask.execute();
     }
 

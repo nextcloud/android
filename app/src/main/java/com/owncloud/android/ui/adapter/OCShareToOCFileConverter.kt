@@ -7,10 +7,16 @@
  */
 package com.owncloud.android.ui.adapter
 
+import com.nextcloud.utils.extensions.saveShares
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
+import com.owncloud.android.utils.FileStorageUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.File
 
 object OCShareToOCFileConverter {
     private const val MILLIS_PER_SECOND = 1000
@@ -34,6 +40,49 @@ object OCShareToOCFileConverter {
         return groupedByPath
             .map { (path: String, shares: List<OCShare>) -> buildOcFile(path, shares) }
             .sortedByDescending { it.firstShareTimestamp }
+    }
+
+    suspend fun parseAndSaveShares(
+        cachedFiles: List<OCFile>,
+        data: List<Any>,
+        storageManager: FileDataStorageManager?,
+        accountName: String
+    ): List<OCFile> = withContext(Dispatchers.IO) {
+        if (data.isEmpty()) {
+            return@withContext emptyList()
+        }
+
+        val shares = data.filterIsInstance<OCShare>()
+        if (shares.isEmpty()) {
+            return@withContext emptyList()
+        }
+
+        val newShares = shares.filter { share ->
+            cachedFiles.none { file -> file.decryptedRemotePath == share.path }
+        }
+
+        if (newShares.isEmpty()) {
+            return@withContext cachedFiles
+        }
+
+        val files = buildOCFilesFromShares(newShares)
+        val baseSavePath = FileStorageUtils.getSavePath(accountName)
+
+        val newFiles = files.map { file ->
+            if (!file.isFolder && (file.storagePath == null || !File(file.storagePath).exists())) {
+                val fullPath = baseSavePath + file.decryptedRemotePath
+                val candidate = File(fullPath)
+                if (candidate.exists()) {
+                    file.storagePath = candidate.absolutePath
+                    file.lastSyncDateForData = candidate.lastModified()
+                }
+            }
+            storageManager?.saveFile(file)
+            file
+        }
+
+        storageManager?.saveShares(newShares, accountName)
+        cachedFiles + newFiles
     }
 
     private fun buildOcFile(path: String, shares: List<OCShare>): OCFile {
