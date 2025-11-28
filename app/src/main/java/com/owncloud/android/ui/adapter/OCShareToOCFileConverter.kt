@@ -58,7 +58,7 @@ object OCShareToOCFileConverter {
         }
 
         val newShares = shares.filter { share ->
-            cachedFiles.none { file -> file.localId == share.fileSource }
+            cachedFiles.none { file -> file.decryptedRemotePath == share.path }
         }
 
         if (newShares.isEmpty()) {
@@ -97,7 +97,6 @@ object OCShareToOCFileConverter {
             mimeType = firstShare.mimetype
             note = firstShare.note
             fileId = firstShare.fileSource
-            localId = firstShare.fileSource
             remoteId = firstShare.remoteId.toString()
             // use first share timestamp as timestamp
             firstShareTimestamp = shares.minOf { it.sharedDate * MILLIS_PER_SECOND }
