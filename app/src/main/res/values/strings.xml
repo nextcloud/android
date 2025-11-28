@@ -59,7 +59,6 @@
     <string name="assistant_screen_task_output_empty_text">The task output is not ready yet.</string>
     <string name="assistant_screen_chat_create_error">Failed to send a message</string>
     <string name="assistant_screen_chat_fetch_error">Failed to fetch chat messages</string>
-    <string name="assistant_screen_task_types_error_state_message">Unable to fetch task types, please check your internet connection.</string>
     <string name="assistant_screen_task_list_error_state_message">Unable to fetch task list, please check your internet connection.</string>
     <string name="assistant_screen_task_list_empty_warning">Task list is empty. Check assistant app configuration.</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
