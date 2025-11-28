@@ -26,6 +26,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -215,6 +217,19 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
+    public static boolean isBackPressed = false;
+
+    @SuppressLint("GestureBackNavigation")
+    @Override
+    public void onBackPressed() {
+        isBackPressed = true;
+        super.onBackPressed();
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            Log_OC.d(TAG, "User returned from settings activity, reset onBackPressed flag.");
+            isBackPressed = false;
+        }, 2000);
+    }
+
     private void adjustTopMarginForActionBar() {
         if (getListView() == null) {
             return;
@@ -360,16 +375,6 @@ public class SettingsActivity extends PreferenceActivity
                 preferenceCategoryAbout.removePreference(sourcecodePreference);
             }
         }
-    }
-
-    @SuppressLint("GestureBackNavigation")
-    @Override
-    public void onBackPressed() {
-        DrawerActivity.menuItemId = R.id.nav_all_files;
-        Intent i = new Intent(this, FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        i.setAction(FileDisplayActivity.ALL_FILES);
-        startActivity(i);
     }
 
     private void setupSyncCategory() {
@@ -1078,8 +1083,6 @@ public class SettingsActivity extends PreferenceActivity
             handleMnemonicRequest(data);
         } else if (requestCode == ACTION_E2E && data != null && data.getBooleanExtra(SetupEncryptionDialogFragment.SUCCESS, false)) {
             Intent i = new Intent(this, SettingsActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(i);
         } else if (requestCode == ACTION_SET_STORAGE_LOCATION && data != null) {
             String newPath = data.getStringExtra(ChooseStorageLocationActivity.KEY_RESULT_STORAGE_LOCATION);
