@@ -10,7 +10,6 @@ package com.nextcloud.client
 import android.view.View
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -24,10 +23,7 @@ import com.owncloud.android.lib.resources.activities.model.RichObject
 import com.owncloud.android.lib.resources.activities.models.PreviewObject
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activities.ActivitiesActivity
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import java.util.GregorianCalendar
 

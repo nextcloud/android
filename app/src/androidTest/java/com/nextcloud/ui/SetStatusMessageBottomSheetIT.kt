@@ -21,7 +21,6 @@ import com.owncloud.android.lib.resources.users.PredefinedStatus
 import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.utils.EspressoIdlingResource
 import org.junit.Rule
 import org.junit.Test
 
