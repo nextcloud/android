@@ -58,7 +58,15 @@ object OCShareToOCFileConverter {
             return@withContext emptyList()
         }
 
-        val newFiles = buildOCFilesFromShares(shares)
+        val newShares = shares.filter { share ->
+            cachedFiles.none { file -> file.localId == share.fileSource }
+        }
+
+        if (newShares.isEmpty()) {
+            return@withContext cachedFiles
+        }
+
+        val newFiles = buildOCFilesFromShares(newShares)
         val baseSavePath = FileStorageUtils.getSavePath(accountName)
 
         val resolvedNewFiles = newFiles.map { file ->
