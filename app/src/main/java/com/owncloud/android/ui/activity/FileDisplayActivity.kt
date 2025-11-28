@@ -153,8 +153,8 @@ import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.PermissionUtil
-import com.owncloud.android.utils.PermissionUtil.requestStoragePermissionIfNeeded
 import com.owncloud.android.utils.PermissionUtil.requestNotificationPermission
+import com.owncloud.android.utils.PermissionUtil.requestStoragePermissionIfNeeded
 import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.StringUtils
 import com.owncloud.android.utils.theme.CapabilityUtils
@@ -2875,7 +2875,7 @@ class FileDisplayActivity :
                 } else if (!TextUtils.isEmpty(filePath)) {
                     openFileByPath(optionalUser.get(), filePath)
                 } else {
-                    accountClicked(optionalUser.get().hashCode())
+                    accountClicked(optionalUser.get())
                 }
             } else {
                 DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found))

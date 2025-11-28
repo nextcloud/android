@@ -161,7 +161,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         if (itemId == android.R.id.home) {
             getOnBackPressedDispatcher().onBackPressed();
         } else if (itemId == R.id.action_open_account) {
-            accountClicked(user.hashCode());
+            accountClicked(user);
         } else if (itemId == R.id.action_delete_account) {
             openAccountRemovalDialog(user, getSupportFragmentManager());
         } else {
