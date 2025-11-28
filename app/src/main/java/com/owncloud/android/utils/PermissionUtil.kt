@@ -161,6 +161,7 @@ object PermissionUtil {
     }
 
     // region Storage permission checks
+
     /**
      * Checks if the application has storage/media access permissions.
      *
