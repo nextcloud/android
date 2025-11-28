@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.ui.adapter
 
+import com.nextcloud.utils.extensions.saveShares
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
@@ -80,6 +81,7 @@ object OCShareToOCFileConverter {
             file
         }
 
+        storageManager?.saveShares(newShares, accountName)
         cachedFiles + newFiles
     }
 
