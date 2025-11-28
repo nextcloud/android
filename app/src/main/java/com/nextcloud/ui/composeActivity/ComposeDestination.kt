@@ -7,8 +7,13 @@
  */
 package com.nextcloud.ui.composeActivity
 
-import java.io.Serializable
+sealed class ComposeDestination(val id: Int) {
+    data class AssistantScreen(val sessionId: Long?) : ComposeDestination(0)
 
-enum class ComposeDestination : Serializable {
-    AssistantScreen
+    companion object {
+        fun fromId(id: Int): ComposeDestination = when (id) {
+            0 -> AssistantScreen(null)
+            else -> throw IllegalArgumentException("Unknown destination: $id")
+        }
+    }
 }

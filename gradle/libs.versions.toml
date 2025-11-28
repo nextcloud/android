@@ -5,7 +5,7 @@
 androidCommonLibraryVersion = "0.29.0"
 androidGifDrawableVersion = "1.2.29"
 androidImageCropperVersion = "4.6.0"
-androidLibraryVersion = "8c77f600ac942f6eb4e3c4447143fc949d34acc6"
+androidLibraryVersion = "b8f77935157e44c1d7a71f81271b412b0dbe8c76"
 androidPluginVersion = '8.13.1'
 androidsvgVersion = "1.4"
 androidxMediaVersion = "1.5.1"
@@ -84,6 +84,7 @@ spotless = "8.1.0"
 stateless4jVersion = "2.6.0"
 webkitVersion = "1.14.0"
 workRuntime = "2.10.4"
+foundationVersion = "1.9.4"
 
 [libraries]
 # Crypto
@@ -236,6 +237,7 @@ qrcodescanner = { module = "com.github.nextcloud-deps:qrcodescanner", version.re
 # Worker
 work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntime" }
+foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundationVersion" }
 
 [bundles]
 media3 = ["media3-ui", "media3-session", "media3-exoplayer", "media3-datasource"]

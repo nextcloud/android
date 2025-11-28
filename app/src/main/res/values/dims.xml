@@ -91,8 +91,6 @@
     <dimen name="file_download_fragment_display_text_margin">40dp</dimen>
     <dimen name="drawer_width">240dp</dimen>
     <dimen name="grid_item_text_size">16sp</dimen>
-    <dimen name="search_users_groups_layout_width">200dp</dimen>
-    <dimen name="search_users_groups_layout_list_view_margin">20dp</dimen>
     <dimen name="share_file_layout_text_size">12sp</dimen>
     <dimen name="ssl_untrusted_cert_layout_padding">20dp</dimen>
     <dimen name="upload_list_item_frame_layout_width">60dp</dimen>
