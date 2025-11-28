@@ -160,14 +160,19 @@ class OCFileListDelegate(
         galleryRowHolder: GalleryRowHolder,
         width: Int
     ) {
-        if (!ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
-            Log_OC.d(tag, "setGalleryImage.cancelPotentialThumbnailWork()")
+        if (!ThumbnailsCacheManager.cancelPotentialGalleryWork(file, thumbnailView)) {
+            Log_OC.d(tag, "setGalleryImage.cancelPotentialGalleryWork()")
             return
         }
 
-        for (task in asyncTasks) {
-            if (file.remoteId != null && task.imageKey != null && file.remoteId == task.imageKey) {
-                return
+        val iterator = asyncGalleryTasks.iterator()
+        while (iterator.hasNext()) {
+            val task = iterator.next()
+            if (file.remoteId != null && file.remoteId == task.imageKey) {
+                task.cancel(true)
+                iterator.remove()
+                Log_OC.d(tag, "Cancelled duplicate gallery task for: ${file.remoteId}")
+                break
             }
         }
 
@@ -207,7 +212,6 @@ class OCFileListDelegate(
             })
 
             thumbnailView.setImageDrawable(asyncDrawable)
-
             asyncGalleryTasks.add(task)
             task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, file)
         } catch (e: IllegalArgumentException) {

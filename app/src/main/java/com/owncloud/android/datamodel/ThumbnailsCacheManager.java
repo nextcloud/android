@@ -326,6 +326,10 @@ public final class ThumbnailsCacheManager {
             this.backgroundColor = backgroundColor;
         }
 
+        public String getImageKey() {
+            return imageKey;
+        }
+
         public void setListener(GalleryListener listener) {
             this.listener = listener;
         }
@@ -341,10 +345,18 @@ public final class ThumbnailsCacheManager {
 
             file = (OCFile) params[0];
 
+            if (isCancelled()) {
+                return null;
+            }
+
             if (file.getRemoteId() != null || file.isPreviewAvailable()) {
                 // Thumbnail in cache?
                 thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getRemoteId());
+
+                if (isCancelled()) {
+                    return null;
+                }
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded())
                     return getThumbnailFromCache(thumbnail);
@@ -358,12 +370,20 @@ public final class ThumbnailsCacheManager {
 
         @Nullable
         private Bitmap getThumbnailFromServerAndAddToCache(Bitmap thumbnail) {
+            if (isCancelled()) {
+                return null;
+            }
+
             try {
                 mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.toOwnCloudAccount(),
                                                                                           MainApp.getAppContext());
 
                 thumbnail = doResizedImageInBackground(file, storageManager);
                 newImage = true;
+
+                if (isCancelled()) {
+                    return null;
+                }
 
                 if (MimeTypeUtil.isVideo(file) && thumbnail != null) {
                     thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
@@ -417,6 +437,13 @@ public final class ThumbnailsCacheManager {
         }
 
         protected void onPostExecute(Bitmap bitmap) {
+            if (isCancelled()) {
+                if (asyncTasks != null) {
+                    asyncTasks.remove(this);
+                }
+                return;
+            }
+
             if (bitmap != null && imageViewReference.get() != null) {
                 final ImageView imageView = imageViewReference.get();
                 final GalleryImageGenerationTask bitmapWorkerTask = getGalleryImageGenerationTask(imageView);
@@ -1176,6 +1203,24 @@ public final class ThumbnailsCacheManager {
                 return BitmapUtils.bitmapToCircularBitmapDrawable(mResources, avatar);
             }
         }
+    }
+
+    public static boolean cancelPotentialGalleryWork(OCFile file, ImageView imageView) {
+        final GalleryImageGenerationTask galleryTask = getGalleryImageGenerationTask(imageView);
+
+        if (galleryTask != null) {
+            final String taskImageKey = galleryTask.imageKey;
+            if (taskImageKey == null || file.getRemoteId() == null ||
+                !taskImageKey.equals(file.getRemoteId())) {
+                // Cancel previous task
+                galleryTask.cancel(true);
+                Log_OC.v(TAG, "Cancelled generation of gallery image for a reused imageView");
+            } else {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public static boolean cancelPotentialThumbnailWork(Object file, ImageView imageView) {
