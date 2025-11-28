@@ -14,8 +14,6 @@ import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import java.io.File
 
@@ -66,26 +64,23 @@ object OCShareToOCFileConverter {
             return@withContext cachedFiles
         }
 
-        val newFiles = buildOCFilesFromShares(newShares)
+        val files = buildOCFilesFromShares(newShares)
         val baseSavePath = FileStorageUtils.getSavePath(accountName)
 
-        val resolvedNewFiles = newFiles.map { file ->
-            async {
-                if (!file.isFolder && (file.storagePath == null || !File(file.storagePath).exists())) {
-                    val fullPath = baseSavePath + file.decryptedRemotePath
-                    val candidate = File(fullPath)
-
-                    if (candidate.exists()) {
-                        file.storagePath = candidate.absolutePath
-                        file.lastSyncDateForData = candidate.lastModified()
-                    }
+        val newFiles = files.map { file ->
+            if (!file.isFolder && (file.storagePath == null || !File(file.storagePath).exists())) {
+                val fullPath = baseSavePath + file.decryptedRemotePath
+                val candidate = File(fullPath)
+                if (candidate.exists()) {
+                    file.storagePath = candidate.absolutePath
+                    file.lastSyncDateForData = candidate.lastModified()
                 }
-                file
             }
-        }.awaitAll()
+            storageManager?.saveFile(file)
+            file
+        }
 
-        // storageManager?.saveShares(newShares, accountName)
-        cachedFiles + resolvedNewFiles
+        cachedFiles + newFiles
     }
 
     private fun buildOcFile(path: String, shares: List<OCShare>): OCFile {
@@ -100,6 +95,7 @@ object OCShareToOCFileConverter {
             mimeType = firstShare.mimetype
             note = firstShare.note
             fileId = firstShare.fileSource
+            localId = firstShare.fileSource
             remoteId = firstShare.remoteId.toString()
             // use first share timestamp as timestamp
             firstShareTimestamp = shares.minOf { it.sharedDate * MILLIS_PER_SECOND }

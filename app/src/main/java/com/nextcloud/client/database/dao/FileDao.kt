@@ -122,11 +122,12 @@ interface FileDao {
         """
     SELECT *
     FROM filelist
-    WHERE 
-        (file_owner != :accountName
-        OR share_by_link = 1
-        OR shared_via_users = 1
-        OR permissions LIKE '%S%')
+    WHERE file_owner = :accountName
+      AND (
+          share_by_link = 1
+          OR shared_via_users = 1
+          OR permissions LIKE '%S%'
+      )
     ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
     """
     )
