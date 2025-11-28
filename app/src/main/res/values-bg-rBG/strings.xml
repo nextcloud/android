@@ -316,6 +316,7 @@
     <string name="failed_update_ui">Неуспешно обновяване на UI /потребителски интерфейс/</string>
     <string name="favorite">Добави към любимите</string>
     <string name="favorite_icon">Любими</string>
+    <string name="fifteenMinutes">15 минути</string>
     <string name="file_already_exists">Името на файла вече съществува</string>
     <string name="file_delete">Изтрий</string>
     <string name="file_detail_activity_error">Грешка при извличането на активности за файл</string>

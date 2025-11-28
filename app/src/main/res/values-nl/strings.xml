@@ -379,6 +379,7 @@
     <string name="failed_update_ui">Kon UI niet bijwerken</string>
     <string name="favorite">Toevoegen aan favorieten</string>
     <string name="favorite_icon">Favoriet</string>
+    <string name="fifteenMinutes">15 minuten</string>
     <string name="file_activity_shared_file_cannot_be_updated">Gedeelde bestand kan niet geüpdatet worden</string>
     <string name="file_already_exists">Bestandsnaam bestaat al</string>
     <string name="file_delete">Verwijderen</string>

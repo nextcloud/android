@@ -331,6 +331,7 @@
     <string name="failed_update_ui">Fallo al actualizar la IU</string>
     <string name="favorite">Agregar a favoritos</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="fifteenMinutes">15 minutos</string>
     <string name="file_activity_shared_file_cannot_be_updated">No se puede actualizar el archivo compartido</string>
     <string name="file_already_exists">El nombre de archivo ya existe</string>
     <string name="file_delete">Borrar</string>

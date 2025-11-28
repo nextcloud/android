@@ -390,6 +390,7 @@
     <string name="failed_update_ui">ອັບເດດ  UI ບໍ່ສຳເລັດ</string>
     <string name="favorite">ເພີ່ມລາຍການທີ່ມັກ</string>
     <string name="favorite_icon">ລາຍການທີ່ມັກ</string>
+    <string name="fifteenMinutes">15 ນາທີ</string>
     <string name="file_activity_shared_file_cannot_be_updated">Shared file cannot be updated</string>
     <string name="file_already_exists">Filename already exists</string>
     <string name="file_delete">ລຶບ</string>

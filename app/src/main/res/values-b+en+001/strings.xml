@@ -312,6 +312,7 @@
     <string name="e2e_not_yet_setup">E2E not yet setup</string>
     <string name="e2e_offline">Not possible without internet connection</string>
     <string name="e2e_signature_does_not_match">Signature does not match</string>
+    <string name="e2e_signature_is_empty">Could not verify metadata, signature is empty.</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="ecosystem_apps_display_more">More</string>
     <string name="ecosystem_apps_more">More Nextcloud Apps</string>
@@ -390,6 +391,7 @@
     <string name="failed_update_ui">Failed to update UI</string>
     <string name="favorite">Add to favourites</string>
     <string name="favorite_icon">Favourite</string>
+    <string name="fifteenMinutes">15 minutes</string>
     <string name="file_activity_shared_file_cannot_be_updated">Shared file cannot be updated</string>
     <string name="file_already_exists">Filename already exists</string>
     <string name="file_delete">Delete</string>
@@ -648,6 +650,7 @@
     <string name="offline_mode">No internet connection</string>
     <string name="offline_mode_info_description">Even without an internet connection, you can organise your folders, create files. Once you\'re back online, your pending actions will automatically sync.</string>
     <string name="offline_mode_info_title">You\'re offline, but work continues</string>
+    <string name="offline_operations_file_does_not_exists_yet">File does not exist yet. Please upload the file first.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Could not create %s. A file with the same name exists on the server.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Could not create %s. A folder with the same name exists on the server.</string>
     <string name="offline_operations_worker_notification_error_text">The offline operation cannot be completed. %s</string>
@@ -694,6 +697,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Rename new version</string>
     <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
     <string name="prefs_add_account">Add account</string>
+    <string name="prefs_all_files_access_summary">Allow the app to access and manage all files on your device</string>
+    <string name="prefs_all_files_access_title">All files access</string>
     <string name="prefs_calendar_contacts">Sync calendar and contacts</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_summary">Set up DAVx⁵ (formerly known as DAVdroid) (v1.3.0+) for current account</string>
@@ -930,6 +935,10 @@
     <string name="storage_internal_storage">Internal storage</string>
     <string name="storage_movies">Movies</string>
     <string name="storage_music">Music</string>
+    <string name="storage_permission_all_files_access">All files access</string>
+    <string name="storage_permission_banner_auto_upload_text">Storage permission is required for Auto-upload.</string>
+    <string name="storage_permission_banner_upload_text">Storage permission is required for file uploads.</string>
+    <string name="storage_permission_dont_ask">Don\'t ask</string>
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_pictures">Pictures</string>

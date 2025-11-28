@@ -388,6 +388,7 @@
     <string name="failed_update_ui">Kullanıcı arayüzü güncellenemedi</string>
     <string name="favorite">Sık kullanılanlara ekle</string>
     <string name="favorite_icon">Sık kullanılanlara ekle</string>
+    <string name="fifteenMinutes">15 dakika</string>
     <string name="file_activity_shared_file_cannot_be_updated">Paylaşılan dosya güncellenemedi</string>
     <string name="file_already_exists">Dosya adı zaten var</string>
     <string name="file_delete">Sil</string>

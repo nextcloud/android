@@ -390,6 +390,7 @@
     <string name="failed_update_ui">Неможливо оновити інтерфейс</string>
     <string name="favorite">Додати зірочку</string>
     <string name="favorite_icon">Із зірочкою</string>
+    <string name="fifteenMinutes">15 хвилин</string>
     <string name="file_activity_shared_file_cannot_be_updated">Неможливо оновити спільні файли</string>
     <string name="file_already_exists">Файл з таким ім\'ям вже присутній</string>
     <string name="file_delete">Вилучити</string>

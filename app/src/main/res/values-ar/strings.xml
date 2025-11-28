@@ -369,6 +369,7 @@
     <string name="failed_update_ui">فشل تحديث UI</string>
     <string name="favorite">إضافة إلى المفضلة</string>
     <string name="favorite_icon">المفضلة</string>
+    <string name="fifteenMinutes">15 دقيقة</string>
     <string name="file_activity_shared_file_cannot_be_updated">ملف مشترك لا يمكن تحديثه</string>
     <string name="file_already_exists">اسم الملف موجود مسبقاً</string>
     <string name="file_delete">حذف </string>

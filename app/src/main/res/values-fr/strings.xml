@@ -390,6 +390,7 @@
     <string name="failed_update_ui">Échec de la mise à jour de l\'interface utilisateur</string>
     <string name="favorite">Ajouter aux favoris</string>
     <string name="favorite_icon">Favoris</string>
+    <string name="fifteenMinutes">15 minutes</string>
     <string name="file_activity_shared_file_cannot_be_updated">Le fichier partagé ne peut pas être mis à jour</string>
     <string name="file_already_exists">Ce nom de fichier existe déjà</string>
     <string name="file_delete">Supprimer</string>

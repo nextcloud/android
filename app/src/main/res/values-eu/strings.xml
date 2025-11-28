@@ -370,6 +370,7 @@
     <string name="failed_update_ui">Erabiltzaile Interfazea (UI) eguneratzeak huts egin du</string>
     <string name="favorite">Gehitu gogokoetara</string>
     <string name="favorite_icon">Gogokoa</string>
+    <string name="fifteenMinutes">15 minutu</string>
     <string name="file_activity_shared_file_cannot_be_updated">Ezin da partekaturiko fitxategia eguneratu</string>
     <string name="file_already_exists">Fitxategi-izena dagoeneko existitzen da.</string>
     <string name="file_delete">Ezabatu</string>

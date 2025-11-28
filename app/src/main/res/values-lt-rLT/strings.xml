@@ -322,6 +322,7 @@
     <string name="failed_update_ui">Nepavyko atnaujinti naudotojo sąsajos</string>
     <string name="favorite">Pridėti į mėgstamus</string>
     <string name="favorite_icon">Mėgstami</string>
+    <string name="fifteenMinutes">15 minučių</string>
     <string name="file_already_exists">Failo pavadinimas jau yra</string>
     <string name="file_delete">Ištrinti</string>
     <string name="file_detail_activity_error">Klaida gaunant failo veiklą</string>

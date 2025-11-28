@@ -321,6 +321,7 @@
     <string name="failed_update_ui">رابط کاربری بروز نشد</string>
     <string name="favorite">افزوردن به موارد دلخواه</string>
     <string name="favorite_icon">مورد ‌علاقه</string>
+    <string name="fifteenMinutes">۱۵ دقیقه</string>
     <string name="file_already_exists">نام فایل از قبل وجود دارد.</string>
     <string name="file_delete">حذف</string>
     <string name="file_detail_activity_error">خطا در بازیابی فعالیت‌ها برای فایل</string>

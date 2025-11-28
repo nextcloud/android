@@ -316,6 +316,7 @@
     <string name="failed_update_ui">Αποτυχία ενημέρωσης του UI</string>
     <string name="favorite">Προσθήκη στα αγαπημένα</string>
     <string name="favorite_icon">Αγαπημένο</string>
+    <string name="fifteenMinutes">15 λεπτά</string>
     <string name="file_already_exists">Το όνομα αρχείου υπάρχει ήδη</string>
     <string name="file_delete">Διαγραφή</string>
     <string name="file_detail_activity_error">Σφάλμα κατά την ανάκτηση δραστηριοτήτων για το αρχείο</string>

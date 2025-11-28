@@ -289,6 +289,7 @@
     <string name="failed_update_ui">Cập nhật giao diện người dùng thất bại</string>
     <string name="favorite">Thêm vào ưa thích</string>
     <string name="favorite_icon">Ưa thích</string>
+    <string name="fifteenMinutes">15 phút</string>
     <string name="file_already_exists">Tập tin đã tồn tại</string>
     <string name="file_delete">Xóa</string>
     <string name="file_detail_activity_error">Lỗi khi truy xuất các hoạt động cho tệp</string>

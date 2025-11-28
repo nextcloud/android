@@ -312,6 +312,7 @@
     <string name="e2e_not_yet_setup">E2E bislang nicht eingerichtet</string>
     <string name="e2e_offline">Ohne Internetverbindung nicht möglich</string>
     <string name="e2e_signature_does_not_match">Signatur stimmt nicht überein</string>
+    <string name="e2e_signature_is_empty">Metadaten konnten nicht überprüft werden, die Signatur ist leer.</string>
     <string name="ecosystem_apps_display_assistant">Assistent</string>
     <string name="ecosystem_apps_display_more">Mehr</string>
     <string name="ecosystem_apps_more">Weitere Nextcloud-Apps</string>
@@ -390,6 +391,7 @@
     <string name="failed_update_ui">Oberfläche konnte nicht aktualisiert werden</string>
     <string name="favorite">Zu den Favoriten hinzufügen</string>
     <string name="favorite_icon">Favoriten</string>
+    <string name="fifteenMinutes">15 Minuten</string>
     <string name="file_activity_shared_file_cannot_be_updated">Geteilte Datei kann nicht aktualisiert werden</string>
     <string name="file_already_exists">Dateiname bereits vorhanden</string>
     <string name="file_delete">Löschen</string>
@@ -695,6 +697,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Neue Version umbenennen</string>
     <string name="pref_instant_name_collision_policy_title">Was tun, wenn die Datei bereits vorhanden ist?</string>
     <string name="prefs_add_account">Konto hinzufügen</string>
+    <string name="prefs_all_files_access_summary">Der App erlauben, auf alle Dateien auf Ihrem Gerät zuzugreifen und diese zu verwalten</string>
+    <string name="prefs_all_files_access_title">Zugriff auf alle Dateien</string>
     <string name="prefs_calendar_contacts">Kalender und Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
     <string name="prefs_calendar_contacts_summary">DAVx⁵ (früher bekannt als DAVdroid) (v1.3.0+) für aktuelles Konto einrichten</string>
@@ -931,6 +935,10 @@
     <string name="storage_internal_storage">Interner Speicher</string>
     <string name="storage_movies">Filme</string>
     <string name="storage_music">Musik</string>
+    <string name="storage_permission_all_files_access">Zugriff auf alle Dateien</string>
+    <string name="storage_permission_banner_auto_upload_text">Für das automatische Hochladen ist die Speicherberechtigung erforderlich</string>
+    <string name="storage_permission_banner_upload_text">Um Dateien hochladen zu können, ist die Speicherberechtigung erforderlich</string>
+    <string name="storage_permission_dont_ask">Nicht nachfragen</string>
     <string name="storage_permission_full_access">Voller Zugriff</string>
     <string name="storage_permission_media_read_only">Medien schreibgeschützt</string>
     <string name="storage_pictures">Bilder</string>
