@@ -134,7 +134,7 @@ class OCFileListSearchTask(
         } else {
             storage.fileDao
                 .getFavoriteFiles(currentUser.accountName)
-        } .mapNotNull { storage.createFileInstance(it) }
+        }.mapNotNull { storage.createFileInstance(it) }
     }
 
     @Suppress("DEPRECATION")
