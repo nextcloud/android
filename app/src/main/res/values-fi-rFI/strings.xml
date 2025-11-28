@@ -338,6 +338,7 @@
     <string name="failed_update_ui">Käyttöliittymän päivitys epäonnistui</string>
     <string name="favorite">Lisää suosikkeihin</string>
     <string name="favorite_icon">Suosikki</string>
+    <string name="fifteenMinutes">15 minuuttia</string>
     <string name="file_activity_shared_file_cannot_be_updated">Jaettua tiedostoa ei voitu päivittää</string>
     <string name="file_already_exists">Tämän niminen tiedosto on jo olemassa</string>
     <string name="file_delete">Poista</string>

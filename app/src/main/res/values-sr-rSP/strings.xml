@@ -227,6 +227,7 @@
     <string name="failed_to_print">Neuspelo štampanje fajla</string>
     <string name="favorite">Dodaj u omiljene</string>
     <string name="favorite_icon">Omiljeni</string>
+    <string name="fifteenMinutes">15 minuta</string>
     <string name="file_delete">Obriši</string>
     <string name="file_detail_activity_error">Greška pri dohvatanju aktivnosti fajla</string>
     <string name="file_details_no_content">Greška pri učitavanju detalja</string>

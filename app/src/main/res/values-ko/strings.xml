@@ -364,6 +364,7 @@
     <string name="failed_update_ui">UI 업데이트 실패</string>
     <string name="favorite">즐겨찾기에 추가</string>
     <string name="favorite_icon">즐겨찾기</string>
+    <string name="fifteenMinutes">15분</string>
     <string name="file_activity_shared_file_cannot_be_updated">공유 파일을 업데이트할 수 없습니다</string>
     <string name="file_already_exists">파일 이름이 이미 존재함</string>
     <string name="file_delete">삭제</string>

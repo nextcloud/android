@@ -312,6 +312,7 @@
     <string name="e2e_not_yet_setup">Läbiv krüptimine pole veel seadistatud</string>
     <string name="e2e_offline">Seda ei saa teha ilma internetiühenduseta</string>
     <string name="e2e_signature_does_not_match">Allkirjad ei klapi</string>
+    <string name="e2e_signature_is_empty">Kuna allkiri on tühi, siis metainfo verifitseerimine ei õnnestunud</string>
     <string name="ecosystem_apps_display_assistant">Abiline</string>
     <string name="ecosystem_apps_display_more">Veel</string>
     <string name="ecosystem_apps_more">Veel Nextcloudi rakendusi</string>
@@ -390,6 +391,7 @@
     <string name="failed_update_ui">Kasutajaliidese uuendamine ei õnnestunud</string>
     <string name="favorite">Lisa lemmikutesse</string>
     <string name="favorite_icon">Lemmik</string>
+    <string name="fifteenMinutes">15 minutit</string>
     <string name="file_activity_shared_file_cannot_be_updated">Jaosfaili ei saa uuendada</string>
     <string name="file_already_exists">Failinimi on juba olemas</string>
     <string name="file_delete">Kustuta</string>
@@ -695,6 +697,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Muuda uue versiooni nime</string>
     <string name="pref_instant_name_collision_policy_title">Mida peaksime tegema, kui fail on juba olemas?</string>
     <string name="prefs_add_account">Lisa konto</string>
+    <string name="prefs_all_files_access_summary">Luba rakendusel sinu nutiseadmes vaadata ja hallata kõiki faile</string>
+    <string name="prefs_all_files_access_title">Ligipääs kõikidele failidele</string>
     <string name="prefs_calendar_contacts">Sünkroniseeri kalendrit ja kontakte</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ega Google Play ei ole paigaldatud</string>
     <string name="prefs_calendar_contacts_summary">Seadista DAVx⁵ (vana nimega DAVdroid) (v1.3.0+) selle kasutajakonto jaoks</string>
@@ -931,6 +935,10 @@
     <string name="storage_internal_storage">Sisemine andmeruum</string>
     <string name="storage_movies">Filmid</string>
     <string name="storage_music">Muusika</string>
+    <string name="storage_permission_all_files_access">Ligipääs kõikidele failidele</string>
+    <string name="storage_permission_banner_auto_upload_text">Automaatseks üleslaadimiseks on vajalikud andmeruumi kasutamise õigused.</string>
+    <string name="storage_permission_banner_upload_text">Failide üleslaadimiseks on vajalikud andmeruumi kasutamise õigused.</string>
+    <string name="storage_permission_dont_ask">Ära küsi</string>
     <string name="storage_permission_full_access">Täisõiguslik ligipääs</string>
     <string name="storage_permission_media_read_only">Meedium on vaid lugemisõigustes</string>
     <string name="storage_pictures">Pildid</string>

@@ -239,6 +239,7 @@
     <string name="failed_to_start_editor">Dështoi hapja e redaktorit</string>
     <string name="favorite">Shtoje tek të parapëlqyerat</string>
     <string name="favorite_icon">E parapëlqyer</string>
+    <string name="fifteenMinutes">15 minuta</string>
     <string name="file_delete">Fshini</string>
     <string name="file_detail_activity_error">Gabim gjatë marrjes së aktiviteteve të skedarit</string>
     <string name="file_details_no_content">Dështoi ngarkimi i detajeve</string>

@@ -390,6 +390,7 @@
     <string name="failed_update_ui">Imeshindwa kusasisha UI</string>
     <string name="favorite">Ongeza kwenye pendwa</string>
     <string name="favorite_icon">Kipendwa</string>
+    <string name="fifteenMinutes">Dakika 15</string>
     <string name="file_activity_shared_file_cannot_be_updated">Faili iliyoshirikiwa haiwezi kusasishwa</string>
     <string name="file_already_exists">Jina la faili tayari lipo</string>
     <string name="file_delete">Futa</string>

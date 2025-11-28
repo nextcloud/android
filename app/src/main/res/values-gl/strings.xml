@@ -312,6 +312,7 @@
     <string name="e2e_not_yet_setup">E2E aínda non está configurado</string>
     <string name="e2e_offline">Non é posíbel sen conexión a internet</string>
     <string name="e2e_signature_does_not_match">A sinatura non coincide</string>
+    <string name="e2e_signature_is_empty">Non foi posíbel verificar os metadatos, a sinatura está baleira.</string>
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Máis</string>
     <string name="ecosystem_apps_more">Máis aplicacións de Nextcloud</string>
@@ -390,6 +391,7 @@
     <string name="failed_update_ui">Produciuse un fallo ao actualizar a IU</string>
     <string name="favorite">Engadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="fifteenMinutes">15 minutos</string>
     <string name="file_activity_shared_file_cannot_be_updated">Non foi posíbel actualizar o ficheiro compartido</string>
     <string name="file_already_exists">O nome de ficheiro xa existe</string>
     <string name="file_delete">Eliminar</string>
@@ -695,6 +697,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Renomear a versión nova</string>
     <string name="pref_instant_name_collision_policy_title">Que facer se o ficheiro xa existe?</string>
     <string name="prefs_add_account">Engadir unha conta</string>
+    <string name="prefs_all_files_access_summary">Permitir que a aplicación acceda e xestione todos os ficheiros do seu dispositivo</string>
+    <string name="prefs_all_files_access_title">Acceso a todos os ficheiros</string>
     <string name="prefs_calendar_contacts">Sincronizar o calendario e os contactos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nin F-Droid nin Google Play están instalados</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVx⁵ (anteriormente coñecido como DAVdroid) (v1.3.0 +) para a conta actual</string>
@@ -932,6 +936,10 @@
     <string name="storage_internal_storage">Almacenamento interno</string>
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>
+    <string name="storage_permission_all_files_access">Acceso a todos os ficheiros</string>
+    <string name="storage_permission_banner_auto_upload_text">Precisase de permiso de almacenamento para o envío automático.</string>
+    <string name="storage_permission_banner_upload_text">Precisase de permiso de almacenamento para o envío de ficheiros.</string>
+    <string name="storage_permission_dont_ask">Non preguntar</string>
     <string name="storage_permission_full_access">Acceso completo</string>
     <string name="storage_permission_media_read_only">Medios de só lectura</string>
     <string name="storage_pictures">Imaxes</string>

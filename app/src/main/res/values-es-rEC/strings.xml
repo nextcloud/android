@@ -306,6 +306,7 @@
     <string name="failed_update_ui">Fallo al actualizar la interfaz de usuario</string>
     <string name="favorite">Agregar a tus favoritos</string>
     <string name="favorite_icon">Hacer favorito</string>
+    <string name="fifteenMinutes">15 minutos</string>
     <string name="file_already_exists">El nombre de archivo ya existe</string>
     <string name="file_delete">Borrar</string>
     <string name="file_detail_activity_error">Error al recuperar las actividades del archivo</string>

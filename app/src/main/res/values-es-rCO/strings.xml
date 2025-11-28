@@ -361,6 +361,7 @@
     <string name="failed_update_ui">Error al actualizar la interfaz gráfica</string>
     <string name="favorite">Agregar a tus favoritos</string>
     <string name="favorite_icon">Hacer favorito</string>
+    <string name="fifteenMinutes">15 minutos</string>
     <string name="file_activity_shared_file_cannot_be_updated">El archivo compartido no se puede actualizar</string>
     <string name="file_already_exists">El nombre de archivo ya existe</string>
     <string name="file_delete">Borrar</string>

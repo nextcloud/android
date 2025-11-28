@@ -385,6 +385,7 @@
     <string name="failed_update_ui">A felhasználói felület frissítése sikertelen</string>
     <string name="favorite">Hozzáadás a kedvencekhez</string>
     <string name="favorite_icon">Kedvenc</string>
+    <string name="fifteenMinutes">15 perc</string>
     <string name="file_activity_shared_file_cannot_be_updated">A megosztott fájl nem frissíthető</string>
     <string name="file_already_exists">A fájlnév már létezik</string>
     <string name="file_delete">Törlés</string>

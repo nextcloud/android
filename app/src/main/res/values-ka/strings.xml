@@ -304,6 +304,7 @@
     <string name="failed_update_ui">Failed to update UI</string>
     <string name="favorite">Add to favorites</string>
     <string name="favorite_icon">Favorite</string>
+    <string name="fifteenMinutes">15 minutes</string>
     <string name="file_already_exists">Filename already exists</string>
     <string name="file_delete">Delete</string>
     <string name="file_detail_activity_error">Error retrieving activities for file</string>
