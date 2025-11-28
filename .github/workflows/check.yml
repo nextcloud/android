@@ -29,4 +29,4 @@ jobs:
                     distribution: "temurin"
                     java-version: 17
             -   name: Check ${{ matrix.task }}
-                run: ./gradlew ${{ matrix.task }}
+                run: ./gradlew --no-daemon --no-configuration-cache ${{ matrix.task }}

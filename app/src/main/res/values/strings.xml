@@ -54,7 +54,6 @@
     <string name="offline_operations_worker_progress_text" translatable="false">%1$d / %2$d - %3$s</string>
     <string name="anonymous_account_type" translatable="false">AnonymousAccountType</string>
 
-    <string name="assistant_screen_task_types_error_state_message">Unable to fetch task types, please check your internet connection.</string>
     <string name="assistant_screen_task_list_error_state_message">Unable to fetch task list, please check your internet connection.</string>
     <string name="assistant_screen_task_list_empty_warning">Task list is empty. Check assistant app configuration.</string>
 
@@ -727,7 +726,6 @@
     <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take a while.</string>
     <string name="manage_space_clear_data">Clear data</string>
 
-    <string name="permission_storage_access">Additional permissions required to upload and download files.</string>
     <string name="local_file_not_found_message">File not found in local file system</string>
     <string name="confirmation_remove_files_alert">Do you really want to delete the selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
@@ -1157,7 +1155,6 @@
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="create_rich_workspace">Add folder description</string>
     <string name="creates_rich_workspace">Adds folder description</string>
-    <string name="uploader_local_files_uploaded">Retry to upload failed local files</string>
     <string name="uploader_file_not_found_on_server_message">We couldnt locate the file on server. Another user may have deleted the file</string>
     <string name="uploader_file_not_found_message">File not found. Are you sure that this file exists or has a previous conflict not been resolved?</string>
     <string name="uploader_upload_failed_sync_conflict_error">File upload conflict</string>

@@ -24,12 +24,12 @@ steps:
       - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
-      - ./gradlew assembleGplayDebugAndroidTest
+      - ./gradlew -no-daemon assembleGplayDebugAndroidTest
       - scripts/wait_for_emulator.sh
-      - ./gradlew installGplayDebugAndroidTest
+      - ./gradlew -no-daemon installGplayDebugAndroidTest
       - scripts/wait_for_server.sh "server"
       - scripts/deleteOldComments.sh "stable" "IT" $DRONE_PULL_REQUEST
-      - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST
+      - ./gradlew -no-daemon createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST
 
 services:
   - name: server
@@ -185,6 +185,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: b4568fe767026f67cca8c416c20cc522fd1d06941c836ca7eb4955682855d237
+hmac: 8d701d9c3be287f10b9cb9904e6eab01f7f92da5c9dc5d3dedf807a2af86efcb
 
 ...
