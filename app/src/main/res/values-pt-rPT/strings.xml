@@ -465,6 +465,7 @@
     <string name="instant_upload_existing">Também envia ficheiros existentes</string>
     <string name="instant_upload_on_charging">Carregar ficheiros apenas quando o carregador está ligado</string>
     <string name="instant_upload_path">/Envio Instantâneo </string>
+    <string name="internal_shares">Partilhas internas</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">É necessária uma ligação à Internet para configurar a pasta encriptada</string>
     <string name="invalid_url">URL inválido</string>
     <string name="invisible">Invisível </string>
@@ -752,6 +753,8 @@
     <string name="signup_with_provider">Registar com fornecedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir que %1$s aceda à sua conta Nextcloud %2$s?</string>
     <string name="sort_by">Ordenar por</string>
+    <string name="sort_favorites_first">Ordenar por favoritos primeiro</string>
+    <string name="sort_folders_before_files">Ordenar as pastas antes dos ficheiros.</string>
     <string name="ssl_validator_btn_details_hide">Ocultar</string>
     <string name="ssl_validator_btn_details_see">Detalhes</string>
     <string name="ssl_validator_header">Não foi possível verificar a identidade do servidor</string>
@@ -789,6 +792,7 @@
     <string name="storage_music">Música</string>
     <string name="storage_permission_full_access">Acesso completo</string>
     <string name="storage_pictures">Imagens</string>
+    <string name="store_full_desc">A plataforma de produtividade auto-hospedada que o mantém no controlo.\n\nCaracterísticas:\n* Interface moderna e fácil de utilizar, adequada ao tema do seu servidor\n* Envie ficheiros para o seu servidor Nextcloud\n* Partilhe-os com outras pessoas\n* Mantenha os seus ficheiros e pastas favoritos sincronizados\n* Pesquise em todas as pastas do seu servidor\n* Upload automático de fotografias e vídeos tirados pelo seu dispositivo\n* Mantenha-se actualizado com notificações\n* Suporte a múltiplas contas\n* Acesso seguro aos seus dados com impressão digital ou PIN\n* Integração com o DAVx⁵ (anteriormente conhecido como DAVdroid) para uma fácil configuração da sincronização de calendário e contactos\n\nPor favor, comunique todos os problemas em https://github.com/nextcloud/android/issues e discuta esta aplicação em https://help.nextcloud.com/c/clients/android\n\nNovo no Nextcloud? O Nextcloud é um servidor privado de sincronização, partilha e comunicação de ficheiros. É um software livre e pode hospedá-lo você mesmo ou contratar uma empresa para o fazer por si. Desta forma, controla as suas fotografias, o seu calendário e dados de contacto, os seus documentos e tudo o resto. \n\nVeja o Nextcloud em https://nextcloud.com</string>
     <string name="store_full_dev_desc">A plataforma de produtividade auto-alojada que o/a mantém no controlo.\nEsta é a versão de desenvolvimento oficial, com uma amostra diária de funcionalidades não testadas que podem causar instabilidade e perda de dados. A aplicação é para pessoas dispostas a testar e reportar erros, caso ocorram. Não a use para o seu trabalho de produção!\n\nTanto a versão de desenvolvimento como a normal estão disponíveis no F-droid e podem ser instaladas ao mesmo tempo.</string>
     <string name="store_short_desc">A plataforma de produtividade auto-alojada que o/a mantém no controlo</string>
     <string name="store_short_dev_desc">A plataforma de produtividade auto alojada que o mantém em controle (versão \"preview dev\")</string>

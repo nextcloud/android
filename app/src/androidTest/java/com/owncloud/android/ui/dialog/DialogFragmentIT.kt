@@ -66,7 +66,6 @@ import com.owncloud.android.ui.dialog.LoadingDialog.Companion.newInstance
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment.Companion.newInstance
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment.Companion.newInstance
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.Companion.newInstanceForEmptySslError
-import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment.Companion.newInstance
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog
@@ -684,9 +683,8 @@ class DialogFragmentIT : AbstractIT() {
             Looper.prepare()
         }
 
-        newInstance(false).run {
-            showDialog(this)
-        }
+        val dialog = StoragePermissionDialogFragment()
+        showDialog(dialog)
     }
 
     @Test

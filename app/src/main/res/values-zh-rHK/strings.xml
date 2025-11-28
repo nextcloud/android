@@ -648,6 +648,7 @@
     <string name="offline_mode">沒有網路連線</string>
     <string name="offline_mode_info_description">即使沒有網路連接，您也可以組織資料夾、建立檔案。一旦您重新上線，您的待處理操作將自動同步。</string>
     <string name="offline_mode_info_title">您處於離線狀態，但工作仍在繼續</string>
+    <string name="offline_operations_file_does_not_exists_yet">檔案不存在。請先上傳檔案。</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">無法創建 %s。伺服器上已存在同名檔案。</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">無法創建 %s。伺服器上已存在同名資料夾。</string>
     <string name="offline_operations_worker_notification_error_text">無法完成離線操作。%s</string>
