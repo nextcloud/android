@@ -435,7 +435,7 @@ class ManageAccountsActivity :
                 val itemId = item.itemId
                 when (itemId) {
                     R.id.action_open_account -> {
-                        accountClicked(user.hashCode())
+                        accountClicked(user)
                     }
                     R.id.action_delete_account -> {
                         openAccountRemovalDialog(user, supportFragmentManager)

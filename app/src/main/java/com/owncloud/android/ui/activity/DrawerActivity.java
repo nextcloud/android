@@ -734,11 +734,11 @@ public abstract class DrawerActivity extends ToolbarActivity
      * sets the new/current account and restarts. In case the given account equals the actual/current account the call
      * will be ignored.
      *
-     * @param hashCode HashCode of account to be set
+     * @param User user to be set
      */
-    public void accountClicked(int hashCode) {
+    public void accountClicked(User user) {
         final User currentUser = accountManager.getUser();
-        if (currentUser.hashCode() != hashCode && accountManager.setCurrentOwnCloudAccount(hashCode)) {
+        if (!currentUser.nameEquals(user) && accountManager.setCurrentOwnCloudAccount(user)) {
             fetchExternalLinks(true);
             restart();
         }
