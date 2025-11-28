@@ -9,7 +9,6 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
-import androidx.annotation.UiThread
 import androidx.fragment.app.DialogFragment
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
@@ -18,6 +17,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.utils.extensions.getDecryptedPath
 import com.owncloud.android.AbstractIT
@@ -25,6 +25,7 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Companion.newInstance
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
@@ -42,7 +43,6 @@ class ConflictsResolveActivityIT : AbstractIT() {
     private var returnCode = false
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun screenshotTextFiles() {
         val newFile = OCFile("/newFile.txt").apply {
@@ -67,33 +67,33 @@ class ConflictsResolveActivityIT : AbstractIT() {
         }
 
         launchActivity<ConflictsResolveActivity>(intent).use { scenario ->
+            var dialog: ConflictsResolveDialog? = null
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
+                dialog = newInstance(
+                    storageManager.getDecryptedPath(existingFile),
+                    targetContext,
+                    newFile,
+                    existingFile,
+                    UserAccountManagerImpl
+                        .fromContext(targetContext)
+                        .getUser()
+                )
+                dialog.showDialog(sut)
+            }
 
-                    val dialog = newInstance(
-                        storageManager.getDecryptedPath(existingFile),
-                        targetContext,
-                        newFile,
-                        existingFile,
-                        UserAccountManagerImpl
-                            .fromContext(targetContext)
-                            .getUser()
-                    )
-                    dialog.showDialog(sut)
+            onView(withId(R.id.headline))
+                .check(matches(isDisplayed()))
 
-                    EspressoIdlingResource.decrement()
+            val screenShotName = createName(testClassName + "_" + "screenshotTextFiles", "")
+            onView(isRoot()).check(matches(isDisplayed()))
 
-                    val screenShotName = createName(testClassName + "_" + "screenshotTextFiles", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(dialog.requireDialog().window?.decorView, screenShotName)
-                }
+            scenario.onActivity { sut ->
+                screenshotViaName(dialog!!.requireDialog().window?.decorView, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     fun cancel() {
         val newUpload = OCUpload(
             FileStorageUtils.getSavePath(user.accountName) + "/nonEmpty.txt",
@@ -126,24 +126,19 @@ class ConflictsResolveActivityIT : AbstractIT() {
 
         launchActivity<ConflictsResolveActivity>(intent).use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    returnCode = false
-                    sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
-                        assertEquals(decision, Decision.CANCEL)
-                        returnCode = true
-                    }
-                    EspressoIdlingResource.decrement()
-
-                    onView(ViewMatchers.withText("Cancel")).perform(ViewActions.click())
-                    TestCase.assertTrue(returnCode)
+                returnCode = false
+                sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
+                    assertEquals(decision, Decision.CANCEL)
+                    returnCode = true
                 }
             }
+
+            onView(ViewMatchers.withText("Cancel")).perform(ViewActions.click())
+            TestCase.assertTrue(returnCode)
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun keepExisting() {
         returnCode = false
@@ -180,30 +175,29 @@ class ConflictsResolveActivityIT : AbstractIT() {
         }
 
         launchActivity<ConflictsResolveActivity>(intent).use { scenario ->
+            var activity: ConflictsResolveActivity? = null
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
-                        assertEquals(decision, Decision.KEEP_SERVER)
-                        returnCode = true
-                    }
-                    EspressoIdlingResource.decrement()
-
-                    onView(ViewMatchers.withId(R.id.right_checkbox)).perform(ViewActions.click())
-                    val dialog = sut.supportFragmentManager.findFragmentByTag("conflictDialog") as DialogFragment?
-                    val screenShotName = createName(testClassName + "_" + "keepExisting", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(dialog?.requireDialog()?.window?.decorView, screenShotName)
-
-                    onView(ViewMatchers.withText("OK")).perform(ViewActions.click())
-                    assertTrue(returnCode)
+                activity = sut
+                sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
+                    assertEquals(decision, Decision.KEEP_SERVER)
+                    returnCode = true
                 }
             }
+
+            onView(withId(R.id.right_checkbox)).perform(ViewActions.click())
+
+            val dialog = activity!!.supportFragmentManager.findFragmentByTag("conflictDialog") as DialogFragment?
+            val screenShotName = createName(testClassName + "_" + "keepExisting", "")
+
+            onView(isRoot()).check(matches(isDisplayed()))
+            screenshotViaName(dialog?.requireDialog()?.window?.decorView, screenShotName)
+
+            onView(ViewMatchers.withText("OK")).perform(ViewActions.click())
+            assertTrue(returnCode)
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun keepNew() {
         returnCode = false
@@ -235,31 +229,26 @@ class ConflictsResolveActivityIT : AbstractIT() {
         intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.uploadId)
 
         launchActivity<ConflictsResolveActivity>(intent).use { scenario ->
+            var activity: ConflictsResolveActivity? = null
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-
-                    sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
-                        assertEquals(decision, Decision.KEEP_LOCAL)
-                        returnCode = true
-                    }
-
-                    EspressoIdlingResource.decrement()
-
-                    onView(ViewMatchers.withId(R.id.left_checkbox)).perform(ViewActions.click())
-                    val dialog = sut.supportFragmentManager.findFragmentByTag("conflictDialog") as DialogFragment?
-                    val screenShotName = createName(testClassName + "_" + "keepNew", "")
-                    screenshotViaName(dialog?.requireDialog()?.window?.decorView, screenShotName)
-
-                    onView(ViewMatchers.withText("OK")).perform(ViewActions.click())
-                    assertTrue(returnCode)
+                activity = sut
+                sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
+                    assertEquals(decision, Decision.KEEP_LOCAL)
+                    returnCode = true
                 }
             }
+
+            onView(withId(R.id.left_checkbox)).perform(ViewActions.click())
+            val dialog = activity!!.supportFragmentManager.findFragmentByTag("conflictDialog") as DialogFragment?
+            val screenShotName = createName(testClassName + "_" + "keepNew", "")
+            screenshotViaName(dialog?.requireDialog()?.window?.decorView, screenShotName)
+
+            onView(ViewMatchers.withText("OK")).perform(ViewActions.click())
+            assertTrue(returnCode)
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun keepBoth() {
         returnCode = false
@@ -293,29 +282,24 @@ class ConflictsResolveActivityIT : AbstractIT() {
         }
 
         launchActivity<ConflictsResolveActivity>(intent).use { scenario ->
+            var activity: ConflictsResolveActivity? = null
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-
-                    sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
-                        assertEquals(decision, Decision.KEEP_BOTH)
-                        returnCode = true
-                    }
-
-                    EspressoIdlingResource.decrement()
-
-                    onView(ViewMatchers.withId(R.id.right_checkbox)).perform(ViewActions.click())
-                    onView(ViewMatchers.withId(R.id.left_checkbox)).perform(ViewActions.click())
-
-                    onView(ViewMatchers.withId(R.id.left_checkbox)).perform(ViewActions.click())
-                    val dialog = sut.supportFragmentManager.findFragmentByTag("conflictDialog") as DialogFragment?
-                    val screenShotName = createName(testClassName + "_" + "keepBoth", "")
-                    screenshotViaName(dialog?.requireDialog()?.window?.decorView, screenShotName)
-
-                    onView(ViewMatchers.withText("OK")).perform(ViewActions.click())
-                    assertTrue(returnCode)
+                activity = sut
+                sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
+                    assertEquals(decision, Decision.KEEP_BOTH)
+                    returnCode = true
                 }
             }
+
+            onView(withId(R.id.right_checkbox)).perform(ViewActions.click())
+            onView(withId(R.id.left_checkbox)).perform(ViewActions.click())
+
+            val dialog = activity!!.supportFragmentManager.findFragmentByTag("conflictDialog") as DialogFragment?
+            val screenShotName = createName(testClassName + "_" + "keepBoth", "")
+            screenshotViaName(dialog?.requireDialog()?.window?.decorView, screenShotName)
+
+            onView(ViewMatchers.withText("OK")).perform(ViewActions.click())
+            assertTrue(returnCode)
         }
     }
 

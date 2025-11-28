@@ -10,10 +10,9 @@ package com.nextcloud.client
 
 import android.content.Intent
 import android.os.Looper
-import androidx.annotation.UiThread
+import androidx.appcompat.app.AlertDialog
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
@@ -24,46 +23,27 @@ import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.ui.activity.SyncedFoldersActivity
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.Companion.newInstance
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 
 class SyncedFoldersActivityIT : AbstractIT() {
     private val testClassName = "com.nextcloud.client.SyncedFoldersActivityIT"
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
-
     @Test
-    @UiThread
     @ScreenshotTest
     fun open() {
         launchActivity<SyncedFoldersActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.adapter.clear()
-                    EspressoIdlingResource.decrement()
+            val screenShotName = createName(testClassName + "_" + "open", "")
+            onView(isRoot()).check(matches(isDisplayed()))
 
-                    val screenShotName = createName(testClassName + "_" + "open", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut.binding.emptyList.emptyListView, screenShotName)
-                }
+            scenario.onActivity { sut ->
+                sut.adapter.clear()
+                screenshotViaName(sut.binding.emptyList.emptyListView, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun testSyncedFolderDialog() {
         val item = SyncedFolderDisplayItem(
@@ -86,26 +66,21 @@ class SyncedFoldersActivityIT : AbstractIT() {
             false,
             SyncedFolder.NOT_SCANNED_YET
         )
-        val fragment = newInstance(item, 0)
 
         val intent = Intent(targetContext, SyncedFoldersActivity::class.java)
         launchActivity<SyncedFoldersActivity>(intent).use { scenario ->
-            scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    fragment?.show(sut.supportFragmentManager, "")
-                    EspressoIdlingResource.decrement()
+            val screenShotName = createName(testClassName + "_" + "testSyncedFolderDialog", "")
+            onView(isRoot()).check(matches(isDisplayed()))
 
-                    val screenShotName = createName(testClassName + "_" + "testSyncedFolderDialog", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshot(fragment?.requireDialog()?.window?.decorView, screenShotName)
-                }
+            scenario.onActivity { sut ->
+                val fragment = newInstance(item, 0)
+                fragment!!.show(sut.supportFragmentManager, "")
+                screenshot(fragment.requireDialog().window?.decorView, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showPowerCheckDialog() {
         if (Looper.myLooper() == null) {
@@ -115,19 +90,15 @@ class SyncedFoldersActivityIT : AbstractIT() {
         val intent = Intent(targetContext, SyncedFoldersActivity::class.java)
 
         launchActivity<SyncedFoldersActivity>(intent).use { scenario ->
+            var dialog: AlertDialog? = null
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    val dialog = sut.buildPowerCheckDialog()
-                    sut.showPowerCheckDialog()
-
-                    EspressoIdlingResource.decrement()
-
-                    val screenShotName = createName(testClassName + "_" + "showPowerCheckDialog", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshot(dialog.window?.decorView, screenShotName)
-                }
+                dialog = sut.buildPowerCheckDialog()
+                sut.showPowerCheckDialog()
             }
+
+            val screenShotName = createName(testClassName + "_" + "showPowerCheckDialog", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+            screenshot(dialog!!.window?.decorView, screenShotName)
         }
     }
 }

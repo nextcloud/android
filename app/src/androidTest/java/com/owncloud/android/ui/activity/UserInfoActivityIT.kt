@@ -8,36 +8,20 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.common.UserInfo
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 
 class UserInfoActivityIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.activity.UserInfoActivityIT"
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
-
     @Test
-    @UiThread
     @ScreenshotTest
     fun fullUserInfoDetail() {
         val intent = Intent(targetContext, UserInfoActivity::class.java).apply {
@@ -59,12 +43,11 @@ class UserInfoActivityIT : AbstractIT() {
         }
 
         launchActivity<UserInfoActivity>(intent).use { scenario ->
+            val screenShotName = createName(testClassName + "_" + "fullUserInfoDetail", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
             scenario.onActivity { sut ->
-                onIdleSync {
-                    val screenShotName = createName(testClassName + "_" + "fullUserInfoDetail", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                screenshotViaName(sut, screenShotName)
             }
         }
     }

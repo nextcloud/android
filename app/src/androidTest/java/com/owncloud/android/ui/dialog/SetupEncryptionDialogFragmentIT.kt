@@ -8,93 +8,72 @@
  */
 package com.owncloud.android.ui.dialog
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 
 class SetupEncryptionDialogFragmentIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.dialog.SetupEncryptionDialogFragmentIT"
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
-
     @Test
-    @UiThread
     @ScreenshotTest
     fun showMnemonic() {
         launchActivity<TestActivity>().use { scenario ->
+            var sut: SetupEncryptionDialogFragment? = null
             scenario.onActivity { activity ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    val sut = SetupEncryptionDialogFragment.newInstance(user, 0)
+                sut = SetupEncryptionDialogFragment.newInstance(user, 0)
+                sut.show(activity.supportFragmentManager, "1")
+                val keyWords = arrayListOf(
+                    "ability",
+                    "able",
+                    "about",
+                    "above",
+                    "absent",
+                    "absorb",
+                    "abstract",
+                    "absurd",
+                    "abuse",
+                    "access",
+                    "accident",
+                    "account",
+                    "accuse"
+                )
+                sut.setMnemonic(keyWords)
+                sut.showMnemonicInfo()
+            }
 
-                    sut.show(activity.supportFragmentManager, "1")
+            val screenShotName = createName(testClassName + "_" + "showMnemonic", "")
+            onView(isRoot()).check(matches(isDisplayed()))
 
-                    val keyWords = arrayListOf(
-                        "ability",
-                        "able",
-                        "about",
-                        "above",
-                        "absent",
-                        "absorb",
-                        "abstract",
-                        "absurd",
-                        "abuse",
-                        "access",
-                        "accident",
-                        "account",
-                        "accuse"
-                    )
-                    sut.setMnemonic(keyWords)
-                    sut.showMnemonicInfo()
-                    EspressoIdlingResource.decrement()
-
-                    val screenShotName = createName(testClassName + "_" + "showMnemonic", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut.requireDialog().window?.decorView, screenShotName)
-                }
+            scenario.onActivity {
+                screenshotViaName(sut!!.requireDialog().window?.decorView, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun error() {
         launchActivity<TestActivity>().use { scenario ->
+            var sut: SetupEncryptionDialogFragment? = null
             scenario.onActivity { activity ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
+                sut = SetupEncryptionDialogFragment.newInstance(user, 0)
+                sut.show(activity.supportFragmentManager, "1")
+                sut.errorSavingKeys()
+            }
 
-                    val sut = SetupEncryptionDialogFragment.newInstance(user, 0)
-                    sut.show(activity.supportFragmentManager, "1")
-                    sut.errorSavingKeys()
+            val screenShotName = createName(testClassName + "_" + "error", "")
+            onView(isRoot()).check(matches(isDisplayed()))
 
-                    EspressoIdlingResource.decrement()
-
-                    val screenShotName = createName(testClassName + "_" + "error", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut.requireDialog().window?.decorView, screenShotName)
-                }
+            scenario.onActivity {
+                screenshotViaName(sut!!.requireDialog().window?.decorView, screenShotName)
             }
         }
     }

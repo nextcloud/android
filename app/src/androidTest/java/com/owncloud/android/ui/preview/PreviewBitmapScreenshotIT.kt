@@ -9,18 +9,13 @@
 package com.owncloud.android.ui.preview
 
 import android.content.Intent
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 
 class PreviewBitmapScreenshotIT : AbstractIT() {
@@ -30,18 +25,7 @@ class PreviewBitmapScreenshotIT : AbstractIT() {
         private const val PNG_FILE_ASSET = "imageFile.png"
     }
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
-
     @Test
-    @UiThread
     @ScreenshotTest
     fun showBitmap() {
         val pngFile = getFile(PNG_FILE_ASSET)
@@ -51,12 +35,10 @@ class PreviewBitmapScreenshotIT : AbstractIT() {
         )
 
         launchActivity<PreviewBitmapActivity>(intent).use { scenario ->
+            val screenShotName = createName(testClassName + "_" + "showBitmap", "")
+            onView(isRoot()).check(matches(isDisplayed()))
             scenario.onActivity { sut ->
-                onIdleSync {
-                    val screenShotName = createName(testClassName + "_" + "showBitmap", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                screenshotViaName(sut, screenShotName)
             }
         }
     }
