@@ -207,6 +207,8 @@
     <string name="contacts_preferences_import_scheduled_fail">Az importálás elkezdése sikertelen. Próbálja újra.</string>
     <string name="contacts_preferences_no_file_found">Nincs fájl</string>
     <string name="contacts_preferences_something_strange_happened">A legutóbbi biztonsági mentés nem található!</string>
+    <string name="conversation_screen_empty_content_title">Nem található beszélgetés</string>
+    <string name="conversation_screen_title">Beszélgetések</string>
     <string name="copied_to_clipboard">Vágólapra másolva</string>
     <string name="copy_file_error">Hiba történt a fájl vagy mappa másolása közben</string>
     <string name="copy_file_invalid_into_descendent">Nem másolható egy mappa a saját almappájába</string>

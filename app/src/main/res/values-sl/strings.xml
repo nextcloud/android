@@ -166,6 +166,10 @@
     <string name="contacts_preferences_import_scheduled">Uvoz je načrtovan in se bo kmalu začel.</string>
     <string name="contacts_preferences_no_file_found">Ne najdem datoteke</string>
     <string name="contacts_preferences_something_strange_happened">Zadnje varnostne kopije ni mogoče najti!</string>
+    <string name="conversation_screen_delete_button_title">Razumem tveganje, izbriši pogovor</string>
+    <string name="conversation_screen_empty_content_title">Pogovora ni mogoče najti</string>
+    <string name="conversation_screen_empty_conversation_list_title">Ni še začetih pogovorov</string>
+    <string name="conversation_screen_title">Pogovori</string>
     <string name="copied_to_clipboard">Kopirano v odložišče</string>
     <string name="copy_file_error">Prišlo je do napake med kopiranjem datoteke v mapo</string>
     <string name="copy_file_invalid_into_descendent">Ni mogoče kopirati mape v podrejeno mapo</string>

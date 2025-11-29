@@ -38,6 +38,8 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">بەزى تېكىستلەرنى كىرگۈزۈڭ</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">بۇ ۋەزىپىنى ئۆچۈرمەكچىمۇ؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">ۋەزىپىنى ئۆچۈرۈڭ</string>
+    <string name="assistant_screen_empty_content_description">پاراڭلىشىش ئۈچۈن ئۇچۇر ئەۋەتىپ بېقىڭ.</string>
+    <string name="assistant_screen_empty_content_title">ياخشىمۇسىز! بۈگۈن سىزگە نېمە ياردەم بېرەلەيمەن؟</string>
     <string name="assistant_screen_task_create_fail_message">ۋەزىپە قۇرغاندا خاتالىق كۆرۈلدى</string>
     <string name="assistant_screen_task_create_success_message">ۋەزىپە مۇۋەپپەقىيەتلىك قۇرۇلدى</string>
     <string name="assistant_screen_task_delete_fail_message">ۋەزىپىنى ئۆچۈرگەندە خاتالىق كۆرۈلدى</string>
@@ -185,6 +187,10 @@
     <string name="contacts_preferences_import_scheduled">پىلانلانغان ئىمپورت ۋە پات يېقىندا باشلىنىدۇ</string>
     <string name="contacts_preferences_no_file_found">ھۆججەت تېپىلمىدى</string>
     <string name="contacts_preferences_something_strange_happened">ئاخىرقى زاپاسلاشنى تاپالمىدىڭىز!</string>
+    <string name="conversation_screen_delete_button_title">سۆھبەتنى ئۆچۈرۈڭ</string>
+    <string name="conversation_screen_empty_content_title">پاراڭ تېپىلمىدى</string>
+    <string name="conversation_screen_empty_conversation_list_title">تېخى سۆھبەت يوق</string>
+    <string name="conversation_screen_title">سۆھبەت</string>
     <string name="copied_to_clipboard">چاپلاش تاختىسىغا كۆچۈرۈلدى</string>
     <string name="copy_file_error">بۇ ھۆججەت ياكى ھۆججەت قىسقۇچنى كۆچۈرمەكچى بولغاندا خاتالىق كۆرۈلدى</string>
     <string name="copy_file_invalid_into_descendent">قىسقۇچنى ئۆزىنىڭ ئاستىدىكى قىسقۇچنىڭ بىرىگە كۆچۈرگىلى بولمايدۇ</string>

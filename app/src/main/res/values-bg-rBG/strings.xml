@@ -172,6 +172,9 @@
     <string name="contacts_preferences_import_scheduled">Внасянето е планирано и ще започне скоро</string>
     <string name="contacts_preferences_no_file_found">Няма намерен файл</string>
     <string name="contacts_preferences_something_strange_happened">Последното ви резервно копие не може да бъде намерено!</string>
+    <string name="conversation_screen_delete_button_title">Изтриване на разговора</string>
+    <string name="conversation_screen_empty_content_title">Няма намерени разговори</string>
+    <string name="conversation_screen_title">Разговори</string>
     <string name="copied_to_clipboard">Копирано в клипборда</string>
     <string name="copy_file_error">Възникна грешка при опита за копиране на файла или папката</string>
     <string name="copy_file_invalid_into_descendent">Не може да копирате папка в нейна подпапка</string>

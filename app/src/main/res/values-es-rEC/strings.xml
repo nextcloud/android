@@ -165,6 +165,8 @@
     <string name="contacts_preferences_import_scheduled">La importación está calendarizada y deberá iniciar en breve</string>
     <string name="contacts_preferences_no_file_found">No se encontraron archivos</string>
     <string name="contacts_preferences_something_strange_happened">¡No fue posible encontrar tu último respaldo! </string>
+    <string name="conversation_screen_empty_content_title">No se encontraron conversaciones</string>
+    <string name="conversation_screen_title">Conversaciones</string>
     <string name="copied_to_clipboard">Copiado al portapapeles</string>
     <string name="copy_file_error">Se presentó un error al intentar copiar este archivo o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No es posible copiar una carpeta dentro de una de sus sub carpetas</string>

@@ -44,12 +44,14 @@
     <string name="app_widget_description">Affiche un widget du tableau de bord</string>
     <string name="appbar_search_in">Recherche dans %s</string>
     <string name="appear_offline">Apparaître hors-ligne</string>
-    <string name="assistant_generation_warning">Ce contenu a été généré par IA et peut faire des erreurs.</string>
+    <string name="assistant_output_generation_warning_text">Les résultats affichés ici sont générés par l\'IA. Veillez à toujours les vérifier.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Ajouter une nouvelle tâche</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Créer une nouvelle tâche en bas à droite</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tapez du texte</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Êtes-vous sûr de vouloir supprimer cette tâche ?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Supprimer la tâche</string>
+    <string name="assistant_screen_empty_content_description">Essayez d\'envoyer un message pour déclencher une conversation.</string>
+    <string name="assistant_screen_empty_content_title">Bonjour ! En quoi puis-je vous aider aujourd’hui ?</string>
     <string name="assistant_screen_loading">Chargement de la liste des tâches...</string>
     <string name="assistant_screen_task_create_fail_message">Une erreur est survenue lors de la création de la tâche</string>
     <string name="assistant_screen_task_create_success_message">La tâche a bien été créée</string>
@@ -212,6 +214,9 @@
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
     <string name="contacts_preferences_something_strange_happened">Impossible de trouver la dernière sauvegarde !</string>
     <string name="content_observer_work_notification_title">Détection des modifications de contenu</string>
+    <string name="conversation_screen_empty_content_title">Aucune conversation trouvée</string>
+    <string name="conversation_screen_empty_conversation_list_title">Aucune conversation pour l\'instant</string>
+    <string name="conversation_screen_title">Discussions</string>
     <string name="copied_to_clipboard">Copié dans le presse-papier</string>
     <string name="copy_file_error">Une erreur est survenue lors de la copie de ce fichier ou dossier</string>
     <string name="copy_file_invalid_into_descendent">Il n\'est pas possible de copier un dossier vers un de ses descendants</string>

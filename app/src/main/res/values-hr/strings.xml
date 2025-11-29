@@ -156,6 +156,9 @@
     <string name="contacts_preferences_import_scheduled">Uvoz je zakazan i počet će uskoro</string>
     <string name="contacts_preferences_no_file_found">Nije pronađena datoteka</string>
     <string name="contacts_preferences_something_strange_happened">Nije moguće pronaći zadnju sigurnosnu kopiju!</string>
+    <string name="conversation_screen_delete_button_title">Obriši razgovor</string>
+    <string name="conversation_screen_empty_content_title">Nije pronađen nijedan razgovor</string>
+    <string name="conversation_screen_title">Razgovori</string>
     <string name="copied_to_clipboard">Kopirano u međuspremnik</string>
     <string name="copy_file_error">Došlo je do pogreške prilikom kopiranja ove datoteke ili mape</string>
     <string name="copy_file_invalid_into_descendent">Nije moguće kopirati mapu u jednu od svojih osnovnih mapa</string>

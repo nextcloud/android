@@ -160,6 +160,9 @@
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
+    <string name="conversation_screen_delete_button_title">Delete conversation</string>
+    <string name="conversation_screen_empty_content_title">No conversations found</string>
+    <string name="conversation_screen_title">Conversations</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="copy_file_error">An error occurred while trying to copy this file or folder</string>
     <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into one of its own underlying folders</string>

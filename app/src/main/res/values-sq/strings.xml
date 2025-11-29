@@ -136,6 +136,7 @@
     <string name="contacts_preferences_import_scheduled">Importimi u skedulua dhe do të filloj së shpejti</string>
     <string name="contacts_preferences_no_file_found">Asnjë skedarë i gjetur</string>
     <string name="contacts_preferences_something_strange_happened">Ne nuk mund të gjejmë backup-in tuaj të fundit!</string>
+    <string name="conversation_screen_title">Bisedat</string>
     <string name="copied_to_clipboard">U kopjua në clipboard</string>
     <string name="copy_file_error">Ndodhi një gabim teksa përpiqej të kopjohej ky skedar apo kjo dosje</string>
     <string name="copy_file_invalid_into_descendent">S’është e mundur të kopjohet një dosje në një tjetër brenda saj</string>

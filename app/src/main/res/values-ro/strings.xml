@@ -192,6 +192,9 @@
     <string name="contacts_preferences_import_scheduled">Programarea importului efectuat și va începe în scurt timp</string>
     <string name="contacts_preferences_no_file_found">Nu s-a găsit nici un fișier</string>
     <string name="contacts_preferences_something_strange_happened">Nu a putut fi găsită ultima copie de siguranță!</string>
+    <string name="conversation_screen_delete_button_title">Șterge conversația</string>
+    <string name="conversation_screen_empty_content_title">Nu sunt conversații</string>
+    <string name="conversation_screen_title">Conversații</string>
     <string name="copied_to_clipboard">Copiat în clipboard</string>
     <string name="copy_file_error">A apărut o eroare în timpul copierii fișierului sau dosarului </string>
     <string name="copy_file_invalid_into_descendent">Nu se poate copia un dosar intr-un descendent</string>

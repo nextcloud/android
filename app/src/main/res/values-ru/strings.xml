@@ -203,6 +203,9 @@
     <string name="contacts_preferences_import_scheduled_fail">Не удалось запустить импорт. Пожалуйста, попробуйте снова</string>
     <string name="contacts_preferences_no_file_found">Файл не найден</string>
     <string name="contacts_preferences_something_strange_happened">Не удалось найти последнюю резервную копию!</string>
+    <string name="conversation_screen_delete_button_title">Удалить обсуждение</string>
+    <string name="conversation_screen_empty_content_title">Не найдено ни одного обсуждения</string>
+    <string name="conversation_screen_title">Беседы</string>
     <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="copy_file_error">Произошла ошибка при попытке копирования этого файла или каталога</string>
     <string name="copy_file_invalid_into_descendent">Невозможно копирование каталога в его подкаталог</string>

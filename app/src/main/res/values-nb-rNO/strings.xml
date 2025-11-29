@@ -45,6 +45,8 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv inn litt tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på at du vil slette denne oppgaven?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Slett oppgave</string>
+    <string name="assistant_screen_empty_content_description">Prøv å sende en melding for å starte en samtale.</string>
+    <string name="assistant_screen_empty_content_title">Hallo der! Hva kan jeg hjelpe deg med i dag?</string>
     <string name="assistant_screen_task_create_fail_message">Det oppstod en feil under oppretting av oppgaven</string>
     <string name="assistant_screen_task_create_success_message">Oppgave opprettet</string>
     <string name="assistant_screen_task_delete_fail_message">Det oppstod en feil under sletting av oppgaven</string>
@@ -191,6 +193,9 @@
     <string name="contacts_preferences_import_scheduled">Importering planlagt og i snarlig effektuering</string>
     <string name="contacts_preferences_no_file_found">Ingen fil funnet</string>
     <string name="contacts_preferences_something_strange_happened">Fant ikke siste sikkerhetskopi.</string>
+    <string name="conversation_screen_empty_content_title">Ingen samtaler funnet</string>
+    <string name="conversation_screen_empty_conversation_list_title">Ingen samtaler enda</string>
+    <string name="conversation_screen_title">Samtaler</string>
     <string name="copied_to_clipboard">Kopiert til utklippstavlen</string>
     <string name="copy_file_error">En feil oppsto ved kopiering av denne filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det er ikke mulig å kopiere en mappe inn i sin egen undermappe</string>

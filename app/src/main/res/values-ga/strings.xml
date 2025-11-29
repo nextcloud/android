@@ -44,12 +44,14 @@
     <string name="app_widget_description">Taispeáin giuirléid amháin ón deais</string>
     <string name="appbar_search_in">Cuardaigh i %s</string>
     <string name="appear_offline">Le feiceáil as líne</string>
-    <string name="assistant_generation_warning">Gineadh an t-ábhar seo le hintleacht shaorga agus is féidir botúin a dhéanamh ann.</string>
+    <string name="assistant_output_generation_warning_text">Is í an intleacht shaorga a ghineann an t-aschur a thaispeántar anseo. Déan cinnte go ndéanann tú seiceáil dhúbailte i gcónaí.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Cuir tasc nua leis</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Cruthaigh tasc nua ón mbun ar dheis</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Clóscríobh roinnt téacs</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">An bhfuil tú cinnte gur mhaith leat an tasc seo a scriosadh?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Scrios tasc</string>
+    <string name="assistant_screen_empty_content_description">Bain triail as teachtaireacht a sheoladh chun tús a chur le comhrá.</string>
+    <string name="assistant_screen_empty_content_title">Dia duit ann! Cad is féidir liom cabhrú leat inniu?</string>
     <string name="assistant_screen_loading">Liosta tascanna á lódáil…</string>
     <string name="assistant_screen_task_create_fail_message">Tharla earráid agus an tasc á chruthú</string>
     <string name="assistant_screen_task_create_success_message">D\'éirigh leis an tasc a chruthú</string>
@@ -64,6 +66,7 @@
     <string name="assistant_screen_top_bar_title">Cúntóir</string>
     <string name="assistant_task_detail_screen_input_button_title">Ionchur</string>
     <string name="assistant_task_detail_screen_output_button_title">Aschur</string>
+    <string name="assistant_thinking">Ag smaoineamh…</string>
     <string name="associated_account_not_found">Cuntas gaolmhar gan aimsiú!</string>
     <string name="auth_access_failed">Theip ar rochtain: %1$s</string>
     <string name="auth_account_does_not_exist">Níl an cuntas curtha leis an ngléas seo fós</string>
@@ -212,6 +215,10 @@
     <string name="contacts_preferences_no_file_found">Níor aimsíodh aon chomhad</string>
     <string name="contacts_preferences_something_strange_happened">Níorbh fhéidir do chúltaca deiridh a aimsiú!</string>
     <string name="content_observer_work_notification_title">Athruithe ábhair á mbrath</string>
+    <string name="conversation_screen_delete_button_title">Scrios an comhrá</string>
+    <string name="conversation_screen_empty_content_title">Níor aimsíodh aon chomhrá</string>
+    <string name="conversation_screen_empty_conversation_list_title">Níl aon chomhrá fós</string>
+    <string name="conversation_screen_title">Comhráite</string>
     <string name="copied_to_clipboard">Cóipeáladh chuig an ngearrthaisce</string>
     <string name="copy_file_error">Tharla earráid agus iarracht á déanamh an comhad nó an fillteán seo a chóipeáil</string>
     <string name="copy_file_invalid_into_descendent">Ní féidir fillteán a chóipeáil isteach i gceann dá bhunfhillteáin féin</string>
@@ -312,6 +319,7 @@
     <string name="e2e_not_yet_setup">E2E gan socrú fós</string>
     <string name="e2e_offline">Ní féidir gan nasc idirlín</string>
     <string name="e2e_signature_does_not_match">Ní hionann an síniú</string>
+    <string name="e2e_signature_is_empty">Níorbh fhéidir meiteashonraí a fhíorú, tá an síniú folamh.</string>
     <string name="ecosystem_apps_display_assistant">Cúntóir</string>
     <string name="ecosystem_apps_display_more">Tuilleadh</string>
     <string name="ecosystem_apps_more">Tuilleadh aipeanna Nextcloud</string>
@@ -649,6 +657,7 @@
     <string name="offline_mode">Gan nasc idirlín</string>
     <string name="offline_mode_info_description">Fiú gan nasc idirlín, is féidir leat do fhillteáin a eagrú, comhaid a chruthú. Nuair a bheidh tú ar ais ar líne, déanfar do ghníomhartha ar feitheamh a shioncronú go huathoibríoch.</string>
     <string name="offline_mode_info_title">Tá tú as líne, ach leanann an obair ar aghaidh</string>
+    <string name="offline_operations_file_does_not_exists_yet">Níl an comhad ann fós. Uaslódáil an comhad ar dtús le do thoil.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Níorbh fhéidir %s a chruthú. Tá comhad leis an ainm céanna ar an bhfreastalaí.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Níorbh fhéidir %s a chruthú. Tá fillteán leis an ainm céanna ann ar an bhfreastalaí.</string>
     <string name="offline_operations_worker_notification_error_text">Ní féidir an oibríocht as líne a chríochnú. %s</string>
@@ -695,6 +704,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Athainmnigh leagan nua</string>
     <string name="pref_instant_name_collision_policy_title">Cad atá le déanamh má tá an comhad ann cheana?</string>
     <string name="prefs_add_account">Cuir cuntas leis</string>
+    <string name="prefs_all_files_access_summary">Lig don aip rochtain a fháil ar na comhaid go léir ar do ghléas agus iad a bhainistiú</string>
+    <string name="prefs_all_files_access_title">Rochtain ar gach comhad</string>
     <string name="prefs_calendar_contacts">Sioncrónaigh féilire agus teagmhálacha</string>
     <string name="prefs_calendar_contacts_no_store_error">Níl F-Droid ná Google Play suiteáilte</string>
     <string name="prefs_calendar_contacts_summary">Socraigh DAVx⁵ (ar a dtugtaí DAVdroid roimhe seo) (v1.3.0+) don chuntas reatha</string>
@@ -931,6 +942,10 @@
     <string name="storage_internal_storage">Stóráil inmheánach</string>
     <string name="storage_movies">Scannáin</string>
     <string name="storage_music">Ceol</string>
+    <string name="storage_permission_all_files_access">Rochtain ar gach comhad</string>
+    <string name="storage_permission_banner_auto_upload_text">Tá cead stórála ag teastáil le haghaidh uaslódáil uathoibríoch.</string>
+    <string name="storage_permission_banner_upload_text">Tá cead stórála ag teastáil le haghaidh uaslódálacha comhad.</string>
+    <string name="storage_permission_dont_ask">Ná fiafraigh</string>
     <string name="storage_permission_full_access">Rochtain iomlán</string>
     <string name="storage_permission_media_read_only">Meáin inléite amháin</string>
     <string name="storage_pictures">Pictiúir</string>

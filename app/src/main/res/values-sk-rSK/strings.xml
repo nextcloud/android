@@ -44,11 +44,14 @@
     <string name="app_widget_description">Zobrazí jeden widget z hlavného panela</string>
     <string name="appbar_search_in">Hľadať v %s</string>
     <string name="appear_offline">Zdá sa byť offline</string>
+    <string name="assistant_output_generation_warning_text">Výstup zobrazený tu je generovaný umelou inteligenciou. Uistite sa, že vždy dôkladne skontrolujete.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Pridať novú úlohu</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Vytvorte novú úlohu vpravo dole</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Napíšte nejaký text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Naozaj chcete vymazať túto úlohu?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Odstrániť úlohu</string>
+    <string name="assistant_screen_empty_content_description">Skúste poslať správu, aby ste rozprúdili konverzáciu.</string>
+    <string name="assistant_screen_empty_content_title">Dobrý deň! S čím vám dnes môžem pomôcť?</string>
     <string name="assistant_screen_loading">Načítavam zoznam úloh...</string>
     <string name="assistant_screen_task_create_fail_message">Pri vytváraní úlohy nastala chyba</string>
     <string name="assistant_screen_task_create_success_message">Úloha bola úspešne vytvorená</string>
@@ -202,6 +205,10 @@
     <string name="contacts_preferences_import_scheduled_fail">Spustenie mportu zlyhalo. Prosím skúste to znova</string>
     <string name="contacts_preferences_no_file_found">Nenašiel sa žiadny súbor</string>
     <string name="contacts_preferences_something_strange_happened">Nenašla sa posledná záloha!</string>
+    <string name="conversation_screen_delete_button_title">Zmazať konverzáciu</string>
+    <string name="conversation_screen_empty_content_title">Neboli nájdené žiadne konverzácie</string>
+    <string name="conversation_screen_empty_conversation_list_title">Zatiaľ žiadne konverzácie</string>
+    <string name="conversation_screen_title">Konverzácie</string>
     <string name="copied_to_clipboard">Skopírované do schránky</string>
     <string name="copy_file_error">Počas kopírovania súboru alebo zložky sa vyskytla chyba</string>
     <string name="copy_file_invalid_into_descendent">Nie je možné skopírovať priečinok do samého seba</string>

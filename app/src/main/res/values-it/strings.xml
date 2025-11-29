@@ -195,6 +195,8 @@
     <string name="contacts_preferences_import_scheduled">Importazione pianificata e partirà a breve</string>
     <string name="contacts_preferences_no_file_found">Nessun file trovato</string>
     <string name="contacts_preferences_something_strange_happened">Non troviamo il tuo ultimo backup!</string>
+    <string name="conversation_screen_empty_content_title">Nessuna conversazione trovata</string>
+    <string name="conversation_screen_title">Conversazioni</string>
     <string name="copied_to_clipboard">Copiato negli appunti</string>
     <string name="copy_file_error">Si è verificato un errore durante il tentativo di copiare il file o la cartella</string>
     <string name="copy_file_invalid_into_descendent">Impossibile copiare una cartella in una delle sue cartelle sottostanti</string>

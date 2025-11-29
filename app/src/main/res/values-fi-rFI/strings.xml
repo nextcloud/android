@@ -183,6 +183,8 @@
     <string name="contacts_preferences_import_scheduled">Tuonti on ajastettu ja se alkaa pian</string>
     <string name="contacts_preferences_no_file_found">Tiedostoa ei löytynyt</string>
     <string name="contacts_preferences_something_strange_happened">Viimeisintä varmuuskopiota ei löytynyt!</string>
+    <string name="conversation_screen_empty_content_title">Keskusteluja ei löytynyt</string>
+    <string name="conversation_screen_title">Keskustelut</string>
     <string name="copied_to_clipboard">Kopioitu leikepöydälle</string>
     <string name="copy_file_error">Tätä tiedostoa tai kansiota kopioitaessa tapahtui virhe</string>
     <string name="copy_file_invalid_into_descendent">Ei ole mahdollista kopioida kansiota yhteen sen alikansiosta.</string>

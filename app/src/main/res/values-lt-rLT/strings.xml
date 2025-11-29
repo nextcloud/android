@@ -183,6 +183,7 @@
     <string name="contacts_preferences_import_scheduled">Importas suplanuotas ir prasidės netrukus</string>
     <string name="contacts_preferences_no_file_found">Failas nerastas</string>
     <string name="contacts_preferences_something_strange_happened">Nepavyko rasti jūsų paskutinės atsarginės kopijos!</string>
+    <string name="conversation_screen_title">Pokalbiai</string>
     <string name="copied_to_clipboard">Nukopijuota į iškarpinę</string>
     <string name="copy_file_error">Klaida kopijuojant failą ar aplanką</string>
     <string name="copy_file_invalid_into_descendent">Neįmanoma nukopijuoti aplanko į poaplankį</string>

@@ -156,6 +156,9 @@
     <string name="contacts_preferences_import_scheduled">Đã nhập lên lịch và sẽ sớm bắt đầu</string>
     <string name="contacts_preferences_no_file_found">Không tìm thấy tập tin</string>
     <string name="contacts_preferences_something_strange_happened">Không thể tìm bản sao lưu cuối của bạn!</string>
+    <string name="conversation_screen_delete_button_title">Xóa cuộc trò chuyện</string>
+    <string name="conversation_screen_empty_content_title">Không tìm thấy cuộc trò chuyện nào</string>
+    <string name="conversation_screen_title">Đàm thoại</string>
     <string name="copied_to_clipboard">Sao chép vào bảng tạm</string>
     <string name="copy_file_error">Đã xảy ra lỗi khi cố gắng sao chép tệp hoặc thư mục này</string>
     <string name="copy_file_invalid_into_descendent">Không thể sao chép một thư mục vào một trong các thư mục cơ bản của chính nó</string>

@@ -44,12 +44,14 @@
     <string name="app_widget_description">Näitab ühte vidinat juhtpaneelilt/töölaualt</string>
     <string name="appbar_search_in">Otsi siin: %s</string>
     <string name="appear_offline">Sellega paistad olema võrgust väljas</string>
-    <string name="assistant_generation_warning">See sisu on tehisaru koostatud ja võib sisaldada vigu.</string>
+    <string name="assistant_output_generation_warning_text">See väljund on loodud tehisaru poolt. Palun topeltkontrolli selle õigsust ka ise.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lisa uus ülesanne</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Loo uus ülesanne all paremal asuvast valikust</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Kirjuta midagi vahvat</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Kas sa oled kindel, et soovid selle ülesande kustutada?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Kustuta ülesanne</string>
+    <string name="assistant_screen_empty_content_description">Vestluse algatamiseks proovi sata üks sõnum.</string>
+    <string name="assistant_screen_empty_content_title">Hei! Kuidas saan sind täna aidata?</string>
     <string name="assistant_screen_loading">Laadin ülesannete loendit…</string>
     <string name="assistant_screen_task_create_fail_message">Ülesande loomisel tekkis viga</string>
     <string name="assistant_screen_task_create_success_message">Ülesande loomine õnnestus</string>
@@ -212,6 +214,10 @@
     <string name="contacts_preferences_no_file_found">Faili ei leitud</string>
     <string name="contacts_preferences_something_strange_happened">Sinu viimast varukoopiat ei leidu!</string>
     <string name="content_observer_work_notification_title">Tuvastan sisu muudatusi</string>
+    <string name="conversation_screen_delete_button_title">Kustuta vestlus</string>
+    <string name="conversation_screen_empty_content_title">Vestlusi ei leidu</string>
+    <string name="conversation_screen_empty_conversation_list_title">Ühtegi vestlust veel pole</string>
+    <string name="conversation_screen_title">Vestlused</string>
     <string name="copied_to_clipboard">Kopeeritud lõikepuhvrisse</string>
     <string name="copy_file_error">Selle faili või kausta kopeerimisel tekkis tõrge</string>
     <string name="copy_file_invalid_into_descendent">Kausta ei saa kopeerida tema enda alamkausta</string>
