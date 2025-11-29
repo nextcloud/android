@@ -529,7 +529,7 @@ class FileDisplayActivity :
         /** First fragment */
         val listOfFiles = this.listOfFilesFragment
         if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
-            listOfFiles.listDirectory(getCurrentDir(), file, MainApp.isOnlyOnDevice(), false)
+            listOfFiles.listDirectory(getCurrentDir(), file, MainApp.isOnlyOnDevice())
         } else {
             Log_OC.e(TAG, "Still have a chance to lose the initialization of list fragment >(")
         }
@@ -807,9 +807,9 @@ class FileDisplayActivity :
         resetScrolling(true)
     }
 
-    fun updateListOfFilesFragment(fromSearch: Boolean) {
+    fun updateListOfFilesFragment() {
         val fileListFragment = this.listOfFilesFragment
-        fileListFragment?.listDirectory(MainApp.isOnlyOnDevice(), fromSearch)
+        fileListFragment?.listDirectory(MainApp.isOnlyOnDevice())
     }
 
     fun resetSearchView() {
@@ -1333,10 +1333,10 @@ class FileDisplayActivity :
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView?.setQuery(searchQuery, false)
         } else if (!ocFileListFragment.isSearchFragment && startFile == null) {
-            updateListOfFilesFragment(false)
+            updateListOfFilesFragment()
             ocFileListFragment.registerFabListener()
         } else {
-            ocFileListFragment.listDirectory(startFile, false, false)
+            ocFileListFragment.listDirectory(startFile, false)
             updateActionBarTitleAndHomeButton(startFile)
         }
 
@@ -1555,7 +1555,7 @@ class FileDisplayActivity :
             return
         }
 
-        ocFileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice(), false)
+        ocFileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice())
     }
 
     private fun handleScrollBehaviour(ocFileListFragment: OCFileListFragment?) {
@@ -1669,7 +1669,7 @@ class FileDisplayActivity :
             if (sameAccount && isDescendant) {
                 val linkedToRemotePath = intent.getStringExtra(FileUploadWorker.EXTRA_LINKED_TO_PATH)
                 if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
-                    updateListOfFilesFragment(false)
+                    updateListOfFilesFragment()
                 }
             }
 
@@ -1742,7 +1742,7 @@ class FileDisplayActivity :
             if (sameAccount && isDescendant) {
                 val linkedToRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_LINKED_TO_PATH)
                 if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
-                    updateListOfFilesFragment(false)
+                    updateListOfFilesFragment()
                 }
 
                 val intentAction = intent.action
@@ -1803,7 +1803,7 @@ class FileDisplayActivity :
         val listOfFiles = this.listOfFilesFragment
         if (listOfFiles != null) { // should never be null, indeed
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
-            listOfFiles.listDirectory(root, MainApp.isOnlyOnDevice(), false)
+            listOfFiles.listDirectory(root, MainApp.isOnlyOnDevice())
             file = listOfFiles.currentFile
             startSyncFolderOperation(root, false)
         }
@@ -1986,7 +1986,7 @@ class FileDisplayActivity :
         if (fileListFragment == null) {
             fileListFragment = listOfFilesFragment
         }
-        fileListFragment?.listDirectory(currentDir, MainApp.isOnlyOnDevice(), false)
+        fileListFragment?.listDirectory(currentDir, MainApp.isOnlyOnDevice())
     }
 
     private fun handleDownloadWorkerState() {
@@ -2110,7 +2110,7 @@ class FileDisplayActivity :
             }
             val parentFile = storageManager.getFileById(removedFile.parentId)
             if (parentFile != null && parentFile == getCurrentDir()) {
-                updateListOfFilesFragment(false)
+                updateListOfFilesFragment()
             } else if (this.leftFragment is GalleryFragment) {
                 val galleryFragment = leftFragment as GalleryFragment
                 galleryFragment.onRefresh()
@@ -2200,7 +2200,7 @@ class FileDisplayActivity :
      */
     private fun onCopyFileOperationFinish(operation: CopyFileOperation?, result: RemoteOperationResult<*>) {
         if (result.isSuccess) {
-            updateListOfFilesFragment(false)
+            updateListOfFilesFragment()
             refreshGalleryFragmentIfNeeded()
         } else {
             try {
@@ -2250,7 +2250,7 @@ class FileDisplayActivity :
 
             val file = storageManager.getFileById(renamedFile.parentId)
             if (file != null && file == getCurrentDir()) {
-                updateListOfFilesFragment(false)
+                updateListOfFilesFragment()
             }
             refreshGalleryFragmentIfNeeded()
             fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
@@ -2309,7 +2309,7 @@ class FileDisplayActivity :
      * {@inheritDoc}
      */
     override fun onTransferStateChanged(file: OCFile, downloading: Boolean, uploading: Boolean) {
-        updateListOfFilesFragment(false)
+        updateListOfFilesFragment()
         val leftFragment = this.leftFragment
         val optionalUser = user
         if (leftFragment is FileDetailFragment && file == leftFragment.file && optionalUser.isPresent) {
@@ -3008,7 +3008,7 @@ class FileDisplayActivity :
                 if (TextUtils.isEmpty(message)) {
                     val temp = file
                     file = getCurrentDir()
-                    listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice(), false)
+                    listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice())
                     updateActionBarTitleAndHomeButton(null)
                 } else {
                     val view = listOfFiles.view
