@@ -275,6 +275,7 @@
     <string name="failed_to_start_editor">התחלת העורך נכשלה</string>
     <string name="favorite">הוספה למועדפים</string>
     <string name="favorite_icon">סימון כמועדף</string>
+    <string name="fifteenMinutes">15 דקות</string>
     <string name="file_delete">מחיקה</string>
     <string name="file_detail_activity_error">שגיאה בקבלת הפעילויות לקובץ</string>
     <string name="file_details_no_content">טעינת הפרטים נכשלה</string>

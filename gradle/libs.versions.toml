@@ -5,7 +5,7 @@
 androidCommonLibraryVersion = "0.29.0"
 androidGifDrawableVersion = "1.2.29"
 androidImageCropperVersion = "4.6.0"
-androidLibraryVersion = "2ac15a83a9d03ab9b7160e84dd097be375ae8ff1"
+androidLibraryVersion = "b8f77935157e44c1d7a71f81271b412b0dbe8c76"
 androidPluginVersion = '8.13.1'
 androidsvgVersion = "1.4"
 androidxMediaVersion = "1.5.1"
@@ -18,7 +18,7 @@ cardviewVersion = "1.0.0"
 checker = "3.21.2"
 coilVersion = "2.7.0"
 commonsHttpclient = "3.1"
-commonsIoVersion = "2.20.0"
+commonsIoVersion = "2.21.0"
 composeBom = "2025.10.01"
 conscryptAndroidVersion = "2.5.3"
 constraintlayoutVersion = "2.2.1"
@@ -29,7 +29,7 @@ detektGradlePlugin = "1.23.8"
 dexopenerVersion = "2.0.5"
 disklrucacheVersion = "2.0.2"
 documentScannerVersion = "1.2.3"
-emojiGoogleVersion = "0.22.0"
+emojiGoogleVersion = "0.23.0"
 espressoVersion = "3.7.0"
 eventbusVersion = "3.3.1"
 exifinterfaceVersion = "1.4.1"
@@ -79,11 +79,12 @@ sectionedRecyclerviewVersion = "0.6.1"
 shotVersion = "6.1.0"
 slfj = "1.7.36"
 splash-screen = "1.0.1"
-spotbugsGradlePlugin = "6.4.5"
+spotbugsGradlePlugin = "6.4.6"
 spotless = "8.1.0"
 stateless4jVersion = "2.6.0"
 webkitVersion = "1.14.0"
 workRuntime = "2.10.4"
+foundationVersion = "1.9.4"
 
 [libraries]
 # Crypto
@@ -236,6 +237,7 @@ qrcodescanner = { module = "com.github.nextcloud-deps:qrcodescanner", version.re
 # Worker
 work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntime" }
+foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundationVersion" }
 
 [bundles]
 media3 = ["media3-ui", "media3-session", "media3-exoplayer", "media3-datasource"]

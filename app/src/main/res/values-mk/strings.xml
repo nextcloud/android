@@ -31,6 +31,7 @@
     <string name="app_config_proxy_port_title">Proxy порта</string>
     <string name="app_widget_description">Прикажува еден виџет од контролната табла</string>
     <string name="appbar_search_in">Барај во %s</string>
+    <string name="appear_offline">Прикажи исклучен</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Избриши задача</string>
     <string name="assistant_screen_top_bar_title">Асистент</string>
     <string name="associated_account_not_found">Не е пронајдена поврзана сметка!</string>
@@ -277,6 +278,7 @@
     <string name="failed_to_print">Неуспешно печатење не датотеката</string>
     <string name="favorite">Додади во фаворити</string>
     <string name="favorite_icon">Омилен</string>
+    <string name="fifteenMinutes">15 минути</string>
     <string name="file_delete">Избриши</string>
     <string name="file_detail_activity_error">Грешка при преземањето на активностите за датотеката</string>
     <string name="file_details_no_content">Неуспешно вчитување на деталите</string>
@@ -415,6 +417,7 @@
     <string name="move_file_error">Се случи грешка кога пробував да ја преместам оваа датотека или папка</string>
     <string name="move_file_invalid_into_descendent">Не е возможно да се копира папката во истата таа папка</string>
     <string name="move_file_invalid_overwrite">Датотеката веќе постои во папката</string>
+    <string name="mute_all_notifications">Занеми (Mute) ги сите известувања</string>
     <string name="network_error_connect_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши.</string>
     <string name="network_error_socket_exception">Настана грешка при обидот за поврзување со серверот</string>
     <string name="network_error_socket_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши.</string>

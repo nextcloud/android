@@ -312,6 +312,7 @@
     <string name="e2e_not_yet_setup">尚未設定端對端加密</string>
     <string name="e2e_offline">沒有網際網路連線就無法使用</string>
     <string name="e2e_signature_does_not_match">簽章不相符</string>
+    <string name="e2e_signature_is_empty">無法驗證中介資料，簽章為空。</string>
     <string name="ecosystem_apps_display_assistant">助理</string>
     <string name="ecosystem_apps_display_more">更多</string>
     <string name="ecosystem_apps_more">更多 Nextcloud 應用程式</string>
@@ -390,6 +391,7 @@
     <string name="failed_update_ui">更新使用者介面失敗</string>
     <string name="favorite">新增至喜愛</string>
     <string name="favorite_icon">喜愛</string>
+    <string name="fifteenMinutes">15分鐘</string>
     <string name="file_activity_shared_file_cannot_be_updated">無法更新已分享的檔案</string>
     <string name="file_already_exists">檔案名稱已經存在</string>
     <string name="file_delete">刪除</string>
@@ -695,6 +697,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">重新命名新的版本</string>
     <string name="pref_instant_name_collision_policy_title">如果檔案已經存在，該怎麼處理？</string>
     <string name="prefs_add_account">新增帳號</string>
+    <string name="prefs_all_files_access_summary">允許應用程式存取並管理您裝置上的所有檔案</string>
+    <string name="prefs_all_files_access_title">所有檔案存取權</string>
     <string name="prefs_calendar_contacts">同步行事曆與聯絡人</string>
     <string name="prefs_calendar_contacts_no_store_error">尚未安裝 F-Droid 或 Google Play</string>
     <string name="prefs_calendar_contacts_summary">為目前帳號設定 DAVx⁵（以前稱為 DAVdroid）(v1.3.0+)。</string>
@@ -931,6 +935,10 @@
     <string name="storage_internal_storage">內部儲存空間</string>
     <string name="storage_movies">電影</string>
     <string name="storage_music">音樂</string>
+    <string name="storage_permission_all_files_access">所有檔案存取權</string>
+    <string name="storage_permission_banner_auto_upload_text">自動上傳功能需要儲存空間權限。</string>
+    <string name="storage_permission_banner_upload_text">檔案上傳功能需要儲存空間權限。</string>
+    <string name="storage_permission_dont_ask">不要詢問</string>
     <string name="storage_permission_full_access">完整存取權</string>
     <string name="storage_permission_media_read_only">媒體唯讀</string>
     <string name="storage_pictures">圖片</string>

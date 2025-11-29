@@ -282,7 +282,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 setupToolbar();
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
-                startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
+                startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
             } else if (menuItemId == R.id.nav_gallery) {
                 setupToolbar();
                 startPhotoSearch(menuItem.getItemId());
@@ -470,7 +470,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         moreView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppStore("Nextcloud", true, this));
         assistantView.setOnClickListener(v -> {
             DrawerActivity.menuItemId = Menu.NONE;
-            startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
+            startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
         });
         if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
             assistantView.setVisibility(View.VISIBLE);
@@ -632,7 +632,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             startRecentlyModifiedSearch(menuItem);
         } else if (itemId == R.id.nav_assistant) {
             resetOnlyPersonalAndOnDevice();
-            startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
+            startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
         } else if (itemId == R.id.nav_groupfolders) {
             resetOnlyPersonalAndOnDevice();
             Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
@@ -652,7 +652,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void startComposeActivity(ComposeDestination destination, int titleId) {
         Intent composeActivity = new Intent(getApplicationContext(), ComposeActivity.class);
-        composeActivity.putExtra(ComposeActivity.DESTINATION, destination);
+        composeActivity.putExtra(ComposeActivity.DESTINATION, destination.getId());
         composeActivity.putExtra(ComposeActivity.TITLE, titleId);
         startActivity(composeActivity);
     }
@@ -734,11 +734,11 @@ public abstract class DrawerActivity extends ToolbarActivity
      * sets the new/current account and restarts. In case the given account equals the actual/current account the call
      * will be ignored.
      *
-     * @param hashCode HashCode of account to be set
+     * @param User user to be set
      */
-    public void accountClicked(int hashCode) {
+    public void accountClicked(User user) {
         final User currentUser = accountManager.getUser();
-        if (currentUser.hashCode() != hashCode && accountManager.setCurrentOwnCloudAccount(hashCode)) {
+        if (!currentUser.nameEquals(user) && accountManager.setCurrentOwnCloudAccount(user)) {
             fetchExternalLinks(true);
             restart();
         }

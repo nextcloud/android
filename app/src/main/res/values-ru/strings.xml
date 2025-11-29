@@ -381,6 +381,7 @@
     <string name="failed_update_ui">Не удалось обновить пользовательский интерфейс</string>
     <string name="favorite">Добавить в избранное</string>
     <string name="favorite_icon">Избранное</string>
+    <string name="fifteenMinutes">15 минут</string>
     <string name="file_activity_shared_file_cannot_be_updated">Общий файл  не может быть обновлен</string>
     <string name="file_already_exists">Файл с таким именем уже существует</string>
     <string name="file_delete">Удалить</string>

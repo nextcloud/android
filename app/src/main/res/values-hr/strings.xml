@@ -284,6 +284,7 @@
     <string name="failed_update_ui">Ažuriranje korisničkog sučelja nije uspjelo</string>
     <string name="favorite">Dodaj u favorite</string>
     <string name="favorite_icon">Favorit</string>
+    <string name="fifteenMinutes">15 minuta</string>
     <string name="file_already_exists">Datoteka tog naziva već postoji</string>
     <string name="file_delete">Izbriši</string>
     <string name="file_detail_activity_error">Pogreška pri dohvaćanju aktivnosti za datoteku</string>

@@ -312,6 +312,7 @@
     <string name="failed_update_ui">Posodabljanje uporabniškega vmesnika je spodletelo</string>
     <string name="favorite">Dodaj med priljubljene</string>
     <string name="favorite_icon">Priljubljeno</string>
+    <string name="fifteenMinutes">15 minut</string>
     <string name="file_already_exists">Ime datoteke že obstaja</string>
     <string name="file_delete">Izbriši</string>
     <string name="file_detail_activity_error">Napaka pridobivanja dejavnosti za datoteko</string>

@@ -370,6 +370,7 @@
     <string name="failed_update_ui">Nepodarilo sa aktualizovať UI</string>
     <string name="favorite">Pridať do obľúbených</string>
     <string name="favorite_icon">Obľúbené</string>
+    <string name="fifteenMinutes">15 minút</string>
     <string name="file_activity_shared_file_cannot_be_updated">Zdieľaný súbor nemôže byť aktualizovaný</string>
     <string name="file_already_exists">Súbor už existuje</string>
     <string name="file_delete">Zmazať</string>

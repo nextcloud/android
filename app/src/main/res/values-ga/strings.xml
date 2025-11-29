@@ -390,6 +390,7 @@
     <string name="failed_update_ui">Theip ar an Chomhéadain a nuashonrú</string>
     <string name="favorite">Cuir le ceanáin</string>
     <string name="favorite_icon">is fearr leat</string>
+    <string name="fifteenMinutes">15 nóiméad</string>
     <string name="file_activity_shared_file_cannot_be_updated">Ní féidir an comhad roinnte a nuashonrú</string>
     <string name="file_already_exists">Tá ainm an chomhaid ann cheana</string>
     <string name="file_delete">Scrios</string>

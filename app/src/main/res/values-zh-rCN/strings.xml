@@ -388,6 +388,7 @@
     <string name="failed_update_ui">更新用户界面失败</string>
     <string name="favorite">添加到收藏夹</string>
     <string name="favorite_icon">收藏</string>
+    <string name="fifteenMinutes">15 分钟 </string>
     <string name="file_activity_shared_file_cannot_be_updated">无法更新已共享文件</string>
     <string name="file_already_exists">文件名已存在</string>
     <string name="file_delete">删除</string>

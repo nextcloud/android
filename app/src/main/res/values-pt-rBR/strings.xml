@@ -312,6 +312,7 @@
     <string name="e2e_not_yet_setup">Criptografia de ponta-a-ponta ainda não configurada</string>
     <string name="e2e_offline">Não é possível sem conexão com a internet</string>
     <string name="e2e_signature_does_not_match">A assinatura não corresponde</string>
+    <string name="e2e_signature_is_empty">Não foi possível verificar os metadados; a assinatura está vazia.</string>
     <string name="ecosystem_apps_display_assistant">Assistente</string>
     <string name="ecosystem_apps_display_more">Mais</string>
     <string name="ecosystem_apps_more">Mais Aplicativos Nextcloud</string>
@@ -390,6 +391,7 @@
     <string name="failed_update_ui">Falha ao atualizar a interface gráfica</string>
     <string name="favorite">Adicionar aos favoritos</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="fifteenMinutes">15 minutos</string>
     <string name="file_activity_shared_file_cannot_be_updated">O arquivo compartilhado não pode ser atualizado</string>
     <string name="file_already_exists">O nome do arquivo já existe</string>
     <string name="file_delete">Excluir</string>
@@ -648,6 +650,7 @@
     <string name="offline_mode">Sem conexão à internet</string>
     <string name="offline_mode_info_description">Mesmo sem conexão com a Internet, você pode organizar suas pastas e criar arquivos. Quando você estiver on-line novamente, suas ações pendentes serão sincronizadas automaticamente.</string>
     <string name="offline_mode_info_title">Você está off-line, mas o trabalho continua</string>
+    <string name="offline_operations_file_does_not_exists_yet">O arquivo ainda não existe. Por favor, faça o upload do arquivo primeiro.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Não foi possível criar %s. Existe um arquivo com o mesmo nome no servidor.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Não foi possível criar %s. Existe uma pasta com o mesmo nome no servidor.</string>
     <string name="offline_operations_worker_notification_error_text">A operação off-line não pode ser concluída. %s</string>
@@ -694,6 +697,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Renomear a nova versão</string>
     <string name="pref_instant_name_collision_policy_title">O que fazer se o arquivo já existir?</string>
     <string name="prefs_add_account">Adicionar uma conta</string>
+    <string name="prefs_all_files_access_summary">Permita que o aplicativo acesse e gerencie todos os arquivos do seu dispositivo.</string>
+    <string name="prefs_all_files_access_title">Acesso a todos os arquivos</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário e contatos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem o F-Droid nem o Google Play estão instalados</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVx⁵ (conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
@@ -930,6 +935,10 @@
     <string name="storage_internal_storage">Armazenamento interno</string>
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Músicas</string>
+    <string name="storage_permission_all_files_access">Acesso a todos os arquivos</string>
+    <string name="storage_permission_banner_auto_upload_text">É necessária permissão de armazenamento para o upload automático.</string>
+    <string name="storage_permission_banner_upload_text">É necessário conceder permissão de armazenamento para o envio de arquivos.</string>
+    <string name="storage_permission_dont_ask">Não pergunte</string>
     <string name="storage_permission_full_access">Acesso total</string>
     <string name="storage_permission_media_read_only">Mídia somente leitura</string>
     <string name="storage_pictures">Imagens</string>

@@ -389,6 +389,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="failed_update_ui">Gagal memperbarui UI</string>
     <string name="favorite">Tambah ke favorit</string>
     <string name="favorite_icon">Favorit</string>
+    <string name="fifteenMinutes">15 menit</string>
     <string name="file_activity_shared_file_cannot_be_updated">File yang sudah dibagi tidak dapat diperbarui</string>
     <string name="file_already_exists">Berkas sudah ada</string>
     <string name="file_delete">Hapus</string>

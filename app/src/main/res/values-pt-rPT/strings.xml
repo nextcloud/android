@@ -352,6 +352,7 @@
     <string name="failed_update_ui">Falha ao atualizar a IU</string>
     <string name="favorite">Adicionar aos favoritos</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="fifteenMinutes">15 minutos</string>
     <string name="file_already_exists">O nome do ficheiro já existe</string>
     <string name="file_delete">Apagar</string>
     <string name="file_detail_activity_error">Erro ao obter as atividades para o ficheiro</string>
