@@ -44,12 +44,14 @@
     <string name="app_widget_description">Inaonyesha wijeti moja kutoka kwa dashibodi</string>
     <string name="appbar_search_in">Tafuta katika %s</string>
     <string name="appear_offline">Tokea nje ya mtandao</string>
-    <string name="assistant_generation_warning">Maudhui haya yalitolewa na AI na yanaweza kufanya makosa.</string>
+    <string name="assistant_output_generation_warning_text">Matokeo yaliyoonyeshwa hapa yanatolewa na AI. Hakikisha kuangalia mara mbili kila wakati.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Ongeza jukumu jipya</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Ongeza jukumu jipya kutoka chini kulia</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Andika maandishi kadhaa</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Je, una uhakika unataka kufuta jukumu hili?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Futa jukumu</string>
+    <string name="assistant_screen_empty_content_description">Jaribu kutuma ujumbe ili kuzua mazungumzo.</string>
+    <string name="assistant_screen_empty_content_title">Hujambo! Nikusaidie nini leo?</string>
     <string name="assistant_screen_loading">Inapakia orodha ya kazi...</string>
     <string name="assistant_screen_task_create_fail_message">Hitilafu ilitokea wakati wa kuunda jukumu</string>
     <string name="assistant_screen_task_create_success_message">Jukumu limeundwa kwa mafanikio</string>
@@ -212,6 +214,10 @@
     <string name="contacts_preferences_no_file_found">Hakuna faili iliyopatikana</string>
     <string name="contacts_preferences_something_strange_happened">Haikuweza kupata nakala yako ya mwisho!</string>
     <string name="content_observer_work_notification_title">Inagundua mabadiliko ya maudhui</string>
+    <string name="conversation_screen_delete_button_title">Futa mazungumzo</string>
+    <string name="conversation_screen_empty_content_title">Hakuna mazungumzo yaliyopatikana</string>
+    <string name="conversation_screen_empty_conversation_list_title">Bado hakuna mazungumzo</string>
+    <string name="conversation_screen_title">Mazungumzo</string>
     <string name="copied_to_clipboard">Nakili katika ubao wa kunakili</string>
     <string name="copy_file_error">Hitilafu ilitokea wakati wa kujaribu kunakili faili au folda hii</string>
     <string name="copy_file_invalid_into_descendent">Haiwezekani kunakili folda kwenye mojawapo ya folda zake za msingi</string>

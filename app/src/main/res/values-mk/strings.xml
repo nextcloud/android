@@ -158,6 +158,8 @@
     <string name="contacts_preferences_import_scheduled">Увозот е закажан и ќе започне наскоро</string>
     <string name="contacts_preferences_no_file_found">Не е пронајдена датотека</string>
     <string name="contacts_preferences_something_strange_happened">Неможам да ја пронајдам последната резервна копија!</string>
+    <string name="conversation_screen_empty_content_title">Нема пронајдено разговори</string>
+    <string name="conversation_screen_title">Разговори</string>
     <string name="copied_to_clipboard">Копирано во клипборд</string>
     <string name="copy_file_error">Настана грешка при обидот за копирање на оваа датотека или папка</string>
     <string name="copy_file_invalid_into_descendent">Не е возможно да се копира папката во истата таа папка</string>

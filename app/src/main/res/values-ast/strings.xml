@@ -212,6 +212,7 @@
     <string name="failed_update_ui">Nun se pue anovar la IU</string>
     <string name="favorite">Meter en Favoritos</string>
     <string name="favorite_icon">Meter en Favoritos</string>
+    <string name="fifteenMinutes">15 minutos</string>
     <string name="file_already_exists">El nome yá esiste</string>
     <string name="file_delete">Desaniciar</string>
     <string name="file_detail_activity_error">Hebo un error al recuperar les activadaes pal ficheru</string>

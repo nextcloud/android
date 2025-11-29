@@ -44,12 +44,13 @@
     <string name="app_widget_description">Visa en widget från dashboard</string>
     <string name="appbar_search_in">Sök i %s</string>
     <string name="appear_offline">Visa som frånkopplad</string>
-    <string name="assistant_generation_warning">Detta innehåll genererades av AI och kan innehålla fel.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lägg till ny uppgift</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Skapa en ny uppgift från nedre högra hörnet</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv någon text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Är du säker på att du vill ta bort den här uppgiften?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ta bort uppgift</string>
+    <string name="assistant_screen_empty_content_description">Försök att skicka ett meddelande för att få igång en konversation.</string>
+    <string name="assistant_screen_empty_content_title">Hej! Vad kan jag hjälpa dig med idag?</string>
     <string name="assistant_screen_loading">Laddar uppgiftslista…</string>
     <string name="assistant_screen_task_create_fail_message">Ett fel uppstod när uppgiften skapades</string>
     <string name="assistant_screen_task_create_success_message">Uppgiften har skapats</string>
@@ -212,6 +213,10 @@
     <string name="contacts_preferences_no_file_found">Ingen fil funnen</string>
     <string name="contacts_preferences_something_strange_happened">Vi kunde inte hitta din senaste backup!</string>
     <string name="content_observer_work_notification_title">Upptäcker innehållsförändringar</string>
+    <string name="conversation_screen_delete_button_title">Ta bort konversationen</string>
+    <string name="conversation_screen_empty_content_title">Inga konversationer hittades</string>
+    <string name="conversation_screen_empty_conversation_list_title">Inga konversationer än</string>
+    <string name="conversation_screen_title">Konversationer</string>
     <string name="copied_to_clipboard">Kopierat till urklipp</string>
     <string name="copy_file_error">Ett fel uppstod, kunde inte kopiera filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det är inte möjligt att kopiera mappen till en av dess undermappar</string>

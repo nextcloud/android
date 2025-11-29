@@ -44,12 +44,13 @@
     <string name="app_widget_description">Pokazuje jeden widżet z pulpitu nawigacyjnego</string>
     <string name="appbar_search_in">Szukaj w %s</string>
     <string name="appear_offline">Wyglądaj jako offline</string>
-    <string name="assistant_generation_warning">Ta treść została wygenerowana przez AI i może zawierać błędy</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Dodaj nowe zadanie</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Utwórz nowe zadanie w prawym dolnym rogu</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Wpisz jakiś tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Czy na pewno chcesz usunąć to zadanie?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Usuń zadanie</string>
+    <string name="assistant_screen_empty_content_description">Spróbuj wysłać wiadomość, aby rozpocząć rozmowę.</string>
+    <string name="assistant_screen_empty_content_title">Cześć! W czym mogę Ci dziś pomóc?</string>
     <string name="assistant_screen_loading">Ładowanie listy zadań…</string>
     <string name="assistant_screen_task_create_fail_message">Wystąpił błąd podczas tworzenia zadania</string>
     <string name="assistant_screen_task_create_success_message">Zadanie pomyślnie utworzone</string>
@@ -212,6 +213,10 @@
     <string name="contacts_preferences_no_file_found">Nie znaleziono żadnych plików</string>
     <string name="contacts_preferences_something_strange_happened">Nie odnaleziono Twojej ostatniej kopii zapasowej!</string>
     <string name="content_observer_work_notification_title">Sprawdzanie zmian treści</string>
+    <string name="conversation_screen_delete_button_title">Usunąć rozmowę</string>
+    <string name="conversation_screen_empty_content_title">Nie znaleziono rozmów</string>
+    <string name="conversation_screen_empty_conversation_list_title">Nie ma jeszcze żadnych rozmów</string>
+    <string name="conversation_screen_title">Rozmowy</string>
     <string name="copied_to_clipboard">Skopiowano do schowka</string>
     <string name="copy_file_error">Wystąpił błąd podczas próby kopiowania tego pliku lub katalogu</string>
     <string name="copy_file_invalid_into_descendent">Nie można skopiować katalogu do jednego z jego podkatalogów</string>

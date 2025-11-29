@@ -32,8 +32,10 @@
     <string name="app_config_proxy_port_title">Θύρα διαμεσολαβητή</string>
     <string name="app_widget_description">Εμφάνιση ενός γραφικού στοιχείου από τον πίνακα ελέγχου</string>
     <string name="appbar_search_in">Αναζήτηση στο %s</string>
+    <string name="assistant_output_generation_warning_text">Τα αποτελέσματα που εμφανίζονται εδώ έχουν δημιουργηθεί από τεχνητή νοημοσύνη. Φροντίστε να τα ελέγχετε πάντα διπλά.</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Πληκτρολογήστε κάποιο κείμενο</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Διαγραφή εργασίας</string>
+    <string name="assistant_screen_empty_content_title">Γεια σας! Τι μπορώ να κάνω για σας σήμερα;</string>
     <string name="assistant_screen_task_delete_success_message">Η εργασία διαγράφηκε με επιτυχία</string>
     <string name="assistant_screen_top_bar_title">Βοηθός</string>
     <string name="assistant_task_detail_screen_input_button_title">Είσοδος</string>
@@ -167,6 +169,7 @@
     <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
     <string name="contacts_preferences_no_file_found">Δεν βρέθηκε αρχείο</string>
     <string name="contacts_preferences_something_strange_happened">Αδυναμία εύρεσης του τελευταίου αντιγράφου ασφαλείας!</string>
+    <string name="conversation_screen_empty_conversation_list_title">Δεν υπάρχουν ακόμη συνομιλίες</string>
     <string name="copied_to_clipboard">Αντιγράφηκε στο πρόχειρο</string>
     <string name="copy_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια αντιγραφής αυτού του αρχείου ή φακέλου</string>
     <string name="copy_file_invalid_into_descendent">Δεν είναι δυνατό να αντιγραφεί ο φάκελος σε απογονικό</string>

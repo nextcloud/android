@@ -44,11 +44,14 @@
     <string name="app_widget_description">ダッシュボードから一つのウィジェットを表示</string>
     <string name="appbar_search_in">%s の中を検索</string>
     <string name="appear_offline">オフライン</string>
+    <string name="assistant_output_generation_warning_text">ここに表示されている出力はAIによって生成されます。必ず二重チェックを行ってください。</string>
     <string name="assistant_screen_add_task_alert_dialog_title">新しいタスクを追加</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">右下から新しいタスクを作成する</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">テキストを入力</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">本当にこのタスクを削除しますか？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">タスクを削除</string>
+    <string name="assistant_screen_empty_content_description">メッセージを送って会話を始めてみましょう。</string>
+    <string name="assistant_screen_empty_content_title"> こんにちは！何かお手伝いできることはありますか？</string>
     <string name="assistant_screen_loading">タスクリストを読み込み中...</string>
     <string name="assistant_screen_task_create_fail_message">タスクの作成中にエラーが発生しました。</string>
     <string name="assistant_screen_task_create_success_message">タスクは正常に作成されました。</string>
@@ -210,6 +213,9 @@
     <string name="contacts_preferences_no_file_found">ファイルが見つかりません</string>
     <string name="contacts_preferences_something_strange_happened">あなたの最後のバックアップを見つけることができませんでした！</string>
     <string name="content_observer_work_notification_title">コンテンツの変更の検出</string>
+    <string name="conversation_screen_empty_content_title">会話が見つかりません</string>
+    <string name="conversation_screen_empty_conversation_list_title">まだ会話はありません</string>
+    <string name="conversation_screen_title">会話</string>
     <string name="copied_to_clipboard">クリップボードにコピーされました</string>
     <string name="copy_file_error">このファイルまたはフォルダーをコピーする際にエラーが発生しました</string>
     <string name="copy_file_invalid_into_descendent">フォルダをその下のフォルダにコピーすることはできません</string>

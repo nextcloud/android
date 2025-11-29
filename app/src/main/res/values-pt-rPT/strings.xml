@@ -193,6 +193,7 @@
     <string name="contacts_preferences_import_scheduled">Importar planeamento e irá começar em breve</string>
     <string name="contacts_preferences_no_file_found">Nenhum ficheiro encontrado</string>
     <string name="contacts_preferences_something_strange_happened">Não foi encontrada a sua última cópia de segurança!</string>
+    <string name="conversation_screen_title">Conversações</string>
     <string name="copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="copy_file_error">Ocorreu um erro quando tentava copiar este ficheiro ou pasta</string>
     <string name="copy_file_invalid_into_descendent">Não é possível copiar a pasta para uma das suas próprias pastas internas</string>

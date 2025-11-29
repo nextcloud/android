@@ -31,6 +31,7 @@
     <string name="app_config_proxy_port_title">Starpniekservera ports</string>
     <string name="appbar_search_in">Meklēt %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Pievienot jaunu uzdevumu</string>
+    <string name="assistant_screen_empty_content_title">Sveiciens! Ar ko šodien varu palīdzēt?</string>
     <string name="assistant_screen_task_list_error_state_message">Nevar iegūt uzdevumu sarakstu, lūgums pārbaudīt savienojumu ar internetu.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Izdzēst uzdevumu</string>
     <string name="associated_account_not_found">Saistītais konts nav atrasts!</string>
@@ -144,6 +145,7 @@
     <string name="contacts_backup_button">Dublēt tagad</string>
     <string name="contacts_preferences_no_file_found">Datne nav atrasta</string>
     <string name="contacts_preferences_something_strange_happened">Nevarēja atrast pēdējo dublējumu!</string>
+    <string name="conversation_screen_delete_button_title">Izdzēst sarunu</string>
     <string name="copied_to_clipboard">Nokopēts starpliktuvē</string>
     <string name="copy_file_error">Radās kļūda, mēģinot kopēt šo datni vai mapi</string>
     <string name="copy_file_invalid_into_descendent">Nav iespējams kopēt mapi tās apakšmapē</string>

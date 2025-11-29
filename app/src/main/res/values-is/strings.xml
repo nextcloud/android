@@ -207,6 +207,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Mistókst að hefja innflutning. Reyndu aftur</string>
     <string name="contacts_preferences_no_file_found">Engin skrá fannst</string>
     <string name="contacts_preferences_something_strange_happened">Gat ekki fundið síðasta öryggisafritið þitt!</string>
+    <string name="conversation_screen_title">Samtöl</string>
     <string name="copied_to_clipboard">Afritað á klippispjald</string>
     <string name="copy_file_error">Villa kom upp við að reyna að afrita þessa skrá eða möppu</string>
     <string name="copy_file_invalid_into_descendent">Ekki er hægt að afrita möppu inn í eina af undirmöppum sínum</string>
