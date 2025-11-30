@@ -44,7 +44,10 @@
     <string name="app_widget_description">Visa en widget från dashboard</string>
     <string name="appbar_search_in">Sök i %s</string>
     <string name="appear_offline">Visa som frånkopplad</string>
+    <string name="assistant_output_generation_warning_text">Utdata som visas här genereras av AI. Se till att alltid dubbelkolla.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lägg till ny uppgift</string>
+    <string name="assistant_screen_chat_create_error">Kunde inte skicka ett meddelande</string>
+    <string name="assistant_screen_chat_fetch_error">Kunde inte hämta chattmeddelanden</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Skapa en ny uppgift från nedre högra hörnet</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv någon text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Är du säker på att du vill ta bort den här uppgiften?</string>
@@ -213,9 +216,12 @@
     <string name="contacts_preferences_no_file_found">Ingen fil funnen</string>
     <string name="contacts_preferences_something_strange_happened">Vi kunde inte hitta din senaste backup!</string>
     <string name="content_observer_work_notification_title">Upptäcker innehållsförändringar</string>
+    <string name="conversation_screen_create_error_title">Kunde inte skapa konversationen</string>
     <string name="conversation_screen_delete_button_title">Ta bort konversationen</string>
+    <string name="conversation_screen_delete_error_title">Kunde inte ta bort konversationen</string>
     <string name="conversation_screen_empty_content_title">Inga konversationer hittades</string>
     <string name="conversation_screen_empty_conversation_list_title">Inga konversationer än</string>
+    <string name="conversation_screen_fetch_error_title">Kunde inte hämta konversationslistan</string>
     <string name="conversation_screen_title">Konversationer</string>
     <string name="copied_to_clipboard">Kopierat till urklipp</string>
     <string name="copy_file_error">Ett fel uppstod, kunde inte kopiera filen eller mappen</string>
@@ -317,6 +323,7 @@
     <string name="e2e_not_yet_setup">E2E ej inställt än</string>
     <string name="e2e_offline">Inte möjligt utan internetuppkoppling</string>
     <string name="e2e_signature_does_not_match">Signaturen matchar inte</string>
+    <string name="e2e_signature_is_empty">Kunde inte verifiera metadata, signaturen är tom.</string>
     <string name="ecosystem_apps_display_assistant">Assistent</string>
     <string name="ecosystem_apps_display_more">Mer</string>
     <string name="ecosystem_apps_more">Fler Nextcloud-appar</string>
@@ -654,6 +661,7 @@
     <string name="offline_mode">Ingen internetanslutning</string>
     <string name="offline_mode_info_description">Även utan internetanslutning kan du organisera dina mappar och skapa filer. När du är online igen synkroniseras dina väntande åtgärder automatiskt.</string>
     <string name="offline_mode_info_title">Du är offline, men kan fortsätta arbeta</string>
+    <string name="offline_operations_file_does_not_exists_yet">Filen finns inte ännu. Ladda upp filen först.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Kunde inte skapa %s. En fil med samma namn finns redan på servern.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Kunde inte skapa %s. En mapp med samma namn finns redan på servern.</string>
     <string name="offline_operations_worker_notification_error_text">Offlineåtgärden kan inte slutföras. %s</string>
@@ -700,6 +708,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Byt namn på ny version</string>
     <string name="pref_instant_name_collision_policy_title">Vad ska göras om filen redan finns?</string>
     <string name="prefs_add_account">Lägg till konto</string>
+    <string name="prefs_all_files_access_summary">Tillåt appen att få åtkomst till och hantera alla filer på din enhet</string>
+    <string name="prefs_all_files_access_title">Åtkomst till alla filer</string>
     <string name="prefs_calendar_contacts">Synkronisera kalender och kontakter</string>
     <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerad</string>
     <string name="prefs_calendar_contacts_summary">Sätt upp DAVx⁵ (tidigare DAVdroid) (v1.3.0 +) för nuvarande konto</string>
@@ -937,6 +947,10 @@
     <string name="storage_internal_storage">Intern lagring</string>
     <string name="storage_movies">Filmer</string>
     <string name="storage_music">Musik</string>
+    <string name="storage_permission_all_files_access">Åtkomst till alla filer</string>
+    <string name="storage_permission_banner_auto_upload_text">Lagringsbehörighet krävs för auto-uppladdning.</string>
+    <string name="storage_permission_banner_upload_text">Lagringsbehörighet krävs för filuppladdningar.</string>
+    <string name="storage_permission_dont_ask">Fråga inte</string>
     <string name="storage_permission_full_access">Fullständig åtkomst</string>
     <string name="storage_permission_media_read_only">En läsåtkomst till media</string>
     <string name="storage_pictures">Bilder</string>

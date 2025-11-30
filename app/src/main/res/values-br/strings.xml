@@ -177,6 +177,8 @@
     <string name="contacts_preferences_import_scheduled">An enporzhiadenn raktreset a grogo dindan berr</string>
     <string name="contacts_preferences_no_file_found">Restr ebet kavet</string>
     <string name="contacts_preferences_something_strange_happened">N\'eus ket bet gallet kavout ho savete diwezhañ !</string>
+    <string name="conversation_screen_delete_button_title">Dilemel an diviz</string>
+    <string name="conversation_screen_title">Diviz</string>
     <string name="copied_to_clipboard">Eilet er golver</string>
     <string name="copy_file_error">C\'hoarvezet ez eys ur fazi en ur glask eilañ ar restr pe ar renkell</string>
     <string name="copy_file_invalid_into_descendent">Ne c\'haller ket eilañ ur renkell en unan eus hec\'h isrenkelloù</string>

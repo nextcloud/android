@@ -99,6 +99,9 @@
     <string name="confirmation_remove_local">Namái llocal</string>
     <string name="conflict_local_file">Ficheru llocal</string>
     <string name="contacts">Contautos</string>
+    <string name="conversation_screen_delete_button_title">Desaniciar la conversación</string>
+    <string name="conversation_screen_empty_content_title">Nun s\'atopó nenguna conversación</string>
+    <string name="conversation_screen_title">Conversaciones</string>
     <string name="copied_to_clipboard">Copióse nel cartafueyu</string>
     <string name="copy_file_error">Asocedió un fallú entrín s\'intentaba copiar esta carpeta o ficheru</string>
     <string name="copy_file_invalid_overwrite">El ficheru yá ta presente na carpeta destín</string>

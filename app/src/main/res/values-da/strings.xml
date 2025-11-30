@@ -50,6 +50,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv noget tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på du vil slette denne opgave?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Slet opgave</string>
+    <string name="assistant_screen_empty_content_description">Prøv at sende en besked for at starte en samtale.</string>
     <string name="assistant_screen_empty_content_title">Hej! Hvad kan jeg hjælpe dig med i dag?</string>
     <string name="assistant_screen_loading">Indlæser opgaveliste...</string>
     <string name="assistant_screen_task_create_fail_message">En fejl opstod under oprettelse af opgaven</string>
@@ -212,6 +213,7 @@
     <string name="contacts_preferences_no_file_found">Ingen fil fundet</string>
     <string name="contacts_preferences_something_strange_happened">Kunne ikke finde din sidste backup!</string>
     <string name="conversation_screen_empty_conversation_list_title">Endnu ingen samtaler</string>
+    <string name="conversation_screen_title">Samtaler</string>
     <string name="copied_to_clipboard">Kopieret til udklipsholder</string>
     <string name="copy_file_error">Der opstod en fejl under forsøg på at kopiere denne fil eller mappe</string>
     <string name="copy_file_invalid_into_descendent">Det er ikke muligt at kopiere en mappe til en af dens egne undermapper</string>

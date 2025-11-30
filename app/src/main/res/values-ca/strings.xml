@@ -46,6 +46,8 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriu una mica de text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Segur que voleu suprimir aquesta tasca?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Suprimeix la tasca</string>
+    <string name="assistant_screen_empty_content_description">Prova d\'enviar un missatge per iniciar una conversa.</string>
+    <string name="assistant_screen_empty_content_title">Hola! En què et puc ajudar avui?</string>
     <string name="assistant_screen_loading">S\'està carregant la llista de tasques...</string>
     <string name="assistant_screen_task_create_fail_message">S\'ha produït un error en crear la tasca</string>
     <string name="assistant_screen_task_create_success_message">La tasca s\'ha creat correctament</string>
@@ -197,6 +199,10 @@
     <string name="contacts_preferences_import_scheduled">La importació s\'ha planificat i començarà en breu</string>
     <string name="contacts_preferences_no_file_found">No s\'ha trobat cap fitxer</string>
     <string name="contacts_preferences_something_strange_happened">No es pot trobar la vostra darrera còpia de seguretat!</string>
+    <string name="conversation_screen_delete_button_title">Suprimir la conversa</string>
+    <string name="conversation_screen_empty_content_title">No s\'han trobat converses</string>
+    <string name="conversation_screen_empty_conversation_list_title">Encara no hi ha converses</string>
+    <string name="conversation_screen_title">Converses</string>
     <string name="copied_to_clipboard">Copiat al porta-retalls</string>
     <string name="copy_file_error">Hi ha hagut un error en copiar aquest fitxer o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No és possible copiar una carpeta a cap de les que conté</string>
