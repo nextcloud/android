@@ -30,9 +30,9 @@ import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownlo
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.getUploadFinishMessage
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.observeWorker
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -325,9 +325,9 @@ class PreviewImageActivity :
     }
 
     private fun observeWorkerState() {
-        WorkerStateLiveData.instance().observe(this) { state: WorkerState? ->
+        observeWorker { state: WorkerState? ->
             when (state) {
-                is WorkerState.DownloadStarted -> {
+                is WorkerState.FileDownloadStarted -> {
                     Log_OC.d(TAG, "Download worker started")
                     isDownloadWorkStarted = true
 
@@ -336,7 +336,7 @@ class PreviewImageActivity :
                     }
                 }
 
-                is WorkerState.DownloadFinished -> {
+                is WorkerState.FileDownloadCompleted -> {
                     Log_OC.d(TAG, "Download worker stopped")
                     isDownloadWorkStarted = false
 

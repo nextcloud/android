@@ -17,7 +17,7 @@ import com.nextcloud.client.network.ClientFactoryImpl
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.model.OfflineOperationType
 import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.model.WorkerStateObserver
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -85,7 +85,7 @@ class OfflineOperationsWorker(
             processOperations(operations, client)
 
             // finish
-            WorkerStateLiveData.instance().setWorkState(WorkerState.OfflineOperationsCompleted)
+            WorkerStateObserver.send(WorkerState.OfflineOperationsCompleted)
             Log_OC.d(TAG, "🏁 Worker finished with result")
             return@withContext Result.success()
         } catch (e: Exception) {

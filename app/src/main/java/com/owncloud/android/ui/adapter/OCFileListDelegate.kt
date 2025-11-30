@@ -45,6 +45,7 @@ import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -71,7 +72,7 @@ class OCFileListDelegate(
     var isMultiSelect = false
     private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
     private val asyncGalleryTasks: MutableList<ThumbnailsCacheManager.GalleryImageGenerationTask> = ArrayList()
-    private val ioScope = CoroutineScope(Dispatchers.IO)
+    private val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
@@ -253,11 +254,9 @@ class OCFileListDelegate(
         val isFolderPickerActivity = (context is FolderPickerActivity)
         gridViewHolder.checkbox.setVisibleIf(isMultiSelect && !isFolderPickerActivity)
 
-        // download state
-        gridViewHolder.localFileIndicator.visibility = View.GONE // default first
-
         // metadata (downloaded, favorite)
-        bindGridMetadataViews(file, gridViewHolder)
+        showLocalFileIndicator(file, gridViewHolder)
+        gridViewHolder.favorite.setVisibleIf(file.isFavorite && showMetadata)
 
         // shares
         val shouldHideShare = (
@@ -351,29 +350,11 @@ class OCFileListDelegate(
         }
     }
 
-    private fun bindGridMetadataViews(file: OCFile, gridViewHolder: ListViewHolder) {
-        if (showMetadata) {
-            showLocalFileIndicator(file, gridViewHolder)
-            gridViewHolder.favorite.visibility = if (file.isFavorite) View.VISIBLE else View.GONE
-        } else {
-            gridViewHolder.localFileIndicator.visibility = View.GONE
-            gridViewHolder.favorite.visibility = View.GONE
-        }
-    }
-
-    @Suppress("ReturnCount")
-    private fun isFolderFullyDownloaded(file: OCFile): Boolean {
-        if (!file.isFolder) {
-            return false
-        }
-
-        val subfiles = storageManager.getSubfiles(file.fileId, user.accountName)
-
-        if (subfiles.isEmpty()) {
-            return false
-        }
-
-        return subfiles.all { it.isDown }
+    private suspend fun isFolderFullyDownloaded(file: OCFile): Boolean = withContext(Dispatchers.IO) {
+        file.isFolder &&
+            storageManager.getSubfiles(file.fileId, user.accountName)
+                .takeIf { it.isNotEmpty() }
+                ?.all { it.isDown } == true
     }
 
     private fun isSynchronizing(file: OCFile): Boolean {
@@ -386,36 +367,26 @@ class OCFileListDelegate(
     }
 
     private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
-        val icon = when {
-            isSynchronizing(file) -> R.drawable.ic_synchronizing
-            file.etagInConflict != null -> R.drawable.ic_synchronizing_error
-            file.isDown -> R.drawable.ic_synced
-            else -> null
-        }
+        ioScope.launch {
+            val isFullyDownloaded = isFolderFullyDownloaded(file)
+            val isSyncing = isSynchronizing(file)
+            val hasConflict = (file.etagInConflict != null)
+            val isDown = file.isDown
 
-        holder.localFileIndicator.run {
-            if (icon != null) {
-                setImageResource(icon)
-                visibility = View.VISIBLE
-            } else {
-                visibility = View.GONE
+            val icon = when {
+                isSyncing -> R.drawable.ic_synchronizing
+                hasConflict -> R.drawable.ic_synchronizing_error
+                isDown || isFullyDownloaded -> R.drawable.ic_synced
+                else -> null
             }
-        }
 
-        checkLocalFolderIndicatorAsynchronously(file, holder)
-    }
-
-    private fun checkLocalFolderIndicatorAsynchronously(file: OCFile, holder: ListViewHolder) {
-        if (file.isFolder) {
-            ioScope.launch {
-                if (isFolderFullyDownloaded(file)) {
-                    withContext(Dispatchers.Main) {
-                        holder.run {
-                            if (thumbnail.tag == file.fileId) {
-                                localFileIndicator.setImageResource(R.drawable.ic_synced)
-                                localFileIndicator.visibility = View.VISIBLE
-                            }
-                        }
+            withContext(Dispatchers.Main) {
+                holder.localFileIndicator.run {
+                    if (icon != null && showMetadata) {
+                        setImageResource(icon)
+                        visibility = View.VISIBLE
+                    } else {
+                        visibility = View.GONE
                     }
                 }
             }
