@@ -154,6 +154,9 @@
     <string name="contacts_preferences_import_scheduled">S\'importatzione s\'est programmada e at a cumintzare intre pagu</string>
     <string name="contacts_preferences_no_file_found">Perunu archìviu agatadu</string>
     <string name="contacts_preferences_something_strange_happened">Non s\'est agatada s\'ùrtima còpia de seguresa tua!</string>
+    <string name="conversation_screen_delete_button_title">Cantzella sa resonada</string>
+    <string name="conversation_screen_empty_content_title">Peruna resonada agatada</string>
+    <string name="conversation_screen_title">Cunversatziones</string>
     <string name="copied_to_clipboard">Copiadu in punta de billete</string>
     <string name="copy_file_error">Ddoe at àpidu un\'errore in sa còpia de su documentu o de sa cartella</string>
     <string name="copy_file_invalid_into_descendent">No est possìbile a copiare una cartella a intro de una de is cartellas in suta </string>

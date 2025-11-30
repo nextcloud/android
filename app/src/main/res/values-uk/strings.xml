@@ -44,12 +44,14 @@
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
     <string name="appear_offline">Перебуваю поза мережею</string>
-    <string name="assistant_generation_warning">Вміст створено ШІ, він може містити помилки.</string>
+    <string name="assistant_output_generation_warning_text">Показаний тут результат генерується штучним інтелектом. Обов\'язково перевіряйте його двічі.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додати нове завдання</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Створити нове завдання праворуч внизу</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Вставте будь-який текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Дійсно вилучити це завдання?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Вилучити завдання</string>
+    <string name="assistant_screen_empty_content_description">Спробуйте надіслати повідомлення, щоб розпочати розмову.</string>
+    <string name="assistant_screen_empty_content_title">Привіт! Чим я можу вам сьогодні допомогти?</string>
     <string name="assistant_screen_loading">Отримання списку завдань...</string>
     <string name="assistant_screen_task_create_fail_message">Помилка під час додавання завдання</string>
     <string name="assistant_screen_task_create_success_message">Успішно додано завдання</string>
@@ -212,6 +214,9 @@
     <string name="contacts_preferences_no_file_found">Файл не знайдено</string>
     <string name="contacts_preferences_something_strange_happened">Неможливо знайти вашу останню резервну копію</string>
     <string name="content_observer_work_notification_title">Пошук змін у вмісті</string>
+    <string name="conversation_screen_empty_content_title">Розмов не знайдено</string>
+    <string name="conversation_screen_empty_conversation_list_title">Поки що немає розмов</string>
+    <string name="conversation_screen_title">Розмови</string>
     <string name="copied_to_clipboard">Скопійовано</string>
     <string name="copy_file_error">Виникла помилка під час спроби копіювати цей файл або каталог</string>
     <string name="copy_file_invalid_into_descendent">Неможливо скопіювати каталог до одного із вкладених підкаталогів</string>

@@ -44,12 +44,13 @@
     <string name="app_widget_description">Zobrazuje jeden ovládací prvek z nástěnky</string>
     <string name="appbar_search_in">Hledat v %s</string>
     <string name="appear_offline">Jevit se offline</string>
-    <string name="assistant_generation_warning">Tento obsah byl vytvořen pomocí AI a může obsahovat chyby.</string>
+    <string name="assistant_output_generation_warning_text">Zde zobrazený výstup je vytvořen AI. Vždy si informace ověřujte.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Přidat nový úkol</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Z pravého dolního rohu vytvořte nový úkol</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Zadejte nějaký text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Opravdu chcete tuto úlohu smazat?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Smazat úkol</string>
+    <string name="assistant_screen_empty_content_title">Zdravím! Jak vám mohu pomoci?</string>
     <string name="assistant_screen_loading">Načítání seznamu úkolů …</string>
     <string name="assistant_screen_task_create_fail_message">Při vytváření úlohy se vyskytla chyba</string>
     <string name="assistant_screen_task_create_success_message">Úloha byla úspěšně vytvořena</string>
@@ -212,6 +213,7 @@
     <string name="contacts_preferences_no_file_found">Nenalezen žádný soubor</string>
     <string name="contacts_preferences_something_strange_happened">Nepodařilo se najít vaši nejaktuálnější zálohu!</string>
     <string name="content_observer_work_notification_title">Zjišťování změn obsahu</string>
+    <string name="conversation_screen_empty_conversation_list_title">Zatím žádná konverzace</string>
     <string name="copied_to_clipboard">Zkopírováno do schránky</string>
     <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či složky došlo k chybě</string>
     <string name="copy_file_invalid_into_descendent">Není možné zkopírovat složku do některé z jejích vlastních podsložek</string>
@@ -390,6 +392,7 @@
     <string name="failed_update_ui">Nepodařilo se aktualizovat uživatelské rozhraní</string>
     <string name="favorite">Přidat do oblíbených</string>
     <string name="favorite_icon">Oblíbené</string>
+    <string name="fifteenMinutes">15 minut</string>
     <string name="file_activity_shared_file_cannot_be_updated">Nasdílený soubor není možné zaktualizovat</string>
     <string name="file_already_exists">Takto nazvaný soubor už zde existuje</string>
     <string name="file_delete">Smazat</string>

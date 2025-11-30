@@ -157,6 +157,7 @@
     <string name="contacts_preferences_import_scheduled">הייבוא תוזמן והוא יתחיל בעוד זמן קצר</string>
     <string name="contacts_preferences_no_file_found">לא נמצא קובץ</string>
     <string name="contacts_preferences_something_strange_happened">לא ניתן למצוא את הגיבוי האחרון שלך!</string>
+    <string name="conversation_screen_title">דיונים</string>
     <string name="copied_to_clipboard">הועתק ללוח הגזירים</string>
     <string name="copy_file_error">אירעה שגיאה בזמן ניסיון להעתיק את הקובץ או התיקייה</string>
     <string name="copy_file_invalid_into_descendent">אי אפשר להעתיק תיקייה לתוך אחת התיקיות שתחתיה</string>

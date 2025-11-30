@@ -44,10 +44,13 @@
     <string name="app_widget_description">대시보드에 위젯 하나만 표시</string>
     <string name="appbar_search_in">%s에서 검색</string>
     <string name="appear_offline">접속 안함으로 표시</string>
+    <string name="assistant_output_generation_warning_text">이 출력은 AI에 의해 생성되었습니다. 반드시 다시 확인하세요.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">새 작업 추가</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">텍스트 입력</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">이 작업을 삭제하시겠습니까?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">결과 삭제</string>
+    <string name="assistant_screen_empty_content_description">대화를 시작하기 위해 메시지를 보내보세요.</string>
+    <string name="assistant_screen_empty_content_title">안녕하세요! 오늘은 무엇을 도와드릴까요?</string>
     <string name="assistant_screen_loading">작업 목록 불러오는 중...</string>
     <string name="assistant_screen_task_create_fail_message">작업을 생성하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_create_success_message">작업이 성공적으로 생성됨</string>
@@ -199,6 +202,9 @@
     <string name="contacts_preferences_import_scheduled">복원이 예약되었고 곧 시작합니다</string>
     <string name="contacts_preferences_no_file_found">파일을 찾을 수 없음</string>
     <string name="contacts_preferences_something_strange_happened">마지막 백업을 찾을 수 없습니다!</string>
+    <string name="conversation_screen_empty_content_title">대화를 찾을 수 없습니다.</string>
+    <string name="conversation_screen_empty_conversation_list_title">아직 대화가 존재하지 않음</string>
+    <string name="conversation_screen_title">대화</string>
     <string name="copied_to_clipboard">클립보드로 복사됨</string>
     <string name="copy_file_error">이 파일이나 폴더를 복사할 수 없음</string>
     <string name="copy_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 복사할 수 없음</string>

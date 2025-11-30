@@ -169,6 +169,7 @@
     <string name="contacts_preferences_import_scheduled">زمانبدی ها وارد شده و به زودی آغاز می شود</string>
     <string name="contacts_preferences_no_file_found">هیچ فایلی یافت نشد</string>
     <string name="contacts_preferences_something_strange_happened">آخرین نسخه پشتیبان شما پیدا نشد!</string>
+    <string name="conversation_screen_title">گفتگو</string>
     <string name="copied_to_clipboard">در حافظه رونویسی شد</string>
     <string name="copy_file_error">یک خطا در زمان تلاش برای کپی این فایل یا شاخه رخ داد</string>
     <string name="copy_file_invalid_into_descendent">کپی کردن پوشه در یکی از پوشه های زیرین خود امکان پذیر نیست</string>
