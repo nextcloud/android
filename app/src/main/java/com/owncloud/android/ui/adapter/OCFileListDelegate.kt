@@ -9,13 +9,9 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import android.content.res.Configuration
-import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toDrawable
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
@@ -39,10 +35,8 @@ import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
-import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
-import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -72,6 +66,7 @@ class OCFileListDelegate(
     var isMultiSelect = false
     private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
     private val ioScope = CoroutineScope(Dispatchers.IO)
+    private val galleryImageGenerationJob = GalleryImageGenerationJob(user, storageManager)
 
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
@@ -104,7 +99,7 @@ class OCFileListDelegate(
         checkedFiles.clear()
     }
 
-    fun bindGalleryRowThumbnail(
+    fun bindGalleryRow(
         shimmer: LoaderImageView?,
         imageView: ImageView,
         file: OCFile,
@@ -113,13 +108,31 @@ class OCFileListDelegate(
     ) {
         imageView.tag = file.fileId
 
-        setGalleryImage(
-            file,
-            imageView,
-            shimmer,
-            galleryRowHolder,
-            width
-        )
+        ioScope.launch {
+            galleryImageGenerationJob.run(
+                file,
+                imageView,
+                width,
+                viewThemeUtils,
+                object : GalleryImageGenerationListener {
+                    override fun onSuccess() {
+                        galleryRowHolder.binding.rowLayout.invalidate()
+                        Log_OC.d(tag, "setGalleryImage.onSuccess()")
+                        DisplayUtils.stopShimmer(shimmer, imageView)
+                    }
+
+                    override fun onNewGalleryImage() {
+                        Log_OC.d(tag, "setGalleryImage.updateRowVisuals()")
+                        galleryRowHolder.updateRowVisuals()
+                    }
+
+                    override fun onError() {
+                        Log_OC.d(tag, "setGalleryImage.onError()")
+                        DisplayUtils.stopShimmer(shimmer, imageView)
+                    }
+                }
+            )
+        }
 
         imageView.setOnClickListener {
             ocFileListFragmentInterface.onItemClicked(file)
@@ -135,72 +148,6 @@ class OCFileListDelegate(
                     )
                 }
             }
-        }
-    }
-
-    private fun getGalleryDrawable(
-        file: OCFile,
-        width: Int
-    ): BitmapDrawable {
-        val placeholder = MimeTypeUtil.getFileTypeIcon(
-            file.mimeType,
-            file.fileName,
-            context,
-            viewThemeUtils
-        )
-            ?: ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
-            ?: Color.GRAY.toDrawable()
-
-        val bitmap = BitmapUtils.drawableToBitmap(
-            placeholder,
-            width / 2,
-            width / 2
-        )
-
-        return BitmapDrawable(context.resources, bitmap)
-    }
-
-    private val scope = CoroutineScope(Dispatchers.IO)
-    private val galleryImageGenerationJob = GalleryImageGenerationJob(user, storageManager)
-
-    @Suppress("ComplexMethod")
-    private fun setGalleryImage(
-        file: OCFile,
-        thumbnailView: ImageView,
-        shimmerThumbnail: LoaderImageView?,
-        galleryRowHolder: GalleryRowHolder,
-        width: Int
-    ) {
-        scope.launch {
-            // add placeholder first
-            withContext(Dispatchers.Main) {
-                val asyncDrawable = getGalleryDrawable(file, width)
-
-                if (shimmerThumbnail != null) {
-                    Log_OC.d(tag, "setGalleryImage.startShimmer()")
-                    DisplayUtils.startShimmer(shimmerThumbnail, thumbnailView)
-                }
-
-                thumbnailView.setImageDrawable(asyncDrawable)
-            }
-
-            galleryImageGenerationJob.run(file, thumbnailView, object : GalleryImageGenerationListener {
-                override fun onSuccess() {
-                    galleryRowHolder.binding.rowLayout.invalidate()
-                    Log_OC.d(tag, "setGalleryImage.onSuccess()")
-                    DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
-                }
-
-                override fun onNewGalleryImage() {
-                    Log_OC.d(tag, "updateRowVisuals")
-                    galleryRowHolder.updateRowVisuals()
-                }
-
-                override fun onError() {
-                    Log_OC.d(tag, "setGalleryImage.onError()")
-                    DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
-                }
-            })
         }
     }
 

@@ -112,13 +112,8 @@ class GalleryRowHolder(
             invalidate()
         }
 
-        val drawable = ThumbnailsCacheManager.AsyncGalleryImageDrawable(
-            context.resources,
-            defaultBitmap,
-            null
-        )
         val rowCellImageView = ImageView(context).apply {
-            setImageDrawable(drawable)
+            setImageBitmap(defaultBitmap)
             adjustViewBounds = true
             scaleType = ImageView.ScaleType.FIT_XY
         }
@@ -180,7 +175,7 @@ class GalleryRowHolder(
         adjustRowCell(thumbnail, isChecked)
         adjustCheckBox(checkBoxImageView, isChecked)
 
-        ocFileListDelegate.bindGalleryRowThumbnail(
+        ocFileListDelegate.bindGalleryRow(
             shimmer,
             thumbnail,
             file,
