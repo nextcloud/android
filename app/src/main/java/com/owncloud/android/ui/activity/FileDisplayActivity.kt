@@ -259,7 +259,6 @@ class FileDisplayActivity :
 
         intent?.let {
             handleCommonIntents(it)
-            handleAccountSwitchIntent(it)
         }
 
         loadSavedInstanceState(savedInstanceState)
@@ -596,17 +595,6 @@ class FileDisplayActivity :
 
         finish()
         startActivity(intent)
-    }
-
-    private fun handleAccountSwitchIntent(intent: Intent) {
-        if (intent.action != RESTART) {
-            return
-        }
-
-        val accountName = accountManager.user.accountName
-        val message = getString(R.string.logged_in_as)
-        val snackBarMessage = String.format(message, accountName)
-        DisplayUtils.showSnackMessage(this, snackBarMessage)
     }
 
     private fun handleSearchIntent(intent: Intent) {
@@ -2100,13 +2088,6 @@ class FileDisplayActivity :
     private fun onRemoveFileOperationFinish(operation: RemoveFileOperation, result: RemoteOperationResult<*>) {
         deleteBatchTracker.onSingleDeleteFinished()
 
-        if (!operation.isInBackground) {
-            DisplayUtils.showSnackMessage(
-                this,
-                ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-            )
-        }
-
         if (result.isSuccess) {
             val removedFile = operation.file
             tryStopPlaying(removedFile)
@@ -2165,8 +2146,6 @@ class FileDisplayActivity :
             if (leftFragment is FileDetailFragment) {
                 leftFragment.getFileDetailActivitiesFragment().reload()
             }
-
-            DisplayUtils.showSnackMessage(this, R.string.file_version_restored_successfully)
         } else {
             DisplayUtils.showSnackMessage(this, R.string.file_version_restored_error)
         }

@@ -874,7 +874,6 @@ public class SettingsActivity extends PreferenceActivity
             if (!DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
                 DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
             } else {
-                DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_enabled);
                 changeLockSetting(LOCK_DEVICE_CREDENTIALS);
             }
         }
