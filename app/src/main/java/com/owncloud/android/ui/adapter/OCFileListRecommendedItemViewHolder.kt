@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.RecommendedFileItemBinding
@@ -38,6 +39,9 @@ class OCFileListRecommendedItemViewHolder(private val binding: RecommendedFileIt
     override val gridLivePhotoIndicator: ImageView? get() = null
     override val livePhotoIndicator: TextView? get() = null
     override val livePhotoIndicatorSeparator: TextView? get() = null
+    override val hasVisibleFeatureIndicators: Boolean
+        get() = localFileIndicator.isVisible || gridLivePhotoIndicator?.isVisible == true || unreadComments.isVisible ||
+            shared.isVisible || binding.videoOverlay.isVisible || favorite.isVisible
 
     override fun showVideoOverlay() {
         binding.videoOverlay.visibility = View.VISIBLE
