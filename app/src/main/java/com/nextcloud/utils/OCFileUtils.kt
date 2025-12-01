@@ -6,10 +6,18 @@
  */
 package com.nextcloud.utils
 
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import androidx.exifinterface.media.ExifInterface
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.BitmapUtils
+import com.owncloud.android.utils.MimeTypeUtil
 
 object OCFileUtils {
     private const val TAG = "OCFileUtils"
@@ -22,9 +30,12 @@ object OCFileUtils {
             if (!ocFile.exists()) {
                 ocFile.imageDimension?.width?.let { w ->
                     ocFile.imageDimension?.height?.let { h ->
+                        Log_OC.d(TAG, "Image dimensions are used width: $w and height: $h")
                         return w.toInt() to h.toInt()
                     }
                 }
+
+                Log_OC.d(TAG, "Default size is used: $defaultThumbnailSize")
                 val size = defaultThumbnailSize.toInt().coerceAtLeast(1)
                 return size to size
             }
@@ -52,5 +63,29 @@ object OCFileUtils {
         } finally {
             Log_OC.d(TAG, "-----------------------------")
         }
+    }
+
+    fun getMediaPlaceholder(file: OCFile, imageDimension: Pair<Int, Int>): BitmapDrawable {
+        val context = MainApp.getAppContext()
+
+        val drawableId = if (MimeTypeUtil.isImage(file)) {
+            R.drawable.file_image
+        } else if (MimeTypeUtil.isVideo(file)) {
+            R.drawable.file_movie
+        } else {
+            R.drawable.file
+        }
+
+        val drawable = ContextCompat.getDrawable(context, drawableId)
+            ?: return Color.GRAY.toDrawable().toBitmap(imageDimension.first, imageDimension.second)
+                .toDrawable(context.resources)
+
+        val bitmap = BitmapUtils.drawableToBitmap(
+            drawable,
+            imageDimension.first,
+            imageDimension.second
+        )
+
+        return bitmap.toDrawable(context.resources)
     }
 }

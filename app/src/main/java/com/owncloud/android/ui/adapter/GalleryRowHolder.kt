@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.get
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.elyeproj.loaderviewlibrary.LoaderImageView
@@ -28,7 +27,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.files.model.ImageDimension
-import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -52,12 +50,6 @@ class GalleryRowHolder(
     private val standardMargin by lazy { context.resources.getDimension(R.dimen.standard_margin) }
     private val checkBoxMargin by lazy { context.resources.getDimension(R.dimen.standard_quarter_padding) }
 
-    private val defaultBitmap by lazy {
-        val fileDrawable = ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
-        val thumbnailSize = defaultThumbnailSize.toInt()
-        BitmapUtils.drawableToBitmap(fileDrawable, thumbnailSize, thumbnailSize)
-    }
-
     private val checkedDrawable by lazy {
         ContextCompat.getDrawable(context, R.drawable.ic_checkbox_marked)?.also {
             viewThemeUtils.platform.tintDrawable(context, it, ColorRole.PRIMARY)
@@ -78,7 +70,10 @@ class GalleryRowHolder(
         // Only rebuild if file count changed
         if (lastFileCount != requiredCount) {
             binding.rowLayout.removeAllViews()
-            repeat(requiredCount) { binding.rowLayout.addView(getRowLayout()) }
+            for (file in row.files) {
+                val rowLayout = getRowLayout(file)
+                binding.rowLayout.addView(rowLayout)
+            }
             lastFileCount = requiredCount
         }
 
@@ -93,7 +88,7 @@ class GalleryRowHolder(
         bind(currentRow)
     }
 
-    private fun getRowLayout(): FrameLayout {
+    private fun getRowLayout(file: OCFile): FrameLayout {
         val checkbox = ImageView(context).apply {
             visibility = View.GONE
             layoutParams = FrameLayout.LayoutParams(
@@ -112,8 +107,13 @@ class GalleryRowHolder(
             invalidate()
         }
 
+        // FIXME using max height for row calculation is not always producing correct row ratio
+
+        // FIXME check from webdav --- image dimension must be available there thus no need to use default size
+        val mediaSize = defaultThumbnailSize.toInt() to defaultThumbnailSize.toInt()
+        val drawable = OCFileUtils.getMediaPlaceholder(file, mediaSize)
         val rowCellImageView = ImageView(context).apply {
-            setImageBitmap(defaultBitmap)
+            setImageDrawable(drawable)
             adjustViewBounds = true
             scaleType = ImageView.ScaleType.FIT_XY
         }
@@ -180,7 +180,7 @@ class GalleryRowHolder(
             thumbnail,
             file,
             this,
-            width
+            width to height
         )
 
         // Update layout params only if they differ

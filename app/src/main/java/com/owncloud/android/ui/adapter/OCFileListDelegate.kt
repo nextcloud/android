@@ -104,7 +104,7 @@ class OCFileListDelegate(
         imageView: ImageView,
         file: OCFile,
         galleryRowHolder: GalleryRowHolder,
-        width: Int
+        imageDimension: Pair<Int, Int>
     ) {
         imageView.tag = file.fileId
 
@@ -112,8 +112,7 @@ class OCFileListDelegate(
             galleryImageGenerationJob.run(
                 file,
                 imageView,
-                width,
-                viewThemeUtils,
+                imageDimension,
                 object : GalleryImageGenerationListener {
                     override fun onSuccess() {
                         galleryRowHolder.binding.rowLayout.invalidate()

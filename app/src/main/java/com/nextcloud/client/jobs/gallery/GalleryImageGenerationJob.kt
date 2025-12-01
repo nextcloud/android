@@ -8,13 +8,10 @@
 package com.nextcloud.client.jobs.gallery
 
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toDrawable
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.allocationKilobyte
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -24,9 +21,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.ImageDimension
-import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
@@ -47,8 +42,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     suspend fun run(
         file: OCFile,
         imageView: ImageView,
-        width: Int,
-        viewThemeUtils: ViewThemeUtils,
+        imageDimension: Pair<Int, Int>,
         listener: GalleryImageGenerationListener
     ) {
         try {
@@ -59,7 +53,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
                 return
             }
 
-            val bitmap: Bitmap? = getBitmap(imageView, file, width, viewThemeUtils, onThumbnailGeneration = {
+            val bitmap: Bitmap? = getBitmap(imageView, file, imageDimension, onThumbnailGeneration = {
                 newImage = true
             })
 
@@ -77,32 +71,10 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         }
     }
 
-    private fun getPlaceholder(file: OCFile, width: Int, viewThemeUtils: ViewThemeUtils): BitmapDrawable {
-        val context = MainApp.getAppContext()
-
-        val placeholder = MimeTypeUtil.getFileTypeIcon(
-            file.mimeType,
-            file.fileName,
-            context,
-            viewThemeUtils
-        )
-            ?: ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
-            ?: Color.GRAY.toDrawable()
-
-        val bitmap = BitmapUtils.drawableToBitmap(
-            placeholder,
-            width / 2,
-            width / 2
-        )
-
-        return BitmapDrawable(context.resources, bitmap)
-    }
-
     private suspend fun getBitmap(
         imageView: ImageView,
         file: OCFile,
-        width: Int,
-        viewThemeUtils: ViewThemeUtils,
+        imageDimension: Pair<Int, Int>,
         onThumbnailGeneration: () -> Unit
     ): Bitmap? = withContext(Dispatchers.IO) {
         if (file.remoteId == null && !file.isPreviewAvailable) {
@@ -123,7 +95,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
 
         // only add placeholder if new thumbnail will be generated because cached image will appear so quickly
         withContext(Dispatchers.Main) {
-            val placeholderDrawable = getPlaceholder(file, width, viewThemeUtils)
+            val placeholderDrawable = OCFileUtils.getMediaPlaceholder(file, imageDimension)
             imageView.setImageDrawable(placeholderDrawable)
         }
 
