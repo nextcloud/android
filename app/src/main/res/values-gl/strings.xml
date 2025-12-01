@@ -68,6 +68,7 @@
     <string name="assistant_screen_top_bar_title">Asistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Saída</string>
+    <string name="assistant_thinking">Pensando…</string>
     <string name="associated_account_not_found">Non se atopou unha conta asociada!</string>
     <string name="auth_access_failed">Acceso fallado: %1$s</string>
     <string name="auth_account_does_not_exist">A conta aínda non existe no dispositivo</string>
