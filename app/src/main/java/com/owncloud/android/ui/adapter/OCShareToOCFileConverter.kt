@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -32,15 +33,16 @@ object OCShareToOCFileConverter {
      *
      * Note: This works only for files shared *by* the user, not files shared *with* the user.
      */
-    @JvmStatic
-    fun buildOCFilesFromShares(shares: List<OCShare>): List<OCFile> {
-        val groupedByPath: Map<String, List<OCShare>> = shares
-            .filter { it.path != null }
-            .groupBy { it.path!! }
-        return groupedByPath
-            .map { (path: String, shares: List<OCShare>) -> buildOcFile(path, shares) }
-            .sortedByDescending { it.firstShareTimestamp }
-    }
+    fun buildOCFilesFromShares(shares: List<OCShare>): List<OCFile> = shares
+        .filter { !it.path.isNullOrEmpty() }
+        .groupBy { it.path!! }
+        .filterKeys { path ->
+            path.isNotEmpty() && !path.startsWith(OCFile.PATH_SEPARATOR)
+        }
+        .map { (path, sharesForPath) ->
+            buildOcFile(path, sharesForPath)
+        }
+        .sortedByDescending { it.firstShareTimestamp }
 
     suspend fun parseAndSaveShares(
         cachedFiles: List<OCFile>,
