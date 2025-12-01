@@ -9,6 +9,7 @@ package com.nextcloud.client.jobs.folderDownload
 
 import android.content.Context
 import androidx.work.CoroutineWorker
+import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
@@ -24,7 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.concurrent.ConcurrentHashMap
 
-@Suppress("LongMethod")
+@Suppress("LongMethod", "TooGenericExceptionCaught")
 class FolderDownloadWorker(
     private val accountManager: UserAccountManager,
     private val context: Context,
@@ -45,7 +46,7 @@ class FolderDownloadWorker(
     private var notificationManager: FolderDownloadWorkerNotificationManager? = null
     private lateinit var storageManager: FileDataStorageManager
 
-    @Suppress("TooGenericExceptionCaught", "ReturnCount", "DEPRECATION")
+    @Suppress("ReturnCount", "DEPRECATION")
     override suspend fun doWork(): Result {
         val folderID = inputData.getLong(FOLDER_ID, -1)
         if (folderID == -1L) {
@@ -76,8 +77,7 @@ class FolderDownloadWorker(
 
         Log_OC.d(TAG, "🕒 started for ${user.accountName} downloading ${folder.fileName}")
 
-        val foregroundInfo = notificationManager?.getForegroundInfo(folder) ?: return Result.failure()
-        setForeground(foregroundInfo)
+        trySetForeground(folder)
 
         pendingDownloads.add(folder.fileId)
 
@@ -96,7 +96,7 @@ class FolderDownloadWorker(
                     }
 
                     withContext(Dispatchers.Main) {
-                        notificationManager?.showProgressNotification(
+                        getNotificationManager().showProgressNotification(
                             folder.fileName,
                             file.fileName,
                             index,
@@ -118,7 +118,7 @@ class FolderDownloadWorker(
                 }
 
                 withContext(Dispatchers.Main) {
-                    notificationManager?.showCompletionMessage(folder.fileName, result)
+                    getNotificationManager().showCompletionMessage(folder.fileName, result)
                 }
 
                 if (result) {
@@ -133,8 +133,40 @@ class FolderDownloadWorker(
                 Result.failure()
             } finally {
                 pendingDownloads.remove(folder.fileId)
-                notificationManager?.dismiss()
+                getNotificationManager().dismiss()
             }
+        }
+    }
+
+    override suspend fun getForegroundInfo(): ForegroundInfo {
+        return try {
+            val folderID = inputData.getLong(FOLDER_ID, -1)
+            val accountName = inputData.getString(ACCOUNT_NAME)
+
+            if (folderID == -1L || accountName == null || !::storageManager.isInitialized) {
+                return createDefaultForegroundInfo()
+            }
+
+            val folder = storageManager.getFileById(folderID) ?: return createDefaultForegroundInfo()
+
+            return getNotificationManager().getForegroundInfo(folder)
+        } catch (e: Exception) {
+            Log_OC.w(TAG, "⚠️ Error getting foreground info: ${e.message}")
+            createDefaultForegroundInfo()
+        }
+    }
+
+    private fun getNotificationManager(): FolderDownloadWorkerNotificationManager =
+        notificationManager ?: FolderDownloadWorkerNotificationManager(context, viewThemeUtils)
+
+    private fun createDefaultForegroundInfo(): ForegroundInfo = getNotificationManager().getDefaultForegroundInfo()
+
+    private suspend fun trySetForeground(folder: OCFile) {
+        try {
+            val foregroundInfo = getNotificationManager().getForegroundInfo(folder)
+            setForeground(foregroundInfo)
+        } catch (e: Exception) {
+            Log_OC.w(TAG, "⚠️ Could not set foreground service: ${e.message}")
         }
     }
 
@@ -158,7 +190,7 @@ class FolderDownloadWorker(
         val availableDiskSpace = FileOperationsHelper.getAvailableSpaceOnDevice()
 
         return if (availableDiskSpace < fileSizeInByte) {
-            notificationManager?.showNotAvailableDiskSpace()
+            getNotificationManager().showNotAvailableDiskSpace()
             false
         } else {
             true

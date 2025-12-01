@@ -11,6 +11,7 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import androidx.core.app.NotificationCompat
 import androidx.work.ForegroundInfo
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.utils.ForegroundServiceHelper
@@ -74,7 +75,19 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
         val currentFileIndex = (currentIndex + 1)
         val description = context.getString(R.string.folder_download_counter, currentFileIndex, totalFileSize, filename)
         val progress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
-        val notification = getNotification(title = folderName, description = description, progress = progress)
+        val notification = notificationBuilder.apply {
+            setContentTitle(folderName)
+            setContentText(description)
+            setProgress(100, progress, false)
+            clearActions()
+            addAction(
+                android.R.drawable.ic_menu_close_clear_cancel,
+                context.getString(R.string.common_cancel),
+                getCancelPendingIntent()
+            )
+            setOngoing(true)
+            setAutoCancel(false)
+        }.build()
         notificationManager.notify(NOTIFICATION_ID, notification)
     }
 
@@ -110,4 +123,21 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
     fun dismiss() {
         notificationManager.cancel(NOTIFICATION_ID)
     }
+
+    fun getDefaultForegroundInfo(): ForegroundInfo {
+        val notification = createDefaultNotification()
+        return ForegroundServiceHelper.createWorkerForegroundInfo(
+            NOTIFICATION_ID,
+            notification,
+            ForegroundServiceType.DataSync
+        )
+    }
+
+    private fun createDefaultNotification(): Notification =
+        NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+            .setContentTitle(context.getString(R.string.downloader_download_in_progress_ticker))
+            .setSmallIcon(R.drawable.ic_sync)
+            .setOngoing(true)
+            .setSilent(true)
+            .build()
 }
