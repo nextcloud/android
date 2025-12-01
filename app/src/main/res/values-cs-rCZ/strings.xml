@@ -50,6 +50,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Zadejte nějaký text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Opravdu chcete tuto úlohu smazat?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Smazat úkol</string>
+    <string name="assistant_screen_empty_content_description">Zkuste poslat zprávu pro rozproudění konverzace.</string>
     <string name="assistant_screen_empty_content_title">Zdravím! Jak vám mohu pomoci?</string>
     <string name="assistant_screen_loading">Načítání seznamu úkolů …</string>
     <string name="assistant_screen_task_create_fail_message">Při vytváření úlohy se vyskytla chyba</string>
@@ -213,7 +214,9 @@
     <string name="contacts_preferences_no_file_found">Nenalezen žádný soubor</string>
     <string name="contacts_preferences_something_strange_happened">Nepodařilo se najít vaši nejaktuálnější zálohu!</string>
     <string name="content_observer_work_notification_title">Zjišťování změn obsahu</string>
+    <string name="conversation_screen_empty_content_title">Nenalezena žádná konverzace</string>
     <string name="conversation_screen_empty_conversation_list_title">Zatím žádná konverzace</string>
+    <string name="conversation_screen_title">Konverzace</string>
     <string name="copied_to_clipboard">Zkopírováno do schránky</string>
     <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či složky došlo k chybě</string>
     <string name="copy_file_invalid_into_descendent">Není možné zkopírovat složku do některé z jejích vlastních podsložek</string>

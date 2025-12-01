@@ -46,6 +46,8 @@
     <string name="appear_offline">Sellega paistad olema võrgust väljas</string>
     <string name="assistant_output_generation_warning_text">See väljund on loodud tehisaru poolt. Palun topeltkontrolli selle õigsust ka ise.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lisa uus ülesanne</string>
+    <string name="assistant_screen_chat_create_error">Sõnumi saatmine ei õnnestu</string>
+    <string name="assistant_screen_chat_fetch_error">Ei õnnestunud laadida vestluse sõnumeid</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Loo uus ülesanne all paremal asuvast valikust</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Kirjuta midagi vahvat</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Kas sa oled kindel, et soovid selle ülesande kustutada?</string>
@@ -214,8 +216,12 @@
     <string name="contacts_preferences_no_file_found">Faili ei leitud</string>
     <string name="contacts_preferences_something_strange_happened">Sinu viimast varukoopiat ei leidu!</string>
     <string name="content_observer_work_notification_title">Tuvastan sisu muudatusi</string>
+    <string name="conversation_screen_create_error_title">Vestluse loomine ei õnnestunud</string>
     <string name="conversation_screen_delete_button_title">Kustuta vestlus</string>
+    <string name="conversation_screen_delete_error_title">Vestluse kustutamine ei õnnestunud</string>
+    <string name="conversation_screen_empty_content_title">Vestlusi ei leidu</string>
     <string name="conversation_screen_empty_conversation_list_title">Ühtegi vestlust veel pole</string>
+    <string name="conversation_screen_fetch_error_title">Vestluste loendi laadimine ei õnnestunud.</string>
     <string name="conversation_screen_title">Vestlused</string>
     <string name="copied_to_clipboard">Kopeeritud lõikepuhvrisse</string>
     <string name="copy_file_error">Selle faili või kausta kopeerimisel tekkis tõrge</string>

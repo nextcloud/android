@@ -50,6 +50,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algo de texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">¿Está seguro de querer eliminar esta tarea?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarea</string>
+    <string name="assistant_screen_empty_content_description">Intente enviar un mensaje para iniciar una conversación.</string>
     <string name="assistant_screen_empty_content_title">¡Hola!, ¿En qué te puedo ayudar hoy?</string>
     <string name="assistant_screen_loading">Cargando lista de tareas…</string>
     <string name="assistant_screen_task_create_fail_message">Ocurrió un error al crear la tarea</string>
@@ -209,7 +210,9 @@
     <string name="contacts_preferences_no_file_found">No se ha encontrado ningún archivo</string>
     <string name="contacts_preferences_something_strange_happened">¡No podemos encontrar tu última copia de seguridad!</string>
     <string name="conversation_screen_delete_button_title">Borrar conversación</string>
+    <string name="conversation_screen_empty_content_title">No se han encontrado conversaciones</string>
     <string name="conversation_screen_empty_conversation_list_title">No hay conversaciones todavía</string>
+    <string name="conversation_screen_title">Conversaciones</string>
     <string name="copied_to_clipboard">Copiado al portapapeles</string>
     <string name="copy_file_error">Se ha producido un error al tratar de copiar este archivo o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No se puede copiar una carpeta dentro de una de sus propias subcarpetas.</string>
