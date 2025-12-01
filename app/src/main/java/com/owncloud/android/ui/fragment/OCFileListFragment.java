@@ -1736,7 +1736,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         adapter.setGridView(grid);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        onRefresh();
     }
 
     public CommonOCFileListAdapterInterface getCommonAdapter() {
