@@ -1312,13 +1312,6 @@ public final class ThumbnailsCacheManager {
             }
         }
 
-        // resized dimensions and set update thumbnail needed to false to prevent rendering loop
-        if (thumbnail != null) {
-            file.setImageDimension(new ImageDimension(thumbnail.getWidth(), thumbnail.getHeight()));
-            file.setUpdateThumbnailNeeded(false);
-            storageManager.saveFile(file);
-        }
-
         return thumbnail;
     }
 }
