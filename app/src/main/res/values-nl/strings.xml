@@ -125,7 +125,7 @@
     <string name="checkbox">Aanvinkvakje</string>
     <string name="choose_local_folder">Kies lokale map…</string>
     <string name="choose_remote_folder">Kies externe map…</string>
-    <string name="choose_template_helper_text">Kies een sjabloon en geen een bestandsnaam op.</string>
+    <string name="choose_template_helper_text">Kies een sjabloon en geef een bestandsnaam op.</string>
     <string name="choose_which_file">Kies welk bestand bewaard moet blijven!</string>
     <string name="choose_widget">Kies widget</string>
     <string name="clear">Terug</string>
