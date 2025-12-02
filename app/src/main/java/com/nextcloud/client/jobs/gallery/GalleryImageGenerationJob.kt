@@ -20,7 +20,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.lib.resources.files.model.ImageDimension
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Semaphore
@@ -129,23 +128,11 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         }
 
         imageView.setImageBitmap(bitmap)
-        imageView.invalidate()
+        // imageView.invalidate()
         listener.onSuccess()
     }
 
     private fun getThumbnailFromCache(file: OCFile, thumbnail: Bitmap, key: String): Bitmap {
-        val size = ThumbnailsCacheManager.getThumbnailDimension().toFloat()
-
-        val imageDimension = file.imageDimension
-        if (imageDimension == null || imageDimension.width != size || imageDimension.height != size) {
-            val newDimension = ImageDimension(
-                thumbnail.getWidth().toFloat(),
-                thumbnail.getHeight().toFloat()
-            )
-            file.imageDimension = newDimension
-            storageManager.saveFile(file)
-        }
-
         var result = thumbnail
         if (MimeTypeUtil.isVideo(file)) {
             result = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext())

@@ -27,39 +27,41 @@ object OCFileUtils {
         try {
             Log_OC.d(TAG, "Getting image size for: ${ocFile.fileName}")
 
-            if (!ocFile.exists()) {
-                ocFile.imageDimension?.width?.let { w ->
-                    ocFile.imageDimension?.height?.let { h ->
-                        Log_OC.d(TAG, "Image dimensions are used width: $w and height: $h")
-                        return w.toInt() to h.toInt()
-                    }
-                }
-
-                Log_OC.d(TAG, "Default size is used: $defaultThumbnailSize")
-                val size = defaultThumbnailSize.toInt().coerceAtLeast(1)
-                return size to size
-            }
-
-            val exif = ExifInterface(ocFile.storagePath)
-            val width = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0)
-            val height = exif.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, 0)
-
-            if (width > 0 && height > 0) {
-                Log_OC.d(TAG, "Exif used width: $width and height: $height")
+            val widthFromDimension = ocFile.imageDimension?.width
+            val heightFromDimension = ocFile.imageDimension?.height
+            if (widthFromDimension != null && heightFromDimension != null) {
+                val width = widthFromDimension.toInt()
+                val height = heightFromDimension.toInt()
+                Log_OC.d(TAG, "Image dimensions are used, width: $width, height: $height")
                 return width to height
             }
 
-            val (bitmapWidth, bitmapHeight) = BitmapUtils.getImageResolution(ocFile.storagePath)
-                .let { it[0] to it[1] }
+            return if (ocFile.exists()) {
+                val exif = ExifInterface(ocFile.storagePath)
+                val width = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0)
+                val height = exif.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, 0)
 
-            if (bitmapWidth > 0 && bitmapHeight > 0) {
-                Log_OC.d(TAG, "BitmapUtils.getImageResolution used width: $bitmapWidth and height: $bitmapHeight")
-                return bitmapWidth to bitmapHeight
+                if (width > 0 && height > 0) {
+                    Log_OC.d(TAG, "Exif used width: $width and height: $height")
+                    width to height
+                }
+
+                val (bitmapWidth, bitmapHeight) = BitmapUtils.getImageResolution(ocFile.storagePath)
+                    .let { it[0] to it[1] }
+
+                if (bitmapWidth > 0 && bitmapHeight > 0) {
+                    Log_OC.d(TAG, "BitmapUtils.getImageResolution used width: $bitmapWidth and height: $bitmapHeight")
+                    bitmapWidth to bitmapHeight
+                }
+
+                val fallback = defaultThumbnailSize.toInt().coerceAtLeast(1)
+                Log_OC.d(TAG, "Default size used width: $fallback and height: $fallback")
+                fallback to fallback
+            } else {
+                Log_OC.d(TAG, "Default size is used: $defaultThumbnailSize")
+                val size = defaultThumbnailSize.toInt().coerceAtLeast(1)
+                size to size
             }
-
-            val fallback = defaultThumbnailSize.toInt().coerceAtLeast(1)
-            Log_OC.d(TAG, "Default size used width: $fallback and height: $fallback")
-            return fallback to fallback
         } finally {
             Log_OC.d(TAG, "-----------------------------")
         }

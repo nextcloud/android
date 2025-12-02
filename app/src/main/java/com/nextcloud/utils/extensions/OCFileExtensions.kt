@@ -31,3 +31,9 @@ fun List<OCFile>.limitToPersonalFiles(userId: String): List<OCFile> = filter { f
         ownerId == userId && !file.isSharedWithMe && !file.mounted()
     } == true
 }
+
+fun OCFile.mediaSize(defaultThumbnailSize: Float): Pair<Int, Int> {
+    val width = (imageDimension?.width?.toInt() ?: defaultThumbnailSize.toInt())
+    val height = (imageDimension?.height?.toInt() ?: defaultThumbnailSize.toInt())
+    return width to height
+}

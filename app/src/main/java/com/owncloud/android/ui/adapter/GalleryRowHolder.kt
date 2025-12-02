@@ -20,6 +20,7 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.extensions.makeRounded
+import com.nextcloud.utils.extensions.mediaSize
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GalleryRowBinding
@@ -101,21 +102,21 @@ class GalleryRowHolder(
             }
         }
 
+        val mediaSize = file.mediaSize(defaultThumbnailSize)
+        val (width, height) = mediaSize
+
         val shimmer = LoaderImageView(context).apply {
             setImageResource(R.drawable.background)
             resetLoader()
-            invalidate()
+            layoutParams = FrameLayout.LayoutParams(width, height)
         }
 
-        // FIXME using max height for row calculation is not always producing correct row ratio
-
-        // FIXME check from webdav --- image dimension must be available there thus no need to use default size
-        val mediaSize = defaultThumbnailSize.toInt() to defaultThumbnailSize.toInt()
         val drawable = OCFileUtils.getMediaPlaceholder(file, mediaSize)
         val rowCellImageView = ImageView(context).apply {
             setImageDrawable(drawable)
             adjustViewBounds = true
             scaleType = ImageView.ScaleType.FIT_XY
+            layoutParams = FrameLayout.LayoutParams(width, height)
         }
 
         return FrameLayout(context).apply {
