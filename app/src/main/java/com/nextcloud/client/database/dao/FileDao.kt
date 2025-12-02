@@ -38,8 +38,14 @@ interface FileDao {
     @Query("SELECT * FROM filelist WHERE remote_id = :remoteId AND file_owner = :fileOwner LIMIT 1")
     fun getFileByRemoteId(remoteId: String, fileOwner: String): FileEntity?
 
+    @Query("SELECT * FROM filelist WHERE remote_id = :remoteId LIMIT 1")
+    suspend fun getFileByRemoteId(remoteId: String): FileEntity?
+
     @Query("SELECT * FROM filelist WHERE parent = :parentId ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
     fun getFolderContent(parentId: Long): List<FileEntity>
+
+    @Query("SELECT * FROM filelist WHERE parent = :parentId ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
+    suspend fun getFolderContentSuspended(parentId: Long): List<FileEntity>
 
     @Query(
         "SELECT * FROM filelist WHERE modified >= :startDate" +
@@ -111,4 +117,33 @@ interface FileDao {
     """
     )
     fun searchFilesInFolder(parentId: Long, fileOwner: String, query: String): List<FileEntity>
+
+    @Query(
+        """
+    SELECT *
+    FROM filelist
+    WHERE file_owner = :accountName
+      AND (
+          share_by_link = 1
+          OR shared_via_users = 1
+          OR permissions LIKE '%S%'
+      )
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    suspend fun getSharedFiles(accountName: String): List<FileEntity>
+
+    @Query(
+        """
+    SELECT * 
+    FROM filelist 
+    WHERE file_owner = :fileOwner 
+      AND favorite = 1
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    suspend fun getFavoriteFiles(fileOwner: String): List<FileEntity>
+
+    @Query("SELECT remote_id FROM filelist WHERE file_owner = :accountName AND remote_id IS NOT NULL")
+    fun getAllRemoteIds(accountName: String): List<String>
 }
