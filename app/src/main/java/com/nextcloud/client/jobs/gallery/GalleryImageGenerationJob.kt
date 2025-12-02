@@ -128,7 +128,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         }
 
         imageView.setImageBitmap(bitmap)
-        // imageView.invalidate()
+        imageView.invalidate()
         listener.onSuccess()
     }
 
