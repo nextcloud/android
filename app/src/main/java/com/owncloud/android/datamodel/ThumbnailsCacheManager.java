@@ -47,6 +47,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.model.ImageDimension;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 import com.owncloud.android.ui.TextDrawable;
@@ -350,7 +351,7 @@ public final class ThumbnailsCacheManager {
                 mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.toOwnCloudAccount(),
                                                                                           MainApp.getAppContext());
 
-                thumbnail = doResizedImageInBackground(file);
+                thumbnail = doResizedImageInBackground(file, storageManager);
 
                 if (MimeTypeUtil.isVideo(file) && thumbnail != null) {
                     thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
@@ -1250,7 +1251,7 @@ public final class ThumbnailsCacheManager {
         mClient = client;
     }
 
-    public static Bitmap doResizedImageInBackground(OCFile file) {
+    public static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
         Bitmap thumbnail;
         String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
 
@@ -1309,6 +1310,13 @@ public final class ThumbnailsCacheManager {
                     getMethod.releaseConnection();
                 }
             }
+        }
+
+        // resized dimensions and set update thumbnail needed to false to prevent rendering loop
+        if (thumbnail != null && file.getImageDimension() == null) {
+            file.setImageDimension(new ImageDimension(thumbnail.getWidth(), thumbnail.getHeight()));
+            file.setUpdateThumbnailNeeded(false);
+            storageManager.saveFile(file);
         }
 
         return thumbnail;
