@@ -48,3 +48,10 @@ fun OCFile.mediaSize(defaultThumbnailSize: Float): Pair<Int, Int> {
     val height = (imageDimension?.height?.toInt() ?: defaultThumbnailSize.toInt())
     return width to height
 }
+
+fun OCFile?.isPNG(): Boolean {
+    if (this == null) {
+        return false
+    }
+    return "image/png".equals(mimeType, ignoreCase = true)
+}

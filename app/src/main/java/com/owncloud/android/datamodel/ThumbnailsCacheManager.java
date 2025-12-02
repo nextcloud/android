@@ -38,6 +38,7 @@ import android.widget.ImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.BitmapExtensionsKt;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -1268,7 +1269,7 @@ public final class ThumbnailsCacheManager {
         if (file.isDown()) {
             Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
             if (bitmap != null) {
-                if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
+                if (OCFileExtensionsKt.isPNG(file)) {
                     bitmap = handlePNG(bitmap, pxW, pxH);
                 }
                 thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
@@ -1291,6 +1292,7 @@ public final class ThumbnailsCacheManager {
                         Log_OC.d(TAG, "resized image generated");
                     }
                 } else {
+                    Log_OC.e(TAG, "cannot generate thumbnail not supported file type, status: " + status);
                     mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
                 }
 
