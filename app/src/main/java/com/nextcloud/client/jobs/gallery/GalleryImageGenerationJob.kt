@@ -46,9 +46,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
             }
         }
 
-        fun isActiveJob(imageView: ImageView, job: CoroutineScope): Boolean {
-            return activeJobs[imageView] === job
-        }
+        fun isActiveJob(imageView: ImageView, job: CoroutineScope): Boolean = activeJobs[imageView] === job
 
         fun storeJob(job: Job, imageView: ImageView) {
             activeJobs[imageView] = job
@@ -65,11 +63,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     }
 
     @Suppress("TooGenericExceptionCaught")
-    suspend fun run(
-        file: OCFile,
-        imageView: ImageView,
-        listener: GalleryImageGenerationListener
-    ) {
+    suspend fun run(file: OCFile, imageView: ImageView, listener: GalleryImageGenerationListener) {
         try {
             var newImage = false
 
@@ -101,26 +95,24 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         }
     }
 
-    private suspend fun getBitmap(
-        file: OCFile,
-        onThumbnailGeneration: () -> Unit
-    ): Bitmap? = withContext(Dispatchers.IO) {
-        val key = file.remoteId
-        val cachedThumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-            ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
-        )
-        if (cachedThumbnail != null && !file.isUpdateThumbnailNeeded) {
-            Log_OC.d(TAG, "cached thumbnail is used for: ${file.fileName}")
-            return@withContext getThumbnailFromCache(file, cachedThumbnail, key)
-        }
+    private suspend fun getBitmap(file: OCFile, onThumbnailGeneration: () -> Unit): Bitmap? =
+        withContext(Dispatchers.IO) {
+            val key = file.remoteId
+            val cachedThumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
+            )
+            if (cachedThumbnail != null && !file.isUpdateThumbnailNeeded) {
+                Log_OC.d(TAG, "cached thumbnail is used for: ${file.fileName}")
+                return@withContext getThumbnailFromCache(file, cachedThumbnail, key)
+            }
 
-        Log_OC.d(TAG, "generating new thumbnail for: ${file.fileName}")
+            Log_OC.d(TAG, "generating new thumbnail for: ${file.fileName}")
 
-        onThumbnailGeneration()
-        semaphore.withPermit {
-            return@withContext getThumbnailFromServerAndAddToCache(file, cachedThumbnail)
+            onThumbnailGeneration()
+            semaphore.withPermit {
+                return@withContext getThumbnailFromServerAndAddToCache(file, cachedThumbnail)
+            }
         }
-    }
 
     private suspend fun setThumbnail(
         bitmap: Bitmap,
