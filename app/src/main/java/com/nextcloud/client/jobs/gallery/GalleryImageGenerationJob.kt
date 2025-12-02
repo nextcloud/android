@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.allocationKilobyte
+import com.nextcloud.utils.extensions.isPNG
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -48,7 +49,9 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
             var newImage = false
 
             if (file.remoteId == null && !file.isPreviewAvailable) {
-                listener.onError()
+                withContext(Dispatchers.Main) {
+                    listener.onError()
+                }
                 return
             }
 
@@ -57,7 +60,9 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
             })
 
             if (bitmap == null) {
-                listener.onError()
+                withContext(Dispatchers.Main) {
+                    listener.onError()
+                }
                 return
             }
 
@@ -114,7 +119,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         val tagId = file.fileId.toString()
         if (imageView.tag?.toString() != tagId) return@withContext
 
-        if ("image/png".equals(file.mimeType, ignoreCase = true)) {
+        if (file.isPNG()) {
             imageView.setBackgroundColor(
                 ContextCompat.getColor(
                     MainApp.getAppContext(),
@@ -127,8 +132,11 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
             listener.onNewGalleryImage()
         }
 
-        imageView.setImageBitmap(bitmap)
-        imageView.invalidate()
+        if (imageView.isAttachedToWindow) {
+            imageView.setImageBitmap(bitmap)
+            imageView.invalidate()
+        }
+
         listener.onSuccess()
     }
 
