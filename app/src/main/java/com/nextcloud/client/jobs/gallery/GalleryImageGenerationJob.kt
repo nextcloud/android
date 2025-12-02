@@ -11,7 +11,6 @@ import android.graphics.Bitmap
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.nextcloud.client.account.User
-import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.allocationKilobyte
 import com.nextcloud.utils.extensions.isPNG
 import com.owncloud.android.MainApp
@@ -22,10 +21,13 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.MimeTypeUtil
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
+import java.util.WeakHashMap
 
 class GalleryImageGenerationJob(private val user: User, private val storageManager: FileDataStorageManager) {
     companion object {
@@ -36,26 +38,50 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
                 Runtime.getRuntime().availableProcessors() / 2
             )
         )
+        private val activeJobs = WeakHashMap<ImageView, Job>()
+
+        fun removeActiveJob(imageView: ImageView, job: CoroutineScope) {
+            if (isActiveJob(imageView, job)) {
+                removeJob(imageView)
+            }
+        }
+
+        fun isActiveJob(imageView: ImageView, job: CoroutineScope): Boolean {
+            return activeJobs[imageView] === job
+        }
+
+        fun storeJob(job: Job, imageView: ImageView) {
+            activeJobs[imageView] = job
+        }
+
+        fun cancelPreviousJob(imageView: ImageView) {
+            activeJobs[imageView]?.cancel()
+            removeJob(imageView)
+        }
+
+        fun removeJob(imageView: ImageView) {
+            activeJobs.remove(imageView)
+        }
     }
 
     @Suppress("TooGenericExceptionCaught")
     suspend fun run(
         file: OCFile,
         imageView: ImageView,
-        imageDimension: Pair<Int, Int>,
         listener: GalleryImageGenerationListener
     ) {
         try {
             var newImage = false
 
             if (file.remoteId == null && !file.isPreviewAvailable) {
+                Log_OC.e(TAG, "file has no remoteId and no preview")
                 withContext(Dispatchers.Main) {
                     listener.onError()
                 }
                 return
             }
 
-            val bitmap: Bitmap? = getBitmap(imageView, file, imageDimension, onThumbnailGeneration = {
+            val bitmap: Bitmap? = getBitmap(file, onThumbnailGeneration = {
                 newImage = true
             })
 
@@ -76,16 +102,9 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     }
 
     private suspend fun getBitmap(
-        imageView: ImageView,
         file: OCFile,
-        imageDimension: Pair<Int, Int>,
         onThumbnailGeneration: () -> Unit
     ): Bitmap? = withContext(Dispatchers.IO) {
-        if (file.remoteId == null && !file.isPreviewAvailable) {
-            Log_OC.w(TAG, "file has no remoteId and no preview")
-            return@withContext null
-        }
-
         val key = file.remoteId
         val cachedThumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
             ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
@@ -96,12 +115,6 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         }
 
         Log_OC.d(TAG, "generating new thumbnail for: ${file.fileName}")
-
-        // only add placeholder if new thumbnail will be generated because cached image will appear so quickly
-        withContext(Dispatchers.Main) {
-            val placeholderDrawable = OCFileUtils.getMediaPlaceholder(file, imageDimension)
-            imageView.setImageDrawable(placeholderDrawable)
-        }
 
         onThumbnailGeneration()
         semaphore.withPermit {
@@ -117,24 +130,25 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         listener: GalleryImageGenerationListener
     ) = withContext(Dispatchers.Main) {
         val tagId = file.fileId.toString()
-        if (imageView.tag?.toString() != tagId) return@withContext
 
-        if (file.isPNG()) {
-            imageView.setBackgroundColor(
-                ContextCompat.getColor(
-                    MainApp.getAppContext(),
-                    R.color.bg_default
+        if (imageView.tag.toString() == tagId) {
+            if (file.isPNG()) {
+                imageView.setBackgroundColor(
+                    ContextCompat.getColor(
+                        MainApp.getAppContext(),
+                        R.color.bg_default
+                    )
                 )
-            )
-        }
+            }
 
-        if (newImage) {
-            listener.onNewGalleryImage()
-        }
+            if (newImage) {
+                listener.onNewGalleryImage()
+            }
 
-        if (imageView.isAttachedToWindow) {
-            imageView.setImageBitmap(bitmap)
-            imageView.invalidate()
+            if (imageView.isAttachedToWindow) {
+                imageView.setImageBitmap(bitmap)
+                imageView.invalidate()
+            }
         }
 
         listener.onSuccess()

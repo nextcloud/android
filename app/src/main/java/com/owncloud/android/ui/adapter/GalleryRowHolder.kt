@@ -60,23 +60,14 @@ class GalleryRowHolder(
     private val uncheckedDrawable by lazy {
         ContextCompat.getDrawable(context, R.drawable.ic_checkbox_blank_outline)
     }
-
-    private var lastFileCount = -1
     // endregion
 
     fun bind(row: GalleryRow) {
         currentRow = row
         val requiredCount = row.files.size
 
-        // Only rebuild if file count changed
-        if (lastFileCount != requiredCount) {
-            binding.rowLayout.removeAllViews()
-            for (file in row.files) {
-                val rowLayout = getRowLayout(file)
-                binding.rowLayout.addView(rowLayout)
-            }
-            lastFileCount = requiredCount
-        }
+        binding.rowLayout.removeAllViews()
+        repeat(requiredCount) { binding.rowLayout.addView(getRowLayout(row.files[binding.rowLayout.childCount])) }
 
         val shrinkRatio = computeShrinkRatio(row)
 

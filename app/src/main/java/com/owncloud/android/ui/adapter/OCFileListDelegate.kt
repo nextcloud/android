@@ -20,6 +20,7 @@ import com.nextcloud.client.jobs.gallery.GalleryImageGenerationJob
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.extensions.getSubfiles
 import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setVisibleIf
@@ -106,32 +107,56 @@ class OCFileListDelegate(
         galleryRowHolder: GalleryRowHolder,
         imageDimension: Pair<Int, Int>
     ) {
+        // Cancel previous job for this ImageView
+        GalleryImageGenerationJob.cancelPreviousJob(imageView)
+
         imageView.tag = file.fileId
 
-        ioScope.launch {
-            galleryImageGenerationJob.run(
-                file,
-                imageView,
-                imageDimension,
-                object : GalleryImageGenerationListener {
-                    override fun onSuccess() {
-                        galleryRowHolder.binding.rowLayout.invalidate()
-                        Log_OC.d(tag, "setGalleryImage.onSuccess()")
-                        DisplayUtils.stopShimmer(shimmer, imageView)
-                    }
-
-                    override fun onNewGalleryImage() {
-                        Log_OC.d(tag, "setGalleryImage.updateRowVisuals()")
-                        galleryRowHolder.updateRowVisuals()
-                    }
-
-                    override fun onError() {
-                        Log_OC.d(tag, "setGalleryImage.onError()")
-                        DisplayUtils.stopShimmer(shimmer, imageView)
-                    }
-                }
-            )
+        // set placeholder before async job
+        val cached = ThumbnailsCacheManager.getBitmapFromDiskCache(
+            ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
+        )
+        if (cached != null) {
+            imageView.setImageBitmap(cached)
+        } else {
+            imageView.setImageDrawable(OCFileUtils.getMediaPlaceholder(file, imageDimension))
         }
+
+        val job = ioScope.launch {
+            try {
+                galleryImageGenerationJob.run(
+                    file,
+                    imageView,
+                    object : GalleryImageGenerationListener {
+                        override fun onSuccess() {
+                            if (imageView.tag == file.fileId) {
+                                Log_OC.d(tag, "setGalleryImage.onSuccess()")
+                                galleryRowHolder.binding.rowLayout.invalidate()
+                                DisplayUtils.stopShimmer(shimmer, imageView)
+                            }
+                        }
+
+                        override fun onNewGalleryImage() {
+                            if (imageView.tag == file.fileId) {
+                                Log_OC.d(tag, "setGalleryImage.updateRowVisuals()")
+                                galleryRowHolder.updateRowVisuals()
+                            }
+                        }
+
+                        override fun onError() {
+                            if (imageView.tag == file.fileId) {
+                                Log_OC.d(tag, "setGalleryImage.onError()")
+                                DisplayUtils.stopShimmer(shimmer, imageView)
+                            }
+                        }
+                    }
+                )
+            } finally {
+                GalleryImageGenerationJob.removeActiveJob(imageView, this)
+            }
+        }
+
+        GalleryImageGenerationJob.storeJob(job, imageView)
 
         imageView.setOnClickListener {
             ocFileListFragmentInterface.onItemClicked(file)
