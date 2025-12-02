@@ -351,7 +351,7 @@ public final class ThumbnailsCacheManager {
                 mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.toOwnCloudAccount(),
                                                                                           MainApp.getAppContext());
 
-                thumbnail = doResizedImageInBackground(file, storageManager);
+                thumbnail = doResizedImageInBackground(file);
 
                 if (MimeTypeUtil.isVideo(file) && thumbnail != null) {
                     thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
@@ -1251,7 +1251,7 @@ public final class ThumbnailsCacheManager {
         mClient = client;
     }
 
-    public static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
+    public static Bitmap doResizedImageInBackground(OCFile file) {
         Bitmap thumbnail;
         String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
 

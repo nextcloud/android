@@ -170,7 +170,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
                 )
             }
             ThumbnailsCacheManager.setClient(client)
-            thumbnail = ThumbnailsCacheManager.doResizedImageInBackground(file, storageManager)
+            thumbnail = ThumbnailsCacheManager.doResizedImageInBackground(file)
 
             if (MimeTypeUtil.isVideo(file) && thumbnail != null) {
                 thumbnail = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext())
