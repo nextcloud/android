@@ -20,6 +20,7 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.attribute.FileTime
 
+@Suppress("MagicNumber")
 class AutoUploadHelperTest {
 
     private lateinit var tempDir: File
@@ -191,6 +192,11 @@ class AutoUploadHelperTest {
 
         val hiddenDir = File(tempDir, ".hidden_dir")
         hiddenDir.mkdirs()
+        try {
+            Files.setAttribute(hiddenDir.toPath(), "dos:hidden", true)
+        } catch (_: Exception) {
+        }
+
         File(hiddenDir, "file.txt").writeText("Hidden dir file")
 
         // Create regular file
@@ -268,12 +274,15 @@ class AutoUploadHelperTest {
         val oldFile = File(tempDir, "old_file.txt").apply {
             writeText("Old file")
         }
+
         val oldFilePath = oldFile.toPath()
         Files.setAttribute(
             oldFilePath,
             "creationTime",
             FileTime.fromMillis(currentTime - 60_000) // 1 minute before enabling
         )
+
+        Thread.sleep(1000)
 
         // New file (created after enabling auto-upload)
         val newFile = File(tempDir, "new_file.txt").apply {
@@ -283,7 +292,7 @@ class AutoUploadHelperTest {
         Files.setAttribute(
             newFilePath,
             "creationTime",
-            FileTime.fromMillis(currentTime + 1_000) // 1 second after enabling
+            FileTime.fromMillis(currentTime + 60_000) // 1 minute after enabling
         )
 
         val folderSkipOld = createTestFolder(

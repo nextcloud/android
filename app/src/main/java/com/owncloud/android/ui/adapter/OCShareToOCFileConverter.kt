@@ -37,7 +37,7 @@ object OCShareToOCFileConverter {
         .filter { !it.path.isNullOrEmpty() }
         .groupBy { it.path!! }
         .filterKeys { path ->
-            path.isNotEmpty() && !path.startsWith(OCFile.PATH_SEPARATOR)
+            path.isNotEmpty() && path.startsWith(OCFile.PATH_SEPARATOR)
         }
         .map { (path, sharesForPath) ->
             buildOcFile(path, sharesForPath)
