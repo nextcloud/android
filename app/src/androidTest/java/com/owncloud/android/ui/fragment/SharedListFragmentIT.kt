@@ -169,7 +169,8 @@ internal class SharedListFragmentIT : AbstractIT() {
                     fragment.mEmptyListContainer?.visibility = View.GONE
 
                     val newList = runBlocking {
-                        OCShareToOCFileConverter.parseAndSaveShares(shares, storageManager, user.accountName)
+                        OCShareToOCFileConverter
+                            .parseAndSaveShares(listOf(), shares, storageManager, user.accountName)
                     }
                     fragment.adapter.run {
                         prepareForSearchData(storageManager, SearchType.SHARED_FILTER)
