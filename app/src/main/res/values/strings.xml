@@ -346,10 +346,6 @@
         <item quantity="one">Exported %d file, skipped rest due to error</item>
         <item quantity="other">Exported %d files, skipped rest due to error</item>
     </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d file will be exported. See notification for details.</item>
-        <item quantity="other">%d files will be exported. See notification for details.</item>
-    </plurals>
     <plurals name="file_upload_limit_message">
         <item quantity="one">You can upload only %d file at once.</item>
         <item quantity="other">You can upload up to %d files at once.</item>
