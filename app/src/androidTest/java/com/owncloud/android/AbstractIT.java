@@ -70,7 +70,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Objects;
@@ -222,17 +221,12 @@ public abstract class AbstractIT {
 
     private static void disableEventBus() {
         try {
-            Field defaultInstance = EventBus.class.getDeclaredField("defaultInstance");
-            defaultInstance.setAccessible(true);
-            defaultInstance.set(null, null);
-
-            final var builder = EventBus.builder()
+            EventBus.builder()
+                .throwSubscriberException(false)
                 .logNoSubscriberMessages(false)
                 .sendNoSubscriberEvent(false)
-                .throwSubscriberException(false)
-                .eventInheritance(false);
-
-            builder.installDefaultEventBus();
+                .ignoreGeneratedIndex(true)
+                .installDefaultEventBus();
         } catch (Exception e) {
             Log_OC.e("AbstractIT", "disableEventBus: ", e);
         }
