@@ -47,7 +47,6 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation;
@@ -59,7 +58,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.theme.MaterialSchemesProvider;
 
 import org.apache.commons.io.FileUtils;
-import org.greenrobot.eventbus.EventBus;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -114,8 +112,6 @@ public abstract class AbstractIT {
 
     @BeforeClass
     public static void beforeAll() {
-        disableEventBus();
-
         try {
             // clean up
             targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -217,19 +213,6 @@ public abstract class AbstractIT {
             .getSingleData();
 
         return ocCapability;
-    }
-
-    private static void disableEventBus() {
-        try {
-            EventBus.builder()
-                .throwSubscriberException(false)
-                .logNoSubscriberMessages(false)
-                .sendNoSubscriberEvent(false)
-                .ignoreGeneratedIndex(true)
-                .installDefaultEventBus();
-        } catch (Exception e) {
-            Log_OC.e("AbstractIT", "disableEventBus: ", e);
-        }
     }
 
     @Before
