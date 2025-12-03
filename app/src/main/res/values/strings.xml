@@ -353,7 +353,6 @@
     <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and delete the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist anymore</string>
     <string name="foreign_files_move">Move all</string>
-    <string name="foreign_files_success">All files were moved</string>
     <string name="foreign_files_fail">Some files could not be moved</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_remote_text">Remote: %1$s</string>
@@ -998,7 +997,6 @@
     <string name="new_version_was_created">New version was created</string>
     <string name="new_comment">New comment…</string>
     <string name="error_comment_file">Error commenting file</string>
-    <string name="file_version_restored_successfully">Successfully restored file version.</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
     <string name="notification_channel_general_name">General notifications</string>
     <string name="notification_channel_general_description">Show notifications for new media folders and similar</string>
@@ -1101,7 +1099,6 @@
     <string name="shared_with_you_by">Shared with you by %1$s</string>
     <string name="retrieving_file">Retrieving file…</string>
     <string name="associated_account_not_found">Associated account not found!</string>
-    <string name="logged_in_as">Logged in as %1$s</string>
     <string name="error_retrieving_file">Error retrieving file</string>
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
