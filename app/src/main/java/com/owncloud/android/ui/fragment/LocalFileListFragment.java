@@ -425,4 +425,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     public void setupStoragePermissionWarningBanner() {
         mAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onDestroyView() {
+        mAdapter.cleanup();
+        super.onDestroyView();
+    }
 }
