@@ -67,7 +67,9 @@
             <trusting group="androidx.room"/>
             <trusting group="androidx.savedstate"/>
             <trusting group="androidx.sqlite"/>
+            <trusting group="androidx.transition"/>
             <trusting group="androidx.webkit" name="webkit" version="1.14.0"/>
+            <trusting group="androidx.window"/>
             <trusting group="androidx.work"/>
             <trusting group="com.google.android.gms"/>
             <trusting group="com.google.firebase"/>
