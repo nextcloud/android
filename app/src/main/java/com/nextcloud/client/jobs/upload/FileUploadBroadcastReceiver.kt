@@ -38,6 +38,7 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
         }
     }
 
+    @Suppress("ReturnCount")
     private fun cancelUpload(context: Context, intent: Intent) {
         val uploadId = intent.getLongExtra(UPLOAD_ID, -1L)
         if (uploadId == -1L) {
