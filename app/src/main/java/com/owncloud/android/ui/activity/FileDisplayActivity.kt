@@ -1290,7 +1290,13 @@ class FileDisplayActivity :
 
     override fun onResume() {
         Log_OC.v(TAG, "onResume() start")
+
         super.onResume()
+        if (SettingsActivity.isBackPressed) {
+            Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
+            return
+        }
+
         isFileDisplayActivityResumed = true
 
         // Instead of onPostCreate, starting the loading in onResume for children fragments
@@ -2774,6 +2780,11 @@ class FileDisplayActivity :
 
     public override fun onStart() {
         super.onStart()
+        if (SettingsActivity.isBackPressed) {
+            Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
+            return
+        }
+
         val optionalUser = user
         val storageManager = getStorageManager()
         if (optionalUser.isPresent && storageManager != null) {
