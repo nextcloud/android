@@ -38,6 +38,7 @@ import android.widget.ImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.BitmapExtensionsKt;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -106,7 +107,7 @@ public final class ThumbnailsCacheManager {
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient;
-    private static final int THUMBNAIL_SIZE_IN_KB = 512;
+    public static final int THUMBNAIL_SIZE_IN_KB = 512;
     private static final int RESIZED_IMAGE_SIZE_IN_KB = 10240;
 
     public static final Bitmap mDefaultImg = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
@@ -300,164 +301,17 @@ public final class ThumbnailsCacheManager {
         return null;
     }
 
-    public static class GalleryImageGenerationTask extends AsyncTask<Object, Void, Bitmap> {
-        private final User user;
-        private final FileDataStorageManager storageManager;
-        private final WeakReference<ImageView> imageViewReference;
-        private OCFile file;
-        private final String imageKey;
-        private GalleryListener listener;
-        private final List<GalleryImageGenerationTask> asyncTasks;
-        private final int backgroundColor;
-        private boolean newImage = false;
+    public static Bitmap getScaledThumbnailAfterSave(Bitmap thumbnail, String imageKey) {
+        Bitmap result = BitmapExtensionsKt.scaleUntil(thumbnail, THUMBNAIL_SIZE_IN_KB);
 
-        public GalleryImageGenerationTask(
-            ImageView imageView,
-            User user,
-            FileDataStorageManager storageManager,
-            List<GalleryImageGenerationTask> asyncTasks,
-            String imageKey,
-            int backgroundColor) {
-            this.user = user;
-            this.storageManager = storageManager;
-            imageViewReference = new WeakReference<>(imageView);
-            this.asyncTasks = asyncTasks;
-            this.imageKey = imageKey;
-            this.backgroundColor = backgroundColor;
-        }
-
-        public void setListener(GalleryListener listener) {
-            this.listener = listener;
-        }
-
-        @Override
-        protected Bitmap doInBackground(Object... params) {
-            Bitmap thumbnail;
-
-            if (params == null || params.length == 0 || !(params[0] instanceof OCFile)) {
-                Log_OC.d(TAG, "Downloaded file is null or is not an instance of OCFile");
-                return null;
-            }
-
-            file = (OCFile) params[0];
-
-            if (file.getRemoteId() != null || file.isPreviewAvailable()) {
-                // Thumbnail in cache?
-                thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getRemoteId());
-
-                if (thumbnail != null && !file.isUpdateThumbnailNeeded())
-                    return getThumbnailFromCache(thumbnail);
-
-                return getThumbnailFromServerAndAddToCache(thumbnail);
-            }
-
-            Log_OC.d(TAG, "File cannot be previewed");
-            return null;
-        }
-
-        @Nullable
-        private Bitmap getThumbnailFromServerAndAddToCache(Bitmap thumbnail) {
-            try {
-                mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.toOwnCloudAccount(),
-                                                                                          MainApp.getAppContext());
-
-                thumbnail = doResizedImageInBackground(file, storageManager);
-                newImage = true;
-
-                if (MimeTypeUtil.isVideo(file) && thumbnail != null) {
-                    thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
-                }
-
-            } catch (OutOfMemoryError oome) {
-                Log_OC.e(TAG, "Out of memory");
-            } catch (Throwable t) {
-                // the app should never break due to a problem with thumbnails
-                Log_OC.e(TAG, "Generation of gallery image for " + file + " failed", t);
-            }
-
-            return thumbnail;
-        }
-
-        private Bitmap getThumbnailFromCache(Bitmap thumbnail) {
-            float size = (float) ThumbnailsCacheManager.getThumbnailDimension();
-
-            // resized dimensions
-            ImageDimension imageDimension = file.getImageDimension();
-            if (imageDimension == null ||
-                imageDimension.getWidth() != size ||
-                imageDimension.getHeight() != size) {
-                file.setImageDimension(new ImageDimension(thumbnail.getWidth(), thumbnail.getHeight()));
-                storageManager.saveFile(file);
-            }
-
-            Bitmap result = thumbnail;
-            if (MimeTypeUtil.isVideo(file)) {
-                result = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext());
-            }
-
-            if (BitmapExtensionsKt.allocationKilobyte(thumbnail) > THUMBNAIL_SIZE_IN_KB) {
-                result = getScaledThumbnailAfterSave(result);
-            }
-
-            return result;
-        }
-
-        private Bitmap getScaledThumbnailAfterSave(Bitmap thumbnail) {
-            Bitmap result = BitmapExtensionsKt.scaleUntil(thumbnail, THUMBNAIL_SIZE_IN_KB);
-
-            synchronized (mThumbnailsDiskCacheLock) {
-                if (mThumbnailCache != null) {
-                    Log_OC.d(TAG, "Scaling bitmap before caching: " + imageKey);
-                    mThumbnailCache.put(imageKey, result);
-                }
-            }
-
-            return result;
-        }
-
-        protected void onPostExecute(Bitmap bitmap) {
-            if (bitmap != null && imageViewReference.get() != null) {
-                final ImageView imageView = imageViewReference.get();
-                final GalleryImageGenerationTask bitmapWorkerTask = getGalleryImageGenerationTask(imageView);
-
-                if (this == bitmapWorkerTask) {
-                    String tagId = String.valueOf(file.getFileId());
-
-                    if (String.valueOf(imageView.getTag()).equals(tagId)) {
-                        if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                            imageView.setBackgroundColor(backgroundColor);
-                        }
-
-                        if (newImage && listener != null) {
-                            listener.onNewGalleryImage();
-                        }
-                        imageView.setImageBitmap(bitmap);
-                        imageView.invalidate();
-                    }
-                }
-
-                if (listener != null) {
-                    listener.onSuccess();
-                }
-            } else {
-                if (listener != null) {
-                    listener.onError();
-                }
-            }
-
-            if (asyncTasks != null) {
-                asyncTasks.remove(this);
+        synchronized (mThumbnailsDiskCacheLock) {
+            if (mThumbnailCache != null) {
+                Log_OC.d(TAG, "Scaling bitmap before caching: " + imageKey);
+                mThumbnailCache.put(imageKey, result);
             }
         }
 
-        public interface GalleryListener {
-            void onSuccess();
-
-            void onNewGalleryImage();
-
-            void onError();
-        }
+        return result;
     }
 
     public static class ResizedImageGenerationTask extends AsyncTask<Object, Void, Bitmap> {
@@ -1217,16 +1071,6 @@ public final class ThumbnailsCacheManager {
         return null;
     }
 
-    private static GalleryImageGenerationTask getGalleryImageGenerationTask(ImageView imageView) {
-        if (imageView != null) {
-            final Drawable drawable = imageView.getDrawable();
-            if (drawable instanceof AsyncGalleryImageDrawable asyncDrawable) {
-                return asyncDrawable.getBitmapWorkerTask();
-            }
-        }
-        return null;
-    }
-
     public static Bitmap addVideoOverlay(Bitmap thumbnail, Context context) {
 
         Drawable playButtonDrawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(),
@@ -1281,19 +1125,6 @@ public final class ThumbnailsCacheManager {
         }
 
         private ResizedImageGenerationTask getBitmapWorkerTask() {
-            return bitmapWorkerTaskReference.get();
-        }
-    }
-
-    public static class AsyncGalleryImageDrawable extends BitmapDrawable {
-        private final WeakReference<GalleryImageGenerationTask> bitmapWorkerTaskReference;
-
-        public AsyncGalleryImageDrawable(Resources res, Bitmap bitmap, GalleryImageGenerationTask bitmapWorkerTask) {
-            super(res, bitmap);
-            bitmapWorkerTaskReference = new WeakReference<>(bitmapWorkerTask);
-        }
-
-        private GalleryImageGenerationTask getBitmapWorkerTask() {
             return bitmapWorkerTaskReference.get();
         }
     }
@@ -1416,7 +1247,11 @@ public final class ThumbnailsCacheManager {
         mThumbnailCache = null;
     }
 
-    private static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
+    public static void setClient(OwnCloudClient client) {
+        mClient = client;
+    }
+
+    public static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
         Bitmap thumbnail;
         String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
 
@@ -1434,7 +1269,7 @@ public final class ThumbnailsCacheManager {
         if (file.isDown()) {
             Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
             if (bitmap != null) {
-                if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
+                if (OCFileExtensionsKt.isPNG(file)) {
                     bitmap = handlePNG(bitmap, pxW, pxH);
                 }
                 thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
@@ -1457,6 +1292,7 @@ public final class ThumbnailsCacheManager {
                         Log_OC.d(TAG, "resized image generated");
                     }
                 } else {
+                    Log_OC.e(TAG, "cannot generate thumbnail not supported file type, status: " + status);
                     mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
                 }
 

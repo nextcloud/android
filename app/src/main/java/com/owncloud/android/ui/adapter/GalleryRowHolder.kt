@@ -14,22 +14,20 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.get
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.extensions.makeRounded
+import com.nextcloud.utils.extensions.mediaSize
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.files.model.ImageDimension
-import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -53,12 +51,6 @@ class GalleryRowHolder(
     private val standardMargin by lazy { context.resources.getDimension(R.dimen.standard_margin) }
     private val checkBoxMargin by lazy { context.resources.getDimension(R.dimen.standard_quarter_padding) }
 
-    private val defaultBitmap by lazy {
-        val fileDrawable = ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
-        val thumbnailSize = defaultThumbnailSize.toInt()
-        BitmapUtils.drawableToBitmap(fileDrawable, thumbnailSize, thumbnailSize)
-    }
-
     private val checkedDrawable by lazy {
         ContextCompat.getDrawable(context, R.drawable.ic_checkbox_marked)?.also {
             viewThemeUtils.platform.tintDrawable(context, it, ColorRole.PRIMARY)
@@ -79,7 +71,10 @@ class GalleryRowHolder(
         // Only rebuild if file count changed
         if (lastFileCount != requiredCount) {
             binding.rowLayout.removeAllViews()
-            repeat(requiredCount) { binding.rowLayout.addView(getRowLayout()) }
+            for (file in row.files) {
+                val rowLayout = getRowLayout(file)
+                binding.rowLayout.addView(rowLayout)
+            }
             lastFileCount = requiredCount
         }
 
@@ -94,7 +89,7 @@ class GalleryRowHolder(
         bind(currentRow)
     }
 
-    private fun getRowLayout(): FrameLayout {
+    private fun getRowLayout(file: OCFile): FrameLayout {
         val checkbox = ImageView(context).apply {
             visibility = View.GONE
             layoutParams = FrameLayout.LayoutParams(
@@ -107,21 +102,21 @@ class GalleryRowHolder(
             }
         }
 
+        val mediaSize = file.mediaSize(defaultThumbnailSize)
+        val (width, height) = mediaSize
+
         val shimmer = LoaderImageView(context).apply {
             setImageResource(R.drawable.background)
             resetLoader()
-            invalidate()
+            layoutParams = FrameLayout.LayoutParams(width, height)
         }
 
-        val drawable = ThumbnailsCacheManager.AsyncGalleryImageDrawable(
-            context.resources,
-            defaultBitmap,
-            null
-        )
+        val drawable = OCFileUtils.getMediaPlaceholder(file, mediaSize)
         val rowCellImageView = ImageView(context).apply {
             setImageDrawable(drawable)
             adjustViewBounds = true
             scaleType = ImageView.ScaleType.FIT_XY
+            layoutParams = FrameLayout.LayoutParams(width, height)
         }
 
         return FrameLayout(context).apply {
@@ -181,12 +176,12 @@ class GalleryRowHolder(
         adjustRowCell(thumbnail, isChecked)
         adjustCheckBox(checkBoxImageView, isChecked)
 
-        ocFileListDelegate.bindGalleryRowThumbnail(
+        ocFileListDelegate.bindGalleryRow(
             shimmer,
             thumbnail,
             file,
             this,
-            width
+            width to height
         )
 
         // Update layout params only if they differ

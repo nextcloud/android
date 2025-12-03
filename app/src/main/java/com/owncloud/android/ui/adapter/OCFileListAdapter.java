@@ -10,18 +10,14 @@
 package com.owncloud.android.ui.adapter;
 
 import android.accounts.AccountManager;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentCallbacks;
-import android.content.ContentValues;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -38,7 +34,6 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
@@ -52,27 +47,20 @@ import com.owncloud.android.databinding.ListHeaderBinding;
 import com.owncloud.android.databinding.ListItemBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.OCFileListAdapterDataProviderImpl;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
-import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
-import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
-import com.owncloud.android.db.ProviderMeta;
-import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.tags.Tag;
-import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.helper.OCFileListAdapterDataProvider;
+import com.owncloud.android.ui.adapter.helper.OCFileListAdapterHelper;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
@@ -85,17 +73,14 @@ import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -103,6 +88,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import kotlin.Pair;
+import kotlin.Unit;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
 
 /**
@@ -123,6 +109,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean gridView;
     public ArrayList<String> listOfHiddenFiles = new ArrayList<>();
     private FileDataStorageManager mStorageManager;
+    private OCFileListAdapterDataProvider adapterDataProvider;
     private User user;
     private final OCFileListFragmentInterface ocFileListFragmentInterface;
     private final boolean isRTL;
@@ -148,6 +135,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private ArrayList<OCFile> recommendedFiles = new ArrayList<>();
     private RecommendedFilesAdapter recommendedFilesAdapter;
+    private final OCFileListAdapterHelper helper = new OCFileListAdapterHelper();
 
     public OCFileListAdapter(
         Activity activity,
@@ -175,6 +163,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (mStorageManager == null) {
             mStorageManager = new FileDataStorageManager(user, activity.getContentResolver());
         }
+
+        adapterDataProvider = new OCFileListAdapterDataProviderImpl(mStorageManager);
 
         userId = AccountManager
             .get(activity)
@@ -546,33 +536,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         fileFeaturesLayout.setVisibility(fileFeaturesVisibility);
     }
 
-    private void mergeOCFilesForLivePhoto() {
-        List<OCFile> filesToRemove = new ArrayList<>();
-
-        for (int i = 0; i < mFiles.size(); i++) {
-            OCFile file = mFiles.get(i);
-
-            for (int j = i + 1; j < mFiles.size(); j++) {
-                OCFile nextFile = mFiles.get(j);
-                String fileLocalId = String.valueOf(file.getLocalId());
-                String nextFileLinkedLocalId = nextFile.getLinkedFileIdForLivePhoto();
-
-                if (fileLocalId.equals(nextFileLinkedLocalId)) {
-                    if (MimeTypeUtil.isVideo(file.getMimeType())) {
-                        nextFile.livePhotoVideo = file;
-                        filesToRemove.add(file);
-                    } else if (MimeTypeUtil.isVideo(nextFile.getMimeType())) {
-                        file.livePhotoVideo = nextFile;
-                        filesToRemove.add(nextFile);
-                    }
-                }
-            }
-        }
-
-        mFiles.removeAll(filesToRemove);
-        filesToRemove.clear();
-    }
-
     private void updateLivePhotoIndicators(ListViewHolder holder, OCFile file) {
         boolean isLivePhoto = file.getLinkedFileIdForLivePhoto() != null;
 
@@ -887,271 +850,91 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @NonNull FileDataStorageManager updatedStorageManager,
         boolean onlyOnDevice,
         @NonNull String limitToMimeType) {
+
         this.onlyOnDevice = onlyOnDevice;
 
         if (!updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
+            adapterDataProvider = new OCFileListAdapterDataProviderImpl(mStorageManager);
             ocFileListDelegate.setShowShareAvatar(true);
             this.user = account;
         }
 
-        if (mStorageManager != null) {
-            // TODO refactor filtering mechanism for mFiles
-            mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
-            if (!preferences.isShowHiddenFilesEnabled()) {
-                mFiles = OCFileExtensionsKt.filterHiddenFiles(mFiles);
-            }
-            if (!limitToMimeType.isEmpty()) {
-                mFiles = OCFileExtensionsKt.filterByMimeType(mFiles, limitToMimeType);
-            }
-            if (OCFile.ROOT_PATH.equals(directory.getRemotePath()) && MainApp.isOnlyPersonFiles()) {
-                mFiles = OCFileExtensionsKt.limitToPersonalFiles(mFiles, userId);
-            }
-
-            // TODO refactor add DrawerState instead of using static menuItemId
-            if (DrawerActivity.menuItemId == R.id.nav_shared && currentDirectory != null) {
-                mFiles = updatedStorageManager.filter(currentDirectory, OCFileFilterType.Shared);
-            }
-            if (DrawerActivity.menuItemId == R.id.nav_favorites && currentDirectory != null) {
-                mFiles = updatedStorageManager.filter(currentDirectory, OCFileFilterType.Favorite);
-            }
-
-            // Filter out temp files from the list to prevent duplication
-            mFiles = OCFileExtensionsKt.filterTempFilter(mFiles);
-
-            mFiles = OCFileExtensionsKt.filterFilenames(mFiles);
-
-            sortOrder = preferences.getSortOrderByFolder(directory);
-            boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
-            boolean favoritesFirst = preferences.isSortFavoritesFirst();
-            mFiles = sortOrder.sortCloudFiles(mFiles, foldersBeforeFiles, favoritesFirst);
-            prepareListOfHiddenFiles();
-            mergeOCFilesForLivePhoto();
-            mFilesAll.clear();
-            addOfflineOperations(directory.getFileId());
-
-            mFilesAll.addAll(mFiles);
-            currentDirectory = directory;
-        } else {
-            mFiles.clear();
-            mFilesAll.clear();
-        }
-
-        searchType = null;
-        activity.runOnUiThread(this::notifyDataSetChanged);
-    }
-
-    /**
-     * Converts Offline Operations to OCFiles and adds them to the adapter for visual feedback.
-     * This function creates pending OCFiles, but they may not consistently appear in the UI.
-     * The issue arises when  {@link RefreshFolderOperation} deletes pending Offline Operations, while some may still exist in the table.
-     * If only this function is used, it cause crash in {@link FileDisplayActivity mSyncBroadcastReceiver.onReceive}.
-     * <p>
-     * These function also need to be used: {@link FileDataStorageManager#createPendingDirectory(String, long, long)}, {@link FileDataStorageManager#createPendingFile(String, String, long, long)}.
-     */
-    private void addOfflineOperations(long fileId) {
-        List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles(fileId);
-        if (offlineOperations.isEmpty()) {
+        if (mStorageManager == null) {
+            updateAdapter(new ArrayList<>(), null);
             return;
         }
 
-        List<OCFile> newFiles;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            newFiles = offlineOperations.stream()
-                .filter(offlineFile -> mFilesAll.stream()
-                    .noneMatch(file -> Objects.equals(file.getDecryptedRemotePath(), offlineFile.getDecryptedRemotePath())))
-                .toList();
-        } else {
-            newFiles = offlineOperations.stream()
-                .filter(offlineFile -> mFilesAll.stream()
-                    .noneMatch(file -> Objects.equals(file.getDecryptedRemotePath(), offlineFile.getDecryptedRemotePath())))
-                .collect(Collectors.toList());
-        }
-
-        mFilesAll.addAll(newFiles);
+        helper.prepareFileList(directory,
+                               adapterDataProvider,
+                               onlyOnDevice,
+                               limitToMimeType,
+                               preferences,
+                               userId,
+                               (newList, fileSortOrder) ->
+        {
+            updateAdapter((List<OCFile>) newList, directory);
+            return Unit.INSTANCE;
+        });
     }
 
-    public void setData(List<Object> objects,
-                        SearchType searchType,
-                        FileDataStorageManager storageManager,
-                        @Nullable OCFile folder,
-                        boolean clear) {
-        if (storageManager != null && mStorageManager == null) {
-            mStorageManager = storageManager;
-            ocFileListDelegate.setShowShareAvatar(true);
+    public void updateAdapter(List<OCFile> newFiles, OCFile directory) {
+        boolean hasSameContent = OCFileExtensionsKt.hasSameContentAs(mFiles, newFiles);
+
+        if (hasSameContent) {
+            Log_OC.d(TAG, "same data passed skipping update");
+            return;
         }
 
+        Log_OC.d(TAG, "updating the adapter");
 
-        if (mStorageManager == null) {
-            mStorageManager = new FileDataStorageManager(user, activity.getContentResolver());
-        }
-
-        if (clear) {
-            mFiles.clear();
-            preferences.setPhotoSearchTimestamp(0);
-
-            VirtualFolderType type = switch (searchType) {
-                case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
-                case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
-                default -> VirtualFolderType.NONE;
-            };
-
-            if (type != VirtualFolderType.GALLERY) {
-                mStorageManager.deleteVirtuals(type);
-            }
-        }
-
-        // early exit
-        if (!objects.isEmpty() && mStorageManager != null) {
-            if (searchType == SearchType.SHARED_FILTER) {
-                parseShares(objects);
-            } else {
-                if (searchType != SearchType.GALLERY_SEARCH) {
-                    parseVirtuals(objects, searchType);
-                }
-            }
-        }
-
-        if (searchType == SearchType.GALLERY_SEARCH ||
-            searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
-            mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
-        } else if (searchType != SearchType.SHARED_FILTER) {
-            boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
-            boolean favoritesFirst = preferences.isSortFavoritesFirst();
-
-            if (searchType == SearchType.FAVORITE_SEARCH) {
-                sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView);
-            } else {
-                sortOrder = preferences.getSortOrderByFolder(folder);
-            }
-
-            mFiles = sortOrder.sortCloudFiles(mFiles, foldersBeforeFiles, favoritesFirst);
-        }
-
-
+        mFiles = new ArrayList<>(newFiles);
         mFilesAll.clear();
         mFilesAll.addAll(mFiles);
 
-        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
+        if (directory != null) {
+            currentDirectory = directory;
+        }
+
+        searchType = null;
+
+        activity.runOnUiThread(this::notifyDataSetChanged);
     }
 
-    private void parseShares(List<Object> objects) {
-        List<OCShare> shares = new ArrayList<>();
-
-        for (Object shareObject : objects) {
-            // check type before cast as of long running data fetch it is possible that old result is filled
-            if (shareObject instanceof OCShare ocShare) {
-                shares.add(ocShare);
-            }
-        }
-
-        // create partial OCFile from OCShares
-        List<OCFile> files = OCShareToOCFileConverter.buildOCFilesFromShares(shares);
-
-        // set localPath of individual files iff present on device
-        for (OCFile file : files) {
-            FileStorageUtils.searchForLocalFileInDefaultPath(file, user.getAccountName());
-        }
-
-        mFiles.clear();
-        mFiles.addAll(files);
-        mStorageManager.saveShares(shares);
+    public void prepareForSearchData(FileDataStorageManager storageManager, SearchType searchType) {
+        initStorageManagerShowShareAvatar(storageManager);
+        clearSearchData(searchType);
     }
 
-    private void parseVirtuals(List<Object> objects, SearchType searchType) {
-        VirtualFolderType type;
-        boolean onlyMedia = false;
+    private void initStorageManagerShowShareAvatar(FileDataStorageManager storageManager) {
+        if (mStorageManager == null) {
+            mStorageManager = (storageManager != null)
+                ? storageManager
+                : new FileDataStorageManager(user, activity.getContentResolver());
 
-        switch (searchType) {
-            case FAVORITE_SEARCH:
-                type = VirtualFolderType.FAVORITE;
-                break;
-            case GALLERY_SEARCH:
-                type = VirtualFolderType.GALLERY;
-                onlyMedia = true;
-                break;
-            default:
-                type = VirtualFolderType.NONE;
-                break;
-        }
-
-        List<ContentValues> contentValues = new ArrayList<>();
-
-        for (Object remoteFile : objects) {
-            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) remoteFile);
-            FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.getAccountName());
-
-            try {
-                ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
-
-                OCFile parentFolder = mStorageManager.getFileById(ocFile.getParentId());
-                if (parentFolder != null && (ocFile.isEncrypted() || parentFolder.isEncrypted())) {
-                    Object object = RefreshFolderOperation.getDecryptedFolderMetadata(
-                        true,
-                        parentFolder,
-                        OwnCloudClientFactory.createOwnCloudClient(user.toPlatformAccount(), activity),
-                        user,
-                        activity);
-
-                    if (object == null) {
-                        throw new IllegalStateException("metadata is null!");
-                    }
-
-                    if (object instanceof DecryptedFolderMetadataFileV1) {
-                        // update ocFile
-                        RefreshFolderOperation.updateFileNameForEncryptedFileV1(mStorageManager,
-                                                                                (DecryptedFolderMetadataFileV1) object,
-                                                                                ocFile);
-                    } else {
-                        // update ocFile
-                        RefreshFolderOperation.updateFileNameForEncryptedFile(mStorageManager,
-                                                                              (DecryptedFolderMetadataFile) object,
-                                                                              ocFile);
-                    }
-
-                    ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
-                }
-
-                if (SearchType.GALLERY_SEARCH != searchType) {
-                    // also sync folder content
-                    if (ocFile.isFolder()) {
-                        long currentSyncTime = System.currentTimeMillis();
-                        RemoteOperation refreshFolderOperation = new RefreshFolderOperation(ocFile,
-                                                                                            currentSyncTime,
-                                                                                            true,
-                                                                                            false,
-                                                                                            mStorageManager,
-                                                                                            user,
-                                                                                            activity);
-                        refreshFolderOperation.execute(user, activity);
-                    }
-                }
-
-                if (!onlyMedia || MimeTypeUtil.isImage(ocFile) || MimeTypeUtil.isVideo(ocFile)) {
-                    //handling duplicates for favorites section
-                    if (mFiles.isEmpty() || !mFiles.contains(ocFile)) {
-                        mFiles.add(ocFile);
-                    }
-                }
-
-                ContentValues cv = new ContentValues();
-                cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, type.toString());
-                cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.getFileId());
-
-                contentValues.add(cv);
-            } catch (
-                RemoteOperationFailedException |
-                OperationCanceledException |
-                AuthenticatorException |
-                IOException |
-                AccountUtils.AccountNotFoundException |
-                IllegalStateException e) {
-                Log_OC.e(TAG, "Error saving file with parent" + e.getMessage(), e);
+            if (storageManager != null) {
+                adapterDataProvider = new OCFileListAdapterDataProviderImpl(mStorageManager);
+                ocFileListDelegate.setShowShareAvatar(true);
             }
         }
+    }
 
-        preferences.setPhotoSearchTimestamp(System.currentTimeMillis());
-        mStorageManager.saveVirtuals(contentValues);
+    private void clearSearchData(SearchType searchType) {
+        preferences.setPhotoSearchTimestamp(0);
+
+        VirtualFolderType type = switch (searchType) {
+            case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
+            case GALLERY_SEARCH  -> VirtualFolderType.GALLERY;
+            default              -> VirtualFolderType.NONE;
+        };
+
+        if (type != VirtualFolderType.GALLERY) {
+            mStorageManager.deleteVirtuals(type);
+        }
+    }
+
+    public void setSortOrder(FileSortOrder newSortOrder) {
+        sortOrder = newSortOrder;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -1190,14 +973,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return mFiles;
     }
 
-    private void prepareListOfHiddenFiles() {
-        listOfHiddenFiles.clear();
-
-        mFiles.forEach(file -> {
-            if (file.shouldHide()) {
-                listOfHiddenFiles.add(file.getFileName());
-            }
-        });
+    public void addVirtualFile(@NonNull OCFile file) {
+        if (mFiles.isEmpty() || !mFiles.contains(file)) {
+            mFiles.add(file);
+        }
     }
 
     @Override
@@ -1294,5 +1073,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void cleanup() {
         ocFileListDelegate.cleanup();
+        helper.cleanup();
     }
 }
