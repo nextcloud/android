@@ -18,10 +18,8 @@
     android:layout_height="wrap_content"
     android:baselineAligned="false"
     android:descendantFocusability="blocksDescendants"
-    android:minHeight="@dimen/standard_list_item_size"
-    android:orientation="horizontal"
-    android:paddingTop="@dimen/standard_half_padding"
-    android:paddingBottom="@dimen/standard_half_padding">
+    android:minHeight="@dimen/min_list_item_size"
+    android:orientation="horizontal">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/min_list_item_size"
