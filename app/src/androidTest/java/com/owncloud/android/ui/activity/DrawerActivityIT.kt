@@ -8,16 +8,16 @@
  */
 package com.owncloud.android.ui.activity
 
+import android.Manifest
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.net.Uri
-import android.view.View
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.rule.GrantPermissionRule
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
@@ -26,7 +26,6 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.accounts.AccountUtils
-import com.owncloud.android.utils.EspressoIdlingResource
 import org.hamcrest.Matchers
 import org.junit.Assert
 import org.junit.BeforeClass
@@ -39,32 +38,36 @@ class DrawerActivityIT : AbstractIT() {
     @JvmField
     val retryTestRule = RetryTestRule()
 
+    @get:Rule
+    val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.POST_NOTIFICATIONS
+    )
+
     @Test
-    @UiThread
     fun switchAccountViaAccountList() {
         launchActivity<FileDisplayActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.setUser(user1)
-
-                    Assert.assertEquals(account1, sut.user.get().toPlatformAccount())
-                    onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
-                    onView(
-                        Matchers.anyOf<View?>(
-                            ViewMatchers.withText(account2Name),
-                            ViewMatchers.withText(
-                                account2DisplayName
-                            )
-                        )
-                    ).perform(ViewActions.click())
-                    Assert.assertEquals(account2, sut.user.get().toPlatformAccount())
-                    EspressoIdlingResource.decrement()
-
-                    onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
-                    onView(ViewMatchers.withText(account1?.name)).perform(ViewActions.click())
-                }
+            var sut: FileDisplayActivity? = null
+            scenario.onActivity { activity ->
+                sut = activity
             }
+
+            Assert.assertEquals(account1, sut!!.user.get().toPlatformAccount())
+
+            onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
+            onView(
+                Matchers.anyOf(
+                    ViewMatchers.withText(account2Name),
+                    ViewMatchers.withText(
+                        account2DisplayName
+                    )
+                )
+            ).perform(ViewActions.click())
+
+            Assert.assertEquals(account2, sut.user.get().toPlatformAccount())
+
+            onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
+            onView(ViewMatchers.withText(account1?.name)).perform(ViewActions.click())
         }
     }
 

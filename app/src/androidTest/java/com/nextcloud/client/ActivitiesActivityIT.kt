@@ -8,10 +8,8 @@
 package com.nextcloud.client
 
 import android.view.View
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -25,88 +23,72 @@ import com.owncloud.android.lib.resources.activities.model.RichObject
 import com.owncloud.android.lib.resources.activities.models.PreviewObject
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activities.ActivitiesActivity
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import java.util.GregorianCalendar
 
 class ActivitiesActivityIT : AbstractIT() {
     private val testClassName = "com.nextcloud.client.ActivitiesActivityIT"
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
-
     @Test
-    @UiThread
     @ScreenshotTest
     fun openDrawer() {
         launchActivity<ActivitiesActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
-                    sut.dismissSnackbar()
-                    EspressoIdlingResource.decrement()
-                    val screenShotName = createName(testClassName + "_" + "openDrawer", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                sut.dismissSnackbar()
             }
+
+            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
+
+            scenario.onActivity { sut ->
+                val screenShotName = createName("${testClassName}_openDrawer", "")
+                screenshotViaName(sut, screenShotName)
+            }
+
+            onView(withId(R.id.drawer_layout)).check(matches(isDisplayed()))
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun loading() {
         launchActivity<ActivitiesActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.dismissSnackbar()
-                    sut.binding.emptyList.root.visibility = View.GONE
-                    sut.binding.swipeContainingList.visibility = View.GONE
-                    sut.binding.loadingContent.visibility = View.VISIBLE
-                    EspressoIdlingResource.decrement()
-                    val screenShotName = createName(testClassName + "_" + "loading", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                sut.dismissSnackbar()
+                sut.binding.emptyList.root.visibility = View.GONE
+                sut.binding.swipeContainingList.visibility = View.GONE
+                sut.binding.loadingContent.visibility = View.VISIBLE
+            }
+
+            val screenShotName = createName(testClassName + "_" + "loading", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            scenario.onActivity { sut ->
+                screenshotViaName(sut, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun empty() {
         launchActivity<ActivitiesActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.showActivities(mutableListOf(), nextcloudClient, -1)
-                    sut.setProgressIndicatorState(false)
-                    sut.dismissSnackbar()
-                    EspressoIdlingResource.decrement()
-                    val screenShotName = createName(testClassName + "_" + "empty", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                sut.showActivities(mutableListOf(), nextcloudClient, -1)
+                sut.setProgressIndicatorState(false)
+                sut.dismissSnackbar()
+            }
+
+            val screenShotName = createName(testClassName + "_" + "empty", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            scenario.onActivity { sut ->
+                screenshotViaName(sut, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     @SuppressWarnings("MagicNumber")
     fun showActivities() {
@@ -186,36 +168,35 @@ class ActivitiesActivityIT : AbstractIT() {
 
         launchActivity<ActivitiesActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.showActivities(activities as List<Any>?, nextcloudClient, -1)
-                    sut.setProgressIndicatorState(false)
-                    sut.dismissSnackbar()
-                    EspressoIdlingResource.decrement()
-                    val screenShotName = createName(testClassName + "_" + "showActivities", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                sut.showActivities(activities as List<Any>?, nextcloudClient, -1)
+                sut.setProgressIndicatorState(false)
+                sut.dismissSnackbar()
+            }
+
+            val screenShotName = createName(testClassName + "_" + "showActivities", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            scenario.onActivity { sut ->
+                screenshotViaName(sut, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun error() {
         launchActivity<ActivitiesActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.showEmptyContent("Error", "Error! Please try again later!")
-                    sut.setProgressIndicatorState(false)
-                    sut.dismissSnackbar()
-                    EspressoIdlingResource.decrement()
-                    val screenShotName = createName(testClassName + "_" + "error", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                sut.showEmptyContent("Error", "Error! Please try again later!")
+                sut.setProgressIndicatorState(false)
+                sut.dismissSnackbar()
+            }
+
+            val screenShotName = createName(testClassName + "_" + "error", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            scenario.onActivity { sut ->
+                screenshotViaName(sut, screenShotName)
             }
         }
     }

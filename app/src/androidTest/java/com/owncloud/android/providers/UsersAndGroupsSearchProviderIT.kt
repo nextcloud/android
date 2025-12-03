@@ -7,26 +7,19 @@
  */
 package com.owncloud.android.providers
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.test.TestActivity
-import com.owncloud.android.AbstractOnServerIT
 import org.junit.Test
 
-class UsersAndGroupsSearchProviderIT : AbstractOnServerIT() {
+class UsersAndGroupsSearchProviderIT {
     @Test
-    @UiThread
     fun searchUser() {
-        launchActivity<TestActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                onIdleSync {
-                    onView(isRoot()).check(matches(isDisplayed()))
-                }
-            }
+        launchActivity<TestActivity>().use {
+            onView(isRoot()).check(matches(isDisplayed()))
         }
     }
 }
