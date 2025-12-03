@@ -586,10 +586,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             Log.w(TAG, "scanDocUpload: Failed to start doc scanning, fileDisplayActivity=" + fileDisplayActivity +
                 ", currentFile=" + currentFile);
-            final var activity = getActivity();
-            if (activity != null) {
-                DisplayUtils.showSnackMessage(activity, R.string.error_starting_doc_scan);
-            }
+            DisplayUtils.showSnackMessage(this, R.string.error_starting_doc_scan);
         }
     }
 
