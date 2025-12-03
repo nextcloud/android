@@ -88,12 +88,6 @@ class PreviewPdfFragment :
                 requireContext().startActivity(intent)
             }
         }
-        viewModel.showZoomTip.observe(viewLifecycleOwner) { shouldShow ->
-            if (shouldShow) {
-                snack = DisplayUtils.showSnackMessage(binding.root, R.string.pdf_zoom_tip)
-                viewModel.onZoomTipShown()
-            }
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -48,7 +48,7 @@ class ShowErrorActivity : AppCompatActivity() {
     private fun createErrorTitle() = String.format(getString(R.string.error_crash_title), getString(R.string.app_name))
 
     private fun reportIssue() {
-        ClipboardUtil.copyToClipboard(this, binding.textViewError.text.toString(), false)
+        ClipboardUtil.copyToClipboard(this, binding.textViewError.text.toString(), true)
         val issueLink = getString(R.string.report_issue_link)
         DisplayUtils.startLinkIntent(this, issueLink)
     }

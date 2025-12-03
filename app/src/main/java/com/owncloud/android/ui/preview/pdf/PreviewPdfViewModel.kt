@@ -23,10 +23,6 @@ import javax.inject.Inject
 
 class PreviewPdfViewModel @Inject constructor(val appPreferences: AppPreferences) : ViewModel() {
 
-    companion object {
-        private const val SHOW_ZOOM_TIP_TIMES = 3
-    }
-
     private var _pdfRenderer = MutableLiveData<PdfRenderer>()
     val pdfRenderer: LiveData<PdfRenderer>
         get() = _pdfRenderer
@@ -34,10 +30,6 @@ class PreviewPdfViewModel @Inject constructor(val appPreferences: AppPreferences
     private var _previewImagePath = MutableLiveData<String>()
     val previewImagePath: LiveData<String>
         get() = _previewImagePath
-
-    private var _showZoomTip = MutableLiveData<Boolean>()
-    val showZoomTip: LiveData<Boolean>
-        get() = _showZoomTip
 
     override fun onCleared() {
         super.onCleared()
@@ -59,9 +51,6 @@ class PreviewPdfViewModel @Inject constructor(val appPreferences: AppPreferences
         closeRenderer()
         _pdfRenderer.value =
             PdfRenderer(ParcelFileDescriptor.open(File(file.storagePath), ParcelFileDescriptor.MODE_READ_ONLY))
-        if (appPreferences.pdfZoomTipShownCount < SHOW_ZOOM_TIP_TIMES) {
-            _showZoomTip.value = true
-        }
     }
 
     fun onClickPage(page: Bitmap) {
@@ -71,10 +60,5 @@ class PreviewPdfViewModel @Inject constructor(val appPreferences: AppPreferences
         outStream.close()
 
         _previewImagePath.value = file.path
-    }
-
-    fun onZoomTipShown() {
-        appPreferences.pdfZoomTipShownCount++
-        _showZoomTip.value = false
     }
 }
