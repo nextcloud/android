@@ -138,6 +138,7 @@ class FolderDownloadWorker(
         }
     }
 
+    @Suppress("ReturnCount")
     override suspend fun getForegroundInfo(): ForegroundInfo {
         return try {
             val folderID = inputData.getLong(FOLDER_ID, -1)

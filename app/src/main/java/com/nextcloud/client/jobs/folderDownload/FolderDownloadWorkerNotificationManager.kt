@@ -71,6 +71,7 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
         )
     }
 
+    @Suppress("MagicNumber")
     fun showProgressNotification(folderName: String, filename: String, currentIndex: Int, totalFileSize: Int) {
         val currentFileIndex = (currentIndex + 1)
         val description = context.getString(R.string.folder_download_counter, currentFileIndex, totalFileSize, filename)
