@@ -13,8 +13,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
-import com.nextcloud.client.jobs.upload.FileUploadBroadcastReceiver
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.UploadBroadcastAction
 import com.nextcloud.utils.extensions.isFileSpecificError
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
@@ -100,12 +100,11 @@ object UploadErrorNotificationManager {
                     context.getString(R.string.upload_list_resolve_conflict),
                     conflictResolvePendingIntent(context, operation)
                 )
-                addAction(
-                    R.drawable.ic_delete,
-                    context.getString(R.string.upload_list_cancel_upload),
-                    FileUploadBroadcastReceiver.getBroadcast(context, operation.ocUploadId)
-                )
             }
+
+            addAction(UploadBroadcastAction.CancelOrRemove(operation).cancelAction(context))
+
+            addAction(UploadBroadcastAction.CancelOrRemove(operation).removeAction(context))
 
             result.code.takeIf { it == ResultCode.UNAUTHORIZED }?.let {
                 setContentIntent(credentialPendingIntent(context, operation))
@@ -119,6 +118,7 @@ object UploadErrorNotificationManager {
         else -> R.string.uploader_upload_failed_ticker
     }
 
+    @Suppress("DEPRECATION")
     private fun credentialPendingIntent(context: Context, operation: UploadFileOperation): PendingIntent {
         val intent = Intent(context, AuthenticatorActivity::class.java).apply {
             putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, operation.user.toPlatformAccount())

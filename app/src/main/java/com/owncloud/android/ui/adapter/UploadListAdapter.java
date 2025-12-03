@@ -52,7 +52,6 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.progressListener.UploadProgressListener;
-import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -1077,17 +1076,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     public void cancelOldErrorNotification(OCUpload upload) {
-
         if (mNotificationManager == null) {
-            mNotificationManager = (NotificationManager) parentActivity.getSystemService(parentActivity.NOTIFICATION_SERVICE);
+            mNotificationManager = (NotificationManager) parentActivity.getSystemService(Context.NOTIFICATION_SERVICE);
         }
 
         if (upload == null) {
             return;
         }
-        mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(upload.getRemotePath(), upload.getLocalPath()),
-                                    FileUploadWorker.NOTIFICATION_ERROR_ID);
 
+        mNotificationManager.cancel((int) upload.getUploadId());
     }
-
 }

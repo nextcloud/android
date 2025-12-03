@@ -8,7 +8,6 @@
 package com.nextcloud.client.jobs.upload
 
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -22,34 +21,54 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
     lateinit var uploadsStorageManager: UploadsStorageManager
 
     companion object {
-        private const val UPLOAD_ID = "UPLOAD_ID"
-
-        fun getBroadcast(context: Context, id: Long): PendingIntent {
-            val intent = Intent(context, FileUploadBroadcastReceiver::class.java).apply {
-                putExtra(UPLOAD_ID, id)
-                setClass(context, FileUploadBroadcastReceiver::class.java)
-                setPackage(context.packageName)
-            }
-
-            return PendingIntent.getBroadcast(
-                context,
-                id.toInt(),
-                intent,
-                PendingIntent.FLAG_IMMUTABLE
-            )
-        }
+        // region cancel or remove actions
+        const val UPLOAD_ID = "UPLOAD_ID"
+        const val ACCOUNT_NAME = "ACCOUNT_NAME"
+        const val REMOTE_PATH = "REMOTE_PATH"
+        const val REMOVE = "REMOVE"
+        // endregion
     }
 
     @Suppress("ReturnCount")
     override fun onReceive(context: Context, intent: Intent) {
         MainApp.getAppComponent().inject(this)
 
+        if (intent.action == UploadBroadcastAction.CancelOrRemove::class.simpleName) {
+            cancelUpload(context, intent)
+        }
+    }
+
+    private fun cancelUpload(context: Context, intent: Intent) {
         val uploadId = intent.getLongExtra(UPLOAD_ID, -1L)
         if (uploadId == -1L) {
             return
         }
 
-        uploadsStorageManager.removeUpload(uploadId)
+        val accountName = intent.getStringExtra(ACCOUNT_NAME)
+        if (accountName.isNullOrEmpty()) {
+            return
+        }
+
+        val remotePath = intent.getStringExtra(REMOTE_PATH)
+        if (remotePath.isNullOrEmpty()) {
+            return
+        }
+
+        val remove = intent.getBooleanExtra(REMOVE, false)
+
+        FileUploadWorker.cancelCurrentUpload(remotePath, accountName, onCompleted = {})
+
+        if (remove) {
+            uploadsStorageManager.removeUpload(uploadId)
+        } else {
+            FileUploadHelper.instance().updateUploadStatus(
+                remotePath,
+                accountName,
+                UploadsStorageManager.UploadStatus.UPLOAD_CANCELLED
+            )
+        }
+
+        // dismiss notification
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(uploadId.toInt())
     }

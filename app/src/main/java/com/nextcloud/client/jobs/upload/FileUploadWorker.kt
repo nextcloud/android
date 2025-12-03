@@ -238,7 +238,7 @@ class FileUploadWorker(
             if (preferences.isGlobalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")
                 notificationManager.notifyPaused(
-                    intents.notificationStartIntent(null)
+                    intents.openUploadListIntent(null)
                 )
                 return@withContext Result.success()
             }
@@ -256,8 +256,7 @@ class FileUploadWorker(
             val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
             notificationManager.prepareForStart(
                 operation,
-                cancelPendingIntent = intents.startIntent(operation),
-                startIntent = intents.notificationStartIntent(operation),
+                startIntent = intents.openUploadListIntent(operation),
                 currentUploadIndex = currentUploadIndex,
                 totalUploadSize = totalUploadSize
             )
@@ -353,7 +352,7 @@ class FileUploadWorker(
             Log_OC.e(TAG, "Error uploading", e)
             result = RemoteOperationResult<Any?>(e)
         } finally {
-            if (!isStopped || !result.isCancelled) {
+            if (!isStopped) {
                 uploadsStorageManager.updateDatabaseUploadResult(result, operation)
                 UploadErrorNotificationManager.handleResult(
                     context,
