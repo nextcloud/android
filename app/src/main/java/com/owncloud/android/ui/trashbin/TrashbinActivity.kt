@@ -19,7 +19,6 @@ import android.view.View
 import android.widget.AbsListView
 import android.widget.PopupMenu
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.IdRes
 import androidx.annotation.VisibleForTesting
@@ -106,7 +105,7 @@ class TrashbinActivity :
             if (targetUser.isPresent) {
                 setUser(targetUser.get())
             } else {
-                Toast.makeText(this, R.string.associated_account_not_found, Toast.LENGTH_LONG).show()
+                DisplayUtils.showSnackMessage(this, R.string.associated_account_not_found)
                 finish()
                 return
             }

@@ -16,7 +16,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.widget.Toast;
 
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
@@ -55,7 +54,7 @@ public class RequestCredentialsActivity extends Activity {
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 finishWithResult(KEY_CHECK_RESULT_CANCEL);
             } else {
-                Toast.makeText(this, R.string.default_credentials_wrong, Toast.LENGTH_SHORT).show();
+                DisplayUtils.showSnackMessage(this, R.string.default_credentials_wrong);
                 requestCredentials();
             }
         }

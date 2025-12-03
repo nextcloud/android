@@ -9,12 +9,12 @@ package com.owncloud.android.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment
+import com.owncloud.android.utils.DisplayUtils
 
 class SetupEncryptionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +23,7 @@ class SetupEncryptionActivity : AppCompatActivity() {
         val user = intent?.getParcelableArgument("EXTRA_USER", User::class.java)
 
         if (user == null) {
-            Toast.makeText(this, getString(R.string.error_showing_encryption_dialog), Toast.LENGTH_LONG).show()
+            DisplayUtils.showSnackMessage(this, R.string.error_showing_encryption_dialog)
             finish()
         }
 

@@ -11,7 +11,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
@@ -79,7 +78,7 @@ class ConflictsResolveDialog :
 
         try {
             listener = context as OnConflictDecisionMadeListener
-        } catch (e: ClassCastException) {
+        } catch (_: ClassCastException) {
             throw ClassCastException("Activity of this dialog must implement OnConflictDecisionMadeListener")
         }
     }
@@ -90,7 +89,9 @@ class ConflictsResolveDialog :
         val alertDialog = dialog as AlertDialog?
 
         if (alertDialog == null) {
-            Toast.makeText(context, "Failed to create conflict dialog", Toast.LENGTH_LONG).show()
+            activity?.let {
+                DisplayUtils.showSnackMessage(it, R.string.failed_to_create_conflict_dialog)
+            }
             return
         }
 
@@ -116,7 +117,9 @@ class ConflictsResolveDialog :
             rightDataFile = bundle.getParcelableArgument(ARG_RIGHT_FILE, OCFile::class.java)
             user = bundle.getParcelableArgument(ARG_USER, User::class.java)
         } else {
-            Toast.makeText(context, "Failed to create conflict dialog", Toast.LENGTH_LONG).show()
+            activity?.let {
+                DisplayUtils.showSnackMessage(it, R.string.failed_to_create_conflict_dialog)
+            }
         }
     }
 

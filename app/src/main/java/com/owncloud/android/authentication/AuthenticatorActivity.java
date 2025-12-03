@@ -44,7 +44,6 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.button.MaterialButton;
@@ -859,7 +858,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme))) {
             if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
                 accountManager.getAccounts().length == 1) {
-                Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+                DisplayUtils.showSnackMessage(this, R.string.no_mutliple_accounts_allowed);
                 finish();
                 return;
             } else {
@@ -1307,16 +1306,21 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             case ACCOUNT_NOT_NEW:
                 mAuthStatusText = getString(R.string.auth_account_not_new);
                 if (!showWebViewLoginUrl) {
-                    DisplayUtils.showErrorAndFinishActivity(this, mAuthStatusText);
+                    showErrorAndFinishActivity();
                 }
                 break;
             case UNHANDLED_HTTP_CODE:
             default:
                 mAuthStatusText = ErrorMessageAdapter.getErrorCauseMessage(result, null, getResources());
                 if (!showWebViewLoginUrl) {
-                    DisplayUtils.showErrorAndFinishActivity(this, mAuthStatusText);
+                    showErrorAndFinishActivity();
                 }
         }
+    }
+
+    private void showErrorAndFinishActivity() {
+        DisplayUtils.showSnackMessage(this, mAuthStatusText);
+        finish();
     }
 
     private void updateStatusIconFailUserName(int failedStatusText) {
@@ -1588,7 +1592,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
                     accountManager.getAccounts().length == 1) {
-                    Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+                    DisplayUtils.showSnackMessage(this, R.string.no_mutliple_accounts_allowed);
                 } else {
                     parseAndLoginFromWebView(resultData);
                 }

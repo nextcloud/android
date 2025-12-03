@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.os.bundleOf
@@ -108,8 +107,8 @@ class TrashbinFileActionsBottomSheet :
 
             TrashbinFileActionsViewModel.UiState.Loading -> {}
             TrashbinFileActionsViewModel.UiState.Error -> {
-                context?.let {
-                    Toast.makeText(it, R.string.error_file_actions, Toast.LENGTH_SHORT).show()
+                activity?.let {
+                    DisplayUtils.showSnackMessage(it, R.string.error_file_actions)
                 }
                 dismissAllowingStateLoss()
             }

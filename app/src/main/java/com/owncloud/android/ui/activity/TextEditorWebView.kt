@@ -8,7 +8,6 @@
 package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
-import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
@@ -18,6 +17,7 @@ import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.R
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ThemeUtils
 import javax.inject.Inject
 
@@ -39,7 +39,7 @@ class TextEditorWebView : EditorWebView() {
         super.postOnCreate()
 
         if (!user.isPresent) {
-            Toast.makeText(this, getString(R.string.failed_to_start_editor), Toast.LENGTH_LONG).show()
+            DisplayUtils.showSnackMessage(this, R.string.failed_to_start_editor)
             finish()
         }
 

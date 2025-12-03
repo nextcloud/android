@@ -1476,4 +1476,7 @@
     <string name="sort_folders_before_files">Sort folders before files</string>
     <string name="sort_favorites_first">Sort favorites first</string>
     <string name="prefs_category_files">Files</string>
+
+    <string name="failed_to_create_conflict_dialog">Failed to create conflict dialog</string>
+    <string name="editor_web_view_cannot_open_file">Cannot open file chooser</string>
 </resources>
