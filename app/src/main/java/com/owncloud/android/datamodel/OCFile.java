@@ -61,6 +61,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private final static int MAX_FILE_SIZE_FOR_IMMEDIATE_PREVIEW_BYTES = 1024000;
 
     public static final String PATH_SEPARATOR = "/";
+    public static final char PATH_SEPARATOR_CHAR = '/';
     public static final String ROOT_PATH = PATH_SEPARATOR;
 
     private static final String TAG = OCFile.class.getSimpleName();

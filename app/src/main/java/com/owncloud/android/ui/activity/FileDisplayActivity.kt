@@ -82,6 +82,7 @@ import com.nextcloud.model.WorkerState.UploadFinished
 import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
+import com.nextcloud.utils.extensions.isSubDirOfRoot
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.navigateToAllFiles
@@ -94,6 +95,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
+import com.owncloud.android.datamodel.e2e.v1.decrypted.Sharing
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
@@ -134,6 +136,7 @@ import com.owncloud.android.ui.fragment.GroupfolderListFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.fragment.SharedListFragment
+import com.owncloud.android.ui.fragment.SharedListNavState
 import com.owncloud.android.ui.fragment.TaskRetainerFragment
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment
 import com.owncloud.android.ui.helpers.FileOperationsHelper
@@ -941,33 +944,11 @@ class FileDisplayActivity :
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var retval = true
-
-        val itemId = item.itemId
-
-        if (itemId == android.R.id.home) {
-            if (!isDrawerOpen &&
-                !isSearchOpen() &&
-                isRoot(getCurrentDir()) &&
-                this.leftFragment is OCFileListFragment
-            ) {
-                openDrawer()
-            } else {
-                if (isSearchOpen()) {
-                    resetSearchAction()
-                } else {
-                    onBackPressedDispatcher.onBackPressed()
-                }
-            }
-        } else if (itemId == R.id.action_select_all) {
-            val fragment = this.listOfFilesFragment
-            fragment?.selectAllFiles(true)
-        } else {
-            retval = super.onOptionsItemSelected(item)
-        }
-
-        return retval
+    private fun shouldOpenDrawer(): Boolean {
+        return !isDrawerOpen &&
+            !isSearchOpen() &&
+            isRoot(getCurrentDir()) &&
+            this.leftFragment is OCFileListFragment
     }
 
     /**
@@ -1193,14 +1174,29 @@ class FileDisplayActivity :
 
                         leftFragment is OCFileListFragment -> {
                             val fragment = leftFragment as OCFileListFragment
-                            if (isRoot(getCurrentDir())) {
-                                if (fragment.shouldNavigateBackToAllFiles()) {
-                                    navigateToAllFiles()
-                                } else {
-                                    finish()
+
+                            when {
+                                // We are at root
+                                isRoot(getCurrentDir()) -> {
+                                    if (fragment.shouldNavigateBackToAllFiles()) {
+                                        navigateToAllFiles()
+                                    } else {
+                                        finish()
+                                    }
                                 }
-                            } else {
-                                browseUp(fragment)
+
+                                sharedListNavState == SharedListNavState.Root && fragment is SharedListFragment -> {
+                                    openDrawer()
+                                }
+
+                                sharedListNavState == SharedListNavState.SubDirOfRoot && fragment is SharedListFragment -> {
+                                    openSharedTab()
+                                }
+
+                                // Normal folder navigation (go up)
+                                else -> {
+                                    browseUp(fragment)
+                                }
                             }
                         }
 
@@ -1212,6 +1208,32 @@ class FileDisplayActivity :
                 }
             }
         )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                when {
+                    shouldOpenDrawer() -> openDrawer()
+                    isSearchOpen() -> resetSearchAction()
+                    else -> onBackPressedDispatcher.onBackPressed()
+                }
+                true
+            }
+
+            R.id.action_select_all -> {
+                listOfFilesFragment?.selectAllFiles(true)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun shouldOpenSharedTab(): Boolean {
+        return fileListFragment is SharedListFragment &&
+            fileListFragment?.isSearchEventShared == true &&
+            !isSharedRoot
     }
 
     private fun browseUp(listOfFiles: OCFileListFragment) {

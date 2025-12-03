@@ -1288,6 +1288,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void browseToFolder(OCFile file, int position) {
+        if (getActivity() instanceof DrawerActivity activity) {
+            activity.isSharedRoot = false;
+        }
+
         resetSearchIfBrowsingFromFavorites();
         listDirectory(file, MainApp.isOnlyOnDevice(), false);
         // then, notify parent activity to let it update its state and view
@@ -2309,10 +2313,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public boolean isSearchEventFavorite() {
+        return isSearchEvent(SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
+    }
+
+    public boolean isSearchEventShared() {
+        return isSearchEvent(SearchRemoteOperation.SearchType.SHARED_FILTER);
+    }
+
+    private boolean isSearchEvent(SearchRemoteOperation.SearchType givenEvent) {
         if (searchEvent == null) {
             return false;
         }
-        return searchEvent.getSearchType() == SearchRemoteOperation.SearchType.FAVORITE_SEARCH;
+        return searchEvent.getSearchType() == givenEvent;
     }
 
     public boolean shouldNavigateBackToAllFiles() {

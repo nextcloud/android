@@ -95,6 +95,7 @@ import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.GroupfolderListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SharedListFragment;
+import com.owncloud.android.ui.fragment.SharedListNavState;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.BitmapUtils;
@@ -209,6 +210,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     @Inject
     ClientFactory clientFactory;
+
+    public SharedListNavState sharedListNavState =SharedListNavState.Root;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
@@ -624,8 +627,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
             }
         } else if (itemId == R.id.nav_shared) {
-            resetOnlyPersonalAndOnDevice();
-            startSharedSearch(menuItem);
+            openSharedTab();
         } else if (itemId == R.id.nav_recently_modified) {
             resetOnlyPersonalAndOnDevice();
             startRecentlyModifiedSearch(menuItem);
@@ -686,11 +688,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void startSharedSearch(MenuItem menuItem) {
+    protected void openSharedTab() {
+        sharedListNavState = SharedListNavState.Root;
+        setupHomeSearchToolbarWithSortAndListButtons();
+        resetOnlyPersonalAndOnDevice();
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
-        MainApp.showOnlyFilesOnDevice(false);
-
-        launchActivityForSearch(searchEvent, menuItem.getItemId());
+        launchActivityForSearch(searchEvent, R.id.nav_shared);
     }
 
     private void startRecentlyModifiedSearch(MenuItem menuItem) {
@@ -733,7 +736,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * sets the new/current account and restarts. In case the given account equals the actual/current account the call
      * will be ignored.
      *
-     * @param User user to be set
+     * @param user to be set
      */
     public void accountClicked(User user) {
         final User currentUser = accountManager.getUser();
