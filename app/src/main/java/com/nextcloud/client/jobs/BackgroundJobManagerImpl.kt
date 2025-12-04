@@ -594,6 +594,19 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueue(request)
     }
 
+    override fun startDecryptedNotificationJob(accountName: String, message: String) {
+        val data = Data.Builder()
+            .putString(NotificationWork.KEY_NOTIFICATION_ACCOUNT, accountName)
+            .putString(NotificationWork.KEY_NOTIFICATION_DECRYPTED_MSG, message)
+            .build()
+
+        val request = oneTimeRequestBuilder(NotificationWork::class, JOB_NOTIFICATION)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueue(request)
+    }
+
     override fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean) {
         val data = Data.Builder()
             .putString(AccountRemovalWork.ACCOUNT, accountName)

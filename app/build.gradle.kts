@@ -500,6 +500,10 @@ dependencies {
     "gplayImplementation"(libs.bundles.gplay)
     // endregion
 
+    // region Push
+    implementation(libs.unifiedpush.connector)
+    // endregion
+
     // region common
     implementation(libs.ui)
     implementation(libs.common.core)
