@@ -216,6 +216,7 @@
     <string name="conversation_screen_empty_content_title">Herhangi bir görüşme bulunamadı</string>
     <string name="conversation_screen_empty_conversation_list_title">Henüz bir görüşme yok</string>
     <string name="conversation_screen_title">Görüşmeler</string>
+    <string name="copied">Kopyalandı</string>
     <string name="copied_to_clipboard">Panoya kopyalandı</string>
     <string name="copy_file_error">Bu dosya ya da klasör kopyalanmaya çalışılırken bir sorun çıktı</string>
     <string name="copy_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak kopyalanamaz</string>

@@ -206,6 +206,7 @@
     <string name="conversation_screen_empty_content_title">لم يتم العثور على المحادثات </string>
     <string name="conversation_screen_empty_conversation_list_title">لا توجد أي محادثات حتى الآن</string>
     <string name="conversation_screen_title">محادثات</string>
+    <string name="copied">نُسخت </string>
     <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
     <string name="copy_file_error">حدث خطأٌ خلال محاولة نسخ هذا الملف أو المجلد</string>
     <string name="copy_file_invalid_into_descendent">لا يمكن نسخ مجلد في مجلدات هوَّ يتضمنها</string>

@@ -217,6 +217,7 @@
     <string name="conversation_screen_empty_content_title">Није пронађен ниједан разговор</string>
     <string name="conversation_screen_empty_conversation_list_title">Још увек нема разговора</string>
     <string name="conversation_screen_title">Разговори</string>
+    <string name="copied">Копирано</string>
     <string name="copied_to_clipboard">Копирано у клипборд</string>
     <string name="copy_file_error">Грешка приликом копирања овог фајла или фасцикле</string>
     <string name="copy_file_invalid_into_descendent">Фасцикла се не може копирати у неку од својих потфасцикли.</string>

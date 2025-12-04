@@ -223,6 +223,7 @@
     <string name="conversation_screen_empty_conversation_list_title">Inga konversationer än</string>
     <string name="conversation_screen_fetch_error_title">Kunde inte hämta konversationslistan</string>
     <string name="conversation_screen_title">Konversationer</string>
+    <string name="copied">Kopierad</string>
     <string name="copied_to_clipboard">Kopierat till urklipp</string>
     <string name="copy_file_error">Ett fel uppstod, kunde inte kopiera filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det är inte möjligt att kopiera mappen till en av dess undermappar</string>

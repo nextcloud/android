@@ -218,6 +218,7 @@
     <string name="conversation_screen_empty_content_title">No conversations found</string>
     <string name="conversation_screen_empty_conversation_list_title">ຍັງບໍ່ມີການສົນທະນາ</string>
     <string name="conversation_screen_title">ການສົນທະນາ</string>
+    <string name="copied">Copied</string>
     <string name="copied_to_clipboard">ສໍາເນົາຄລິບ</string>
     <string name="copy_file_error">ມີຂໍ້ຜິດພາດເກີດຂຶ້ນໃນຂະນະທີ່ພະຍາຍາມສໍາເນົາຟາຍຫຼືໂຟນເດີນີ້</string>
     <string name="copy_file_invalid_into_descendent">ມັນເປັນໄປບໍ່ໄດ້ທີ່ຈະສໍາເນົາໂຟນເດີ ເປັນຫນຶ່ງໃນໂຟນເດີ ພື້ນຖານ</string>

@@ -209,6 +209,7 @@
     <string name="conversation_screen_empty_content_title">Neboli nájdené žiadne konverzácie</string>
     <string name="conversation_screen_empty_conversation_list_title">Zatiaľ žiadne konverzácie</string>
     <string name="conversation_screen_title">Konverzácie</string>
+    <string name="copied">Skopírované</string>
     <string name="copied_to_clipboard">Skopírované do schránky</string>
     <string name="copy_file_error">Počas kopírovania súboru alebo zložky sa vyskytla chyba</string>
     <string name="copy_file_invalid_into_descendent">Nie je možné skopírovať priečinok do samého seba</string>

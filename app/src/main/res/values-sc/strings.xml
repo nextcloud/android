@@ -157,6 +157,7 @@
     <string name="conversation_screen_delete_button_title">Cantzella sa resonada</string>
     <string name="conversation_screen_empty_content_title">Peruna resonada agatada</string>
     <string name="conversation_screen_title">Cunversatziones</string>
+    <string name="copied">Copiadu</string>
     <string name="copied_to_clipboard">Copiadu in punta de billete</string>
     <string name="copy_file_error">Ddoe at àpidu un\'errore in sa còpia de su documentu o de sa cartella</string>
     <string name="copy_file_invalid_into_descendent">No est possìbile a copiare una cartella a intro de una de is cartellas in suta </string>

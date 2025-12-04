@@ -95,7 +95,7 @@
     <string name="auth_unknown_host_title">Kunne ikke finde host</string>
     <string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
     <string name="auth_wrong_connection_title">Kunne ikke etablere forbindelse</string>
-    <string name="authenticator_activity_cancel_login">Annuller log på</string>
+    <string name="authenticator_activity_cancel_login">Annullér log på</string>
     <string name="authenticator_activity_empty_base_url">Angiv venligst en gyldig serveradresse.</string>
     <string name="authenticator_activity_empty_response_message">Kan ikke hent log på detaljer. Prøv venligst igen.</string>
     <string name="authenticator_activity_login_error">Der opstod et problem i forbindelse med din log på forespørgsel. Prøv venligst igen senere.</string>
@@ -146,7 +146,7 @@
     <string name="clipboard_text_copied">Link kopieret</string>
     <string name="clipboard_unexpected_error">Uventet fejl under kopiering til udklipsholder</string>
     <string name="common_back">Tilbage</string>
-    <string name="common_cancel">Annuller</string>
+    <string name="common_cancel">Annullér</string>
     <string name="common_cancel_sync">Annullér synkronisering</string>
     <string name="common_choose_account">Vælg konto</string>
     <string name="common_confirm">Bekræft</string>
@@ -214,6 +214,7 @@
     <string name="contacts_preferences_something_strange_happened">Kunne ikke finde din sidste backup!</string>
     <string name="conversation_screen_empty_conversation_list_title">Endnu ingen samtaler</string>
     <string name="conversation_screen_title">Samtaler</string>
+    <string name="copied">Kopieret</string>
     <string name="copied_to_clipboard">Kopieret til udklipsholder</string>
     <string name="copy_file_error">Der opstod en fejl under forsøg på at kopiere denne fil eller mappe</string>
     <string name="copy_file_invalid_into_descendent">Det er ikke muligt at kopiere en mappe til en af dens egne undermapper</string>

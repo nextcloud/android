@@ -191,6 +191,7 @@
     <string name="conversation_screen_empty_content_title">پاراڭ تېپىلمىدى</string>
     <string name="conversation_screen_empty_conversation_list_title">تېخى سۆھبەت يوق</string>
     <string name="conversation_screen_title">سۆھبەت</string>
+    <string name="copied">كۆچۈرۈلگەن</string>
     <string name="copied_to_clipboard">چاپلاش تاختىسىغا كۆچۈرۈلدى</string>
     <string name="copy_file_error">بۇ ھۆججەت ياكى ھۆججەت قىسقۇچنى كۆچۈرمەكچى بولغاندا خاتالىق كۆرۈلدى</string>
     <string name="copy_file_invalid_into_descendent">قىسقۇچنى ئۆزىنىڭ ئاستىدىكى قىسقۇچنىڭ بىرىگە كۆچۈرگىلى بولمايدۇ</string>

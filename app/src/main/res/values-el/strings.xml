@@ -173,6 +173,7 @@
     <string name="conversation_screen_empty_content_title">Δεν βρέθηκαν συνομιλίες</string>
     <string name="conversation_screen_empty_conversation_list_title">Δεν υπάρχουν ακόμη συνομιλίες</string>
     <string name="conversation_screen_title">Συνομιλίες</string>
+    <string name="copied">Αντιγράφηκε</string>
     <string name="copied_to_clipboard">Αντιγράφηκε στο πρόχειρο</string>
     <string name="copy_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια αντιγραφής αυτού του αρχείου ή φακέλου</string>
     <string name="copy_file_invalid_into_descendent">Δεν είναι δυνατό να αντιγραφεί ο φάκελος σε απογονικό</string>

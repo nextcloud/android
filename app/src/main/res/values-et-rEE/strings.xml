@@ -224,6 +224,7 @@
     <string name="conversation_screen_empty_conversation_list_title">Ühtegi vestlust veel pole</string>
     <string name="conversation_screen_fetch_error_title">Vestluste loendi laadimine ei õnnestunud.</string>
     <string name="conversation_screen_title">Vestlused</string>
+    <string name="copied">Kopeeritud</string>
     <string name="copied_to_clipboard">Kopeeritud lõikepuhvrisse</string>
     <string name="copy_file_error">Selle faili või kausta kopeerimisel tekkis tõrge</string>
     <string name="copy_file_invalid_into_descendent">Kausta ei saa kopeerida tema enda alamkausta</string>
