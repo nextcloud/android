@@ -35,7 +35,6 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
         private const val MAX_PROGRESS = 100
     }
 
-
     private fun getNotification(title: String, description: String = "", progress: Int? = null): Notification =
         notificationBuilder.apply {
             setSmallIcon(R.drawable.ic_sync)
@@ -68,12 +67,15 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
         )
     }
 
+    private var lastDescription: String = ""
+    private var lastProgress: Int = 0
+
     @Suppress("MagicNumber")
     fun showProgressNotification(folderName: String, filename: String, currentIndex: Int, totalFileSize: Int) {
         val currentFileIndex = (currentIndex + 1)
-        val description = context.getString(R.string.folder_download_counter, currentFileIndex, totalFileSize, filename)
-        val progress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
-        val notification = getNotification(folderName, description, progress)
+        lastDescription = context.getString(R.string.folder_download_counter, currentFileIndex, totalFileSize, filename)
+        lastProgress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
+        val notification = getNotification(folderName, lastDescription, lastProgress)
         notificationManager.notify(NOTIFICATION_ID, notification)
     }
 
@@ -98,7 +100,7 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
 
     fun getForegroundInfo(folder: OCFile?): ForegroundInfo {
         val notification = if (folder != null) {
-            getNotification(folder.fileName)
+            getNotification(folder.fileName, lastDescription, lastProgress)
         } else {
             getNotification(title = context.getString(R.string.folder_download_worker_ticker_id))
         }
