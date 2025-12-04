@@ -1288,8 +1288,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void browseToFolder(OCFile file, int position) {
-        if (getActivity() instanceof DrawerActivity activity) {
-            activity.isSharedRoot = false;
+        if (this instanceof SharedListFragment sharedListFragment) {
+            final var sharedNavState = SharedListNavState.Companion.getNavState(file);
+            sharedListFragment.setNavState(sharedNavState);
         }
 
         resetSearchIfBrowsingFromFavorites();

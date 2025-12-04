@@ -211,8 +211,6 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Inject
     ClientFactory clientFactory;
 
-    public SharedListNavState sharedListNavState =SharedListNavState.Root;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -689,7 +687,6 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     protected void openSharedTab() {
-        sharedListNavState = SharedListNavState.Root;
         setupHomeSearchToolbarWithSortAndListButtons();
         resetOnlyPersonalAndOnDevice();
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);

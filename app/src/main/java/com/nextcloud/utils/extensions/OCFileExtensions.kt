@@ -55,10 +55,3 @@ fun OCFile?.isPNG(): Boolean {
     }
     return "image/png".equals(mimeType, ignoreCase = true)
 }
-
-fun OCFile?.isSubDirOfRoot(): Boolean {
-    val path = this?.remotePath.orEmpty()
-    return path.count { it == OCFile.PATH_SEPARATOR_CHAR } == 2 &&
-        path.startsWith(OCFile.PATH_SEPARATOR) &&
-        path.endsWith(OCFile.PATH_SEPARATOR)
-}

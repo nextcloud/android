@@ -42,6 +42,8 @@ class SharedListFragment :
     @Inject
     lateinit var logger: Logger
 
+    private var navState: SharedListNavState? = SharedListNavState.Root
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         searchFragment = true
@@ -182,6 +184,14 @@ class SharedListFragment :
     override fun onRefresh() {
         exitSelectionMode()
         super.onRefresh()
+    }
+
+    fun setNavState(state: SharedListNavState?) {
+        navState = state
+    }
+
+    fun getNavState(): SharedListNavState? {
+        return navState
     }
 
     companion object {

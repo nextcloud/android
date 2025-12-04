@@ -82,7 +82,6 @@ import com.nextcloud.model.WorkerState.UploadFinished
 import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
-import com.nextcloud.utils.extensions.isSubDirOfRoot
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.navigateToAllFiles
@@ -95,7 +94,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
-import com.owncloud.android.datamodel.e2e.v1.decrypted.Sharing
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
@@ -1185,15 +1183,15 @@ class FileDisplayActivity :
                                     }
                                 }
 
-                                sharedListNavState == SharedListNavState.Root && fragment is SharedListFragment -> {
+                                fragment is SharedListFragment && fragment.getNavState() == SharedListNavState.Root -> {
                                     openDrawer()
                                 }
 
-                                sharedListNavState == SharedListNavState.SubDirOfRoot && fragment is SharedListFragment -> {
+                                fragment is SharedListFragment && fragment.getNavState() == SharedListNavState.SubDirOfRoot -> {
                                     openSharedTab()
                                 }
 
-                                // Normal folder navigation (go up)
+                                // Normal folder navigation (go up) also works for shared tab
                                 else -> {
                                     browseUp(fragment)
                                 }
@@ -1228,12 +1226,6 @@ class FileDisplayActivity :
 
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun shouldOpenSharedTab(): Boolean {
-        return fileListFragment is SharedListFragment &&
-            fileListFragment?.isSearchEventShared == true &&
-            !isSharedRoot
     }
 
     private fun browseUp(listOfFiles: OCFileListFragment) {
