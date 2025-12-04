@@ -1395,6 +1395,7 @@
     <string name="share_not_allowed_when_file_drop">Resharing is not allowed during secure file drop</string>
     <string name="prefs_category_sync">Sync</string>
     <string name="remove_upload">Remove</string>
+    <string name="stop_upload">Stop</string>
     <string name="internal_two_way_sync">Internal two way sync</string>
     <string name="prefs_two_way_sync_summary">Manage internal folders for two way sync</string>
     <string name="internal_two_way_sync_not_yet">Not yet, soon to be synced</string>
