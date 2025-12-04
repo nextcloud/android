@@ -65,6 +65,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.OCFileNavState;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
@@ -240,6 +241,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
+
+    private OCFileNavState navState = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1076,6 +1079,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             Future<Pair<Integer, OCFile>> futureResult = getPreviousFile();
             Pair<Integer, OCFile> result = futureResult.get();
             mFile = result.second;
+            setNavState(mFile);
             updateFileList();
             return result.first;
         } catch (Exception e) {
@@ -1287,12 +1291,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void browseToFolder(OCFile file, int position) {
-        if (this instanceof SharedListFragment sharedListFragment) {
-            final var sharedNavState = SharedListNavState.Companion.getNavState(file);
-            sharedListFragment.setNavState(sharedNavState);
-        }
+    private void setNavState(OCFile file) {
+        final var path = file.getRemotePath();
+        navState = OCFileNavState.Companion.getNavState(path);
+    }
 
+    public OCFileNavState getNavState() {
+        return navState;
+    }
+
+    private void browseToFolder(OCFile file, int position) {
+        setNavState(file);
         resetSearchIfBrowsingFromFavorites();
         listDirectory(file, MainApp.isOnlyOnDevice(), false);
         // then, notify parent activity to let it update its state and view

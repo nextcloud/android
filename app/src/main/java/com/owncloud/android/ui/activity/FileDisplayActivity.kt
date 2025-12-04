@@ -134,7 +134,7 @@ import com.owncloud.android.ui.fragment.GroupfolderListFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.fragment.SharedListFragment
-import com.owncloud.android.ui.fragment.SharedListNavState
+import com.owncloud.android.datamodel.OCFileNavState
 import com.owncloud.android.ui.fragment.TaskRetainerFragment
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment
 import com.owncloud.android.ui.helpers.FileOperationsHelper
@@ -1174,7 +1174,7 @@ class FileDisplayActivity :
                             val fragment = leftFragment as OCFileListFragment
 
                             when {
-                                // We are at root
+                                // root
                                 isRoot(getCurrentDir()) -> {
                                     if (fragment.shouldNavigateBackToAllFiles()) {
                                         navigateToAllFiles()
@@ -1183,11 +1183,12 @@ class FileDisplayActivity :
                                     }
                                 }
 
-                                fragment is SharedListFragment && fragment.getNavState() == SharedListNavState.Root -> {
+                                // shared root
+                                fragment is SharedListFragment && fragment.navState == OCFileNavState.Root -> {
                                     openDrawer()
                                 }
 
-                                fragment is SharedListFragment && fragment.getNavState() == SharedListNavState.SubDirOfRoot -> {
+                                fragment is SharedListFragment && fragment.navState == OCFileNavState.SubDirOfRoot -> {
                                     openSharedTab()
                                 }
 

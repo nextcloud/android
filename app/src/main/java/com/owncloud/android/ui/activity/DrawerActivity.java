@@ -95,7 +95,6 @@ import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.GroupfolderListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SharedListFragment;
-import com.owncloud.android.ui.fragment.SharedListNavState;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.BitmapUtils;
@@ -687,7 +686,6 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     protected void openSharedTab() {
-        setupHomeSearchToolbarWithSortAndListButtons();
         resetOnlyPersonalAndOnDevice();
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
         launchActivityForSearch(searchEvent, R.id.nav_shared);
