@@ -92,7 +92,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.FilesBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.OCFileNavState
+import com.owncloud.android.datamodel.OCFileDepth
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.files.services.NameCollisionPolicy
@@ -1182,11 +1182,11 @@ class FileDisplayActivity :
                                 }
 
                                 // shared root
-                                fragment is SharedListFragment && fragment.navState == OCFileNavState.Root -> {
+                                fragment is SharedListFragment && fragment.fileDepth == OCFileDepth.Root -> {
                                     openDrawer()
                                 }
 
-                                fragment is SharedListFragment && fragment.navState == OCFileNavState.SubDirOfRoot -> {
+                                fragment is SharedListFragment && fragment.fileDepth == OCFileDepth.FirstLevel -> {
                                     openSharedTab()
                                 }
 
