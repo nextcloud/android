@@ -47,7 +47,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.appbar.AppBarLayout
@@ -75,16 +74,16 @@ import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.model.ToolbarItem
 import com.nextcloud.model.ToolbarStyle
 import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerState.DownloadFinished
-import com.nextcloud.model.WorkerState.DownloadStarted
+import com.nextcloud.model.WorkerState.FileDownloadCompleted
+import com.nextcloud.model.WorkerState.FileDownloadStarted
 import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
-import com.nextcloud.model.WorkerState.UploadFinished
-import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.model.WorkerState.FileUploadCompleted
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.navigateToAllFiles
+import com.nextcloud.utils.extensions.observeWorker
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFolderPath
 import com.nextcloud.utils.view.FastScrollUtils
 import com.owncloud.android.MainApp
@@ -1875,36 +1874,38 @@ class FileDisplayActivity :
     override fun isDrawerIndicatorAvailable(): Boolean = isRoot(getCurrentDir())
 
     private fun observeWorkerState() {
-        WorkerStateLiveData.Companion.instance().observe(
-            this,
-            Observer { state: WorkerState? ->
-                when (state) {
-                    is DownloadStarted -> {
-                        Log_OC.d(TAG, "Download worker started")
-                        handleDownloadWorkerState()
-                    }
+        observeWorker { state ->
+            when (state) {
+                is FileDownloadStarted -> {
+                    Log_OC.d(TAG, "Download worker started")
+                    handleDownloadWorkerState()
+                }
 
-                    is DownloadFinished -> {
-                        fileDownloadProgressListener = null
-                        previewFile(state)
-                    }
+                is FileDownloadCompleted -> {
+                    fileDownloadProgressListener = null
+                    previewFile(state)
+                }
 
-                    is UploadFinished -> {
-                        refreshList()
-                    }
-
-                    is OfflineOperationsCompleted -> {
-                        refreshCurrentDirectory()
-                    }
-
-                    else -> {
+                is FileUploadCompleted -> {
+                    state.currentFile?.let {
+                        ocFileListFragment?.adapter?.insertFile(it)
                     }
                 }
+
+                is OfflineOperationsCompleted -> {
+                    refreshCurrentDirectory()
+                }
+
+                is WorkerState.FolderDownloadCompleted -> {
+                    ocFileListFragment?.adapter?.notifyItemChanged(state.folder)
+                }
+
+                else -> Unit
             }
-        )
+        }
     }
 
-    private fun previewFile(finishedState: DownloadFinished) {
+    private fun previewFile(finishedState: FileDownloadCompleted) {
         if (fileIDForImmediatePreview == -1L) {
             return
         }
