@@ -11,8 +11,6 @@
  */
 package com.owncloud.android.ui.notifications
 
-import com.owncloud.android.datamodel.OCFile
-
 object NotificationUtils {
     const val NOTIFICATION_CHANNEL_GENERAL: String = "NOTIFICATION_CHANNEL_GENERAL"
     const val NOTIFICATION_CHANNEL_DOWNLOAD: String = "NOTIFICATION_CHANNEL_DOWNLOAD"
@@ -24,9 +22,6 @@ object NotificationUtils {
     const val NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS: String = "NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS"
     const val NOTIFICATION_CHANNEL_OFFLINE_OPERATIONS: String = "NOTIFICATION_CHANNEL_OFFLINE_OPERATIONS"
     const val NOTIFICATION_CHANNEL_CONTENT_OBSERVER: String = "NOTIFICATION_CHANNEL_CONTENT_OBSERVER"
-
-    fun createUploadNotificationTag(file: OCFile): String =
-        createUploadNotificationTag(file.remotePath, file.storagePath)
 
     @JvmStatic
     fun createUploadNotificationTag(remotePath: String?, localPath: String): String = remotePath + localPath

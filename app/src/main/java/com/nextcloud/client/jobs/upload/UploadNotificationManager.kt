@@ -27,8 +27,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
 
     @Suppress("MagicNumber")
     fun prepareForStart(
-        uploadFileOperation: UploadFileOperation,
-        cancelPendingIntent: PendingIntent,
+        operation: UploadFileOperation,
         startIntent: PendingIntent,
         currentUploadIndex: Int,
         totalUploadSize: Int
@@ -38,10 +37,10 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
                 context.getString(R.string.upload_notification_manager_start_text),
                 currentUploadIndex,
                 totalUploadSize,
-                uploadFileOperation.fileName
+                operation.fileName
             )
         } else {
-            uploadFileOperation.fileName
+            operation.fileName
         }
 
         val progressText = NumberFormatter.getPercentageText(0)
@@ -52,17 +51,12 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             setContentText(progressText)
             setOngoing(false)
             clearActions()
-
-            addAction(
-                R.drawable.ic_action_cancel_grey,
-                context.getString(R.string.common_cancel),
-                cancelPendingIntent
-            )
-
+            addAction(UploadBroadcastAction.CancelOrRemove(operation).cancelAction(context))
+            addAction(UploadBroadcastAction.CancelOrRemove(operation).removeAction(context))
             setContentIntent(startIntent)
         }
 
-        if (!uploadFileOperation.isInstantPicture && !uploadFileOperation.isInstantVideo) {
+        if (!operation.isInstantPicture && !operation.isInstantVideo) {
             showNotification()
         }
     }
