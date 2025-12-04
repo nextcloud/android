@@ -213,6 +213,7 @@
     <string name="conversation_screen_empty_content_title">No se han encontrado conversaciones</string>
     <string name="conversation_screen_empty_conversation_list_title">No hay conversaciones todavía</string>
     <string name="conversation_screen_title">Conversaciones</string>
+    <string name="copied">Copiado</string>
     <string name="copied_to_clipboard">Copiado al portapapeles</string>
     <string name="copy_file_error">Se ha producido un error al tratar de copiar este archivo o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No se puede copiar una carpeta dentro de una de sus propias subcarpetas.</string>

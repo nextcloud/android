@@ -224,6 +224,7 @@
     <string name="conversation_screen_empty_conversation_list_title">尚無對話</string>
     <string name="conversation_screen_fetch_error_title">無法擷取對話清單</string>
     <string name="conversation_screen_title">對話</string>
+    <string name="copied">已複製</string>
     <string name="copied_to_clipboard">已複製到剪貼板</string>
     <string name="copy_file_error">嘗試複製檔案或資料夾時發生錯誤</string>
     <string name="copy_file_invalid_into_descendent">無法將資料夾複製到自己的子資料夾中。</string>

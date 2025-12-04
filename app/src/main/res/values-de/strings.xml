@@ -224,6 +224,7 @@
     <string name="conversation_screen_empty_conversation_list_title">Bislang keine Unterhaltungen</string>
     <string name="conversation_screen_fetch_error_title">Liste der Unterhaltungen konnte nicht abgerufen werden</string>
     <string name="conversation_screen_title">Unterhaltungen</string>
+    <string name="copied">Kopiert</string>
     <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
     <string name="copy_file_error">Es ist ein Fehler beim Kopieren der Datei oder des Ordners aufgetreten.</string>
     <string name="copy_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu kopieren</string>

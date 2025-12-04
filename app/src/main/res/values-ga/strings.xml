@@ -218,6 +218,7 @@
     <string name="conversation_screen_empty_content_title">Níor aimsíodh aon chomhrá</string>
     <string name="conversation_screen_empty_conversation_list_title">Níl aon chomhrá fós</string>
     <string name="conversation_screen_title">Comhráite</string>
+    <string name="copied">Cóipeáladh</string>
     <string name="copied_to_clipboard">Cóipeáladh chuig an ngearrthaisce</string>
     <string name="copy_file_error">Tharla earráid agus iarracht á déanamh an comhad nó an fillteán seo a chóipeáil</string>
     <string name="copy_file_invalid_into_descendent">Ní féidir fillteán a chóipeáil isteach i gceann dá bhunfhillteáin féin</string>

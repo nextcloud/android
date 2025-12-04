@@ -217,6 +217,7 @@
     <string name="conversation_screen_empty_content_title">Розмов не знайдено</string>
     <string name="conversation_screen_empty_conversation_list_title">Поки що немає розмов</string>
     <string name="conversation_screen_title">Розмови</string>
+    <string name="copied">Скопійовано</string>
     <string name="copied_to_clipboard">Скопійовано</string>
     <string name="copy_file_error">Виникла помилка під час спроби копіювати цей файл або каталог</string>
     <string name="copy_file_invalid_into_descendent">Неможливо скопіювати каталог до одного із вкладених підкаталогів</string>
