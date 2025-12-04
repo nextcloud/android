@@ -15,6 +15,7 @@ import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.notifications.GetVAPIDOperation
+import com.owncloud.android.lib.resources.notifications.UnregisterAccountDeviceForWebPushOperation
 import com.owncloud.android.utils.theme.CapabilityUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -58,14 +59,32 @@ object UnifiedPushUtils {
      */
     @JvmStatic
     fun disableUnifiedPush(
+        context: Context,
         accountManager: UserAccountManager,
         proxyPushToken: String?
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             for (account in accountManager.getAccounts()) {
                 PushUtils.setRegistrationForAccountEnabled(account, true)
+                unregisterWebPushForAccount(context, accountManager, OwnCloudAccount(account, context))
             }
             PushUtils.pushRegistrationToServer(accountManager, proxyPushToken)
+        }
+    }
+
+    @JvmStatic
+    fun unregisterWebPushForAccount(
+        context: Context,
+        accountManager: UserAccountManager,
+        account: OwnCloudAccount
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            if (supportsWebPush(context, accountManager, account.name)) {
+                val mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(account, context)
+                UnregisterAccountDeviceForWebPushOperation()
+                    .execute(mClient)
+                UnifiedPush.unregister(context, account.name)
+            }
         }
     }
 
@@ -80,7 +99,7 @@ object UnifiedPushUtils {
             } ?: run {
                 // The user has uninstalled the distributor, fallback to play services with the proxy push if available
                 preferences.isUnifiedPushEnabled = false
-                disableUnifiedPush(accountManager, preferences.pushToken)
+                disableUnifiedPush(context, accountManager, preferences.pushToken)
             }
         } else {
             CoroutineScope(Dispatchers.IO).launch {

@@ -393,7 +393,7 @@ public class SettingsActivity extends PreferenceActivity
                     return null;
                 });
             } else {
-                UnifiedPushUtils.disableUnifiedPush(accountManager, preferences.getPushToken());
+                UnifiedPushUtils.disableUnifiedPush(this, accountManager, preferences.getPushToken());
             }
             return false;
         });
