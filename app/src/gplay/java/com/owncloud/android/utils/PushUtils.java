@@ -381,6 +381,14 @@ public final class PushUtils {
         return -1;
     }
 
+    /**
+     * Reinit keys, [pushRegistrationToServer]\* must be called to take effect
+     *
+     * \* You likely need to call [UnifiedPushUtils.registerCurrentPushConfiguration], which will call
+     * pushRegistrationToServer if needed
+     *
+     * @param accountManager
+     */
     public static void reinitKeys(final UserAccountManager accountManager) {
         Context context = MainApp.getAppContext();
         Account[] accounts = accountManager.getAccounts();
@@ -397,7 +405,6 @@ public final class PushUtils {
 
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         String pushToken = preferences.getPushToken();
-        pushRegistrationToServer(accountManager, pushToken);
         preferences.setKeysReInitEnabled();
     }
 

@@ -69,6 +69,26 @@ object UnifiedPushUtils {
         }
     }
 
+    /**
+     * Register UnifiedPush, or FCM with the current config
+     */
+    @JvmStatic
+    fun registerCurrentPushConfiguration(context: Context, accountManager: UserAccountManager, preferences: AppPreferences) {
+        if (preferences.isUnifiedPushEnabled) {
+            UnifiedPush.getAckDistributor(context)?.let {
+                registerAllAccounts(context, accountManager, preferences.pushToken)
+            } ?: run {
+                // The user has uninstalled the distributor, fallback to play services with the proxy push if available
+                preferences.isUnifiedPushEnabled = false
+                disableUnifiedPush(accountManager, preferences.pushToken)
+            }
+        } else {
+            CoroutineScope(Dispatchers.IO).launch {
+                PushUtils.pushRegistrationToServer(accountManager, preferences.pushToken)
+            }
+        }
+    }
+
     private fun registerAllAccounts(
         context: Context,
         accountManager: UserAccountManager,
