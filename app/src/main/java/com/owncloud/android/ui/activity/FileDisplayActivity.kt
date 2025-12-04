@@ -2792,68 +2792,92 @@ class FileDisplayActivity :
 
     public override fun onStart() {
         super.onStart()
+
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
             return
         }
 
-        val optionalUser = user
-        val storageManager = getStorageManager()
-        if (optionalUser.isPresent && storageManager != null) {
-            /** Check whether the 'main' OCFile handled by the Activity is contained in the */
-            // current Account
-            var file = getFile()
-            // get parent from path
-            if (file != null) {
-                if (file.isDown && file.lastSyncDateForProperties == 0L) {
-                    // upload in progress - right now, files are not inserted in the local
-                    // cache until the upload is successful get parent from path
-                    val parentPath =
-                        file.remotePath.substring(0, file.remotePath.lastIndexOf(file.fileName))
+        initFile()
+    }
+
+    private fun initFile() {
+        val userOpt = user
+        if (userOpt.isEmpty) {
+            Log_OC.w(TAG, "user is not available, cannot init file")
+            return
+        }
+        val existingUser = userOpt.get()
+
+        val storageManager = storageManager
+        if (storageManager == null) {
+            Log_OC.w(TAG, "storage manager is null, cannot init file")
+            return
+        }
+
+        var file = getFile()
+        if (file != null) {
+            if (file.isDown && file.lastSyncDateForProperties == 0L) {
+                val remote = file.remotePath
+                val name = file.fileName
+
+                val idx = remote.lastIndexOf(name)
+                if (idx > 0) {
+                    val parentPath = remote.take(idx)
                     if (storageManager.getFileByPath(parentPath) == null) {
-                        file = null // not able to know the directory where the file is uploading
+                        file = null
                     }
                 } else {
-                    file = storageManager.getFileByPath(file.remotePath)
-                    // currentDir = null if not in the current Account
-                }
-            }
-            if (file == null) {
-                // fall back to root folder
-                file = storageManager.getFileByPath(OCFile.ROOT_PATH) // never returns null
-            }
-            setFile(file)
-
-            val user = optionalUser.get()
-            setupDrawer()
-
-            mSwitchAccountButton.tag = user.accountName
-            DisplayUtils.setAvatar(
-                user,
-                this,
-                getResources().getDimension(R.dimen.nav_drawer_menu_avatar_radius),
-                getResources(),
-                mSwitchAccountButton,
-                this
-            )
-            val userChanged = (user.accountName != lastDisplayedAccountName)
-            if (userChanged) {
-                Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..")
-                initFragments()
-                if (file.isFolder && TextUtils.isEmpty(searchQuery)) {
-                    startSyncFolderOperation(file, false)
+                    file = null
                 }
             } else {
-                updateActionBarTitleAndHomeButton(if (file.isFolder) null else file)
+                file = storageManager.getFileByPath(file.remotePath)
             }
         }
 
-        val newLastDisplayedAccountName = optionalUser.orElse(null).accountName
-        preferences.lastDisplayedAccountName = newLastDisplayedAccountName
-        lastDisplayedAccountName = newLastDisplayedAccountName
+        // fall back to root folder
+        if (file == null) {
+            file = storageManager.getFileByPath(OCFile.ROOT_PATH)
+        }
 
+        if (file == null) {
+            Log_OC.e(TAG, "Could not retrieve root folder – cannot continue")
+            return
+        }
+
+        setFile(file)
+        setupDrawer()
+
+        val existingAccountName = existingUser.accountName
+        mSwitchAccountButton.tag = existingAccountName
+
+        DisplayUtils.setAvatar(
+            existingUser,
+            this,
+            getResources().getDimension(R.dimen.nav_drawer_menu_avatar_radius),
+            getResources(),
+            mSwitchAccountButton,
+            this
+        )
+        val userChanged = (existingAccountName != lastDisplayedAccountName)
+        if (userChanged) {
+            Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..")
+            initFragments()
+            if (file.isFolder && TextUtils.isEmpty(searchQuery)) {
+                startSyncFolderOperation(file, false)
+            }
+        } else {
+            updateActionBarTitleAndHomeButton(if (file.isFolder) null else file)
+        }
+
+        setNewLastDisplayedAccountName(existingAccountName)
         EventBus.getDefault().post(TokenPushEvent())
         checkForNewDevVersionNecessary(applicationContext)
+    }
+
+    private fun setNewLastDisplayedAccountName(accountName: String) {
+        preferences.lastDisplayedAccountName = accountName
+        lastDisplayedAccountName = accountName
     }
 
     override fun onRestart() {
