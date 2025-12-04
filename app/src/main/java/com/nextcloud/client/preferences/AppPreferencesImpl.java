@@ -98,7 +98,6 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private static final String PREF__GLOBAL_PAUSE_STATE = "global_pause_state";
 
-    private static final String PREF__PDF_ZOOM_TIP_SHOWN = "pdf_zoom_tip_shown";
     private static final String PREF__MEDIA_FOLDER_LAST_PATH = "media_folder_last_path";
     private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
     private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
@@ -753,16 +752,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setGlobalUploadPaused(boolean globalPausedState) {
         preferences.edit().putBoolean(PREF__GLOBAL_PAUSE_STATE, globalPausedState).apply();
-    }
-
-    @Override
-    public void setPdfZoomTipShownCount(int count) {
-        preferences.edit().putInt(PREF__PDF_ZOOM_TIP_SHOWN, count).apply();
-    }
-
-    @Override
-    public int getPdfZoomTipShownCount() {
-        return preferences.getInt(PREF__PDF_ZOOM_TIP_SHOWN, 0);
     }
 
     @Override

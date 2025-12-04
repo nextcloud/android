@@ -8,37 +8,21 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
 import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Test
 
 class ContactsPreferenceActivityIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.activity.ContactsPreferenceActivityIT"
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
-
     @Test
-    @UiThread
     @ScreenshotTest
     fun openVCF() {
         val file = getFile("vcard.vcf")
@@ -53,27 +37,24 @@ class ContactsPreferenceActivityIT : AbstractIT() {
         }
 
         launchActivity<ContactsPreferenceActivity>(intent).use { scenario ->
+            val screenShotName = createName(testClassName + "_" + "openVCF", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
             scenario.onActivity { sut ->
-                onIdleSync {
-                    val screenShotName = createName(testClassName + "_" + "openVCF", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                screenshotViaName(sut, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun openContactsPreference() {
         launchActivity<ContactsPreferenceActivity>().use { scenario ->
+            val screenShotName = createName(testClassName + "_" + "openContactsPreference", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
             scenario.onActivity { sut ->
-                onIdleSync {
-                    val screenShotName = createName(testClassName + "_" + "openContactsPreference", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                screenshotViaName(sut, screenShotName)
             }
         }
     }

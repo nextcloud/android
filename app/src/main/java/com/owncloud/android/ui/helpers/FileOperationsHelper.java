@@ -1043,15 +1043,6 @@ public class FileOperationsHelper {
                             Context context,
                             View view,
                             BackgroundJobManager backgroundJobManager) {
-        if (context != null && view != null) {
-            DisplayUtils.showSnackMessage(view,
-                                          context.getResources().getQuantityString(
-                                              R.plurals.export_start,
-                                              files.size(),
-                                              files.size()
-                                                                                  ));
-        }
-
         backgroundJobManager.startImmediateFilesExportJob(files);
     }
 

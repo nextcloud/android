@@ -257,7 +257,6 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
 
             if (result) {
                 // nothing else to do in this activity
-                DisplayUtils.showSnackMessage(findViewById(android.R.id.content), R.string.foreign_files_success);
                 finish();
             } else {
                 DisplayUtils.showSnackMessage(findViewById(android.R.id.content), R.string.foreign_files_fail);

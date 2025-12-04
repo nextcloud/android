@@ -259,7 +259,6 @@ class FileDisplayActivity :
 
         intent?.let {
             handleCommonIntents(it)
-            handleAccountSwitchIntent(it)
         }
 
         loadSavedInstanceState(savedInstanceState)
@@ -596,17 +595,6 @@ class FileDisplayActivity :
 
         finish()
         startActivity(intent)
-    }
-
-    private fun handleAccountSwitchIntent(intent: Intent) {
-        if (intent.action != RESTART) {
-            return
-        }
-
-        val accountName = accountManager.user.accountName
-        val message = getString(R.string.logged_in_as)
-        val snackBarMessage = String.format(message, accountName)
-        DisplayUtils.showSnackMessage(this, snackBarMessage)
     }
 
     private fun handleSearchIntent(intent: Intent) {
@@ -1302,7 +1290,13 @@ class FileDisplayActivity :
 
     override fun onResume() {
         Log_OC.v(TAG, "onResume() start")
+
         super.onResume()
+        if (SettingsActivity.isBackPressed) {
+            Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
+            return
+        }
+
         isFileDisplayActivityResumed = true
 
         // Instead of onPostCreate, starting the loading in onResume for children fragments
@@ -2100,13 +2094,6 @@ class FileDisplayActivity :
     private fun onRemoveFileOperationFinish(operation: RemoveFileOperation, result: RemoteOperationResult<*>) {
         deleteBatchTracker.onSingleDeleteFinished()
 
-        if (!operation.isInBackground) {
-            DisplayUtils.showSnackMessage(
-                this,
-                ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-            )
-        }
-
         if (result.isSuccess) {
             val removedFile = operation.file
             tryStopPlaying(removedFile)
@@ -2165,8 +2152,6 @@ class FileDisplayActivity :
             if (leftFragment is FileDetailFragment) {
                 leftFragment.getFileDetailActivitiesFragment().reload()
             }
-
-            DisplayUtils.showSnackMessage(this, R.string.file_version_restored_successfully)
         } else {
             DisplayUtils.showSnackMessage(this, R.string.file_version_restored_error)
         }
@@ -2795,6 +2780,11 @@ class FileDisplayActivity :
 
     public override fun onStart() {
         super.onStart()
+        if (SettingsActivity.isBackPressed) {
+            Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
+            return
+        }
+
         val optionalUser = user
         val storageManager = getStorageManager()
         if (optionalUser.isPresent && storageManager != null) {

@@ -1315,7 +1315,7 @@ public class FileDataStorageManager {
         String metadataSize = fileEntity.getMetadataSize();
         // Surprisingly JSON deserialization causes significant overhead.
         // Avoid it in common, trivial cases (null/empty).
-        if (!(metadataSize == null || metadataSize.isEmpty() || JSON_NULL_STRING.equals(metadataSize))) {
+        if (metadataSize != null && !metadataSize.isEmpty() && !JSON_NULL_STRING.equalsIgnoreCase(metadataSize)) {
             ImageDimension imageDimension = gson.fromJson(metadataSize, ImageDimension.class);
             if (imageDimension != null) {
                 ocFile.setImageDimension(imageDimension);

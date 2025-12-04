@@ -10,7 +10,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.owncloud.android.R
@@ -49,10 +48,9 @@ class ShowErrorActivity : AppCompatActivity() {
     private fun createErrorTitle() = String.format(getString(R.string.error_crash_title), getString(R.string.app_name))
 
     private fun reportIssue() {
-        ClipboardUtil.copyToClipboard(this, binding.textViewError.text.toString(), false)
+        ClipboardUtil.copyToClipboard(this, binding.textViewError.text.toString(), true)
         val issueLink = getString(R.string.report_issue_link)
         DisplayUtils.startLinkIntent(this, issueLink)
-        Toast.makeText(this, R.string.copied_to_clipboard, Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

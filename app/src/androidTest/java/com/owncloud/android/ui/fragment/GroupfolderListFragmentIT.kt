@@ -8,91 +8,67 @@
  */
 package com.owncloud.android.ui.fragment
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.android.lib.resources.groupfolders.Groupfolder
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 
 class GroupfolderListFragmentIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.fragment.GroupfolderListFragmentIT"
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
-
     @Test
-    @UiThread
     @ScreenshotTest
     fun showGroupfolder() {
         launchActivity<TestActivity>().use { scenario ->
-            scenario.onActivity { activity ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
+            var activity: TestActivity? = null
+            scenario.onActivity { testActivity ->
+                activity = testActivity
+                val sut = GroupfolderListFragment()
+                activity.addFragment(sut)
+                activity.supportFragmentManager.executePendingTransactions()
 
-                    val sut = GroupfolderListFragment()
-                    activity.addFragment(sut)
-
-                    sut.setAdapter(null)
-                    sut.setData(
-                        mapOf(
-                            Pair("2", Groupfolder(2, "/subfolder/group"))
-                        )
+                sut.setAdapter(null)
+                sut.setData(
+                    mapOf(
+                        Pair("2", Groupfolder(2, "/subfolder/group"))
                     )
-
-                    EspressoIdlingResource.decrement()
-
-                    val screenShotName = createName(testClassName + "_" + "showGroupfolder", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(activity, screenShotName)
-                }
+                )
             }
+
+            val screenShotName = createName(testClassName + "_" + "showGroupfolder", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+            screenshotViaName(activity, screenShotName)
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showGroupfolders() {
         launchActivity<TestActivity>().use { scenario ->
-            scenario.onActivity { activity ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-
-                    val sut = GroupfolderListFragment()
-                    activity.addFragment(sut)
-
-                    sut.setAdapter(null)
-                    sut.setData(
-                        mapOf(
-                            Pair("1", Groupfolder(1, "/test/")),
-                            Pair("2", Groupfolder(2, "/subfolder/group"))
-                        )
+            var activity: TestActivity? = null
+            scenario.onActivity { testActivity ->
+                activity = testActivity
+                val sut = GroupfolderListFragment()
+                activity.addFragment(sut)
+                activity.supportFragmentManager.executePendingTransactions()
+                sut.setAdapter(null)
+                sut.setData(
+                    mapOf(
+                        Pair("1", Groupfolder(1, "/test/")),
+                        Pair("2", Groupfolder(2, "/subfolder/group"))
                     )
-
-                    EspressoIdlingResource.decrement()
-
-                    val screenShotName = createName(testClassName + "_" + "showGroupfolders", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(activity, screenShotName)
-                }
+                )
             }
+
+            val screenShotName = createName(testClassName + "_" + "showGroupfolders", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+            screenshotViaName(activity, screenShotName)
         }
     }
 }

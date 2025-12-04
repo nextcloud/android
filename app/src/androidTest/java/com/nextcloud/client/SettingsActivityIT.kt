@@ -10,10 +10,8 @@ package com.nextcloud.client
 
 import android.content.Intent
 import android.os.Looper
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
@@ -23,11 +21,8 @@ import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.ui.activity.RequestCredentialsActivity
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.utils.EncryptionUtils
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
@@ -36,53 +31,38 @@ import org.junit.rules.TestRule
 class SettingsActivityIT : AbstractIT() {
     private val testClassName = "com.nextcloud.client.SettingsActivityIT"
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
-
     @get:Rule
     var storagePermissionRule: TestRule = grant()
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun open() {
         launchActivity<SettingsActivity>().use { scenario ->
+            val screenShotName = createName(testClassName + "_" + "open", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
             scenario.onActivity { sut ->
-                onIdleSync {
-                    val screenShotName = createName(testClassName + "_" + "open", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                screenshotViaName(sut, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showMnemonic_Error() {
         launchActivity<SettingsActivity>().use { scenario ->
+            val screenShotName = createName(testClassName + "_" + "showMnemonic_Error", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
             scenario.onActivity { sut ->
-                onIdleSync {
-                    sut.handleMnemonicRequest(null)
-                    val screenShotName = createName(testClassName + "_" + "showMnemonic_Error", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                sut.handleMnemonicRequest(null)
+                screenshotViaName(sut, screenShotName)
             }
         }
     }
 
     @Suppress("DEPRECATION")
     @Test
-    @UiThread
     fun showMnemonic() {
         if (Looper.myLooper() == null) {
             Looper.prepare()
@@ -96,14 +76,14 @@ class SettingsActivityIT : AbstractIT() {
         }
 
         launchActivity<SettingsActivity>().use { scenario ->
+            onView(isRoot()).check(matches(isDisplayed()))
+
             scenario.onActivity { sut ->
-                onIdleSync {
-                    sut.handleMnemonicRequest(intent)
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    Looper.myLooper()?.quitSafely()
-                    Assert.assertTrue(true)
-                }
+                sut.handleMnemonicRequest(intent)
             }
+
+            Looper.myLooper()?.quitSafely()
+            Assert.assertTrue(true)
         }
     }
 }

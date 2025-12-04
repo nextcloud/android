@@ -142,7 +142,25 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         long filesAdded = 0, filesUpdated = 0, unchangedFiles = 0;
 
         for (Object file : remoteFiles) {
-            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) file);
+            if (!(file instanceof RemoteFile remoteFile)) {
+                Log_OC.d(this, "object file is not remote file");
+                continue;
+            }
+
+            final OCFile existingFile = storageManager.getFileByDecryptedRemotePath(remoteFile.getRemotePath());
+
+            // add missing values from local storage to prevent override with null values
+            if (existingFile != null) {
+                final var imageDimension = existingFile.getImageDimension();
+                if (imageDimension != null) {
+                    remoteFile.setImageDimension(existingFile.getImageDimension());
+                }
+                remoteFile.setLocalId(existingFile.getLocalId());
+                remoteFile.setCreationTimestamp(existingFile.getCreationTimestamp());
+                remoteFile.setUploadTimestamp(existingFile.getUploadTimestamp());
+            }
+
+            OCFile ocFile = FileStorageUtils.fillOCFile(remoteFile);
 
             if (BuildConfig.DEBUG) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -167,6 +185,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             } else {
                 unchangedFiles++;
             }
+
         }
 
         // existing files to remove

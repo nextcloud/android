@@ -582,6 +582,7 @@
     <string name="activity_chooser_send_file_title">Send</string>
 
     <string name="copy_link">Copy link</string>
+    <string name="copied">Copied</string>
     <string name="clipboard_text_copied">Link copied</string>
     <string name="clipboard_no_text_to_copy">Received no text to copy to clipboard</string>
     <string name="clipboard_unexpected_error">Unexpected error while copying to clipboard</string>
@@ -1148,7 +1149,6 @@
     <string name="error_report_issue_text">Report issue to tracker? (requires a GitHub account)</string>
     <string name="error_report_issue_action">Report</string>
     <string name="error_crash_title">%1$s crashed</string>
-    <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="download_latest_dev_version">Download latest dev version</string>
     <string name="changelog_dev_version">Changelog dev version</string>
     <string name="could_not_download_image">Could not download full image</string>
@@ -1312,7 +1312,6 @@
     <string name="file_list_empty_gallery">Found no images or videos</string>
     <string name="error_creating_file_from_template">Error creating file from template</string>
     <string name="no_send_app">No app available for sending the selected files</string>
-    <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
     <string name="storage_permission_all_files_access">All files access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_permission_dont_ask">Don\'t ask</string>

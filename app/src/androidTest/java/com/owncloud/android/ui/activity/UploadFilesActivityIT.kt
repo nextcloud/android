@@ -9,16 +9,13 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.test.GrantStoragePermissionRule.Companion.grant
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
@@ -47,46 +44,31 @@ class UploadFilesActivityIT : AbstractIT() {
         directories.forEach { it.deleteRecursively() }
     }
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
-
     @Test
-    @UiThread
     @ScreenshotTest
     fun noneSelected() {
         launchActivity<UploadFilesActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
+                sut.fileListFragment.setFiles(
+                    directories +
+                        listOf(
+                            File("1.txt"),
+                            File("2.pdf"),
+                            File("3.mp3")
+                        )
+                )
+            }
 
-                    sut.fileListFragment.setFiles(
-                        directories +
-                            listOf(
-                                File("1.txt"),
-                                File("2.pdf"),
-                                File("3.mp3")
-                            )
-                    )
+            val screenShotName = createName(testClassName + "_" + "noneSelected", "")
+            onView(isRoot()).check(matches(isDisplayed()))
 
-                    EspressoIdlingResource.decrement()
-
-                    val screenShotName = createName(testClassName + "_" + "noneSelected", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut.fileListFragment.binding?.listRoot, screenShotName)
-                }
+            scenario.onActivity { sut ->
+                screenshotViaName(sut.fileListFragment.binding?.listRoot, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun localFolderPickerMode() {
         val intent = Intent(targetContext, UploadFilesActivity::class.java).apply {
@@ -102,77 +84,65 @@ class UploadFilesActivityIT : AbstractIT() {
 
         launchActivity<UploadFilesActivity>(intent).use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
+                sut.fileListFragment.setFiles(
+                    directories
+                )
+            }
 
-                    sut.fileListFragment.setFiles(
-                        directories
-                    )
+            val screenShotName = createName(testClassName + "_" + "localFolderPickerMode", "")
+            onView(isRoot()).check(matches(isDisplayed()))
 
-                    EspressoIdlingResource.decrement()
-
-                    val screenShotName = createName(testClassName + "_" + "localFolderPickerMode", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+            scenario.onActivity { sut ->
+                screenshotViaName(sut, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun search() {
         launchActivity<UploadFilesActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-
-                    sut.fileListFragment.performSearch("1.txt", arrayListOf(), false)
-                    sut.fileListFragment.setFiles(
-                        directories +
-                            listOf(
-                                File("1.txt"),
-                                File("2.pdf"),
-                                File("3.mp3")
-                            )
-                    )
-
-                    EspressoIdlingResource.decrement()
-
-                    val screenShotName = createName(testClassName + "_" + "search", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
-            }
-        }
-    }
-
-    @Test
-    @UiThread
-    @ScreenshotTest
-    fun selectAll() {
-        launchActivity<UploadFilesActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-
-                    sut.fileListFragment.setFiles(
+                sut.fileListFragment.performSearch("1.txt", arrayListOf(), false)
+                sut.fileListFragment.setFiles(
+                    directories +
                         listOf(
                             File("1.txt"),
                             File("2.pdf"),
                             File("3.mp3")
                         )
+                )
+            }
+
+            val screenShotName = createName(testClassName + "_" + "search", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            scenario.onActivity { sut ->
+                screenshotViaName(sut, screenShotName)
+            }
+        }
+    }
+
+    @Test
+    @ScreenshotTest
+    fun selectAll() {
+        launchActivity<UploadFilesActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                sut.fileListFragment.setFiles(
+                    listOf(
+                        File("1.txt"),
+                        File("2.pdf"),
+                        File("3.mp3")
                     )
+                )
+                sut.fileListFragment.selectAllFiles(true)
+            }
 
-                    sut.fileListFragment.selectAllFiles(true)
+            val screenShotName = createName(testClassName + "_" + "selectAll", "")
+            onView(isRoot()).check(matches(isDisplayed()))
 
-                    EspressoIdlingResource.decrement()
-
-                    val screenShotName = createName(testClassName + "_" + "selectAll", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut.fileListFragment.binding?.listRoot, screenShotName)
-                }
+            scenario.onActivity { sut ->
+                screenshotViaName(sut.fileListFragment.binding?.listRoot, screenShotName)
             }
         }
     }
