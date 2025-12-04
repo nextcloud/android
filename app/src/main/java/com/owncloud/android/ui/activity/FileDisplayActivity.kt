@@ -91,6 +91,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.FilesBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.OCFileDepth
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.files.services.NameCollisionPolicy
@@ -940,34 +941,10 @@ class FileDisplayActivity :
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var retval = true
-
-        val itemId = item.itemId
-
-        if (itemId == android.R.id.home) {
-            if (!isDrawerOpen &&
-                !isSearchOpen() &&
-                isRoot(getCurrentDir()) &&
-                this.leftFragment is OCFileListFragment
-            ) {
-                openDrawer()
-            } else {
-                if (isSearchOpen()) {
-                    resetSearchAction()
-                } else {
-                    onBackPressedDispatcher.onBackPressed()
-                }
-            }
-        } else if (itemId == R.id.action_select_all) {
-            val fragment = this.listOfFilesFragment
-            fragment?.selectAllFiles(true)
-        } else {
-            retval = super.onOptionsItemSelected(item)
-        }
-
-        return retval
-    }
+    private fun shouldOpenDrawer(): Boolean = !isDrawerOpen &&
+        !isSearchOpen() &&
+        isRoot(getCurrentDir()) &&
+        this.leftFragment is OCFileListFragment
 
     /**
      * Called, when the user selected something for uploading
@@ -1192,14 +1169,30 @@ class FileDisplayActivity :
 
                         leftFragment is OCFileListFragment -> {
                             val fragment = leftFragment as OCFileListFragment
-                            if (isRoot(getCurrentDir())) {
-                                if (fragment.shouldNavigateBackToAllFiles()) {
-                                    navigateToAllFiles()
-                                } else {
-                                    finish()
+
+                            when {
+                                // root
+                                isRoot(getCurrentDir()) -> {
+                                    if (fragment.shouldNavigateBackToAllFiles()) {
+                                        navigateToAllFiles()
+                                    } else {
+                                        finish()
+                                    }
                                 }
-                            } else {
-                                browseUp(fragment)
+
+                                // shared root
+                                fragment is SharedListFragment && fragment.fileDepth == OCFileDepth.Root -> {
+                                    openDrawer()
+                                }
+
+                                fragment is SharedListFragment && fragment.fileDepth == OCFileDepth.FirstLevel -> {
+                                    openSharedTab()
+                                }
+
+                                // Normal folder navigation (go up) also works for shared tab
+                                else -> {
+                                    browseUp(fragment)
+                                }
                             }
                         }
 
@@ -1211,6 +1204,24 @@ class FileDisplayActivity :
                 }
             }
         )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            when {
+                shouldOpenDrawer() -> openDrawer()
+                isSearchOpen() -> resetSearchAction()
+                else -> onBackPressedDispatcher.onBackPressed()
+            }
+            true
+        }
+
+        R.id.action_select_all -> {
+            listOfFilesFragment?.selectAllFiles(true)
+            true
+        }
+
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun browseUp(listOfFiles: OCFileListFragment) {

@@ -624,8 +624,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
             }
         } else if (itemId == R.id.nav_shared) {
-            resetOnlyPersonalAndOnDevice();
-            startSharedSearch(menuItem);
+            openSharedTab();
         } else if (itemId == R.id.nav_recently_modified) {
             resetOnlyPersonalAndOnDevice();
             startRecentlyModifiedSearch(menuItem);
@@ -686,11 +685,14 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void startSharedSearch(MenuItem menuItem) {
+    protected void openSharedTab() {
+        final var ocFileListFragment = getOCFileListFragment();
+        if (ocFileListFragment != null) {
+            ocFileListFragment.resetFileDepth();
+        }
+        resetOnlyPersonalAndOnDevice();
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
-        MainApp.showOnlyFilesOnDevice(false);
-
-        launchActivityForSearch(searchEvent, menuItem.getItemId());
+        launchActivityForSearch(searchEvent, R.id.nav_shared);
     }
 
     private void startRecentlyModifiedSearch(MenuItem menuItem) {
@@ -733,7 +735,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * sets the new/current account and restarts. In case the given account equals the actual/current account the call
      * will be ignored.
      *
-     * @param User user to be set
+     * @param user to be set
      */
     public void accountClicked(User user) {
         final User currentUser = accountManager.getUser();

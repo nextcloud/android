@@ -57,6 +57,7 @@ import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.FragmentExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
@@ -65,6 +66,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.OCFileDepth;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
@@ -240,6 +242,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
+
+    private static OCFileDepth fileDepth = OCFileDepth.Root;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1076,6 +1080,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             Future<Pair<Integer, OCFile>> futureResult = getPreviousFile();
             Pair<Integer, OCFile> result = futureResult.get();
             mFile = result.second;
+            setFileDepth(mFile);
             updateFileList();
             return result.first;
         } catch (Exception e) {
@@ -1287,7 +1292,20 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    private void setFileDepth(OCFile file) {
+        fileDepth = OCFileExtensionsKt.getDepth(file);
+    }
+
+    public void resetFileDepth() {
+        fileDepth = OCFileDepth.Root;
+    }
+
+    public OCFileDepth getFileDepth() {
+        return fileDepth;
+    }
+
     private void browseToFolder(OCFile file, int position) {
+        setFileDepth(file);
         resetSearchIfBrowsingFromFavorites();
         listDirectory(file, MainApp.isOnlyOnDevice(), false);
         // then, notify parent activity to let it update its state and view
@@ -2315,10 +2333,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public boolean isSearchEventFavorite() {
+        return isSearchEvent(SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
+    }
+
+    public boolean isSearchEventShared() {
+        return isSearchEvent(SearchRemoteOperation.SearchType.SHARED_FILTER);
+    }
+
+    private boolean isSearchEvent(SearchRemoteOperation.SearchType givenEvent) {
         if (searchEvent == null) {
             return false;
         }
-        return searchEvent.getSearchType() == SearchRemoteOperation.SearchType.FAVORITE_SEARCH;
+        return searchEvent.getSearchType() == givenEvent;
     }
 
     public boolean shouldNavigateBackToAllFiles() {
