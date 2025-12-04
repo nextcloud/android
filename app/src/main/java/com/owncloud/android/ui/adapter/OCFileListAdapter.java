@@ -502,8 +502,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         setVisibilityOfMoreOption(viewHolder);
 
         final var fileFeatureLayout = viewHolder.getFileFeaturesLayout();
-        if (fileFeatureLayout != null && viewHolder.getHasVisibleFeatureIndicators()) {
-            fileFeatureLayout.setVisibility(View.VISIBLE);
+        if (fileFeatureLayout != null) {
+            ViewExtensionsKt.setVisibleIf(fileFeatureLayout, viewHolder.getHasVisibleFeatureIndicators());
         }
     }
 
