@@ -104,15 +104,7 @@ class NotificationWork constructor(
                             String(decryptedSubject),
                             DecryptedPushMessage::class.java
                         )
-                        if (decryptedPushMessage.delete) {
-                            notificationManager.cancel(decryptedPushMessage.nid)
-                        } else if (decryptedPushMessage.deleteAll) {
-                            notificationManager.cancelAll()
-                        } else {
-                            val user = accountManager.getUser(signatureVerification.account?.name)
-                                .orElseThrow { RuntimeException() }
-                            fetchCompleteNotification(user, decryptedPushMessage)
-                        }
+                        handlePushMessage(signatureVerification.account?.name, decryptedPushMessage)
                     }
                 } catch (e1: GeneralSecurityException) {
                     Log_OC.d(TAG, "Error decrypting message ${e1.javaClass.name} ${e1.localizedMessage}")
@@ -122,6 +114,22 @@ class NotificationWork constructor(
             }
         }
         return Result.success()
+    }
+
+    private fun handlePushMessage(accountName: String?, decryptedPushMessage: DecryptedPushMessage) {
+        if (decryptedPushMessage.delete) {
+            notificationManager.cancel(decryptedPushMessage.nid)
+        } else if (decryptedPushMessage.deleteMultiple) {
+            decryptedPushMessage.nids.forEach {
+                notificationManager.cancel(it)
+            }
+        } else if (decryptedPushMessage.deleteAll) {
+            notificationManager.cancelAll()
+        } else {
+            val user = accountManager.getUser(accountName)
+                .orElseThrow { RuntimeException() }
+            fetchCompleteNotification(user, decryptedPushMessage)
+        }
     }
 
     @Suppress("LongMethod") // legacy code
