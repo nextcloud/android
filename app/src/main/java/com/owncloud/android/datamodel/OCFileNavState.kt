@@ -8,7 +8,9 @@
 package com.owncloud.android.datamodel
 
 enum class OCFileNavState {
-    Root, SubDirOfRoot, SubDirOfDir;
+    Root,
+    SubDirOfRoot,
+    SubDirOfDir;
 
     companion object {
         fun getNavState(path: String?): OCFileNavState? {

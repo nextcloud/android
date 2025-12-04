@@ -242,7 +242,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
-    private OCFileNavState navState = null;
+    private static OCFileNavState navState = OCFileNavState.Root;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1294,6 +1294,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private void setNavState(OCFile file) {
         final var path = file.getRemotePath();
         navState = OCFileNavState.Companion.getNavState(path);
+    }
+
+    public void resetNavState() {
+        navState = OCFileNavState.Root;
     }
 
     public OCFileNavState getNavState() {

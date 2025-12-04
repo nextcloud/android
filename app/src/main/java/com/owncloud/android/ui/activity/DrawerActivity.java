@@ -686,6 +686,10 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     protected void openSharedTab() {
+        final var ocFileListFragment = getOCFileListFragment();
+        if (ocFileListFragment != null) {
+            ocFileListFragment.resetNavState();
+        }
         resetOnlyPersonalAndOnDevice();
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
         launchActivityForSearch(searchEvent, R.id.nav_shared);
