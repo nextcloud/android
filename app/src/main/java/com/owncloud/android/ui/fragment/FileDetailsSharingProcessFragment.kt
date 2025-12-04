@@ -16,7 +16,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
@@ -35,7 +34,6 @@ import com.owncloud.android.lib.resources.shares.extensions.isAllowDownloadAndSy
 import com.owncloud.android.lib.resources.shares.extensions.toggleAllowDownloadAndSync
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
-import com.owncloud.android.operations.UpdateShareDownloadLimitOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
 import com.owncloud.android.ui.fragment.util.SharePermissionManager
@@ -44,9 +42,6 @@ import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
 import javax.inject.Inject
@@ -496,41 +491,17 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    private suspend fun updateShareDownloadLimit() {
-        val share = share ?: return
-        val activity = activity as? FileActivity
-        val client = activity?.clientRepository?.getOwncloudClient() ?: return
-        val storageManager = activity.storageManager ?: return
-        val optionalUser = activity.user
-        if (optionalUser.isEmpty) {
-            return
-        }
-
-        val accountName = optionalUser.get().accountName
-        val operation = UpdateShareDownloadLimitOperation(share, client, storageManager, accountName)
-        val newShare = operation.run()
-
-        Log_OC.d(TAG, "share download limit updated")
-        this@FileDetailsSharingProcessFragment.share = newShare
-    }
-
     private fun updateFileDownloadLimitView() {
         if (!canSetDownloadLimit()) {
             return
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            updateShareDownloadLimit()
-
-            withContext(Dispatchers.Main) {
-                val currentLimit = share?.remainingDownloadLimit() ?: return@withContext
-                binding.shareProcessSetDownloadLimitSwitch.visibility = View.VISIBLE
-                if (currentLimit > 0) {
-                    binding.shareProcessSetDownloadLimitSwitch.isChecked = true
-                    showFileDownloadLimitInput(true)
-                    binding.shareProcessSetDownloadLimitInput.setText(currentLimit.toString())
-                }
-            }
+        val currentLimit = share?.remainingDownloadLimit() ?: return
+        binding.shareProcessSetDownloadLimitSwitch.visibility = View.VISIBLE
+        if (currentLimit > 0) {
+            binding.shareProcessSetDownloadLimitSwitch.isChecked = true
+            showFileDownloadLimitInput(true)
+            binding.shareProcessSetDownloadLimitInput.setText(currentLimit.toString())
         }
     }
 
