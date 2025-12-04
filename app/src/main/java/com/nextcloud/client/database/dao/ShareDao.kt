@@ -15,6 +15,7 @@ import com.nextcloud.client.database.entity.ShareEntity
 
 @Dao
 interface ShareDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(shares: List<ShareEntity>)
 
