@@ -11,10 +11,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.nextcloud.client.database.entity.ShareEntity
 
 @Dao
 interface ShareDao {
+    @Update
+    suspend fun update(entity: ShareEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(shares: List<ShareEntity>)
