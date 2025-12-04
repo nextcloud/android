@@ -25,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.chip.Chip;
@@ -467,7 +466,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
         } else {
-            ListViewHolder gridViewHolder = (ListViewHolder) holder;
+            ListViewHolder viewHolder = (ListViewHolder) holder;
             OCFile file = getItem(position);
 
             if (file == null) {
@@ -475,7 +474,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return;
             }
 
-            bindHolder(holder, gridViewHolder, file);
+            bindHolder(holder, viewHolder, file);
         }
     }
 
@@ -483,9 +482,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         bindHolder(holder, holder, file);
     }
 
-    private void bindHolder(@NonNull RecyclerView.ViewHolder holder, ListViewHolder gridViewHolder, OCFile file) {
-        ocFileListDelegate.bindGridViewHolder(gridViewHolder, file, currentDirectory, searchType);
-        checkVisibilityOfFileFeaturesLayout(gridViewHolder);
+    private void bindHolder(@NonNull RecyclerView.ViewHolder holder, ListViewHolder viewHolder, OCFile file) {
+        ocFileListDelegate.bindViewHolder(viewHolder, file, currentDirectory, searchType);
 
         if (holder instanceof ListItemViewHolder itemViewHolder) {
             bindListItemViewHolder(itemViewHolder, file);
@@ -493,16 +491,20 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (holder instanceof ListGridItemViewHolder gridItemViewHolder) {
             setFilenameAndExtension(gridItemViewHolder, file);
-            checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
         }
 
-        updateLivePhotoIndicators(gridViewHolder, file);
+        updateLivePhotoIndicators(viewHolder, file);
 
         if (!MDMConfig.INSTANCE.sharingSupport(activity)) {
-            gridViewHolder.getShared().setVisibility(View.GONE);
+            viewHolder.getShared().setVisibility(View.GONE);
         }
 
-        setVisibilityOfMoreOption(gridViewHolder);
+        setVisibilityOfMoreOption(viewHolder);
+
+        final var fileFeatureLayout = viewHolder.getFileFeaturesLayout();
+        if (fileFeatureLayout != null && viewHolder.getHasVisibleFeatureIndicators()) {
+            fileFeatureLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     private boolean shouldShowRecommendedFiles() {
@@ -516,24 +518,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         String notesFolderPath = capability.getNotesFolderPath();
         String currentPath = currentDirectory.getDecryptedRemotePath();
         return notesFolderPath != null && currentPath != null && currentPath.startsWith(notesFolderPath);
-    }
-
-    private void checkVisibilityOfFileFeaturesLayout(ListViewHolder holder) {
-        int fileFeaturesVisibility = View.GONE;
-        LinearLayout fileFeaturesLayout = holder.getFileFeaturesLayout();
-
-        if (fileFeaturesLayout == null) {
-            return;
-        }
-
-        for (int i = 0; i < fileFeaturesLayout.getChildCount(); i++) {
-            View child = fileFeaturesLayout.getChildAt(i);
-            if (child.getVisibility() == View.VISIBLE) {
-                fileFeaturesVisibility = View.VISIBLE;
-            }
-        }
-
-        fileFeaturesLayout.setVisibility(fileFeaturesVisibility);
     }
 
     private void updateLivePhotoIndicators(ListViewHolder holder, OCFile file) {
@@ -701,8 +685,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else {
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
         }
-
-        setVisibilityOfMoreOption(holder);
     }
 
     private void setVisibilityOfMoreOption(Object holder) {
