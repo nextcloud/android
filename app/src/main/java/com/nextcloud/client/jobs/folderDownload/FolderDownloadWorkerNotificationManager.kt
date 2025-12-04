@@ -67,16 +67,17 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
         )
     }
 
-    private var lastDescription: String = ""
-    private var lastProgress: Int = 0
-
     @Suppress("MagicNumber")
-    fun showProgressNotification(folderName: String, filename: String, currentIndex: Int, totalFileSize: Int) {
+    fun getProgressNotification(
+        folderName: String,
+        filename: String,
+        currentIndex: Int,
+        totalFileSize: Int
+    ): Notification {
         val currentFileIndex = (currentIndex + 1)
-        lastDescription = context.getString(R.string.folder_download_counter, currentFileIndex, totalFileSize, filename)
-        lastProgress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
-        val notification = getNotification(folderName, lastDescription, lastProgress)
-        notificationManager.notify(NOTIFICATION_ID, notification)
+        val description = context.getString(R.string.folder_download_counter, currentFileIndex, totalFileSize, filename)
+        val progress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
+        return getNotification(folderName, description, progress)
     }
 
     fun showCompletionNotification(folderName: String, success: Boolean) {
@@ -100,17 +101,20 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
 
     fun getForegroundInfo(folder: OCFile?): ForegroundInfo {
         val notification = if (folder != null) {
-            getNotification(folder.fileName, lastDescription, lastProgress)
+            getNotification(folder.fileName)
         } else {
             getNotification(title = context.getString(R.string.folder_download_worker_ticker_id))
         }
 
-        return ForegroundServiceHelper.createWorkerForegroundInfo(
+        return getForegroundInfo(notification)
+    }
+
+    fun getForegroundInfo(notification: Notification): ForegroundInfo =
+        ForegroundServiceHelper.createWorkerForegroundInfo(
             NOTIFICATION_ID,
             notification,
             ForegroundServiceType.DataSync
         )
-    }
 
     fun dismiss() {
         notificationManager.cancel(NOTIFICATION_ID)

@@ -96,12 +96,16 @@ class FolderDownloadWorker(
                     }
 
                     withContext(Dispatchers.Main) {
-                        notificationManager.showProgressNotification(
+                        val notification = notificationManager.getProgressNotification(
                             folder.fileName,
                             file.fileName,
                             index,
                             files.size
                         )
+                        notificationManager.showNotification(notification)
+
+                        val foregroundInfo = notificationManager.getForegroundInfo(notification)
+                        setForeground(foregroundInfo)
                     }
 
                     val operation = DownloadFileOperation(user, file, context)
