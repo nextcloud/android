@@ -46,7 +46,7 @@ import java.util.Optional
 import java.util.Vector
 import kotlin.random.Random
 
-@Suppress("LongParameterList", "TooManyFunctions")
+@Suppress("LongParameterList", "TooManyFunctions", "TooGenericExceptionCaught")
 class FileDownloadWorker(
     viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
@@ -58,7 +58,7 @@ class FileDownloadWorker(
     OnDatatransferProgressListener {
 
     companion object {
-        private val TAG = FileDownloadWorker::class.java.simpleName
+        private const val TAG = "🗄️" + "FileDownloadWorker"
 
         private val pendingDownloads = IndexedForest<DownloadFileOperation>()
 
@@ -111,10 +111,9 @@ class FileDownloadWorker(
 
     private var downloadError: FileDownloadError? = null
 
-    @Suppress("TooGenericExceptionCaught", "ReturnCount")
+    @Suppress("ReturnCount")
     override suspend fun doWork(): Result {
-        val foregroundInfo = createWorkerForegroundInfo()
-        setForeground(foregroundInfo)
+        trySetForeground()
 
         return try {
             setUser()
@@ -132,16 +131,34 @@ class FileDownloadWorker(
                 notificationManager.dismissNotification()
             }
 
-            Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
+            Log_OC.d(TAG, "successfully completed")
             Result.success()
         } catch (t: Throwable) {
             notificationManager.showNewNotification(context.getString(R.string.downloader_unexpected_error))
-            Log_OC.e(TAG, "Error caught at FilesDownloadWorker(): " + t.localizedMessage)
+            Log_OC.e(TAG, "exception: " + t.localizedMessage)
             Result.failure()
         } finally {
-            Log_OC.e(TAG, "FilesDownloadWorker cleanup")
+            Log_OC.d(TAG, "cleanup")
             notificationManager.dismissNotification()
             setIdleWorkerState()
+        }
+    }
+
+    override suspend fun getForegroundInfo(): ForegroundInfo {
+        val notification = notificationManager.getNotification()
+        return ForegroundServiceHelper.createWorkerForegroundInfo(
+            notificationManager.getId(),
+            notification,
+            ForegroundServiceType.DataSync
+        )
+    }
+
+    private suspend fun trySetForeground() {
+        try {
+            val foregroundInfo = createWorkerForegroundInfo()
+            setForeground(foregroundInfo)
+        } catch (e: Exception) {
+            Log_OC.w(TAG, "⚠️ Could not set foreground service: ${e.message}")
         }
     }
 
@@ -250,7 +267,7 @@ class FileDownloadWorker(
         }
 
         setWorkerState(user)
-        Log_OC.e(TAG, "FilesDownloadWorker downloading: $downloadKey")
+        Log_OC.d(TAG, "downloading: $downloadKey")
 
         val isAccountExist = accountManager.exists(currentDownload?.user?.toPlatformAccount())
         if (!isAccountExist) {
@@ -277,7 +294,7 @@ class FileDownloadWorker(
                 }
             }
         } catch (e: Exception) {
-            Log_OC.e(TAG, "Error downloading", e)
+            Log_OC.e(TAG, "exception downloading file: ", e)
             downloadResult = RemoteOperationResult<Any?>(e)
         } finally {
             cleanupDownloadProcess(downloadResult)
