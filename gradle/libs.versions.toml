@@ -84,7 +84,7 @@ spotless = "8.1.0"
 stateless4jVersion = "2.6.0"
 webkitVersion = "1.14.0"
 workRuntime = "2.10.4"
-foundationVersion = "1.9.4"
+foundationVersion = "1.10.0"
 
 [libraries]
 # Crypto
