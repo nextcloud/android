@@ -42,6 +42,7 @@ import com.owncloud.android.ui.activity.ManageAccountsActivity
 import com.owncloud.android.ui.events.AccountRemovedEvent
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.PushUtils
+import com.owncloud.android.utils.UnifiedPushUtils
 import org.greenrobot.eventbus.EventBus
 import java.util.Optional
 
@@ -94,6 +95,7 @@ class AccountRemovalWork(
         )
         // unregister push notifications
         unregisterPushNotifications(context, user, arbitraryDataProvider)
+        unregisterWebPushNotifications(context, user)
 
         // remove pending account removal
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, ManageAccountsActivity.PENDING_FOR_REMOVAL)
@@ -168,6 +170,13 @@ class AccountRemovalWork(
             )
             PushUtils.pushRegistrationToServer(userAccountManager, pushArbitraryData.getPushToken())
         }
+    }
+
+    private fun unregisterWebPushNotifications(
+        context: Context,
+        user: User
+    ) {
+        UnifiedPushUtils.unregisterWebPushForAccount(context, userAccountManager, user.toOwnCloudAccount())
     }
 
     private fun removeSyncedFolders(context: Context, user: User, clock: Clock) {
