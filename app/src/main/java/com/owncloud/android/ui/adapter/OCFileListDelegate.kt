@@ -193,12 +193,7 @@ class OCFileListDelegate(
     }
 
     @Suppress("MagicNumber")
-    fun bindViewHolder(
-        viewHolder: ListViewHolder,
-        file: OCFile,
-        currentDirectory: OCFile?,
-        searchType: SearchType?
-    ) {
+    fun bindViewHolder(viewHolder: ListViewHolder, file: OCFile, currentDirectory: OCFile?, searchType: SearchType?) {
         // thumbnail
         viewHolder.imageFileName?.text = file.fileName
         viewHolder.thumbnail.tag = file.fileId
