@@ -45,7 +45,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.snackbar.Snackbar;
@@ -93,6 +92,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatDrawableManager;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -543,6 +543,19 @@ public final class DisplayUtils {
         return text.toString();
     }
 
+    public static Snackbar showSnackMessage(Fragment fragment, @StringRes int messageResource) {
+        if (fragment == null) {
+            return null;
+        }
+
+        final var activity = fragment.getActivity();
+        if (activity == null) {
+            return null;
+        }
+
+        return showSnackMessage(activity, messageResource);
+    }
+
     /**
      * Show a temporary message in a {@link Snackbar} bound to the content view.
      *
@@ -724,11 +737,6 @@ public final class DisplayUtils {
         } else {
             DisplayUtils.showSnackMessage(activity, error);
         }
-    }
-
-    static public void showErrorAndFinishActivity(Activity activity, String errorMessage) {
-        Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show();
-        activity.finish();
     }
 
     static public void openSortingOrderDialogFragment(FragmentManager supportFragmentManager, FileSortOrder sortOrder) {

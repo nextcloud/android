@@ -14,7 +14,6 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
@@ -41,6 +40,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -356,7 +356,7 @@ class ConflictsResolveActivity :
     private fun showErrorAndFinish(code: Int? = null) {
         val message = parseErrorMessage(code)
         lifecycleScope.launch(Dispatchers.Main) {
-            Toast.makeText(this@ConflictsResolveActivity, message, Toast.LENGTH_LONG).show()
+            DisplayUtils.showSnackMessage(this@ConflictsResolveActivity, message)
             finish()
         }
     }
