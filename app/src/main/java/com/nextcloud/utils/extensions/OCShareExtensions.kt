@@ -10,6 +10,15 @@ package com.nextcloud.utils.extensions
 import com.nextcloud.client.database.entity.ShareEntity
 import com.owncloud.android.lib.resources.shares.OCShare
 
+fun OCShare?.remainingDownloadLimit(): Int? {
+    val downloadLimit = this?.fileDownloadLimit ?: return null
+    return if (downloadLimit.limit > 0) {
+        downloadLimit.limit - downloadLimit.count
+    } else {
+        null
+    }
+}
+
 fun OCShare.hasFileRequestPermission(): Boolean = (isFolder && shareType?.isPublicOrMail() == true)
 
 fun List<OCShare>.mergeDistinctByToken(other: List<OCShare>): List<OCShare> = (this + other).distinctBy { it.token }
