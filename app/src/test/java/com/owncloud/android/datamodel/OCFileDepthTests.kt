@@ -10,6 +10,7 @@ package com.owncloud.android.datamodel
 import com.nextcloud.utils.extensions.getDepth
 import org.junit.Test
 
+@Suppress("MagicNumber")
 class OCFileDepthTests {
 
     @Test
