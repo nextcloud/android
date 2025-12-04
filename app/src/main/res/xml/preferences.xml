@@ -86,7 +86,21 @@
             android:summary="@string/prefs_all_files_access_summary" />
     </PreferenceCategory>
 
-	<PreferenceCategory
+
+    <PreferenceCategory
+        android:title="@string/prefs_category_push"
+        android:key="push">
+        <com.owncloud.android.ui.ThemeableSwitchPreference
+            android:title="@string/prefs_unifiedpush"
+            android:key="enable_unifiedpush"
+            android:summary="@string/prefs_unifiedpush_summary" />
+
+        <Preference
+            android:title="@string/prefs_push_system"
+            android:key="change_unifiedpush" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/prefs_category_more"
         android:key="more">
         <Preference

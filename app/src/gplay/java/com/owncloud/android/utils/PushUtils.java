@@ -128,7 +128,24 @@ public final class PushUtils {
         return -2;
     }
 
-    private static void deleteRegistrationForAccount(Account account) {
+    /**
+     * Tag the registration as disabled in the local data provider
+     *
+     * @param account
+     */
+    public static void setRegistrationForAccountEnabled(Account account, Boolean enabled) {
+        String arbitraryValue;
+        if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account.name, KEY_PUSH))) {
+            Gson gson = new Gson();
+            PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryValue,
+                                                                     PushConfigurationState.class);
+            pushArbitraryData.shouldBeDisabled = !enabled;
+            if (enabled) pushArbitraryData.disabled = false;
+            arbitraryDataProvider.storeOrUpdateKeyValue(account.name, KEY_PUSH, gson.toJson(pushArbitraryData));
+        }
+    }
+
+    private static void deleteRegistrationForAccount(Account account, Boolean deleteLocalData) {
         Context context = MainApp.getAppContext();
         OwnCloudAccount ocAccount;
         arbitraryDataProvider = new ArbitraryDataProviderImpl(MainApp.getAppContext());
@@ -141,7 +158,8 @@ public final class PushUtils {
             RemoteOperationResult<Void> remoteOperationResult =
                 new UnregisterAccountDeviceForNotificationsOperation().execute(mClient);
 
-            if (remoteOperationResult.getHttpCode() == HttpStatus.SC_ACCEPTED) {
+            int status = remoteOperationResult.getHttpCode();
+            if (deleteLocalData && status == HttpStatus.SC_ACCEPTED) {
                 String arbitraryValue;
                 if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account.name, KEY_PUSH))) {
                     Gson gson = new Gson();
@@ -156,6 +174,19 @@ public final class PushUtils {
                     if (unregisterResult.isSuccess()) {
                         arbitraryDataProvider.deleteKeyForAccount(account.name, KEY_PUSH);
                     }
+                }
+            } else if (!deleteLocalData && (status == HttpStatus.SC_ACCEPTED || status == HttpStatus.SC_OK)) {
+                String arbitraryValue;
+                if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account.name, KEY_PUSH))) {
+                    Gson gson = new Gson();
+                    PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryValue,
+                                                                             PushConfigurationState.class);
+                    pushArbitraryData.disabled = true;
+                    pushArbitraryData.pushToken = "";
+                    arbitraryDataProvider.storeOrUpdateKeyValue(
+                        account.name,
+                        KEY_PUSH,
+                        gson.toJson(pushArbitraryData));
                 }
             }
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
@@ -197,9 +228,19 @@ public final class PushUtils {
                         accountPushData = null;
                     }
 
+                    if (accountPushData == null || providerValue.isEmpty()) {
+                        Log_OC.d(TAG, "accountPushData is null");
+                    } else {
+                        Log_OC.d(TAG, "ShouldBeDeleted=" + accountPushData.isShouldBeDeleted() +
+                            " disabled=" + accountPushData.disabled +
+                            " shouldBeDisabled=" + accountPushData.shouldBeDisabled
+                            + " sameToken=" + accountPushData.getPushToken().equals(token));
+                    }
                     if (accountPushData != null && !accountPushData.getPushToken().equals(token) &&
-                            !accountPushData.isShouldBeDeleted() ||
+                            !accountPushData.isShouldBeDeleted() && !accountPushData.disabled &&
+                            !accountPushData.shouldBeDisabled ||
                             TextUtils.isEmpty(providerValue)) {
+                        Log_OC.d(TAG, "Registering " + account.name);
                         try {
                             OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
                             NextcloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().
@@ -244,7 +285,11 @@ public final class PushUtils {
                             Log_OC.d(TAG, "Failed via OperationCanceledException");
                         }
                     } else if (accountPushData != null && accountPushData.isShouldBeDeleted()) {
-                        deleteRegistrationForAccount(account);
+                        Log_OC.d(TAG, "Deleting " + account.name);
+                        deleteRegistrationForAccount(account, true);
+                    } else if (accountPushData != null && accountPushData.shouldBeDisabled && !accountPushData.disabled) {
+                        Log_OC.d(TAG, "Disabling " + account.name);
+                        deleteRegistrationForAccount(account, false);
                     }
                 }
             }
@@ -340,7 +385,7 @@ public final class PushUtils {
         Context context = MainApp.getAppContext();
         Account[] accounts = accountManager.getAccounts();
         for (Account account : accounts) {
-            deleteRegistrationForAccount(account);
+            deleteRegistrationForAccount(account, true);
         }
 
         String keyPath = context.getDir("nc-keypair", Context.MODE_PRIVATE).getAbsolutePath();

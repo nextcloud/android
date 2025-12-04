@@ -70,6 +70,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
     private static final String PREF__SHOW_HIDDEN_FILES = "show_hidden_files_pref";
+    private static final String PREF__ENABLE_UNIFIEDPUSH = "enable_unifiedpush_pref";
     private static final String PREF__SORT_FOLDERS_BEFORE_FILES = "sort_folders_before_files";
     private static final String PREF__SORT_FAVORITES_FIRST = "sort_favorites_first";
     private static final String PREF__SHOW_ECOSYSTEM_APPS = "show_ecosystem_apps";
@@ -232,6 +233,16 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setShowHiddenFilesEnabled(boolean enabled) {
         preferences.edit().putBoolean(PREF__SHOW_HIDDEN_FILES, enabled).apply();
+    }
+
+    @Override
+    public boolean isUnifiedPushEnabled() {
+        return preferences.getBoolean(PREF__ENABLE_UNIFIEDPUSH, false);
+    }
+
+    @Override
+    public void setUnifiedPushEnabled(boolean enabled) {
+        preferences.edit().putBoolean(PREF__ENABLE_UNIFIEDPUSH, enabled).apply();
     }
 
     @Override
