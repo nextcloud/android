@@ -10,6 +10,7 @@ package com.owncloud.android.services
 import android.util.Log
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.utils.LinkHelper.APP_NEXTCLOUD_TALK
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.resources.notifications.ActivateWebPushRegistrationOperation
@@ -36,6 +37,11 @@ class UnifiedPushService: PushService() {
         AndroidInjection.inject(this)
     }
 
+    private fun apptypes(): List<String> = packageManager
+        .getLaunchIntentForPackage(APP_NEXTCLOUD_TALK)?.let {
+            listOf("all", "-talk")
+        } ?: listOf("all")
+
     override fun onNewEndpoint(endpoint: PushEndpoint, instance: String) {
         Log.d(TAG, "Received new endpoint for $instance")
         // No reason to fail with the default key manager
@@ -47,7 +53,7 @@ class UnifiedPushService: PushService() {
                 endpoint = endpoint.url,
                 auth = key.auth,
                 uaPublicKey = key.pubKey,
-                apptypes = listOf("all") // TODO: remove talk if installed
+                apptypes = apptypes()
             ).execute(mClient)
         }
     }
