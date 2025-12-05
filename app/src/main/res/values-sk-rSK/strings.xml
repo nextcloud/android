@@ -746,6 +746,7 @@
     <string name="remove_notification_failed">Odstránenie upozornenia zlyhalo.</string>
     <string name="remove_push_notification">Odstrániť</string>
     <string name="remove_success_msg">Zmazané</string>
+    <string name="remove_upload">Odobrať</string>
     <string name="rename_dialog_title">Zadajte nové meno</string>
     <string name="rename_local_fail_msg">Nepodarilo sa premenovať lokálnu kópiu, skúste iné meno</string>
     <string name="rename_server_fail_msg">Premenovanie sa nepodarilo, meno sa už používa</string>
@@ -1180,12 +1181,6 @@
         <item quantity="few">%d exportované súbory, ostatné vynechané pre chybu</item>
         <item quantity="many">%d exportovaných súborov, ostatné vynechané pre chybu</item>
         <item quantity="other">%d exportovaných súborov, ostatné vynechané pre chybu</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d súborov bol exportovaný. Pozrite si upozornenia pre viac detailov.</item>
-        <item quantity="few">%d súborov boli exportované. Pozrite si upozornenia pre viac detailov.</item>
-        <item quantity="many">%d súborov bolo exportovaných. Pozrite si upozornenia pre viac detailov.</item>
-        <item quantity="other">%d súborov bolo exportovaných. Pozrite si upozornenia pre viac detailov.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d priečinok</item>

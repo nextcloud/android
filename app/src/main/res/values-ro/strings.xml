@@ -678,6 +678,7 @@
     <string name="remove_notification_failed">Eșuare în eliminarea notificărilor.</string>
     <string name="remove_push_notification">Șterge</string>
     <string name="remove_success_msg">Șters</string>
+    <string name="remove_upload">Elimină</string>
     <string name="rename_dialog_title">Introduceţi un nou nume</string>
     <string name="rename_local_fail_msg">Nu s-a putut redenumi copia locală, încercați un alt nume</string>
     <string name="rename_server_fail_msg">Redenumirea nu este posibilă, numele este deja luat</string>
@@ -1013,11 +1014,6 @@
         <item quantity="one">A fost exportat %d fisier, restul au fost omise datorită erorilor</item>
         <item quantity="few">Au fost exportate %d fișiere, restul au fost omise datorită erorilor</item>
         <item quantity="other">Au fost exportate %d de fișiere, restul au fost omise datorită erorilor</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d fișier va fi exportat. Vezi notificările pentru detalii.</item>
-        <item quantity="few">%dfisiere vor fi exportate. Vezi notificările pentru detalii.</item>
-        <item quantity="other">%d de fisiere vor fi exportate. Vezi notificările pentru detalii</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$ddirectoar</item>

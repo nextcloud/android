@@ -790,6 +790,7 @@
     <string name="remove_notification_failed">Imeshindwa kuondoa arifa.</string>
     <string name="remove_push_notification">Ondoa</string>
     <string name="remove_success_msg">Vilivyofutwa</string>
+    <string name="remove_upload">Ondoa</string>
     <string name="rename_dialog_title">Ingiza jina jipya</string>
     <string name="rename_local_fail_msg">Haikuweza kubadilisha jina la nakala ya ndani, jaribu jina tofauti</string>
     <string name="rename_server_fail_msg">Kubadilisha jina hakuwezekani, jina tayari limechukuliwa</string>
@@ -1211,10 +1212,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">Exported %d file, skipped rest due to error</item>
         <item quantity="other">Faili %d zimehamishwa, zimeruka mapumziko kwa sababu ya hitilafu</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d file will be exported. See notification for details.</item>
-        <item quantity="other">%d faili zitahamishwa. Tazama arifa kwa maelezo.</item>
     </plurals>
     <plurals name="file_upload_limit_message">
         <item quantity="one">You can upload only %d file at once.</item>

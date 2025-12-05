@@ -786,6 +786,7 @@
     <string name="remove_notification_failed">Грешка при уклањању обавештења.</string>
     <string name="remove_push_notification">Уклони</string>
     <string name="remove_success_msg">Обрисано</string>
+    <string name="remove_upload">Уклони</string>
     <string name="rename_dialog_title">Унесите нов назив</string>
     <string name="rename_local_fail_msg">Не могу да преименујем локалну копију. Пробајте други назив</string>
     <string name="rename_server_fail_msg">Преименовање није могуће. Назив већ постоји</string>
@@ -1219,11 +1220,6 @@
         <item quantity="one">Извезен је %d фајл, остали су прескочени услед грешке</item>
         <item quantity="few">Извезена су %d фајла, остали су прескочени услед грешке</item>
         <item quantity="other">Извезено је %d фајлова, остали су прескочени услед грешке</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">Извешће се %d фајл. Погледајте обавештење за више детаља.</item>
-        <item quantity="few">Извешће се %d фајла. Погледајте обавештење за више детаља.</item>
-        <item quantity="other">Извешће се %d фајлова. Погледајте обавештење за више детаља.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d фасцикла</item>

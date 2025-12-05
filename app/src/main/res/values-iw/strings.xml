@@ -515,6 +515,7 @@
     <string name="remove_notification_failed">הסרת ההתראה נכשלה.</string>
     <string name="remove_push_notification">הסרה</string>
     <string name="remove_success_msg">נמחק</string>
+    <string name="remove_upload">הסרה</string>
     <string name="rename_dialog_title">נא להזין שם חדש</string>
     <string name="rename_local_fail_msg">לא ניתן לשנות שם של עותק מקומי, נא לנסות שם אחר</string>
     <string name="rename_server_fail_msg">אי אפשר לשנות שם, השם כבר תפוס</string>

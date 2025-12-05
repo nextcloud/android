@@ -794,6 +794,7 @@
     <string name="remove_notification_failed">Theip ar an bhfógra a bhaint.</string>
     <string name="remove_push_notification">Bain</string>
     <string name="remove_success_msg">Scriosta</string>
+    <string name="remove_upload">Bain</string>
     <string name="rename_dialog_title">Cuir isteach ainm nua</string>
     <string name="rename_local_fail_msg">Níorbh fhéidir cóip logánta a athainmniú, bain triail as ainm eile</string>
     <string name="rename_server_fail_msg">Ní féidir athainmniú a dhéanamh, ainm glactha cheana féin</string>
@@ -1261,13 +1262,6 @@
         <item quantity="few">Easpórtáladh %d comhad, níor thángthas ar scíth de bharr earráide</item>
         <item quantity="many">Easpórtáladh %d comhad, níor thángthas ar scíth de bharr earráide</item>
         <item quantity="other">Easpórtáladh %d comhad, níor thángthas ar scíth de bharr earráide</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">easpórtálfar %d comhad. Féach an fógra le haghaidh sonraí.</item>
-        <item quantity="two">easpórtálfar %d comhad. Féach an fógra le haghaidh sonraí.</item>
-        <item quantity="few">easpórtálfar %d comhad. Féach an fógra le haghaidh sonraí.</item>
-        <item quantity="many">easpórtálfar %d comhad. Féach an fógra le haghaidh sonraí.</item>
-        <item quantity="other">easpórtálfar %d comhad. Féach an fógra le haghaidh sonraí.</item>
     </plurals>
     <plurals name="file_upload_limit_message">
         <item quantity="one">Ní féidir leat ach %d comhad a uaslódáil ag an am céanna.</item>

@@ -462,6 +462,7 @@
     <string name="remove_notification_failed">Dështoi heqja e njoftimit.</string>
     <string name="remove_push_notification">Hiq</string>
     <string name="remove_success_msg">E fshirë</string>
+    <string name="remove_upload">Hiqe</string>
     <string name="rename_dialog_title">Jepni një emër të ri</string>
     <string name="rename_local_fail_msg">Nuk mund të riemërtohet kopja lokale, provoni një emër ndryshe</string>
     <string name="rename_server_fail_msg">Riemërtimi nuk është i mundur, emri është i zënë</string>

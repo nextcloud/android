@@ -703,6 +703,7 @@
     <string name="remove_notification_failed">Kunne ikke fjerne meldingen.</string>
     <string name="remove_push_notification">Fjern</string>
     <string name="remove_success_msg">Slettet</string>
+    <string name="remove_upload">Fjern</string>
     <string name="rename_dialog_title">Skriv inn et nytt navn</string>
     <string name="rename_local_fail_msg">Kunne ikke endre navn på lokal kopi, prøv et annet navn</string>
     <string name="rename_server_fail_msg">Endring av navn ikke mulig, navnet er allerde benyttet</string>
@@ -1072,10 +1073,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">Eksporterte %d fil, hoppet over resten på grunn av feil</item>
         <item quantity="other">Eksporterte %d filer, hoppet over resten på grunn av feil</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d fil vil bli eksportert. Se varsel for detaljer</item>
-        <item quantity="other">%d filer vil bli eksportert. Se varsel for detaljer</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$dmappe</item>

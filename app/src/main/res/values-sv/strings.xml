@@ -800,6 +800,7 @@
     <string name="remove_notification_failed">Kunde inte radera notifiering.</string>
     <string name="remove_push_notification">Ta bort</string>
     <string name="remove_success_msg">Borttagen</string>
+    <string name="remove_upload">Ta bort</string>
     <string name="rename_dialog_title">Ange ett nytt namn</string>
     <string name="rename_local_fail_msg">Det gick inte att byta namn på lokal kopia, prova ett annat namn</string>
     <string name="rename_server_fail_msg">Namnbytning är inte möjligt, namnet är redan taget</string>
@@ -1225,10 +1226,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">%d filer exporterade, övriga överhoppade pga fel</item>
         <item quantity="other">1%d filer exporterade, övriga överhoppade pga fel</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d fil kommer exporteras. Se avisering för detaljer.</item>
-        <item quantity="other">%d filer kommer exporteras. Se avisering för detaljer.</item>
     </plurals>
     <plurals name="file_upload_limit_message">
         <item quantity="one">Du kan bara ladda upp %d fil åt gången.</item>

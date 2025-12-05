@@ -948,11 +948,6 @@
         <item quantity="many">Se exportaron %d archivos, se omitieron el resto debido a un error</item>
         <item quantity="other">Se exportaron %d archivos, se omitieron el resto debido a un error</item>
     </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d archivo se exportará. Consulta la notificación para obtener más detalles.</item>
-        <item quantity="many">%d archivos se exportarán. Consulta la notificación para obtener más detalles.</item>
-        <item quantity="other">%d archivos se exportarán. Consulta la notificación para obtener más detalles.</item>
-    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d carpeta</item>
         <item quantity="many">%1$d carpetas</item>

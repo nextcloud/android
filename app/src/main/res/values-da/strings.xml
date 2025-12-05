@@ -1199,10 +1199,6 @@
         <item quantity="one">Eksporterede %d fil, og sprang over resten på grund af fejl</item>
         <item quantity="other">Eksporterede %d filer, og sprang over resten på grund af fejl</item>
     </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d fil vil blive eksporteret. Se notifikationen for yderligere oplysninger.</item>
-        <item quantity="other">%d filer vil blive eksporteret. Se notifikationen for yderligere oplysninger.</item>
-    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappe</item>
         <item quantity="other">%1$d mapper</item>

@@ -704,6 +704,7 @@
     <string name="remove_notification_failed">ئۇقتۇرۇشنى ئۆچۈرەلمىدى.</string>
     <string name="remove_push_notification">ئۆچۈرۈڭ</string>
     <string name="remove_success_msg">ئۆچۈرۈلدى</string>
+    <string name="remove_upload">ئۆچۈرۈڭ</string>
     <string name="rename_dialog_title">يېڭى ئىسىم كىرگۈزۈڭ</string>
     <string name="rename_local_fail_msg">يەرلىك نۇسخىنىڭ نامىنى ئۆزگەرتەلمىدى ، باشقا ئىسىمنى سىناپ بېقىڭ</string>
     <string name="rename_server_fail_msg">ئىسىم ئۆزگەرتىش مۇمكىن ئەمەس ، ئىسمى ئاللىبۇرۇن ئېلىنغان</string>
@@ -1094,10 +1095,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">Exported %d file, skipped rest due to error</item>
         <item quantity="other">Exported %d files, skipped rest due to error</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d file will be exported. See notification for details.</item>
-        <item quantity="other">%d files will be exported. See notification for details.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d folder</item>

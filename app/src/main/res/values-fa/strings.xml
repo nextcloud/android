@@ -648,6 +648,7 @@
     <string name="remove_notification_failed">حذف اعلان انجام نشد.</string>
     <string name="remove_push_notification">حذف</string>
     <string name="remove_success_msg">حذف شده</string>
+    <string name="remove_upload">حذف</string>
     <string name="rename_dialog_title">نام جدید وارد کنید</string>
     <string name="rename_local_fail_msg">تغییر نام نسخه محلی امکان پذیر نیست، نام دیگری را امتحان کنید</string>
     <string name="rename_server_fail_msg">تغییر نام ممکن نیست، این نام قبلا استفاده شده است</string>
@@ -1024,10 +1025,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">%d فایل صادر شد، بقیه به دلیل خطا نادیده گرفته شد</item>
         <item quantity="other">%d فایل صادر شد، بقیه به دلیل خطا نادیده گرفته شد</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d فایل صادر خواهد شد. برای جزئیات به اعلان مراجعه کنید.</item>
-        <item quantity="other">%d فایل صادر خواهد شد. برای جزئیات به اعلان مراجعه کنید.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d پوشه</item>

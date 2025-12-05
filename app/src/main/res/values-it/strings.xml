@@ -725,6 +725,7 @@
     <string name="remove_notification_failed">Rimozione notifica non riuscita.</string>
     <string name="remove_push_notification">Rimuovi</string>
     <string name="remove_success_msg">Eliminato</string>
+    <string name="remove_upload">Rimuovi</string>
     <string name="rename_dialog_title">Digita un nuovo nome</string>
     <string name="rename_local_fail_msg">La copia locale non può essere rinominata, prova un nome diverso</string>
     <string name="rename_server_fail_msg">Rinomina non consentita, nome già utilizzato</string>
@@ -1120,11 +1121,6 @@
         <item quantity="one">Esportato %dfile , il resto saltato a causa di un errore</item>
         <item quantity="many">Esportati %d files, il resto saltato a causa di un errore</item>
         <item quantity="other">Esportati %d file, il resto saltato a causa di un errore</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%dfile sarà esportato. Vedi la notifica per i dettagli.</item>
-        <item quantity="many">%dfile saranno esportati. Vedi la notifica per i dettagli.</item>
-        <item quantity="other">%d file saranno esportati. Vedi la notifica per i dettagli.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d cartella</item>

@@ -501,6 +501,7 @@
     <string name="remove_notification_failed">Cha deach leinn am brath a thoirt air falbh.</string>
     <string name="remove_push_notification">Thoir air falbh</string>
     <string name="remove_success_msg">Chaidh a sguabadh às</string>
+    <string name="remove_upload">Thoir air falbh</string>
     <string name="rename_dialog_title">Cuir a-steach ainm ùr</string>
     <string name="rename_local_fail_msg">Cha b’ urrainn dhuinn an t-ainm ùr a thoirt air an lethbhreac ionadail, feuch ainm eile</string>
     <string name="rename_server_fail_msg">Tha ghabh an t-ainm ùr a thoirt air on a tha e ’ga chleachdadh mu thràth</string>

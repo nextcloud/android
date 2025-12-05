@@ -538,6 +538,7 @@
     <string name="remove_notification_failed">Неуспешно бришење на известувањата.</string>
     <string name="remove_push_notification">Отстрани</string>
     <string name="remove_success_msg">Избришан</string>
+    <string name="remove_upload">Отстрани </string>
     <string name="rename_dialog_title">Внеси ново име</string>
     <string name="rename_local_fail_msg">Локалната копија не може да се преименува; пробајте со друго име</string>
     <string name="rename_server_fail_msg">Преименувањето не е возможно, тоа име веќе е зафатено</string>

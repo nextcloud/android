@@ -206,6 +206,7 @@
     <string name="conversation_screen_empty_content_title">لم يتم العثور على المحادثات </string>
     <string name="conversation_screen_empty_conversation_list_title">لا توجد أي محادثات حتى الآن</string>
     <string name="conversation_screen_title">محادثات</string>
+    <string name="copied">نُسخت </string>
     <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
     <string name="copy_file_error">حدث خطأٌ خلال محاولة نسخ هذا الملف أو المجلد</string>
     <string name="copy_file_invalid_into_descendent">لا يمكن نسخ مجلد في مجلدات هوَّ يتضمنها</string>
@@ -1188,14 +1189,6 @@
         <item quantity="few">تم تصدير %dملفات، وتم تخطي البقية بسبب خطأ</item>
         <item quantity="many">تم تصدير %d ملفات، وتم تخطي البقية بسبب خطأ</item>
         <item quantity="other">تم تصدير %d ملفات، وتم تخطي البقية بسبب خطأ</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="zero">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
-        <item quantity="one">سوف يتم تصدير  %dملف. انظر الإخطار للحصول على التفاصيل.</item>
-        <item quantity="two">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
-        <item quantity="few">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
-        <item quantity="many">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
-        <item quantity="other">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="zero">%1$d مجلد</item>
