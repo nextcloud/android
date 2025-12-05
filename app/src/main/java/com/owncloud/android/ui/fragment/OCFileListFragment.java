@@ -135,8 +135,6 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.ActionBar;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
@@ -1765,28 +1763,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     protected void setTitle() {
-        // set title
-
-        if (getActivity() instanceof FileDisplayActivity && currentSearchType != null) {
-            switch (currentSearchType) {
-                case FAVORITE_SEARCH:
-                    setTitle(R.string.drawer_item_favorites);
-                    break;
-                case GALLERY_SEARCH:
-                    setTitle(R.string.drawer_item_gallery);
-                    break;
-                case RECENTLY_MODIFIED_SEARCH:
-                    setTitle(R.string.drawer_item_recently_modified);
-                    break;
-                case SHARED_FILTER:
-                    setTitle(R.string.drawer_item_shared);
-                    break;
-                default:
-                    setTitle(themeUtils.getDefaultDisplayNameForRootFolder(getContext()), false);
-                    break;
-            }
+        if (!(getActivity() instanceof FileDisplayActivity fda) || currentSearchType == null) {
+            return;
         }
 
+        Integer titleId = currentSearchType.titleId();
+        String title = themeUtils.getDefaultDisplayNameForRootFolder(fda);
+        if (titleId != null) {
+            title = fda.getString(titleId);
+        }
+
+        setTitle(title, currentSearchType.isMenu());
     }
 
     protected void prepareActionBarItems(SearchEvent event) {
@@ -2118,29 +2105,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     /**
-     * Theme default action bar according to provided parameters. Replaces back arrow with hamburger menu icon.
-     *
-     * @param title string res id of title to be shown in action bar
-     */
-    protected void setTitle(@StringRes final int title) {
-        setTitle(requireContext().getString(title), true);
-    }
-
-    /**
      * Theme default action bar according to provided parameters.
      *
      * @param title          title to be shown in action bar
      * @param showBackAsMenu iff true replace back arrow with hamburger menu icon
      */
     protected void setTitle(final String title, Boolean showBackAsMenu) {
-        requireActivity().runOnUiThread(() -> {
-            if (getActivity() != null) {
-                final ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
-                final Context context = getContext();
+        if (!(getActivity() instanceof FileDisplayActivity fda)) {
+            return;
+        }
 
-                if (actionBar != null && context != null) {
-                    viewThemeUtils.files.themeActionBar(context, actionBar, title, showBackAsMenu);
-                }
+        fda.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final var actionBar = fda.getSupportActionBar();
+                viewThemeUtils.files.themeActionBar(fda, actionBar, title, showBackAsMenu);
             }
         });
     }
