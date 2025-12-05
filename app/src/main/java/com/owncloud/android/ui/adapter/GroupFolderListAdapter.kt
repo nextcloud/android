@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -27,7 +28,7 @@ class GroupFolderListAdapter(
     private val groupFolderListInterface: GroupfolderListInterface,
     private val isDarkMode: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    lateinit var list: List<Groupfolder>
+    private var list: List<Groupfolder> = listOf()
 
     fun setData(result: Map<String, Groupfolder>) {
         list = result.values.sortedBy { it.mountPoint }
