@@ -501,7 +501,6 @@ internal class BackgroundJobManagerImpl(
                 TimeUnit.SECONDS
             )
             .setInputData(arguments)
-            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             .build()
 
         workManager.enqueueUniquePeriodicWork(
