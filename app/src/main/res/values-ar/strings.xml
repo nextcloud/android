@@ -748,6 +748,7 @@
     <string name="remove_notification_failed">فشل في إزالة الإشعار.</string>
     <string name="remove_push_notification">حذف</string>
     <string name="remove_success_msg">تم حذفه</string>
+    <string name="remove_upload">حذف</string>
     <string name="rename_dialog_title">أدخل اسما جديداً</string>
     <string name="rename_local_fail_msg">تعذرت إعادة تسمية النسخة المحلية ، حاول استخدام اسم مختلف</string>
     <string name="rename_server_fail_msg">إعادة التسمية غير ممكنة ، الاسم مأخوذ بالفعل</string>
@@ -1189,14 +1190,6 @@
         <item quantity="few">تم تصدير %dملفات، وتم تخطي البقية بسبب خطأ</item>
         <item quantity="many">تم تصدير %d ملفات، وتم تخطي البقية بسبب خطأ</item>
         <item quantity="other">تم تصدير %d ملفات، وتم تخطي البقية بسبب خطأ</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="zero">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
-        <item quantity="one">سوف يتم تصدير  %dملف. انظر الإخطار للحصول على التفاصيل.</item>
-        <item quantity="two">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
-        <item quantity="few">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
-        <item quantity="many">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
-        <item quantity="other">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="zero">%1$d مجلد</item>

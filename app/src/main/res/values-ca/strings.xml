@@ -723,6 +723,7 @@
     <string name="remove_notification_failed">Ha fallat la supressió de la notificació.</string>
     <string name="remove_push_notification">Suprimeix</string>
     <string name="remove_success_msg">Suprimit</string>
+    <string name="remove_upload">Suprimir</string>
     <string name="rename_dialog_title">Introduiu un nom nou</string>
     <string name="rename_local_fail_msg">No s\'ha pogut canviar el nom de la còpia local, intenteu-ho amb amb un altre nom</string>
     <string name="rename_server_fail_msg">El canvi de nom no és possible, el nom ja es troba en ús</string>
@@ -1064,10 +1065,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">Exportat %d fitxer, ignorats la resta per errors</item>
         <item quantity="other">Exportats %d fitxers, ignorats la resta per errors</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d fitxer serà exportat. Consulta la notificació per més detalls.</item>
-        <item quantity="other">%d fitxers seran exportats. Consulta la notificació per més detalls.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d carpeta</item>

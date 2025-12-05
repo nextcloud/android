@@ -619,6 +619,7 @@
     <string name="remove_notification_failed">Failed to remove notification.</string>
     <string name="remove_push_notification">Remove</string>
     <string name="remove_success_msg">Deleted</string>
+    <string name="remove_upload">Remove</string>
     <string name="rename_dialog_title">Enter a new name</string>
     <string name="rename_local_fail_msg">Could not rename local copy, try a different name</string>
     <string name="rename_server_fail_msg">Renaming not possible, name already taken</string>
@@ -962,10 +963,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">Exported %d file, skipped rest due to error</item>
         <item quantity="other">Exported %d files, skipped rest due to error</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d file will be exported. See notification for details.</item>
-        <item quantity="other">%d files will be exported. See notification for details.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d folder</item>

@@ -784,6 +784,7 @@
     <string name="remove_notification_failed">通知の削除に失敗</string>
     <string name="remove_push_notification">削除</string>
     <string name="remove_success_msg">削除済み</string>
+    <string name="remove_upload">削除</string>
     <string name="rename_dialog_title">新しい名前を入力</string>
     <string name="rename_local_fail_msg">ローカルコピーの名前が変更できません。別の名前を試してください</string>
     <string name="rename_server_fail_msg">名前の変更ができません。その名前は使われています</string>
@@ -1187,9 +1188,6 @@
     </plurals>
     <plurals name="export_partially_failed">
         <item quantity="other">エラーのため、%d ファイルはエクスポートされ、他のファイルはスキップされました</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="other">%dファイルがエクスポートされます。詳細は通知を確認してください。</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d フォルダ</item>

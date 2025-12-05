@@ -770,6 +770,7 @@
     <string name="remove_notification_failed">Az értesítés eltávolítása sikertelen.</string>
     <string name="remove_push_notification">Eltávolítás</string>
     <string name="remove_success_msg">Törölve</string>
+    <string name="remove_upload">Eltávolítás</string>
     <string name="rename_dialog_title">Adjon meg egy új nevet</string>
     <string name="rename_local_fail_msg">A helyi másolat nem nevezhető át, próbáljon meg egy másik nevet</string>
     <string name="rename_server_fail_msg">Nem nevezhető át, ez a név már foglalt</string>
@@ -1207,10 +1208,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <plurals name="export_partially_failed">
         <item quantity="one">%d fájl exportálva, a többi hiba miatt kihagyva</item>
         <item quantity="other">%d fájl exportálva, a többi hiba miatt kihagyva</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d fájl lesz exportálva. A részletekért lásd az értesítést.</item>
-        <item quantity="other">%d fájl lesz exportálva. A részletekért lásd az értesítést.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappa</item>

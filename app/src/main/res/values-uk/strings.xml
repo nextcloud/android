@@ -789,6 +789,7 @@
     <string name="remove_notification_failed">Неможливо зняти сповіщення.</string>
     <string name="remove_push_notification">Вилучити</string>
     <string name="remove_success_msg">Вилучено</string>
+    <string name="remove_upload">Вилучити</string>
     <string name="rename_dialog_title">Введіть нове ім\'я</string>
     <string name="rename_local_fail_msg">Неможливо перейменувати локальну копію, спробуйте інше ім\'я</string>
     <string name="rename_server_fail_msg">Неможливо перейменувати, таке ім\'я уже існує</string>
@@ -1238,12 +1239,6 @@
         <item quantity="few">Експортовано %d файли, решту пропущено через помилку</item>
         <item quantity="many">Експортовано %d файлів, решту пропущено через помилку</item>
         <item quantity="other">Експортовано %d файлів, решту пропущено через помилку</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d файл буде експортовано. Дивіться сповіщення для деталей.</item>
-        <item quantity="few">%d файлів буде експортовано. Дивіться сповіщення для деталей.</item>
-        <item quantity="many">%d файлів буде експортовано. Дивіться сповіщення для деталей.</item>
-        <item quantity="other">%d файлів буде експортовано. Дивіться сповіщення для деталей.</item>
     </plurals>
     <plurals name="file_upload_limit_message">
         <item quantity="one">Одночасно можна завантажити лише %d файл.</item>

@@ -744,6 +744,7 @@
     <string name="remove_notification_failed">Huts egin du jakinarazpena kentzean</string>
     <string name="remove_push_notification">Ezabatu</string>
     <string name="remove_success_msg">Ezabatuta</string>
+    <string name="remove_upload">Kendu</string>
     <string name="rename_dialog_title">Idatzi izen berri bat</string>
     <string name="rename_local_fail_msg">Ezin izan da kopia lokala berrizendatu, saiatu beste izen batekin</string>
     <string name="rename_server_fail_msg">Ezin izan da berrizendatu, izena hartua zegoen</string>
@@ -1152,10 +1153,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">Fitxategi %d esportatu da, besteak erroreengatik saltatu dira</item>
         <item quantity="other">%d fitxategi esportatu dira, besteak erroreengatik saltatu dira</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one"> Fitxategi %d esportatuko da. Ikusi jakinarazpenak xehetasunetarako.</item>
-        <item quantity="other">%d fitxategi esportatuko dira. Ikusi jakinarazpenak xehetasunetarako.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">karpeta %1$d</item>

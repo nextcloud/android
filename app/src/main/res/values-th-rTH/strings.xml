@@ -478,6 +478,7 @@
     <string name="reload">โหลดใหม่</string>
     <string name="remove_push_notification">ลบออก</string>
     <string name="remove_success_msg">ลบแล้ว</string>
+    <string name="remove_upload">ลบออก</string>
     <string name="rename_dialog_title">กรอกชื่อใหม่</string>
     <string name="request_account_deletion">ขอลบบัญชี</string>
     <string name="restore_item">คืนค่า</string>

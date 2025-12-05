@@ -436,6 +436,7 @@
     <string name="remove_notification_failed">Nun se pue quitar l\'avisu.</string>
     <string name="remove_push_notification">Quitar</string>
     <string name="remove_success_msg">Desanicióse</string>
+    <string name="remove_upload">Quitar</string>
     <string name="rename_dialog_title">Introduz un nome nuevu</string>
     <string name="rename_local_fail_msg">Nun se pudo renomar la copia llocal, prueba con otru nome</string>
     <string name="rename_server_fail_msg">El cambéu de nome nun ye posible, el nome yá ta n\'usu</string>

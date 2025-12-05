@@ -770,6 +770,7 @@
     <string name="remove_notification_failed">Не удалось скрыть уведомление.</string>
     <string name="remove_push_notification">Удалить</string>
     <string name="remove_success_msg">Удалено</string>
+    <string name="remove_upload">Исключить</string>
     <string name="rename_dialog_title">Введите новое имя</string>
     <string name="rename_local_fail_msg">Невозможно переименовать локальную копию, попробуйте другое имя</string>
     <string name="rename_server_fail_msg">Переименование невозможно, имя занято</string>
@@ -1216,12 +1217,6 @@
         <item quantity="few">Экспортированы %d файла, остальные были пропущены из-за ошибок</item>
         <item quantity="many">Экспортирован %d файлов, остальные были пропущены из-за ошибок</item>
         <item quantity="other">Экспортирован %d файла, остальные были пропущены из-за ошибок</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">Будет экспортирован %d файл. Подробные сведения приведены в уведомлении.</item>
-        <item quantity="few">Будет экспортированы %d файла. Подробные сведения приведены в уведомлении.</item>
-        <item quantity="many">Будут экспортированы %d файлов. Подробные сведения приведены в уведомлении.</item>
-        <item quantity="other">Будут экспортированы %d файла. Подробные сведения приведены в уведомлении.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d каталог</item>

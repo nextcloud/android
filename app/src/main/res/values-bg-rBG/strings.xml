@@ -611,6 +611,7 @@
     <string name="remove_notification_failed">Неуспешно премахване на известие.</string>
     <string name="remove_push_notification">Премахване</string>
     <string name="remove_success_msg">Изтрито</string>
+    <string name="remove_upload">Премахване</string>
     <string name="rename_dialog_title">Въведете ново име</string>
     <string name="rename_local_fail_msg">Локалното копие не може да бъде преименувано; опитайте с друго име</string>
     <string name="rename_server_fail_msg">Сървърът не може да бъде преименуван</string>
@@ -946,10 +947,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">Експортирани са %d файла, пропусната е почивка поради грешка</item>
         <item quantity="other">Експортирани са %d файла, пропусната почивка поради грешка</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%dфайла ще бъдат експортирани. Вижте известието за подробности.</item>
-        <item quantity="other">%dфайла ще бъдат експортирани. Вижте известието за подробности.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d папка</item>

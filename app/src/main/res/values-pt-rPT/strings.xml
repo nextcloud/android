@@ -669,6 +669,7 @@
     <string name="remove_notification_failed">Falha ao remover notificação.</string>
     <string name="remove_push_notification">Remover</string>
     <string name="remove_success_msg">Eliminado</string>
+    <string name="remove_upload">Remover</string>
     <string name="rename_dialog_title">Introduza um novo nome</string>
     <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
     <string name="rename_server_fail_msg">Renomeação impossível, nome já utilizado</string>
