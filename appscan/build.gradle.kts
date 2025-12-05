@@ -15,7 +15,7 @@ android {
     namespace = "com.nextcloud.appscan"
 
     defaultConfig {
-        minSdk = 27
+        minSdk = 28
         compileSdk = 36
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

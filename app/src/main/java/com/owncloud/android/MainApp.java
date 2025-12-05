@@ -129,7 +129,7 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  * Contains methods to build the "static" strings. These strings were before constants in different classes.
  */
 public class MainApp extends Application implements HasAndroidInjector, NetworkChangeListener {
-    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_29;
+    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_30;
     public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_20;
 
     private static final String TAG = MainApp.class.getSimpleName();
@@ -233,23 +233,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     }
 
     private String getAppProcessName() {
-        String processName = "";
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-            ActivityManager manager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
-            final int ownPid = android.os.Process.myPid();
-            final List<ActivityManager.RunningAppProcessInfo> processes = manager.getRunningAppProcesses();
-            if (processes != null) {
-                for (ActivityManager.RunningAppProcessInfo info : processes) {
-                    if (info.pid == ownPid) {
-                        processName = info.processName;
-                        break;
-                    }
-                }
-            }
-        } else {
-            processName = Application.getProcessName();
-        }
-        return processName;
+        return Application.getProcessName();
     }
 
     @Override

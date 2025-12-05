@@ -9,9 +9,7 @@ package com.owncloud.android.datamodel
 
 import android.content.ContentResolver
 import android.net.Uri
-import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SdkSuppress
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -58,22 +56,6 @@ class ContentResolverHelperIT {
                     bundle.getInt(ContentResolver.QUERY_ARG_SORT_DIRECTION) == SORT_DIRECTION_INT
             },
             null
-        )
-    }
-
-    @Test
-    @SdkSuppress(maxSdkVersion = Build.VERSION_CODES.N_MR1)
-    fun contentResolver_onAndroidBelow26_usesOldAPI() {
-        ContentResolverHelper
-            .queryResolver(resolver, URI, PROJECTION, SELECTION, null, SORT_COLUMN, SORT_DIRECTION, LIMIT)
-
-        verify(resolver).query(
-            eq(URI),
-            eq(PROJECTION),
-            eq(SELECTION),
-            eq(null),
-            eq("$SORT_COLUMN $SORT_DIRECTION LIMIT $LIMIT"),
-            eq(null)
         )
     }
 }
