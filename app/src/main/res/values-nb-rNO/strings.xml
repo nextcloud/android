@@ -196,6 +196,7 @@
     <string name="conversation_screen_empty_content_title">Ingen samtaler funnet</string>
     <string name="conversation_screen_empty_conversation_list_title">Ingen samtaler enda</string>
     <string name="conversation_screen_title">Samtaler</string>
+    <string name="copied">Kopiert</string>
     <string name="copied_to_clipboard">Kopiert til utklippstavlen</string>
     <string name="copy_file_error">En feil oppsto ved kopiering av denne filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det er ikke mulig å kopiere en mappe inn i sin egen undermappe</string>

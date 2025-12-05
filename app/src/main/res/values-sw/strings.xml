@@ -218,6 +218,7 @@
     <string name="conversation_screen_empty_content_title">Hakuna mazungumzo yaliyopatikana</string>
     <string name="conversation_screen_empty_conversation_list_title">Bado hakuna mazungumzo</string>
     <string name="conversation_screen_title">Mazungumzo</string>
+    <string name="copied">Iliyonakiliwa</string>
     <string name="copied_to_clipboard">Nakili katika ubao wa kunakili</string>
     <string name="copy_file_error">Hitilafu ilitokea wakati wa kujaribu kunakili faili au folda hii</string>
     <string name="copy_file_invalid_into_descendent">Haiwezekani kunakili folda kwenye mojawapo ya folda zake za msingi</string>

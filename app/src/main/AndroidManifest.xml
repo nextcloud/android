@@ -304,9 +304,6 @@
             android:name="com.nextcloud.client.jobs.NotificationWork$NotificationReceiver"
             android:exported="false" />
         <receiver
-            android:name="com.nextcloud.client.jobs.upload.FileUploadHelper$UploadNotificationActionReceiver"
-            android:exported="false" />
-        <receiver
             android:name="com.nextcloud.client.widget.DashboardWidgetProvider"
             android:exported="false">
             <intent-filter>

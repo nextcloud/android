@@ -206,6 +206,7 @@
     <string name="conversation_screen_delete_button_title">Удалить обсуждение</string>
     <string name="conversation_screen_empty_content_title">Не найдено ни одного обсуждения</string>
     <string name="conversation_screen_title">Беседы</string>
+    <string name="copied">Скопировано</string>
     <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="copy_file_error">Произошла ошибка при попытке копирования этого файла или каталога</string>
     <string name="copy_file_invalid_into_descendent">Невозможно копирование каталога в его подкаталог</string>

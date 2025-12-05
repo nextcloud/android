@@ -41,6 +41,7 @@ import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -66,7 +67,7 @@ class OCFileListDelegate(
     private var highlightedItem: OCFile? = null
     var isMultiSelect = false
     private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
-    private val ioScope = CoroutineScope(Dispatchers.IO)
+    private val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val galleryImageGenerationJob = GalleryImageGenerationJob(user, storageManager)
 
     fun setHighlightedItem(highlightedItem: OCFile?) {
@@ -192,32 +193,27 @@ class OCFileListDelegate(
     }
 
     @Suppress("MagicNumber")
-    fun bindGridViewHolder(
-        gridViewHolder: ListViewHolder,
-        file: OCFile,
-        currentDirectory: OCFile?,
-        searchType: SearchType?
-    ) {
+    fun bindViewHolder(viewHolder: ListViewHolder, file: OCFile, currentDirectory: OCFile?, searchType: SearchType?) {
         // thumbnail
-        gridViewHolder.imageFileName?.text = file.fileName
-        gridViewHolder.thumbnail.tag = file.fileId
-        setThumbnail(gridViewHolder.thumbnail, gridViewHolder.shimmerThumbnail, file)
+        viewHolder.imageFileName?.text = file.fileName
+        viewHolder.thumbnail.tag = file.fileId
+        setThumbnail(viewHolder.thumbnail, viewHolder.shimmerThumbnail, file)
 
         // item layout + click listeners
-        bindGridItemLayout(file, gridViewHolder)
+        bindGridItemLayout(file, viewHolder)
 
         // unread comments
-        bindUnreadComments(file, gridViewHolder)
+        bindUnreadComments(file, viewHolder)
 
         // multiSelect (Checkbox)
         val isFolderPickerActivity = (context is FolderPickerActivity)
-        gridViewHolder.checkbox.setVisibleIf(isMultiSelect && !isFolderPickerActivity)
+        viewHolder.checkbox.setVisibleIf(isMultiSelect && !isFolderPickerActivity)
 
         // download state
-        gridViewHolder.localFileIndicator.visibility = View.GONE // default first
+        viewHolder.localFileIndicator.visibility = View.GONE // default first
 
         // metadata (downloaded, favorite)
-        bindGridMetadataViews(file, gridViewHolder)
+        bindGridMetadataViews(file, viewHolder)
 
         // shares
         val shouldHideShare = (
@@ -232,13 +228,13 @@ class OCFileListDelegate(
                 currentDirectory?.isEncrypted ?: false
             ) // sharing an encrypted subfolder is not possible
         if (shouldHideShare) {
-            gridViewHolder.shared.visibility = View.GONE
+            viewHolder.shared.visibility = View.GONE
         } else {
-            configureSharedIconView(gridViewHolder, file)
+            configureSharedIconView(viewHolder, file)
         }
 
         if (!file.isOfflineOperation && !file.isFolder) {
-            gridViewHolder.thumbnail.makeRounded(context, 4f)
+            viewHolder.thumbnail.makeRounded(context, 4f)
         }
     }
 
@@ -321,19 +317,11 @@ class OCFileListDelegate(
         }
     }
 
-    @Suppress("ReturnCount")
-    private fun isFolderFullyDownloaded(file: OCFile): Boolean {
-        if (!file.isFolder) {
-            return false
-        }
-
-        val subfiles = storageManager.getSubfiles(file.fileId, user.accountName)
-
-        if (subfiles.isEmpty()) {
-            return false
-        }
-
-        return subfiles.all { it.isDown }
+    private suspend fun isFolderFullyDownloaded(file: OCFile): Boolean = withContext(Dispatchers.IO) {
+        file.isFolder &&
+            storageManager.getSubfiles(file.fileId, user.accountName)
+                .takeIf { it.isNotEmpty() }
+                ?.all { it.isDown } == true
     }
 
     private fun isSynchronizing(file: OCFile): Boolean {
@@ -346,36 +334,26 @@ class OCFileListDelegate(
     }
 
     private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
-        val icon = when {
-            isSynchronizing(file) -> R.drawable.ic_synchronizing
-            file.etagInConflict != null -> R.drawable.ic_synchronizing_error
-            file.isDown -> R.drawable.ic_synced
-            else -> null
-        }
+        ioScope.launch {
+            val isFullyDownloaded = isFolderFullyDownloaded(file)
+            val isSyncing = isSynchronizing(file)
+            val hasConflict = (file.etagInConflict != null)
+            val isDown = file.isDown
 
-        holder.localFileIndicator.run {
-            if (icon != null) {
-                setImageResource(icon)
-                visibility = View.VISIBLE
-            } else {
-                visibility = View.GONE
+            val icon = when {
+                isSyncing -> R.drawable.ic_synchronizing
+                hasConflict -> R.drawable.ic_synchronizing_error
+                isDown || isFullyDownloaded -> R.drawable.ic_synced
+                else -> null
             }
-        }
 
-        checkLocalFolderIndicatorAsynchronously(file, holder)
-    }
-
-    private fun checkLocalFolderIndicatorAsynchronously(file: OCFile, holder: ListViewHolder) {
-        if (file.isFolder) {
-            ioScope.launch {
-                if (isFolderFullyDownloaded(file)) {
-                    withContext(Dispatchers.Main) {
-                        holder.run {
-                            if (thumbnail.tag == file.fileId) {
-                                localFileIndicator.setImageResource(R.drawable.ic_synced)
-                                localFileIndicator.visibility = View.VISIBLE
-                            }
-                        }
+            withContext(Dispatchers.Main) {
+                holder.localFileIndicator.run {
+                    if (icon != null && showMetadata) {
+                        setImageResource(icon)
+                        visibility = View.VISIBLE
+                    } else {
+                        visibility = View.GONE
                     }
                 }
             }

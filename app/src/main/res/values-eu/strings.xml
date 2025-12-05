@@ -204,6 +204,7 @@
     <string name="contacts_preferences_something_strange_happened">Ezin izan da zure azken babeskopia aurkitu!</string>
     <string name="conversation_screen_empty_content_title">Ez da elkarrizketarik aurkitu</string>
     <string name="conversation_screen_title">Elkarrizketak</string>
+    <string name="copied">Kopiatuta</string>
     <string name="copied_to_clipboard">Arbelera kopiatua</string>
     <string name="copy_file_error">Fitxategi edo karpeta kopiatzean errore bat gertatu da.</string>
     <string name="copy_file_invalid_into_descendent">Ezin da karpeta bat bere azpikarpeta batera kopiatu</string>

@@ -12,6 +12,7 @@ import android.content.Context
 import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
+import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -22,7 +23,7 @@ import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.model.WorkerStateObserver
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
 import com.nextcloud.utils.extensions.updateStatus
@@ -48,7 +49,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.random.Random
 
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "TooGenericExceptionCaught")
 class FileUploadWorker(
     val uploadsStorageManager: UploadsStorageManager,
     val connectivityService: ConnectivityService,
@@ -132,16 +133,12 @@ class FileUploadWorker(
     private val intents = FileUploaderIntents(context)
     private val fileUploaderDelegate = FileUploaderDelegate()
 
-    @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result = try {
         Log_OC.d(TAG, "FileUploadWorker started")
         val workerName = BackgroundJobManagerImpl.formatClassTag(this::class)
         backgroundJobManager.logStartOfWorker(workerName)
 
-        val notificationTitle = notificationManager.currentOperationTitle
-            ?: context.getString(R.string.foreground_service_upload)
-        val notification = createNotification(notificationTitle)
-        updateForegroundInfo(notification)
+        trySetForeground()
 
         val result = uploadFiles()
         backgroundJobManager.logEndOfWorker(workerName, result)
@@ -154,6 +151,30 @@ class FileUploadWorker(
         Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
         cleanup()
         Result.failure()
+    }
+
+    private suspend fun trySetForeground() {
+        try {
+            val notificationTitle = notificationManager.currentOperationTitle
+                ?: context.getString(R.string.foreground_service_upload)
+            val notification = createNotification(notificationTitle)
+            updateForegroundInfo(notification)
+        } catch (e: Exception) {
+            // Continue without foreground service - uploads will still work
+            Log_OC.w(TAG, "Could not set foreground service: ${e.message}")
+        }
+    }
+
+    override suspend fun getForegroundInfo(): ForegroundInfo {
+        val notificationTitle = notificationManager.currentOperationTitle
+            ?: context.getString(R.string.foreground_service_upload)
+        val notification = createNotification(notificationTitle)
+
+        return ForegroundServiceHelper.createWorkerForegroundInfo(
+            notificationId,
+            notification,
+            ForegroundServiceType.DataSync
+        )
     }
 
     private suspend fun updateForegroundInfo(notification: Notification) {
@@ -186,14 +207,14 @@ class FileUploadWorker(
     }
 
     private fun setWorkerState(user: User?) {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.UploadStarted(user))
+        WorkerStateObserver.send(WorkerState.FileUploadStarted(user))
     }
 
     private fun setIdleWorkerState() {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.UploadFinished(currentUploadFileOperation?.file))
+        WorkerStateObserver.send(WorkerState.FileUploadCompleted(currentUploadFileOperation?.file))
     }
 
-    @Suppress("ReturnCount", "LongMethod")
+    @Suppress("ReturnCount", "LongMethod", "DEPRECATION")
     private suspend fun uploadFiles(): Result = withContext(Dispatchers.IO) {
         val accountName = inputData.getString(ACCOUNT)
         if (accountName == null) {
@@ -238,7 +259,7 @@ class FileUploadWorker(
             if (preferences.isGlobalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")
                 notificationManager.notifyPaused(
-                    intents.notificationStartIntent(null)
+                    intents.openUploadListIntent(null)
                 )
                 return@withContext Result.success()
             }
@@ -256,8 +277,7 @@ class FileUploadWorker(
             val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
             notificationManager.prepareForStart(
                 operation,
-                cancelPendingIntent = intents.startIntent(operation),
-                startIntent = intents.notificationStartIntent(operation),
+                startIntent = intents.openUploadListIntent(operation),
                 currentUploadIndex = currentUploadIndex,
                 totalUploadSize = totalUploadSize
             )
@@ -353,7 +373,7 @@ class FileUploadWorker(
             Log_OC.e(TAG, "Error uploading", e)
             result = RemoteOperationResult<Any?>(e)
         } finally {
-            if (!isStopped || !result.isCancelled) {
+            if (!isStopped) {
                 uploadsStorageManager.updateDatabaseUploadResult(result, operation)
                 UploadErrorNotificationManager.handleResult(
                     context,

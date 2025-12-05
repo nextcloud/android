@@ -33,7 +33,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -58,6 +57,7 @@ import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.FragmentExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
@@ -66,6 +66,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.OCFileDepth;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
@@ -241,6 +242,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
+
+    private static OCFileDepth fileDepth = OCFileDepth.Root;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -587,10 +590,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             Log.w(TAG, "scanDocUpload: Failed to start doc scanning, fileDisplayActivity=" + fileDisplayActivity +
                 ", currentFile=" + currentFile);
-            Toast.makeText(getContext(),
-                           getString(R.string.error_starting_doc_scan),
-                           Toast.LENGTH_SHORT)
-                .show();
+            DisplayUtils.showSnackMessage(this, R.string.error_starting_doc_scan);
         }
     }
 
@@ -1080,6 +1080,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             Future<Pair<Integer, OCFile>> futureResult = getPreviousFile();
             Pair<Integer, OCFile> result = futureResult.get();
             mFile = result.second;
+            setFileDepth(mFile);
             updateFileList();
             return result.first;
         } catch (Exception e) {
@@ -1291,7 +1292,20 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    private void setFileDepth(OCFile file) {
+        fileDepth = OCFileExtensionsKt.getDepth(file);
+    }
+
+    public void resetFileDepth() {
+        fileDepth = OCFileDepth.Root;
+    }
+
+    public OCFileDepth getFileDepth() {
+        return fileDepth;
+    }
+
     private void browseToFolder(OCFile file, int position) {
+        setFileDepth(file);
         resetSearchIfBrowsingFromFavorites();
         listDirectory(file, MainApp.isOnlyOnDevice(), false);
         // then, notify parent activity to let it update its state and view
@@ -1701,39 +1715,45 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @SuppressLint("NotifyDataSetChanged")
     public void switchLayoutManager(boolean grid) {
+        final var recyclerView = getRecyclerView();
+        final var adapter = getAdapter();
+        final var context = getContext();
+
+        if (context == null || adapter == null || recyclerView == null) {
+            Log_OC.e(TAG, "cannot switch layout, arguments are null");
+            return;
+        }
+
         int position = 0;
 
-        if (getRecyclerView() != null && getRecyclerView().getLayoutManager() != null) {
-            position = ((LinearLayoutManager) getRecyclerView().getLayoutManager())
-                .findFirstCompletelyVisibleItemPosition();
+        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager linearLayoutManager) {
+            position = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
         }
 
         RecyclerView.LayoutManager layoutManager;
         if (grid) {
-            layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
-            ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            layoutManager = new GridLayoutManager(context, getColumnsCount());
+            GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
                     if (position == getAdapter().getItemCount() - 1 ||
                         position == 0 && getAdapter().shouldShowHeader()) {
-                        return ((GridLayoutManager) layoutManager).getSpanCount();
+                        return gridLayoutManager.getSpanCount();
                     } else {
                         return 1;
                     }
                 }
             });
-
         } else {
-            layoutManager = new LinearLayoutManager(getContext());
+            layoutManager = new LinearLayoutManager(context);
         }
 
-        if (getRecyclerView() != null) {
-            getRecyclerView().setLayoutManager(layoutManager);
-            getRecyclerView().scrollToPosition(position);
-            getAdapter().setGridView(grid);
-            getRecyclerView().setAdapter(getAdapter());
-            getAdapter().notifyDataSetChanged();
-        }
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.scrollToPosition(position);
+        adapter.setGridView(grid);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     public CommonOCFileListAdapterInterface getCommonAdapter() {
@@ -2313,10 +2333,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public boolean isSearchEventFavorite() {
+        return isSearchEvent(SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
+    }
+
+    public boolean isSearchEventShared() {
+        return isSearchEvent(SearchRemoteOperation.SearchType.SHARED_FILTER);
+    }
+
+    private boolean isSearchEvent(SearchRemoteOperation.SearchType givenEvent) {
         if (searchEvent == null) {
             return false;
         }
-        return searchEvent.getSearchType() == SearchRemoteOperation.SearchType.FAVORITE_SEARCH;
+        return searchEvent.getSearchType() == givenEvent;
     }
 
     public boolean shouldNavigateBackToAllFiles() {

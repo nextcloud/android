@@ -43,7 +43,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -247,10 +246,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onStart();
 
         if (mAccountManager.getAccountsByType(MainApp.getAccountType(this)).length == 0) {
-            Toast.makeText(this,
-                           String.format(getString(R.string.uploader_wrn_no_account_text),
-                                         getString(R.string.app_name)),
-                           Toast.LENGTH_LONG).show();
+            final var message = String.format(getString(R.string.uploader_wrn_no_account_text),
+                                              getString(R.string.app_name));
+            DisplayUtils.showSnackMessage(this, message);
             return;
         }
 

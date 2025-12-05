@@ -195,6 +195,7 @@
     <string name="conversation_screen_delete_button_title">Șterge conversația</string>
     <string name="conversation_screen_empty_content_title">Nu sunt conversații</string>
     <string name="conversation_screen_title">Conversații</string>
+    <string name="copied">Copiat</string>
     <string name="copied_to_clipboard">Copiat în clipboard</string>
     <string name="copy_file_error">A apărut o eroare în timpul copierii fișierului sau dosarului </string>
     <string name="copy_file_invalid_into_descendent">Nu se poate copia un dosar intr-un descendent</string>

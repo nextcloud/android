@@ -47,7 +47,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.appbar.AppBarLayout
@@ -75,16 +74,16 @@ import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.model.ToolbarItem
 import com.nextcloud.model.ToolbarStyle
 import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerState.DownloadFinished
-import com.nextcloud.model.WorkerState.DownloadStarted
+import com.nextcloud.model.WorkerState.FileDownloadCompleted
+import com.nextcloud.model.WorkerState.FileDownloadStarted
 import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
-import com.nextcloud.model.WorkerState.UploadFinished
-import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.model.WorkerState.FileUploadCompleted
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.navigateToAllFiles
+import com.nextcloud.utils.extensions.observeWorker
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFolderPath
 import com.nextcloud.utils.view.FastScrollUtils
 import com.owncloud.android.MainApp
@@ -92,6 +91,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.FilesBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.OCFileDepth
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.files.services.NameCollisionPolicy
@@ -941,34 +941,10 @@ class FileDisplayActivity :
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var retval = true
-
-        val itemId = item.itemId
-
-        if (itemId == android.R.id.home) {
-            if (!isDrawerOpen &&
-                !isSearchOpen() &&
-                isRoot(getCurrentDir()) &&
-                this.leftFragment is OCFileListFragment
-            ) {
-                openDrawer()
-            } else {
-                if (isSearchOpen()) {
-                    resetSearchAction()
-                } else {
-                    onBackPressedDispatcher.onBackPressed()
-                }
-            }
-        } else if (itemId == R.id.action_select_all) {
-            val fragment = this.listOfFilesFragment
-            fragment?.selectAllFiles(true)
-        } else {
-            retval = super.onOptionsItemSelected(item)
-        }
-
-        return retval
-    }
+    private fun shouldOpenDrawer(): Boolean = !isDrawerOpen &&
+        !isSearchOpen() &&
+        isRoot(getCurrentDir()) &&
+        this.leftFragment is OCFileListFragment
 
     /**
      * Called, when the user selected something for uploading
@@ -1193,14 +1169,30 @@ class FileDisplayActivity :
 
                         leftFragment is OCFileListFragment -> {
                             val fragment = leftFragment as OCFileListFragment
-                            if (isRoot(getCurrentDir())) {
-                                if (fragment.shouldNavigateBackToAllFiles()) {
-                                    navigateToAllFiles()
-                                } else {
-                                    finish()
+
+                            when {
+                                // root
+                                isRoot(getCurrentDir()) -> {
+                                    if (fragment.shouldNavigateBackToAllFiles()) {
+                                        navigateToAllFiles()
+                                    } else {
+                                        finish()
+                                    }
                                 }
-                            } else {
-                                browseUp(fragment)
+
+                                // shared root
+                                fragment is SharedListFragment && fragment.fileDepth == OCFileDepth.Root -> {
+                                    openDrawer()
+                                }
+
+                                fragment is SharedListFragment && fragment.fileDepth == OCFileDepth.FirstLevel -> {
+                                    openSharedTab()
+                                }
+
+                                // Normal folder navigation (go up) also works for shared tab
+                                else -> {
+                                    browseUp(fragment)
+                                }
                             }
                         }
 
@@ -1212,6 +1204,24 @@ class FileDisplayActivity :
                 }
             }
         )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            when {
+                shouldOpenDrawer() -> openDrawer()
+                isSearchOpen() -> resetSearchAction()
+                else -> onBackPressedDispatcher.onBackPressed()
+            }
+            true
+        }
+
+        R.id.action_select_all -> {
+            listOfFilesFragment?.selectAllFiles(true)
+            true
+        }
+
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun browseUp(listOfFiles: OCFileListFragment) {
@@ -1875,36 +1885,38 @@ class FileDisplayActivity :
     override fun isDrawerIndicatorAvailable(): Boolean = isRoot(getCurrentDir())
 
     private fun observeWorkerState() {
-        WorkerStateLiveData.Companion.instance().observe(
-            this,
-            Observer { state: WorkerState? ->
-                when (state) {
-                    is DownloadStarted -> {
-                        Log_OC.d(TAG, "Download worker started")
-                        handleDownloadWorkerState()
-                    }
+        observeWorker { state ->
+            when (state) {
+                is FileDownloadStarted -> {
+                    Log_OC.d(TAG, "Download worker started")
+                    handleDownloadWorkerState()
+                }
 
-                    is DownloadFinished -> {
-                        fileDownloadProgressListener = null
-                        previewFile(state)
-                    }
+                is FileDownloadCompleted -> {
+                    fileDownloadProgressListener = null
+                    previewFile(state)
+                }
 
-                    is UploadFinished -> {
-                        refreshList()
-                    }
-
-                    is OfflineOperationsCompleted -> {
-                        refreshCurrentDirectory()
-                    }
-
-                    else -> {
+                is FileUploadCompleted -> {
+                    state.currentFile?.let {
+                        ocFileListFragment?.adapter?.insertFile(it)
                     }
                 }
+
+                is OfflineOperationsCompleted -> {
+                    refreshCurrentDirectory()
+                }
+
+                is WorkerState.FolderDownloadCompleted -> {
+                    ocFileListFragment?.adapter?.notifyItemChanged(state.folder)
+                }
+
+                else -> Unit
             }
-        )
+        }
     }
 
-    private fun previewFile(finishedState: DownloadFinished) {
+    private fun previewFile(finishedState: FileDownloadCompleted) {
         if (fileIDForImmediatePreview == -1L) {
             return
         }

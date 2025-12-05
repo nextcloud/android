@@ -250,7 +250,7 @@ class FileUploadHelper {
     }
 
     fun removeFileUpload(remotePath: String, accountName: String) {
-        uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(accountName, remotePath)
+        uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(remotePath, accountName)
     }
 
     fun updateUploadStatus(remotePath: String, accountName: String, status: UploadStatus) {

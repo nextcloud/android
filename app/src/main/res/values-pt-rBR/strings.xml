@@ -224,6 +224,7 @@
     <string name="conversation_screen_empty_conversation_list_title">Sem conversas ainda</string>
     <string name="conversation_screen_fetch_error_title">Falha ao buscar a lista de conversas</string>
     <string name="conversation_screen_title">Conversas</string>
+    <string name="copied">Copiado</string>
     <string name="copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="copy_file_error">Ocorreu um erro ao tentar copiar este arquivo ou pasta</string>
     <string name="copy_file_invalid_into_descendent">Não é possível copiar uma pasta para uma das suas próprias pastas subjacentes</string>

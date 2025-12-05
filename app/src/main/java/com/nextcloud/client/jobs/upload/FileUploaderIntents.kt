@@ -12,31 +12,10 @@ import android.content.Context
 import android.content.Intent
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.UploadListActivity
-import java.security.SecureRandom
 
 class FileUploaderIntents(private val context: Context) {
 
-    private val secureRandomGenerator = SecureRandom()
-
-    fun startIntent(operation: UploadFileOperation): PendingIntent {
-        val intent = Intent(
-            context,
-            FileUploadHelper.UploadNotificationActionReceiver::class.java
-        ).apply {
-            putExtra(FileUploadWorker.EXTRA_ACCOUNT_NAME, operation.user.accountName)
-            putExtra(FileUploadWorker.EXTRA_REMOTE_PATH, operation.remotePath)
-            action = FileUploadWorker.ACTION_CANCEL_BROADCAST
-        }
-
-        return PendingIntent.getBroadcast(
-            context,
-            secureRandomGenerator.nextInt(),
-            intent,
-            PendingIntent.FLAG_IMMUTABLE
-        )
-    }
-
-    fun notificationStartIntent(operation: UploadFileOperation?): PendingIntent {
+    fun openUploadListIntent(operation: UploadFileOperation?): PendingIntent {
         val intent = UploadListActivity.createIntent(
             operation?.file,
             operation?.user,

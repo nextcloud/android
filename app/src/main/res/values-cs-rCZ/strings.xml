@@ -217,6 +217,7 @@
     <string name="conversation_screen_empty_content_title">Nenalezena žádná konverzace</string>
     <string name="conversation_screen_empty_conversation_list_title">Zatím žádná konverzace</string>
     <string name="conversation_screen_title">Konverzace</string>
+    <string name="copied">Zkopírováno</string>
     <string name="copied_to_clipboard">Zkopírováno do schránky</string>
     <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či složky došlo k chybě</string>
     <string name="copy_file_invalid_into_descendent">Není možné zkopírovat složku do některé z jejích vlastních podsložek</string>

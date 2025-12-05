@@ -216,6 +216,7 @@
     <string name="conversation_screen_empty_content_title">会話が見つかりません</string>
     <string name="conversation_screen_empty_conversation_list_title">まだ会話はありません</string>
     <string name="conversation_screen_title">会話</string>
+    <string name="copied">コピー</string>
     <string name="copied_to_clipboard">クリップボードにコピーされました</string>
     <string name="copy_file_error">このファイルまたはフォルダーをコピーする際にエラーが発生しました</string>
     <string name="copy_file_invalid_into_descendent">フォルダをその下のフォルダにコピーすることはできません</string>

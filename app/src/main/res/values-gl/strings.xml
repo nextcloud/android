@@ -224,6 +224,7 @@
     <string name="conversation_screen_empty_conversation_list_title">Aínda non hai conversas</string>
     <string name="conversation_screen_fetch_error_title">Produciuse un fallo ao recuperar a lista de conversas.</string>
     <string name="conversation_screen_title">Conversas</string>
+    <string name="copied">Copiado</string>
     <string name="copied_to_clipboard">Copiado no portapapeis</string>
     <string name="copy_file_error">Produciuse un erro ao tentar copiar este ficheiro ou cartafol.</string>
     <string name="copy_file_invalid_into_descendent">Non é posíbel copiar un cartafol nun dos seus propios subcartafoles</string>

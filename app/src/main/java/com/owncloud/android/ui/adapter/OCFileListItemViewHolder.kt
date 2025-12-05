@@ -30,6 +30,8 @@ class OCFileListItemViewHolder(private var binding: ListItemBinding) :
         get() = binding.livePhotoIndicator
     override val livePhotoIndicatorSeparator: TextView
         get() = binding.livePhotoIndicatorSeparator
+    override val hasVisibleFeatureIndicators: Boolean
+        get() = false
 
     override val fileSize: TextView
         get() = binding.fileSize

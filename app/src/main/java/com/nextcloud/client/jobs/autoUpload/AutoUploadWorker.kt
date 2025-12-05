@@ -12,6 +12,7 @@ import android.content.Context
 import android.content.res.Resources
 import androidx.exifinterface.media.ExifInterface
 import androidx.work.CoroutineWorker
+import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -52,7 +53,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
 
-@Suppress("LongParameterList", "TooManyFunctions")
+@Suppress("LongParameterList", "TooManyFunctions", "TooGenericExceptionCaught")
 class AutoUploadWorker(
     private val context: Context,
     params: WorkerParameters,
@@ -78,16 +79,14 @@ class AutoUploadWorker(
     private lateinit var syncedFolder: SyncedFolder
     private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
 
-    @Suppress("TooGenericExceptionCaught", "ReturnCount")
+    @Suppress("ReturnCount")
     override suspend fun doWork(): Result {
         return try {
             val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
             syncedFolder = syncedFolderProvider.getSyncedFolderByID(syncFolderId)
                 ?.takeIf { it.isEnabled } ?: return Result.failure()
 
-            // initial notification
-            val notification = createNotification(context.getString(R.string.upload_files))
-            updateForegroundInfo(notification)
+            trySetForeground()
 
             /**
              * Receives from [com.nextcloud.client.jobs.ContentObserverWork.checkAndTriggerAutoUpload]
@@ -110,17 +109,42 @@ class AutoUploadWorker(
         }
     }
 
+    override suspend fun getForegroundInfo(): ForegroundInfo {
+        val notification = createNotification(
+            context.getString(R.string.upload_files)
+        )
+
+        return ForegroundServiceHelper.createWorkerForegroundInfo(
+            NOTIFICATION_ID,
+            notification,
+            ForegroundServiceType.DataSync
+        )
+    }
+
     private fun updateNotification() {
         getStartNotificationTitle()?.let { (localFolderName, remoteFolderName) ->
-            val startNotification = createNotification(
-                context.getString(
-                    R.string.auto_upload_worker_start_text,
-                    localFolderName,
-                    remoteFolderName
+            try {
+                val startNotification = createNotification(
+                    context.getString(
+                        R.string.auto_upload_worker_start_text,
+                        localFolderName,
+                        remoteFolderName
+                    )
                 )
-            )
 
-            notificationManager.showNotification(startNotification)
+                notificationManager.showNotification(startNotification)
+            } catch (e: Exception) {
+                Log_OC.w(TAG, "⚠️ Could not update notification: ${e.message}")
+            }
+        }
+    }
+
+    private suspend fun trySetForeground() {
+        try {
+            val notification = createNotification(context.getString(R.string.upload_files))
+            updateForegroundInfo(notification)
+        } catch (e: Exception) {
+            Log_OC.w(TAG, "⚠️ Could not set foreground service: ${e.message}")
         }
     }
 
