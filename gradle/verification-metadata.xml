@@ -18,6 +18,7 @@
          <trust file=".*-sources[.]jar" regex="true" reason="Android Studio downloads source jars but doesn't add checksums - fixes building in AS"/>
       </trusted-artifacts>
       <trusted-keys>
+         <trusted-key id="1BD97A6A154E7810EE0BC832E2F38302C8075E3D" group="gradle" name="gradle" version="9.2.1"/>
          <trusted-key id="015479E1055341431B4545AB72475FD306B9CAB7" group="com.googlecode.javaewah" name="JavaEWAH" version="1.2.3"/>
          <trusted-key id="03C123038C20AAE9E286C857479D601F3A7B5C1A" group="^com[.]github[.]ajalt($|([.].*))" regex="true"/>
          <trusted-key id="042B29E928995B9DB963C636C7CA19B7B620D787" group="com.github.stephenc.jcip" name="jcip-annotations" version="1.0-1"/>
