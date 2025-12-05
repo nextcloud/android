@@ -507,6 +507,7 @@ dependencies {
 
     // region Push
     implementation(libs.unifiedpush.connector)
+    "genericImplementation"(libs.unifiedpush.embedded.fcm.distributor)
     // endregion
 
     // region common

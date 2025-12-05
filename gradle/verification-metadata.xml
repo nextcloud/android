@@ -298,6 +298,7 @@
          <trusted-key id="7C669810892CBD3148FA92995B05CCDE140C2876" group="org.eclipse.jgit"/>
          <trusted-key id="7E22D50A7EBD9D2CD269B2D4056ACA74D46000BF" group="io.netty"/>
          <trusted-key id="7F0C6700F82B97092092AFF84DA93C0B57A98B11" group="org.unifiedpush.android" name="connector" version="3.3.0"/>
+         <trusted-key id="7F0C6700F82B97092092AFF84DA93C0B57A98B11" group="org.unifiedpush.android" name="embedded-fcm-distributor" version="3.1.0-rc1"/>
          <trusted-key id="7F36E793AE3252E5D9E9B98FEE9E7DC9D92FC896" group="com.google.errorprone"/>
          <trusted-key id="808D78B17A5A2D7C3668E31FBFFC9B54721244AD" group="org.apache.commons" name="commons-parent" version="39"/>
          <trusted-key id="811D8A8002E406D7C0DC9FB7D8B5233248C78340" group="com.jraska" name="falcon" version="2.2.0"/>

@@ -51,7 +51,14 @@ object CommonPushUtils {
             tryUseUnifiedPush(activity, accountManager, preferences) {}
         } else {
             CoroutineScope(Dispatchers.IO).launch {
-                PushUtils.pushRegistrationToServer(accountManager, preferences.pushToken)
+                // The generic flavor has an embedded distrbutor to work with the
+                // Play Services, other flavors work with Proxy-Push
+                if (activity.packageName in UnifiedPush.getDistributors(activity)) {
+                    UnifiedPush.saveDistributor(activity, activity.packageName)
+                    registerUnifiedPushForAllAccounts(activity, accountManager, null)
+                } else {
+                    PushUtils.pushRegistrationToServer(accountManager, preferences.pushToken)
+                }
             }
         }
     }
@@ -64,6 +71,14 @@ object CommonPushUtils {
             .map { CapabilityUtils.getCapability(it, context).supportsWebPush.isTrue }
             .also { Log_OC.d(TAG, "Found push capability: $it") }
             .orElse(false)
+
+    /**
+     * Count external push services
+     */
+    @JvmStatic
+    fun countExternalServices(context: Context): Int = UnifiedPush.getDistributors(context)
+        .filter { s -> s != context.packageName }
+        .size
 
     /**
      * Use default distributor, register all accounts that support webpush
@@ -99,7 +114,7 @@ object CommonPushUtils {
             ResolvedDistributor.NoneAvailable -> {
                 Log_OC.d(TAG, "No default distributor")
                 // Do not change preference
-                disableUnifiedPush(activity, accountManager, preferences.pushToken)
+                disableExternalUnifiedPush(activity, accountManager, preferences.pushToken)
                 callback(null)
             }
             ResolvedDistributor.ToSelect -> {
@@ -114,14 +129,14 @@ object CommonPushUtils {
                                     callback(UnifiedPush.getSavedDistributor(activity))
                                 } else {
                                     preferences.isUnifiedPushEnabled = false
-                                    disableUnifiedPush(activity, accountManager, preferences.pushToken)
+                                    disableExternalUnifiedPush(activity, accountManager, preferences.pushToken)
                                     callback(null)
                                 }
                             }
                         } else {
                             Log_OC.d(TAG, "Default distributor dismissed")
                             preferences.isUnifiedPushEnabled = false
-                            disableUnifiedPush(activity, accountManager, preferences.pushToken)
+                            disableExternalUnifiedPush(activity, accountManager, preferences.pushToken)
                             callback(null)
                         }
                     }
@@ -189,17 +204,27 @@ object CommonPushUtils {
      * Disable UnifiedPush and try to register with proxy push again
      */
     @JvmStatic
-    fun disableUnifiedPush(
+    fun disableExternalUnifiedPush(
         context: Context,
         accountManager: UserAccountManager,
         proxyPushToken: String?
     ) {
         CoroutineScope(Dispatchers.IO).launch {
+            val hasEmbeddedDistrib = context.packageName in UnifiedPush.getDistributors(context)
+
             for (account in accountManager.getAccounts()) {
                 PushUtils.setRegistrationForAccountEnabled(account, true)
-                unregisterUnifiedPushForAccount(context, accountManager, OwnCloudAccount(account, context))
+                if (!hasEmbeddedDistrib) unregisterUnifiedPushForAccount(context, accountManager, OwnCloudAccount(account, context))
             }
-            PushUtils.pushRegistrationToServer(accountManager, proxyPushToken)
+            // If the app has an embedded distributor, then we try to use it as a fallback
+            // This embedded distributor is available only on non-gplay variants
+            // where [PushUtils.pushRegistrationToServer] does nothing.
+            if (hasEmbeddedDistrib) {
+                UnifiedPush.saveDistributor(context, context.packageName)
+                registerUnifiedPushForAllAccounts(context, accountManager, null)
+            } else {
+                PushUtils.pushRegistrationToServer(accountManager, proxyPushToken)
+            }
         }
     }
 

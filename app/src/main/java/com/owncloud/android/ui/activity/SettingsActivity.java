@@ -367,7 +367,7 @@ public class SettingsActivity extends PreferenceActivity
         boolean supportsWebPush = accountManager.getAllUsers()
             .stream()
             .anyMatch(u -> CapabilityUtils.getCapability(u, this).getSupportsWebPush().isTrue());
-        int nPushServices = UnifiedPush.getDistributors(this).size();
+        int nPushServices = CommonPushUtils.countExternalServices(this);
         if (!fUnifiedPushEnabled || !supportsWebPush || nPushServices == 0) {
             preferenceScreen.removePreference(preferenceCategoryPush);
         } else {
@@ -399,7 +399,7 @@ public class SettingsActivity extends PreferenceActivity
                     return null;
                 });
             } else {
-                CommonPushUtils.disableUnifiedPush(this, accountManager, preferences.getPushToken());
+                CommonPushUtils.disableExternalUnifiedPush(this, accountManager, preferences.getPushToken());
             }
             return false;
         });
