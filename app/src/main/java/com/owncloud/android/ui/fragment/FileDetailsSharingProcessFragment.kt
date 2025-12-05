@@ -20,6 +20,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.isPublicOrMail
+import com.nextcloud.utils.extensions.remainingDownloadLimit
 import com.nextcloud.utils.extensions.setVisibilityWithAnimation
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
@@ -491,15 +492,16 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun updateFileDownloadLimitView() {
-        if (canSetDownloadLimit()) {
-            binding.shareProcessSetDownloadLimitSwitch.visibility = View.VISIBLE
+        if (!canSetDownloadLimit()) {
+            return
+        }
 
-            val currentDownloadLimit = share?.fileDownloadLimit?.limit ?: capabilities.filesDownloadLimitDefault
-            if (currentDownloadLimit > 0) {
-                binding.shareProcessSetDownloadLimitSwitch.isChecked = true
-                showFileDownloadLimitInput(true)
-                binding.shareProcessSetDownloadLimitInput.setText("$currentDownloadLimit")
-            }
+        val currentLimit = share?.remainingDownloadLimit() ?: return
+        binding.shareProcessSetDownloadLimitSwitch.visibility = View.VISIBLE
+        if (currentLimit > 0) {
+            binding.shareProcessSetDownloadLimitSwitch.isChecked = true
+            showFileDownloadLimitInput(true)
+            binding.shareProcessSetDownloadLimitInput.setText(currentLimit.toString())
         }
     }
 
