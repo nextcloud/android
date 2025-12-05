@@ -367,27 +367,32 @@ public class SettingsActivity extends PreferenceActivity
         boolean supportsWebPush = accountManager.getAllUsers()
             .stream()
             .anyMatch(u -> CapabilityUtils.getCapability(u, this).getSupportsWebPush().isTrue());
-
-        if (!fUnifiedPushEnabled || !supportsWebPush) {
+        int nPushServices = UnifiedPush.getDistributors(this).size();
+        if (!fUnifiedPushEnabled || !supportsWebPush || nPushServices == 0) {
             preferenceScreen.removePreference(preferenceCategoryPush);
         } else {
-            setUnifiedPushPreference();
+            setUnifiedPushPreference(nPushServices > 1);
         }
     }
 
-    private void setUnifiedPushPreference() {
+    private void setUnifiedPushPreference(boolean canChangeService) {
         boolean unifiedPushEnabled = preferences.isUnifiedPushEnabled();
         ThemeableSwitchPreference prefUnifiedPush = (ThemeableSwitchPreference) findPreference("enable_unifiedpush");
         Preference prefChangeService = findPreference("change_unifiedpush");
+
         prefUnifiedPush.setChecked(unifiedPushEnabled);
         prefUnifiedPush.setOnPreferenceClickListener(preference -> {
-            prefChangeService.setEnabled(prefUnifiedPush.isChecked());
-            // We cant make it Gone... so we inform it is disabled
-            prefChangeService.setSummary(getResources().getString(R.string.prefs_disabled_push_system_summary));
+            if (prefChangeService != null) {
+                prefChangeService.setEnabled(prefUnifiedPush.isChecked());
+                // We cant make it Gone... so we inform it is disabled
+                prefChangeService.setSummary(getResources().getString(R.string.prefs_disabled_push_system_summary));
+            }
             preferences.setUnifiedPushEnabled(prefUnifiedPush.isChecked());
             if (prefUnifiedPush.isChecked()) {
                 UnifiedPushUtils.useDefaultDistributor(this, accountManager, preferences.getPushToken(), service -> {
-                    prefChangeService.setSummary(Objects.requireNonNullElse(service, ""));
+                    if (prefChangeService != null) {
+                        prefChangeService.setSummary(Objects.requireNonNullElse(service, ""));
+                    }
                     return null;
                 });
             } else {
@@ -395,22 +400,27 @@ public class SettingsActivity extends PreferenceActivity
             }
             return false;
         });
-        if (unifiedPushEnabled) {
-            String service = UnifiedPush.getAckDistributor(this);
-            prefChangeService.setSummary(Objects.requireNonNullElse(service, ""));
-        } else {
-            prefChangeService.setSummary(getResources().getString(R.string.prefs_disabled_push_system_summary));
-        }
-        prefChangeService.setEnabled(unifiedPushEnabled);
-        prefChangeService.setOnPreferenceClickListener(preference -> {
-            UnifiedPushUtils.pickDistributor(this, accountManager, preferences.getPushToken(), service -> {
-                if (service != null) {
-                    prefChangeService.setSummary(service);
-                }
-                return null;
+
+        if (canChangeService) {
+            if (unifiedPushEnabled) {
+                String service = UnifiedPush.getAckDistributor(this);
+                prefChangeService.setSummary(Objects.requireNonNullElse(service, ""));
+            } else {
+                prefChangeService.setSummary(getResources().getString(R.string.prefs_disabled_push_system_summary));
+            }
+            prefChangeService.setEnabled(unifiedPushEnabled);
+            prefChangeService.setOnPreferenceClickListener(preference -> {
+                UnifiedPushUtils.pickDistributor(this, accountManager, preferences.getPushToken(), service -> {
+                    if (service != null) {
+                        prefChangeService.setSummary(service);
+                    }
+                    return null;
+                });
+                return false;
             });
-            return false;
-        });
+        } else {
+            prefChangeService.getParent().removePreference(prefChangeService);
+        }
     }
 
     private void setupMoreCategory() {
