@@ -15,16 +15,23 @@ import com.owncloud.android.R
 import com.owncloud.android.operations.UploadFileOperation
 
 sealed class UploadBroadcastAction {
-    data class CancelOrRemove(val operation: UploadFileOperation) : UploadBroadcastAction() {
-        fun cancelAction(context: Context): NotificationCompat.Action = NotificationCompat.Action(
+    data class PauseAndCancel(val operation: UploadFileOperation) : UploadBroadcastAction() {
+
+        /**
+         * Updates upload status to CANCELLED
+         */
+        fun pauseAction(context: Context): NotificationCompat.Action = NotificationCompat.Action(
             R.drawable.ic_cancel,
-            context.getString(R.string.common_cancel),
+            context.getString(R.string.pause_upload),
             getBroadcast(context, false)
         )
 
-        fun removeAction(context: Context): NotificationCompat.Action = NotificationCompat.Action(
+        /**
+         * Removes the upload completely
+         */
+        fun cancelAction(context: Context): NotificationCompat.Action = NotificationCompat.Action(
             R.drawable.ic_delete,
-            context.getString(R.string.remove_upload),
+            context.getString(R.string.cancel_upload),
             getBroadcast(context, true)
         )
 
@@ -35,7 +42,7 @@ sealed class UploadBroadcastAction {
                 putExtra(FileUploadBroadcastReceiver.ACCOUNT_NAME, operation.user.accountName)
                 putExtra(FileUploadBroadcastReceiver.REMOTE_PATH, operation.remotePath)
                 putExtra(FileUploadBroadcastReceiver.REMOVE, remove)
-                action = CancelOrRemove::class.simpleName
+                action = PauseAndCancel::class.simpleName
 
                 setClass(context, FileUploadBroadcastReceiver::class.java)
                 setPackage(context.packageName)

@@ -51,8 +51,8 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             setContentText(progressText)
             setOngoing(false)
             clearActions()
-            addAction(UploadBroadcastAction.CancelOrRemove(operation).cancelAction(context))
-            addAction(UploadBroadcastAction.CancelOrRemove(operation).removeAction(context))
+            addAction(UploadBroadcastAction.PauseAndCancel(operation).pauseAction(context))
+            addAction(UploadBroadcastAction.PauseAndCancel(operation).cancelAction(context))
             setContentIntent(startIntent)
         }
 
