@@ -144,11 +144,10 @@ class BackgroundJobFactoryTest {
     }
 
     @Test
-    fun content_observer_worker_is_created_on_api_level_24() {
+    fun content_observer_worker_is_created() {
         // GIVEN
-        //      api level is > 24
         //      content URI trigger is supported
-        whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.N)
+        whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.P)
 
         // WHEN
         //      factory is called to create content observer worker
