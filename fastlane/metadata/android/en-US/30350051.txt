@@ -1,0 +1,12 @@
+## 3.35.0 RC1 (December 5, 2025)
+
+- Auto-upload logic completely redesigned and improved
+- Improved file listing performance (shared, favorites, and navigation)
+- New chat feature in assistant
+- Enhanced unified search
+- Minimum Android version: 9
+- Bug fixes and stability improvements
+
+Minimum: NC 20 Server, Android 9 Pie
+
+For a full list, please see https://github.com/nextcloud/android/milestone/118
