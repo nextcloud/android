@@ -102,9 +102,9 @@ object UploadErrorNotificationManager {
                 )
             }
 
-            addAction(UploadBroadcastAction.StopOrRemove(operation).stopAction(context))
+            addAction(UploadBroadcastAction.PauseAndCancel(operation).pauseAction(context))
 
-            addAction(UploadBroadcastAction.StopOrRemove(operation).removeAction(context))
+            addAction(UploadBroadcastAction.PauseAndCancel(operation).cancelAction(context))
 
             result.code.takeIf { it == ResultCode.UNAUTHORIZED }?.let {
                 setContentIntent(credentialPendingIntent(context, operation))

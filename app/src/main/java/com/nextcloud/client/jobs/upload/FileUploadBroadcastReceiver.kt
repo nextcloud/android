@@ -33,13 +33,13 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         MainApp.getAppComponent().inject(this)
 
-        if (intent.action == UploadBroadcastAction.StopOrRemove::class.simpleName) {
-            stopOrRemoveUpload(context, intent)
+        if (intent.action == UploadBroadcastAction.PauseAndCancel::class.simpleName) {
+            pauseAndCancel(context, intent)
         }
     }
 
     @Suppress("ReturnCount")
-    private fun stopOrRemoveUpload(context: Context, intent: Intent) {
+    private fun pauseAndCancel(context: Context, intent: Intent) {
         val uploadId = intent.getLongExtra(UPLOAD_ID, -1L)
         if (uploadId == -1L) {
             return
