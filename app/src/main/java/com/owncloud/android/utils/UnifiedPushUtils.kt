@@ -55,6 +55,34 @@ object UnifiedPushUtils {
     }
 
     /**
+     * Pick another distributor, register all accounts that support webpush
+     *
+     * Unregister proxy push for account if succeed
+     * Re-register proxy push for the others
+     *
+     * @param activity: Context needs to be an activity, to get a result
+     * @param accountManager: Used to register all accounts
+     * @param callback: run with the push service name if available
+     */
+    @JvmStatic
+    fun pickDistributor(
+        activity: Activity,
+        accountManager: UserAccountManager,
+        proxyPushToken: String?,
+        callback: (String?) -> Unit
+    ) {
+        Log_OC.d(TAG, "Picking another UnifiedPush distributor")
+        UnifiedPush.tryPickDistributor(activity as Context) { res ->
+            if (res) {
+                registerAllAccounts(activity, accountManager, proxyPushToken)
+                callback(UnifiedPush.getSavedDistributor(activity))
+            } else {
+                callback(null)
+            }
+        }
+    }
+
+    /**
      * Disable UnifiedPush and try to register with proxy push again
      */
     @JvmStatic

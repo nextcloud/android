@@ -403,7 +403,12 @@ public class SettingsActivity extends PreferenceActivity
         }
         prefChangeService.setEnabled(unifiedPushEnabled);
         prefChangeService.setOnPreferenceClickListener(preference -> {
-            //TODO
+            UnifiedPushUtils.pickDistributor(this, accountManager, preferences.getPushToken(), service -> {
+                if (service != null) {
+                    prefChangeService.setSummary(service);
+                }
+                return null;
+            });
             return false;
         });
     }
