@@ -63,7 +63,7 @@ configurations.configureEach {
 
 // semantic versioning for version code
 val versionMajor = 3
-val versionMinor = 35
+val versionMinor = 36
 val versionPatch = 0
 val versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
