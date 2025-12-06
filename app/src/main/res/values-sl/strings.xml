@@ -628,6 +628,7 @@
     <string name="remove_notification_failed">Odstranjevanje obvestil je spodletelo.</string>
     <string name="remove_push_notification">Odstrani</string>
     <string name="remove_success_msg">Izbrisano</string>
+    <string name="remove_upload">Odstrani</string>
     <string name="rename_dialog_title">Vnesite novo ime</string>
     <string name="rename_local_fail_msg">Ni mogoče preimenovati krajevne kopije. Poskusite vpisati drugačno ime.</string>
     <string name="rename_server_fail_msg">Preimenovanje ni mogoče. Ime je že uporabljeno.</string>
@@ -984,12 +985,6 @@
         <item quantity="two">Izvoženi %d datoteki, ostale so bile prezrte zaradi napake</item>
         <item quantity="few">Izvoženih %d datotek, ostale so bile prezrte zaradi napake</item>
         <item quantity="other">Izvoženih %d datotek, ostale so bile prezrte zaradi napake</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">Izvožena bo %d datoteka. Več podrobnosti je zbranih v obvestilu.</item>
-        <item quantity="two">Izvožena bosta %d datoteki. Več podrobnosti je zbranih v obvestilu.</item>
-        <item quantity="few">Izvoženih bo %d datotek. Več podrobnosti je zbranih v obvestilu.</item>
-        <item quantity="other">Izvoženih bo %d datotek. Več podrobnosti je zbranih v obvestilu.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mapa</item>

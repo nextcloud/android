@@ -673,6 +673,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="remove_notification_failed">Ilmoitusta ei voitu poistaa</string>
     <string name="remove_push_notification">Poista</string>
     <string name="remove_success_msg">Poistettu</string>
+    <string name="remove_upload">Poista</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
     <string name="rename_local_fail_msg">Paikallisen kopion nimeä ei voitu muuttaa, yritä eri nimeä</string>
     <string name="rename_server_fail_msg">Nimen muutos epäonnistui, nimi on jo käytössä</string>
@@ -1039,10 +1040,6 @@ GNU yleinen lisenssi, versio 2</string>
     <plurals name="export_partially_failed">
         <item quantity="one">Viety %d tiedosto, loput ohitettu virheen vuoksi</item>
         <item quantity="other">Viety %d tiedostoa, loput ohitettu virheen vuoksi</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">Viedään %d tiedosto. Katso ilmoituksesta lisätietoja.</item>
-        <item quantity="other">Viedään %d tiedostoa. Katso ilmoituksesta lisätietoja.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d kansio</item>

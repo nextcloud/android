@@ -478,6 +478,7 @@
     <string name="remove_fail_msg">Dzēšana neizdevās</string>
     <string name="remove_push_notification">Noņemt</string>
     <string name="remove_success_msg">Izdzēsta</string>
+    <string name="remove_upload">Noņemt</string>
     <string name="rename_dialog_title">Ievadīt jaunu nosaukumu</string>
     <string name="rename_local_fail_msg">Nevarēja pārdēvēt vietējo kopiju, jāmēģina cits nosaukums</string>
     <string name="rename_server_fail_msg">Pārsaukšana nav iespējama, nosaukums jau izmantots</string>
@@ -757,11 +758,6 @@
         <item quantity="zero">Izgūtas %d datņu, pārējās izlaistas kļūdas dēļ</item>
         <item quantity="one">Izgūta %d datne, pārējās izlaistas kļūdas dēļ</item>
         <item quantity="other">Izgūtas %d datnes, pārējās izlaistas kļūdas dēļ</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="zero">Tiks izgūtas %d datņu. Skatīt informāciju paziņojumā.</item>
-        <item quantity="one"> Tiks izgūta %d datne. Skatīt informāciju paziņojumā.</item>
-        <item quantity="other">Tiks izgūtas %d datnes. Skatīt informāciju paziņojumā.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="zero">%1$d mapes</item>

@@ -947,10 +947,6 @@
         <item quantity="one">Експортирани са %d файла, пропусната е почивка поради грешка</item>
         <item quantity="other">Експортирани са %d файла, пропусната почивка поради грешка</item>
     </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%dфайла ще бъдат експортирани. Вижте известието за подробности.</item>
-        <item quantity="other">%dфайла ще бъдат експортирани. Вижте известието за подробности.</item>
-    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d папка</item>
         <item quantity="other">%1$d папки</item>

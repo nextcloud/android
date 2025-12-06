@@ -960,10 +960,6 @@
         <item quantity="one">Έγινε εξαγωγή %d αρχείου, τα υπόλοιπα παραλείφθηκαν λόγω σφάλματος</item>
         <item quantity="other">Έγινε εξαγωγή %d αρχείων, τα υπόλοιπα παραλείφθηκαν λόγω σφάλματος</item>
     </plurals>
-    <plurals name="export_start">
-        <item quantity="one">Θα γίνει εξαγωγή %d αρχείου. Δείτε την ειδοποίηση για λεπτομέρειες.</item>
-        <item quantity="other">Θα γίνει εξαγωγή %d αρχείων. Δείτε την ειδοποίηση για λεπτομέρειες.</item>
-    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d φάκελος</item>
         <item quantity="other">%1$d φάκελοι</item>

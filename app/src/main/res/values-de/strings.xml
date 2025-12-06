@@ -1226,10 +1226,6 @@
         <item quantity="one">%d Datei exportiert, der Rest wurde aufgrund von Fehlern übersprungen</item>
         <item quantity="other">%d Dateien exportiert, der Rest wurde aufgrund von Fehlern übersprungen</item>
     </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d Datei wird exportiert. Einzelheiten finden Sie in der Benachrichtigung.</item>
-        <item quantity="other">%d Dateien werden exportiert. Einzelheiten finden Sie in der Benachrichtigung.</item>
-    </plurals>
     <plurals name="file_upload_limit_message">
         <item quantity="one">Es können bis zu %d Datei gleichzeitig hochgeladen werden.</item>
         <item quantity="other">Es können bis zu %d Dateien gleichzeitig hochgeladen werden.</item>

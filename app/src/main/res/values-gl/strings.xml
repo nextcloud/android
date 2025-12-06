@@ -801,6 +801,7 @@
     <string name="remove_notification_failed">Produciuse un fallo ao retirar a notificación.</string>
     <string name="remove_push_notification">Retirar</string>
     <string name="remove_success_msg">Eliminado</string>
+    <string name="remove_upload">Retirar</string>
     <string name="rename_dialog_title">Introduza un nome novo</string>
     <string name="rename_local_fail_msg">Non foi posíbel cambiarlle o nome a copia local, ténteo cun un nome diferente</string>
     <string name="rename_server_fail_msg">Non foi posíbel cambiarlle o nome, o nome xa está ocupado</string>
@@ -1226,10 +1227,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">Exportouse %d ficheiro, omitiuse o descanso por mor dun erro</item>
         <item quantity="other">Exportáronse %d ficheiros, omitiuse o descanso por mor dun erro</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">Exportarase %d ficheiro. Consulte a notificación para obter máis información.</item>
-        <item quantity="other">Exportaranse %d ficheiros. Consulte a notificación para obter máis información.</item>
     </plurals>
     <plurals name="file_upload_limit_message">
         <item quantity="one">Pode enviar %d ficheiro cada vez.</item>

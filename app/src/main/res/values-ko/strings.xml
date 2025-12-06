@@ -732,6 +732,7 @@
     <string name="remove_notification_failed">알림을 지우는데 실패했습니다.</string>
     <string name="remove_push_notification">삭제</string>
     <string name="remove_success_msg">삭제함</string>
+    <string name="remove_upload">삭제</string>
     <string name="rename_dialog_title">새 이름 입력</string>
     <string name="rename_local_fail_msg">로컬 파일의 이름을 변경할 수 없습니다. 다른 이름을 입력하십시오</string>
     <string name="rename_server_fail_msg">이름을 변경할 수 없음. 이름이 이미 사용중입니다.</string>
@@ -1106,9 +1107,6 @@
     </plurals>
     <plurals name="export_partially_failed">
         <item quantity="other">%d개의 파일을 내보냈으며, 나머지는 오류로 인해 내보내지 못함</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="other">%d개의 파일이 내보내질 것입니다. 자세한 사항은 알림을 참고하십시오.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">폴더 %1$d개</item>

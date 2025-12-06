@@ -800,6 +800,7 @@
     <string name="remove_notification_failed">Erreur lors de la suppression des notifications.</string>
     <string name="remove_push_notification">Supprimer</string>
     <string name="remove_success_msg">Supprimé</string>
+    <string name="remove_upload">Supprimer</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
     <string name="rename_local_fail_msg">Impossible de renommer la version locale; veuillez réessayer avec un nom différent</string>
     <string name="rename_server_fail_msg">Impossible de renommer, le nom est déjà utilisé</string>
@@ -1239,11 +1240,6 @@
         <item quantity="one">%d fichier exporté, le reste a été ignoré en raison d\'une erreur</item>
         <item quantity="many">%d fichiers exportés, le reste a été ignoré en raison d\'une erreur</item>
         <item quantity="other">%d fichiers exportés, le reste a été ignoré en raison d\'une erreur</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d fichier va être exporté. Voir la notification pour plus de détails.</item>
-        <item quantity="many">%d fichiers vont être exportés. Voir la notification pour plus de détails.</item>
-        <item quantity="other">%d fichiers vont être exportés. Voir la notification pour plus de détails.</item>
     </plurals>
     <plurals name="file_upload_limit_message">
         <item quantity="one">Vous pouvez téléverser uniquement 1%d fichier à la fois.</item>

@@ -660,6 +660,7 @@
     <string name="remove_notification_failed">Error al borrar la notificación.</string>
     <string name="remove_push_notification">Eliminar</string>
     <string name="remove_success_msg">Borrado</string>
+    <string name="remove_upload">Eliminar</string>
     <string name="rename_dialog_title">Ingrese un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se pudo cambiar el nombre de la copia local, intente con un nombre diferente</string>
     <string name="rename_server_fail_msg">No se puede renombrar, el nombre ya está utilizado</string>
@@ -1024,11 +1025,6 @@
         <item quantity="one">Se exportó %d archivo, se omitió el resto debido a un error</item>
         <item quantity="many">Se exportaron %d archivos, se omitió el resto debido a un error</item>
         <item quantity="other">Se exportaron %d archivos, se omitió el resto debido a un error</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">Se va a exportar %d archivo. Vea la notificación para más detalles.</item>
-        <item quantity="many">Se van a exportar %d archivos. Vea la notificación para más detalles.</item>
-        <item quantity="other">Se van a exportar %d archivos. Vea la notificación para más detalles.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d carpeta</item>

@@ -800,6 +800,7 @@
     <string name="remove_notification_failed">Teavituse eemaldamine ei õnnestunud.</string>
     <string name="remove_push_notification">Eemalda</string>
     <string name="remove_success_msg">Kustutatud</string>
+    <string name="remove_upload">Eemalda</string>
     <string name="rename_dialog_title">Sisesta uus nimi</string>
     <string name="rename_local_fail_msg">Lokaalse koopia nime muutmine ei õnnestunud, palun proovi teist nime</string>
     <string name="rename_server_fail_msg">Nime muutmine pole võimalik, nimi on juba kasutuses</string>
@@ -1225,10 +1226,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one"> %d fail on eksporditud, muud jäid vea tõttu eksportimata</item>
         <item quantity="other"> %d faili on eksporditud, muud jäid vea tõttu eksportimata</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">Eksportimisele kuulub %d fail. Üksikasjalik info leidub teavituses.</item>
-        <item quantity="other">Eksportimisele kuulub %d faili. Üksikasjalik info leidub teavituses.</item>
     </plurals>
     <plurals name="file_upload_limit_message">
         <item quantity="one">Ühe korraga saad üles laadida kuni %d faili.</item>

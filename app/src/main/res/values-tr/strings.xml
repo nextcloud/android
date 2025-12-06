@@ -785,6 +785,7 @@
     <string name="remove_notification_failed">Bildirim silinemedi.</string>
     <string name="remove_push_notification">Sil</string>
     <string name="remove_success_msg">Silindi</string>
+    <string name="remove_upload">Kaldır</string>
     <string name="rename_dialog_title">Yeni bir ad yazın</string>
     <string name="rename_local_fail_msg">Yerel kopyanın adı değiştirilemedi. Lütfen başka bir ad deneyin</string>
     <string name="rename_server_fail_msg">Ad zaten kullanıldığından yeniden adlandırılamadı</string>
@@ -1204,10 +1205,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">%d dosya dışa aktarıldı, gerisi bir sorun nedeniyle atlandı</item>
         <item quantity="other">%d dosya dışa aktarıldı, gerisi bir sorun nedeniyle atlandı</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d dosya dışa aktarılacak. Ayrıntılar için bildirime bakın.</item>
-        <item quantity="other">%d dosya dışa aktarılacak. Ayrıntılar için bildirime bakın.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d klasör</item>

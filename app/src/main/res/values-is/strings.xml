@@ -769,6 +769,7 @@
     <string name="remove_notification_failed">Mistókst að fjarlægja tilkynningu.</string>
     <string name="remove_push_notification">Fjarlægja</string>
     <string name="remove_success_msg">Eytt</string>
+    <string name="remove_upload">Fjarlægja</string>
     <string name="rename_dialog_title">Settu inn nýtt nafn</string>
     <string name="rename_local_fail_msg">Gat endurnefnt staðvært afrit, prófaðu annað heiti</string>
     <string name="rename_server_fail_msg">Ekki hægt að endurnefna, heitið er frátekið</string>
@@ -1187,10 +1188,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">Flutti út %d skrá, sleppti afgangnum vegna villu</item>
         <item quantity="other">Flutti út %d skrár, sleppti afgangnum vegna villu</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d skrá verður flutt út. Skoðaðu tilkynningu til að sjá nánari upplýsingar.</item>
-        <item quantity="other">%d skrár verða fluttar út. Skoðaðu tilkynningu til að sjá nánari upplýsingar.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappa</item>

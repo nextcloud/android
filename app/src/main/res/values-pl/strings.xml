@@ -800,6 +800,7 @@
     <string name="remove_notification_failed">Usunięcie powiadomienia nie powiodło się.</string>
     <string name="remove_push_notification">Usuń</string>
     <string name="remove_success_msg">Usunięto</string>
+    <string name="remove_upload">Usuń</string>
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
     <string name="rename_local_fail_msg">Nie można zmienić nazwy lokalnej kopii, użyj innej nazwy</string>
     <string name="rename_server_fail_msg">Nie można zmienić nazwy, nazwa jest już zajęta</string>
@@ -1253,12 +1254,6 @@
         <item quantity="few">Wyeksportowano %d pliki, pominięto pozostałe z powodu błędu</item>
         <item quantity="many">Wyeksportowano %d plików, pominięto pozostałe z powodu błędu</item>
         <item quantity="other">Wyeksportowano %d plików, pominięto pozostałe z powodu błędu</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">Zostanie wyeksportowany %d plik. Zobacz powiadomienie, aby uzyskać szczegółowe informacje.</item>
-        <item quantity="few">Zostaną wyeksportowane %d pliki. Zobacz powiadomienie, aby uzyskać szczegółowe informacje.</item>
-        <item quantity="many">Zostanie wyeksportowanych %d plików. Zobacz powiadomienie, aby uzyskać szczegółowe informacje.</item>
-        <item quantity="other">Zostanie wyeksportowanych %d plików. Zobacz powiadomienie, aby uzyskać szczegółowe informacje.</item>
     </plurals>
     <plurals name="file_upload_limit_message">
         <item quantity="one">Możesz wysłać do %d pliku na raz.</item>

@@ -779,6 +779,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="remove_notification_failed">Gagal menghapus notifikasi.</string>
     <string name="remove_push_notification">Hapus</string>
     <string name="remove_success_msg">Dihapus</string>
+    <string name="remove_upload">Hapus</string>
     <string name="rename_dialog_title">Masukkan nama baru</string>
     <string name="rename_local_fail_msg">Tidak dapat mengganti nama salinan lokal, coba nama yang berbeda</string>
     <string name="rename_server_fail_msg">Pengubahan nama tidak memungkinkan, nama sudah diambil</string>
@@ -1186,9 +1187,6 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     </plurals>
     <plurals name="export_partially_failed">
         <item quantity="other">Berhasil mengekspor %d berkas, sisanya dilewati karena kesalahan</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="other">%d berkas akan diekspor. Lihat notifikasi untuk detailnya.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d folder</item>

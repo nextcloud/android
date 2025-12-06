@@ -787,6 +787,7 @@
     <string name="remove_notification_failed">移除通知失败</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已删除</string>
+    <string name="remove_upload">移除</string>
     <string name="rename_dialog_title">输入一个新的名称</string>
     <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
     <string name="rename_server_fail_msg">无法重命名，名字已经被占用</string>
@@ -1197,9 +1198,6 @@
     </plurals>
     <plurals name="export_partially_failed">
         <item quantity="other">导出了 %d 个文件，跳过了出错的其余部分</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="other">%d个文件将被导出。详情见通知。</item>
     </plurals>
     <plurals name="file_upload_limit_message">
         <item quantity="other">你一次可以最多上传 %d 个文件。</item>

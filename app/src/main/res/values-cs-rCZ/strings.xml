@@ -1239,12 +1239,6 @@
         <item quantity="many">Exportováno %d souborů, zbytek přeskočen kvůli chybě</item>
         <item quantity="other">Exportovány %d soubory, zbytek přeskočen kvůli chybě</item>
     </plurals>
-    <plurals name="export_start">
-        <item quantity="one">Bude exportován %d soubor. Podrobnosti viz upozornění.</item>
-        <item quantity="few">Budou exportovány %d soubory. Podrobnosti viz upozornění.</item>
-        <item quantity="many">Bude exportováno %d souborů. Podrobnosti viz upozornění.</item>
-        <item quantity="other">Budou exportovány %d soubory. Podrobnosti viz upozornění.</item>
-    </plurals>
     <plurals name="file_upload_limit_message">
         <item quantity="one">Je možné nahrávat pouze %d soubor naráz.</item>
         <item quantity="few">Je možné nahrávat pouze %d soubory naráz.</item>

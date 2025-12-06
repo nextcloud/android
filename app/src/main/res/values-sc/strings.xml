@@ -553,6 +553,7 @@
     <string name="remove_notification_failed">No at fatu a nche bogare sa notìfica.</string>
     <string name="remove_push_notification">Boga</string>
     <string name="remove_success_msg">Cantzellada</string>
+    <string name="remove_upload">Boga</string>
     <string name="rename_dialog_title">Inserta unu nùmene nou</string>
     <string name="rename_local_fail_msg">No at fatu a torrare a numenare sa còpia locale, proa cun un\'àteru nùmene</string>
     <string name="rename_server_fail_msg">Impossìbile a torrare a numenare, su nùmene esistit giai</string>

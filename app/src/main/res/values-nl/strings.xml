@@ -762,6 +762,7 @@
     <string name="remove_notification_failed">Niet gelukt om melding af te handelen</string>
     <string name="remove_push_notification">Verwijder</string>
     <string name="remove_success_msg">Verwijderd</string>
+    <string name="remove_upload">Verwijderen</string>
     <string name="rename_dialog_title">Voer een nieuwe naam in</string>
     <string name="rename_local_fail_msg">Kon lokale kopie niet hernoemen, probeer een andere naam</string>
     <string name="rename_server_fail_msg">Hernoemen niet mogelijk, naam is al in gebruik</string>
@@ -1174,10 +1175,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">%d bestand geëxporteerd, rest overgeslagen door fout</item>
         <item quantity="other">%d bestanden geëxporteerd, rest overgeslagen door fout</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d bestand wordt geëxporteerd. Zie melding voor details.</item>
-        <item quantity="other">%d bestanden worden geëxporteerd. Zie melding voor details.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappen</item>

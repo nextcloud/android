@@ -573,6 +573,7 @@
     <string name="remove_notification_failed">Không xóa được thông báo.</string>
     <string name="remove_push_notification">Xóa</string>
     <string name="remove_success_msg">Đã xóa</string>
+    <string name="remove_upload">Xoá</string>
     <string name="rename_dialog_title">Nhập tên mới</string>
     <string name="rename_local_fail_msg">Không thể đổi tên bản sao cục bộ, hãy thử một tên khác</string>
     <string name="rename_server_fail_msg">Không thể đổi tên, tên đã được sử dụng</string>
