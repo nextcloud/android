@@ -33,7 +33,6 @@
     <string name="app_widget_description">Εμφάνιση ενός γραφικού στοιχείου από τον πίνακα ελέγχου</string>
     <string name="appbar_search_in">Αναζήτηση στο %s</string>
     <string name="assistant_output_generation_warning_text">Τα αποτελέσματα που εμφανίζονται εδώ έχουν δημιουργηθεί από τεχνητή νοημοσύνη. Φροντίστε να τα ελέγχετε πάντα διπλά.</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Πληκτρολογήστε κάποιο κείμενο</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Διαγραφή εργασίας</string>
     <string name="assistant_screen_empty_content_description">Δοκιμάστε να στείλετε ένα μήνυμα για να ξεκινήσετε μια συνομιλία.</string>
     <string name="assistant_screen_empty_content_title">Γεια σας! Τι μπορώ να κάνω για σας σήμερα;</string>
@@ -174,7 +173,6 @@
     <string name="conversation_screen_empty_conversation_list_title">Δεν υπάρχουν ακόμη συνομιλίες</string>
     <string name="conversation_screen_title">Συνομιλίες</string>
     <string name="copied">Αντιγράφηκε</string>
-    <string name="copied_to_clipboard">Αντιγράφηκε στο πρόχειρο</string>
     <string name="copy_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια αντιγραφής αυτού του αρχείου ή φακέλου</string>
     <string name="copy_file_invalid_into_descendent">Δεν είναι δυνατό να αντιγραφεί ο φάκελος σε απογονικό</string>
     <string name="copy_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
@@ -349,10 +347,8 @@
     <string name="file_list_loading">Φόρτωση…</string>
     <string name="file_list_no_app_for_file_type">Δεν βρέθηκε εφαρμογή για τον τύπο αρχείου.</string>
     <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
-    <string name="file_management_permission">Απαιτούνται δικαιώματα</string>
     <string name="file_management_permission_optional">Άδειες αποθήκευσης</string>
     <string name="file_management_permission_optional_text">%1$s λειτουργεί καλύτερα με δικαιώματα πρόσβασης στον χώρο αποθήκευσης. Μπορείτε να επιλέξετε πλήρη πρόσβαση σε όλα τα αρχεία ή πρόσβαση μόνο για ανάγνωση σε φωτογραφίες και βίντεο.</string>
-    <string name="file_management_permission_text">%1$s χρειάζεται δικαιώματα διαχείρισης αρχείων για τη μεταφόρτωση αρχείων. Μπορείτε να επιλέξετε πλήρη πρόσβαση σε όλα τα αρχεία ή πρόσβαση μόνο για ανάγνωση σε φωτογραφίες και βίντεο.</string>
     <string name="file_migration_checking_destination">Γίνεται έλεγχος προορισμού…</string>
     <string name="file_migration_cleaning">Γίνεται εκκαθάριση…</string>
     <string name="file_migration_dialog_title">Γίνεται ενημέρωση φακέλου Αποθήκευση Δεδομένων</string>
@@ -378,7 +374,6 @@
     <string name="file_not_synced">Το αρχείο δεν μπόρεσε να συγχρονιστεί. Προβολή της πιο πρόσφατης έκδοσης.</string>
     <string name="file_rename">Μετονομασία</string>
     <string name="file_version_restored_error">Σφάλμα κατά την επαναφορά έκδοσης αρχείου!</string>
-    <string name="file_version_restored_successfully">Επιτυχημένη επαναφορά έκδοσης αρχείου.</string>
     <string name="filedetails_details">Λεπτομέρειες</string>
     <string name="filedetails_download">Λήψη</string>
     <string name="filedetails_export">Εξαγωγή</string>
@@ -408,7 +403,6 @@
     <string name="foreign_files_local_text">Τοπικά: %1$s</string>
     <string name="foreign_files_move">Μετακίνηση όλων</string>
     <string name="foreign_files_remote_text">Απομακρυσμένα: %1$s</string>
-    <string name="foreign_files_success">Όλα τα αρχεία μετακινήθηκαν</string>
     <string name="forward">Προώθηση</string>
     <string name="fourHours">4 ώρες</string>
     <string name="hidden_file_name_warning">Το όνομα θα δημιουργήσει ένα κρυφό αρχείο</string>
@@ -446,7 +440,6 @@
     <string name="locked_by_app">Κλειδωμένο από την εφαρμογή %1$s</string>
     <string name="log_send_mail_subject">%1$s ιστορικό της εφαρμογής Android</string>
     <string name="log_send_no_mail_app">Δεν βρέθηκε εφαρμογή για αποστολή αρχείων καταγραφής. Εγκαταστήστε ένα πρόγραμμα -πελάτη ηλεκτρονικής αλληλογραφίας.</string>
-    <string name="logged_in_as">Σε σύνδεση ως %1$s</string>
     <string name="login">Είσοδος</string>
     <string name="login_url_helper_text">Ο σύνδεσμος προς τη διεπαφή ιστού %1$s όταν την ανοίγετε στο πρόγραμμα περιήγησης.</string>
     <string name="logs_menu_delete">Διαγραφή καταγραφών</string>
@@ -526,7 +519,6 @@
     <string name="outdated_server">Ο διακομιστής έφτασε στο τέλος το χρόνου υποστήριξης, παρακαλούμε αναβαθμίστε!</string>
     <string name="overflow_menu">Περισσότερο μενού</string>
     <string name="pass_code_configure_your_pass_code">Εισάγετε τον κωδικό πρόσβασης</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Ο κωδικός πρόσβασης θα ζητείται κάθε φορά που εκκινεί η εφαρμογή</string>
     <string name="pass_code_enter_pass_code">Παρακαλούμε εισάγετε τον κωδικό πρόσβασης</string>
     <string name="pass_code_mismatch">Οι κωδικοί πρόσβασης δεν ταιριάζουν</string>
     <string name="pass_code_reenter_your_pass_code">Παρακαλούμε εισάγετε ξανά τον κωδικό πρόσβασης</string>
@@ -534,10 +526,8 @@
     <string name="pass_code_removed">Διεγράφη ο κωδικός πρόσβασης</string>
     <string name="pass_code_stored">Ο κωδικός πρόσβασης αποθηκεύτηκε</string>
     <string name="pass_code_wrong">Εσφαλμένος κωδικός πρόσβασης</string>
-    <string name="pdf_zoom_tip">Πατήστε σε μια σελίδα για μεγέθυνση</string>
     <string name="permission_allow">Επιτρέπεται</string>
     <string name="permission_deny">Απόρριψη</string>
-    <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση και λήψη αρχείων.</string>
     <string name="picture_set_as_no_app">Δεν βρέθηκε εφαρμογή για τον ορισμό φωτογραφίας</string>
     <string name="pin_shortcut_label">Άνοιγμα %1$s</string>
     <string name="player_stop">Παύση</string>
@@ -691,7 +681,6 @@
     <string name="share_via_link_section_title">Διαμοιρασμός συνδέσμου</string>
     <string name="share_via_link_send_link_label">Αποστολή συνδέσμου</string>
     <string name="share_via_link_unset_password">Απενεργοποίηση</string>
-    <string name="share_with_title">Διαμοιρασμός με…</string>
     <string name="shared_avatar_desc">Εικόνα προφίλ από κοινόχρηστο χρήστη</string>
     <string name="shared_icon_share">διαμοιρασμός</string>
     <string name="shared_icon_shared">διαμοιρασμένα</string>
@@ -742,7 +731,6 @@
     <string name="storage_internal_storage">Εσωτερικός αποθηκευτικός χώρος</string>
     <string name="storage_movies">Βίντεο</string>
     <string name="storage_music">Μουσική</string>
-    <string name="storage_permission_full_access">Πλήρης πρόσβαση </string>
     <string name="storage_permission_media_read_only">Media μόνο για ανάγνωση</string>
     <string name="storage_pictures">Φωτογραφίες</string>
     <string name="store_full_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο. \nΑυτή είναι η επίσημη αναπτυξιακή έκδοση, που περιλαμβάνει καθημερινό δείγμα οποιασδήποτε νέας μη δοκιμασμένης λειτουργικότητας, η οποία μπορεί να προκαλέσει αστάθεια και απώλεια δεδομένων. Η εφαρμογή προορίζεται για χρήστες που είναι πρόθυμοι να δοκιμάσουν και να αναφέρουν σφάλματα όταν προκύψουν. Μην το χρησιμοποιείτε για την κανονική εργασία σας! \n\nΗ επίσημη έκδοση dev και η κανονική έκδοση είναι διαθέσιμες στο F-droid και μπορούν να εγκατασταθούν ταυτόχρονα.</string>

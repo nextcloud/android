@@ -44,21 +44,15 @@
     <string name="app_widget_description">Toont één widget van dashboard</string>
     <string name="appbar_search_in">Zoeken in %s</string>
     <string name="appear_offline">Toon afwezig</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Nieuwe taak toevoegen</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Maak een nieuwe taak vanuit de rechteronderhoek</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Geef wat tekst in</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Bent u zeker dat u deze taak wilt verwijderen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Verwijder taak</string>
-    <string name="assistant_screen_loading">Laden takenlijst...</string>
     <string name="assistant_screen_task_create_fail_message">Er is een fout opgetreden bij het aanmaken van de taak</string>
     <string name="assistant_screen_task_create_success_message">Taak succesvol aangemaakt</string>
     <string name="assistant_screen_task_delete_fail_message">Er is een fout opgetreden bij het verwijderen van de taak</string>
     <string name="assistant_screen_task_delete_success_message">Taak succesvol verwijderd</string>
-    <string name="assistant_screen_task_list_empty_message">Takenlijst is leeg.</string>
     <string name="assistant_screen_task_list_error_state_message">Kan takenlijst niet ophalen. Controleer je internetverbinding.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Verwijder taak</string>
     <string name="assistant_screen_task_output_empty_text">De taakuitvoer is nog niet klaar.</string>
-    <string name="assistant_screen_task_types_error_state_message">Kan taken types niet ophalen. Controleer je internetverbinding.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
@@ -119,6 +113,7 @@
     <string name="busy">Bezet</string>
     <string name="calendar">Agenda</string>
     <string name="calendars">Agenda\'s</string>
+    <string name="cancel_upload">Annuleren</string>
     <string name="certificate_load_problem">Er is een probleem met het laden van het certificaat.</string>
     <string name="changelog_dev_version">Changelog dev versie</string>
     <string name="check_back_later_or_reload">Kom later terug of laad opnieuw.</string>
@@ -205,7 +200,6 @@
     <string name="conversation_screen_empty_content_title">Geen gesprekken gevonden</string>
     <string name="conversation_screen_title">Gesprekken</string>
     <string name="copied">Gekopieerd</string>
-    <string name="copied_to_clipboard">Gekopieerd naar het klembord</string>
     <string name="copy_file_error">Er trad een fout op bij het kopiëren van dit bestand of deze map</string>
     <string name="copy_file_invalid_into_descendent">Een map kan niet naar een onderliggende map worden gekopieerd</string>
     <string name="copy_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
@@ -415,10 +409,8 @@
     <string name="file_list_loading">Laden…</string>
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
-    <string name="file_management_permission">Machtigingen nodig</string>
     <string name="file_management_permission_optional">Opslagmachtigingen</string>
     <string name="file_management_permission_optional_text">%1$s werkt het best met opslagmachtigingen. Je kan kiezen tussen volledige toegang tot alle bestanden, of alleen lezen toegang tot foto\'s en video\'s.</string>
-    <string name="file_management_permission_text">%1$s heeft bestandsbeheer machtiging nodig om bestanden te uploaden. Je kan kiezen tussel volledige toegang tot alle bestanden, of alleen lezen toegang tot foto\'s en videos.</string>
     <string name="file_migration_allow_media_indexing">Toegang door andere apps toestaan</string>
     <string name="file_migration_checking_destination">Doelmap controleren…</string>
     <string name="file_migration_cleaning">Opruimen…</string>
@@ -455,7 +447,6 @@
     <string name="file_rename">Hernoemen</string>
     <string name="file_upload_worker_error_notification_title">Upload mislukt. Geen internetverbinding</string>
     <string name="file_version_restored_error">Fout bij herstellen bestandsversie!</string>
-    <string name="file_version_restored_successfully">Herstellen bestandsversie succesvol</string>
     <string name="filedetails_details">Details</string>
     <string name="filedetails_download">Downloaden</string>
     <string name="filedetails_export">Exporteren</string>
@@ -490,7 +481,6 @@
     <string name="foreign_files_local_text">Lokaal: %1$s</string>
     <string name="foreign_files_move">Alles verplaatsen</string>
     <string name="foreign_files_remote_text">Extern: %1$s</string>
-    <string name="foreign_files_success">Alle bestanden zijn verplaatst</string>
     <string name="forward">Doorsturen</string>
     <string name="fourHours">4 uur</string>
     <string name="gplay_restriction">Google heeft het downloaden van APK/AAB files beperkt!</string>
@@ -545,7 +535,6 @@
     <string name="locked_by_app">Vergrendeld door %1$s app</string>
     <string name="log_send_mail_subject">%1$s-Android-app-logs</string>
     <string name="log_send_no_mail_app">Geen applicatie gevonden voor het versturen van de logs. Installeer een email client.</string>
-    <string name="logged_in_as">Ingelogd als %1$s</string>
     <string name="login">Inloggen</string>
     <string name="login_url_helper_text">De link naar je %1$s web interface wanneer je die opent in de browser. </string>
     <string name="logs_menu_delete">Verwijderen logs</string>
@@ -643,7 +632,6 @@
     <string name="outdated_server">Deze server is verouderd, graag upgraden!</string>
     <string name="overflow_menu">Meer menu</string>
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>
-    <string name="pass_code_configure_your_pass_code_explanation">De toegangscode wordt elke keer gevraagd bij opstarten van de app</string>
     <string name="pass_code_enter_pass_code">Voer je toegangscode in</string>
     <string name="pass_code_mismatch">De codes komen niet overeen</string>
     <string name="pass_code_reenter_your_pass_code">Voer nogmaals je toegangscode in</string>
@@ -651,11 +639,10 @@
     <string name="pass_code_removed">Toegangscode verwijderd</string>
     <string name="pass_code_stored">Toegangscode opgeslagen</string>
     <string name="pass_code_wrong">Onjuiste toegangscode</string>
+    <string name="pause_upload">Pauze</string>
     <string name="pdf_password_protected">Niet mogelijk om wachtwoord-beschermde PDF te openen. Gebruik een externe PDF-viewer.</string>
-    <string name="pdf_zoom_tip">Tik op een pagina om in te zoomen</string>
     <string name="permission_allow">Toestaan</string>
     <string name="permission_deny">Weigeren</string>
-    <string name="permission_storage_access">Aanvullende machtigingen vereist voor het uploaden en downloaden van bestanden.</string>
     <string name="pick_contact_to_share_with">Kies contact om mee te delen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="pin_home">Vastzetten op startscherm</string>
@@ -762,7 +749,6 @@
     <string name="remove_notification_failed">Niet gelukt om melding af te handelen</string>
     <string name="remove_push_notification">Verwijder</string>
     <string name="remove_success_msg">Verwijderd</string>
-    <string name="remove_upload">Verwijderen</string>
     <string name="rename_dialog_title">Voer een nieuwe naam in</string>
     <string name="rename_local_fail_msg">Kon lokale kopie niet hernoemen, probeer een andere naam</string>
     <string name="rename_server_fail_msg">Hernoemen niet mogelijk, naam is al in gebruik</string>
@@ -856,7 +842,6 @@
     <string name="share_via_link_section_title">Deel link</string>
     <string name="share_via_link_send_link_label">Verstuur link</string>
     <string name="share_via_link_unset_password">uitgeschakeld</string>
-    <string name="share_with_title">Deel met…</string>
     <string name="shared_avatar_desc">Avatar van een gedeelde gebruiker</string>
     <string name="shared_icon_share">delen</string>
     <string name="shared_icon_shared">deelde</string>
@@ -909,7 +894,6 @@
     <string name="storage_internal_storage">Interne opslag</string>
     <string name="storage_movies">Films</string>
     <string name="storage_music">Muziek</string>
-    <string name="storage_permission_full_access">Volledige toegang</string>
     <string name="storage_permission_media_read_only">Media alleen lezen</string>
     <string name="storage_pictures">Afbeeldingen</string>
     <string name="store_full_desc">Het zelf-gehoste productiviteitsplatform dat je de controle geeft.\n\nKenmerken:\n* Eenvoudige, moderne interface, afgestemd op het thema van jouw server\n* Bestanden uploaden naar je Nextcloud-server\n* Deel ze met anderen\n* Houd je favoriete bestanden en mappen gesynchroniseerd\n* Zoek in alle mappen op je server\n* Auto-upload voor foto\'s en video\'s gemaakt door je apparaat\n* Blijf op de hoogte met meldingen\n* Ondersteuning voor meerdere accounts\n* Veilige toegang tot je gegevens met vingerafdruk of PIN\n* Integratie met DAVx⁵ (voorheen bekend als DAVdroid) voor een gemakkelijke installatie van kalender- en contactensynchronisatie\n\nRapporteer alle problemen op https://github.com/nextcloud/android/issues en bespreek deze app op https://help.nextcloud.com/c/clients/android\n\nNieuw bij Nextcloud? Nextcloud is een privé server voor bestandssynchronisatie en -deling en communicatie. Het is libre software en je kunt het zelf hosten of een bedrijf betalen om het voor je te doen. Op die manier heb je de controle over je foto\'s, je agenda en contactgegevens, je documenten en alles wat erbij hoort.\n\nBekijk Nextcloud op https://nextcloud.com</string>
@@ -1050,7 +1034,6 @@
     <string name="uploader_file_not_found_message">Bestand niet gevonden. Weet je zeker dat het bestand bestaat of is een eerder conflict niet opgelost?</string>
     <string name="uploader_file_not_found_on_server_message">Wij konden het bestand niet vinden op de server. Een andere gebruiker kan het verwijderd hebben</string>
     <string name="uploader_info_dirname">Mapnaam</string>
-    <string name="uploader_local_files_uploaded">Probeer mislukte uploads van bestanden opnieuw</string>
     <string name="uploader_top_message">Kies een uploadmap</string>
     <string name="uploader_upload_failed_content_single">Kon %1$s niet uploaden</string>
     <string name="uploader_upload_failed_credentials_error">Uploaden mislukt, je moet opnieuw inloggen</string>

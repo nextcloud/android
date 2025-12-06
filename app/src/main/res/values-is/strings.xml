@@ -44,21 +44,15 @@
     <string name="app_widget_description">Sýnir einn viðmótshluta af stjórnborði</string>
     <string name="appbar_search_in">Leita í %s</string>
     <string name="appear_offline">Birtast ótengt</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Bæta við nýju verki</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Þú getur búið til nýtt verk neðst til hægri</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skrifaðu einhvern texta</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ertu viss um að þú viljir eyða þessu verki?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eyða verki</string>
-    <string name="assistant_screen_loading">Hleð inn verkefnalista…</string>
     <string name="assistant_screen_task_create_fail_message">Villa kom upp við að búa til verkið</string>
     <string name="assistant_screen_task_create_success_message">Tókst að búa til verk</string>
     <string name="assistant_screen_task_delete_fail_message">Villa kom upp við að eyða verkinu</string>
     <string name="assistant_screen_task_delete_success_message">Tókst að eyða verki</string>
-    <string name="assistant_screen_task_list_empty_message">Verkefnalisti er tómur.</string>
     <string name="assistant_screen_task_list_error_state_message">Ekki er hægt að sækja verkefnalista, athugaðu nettenginguna þína.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eyða verki</string>
     <string name="assistant_screen_task_output_empty_text">Yfirlitið yfir verkin er ekki tilbúið.</string>
-    <string name="assistant_screen_task_types_error_state_message">Ekki er hægt að sækja tegundir verka, athugaðu nettenginguna þína.</string>
     <string name="assistant_screen_top_bar_title">Meðhjálpari</string>
     <string name="assistant_task_detail_screen_input_button_title">Inntak</string>
     <string name="assistant_task_detail_screen_output_button_title">Frálag</string>
@@ -124,6 +118,7 @@
     <string name="busy">Upptekinn</string>
     <string name="calendar">Dagatal</string>
     <string name="calendars">Dagatöl</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Það kom upp vandamál við að lesa inn skilríkið.</string>
     <string name="changelog_dev_version">Breytingaskrá þróunarútgáfu</string>
     <string name="check_back_later_or_reload">Athugaðu aftur síðar eða endurlestu.</string>
@@ -208,7 +203,6 @@
     <string name="contacts_preferences_no_file_found">Engin skrá fannst</string>
     <string name="contacts_preferences_something_strange_happened">Gat ekki fundið síðasta öryggisafritið þitt!</string>
     <string name="conversation_screen_title">Samtöl</string>
-    <string name="copied_to_clipboard">Afritað á klippispjald</string>
     <string name="copy_file_error">Villa kom upp við að reyna að afrita þessa skrá eða möppu</string>
     <string name="copy_file_invalid_into_descendent">Ekki er hægt að afrita möppu inn í eina af undirmöppum sínum</string>
     <string name="copy_file_invalid_overwrite">Skráin er þegar til í móttökumöppunni</string>
@@ -419,10 +413,8 @@
     <string name="file_list_loading">Hleð inn…</string>
     <string name="file_list_no_app_for_file_type">Ekkert forrit er uppsett til að meðhöndla þessa tegund skráa.</string>
     <string name="file_list_seconds_ago">sekúndum síðan</string>
-    <string name="file_management_permission">Heimilda er krafist</string>
     <string name="file_management_permission_optional">Heimildir gagnageymslu</string>
     <string name="file_management_permission_optional_text">%1$s virkar best með heimildum til að nota geymslurými. Þú getur valið að gefa fullan aðgang að öllum skrám, eða aðgang til að einungis lesa ljósmyndir og myndskeið.</string>
-    <string name="file_management_permission_text">%1$s þarf skráaumsýsluheimildir til að geta sent inn skrár. Þú getur valið að gefa fullan aðgang að öllum skrám, eða aðgang til að einungis lesa ljósmyndir og myndskeið.</string>
     <string name="file_migration_allow_media_indexing">Leyfa aðgang úr öðrum forritum</string>
     <string name="file_migration_checking_destination">Athuga áfangastað…</string>
     <string name="file_migration_cleaning">Hreinsun</string>
@@ -460,7 +452,6 @@
     <string name="file_upload_worker_error_notification_title">Innsending mistókst. Engin internettenging</string>
     <string name="file_upload_worker_same_file_already_exists">%s er þegar til, engir árekstrar fundust</string>
     <string name="file_version_restored_error">Villa við að endurheimta útgáfu skráar!</string>
-    <string name="file_version_restored_successfully">Tókst að endurheimta útgáfu skráar.</string>
     <string name="filedetails_details">Nánar</string>
     <string name="filedetails_download">Sækja</string>
     <string name="filedetails_export">Flytja út</string>
@@ -495,7 +486,6 @@
     <string name="foreign_files_local_text">Staðvært: %1$s</string>
     <string name="foreign_files_move">Færa allt</string>
     <string name="foreign_files_remote_text">Fjartengt: %1$s</string>
-    <string name="foreign_files_success">Allar skrár voru færðar</string>
     <string name="forward">Áfram</string>
     <string name="fourHours">4 klukkustundir</string>
     <string name="gplay_restriction">Google takmarkaði niðurhal á APK/AAB-skrám!</string>
@@ -550,7 +540,6 @@
     <string name="locked_by_app">Læst af %1$s-forritinu</string>
     <string name="log_send_mail_subject">%1$s atvikaskrár Android-forrita</string>
     <string name="log_send_no_mail_app">Ekkert forrit fannst til að senda atvikaskrár. Settu upp tölvupóstforrit.</string>
-    <string name="logged_in_as">Skráð inn sem %1$s</string>
     <string name="login">Skrá inn</string>
     <string name="login_url_helper_text">Tengillinn á vefviðmót %1$s þegar þú opnar það í vafranum.</string>
     <string name="logs_menu_delete">Eyða atvikaskrám</string>
@@ -650,7 +639,6 @@
     <string name="outdated_server">Netþjónninn er kominn að endimörkum líftíma síns, endilega uppfærðu hann!</string>
     <string name="overflow_menu">Valmynd með fleiru</string>
     <string name="pass_code_configure_your_pass_code">Settu inn lykilkóða</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Lykilkóðans verður krafist í hvert skipti sem forritið er ræst</string>
     <string name="pass_code_enter_pass_code">Settu inn lykilkóðann þinn</string>
     <string name="pass_code_mismatch">Lykilkóðarnir eru ekki eins</string>
     <string name="pass_code_reenter_your_pass_code">Settu aftur inn lykilkóðann þinn</string>
@@ -658,11 +646,10 @@
     <string name="pass_code_removed">Aðgangskóða eytt</string>
     <string name="pass_code_stored">Geymdi lykilkóða</string>
     <string name="pass_code_wrong">Rangur lykilkóði</string>
+    <string name="pause_upload">Í bið</string>
     <string name="pdf_password_protected">Get ekki opnað lykilorðsvarða PDF-skrár. Notaðu frekar utanaðkomandi PDF-skoðara.</string>
-    <string name="pdf_zoom_tip">Ýttu á síðu til að renna að</string>
     <string name="permission_allow">Leyfa</string>
     <string name="permission_deny">Neita</string>
-    <string name="permission_storage_access">Krafist er viðbótarheimilda til að senda inn og sækja skrár.</string>
     <string name="pick_contact_to_share_with">Veldu tengilið til að deila með</string>
     <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd</string>
     <string name="pin_home">Festa á upphafsskjá</string>
@@ -769,7 +756,6 @@
     <string name="remove_notification_failed">Mistókst að fjarlægja tilkynningu.</string>
     <string name="remove_push_notification">Fjarlægja</string>
     <string name="remove_success_msg">Eytt</string>
-    <string name="remove_upload">Fjarlægja</string>
     <string name="rename_dialog_title">Settu inn nýtt nafn</string>
     <string name="rename_local_fail_msg">Gat endurnefnt staðvært afrit, prófaðu annað heiti</string>
     <string name="rename_server_fail_msg">Ekki hægt að endurnefna, heitið er frátekið</string>
@@ -865,7 +851,6 @@
     <string name="share_via_link_section_title">Deila tengli</string>
     <string name="share_via_link_send_link_label">Senda tengil...</string>
     <string name="share_via_link_unset_password">Endurstilla</string>
-    <string name="share_with_title">Deila með %1</string>
     <string name="shared_avatar_desc">Auðkennismynd frá deildum notanda</string>
     <string name="shared_icon_share">Deila</string>
     <string name="shared_icon_shared">deilt</string>
@@ -918,7 +903,6 @@
     <string name="storage_internal_storage">Innbyggð geymsla</string>
     <string name="storage_movies">Kvikmyndir</string>
     <string name="storage_music">Tónlist</string>
-    <string name="storage_permission_full_access">Fullur aðgangur</string>
     <string name="storage_permission_media_read_only">Skrifvarinn gagnamiðill</string>
     <string name="storage_pictures">Ljósmyndir</string>
     <string name="store_full_desc">Sjálfhýsta Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn.\n\nEiginleikar:\n* Auðvelt, nútímalegt viðmót, sem hentar þema netþjónsins þíns\n* Sendu skrár inn á Nextcloud-þjóninn þinn\n* Deildu þeim með öðrum\n* Haltu eftirlætisskránum þínum og möppum samstilltum\n* Leitaðu í öllum möppum á netþjóninum þínum\n* Sjálfvirk innsending á myndum og myndskeiðum sem þú tekur á snjalltækinu þínu\n* Haltu öllu uppfærðu í gegnum tilkynningar\n* Styður marga aðganga fyrir hvern notanda\n* Tryggðu aðgang að gögnunum þínum með fingrafari eða PIN-númeri\n* Samþætting við DAVx⁵ (áður þekkt sem DAVdroid) fyrir auðvelda uppssetningu á samstilltu dagatali og tengiliðum\n\nTilkynntu öll vandamál á https://github.com/nextcloud/android/issues og ræddu um þennan hugbúnað á https://help.nextcloud.com/c/clients/android\n\nEr Nextcloud nýtt fyrir þér? Nextcloud er þinn eiginn netþjónn til að samstilla skrár og deila í samstarfs og samskiptaumhverfi. Þetta er frjáls hugbúnaður sem þú getur hýst sjálf/ur eða borgað þjónustuaðila fyrir að gera fyrir þig. Með þessu ert það þú sem ert við stjórnvölinn með gögnin sem þú vilt hafa aðgengileg í gegnum netið, hvort sem það eru ljósmyndir, dagatal, tengiliðir, skjölin þín, og margt fleira.\n\nSkoðaðu Nextcloud á https://nextcloud.com</string>
@@ -1063,7 +1047,6 @@
     <string name="uploader_file_not_found_message">Skrá fannst ekki. Ertu viss um að þessi skrá sé til staðar eða er eldri árekstur ekki leystur?</string>
     <string name="uploader_file_not_found_on_server_message">Ekki var hægt að finna skrána á netþjóninum. Annar notandi gæti hafa eytt skránni</string>
     <string name="uploader_info_dirname">Heiti möppu</string>
-    <string name="uploader_local_files_uploaded">Reyna aftur að senda inn skrár á tæki sem mistókust</string>
     <string name="uploader_top_message">Veldu innsendingarmöppu</string>
     <string name="uploader_upload_failed_content_single">Gat ekki sent inn %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Innsending mistókst, skráðu þig inn aftur</string>

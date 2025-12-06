@@ -87,6 +87,7 @@
     <string name="busy">Ocupado</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
+    <string name="cancel_upload">Cancelar</string>
     <string name="certificate_load_problem">Se presentó un problema al cargar el certificado.</string>
     <string name="changelog_dev_version">Registro de cambios de la versión de desarrollo</string>
     <string name="check_back_later_or_reload">Vuelva a intentarlo más tarde o recargue.</string>
@@ -168,7 +169,6 @@
     <string name="conversation_screen_empty_content_title">No se encontraron conversaciones</string>
     <string name="conversation_screen_title">Conversaciones</string>
     <string name="copied">Copiado</string>
-    <string name="copied_to_clipboard">Copiado al portapapeles</string>
     <string name="copy_file_error">Se presentó un error al intentar copiar este archivo o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No es posible copiar una carpeta dentro de una de sus sub carpetas</string>
     <string name="copy_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
@@ -334,10 +334,8 @@
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">No se cuenta con una aplicación que maneje este tipo de archivo. </string>
     <string name="file_list_seconds_ago">hace algunos segundos</string>
-    <string name="file_management_permission">Permisos necesarios</string>
     <string name="file_management_permission_optional">Permisos de almacenamiento</string>
     <string name="file_management_permission_optional_text">%1$s funciona mejor con permisos para acceder al almacenamiento. Puedes elegir acceso completo a todos los archivos o acceso de solo lectura a fotos y videos.</string>
-    <string name="file_management_permission_text">%1$s necesita permisos de gestión de archivos para cargar archivos. Puedes elegir acceso completo a todos los archivos o acceso de solo lectura a fotos y videos.</string>
     <string name="file_migration_checking_destination">Verificando el destino…</string>
     <string name="file_migration_cleaning">Limpiando…</string>
     <string name="file_migration_dialog_title">Actualizando la carpeta de almacenamiento de datos</string>
@@ -363,7 +361,6 @@
     <string name="file_not_synced">El archivo no pudo ser sincronizado. Mostrando la última versión disponible.</string>
     <string name="file_rename">Renombrar</string>
     <string name="file_version_restored_error">Error al restaurar la versión del archivo</string>
-    <string name="file_version_restored_successfully">Se ha restaurado la versión del archivo correctamente.</string>
     <string name="filedetails_details">Detalles</string>
     <string name="filedetails_download">Descargar</string>
     <string name="filedetails_export">Exportar</string>
@@ -393,7 +390,6 @@
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_move">Mover todos</string>
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
-    <string name="foreign_files_success">Se han movido todos los archivos</string>
     <string name="forward">Adelante</string>
     <string name="fourHours">4 horas</string>
     <string name="hidden_file_name_warning">El nombre resultará en un archivo oculto</string>
@@ -514,7 +510,6 @@
     <string name="outdated_server">El servidor ha alcanzado el final de su vida útil, ¡por favor, actualízalo!</string>
     <string name="overflow_menu">Más menú</string>
     <string name="pass_code_configure_your_pass_code">Ingresa tu código de seguridad</string>
-    <string name="pass_code_configure_your_pass_code_explanation">El código de seguridad será solicitado cada vez que inicie la aplicación</string>
     <string name="pass_code_enter_pass_code">Por favor ingresa tu código de seguridad</string>
     <string name="pass_code_mismatch">Los códigos de seguridad no son iguales</string>
     <string name="pass_code_reenter_your_pass_code">Por favor reingresa el código de seguridad</string>
@@ -522,11 +517,10 @@
     <string name="pass_code_removed">Código de seguirdad eliminado</string>
     <string name="pass_code_stored">Código de seguridad almacenado</string>
     <string name="pass_code_wrong">Código de seguridad incorrecto</string>
+    <string name="pause_upload">Pausar</string>
     <string name="pdf_password_protected">No se puede abrir un PDF protegido con contraseña. Por favor, utiliza un visor de PDF externo.</string>
-    <string name="pdf_zoom_tip">Toca una página para hacer zoom</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>
-    <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="player_stop">detener</string>
@@ -678,7 +672,6 @@
     <string name="share_via_link_section_title">Compartir liga</string>
     <string name="share_via_link_send_link_label">Enviar enlace</string>
     <string name="share_via_link_unset_password">Sin establecer</string>
-    <string name="share_with_title">Compartir con…</string>
     <string name="shared_avatar_desc">Avatar del usuario compartido</string>
     <string name="shared_icon_share">compartir</string>
     <string name="shared_icon_shared">compartido</string>
@@ -727,7 +720,6 @@
     <string name="storage_internal_storage">Almacenamiento interno</string>
     <string name="storage_movies">Películas</string>
     <string name="storage_music">Música</string>
-    <string name="storage_permission_full_access">Acceso completo</string>
     <string name="storage_permission_media_read_only">Solo lectura de medios</string>
     <string name="storage_pictures">Imágenes</string>
     <string name="store_full_dev_desc">La plataforma de productividad autohospedada que te mantiene en control.\nEsta es la versión de desarrollo oficial, que presenta una muestra diaria de cualquier nueva funcionalidad no probada, lo que puede causar inestabilidad y pérdida de datos. La aplicación es para usuarios dispuestos a probar y reportar errores en caso de que ocurran. ¡No la utilices para tu trabajo productivo!\n\nTanto la versión oficial de desarrollo como la regular están disponibles en F-Droid y se pueden instalar al mismo tiempo.</string>

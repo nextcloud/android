@@ -45,26 +45,20 @@
     <string name="appbar_search_in">Suche in %s</string>
     <string name="appear_offline">Offline erscheinen</string>
     <string name="assistant_output_generation_warning_text">Die hier gezeigte Ausgabe wurde von KI erstellt. Bitte genau überprüfen.</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Neue Aufgabe hinzufügen</string>
     <string name="assistant_screen_chat_create_error">Eine Nachricht konnte nicht gesendet werden</string>
     <string name="assistant_screen_chat_fetch_error">Chatnachrichten konnten nicht abgerufen werden</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Unten rechts eine neue Aufgabe erstellen</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Bitte einen Text eingeben</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Möchten Sie diese Aufgabe wirklich löschen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Aufgabe löschen</string>
     <string name="assistant_screen_empty_content_description">Versuchen Sie, eine Nachricht zu senden, um eine Unterhaltung anzustoßen.</string>
     <string name="assistant_screen_empty_content_title">Hallo! Womit kann ich Ihnen heute helfen?</string>
-    <string name="assistant_screen_loading">Lade Aufgabenliste…</string>
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
     <string name="assistant_screen_task_create_success_message">Aufgabe erstellt</string>
     <string name="assistant_screen_task_delete_fail_message">Es ist ein Fehler beim Löschen der Aufgabe aufgetreten</string>
     <string name="assistant_screen_task_delete_success_message">Aufgabe gelöscht</string>
-    <string name="assistant_screen_task_list_empty_message">Aufgabenliste ist leer.</string>
     <string name="assistant_screen_task_list_empty_warning">Die Aufgabenliste ist leer. Bitte die Konfiguration der Assistenten-App überprüfen.</string>
     <string name="assistant_screen_task_list_error_state_message">Die Aufgabenliste kann nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Aufgabe löschen</string>
     <string name="assistant_screen_task_output_empty_text">Die Aufgabenausgabe ist noch nicht fertig.</string>
-    <string name="assistant_screen_task_types_error_state_message">Die Aufgabentypen können nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Eingabe</string>
     <string name="assistant_task_detail_screen_output_button_title">Ausgabe</string>
@@ -225,7 +219,6 @@
     <string name="conversation_screen_fetch_error_title">Liste der Unterhaltungen konnte nicht abgerufen werden</string>
     <string name="conversation_screen_title">Unterhaltungen</string>
     <string name="copied">Kopiert</string>
-    <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
     <string name="copy_file_error">Es ist ein Fehler beim Kopieren der Datei oder des Ordners aufgetreten.</string>
     <string name="copy_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu kopieren</string>
     <string name="copy_file_invalid_overwrite">Die Datei existiert bereits im Zielverzeichnis</string>
@@ -329,6 +322,7 @@
     <string name="ecosystem_apps_display_assistant">Assistent</string>
     <string name="ecosystem_apps_display_more">Mehr</string>
     <string name="ecosystem_apps_more">Weitere Nextcloud-Apps</string>
+    <string name="editor_web_view_cannot_open_file">Dateiauswahl konnte nicht geöffnet werden</string>
     <string name="email_pick_failed">E-Mail-Adresse konnte nicht ausgewählt werden.</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="end_to_end_encryption_certificate_unavailable">Serverzertifikat kann nicht abgerufen werden</string>
@@ -398,6 +392,7 @@
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Sie haben keine Berechtigung, in diesen Ordner Dateien hochzuladen oder zu erstellen.</string>
     <string name="external_shares">Externe Freigaben</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
+    <string name="failed_to_create_conflict_dialog">Die Erstellung des Konfliktdialogs ist fehlgeschlagen</string>
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
     <string name="failed_to_print">Datei konnte nicht gedruckt werden</string>
     <string name="failed_to_start_editor">Editor konnte nicht gestartet werden</string>
@@ -439,10 +434,8 @@
     <string name="file_list_loading">Lade…</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
-    <string name="file_management_permission">Berechtigungen erforderlich</string>
     <string name="file_management_permission_optional">Speicherberechtigungen</string>
     <string name="file_management_permission_optional_text">%1$s funktioniert am besten mit Berechtigungen für den Zugriff auf den Speicher. Sie können vollen Zugriff auf alle Dateien oder schreibgeschützten Zugriff auf Fotos und Videos wählen.</string>
-    <string name="file_management_permission_text">%1$s benötigt Dateiverwaltungsberechtigungen, um Dateien hochzuladen. Sie können vollen Zugriff auf alle Dateien oder schreibgeschützten Zugriff auf Fotos und Videos wählen. </string>
     <string name="file_migration_allow_media_indexing">Zugriff von anderen Apps zulassen</string>
     <string name="file_migration_checking_destination">Prüfe Zielort…</string>
     <string name="file_migration_cleaning">Aufräumen…</string>
@@ -480,7 +473,6 @@
     <string name="file_upload_worker_error_notification_title">Upload fehlgeschlagen. Keine Internetverbindung</string>
     <string name="file_upload_worker_same_file_already_exists">%s existiert bereits, kein Konflikt erkannt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
-    <string name="file_version_restored_successfully">Dateiversion wiederhergestellt</string>
     <string name="filedetails_details">Details</string>
     <string name="filedetails_download">Herunterladen</string>
     <string name="filedetails_export">Exportieren</string>
@@ -520,7 +512,6 @@
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_move">Alle verschieben</string>
     <string name="foreign_files_remote_text">Remote: %1$s</string>
-    <string name="foreign_files_success">Alle Dateien wurden verschoben</string>
     <string name="forward">Weiterleiten</string>
     <string name="fourHours">4 Stunden</string>
     <string name="gplay_restriction">Google hat das Herunterladen von APK/AAB-Dateien eingeschränkt!</string>
@@ -575,7 +566,6 @@
     <string name="locked_by_app">Gesperrt von der App %1$s</string>
     <string name="log_send_mail_subject">%1$s Android-App Meldungen</string>
     <string name="log_send_no_mail_app">Keine App zum Senden von Protokolldateien gefunden. Bitte installieren Sie einen E-Mail-Client.</string>
-    <string name="logged_in_as">Angemeldet als %1$s</string>
     <string name="login">Anmelden</string>
     <string name="login_url_helper_text">Der Link zu Ihrer %1$s Webseite, wenn Sie diese im Browser öffnen.</string>
     <string name="logs_menu_delete">Lösche Logs</string>
@@ -678,7 +668,6 @@
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
     <string name="overflow_menu">Weiteres Menü</string>
     <string name="pass_code_configure_your_pass_code">PIN eingeben</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal beim Start der App abgefragt</string>
     <string name="pass_code_enter_pass_code">Bitte geben Sie Ihre PIN ein</string>
     <string name="pass_code_explanation">Die PIN wird jedes mal beim Start der App oder beim erneuten Öffnen nach 5 Sekunden abgefragt</string>
     <string name="pass_code_mismatch">Die PINs stimmen nicht überein</string>
@@ -688,10 +677,8 @@
     <string name="pass_code_stored">PIN gespeichert</string>
     <string name="pass_code_wrong">PIN nicht korrekt</string>
     <string name="pdf_password_protected">Passwortgeschützte PDF-Datei konnte nicht geöffnet werden. Bitte verwenden Sie einen externen PDF-Viewer.</string>
-    <string name="pdf_zoom_tip">Auf eine Seite klicken, um hereinzuzoomen</string>
     <string name="permission_allow">Zulassen</string>
     <string name="permission_deny">Ablehnen</string>
-    <string name="permission_storage_access">Sie haben nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
     <string name="pick_contact_to_share_with">Kontakt zum Teilen auswählen</string>
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte</string>
     <string name="pin_home">An Startbildschirm anheften</string>
@@ -895,7 +882,6 @@
     <string name="share_via_link_section_title">Link teilen</string>
     <string name="share_via_link_send_link_label">Link teilen</string>
     <string name="share_via_link_unset_password">Entfernen</string>
-    <string name="share_with_title">Teilen mit…</string>
     <string name="shared_avatar_desc">Avatar des geteilten Nutzers</string>
     <string name="shared_icon_share">Teilen</string>
     <string name="shared_icon_shared">geteilt</string>
@@ -952,7 +938,6 @@
     <string name="storage_permission_banner_auto_upload_text">Für das automatische Hochladen ist die Speicherberechtigung erforderlich</string>
     <string name="storage_permission_banner_upload_text">Um Dateien hochladen zu können, ist die Speicherberechtigung erforderlich</string>
     <string name="storage_permission_dont_ask">Nicht nachfragen</string>
-    <string name="storage_permission_full_access">Voller Zugriff</string>
     <string name="storage_permission_media_read_only">Medien schreibgeschützt</string>
     <string name="storage_pictures">Bilder</string>
     <string name="store_full_desc">Die selbstgehostete Produktivitätsplattform, mit der Sie die Kontrolle behalten.\n\nFunktionen:\n* Einfache, moderne Benutzeroberfläche, die an das Design Ihres Servers angepasst ist\n* Laden Sie Dateien auf Ihren Nextcloud-Server hoch\n* Teilen Sie sie mit anderen\n * Halten Sie Ihre Lieblingsdateien und -ordner synchronisiert\n* Durchsuchen Sie alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Fotos und Videos, die mit Ihrem Gerät aufgenommen wurden\n* Bleiben Sie mit Benachrichtigungen auf dem Laufenden\n* Unterstützung für mehrere Konten\n* Sicherer Zugriff auf Ihre Daten mit Fingerabdruck oder PIN\n* Integration mit DAVx⁵ (früher bekannt als DAVdroid) zur einfachen Einrichtung der Kalender- und Kontaktsynchronisierung\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues und diskutieren Sie über diese App unter https://help.nextcloud.com/c/clients/android\n\nNeu bei Nextcloud? Nextcloud ist ein privater Dateisynchronisierungs-, Freigabe- und Kommunikationsserver. Es handelt sich um kostenlose Software, die Sie selbst, oder gegen Gebühr bei einem Dienstleister hosten können. Auf diese Weise haben Sie die Kontrolle über Ihre Fotos, Ihre Kalender- und Kontaktdaten, Ihre Dokumente und alles andere.\n\nSehen Sie sich Nextcloud unter https://nextcloud.com an.</string>
@@ -1098,7 +1083,6 @@
     <string name="uploader_file_not_found_message">Datei nicht gefunden. Sind Sie sicher, dass diese Datei existiert oder wurde ein früherer Konflikt nicht gelöst?</string>
     <string name="uploader_file_not_found_on_server_message">Wir konnten die Datei auf dem Server nicht finden. Ein anderer Benutzer hat möglicherweise die Datei gelöscht.</string>
     <string name="uploader_info_dirname">Ordnername</string>
-    <string name="uploader_local_files_uploaded">Fehlgeschlagene lokale Dateien erneut hochladen</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>
     <string name="uploader_upload_failed_content_single">Konnte %1$s nicht hochladen</string>
     <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, bitte erneut anmelden</string>

@@ -85,6 +85,7 @@
     <string name="busy">Зафатен</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календари</string>
+    <string name="cancel_upload">Откажи</string>
     <string name="certificate_load_problem">Има проблем со вчитување на сертификатот.</string>
     <string name="changelog_dev_version">Changelog dev version</string>
     <string name="checkbox">Поле за избирање</string>
@@ -160,7 +161,6 @@
     <string name="contacts_preferences_something_strange_happened">Неможам да ја пронајдам последната резервна копија!</string>
     <string name="conversation_screen_empty_content_title">Нема пронајдено разговори</string>
     <string name="conversation_screen_title">Разговори</string>
-    <string name="copied_to_clipboard">Копирано во клипборд</string>
     <string name="copy_file_error">Настана грешка при обидот за копирање на оваа датотека или папка</string>
     <string name="copy_file_invalid_into_descendent">Не е возможно да се копира папката во истата таа папка</string>
     <string name="copy_file_invalid_overwrite">Датотеката веќе постои во папката</string>
@@ -302,7 +302,6 @@
     <string name="file_list_loading">Се вчитува…</string>
     <string name="file_list_no_app_for_file_type">Нема апликација за прикажување на овој вид на датотека.</string>
     <string name="file_list_seconds_ago">пред секунди</string>
-    <string name="file_management_permission">Потребни се дозволи</string>
     <string name="file_management_permission_optional">Дозвола за складирање</string>
     <string name="file_migration_checking_destination">Проверка на дестинацијата…</string>
     <string name="file_migration_cleaning">Чистење…</string>
@@ -328,7 +327,6 @@
     <string name="file_not_synced">Датотеката неможе да се синхронизира. Прикажување на последно достапната верзија.</string>
     <string name="file_rename">Преименувај</string>
     <string name="file_version_restored_error">Грешка при враќање на верзија на датотека !</string>
-    <string name="file_version_restored_successfully">Успешно вратена верзија на датотеката.</string>
     <string name="filedetails_details">Детали</string>
     <string name="filedetails_download">Преземање</string>
     <string name="filedetails_export">Извези</string>
@@ -358,7 +356,6 @@
     <string name="foreign_files_local_text">Локално: %1$s</string>
     <string name="foreign_files_move">Премести ги сите</string>
     <string name="foreign_files_remote_text">Одалечено: %1$s</string>
-    <string name="foreign_files_success">Сите датотеки беа преместени</string>
     <string name="forward">Препрати</string>
     <string name="fourHours">4 часа</string>
     <string name="hint_name">Име</string>
@@ -385,7 +382,6 @@
     <string name="locked_by">Заклучено од %1$s</string>
     <string name="locked_by_app">Заклучено од апликацијата %1$s</string>
     <string name="log_send_mail_subject">%1$s Апликација на Андроид за логови</string>
-    <string name="logged_in_as">Најавени сте како %1$s</string>
     <string name="login">Најава</string>
     <string name="logs_menu_delete">Избриши записи</string>
     <string name="logs_menu_refresh">Освежи</string>
@@ -457,7 +453,6 @@
     <string name="outdated_server">Серверот го достигна крајот на животот, ве молиме надградете го!</string>
     <string name="overflow_menu">Мени повеќе</string>
     <string name="pass_code_configure_your_pass_code">Венсете го вашиот код</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Кодот ќе биде баран секогаш кога ќе биде покрената апликацијата</string>
     <string name="pass_code_enter_pass_code">Внесете код</string>
     <string name="pass_code_mismatch">Кодовите не се исти</string>
     <string name="pass_code_reenter_your_pass_code">Внесете го повторно кодот</string>
@@ -465,9 +460,9 @@
     <string name="pass_code_removed">Кодот е избришан</string>
     <string name="pass_code_stored">Кодот е снимен</string>
     <string name="pass_code_wrong">Неточен код</string>
+    <string name="pause_upload">Пауза</string>
     <string name="permission_allow">Дозволи</string>
     <string name="permission_deny">Забрани</string>
-    <string name="permission_storage_access">Потебни се дополнителни привилегии за прикачување и превземање на датотеки.</string>
     <string name="picture_set_as_no_app">Не е пронајдена апликација за поставување на слики</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
     <string name="player_stop">стоп</string>
@@ -538,7 +533,6 @@
     <string name="remove_notification_failed">Неуспешно бришење на известувањата.</string>
     <string name="remove_push_notification">Отстрани</string>
     <string name="remove_success_msg">Избришан</string>
-    <string name="remove_upload">Отстрани </string>
     <string name="rename_dialog_title">Внеси ново име</string>
     <string name="rename_local_fail_msg">Локалната копија не може да се преименува; пробајте со друго име</string>
     <string name="rename_server_fail_msg">Преименувањето не е возможно, тоа име веќе е зафатено</string>
@@ -600,7 +594,6 @@
     <string name="share_via_link_section_title">Сподели ја врската</string>
     <string name="share_via_link_send_link_label">Испрати линк</string>
     <string name="share_via_link_unset_password">Непоставено</string>
-    <string name="share_with_title">Сподели со…</string>
     <string name="shared_avatar_desc">Аватар од корисникот кој споделува</string>
     <string name="shared_icon_share">сподели</string>
     <string name="shared_icon_shared">споделено</string>

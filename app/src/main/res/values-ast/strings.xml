@@ -24,10 +24,8 @@
     <string name="app_config_proxy_port_title">Puertu del proxy</string>
     <string name="appbar_search_in">Buscar en: %s</string>
     <string name="appear_offline">Apaecer desconectáu</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escribi daqué</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Desaniciar la xera</string>
     <string name="assistant_screen_task_list_error_state_message">Nun ye posible dir en cata de la llista de xeres. Comprueba la conexón a internet.</string>
-    <string name="assistant_screen_task_types_error_state_message">Nun ye posible dir en cata de los tipos de xeres. Comprueba la conexón a internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Salida</string>
@@ -103,7 +101,6 @@
     <string name="conversation_screen_empty_content_title">Nun s\'atopó nenguna conversación</string>
     <string name="conversation_screen_title">Conversaciones</string>
     <string name="copied">Copióse</string>
-    <string name="copied_to_clipboard">Copióse nel cartafueyu</string>
     <string name="copy_file_error">Asocedió un fallú entrín s\'intentaba copiar esta carpeta o ficheru</string>
     <string name="copy_file_invalid_overwrite">El ficheru yá ta presente na carpeta destín</string>
     <string name="copy_file_not_found">Nun ye posible copiar. Comprueba si\'l ficheru esiste.</string>
@@ -237,7 +234,6 @@
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">Nun s\'afitó una aplicación pa remanar esta triba de ficheru.</string>
     <string name="file_list_seconds_ago">hai segundos</string>
-    <string name="file_management_permission">Precísense permisos</string>
     <string name="file_management_permission_optional">Permisos d\'almacenameintu</string>
     <string name="file_migration_checking_destination">Comprobando\'l destín…</string>
     <string name="file_migration_failed_not_enough_space">Precísase más espaciu</string>
@@ -284,7 +280,6 @@
     <string name="foreign_files_local_text">Llocal: %1$s</string>
     <string name="foreign_files_move">Mover too</string>
     <string name="foreign_files_remote_text">Llugar remotu: %1$s</string>
-    <string name="foreign_files_success">Moviéronse tolos ficheros</string>
     <string name="forward">Avanzar</string>
     <string name="fourHours">4 hores</string>
     <string name="grid_file_features_live_photo_content_description">Esti iconu amuesa la disponibilidá de la semeya en direuto</string>
@@ -373,7 +368,6 @@
     <string name="outdated_server">El sirvidor algamó la fin de vida. ¡Anueva!</string>
     <string name="overflow_menu">Menú de Más</string>
     <string name="pass_code_configure_your_pass_code">Introduz el to códigu de pasu</string>
-    <string name="pass_code_configure_your_pass_code_explanation">La contraseña va ser solicitada cada vegada que s\'anicie l\'aplicación</string>
     <string name="pass_code_enter_pass_code">Introduz el to códigu de pasu, por favor</string>
     <string name="pass_code_mismatch">Les contraseñes nun son les mesmes</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, vuelvi inxertar la contraseña</string>
@@ -382,10 +376,8 @@
     <string name="pass_code_stored">Contraseña almacenada</string>
     <string name="pass_code_wrong">Contraseña incorrecta</string>
     <string name="pdf_password_protected">Nun ye posible abrir el PDF protexíu con contraseña. Usa un visor de PDFs esternu.</string>
-    <string name="pdf_zoom_tip">Toca nuna páxina p\'averar</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Negar</string>
-    <string name="permission_storage_access">Ríquense permisos adicionales pa xubir y baxar ficheros.</string>
     <string name="pin_shortcut_label">Abrir «%1$s»</string>
     <string name="pref_behaviour_entries_delete_file">desanicióse</string>
     <string name="pref_behaviour_entries_keep_file">guardáu en carpeta orixinal</string>
@@ -528,7 +520,6 @@
     <string name="storage_internal_storage">Almacenamientu internu</string>
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>
-    <string name="storage_permission_full_access">Accesu completu</string>
     <string name="storage_pictures">Semeyes</string>
     <string name="sub_folder_rule_day">Añu/Mes/Día</string>
     <string name="sub_folder_rule_month">Añu/Mes</string>

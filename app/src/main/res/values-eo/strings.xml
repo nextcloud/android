@@ -70,6 +70,7 @@
     <string name="bottom_navigation_menu_files_label">Ĉiuj dosieroj</string>
     <string name="busy">Okupita</string>
     <string name="calendar">Kalendaro</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Ekestis problemo dum ŝargo de la atestilo.</string>
     <string name="checkbox">Markobutono</string>
     <string name="choose_local_folder">Elekti lokan dosierujon...</string>
@@ -136,7 +137,6 @@
     <string name="contacts_preferences_import_scheduled">Importado estas planita kaj komenciĝos tre baldaŭ</string>
     <string name="contacts_preferences_no_file_found">Neniu dosiero trovebla</string>
     <string name="contacts_preferences_something_strange_happened">Ne eblis trovi vian lastan savkopion!</string>
-    <string name="copied_to_clipboard">Kopiita en la tondejon</string>
     <string name="copy_file_error">Eraro okazis dum provo kopii ĉi tiun dosieron aŭ dosierujon</string>
     <string name="copy_file_invalid_into_descendent">Ne eblas kopii dosierujon en unu el ĝiaj idoj</string>
     <string name="copy_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
@@ -257,7 +257,6 @@
     <string name="file_not_synced">La dosiero ne eblis sinkroniĝi. Nun montriĝas lasta disponebla versio.</string>
     <string name="file_rename">Alinomi</string>
     <string name="file_version_restored_error">Eraro dum restaŭro de dosierversio!</string>
-    <string name="file_version_restored_successfully">Sukcese restaŭriĝis dosierversio.</string>
     <string name="filedetails_details">Detaloj</string>
     <string name="filedetails_download">Elŝuti</string>
     <string name="filedetails_export">Eksporti</string>
@@ -286,7 +285,6 @@
     <string name="foreign_files_local_text">Loka: %1$s</string>
     <string name="foreign_files_move">Movi ĉion</string>
     <string name="foreign_files_remote_text">Fora: %1$s</string>
-    <string name="foreign_files_success">Ĉiuj dosieroj moviĝis</string>
     <string name="forward">Antaŭen</string>
     <string name="fourHours">4 horoj</string>
     <string name="hint_name">Nomo</string>
@@ -360,7 +358,6 @@
     <string name="outdated_server">La servilo nun malaktualas, bonvolu ĝisdatigi ĝin!</string>
     <string name="overflow_menu">Pliaj menuoj</string>
     <string name="pass_code_configure_your_pass_code">Entajpu vian pasvorton</string>
-    <string name="pass_code_configure_your_pass_code_explanation">La pasvorto estos petita ĉiufoje, kiam la aplikaĵo ekkomenciĝas</string>
     <string name="pass_code_enter_pass_code">Bonvolu entajpi vian pasvorton</string>
     <string name="pass_code_mismatch">La pasvortoj ne samas</string>
     <string name="pass_code_reenter_your_pass_code">Bonvolu reentajpi vian pasvorton</string>
@@ -370,7 +367,6 @@
     <string name="pass_code_wrong">Neĝusta pasvorto</string>
     <string name="permission_allow">Permesi</string>
     <string name="permission_deny">Rifuzi</string>
-    <string name="permission_storage_access">Pliaj permesoj bezonataj por el- kaj alŝuti dosierojn.</string>
     <string name="picture_set_as_no_app">Neniu aplikaĵo trovita por uzi tiun bildon</string>
     <string name="pref_behaviour_entries_delete_file">forigita</string>
     <string name="pref_behaviour_entries_keep_file">konservita en origina dosierujo</string>
@@ -464,7 +460,6 @@
     <string name="share_via_link_section_title">Kunhavigi ligilon</string>
     <string name="share_via_link_send_link_label">Sendi ligilon</string>
     <string name="share_via_link_unset_password">Malprotekti</string>
-    <string name="share_with_title">Kunhavigi kun...</string>
     <string name="shared_avatar_desc">Avataro el kunhavuzanto</string>
     <string name="shared_icon_share">kunhavo</string>
     <string name="shared_icon_shared">kunhavigita</string>
