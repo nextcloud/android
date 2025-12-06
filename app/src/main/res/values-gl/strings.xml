@@ -45,26 +45,20 @@
     <string name="appbar_search_in">Buscar en %s</string>
     <string name="appear_offline">Aparecer como sen conexión</string>
     <string name="assistant_output_generation_warning_text">O resultado que se amosa aquí foi xerado por IA. Asegúrese de facer sempre unha dobre comprobación</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Engadir unha nova tarefa</string>
     <string name="assistant_screen_chat_create_error">Produciuse un fallo ao enviar unha mensaxe</string>
     <string name="assistant_screen_chat_fetch_error">Produciuse un fallo ao recuperar as mensaxes da parola</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Crear unha nova tarefa a desde a parte inferior dereita</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algún texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Confirma que quere eliminar esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
     <string name="assistant_screen_empty_content_description">Probe a enviar unha mensaxe para iniciar unha conversa.</string>
     <string name="assistant_screen_empty_content_title">Ola! En que podo axudarlle hoxe?</string>
-    <string name="assistant_screen_loading">Cargando a lista de tarefas…</string>
     <string name="assistant_screen_task_create_fail_message">Produciuse un erro ao crear a tarefa</string>
     <string name="assistant_screen_task_create_success_message">A tarefa creouse satisfactoriamente</string>
     <string name="assistant_screen_task_delete_fail_message">Produciuse un erro ao eliminar a tarefa</string>
     <string name="assistant_screen_task_delete_success_message">A tarefa foi eliminada satisfactoriamente</string>
-    <string name="assistant_screen_task_list_empty_message">A lista de tarefas está baleira</string>
     <string name="assistant_screen_task_list_empty_warning">A lista de tarefas está baleira. Comprobe a configuración da aplicación do asistente.</string>
     <string name="assistant_screen_task_list_error_state_message">Non é posíbel recuperar a lista de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarefa</string>
     <string name="assistant_screen_task_output_empty_text">A saída da tarefa aínda non está preparada.</string>
-    <string name="assistant_screen_task_types_error_state_message">Non é posíbel recuperar os tipos de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Saída</string>
@@ -133,6 +127,7 @@
     <string name="busy">Ocupado</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
+    <string name="cancel_upload">Cancelar</string>
     <string name="certificate_load_problem">Hai un problema ao cargar o certificado.</string>
     <string name="changelog_dev_version">Notas da versión de desenvolvemento</string>
     <string name="check_back_later_or_reload">Volver máis tarde ou volver cargar.</string>
@@ -225,7 +220,6 @@
     <string name="conversation_screen_fetch_error_title">Produciuse un fallo ao recuperar a lista de conversas.</string>
     <string name="conversation_screen_title">Conversas</string>
     <string name="copied">Copiado</string>
-    <string name="copied_to_clipboard">Copiado no portapapeis</string>
     <string name="copy_file_error">Produciuse un erro ao tentar copiar este ficheiro ou cartafol.</string>
     <string name="copy_file_invalid_into_descendent">Non é posíbel copiar un cartafol nun dos seus propios subcartafoles</string>
     <string name="copy_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
@@ -329,6 +323,7 @@
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Máis</string>
     <string name="ecosystem_apps_more">Máis aplicacións de Nextcloud</string>
+    <string name="editor_web_view_cannot_open_file">Non é posíbel abrir o selector de ficheiros</string>
     <string name="email_pick_failed">Produciuse un fallo ao escoller o enderezo de correo.</string>
     <string name="encrypted">Definir como cifrado</string>
     <string name="end_to_end_encryption_certificate_unavailable">Non é posíbel recuperar o certificado de servidor</string>
@@ -398,6 +393,7 @@
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Non ten permiso para ou crear ou enviar os ficheiros neste cartafol.</string>
     <string name="external_shares">Comparticións externas</string>
     <string name="fab_label">Engadir ou enviar</string>
+    <string name="failed_to_create_conflict_dialog">Produciuse un fallo ao crear o diálogo de conflito</string>
     <string name="failed_to_download">Produciuse un fallo ao pasar o ficheiro para o xestor de descargas</string>
     <string name="failed_to_print">Produciuse un fallo ao imprimir o ficheiro</string>
     <string name="failed_to_start_editor">Produciuse un fallo ao iniciar o editor</string>
@@ -439,10 +435,8 @@
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">Non foi configurada unha aplicación para manexar este tipo de ficheiro.</string>
     <string name="file_list_seconds_ago">hai uns segundos</string>
-    <string name="file_management_permission">Necesítanse permisos</string>
     <string name="file_management_permission_optional">Permisos de almacenamento</string>
     <string name="file_management_permission_optional_text">%1$s funciona mellor con permisos para acceder ao almacenamento. Pode escoller acceso completo a todos os ficheiros ou acceso de só lectura a fotos e vídeos.</string>
-    <string name="file_management_permission_text">%1$s precisa permisos de xestión de ficheiros para enviar ficheiros. Pode escoller acceso completo a todos os ficheiros ou acceso de só lectura a fotos e vídeos.</string>
     <string name="file_migration_allow_media_indexing">Permitir o acceso desde outras aplicacións</string>
     <string name="file_migration_checking_destination">Comprobando o destino…</string>
     <string name="file_migration_cleaning">Limpando…</string>
@@ -480,7 +474,6 @@
     <string name="file_upload_worker_error_notification_title">Produciuse un fallo no envío. Non hai conexión a Internet</string>
     <string name="file_upload_worker_same_file_already_exists">%s xa existe, non se detectou ningún conflito</string>
     <string name="file_version_restored_error">Produciuse un erro ao restaurar a versión do ficheiro</string>
-    <string name="file_version_restored_successfully">Versión do ficheiro restaurada satisfactoriamente.</string>
     <string name="filedetails_details">Detalles</string>
     <string name="filedetails_download">Descargar</string>
     <string name="filedetails_export">Exportar</string>
@@ -520,7 +513,6 @@
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_move">Mover todo</string>
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
-    <string name="foreign_files_success">Foron movidos todos os ficheiros</string>
     <string name="forward">Reenviar</string>
     <string name="fourHours">4 horas</string>
     <string name="gplay_restriction">Google restrinxiu a descarga de ficheiros APK/AAB.</string>
@@ -575,7 +567,6 @@
     <string name="locked_by_app">Bloqueado pola aplicación %1$s</string>
     <string name="log_send_mail_subject">Atopáronse %1$s aplicacións de rexistros para Android</string>
     <string name="log_send_no_mail_app">Non se atopou ningunha aplicación para enviar rexistros. Instale un cliente de correo-e.</string>
-    <string name="logged_in_as">Conectado como %1$s</string>
     <string name="login">Acceder</string>
     <string name="login_url_helper_text">A ligazón á súa interface web %1$s cando a abre no navegador.</string>
     <string name="logs_menu_delete">Eliminar rexistros</string>
@@ -678,7 +669,6 @@
     <string name="outdated_server">O servidor acadou a fin da súa vida. Anóveo!</string>
     <string name="overflow_menu">Máis menús</string>
     <string name="pass_code_configure_your_pass_code">Introduza o seu código de acceso</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Solicitaráselle o código de acceso cada vez que inicie a aplicación</string>
     <string name="pass_code_enter_pass_code">Introduza o seu código de acceso</string>
     <string name="pass_code_explanation">Solicitaráselle o código de acceso cada vez que se abra a aplicación ou se volva abrir após 5 segundos.</string>
     <string name="pass_code_mismatch">Os códigos de acceso non son iguais</string>
@@ -687,11 +677,10 @@
     <string name="pass_code_removed">O código de acceso foi eliminado</string>
     <string name="pass_code_stored">Gardouse o código de acceso</string>
     <string name="pass_code_wrong">Código de acceso incorrecto</string>
+    <string name="pause_upload">Pausa</string>
     <string name="pdf_password_protected">Non é posíbel abrir o PDF protexido con contrasinal. Use un visor de PDF externo.</string>
-    <string name="pdf_zoom_tip">Toque nunha páxina para ampliala</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>
-    <string name="permission_storage_access">Precísanse permisos adicionais para enviar e descargar ficheiros.</string>
     <string name="pick_contact_to_share_with">Escolla un contacto co que compartir</string>
     <string name="picture_set_as_no_app">Non se atopou unha aplicación coa que definir unha imaxe</string>
     <string name="pin_home">Fixar na pantalla de Inicio</string>
@@ -801,7 +790,6 @@
     <string name="remove_notification_failed">Produciuse un fallo ao retirar a notificación.</string>
     <string name="remove_push_notification">Retirar</string>
     <string name="remove_success_msg">Eliminado</string>
-    <string name="remove_upload">Retirar</string>
     <string name="rename_dialog_title">Introduza un nome novo</string>
     <string name="rename_local_fail_msg">Non foi posíbel cambiarlle o nome a copia local, ténteo cun un nome diferente</string>
     <string name="rename_server_fail_msg">Non foi posíbel cambiarlle o nome, o nome xa está ocupado</string>
@@ -897,7 +885,6 @@
     <string name="share_via_link_section_title">Ligazón para compartir</string>
     <string name="share_via_link_send_link_label">Enviar ligazón</string>
     <string name="share_via_link_unset_password">Sen definir</string>
-    <string name="share_with_title">Compartir con…</string>
     <string name="shared_avatar_desc">Avatar de usuario compartido</string>
     <string name="shared_icon_share">compartir</string>
     <string name="shared_icon_shared">compartido</string>
@@ -954,7 +941,6 @@
     <string name="storage_permission_banner_auto_upload_text">Precisase de permiso de almacenamento para o envío automático.</string>
     <string name="storage_permission_banner_upload_text">Precisase de permiso de almacenamento para o envío de ficheiros.</string>
     <string name="storage_permission_dont_ask">Non preguntar</string>
-    <string name="storage_permission_full_access">Acceso completo</string>
     <string name="storage_permission_media_read_only">Medios de só lectura</string>
     <string name="storage_pictures">Imaxes</string>
     <string name="store_full_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada.\n\nCaracterísticas:\n* Interface doada e moderna, totalmente tematizada ao aliñarse co tema do seu servidor\n* Enviar os seus ficheiros ao seu Nextcloud\n* Compartir os seus ficheiros con outras persoas\n* Conservar os seus ficheiros e cartafoles favoritos sincronizados\n* Buscar en todos os cartafoles do servidor\n* Enviar automaticamente fotos e vídeos feitos no seu dispositivo\n* Estar ao día coas notificacións\n* Admite múltiples contas\n* Acceso seguro aos seus datos con pegada dactilar ou PIN\n* Integración con DAVx⁵ (anteriormente coñecido como DAVdroid) para facilitar a configuración da sincronización de calendarios e contactos\n\nAgradecémoslle que nos informe de calquera problema en https://github.com/nextcloud/android/issues, pode conversar sobre esta aplicación en https://help.nextcloud.com/c/clients/android\n\nE novo en Nextcloud? Nextcloud é un servidor privado para sincronizar e compartir ficheiros. É completamente libre e pode instalalo Vde. ou contratar a unha empresa ou cooperativa para que o faga por Vde. É o camiño para que sexa Vde. quen teña o control sobre as súas fotos, calendario, caderno de contactos, documentos e todo o demais.\n\nCoñeza Nextcloud en https://nextcloud.com</string>
@@ -1100,7 +1086,6 @@
     <string name="uploader_file_not_found_message">Non se atopou o ficheiro. Está seguro de que este ficheiro existe ou non se resolveu un conflito anterior?</string>
     <string name="uploader_file_not_found_on_server_message">Non foi posíbel localizar o ficheiro no servidor. Outro usuario pode ter eliminado o ficheiro</string>
     <string name="uploader_info_dirname">Nome do cartafol</string>
-    <string name="uploader_local_files_uploaded">Tentar de novo enviar os ficheiros locais que fallaron</string>
     <string name="uploader_top_message">Escoller o cartafol de envío</string>
     <string name="uploader_upload_failed_content_single">Non foi posíbel enviar: %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Produciuse un fallo no envío, acceda de novo.</string>

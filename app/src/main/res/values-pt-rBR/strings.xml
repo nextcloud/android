@@ -45,26 +45,20 @@
     <string name="appbar_search_in">Pesquisar em %s</string>
     <string name="appear_offline">Aparecer off-line</string>
     <string name="assistant_output_generation_warning_text">A saída mostrada aqui é gerada por IA. Certifique-se de sempre verificar novamente.</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Adicionar nova tarefa</string>
     <string name="assistant_screen_chat_create_error">Falha ao enviar uma mensagem</string>
     <string name="assistant_screen_chat_fetch_error">Falha ao buscar mensagens de bate-papo</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Criar uma nova tarefa no canto inferior direito</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Digite algum texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem certeza de que deseja excluir esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Excluir tarefa</string>
     <string name="assistant_screen_empty_content_description">Tente enviar uma mensagem para iniciar uma conversa.</string>
     <string name="assistant_screen_empty_content_title">Oi! Em que posso ajudá-lo hoje?</string>
-    <string name="assistant_screen_loading">Carregando a lista de tarefas…</string>
     <string name="assistant_screen_task_create_fail_message">Ocorreu um erro ao criar a tarefa</string>
     <string name="assistant_screen_task_create_success_message">Tarefa criada com sucesso</string>
     <string name="assistant_screen_task_delete_fail_message">Ocorreu um erro ao excluir a tarefa</string>
     <string name="assistant_screen_task_delete_success_message">Tarefa excluída com sucesso</string>
-    <string name="assistant_screen_task_list_empty_message">A lista de tarefas está vazia</string>
     <string name="assistant_screen_task_list_empty_warning">A lista de tarefas está vazia. Verifique a configuração do aplicativo assistente.</string>
     <string name="assistant_screen_task_list_error_state_message">Não foi possível buscar a lista de tarefas. Verifique sua conexão com a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Excluir Tarefa</string>
     <string name="assistant_screen_task_output_empty_text">O resultado da tarefa ainda não está pronto.</string>
-    <string name="assistant_screen_task_types_error_state_message">Não foi possível buscar os tipos de tarefas. Verifique sua conexão com a Internet.</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Saída</string>
@@ -133,6 +127,7 @@
     <string name="busy">Ocupado</string>
     <string name="calendar">Calendário</string>
     <string name="calendars">Calendários </string>
+    <string name="cancel_upload">Cancelar</string>
     <string name="certificate_load_problem">Existe um problema ao carregar o certificado.</string>
     <string name="changelog_dev_version">Changelog da versão dev</string>
     <string name="check_back_later_or_reload">Volte mais tarde ou recarregue.</string>
@@ -225,7 +220,6 @@
     <string name="conversation_screen_fetch_error_title">Falha ao buscar a lista de conversas</string>
     <string name="conversation_screen_title">Conversas</string>
     <string name="copied">Copiado</string>
-    <string name="copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="copy_file_error">Ocorreu um erro ao tentar copiar este arquivo ou pasta</string>
     <string name="copy_file_invalid_into_descendent">Não é possível copiar uma pasta para uma das suas próprias pastas subjacentes</string>
     <string name="copy_file_invalid_overwrite">O arquivo já está presente na pasta destino</string>
@@ -329,6 +323,7 @@
     <string name="ecosystem_apps_display_assistant">Assistente</string>
     <string name="ecosystem_apps_display_more">Mais</string>
     <string name="ecosystem_apps_more">Mais Aplicativos Nextcloud</string>
+    <string name="editor_web_view_cannot_open_file">Não é possível abrir o seletor de arquivos</string>
     <string name="email_pick_failed">Falha ao escolher o endereço de e-mail.</string>
     <string name="encrypted">Definir como criptografado</string>
     <string name="end_to_end_encryption_certificate_unavailable">Não é possível recuperar o certificado do servidor</string>
@@ -398,6 +393,7 @@
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Você não tem permissão para criar ou enviar arquivos para esta pasta.</string>
     <string name="external_shares">Compartilhamentos externos</string>
     <string name="fab_label">Adicionar ou enviar</string>
+    <string name="failed_to_create_conflict_dialog">Falha ao criar caixa de diálogo de conflito</string>
     <string name="failed_to_download">Erro ao enviar o arquivo ao gerenciador de downloads</string>
     <string name="failed_to_print">Erro ao imprimir o arquivo</string>
     <string name="failed_to_start_editor">Erro ao iniciar editor</string>
@@ -439,10 +435,8 @@
     <string name="file_list_loading">Carregando…</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação definida para manipular este tipo de arquivo.</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
-    <string name="file_management_permission">Permissões necessárias</string>
     <string name="file_management_permission_optional">Permissões de armazenamento</string>
     <string name="file_management_permission_optional_text">%1$s funciona melhor com permissões para acessar o armazenamento. Você pode escolher acesso total a todos os arquivos ou acesso somente leitura a fotos e vídeos.</string>
-    <string name="file_management_permission_text">%1$s precisa de permissões de gerenciamento de arquivos para fazer upload de arquivos. Você pode escolher acesso total a todos os arquivos ou acesso somente leitura a fotos e vídeos.</string>
     <string name="file_migration_allow_media_indexing">Permitir acesso por outros apps</string>
     <string name="file_migration_checking_destination">Verificando destino…</string>
     <string name="file_migration_cleaning">Limpando…</string>
@@ -480,7 +474,6 @@
     <string name="file_upload_worker_error_notification_title">O upload falhou. Sem conexão com a Internet</string>
     <string name="file_upload_worker_same_file_already_exists">%s já existe, nenhum conflito detectado</string>
     <string name="file_version_restored_error">Erro recuperando arquivo!</string>
-    <string name="file_version_restored_successfully">Arquivo recuperado com sucesso.</string>
     <string name="filedetails_details">Detalhes</string>
     <string name="filedetails_download">Baixar</string>
     <string name="filedetails_export">Exportar</string>
@@ -520,7 +513,6 @@
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_move">Mover tudo</string>
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
-    <string name="foreign_files_success">Todos os arquivos foram movidos</string>
     <string name="forward">Adiante</string>
     <string name="fourHours">4 horas</string>
     <string name="gplay_restriction">Google restringiu o download de arquivos APK/AAB!</string>
@@ -575,7 +567,6 @@
     <string name="locked_by_app">Trancado pelo aplicativo %1$s </string>
     <string name="log_send_mail_subject">%1$s logs do aplicativo Android</string>
     <string name="log_send_no_mail_app">Nenhum aplicativo para envio de registros foi encontrado. Instale um cliente de e-mail.</string>
-    <string name="logged_in_as">Logado como %1$s</string>
     <string name="login">Entrar</string>
     <string name="login_url_helper_text">O link da interface da web do seu %1$s quando você o abre no navegador.</string>
     <string name="logs_menu_delete">Excluir logs</string>
@@ -678,7 +669,6 @@
     <string name="outdated_server">O servidor chegou ao fim da vida. Por favor, atualize!</string>
     <string name="overflow_menu">Mais menus</string>
     <string name="pass_code_configure_your_pass_code">Digite o código de acesso</string>
-    <string name="pass_code_configure_your_pass_code_explanation">O código de acesso será solicitado toda vez que o aplicativo for iniciado</string>
     <string name="pass_code_enter_pass_code">Digite sua senha</string>
     <string name="pass_code_explanation">A senha será solicitada sempre que o aplicativo for aberto ou reaberto após 5 segundos.</string>
     <string name="pass_code_mismatch">Os códigos de acesso não são os mesmos</string>
@@ -687,11 +677,10 @@
     <string name="pass_code_removed">Frase secreta excluída</string>
     <string name="pass_code_stored">Código de acesso salvo</string>
     <string name="pass_code_wrong">Código de acesso incorreto</string>
+    <string name="pause_upload">Pausar</string>
     <string name="pdf_password_protected">Não é possível abrir o PDF protegido por senha. Use um visualizador de PDF externo.</string>
-    <string name="pdf_zoom_tip">Toque em uma página para ampliar</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Negar</string>
-    <string name="permission_storage_access">Permissões adicionais são necessárias para enviar ou baixar arquivos.</string>
     <string name="pick_contact_to_share_with">Escolher um contato para compartilhar</string>
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para definir uma imagem</string>
     <string name="pin_home">Fixar na tela inicial</string>
@@ -710,7 +699,7 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Renomear a nova versão</string>
     <string name="pref_instant_name_collision_policy_title">O que fazer se o arquivo já existir?</string>
     <string name="prefs_add_account">Adicionar uma conta</string>
-    <string name="prefs_all_files_access_summary">Permita que o aplicativo acesse e gerencie todos os arquivos do seu dispositivo.</string>
+    <string name="prefs_all_files_access_summary">Permita que o aplicativo acesse e gerencie todos os arquivos do seu dispositivo</string>
     <string name="prefs_all_files_access_title">Acesso a todos os arquivos</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário e contatos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem o F-Droid nem o Google Play estão instalados</string>
@@ -800,7 +789,6 @@
     <string name="remove_notification_failed">Erro ao remover a notificação.</string>
     <string name="remove_push_notification">Remover</string>
     <string name="remove_success_msg">Excluído</string>
-    <string name="remove_upload">Remover</string>
     <string name="rename_dialog_title">Digite um novo nome</string>
     <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
     <string name="rename_server_fail_msg">Não foi possível renomear pois o nome já existe</string>
@@ -896,7 +884,6 @@
     <string name="share_via_link_section_title">Compartilhar link</string>
     <string name="share_via_link_send_link_label">Enviar link</string>
     <string name="share_via_link_unset_password">Não definido</string>
-    <string name="share_with_title">Compartilhar com…</string>
     <string name="shared_avatar_desc">Avatar de usuário compartilhado</string>
     <string name="shared_icon_share">compartilhar</string>
     <string name="shared_icon_shared">compartilhado</string>
@@ -950,10 +937,9 @@
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Músicas</string>
     <string name="storage_permission_all_files_access">Acesso a todos os arquivos</string>
-    <string name="storage_permission_banner_auto_upload_text">É necessária permissão de armazenamento para o upload automático.</string>
+    <string name="storage_permission_banner_auto_upload_text">É necessária conceder permissão de armazenamento para o upload automático.</string>
     <string name="storage_permission_banner_upload_text">É necessário conceder permissão de armazenamento para o envio de arquivos.</string>
     <string name="storage_permission_dont_ask">Não pergunte</string>
-    <string name="storage_permission_full_access">Acesso total</string>
     <string name="storage_permission_media_read_only">Mídia somente leitura</string>
     <string name="storage_pictures">Imagens</string>
     <string name="store_full_desc">A plataforma de produtividade auto-hospedada que mantém você no controle.\n\nRecursos:\n* Interface fácil e moderna, adequada ao tema do seu servidor\n* Faça upload de arquivos para o seu servidor Nextcloud\n* Compartilhe-os com outras pessoas\n * Mantenha seus arquivos e pastas favoritos sincronizados\n* Pesquise todas as pastas do seu servidor\n* Faça upload automático de fotos e vídeos feitos pelo seu dispositivo\n* Mantenha-se atualizado com notificações\n* Suporte para várias contas\n* Acesso seguro aos seus dados com impressão digital ou PIN\n* Integração com DAVx⁵ (anteriormente conhecido como DAVdroid) para facilitar a configuração de sincronização de calendário e contatos\n\nPor favor, relate todos os problemas em https://github.com/nextcloud/android/issues e discuta este aplicativo em https://help.nextcloud.com/c/clients/android\n\n Novo no Nextcloud? Nextcloud é um servidor privado de sincronização e compartilhamento de arquivos e de comunicação. É um software livre e você pode hospedá-lo sozinho ou pagar uma empresa para fazer isso por você. Dessa forma, você controla suas fotos, sua agenda e dados de contatos, seus documentos e tudo mais.\n\nConheça o Nextcloud em https://nextcloud.com</string>
@@ -1099,7 +1085,6 @@
     <string name="uploader_file_not_found_message">Arquivo não encontrado. Tem certeza de que este arquivo existe ou um conflito anterior não foi resolvido?</string>
     <string name="uploader_file_not_found_on_server_message">Não foi possível localizar o arquivo no servidor. Outro usuário pode ter excluído o arquivo</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
-    <string name="uploader_local_files_uploaded">Repetir o upload de arquivos locais com falha</string>
     <string name="uploader_top_message">Escolher pasta para upload</string>
     <string name="uploader_upload_failed_content_single">Não foi possível enviar %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Upload falhou. Logue-se novamente</string>

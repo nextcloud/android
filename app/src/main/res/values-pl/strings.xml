@@ -45,26 +45,20 @@
     <string name="appbar_search_in">Szukaj w %s</string>
     <string name="appear_offline">Wyglądaj jako offline</string>
     <string name="assistant_output_generation_warning_text">Ten wynik został wygenerowany przez AI. Upewnij się, że został sprawdzony i odpowiednio dostosowany.</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Dodaj nowe zadanie</string>
     <string name="assistant_screen_chat_create_error">Nie udało się wysłać wiadomości</string>
     <string name="assistant_screen_chat_fetch_error">Nie udało się pobrać wiadomości czatu</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Utwórz nowe zadanie w prawym dolnym rogu</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Wpisz jakiś tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Czy na pewno chcesz usunąć to zadanie?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Usuń zadanie</string>
     <string name="assistant_screen_empty_content_description">Spróbuj wysłać wiadomość, aby rozpocząć rozmowę.</string>
     <string name="assistant_screen_empty_content_title">Cześć! W czym mogę Ci dziś pomóc?</string>
-    <string name="assistant_screen_loading">Ładowanie listy zadań…</string>
     <string name="assistant_screen_task_create_fail_message">Wystąpił błąd podczas tworzenia zadania</string>
     <string name="assistant_screen_task_create_success_message">Zadanie pomyślnie utworzone</string>
     <string name="assistant_screen_task_delete_fail_message">Wystąpił błąd podczas usuwania zadania</string>
     <string name="assistant_screen_task_delete_success_message">Zadanie pomyślnie usunięte</string>
-    <string name="assistant_screen_task_list_empty_message">Lista zadań jest pusta.</string>
     <string name="assistant_screen_task_list_empty_warning">Lista zadań jest pusta. Sprawdź konfigurację asystenta aplikacji.</string>
     <string name="assistant_screen_task_list_error_state_message">Nie można pobrać listy zadań. Sprawdź swoje połączenie internetowe.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Usuń zadanie</string>
     <string name="assistant_screen_task_output_empty_text">Wynik zadanie nie jest jeszcze gotowy</string>
-    <string name="assistant_screen_task_types_error_state_message">Nie można pobrać typów zadań. Sprawdź swoje połączenie internetowe.</string>
     <string name="assistant_screen_top_bar_title">Asystent</string>
     <string name="assistant_task_detail_screen_input_button_title">Wejście</string>
     <string name="assistant_task_detail_screen_output_button_title">Wyjście</string>
@@ -133,6 +127,7 @@
     <string name="busy">Brak dostępności</string>
     <string name="calendar">Kalendarz</string>
     <string name="calendars">Kalendarze</string>
+    <string name="cancel_upload">Anuluj</string>
     <string name="certificate_load_problem">Problem podczas ładowania certyfikatu.</string>
     <string name="changelog_dev_version">Dziennik zmian wersji dev</string>
     <string name="check_back_later_or_reload">Sprawdź później lub załaduj ponownie.</string>
@@ -225,7 +220,6 @@
     <string name="conversation_screen_fetch_error_title">Nie udało się pobrać listy konwersacji</string>
     <string name="conversation_screen_title">Rozmowy</string>
     <string name="copied">Skopiowane</string>
-    <string name="copied_to_clipboard">Skopiowano do schowka</string>
     <string name="copy_file_error">Wystąpił błąd podczas próby kopiowania tego pliku lub katalogu</string>
     <string name="copy_file_invalid_into_descendent">Nie można skopiować katalogu do jednego z jego podkatalogów</string>
     <string name="copy_file_invalid_overwrite">Plik już istnieje w katalogu docelowym</string>
@@ -439,10 +433,8 @@
     <string name="file_list_loading">Wczytywanie…</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
     <string name="file_list_seconds_ago">przed chwilą</string>
-    <string name="file_management_permission">Potrzebne uprawnienia</string>
     <string name="file_management_permission_optional">Uprawnienia do pamięci</string>
     <string name="file_management_permission_optional_text">%1$s działa najlepiej z uprawnieniami dostępu do pamięci. Możesz wybrać pełny dostęp do wszystkich plików lub dostęp tylko do odczytu dla zdjęć i filmów.</string>
-    <string name="file_management_permission_text">%1$s potrzebuje uprawnień do zarządzania plikami, aby wysyłać pliki. Możesz wybrać pełny dostęp do wszystkich plików lub dostęp tylko do odczytu dla zdjęć i filmów.</string>
     <string name="file_migration_allow_media_indexing">Zezwalaj na dostęp z innych aplikacji</string>
     <string name="file_migration_checking_destination">Sprawdzanie miejsca…</string>
     <string name="file_migration_cleaning">Czyszczenie…</string>
@@ -480,7 +472,6 @@
     <string name="file_upload_worker_error_notification_title">Przesyłanie nie powiodło się. Brak połączenia internetowego</string>
     <string name="file_upload_worker_same_file_already_exists">%s już istnieje, nie znaleziono konfliktów</string>
     <string name="file_version_restored_error">Wystąpił błąd podczas przywracania wersji pliku!</string>
-    <string name="file_version_restored_successfully">Pomyślnie przywrócono wersję pliku.</string>
     <string name="filedetails_details">Szczegóły</string>
     <string name="filedetails_download">Pobierz</string>
     <string name="filedetails_export">Eksportuj</string>
@@ -520,7 +511,6 @@
     <string name="foreign_files_local_text">Lokalnie: %1$s</string>
     <string name="foreign_files_move">Przenieś wszystko</string>
     <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
-    <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
     <string name="forward">Prześlij dalej</string>
     <string name="fourHours">4 godziny</string>
     <string name="gplay_restriction">Google ograniczyło możliwość pobierania plików APK/AAB!</string>
@@ -575,7 +565,6 @@
     <string name="locked_by_app">Zablokowany przez aplikację %1$s</string>
     <string name="log_send_mail_subject">%1$s logi aplikacji Android</string>
     <string name="log_send_no_mail_app">Brak aplikacji do wysyłania logów. Zainstaluj klienta poczty e-mail.</string>
-    <string name="logged_in_as">Zalogowany jako %1$s</string>
     <string name="login">Zaloguj</string>
     <string name="login_url_helper_text">Link do interfejsu internetowego %1$s, aby otworzyć w przeglądarce.</string>
     <string name="logs_menu_delete">Usuń dziennik</string>
@@ -678,7 +667,6 @@
     <string name="outdated_server">Serwer korzysta ze starej wersji. Dokonaj aktualizacji!</string>
     <string name="overflow_menu">Więcej</string>
     <string name="pass_code_configure_your_pass_code">Wprowadź kod PIN</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji</string>
     <string name="pass_code_enter_pass_code">Podaj kod PIN</string>
     <string name="pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji lub przy ponownym otwarciu po 5 sekundach.</string>
     <string name="pass_code_mismatch">Podane kody PIN nie są takie same</string>
@@ -687,11 +675,10 @@
     <string name="pass_code_removed">Kod PIN został usunięty</string>
     <string name="pass_code_stored">Kod PIN został zapisany</string>
     <string name="pass_code_wrong">Kod PIN nieprawidłowy</string>
+    <string name="pause_upload">Wstrzymaj</string>
     <string name="pdf_password_protected">Nie można otworzyć pliku PDF które jest chronione hasłem. Użyj zewnętrznej przeglądarki plików PDF.</string>
-    <string name="pdf_zoom_tip">Dotknij strony, aby powiększyć</string>
     <string name="permission_allow">Akceptuj</string>
     <string name="permission_deny">Odrzuć</string>
-    <string name="permission_storage_access">Wymagane są dodatkowe uprawnienia do pobierania i wysyłania plików.</string>
     <string name="pick_contact_to_share_with">Wybierz kontakt, któremu chcesz udostępnić</string>
     <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu</string>
     <string name="pin_home">Przypnij do ekranu głównego</string>
@@ -800,7 +787,6 @@
     <string name="remove_notification_failed">Usunięcie powiadomienia nie powiodło się.</string>
     <string name="remove_push_notification">Usuń</string>
     <string name="remove_success_msg">Usunięto</string>
-    <string name="remove_upload">Usuń</string>
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
     <string name="rename_local_fail_msg">Nie można zmienić nazwy lokalnej kopii, użyj innej nazwy</string>
     <string name="rename_server_fail_msg">Nie można zmienić nazwy, nazwa jest już zajęta</string>
@@ -896,7 +882,6 @@
     <string name="share_via_link_section_title">Udostępnij link</string>
     <string name="share_via_link_send_link_label">Wyślij link</string>
     <string name="share_via_link_unset_password">Nieustalone</string>
-    <string name="share_with_title">Udostępnij z…</string>
     <string name="shared_avatar_desc">Awatar użytkownika udostępniającego</string>
     <string name="shared_icon_share">udostępnij</string>
     <string name="shared_icon_shared">udostępniono</string>
@@ -953,7 +938,6 @@
     <string name="storage_permission_banner_auto_upload_text">Potrzebne jest pozwolenie aby automatyczne przesyłanie działało</string>
     <string name="storage_permission_banner_upload_text">Potrzebne jest pozwolenie aby przesłać pliki</string>
     <string name="storage_permission_dont_ask">Nie pytaj</string>
-    <string name="storage_permission_full_access">Pełny dostęp</string>
     <string name="storage_permission_media_read_only">Multimedia tylko do odczytu</string>
     <string name="storage_pictures">Obrazy</string>
     <string name="store_full_desc">Samodzielnie hostowana platforma produktywności, która zapewnia Ci kontrolę.\n\nFunkcje:\n* Łatwy, nowoczesny interfejs, dostosowany do motywu Twojego serwera\n* Przesyłaj pliki na serwer Nextcloud\n* Udostępniaj je innym\n* Synchronizuj ulubione pliki i katalogi\n* Przeszukuj wszystkie katalogi na serwerze\n* Automatyczne przesyłanie zdjęć i filmów wykonanych Twoim urządzeniem\n* Bądź na bieżąco dzięki powiadomieniom\n* Obsługa wielu kont\n* Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN\n* Integracja z DAVx⁵ (dawniej znanym jako DAVdroid) w celu łatwej konfiguracji synchronizacji kalendarza i kontaktów\n\nWszystkie problemy należy zgłaszać na stronie https://github.com/nextcloud/android/issues, a dyskusje na temat tej aplikacji na stronie https://help.nextcloud.com/c/clients/android\n\nJesteś nowy w Nextcloud? Nextcloud to prywatny serwer do synchronizacji, udostępniania i komunikacji plików. To wolne oprogramowanie, możesz je hostować samodzielnie lub zapłacić firmie, aby zrobiła to za Ciebie. W ten sposób masz kontrolę nad swoimi zdjęciami, kalendarzem i danymi kontaktowymi, dokumentami i wszystkim innym.\n\nSprawdź Nextcloud na https://nextcloud.com</string>
@@ -1099,7 +1083,6 @@
     <string name="uploader_file_not_found_message">Plik nie znaleziony. Czy jesteś pewien, że ten plik istnieje lub poprzedni konflikt został rozwiązany?</string>
     <string name="uploader_file_not_found_on_server_message">Nie mogliśmy odnaleźć pliku na serwerze. Inny użytkownik mógł usunąć plik</string>
     <string name="uploader_info_dirname">Nazwa katalogu</string>
-    <string name="uploader_local_files_uploaded">Spróbuj ponownie przesłać pliki lokalne, które nie powiodły się</string>
     <string name="uploader_top_message">Wybierz katalog do wysłania</string>
     <string name="uploader_upload_failed_content_single">Nie udało się wysłać %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Wysyłanie nie powiodło się, zaloguj się ponownie</string>

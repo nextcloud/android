@@ -45,22 +45,17 @@
     <string name="appbar_search_in">%s에서 검색</string>
     <string name="appear_offline">접속 안함으로 표시</string>
     <string name="assistant_output_generation_warning_text">이 출력은 AI에 의해 생성되었습니다. 반드시 다시 확인하세요.</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">새 작업 추가</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">텍스트 입력</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">이 작업을 삭제하시겠습니까?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">결과 삭제</string>
     <string name="assistant_screen_empty_content_description">대화를 시작하기 위해 메시지를 보내보세요.</string>
     <string name="assistant_screen_empty_content_title">안녕하세요! 오늘은 무엇을 도와드릴까요?</string>
-    <string name="assistant_screen_loading">작업 목록 불러오는 중...</string>
     <string name="assistant_screen_task_create_fail_message">작업을 생성하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_create_success_message">작업이 성공적으로 생성됨</string>
     <string name="assistant_screen_task_delete_fail_message">작업을 삭제하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_delete_success_message">작업이 성공적으로 삭제됨</string>
-    <string name="assistant_screen_task_list_empty_message">작업 목록이 비어있습니다.</string>
     <string name="assistant_screen_task_list_error_state_message">작업 목록을 가져올 수 없습니다. 인터넷 연결을 확인하세요.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">작업 삭제</string>
     <string name="assistant_screen_task_output_empty_text">작업을 출력할 준비가 되지 않았습니다.</string>
-    <string name="assistant_screen_task_types_error_state_message">작업 유형을 가져올 수 없습니다. 인터넷 연결을 확인하세요.</string>
     <string name="assistant_screen_top_bar_title">어시스턴트</string>
     <string name="assistant_task_detail_screen_input_button_title">입력</string>
     <string name="assistant_task_detail_screen_output_button_title">출력</string>
@@ -120,6 +115,7 @@
     <string name="busy">바쁨</string>
     <string name="calendar">일정</string>
     <string name="calendars">일정</string>
+    <string name="cancel_upload">취소</string>
     <string name="certificate_load_problem">인증서를 불러올 수 없습니다.</string>
     <string name="changelog_dev_version">개발 버전 변경점</string>
     <string name="check_back_later_or_reload">잠시 후 다시 확인하거나 새로고침 하십시오.</string>
@@ -205,7 +201,6 @@
     <string name="conversation_screen_empty_content_title">대화를 찾을 수 없습니다.</string>
     <string name="conversation_screen_empty_conversation_list_title">아직 대화가 존재하지 않음</string>
     <string name="conversation_screen_title">대화</string>
-    <string name="copied_to_clipboard">클립보드로 복사됨</string>
     <string name="copy_file_error">이 파일이나 폴더를 복사할 수 없음</string>
     <string name="copy_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 복사할 수 없음</string>
     <string name="copy_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
@@ -399,10 +394,8 @@
     <string name="file_list_loading">불러오는 중…</string>
     <string name="file_list_no_app_for_file_type">이 파일을 위한 앱이 존재하지 않습니다.</string>
     <string name="file_list_seconds_ago">초 전</string>
-    <string name="file_management_permission">권한 필요함</string>
     <string name="file_management_permission_optional">저장소 권한</string>
     <string name="file_management_permission_optional_text">%1$s은(는) 저장소에 접근할 권한이 있어야 원활하게 동작합니다. 모든 파일에 대한 완전한 접근 혹은 사진과 동영상에 대한 읽기 전용 접근 중 하나를 선택할 수 있습니다.</string>
-    <string name="file_management_permission_text">%1$s은(는) 파일 권한이 있어야 원활하게 작동합니다. 모든 파일에 대한 완전한 접근 혹은 사진과 동영상에 대한 읽기 전용 접근 중 하나를 선택할 수 있습니다.</string>
     <string name="file_migration_allow_media_indexing">다른 앱에서의 접근 허용</string>
     <string name="file_migration_checking_destination">대상 점검 중…</string>
     <string name="file_migration_cleaning">정리 중…</string>
@@ -438,7 +431,6 @@
     <string name="file_rename">이름 바꾸기</string>
     <string name="file_upload_worker_error_notification_title">업로드 실패. 인터넷에 연결되지 않았습니다</string>
     <string name="file_version_restored_error">파일 버전을 되돌리는데 오류가 발생했습니다.</string>
-    <string name="file_version_restored_successfully">성공적으로 파일 버전을 되돌렸습니다.</string>
     <string name="filedetails_details">세부사항</string>
     <string name="filedetails_download">다운로드</string>
     <string name="filedetails_export">내보내기</string>
@@ -472,7 +464,6 @@
     <string name="foreign_files_local_text">로컬: %1$s</string>
     <string name="foreign_files_move">모두 이동</string>
     <string name="foreign_files_remote_text">원격: %1$s</string>
-    <string name="foreign_files_success">모든 파일이 이동됨</string>
     <string name="forward">앞으로</string>
     <string name="fourHours">4 시간</string>
     <string name="gplay_restriction">Google이 APK/AAB 파일 다운로드를 제한했습니다!</string>
@@ -526,7 +517,6 @@
     <string name="locked_by_app">%1$s앱에 의해 잠김</string>
     <string name="log_send_mail_subject">%1$s Android 앱 로그</string>
     <string name="log_send_no_mail_app">로그 전송용 앱이 없습니다. 이메일 클라이언트를 설치하십시오.</string>
-    <string name="logged_in_as">%1$s(으)로 로그인됨</string>
     <string name="login">로그인</string>
     <string name="login_url_helper_text">%1$s 웹 인터페이스를 브라우저에서 열면 링크됩니다.</string>
     <string name="logs_menu_delete">로그 삭제</string>
@@ -616,7 +606,6 @@
     <string name="outdated_server">서버의 수명이 다된것 같네요, 업그레이드 해주세요!</string>
     <string name="overflow_menu">메뉴 더 보기</string>
     <string name="pass_code_configure_your_pass_code">암호를 입력하십시오</string>
-    <string name="pass_code_configure_your_pass_code_explanation">앱을 시작할 때마다 암호를 물어봅니다</string>
     <string name="pass_code_enter_pass_code">암호를 입력하십시오</string>
     <string name="pass_code_mismatch">암호가 일치하지 않습니다</string>
     <string name="pass_code_reenter_your_pass_code">암호를 다시 입력하십시오</string>
@@ -624,11 +613,10 @@
     <string name="pass_code_removed">암호 삭제됨</string>
     <string name="pass_code_stored">암호 저장됨</string>
     <string name="pass_code_wrong">암호가 잘못됨</string>
+    <string name="pause_upload">일시 정지</string>
     <string name="pdf_password_protected">암호로 보호된 PDF를 열 수 없습니다. 외부 PDF 뷰어를 사용하세요.</string>
-    <string name="pdf_zoom_tip">페이지를 탭하여 확대</string>
     <string name="permission_allow">허용</string>
     <string name="permission_deny">거부</string>
-    <string name="permission_storage_access">파일을 업로드 및 다운로드하려면 추가 권한이 필요합니다.</string>
     <string name="pick_contact_to_share_with">공유할 연락처를 선택</string>
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없음</string>
     <string name="pin_shortcut_label">%1$s 열기</string>
@@ -732,7 +720,6 @@
     <string name="remove_notification_failed">알림을 지우는데 실패했습니다.</string>
     <string name="remove_push_notification">삭제</string>
     <string name="remove_success_msg">삭제함</string>
-    <string name="remove_upload">삭제</string>
     <string name="rename_dialog_title">새 이름 입력</string>
     <string name="rename_local_fail_msg">로컬 파일의 이름을 변경할 수 없습니다. 다른 이름을 입력하십시오</string>
     <string name="rename_server_fail_msg">이름을 변경할 수 없음. 이름이 이미 사용중입니다.</string>
@@ -815,7 +802,6 @@
     <string name="share_via_link_section_title">링크 공유</string>
     <string name="share_via_link_send_link_label">링크 보내기</string>
     <string name="share_via_link_unset_password">설정 해제</string>
-    <string name="share_with_title">다음과 공유</string>
     <string name="shared_avatar_desc">공유 사용자의 아바타</string>
     <string name="shared_icon_share">공유</string>
     <string name="shared_icon_shared">공유됨</string>
@@ -868,7 +854,6 @@
     <string name="storage_internal_storage">내부 저장소</string>
     <string name="storage_movies">영화</string>
     <string name="storage_music">음악</string>
-    <string name="storage_permission_full_access">완전한 접근</string>
     <string name="storage_permission_media_read_only">읽기 전용 미디어 접근</string>
     <string name="storage_pictures">그림</string>
     <string name="store_full_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼.\n이는 공식 개발 버전으로, 테스트되지 않은 새로운 기능을 매일 샘플로 제공하므로 불안정과 데이터 손실이 발생할 수 있습니다. 이 애플리케이션은 기꺼이 테스트하고 버그가 발생하면 보고하는 사용자를 대상으로 합니다. 생산적인 작업에는 사용하지 마십시오!\n\n공식 개발 버전 및 일반 버전은 모두 F-droid에서 사용할 수 있으며, 동시에 설치할 수 있습니다.</string>
@@ -1005,7 +990,6 @@
     <string name="uploader_file_not_found_message">파일을 찾을 수 없음. 이 파일의 존재 및 파일 충돌 여부를 다시 확인하십시오.</string>
     <string name="uploader_file_not_found_on_server_message">파일을 서버에서 찾을 수 없습니다. 다른 사용자가 파일을 삭제했을 수도 있습니다</string>
     <string name="uploader_info_dirname">폴더 이름</string>
-    <string name="uploader_local_files_uploaded">실패한 파일 업로드 다시 시도</string>
     <string name="uploader_top_message">업로드 폴더 선택</string>
     <string name="uploader_upload_failed_content_single">%1$s을(를) 업로드할 수 없음</string>
     <string name="uploader_upload_failed_credentials_error">업로드 실패, 다시 로그인하십시오</string>

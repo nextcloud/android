@@ -42,22 +42,17 @@
     <string name="app_widget_description">Mostra un giny del tauler</string>
     <string name="appbar_search_in">Cerca a %s</string>
     <string name="appear_offline">Apareixeu fora de línia</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Afegeix una tasca nova</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriu una mica de text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Segur que voleu suprimir aquesta tasca?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Suprimeix la tasca</string>
     <string name="assistant_screen_empty_content_description">Prova d\'enviar un missatge per iniciar una conversa.</string>
     <string name="assistant_screen_empty_content_title">Hola! En què et puc ajudar avui?</string>
-    <string name="assistant_screen_loading">S\'està carregant la llista de tasques...</string>
     <string name="assistant_screen_task_create_fail_message">S\'ha produït un error en crear la tasca</string>
     <string name="assistant_screen_task_create_success_message">La tasca s\'ha creat correctament</string>
     <string name="assistant_screen_task_delete_fail_message">S\'ha produït un error en suprimir la tasca</string>
     <string name="assistant_screen_task_delete_success_message">La tasca s\'ha suprimit correctament</string>
-    <string name="assistant_screen_task_list_empty_message">La llista de grups està buida.</string>
     <string name="assistant_screen_task_list_error_state_message">No s\'ha pogut obtenir la llista de tasques. Comproveu la vostra connexió a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Suprimeix la tasca</string>
     <string name="assistant_screen_task_output_empty_text">La sortida de la tasca encara no està a punt.</string>
-    <string name="assistant_screen_task_types_error_state_message">No s\'han pogut obtenir els tipus de tasques. Comproveu la connexió a Internet.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Sortida</string>
@@ -117,6 +112,7 @@
     <string name="busy">Ocupat</string>
     <string name="calendar">Calendari</string>
     <string name="calendars">Calendaris</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Hi ha un problema carregant el certificat.</string>
     <string name="changelog_dev_version">Històric de canvis de la versió de desenvolupament</string>
     <string name="check_back_later_or_reload">Torneu-ho a comprovar més tard o torneu a carregar.</string>
@@ -204,7 +200,6 @@
     <string name="conversation_screen_empty_conversation_list_title">Encara no hi ha converses</string>
     <string name="conversation_screen_title">Converses</string>
     <string name="copied">Copiat</string>
-    <string name="copied_to_clipboard">Copiat al porta-retalls</string>
     <string name="copy_file_error">Hi ha hagut un error en copiar aquest fitxer o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No és possible copiar una carpeta a cap de les que conté</string>
     <string name="copy_file_invalid_overwrite">El fitxer ja existeix a la carpeta de destinació</string>
@@ -395,10 +390,8 @@
     <string name="file_list_loading">S\'està carregant…</string>
     <string name="file_list_no_app_for_file_type">No hi ha cap aplicació configurada per gestionar aquest tipus de fitxer.</string>
     <string name="file_list_seconds_ago">fa uns segons</string>
-    <string name="file_management_permission">Es necessiten permisos</string>
     <string name="file_management_permission_optional">Permisos d\'emmagatzematge</string>
     <string name="file_management_permission_optional_text">%1$streballa millor amb permisos d\'accés a l\'emmagatzematge. Podeu triar entre accés complet als fitxers o accés de només lectura a fotografies i vídeos.</string>
-    <string name="file_management_permission_text">%1$snecessita permisos de  gestió de fitxers per a la pujada de fitxers. Podeu triar entre accés complet als fitxers o accés de només lectura a fotografies i vídeos.</string>
     <string name="file_migration_allow_media_indexing">Permet l\'accés des d\'altres aplicacions</string>
     <string name="file_migration_checking_destination">S\'està comprovant la destinació…</string>
     <string name="file_migration_cleaning">S\'està netejant…</string>
@@ -433,7 +426,6 @@
     <string name="file_not_synced">El fitxer no s\'ha pogut sincronitzar. Se\'n mostra la darrera versió disponible.</string>
     <string name="file_rename">Canvia el nom</string>
     <string name="file_version_restored_error">S\'ha produït un error restaurant la versió del fitxer!</string>
-    <string name="file_version_restored_successfully">Versió del fitxer restaurada amb èxit.</string>
     <string name="filedetails_details">Detalls</string>
     <string name="filedetails_download">Baixada</string>
     <string name="filedetails_export">Exporta</string>
@@ -467,7 +459,6 @@
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_move">Mou-los tots</string>
     <string name="foreign_files_remote_text">Remot: %1$s</string>
-    <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
     <string name="forward">Endavant</string>
     <string name="fourHours">4 hores</string>
     <string name="gplay_restriction">Google ha restringit la baixada de fitxers APK/AAB!</string>
@@ -521,7 +512,6 @@
     <string name="locked_by_app">Blocat per l\'aplicació %1$s</string>
     <string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
     <string name="log_send_no_mail_app">No s\'ha trobat cap aplicació per enviar els registres. Instal·leu un client de correu electrònic.</string>
-    <string name="logged_in_as">S\'ha iniciat la sessió com a %1$s</string>
     <string name="login">Inicia la sessió</string>
     <string name="login_url_helper_text">Enllaç a la interfície web del %1$s quan l\'obriu en el navegador.</string>
     <string name="logs_menu_delete">Suprimeix els registres</string>
@@ -610,7 +600,6 @@
     <string name="outdated_server">El servidor ha arribat al final de la seva vida, si us plau actualitzeu!</string>
     <string name="overflow_menu">Menú més</string>
     <string name="pass_code_configure_your_pass_code">Escriviu el vostre codi d\'accés</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Es requerirà el codi d\'accés cada vegada que s\'iniciï l\'aplicació</string>
     <string name="pass_code_enter_pass_code">Escriviu el codi d\'accés</string>
     <string name="pass_code_mismatch">Els codis d\'accés no coincideixen</string>
     <string name="pass_code_reenter_your_pass_code">Torneu a escriure el codi d\'accés</string>
@@ -618,11 +607,10 @@
     <string name="pass_code_removed">S\'ha suprimit el codi d\'accés</string>
     <string name="pass_code_stored">S\'ha desat el codi d\'accés</string>
     <string name="pass_code_wrong">Codi d\'accés incorrecte</string>
+    <string name="pause_upload">Posa en pausa</string>
     <string name="pdf_password_protected">No s\'ha pogut obrir el PDF protegit amb contrasenya. Utilitzeu un visor PDF extern.</string>
-    <string name="pdf_zoom_tip">Toca en una pàgina per ampliar</string>
     <string name="permission_allow">Permet</string>
     <string name="permission_deny">Denega</string>
-    <string name="permission_storage_access">Es necessiten permisos addicionals per pujada i baixada de fitxers.</string>
     <string name="pick_contact_to_share_with">Trieu el contacte amb què compartir</string>
     <string name="picture_set_as_no_app">No s\'ha trobat cap aplicació per establir-hi la foto</string>
     <string name="pin_home">Fixa-ho a la pantalla d\'inici</string>
@@ -796,7 +784,6 @@
     <string name="share_via_link_section_title">Comparteix l\'enllaç</string>
     <string name="share_via_link_send_link_label">Envia l\'enllaç</string>
     <string name="share_via_link_unset_password">No definit</string>
-    <string name="share_with_title">Comparteix amb…</string>
     <string name="shared_avatar_desc">Avatar de l\'usuari compartit</string>
     <string name="shared_icon_share">comparteix</string>
     <string name="shared_icon_shared">compartit</string>
@@ -847,7 +834,6 @@
     <string name="storage_internal_storage">Emmagatzematge intern</string>
     <string name="storage_movies">Peŀlícules</string>
     <string name="storage_music">Música</string>
-    <string name="storage_permission_full_access">Accés complet</string>
     <string name="storage_permission_media_read_only">Medis de només lectura</string>
     <string name="storage_pictures">Fotos</string>
     <string name="store_full_dev_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades.\nAquesta és la versió oficial en desenvolupament, que permet provar qualsevol novetat diària, i que per tant pot causar inestabilitat i fins i tot la pèrdua de dades. Aquesta aplicació és pels usuaris que estan disposats a provar i informar d\'incidències. No feu servir aquesta versió de l\'aplicació en el vostre entorn de feina!\n\nAmbdues versions, la de desenvolupament i la normal, són disponibles a F-droid, i poden ser instal·lades al mateix temps.</string>

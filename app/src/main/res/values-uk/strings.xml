@@ -45,24 +45,18 @@
     <string name="appbar_search_in">Пошук у %s</string>
     <string name="appear_offline">Перебуваю поза мережею</string>
     <string name="assistant_output_generation_warning_text">Показаний тут результат генерується штучним інтелектом. Обов\'язково перевіряйте його двічі.</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Додати нове завдання</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Створити нове завдання праворуч внизу</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Вставте будь-який текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Дійсно вилучити це завдання?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Вилучити завдання</string>
     <string name="assistant_screen_empty_content_description">Спробуйте надіслати повідомлення, щоб розпочати розмову.</string>
     <string name="assistant_screen_empty_content_title">Привіт! Чим я можу вам сьогодні допомогти?</string>
-    <string name="assistant_screen_loading">Отримання списку завдань...</string>
     <string name="assistant_screen_task_create_fail_message">Помилка під час додавання завдання</string>
     <string name="assistant_screen_task_create_success_message">Успішно додано завдання</string>
     <string name="assistant_screen_task_delete_fail_message">Помилка під час вилучення завдання</string>
     <string name="assistant_screen_task_delete_success_message">Завдання вилучено</string>
-    <string name="assistant_screen_task_list_empty_message">Список завдань порожній</string>
     <string name="assistant_screen_task_list_empty_warning">Список завдань порожній. Перевірте налаштування застосунку асистента.</string>
     <string name="assistant_screen_task_list_error_state_message">Неможливо отримати список завдань. Перевірте з\'єднання з мережею</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Вилучити завдання</string>
     <string name="assistant_screen_task_output_empty_text">Поки неможливо показати завдання</string>
-    <string name="assistant_screen_task_types_error_state_message">Не вдалося отримати типи завдань. Перевірте з\'єднання з мережею.</string>
     <string name="assistant_screen_top_bar_title">Помічник</string>
     <string name="assistant_task_detail_screen_input_button_title">Введення</string>
     <string name="assistant_task_detail_screen_output_button_title">Виведення</string>
@@ -130,6 +124,7 @@
     <string name="busy">Зайнято</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календарі</string>
+    <string name="cancel_upload">Скасувати</string>
     <string name="certificate_load_problem">Помилка завантаження сертифіката.</string>
     <string name="changelog_dev_version">Версія для розробника зі списку змін</string>
     <string name="check_back_later_or_reload">Перевірити пізніше або перезавантажити.</string>
@@ -218,7 +213,6 @@
     <string name="conversation_screen_empty_conversation_list_title">Поки що немає розмов</string>
     <string name="conversation_screen_title">Розмови</string>
     <string name="copied">Скопійовано</string>
-    <string name="copied_to_clipboard">Скопійовано</string>
     <string name="copy_file_error">Виникла помилка під час спроби копіювати цей файл або каталог</string>
     <string name="copy_file_invalid_into_descendent">Неможливо скопіювати каталог до одного із вкладених підкаталогів</string>
     <string name="copy_file_invalid_overwrite">Файл вже присутній у каталозі призначення</string>
@@ -431,10 +425,8 @@
     <string name="file_list_loading">Завантаження…</string>
     <string name="file_list_no_app_for_file_type">Відсутній застосунок для відкриття файлу такого типу.</string>
     <string name="file_list_seconds_ago">кілька секунд тому</string>
-    <string name="file_management_permission">Потрібні дозволи</string>
     <string name="file_management_permission_optional">Доступ до пам\'яти</string>
     <string name="file_management_permission_optional_text">%1$s Найкраще працює з дозволами для доступу до зберігання. Ви можете вибрати повний доступ до всіх файлів або доступ лише для читання до фотографій і відео.</string>
-    <string name="file_management_permission_text">%1$s для завантаження файлів потрібні дозволи на керування файлами. Ви можете вибрати повний доступ до всіх файлів або доступ лише для читання до фотографій і відео.</string>
     <string name="file_migration_allow_media_indexing">Дозволити доступ з інших застосунків</string>
     <string name="file_migration_checking_destination">Перевірка місця призначення...</string>
     <string name="file_migration_cleaning">Очищення...</string>
@@ -472,7 +464,6 @@
     <string name="file_upload_worker_error_notification_title">Не вдалося завантажити. Відсутнє з\'єднання з мережею.</string>
     <string name="file_upload_worker_same_file_already_exists">%s вже наявний, відсутні конфлікти</string>
     <string name="file_version_restored_error">Помилка під час відновлення версії файлу!</string>
-    <string name="file_version_restored_successfully">Успішно відновлено версію файлу.</string>
     <string name="filedetails_details">Деталі</string>
     <string name="filedetails_download">Отримати</string>
     <string name="filedetails_export">Експортувати</string>
@@ -512,7 +503,6 @@
     <string name="foreign_files_local_text">Локально: %1$s</string>
     <string name="foreign_files_move">Перемістити все</string>
     <string name="foreign_files_remote_text">Віддалено: %1$s</string>
-    <string name="foreign_files_success">Усі файли переміщено</string>
     <string name="forward">Вперед</string>
     <string name="fourHours">4 години</string>
     <string name="gplay_restriction">Ґуґл обмежив звантаження файлів APK/AAB!</string>
@@ -567,7 +557,6 @@
     <string name="locked_by_app">Заблоковано %1$s</string>
     <string name="log_send_mail_subject">%1$s Журнали застосунку для Android</string>
     <string name="log_send_no_mail_app">Не знайдено застосунку для надсилання журналу. Будь ласка, встановіть поштовий клієнт.</string>
-    <string name="logged_in_as">Увійшли як %1$s</string>
     <string name="login">Увійти</string>
     <string name="login_url_helper_text">Посилання на ваш веб-інтерфейс %1$s, коли ви відкриєте його у веб-переглядачі.</string>
     <string name="logs_menu_delete">Вилучити журнал</string>
@@ -669,7 +658,6 @@
     <string name="outdated_server">Завершилася підтримка серверної версії, будь ласка, встановіть нову! </string>
     <string name="overflow_menu">Більше параметрів</string>
     <string name="pass_code_configure_your_pass_code">Зазначте пароль</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Щоразу під час запуску застосунку вам потрібно буде зазначати пароль</string>
     <string name="pass_code_enter_pass_code">Введіть пароль на застосунок</string>
     <string name="pass_code_explanation">Код доступу буде запитуватися щоразу, як застосунок відкриватимуть або повторно відкриють через 5 секунд.</string>
     <string name="pass_code_mismatch">Парольні фрази не збігаються</string>
@@ -678,11 +666,10 @@
     <string name="pass_code_removed">Пароль вилучено</string>
     <string name="pass_code_stored">Пароль збережено</string>
     <string name="pass_code_wrong">Недійсний пароль</string>
+    <string name="pause_upload">Пауза</string>
     <string name="pdf_password_protected">Неможливо відкрити файл PDF, який захищено паролем. Скористайтеся зовнішнім переглядачем PDF.</string>
-    <string name="pdf_zoom_tip">Тапніть по сторінці для збільшення</string>
     <string name="permission_allow">Дозволити</string>
     <string name="permission_deny">Заборонити</string>
-    <string name="permission_storage_access">Додаткові дозволи потрібні для завантаження та звантаження файлів.</string>
     <string name="pick_contact_to_share_with">Виберіть контакт для обміну</string>
     <string name="picture_set_as_no_app">Не знайдено застосунків для встановлення зображення для</string>
     <string name="pin_home">Закріпити на домівці</string>
@@ -789,7 +776,6 @@
     <string name="remove_notification_failed">Неможливо зняти сповіщення.</string>
     <string name="remove_push_notification">Вилучити</string>
     <string name="remove_success_msg">Вилучено</string>
-    <string name="remove_upload">Вилучити</string>
     <string name="rename_dialog_title">Введіть нове ім\'я</string>
     <string name="rename_local_fail_msg">Неможливо перейменувати локальну копію, спробуйте інше ім\'я</string>
     <string name="rename_server_fail_msg">Неможливо перейменувати, таке ім\'я уже існує</string>
@@ -885,7 +871,6 @@
     <string name="share_via_link_section_title">Поділитися посиланням</string>
     <string name="share_via_link_send_link_label">Надіслати посилання</string>
     <string name="share_via_link_unset_password">Зняти</string>
-    <string name="share_with_title">Поділитися з...</string>
     <string name="shared_avatar_desc">Значок спільного користувача</string>
     <string name="shared_icon_share">поділитися</string>
     <string name="shared_icon_shared">надано доступ</string>
@@ -938,7 +923,6 @@
     <string name="storage_internal_storage">Внутрішнє сховище</string>
     <string name="storage_movies">Відео</string>
     <string name="storage_music">Музика</string>
-    <string name="storage_permission_full_access">Повний доступ</string>
     <string name="storage_permission_media_read_only">Мультимедія лише для читання</string>
     <string name="storage_pictures">Зображення</string>
     <string name="store_full_desc">Самостійна платформа для підвищення продуктивності, яка дозволяє вам зберігати контроль. n\nОсобливості:\n* Простий, сучасний інтерфейс, що відповідає темі вашого сервера\n* Завантажуйте файли на ваш сервер Nextcloud\n* Діліться ними з іншими\n* Синхронізуйте ваші улюблені файли та папки\n* Здійснюйте пошук у всіх папках на вашому сервері\n* Автоматичне завантаження фотографій та відео, зроблених вашим пристроєм\n* Будьте в курсі подій завдяки сповіщенням\n* Підтримка декількох облікових записів\n* Безпечний доступ до ваших даних за допомогою відбитка пальця або PIN-коду\n* Інтеграція з DAVx⁵ (раніше відомим як DAVdroid) для легкого налаштування синхронізації календаря та контактів\n\nБудь ласка, повідомляйте про всі проблеми на https://github.com/nextcloud/android/issues та обговорюйте цей додаток на https://help.nextcloud.com/c/clients/android\n\nНовий у Nextcloud? Nextcloud — це приватний сервер для синхронізації та обміну файлами, а також для спілкування. Це вільне програмне забезпечення, яке ви можете розмістити самостійно або заплатити компанії, щоб вона зробила це за вас. Таким чином, ви контролюєте свої фотографії, календар і контакти, документи та все інше.\n\nОзнайомтеся з Nextcloud на https://nextcloud.com</string>
@@ -1084,7 +1068,6 @@
     <string name="uploader_file_not_found_message">Файл не знайдено. Чи файл дійсно присутній? Можливо, що попередній конфлікт не було вирішено?</string>
     <string name="uploader_file_not_found_on_server_message">Не вдалося знайти файл на сервері. Можливо, що інший користувач раніше вилучив цей файл.</string>
     <string name="uploader_info_dirname">Назва каталогу</string>
-    <string name="uploader_local_files_uploaded">Повторно після помилки завантажити файли, що на пристрої</string>
     <string name="uploader_top_message">Оберіть каталог для завантаження</string>
     <string name="uploader_upload_failed_content_single">Не вдалося завантажити %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Помилка під час завантаження, увійдіть ще раз</string>

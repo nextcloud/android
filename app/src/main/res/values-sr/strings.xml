@@ -45,23 +45,17 @@
     <string name="appbar_search_in">Тражи у %s</string>
     <string name="appear_offline">Прикажи као ван мреже</string>
     <string name="assistant_output_generation_warning_text">Излаз који је овде приказан је генерисала AI. Обавезно га детаљно проверите.</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Додај нови задатак</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Креирај нови задатак од доњег десног</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Откуцајте неки текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Да ли сте сигурни да желите да обришете овај задатак?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Обриши задатак</string>
     <string name="assistant_screen_empty_content_description">Покушајте да пошаљете поруку и тако започнете разговор.</string>
     <string name="assistant_screen_empty_content_title">Здраво! Како данас могу да вам помогнем?</string>
-    <string name="assistant_screen_loading">Листа задатака се учитава…</string>
     <string name="assistant_screen_task_create_fail_message">Дошло је до грешке током креирања задатка</string>
     <string name="assistant_screen_task_create_success_message">Задатак је успешно креиран</string>
     <string name="assistant_screen_task_delete_fail_message">Дошло је до грешке током брисања задатка</string>
     <string name="assistant_screen_task_delete_success_message">Задатак је успешно завршен</string>
-    <string name="assistant_screen_task_list_empty_message">Листа задатака је празна.</string>
     <string name="assistant_screen_task_list_error_state_message">Не може да се преузме листа задатака, молимо вас да проверите везу са интернетом.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Обриши задатак</string>
     <string name="assistant_screen_task_output_empty_text">Излаз задатка још увек није спреман.</string>
-    <string name="assistant_screen_task_types_error_state_message">Не могу да се преузму типови задатака, молимо вас да проверите везу са интернетом.</string>
     <string name="assistant_screen_top_bar_title">Асистент</string>
     <string name="assistant_task_detail_screen_input_button_title">Унос</string>
     <string name="assistant_task_detail_screen_output_button_title">Излаз</string>
@@ -129,6 +123,7 @@
     <string name="busy">Заузет</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календари</string>
+    <string name="cancel_upload">Откажи</string>
     <string name="certificate_load_problem">Појавио се проблем приликом учитавања сертификата.</string>
     <string name="changelog_dev_version">Дневник измена развојне верзије</string>
     <string name="check_back_later_or_reload">Покушајте касније или поново учитајте.</string>
@@ -218,7 +213,6 @@
     <string name="conversation_screen_empty_conversation_list_title">Још увек нема разговора</string>
     <string name="conversation_screen_title">Разговори</string>
     <string name="copied">Копирано</string>
-    <string name="copied_to_clipboard">Копирано у клипборд</string>
     <string name="copy_file_error">Грешка приликом копирања овог фајла или фасцикле</string>
     <string name="copy_file_invalid_into_descendent">Фасцикла се не може копирати у неку од својих потфасцикли.</string>
     <string name="copy_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
@@ -429,10 +423,8 @@
     <string name="file_list_loading">Учитавам…</string>
     <string name="file_list_no_app_for_file_type">Немате апликацију за овај тип фајла.</string>
     <string name="file_list_seconds_ago">пре пар секунди</string>
-    <string name="file_management_permission">Потребне дозволе</string>
     <string name="file_management_permission_optional">Дозволе за складиште</string>
     <string name="file_management_permission_optional_text">%1$s најбоље ради када има дозволу да приступи складишту. Можете избрати пуни приступ свим фајловима, или приступ само-за -читање фотографија и видео снимака.</string>
-    <string name="file_management_permission_text">%1$s захтева дозволе управљања за отпремање фајлова. Можете изабрати пуни приступ свим фајловима, или приступ само-за-читање слика и видео снимака.</string>
     <string name="file_migration_allow_media_indexing">Дозволи приступ из осталих апликација</string>
     <string name="file_migration_checking_destination">Проверавам одредиште…</string>
     <string name="file_migration_cleaning">Чистим…</string>
@@ -470,7 +462,6 @@
     <string name="file_upload_worker_error_notification_title">Отпремање није успело. Нема везе са интернетом</string>
     <string name="file_upload_worker_same_file_already_exists">%s већ постоји, није откривен конфликт</string>
     <string name="file_version_restored_error">Грешка при враћању верзије фајла!</string>
-    <string name="file_version_restored_successfully">Успешно враћена верзија фајла.</string>
     <string name="filedetails_details">Детаљи</string>
     <string name="filedetails_download">Преузми</string>
     <string name="filedetails_export">Извези</string>
@@ -510,7 +501,6 @@
     <string name="foreign_files_local_text">Локални: %1$s</string>
     <string name="foreign_files_move">Премести све</string>
     <string name="foreign_files_remote_text">Удаљени: %1$s</string>
-    <string name="foreign_files_success">Сви фајлови су премештени</string>
     <string name="forward">Проследи</string>
     <string name="fourHours">4 сата</string>
     <string name="gplay_restriction">Google је забранио преузимање APK/AAB фајлова!</string>
@@ -565,7 +555,6 @@
     <string name="locked_by_app">Закључала апликација %1$s </string>
     <string name="log_send_mail_subject">Записници %1$s Андроид апликације</string>
     <string name="log_send_no_mail_app">Нема апликације за слање дневника. Инсталирајте клијент за е-пошту.</string>
-    <string name="logged_in_as">Пријављен као %1$s</string>
     <string name="login">Пријава</string>
     <string name="login_url_helper_text">Линк на ваш %1$s веб интерфејс када га отворите у прегледачу.</string>
     <string name="logs_menu_delete">Обриши записнике</string>
@@ -667,7 +656,6 @@
     <string name="outdated_server">Сервер је превише стар. Ажурирајте га!</string>
     <string name="overflow_menu">Додатни мени</string>
     <string name="pass_code_configure_your_pass_code">Унесите кôд</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Код ће бити затражен сваки пут кад се апликација покрене</string>
     <string name="pass_code_enter_pass_code">Унесите ваш кôд</string>
     <string name="pass_code_mismatch">Кодови се не поклапају</string>
     <string name="pass_code_reenter_your_pass_code">Поново унесите свој кôд</string>
@@ -675,11 +663,10 @@
     <string name="pass_code_removed">Кôд обрисан</string>
     <string name="pass_code_stored">Код је сачуван</string>
     <string name="pass_code_wrong">Неисправан код</string>
+    <string name="pause_upload">Паузирај</string>
     <string name="pdf_password_protected">Не може да се отвори PDF заштићен лозинком. Молимо вас да употребите спољни PDF приказивач.</string>
-    <string name="pdf_zoom_tip">Тапните на страницу да је зумирате</string>
     <string name="permission_allow">Дозволи</string>
     <string name="permission_deny">Одбиј</string>
-    <string name="permission_storage_access">Потребне су дозволе за отпремање и преузимање фајлова.</string>
     <string name="pick_contact_to_share_with">Изаберите контакт са којим желите да поделите</string>
     <string name="picture_set_as_no_app">Нема апликације којом се поставља слика</string>
     <string name="pin_home">Закачи на почетни екран</string>
@@ -786,7 +773,6 @@
     <string name="remove_notification_failed">Грешка при уклањању обавештења.</string>
     <string name="remove_push_notification">Уклони</string>
     <string name="remove_success_msg">Обрисано</string>
-    <string name="remove_upload">Уклони</string>
     <string name="rename_dialog_title">Унесите нов назив</string>
     <string name="rename_local_fail_msg">Не могу да преименујем локалну копију. Пробајте други назив</string>
     <string name="rename_server_fail_msg">Преименовање није могуће. Назив већ постоји</string>
@@ -882,7 +868,6 @@
     <string name="share_via_link_section_title">Веза дељења</string>
     <string name="share_via_link_send_link_label">Пошаљи везу</string>
     <string name="share_via_link_unset_password">Уклони</string>
-    <string name="share_with_title">Подели са…</string>
     <string name="shared_avatar_desc">Аватар од дељеног корисника</string>
     <string name="shared_icon_share">дељење</string>
     <string name="shared_icon_shared">подељено</string>
@@ -935,7 +920,6 @@
     <string name="storage_internal_storage">Интерно складиште</string>
     <string name="storage_movies">Филмови</string>
     <string name="storage_music">Музика</string>
-    <string name="storage_permission_full_access">Пуни приступ</string>
     <string name="storage_permission_media_read_only">Само читање медија</string>
     <string name="storage_pictures">Слике</string>
     <string name="store_full_desc">Платформа продуктивности на вашем серверу и под вашом контролом.\nОсобине:\n* Једноставан и модеран интерфејс, усклађен са темом на серверу\n* Отпремање фајлова на Nextcloud сервер\n* Дељење фајлова са другима\n* Синхронизација омиљених фајлова и фасцикли\n* Претрага кроз све фасцикле на серверу\n* Аутоматско отпремање слика и видео записа са уређаја\n* Обавештења са сервера\n* Подршка за више налога\n* Безбедан приступ свим подацима преко отиска прста или пина\n* Интеграција са DAVx⁵ (раније познатом као DAVdroid) за лако подешавање синхронизације календара и контаката\n\nСве проблеме можете да пријавите на https://github.com/nextcloud/android/issues а о апликацији дискутујте на https://help.nextcloud.com/c/clients/android\n\nНови сте на Nextcloud? Nextcloud је лични сервер за синхронизацију, дељење фајлова и комуникацију. То је слободан софтвер и можете га сами поставити на свој сервер или платити компанији да то учини уместо вас. На тај начин, сами контролишете своје слике, календаре, контакте, документа и све остало.\n\nПогледајте Nextcloud на https://nextcloud.com</string>
@@ -1081,7 +1065,6 @@
     <string name="uploader_file_not_found_message">Фајл није пронађен. Да ли сте стигурни да овај фајл постоји, или да можда конфилкт већ раније није разрешен?</string>
     <string name="uploader_file_not_found_on_server_message">Нисмо могли да лоцирамо фајл на серверу. Можда га је обрисао неки други корисник</string>
     <string name="uploader_info_dirname">Назив фасцикле</string>
-    <string name="uploader_local_files_uploaded">Покушајте поново да отпремите локалне фајлове</string>
     <string name="uploader_top_message">Одредите фасциклу за отпремање</string>
     <string name="uploader_upload_failed_content_single">Не могу да отпремим %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Неуспешно отпремање. Поново се пријавите</string>

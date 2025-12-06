@@ -75,6 +75,7 @@
     <string name="battery_optimization_title">Optimizacija baterije</string>
     <string name="bottom_navigation_menu_favorites_label">Omiljene</string>
     <string name="bottom_navigation_menu_files_label">Svi fajlovi</string>
+    <string name="cancel_upload">Poništi</string>
     <string name="certificate_load_problem">Pojavio se problem prilikom učitavanja sertifikata.</string>
     <string name="changelog_dev_version">Dnevnik izmena razvojne verzije</string>
     <string name="checkbox">Štikliranje</string>
@@ -135,7 +136,6 @@
     <string name="contacts_preferences_import_scheduled">Uvoženje je zakazano i počeće uskoro</string>
     <string name="contacts_preferences_no_file_found">Nijedan fajl nije nađen</string>
     <string name="contacts_preferences_something_strange_happened">Ne mogu da nađem poslednju rezervu!</string>
-    <string name="copied_to_clipboard">Kopirano u ostavu</string>
     <string name="copy_file_error">Greška prilikom kopiranja ovog fajla ili fascikle</string>
     <string name="copy_file_invalid_into_descendent">Ne može da se iskopira fascikla u neku od svojih podfascikli.</string>
     <string name="copy_file_invalid_overwrite">Fajl već postoji u odredišnoj fascikli</string>
@@ -269,7 +269,6 @@
     <string name="file_not_synced">Fajl ne može da se sinhronizuje. Prikazuje se poslednja dostupna verzija.</string>
     <string name="file_rename">Preimenuj</string>
     <string name="file_version_restored_error">Greška prilikom vraćanja verzije fajla!</string>
-    <string name="file_version_restored_successfully">Uspešno povratio verziju fajla.</string>
     <string name="filedetails_details">Detalji</string>
     <string name="filedetails_download">Preuzmi</string>
     <string name="filedetails_renamed_in_upload_msg">Fajl preimenovan u %1$sza vreme otpremanja</string>
@@ -297,7 +296,6 @@
     <string name="foreign_files_local_text">Lokalni: %1$s</string>
     <string name="foreign_files_move">Premesti sve</string>
     <string name="foreign_files_remote_text">Udaljeni: %1$s</string>
-    <string name="foreign_files_success">Svi fajlovi su premešteni</string>
     <string name="forward">Prosledi</string>
     <string name="fourHours">4 sata</string>
     <string name="hint_name">Ime</string>
@@ -380,7 +378,6 @@
     <string name="outdated_server">Server je izašao iz garancije, molimo ažurirajte ga!</string>
     <string name="overflow_menu">još menija</string>
     <string name="pass_code_configure_your_pass_code">Unesite kod za zaključavanje</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Kod će biti zatražen svaki put kad se aplikacija pokrene</string>
     <string name="pass_code_enter_pass_code">Molimo unesite kôd za zaključavanje</string>
     <string name="pass_code_mismatch">Kodovi se ne poklapaju</string>
     <string name="pass_code_reenter_your_pass_code">Ponovo unesite kôd za zaključavanje</string>
@@ -390,7 +387,6 @@
     <string name="pass_code_wrong">Neispravan kod</string>
     <string name="permission_allow">Dozvoli</string>
     <string name="permission_deny">Odbij</string>
-    <string name="permission_storage_access">Dodatne dozvole potrebne da se otpremaju i skidaju fajlovi.</string>
     <string name="picture_set_as_no_app">Nijedna aplikacija nije nađena da se sa njom postavi slika</string>
     <string name="power_save_check_dialog_message">Isključivanje provere uštede baterije može da dovede do toga da otpremate fajlove sa praznom baterijom!</string>
     <string name="pref_behaviour_entries_delete_file">obrisano</string>
@@ -499,7 +495,6 @@
     <string name="share_via_link_section_title">Veza deljenja</string>
     <string name="share_via_link_send_link_label">Pošalji vezu</string>
     <string name="share_via_link_unset_password">Ukloni</string>
-    <string name="share_with_title">Podeli sa…</string>
     <string name="shared_avatar_desc">Avatar od deljenog korisnika</string>
     <string name="shared_icon_share">deljenje</string>
     <string name="shared_icon_shared">podeljeno</string>

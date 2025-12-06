@@ -95,6 +95,7 @@
     <string name="busy">Зает</string>
     <string name="calendar">Kалендар</string>
     <string name="calendars">Kалендари</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Проблем при зареждане на сертификата.</string>
     <string name="changelog_dev_version">Версия за разработка на журнал за промени</string>
     <string name="check_back_later_or_reload">Проверка отново по-късно или презареждане.</string>
@@ -175,7 +176,6 @@
     <string name="conversation_screen_delete_button_title">Изтриване на разговора</string>
     <string name="conversation_screen_empty_content_title">Няма намерени разговори</string>
     <string name="conversation_screen_title">Разговори</string>
-    <string name="copied_to_clipboard">Копирано в клипборда</string>
     <string name="copy_file_error">Възникна грешка при опита за копиране на файла или папката</string>
     <string name="copy_file_invalid_into_descendent">Не може да копирате папка в нейна подпапка</string>
     <string name="copy_file_invalid_overwrite">Файлът вече съществува в зададената папка</string>
@@ -345,10 +345,8 @@
     <string name="file_list_loading">Зареждане…</string>
     <string name="file_list_no_app_for_file_type">Няма приложение, което да се справи с подобен тип файл.</string>
     <string name="file_list_seconds_ago">преди секунди</string>
-    <string name="file_management_permission">Необходими са права</string>
     <string name="file_management_permission_optional">Права за хранилище</string>
     <string name="file_management_permission_optional_text">%1$s работи най-добре с права за достъп до хранилище. Можете да изберете пълен достъп до всички файлове или достъп само за четене на снимки и видеоклипове.</string>
-    <string name="file_management_permission_text">%1$s се нуждае от права за управление на файлове, за да качва файлове. Можете да изберете пълен достъп до всички файлове или достъп само за четене на снимки и видеоклипове.</string>
     <string name="file_migration_checking_destination">Проверка на дестинацията…</string>
     <string name="file_migration_cleaning">Почистване…</string>
     <string name="file_migration_dialog_title">Обновяване на папката за съхранение на данни</string>
@@ -374,7 +372,6 @@
     <string name="file_not_synced">Файлът не може да бъде синхронизиран. Показана е актуалната версия.</string>
     <string name="file_rename">Преименувай</string>
     <string name="file_version_restored_error">Грешка при възстановяването!</string>
-    <string name="file_version_restored_successfully">Възстанявяването завърши.</string>
     <string name="filedetails_details">Подробности</string>
     <string name="filedetails_download">Изтегляне</string>
     <string name="filedetails_export">Експорт /изнасям/</string>
@@ -404,7 +401,6 @@
     <string name="foreign_files_local_text">Локален: %1$s</string>
     <string name="foreign_files_move">Премести всички</string>
     <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
-    <string name="foreign_files_success">Всички файлове са преместени.</string>
     <string name="forward">Напред</string>
     <string name="fourHours">4 чàса</string>
     <string name="grid_file_features_live_photo_content_description">Иконата служи за индикация дали \"live photo\" е налична</string>
@@ -519,7 +515,6 @@
     <string name="outdated_server">Сървърът е достигнал края на живота си, моля, надстройте!</string>
     <string name="overflow_menu">Повече</string>
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Кода ще бъде изискван при всяко стартиране на приложението</string>
     <string name="pass_code_enter_pass_code">Моля, въведете кода за достъп</string>
     <string name="pass_code_mismatch">Кодовете не съвпадат</string>
     <string name="pass_code_reenter_your_pass_code">Моля, въведете кода за достъп отново</string>
@@ -527,10 +522,9 @@
     <string name="pass_code_removed">Кодът за достъп е изтрит</string>
     <string name="pass_code_stored">Кодът е запаметен</string>
     <string name="pass_code_wrong">Грешен код</string>
-    <string name="pdf_zoom_tip">Докосване на страницата за увеличение на мащаба </string>
+    <string name="pause_upload">Пауза</string>
     <string name="permission_allow">Да</string>
     <string name="permission_deny">Не</string>
-    <string name="permission_storage_access">Изискват се допълнителни права за изтегляне и сваляне на файлове.</string>
     <string name="picture_set_as_no_app">Няма намерени приложения за задаване на снимка</string>
     <string name="pin_shortcut_label">Отваряне на %1$s</string>
     <string name="player_stop">стоп</string>
@@ -684,7 +678,6 @@
     <string name="share_via_link_section_title">Връзка за споделяне</string>
     <string name="share_via_link_send_link_label">Изпратете връзката</string>
     <string name="share_via_link_unset_password">Зануляване</string>
-    <string name="share_with_title">Споделете чрез ...</string>
     <string name="shared_avatar_desc">Аватар от споделен потребител</string>
     <string name="shared_icon_share">сподели</string>
     <string name="shared_icon_shared">споделено</string>
@@ -735,7 +728,6 @@
     <string name="storage_internal_storage">Вътрешна памет</string>
     <string name="storage_movies">Филми</string>
     <string name="storage_music">Музика</string>
-    <string name="storage_permission_full_access">Пълен достъп</string>
     <string name="storage_permission_media_read_only">Медия само за четене</string>
     <string name="storage_pictures">Снимки</string>
     <string name="store_full_dev_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол. \ NТова е официалната версия за разработка, включваща ежедневна извадка от всяка нова непроверена функционалност, която може да причини нестабилност и загуба на данни. Приложението е за потребители, които желаят да тестват и да докладват грешки, ако възникнат. Не го използвайте за вашата продуктивна работа! \ N \ nИ двете версии - официалната за разработчици и обикновената версия са налични на F-droid и могат да бъдат инсталирани едновременно.</string>
