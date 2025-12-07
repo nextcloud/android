@@ -98,6 +98,7 @@
     <string name="busy">O labourat</string>
     <string name="calendar">Deiziataer</string>
     <string name="calendars">Deiziataerioù</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Ur gudenn zo bet evit kargañ an testeni.</string>
     <string name="changelog_dev_version">Stumm diorren marilh ar c\'hemmoù</string>
     <string name="check_back_later_or_reload">Gwiriañ diwezhatoc\'h pe adkargañ.</string>
@@ -501,6 +502,7 @@
     <string name="pass_code_removed">Dilamet eo bet ar c\'hod tremen</string>
     <string name="pass_code_stored">Kod tremen enrollet</string>
     <string name="pass_code_wrong">Kod tremen direizh</string>
+    <string name="pause_upload">Ehanañ</string>
     <string name="permission_allow">Aotrañ</string>
     <string name="permission_deny">Difennet</string>
     <string name="picture_set_as_no_app">Meziant ebet kavet evit lakaat ur skeudenn gant</string>

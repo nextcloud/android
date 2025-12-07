@@ -61,6 +61,7 @@
     <string name="busy">Ocupáu</string>
     <string name="calendar">Calendariu</string>
     <string name="calendars">Calendarios</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Hai un problema cargando\'l certificáu</string>
     <string name="checkbox">Caxellu</string>
     <string name="clear">Borrar</string>
@@ -375,6 +376,7 @@
     <string name="pass_code_removed">Desanicióse\'l códigu d\'accesu</string>
     <string name="pass_code_stored">Contraseña almacenada</string>
     <string name="pass_code_wrong">Contraseña incorrecta</string>
+    <string name="pause_upload">Posar</string>
     <string name="pdf_password_protected">Nun ye posible abrir el PDF protexíu con contraseña. Usa un visor de PDFs esternu.</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Negar</string>

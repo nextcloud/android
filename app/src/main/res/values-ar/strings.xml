@@ -115,6 +115,7 @@
     <string name="busy">مشغول</string>
     <string name="calendar">التقويم</string>
     <string name="calendars">التقاويم</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">هناك مشكلة في تحميل الشهادة</string>
     <string name="changelog_dev_version">المتغيرات في تطبيق المطورين</string>
     <string name="check_back_later_or_reload">عُد إليه فيما بعد أو أعد تحميله</string>
@@ -625,6 +626,7 @@
     <string name="pass_code_removed">تمت إزالة الرمز السري</string>
     <string name="pass_code_stored">رمز المرور المخزن</string>
     <string name="pass_code_wrong">رمز المرور غير صحيح</string>
+    <string name="pause_upload">إيقاف</string>
     <string name="pdf_password_protected">غير قادر على فتح ملف PDF محمي بكلمة مرور. الرجاء استخدام عارض PDF خارجي.</string>
     <string name="permission_allow">سماح</string>
     <string name="permission_deny">رفض</string>

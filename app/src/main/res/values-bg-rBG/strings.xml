@@ -95,6 +95,7 @@
     <string name="busy">Зает</string>
     <string name="calendar">Kалендар</string>
     <string name="calendars">Kалендари</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Проблем при зареждане на сертификата.</string>
     <string name="changelog_dev_version">Версия за разработка на журнал за промени</string>
     <string name="check_back_later_or_reload">Проверка отново по-късно или презареждане.</string>
@@ -521,6 +522,7 @@
     <string name="pass_code_removed">Кодът за достъп е изтрит</string>
     <string name="pass_code_stored">Кодът е запаметен</string>
     <string name="pass_code_wrong">Грешен код</string>
+    <string name="pause_upload">Пауза</string>
     <string name="permission_allow">Да</string>
     <string name="permission_deny">Не</string>
     <string name="picture_set_as_no_app">Няма намерени приложения за задаване на снимка</string>

@@ -112,6 +112,7 @@
     <string name="busy">Ocupat</string>
     <string name="calendar">Calendari</string>
     <string name="calendars">Calendaris</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Hi ha un problema carregant el certificat.</string>
     <string name="changelog_dev_version">Històric de canvis de la versió de desenvolupament</string>
     <string name="check_back_later_or_reload">Torneu-ho a comprovar més tard o torneu a carregar.</string>
@@ -606,6 +607,7 @@
     <string name="pass_code_removed">S\'ha suprimit el codi d\'accés</string>
     <string name="pass_code_stored">S\'ha desat el codi d\'accés</string>
     <string name="pass_code_wrong">Codi d\'accés incorrecte</string>
+    <string name="pause_upload">Posa en pausa</string>
     <string name="pdf_password_protected">No s\'ha pogut obrir el PDF protegit amb contrasenya. Utilitzeu un visor PDF extern.</string>
     <string name="permission_allow">Permet</string>
     <string name="permission_deny">Denega</string>
