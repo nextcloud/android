@@ -127,6 +127,7 @@
     <string name="busy">Beschäftigt</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalender</string>
+    <string name="cancel_upload">Abbrechen</string>
     <string name="certificate_load_problem">Beim Laden des Zertifikats ist ein Fehler aufgetreten.</string>
     <string name="changelog_dev_version">Änderungen in der Entwicklerversion</string>
     <string name="check_back_later_or_reload">Schauen Sie später noch einmal vorbei oder laden Sie neu.</string>
@@ -676,6 +677,7 @@
     <string name="pass_code_removed">PIN gelöscht</string>
     <string name="pass_code_stored">PIN gespeichert</string>
     <string name="pass_code_wrong">PIN nicht korrekt</string>
+    <string name="pause_upload">Pausieren</string>
     <string name="pdf_password_protected">Passwortgeschützte PDF-Datei konnte nicht geöffnet werden. Bitte verwenden Sie einen externen PDF-Viewer.</string>
     <string name="permission_allow">Zulassen</string>
     <string name="permission_deny">Ablehnen</string>

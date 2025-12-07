@@ -184,7 +184,7 @@
     <string name="community_rc_play_store">Google Play دۇكىنىدىن قويۇپ بېرىش نامزاتىغا ئېرىشىڭ</string>
     <string name="community_release_candidate_headline">كاندىداتنى قويۇپ بېرىش</string>
     <string name="community_release_candidate_text">قويۇپ بېرىلىدىغان كاندىدات (RC) پات ئارىدا ئېلان قىلىنىدىغان سۈرەت بولۇپ ، مۇقىم بولۇشى مۆلچەرلەنمەكتە. شەخسىي تەڭشىكىڭىزنى سىناش بۇنىڭغا كاپالەتلىك قىلالايدۇ. Play دۇكىنىدا سىناققا تىزىملىتىڭ ياكى F-Droid نىڭ \ \"نەشرى \" بۆلىكىنى قولدا كۆرۈڭ.</string>
-    <string name="community_testing_bug_text">خاتالىق بايقالدى؟ Oddments?</string>
+    <string name="community_testing_bug_text">خاتالىق بايقالدى؟ قالدۇق؟</string>
     <string name="community_testing_headline">سىناق ئارقىلىق ياردەم</string>
     <string name="community_testing_report_text">GitHub دىكى بىر مەسىلىنى دوكلات قىلىڭ</string>
     <string name="configure_new_media_folder_detection_notifications">سەپلەڭ</string>
@@ -266,6 +266,13 @@
     <string name="document_scan_export_dialog_title">ئېكسپورت تىپىنى تاللاڭ</string>
     <string name="document_scan_pdf_generation_failed">PDF ئەۋلاد مەغلۇب بولدى</string>
     <string name="document_scan_pdf_generation_in_progress">PDF ھاسىل قىلىش…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">بۇ يەردە تۈر قۇرۇشقا بولمىدى: ئىجازەت قۇرۇلمىغان</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">ھۆججەت قۇرالمىدى: ئىج</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">قىسقۇچ قۇرالمىدى: ئىج</string>
+    <string name="document_storage_provider_cannot_delete">تۈرنى ئۆچۈرەلمىدى: ئۆچۈرۈش ئىج</string>
+    <string name="document_storage_provider_cannot_move">تۈرنى يۆتكىيەلمىدى: يۆتكەش ئىج</string>
+    <string name="document_storage_provider_cannot_read">تۈرنى ئاچالمىدى: ئېچىش ئىج</string>
+    <string name="document_storage_provider_cannot_rename">تۈرنىڭ ئىسمىنى ئۆزگەرتەلمىدى: ئىسىم ئۆزگەرتىش ئىج</string>
     <string name="done">تامام</string>
     <string name="dontClear">ئېنىق ئەمەس</string>
     <string name="download_cannot_create_file">يەرلىك ھۆججەت قۇرالمايدۇ</string>
@@ -291,7 +298,7 @@
     <string name="drawer_item_all_files">بارلىق ھۆججەتلەر</string>
     <string name="drawer_item_assistant">ياردەمچى</string>
     <string name="drawer_item_favorites">ياقتۇرىدىغانلار</string>
-    <string name="drawer_item_gallery">Media</string>
+    <string name="drawer_item_gallery">كۆپ-ۋاستە</string>
     <string name="drawer_item_groupfolders">گۇرۇپپا ھۆججەتلىرى</string>
     <string name="drawer_item_home">ئۆي</string>
     <string name="drawer_item_notifications">ئۇقتۇرۇش</string>
@@ -306,19 +313,25 @@
     <string name="drawer_quota">ئىشلىتىلگەن %2$s نىڭ%1$s</string>
     <string name="drawer_quota_unlimited">%1$s ئىشلىتىلگەن</string>
     <string name="drawer_synced_folders">ئاپتوماتىك يوللاش</string>
+    <string name="due_to_too_many_wrong_attempts">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %s</string>
     <string name="e2e_counter_too_old">Counter بەك كونا</string>
     <string name="e2e_hash_not_found">Hash تېپىلمىدى</string>
     <string name="e2e_not_yet_setup">E2E تېخى تەڭشەلمىدى</string>
     <string name="e2e_offline">تور ئۇلىنىشى مۇمكىن ئەمەس</string>
     <string name="e2e_signature_does_not_match">ئىمزا ماس كەلمەيدۇ</string>
+    <string name="e2e_signature_is_empty">خام-ئۇچۇرنى تەكشۈرەلمىدى، ئىمزاسى يوق.</string>
     <string name="ecosystem_apps_display_assistant">ياردەمچى</string>
     <string name="ecosystem_apps_display_more">تېخىمۇ كۆپ</string>
     <string name="ecosystem_apps_more">تېخىمۇ كۆپ Nextcloud ئەپلىرى</string>
+    <string name="editor_web_view_cannot_open_file">ھۆججەت تاللىغۇچنى ئاچالمىدى</string>
     <string name="email_pick_failed">ئېلېكترونلۇق خەت ئادرېسىنى تاللىيالمىدى.</string>
     <string name="encrypted">شىفىرلانغان قىلىپ تەڭشەڭ</string>
+    <string name="end_to_end_encryption_certificate_unavailable">مۇلازىمېتىر گۇۋاھنامىسىنى چۈشۈرەلمىدى</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">ئاممىۋى ئاچقۇچنى دەلىللىيەلمىدى</string>
     <string name="end_to_end_encryption_confirm_button">مەخپىيلەشتۈرۈشنى تەڭشەڭ</string>
     <string name="end_to_end_encryption_decrypting">شىفىرلاش…</string>
     <string name="end_to_end_encryption_dialog_close">تاقاش</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">ھۆججەتنى ئېچىش ئۈچۈن شىفىرىڭىزنى كىرگۈزۈڭ</string>
     <string name="end_to_end_encryption_folder_not_empty">بۇ ھۆججەت قىسقۇچ قۇرۇق ئەمەس.</string>
     <string name="end_to_end_encryption_generating_keys">يېڭى ئاچقۇچ ھاسىل قىلىش…</string>
     <string name="end_to_end_encryption_keywords_description">12 سۆزنىڭ ھەممىسى ناھايىتى كۈچلۈك مەخپىي نومۇر ھاسىل قىلىدۇ ، پەقەت شىفىرلانغان ھۆججەتلىرىڭىزنى كۆرەلەيسىز ۋە ئىشلىتەلەيسىز. ئۇنى يېزىپ بىخەتەر جايدا ساقلاڭ.</string>
@@ -326,8 +339,11 @@
     <string name="end_to_end_encryption_passphrase_title">12 سۆز مەخپىيلەشتۈرۈش پارولىڭىزغا دىققەت قىلىڭ</string>
     <string name="end_to_end_encryption_password">پارول…</string>
     <string name="end_to_end_encryption_retrieving_keys">ئاچقۇچلارنى ئەسلىگە كەلتۈرۈش…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">شەخسىي ئاچقۇچنى چۈشۈرەلمىدى</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">ئاممىۋىي ئاچقۇچنى چۈشۈرەلمىدى</string>
     <string name="end_to_end_encryption_storing_keys">ئاچقۇچلارنى ساقلاش</string>
     <string name="end_to_end_encryption_title">مەخپىيلەشتۈرۈشنى تەڭشەڭ</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">ئاچقۇچلارنى چۈشۈرىۋاتقاندا كۈتۈلمىگەن بىر خاتالىق يۈز بەردى</string>
     <string name="end_to_end_encryption_unsuccessful">كۇنۇپكىلارنى ساقلىيالمىدى ، قايتا سىناڭ.</string>
     <string name="end_to_end_encryption_wrong_password">شىفىر يېگەندە خاتالىق. پارول خاتا؟</string>
     <string name="enter_destination_filename">نىشان ھۆججەت نامىنى كىرگۈزۈڭ</string>
@@ -338,6 +354,7 @@
     <string name="error_comment_file">ئىنكاس ھۆججىتى</string>
     <string name="error_crash_title">%1$s چۈشۈپ كەتتى</string>
     <string name="error_creating_file_from_template">قېلىپتىن ھۆججەت قۇرۇشتا خاتالىق</string>
+    <string name="error_fetching_sharees">ھەمبەھىرلىگۈچىلەرنى چۈشۈرەلمىدى.</string>
     <string name="error_file_actions">ھۆججەت ھەرىكىتىنى كۆرسىتىشتە خاتالىق</string>
     <string name="error_file_lock">ھۆججەت قۇلۇپ ھالىتىنى ئۆزگەرتىشتە خاتالىق</string>
     <string name="error_report_issue_action">دوكلات</string>
@@ -365,6 +382,7 @@
     <string name="etm_background_jobs_stop_test_job">سىناق خىزمىتىنى توختىتىڭ</string>
     <string name="etm_migrations">كۆچۈش (ئەپ يېڭىلاش)</string>
     <string name="etm_preferences">مايىللىق</string>
+    <string name="etm_title">قۇرۇلۇش سىناق ھالىتى</string>
     <string name="etm_transfer">ھۆججەت يوللاش</string>
     <string name="etm_transfer_enqueue_test_download">سىناق چۈشۈرۈشنى تەلەپ قىلىڭ</string>
     <string name="etm_transfer_enqueue_test_upload">سىناق يۈكلەش</string>
@@ -372,8 +390,10 @@
     <string name="etm_transfer_type">يۆتكەش</string>
     <string name="etm_transfer_type_download">چۈشۈرۈش</string>
     <string name="etm_transfer_type_upload">يۈكلەش</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">بۇ يەرگە ھۆججەت چىقىرىش ياكى قۇرۇش ھوقۇقىڭىز يوق</string>
     <string name="external_shares">سىرتقى ھەمبەھىر</string>
     <string name="fab_label">قوشۇش ياكى يوللاش</string>
+    <string name="failed_to_create_conflict_dialog">زىددىيەت كۆزنىكى قۇرالمىدى</string>
     <string name="failed_to_download">باشقۇرغۇچىنى چۈشۈرۈش ئۈچۈن ھۆججەت يوللىيالمىدى</string>
     <string name="failed_to_print">ھۆججەت بېسىش مەغلۇب بولدى</string>
     <string name="failed_to_start_editor">تەھرىرلىگۈچنى قوزغىتىش مەغلۇب بولدى</string>
@@ -385,8 +405,10 @@
     <string name="file_already_exists">ھۆججەت ئىسمى ئاللىبۇرۇن مەۋجۇت</string>
     <string name="file_delete">ئۆچۈرۈش</string>
     <string name="file_detail_activity_error">ھۆججەت ئۈچۈن پائالىيەتلەرنى ئەسلىگە كەلتۈرۈشتە خاتالىق</string>
+    <string name="file_detail_share_already_active">سىز بىر ھەمبەھىر قۇرالمايسىز، ھەمبەھىرلەش بۇ ئىشلەتكۈچىدە ئاكتىپ.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">ئالاقىداشلارنى تاللاش ئۈچۈن بىرەر ئەپ يوق</string>
     <string name="file_details_no_content">تەپسىلاتلارنى يۈكلىيەلمىدى</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">ئىختىيارى ئىجازەتنى تاللاڭ</string>
     <string name="file_icon">ھۆججەت</string>
     <string name="file_keep">ساقلاڭ</string>
     <string name="file_list_empty">بەزى مەزمۇنلارنى يۈكلەڭ ياكى ئۈسكۈنىڭىز بىلەن ماسقەدەملەڭ.</string>
@@ -404,13 +426,18 @@
     <string name="file_list_empty_shared">سىز ئورتاقلاشقان ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
     <string name="file_list_empty_shared_headline">ھازىرچە ھېچقانداق نەرسە ئورتاقلاشمىدى</string>
     <string name="file_list_empty_unified_search_no_results">سوئالىڭىزغا ھېچقانداق نەتىجە تېپىلمىدى</string>
+    <string name="file_list_empty_unified_search_start_search">ئىزدەشنى باشلاڭ</string>
+    <string name="file_list_empty_unified_search_start_search_description">ئۈستىدىكى ئىزدەش بالدىقىغا يېزىپ ھۆججەتلەرنى، ئالاقىداشلارنى، يىلنامە پائالىيەتلىرىنى ھەمدە ھېساباتىڭىز ھەققىدە تېخىمۇ كۆپ نەرسىلەرنى ئىزدەڭ.</string>
+    <string name="file_list_error_description">ئىنتىرنېت ئۇلىنىشىڭىزنى تەكشۈرۈڭ ياكى كىيىن قايتا سىناڭ</string>
+    <string name="file_list_error_headline">ناچار ئۇلىنىش</string>
     <string name="file_list_folder">ھۆججەت قىسقۇچ</string>
-    <string name="file_list_live">LIVE</string>
-    <string name="file_list_loading">Loading…</string>
+    <string name="file_list_live">نەق مەيدان</string>
+    <string name="file_list_loading">يۈكلەۋاتىدۇ…</string>
     <string name="file_list_no_app_for_file_type">بۇ ھۆججەت تىپىنى بىر تەرەپ قىلىدىغان ھېچقانداق دېتال قۇرۇلمىغان.</string>
     <string name="file_list_seconds_ago">سېكۇنت بۇرۇن</string>
     <string name="file_management_permission_optional">ساقلاش ئىجازەتنامىسى</string>
     <string name="file_management_permission_optional_text">%1$s ساقلاشقا رۇخسەت قىلىش بىلەن ئەڭ ياخشى ئىشلەيدۇ. بارلىق ھۆججەتلەرنى تولۇق زىيارەت قىلالايسىز ياكى رەسىم ۋە سىنلارنى ئوقۇشقىلا بولىدۇ.</string>
+    <string name="file_migration_allow_media_indexing">باشقا ئەپلەردىن كىرىشكە يول قوي</string>
     <string name="file_migration_checking_destination">مەنزىلنى تەكشۈرۈش…</string>
     <string name="file_migration_cleaning">تازىلاش…</string>
     <string name="file_migration_dialog_title">سانلىق مەلۇمات ساقلاش قىسقۇچىنى يېڭىلاش</string>
@@ -421,6 +448,7 @@
     <string name="file_migration_failed_not_writable">مەنزىل ھۆججىتىگە يازالمىدى</string>
     <string name="file_migration_failed_while_coping">كۆچۈش جەريانىدا مەغلۇپ بولدى</string>
     <string name="file_migration_failed_while_updating_index">كۆرسەتكۈچ يېڭىلانمىدى</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">سانلىق مەلۇمات يۆتكەش…</string>
     <string name="file_migration_ok_finished">تاماملاندى</string>
     <string name="file_migration_override_data_folder">ئالماشتۇرۇڭ</string>
@@ -440,8 +468,11 @@
     <string name="file_name_validator_error_reserved_names">%s چەكلەنگەن ئىسىم</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. كۆچۈرۈش ياكى كۆچۈرۈشتىن بۇرۇن ھۆججەتنىڭ نامىنى ئۆزگەرتىڭ</string>
     <string name="file_not_found">ھۆججەت تېپىلمىدى</string>
+    <string name="file_not_found_cannot_share">ھۆججەت تېپىلمىدى. بىر ھەمبەھىر قۇرالمىدى.</string>
     <string name="file_not_synced">ھۆججەت ماسقەدەملەنمىدى. ئەڭ يېڭى نەشرىنى كۆرسىتىش.</string>
     <string name="file_rename">ئىسىم ئۆزگەرتىش</string>
+    <string name="file_upload_worker_error_notification_title">چىقىرىش مەغلۇپ بولدى. ئىنتىرنىت ئۇلىنىشى يوق.</string>
+    <string name="file_upload_worker_same_file_already_exists">%s ئاللىبۇرۇن مەۋجۇت، زىددىيەت بايقالمىدى</string>
     <string name="file_version_restored_error">ھۆججەت نەشرىنى ئەسلىگە كەلتۈرۈشتە خاتالىق!</string>
     <string name="filedetails_details">تەپسىلاتى</string>
     <string name="filedetails_download">چۈشۈر</string>
@@ -458,7 +489,13 @@
     <string name="first_run_3_text">ئىشلىتىشكە قولايلىق بولغان تور خەت ساندۇقى ، كالېندار ۋە ئالاقىداشلار</string>
     <string name="first_run_4_text">ئېكران ئورتاقلىشىش ، تور يىغىنلىرى ۋە تور يىغىنلىرى</string>
     <string name="folder_already_exists">ھۆججەت قىسقۇچ مەۋجۇت</string>
+    <string name="folder_best_viewed_in">بۇ قىسقۇچنى %1$s دا ياخشى ئاچقىلى بۇلىدۇ</string>
     <string name="folder_confirm_create">قۇر</string>
+    <string name="folder_download_counter">%2$d دىن %1$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">%s قىسقۇچىنى ماس-قەدەملەۋاتقاندا بىر خاتالىق يۈز بەردى</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">دېسكا بوشلۇقى يىتەرسىز، ماس-قەدەملەش ئەمەلدىن قالدۇرۇلدى</string>
+    <string name="folder_download_success_notification_title">%s قىسقۇچ مۇۋاپىقىيەتلىك ماس-قەدەملەندى</string>
+    <string name="folder_download_worker_ticker_id">ماس-قەدەملەۋاتىدۇ...</string>
     <string name="folder_list_empty_headline">بۇ يەردە ھۆججەت قىسقۇچ يوق</string>
     <string name="folder_name_empty">ھۆججەت قىسقۇچنىڭ ئىسمى قۇرۇق بولمايدۇ</string>
     <string name="folder_picker_choose_button_text">تاللاڭ</string>
@@ -515,6 +552,7 @@
     <string name="last_backup">ئاخىرقى زاپاسلاش:%1$s</string>
     <string name="link">ئۇلىنىش</string>
     <string name="link_name">ئۇلىنىش ئىسمى</string>
+    <string name="link_not_followed_due_to_security_settings">بىخەتەرلىك تەڭشىكى سەۋەبىدىن ئۇلىنىشقا ئەگىشىلمىدى.</string>
     <string name="link_share_editing">تەھرىرلەش</string>
     <string name="list_layout">تىزىملىكتىكى ئورۇنلاشتۇرۇش</string>
     <string name="load_more_results">تېخىمۇ كۆپ نەتىجىلەرنى يۈكلەڭ</string>
@@ -573,7 +611,8 @@
     <string name="new_comment">يېڭى باھا…</string>
     <string name="new_media_folder_detected">يېڭى%1$s مېدىيا ھۆججەت قىسقۇچى بايقالدى.</string>
     <string name="new_media_folder_photos">سۈرەت</string>
-    <string name="new_media_folder_videos">video</string>
+    <string name="new_media_folder_videos">سىن</string>
+    <string name="new_notification">يېڭى ئۇقتۇرۇش</string>
     <string name="new_version_was_created">يېڭى نەشرى قۇرۇلدى</string>
     <string name="no_actions">بۇ ئىشلەتكۈچى ئۈچۈن ھېچقانداق ھەرىكەت يوق</string>
     <string name="no_browser_available">ئۇلىنىشنى بىر تەرەپ قىلىدىغان ئەپ يوق</string>
@@ -589,6 +628,9 @@
     <string name="note_icon_hint">سىنبەلگە</string>
     <string name="notification_action_failed">ھەرىكەتنى ئىجرا قىلالمىدى.</string>
     <string name="notification_channel_background_operations_description">ئارقا كۆرۈنۈش مەشغۇلاتىنىڭ ئۆز-ئارا تەسىر كۆرسىتىدىغان ئۇقتۇرۇشىنى كۆرسىتىڭ</string>
+    <string name="notification_channel_background_operations_name">ئارقا سۇپىدىكى خىزمەت</string>
+    <string name="notification_channel_content_observer_description">يەرلىك ھۆججەت ئۆزگەرتىشلەرنى بايقايدۇ</string>
+    <string name="notification_channel_content_observer_name_short">مەزمۇن كۆزەتكۈچى</string>
     <string name="notification_channel_download_description">چۈشۈرۈشنىڭ ئىلگىرىلىشىنى كۆرسىتىدۇ</string>
     <string name="notification_channel_download_name_short">چۈشۈرۈش</string>
     <string name="notification_channel_file_sync_description">ھۆججەت ماسقەدەملەش جەريانى ۋە نەتىجىسىنى كۆرسىتىدۇ</string>
@@ -596,7 +638,9 @@
     <string name="notification_channel_general_description">يېڭى مېدىيا قىسقۇچلىرى ۋە شۇنىڭغا ئوخشاشلارغا ئۇقتۇرۇش قىلىڭ</string>
     <string name="notification_channel_general_name">ئومۇمىي ئۇقتۇرۇش</string>
     <string name="notification_channel_media_description">مۇزىكا قويغۇچنىڭ ئىلگىرىلىشى</string>
-    <string name="notification_channel_media_name">Media player</string>
+    <string name="notification_channel_media_name">مىدىيا قوي</string>
+    <string name="notification_channel_offline_operations_description">تورسىز ھۆججەت مەشخۇلاتلىرىنىڭ ئىلگىرلىشىنى كۆرسەت</string>
+    <string name="notification_channel_offline_operations_name_short">تورسىز مەشخۇلاتلار</string>
     <string name="notification_channel_push_description">مۇلازىمېتىر ئەۋەتكەن ئىتتىرىش ئۇقتۇرۇشىنى كۆرسىتىش: باھادىكى ئەسكەرتىش ، يېڭى يىراقتىكى پايلارنى قوبۇل قىلىش ، باشقۇرغۇچى يوللىغان ئېلان قاتارلىقلار.</string>
     <string name="notification_channel_push_name">ئىتتىرىش ئۇقتۇرۇشى</string>
     <string name="notification_channel_upload_description">يوللاشنىڭ ئىلگىرىلىشىنى كۆرسىتىدۇ</string>
@@ -605,17 +649,28 @@
     <string name="notification_icon_description">ئوقۇلمىغان ئۇقتۇرۇشلار مەۋجۇت</string>
     <string name="notifications_no_results_headline">ئۇقتۇرۇش يوق</string>
     <string name="notifications_no_results_message">كېيىن قايتا تەكشۈرۈپ بېقىڭ.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">ساقلاۋاتقان مەشخۇلات</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">ساقلاۋاتقان ئۆچۈرۈش مەشخۇلاتى</string>
     <string name="offline_mode">تور ئۇلىنىشى يوق</string>
     <string name="offline_mode_info_description">تورغا ئۇلانمىسىڭىزمۇ ھۆججەت قىسقۇچلىرىڭىزنى رەتلىيەلەيسىز ، ھۆججەت قۇرالايسىز. تورغا قايتىپ كەلگەندىن كېيىن ، ساقلاۋاتقان ھەرىكەتلىرىڭىز ئاپتوماتىك ماسقەدەملىنىدۇ.</string>
+    <string name="offline_mode_info_title">سىز توردا ئەمەس، لىكىن خىزمەت داۋاملىشىدۇ</string>
+    <string name="offline_operations_file_does_not_exists_yet">ھۆججەت تېخى مەۋجۇت ئەمەس، ئاۋال ھۆججەتنى چىقىرىڭ.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">%s قۇرغىلى بولمىدى. مۇلازىمېتىردا ئوخشاش ئىسىمدىكى ھۆججەت مەۋجۇت.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">%s نى قۇرغىلى بولمىدى. مۇلازىمېتىردا ئوخشاش ئىسىمدىكى قىسقۇچ مەۋجۇت.</string>
     <string name="offline_operations_worker_notification_error_text">تورسىز مەشغۇلاتنى تاماملىغىلى بولمايدۇ. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">تورسىز مەشغۇلات</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">%s نىڭ ئۆچۈرۈلىشى ئەمەلدىن قالدى. ھۆججەت مۇلازىمېتىردا ئۆزگەرتىلدى.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">%s نىڭ ئىسمىنى ئۆزگەرتىش ئەمەلدىن قالدى. مۇلازىمېتىردا ئوخشاش ئىسىمدىكى ھۆججەت مەۋجۇت.</string>
+    <string name="offline_operations_worker_notification_start_text">تورسىز مەشغۇلاتنى باشلاۋاتىدۇ</string>
     <string name="oneHour">1 سائەت</string>
     <string name="online">توردا</string>
     <string name="online_status">توردىكى ئورنى</string>
+    <string name="open_in_app">%1$s دا ئاچ</string>
     <string name="outdated_server">مۇلازىمېتىر ئۆمرىنىڭ ئاخىرىغا يەتتى ، يېڭىلاڭ!</string>
     <string name="overflow_menu">تېخىمۇ كۆپ تىزىملىك</string>
     <string name="pass_code_configure_your_pass_code">مەخپىي نومۇرىڭىزنى كىرگۈزۈڭ</string>
     <string name="pass_code_enter_pass_code">مەخپىي نومۇرىڭىزنى كىرگۈزۈڭ</string>
+    <string name="pass_code_explanation">شىفىر بۇ ئەپنى ئاچقاندا ياكى 5 سىكۇنتتىن كىيىن قايتا ئاچقاندا تەلەپ قىلىنىدۇ.</string>
     <string name="pass_code_mismatch">مەخپىي نومۇر ئوخشاش بولمايدۇ</string>
     <string name="pass_code_reenter_your_pass_code">پارولىڭىزنى قايتا كىرگۈزۈڭ</string>
     <string name="pass_code_remove_your_pass_code">پارولىڭىزنى ئۆچۈرۈڭ</string>
@@ -626,10 +681,12 @@
     <string name="pdf_password_protected">پارول بىلەن قوغدالغان PDF نى ئاچقىلى بولمايدۇ. سىرتقى PDF كۆرگۈچنى ئىشلىتىڭ.</string>
     <string name="permission_allow">رۇخسەت قىلىڭ</string>
     <string name="permission_deny">رەت قىلىش</string>
+    <string name="pick_contact_to_share_with">ھەمبەھىرلەيدىغان ئالاقىداش تاللا</string>
     <string name="picture_set_as_no_app">رەسىم ئورنىتىدىغان ھېچقانداق دېتال تېپىلمىدى</string>
+    <string name="pin_home">باش ئېكرانغا مىخلا</string>
     <string name="pin_shortcut_label">%1$s نى ئېچىڭ</string>
     <string name="player_stop">توختا</string>
-    <string name="player_toggle">toggle</string>
+    <string name="player_toggle">ئالماشتۇر</string>
     <string name="please_select_a_server">مۇلازىمېتىرنى تاللاڭ…</string>
     <string name="power_save_check_dialog_message">توك تېجەش تەكشۈرۈشىنى چەكلىگەندە ، باتارېيە تۆۋەن ھالەتتە ھۆججەت يوللاشنى كەلتۈرۈپ چىقىرىشى مۇمكىن!</string>
     <string name="pref_behaviour_entries_delete_file">ئۆچۈرۈلدى</string>
@@ -642,8 +699,11 @@
     <string name="pref_instant_name_collision_policy_entries_rename">يېڭى نەشرىگە ئۆزگەرتىش</string>
     <string name="pref_instant_name_collision_policy_title">ئەگەر ھۆججەت مەۋجۇت بولسا قانداق قىلىش كېرەك؟</string>
     <string name="prefs_add_account">ھېسابات قوشۇڭ</string>
+    <string name="prefs_all_files_access_summary">بۇ ئەپنىڭ ئۈسكۈنىڭىزدىكى بارلىق ھۆججەتلەرنى ئىشلىتىشكە رۇخسەت قىل</string>
+    <string name="prefs_all_files_access_title">بارلىق ھۆججەتنى ئىشلىتىش</string>
     <string name="prefs_calendar_contacts">كالېندار ۋە ئالاقىداش</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ياكى Google Play ئورنىتىلمىغان</string>
+    <string name="prefs_calendar_contacts_summary">نۆۋەتتىكى ھېسابات ئۈچۈن DAVx5 (ئىلگىرى DAVdroid دەپ ئاتالغان) (v1.3.0 +) نى تەڭشەڭ</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">كالېندار ۋە ئالاقىداش ماسقەدەملەندى</string>
     <string name="prefs_category_about">ھەققىدە</string>
     <string name="prefs_category_details">تەپسىلاتى</string>
@@ -654,6 +714,9 @@
     <string name="prefs_category_sync">ماسقەدەملەش</string>
     <string name="prefs_daily_backup_summary">كالېندارىڭىز ۋە ئالاقىداشلىرىڭىزنىڭ كۈندىلىك زاپاسلىنىشى</string>
     <string name="prefs_daily_contact_backup_summary">ئالاقىلىرىڭىزنىڭ كۈندىلىك زاپاسلىنىشى</string>
+    <string name="prefs_data_storage_location">سانلىق مەلۇمات ساقلاش ئورنى</string>
+    <string name="prefs_data_storage_location_summary">سانلىق مەلۇمات ساقلاش ئورنىنى باشقۇرۇش</string>
+    <string name="prefs_davx5_setup_error">DAVx5 نى تەڭشىگەندە كۈتۈلمىگەن خاتالىق (ئىلگىرى DAVdroid دەپ ئاتالغان)</string>
     <string name="prefs_e2e_active">ئاخىرىغىچە مەخپىيلەشتۈرۈش قۇرۇلدى!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">مونونىكنى كۆرسىتىش ئۈچۈن ئۈسكۈنىنىڭ سالاھىيىتىنى قوزغىتىڭ.</string>
@@ -661,7 +724,7 @@
     <string name="prefs_enable_media_scan_notifications_summary">يېڭىدىن تېپىلغان مېدىيا قىسقۇچلىرى ھەققىدە خەۋەر قىلىڭ</string>
     <string name="prefs_gpl_v2">GNU ئادەتتىكى ئاممىۋى ئىجازەتنامە ، 2-نەشرى</string>
     <string name="prefs_help">ياردەم</string>
-    <string name="prefs_imprint">Imprint</string>
+    <string name="prefs_imprint">بارماق بېسىش</string>
     <string name="prefs_instant_behaviour_dialogTitle">ئەسلى ھۆججەت…</string>
     <string name="prefs_instant_behaviour_title">ئەسلى ھۆججەت…</string>
     <string name="prefs_instant_upload_exclude_hidden_summary">يوشۇرۇن ھۆججەت ۋە ھۆججەت قىسقۇچلارنى چىقىرىۋېتىڭ</string>
@@ -690,7 +753,9 @@
     <string name="prefs_synced_folders_local_path_title">يەرلىك ھۆججەت قىسقۇچ</string>
     <string name="prefs_synced_folders_remote_path_title">يىراقتىن قىسقۇچ</string>
     <string name="prefs_theme_title">باشتېما</string>
+    <string name="prefs_two_way_sync_interval">ئىنتىرۋال</string>
     <string name="prefs_two_way_sync_summary">ئىككى خىل ماسقەدەملەش ئۈچۈن ئىچكى قىسقۇچلارنى باشقۇرۇڭ</string>
+    <string name="prefs_two_way_sync_switch_title">ئىككى يۆنىلىشلىك ماس-قەدەملەشنى قوزغات</string>
     <string name="prefs_value_theme_dark">قاراڭغۇ</string>
     <string name="prefs_value_theme_light">نۇر</string>
     <string name="prefs_value_theme_system">سىستېمىغا ئەگىشىڭ</string>
@@ -714,7 +779,7 @@
     <string name="recommended_files_title">تەۋسىيە قىلىنغان ھۆججەتلەر</string>
     <string name="refresh_content">مەزمۇننى يېڭىلاش</string>
     <string name="reload">قايتا يۈكلەڭ</string>
-    <string name="remote">(remote)</string>
+    <string name="remote">(يىراق)</string>
     <string name="remote_file_fetch_failed">ھۆججەت تاپالمىدى!</string>
     <string name="remove_e2e">سىز بۇ خېرىداردا يەرلىكتىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى ئۆچۈرەلەيسىز</string>
     <string name="remove_e2e_message">بۇ خېرىداردا يەرلىكتىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى ئۆچۈرەلەيسىز. شىفىرلانغان ھۆججەتلەر مۇلازىمېتىردا قالىدۇ ، ئەمما بۇ كومپيۇتېرغا ئەمدى ماسقەدەملەنمەيدۇ.</string>
@@ -752,21 +817,30 @@
     <string name="screenshot_05_autoUpload_heading">ئاپتوماتىك يوللاش</string>
     <string name="screenshot_05_autoUpload_subline">رەسىم ۋە سىنلىرىڭىز ئۈچۈن</string>
     <string name="screenshot_06_davdroid_heading">كالېندار ۋە ئالاقىداشلار</string>
+    <string name="screenshot_06_davdroid_subline">DAVx5 بىلەن ماسقەدەملەش</string>
     <string name="search_error">ئىزدەش نەتىجىسىگە ئېرىشىشتە خاتالىق</string>
     <string name="secure_share_not_set_up">بۇ ئىشلەتكۈچى ئۈچۈن بىخەتەر ئورتاقلىشىش ئورنىتىلمىغان</string>
+    <string name="secure_share_search">بىخەتەر ئورتاقلىشىش…</string>
     <string name="select_all">ھەممىنى تاللاڭ</string>
     <string name="select_media_folder">مېدىيا قىسقۇچىنى تەڭشەڭ</string>
     <string name="select_one_template">بىر قېلىپنى تاللاڭ</string>
     <string name="select_template">قېلىپنى تاللاڭ</string>
     <string name="send">ئەۋەتىڭ</string>
+    <string name="send_share">ھەمبەھىر ئەۋەتىش</string>
     <string name="sendbutton_description">كۇنۇپكا سىنبەلگىسىنى ئەۋەتىڭ</string>
+    <string name="server_not_reachable">مەزمۇننى يۈكلىيەلمىدى</string>
+    <string name="server_not_reachable_content">بۇ ئۈسكۈنە ئىنتىرنېتقا ئۇلانمىغاندەك تۇرىدۇ</string>
     <string name="set_as">تەڭشەك</string>
+    <string name="set_download_limit_failed">چۈشۈرۈش چىكىنى بېكىتەلمىدى. ئىقتىدارىنى تەكشۈرۈڭ.</string>
     <string name="set_message">ئۇچۇر بەلگىلە</string>
-    <string name="set_online_status">توردىكى ئورنى</string>
+    <string name="set_note">خاتىرىنى بېكىت</string>
+    <string name="set_online_status">توردىكى ھالىتى</string>
     <string name="set_picture_as">رەسىمنى ئىشلىتىڭ</string>
     <string name="setup_e2e">ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى تەڭشەش جەريانىدا ، ئىختىيارى 12 سۆزلۈك mnemonic تاپشۇرۇۋالىسىز ، بۇ ھۆججەتلەرنى باشقا ئۈسكۈنىلەردە ئېچىشىڭىز كېرەك. بۇ پەقەت بۇ ئۈسكۈنىدە ساقلىنىدۇ ، بۇ ئېكراندا قايتا كۆرسەتكىلى بولىدۇ. ئۇنى بىخەتەر ئورۇنغا خاتىرىلەڭ!</string>
     <string name="share">ھەمبەھىرلەش</string>
     <string name="share_allow_download_and_sync_permission">چۈشۈرۈش ۋە ماسقەدەملەشكە يول قويۇڭ</string>
+    <string name="share_cannot_update_empty_note">سىز بۇ ھەمبەھىرنى يېڭىلىيالمايسىز. بىر خاتىرە قۇشۇپ قايتا سىناپ بېقىڭ.</string>
+    <string name="share_copy_link">ھەمبەھىرلە ھەمدە ئۇلىنىشنى كۆچۈر</string>
     <string name="share_create_permission">قۇر</string>
     <string name="share_custom_permission">ئىختىيارى ئىجازەت</string>
     <string name="share_delete_permission">ئۆچۈر</string>
@@ -791,24 +865,27 @@
     <string name="share_no_expiration_date_label">ۋاقتى توشىدۇ</string>
     <string name="share_no_password_title">پارول بەلگىلەڭ</string>
     <string name="share_not_allowed_when_file_drop">بىخەتەر ھۆججەت چۈشۈرۈش جەريانىدا قايتا ئىشلىتىشكە بولمايدۇ</string>
+    <string name="share_option_required">داۋاملاشتۇرۇشتىن بۇرۇن ئەڭ كەمدە بىر ئورتاقلىشىش تاللانمىسىنى تاللاڭ.</string>
     <string name="share_permission_can_edit">تەھرىرلىيەلەيدۇ</string>
     <string name="share_permission_file_request">ھۆججەت تەلىپى</string>
     <string name="share_permission_secure_file_drop">بىخەتەر ھۆججەت چۈشۈرۈش</string>
     <string name="share_permission_view_only">پەقەت كۆرۈش</string>
+    <string name="share_permissions">ھەمبەھىرلەش ئىجازەتلىرى</string>
     <string name="share_re_share_permission">ھەمبەھىرلەش</string>
     <string name="share_read_permission">ئوقۇ</string>
     <string name="share_remote_clarification">%1$s (يىراق)</string>
     <string name="share_room_clarification">%1$s (سۆھبەت)</string>
     <string name="share_search">ئىسمى ، فېدېراتسىيە بۇلۇت كىملىكى ياكى ئېلخەت ئادرېسى…</string>
+    <string name="share_search_internal">ئىشلەتكۈچىلەر ھەمدە ئەتىرەتلەرنى قوش</string>
     <string name="share_send_new_email">يېڭى ئېلېكترونلۇق خەت ئەۋەتىڭ</string>
     <string name="share_send_note">تاپشۇرۇۋالغۇچىغا دىققەت قىلىڭ</string>
     <string name="share_settings">تەڭشەك</string>
     <string name="share_via_link_hide_download">چۈشۈرۈشنى يوشۇرۇش</string>
     <string name="share_via_link_section_title">ئۇلىنىشنى ھەمبەھىرلەش</string>
     <string name="share_via_link_send_link_label">ئۇلىنىش ئەۋەتىڭ</string>
-    <string name="share_via_link_unset_password">Unset</string>
+    <string name="share_via_link_unset_password">ئورناتما</string>
     <string name="shared_avatar_desc">ئورتاق ئىشلەتكۈچىلەرنىڭ ئاۋاتلىقى</string>
-    <string name="shared_icon_share">share</string>
+    <string name="shared_icon_share">ھەمبەھىر</string>
     <string name="shared_icon_shared">ئورتاقلاشتى</string>
     <string name="shared_icon_shared_via_link">ئۇلىنىش ئارقىلىق ھەمبەھىرلەندى</string>
     <string name="shared_with_you_by">%1$s بىلەن ئورتاقلاشتى</string>
@@ -818,6 +895,7 @@
     <string name="show_images">رەسىملەرنى كۆرسەت</string>
     <string name="show_less">ئازراق كۆرسەت</string>
     <string name="show_video">سىنلارنى كۆرسەت</string>
+    <string name="sign_tos_failed">مۇلازىمەت ماددىلىرىنى قولدا تەكشۈرۈڭ!</string>
     <string name="signup_with_provider">تەمىنلىگۈچى بىلەن تىزىملىتىڭ</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s نىڭ Nextcloud ھېساباتىڭىزنى زىيارەت قىلىشىغا يول قويۇڭ%2$s?</string>
     <string name="sort_by">تەرتىپلەش</string>
@@ -839,7 +917,7 @@
     <string name="ssl_validator_label_subject">تارقىتىلغان:</string>
     <string name="ssl_validator_label_validity">ئىناۋەتلىكلىكى:</string>
     <string name="ssl_validator_label_validity_from">دىن:</string>
-    <string name="ssl_validator_label_validity_to">To:</string>
+    <string name="ssl_validator_label_validity_to">غا:</string>
     <string name="ssl_validator_no_info_about_error">- خاتالىق توغرىسىدا ھېچقانداق ئۇچۇر يوق</string>
     <string name="ssl_validator_not_saved">گۇۋاھنامە ساقلىيالمىدى</string>
     <string name="ssl_validator_null_cert">گۇۋاھنامە كۆرسىتىلمىدى.</string>
@@ -858,12 +936,17 @@
     <string name="storage_internal_storage">ئىچكى ساقلىغۇچ</string>
     <string name="storage_movies">كىنولار</string>
     <string name="storage_music">مۇزىكا</string>
+    <string name="storage_permission_all_files_access">بارلىق ھۆججەتنى ئىشلىتىش</string>
+    <string name="storage_permission_banner_auto_upload_text">ھۆججەت چىقىرىش ئۈچۈن ساقلاش ئىجازىتى تەلەپ قىلىنىدۇ.</string>
+    <string name="storage_permission_banner_upload_text">ئاپتۇماتىك چىقىرىش ئۈچۈن ساقلاش ئىجازىتى تەلەپ قىلىنىدۇ.</string>
+    <string name="storage_permission_dont_ask">سورىما</string>
     <string name="storage_permission_media_read_only">مېدىيا ئوقۇشقىلا بولىدۇ</string>
     <string name="storage_pictures">رەسىملەر</string>
+    <string name="store_full_desc">ئۆزىڭىز باشقۇرىدىغان ئىشلەپچىقىرىش ئىقتىدارى سۇپىسى سىزنى كونترول قىلالايدۇ.\n\n ئالاھىدىلىكلىرى:\n* ئاسان، زامانىۋى كۆرۈنمە يۈزى، مۇلازىمېتىرىڭىزنىڭ تېمىسىغا ماس كېلىدۇ\n* ھۆججەتلەرنى Nextcloud مۇلازىمېتىرىڭىزغا يۈكلەش\n* باشقىلار بىلەن ئورتاقلىشىش\n* ياقتۇرىدىغان ھۆججەت ۋە قىسقۇچلىرىڭىزنى ماسلاشتۇرۇڭ\n* مۇلازىمېتىرىڭىزدىكى بارلىق قىسقۇچلارنى ئىزدەش\n* ئۈسكۈنىڭىز تارتقان رەسىم ۋە سىنلارنى ئاپتوماتىك يۈكلەش\n* ئۇقتۇرۇشلار بىلەن يېڭى ئۇچۇرلارنى ساقلاڭ\n* كۆپ ھېسابات قوللاش\n* بارماق ئىزى ياكى PIN ئارقىلىق سانلىق مەلۇماتلىرىڭىزغا بىخەتەر كىرىش\n* كالېندار ۋە ئالاقىلىشىشلارنى ماسلاشتۇرۇشنى ئاسانلاشتۇرۇش ئۈچۈن DAVx⁵ (ئىلگىرى DAVdroid دەپ ئاتالغان) بىلەن بىرلەشتۈرۈش\n\n بارلىق مەسىلىلەرنى https://github.com/nextcloud/android/issues دا دوكلات قىلىڭ ۋە بۇ ئەپنى https://help.nextcloud.com/c/clients/android دا مۇزاكىرە قىلىڭ\n\nNextcloud غا يېڭى كەلدىڭىزمۇ؟ Nextcloud شەخسىي ھۆججەت ماسلاشتۇرۇش ۋە ئورتاقلىشىش ۋە ئالاقە مۇلازىمېتىرى. ئۇ ھەقسىز يۇمشاق دېتال بولۇپ، ئۇنى ئۆزىڭىز ساقلىيالايسىز ياكى شىركەتكە پۇل تۆلەپ قىلالايسىز. بۇ ئۇسۇل ئارقىلىق، سىز رەسىملىرىڭىزنى، كالېندارىڭىزنى ۋە ئالاقە ئۇچۇرلىرىڭىزنى، ھۆججەتلىرىڭىزنى ۋە باشقا ھەممە نەرسىنى كونترول قىلالايسىز.\n\nNextcloud نى https://nextcloud.com دىن كۆرۈڭ.</string>
     <string name="store_full_dev_desc">ئۆزى كونترول قىلىدىغان ئىشلەپچىقىرىش سۇپىسى سىزنى كونترول قىلىدۇ. \ N بۇ رەسمىي تەرەققىيات نۇسخىسى بولۇپ ، ھەر كۈنى يېڭى سىناقتىن ئۆتمىگەن ئىقتىدارلارنىڭ ئەۋرىشكىسى بار ، بۇ مۇقىمسىزلىق ۋە سانلىق مەلۇماتلارنىڭ يوقىلىشىنى كەلتۈرۈپ چىقىرىشى مۇمكىن. بۇ ئەپ سىناق قىلىشنى خالايدىغان ئىشلەتكۈچىلەر ئۈچۈن بولۇپ ، خاتالىق كۆرۈلسە دوكلات قىلىدۇ. ئۇنى ئىشلەپچىقىرىش خىزمىتىڭىزگە ئىشلەتمەڭ! \ N \ n ھەر ئىككىلىسى رەسمىي dev ۋە دائىملىق نۇسخىسى F-droid دا بار ، بىرلا ۋاقىتتا ئورنىتىشقا بولىدۇ.</string>
     <string name="store_short_desc">ئۆزىڭىزنى كونترول قىلىدىغان ئۆزى ساھىبخانلىق ئىشلەپچىقىرىش سۇپىسى</string>
     <string name="store_short_dev_desc">سىزنى كونترول قىلىدىغان ئۆزى ساھىبخانلىق قىلغان ئىشلەپچىقىرىش سۇپىسى (dev ئالدىن كۆرۈش نۇسخىسى)</string>
-    <string name="stream">Stream with…</string>
+    <string name="stream">بىلەن يەتكۈز...</string>
     <string name="stream_not_possible_headline">ئىچكى ئېقىم مۇمكىن ئەمەس</string>
     <string name="stream_not_possible_message">ئۇنىڭ ئورنىغا مېدىيا چۈشۈرۈڭ ياكى سىرتقى ئەپنى ئىشلىتىڭ.</string>
     <string name="sub_folder_rule_day">يىل / ئاي / كۈن</string>
@@ -876,8 +959,10 @@
     <string name="subtitle_videos_only">پەقەت سىنلار</string>
     <string name="suggest">تەكلىپ</string>
     <string name="sync">ماسقەدەملەش</string>
+    <string name="sync_anyway">يەنىلا ماس-قەدەملە</string>
     <string name="sync_conflicts_in_favourites_ticker">توقۇنۇشلار بايقالدى</string>
     <string name="sync_current_folder_was_removed">%1$s ھۆججەت قىسقۇچى ئەمدى مەۋجۇت ئەمەس</string>
+    <string name="sync_duplication">كۆپەيتىلگەن ماس-قەدەملەش</string>
     <string name="sync_fail_content">%1$s نى ماسقەدەملىيەلمىدى</string>
     <string name="sync_fail_content_unauthorized">%1$s نىڭ مەخپىي نومۇرى خاتا</string>
     <string name="sync_fail_in_favourites_ticker">ماس قەدەملىك ھۆججەتلەر مەغلۇپ بولدى</string>
@@ -885,7 +970,7 @@
     <string name="sync_fail_ticker_unauthorized">ماسقەدەملەش مەغلۇپ بولدى ، قايتا كىرىڭ</string>
     <string name="sync_file_nothing_to_do_msg">ھۆججەت مەزمۇنى ماسقەدەملەندى</string>
     <string name="sync_folder_failed_content">%1$s ھۆججەت قىسقۇچنى ماسقەدەملەش تاماملانمىدى</string>
-    <string name="sync_foreign_files_forgotten_explanation">1.3.16 نەشرىگە قەدەر ، بۇ ئۈسكۈنىدىن يۈكلەنگەن ھۆججەتلەر يەرلىك%1$s ھۆججەت قىسقۇچىغا كۆچۈرۈلۈپ ، بىر ھۆججەت كۆپ ھېسابات بىلەن ماس قەدەمدە سانلىق مەلۇمات يوقاپ كېتىشنىڭ ئالدىنى ئالىدۇ. \ N \ n بۇ ئۆزگىرىش سەۋەبىدىن ، بارلىق ھۆججەتلەر ئىلگىرىكى نەشرىگە يۈكلەنگەن. بۇ دېتالنىڭ%2$s ھۆججەت قىسقۇچىغا كۆچۈرۈلگەن. قانداقلا بولمىسۇن ، خاتالىق ھېسابات ماسقەدەملەش جەريانىدا بۇ مەشغۇلاتنىڭ تاماملىنىشىنىڭ ئالدىنى ئالدى. سىز ھۆججەتلەرنى (لار) نى تاشلاپ قويۇپ ، ئۇلىنىشنى%3$s غا ئۆچۈرەلەيسىز ياكى ھۆججەت (لەر) نى%1$s ھۆججەت قىسقۇچىغا يۆتكىسىڭىز ھەمدە ئۇلىنىشنى%4$s غا ساقلاپ قويسىڭىز بولىدۇ. \ N \ n تۆۋەندە كۆرسىتىلگەن يەرلىك ھۆججەت (لار) بولۇپ ، ئۇلانغان%5$s دىكى يىراقتىكى ھۆججەتلەر.</string>
+    <string name="sync_foreign_files_forgotten_explanation">1.3.16 نەشرىدىن باشلاپ، بۇ ئۈسكۈنىدىن يۈكلەنگەن ھۆججەتلەر يەرلىك %1$s قىسقۇچقا كۆچۈرۈلىدۇ، بۇ بىرلا ھۆججەت كۆپ ھېسابات بىلەن ماسلاشتۇرۇلغاندا سانلىق مەلۇمات يوقىلىپ كېتىشىنىڭ ئالدىنى ئالىدۇ.\n\nبۇ ئۆزگىرىش سەۋەبىدىن، بۇ ئەپنىڭ ئىلگىرىكى نەشرى بىلەن يۈكلەنگەن بارلىق ھۆججەتلەر %2$s قىسقۇچقا كۆچۈرۈلدى. قانداقلا بولمىسۇن، ھېسابات ماسلاشتۇرۇلغاندا خاتالىق سەۋەبىدىن بۇ مەشغۇلات تاماملانمىدى. ھۆججەت(لەر)نى شۇ ھالىتىدە قالدۇرۇپ، %3$s غا ئۇلىنىشنى ئۆچۈرۈۋەتسىڭىز ياكى ھۆججەت(لەر)نى %1$s قىسقۇچقا يۆتكەپ، ئۇلىنىشنى %4$s غا ساقلىسىڭىز بولىدۇ.\n\nتۆۋەندە ئۇلار ئۇلانغان %5$s دىكى يەرلىك ھۆججەت(لەر) ۋە يىراقتىكى ھۆججەت(لەر) كۆرسىتىلدى.</string>
     <string name="sync_foreign_files_forgotten_ticker">بەزى يەرلىك ھۆججەتلەر ئۇنتۇلدى</string>
     <string name="sync_in_progress">ھۆججەتنىڭ ئەڭ يېڭى نەشرىنى ئېلىش.</string>
     <string name="sync_not_enough_space_dialog_action_choose">ماسقەدەملەشنى تاللاڭ</string>
@@ -894,6 +979,7 @@
     <string name="sync_not_enough_space_dialog_title">يېتەرلىك بوشلۇق يوق</string>
     <string name="sync_status_button">ماسقەدەملەش ھالىتى كۇنۇپكىسى</string>
     <string name="sync_string_files">ھۆججەتلەر</string>
+    <string name="sync_warning_button">ماس-قەدەملەشنى ئاگاھلاندۇرۇش كۇنۇپكىسى</string>
     <string name="synced_folder_settings_button">تەڭشەك كۇنۇپكىسى</string>
     <string name="synced_folders_configure_folders">قىسقۇچلارنى سەپلەڭ</string>
     <string name="synced_folders_new_info">دەرھال يوللاش پۈتۈنلەي يېڭىلاندى. ئاپتوماتىك يوللاشنى ئاساسىي تىزىملىكنىڭ ئىچىدىن قايتا تەڭشەڭ. \ N \ n يېڭى ۋە كېڭەيتىلگەن ئاپتوماتىك يوللاشتىن ھۇزۇرلىنىڭ.</string>
@@ -903,10 +989,11 @@
     <string name="synced_icon">ماسقەدەملەندى</string>
     <string name="tags">خەتكۈچ</string>
     <string name="terms_of_service_title">مۇلازىمەت شەرتلىرى</string>
+    <string name="terms_of_services_agree">مەن ئۈستىدىكى ئ ك غا قۇشۇلىمەن</string>
     <string name="test_server_button">مۇلازىمېتىر ئۇلىنىشىنى سىناش</string>
     <string name="thirtyMinutes">30 مىنۇت</string>
     <string name="thisWeek">بۇ ھەپتە</string>
-    <string name="thumbnail">Thumbnail</string>
+    <string name="thumbnail">باش-سۈرەت</string>
     <string name="thumbnail_for_existing_file_description">مەۋجۇت ھۆججەتنىڭ كىچىك كۆرۈنۈشى</string>
     <string name="thumbnail_for_new_file_desc">يېڭى ھۆججەتنىڭ كىچىك كۆرۈنۈشى</string>
     <string name="timeout_richDocuments">يۈكلەش مۆلچەردىكىدىن ئۇزۇنراق</string>
@@ -927,6 +1014,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">ھادىسە تېپىلمىدى ، يېڭىلاش ئۈچۈن ھەمىشە ماسقەدەملىيەلەيسىز. تورغا قايتا يۆنىلىش…</string>
     <string name="unified_search_fragment_contact_not_found">ئالاقىلىشىش تېپىلمىدى ، يېڭىلاش ئۈچۈن ھەمىشە ماسقەدەملىيەلەيسىز. تورغا قايتا يۆنىلىش…</string>
     <string name="unified_search_fragment_permission_needed">ئىزدەش نەتىجىسىنى ئېچىشقا ئىجازەت تەلەپ قىلىنىدۇ ، بولمىسا ئۇ تورغا ئۇلىنىدۇ.</string>
+    <string name="unified_search_fragment_search_in_this_folder">بۇ قىسقۇچتا</string>
     <string name="unknown">نامەلۇم</string>
     <string name="unlock_file">ھۆججەتنى ئېچىش</string>
     <string name="unread_comments">ئوقۇلمىغان ئىنكاسلار مەۋجۇت</string>
@@ -955,7 +1043,7 @@
     <string name="upload_direct_camera_photo">سۈرەت</string>
     <string name="upload_direct_camera_promt">رەسىم ياكى سىن ئالماقچىمۇ؟</string>
     <string name="upload_direct_camera_upload">كامېرادىن يۈكلەڭ</string>
-    <string name="upload_direct_camera_video">Video</string>
+    <string name="upload_direct_camera_video">سىن</string>
     <string name="upload_file_dialog_filename">ھۆججەت ئىسمى</string>
     <string name="upload_file_dialog_filetype">ھۆججەت شەكلى</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google خەرىتە تېزلەتمە ھۆججىتى (%s)</string>
@@ -975,6 +1063,10 @@
     <string name="upload_local_storage_not_copied">ھۆججەتنى يەرلىك ساقلاشقا كۆچۈرگىلى بولمايدۇ</string>
     <string name="upload_lock_failed">ھۆججەت قىسقۇچنى قۇلۇپلاش مەغلۇب بولدى</string>
     <string name="upload_manually_cancelled">ئىشلەتكۈچى يوللاش ئەمەلدىن قالدۇرۇلدى</string>
+    <string name="upload_missing_storage_permission_allow_file_access">بارلىق ھۆججەتكە كىرىشكە يول قوي</string>
+    <string name="upload_missing_storage_permission_app_permissions">ئەپ رۇخسىتى</string>
+    <string name="upload_missing_storage_permission_description">ھۆججىتىڭىزنى يەرلىك ساقلىغۇچقا كىرمەي تۇرۇپ چىقارغىلى بولمايدۇ. رۇخسەت بېرىش ئۈچۈن چىكىڭ.</string>
+    <string name="upload_missing_storage_permission_title">چىقىرىش توختىدى – ساقالاش رۇخسىتى كېرەك</string>
     <string name="upload_notification_manager_start_text">%1$d d /%2$d d -%3$s</string>
     <string name="upload_old_android">شىفىرلاش پەقەت&gt; = Android 5.0 بىلەنلا مۇمكىن</string>
     <string name="upload_query_move_foreign_files">بوشلۇق يېتەرلىك بولمىسا تاللانغان ھۆججەتلەرنى%1$s ھۆججەت قىسقۇچىغا كۆچۈرۈپ كېتىشنىڭ ئالدىنى ئالىدۇ. ئۇلارنىڭ ئورنىغا ئۇلارنى يۆتكىمەكچىمۇ؟</string>
@@ -1029,6 +1121,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">ئىشەنچسىز مۇلازىمېتىر گۇۋاھنامىسى</string>
     <string name="uploads_view_upload_status_fetching_server_version">مۇلازىمېتىر نۇسخىسىنى ئېلىش…</string>
     <string name="uploads_view_upload_status_service_interrupted">ئەپ ئاخىرلاشتى</string>
+    <string name="uploads_view_upload_status_skip">ئاتلا</string>
+    <string name="uploads_view_upload_status_skip_reason">ئوخشاش ئىسىمدىكى ھۆججەت ئاللىبۇرۇن مەۋجۇت</string>
     <string name="uploads_view_upload_status_succeeded">تاماملاندى</string>
     <string name="uploads_view_upload_status_succeeded_same_file">يىراقتىن تېپىلغان ئوخشاش ھۆججەت</string>
     <string name="uploads_view_upload_status_unknown_fail">يوچۇن خاتالىق</string>
@@ -1051,10 +1145,12 @@
     <string name="wait_a_moment">سەل ساقلاپ تۇرۇڭ…</string>
     <string name="wait_checking_credentials">ساقلانغان كىنىشكىنى تەكشۈرۈش</string>
     <string name="wait_for_tmp_copy_from_private_storage">شەخسىي ساقلاشتىن ھۆججەت كۆچۈرۈش</string>
+    <string name="warn_rename_extension">كېڭەيتىلمىسىنى ئۆزگەرتىش بۇ ھۆججەتنىڭ باشقا بىر ئەپتە ئېچىلىشىنى كەلتۈرۈپ چىقىرىدۇ</string>
     <string name="what_s_new_image">يېڭى رەسىم</string>
     <string name="whats_new_skip">ئاتلاش</string>
     <string name="whats_new_title">%1$s دىكى يېڭى</string>
     <string name="whats_your_status">ئەھۋالىڭىز نېمە؟</string>
+    <string name="widgets_not_available">كىچىك قوراللار پەقەت %1$s 25 دە ياكى ئۇنىڭدىن يۇقىرسىدا باشتاختىدا قوزغىتىلغاندا ئېرىشكىلى بۇلىدۇ</string>
     <string name="widgets_not_available_title">ئىشلەتكىلى بولمايدۇ</string>
     <string name="worker_download">ھۆججەتلەرنى چۈشۈرۈش…</string>
     <string name="write_email">ئېلېكترونلۇق خەت ئەۋەتىڭ</string>
@@ -1068,6 +1164,10 @@
         <item quantity="one">%d مىنۇت</item>
         <item quantity="other">%d مىنۇت</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">%d سىكۇنت بۇرۇن</item>
+        <item quantity="other">%d سىكۇنت بۇرۇن</item>
+    </plurals>
     <plurals name="time_minutes_ago">
         <item quantity="one">%d مىنۇت ئىلگىرى</item>
         <item quantity="other">%d مىنۇت ئىلگىرى</item>
@@ -1077,60 +1177,80 @@
         <item quantity="other">%d سائەت ئىلگىرى</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
-        <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
-        <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>
+        <item quantity="one">%1$d ھۆججەتنى ماس-قەدەملىگىلى بولمىدى (زىددىيەتلەر: %2$d)</item>
+        <item quantity="other">%1$d ھۆججەتلەرنى ماس-قەدەملىگىلى بولمىدى (زىددىيەتلەر: %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one">Failed to copy %1$d file from the %2$s folder into</item>
-        <item quantity="other">Failed to copy %1$d files from the %2$s folder into</item>
+        <item quantity="one">%2$s دىن %1$d ھۆججەتنى كۆچۈرۈش مەغلۇپ بولدى</item>
+        <item quantity="other">%2$s دىن %1$d ھۆججەتنى كۆچۈرۈش مەغلۇپ بولدى</item>
     </plurals>
     <plurals name="wrote_n_events_to">
-        <item quantity="one">Wrote %1$d event to %2$s</item>
-        <item quantity="other">Wrote %1$d events to %2$s</item>
+        <item quantity="one">%2$s غا %1$d پائالىيەت يازدى</item>
+        <item quantity="other">%2$s غا %1$d پائالىيەت يازدى</item>
     </plurals>
     <plurals name="created_n_uids_to">
-        <item quantity="one">Created %1$d fresh UID</item>
-        <item quantity="other">Created %1$d fresh UIDs</item>
+        <item quantity="one">يېڭى %1$d UID قۇرۇلدى</item>
+        <item quantity="other">يېڭى %1$d UID قۇرۇلدى</item>
     </plurals>
     <plurals name="processed_n_entries">
-        <item quantity="one">Processed %d entry.</item>
-        <item quantity="other">Processed %d entries.</item>
+        <item quantity="one">%d تۈرنى بىر-تەرەپ قىلدى.</item>
+        <item quantity="other">%d تۈرنى بىر-تەرەپ قىلدى.</item>
     </plurals>
     <plurals name="found_n_duplicates">
-        <item quantity="one">Found %d duplicate entry.</item>
-        <item quantity="other">Found %d duplicate entries.</item>
+        <item quantity="one">كۆپەيتىلگەن %d تۈر تېپىلدى.</item>
+        <item quantity="other">كۆپەيتىلگەن %d تۈر تېپىلدى.</item>
     </plurals>
     <plurals name="export_successful">
-        <item quantity="one">Exported %d file</item>
-        <item quantity="other">Exported %d files</item>
+        <item quantity="one">%d ھۆججەت چىقىرىلدى</item>
+        <item quantity="other">%d ھۆججەت چىقىرىلدى</item>
     </plurals>
     <plurals name="export_failed">
-        <item quantity="one">Failed to export %d file</item>
-        <item quantity="other">Failed to export %d files</item>
+        <item quantity="one">%d ھۆججەتنى چىقىرىش مەغلۇپ بولدى</item>
+        <item quantity="other">%d ھۆججەتنى چىقىرىش مەغلۇپ بولدى</item>
     </plurals>
     <plurals name="export_partially_failed">
-        <item quantity="one">Exported %d file, skipped rest due to error</item>
-        <item quantity="other">Exported %d files, skipped rest due to error</item>
+        <item quantity="one">%d ھۆججەت چىقىرىلدى، قالغانلىرى خاتالىق سەۋەبىدىن ئاتلاندى</item>
+        <item quantity="other">%d ھۆججەت چىقىرىلدى، قالغانلىرى خاتالىق سەۋەبىدىن ئاتلاندى</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">سىز بىر قېتىمدا %d ھۆججەت چىقىرالايسىز.</item>
+        <item quantity="other">سىز بىر قېتىمدا %d ھۆججەت چىقىرالايسىز.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
-        <item quantity="one">%1$d folder</item>
-        <item quantity="other">%1$d folders</item>
+        <item quantity="one">%1$d قىسقۇچ</item>
+        <item quantity="other">%1$d قىسقۇچ</item>
     </plurals>
     <plurals name="file_list__footer__file">
-        <item quantity="one">%1$d file</item>
-        <item quantity="other">%1$d files</item>
+        <item quantity="one">%1$d ھۆججەت</item>
+        <item quantity="other">%1$d ھۆججەت</item>
     </plurals>
     <plurals name="trashbin_list__footer__file">
         <item quantity="one">%1$d تۈر</item>
         <item quantity="other">%1$d تۈرلەر</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
-        <item quantity="one">Show %1$d hidden folder</item>
-        <item quantity="other">Show %1$d hidden folders</item>
+        <item quantity="one">يۇشۇرۇن %1$d قىسقۇچنى كۆرسەت</item>
+        <item quantity="other">يۇشۇرۇن %1$d قىسقۇچنى كۆرسەت</item>
     </plurals>
     <plurals name="items_selected_count">
-        <item quantity="one">%d selected</item>
-        <item quantity="other">%d selected</item>
+        <item quantity="one">%d تاللاندى</item>
+        <item quantity="other">%d تاللاندى</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %d سىكۇنت كېچىكتۈرۈلدى</item>
+        <item quantity="other">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %d سىكۇنت كېچىكتۈرۈلدى</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %d مىنۇت كېچىكتۈرۈلدى</item>
+        <item quantity="other">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %d مىنۇت كېچىكتۈرۈلدى</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">%d مىنۇت كېچىكتۈرۈلدى</item>
+        <item quantity="other">%d مىنۇت كېچىكتۈرۈلدى</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d سېكۇنت</item>
+        <item quantity="other">%d سېكۇنت</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d چۈشۈرۈش قالدى</item>
