@@ -278,6 +278,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
                 EventBus.getDefault().post(new ChangeMenuEvent());
             } else if (menuItemId == R.id.nav_favorites) {
+                resetOnlyPersonalAndOnDevice();
                 setupToolbar();
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
@@ -645,6 +646,16 @@ public abstract class DrawerActivity extends ToolbarActivity
                 Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
             }
         }
+
+        // from navigation user always sees root level
+        final var ocFileListFragment = getOCFileListFragment();
+        if (ocFileListFragment != null) {
+            ocFileListFragment.resetFileDepth();
+        }
+
+        if (this instanceof FileDisplayActivity fda) {
+            fda.configureMenuItem();
+        }
     }
 
     private void startComposeActivity(ComposeDestination destination, int titleId) {
@@ -685,10 +696,6 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     protected void openSharedTab() {
-        final var ocFileListFragment = getOCFileListFragment();
-        if (ocFileListFragment != null) {
-            ocFileListFragment.resetFileDepth();
-        }
         resetOnlyPersonalAndOnDevice();
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
         launchActivityForSearch(searchEvent, R.id.nav_shared);

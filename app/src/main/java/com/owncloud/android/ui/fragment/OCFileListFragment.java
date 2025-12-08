@@ -248,12 +248,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setHasOptionsMenu(true);
         mMultiChoiceModeListener = new MultiChoiceModeListener();
 
-        if (savedInstanceState != null) {
-            currentSearchType = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_CURRENT_SEARCH_TYPE, SearchType.class);
-            searchEvent = BundleExtensionsKt.getParcelableArgument(savedInstanceState, SEARCH_EVENT, SearchEvent.class);
-            mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_FILE, OCFile.class);
-        }
-
+        final Bundle state = savedInstanceState != null ? savedInstanceState : getArguments();
+        setSearchArgs(state);
+        mFile = BundleExtensionsKt.getParcelableArgument(state, KEY_FILE, OCFile.class);
         searchFragment = currentSearchType != null && isSearchEventSet(searchEvent);
     }
 
@@ -308,15 +305,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log_OC.i(TAG, "onCreateView() start");
-        View v = super.onCreateView(inflater, container, savedInstanceState);
-
-        final Bundle state = savedInstanceState != null ? savedInstanceState : getArguments();
+    private void setSearchArgs(Bundle state) {
         SearchType argSearchType = null;
         SearchEvent argSearchEvent = null;
 
@@ -334,6 +323,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (searchEvent != null && currentSearchType != NO_SEARCH) {
             searchFragment = true;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log_OC.i(TAG, "onCreateView() start");
+        View v = super.onCreateView(inflater, container, savedInstanceState);
+
+        final Bundle state = savedInstanceState != null ? savedInstanceState : getArguments();
+        setSearchArgs(state);
 
         boolean allowContextualActions = (state != null && state.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, false));
         if (allowContextualActions) {
@@ -467,29 +468,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     protected void prepareCurrentSearch(SearchEvent event) {
         if (isSearchEventSet(event)) {
-
-            switch (event.getSearchType()) {
-                case FILE_SEARCH:
-                    currentSearchType = FILE_SEARCH;
-                    break;
-
-                case FAVORITE_SEARCH:
-                    currentSearchType = FAVORITE_SEARCH;
-                    break;
-
-                case RECENTLY_MODIFIED_SEARCH:
-                    currentSearchType = RECENTLY_MODIFIED_SEARCH;
-                    break;
-
-                case SHARED_FILTER:
-                    currentSearchType = SHARED_FILTER;
-                    break;
-
-                default:
-                    // do nothing
-                    break;
-            }
-
+            setCurrentSearchType(event);
             prepareActionBarItems(event);
         }
     }
@@ -1768,7 +1747,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return mAdapter;
     }
 
-    protected void setTitle() {
+    public void setTitle() {
         if (!(getActivity() instanceof FileDisplayActivity fda) || currentSearchType == null) {
             return;
         }
@@ -1780,6 +1759,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         setTitle(title, currentSearchType.isMenu());
+    }
+
+    public void setCurrentSearchType(SearchEvent event) {
+        final var searchType = event.toSearchType();
+        if (searchType != null) {
+            currentSearchType = searchType;
+        }
     }
 
     protected void prepareActionBarItems(SearchEvent event) {
@@ -2121,12 +2107,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        fda.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final var actionBar = fda.getSupportActionBar();
-                viewThemeUtils.files.themeActionBar(fda, actionBar, title, showBackAsMenu);
-            }
+        final var actionBar = fda.getSupportActionBar();
+        if (actionBar == null) {
+            return;
+        }
+
+        fda.runOnUiThread(() -> {
+            viewThemeUtils.files.themeActionBar(fda, actionBar, title, showBackAsMenu);
         });
     }
 

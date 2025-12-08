@@ -71,13 +71,11 @@ import com.nextcloud.client.media.PlayerServiceConnection
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
-import com.nextcloud.model.ToolbarItem
-import com.nextcloud.model.ToolbarStyle
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerState.FileDownloadCompleted
 import com.nextcloud.model.WorkerState.FileDownloadStarted
-import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.model.WorkerState.FileUploadCompleted
+import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
@@ -1236,7 +1234,7 @@ class FileDisplayActivity :
         }
 
         resetTitleBarAndScrolling()
-        configureToolbar()
+        configureMenuItem()
         startMetadataSyncForCurrentDir()
     }
 
@@ -1358,7 +1356,7 @@ class FileDisplayActivity :
             localBroadcastManager.registerReceiver(it, downloadIntentFilter)
         }
 
-        configureToolbar()
+        configureMenuItem()
 
         // show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this)
@@ -1387,23 +1385,9 @@ class FileDisplayActivity :
         }
     }
 
-    private fun configureToolbar() {
+    fun configureMenuItem() {
         checkAndSetMenuItemId()
         setNavigationViewItemChecked()
-        val item = ToolbarItem.fromNavId(menuItemId)
-        when (item?.style) {
-            ToolbarStyle.SEARCH -> setupHomeSearchToolbarWithSortAndListButtons()
-            ToolbarStyle.PLAIN -> {
-                if (currentDir?.isRootDirectory == true) {
-                    updateActionBarTitleAndHomeButtonByString(getString(item.titleId))
-                } else {
-                    setupToolbar()
-                }
-            }
-            else -> {
-                setupToolbar()
-            }
-        }
     }
 
     fun initSyncBroadcastReceiver() {
@@ -2749,6 +2733,9 @@ class FileDisplayActivity :
             Log_OC.d(this, "Switch to Shared fragment")
             this.leftFragment = SharedListFragment()
         }
+
+        listOfFilesFragment?.setCurrentSearchType(event)
+        listOfFilesFragment?.setTitle()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
