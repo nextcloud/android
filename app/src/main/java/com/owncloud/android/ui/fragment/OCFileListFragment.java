@@ -290,7 +290,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         Log_OC.i(TAG, "onAttach");
         try {
             mContainerActivity = (FileFragment.ContainerActivity) context;
-            setActionBarTitle();
         } catch (ClassCastException e) {
             throw new IllegalArgumentException(context.toString() + " must implement " +
                                                    FileFragment.ContainerActivity.class.getSimpleName(), e);
@@ -434,10 +433,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             });
         }
 
-        setActionBarTitle();
-
-        if (getActivity() instanceof FileDisplayActivity fileDisplayActivity) {
-            fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir(), currentSearchType);
+        if (getActivity() instanceof FileDisplayActivity fda) {
+            fda.updateActionBarTitleAndHomeButton(fda.getCurrentDir(), currentSearchType);
         }
         listDirectory(MainApp.isOnlyOnDevice(), false);
     }
@@ -1062,7 +1059,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             Pair<Integer, OCFile> result = futureResult.get();
             mFile = result.second;
             setFileDepth(mFile);
-            setActionBarTitle();
             updateFileList();
             return result.first;
         } catch (Exception e) {
@@ -1810,28 +1806,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
         resetSearchAttributes();
-
         resetMenuItems();
-        Activity activity = getActivity();
-        if (activity != null) {
-            activity.invalidateOptionsMenu();
 
-            if (activity instanceof FileDisplayActivity) {
-                ((FileDisplayActivity) activity).initSyncBroadcastReceiver();
-            }
-
-            setActionBarTitle(themeUtils.getDefaultDisplayNameForRootFolder(getContext()), false);
-            activity.getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
-        }
-
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            arguments.putParcelable(OCFileListFragment.SEARCH_EVENT, null);
+        if (getActivity() instanceof FileDisplayActivity fda) {
+            fda.invalidateOptionsMenu();
+            fda.getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
+            fda.updateActionBarTitleAndHomeButton(null, NO_SEARCH);
         }
 
         if (mFile != null) {
             setFabVisible(mFile.canCreateFileAndFolder());
         }
+
         slideHideBottomBehaviourForBottomNavigationView(true);
     }
 
@@ -2086,31 +2072,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                               Snackbar.LENGTH_LONG).show();
             }
         }
-    }
-
-    public void setActionBarTitle() {
-        if (!(getActivity() instanceof FileDisplayActivity fda) || currentSearchType == null) {
-            return;
-        }
-
-        String title = fda.getActionBarTitle(mFile, currentSearchType);
-        boolean isRoot = (getFileDepth() == OCFileDepth.Root) || fda.isRoot(mFile);
-        setActionBarTitle(title, isRoot);
-    }
-
-    protected void setActionBarTitle(final String title, Boolean showBackAsMenu) {
-        if (!(getActivity() instanceof FileDisplayActivity fda)) {
-            return;
-        }
-
-        final var actionBar = fda.getSupportActionBar();
-        if (actionBar == null) {
-            return;
-        }
-
-        fda.runOnUiThread(() -> {
-            viewThemeUtils.files.themeActionBar(fda, actionBar, title, showBackAsMenu);
-        });
     }
 
     @Override
