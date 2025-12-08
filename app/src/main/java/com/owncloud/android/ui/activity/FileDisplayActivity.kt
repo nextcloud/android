@@ -2738,7 +2738,7 @@ class FileDisplayActivity :
 
         listOfFilesFragment?.setCurrentSearchType(event)
         updateActionBarTitleAndHomeButton(null)
-        //listOfFilesFragment?.setActionBarTitle()
+        // listOfFilesFragment?.setActionBarTitle()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
