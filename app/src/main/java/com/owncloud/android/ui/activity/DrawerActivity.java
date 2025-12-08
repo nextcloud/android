@@ -15,7 +15,6 @@ package com.owncloud.android.ui.activity;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
-import android.app.ComponentCaller;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -1208,6 +1207,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 preferences.setLockTimestamp(0);
                 finish();
             }
+        } else if (requestCode == REQ_ALL_FILES_ACCESS || requestCode == REQ_MEDIA_ACCESS) {
+            checkStoragePermissionWarningBannerVisibility();
         }
     }
 
@@ -1434,15 +1435,6 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     public BottomNavigationView getBottomNavigationView() {
        return bottomNavigationView;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data, @NonNull ComponentCaller caller) {
-        super.onActivityResult(requestCode, resultCode, data, caller);
-
-        if (requestCode == REQ_ALL_FILES_ACCESS || requestCode == REQ_MEDIA_ACCESS) {
-            checkStoragePermissionWarningBannerVisibility();
-        }
     }
 
     private void checkStoragePermissionWarningBannerVisibility() {
