@@ -36,6 +36,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -153,21 +154,33 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         setupToolbar(true, true);
     }
 
-    /**
-     * Updates title bar and home buttons (state and icon).
-     */
-    protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
+    public void updateActionBarTitleAndHomeButton(OCFile chosenFile, SearchType searchType) {
         boolean isRoot = isRoot(chosenFile);
-        String title = getActionBarTitle(chosenFile, isRoot);
+        String title = getActionBarTitle(chosenFile, searchType);
         updateActionBarTitleAndHomeButtonByString(title);
         if (mAppBar != null) {
             showHomeSearchToolbar(title, isRoot);
         }
     }
 
-    private String getActionBarTitle(OCFile chosenFile, boolean isRoot) {
-        if (isRoot) {
-            return themeUtils.getDefaultDisplayNameForRootFolder(this);
+    protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
+        updateActionBarTitleAndHomeButton(chosenFile, SearchType.NO_SEARCH);
+    }
+
+    public String getActionBarRootTitle(@NonNull SearchType searchType) {
+        Integer rootTitleId = searchType.titleId();
+        String result = themeUtils.getDefaultDisplayNameForRootFolder(this);
+
+        if (rootTitleId != null) {
+            result = getString(rootTitleId);
+        }
+
+        return result;
+    }
+
+    public String getActionBarTitle(OCFile chosenFile, @NonNull SearchType searchType) {
+        if (isRoot(chosenFile)) {
+            return getActionBarRootTitle(searchType);
         }
 
         if (chosenFile.isFolder()) {

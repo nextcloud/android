@@ -291,7 +291,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         try {
             mContainerActivity = (FileFragment.ContainerActivity) context;
             setActionBarTitle();
-
         } catch (ClassCastException e) {
             throw new IllegalArgumentException(context.toString() + " must implement " +
                                                    FileFragment.ContainerActivity.class.getSimpleName(), e);
@@ -437,9 +436,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         setActionBarTitle();
 
-        FragmentActivity fragmentActivity;
-        if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity fileDisplayActivity) {
-            fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
+        if (getActivity() instanceof FileDisplayActivity fileDisplayActivity) {
+            fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir(), currentSearchType);
         }
         listDirectory(MainApp.isOnlyOnDevice(), false);
     }
@@ -1064,6 +1062,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             Pair<Integer, OCFile> result = futureResult.get();
             mFile = result.second;
             setFileDepth(mFile);
+            setActionBarTitle();
             updateFileList();
             return result.first;
         } catch (Exception e) {
@@ -1289,19 +1288,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void browseToFolder(OCFile file, int position) {
         setFileDepth(file);
-        resetSearchIfBrowsingFromFavorites();
+
+        if (currentSearchType == FAVORITE_SEARCH) {
+            resetMenuItems();
+        }
+
         listDirectory(file, MainApp.isOnlyOnDevice(), false);
         // then, notify parent activity to let it update its state and view
         mContainerActivity.onBrowsedDownTo(file);
         // save index and top position
         saveIndexAndTopPosition(position);
-    }
-
-    private void resetSearchIfBrowsingFromFavorites() {
-        if (currentSearchType == FAVORITE_SEARCH) {
-            resetSearchAttributes();
-            resetMenuItems();
-        }
     }
 
     @Override
@@ -1753,25 +1749,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return mAdapter;
     }
 
-    public void setActionBarTitle() {
-        if (!(getActivity() instanceof FileDisplayActivity fda) || currentSearchType == null) {
-            return;
-        }
-
-        Integer titleId = currentSearchType.titleId();
-        String title = themeUtils.getDefaultDisplayNameForRootFolder(fda);
-        if (titleId != null) {
-            title = fda.getString(titleId);
-        }
-
-        setActionBarTitle(title, currentSearchType.isMenu());
-    }
-
     public void setCurrentSearchType(SearchEvent event) {
         final var searchType = event.toSearchType();
         if (searchType != null) {
             currentSearchType = searchType;
         }
+    }
+
+    public SearchType getCurrentSearchType() {
+        return currentSearchType;
     }
 
     protected void prepareActionBarItems(SearchEvent event) {
@@ -2102,12 +2088,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    /**
-     * Theme default action bar according to provided parameters.
-     *
-     * @param title          title to be shown in action bar
-     * @param showBackAsMenu iff true replace back arrow with hamburger menu icon
-     */
+    public void setActionBarTitle() {
+        if (!(getActivity() instanceof FileDisplayActivity fda) || currentSearchType == null) {
+            return;
+        }
+
+        String title = fda.getActionBarTitle(mFile, currentSearchType);
+        boolean isRoot = (getFileDepth() == OCFileDepth.Root) || fda.isRoot(mFile);
+        setActionBarTitle(title, isRoot);
+    }
+
     protected void setActionBarTitle(final String title, Boolean showBackAsMenu) {
         if (!(getActivity() instanceof FileDisplayActivity fda)) {
             return;
