@@ -572,6 +572,12 @@ class FileDisplayActivity :
                 leftFragment = GroupfolderListFragment()
                 supportFragmentManager.executePendingTransactions()
             }
+
+            ON_DEVICE == action -> {
+                refreshOrInitOCFileListFragment()
+                listOfFilesFragment?.setCurrentSearchType(SearchType.ON_DEVICE)
+                updateActionBarTitleAndHomeButton(null)
+            }
         }
     }
 
@@ -2712,9 +2718,10 @@ class FileDisplayActivity :
 
     override fun showFiles(onDeviceOnly: Boolean, personalFiles: Boolean) {
         super.showFiles(onDeviceOnly, personalFiles)
-        if (onDeviceOnly) {
-            updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_on_device))
-        }
+        refreshOrInitOCFileListFragment()
+    }
+
+    private fun refreshOrInitOCFileListFragment() {
         val ocFileListFragment = this.listOfFilesFragment
         if (ocFileListFragment != null &&
             (ocFileListFragment !is GalleryFragment) &&
@@ -3062,6 +3069,7 @@ class FileDisplayActivity :
         const val LIST_GROUPFOLDERS: String = "LIST_GROUPFOLDERS"
         const val SINGLE_USER_SIZE: Int = 1
         const val OPEN_FILE: String = "NC_OPEN_FILE"
+        const val ON_DEVICE = "ON_DEVICE"
 
         const val TAG_PUBLIC_LINK: String = "PUBLIC_LINK"
         const val FTAG_CHOOSER_DIALOG: String = "CHOOSER_DIALOG"

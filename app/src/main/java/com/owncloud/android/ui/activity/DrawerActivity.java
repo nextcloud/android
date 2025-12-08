@@ -579,8 +579,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             setupToolbar();
             startPhotoSearch(menuItem.getItemId());
         } else if (itemId == R.id.nav_on_device) {
-            EventBus.getDefault().post(new ChangeMenuEvent());
-            showFiles(true, false);
+            showOnDeviceFiles();
         } else if (itemId == R.id.nav_uploads) {
             resetOnlyPersonalAndOnDevice();
             startActivity(UploadListActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -1252,6 +1251,16 @@ public abstract class DrawerActivity extends ToolbarActivity
         Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setAction(FileDisplayActivity.ALL_FILES);
+        startActivity(intent);
+    }
+
+    private void showOnDeviceFiles() {
+        MainApp.showOnlyFilesOnDevice(true);
+        MainApp.showOnlyPersonalFiles(false);
+
+        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setAction(FileDisplayActivity.ON_DEVICE);
         startActivity(intent);
     }
 
