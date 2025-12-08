@@ -321,16 +321,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    /**
-     * initializes and sets up the drawer toggle.
-     */
     private void setupDrawerToggle() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-            /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                supportInvalidateOptionsMenu();
-                mDrawerToggle.setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
 
                 if (pendingRunnable != null) {
                     new Handler().post(pendingRunnable);
@@ -339,23 +333,12 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                 closeDrawer();
             }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                mDrawerToggle.setDrawerIndicatorEnabled(true);
-                supportInvalidateOptionsMenu();
-            }
         };
 
-        // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerToggle.setDrawerSlideAnimationEnabled(true);
-        Drawable backArrow = ResourcesCompat.getDrawable(getResources(),
-                                                         R.drawable.ic_arrow_back,
-                                                         null);
-
+        final Drawable backArrow = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_arrow_back, null);
         if (backArrow != null) {
             viewThemeUtils.platform.tintToolbarArrowDrawable(this, mDrawerToggle, backArrow);
         }
