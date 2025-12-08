@@ -26,10 +26,6 @@ enum class SearchType : Parcelable {
     SHARED_FILTER,
     GROUPFOLDER;
 
-    fun isMenu(): Boolean {
-        return this in listOf(FAVORITE_SEARCH, GALLERY_SEARCH, RECENTLY_MODIFIED_SEARCH, SHARED_FILTER)
-    }
-
     fun titleId(): Int? = when (this) {
         FAVORITE_SEARCH -> R.string.drawer_item_favorites
         GALLERY_SEARCH -> R.string.drawer_item_gallery
