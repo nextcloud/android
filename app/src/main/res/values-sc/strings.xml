@@ -84,6 +84,7 @@
     <string name="busy">Impinnadu</string>
     <string name="calendar">Calendàriu</string>
     <string name="calendars">Calendàrios</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Problema in su carrigamentu de su tzertificadu.</string>
     <string name="changelog_dev_version">Registru de is modìficas de sa versione dispositivu</string>
     <string name="checkbox">Casella de ispunta</string>
@@ -158,7 +159,6 @@
     <string name="conversation_screen_empty_content_title">Peruna resonada agatada</string>
     <string name="conversation_screen_title">Cunversatziones</string>
     <string name="copied">Copiadu</string>
-    <string name="copied_to_clipboard">Copiadu in punta de billete</string>
     <string name="copy_file_error">Ddoe at àpidu un\'errore in sa còpia de su documentu o de sa cartella</string>
     <string name="copy_file_invalid_into_descendent">No est possìbile a copiare una cartella a intro de una de is cartellas in suta </string>
     <string name="copy_file_invalid_overwrite">Su documentu est giai presente in sa cartella de destinatzione</string>
@@ -330,7 +330,6 @@
     <string name="file_not_synced">No at fatu a sincronizare su documentu. Mustrende s\'ùrtima versione a disponimentu.</string>
     <string name="file_rename">Torra a numenare</string>
     <string name="file_version_restored_error">Errore in su recùperu de sa versione documentu!</string>
-    <string name="file_version_restored_successfully">Recùperu de sa versione documentu fatu.</string>
     <string name="filedetails_details">Detàllios</string>
     <string name="filedetails_download">Iscàrriga</string>
     <string name="filedetails_export">Esporta</string>
@@ -363,7 +362,6 @@
     <string name="foreign_files_local_text">Locale: %1$s</string>
     <string name="foreign_files_move">Tràmuda totu</string>
     <string name="foreign_files_remote_text">Remotu: %1$s</string>
-    <string name="foreign_files_success">Totu is documentos tramudados</string>
     <string name="forward">Torra a imbiare</string>
     <string name="fourHours">4 oras</string>
     <string name="hint_name">Nùmene</string>
@@ -464,7 +462,6 @@
     <string name="outdated_server">Su serbidore est a sa fine de sa vida sua, agiorna·ddu!</string>
     <string name="overflow_menu">Àteros menu</string>
     <string name="pass_code_configure_your_pass_code">Inserta su còdighe de atzessu</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Su còdighe de atzessu at a èssere rechestu ogni borta chi s\'aplicatzione s\'aviat.</string>
     <string name="pass_code_enter_pass_code">Inserta su còdighe de atzessu</string>
     <string name="pass_code_mismatch">Is còdighes de atzessu non sunt is pròpios</string>
     <string name="pass_code_reenter_your_pass_code">Torra a insertare su còdighe de atzessu</string>
@@ -472,9 +469,9 @@
     <string name="pass_code_removed">Còdighe de atzessu cantzelladu</string>
     <string name="pass_code_stored">Còdighe de atzessu sarvadu</string>
     <string name="pass_code_wrong">Còdighe de atzessu isballiadu</string>
+    <string name="pause_upload">Pàusa</string>
     <string name="permission_allow">Permite</string>
     <string name="permission_deny">Nega</string>
-    <string name="permission_storage_access">Sunt rechertos àteros permissos pro carrigare e iscarrigare documentos.</string>
     <string name="picture_set_as_no_app">Peruna aplicatzione agatada pro cunfigurare un\'immàgine</string>
     <string name="player_stop">firma</string>
     <string name="player_toggle">parti</string>
@@ -553,7 +550,6 @@
     <string name="remove_notification_failed">No at fatu a nche bogare sa notìfica.</string>
     <string name="remove_push_notification">Boga</string>
     <string name="remove_success_msg">Cantzellada</string>
-    <string name="remove_upload">Boga</string>
     <string name="rename_dialog_title">Inserta unu nùmene nou</string>
     <string name="rename_local_fail_msg">No at fatu a torrare a numenare sa còpia locale, proa cun un\'àteru nùmene</string>
     <string name="rename_server_fail_msg">Impossìbile a torrare a numenare, su nùmene esistit giai</string>
@@ -620,7 +616,6 @@
     <string name="share_via_link_section_title">Cumpartzi ligòngiu</string>
     <string name="share_via_link_send_link_label">Imbia ligòngiu</string>
     <string name="share_via_link_unset_password">Non cunfiguradu</string>
-    <string name="share_with_title">Cumpartzi cun...</string>
     <string name="shared_avatar_desc">Avatar dae utente cumpartzidu</string>
     <string name="shared_icon_share">cumpartzi</string>
     <string name="shared_icon_shared">cumpartzidu</string>

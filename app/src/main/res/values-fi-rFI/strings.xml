@@ -34,19 +34,14 @@
     <string name="app_widget_description">Näyttää yhden pienoissovelluksen konsolista</string>
     <string name="appbar_search_in">Etsi kohteesta %s</string>
     <string name="appear_offline">Näytä olevan poissa</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Lisää uusi tehtävä</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Syötä tekstiä</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Haluatko varmasti poistaa tämän tehtävän?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Poista tehtävä</string>
-    <string name="assistant_screen_loading">Ladataan tehtävälistaa…</string>
     <string name="assistant_screen_task_create_fail_message">Tehtävän luonti epäonnistui</string>
     <string name="assistant_screen_task_create_success_message">Tehtävä luotu</string>
     <string name="assistant_screen_task_delete_fail_message">Tehtävän poisto epäonnistui</string>
     <string name="assistant_screen_task_delete_success_message">Tehtävä poistettu</string>
-    <string name="assistant_screen_task_list_empty_message">Tehtävälista on tyhjä.</string>
     <string name="assistant_screen_task_list_error_state_message">Tehtävälistan haku epäonnistui, tarkista internetyhteytesi.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Poista tehtävä</string>
-    <string name="assistant_screen_task_types_error_state_message">Tehtävätyyppen haku epäonnistui, tarkista internetyhteytesi.</string>
     <string name="assistant_screen_top_bar_title">Avustaja</string>
     <string name="associated_account_not_found">Liitettyä tiliä ei löydy!</string>
     <string name="auth_access_failed">Pääsy epäonnistui: %1$s</string>
@@ -104,6 +99,7 @@
     <string name="busy">Varattu</string>
     <string name="calendar">Kalenteri</string>
     <string name="calendars">Kalenterit</string>
+    <string name="cancel_upload">Peruuta</string>
     <string name="certificate_load_problem">Varmennetta ladatessa ilmeni ongelmia.</string>
     <string name="changelog_dev_version">Muutosloki kehitysversiolle</string>
     <string name="check_back_later_or_reload">Lataa uudelleen tai yritä myöhemmin uudelleen.</string>
@@ -185,7 +181,6 @@
     <string name="contacts_preferences_something_strange_happened">Viimeisintä varmuuskopiota ei löytynyt!</string>
     <string name="conversation_screen_empty_content_title">Keskusteluja ei löytynyt</string>
     <string name="conversation_screen_title">Keskustelut</string>
-    <string name="copied_to_clipboard">Kopioitu leikepöydälle</string>
     <string name="copy_file_error">Tätä tiedostoa tai kansiota kopioitaessa tapahtui virhe</string>
     <string name="copy_file_invalid_into_descendent">Ei ole mahdollista kopioida kansiota yhteen sen alikansiosta.</string>
     <string name="copy_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
@@ -368,10 +363,8 @@
     <string name="file_list_loading">Ladataan…</string>
     <string name="file_list_no_app_for_file_type">Tälle tiedostotyypille ei löytynyt sovellusta.</string>
     <string name="file_list_seconds_ago">sekuntia sitten</string>
-    <string name="file_management_permission">Käyttöoikeus tarvitaan</string>
     <string name="file_management_permission_optional">Tallennusoikeudet</string>
     <string name="file_management_permission_optional_text">%1$s toimii parhaiten, kun sille on myönnetty käyttöoikeus tallennustilan käyttöön. Voit myöntää täydet käyttöoikeudet tai vain luku-oikeudet kuviin ja videoihin.</string>
-    <string name="file_management_permission_text">%1$s tarvitsee käyttöoikeuden tallennustilan käyttöön tiedostojen lähettämiseksi. Voit myöntää täydet oikeudet kaikkiin tiedostoihin tai vain luku -oikeudet kuviin ja videoihin.</string>
     <string name="file_migration_checking_destination">Tarkistetaan kohdetta…</string>
     <string name="file_migration_cleaning">Siivotaan…</string>
     <string name="file_migration_dialog_title">Päivitetään tietojen tallennuspolkua</string>
@@ -403,7 +396,6 @@
     <string name="file_rename">Nimeä uudelleen</string>
     <string name="file_upload_worker_error_notification_title">Lähetys epäonnistui. Ei internetyhteyttä</string>
     <string name="file_version_restored_error">Virhe palauttaessa tiedostoversiota!</string>
-    <string name="file_version_restored_successfully">Tiedostoversio palautettu onnistuneesti.</string>
     <string name="filedetails_details">Tiedot</string>
     <string name="filedetails_download">Lataa</string>
     <string name="filedetails_export">Vie</string>
@@ -437,7 +429,6 @@
     <string name="foreign_files_local_text">Paikallinen: %1$s</string>
     <string name="foreign_files_move">Siirrä kaikki</string>
     <string name="foreign_files_remote_text">Etä: %1$s</string>
-    <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
     <string name="forward">Välitä</string>
     <string name="fourHours">4 tuntia</string>
     <string name="gplay_restriction">Google rajoitti APK- ja AAB-tiedostojen latauksen!</string>
@@ -484,7 +475,6 @@
     <string name="locked_by_app">Lukinnut %1$s sovellus</string>
     <string name="log_send_mail_subject">%1$sin Android-sovelluksen lokit</string>
     <string name="log_send_no_mail_app">Sovellusta ei löytynyt lokien lähettämistä varten. Asenna sähköpostisovellus.</string>
-    <string name="logged_in_as">Kirjautuneena tilillä %1$s</string>
     <string name="login">Kirjaudu sisään</string>
     <string name="login_url_helper_text">Linkki %1$s selainkäyttöliittymääsi.</string>
     <string name="logs_menu_delete">Poista lokitiedot</string>
@@ -566,7 +556,6 @@
     <string name="outdated_server">Palvelimen elinkaari on päättynyt, päivitä!</string>
     <string name="overflow_menu">Lisää -valikko</string>
     <string name="pass_code_configure_your_pass_code">Anna suojakoodisi</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Suojakoodi kysytään joka kerta, kun sovellus käynnistetään</string>
     <string name="pass_code_enter_pass_code">Anna suojakoodi</string>
     <string name="pass_code_mismatch">Suojakoodit eivät täsmää</string>
     <string name="pass_code_reenter_your_pass_code">Anna suojakoodisi uudelleen</string>
@@ -574,10 +563,9 @@
     <string name="pass_code_removed">Suojakoodi poistettu</string>
     <string name="pass_code_stored">Suojakoodi tallennettu</string>
     <string name="pass_code_wrong">Virheellinen suojakoodi</string>
-    <string name="pdf_zoom_tip">Napauta sivua lähentääksesi</string>
+    <string name="pause_upload">Keskeytä</string>
     <string name="permission_allow">Salli</string>
     <string name="permission_deny">Kiellä</string>
-    <string name="permission_storage_access">Tiedostojen lähetys ja lataaminen vaatii lisäoikeuksia.</string>
     <string name="picture_set_as_no_app">Kuvan liittämiseksi ei löytynyt sovellusta</string>
     <string name="pin_shortcut_label">Avaa %1$s</string>
     <string name="player_stop">pysäytä</string>
@@ -673,7 +661,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="remove_notification_failed">Ilmoitusta ei voitu poistaa</string>
     <string name="remove_push_notification">Poista</string>
     <string name="remove_success_msg">Poistettu</string>
-    <string name="remove_upload">Poista</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
     <string name="rename_local_fail_msg">Paikallisen kopion nimeä ei voitu muuttaa, yritä eri nimeä</string>
     <string name="rename_server_fail_msg">Nimen muutos epäonnistui, nimi on jo käytössä</string>
@@ -749,7 +736,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_via_link_section_title">Jaa linkki</string>
     <string name="share_via_link_send_link_label">Lähetä linkki</string>
     <string name="share_via_link_unset_password">Poista</string>
-    <string name="share_with_title">Jaa…</string>
     <string name="shared_avatar_desc">Kuvake jaetulta käyttäjältä</string>
     <string name="shared_icon_share">jaa</string>
     <string name="shared_icon_shared">jaettu</string>
@@ -800,7 +786,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="storage_internal_storage">Sisäinen tallennustila</string>
     <string name="storage_movies">Elokuvat</string>
     <string name="storage_music">Musiikki</string>
-    <string name="storage_permission_full_access">Täysi pääsy</string>
     <string name="storage_permission_media_read_only">Media vain luku-tilassa</string>
     <string name="storage_pictures">Kuvat</string>
     <string name="store_full_dev_desc">Itse ylläpidetty työalusta jota sinä kontrolloit. \nTämä on virallinen kehitysversio, sisältäen pävittäin vaihtuvia uusia ja testaamattomia toimintoja, jotka voivat epävakauttaa ohjelmistoa ja aiheuttaa tietojen häviämistä. Sovellus on tarkoitettu käyttäjille jotka haluavat testata ja raportoida ohjelman virheitä jos niitä tapahtuu. Älä käytä sitä työ ympäristössä!\n\nSekä virallinen kehitysversio että normaali versio ovat saatavilla F-droid:ssa ja ne voidaan asentaa samanaikaisesti. </string>

@@ -83,6 +83,7 @@
     <string name="busy">Bận</string>
     <string name="calendar">Lịch</string>
     <string name="calendars">Lịch</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Có vấn đề khi tải chứng chỉ.</string>
     <string name="changelog_dev_version">Nhật kí phiên bản nhà phát triển</string>
     <string name="checkbox">Hộp chọn</string>
@@ -160,7 +161,6 @@
     <string name="conversation_screen_empty_content_title">Không tìm thấy cuộc trò chuyện nào</string>
     <string name="conversation_screen_title">Đàm thoại</string>
     <string name="copied">Đã sao chép</string>
-    <string name="copied_to_clipboard">Sao chép vào bảng tạm</string>
     <string name="copy_file_error">Đã xảy ra lỗi khi cố gắng sao chép tệp hoặc thư mục này</string>
     <string name="copy_file_invalid_into_descendent">Không thể sao chép một thư mục vào một trong các thư mục cơ bản của chính nó</string>
     <string name="copy_file_invalid_overwrite">Tập tin đã có trong thư mục đích</string>
@@ -318,10 +318,8 @@
     <string name="file_list_loading">Đang tải…</string>
     <string name="file_list_no_app_for_file_type">Không có ứng dụng nào được thiết lập để xử lý loại tệp này.</string>
     <string name="file_list_seconds_ago">vài giây trước</string>
-    <string name="file_management_permission">Cần quyền</string>
     <string name="file_management_permission_optional">Quyền bộ nhớ</string>
     <string name="file_management_permission_optional_text">%1$s hoạt động tốt nhất khi có quyền truy cập bộ nhớ. Bạn có thể chọn truy cập đầy đủ vào tất cả tệp, hoặc truy cập chỉ đọc vào ảnh và video.</string>
-    <string name="file_management_permission_text">%1$s cần quyền quản lý tệp để tải tệp lên. Bạn có thể chọn truy cập đầy đủ vào tất cả tệp, hoặc truy cập chỉ đọc vào ảnh và video.</string>
     <string name="file_migration_checking_destination">Đang kiểm tra diểm cuối</string>
     <string name="file_migration_cleaning">Đang xóa…</string>
     <string name="file_migration_dialog_title">Đang cập nhật thư mục lưu trữ dữ liệu</string>
@@ -347,7 +345,6 @@
     <string name="file_not_synced">Tệp không thể được đồng bộ. Đang hiển thị phiên bản mới nhất có sẵn.</string>
     <string name="file_rename">Đổi tên</string>
     <string name="file_version_restored_error">Lỗi khi khôi phục phiên bản tệp!</string>
-    <string name="file_version_restored_successfully">Khôi phục phiên bản tệp thành công.</string>
     <string name="filedetails_details">Chi tiết</string>
     <string name="filedetails_download">Tải về</string>
     <string name="filedetails_export">Xuất ra</string>
@@ -376,7 +373,6 @@
     <string name="foreign_files_local_text">Cục bộ: %1$s</string>
     <string name="foreign_files_move">Dịch chuyển tất cả</string>
     <string name="foreign_files_remote_text">Từ xa: %1$s</string>
-    <string name="foreign_files_success">Tất cả tập tin đã được dịch chuyển</string>
     <string name="forward">Forward</string>
     <string name="fourHours">4 tiếng</string>
     <string name="hidden_file_name_warning">Tên sẽ dẫn đến tệp ẩn</string>
@@ -484,7 +480,6 @@
     <string name="outdated_server">Máy chủ không được hỗ trợ nữa, hãy nâng cấp!</string>
     <string name="overflow_menu">Thêm menu</string>
     <string name="pass_code_configure_your_pass_code">Nhập mã PIN của bạn</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Mã PIN sẽ được yêu cầu mỗi khi ứng dụng được khởi động</string>
     <string name="pass_code_enter_pass_code">Hãy nhập mã PIN của bạn</string>
     <string name="pass_code_mismatch">Mã PIN không giống nhau</string>
     <string name="pass_code_reenter_your_pass_code">Hãy nhập lại mã PIN của bạn</string>
@@ -492,10 +487,9 @@
     <string name="pass_code_removed">Mã PIN đã được xóa</string>
     <string name="pass_code_stored">Mã PIN đã được lưu</string>
     <string name="pass_code_wrong">Sai mã PIN</string>
-    <string name="pdf_zoom_tip">Nhấn vào trang để phóng to</string>
+    <string name="pause_upload">Tạm dừng</string>
     <string name="permission_allow">Cho phép</string>
     <string name="permission_deny">Từ chối</string>
-    <string name="permission_storage_access">Các quyền bổ sung cần thiết để tải lên và tải xuống tệp.</string>
     <string name="picture_set_as_no_app">Không tìm thấy ứng dụng nào để đặt ảnh với</string>
     <string name="pin_shortcut_label">Mở trong %1$s</string>
     <string name="player_stop">dừng</string>
@@ -573,7 +567,6 @@
     <string name="remove_notification_failed">Không xóa được thông báo.</string>
     <string name="remove_push_notification">Xóa</string>
     <string name="remove_success_msg">Đã xóa</string>
-    <string name="remove_upload">Xoá</string>
     <string name="rename_dialog_title">Nhập tên mới</string>
     <string name="rename_local_fail_msg">Không thể đổi tên bản sao cục bộ, hãy thử một tên khác</string>
     <string name="rename_server_fail_msg">Không thể đổi tên, tên đã được sử dụng</string>
@@ -640,7 +633,6 @@
     <string name="share_via_link_section_title">Chia sẻ liên kết</string>
     <string name="share_via_link_send_link_label">Gửi liên kết</string>
     <string name="share_via_link_unset_password">Bỏ cài đặt</string>
-    <string name="share_with_title">Chia sẽ với…</string>
     <string name="shared_avatar_desc">Hình đại diện từ người dùng được chia sẻ</string>
     <string name="shared_icon_share">chia sẽ</string>
     <string name="shared_icon_shared">đã chia sẽ</string>
@@ -689,7 +681,6 @@
     <string name="storage_internal_storage">Bộ nhớ trong</string>
     <string name="storage_movies">Phim</string>
     <string name="storage_music">Nhạc</string>
-    <string name="storage_permission_full_access">Truy cập đầy đủ</string>
     <string name="storage_permission_media_read_only">Chỉ đọc phương tiện</string>
     <string name="storage_pictures">Ảnh</string>
     <string name="store_short_desc">Nền tảng năng suất tự lưu trữ giúp bạn kiểm soát</string>

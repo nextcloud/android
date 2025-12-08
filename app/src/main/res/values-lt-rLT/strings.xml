@@ -36,20 +36,15 @@
     <string name="app_widget_description">Rodo vieną valdiklį iš skydelio</string>
     <string name="appbar_search_in">Ieškoti %s</string>
     <string name="appear_offline">Atrodyti atsijungusiu</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Pridėti naują užduotį</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Įrašykite kokį nors tekstą</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ar tikrai norite ištrinti šią užduotį?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ištrinti užduotį</string>
-    <string name="assistant_screen_loading">Įkeliamas užduočių sąrašas…</string>
     <string name="assistant_screen_task_create_fail_message">Kuriant užduotį, įvyko klaida</string>
     <string name="assistant_screen_task_create_success_message">Užduotis sėkmingai sukurta</string>
     <string name="assistant_screen_task_delete_fail_message">Ištrinant užduotį, įvyko klaida</string>
     <string name="assistant_screen_task_delete_success_message">Užduotis sėkmingai ištrinta</string>
-    <string name="assistant_screen_task_list_empty_message">Užduočių sąrašas tuščias.</string>
     <string name="assistant_screen_task_list_error_state_message">Nepavyko gauti užduočių sąrašo, patikrinkite savo interneto ryšį.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ištrinti užduotį</string>
     <string name="assistant_screen_task_output_empty_text">Išvestis dar neparuošta.</string>
-    <string name="assistant_screen_task_types_error_state_message">Negalima gauti užduočių tipų. Patikrinkite interneto ryšį.</string>
     <string name="assistant_screen_top_bar_title">Asistentas.</string>
     <string name="assistant_task_detail_screen_input_button_title">Įvestis</string>
     <string name="assistant_task_detail_screen_output_button_title">Išvestis</string>
@@ -107,6 +102,7 @@
     <string name="busy">Užimtas laikas</string>
     <string name="calendar">Kalendorius</string>
     <string name="calendars">Kalendoriai</string>
+    <string name="cancel_upload">Atsisakyti</string>
     <string name="certificate_load_problem">Klaida, įkeliant liudijimą.</string>
     <string name="changelog_dev_version">Dev versijos pakeitimų žurnalas</string>
     <string name="check_back_later_or_reload">Patikrinkite vėliau arba įkelkite iš naujo.</string>
@@ -185,7 +181,6 @@
     <string name="contacts_preferences_something_strange_happened">Nepavyko rasti jūsų paskutinės atsarginės kopijos!</string>
     <string name="conversation_screen_title">Pokalbiai</string>
     <string name="copied">Nukopijuota</string>
-    <string name="copied_to_clipboard">Nukopijuota į iškarpinę</string>
     <string name="copy_file_error">Klaida kopijuojant failą ar aplanką</string>
     <string name="copy_file_invalid_into_descendent">Neįmanoma nukopijuoti aplanko į poaplankį</string>
     <string name="copy_file_invalid_overwrite">Failas aplanke jau egzistuoja</string>
@@ -348,7 +343,6 @@
     <string name="file_list_loading">Įkeliama…</string>
     <string name="file_list_no_app_for_file_type">Nėra šios programos failo tipui tvarkyti.</string>
     <string name="file_list_seconds_ago">prieš keletą sekundžių</string>
-    <string name="file_management_permission">Neturite teisių</string>
     <string name="file_management_permission_optional">Saugyklos leidimai</string>
     <string name="file_management_permission_optional_text">%1$s geriausiai veikia, kai yra suteikti leidimai prieigai prie saugyklos. Jūs galite pasirinkti pilną prieigą prie visų failų arba tik skaitymo prieigą prie nuotraukų ir vaizdo įrašų.</string>
     <string name="file_migration_checking_destination">Tikrinama paskirties vieta…</string>
@@ -383,7 +377,6 @@
  </string>
     <string name="file_rename">Pervadinti</string>
     <string name="file_version_restored_error">Klaida atkuriant failo versiją!</string>
-    <string name="file_version_restored_successfully">Failo versija sėkmingai atkurta.</string>
     <string name="filedetails_details">Išsamiau</string>
     <string name="filedetails_download">Atsisiųsti</string>
     <string name="filedetails_export">Eksportuoti</string>
@@ -414,7 +407,6 @@
     <string name="foreign_files_local_text">Vietinis: %1$s</string>
     <string name="foreign_files_move">Perkelti visus</string>
     <string name="foreign_files_remote_text">Nuotolinis: %1$s</string>
-    <string name="foreign_files_success">Visi failai buvo perkelti</string>
     <string name="forward">Persiųsti</string>
     <string name="fourHours">4 valandos</string>
     <string name="gplay_restriction">„Google“ apribojo APK/AAB failų atsisiuntimą!</string>
@@ -456,7 +448,6 @@
     <string name="locked_by_app">Užrakino %1$s programėlė</string>
     <string name="log_send_mail_subject">%1$s Android žurnalai</string>
     <string name="log_send_no_mail_app">Nerasta jokios programėlės, skirtos siųsti žurnalus. Įsidiekite el. pašto kliento programėlę.</string>
-    <string name="logged_in_as">Prisijungta kaip %1$s</string>
     <string name="login">Prisijungti</string>
     <string name="login_url_helper_text">Nuoroda į jūsų %1$s saityno sąsają, kuomet atveriate ją naršyklėje.</string>
     <string name="logs_menu_delete">Ištrinti žurnalus</string>
@@ -534,7 +525,6 @@
     <string name="outdated_server">Serverio naudojimo laikas baigėsi, prašome atnaujinkite!</string>
     <string name="overflow_menu">Daugiau meniu</string>
     <string name="pass_code_configure_your_pass_code">Įveskite užraktą</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Užrakto kodas bus reikalaujamas kiekvieną kartą paleidžiant programėlę</string>
     <string name="pass_code_enter_pass_code">Prašome įvesti slaptažodį</string>
     <string name="pass_code_mismatch">Nesutampa užraktas</string>
     <string name="pass_code_reenter_your_pass_code">Įveskite užraktą</string>
@@ -542,9 +532,9 @@
     <string name="pass_code_removed">Leidimo kodas ištrintas</string>
     <string name="pass_code_stored">Užraktas išsaugotas</string>
     <string name="pass_code_wrong">Neteisingas užraktas</string>
+    <string name="pause_upload">Pristabdyti</string>
     <string name="permission_allow">Leisti</string>
     <string name="permission_deny">Drausti</string>
-    <string name="permission_storage_access">Papildomos teisės reikalingos įkelti šiuos atsisiųstus failus.</string>
     <string name="picture_set_as_no_app">Nerasta programa, su kuria būtų galima nustatyti nuotrauką</string>
     <string name="pin_shortcut_label">Atverti %1$s</string>
     <string name="player_stop">stabdyti</string>
@@ -630,7 +620,6 @@
     <string name="remove_notification_failed">Nepavyko pašalinti pranešimo.</string>
     <string name="remove_push_notification">Šalinti</string>
     <string name="remove_success_msg">Ištrinta</string>
-    <string name="remove_upload">Šalinti</string>
     <string name="rename_dialog_title">Įveskite naują pavadinimą</string>
     <string name="rename_local_fail_msg">Nepavyko pervadinti vietinės kopijos, pabandykite kitą pavadinimą</string>
     <string name="rename_server_fail_msg">Pervadinimas neįmanomas, pavadinimas jau užimtas</string>
@@ -700,7 +689,6 @@
     <string name="share_via_link_section_title">Viešinio nuoroda</string>
     <string name="share_via_link_send_link_label">Siųsti nuorodą</string>
     <string name="share_via_link_unset_password">Nenustatyta</string>
-    <string name="share_with_title">Bendrinti su…</string>
     <string name="shared_avatar_desc">Bendrinamo naudotojo avataras</string>
     <string name="shared_icon_share">bendrinti</string>
     <string name="shared_icon_shared">bendrinama</string>
@@ -749,7 +737,6 @@
     <string name="storage_internal_storage">Vidinė saugykla</string>
     <string name="storage_movies">Filmai</string>
     <string name="storage_music">Muzika</string>
-    <string name="storage_permission_full_access">Pilna prieiga</string>
     <string name="storage_permission_media_read_only">Medija tik skaitymui</string>
     <string name="storage_pictures">Paveikslėliai</string>
     <string name="store_full_dev_desc">Savarankiška platforma.\nTai yra oficiali vystoma versija, turinti neišbandytų funkcijų, kurios gali sukelti nestabilumą ar duomenų praradimą. Programa skirta naudotojams, norintiems išbandyti naujausią versiją ir pranešti apie aptiktas klaidas ar neatitiktis. Nenaudokite jo produktyviam darbui!\n\n Tiek oficialią „dev“ versiją, tiek įprastinę versija „F-droid“ galima įdiegti tuo pačiu metu.</string>

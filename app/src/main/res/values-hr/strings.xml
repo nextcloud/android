@@ -84,6 +84,7 @@
     <string name="busy">Zauzeto</string>
     <string name="calendar">Kalendar</string>
     <string name="calendars">Kalendari</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Došlo je do poteškoća prilikom učitavanja vjerodajnice.</string>
     <string name="changelog_dev_version">Zapis promjena razvojne inačice</string>
     <string name="checkbox">Potvrdni okvir</string>
@@ -159,7 +160,6 @@
     <string name="conversation_screen_delete_button_title">Obriši razgovor</string>
     <string name="conversation_screen_empty_content_title">Nije pronađen nijedan razgovor</string>
     <string name="conversation_screen_title">Razgovori</string>
-    <string name="copied_to_clipboard">Kopirano u međuspremnik</string>
     <string name="copy_file_error">Došlo je do pogreške prilikom kopiranja ove datoteke ili mape</string>
     <string name="copy_file_invalid_into_descendent">Nije moguće kopirati mapu u jednu od svojih osnovnih mapa</string>
     <string name="copy_file_invalid_overwrite">Datoteka je već prisutna u odredišnoj mapi</string>
@@ -312,10 +312,8 @@
     <string name="file_list_loading">Učitavanje…</string>
     <string name="file_list_no_app_for_file_type">Nije postavljena nijedna aplikacija za obrađivanje ove vrste datoteka.</string>
     <string name="file_list_seconds_ago">prije nekoliko sekundi</string>
-    <string name="file_management_permission">Potrebna su dopuštenja</string>
     <string name="file_management_permission_optional">Dopuštenja za pohranu</string>
     <string name="file_management_permission_optional_text">%1$sradi najbolje s dozvoljenim pristupom prostoru za pohranu. Možete odabrati potpuni pristup svim datotekama ili samo mogućnost \"čitanja\" za fotografije i video materijale.</string>
-    <string name="file_management_permission_text">%1$szahtijeva dodatna dopuštenja za slanje datoteka. Možete odabrati potpuni pristup svim datotekama ili samo mogućnost \"čitanja\" za fotografije i video materijale.</string>
     <string name="file_migration_checking_destination">Provjera odredišta...</string>
     <string name="file_migration_cleaning">Čišćenje…</string>
     <string name="file_migration_dialog_title">Ažuriranje mape za pohranu datoteka</string>
@@ -341,7 +339,6 @@
     <string name="file_not_synced">Datoteku nije moguće sinkronizirati. Prikazana je posljednja dostupna inačica.</string>
     <string name="file_rename">Preimenuj</string>
     <string name="file_version_restored_error">Pogreška pri vraćanju inačice datoteke!</string>
-    <string name="file_version_restored_successfully">Inačica datoteke uspješno je vraćena.</string>
     <string name="filedetails_details">Pojedinosti</string>
     <string name="filedetails_download">Preuzmi</string>
     <string name="filedetails_export">Izvoz</string>
@@ -371,7 +368,6 @@
     <string name="foreign_files_local_text">Lokalno: %1$s</string>
     <string name="foreign_files_move">Premjesti sve</string>
     <string name="foreign_files_remote_text">Udaljeno: %1$s</string>
-    <string name="foreign_files_success">Sve datoteke su premještene</string>
     <string name="forward">Naprijed</string>
     <string name="fourHours">4 sata</string>
     <string name="hidden_file_name_warning">Datoteka s ovakvim nazivom će biti skrivena </string>
@@ -481,7 +477,6 @@
     <string name="outdated_server">Poslužitelj je na kraju radnog vijeka, nadogradite ga!</string>
     <string name="overflow_menu">Više izbornika</string>
     <string name="pass_code_configure_your_pass_code">Unesite zaporku</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Zaporka će se tražiti prilikom svakog pokretanja aplikacije</string>
     <string name="pass_code_enter_pass_code">Unesite zaporku</string>
     <string name="pass_code_mismatch">Zaporke se ne podudaraju</string>
     <string name="pass_code_reenter_your_pass_code">Ponovno unesite zaporku</string>
@@ -489,10 +484,9 @@
     <string name="pass_code_removed">Zaporka je izbrisana</string>
     <string name="pass_code_stored">Zaporka je spremljena</string>
     <string name="pass_code_wrong">Neispravna zaporka</string>
-    <string name="pdf_zoom_tip">Pritisni na stranicu za uvećavanje</string>
+    <string name="pause_upload">Pauza</string>
     <string name="permission_allow">Dopusti</string>
     <string name="permission_deny">Spriječi</string>
-    <string name="permission_storage_access">Potrebna su dodatna dopuštenja za otpremanje i preuzimanje datoteka.</string>
     <string name="picture_set_as_no_app">Nije pronađena nijedna aplikacija za postavljanje slike s</string>
     <string name="player_stop">zaustavi</string>
     <string name="player_toggle">uključi/isključi</string>
@@ -565,7 +559,6 @@
     <string name="remove_notification_failed">Nije uspjelo uklanjanje obavijesti.</string>
     <string name="remove_push_notification">Ukloni</string>
     <string name="remove_success_msg">Izbrisano</string>
-    <string name="remove_upload">Ukloni</string>
     <string name="rename_dialog_title">Unesite novi naziv</string>
     <string name="rename_local_fail_msg">Nije moguće preimenovati lokalnu kopiju, pokušajte s drugim nazivom</string>
     <string name="rename_server_fail_msg">Preimenovanje nije moguće, naziv je već zauzet</string>
@@ -631,7 +624,6 @@
     <string name="share_via_link_section_title">Dijeli poveznicu</string>
     <string name="share_via_link_send_link_label">Pošalji poveznicu</string>
     <string name="share_via_link_unset_password">Ukloni</string>
-    <string name="share_with_title">Dijeli s…</string>
     <string name="shared_avatar_desc">Avatar iz dijeljenog korisnika</string>
     <string name="shared_icon_share">dijeli</string>
     <string name="shared_icon_shared">dijeljeno</string>
@@ -680,7 +672,6 @@
     <string name="storage_internal_storage">Unutarnja pohrana</string>
     <string name="storage_movies">Filmovi</string>
     <string name="storage_music">Glazba</string>
-    <string name="storage_permission_full_access">Puni pristup</string>
     <string name="storage_permission_media_read_only">Medijske datoteke samo za čitanje</string>
     <string name="storage_pictures">Slike</string>
     <string name="store_full_dev_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu.\nTo je službena razvojna inačica koja se isporučuje s dnevnim uzorkom svake nove neispitane funkcionalnosti, što može uzrokovati nestabilnost i gubitak podataka. Aplikacija je namijenjena korisnicima koji žele testirati i prijaviti pogreške, ako se iste pojave. Nemojte je upotrebljavati za važne radne zadatke!\n\nSlužbena razvojna i uobičajena inačica dostupne su putem F-droida i mogu biti istovremeno instalirane.</string>

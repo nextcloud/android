@@ -75,6 +75,7 @@
     <string name="bottom_navigation_menu_favorites_label">Annsachdan</string>
     <string name="bottom_navigation_menu_files_label">Na h-uile faidhle</string>
     <string name="bottom_navigation_menu_media_label">Meadhanan</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Thachair duilgheadas le luchdadh an teisteanais.</string>
     <string name="changelog_dev_version">Loga nan atharraichean – tionndadh leasachaidh</string>
     <string name="checkbox">Bogsa-cromaige</string>
@@ -140,7 +141,6 @@
     <string name="contacts_preferences_import_scheduled">Chaidh ion-phortadh a chur air an sgeideal is tòisichidh i a dh’aithghearr</string>
     <string name="contacts_preferences_no_file_found">Cha deach faidhle a lorg</string>
     <string name="contacts_preferences_something_strange_happened">Cha deach an lethbhreac-glèidhidh mu dheireadh agad a lorg!</string>
-    <string name="copied_to_clipboard">Chaidh lethbhreac dheth a chur air an stòr-bhòrd</string>
     <string name="copy_file_error">Thachair mearachd le lethbhreac dhen fhaidhle no pasgan seo</string>
     <string name="copy_file_invalid_into_descendent">Cha ghabh lethbhreac de phasgan a chur am broinn fo-phasgan aige fhèin</string>
     <string name="copy_file_invalid_overwrite">Tha am faidhle sa cheann-uidhe mu thràth</string>
@@ -298,7 +298,6 @@
     <string name="file_not_synced">Cha b’ urrainn dhuinn am faidhle a shioncronachadh. A’ sealltainn an tionndaidh mu dheireadh a tha ri fhaighinn.</string>
     <string name="file_rename">Thoir ainm ùr air</string>
     <string name="file_version_restored_error">Mearachd ag aiseag tionndadh dhen fhaidhle!</string>
-    <string name="file_version_restored_successfully">Chaidh tionndadh dhen fhaidhle aiseag.</string>
     <string name="filedetails_details">Mion-fhiosrachadh</string>
     <string name="filedetails_download">Luchdaich a-nuas</string>
     <string name="filedetails_renamed_in_upload_msg">Chaidh %1$s a thoirt air an fhaidhle rè an luuchdaidh suas</string>
@@ -326,7 +325,6 @@
     <string name="foreign_files_local_text">Ionadail: %1$s</string>
     <string name="foreign_files_move">Gluais na h-uile</string>
     <string name="foreign_files_remote_text">Cèin: %1$s</string>
-    <string name="foreign_files_success">Chaidh a h-uile faidhle a ghluasad</string>
     <string name="forward">Sìn air adhart</string>
     <string name="fourHours">4 uairean a thìde</string>
     <string name="hint_name">Ainm</string>
@@ -421,7 +419,6 @@
     <string name="outdated_server">Ràinig am frithealaiche deireadh a bheatha, tha e feumach air àrdachadh!</string>
     <string name="overflow_menu">Clàr-taice nan nithean a bharrachd</string>
     <string name="pass_code_configure_your_pass_code">Cuir a-steach an còd-faire agad</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Thèid an còd-faire iarraidh ort gach turas a thèid an aplacaid a chur gu dol</string>
     <string name="pass_code_enter_pass_code">Cuir a-steach an còd-faire agad</string>
     <string name="pass_code_mismatch">Chan eil an dà chòd-fhaire co-ionnann</string>
     <string name="pass_code_reenter_your_pass_code">Cuir a-steach an còd-faire agad a-rithist</string>
@@ -431,7 +428,6 @@
     <string name="pass_code_wrong">Tha an còd-faire ceàrr</string>
     <string name="permission_allow">Ceadaich</string>
     <string name="permission_deny">Diùlt</string>
-    <string name="permission_storage_access">Tha feum air barrachd cheadan mus gabh faidhlichean a luchdadh suas is a-nuas.</string>
     <string name="picture_set_as_no_app">Cha deach aplacaid a lorg airson dealbhan a chur leatha</string>
     <string name="player_stop">cuir stad air</string>
     <string name="player_toggle">toglaich</string>
@@ -501,7 +497,6 @@
     <string name="remove_notification_failed">Cha deach leinn am brath a thoirt air falbh.</string>
     <string name="remove_push_notification">Thoir air falbh</string>
     <string name="remove_success_msg">Chaidh a sguabadh às</string>
-    <string name="remove_upload">Thoir air falbh</string>
     <string name="rename_dialog_title">Cuir a-steach ainm ùr</string>
     <string name="rename_local_fail_msg">Cha b’ urrainn dhuinn an t-ainm ùr a thoirt air an lethbhreac ionadail, feuch ainm eile</string>
     <string name="rename_server_fail_msg">Tha ghabh an t-ainm ùr a thoirt air on a tha e ’ga chleachdadh mu thràth</string>
@@ -557,7 +552,6 @@
     <string name="share_via_link_section_title">Ceangal co-roinnidh</string>
     <string name="share_via_link_send_link_label">Cuir an ceangal</string>
     <string name="share_via_link_unset_password">Neo-shuidhich</string>
-    <string name="share_with_title">Co-roinn le…</string>
     <string name="shared_avatar_desc">Avatar cleachdaiche cho-roinnte</string>
     <string name="shared_icon_share">co-roinn</string>
     <string name="shared_icon_shared">’ga cho-roinneadh</string>

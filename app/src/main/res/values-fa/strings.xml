@@ -35,7 +35,6 @@
     <string name="app_widget_description">نمایش یک ابزارک از پیشخوان</string>
     <string name="appbar_search_in">جستجو در %s</string>
     <string name="appear_offline">نمایش آفلاین</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">مقداری متن را تایپ کنید</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">وظیفه را حذف کنید</string>
     <string name="assistant_screen_task_delete_success_message">Task successfully deleted</string>
     <string name="associated_account_not_found">حساب مرتبط یافت نشد!</string>
@@ -90,6 +89,7 @@
     <string name="busy">مشغول</string>
     <string name="calendar">تقویم</string>
     <string name="calendars">تقویم‌ها</string>
+    <string name="cancel_upload">انصراف</string>
     <string name="certificate_load_problem">در حال بارگذاری گواهینامه، یک مشکل وجود دارد.</string>
     <string name="changelog_dev_version">تغییرات نسخه در حال توسعه</string>
     <string name="check_back_later_or_reload">بعدا چک فرمایید یا مجددا بارگذاری کنید.</string>
@@ -172,7 +172,6 @@
     <string name="conversation_screen_empty_content_title">No conversations found</string>
     <string name="conversation_screen_title">گفتگو</string>
     <string name="copied">کپی شد</string>
-    <string name="copied_to_clipboard">در حافظه رونویسی شد</string>
     <string name="copy_file_error">یک خطا در زمان تلاش برای کپی این فایل یا شاخه رخ داد</string>
     <string name="copy_file_invalid_into_descendent">کپی کردن پوشه در یکی از پوشه های زیرین خود امکان پذیر نیست</string>
     <string name="copy_file_invalid_overwrite">فایل در حال حاضر در پوشه مقصد موجود است</string>
@@ -350,10 +349,8 @@
     <string name="file_list_loading">درحال بارگیری...</string>
     <string name="file_list_no_app_for_file_type">هیچ برنامه ای برای استفاده این نوع فایل تنظیم نشده است.</string>
     <string name="file_list_seconds_ago">ثانیه‌هایی پیش</string>
-    <string name="file_management_permission">مجوزهای مورد نیاز</string>
     <string name="file_management_permission_optional">مجوزهای ذخیره سازی</string>
     <string name="file_management_permission_optional_text">%1$s با مجوز دسترسی به فضای ذخیره سازی بهترین کار را دارد. می‌توانید دسترسی کامل به همه فایل‌ها یا دسترسی فقط خواندنی به عکس‌ها و ویدیوها را انتخاب کنید.</string>
-    <string name="file_management_permission_text">%1$s برای آپلود فایل ها به مجوزهای مدیریت فایل نیاز دارد. می‌توانید دسترسی کامل به همه فایل‌ها یا دسترسی فقط خواندنی به عکس‌ها و ویدیوها را انتخاب کنید.</string>
     <string name="file_migration_checking_destination">در حال بررسی مقصد...</string>
     <string name="file_migration_cleaning">درحال پاک‌سازی…</string>
     <string name="file_migration_dialog_title">به روزرسانی مسیر ذخیره سازی</string>
@@ -379,7 +376,6 @@
     <string name="file_not_synced">پرونده نمی تواند همگام سازی شود. نمایش آخرین نسخه موجود</string>
     <string name="file_rename">تغییرنام</string>
     <string name="file_version_restored_error">خطا در بازیابی نسخه پرونده!</string>
-    <string name="file_version_restored_successfully">نسخه پرونده با موفقیت بازیابی شد.</string>
     <string name="filedetails_details">جزییات</string>
     <string name="filedetails_download">دانلود</string>
     <string name="filedetails_export">گرفتن خروجی</string>
@@ -412,7 +408,6 @@
     <string name="foreign_files_local_text">محلی: %1$s</string>
     <string name="foreign_files_move">انتقال همه</string>
     <string name="foreign_files_remote_text">از راه دور:%1$s</string>
-    <string name="foreign_files_success">همه فایل‌ها انتقال یافتند</string>
     <string name="forward">ارسال کردن</string>
     <string name="fourHours">۴ ساعت</string>
     <string name="grid_file_features_live_photo_content_description">این آیکون، نمایانگر دسترسی به تصویر زنده است</string>
@@ -462,7 +457,6 @@
     <string name="locked_by_app">برنامه توسط %1$s قفل شده است</string>
     <string name="log_send_mail_subject">لاگ‌های برنامه‌های اندروید %1$s</string>
     <string name="log_send_no_mail_app">برنامه‌ای برای فرستادن گزارش‌ها پیدا نشد. لطفا یک کارخواه رایانامه نصب کنید.</string>
-    <string name="logged_in_as">وارد شده با عنوان %1$s</string>
     <string name="login">ورود</string>
     <string name="login_url_helper_text">پیوند به رابط وب %1$s شما زمانی که در مرورگر بازش می‌کنید.</string>
     <string name="logs_menu_delete">حذف لاگ‌ها</string>
@@ -544,7 +538,6 @@
     <string name="outdated_server">سرور به پایان عمر رسیده است، لطفاً ارتقا دهید!</string>
     <string name="overflow_menu">منوی بیشتر</string>
     <string name="pass_code_configure_your_pass_code">رمز خود را وارد کنید</string>
-    <string name="pass_code_configure_your_pass_code_explanation">هر بار که برنامه باز شود, شما نیاز به استفاده از کد عبور خواهید داشت</string>
     <string name="pass_code_enter_pass_code">لطفا کد عبور خود را وارد کنید</string>
     <string name="pass_code_mismatch">رمزهای وارد شده یکسان نیستند</string>
     <string name="pass_code_reenter_your_pass_code">لطفا کد عبور خود را دوباره وارد کنید</string>
@@ -552,11 +545,10 @@
     <string name="pass_code_removed">کد عبور حذف شد</string>
     <string name="pass_code_stored">رمز ذخیره شد</string>
     <string name="pass_code_wrong">رمز نادرست</string>
+    <string name="pause_upload">توقف کردن</string>
     <string name="pdf_password_protected">PDF محافظت شده با رمز عبور باز نمی شود. لطفا از یک نمایشگر PDF خارجی استفاده کنید.</string>
-    <string name="pdf_zoom_tip">برای بزرگنمایی روی صفحه ضربه بزنید</string>
     <string name="permission_allow">اجازه دادن</string>
     <string name="permission_deny">غیر مجاز</string>
-    <string name="permission_storage_access">نیاز به مجوزهای اضافی برای بارگذاری و دریافت پرونده‌ها می باشد.</string>
     <string name="picture_set_as_no_app">هیچ برنامه ای برای تنظیم عکس یافت نشد</string>
     <string name="pin_shortcut_label">باز کنید %1$s</string>
     <string name="player_stop">توقف</string>
@@ -648,7 +640,6 @@
     <string name="remove_notification_failed">حذف اعلان انجام نشد.</string>
     <string name="remove_push_notification">حذف</string>
     <string name="remove_success_msg">حذف شده</string>
-    <string name="remove_upload">حذف</string>
     <string name="rename_dialog_title">نام جدید وارد کنید</string>
     <string name="rename_local_fail_msg">تغییر نام نسخه محلی امکان پذیر نیست، نام دیگری را امتحان کنید</string>
     <string name="rename_server_fail_msg">تغییر نام ممکن نیست، این نام قبلا استفاده شده است</string>
@@ -729,7 +720,6 @@
     <string name="share_via_link_section_title">اشتراک گذاشتن لینک</string>
     <string name="share_via_link_send_link_label">فرستادن پیوند</string>
     <string name="share_via_link_unset_password">ناتنظیم</string>
-    <string name="share_with_title">هم‌رسانی با…</string>
     <string name="shared_avatar_desc">چهرک از کاربر مشترک</string>
     <string name="shared_icon_share">هم‌رسانی</string>
     <string name="shared_icon_shared">هم‌رسانده</string>
@@ -780,7 +770,6 @@
     <string name="storage_internal_storage">ذخیره‌ساز داخلی</string>
     <string name="storage_movies">فیلم‌ها</string>
     <string name="storage_music">آهنگ‌ها</string>
-    <string name="storage_permission_full_access">دسترسی کامل</string>
     <string name="storage_permission_media_read_only">رسانه فقط‌خواندنی</string>
     <string name="storage_pictures">نگاره‌ها</string>
     <string name="store_full_dev_desc">"بستر خودمیزبانی که به شما اختیارات کامل می‌دهد. این نسخه رسمی درحال توسعه می‌باشد، شامل یک نمونه روزانه از هر قابلیت جدید آزمایش نشده است، چیزی که ممکن است باعث ناپایداری و از دست دادن اطلاعات شود. این برنامک برای کاربرانی می‌باشد که قصد آزمایش دارند، و در صورت بروز مشکل آن را گزارش دهند. از آن برای کار تولیدی استفاده نکنید! هردو نسخه عادی و در حال توسعه در F-droid در دسترس هستند و به صورت هم‌زمان قابل نصب هستند. "</string>
@@ -902,7 +891,6 @@
     <string name="uploader_file_not_found_message">فایل یافت نشد. آیا مطمئن هستید که فایل وجود دارد یا ممکن است تداخل قبلی آن رفع نشده است؟</string>
     <string name="uploader_file_not_found_on_server_message">نتوانستیم فایل را در فضای سرویس‌دهنده پیدا کنیم. ممکن است توسط کاربر دیگری حذف شده باشد</string>
     <string name="uploader_info_dirname">نام پوشه</string>
-    <string name="uploader_local_files_uploaded">تلاش مجدد آپلود فایل‌های محلی ناموفق</string>
     <string name="uploader_top_message">پوشه آپلود را انتخاب کنید </string>
     <string name="uploader_upload_failed_content_single">%1$sآپلود نشد</string>
     <string name="uploader_upload_failed_credentials_error">بارگذاری شکست خورد. دوباره وارد شوید</string>

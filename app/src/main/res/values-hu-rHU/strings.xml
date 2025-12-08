@@ -44,21 +44,15 @@
     <string name="app_widget_description">Egy modult jelenít meg a irányítópultról</string>
     <string name="appbar_search_in">Keresés itt: %s</string>
     <string name="appear_offline">Megjelenés nem kapcsolódottként</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Új feladat hozzáadása</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Új feladat létrehozása a jobb lentiből</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Gépeljen be szöveget</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Valóban törölni akarja ezt a feladatot?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Feladat törlése</string>
-    <string name="assistant_screen_loading">Feladatlista betöltése…</string>
     <string name="assistant_screen_task_create_fail_message">Hiba történt egy feladat létrehozása során</string>
     <string name="assistant_screen_task_create_success_message">Feladat sikeresen létrehozva</string>
     <string name="assistant_screen_task_delete_fail_message">Hiba történt a feladat törlése során</string>
     <string name="assistant_screen_task_delete_success_message">Feladat sikeresen törölve</string>
-    <string name="assistant_screen_task_list_empty_message">A feladatlista üres.</string>
     <string name="assistant_screen_task_list_error_state_message">A feladatlista nem kérhető le, ellenőrizze az internetkapcsolatát.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Feladat törlése</string>
     <string name="assistant_screen_task_output_empty_text">A feladat kimenete még nincs kész.</string>
-    <string name="assistant_screen_task_types_error_state_message">A feladattípusok nem kérhetők le, ellenőrizze az internetkapcsolatát.</string>
     <string name="assistant_screen_top_bar_title">Asszisztens</string>
     <string name="assistant_task_detail_screen_input_button_title">Bemenet</string>
     <string name="assistant_task_detail_screen_output_button_title">Kimenet</string>
@@ -124,6 +118,7 @@
     <string name="busy">Foglalt</string>
     <string name="calendar">Naptár</string>
     <string name="calendars">Naptárak</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Probléma történt a tanúsítvány betöltésekor.</string>
     <string name="changelog_dev_version">Változásnapló fejlesztői verziója</string>
     <string name="check_back_later_or_reload">Nézzen vissza később vagy töltse újra.</string>
@@ -209,7 +204,6 @@
     <string name="contacts_preferences_something_strange_happened">A legutóbbi biztonsági mentés nem található!</string>
     <string name="conversation_screen_empty_content_title">Nem található beszélgetés</string>
     <string name="conversation_screen_title">Beszélgetések</string>
-    <string name="copied_to_clipboard">Vágólapra másolva</string>
     <string name="copy_file_error">Hiba történt a fájl vagy mappa másolása közben</string>
     <string name="copy_file_invalid_into_descendent">Nem másolható egy mappa a saját almappájába</string>
     <string name="copy_file_invalid_overwrite">A fájl már létezik a célmappában</string>
@@ -420,10 +414,8 @@
     <string name="file_list_loading">Betöltés…</string>
     <string name="file_list_no_app_for_file_type">Nincs alkalmazás beállítva ehhez a fájltípushoz.</string>
     <string name="file_list_seconds_ago">másodperce</string>
-    <string name="file_management_permission">Engedély szükséges</string>
     <string name="file_management_permission_optional">Tárhely engedélyek</string>
     <string name="file_management_permission_optional_text">A %1$s a tároló engedéllyel működik a legjobban. Választhat, hogy az összes fájlhoz teljes hozzáférést ad, vagy csak írásvédett elérést a fényképekhez és a videókhoz.</string>
-    <string name="file_management_permission_text">A %1$s számára fájlkezelési engedély szükséges a fájlok feltöltéséhez. Választhat, hogy az összes fájlhoz teljes hozzáférést ad, vagy csak írásvédett elérést a fényképekhez és a videókhoz.</string>
     <string name="file_migration_allow_media_indexing">Egyéb alkalmazások hozzáférésének engedélyezése</string>
     <string name="file_migration_checking_destination">Cél ellenőrzése…</string>
     <string name="file_migration_cleaning">Tisztítás…</string>
@@ -461,7 +453,6 @@
     <string name="file_upload_worker_error_notification_title">A feltöltés sikertelen. Nincs internetkapcsolat.</string>
     <string name="file_upload_worker_same_file_already_exists">A(z) %s már létezik, nincs ütközés észlelve</string>
     <string name="file_version_restored_error">Hiba a fájl verziójának visszaállításakor!</string>
-    <string name="file_version_restored_successfully">Fájl verzió sikeresen visszaállítva.</string>
     <string name="filedetails_details">Részletek</string>
     <string name="filedetails_download">Letöltés</string>
     <string name="filedetails_export">Exportálás</string>
@@ -496,7 +487,6 @@
     <string name="foreign_files_local_text">Helyi: %1$s</string>
     <string name="foreign_files_move">Összes áthelyezése</string>
     <string name="foreign_files_remote_text">Távoli: %1$s</string>
-    <string name="foreign_files_success">Összes fájl áthelyezve</string>
     <string name="forward">Tovább</string>
     <string name="fourHours">4 óra</string>
     <string name="gplay_restriction">A Google korlátozta az APK/AAB-fájlok letöltését.</string>
@@ -551,7 +541,6 @@
     <string name="locked_by_app">Zárolta: %1$s alkalmazás</string>
     <string name="log_send_mail_subject">%1$s androidos alkalmazás naplói</string>
     <string name="log_send_no_mail_app">Nincs alkalmazás a napló küldéshez. Telepítsen egy levelezőprogramot.</string>
-    <string name="logged_in_as">Bejelentkezve mint %1$s</string>
     <string name="login">Bejelentkezés</string>
     <string name="login_url_helper_text">A %1$s webes felületére mutató hivatkozás, amikor megnyitja a böngészőben.</string>
     <string name="logs_menu_delete">Naplók törlése</string>
@@ -651,7 +640,6 @@
     <string name="outdated_server">A kiszolgáló elérte az életciklusa végét, kérjük frissítsen!</string>
     <string name="overflow_menu">További menü</string>
     <string name="pass_code_configure_your_pass_code">Írja be a számkódodat</string>
-    <string name="pass_code_configure_your_pass_code_explanation">A számkódra minden alkalommal szükség lesz az alkalmazás indításakor</string>
     <string name="pass_code_enter_pass_code">Adja meg a számkódot</string>
     <string name="pass_code_mismatch">A számkódok nem egyeznek</string>
     <string name="pass_code_reenter_your_pass_code">Adja meg újra a számkódot</string>
@@ -659,11 +647,10 @@
     <string name="pass_code_removed">Számkód törölve</string>
     <string name="pass_code_stored">Számkód eltárolva</string>
     <string name="pass_code_wrong">Hibás számkód</string>
+    <string name="pause_upload">Szünet</string>
     <string name="pdf_password_protected">A jelszóval védett PDF nem nyitható meg. Használjon külső PDF-megjelenítőt.</string>
-    <string name="pdf_zoom_tip">A nagyításhoz koppintson a lapra</string>
     <string name="permission_allow">Engedélyezés</string>
     <string name="permission_deny">Megtagadás</string>
-    <string name="permission_storage_access">További jogosultságokra van szükség a fájlok fel- és letöltéséhez.</string>
     <string name="pick_contact_to_share_with">Válasszon névjegyet a megosztáshoz</string>
     <string name="picture_set_as_no_app">Nincs alkalmazás a képbeállításhoz</string>
     <string name="pin_home">Rögzítés a kezdőképernyőre</string>
@@ -770,7 +757,6 @@
     <string name="remove_notification_failed">Az értesítés eltávolítása sikertelen.</string>
     <string name="remove_push_notification">Eltávolítás</string>
     <string name="remove_success_msg">Törölve</string>
-    <string name="remove_upload">Eltávolítás</string>
     <string name="rename_dialog_title">Adjon meg egy új nevet</string>
     <string name="rename_local_fail_msg">A helyi másolat nem nevezhető át, próbáljon meg egy másik nevet</string>
     <string name="rename_server_fail_msg">Nem nevezhető át, ez a név már foglalt</string>
@@ -866,7 +852,6 @@
     <string name="share_via_link_section_title">Megosztás hivatkozással</string>
     <string name="share_via_link_send_link_label">Hivatkozás küldése</string>
     <string name="share_via_link_unset_password">Kikapcsolás</string>
-    <string name="share_with_title">Megosztás vele…</string>
     <string name="shared_avatar_desc">Avatár a megosztott felhasználótól</string>
     <string name="shared_icon_share">megosztás</string>
     <string name="shared_icon_shared">megosztva</string>
@@ -919,7 +904,6 @@
     <string name="storage_internal_storage">Belső tárhely</string>
     <string name="storage_movies">Filmek</string>
     <string name="storage_music">Zene</string>
-    <string name="storage_permission_full_access">Teljes hozzáférés</string>
     <string name="storage_permission_media_read_only">Írásvédett média</string>
     <string name="storage_pictures">Képek</string>
     <string name="store_full_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást.
@@ -1083,7 +1067,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="uploader_file_not_found_message">A fájl nem található. Biztos, hogy létezik ez a fájl, vagy egy előző ütközés nem lett feloldva?</string>
     <string name="uploader_file_not_found_on_server_message">A fájl nem található a kiszolgálón. Lehet, hogy egy másik felhasználó törölte a fájlt.</string>
     <string name="uploader_info_dirname">Mappa neve</string>
-    <string name="uploader_local_files_uploaded">Sikertelen helyi fájlok újbóli feltöltése</string>
     <string name="uploader_top_message">Válasszon feltöltési mappát</string>
     <string name="uploader_upload_failed_content_single">A(z) %1$s feltöltése sikertelen</string>
     <string name="uploader_upload_failed_credentials_error">Feltöltés sikertelen, újra be kell jelentkeznie</string>

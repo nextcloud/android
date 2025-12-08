@@ -45,23 +45,17 @@
     <string name="appbar_search_in">%s の中を検索</string>
     <string name="appear_offline">オフライン</string>
     <string name="assistant_output_generation_warning_text">ここに表示されている出力はAIによって生成されます。必ず二重チェックを行ってください。</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">新しいタスクを追加</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">右下から新しいタスクを作成する</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">テキストを入力</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">本当にこのタスクを削除しますか？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">タスクを削除</string>
     <string name="assistant_screen_empty_content_description">メッセージを送って会話を始めてみましょう。</string>
     <string name="assistant_screen_empty_content_title"> こんにちは！何かお手伝いできることはありますか？</string>
-    <string name="assistant_screen_loading">タスクリストを読み込み中...</string>
     <string name="assistant_screen_task_create_fail_message">タスクの作成中にエラーが発生しました。</string>
     <string name="assistant_screen_task_create_success_message">タスクは正常に作成されました。</string>
     <string name="assistant_screen_task_delete_fail_message">タスクの削除中にエラーが発生しました。</string>
     <string name="assistant_screen_task_delete_success_message">タスクは正常に削除されました。</string>
-    <string name="assistant_screen_task_list_empty_message">タスクリストが空です</string>
     <string name="assistant_screen_task_list_error_state_message">タスクリストを取得できません。インターネット接続を確認してください。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">タスクを削除</string>
     <string name="assistant_screen_task_output_empty_text">タスクの出力はまだ準備ができていません。</string>
-    <string name="assistant_screen_task_types_error_state_message">タスクタイプを取得できません。インターネット接続を確認してください。</string>
     <string name="assistant_screen_top_bar_title">アシスタント</string>
     <string name="assistant_task_detail_screen_input_button_title">入力</string>
     <string name="assistant_task_detail_screen_output_button_title">出力</string>
@@ -129,6 +123,7 @@
     <string name="busy">ビジー</string>
     <string name="calendar">カレンダー</string>
     <string name="calendars">カレンダー</string>
+    <string name="cancel_upload">キャンセル</string>
     <string name="certificate_load_problem">証明書の読み込みに問題がありました。</string>
     <string name="changelog_dev_version">開発バージョンの変更履歴</string>
     <string name="check_back_later_or_reload">後で確認するか、再読込をしてください</string>
@@ -217,7 +212,6 @@
     <string name="conversation_screen_empty_conversation_list_title">まだ会話はありません</string>
     <string name="conversation_screen_title">会話</string>
     <string name="copied">コピー</string>
-    <string name="copied_to_clipboard">クリップボードにコピーされました</string>
     <string name="copy_file_error">このファイルまたはフォルダーをコピーする際にエラーが発生しました</string>
     <string name="copy_file_invalid_into_descendent">フォルダをその下のフォルダにコピーすることはできません</string>
     <string name="copy_file_invalid_overwrite">そのファイルは移動先フォルダーにすでに存在します。</string>
@@ -428,10 +422,8 @@
     <string name="file_list_loading">読み込み中…</string>
     <string name="file_list_no_app_for_file_type">このファイル形式に設定されたアプリがありません。</string>
     <string name="file_list_seconds_ago">数秒前</string>
-    <string name="file_management_permission">必要な権限</string>
     <string name="file_management_permission_optional">ストレージの権限</string>
     <string name="file_management_permission_optional_text">%1$sは、ストレージへのアクセスが許可されることでより良く動作します。全てのファイルへのフルアクセスまたは写真や動画への読み取り専用を選ぶことができます。</string>
-    <string name="file_management_permission_text">%1$sは、ファイルをアップロードするためいファイル管理の権限を必要としています。全てのファイルへのフルアクセスまたは写真や動画への読み取り専用を選ぶことができます。</string>
     <string name="file_migration_allow_media_indexing">他のアプリからのアクセスを許可する</string>
     <string name="file_migration_checking_destination">移動先の確認中…</string>
     <string name="file_migration_cleaning">クリーニング中…</string>
@@ -469,7 +461,6 @@
     <string name="file_upload_worker_error_notification_title">アップロードに失敗しました。インターネット接続がありません</string>
     <string name="file_upload_worker_same_file_already_exists">%sはすでに存在します。強豪は検出されませんでした。</string>
     <string name="file_version_restored_error">ファイルバージョンの復元中にエラーが発生しました。</string>
-    <string name="file_version_restored_successfully">ファイルバージョンが正常に復元されました。</string>
     <string name="filedetails_details">詳細</string>
     <string name="filedetails_download">ダウンロード</string>
     <string name="filedetails_export">エクスポート</string>
@@ -508,7 +499,6 @@
     <string name="foreign_files_local_text">ローカル: %1$s</string>
     <string name="foreign_files_move">すべて移動</string>
     <string name="foreign_files_remote_text">リモート: %1$s</string>
-    <string name="foreign_files_success">全ファイル移動済</string>
     <string name="forward">転送</string>
     <string name="fourHours">4時間</string>
     <string name="gplay_restriction">GoogleがAPK/AABファイルのダウンロードを制限！</string>
@@ -563,7 +553,6 @@
     <string name="locked_by_app">%1$sアプリによりロック</string>
     <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
     <string name="log_send_no_mail_app">ログを送信するためのアプリが見つかりません。メールクライアントをインストールしてください。</string>
-    <string name="logged_in_as">%1$sとしてログインしました</string>
     <string name="login">ログイン</string>
     <string name="login_url_helper_text">%1$sをWeb画面でブラウザーで開くときのURL</string>
     <string name="logs_menu_delete">ログを消去</string>
@@ -665,7 +654,6 @@
     <string name="outdated_server">サーバーのEOLが終わったので、アップグレードしてください！</string>
     <string name="overflow_menu">その他のメニュー</string>
     <string name="pass_code_configure_your_pass_code">パスコードを入力</string>
-    <string name="pass_code_configure_your_pass_code_explanation">アプリ開始時には毎回パスコードが要求されます</string>
     <string name="pass_code_enter_pass_code">パスコードを入力してください</string>
     <string name="pass_code_mismatch">パスコードが一致しません</string>
     <string name="pass_code_reenter_your_pass_code">パスコードを再入力してください</string>
@@ -673,11 +661,10 @@
     <string name="pass_code_removed">パスコードを削除しました</string>
     <string name="pass_code_stored">パスコードを保存しました</string>
     <string name="pass_code_wrong">パスコードが正しくありません</string>
+    <string name="pause_upload">一時停止</string>
     <string name="pdf_password_protected">パスワード保護されたPDFファイルを開くことは出来ません。外部ビューワを使ってください</string>
-    <string name="pdf_zoom_tip">ズームするにはページをタップ</string>
     <string name="permission_allow">許可</string>
     <string name="permission_deny">拒否</string>
-    <string name="permission_storage_access">ファイルをダウンロードとアップロードする追加の権限が必要です。</string>
     <string name="pick_contact_to_share_with">共有するユーザーを選択</string>
     <string name="picture_set_as_no_app">画像を設定するアプリが見つかりませんでした</string>
     <string name="pin_home">ホームスクリーンにピン留めする</string>
@@ -784,7 +771,6 @@
     <string name="remove_notification_failed">通知の削除に失敗</string>
     <string name="remove_push_notification">削除</string>
     <string name="remove_success_msg">削除済み</string>
-    <string name="remove_upload">削除</string>
     <string name="rename_dialog_title">新しい名前を入力</string>
     <string name="rename_local_fail_msg">ローカルコピーの名前が変更できません。別の名前を試してください</string>
     <string name="rename_server_fail_msg">名前の変更ができません。その名前は使われています</string>
@@ -880,7 +866,6 @@
     <string name="share_via_link_section_title">URLで共有</string>
     <string name="share_via_link_send_link_label">リンクを送信</string>
     <string name="share_via_link_unset_password">設定を解除</string>
-    <string name="share_with_title">…と共有</string>
     <string name="shared_avatar_desc">共有ユーザーからのアバター</string>
     <string name="shared_icon_share">共有</string>
     <string name="shared_icon_shared">共有中</string>
@@ -933,7 +918,6 @@
     <string name="storage_internal_storage">内部ストレージ</string>
     <string name="storage_movies">動画</string>
     <string name="storage_music">音楽</string>
-    <string name="storage_permission_full_access">フルアクセス</string>
     <string name="storage_permission_media_read_only">メディア読み取り専用</string>
     <string name="storage_pictures">写真</string>
     <string name="store_full_dev_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム。\nこれは公式の開発バージョンです。まだ十分なテストをしていない新しいサンプル機能を毎日提供しており、不安定な挙動やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、不具合が発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
@@ -1077,7 +1061,6 @@
     <string name="uploader_file_not_found_message">ファイルが見つかりません。このファイルが存在することを確認するか、以前の競合が解決されていない可能性はありますか？</string>
     <string name="uploader_file_not_found_on_server_message">サーバ上でファイルを見つけられませんでした。別のユーザがファイルを削除した可能性があります</string>
     <string name="uploader_info_dirname">フォルダー名</string>
-    <string name="uploader_local_files_uploaded">失敗したローカル ファイルのアップロードを再試行します</string>
     <string name="uploader_top_message">アップロードフォルダーを選択</string>
     <string name="uploader_upload_failed_content_single">%1$sをアップロードできませんでした</string>
     <string name="uploader_upload_failed_credentials_error">アップロード失敗、要 再ログイン</string>
