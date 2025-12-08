@@ -1,0 +1,7 @@
+## 3.35.0 RC2 (December 8, 2025)
+
+- Fixed crashes on devices running versions earlier than Android 15
+
+Minimum: NC 20 Server, Android 9 Pie
+
+For a full list, please see https://github.com/nextcloud/android/milestone/118
