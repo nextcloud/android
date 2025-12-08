@@ -35,7 +35,9 @@ import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.OCFileDepth;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
@@ -136,6 +138,9 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         menuButton.setOnClickListener(toggleDrawer);
     }
 
+    /**
+     * Shows plain action bar
+     */
     public void setupToolbar() {
         if (mHomeSearchToolbar != null && mDefaultToolbar != null && mHomeSearchToolbar.getVisibility() == View.GONE && mDefaultToolbar.getVisibility() == View.VISIBLE) {
             Log_OC.d(TAG, "Search toolbar is already hidden, skipping update.");
@@ -145,6 +150,9 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         setupToolbar(false, false);
     }
 
+    /**
+     * Shows action bar with search
+     */
     public void setupHomeSearchToolbarWithSortAndListButtons() {
         if (mHomeSearchToolbar != null && mDefaultToolbar != null && mHomeSearchToolbar.getVisibility() == View.VISIBLE && mDefaultToolbar.getVisibility() == View.GONE) {
             Log_OC.d(TAG, "Search toolbar is already visible, skipping update.");
@@ -154,22 +162,34 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         setupToolbar(true, true);
     }
 
-    public void updateActionBarTitleAndHomeButton(OCFile chosenFile, SearchType searchType) {
-        if (mAppBar == null) {
-            return;
+    private OCFileListFragment getOCFileListFragment() {
+        if (this instanceof FileDisplayActivity fda) {
+            return fda.getListOfFilesFragment();
         }
 
-        boolean isRoot = isRoot(chosenFile);
-        String title = getActionBarTitle(chosenFile, searchType);
-        updateActionBarTitleAndHomeButtonByString(title);
-        showHomeSearchToolbar(title, isRoot);
+        return null;
     }
 
-    protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        updateActionBarTitleAndHomeButton(chosenFile, SearchType.NO_SEARCH);
+    private OCFileDepth getCurrentDirDepth() {
+        OCFileListFragment fragment = getOCFileListFragment();
+        if (fragment != null) {
+            return fragment.getFileDepth();
+        }
+
+        return null;
     }
 
-    public String getActionBarRootTitle(@NonNull SearchType searchType) {
+    private SearchType getSearchType() {
+        OCFileListFragment fragment = getOCFileListFragment();
+        if (fragment != null) {
+            return fragment.getCurrentSearchType();
+        }
+
+        return SearchType.NO_SEARCH;
+    }
+
+    public String getActionBarRootTitle() {
+        final SearchType searchType = getSearchType();
         Integer rootTitleId = searchType.titleId();
         String result = themeUtils.getDefaultDisplayNameForRootFolder(this);
 
@@ -180,9 +200,9 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         return result;
     }
 
-    public String getActionBarTitle(OCFile chosenFile, @NonNull SearchType searchType) {
+    public String getActionBarTitle(OCFile chosenFile) {
         if (isRoot(chosenFile)) {
-            return getActionBarRootTitle(searchType);
+            return getActionBarRootTitle();
         }
 
         if (chosenFile.isFolder()) {
@@ -198,6 +218,24 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         return fileDataStorageManager.getFilenameConsideringOfflineOperation(parentFile);
     }
 
+    protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
+        if (mAppBar == null) {
+            return;
+        }
+
+        final OCFileDepth currentDirDepth = getCurrentDirDepth();
+        final boolean isRoot = isRoot(chosenFile) || currentDirDepth == OCFileDepth.Root;
+        final String title = getActionBarTitle(chosenFile);
+        updateActionBarTitleAndHomeButtonByString(title);
+
+        final boolean isToolbarStyleSearch = DrawerActivity.isToolbarStyleSearch();
+        final boolean canShowSearchBar = (isHomeSearchToolbarShow && isRoot && isToolbarStyleSearch);
+
+        showHomeSearchToolbar(canShowSearchBar);
+        mSearchText.setText(getString(R.string.appbar_search_in, title));
+    }
+
+
     public void showSearchView() {
         if (isHomeSearchToolbarShow) {
             showHomeSearchToolbar(false);
@@ -208,11 +246,6 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         if (isHomeSearchToolbarShow) {
             showHomeSearchToolbar(isRoot(chosenFile));
         }
-    }
-
-    private void showHomeSearchToolbar(String title, boolean isRoot) {
-        showHomeSearchToolbar(isHomeSearchToolbarShow && isRoot);
-        mSearchText.setText(getString(R.string.appbar_search_in, title));
     }
 
     @SuppressLint("PrivateResource")

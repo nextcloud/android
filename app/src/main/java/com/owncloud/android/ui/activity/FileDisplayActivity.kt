@@ -791,8 +791,8 @@ class FileDisplayActivity :
             return null
         }
 
-    protected fun resetScrollingAndUpdateActionBar(searchType: SearchType = SearchType.NO_SEARCH) {
-        updateActionBarTitleAndHomeButton(file, searchType)
+    protected fun resetScrollingAndUpdateActionBar() {
+        updateActionBarTitleAndHomeButton(file)
         resetScrolling(true)
     }
 
@@ -1235,7 +1235,7 @@ class FileDisplayActivity :
             listOfFiles.registerFabListener()
         }
 
-        resetScrollingAndUpdateActionBar(listOfFilesFragment?.currentSearchType ?: SearchType.NO_SEARCH)
+        resetScrollingAndUpdateActionBar()
         configureMenuItem()
         startMetadataSyncForCurrentDir()
     }
@@ -1799,7 +1799,7 @@ class FileDisplayActivity :
             startSyncFolderOperation(root, false)
         }
         binding.fabMain.setImageResource(R.drawable.ic_plus)
-        resetScrollingAndUpdateActionBar(listOfFilesFragment?.currentSearchType ?: SearchType.NO_SEARCH)
+        resetScrollingAndUpdateActionBar()
     }
 
     override fun onBrowsedDownTo(directory: OCFile?) {

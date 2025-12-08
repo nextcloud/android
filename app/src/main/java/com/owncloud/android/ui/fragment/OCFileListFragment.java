@@ -434,7 +434,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         if (getActivity() instanceof FileDisplayActivity fda) {
-            fda.updateActionBarTitleAndHomeButton(fda.getCurrentDir(), currentSearchType);
+            fda.updateActionBarTitleAndHomeButton(fda.getCurrentDir());
         }
         listDirectory(MainApp.isOnlyOnDevice(), false);
     }
@@ -1811,7 +1811,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (getActivity() instanceof FileDisplayActivity fda) {
             fda.invalidateOptionsMenu();
             fda.getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
-            fda.updateActionBarTitleAndHomeButton(null, NO_SEARCH);
+            fda.updateActionBarTitleAndHomeButton(null);
         }
 
         if (mFile != null) {
