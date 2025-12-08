@@ -2735,7 +2735,7 @@ class FileDisplayActivity :
         }
 
         listOfFilesFragment?.setCurrentSearchType(event)
-        listOfFilesFragment?.setTitle()
+        listOfFilesFragment?.setActionBarTitle()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
