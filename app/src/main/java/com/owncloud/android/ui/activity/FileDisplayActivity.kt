@@ -533,7 +533,7 @@ class FileDisplayActivity :
         }
 
         /** reset views */
-        resetTitleBarAndScrolling()
+        resetScrollingAndUpdateActionBar()
     }
 
     // region Handle Intents
@@ -632,6 +632,8 @@ class FileDisplayActivity :
                 }
             }
         }
+
+        listOfFilesFragment?.setCurrentSearchType(searchEvent)
     }
     // endregion
 
@@ -789,8 +791,8 @@ class FileDisplayActivity :
             return null
         }
 
-    protected fun resetTitleBarAndScrolling() {
-        updateActionBarTitleAndHomeButton(null)
+    protected fun resetScrollingAndUpdateActionBar(searchType: SearchType = SearchType.NO_SEARCH) {
+        updateActionBarTitleAndHomeButton(file, searchType)
         resetScrolling(true)
     }
 
@@ -1233,7 +1235,7 @@ class FileDisplayActivity :
             listOfFiles.registerFabListener()
         }
 
-        resetTitleBarAndScrolling()
+        resetScrollingAndUpdateActionBar(listOfFilesFragment?.currentSearchType ?: SearchType.NO_SEARCH)
         configureMenuItem()
         startMetadataSyncForCurrentDir()
     }
@@ -1519,7 +1521,7 @@ class FileDisplayActivity :
 
     private fun handleRemovedFileFromServer(currentFile: OCFile?, currentDir: OCFile?): OCFile? {
         if (currentFile == null && file?.isFolder == false) {
-            resetTitleBarAndScrolling()
+            resetScrollingAndUpdateActionBar()
             return currentDir
         }
 
@@ -1797,12 +1799,12 @@ class FileDisplayActivity :
             startSyncFolderOperation(root, false)
         }
         binding.fabMain.setImageResource(R.drawable.ic_plus)
-        resetTitleBarAndScrolling()
+        resetScrollingAndUpdateActionBar(listOfFilesFragment?.currentSearchType ?: SearchType.NO_SEARCH)
     }
 
     override fun onBrowsedDownTo(directory: OCFile?) {
         file = directory
-        resetTitleBarAndScrolling()
+        resetScrollingAndUpdateActionBar()
         startSyncFolderOperation(directory, false)
         startMetadataSyncForCurrentDir()
     }
@@ -2099,7 +2101,7 @@ class FileDisplayActivity :
             val fileAvailable = storageManager.fileExists(removedFile.fileId)
             if (leftFragment is FileFragment && !fileAvailable && removedFile == leftFragment.file) {
                 file = storageManager.getFileById(removedFile.parentId)
-                resetTitleBarAndScrolling()
+                resetScrollingAndUpdateActionBar()
             }
             val parentFile = storageManager.getFileById(removedFile.parentId)
             if (parentFile != null && parentFile == getCurrentDir()) {
@@ -2305,7 +2307,7 @@ class FileDisplayActivity :
                 leftFragment.updateFileDetails(file, currentUser)
             } else {
                 if (!file.fileExists()) {
-                    resetTitleBarAndScrolling()
+                    resetScrollingAndUpdateActionBar()
                 } else {
                     leftFragment.updateFileDetails(false, true)
                 }
@@ -2735,7 +2737,8 @@ class FileDisplayActivity :
         }
 
         listOfFilesFragment?.setCurrentSearchType(event)
-        listOfFilesFragment?.setActionBarTitle()
+        updateActionBarTitleAndHomeButton(null)
+        //listOfFilesFragment?.setActionBarTitle()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

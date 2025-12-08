@@ -155,12 +155,14 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     }
 
     public void updateActionBarTitleAndHomeButton(OCFile chosenFile, SearchType searchType) {
+        if (mAppBar == null) {
+            return;
+        }
+
         boolean isRoot = isRoot(chosenFile);
         String title = getActionBarTitle(chosenFile, searchType);
         updateActionBarTitleAndHomeButtonByString(title);
-        if (mAppBar != null) {
-            showHomeSearchToolbar(title, isRoot);
-        }
+        showHomeSearchToolbar(title, isRoot);
     }
 
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
