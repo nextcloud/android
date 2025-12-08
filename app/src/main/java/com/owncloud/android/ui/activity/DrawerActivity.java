@@ -648,10 +648,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
 
         // from navigation user always sees root level
-        final var ocFileListFragment = getOCFileListFragment();
-        if (ocFileListFragment != null) {
-            ocFileListFragment.resetFileDepth();
-        }
+        resetFileDepth();
 
         if (this instanceof FileDisplayActivity fda) {
             fda.configureMenuItem();
@@ -695,7 +692,15 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
+    private void resetFileDepth() {
+        final var ocFileListFragment = getOCFileListFragment();
+        if (ocFileListFragment != null) {
+            ocFileListFragment.resetFileDepth();
+        }
+    }
+
     protected void openSharedTab() {
+        resetFileDepth();
         resetOnlyPersonalAndOnDevice();
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
         launchActivityForSearch(searchEvent, R.id.nav_shared);

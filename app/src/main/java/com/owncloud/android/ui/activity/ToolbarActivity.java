@@ -200,8 +200,8 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         return result;
     }
 
-    public String getActionBarTitle(OCFile chosenFile) {
-        if (isRoot(chosenFile)) {
+    public String getActionBarTitle(OCFile chosenFile, boolean isRoot) {
+        if (isRoot) {
             return getActionBarRootTitle();
         }
 
@@ -225,7 +225,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
         final OCFileDepth currentDirDepth = getCurrentDirDepth();
         final boolean isRoot = isRoot(chosenFile) || currentDirDepth == OCFileDepth.Root;
-        final String title = getActionBarTitle(chosenFile);
+        final String title = getActionBarTitle(chosenFile, isRoot);
         updateActionBarTitleAndHomeButtonByString(title);
 
         final boolean isToolbarStyleSearch = DrawerActivity.isToolbarStyleSearch();
@@ -233,6 +233,11 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
         showHomeSearchToolbar(canShowSearchBar);
         mSearchText.setText(getString(R.string.appbar_search_in, title));
+
+        final var actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            viewThemeUtils.files.themeActionBar(this, actionBar, title, isRoot);
+        }
     }
 
 
