@@ -93,7 +93,6 @@ import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.GroupfolderListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
@@ -832,13 +831,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * Updates title bar and home buttons (state and icon). Assumes that navigation drawer is NOT visible.
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        final var ocFileListFragment = getOCFileListFragment();
-        SearchType searchType = SearchType.NO_SEARCH;
-        if (ocFileListFragment != null) {
-            searchType = ocFileListFragment.getCurrentSearchType();
-        }
-
-        updateActionBarTitleAndHomeButton(chosenFile, searchType);
+        super.updateActionBarTitleAndHomeButton(chosenFile);
 
         // set home button properties
         if (mDrawerToggle != null) {
@@ -1457,5 +1450,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else if (this instanceof UploadFilesActivity uploadFilesActivity) {
             uploadFilesActivity.setupStoragePermissionWarningBanner();
         }
+    }
+
+    public static boolean isToolbarStyleSearch() {
+        return menuItemId == Menu.NONE ||
+            menuItemId == R.id.nav_all_files ||
+            menuItemId == R.id.nav_personal_files;
     }
 }
