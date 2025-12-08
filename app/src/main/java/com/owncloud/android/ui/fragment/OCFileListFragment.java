@@ -290,7 +290,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         Log_OC.i(TAG, "onAttach");
         try {
             mContainerActivity = (FileFragment.ContainerActivity) context;
-            setTitle();
+            setActionBarTitle();
 
         } catch (ClassCastException e) {
             throw new IllegalArgumentException(context.toString() + " must implement " +
@@ -435,7 +435,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             });
         }
 
-        setTitle();
+        setActionBarTitle();
 
         FragmentActivity fragmentActivity;
         if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity fileDisplayActivity) {
@@ -1516,8 +1516,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void refreshDirectory() {
         searchFragment = false;
 
-        setFabVisible(mFile.canCreateFileAndFolder());
-        listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
+        if (mFile != null) {
+            setFabVisible(mFile.canCreateFileAndFolder());
+        }
+
+        final var currentFile = getCurrentFile();
+        if (currentFile != null) {
+            listDirectory(currentFile, MainApp.isOnlyOnDevice(), false);
+        }
     }
 
     public void listDirectory(OCFile directory, boolean onlyOnDevice, boolean fromSearch) {
@@ -1747,7 +1753,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return mAdapter;
     }
 
-    public void setTitle() {
+    public void setActionBarTitle() {
         if (!(getActivity() instanceof FileDisplayActivity fda) || currentSearchType == null) {
             return;
         }
@@ -1758,7 +1764,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             title = fda.getString(titleId);
         }
 
-        setTitle(title, currentSearchType.isMenu());
+        setActionBarTitle(title, currentSearchType.isMenu());
     }
 
     public void setCurrentSearchType(SearchEvent event) {
@@ -1828,7 +1834,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 ((FileDisplayActivity) activity).initSyncBroadcastReceiver();
             }
 
-            setTitle(themeUtils.getDefaultDisplayNameForRootFolder(getContext()), false);
+            setActionBarTitle(themeUtils.getDefaultDisplayNameForRootFolder(getContext()), false);
             activity.getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
         }
 
@@ -2102,7 +2108,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @param title          title to be shown in action bar
      * @param showBackAsMenu iff true replace back arrow with hamburger menu icon
      */
-    protected void setTitle(final String title, Boolean showBackAsMenu) {
+    protected void setActionBarTitle(final String title, Boolean showBackAsMenu) {
         if (!(getActivity() instanceof FileDisplayActivity fda)) {
             return;
         }
