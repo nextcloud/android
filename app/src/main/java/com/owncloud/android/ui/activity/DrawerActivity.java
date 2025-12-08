@@ -87,7 +87,6 @@ import com.owncloud.android.operations.GetCapabilitiesOperation;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
-import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
@@ -177,6 +176,8 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     public static int menuItemId = Menu.NONE;
 
+    public static int previousMenuItemId = Menu.NONE;
+
     /**
      * container layout of the quota view.
      */
@@ -263,9 +264,22 @@ public abstract class DrawerActivity extends ToolbarActivity
             .setVisible(isAssistantAvailable);
     }
 
+    private void openFavoritesTab(int menuItemId) {
+        resetOnlyPersonalAndOnDevice();
+        setupToolbar();
+        handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
+    }
+
+    private void openMediaTab(int menuItemId) {
+        resetOnlyPersonalAndOnDevice();
+        setupToolbar();
+        startPhotoSearch(menuItemId);
+    }
+
     @SuppressFBWarnings("RV")
     private void handleBottomNavigationViewClicks() {
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {
+            previousMenuItemId = menuItemId;
             menuItemId = menuItem.getItemId();
 
             exitSelectionMode();
@@ -278,14 +292,11 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
                 EventBus.getDefault().post(new ChangeMenuEvent());
             } else if (menuItemId == R.id.nav_favorites) {
-                resetOnlyPersonalAndOnDevice();
-                setupToolbar();
-                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
+                openFavoritesTab(menuItem.getItemId());
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
                 startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
             } else if (menuItemId == R.id.nav_gallery) {
-                setupToolbar();
-                startPhotoSearch(menuItem.getItemId());
+                openMediaTab(menuItem.getItemId());
             }
 
             // Remove extra icon from the action bar
@@ -536,12 +547,8 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_logout, !getResources().getBoolean(R.bool.show_drawer_logout));
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(DummyDrawerEvent event) {
-        unsetAllDrawerMenuItems();
-    }
-
     private void onNavigationItemClicked(final MenuItem menuItem) {
+        previousMenuItemId = menuItemId;
         int itemId = menuItem.getItemId();
 
         // Settings screen cannot display drawer menu thus no need to highlight
@@ -571,13 +578,9 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             closeDrawer();
         } else if (itemId == R.id.nav_favorites) {
-            resetOnlyPersonalAndOnDevice();
-            setupToolbar();
-            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItem.getItemId());
+            openFavoritesTab(menuItem.getItemId());
         } else if (itemId == R.id.nav_gallery) {
-            resetOnlyPersonalAndOnDevice();
-            setupToolbar();
-            startPhotoSearch(menuItem.getItemId());
+            openMediaTab(menuItem.getItemId());
         } else if (itemId == R.id.nav_on_device) {
             showOnDeviceFiles();
         } else if (itemId == R.id.nav_uploads) {
@@ -874,14 +877,18 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void unsetAllDrawerMenuItems() {
         if (drawerNavigationView != null) {
-            drawerNavigationView.getMenu();
             Menu menu = drawerNavigationView.getMenu();
             for (int i = 0; i < menu.size(); i++) {
                 menu.getItem(i).setChecked(false);
             }
         }
 
-        menuItemId = Menu.NONE;
+        if (bottomNavigationView != null) {
+            Menu menu = bottomNavigationView.getMenu();
+            for (int i = 0; i < menu.size(); i++) {
+                menu.getItem(i).setChecked(false);
+            }
+        }
     }
 
     private void updateQuotaLink() {
@@ -957,12 +964,19 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     @SuppressFBWarnings("RV")
     public void setNavigationViewItemChecked() {
+        unsetAllDrawerMenuItems();
+
+        // Don't check any items
+        if (menuItemId == Menu.NONE) {
+            return;
+        }
+
         if (drawerNavigationView != null) {
             MenuItem menuItem = drawerNavigationView.getMenu().findItem(menuItemId);
 
             if (menuItem != null && !menuItem.isChecked()) {
-                viewThemeUtils.platform.colorNavigationView(drawerNavigationView);
                 menuItem.setChecked(true);
+                viewThemeUtils.platform.colorNavigationView(drawerNavigationView);
             }
         }
 
