@@ -124,6 +124,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
@@ -185,9 +186,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public static final String FOLDER_LAYOUT_GRID = "GRID";
 
     public static final String SEARCH_EVENT = "SEARCH_EVENT";
-
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
-
     protected static final String KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE";
 
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
@@ -317,21 +316,28 @@ public class OCFileListFragment extends ExtendedListFragment implements
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
+        final Bundle state = savedInstanceState != null ? savedInstanceState : getArguments();
+        SearchType argSearchType = null;
+        SearchEvent argSearchEvent = null;
 
-        if (savedInstanceState != null &&
-            BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_CURRENT_SEARCH_TYPE, SearchType.class) != null &&
-            BundleExtensionsKt.getParcelableArgument(savedInstanceState, SEARCH_EVENT, SearchEvent.class) != null) {
-            searchFragment = true;
-            currentSearchType = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_CURRENT_SEARCH_TYPE, SearchType.class);
-            searchEvent = BundleExtensionsKt.getParcelableArgument(savedInstanceState, SEARCH_EVENT, SearchEvent.class);
-        } else {
-            currentSearchType = NO_SEARCH;
+        if (state != null) {
+            argSearchType = BundleExtensionsKt.getParcelableArgument(state, KEY_CURRENT_SEARCH_TYPE, SearchType.class);
+            argSearchEvent = BundleExtensionsKt.getParcelableArgument(state, SEARCH_EVENT, SearchEvent.class);
         }
 
-        Bundle args = getArguments();
-        boolean allowContextualActions = args != null && args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, false);
+        currentSearchType = Objects.requireNonNullElse(argSearchType, NO_SEARCH);
+
+        if (argSearchEvent != null) {
+            searchEvent = argSearchEvent;
+        }
+
+        if (searchEvent != null && currentSearchType != NO_SEARCH) {
+            searchFragment = true;
+        }
+
+        boolean allowContextualActions = (state != null && state.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, false));
         if (allowContextualActions) {
-            setChoiceModeAsMultipleModal(savedInstanceState);
+            setChoiceModeAsMultipleModal(state);
         }
 
         mFabMain = requireActivity().findViewById(R.id.fab_main);
