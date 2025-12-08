@@ -1752,6 +1752,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    public void setCurrentSearchType(SearchType searchType) {
+        currentSearchType = searchType;
+    }
+
     public SearchType getCurrentSearchType() {
         return currentSearchType;
     }

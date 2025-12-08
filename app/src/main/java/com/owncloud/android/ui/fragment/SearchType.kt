@@ -24,13 +24,15 @@ enum class SearchType : Parcelable {
 
     // not a real filter, but nevertheless
     SHARED_FILTER,
-    GROUPFOLDER;
+    GROUPFOLDER,
+    ON_DEVICE;
 
     fun titleId(): Int? = when (this) {
         FAVORITE_SEARCH -> R.string.drawer_item_favorites
         GALLERY_SEARCH -> R.string.drawer_item_gallery
         RECENTLY_MODIFIED_SEARCH -> R.string.drawer_item_recently_modified
         SHARED_FILTER -> R.string.drawer_item_shared
+        ON_DEVICE -> R.string.drawer_item_on_device
         else -> null
     }
 }
