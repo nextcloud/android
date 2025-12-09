@@ -304,7 +304,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void setSearchArgs(Bundle state) {
-        SearchType argSearchType = null;
+        SearchType argSearchType = NO_SEARCH;
         SearchEvent argSearchEvent = null;
 
         if (state != null) {
