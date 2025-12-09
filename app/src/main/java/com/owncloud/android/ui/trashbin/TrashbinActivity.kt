@@ -293,7 +293,7 @@ class TrashbinActivity :
     }
 
     override fun onPause() {
-        menuItemId = previousMenuItemId
+        menuItemId = getPreviousMenuItemId()
         setNavigationViewItemChecked()
         super.onPause()
         active = false
