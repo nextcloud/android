@@ -276,40 +276,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         startPhotoSearch(menuItemId);
     }
 
-    @SuppressFBWarnings("RV")
-    private void handleBottomNavigationViewClicks() {
-        bottomNavigationView.setOnItemSelectedListener(menuItem -> {
-            setPreviousMenuItemId(menuItemId);
-            menuItemId = menuItem.getItemId();
-
-            exitSelectionMode();
-            resetOnlyPersonalAndOnDevice();
-
-            if (menuItemId == R.id.nav_all_files) {
-                showFiles(false,false);
-                if (this instanceof FileDisplayActivity fda) {
-                    fda.browseToRoot();
-                }
-                EventBus.getDefault().post(new ChangeMenuEvent());
-            } else if (menuItemId == R.id.nav_favorites) {
-                openFavoritesTab(menuItem.getItemId());
-            } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
-                startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
-            } else if (menuItemId == R.id.nav_gallery) {
-                openMediaTab(menuItem.getItemId());
-            }
-
-            // Remove extra icon from the action bar
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setIcon(null);
-            }
-
-            setNavigationViewItemChecked();
-
-            return false;
-        });
-    }
-
     @Nullable
     public OCFileListFragment getOCFileListFragment() {
         Fragment fragment = ActivityExtensionsKt.lastFragment(this);
@@ -547,6 +513,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_logout, !getResources().getBoolean(R.bool.show_drawer_logout));
     }
 
+    // region navigation item click
     private void onNavigationItemClicked(final MenuItem menuItem) {
         setPreviousMenuItemId(menuItemId);
         int itemId = menuItem.getItemId();
@@ -632,6 +599,46 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
         }
 
+        resetFileDepthAndConfigureMenuItem();
+    }
+
+    @SuppressFBWarnings("RV")
+    private void handleBottomNavigationViewClicks() {
+        bottomNavigationView.setOnItemSelectedListener(menuItem -> {
+            setPreviousMenuItemId(menuItemId);
+            menuItemId = menuItem.getItemId();
+
+            exitSelectionMode();
+            resetOnlyPersonalAndOnDevice();
+
+            if (menuItemId == R.id.nav_all_files) {
+                showFiles(false,false);
+                if (this instanceof FileDisplayActivity fda) {
+                    fda.browseToRoot();
+                }
+                EventBus.getDefault().post(new ChangeMenuEvent());
+            } else if (menuItemId == R.id.nav_favorites) {
+                openFavoritesTab(menuItem.getItemId());
+            } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
+                startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
+            } else if (menuItemId == R.id.nav_gallery) {
+                openMediaTab(menuItem.getItemId());
+            }
+
+            // Remove extra icon from the action bar
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setIcon(null);
+            }
+
+            setNavigationViewItemChecked();
+            resetFileDepthAndConfigureMenuItem();
+
+            return false;
+        });
+    }
+    // endregion
+
+    private void resetFileDepthAndConfigureMenuItem() {
         // from navigation user always sees root level
         resetFileDepth();
 
