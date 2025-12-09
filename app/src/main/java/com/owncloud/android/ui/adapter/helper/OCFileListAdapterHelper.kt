@@ -94,7 +94,7 @@ class OCFileListAdapterHelper {
                 continue
             }
 
-            if (isFavoritesView && !file.isFavorite) {
+            if (isFavoritesView && !file.isFavorite && !directory.isFavorite) {
                 continue
             }
 
