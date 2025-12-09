@@ -60,6 +60,7 @@
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Vstup</string>
     <string name="assistant_task_detail_screen_output_button_title">Výstup</string>
+    <string name="assistant_thinking">Přemýšlení...</string>
     <string name="associated_account_not_found">Související účet nenalezen!</string>
     <string name="auth_access_failed">Přístup se nezdařil: %1$s</string>
     <string name="auth_account_does_not_exist">Účet zatím není na tomto zařízení přidán</string>
@@ -124,6 +125,7 @@
     <string name="busy">Zaneprázdněn(a)</string>
     <string name="calendar">Kalendář</string>
     <string name="calendars">Kalendáře</string>
+    <string name="cancel_upload">Zrušit</string>
     <string name="certificate_load_problem">Došlo k problému s načtením certifikátu.</string>
     <string name="changelog_dev_version">Seznam změn ve vývojářské verzi</string>
     <string name="check_back_later_or_reload">Vraťte se sem později nebo načtěte znovu.</string>
@@ -208,8 +210,12 @@
     <string name="contacts_preferences_no_file_found">Nenalezen žádný soubor</string>
     <string name="contacts_preferences_something_strange_happened">Nepodařilo se najít vaši nejaktuálnější zálohu!</string>
     <string name="content_observer_work_notification_title">Zjišťování změn obsahu</string>
+    <string name="conversation_screen_create_error_title">Vytváření konverzace selhalo</string>
+    <string name="conversation_screen_delete_button_title">Odstranit konverzaci</string>
+    <string name="conversation_screen_delete_error_title">Odstranění konverzace selhalo</string>
     <string name="conversation_screen_empty_content_title">Nenalezena žádná konverzace</string>
     <string name="conversation_screen_empty_conversation_list_title">Zatím žádná konverzace</string>
+    <string name="conversation_screen_fetch_error_title">Získání seznamu konverzace selhalo</string>
     <string name="conversation_screen_title">Konverzace</string>
     <string name="copied">Zkopírováno</string>
     <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či složky došlo k chybě</string>
@@ -311,9 +317,11 @@
     <string name="e2e_not_yet_setup">Šifrování mezi koncovými body doposud není nastavené</string>
     <string name="e2e_offline">Není možné bez připojení k Internetu</string>
     <string name="e2e_signature_does_not_match">Signatura se neshoduje</string>
+    <string name="e2e_signature_is_empty">Nebylo možné ověřit metadata, podpis je prázdný.</string>
     <string name="ecosystem_apps_display_assistant">Asistent</string>
     <string name="ecosystem_apps_display_more">Další</string>
     <string name="ecosystem_apps_more">Další Nextcloud aplikace</string>
+    <string name="editor_web_view_cannot_open_file">Nelze otevřít výběr souborů</string>
     <string name="email_pick_failed">Nepodařilo se vybrat e-mailovou adresu.</string>
     <string name="encrypted">Nastavit jako šifrované</string>
     <string name="end_to_end_encryption_certificate_unavailable">Nedaří se získat certifikát serveru</string>
@@ -666,6 +674,7 @@
     <string name="pass_code_removed">Bezpečnostní kód smazán</string>
     <string name="pass_code_stored">Bezpečnostní kód uložen</string>
     <string name="pass_code_wrong">Nesprávný bezpečnostní kód</string>
+    <string name="pause_upload">Pozastavit</string>
     <string name="pdf_password_protected">Nedaří se otevřít heslem chráněné PDF. Použijte externí prohlížeč PDF.</string>
     <string name="permission_allow">Povolit</string>
     <string name="permission_deny">Odepřít</string>
@@ -922,6 +931,9 @@
     <string name="storage_internal_storage">Vnitřní úložiště</string>
     <string name="storage_movies">Videa</string>
     <string name="storage_music">Hudba</string>
+    <string name="storage_permission_banner_auto_upload_text">Oprávnění úložiště je nutné pro automatické nahrávání.</string>
+    <string name="storage_permission_banner_upload_text">Oprávnění úložiště je nutné pro nahrávání souborů.</string>
+    <string name="storage_permission_dont_ask">Neptat se</string>
     <string name="storage_permission_media_read_only">Média pouze pro čtení</string>
     <string name="storage_pictures">Obrázky</string>
     <string name="store_full_dev_desc">Platforma pro produktivitu hostovaná u vás, kde vaše data jsou opravdu vaše.\nToto je oficiální vývojová verze, sloužící jako denně aktualizovaná ukázka nových nevyzkoušených funkcí, což může způsobovat nestabilitu a ztráty dat. Je určeno pro uživatele, kteří jsou ochotní testovat a hlásit chyby na které narazí. Nepoužívejte pro svou produktivní práci!\n\nJak vývojová tak produkční verze jsou k dispozici na F-droid a mohou být nainstalovány souběžně.</string>

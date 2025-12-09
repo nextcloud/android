@@ -748,7 +748,7 @@
     <string name="prefs_show_ecosystem_apps">App-Umschalter anzeigen</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud-App-Vorschläge in der Navigationsüberschrift</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
-    <string name="prefs_sourcecode">Zum Programmcode</string>
+    <string name="prefs_sourcecode">Zum Quellcode</string>
     <string name="prefs_sycned_folders_summary">Ordner für \"Automatisches Hochladen\" verwalten</string>
     <string name="prefs_synced_folders_local_path_title">Lokaler Ordner</string>
     <string name="prefs_synced_folders_remote_path_title">Remote-Ordner</string>
