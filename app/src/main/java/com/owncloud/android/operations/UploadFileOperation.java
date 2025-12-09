@@ -481,7 +481,7 @@ public class UploadFileOperation extends SyncOperation {
         E2EFiles e2eFiles = new E2EFiles(parentFile, null, new File(mOriginalStoragePath), null, null);
         FileLock fileLock = null;
         long size;
-
+        boolean folderWasLocked = false;
         boolean metadataExists = false;
         String token = null;
         Object object = null;
@@ -497,7 +497,20 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             long counter = getE2ECounter(parentFile);
-            token = getFolderUnlockTokenOrLockFolder(client, parentFile, counter);
+
+            try {
+                token = getFolderUnlockTokenOrLockFolder(client, parentFile, counter);
+
+                if (token == null || token.isEmpty()) {
+                    Log_OC.e(TAG, "Failed to obtain folder lock token for encrypted upload");
+                    return new RemoteOperationResult<>(new IllegalStateException("Cannot proceed: folder lock token is null or empty"));
+                }
+                folderWasLocked = true;
+                Log_OC.d(TAG, "folder successfully locked");
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Failed to lock folder", e);
+                return new RemoteOperationResult<>(e);
+            }
 
             // Update metadata
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
@@ -508,7 +521,7 @@ public class UploadFileOperation extends SyncOperation {
 
             if (isEndToEndVersionAtLeastV2()) {
                 if (object == null) {
-                    return new RemoteOperationResult(new IllegalStateException("Metadata does not exist"));
+                    return new RemoteOperationResult<>(new IllegalStateException("Metadata does not exist"));
                 }
             } else {
                 object = getDecryptedFolderMetadataV1(publicKey, object);
@@ -518,7 +531,7 @@ public class UploadFileOperation extends SyncOperation {
 
             List<String> fileNames = getCollidedFileNames(object);
 
-            RemoteOperationResult collisionResult = checkNameCollision(parentFile, client, fileNames, parentFile.isEncrypted());
+            final var collisionResult = checkNameCollision(parentFile, client, fileNames, parentFile.isEncrypted());
             if (collisionResult != null) {
                 result = collisionResult;
                 return collisionResult;
@@ -563,13 +576,13 @@ public class UploadFileOperation extends SyncOperation {
             }
         } catch (FileNotFoundException e) {
             Log_OC.e(TAG, mFile.getStoragePath() + " does not exist anymore");
-            result = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+            result = new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
         } catch (OverlappingFileLockException e) {
             Log_OC.e(TAG, "Overlapping file lock exception");
-            result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+            result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
         } catch (Exception e) {
             Log_OC.e(TAG, "UploadFileOperation exception: " + e.getLocalizedMessage());
-            result = new RemoteOperationResult(e);
+            result = new RemoteOperationResult<>(e);
         } finally {
             result = cleanupE2EUpload(fileLock, e2eFiles, result, object, client, token);
         }
