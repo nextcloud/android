@@ -38,7 +38,7 @@ data class E2EFiles(
     fun deleteEncryptedTempFile() {
         if (encryptedTempFile != null) {
             val isTempEncryptedFileDeleted = encryptedTempFile?.delete()
-            Log_OC.e(tag, "isTempEncryptedFileDeleted: $isTempEncryptedFileDeleted")
+            Log_OC.d(tag, "isTempEncryptedFileDeleted: $isTempEncryptedFileDeleted")
         } else {
             Log_OC.e(tag, "Encrypted temp file cannot be found")
         }

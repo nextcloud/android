@@ -484,7 +484,7 @@ public class UploadFileOperation extends SyncOperation {
         boolean metadataExists = false;
         String token = null;
         Object object = null;
-
+        FileChannel channel = null;
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(getContext());
         String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
 
@@ -499,12 +499,6 @@ public class UploadFileOperation extends SyncOperation {
 
             try {
                 token = getFolderUnlockTokenOrLockFolder(client, parentFile, counter);
-
-                if (token == null || token.isEmpty()) {
-                    Log_OC.e(TAG, "Failed to obtain folder lock token for encrypted upload");
-                    return new RemoteOperationResult<>(new IllegalStateException("Cannot proceed: folder lock token is null or empty"));
-                }
-                Log_OC.d(TAG, "folder successfully locked");
             } catch (Exception e) {
                 Log_OC.e(TAG, "Failed to lock folder", e);
                 return new RemoteOperationResult<>(e);
@@ -561,7 +555,7 @@ public class UploadFileOperation extends SyncOperation {
             Triple<FileLock, RemoteOperationResult, FileChannel> channelResult = initFileChannel(result, fileLock, e2eFiles);
             fileLock = channelResult.getFirst();
             result = channelResult.getSecond();
-            FileChannel channel = channelResult.getThird();
+            channel = channelResult.getThird();
 
             size = getChannelSize(channel);
             updateSize(size);
@@ -582,7 +576,7 @@ public class UploadFileOperation extends SyncOperation {
             Log_OC.e(TAG, "UploadFileOperation exception: " + e.getLocalizedMessage());
             result = new RemoteOperationResult<>(e);
         } finally {
-            result = cleanupE2EUpload(fileLock, e2eFiles, result, object, client, token);
+            result = cleanupE2EUpload(fileLock, channel, e2eFiles, result, object, client, token);
         }
 
         completeE2EUpload(result, e2eFiles, client);
@@ -714,7 +708,8 @@ public class UploadFileOperation extends SyncOperation {
     private Triple<FileLock, RemoteOperationResult, FileChannel> initFileChannel(RemoteOperationResult result, FileLock fileLock, E2EFiles e2eFiles) throws IOException {
         FileChannel channel = null;
 
-        try (RandomAccessFile randomAccessFile = new RandomAccessFile(mFile.getStoragePath(), "rw")) {
+        try {
+            RandomAccessFile randomAccessFile = new RandomAccessFile(mFile.getStoragePath(), "rw");
             channel = randomAccessFile.getChannel();
             fileLock = channel.tryLock();
         } catch (IOException ioException) {
@@ -743,7 +738,7 @@ public class UploadFileOperation extends SyncOperation {
                         Log_OC.d(TAG, "Error caught at getChannelFromFile: " + e);
                     }
                 } else {
-                    result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+                    result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
                 }
             }
         }
@@ -897,14 +892,25 @@ public class UploadFileOperation extends SyncOperation {
         e2eFiles.deleteTemporalFile();
     }
 
-    private RemoteOperationResult cleanupE2EUpload(FileLock fileLock, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
+    private RemoteOperationResult cleanupE2EUpload(FileLock fileLock, FileChannel channel, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
         mUploadStarted.set(false);
 
         if (fileLock != null) {
             try {
-                fileLock.release();
+                // Only release if the channel is still open/valid
+                if (channel != null && channel.isOpen()) {
+                    fileLock.release();
+                }
             } catch (IOException e) {
                 Log_OC.e(TAG, "Failed to unlock file with path " + mFile.getStoragePath());
+            }
+        }
+
+        if (channel != null) {
+            try {
+                channel.close();
+            } catch (IOException e) {
+                Log_OC.e(TAG, "Failed to close file channel", e);
             }
         }
 
@@ -960,6 +966,8 @@ public class UploadFileOperation extends SyncOperation {
             // Clear the saved token since folder is now unlocked
             mUpload.setFolderUnlockToken(null);
             uploadsStorageManager.updateUpload(mUpload);
+
+            Log_OC.d(TAG, "Folder unlock token removed");
         }
 
         e2eFiles.deleteEncryptedTempFile();
