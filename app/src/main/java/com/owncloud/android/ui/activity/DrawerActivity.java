@@ -176,7 +176,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     public static int menuItemId = Menu.NONE;
 
-    public static int previousMenuItemId = Menu.NONE;
+    private static int previousMenuItemId = Menu.NONE;
 
     /**
      * container layout of the quota view.
@@ -279,7 +279,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     @SuppressFBWarnings("RV")
     private void handleBottomNavigationViewClicks() {
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {
-            previousMenuItemId = menuItemId;
+            setPreviousMenuItemId(menuItemId);
             menuItemId = menuItem.getItemId();
 
             exitSelectionMode();
@@ -548,7 +548,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void onNavigationItemClicked(final MenuItem menuItem) {
-        previousMenuItemId = menuItemId;
+        setPreviousMenuItemId(menuItemId);
         int itemId = menuItem.getItemId();
 
         // Settings screen cannot display drawer menu thus no need to highlight
@@ -1467,5 +1467,13 @@ public abstract class DrawerActivity extends ToolbarActivity
         return menuItemId == Menu.NONE ||
             menuItemId == R.id.nav_all_files ||
             menuItemId == R.id.nav_personal_files;
+    }
+
+    public static int getPreviousMenuItemId() {
+        return previousMenuItemId;
+    }
+
+    public static void setPreviousMenuItemId(int menuItemId) {
+        previousMenuItemId = menuItemId;
     }
 }
