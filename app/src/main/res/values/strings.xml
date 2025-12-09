@@ -1448,7 +1448,6 @@
     <string name="sync_duplication">Sync duplication</string>
     <string name="server_not_reachable">Could not load content</string>
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Please select custom permission</string>
     <string name="unknown">Unknown</string>
     <string name="upload_missing_storage_permission_title">Upload Stopped – Storage Permission Required</string>
     <string name="upload_missing_storage_permission_description">Your files cannot be uploaded without access to local storage. Tap to grant permission.</string>
