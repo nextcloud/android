@@ -198,7 +198,6 @@ class FileDetailsSharingProcessFragment :
         setCheckboxStates()
         themeView()
         setVisibilitiesOfShareOption()
-        toggleNextButtonAvailability(isAnySharePermissionChecked())
         logShareInfo()
     }
 
@@ -496,11 +495,14 @@ class FileDetailsSharingProcessFragment :
             return
         }
 
-        val currentLimit = share?.remainingDownloadLimit() ?: return
+        // user can set download limit thus no need to rely on current limit to show download limit
+        showFileDownloadLimitInput(true)
         binding.shareProcessSetDownloadLimitSwitch.visibility = View.VISIBLE
+        binding.shareProcessSetDownloadLimitInput.visibility = View.VISIBLE
+
+        val currentLimit = share?.remainingDownloadLimit() ?: return
         if (currentLimit > 0) {
             binding.shareProcessSetDownloadLimitSwitch.isChecked = true
-            showFileDownloadLimitInput(true)
             binding.shareProcessSetDownloadLimitInput.setText(currentLimit.toString())
         }
     }
@@ -587,7 +589,6 @@ class FileDetailsSharingProcessFragment :
 
                 val isCustomPermissionSelected = (optionId == R.id.custom_permission_radio_button)
                 customPermissionLayout.setVisibilityWithAnimation(isCustomPermissionSelected)
-                toggleNextButtonAvailability(true)
             }
             // endregion
         }
@@ -610,13 +611,6 @@ class FileDetailsSharingProcessFragment :
                     (shareCheckbox.isVisible && shareCheckbox.isChecked) ||
                     (shareDeleteCheckbox.isEnabled && shareDeleteCheckbox.isChecked)
                 )
-    }
-
-    private fun toggleNextButtonAvailability(value: Boolean) {
-        binding.run {
-            shareProcessBtnNext.isEnabled = value
-            shareProcessBtnNext.isClickable = value
-        }
     }
 
     @Suppress("NestedBlockDepth")
@@ -676,7 +670,6 @@ class FileDetailsSharingProcessFragment :
 
     private fun togglePermission(isChecked: Boolean, permissionFlag: Int) {
         permission = SharePermissionManager.togglePermission(isChecked, permission, permissionFlag)
-        toggleNextButtonAvailability(true)
     }
 
     private fun showExpirationDateDialog(chosenDateInMillis: Long = chosenExpDateInMills) {
@@ -778,14 +771,6 @@ class FileDetailsSharingProcessFragment :
             binding.shareProcessChangeName.text?.isBlank() == true
         ) {
             DisplayUtils.showSnackMessage(binding.root, R.string.label_empty)
-            return
-        }
-
-        if (!isSharePermissionChecked() && !isCustomPermissionSelectedAndAnyCustomPermissionTypeChecked()) {
-            DisplayUtils.showSnackMessage(
-                binding.root,
-                R.string.file_details_sharing_fragment_custom_permission_not_selected
-            )
             return
         }
 
