@@ -481,7 +481,6 @@ public class UploadFileOperation extends SyncOperation {
         E2EFiles e2eFiles = new E2EFiles(parentFile, null, new File(mOriginalStoragePath), null, null);
         FileLock fileLock = null;
         long size;
-        boolean folderWasLocked = false;
         boolean metadataExists = false;
         String token = null;
         Object object = null;
@@ -505,7 +504,6 @@ public class UploadFileOperation extends SyncOperation {
                     Log_OC.e(TAG, "Failed to obtain folder lock token for encrypted upload");
                     return new RemoteOperationResult<>(new IllegalStateException("Cannot proceed: folder lock token is null or empty"));
                 }
-                folderWasLocked = true;
                 Log_OC.d(TAG, "folder successfully locked");
             } catch (Exception e) {
                 Log_OC.e(TAG, "Failed to lock folder", e);
@@ -612,13 +610,20 @@ public class UploadFileOperation extends SyncOperation {
 
     private String getFolderUnlockTokenOrLockFolder(OwnCloudClient client, OCFile parentFile, long counter) throws UploadException {
         if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
+            Log_OC.d(TAG, "Reusing existing folder unlock token from previous upload attempt");
             return mFolderUnlockToken;
         }
 
         String token = EncryptionUtils.lockFolder(parentFile, client, counter);
+        if (token == null || token.isEmpty()) {
+            Log_OC.e(TAG, "Lock folder returned null or empty token");
+            throw new UploadException("Failed to lock folder: token is null or empty");
+        }
+
         mUpload.setFolderUnlockToken(token);
         uploadsStorageManager.updateUpload(mUpload);
 
+        Log_OC.d(TAG, "Folder locked successfully, token saved");
         return token;
     }
 
@@ -763,12 +768,12 @@ public class UploadFileOperation extends SyncOperation {
             throw new OperationCancelledException();
         }
 
-        RemoteOperationResult result = mUploadOperation.execute(data.getClient());
+        var result = mUploadOperation.execute(data.getClient());
 
         /// move local temporal file or original file to its corresponding
         // location in the Nextcloud local folder
         if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
-            result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+            result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
         }
 
         return result;
@@ -906,17 +911,36 @@ public class UploadFileOperation extends SyncOperation {
         e2eFiles.deleteTemporalFileWithOriginalFileComparison();
 
         if (result == null) {
-            result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
+            result = new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
         }
 
         logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
 
+        if (token == null || token.isEmpty()) {
+            Log_OC.e(TAG, "CRITICAL ERROR: Folder was locked but token is null/empty. Cannot unlock! " +
+                "Folder: " + e2eFiles.getParentFile().getFileName());
+            RemoteOperationResult<Void> tokenError = new RemoteOperationResult<>(
+                new IllegalStateException("Folder locked but token lost - manual intervention may be required")
+            );
+
+            // Override result only if original operation succeeded
+            if (result.isSuccess()) {
+                result = tokenError;
+            }
+            return result;
+        }
+
         // Unlock must be done otherwise folder stays locked and user can't upload any file
         RemoteOperationResult<Void> unlockFolderResult;
-        if (object instanceof DecryptedFolderMetadataFileV1) {
-            unlockFolderResult = EncryptionUtils.unlockFolderV1(e2eFiles.getParentFile(), client, token);
-        } else {
-            unlockFolderResult = EncryptionUtils.unlockFolder(e2eFiles.getParentFile(), client, token);
+        try {
+            if (object instanceof DecryptedFolderMetadataFileV1) {
+                unlockFolderResult = EncryptionUtils.unlockFolderV1(e2eFiles.getParentFile(), client, token);
+            } else {
+                unlockFolderResult = EncryptionUtils.unlockFolder(e2eFiles.getParentFile(), client, token);
+            }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "CRITICAL ERROR: Exception during folder unlock", e);
+            unlockFolderResult = new RemoteOperationResult<>(e);
         }
 
         if (unlockFolderResult != null && !unlockFolderResult.isSuccess()) {
@@ -932,6 +956,10 @@ public class UploadFileOperation extends SyncOperation {
                     return Unit.INSTANCE;
                 });
             }
+
+            // Clear the saved token since folder is now unlocked
+            mUpload.setFolderUnlockToken(null);
+            uploadsStorageManager.updateUpload(mUpload);
         }
 
         e2eFiles.deleteEncryptedTempFile();
