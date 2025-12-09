@@ -215,10 +215,6 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     }
 
     protected void updateActionBarTitleAndHomeButton(OCFile file) {
-        if (mAppBar == null) {
-            return;
-        }
-
         final OCFileDepth currentDirDepth = getCurrentDirDepth();
         final boolean isRoot = isRoot(file) || currentDirDepth == OCFileDepth.Root;
         final String title = getActionBarTitle(file, isRoot);
@@ -228,7 +224,10 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         final boolean canShowSearchBar = (isHomeSearchToolbarShow && isRoot && isToolbarStyleSearch);
 
         showHomeSearchToolbar(canShowSearchBar);
-        mSearchText.setText(getString(R.string.appbar_search_in, title));
+
+        if (mSearchText != null) {
+            mSearchText.setText(getString(R.string.appbar_search_in, title));
+        }
 
         final var actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -237,7 +236,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     }
 
     protected void updateActionBarForFile(@Nullable OCFile file) {
-        if (mAppBar == null || file == null) {
+        if (file == null) {
             return;
         }
 
@@ -265,7 +264,12 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     @SuppressLint("PrivateResource")
     private void showHomeSearchToolbar(boolean isShow) {
+        if (mAppBar == null) {
+            return;
+        }
+
         viewThemeUtils.material.themeToolbar(mToolbar);
+
         if (isShow) {
             viewThemeUtils.platform.resetStatusBar(this);
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
