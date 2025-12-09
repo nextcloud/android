@@ -90,7 +90,7 @@ class OCFileListAdapterHelper {
                 }
             }
 
-            if (isSharedView && !file.isShared) {
+            if (isSharedView && !file.isShared && !directory.isShared) {
                 continue
             }
 
