@@ -46,6 +46,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
@@ -205,27 +206,22 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
             return getActionBarRootTitle();
         }
 
-        if (chosenFile.isFolder()) {
-            return fileDataStorageManager.getFilenameConsideringOfflineOperation(chosenFile);
-        }
-
-        long parentId = chosenFile.getParentId();
-        OCFile parentFile = fileDataStorageManager.getFileById(parentId);
-        if (parentFile == null) {
-            return "";
-        }
-
-        return fileDataStorageManager.getFilenameConsideringOfflineOperation(parentFile);
+        return getActionBarTitleFromFile(chosenFile);
     }
 
-    protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
+    private String getActionBarTitleFromFile(OCFile file) {
+        // if offline rename operation already pointing same file, offline operation name will be used
+        return fileDataStorageManager.getFilenameConsideringOfflineOperation(file);
+    }
+
+    protected void updateActionBarTitleAndHomeButton(OCFile file) {
         if (mAppBar == null) {
             return;
         }
 
         final OCFileDepth currentDirDepth = getCurrentDirDepth();
-        final boolean isRoot = isRoot(chosenFile) || currentDirDepth == OCFileDepth.Root;
-        final String title = getActionBarTitle(chosenFile, isRoot);
+        final boolean isRoot = isRoot(file) || currentDirDepth == OCFileDepth.Root;
+        final String title = getActionBarTitle(file, isRoot);
         updateActionBarTitleAndHomeButtonByString(title);
 
         final boolean isToolbarStyleSearch = DrawerActivity.isToolbarStyleSearch();
@@ -240,6 +236,20 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         }
     }
 
+    protected void updateActionBarForFile(@Nullable OCFile file) {
+        if (mAppBar == null || file == null) {
+            return;
+        }
+
+        final String title = getActionBarTitleFromFile(file);
+        updateActionBarTitleAndHomeButtonByString(title);
+
+        showHomeSearchToolbar(false);
+        final var actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            viewThemeUtils.files.themeActionBar(this, actionBar, title, false);
+        }
+    }
 
     public void showSearchView() {
         if (isHomeSearchToolbarShow) {

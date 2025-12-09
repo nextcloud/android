@@ -2564,7 +2564,7 @@ class FileDisplayActivity :
 
     fun configureToolbarForPreview(file: OCFile?) {
         lockScrolling()
-        super.updateActionBarTitleAndHomeButton(file)
+        updateActionBarForFile(file)
     }
 
     /**
