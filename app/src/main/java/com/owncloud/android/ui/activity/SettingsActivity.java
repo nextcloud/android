@@ -24,7 +24,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,11 +40,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.webkit.URLUtil;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.android.common.ui.util.extensions.WindowExtensionsKt;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -57,7 +54,6 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
-import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -154,23 +150,12 @@ public class SettingsActivity extends PreferenceActivity
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-        boolean isApiLevel35OrHigher = (Build.VERSION.SDK_INT >= 35);
-        if (isApiLevel35OrHigher) {
-            final var window = getWindow();
-            if (window != null) {
-                WindowExtensionsKt.addSystemBarPaddings(getWindow());
-                final var flag = WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
-                window.setFlags(flag, flag);
-            }
-        }
-
         super.onCreate(savedInstanceState);
 
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-
+        getListView().setFitsSystemWindows(true);
         setupActionBar();
 
         // Register context menu for list of preferences.
@@ -211,10 +196,6 @@ public class SettingsActivity extends PreferenceActivity
         // workaround for mismatched color when app dark mode and system dark mode don't agree
         setListBackground();
         showPasscodeDialogIfEnforceAppProtection();
-
-        if (isApiLevel35OrHigher) {
-            adjustTopMarginForActionBar();
-        }
     }
 
     public static boolean isBackPressed = false;
@@ -228,18 +209,6 @@ public class SettingsActivity extends PreferenceActivity
             Log_OC.d(TAG, "User returned from settings activity, reset onBackPressed flag.");
             isBackPressed = false;
         }, 2000);
-    }
-
-    private void adjustTopMarginForActionBar() {
-        if (getListView() == null) {
-            return;
-        }
-
-        float topMarginInDp = getResources().getDimension(R.dimen.settings_activity_padding);
-        int topMarginInPx = DisplayUtils.convertDpToPixel(topMarginInDp, this);
-        ViewExtensionsKt.setMargins(getListView(), 0, topMarginInPx, 0, 0);
-
-        getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(this, R.color.bg_default));
     }
 
     private void showPasscodeDialogIfEnforceAppProtection() {
