@@ -122,12 +122,7 @@ class GalleryRowHolder(
         }
     }
 
-    private fun adjustFile(
-        index: Int,
-        file: OCFile,
-        dims: Pair<Int, Int>,
-        row: GalleryRow
-    ) {
+    private fun adjustFile(index: Int, file: OCFile, dims: Pair<Int, Int>, row: GalleryRow) {
         val (width, height) = dims
 
         val frameLayout = binding.rowLayout[index] as FrameLayout

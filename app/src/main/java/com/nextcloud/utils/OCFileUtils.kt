@@ -19,6 +19,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
 
+@Suppress("TooGenericExceptionCaught", "ReturnCount")
 object OCFileUtils {
     private const val TAG = "OCFileUtils"
 
@@ -40,7 +41,6 @@ object OCFileUtils {
             // Fallback to local file if it exists
             val path = ocFile.storagePath
             if (!path.isNullOrEmpty() && ocFile.exists()) {
-
                 // Try EXIF first
                 val exifSize = getExifSize(path)
                 if (exifSize != null) {
@@ -59,7 +59,6 @@ object OCFileUtils {
             // Fallback to defaultThumbnailSize
             Log_OC.d(TAG, "All sources failed, using default size: $fallback x $fallback")
             return fallbackPair
-
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error getting image size for ${ocFile.fileName}", e)
         }
@@ -67,28 +66,26 @@ object OCFileUtils {
         return fallbackPair
     }
 
-    private fun getExifSize(path: String): Pair<Int, Int>? {
-        return try {
-            val exif = ExifInterface(path)
-            var width = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0)
-            var height = exif.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, 0)
+    private fun getExifSize(path: String): Pair<Int, Int>? = try {
+        val exif = ExifInterface(path)
+        var width = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0)
+        var height = exif.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, 0)
 
-            val orientation = exif.getAttributeInt(
-                ExifInterface.TAG_ORIENTATION,
-                ExifInterface.ORIENTATION_NORMAL
-            )
-            if (orientation == ExifInterface.ORIENTATION_ROTATE_90 ||
-                orientation == ExifInterface.ORIENTATION_ROTATE_270
-            ) {
-                val tmp = width
-                width = height
-                height = tmp
-            }
-
-            if (width > 0 && height > 0) width to height else null
-        } catch (_: Exception) {
-            null
+        val orientation = exif.getAttributeInt(
+            ExifInterface.TAG_ORIENTATION,
+            ExifInterface.ORIENTATION_NORMAL
+        )
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90 ||
+            orientation == ExifInterface.ORIENTATION_ROTATE_270
+        ) {
+            val tmp = width
+            width = height
+            height = tmp
         }
+
+        if (width > 0 && height > 0) width to height else null
+    } catch (_: Exception) {
+        null
     }
 
     private fun getBitmapSize(path: String): Pair<Int, Int>? {
