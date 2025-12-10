@@ -17,6 +17,8 @@ class MockOCFileListAdapterDataProvider : OCFileListAdapterDataProvider {
 
     private var offlineOCFile: OCFile? = null
     private var files = listOf<OCFile>()
+    var hasFavoriteParent = false
+    var hasSharedParent = false
 
     private fun getEntities(): List<FileEntity> = files.map { file ->
         FileEntity(
@@ -94,4 +96,8 @@ class MockOCFileListAdapterDataProvider : OCFileListAdapterDataProvider {
     }
 
     override fun createFileInstance(entity: FileEntity): OCFile = files.first { it.fileId == entity.id }
+
+    override suspend fun hasFavoriteParent(fileId: Long): Boolean = hasFavoriteParent
+
+    override suspend fun hasSharedParent(fileId: Long): Boolean = hasSharedParent
 }
