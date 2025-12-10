@@ -22,48 +22,81 @@ import com.owncloud.android.utils.MimeTypeUtil
 object OCFileUtils {
     private const val TAG = "OCFileUtils"
 
-    @Suppress("ReturnCount", "NestedBlockDepth")
     fun getImageSize(ocFile: OCFile, defaultThumbnailSize: Float): Pair<Int, Int> {
+        val fallback = defaultThumbnailSize.toInt().coerceAtLeast(1)
+        val fallbackPair = fallback to fallback
+
         try {
             Log_OC.d(TAG, "Getting image size for: ${ocFile.fileName}")
 
-            val widthFromDimension = ocFile.imageDimension?.width
-            val heightFromDimension = ocFile.imageDimension?.height
-            if (widthFromDimension != null && heightFromDimension != null) {
-                val width = widthFromDimension.toInt()
-                val height = heightFromDimension.toInt()
-                Log_OC.d(TAG, "Image dimensions are used, width: $width, height: $height")
+            // Use server-provided imageDimension if available
+            ocFile.imageDimension?.let { dim ->
+                val width = dim.width.toInt().coerceAtLeast(1)
+                val height = dim.height.toInt().coerceAtLeast(1)
+                Log_OC.d(TAG, "Using server-provided imageDimension: $width x $height")
                 return width to height
             }
 
-            return if (ocFile.exists()) {
-                val exif = ExifInterface(ocFile.storagePath)
-                val width = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0)
-                val height = exif.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, 0)
+            // Fallback to local file if it exists
+            val path = ocFile.storagePath
+            if (!path.isNullOrEmpty() && ocFile.exists()) {
 
-                if (width > 0 && height > 0) {
-                    Log_OC.d(TAG, "Exif used width: $width and height: $height")
-                    width to height
+                // Try EXIF first
+                val exifSize = getExifSize(path)
+                if (exifSize != null) {
+                    Log_OC.d(TAG, "EXIF size used: ${exifSize.first} x ${exifSize.second}")
+                    return exifSize
                 }
 
-                val (bitmapWidth, bitmapHeight) = BitmapUtils.getImageResolution(ocFile.storagePath)
-                    .let { it[0] to it[1] }
-
-                if (bitmapWidth > 0 && bitmapHeight > 0) {
-                    Log_OC.d(TAG, "BitmapUtils.getImageResolution used width: $bitmapWidth and height: $bitmapHeight")
-                    bitmapWidth to bitmapHeight
+                // Then try BitmapUtils
+                val bitmapSize = getBitmapSize(path)
+                if (bitmapSize != null) {
+                    Log_OC.d(TAG, "BitmapUtils resolution used: ${bitmapSize.first} x ${bitmapSize.second}")
+                    return bitmapSize
                 }
-
-                val fallback = defaultThumbnailSize.toInt().coerceAtLeast(1)
-                Log_OC.d(TAG, "Default size used width: $fallback and height: $fallback")
-                fallback to fallback
-            } else {
-                Log_OC.d(TAG, "Default size is used: $defaultThumbnailSize")
-                val size = defaultThumbnailSize.toInt().coerceAtLeast(1)
-                size to size
             }
-        } finally {
-            Log_OC.d(TAG, "-----------------------------")
+
+            // Fallback to defaultThumbnailSize
+            Log_OC.d(TAG, "All sources failed, using default size: $fallback x $fallback")
+            return fallbackPair
+
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Error getting image size for ${ocFile.fileName}", e)
+        }
+
+        return fallbackPair
+    }
+
+    private fun getExifSize(path: String): Pair<Int, Int>? {
+        return try {
+            val exif = ExifInterface(path)
+            var width = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0)
+            var height = exif.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, 0)
+
+            val orientation = exif.getAttributeInt(
+                ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_NORMAL
+            )
+            if (orientation == ExifInterface.ORIENTATION_ROTATE_90 ||
+                orientation == ExifInterface.ORIENTATION_ROTATE_270
+            ) {
+                val tmp = width
+                width = height
+                height = tmp
+            }
+
+            if (width > 0 && height > 0) width to height else null
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    private fun getBitmapSize(path: String): Pair<Int, Int>? {
+        return try {
+            val (w, h) = BitmapUtils.getImageResolution(path).takeIf { it.size == 2 } ?: return null
+            if (w > 0 && h > 0) w to h else null
+        } catch (_: Exception) {
+            null
         }
     }
 
