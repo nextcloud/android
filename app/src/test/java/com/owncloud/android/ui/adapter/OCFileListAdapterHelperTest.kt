@@ -150,9 +150,6 @@ class OCFileListAdapterHelperTest {
         }
         val file6 = env.file(sub2, "image6.jpg", 16, MimeType.JPEG)
 
-        dataProvider.hasFavoriteParent = true
-        dataProvider.hasSharedParent = false
-
         env.prepare(listOf(root, sub1, sub2, file1, file2, file3, file4, file5, file6))
         stubPreferences(sort = FileSortOrder.SORT_A_TO_Z, favFirst = true)
         val (list, sort) = env.run(sub1)
@@ -181,9 +178,6 @@ class OCFileListAdapterHelperTest {
             isFavorite = true
         }
         val file6 = env.file(sub2, "image6.jpg", 16, MimeType.JPEG)
-
-        dataProvider.hasFavoriteParent = false
-        dataProvider.hasSharedParent = true
 
         env.prepare(listOf(root, sub1, sub2, file1, file2, file3, file4, file5, file6))
         stubPreferences(sort = FileSortOrder.SORT_A_TO_Z, favFirst = true)
