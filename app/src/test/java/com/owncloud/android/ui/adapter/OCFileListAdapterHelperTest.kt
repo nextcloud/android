@@ -131,6 +131,64 @@ class OCFileListAdapterHelperTest {
     }
 
     @Test
+    fun `prepareFileList favorites tab`() = runBlocking {
+        val env = Sut()
+        val root = env.root
+
+        val sub1 = env.directory("/subDir", 1).apply {
+            isFavorite = true
+        }
+        val file1 = env.file(sub1, "image.jpg", 11, MimeType.JPEG)
+        val file2 = env.file(sub1, "image2.jpg", 12, MimeType.JPEG)
+        val file3 = env.file(sub1, "image3.jpg", 13, MimeType.JPEG)
+        val file4 = env.file(sub1, "vid4.mp4", 14, MimeType.MP4)
+        val file5 = env.file(sub1, "image5.jpg", 15, MimeType.JPEG)
+
+        val sub2 = env.directory("/subDir2", 2).apply {
+            isFavorite = true
+        }
+        val file6 = env.file(sub2, "image6.jpg", 16, MimeType.JPEG)
+
+        env.prepare(listOf(root, sub1, sub2, file1, file2, file3, file4, file5, file6))
+        stubPreferences(sort = FileSortOrder.SORT_A_TO_Z, favFirst = true)
+        val (list, sort) = env.run(sub1)
+        assertEquals(
+            listOf("image.jpg", "image2.jpg", "image3.jpg", "image5.jpg", "vid4.mp4"),
+            list.map { it.fileName }
+        )
+        assertEquals(FileSortOrder.SORT_A_TO_Z, sort)
+    }
+
+    @Test
+    fun `prepareFileList share tab`() = runBlocking {
+        val env = Sut()
+        val root = env.root
+
+        val sub1 = env.directory("/subDir", 1).apply {
+            isSharedViaLink = true
+        }
+        val file1 = env.file(sub1, "image.jpg", 11, MimeType.JPEG)
+        val file2 = env.file(sub1, "image2.jpg", 12, MimeType.JPEG)
+        val file3 = env.file(sub1, "image3.jpg", 13, MimeType.JPEG)
+        val file4 = env.file(sub1, "vid4.mp4", 14, MimeType.MP4)
+        val file5 = env.file(sub1, "image5.jpg", 15, MimeType.JPEG)
+
+        val sub2 = env.directory("/subDir2", 2).apply {
+            isFavorite = true
+        }
+        val file6 = env.file(sub2, "image6.jpg", 16, MimeType.JPEG)
+
+        env.prepare(listOf(root, sub1, sub2, file1, file2, file3, file4, file5, file6))
+        stubPreferences(sort = FileSortOrder.SORT_A_TO_Z, favFirst = true)
+        val (list, sort) = env.run(sub1)
+        assertEquals(
+            listOf("image.jpg", "image2.jpg", "image3.jpg", "image5.jpg", "vid4.mp4"),
+            list.map { it.fileName }
+        )
+        assertEquals(FileSortOrder.SORT_A_TO_Z, sort)
+    }
+
+    @Test
     fun `prepareFileList with multiple folders and favorites first`() = runBlocking {
         val env = Sut()
         val root = env.root
