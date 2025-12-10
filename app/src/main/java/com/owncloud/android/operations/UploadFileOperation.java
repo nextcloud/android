@@ -962,12 +962,6 @@ public class UploadFileOperation extends SyncOperation {
                     return Unit.INSTANCE;
                 });
             }
-
-            // Clear the saved token since folder is now unlocked
-            mUpload.setFolderUnlockToken(null);
-            uploadsStorageManager.updateUpload(mUpload);
-
-            Log_OC.d(TAG, "Folder unlock token removed");
         }
 
         e2eFiles.deleteEncryptedTempFile();
