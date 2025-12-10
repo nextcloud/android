@@ -33,7 +33,7 @@ class GalleryRowHolder(
     private val defaultThumbnailSize: Float,
     private val ocFileListDelegate: OCFileListDelegate,
     val storageManager: FileDataStorageManager,
-    private val galleryAdapter: GalleryAdapter,
+    galleryAdapter: GalleryAdapter,
     private val viewThemeUtils: ViewThemeUtils
 ) : SectionedViewHolder(binding.root) {
     val context = galleryAdapter.context
