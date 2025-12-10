@@ -90,11 +90,11 @@ class OCFileListAdapterHelper {
                 }
             }
 
-            if (isSharedView && !file.isShared && !directory.isShared) {
+            if (isSharedView && !directory.isShared && !file.isShared) {
                 continue
             }
 
-            if (isFavoritesView && !file.isFavorite && !directory.isFavorite) {
+            if (isFavoritesView && !directory.isFavorite && !file.isFavorite) {
                 continue
             }
 
