@@ -30,34 +30,23 @@ object OCFileUtils {
         try {
             Log_OC.d(TAG, "Getting image size for: ${ocFile.fileName}")
 
-            // Use server-provided imageDimension if available
+            // Server-provided
             ocFile.imageDimension?.let { dim ->
-                val width = dim.width.toInt().coerceAtLeast(1)
-                val height = dim.height.toInt().coerceAtLeast(1)
-                Log_OC.d(TAG, "Using server-provided imageDimension: $width x $height")
-                return width to height
+                val w = dim.width.toInt().coerceAtLeast(1)
+                val h = dim.height.toInt().coerceAtLeast(1)
+                Log_OC.d(TAG, "Using server-provided imageDimension: $w x $h")
+                return w to h
             }
 
-            // Fallback to local file if it exists
+            // Local file
             val path = ocFile.storagePath
             if (!path.isNullOrEmpty() && ocFile.exists()) {
-                // Try EXIF first
-                val exifSize = getExifSize(path)
-                if (exifSize != null) {
-                    Log_OC.d(TAG, "EXIF size used: ${exifSize.first} x ${exifSize.second}")
-                    return exifSize
-                }
-
-                // Then try BitmapUtils
-                val bitmapSize = getBitmapSize(path)
-                if (bitmapSize != null) {
-                    Log_OC.d(TAG, "BitmapUtils resolution used: ${bitmapSize.first} x ${bitmapSize.second}")
-                    return bitmapSize
-                }
+                getExifSize(path)?.let { return it }
+                getBitmapSize(path)?.let { return it }
             }
 
-            // Fallback to defaultThumbnailSize
-            Log_OC.d(TAG, "All sources failed, using default size: $fallback x $fallback")
+            // 3 Fallback
+            Log_OC.d(TAG, "Fallback to default size: $fallback x $fallback")
             return fallbackPair
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error getting image size for ${ocFile.fileName}", e)
@@ -68,8 +57,8 @@ object OCFileUtils {
 
     private fun getExifSize(path: String): Pair<Int, Int>? = try {
         val exif = ExifInterface(path)
-        var width = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0)
-        var height = exif.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, 0)
+        var w = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0)
+        var h = exif.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, 0)
 
         val orientation = exif.getAttributeInt(
             ExifInterface.TAG_ORIENTATION,
@@ -78,23 +67,24 @@ object OCFileUtils {
         if (orientation == ExifInterface.ORIENTATION_ROTATE_90 ||
             orientation == ExifInterface.ORIENTATION_ROTATE_270
         ) {
-            val tmp = width
-            width = height
-            height = tmp
+            val tmp = w
+            w = h
+            h = tmp
         }
 
-        if (width > 0 && height > 0) width to height else null
+        if (w > 0 && h > 0) w to h else null
     } catch (_: Exception) {
         null
     }
 
-    private fun getBitmapSize(path: String): Pair<Int, Int>? {
-        return try {
-            val (w, h) = BitmapUtils.getImageResolution(path).takeIf { it.size == 2 } ?: return null
-            if (w > 0 && h > 0) w to h else null
-        } catch (_: Exception) {
-            null
-        }
+    private fun getBitmapSize(path: String): Pair<Int, Int>? = try {
+        val options = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        android.graphics.BitmapFactory.decodeFile(path, options)
+        val w = options.outWidth
+        val h = options.outHeight
+        if (w > 0 && h > 0) w to h else null
+    } catch (_: Exception) {
+        null
     }
 
     fun getMediaPlaceholder(file: OCFile, imageDimension: Pair<Int, Int>): BitmapDrawable {
