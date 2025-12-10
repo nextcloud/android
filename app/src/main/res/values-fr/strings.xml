@@ -406,7 +406,6 @@
     <string name="file_detail_share_already_active">Impossible de créer un partage car le partage est déjà actif pour cet utilisateur.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Aucune application disponible pour sélectionner des contacts</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Merci de sélectionner une autorisation</string>
     <string name="file_icon">Fichier</string>
     <string name="file_keep">Conserver</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>

@@ -408,7 +408,6 @@
     <string name="file_detail_share_already_active">Huwezi kuunda kushiriki, kushiriki tayari kunatumika kutoka kwa mtumiaji huyu.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Hakuna programu inayopatikana ya kuchagua anwani</string>
     <string name="file_details_no_content">Imeshindwa kupakia maelezo</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Tafadhali chagua ruhusa maalum</string>
     <string name="file_icon">Faili</string>
     <string name="file_keep">Weka</string>
     <string name="file_list_empty">Pakia baadhi ya maudhui au usawazishe na vifaa vyako.</string>

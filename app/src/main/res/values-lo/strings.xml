@@ -399,7 +399,6 @@
     <string name="file_detail_share_already_active">You cannot create a share, sharing is already active from this user.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
     <string name="file_details_no_content">ການດາວໂຫຼດລາຍລະອຽດບໍ່ສຳເລັດ</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Please select custom permission</string>
     <string name="file_icon">ຟາຍ</string>
     <string name="file_keep">ຮັກສາໄວ້</string>
     <string name="file_list_empty">ອັບໂຫຼດເນື້ອຫາບາງອັນ ຫຼື sync ອຸປະກອນຂອງທ່ານ</string>

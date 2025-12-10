@@ -408,7 +408,6 @@
     <string name="file_detail_share_already_active">您無法建立分享，來自此使用者的分享已在作用中。</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">沒有應用程式可選取聯絡人</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">請選取自訂權限</string>
     <string name="file_icon">檔案</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上傳一些內容或與您的裝置同步。</string>

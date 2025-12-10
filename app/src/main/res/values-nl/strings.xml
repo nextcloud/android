@@ -384,7 +384,6 @@
     <string name="file_detail_share_already_active">Kan geen deling maken, deling is al actief van deze gebruiker</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Geen app beschikbaar voor het selecteren van contactpersonen</string>
     <string name="file_details_no_content">Kon details niet laden</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Selecteer andere toestemming</string>
     <string name="file_icon">Bestand</string>
     <string name="file_keep">Behouden</string>
     <string name="file_list_empty">Upload je inhoud of synchroniseer met je apparaten.</string>

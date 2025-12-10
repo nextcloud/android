@@ -123,6 +123,7 @@
     <string name="busy">Optaget</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendere</string>
+    <string name="cancel_upload">Annullér</string>
     <string name="certificate_load_problem">Der er et problem med lagring af certificering.</string>
     <string name="changelog_dev_version">Changelog udviklingsversion</string>
     <string name="check_back_later_or_reload">Kig forbi senere eller genindlæs.</string>
@@ -394,7 +395,6 @@
     <string name="file_detail_share_already_active">Du kan ikke slette en deling, deling er allerede aktiv fra denne bruger.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Ingen app tilgængelig til at vælge kontakter</string>
     <string name="file_details_no_content">Fejl ved indlæsning af detaljer</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Vælg venligst brugerdefineret rettighed</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behold</string>
     <string name="file_list_empty">Upload indhold eller synkroniser med dine enheder.</string>
@@ -654,6 +654,7 @@
     <string name="pass_code_removed">Adgangskode slettet</string>
     <string name="pass_code_stored">Passkode blev gendannet</string>
     <string name="pass_code_wrong">Forkert passkode</string>
+    <string name="pause_upload">Pause</string>
     <string name="pdf_password_protected">Ikke i stand til at åbne kodeordsbeskyttet PDF. Brug venligst en ekstern PDF-fremviser.</string>
     <string name="permission_allow">Tillad</string>
     <string name="permission_deny">Afvis</string>

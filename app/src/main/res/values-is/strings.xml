@@ -388,7 +388,6 @@
     <string name="file_detail_share_already_active">Þú getur ekki tekið búið til sameign, deiling er þegar virk af hálfu þessa notanda.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Ekkert forrit tiltækt til að velja tengiliði</string>
     <string name="file_details_no_content">Mistókst að hlaða inn ítarupplýsingum</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Veldu sérsniðna heimild</string>
     <string name="file_icon">Skrá</string>
     <string name="file_keep">Halda</string>
     <string name="file_list_empty">Sendu inn eitthvað efni eða samstilltu við tækin þín!</string>

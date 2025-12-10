@@ -91,6 +91,7 @@
     <string name="busy">Απασχολημένος</string>
     <string name="calendar">Ημερολόγιο</string>
     <string name="calendars">Ημερολόγια</string>
+    <string name="cancel_upload">Ακύρωση</string>
     <string name="certificate_load_problem">Πρόβλημα φόρτωσης του πιστοποιητικού.</string>
     <string name="changelog_dev_version">Αρχείο αλλαγών της έκδοσης προγραμματιστή</string>
     <string name="check_back_later_or_reload">Ελέγξτε ξανά αργότερα ή κάνετε ανανέωση.</string>
@@ -526,6 +527,7 @@
     <string name="pass_code_removed">Διεγράφη ο κωδικός πρόσβασης</string>
     <string name="pass_code_stored">Ο κωδικός πρόσβασης αποθηκεύτηκε</string>
     <string name="pass_code_wrong">Εσφαλμένος κωδικός πρόσβασης</string>
+    <string name="pause_upload">Παύση</string>
     <string name="permission_allow">Επιτρέπεται</string>
     <string name="permission_deny">Απόρριψη</string>
     <string name="picture_set_as_no_app">Δεν βρέθηκε εφαρμογή για τον ορισμό φωτογραφίας</string>

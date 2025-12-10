@@ -394,7 +394,6 @@
     <string name="file_detail_share_already_active">No puede crear un recurso compartido, el recurso compartido ya está activo desde este usuario.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">No hay ninguna aplicación disponible para seleccionar contactos</string>
     <string name="file_details_no_content">Fallo al cargar los detalles</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Por favor, seleccione el permiso personalizado</string>
     <string name="file_icon">Archivo</string>
     <string name="file_keep">Mantener</string>
     <string name="file_list_empty">Sube algún contenido o sincroniza con tus dispositivos.</string>
@@ -652,6 +651,7 @@
     <string name="pass_code_removed">Código de acceso borrado</string>
     <string name="pass_code_stored">Código de acceso almacenado</string>
     <string name="pass_code_wrong">Código de acceso incorrecto</string>
+    <string name="pause_upload">Pausar</string>
     <string name="pdf_password_protected">No es posible abrir archivos PDF protegidos por contraseñas. Por favor, use un visor PDF externo.</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>

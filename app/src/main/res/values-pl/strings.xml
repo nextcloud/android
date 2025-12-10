@@ -406,7 +406,6 @@
     <string name="file_detail_share_already_active">Nie można utworzyć udostępnienia — udostępnianie jest już aktywne dla tego użytkownika.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Brak aplikacji dla wybranego kontaktu</string>
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Proszę wybrać własne uprawnienia</string>
     <string name="file_icon">Plik</string>
     <string name="file_keep">Zachowaj</string>
     <string name="file_list_empty">Wyślij lub zsynchronizuj pliki z urządzeniami.</string>
