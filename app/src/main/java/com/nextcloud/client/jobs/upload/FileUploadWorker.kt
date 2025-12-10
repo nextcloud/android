@@ -142,15 +142,17 @@ class FileUploadWorker(
 
         val result = uploadFiles()
         backgroundJobManager.logEndOfWorker(workerName, result)
-        notificationManager.dismissNotification()
-        if (result == Result.success()) {
-            setIdleWorkerState()
-        }
         result
     } catch (t: Throwable) {
-        Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
-        cleanup()
+        Log_OC.e(TAG, "exception $t")
+        currentUploadFileOperation?.cancel(null)
         Result.failure()
+    } finally {
+        // Ensure all database operations are complete before signaling completion
+        uploadsStorageManager.notifyObserversNow()
+
+        notificationManager.dismissNotification()
+        setIdleWorkerState()
     }
 
     private suspend fun trySetForeground() {
@@ -198,20 +200,12 @@ class FileUploadWorker(
             .setSilent(true)
             .build()
 
-    private fun cleanup() {
-        Log_OC.e(TAG, "FileUploadWorker stopped")
-
-        setIdleWorkerState()
-        currentUploadFileOperation?.cancel(null)
-        notificationManager.dismissNotification()
-    }
-
     private fun setWorkerState(user: User?) {
         WorkerStateObserver.send(WorkerState.FileUploadStarted(user))
     }
 
     private fun setIdleWorkerState() {
-        WorkerStateObserver.send(WorkerState.FileUploadCompleted(currentUploadFileOperation?.file))
+        WorkerStateObserver.send(WorkerState.FileUploadCompleted)
     }
 
     @Suppress("ReturnCount", "LongMethod", "DEPRECATION")

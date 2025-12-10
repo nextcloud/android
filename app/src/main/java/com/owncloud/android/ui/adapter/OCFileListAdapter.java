@@ -1044,24 +1044,4 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ocFileListDelegate.cleanup();
         helper.cleanup();
     }
-
-    public void insertFile(@NonNull OCFile file) {
-        mFiles.add(file);
-        mFilesAll.add(file);
-
-        // Re-sort to maintain order
-        if (sortOrder != null) {
-            boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
-            boolean favoritesFirst = preferences.isSortFavoritesFirst();
-            mFiles = sortOrder.sortCloudFiles(mFiles, foldersBeforeFiles, favoritesFirst);
-        }
-
-        // Find actual position and notify
-        int position = mFiles.indexOf(file);
-        if (shouldShowHeader()) {
-            position++;
-        }
-
-        notifyItemInserted(position);
-    }
 }
