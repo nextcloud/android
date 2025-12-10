@@ -1059,6 +1059,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             Pair<Integer, OCFile> result = futureResult.get();
             mFile = result.second;
             setFileDepth(mFile);
+
+            // since on browse down sets it to the false, browse up should set back to true if current search type is not NO_SEARCH
+            if (mFile.isRootDirectory() && currentSearchType != NO_SEARCH) {
+                searchFragment = true;
+            }
+
             updateFileList();
             return result.first;
         } catch (Exception e) {

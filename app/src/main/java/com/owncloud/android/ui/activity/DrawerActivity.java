@@ -264,10 +264,11 @@ public abstract class DrawerActivity extends ToolbarActivity
             .setVisible(isAssistantAvailable);
     }
 
-    private void openFavoritesTab(int menuItemId) {
+    private void openFavoritesTab() {
         resetOnlyPersonalAndOnDevice();
         setupToolbar();
-        handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
+        SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
+        launchActivityForSearch(searchEvent, R.id.nav_favorites);
     }
 
     private void openMediaTab(int menuItemId) {
@@ -545,7 +546,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             closeDrawer();
         } else if (itemId == R.id.nav_favorites) {
-            openFavoritesTab(menuItem.getItemId());
+            openFavoritesTab();
         } else if (itemId == R.id.nav_gallery) {
             openMediaTab(menuItem.getItemId());
         } else if (itemId == R.id.nav_on_device) {
@@ -618,7 +619,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
                 EventBus.getDefault().post(new ChangeMenuEvent());
             } else if (menuItemId == R.id.nav_favorites) {
-                openFavoritesTab(menuItem.getItemId());
+                openFavoritesTab();
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
                 startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
             } else if (menuItemId == R.id.nav_gallery) {
