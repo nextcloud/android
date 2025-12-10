@@ -504,6 +504,7 @@
     <string name="pass_code_removed">Código de seguirdad eliminado</string>
     <string name="pass_code_stored">Código de seguridad almacenado</string>
     <string name="pass_code_wrong">Código de seguridad incorrecto</string>
+    <string name="pause_upload">Pausar</string>
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
     <string name="pref_behaviour_entries_delete_file">Borrado</string>
     <string name="pref_behaviour_entries_keep_file">mantenido en la carpeta original</string>

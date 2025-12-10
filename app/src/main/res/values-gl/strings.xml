@@ -408,7 +408,6 @@
     <string name="file_detail_share_already_active">Non pode crear unha compartición, a compartición xa está activa desde este usuario.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Non hai ningunha aplicación dispoñíbel para seleccionar contactos</string>
     <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Seleccione o permiso personalizado</string>
     <string name="file_icon">Ficheiro</string>
     <string name="file_keep">Conservar</string>
     <string name="file_list_empty">Envíe algún contido ou sincronice cos seus dispositivos.</string>

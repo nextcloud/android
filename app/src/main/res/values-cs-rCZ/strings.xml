@@ -405,7 +405,6 @@
     <string name="file_detail_share_already_active">Sdílení není možné vytvořit – to už je aktivní od tohoto uživatele.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Pro označené kontakty není k dispozici žádná aplikace</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Vyberte uživatelsky určená oprávnění</string>
     <string name="file_icon">Soubor</string>
     <string name="file_keep">Ponechat</string>
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními.</string>

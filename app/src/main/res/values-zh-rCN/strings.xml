@@ -397,7 +397,6 @@
     <string name="file_detail_share_already_active">您无法创建共享，此用户的共享已处于活动状态。</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">没有可用于选择联系人的应用</string>
     <string name="file_details_no_content">加载详情失败</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">请选择自定义权限</string>
     <string name="file_icon">文件</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上传一些内容或与你的设备同步。</string>

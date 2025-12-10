@@ -408,7 +408,6 @@
     <string name="file_detail_share_already_active">You cannot create a share, sharing is already active from this user.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
     <string name="file_details_no_content">Failed to load details</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Please select custom permission</string>
     <string name="file_icon">File</string>
     <string name="file_keep">Keep</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
@@ -677,6 +676,7 @@
     <string name="pass_code_removed">Passcode deleted</string>
     <string name="pass_code_stored">Passcode stored</string>
     <string name="pass_code_wrong">Incorrect passcode</string>
+    <string name="pause_upload">Pause</string>
     <string name="pdf_password_protected">Unable to open password-protected PDF. Please use an external PDF viewer.</string>
     <string name="permission_allow">Allow</string>
     <string name="permission_deny">Deny</string>

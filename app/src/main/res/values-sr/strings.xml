@@ -398,7 +398,6 @@
     <string name="file_detail_share_already_active">Не можете да креирате дељење, овај корисник је већ активирао дељење.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Нема апликације којом могу да се изаберу контакти</string>
     <string name="file_details_no_content">Грешка при учитавању детаља</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Молимо вас да изаберете произвољну дозволу</string>
     <string name="file_icon">Фајл</string>
     <string name="file_keep">Задржи</string>
     <string name="file_list_empty">Отпремите неки садржај или синхронизујте са вашим уређајима.</string>

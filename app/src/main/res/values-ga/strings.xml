@@ -408,7 +408,6 @@
     <string name="file_detail_share_already_active">Ní féidir leat comhroinnt a chruthú, tá an chomhroinnt gníomhach cheana féin ón úsáideoir seo.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Níl aip ar fáil chun teagmhálaithe a roghnú</string>
     <string name="file_details_no_content">Theip ar lódáil na sonraí</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Roghnaigh cead saincheaptha le do thoil</string>
     <string name="file_icon">Comhad</string>
     <string name="file_keep">Coinnigh</string>
     <string name="file_list_empty">Uaslódáil roinnt inneachair nó sioncronaigh le do ghléasanna.</string>

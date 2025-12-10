@@ -45,6 +45,8 @@
     <string name="appbar_search_in">%s içinde ara</string>
     <string name="appear_offline">Çevrim dışı görün</string>
     <string name="assistant_output_generation_warning_text">Bu çıktı yapay zeka tarafından oluşturuldu. Her zaman iki kez kontrol ettiğinizden emin olun.</string>
+    <string name="assistant_screen_chat_create_error">Bir ileti gönderilemedi</string>
+    <string name="assistant_screen_chat_fetch_error">Sohbet iletileri alınamadı</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Bu görevi silmek istediğinize emin misiniz?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Görevi sil</string>
     <string name="assistant_screen_empty_content_description">Bir görüşme başlatacak bir ileti göndermeyi dene.</string>
@@ -53,12 +55,14 @@
     <string name="assistant_screen_task_create_success_message">Görev oluşturuldu</string>
     <string name="assistant_screen_task_delete_fail_message">Görev silinirken bir sorun çıktı</string>
     <string name="assistant_screen_task_delete_success_message">Görev silindi</string>
+    <string name="assistant_screen_task_list_empty_warning">Görev listesi boş. Yardımcı uygulamasının yapılandırmasını denetleyin.</string>
     <string name="assistant_screen_task_list_error_state_message">Görev listesi alınamadı. Lütfen İnternet bağlantınızı denetleyin.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Görevi sil</string>
     <string name="assistant_screen_task_output_empty_text">Görev çıktısı henüz hazır değil.</string>
     <string name="assistant_screen_top_bar_title">Yardımcı</string>
     <string name="assistant_task_detail_screen_input_button_title">Giriş</string>
     <string name="assistant_task_detail_screen_output_button_title">Çıkış</string>
+    <string name="assistant_thinking">Düşünüyorum…</string>
     <string name="associated_account_not_found">İlişkili hesap bulunamadı!</string>
     <string name="auth_access_failed">Erişilemedi: %1$s</string>
     <string name="auth_account_does_not_exist">Aygıt üzerinde henüz bu hesap açılmamış</string>
@@ -208,8 +212,12 @@
     <string name="contacts_preferences_no_file_found">Herhangi bir dosya bulunamadı</string>
     <string name="contacts_preferences_something_strange_happened">Son yedeğiniz bulunamadı!</string>
     <string name="content_observer_work_notification_title">İçerik değişiklikleri denetleniyor</string>
+    <string name="conversation_screen_create_error_title">Görüşme oluşturulamadı</string>
+    <string name="conversation_screen_delete_button_title">Görüşmeyi sil</string>
+    <string name="conversation_screen_delete_error_title">Görüşme silinemedi</string>
     <string name="conversation_screen_empty_content_title">Herhangi bir görüşme bulunamadı</string>
     <string name="conversation_screen_empty_conversation_list_title">Henüz bir görüşme yok</string>
+    <string name="conversation_screen_fetch_error_title">Görüşme listesi alınamadı</string>
     <string name="conversation_screen_title">Görüşmeler</string>
     <string name="copied">Kopyalandı</string>
     <string name="copy_file_error">Bu dosya ya da klasör kopyalanmaya çalışılırken bir sorun çıktı</string>
@@ -311,9 +319,11 @@
     <string name="e2e_not_yet_setup">Uçtan uca şifreleme henüz kurulmamış</string>
     <string name="e2e_offline">İnternet bağlantısı olmadan yapılamaz</string>
     <string name="e2e_signature_does_not_match">İmza eşleşmiyor</string>
+    <string name="e2e_signature_is_empty">Üst veriler doğrulanamadı. İmza boş.</string>
     <string name="ecosystem_apps_display_assistant">Yardımcı</string>
     <string name="ecosystem_apps_display_more">Diğer</string>
     <string name="ecosystem_apps_more">Diğer Nextcloud uygulamaları</string>
+    <string name="editor_web_view_cannot_open_file">Dosya seçici açılamadı</string>
     <string name="email_pick_failed">E-posta adresi alınamadı.</string>
     <string name="encrypted">Şifrelensin</string>
     <string name="end_to_end_encryption_certificate_unavailable">Sunucu sertifikası alınamadı</string>
@@ -383,6 +393,7 @@
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Bu klasörde dosya oluşturma ya da yükleme izniniz yok.</string>
     <string name="external_shares">Dış paylaşımlar</string>
     <string name="fab_label">Ekle ya da yükle</string>
+    <string name="failed_to_create_conflict_dialog">Çakışma penceresi oluşturulamadı</string>
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
     <string name="failed_to_print">Dosya yazdırılamadı</string>
     <string name="failed_to_start_editor">Düzenleyici başlatılamadı</string>
@@ -397,7 +408,6 @@
     <string name="file_detail_share_already_active">Bir paylaşım oluşturamazsınız. Bu kullanıcı için paylaşım zaten etkin.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Kişilerin seçilmesi için kullanılabilecek bir uygulama yok</string>
     <string name="file_details_no_content">Ayrıntılar yüklenemedi</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Lütfen özel izni seçin</string>
     <string name="file_icon">Dosya</string>
     <string name="file_keep">Tut</string>
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin.</string>
@@ -417,6 +427,8 @@
     <string name="file_list_empty_unified_search_no_results">Sorgunuzdan bir sonuç alınamadı</string>
     <string name="file_list_empty_unified_search_start_search">Aramanızı başlatın</string>
     <string name="file_list_empty_unified_search_start_search_description">Hesabınızdaki dosyaları, kişileri, takvim etkinliklerini ve diğer şeyleri bulmak için yukarıdaki arama çubuğuna yazın.</string>
+    <string name="file_list_error_description">İnternet bağlantınızı denetleyip yeniden deneyin</string>
+    <string name="file_list_error_headline">Bağlantı kötü</string>
     <string name="file_list_folder">klasör</string>
     <string name="file_list_live">CANLI</string>
     <string name="file_list_loading">Yükleniyor …</string>
@@ -641,6 +653,7 @@
     <string name="offline_mode">İnternet bağlantısı yok</string>
     <string name="offline_mode_info_description">İnternet bağlantınız olmasa bile klasörlerinizi düzenleyebilir, dosyalar oluşturabilirsiniz. Yeniden çevrim içi olduğunuzda, bekleyen işlemleriniz otomatik olarak eşitlenir.</string>
     <string name="offline_mode_info_title">Çevrim dışınız ancak çalışma sürüyor</string>
+    <string name="offline_operations_file_does_not_exists_yet">Dosya henüz yok. Önce lütfen dosyayı yükleyin.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">%s oluşturulamadı. Sunucuda aynı adlı bir dosya var.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">%s oluşturulamadı. Sunucuda aynı adlı bir klasör var.</string>
     <string name="offline_operations_worker_notification_error_text">Çevrim dışı işlem tamamlanamadı. %s</string>
@@ -656,6 +669,7 @@
     <string name="overflow_menu">Diğerleri menüsü</string>
     <string name="pass_code_configure_your_pass_code">Parolanızı yazın</string>
     <string name="pass_code_enter_pass_code">Lütfen parolanızı yazın</string>
+    <string name="pass_code_explanation">Parola uygulama her açıldıktan ya da yeniden açıldıktan 5 saniye sonra sorulacak.</string>
     <string name="pass_code_mismatch">Parola ile onayı aynı değil</string>
     <string name="pass_code_reenter_your_pass_code">Lütfen parolanızı yeniden yazın</string>
     <string name="pass_code_remove_your_pass_code">Parolanızı silin</string>
@@ -684,6 +698,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Yeni sürümün adı değiştirilsin</string>
     <string name="pref_instant_name_collision_policy_title">Dosya zaten varsa ne yapılsın?</string>
     <string name="prefs_add_account">Hesap ekle</string>
+    <string name="prefs_all_files_access_summary">Uygulamanın cihazınızdaki tüm dosyalara erişmesine ve yönetmesine izin verin</string>
+    <string name="prefs_all_files_access_title">Tüm dosyalara erişme</string>
     <string name="prefs_calendar_contacts">Takvim ve kişi eşitleme</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ya da Google Play kurulmamış</string>
     <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVx⁵ (eski adıyla DAVdroid) (v1.3.0+) kurun</string>
@@ -919,6 +935,10 @@
     <string name="storage_internal_storage">İç depolama</string>
     <string name="storage_movies">Filmler</string>
     <string name="storage_music">Müzikler</string>
+    <string name="storage_permission_all_files_access">Tüm dosyalara erişme</string>
+    <string name="storage_permission_banner_auto_upload_text">Depolama alanı izni otomatik yükleme için gereklidir.</string>
+    <string name="storage_permission_banner_upload_text">Depolama alanı izni otomatik dosya yüklemeleri için gereklidir.</string>
+    <string name="storage_permission_dont_ask">Sorulmasın</string>
     <string name="storage_permission_media_read_only">Ortam dosyalarına salt okunur erişim</string>
     <string name="storage_pictures">Fotoğraflar</string>
     <string name="store_full_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\n\nÖzellikleri:\n* Sunucunuzun temasına uygun, kolay kullanılan, modern arayüz\n* Dosyaları Nextcloud sunucunuza yükleme\n* Başkaları ile paylaşma\n* İstediğiniz dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama\n* Aygıtınızdaki fotoğraf ve görüntüleri otomatik olarak yükleme\n* Güncelleme bildirimleri\n* Birden çok hesap desteği\n* Verilere parmak izi ya da PIN kodu ile güvenli erişim\n* Kolay takvim ve kişi eşitleme kurulumu için DAVx⁵ bütünleştirmesi (eski adı DAVdroid)\n\nLütfen olabilecek sorunları https://github.com/nextcloud/android/issues adresine bildirin ve uygulama ile ilgili görüşlerinizi https://help.nextcloud.com/c/clients/android adresine yazın\n\nNextcloud kullanmaya yeni mi başladınız? Nextcloud kişisel dosyaları eşitlemek ve paylaşmak için kullanılan bir iletişim sunucusudur. Özgür bir yazılımdır ve kendiniz barındırabileceğiniz gibi bir kuruluş üzerinde ücretli olarak barındırabilirsiniz. Böylece fotoğraflarınız, takviminiz, kişi bilgileriniz ve belgeleriniz gibi pek çok veriyi kendi kontrolunuz altında tutabilirsiniz.\n\nNextcloud hakkında bilgi almak için https://nextcloud.com sitesine bakabilirsiniz.</string>
@@ -1100,6 +1120,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Sunucu sertifikasına güvenilmiyor</string>
     <string name="uploads_view_upload_status_fetching_server_version">Sunucu sürümü alınıyor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Uygulama sonlandırıldı</string>
+    <string name="uploads_view_upload_status_skip">Atlandı</string>
+    <string name="uploads_view_upload_status_skip_reason">Aynı adlı bir dosya zaten var.</string>
     <string name="uploads_view_upload_status_succeeded">Tamamlandı</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Uzakta aynı dosya var olduğundan yüklenmedi</string>
     <string name="uploads_view_upload_status_unknown_fail">Bilinmeyen sorun</string>
@@ -1188,6 +1210,10 @@
     <plurals name="export_partially_failed">
         <item quantity="one">%d dosya dışa aktarıldı, gerisi bir sorun nedeniyle atlandı</item>
         <item quantity="other">%d dosya dışa aktarıldı, gerisi bir sorun nedeniyle atlandı</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Bir kerede en fazla %d dosya yükleyebilirsiniz.</item>
+        <item quantity="other">Bir kerede en fazla %d dosya yükleyebilirsiniz.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d klasör</item>

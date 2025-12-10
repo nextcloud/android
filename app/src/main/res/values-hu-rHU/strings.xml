@@ -389,7 +389,6 @@
     <string name="file_detail_share_already_active">Nem hozhat létre megosztást, a megosztás már aktív ettől a felhasználótól.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Nem érhető el alkalmazás a névjegyek kiválasztásához</string>
     <string name="file_details_no_content">A részletek betöltése sikertelen</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Válasszon egyéni engedélyt</string>
     <string name="file_icon">Fájl</string>
     <string name="file_keep">Megtartás</string>
     <string name="file_list_empty">Töltsön fel új tartalmat vagy szinkronizáljon az eszközeivel.</string>
