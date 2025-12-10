@@ -46,7 +46,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -63,19 +62,19 @@ import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 @Suppress("LongMethod")
 @Composable
 fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, openChat: (Long) -> Unit) {
-    val context = LocalContext.current
     val screenState by viewModel.screenState.collectAsState()
     val errorMessageId by viewModel.errorMessageId.collectAsState()
     val conversations by viewModel.conversations.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+    val errorString = errorMessageId?.let { stringResource(it) }
 
     LaunchedEffect(Unit) {
         viewModel.fetchConversations()
     }
 
-    LaunchedEffect(errorMessageId) {
-        errorMessageId?.let {
-            snackbarHostState.showSnackbar(context.getString(it))
+    LaunchedEffect(errorString) {
+        errorString?.let {
+            snackbarHostState.showSnackbar(it)
         }
     }
 
