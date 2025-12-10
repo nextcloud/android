@@ -90,11 +90,13 @@ class OCFileListAdapterHelper {
                 }
             }
 
-            if (isSharedView && !directory.isShared && !file.isShared) {
+            val hasSharedParent = dataProvider.hasSharedParent(file.fileId)
+            if (isSharedView && !hasSharedParent && !file.isShared) {
                 continue
             }
 
-            if (isFavoritesView && !directory.isFavorite && !file.isFavorite) {
+            val hasFavoriteParent = dataProvider.hasFavoriteParent(file.fileId)
+            if (isFavoritesView && !hasFavoriteParent && !file.isFavorite) {
                 continue
             }
 
