@@ -41,6 +41,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
+import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.android.lib.resources.clientintegration.ClientIntegrationUI
@@ -81,6 +82,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.RequestBody
+import org.apache.commons.httpclient.HttpStatus
+import java.io.IOException
 import javax.inject.Inject
 
 class FileActionsBottomSheet :
@@ -385,7 +388,7 @@ class FileActionsBottomSheet :
                         val canvas = Canvas(returnedBitmap)
                         canvas.drawPicture((drawable as PictureDrawable).picture)
 
-                        val d = returnedBitmap.toDrawable(requireContext().resources);
+                        val d = returnedBitmap.toDrawable(requireContext().resources)
 
                         val tintedDrawable = viewThemeUtils.platform.tintDrawable(
                             requireContext(),
@@ -423,7 +426,7 @@ class FileActionsBottomSheet :
             // Always replace known placeholder in url
             url = url.replace("{filePath}", filePath, false)
             url = url.replace("{fileId}", fileId, false)
-            
+
             val method = when (endpoint.method) {
                 Method.POST -> {
                     val requestBody = if (endpoint.params?.isNotEmpty() == true) {
@@ -448,7 +451,7 @@ class FileActionsBottomSheet :
 
             val result = try {
                 client.execute(method)
-            } catch (exception: Exception) {
+            } catch (exception: IOException) {
                 activity?.showToast(getString(R.string.failed_to_start_action))
             }
             val response = method.getResponseBodyAsString()
@@ -463,8 +466,8 @@ class FileActionsBottomSheet :
 
                     activity?.showToast(tooltipResponse.tooltip)
                 }
-            } catch (e: Exception) {
-                if (result == 200) {
+            } catch (e: JsonSyntaxException) {
+                if (result == HttpStatus.SC_OK) {
                     activity?.showToast(getString(R.string.action_triggered))
                 } else {
                     activity?.showToast(getString(R.string.failed_to_start_action))
@@ -477,7 +480,7 @@ class FileActionsBottomSheet :
     private fun startClientIntegration(endpoint: Endpoint, clientIntegrationUI: ClientIntegrationUI) {
         CoroutineScope(Dispatchers.IO).launch {
             val composeActivity = Intent(context, ComposeActivity::class.java)
-            composeActivity.putExtra(ComposeActivity.DESTINATION, ComposeDestination.ClientIntegrationScreen)
+            composeActivity.putExtra(ComposeActivity.DESTINATION, ComposeDestination.ClientIntegrationScreen(null).id)
             composeActivity.putExtra(ComposeActivity.ARGS_CLIENT_INTEGRATION_UI, clientIntegrationUI)
 
             composeActivity.putExtra(ComposeActivity.TITLE, endpoint.name)
