@@ -10,7 +10,6 @@ package com.owncloud.android.ui.adapter
 
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -27,8 +26,6 @@ import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.resources.files.model.ImageDimension
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
@@ -72,16 +69,15 @@ class GalleryRowHolder(
         if (lastFileCount != requiredCount) {
             binding.rowLayout.removeAllViews()
             for (file in row.files) {
-                val rowLayout = getRowLayout(file)
-                binding.rowLayout.addView(rowLayout)
+                binding.rowLayout.addView(getRowLayout(file))
             }
             lastFileCount = requiredCount
         }
 
-        val shrinkRatio = computeShrinkRatio(row)
+        val dimensions = getDimensions(row)
 
         for (i in row.files.indices) {
-            adjustFile(i, row.files[i], shrinkRatio, row)
+            adjustFile(i, row.files[i], dimensions[i], row)
         }
     }
 
@@ -115,7 +111,7 @@ class GalleryRowHolder(
         val rowCellImageView = ImageView(context).apply {
             setImageDrawable(drawable)
             adjustViewBounds = true
-            scaleType = ImageView.ScaleType.FIT_XY
+            scaleType = ImageView.ScaleType.CENTER_CROP
             layoutParams = FrameLayout.LayoutParams(width, height)
         }
 
@@ -126,101 +122,74 @@ class GalleryRowHolder(
         }
     }
 
-    @SuppressWarnings("MagicNumber")
-    private fun computeShrinkRatio(row: GalleryRow): Float {
-        val screenWidth = DisplayUtils.convertDpToPixel(
-            context.resources.configuration.screenWidthDp.toFloat(),
-            context
-        ).toFloat()
-
-        return if (row.files.size > 1) {
-            computeMultiFileShrinkRatio(row, screenWidth)
-        } else {
-            computeSingleFileShrinkRatio(row, screenWidth)
-        }
-    }
-
-    private fun computeMultiFileShrinkRatio(row: GalleryRow, screenWidth: Float): Float {
-        val targetHeight = row.getMaxHeight()
-        var totalUnscaledWidth = 0f
-
-        for (file in row.files) {
-            val (originalWidth, originalHeight) = OCFileUtils.getImageSize(file, defaultThumbnailSize)
-
-            val scaledWidth = targetHeight * (originalWidth.toFloat() / originalHeight)
-            file.imageDimension = ImageDimension(scaledWidth, targetHeight)
-
-            totalUnscaledWidth += scaledWidth
-        }
-
-        val totalAvailableWidth = screenWidth - ((row.files.size - 1) * smallMargin)
-        return totalAvailableWidth / totalUnscaledWidth
-    }
-
-    private fun computeSingleFileShrinkRatio(row: GalleryRow, screenWidth: Float): Float {
-        val width = OCFileUtils.getImageSize(row.files[0], defaultThumbnailSize).first
-        return (screenWidth / galleryAdapter.columns) / width
-    }
-
-    private fun adjustFile(index: Int, file: OCFile, shrinkRatio: Float, row: GalleryRow) {
-        val width = file.imageDimension?.width?.times(shrinkRatio)?.toInt() ?: 0
-        val height = file.imageDimension?.height?.times(shrinkRatio)?.toInt() ?: 0
+    private fun adjustFile(
+        index: Int,
+        file: OCFile,
+        dims: Pair<Int, Int>,
+        row: GalleryRow
+    ) {
+        val (width, height) = dims
 
         val frameLayout = binding.rowLayout[index] as FrameLayout
         val shimmer = frameLayout[0] as LoaderImageView
         val thumbnail = frameLayout[1] as ImageView
-        val checkBoxImageView = frameLayout[2] as ImageView
+        val checkbox = frameLayout[2] as ImageView
 
         val isChecked = ocFileListDelegate.isCheckedFile(file)
 
         adjustRowCell(thumbnail, isChecked)
-        adjustCheckBox(checkBoxImageView, isChecked)
+        adjustCheckBox(checkbox, isChecked)
 
-        ocFileListDelegate.bindGalleryRow(
-            shimmer,
-            thumbnail,
-            file,
-            this,
-            width to height
-        )
+        ocFileListDelegate.bindGalleryRow(shimmer, thumbnail, file, this, dims)
 
-        // Update layout params only if they differ
-        val thumbLp = thumbnail.layoutParams
-        if (thumbLp.width != width || thumbLp.height != height) {
-            thumbnail.layoutParams = thumbLp.getFrameLayout(width, height).apply {
-                val endMargin = if (index < row.files.size - 1) smallMargin else zero
-                this.setMargins(zero, zero, endMargin, smallMargin)
-            }
+        val endMargin = if (index < row.files.size - 1) smallMargin else zero
+
+        thumbnail.layoutParams = FrameLayout.LayoutParams(width, height).apply {
+            setMargins(0, 0, endMargin, smallMargin)
         }
+        shimmer.layoutParams = FrameLayout.LayoutParams(width, height)
 
-        val shimmerLp = shimmer.layoutParams
-        if (shimmerLp.width != width || shimmerLp.height != height) {
-            shimmer.layoutParams = shimmerLp.getFrameLayout(width, height)
-        }
-
-        // Force layout update
         frameLayout.requestLayout()
     }
 
-    private fun ViewGroup.LayoutParams?.getFrameLayout(width: Int, height: Int): FrameLayout.LayoutParams = (
-        this as? FrameLayout.LayoutParams
-            ?: FrameLayout.LayoutParams(width, height)
-        ).apply {
-        this.width = width
-        this.height = height
+    private fun getDimensions(row: GalleryRow): List<Pair<Int, Int>> {
+        val screenWidthPx = context.resources.displayMetrics.widthPixels.toFloat()
+        val marginPx = smallMargin.toFloat()
+
+        val aspectRatios = row.files.map { file ->
+            val (w, h) = OCFileUtils.getImageSize(file, defaultThumbnailSize)
+            if (w > 0 && h > 0) w.toFloat() / h.toFloat() else 1f
+        }
+
+        // Start with max height based on largest image
+        val targetHeight = row.getMaxHeight().coerceAtLeast(1f)
+
+        val unscaledWidths = aspectRatios.map { ar -> targetHeight * ar }
+
+        // margins
+        val totalUnscaled = unscaledWidths.sum()
+        val totalMargins = marginPx * (row.files.size - 1)
+        val available = screenWidthPx - totalMargins
+
+        // calculate shrink ratio
+        val shrink = available / totalUnscaled
+
+        // prepare scaled dimensions
+        val dims = unscaledWidths.map { w ->
+            val finalW = (w * shrink).toInt()
+            val finalH = (targetHeight * shrink).toInt()
+            finalW to finalH
+        }
+
+        return dims
     }
 
     @Suppress("MagicNumber")
     private fun adjustRowCell(imageView: ImageView, isChecked: Boolean) {
         val scale = if (isChecked) 0.8f else 1.0f
         val radius = if (isChecked) iconRadius else 0f
-
-        // Only update if values changed
-        if (imageView.scaleX != scale) {
-            imageView.scaleX = scale
-            imageView.scaleY = scale
-        }
-
+        imageView.scaleX = scale
+        imageView.scaleY = scale
         imageView.makeRounded(context, radius)
     }
 
