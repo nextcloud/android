@@ -14,6 +14,4 @@ interface OCFileListAdapterDataProvider {
     fun convertToOCFiles(id: Long): List<OCFile>
     suspend fun getFolderContent(id: Long): List<FileEntity>
     fun createFileInstance(entity: FileEntity): OCFile
-    suspend fun hasFavoriteParent(fileId: Long): Boolean
-    suspend fun hasSharedParent(fileId: Long): Boolean
 }

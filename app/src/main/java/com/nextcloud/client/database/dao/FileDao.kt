@@ -146,22 +146,4 @@ interface FileDao {
 
     @Query("SELECT remote_id FROM filelist WHERE file_owner = :accountName AND remote_id IS NOT NULL")
     fun getAllRemoteIds(accountName: String): List<String>
-
-    @Query("SELECT parent FROM filelist WHERE _id = :fileId LIMIT 1")
-    suspend fun getParentId(fileId: Long): Long?
-
-    @Query("SELECT favorite FROM filelist WHERE _id = :fileId LIMIT 1")
-    suspend fun isFavoriteFolder(fileId: Long): Int?
-
-    @Query(
-        """
-    SELECT 
-        (share_by_link = 1) OR 
-        (shared_via_users = 1) OR 
-        (permissions LIKE '%S%') 
-    FROM filelist 
-    WHERE _id = :fileId LIMIT 1
-    """
-    )
-    suspend fun isSharedFolder(fileId: Long): Boolean?
 }
