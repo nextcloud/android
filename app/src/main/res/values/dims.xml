@@ -136,7 +136,6 @@
     <dimen name="button_corner_radius">24dp</dimen>
     <dimen name="status_corner_radius">12dp</dimen>
     <dimen name="backup_button_width">160dp</dimen>
-    <dimen name="settings_activity_padding">24dp</dimen>
     <integer name="media_grid_width">4</integer>
     <dimen name="account_action_button_margin">12dp</dimen>
     <dimen name="account_action_button_height">50dp</dimen>
