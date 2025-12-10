@@ -8,7 +8,6 @@
 package com.nextcloud.ui.composeActivity
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -30,7 +29,6 @@ import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositor
 import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.ClientIntegrationScreen
-import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityComposeBinding
 import com.owncloud.android.ui.activity.DrawerActivity
@@ -52,41 +50,23 @@ class ComposeActivity : DrawerActivity() {
         setContentView(binding.root)
 
         val destinationId = intent.getIntExtra(DESTINATION, -1)
-        val titleId = intent.getIntExtra(TITLE, R.string.empty)
+        var title = intent.getStringExtra(TITLE_STRING)
 
         if (title == null || title.isEmpty()) {
             title = getString(intent.getIntExtra(TITLE, R.string.empty))
         }
-
-        if (destination == ComposeDestination.AssistantScreen) {
-            setupDrawer()
-
-            setupToolbarShowOnlyMenuButtonAndTitle(title) {
-                openDrawer()
-            }
-        } else {
-            setSupportActionBar(null)
-            if (findViewById<View?>(R.id.appbar) != null) {
-                findViewById<View?>(R.id.appbar)?.visibility = View.GONE
-            }
-        }
-
-        // if (false) {
-        //     val actionBar = getDelegate().supportActionBar
-        //     actionBar?.setDisplayHomeAsUpEnabled(true)
-        //     actionBar?.setDisplayShowTitleEnabled(true)
         //
-        //     val menuIcon = ResourcesCompat.getDrawable(
-        //         getResources(),
-        //         R.drawable.ic_arrow_back,
-        //         null
-        //     )
-        //     viewThemeUtils.androidx.themeActionBar(
-        //         this,
-        //         actionBar!!,
-        //         title!!,
-        //         menuIcon!!
-        //     )
+        // if (destination == ComposeDestination.AssistantScreen) {
+        //     setupDrawer()
+        //
+        //     setupToolbarShowOnlyMenuButtonAndTitle(title) {
+        //         openDrawer()
+        //     }
+        // } else {
+        //     setSupportActionBar(null)
+        //     if (findViewById<View?>(R.id.appbar) != null) {
+        //         findViewById<View?>(R.id.appbar)?.visibility = View.GONE
+        //     }
         // }
 
         binding.composeView.setContent {
@@ -104,7 +84,6 @@ class ComposeActivity : DrawerActivity() {
             super.onBackPressed()
             true
         }
-
         else -> super.onOptionsItemSelected(item)
     }
 
@@ -143,15 +122,18 @@ class ComposeActivity : DrawerActivity() {
                     capability = capabilities
                 )
             }
-        } else if (destination == ComposeDestination.ClientIntegrationScreen) {
-            binding.bottomNavigation.visibility = View.GONE
 
-            val clientIntegrationUI: ClientIntegrationUI? = intent.getParcelableExtra(ARGS_CLIENT_INTEGRATION_UI)
+            is ComposeDestination.ClientIntegrationScreen -> {
+                binding.bottomNavigation.visibility = View.GONE
 
-            clientIntegrationUI?.let { ClientIntegrationScreen(it, nextcloudClient?.baseUri.toString()) }
-            
-        } else {
-            Unit 
+                val clientIntegrationUI: ClientIntegrationUI? = intent.getParcelableExtra(ARGS_CLIENT_INTEGRATION_UI)
+
+                clientIntegrationUI?.let {
+                    ClientIntegrationScreen(clientIntegrationUI, nextcloudClient?.baseUri.toString())
+                }
+            }
+
+            else -> Unit
         }
     }
 }

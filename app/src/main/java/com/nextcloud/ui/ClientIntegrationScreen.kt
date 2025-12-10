@@ -25,6 +25,7 @@ import com.nextcloud.android.lib.resources.clientintegration.Orientation
 import com.nextcloud.android.lib.resources.clientintegration.Text
 import com.nextcloud.android.lib.resources.clientintegration.URL
 import com.nextcloud.utils.extensions.getActivity
+import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.utils.DisplayUtils
 
 @Composable
@@ -93,7 +94,7 @@ private fun close(activity: Activity?) {
 @Preview
 private fun ClientIntegrationScreenPreviewVertical() {
     val clientIntegrationUI = ClientIntegrationUI(
-        0.1,
+        OCCapability.CLIENT_INTEGRATION_VERSION,
         Layout(
             Orientation.VERTICAL,
             mutableListOf(
@@ -120,7 +121,7 @@ private fun ClientIntegrationScreenPreviewVertical() {
 @Preview
 private fun ClientIntegrationScreenPreviewHorizontal() {
     val clientIntegrationUI = ClientIntegrationUI(
-        0.1,
+        OCCapability.CLIENT_INTEGRATION_VERSION,
         Layout(
             Orientation.HORIZONTAL,
             mutableListOf(
@@ -144,7 +145,7 @@ private fun ClientIntegrationScreenPreviewHorizontal() {
 @Preview
 private fun ClientIntegrationScreenPreviewEmpty() {
     val clientIntegrationUI = ClientIntegrationUI(
-        0.1,
+        OCCapability.CLIENT_INTEGRATION_VERSION,
         Layout(
             Orientation.HORIZONTAL,
             emptyList()
