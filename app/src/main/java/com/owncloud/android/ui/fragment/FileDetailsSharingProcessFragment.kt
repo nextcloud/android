@@ -311,7 +311,7 @@ class FileDetailsSharingProcessFragment :
 
     // region ViewUpdates
     private fun updateViewForCreate() {
-        binding.shareProcessBtnNext.text = getString(R.string.common_next)
+        binding.shareProcessBtnNext.text = getString(R.string.create_share)
         updateViewAccordingToFile()
         showPasswordInput(binding.shareProcessSetPasswordSwitch.isChecked)
         showExpirationDateInput(binding.shareProcessSetExpDateSwitch.isChecked)
