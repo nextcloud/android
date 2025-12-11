@@ -45,6 +45,8 @@
     <string name="appbar_search_in">Пошук у %s</string>
     <string name="appear_offline">Перебуваю поза мережею</string>
     <string name="assistant_output_generation_warning_text">Показаний тут результат генерується штучним інтелектом. Обов\'язково перевіряйте його двічі.</string>
+    <string name="assistant_screen_chat_create_error">Не вдалося надіслати повідомлення</string>
+    <string name="assistant_screen_chat_fetch_error">Не вдалося отримати повідомлення чату</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Дійсно вилучити це завдання?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Вилучити завдання</string>
     <string name="assistant_screen_empty_content_description">Спробуйте надіслати повідомлення, щоб розпочати розмову.</string>
@@ -60,6 +62,7 @@
     <string name="assistant_screen_top_bar_title">Помічник</string>
     <string name="assistant_task_detail_screen_input_button_title">Введення</string>
     <string name="assistant_task_detail_screen_output_button_title">Виведення</string>
+    <string name="assistant_thinking">Думаю ...</string>
     <string name="associated_account_not_found">Пов\'язаний обліковий запис не знайдено!</string>
     <string name="auth_access_failed">Доступ невдалий: %1$s</string>
     <string name="auth_account_does_not_exist">Обліковий запис все ще не створено на цьому пристрої</string>
@@ -209,8 +212,12 @@
     <string name="contacts_preferences_no_file_found">Файл не знайдено</string>
     <string name="contacts_preferences_something_strange_happened">Неможливо знайти вашу останню резервну копію</string>
     <string name="content_observer_work_notification_title">Пошук змін у вмісті</string>
+    <string name="conversation_screen_create_error_title">Не вдалося створити розмову</string>
+    <string name="conversation_screen_delete_button_title">Вилучити розмову</string>
+    <string name="conversation_screen_delete_error_title">Не вдалося вилучити розмову</string>
     <string name="conversation_screen_empty_content_title">Розмов не знайдено</string>
     <string name="conversation_screen_empty_conversation_list_title">Поки що немає розмов</string>
+    <string name="conversation_screen_fetch_error_title">Не вдалося отримати список розмов</string>
     <string name="conversation_screen_title">Розмови</string>
     <string name="copied">Скопійовано</string>
     <string name="copy_file_error">Виникла помилка під час спроби копіювати цей файл або каталог</string>
@@ -312,9 +319,11 @@
     <string name="e2e_not_yet_setup">Наскрізне шифруванння ще не налаштовано</string>
     <string name="e2e_offline">Дія не можлива без доступу до з\'єднання з мережею</string>
     <string name="e2e_signature_does_not_match">Підпис не збігається</string>
+    <string name="e2e_signature_is_empty">Не вдалося перевірити метадані, сиґнатура порожня.</string>
     <string name="ecosystem_apps_display_assistant">Помічник</string>
     <string name="ecosystem_apps_display_more">Більше</string>
     <string name="ecosystem_apps_more">Більше застосунків Nextcloud</string>
+    <string name="editor_web_view_cannot_open_file">Неможливо відкрити вибір файлів</string>
     <string name="email_pick_failed">Не вдалося вибрати ел. адресу.</string>
     <string name="encrypted">Позначити як зашифроване</string>
     <string name="end_to_end_encryption_certificate_unavailable">Неможливо отримати сертифікат сервера</string>
@@ -384,6 +393,7 @@
     <string name="extented_list_fragment_empty_list_message_no_write_permission">У вас відсутній доступ на створення або завантаження файлів до цього каталогу.</string>
     <string name="external_shares">Зовнішні спільні ресурси</string>
     <string name="fab_label">Додати або завантажити</string>
+    <string name="failed_to_create_conflict_dialog">Не вдалося створити вікно з інформацією про конфлікт</string>
     <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
     <string name="failed_to_print">Не вдалося роздрукувати файл</string>
     <string name="failed_to_start_editor">Не вдалося відкрити редактор</string>
@@ -643,6 +653,7 @@
     <string name="offline_mode">Відсутнє з\'єднання з мережею</string>
     <string name="offline_mode_info_description">Ви можете впорядковувати каталоги, створювати файли без наявного з\'єднання з мережею. Одразу після відновлення доступу завдання, що в очікуванні, буде автоматично виконано, а файли синхронізовано.</string>
     <string name="offline_mode_info_title">Ви користуєтеся застосунком без доступу до мережі</string>
+    <string name="offline_operations_file_does_not_exists_yet">Поки відсутні файли. Спочатку додайте їх.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Не вдалося створити %s. Файл з таким ім\'ям вже присутній у хмарі.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Не вдалося створити %s. Каталог з таким ім\'ям вже присутній у хмарі.</string>
     <string name="offline_operations_worker_notification_error_text">Неможливо виконати офлайнову операцію. %s</string>
@@ -687,6 +698,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Перейменовувати нову версію </string>
     <string name="pref_instant_name_collision_policy_title">Що робити, якщо такий файл вже присутній?</string>
     <string name="prefs_add_account">Додати обліковий запис</string>
+    <string name="prefs_all_files_access_summary">Дозволити застосунку доступ та керування всіма файлами на вашому пристрої</string>
+    <string name="prefs_all_files_access_title">Доступ до всіх файлів</string>
     <string name="prefs_calendar_contacts">Синхронізувати календар та контакти</string>
     <string name="prefs_calendar_contacts_no_store_error">Не встановлено ані F-Droid, ані Google Play</string>
     <string name="prefs_calendar_contacts_summary">Встановити DAVx⁵ (раніше відомий як DAVdroid) (v1.3.0+) для поточного користувача</string>
@@ -922,6 +935,10 @@
     <string name="storage_internal_storage">Внутрішнє сховище</string>
     <string name="storage_movies">Відео</string>
     <string name="storage_music">Музика</string>
+    <string name="storage_permission_all_files_access">Доступ до всіх файлів</string>
+    <string name="storage_permission_banner_auto_upload_text">Для автоматичного завантаження потрібно надати доступ до місця збереження файлів</string>
+    <string name="storage_permission_banner_upload_text">Для завантаження файлів потрібно надати доступ до місця збереження файлів</string>
+    <string name="storage_permission_dont_ask">Не питати</string>
     <string name="storage_permission_media_read_only">Мультимедія лише для читання</string>
     <string name="storage_pictures">Зображення</string>
     <string name="store_full_desc">Самостійна платформа для підвищення продуктивності, яка дозволяє вам зберігати контроль. n\nОсобливості:\n* Простий, сучасний інтерфейс, що відповідає темі вашого сервера\n* Завантажуйте файли на ваш сервер Nextcloud\n* Діліться ними з іншими\n* Синхронізуйте ваші улюблені файли та папки\n* Здійснюйте пошук у всіх папках на вашому сервері\n* Автоматичне завантаження фотографій та відео, зроблених вашим пристроєм\n* Будьте в курсі подій завдяки сповіщенням\n* Підтримка декількох облікових записів\n* Безпечний доступ до ваших даних за допомогою відбитка пальця або PIN-коду\n* Інтеграція з DAVx⁵ (раніше відомим як DAVdroid) для легкого налаштування синхронізації календаря та контактів\n\nБудь ласка, повідомляйте про всі проблеми на https://github.com/nextcloud/android/issues та обговорюйте цей додаток на https://help.nextcloud.com/c/clients/android\n\nНовий у Nextcloud? Nextcloud — це приватний сервер для синхронізації та обміну файлами, а також для спілкування. Це вільне програмне забезпечення, яке ви можете розмістити самостійно або заплатити компанії, щоб вона зробила це за вас. Таким чином, ви контролюєте свої фотографії, календар і контакти, документи та все інше.\n\nОзнайомтеся з Nextcloud на https://nextcloud.com</string>
