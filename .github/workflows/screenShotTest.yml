@@ -60,7 +60,7 @@ jobs:
                 with:
                     api-level: ${{ matrix.api-level }}
                     force-avd-creation: false
-                    arch: x86
+                    arch: x86_64
                     sdcard-path-or-size: 100M
                     target: google_apis
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
@@ -91,7 +91,7 @@ jobs:
                 with:
                     api-level: ${{ matrix.api-level }}
                     force-avd-creation: false
-                    arch: x86
+                    arch: x86_64
                     sdcard-path-or-size: 100M
                     target: google_apis
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
