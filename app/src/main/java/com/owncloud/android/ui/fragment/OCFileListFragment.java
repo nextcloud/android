@@ -1474,11 +1474,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    public void listDirectory(OCFile directory, boolean onlyOnDevice) {
+    public void listDirectory(@Nullable OCFile directory, boolean onlyOnDevice) {
         listDirectory(directory, null, onlyOnDevice);
     }
 
-    private OCFile getDirectoryForListDirectory(OCFile directory, FileDataStorageManager storageManager) {
+    private OCFile getDirectoryForListDirectory(@Nullable OCFile directory, FileDataStorageManager storageManager) {
         if (directory == null) {
             if (mFile != null) {
                 directory = mFile;
@@ -1502,7 +1502,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @param directory File to be listed
      */
-    public void listDirectory(OCFile directory, OCFile file, boolean onlyOnDevice) {
+    public void listDirectory(@Nullable OCFile directory, OCFile file, boolean onlyOnDevice) {
         if (!searchFragment) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             if (storageManager == null) {
