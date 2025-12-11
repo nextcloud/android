@@ -27,7 +27,6 @@ import org.junit.Test
 class SetStatusMessageBottomSheetIT : AbstractIT() {
     @get:Rule
     val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.POST_NOTIFICATIONS
     )
 
