@@ -357,7 +357,7 @@ open class FolderPickerActivity :
             }
         }
 
-    private fun refreshListOfFilesFragment(directory: OCFile) {
+    private fun refreshListOfFilesFragment(directory: OCFile?) {
         listOfFilesFragment?.listDirectory(directory, false)
     }
 
