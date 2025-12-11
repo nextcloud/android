@@ -398,7 +398,6 @@
     <string name="file_detail_share_already_active">Ви не можете створити спільний ресурс, оскільки його вже надано цьому користувачеві.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Відсутній застосунок для вибору контактів</string>
     <string name="file_details_no_content">Не вдалося завантажити подробиці</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Виберіть власні дозволи</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Зберегти</string>
     <string name="file_list_empty">Додати дані або синхронізувати з вашими пристроями.</string>

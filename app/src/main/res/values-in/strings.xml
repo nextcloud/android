@@ -392,7 +392,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_detail_share_already_active">Anda tidak dapat membagi, opsi berbagi sudah aktif dari pengguna ini.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Tidak ada aplikasi yang tersedia untuk memilih kontak</string>
     <string name="file_details_no_content">Gagal memuat detil</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Silakan pilih izin khusus</string>
     <string name="file_icon">Berkas</string>
     <string name="file_keep">Simpan</string>
     <string name="file_list_empty">Unggah beberapa berkas atau sinkronisasi dengan perangkat anda.</string>

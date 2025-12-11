@@ -397,7 +397,6 @@
     <string name="file_detail_share_already_active">共有を作成できません。このユーザーからの共有はすでに有効になっています。</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">連絡先を選択するためのアプリが利用できません</string>
     <string name="file_details_no_content">詳細のロードに失敗しました</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">カスタムの権限を選択してください。</string>
     <string name="file_icon">ファイル</string>
     <string name="file_keep">保持</string>
     <string name="file_list_empty">コンテンツをアップロードするか、デバイスと同期してください。</string>

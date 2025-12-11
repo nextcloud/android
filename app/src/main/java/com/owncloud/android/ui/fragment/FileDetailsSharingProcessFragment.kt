@@ -44,6 +44,7 @@ import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 /**
@@ -503,7 +504,9 @@ class FileDetailsSharingProcessFragment :
         val currentLimit = share?.remainingDownloadLimit() ?: return
         if (currentLimit > 0) {
             binding.shareProcessSetDownloadLimitSwitch.isChecked = true
-            binding.shareProcessSetDownloadLimitInput.setText(currentLimit.toString())
+            binding.shareProcessSetDownloadLimitInput.setText(
+                "%d".format(Locale.getDefault(), currentLimit)
+            )
         }
     }
 

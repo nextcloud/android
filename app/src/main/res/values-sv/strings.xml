@@ -405,7 +405,6 @@
     <string name="file_detail_share_already_active">Du kan inte skapa en delning, användaren har redan en aktiv delning.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Ingen app tillgänglig för att välja kontakter</string>
     <string name="file_details_no_content">Kunde inte läsa in detaljer</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Välj anpassad behörighet</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behåll</string>
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>

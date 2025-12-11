@@ -551,6 +551,7 @@
     <string name="pass_code_removed">Contraseña eliminada</string>
     <string name="pass_code_stored">Código de seguridad almacenado</string>
     <string name="pass_code_wrong">Código de seguridad incorrecto</string>
+    <string name="pause_upload">Pausar</string>
     <string name="pdf_password_protected">No es posible abrir archivos PDF protegidos por contraseñas. Por favor, use un visor PDF externo.</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Rechazar</string>

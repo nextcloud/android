@@ -408,7 +408,6 @@
     <string name="file_detail_share_already_active">سىز بىر ھەمبەھىر قۇرالمايسىز، ھەمبەھىرلەش بۇ ئىشلەتكۈچىدە ئاكتىپ.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">ئالاقىداشلارنى تاللاش ئۈچۈن بىرەر ئەپ يوق</string>
     <string name="file_details_no_content">تەپسىلاتلارنى يۈكلىيەلمىدى</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">ئىختىيارى ئىجازەتنى تاللاڭ</string>
     <string name="file_icon">ھۆججەت</string>
     <string name="file_keep">ساقلاڭ</string>
     <string name="file_list_empty">بەزى مەزمۇنلارنى يۈكلەڭ ياكى ئۈسكۈنىڭىز بىلەن ماسقەدەملەڭ.</string>

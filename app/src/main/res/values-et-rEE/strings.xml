@@ -408,7 +408,6 @@
     <string name="file_detail_share_already_active">Jagamise lisamine ei õnnestu. See kasutaja on jagamise juba sisse lülitanud.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Kontaktide valimiseks ei leidu sobilikku rakendust</string>
     <string name="file_details_no_content">Üksikasjade laadimine ei õnnestunud</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Palun vali kohandatud õigused</string>
     <string name="file_icon">Fail</string>
     <string name="file_keep">Hoia alles</string>
     <string name="file_list_empty">Laadi midagi üles või sünkroniseeri oma seadmetega.</string>
