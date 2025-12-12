@@ -126,9 +126,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import javax.inject.Inject;
 
@@ -954,92 +951,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private boolean shouldNavigateWithoutFilter(OCFile topParent) {
-        int menuItemId = DrawerActivity.menuItemId;
-        return (menuItemId != R.id.nav_shared && menuItemId != R.id.nav_favorites) ||
-            (menuItemId == R.id.nav_shared && topParent != null && topParent.isShared()) ||
-            (menuItemId == R.id.nav_favorites && topParent != null && topParent.isFavorite());
-    }
-
-    private boolean shouldNavigateWithFilter() {
-        int menuItemId = DrawerActivity.menuItemId;
-        return menuItemId == R.id.nav_shared || menuItemId == R.id.nav_favorites;
-    }
-
-    private Pair<Integer, OCFile> getPreviousFileWithoutFilter(FileDataStorageManager storageManager) {
-        int moveCount = 0;
-        OCFile parentDir = null;
-        String parentPath = null;
-
-        if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
-            parentPath = new File(mFile.getRemotePath()).getParent();
-
-            if (parentPath != null) {
-                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
-                parentDir = storageManager.getFileByPath(parentPath);
-                moveCount++;
-            }
-        } else {
-            parentDir = storageManager.getFileByPath(ROOT_PATH);
-        }
-
-        while (parentDir == null) {
-            parentPath = new File(parentPath).getParent();
-
-            if (parentPath != null) {
-                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
-                    parentPath + OCFile.PATH_SEPARATOR;
-                parentDir = storageManager.getFileByPath(parentPath);
-                moveCount++;
-            }
-        }
-
-        return new Pair<>(moveCount, parentDir);
-    }
-
-    private OCFile getPreviousFileWithFilter(FileDataStorageManager storageManager, OCFile currentFile) {
-        while (true) {
-            OCFile parent = storageManager.getFileById(currentFile.getParentId());
-            if (parent == null) {
-                return currentFile;
-            }
-
-            if (parent.isRootDirectory()) {
-                return parent;
-            }
-
-            if ((DrawerActivity.menuItemId == R.id.nav_shared && parent.isShared()) ||
-                (DrawerActivity.menuItemId == R.id.nav_favorites && parent.isFavorite())) {
-                return parent;
-            }
-
-            currentFile = parent;
-        }
-    }
-
-    private Future<Pair<Integer, OCFile>> getPreviousFile() {
-        CompletableFuture<Pair<Integer, OCFile>> completableFuture = new CompletableFuture<>();
-
-        Executors.newCachedThreadPool().execute(() -> {
-            var result = new Pair<Integer, OCFile>(null, null);
-
-            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-            OCFile currentFile = getCurrentFile();
-            OCFile topParent = storageManager.getTopParent(currentFile);
-
-            if (shouldNavigateWithoutFilter(topParent)) {
-                result = getPreviousFileWithoutFilter(storageManager);
-            } else if (shouldNavigateWithFilter()) {
-                OCFile previousFileWithFilter = getPreviousFileWithFilter(storageManager, currentFile);
-                result = new Pair<>(0, previousFileWithFilter);
-            }
-
-            completableFuture.complete(result);
-
-        });
-
-        return completableFuture;
-    }
 
     /**
      * Call this, when the user presses the up button.
@@ -1047,35 +958,65 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * Tries to move up the current folder one level. If the parent folder was removed from the database, it continues
      * browsing up until finding an existing folders.
      * <p>
-     * return       Count of folder levels browsed up.
+     * return Count of folder levels browsed up.
      */
     public int onBrowseUp() {
         if (mFile == null) {
             return 0;
         }
 
-        try {
-            Future<Pair<Integer, OCFile>> futureResult = getPreviousFile();
-            Pair<Integer, OCFile> result = futureResult.get();
-            mFile = result.second;
-            setFileDepth(mFile);
+        Pair<Integer, OCFile> result = getPreviousFile();
+        mFile = result.second;
+        setFileDepth(mFile);
 
-            // since on browse down sets it to the false, browse up should set back to true if current search type is not NO_SEARCH
-            if (mFile.isRootDirectory() && currentSearchType != NO_SEARCH) {
-                searchFragment = true;
-            }
-
-            updateFileList();
-            return result.first;
-        } catch (Exception e) {
-            Log_OC.e(TAG,"Error caught in onBrowseUp " + e + " getPreviousFileWithoutFilter() used: ");
-
-            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-            var result = getPreviousFileWithoutFilter(storageManager);
-            mFile = result.second;
-            updateFileList();
-            return result.first;
+        // since on browse down sets it to the false, browse up should set back to true if current search type is not NO_SEARCH
+        if (mFile.isRootDirectory() && currentSearchType != NO_SEARCH) {
+            searchFragment = true;
         }
+
+        updateFileList();
+        return result.first;
+    }
+
+    private Pair<Integer, OCFile> getPreviousFile() {
+        if (mFile == null) {
+            return new Pair<>(0, null);
+        }
+
+        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+        int moveCount = 0;
+        String parentPath;
+        OCFile parentDir;
+
+        if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
+            parentPath = new File(mFile.getRemotePath()).getParent();
+            parentPath = ensureTrailingSeparator(parentPath);
+            parentDir = storageManager.getFileByPath(parentPath);
+            moveCount++;
+        } else {
+            parentDir = storageManager.getFileByPath(ROOT_PATH);
+            parentPath = ROOT_PATH;
+        }
+
+        // Keep going up until we find a valid folder
+        while (parentDir == null && !ROOT_PATH.equals(parentPath)) {
+            parentPath = new File(parentPath).getParent();
+            if (parentPath == null) {
+                parentPath = ROOT_PATH; // fallback to root
+            }
+            parentPath = ensureTrailingSeparator(parentPath);
+            parentDir = storageManager.getFileByPath(parentPath);
+            moveCount++;
+        }
+
+        return new Pair<>(moveCount, parentDir);
+    }
+
+    private String ensureTrailingSeparator(String path) {
+        if (path == null) {
+            return ROOT_PATH;
+        }
+        return path.endsWith(OCFile.PATH_SEPARATOR) ? path : path + OCFile.PATH_SEPARATOR;
     }
 
     private void updateFileList() {
