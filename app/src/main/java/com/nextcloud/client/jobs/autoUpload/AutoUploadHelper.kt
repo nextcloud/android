@@ -78,7 +78,7 @@ class AutoUploadHelper {
 
                             val localPath = file.toLocalPath()
 
-                            repository?.insertOrReplace(localPath,lastModified, folder)
+                            repository?.insertOrReplace(localPath, lastModified, folder)
 
                             fileCount++
 
