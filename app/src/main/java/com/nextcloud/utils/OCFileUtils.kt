@@ -72,6 +72,7 @@ object OCFileUtils {
             h = tmp
         }
 
+        Log_OC.d(TAG, "Using exif imageDimension: $w x $h")
         if (w > 0 && h > 0) w to h else null
     } catch (_: Exception) {
         null
@@ -82,6 +83,8 @@ object OCFileUtils {
         android.graphics.BitmapFactory.decodeFile(path, options)
         val w = options.outWidth
         val h = options.outHeight
+
+        Log_OC.d(TAG, "Using bitmap factory imageDimension: $w x $h")
         if (w > 0 && h > 0) w to h else null
     } catch (_: Exception) {
         null
