@@ -76,7 +76,8 @@ class GalleryRowHolder(
         val dimensions = getDimensions(row)
 
         for (i in row.files.indices) {
-            adjustFile(i, row.files[i], dimensions[i], row)
+            val dim = dimensions.getOrNull(i) ?: (defaultThumbnailSize.toInt() to defaultThumbnailSize.toInt())
+            adjustFile(i, row.files[i], dim, row)
         }
     }
 
