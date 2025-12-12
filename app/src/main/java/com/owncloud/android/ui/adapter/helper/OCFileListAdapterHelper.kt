@@ -12,9 +12,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.filterFilenames
 import com.nextcloud.utils.extensions.isTempFile
 import com.owncloud.android.MainApp
-import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +21,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.ArrayList
 
 class OCFileListAdapterHelper {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
@@ -65,8 +62,6 @@ class OCFileListAdapterHelper {
         val showHiddenFiles = preferences.isShowHiddenFilesEnabled()
         val hasMimeTypeFilter = limitToMimeType.isNotEmpty()
         val isRootAndPersonalOnly = (OCFile.ROOT_PATH == directory.remotePath && MainApp.isOnlyPersonFiles())
-        val isSharedView = (DrawerActivity.menuItemId == R.id.nav_shared)
-        val isFavoritesView = (DrawerActivity.menuItemId == R.id.nav_favorites)
 
         val rawResult = getFolderContent(directory, dataProvider, onlyOnDevice)
         val filtered = ArrayList<OCFile>(rawResult.size)
@@ -88,14 +83,6 @@ class OCFileListAdapterHelper {
                 if (!isPersonal) {
                     continue
                 }
-            }
-
-            if (isSharedView && !file.isShared) {
-                continue
-            }
-
-            if (isFavoritesView && !file.isFavorite) {
-                continue
             }
 
             if (file.isTempFile()) {
