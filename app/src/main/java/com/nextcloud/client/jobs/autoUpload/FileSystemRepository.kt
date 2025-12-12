@@ -18,6 +18,7 @@ import com.owncloud.android.utils.SyncedFolderUtils
 import java.io.File
 import java.util.zip.CRC32
 
+@Suppress("TooGenericExceptionCaught", "NestedBlockDepth", "MagicNumber", "ReturnCount")
 class FileSystemRepository(private val dao: FileSystemDao, private val context: Context) {
 
     companion object {
@@ -25,7 +26,6 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
         const val BATCH_SIZE = 50
     }
 
-    @Suppress("NestedBlockDepth")
     suspend fun getFilePathsWithIds(syncedFolder: SyncedFolder, lastId: Int): List<Pair<String, Int>> {
         val syncedFolderId = syncedFolder.id.toString()
         Log_OC.d(TAG, "Fetching candidate files for syncedFolderId = $syncedFolderId")
@@ -57,7 +57,6 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
         return filtered
     }
 
-    @Suppress("TooGenericExceptionCaught")
     suspend fun markFileAsUploaded(localPath: String, syncedFolder: SyncedFolder) {
         val syncedFolderIdStr = syncedFolder.id.toString()
 
@@ -71,16 +70,42 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
 
     fun insert(uri: Uri, syncedFolder: SyncedFolder) {
         val projection = arrayOf(MediaStore.MediaColumns.DATA)
-        val cursor = context.contentResolver.query(uri, projection, null, null, null)
+
+        var syncedPath = syncedFolder.localPath
+        if (syncedPath.isNullOrEmpty()) {
+            Log_OC.w(TAG, "Synced folder path is null or empty")
+            return
+        }
+
+        if (!syncedPath.endsWith(File.separator)) {
+            syncedPath += File.separator
+        }
+
+        val selection = "${MediaStore.MediaColumns.DATA} LIKE ?"
+        val selectionArgs = arrayOf("$syncedPath%")
+
+        Log_OC.d(TAG, "Querying MediaStore for files in: $syncedPath")
+
+        val cursor = context.contentResolver.query(
+            uri,
+            projection,
+            selection,
+            selectionArgs,
+            null
+        )
 
         cursor?.use {
             val columnIndexData = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)
+            var count = 0
 
             while (cursor.moveToNext()) {
                 val filePath = cursor.getString(columnIndexData)
-                Log_OC.d(TAG, "attempt to insert new file entity uri: $uri")
+                Log_OC.d(TAG, "Found file in synced folder: $filePath")
                 insertOrReplace(filePath, null, syncedFolder)
+                count++
             }
+
+            Log_OC.d(TAG, "Inserted $count files for syncedFolder: ${syncedFolder.id}")
         } ?: Log_OC.w(TAG, "Cursor is null for URI: $uri")
     }
 
@@ -99,7 +124,11 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
 
             val entity = dao.getFileByPathAndFolder(localPath, syncedFolder.id.toString())
             if (entity != null && entity.fileSentForUpload == 1) {
-                Log_OC.w(TAG, "file already uploaded path: $localPath, syncedFolder: ${syncedFolder.localPath}, ${syncedFolder.id}")
+                Log_OC.w(
+                    TAG,
+                    "file already uploaded path: $localPath, " +
+                        "syncedFolder: ${syncedFolder.localPath}, ${syncedFolder.id}"
+                )
                 return
             }
 
@@ -124,19 +153,17 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
         }
     }
 
-    private fun getFileChecksum(file: File): Long? {
-        return try {
-            file.inputStream().use { fis ->
-                val crc = CRC32()
-                val buffer = ByteArray(64 * 1024)
-                var bytesRead: Int
-                while (fis.read(buffer).also { bytesRead = it } > 0) {
-                    crc.update(buffer, 0, bytesRead)
-                }
-                crc.value
+    private fun getFileChecksum(file: File): Long? = try {
+        file.inputStream().use { fis ->
+            val crc = CRC32()
+            val buffer = ByteArray(64 * 1024)
+            var bytesRead: Int
+            while (fis.read(buffer).also { bytesRead = it } > 0) {
+                crc.update(buffer, 0, bytesRead)
             }
-        } catch (_: Exception) {
-            null
+            crc.value
         }
+    } catch (_: Exception) {
+        null
     }
 }
