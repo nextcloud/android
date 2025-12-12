@@ -18,17 +18,14 @@ import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Test
 
 class ReceiveExternalFilesActivityIT : AbstractIT() {
-    private val testClassName = "com.owncloud.android.ui.activity.ReceiveExternalFilesActivityIT"
-
     @Test
     @ScreenshotTest
     fun open() {
         launchActivity<ReceiveExternalFilesActivity>().use { scenario ->
-            val screenShotName = createName(testClassName + "_" + "open", "")
             onView(isRoot()).check(matches(isDisplayed()))
 
             scenario.onActivity { sut ->
-                screenshotViaName(sut, screenShotName)
+                screenshot(sut)
             }
         }
     }
@@ -37,7 +34,16 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
     @ScreenshotTest
     fun openMultiAccount() {
         val secondAccount = createAccount("secondtest@https://nextcloud.localhost")
-        open()
+
+        launchActivity<ReceiveExternalFilesActivity>().use { scenario ->
+            // val screenShotName = createName(testClassName + "_" + "open_second_account", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            scenario.onActivity { sut ->
+                screenshot(sut)
+            }
+        }
+
         removeAccount(secondAccount)
     }
 }
