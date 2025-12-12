@@ -9,7 +9,6 @@ package com.nextcloud.client.jobs.autoUpload
 
 import com.nextcloud.utils.extensions.shouldSkipFile
 import com.nextcloud.utils.extensions.toLocalPath
-import com.owncloud.android.datamodel.FilesystemDataProvider
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.IOException
