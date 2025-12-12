@@ -230,16 +230,16 @@ class AutoUploadWorker(
     private suspend fun collectFileChangesFromContentObserverWork(contentUris: Array<String>?) = try {
         withContext(Dispatchers.IO) {
             if (contentUris.isNullOrEmpty()) {
-                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, helper)
+                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, helper, repository)
             } else {
-                val isContentUrisStored = FilesSyncHelper.insertChangedEntries(syncedFolder, contentUris)
+                val isContentUrisStored = FilesSyncHelper.insertChangedEntries(syncedFolder, contentUris, repository)
                 if (!isContentUrisStored) {
                     Log_OC.w(
                         TAG,
                         "changed content uris not stored, fallback to insert all db entries to not lose files"
                     )
 
-                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, helper)
+                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, helper, repository)
                 }
             }
             syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
