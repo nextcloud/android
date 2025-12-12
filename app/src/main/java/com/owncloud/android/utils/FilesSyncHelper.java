@@ -10,7 +10,6 @@
 package com.owncloud.android.utils;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -22,15 +21,11 @@ import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper;
 import com.nextcloud.client.jobs.autoUpload.FileSystemRepository;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.utils.extensions.UriExtensionsKt;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
-
-import java.io.File;
 
 /**
  * Various utilities that make auto upload tick
@@ -51,11 +46,11 @@ public final class FilesSyncHelper {
             MediaFolderType mediaType = syncedFolder.getType();
 
             if (mediaType == MediaFolderType.IMAGE) {
-                repository.insert(MediaStore.Images.Media.INTERNAL_CONTENT_URI, syncedFolder);
-                repository.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, syncedFolder);
+                repository.insertFromUri(MediaStore.Images.Media.INTERNAL_CONTENT_URI, syncedFolder);
+                repository.insertFromUri(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, syncedFolder);
             } else if (mediaType == MediaFolderType.VIDEO) {
-                repository.insert(MediaStore.Video.Media.INTERNAL_CONTENT_URI, syncedFolder);
-                repository.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, syncedFolder);
+                repository.insertFromUri(MediaStore.Video.Media.INTERNAL_CONTENT_URI, syncedFolder);
+                repository.insertFromUri(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, syncedFolder);
             } else {
                 helper.insertCustomFolderIntoDB(syncedFolder, repository);
             }
@@ -83,57 +78,19 @@ public final class FilesSyncHelper {
      * @return {@code true} if all changed content URIs were successfully stored; {@code false} otherwise.
      */
     public static boolean insertChangedEntries(SyncedFolder syncedFolder, String[] contentUris, FileSystemRepository repository) {
-        final Context context = MainApp.getAppContext();
         for (String contentUriString : contentUris) {
             if (contentUriString == null) {
                 Log_OC.w(TAG, "null content uri string");
                 return false;
             }
 
-            Uri contentUri;
             try {
-                contentUri = Uri.parse(contentUriString);
+                Uri contentUri = Uri.parse(contentUriString);
+                repository.insertFromUri(contentUri, syncedFolder, true);
             } catch (Exception e) {
                 Log_OC.e(TAG, "Invalid URI: " + contentUriString, e);
                 return false;
             }
-
-            String filePath = UriExtensionsKt.toFilePath(contentUri, context);
-            if (filePath == null) {
-                Log_OC.w(TAG, "File path is null");
-                return false;
-            }
-
-            File file = new File(filePath);
-            if (!file.exists()) {
-                Log_OC.w(TAG, "syncedFolder contains not existing changed file: " + filePath);
-                return false;
-            }
-
-            if (!syncedFolder.containsTypedFile(file, filePath)) {
-                Log_OC.w(TAG, "syncedFolder not contains typed file, changedFile: " + filePath);
-                return false;
-            }
-
-            Long creationTimeMs = null;
-            String[] projection = { MediaStore.MediaColumns.DATE_ADDED };
-            try (Cursor cursor = context.getContentResolver()
-                .query(contentUri, projection, null, null, null)) {
-
-                if (cursor != null && cursor.moveToFirst()) {
-                    int idxAdded = cursor.getColumnIndex(MediaStore.MediaColumns.DATE_ADDED);
-                    if (idxAdded != -1) {
-                        long dateAddedSec = cursor.getLong(idxAdded);
-                        creationTimeMs = dateAddedSec * 1000;
-                    } else {
-                        Log_OC.w(TAG, "DATE_ADDED missing for: " + filePath);
-                    }
-                }
-            } catch (Exception e) {
-                Log_OC.w(TAG, "Could not query creation time for: " + filePath);
-            }
-
-            repository.insertOrReplace(filePath, file.lastModified(), creationTimeMs, syncedFolder);
         }
 
         Log_OC.d(TAG, "changed content uris successfully stored");
