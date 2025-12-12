@@ -91,7 +91,7 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
         val selection = "${MediaStore.MediaColumns.DATA} LIKE ?"
         val selectionArgs = arrayOf("$syncedPath%")
 
-        Log_OC.d(TAG, "Querying MediaStore for files in: $syncedPath")
+        Log_OC.d(TAG, "Querying MediaStore for files in: $syncedPath, uri: $uri")
 
         val cursor = context.contentResolver.query(
             uri,
