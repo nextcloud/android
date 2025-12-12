@@ -13,6 +13,7 @@ import android.provider.MediaStore
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.entity.FilesystemEntity
 import com.nextcloud.utils.extensions.shouldSkipFile
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.SyncedFolderUtils
@@ -69,7 +70,8 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
         }
     }
 
-    fun insert(uri: Uri, syncedFolder: SyncedFolder) {
+    @JvmOverloads
+    fun insertFromUri(uri: Uri, syncedFolder: SyncedFolder, checkFileType: Boolean = false) {
         val projection = arrayOf(
             MediaStore.MediaColumns.DATA,
             MediaStore.MediaColumns.DATE_MODIFIED,
@@ -129,21 +131,27 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
                     "Found file: $filePath (created=$creationTimeMs, modified=$lastModifiedMs)"
                 )
 
-                insertOrReplace(filePath, lastModifiedMs, creationTimeMs, syncedFolder)
+                insertOrReplace(filePath, lastModifiedMs, creationTimeMs, syncedFolder, checkFileType)
             }
         }
     }
 
-    fun insertOrReplace(localPath: String?, lastModified: Long?, creationTime: Long?, syncedFolder: SyncedFolder) {
+    fun insertOrReplace(
+        localPath: String?,
+        lastModified: Long?,
+        creationTime: Long?,
+        syncedFolder: SyncedFolder,
+        checkFileType: Boolean = false
+    ) {
         try {
-            if (localPath == null) {
-                Log_OC.w(TAG, "localPath path not exists: $localPath")
+            val file = localPath?.toFile()
+            if (file == null) {
+                Log_OC.w(TAG, "file null, cannot insert or replace: $localPath")
                 return
             }
 
-            val file = File(localPath)
-            if (!file.exists()) {
-                Log_OC.w(TAG, "local file does not exist, cannot insert or replace: $localPath")
+            if (checkFileType && !syncedFolder.containsTypedFile(file, localPath)) {
+                Log_OC.w(TAG, "synced folder not contains typed file: $localPath")
                 return
             }
 
