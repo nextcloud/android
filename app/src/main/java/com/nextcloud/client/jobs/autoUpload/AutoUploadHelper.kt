@@ -7,7 +7,6 @@
 
 package com.nextcloud.client.jobs.autoUpload
 
-import com.nextcloud.utils.extensions.shouldSkipFile
 import com.nextcloud.utils.extensions.toLocalPath
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -69,15 +68,9 @@ class AutoUploadHelper {
                             val javaFile = file.toFile()
                             val lastModified = attrs?.lastModifiedTime()?.toMillis() ?: javaFile.lastModified()
                             val creationTime = attrs?.creationTime()?.toMillis()
-
-                            if (folder.shouldSkipFile(javaFile, lastModified, creationTime)) {
-                                skipCount++
-                                return FileVisitResult.CONTINUE
-                            }
-
                             val localPath = file.toLocalPath()
 
-                            repository?.insertOrReplace(localPath, lastModified, folder)
+                            repository?.insertOrReplace(localPath, lastModified, creationTime, folder)
 
                             fileCount++
 
