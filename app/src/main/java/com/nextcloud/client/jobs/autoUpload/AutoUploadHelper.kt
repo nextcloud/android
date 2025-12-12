@@ -29,7 +29,7 @@ class AutoUploadHelper {
         private const val MAX_DEPTH = 100
     }
 
-    fun insertCustomFolderIntoDB(folder: SyncedFolder, filesystemDataProvider: FilesystemDataProvider?): Int {
+    fun insertCustomFolderIntoDB(folder: SyncedFolder, repository: FileSystemRepository?): Int {
         val path = Paths.get(folder.localPath)
 
         if (!Files.exists(path)) {
@@ -78,12 +78,7 @@ class AutoUploadHelper {
 
                             val localPath = file.toLocalPath()
 
-                            filesystemDataProvider?.storeOrUpdateFileValue(
-                                localPath,
-                                lastModified,
-                                javaFile.isDirectory,
-                                folder
-                            )
+                            repository?.insertOrReplace(localPath,lastModified, folder)
 
                             fileCount++
 
