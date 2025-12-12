@@ -43,7 +43,6 @@ import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepositoryType;
-import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.ShareeEntry;
@@ -2753,29 +2752,6 @@ public class FileDataStorageManager {
             file = getFileById(file.getParentId());
         }
         return false;
-    }
-
-    public List<OCFile> filter(OCFile file, OCFileFilterType filterType) {
-        if (!file.isRootDirectory()) {
-            return getFolderContent(file,false);
-        }
-
-        final List<OCFile> result = new ArrayList<>();
-        final List<OCFile> allFiles = getAllFiles();
-        for (OCFile ocFile: allFiles) {
-            boolean condition = false;
-            if (filterType == OCFileFilterType.Shared) {
-                condition = ocFile.isShared();
-            } else if (filterType == OCFileFilterType.Favorite) {
-                condition = ocFile.isFavorite();
-            }
-
-            if (condition) {
-                result.add(ocFile);
-            }
-        }
-
-        return result;
     }
 
     @Nullable
