@@ -49,6 +49,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.ionos.player.model.PlaybackModel;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkConstants;
@@ -208,6 +209,9 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Inject
     ClientFactory clientFactory;
 
+    @Inject
+    PlaybackModel playbackModel;
+    
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -676,6 +680,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void openAddAccount() {
+        stopMediaPlayerAndHidePip();
         if (MDMConfig.INSTANCE.showIntro(this)) {
             Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
             firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
@@ -683,6 +688,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else {
             startAccountCreation();
         }
+    }
+
+    protected void stopMediaPlayerAndHidePip() {
+        playbackModel.release();
     }
 
     private void startSharedSearch(MenuItem menuItem) {
