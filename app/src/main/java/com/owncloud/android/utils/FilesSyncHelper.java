@@ -10,6 +10,7 @@
 package com.owncloud.android.utils;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -114,7 +115,25 @@ public final class FilesSyncHelper {
                 return false;
             }
 
-            repository.insertOrReplace(filePath, file.lastModified(), syncedFolder);
+            Long creationTimeMs = null;
+            String[] projection = { MediaStore.MediaColumns.DATE_ADDED };
+            try (Cursor cursor = context.getContentResolver()
+                .query(contentUri, projection, null, null, null)) {
+
+                if (cursor != null && cursor.moveToFirst()) {
+                    int idxAdded = cursor.getColumnIndex(MediaStore.MediaColumns.DATE_ADDED);
+                    if (idxAdded != -1) {
+                        long dateAddedSec = cursor.getLong(idxAdded);
+                        creationTimeMs = dateAddedSec * 1000;
+                    } else {
+                        Log_OC.w(TAG, "DATE_ADDED missing for: " + filePath);
+                    }
+                }
+            } catch (Exception e) {
+                Log_OC.w(TAG, "Could not query creation time for: " + filePath);
+            }
+
+            repository.insertOrReplace(filePath, file.lastModified(), creationTimeMs, syncedFolder);
         }
 
         Log_OC.d(TAG, "changed content uris successfully stored");

@@ -12,6 +12,7 @@ import android.net.Uri
 import android.provider.MediaStore
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.entity.FilesystemEntity
+import com.nextcloud.utils.extensions.shouldSkipFile
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.SyncedFolderUtils
@@ -69,7 +70,11 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
     }
 
     fun insert(uri: Uri, syncedFolder: SyncedFolder) {
-        val projection = arrayOf(MediaStore.MediaColumns.DATA)
+        val projection = arrayOf(
+            MediaStore.MediaColumns.DATA,
+            MediaStore.MediaColumns.DATE_MODIFIED,
+            MediaStore.MediaColumns.DATE_ADDED
+        )
 
         var syncedPath = syncedFolder.localPath
         if (syncedPath.isNullOrEmpty()) {
@@ -95,19 +100,41 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
         )
 
         cursor?.use {
-            val columnIndexData = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)
-            var count = 0
+            val idxData = cursor.getColumnIndex(MediaStore.MediaColumns.DATA)
+            val idxModified = cursor.getColumnIndex(MediaStore.MediaColumns.DATE_MODIFIED)
+            val idxAdded = cursor.getColumnIndex(MediaStore.MediaColumns.DATE_ADDED)
+
+            if (idxData == -1) {
+                Log_OC.e(TAG, "MediaStore column DATA missing — cannot process URI: $uri")
+                return
+            }
 
             while (cursor.moveToNext()) {
-                val filePath = cursor.getString(columnIndexData)
-                Log_OC.d(TAG, "Found file in synced folder: $filePath")
-                insertOrReplace(filePath, null, syncedFolder)
-                count++
+                val filePath = cursor.getString(idxData)
+
+                val lastModifiedMs =
+                    if (idxModified != -1) cursor.getLong(idxModified) * 1000
+                    else File(filePath).lastModified().also {
+                        Log_OC.w(TAG, "DATE_MODIFIED missing, fallback to File.lastModified() for $filePath")
+                    }
+
+                val creationTimeMs =
+                    if (idxAdded != -1) cursor.getLong(idxAdded) * 1000
+                    else null.also {
+                        Log_OC.w(TAG, "DATE_ADDED missing, creationTime=null for $filePath")
+                    }
+
+                Log_OC.d(
+                    TAG,
+                    "Found file: $filePath (created=$creationTimeMs, modified=$lastModifiedMs)"
+                )
+
+                insertOrReplace(filePath, lastModifiedMs, creationTimeMs, syncedFolder)
             }
-        } ?: Log_OC.w(TAG, "Cursor is null for URI: $uri")
+        }
     }
 
-    fun insertOrReplace(localPath: String?, lastModified: Long?, syncedFolder: SyncedFolder) {
+    fun insertOrReplace(localPath: String?, lastModified: Long?, creationTime: Long?, syncedFolder: SyncedFolder) {
         try {
             if (localPath == null) {
                 Log_OC.w(TAG, "localPath path not exists: $localPath")
@@ -117,6 +144,12 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
             val file = File(localPath)
             if (!file.exists()) {
                 Log_OC.w(TAG, "local file does not exist, cannot insert or replace: $localPath")
+                return
+            }
+
+            val fileModified = (lastModified ?: file.lastModified())
+            val shouldSkipFileBasedOnFolderSettings = syncedFolder.shouldSkipFile(file, fileModified, creationTime)
+            if (shouldSkipFileBasedOnFolderSettings) {
                 return
             }
 
@@ -140,7 +173,7 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
                 fileSentForUpload = 0,
                 syncedFolderId = syncedFolder.id.toString(),
                 crc32 = crc?.toString(),
-                fileModified = lastModified ?: file.lastModified()
+                fileModified = fileModified
             )
 
             Log_OC.d(TAG, "inserting new file system entity: $newEntity")
