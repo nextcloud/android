@@ -104,8 +104,6 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
                 insertOrReplace(filePath, null, syncedFolder)
                 count++
             }
-
-            Log_OC.d(TAG, "Inserted $count files for syncedFolder: ${syncedFolder.id}")
         } ?: Log_OC.w(TAG, "Cursor is null for URI: $uri")
     }
 
