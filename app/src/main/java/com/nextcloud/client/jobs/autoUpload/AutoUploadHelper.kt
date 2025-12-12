@@ -7,9 +7,10 @@
 
 package com.nextcloud.client.jobs.autoUpload
 
-import com.nextcloud.utils.extensions.shouldSkipFile
+import android.provider.MediaStore
+import androidx.core.net.toUri
 import com.nextcloud.utils.extensions.toLocalPath
-import com.owncloud.android.datamodel.FilesystemDataProvider
+import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.IOException
@@ -29,7 +30,66 @@ class AutoUploadHelper {
         private const val MAX_DEPTH = 100
     }
 
-    fun insertCustomFolderIntoDB(folder: SyncedFolder, filesystemDataProvider: FilesystemDataProvider?): Int {
+    fun insertEntries(folder: SyncedFolder, repository: FileSystemRepository) {
+        val enabledTimestampMs = folder.enabledTimestampMs
+        if (!folder.isEnabled || (!folder.isExisting && enabledTimestampMs < 0)) {
+            Log_OC.w(
+                TAG,
+                "Skipping insertDBEntries: enabled=${folder.isEnabled}, " +
+                    "exists=${folder.isExisting}, enabledTs=$enabledTimestampMs"
+            )
+            return
+        }
+
+        when (folder.type) {
+            MediaFolderType.IMAGE -> {
+                repository.insertFromUri(MediaStore.Images.Media.INTERNAL_CONTENT_URI, folder)
+                repository.insertFromUri(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, folder)
+            }
+
+            MediaFolderType.VIDEO -> {
+                repository.insertFromUri(MediaStore.Video.Media.INTERNAL_CONTENT_URI, folder)
+                repository.insertFromUri(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, folder)
+            }
+
+            else -> {
+                insertCustomFolderIntoDB(folder, repository)
+            }
+        }
+    }
+
+    /**
+     * Attempts to get the file path from a content URI string (e.g., content://media/external/images/media/2281)
+     * and checks its type. If the conditions are met, the file is stored for auto-upload.
+     * <p>
+     * If any attempt fails, the method returns {@code false}.
+     *
+     * @param syncedFolder The folder marked for auto-upload.
+     * @param contentUris  An array of content URI strings collected from
+     * {@link ContentObserverWork##checkAndTriggerAutoUpload()}.
+     * @return {@code true} if all changed content URIs were successfully stored; {@code false} otherwise.
+     */
+    fun insertChangedEntries(
+        syncedFolder: SyncedFolder,
+        contentUris: Array<String>?,
+        repository: FileSystemRepository
+    ): Boolean {
+        contentUris?.forEach { uriString ->
+            try {
+                val uri = uriString.toUri()
+                repository.insertFromUri(uri, syncedFolder, true)
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "Invalid URI: $uriString", e)
+                return false
+            }
+        }
+
+        Log_OC.d(TAG, "Changed content URIs successfully stored")
+
+        return true
+    }
+
+    fun insertCustomFolderIntoDB(folder: SyncedFolder, repository: FileSystemRepository): Int {
         val path = Paths.get(folder.localPath)
 
         if (!Files.exists(path)) {
@@ -70,20 +130,9 @@ class AutoUploadHelper {
                             val javaFile = file.toFile()
                             val lastModified = attrs?.lastModifiedTime()?.toMillis() ?: javaFile.lastModified()
                             val creationTime = attrs?.creationTime()?.toMillis()
-
-                            if (folder.shouldSkipFile(javaFile, lastModified, creationTime)) {
-                                skipCount++
-                                return FileVisitResult.CONTINUE
-                            }
-
                             val localPath = file.toLocalPath()
 
-                            filesystemDataProvider?.storeOrUpdateFileValue(
-                                localPath,
-                                lastModified,
-                                javaFile.isDirectory,
-                                folder
-                            )
+                            repository.insertOrReplace(localPath, lastModified, creationTime, folder)
 
                             fileCount++
 
