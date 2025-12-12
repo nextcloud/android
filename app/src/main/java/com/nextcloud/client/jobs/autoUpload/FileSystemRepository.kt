@@ -112,23 +112,17 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
             while (cursor.moveToNext()) {
                 val filePath = cursor.getString(idxData)
 
-                val lastModifiedMs =
-                    if (idxModified != -1) {
-                        cursor.getLong(idxModified) * 1000
-                    } else {
-                        File(filePath).lastModified().also {
-                            Log_OC.w(TAG, "DATE_MODIFIED missing, fallback to File.lastModified() for $filePath")
-                        }
-                    }
+                val lastModifiedMs = if (idxModified != -1) {
+                    cursor.getLong(idxModified) * 1000
+                } else {
+                    null
+                }
 
-                val creationTimeMs =
-                    if (idxAdded != -1) {
-                        cursor.getLong(idxAdded) * 1000
-                    } else {
-                        null.also {
-                            Log_OC.w(TAG, "DATE_ADDED missing, creationTime=null for $filePath")
-                        }
-                    }
+                val creationTimeMs = if (idxAdded != -1) {
+                    cursor.getLong(idxAdded) * 1000
+                } else {
+                    null
+                }
 
                 Log_OC.d(
                     TAG,
