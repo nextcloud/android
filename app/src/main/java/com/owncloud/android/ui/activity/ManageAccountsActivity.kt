@@ -240,6 +240,7 @@ class ManageAccountsActivity :
     }
 
     override fun showFirstRunActivity() {
+		stopMediaPlayerAndHidePip()
         val intent = Intent(applicationContext, FirstRunActivity::class.java).apply {
             putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true)
         }
@@ -249,6 +250,7 @@ class ManageAccountsActivity :
     @Suppress("TooGenericExceptionCaught")
     @SuppressLint("NotifyDataSetChanged")
     override fun startAccountCreation() {
+        stopMediaPlayerAndHidePip()
         val am = AccountManager.get(applicationContext)
         am.addAccount(
             MainApp.getAccountType(this),
