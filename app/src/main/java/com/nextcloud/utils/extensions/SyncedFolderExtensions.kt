@@ -23,6 +23,8 @@ private const val TAG = "SyncedFolderExtensions"
  */
 @Suppress("ReturnCount")
 fun SyncedFolder.shouldSkipFile(file: File, lastModified: Long, creationTime: Long?): Boolean {
+    Log_OC.d(TAG, "Checking file: ${file.name}, lastModified=$lastModified, lastScan=$lastScanTimestampMs")
+
     if (isExcludeHidden && file.isHidden) {
         Log_OC.d(TAG, "Skipping hidden: ${file.absolutePath}")
         return true
