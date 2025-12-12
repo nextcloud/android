@@ -40,6 +40,9 @@ class AccountRemovalDialog :
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
+    @Inject
+    lateinit var playbackModel: PlaybackModel
+
     private var user: User? = null
     private lateinit var alertDialog: AlertDialog
     private var _binding: AccountRemovalDialogBinding? = null
@@ -131,12 +134,17 @@ class AccountRemovalDialog :
      */
     private fun removeAccount() {
         user?.let { user ->
+            stopMediaPlayerAndHidePip()
             if (binding.radioRequestDeletion.isChecked) {
                 DisplayUtils.startLinkIntent(activity, user.server.uri.toString() + DROP_ACCOUNT_URI)
             } else {
                 backgroundJobManager.startAccountRemovalJob(user.accountName, false)
             }
         }
+    }
+
+    private fun stopMediaPlayerAndHidePip() {
+        playbackModel.release()
     }
 
     /**
