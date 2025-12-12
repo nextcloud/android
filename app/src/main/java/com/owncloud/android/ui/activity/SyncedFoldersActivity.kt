@@ -240,6 +240,7 @@ class SyncedFoldersActivity :
         val gridWidth = resources.getInteger(R.integer.media_grid_width)
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
         adapter = SyncedFolderAdapter(
+            lifecycleScope,
             this,
             clock,
             gridWidth,
