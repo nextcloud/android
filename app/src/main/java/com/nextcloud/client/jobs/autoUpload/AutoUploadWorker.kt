@@ -42,7 +42,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -230,16 +229,16 @@ class AutoUploadWorker(
     private suspend fun collectFileChangesFromContentObserverWork(contentUris: Array<String>?) = try {
         withContext(Dispatchers.IO) {
             if (contentUris.isNullOrEmpty()) {
-                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, helper, repository)
+                helper.insertEntries(syncedFolder, repository)
             } else {
-                val isContentUrisStored = FilesSyncHelper.insertChangedEntries(syncedFolder, contentUris, repository)
+                val isContentUrisStored = helper.insertChangedEntries(syncedFolder, contentUris, repository)
                 if (!isContentUrisStored) {
                     Log_OC.w(
                         TAG,
                         "changed content uris not stored, fallback to insert all db entries to not lose files"
                     )
 
-                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, helper, repository)
+                    helper.insertEntries(syncedFolder, repository)
                 }
             }
             syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
