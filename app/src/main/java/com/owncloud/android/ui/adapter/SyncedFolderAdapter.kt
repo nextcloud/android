@@ -17,6 +17,7 @@ import android.widget.PopupMenu
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.google.android.material.button.MaterialButton
@@ -40,6 +41,9 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncMediaThumbnailDrawable
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.MediaThumbnailGenerationTask
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.Locale
 import java.util.concurrent.Executor
@@ -51,6 +55,7 @@ import java.util.concurrent.TimeUnit
  */
 @Suppress("LongParameterList", "TooManyFunctions")
 class SyncedFolderAdapter(
+    private val lifecycleScope: LifecycleCoroutineScope,
     private val context: Context,
     private val clock: Clock,
     private val gridWidth: Int,
@@ -313,15 +318,19 @@ class SyncedFolderAdapter(
     }
 
     private fun initNextScanIndicator(holder: HeaderViewHolder, syncedFolder: SyncedFolder) {
-        val scanIndicatorText = getNextScanIndicatorText(syncedFolder)
+        lifecycleScope.launch(Dispatchers.IO) {
+            val scanIndicatorText = getNextScanIndicatorText(syncedFolder)
 
-        holder.binding.scanIndicatorText.setVisibleIf(syncedFolder.isEnabled && (scanIndicatorText != null))
+            withContext(Dispatchers.Main) {
+                holder.binding.scanIndicatorText.setVisibleIf(syncedFolder.isEnabled && (scanIndicatorText != null))
 
-        if (holder.binding.scanIndicatorText.isVisible) {
-            setMaxWidthOfScanIndicatorText(holder)
-            holder.binding.scanIndicatorText.text = scanIndicatorText
-        } else {
-            setBottomMarginOfTitle(holder)
+                if (holder.binding.scanIndicatorText.isVisible) {
+                    setMaxWidthOfScanIndicatorText(holder)
+                    holder.binding.scanIndicatorText.text = scanIndicatorText
+                } else {
+                    setBottomMarginOfTitle(holder)
+                }
+            }
         }
     }
 
