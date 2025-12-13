@@ -71,13 +71,11 @@ import com.nextcloud.client.media.PlayerServiceConnection
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
-import com.nextcloud.model.ToolbarItem
-import com.nextcloud.model.ToolbarStyle
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerState.FileDownloadCompleted
 import com.nextcloud.model.WorkerState.FileDownloadStarted
-import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.model.WorkerState.FileUploadCompleted
+import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
@@ -91,7 +89,6 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.FilesBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.OCFileDepth
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.files.services.NameCollisionPolicy
@@ -310,6 +307,11 @@ class FileDisplayActivity :
         mSwitchAccountButton.setOnClickListener { v: View? -> showManageAccountsDialog() }
         mNotificationButton.setOnClickListener { v: View? -> startActivity(NotificationsActivity::class.java) }
         fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout)
+
+        // reset ui states when file display activity created/recrated
+        listOfFilesFragment?.resetSearchAttributes()
+        menuItemId = R.id.nav_all_files
+        setNavigationViewItemChecked()
     }
 
     private fun initTaskRetainerFragment() {
@@ -535,7 +537,7 @@ class FileDisplayActivity :
         }
 
         /** reset views */
-        resetTitleBarAndScrolling()
+        resetScrollingAndUpdateActionBar()
     }
 
     // region Handle Intents
@@ -573,6 +575,12 @@ class FileDisplayActivity :
                 menuItemId = R.id.nav_groupfolders
                 leftFragment = GroupfolderListFragment()
                 supportFragmentManager.executePendingTransactions()
+            }
+
+            ON_DEVICE == action -> {
+                refreshOrInitOCFileListFragment()
+                listOfFilesFragment?.setCurrentSearchType(SearchType.ON_DEVICE)
+                updateActionBarTitleAndHomeButton(null)
             }
         }
     }
@@ -634,6 +642,8 @@ class FileDisplayActivity :
                 }
             }
         }
+
+        listOfFilesFragment?.setCurrentSearchType(searchEvent)
     }
     // endregion
 
@@ -791,8 +801,8 @@ class FileDisplayActivity :
             return null
         }
 
-    protected fun resetTitleBarAndScrolling() {
-        updateActionBarTitleAndHomeButton(null)
+    protected fun resetScrollingAndUpdateActionBar() {
+        updateActionBarTitleAndHomeButton(file)
         resetScrolling(true)
     }
 
@@ -1156,62 +1166,71 @@ class FileDisplayActivity :
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    when {
-                        isSearchOpen() -> {
-                            isEnabled = false
-                            resetSearchAction()
-                        }
-
-                        isDrawerOpen -> {
-                            isEnabled = false
-                            onBackPressedDispatcher.onBackPressed()
-                        }
-
-                        leftFragment is OCFileListFragment -> {
-                            val fragment = leftFragment as OCFileListFragment
-
-                            when {
-                                // root
-                                isRoot(getCurrentDir()) -> {
-                                    if (fragment.shouldNavigateBackToAllFiles()) {
-                                        navigateToAllFiles()
-                                    } else {
-                                        finish()
-                                    }
-                                }
-
-                                // shared root
-                                fragment is SharedListFragment && fragment.fileDepth == OCFileDepth.Root -> {
-                                    openDrawer()
-                                }
-
-                                fragment is SharedListFragment && fragment.fileDepth == OCFileDepth.FirstLevel -> {
-                                    openSharedTab()
-                                }
-
-                                // Normal folder navigation (go up) also works for shared tab
-                                else -> {
-                                    browseUp(fragment)
-                                }
-                            }
-                        }
-
-                        else -> {
-                            isEnabled = false
-                            popBack()
-                        }
-                    }
+                    handleBackPressImpl(before = {
+                        isEnabled = false
+                    }, after = {
+                        isEnabled = true
+                    })
                 }
             }
         )
+    }
+
+    private fun handleBackPressImpl(before: () -> Unit = {}, after: () -> Unit = {}) {
+        when {
+            isSearchOpen() -> {
+                before()
+                resetSearchAction()
+                after()
+            }
+
+            isDrawerOpen -> {
+                before()
+                closeDrawer()
+                after()
+            }
+
+            leftFragment is OCFileListFragment -> {
+                before()
+                handleOCFileListFragmentBackPress()
+                after()
+            }
+
+            else -> {
+                before()
+                popBack()
+                after()
+            }
+        }
+    }
+
+    private fun handleOCFileListFragmentBackPress() {
+        val fragment = leftFragment as OCFileListFragment
+
+        when {
+            // root
+            isRoot(getCurrentDir()) -> {
+                if (fragment.shouldNavigateBackToAllFiles()) {
+                    navigateToAllFiles()
+                } else {
+                    finish()
+                }
+            }
+
+            // Normal folder navigation (go up) also works for shared tab
+            else -> {
+                browseUp(fragment)
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
             when {
                 shouldOpenDrawer() -> openDrawer()
-                isSearchOpen() -> resetSearchAction()
-                else -> onBackPressedDispatcher.onBackPressed()
+                else -> {
+                    handleBackPressImpl()
+                }
             }
             true
         }
@@ -1235,8 +1254,8 @@ class FileDisplayActivity :
             listOfFiles.registerFabListener()
         }
 
-        resetTitleBarAndScrolling()
-        configureToolbar()
+        resetScrollingAndUpdateActionBar()
+        configureMenuItem()
         startMetadataSyncForCurrentDir()
     }
 
@@ -1264,20 +1283,20 @@ class FileDisplayActivity :
 
         if (leftFragment is UnifiedSearchFragment) {
             showSortListGroup(false)
-            onBackPressedDispatcher.onBackPressed()
+            supportFragmentManager.popBackStack()
         }
     }
 
     /**
      * Use this method when want to pop the fragment on back press. It resets Scrolling (See
      * [with true][.resetScrolling] and pop the visibility for sortListGroup (See
-     * [with false][.showSortListGroup]. At last call to onBackPressedDispatcher.onBackPressed()
+     * [with false][.showSortListGroup]. At last call to supportFragmentManager.popBackStack()
      */
     private fun popBack() {
         binding.fabMain.setImageResource(R.drawable.ic_plus)
         resetScrolling(true)
         showSortListGroup(false)
-        onBackPressedDispatcher.onBackPressed()
+        supportFragmentManager.popBackStack()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -1358,7 +1377,7 @@ class FileDisplayActivity :
             localBroadcastManager.registerReceiver(it, downloadIntentFilter)
         }
 
-        configureToolbar()
+        configureMenuItem()
 
         // show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this)
@@ -1387,23 +1406,9 @@ class FileDisplayActivity :
         }
     }
 
-    private fun configureToolbar() {
+    fun configureMenuItem() {
         checkAndSetMenuItemId()
         setNavigationViewItemChecked()
-        val item = ToolbarItem.fromNavId(menuItemId)
-        when (item?.style) {
-            ToolbarStyle.SEARCH -> setupHomeSearchToolbarWithSortAndListButtons()
-            ToolbarStyle.PLAIN -> {
-                if (currentDir?.isRootDirectory == true) {
-                    updateActionBarTitleAndHomeButtonByString(getString(item.titleId))
-                } else {
-                    setupToolbar()
-                }
-            }
-            else -> {
-                setupToolbar()
-            }
-        }
     }
 
     fun initSyncBroadcastReceiver() {
@@ -1535,7 +1540,7 @@ class FileDisplayActivity :
 
     private fun handleRemovedFileFromServer(currentFile: OCFile?, currentDir: OCFile?): OCFile? {
         if (currentFile == null && file?.isFolder == false) {
-            resetTitleBarAndScrolling()
+            resetScrollingAndUpdateActionBar()
             return currentDir
         }
 
@@ -1813,12 +1818,12 @@ class FileDisplayActivity :
             startSyncFolderOperation(root, false)
         }
         binding.fabMain.setImageResource(R.drawable.ic_plus)
-        resetTitleBarAndScrolling()
+        resetScrollingAndUpdateActionBar()
     }
 
     override fun onBrowsedDownTo(directory: OCFile?) {
         file = directory
-        resetTitleBarAndScrolling()
+        resetScrollingAndUpdateActionBar()
         startSyncFolderOperation(directory, false)
         startMetadataSyncForCurrentDir()
     }
@@ -2115,7 +2120,7 @@ class FileDisplayActivity :
             val fileAvailable = storageManager.fileExists(removedFile.fileId)
             if (leftFragment is FileFragment && !fileAvailable && removedFile == leftFragment.file) {
                 file = storageManager.getFileById(removedFile.parentId)
-                resetTitleBarAndScrolling()
+                resetScrollingAndUpdateActionBar()
             }
             val parentFile = storageManager.getFileById(removedFile.parentId)
             if (parentFile != null && parentFile == getCurrentDir()) {
@@ -2321,7 +2326,7 @@ class FileDisplayActivity :
                 leftFragment.updateFileDetails(file, currentUser)
             } else {
                 if (!file.fileExists()) {
-                    resetTitleBarAndScrolling()
+                    resetScrollingAndUpdateActionBar()
                 } else {
                     leftFragment.updateFileDetails(false, true)
                 }
@@ -2572,7 +2577,7 @@ class FileDisplayActivity :
 
     fun configureToolbarForPreview(file: OCFile?) {
         lockScrolling()
-        super.updateActionBarTitleAndHomeButton(file)
+        updateActionBarForFile(file)
     }
 
     /**
@@ -2726,9 +2731,10 @@ class FileDisplayActivity :
 
     override fun showFiles(onDeviceOnly: Boolean, personalFiles: Boolean) {
         super.showFiles(onDeviceOnly, personalFiles)
-        if (onDeviceOnly) {
-            updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_on_device))
-        }
+        refreshOrInitOCFileListFragment()
+    }
+
+    private fun refreshOrInitOCFileListFragment() {
         val ocFileListFragment = this.listOfFilesFragment
         if (ocFileListFragment != null &&
             (ocFileListFragment !is GalleryFragment) &&
@@ -2749,6 +2755,10 @@ class FileDisplayActivity :
             Log_OC.d(this, "Switch to Shared fragment")
             this.leftFragment = SharedListFragment()
         }
+
+        listOfFilesFragment?.setCurrentSearchType(event)
+        updateActionBarTitleAndHomeButton(null)
+        // listOfFilesFragment?.setActionBarTitle()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -3072,6 +3082,7 @@ class FileDisplayActivity :
         const val LIST_GROUPFOLDERS: String = "LIST_GROUPFOLDERS"
         const val SINGLE_USER_SIZE: Int = 1
         const val OPEN_FILE: String = "NC_OPEN_FILE"
+        const val ON_DEVICE = "ON_DEVICE"
 
         const val TAG_PUBLIC_LINK: String = "PUBLIC_LINK"
         const val FTAG_CHOOSER_DIALOG: String = "CHOOSER_DIALOG"

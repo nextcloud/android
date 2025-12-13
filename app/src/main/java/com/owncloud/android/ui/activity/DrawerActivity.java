@@ -87,7 +87,6 @@ import com.owncloud.android.operations.GetCapabilitiesOperation;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
-import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
@@ -177,6 +176,8 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     public static int menuItemId = Menu.NONE;
 
+    private static int previousMenuItemId = Menu.NONE;
+
     /**
      * container layout of the quota view.
      */
@@ -263,39 +264,17 @@ public abstract class DrawerActivity extends ToolbarActivity
             .setVisible(isAssistantAvailable);
     }
 
-    @SuppressFBWarnings("RV")
-    private void handleBottomNavigationViewClicks() {
-        bottomNavigationView.setOnItemSelectedListener(menuItem -> {
-            menuItemId = menuItem.getItemId();
+    private void openFavoritesTab() {
+        resetOnlyPersonalAndOnDevice();
+        setupToolbar();
+        SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
+        launchActivityForSearch(searchEvent, R.id.nav_favorites);
+    }
 
-            exitSelectionMode();
-            resetOnlyPersonalAndOnDevice();
-
-            if (menuItemId == R.id.nav_all_files) {
-                showFiles(false,false);
-                if (this instanceof FileDisplayActivity fda) {
-                    fda.browseToRoot();
-                }
-                EventBus.getDefault().post(new ChangeMenuEvent());
-            } else if (menuItemId == R.id.nav_favorites) {
-                setupToolbar();
-                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
-            } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
-                startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
-            } else if (menuItemId == R.id.nav_gallery) {
-                setupToolbar();
-                startPhotoSearch(menuItem.getItemId());
-            }
-
-            // Remove extra icon from the action bar
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setIcon(null);
-            }
-
-            setNavigationViewItemChecked();
-
-            return false;
-        });
+    private void openMediaTab(int menuItemId) {
+        resetOnlyPersonalAndOnDevice();
+        setupToolbar();
+        startPhotoSearch(menuItemId);
     }
 
     @Nullable
@@ -320,16 +299,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    /**
-     * initializes and sets up the drawer toggle.
-     */
     private void setupDrawerToggle() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-            /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                supportInvalidateOptionsMenu();
-                mDrawerToggle.setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
 
                 if (pendingRunnable != null) {
                     new Handler().post(pendingRunnable);
@@ -338,23 +311,12 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                 closeDrawer();
             }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                mDrawerToggle.setDrawerIndicatorEnabled(true);
-                supportInvalidateOptionsMenu();
-            }
         };
 
-        // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerToggle.setDrawerSlideAnimationEnabled(true);
-        Drawable backArrow = ResourcesCompat.getDrawable(getResources(),
-                                                         R.drawable.ic_arrow_back,
-                                                         null);
-
+        final Drawable backArrow = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_arrow_back, null);
         if (backArrow != null) {
             viewThemeUtils.platform.tintToolbarArrowDrawable(this, mDrawerToggle, backArrow);
         }
@@ -552,12 +514,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_logout, !getResources().getBoolean(R.bool.show_drawer_logout));
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(DummyDrawerEvent event) {
-        unsetAllDrawerMenuItems();
-    }
-
+    // region navigation item click
     private void onNavigationItemClicked(final MenuItem menuItem) {
+        setPreviousMenuItemId(menuItemId);
         int itemId = menuItem.getItemId();
 
         // Settings screen cannot display drawer menu thus no need to highlight
@@ -587,16 +546,11 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             closeDrawer();
         } else if (itemId == R.id.nav_favorites) {
-            resetOnlyPersonalAndOnDevice();
-            setupToolbar();
-            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItem.getItemId());
+            openFavoritesTab();
         } else if (itemId == R.id.nav_gallery) {
-            resetOnlyPersonalAndOnDevice();
-            setupToolbar();
-            startPhotoSearch(menuItem.getItemId());
+            openMediaTab(menuItem.getItemId());
         } else if (itemId == R.id.nav_on_device) {
-            EventBus.getDefault().post(new ChangeMenuEvent());
-            showFiles(true, false);
+            showOnDeviceFiles();
         } else if (itemId == R.id.nav_uploads) {
             resetOnlyPersonalAndOnDevice();
             startActivity(UploadListActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -645,6 +599,53 @@ public abstract class DrawerActivity extends ToolbarActivity
                 Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
             }
         }
+
+        resetFileDepthAndConfigureMenuItem();
+    }
+
+    @SuppressFBWarnings("RV")
+    private void handleBottomNavigationViewClicks() {
+        bottomNavigationView.setOnItemSelectedListener(menuItem -> {
+            setPreviousMenuItemId(menuItemId);
+            menuItemId = menuItem.getItemId();
+
+            exitSelectionMode();
+            resetOnlyPersonalAndOnDevice();
+
+            if (menuItemId == R.id.nav_all_files) {
+                showFiles(false,false);
+                if (this instanceof FileDisplayActivity fda) {
+                    fda.browseToRoot();
+                }
+                EventBus.getDefault().post(new ChangeMenuEvent());
+            } else if (menuItemId == R.id.nav_favorites) {
+                openFavoritesTab();
+            } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
+                startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
+            } else if (menuItemId == R.id.nav_gallery) {
+                openMediaTab(menuItem.getItemId());
+            }
+
+            // Remove extra icon from the action bar
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setIcon(null);
+            }
+
+            setNavigationViewItemChecked();
+            resetFileDepthAndConfigureMenuItem();
+
+            return false;
+        });
+    }
+    // endregion
+
+    private void resetFileDepthAndConfigureMenuItem() {
+        // from navigation user always sees root level
+        resetFileDepth();
+
+        if (this instanceof FileDisplayActivity fda) {
+            fda.configureMenuItem();
+        }
     }
 
     private void startComposeActivity(ComposeDestination destination, int titleId) {
@@ -684,11 +685,15 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    protected void openSharedTab() {
+    private void resetFileDepth() {
         final var ocFileListFragment = getOCFileListFragment();
         if (ocFileListFragment != null) {
             ocFileListFragment.resetFileDepth();
         }
+    }
+
+    protected void openSharedTab() {
+        resetFileDepth();
         resetOnlyPersonalAndOnDevice();
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
         launchActivityForSearch(searchEvent, R.id.nav_shared);
@@ -706,19 +711,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         MainApp.showOnlyFilesOnDevice(false);
 
         launchActivityForSearch(searchEvent, id);
-    }
-
-    private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
-        if (this instanceof FileDisplayActivity) {
-            final Fragment leftFragment = ((FileDisplayActivity) this).getLeftFragment();
-            if (leftFragment instanceof GalleryFragment || leftFragment instanceof SharedListFragment) {
-                launchActivityForSearch(searchEvent, menuItemId);
-            } else {
-                EventBus.getDefault().post(searchEvent);
-            }
-        } else {
-            launchActivityForSearch(searchEvent, menuItemId);
-        }
     }
 
     private void launchActivityForSearch(SearchEvent searchEvent, int menuItemId) {
@@ -880,14 +872,18 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void unsetAllDrawerMenuItems() {
         if (drawerNavigationView != null) {
-            drawerNavigationView.getMenu();
             Menu menu = drawerNavigationView.getMenu();
             for (int i = 0; i < menu.size(); i++) {
                 menu.getItem(i).setChecked(false);
             }
         }
 
-        menuItemId = Menu.NONE;
+        if (bottomNavigationView != null) {
+            Menu menu = bottomNavigationView.getMenu();
+            for (int i = 0; i < menu.size(); i++) {
+                menu.getItem(i).setChecked(false);
+            }
+        }
     }
 
     private void updateQuotaLink() {
@@ -963,12 +959,19 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     @SuppressFBWarnings("RV")
     public void setNavigationViewItemChecked() {
+        unsetAllDrawerMenuItems();
+
+        // Don't check any items
+        if (menuItemId == Menu.NONE) {
+            return;
+        }
+
         if (drawerNavigationView != null) {
             MenuItem menuItem = drawerNavigationView.getMenu().findItem(menuItemId);
 
             if (menuItem != null && !menuItem.isChecked()) {
-                viewThemeUtils.platform.colorNavigationView(drawerNavigationView);
                 menuItem.setChecked(true);
+                viewThemeUtils.platform.colorNavigationView(drawerNavigationView);
             }
         }
 
@@ -1260,6 +1263,16 @@ public abstract class DrawerActivity extends ToolbarActivity
         startActivity(intent);
     }
 
+    private void showOnDeviceFiles() {
+        MainApp.showOnlyFilesOnDevice(true);
+        MainApp.showOnlyPersonalFiles(false);
+
+        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setAction(FileDisplayActivity.ON_DEVICE);
+        startActivity(intent);
+    }
+
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
         if (callContext instanceof MenuItem menuItem) {
@@ -1443,5 +1456,27 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else if (this instanceof UploadFilesActivity uploadFilesActivity) {
             uploadFilesActivity.setupStoragePermissionWarningBanner();
         }
+    }
+
+    public static boolean isToolbarStyleSearch() {
+        return menuItemId == Menu.NONE ||
+            menuItemId == R.id.nav_all_files ||
+            menuItemId == R.id.nav_personal_files;
+    }
+
+    public static boolean isMenuItemIdBelongsToSearchType() {
+        return menuItemId == R.id.nav_favorites ||
+            menuItemId == R.id.nav_shared ||
+            menuItemId == R.id.nav_on_device ||
+            menuItemId == R.id.nav_recently_modified ||
+            menuItemId == R.id.nav_gallery;
+    }
+
+    public static int getPreviousMenuItemId() {
+        return previousMenuItemId;
+    }
+
+    public static void setPreviousMenuItemId(int menuItemId) {
+        previousMenuItemId = menuItemId;
     }
 }
