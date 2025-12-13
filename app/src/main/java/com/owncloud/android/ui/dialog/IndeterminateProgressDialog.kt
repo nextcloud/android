@@ -59,8 +59,8 @@ class IndeterminateProgressDialog :
     }
 
     companion object {
-        private val ARG_MESSAGE_ID = IndeterminateProgressDialog::class.java.canonicalName?.plus(".ARG_MESSAGE_ID")
-        private val ARG_CANCELABLE = IndeterminateProgressDialog::class.java.canonicalName?.plus(".ARG_CANCELABLE")
+        private val ARG_MESSAGE_ID = IndeterminateProgressDialog::class.java.canonicalName!!.plus(".ARG_MESSAGE_ID")
+        private val ARG_CANCELABLE = IndeterminateProgressDialog::class.java.canonicalName!!.plus(".ARG_CANCELABLE")
 
         /**
          * Public factory method to get dialog instances.

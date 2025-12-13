@@ -276,12 +276,9 @@ open class FolderPickerActivity :
         super.onResume()
         Log_OC.e(TAG, "onResume() start")
 
-        val extraFolder = intent.getParcelableArgument(EXTRA_FOLDER.toString(), OCFile::class.java)
-        if (extraFolder != null) {
-            file = extraFolder
-        } else {
-            file = listOfFilesFragment?.currentFile
-        }
+        val extraFolder = intent.getParcelableArgument(EXTRA_FOLDER, OCFile::class.java)
+        file = extraFolder ?: listOfFilesFragment?.currentFile
+
         refreshListOfFilesFragment(file)
         updateUiElements()
 
@@ -659,20 +656,20 @@ open class FolderPickerActivity :
 
     companion object {
         @JvmField
-        val EXTRA_FOLDER = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_FOLDER")
+        val EXTRA_FOLDER = FolderPickerActivity::class.java.canonicalName!!.plus(".EXTRA_FOLDER")
 
         @JvmField
         @Deprecated(
             """This leads to crashes when too many files are passed. Use EXTRA_FILE_PATHS instead, or
       better yet, store the target files wherever you need to use them instead of passing them through this activity."""
         )
-        val EXTRA_FILES = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_FILES")
+        val EXTRA_FILES = FolderPickerActivity::class.java.canonicalName!!.plus(".EXTRA_FILES")
 
         @JvmField
-        val EXTRA_FILE_PATHS = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_FILE_PATHS")
+        val EXTRA_FILE_PATHS = FolderPickerActivity::class.java.canonicalName!!.plus(".EXTRA_FILE_PATHS")
 
         @JvmField
-        val EXTRA_ACTION = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_ACTION")
+        val EXTRA_ACTION = FolderPickerActivity::class.java.canonicalName!!.plus(".EXTRA_ACTION")
 
         const val MOVE_OR_COPY = "MOVE_OR_COPY"
         const val CHOOSE_LOCATION = "CHOOSE_LOCATION"
