@@ -1181,7 +1181,7 @@ class FileDisplayActivity :
 
             isDrawerOpen -> {
                 before()
-                onBackPressedDispatcher.onBackPressed()
+                closeDrawer()
                 after()
             }
 
@@ -1278,20 +1278,20 @@ class FileDisplayActivity :
 
         if (leftFragment is UnifiedSearchFragment) {
             showSortListGroup(false)
-            onBackPressedDispatcher.onBackPressed()
+            supportFragmentManager.popBackStack()
         }
     }
 
     /**
      * Use this method when want to pop the fragment on back press. It resets Scrolling (See
      * [with true][.resetScrolling] and pop the visibility for sortListGroup (See
-     * [with false][.showSortListGroup]. At last call to onBackPressedDispatcher.onBackPressed()
+     * [with false][.showSortListGroup]. At last call to supportFragmentManager.popBackStack()
      */
     private fun popBack() {
         binding.fabMain.setImageResource(R.drawable.ic_plus)
         resetScrolling(true)
         showSortListGroup(false)
-        onBackPressedDispatcher.onBackPressed()
+        supportFragmentManager.popBackStack()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
