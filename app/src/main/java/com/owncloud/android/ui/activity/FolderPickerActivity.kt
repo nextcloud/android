@@ -25,6 +25,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FilesFolderPickerBinding
@@ -188,7 +189,7 @@ open class FolderPickerActivity :
             folder = file
         }
 
-        listOfFilesFragment?.listDirectory(folder, false, false)
+        listOfFilesFragment?.listDirectory(folder, false)
         startSyncFolderOperation(folder, false)
         updateUiElements()
     }
@@ -275,8 +276,10 @@ open class FolderPickerActivity :
         super.onResume()
         Log_OC.e(TAG, "onResume() start")
 
-        refreshListOfFilesFragment(false)
-        file = listOfFilesFragment?.currentFile
+        val extraFolder = intent.getParcelableArgument(EXTRA_FOLDER, OCFile::class.java)
+        file = extraFolder ?: listOfFilesFragment?.currentFile
+
+        refreshListOfFilesFragment(file)
         updateUiElements()
 
         val intentFilter = getSyncIntentFilter()
@@ -351,14 +354,14 @@ open class FolderPickerActivity :
             }
         }
 
-    private fun refreshListOfFilesFragment(fromSearch: Boolean) {
-        listOfFilesFragment?.listDirectory(false, fromSearch)
+    private fun refreshListOfFilesFragment(directory: OCFile?) {
+        listOfFilesFragment?.listDirectory(directory, false)
     }
 
     fun browseToRoot() {
         listOfFilesFragment?.let {
             val root = storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
-            it.listDirectory(root, false, false)
+            it.listDirectory(root, false)
             file = it.currentFile
             updateUiElements()
             startSyncFolderOperation(root, false)
@@ -560,7 +563,7 @@ open class FolderPickerActivity :
                             currentFile = currentDir
                         }
                         if (currentDir.remotePath == syncFolderRemotePath) {
-                            listOfFilesFragment?.listDirectory(currentDir, false, false)
+                            listOfFilesFragment?.listDirectory(currentDir, false)
                         }
                         file = currentFile
                     }
@@ -653,20 +656,20 @@ open class FolderPickerActivity :
 
     companion object {
         @JvmField
-        val EXTRA_FOLDER = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_FOLDER")
+        val EXTRA_FOLDER = FolderPickerActivity::class.java.canonicalName!!.plus(".EXTRA_FOLDER")
 
         @JvmField
         @Deprecated(
             """This leads to crashes when too many files are passed. Use EXTRA_FILE_PATHS instead, or
       better yet, store the target files wherever you need to use them instead of passing them through this activity."""
         )
-        val EXTRA_FILES = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_FILES")
+        val EXTRA_FILES = FolderPickerActivity::class.java.canonicalName!!.plus(".EXTRA_FILES")
 
         @JvmField
-        val EXTRA_FILE_PATHS = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_FILE_PATHS")
+        val EXTRA_FILE_PATHS = FolderPickerActivity::class.java.canonicalName!!.plus(".EXTRA_FILE_PATHS")
 
         @JvmField
-        val EXTRA_ACTION = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_ACTION")
+        val EXTRA_ACTION = FolderPickerActivity::class.java.canonicalName!!.plus(".EXTRA_ACTION")
 
         const val MOVE_OR_COPY = "MOVE_OR_COPY"
         const val CHOOSE_LOCATION = "CHOOSE_LOCATION"
