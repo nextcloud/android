@@ -713,19 +713,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         launchActivityForSearch(searchEvent, id);
     }
 
-    private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
-        if (this instanceof FileDisplayActivity) {
-            final Fragment leftFragment = ((FileDisplayActivity) this).getLeftFragment();
-            if (leftFragment instanceof GalleryFragment || leftFragment instanceof SharedListFragment) {
-                launchActivityForSearch(searchEvent, menuItemId);
-            } else {
-                EventBus.getDefault().post(searchEvent);
-            }
-        } else {
-            launchActivityForSearch(searchEvent, menuItemId);
-        }
-    }
-
     private void launchActivityForSearch(SearchEvent searchEvent, int menuItemId) {
         DrawerActivity.menuItemId = menuItemId;
         Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
@@ -1475,6 +1462,14 @@ public abstract class DrawerActivity extends ToolbarActivity
         return menuItemId == Menu.NONE ||
             menuItemId == R.id.nav_all_files ||
             menuItemId == R.id.nav_personal_files;
+    }
+
+    public static boolean isMenuItemIdBelongsToSearchType() {
+        return menuItemId == R.id.nav_favorites ||
+            menuItemId == R.id.nav_shared ||
+            menuItemId == R.id.nav_on_device ||
+            menuItemId == R.id.nav_recently_modified ||
+            menuItemId == R.id.nav_gallery;
     }
 
     public static int getPreviousMenuItemId() {
