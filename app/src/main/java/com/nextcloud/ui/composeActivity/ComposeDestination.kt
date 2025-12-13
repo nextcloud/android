@@ -9,10 +9,12 @@ package com.nextcloud.ui.composeActivity
 
 sealed class ComposeDestination(val id: Int) {
     data class AssistantScreen(val sessionId: Long?) : ComposeDestination(0)
+    data class ClientIntegrationScreen(val sessionId: Long?) : ComposeDestination(1)
 
     companion object {
         fun fromId(id: Int): ComposeDestination = when (id) {
             0 -> AssistantScreen(null)
+            1 -> ClientIntegrationScreen(null)
             else -> throw IllegalArgumentException("Unknown destination: $id")
         }
     }

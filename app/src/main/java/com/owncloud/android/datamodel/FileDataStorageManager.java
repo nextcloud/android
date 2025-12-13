@@ -2296,6 +2296,8 @@ public class FileDataStorageManager {
         
         contentValues.put(ProviderTableMeta.CAPABILITIES_HAS_VALID_SUBSCRIPTION, capability.getHasValidSubscription().getValue());
 
+        contentValues.put(ProviderTableMeta.CAPABILITIES_CLIENT_INTEGRATION_JSON, capability.getClientIntegrationJson());
+
         return contentValues;
     }
 
@@ -2481,6 +2483,8 @@ public class FileDataStorageManager {
 
             capability.setDefaultPermissions(getInt(cursor, ProviderTableMeta.CAPABILITIES_DEFAULT_PERMISSIONS));
             capability.setHasValidSubscription(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_HAS_VALID_SUBSCRIPTION));
+
+            capability.setClientIntegrationJson(getString(cursor, ProviderTableMeta.CAPABILITIES_CLIENT_INTEGRATION_JSON));
         }
 
         return capability;

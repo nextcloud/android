@@ -1474,4 +1474,6 @@
 
     <string name="failed_to_create_conflict_dialog">Failed to create conflict dialog</string>
     <string name="editor_web_view_cannot_open_file">Cannot open file chooser</string>
+    <string name="failed_to_start_action">Failed to start action!</string>
+    <string name="action_triggered">Action triggered</string>
 </resources>

@@ -36,7 +36,7 @@ public class GetCapabilitiesOperation extends SyncOperation {
             currentCapability = storageManager.getCapability(storageManager.getUser().getAccountName());
         }
 
-        RemoteOperationResult result = new GetCapabilitiesRemoteOperation(currentCapability).execute(client);
+        RemoteOperationResult result = new GetCapabilitiesRemoteOperation(null).execute(client);
 
         if (result.isSuccess()
                 && result.getData() != null && result.getData().size() > 0) {
