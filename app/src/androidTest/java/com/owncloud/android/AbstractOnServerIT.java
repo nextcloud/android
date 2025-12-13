@@ -36,6 +36,7 @@ import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.utils.MimeType;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -54,7 +55,16 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Common base for all integration tests.
+ * Common base for all integration tests requiring a server connection.
+ * ATTENTION: Deletes ALL files of the test user on the server after each test run.
+ * So you MUST use a dedicated test user.
+ *
+ * Uses server, user and password given as `testInstrumentationRunnerArgument`
+ * - TEST_SERVER_URL
+ * - TEST_SERVER_USERNAME
+ * - TEST_SERVER_PASSWORD
+ * These are supplied via build.gradle, which takes them from gradle.properties.
+ * So look in the latter file to set to your own server & test user.
  */
 public abstract class AbstractOnServerIT extends AbstractIT {
     @BeforeClass
@@ -121,6 +131,11 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         super.after();
     }
 
+    private static boolean isFolder(RemoteFile file) {
+        // TODO: should probably move to RemoteFile class
+        return MimeType.DIRECTORY.equals(file.getMimeType()) || MimeType.WEBDAV_FOLDER.equals(file.getMimeType());
+    }
+
     public static void deleteAllFilesOnServer() {
         RemoteOperationResult result = new ReadFolderRemoteOperation("/").execute(client);
         assertTrue(result.getLogMessage(), result.isSuccess());
@@ -137,6 +152,13 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                     boolean operationResult = operation
                         .execute(client)
                         .isSuccess();
+
+                    if (!operationResult && isFolder(remoteFile)) {
+                        // Deleting encrypted folder is not possible due to bug
+                        // https://github.com/nextcloud/end_to_end_encryption/issues/421
+                        // Toggling encryption also fails, when the folder is not empty. So we ignore this folder
+                        continue;
+                    }
 
                     assertTrue(operationResult);
                 }
