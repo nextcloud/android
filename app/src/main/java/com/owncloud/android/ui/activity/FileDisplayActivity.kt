@@ -1161,53 +1161,71 @@ class FileDisplayActivity :
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    when {
-                        isSearchOpen() -> {
-                            isEnabled = false
-                            resetSearchAction()
-                        }
-
-                        isDrawerOpen -> {
-                            isEnabled = false
-                            onBackPressedDispatcher.onBackPressed()
-                        }
-
-                        leftFragment is OCFileListFragment -> {
-                            val fragment = leftFragment as OCFileListFragment
-
-                            when {
-                                // root
-                                isRoot(getCurrentDir()) -> {
-                                    if (fragment.shouldNavigateBackToAllFiles()) {
-                                        navigateToAllFiles()
-                                    } else {
-                                        finish()
-                                    }
-                                }
-
-                                // Normal folder navigation (go up) also works for shared tab
-                                else -> {
-                                    browseUp(fragment)
-                                }
-                            }
-                        }
-
-                        else -> {
-                            isEnabled = false
-                            popBack()
-                        }
-                    }
+                    handleBackPressImpl(before = {
+                        isEnabled = false
+                    }, after = {
+                        isEnabled = true
+                    })
                 }
             }
         )
+    }
+
+    private fun handleBackPressImpl(before: () -> Unit = {}, after: () -> Unit = {}) {
+        when {
+            isSearchOpen() -> {
+                before()
+                resetSearchAction()
+                after()
+            }
+
+            isDrawerOpen -> {
+                before()
+                onBackPressedDispatcher.onBackPressed()
+                after()
+            }
+
+            leftFragment is OCFileListFragment -> {
+                before()
+                handleOCFileListFragmentBackPress()
+                after()
+            }
+
+            else -> {
+                before()
+                popBack()
+                after()
+            }
+        }
+    }
+
+    private fun handleOCFileListFragmentBackPress() {
+        val fragment = leftFragment as OCFileListFragment
+
+        when {
+            // root
+            isRoot(getCurrentDir()) -> {
+                if (fragment.shouldNavigateBackToAllFiles()) {
+                    navigateToAllFiles()
+                } else {
+                    finish()
+                }
+            }
+
+            // Normal folder navigation (go up) also works for shared tab
+            else -> {
+                browseUp(fragment)
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
             when {
                 shouldOpenDrawer() -> openDrawer()
-                isSearchOpen() -> resetSearchAction()
-                else -> onBackPressedDispatcher.onBackPressed()
+                else -> {
+                    handleBackPressImpl()
+                }
             }
             true
         }

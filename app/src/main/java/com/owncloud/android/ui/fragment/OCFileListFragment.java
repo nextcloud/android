@@ -253,12 +253,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onResume() {
-        if (getActivity() == null) {
+        // Don't handle search events if we're coming back from back stack
+        // The fragment has already been properly restored in onCreate/onActivityCreated
+        if (mFile != null) {
+            super.onResume();
             return;
         }
 
-        Intent intent = getActivity().getIntent();
+        final var activity = getActivity();
+        if (activity == null) {
+            return;
+        }
 
+        final Intent intent = activity.getIntent();
         if (IntentExtensionsKt.getParcelableArgument(intent, SEARCH_EVENT, SearchEvent.class) != null) {
             searchEvent = IntentExtensionsKt.getParcelableArgument(intent, SEARCH_EVENT, SearchEvent.class);
         }
