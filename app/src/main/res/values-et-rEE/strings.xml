@@ -676,7 +676,7 @@
     <string name="pass_code_removed">Täiendav salasõna on kustutatud</string>
     <string name="pass_code_stored">Täiendav salasõna on salvestatud</string>
     <string name="pass_code_wrong">Vale täiendav salasõna</string>
-    <string name="pause_upload">Paus</string>
+    <string name="pause_upload">Peata</string>
     <string name="pdf_password_protected">Ei õnnestu avada salasõnaga kaitstud pdf-faili. Palun kasuta välist pdf-failide vaatamise rakendust.</string>
     <string name="permission_allow">Luba</string>
     <string name="permission_deny">Keela</string>
