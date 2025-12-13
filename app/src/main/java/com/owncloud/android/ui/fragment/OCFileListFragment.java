@@ -1784,7 +1784,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         updateSortAndGridMenuItems();
     }
 
-    private void resetSearchAttributes() {
+    public void resetSearchAttributes() {
         searchFragment = false;
         searchEvent = null;
         currentSearchType = NO_SEARCH;
