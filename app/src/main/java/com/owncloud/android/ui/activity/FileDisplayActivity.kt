@@ -307,6 +307,11 @@ class FileDisplayActivity :
         mSwitchAccountButton.setOnClickListener { v: View? -> showManageAccountsDialog() }
         mNotificationButton.setOnClickListener { v: View? -> startActivity(NotificationsActivity::class.java) }
         fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout)
+
+        // reset ui states when file display activity created/recrated
+        listOfFilesFragment?.resetSearchAttributes()
+        menuItemId = R.id.nav_all_files
+        setNavigationViewItemChecked()
     }
 
     private fun initTaskRetainerFragment() {
