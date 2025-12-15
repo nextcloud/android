@@ -10,11 +10,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.ActionBar
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -82,21 +82,17 @@ class PreviewImageActivity :
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager
 
-    private var actionBar: ActionBar? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        actionBar = supportActionBar
 
         if (savedInstanceState != null &&
             !savedInstanceState.getBoolean(
                 KEY_SYSTEM_VISIBLE,
                 true
             ) &&
-            actionBar != null
+            supportActionBar != null
         ) {
-            actionBar?.hide()
+            supportActionBar?.hide()
         }
 
         setContentView(R.layout.preview_image_activity)
@@ -106,11 +102,14 @@ class PreviewImageActivity :
         setupDrawer()
 
         val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
-        updateActionBarTitleAndHomeButton(chosenFile)
 
-        if (actionBar != null) {
-            viewThemeUtils.files.setWhiteBackButton(this, actionBar!!)
-            actionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.let {
+            updateActionBarTitleAndHomeButton(chosenFile)
+            viewThemeUtils.files.setWhiteBackButton(this, it)
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setBackgroundDrawable(
+                ColorDrawable(ContextCompat.getColor(this, R.color.black))
+            )
         }
 
         fullScreenAnchorView = window.decorView
@@ -147,14 +146,10 @@ class PreviewImageActivity :
     }
 
     fun toggleActionBarVisibility(hide: Boolean) {
-        if (actionBar == null) {
-            return
-        }
-
         if (hide) {
-            actionBar?.hide()
+            supportActionBar?.hide()
         } else {
-            actionBar?.show()
+            supportActionBar?.show()
         }
     }
 
