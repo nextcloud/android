@@ -24,6 +24,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
+import com.owncloud.android.ui.preview.PreviewImageActivity
 import javax.inject.Inject
 
 /**
@@ -96,6 +97,7 @@ class RemoveFilesDialogFragment :
 
         val fileActivity = getTypedActivity(FileActivity::class.java)
         val fda = getTypedActivity(FileDisplayActivity::class.java)
+        val pia = getTypedActivity(PreviewImageActivity::class.java)
         fileActivity?.connectivityService?.isNetworkAndServerAvailable { result ->
             if (result) {
                 fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment))
@@ -110,6 +112,7 @@ class RemoveFilesDialogFragment :
 
                 if (offlineFiles.isNotEmpty()) {
                     fda?.refreshCurrentDirectory()
+                    pia?.initViewPager()
                 }
 
                 fileActivity.dismissLoadingDialog()
@@ -123,6 +126,7 @@ class RemoveFilesDialogFragment :
                 }
 
                 fda?.refreshCurrentDirectory()
+                pia?.initViewPager()
             }
 
             finishActionMode()
