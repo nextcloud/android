@@ -19,6 +19,7 @@ import com.owncloud.android.operations.RefreshFolderOperation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+@Suppress("DEPRECATION", "ReturnCount", "TooGenericExceptionCaught")
 class MetadataWorker(private val context: Context, params: WorkerParameters, private val user: User) :
     CoroutineWorker(context, params) {
 
@@ -27,7 +28,6 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
         const val FILE_PATH = "file_path"
     }
 
-    @Suppress("DEPRECATION", "ReturnCount")
     override suspend fun doWork(): Result {
         val filePath = inputData.getString(FILE_PATH)
         if (filePath == null) {
