@@ -26,10 +26,7 @@ interface FileSystemDao {
           AND ${ProviderMeta.ProviderTableMeta._ID} = :id
         """
     )
-    suspend fun deleteByLocalPathAndId(
-        localPath: String,
-        id: Int
-    )
+    suspend fun deleteByLocalPathAndId(localPath: String, id: Int)
 
     @Query(
         """
