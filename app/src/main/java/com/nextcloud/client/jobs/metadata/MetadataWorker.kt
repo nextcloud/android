@@ -41,7 +41,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
             Log_OC.e(TAG, "❌ Current directory is null. Aborting metadata sync. $filePath")
             return Result.failure()
         }
-        if (currentDir.fileId <= 0) {
+        if (currentDir.hasValidParentId()) {
             Log_OC.e(TAG, "❌ Current directory has invalid ID: ${currentDir.fileId}. Path: $filePath")
             return Result.failure()
         }
@@ -57,7 +57,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
 
         // Re-fetch the folder after refresh to get updated data
         val refreshedDir = storageManager.getFileByPath(filePath)
-        if (refreshedDir == null || refreshedDir.fileId <= 0) {
+        if (refreshedDir == null || refreshedDir.hasValidParentId()) {
             Log_OC.e(TAG, "❌ Directory invalid after refresh. Path: $filePath")
             return Result.failure()
         }
@@ -68,7 +68,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
 
         var failedCount = 0
         subfolders.forEach { subFolder ->
-            if (subFolder.fileId <= 0) {
+            if (subFolder.hasValidParentId()) {
                 Log_OC.e(TAG, "⚠️ Skipping subfolder with invalid ID: ${subFolder.remotePath}")
                 failedCount++
                 return@forEach
@@ -95,7 +95,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
                     "  eTag:         " + folder.etag + "\n" +
                     "  eTagOnServer: " + folder.etagOnServer
             )
-            if (folder.fileId <= 0) {
+            if (folder.hasValidParentId()) {
                 Log_OC.e(TAG, "❌ Folder has invalid ID: ${folder.remotePath}")
                 return@withContext false
             }
