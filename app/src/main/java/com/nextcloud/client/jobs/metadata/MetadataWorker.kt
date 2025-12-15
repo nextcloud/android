@@ -69,7 +69,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
         var failedCount = 0
         subfolders.forEach { subFolder ->
             if (subFolder.hasValidParentId()) {
-                Log_OC.e(TAG, "⚠️ Skipping subfolder with invalid ID: ${subFolder.remotePath}")
+                Log_OC.e(TAG, "❌ Skipping subfolder with invalid ID: ${subFolder.remotePath}")
                 failedCount++
                 return@forEach
             }
