@@ -111,7 +111,7 @@ class OCFileListSearchTask(
                     .sortedBy { it.fileId }
 
                 subDirectories.forEach { dir ->
-                    fetchRootSubDirContent(dir, fileDataStorageManager, fragment.context)
+                    fetchDirContent(dir, fileDataStorageManager, fragment.context)
                 }
 
                 val sortedNewList = sortSearchData(newList, searchType, null, setNewSortOrder = {
@@ -135,7 +135,7 @@ class OCFileListSearchTask(
 
     fun isFinished(): Boolean = job?.isCompleted == true
 
-    private suspend fun fetchRootSubDirContent(
+    private suspend fun fetchDirContent(
         folder: OCFile,
         storageManager: FileDataStorageManager?,
         context: Context?
