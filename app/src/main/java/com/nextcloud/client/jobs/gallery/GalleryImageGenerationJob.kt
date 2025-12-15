@@ -40,6 +40,8 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         )
         private val activeJobs = WeakHashMap<ImageView, Job>()
 
+        fun getActiveJobs(): WeakHashMap<ImageView, Job> = activeJobs
+
         fun removeActiveJob(imageView: ImageView, job: CoroutineScope) {
             if (isActiveJob(imageView, job)) {
                 removeJob(imageView)
