@@ -321,6 +321,15 @@ class AutoUploadWorker(
 
                 try {
                     var (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
+
+                    // if local file deleted, upload cannot be or retriable thus needs to be removed
+                    if (path.isEmpty() || !file.exists()) {
+                        Log_OC.w(TAG, "detected not existing local file, removing entity")
+                        repository.deleteByLocalPathAndId(path, id)
+                        uploadsStorageManager.removeUpload(upload)
+                        continue
+                    }
+
                     try {
                         // Insert/update to IN_PROGRESS state before starting upload
                         val generatedId = uploadsStorageManager.uploadDao.insertOrReplace(uploadEntity)
@@ -366,10 +375,10 @@ class AutoUploadWorker(
                         "Exception uploadFiles during creating entity and upload, localPath: $localPath, " +
                             "remotePath: $remotePath, exception: $e"
                     )
+                } finally {
+                    // update last id so upload can continue where it left
+                    lastId = id
                 }
-
-                // update last id so upload can continue where it left
-                lastId = id
             }
         }
     }
