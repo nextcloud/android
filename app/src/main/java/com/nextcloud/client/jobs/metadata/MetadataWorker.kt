@@ -102,7 +102,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
 
             if (!folder.isEtagChanged) {
                 Log_OC.d(TAG, "Skipping ${folder.remotePath}, eTag didn't change")
-                return@withContext false
+                return@withContext true
             }
 
             Log_OC.d(TAG, "⏳ Fetching metadata for: ${folder.remotePath}, id: ${folder.fileId}")
