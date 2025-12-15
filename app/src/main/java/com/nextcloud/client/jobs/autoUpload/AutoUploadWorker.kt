@@ -322,7 +322,7 @@ class AutoUploadWorker(
                 try {
                     var (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
 
-                    // if local file deleted, upload cannot be or retriable thus needs to be removed
+                    // if local file deleted, upload process cannot be started or retriable thus needs to be removed
                     if (path.isEmpty() || !file.exists()) {
                         Log_OC.w(TAG, "detected non-existing local file, removing entity")
                         repository.deleteByLocalPathAndId(path, id)
