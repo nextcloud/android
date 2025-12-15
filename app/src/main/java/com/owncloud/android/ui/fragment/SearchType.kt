@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Unpublished <unpublished@gmx.net>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -8,6 +9,7 @@
 package com.owncloud.android.ui.fragment
 
 import android.os.Parcelable
+import com.owncloud.android.R
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -22,7 +24,17 @@ enum class SearchType : Parcelable {
 
     // not a real filter, but nevertheless
     SHARED_FILTER,
-    GROUPFOLDER
+    GROUPFOLDER,
+    ON_DEVICE;
+
+    fun titleId(): Int? = when (this) {
+        FAVORITE_SEARCH -> R.string.drawer_item_favorites
+        GALLERY_SEARCH -> R.string.drawer_item_gallery
+        RECENTLY_MODIFIED_SEARCH -> R.string.drawer_item_recently_modified
+        SHARED_FILTER -> R.string.drawer_item_shared
+        ON_DEVICE -> R.string.drawer_item_on_device
+        else -> null
+    }
 }
 
 @Parcelize

@@ -231,6 +231,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         binding = FileDetailsFragmentBinding.inflate(inflater, container, false);
+        observeWorkerState();
         view = binding.getRoot();
 
         if (getFile() == null || user == null) {
@@ -610,8 +611,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (view != null) {
             view.invalidate();
         }
-
-        observeWorkerState();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -627,6 +626,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void observeWorkerState() {
         ActivityExtensionsKt.observeWorker(requireActivity(), state -> {
+            if (binding == null) {
+                return Unit.INSTANCE;
+            }
+
             if (state instanceof WorkerState.FileUploadStarted) {
                 binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
             } else {
