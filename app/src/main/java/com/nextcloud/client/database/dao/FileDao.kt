@@ -79,7 +79,7 @@ interface FileDao {
       AND file_owner = :accountName 
       AND is_encrypted = 0  
       AND (content_type = :dirType OR content_type = :webdavType)  
-    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    ORDER BY ${ProviderTableMeta._ID} ASC
     """
     )
     fun getNonEncryptedSubfolders(
