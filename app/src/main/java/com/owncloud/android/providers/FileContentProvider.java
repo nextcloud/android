@@ -42,6 +42,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import androidx.sqlite.db.SupportSQLiteQuery;
@@ -234,34 +235,7 @@ public class FileContentProvider extends ContentProvider {
         switch (mUriMatcher.match(uri)) {
             case ROOT_DIRECTORY:
             case SINGLE_FILE:
-                String where = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
-
-                String remotePath = values.getAsString(ProviderTableMeta.FILE_PATH);
-                String accountName = values.getAsString(ProviderTableMeta.FILE_ACCOUNT_OWNER);
-                String[] whereArgs = {remotePath, accountName};
-
-                Cursor doubleCheck = query(db, uri, PROJECTION_FILE_PATH_AND_OWNER, where, whereArgs, null);
-                // ugly patch; serious refactoring is needed to reduce work in
-                // FileDataStorageManager and bring it to FileContentProvider
-                if (!doubleCheck.moveToFirst()) {
-                    doubleCheck.close();
-                    long rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
-                    if (rowId > 0) {
-                        return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
-                    } else {
-                        throw new SQLException(ERROR + uri);
-                    }
-                } else {
-                    // file is already inserted; race condition, let's avoid a duplicated entry
-                    Uri insertedFileUri = ContentUris.withAppendedId(
-                        ProviderTableMeta.CONTENT_URI_FILE,
-                        doubleCheck.getLong(doubleCheck.getColumnIndexOrThrow(ProviderTableMeta._ID))
-                    );
-                    doubleCheck.close();
-
-                    return insertedFileUri;
-                }
-
+                return upsertSingleFile(db, uri, values);
             case SHARES:
                 Uri insertedShareUri;
                 long idShares = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
@@ -341,6 +315,50 @@ public class FileContentProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
+    }
+
+    private Uri upsertSingleFile(SupportSQLiteDatabase db, Uri uri, ContentValues values) {
+        String filePath = values.getAsString(ProviderTableMeta.FILE_PATH);
+        String accountOwner = values.getAsString(ProviderTableMeta.FILE_ACCOUNT_OWNER);
+
+        String where = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
+        String[] whereArgs = {filePath, accountOwner};
+
+        // Try insert first, ignore conflict
+        long rowId = db.insert(
+            ProviderTableMeta.FILE_TABLE_NAME,
+            SQLiteDatabase.CONFLICT_IGNORE,
+            values);
+
+        if (rowId <= 0) {
+            // Already exists: update
+            int count = db.update(
+                ProviderTableMeta.FILE_TABLE_NAME,
+                SQLiteDatabase.CONFLICT_NONE,
+                values,
+                where,
+                whereArgs);
+
+            if (count == 0) {
+                throw new SQLException("Failed to update existing file: " + uri);
+            }
+
+            try (Cursor cursor = db.query(
+                new SimpleSQLiteQuery(
+                    "SELECT " + ProviderTableMeta._ID +
+                        " FROM " + ProviderTableMeta.FILE_TABLE_NAME +
+                        " WHERE " + where,
+                    whereArgs
+                ))) {
+                if (cursor.moveToFirst()) {
+                    rowId = cursor.getLong(0);
+                } else {
+                    throw new SQLException("Failed to fetch ID after update: " + uri);
+                }
+            }
+        }
+
+        return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
     }
 
     private void updateFilesTableAccordingToShareInsertion(SupportSQLiteDatabase db, ContentValues newShare) {
