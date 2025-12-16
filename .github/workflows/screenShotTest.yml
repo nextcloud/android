@@ -28,14 +28,14 @@ jobs:
             -   uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
             -   name: Gradle cache
-                uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+                uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
                 with:
                     path: |
                         ~/.gradle/caches
                         ~/.gradle/wrapper
                     key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
             -   name: AVD cache
-                uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+                uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
                 id: avd-cache
                 with:
                     path: |
@@ -102,7 +102,7 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run: scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}}
             -   name: Archive Espresso results
-                uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+                uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
                 if: ${{ always() }}
                 with:
                     name: Report-${{ matrix.color }}-${{ matrix.scheme }}

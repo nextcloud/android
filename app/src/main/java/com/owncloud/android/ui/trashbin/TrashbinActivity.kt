@@ -90,6 +90,7 @@ class TrashbinActivity :
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
+            isEnabled = false
             trashbinPresenter?.navigateUp()
         }
     }
@@ -292,6 +293,8 @@ class TrashbinActivity :
     }
 
     override fun onPause() {
+        menuItemId = getPreviousMenuItemId()
+        setNavigationViewItemChecked()
         super.onPause()
         active = false
         trashbinListAdapter?.cancelAllPendingTasks()
