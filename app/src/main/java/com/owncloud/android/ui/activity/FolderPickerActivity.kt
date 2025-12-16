@@ -276,7 +276,7 @@ open class FolderPickerActivity :
         super.onResume()
         Log_OC.e(TAG, "onResume() start")
 
-        val extraFolder = intent.getParcelableArgument(EXTRA_FOLDER.toString(), OCFile::class.java)
+        val extraFolder = intent.getParcelableArgument(EXTRA_FOLDER, OCFile::class.java)
         if (extraFolder != null) {
             file = extraFolder
         } else {
@@ -658,8 +658,7 @@ open class FolderPickerActivity :
     }
 
     companion object {
-        @JvmField
-        val EXTRA_FOLDER = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_FOLDER")
+        const val EXTRA_FOLDER = "com.owncloud.android.ui.activity.FolderPickerActivity".plus(".EXTRA_FOLDER")
 
         @JvmField
         @Deprecated(
