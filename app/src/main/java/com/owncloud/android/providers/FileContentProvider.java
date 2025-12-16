@@ -317,7 +317,7 @@ public class FileContentProvider extends ContentProvider {
         }
     }
 
-    private Uri upsertSingleFile(SupportSQLiteDatabase db, Uri uri, ContentValues values) {
+    public Uri upsertSingleFile(SupportSQLiteDatabase db, Uri uri, ContentValues values) {
         String filePath = values.getAsString(ProviderTableMeta.FILE_PATH);
         String accountOwner = values.getAsString(ProviderTableMeta.FILE_ACCOUNT_OWNER);
 
