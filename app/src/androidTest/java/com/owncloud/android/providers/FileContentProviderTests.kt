@@ -26,6 +26,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
+@Suppress("MagicNumber")
 class FileContentProviderTests {
 
     private lateinit var provider: FileContentProvider
