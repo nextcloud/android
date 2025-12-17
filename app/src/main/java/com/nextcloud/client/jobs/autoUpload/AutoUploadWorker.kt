@@ -325,8 +325,7 @@ class AutoUploadWorker(
                     // if local file deleted, upload process cannot be started or retriable thus needs to be removed
                     if (path.isEmpty() || !file.exists()) {
                         Log_OC.w(TAG, "detected non-existing local file, removing entity")
-                        repository.deleteByLocalPathAndId(path, id)
-                        uploadsStorageManager.removeUpload(upload)
+                        deleteNonExistingFile(path, id, upload)
                         continue
                     }
 
@@ -381,6 +380,11 @@ class AutoUploadWorker(
                 }
             }
         }
+    }
+
+    private suspend fun deleteNonExistingFile(path: String, id: Int, upload: OCUpload) {
+        repository.deleteByLocalPathAndId(path, id)
+        uploadsStorageManager.removeUpload(upload)
     }
 
     private fun createEntityAndUpload(user: User, localPath: String, remotePath: String): Pair<UploadEntity, OCUpload> {
