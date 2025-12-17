@@ -19,6 +19,7 @@ import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
@@ -28,6 +29,7 @@ import com.nextcloud.android.lib.resources.clientintegration.ClientIntegrationUI
 import com.nextcloud.android.lib.resources.clientintegration.Element
 import com.nextcloud.android.lib.resources.clientintegration.ElementTypeAdapter
 import com.nextcloud.android.lib.resources.clientintegration.Endpoint
+import com.nextcloud.android.lib.resources.clientintegration.TooltipResponse
 import com.nextcloud.client.account.User
 import com.nextcloud.common.JSONRequestBody
 import com.nextcloud.operations.GetMethod
@@ -170,7 +172,12 @@ class ClientIntegration(
             var output: ClientIntegrationUI?
             try {
                 output = parseClientIntegrationResult(response)
-                startClientIntegration(endpoint, output)
+                if (output.root != null) {
+                    startClientIntegration(endpoint, output)
+                } else {
+                    val tooltipResponse = parseTooltipResult(response)
+                    context.showToast(tooltipResponse.tooltip)
+                }
             } catch (_: JsonSyntaxException) {
                 if (result == HttpStatus.SC_OK) {
                     context.showToast(context.resources.getString(R.string.action_triggered))
@@ -182,9 +189,17 @@ class ClientIntegration(
         }
     }
 
-    private fun startClientIntegration(endpoint: Endpoint, clientIntegrationUI: ClientIntegrationUI) {
+    private fun parseTooltipResult(response: String?): TooltipResponse {
+        val element: JsonElement = JsonParser.parseString(response)
+        return Gson()
+            .fromJson(element, object : TypeToken<ServerResponse<TooltipResponse>>() {})
+            .ocs
+            .data
+    }
+
+    private fun startClientIntegration(endpoint: Endpoint, data: ClientIntegrationUI) {
         sheet.lifecycleScope.launch(Dispatchers.IO) {
-            val integrationScreen = ComposeDestination.ClientIntegrationScreen(endpoint.name, clientIntegrationUI)
+            val integrationScreen = ComposeDestination.ClientIntegrationScreen(endpoint.name, data)
 
             val bundle = Bundle().apply {
                 putParcelable(ComposeActivity.DESTINATION, integrationScreen)
