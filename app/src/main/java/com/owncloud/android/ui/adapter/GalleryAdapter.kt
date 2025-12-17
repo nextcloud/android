@@ -372,4 +372,8 @@ class GalleryAdapter(
     override fun setHighlightedItem(file: OCFile) = Unit
 
     override fun setSortOrder(mFile: OCFile, sortOrder: FileSortOrder) = Unit
+
+    fun cleanup() {
+        ocFileListDelegate.cleanup()
+    }
 }
