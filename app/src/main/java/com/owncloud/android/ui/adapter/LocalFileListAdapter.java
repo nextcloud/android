@@ -444,25 +444,17 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         });
     }
 
-    private final Object filesLock = new Object();
-
     @SuppressLint("NotifyDataSetChanged")
     public void setSortOrder(FileSortOrder sortOrder) {
         localFileListFragmentInterface.setLoading(true);
         singleThreadExecutor.execute(() -> {
-            List<File> sortedCopy;
-            synchronized (filesLock) {
-                sortedCopy = new ArrayList<>(mFiles);
-            }
-
+            List<File> sortedCopy = new ArrayList<>(mFiles);
             sortedCopy = sortOrder.sortLocalFiles(sortedCopy);
 
-            List<File> finalSortedCopy = sortedCopy;
+            final List<File> finalSortedCopy = sortedCopy;
             new Handler(Looper.getMainLooper()).post(() -> {
-                synchronized (filesLock) {
-                    mFiles = finalSortedCopy;
-                    mFilesAll = new ArrayList<>(finalSortedCopy);
-                }
+                mFiles = finalSortedCopy;
+                mFilesAll = new ArrayList<>(finalSortedCopy);
                 notifyDataSetChanged();
                 localFileListFragmentInterface.setLoading(false);
             });
