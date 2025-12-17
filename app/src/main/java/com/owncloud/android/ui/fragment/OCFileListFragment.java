@@ -1852,24 +1852,20 @@ public class OCFileListFragment extends ExtendedListFragment implements
         searchFragment = true;
         setFabVisible(false);
 
-        Runnable switchViewsRunnable = () -> {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            updateSortButton();
             if (isGridViewPreferred(mFile) && !isGridEnabled()) {
                 switchToGridView();
             } else if (!isGridViewPreferred(mFile) && isGridEnabled()) {
                 switchToListView();
             }
-        };
-
-        updateSortButton();
-
-        new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
+        });
 
         final User currentUser = accountManager.getUser();
         final var remoteOperation = getSearchRemoteOperation(currentUser, event);
         searchTask = new OCFileListSearchTask(mContainerActivity, this, remoteOperation, currentUser, event, SharedListFragment.TASK_TIMEOUT, preferences);
         searchTask.execute();
     }
-
 
     protected RemoteOperation getSearchRemoteOperation(final User currentUser, final SearchEvent event) {
         boolean searchOnlyFolders = (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false));
