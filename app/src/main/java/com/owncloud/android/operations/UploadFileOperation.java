@@ -1283,6 +1283,19 @@ public class UploadFileOperation extends SyncOperation {
         handleLocalBehaviour(temporalFile, expectedFile, originalFile, client);
     }
 
+    private void deleteNonExistingFile(File file) {
+        if (file.exists()) {
+            return;
+        }
+
+        Log_OC.d(TAG, "deleting non-existing file from upload list and file list");
+
+        uploadsStorageManager.removeUpload(mOCUploadId);
+
+        // some chunks can be uploaded and can still exists in db thus we have to remove it as well
+        getStorageManager().removeFile(mFile, true, true);
+    }
+
     private void handleLocalBehaviour(File temporalFile,
                                       File expectedFile,
                                       File originalFile,
@@ -1293,6 +1306,9 @@ public class UploadFileOperation extends SyncOperation {
                     Files.delete(originalFile.toPath());
                 } catch (IOException e) {
                     Log_OC.e(TAG, "Could not delete original file: " + originalFile.getAbsolutePath(), e);
+
+                    // if file is not exists we should only delete from our app
+                    deleteNonExistingFile(originalFile);
                 }
                 mFile.setStoragePath("");
                 getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
