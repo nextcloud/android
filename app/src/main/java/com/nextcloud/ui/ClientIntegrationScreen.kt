@@ -12,6 +12,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -34,27 +38,28 @@ fun ClientIntegrationScreen(clientIntegrationUI: ClientIntegrationUI, baseUrl: S
 
     Column {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-            TextButton({ close(activity) }) {
-                androidx.compose.material3.Text("X")
+            TextButton(onClick = { activity?.finish() }) {
+                Text("X")
             }
         }
 
-        Row {
-            if (clientIntegrationUI.root.orientation == Orientation.VERTICAL) {
-                Column {
-                    clientIntegrationUI.root.rows.forEach { row ->
-                        Row {
-                            row.children.forEach { element ->
+        when (clientIntegrationUI.root.orientation) {
+            Orientation.VERTICAL -> {
+                LazyColumn {
+                    items(clientIntegrationUI.root.rows) { row ->
+                        LazyRow {
+                            items(row.children) { element ->
                                 DisplayElement(element, baseUrl, activity)
                             }
                         }
                     }
                 }
-            } else {
-                Row {
-                    clientIntegrationUI.root.rows.forEach { row ->
-                        Column {
-                            row.children.forEach { element ->
+            }
+            else -> {
+                LazyRow {
+                    items(clientIntegrationUI.root.rows) { row ->
+                        LazyColumn {
+                            items(row.children) { element ->
                                 DisplayElement(element, baseUrl, activity)
                             }
                         }
@@ -68,15 +73,15 @@ fun ClientIntegrationScreen(clientIntegrationUI: ClientIntegrationUI, baseUrl: S
 @Composable
 private fun DisplayElement(element: Element, baseUrl: String, activity: Activity?) {
     when (element) {
-        is Button -> androidx.compose.material3.Button({ }) {
-            androidx.compose.material3.Text(element.label)
+        is Button -> Button(onClick = { }) {
+            Text(element.label)
         }
 
         is URL -> TextButton({
             openLink(activity, baseUrl, element.url)
-        }) { androidx.compose.material3.Text(element.text) }
+        }) { Text(element.text) }
 
-        is Text -> androidx.compose.material3.Text(element.text)
+        is Text -> Text(element.text)
     }
 }
 
@@ -84,10 +89,6 @@ private fun openLink(activity: Activity?, baseUrl: String, relativeUrl: String) 
     activity?.let {
         DisplayUtils.startLinkIntent(activity, baseUrl + relativeUrl)
     }
-}
-
-private fun close(activity: Activity?) {
-    activity?.finish()
 }
 
 @Composable
