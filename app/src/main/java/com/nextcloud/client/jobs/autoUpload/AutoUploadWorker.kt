@@ -367,6 +367,12 @@ class AutoUploadWorker(
                             "Exception during upload file, localPath: $localPath, remotePath: $remotePath," +
                                 " exception: $e"
                         )
+
+                        if (path.isEmpty() || !file.exists()) {
+                            Log_OC.w(TAG, "detected non-existing local file, removing entity")
+                            deleteNonExistingFile(path, id, upload)
+                            continue
+                        }
                     }
                 } catch (e: Exception) {
                     Log_OC.e(
