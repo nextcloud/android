@@ -414,13 +414,7 @@ class OCFileListDelegate(
     fun cleanup() {
         ioScope.cancel()
 
-        val activeJobs = GalleryImageGenerationJob.getActiveJobs()
-
-        // Cancel all pending thumbnail/generation jobs for gallery images
-        for ((_, job) in activeJobs) {
-            job.cancel()
-        }
-        activeJobs.clear()
+        GalleryImageGenerationJob.cancelAllActiveJobs()
 
         // cancel async tasks from ThumbnailsCacheManager
         cancelAllPendingTasks()
