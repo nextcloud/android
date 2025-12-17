@@ -11,13 +11,14 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.drawable.PictureDrawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
-import com.google.gson.Gson
+import androidx.lifecycle.lifecycleScope
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
@@ -27,7 +28,6 @@ import com.nextcloud.android.lib.resources.clientintegration.ClientIntegrationUI
 import com.nextcloud.android.lib.resources.clientintegration.Element
 import com.nextcloud.android.lib.resources.clientintegration.ElementTypeAdapter
 import com.nextcloud.android.lib.resources.clientintegration.Endpoint
-import com.nextcloud.android.lib.resources.clientintegration.TooltipResponse
 import com.nextcloud.client.account.User
 import com.nextcloud.common.JSONRequestBody
 import com.nextcloud.operations.GetMethod
@@ -44,7 +44,6 @@ import com.owncloud.android.lib.ocs.ServerResponse
 import com.owncloud.android.lib.resources.status.Method
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -58,7 +57,6 @@ class ClientIntegration(
     private var context: Context
 ) {
 
-    // @RequiresApi(Build.VERSION_CODES.Q)
     fun inflateClientIntegrationActionView(
         endpoint: Endpoint,
         layoutInflater: LayoutInflater,
@@ -83,7 +81,7 @@ class ClientIntegration(
                 text.text = endpoint.name
 
                 if (endpoint.icon != null) {
-                    CoroutineScope(Dispatchers.IO).launch {
+                    sheet.lifecycleScope.launch {
                         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                             .getNextcloudClientFor(user.toOwnCloudAccount(), context)
 
@@ -125,7 +123,7 @@ class ClientIntegration(
     }
 
     private fun requestClientIntegration(endpoint: Endpoint, fileId: String, filePath: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+        sheet.lifecycleScope.launch {
             val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                 .getNextcloudClientFor(user.toOwnCloudAccount(), context)
 
@@ -172,14 +170,8 @@ class ClientIntegration(
             var output: ClientIntegrationUI?
             try {
                 output = parseClientIntegrationResult(response)
-                if (output.root != null) {
-                    startClientIntegration(endpoint, output)
-                } else {
-                    val tooltipResponse = parseTooltipResult(response)
-
-                    context.showToast(tooltipResponse.tooltip)
-                }
-            } catch (e: JsonSyntaxException) {
+                startClientIntegration(endpoint, output)
+            } catch (_: JsonSyntaxException) {
                 if (result == HttpStatus.SC_OK) {
                     context.showToast(context.resources.getString(R.string.action_triggered))
                 } else {
@@ -191,12 +183,17 @@ class ClientIntegration(
     }
 
     private fun startClientIntegration(endpoint: Endpoint, clientIntegrationUI: ClientIntegrationUI) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val composeActivity = Intent(context, ComposeActivity::class.java)
-            composeActivity.putExtra(ComposeActivity.DESTINATION, ComposeDestination.ClientIntegrationScreen(null).id)
-            composeActivity.putExtra(ComposeActivity.ARGS_CLIENT_INTEGRATION_UI, clientIntegrationUI)
+        sheet.lifecycleScope.launch {
+            val integrationScreen = ComposeDestination.ClientIntegrationScreen(endpoint.name, clientIntegrationUI)
 
-            composeActivity.putExtra(ComposeActivity.TITLE, endpoint.name)
+            val bundle = Bundle().apply {
+                putParcelable(ComposeActivity.DESTINATION, integrationScreen)
+            }
+
+            val composeActivity = Intent(context, ComposeActivity::class.java).apply {
+                putExtras(bundle)
+            }
+
             context.startActivity(composeActivity)
             sheet.dismiss()
         }
@@ -211,14 +208,6 @@ class ClientIntegration(
         val element: JsonElement = JsonParser.parseString(response)
         return gson
             .fromJson(element, object : TypeToken<ServerResponse<ClientIntegrationUI>>() {})
-            .ocs
-            .data
-    }
-
-    private fun parseTooltipResult(response: String?): TooltipResponse {
-        val element: JsonElement = JsonParser.parseString(response)
-        return Gson()
-            .fromJson(element, object : TypeToken<ServerResponse<TooltipResponse>>() {})
             .ocs
             .data
     }
