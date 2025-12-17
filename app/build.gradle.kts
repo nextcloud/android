@@ -327,7 +327,7 @@ tasks.withType<JavaCompile>().configureEach {
 
 tasks.withType<Test>().configureEach {
     // Run tests in parallel
-    maxParallelForks = Runtime.getRuntime().availableProcessors().div(2)
+    maxParallelForks = maxOf(1, Runtime.getRuntime().availableProcessors().div(2))
 
     // increased logging for tests
     testLogging.events("passed", "skipped", "failed")
