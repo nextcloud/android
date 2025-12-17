@@ -565,8 +565,10 @@ class FileDisplayActivity :
             ALL_FILES == action -> {
                 Log_OC.d(this, "Switch to oc file fragment")
                 menuItemId = R.id.nav_all_files
-                leftFragment = OCFileListFragment()
-                supportFragmentManager.executePendingTransactions()
+                if (leftFragment !is OCFileListFragment) {
+                    leftFragment = OCFileListFragment()
+                    supportFragmentManager.executePendingTransactions()
+                }
                 browseToRoot()
             }
 
