@@ -547,15 +547,28 @@ public class FileDataStorageManager {
     }
 
     /**
-     * traverses a files parent tree to be able to store a file with its parents. Throws a
-     * RemoteOperationFailedException in case the parent can't be retrieved.
+     * Ensures that an {@link OCFile} and all of its parent folders are stored locally.
+     * <p>
+     * If the file has no parent ID and is not the root folder, this method recursively:
+     * <ul>
+     *     <li>Resolves the parent path</li>
+     *     <li>Loads the parent from local storage or fetches it from the server</li>
+     *     <li>Saves all missing parent folders</li>
+     *     <li>Assigns the resolved parent ID to the file</li>
+     * </ul>
      *
-     * @param ocFile  the file
-     * @param context the app context
-     * @return the parent file
+     * @param ocFile    the file to be saved together with its parent hierarchy
+     * @param context Android context used for remote operations
+     *
+     * @return the same {@link OCFile} instance with a valid parent ID
+     *
+     * @throws RemoteOperationFailedException if a parent folder cannot be retrieved
+     *                                       from the server
      */
     public OCFile saveFileWithParent(OCFile ocFile, Context context) {
         if (ocFile.getParentId() == 0 && !OCFile.ROOT_PATH.equals(ocFile.getRemotePath())) {
+            Log_OC.d(TAG, "saving file with parents: " + ocFile.getRemotePath());
+
             String remotePath = ocFile.getRemotePath();
             String parentPath = remotePath.substring(0, remotePath.lastIndexOf(ocFile.getFileName()));
 
@@ -563,18 +576,21 @@ public class FileDataStorageManager {
             OCFile returnFile;
 
             if (parentFile == null) {
-                // remote request
-                ReadFileRemoteOperation operation = new ReadFileRemoteOperation(parentPath);
-                // TODO Deprecated
-                RemoteOperationResult result = operation.execute(getUser(), context);
-                if (result.isSuccess()) {
-                    OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+                Log_OC.d(TAG, "Parent not found locally, fetching: " + parentPath);
 
-                    returnFile = saveFileWithParent(remoteFolder, context);
+                final var operation = new ReadFileRemoteOperation(parentPath);
+                final var result = operation.execute(getUser(), context);
+
+                if (result.isSuccess() && result.getData().get(0) instanceof RemoteFile remoteFile) {
+                    OCFile folder = FileStorageUtils.fillOCFile(remoteFile);
+                    Log_OC.d(TAG, "Fetched parent folder: " + folder);
+                    returnFile = saveFileWithParent(folder, context);
                 } else {
                     Exception exception = result.getException();
                     String message = "Error during saving file with parents: " + ocFile.getRemotePath() + " / "
                         + result.getLogMessage(context);
+
+                    Log_OC.e(TAG, message);
 
                     if (exception != null) {
                         throw new RemoteOperationFailedException(message, exception);
@@ -583,10 +599,13 @@ public class FileDataStorageManager {
                     }
                 }
             } else {
+                Log_OC.d(TAG, "parent file exists, calling saveFileWithParent: " + ocFile.getRemotePath());
                 returnFile = saveFileWithParent(parentFile, context);
             }
 
-            ocFile.setParentId(returnFile.getFileId());
+            long parentId = returnFile.getFileId();
+            Log_OC.d(TAG, "saving parent id of: " + ocFile.getRemotePath() + " with: " + parentId);
+            ocFile.setParentId(parentId);
             saveFile(ocFile);
         }
 
