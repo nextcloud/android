@@ -28,6 +28,10 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
         const val BATCH_SIZE = 50
     }
 
+    suspend fun deleteByLocalPathAndId(path: String, id: Int) {
+        dao.deleteByLocalPathAndId(path, id)
+    }
+
     suspend fun getFilePathsWithIds(syncedFolder: SyncedFolder, lastId: Int): List<Pair<String, Int>> {
         val syncedFolderId = syncedFolder.id.toString()
         Log_OC.d(TAG, "Fetching candidate files for syncedFolderId = $syncedFolderId")
