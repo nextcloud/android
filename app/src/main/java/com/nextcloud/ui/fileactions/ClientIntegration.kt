@@ -81,7 +81,7 @@ class ClientIntegration(
                 text.text = endpoint.name
 
                 if (endpoint.icon != null) {
-                    sheet.lifecycleScope.launch {
+                    sheet.lifecycleScope.launch(Dispatchers.IO) {
                         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                             .getNextcloudClientFor(user.toOwnCloudAccount(), context)
 
@@ -123,7 +123,7 @@ class ClientIntegration(
     }
 
     private fun requestClientIntegration(endpoint: Endpoint, fileId: String, filePath: String) {
-        sheet.lifecycleScope.launch {
+        sheet.lifecycleScope.launch(Dispatchers.IO) {
             val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                 .getNextcloudClientFor(user.toOwnCloudAccount(), context)
 
@@ -183,7 +183,7 @@ class ClientIntegration(
     }
 
     private fun startClientIntegration(endpoint: Endpoint, clientIntegrationUI: ClientIntegrationUI) {
-        sheet.lifecycleScope.launch {
+        sheet.lifecycleScope.launch(Dispatchers.IO) {
             val integrationScreen = ComposeDestination.ClientIntegrationScreen(endpoint.name, clientIntegrationUI)
 
             val bundle = Bundle().apply {
