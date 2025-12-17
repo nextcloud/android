@@ -25,6 +25,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FilesFolderPickerBinding
@@ -188,7 +189,7 @@ open class FolderPickerActivity :
             folder = file
         }
 
-        listOfFilesFragment?.listDirectory(folder, false, false)
+        listOfFilesFragment?.listDirectory(folder, false)
         startSyncFolderOperation(folder, false)
         updateUiElements()
     }
@@ -275,8 +276,13 @@ open class FolderPickerActivity :
         super.onResume()
         Log_OC.e(TAG, "onResume() start")
 
-        refreshListOfFilesFragment(false)
-        file = listOfFilesFragment?.currentFile
+        val extraFolder = intent.getParcelableArgument(EXTRA_FOLDER, OCFile::class.java)
+        if (extraFolder != null) {
+            file = extraFolder
+        } else {
+            file = listOfFilesFragment?.currentFile
+        }
+        refreshListOfFilesFragment(file)
         updateUiElements()
 
         val intentFilter = getSyncIntentFilter()
@@ -351,14 +357,14 @@ open class FolderPickerActivity :
             }
         }
 
-    private fun refreshListOfFilesFragment(fromSearch: Boolean) {
-        listOfFilesFragment?.listDirectory(false, fromSearch)
+    private fun refreshListOfFilesFragment(directory: OCFile?) {
+        listOfFilesFragment?.listDirectory(directory, false)
     }
 
     fun browseToRoot() {
         listOfFilesFragment?.let {
             val root = storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
-            it.listDirectory(root, false, false)
+            it.listDirectory(root, false)
             file = it.currentFile
             updateUiElements()
             startSyncFolderOperation(root, false)
@@ -560,7 +566,7 @@ open class FolderPickerActivity :
                             currentFile = currentDir
                         }
                         if (currentDir.remotePath == syncFolderRemotePath) {
-                            listOfFilesFragment?.listDirectory(currentDir, false, false)
+                            listOfFilesFragment?.listDirectory(currentDir, false)
                         }
                         file = currentFile
                     }
@@ -652,8 +658,7 @@ open class FolderPickerActivity :
     }
 
     companion object {
-        @JvmField
-        val EXTRA_FOLDER = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_FOLDER")
+        const val EXTRA_FOLDER = "com.owncloud.android.ui.activity.FolderPickerActivity".plus(".EXTRA_FOLDER")
 
         @JvmField
         @Deprecated(
