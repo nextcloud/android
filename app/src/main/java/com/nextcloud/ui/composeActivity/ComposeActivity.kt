@@ -50,24 +50,20 @@ class ComposeActivity : DrawerActivity() {
         setContentView(binding.root)
 
         val destinationId = intent.getIntExtra(DESTINATION, -1)
-        var title = intent.getStringExtra(TITLE_STRING)
+        val titleId = intent.getIntExtra(TITLE, R.string.empty)
 
-        if (title == null || title.isEmpty()) {
-            title = getString(intent.getIntExtra(TITLE, R.string.empty))
+        if (destinationId == 0) {
+            setupDrawer()
+
+            setupToolbarShowOnlyMenuButtonAndTitle(getString(titleId)) {
+                openDrawer()
+            }
+        } else {
+            setSupportActionBar(null)
+            if (findViewById<View?>(R.id.appbar) != null) {
+                findViewById<View?>(R.id.appbar)?.visibility = View.GONE
+            }
         }
-        //
-        // if (destination == ComposeDestination.AssistantScreen) {
-        //     setupDrawer()
-        //
-        //     setupToolbarShowOnlyMenuButtonAndTitle(title) {
-        //         openDrawer()
-        //     }
-        // } else {
-        //     setSupportActionBar(null)
-        //     if (findViewById<View?>(R.id.appbar) != null) {
-        //         findViewById<View?>(R.id.appbar)?.visibility = View.GONE
-        //     }
-        // }
 
         binding.composeView.setContent {
             MaterialTheme(
@@ -81,7 +77,7 @@ class ComposeActivity : DrawerActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
-            super.onBackPressed()
+            toggleDrawer()
             true
         }
         else -> super.onOptionsItemSelected(item)
