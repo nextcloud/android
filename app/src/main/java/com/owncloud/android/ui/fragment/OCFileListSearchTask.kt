@@ -11,7 +11,6 @@ package com.owncloud.android.ui.fragment
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
-import android.content.Context
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
@@ -41,7 +40,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.lang.ref.WeakReference
-import java.util.concurrent.TimeUnit
 
 @Suppress("LongParameterList", "ReturnCount", "TooGenericExceptionCaught", "DEPRECATION", "MagicNumber")
 @SuppressLint("NotifyDataSetChanged")
@@ -106,14 +104,6 @@ class OCFileListSearchTask(
                     fragment.adapter.files
                 }
 
-                val subDirectories = newList
-                    .filter { it.isFolder }
-                    .sortedBy { it.fileId }
-
-                subDirectories.forEach { dir ->
-                    fetchDirContent(dir, fileDataStorageManager, fragment.context)
-                }
-
                 val sortedNewList = sortSearchData(newList, searchType, null, setNewSortOrder = {
                     fragment.adapter.setSortOrder(it)
                 })
@@ -135,39 +125,6 @@ class OCFileListSearchTask(
 
     fun isFinished(): Boolean = job?.isCompleted == true
 
-    private suspend fun fetchDirContent(
-        folder: OCFile,
-        storageManager: FileDataStorageManager?,
-        context: Context?
-    ) = withContext(Dispatchers.IO) {
-        if (context == null || storageManager == null) {
-            Log_OC.e(TAG, "sub directory content cannot be fetched, context or storage manager is null")
-            return@withContext
-        }
-
-        val currentSyncTime = System.currentTimeMillis()
-        val shouldIgnoreETag = (currentSyncTime - folder.lastSyncDateForProperties) > TimeUnit.MINUTES.toMillis(5)
-
-        Log_OC.d(TAG, "fetching content for: " + folder.remotePath + " ignore eTag: " + shouldIgnoreETag)
-
-        val operation =
-            RefreshFolderOperation(
-                folder,
-                currentSyncTime,
-                shouldIgnoreETag,
-                shouldIgnoreETag,
-                storageManager,
-                currentUser,
-                context
-            )
-        val result = operation.execute(currentUser, context)
-        if (result.isSuccess) {
-            Log_OC.d(TAG, "sub directory content is fetched")
-        } else {
-            Log_OC.e(TAG, "sub directory content cannot be fetched")
-        }
-    }
-
     private suspend fun loadCachedDbFiles(searchType: SearchRemoteOperation.SearchType): List<OCFile> {
         val storage = fileDataStorageManager ?: return emptyList()
         return if (searchType == SearchRemoteOperation.SearchType.SHARED_FILTER) {
@@ -179,6 +136,7 @@ class OCFileListSearchTask(
         }.mapNotNull { storage.createFileInstance(it) }
     }
 
+    @Suppress("DEPRECATION")
     private suspend fun fetchRemoteResults(): RemoteOperationResult<List<Any>>? {
         val fragment = fragmentReference.get() ?: return null
         val context = fragment.context ?: return null

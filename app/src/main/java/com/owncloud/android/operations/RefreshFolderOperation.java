@@ -267,6 +267,10 @@ public class RefreshFolderOperation extends RemoteOperation {
             updateUserProfile();
         }
 
+        fileDataStorageManager.saveFileWithParent(mLocalFolder, mContext);
+
+        Log_OC.d(TAG, "STEP 1 --- refreshing folder " + mLocalFolder.getRemotePath());
+
         result = checkForChanges(client);
 
         if (result.isSuccess()) {
