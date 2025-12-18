@@ -274,7 +274,6 @@ class FileDisplayActivity :
 
         checkStoragePath()
 
-        initSyncBroadcastReceiver()
         observeWorkerState()
         startMetadataSyncForRoot()
         handleBackPress()
@@ -1330,12 +1329,6 @@ class FileDisplayActivity :
 
         // Instead of onPostCreate, starting the loading in onResume for children fragments
         val leftFragment = this.leftFragment
-
-        // Listen for sync messages
-        if (leftFragment !is OCFileListFragment || !leftFragment.isSearchFragment) {
-            initSyncBroadcastReceiver()
-        }
-
         if (leftFragment !is OCFileListFragment) {
             if (leftFragment is FileFragment) {
                 super.updateActionBarTitleAndHomeButton(leftFragment.file)
@@ -1362,19 +1355,6 @@ class FileDisplayActivity :
         } else {
             ocFileListFragment.listDirectory(startFile, false, false)
             updateActionBarTitleAndHomeButton(startFile)
-        }
-
-        // Listen for upload messages
-        val uploadIntentFilter = IntentFilter(getUploadFinishMessage())
-        mUploadFinishReceiver = UploadFinishReceiver()
-        localBroadcastManager.registerReceiver(mUploadFinishReceiver!!, uploadIntentFilter)
-
-        // Listen for download messages
-        val downloadIntentFilter = IntentFilter(getDownloadAddedMessage())
-        downloadIntentFilter.addAction(getDownloadFinishMessage())
-        mDownloadFinishReceiver = DownloadFinishReceiver()
-        mDownloadFinishReceiver?.let {
-            localBroadcastManager.registerReceiver(it, downloadIntentFilter)
         }
 
         configureMenuItem()
@@ -1411,9 +1391,36 @@ class FileDisplayActivity :
         setNavigationViewItemChecked()
     }
 
-    fun initSyncBroadcastReceiver() {
+    // region local broadcast manager receivers
+    private fun registerReceivers() {
+        Log_OC.d(TAG, "registering receivers")
+
+        registerSyncBroadcastReceiver()
+        registerDownloadFinishReceiver()
+        registerUploadFinishReceiver()
+    }
+
+    private fun registerUploadFinishReceiver() {
+        val filter = IntentFilter(getUploadFinishMessage())
+        mUploadFinishReceiver = UploadFinishReceiver()
+        mUploadFinishReceiver?.let {
+            localBroadcastManager.registerReceiver(it, filter)
+        }
+    }
+
+    private fun registerDownloadFinishReceiver() {
+        val filter = IntentFilter(getDownloadAddedMessage()).apply {
+            addAction(getDownloadFinishMessage())
+        }
+        mDownloadFinishReceiver = DownloadFinishReceiver()
+        mDownloadFinishReceiver?.let {
+            localBroadcastManager.registerReceiver(it, filter)
+        }
+    }
+
+    private fun registerSyncBroadcastReceiver() {
         if (mSyncBroadcastReceiver == null) {
-            val syncIntentFilter = IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START).apply {
+            val filter = IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START).apply {
                 addAction(FileSyncAdapter.EVENT_FULL_SYNC_END)
                 addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED)
                 addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED)
@@ -1422,13 +1429,14 @@ class FileDisplayActivity :
 
             mSyncBroadcastReceiver = SyncBroadcastReceiver()
             mSyncBroadcastReceiver?.let {
-                localBroadcastManager.registerReceiver(it, syncIntentFilter)
+                localBroadcastManager.registerReceiver(it, filter)
             }
         }
     }
 
-    override fun onPause() {
-        Log_OC.v(TAG, "onPause() start")
+    private fun unregisterReceivers() {
+        Log_OC.d(TAG, "unregistering receivers")
+
         if (mSyncBroadcastReceiver != null) {
             localBroadcastManager.unregisterReceiver(mSyncBroadcastReceiver!!)
             mSyncBroadcastReceiver = null
@@ -1441,9 +1449,13 @@ class FileDisplayActivity :
             localBroadcastManager.unregisterReceiver(mDownloadFinishReceiver!!)
             mDownloadFinishReceiver = null
         }
+    }
+    // endregion
 
-        super.onPause()
-        Log_OC.v(TAG, "onPause() end")
+    override fun onStop() {
+        Log_OC.v(TAG, "onStop()")
+        unregisterReceivers()
+        super.onStop()
     }
 
     override fun onSortingOrderChosen(selection: FileSortOrder?) {
@@ -2802,6 +2814,8 @@ class FileDisplayActivity :
 
     public override fun onStart() {
         super.onStart()
+
+        registerReceivers()
 
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
