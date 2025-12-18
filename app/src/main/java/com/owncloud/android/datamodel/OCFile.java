@@ -1166,4 +1166,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public boolean isRecommendedFile() {
         return recommendedFile;
     }
+
+    // only root directories parent id can be 0
+    public boolean hasValidParentId() {
+        if (isRootDirectory()) {
+            return getParentId() == 0;
+        } else {
+            return getParentId() != 0;
+        }
+    }
 }
