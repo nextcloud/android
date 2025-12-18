@@ -796,7 +796,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public boolean isEtagChanged() {
-        return !StringExtensionsKt.isNotBlankAndEquals(getEtag(), getEtagOnServer());
+        return StringExtensionsKt.eTagChanged(getEtag(), getEtagOnServer());
     }
 
     public boolean isSharedViaLink() {
