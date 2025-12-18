@@ -419,7 +419,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 String remoteFolderETag = remoteFile.getEtag();
                 if (remoteFolderETag != null) {
                     String localFolderEtag = mLocalFolder.getEtag();
-                    mRemoteFolderChanged = !StringExtensionsKt.isNotBlankAndEquals(remoteFolderETag, localFolderEtag);
+                    mRemoteFolderChanged = StringExtensionsKt.eTagChanged(remoteFolderETag, localFolderEtag);
                     Log_OC.d(
                         TAG,
                         "📂 eTag check\n" +
