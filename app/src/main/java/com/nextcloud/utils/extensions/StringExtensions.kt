@@ -25,6 +25,7 @@ fun String.removeFileExtension(): String {
     }
 }
 
+@Suppress("ComplexCondition")
 fun String?.eTagChanged(eTagOnServer: String?): Boolean {
     if (this == null || this.isEmpty() || eTagOnServer == null || eTagOnServer.isEmpty()) {
         // provided eTags are empty or null can't compare treat as eTag changed
