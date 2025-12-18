@@ -26,17 +26,12 @@ fun String.removeFileExtension(): String {
 }
 
 fun String?.eTagChanged(eTagOnServer: String?): Boolean {
-    if (eTagOnServer?.isEmpty() == true) {
-        // provided eTag is empty can't compare treat as eTag changed
+    if (this == null || this.isEmpty() || eTagOnServer == null || eTagOnServer.isEmpty()) {
+        // provided eTag are empty or null can't compare treat as eTag changed
         return true
     }
 
-    return if (this != null) {
-        !this.equals(eTagOnServer, ignoreCase = true)
-    } else {
-        // provided eTag is null can't compare treat as eTag changed
-        true
-    }
+    return !this.equals(eTagOnServer, ignoreCase = true)
 }
 
 fun String.truncateWithEllipsis(limit: Int) = take(limit) + if (length > limit) StringConstants.THREE_DOT else ""
