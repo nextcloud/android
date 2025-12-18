@@ -41,7 +41,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.lang.ref.WeakReference
 
-@Suppress("LongParameterList", "ReturnCount", "TooGenericExceptionCaught", "DEPRECATION", "MagicNumber")
+@Suppress("LongParameterList", "ReturnCount", "TooGenericExceptionCaught")
 @SuppressLint("NotifyDataSetChanged")
 class OCFileListSearchTask(
     containerActivity: FileFragment.ContainerActivity,
@@ -64,6 +64,7 @@ class OCFileListSearchTask(
 
     private var job: Job? = null
 
+    @Suppress("TooGenericExceptionCaught", "DEPRECATION", "ReturnCount")
     fun execute() {
         Log_OC.d(TAG, "search task running, query: ${event.searchType}")
         val fragment = fragmentReference.get() ?: return
