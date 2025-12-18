@@ -25,23 +25,15 @@ fun String.removeFileExtension(): String {
     }
 }
 
-/**
- * Checks if two nullable strings are both valid (non-null, non-empty, non-blank) and equal.
- *
- * It returns `true` only when both strings meet all the following criteria:
- * - Neither string is null
- * - Neither string is empty ("")
- * - Neither string contains only whitespace characters (spaces, tabs, newlines, etc.)
- * - Both strings are equal ignoring case differences
- *
- * @param other The other nullable string to compare with this string
- * @return `true` if both strings are valid and equal ignoring case differences, `false` otherwise
- */
-fun String?.isNotBlankAndEquals(other: String?): Boolean = this != null &&
-    other != null &&
-    this.isNotBlank() &&
-    other.isNotBlank() &&
-    this.equals(other, ignoreCase = true)
+@Suppress("ComplexCondition")
+fun String?.eTagChanged(eTagOnServer: String?): Boolean {
+    if (this == null || this.isEmpty() || eTagOnServer == null || eTagOnServer.isEmpty()) {
+        // provided eTags are empty or null can't compare treat as eTag changed
+        return true
+    }
+
+    return !this.equals(eTagOnServer, ignoreCase = true)
+}
 
 fun String.truncateWithEllipsis(limit: Int) = take(limit) + if (length > limit) StringConstants.THREE_DOT else ""
 
