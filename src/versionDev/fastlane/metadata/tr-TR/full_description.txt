@@ -1,0 +1,4 @@
+Sizin kontrolunuz altında barındırılan üretkenlik platformu.
+Bu sürüm resmi Nextcloud uygulamasının geliştirici sürümü olduğundan, kararsız çalışabilir ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikler bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük işleriniz için kullanmayın!
+
+Normal ve Geliştirici sürümleri F-Droid üzerinde bulunur ve aynı anda kurulup kullanılabilir.

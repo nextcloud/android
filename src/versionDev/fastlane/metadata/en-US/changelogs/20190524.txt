@@ -1,0 +1,12 @@
+3b3184184 Merge pull request #3969 from nextcloud/receivePushDelete
+6074c9320 Drone: update FindBugs results to reflect reduced error/warning count [skip ci]
+f28007e6b OCFileListFragment: Only scroll to top if directory changed (#4058)
+b061e4d38 Merge commit '51ee4d88fd0555a945a24b1ab3beba2ffdc79c06'
+51ee4d88f handle silent delete/delete-all push notifications do not ignore talk messages (will only be sent if no talk app is installed) exclude generated Parcelable
+fb6b11f20 Use product name on rich document, if available (#3971)
+4197d3be9 use proper qa build lib dependency
+8c0609759 Only compare directories if necessary
+403a3e062 Use product name on rich document, if available use placeholder for string reset to master-snapshot fix analysis warning use new translatable string use var vor qa flavor too
+9b0a789d3 Merge pull request #4040 from nextcloud/ezaquarii/remove-findbugs
+d6b4deea1 Remove legacy FindBugs tasks from build script
+53c9c0573 daily dev 20190523

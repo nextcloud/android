@@ -1,0 +1,4 @@
+e427e4e61 Merge pull request #4283 from nextcloud/v371
+011539440 release 3.7.1
+674bb277a [tx-robot] updated from transifex
+84e36293e daily dev 20190730

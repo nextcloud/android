@@ -1,4 +1,0 @@
-2a13825fe Merge pull request #4226 from nextcloud/runDrone
-d9d9ad51c Run drone only if source file changed
-2c41e9289 [tx-robot] updated from transifex
-7d224f744 daily dev 20190713

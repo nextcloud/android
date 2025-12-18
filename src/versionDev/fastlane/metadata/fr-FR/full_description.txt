@@ -1,0 +1,4 @@
+La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle.
+Ceci est la version officielle de développement, qui présente chaque jour quelques-unes des fonctionnalités non-testées les plus récentes, causant parfois des instabilités ou des pertes de données. Cette application s'adresse aux utilisateurs volontaires souhaitant tester et rapporter les problèmes qui peuvent arriver. Ne l'utilisez jamais pour un environnement de production!
+
+Les versions officielles et en développement sont disponibles sur F-droid, et peuvent être utilisées en même temps.

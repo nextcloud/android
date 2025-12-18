@@ -1,0 +1,7 @@
+e9dcfe476 Merge pull request #4295 from nextcloud/contributing
+74a21c021 About resolving #2953 (#3857)
+5a6e454c8 Enhanced doc - explain PR that also need changes in library - update TOC - update backport
+bc46215c3 [tx-robot] updated from transifex
+f4bb53b40 [tx-robot] updated from transifex
+3ac2b3ac0 [tx-robot] updated from transifex
+bf1a8754c daily dev 20190803

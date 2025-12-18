@@ -1,0 +1,4 @@
+de3508c4e Merge pull request #4036 from nextcloud/wordingForAPK
+64b008694 [tx-robot] updated from transifex
+821b3b361 [tx-robot] updated from transifex
+8bf577510 daily dev 20190518

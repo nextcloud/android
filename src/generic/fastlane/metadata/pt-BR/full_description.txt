@@ -1,0 +1,19 @@
+A plataforma de produtividade auto-hospedada que mantém você no controle.
+
+Recursos:
+* Interface fácil e moderna, adequada ao tema do seu servidor
+* Faça upload de arquivos para o seu servidor Nextcloud
+* Compartilhe-os com outras pessoas
+ * Mantenha seus arquivos e pastas favoritos sincronizados
+* Pesquise todas as pastas do seu servidor
+* Faça upload automático de fotos e vídeos feitos pelo seu dispositivo
+* Mantenha-se atualizado com notificações
+* Suporte para várias contas
+* Acesso seguro aos seus dados com impressão digital ou PIN
+* Integração com DAVx⁵ (anteriormente conhecido como DAVdroid) para facilitar a configuração de sincronização de calendário e contatos
+
+Por favor, relate todos os problemas em https://github.com/nextcloud/android/issues e discuta este aplicativo em https://help.nextcloud.com/c/clients/android
+
+ Novo no Nextcloud? Nextcloud é um servidor privado de sincronização e compartilhamento de arquivos e de comunicação. É um software livre e você pode hospedá-lo sozinho ou pagar uma empresa para fazer isso por você. Dessa forma, você controla suas fotos, sua agenda e dados de contatos, seus documentos e tudo mais.
+
+Conheça o Nextcloud em https://nextcloud.com

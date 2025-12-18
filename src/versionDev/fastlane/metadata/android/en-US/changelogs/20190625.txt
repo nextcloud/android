@@ -1,6 +1,0 @@
-c003f12c4 Merge pull request #4114 from nextcloud/richDocumentsRenameMessage
-bf8e50c1f get rename message from RichDocuments
-4221ae50d [tx-robot] updated from transifex
-40c4347a0 [tx-robot] updated from transifex
-20d52c56d [tx-robot] updated from transifex
-3ace15868 daily dev 20190622

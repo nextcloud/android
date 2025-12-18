@@ -1,0 +1,9 @@
+e70517104 Merge pull request #4528 from nextcloud/changeUA
+1d0dd2116 use Nextcloud UA
+515cb981b [tx-robot] updated from transifex
+3c8cd4b2e [tx-robot] updated from transifex
+241caf22c Merge pull request #4490 from nextcloud/dependabot/gradle/org.projectlombok-lombok-1.18.10
+3083d52e0 [tx-robot] updated from transifex
+f26bb801c Bump lombok from 1.18.8 to 1.18.10
+519999b2e [tx-robot] updated from transifex
+01fcf28af daily dev 20190914

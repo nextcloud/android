@@ -1,0 +1,9 @@
+9e15f5ea3 Merge pull request #4799 from nextcloud/dependabot/gradle/com.android.tools.build-gradle-3.5.2
+d208681fe Merge pull request #4796 from nextcloud/datepicker
+7a8aee3e2 [tx-robot] updated from transifex
+a3ae32129 Bump gradle from 3.5.1 to 3.5.2
+b0563b931 Theming: Fix date picker button text colour
+207f8947c [tx-robot] updated from transifex
+1ec09848b [tx-robot] updated from transifex
+513151491 [tx-robot] updated from transifex
+38a83bb36 daily dev 20191102

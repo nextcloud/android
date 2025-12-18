@@ -1,0 +1,7 @@
+f245b72de Merge pull request #4823 from nextcloud/changelog-master-stable-3.9.0
+d30b574ff Add changelog for 3.9.0
+df6d847f2 [tx-robot] updated from transifex
+4343c3d67 Merge pull request #4814 from nextcloud/dependabot/gradle/org.jetbrains-annotations-18.0.0
+86027dd09 Bump annotations from 17.0.0 to 18.0.0
+4690042b0 [tx-robot] updated from transifex
+ff646aa3d daily dev 20191108

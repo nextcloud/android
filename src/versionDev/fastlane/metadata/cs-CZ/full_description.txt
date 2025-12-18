@@ -1,0 +1,4 @@
+Platforma pro produktivitu hostovaná u vás, kde vaše data jsou opravdu vaše.
+Toto je oficiální vývojová verze, sloužící jako denně aktualizovaná ukázka nových nevyzkoušených funkcí, což může způsobovat nestabilitu a ztráty dat. Je určeno pro uživatele, kteří jsou ochotní testovat a hlásit chyby na které narazí. Nepoužívejte pro svou produktivní práci!
+
+Jak vývojová tak produkční verze jsou k dispozici na F-droid a mohou být nainstalovány souběžně.

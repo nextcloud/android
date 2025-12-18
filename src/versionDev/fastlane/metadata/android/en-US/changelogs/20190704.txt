@@ -1,4 +1,0 @@
-337e80609 Merge pull request #4198 from nextcloud/wrongNameInEmail
-0e26340a1 use correct file for message while sharing via link
-d78900e07 [tx-robot] updated from transifex
-7424520f0 daily dev 20190703

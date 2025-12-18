@@ -1,0 +1,4 @@
+Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.
+Dies ist die offizielle Entwicklungsversion und bietet neue, ungetestete Funkitionen. Dies kann zu Instabilitäten und Datenverlust führen. Die App ist für alle Benutzer, die Testen wollen und falls nötig Fehlerberichte erstellen. Nutzen Sie diese Version nicht für Ihre Produktivarbeit!
+
+Sowohl die reguläre als auch die Entwicklerversion sind auf F-droid verfügbar und können parallel installiert werden.

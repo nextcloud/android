@@ -1,0 +1,10 @@
+cabe2fcff Merge pull request #4725 from nextcloud/ssoHeaders
+8e3931edf SSO: return response headers new headers in parallel
+98487b501 Merge pull request #4733 from nextcloud/codacy
+17709cc69 [tx-robot] updated from transifex
+2bb13a154 move suppress annotation to newly created method
+a098a5cf2 [tx-robot] updated from transifex
+a6fdec865 shorten method
+1d3fca653 codacy: Avoid declaring a variable if it is unreferenced before a possible exit point.
+816991c17 codacy: avoid unused imports
+ba3c2ca8b daily dev 20191026

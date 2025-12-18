@@ -197,8 +197,8 @@
     <string name="conflict_dialog_error">Non é posíbel crear o diálogo de resolución de conflitos</string>
     <string name="conflict_folder_headline">Conflito de cartafol</string>
     <string name="conflict_local_file">Ficheiro local</string>
-    <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
-    <string name="conflict_message_description_for_folder">Se selecciona ambas versións, o cartafol local terá un número engadido ao nome.</string>
+    <string name="conflict_message_description">Se selecciona ámbalas dúas versións, o ficheiro local terá un número engadido ao nome.</string>
+    <string name="conflict_message_description_for_folder">Se selecciona ámbalas dúas versións, o cartafol local terá un número engadido ao nome.</string>
     <string name="conflict_server_file">Ficheiro do servidor</string>
     <string name="contact_backup_title">Copia de seguranza dos contactos</string>
     <string name="contact_no_permission">Precisase de permiso de contacto.</string>

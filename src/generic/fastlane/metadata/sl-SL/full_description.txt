@@ -1,0 +1,19 @@
+Okolje, ki gostuje, kjer vi želite, in vam omogoča popoln nadzor.
+
+ Možnosti:
+* Enostaven za uporabo in sodoben vmesnik, ki je skladen z vašim strežnikom
+* Omogoča nalaganje datotek v oblak Nextcloud
+* Omogoča izmenjavo datotek z drugimi
+* Ohrani vaše datoteke in mape vedno usklajene
+ * Podpira iskanje po vseh dodeljenih mapah na strežniku
+ * Podpira samodejno nalaganje fotografij in videoposnetkov z naprave
+ * Usklajuje in posreduje obvestila
+ * Podpora je uporaba več računov
+* Zagotavlja varen dostop do podatkov s prstnim odtisom ali kodo PIN
+ * Izvorno podpira sistem DAVx5 (poznan kot DAVdroid) za enostavno nastavitev usklajevanja koledarja in stikov
+
+Poročila o težavah je mogoče poslati na https://github.com/nextcloud/android/isissue in o programu razpravljati na https://help.nextcloud.com/c/clients/android
+
+Ali šele spoznavate oblak Nextcloud? To je je zasebni strežnik za usklajevanje in sporočanje. Je brezplačna programska oprema, ki jo lahko namestite na svojem strežniku ali gostujete pri številnih ponudnikih. Vedno imate nadzor nad fotografijami, koledarjem in podatki stikov, nad dokumenti in vsem drugim.
+
+Vse o Nextcloud izveste na https://nextcloud.com.

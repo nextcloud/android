@@ -1,0 +1,11 @@
+55c1a8919 Merge pull request #5321 from nextcloud/dependabot/gradle/org.powermock-powermock-core-2.0.5
+6fbf451f2 Merge pull request #5320 from nextcloud/dependabot/gradle/org.powermock-powermock-api-mockito2-2.0.5
+c0991da09 Bump powermock-core from 2.0.4 to 2.0.5
+a1f489af0 Bump powermock-api-mockito2 from 2.0.4 to 2.0.5
+dd5c6043c Merge pull request #5322 from nextcloud/dependabot/gradle/org.powermock-powermock-module-junit4-2.0.5
+b53c96cba Merge pull request #5218 from nextcloud/fix_multitask
+fc6889291 [tx-robot] updated from transifex
+b0003f04b Bump powermock-module-junit4 from 2.0.4 to 2.0.5
+a5acbbfe0 [tx-robot] updated from transifex
+01ba3bef9 daily dev 20200125
+library commit: d15a3084eb9ffac98d781fc259d508de4878ce83

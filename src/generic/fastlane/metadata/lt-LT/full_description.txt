@@ -1,0 +1,18 @@
+Savarankiška produktyvumo platforma, leidžianti Jums išlaikyti kontrolę. 
+ 
+Savybės: 
+ * Paprasta, moderni sąsaja, tinkanti Jūsų serveriui. 
+* Įkelti failai į „Nextcloud“ serverį 
+* Failų bendrinimas su kitais naudotojais 
+* Mėgstamų failų ir aplankų sinchronizacija. 
+* Galima paieška visuose serverio aplankuose. 
+* Automatinis Jūsų įrenginio darytų nuotraukų ir vaizdo įrašų įkėlimas 
+* Pranešimai apie atnaujinimus 
+* Kelių paskyrų palaikymas 
+* Saugi prieiga prie savo duomenų naudojant pirštų atspaudus arba PIN kodą 
+* Integracija su „DAVx5“ (anksčiau vadintu „DAVdroid“), kad būtų galima lengvai nustatyti kalendoriaus & kontaktų sinchronizavimą
+. Prašome praneškite apie visas kilusias problemas puslapyje https://github.com/nextcloud/android/issues arba https://help.nextcloud.com/c/clients/android
+
+Naujai prisijungėte Nextcloud? „Nextcloud“ yra privatus failų sinchronizavimo & ir ryšių serveris. Tai nemokama programinė įranga, kurią galite admnistruoti patys arba naudotis mokamais kitų įmonių pasiūlymais. Nextcloud Jūs kontroliuoti savo nuotraukas, kalendorių ar kontaktinius duomenis, dokumentus ir visa kita. 
+
+Išbandykite „Nextcloud“ https://nextcloud.com.

@@ -1,0 +1,5 @@
+954c76b11 Merge pull request #4692 from nextcloud/markdownPreview
+2a8164acf Merge pull request #4700 from nextcloud/account-cleanup-receive-external-file-activity
+76622c886 [tx-robot] updated from transifex
+8fa348f80 Bump findsecbugs-plugin from 1.9.0 to 1.10.0 (#4703)
+e31ff9901 daily dev 20191018

@@ -1,0 +1,5 @@
+07c8abb22 Merge pull request #4474 from nextcloud/dependabot/gradle/androidx.arch.core-core-testing-2.1.0
+a69c8eb64 Bump core-testing from 2.0.1 to 2.1.0
+c9357b4c1 Merge pull request #4482 from nextcloud/fixNavigation
+6cbd7ede8 [tx-robot] updated from transifex
+861cc46ee daily dev 20190910

@@ -1,0 +1,5 @@
+1b6b909a8 Merge pull request #4621 from nextcloud/gridCrash
+58cac2ab2 Merge pull request #4604 from nextcloud/ezaquarii/fix-npe-in-favorites
+02eaa886a prevent crash when grid column is -1
+d27c6a1ab [tx-robot] updated from transifex
+038685863 daily dev 20191008

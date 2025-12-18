@@ -1,0 +1,4 @@
+Platforma de productivitate locală care vă menține în control.
+Aceasta este versiunea de dezvoltare oficială, cuprinzând exemple zilnice de funcționalități netestate, care pot crea instabilitate sau pierderi de date. Aplicația este pentru utilizatori care doresc să testeze și să raporteze bug-uri dacă acestea apar. Nu folosiți în producție!
+
+ Și versiunea oficială de dezvoltare și cea stabilă sunt disponibile pe F-droid și pot fi instalate în același timp.

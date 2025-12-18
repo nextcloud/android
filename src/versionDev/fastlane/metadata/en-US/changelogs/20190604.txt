@@ -1,0 +1,4 @@
+81993eee1 Merge pull request #4111 from nextcloud/ezaquarii/fix-crash-in-text-preview-fragment
+30af6a9ef Fix crash caused UserAccountManager dependency not being injected
+4a2a6862a [tx-robot] updated from transifex
+b002f1155 daily dev 20190601

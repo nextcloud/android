@@ -1,0 +1,7 @@
+d27075239 Merge pull request #4865 from Infomaniak/feature/fix-restore-btn-size
+34db13482 Merge pull request #4910 from nextcloud/dependabot/gradle/io.gitlab.arturbosch.detekt-detekt-gradle-plugin-1.2.1
+eac9c9df6 Merge pull request #4911 from nextcloud/dependabot/gradle/org.mockito-mockito-core-3.2.0
+dc0181bac [tx-robot] updated from transifex
+82e226f86 Bump mockito-core from 3.1.0 to 3.2.0
+85e13f291 Bump detekt-gradle-plugin from 1.2.0 to 1.2.1
+30f96aa98 daily dev 20191129

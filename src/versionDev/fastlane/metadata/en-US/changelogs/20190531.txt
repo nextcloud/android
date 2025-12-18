@@ -1,0 +1,16 @@
+9b3adc092 Merge pull request #4104 from nextcloud/dependabot/gradle/androidx.test-core-1.2.0
+3bde11e6a Bump runner from 1.1.1 to 1.2.0
+71d5d501e Bump rules from 1.1.1 to 1.2.0
+b6311e5ad Bump core from 1.1.0 to 1.2.0
+cac2e3dcd Merge pull request #4098 from nextcloud/dependabot/gradle/com.google.dagger-dagger-2.23.1
+1cff252a2 Bump dagger-android-support from 2.22.1 to 2.23.1
+ab5fc1477 Bump dagger-compiler from 2.22.1 to 2.23.1
+5c7145948 Bump dagger-android-processor from 2.22.1 to 2.23.1
+397614763 Bump dagger-android from 2.22.1 to 2.23.1
+d59bd3e98 Bump dagger from 2.22.1 to 2.23.1
+c3c1dce33 Merge pull request #4092 from nextcloud/dependabot/gradle/androidx.test.espresso-espresso-core-3.2.0
+e88d93f77 Bump mockito-core from 2.28.1 to 2.28.2
+660093f71 Bump espresso-contrib from 3.1.1 to 3.2.0
+36fe8be80 Bump junit from 1.1.0 to 1.1.1
+6b9f200f6 [tx-robot] updated from transifex
+b64acfc64 daily dev 20190530

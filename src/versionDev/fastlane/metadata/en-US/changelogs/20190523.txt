@@ -1,0 +1,8 @@
+a8829c6c6 Refactor ConnectivityUtils (#4008)
+9cbb677ba Drone: update FindBugs results to reflect reduced error/warning count [skip ci]
+c988459eb Merge commit '1f290419662c8058cd4bd90a161222f4150f6f25'
+1f2904196 revert commentig
+fabe3b233 open file from notification (#4019)
+b3312aa97 linewrap
+415deca15 [tx-robot] updated from transifex
+6a79f10a4 daily dev 20190522

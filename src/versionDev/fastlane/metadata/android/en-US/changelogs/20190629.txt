@@ -1,3 +1,0 @@
-af9a7feeb Merge pull request #4185 from nextcloud/fixCreateAsset
-29254bb0b use index.php to create asset in Collabora
-ff4848127 daily dev 20190627

@@ -1,0 +1,8 @@
+14891d169 Merge pull request #4327 from nextcloud/phoneInfo
+edc25788c Merge pull request #4334 from nextcloud/release372
+d3990fa6e Release 3.7.2
+56a4ac290 phone info on sent mail disable creation of old log file
+de9475ed2 Show groupFolder correctly (#4300)
+03dbd4922 Show groupFolder correctly
+007adfae8 [tx-robot] updated from transifex
+d647ccfdb daily dev 20190816

@@ -1,0 +1,4 @@
+Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.
+Jest to oficjalna wersja deweloperska, zawierająca codzienną próbkę każdej nowej niesprawdzonej funkcji, która może powodować niestabilność i utratę danych. Aplikacja jest przeznaczona dla użytkowników chcących przetestować i zgłosić błędy w przypadku ich wystąpienia. Nie używaj jej do ciągłej pracy!
+
+Zarówno oficjalna wersja dev jak i zwykła są dostępne na F-droid i mogą być instalowane równocześnie.

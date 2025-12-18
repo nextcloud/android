@@ -1,0 +1,17 @@
+2c57e3709 Merge pull request #4784 from nextcloud/hideAutoUploadEntries
+5257fb236 [tx-robot] updated from transifex
+aa431815a Merge pull request #4882 from nextcloud/dependabot/gradle/com.google.android-flexbox-2.0.0
+1f4e85768 Drone: update FindBugs results to reflect reduced error/warning count [skip ci]
+d17c85349 re-add button/action and improve upon code review
+74bfe473c remove action button, use checkable menu item for shown/hidden state display
+3e872df68 add more spotbug exclusions (for 3rd party libs)
+4e0b40517 Drone: update FindBugs results to reflect reduced error/warning count [skip ci]
+7c62ad6b0 unify use of boolean, make use of lombok getter/setters, remove unneeded boolean boxing
+bedc2b48e housekeeping, removing unused resources
+ca6918f9f show/hide improvements when list is completed hidden + nicer empty UI + action button
+23e44243d show/hide auto upload list items
+540c649ef Merge pull request #4894 from nextcloud/dependabot/gradle/kotlin_version-1.3.61
+f34ba2cdc Bump kotlin_version from 1.3.60 to 1.3.61
+48038d564 Merge pull request #4883 from nextcloud/dependabot/gradle/io.gitlab.arturbosch.detekt-detekt-gradle-plugin-1.2.0
+83e0ebc46 [tx-robot] updated from transifex
+21c0de3cd daily dev 20191127

@@ -1,4 +1,0 @@
-85c129c9a Merge pull request #4217 from nextcloud/fixGSS
-2c2425812 fix GSS on android: we send custom user agent to have info about device, but we need some identifier
-e3923b24c Merge pull request #4214 from nextcloud/dependabot/gradle/com.android.tools.build-gradle-3.4.2
-5362f4fdc daily dev 20190710

@@ -89,7 +89,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                 sut.supportFragmentManager.executePendingTransactions()
                 val fragment = (sut.fragment as OCFileListFragment)
                 val root = sut.storageManager.getFileByEncryptedRemotePath("/")
-                fragment.listDirectory(root, false, false)
+                fragment.listDirectory(root, false)
             }
 
             val screenShotName = createName(testClassName + "_" + "showFiles", "")
@@ -220,7 +220,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                 sut.addFragment(fragment)
                 sut.supportFragmentManager.executePendingTransactions()
                 val root = sut.storageManager.getFileByEncryptedRemotePath("/")
-                fragment.listDirectory(root, false, false)
+                fragment.listDirectory(root, false)
                 fragment.adapter.setShowShareAvatar(true)
             }
 
@@ -308,7 +308,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                 sut.addFragment(fragment)
                 sut.supportFragmentManager.executePendingTransactions()
                 val root = sut.storageManager.getFileByEncryptedRemotePath("/")
-                fragment.listDirectory(root, false, false)
+                fragment.listDirectory(root, false)
                 fragment.adapter.setShowShareAvatar(true)
             }
 
@@ -347,7 +347,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                 sut.supportFragmentManager.executePendingTransactions()
                 val testFolder: OCFile = sut.storageManager.getFileByEncryptedRemotePath("/test/")
                 testFolder.richWorkspace = getFile("java.md").readText()
-                fragment.listDirectory(testFolder, false, false)
+                fragment.listDirectory(testFolder, false)
             }
 
             val screenShotName = createName(testClassName + "_" + "showRichWorkspace", "")

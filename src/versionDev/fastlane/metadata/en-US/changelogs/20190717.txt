@@ -1,0 +1,7 @@
+4f1a72594 Merge pull request #4238 from nextcloud/removeBottomBar
+e2d34d18c Merge pull request #4237 from nextcloud/removeSSO_SAML
+d868fcc15 remove old and unmaintained bottom bar
+49cca17fc Remove last usage of SSO/Saml
+ee060bd57 Bump ktlint from 0.33.0 to 0.34.0 (#4236)
+f71a605a4 [tx-robot] updated from transifex
+e83f45a36 daily dev 20190716

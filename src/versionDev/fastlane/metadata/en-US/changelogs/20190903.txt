@@ -1,0 +1,12 @@
+c6f6ce80d Merge pull request #4447 from nextcloud/npeImage
+639c770e5 Merge pull request #4449 from nextcloud/baseUrlNull
+f671a1eaf codacy: Useless parentheses.
+8418bc4e3 Merge pull request #4444 from nextcloud/fileActivity
+23f40b710 baseURL might be null
+83f7be14c prevent npe
+4e2f9af19 fix endless scroll on file detail activity stream
+f284d3bcb [tx-robot] updated from transifex
+97538ca8f [tx-robot] updated from transifex
+19921eb08 [tx-robot] updated from transifex
+09c8e2e37 [tx-robot] updated from transifex
+99b536c62 daily dev 20190829

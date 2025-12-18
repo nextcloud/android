@@ -1,0 +1,7 @@
+f9bd91b4b Merge pull request #4956 from nextcloud/fixScreenshot
+d95351b04 Merge pull request #4953 from nextcloud/dependabot/gradle/io.gitlab.arturbosch.detekt-detekt-gradle-plugin-1.2.2
+3ed9ce2e2 Merge pull request #4920 from nextcloud/theming_server_input
+b01f71972 fix #4955
+01e532929 fix #4752
+d8722b52d [tx-robot] updated from transifex
+ed52ad56a daily dev 20191206

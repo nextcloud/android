@@ -1,0 +1,3 @@
+84d4d16c1 Merge pull request #4225 from nextcloud/changelog370
+453584613 Update changelog to 3.7.0
+9fa458e55 daily dev 20190711

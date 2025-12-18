@@ -1,0 +1,10 @@
+1d17b352b Merge pull request #4309 from nextcloud/ezaquarii/logs-search
+725ffc4ca Drone: update Lint results to reflect reduced error/warning count [skip ci]
+92e2234d6 Merge commit 'c35873f5dcb77bf9a33111c1fee2d25584f6a22d'
+c35873f5d Log search functionality and log browser refactoring
+496f101fa Merge pull request #4324 from nextcloud/translate
+ceb399969 Extract strings to be translatable
+e48a874d7 Merge pull request #4322 from nextcloud/contributingLicense
+05dcedbfb add licene sample
+c6abcd22d [tx-robot] updated from transifex
+d6eb9de7e daily dev 20190813

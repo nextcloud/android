@@ -1,0 +1,4 @@
+c8eba1d5a Merge pull request #4835 from nextcloud/ezaquarii/new-user-model
+609b99666 New user model
+44220d73f Merge pull request #4867 from nextcloud/dependabot/gradle/androidx.exifinterface-exifinterface-1.1.0
+6e5d7a89c daily dev 20191121

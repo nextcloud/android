@@ -1,3 +1,0 @@
-e4fb5b0a7 Merge pull request #4263 from nextcloud/removeDocument
-e382365c0 [tx-robot] updated from transifex
-c27a33ca1 daily dev 20190726

@@ -1,9 +1,0 @@
-895570970 Merge pull request #4196 from nextcloud/codacy
-c4deb2804 codacy: Avoid throwing raw exception types.
-31da2fc46 codacy: Classes implementing Serializable should set a serialVersionUID
-a5297a536 spotbugs: Unused public or protected field
-4b10d34ad codacy: AppModule
-4c61a9258 codacy: Avoid unused local variables such as 'userId'. codacy: Avoid unused imports
-1cc72c8a3 Bump kotlin_version from 1.3.40 to 1.3.41 (#4200)
-fbc091c85 [tx-robot] updated from transifex
-cc2882d3e daily dev 20190704

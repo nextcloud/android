@@ -43,6 +43,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
@@ -67,6 +68,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private Set<File> checkedFiles;
     private ViewThemeUtils viewThemeUtils;
     private boolean isWithinEncryptedFolder;
+    private final ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
 
     private static final int VIEWTYPE_ITEM = 0;
     private static final int VIEWTYPE_FOOTER = 1;
@@ -372,7 +374,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         mFiles.clear();
         mFilesAll.clear();
 
-        Executors.newSingleThreadExecutor().execute(() -> {
+        singleThreadExecutor.execute(() -> {
             // Load first page of folders
             List<File> firstPage = FileHelper.INSTANCE.listDirectoryEntries(directory, currentOffset, PAGE_SIZE, true);
 
@@ -445,12 +447,14 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     @SuppressLint("NotifyDataSetChanged")
     public void setSortOrder(FileSortOrder sortOrder) {
         localFileListFragmentInterface.setLoading(true);
-        final Handler uiHandler = new Handler(Looper.getMainLooper());
-        Executors.newSingleThreadExecutor().execute(() -> {
-            preferences.setSortOrder(FileSortOrder.Type.localFileListView, sortOrder);
-            mFiles = sortOrder.sortLocalFiles(mFiles);
+        singleThreadExecutor.execute(() -> {
+            List<File> sortedCopy = new ArrayList<>(mFiles);
+            sortedCopy = sortOrder.sortLocalFiles(sortedCopy);
 
-            uiHandler.post(() -> {
+            final List<File> finalSortedCopy = sortedCopy;
+            new Handler(Looper.getMainLooper()).post(() -> {
+                mFiles = finalSortedCopy;
+                mFilesAll = new ArrayList<>(finalSortedCopy);
                 notifyDataSetChanged();
                 localFileListFragmentInterface.setLoading(false);
             });
@@ -590,5 +594,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         notifyDataSetChanged();
         localFileListFragmentInterface.setLoading(false);
+    }
+
+    public void cleanup() {
+        singleThreadExecutor.shutdown();
     }
 }

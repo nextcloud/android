@@ -1,0 +1,3 @@
+c4e20a652 Merge pull request #4762 from nextcloud/color
+af63eed65 overwrite in values-night/colors only values that differ move branding colors back to setup.xml
+a9fcc7b03 daily dev 20191030
