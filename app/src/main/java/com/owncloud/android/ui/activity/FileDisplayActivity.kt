@@ -1401,10 +1401,10 @@ class FileDisplayActivity :
     }
 
     private fun registerUploadFinishReceiver() {
-        val uploadIntentFilter = IntentFilter(getUploadFinishMessage())
+        val filter = IntentFilter(getUploadFinishMessage())
         mUploadFinishReceiver = UploadFinishReceiver()
         mUploadFinishReceiver?.let {
-            localBroadcastManager.registerReceiver(mUploadFinishReceiver!!, uploadIntentFilter)
+            localBroadcastManager.registerReceiver(it, filter)
         }
     }
 
