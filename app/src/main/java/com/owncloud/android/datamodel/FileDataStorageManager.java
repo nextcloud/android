@@ -496,7 +496,7 @@ public class FileDataStorageManager {
     }
 
     public boolean saveFile(OCFile ocFile) {
-        Log_OC.d(TAG, "saving file: " + ocFile.getRemotePath() + " etag: " + ocFile.getEtag());
+        Log_OC.d(TAG, "saving file: " + ocFile.getRemotePath());
 
         boolean overridden = false;
         final ContentValues cv = createContentValuesForFile(ocFile);
