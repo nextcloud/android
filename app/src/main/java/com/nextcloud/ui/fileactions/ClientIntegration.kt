@@ -171,7 +171,7 @@ class ClientIntegration(
             var output: ClientIntegrationUI?
             try {
                 output = parseClientIntegrationResult(response)
-                if (output.root != null && output.root?.layoutRows != null) {
+                if (output.root != null && output.root?.rows != null) {
                     startClientIntegration(endpoint, output)
                 } else {
                     val tooltipResponse = parseTooltipResult(response)

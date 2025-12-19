@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -34,7 +35,7 @@ import com.nextcloud.android.lib.resources.clientintegration.LayoutButton
 import com.nextcloud.android.lib.resources.clientintegration.LayoutOrientation
 import com.nextcloud.android.lib.resources.clientintegration.LayoutRow
 import com.nextcloud.android.lib.resources.clientintegration.LayoutText
-import com.nextcloud.android.lib.resources.clientintegration.URL
+import com.nextcloud.android.lib.resources.clientintegration.LayoutURL
 import com.nextcloud.utils.extensions.getActivity
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.utils.DisplayUtils
@@ -42,7 +43,7 @@ import com.owncloud.android.utils.DisplayUtils
 @Composable
 fun ClientIntegrationScreen(clientIntegrationUI: ClientIntegrationUI, baseUrl: String) {
     val activity = LocalContext.current.getActivity()
-    val layoutRows = clientIntegrationUI.root?.layoutRows ?: listOf()
+    val layoutRows = clientIntegrationUI.root?.rows ?: listOf()
 
     Scaffold(topBar = {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
@@ -84,11 +85,11 @@ fun ClientIntegrationScreen(clientIntegrationUI: ClientIntegrationUI, baseUrl: S
 @Composable
 private fun DisplayElement(element: Element, baseUrl: String, activity: Activity?) {
     when (element) {
-        is LayoutButton -> androidx.compose.material3.Button(onClick = { }) {
+        is LayoutButton -> Button(onClick = { }) {
             Text(element.label)
         }
 
-        is URL -> TextButton({
+        is LayoutURL -> TextButton({
             openLink(activity, baseUrl, element.url)
         }) { Text(element.text) }
 
@@ -117,7 +118,7 @@ private fun ClientIntegrationScreenPreviewVertical() {
                     listOf(LayoutButton("Click2", "Primary"))
                 ),
                 LayoutRow(
-                    listOf(URL("Analytics report created", "https://nextcloud.com"))
+                    listOf(LayoutURL("Analytics report created", "https://nextcloud.com"))
                 )
             )
         )
@@ -144,7 +145,7 @@ private fun ClientIntegrationScreenPreviewHorizontal() {
                     listOf(LayoutButton("Click2", "Primary"))
                 ),
                 LayoutRow(
-                    listOf(URL("Analytics report created", "https://nextcloud.com"))
+                    listOf(LayoutURL("Analytics report created", "https://nextcloud.com"))
                 )
             )
         )
