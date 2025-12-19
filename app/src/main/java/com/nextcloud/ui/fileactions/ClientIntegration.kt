@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2025 Your Name <your@email.com>
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -168,9 +168,8 @@ class ClientIntegration(
             }
             val response = method.getResponseBodyAsString()
 
-            var output: ClientIntegrationUI?
             try {
-                output = parseClientIntegrationResult(response)
+                val output = parseClientIntegrationResult(response)
                 if (output.root != null && output.root?.rows != null) {
                     startClientIntegration(endpoint, output)
                 } else {
@@ -189,7 +188,7 @@ class ClientIntegration(
     }
 
     private suspend fun showMessage(message: String) = withContext(Dispatchers.Main) {
-        DisplayUtils.showSnackMessage(sheet.view, message)
+        DisplayUtils.showSnackMessage(sheet.requireActivity(), message)
     }
 
     private fun parseTooltipResult(response: String?): TooltipResponse {
