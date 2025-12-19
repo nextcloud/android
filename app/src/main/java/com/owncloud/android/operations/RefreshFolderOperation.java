@@ -267,9 +267,6 @@ public class RefreshFolderOperation extends RemoteOperation {
             updateUserProfile();
         }
 
-        // check first parent dirs are saved
-        fileDataStorageManager.saveFileWithParent(mLocalFolder, mContext);
-
         result = checkForChanges(client);
 
         if (result.isSuccess()) {
@@ -403,11 +400,6 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {
         mRemoteFolderChanged = true;
-        if (isMetadataSyncWorkerRunning) {
-            Log_OC.d(TAG, "Skipping eTag check since metadata worker already did");
-            return new RemoteOperationResult<>(ResultCode.OK);
-        }
-
         RemoteOperationResult<?> result;
         String remotePath = mLocalFolder.getRemotePath();
 
@@ -417,16 +409,18 @@ public class RefreshFolderOperation extends RemoteOperation {
         result = new ReadFileRemoteOperation(remotePath).execute(client);
 
         if (result.isSuccess()) {
-            if (!mIgnoreETag && result.getData().get(0) instanceof RemoteFile remoteFile) {
+            OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+
+            if (!mIgnoreETag) {
                 // check if remote and local folder are different
-                String remoteFolderETag = remoteFile.getEtag();
+                String remoteFolderETag = remoteFolder.getEtag();
                 if (remoteFolderETag != null) {
                     String localFolderEtag = mLocalFolder.getEtag();
                     mRemoteFolderChanged = StringExtensionsKt.eTagChanged(remoteFolderETag, localFolderEtag);
                     Log_OC.d(
                         TAG,
                         "📂 eTag check\n" +
-                            "  Path:        " + remoteFile.getRemotePath() + "\n" +
+                            "  Path:        " + remoteFolder.getRemotePath() + "\n" +
                             "  Local eTag:  " + localFolderEtag + "\n" +
                             "  Remote eTag: " + remoteFolderETag + "\n" +
                             "  Changed:     " + mRemoteFolderChanged
@@ -505,7 +499,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         mLocalFolder = fileDataStorageManager.getFileByPath(mLocalFolder.getRemotePath());
 
         if (mLocalFolder == null) {
-            Log_OC.d(TAG,"mLocalFolder cannot be null");
+            Log_OC.e(TAG,"mLocalFolder cannot be null");
             return;
         }
 
@@ -514,7 +508,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         remoteFolder.setParentId(mLocalFolder.getParentId());
         remoteFolder.setFileId(mLocalFolder.getFileId());
 
-        Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath() + " changed - starting update of local data ");
+        Log_OC.d(TAG, "Remote folder path: " + mLocalFolder.getRemotePath() + " changed - starting update of local data ");
 
         List<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
         mFilesToSyncContents.clear();
