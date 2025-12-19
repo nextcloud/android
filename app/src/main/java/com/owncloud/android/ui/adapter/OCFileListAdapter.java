@@ -12,9 +12,7 @@ package com.owncloud.android.ui.adapter;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ComponentCallbacks;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -189,17 +187,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         // initialise thumbnails cache on background thread
         ThumbnailsCacheManager.initDiskCacheAsync();
         isRTL = DisplayUtils.isRTL();
-
-        activity.registerComponentCallbacks(new ComponentCallbacks() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onConfigurationChanged(@NonNull Configuration newConfig) {
-                notifyDataSetChanged(); // force update of orientation-dependent layout (e.g. share button visibility)
-            }
-            @Override
-            public void onLowMemory() {
-            }
-        });
     }
 
     public boolean isMultiSelect() {

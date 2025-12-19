@@ -8,7 +8,6 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
-import android.content.res.Configuration
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -218,7 +217,6 @@ class OCFileListDelegate(
         // shares
         val shouldHideShare = (
             hideItemOptions ||
-                context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT ||
                 !file.isFolder &&
                 file.isEncrypted ||
                 file.isEncrypted &&
