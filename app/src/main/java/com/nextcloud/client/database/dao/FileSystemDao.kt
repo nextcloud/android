@@ -21,6 +21,15 @@ interface FileSystemDao {
 
     @Query(
         """
+        DELETE FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
+        WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH} = :localPath
+          AND ${ProviderMeta.ProviderTableMeta._ID} = :id
+        """
+    )
+    suspend fun deleteByLocalPathAndId(localPath: String, id: Int)
+
+    @Query(
+        """
         SELECT *
         FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
         WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} = :syncedFolderId

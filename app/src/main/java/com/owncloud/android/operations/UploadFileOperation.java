@@ -1283,10 +1283,32 @@ public class UploadFileOperation extends SyncOperation {
         handleLocalBehaviour(temporalFile, expectedFile, originalFile, client);
     }
 
+    private void deleteNonExistingFile(File file) {
+        if (file.exists()) {
+            return;
+        }
+
+        Log_OC.d(TAG, "deleting non-existing file from upload list and file list");
+
+        uploadsStorageManager.removeUpload(mOCUploadId);
+
+        // some chunks can be uploaded and can still exists in db thus we have to remove it as well
+        getStorageManager().removeFile(mFile, true, true);
+    }
+
     private void handleLocalBehaviour(File temporalFile,
                                       File expectedFile,
                                       File originalFile,
                                       OwnCloudClient client) {
+
+        // only LOCAL_BEHAVIOUR_COPY not using original file
+        if (mLocalBehaviour != FileUploadWorker.LOCAL_BEHAVIOUR_COPY) {
+            // if file is not exists we should only delete from our app
+            deleteNonExistingFile(originalFile);
+        }
+
+        Log_OC.d(TAG, "handling local behaviour for: " + originalFile.getName() + " behaviour: " + mLocalBehaviour);
+
         switch (mLocalBehaviour) {
             case FileUploadWorker.LOCAL_BEHAVIOUR_DELETE:
                 try {
@@ -1305,6 +1327,9 @@ public class UploadFileOperation extends SyncOperation {
                         move(temporalFile, expectedFile);
                     } catch (IOException e) {
                         Log_OC.e(TAG, e.getMessage());
+
+                        // handling non-existing file for local copy as well
+                        deleteNonExistingFile(temporalFile);
                     }
                 } else if (originalFile != null) {
                     try {
