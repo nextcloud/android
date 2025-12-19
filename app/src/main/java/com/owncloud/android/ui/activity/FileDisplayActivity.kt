@@ -197,7 +197,7 @@ class FileDisplayActivity :
     private var mSyncInProgress: Boolean = false
         set(value) {
             field = value
-            setBackgroundText()
+            setEmptyListState()
         }
 
     private var mWaitingToSend: OCFile? = null
@@ -797,7 +797,6 @@ class FileDisplayActivity :
             setLeftFragment(fragment, true)
         }
 
-    @get:Deprecated("")
     val listOfFilesFragment: OCFileListFragment?
         get() {
             val listOfFiles =
@@ -1531,7 +1530,6 @@ class FileDisplayActivity :
         syncResult: Any?
     ) {
         if (FileSyncAdapter.EVENT_FULL_SYNC_START == event) {
-            mSyncInProgress = true
             return
         }
 
@@ -1548,14 +1546,7 @@ class FileDisplayActivity :
         }
 
         handleSyncResult(event, syncResult)
-
         DataHolderUtil.getInstance().delete(id)
-
-        mSyncInProgress =
-            FileSyncAdapter.EVENT_FULL_SYNC_END != event &&
-            RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED != event
-        Log_OC.d(TAG, "Setting progress visibility to $mSyncInProgress")
-
         handleScrollBehaviour(fileListFragment)
     }
 
@@ -1657,21 +1648,16 @@ class FileDisplayActivity :
             (syncResult.isException && syncResult.exception is AuthenticatorException)
     }
 
-    /**
-     * Show a text message on screen view for notifying user if content is loading or folder is empty
-     */
-    private fun setBackgroundText() {
-        val ocFileListFragment = listOfFilesFragment ?: return
-        connectivityService.isNetworkAndServerAvailable { result: Boolean? ->
+    private fun setEmptyListState() {
+        listOfFilesFragment?.let {
             when {
-                mSyncInProgress && result == true -> {
-                    ocFileListFragment.setEmptyListMessage(EmptyListState.LOADING)
+                mSyncInProgress -> {
+                    it.setEmptyListMessage(EmptyListState.LOADING)
                 }
                 MainApp.isOnlyOnDevice() -> {
-                    ocFileListFragment.setEmptyListMessage(EmptyListState.ONLY_ON_DEVICE)
+                    it.setEmptyListMessage(EmptyListState.ONLY_ON_DEVICE)
                 }
-                result == true -> ocFileListFragment.setEmptyListMessage(SearchType.NO_SEARCH)
-                else -> ocFileListFragment.setEmptyListMessage(EmptyListState.OFFLINE_MODE)
+                else -> it.setEmptyListMessage(SearchType.NO_SEARCH)
             }
         }
     }
@@ -2404,19 +2390,20 @@ class FileDisplayActivity :
         // or if the method is called from a dialog that is being dismissed
 
         if (TextUtils.isEmpty(searchQuery) && user.isPresent) {
+            mSyncInProgress = true
+
             handler.postDelayed({
                 val user = getUser()
                 if (!ignoreFocus && !hasWindowFocus() || !user.isPresent) {
                     // do not refresh if the user rotates the device while another window has focus
                     // or if the current user is no longer valid
+                    mSyncInProgress = false
                     return@postDelayed
                 }
 
                 val currentSyncTime = System.currentTimeMillis()
-                mSyncInProgress = true
 
-                // perform folder synchronization
-                val refreshFolderOperation: RemoteOperation<*> = RefreshFolderOperation(
+                val operation = RefreshFolderOperation(
                     folder,
                     currentSyncTime,
                     false,
@@ -2425,7 +2412,7 @@ class FileDisplayActivity :
                     user.get(),
                     applicationContext
                 )
-                refreshFolderOperation.execute(
+                operation.execute(
                     account,
                     MainApp.getAppContext(),
                     this@FileDisplayActivity,
@@ -2434,8 +2421,6 @@ class FileDisplayActivity :
                 )
 
                 fetchRecommendedFilesIfNeeded(ignoreETag, folder)
-                mSyncInProgress = false
-                ocFileListFragment?.setLoading(false)
             }, DELAY_TO_REQUEST_REFRESH_OPERATION_LATER)
         }
     }
