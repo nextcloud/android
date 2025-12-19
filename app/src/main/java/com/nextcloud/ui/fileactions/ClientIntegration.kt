@@ -37,7 +37,6 @@ import com.nextcloud.operations.PostMethod
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeActivity.ComposeDestination
 import com.nextcloud.utils.GlideHelper
-import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
@@ -165,28 +164,32 @@ class ClientIntegration(
             val result = try {
                 client.execute(method)
             } catch (_: IOException) {
-                context.showToast(context.resources.getString(R.string.failed_to_start_action))
+                showMessage(context.resources.getString(R.string.failed_to_start_action))
             }
             val response = method.getResponseBodyAsString()
 
             var output: ClientIntegrationUI?
             try {
                 output = parseClientIntegrationResult(response)
-                if (output.root != null) {
+                if (output.root != null && output.root?.layoutRows != null) {
                     startClientIntegration(endpoint, output)
                 } else {
                     val tooltipResponse = parseTooltipResult(response)
-                    context.showToast(tooltipResponse.tooltip)
+                    showMessage(tooltipResponse.tooltip)
                 }
             } catch (_: JsonSyntaxException) {
                 if (result == HttpStatus.SC_OK) {
-                    context.showToast(context.resources.getString(R.string.action_triggered))
+                    showMessage(context.resources.getString(R.string.action_triggered))
                 } else {
-                    context.showToast(context.resources.getString(R.string.failed_to_start_action))
+                    showMessage(context.resources.getString(R.string.failed_to_start_action))
                 }
             }
             sheet.dismiss()
         }
+    }
+
+    private suspend fun showMessage(message: String) = withContext(Dispatchers.Main) {
+        DisplayUtils.showSnackMessage(sheet.view, message)
     }
 
     private fun parseTooltipResult(response: String?): TooltipResponse {

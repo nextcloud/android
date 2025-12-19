@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -20,17 +21,19 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.nextcloud.android.lib.resources.clientintegration.Button
 import com.nextcloud.android.lib.resources.clientintegration.ClientIntegrationUI
 import com.nextcloud.android.lib.resources.clientintegration.Element
 import com.nextcloud.android.lib.resources.clientintegration.Layout
-import com.nextcloud.android.lib.resources.clientintegration.Orientation
-import com.nextcloud.android.lib.resources.clientintegration.Text
+import com.nextcloud.android.lib.resources.clientintegration.LayoutButton
+import com.nextcloud.android.lib.resources.clientintegration.LayoutOrientation
+import com.nextcloud.android.lib.resources.clientintegration.LayoutRow
+import com.nextcloud.android.lib.resources.clientintegration.LayoutText
 import com.nextcloud.android.lib.resources.clientintegration.URL
 import com.nextcloud.utils.extensions.getActivity
 import com.owncloud.android.lib.resources.status.OCCapability
@@ -39,6 +42,7 @@ import com.owncloud.android.utils.DisplayUtils
 @Composable
 fun ClientIntegrationScreen(clientIntegrationUI: ClientIntegrationUI, baseUrl: String) {
     val activity = LocalContext.current.getActivity()
+    val layoutRows = clientIntegrationUI.root?.layoutRows ?: listOf()
 
     Scaffold(topBar = {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
@@ -50,10 +54,10 @@ fun ClientIntegrationScreen(clientIntegrationUI: ClientIntegrationUI, baseUrl: S
             }
         }
     }, modifier = Modifier.fillMaxSize()) {
-        when (clientIntegrationUI.root.orientation) {
-            Orientation.VERTICAL -> {
-                LazyColumn {
-                    items(clientIntegrationUI.root.rows) { row ->
+        when (clientIntegrationUI.root?.orientation) {
+            LayoutOrientation.VERTICAL -> {
+                LazyColumn(modifier = Modifier.padding(it)) {
+                    items(layoutRows) { row ->
                         LazyRow {
                             items(row.children) { element ->
                                 DisplayElement(element, baseUrl, activity)
@@ -63,8 +67,8 @@ fun ClientIntegrationScreen(clientIntegrationUI: ClientIntegrationUI, baseUrl: S
                 }
             }
             else -> {
-                LazyRow {
-                    items(clientIntegrationUI.root.rows) { row ->
+                LazyRow(modifier = Modifier.padding(it)) {
+                    items(layoutRows) { row ->
                         LazyColumn {
                             items(row.children) { element ->
                                 DisplayElement(element, baseUrl, activity)
@@ -80,15 +84,15 @@ fun ClientIntegrationScreen(clientIntegrationUI: ClientIntegrationUI, baseUrl: S
 @Composable
 private fun DisplayElement(element: Element, baseUrl: String, activity: Activity?) {
     when (element) {
-        is Button -> androidx.compose.material3.Button(onClick = { }) {
-            androidx.compose.material3.Text(element.label)
+        is LayoutButton -> androidx.compose.material3.Button(onClick = { }) {
+            Text(element.label)
         }
 
         is URL -> TextButton({
             openLink(activity, baseUrl, element.url)
-        }) { androidx.compose.material3.Text(element.text) }
+        }) { Text(element.text) }
 
-        is Text -> androidx.compose.material3.Text(element.text)
+        is LayoutText -> Text(element.text)
     }
 }
 
@@ -104,15 +108,15 @@ private fun ClientIntegrationScreenPreviewVertical() {
     val clientIntegrationUI = ClientIntegrationUI(
         OCCapability.CLIENT_INTEGRATION_VERSION,
         Layout(
-            Orientation.VERTICAL,
+            LayoutOrientation.VERTICAL,
             mutableListOf(
-                com.nextcloud.android.lib.resources.clientintegration.Row(
-                    listOf(Button("Click", "Primary"), Text("123"))
+                LayoutRow(
+                    listOf(LayoutButton("Click", "Primary"), LayoutText("123"))
                 ),
-                com.nextcloud.android.lib.resources.clientintegration.Row(
-                    listOf(Button("Click2", "Primary"))
+                LayoutRow(
+                    listOf(LayoutButton("Click2", "Primary"))
                 ),
-                com.nextcloud.android.lib.resources.clientintegration.Row(
+                LayoutRow(
                     listOf(URL("Analytics report created", "https://nextcloud.com"))
                 )
             )
@@ -131,15 +135,15 @@ private fun ClientIntegrationScreenPreviewHorizontal() {
     val clientIntegrationUI = ClientIntegrationUI(
         OCCapability.CLIENT_INTEGRATION_VERSION,
         Layout(
-            Orientation.HORIZONTAL,
+            LayoutOrientation.HORIZONTAL,
             mutableListOf(
-                com.nextcloud.android.lib.resources.clientintegration.Row(
-                    listOf(Button("Click", "Primary"), Text("123"))
+                LayoutRow(
+                    listOf(LayoutButton("Click", "Primary"), LayoutText("123"))
                 ),
-                com.nextcloud.android.lib.resources.clientintegration.Row(
-                    listOf(Button("Click2", "Primary"))
+                LayoutRow(
+                    listOf(LayoutButton("Click2", "Primary"))
                 ),
-                com.nextcloud.android.lib.resources.clientintegration.Row(
+                LayoutRow(
                     listOf(URL("Analytics report created", "https://nextcloud.com"))
                 )
             )
@@ -155,7 +159,7 @@ private fun ClientIntegrationScreenPreviewEmpty() {
     val clientIntegrationUI = ClientIntegrationUI(
         OCCapability.CLIENT_INTEGRATION_VERSION,
         Layout(
-            Orientation.HORIZONTAL,
+            LayoutOrientation.HORIZONTAL,
             emptyList()
         )
     )
