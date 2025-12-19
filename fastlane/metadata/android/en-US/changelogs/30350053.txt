@@ -1,0 +1,9 @@
+## 3.35.0 RC3 (December 19, 2025)
+
+- Action bar and navigation fixes
+- Auto-upload fixes
+- Performance improvements and bug fixes
+
+Minimum: NC 20 Server, Android 9 Pie
+
+For a full list, please see https://github.com/nextcloud/android/milestone/118
