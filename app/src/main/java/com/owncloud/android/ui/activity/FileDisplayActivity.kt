@@ -564,10 +564,17 @@ class FileDisplayActivity :
             ALL_FILES == action -> {
                 Log_OC.d(this, "Switch to oc file fragment")
                 menuItemId = R.id.nav_all_files
-                if (leftFragment !is OCFileListFragment) {
-                    leftFragment = OCFileListFragment()
-                    supportFragmentManager.executePendingTransactions()
+
+                // Replace only if the fragment is NOT exactly OCFileListFragment
+                // Using `is OCFileListFragment` would also match subclasses,
+                // its needed because reinitializing OCFileListFragment itself causes an empty screen
+                leftFragment?.let {
+                    if (it::class != OCFileListFragment::class) {
+                        leftFragment = OCFileListFragment()
+                        supportFragmentManager.executePendingTransactions()
+                    }
                 }
+
                 browseToRoot()
             }
 
