@@ -51,7 +51,6 @@ import com.nextcloud.utils.extensions.DateExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileLockType;
@@ -497,9 +496,13 @@ public class FileDataStorageManager {
     }
 
     public boolean saveFile(OCFile ocFile) {
+        Log_OC.d(TAG, "saving file: " + ocFile.getRemotePath() + " etag: " + ocFile.getEtag());
+
         boolean overridden = false;
         final ContentValues cv = createContentValuesForFile(ocFile);
         if (ocFile.isFolder()) {
+            // only refresh folder operation must update eTag otherwise content of the folder may stay as outdated
+            cv.remove(ProviderTableMeta.FILE_ETAG);
             cv.remove(ProviderTableMeta.FILE_STORAGE_PATH);
         }
 
