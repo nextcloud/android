@@ -618,11 +618,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onShareIconClick(OCFile file) {
-        if (file.isFolder()) {
-            mContainerActivity.showDetails(file, 1);
-        } else {
-            throttler.run("shareIconClick", () -> mContainerActivity.getFileOperationsHelper().sendShareFile(file));
-        }
+        mContainerActivity.showDetails(file, 1);
     }
 
     @Override
@@ -1297,7 +1293,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             OCFile singleFile = checkedFiles.iterator().next();
 
             if (itemId == R.id.action_send_share_file) {
-                mContainerActivity.getFileOperationsHelper().sendShareFile(singleFile);
+                mContainerActivity.showDetails(singleFile, 1);
                 return true;
             } else if (itemId == R.id.action_open_file_with) {
                 mContainerActivity.getFileOperationsHelper().openFile(singleFile);
