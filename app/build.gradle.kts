@@ -75,7 +75,7 @@ val ndkEnv = buildMap {
 }
 
 val configProps = Properties().apply {
-    val file = rootProject.file(".gradle/config.properties")
+    val file = rootProject.file("gradle.properties")
     if (file.exists()) load(FileInputStream(file))
 }
 
