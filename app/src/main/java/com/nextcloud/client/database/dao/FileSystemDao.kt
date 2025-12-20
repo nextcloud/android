@@ -41,7 +41,12 @@ interface FileSystemDao {
         LIMIT :limit
     """
     )
-    suspend fun getAutoUploadFilesEntities(syncedFolderId: String, limit: Int, lastId: Int, maxFileTimestamp: Long): List<FilesystemEntity>
+    suspend fun getAutoUploadFilesEntities(
+        syncedFolderId: String,
+        limit: Int,
+        lastId: Int,
+        maxFileTimestamp: Long
+    ): List<FilesystemEntity>
 
     @Query(
         """
