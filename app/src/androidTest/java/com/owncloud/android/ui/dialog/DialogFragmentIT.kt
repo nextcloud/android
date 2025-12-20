@@ -504,9 +504,8 @@ class DialogFragmentIT : AbstractIT() {
                         throw UnsupportedOperationException("Document scan is not available")
                 }
 
-                val materialSchemesProvider = getMaterialSchemesProvider()
                 val viewThemeUtils = ViewThemeUtils(
-                    materialSchemesProvider.getMaterialSchemesForCurrentUser(),
+                    materialSchemesForCurrentUser,
                     ColorUtil(targetContext)
                 )
 
