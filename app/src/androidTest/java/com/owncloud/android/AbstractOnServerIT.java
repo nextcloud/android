@@ -10,7 +10,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
-import android.content.ActivityNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -29,7 +28,6 @@ import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
@@ -46,6 +44,7 @@ import org.junit.BeforeClass;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 
 import androidx.annotation.NonNull;
@@ -97,8 +96,8 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
             account = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
 
-            if (account == null) {
-                throw new ActivityNotFoundException();
+            if (Objects.equals(account.type, targetContext.getString(R.string.anonymous_account_type))) {
+                throw new RuntimeException("Could not get account with name " + loginName + "@" + baseUrl);
             }
 
             Optional<User> optionalUser = userAccountManager.getUser(account.name);
@@ -134,13 +133,13 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     }
 
     public static void deleteAllFilesOnServer() {
-        RemoteOperationResult result = new ReadFolderRemoteOperation("/").execute(client);
-        assertTrue(result.getLogMessage(), result.isSuccess());
+        var result = new ReadFolderRemoteOperation("/").execute(client);
+        assertTrue(result.getLogMessage(targetContext), result.isSuccess());
 
         for (Object object : result.getData()) {
             RemoteFile remoteFile = (RemoteFile) object;
 
-            if (!remoteFile.getRemotePath().equals("/")) {
+            if (!Objects.equals(remoteFile.getRemotePath(), "/")) {
                 if (remoteFile.isEncrypted()) {
                     ToggleEncryptionRemoteOperation operation = new ToggleEncryptionRemoteOperation(remoteFile.getLocalId(),
                                                                                                     remoteFile.getRemotePath(),
@@ -262,7 +261,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
         newUpload.setRemoteFolderToBeCreated();
 
-        RemoteOperationResult result = newUpload.execute(client);
+        var result = newUpload.execute(client);
         assertTrue(result.getLogMessage(), result.isSuccess());
 
         OCFile parentFolder = getStorageManager()
@@ -271,6 +270,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         OCFile uploadedFile = getStorageManager().
             getFileByDecryptedRemotePath(parentFolder.getDecryptedRemotePath() + uploadedFileName);
 
+        assertNotNull(uploadedFile);
         assertNotNull(uploadedFile.getRemoteId());
         assertNotNull(uploadedFile.getPermissions());
 
