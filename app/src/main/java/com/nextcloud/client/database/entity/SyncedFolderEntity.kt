@@ -42,8 +42,8 @@ data class SyncedFolderEntity(
     val uploadAction: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY)
     val nameCollisionPolicy: Int?,
-    @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_UPLOAD_MIN_FILE_AGE_MS, defaultValue = "0")
-    val uploadMinFileAgeMs: Long,
+    @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_UPLOAD_MIN_FILE_AGE_MS)
+    val uploadMinFileAgeMs: Long?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_TYPE)
     val type: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_HIDDEN)
@@ -77,6 +77,8 @@ fun SyncedFolderEntity.toSyncedFolder(): SyncedFolder = SyncedFolder(
     this.uploadAction ?: 0,
     // nameCollisionPolicy
     this.nameCollisionPolicy ?: 0,
+    // uploadMinFileAgeMs
+    this.uploadMinFileAgeMs ?: 0,
     // enabled
     this.enabled == 1,
     // timestampMs

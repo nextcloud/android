@@ -36,11 +36,12 @@ interface FileSystemDao {
           AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD} = 0
           AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER} = 0
           AND ${ProviderMeta.ProviderTableMeta._ID} > :lastId
+          AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED} <= :maxFileTimestamp
         ORDER BY ${ProviderMeta.ProviderTableMeta._ID}
         LIMIT :limit
     """
     )
-    suspend fun getAutoUploadFilesEntities(syncedFolderId: String, limit: Int, lastId: Int): List<FilesystemEntity>
+    suspend fun getAutoUploadFilesEntities(syncedFolderId: String, limit: Int, lastId: Int, maxFileTimestamp: Long): List<FilesystemEntity>
 
     @Query(
         """
