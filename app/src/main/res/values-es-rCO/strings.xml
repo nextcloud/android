@@ -40,21 +40,15 @@
     <string name="app_config_proxy_port_title">Puerto proxy</string>
     <string name="app_widget_description">Muestra un widget del panel de control</string>
     <string name="appbar_search_in">Buscar en %s</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Añadir nueva tarea</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Crear una nueva tarea abajo a la derecha</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba un texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">¿Está seguro que desea eliminar esta tarea?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarea</string>
-    <string name="assistant_screen_loading">Cargando lista de tareas…</string>
     <string name="assistant_screen_task_create_fail_message">Se ha producido un error al crear la tarea</string>
     <string name="assistant_screen_task_create_success_message">Tarea creada exitosamente</string>
     <string name="assistant_screen_task_delete_fail_message">Ocurrió un error al eliminar la tarea</string>
     <string name="assistant_screen_task_delete_success_message">Tarea eliminada con éxito</string>
-    <string name="assistant_screen_task_list_empty_message">La lista de tareas está vacía.</string>
     <string name="assistant_screen_task_list_error_state_message">No se pudo obtener la lista de tareas, por favor revise su conexión a internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarea</string>
     <string name="assistant_screen_task_output_empty_text">El resultado de la tarea aún no está listo.</string>
-    <string name="assistant_screen_task_types_error_state_message">No se pudieron obtener los tipos de tareas, por favor, revise su conexión a internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Salida</string>
@@ -114,6 +108,7 @@
     <string name="bottom_navigation_menu_media_label">Medios de comunicación</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Se presentó un problema al cargar el certificado.</string>
     <string name="changelog_dev_version">Cambios en la versión para desarrolladores</string>
     <string name="check_back_later_or_reload">Vuelve más tarde o recarga.</string>
@@ -193,7 +188,7 @@
     <string name="contacts_preferences_import_scheduled_fail">No se ha podido iniciar la importación. Vuelva a intentarlo</string>
     <string name="contacts_preferences_no_file_found">No se encontraron archivos</string>
     <string name="contacts_preferences_something_strange_happened">¡No fue posible encontrar tu último respaldo! </string>
-    <string name="copied_to_clipboard">Copiado al portapapeles</string>
+    <string name="conversation_screen_title">Conversaciones</string>
     <string name="copy_file_error">Se presentó un error al intentar copiar este archivo o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No es posible copiar una carpeta dentro de una de sus sub carpetas</string>
     <string name="copy_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
@@ -361,6 +356,7 @@
     <string name="failed_update_ui">Error al actualizar la interfaz gráfica</string>
     <string name="favorite">Agregar a tus favoritos</string>
     <string name="favorite_icon">Hacer favorito</string>
+    <string name="fifteenMinutes">15 minutos</string>
     <string name="file_activity_shared_file_cannot_be_updated">El archivo compartido no se puede actualizar</string>
     <string name="file_already_exists">El nombre de archivo ya existe</string>
     <string name="file_delete">Borrar</string>
@@ -390,10 +386,8 @@
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">No se cuenta con una aplicación que maneje este tipo de archivo. </string>
     <string name="file_list_seconds_ago">hace algunos segundos</string>
-    <string name="file_management_permission">Se requieren permisos</string>
     <string name="file_management_permission_optional">Permisos de almacenamiento</string>
     <string name="file_management_permission_optional_text">%1$s funciona mejor con permisos para acceder al almacenamiento. Puede escoger entre el acceso completo a los archivos, o acceso solo de lectura a fotos y vídeos.</string>
-    <string name="file_management_permission_text">%1$s necesita permisos de gestión de archivos para subir archivos. Puede escoger entre acceso completo a todos los archivos, o acceso de solo lectura a fotos y vídeos.</string>
     <string name="file_migration_allow_media_indexing">Permitir acceso desde otras aplicaciones</string>
     <string name="file_migration_checking_destination">Verificando el destino…</string>
     <string name="file_migration_cleaning">Limpiando…</string>
@@ -447,7 +441,6 @@
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_move">Mover todos</string>
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
-    <string name="foreign_files_success">Se han movido todos los archivos</string>
     <string name="forward">Adelante</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_password">Contraseña</string>
@@ -504,7 +497,6 @@
     <string name="notifications_no_results_message">Por favor verifica más tarde. </string>
     <string name="oneHour">1 hora</string>
     <string name="pass_code_configure_your_pass_code">Ingresa tu código de seguridad</string>
-    <string name="pass_code_configure_your_pass_code_explanation">El código de seguridad será solicitado cada vez que inicie la aplicación</string>
     <string name="pass_code_enter_pass_code">Por favor ingresa tu código de seguridad</string>
     <string name="pass_code_mismatch">Los códigos de seguridad no son iguales</string>
     <string name="pass_code_reenter_your_pass_code">Por favor reingresa el código de seguridad</string>
@@ -512,7 +504,7 @@
     <string name="pass_code_removed">Código de seguirdad eliminado</string>
     <string name="pass_code_stored">Código de seguridad almacenado</string>
     <string name="pass_code_wrong">Código de seguridad incorrecto</string>
-    <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
+    <string name="pause_upload">Pausar</string>
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
     <string name="pref_behaviour_entries_delete_file">Borrado</string>
     <string name="pref_behaviour_entries_keep_file">mantenido en la carpeta original</string>
@@ -586,7 +578,6 @@
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_settings">Configuraciones </string>
     <string name="share_via_link_section_title">Compartir enlace</string>
-    <string name="share_with_title">Compartir con…</string>
     <string name="shared_icon_shared">compartido</string>
     <string name="sort_by">Ordenar por</string>
     <string name="ssl_validator_btn_details_hide">Ocultar</string>

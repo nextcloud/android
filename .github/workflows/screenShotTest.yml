@@ -23,19 +23,19 @@ jobs:
             matrix:
                 scheme: [ Light ]
                 color: [ blue ]
-                api-level: [ 27 ]
+                api-level: [ 28 ]
         steps:
-            -   uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+            -   uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
             -   name: Gradle cache
-                uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+                uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
                 with:
                     path: |
                         ~/.gradle/caches
                         ~/.gradle/wrapper
                     key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
             -   name: AVD cache
-                uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+                uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
                 id: avd-cache
                 with:
                     path: |
@@ -43,7 +43,7 @@ jobs:
                         ~/.android/adb*
                     key: avd-${{ matrix.api-level }}
 
-            -   uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+            -   uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
                 with:
                     distribution: "temurin"
                     java-version: 17
@@ -56,7 +56,7 @@ jobs:
 
             -   name: create AVD and generate snapshot for caching
                 if: steps.avd-cache.outputs.cache-hit != 'true'
-                uses: reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed # v2.34.0
+                uses: reactivecircus/android-emulator-runner@b530d96654c385303d652368551fb075bc2f0b6b # v2.35.0
                 with:
                     api-level: ${{ matrix.api-level }}
                     force-avd-creation: false
@@ -87,7 +87,7 @@ jobs:
             -   name: Run screenshot tests
                 env:
                     SHOT_TEST: "true"
-                uses: reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed # v2.34.0
+                uses: reactivecircus/android-emulator-runner@b530d96654c385303d652368551fb075bc2f0b6b # v2.35.0
                 with:
                     api-level: ${{ matrix.api-level }}
                     force-avd-creation: false
@@ -102,7 +102,7 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run: scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}}
             -   name: Archive Espresso results
-                uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+                uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
                 if: ${{ always() }}
                 with:
                     name: Report-${{ matrix.color }}-${{ matrix.scheme }}

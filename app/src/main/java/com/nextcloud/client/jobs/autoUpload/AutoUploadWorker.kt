@@ -8,12 +8,11 @@
 package com.nextcloud.client.jobs.autoUpload
 
 import android.app.Notification
-import android.app.NotificationManager
 import android.content.Context
 import android.content.res.Resources
-import androidx.core.app.NotificationCompat
 import androidx.exifinterface.media.ExifInterface
 import androidx.work.CoroutineWorker
+import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -23,6 +22,7 @@ import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.ForegroundServiceHelper
@@ -41,10 +41,9 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
-import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -53,7 +52,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
 
-@Suppress("LongParameterList", "TooManyFunctions")
+@Suppress("LongParameterList", "TooManyFunctions", "TooGenericExceptionCaught")
 class AutoUploadWorker(
     private val context: Context,
     params: WorkerParameters,
@@ -63,7 +62,8 @@ class AutoUploadWorker(
     private val powerManagementService: PowerManagementService,
     private val syncedFolderProvider: SyncedFolderProvider,
     private val backgroundJobManager: BackgroundJobManager,
-    private val repository: FileSystemRepository
+    private val repository: FileSystemRepository,
+    val viewThemeUtils: ViewThemeUtils
 ) : CoroutineWorker(context, params) {
 
     companion object {
@@ -71,26 +71,21 @@ class AutoUploadWorker(
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val CONTENT_URIS = "content_uris"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
-        private const val CHANNEL_ID = NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD
-
-        private const val NOTIFICATION_ID = 266
+        const val NOTIFICATION_ID = 266
     }
 
+    private val helper = AutoUploadHelper()
     private lateinit var syncedFolder: SyncedFolder
-    private val notificationManager by lazy {
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    }
+    private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
 
-    @Suppress("TooGenericExceptionCaught", "ReturnCount")
+    @Suppress("ReturnCount")
     override suspend fun doWork(): Result {
         return try {
             val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
             syncedFolder = syncedFolderProvider.getSyncedFolderByID(syncFolderId)
                 ?.takeIf { it.isEnabled } ?: return Result.failure()
 
-            // initial notification
-            val notification = createNotification(context.getString(R.string.upload_files))
-            updateForegroundInfo(notification)
+            trySetForeground()
 
             /**
              * Receives from [com.nextcloud.client.jobs.ContentObserverWork.checkAndTriggerAutoUpload]
@@ -113,17 +108,42 @@ class AutoUploadWorker(
         }
     }
 
+    override suspend fun getForegroundInfo(): ForegroundInfo {
+        val notification = createNotification(
+            context.getString(R.string.upload_files)
+        )
+
+        return ForegroundServiceHelper.createWorkerForegroundInfo(
+            NOTIFICATION_ID,
+            notification,
+            ForegroundServiceType.DataSync
+        )
+    }
+
     private fun updateNotification() {
         getStartNotificationTitle()?.let { (localFolderName, remoteFolderName) ->
-            val startNotification = createNotification(
-                context.getString(
-                    R.string.auto_upload_worker_start_text,
-                    localFolderName,
-                    remoteFolderName
+            try {
+                val startNotification = createNotification(
+                    context.getString(
+                        R.string.auto_upload_worker_start_text,
+                        localFolderName,
+                        remoteFolderName
+                    )
                 )
-            )
 
-            notificationManager.notify(NOTIFICATION_ID, startNotification)
+                notificationManager.showNotification(startNotification)
+            } catch (e: Exception) {
+                Log_OC.w(TAG, "⚠️ Could not update notification: ${e.message}")
+            }
+        }
+    }
+
+    private suspend fun trySetForeground() {
+        try {
+            val notification = createNotification(context.getString(R.string.upload_files))
+            updateForegroundInfo(notification)
+        } catch (e: Exception) {
+            Log_OC.w(TAG, "⚠️ Could not set foreground service: ${e.message}")
         }
     }
 
@@ -136,7 +156,7 @@ class AutoUploadWorker(
         setForeground(foregroundInfo)
     }
 
-    private fun createNotification(title: String): Notification = NotificationCompat.Builder(context, CHANNEL_ID)
+    private fun createNotification(title: String): Notification = notificationManager.notificationBuilder
         .setContentTitle(title)
         .setSmallIcon(R.drawable.uploads)
         .setOngoing(true)
@@ -209,16 +229,16 @@ class AutoUploadWorker(
     private suspend fun collectFileChangesFromContentObserverWork(contentUris: Array<String>?) = try {
         withContext(Dispatchers.IO) {
             if (contentUris.isNullOrEmpty()) {
-                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
+                helper.insertEntries(syncedFolder, repository)
             } else {
-                val isContentUrisStored = FilesSyncHelper.insertChangedEntries(syncedFolder, contentUris)
+                val isContentUrisStored = helper.insertChangedEntries(syncedFolder, contentUris, repository)
                 if (!isContentUrisStored) {
                     Log_OC.w(
                         TAG,
                         "changed content uris not stored, fallback to insert all db entries to not lose files"
                     )
 
-                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
+                    helper.insertEntries(syncedFolder, repository)
                 }
             }
             syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
@@ -258,7 +278,7 @@ class AutoUploadWorker(
                 SettingsActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI
             )
             val uploadActionString = context.resources.getString(R.string.syncedFolder_light_upload_behaviour)
-            val uploadAction = getUploadAction(uploadActionString)
+            val uploadAction = FileUploadWorker.getUploadAction(uploadActionString)
             Log_OC.d(TAG, "upload action is: $uploadAction")
             Triple(needsCharging, needsWifi, uploadAction)
         } else {
@@ -301,6 +321,14 @@ class AutoUploadWorker(
 
                 try {
                     var (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
+
+                    // if local file deleted, upload process cannot be started or retriable thus needs to be removed
+                    if (path.isEmpty() || !file.exists()) {
+                        Log_OC.w(TAG, "detected non-existing local file, removing entity")
+                        deleteNonExistingFile(path, id, upload)
+                        continue
+                    }
+
                     try {
                         // Insert/update to IN_PROGRESS state before starting upload
                         val generatedId = uploadsStorageManager.uploadDao.insertOrReplace(uploadEntity)
@@ -312,6 +340,13 @@ class AutoUploadWorker(
 
                         val result = operation.execute(client)
                         uploadsStorageManager.updateStatus(uploadEntity, result.isSuccess)
+
+                        UploadErrorNotificationManager.handleResult(
+                            context,
+                            notificationManager,
+                            operation,
+                            result
+                        )
 
                         if (result.isSuccess) {
                             repository.markFileAsUploaded(localPath, syncedFolder)
@@ -332,6 +367,12 @@ class AutoUploadWorker(
                             "Exception during upload file, localPath: $localPath, remotePath: $remotePath," +
                                 " exception: $e"
                         )
+
+                        if (path.isEmpty() || !file.exists()) {
+                            Log_OC.w(TAG, "detected non-existing local file, removing entity")
+                            deleteNonExistingFile(path, id, upload)
+                            continue
+                        }
                     }
                 } catch (e: Exception) {
                     Log_OC.e(
@@ -339,48 +380,51 @@ class AutoUploadWorker(
                         "Exception uploadFiles during creating entity and upload, localPath: $localPath, " +
                             "remotePath: $remotePath, exception: $e"
                     )
+                } finally {
+                    // update last id so upload can continue where it left
+                    lastId = id
                 }
-
-                // update last id so upload can continue where it left
-                lastId = id
             }
         }
+    }
+
+    private suspend fun deleteNonExistingFile(path: String, id: Int, upload: OCUpload) {
+        repository.deleteByLocalPathAndId(path, id)
+        uploadsStorageManager.removeUpload(upload)
     }
 
     private fun createEntityAndUpload(user: User, localPath: String, remotePath: String): Pair<UploadEntity, OCUpload> {
         val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)
         Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
 
-        // Get or create upload entity
-        var uploadEntity = uploadsStorageManager.uploadDao.getUploadByAccountAndPaths(
+        // Get existing upload or create new one
+        val uploadEntity = uploadsStorageManager.uploadDao.getUploadByAccountAndPaths(
             localPath = localPath,
             remotePath = remotePath,
             accountName = user.accountName
         )
 
-        val upload: OCUpload
-        if (uploadEntity != null) {
-            // Existing upload - convert and update status
+        val upload = (
+            uploadEntity?.toOCUpload(null) ?: OCUpload(
+                localPath,
+                remotePath,
+                user.accountName
+            )
+            ).apply {
+            uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+            nameCollisionPolicy = syncedFolder.nameCollisionPolicy
+            isUseWifiOnly = needsWifi
+            isWhileChargingOnly = needsCharging
+            localAction = uploadAction
 
-            upload = uploadEntity.toOCUpload(null)
-            upload.uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
-            uploadEntity = upload.toUploadEntity()
-        } else {
-            // New upload - create with all settings
-
-            upload = OCUpload(localPath, remotePath, user.accountName).apply {
-                nameCollisionPolicy = syncedFolder.nameCollisionPolicy
-                isUseWifiOnly = needsWifi
-                isWhileChargingOnly = needsCharging
-                uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+            // Only set these for new uploads
+            if (uploadEntity == null) {
                 createdBy = UploadFileOperation.CREATED_AS_INSTANT_PICTURE
                 isCreateRemoteFolder = true
-                localAction = uploadAction
             }
-            uploadEntity = upload.toUploadEntity()
         }
 
-        return uploadEntity to upload
+        return upload.toUploadEntity() to upload
     }
 
     private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
@@ -470,12 +514,5 @@ class AutoUploadWorker(
             }
         }
         return lastModificationTime
-    }
-
-    private fun getUploadAction(action: String): Int = when (action) {
-        "LOCAL_BEHAVIOUR_FORGET" -> FileUploadWorker.Companion.LOCAL_BEHAVIOUR_FORGET
-        "LOCAL_BEHAVIOUR_MOVE" -> FileUploadWorker.Companion.LOCAL_BEHAVIOUR_MOVE
-        "LOCAL_BEHAVIOUR_DELETE" -> FileUploadWorker.Companion.LOCAL_BEHAVIOUR_DELETE
-        else -> FileUploadWorker.Companion.LOCAL_BEHAVIOUR_FORGET
     }
 }

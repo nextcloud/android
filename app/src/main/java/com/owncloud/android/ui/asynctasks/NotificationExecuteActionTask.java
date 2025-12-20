@@ -6,6 +6,7 @@
  */
 package com.owncloud.android.ui.asynctasks;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 import com.nextcloud.common.NextcloudClient;
@@ -32,7 +33,7 @@ public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boole
     private final NotificationListAdapter.NotificationViewHolder holder;
     private final NextcloudClient client;
     private final Notification notification;
-    private final NotificationsActivity notificationsActivity;
+    @SuppressLint("StaticFieldLeak") private final NotificationsActivity notificationsActivity;
 
     public NotificationExecuteActionTask(NextcloudClient client,
                                          NotificationListAdapter.NotificationViewHolder holder,

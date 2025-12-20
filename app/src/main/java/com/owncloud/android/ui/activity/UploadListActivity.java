@@ -29,7 +29,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.model.WorkerState;
-import com.nextcloud.model.WorkerStateLiveData;
+import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -41,7 +41,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 
 import javax.inject.Inject;
@@ -50,6 +49,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Unit;
 
 /**
  * Activity listing pending, active, and completed uploads. User can delete completed uploads from view. Content of this
@@ -130,16 +130,15 @@ public class UploadListActivity extends FileActivity {
     }
 
     private void observeWorkerState() {
-        WorkerStateLiveData.Companion.instance().observe(this, state -> {
-            if (state instanceof WorkerState.UploadStarted) {
+        ActivityExtensionsKt.observeWorker(this, state -> {
+            if (state instanceof WorkerState.FileUploadStarted) {
                 Log_OC.d(TAG, "Upload worker started");
-                handleUploadWorkerState();
+                uploadListAdapter.loadUploadItemsFromDb();
+            } else if (state instanceof WorkerState.FileUploadCompleted) {
+                uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
             }
+            return Unit.INSTANCE;
         });
-    }
-
-    private void handleUploadWorkerState() {
-        uploadListAdapter.loadUploadItemsFromDb();
     }
 
     private void setupContent() {
@@ -182,25 +181,15 @@ public class UploadListActivity extends FileActivity {
     }
 
     private void refresh() {
-        FilesSyncHelper.startAutoUploadImmediately(syncedFolderProvider,
-                                                    backgroundJobManager,
-                                                    true);
+        boolean isUploadStarted = FileUploadHelper.Companion.instance().retryFailedUploads(
+            uploadsStorageManager,
+            connectivityService,
+            accountManager,
+            powerManagementService);
 
-        if (uploadsStorageManager.getFailedUploads().length > 0) {
-            new Thread(() -> {
-                FileUploadHelper.Companion.instance().retryFailedUploads(
-                    uploadsStorageManager,
-                    connectivityService,
-                    accountManager,
-                    powerManagementService);
-                uploadListAdapter.loadUploadItemsFromDb();
-            }).start();
-            DisplayUtils.showSnackMessage(this, R.string.uploader_local_files_uploaded);
+        if (!isUploadStarted) {
+            uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
         }
-
-
-        // update UI
-        uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
     }
 
     @Override

@@ -44,21 +44,15 @@
     <string name="app_widget_description">Menampilkan satu gawit dari dasbor</string>
     <string name="appbar_search_in">Cari dalam %s</string>
     <string name="appear_offline">Tampak offline</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Tambahkan tugas baru</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Buat tugas baru dari kanan bawah</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tulis beberapa teks</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Apakah Anda yakin ingin menghapus tugas ini?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Hapus tugas</string>
-    <string name="assistant_screen_loading">Memuat daftar tugas...</string>
     <string name="assistant_screen_task_create_fail_message">Terjadi kesalahan saat membuat tugas</string>
     <string name="assistant_screen_task_create_success_message">Tugas berhasil dibuat</string>
     <string name="assistant_screen_task_delete_fail_message">Terjadi kesalahan saat menghapus tugas</string>
     <string name="assistant_screen_task_delete_success_message">Tugas berhasil dihapus</string>
-    <string name="assistant_screen_task_list_empty_message">Daftar tugas kosong.</string>
     <string name="assistant_screen_task_list_error_state_message">Tidak dapat memperoleh daftar tugas, mohon periksa koneksi internet Anda.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Hapus Tugas</string>
     <string name="assistant_screen_task_output_empty_text">Output tugas belum siap.</string>
-    <string name="assistant_screen_task_types_error_state_message">Tidak dapat memperoleh jenis tugas, mohon periksa koneksi internet Anda.</string>
     <string name="assistant_screen_top_bar_title">Asisten</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
@@ -127,6 +121,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="busy">Sibuk</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalender</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Terjadi permasalahan memuat sertifikat.</string>
     <string name="changelog_dev_version">Perubahan versi dev</string>
     <string name="check_back_later_or_reload">Periksa kembali nanti atau muat ulang.</string>
@@ -211,7 +206,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="contacts_preferences_no_file_found">Tidak ada berkas ditemukan.</string>
     <string name="contacts_preferences_something_strange_happened">Tidak dapat menemukan pencadangan terakhir kamu!</string>
     <string name="content_observer_work_notification_title">Mendeteksi perubahan konten</string>
-    <string name="copied_to_clipboard">Disalin ke papan klip</string>
+    <string name="copied">Tersalin</string>
     <string name="copy_file_error">Terjadi kesalahan ketika mencoba menyalin berkas atau folder ini</string>
     <string name="copy_file_invalid_into_descendent">Tidak memungkinkan untuk menyalin folder kedalam turunannya</string>
     <string name="copy_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
@@ -389,6 +384,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="failed_update_ui">Gagal memperbarui UI</string>
     <string name="favorite">Tambah ke favorit</string>
     <string name="favorite_icon">Favorit</string>
+    <string name="fifteenMinutes">15 menit</string>
     <string name="file_activity_shared_file_cannot_be_updated">File yang sudah dibagi tidak dapat diperbarui</string>
     <string name="file_already_exists">Berkas sudah ada</string>
     <string name="file_delete">Hapus</string>
@@ -396,7 +392,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_detail_share_already_active">Anda tidak dapat membagi, opsi berbagi sudah aktif dari pengguna ini.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Tidak ada aplikasi yang tersedia untuk memilih kontak</string>
     <string name="file_details_no_content">Gagal memuat detil</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Silakan pilih izin khusus</string>
     <string name="file_icon">Berkas</string>
     <string name="file_keep">Simpan</string>
     <string name="file_list_empty">Unggah beberapa berkas atau sinkronisasi dengan perangkat anda.</string>
@@ -421,10 +416,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_list_loading">Memuat…</string>
     <string name="file_list_no_app_for_file_type">Tidak ada aplikasi untuk membuka jenis berkas ini.</string>
     <string name="file_list_seconds_ago">beberapa detik yang lalu</string>
-    <string name="file_management_permission">Hak akses diperlukan</string>
     <string name="file_management_permission_optional">Izin penyimpanan</string>
     <string name="file_management_permission_optional_text">%1$s bekerja paling baik dengan izin akses penyimpanan. Anda dapat memilih akses ke semua berkas, atau akses hanya baca untuk foto dan video.</string>
-    <string name="file_management_permission_text">%1$s membutuhkan izin manajemen berkas untuk mengunggah berkas. Anda dapat memilih akses penuh ke semua berkas, atau akses hanya baca untuk foto dan video.</string>
     <string name="file_migration_allow_media_indexing">Izinkan akses dari aplikasi lain</string>
     <string name="file_migration_checking_destination">Memeriksa tujuan…</string>
     <string name="file_migration_cleaning">Membersihkan…</string>
@@ -459,11 +452,9 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_not_found_cannot_share">File tidak ditemukan. Tidak dapat membagikan.</string>
     <string name="file_not_synced">Berkas tidak dapat disinkronkan. Menampilkan versi terbaru yang tersedia.</string>
     <string name="file_rename">Ubah nama</string>
-    <string name="file_upload_limit_message">Anda dapat mengunggah hingga %d berkas sekaligus.\"</string>
     <string name="file_upload_worker_error_notification_title">Unggahan gagal. Tidak ada koneksi internet</string>
     <string name="file_upload_worker_same_file_already_exists">%s sudah ada, tidak ada konflik yang terdeteksi</string>
     <string name="file_version_restored_error">Kesalahan terjadi saat memulihkan versi file!</string>
-    <string name="file_version_restored_successfully">Berhasil memulihkan versi berkas.</string>
     <string name="filedetails_details">Detail</string>
     <string name="filedetails_download">Unduh</string>
     <string name="filedetails_export">Ekspor</string>
@@ -503,7 +494,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_move">Pindahkan semua</string>
     <string name="foreign_files_remote_text">Remote: %1$s</string>
-    <string name="foreign_files_success">Semua berkas sudah dipindahkan</string>
     <string name="forward">Teruskan</string>
     <string name="fourHours">4 jam</string>
     <string name="gplay_restriction">Google melarang mengunduh file APK/AAB!</string>
@@ -558,7 +548,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="locked_by_app">Dikunci oleh aplikasi %1$s</string>
     <string name="log_send_mail_subject">%1$s Android apl log</string>
     <string name="log_send_no_mail_app">Tidak ada aplikasi untuk mengirim log yang ditemukan. Silakan instal klien email.</string>
-    <string name="logged_in_as">Masuk sebagai %1$s</string>
     <string name="login">Masuk</string>
     <string name="login_url_helper_text">Tautkan ke antarmuka web %1$s Anda saat Anda membukanya di peramban.</string>
     <string name="logs_menu_delete">Hapus log</string>
@@ -646,7 +635,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="offline_mode">Tidak ada koneksi ke internet</string>
     <string name="offline_mode_info_description">Bahkan tanpa koneksi internet, Anda tetap dapat mengatur folder dan membuat file. Setelah Anda kembali online, semua tindakan yang tertunda akan disinkronkan secara otomatis.</string>
     <string name="offline_mode_info_title">Anda offline, tapi kerja tetap lanjut</string>
-    <string name="offline_operations_file_does_not_exists_yet">File masih belum tersedia. Tolong unggah filenya terlebih dahulu.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Tidak dapat membuat %s. Berkas dengan nama yang sama sudah ada di server.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Tidak dapat membuat %s. Folder dengan nama yang sama sudah ada di server.</string>
     <string name="offline_operations_worker_notification_error_text">Operasi offline tidak dapat diselesaikan. %s</string>
@@ -661,7 +649,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="outdated_server">Server telah mencapai batas hidupnya, tolong ditingkatkan!</string>
     <string name="overflow_menu">Menu lainnya</string>
     <string name="pass_code_configure_your_pass_code">Masukkan kode sandi Anda</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Kode sandi akan diminta setiap kali apl dijalankan.</string>
     <string name="pass_code_enter_pass_code">Masukkan kode kunci Anda</string>
     <string name="pass_code_mismatch">Kode sandi tidak sama</string>
     <string name="pass_code_reenter_your_pass_code">Masukkan lagi kode kunci Anda</string>
@@ -669,11 +656,10 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="pass_code_removed">Kata sandi terhapus</string>
     <string name="pass_code_stored">Kode sandi disimpan</string>
     <string name="pass_code_wrong">Kode sandi salah</string>
+    <string name="pause_upload">Jeda</string>
     <string name="pdf_password_protected">Tidak dapat membuka PDF yang dilindungi sandi. Silakan gunakan penampil PDF eksternal.</string>
-    <string name="pdf_zoom_tip">Ketuk pada halaman untuk memperbesar</string>
     <string name="permission_allow">Izinkan</string>
     <string name="permission_deny">Tolak</string>
-    <string name="permission_storage_access">Diperlukan ijin tambahan untuk mengunggah dan mengunduh berkas.</string>
     <string name="pick_contact_to_share_with">Pilih kontak untuk dibagikan</string>
     <string name="picture_set_as_no_app">Tidak ada aplikasi untuk menyetel gambar yang ditemukan.</string>
     <string name="pin_home">Sematkan ke tampilan beranda</string>
@@ -874,7 +860,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="share_via_link_section_title">Bagikan tautan</string>
     <string name="share_via_link_send_link_label">Kirim tautan</string>
     <string name="share_via_link_unset_password">Belum disetel</string>
-    <string name="share_with_title">Bagikan dengan…</string>
     <string name="shared_avatar_desc">Foto profil dari pengguna yang dibagikan</string>
     <string name="shared_icon_share">bagikan</string>
     <string name="shared_icon_shared">dibagikan</string>
@@ -925,7 +910,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="storage_internal_storage">Penyimpanan internal</string>
     <string name="storage_movies">Film</string>
     <string name="storage_music">Musik</string>
-    <string name="storage_permission_full_access">Akses penuh</string>
     <string name="storage_permission_media_read_only">Media hanya baca</string>
     <string name="storage_pictures">Gambar</string>
     <string name="store_full_desc">Platform produktivitas mandiri yang memberi Anda kendali penuh.\n\Fitur:\n* Mudah, tampilan modern, dan cocok dengan tema server Anda\n* Unggah file ke server Nextcloud Anda\n* Bagikan dengan yang lain\n* Buat file dan folder favorit Anda tetap tersinkron\n* Telusuri semua folder di server Anda\n* Unggah otomatis untuk foto dan video yang diambil dari perangkat Anda\n* Tetap terkabarkan dengan notifikasi\n* Mendukung penggunaan banyak akun (multi-account)\n* Akses data Anda dengan aman dengan sidik jari atau PIN\n* Integrasi dengan DAVx⁵ (dulu dikenal sebagai DAVdroid) untuk pemasangan sinkronisasi kalender dan kontak yang mudah\n\nTolong laporkan semua masalah aplikasi ini di https://github.com/nextcloud/android/issues dan diskusikan aplikasi ini di https://help.nextcloud.com/c/clients/android\n\nBaru mencoba Nextcloud? Nextcloud adalah server pribadi untuk sinkronisasi dan berbagi file serta berkomunikasi. Nextcloud adalah software libre sehingga Anda dapat meng-host sendiri atau membayar perusahaan untuk melakukannya untuk Anda. Dengan begitu, Anda memiliki kendali atas foto Anda, kalender dan data kontak Anda, dokumen dan semuanya yang Anda miliki.\n\nYuk, cek Nextcloud di https://nextcloud.com</string>
@@ -1075,7 +1059,6 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="uploader_file_not_found_message">Berkas tidak ditemukan. Apakah Anda yakin bahwa berkas ini ada atau sebelumnya memiliki pertentangan yang belum terselesaikan?</string>
     <string name="uploader_file_not_found_on_server_message">Kami tidak dapat menemukan berkas di server. Pengguna lain mungkin telah menghapus berkas tersebut.</string>
     <string name="uploader_info_dirname">Nama folder</string>
-    <string name="uploader_local_files_uploaded">Mencoba mengunggah ulang file lokal yang gagal</string>
     <string name="uploader_top_message">Pilih folder untuk mengunggah</string>
     <string name="uploader_upload_failed_content_single">Tidak bisa mengunggah %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Unggahan gagal, coba masuk kembali</string>
@@ -1186,9 +1169,6 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     </plurals>
     <plurals name="export_partially_failed">
         <item quantity="other">Berhasil mengekspor %d berkas, sisanya dilewati karena kesalahan</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="other">%d berkas akan diekspor. Lihat notifikasi untuk detailnya.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d folder</item>

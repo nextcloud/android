@@ -231,7 +231,7 @@ class ChooseAccountDialogFragment :
     }
 
     override fun onAccountClicked(user: User?) {
-        (activity as DrawerActivity).accountClicked(user.hashCode())
+        (activity as DrawerActivity).accountClicked(user)
     }
 
     override fun onOptionItemClicked(user: User?, view: View?) {

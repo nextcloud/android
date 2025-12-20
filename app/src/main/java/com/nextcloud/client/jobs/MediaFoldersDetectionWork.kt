@@ -82,15 +82,13 @@ class MediaFoldersDetectionWork constructor(
             contentResolver,
             1,
             null,
-            true,
-            viewThemeUtils
+            true
         )
         val videoMediaFolders = MediaProvider.getVideoFolders(
             contentResolver,
             1,
             null,
-            true,
-            viewThemeUtils
+            true
         )
         val imageMediaFolderPaths: MutableList<String> = ArrayList()
         val videoMediaFolderPaths: MutableList<String> = ArrayList()

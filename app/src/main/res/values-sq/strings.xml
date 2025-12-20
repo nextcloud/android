@@ -71,6 +71,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favorites</string>
     <string name="bottom_navigation_menu_files_label">Të gjithë skedarët</string>
     <string name="calendar">Kalendar</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Pati një problem gjatë ngarkimit të dëshmisë.</string>
     <string name="changelog_dev_version">Versioni dev i ndryshimeve</string>
     <string name="checkbox">Checkbox</string>
@@ -136,7 +137,7 @@
     <string name="contacts_preferences_import_scheduled">Importimi u skedulua dhe do të filloj së shpejti</string>
     <string name="contacts_preferences_no_file_found">Asnjë skedarë i gjetur</string>
     <string name="contacts_preferences_something_strange_happened">Ne nuk mund të gjejmë backup-in tuaj të fundit!</string>
-    <string name="copied_to_clipboard">U kopjua në clipboard</string>
+    <string name="conversation_screen_title">Bisedat</string>
     <string name="copy_file_error">Ndodhi një gabim teksa përpiqej të kopjohej ky skedar apo kjo dosje</string>
     <string name="copy_file_invalid_into_descendent">S’është e mundur të kopjohet një dosje në një tjetër brenda saj</string>
     <string name="copy_file_invalid_overwrite">Kartela gjendet tashmë te dosja destinacion</string>
@@ -239,6 +240,7 @@
     <string name="failed_to_start_editor">Dështoi hapja e redaktorit</string>
     <string name="favorite">Shtoje tek të parapëlqyerat</string>
     <string name="favorite_icon">E parapëlqyer</string>
+    <string name="fifteenMinutes">15 minuta</string>
     <string name="file_delete">Fshini</string>
     <string name="file_detail_activity_error">Gabim gjatë marrjes së aktiviteteve të skedarit</string>
     <string name="file_details_no_content">Dështoi ngarkimi i detajeve</string>
@@ -280,7 +282,6 @@
     <string name="file_not_synced">Skedari nuk mund të sinkronizohet. Duke shfaqur versionin më të fundit në dispozicion.</string>
     <string name="file_rename">Riemërto</string>
     <string name="file_version_restored_error">Gabim në rikthimin e versionit të skedarit!</string>
-    <string name="file_version_restored_successfully">Versioni i skedarit i rikthyer me sukses.</string>
     <string name="filedetails_details">Detajet</string>
     <string name="filedetails_download">Shkarkoje</string>
     <string name="filedetails_export">Eksport</string>
@@ -309,7 +310,6 @@
     <string name="foreign_files_local_text">Vendore: %1$s</string>
     <string name="foreign_files_move">Zhvendosi të gjitha</string>
     <string name="foreign_files_remote_text">E largët: %1$s</string>
-    <string name="foreign_files_success">U zhvendosën të gjithë skedarët</string>
     <string name="forward">Përpara</string>
     <string name="fourHours">4 orë</string>
     <string name="hint_name">Emër</string>
@@ -390,7 +390,6 @@
     <string name="outdated_server">Serveri ka arritur fundin e jetës, ju lutemi përmirësojeni!</string>
     <string name="overflow_menu">Më shumë menu</string>
     <string name="pass_code_configure_your_pass_code">Jepni kodkalimin tuaj</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Kodkalimi do të kërkohet sa herë që niset aplikacioni</string>
     <string name="pass_code_enter_pass_code">Ju lutemi, futni kodkalimin tuaj</string>
     <string name="pass_code_mismatch">Kodkalimet s\’janë të njëjtë</string>
     <string name="pass_code_reenter_your_pass_code">Ju lutemi, rifutni kodkalimin tuaj</string>
@@ -398,9 +397,9 @@
     <string name="pass_code_removed">Kodkalimi u hoq</string>
     <string name="pass_code_stored">Kodkalimi u depozitua</string>
     <string name="pass_code_wrong">Kodkalim i pasaktë</string>
+    <string name="pause_upload">Pauzë</string>
     <string name="permission_allow">Lejo</string>
     <string name="permission_deny">Refuzo</string>
-    <string name="permission_storage_access">Që të ngarkoni dhe shkarkoni skedar kërkohen leje shtesë.</string>
     <string name="picture_set_as_no_app">Nuk u gjet asnjë aplikacion për të vendosur foton</string>
     <string name="power_save_check_dialog_message">Çaktivizimi i kontrollit të ruajtjes së energjisë mund të rezultojë në ngarkimin e skedarëve kur gjendeni në gjendje të ulët të baterisë!</string>
     <string name="pref_behaviour_entries_delete_file">të fshira</string>
@@ -513,7 +512,6 @@
     <string name="share_via_link_section_title">Lidhje ndarjeje</string>
     <string name="share_via_link_send_link_label">Dërgo lidhjen</string>
     <string name="share_via_link_unset_password">E pavendosur</string>
-    <string name="share_with_title">Ndajeni me…</string>
     <string name="shared_avatar_desc">Avatar nga përdoruesi i përbashkët</string>
     <string name="shared_icon_share">ndaje</string>
     <string name="shared_icon_shared">ndarë</string>

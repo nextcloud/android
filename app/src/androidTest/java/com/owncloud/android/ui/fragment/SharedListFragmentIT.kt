@@ -8,7 +8,6 @@
 package com.owncloud.android.ui.fragment
 
 import android.view.View
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -21,8 +20,10 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.ui.adapter.OCShareToOCFileConverter
 import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -46,7 +47,6 @@ internal class SharedListFragmentIT : AbstractIT() {
     var storagePermissionRule: TestRule = grant()
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun showSharedFiles() {
         launchActivity<TestActivity>().use { scenario ->
@@ -165,14 +165,15 @@ internal class SharedListFragmentIT : AbstractIT() {
 
                     fragment.isLoading = false
                     fragment.mEmptyListContainer?.visibility = View.GONE
-                    fragment.adapter.setData(
-                        shares,
-                        SearchType.SHARED_FILTER,
-                        storageManager,
-                        null,
-                        true
-                    )
 
+                    val newList = runBlocking {
+                        OCShareToOCFileConverter
+                            .parseAndSaveShares(listOf(), shares, storageManager, user.accountName)
+                    }
+                    fragment.adapter.run {
+                        prepareForSearchData(storageManager, SearchType.SHARED_FILTER)
+                        updateAdapter(newList, null)
+                    }
                     EspressoIdlingResource.decrement()
 
                     val screenShotName = createName(testClassName + "_" + "showSharedFiles", "")

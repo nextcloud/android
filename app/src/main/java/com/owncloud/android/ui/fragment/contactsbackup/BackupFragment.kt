@@ -20,7 +20,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.DatePicker
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
@@ -336,7 +335,6 @@ class BackupFragment :
                 contactsPreferenceActivity.finish()
             } else {
                 val settingsIntent = Intent(context, SettingsActivity::class.java)
-                settingsIntent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(settingsIntent)
             }
             return true
@@ -522,7 +520,9 @@ class BackupFragment :
     private fun openDate(savedDate: Calendar?) {
         val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
         if (contactsPreferenceActivity == null) {
-            Toast.makeText(context, getString(R.string.error_choosing_date), Toast.LENGTH_LONG).show()
+            activity?.let {
+                DisplayUtils.showSnackMessage(it, R.string.error_choosing_date)
+            }
             return
         }
 
@@ -584,7 +584,9 @@ class BackupFragment :
     override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
         val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
         if (contactsPreferenceActivity == null) {
-            Toast.makeText(context, getString(R.string.error_choosing_date), Toast.LENGTH_LONG).show()
+            activity?.let {
+                DisplayUtils.showSnackMessage(it, R.string.error_choosing_date)
+            }
             return
         }
 

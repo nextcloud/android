@@ -7,57 +7,40 @@
  */
 package com.owncloud.android.ui.activity
 
-import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.lib.resources.notifications.models.RichObject
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import java.util.GregorianCalendar
 
 class NotificationsActivityIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.activity.NotificationsActivityIT"
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
-
     @Test
-    @UiThread
     @ScreenshotTest
     fun empty() {
         launchActivity<NotificationsActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.populateList(ArrayList())
-                    EspressoIdlingResource.decrement()
-                    val screenShotName = createName(testClassName + "_" + "empty", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                sut.populateList(ArrayList())
+            }
+
+            val screenShotName = createName(testClassName + "_" + "empty", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            scenario.onActivity { sut ->
+                screenshotViaName(sut, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     @SuppressWarnings("MagicNumber")
     fun showNotifications() {
@@ -141,32 +124,31 @@ class NotificationsActivityIT : AbstractIT() {
 
         launchActivity<NotificationsActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.populateList(notifications)
-                    EspressoIdlingResource.decrement()
-                    val screenShotName = createName(testClassName + "_" + "showNotifications", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                sut.populateList(notifications)
+            }
+
+            val screenShotName = createName(testClassName + "_" + "showNotifications", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            scenario.onActivity { sut ->
+                screenshotViaName(sut, screenShotName)
             }
         }
     }
 
     @Test
-    @UiThread
     @ScreenshotTest
     fun error() {
         launchActivity<NotificationsActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.setEmptyContent("Error", "Error! Please try again later!")
-                    EspressoIdlingResource.decrement()
-                    val screenShotName = createName(testClassName + "_" + "error", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
+                sut.setEmptyContent("Error", "Error! Please try again later!")
+            }
+
+            val screenShotName = createName(testClassName + "_" + "error", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            scenario.onActivity { sut ->
+                screenshotViaName(sut, screenShotName)
             }
         }
     }

@@ -19,7 +19,6 @@ import android.view.View
 import android.widget.AbsListView
 import android.widget.PopupMenu
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.IdRes
 import androidx.annotation.VisibleForTesting
@@ -91,6 +90,7 @@ class TrashbinActivity :
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
+            isEnabled = false
             trashbinPresenter?.navigateUp()
         }
     }
@@ -106,7 +106,7 @@ class TrashbinActivity :
             if (targetUser.isPresent) {
                 setUser(targetUser.get())
             } else {
-                Toast.makeText(this, R.string.associated_account_not_found, Toast.LENGTH_LONG).show()
+                DisplayUtils.showSnackMessage(this, R.string.associated_account_not_found)
                 finish()
                 return
             }
@@ -168,14 +168,23 @@ class TrashbinActivity :
         binding.swipeContainingList.setOnRefreshListener { loadFolder() }
         viewThemeUtils?.material?.colorMaterialTextButton(findViewById(R.id.sort_button))
 
-        findViewById<View>(R.id.sort_button).setOnClickListener {
-            DisplayUtils.openSortingOrderDialogFragment(
-                supportFragmentManager,
-                preferences?.getSortOrderByType(
-                    FileSortOrder.Type.trashBinView,
-                    FileSortOrder.SORT_NEW_TO_OLD
+        val sortOrder = preferences?.getSortOrderByType(
+            FileSortOrder.Type.trashBinView,
+            FileSortOrder.SORT_NEW_TO_OLD
+        )
+
+        findViewById<TextView>(R.id.sort_button).apply {
+            setOnClickListener {
+                DisplayUtils.openSortingOrderDialogFragment(
+                    supportFragmentManager,
+                    preferences?.getSortOrderByType(
+                        FileSortOrder.Type.trashBinView,
+                        FileSortOrder.SORT_NEW_TO_OLD
+                    )
                 )
-            )
+            }
+
+            setText(DisplayUtils.getSortOrderStringId(sortOrder))
         }
 
         loadFolder()
@@ -284,6 +293,8 @@ class TrashbinActivity :
     }
 
     override fun onPause() {
+        menuItemId = getPreviousMenuItemId()
+        setNavigationViewItemChecked()
         super.onPause()
         active = false
         trashbinListAdapter?.cancelAllPendingTasks()

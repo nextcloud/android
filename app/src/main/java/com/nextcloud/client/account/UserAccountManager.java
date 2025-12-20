@@ -95,7 +95,7 @@ public interface UserAccountManager extends CurrentAccountProvider {
 
     boolean setCurrentOwnCloudAccount(String accountName);
 
-    boolean setCurrentOwnCloudAccount(int hashCode);
+    boolean setCurrentOwnCloudAccount(User user);
 
     /**
      * Access the version of the OC server corresponding to an account SAVED IN THE ACCOUNTMANAGER

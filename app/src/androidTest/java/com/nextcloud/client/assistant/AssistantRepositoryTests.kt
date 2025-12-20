@@ -7,10 +7,11 @@
  */
 package com.nextcloud.client.assistant
 
-import com.nextcloud.client.assistant.repository.AssistantRepository
+import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositoryImpl
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.status.NextcloudVersion
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -18,11 +19,11 @@ import org.junit.Test
 @Suppress("MagicNumber")
 class AssistantRepositoryTests : AbstractOnServerIT() {
 
-    private var sut: AssistantRepository? = null
+    private var sut: AssistantRemoteRepositoryImpl? = null
 
     @Before
     fun setup() {
-        sut = AssistantRepository(nextcloudClient, capability)
+        sut = AssistantRemoteRepositoryImpl(nextcloudClient, capability)
     }
 
     @Test
@@ -33,8 +34,10 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
             return
         }
 
-        val result = sut?.getTaskTypes()
-        assertTrue(result?.isNotEmpty() == true)
+        runBlocking {
+            val result = sut?.getTaskTypes()
+            assertTrue(result?.isNotEmpty() == true)
+        }
     }
 
     @Test
@@ -45,8 +48,10 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
             return
         }
 
-        val result = sut?.getTaskList("assistant")
-        assertTrue(result?.isEmpty() == true || (result?.size ?: 0) > 0)
+        runBlocking {
+            val result = sut?.getTaskList("assistant")
+            assertTrue(result?.isEmpty() == true || (result?.size ?: 0) > 0)
+        }
     }
 
     @Test
@@ -65,8 +70,11 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
             emptyMap(),
             emptyMap()
         )
-        val result = sut?.createTask(input, taskType)
-        assertTrue(result?.isSuccess == true)
+
+        runBlocking {
+            val result = sut?.createTask(input, taskType)
+            assertTrue(result?.isSuccess == true)
+        }
     }
 
     @Test
@@ -81,14 +89,16 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
         sleep(120)
 
-        val taskList = sut?.getTaskList("assistant")
-        assertTrue(taskList != null)
+        runBlocking {
+            val taskList = sut?.getTaskList("assistant")
+            assertTrue(taskList != null)
 
-        sleep(120)
+            sleep(120)
 
-        assert((taskList?.size ?: 0) > 0)
+            assert((taskList?.size ?: 0) > 0)
 
-        val result = sut?.deleteTask(taskList!!.first().id)
-        assertTrue(result?.isSuccess == true)
+            val result = sut?.deleteTask(taskList!!.first().id)
+            assertTrue(result?.isSuccess == true)
+        }
     }
 }

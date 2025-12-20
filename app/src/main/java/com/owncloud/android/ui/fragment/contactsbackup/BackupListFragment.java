@@ -18,7 +18,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
@@ -41,6 +40,7 @@ import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.asynctasks.LoadContactsTask;
 import com.owncloud.android.ui.events.VCardToggleEvent;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -440,12 +440,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
                     if (grantResults[index] >= 0) {
                         importContacts(selectedAccount);
                     } else {
-                        if (getView() != null) {
-                            Snackbar.make(getView(), R.string.contactlist_no_permission, Snackbar.LENGTH_LONG)
-                                .show();
-                        } else {
-                            Toast.makeText(getContext(), R.string.contactlist_no_permission, Toast.LENGTH_LONG).show();
-                        }
+                        showPermissionErrorMessage();
                     }
                     break;
                 }
@@ -458,16 +453,20 @@ public class BackupListFragment extends FileFragment implements Injectable {
                     if (grantResults[index] >= 0) {
                         importContacts(selectedAccount);
                     } else {
-                        if (getView() != null) {
-                            Snackbar.make(getView(), R.string.contactlist_no_permission, Snackbar.LENGTH_LONG)
-                                .show();
-                        } else {
-                            Toast.makeText(getContext(), R.string.contactlist_no_permission, Toast.LENGTH_LONG).show();
-                        }
+                        showPermissionErrorMessage();
                     }
                     break;
                 }
             }
+        }
+    }
+
+    private void showPermissionErrorMessage() {
+        final var view = getView();
+        if (view != null) {
+            DisplayUtils.showSnackMessage(view, R.string.contactlist_no_permission);
+        } else {
+            DisplayUtils.showSnackMessage(this, R.string.contactlist_no_permission);
         }
     }
 

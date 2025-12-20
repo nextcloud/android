@@ -12,15 +12,19 @@ import android.view.MenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
-import com.nextcloud.client.assistant.repository.AssistantRepository
+import com.nextcloud.client.assistant.conversation.ConversationViewModel
+import com.nextcloud.client.assistant.conversation.repository.ConversationRemoteRepositoryImpl
+import com.nextcloud.client.assistant.repository.local.AssistantLocalRepositoryImpl
+import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositoryImpl
+import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.common.NextcloudClient
-import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityComposeBinding
 import com.owncloud.android.ui.activity.DrawerActivity
@@ -39,7 +43,7 @@ class ComposeActivity : DrawerActivity() {
         binding = ActivityComposeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val destination = intent.getSerializableArgument(DESTINATION, ComposeDestination::class.java)
+        val destinationId = intent.getIntExtra(DESTINATION, -1)
         val titleId = intent.getIntExtra(TITLE, R.string.empty)
 
         setupDrawer()
@@ -52,7 +56,7 @@ class ComposeActivity : DrawerActivity() {
             MaterialTheme(
                 colorScheme = viewThemeUtils.getColorScheme(this),
                 content = {
-                    Content(destination)
+                    Content(ComposeDestination.fromId(destinationId))
                 }
             )
         }
@@ -67,27 +71,40 @@ class ComposeActivity : DrawerActivity() {
     }
 
     @Composable
-    private fun Content(destination: ComposeDestination?) {
+    private fun Content(destination: ComposeDestination) {
+        val currentScreen by ComposeNavigation.currentScreen.collectAsState()
         var nextcloudClient by remember { mutableStateOf<NextcloudClient?>(null) }
 
         LaunchedEffect(Unit) {
+            ComposeNavigation.navigate(destination)
             nextcloudClient = clientRepository.getNextcloudClient()
         }
 
-        if (destination == ComposeDestination.AssistantScreen) {
-            binding.bottomNavigation.menu.findItem(R.id.nav_assistant).run {
-                isChecked = true
-            }
+        binding.bottomNavigation.menu.findItem(R.id.nav_assistant).run {
+            isChecked = true
+        }
 
-            nextcloudClient?.let { client ->
+        when (currentScreen) {
+            is ComposeDestination.AssistantScreen -> {
+                val dao = NextcloudDatabase.instance().assistantDao()
+                val sessionId = (currentScreen as? ComposeDestination.AssistantScreen)?.sessionId
+                val client = nextcloudClient ?: return
+
                 AssistantScreen(
                     viewModel = AssistantViewModel(
-                        repository = AssistantRepository(client, capabilities)
+                        accountName = userAccountManager.user.accountName,
+                        remoteRepository = AssistantRemoteRepositoryImpl(client, capabilities),
+                        localRepository = AssistantLocalRepositoryImpl(dao),
+                        sessionIdArg = sessionId
+                    ),
+                    conversationViewModel = ConversationViewModel(
+                        remoteRepository = ConversationRemoteRepositoryImpl(client)
                     ),
                     activity = this,
                     capability = capabilities
                 )
             }
+            else -> Unit
         }
     }
 }

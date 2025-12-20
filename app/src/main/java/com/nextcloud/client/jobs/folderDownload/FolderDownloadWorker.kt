@@ -9,9 +9,12 @@ package com.nextcloud.client.jobs.folderDownload
 
 import android.content.Context
 import androidx.work.CoroutineWorker
+import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.model.WorkerState
+import com.nextcloud.model.WorkerStateObserver
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
@@ -24,11 +27,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.concurrent.ConcurrentHashMap
 
-@Suppress("LongMethod")
+@Suppress("LongMethod", "TooGenericExceptionCaught")
 class FolderDownloadWorker(
     private val accountManager: UserAccountManager,
     private val context: Context,
-    private val viewThemeUtils: ViewThemeUtils,
+    viewThemeUtils: ViewThemeUtils,
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
 
@@ -42,10 +45,10 @@ class FolderDownloadWorker(
         fun isDownloading(id: Long): Boolean = pendingDownloads.contains(id)
     }
 
-    private var notificationManager: FolderDownloadWorkerNotificationManager? = null
+    private val notificationManager = FolderDownloadWorkerNotificationManager(context, viewThemeUtils)
     private lateinit var storageManager: FileDataStorageManager
 
-    @Suppress("TooGenericExceptionCaught", "ReturnCount", "DEPRECATION")
+    @Suppress("ReturnCount", "DEPRECATION")
     override suspend fun doWork(): Result {
         val folderID = inputData.getLong(FOLDER_ID, -1)
         if (folderID == -1L) {
@@ -72,12 +75,9 @@ class FolderDownloadWorker(
             return Result.failure()
         }
 
-        notificationManager = FolderDownloadWorkerNotificationManager(context, viewThemeUtils)
-
         Log_OC.d(TAG, "🕒 started for ${user.accountName} downloading ${folder.fileName}")
 
-        val foregroundInfo = notificationManager?.getForegroundInfo(folder) ?: return Result.failure()
-        setForeground(foregroundInfo)
+        trySetForeground(folder)
 
         pendingDownloads.add(folder.fileId)
 
@@ -96,12 +96,16 @@ class FolderDownloadWorker(
                     }
 
                     withContext(Dispatchers.Main) {
-                        notificationManager?.showProgressNotification(
+                        val notification = notificationManager.getProgressNotification(
                             folder.fileName,
                             file.fileName,
                             index,
                             files.size
                         )
+                        notificationManager.showNotification(notification)
+
+                        val foregroundInfo = notificationManager.getForegroundInfo(notification)
+                        setForeground(foregroundInfo)
                     }
 
                     val operation = DownloadFileOperation(user, file, context)
@@ -118,7 +122,7 @@ class FolderDownloadWorker(
                 }
 
                 withContext(Dispatchers.Main) {
-                    notificationManager?.showCompletionMessage(folder.fileName, result)
+                    notificationManager.showCompletionNotification(folder.fileName, result)
                 }
 
                 if (result) {
@@ -132,9 +136,38 @@ class FolderDownloadWorker(
                 Log_OC.d(TAG, "❌ failed reason: $e")
                 Result.failure()
             } finally {
+                WorkerStateObserver.send(WorkerState.FolderDownloadCompleted(folder))
                 pendingDownloads.remove(folder.fileId)
-                notificationManager?.dismiss()
+                notificationManager.dismiss()
             }
+        }
+    }
+
+    @Suppress("ReturnCount")
+    override suspend fun getForegroundInfo(): ForegroundInfo {
+        return try {
+            val folderID = inputData.getLong(FOLDER_ID, -1)
+            val accountName = inputData.getString(ACCOUNT_NAME)
+
+            if (folderID == -1L || accountName == null || !::storageManager.isInitialized) {
+                return notificationManager.getForegroundInfo(null)
+            }
+
+            val folder = storageManager.getFileById(folderID) ?: return notificationManager.getForegroundInfo(null)
+
+            return notificationManager.getForegroundInfo(folder)
+        } catch (e: Exception) {
+            Log_OC.w(TAG, "⚠️ Error getting foreground info: ${e.message}")
+            notificationManager.getForegroundInfo(null)
+        }
+    }
+
+    private suspend fun trySetForeground(folder: OCFile) {
+        try {
+            val foregroundInfo = notificationManager.getForegroundInfo(folder)
+            setForeground(foregroundInfo)
+        } catch (e: Exception) {
+            Log_OC.w(TAG, "⚠️ Could not set foreground service: ${e.message}")
         }
     }
 
@@ -153,12 +186,12 @@ class FolderDownloadWorker(
         storageManager.getFolderContent(folder, false)
             .filter { !it.isFolder && !it.isDown }
 
-    private suspend fun checkDiskSize(file: OCFile): Boolean {
+    private fun checkDiskSize(file: OCFile): Boolean {
         val fileSizeInByte = file.fileLength
         val availableDiskSpace = FileOperationsHelper.getAvailableSpaceOnDevice()
 
         return if (availableDiskSpace < fileSizeInByte) {
-            notificationManager?.showNotAvailableDiskSpace()
+            notificationManager.showNotAvailableDiskSpace()
             false
         } else {
             true

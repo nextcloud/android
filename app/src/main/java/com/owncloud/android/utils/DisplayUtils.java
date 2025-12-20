@@ -45,7 +45,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.snackbar.Snackbar;
@@ -79,6 +78,7 @@ import java.net.IDN;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -92,6 +92,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatDrawableManager;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -542,6 +543,19 @@ public final class DisplayUtils {
         return text.toString();
     }
 
+    public static Snackbar showSnackMessage(Fragment fragment, @StringRes int messageResource) {
+        if (fragment == null) {
+            return null;
+        }
+
+        final var activity = fragment.getActivity();
+        if (activity == null) {
+            return null;
+        }
+
+        return showSnackMessage(activity, messageResource);
+    }
+
     /**
      * Show a temporary message in a {@link Snackbar} bound to the content view.
      *
@@ -725,11 +739,6 @@ public final class DisplayUtils {
         }
     }
 
-    static public void showErrorAndFinishActivity(Activity activity, String errorMessage) {
-        Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show();
-        activity.finish();
-    }
-
     static public void openSortingOrderDialogFragment(FragmentManager supportFragmentManager, FileSortOrder sortOrder) {
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null);
@@ -828,7 +837,7 @@ public final class DisplayUtils {
 
     private static void setThumbnailFirstTimeForFile(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
         if (file.getRemoteId() != null) {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
             return;
         }
 
@@ -873,7 +882,7 @@ public final class DisplayUtils {
     private static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
         final var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
         if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
             setThumbnailBackgroundForPNGFileIfNeeded(file, context, thumbnailView);
             return;
         }
@@ -901,7 +910,7 @@ public final class DisplayUtils {
                                              ImageView thumbnailView,
                                              User user,
                                              FileDataStorageManager storageManager,
-                                             List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
+                                             ArrayList<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
                                              boolean gridView,
                                              Context context,
                                              LoaderImageView shimmerThumbnail,
@@ -986,7 +995,7 @@ public final class DisplayUtils {
                                    new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
                                                                                             file.getRemoteId()));
             thumbnailView.invalidate();
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
         }
     }

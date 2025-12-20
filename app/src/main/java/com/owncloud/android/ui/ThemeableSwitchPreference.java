@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.preference.SwitchPreference;
 import android.util.AttributeSet;
@@ -54,7 +55,7 @@ public class ThemeableSwitchPreference extends SwitchPreference {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View child = viewGroup.getChildAt(i);
 
-            if (child instanceof Switch switchView) {
+            if (child instanceof @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switchView) {
                 viewThemeUtils.platform.colorSwitch(switchView);
 
                 break;

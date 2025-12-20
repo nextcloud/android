@@ -43,21 +43,19 @@
     <string name="app_config_proxy_port_title">Brána proxy</string>
     <string name="app_widget_description">Zobrazí jeden widget z hlavného panela</string>
     <string name="appbar_search_in">Hľadať v %s</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Pridať novú úlohu</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Vytvorte novú úlohu vpravo dole</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Napíšte nejaký text</string>
+    <string name="appear_offline">Zdá sa byť offline</string>
+    <string name="assistant_output_generation_warning_text">Výstup zobrazený tu je generovaný umelou inteligenciou. Uistite sa, že vždy dôkladne skontrolujete.</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Naozaj chcete vymazať túto úlohu?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Odstrániť úlohu</string>
-    <string name="assistant_screen_loading">Načítavam zoznam úloh...</string>
+    <string name="assistant_screen_empty_content_description">Skúste poslať správu, aby ste rozprúdili konverzáciu.</string>
+    <string name="assistant_screen_empty_content_title">Dobrý deň! S čím vám dnes môžem pomôcť?</string>
     <string name="assistant_screen_task_create_fail_message">Pri vytváraní úlohy nastala chyba</string>
     <string name="assistant_screen_task_create_success_message">Úloha bola úspešne vytvorená</string>
     <string name="assistant_screen_task_delete_fail_message">Pri odstraňovaní úlohy nastala chyba</string>
     <string name="assistant_screen_task_delete_success_message">Úloha bola úspešne odstránená</string>
-    <string name="assistant_screen_task_list_empty_message">Zoznam úloh je prázdny.</string>
     <string name="assistant_screen_task_list_error_state_message">Nie je možné načítať zoznam úloh, skontrolujte svoje internetové pripojenie.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Vymazať Úlohu</string>
     <string name="assistant_screen_task_output_empty_text">Výstup úlohy ešte nie je dostupný.</string>
-    <string name="assistant_screen_task_types_error_state_message">Nie je možné načítať typy úloh, skontrolujte svoje internetové pripojenie.</string>
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Vstup</string>
     <string name="assistant_task_detail_screen_output_button_title">Výstup</string>
@@ -118,6 +116,7 @@
     <string name="busy">Zaneprázdnený</string>
     <string name="calendar">Kalendár</string>
     <string name="calendars">Kalendáre</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Nastal problém s načítaním certifikátu.</string>
     <string name="changelog_dev_version">Zmeny v dev verzii</string>
     <string name="check_back_later_or_reload">Skúste to neskôr alebo znova načítajte.</string>
@@ -201,7 +200,11 @@
     <string name="contacts_preferences_import_scheduled_fail">Spustenie mportu zlyhalo. Prosím skúste to znova</string>
     <string name="contacts_preferences_no_file_found">Nenašiel sa žiadny súbor</string>
     <string name="contacts_preferences_something_strange_happened">Nenašla sa posledná záloha!</string>
-    <string name="copied_to_clipboard">Skopírované do schránky</string>
+    <string name="conversation_screen_delete_button_title">Zmazať konverzáciu</string>
+    <string name="conversation_screen_empty_content_title">Neboli nájdené žiadne konverzácie</string>
+    <string name="conversation_screen_empty_conversation_list_title">Zatiaľ žiadne konverzácie</string>
+    <string name="conversation_screen_title">Konverzácie</string>
+    <string name="copied">Skopírované</string>
     <string name="copy_file_error">Počas kopírovania súboru alebo zložky sa vyskytla chyba</string>
     <string name="copy_file_invalid_into_descendent">Nie je možné skopírovať priečinok do samého seba</string>
     <string name="copy_file_invalid_overwrite">Súbor už v cieľovom priečinku existuje</string>
@@ -369,6 +372,7 @@
     <string name="failed_update_ui">Nepodarilo sa aktualizovať UI</string>
     <string name="favorite">Pridať do obľúbených</string>
     <string name="favorite_icon">Obľúbené</string>
+    <string name="fifteenMinutes">15 minút</string>
     <string name="file_activity_shared_file_cannot_be_updated">Zdieľaný súbor nemôže byť aktualizovaný</string>
     <string name="file_already_exists">Súbor už existuje</string>
     <string name="file_delete">Zmazať</string>
@@ -397,10 +401,8 @@
     <string name="file_list_loading">Načítavam…</string>
     <string name="file_list_no_app_for_file_type">Aplikácia pre váš typ súboru sa nenašla.</string>
     <string name="file_list_seconds_ago">pred sekundami</string>
-    <string name="file_management_permission">Vyžadujú sa o oprávnenia</string>
     <string name="file_management_permission_optional">Oprávnenia úložiska</string>
     <string name="file_management_permission_optional_text">%1$s funguje najlepšie s oprávnením pre prístup k úložisku. Môžete si vybrať úplný prístup ku všetkým súborom alebo prístup iba na čítanie k fotografiám a videám.</string>
-    <string name="file_management_permission_text">%1$s potrebuje na nahrávanie súborov oprávnenie na správu súborov. Môžete si vybrať úplný prístup ku všetkým súborom alebo prístup iba na čítanie k fotografiám a videám.</string>
     <string name="file_migration_allow_media_indexing">Povoliť prístup z ostatných aplikácií</string>
     <string name="file_migration_checking_destination">Kontrolujem umiestnenie…</string>
     <string name="file_migration_cleaning">Čistenie…</string>
@@ -436,7 +438,6 @@
     <string name="file_rename">Premenovať</string>
     <string name="file_upload_worker_error_notification_title">Nahrávanie zlyhalo. Žiadne pripojenie k internetu</string>
     <string name="file_version_restored_error">Chyba pri obnove verzie súboru!</string>
-    <string name="file_version_restored_successfully">Verzia súboru úspešne obnovená.</string>
     <string name="filedetails_details">Podrobnosti</string>
     <string name="filedetails_download">Stiahnuť</string>
     <string name="filedetails_export">Export</string>
@@ -471,7 +472,6 @@
     <string name="foreign_files_local_text">Lokálne: %1$s</string>
     <string name="foreign_files_move">Presunúť všetko</string>
     <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
-    <string name="foreign_files_success">Všetky súbory boli presunuté</string>
     <string name="forward">Preposlať</string>
     <string name="fourHours">4 hodiny</string>
     <string name="gplay_restriction">Google obmedzil sťahovanie APK/AAB súborov!</string>
@@ -525,7 +525,6 @@
     <string name="locked_by_app">Zamknuté od aplikácie %1$s</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
     <string name="log_send_no_mail_app">Aplikácia na odoslanie logov nenájdená. Prosím nainštalujte emailovú aplikáciu.</string>
-    <string name="logged_in_as">Prihlásený ako %1$s</string>
     <string name="login">Prihlásiť sa</string>
     <string name="login_url_helper_text">Odkaz k vašemu %1$s webovému rozhraniu keď ho otvoríte v prehliadači. </string>
     <string name="logs_menu_delete">Zmazať záznamy</string>
@@ -562,6 +561,7 @@
     <string name="move_file_invalid_into_descendent">Nie je možné presunúť priečinok do samého seba</string>
     <string name="move_file_invalid_overwrite">Súbor už v cieľovom priečinku existuje</string>
     <string name="move_file_not_found">Nie je možné presunúť súbor. Skontrolujte, či súbor existuje.</string>
+    <string name="mute_all_notifications">Stlmiť všetky upozornenia</string>
     <string name="network_error_connect_timeout_exception">Pri čakaní na odpoveď servera nastala chyba.  Operácia nemohla byť dokončená.</string>
     <string name="network_error_socket_exception">Pri pokuse o pripojenie na server nastala chyba</string>
     <string name="network_error_socket_timeout_exception">Pri čakaní na odpoveď servera nastala chyba.  Operácia nemohla byť dokončená.</string>
@@ -608,7 +608,6 @@
     <string name="offline_mode">Bez internetového pripojenia</string>
     <string name="offline_mode_info_description">Dokonca aj bez internetového pripojenia môžete organizovať svoje adresáre a vytvárať súbory. Keď budete opäť online, vaše nespracované akcie sa automaticky zosynchronizujú.</string>
     <string name="offline_mode_info_title">Nie ste pripojený, ale môžete pokračovať v práci</string>
-    <string name="offline_operations_file_does_not_exists_yet">Žiadny súbor zatiaľ neexistuje. Prosím, nahrajte prvý súbor.</string>
     <string name="offline_operations_worker_notification_error_text">Offline operácia nemôže byť dokončená. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline operace</string>
     <string name="offline_operations_worker_notification_start_text">Spúšťanie offline operácií</string>
@@ -619,7 +618,6 @@
     <string name="outdated_server">Verzia servra už nie je podporovaná, prosím aktualizujte!</string>
     <string name="overflow_menu">Ďalšie menu</string>
     <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Heslo bude nutné zadať vždy po štarte aplikácie</string>
     <string name="pass_code_enter_pass_code">Vložte prosím svoje heslo</string>
     <string name="pass_code_mismatch">Heslá sa nezhodujú</string>
     <string name="pass_code_reenter_your_pass_code">Vložte prosím znovu svoje heslo</string>
@@ -627,11 +625,10 @@
     <string name="pass_code_removed">Bezpečnostný kód odstránený</string>
     <string name="pass_code_stored">Bezpečnostný kód uložený</string>
     <string name="pass_code_wrong">Nesprávne heslo</string>
+    <string name="pause_upload">Pauza</string>
     <string name="pdf_password_protected">Nepodarilo sa otvoriť heslom chránený PDF súbor. Prosím, použite externý PDF prehliadač.</string>
-    <string name="pdf_zoom_tip">Klepnutím na stránku priblížite</string>
     <string name="permission_allow">Povoliť</string>
     <string name="permission_deny">Odmietnuť</string>
-    <string name="permission_storage_access">Na nahrávanie a sťahovanie súborov sú potrebné dodatočné oprávnenia.</string>
     <string name="pick_contact_to_share_with">Vybrať kontakt pre zdieľanie</string>
     <string name="picture_set_as_no_app">Aplikácia na nastavenie obrázku sa nenašla</string>
     <string name="pin_home">Pripnúť na domovskú obrazovku</string>
@@ -824,7 +821,6 @@
     <string name="share_via_link_section_title">Sprístupniť odkaz</string>
     <string name="share_via_link_send_link_label">Odoslať odkaz</string>
     <string name="share_via_link_unset_password">Zrušiť</string>
-    <string name="share_with_title">Zdieľať s…</string>
     <string name="shared_avatar_desc">Avatar od sprístupneného používateľa</string>
     <string name="shared_icon_share">sprístupniť</string>
     <string name="shared_icon_shared">sprístupnené</string>
@@ -877,7 +873,6 @@
     <string name="storage_internal_storage">Interné úložisko</string>
     <string name="storage_movies">Videá</string>
     <string name="storage_music">Hudba</string>
-    <string name="storage_permission_full_access">Plný prístup</string>
     <string name="storage_permission_media_read_only">Médiá iba načítanie</string>
     <string name="storage_pictures">Obrázky</string>
     <string name="store_full_dev_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou.\nToto je oficiálna vývojová verzia, obsahujúca dennú vzorku všetkých nových a nevyskúšaných funkcií, ktoré môžu spôsobovať nestabilitu a viesť ku strate dát. Aplikácia v tomto štádiu vývoja je určená tým používateľom, ktorí sú ochotní skúšať a hlásiť chyby, ktoré sa vyskytnú. Nepoužívajte ju pre svoju produkčnú prácu.\n\nObe oficiálne verzie, tak vývojová ako aj produkčná sú k dispozícii na F-droid a je možné ich mať nainštalované súbežne.</string>
@@ -1017,7 +1012,6 @@
     <string name="uploader_file_not_found_message">Súbor nenájdený. Ste si istý, že tento súbor existuje alebo predchádzajúci konflikt nebol vyriešený ?</string>
     <string name="uploader_file_not_found_on_server_message">Nepodarilo sa nám nájsť súbor na serveri. Iný užívateľ mohol súbor vymazať.</string>
     <string name="uploader_info_dirname">Názov priečinka</string>
-    <string name="uploader_local_files_uploaded">Opakujte pokus o nahratie zlyhaných lokálnych súborov</string>
     <string name="uploader_top_message">Vyber priečinok pre nahratie</string>
     <string name="uploader_upload_failed_content_single">Nepodarilo sa nahrať %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Nahrávanie neúspešné, je potrebné sa znovu prihlásiť</string>
@@ -1170,12 +1164,6 @@
         <item quantity="few">%d exportované súbory, ostatné vynechané pre chybu</item>
         <item quantity="many">%d exportovaných súborov, ostatné vynechané pre chybu</item>
         <item quantity="other">%d exportovaných súborov, ostatné vynechané pre chybu</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d súborov bol exportovaný. Pozrite si upozornenia pre viac detailov.</item>
-        <item quantity="few">%d súborov boli exportované. Pozrite si upozornenia pre viac detailov.</item>
-        <item quantity="many">%d súborov bolo exportovaných. Pozrite si upozornenia pre viac detailov.</item>
-        <item quantity="other">%d súborov bolo exportovaných. Pozrite si upozornenia pre viac detailov.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d priečinok</item>

@@ -368,10 +368,6 @@ public interface AppPreferences {
 
     void setGlobalUploadPaused(boolean globalPausedState);
 
-    void setPdfZoomTipShownCount(int count);
-
-    int getPdfZoomTipShownCount();
-
     boolean isStoragePermissionRequested();
 
     void setStoragePermissionRequested(boolean value);

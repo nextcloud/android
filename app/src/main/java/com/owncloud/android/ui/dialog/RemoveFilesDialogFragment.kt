@@ -100,6 +100,8 @@ class RemoveFilesDialogFragment :
             if (result) {
                 fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment))
 
+                fda?.deleteBatchTracker?.startBatchDelete(files.size)
+
                 if (files.isNotEmpty()) {
                     // Display the snackbar message only when a single file is deleted.
                     val inBackground = (files.size != 1)

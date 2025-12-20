@@ -83,6 +83,7 @@
     <string name="busy">Busy</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendars</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">There is a problem loading the certificate.</string>
     <string name="changelog_dev_version">Changelog dev version</string>
     <string name="check_back_later_or_reload">Check back later or reload.</string>
@@ -160,7 +161,10 @@
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
-    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="conversation_screen_delete_button_title">Delete conversation</string>
+    <string name="conversation_screen_empty_content_title">No conversations found</string>
+    <string name="conversation_screen_title">Conversations</string>
+    <string name="copied">Copied</string>
     <string name="copy_file_error">An error occurred while trying to copy this file or folder</string>
     <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into one of its own underlying folders</string>
     <string name="copy_file_invalid_overwrite">The file is already present in the destination folder</string>
@@ -304,6 +308,7 @@
     <string name="failed_update_ui">Failed to update UI</string>
     <string name="favorite">Add to favorites</string>
     <string name="favorite_icon">Favorite</string>
+    <string name="fifteenMinutes">15 minutes</string>
     <string name="file_already_exists">Filename already exists</string>
     <string name="file_delete">Delete</string>
     <string name="file_detail_activity_error">Error retrieving activities for file</string>
@@ -329,10 +334,8 @@
     <string name="file_list_loading">Loading…</string>
     <string name="file_list_no_app_for_file_type">No app set up to handle this file type.</string>
     <string name="file_list_seconds_ago">seconds ago</string>
-    <string name="file_management_permission">Permissions needed</string>
     <string name="file_management_permission_optional">Storage permissions</string>
     <string name="file_management_permission_optional_text">%1$s works best with permissions to access storage. You can choose full access to all files, or read-only access to photos and videos.</string>
-    <string name="file_management_permission_text">%1$s needs file management permissions to upload files. You can choose full access to all files, or read-only access to photos and videos.</string>
     <string name="file_migration_checking_destination">Checking destination…</string>
     <string name="file_migration_cleaning">Cleaning…</string>
     <string name="file_migration_dialog_title">Updating data storage folder</string>
@@ -358,7 +361,6 @@
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
     <string name="file_rename">Rename</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
-    <string name="file_version_restored_successfully">Successfully restored file version.</string>
     <string name="filedetails_details">Details</string>
     <string name="filedetails_download">Download</string>
     <string name="filedetails_export">Export</string>
@@ -388,7 +390,6 @@
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_move">Move all</string>
     <string name="foreign_files_remote_text">Remote: %1$s</string>
-    <string name="foreign_files_success">All files were moved</string>
     <string name="forward">Forward</string>
     <string name="fourHours">4 hours</string>
     <string name="hidden_file_name_warning">Name will result in a hidden file</string>
@@ -436,7 +437,6 @@
     <string name="locked_by_app">Locked by %1$s app</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
     <string name="log_send_no_mail_app">No app for sending logs found. Please install an email client.</string>
-    <string name="logged_in_as">Logged in as %1$s</string>
     <string name="login">Log in</string>
     <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
     <string name="logs_menu_delete">Delete logs</string>
@@ -517,7 +517,6 @@
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="overflow_menu">More menu</string>
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
-    <string name="pass_code_configure_your_pass_code_explanation">The passcode will be requested every time the app is started</string>
     <string name="pass_code_enter_pass_code">Please enter your passcode</string>
     <string name="pass_code_mismatch">The passcodes are not the same</string>
     <string name="pass_code_reenter_your_pass_code">Please reenter your passcode</string>
@@ -526,10 +525,8 @@
     <string name="pass_code_stored">Passcode stored</string>
     <string name="pass_code_wrong">Incorrect passcode</string>
     <string name="pdf_password_protected">Unable to open password-protected PDF. Please use an external PDF viewer.</string>
-    <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
     <string name="permission_allow">Allow</string>
     <string name="permission_deny">Deny</string>
-    <string name="permission_storage_access">Additional permissions required to upload and download files.</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="pin_shortcut_label">Open %1$s</string>
     <string name="player_stop">stop</string>
@@ -687,7 +684,6 @@
     <string name="share_via_link_section_title">Share link</string>
     <string name="share_via_link_send_link_label">Send link</string>
     <string name="share_via_link_unset_password">Unset</string>
-    <string name="share_with_title">Share with…</string>
     <string name="shared_avatar_desc">Avatar from shared user</string>
     <string name="shared_icon_share">share</string>
     <string name="shared_icon_shared">shared</string>
@@ -736,7 +732,6 @@
     <string name="storage_internal_storage">Internal storage</string>
     <string name="storage_movies">Movies</string>
     <string name="storage_music">Music</string>
-    <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_pictures">Pictures</string>
     <string name="store_full_dev_desc">The self-hosted productivity platform that keeps you in control.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
@@ -957,10 +952,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">Exported %d file, skipped rest due to error</item>
         <item quantity="other">Exported %d files, skipped rest due to error</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%d file will be exported. See notification for details.</item>
-        <item quantity="other">%d files will be exported. See notification for details.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d folder</item>

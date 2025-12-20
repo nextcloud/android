@@ -57,7 +57,7 @@ lane :RC_releasePhase1 do
     enableLogger()
 end
 
-desc "Release phase 2 for RC: checks, tag, upload gplay to playstore with values from build.gradle"
+desc "Release phase 2 for RC: checks, tag, upload gplay to playstore with values from build.gradle.kts"
 lane :RC_releasePhase2 do |options|
     checkReleaseRequirements_RC()
     info = androidVersion
@@ -78,7 +78,7 @@ lane :Final_releasePhase1 do
     makeReleases()
 end
 
-desc "Release phase 2 for FINAL: checks, tag, upload gplay to playstore with values from build.gradle"
+desc "Release phase 2 for FINAL: checks, tag, upload gplay to playstore with values from build.gradle.kts"
 lane :Final_releasePhase2 do |options|
     checkReleaseRequirements_Final()
     info = androidVersion
@@ -214,10 +214,10 @@ private_lane :androidVersion do
         text = f.read
 
         # everything between Document and Authors
-        major = text.match(/def versionMajor = ([0-9]*)$/)
-        minor = text.match(/def versionMinor = ([0-9]*)$/)
-        patch = text.match(/def versionPatch = ([0-9]*)$/)
-        build = text.match(/def versionBuild = ([0-9]*).*$/)
+        major = text.match(/val versionMajor\s*=\s*([0-9]*)/)
+        minor = text.match(/val versionMinor\s*=\s*([0-9]*)/)
+        patch = text.match(/val versionPatch\s*=\s*([0-9]*)/)
+        build = text.match(/val versionBuild\s*=\s*([0-9]*)/)
 
         majorInt = major[1].to_i
         minorInt = minor[1].to_i
@@ -261,12 +261,12 @@ end
 
 desc "check if library is set correctly"
 private_lane :checkLibrary_RC do
-    sh(" if [ $(egrep 'androidLibraryVersion.*master.*' ../build.gradle -c) -eq 1 ] ; then echo 'Library is set to master tag; aborting!' ; exit 1 ; fi")
+    sh(" if [ $(egrep 'androidLibraryVersion.*master.*' ../build.gradle.kts -c) -eq 1 ] ; then echo 'Library is set to master tag; aborting!' ; exit 1 ; fi")
 end
 
 desc "check if library is set correctly: must NOT contain master nor rc"
 private_lane :checkLibrary_Final do
-    sh(" if [ $(grep 'androidLibraryVersion' ../build.gradle | egrep 'master|rc' -c) -eq 1 ] ; then echo 'Library is still set to rc tag; aborting!' ; exit 1 ; fi")
+    sh(" if [ $(grep 'androidLibraryVersion' ../build.gradle.kts | egrep 'master|rc' -c) -eq 1 ] ; then echo 'Library is still set to rc tag; aborting!' ; exit 1 ; fi")
 end
 
 desc "check if screenshots exists and exit"

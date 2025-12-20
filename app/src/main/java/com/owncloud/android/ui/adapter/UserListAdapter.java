@@ -12,6 +12,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -162,6 +163,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      *
      * @param items The item list to be added
      */
+    @SuppressLint("NotifyDataSetChanged")
     public void addAll(List<UserListItem> items){
         if(values == null){
             values = new ArrayList<>();

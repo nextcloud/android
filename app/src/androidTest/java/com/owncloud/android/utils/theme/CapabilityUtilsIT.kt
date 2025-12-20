@@ -32,6 +32,14 @@ class CapabilityUtilsIT : AbstractIT() {
         assertTrue(test(OwnCloudVersion.nextcloud_20))
     }
 
-    private fun test(version: OwnCloudVersion): Boolean =
-        CapabilityUtils.checkOutdatedWarning(targetContext.resources, version, false)
+    @Test
+    fun checkOutdatedWarningWithSubscription() {
+        assertFalse(test(NextcloudVersion.nextcloud_31))
+        assertFalse(test(NextcloudVersion.nextcloud_30))
+
+        assertFalse(test(OwnCloudVersion.nextcloud_20, true))
+    }
+
+    private fun test(version: OwnCloudVersion, hasValidSubscription: Boolean = false): Boolean =
+        CapabilityUtils.checkOutdatedWarning(targetContext.resources, version, false, hasValidSubscription)
 }

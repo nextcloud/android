@@ -44,21 +44,15 @@
     <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
     <string name="appbar_search_in">Искать в %s</string>
     <string name="appear_offline">\"Не в сети\" для остальных</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Добавить новую задачу</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Создайте новую задачу в правом нижнем углу</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Наберите какой-то текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Вы уверены, что хотите удалить эту задачу?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Удалить задачу</string>
-    <string name="assistant_screen_loading">Загрузить список задач…</string>
     <string name="assistant_screen_task_create_fail_message">Произошла ошибка при создании задачи</string>
     <string name="assistant_screen_task_create_success_message">Задача успешно создана</string>
     <string name="assistant_screen_task_delete_fail_message">Произошла ошибка во время удаления задачи</string>
     <string name="assistant_screen_task_delete_success_message">Задача удалена</string>
-    <string name="assistant_screen_task_list_empty_message">Сптсок задач пуст.</string>
     <string name="assistant_screen_task_list_error_state_message">Не удается получить список задач, проверьте ваше подключение к Интернету.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Удалить задачу</string>
     <string name="assistant_screen_task_output_empty_text">Вывод задания еще не готов.</string>
-    <string name="assistant_screen_task_types_error_state_message">Не удается получить список задач, проверьте ваше подключение к Интернету.</string>
     <string name="assistant_screen_top_bar_title">Помощник</string>
     <string name="assistant_task_detail_screen_input_button_title">Ввод</string>
     <string name="assistant_task_detail_screen_output_button_title">Вывод</string>
@@ -93,6 +87,7 @@
     <string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные аккаунты</string>
     <string name="auth_wrong_connection_title">Не удается установить соединение</string>
     <string name="authenticator_activity_cancel_login">Отменить вход</string>
+    <string name="authenticator_activity_empty_base_url">Пожалуйста, введите действующий адрес сервера.</string>
     <string name="authenticator_activity_login_error">При обработке вашего запроса на вход возникла проблема. Пожалуйста, повторите попытку позже.</string>
     <string name="authenticator_activity_please_complete_login_process">Пожалуйста, завершите процесс входа в вашем браузере</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
@@ -119,6 +114,7 @@
     <string name="busy">Занят</string>
     <string name="calendar">Календарь</string>
     <string name="calendars">Календари</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Проблема при загрузке сертификата.</string>
     <string name="changelog_dev_version">Журнал изменений версии для разработчиков</string>
     <string name="check_back_later_or_reload">Зайдите позже или перезагрузите.</string>
@@ -202,7 +198,10 @@
     <string name="contacts_preferences_import_scheduled_fail">Не удалось запустить импорт. Пожалуйста, попробуйте снова</string>
     <string name="contacts_preferences_no_file_found">Файл не найден</string>
     <string name="contacts_preferences_something_strange_happened">Не удалось найти последнюю резервную копию!</string>
-    <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
+    <string name="conversation_screen_delete_button_title">Удалить обсуждение</string>
+    <string name="conversation_screen_empty_content_title">Не найдено ни одного обсуждения</string>
+    <string name="conversation_screen_title">Беседы</string>
+    <string name="copied">Скопировано</string>
     <string name="copy_file_error">Произошла ошибка при попытке копирования этого файла или каталога</string>
     <string name="copy_file_invalid_into_descendent">Невозможно копирование каталога в его подкаталог</string>
     <string name="copy_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
@@ -380,6 +379,7 @@
     <string name="failed_update_ui">Не удалось обновить пользовательский интерфейс</string>
     <string name="favorite">Добавить в избранное</string>
     <string name="favorite_icon">Избранное</string>
+    <string name="fifteenMinutes">15 минут</string>
     <string name="file_activity_shared_file_cannot_be_updated">Общий файл  не может быть обновлен</string>
     <string name="file_already_exists">Файл с таким именем уже существует</string>
     <string name="file_delete">Удалить</string>
@@ -387,7 +387,6 @@
     <string name="file_detail_share_already_active">Вы не можете создать общий ресурс — общий доступ уже активен от этого пользователя.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Приложение для выбора контактов недоступно</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Пожалуйста выберите права доступа</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Сохранить</string>
     <string name="file_list_empty">Добавьте что-нибудь или синхронизируйте со своими устройствами!</string>
@@ -412,11 +411,8 @@
     <string name="file_list_loading">Получение данных…</string>
     <string name="file_list_no_app_for_file_type">Не найдено приложение для открытия этого типа файлов.</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
-    <string name="file_management_permission">Недостаточно прав</string>
     <string name="file_management_permission_optional">Права на хранилище</string>
     <string name="file_management_permission_optional_text">%1$s работает лучше всего при наличии доступа к хранилищу. Вы можете выбрать полный доступ к файлам или доступ только для чтения к фото и видео.</string>
-    <string name="file_management_permission_text">%1$s необходимы права на управления файлами, для их загрузки.
-Вы можете выбрать полный доступ к файлам или доступ только для чтения к фото и видео.</string>
     <string name="file_migration_allow_media_indexing">Разрешить доступ из других приложений</string>
     <string name="file_migration_checking_destination">Проверка назначения…</string>
     <string name="file_migration_cleaning">Очистка…</string>
@@ -454,7 +450,6 @@
     <string name="file_upload_worker_error_notification_title">Загрузка не удалась. Нет интернет-соединения</string>
     <string name="file_upload_worker_same_file_already_exists">%s уже существует, конфликтов не обнаружено</string>
     <string name="file_version_restored_error">Ошибка восстановления версии файла!</string>
-    <string name="file_version_restored_successfully">Версия файла успешно восстановлена</string>
     <string name="filedetails_details">Свойства</string>
     <string name="filedetails_download">Скачать</string>
     <string name="filedetails_export">Экспорт</string>
@@ -472,6 +467,7 @@
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_best_viewed_in">Эту папку лучше всего просматривать в %1$s.</string>
     <string name="folder_confirm_create">Создать</string>
+    <string name="folder_download_worker_ticker_id">Синхронизация …</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
     <string name="folder_name_empty">Имя папки не может быть пустым</string>
     <string name="folder_picker_choose_button_text">Выберите</string>
@@ -489,7 +485,6 @@
     <string name="foreign_files_local_text">На устройстве: %1$s</string>
     <string name="foreign_files_move">Переместить все</string>
     <string name="foreign_files_remote_text">На сервере: %1$s</string>
-    <string name="foreign_files_success">Все файлы перемещены</string>
     <string name="forward">Вперёд</string>
     <string name="fourHours">4 часа</string>
     <string name="gplay_restriction">Google ограничил загрузку файлов APK/AAB!</string>
@@ -544,7 +539,6 @@
     <string name="locked_by_app">Заблокировано приложением %1$s</string>
     <string name="log_send_mail_subject">Журналы приложения %1$s для Android</string>
     <string name="log_send_no_mail_app">Приложение для отправки журналов не найдено. Пожалуйста, установите почтовый клиент.</string>
-    <string name="logged_in_as">Выполнен вход как %1$s</string>
     <string name="login">Войти</string>
     <string name="login_url_helper_text">Ссылка для в %1$s через веб-интерфейс для использования в браузере.</string>
     <string name="logs_menu_delete">Удалить журнал</string>
@@ -630,7 +624,6 @@
     <string name="offline_mode">Отсутствует подключение к Интернет</string>
     <string name="offline_mode_info_description">Даже без подключения к Интернету вы можете упорядочивать папки и создавать файлы. Как только вы вернетесь в сеть, ваши действия будут автоматически синхронизированы.</string>
     <string name="offline_mode_info_title">Вы не в сети, но работа продолжается</string>
-    <string name="offline_operations_file_does_not_exists_yet">Файл еще не существует. Пожалуйста, сначала загрузите файл.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Не удалось создать %s. На сервере уже существует файл с таким же именем.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Не удалось создать %s. На сервере уже существует папка с таким же имененм.</string>
     <string name="offline_operations_worker_notification_error_text">Операция в автономном режиме не может быть завершена. %s</string>
@@ -645,7 +638,6 @@
     <string name="outdated_server">Версия сервера Nextcloud  более не поддерживается, требуется её обновление.</string>
     <string name="overflow_menu">Дополнительное меню</string>
     <string name="pass_code_configure_your_pass_code">Введите код</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Код будет запрашиваться каждый раз при запуске приложения</string>
     <string name="pass_code_enter_pass_code">Введите ваш код</string>
     <string name="pass_code_mismatch">Коды не совпадают</string>
     <string name="pass_code_reenter_your_pass_code">Введите ваш код ещё раз</string>
@@ -653,11 +645,10 @@
     <string name="pass_code_removed">Код удалён</string>
     <string name="pass_code_stored">Код сохранён</string>
     <string name="pass_code_wrong">Некорректный код</string>
+    <string name="pause_upload">Пауза</string>
     <string name="pdf_password_protected">Невозможно открыть защищенный паролем PDF-файл. Воспользуйтесь сторонним просмотрщиком PDF.</string>
-    <string name="pdf_zoom_tip">Нажмите на страницу, чтобы увеличить</string>
     <string name="permission_allow">Разрешить</string>
     <string name="permission_deny">Запретить</string>
-    <string name="permission_storage_access">Для отправки и скачивания файлов требуются дополнительные права доступа.</string>
     <string name="pick_contact_to_share_with">Выберите контакт, которому вы хотите предоставить общий доступ</string>
     <string name="picture_set_as_no_app">Не найдено приложений для обработки изображений</string>
     <string name="pin_home">Закрепить на главном экране</string>
@@ -859,7 +850,6 @@
     <string name="share_via_link_section_title">Общий доступ по ссылке</string>
     <string name="share_via_link_send_link_label">Отправить ссылку</string>
     <string name="share_via_link_unset_password">Сброс</string>
-    <string name="share_with_title">Поделиться…</string>
     <string name="shared_avatar_desc">Аватар от общего пользователя</string>
     <string name="shared_icon_share">общий ресурс</string>
     <string name="shared_icon_shared">поделился</string>
@@ -912,7 +902,6 @@
     <string name="storage_internal_storage">Внутреннее хранилище</string>
     <string name="storage_movies">Фильмы</string>
     <string name="storage_music">Музыка</string>
-    <string name="storage_permission_full_access">Полный доступ</string>
     <string name="storage_permission_media_read_only">Носитель только для чтения</string>
     <string name="storage_pictures">Изображения</string>
     <string name="store_full_desc">Устанавливаемая на свой сервер платформа для повышения продуктивности, которая позволяет держать всё под контролем.\n\nFeatures:\n* Простой, современный интерфейс, соответствующий тематике вашего сервера\n* Загружайте файлы на свой сервер Nextcloud\n* Делитесь ими с другими\n* Синхронизируйте избранные файлы и папки\n* Поиск по всем папкам на вашем сервере\n* Автоматическая загрузка фотографий и видео, снятых на вашем устройстве\n* Будьте в курсе событий благодаря уведомлениям\n* Поддержка нескольких учётных записей\n* Безопасный доступ к вашим данным с помощью отпечатка пальца или PIN-кода\n* Интеграция с DAVx⁵ (ранее известен как DAVdroid) для простой настройки синхронизации календаря и контактов\n\nПожалуйста, сообщайте обо всех проблемах на https://github.com/nextcloud/android/issues и обсуждайте это приложение на https://help.nextcloud.com/c/clients/android\n\nНовичок в Nextcloud? Nextcloud — это приватный сервер синхронизации и обмена файлами и коммуникационный сервер. Это свободное программное обеспечение, и вы можете разместить его самостоятельно или заплатить компании, чтобы это сделали за вас. Таким образом, вы управляете своими фотографиями, календарём и контактными данными, документами и всем остальным.\n\nОзнакомьтесь с Nextcloud по адресу https://nextcloud.com</string>
@@ -1057,7 +1046,6 @@
     <string name="uploader_file_not_found_message">Файл не найден. Вы уверены, что этот файл существует или предыдущий конфликт не был разрешен?</string>
     <string name="uploader_file_not_found_on_server_message">Нам не удалось найти файл на сервере. Возможно, другой пользователь удалил файл</string>
     <string name="uploader_info_dirname">Имя каталога</string>
-    <string name="uploader_local_files_uploaded">Повторить попытку загрузки неудачно загруженных локальных файлов</string>
     <string name="uploader_top_message">Выбрать каталог для передачи</string>
     <string name="uploader_upload_failed_content_single">Не удалось передать файл «%1$s»</string>
     <string name="uploader_upload_failed_credentials_error">Ошибка передачи файла, необходимо войти в систему</string>
@@ -1210,12 +1198,6 @@
         <item quantity="few">Экспортированы %d файла, остальные были пропущены из-за ошибок</item>
         <item quantity="many">Экспортирован %d файлов, остальные были пропущены из-за ошибок</item>
         <item quantity="other">Экспортирован %d файла, остальные были пропущены из-за ошибок</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">Будет экспортирован %d файл. Подробные сведения приведены в уведомлении.</item>
-        <item quantity="few">Будет экспортированы %d файла. Подробные сведения приведены в уведомлении.</item>
-        <item quantity="many">Будут экспортированы %d файлов. Подробные сведения приведены в уведомлении.</item>
-        <item quantity="other">Будут экспортированы %d файла. Подробные сведения приведены в уведомлении.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d каталог</item>

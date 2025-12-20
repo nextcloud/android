@@ -18,10 +18,8 @@
     android:layout_height="wrap_content"
     android:baselineAligned="false"
     android:descendantFocusability="blocksDescendants"
-    android:minHeight="@dimen/standard_list_item_size"
-    android:orientation="horizontal"
-    android:paddingTop="@dimen/standard_half_padding"
-    android:paddingBottom="@dimen/standard_half_padding">
+    android:minHeight="@dimen/min_list_item_size"
+    android:orientation="horizontal">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/min_list_item_size"
@@ -48,6 +46,8 @@
             android:layout_width="@dimen/list_item_local_file_indicator_layout_width"
             android:layout_height="@dimen/list_item_local_file_indicator_layout_height"
             android:contentDescription="@string/downloader_download_succeeded_ticker"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_synced"
             app:layout_constraintBottom_toBottomOf="@+id/thumbnail_container"

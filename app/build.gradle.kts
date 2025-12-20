@@ -63,7 +63,7 @@ configurations.configureEach {
 
 // semantic versioning for version code
 val versionMajor = 3
-val versionMinor = 35
+val versionMinor = 36
 val versionPatch = 0
 val versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -94,7 +94,7 @@ android {
 
     defaultConfig {
         applicationId = "com.nextcloud.client"
-        minSdk = 27
+        minSdk = 28
         targetSdk = 36
         compileSdk = 36
 
@@ -210,7 +210,8 @@ android {
     }
 
     lint {
-        abortOnError = false
+        abortOnError = true
+        warningsAsErrors = true
         checkGeneratedSources = true
         disable.addAll(
             listOf(
@@ -223,7 +224,10 @@ android {
                 "MissingDefaultResource",
                 "InvalidPeriodicWorkRequestInterval",
                 "StringFormatInvalid",
-                "MissingQuantity"
+                "MissingQuantity",
+                "IconXmlAndPng",
+                "SelectedPhotoAccess",
+                "UnsafeIntentLaunch"
             )
         )
         htmlOutput = layout.buildDirectory.file("reports/lint/lint.html").get().asFile
@@ -323,7 +327,7 @@ tasks.withType<JavaCompile>().configureEach {
 
 tasks.withType<Test>().configureEach {
     // Run tests in parallel
-    maxParallelForks = Runtime.getRuntime().availableProcessors().div(2)
+    maxParallelForks = maxOf(1, Runtime.getRuntime().availableProcessors().div(2))
 
     // increased logging for tests
     testLogging.events("passed", "skipped", "failed")
@@ -351,6 +355,7 @@ dependencies {
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.material3)
     implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.foundation)
     debugImplementation(libs.compose.ui.tooling)
     // endregion
 

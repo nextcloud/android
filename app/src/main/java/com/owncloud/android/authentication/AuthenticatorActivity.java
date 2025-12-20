@@ -44,11 +44,9 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -105,7 +103,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.WebViewUtil;
-import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.InputStream;
@@ -861,7 +858,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme))) {
             if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
                 accountManager.getAccounts().length == 1) {
-                Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+                DisplayUtils.showSnackMessage(this, R.string.no_mutliple_accounts_allowed);
                 finish();
                 return;
             } else {
@@ -1104,13 +1101,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             //      4. we got the authentication method required by the server
             mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
 
-            // show outdated warning
-            if (CapabilityUtils.checkOutdatedWarning(getResources(),
-                                                     mServerInfo.mVersion,
-                                                     mServerInfo.hasExtendedSupport)) {
-                DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_INDEFINITE);
-            }
-
             if (webViewUser != null && !webViewUser.isEmpty() &&
                 webViewPassword != null && !webViewPassword.isEmpty()) {
                 checkBasicAuthorization(webViewUser, webViewPassword);
@@ -1316,16 +1306,21 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             case ACCOUNT_NOT_NEW:
                 mAuthStatusText = getString(R.string.auth_account_not_new);
                 if (!showWebViewLoginUrl) {
-                    DisplayUtils.showErrorAndFinishActivity(this, mAuthStatusText);
+                    showErrorAndFinishActivity();
                 }
                 break;
             case UNHANDLED_HTTP_CODE:
             default:
                 mAuthStatusText = ErrorMessageAdapter.getErrorCauseMessage(result, null, getResources());
                 if (!showWebViewLoginUrl) {
-                    DisplayUtils.showErrorAndFinishActivity(this, mAuthStatusText);
+                    showErrorAndFinishActivity();
                 }
         }
+    }
+
+    private void showErrorAndFinishActivity() {
+        DisplayUtils.showSnackMessage(this, mAuthStatusText);
+        finish();
     }
 
     private void updateStatusIconFailUserName(int failedStatusText) {
@@ -1597,7 +1592,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
                     accountManager.getAccounts().length == 1) {
-                    Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+                    DisplayUtils.showSnackMessage(this, R.string.no_mutliple_accounts_allowed);
                 } else {
                     parseAndLoginFromWebView(resultData);
                 }

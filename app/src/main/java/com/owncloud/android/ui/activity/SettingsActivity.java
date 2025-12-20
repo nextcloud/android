@@ -24,8 +24,9 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -39,11 +40,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.webkit.URLUtil;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.android.common.ui.util.extensions.WindowExtensionsKt;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -54,7 +53,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
-import com.nextcloud.utils.extensions.ViewExtensionsKt;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -76,6 +75,7 @@ import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -92,6 +92,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+
+import static com.owncloud.android.ui.activity.DrawerActivity.REQ_ALL_FILES_ACCESS;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -148,23 +150,12 @@ public class SettingsActivity extends PreferenceActivity
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-        boolean isApiLevel35OrHigher = (Build.VERSION.SDK_INT >= 35);
-        if (isApiLevel35OrHigher) {
-            final var window = getWindow();
-            if (window != null) {
-                WindowExtensionsKt.addSystemBarPaddings(getWindow());
-                final var flag = WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
-                window.setFlags(flag, flag);
-            }
-        }
-
         super.onCreate(savedInstanceState);
 
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-
+        getListView().setFitsSystemWindows(true);
         setupActionBar();
 
         // Register context menu for list of preferences.
@@ -205,22 +196,19 @@ public class SettingsActivity extends PreferenceActivity
         // workaround for mismatched color when app dark mode and system dark mode don't agree
         setListBackground();
         showPasscodeDialogIfEnforceAppProtection();
-
-        if (isApiLevel35OrHigher) {
-            adjustTopMarginForActionBar();
-        }
     }
 
-    private void adjustTopMarginForActionBar() {
-        if (getListView() == null) {
-            return;
-        }
+    public static boolean isBackPressed = false;
 
-        float topMarginInDp = getResources().getDimension(R.dimen.settings_activity_padding);
-        int topMarginInPx = DisplayUtils.convertDpToPixel(topMarginInDp, this);
-        ViewExtensionsKt.setMargins(getListView(), 0, topMarginInPx, 0, 0);
-
-        getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(this, R.color.bg_default));
+    @SuppressLint("GestureBackNavigation")
+    @Override
+    public void onBackPressed() {
+        isBackPressed = true;
+        super.onBackPressed();
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            Log_OC.d(TAG, "User returned from settings activity, reset onBackPressed flag.");
+            isBackPressed = false;
+        }, 2000);
     }
 
     private void showPasscodeDialogIfEnforceAppProtection() {
@@ -358,22 +346,13 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
-    @SuppressLint("GestureBackNavigation")
-    @Override
-    public void onBackPressed() {
-        DrawerActivity.menuItemId = R.id.nav_all_files;
-        Intent i = new Intent(this, FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        i.setAction(FileDisplayActivity.ALL_FILES);
-        startActivity(i);
-    }
-
     private void setupSyncCategory() {
         final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
         viewThemeUtils.files.themePreferenceCategory(preferenceCategorySync);
 
         setupAutoUploadPreference(preferenceCategorySync);
         setupInternalTwoWaySyncPreference();
+        setupAllFilesAccessPreference(preferenceCategorySync);
     }
 
     private void setupMoreCategory() {
@@ -616,6 +595,23 @@ public class SettingsActivity extends PreferenceActivity
         twoWaySync.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(this, InternalTwoWaySyncActivity.class);
             startActivity(intent);
+            return true;
+        });
+    }
+
+    private void setupAllFilesAccessPreference(PreferenceCategory category) {
+        Preference allFilesAccess = findPreference("allFilesAccess");
+
+        if (PermissionUtil.checkAllFilesAccess()) {
+            category.removePreference(allFilesAccess);
+        } else {
+            if (allFilesAccess.getParent() == null) {
+                category.addPreference(allFilesAccess);
+            }
+        }
+
+        allFilesAccess.setOnPreferenceClickListener(preference -> {
+            ContextExtensionsKt.openAllFilesAccessSettings(this, REQ_ALL_FILES_ACCESS);
             return true;
         });
     }
@@ -1056,8 +1052,6 @@ public class SettingsActivity extends PreferenceActivity
             handleMnemonicRequest(data);
         } else if (requestCode == ACTION_E2E && data != null && data.getBooleanExtra(SetupEncryptionDialogFragment.SUCCESS, false)) {
             Intent i = new Intent(this, SettingsActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(i);
         } else if (requestCode == ACTION_SET_STORAGE_LOCATION && data != null) {
             String newPath = data.getStringExtra(ChooseStorageLocationActivity.KEY_RESULT_STORAGE_LOCATION);
@@ -1067,6 +1061,9 @@ public class SettingsActivity extends PreferenceActivity
                 storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
             }
+        } else if (requestCode == REQ_ALL_FILES_ACCESS) {
+            final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
+            setupAllFilesAccessPreference(preferenceCategorySync);
         }
     }
 
@@ -1177,7 +1174,7 @@ public class SettingsActivity extends PreferenceActivity
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS)) {
 
-                // only add if it does not exist, in case activity is re-used
+                // only add if it does not exist, in case activity is reused
                 if (findPreference(String.valueOf(link.getId())) == null) {
                     Preference p = new Preference(this);
                     p.setTitle(link.getName());

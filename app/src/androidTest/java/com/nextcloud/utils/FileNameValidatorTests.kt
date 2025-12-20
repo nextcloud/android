@@ -10,6 +10,7 @@ package com.nextcloud.utils
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
+import com.owncloud.android.lib.resources.status.CapabilityBooleanType
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import org.junit.Assert.assertEquals
@@ -27,6 +28,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     @Before
     fun setup() {
         capability = capability.apply {
+            isWCFEnabled = CapabilityBooleanType.TRUE
             forbiddenFilenamesJson = """[".htaccess",".htaccess"]"""
             forbiddenFilenameBaseNamesJson = """
                                     ["con", "prn", "aux", "nul", "com0", "com1", "com2", "com3", "com4", 
@@ -227,5 +229,15 @@ class FileNameValidatorTests : AbstractOnServerIT() {
 
         val result = FileNameValidator.checkFolderAndFilePaths(folderPath, listOf(), capability, targetContext)
         assertFalse(result)
+    }
+
+    @Test
+    fun skipValidationWhenWCFDisabled() {
+        capability = capability.apply {
+            isWCFEnabled = CapabilityBooleanType.FALSE
+        }
+        val filename = "abc.txt"
+        val result = FileNameValidator.checkFileName(filename, capability, targetContext)
+        assertNull(result)
     }
 }

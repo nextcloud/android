@@ -11,11 +11,10 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.view.View;
 
@@ -177,7 +176,7 @@ public class StorageMigration {
     private static abstract class FileMigrationTaskBase extends AsyncTask<Void, Integer, Integer> {
         protected String mStorageSource;
         protected String mStorageTarget;
-        protected Context mContext;
+        @SuppressLint("StaticFieldLeak") protected Context mContext;
         protected User user;
         protected ProgressDialog mProgressDialog;
         protected StorageMigrationProgressListener mListener;

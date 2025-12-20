@@ -8,21 +8,22 @@
 package com.nextcloud.client.jobs.upload
 
 import android.app.Notification
-import android.app.PendingIntent
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
+import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
+import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.model.WorkerStateObserver
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
 import com.nextcloud.utils.extensions.updateStatus
@@ -41,7 +42,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
@@ -49,7 +49,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.random.Random
 
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "TooGenericExceptionCaught")
 class FileUploadWorker(
     val uploadsStorageManager: UploadsStorageManager,
     val connectivityService: ConnectivityService,
@@ -118,6 +118,13 @@ class FileUploadWorker(
 
             return false
         }
+
+        fun getUploadAction(action: String): Int = when (action) {
+            "LOCAL_BEHAVIOUR_FORGET" -> LOCAL_BEHAVIOUR_FORGET
+            "LOCAL_BEHAVIOUR_MOVE" -> LOCAL_BEHAVIOUR_MOVE
+            "LOCAL_BEHAVIOUR_DELETE" -> LOCAL_BEHAVIOUR_DELETE
+            else -> LOCAL_BEHAVIOUR_FORGET
+        }
     }
 
     private var lastPercent = 0
@@ -126,16 +133,12 @@ class FileUploadWorker(
     private val intents = FileUploaderIntents(context)
     private val fileUploaderDelegate = FileUploaderDelegate()
 
-    @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result = try {
         Log_OC.d(TAG, "FileUploadWorker started")
         val workerName = BackgroundJobManagerImpl.formatClassTag(this::class)
         backgroundJobManager.logStartOfWorker(workerName)
 
-        val notificationTitle = notificationManager.currentOperationTitle
-            ?: context.getString(R.string.foreground_service_upload)
-        val notification = createNotification(notificationTitle)
-        updateForegroundInfo(notification)
+        trySetForeground()
 
         val result = uploadFiles()
         backgroundJobManager.logEndOfWorker(workerName, result)
@@ -148,6 +151,30 @@ class FileUploadWorker(
         Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
         cleanup()
         Result.failure()
+    }
+
+    private suspend fun trySetForeground() {
+        try {
+            val notificationTitle = notificationManager.currentOperationTitle
+                ?: context.getString(R.string.foreground_service_upload)
+            val notification = createNotification(notificationTitle)
+            updateForegroundInfo(notification)
+        } catch (e: Exception) {
+            // Continue without foreground service - uploads will still work
+            Log_OC.w(TAG, "Could not set foreground service: ${e.message}")
+        }
+    }
+
+    override suspend fun getForegroundInfo(): ForegroundInfo {
+        val notificationTitle = notificationManager.currentOperationTitle
+            ?: context.getString(R.string.foreground_service_upload)
+        val notification = createNotification(notificationTitle)
+
+        return ForegroundServiceHelper.createWorkerForegroundInfo(
+            notificationId,
+            notification,
+            ForegroundServiceType.DataSync
+        )
     }
 
     private suspend fun updateForegroundInfo(notification: Notification) {
@@ -180,14 +207,14 @@ class FileUploadWorker(
     }
 
     private fun setWorkerState(user: User?) {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.UploadStarted(user))
+        WorkerStateObserver.send(WorkerState.FileUploadStarted(user))
     }
 
     private fun setIdleWorkerState() {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.UploadFinished(currentUploadFileOperation?.file))
+        WorkerStateObserver.send(WorkerState.FileUploadCompleted(currentUploadFileOperation?.file))
     }
 
-    @Suppress("ReturnCount", "LongMethod")
+    @Suppress("ReturnCount", "LongMethod", "DEPRECATION")
     private suspend fun uploadFiles(): Result = withContext(Dispatchers.IO) {
         val accountName = inputData.getString(ACCOUNT)
         if (accountName == null) {
@@ -232,7 +259,7 @@ class FileUploadWorker(
             if (preferences.isGlobalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")
                 notificationManager.notifyPaused(
-                    intents.notificationStartIntent(null)
+                    intents.openUploadListIntent(null)
                 )
                 return@withContext Result.success()
             }
@@ -250,8 +277,7 @@ class FileUploadWorker(
             val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
             notificationManager.prepareForStart(
                 operation,
-                cancelPendingIntent = intents.startIntent(operation),
-                startIntent = intents.notificationStartIntent(operation),
+                startIntent = intents.openUploadListIntent(operation),
                 currentUploadIndex = currentUploadIndex,
                 totalUploadSize = totalUploadSize
             )
@@ -262,6 +288,13 @@ class FileUploadWorker(
             val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
             uploadsStorageManager.updateStatus(entity, result.isSuccess)
             currentUploadFileOperation = null
+
+            if (result.code == ResultCode.QUOTA_EXCEEDED) {
+                Log_OC.w(TAG, "Quota exceeded, stopping uploads")
+                notificationManager.showQuotaExceedNotification(operation)
+                break
+            }
+
             sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
         }
 
@@ -322,125 +355,45 @@ class FileUploadWorker(
     }
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
-    private fun upload(
-        uploadFileOperation: UploadFileOperation,
+    private suspend fun upload(
+        operation: UploadFileOperation,
         user: User,
         client: OwnCloudClient
-    ): RemoteOperationResult<Any?> {
+    ): RemoteOperationResult<Any?> = withContext(Dispatchers.IO) {
         lateinit var result: RemoteOperationResult<Any?>
 
         try {
-            val storageManager = uploadFileOperation.storageManager
-            result = uploadFileOperation.execute(client)
+            val storageManager = operation.storageManager
+            result = operation.execute(client)
             val task = ThumbnailsCacheManager.ThumbnailGenerationTask(storageManager, user)
-            val file = File(uploadFileOperation.originalStoragePath)
-            val remoteId: String? = uploadFileOperation.file.remoteId
+            val file = File(operation.originalStoragePath)
+            val remoteId: String? = operation.file.remoteId
             task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId))
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
             result = RemoteOperationResult<Any?>(e)
         } finally {
-            cleanupUploadProcess(result, uploadFileOperation)
-        }
-
-        return result
-    }
-
-    private fun cleanupUploadProcess(result: RemoteOperationResult<Any?>, uploadFileOperation: UploadFileOperation) {
-        if (!isStopped || !result.isCancelled) {
-            uploadsStorageManager.updateDatabaseUploadResult(result, uploadFileOperation)
-            notifyUploadResult(uploadFileOperation, result)
-        }
-    }
-
-    @Suppress("ReturnCount", "LongMethod")
-    private fun notifyUploadResult(
-        uploadFileOperation: UploadFileOperation,
-        uploadResult: RemoteOperationResult<Any?>
-    ) {
-        Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.code)
-        val showSameFileAlreadyExistsNotification =
-            inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
-
-        if (uploadResult.isSuccess) {
-            notificationManager.dismissOldErrorNotification(uploadFileOperation)
-            return
-        }
-
-        if (uploadResult.isCancelled) {
-            return
-        }
-
-        // Only notify if it is not same file on remote that causes conflict
-        if (uploadResult.code == ResultCode.SYNC_CONFLICT &&
-            FileUploadHelper().isSameFileOnRemote(
-                uploadFileOperation.user,
-                File(uploadFileOperation.storagePath),
-                uploadFileOperation.remotePath,
-                context
-            )
-        ) {
-            if (showSameFileAlreadyExistsNotification) {
-                notificationManager.showSameFileAlreadyExistsNotification(uploadFileOperation.fileName)
+            if (!isStopped) {
+                uploadsStorageManager.updateDatabaseUploadResult(result, operation)
+                UploadErrorNotificationManager.handleResult(
+                    context,
+                    notificationManager,
+                    operation,
+                    result,
+                    showSameFileAlreadyExistsNotification = {
+                        withContext(Dispatchers.Main) {
+                            val showSameFileAlreadyExistsNotification =
+                                inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
+                            if (showSameFileAlreadyExistsNotification) {
+                                notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
+                            }
+                        }
+                    }
+                )
             }
-
-            uploadFileOperation.handleLocalBehaviour()
-            return
         }
 
-        val notDelayed = uploadResult.code !in setOf(
-            ResultCode.DELAYED_FOR_WIFI,
-            ResultCode.DELAYED_FOR_CHARGING,
-            ResultCode.DELAYED_IN_POWER_SAVE_MODE
-        )
-
-        val isValidFile = uploadResult.code !in setOf(
-            ResultCode.LOCAL_FILE_NOT_FOUND,
-            ResultCode.LOCK_FAILED
-        )
-
-        if (!notDelayed || !isValidFile) {
-            return
-        }
-
-        if (uploadResult.code == ResultCode.USER_CANCELLED) {
-            return
-        }
-
-        notificationManager.run {
-            val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
-                uploadResult,
-                uploadFileOperation,
-                context.resources
-            )
-
-            val conflictResolveIntent = if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
-                intents.conflictResolveActionIntents(context, uploadFileOperation)
-            } else {
-                null
-            }
-
-            val credentialIntent: PendingIntent? = if (uploadResult.code == ResultCode.UNAUTHORIZED) {
-                intents.credentialIntent(uploadFileOperation)
-            } else {
-                null
-            }
-
-            val cancelUploadActionIntent = if (conflictResolveIntent != null) {
-                intents.cancelUploadActionIntent(uploadFileOperation)
-            } else {
-                null
-            }
-
-            notifyForFailedResult(
-                uploadFileOperation,
-                uploadResult.code,
-                conflictResolveIntent,
-                cancelUploadActionIntent,
-                credentialIntent,
-                errorMessage
-            )
-        }
+        return@withContext result
     }
 
     @Suppress("MagicNumber")

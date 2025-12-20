@@ -56,6 +56,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.mainThread
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
@@ -253,7 +254,7 @@ open class ExtendedListFragment :
             is FileDisplayActivity -> {
                 if (isBackPressed && query.isEmpty()) {
                     activity.resetSearchView()
-                    activity.updateListOfFilesFragment(true)
+                    activity.updateListOfFilesFragment()
                 } else {
                     Handler(Looper.getMainLooper()).post {
                         if (adapter is OCFileListAdapter) {
@@ -719,6 +720,10 @@ open class ExtendedListFragment :
                     R.drawable.ic_list_empty_folder,
                     true
                 )
+            }
+        }.also {
+            mainThread {
+                mRefreshListLayout?.isRefreshing = false
             }
         }
     }

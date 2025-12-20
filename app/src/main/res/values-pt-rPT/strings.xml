@@ -44,17 +44,12 @@
     <string name="app_widget_description">Mostra um \'\'widget\'\' do painel</string>
     <string name="appbar_search_in">Procurar em %s</string>
     <string name="appear_offline">Aparecer offline</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Adicionar nova tarefa</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Criar uma nova tarefa a partir do canto inferior direito</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Digite algum texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem a certeza que deseja eliminar esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
-    <string name="assistant_screen_loading">A carregar a lista de tarefas...</string>
     <string name="assistant_screen_task_create_fail_message">Ocorreu um erro enquanto criava a tarefa</string>
     <string name="assistant_screen_task_create_success_message">Tarefa criada com sucesso</string>
     <string name="assistant_screen_task_delete_fail_message">Ocorreu um erro enquanto eliminava a tarefa</string>
     <string name="assistant_screen_task_delete_success_message">Tarefa eliminada com sucesso</string>
-    <string name="assistant_screen_task_list_empty_message">A lista de tarefas está vazia.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar Tarefa</string>
     <string name="assistant_screen_task_output_empty_text">O resultado da tarefa ainda não está pronto.</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>
@@ -114,6 +109,7 @@
     <string name="busy">Ocupado</string>
     <string name="calendar">Calendário</string>
     <string name="calendars">Calendários</string>
+    <string name="cancel_upload">Cancelar</string>
     <string name="certificate_load_problem">Ocorreu um problema ao carregar o certificado.</string>
     <string name="changelog_dev_version">Registo de alterações desta versão</string>
     <string name="check_back_later_or_reload">Verificar mais tarde ou recarregar.</string>
@@ -193,7 +189,7 @@
     <string name="contacts_preferences_import_scheduled">Importar planeamento e irá começar em breve</string>
     <string name="contacts_preferences_no_file_found">Nenhum ficheiro encontrado</string>
     <string name="contacts_preferences_something_strange_happened">Não foi encontrada a sua última cópia de segurança!</string>
-    <string name="copied_to_clipboard">Copiado para a área de transferência</string>
+    <string name="conversation_screen_title">Conversações</string>
     <string name="copy_file_error">Ocorreu um erro quando tentava copiar este ficheiro ou pasta</string>
     <string name="copy_file_invalid_into_descendent">Não é possível copiar a pasta para uma das suas próprias pastas internas</string>
     <string name="copy_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
@@ -352,6 +348,7 @@
     <string name="failed_update_ui">Falha ao atualizar a IU</string>
     <string name="favorite">Adicionar aos favoritos</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="fifteenMinutes">15 minutos</string>
     <string name="file_already_exists">O nome do ficheiro já existe</string>
     <string name="file_delete">Apagar</string>
     <string name="file_detail_activity_error">Erro ao obter as atividades para o ficheiro</string>
@@ -377,9 +374,7 @@
     <string name="file_list_loading">A carregar…</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação para usar este tipo de ficheiro.</string>
     <string name="file_list_seconds_ago">há segundos</string>
-    <string name="file_management_permission">Permissões necessárias</string>
     <string name="file_management_permission_optional">Permissões de armazenamento</string>
-    <string name="file_management_permission_text">%1$s precisa de permissões de gestão de ficheiros para enviar os ficheiros. Pode escolher o acesso completo para todos os ficheiros ou acesso só de leitura para as fotografias e vídeos.</string>
     <string name="file_migration_allow_media_indexing">Permitir o acesso de outras aplicações</string>
     <string name="file_migration_checking_destination">Verificando destino…</string>
     <string name="file_migration_cleaning">Limpando…</string>
@@ -406,7 +401,6 @@
     <string name="file_not_synced">O ficheiro não pôde ser sincronizado. Está a ser exibida a última versão disponível.</string>
     <string name="file_rename">Renomear</string>
     <string name="file_version_restored_error">Erro ao restaurar a versão do ficheiro!</string>
-    <string name="file_version_restored_successfully">Sucesso a restaurar a versão do ficheiro.</string>
     <string name="filedetails_details">Detalhes</string>
     <string name="filedetails_download">Transferir</string>
     <string name="filedetails_export">Exportar</string>
@@ -436,7 +430,6 @@
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_move">Mover todos</string>
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
-    <string name="foreign_files_success">Todos os ficheiros foram movidos</string>
     <string name="forward">Avançar</string>
     <string name="fourHours">4 horas</string>
     <string name="gplay_restriction">Google restringiu a transferência dos ficheiros APK/AAB!</string>
@@ -465,6 +458,7 @@
     <string name="instant_upload_existing">Também envia ficheiros existentes</string>
     <string name="instant_upload_on_charging">Carregar ficheiros apenas quando o carregador está ligado</string>
     <string name="instant_upload_path">/Envio Instantâneo </string>
+    <string name="internal_shares">Partilhas internas</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">É necessária uma ligação à Internet para configurar a pasta encriptada</string>
     <string name="invalid_url">URL inválido</string>
     <string name="invisible">Invisível </string>
@@ -486,7 +480,6 @@
     <string name="locked_by_app">Bloqueado pela aplicação %1$s</string>
     <string name="log_send_mail_subject">%1$s registos de aplicação Android</string>
     <string name="log_send_no_mail_app">Não foi encontrada nenhuma aplicação para o envio de registos. Por favor, Instale um cliente de correio eletrónico.</string>
-    <string name="logged_in_as">Autenticado como %1$s</string>
     <string name="login">Iniciar Sessão</string>
     <string name="login_url_helper_text">A hiperligação para a sua interface da Web %1$s quando a abre no seu navegador.</string>
     <string name="logs_menu_delete">Eliminar registos</string>
@@ -569,7 +562,6 @@
     <string name="outdated_server">O servidor chegou ao fim de vida, por favor, actualize-o!</string>
     <string name="overflow_menu">Menu mais</string>
     <string name="pass_code_configure_your_pass_code">Insira o seu código</string>
-    <string name="pass_code_configure_your_pass_code_explanation">O código será solicitado sempre que a aplicação é iniciada</string>
     <string name="pass_code_enter_pass_code">Por favor, insira o seu código</string>
     <string name="pass_code_mismatch">Os códigos não coincidem</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, reinsira o seu código</string>
@@ -577,9 +569,9 @@
     <string name="pass_code_removed">Código eliminado</string>
     <string name="pass_code_stored">Código guardado</string>
     <string name="pass_code_wrong">Código incorreto</string>
+    <string name="pause_upload">Pausar</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Negar</string>
-    <string name="permission_storage_access">Necessário permissões adicionais para enviar e transferir ficheiros.</string>
     <string name="picture_set_as_no_app">Nenhuma aplicação encontrada para definir a imagem</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="player_stop">parar</string>
@@ -738,7 +730,6 @@
     <string name="share_via_link_section_title">Partilhar hiperligação</string>
     <string name="share_via_link_send_link_label">Enviar hiperligação</string>
     <string name="share_via_link_unset_password">Retirar</string>
-    <string name="share_with_title">Partilhar com…</string>
     <string name="shared_avatar_desc">Avatar do utilizador partilhado</string>
     <string name="shared_icon_share">partilhar</string>
     <string name="shared_icon_shared">partilhado</string>
@@ -752,6 +743,8 @@
     <string name="signup_with_provider">Registar com fornecedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir que %1$s aceda à sua conta Nextcloud %2$s?</string>
     <string name="sort_by">Ordenar por</string>
+    <string name="sort_favorites_first">Ordenar por favoritos primeiro</string>
+    <string name="sort_folders_before_files">Ordenar as pastas antes dos ficheiros.</string>
     <string name="ssl_validator_btn_details_hide">Ocultar</string>
     <string name="ssl_validator_btn_details_see">Detalhes</string>
     <string name="ssl_validator_header">Não foi possível verificar a identidade do servidor</string>
@@ -787,8 +780,8 @@
     <string name="storage_internal_storage">Armazenamento interno</string>
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>
-    <string name="storage_permission_full_access">Acesso completo</string>
     <string name="storage_pictures">Imagens</string>
+    <string name="store_full_desc">A plataforma de produtividade auto-hospedada que o mantém no controlo.\n\nCaracterísticas:\n* Interface moderna e fácil de utilizar, adequada ao tema do seu servidor\n* Envie ficheiros para o seu servidor Nextcloud\n* Partilhe-os com outras pessoas\n* Mantenha os seus ficheiros e pastas favoritos sincronizados\n* Pesquise em todas as pastas do seu servidor\n* Upload automático de fotografias e vídeos tirados pelo seu dispositivo\n* Mantenha-se actualizado com notificações\n* Suporte a múltiplas contas\n* Acesso seguro aos seus dados com impressão digital ou PIN\n* Integração com o DAVx⁵ (anteriormente conhecido como DAVdroid) para uma fácil configuração da sincronização de calendário e contactos\n\nPor favor, comunique todos os problemas em https://github.com/nextcloud/android/issues e discuta esta aplicação em https://help.nextcloud.com/c/clients/android\n\nNovo no Nextcloud? O Nextcloud é um servidor privado de sincronização, partilha e comunicação de ficheiros. É um software livre e pode hospedá-lo você mesmo ou contratar uma empresa para o fazer por si. Desta forma, controla as suas fotografias, o seu calendário e dados de contacto, os seus documentos e tudo o resto. \n\nVeja o Nextcloud em https://nextcloud.com</string>
     <string name="store_full_dev_desc">A plataforma de produtividade auto-alojada que o/a mantém no controlo.\nEsta é a versão de desenvolvimento oficial, com uma amostra diária de funcionalidades não testadas que podem causar instabilidade e perda de dados. A aplicação é para pessoas dispostas a testar e reportar erros, caso ocorram. Não a use para o seu trabalho de produção!\n\nTanto a versão de desenvolvimento como a normal estão disponíveis no F-droid e podem ser instaladas ao mesmo tempo.</string>
     <string name="store_short_desc">A plataforma de produtividade auto-alojada que o/a mantém no controlo</string>
     <string name="store_short_dev_desc">A plataforma de produtividade auto alojada que o mantém em controle (versão \"preview dev\")</string>

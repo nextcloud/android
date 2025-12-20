@@ -9,7 +9,7 @@ name: tests-stable
 
 steps:
   - name: gplay
-    image: ghcr.io/nextcloud/continuous-integration-android8:4
+    image: ghcr.io/nextcloud/continuous-integration-android16:latest
     privileged: true
     environment:
       LOG_USERNAME:
@@ -74,7 +74,7 @@ name: tests-master
 
 steps:
   - name: gplay
-    image: ghcr.io/nextcloud/continuous-integration-android8:4
+    image: ghcr.io/nextcloud/continuous-integration-android16:latest
     privileged: true
     environment:
       LOG_USERNAME:
@@ -134,7 +134,7 @@ name: allScreenshots
 
 steps:
   - name: runAllScreenshots
-    image: ghcr.io/nextcloud/continuous-integration-android8:4
+    image: ghcr.io/nextcloud/continuous-integration-android16:latest
     privileged: true
     environment:
       GIT_USERNAME:
@@ -185,6 +185,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: ea9432c9317fa6ca12a282bb117c9f3268ddb29b208dbd772795ba19cf395082
+hmac: d52e0df1af49c1b30e42a877655c6699914130adf3a3b881db46a70b90356c3a
 
 ...

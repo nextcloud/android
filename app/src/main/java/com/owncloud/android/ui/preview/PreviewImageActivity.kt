@@ -10,12 +10,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.Build
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.ActionBar
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -30,9 +29,9 @@ import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownlo
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.getUploadFinishMessage
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.observeWorker
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -83,21 +82,17 @@ class PreviewImageActivity :
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager
 
-    private var actionBar: ActionBar? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        actionBar = supportActionBar
 
         if (savedInstanceState != null &&
             !savedInstanceState.getBoolean(
                 KEY_SYSTEM_VISIBLE,
                 true
             ) &&
-            actionBar != null
+            supportActionBar != null
         ) {
-            actionBar?.hide()
+            supportActionBar?.hide()
         }
 
         setContentView(R.layout.preview_image_activity)
@@ -107,11 +102,14 @@ class PreviewImageActivity :
         setupDrawer()
 
         val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
-        updateActionBarTitleAndHomeButton(chosenFile)
 
-        if (actionBar != null) {
-            viewThemeUtils.files.setWhiteBackButton(this, actionBar!!)
-            actionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.let {
+            updateActionBarTitleAndHomeButton(chosenFile)
+            viewThemeUtils.files.setWhiteBackButton(this, it)
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setBackgroundDrawable(
+                ColorDrawable(ContextCompat.getColor(this, R.color.black))
+            )
         }
 
         fullScreenAnchorView = window.decorView
@@ -129,10 +127,6 @@ class PreviewImageActivity :
     }
 
     private fun applyDisplayCutOutTopPadding() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-            return
-        }
-
         window.decorView.setOnApplyWindowInsetsListener { view, insets ->
             val displayCutout = insets.displayCutout
             if (displayCutout != null) {
@@ -152,14 +146,10 @@ class PreviewImageActivity :
     }
 
     fun toggleActionBarVisibility(hide: Boolean) {
-        if (actionBar == null) {
-            return
-        }
-
         if (hide) {
-            actionBar?.hide()
+            supportActionBar?.hide()
         } else {
-            actionBar?.show()
+            supportActionBar?.show()
         }
     }
 
@@ -177,7 +167,7 @@ class PreviewImageActivity :
             )
         } else {
             // get parent from path
-            var parentFolder = storageManager.getFileById(file.parentId)
+            var parentFolder = file?.let { storageManager.getFileById(it.parentId) }
 
             if (parentFolder == null) {
                 // should not be necessary
@@ -197,7 +187,13 @@ class PreviewImageActivity :
 
         viewPager = findViewById(R.id.fragmentPager)
 
-        var position = if (savedPosition != null) savedPosition else previewImagePagerAdapter?.getFilePosition(file)
+        var position = if (savedPosition !=
+            null
+        ) {
+            savedPosition
+        } else {
+            file?.let { previewImagePagerAdapter?.getFilePosition(it) }
+        }
         position = position?.toDouble()?.let { max(it, 0.0).toInt() }
 
         viewPager?.adapter = previewImagePagerAdapter
@@ -210,7 +206,7 @@ class PreviewImageActivity :
             viewPager?.setCurrentItem(position, false)
         }
 
-        if (position == 0 && !file.isDown) {
+        if (position == 0 && file?.isDown == false) {
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the
             // adapter does not result in a call to #onPageSelected(0)
             screenState = PreviewImageActivityState.WaitingForBinder
@@ -275,7 +271,7 @@ class PreviewImageActivity :
             if (file != null) {
                 // / Refresh the activity according to the Account and OCFile set
                 setFile(file) // reset after getting it fresh from storageManager
-                updateActionBarTitle(getFile().fileName)
+                updateActionBarTitle(getFile()?.fileName)
                 // if (!stateWasRecovered) {
                 initViewPager(optionalUser.get())
 
@@ -319,9 +315,9 @@ class PreviewImageActivity :
     }
 
     private fun observeWorkerState() {
-        WorkerStateLiveData.instance().observe(this) { state: WorkerState? ->
+        observeWorker { state: WorkerState? ->
             when (state) {
-                is WorkerState.DownloadStarted -> {
+                is WorkerState.FileDownloadStarted -> {
                     Log_OC.d(TAG, "Download worker started")
                     isDownloadWorkStarted = true
 
@@ -330,7 +326,7 @@ class PreviewImageActivity :
                     }
                 }
 
-                is WorkerState.DownloadFinished -> {
+                is WorkerState.FileDownloadCompleted -> {
                     Log_OC.d(TAG, "Download worker stopped")
                     isDownloadWorkStarted = false
 
@@ -353,8 +349,10 @@ class PreviewImageActivity :
         savedPosition?.let { position ->
 
             previewImagePagerAdapter?.run {
-                updateFile(position, file)
-                notifyItemChanged(position)
+                file?.let {
+                    updateFile(position, it)
+                    notifyItemChanged(position)
+                }
             }
 
             if (user.isPresent) {
@@ -378,7 +376,9 @@ class PreviewImageActivity :
         dismissLoadingDialog()
         screenState = PreviewImageActivityState.Idle
         file = downloadedFile
-        startEditImageActivity(file)
+        file?.let {
+            startEditImageActivity(it)
+        }
     }
 
     override fun onResume() {

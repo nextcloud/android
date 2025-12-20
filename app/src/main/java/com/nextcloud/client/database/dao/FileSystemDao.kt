@@ -8,12 +8,26 @@
 package com.nextcloud.client.database.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.nextcloud.client.database.entity.FilesystemEntity
 import com.owncloud.android.db.ProviderMeta
 
 @Dao
 interface FileSystemDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrReplace(filesystemEntity: FilesystemEntity)
+
+    @Query(
+        """
+        DELETE FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
+        WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH} = :localPath
+          AND ${ProviderMeta.ProviderTableMeta._ID} = :id
+        """
+    )
+    suspend fun deleteByLocalPathAndId(localPath: String, id: Int)
+
     @Query(
         """
         SELECT *
@@ -37,4 +51,15 @@ interface FileSystemDao {
     """
     )
     suspend fun markFileAsUploaded(localPath: String, syncedFolderId: String)
+
+    @Query(
+        """
+    SELECT *
+    FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
+    WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH} = :localPath
+      AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} = :syncedFolderId
+    LIMIT 1
+    """
+    )
+    fun getFileByPathAndFolder(localPath: String, syncedFolderId: String): FilesystemEntity?
 }

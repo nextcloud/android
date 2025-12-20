@@ -33,7 +33,6 @@
     <string name="app_config_proxy_port_title">Porzh Proksi</string>
     <string name="app_widget_description">Diskouez a ra ur widget dre daolenn-vourzh</string>
     <string name="appbar_search_in">Klask e %s</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skrivañ un tamm testenn</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ha sur oc\'h e fell deoc\'h dilemel an trevell-mañ ?</string>
     <string name="assistant_screen_task_create_fail_message">C\'hoarvezet ez eus ur fazi en ur grouiñ an trevell</string>
     <string name="assistant_screen_task_create_success_message">Trevell bet krouet ervat</string>
@@ -41,7 +40,6 @@
     <string name="assistant_screen_task_delete_success_message">Trevell bet dilamet ervat</string>
     <string name="assistant_screen_task_list_error_state_message">N\'eus ket bet gallet tizhout ar roll trevelloù, gwiriit ho kevreadenn genrouedad.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Dilemel an trevell</string>
-    <string name="assistant_screen_task_types_error_state_message">N\'eus ket bet gallet tizhout ar seurtoù trevelloù, gwiriit ho kevreadenn genrouedad.</string>
     <string name="assistant_screen_top_bar_title">Skoazeller</string>
     <string name="assistant_task_detail_screen_input_button_title">Enmont</string>
     <string name="assistant_task_detail_screen_output_button_title">Ezvont</string>
@@ -100,6 +98,7 @@
     <string name="busy">O labourat</string>
     <string name="calendar">Deiziataer</string>
     <string name="calendars">Deiziataerioù</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Ur gudenn zo bet evit kargañ an testeni.</string>
     <string name="changelog_dev_version">Stumm diorren marilh ar c\'hemmoù</string>
     <string name="check_back_later_or_reload">Gwiriañ diwezhatoc\'h pe adkargañ.</string>
@@ -177,7 +176,8 @@
     <string name="contacts_preferences_import_scheduled">An enporzhiadenn raktreset a grogo dindan berr</string>
     <string name="contacts_preferences_no_file_found">Restr ebet kavet</string>
     <string name="contacts_preferences_something_strange_happened">N\'eus ket bet gallet kavout ho savete diwezhañ !</string>
-    <string name="copied_to_clipboard">Eilet er golver</string>
+    <string name="conversation_screen_delete_button_title">Dilemel an diviz</string>
+    <string name="conversation_screen_title">Diviz</string>
     <string name="copy_file_error">C\'hoarvezet ez eys ur fazi en ur glask eilañ ar restr pe ar renkell</string>
     <string name="copy_file_invalid_into_descendent">Ne c\'haller ket eilañ ur renkell en unan eus hec\'h isrenkelloù</string>
     <string name="copy_file_invalid_overwrite">Er renkell bal emañ ar restr c\'hoazh</string>
@@ -357,7 +357,6 @@
     <string name="file_list_loading">O kargañ...</string>
     <string name="file_list_no_app_for_file_type">N\'eus bet kefluniet arload ebet evit merañ ar seurt restroù-mañ.</string>
     <string name="file_list_seconds_ago">eilenn zo</string>
-    <string name="file_management_permission">Rekis eo bezañ aotreet</string>
     <string name="file_management_permission_optional">Aotreoù sanailhet</string>
     <string name="file_migration_checking_destination">O wiriañ ar pal...</string>
     <string name="file_migration_cleaning">O naetaat...</string>
@@ -382,7 +381,6 @@
     <string name="file_not_synced">N\'eo ket posuple kempredañ ar restr. O diskwell ar stumm diwezha kavet.</string>
     <string name="file_rename">Adenvel</string>
     <string name="file_version_restored_error">Ur fazi zo bet en ur adober stumm ar restr !</string>
-    <string name="file_version_restored_successfully">Adtapet eo bet stumm ar restr.</string>
     <string name="filedetails_details">Munudoù</string>
     <string name="filedetails_download">Pellgargañ</string>
     <string name="filedetails_renamed_in_upload_msg">ar restr a zo bet adanvet %1$s e pad ar bellkas</string>
@@ -410,7 +408,6 @@
     <string name="foreign_files_local_text">Diabarzh: %1$s</string>
     <string name="foreign_files_move">Dblasañ pep tra</string>
     <string name="foreign_files_remote_text">Pell : %1$s</string>
-    <string name="foreign_files_success">Diblaset eo bet tout ar restroù</string>
     <string name="forward">War-raok</string>
     <string name="hint_name">Anv</string>
     <string name="hint_note">Notenn</string>
@@ -498,7 +495,6 @@
     <string name="outdated_server">E fin buhez eo ar servijour, adnevesiit mar-plij !</string>
     <string name="overflow_menu">Muioc\'h a rollioù</string>
     <string name="pass_code_configure_your_pass_code">Lakait o c\'hod-tremen</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Ar c\'hod-tremen a vo goulennet bewech a vo lakaet war dro ar meziant-mañ</string>
     <string name="pass_code_enter_pass_code">Enankit ho kod-tremen</string>
     <string name="pass_code_mismatch">Disheñvel eo ar c\'hodoù tremen</string>
     <string name="pass_code_reenter_your_pass_code">Enankit en-dro ho kod tremen</string>
@@ -506,9 +502,9 @@
     <string name="pass_code_removed">Dilamet eo bet ar c\'hod tremen</string>
     <string name="pass_code_stored">Kod tremen enrollet</string>
     <string name="pass_code_wrong">Kod tremen direizh</string>
+    <string name="pause_upload">Ehanañ</string>
     <string name="permission_allow">Aotrañ</string>
     <string name="permission_deny">Difennet</string>
-    <string name="permission_storage_access">Aotreoù ouzhpenn ez eus ezhomp evit pellkas ha pellgargañ restroù.</string>
     <string name="picture_set_as_no_app">Meziant ebet kavet evit lakaat ur skeudenn gant</string>
     <string name="power_save_check_dialog_message">Disaotreañ gwiriañ ar saver pod-tredañ a c\'hel lezel an ardivink pellkargañ restroù pa ne vez ket kalz a dredañ kenn !</string>
     <string name="pref_behaviour_entries_delete_file">dilamet</string>
@@ -626,7 +622,6 @@
     <string name="share_via_link_section_title">Rannan liamm</string>
     <string name="share_via_link_send_link_label">Kal liamm</string>
     <string name="share_via_link_unset_password">N\'eo ket bet lakaet</string>
-    <string name="share_with_title">Rannañ gant ...</string>
     <string name="shared_avatar_desc">Avatar deus un implijer rannet</string>
     <string name="shared_icon_share">rannadenn</string>
     <string name="shared_icon_shared">rannet</string>

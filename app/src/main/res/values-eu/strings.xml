@@ -43,21 +43,15 @@
     <string name="app_config_proxy_port_title">Proxy-ataka</string>
     <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Gehitu zeregin berria</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Sortu zeregin berri bat eskuineko botoiarekin</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Idatzi testu bat</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ziur zeregin hau ezabatu nahi duzula?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ezabatu zeregina</string>
-    <string name="assistant_screen_loading">Zereginen zerrenda kargatzen...</string>
     <string name="assistant_screen_task_create_fail_message">Errore bat gertatu da zeregina sortzean</string>
     <string name="assistant_screen_task_create_success_message">Zeregina behar bezala sortu da</string>
     <string name="assistant_screen_task_delete_fail_message">Errore bat gertatu da zeregina ezabatzean</string>
     <string name="assistant_screen_task_delete_success_message">Zeregina ongi ezabatu da</string>
-    <string name="assistant_screen_task_list_empty_message">Zereginen zerrenda hutsik dago.</string>
     <string name="assistant_screen_task_list_error_state_message">Ezin da zereginen zerrenda eskuratu. Egiaztatu Interneteko konexioa.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ezabatu zeregina</string>
     <string name="assistant_screen_task_output_empty_text">Zereginaren irteera ez dago prest oraindik.</string>
-    <string name="assistant_screen_task_types_error_state_message">Ezin dira zeregin motak eskuratu, egiaztatu Interneteko konexioa.</string>
     <string name="assistant_screen_top_bar_title">Morroia</string>
     <string name="assistant_task_detail_screen_input_button_title">Sarrera</string>
     <string name="assistant_task_detail_screen_output_button_title">Irteera</string>
@@ -119,6 +113,7 @@
     <string name="busy">Lanpetua</string>
     <string name="calendar">Egutegia</string>
     <string name="calendars">Egutegiak</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Arazo bat dago ziurtagiria kargatzean.</string>
     <string name="changelog_dev_version">Garapen bertsioaren aldaketa-egunkaria</string>
     <string name="check_back_later_or_reload">Begiratu berriro geroago edo kargatu berriro.</string>
@@ -202,7 +197,9 @@
     <string name="contacts_preferences_import_scheduled_fail">Inportazioak huts egin du abiaraztean. Mesedez, saiatu berriro</string>
     <string name="contacts_preferences_no_file_found">Ez da fitxategirik aurkitu</string>
     <string name="contacts_preferences_something_strange_happened">Ezin izan da zure azken babeskopia aurkitu!</string>
-    <string name="copied_to_clipboard">Arbelera kopiatua</string>
+    <string name="conversation_screen_empty_content_title">Ez da elkarrizketarik aurkitu</string>
+    <string name="conversation_screen_title">Elkarrizketak</string>
+    <string name="copied">Kopiatuta</string>
     <string name="copy_file_error">Fitxategi edo karpeta kopiatzean errore bat gertatu da.</string>
     <string name="copy_file_invalid_into_descendent">Ezin da karpeta bat bere azpikarpeta batera kopiatu</string>
     <string name="copy_file_invalid_overwrite">Fitxategi hau existitzen da jadanik helburuko karpetan</string>
@@ -370,6 +367,7 @@
     <string name="failed_update_ui">Erabiltzaile Interfazea (UI) eguneratzeak huts egin du</string>
     <string name="favorite">Gehitu gogokoetara</string>
     <string name="favorite_icon">Gogokoa</string>
+    <string name="fifteenMinutes">15 minutu</string>
     <string name="file_activity_shared_file_cannot_be_updated">Ezin da partekaturiko fitxategia eguneratu</string>
     <string name="file_already_exists">Fitxategi-izena dagoeneko existitzen da.</string>
     <string name="file_delete">Ezabatu</string>
@@ -399,10 +397,8 @@
     <string name="file_list_loading">Kargatzen…</string>
     <string name="file_list_no_app_for_file_type">Ez dago aplikaziorik konfiguratuta fitxategi-mota honetarako.</string>
     <string name="file_list_seconds_ago">duela segundo batzuk</string>
-    <string name="file_management_permission">Baimenak behar dira</string>
     <string name="file_management_permission_optional">Biltegiratze-baimenak</string>
     <string name="file_management_permission_optional_text">%1$shobeto dabil biltegia atzitzeko baimenekin. Fitxategi guztietarako sarbide osoa aukera dezakezu, edo argazki eta bideoak \"irakurtzeko soilik\" baimena eman.</string>
-    <string name="file_management_permission_text">%1$s-k fitxategiak kudeatzeko baimenak behar ditu fitxategiak igotzeko. Fitxategi guztietarako sarbide osoa aukera dezakezu, edo \"irakurtzeko soilik\" baimena argazki eta bideoentzat.</string>
     <string name="file_migration_allow_media_indexing">Baimendu sarbidea beste aplikaziotatik</string>
     <string name="file_migration_checking_destination">Helburua egiaztatzen...</string>
     <string name="file_migration_cleaning">Garbitzen…</string>
@@ -438,7 +434,6 @@
     <string name="file_rename">Aldatu izena</string>
     <string name="file_upload_worker_error_notification_title">Igoerak huts egin du. Ez dago internet konexiorik</string>
     <string name="file_version_restored_error">Errorea fitxategiaren bertsioa berreskuratzean!</string>
-    <string name="file_version_restored_successfully">Fitxategiaren bertsioa ondo berreskuratu da.</string>
     <string name="filedetails_details">Xehetasunak</string>
     <string name="filedetails_download">Deskargatu</string>
     <string name="filedetails_export">Esportatu</string>
@@ -473,7 +468,6 @@
     <string name="foreign_files_local_text">Bertakoa: %1$s</string>
     <string name="foreign_files_move">Mugitu guztia</string>
     <string name="foreign_files_remote_text">Urrunekoa: %1$s</string>
-    <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
     <string name="forward">Birbidali</string>
     <string name="fourHours">4 ordu</string>
     <string name="gplay_restriction">Google-k muga jarri die APK/AAB fitxategien deskargei!</string>
@@ -527,7 +521,6 @@
     <string name="locked_by_app">%1$s aplikazioak blokeatuta</string>
     <string name="log_send_mail_subject">%1$s Android aplikazioaren egunkariak</string>
     <string name="log_send_no_mail_app">Ez da aurkitu egunkariak bidaltzeko aplikaziorik. Instalatu posta elektroniko bezero bat.</string>
-    <string name="logged_in_as">Saioa hasita %1$s gisa</string>
     <string name="login">Hasi saioa</string>
     <string name="login_url_helper_text">Zure %1$s web interfazerako esteka, nabigatzailean irekitzen duzunean.</string>
     <string name="logs_menu_delete">Ezabatu egunkariak</string>
@@ -611,7 +604,6 @@
     <string name="offline_mode">Internet konexiorik ez</string>
     <string name="offline_mode_info_description">Interneteko konexiorik gabe ere, zure karpetak antola ditzakezu, fitxategiak sortu. Konektatuta berriro zaudenean, zain dauden ekintzak automatikoki sinkronizatuko dira.</string>
     <string name="offline_mode_info_title">Konexiorik gabe zaude, baina lanak aurrera jarraitzen du</string>
-    <string name="offline_operations_file_does_not_exists_yet">Fitxategia ez dago oraindik. Kargatu fitxategia lehenik.</string>
     <string name="offline_operations_worker_notification_error_text">Lineaz kanpoko eragiketa ezin da osatu.. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Lineaz kanpoko eragiketak</string>
     <string name="offline_operations_worker_notification_start_text">Konexiorik gabeko eragiketak hastea</string>
@@ -622,7 +614,6 @@
     <string name="outdated_server">Zerbitzaria bizitzaren amaierara iritsi da, bertsio-berritu!</string>
     <string name="overflow_menu">Gehiago menua</string>
     <string name="pass_code_configure_your_pass_code">Sartu zure pasahitza</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Pasahitza eskatuko da aplikazioa abiatzen den aldiro</string>
     <string name="pass_code_enter_pass_code">Sartu zure pasahitza</string>
     <string name="pass_code_mismatch">Pasahitzak ez datoz bat</string>
     <string name="pass_code_reenter_your_pass_code">Sartu pasahitza berriro</string>
@@ -630,11 +621,10 @@
     <string name="pass_code_removed">Pasahitza ezabatuta</string>
     <string name="pass_code_stored">Pasahitza gordeta</string>
     <string name="pass_code_wrong">Okerreko pasahitza</string>
+    <string name="pause_upload">Gelditu</string>
     <string name="pdf_password_protected">Ezin izan da pasahitzez babestutako PDFa ireki. Mesedez erabili kanpoko PDF ikustaile bat.</string>
-    <string name="pdf_zoom_tip">Ukitu orrialdean handitzeko</string>
     <string name="permission_allow">Baimendu</string>
     <string name="permission_deny">Ukatu</string>
-    <string name="permission_storage_access">Fitxategiak kargatu eta deskargatzeko baimen gehigarriak behar dira</string>
     <string name="pick_contact_to_share_with">Aukeratu partekatzeko kontaktua</string>
     <string name="picture_set_as_no_app">Ez da aplikaziorik aurkitu irudia ezartzeko</string>
     <string name="pin_home">Finkatu pantaila nagusian</string>
@@ -829,7 +819,6 @@
     <string name="share_via_link_section_title">Partekatu esteka</string>
     <string name="share_via_link_send_link_label">Bidali esteka</string>
     <string name="share_via_link_unset_password">Ezarri gabe</string>
-    <string name="share_with_title">Partekatu honekin…</string>
     <string name="shared_avatar_desc">Partekatutako erabiltzailearen abatarra</string>
     <string name="shared_icon_share">partekatu</string>
     <string name="shared_icon_shared">partekatua</string>
@@ -882,7 +871,6 @@
     <string name="storage_internal_storage">Barneko biltegiratzea</string>
     <string name="storage_movies">Pelikulak</string>
     <string name="storage_music">Musika</string>
-    <string name="storage_permission_full_access">Sarbide osoa</string>
     <string name="storage_permission_media_read_only">Mutimediak irakurtzeko soilik</string>
     <string name="storage_pictures">Irudiak</string>
     <string name="store_full_desc">Zure kontrola bermatzen dituzten auto-ostatatutako produktibitate-plataformak.\n\nEzaugarriak:\n* Interfaze erraza, modernoa, zure zerbitzariaren gaira egokitua\n* Igo fitxategiak zure Nextcloud zerbitzarira\n* Partekatu beste batzuekin\n* Mantendu zure fitxategi eta karpeta sinkronizatuak\n* Bilatu zure zerbitzariko karpeta guztietan\n* Igo automatikoki zure gailuz hartutako argazki eta bideoak\n* Eguneratuta egon jakinarazpenekin\n* Kontu anitzak onartzen dira\n* Datu seguruak zure zerbitzarian hatz-marka edo PINaren bidez* Davx⁵-ekin integratzea (lehenago Davdroid izenarekin ezagutzen dena) egutegiaren eta kontaktuen sinkronizazioa erraz konfiguratzeko\n\n Mesedez akatsen berri eman  https://github.com/nextcloud/android web orrian eta eztabaidatu aplikazio honi buruz https://help.nextcloud.com/c/clients/android web orrian\n\n Berria Nextclouden?  Nextcloud fitxategi pribatuen sinkronizatu eta partekatzeko zerbitzaria da. Software librea da, eta zuk zeuk ostatatu edo ordaindu dezakezu enpresa bati zure ordez egiteko. Horrela, zure argazkiak, egutegia eta harremanetarako datuak, dokumentuak eta gainerako guztia kontrolatzen ahal dituzu.\n\nBegiratu Nextcloud informazioa https://nextcloud.com webgunean.</string>
@@ -1024,7 +1012,6 @@
     <string name="uploader_file_not_found_message">Fitxategia ez da aurkitu. Ziur al zaude fitxategi hau badagoela edo aurretik konpondu gabeko gatazka bat duela?</string>
     <string name="uploader_file_not_found_on_server_message">Ezin izan dugu fitxategia zerbitzarian kokatu. Baliteke beste erabiltzaile batek fitxategia ezabatu izana</string>
     <string name="uploader_info_dirname">Karpetaren izena</string>
-    <string name="uploader_local_files_uploaded">Saiatu berriro huts egin duten tokiko fitxategiak kargatzen</string>
     <string name="uploader_top_message">Aukeratu karga-karpeta</string>
     <string name="uploader_upload_failed_content_single">Ezin da %1$s igo</string>
     <string name="uploader_upload_failed_credentials_error">Kargatzeak huts egin du, hasi saioa berriz</string>
@@ -1149,10 +1136,6 @@
     <plurals name="export_partially_failed">
         <item quantity="one">Fitxategi %d esportatu da, besteak erroreengatik saltatu dira</item>
         <item quantity="other">%d fitxategi esportatu dira, besteak erroreengatik saltatu dira</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one"> Fitxategi %d esportatuko da. Ikusi jakinarazpenak xehetasunetarako.</item>
-        <item quantity="other">%d fitxategi esportatuko dira. Ikusi jakinarazpenak xehetasunetarako.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">karpeta %1$d</item>

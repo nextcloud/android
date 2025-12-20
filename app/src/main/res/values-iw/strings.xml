@@ -86,6 +86,7 @@
     <string name="busy">עסוק</string>
     <string name="calendar">לוח שנה</string>
     <string name="calendars">לוחות שנה</string>
+    <string name="cancel_upload">ביטול</string>
     <string name="certificate_load_problem">קיימת בעיה בטעינת האישור.</string>
     <string name="changelog_dev_version">יומן שינויים של גרסת פיתוח</string>
     <string name="check_back_later_or_reload">בדוק שוב מאוחר יותר או טען שנית</string>
@@ -157,7 +158,7 @@
     <string name="contacts_preferences_import_scheduled">הייבוא תוזמן והוא יתחיל בעוד זמן קצר</string>
     <string name="contacts_preferences_no_file_found">לא נמצא קובץ</string>
     <string name="contacts_preferences_something_strange_happened">לא ניתן למצוא את הגיבוי האחרון שלך!</string>
-    <string name="copied_to_clipboard">הועתק ללוח הגזירים</string>
+    <string name="conversation_screen_title">דיונים</string>
     <string name="copy_file_error">אירעה שגיאה בזמן ניסיון להעתיק את הקובץ או התיקייה</string>
     <string name="copy_file_invalid_into_descendent">אי אפשר להעתיק תיקייה לתוך אחת התיקיות שתחתיה</string>
     <string name="copy_file_invalid_overwrite">הקובץ כבר קיים בתיקיית היעד</string>
@@ -275,6 +276,7 @@
     <string name="failed_to_start_editor">התחלת העורך נכשלה</string>
     <string name="favorite">הוספה למועדפים</string>
     <string name="favorite_icon">סימון כמועדף</string>
+    <string name="fifteenMinutes">15 דקות</string>
     <string name="file_delete">מחיקה</string>
     <string name="file_detail_activity_error">שגיאה בקבלת הפעילויות לקובץ</string>
     <string name="file_details_no_content">טעינת הפרטים נכשלה</string>
@@ -293,7 +295,6 @@
     <string name="file_list_loading">בטעינה…</string>
     <string name="file_list_no_app_for_file_type">לא הוגדר יישומון לטיפול בסוג קובץ שכזה.</string>
     <string name="file_list_seconds_ago">לפני מספר שניות</string>
-    <string name="file_management_permission">נדרשות הרשאות</string>
     <string name="file_management_permission_optional">הרשאות אחסון</string>
     <string name="file_migration_checking_destination">בודק יעד…</string>
     <string name="file_migration_cleaning">מתבצע ניקיון…</string>
@@ -319,7 +320,6 @@
     <string name="file_not_synced">לא ניתן לסנכרן את הקובץ. הגרסה הזמינה העדכניות ביותר שלו מוצגת.</string>
     <string name="file_rename">שינוי שם</string>
     <string name="file_version_restored_error">שחזור גרסת הקובץ נתקלה בשגיאה!</string>
-    <string name="file_version_restored_successfully">גרסת הקובץ שוחזרה בהצלחה.</string>
     <string name="filedetails_details">פרטים</string>
     <string name="filedetails_download">הורדה</string>
     <string name="filedetails_export">ייצוא</string>
@@ -349,7 +349,6 @@
     <string name="foreign_files_local_text">מקומי: %1$s</string>
     <string name="foreign_files_move">להעביר הכול</string>
     <string name="foreign_files_remote_text">מרוחק: %1$s</string>
-    <string name="foreign_files_success">כל הקבצים הועברו</string>
     <string name="forward">העברה</string>
     <string name="fourHours">4 שעות</string>
     <string name="hint_name">שם</string>
@@ -437,7 +436,6 @@
     <string name="outdated_server">השרת הגיע לתום חייו, נא לשדרג!</string>
     <string name="overflow_menu">תפריט עוד</string>
     <string name="pass_code_configure_your_pass_code">יש להכניס את הקוד שלך</string>
-    <string name="pass_code_configure_your_pass_code_explanation">בכל פעם שיישום זה נפתח יהיה צורך להכניס את הקוד</string>
     <string name="pass_code_enter_pass_code">נא להקליד את מילת הצופן שלך</string>
     <string name="pass_code_mismatch">הקודים אינם זהים</string>
     <string name="pass_code_reenter_your_pass_code">יש להכניס את הקוד שנית</string>
@@ -445,9 +443,9 @@
     <string name="pass_code_removed">מילת צופן נמחקה</string>
     <string name="pass_code_stored">הקוד נשמר</string>
     <string name="pass_code_wrong">קוד שגוי</string>
+    <string name="pause_upload">השהה</string>
     <string name="permission_allow">לאפשר</string>
     <string name="permission_deny">לדחות</string>
-    <string name="permission_storage_access">נדרשות הרשאות נוספות כדי להעלות ולהוריד קבצים</string>
     <string name="picture_set_as_no_app">לא נמצא יישומון להגדיר אתו תמונה</string>
     <string name="power_save_check_dialog_message">השבתת בדיקת חיסכון בחשמל גורמת להעלאת קבצים כשהסוללה חלשה!</string>
     <string name="pref_behaviour_entries_delete_file">נמחק</string>
@@ -541,6 +539,7 @@
     <string name="set_online_status">מצב מקוון</string>
     <string name="set_picture_as">שימוש בתמונה בתור</string>
     <string name="share">שיתוף</string>
+    <string name="share_create_permission">יצירה</string>
     <string name="share_delete_permission">מחיקה</string>
     <string name="share_dialog_title">שיתוף</string>
     <string name="share_edit_permission">עריכה</string>
@@ -569,7 +568,6 @@
     <string name="share_via_link_section_title">קישור לשיתוף</string>
     <string name="share_via_link_send_link_label">שליחת קישור</string>
     <string name="share_via_link_unset_password">ביטול הגדרה</string>
-    <string name="share_with_title">שיתף עם…</string>
     <string name="shared_avatar_desc">תמונה ייצוגית מהמשתמש השיתופי</string>
     <string name="shared_icon_share">שיתוף</string>
     <string name="shared_icon_shared">משותף</string>

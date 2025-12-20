@@ -76,6 +76,7 @@
     <string name="bottom_navigation_menu_favorites_label">Halanýanlar</string>
     <string name="bottom_navigation_menu_files_label">Ähli faýllar</string>
     <string name="bottom_navigation_menu_media_label">Mediýa</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Şahadatnamany ýüklemekde näsazlyk bar.</string>
     <string name="changelog_dev_version">Özgeriş žurnalynyň gowlaşdyrmak döwri</string>
     <string name="checkbox">Bellik gutusy</string>
@@ -141,7 +142,6 @@
     <string name="contacts_preferences_import_scheduled">Import meýilnama edilen we gysga wagtda başlar</string>
     <string name="contacts_preferences_no_file_found">Hiç hili faýl tapylmady</string>
     <string name="contacts_preferences_something_strange_happened">Soňky ätiýaçlyk nusgasyny tapyp bilmedim!</string>
-    <string name="copied_to_clipboard">Panele göçürildi</string>
     <string name="copy_file_error">Bu faýly ýa-da bukjany göçürjek bolanyňyzda ýalňyşlyk ýüze çykdy</string>
     <string name="copy_file_invalid_into_descendent">Bir bukjany onuň öz esasy bukjalarynyň birine göçürmek mümkin däl</string>
     <string name="copy_file_invalid_overwrite">Faýl niýetlenen bukjada eýýäm bar</string>
@@ -296,7 +296,6 @@
     <string name="file_not_synced">Faýl sinhronlap bolmady. Iň soňky wersiýasyny görkezmek.</string>
     <string name="file_rename">Adyny üýtgetmek</string>
     <string name="file_version_restored_error">Faýl wersiýasyny dikeltmekdäki ýalňyşlyklar!</string>
-    <string name="file_version_restored_successfully">Faýl wersiýasy üstünlikli dikeldildi.</string>
     <string name="filedetails_details">Jikme-jiklikler</string>
     <string name="filedetails_download">Göçürip almak</string>
     <string name="filedetails_renamed_in_upload_msg">%1$sFaýl ýüklenende üýtgedildi</string>
@@ -324,7 +323,6 @@
     <string name="foreign_files_local_text">Ýerli:%1$s</string>
     <string name="foreign_files_move">Hemmesini süýşüriň</string>
     <string name="foreign_files_remote_text">Uzakdan:%1$s</string>
-    <string name="foreign_files_success">Ähli faýllar süýşürildi</string>
     <string name="forward">Öňe</string>
     <string name="fourHours">4 sagat</string>
     <string name="hint_name">Ady</string>
@@ -415,7 +413,6 @@
     <string name="outdated_server">Serwer ömrüniň ahyryna ýetdi, täzelemegiňizi haýyş edýäris!</string>
     <string name="overflow_menu">Has köp menýu</string>
     <string name="pass_code_configure_your_pass_code">Giriş koduňyzy giriziň</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Giriş programmasynyň kody her gezek işe başlanda talap ediler.</string>
     <string name="pass_code_enter_pass_code">Parolyňyzy giriziň haýyş edýäris</string>
     <string name="pass_code_mismatch">Giriş parollary deň däl</string>
     <string name="pass_code_reenter_your_pass_code">Giriş koduňyzy täzeden ýazmagyňyzy haýyş edýäris</string>
@@ -425,7 +422,6 @@
     <string name="pass_code_wrong">Gizlin kod nädogry</string>
     <string name="permission_allow">Rugsat ber</string>
     <string name="permission_deny">inkär et</string>
-    <string name="permission_storage_access">Faýllary ýüklemek we göçürip almak üçin goşmaça rugsatlar gerek.</string>
     <string name="picture_set_as_no_app">Surat goýmak üçin hiç bir programma tapylmady</string>
     <string name="player_stop">Dur</string>
     <string name="player_toggle">üýtgetmek</string>
@@ -548,7 +544,6 @@
     <string name="share_via_link_section_title">Baglanyşyk paýlaş</string>
     <string name="share_via_link_send_link_label">Baglanyşyk iber</string>
     <string name="share_via_link_unset_password">Gurnalmady</string>
-    <string name="share_with_title">Paýlaşmak bilen…</string>
     <string name="shared_avatar_desc">Paýlaşylan ulanyjydan awatar</string>
     <string name="shared_icon_share">paýlaş</string>
     <string name="shared_icon_shared">paýlaşdy</string>

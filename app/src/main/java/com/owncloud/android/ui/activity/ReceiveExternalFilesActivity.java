@@ -43,7 +43,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -148,7 +147,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private ReceiveExternalFilesAdapter receiveExternalFilesAdapter;
-    private boolean mSyncInProgress;
 
     private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
@@ -248,10 +246,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onStart();
 
         if (mAccountManager.getAccountsByType(MainApp.getAccountType(this)).length == 0) {
-            Toast.makeText(this,
-                           String.format(getString(R.string.uploader_wrn_no_account_text),
-                                         getString(R.string.app_name)),
-                           Toast.LENGTH_LONG).show();
+            final var message = String.format(getString(R.string.uploader_wrn_no_account_text),
+                                              getString(R.string.app_name));
+            DisplayUtils.showSnackMessage(this, message);
             return;
         }
 
@@ -856,7 +853,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         executorService.execute(() -> {
             long currentSyncTime = System.currentTimeMillis();
-            mSyncInProgress = true;
             final var optionalUser = getUser();
             if (optionalUser.isEmpty()) {
                 DisplayUtils.showSnackMessage(this, R.string.user_information_retrieval_error);
@@ -1155,58 +1151,32 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name)
                     && getStorageManager() != null;
 
-                if (sameAccount) {
+                if (sameAccount && !FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
+                    OCFile currentFile = (mFile == null) ? null : getStorageManager().getFileByPath(mFile.getRemotePath());
+                    OCFile currentDir = (getCurrentFolder() == null) ? null : getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
 
-                    if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
-                        mSyncInProgress = true;
-
+                    if (currentDir == null) {
+                        // current folder was removed from the server
+                        DisplayUtils.showSnackMessage(getActivity(), R.string.sync_current_folder_was_removed, getCurrentFolder().getFileName());
+                        browseToRoot();
                     } else {
-                        OCFile currentFile = (mFile == null) ? null :
-                            getStorageManager().getFileByPath(mFile.getRemotePath());
-                        OCFile currentDir = (getCurrentFolder() == null) ? null :
-                            getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
-
-                        if (currentDir == null) {
-                            // current folder was removed from the server
-                            DisplayUtils.showSnackMessage(
-                                getActivity(),
-                                R.string.sync_current_folder_was_removed,
-                                getCurrentFolder().getFileName()
-                                                         );
-                            browseToRoot();
-
-                        } else {
-                            if (currentFile == null && !mFile.isFolder()) {
-                                // currently selected file was removed in the server, and now we know it
-                                currentFile = currentDir;
-                            }
-
-                            if (currentDir.getRemotePath().equals(syncFolderRemotePath)) {
-                                populateDirectoryList(currentFile);
-                            }
+                        if (currentFile == null && !mFile.isFolder()) {
+                            // currently selected file was removed in the server, and now we know it
+                            currentFile = currentDir;
                         }
 
-                        mSyncInProgress = !FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
-                            !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event);
-
-                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event)
-                            /// TODO refactor and make common
-                            && syncResult != null && !syncResult.isSuccess()) {
-
-                            if (syncResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                (syncResult.isException() && syncResult.getException()
-                                    instanceof AuthenticatorException)) {
-
-                                requestCredentialsUpdate();
-
-                            } else if (ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED == syncResult.getCode()) {
-
-                                showUntrustedCertDialog(syncResult);
-                            }
+                        if (currentDir.getRemotePath().equals(syncFolderRemotePath)) {
+                            populateDirectoryList(currentFile);
                         }
                     }
-                    Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
 
+                    if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) && syncResult != null && !syncResult.isSuccess()) {
+                        if (syncResult.getCode() == ResultCode.UNAUTHORIZED || (syncResult.isException() && syncResult.getException() instanceof AuthenticatorException)) {
+                            requestCredentialsUpdate();
+                        } else if (ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED == syncResult.getCode()) {
+                            showUntrustedCertDialog(syncResult);
+                        }
+                    }
                 }
             } catch (RuntimeException e) {
                 // avoid app crashes after changing the serial id of RemoteOperationResult

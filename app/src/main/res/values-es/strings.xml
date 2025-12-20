@@ -44,21 +44,18 @@
     <string name="app_widget_description">Muestra un widget del tablero</string>
     <string name="appbar_search_in">Buscar en %s</string>
     <string name="appear_offline">Aparecer como desconectado</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Añadir nueva tarea</string>
-    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Crear una nueva tarea abajo a la derecha</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algo de texto</string>
+    <string name="assistant_output_generation_warning_text">Esta salida fue generada mediante IA. Asegúrese de revisar de nuevo.</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">¿Está seguro de querer eliminar esta tarea?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarea</string>
-    <string name="assistant_screen_loading">Cargando lista de tareas…</string>
+    <string name="assistant_screen_empty_content_description">Intente enviar un mensaje para iniciar una conversación.</string>
+    <string name="assistant_screen_empty_content_title">¡Hola!, ¿En qué te puedo ayudar hoy?</string>
     <string name="assistant_screen_task_create_fail_message">Ocurrió un error al crear la tarea</string>
     <string name="assistant_screen_task_create_success_message">Tarea creada exitosamente</string>
     <string name="assistant_screen_task_delete_fail_message">Ocurrió un error al eliminar la tarea</string>
     <string name="assistant_screen_task_delete_success_message">La tarea fue eliminada exitosamente</string>
-    <string name="assistant_screen_task_list_empty_message">La lista de tareas está vacía.</string>
     <string name="assistant_screen_task_list_error_state_message">No se pudo obtener la lista de tareas, por favor, revise su conexión a internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarea</string>
     <string name="assistant_screen_task_output_empty_text">El resultado de la tarea no está listo aún.</string>
-    <string name="assistant_screen_task_types_error_state_message">No se pudieron obtener los tipos de tareas, por favor, revise su conexión a internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Salida</string>
@@ -123,6 +120,7 @@
     <string name="busy">Ocupado</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
+    <string name="cancel_upload">Cancelar</string>
     <string name="certificate_load_problem">Existe un problema al cargar el certificado.</string>
     <string name="changelog_dev_version">Historial de cambios de la versión de desarroll</string>
     <string name="check_back_later_or_reload">Regrese luego o recargue.</string>
@@ -206,7 +204,11 @@
     <string name="contacts_preferences_import_scheduled_fail">La importación falló al iniciar. Por favor, intente de nuevo</string>
     <string name="contacts_preferences_no_file_found">No se ha encontrado ningún archivo</string>
     <string name="contacts_preferences_something_strange_happened">¡No podemos encontrar tu última copia de seguridad!</string>
-    <string name="copied_to_clipboard">Copiado al portapapeles</string>
+    <string name="conversation_screen_delete_button_title">Borrar conversación</string>
+    <string name="conversation_screen_empty_content_title">No se han encontrado conversaciones</string>
+    <string name="conversation_screen_empty_conversation_list_title">No hay conversaciones todavía</string>
+    <string name="conversation_screen_title">Conversaciones</string>
+    <string name="copied">Copiado</string>
     <string name="copy_file_error">Se ha producido un error al tratar de copiar este archivo o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No se puede copiar una carpeta dentro de una de sus propias subcarpetas.</string>
     <string name="copy_file_invalid_overwrite">El fichero ya existe en el directorio de destino</string>
@@ -384,6 +386,7 @@
     <string name="failed_update_ui">Fallo al actualizar la UI</string>
     <string name="favorite">Añadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="fifteenMinutes">15 minutos</string>
     <string name="file_activity_shared_file_cannot_be_updated">El archivo compartido no se puede actualizar</string>
     <string name="file_already_exists">El nombre de archivo ya existe</string>
     <string name="file_delete">Eliminar</string>
@@ -391,7 +394,6 @@
     <string name="file_detail_share_already_active">No puede crear un recurso compartido, el recurso compartido ya está activo desde este usuario.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">No hay ninguna aplicación disponible para seleccionar contactos</string>
     <string name="file_details_no_content">Fallo al cargar los detalles</string>
-    <string name="file_details_sharing_fragment_custom_permission_not_selected">Por favor, seleccione el permiso personalizado</string>
     <string name="file_icon">Archivo</string>
     <string name="file_keep">Mantener</string>
     <string name="file_list_empty">Sube algún contenido o sincroniza con tus dispositivos.</string>
@@ -416,10 +418,8 @@
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">No hay una app configurada para manejar este tipo de archivos.</string>
     <string name="file_list_seconds_ago">hace segundos</string>
-    <string name="file_management_permission">Permisos necesarios</string>
     <string name="file_management_permission_optional">Permisos de almacenamiento</string>
     <string name="file_management_permission_optional_text">%1$s funciona mejor con permisos para acceder al almacenamiento. Puede escoger entre el acceso completo a los archivos, o acceso solo de lectura a fotos y vídeos.</string>
-    <string name="file_management_permission_text">%1$s necesita permisos de gestión de archivos para subir archivos. Puede escoger entre acceso completo a todos los archivos, o acceso de solo lectura a fotos y vídeos.</string>
     <string name="file_migration_allow_media_indexing">Permitir acceso desde otras aplicaciones</string>
     <string name="file_migration_checking_destination">Comprobando destino…</string>
     <string name="file_migration_cleaning">Limpiando…</string>
@@ -457,7 +457,6 @@
     <string name="file_upload_worker_error_notification_title">Falló la subida. Sin conexión a Internet</string>
     <string name="file_upload_worker_same_file_already_exists">%s ya existe, no se detectó conflicto</string>
     <string name="file_version_restored_error">¡Error al restaurar la versión del archivo!</string>
-    <string name="file_version_restored_successfully">Versión del archivo restaurada con éxito.</string>
     <string name="filedetails_details">Detalles</string>
     <string name="filedetails_download">Descargar</string>
     <string name="filedetails_export">Exportar</string>
@@ -492,7 +491,6 @@
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_move">Mover todo</string>
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
-    <string name="foreign_files_success">Se han movido todos los archivos</string>
     <string name="forward">Adelante</string>
     <string name="fourHours">4 horas</string>
     <string name="gplay_restriction">¡Google ha restringido la descarga de archivos APK/AAB!</string>
@@ -547,7 +545,6 @@
     <string name="locked_by_app">Bloqueado por la app %1$s</string>
     <string name="log_send_mail_subject">Se han encontrado %1$s aplicaciones de registros para Android</string>
     <string name="log_send_no_mail_app">No se ha encontrado una app para enviar los registros. Por favor, instale un cliente de correo electrónico.</string>
-    <string name="logged_in_as">Se ha autenticado como %1$s</string>
     <string name="login">Iniciar sesión</string>
     <string name="login_url_helper_text">El enlace a tu interface web %1$s cuando lo abres en tu navegador.</string>
     <string name="logs_menu_delete">Eliminar registros</string>
@@ -633,7 +630,6 @@
     <string name="offline_mode">No hay conexión a internet</string>
     <string name="offline_mode_info_description">Incluso sin una conexión a internet, puede organizar sus carpetas o crear archivos. Una vez vuelva a estar en línea, las acciones pendientes se sincronizarán automáticamente.</string>
     <string name="offline_mode_info_title">Está desconectado, pero el trabajo continúa</string>
-    <string name="offline_operations_file_does_not_exists_yet">El archivo no existe, todavía. Por favor, suba primero el archivo.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">No se pudo crear %s. Un archivo con el mismo nombre existe en el servidor.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">No se pudo crear %s. Una carpeta con el mismo nombre existe en el servidor.</string>
     <string name="offline_operations_worker_notification_error_text">La operación sin conexión no se ha podido completar. %s</string>
@@ -648,7 +644,6 @@
     <string name="outdated_server">El servidor ha alcanzado su final de vida. ¡Por favor, actualiza!</string>
     <string name="overflow_menu">Menú</string>
     <string name="pass_code_configure_your_pass_code">Introduce tu código de acceso</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Se solicitará el código de acceso cada vez que se inicie la aplicación</string>
     <string name="pass_code_enter_pass_code">Por favor introduzca su código de acceso</string>
     <string name="pass_code_mismatch">Los códigos de acceso no son iguales</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, vuelve a introducir tu código de acceso</string>
@@ -656,11 +651,10 @@
     <string name="pass_code_removed">Código de acceso borrado</string>
     <string name="pass_code_stored">Código de acceso almacenado</string>
     <string name="pass_code_wrong">Código de acceso incorrecto</string>
+    <string name="pause_upload">Pausar</string>
     <string name="pdf_password_protected">No es posible abrir archivos PDF protegidos por contraseñas. Por favor, use un visor PDF externo.</string>
-    <string name="pdf_zoom_tip">Toca sobre una página para hacer zoom</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>
-    <string name="permission_storage_access">Se necesitan permisos adicionales para subir y descargar archivos.</string>
     <string name="pick_contact_to_share_with">Elija un contacto con quien compartir</string>
     <string name="picture_set_as_no_app">No se ha encontrado una app para establecer con ella la imagen</string>
     <string name="pin_home">Anclar a la pantalla de inicio</string>
@@ -862,7 +856,6 @@
     <string name="share_via_link_section_title">Compartir enlace</string>
     <string name="share_via_link_send_link_label">Enviar enlace</string>
     <string name="share_via_link_unset_password">Desmarcar</string>
-    <string name="share_with_title">Compartir con…</string>
     <string name="shared_avatar_desc">Avatar del usuario compartido</string>
     <string name="shared_icon_share">compartido</string>
     <string name="shared_icon_shared">compartido</string>
@@ -915,7 +908,6 @@
     <string name="storage_internal_storage">Almacenamiento interno</string>
     <string name="storage_movies">Películas</string>
     <string name="storage_music">Música</string>
-    <string name="storage_permission_full_access">Acceso completo</string>
     <string name="storage_permission_media_read_only">Medios en sólo lectura</string>
     <string name="storage_pictures">Imágenes</string>
     <string name="store_full_desc">La plataforma de productividad auto-hospedada que le mantiene en control.\n\nCaracterísticas;\n* Interfaz moderna y fácil de usar adecuada al tema de su servidor\n* Cargue archivos a su servidor Nextcloud\n* Comparta los mismos con otros\n* Mantenga sus archivos y carpetas favoritas sincronizados\n* Busque en todas las carpetas de su servidor\n* Carga automática para fotos y videos capturados en su dispositivo\n* Manténgase al día con notificaciones\n* Soporte para múltiples cuentas\n* Acceda a su información de forma segura usando su huella dactilar o PIN\n* Integración con DAVx5 (anteriormente conocido como DAVdroid) para configurar fácilmente la sincronización del calendario y contactos\n\nPor favor, reporte cualquier problema en https://github.com/nextcloud/android/issues y discuta acerca de esta aplicación en https://help.nextcloud.com/c/clients/android\n\n¿Es Ud. nuevo en Nextcloud? Nextcloud es un servidor privado para sincronizar y compartir archivos, y comunicación. Es un programa de uso libre, y lo puede hospedar Ud. mismo o pagar a una compañía para hacerlo por Ud. De esa manera, Ud. está en control de sus fotos, su calendario e información de sus contactos, sus documentos y todo lo demás.\n\nConozca Nextcloud en https://nextcloud.com</string>
@@ -1060,7 +1052,6 @@
     <string name="uploader_file_not_found_message">Archivo no encontrado. ¿Está seguro de que este archivo existe o tiene un conflicto previo que no ha sido resuelto?</string>
     <string name="uploader_file_not_found_on_server_message">No pudimos ubicar el archivo en el servidor. Otro usuario podría haber eliminado el archivo</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
-    <string name="uploader_local_files_uploaded">Reintentar la subida de archivos locales fallidos</string>
     <string name="uploader_top_message">Elegir carpeta de subida</string>
     <string name="uploader_upload_failed_content_single">No se ha podido subir %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Subida fallida, vuelve a iniciar sesión</string>
@@ -1199,11 +1190,6 @@
         <item quantity="one">%d archivo exportado, el resto han sido omitidos por un error</item>
         <item quantity="many">%d archivos exportados, el resto han sido omitidos por un error</item>
         <item quantity="other">%d archivos exportados, el resto han sido omitidos por un error</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">Se va a exportar %d archivo. En la notificación podrá ver más detalles.</item>
-        <item quantity="many">Se van a exportar %d archivos. En la notificación podrá ver más detalles.</item>
-        <item quantity="other">Se van a exportar %d archivos. En la notificación podrá ver más detalles.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d carpeta</item>

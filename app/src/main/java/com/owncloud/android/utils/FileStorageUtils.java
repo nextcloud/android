@@ -11,6 +11,7 @@
 package com.owncloud.android.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -37,7 +38,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -232,6 +232,7 @@ public final class FileStorageUtils {
      *
      * @return Optimistic number of available bytes (can be less)
      */
+    @SuppressLint("UsableSpace")
     public static long getUsableSpace() {
         File savePath = new File(MainApp.getStoragePath());
         return savePath.getUsableSpace();

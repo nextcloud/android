@@ -10,6 +10,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -75,6 +76,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             notificationsActivity.getResources().getColor(R.color.text_color));
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setNotificationItems(List<Notification> notificationItems) {
         notificationsList.clear();
         notificationsList.addAll(notificationItems);
@@ -340,6 +342,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void removeAllNotifications() {
         notificationsList.clear();
         notifyDataSetChanged();

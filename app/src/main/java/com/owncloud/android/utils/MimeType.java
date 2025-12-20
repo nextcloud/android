@@ -22,6 +22,7 @@ public final class MimeType {
     public static final String TEXT_PLAIN = "text/plain";
     public static final String FILE = "application/octet-stream";
     public static final String PDF = "application/pdf";
+    public static final String MP4 = "video/mp4";
 
     private MimeType() {
         // No instance

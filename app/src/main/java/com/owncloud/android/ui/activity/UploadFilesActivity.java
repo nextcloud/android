@@ -17,7 +17,6 @@ import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -28,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.di.Injectable;
@@ -50,7 +50,6 @@ import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
@@ -267,10 +266,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         Log_OC.d(TAG, "onCreate() end");
     }
 
-    private void requestPermissions() {
-        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true);
-    }
-
     public void showToolbarSpinner() {
         mToolbarSpinner.setVisibility(View.VISIBLE);
     }
@@ -297,67 +292,93 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         final MenuItem item = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
         viewThemeUtils.androidx.themeToolbarSearchView(mSearchView);
-        viewThemeUtils.platform.tintTextDrawable(this, menu.findItem(R.id.action_choose_storage_path).getIcon());
 
         mSearchView.setOnSearchClickListener(v -> mToolbarSpinner.setVisibility(View.GONE));
+
+        MenuItem chooseStoragePathItem = menu.findItem(R.id.action_choose_storage_path);
+        if (chooseStoragePathItem != null) {
+            chooseStoragePathItem.setVisible(PermissionUtil.checkStoragePermission(this));
+
+            final var chooseStoragePathDrawable = chooseStoragePathItem.getIcon();
+            if (chooseStoragePathDrawable != null) {
+                viewThemeUtils.platform.tintDrawable(this, chooseStoragePathDrawable, ColorRole.ON_SURFACE);
+            }
+        }
 
         return super.onCreateOptionsMenu(menu);
     }
 
+    private static final String rootDir = "/storage/emulated/0";
+
+    private boolean isRoot() {
+        if (mCurrentDir == null) {
+            return false;
+        }
+
+        return mCurrentDir.getAbsolutePath().equals(rootDir);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval = true;
         int itemId = item.getItemId();
 
         if (itemId == android.R.id.home) {
-            if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
-                getOnBackPressedDispatcher().onBackPressed();
-            }
-        } else if (itemId == R.id.action_select_all) {
+            handleHomePressed();
+            return true;
+        }
+
+        if (itemId == R.id.action_select_all) {
             mSelectAll = !item.isChecked();
             item.setChecked(mSelectAll);
             mFileListFragment.selectAllFiles(mSelectAll);
             setSelectAllMenuItem(item, mSelectAll);
-        } else if (itemId == R.id.action_choose_storage_path) {
-            checkLocalStoragePathPickerPermission();
-        } else {
-            retval = super.onOptionsItemSelected(item);
+            return true;
         }
 
-        return retval;
+        if (itemId == R.id.action_choose_storage_path) {
+            showLocalStoragePathPickerDialog();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
-    private void checkLocalStoragePathPickerPermission() {
-        if (!PermissionUtil.checkExternalStoragePermission(this)) {
-            requestPermissions();
+    private void cancelAndFinish() {
+        setResult(RESULT_CANCELED);
+        finish();
+    }
+
+    private void handleHomePressed() {
+        boolean root = isRoot();
+        boolean hasPermission = PermissionUtil.checkStoragePermission(this);
+
+        if (root && !hasPermission) {
+            cancelAndFinish();
+            return;
+        }
+
+        if (mCurrentDir == null || mCurrentDir.getParentFile() == null) {
+            return;
+        }
+
+        if (root) {
+            cancelAndFinish();
         } else {
-            showLocalStoragePathPickerDialog();
+            getOnBackPressedDispatcher().onBackPressed();
         }
     }
 
     private void showLocalStoragePathPickerDialog() {
+        if (!PermissionUtil.checkStoragePermission(this)) {
+            cancelAndFinish();
+            return;
+        }
+
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
         dialog = LocalStoragePathPickerDialogFragment.newInstance();
         dialog.show(ft, LocalStoragePathPickerDialogFragment.LOCAL_STORAGE_PATH_PICKER_FRAGMENT);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-
-        if (requestCode == PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // permission was granted
-                showLocalStoragePathPickerDialog();
-            } else {
-                DisplayUtils.showSnackMessage(this, R.string.permission_storage_access);
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
     }
 
     @Override
@@ -390,8 +411,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 }
 
                 File parentFolder = mCurrentDir.getParentFile();
-                if (!parentFolder.canRead()) {
-                    checkLocalStoragePathPickerPermission();
+                if (parentFolder != null && !parentFolder.canRead()) {
                     return;
                 }
 
@@ -647,37 +667,31 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.upload_files_btn_cancel) {
-            setResult(RESULT_CANCELED);
-            finish();
-
-        } else if (v.getId() == R.id.upload_files_btn_upload) {
-            if (PermissionUtil.checkExternalStoragePermission(this)) {
+            cancelAndFinish();
+        } else if (v.getId() == R.id.upload_files_btn_upload && PermissionUtil.checkStoragePermission(this)) {
+            if (mCurrentDir != null) {
+                preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
+            }
+            if (mLocalFolderPickerMode) {
+                Intent data = new Intent();
                 if (mCurrentDir != null) {
-                    preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
+                    data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
                 }
-                if (mLocalFolderPickerMode) {
-                    Intent data = new Intent();
-                    if (mCurrentDir != null) {
-                        data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
-                    }
-                    setResult(RESULT_OK, data);
+                setResult(RESULT_OK, data);
 
-                    if (isGivenLocalPathHasEnabledParent()) {
-                        showSubFolderWarningDialog();
-                    } else {
-                        finish();
-                    }
+                if (isGivenLocalPathHasEnabledParent()) {
+                    showSubFolderWarningDialog();
                 } else {
-                    final var chosenFiles = mFileListFragment.getCheckedFilePaths();
-                    if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
-                        FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
-                        return;
-                    }
-                    boolean isPositionZero = (binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition() == 0);
-                    new CheckAvailableSpaceTask(this, chosenFiles).execute(isPositionZero);
+                    finish();
                 }
             } else {
-                requestPermissions();
+                final var chosenFiles = mFileListFragment.getCheckedFilePaths();
+                if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
+                    FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
+                    return;
+                }
+                boolean isPositionZero = (binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition() == 0);
+                new CheckAvailableSpaceTask(this, chosenFiles).execute(isPositionZero);
             }
         }
     }
@@ -750,11 +764,8 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     protected void onStart() {
         super.onStart();
         final Account account = getAccount();
-        if (mAccountOnCreation != null && mAccountOnCreation.equals(account)) {
-            requestPermissions();
-        } else {
-            setResult(RESULT_CANCELED);
-            finish();
+        if (mAccountOnCreation == null || !mAccountOnCreation.equals(account)) {
+            cancelAndFinish();
         }
     }
 
@@ -777,5 +788,11 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         }
 
         super.onStop();
+    }
+
+    public void setupStoragePermissionWarningBanner() {
+        if (getListOfFilesFragment() instanceof LocalFileListFragment fragment) {
+            fragment.setupStoragePermissionWarningBanner();
+        }
     }
 }

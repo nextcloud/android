@@ -15,7 +15,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
-import android.graphics.ImageDecoder;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -24,10 +23,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.nextcloud.utils.BitmapExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -35,8 +33,6 @@ import com.owncloud.android.lib.resources.users.Status;
 import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.StatusDrawable;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -44,11 +40,12 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.exifinterface.media.ExifInterface;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+import static com.nextcloud.utils.extensions.ThumbnailsCacheManagerExtensionsKt.getExifOrientation;
 
 /**
  * Utility class with methods for decoding Bitmaps.
@@ -76,23 +73,6 @@ public final class BitmapUtils {
         return resultBitmap;
     }
 
-    @Nullable
-    @RequiresApi(Build.VERSION_CODES.P)
-    private static Bitmap decodeSampledBitmapViaImageDecoder(@NonNull File file, int reqWidth, int reqHeight) {
-        try {
-            Log_OC.i(TAG, "Decoding Bitmap via ImageDecoder");
-
-            final var imageDecoderSource = ImageDecoder.createSource(file);
-
-            return ImageDecoder.decodeBitmap(imageDecoderSource, (decoder, info, source1) -> decoder.setTargetSize(reqWidth, reqHeight)
-            );
-
-        } catch (IOException exception) {
-            Log_OC.w(TAG, "Decoding Bitmap via ImageDecoder failed, BitmapFactory.decodeFile will be used");
-            return null;
-        }
-    }
-
     /**
      * Decodes a bitmap from a file containing it minimizing the memory use, known that the bitmap will be drawn in a
      * surface of reqWidth x reqHeight
@@ -104,41 +84,7 @@ public final class BitmapUtils {
      */
     @Nullable
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
-        if (TextUtils.isEmpty(srcPath)) {
-            Log_OC.e(TAG, "srcPath is null or empty");
-            return null;
-        }
-
-        final var file = new File(srcPath);
-        if (!file.exists()) {
-            Log_OC.e(TAG, "File does not exists, returning null");
-            return null;
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            final var result = decodeSampledBitmapViaImageDecoder(file, reqWidth, reqHeight);
-            if (result != null) {
-                return result;
-            }
-        }
-
-        Log_OC.i(TAG, "Decoding Bitmap via BitmapFactory.decodeFile");
-
-        // set desired options that will affect the size of the bitmap
-        final Options options = new Options();
-
-        // make a false load of the bitmap to get its dimensions
-        options.inJustDecodeBounds = true;
-
-        // FIXME after auto-rename can't generate thumbnail from localPath
-        BitmapFactory.decodeFile(srcPath, options);
-
-        // calculate factor to subsample the bitmap
-        options.inSampleSize = calculateSampleFactor(options, reqWidth, reqHeight);
-
-        // decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(srcPath, options);
+        return BitmapExtensionsKt.decodeSampledBitmapFromFile(srcPath, reqWidth, reqHeight);
     }
 
     /**
@@ -152,15 +98,6 @@ public final class BitmapUtils {
         var originalWidth = bitmapResolution[0];
         var originalHeight = bitmapResolution[1];
 
-        // Detect Orientation and swap height/width if the image is to be rotated
-        var shouldRotate = detectRotateImage(storagePath);
-        if (shouldRotate) {
-            // Swap the width and height
-            var tempWidth = originalWidth;
-            originalWidth = originalHeight;
-            originalHeight = tempWidth;
-        }
-
         // Calculate the scaling factors based on screen dimensions
         var widthScaleFactor = (float) minWidth/ originalWidth;
         var heightScaleFactor = (float) minHeight / originalHeight;
@@ -172,7 +109,14 @@ public final class BitmapUtils {
         var scaledWidth = (int) (originalWidth * scaleFactor);
         var scaledHeight = (int) (originalHeight * scaleFactor);
 
-        return decodeSampledBitmapFromFile(storagePath, scaledWidth, scaledHeight);
+        var shouldRotate = detectRotateImage(storagePath);
+        var result = decodeSampledBitmapFromFile(storagePath, scaledWidth, scaledHeight);
+        if (shouldRotate) {
+            int orientation = getExifOrientation(storagePath);
+            return BitmapExtensionsKt.rotateBitmapViaExif(result, orientation);
+        } else {
+            return result;
+        }
     }
     /**
      * Calculates a proper value for options.inSampleSize in order to decode a Bitmap minimizing the memory overload and

@@ -30,4 +30,5 @@ interface ListViewHolder {
     val gridLivePhotoIndicator: ImageView?
     val livePhotoIndicator: TextView?
     val livePhotoIndicatorSeparator: TextView?
+    val hasVisibleFeatureIndicators: Boolean
 }

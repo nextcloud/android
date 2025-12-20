@@ -10,6 +10,7 @@
     <string name="action_edit">Modifica</string>
     <string name="action_empty_notifications">Cancella tutte le notifiche</string>
     <string name="action_empty_trashbin">Svuota cestino</string>
+    <string name="action_send_share">Invia/Condividi</string>
     <string name="action_switch_grid_view">Vista Griglia</string>
     <string name="action_switch_list_view">Vista Elenco</string>
     <string name="actionbar_calendar_contacts_restore">Ripristina contatti e calendario</string>
@@ -43,21 +44,25 @@
     <string name="app_widget_description">Mostra un widget dal cruscotto</string>
     <string name="appbar_search_in">Cerca in %s</string>
     <string name="appear_offline">Appari non in linea</string>
-    <string name="assistant_screen_add_task_alert_dialog_title">Aggiungi nuova attività</string>
-    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Aggiungi del testo</string>
+    <string name="assistant_output_generation_warning_text">Il risultato qui riportato è generato dall\'intelligenza artificiale. Assicurati sempre di ricontrollare.</string>
+    <string name="assistant_screen_chat_create_error">Impossibile inviare il messaggio</string>
+    <string name="assistant_screen_chat_fetch_error">Impossibile recuperare i messaggi della chat</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Sei sicuro di voler rimuovere questa attività?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Elimina attività</string>
+    <string name="assistant_screen_empty_content_description">Prova a inviare un messaggio per avviare una conversazione.</string>
+    <string name="assistant_screen_empty_content_title">Ciao! Come posso aiutarti oggi?</string>
     <string name="assistant_screen_task_create_fail_message">Un errore è intercorso durante la creazione del task</string>
     <string name="assistant_screen_task_create_success_message">Task creato con successo</string>
     <string name="assistant_screen_task_delete_fail_message">Un errore è intercorso durante la cancellazione del task</string>
     <string name="assistant_screen_task_delete_success_message">Task cancellato con successo</string>
+    <string name="assistant_screen_task_list_empty_warning">L\'elenco delle attività è vuoto. Controllare la configurazione dell\'app di assistenza.</string>
     <string name="assistant_screen_task_list_error_state_message">Impossibile recuperare la lista dei Task, verifica la tua connessione a internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Cancella task</string>
     <string name="assistant_screen_task_output_empty_text">Il risultato del task non è ancora pronto.</string>
-    <string name="assistant_screen_task_types_error_state_message">Impossibile recuperare i tipi di task, per favore verifica la tua connessione a internet.</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
+    <string name="assistant_thinking">Sto pensando …</string>
     <string name="associated_account_not_found">Account associato non trovato.</string>
     <string name="auth_access_failed">Accesso non riuscito: %1$s</string>
     <string name="auth_account_does_not_exist">L\'account non è ancora aggiunto su questo dispositivo</string>
@@ -89,11 +94,19 @@
     <string name="auth_unsupported_multiaccount">%1$s non supporta account multipli</string>
     <string name="auth_wrong_connection_title">Impossibile stabilire la connessione</string>
     <string name="authenticator_activity_cancel_login">Annulla l\'accesso</string>
+    <string name="authenticator_activity_empty_base_url">Inserisci un indirizzo server valido.</string>
+    <string name="authenticator_activity_empty_response_message">Impossibile recuperare i dati di accesso. Riprova.</string>
     <string name="authenticator_activity_login_error">C\'è stato un problema nella richiesta di login. Per favore, riprova più tardi</string>
+    <string name="authenticator_activity_no_web_browser_found">Non è disponibile alcun browser per aprire questo link.</string>
     <string name="authenticator_activity_please_complete_login_process">Completa il procedimento di login nel tuo browser</string>
+    <string name="auto_upload_battery_saver_mode_warning">Il caricamento automatico è sospeso perché è attiva la funzione Risparmio batteria.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">lasciato nella cartella originale, poiché è in sola lettura</string>
+    <string name="auto_upload_low_battery_warning_info">Batteria scarica, il caricamento potrebbe richiedere più tempo</string>
     <string name="auto_upload_on_wifi">Carica solo su Wi-Fi senza limitazioni</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="auto_upload_sub_folder_warning">Questa cartella è già inclusa nella sincronizzazione della cartella principale, il che potrebbe causare caricamenti duplicati.</string>
+    <string name="auto_upload_wifi_only_warning_info">In attesa del Wi-Fi per avviare il caricamento</string>
+    <string name="auto_upload_worker_start_text">Caricando i file da %s a %s</string>
     <string name="autoupload_configure">Configura</string>
     <string name="autoupload_create_new_custom_folder">Crea nuova configurazione di cartella personalizzata</string>
     <string name="autoupload_custom_folder">Configura una cartella personalizzata</string>
@@ -114,6 +127,7 @@
     <string name="busy">Occupato</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendari</string>
+    <string name="cancel_upload">Cancel</string>
     <string name="certificate_load_problem">Si è verificato un problema durante il caricamento del certificato.</string>
     <string name="changelog_dev_version">Novità versione di sviluppo</string>
     <string name="check_back_later_or_reload">Controlla più tardi o ricarica</string>
@@ -181,6 +195,7 @@
     <string name="confirmation_remove_folders_alert">Vuoi davvero eliminare gli elementi selezionati e il loro contenuto?</string>
     <string name="confirmation_remove_local">Solo localmente</string>
     <string name="conflict_dialog_error">Impossibile creare la finestra di dialogo per la risoluzione dei conflitti</string>
+    <string name="conflict_folder_headline">Conflitto cartelle</string>
     <string name="conflict_local_file">File locale</string>
     <string name="conflict_message_description">Se selezioni entrambe le versioni, il file locale ha un numero aggiunto al suo nome.</string>
     <string name="conflict_message_description_for_folder">Se selezioni entrambe le versioni, alla cartella locale verrà aggiunto un numero al nome.</string>
@@ -193,9 +208,17 @@
     <string name="contacts_backup_button">Esegui backup ora</string>
     <string name="contacts_preferences_backup_scheduled">Backup pianificato e partirà a breve</string>
     <string name="contacts_preferences_import_scheduled">Importazione pianificata e partirà a breve</string>
+    <string name="contacts_preferences_import_scheduled_fail">Impossibile avviare l\'importazione. Riprova.</string>
     <string name="contacts_preferences_no_file_found">Nessun file trovato</string>
     <string name="contacts_preferences_something_strange_happened">Non troviamo il tuo ultimo backup!</string>
-    <string name="copied_to_clipboard">Copiato negli appunti</string>
+    <string name="content_observer_work_notification_title">Rilevamento delle modifiche ai contenuti</string>
+    <string name="conversation_screen_create_error_title">Impossibile creare conversazione</string>
+    <string name="conversation_screen_delete_button_title">Cancella conversazione</string>
+    <string name="conversation_screen_delete_error_title">Impossibile cancellare conversazione</string>
+    <string name="conversation_screen_empty_content_title">Nessuna conversazione trovata</string>
+    <string name="conversation_screen_empty_conversation_list_title">Ancora nessuna conversazione</string>
+    <string name="conversation_screen_title">Conversazioni</string>
+    <string name="copied">Copiato</string>
     <string name="copy_file_error">Si è verificato un errore durante il tentativo di copiare il file o la cartella</string>
     <string name="copy_file_invalid_into_descendent">Impossibile copiare una cartella in una delle sue cartelle sottostanti</string>
     <string name="copy_file_invalid_overwrite">Il file è già presente nella cartella di destinazione</string>
@@ -360,6 +383,7 @@
     <string name="failed_update_ui">Aggiornamento interfaccia non riuscito</string>
     <string name="favorite">Aggiungi ai preferiti</string>
     <string name="favorite_icon">Preferito</string>
+    <string name="fifteenMinutes">15 minuti</string>
     <string name="file_activity_shared_file_cannot_be_updated">Il file condiviso non può essere aggiornato</string>
     <string name="file_already_exists">Questo nome per il file esiste già</string>
     <string name="file_delete">Elimina</string>
@@ -388,10 +412,8 @@
     <string name="file_list_loading">Caricamento in corso…</string>
     <string name="file_list_no_app_for_file_type">Nessuna applicazione configurata per gestire questo tipo di file.</string>
     <string name="file_list_seconds_ago">secondi fa</string>
-    <string name="file_management_permission">Permessi richiesti</string>
     <string name="file_management_permission_optional">Autorizzazioni di archiviazione</string>
     <string name="file_management_permission_optional_text">%1$s funziona meglio con l\'autorizzazione di accedere all\'archiviazione. Puoi scegliere l\'accesso completo a tutti i file o quello in sola lettura a foto e video.</string>
-    <string name="file_management_permission_text">%1$s richiede l\'autorizzazione di gestione file per inviare i file. Puoi scegliere l\'accesso completo a tutti i file o quello in sola lettura a foto e video.</string>
     <string name="file_migration_allow_media_indexing">Permetti l\'accesso da altre app</string>
     <string name="file_migration_checking_destination">Controllo della destinazione…</string>
     <string name="file_migration_cleaning">Pulizia in corso…</string>
@@ -427,7 +449,6 @@
     <string name="file_rename">Rinomina</string>
     <string name="file_upload_worker_error_notification_title">Caricamento fallito. Nessuna connessione ad internet</string>
     <string name="file_version_restored_error">Errore durante il ripristino della versione del file!</string>
-    <string name="file_version_restored_successfully">Versione del file ripristinata correttamente.</string>
     <string name="filedetails_details">Dettagli</string>
     <string name="filedetails_download">Scarica</string>
     <string name="filedetails_export">Esporta</string>
@@ -462,7 +483,6 @@
     <string name="foreign_files_local_text">Locale: %1$s</string>
     <string name="foreign_files_move">Sposta tutto</string>
     <string name="foreign_files_remote_text">Remoto %1$s</string>
-    <string name="foreign_files_success">Tutti i file sono stati spostati</string>
     <string name="forward">Inoltra</string>
     <string name="fourHours">4 ore</string>
     <string name="gplay_restriction">Google ha limitato il download di file APK/AAB!</string>
@@ -516,7 +536,6 @@
     <string name="locked_by_app">Bloccato dall\'applicazione %1$s </string>
     <string name="log_send_mail_subject">Registri applicazione %1$s Android</string>
     <string name="log_send_no_mail_app">Non è stata trovata alcuna applicazione per inviare i log. Installa un client di posta elettronica.</string>
-    <string name="logged_in_as">Connesso come %1$s</string>
     <string name="login">Accedi</string>
     <string name="login_url_helper_text">Il collegamento alla tua interfaccia web di %1$s quando la apri nel browser.</string>
     <string name="logs_menu_delete">Elimina log</string>
@@ -596,7 +615,6 @@
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Operazione di Rimozione in Sospeso</string>
     <string name="offline_mode">Nessuna connessione a Internet</string>
     <string name="offline_mode_info_description">Puoi organizzare le tue cartelle, creare file anche senza connessione Internet. Una volta tornato online le azioni in sospeso verranno sincronizzate automaticamente.</string>
-    <string name="offline_operations_file_does_not_exists_yet">Il file non esiste ancora. Per favore carica prima il file.</string>
     <string name="offline_operations_worker_notification_error_text">L\'operazione offline non può essere completata. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operazioni Offline</string>
     <string name="oneHour">1 ora</string>
@@ -606,7 +624,6 @@
     <string name="outdated_server">Il server ha raggiunto la fine della sua vita, aggiornalo!</string>
     <string name="overflow_menu">Menu Altro</string>
     <string name="pass_code_configure_your_pass_code">Digita il tuo codice segreto</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Il codice segreto sarà richiesto ogni volta che l\'applicazione è avviata</string>
     <string name="pass_code_enter_pass_code">Digita il tuo codice segreto</string>
     <string name="pass_code_mismatch">I codici segreti non corrispondono</string>
     <string name="pass_code_reenter_your_pass_code">Digita nuovamente il codice segreto</string>
@@ -614,11 +631,10 @@
     <string name="pass_code_removed">Codice segreto eliminato</string>
     <string name="pass_code_stored">Codice segreto memorizzato</string>
     <string name="pass_code_wrong">Codice segreto non corretto</string>
+    <string name="pause_upload">Pausa</string>
     <string name="pdf_password_protected">Impossibile aprire il PDF protetto da password. Usa un visualizzatore PDF esterno.</string>
-    <string name="pdf_zoom_tip">Tocca una pagina per ingrandire</string>
     <string name="permission_allow">Consenti</string>
     <string name="permission_deny">Nega</string>
-    <string name="permission_storage_access">Permessi aggiuntivi richiesti per caricare e scaricare i file.</string>
     <string name="pick_contact_to_share_with">Seleziona il contatto con cui condividere</string>
     <string name="picture_set_as_no_app">Nessuna applicazione trovata per impostare un\'immagine</string>
     <string name="pin_shortcut_label">Apri %1$s</string>
@@ -805,7 +821,6 @@
     <string name="share_via_link_section_title">Condividi collegamento</string>
     <string name="share_via_link_send_link_label">Invia collegamento</string>
     <string name="share_via_link_unset_password">Rimuovi</string>
-    <string name="share_with_title">Condividi con…</string>
     <string name="shared_avatar_desc">Avatar da un utente condiviso</string>
     <string name="shared_icon_share">condivisione</string>
     <string name="shared_icon_shared">condiviso</string>
@@ -857,7 +872,6 @@
     <string name="storage_internal_storage">Archiviazione interna</string>
     <string name="storage_movies">Video</string>
     <string name="storage_music">Musica</string>
-    <string name="storage_permission_full_access">Accesso completo</string>
     <string name="storage_permission_media_read_only">Multimediali in sola lettura</string>
     <string name="storage_pictures">Immagini</string>
     <string name="store_full_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando.\nQuesta è la versione di sviluppo ufficiale e include funzionalità nuove, non testate che potrebbero provocare instabilità e perdite di dati. Questa applicazione è pensata per gli utenti che desiderano provare le nuove funzionalità e segnalare bug, se si verificano. Non utilizzarla in ambienti di produzione!\n\nSia la versione di sviluppo che quella normale sono disponibili su F-droid, e possono essere installate contemporaneamente.</string>
@@ -993,7 +1007,6 @@
     <string name="uploader_file_not_found_message">File non trovato. Sei sicuro che questo file esista o che un conflitto precedente non sia stato risolto?</string>
     <string name="uploader_file_not_found_on_server_message">Non siamo riusciti a individuare il file sul server. Un altro utente potrebbe aver eliminato il file</string>
     <string name="uploader_info_dirname">Nome della cartella</string>
-    <string name="uploader_local_files_uploaded">Riprova a caricare i file locali non riusciti</string>
     <string name="uploader_top_message">Scegli la cartella di caricamento</string>
     <string name="uploader_upload_failed_content_single">Impossibile caricare %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Caricamento non riuscito, effettua nuovamente l\'accesso</string>
@@ -1117,11 +1130,6 @@
         <item quantity="one">Esportato %dfile , il resto saltato a causa di un errore</item>
         <item quantity="many">Esportati %d files, il resto saltato a causa di un errore</item>
         <item quantity="other">Esportati %d file, il resto saltato a causa di un errore</item>
-    </plurals>
-    <plurals name="export_start">
-        <item quantity="one">%dfile sarà esportato. Vedi la notifica per i dettagli.</item>
-        <item quantity="many">%dfile saranno esportati. Vedi la notifica per i dettagli.</item>
-        <item quantity="other">%d file saranno esportati. Vedi la notifica per i dettagli.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d cartella</item>

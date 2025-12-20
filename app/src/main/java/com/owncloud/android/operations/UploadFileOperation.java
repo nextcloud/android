@@ -481,11 +481,10 @@ public class UploadFileOperation extends SyncOperation {
         E2EFiles e2eFiles = new E2EFiles(parentFile, null, new File(mOriginalStoragePath), null, null);
         FileLock fileLock = null;
         long size;
-
         boolean metadataExists = false;
         String token = null;
         Object object = null;
-
+        FileChannel channel = null;
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(getContext());
         String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
 
@@ -497,7 +496,13 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             long counter = getE2ECounter(parentFile);
-            token = getFolderUnlockTokenOrLockFolder(client, parentFile, counter);
+
+            try {
+                token = getFolderUnlockTokenOrLockFolder(client, parentFile, counter);
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Failed to lock folder", e);
+                return new RemoteOperationResult<>(e);
+            }
 
             // Update metadata
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
@@ -508,7 +513,7 @@ public class UploadFileOperation extends SyncOperation {
 
             if (isEndToEndVersionAtLeastV2()) {
                 if (object == null) {
-                    return new RemoteOperationResult(new IllegalStateException("Metadata does not exist"));
+                    return new RemoteOperationResult<>(new IllegalStateException("Metadata does not exist"));
                 }
             } else {
                 object = getDecryptedFolderMetadataV1(publicKey, object);
@@ -518,7 +523,7 @@ public class UploadFileOperation extends SyncOperation {
 
             List<String> fileNames = getCollidedFileNames(object);
 
-            RemoteOperationResult collisionResult = checkNameCollision(parentFile, client, fileNames, parentFile.isEncrypted());
+            final var collisionResult = checkNameCollision(parentFile, client, fileNames, parentFile.isEncrypted());
             if (collisionResult != null) {
                 result = collisionResult;
                 return collisionResult;
@@ -550,7 +555,7 @@ public class UploadFileOperation extends SyncOperation {
             Triple<FileLock, RemoteOperationResult, FileChannel> channelResult = initFileChannel(result, fileLock, e2eFiles);
             fileLock = channelResult.getFirst();
             result = channelResult.getSecond();
-            FileChannel channel = channelResult.getThird();
+            channel = channelResult.getThird();
 
             size = getChannelSize(channel);
             updateSize(size);
@@ -563,15 +568,15 @@ public class UploadFileOperation extends SyncOperation {
             }
         } catch (FileNotFoundException e) {
             Log_OC.e(TAG, mFile.getStoragePath() + " does not exist anymore");
-            result = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+            result = new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
         } catch (OverlappingFileLockException e) {
             Log_OC.e(TAG, "Overlapping file lock exception");
-            result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+            result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
         } catch (Exception e) {
             Log_OC.e(TAG, "UploadFileOperation exception: " + e.getLocalizedMessage());
-            result = new RemoteOperationResult(e);
+            result = new RemoteOperationResult<>(e);
         } finally {
-            result = cleanupE2EUpload(fileLock, e2eFiles, result, object, client, token);
+            result = cleanupE2EUpload(fileLock, channel, e2eFiles, result, object, client, token);
         }
 
         completeE2EUpload(result, e2eFiles, client);
@@ -599,13 +604,20 @@ public class UploadFileOperation extends SyncOperation {
 
     private String getFolderUnlockTokenOrLockFolder(OwnCloudClient client, OCFile parentFile, long counter) throws UploadException {
         if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
+            Log_OC.d(TAG, "Reusing existing folder unlock token from previous upload attempt");
             return mFolderUnlockToken;
         }
 
         String token = EncryptionUtils.lockFolder(parentFile, client, counter);
+        if (token == null || token.isEmpty()) {
+            Log_OC.e(TAG, "Lock folder returned null or empty token");
+            throw new UploadException("Failed to lock folder: token is null or empty");
+        }
+
         mUpload.setFolderUnlockToken(token);
         uploadsStorageManager.updateUpload(mUpload);
 
+        Log_OC.d(TAG, "Folder locked successfully, token saved");
         return token;
     }
 
@@ -696,7 +708,8 @@ public class UploadFileOperation extends SyncOperation {
     private Triple<FileLock, RemoteOperationResult, FileChannel> initFileChannel(RemoteOperationResult result, FileLock fileLock, E2EFiles e2eFiles) throws IOException {
         FileChannel channel = null;
 
-        try (RandomAccessFile randomAccessFile = new RandomAccessFile(mFile.getStoragePath(), "rw")) {
+        try {
+            RandomAccessFile randomAccessFile = new RandomAccessFile(mFile.getStoragePath(), "rw");
             channel = randomAccessFile.getChannel();
             fileLock = channel.tryLock();
         } catch (IOException ioException) {
@@ -725,7 +738,7 @@ public class UploadFileOperation extends SyncOperation {
                         Log_OC.d(TAG, "Error caught at getChannelFromFile: " + e);
                     }
                 } else {
-                    result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+                    result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
                 }
             }
         }
@@ -750,12 +763,12 @@ public class UploadFileOperation extends SyncOperation {
             throw new OperationCancelledException();
         }
 
-        RemoteOperationResult result = mUploadOperation.execute(data.getClient());
+        var result = mUploadOperation.execute(data.getClient());
 
         /// move local temporal file or original file to its corresponding
         // location in the Nextcloud local folder
         if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
-            result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+            result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
         }
 
         return result;
@@ -879,31 +892,61 @@ public class UploadFileOperation extends SyncOperation {
         e2eFiles.deleteTemporalFile();
     }
 
-    private RemoteOperationResult cleanupE2EUpload(FileLock fileLock, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
+    private RemoteOperationResult cleanupE2EUpload(FileLock fileLock, FileChannel channel, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
         mUploadStarted.set(false);
 
         if (fileLock != null) {
             try {
-                fileLock.release();
+                // Only release if the channel is still open/valid
+                if (channel != null && channel.isOpen()) {
+                    fileLock.release();
+                }
             } catch (IOException e) {
                 Log_OC.e(TAG, "Failed to unlock file with path " + mFile.getStoragePath());
+            }
+        }
+
+        if (channel != null) {
+            try {
+                channel.close();
+            } catch (IOException e) {
+                Log_OC.e(TAG, "Failed to close file channel", e);
             }
         }
 
         e2eFiles.deleteTemporalFileWithOriginalFileComparison();
 
         if (result == null) {
-            result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
+            result = new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
         }
 
         logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
 
+        if (token == null || token.isEmpty()) {
+            Log_OC.e(TAG, "CRITICAL ERROR: Folder was locked but token is null/empty. Cannot unlock! " +
+                "Folder: " + e2eFiles.getParentFile().getFileName());
+            RemoteOperationResult<Void> tokenError = new RemoteOperationResult<>(
+                new IllegalStateException("Folder locked but token lost - manual intervention may be required")
+            );
+
+            // Override result only if original operation succeeded
+            if (result.isSuccess()) {
+                result = tokenError;
+            }
+            return result;
+        }
+
         // Unlock must be done otherwise folder stays locked and user can't upload any file
         RemoteOperationResult<Void> unlockFolderResult;
-        if (object instanceof DecryptedFolderMetadataFileV1) {
-            unlockFolderResult = EncryptionUtils.unlockFolderV1(e2eFiles.getParentFile(), client, token);
-        } else {
-            unlockFolderResult = EncryptionUtils.unlockFolder(e2eFiles.getParentFile(), client, token);
+        try {
+            if (object instanceof DecryptedFolderMetadataFileV1) {
+                unlockFolderResult = EncryptionUtils.unlockFolderV1(e2eFiles.getParentFile(), client, token);
+            } else {
+                unlockFolderResult = EncryptionUtils.unlockFolder(e2eFiles.getParentFile(), client, token);
+            }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "CRITICAL ERROR: Exception during folder unlock", e);
+            unlockFolderResult = new RemoteOperationResult<>(e);
         }
 
         if (unlockFolderResult != null && !unlockFolderResult.isSuccess()) {
@@ -1183,11 +1226,13 @@ public class UploadFileOperation extends SyncOperation {
         throws OperationCancelledException {
         Log_OC.d(TAG, "Checking name collision in server");
 
-        if (existsFile(client, mRemotePath, fileNames, encrypted)) {
+        boolean isFileExists = existsFile(client, mRemotePath, fileNames, encrypted);
+
+        if (isFileExists) {
             switch (mNameCollisionPolicy) {
-                case CANCEL:
-                    Log_OC.d(TAG, "File exists; canceling");
-                    throw new OperationCancelledException();
+                case SKIP:
+                    Log_OC.d(TAG, "user choose to skip upload if same file exists");
+                    return new RemoteOperationResult<>(ResultCode.OK);
                 case RENAME:
                     mRemotePath = getNewAvailableRemotePath(client, mRemotePath, fileNames, encrypted);
                     mWasRenamed = true;
@@ -1238,10 +1283,32 @@ public class UploadFileOperation extends SyncOperation {
         handleLocalBehaviour(temporalFile, expectedFile, originalFile, client);
     }
 
+    private void deleteNonExistingFile(File file) {
+        if (file.exists()) {
+            return;
+        }
+
+        Log_OC.d(TAG, "deleting non-existing file from upload list and file list");
+
+        uploadsStorageManager.removeUpload(mOCUploadId);
+
+        // some chunks can be uploaded and can still exists in db thus we have to remove it as well
+        getStorageManager().removeFile(mFile, true, true);
+    }
+
     private void handleLocalBehaviour(File temporalFile,
                                       File expectedFile,
                                       File originalFile,
                                       OwnCloudClient client) {
+
+        // only LOCAL_BEHAVIOUR_COPY not using original file
+        if (mLocalBehaviour != FileUploadWorker.LOCAL_BEHAVIOUR_COPY) {
+            // if file is not exists we should only delete from our app
+            deleteNonExistingFile(originalFile);
+        }
+
+        Log_OC.d(TAG, "handling local behaviour for: " + originalFile.getName() + " behaviour: " + mLocalBehaviour);
+
         switch (mLocalBehaviour) {
             case FileUploadWorker.LOCAL_BEHAVIOUR_DELETE:
                 try {
@@ -1260,6 +1327,9 @@ public class UploadFileOperation extends SyncOperation {
                         move(temporalFile, expectedFile);
                     } catch (IOException e) {
                         Log_OC.e(TAG, e.getMessage());
+
+                        // handling non-existing file for local copy as well
+                        deleteNonExistingFile(temporalFile);
                     }
                 } else if (originalFile != null) {
                     try {
@@ -1672,5 +1742,4 @@ public class UploadFileOperation extends SyncOperation {
 
         void onRenameUpload();
     }
-
 }
