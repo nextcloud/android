@@ -12,7 +12,6 @@ import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -56,7 +55,6 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.theme.MaterialSchemesProvider;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
@@ -427,7 +425,7 @@ public abstract class AbstractIT {
 
         newUpload.setRemoteFolderToBeCreated();
 
-        RemoteOperationResult result = newUpload.execute(client);
+        var result = newUpload.execute(client);
         assertTrue(result.getLogMessage(), result.isSuccess());
     }
 
@@ -532,8 +530,8 @@ public abstract class AbstractIT {
         platformAccountManager.setUserData(temp, KEY_USER_ID, name.substring(0, atPos));
 
         Account account = UserAccountManagerImpl.fromContext(targetContext).getAccountByName(name);
-        if (account == null) {
-            throw new ActivityNotFoundException();
+        if (Objects.equals(account.type, targetContext.getString(R.string.anonymous_account_type))) {
+            throw new RuntimeException("Could not get account with name " + name);
         }
         return account;
     }
@@ -542,37 +540,7 @@ public abstract class AbstractIT {
         return AccountManager.get(targetContext).removeAccountExplicitly(account);
     }
 
-    protected MaterialSchemesProvider getMaterialSchemesProvider() {
-        return new MaterialSchemesProvider() {
-            @NonNull
-            @Override
-            public MaterialSchemes getMaterialSchemesForUser(@NonNull User user) {
-                return null;
-            }
-
-            @NonNull
-            @Override
-            public MaterialSchemes getMaterialSchemesForCapability(@NonNull OCCapability capability) {
-                return null;
-            }
-
-            @NonNull
-            @Override
-            public MaterialSchemes getMaterialSchemesForCurrentUser() {
-                return new MaterialSchemesImpl(R.color.primary, false);
-            }
-
-            @NonNull
-            @Override
-            public MaterialSchemes getDefaultMaterialSchemes() {
-                return null;
-            }
-
-            @NonNull
-            @Override
-            public MaterialSchemes getMaterialSchemesForPrimaryBackground() {
-                return null;
-            }
-        };
+    protected MaterialSchemes getMaterialSchemesForCurrentUser() {
+        return new MaterialSchemesImpl(R.color.primary, false);
     }
 }
