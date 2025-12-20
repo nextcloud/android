@@ -321,6 +321,14 @@ class AutoUploadWorker(
 
                 try {
                     var (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
+
+                    // if local file deleted, upload process cannot be started or retriable thus needs to be removed
+                    if (path.isEmpty() || !file.exists()) {
+                        Log_OC.w(TAG, "detected non-existing local file, removing entity")
+                        deleteNonExistingFile(path, id, upload)
+                        continue
+                    }
+
                     try {
                         // Insert/update to IN_PROGRESS state before starting upload
                         val generatedId = uploadsStorageManager.uploadDao.insertOrReplace(uploadEntity)
@@ -359,6 +367,12 @@ class AutoUploadWorker(
                             "Exception during upload file, localPath: $localPath, remotePath: $remotePath," +
                                 " exception: $e"
                         )
+
+                        if (path.isEmpty() || !file.exists()) {
+                            Log_OC.w(TAG, "detected non-existing local file, removing entity")
+                            deleteNonExistingFile(path, id, upload)
+                            continue
+                        }
                     }
                 } catch (e: Exception) {
                     Log_OC.e(
@@ -366,12 +380,17 @@ class AutoUploadWorker(
                         "Exception uploadFiles during creating entity and upload, localPath: $localPath, " +
                             "remotePath: $remotePath, exception: $e"
                     )
+                } finally {
+                    // update last id so upload can continue where it left
+                    lastId = id
                 }
-
-                // update last id so upload can continue where it left
-                lastId = id
             }
         }
+    }
+
+    private suspend fun deleteNonExistingFile(path: String, id: Int, upload: OCUpload) {
+        repository.deleteByLocalPathAndId(path, id)
+        uploadsStorageManager.removeUpload(upload)
     }
 
     private fun createEntityAndUpload(user: User, localPath: String, remotePath: String): Pair<UploadEntity, OCUpload> {

@@ -39,16 +39,16 @@ dependencyResolutionManagement {
         maven("https://jitpack.io")
     }
 }
-//includeBuild("../android-common") {
+// includeBuild("../android-common") {
 //    dependencySubstitution {
-//        substitute module("com.github.nextcloud.android-common:ui") using project(":ui")
+//        substitute(module("com.github.nextcloud.android-common:ui")).using(project(":ui"))
 //    }
-//}
+// }
 
-//includeBuild("../android-library") {
+// includeBuild("../android-library") {
 //    dependencySubstitution {
-//        substitute module('com.github.nextcloud:android-library') using project(':library') // broken on gradle 8.14.2, so use 8.13 if needed
+//        substitute(module("com.github.nextcloud:android-library")).using(project(":library")) // broken on gradle 8.14.2, so use 8.13 if needed
 //    }
-//}
+// }
 
 include(":app", ":appscan")
