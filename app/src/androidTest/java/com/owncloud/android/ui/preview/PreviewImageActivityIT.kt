@@ -145,18 +145,11 @@ class PreviewImageActivityIT : AbstractOnServerIT() {
         Espresso.setFailureHandler(DefaultFailureHandler(targetContext))
     }
 
-    @Before
-    fun bringUp() {
-        IdlingRegistry.getInstance().register(fileRemovedIdlingResource)
-    }
-
-    @After
-    fun tearDown() {
-        IdlingRegistry.getInstance().unregister(fileRemovedIdlingResource)
-    }
-
-    private fun testDeleteFromSlideshow_impl(localOnly: Boolean, offline: Boolean) {
-        // Prepare local test data
+    private fun executeDeletionTestScenario(
+        localOnly: Boolean,
+        offline: Boolean,
+        fileListTransformation: (List<OCFile>) -> List<OCFile>
+    ) {
         val imageCount = 5
         val testFiles = if (localOnly) {
             createLocalMockedImageFiles(
@@ -165,9 +158,9 @@ class PreviewImageActivityIT : AbstractOnServerIT() {
         } else {
             createAndUploadImageFiles(imageCount)
         }
+        val expectedFileOrder = fileListTransformation(testFiles)
 
-        // Launch the activity with the first image
-        val intent = PreviewImageActivity.previewFileIntent(targetContext, user, testFiles[0])
+        val intent = PreviewImageActivity.previewFileIntent(targetContext, user, expectedFileOrder.first())
         launchActivity<PreviewImageActivity>(intent).use { scenario ->
             if (offline) {
                 scenario.onActivity { activity ->
@@ -176,7 +169,7 @@ class PreviewImageActivityIT : AbstractOnServerIT() {
             }
             onView(isRoot()).check(matches(isDisplayed()))
 
-            for (testFile in testFiles) {
+            for (testFile in expectedFileOrder) {
                 veryImageThenDelete(testFile)
                 assertTrue(
                     "Test file still exists on the server: ${testFile.remotePath}",
@@ -184,6 +177,27 @@ class PreviewImageActivityIT : AbstractOnServerIT() {
                 )
             }
         }
+    }
+
+    private fun testDeleteFromSlideshow_impl(localOnly: Boolean, offline: Boolean) {
+        // Case 1: start at first image
+        executeDeletionTestScenario(localOnly, offline) { list -> list }
+        // Case 2: start at last image (reversed)
+        executeDeletionTestScenario(localOnly, offline) { list -> list.reversed() }
+        // Case 3: Start in the middle. From middle to the end, then backwards through remaining files of the first half
+        executeDeletionTestScenario(localOnly, offline) { list ->
+            list.subList(list.size / 2, list.size) + list.subList(0, list.size / 2).reversed()
+        }
+    }
+
+    @Before
+    fun bringUp() {
+        IdlingRegistry.getInstance().register(fileRemovedIdlingResource)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(fileRemovedIdlingResource)
     }
 
     @Test
