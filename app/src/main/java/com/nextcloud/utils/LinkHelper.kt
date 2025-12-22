@@ -49,7 +49,7 @@ object LinkHelper {
         if (intent != null) {
             // app installed - open directly
             // TODO handle null user?
-            intent.putExtra(FileDisplayActivity.KEY_ACCOUNT, user.hashCode())
+            intent.putExtra(FileDisplayActivity.KEY_ACCOUNT, user)
             context.startActivity(intent)
         } else {
             // app not found - open market (Google Play Store, F-Droid, etc.)

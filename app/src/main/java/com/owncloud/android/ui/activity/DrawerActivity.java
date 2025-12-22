@@ -1241,7 +1241,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * restart helper method which is called after a changing the current account.
      */
-    private void restart() {
+    protected void restart() {
         Intent i = new Intent(this, FileDisplayActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.setAction(FileDisplayActivity.RESTART);
