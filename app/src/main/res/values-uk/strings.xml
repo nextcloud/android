@@ -257,7 +257,7 @@
     <string name="direct_login_failed">Відмовлено у авторизації за прямим посиланням!</string>
     <string name="direct_login_text">Увійти до %2$s з %1$s</string>
     <string name="disable_new_media_folder_detection_notifications">Вимкнути</string>
-    <string name="dismiss">Припинити</string>
+    <string name="dismiss">Сховати</string>
     <string name="dismiss_notification_description">Скасувати сповіщення</string>
     <string name="displays_mnemonic">Показати вашу парольну празу з 12 слів</string>
     <string name="dnd">Не турбувати</string>
