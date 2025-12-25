@@ -16,6 +16,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2
@@ -107,9 +108,7 @@ class PreviewImageActivity :
             updateActionBarTitleAndHomeButton(chosenFile)
             viewThemeUtils.files.setWhiteBackButton(this, it)
             it.setDisplayHomeAsUpEnabled(true)
-            it.setBackgroundDrawable(
-                ColorDrawable(ContextCompat.getColor(this, R.color.black))
-            )
+            it.setBackgroundDrawable(R.color.black.toDrawable())
         }
 
         fullScreenAnchorView = window.decorView
