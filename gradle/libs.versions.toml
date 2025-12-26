@@ -82,7 +82,7 @@ splash-screen = "1.2.0"
 spotbugsGradlePlugin = "6.4.8"
 spotless = "8.1.0"
 stateless4jVersion = "2.6.0"
-webkitVersion = "1.14.0"
+webkitVersion = "1.15.0"
 workRuntime = "2.11.0"
 foundationVersion = "1.10.0"
 

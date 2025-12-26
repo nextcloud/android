@@ -67,6 +67,7 @@
             <trusting group="androidx.swiperefreshlayout" name="swiperefreshlayout" version="1.2.0"/>
             <trusting group="androidx.transition"/>
             <trusting group="androidx.webkit" name="webkit" version="1.14.0"/>
+            <trusting group="androidx.webkit" name="webkit" version="1.15.0"/>
             <trusting group="androidx.window"/>
             <trusting group="androidx.work"/>
             <trusting group="com.google.android.gms"/>
