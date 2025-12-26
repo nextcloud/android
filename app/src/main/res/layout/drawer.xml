@@ -31,7 +31,7 @@
             android:orientation="vertical"
             android:background="@color/appbar"
             android:paddingLeft="@dimen/drawer_content_horizontal_padding"
-            android:paddingTop="@dimen/standard_half_padding"
+            android:paddingTop="@dimen/standard_padding"
             android:paddingRight="@dimen/drawer_content_horizontal_padding"
             android:paddingBottom="@dimen/standard_padding"
             android:visibility="gone"
