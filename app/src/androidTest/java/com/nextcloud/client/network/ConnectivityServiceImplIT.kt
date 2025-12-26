@@ -9,7 +9,6 @@ package com.nextcloud.client.network
 
 import android.accounts.AccountManager
 import android.content.Context
-import android.net.ConnectivityManager
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.network.ConnectivityServiceImpl.GetRequestBuilder
@@ -21,7 +20,6 @@ import org.junit.Test
 class ConnectivityServiceImplIT : AbstractOnServerIT() {
     @Test
     fun testInternetWalled() {
-        val connectivityManager = targetContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val accountManager = targetContext.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
         val userAccountManager = UserAccountManagerImpl(targetContext, accountManager)
         val clientFactory = ClientFactoryImpl(targetContext)
@@ -29,7 +27,7 @@ class ConnectivityServiceImplIT : AbstractOnServerIT() {
         val walledCheckCache = WalledCheckCache(ClockImpl())
 
         val sut = ConnectivityServiceImpl(
-            connectivityManager,
+            targetContext,
             userAccountManager,
             clientFactory,
             requestBuilder,
