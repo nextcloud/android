@@ -14,15 +14,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper
-import android.os.PowerManager
-import android.provider.Settings
 import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
-import androidx.core.net.toUri
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -36,10 +33,10 @@ import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.SubFolderRule
+import com.nextcloud.utils.BatteryOptimizationHelper
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.nextcloud.utils.extensions.setVisibleIf
-import com.owncloud.android.BuildConfig
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.StoragePermissionWarningBannerBinding
@@ -577,7 +574,7 @@ class SyncedFoldersActivity :
         }
         if (syncedFolderDisplayItem.isEnabled) {
             backgroundJobManager.startAutoUploadImmediately(syncedFolderDisplayItem, overridePowerSaving = false)
-            showBatteryOptimizationInfo()
+            showBatteryOptimizationDialogIfNeeded()
         }
     }
 
@@ -711,7 +708,7 @@ class SyncedFoldersActivity :
         }
         dialogFragment = null
         if (syncedFolder.isEnabled) {
-            showBatteryOptimizationInfo()
+            showBatteryOptimizationDialogIfNeeded()
         }
     }
 
@@ -835,44 +832,35 @@ class SyncedFoldersActivity :
         }
     }
 
-    private fun showBatteryOptimizationInfo() {
-        if (checkIfBatteryOptimizationEnabled()) {
-            val alertDialogBuilder = MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
-                .setTitle(getString(R.string.battery_optimization_title))
-                .setMessage(getString(R.string.battery_optimization_message))
-                .setPositiveButton(getString(R.string.battery_optimization_disable)) { _, _ ->
-                    // show instant upload
-                    @SuppressLint("BatteryLife")
-                    val intent = Intent(
-                        Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-                        ("package:" + BuildConfig.APPLICATION_ID).toUri()
-                    )
-                    if (intent.resolveActivity(packageManager) != null) {
-                        startActivity(intent)
-                    }
-                }
-                .setNeutralButton(getString(R.string.battery_optimization_close)) { dialog, _ -> dialog.dismiss() }
-                .setIcon(R.drawable.ic_battery_alert)
-            if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-                val alertDialog = alertDialogBuilder.show()
-                viewThemeUtils.platform.colorTextButtons(
-                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                    alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
-                )
-            }
+    private fun showBatteryOptimizationDialogIfNeeded() {
+        if (!BatteryOptimizationHelper.isBatteryOptimizationEnabled(this)) {
+            Log_OC.d(TAG, "battery optimization is disabled")
+            return
         }
+
+        showBatteryOptimizationDialog()
     }
 
-    /**
-     * Check if battery optimization is enabled. If unknown, fallback to true.
-     *
-     * @return true if battery optimization is enabled
-     */
-    private fun checkIfBatteryOptimizationEnabled(): Boolean {
-        val powerManager = getSystemService(POWER_SERVICE) as PowerManager?
-        return when {
-            powerManager != null -> !powerManager.isIgnoringBatteryOptimizations(BuildConfig.APPLICATION_ID)
-            else -> !appInfo.isDebugBuild
+    private fun showBatteryOptimizationDialog() {
+        if (!lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            Log_OC.w(TAG, "Activity not resumed, skipping battery dialog")
+            return
         }
+
+        val dialog = MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
+            .setTitle(R.string.battery_optimization_title)
+            .setMessage(R.string.battery_optimization_message)
+            .setPositiveButton(R.string.battery_optimization_disable) { _, _ ->
+                BatteryOptimizationHelper.openBatteryOptimizationSettings(this)
+            }
+            .setNeutralButton(R.string.battery_optimization_close, null)
+            .setIcon(R.drawable.ic_battery_alert)
+
+        val alertDialog = dialog.show()
+
+        viewThemeUtils.platform.colorTextButtons(
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
+        )
     }
 }
