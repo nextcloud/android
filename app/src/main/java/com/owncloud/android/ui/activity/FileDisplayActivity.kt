@@ -1910,9 +1910,8 @@ class FileDisplayActivity :
                 }
 
                 is FileUploadCompleted -> {
-                    state.currentFile?.let {
-                        ocFileListFragment?.adapter?.insertFile(it)
-                    }
+                    Log_OC.d(TAG, "one or more files are uploaded")
+                    listOfFilesFragment?.listDirectory(currentDir, MainApp.isOnlyOnDevice(), false)
                 }
 
                 is OfflineOperationsCompleted -> {
