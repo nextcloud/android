@@ -39,6 +39,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.OCShareExtensionsKt;
@@ -342,6 +343,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
 
         checkShareViaUser();
+
+        if (file.isFolder()) {
+            binding.sendCopyBtn.setVisibility(View.GONE);
+        }
+            binding.sendCopyBtn.setOnClickListener(v ->
+                                                       startActivity(Intent.createChooser(IntentUtil.createSendIntent(requireContext(), file), 
+                                                                                          requireContext().getString(R.string.activity_chooser_send_file_title)))
+                                                  );
     }
 
     private void checkShareViaUser() {
