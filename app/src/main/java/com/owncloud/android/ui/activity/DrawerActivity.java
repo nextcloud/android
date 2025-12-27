@@ -49,6 +49,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkConstants;
@@ -330,7 +331,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         mQuotaProgressBar = (LinearProgressIndicator) findQuotaViewById(R.id.drawer_quota_ProgressBar);
         mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
         mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
-        viewThemeUtils.material.colorProgressBar(mQuotaProgressBar);
+        viewThemeUtils.material.colorProgressBar(mQuotaProgressBar, ColorRole.PRIMARY);
+        mQuotaProgressBar.setTrackStopIndicatorSize(0);
+        viewThemeUtils.platform.colorViewBackground(mQuotaView);
     }
 
     public void updateHeader() {
@@ -860,10 +863,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         mQuotaProgressBar.setProgress(relative);
 
         if (relative < RELATIVE_THRESHOLD_WARNING) {
-            viewThemeUtils.material.colorProgressBar(mQuotaProgressBar);
+            viewThemeUtils.material.colorProgressBar(mQuotaProgressBar, ColorRole.PRIMARY);
         } else {
-            viewThemeUtils.material.colorProgressBar(mQuotaProgressBar,
-                                                     getResources().getColor(R.color.infolevel_warning, getTheme()));
+            viewThemeUtils.material.colorProgressBar(
+                mQuotaProgressBar,
+                getResources().getColor(R.color.infolevel_warning, null)
+                                                    );
         }
 
         updateQuotaLink();
