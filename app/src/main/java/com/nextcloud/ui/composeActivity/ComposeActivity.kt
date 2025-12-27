@@ -9,6 +9,7 @@ package com.nextcloud.ui.composeActivity
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,6 +26,8 @@ import com.nextcloud.client.assistant.repository.local.AssistantLocalRepositoryI
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositoryImpl
 import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.ui.ClientIntegrationScreen
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityComposeBinding
 import com.owncloud.android.ui.activity.DrawerActivity
@@ -35,7 +38,6 @@ class ComposeActivity : DrawerActivity() {
 
     companion object {
         const val DESTINATION = "DESTINATION"
-        const val TITLE = "TITLE"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,22 +45,34 @@ class ComposeActivity : DrawerActivity() {
         binding = ActivityComposeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val destinationId = intent.getIntExtra(DESTINATION, -1)
-        val titleId = intent.getIntExtra(TITLE, R.string.empty)
+        val destination =
+            intent.getParcelableArgument(DESTINATION, ComposeDestination::class.java) ?: throw IllegalArgumentException(
+                "destination is not exists"
+            )
 
-        setupDrawer()
-
-        setupToolbarShowOnlyMenuButtonAndTitle(getString(titleId)) {
-            openDrawer()
-        }
+        setupActivityUIFor(destination)
 
         binding.composeView.setContent {
             MaterialTheme(
                 colorScheme = viewThemeUtils.getColorScheme(this),
                 content = {
-                    Content(ComposeDestination.fromId(destinationId))
+                    Content(destination)
                 }
             )
+        }
+    }
+
+    private fun setupActivityUIFor(destination: ComposeDestination) {
+        if (destination is ComposeDestination.AssistantScreen) {
+            setupDrawer()
+            setupToolbarShowOnlyMenuButtonAndTitle(destination.title) {
+                openDrawer()
+            }
+        } else {
+            setSupportActionBar(null)
+            findViewById<View?>(R.id.appbar)?.let {
+                it.visibility = View.GONE
+            }
         }
     }
 
@@ -104,6 +118,13 @@ class ComposeActivity : DrawerActivity() {
                     capability = capabilities
                 )
             }
+
+            is ComposeDestination.ClientIntegrationScreen -> {
+                binding.bottomNavigation.visibility = View.GONE
+                val integrationScreen = (currentScreen as ComposeDestination.ClientIntegrationScreen)
+                ClientIntegrationScreen(integrationScreen.data, nextcloudClient?.baseUri.toString())
+            }
+
             else -> Unit
         }
     }
