@@ -45,6 +45,8 @@
     <string name="appbar_search_in">Hledat v %s</string>
     <string name="appear_offline">Jevit se offline</string>
     <string name="assistant_output_generation_warning_text">Zde zobrazený výstup je vytvořen AI. Vždy si informace ověřujte.</string>
+    <string name="assistant_screen_chat_create_error">Nepodařilo se odeslat zprávu</string>
+    <string name="assistant_screen_chat_fetch_error">Nepodařilo se získat zprávy chatu</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Opravdu chcete tuto úlohu smazat?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Smazat úkol</string>
     <string name="assistant_screen_empty_content_description">Zkuste poslat zprávu pro rozproudění konverzace.</string>
@@ -391,6 +393,7 @@
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Nemáte oprávnění pro vytváření nebo nahrávání souborů v této složce.</string>
     <string name="external_shares">Externí sdílení</string>
     <string name="fab_label">Přidat nebo nahrát</string>
+    <string name="failed_to_create_conflict_dialog">Nepodařilo se vytvořit dialog o konfliktu</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
     <string name="failed_to_start_editor">Editor se nepodařilo spustit</string>
@@ -695,6 +698,7 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Přejmenovat novou verzi</string>
     <string name="pref_instant_name_collision_policy_title">Co udělat pokud soubor už existuje?</string>
     <string name="prefs_add_account">Přidat účet</string>
+    <string name="prefs_all_files_access_summary">Umižnit aplikaci přistupovat k a spravovat veškeré soubory na vašem zařízení</string>
     <string name="prefs_all_files_access_title">Přístup ke všem souborům</string>
     <string name="prefs_calendar_contacts">Synchronizovat kalendář a kontakty</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ani Google Play není nainstalováno</string>
