@@ -1,6 +1,7 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2025 Philipp Hasper <vcs@hasper.info>
   ~ SPDX-FileCopyrightText: 2020-2023 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-FileCopyrightText: 2018 Nextcloud GmbH
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -45,6 +46,28 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/list_divider_background" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_default"
+        android:hint="@string/hint_name"
+        android:paddingStart="@dimen/standard_half_margin"
+        android:paddingEnd="@dimen/standard_half_margin">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="top"
+            android:importantForAutofill="no"
+            android:inputType="textNoSuggestions|textCapSentences"
+            android:scrollbars="vertical"
+            android:nextFocusForward="@id/uploader_choose_folder"
+            android:nextFocusDown="@id/uploader_choose_folder"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
