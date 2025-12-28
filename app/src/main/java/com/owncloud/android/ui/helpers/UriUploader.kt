@@ -13,6 +13,7 @@ package com.owncloud.android.ui.helpers
 import android.content.ContentResolver
 import android.net.Uri
 import android.os.Parcelable
+import androidx.core.util.Function
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.owncloud.android.R
@@ -42,14 +43,16 @@ import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
     "Detekt.SpreadOperator",
     "Detekt.TooGenericExceptionCaught"
 ) // legacy code
-class UriUploader(
+class UriUploader @JvmOverloads constructor(
     private val mActivity: FileActivity,
     private val mUrisToUpload: List<Parcelable?>,
     private val mUploadPath: String,
     private val user: User,
     private val mBehaviour: Int,
     private val mShowWaitingDialog: Boolean,
-    private val mCopyTmpTaskListener: OnCopyTmpFilesTaskListener?
+    private val mCopyTmpTaskListener: OnCopyTmpFilesTaskListener?,
+    /** If non-null, this function is called to determine the desired display name (i.e. filename) after upload**/
+    private val mFileDisplayNameTransformer: Function<Uri, String?>? = null
 ) {
 
     enum class UriUploaderResultCode {
@@ -113,7 +116,8 @@ class UriUploader(
     }
 
     private fun getRemotePathForUri(sourceUri: Uri): String {
-        val displayName = getDisplayNameForUri(sourceUri, mActivity)
+        val displayName = mFileDisplayNameTransformer?.apply(sourceUri)
+            ?: getDisplayNameForUri(sourceUri, mActivity)
         require(displayName != null) { "Display name cannot be null" }
         return mUploadPath + displayName
     }
