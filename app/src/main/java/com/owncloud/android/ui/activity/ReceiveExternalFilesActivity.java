@@ -857,11 +857,26 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (fileName == null) {
             return;
         }
-        mFileDisplayNameTransformer = uri ->
-            Objects.requireNonNullElse(binding.userInput.getText(), fileName).toString();
 
         binding.userInput.setVisibility(View.VISIBLE);
         binding.userInput.setText(fileName);
+        mFileDisplayNameTransformer = uri ->
+            Objects.requireNonNullElse(binding.userInput.getText(), fileName).toString();
+
+        // When entering the text field, pre-select the name (without extension if present), for convenient editing
+        binding.userInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                final String currentText = Objects.requireNonNullElse(binding.userInput.getText(), "").toString();
+                binding.userInput.post(() -> {
+                    if (currentText.lastIndexOf('.') != -1) {
+                        binding.userInput.setSelection(0, currentText.lastIndexOf('.'));
+                    } else {
+                        // No file extension - select all
+                        binding.userInput.selectAll();
+                    }
+                });
+            }
+        });
     }
 
     @Override
