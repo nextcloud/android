@@ -36,6 +36,9 @@ class OCFileListAdapterHelper {
         userId: String,
         onComplete: (List<OCFile>, FileSortOrder) -> Unit
     ) {
+        // cancel previous job to not have two jobs running
+        job?.cancel()
+
         job = scope.launch {
             val (sortedList, sortOrder) = prepareFileList(
                 directory,
