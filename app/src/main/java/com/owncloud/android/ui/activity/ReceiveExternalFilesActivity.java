@@ -908,9 +908,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (fileName == null) {
             return;
         }
+        final String userProvidedFileName = Objects.requireNonNullElse(binding.userInput.getText(), "").toString();
 
         binding.userInput.setVisibility(View.VISIBLE);
-        binding.userInput.setText(fileName);
+        binding.userInput.setText(userProvidedFileName.isEmpty() ? fileName : userProvidedFileName);
         binding.userInput.addTextChangedListener(this);
         mFileDisplayNameTransformer = uri ->
             Objects.requireNonNullElse(binding.userInput.getText(), fileName).toString();

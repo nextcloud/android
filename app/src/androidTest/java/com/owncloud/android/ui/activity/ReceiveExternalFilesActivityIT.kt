@@ -164,6 +164,44 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
             onView(withText(R.string.uploader_btn_upload_text))
                 .check(matches(isDisplayed()))
                 .check(matches(isEnabled()))
+
+            // Enter the subfolder and verify that the text stays intact
+            val expectedSubFolderTitle = (getCurrentActivity() as ToolbarActivity).getActionBarTitle(subFolder, false)
+            onView(withText(expectedSubFolderTitle))
+                .perform(ViewActions.click())
+            onView(withId(R.id.toolbar))
+                .check(matches(hasDescendant(withText(expectedSubFolderTitle))))
+            onView(withId(R.id.user_input))
+                .check(matches(withText(fourthFileName)))
+                .perform(ViewActions.click())
+                .check(matches(withSelectedText(fourthFileName.removeFileExtension())))
+
+            // Set a new, shorter file name
+            val fifthFileName = "short.jpg"
+            onView(withId(R.id.user_input))
+                .perform(ViewActions.typeTextIntoFocusedView(fifthFileName.removeFileExtension()))
+                .check(matches(withText(fifthFileName)))
+
+            // Start the upload, so the folder is stored in the preferences.
+            // Even though the upload is expected to fail because the backend is not mocked (yet?)
+            onView(withText(R.string.uploader_btn_upload_text))
+                .check(matches(isDisplayed()))
+                .check(matches(isEnabled()))
+                .perform(ViewActions.click())
+        }
+
+        // Start a new file receive flow. Should now start in the sub folder, but with the original filename again
+        launchActivity<ReceiveExternalFilesActivity>(intent).use {
+            val expectedMainFolderTitle = (getCurrentActivity() as ToolbarActivity).getActionBarTitle(subFolder, false)
+            onView(withId(R.id.toolbar))
+                .check(matches(hasDescendant(withText(expectedMainFolderTitle))))
+
+            onView(withText(R.string.uploader_btn_upload_text))
+                .check(matches(isDisplayed()))
+                .check(matches(isEnabled()))
+
+            onView(withId(R.id.user_input))
+                .check(matches(withText(imageFile.name)))
         }
     }
 }
