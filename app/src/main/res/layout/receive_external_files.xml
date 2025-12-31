@@ -48,6 +48,7 @@
         android:background="@color/list_divider_background" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/user_input_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_default"
