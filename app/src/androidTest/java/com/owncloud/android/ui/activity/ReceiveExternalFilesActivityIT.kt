@@ -31,6 +31,7 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.ScreenshotTest
+import org.hamcrest.Matchers.not
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
@@ -75,7 +76,7 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
         val imageFile = getDummyFile("image.jpg")
         val intent = createSendIntent(imageFile)
 
-        // Create folders with the necessary permissions
+        // Create folders with the necessary permissions and another test file
         val mainFolder = OCFile("/folder/").apply {
             permissions = OCFile.PERMISSION_CAN_CREATE_FILE_AND_FOLDER
             setFolder()
@@ -84,6 +85,9 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
         val subFolder = OCFile("${mainFolder.remotePath}sub folder/").apply {
             permissions = OCFile.PERMISSION_CAN_CREATE_FILE_AND_FOLDER
             setFolder()
+            fileDataStorageManager.saveNewFile(this)
+        }
+        val otherFile = OCFile("${mainFolder.remotePath}Other Image File.jpg").apply {
             fileDataStorageManager.saveNewFile(this)
         }
 
@@ -117,6 +121,9 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
                 .perform(ViewActions.pressKey(KeyEvent.KEYCODE_TAB))
                 .perform(ViewActions.click())
                 .check(matches(withSelectedText(secondFileName.removeFileExtension())))
+            onView(withText(R.string.uploader_btn_upload_text))
+                .check(matches(isDisplayed()))
+                .check(matches(isEnabled()))
 
             // Set a file name without file extension
             val thirdFileName = "No extension"
@@ -128,6 +135,35 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
                 .perform(ViewActions.pressKey(KeyEvent.KEYCODE_TAB))
                 .perform(ViewActions.click())
                 .check(matches(withSelectedText(thirdFileName)))
+            onView(withText(R.string.uploader_btn_upload_text))
+                .check(matches(isDisplayed()))
+                .check(matches(isEnabled()))
+
+            // Test an invalid filename. Note: as the user is null, the capabilities are also null, so the name checker
+            // will not reject any special characters like '/'. So we only test empty and an existing file name
+            onView(withId(R.id.user_input))
+                .perform(ViewActions.clearText())
+                .check(matches(withText("")))
+            onView(withText(R.string.uploader_btn_upload_text))
+                .check(matches(isDisplayed()))
+                .check(matches(not(isEnabled())))
+            onView(withId(R.id.user_input))
+                .perform(ViewActions.click())
+                .perform(ViewActions.typeTextIntoFocusedView(otherFile.fileName))
+                .check(matches(withText(otherFile.fileName)))
+            onView(withText(R.string.uploader_btn_upload_text))
+                .check(matches(isDisplayed()))
+                .check(matches(not(isEnabled())))
+
+            val fourthFileName = "New file name.jpg"
+            onView(withId(R.id.user_input))
+                .perform(ViewActions.click())
+                .perform(ViewActions.clearText())
+                .perform(ViewActions.typeTextIntoFocusedView(fourthFileName))
+                .check(matches(withText(fourthFileName)))
+            onView(withText(R.string.uploader_btn_upload_text))
+                .check(matches(isDisplayed()))
+                .check(matches(isEnabled()))
         }
     }
 }
