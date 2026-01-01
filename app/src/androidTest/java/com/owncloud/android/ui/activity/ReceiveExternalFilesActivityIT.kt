@@ -32,6 +32,7 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.ScreenshotTest
 import org.hamcrest.Matchers.not
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
@@ -41,6 +42,28 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
 
     @get:Rule
     var storagePermissionRule: TestRule = GrantStoragePermissionRule.grant()
+
+    lateinit var mainFolder: OCFile
+    lateinit var subFolder: OCFile
+    lateinit var existingImageFile: OCFile
+
+    @Before
+    fun setupFolderAndFileStructure() {
+        // Create folders with the necessary permissions and another test file
+        mainFolder = OCFile("/folder/").apply {
+            permissions = OCFile.PERMISSION_CAN_CREATE_FILE_AND_FOLDER
+            setFolder()
+            fileDataStorageManager.saveNewFile(this)
+        }
+        subFolder = OCFile("${mainFolder.remotePath}sub folder/").apply {
+            permissions = OCFile.PERMISSION_CAN_CREATE_FILE_AND_FOLDER
+            setFolder()
+            fileDataStorageManager.saveNewFile(this)
+        }
+        existingImageFile = OCFile("${mainFolder.remotePath}Existing Image File.jpg").apply {
+            fileDataStorageManager.saveNewFile(this)
+        }
+    }
 
     @Test
     @ScreenshotTest
@@ -64,32 +87,23 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
         removeAccount(secondAccount)
     }
 
-
     fun createSendIntent(file: File): Intent = Intent(targetContext, ReceiveExternalFilesActivity::class.java).apply {
         action = Intent.ACTION_SEND
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file))
     }
 
+    fun createSendIntent(files: Iterable<File>): Intent =
+        Intent(targetContext, ReceiveExternalFilesActivity::class.java).apply {
+            action = Intent.ACTION_SEND_MULTIPLE
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(files.map { Uri.fromFile(it) }))
+        }
+
     @Test
     fun renameSingleFileUpload() {
         val imageFile = getDummyFile("image.jpg")
         val intent = createSendIntent(imageFile)
-
-        // Create folders with the necessary permissions and another test file
-        val mainFolder = OCFile("/folder/").apply {
-            permissions = OCFile.PERMISSION_CAN_CREATE_FILE_AND_FOLDER
-            setFolder()
-            fileDataStorageManager.saveNewFile(this)
-        }
-        val subFolder = OCFile("${mainFolder.remotePath}sub folder/").apply {
-            permissions = OCFile.PERMISSION_CAN_CREATE_FILE_AND_FOLDER
-            setFolder()
-            fileDataStorageManager.saveNewFile(this)
-        }
-        val otherFile = OCFile("${mainFolder.remotePath}Other Image File.jpg").apply {
-            fileDataStorageManager.saveNewFile(this)
-        }
 
         // Store the folder in preferences, so the activity starts from there.
         @Suppress("DEPRECATION")
@@ -149,8 +163,8 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
                 .check(matches(not(isEnabled())))
             onView(withId(R.id.user_input))
                 .perform(ViewActions.click())
-                .perform(ViewActions.typeTextIntoFocusedView(otherFile.fileName))
-                .check(matches(withText(otherFile.fileName)))
+                .perform(ViewActions.typeTextIntoFocusedView(existingImageFile.fileName))
+                .check(matches(withText(existingImageFile.fileName)))
             onView(withText(R.string.uploader_btn_upload_text))
                 .check(matches(isDisplayed()))
                 .check(matches(not(isEnabled())))
@@ -202,6 +216,31 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
 
             onView(withId(R.id.user_input))
                 .check(matches(withText(imageFile.name)))
+        }
+    }
+
+    @Test
+    fun noRenameForMultiUpload() {
+        val testFiles = createDummyFiles()
+        val intent = createSendIntent(testFiles)
+
+        // Store the folder in preferences, so the activity starts from there.
+        @Suppress("DEPRECATION")
+        val preferences = AppPreferencesImpl.fromContext(targetContext)
+        preferences.setLastUploadPath(mainFolder.remotePath)
+
+        launchActivity<ReceiveExternalFilesActivity>(intent).use {
+            val expectedMainFolderTitle = (getCurrentActivity() as ToolbarActivity).getActionBarTitle(mainFolder, false)
+            // Verify that the test starts in the expected folder. If this fails, change the setup calls above
+            onView(withId(R.id.toolbar))
+                .check(matches(hasDescendant(withText(expectedMainFolderTitle))))
+
+            onView(withText(R.string.uploader_btn_upload_text))
+                .check(matches(isDisplayed()))
+                .check(matches(isEnabled()))
+
+            onView(withId(R.id.user_input))
+                .check(matches(not(isDisplayed())))
         }
     }
 }
