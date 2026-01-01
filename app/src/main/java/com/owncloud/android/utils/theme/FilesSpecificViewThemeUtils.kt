@@ -1,8 +1,8 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2022-2026 Nextcloud GmbH and Nextcloud contributors
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
- * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.utils.theme
@@ -70,6 +70,7 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                 null
             )
             avatar.cropToPadding = true
+            avatar.scaleType = ImageView.ScaleType.CENTER_INSIDE
             avatar.setPadding(padding, padding, padding, padding)
         }
 
@@ -83,7 +84,7 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
             }
             ShareType.ROOM -> {
-                createAvatarBase(R.drawable.first_run_talk, AvatarPadding.LARGE)
+                createAvatarBase(R.drawable.ic_talk, AvatarPadding.LARGE)
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
             }
             ShareType.CIRCLE -> {
