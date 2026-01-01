@@ -231,8 +231,11 @@ Source code of app:
 
 
 #### UI tests
-We use [shot](https://github.com/Karumi/Shot) for taking screenshots and compare them 
-- check screenshots: ```./gradlew genericDebugExecuteScreenshotTests ```
+We use [shot](https://github.com/Karumi/Shot) for taking screenshots and compare them.
+To exclude the shot dependency from normal builds, the dependency needs to be activated via an environment variable `SHOT_TEST`.
+For convenience, this and other prerequisites are encapsulated in utility scripts, so it is advised to use them
+- check screenshots: ```scripts/androidScreenshotTest ```
+    - check the script for a detailed documentation of the parameters
 - update/generate new screenshots: ```scripts/updateScreenshots.sh ``` 
     - in this script are samples how to only execute a given class/test
     - this will fire up docker & emulator to ensure that screenshots look the same
