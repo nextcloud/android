@@ -92,6 +92,20 @@ while read line ; do
 done < <(adb devices | cut -f1)
 
 if [ "$emulatorIsRunning" == false ] ; then
+    if [ -z "$(command -v emulator || true)" ]; then
+        echo "emulator not found in PATH; typically located in Android/sdk/emulator" >&2
+        exit 1
+    fi
+    if [ -z "$(command -v avdmanager || true)" ]; then
+        echo "avdmanager not found in PATH; typically located in Android/sdk/cmdline-tools/latest/bin" >&2
+        exit 1
+    fi
+    # If emulator of expected name doesn't exist, create it
+    # TODO - this was copied from updateScreenshots.sh - move it to a common helper script
+    if [[ $(emulator -list-avds | grep uiComparison -c) -eq 0 ]]; then
+        (sleep 5; echo "no") | avdmanager create avd -n uiComparison -c 100M -k "system-images;android-28;google_apis;x86" --abi "google_apis/x86"
+    fi
+
     "$(command -v emulator)" -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
     sleep 20
 fi
