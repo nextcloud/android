@@ -62,12 +62,14 @@ public class PropFindSaxHandler extends DefaultHandler {
     // String constants for logging
     private static final String LOG_EQUALS_QUOTE = " = '";
     
-    // Maximum size for StringBuilder to prevent memory leaks
-    private static final int MAX_STRING_BUILDER_SIZE = 1024 * 1024; // 1MB
+    // Initial capacity optimized for typical XML element sizes (paths, dates, IDs)
+    // StringBuilder is cleared after each XML element, preventing memory leaks
+    private static final int INITIAL_STRING_BUILDER_CAPACITY = 512;
 
     private final List<Object> files = new ArrayList<>();
     private RemoteFile currentFile;
-    private final StringBuilder currentText = new StringBuilder();
+    // StringBuilder is cleared after each XML element in endElement(), preventing memory accumulation
+    private final StringBuilder currentText = new StringBuilder(INITIAL_STRING_BUILDER_CAPACITY);
     private boolean inResponse = false;
     private boolean inProp = false;
     private boolean inPropstat = false;
@@ -84,7 +86,8 @@ public class PropFindSaxHandler extends DefaultHandler {
 
     // Lock information
     private boolean inLock = false;
-    private StringBuilder lockText = new StringBuilder();
+    // StringBuilder is cleared after each lock element is processed, preventing memory accumulation
+    private StringBuilder lockText = new StringBuilder(INITIAL_STRING_BUILDER_CAPACITY);
 
     public PropFindSaxHandler() {
         this(null);
@@ -96,7 +99,7 @@ public class PropFindSaxHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        currentText.setLength(0);
+        clearStringBuilder(currentText);
 
         if (NS_DAV.equals(uri) && ELEMENT_RESPONSE.equals(localName)) {
             inResponse = true;
@@ -120,20 +123,30 @@ public class PropFindSaxHandler extends DefaultHandler {
             isCollection = true;
         } else if ((NS_OC.equals(uri) || NS_NC.equals(uri)) && ELEMENT_LOCK.equals(localName)) {
             inLock = true;
-            lockText.setLength(0);
+            clearStringBuilder(lockText);
         }
     }
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         if (inLock) {
-            if (lockText.length() < MAX_STRING_BUILDER_SIZE) {
-                lockText.append(ch, start, length);
-            }
+            lockText.append(ch, start, length);
         } else {
-            if (currentText.length() < MAX_STRING_BUILDER_SIZE) {
-                currentText.append(ch, start, length);
-            }
+            currentText.append(ch, start, length);
+        }
+    }
+    
+    /**
+     * Clear StringBuilder and trim capacity periodically to prevent memory leaks.
+     * StringBuilder is cleared after each XML element, so it doesn't accumulate data
+     * between elements. Periodic trimming prevents capacity from growing indefinitely.
+     */
+    private void clearStringBuilder(StringBuilder sb) {
+        sb.setLength(0);
+        // Trim capacity periodically to prevent memory leaks
+        // This is safe because StringBuilder is cleared after each XML element
+        if (sb.capacity() > INITIAL_STRING_BUILDER_CAPACITY * 4) {
+            sb.trimToSize();
         }
     }
 
@@ -245,7 +258,7 @@ public class PropFindSaxHandler extends DefaultHandler {
                 parseLockInfo(lockText.toString());
             }
             inLock = false;
-            lockText.setLength(0);
+            clearStringBuilder(lockText);
         } else if (inProp && currentFile != null && inPropstat) {
             if (!propstatStatusOk) {
                 Log_OC.w(TAG, "Processing properties for propstat with non-OK status: " + uri + ":" + localName + LOG_EQUALS_QUOTE + text + "'");
@@ -274,15 +287,15 @@ public class PropFindSaxHandler extends DefaultHandler {
                         // This appears to be a file
                         String currentMimeType = currentFile.getMimeType();
                         // Only set if MimeType is not already set to DIRECTORY or WEBDAV_FOLDER
-                        if (currentMimeType == null ||
+                        // and text is not null/empty
+                        if ((currentMimeType == null ||
                             (!MimeType.DIRECTORY.equals(currentMimeType) &&
-                                !MimeType.WEBDAV_FOLDER.equals(currentMimeType))) {
+                                !MimeType.WEBDAV_FOLDER.equals(currentMimeType))) &&
+                            text != null && !text.isEmpty()) {
                             // This is a file, set its MimeType
-                            if (text != null && !text.isEmpty()) {
-                                currentFile.setMimeType(text);
-                                if (!resourceTypeDetermined) {
-                                    resourceTypeDetermined = true; // We now know this is a file
-                                }
+                            currentFile.setMimeType(text);
+                            if (!resourceTypeDetermined) {
+                                resourceTypeDetermined = true; // We now know this is a file
                             }
                         }
                     }
@@ -386,7 +399,7 @@ public class PropFindSaxHandler extends DefaultHandler {
             }
         }
 
-        currentText.setLength(0);
+        clearStringBuilder(currentText);
     }
 
     /**
