@@ -59,12 +59,8 @@ public class PropFindSaxHandler extends DefaultHandler {
     private static final String ELEMENT_COMMENTS_UNREAD = "comments-unread";
     private static final String ELEMENT_STATUS = "status";
 
-    // Debug constants
-    private static final boolean DEBUG_XML = true;
-    
     // String constants for logging
     private static final String LOG_EQUALS_QUOTE = " = '";
-    private static final String UNKNOWN_PATH = "unknown";
     
     // Maximum size for StringBuilder to prevent memory leaks
     private static final int MAX_STRING_BUILDER_SIZE = 1024 * 1024; // 1MB
@@ -144,19 +140,6 @@ public class PropFindSaxHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         String text = currentText.toString().trim();
-
-        // Debug: Always log OC/NC elements
-        if (NS_OC.equals(uri) || NS_NC.equals(uri)) {
-        }
-
-        // Debug: Log all DAV elements that might contain size/preview info
-        if (NS_DAV.equals(uri) && (
-            "quota-used-bytes".equals(localName) ||
-            "quota-available-bytes".equals(localName) ||
-            "getcontentlength".equals(localName) ||
-            "getcontenttype".equals(localName)
-        )) {
-        }
 
         if (NS_DAV.equals(uri) && ELEMENT_RESPONSE.equals(localName)) {
             if (currentFile != null && currentHref != null) {
@@ -264,12 +247,8 @@ public class PropFindSaxHandler extends DefaultHandler {
             inLock = false;
             lockText.setLength(0);
         } else if (inProp && currentFile != null && inPropstat) {
-            // Process all properties regardless of status for debugging
             if (!propstatStatusOk) {
                 Log_OC.w(TAG, "Processing properties for propstat with non-OK status: " + uri + ":" + localName + LOG_EQUALS_QUOTE + text + "'");
-            }
-            if (DEBUG_XML && (NS_OC.equals(uri) || NS_NC.equals(uri))) {
-                Log_OC.d(TAG, "FOUND OC/NC ELEMENT in prop: " + uri + ":" + localName + LOG_EQUALS_QUOTE + text + "' (inProp=" + inProp + ", currentFile=" + (currentFile != null) + ", inPropstat=" + inPropstat + ")");
             }
             // Parse DAV properties
             if (NS_DAV.equals(uri) && ELEMENT_GETLASTMODIFIED.equals(localName)) {
@@ -289,10 +268,8 @@ public class PropFindSaxHandler extends DefaultHandler {
                         currentFile.setMimeType(MimeType.DIRECTORY);
                         currentResourceIsCollection = true;
                         resourceTypeDetermined = true;
-                        Log_OC.d(TAG, "Detected folder from getcontenttype 'httpd/unix-directory' for: " + currentFile.getRemotePath());
                     } else if (currentResourceIsCollection) {
                         // Already determined this is a collection from resourcetype, keep DIRECTORY
-                        Log_OC.d(TAG, "Skipping getcontenttype '" + text + "' for already identified folder: " + currentFile.getRemotePath());
                     } else {
                         // This appears to be a file
                         String currentMimeType = currentFile.getMimeType();
@@ -306,39 +283,26 @@ public class PropFindSaxHandler extends DefaultHandler {
                                 if (!resourceTypeDetermined) {
                                     resourceTypeDetermined = true; // We now know this is a file
                                 }
-                            } else {
-                                // No content type specified or empty, will set default at end
-                                Log_OC.d(TAG, "Empty getcontenttype for file, will use default later");
                             }
                         }
                     }
             }
             // Parse ownCloud/Nextcloud properties
-            if (NS_OC.equals(uri) || NS_NC.equals(uri)) {
-                Log_OC.d(TAG, "Processing OC/NC element: " + uri + ":" + localName + LOG_EQUALS_QUOTE + text + "'");
-            }
             // Handle various possible id element names - try all possible variations
             // Nextcloud 31 might use different element names
             if ((NS_OC.equals(uri) || NS_NC.equals(uri)) &&
                 ("id".equals(localName) || "fileid".equals(localName) || "file-id".equals(localName) ||
                     "fileId".equals(localName) || "resource-id".equals(localName) || "file_id".equals(localName) ||
                     "nc:id".equals(localName) || "oc:id".equals(localName))) {
-                Log_OC.d(TAG, "Processing id element: " + uri + ":" + localName + LOG_EQUALS_QUOTE + text + "' for file: " + (currentFile != null && currentFile.getRemotePath() != null ? currentFile.getRemotePath() : UNKNOWN_PATH));
                 if (text != null && !text.isEmpty() && !"null".equals(text)) {
                     // Only set if not already set or if this is a more specific id
                     String currentRemoteId = currentFile.getRemoteId();
                     if (currentRemoteId == null || currentRemoteId.isEmpty() || currentRemoteId.startsWith("/")) {
                         currentFile.setRemoteId(text);
-                        Log_OC.d(TAG, "Set remoteId from " + uri + ":" + localName + ": " + text);
-                    } else {
-                        Log_OC.d(TAG, "remoteId already set to: " + currentRemoteId + ", skipping " + uri + ":" + localName);
                     }
-                } else {
-                    Log_OC.d(TAG, localName + " element found but text is empty, null, or 'null': '" + text + "'");
                 }
             } else if ((NS_OC.equals(uri) || NS_NC.equals(uri)) && "fileid".equals(localName)) {
                 // Additional check for fileid element
-                Log_OC.d(TAG, "Found fileid element: " + uri + ":fileid" + LOG_EQUALS_QUOTE + text + "' for file: " + (currentFile != null && currentFile.getRemotePath() != null ? currentFile.getRemotePath() : UNKNOWN_PATH));
                 if (text != null && !text.isEmpty() && !"null".equals(text)) {
                     try {
                         long fileIdLong = Long.parseLong(text);
@@ -348,16 +312,12 @@ public class PropFindSaxHandler extends DefaultHandler {
                         if (currentRemoteId == null || currentRemoteId.isEmpty() || currentRemoteId.startsWith("/")) {
                             String fileIdStr = String.valueOf(fileIdLong);
                             currentFile.setRemoteId(fileIdStr);
-                            Log_OC.d(TAG, "Set remoteId from fileid fallback: " + fileIdStr + " for file: " + (currentFile.getRemotePath() != null ? currentFile.getRemotePath() : UNKNOWN_PATH));
-                        } else {
-                            Log_OC.d(TAG, "remoteId already set, skipping fileid fallback for: " + currentRemoteId);
                         }
                     } catch (NumberFormatException e) {
                         Log_OC.w(TAG, "Failed to parse fileid: '" + text + "'");
                     }
                 }
             } else if ((NS_OC.equals(uri) || NS_NC.equals(uri)) && ELEMENT_FILEID.equals(localName)) {
-                Log_OC.d(TAG, "Processing " + uri + ":fileid element with text: '" + text + "'");
                 try {
                     long fileIdLong = Long.parseLong(text);
                     currentFile.setLocalId(fileIdLong);
@@ -366,9 +326,6 @@ public class PropFindSaxHandler extends DefaultHandler {
                     if (currentRemoteId == null || currentRemoteId.isEmpty() || currentRemoteId.startsWith("/")) {
                         String fileIdStr = String.valueOf(fileIdLong);
                         currentFile.setRemoteId(fileIdStr);
-                        Log_OC.d(TAG, "Set remoteId from " + uri + ":fileid (fallback): " + fileIdStr + " for file: " + (currentFile.getRemotePath() != null ? currentFile.getRemotePath() : UNKNOWN_PATH));
-                    } else {
-                        Log_OC.d(TAG, "remoteId already set, skipping fileid fallback for: " + currentRemoteId);
                     }
                 } catch (NumberFormatException e) {
                     Log_OC.w(TAG, "Failed to parse " + uri + ":fileid: '" + text + "'");
