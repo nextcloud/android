@@ -61,6 +61,13 @@ public class PropFindSaxHandler extends DefaultHandler {
 
     // Debug constants
     private static final boolean DEBUG_XML = true;
+    
+    // String constants for logging
+    private static final String LOG_EQUALS_QUOTE = " = '";
+    private static final String UNKNOWN_PATH = "unknown";
+    
+    // Maximum size for StringBuilder to prevent memory leaks
+    private static final int MAX_STRING_BUILDER_SIZE = 1024 * 1024; // 1MB
 
     private final List<Object> files = new ArrayList<>();
     private RemoteFile currentFile;
@@ -124,9 +131,13 @@ public class PropFindSaxHandler extends DefaultHandler {
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         if (inLock) {
-            lockText.append(ch, start, length);
+            if (lockText.length() < MAX_STRING_BUILDER_SIZE) {
+                lockText.append(ch, start, length);
+            }
         } else {
-            currentText.append(ch, start, length);
+            if (currentText.length() < MAX_STRING_BUILDER_SIZE) {
+                currentText.append(ch, start, length);
+            }
         }
     }
 
@@ -255,10 +266,10 @@ public class PropFindSaxHandler extends DefaultHandler {
         } else if (inProp && currentFile != null && inPropstat) {
             // Process all properties regardless of status for debugging
             if (!propstatStatusOk) {
-                Log_OC.w(TAG, "Processing properties for propstat with non-OK status: " + uri + ":" + localName + " = '" + text + "'");
+                Log_OC.w(TAG, "Processing properties for propstat with non-OK status: " + uri + ":" + localName + LOG_EQUALS_QUOTE + text + "'");
             }
             if (DEBUG_XML && (NS_OC.equals(uri) || NS_NC.equals(uri))) {
-                Log_OC.d(TAG, "FOUND OC/NC ELEMENT in prop: " + uri + ":" + localName + " = '" + text + "' (inProp=" + inProp + ", currentFile=" + (currentFile != null) + ", inPropstat=" + inPropstat + ")");
+                Log_OC.d(TAG, "FOUND OC/NC ELEMENT in prop: " + uri + ":" + localName + LOG_EQUALS_QUOTE + text + "' (inProp=" + inProp + ", currentFile=" + (currentFile != null) + ", inPropstat=" + inPropstat + ")");
             }
             // Parse DAV properties
             if (NS_DAV.equals(uri) && ELEMENT_GETLASTMODIFIED.equals(localName)) {
@@ -271,11 +282,10 @@ public class PropFindSaxHandler extends DefaultHandler {
                 } catch (NumberFormatException e) {
                     // Ignore invalid content length
                 }
-            } else if (NS_DAV.equals(uri) && ELEMENT_GETCONTENTTYPE.equals(localName)) {
+            } else if (NS_DAV.equals(uri) && ELEMENT_GETCONTENTTYPE.equals(localName) && currentFile != null) {
                 // Handle getcontenttype - this can help determine file type
-                if (currentFile != null) {
-                    // Special case: if getcontenttype is "httpd/unix-directory", this is definitely a folder
-                    if ("httpd/unix-directory".equals(text)) {
+                // Special case: if getcontenttype is "httpd/unix-directory", this is definitely a folder
+                if ("httpd/unix-directory".equals(text)) {
                         currentFile.setMimeType(MimeType.DIRECTORY);
                         currentResourceIsCollection = true;
                         resourceTypeDetermined = true;
@@ -302,11 +312,10 @@ public class PropFindSaxHandler extends DefaultHandler {
                             }
                         }
                     }
-                }
             }
             // Parse ownCloud/Nextcloud properties
             if (NS_OC.equals(uri) || NS_NC.equals(uri)) {
-                Log_OC.d(TAG, "Processing OC/NC element: " + uri + ":" + localName + " = '" + text + "'");
+                Log_OC.d(TAG, "Processing OC/NC element: " + uri + ":" + localName + LOG_EQUALS_QUOTE + text + "'");
             }
             // Handle various possible id element names - try all possible variations
             // Nextcloud 31 might use different element names
@@ -314,7 +323,7 @@ public class PropFindSaxHandler extends DefaultHandler {
                 ("id".equals(localName) || "fileid".equals(localName) || "file-id".equals(localName) ||
                     "fileId".equals(localName) || "resource-id".equals(localName) || "file_id".equals(localName) ||
                     "nc:id".equals(localName) || "oc:id".equals(localName))) {
-                Log_OC.d(TAG, "Processing id element: " + uri + ":" + localName + " = '" + text + "' for file: " + (currentFile != null && currentFile.getRemotePath() != null ? currentFile.getRemotePath() : "unknown"));
+                Log_OC.d(TAG, "Processing id element: " + uri + ":" + localName + LOG_EQUALS_QUOTE + text + "' for file: " + (currentFile != null && currentFile.getRemotePath() != null ? currentFile.getRemotePath() : UNKNOWN_PATH));
                 if (text != null && !text.isEmpty() && !"null".equals(text)) {
                     // Only set if not already set or if this is a more specific id
                     String currentRemoteId = currentFile.getRemoteId();
@@ -329,7 +338,7 @@ public class PropFindSaxHandler extends DefaultHandler {
                 }
             } else if ((NS_OC.equals(uri) || NS_NC.equals(uri)) && "fileid".equals(localName)) {
                 // Additional check for fileid element
-                Log_OC.d(TAG, "Found fileid element: " + uri + ":fileid = '" + text + "' for file: " + (currentFile != null && currentFile.getRemotePath() != null ? currentFile.getRemotePath() : "unknown"));
+                Log_OC.d(TAG, "Found fileid element: " + uri + ":fileid" + LOG_EQUALS_QUOTE + text + "' for file: " + (currentFile != null && currentFile.getRemotePath() != null ? currentFile.getRemotePath() : UNKNOWN_PATH));
                 if (text != null && !text.isEmpty() && !"null".equals(text)) {
                     try {
                         long fileIdLong = Long.parseLong(text);
@@ -339,7 +348,7 @@ public class PropFindSaxHandler extends DefaultHandler {
                         if (currentRemoteId == null || currentRemoteId.isEmpty() || currentRemoteId.startsWith("/")) {
                             String fileIdStr = String.valueOf(fileIdLong);
                             currentFile.setRemoteId(fileIdStr);
-                            Log_OC.d(TAG, "Set remoteId from fileid fallback: " + fileIdStr + " for file: " + (currentFile.getRemotePath() != null ? currentFile.getRemotePath() : "unknown"));
+                            Log_OC.d(TAG, "Set remoteId from fileid fallback: " + fileIdStr + " for file: " + (currentFile.getRemotePath() != null ? currentFile.getRemotePath() : UNKNOWN_PATH));
                         } else {
                             Log_OC.d(TAG, "remoteId already set, skipping fileid fallback for: " + currentRemoteId);
                         }
@@ -357,7 +366,7 @@ public class PropFindSaxHandler extends DefaultHandler {
                     if (currentRemoteId == null || currentRemoteId.isEmpty() || currentRemoteId.startsWith("/")) {
                         String fileIdStr = String.valueOf(fileIdLong);
                         currentFile.setRemoteId(fileIdStr);
-                        Log_OC.d(TAG, "Set remoteId from " + uri + ":fileid (fallback): " + fileIdStr + " for file: " + (currentFile.getRemotePath() != null ? currentFile.getRemotePath() : "unknown"));
+                        Log_OC.d(TAG, "Set remoteId from " + uri + ":fileid (fallback): " + fileIdStr + " for file: " + (currentFile.getRemotePath() != null ? currentFile.getRemotePath() : UNKNOWN_PATH));
                     } else {
                         Log_OC.d(TAG, "remoteId already set, skipping fileid fallback for: " + currentRemoteId);
                     }
@@ -568,10 +577,27 @@ public class PropFindSaxHandler extends DefaultHandler {
      */
     private void parseLockInfo(String lockXml) {
         // Basic lock parsing - set locked flag if lock element exists
-        if (currentFile != null && lockXml != null && !lockXml.trim().isEmpty()) {
+        // Use more efficient blank check instead of trim().isEmpty()
+        if (currentFile != null && lockXml != null && !isBlank(lockXml)) {
             currentFile.setLocked(true);
             // TODO: Parse detailed lock information if needed
         }
+    }
+    
+    /**
+     * Efficiently check if a string is blank (null, empty, or only whitespace)
+     */
+    private boolean isBlank(String str) {
+        if (str == null || str.isEmpty()) {
+            return true;
+        }
+        int length = str.length();
+        for (int i = 0; i < length; i++) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
