@@ -193,16 +193,21 @@ public class UploadsStorageManager extends Observable {
             null
                                 );
 
-        if (c != null) {
-            if (c.getCount() != SINGLE_RESULT) {
-                Log_OC.e(TAG, c.getCount() + " items for id=" + id
-                    + " available in UploadDb. Expected 1. Failed to update upload db.");
+        try {
+            if (c != null) {
+                if (c.getCount() != SINGLE_RESULT) {
+                    Log_OC.e(TAG, c.getCount() + " items for id=" + id
+                        + " available in UploadDb. Expected 1. Failed to update upload db.");
+                } else {
+                    updateUploadInternal(c, status, result, remotePath, localPath);
+                }
             } else {
-                updateUploadInternal(c, status, result, remotePath, localPath);
+                Log_OC.e(TAG, "Cursor is null");
             }
-            c.close();
-        } else {
-            Log_OC.e(TAG, "Cursor is null");
+        } finally {
+            if (c != null) {
+                c.close();
+            }
         }
 
     }
@@ -302,9 +307,15 @@ public class UploadsStorageManager extends Observable {
             new String[]{Long.toString(id)},
             "_id ASC");
 
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                result = createOCUploadFromCursor(cursor);
+        try {
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    result = createOCUploadFromCursor(cursor);
+                }
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
             }
         }
         Log_OC.d(TAG, "Retrieve job " + result + " for id " + id);
@@ -414,8 +425,8 @@ public class UploadsStorageManager extends Observable {
             pageSelectionArgs,
             sortOrder);
 
-        if (c != null) {
-            if (c.moveToFirst()) {
+        try {
+            if (c != null && c.moveToFirst()) {
                 do {
                     OCUpload upload = createOCUploadFromCursor(c);
                     if (upload == null) {
@@ -425,7 +436,10 @@ public class UploadsStorageManager extends Observable {
                     }
                 } while (c.moveToNext() && !c.isAfterLast());
             }
-            c.close();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
         }
         return uploads;
     }

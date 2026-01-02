@@ -624,30 +624,35 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         Cursor cursor = fileActivity.getContentResolver().query(contactUri, projection, null, null, null);
 
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                // The contact has only one email address, use it.
-                int columnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS);
-                if (columnIndex != -1) {
-                    // Use the email address as needed.
-                    // email variable contains the selected contact's email address.
-                    String email = cursor.getString(columnIndex);
-                    binding.searchView.post(() -> {
-                        binding.searchView.setQuery(email, false);
-                        binding.searchView.requestFocus();
-                    });
+        try {
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    // The contact has only one email address, use it.
+                    int columnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS);
+                    if (columnIndex != -1) {
+                        // Use the email address as needed.
+                        // email variable contains the selected contact's email address.
+                        String email = cursor.getString(columnIndex);
+                        binding.searchView.post(() -> {
+                            binding.searchView.setQuery(email, false);
+                            binding.searchView.requestFocus();
+                        });
+                    } else {
+                        DisplayUtils.showSnackMessage(binding.getRoot(), R.string.email_pick_failed);
+                        Log_OC.e(FileDetailSharingFragment.class.getSimpleName(), "Failed to pick email address.");
+                    }
                 } else {
                     DisplayUtils.showSnackMessage(binding.getRoot(), R.string.email_pick_failed);
-                    Log_OC.e(FileDetailSharingFragment.class.getSimpleName(), "Failed to pick email address.");
+                    Log_OC.e(FileDetailSharingFragment.class.getSimpleName(), "Failed to pick email address as no Email found.");
                 }
             } else {
                 DisplayUtils.showSnackMessage(binding.getRoot(), R.string.email_pick_failed);
-                Log_OC.e(FileDetailSharingFragment.class.getSimpleName(), "Failed to pick email address as no Email found.");
+                Log_OC.e(FileDetailSharingFragment.class.getSimpleName(), "Failed to pick email address as Cursor is null.");
             }
-            cursor.close();
-        } else {
-            DisplayUtils.showSnackMessage(binding.getRoot(), R.string.email_pick_failed);
-            Log_OC.e(FileDetailSharingFragment.class.getSimpleName(), "Failed to pick email address as Cursor is null.");
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
     }
 
