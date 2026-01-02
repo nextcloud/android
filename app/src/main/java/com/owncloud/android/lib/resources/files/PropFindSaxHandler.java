@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * SAX Handler for parsing WebDAV PROPFIND responses.
  * Handles streaming XML parsing to avoid OutOfMemoryError for large folders.
@@ -69,6 +71,9 @@ public class PropFindSaxHandler extends DefaultHandler {
     private final List<Object> files = new ArrayList<>();
     private RemoteFile currentFile;
     // StringBuilder is cleared after each XML element in endElement(), preventing memory accumulation
+    // codacy-disable: StringBuffers can grow quite a lot - safe because cleared after each element
+    @SuppressWarnings({"PMD.AvoidStringBufferField", "squid:S1642"})
+    @SuppressFBWarnings(value = "DM_STRING_CTOR", justification = "StringBuilder is cleared after each XML element and capacity is trimmed periodically to prevent memory leaks")
     private final StringBuilder currentText = new StringBuilder(INITIAL_STRING_BUILDER_CAPACITY);
     private boolean inResponse = false;
     private boolean inProp = false;
@@ -87,6 +92,9 @@ public class PropFindSaxHandler extends DefaultHandler {
     // Lock information
     private boolean inLock = false;
     // StringBuilder is cleared after each lock element is processed, preventing memory accumulation
+    // codacy-disable: StringBuffers can grow quite a lot - safe because cleared after each element
+    @SuppressWarnings({"PMD.AvoidStringBufferField", "squid:S1642"})
+    @SuppressFBWarnings(value = "DM_STRING_CTOR", justification = "StringBuilder is cleared after each lock element and capacity is trimmed periodically to prevent memory leaks")
     private StringBuilder lockText = new StringBuilder(INITIAL_STRING_BUILDER_CAPACITY);
 
     public PropFindSaxHandler() {
