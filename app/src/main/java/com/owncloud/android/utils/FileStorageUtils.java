@@ -28,6 +28,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.lib.resources.shares.ShareeUser;
+import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 
 import org.apache.commons.io.FilenameUtils;
@@ -284,7 +286,7 @@ public final class FileStorageUtils {
         if (subfolderByDate) {
             subfolderByDatePath = getSubPathFromDate(dateTaken, current, subFolderRule);
         }
-        Log_OC.w(TAG, "FileStorageUtils:getInstantUploadFilePath subfolderByDate: " + subfolderByDate);
+        Log_OC.i(TAG, "FileStorageUtils:getInstantUploadFilePath subfolderByDate: " + subfolderByDate);
 
         File parentFile = new File(file.getAbsolutePath().replace(syncedFolderLocalPath, "")).getParentFile();
 
@@ -347,7 +349,13 @@ public final class FileStorageUtils {
         file.setOwnerId(remote.getOwnerId());
         file.setOwnerDisplayName(remote.getOwnerDisplayName());
         file.setNote(remote.getNote());
-        file.setSharees(new ArrayList<>(Arrays.asList(remote.getSharees())));
+        // Handle null sharees to avoid NullPointerException
+        ShareeUser[] sharees = remote.getSharees();
+        if (sharees != null) {
+            file.setSharees(new ArrayList<>(Arrays.asList(sharees)));
+        } else {
+            file.setSharees(new ArrayList<>());
+        }
         file.setRichWorkspace(remote.getRichWorkspace());
         file.setLocked(remote.isLocked());
         file.setLockType(remote.getLockType());
@@ -357,7 +365,13 @@ public final class FileStorageUtils {
         file.setLockTimestamp(remote.getLockTimestamp());
         file.setLockTimeout(remote.getLockTimeout());
         file.setLockToken(remote.getLockToken());
-        file.setTags(new ArrayList<>(Arrays.asList(remote.getTags())));
+        // Handle null tags to avoid NullPointerException
+        Tag[] tags = remote.getTags();
+        if (tags != null) {
+            file.setTags(new ArrayList<>(Arrays.asList(tags)));
+        } else {
+            file.setTags(new ArrayList<>());
+        }
         file.setImageDimension(remote.getImageDimension());
         file.setGeoLocation(remote.getGeoLocation());
         file.setLivePhoto(remote.getLivePhoto());
