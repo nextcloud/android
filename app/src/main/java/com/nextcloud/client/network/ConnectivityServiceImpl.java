@@ -46,16 +46,19 @@ public class ConnectivityServiceImpl implements ConnectivityService {
     private final ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
         @Override
         public void onAvailable(@NonNull Network network) {
+            Log_OC.d(TAG, "network available");
             updateConnectivity();
         }
 
         @Override
         public void onLost(@NonNull Network network) {
+            Log_OC.w(TAG, "connection lost");
             updateConnectivity();
         }
 
         @Override
         public void onCapabilitiesChanged(@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
+            Log_OC.d(TAG, "capability changed");
             updateConnectivity();
         }
     };
@@ -81,17 +84,20 @@ public class ConnectivityServiceImpl implements ConnectivityService {
         // Register callback for real-time network updates
         connectivityManager.registerDefaultNetworkCallback(networkCallback);
         updateConnectivity();
+        Log_OC.d(TAG, "connectivity service constructed");
     }
 
     public void updateConnectivity() {
         Network activeNetwork = connectivityManager.getActiveNetwork();
         if (activeNetwork == null) {
+            Log_OC.w(TAG, "active network is null, connectivity is disconnected");
             currentConnectivity = Connectivity.DISCONNECTED;
             return;
         }
 
         NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(activeNetwork);
         if (capabilities == null) {
+            Log_OC.w(TAG, "capabilities is null, connectivity is disconnected");
             currentConnectivity = Connectivity.DISCONNECTED;
             return;
         }
@@ -119,6 +125,7 @@ public class ConnectivityServiceImpl implements ConnectivityService {
     public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
         executor.execute(() -> {
             boolean available = !isInternetWalled();
+            Log_OC.d(TAG, "isNetworkAndServerAvailable: " + available);
             mainThreadHandler.post(() -> callback.onComplete(available));
         });
     }
@@ -132,6 +139,7 @@ public class ConnectivityServiceImpl implements ConnectivityService {
     public boolean isInternetWalled() {
         Boolean cached = walledCheckCache.getValue();
         if (cached != null) {
+            Log_OC.d(TAG, "isInternetWalled(): cached value is used, isWalled: " + cached);
             return cached;
         }
 
@@ -144,6 +152,7 @@ public class ConnectivityServiceImpl implements ConnectivityService {
             currentConnectivity.isMetered()) {
             final var result = !currentConnectivity.isConnected();
             walledCheckCache.setValue(result);
+            Log_OC.d(TAG, "isInternetWalled(): early return conditions are not matched, isWalled: " + result);
             return result;
         }
 
@@ -167,6 +176,7 @@ public class ConnectivityServiceImpl implements ConnectivityService {
         }
 
         walledCheckCache.setValue(isWalled);
+        Log_OC.d(TAG, "isInternetWalled(): server check, isWalled: " + isWalled);
         return isWalled;
     }
 
