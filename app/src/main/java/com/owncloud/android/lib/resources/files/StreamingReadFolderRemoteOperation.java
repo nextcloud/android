@@ -20,7 +20,6 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.DavConstants;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 import org.apache.jackrabbit.webdav.property.DavPropertyNameSet;
-import org.apache.jackrabbit.webdav.property.DavPropertyName;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,37 +37,37 @@ import org.xml.sax.SAXParseException;
  * Remote operation that reads a folder from the server using streaming XML parser.
  * This implementation uses SAX parser to avoid loading the entire XML response into memory,
  * preventing OutOfMemoryError for large folders with many files.
- * 
+ *
  * @see ReadFolderRemoteOperation
  */
 public class StreamingReadFolderRemoteOperation extends RemoteOperation<List<Object>> {
     private static final String TAG = StreamingReadFolderRemoteOperation.class.getSimpleName();
-    
+
     private final String remotePath;
-    
+
     public StreamingReadFolderRemoteOperation(String remotePath) {
         this.remotePath = remotePath;
     }
-    
+
     @Override
     protected RemoteOperationResult<List<Object>> run(OwnCloudClient client) {
         if (remotePath == null) {
             return new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
         }
-        
+
         String davPath;
         String davBasePath;
         try {
             Uri davUri = client.getFilesDavUri();
             davBasePath = davUri.toString();
-            
+
             // Use Uri.Builder to properly encode path segments with special characters (e.g., Cyrillic)
             // Uri.Builder.appendPath() automatically URL-encodes each segment
             Uri.Builder builder = davUri.buildUpon();
-            
+
             // Normalize remotePath - ensure it starts with /
             String normalizedRemotePath = remotePath.startsWith("/") ? remotePath : "/" + remotePath;
-            
+
             // Split remotePath into segments and append each one
             // This ensures proper URL encoding of each segment (including Cyrillic characters)
             String[] segments = normalizedRemotePath.split("/");
@@ -77,58 +76,58 @@ public class StreamingReadFolderRemoteOperation extends RemoteOperation<List<Obj
                     builder.appendPath(segment);
                 }
             }
-            
+
             // If path ends with /, append empty segment to preserve trailing slash
             if (normalizedRemotePath.endsWith("/") && !normalizedRemotePath.equals("/")) {
                 builder.appendPath("");
             }
-            
+
             Uri fullUri = builder.build();
             davPath = fullUri.toString();
         } catch (Exception e) {
             Log_OC.e(TAG, "Error getting DAV path", e);
             return new RemoteOperationResult(e);
         }
-        
+
         StreamingPropFindMethod method = null;
         try {
             // Create PROPFIND request with depth 1 (folder + immediate children)
             // Use StreamingPropFindMethod to prevent automatic response body processing
             // Use ALL_PROP to get all available properties including OC/NC specific ones
             method = new StreamingPropFindMethod(davPath, DavConstants.PROPFIND_ALL_PROP, DavConstants.DEPTH_1);
-            
+
             int status = client.executeMethod(method);
-            
+
             Log_OC.d(TAG, "PROPFIND request status: " + status + " for path: " + remotePath);
-            
+
             if (status == HttpStatus.SC_MULTI_STATUS || status == HttpStatus.SC_OK) {
                 InputStream inputStream = method.getResponseBodyAsStream();
-                
+
                 if (inputStream == null) {
                     Log_OC.e(TAG, "Response body stream is null");
                     return new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
                 }
-                
+
                 // Parse XML using SAX parser
                 PropFindSaxHandler handler = new PropFindSaxHandler(davBasePath);
                 SAXParserFactory factory = SAXParserFactory.newInstance();
                 factory.setNamespaceAware(true);
-                
+
                 try {
                     SAXParser parser = factory.newSAXParser();
                     parser.parse(inputStream, handler);
-                    
+
                     List<Object> filesList = handler.getFiles();
                     Log_OC.d(TAG, "Parsed " + filesList.size() + " files from folder: " + remotePath);
-                    
+
                     // Convert List to ArrayList as required by setData()
                     ArrayList<Object> files = new ArrayList<>(filesList);
-                    
+
                     RemoteOperationResult result = new RemoteOperationResult(true, method);
                     result.setData(files);
                     return result;
                 } catch (SAXParseException e) {
-                    Log_OC.e(TAG, "XML parsing error at line " + e.getLineNumber() + 
+                    Log_OC.e(TAG, "XML parsing error at line " + e.getLineNumber() +
                         ", column " + e.getColumnNumber() + " for path: " + remotePath, e);
                     return new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
                 } catch (SAXException e) {
@@ -163,7 +162,7 @@ public class StreamingReadFolderRemoteOperation extends RemoteOperation<List<Obj
             }
         }
     }
-    
+
     /**
      * Custom PropFindMethod that doesn't automatically process the response body.
      * This allows us to get the raw InputStream for streaming XML parsing.
@@ -172,7 +171,7 @@ public class StreamingReadFolderRemoteOperation extends RemoteOperation<List<Obj
         StreamingPropFindMethod(String uri, int propfindType, int depth) throws IOException {
             super(uri, propfindType, new DavPropertyNameSet(), depth);
         }
-        
+
         @Override
         protected void processResponseBody(HttpState httpState, HttpConnection httpConnection) {
             // Do not process the response body here. 

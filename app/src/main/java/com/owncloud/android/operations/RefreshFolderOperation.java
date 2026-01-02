@@ -35,6 +35,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
+import com.owncloud.android.lib.resources.files.StreamingReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.users.GetPredefinedStatusesRemoteOperation;
@@ -460,15 +461,33 @@ public class RefreshFolderOperation extends RemoteOperation {
         
         RemoteOperationResult result;
         try {
-            result = new ReadFolderRemoteOperation(remotePath).execute(client);
+            // Try using streaming parser first (handles large folders without OOM)
+            result = new StreamingReadFolderRemoteOperation(remotePath).execute(client);
+            Log_OC.d(TAG, "Streaming parser completed for folder: " + remotePath);
         } catch (OutOfMemoryError e) {
-            Log_OC.e(TAG, "OutOfMemoryError while fetching folder " + remotePath + 
-                ". The folder is too large to parse XML response in memory. " +
-                "This is a limitation of ReadFolderRemoteOperation which parses entire XML response at once. " +
-                "The folder contains too many files to be processed in a single request. " +
-                "Consider splitting the folder into smaller subfolders.", e);
-            // Create result with exception - this will automatically set appropriate error code
-            return new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+            // Should not happen with streaming parser, but handle it just in case
+            Log_OC.e(TAG, "OutOfMemoryError with streaming parser for folder " + remotePath, e);
+            // Try fallback to legacy method
+            try {
+                Log_OC.w(TAG, "Falling back to legacy ReadFolderRemoteOperation: " + e.getMessage());
+                result = new ReadFolderRemoteOperation(remotePath).execute(client);
+            } catch (OutOfMemoryError e2) {
+                Log_OC.e(TAG, "OutOfMemoryError with legacy parser as well for folder " + remotePath + 
+                    ". The folder is too large to parse XML response in memory. " +
+                    "This is a limitation of ReadFolderRemoteOperation which parses entire XML response at once. " +
+                    "The folder contains too many files to be processed in a single request. " +
+                    "Consider splitting the folder into smaller subfolders.", e2);
+                return new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+            }
+        } catch (Exception e) {
+            // For other exceptions, try fallback to legacy method
+            Log_OC.w(TAG, "Streaming parser failed for folder " + remotePath + ", trying legacy method: " + e.getMessage());
+            try {
+                result = new ReadFolderRemoteOperation(remotePath).execute(client);
+            } catch (Exception e2) {
+                Log_OC.e(TAG, "Both streaming and legacy parsers failed for folder " + remotePath, e2);
+                return new RemoteOperationResult(e2);
+            }
         }
 
         if (result.isSuccess()) {

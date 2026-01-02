@@ -26,12 +26,12 @@ import java.util.Locale;
  */
 public class PropFindSaxHandler extends DefaultHandler {
     private static final String TAG = PropFindSaxHandler.class.getSimpleName();
-    
+
     // XML Namespaces
     private static final String NS_DAV = "DAV:";
     private static final String NS_OC = "http://owncloud.org/ns";
     private static final String NS_NC = "http://nextcloud.org/ns";
-    
+
     // Element names
     private static final String ELEMENT_RESPONSE = "response";
     private static final String ELEMENT_HREF = "href";
@@ -61,7 +61,7 @@ public class PropFindSaxHandler extends DefaultHandler {
 
     // Debug constants
     private static final boolean DEBUG_XML = true;
-    
+
     private final List<Object> files = new ArrayList<>();
     private RemoteFile currentFile;
     private final StringBuilder currentText = new StringBuilder();
@@ -78,38 +78,35 @@ public class PropFindSaxHandler extends DefaultHandler {
     private boolean currentResourceIsCollection = false;
     // Track HTTP status in current propstat (only process properties if status is 200 OK)
     private boolean propstatStatusOk = false;
-    
+
     // Lock information
     private boolean inLock = false;
     private StringBuilder lockText = new StringBuilder();
-    
+
     public PropFindSaxHandler() {
         this(null);
     }
-    
+
     public PropFindSaxHandler(String davBasePath) {
         this.davBasePath = davBasePath;
     }
-    
+
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         currentText.setLength(0);
-        
+
         if (NS_DAV.equals(uri) && ELEMENT_RESPONSE.equals(localName)) {
             inResponse = true;
             currentFile = new RemoteFile("/"); // Temporary path, will be set from href
-            Log_OC.d(TAG, "Created new RemoteFile for response: " + currentFile.getRemotePath());
             currentHref = null;
             isCollection = false; // Reset for each response - assume file by default
             resourceTypeDetermined = false; // Will be set when we process resourcetype
             currentResourceIsCollection = false; // Default to file, will be set to true if <d:collection/> found
         } else if (NS_DAV.equals(uri) && ELEMENT_PROPSTAT.equals(localName)) {
             inPropstat = true;
-            Log_OC.d(TAG, "Starting new propstat element");
             // Default to true - assume properties are valid unless status says otherwise
             // Status might come before or after prop, so we'll update this when we see status
             propstatStatusOk = true;
-            Log_OC.d(TAG, "Set propstatStatusOk = true for new propstat");
         } else if (NS_DAV.equals(uri) && ELEMENT_PROP.equals(localName)) {
             inProp = true;
         } else if (NS_DAV.equals(uri) && ELEMENT_RESOURCETYPE.equals(localName)) {
@@ -118,13 +115,12 @@ public class PropFindSaxHandler extends DefaultHandler {
             isCollection = false;
         } else if (NS_DAV.equals(uri) && ELEMENT_COLLECTION.equals(localName)) {
             isCollection = true;
-            Log_OC.d(TAG, "Found collection element - this is a folder");
         } else if ((NS_OC.equals(uri) || NS_NC.equals(uri)) && ELEMENT_LOCK.equals(localName)) {
             inLock = true;
             lockText.setLength(0);
         }
     }
-    
+
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         if (inLock) {
@@ -133,26 +129,29 @@ public class PropFindSaxHandler extends DefaultHandler {
             currentText.append(ch, start, length);
         }
     }
-    
+
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         String text = currentText.toString().trim();
 
-        // Debug: log all elements being processed (only in prop for less spam)
-        if (DEBUG_XML && inProp && inPropstat) {
-            Log_OC.d(TAG, "Processing element in prop: " + uri + ":" + localName + " = '" + text + "' (inProp=" + inProp + ", inPropstat=" + inPropstat + ", propstatStatusOk=" + propstatStatusOk + ")");
+        // Debug: Always log OC/NC elements
+        if (NS_OC.equals(uri) || NS_NC.equals(uri)) {
         }
-        // Special debug for OC/NC elements
-        if (DEBUG_XML && (NS_OC.equals(uri) || NS_NC.equals(uri)) && inProp && inPropstat) {
-            Log_OC.d(TAG, "OC/NC ELEMENT in prop: " + uri + ":" + localName + " = '" + text + "' (inProp=" + inProp + ", inPropstat=" + inPropstat + ", propstatStatusOk=" + propstatStatusOk + ")");
+
+        // Debug: Log all DAV elements that might contain size/preview info
+        if (NS_DAV.equals(uri) && (
+            "quota-used-bytes".equals(localName) ||
+            "quota-available-bytes".equals(localName) ||
+            "getcontentlength".equals(localName) ||
+            "getcontenttype".equals(localName)
+        )) {
         }
 
         if (NS_DAV.equals(uri) && ELEMENT_RESPONSE.equals(localName)) {
             if (currentFile != null && currentHref != null) {
                 String remotePath = extractPathFromHref(currentHref);
-                Log_OC.d(TAG, "Setting remotePath for file: " + remotePath + " (was: " + currentFile.getRemotePath() + ")");
                 currentFile.setRemotePath(remotePath);
-                
+
                 // Ensure MimeType is properly set based on resource type determination
                 String finalMimeType = currentFile.getMimeType();
                 if (resourceTypeDetermined) {
@@ -161,29 +160,22 @@ public class PropFindSaxHandler extends DefaultHandler {
                         // Make sure folder has DIRECTORY mime type
                         if (!MimeType.DIRECTORY.equals(finalMimeType)) {
                             currentFile.setMimeType(MimeType.DIRECTORY);
-                            Log_OC.d(TAG, "Final check: Corrected MimeType to DIRECTORY for folder (path: " + currentFile.getRemotePath() + ")");
-                        } else {
-                            Log_OC.d(TAG, "Final check: MimeType already correctly set to DIRECTORY for folder (path: " + currentFile.getRemotePath() + ")");
                         }
                     } else {
                         // This is a file - ensure it has a proper mime type
                         if (finalMimeType == null || finalMimeType.isEmpty() || MimeType.DIRECTORY.equals(finalMimeType)) {
                             // No mime type set from getcontenttype, use default
                             currentFile.setMimeType(MimeType.FILE);
-                            Log_OC.d(TAG, "Final check: Set default MimeType FILE for file (path: " + currentFile.getRemotePath() + ")");
-                        } else {
-                            Log_OC.d(TAG, "Final check: MimeType already set to " + finalMimeType + " for file (path: " + currentFile.getRemotePath() + ")");
                         }
                     }
                 } else {
                     // Resource type was not determined - this shouldn't happen with proper XML
-                    Log_OC.w(TAG, "WARNING: Resource type was not determined for path: " + currentFile.getRemotePath() +
-                        " - assuming it's a file");
+                    Log_OC.w(TAG, "WARNING: Resource type was not determined for path: " + currentFile.getRemotePath() + " - assuming it's a file");
                     if (finalMimeType == null || finalMimeType.isEmpty()) {
                         currentFile.setMimeType(MimeType.FILE);
                     }
                 }
-                
+
                 // Ensure remoteId is always set, even if server doesn't provide it
                 String remoteId = currentFile.getRemoteId();
                 if (remoteId == null || remoteId.isEmpty()) {
@@ -225,24 +217,19 @@ public class PropFindSaxHandler extends DefaultHandler {
             resourceTypeDetermined = false;
         } else if (NS_DAV.equals(uri) && ELEMENT_HREF.equals(localName)) {
             currentHref = text;
-            Log_OC.d(TAG, "Set currentHref: " + currentHref);
         } else if (NS_DAV.equals(uri) && ELEMENT_STATUS.equals(localName)) {
             // Check if status is 200 OK
             // Format: "HTTP/1.1 200 OK" or "HTTP/1.1 404 Not Found"
             // Note: Status might come before or after prop in the XML
             boolean statusIsOk = text != null && text.contains("200");
-            Log_OC.d(TAG, "Processing status element: '" + text + "' -> statusIsOk=" + statusIsOk);
             if (statusIsOk) {
                 propstatStatusOk = true;
-                Log_OC.d(TAG, "propstat status OK: " + text);
             } else {
                 propstatStatusOk = false;
-                Log_OC.w(TAG, "propstat status NOT OK (will ignore properties): " + text);
                 // If status came after prop, we've already processed some properties
                 // We can't undo that, but at least we know this propstat had an error
             }
         } else if (NS_DAV.equals(uri) && ELEMENT_PROPSTAT.equals(localName)) {
-            Log_OC.d(TAG, "Ending propstat element, resetting propstatStatusOk to false");
             inPropstat = false;
             propstatStatusOk = false; // Reset for next propstat
         } else if (NS_DAV.equals(uri) && ELEMENT_PROP.equals(localName)) {
@@ -254,10 +241,8 @@ public class PropFindSaxHandler extends DefaultHandler {
                 resourceTypeDetermined = true; // We've processed resourcetype, so type is determined
                 if (isCollection) {
                     currentFile.setMimeType(MimeType.DIRECTORY);
-                    Log_OC.d(TAG, "Set MimeType to DIRECTORY for folder: " + currentFile.getRemotePath());
                 } else {
                     // This is a file - don't set MimeType here, wait for getcontenttype
-                    Log_OC.d(TAG, "Resource type determined as FILE (not collection) for: " + currentFile.getRemotePath());
                 }
             }
             // Don't reset isCollection here - it's still needed for other elements like oc:size
@@ -304,14 +289,13 @@ public class PropFindSaxHandler extends DefaultHandler {
                         // Only set if MimeType is not already set to DIRECTORY or WEBDAV_FOLDER
                         if (currentMimeType == null ||
                             (!MimeType.DIRECTORY.equals(currentMimeType) &&
-                             !MimeType.WEBDAV_FOLDER.equals(currentMimeType))) {
+                                !MimeType.WEBDAV_FOLDER.equals(currentMimeType))) {
                             // This is a file, set its MimeType
                             if (text != null && !text.isEmpty()) {
                                 currentFile.setMimeType(text);
                                 if (!resourceTypeDetermined) {
                                     resourceTypeDetermined = true; // We now know this is a file
                                 }
-                                Log_OC.d(TAG, "Set MimeType for file: " + text + " path: " + currentFile.getRemotePath());
                             } else {
                                 // No content type specified or empty, will set default at end
                                 Log_OC.d(TAG, "Empty getcontenttype for file, will use default later");
@@ -328,8 +312,8 @@ public class PropFindSaxHandler extends DefaultHandler {
             // Nextcloud 31 might use different element names
             if ((NS_OC.equals(uri) || NS_NC.equals(uri)) &&
                 ("id".equals(localName) || "fileid".equals(localName) || "file-id".equals(localName) ||
-                 "fileId".equals(localName) || "resource-id".equals(localName) || "file_id".equals(localName) ||
-                 "nc:id".equals(localName) || "oc:id".equals(localName))) {
+                    "fileId".equals(localName) || "resource-id".equals(localName) || "file_id".equals(localName) ||
+                    "nc:id".equals(localName) || "oc:id".equals(localName))) {
                 Log_OC.d(TAG, "Processing id element: " + uri + ":" + localName + " = '" + text + "' for file: " + (currentFile != null && currentFile.getRemotePath() != null ? currentFile.getRemotePath() : "unknown"));
                 if (text != null && !text.isEmpty() && !"null".equals(text)) {
                     // Only set if not already set or if this is a more specific id
@@ -388,7 +372,14 @@ public class PropFindSaxHandler extends DefaultHandler {
                         currentFile.setSize(Long.parseLong(text));
                     }
                 } catch (NumberFormatException e) {
-                    // Ignore invalid size
+                }
+            } else if (NS_DAV.equals(uri) && "quota-used-bytes".equals(localName)) {
+                try {
+                    if (currentResourceIsCollection) {
+                        long quotaSize = Long.parseLong(text);
+                        currentFile.setSize(quotaSize);
+                    }
+                } catch (NumberFormatException e) {
                 }
             } else if ((NS_OC.equals(uri) || NS_NC.equals(uri)) && ELEMENT_FAVORITE.equals(localName)) {
                 currentFile.setFavorite("1".equals(text));
@@ -397,7 +388,16 @@ public class PropFindSaxHandler extends DefaultHandler {
             } else if ((NS_OC.equals(uri) || NS_NC.equals(uri)) && ELEMENT_OWNER_DISPLAY_NAME.equals(localName)) {
                 currentFile.setOwnerDisplayName(text);
             } else if ((NS_OC.equals(uri) || NS_NC.equals(uri)) && ELEMENT_HAS_PREVIEW.equals(localName)) {
-                currentFile.setHasPreview("true".equalsIgnoreCase(text));
+                boolean hasPreview = "true".equalsIgnoreCase(text);
+                currentFile.setHasPreview(hasPreview);
+            } else if (NS_DAV.equals(uri) && "getcontenttype".equals(localName)) {
+                // Set preview availability based on MIME type for Nextcloud 31
+                if (text != null && currentFile != null && !currentResourceIsCollection) {
+                    boolean hasPreview = isPreviewableMimeType(text);
+                    if (hasPreview) {
+                        currentFile.setHasPreview(true);
+                    }
+                }
             } else if ((NS_OC.equals(uri) || NS_NC.equals(uri)) && ELEMENT_MOUNT_TYPE.equals(localName)) {
                 // Mount type parsing - using reflection since WebdavEntry is from library
                 try {
@@ -419,10 +419,10 @@ public class PropFindSaxHandler extends DefaultHandler {
                 }
             }
         }
-        
+
         currentText.setLength(0);
     }
-    
+
     /**
      * Extract path from href.
      * Href format: /remote.php/dav/files/{user}/{path} or http://server/remote.php/dav/files/{user}/{path}
@@ -432,7 +432,7 @@ public class PropFindSaxHandler extends DefaultHandler {
         if (href == null || href.isEmpty()) {
             return "/";
         }
-        
+
         // Remove protocol and domain if present (http://server/path -> /path)
         String normalizedHref = href;
         try {
@@ -444,7 +444,7 @@ public class PropFindSaxHandler extends DefaultHandler {
         } catch (Exception e) {
             // If URI parsing fails, use href as-is
         }
-        
+
         // If we have davBasePath, use it to extract relative path
         if (davBasePath != null) {
             try {
@@ -469,7 +469,7 @@ public class PropFindSaxHandler extends DefaultHandler {
                 }
             }
         }
-        
+
         // Fallback: try to extract path after /dav/files/
         int davFilesIndex = normalizedHref.indexOf("/dav/files/");
         if (davFilesIndex >= 0) {
@@ -483,11 +483,11 @@ public class PropFindSaxHandler extends DefaultHandler {
             }
             return path;
         }
-        
+
         // If we can't extract, return normalized href as-is
         return normalizedHref.isEmpty() ? "/" : normalizedHref;
     }
-    
+
     /**
      * Parse RFC 1123 date format (e.g., "Mon, 01 Jan 2024 12:00:00 GMT")
      */
@@ -503,7 +503,7 @@ public class PropFindSaxHandler extends DefaultHandler {
             return 0;
         }
     }
-    
+
     /**
      * Parse ETag, removing surrounding quotes if present
      */
@@ -517,7 +517,7 @@ public class PropFindSaxHandler extends DefaultHandler {
         }
         return etag;
     }
-    
+
     /**
      * Parse mount type string and set it on RemoteFile using reflection.
      * This is needed because WebdavEntry.MountType is from the library.
@@ -532,17 +532,17 @@ public class PropFindSaxHandler extends DefaultHandler {
             Class<?> webdavEntryClass = Class.forName("com.owncloud.android.lib.resources.files.model.WebdavEntry");
             Class<?> mountTypeEnum = Class.forName("com.owncloud.android.lib.resources.files.model.WebdavEntry$MountType");
             Object[] enumValues = mountTypeEnum.getEnumConstants();
-            
+
             String mountTypeUpper = mountType.toUpperCase(Locale.US);
             Object mountTypeValue = null;
-            
+
             for (Object enumValue : enumValues) {
                 if (enumValue.toString().equals(mountTypeUpper)) {
                     mountTypeValue = enumValue;
                     break;
                 }
             }
-            
+
             if (mountTypeValue == null) {
                 // Try INTERNAL as default
                 for (Object enumValue : enumValues) {
@@ -552,7 +552,7 @@ public class PropFindSaxHandler extends DefaultHandler {
                     }
                 }
             }
-            
+
             if (mountTypeValue != null) {
                 java.lang.reflect.Method setMountTypeMethod = currentFile.getClass().getMethod("setMountType", mountTypeEnum);
                 setMountTypeMethod.invoke(currentFile, mountTypeValue);
@@ -562,7 +562,7 @@ public class PropFindSaxHandler extends DefaultHandler {
             Log_OC.w(TAG, "Could not set mount type: " + mountType);
         }
     }
-    
+
     /**
      * Parse lock information from XML
      */
@@ -573,7 +573,31 @@ public class PropFindSaxHandler extends DefaultHandler {
             // TODO: Parse detailed lock information if needed
         }
     }
-    
+
+    /**
+     * Check if MIME type supports preview generation in Nextcloud
+     */
+    private boolean isPreviewableMimeType(String mimeType) {
+        if (mimeType == null) return false;
+
+        // Images
+        if (mimeType.startsWith("image/")) return true;
+
+        // Videos
+        if (mimeType.startsWith("video/")) return true;
+
+        // PDFs
+        if ("application/pdf".equals(mimeType)) return true;
+
+        // Office documents
+        if (mimeType.startsWith("application/vnd.openxmlformats-officedocument.") ||
+            mimeType.startsWith("application/msword") ||
+            mimeType.startsWith("application/vnd.ms-") ||
+            mimeType.startsWith("application/vnd.oasis.opendocument.")) return true;
+
+        return false;
+    }
+
     public List<Object> getFiles() {
         return files;
     }
