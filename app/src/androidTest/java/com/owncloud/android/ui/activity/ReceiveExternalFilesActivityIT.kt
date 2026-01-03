@@ -13,18 +13,19 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import com.facebook.testing.screenshot.internal.TestNameDetector
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Test
 
 class ReceiveExternalFilesActivityIT : AbstractIT() {
-    private val testClassName = "com.owncloud.android.ui.activity.ReceiveExternalFilesActivityIT"
 
     @Test
     @ScreenshotTest
     fun open() {
+        // Screenshot name must be constructed outside of the scenario, otherwise it will not be reliably detected
+        val screenShotName = TestNameDetector.getTestClass() + "_" + TestNameDetector.getTestName()
         launchActivity<ReceiveExternalFilesActivity>().use { scenario ->
-            val screenShotName = createName(testClassName + "_" + "open", "")
             onView(isRoot()).check(matches(isDisplayed()))
 
             scenario.onActivity { sut ->
