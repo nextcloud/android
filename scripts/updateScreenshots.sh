@@ -77,17 +77,17 @@ adb shell "echo $IP server >> /system/etc/hosts"
 sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
 
 ## update/create all screenshots
-#./gradlew gplayDebugExecuteScreenshotTests -Precord \
+#./gradlew genericDebugExecuteScreenshotTests -Precord \
 #-Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest
 
 ## update screenshots in a class
-#./gradlew gplayDebugExecuteScreenshotTests \
+#./gradlew genericDebugExecuteScreenshotTests \
 #-Precord \
 #-Pandroid.testInstrumentationRunnerArguments.class=\
 #com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragmentTest
 
 ## update single screenshot within a class
-#./gradlew gplayDebugExecuteScreenshotTests \
+#./gradlew genericDebugExecuteScreenshotTests \
 #-Precord \
 #-Pandroid.testInstrumentationRunnerArguments.class=\
 #com.nextcloud.client.FileDisplayActivityIT#showShares
@@ -97,7 +97,7 @@ retryCount=0
 until [ $resultCode -eq 0 ] || [ $retryCount -gt 2 ]
 do
   # test all screenshots
-  ./gradlew gplayDebugExecuteScreenshotTests \
+  ./gradlew genericDebugExecuteScreenshotTests \
   -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest
 
 resultCode=$?
