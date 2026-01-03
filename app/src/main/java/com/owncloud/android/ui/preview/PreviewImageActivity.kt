@@ -212,7 +212,13 @@ class PreviewImageActivity :
         }
     }
 
-    private fun updateViewPagerAfterDeletionAndAdvanceForward() {
+    fun initViewPager() {
+        if (user.isPresent) {
+            initViewPager(user.get())
+        }
+    }
+
+    fun updateViewPagerAfterDeletionAndAdvanceForward() {
         val deletePosition = viewPager?.currentItem ?: return
         previewImagePagerAdapter?.let { adapter ->
             val nextPosition = min(deletePosition, adapter.itemCount - 1)
