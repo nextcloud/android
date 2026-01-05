@@ -8,8 +8,7 @@
 package third_parties.io.noties.prism4j.languages;
 
 
-import org.jetbrains.annotations.NotNull;
-
+import androidx.annotation.NonNull;
 import io.noties.prism4j.GrammarUtils;
 import io.noties.prism4j.Prism4j;
 import io.noties.prism4j.annotations.Aliases;
@@ -27,8 +26,8 @@ import static java.util.regex.Pattern.compile;
 @Extend("clike")
 public class Prism_csharp {
 
-  @NotNull
-  public static Prism4j.Grammar create(@NotNull Prism4j prism4j) {
+  @NonNull
+  public static Prism4j.Grammar create(@NonNull Prism4j prism4j) {
 
     final Prism4j.Grammar classNameInsidePunctuation = grammar("inside",
       token("punctuation", pattern(compile("\\.")))

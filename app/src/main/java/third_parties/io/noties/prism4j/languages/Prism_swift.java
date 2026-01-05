@@ -7,10 +7,9 @@
 
 package third_parties.io.noties.prism4j.languages;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import io.noties.prism4j.GrammarUtils;
 import io.noties.prism4j.Prism4j;
 import io.noties.prism4j.annotations.Extend;
@@ -26,8 +25,8 @@ import static java.util.regex.Pattern.compile;
 @Extend("clike")
 public class Prism_swift {
 
-  @NotNull
-  public static Prism4j.Grammar create(@NotNull Prism4j prism4j) {
+  @NonNull
+  public static Prism4j.Grammar create(@NonNull Prism4j prism4j) {
 
     final Prism4j.Grammar swift = GrammarUtils.extend(
       GrammarUtils.require(prism4j, "clike"),

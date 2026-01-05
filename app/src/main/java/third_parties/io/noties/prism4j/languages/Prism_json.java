@@ -7,8 +7,7 @@
 
 package third_parties.io.noties.prism4j.languages;
 
-import org.jetbrains.annotations.NotNull;
-
+import androidx.annotation.NonNull;
 import io.noties.prism4j.Prism4j;
 import io.noties.prism4j.annotations.Aliases;
 
@@ -22,8 +21,8 @@ import static java.util.regex.Pattern.compile;
 @Aliases("jsonp")
 public class Prism_json {
 
-  @NotNull
-  public static Prism4j.Grammar create(@NotNull Prism4j prism4j) {
+  @NonNull
+  public static Prism4j.Grammar create(@NonNull Prism4j prism4j) {
     return grammar(
       "json",
       token("property", pattern(compile("\"(?:\\\\.|[^\\\\\"\\r\\n])*\"(?=\\s*:)", CASE_INSENSITIVE))),
