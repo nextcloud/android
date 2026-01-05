@@ -1600,30 +1600,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     String onetimePrefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "onetime-login/";
                     
                     if (resultData.startsWith(onetimePrefix)) {
-                        LoginUrlInfo loginUrlInfo = parseLoginDataUrl(onetimePrefix, resultData);
-                        
-                        GenerateOneTimeAppPasswordRemoteOperation generateOneTimeAppPasswordRemoteOperation = new GenerateOneTimeAppPasswordRemoteOperation();
-
-                        String credentials = Credentials.basic(loginUrlInfo.getLoginName(), loginUrlInfo.getAppPassword());
-                        NextcloudClient nextcloudClient = new NextcloudClient(Uri.parse(loginUrlInfo.getServer()), loginUrlInfo.getLoginName(), credentials,this);
-
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                RemoteOperationResult<String> otpResult = nextcloudClient.execute(generateOneTimeAppPasswordRemoteOperation);
-
-                                mServerInfo.mBaseUrl = AuthenticatorUrlUtils.INSTANCE.normalizeUrlSuffix(loginUrlInfo.getServer());
-                                webViewUser = loginUrlInfo.getLoginName();
-                                webViewPassword = otpResult.getResultData();
-                                
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        checkOcServer();
-                                    }
-                                });
-                            }
-                        }).start();
+                        parseAndLoginFromOneTimeCode(onetimePrefix, resultData);
                     } else {
                         parseAndLoginFromWebView(resultData);
                     }
@@ -1631,6 +1608,32 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
         });
 
+    private void parseAndLoginFromOneTimeCode(String onetimePrefix, String resultData) {
+        LoginUrlInfo loginUrlInfo = parseLoginDataUrl(onetimePrefix, resultData);
+
+        GenerateOneTimeAppPasswordRemoteOperation generateOneTimeAppPasswordRemoteOperation = new GenerateOneTimeAppPasswordRemoteOperation();
+
+        String credentials = Credentials.basic(loginUrlInfo.getLoginName(), loginUrlInfo.getAppPassword());
+        NextcloudClient nextcloudClient = new NextcloudClient(Uri.parse(loginUrlInfo.getServer()), loginUrlInfo.getLoginName(), credentials, this);
+
+        new Thread(() -> {
+            RemoteOperationResult<String> otpResult = nextcloudClient.execute(generateOneTimeAppPasswordRemoteOperation);
+
+            if (otpResult.isSuccess()) {
+                mServerInfo.mBaseUrl = AuthenticatorUrlUtils.INSTANCE.normalizeUrlSuffix(loginUrlInfo.getServer());
+                webViewUser = loginUrlInfo.getLoginName();
+                webViewPassword = otpResult.getResultData();
+
+                runOnUiThread(this::checkOcServer);
+            } else {
+                mServerStatusIcon = R.drawable.ic_alert;
+                mServerStatusText = getString(R.string.qr_could_not_be_read);
+
+                runOnUiThread(this::showServerStatus);
+            }
+        }).start();
+    }
+    
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
