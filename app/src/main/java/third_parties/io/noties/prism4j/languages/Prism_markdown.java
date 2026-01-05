@@ -7,9 +7,8 @@
 
 package third_parties.io.noties.prism4j.languages;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import io.noties.prism4j.GrammarUtils;
 import io.noties.prism4j.Prism4j;
 import io.noties.prism4j.annotations.Extend;
@@ -24,8 +23,8 @@ import static java.util.regex.Pattern.compile;
 @Extend("markup")
 public class Prism_markdown {
 
-  @NotNull
-  public static Prism4j.Grammar create(@NotNull Prism4j prism4j) {
+  @NonNull
+  public static Prism4j.Grammar create(@NonNull Prism4j prism4j) {
 
     final Prism4j.Grammar markdown = GrammarUtils.extend(
       GrammarUtils.require(prism4j, "markup"),
@@ -116,7 +115,7 @@ public class Prism_markdown {
     return markdown;
   }
 
-  private static void add(@Nullable Prism4j.Grammar grammar, @NotNull Prism4j.Token first, @NotNull Prism4j.Token second) {
+  private static void add(@Nullable Prism4j.Grammar grammar, @NonNull Prism4j.Token first, @NonNull Prism4j.Token second) {
     if (grammar != null) {
       grammar.tokens().add(first);
       grammar.tokens().add(second);

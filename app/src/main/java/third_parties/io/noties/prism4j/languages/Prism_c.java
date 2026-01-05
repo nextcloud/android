@@ -7,8 +7,7 @@
 
 package third_parties.io.noties.prism4j.languages;
 
-import org.jetbrains.annotations.NotNull;
-
+import androidx.annotation.NonNull;
 import io.noties.prism4j.GrammarUtils;
 import io.noties.prism4j.Prism4j;
 import io.noties.prism4j.annotations.Extend;
@@ -24,15 +23,15 @@ import static java.util.regex.Pattern.compile;
 @Extend("clike")
 public class Prism_c {
 
-  @NotNull
-  public static Prism4j.Grammar create(@NotNull Prism4j prism4j) {
+  @NonNull
+  public static Prism4j.Grammar create(@NonNull Prism4j prism4j) {
 
     final Prism4j.Grammar c = GrammarUtils.extend(
       GrammarUtils.require(prism4j, "clike"),
       "c",
       new GrammarUtils.TokenFilter() {
         @Override
-        public boolean test(@NotNull Prism4j.Token token) {
+        public boolean test(@NonNull Prism4j.Token token) {
           final String name = token.name();
           return !"class-name".equals(name) && !"boolean".equals(name);
         }

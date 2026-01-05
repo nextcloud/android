@@ -7,15 +7,14 @@
 
 package third_parties.io.noties.prism4j.languages;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import io.noties.prism4j.GrammarLocator;
 import io.noties.prism4j.Prism4j;
 
@@ -24,13 +23,13 @@ public class MarkwonGrammarLocator implements GrammarLocator {
   @SuppressWarnings("ConstantConditions")
   private static final Prism4j.Grammar NULL =
       new Prism4j.Grammar() {
-        @NotNull
+        @NonNull
         @Override
         public String name() {
           return null;
         }
 
-        @NotNull
+        @NonNull
         @Override
         public List<Prism4j.Token> tokens() {
           return null;
@@ -41,7 +40,7 @@ public class MarkwonGrammarLocator implements GrammarLocator {
 
   @Nullable
   @Override
-  public Prism4j.Grammar grammar(@NotNull Prism4j prism4j, @NotNull String language) {
+  public Prism4j.Grammar grammar(@NonNull Prism4j prism4j, @NonNull String language) {
 
     final String name = realLanguageName(language);
 
@@ -64,8 +63,8 @@ public class MarkwonGrammarLocator implements GrammarLocator {
     return grammar;
   }
 
-  @NotNull
-  protected String realLanguageName(@NotNull String name) {
+  @NonNull
+  protected String realLanguageName(@NonNull String name) {
     final String out;
     switch (name) {
       case "dotnet":
@@ -90,7 +89,7 @@ public class MarkwonGrammarLocator implements GrammarLocator {
   }
 
   @Nullable
-  protected Prism4j.Grammar obtainGrammar(@NotNull Prism4j prism4j, @NotNull String name) {
+  protected Prism4j.Grammar obtainGrammar(@NonNull Prism4j prism4j, @NonNull String name) {
     final Prism4j.Grammar grammar;
     switch (name) {
       case "c":
@@ -168,7 +167,7 @@ public class MarkwonGrammarLocator implements GrammarLocator {
     return grammar;
   }
 
-  protected void triggerModify(@NotNull Prism4j prism4j, @NotNull String name) {
+  protected void triggerModify(@NonNull Prism4j prism4j, @NonNull String name) {
     switch (name) {
       case "markup":
         prism4j.grammar("css");
@@ -178,7 +177,7 @@ public class MarkwonGrammarLocator implements GrammarLocator {
   }
 
   @Override
-  @NotNull
+  @NonNull
   public Set<String> languages() {
     final Set<String> set = new HashSet<String>(23);
     set.add("c");

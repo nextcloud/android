@@ -7,10 +7,9 @@
 
 package third_parties.io.noties.prism4j.languages;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.regex.Pattern;
 
+import androidx.annotation.NonNull;
 import io.noties.prism4j.Prism4j;
 
 import static io.noties.prism4j.Prism4j.grammar;
@@ -23,8 +22,8 @@ import static java.util.regex.Pattern.compile;
 @SuppressWarnings("unused")
 public class Prism_latex {
 
-  @NotNull
-  public static Prism4j.Grammar create(@NotNull Prism4j prism4j) {
+  @NonNull
+  public static Prism4j.Grammar create(@NonNull Prism4j prism4j) {
 
     final Pattern funcPattern = compile("\\\\(?:[^a-z()\\[\\]]|[a-z*]+)", CASE_INSENSITIVE);
 
