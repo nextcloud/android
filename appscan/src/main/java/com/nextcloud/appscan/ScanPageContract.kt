@@ -5,13 +5,14 @@
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.nextcloud.appscan
+package com.nextcloud.appscan // Note: if class package or name changes, you must adjust the app's VariantModule.kt
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
 
+@Suppress("unused") // Class is instantiated via reflection
 class ScanPageContract : ActivityResultContract<Unit, String?>() {
     override fun createIntent(context: Context, input: Unit): Intent {
         return Intent(context, AppScanActivity::class.java)
