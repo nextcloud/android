@@ -419,6 +419,7 @@ dependencies {
     // endregion
 
     // region AppScan, document scanner not available on FDroid (generic) due to OpenCV binaries
+    // To enable the feature for another variant, add it here.
     "gplayImplementation"(project(":appscan"))
     "huaweiImplementation"(project(":appscan"))
     "qaImplementation"(project(":appscan"))
