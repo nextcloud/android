@@ -314,8 +314,10 @@ class GalleryAdapter(
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun setMultiSelect(boolean: Boolean) {
         ocFileListDelegate.isMultiSelect = boolean
+        notifyDataSetChanged()
     }
 
     private fun getAllFiles(): List<OCFile> = cachedAllFiles ?: files.flatMap { galleryItem ->
