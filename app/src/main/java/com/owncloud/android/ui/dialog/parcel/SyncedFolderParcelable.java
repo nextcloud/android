@@ -37,6 +37,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private int section;
     private SubFolderRule subFolderRule;
     private boolean excludeHidden;
+    private long uploadMinFileAgeMs;
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
         id = syncedFolderDisplayItem.getId();
@@ -53,6 +54,7 @@ public class SyncedFolderParcelable implements Parcelable {
         uploadAction = syncedFolderDisplayItem.getUploadAction();
         nameCollisionPolicy = NameCollisionPolicy.deserialize(
             syncedFolderDisplayItem.getNameCollisionPolicyInt());
+        uploadMinFileAgeMs = syncedFolderDisplayItem.getUploadMinFileAgeMs();
         this.section = section;
         hidden = syncedFolderDisplayItem.isHidden();
         subFolderRule = syncedFolderDisplayItem.getSubfolderRule();
@@ -77,6 +79,7 @@ public class SyncedFolderParcelable implements Parcelable {
         hidden = read.readInt() != 0;
         subFolderRule = SubFolderRule.values()[read.readInt()];
         excludeHidden = read.readInt() != 0;
+        uploadMinFileAgeMs = read.readLong();
     }
 
     public SyncedFolderParcelable() {
@@ -102,6 +105,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(hidden ? 1 : 0);
         dest.writeInt(subFolderRule.ordinal());
         dest.writeInt(excludeHidden ? 1 : 0);
+        dest.writeLong(uploadMinFileAgeMs);
     }
 
     public static final Creator<SyncedFolderParcelable> CREATOR =
@@ -181,6 +185,10 @@ public class SyncedFolderParcelable implements Parcelable {
         return this.subfolderByDate;
     }
 
+    public long getUploadMinFileAgeMs() {
+        return uploadMinFileAgeMs;
+    }
+
     public Integer getUploadAction() {
         return this.uploadAction;
     }
@@ -241,6 +249,10 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public void setSubfolderByDate(boolean subfolderByDate) {
         this.subfolderByDate = subfolderByDate;
+    }
+
+    public void setUploadMinFileAgeMs(long uploadMinFileAgeMs) {
+        this.uploadMinFileAgeMs = uploadMinFileAgeMs;
     }
 
     public void setNameCollisionPolicy(NameCollisionPolicy nameCollisionPolicy) {
