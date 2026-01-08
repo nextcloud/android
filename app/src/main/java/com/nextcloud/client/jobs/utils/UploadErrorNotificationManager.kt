@@ -172,7 +172,7 @@ object UploadErrorNotificationManager {
             result.code == ResultCode.USER_CANCELLED ||
             operation.isMissingPermissionThrown
         ) {
-            Log_OC.w(TAG, "operation is successful, cancelled or lack of storage permission")
+            Log_OC.i(TAG, "operation is successful, cancelled or lack of storage permission")
             return false
         }
 
