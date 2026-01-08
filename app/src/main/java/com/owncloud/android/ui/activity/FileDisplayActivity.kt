@@ -600,7 +600,15 @@ class FileDisplayActivity :
             OPEN_FILE -> {
                 onOpenFileIntent(intent)
             }
+            Intent.ACTION_MAIN -> handleSwitchAccount(intent)
         }
+    }
+
+    private fun handleSwitchAccount(intent: Intent) {
+        val accountName = intent.getStringExtra(KEY_ACCOUNT)
+        val account = accountManager.getAccountByName(accountName)
+        setAccount(account, false)
+        restart()
     }
 
     @SuppressLint("UnsafeIntentLaunch")
@@ -1326,6 +1334,8 @@ class FileDisplayActivity :
 
     override fun onResume() {
         Log_OC.v(TAG, "onResume() start")
+
+        handleCommonIntents(intent)
 
         super.onResume()
         if (SettingsActivity.isBackPressed) {
