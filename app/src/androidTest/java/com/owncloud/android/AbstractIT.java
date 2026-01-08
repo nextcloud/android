@@ -68,7 +68,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -234,7 +236,7 @@ public abstract class AbstractIT {
         return AccountManager.get(targetContext).getAccounts();
     }
 
-    protected static void createDummyFiles() throws IOException {
+    protected static List<File> createDummyFiles() throws IOException {
         File tempPath = new File(FileStorageUtils.getTemporalPath(account.name));
         if (!tempPath.exists()) {
             assertTrue(tempPath.mkdirs());
@@ -242,9 +244,11 @@ public abstract class AbstractIT {
 
         assertTrue(tempPath.exists());
 
-        createFile("empty.txt", 0);
-        createFile("nonEmpty.txt", 100);
-        createFile("chunkedFile.txt", 500000);
+        return Arrays.asList(
+            createFile("empty.txt", 0),
+            createFile("nonEmpty.txt", 100),
+            createFile("chunkedFile.txt", 500000)
+        );
     }
 
     protected static File getDummyFile(String name) throws IOException {
