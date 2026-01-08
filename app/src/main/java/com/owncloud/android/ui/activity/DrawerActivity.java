@@ -78,7 +78,6 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.Quota;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.ExternalLinksOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
@@ -108,7 +107,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -1381,13 +1379,13 @@ public abstract class DrawerActivity extends ToolbarActivity
                                                                 FileActivity.APP_OPENED_COUNT, "0");
 
                     Log_OC.d("ExternalLinks", "update via api");
-                    RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
-                    RemoteOperationResult result = getExternalLinksOperation.execute(user, this);
+                    RemoteOperationResult<List<ExternalLink>> result = new ExternalLinksOperation()
+                        .executeNextcloudClient(user, this);
 
-                    if (result.isSuccess() && result.getData() != null) {
+                    if (result.isSuccess() && result.getResultData() != null) {
                         externalLinksProvider.deleteAllExternalLinks();
 
-                        ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) (Object) result.getData();
+                        List<ExternalLink> externalLinks = result.getResultData();
 
                         for (ExternalLink link : externalLinks) {
                             externalLinksProvider.storeExternalLink(link);
