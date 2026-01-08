@@ -1,11 +1,7 @@
 /*
  * Nextcloud Android client application
  *
- * @author Andy Scherzinger
- * @author Stefan Niedermann
- * Copyright (C) 2021 Andy Scherzinger
- * Copyright (C) 2021 Stefan Niedermann
- *
+ * SPDX-FileCopyrightText: 2021-2026 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui
@@ -76,6 +72,7 @@ class AvatarGroupLayout @JvmOverloads constructor(
             val avatar = ImageView(context).apply {
                 layoutParams = avatarLayoutParams
                 setPadding(avatarBorderSize, avatarBorderSize, avatarBorderSize, avatarBorderSize)
+                scaleType = ImageView.ScaleType.CENTER_INSIDE
                 background = borderDrawable
             }
 
