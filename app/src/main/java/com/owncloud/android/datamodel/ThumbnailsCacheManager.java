@@ -68,6 +68,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
@@ -644,9 +645,24 @@ public final class ThumbnailsCacheManager {
                 try {
                     String uri;
                     if (file instanceof OCFile) {
-                        uri = mClient.getBaseUri() + "/index.php/core/preview?fileId="
-                            + file.getLocalId()
-                            + "&x=" + pxW + "&y=" + pxH + "&a=1&mode=cover&forceIcon=0";
+                        long localId = file.getLocalId();
+                        if (localId > 0) {
+                            // Use fileId if available
+                            uri = mClient.getBaseUri() + "/index.php/core/preview?fileId="
+                                + localId
+                                + "&x=" + pxW + "&y=" + pxH + "&a=1&mode=cover&forceIcon=0";
+                        } else {
+                            // Try different API endpoints for Nextcloud 31
+                            String filePath = ((OCFile) file).getRemotePath();
+                            // Try Nextcloud 31 files API thumbnail endpoint
+                            String cleanPath = filePath.startsWith("/") ? filePath.substring(1) : filePath;
+                            try {
+                                cleanPath = URLEncoder.encode(cleanPath, "UTF-8");
+                            } catch (Exception e) {
+                                // Ignore encoding errors
+                            }
+                            uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + pxW + "/" + pxH + "/" + cleanPath;
+                        }
                     } else {
                         uri = mClient.getBaseUri() + "/index.php/apps/files_trashbin/preview?fileId="
                             + file.getLocalId() + "&x=" + pxW + "&y=" + pxH;

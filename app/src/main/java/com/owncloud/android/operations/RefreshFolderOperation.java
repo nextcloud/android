@@ -35,6 +35,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
+import com.owncloud.android.lib.resources.files.StreamingReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.users.GetPredefinedStatusesRemoteOperation;
@@ -456,8 +457,38 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
-        RemoteOperationResult result = new ReadFolderRemoteOperation(remotePath).execute(client);
         Log_OC.d(TAG, "⬇ eTag is changed or ignored, fetching folder: " + user.getAccountName() + remotePath);
+        
+        RemoteOperationResult result;
+        try {
+            // Try using streaming parser first (handles large folders without OOM)
+            result = new StreamingReadFolderRemoteOperation(remotePath).execute(client);
+            Log_OC.d(TAG, "Streaming parser completed for folder: " + remotePath);
+        } catch (OutOfMemoryError e) {
+            // Should not happen with streaming parser, but handle it just in case
+            Log_OC.e(TAG, "OutOfMemoryError with streaming parser for folder " + remotePath, e);
+            // Try fallback to legacy method
+            try {
+                Log_OC.w(TAG, "Falling back to legacy ReadFolderRemoteOperation: " + e.getMessage());
+                result = new ReadFolderRemoteOperation(remotePath).execute(client);
+            } catch (OutOfMemoryError e2) {
+                Log_OC.e(TAG, "OutOfMemoryError with legacy parser as well for folder " + remotePath + 
+                    ". The folder is too large to parse XML response in memory. " +
+                    "This is a limitation of ReadFolderRemoteOperation which parses entire XML response at once. " +
+                    "The folder contains too many files to be processed in a single request. " +
+                    "Consider splitting the folder into smaller subfolders.", e2);
+                return new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+            }
+        } catch (Exception e) {
+            // For other exceptions, try fallback to legacy method
+            Log_OC.w(TAG, "Streaming parser failed for folder " + remotePath + ", trying legacy method: " + e.getMessage());
+            try {
+                result = new ReadFolderRemoteOperation(remotePath).execute(client);
+            } catch (Exception e2) {
+                Log_OC.e(TAG, "Both streaming and legacy parsers failed for folder " + remotePath, e2);
+                return new RemoteOperationResult(e2);
+            }
+        }
 
         if (result.isSuccess()) {
             synchronizeData(result.getData());
@@ -510,7 +541,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         Log_OC.d(TAG, "Remote folder path: " + mLocalFolder.getRemotePath() + " changed - starting update of local data ");
 
-        List<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
+        int totalFiles = folderAndFiles.size() - 1;
         mFilesToSyncContents.clear();
 
         // if local folder is encrypted, download fresh metadata
@@ -560,13 +591,78 @@ public class RefreshFolderOperation extends RemoteOperation {
             }
         }
 
-        // loop to update every child
+        // Process files in batches to avoid memory issues with large folders
+        final int BATCH_SIZE = 500; // Same as FileDataStorageManager.BATCH_SIZE
+        List<OCFile> allUpdatedFiles = new ArrayList<>();
+        
+        // update file name for encrypted files (before processing batches)
+        if (e2EVersion == E2EVersion.V1_2) {
+            updateFileNameForEncryptedFileV1(fileDataStorageManager,
+                                             (DecryptedFolderMetadataFileV1) object,
+                                             mLocalFolder);
+        } else {
+            updateFileNameForEncryptedFile(fileDataStorageManager,
+                                           (DecryptedFolderMetadataFile) object,
+                                           mLocalFolder);
+        }
+        
+        if (totalFiles > BATCH_SIZE) {
+            Log_OC.d(TAG, "Large folder detected (" + totalFiles + " files). Processing in batches of " + BATCH_SIZE);
+            
+            // Process files in batches
+            int batchIndex = 0;
+            for (int batchStart = 1; batchStart < folderAndFiles.size(); batchStart += BATCH_SIZE) {
+                int batchEnd = Math.min(batchStart + BATCH_SIZE, folderAndFiles.size());
+                List<OCFile> batchFiles = processFileBatch(folderAndFiles, batchStart, batchEnd, 
+                    localFilesMap, e2EVersion, object);
+                allUpdatedFiles.addAll(batchFiles);
+                
+                // Save batch immediately to free memory (without updating folder metadata)
+                fileDataStorageManager.saveFolderBatchOnly(remoteFolder, batchFiles, batchIndex * BATCH_SIZE);
+                batchIndex++;
+            }
+        } else {
+            // Small folder - process normally
+            List<OCFile> updatedFiles = processFileBatch(folderAndFiles, 1, folderAndFiles.size(), 
+                localFilesMap, e2EVersion, object);
+            allUpdatedFiles.addAll(updatedFiles);
+            
+            // Save all files at once for small folders
+            fileDataStorageManager.saveFolderBatchOnly(remoteFolder, updatedFiles, 0);
+        }
+        
+        // Process deletions separately
+        if (!localFilesMap.values().isEmpty()) {
+            fileDataStorageManager.processFileRemovals(remoteFolder, localFilesMap.values());
+        }
+        
+        // Update folder metadata (always last, only once)
+        fileDataStorageManager.updateFolderMetadata(remoteFolder);
+
+        mChildren = allUpdatedFiles;
+    }
+
+    /**
+     * Processes a batch of files from the server response.
+     *
+     * @param folderAndFiles The full list of folder and files from server
+     * @param startIndex Starting index in folderAndFiles (1-based, 0 is the folder itself)
+     * @param endIndex Ending index (exclusive)
+     * @param localFilesMap Map of local files for matching
+     * @param e2EVersion E2E encryption version
+     * @param object Decrypted metadata object (if encrypted)
+     * @return List of processed OCFile objects
+     */
+    private List<OCFile> processFileBatch(List<Object> folderAndFiles, int startIndex, int endIndex,
+                                         Map<String, OCFile> localFilesMap, E2EVersion e2EVersion, Object object) {
+        List<OCFile> batchFiles = new ArrayList<>(endIndex - startIndex);
+        
         OCFile remoteFile;
         OCFile localFile;
         OCFile updatedFile;
         RemoteFile remote;
 
-        for (int i = 1; i < folderAndFiles.size(); i++) {
+        for (int i = startIndex; i < endIndex; i++) {
             /// new OCFile instance with the data from the server
             remote = (RemoteFile) folderAndFiles.get(i);
             remoteFile = FileStorageUtils.fillOCFile(remote);
@@ -615,24 +711,10 @@ public class RefreshFolderOperation extends RemoteOperation {
             boolean encrypted = updatedFile.isEncrypted() || mLocalFolder.isEncrypted();
             updatedFile.setEncrypted(encrypted);
 
-            updatedFiles.add(updatedFile);
+            batchFiles.add(updatedFile);
         }
-
-
-        // save updated contents in local database
-        // update file name for encrypted files
-        if (e2EVersion == E2EVersion.V1_2) {
-            updateFileNameForEncryptedFileV1(fileDataStorageManager,
-                                             (DecryptedFolderMetadataFileV1) object,
-                                             mLocalFolder);
-        } else {
-            updateFileNameForEncryptedFile(fileDataStorageManager,
-                                           (DecryptedFolderMetadataFile) object,
-                                           mLocalFolder);
-        }
-        fileDataStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
-
-        mChildren = updatedFiles;
+        
+        return batchFiles;
     }
 
     @Nullable

@@ -251,7 +251,7 @@ public class UploadFileOperation extends SyncOperation {
         this.user = user;
         mUpload = upload;
         if (file == null) {
-            Log_OC.w(TAG, "UploadFileOperation file is null, obtaining from upload");
+            Log_OC.i(TAG, "UploadFileOperation file is null, obtaining from upload");
             mFile = obtainNewOCFileToUpload(
                 upload.getRemotePath(),
                 upload.getLocalPath(),
@@ -1232,7 +1232,31 @@ public class UploadFileOperation extends SyncOperation {
             switch (mNameCollisionPolicy) {
                 case SKIP:
                     Log_OC.d(TAG, "user choose to skip upload if same file exists");
-                    return new RemoteOperationResult<>(ResultCode.OK);
+                    // For encrypted files, we can't easily compare content, so skip based on name only
+                    // For non-encrypted files, check if it's actually the same file by content
+                    if (!encrypted && mContext != null && user != null && mOriginalStoragePath != null) {
+                        File localFile = new File(mOriginalStoragePath);
+                        if (localFile.exists()) {
+                            boolean isSameFile = FileUploadHelper.Companion.instance().isSameFileOnRemote(
+                                user, localFile, mRemotePath, mContext);
+                            if (isSameFile) {
+                                Log_OC.d(TAG, "File is the same on remote, skipping upload");
+                                return new RemoteOperationResult<>(ResultCode.OK);
+                            } else {
+                                Log_OC.d(TAG, "File with same name exists but content is different, reporting conflict");
+                                // File exists but is different, return conflict so system can handle it
+                                return new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+                            }
+                        } else {
+                            Log_OC.w(TAG, "Local file does not exist, cannot compare content");
+                            // If local file doesn't exist, skip based on name only (old behavior)
+                            return new RemoteOperationResult<>(ResultCode.OK);
+                        }
+                    } else {
+                        // For encrypted files or when context/user/file path is unavailable,
+                        // skip based on name only (preserve old behavior)
+                        return new RemoteOperationResult<>(ResultCode.OK);
+                    }
                 case RENAME:
                     mRemotePath = getNewAvailableRemotePath(client, mRemotePath, fileNames, encrypted);
                     mWasRenamed = true;
