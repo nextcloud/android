@@ -22,21 +22,21 @@
 
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/twoWaySyncToggle"
-            android:text="@string/prefs_two_way_sync_switch_title"
-            android:textSize="@dimen/txt_size_16sp"
-            android:minHeight="48dp"
-            android:layout_marginHorizontal="@dimen/standard_half_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/standard_margin"
             android:layout_marginTop="@dimen/alternate_margin"
             android:layout_marginBottom="@dimen/alternate_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:minHeight="@dimen/minimum_size_for_touchable_area"
+            android:text="@string/prefs_two_way_sync_title"
+            android:textSize="@dimen/txt_size_16sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/two_way_sync_interval_layout"
-            android:layout_marginHorizontal="@dimen/standard_half_padding"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/alternate_margin"
             android:hint="@string/prefs_two_way_sync_interval">
 

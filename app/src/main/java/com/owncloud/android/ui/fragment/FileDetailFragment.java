@@ -276,6 +276,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (getFile() != null && user != null) {
             viewThemeUtils.platform.themeHorizontalProgressBar(binding.progressBar);
+            viewThemeUtils.platform.themeCheckbox(binding.folderSyncButton);
             progressListener = new DownloadProgressListener(binding.progressBar);
             binding.cancelBtn.setOnClickListener(this);
             binding.favorite.setOnClickListener(this);
