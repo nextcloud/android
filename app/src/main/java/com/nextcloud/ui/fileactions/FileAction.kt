@@ -122,8 +122,6 @@ enum class FileAction(
                 R.id.action_lock_file,
                 R.id.action_unlock_file,
                 R.id.action_edit,
-                R.id.action_favorite,
-                R.id.action_unset_favorite,
                 R.id.action_see_details,
                 R.id.action_move_or_copy,
                 R.id.action_stream_media,

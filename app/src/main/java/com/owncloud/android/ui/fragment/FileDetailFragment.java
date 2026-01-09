@@ -484,6 +484,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         } else if (itemId == R.id.action_encrypted) {
             // TODO implement or remove
         } else if (itemId == R.id.action_unset_encrypted) {// TODO implement or remove
+        } else if (itemId == R.id.action_favorite) {
+            containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), true);
+            setFavoriteIconStatus(true);
+        } else if (itemId == R.id.action_unset_favorite) {
+            containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), false);
+            setFavoriteIconStatus(false);
         }
     }
 
