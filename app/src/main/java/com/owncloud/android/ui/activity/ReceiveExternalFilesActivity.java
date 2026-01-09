@@ -1099,7 +1099,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         int itemId = item.getItemId();
 
         if (itemId == R.id.action_create_dir) {
-            CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(mFile);
+            CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(mFile, false);
             dialog.show(getSupportFragmentManager(), CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
         } else if (itemId == android.R.id.home) {
             if (mParents.size() > SINGLE_PARENT) {
