@@ -1939,7 +1939,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                               privateKey,
                               storageManager);
             }
-        }}).start();
     }
 
     private void encryptFolder(OCFile folder,
