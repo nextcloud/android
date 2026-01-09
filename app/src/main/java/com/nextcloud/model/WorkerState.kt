@@ -18,7 +18,7 @@ sealed class WorkerState {
     data class FileDownloadCompleted(var currentFile: OCFile?) : WorkerState()
 
     data class FileUploadStarted(var user: User?) : WorkerState()
-    data class FileUploadCompleted(var currentFile: OCFile?) : WorkerState()
+    object FileUploadCompleted : WorkerState()
 
     data object OfflineOperationsCompleted : WorkerState()
 }
