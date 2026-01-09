@@ -18,7 +18,9 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -42,7 +44,6 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.nio.file.Files;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -205,7 +206,8 @@ public class DownloadFileOperation extends RemoteOperation {
             dataTransferListeners.forEach(downloadOperation::addDatatransferProgressListener);
         }
 
-        result = downloadOperation.execute(client);
+        NextcloudClient nextcloudClient = OwnCloudClientExtensionsKt.toNextcloudClient(client, operationContext);
+        result = downloadOperation.execute(nextcloudClient);
 
 
 
