@@ -165,8 +165,8 @@ android {
             register("versionDev") {
                 applicationId = "com.nextcloud.android.beta"
                 dimension = "default"
-                versionCode = 20260109
-                versionName = "20260109"
+                versionCode = 20260110
+                versionName = "20260110"
             }
 
             register("qa") {
