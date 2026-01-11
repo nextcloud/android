@@ -44,7 +44,7 @@ import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
 ) // legacy code
 class UriUploader(
     private val mActivity: FileActivity,
-    private val mUrisToUpload: List<Parcelable?>,
+    private val mUrisToUpload: ArrayList<Uri>,
     private val mUploadPath: String,
     private val user: User,
     private val mBehaviour: Int,
@@ -64,17 +64,12 @@ class UriUploader(
     fun uploadUris(): UriUploaderResultCode {
         var code = UriUploaderResultCode.OK
         try {
-            val anySensitiveUri = mUrisToUpload
-                .filterNotNull()
-                .any { isSensitiveUri((it as Uri)) }
+            val anySensitiveUri = mUrisToUpload.any { isSensitiveUri(it) }
             if (anySensitiveUri) {
                 Log_OC.e(TAG, "Sensitive URI detected, aborting upload.")
                 code = UriUploaderResultCode.ERROR_SENSITIVE_PATH
             } else {
-                val uris = mUrisToUpload
-                    .filterNotNull()
-                    .map { it as Uri }
-                    .map { Pair(it, getRemotePathForUri(it)) }
+                val uris = mUrisToUpload.map { Pair(it, getRemotePathForUri(it)) }
 
                 val fileUris = uris.filter { it.first.scheme == ContentResolver.SCHEME_FILE }
                 if (fileUris.isNotEmpty()) {
