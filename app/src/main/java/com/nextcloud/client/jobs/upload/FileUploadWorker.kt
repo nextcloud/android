@@ -43,8 +43,14 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.random.Random
@@ -253,7 +259,95 @@ class FileUploadWorker(
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
 
-        for ((index, upload) in uploads.withIndex()) {
+        return@withContext parallelUpload(uploads, user, previouslyUploadedFileSize, totalUploadSize, client, accountName)
+
+        // return@withContext sequentialUpload(uploads, user, previouslyUploadedFileSize, totalUploadSize, client, accountName)
+    }
+
+
+    private suspend fun parallelUpload(
+        uploads: List<OCUpload>?,
+        user: User,
+        previouslyUploadedFileSize: Int,
+        totalUploadSize: Int,
+        client: OwnCloudClient,
+        accountName: String
+    ): Result {
+        val semaphore = Semaphore(5) // Limit to 5 parallel uploads
+        var quotaExceeded = false
+
+        coroutineScope {
+            for ((index, upload) in uploads?.withIndex()!!) {
+                if (quotaExceeded) break
+                ensureActive()
+
+                launch {
+                    semaphore.withPermit {
+                        if (quotaExceeded || isStopped) return@launch
+
+                        if (preferences.isGlobalUploadPaused) {
+                            Log_OC.d(TAG, "Upload is paused, skip uploading files!")
+                            notificationManager.notifyPaused(intents.openUploadListIntent(null))
+                            return@launch
+                        }
+
+                        if (canExitEarly()) {
+                            notificationManager.showConnectionErrorNotification()
+                            return@launch
+                        }
+
+                        setWorkerState(user)
+                        val operation = createUploadFileOperation(upload, user)
+
+                        // NOTE: currentUploadFileOperation is a companion property.
+                        // Parallelizing will cause race conditions here.
+                        // You should ideally move this to a thread-safe collection if needed.
+                        currentUploadFileOperation = operation
+
+                        val currentIndex = (index + 1)
+                        val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
+
+                        // Synchronize notification updates if they aren't thread-safe
+                        synchronized(notificationManager) {
+                            notificationManager.prepareForStart(
+                                operation,
+                                startIntent = intents.openUploadListIntent(operation),
+                                currentUploadIndex = currentUploadIndex,
+                                totalUploadSize = totalUploadSize
+                            )
+                        }
+
+                        val result = upload(operation, user, client)
+
+                        val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
+                        uploadsStorageManager.updateStatus(entity, result.isSuccess)
+
+                        if (result.code == ResultCode.QUOTA_EXCEEDED) {
+                            Log_OC.w(TAG, "Quota exceeded, stopping uploads")
+                            notificationManager.showQuotaExceedNotification(operation)
+                            quotaExceeded = true
+                            this@coroutineScope.cancel("Quota exceeded")
+                            return@launch
+                        }
+
+                        sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
+                    }
+                }
+            }
+        }
+
+        return if (quotaExceeded) Result.failure() else Result.success()
+    }
+
+    private suspend fun CoroutineScope.sequentialUpload(
+        uploads: List<OCUpload>?,
+        user: User,
+        previouslyUploadedFileSize: Int,
+        totalUploadSize: Int,
+        client: OwnCloudClient,
+        accountName: String
+    ): Result {
+        for ((index, upload) in uploads?.withIndex()!!) {
             ensureActive()
 
             if (preferences.isGlobalUploadPaused) {
@@ -261,12 +355,12 @@ class FileUploadWorker(
                 notificationManager.notifyPaused(
                     intents.openUploadListIntent(null)
                 )
-                return@withContext Result.success()
+                return Result.success()
             }
 
             if (canExitEarly()) {
                 notificationManager.showConnectionErrorNotification()
-                return@withContext Result.failure()
+                return Result.failure()
             }
 
             setWorkerState(user)
@@ -298,9 +392,8 @@ class FileUploadWorker(
             sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
         }
 
-        return@withContext Result.success()
+        return Result.success()
     }
-
     private fun sendUploadFinishEvent(
         totalUploadSize: Int,
         currentUploadIndex: Int,
