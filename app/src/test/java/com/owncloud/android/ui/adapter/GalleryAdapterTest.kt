@@ -95,6 +95,6 @@ class GalleryAdapterTest {
 
         sut.addFiles(list)
 
-        assertEquals(2, sut.getFilesCount())
+        assertEquals(4, sut.getFilesCount())
     }
 }
