@@ -43,7 +43,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.coroutineScope
@@ -84,8 +83,7 @@ class FileUploadWorker(
         const val TOTAL_UPLOAD_SIZE = "total_upload_size"
         const val SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION = "show_same_file_already_exists_notification"
 
-        private val activeUploadFileOperations = ConcurrentHashMap<String, UploadFileOperation>()
-
+        val activeUploadFileOperations = ConcurrentHashMap<String, UploadFileOperation>()
         private const val UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED"
         private const val UPLOAD_START_MESSAGE = "UPLOAD_START"
         private const val UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH"
@@ -123,7 +121,7 @@ class FileUploadWorker(
         fun isUploading(remotePath: String?, accountName: String?): Boolean {
             return activeUploadFileOperations.values.any {
                 it.remotePath == remotePath && it.user.accountName == accountName
-                }
+            }
         }
 
         fun getUploadAction(action: String): Int = when (action) {
@@ -263,9 +261,15 @@ class FileUploadWorker(
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
 
-        return@withContext parallelUpload(uploads, user, previouslyUploadedFileSize, totalUploadSize, client, accountName)
+        return@withContext parallelUpload(
+            uploads,
+            user,
+            previouslyUploadedFileSize,
+            totalUploadSize,
+            client,
+            accountName
+        )
     }
-
 
     private suspend fun parallelUpload(
         uploads: List<OCUpload>?,
@@ -279,9 +283,10 @@ class FileUploadWorker(
             return Result.success()
         }
 
-        val semaphore = Semaphore(5) // Limit to 5 parallel uploads
+        val semaphore = Semaphore(10) // Limit to 10 parallel uploads
         val quotaExceeded = AtomicBoolean(false)
         val completedCount = AtomicInteger(0)
+        val storageManager = FileDataStorageManager(user, context.contentResolver)
 
         coroutineScope {
             for (upload in uploads) {
@@ -304,7 +309,7 @@ class FileUploadWorker(
                         }
 
                         setWorkerState(user)
-                        val operation = createUploadFileOperation(upload, user)
+                        val operation = createUploadFileOperation(upload, user, storageManager)
                         activeUploadFileOperations[operation.originalStoragePath] = operation
 
                         try {
@@ -320,10 +325,10 @@ class FileUploadWorker(
                                 )
                             }
 
-                        val result = upload(operation, user, client)
+                            val result = upload(operation, user, client)
 
-                        val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
-                        uploadsStorageManager.updateStatus(entity, result.isSuccess)
+                            val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
+                            uploadsStorageManager.updateStatus(entity, result.isSuccess)
 
                             if (result.code == ResultCode.QUOTA_EXCEEDED) {
                                 Log_OC.w(TAG, "Quota exceeded, stopping uploads")
@@ -333,14 +338,13 @@ class FileUploadWorker(
                                 return@launch
                             }
 
-                        sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
-
+                            sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
                         } finally {
                             activeUploadFileOperations.remove(operation.originalStoragePath)
                             lastPercents.remove(operation.originalStoragePath)
                             lastUpdateTimes.remove(operation.originalStoragePath)
                         }
-                        }
+                    }
                 }
             }
         }
@@ -383,7 +387,11 @@ class FileUploadWorker(
         return result
     }
 
-    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
+    private fun createUploadFileOperation(
+        upload: OCUpload,
+        user: User,
+        storageManager: FileDataStorageManager
+    ): UploadFileOperation = UploadFileOperation(
         uploadsStorageManager,
         connectivityService,
         powerManagementService,
@@ -396,7 +404,7 @@ class FileUploadWorker(
         upload.isUseWifiOnly,
         upload.isWhileChargingOnly,
         true,
-        FileDataStorageManager(user, context.contentResolver)
+        storageManager
     ).apply {
         addDataTransferProgressListener(this@FileUploadWorker)
     }
