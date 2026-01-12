@@ -44,8 +44,12 @@
     <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
     <string name="appbar_search_in">Искать в %s</string>
     <string name="appear_offline">\"Не в сети\" для остальных</string>
+    <string name="assistant_screen_chat_create_error">Не удалось отправить сообщение</string>
+    <string name="assistant_screen_chat_fetch_error">Не удалось загрузить сообщения чата</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Вы уверены, что хотите удалить эту задачу?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Удалить задачу</string>
+    <string name="assistant_screen_empty_content_description">Попробуйте отправить сообщение, чтобы начать беседу.</string>
+    <string name="assistant_screen_empty_content_title">Здравствуйте! Чем я могу вам помочь сегодня?</string>
     <string name="assistant_screen_task_create_fail_message">Произошла ошибка при создании задачи</string>
     <string name="assistant_screen_task_create_success_message">Задача успешно создана</string>
     <string name="assistant_screen_task_delete_fail_message">Произошла ошибка во время удаления задачи</string>
@@ -198,7 +202,9 @@
     <string name="contacts_preferences_import_scheduled_fail">Не удалось запустить импорт. Пожалуйста, попробуйте снова</string>
     <string name="contacts_preferences_no_file_found">Файл не найден</string>
     <string name="contacts_preferences_something_strange_happened">Не удалось найти последнюю резервную копию!</string>
+    <string name="conversation_screen_create_error_title">Не удалось создать чат</string>
     <string name="conversation_screen_delete_button_title">Удалить обсуждение</string>
+    <string name="conversation_screen_delete_error_title">Не удалось создать чат.</string>
     <string name="conversation_screen_empty_content_title">Не найдено ни одного обсуждения</string>
     <string name="conversation_screen_title">Беседы</string>
     <string name="copied">Скопировано</string>
