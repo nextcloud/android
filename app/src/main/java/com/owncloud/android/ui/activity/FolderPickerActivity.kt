@@ -323,7 +323,7 @@ open class FolderPickerActivity :
         val itemId = item.itemId
 
         if (itemId == R.id.action_create_dir) {
-            val dialog = CreateFolderDialogFragment.newInstance(currentFolder)
+            val dialog = CreateFolderDialogFragment.newInstance(currentFolder, false)
             dialog.show(supportFragmentManager, CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT)
         } else if (itemId == android.R.id.home) {
             val currentDir = currentFolder

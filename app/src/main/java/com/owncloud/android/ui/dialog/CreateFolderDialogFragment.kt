@@ -35,6 +35,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.services.OperationsService.EXTRA_ENCRYPTED
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.DisplayUtils
@@ -69,6 +70,7 @@ class CreateFolderDialogFragment :
     lateinit var accountProvider: CurrentAccountProvider
 
     private var parentFolder: OCFile? = null
+    private var encrypted = false
     private var positiveButton: MaterialButton? = null
 
     private lateinit var binding: EditBoxDialogBinding
@@ -104,6 +106,7 @@ class CreateFolderDialogFragment :
     @Suppress("EmptyFunctionBlock")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         parentFolder = arguments?.getParcelableArgument(ARG_PARENT_FOLDER, OCFile::class.java)
+        encrypted = arguments?.getBoolean(EXTRA_ENCRYPTED, false) ?: false
 
         val inflater = requireActivity().layoutInflater
         binding = EditBoxDialogBinding.inflate(inflater, null, false)
@@ -190,7 +193,7 @@ class CreateFolderDialogFragment :
             val path = parentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
             connectivityService.isNetworkAndServerAvailable { result ->
                 if (result) {
-                    typedActivity<ComponentsGetter>()?.fileOperationsHelper?.createFolder(path)
+                    typedActivity<ComponentsGetter>()?.fileOperationsHelper?.createFolder(path, encrypted)
                 } else {
                     Log_OC.d(TAG, "Network not available, creating offline operation")
                     fileDataStorageManager.addCreateFolderOfflineOperation(
@@ -217,9 +220,10 @@ class CreateFolderDialogFragment :
          * @return Dialog ready to show.
          */
         @JvmStatic
-        fun newInstance(parentFolder: OCFile?): CreateFolderDialogFragment {
+        fun newInstance(parentFolder: OCFile?, encrypted: Boolean): CreateFolderDialogFragment {
             val bundle = Bundle().apply {
                 putParcelable(ARG_PARENT_FOLDER, parentFolder)
+                putBoolean(EXTRA_ENCRYPTED, encrypted)
             }
 
             return CreateFolderDialogFragment().apply {
