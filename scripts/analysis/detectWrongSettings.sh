@@ -8,7 +8,7 @@ snapshotCount=$(./gradlew dependencies | grep SNAPSHOT -c)
 betaCount=$(grep "<bool name=\"is_beta\">true</bool>" app/src/main/res/values/setup.xml -c)
 
 # Read androidLibraryVersion from TOML
-libraryHash=$(grep 'androidLibraryVersion' gradle/libs.versions.toml \
+libraryHash=$(grep 'androidLibraryVersion =' gradle/libs.versions.toml \
     | cut -d '=' -f2 \
     | tr -d ' "' )
 
