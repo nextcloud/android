@@ -11,7 +11,7 @@
     <color name="text_color_inverse">#000000</color>
     <color name="disabled_text">#ff6F6F6F</color>
     <color name="secondary_text_color">#A5A5A5</color>
-    <color name="list_divider_background">#222222</color>
+    <color name="list_divider_background">#49454F</color>
     <color name="task_container">#222222</color>
 
     <!-- Colors -->

@@ -50,7 +50,8 @@ class InternalTwoWaySyncActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        internalTwoWaySyncAdapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), this, this)
+        internalTwoWaySyncAdapter =
+            InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), this, this, viewThemeUtils)
 
         binding = InternalTwoWaySyncLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -163,6 +164,7 @@ class InternalTwoWaySyncActivity :
                 handleDurationSelected(durations[position].first.inWholeMinutes)
             }
         }
+        viewThemeUtils.material.colorTextInputLayout(binding.twoWaySyncIntervalLayout)
     }
 
     private fun handleDurationSelected(duration: Long) {
@@ -184,6 +186,7 @@ class InternalTwoWaySyncActivity :
                 backgroundJobManager.cancelTwoWaySyncJob()
             }
         }
+        viewThemeUtils.material.colorMaterialSwitch(binding.twoWaySyncToggle)
     }
 
     private fun checkLayoutVisibilities(condition: Boolean) {

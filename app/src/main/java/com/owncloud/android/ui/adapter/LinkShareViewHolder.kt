@@ -93,11 +93,9 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
         }
 
         val label = publicShare.label
-        if (label.isNullOrEmpty()) {
-            return
+        if (!label.isNullOrEmpty()) {
+            binding.name.text = context.getString(R.string.share_link_with_label, label)
         }
-
-        binding.name.text = context.getString(R.string.share_link_with_label, label)
     }
 
     private fun setSubline(binding: FileDetailsShareLinkShareItemBinding?, context: Context?, publicShare: OCShare) {
