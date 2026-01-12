@@ -16,6 +16,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +63,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Observer;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -121,6 +124,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private final List<GroupConfig> uploadGroupConfigs = GroupConfig.getConfigs();
 
     private final FileUploadHelper uploadHelper = FileUploadHelper.Companion.instance();
+    private Observer uploadDbObserver;
+    private final Handler mainHandler;
 
     public UploadListAdapter(final FileActivity fileActivity,
                              final UploadsStorageManager uploadsStorageManager,
@@ -146,6 +151,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         shouldShowHeadersForEmptySections(false);
         initUploadGroups();
         showUser = accountManager.getAccounts().length > 1;
+
+        mainHandler = new Handler(Looper.getMainLooper());
+        uploadDbObserver = (o, arg) -> mainHandler.post(this::loadUploadItemsFromDb);
+        uploadsStorageManager.addObserver(uploadDbObserver);
     }
 
     private void initUploadGroups() {
@@ -1085,5 +1094,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }
 
         mNotificationManager.cancel((int) upload.getUploadId());
+    }
+
+    /**
+     * Must be called when parent view is destroyed
+     */
+    public void onDestroy() {
+        uploadsStorageManager.deleteObserver(this.uploadDbObserver);
     }
 }
