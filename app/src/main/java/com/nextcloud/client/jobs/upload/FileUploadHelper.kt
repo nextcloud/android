@@ -19,6 +19,7 @@ import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
+import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.getUploadIds
@@ -170,6 +171,7 @@ class FileUploadHelper {
         uploads: Array<OCUpload>
     ): Boolean {
         var showNotExistMessage = false
+        var showSyncConflictNotification = false
         val isOnline = checkConnectivity(connectivityService)
         val connectivity = connectivityService.connectivity
         val batteryStatus = powerManagementService.battery
@@ -177,6 +179,12 @@ class FileUploadHelper {
         val uploadsToRetry = mutableListOf<Long>()
 
         for (upload in uploads) {
+            if (upload.lastResult == UploadResult.SYNC_CONFLICT) {
+                Log_OC.d(TAG, "retry upload skipped, sync conflict: ${upload.remotePath}")
+                showSyncConflictNotification = true
+                continue
+            }
+
             val uploadResult = checkUploadConditions(
                 upload,
                 connectivity,
@@ -212,6 +220,10 @@ class FileUploadHelper {
                 uploadsToRetry.toLongArray(),
                 false
             )
+        }
+
+        if (showSyncConflictNotification) {
+            AppWideNotificationManager.showSyncConflictNotification(MainApp.getAppContext())
         }
 
         return showNotExistMessage
