@@ -196,7 +196,7 @@ class AutoUploadWorker(
             return true
         }
 
-        if (backgroundJobManager.bothFilesSyncJobsRunning(syncedFolderID)) {
+        if (backgroundJobManager.isAutoUploadWorkerRunning(syncedFolderID)) {
             Log_OC.w(TAG, "🚧 another worker is already running for $syncedFolderID")
             return true
         }
