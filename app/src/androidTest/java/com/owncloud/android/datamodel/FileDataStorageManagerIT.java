@@ -53,9 +53,7 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
         assertEquals(0, sut.getAllFiles().size());
 
-        capability = (OCCapability) new GetCapabilitiesRemoteOperation(null)
-            .execute(client)
-            .getSingleData();
+        capability = new GetCapabilitiesRemoteOperation(null).execute(client).getResultData();
     }
 
     @After
