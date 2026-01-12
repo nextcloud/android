@@ -63,7 +63,7 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
         return filtered
     }
 
-    suspend fun markFileAsUploaded(localPath: String, syncedFolder: SyncedFolder) {
+    suspend fun markFileAsHandled(localPath: String, syncedFolder: SyncedFolder) {
         val syncedFolderIdStr = syncedFolder.id.toString()
 
         try {
