@@ -383,7 +383,11 @@ class AutoUploadWorker(
         uploadsStorageManager.removeUpload(upload)
     }
 
-    private fun createEntityAndUpload(user: User, localPath: String, remotePath: String): Pair<UploadEntity, OCUpload>? {
+    private fun createEntityAndUpload(
+        user: User,
+        localPath: String,
+        remotePath: String
+    ): Pair<UploadEntity, OCUpload>? {
         val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)
         Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
 
