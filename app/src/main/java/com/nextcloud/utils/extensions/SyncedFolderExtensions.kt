@@ -22,7 +22,12 @@ private const val TAG = "SyncedFolderExtensions"
  * Determines whether a file should be skipped during auto-upload based on folder settings.
  */
 @Suppress("ReturnCount")
-fun SyncedFolder.shouldSkipFile(file: File, lastModified: Long, creationTime: Long?): Boolean {
+fun SyncedFolder.shouldSkipFile(
+    file: File,
+    lastModified: Long,
+    creationTime: Long?,
+    fileSentForUpload: Boolean
+): Boolean {
     Log_OC.d(TAG, "Checking file: ${file.name}, lastModified=$lastModified, lastScan=$lastScanTimestampMs")
 
     if (isExcludeHidden && file.isHidden) {
@@ -38,15 +43,19 @@ fun SyncedFolder.shouldSkipFile(file: File, lastModified: Long, creationTime: Lo
                 return true
             }
         } else {
-            Log_OC.w(TAG, "file sent for upload - cannot determine creation time: ${file.absolutePath}")
+            Log_OC.w(TAG, "file will be inserted to db - cannot determine creation time: ${file.absolutePath}")
             return false
         }
     }
 
-    // Skip files that haven't changed since last scan (already processed)
-    // BUT only if this is not the first scan
-    if (lastScanTimestampMs != -1L && lastModified < lastScanTimestampMs) {
-        Log_OC.d(TAG, "Skipping unchanged file (last modified < last scan): ${file.absolutePath}")
+    // Skip files that haven't changed since last scan ONLY if they were sent for upload
+    // AND only if this is not the first scan
+    if (fileSentForUpload && lastScanTimestampMs != -1L && lastModified < lastScanTimestampMs) {
+        Log_OC.d(
+            TAG,
+            "Skipping unchanged file that was already sent for upload (last modified < last scan): " +
+                "${file.absolutePath}"
+        )
         return true
     }
 
