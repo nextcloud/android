@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 96;
+    public static final int DB_VERSION = 97;
 
     private ProviderMeta() {
         // No instance
@@ -333,6 +333,7 @@ public class ProviderMeta {
         public static final String SYNCED_FOLDER_ACCOUNT = "account";
         public static final String SYNCED_FOLDER_UPLOAD_ACTION = "upload_option";
         public static final String SYNCED_FOLDER_NAME_COLLISION_POLICY = "name_collision_policy";
+        public static final String SYNCED_FOLDER_UPLOAD_MIN_FILE_AGE_MS = "upload_min_file_age_ms";
         public static final String SYNCED_FOLDER_HIDDEN = "hidden";
         public static final String SYNCED_FOLDER_SUBFOLDER_RULE = "sub_folder_rule";
         public static final String SYNCED_FOLDER_EXCLUDE_HIDDEN = "exclude_hidden";

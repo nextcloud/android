@@ -35,8 +35,11 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
     suspend fun getFilePathsWithIds(syncedFolder: SyncedFolder, lastId: Int): List<Pair<String, Int>> {
         val syncedFolderId = syncedFolder.id.toString()
         Log_OC.d(TAG, "Fetching candidate files for syncedFolderId = $syncedFolderId")
-
-        val entities = dao.getAutoUploadFilesEntities(syncedFolderId, BATCH_SIZE, lastId)
+        var maxFileTimestamp = Long.MAX_VALUE
+        if (syncedFolder.uploadMinFileAgeMs > 0) {
+            maxFileTimestamp = System.currentTimeMillis() - syncedFolder.uploadMinFileAgeMs
+        }
+        val entities = dao.getAutoUploadFilesEntities(syncedFolderId, BATCH_SIZE, lastId, maxFileTimestamp)
         val filtered = mutableListOf<Pair<String, Int>>()
 
         entities.forEach {
