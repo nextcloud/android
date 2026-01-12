@@ -75,7 +75,7 @@ jobs:
                     echo "org.gradle.configureondemand=true" >> $HOME/.gradle/gradle.properties
                     echo "kapt.incremental.apt=true" >> $HOME/.gradle/gradle.properties
 
-            -   name: Build gplay
+            -   name: Build generic flavor
                 run: ./gradlew assembleGenericDebug
 
             -   name: Delete old comments
