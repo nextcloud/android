@@ -34,6 +34,7 @@ import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -302,7 +303,14 @@ class AutoUploadWorker(
                 )
 
                 try {
-                    var (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
+                    val result = createEntityAndUpload(user, localPath, remotePath)
+                    if (result == null) {
+                        repository.markFileAsHandled(localPath, syncedFolder)
+                        Log_OC.d(TAG, "Marked file as handled due to existing conflict: $localPath")
+                        continue
+                    }
+
+                    var (uploadEntity, upload) = result
 
                     // if local file deleted, upload process cannot be started or retriable thus needs to be removed
                     if (path.isEmpty() || !file.exists()) {
@@ -331,7 +339,7 @@ class AutoUploadWorker(
                         )
 
                         if (result.isSuccess) {
-                            repository.markFileAsUploaded(localPath, syncedFolder)
+                            repository.markFileAsHandled(localPath, syncedFolder)
                             Log_OC.d(TAG, "✅ upload completed: $localPath")
                         } else {
                             Log_OC.e(
@@ -375,7 +383,7 @@ class AutoUploadWorker(
         uploadsStorageManager.removeUpload(upload)
     }
 
-    private fun createEntityAndUpload(user: User, localPath: String, remotePath: String): Pair<UploadEntity, OCUpload> {
+    private fun createEntityAndUpload(user: User, localPath: String, remotePath: String): Pair<UploadEntity, OCUpload>? {
         val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)
         Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
 
@@ -385,6 +393,12 @@ class AutoUploadWorker(
             remotePath = remotePath,
             accountName = user.accountName
         )
+
+        val lastUploadResult = uploadEntity?.lastResult?.let { UploadResult.fromValue(it) }
+        if (lastUploadResult == UploadResult.SYNC_CONFLICT) {
+            Log_OC.w(TAG, "Conflict already exists, skipping auto-upload: $localPath")
+            return null
+        }
 
         val upload = (
             uploadEntity?.toOCUpload(null) ?: OCUpload(
