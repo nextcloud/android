@@ -812,7 +812,6 @@ class FileDisplayActivity :
 
     protected fun resetScrollingAndUpdateActionBar() {
         updateActionBarTitleAndHomeButton(file)
-        binding.appbar.appbar.setExpanded(true, false)
         resetScrolling(true)
     }
 
