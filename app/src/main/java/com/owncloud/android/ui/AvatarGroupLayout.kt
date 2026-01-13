@@ -111,7 +111,8 @@ class AvatarGroupLayout @JvmOverloads constructor(
                             avatarRadius,
                             resources,
                             avatar,
-                            context
+                            context,
+                            avatarBorderSize
                         )
                     }
                 }
