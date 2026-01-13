@@ -65,6 +65,7 @@ import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
+import com.nextcloud.utils.extensions.DrawerActivityExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -162,7 +163,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * Reference to the navigation view.
      */
-    private NavigationView drawerNavigationView;
+    public NavigationView drawerNavigationView;
 
     /**
      * Reference to the navigation view header.
@@ -229,6 +230,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         drawerNavigationView = findViewById(R.id.nav_view);
         if (drawerNavigationView != null) {
+            viewThemeUtils.files.colorNavigationView(drawerNavigationView);
 
             // Setting up drawer header
             mNavigationViewHeader = drawerNavigationView.getHeaderView(0);
@@ -893,22 +895,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         showQuota(true);
     }
 
-    private void unsetAllDrawerMenuItems() {
-        if (drawerNavigationView != null) {
-            Menu menu = drawerNavigationView.getMenu();
-            for (int i = 0; i < menu.size(); i++) {
-                menu.getItem(i).setChecked(false);
-            }
-        }
-
-        if (bottomNavigationView != null) {
-            Menu menu = bottomNavigationView.getMenu();
-            for (int i = 0; i < menu.size(); i++) {
-                menu.getItem(i).setChecked(false);
-            }
-        }
-    }
-
     private void updateQuotaLink() {
         if (mQuotaTextLink != null) {
             if (MDMConfig.INSTANCE.externalSiteSupport(this)) {
@@ -976,13 +962,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         };
     }
 
-
     /**
      * Sets the menu item as checked in both the drawer and bottom navigation views, if applicable.
      */
     @SuppressFBWarnings("RV")
     public void setNavigationViewItemChecked() {
-        unsetAllDrawerMenuItems();
+        DrawerActivityExtensionsKt.unsetAllNavigationItems(this);
 
         // Don't check any items
         if (menuItemId == Menu.NONE) {
@@ -994,7 +979,6 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             if (menuItem != null && !menuItem.isChecked()) {
                 menuItem.setChecked(true);
-                viewThemeUtils.platform.colorNavigationView(drawerNavigationView);
             }
         }
 
@@ -1461,6 +1445,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void handleNavItemClickEvent(@IdRes int menuItemId) {
         if (drawerNavigationView == null) {
             drawerNavigationView = findViewById(R.id.nav_view);
+            viewThemeUtils.files.colorNavigationView(drawerNavigationView);
         }
         Menu navMenu = drawerNavigationView.getMenu();
         onNavigationItemClicked(navMenu.findItem(menuItemId));

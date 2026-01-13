@@ -8,10 +8,13 @@
 package com.nextcloud.utils.extensions
 
 import android.content.Intent
+import android.view.Menu
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import androidx.core.view.get
+import androidx.core.view.size
 
 fun DrawerActivity.navigateToAllFiles() {
     DrawerActivity.menuItemId = R.id.nav_all_files
@@ -26,4 +29,19 @@ fun DrawerActivity.navigateToAllFiles() {
     }.run {
         startActivity(this)
     }
+}
+
+fun DrawerActivity.unsetAllNavigationItems() {
+    fun uncheckMenu(menu: Menu) {
+        for (i in 0 until menu.size) {
+            val item = menu[i]
+            item.isChecked = false
+
+            // recursively uncheck submenu items
+            item.subMenu?.let { uncheckMenu(it) }
+        }
+    }
+
+    drawerNavigationView?.menu?.let { uncheckMenu(it) }
+    bottomNavigationView?.menu?.let { uncheckMenu(it) }
 }
