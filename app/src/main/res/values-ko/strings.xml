@@ -201,6 +201,7 @@
     <string name="conversation_screen_empty_content_title">대화를 찾을 수 없습니다.</string>
     <string name="conversation_screen_empty_conversation_list_title">아직 대화가 존재하지 않음</string>
     <string name="conversation_screen_title">대화</string>
+    <string name="copied">복사됨</string>
     <string name="copy_file_error">이 파일이나 폴더를 복사할 수 없음</string>
     <string name="copy_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 복사할 수 없음</string>
     <string name="copy_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
