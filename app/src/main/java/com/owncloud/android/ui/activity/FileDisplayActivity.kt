@@ -1391,8 +1391,6 @@ class FileDisplayActivity :
             menuItemId = R.id.nav_personal_files
         } else if (MainApp.isOnlyOnDevice()) {
             menuItemId = R.id.nav_on_device
-        } else if (menuItemId == R.id.nav_trashbin || menuItemId == R.id.nav_activity) {
-            menuItemId = R.id.nav_all_files
         } else if (menuItemId == Menu.NONE) {
             menuItemId = R.id.nav_all_files
         }
