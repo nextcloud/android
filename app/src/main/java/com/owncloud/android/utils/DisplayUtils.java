@@ -460,6 +460,7 @@ public final class DisplayUtils {
      * @param avatarRadius the avatar radius
      * @param resources    reference for density information
      * @param callContext  which context is called to set the generated avatar
+     * @param context      general context
      */
     public static void setAvatar(@NonNull User user,
                                  @NonNull String userId,
@@ -469,6 +470,30 @@ public final class DisplayUtils {
                                  Resources resources,
                                  Object callContext,
                                  Context context) {
+        setAvatar(user, userId, displayName, listener, avatarRadius, resources, callContext, context, 0);
+    }
+
+    /**
+     * fetches and sets the avatar of the given account in the passed callContext
+     *
+     * @param user           the account to be used to connect to server
+     * @param userId         the userId which avatar should be set
+     * @param displayName    displayName used to generate avatar with first char, only used as fallback
+     * @param avatarRadius   the avatar radius
+     * @param resources      reference for density information
+     * @param callContext    which context is called to set the generated avatar
+     * @param context        general context
+     * @param avatarBorder  value in case the avatar has a border, like in the case of the AvatarGroupLayout
+     */
+    public static void setAvatar(@NonNull User user,
+                                 @NonNull String userId,
+                                 String displayName,
+                                 AvatarGenerationListener listener,
+                                 float avatarRadius,
+                                 Resources resources,
+                                 Object callContext,
+                                 Context context,
+                                 int avatarBorder) {
         if (callContext instanceof View v) {
             v.setContentDescription(String.valueOf(user.toPlatformAccount().hashCode()));
         }
@@ -495,7 +520,8 @@ public final class DisplayUtils {
             // if no one exists, show colored icon with initial char
             if (avatar == null) {
                 try {
-                    avatar = TextDrawable.createAvatarByUserId(displayName, avatarRadius);
+                    avatar = TextDrawable.createAvatarByUserId(displayName,
+                                                               (avatarRadius - avatarBorder));
                 } catch (Exception e) {
                     Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
                     avatar = ResourcesCompat.getDrawable(resources,
