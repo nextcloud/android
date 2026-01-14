@@ -289,6 +289,9 @@
             tools:replace="android:exported" />
 
         <receiver
+            android:name="com.nextcloud.client.notifications.action.SyncConflictNotificationBroadcastReceiver"
+            android:exported="false" />
+        <receiver
             android:name="com.nextcloud.client.jobs.offlineOperations.receiver.OfflineOperationReceiver"
             android:exported="false" />
         <receiver
