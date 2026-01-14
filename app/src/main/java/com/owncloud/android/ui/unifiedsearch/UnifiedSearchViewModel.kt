@@ -37,11 +37,7 @@ class UnifiedSearchViewModel(application: Application) :
     }
 
     private data class UnifiedSearchMetadata(var results: MutableList<SearchResult> = mutableListOf()) {
-        fun nextCursor(): Int? = try {
-            results.lastOrNull()?.cursor?.toInt()
-        } catch (e: NumberFormatException) {
-            null
-        }
+        fun nextCursor(): Int? = results.lastOrNull()?.cursor?.toIntOrNull()
         fun name(): String? = results.lastOrNull()?.name
     }
 
