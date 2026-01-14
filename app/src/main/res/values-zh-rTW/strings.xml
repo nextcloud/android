@@ -755,6 +755,7 @@
     <string name="prefs_two_way_sync_interval">間隔</string>
     <string name="prefs_two_way_sync_summary">管理內部資料夾以進行雙向同步</string>
     <string name="prefs_two_way_sync_switch_title">啟用雙向同步</string>
+    <string name="prefs_two_way_sync_title">雙向同步</string>
     <string name="prefs_value_theme_dark">深色</string>
     <string name="prefs_value_theme_light">淺色</string>
     <string name="prefs_value_theme_system">跟隨系統</string>
