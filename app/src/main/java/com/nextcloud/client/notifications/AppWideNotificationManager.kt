@@ -12,7 +12,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -37,7 +36,6 @@ object AppWideNotificationManager {
     private const val SYNC_CONFLICT_NOTIFICATION_INTENT_ACTION_REQ_CODE = 17
 
     private const val SYNC_CONFLICT_NOTIFICATION_ID = 112
-
 
     fun showSyncConflictNotification(context: Context) {
         val intent = Intent(context, UploadListActivity::class.java).apply {
