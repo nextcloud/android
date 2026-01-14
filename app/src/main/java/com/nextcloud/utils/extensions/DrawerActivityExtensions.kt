@@ -14,8 +14,6 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import androidx.core.view.get
-import androidx.core.view.size
 
 fun DrawerActivity.navigateToAllFiles() {
     DrawerActivity.menuItemId = R.id.nav_all_files
