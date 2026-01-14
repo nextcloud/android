@@ -685,6 +685,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="prefs_category_about">Tentang</string>
     <string name="prefs_category_details">Rincian</string>
     <string name="prefs_category_dev">Pengembang</string>
+    <string name="prefs_category_files">File</string>
     <string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>
     <string name="prefs_category_sync">Sinkron</string>
@@ -875,6 +876,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="signup_with_provider">Daftar dengan penyedia</string>
     <string name="single_sign_on_request_token" formatted="true">Izinkan %1$s untuk mengakses akun NextCloud %2$s?</string>
     <string name="sort_by">Urut berdasarkan</string>
+    <string name="sort_favorites_first">Urutkan favorit terlebih dahulu</string>
+    <string name="sort_folders_before_files">Urutkan folder sebelum file</string>
     <string name="ssl_validator_btn_details_hide">Sembunyikan</string>
     <string name="ssl_validator_btn_details_see">Rincian</string>
     <string name="ssl_validator_header">Identitas server tidak dapat diverifikasi</string>
