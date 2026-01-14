@@ -1475,4 +1475,8 @@
 
     <string name="failed_to_create_conflict_dialog">Failed to create conflict dialog</string>
     <string name="editor_web_view_cannot_open_file">Cannot open file chooser</string>
+
+    <string name="sync_conflict_notification_title">File upload conflicts</string>
+    <string name="sync_conflict_notification_description">Upload conflicts detected. Open uploads to resolve.</string>
+    <string name="sync_conflict_notification_action_title">Resolve conflicts</string>
 </resources>
