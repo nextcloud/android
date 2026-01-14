@@ -7,13 +7,18 @@
 
 package com.nextcloud.client.notifications
 
+import android.Manifest
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import androidx.annotation.RequiresPermission
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.nextcloud.client.notifications.action.SyncConflictNotificationBroadcastReceiver
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.UploadListActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 
@@ -26,10 +31,13 @@ import com.owncloud.android.ui.notifications.NotificationUtils
  */
 object AppWideNotificationManager {
 
+    private const val TAG = "AppWideNotificationManager"
+
     private const val SYNC_CONFLICT_NOTIFICATION_INTENT_REQ_CODE = 16
     private const val SYNC_CONFLICT_NOTIFICATION_INTENT_ACTION_REQ_CODE = 17
 
     private const val SYNC_CONFLICT_NOTIFICATION_ID = 112
+
 
     fun showSyncConflictNotification(context: Context) {
         val intent = Intent(context, UploadListActivity::class.java).apply {
@@ -56,15 +64,15 @@ object AppWideNotificationManager {
 
         val notification = NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
             .setSmallIcon(R.drawable.uploads)
-            .setContentTitle(context.getString(R.string.uploader_upload_failed_sync_conflict_error))
-            .setContentText(context.getString(R.string.upload_conflict_message))
+            .setContentTitle(context.getString(R.string.sync_conflict_notification_title))
+            .setContentText(context.getString(R.string.sync_conflict_notification_description))
             .setStyle(
                 NotificationCompat.BigTextStyle()
-                    .bigText(context.getString(R.string.upload_conflict_message))
+                    .bigText(context.getString(R.string.sync_conflict_notification_description))
             )
             .addAction(
                 R.drawable.ic_cloud_upload,
-                context.getString(R.string.upload_list_resolve_conflict),
+                context.getString(R.string.sync_conflict_notification_action_title),
                 actionPendingIntent
             )
             .setContentIntent(pendingIntent)
@@ -72,6 +80,15 @@ object AppWideNotificationManager {
             .setOnlyAlertOnce(true)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
+
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            Log_OC.w(TAG, "cannot show sync conflict notification, post notification permission is not granted")
+            return
+        }
 
         NotificationManagerCompat.from(context)
             .notify(SYNC_CONFLICT_NOTIFICATION_ID, notification)
