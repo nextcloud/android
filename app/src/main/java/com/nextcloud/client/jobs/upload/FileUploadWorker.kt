@@ -131,7 +131,7 @@ class FileUploadWorker(
     private val notificationId = Random.nextInt()
     private val notificationManager = UploadNotificationManager(context, viewThemeUtils, notificationId)
     private val intents = FileUploaderIntents(context)
-    private val fileUploaderDelegate = FileUploaderDelegate()
+    private val fileUploadBroadcastManager = FileUploadBroadcastManager(localBroadcastManager)
 
     override suspend fun doWork(): Result = try {
         Log_OC.d(TAG, "FileUploadWorker started")
@@ -206,10 +206,6 @@ class FileUploadWorker(
         notificationManager.dismissNotification()
     }
 
-    private fun setWorkerState(user: User?) {
-        WorkerStateObserver.send(WorkerState.FileUploadStarted(user))
-    }
-
     private fun setIdleWorkerState() {
         WorkerStateObserver.send(WorkerState.FileUploadCompleted(currentUploadFileOperation?.file))
     }
@@ -269,9 +265,9 @@ class FileUploadWorker(
                 return@withContext Result.failure()
             }
 
-            setWorkerState(user)
             val operation = createUploadFileOperation(upload, user)
             currentUploadFileOperation = operation
+            fileUploadBroadcastManager.sendStarted(operation, context)
 
             val currentIndex = (index + 1)
             val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
@@ -312,12 +308,11 @@ class FileUploadWorker(
 
         if (shouldBroadcast) {
             // delay broadcast
-            fileUploaderDelegate.sendBroadcastUploadFinished(
+            fileUploadBroadcastManager.sendFinished(
                 operation,
                 result,
                 operation.oldFile?.storagePath,
-                context,
-                localBroadcastManager
+                context
             )
         }
     }

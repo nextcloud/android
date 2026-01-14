@@ -13,54 +13,31 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.operations.UploadFileOperation
 
-class FileUploaderDelegate {
-    /**
-     * Sends a broadcast in order to the interested activities can update their view
-     *
-     * TODO - no more broadcasts, replace with a callback to subscribed listeners once we drop FileUploader
-     */
-    fun sendBroadcastUploadsAdded(context: Context, localBroadcastManager: LocalBroadcastManager) {
+class FileUploadBroadcastManager(private val broadcastManager: LocalBroadcastManager) {
+
+    fun sendAdded(context: Context) {
         val start = Intent(FileUploadWorker.getUploadsAddedMessage())
-        // nothing else needed right now
         start.setPackage(context.packageName)
-        localBroadcastManager.sendBroadcast(start)
+        broadcastManager.sendBroadcast(start)
     }
 
-    /**
-     * Sends a broadcast in order to the interested activities can update their view
-     *
-     * TODO - no more broadcasts, replace with a callback to subscribed listeners once we drop FileUploader
-     *
-     * @param upload Finished upload operation
-     */
-    fun sendBroadcastUploadStarted(
+    fun sendStarted(
         upload: UploadFileOperation,
         context: Context,
-        localBroadcastManager: LocalBroadcastManager
     ) {
         val start = Intent(FileUploadWorker.getUploadStartMessage())
         start.putExtra(FileUploadWorker.EXTRA_REMOTE_PATH, upload.remotePath) // real remote
         start.putExtra(FileUploadWorker.EXTRA_OLD_FILE_PATH, upload.originalStoragePath)
         start.putExtra(FileUploadWorker.ACCOUNT_NAME, upload.user.accountName)
         start.setPackage(context.packageName)
-        localBroadcastManager.sendBroadcast(start)
+        broadcastManager.sendBroadcast(start)
     }
 
-    /**
-     * Sends a broadcast in order to the interested activities can update their view
-     *
-     * TODO - no more broadcasts, replace with a callback to subscribed listeners once we drop FileUploader
-     *
-     * @param upload                 Finished upload operation
-     * @param uploadResult           Result of the upload operation
-     * @param unlinkedFromRemotePath Path in the uploads tree where the upload was unlinked from
-     */
-    fun sendBroadcastUploadFinished(
+    fun sendFinished(
         upload: UploadFileOperation,
         uploadResult: RemoteOperationResult<*>,
         unlinkedFromRemotePath: String?,
-        context: Context,
-        localBroadcastManager: LocalBroadcastManager
+        context: Context
     ) {
         val end = Intent(FileUploadWorker.getUploadFinishMessage())
         // real remote path, after possible automatic renaming
@@ -75,6 +52,6 @@ class FileUploaderDelegate {
             end.putExtra(FileUploadWorker.EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
         }
         end.setPackage(context.packageName)
-        localBroadcastManager.sendBroadcast(end)
+        broadcastManager.sendBroadcast(end)
     }
 }
