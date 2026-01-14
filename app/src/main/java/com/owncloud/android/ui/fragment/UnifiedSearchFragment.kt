@@ -318,21 +318,18 @@ class UnifiedSearchFragment :
             binding.swipeContainingList.isRefreshing = loading
         }
 
-        PairMediatorLiveData(vm.searchResults, vm.isLoading).observe(viewLifecycleOwner) { pair ->
-            if (pair.second == false) {
-                var count = 0
+        PairMediatorLiveData(vm.searchResults, vm.isLoading).observe(viewLifecycleOwner) { (searchResults, isLoading) ->
+            if (isLoading == true || searchResults.isNullOrEmpty()) {
+                return@observe
+            }
 
-                pair.first?.forEach {
-                    count += it.entries.size
-                }
+            val hasSearchResult = searchResults.any { searchResult -> searchResult.entries.isNotEmpty() }
 
-                if (count == 0 &&
-                    pair.first?.isNotEmpty() == true &&
-                    context != null &&
-                    !adapter.isCurrentDirItemsEmpty()
-                ) {
-                    showNoResult()
-                }
+            if (context != null &&
+                !hasSearchResult &&
+                !adapter.hasLocalResults()
+            ) {
+                showNoResult()
             }
         }
 
