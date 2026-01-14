@@ -1,0 +1,7 @@
+## 3.35.0 RC4 (January 14, 2026)
+
+- Auto-upload fixes
+
+Minimum: NC 20 Server, Android 9 Pie
+
+For a full list, please see https://github.com/nextcloud/android/milestone/118
