@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:background="@color/bg_default"
         android:hint="@string/hint_name"
+        android:paddingTop="@dimen/standard_half_margin"
         android:paddingStart="@dimen/standard_half_margin"
         android:paddingEnd="@dimen/standard_half_margin">
 
