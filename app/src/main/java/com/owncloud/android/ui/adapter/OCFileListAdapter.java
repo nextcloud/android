@@ -26,13 +26,13 @@ import android.widget.ImageView;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.chip.Chip;
+import com.nextcloud.android.common.core.utils.ecosystem.EcosystemApp;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
-import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -55,6 +55,7 @@ import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.helper.OCFileListAdapterDataProvider;
 import com.owncloud.android.ui.adapter.helper.OCFileListAdapterHelper;
@@ -449,7 +450,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 listHeaderOpenInBinding.openInButton.setText(String.format(activity.getString(R.string.open_in_app),
                                                                            activity.getString(R.string.ecosystem_apps_display_notes)));
 
-                listHeaderOpenInBinding.openInButton.setOnClickListener(v -> LinkHelper.INSTANCE.openAppOrStore(LinkHelper.APP_NEXTCLOUD_NOTES, user, activity));
+                if (activity instanceof DrawerActivity drawerActivity) {
+                    final var ecosystemManager = drawerActivity.getEcosystemManager();
+                    if (ecosystemManager != null) {
+                        listHeaderOpenInBinding.openInButton.setOnClickListener(v -> ecosystemManager.openApp(EcosystemApp.NOTES, user.getAccountName()));
+                    }
+                }
             }
 
         } else {

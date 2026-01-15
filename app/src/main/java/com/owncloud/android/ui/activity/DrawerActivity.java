@@ -49,6 +49,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.nextcloud.android.common.core.utils.ecosystem.EcosystemApp;
+import com.nextcloud.android.common.core.utils.ecosystem.EcosystemManager;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
@@ -204,6 +206,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     private ArbitraryDataProvider arbitraryDataProvider;
 
     private BottomNavigationView bottomNavigationView;
+
+    private EcosystemManager ecosystemManager;
 
     @Inject
     AppPreferences preferences;
@@ -429,8 +433,13 @@ public abstract class DrawerActivity extends ToolbarActivity
         LinearLayout moreView = banner.findViewById(R.id.drawer_ecosystem_more);
         LinearLayout assistantView = banner.findViewById(R.id.drawer_ecosystem_assistant);
 
-        notesView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppOrStore(LinkHelper.APP_NEXTCLOUD_NOTES, getUser(), this));
-        talkView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppOrStore(LinkHelper.APP_NEXTCLOUD_TALK, getUser(), this));
+        final var optionalUser = getUser();
+        if (optionalUser.isPresent()) {
+            final var accountName = optionalUser.get().getAccountName();
+            notesView.setOnClickListener(v -> ecosystemManager.openApp(EcosystemApp.NOTES, accountName));
+            talkView.setOnClickListener(v -> ecosystemManager.openApp(EcosystemApp.TALK, accountName));
+        }
+
         moreView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppStore("Nextcloud", true, this));
         assistantView.setOnClickListener(v -> {
             DrawerActivity.menuItemId = Menu.NONE;
@@ -725,6 +734,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         intent.setAction(Intent.ACTION_SEARCH);
         intent.putExtra(OCFileListFragment.SEARCH_EVENT, searchEvent);
         startActivity(intent);
+    }
+
+    public EcosystemManager getEcosystemManager() {
+        return ecosystemManager;
     }
 
     /**
@@ -1136,6 +1149,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         externalLinksProvider = new ExternalLinksProvider(getContentResolver());
         arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
+        ecosystemManager = new EcosystemManager(this);
     }
 
     @Override
