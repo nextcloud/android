@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 [versions]
-androidCommonLibraryVersion = "0.31.0"
+androidCommonLibraryVersion = "c7da76323d"
 androidGifDrawableVersion = "1.2.30"
 androidImageCropperVersion = "4.7.0"
 androidLibraryVersion = "c112fd86c76f429db250e6abca711348e5534c0a"
@@ -232,6 +232,7 @@ prism4j-bundler = { module = "io.noties:prism4j-bundler", version.ref = "prismVe
 
 # Nextcloud libraries
 ui = { module = "com.github.nextcloud.android-common:ui", version.ref = "androidCommonLibraryVersion" }
+common-core = { module = "com.github.nextcloud.android-common:core", version.ref = "androidCommonLibraryVersion" }
 qrcodescanner = { module = "com.github.nextcloud-deps:qrcodescanner", version.ref = "qrcodescannerVersion" }
 
 # Worker
