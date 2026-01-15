@@ -13,6 +13,7 @@
     <string name="action_send_share">Saada või jaga</string>
     <string name="action_switch_grid_view">Ruudustikvaade</string>
     <string name="action_switch_list_view">Loendivaade</string>
+    <string name="action_triggered">Tegevus käivitatud</string>
     <string name="actionbar_calendar_contacts_restore">Taasta kontaktid ja kalender</string>
     <string name="actionbar_mkdir">Uus kaust</string>
     <string name="actionbar_move_or_copy">Teisalda või kopeeri</string>
@@ -396,6 +397,7 @@
     <string name="failed_to_create_conflict_dialog">Failikonfilktiteabe vaate loomine ei õnnestu</string>
     <string name="failed_to_download">Ei õnnestunud faili allalaadimishaldurile edasi anda</string>
     <string name="failed_to_print">Faili trükkimine ei õnnestunud</string>
+    <string name="failed_to_start_action">Tegevuse käivitamine ei õnnestunud!</string>
     <string name="failed_to_start_editor">Ei õnnestunud avada muutmisvaadet</string>
     <string name="failed_update_ui">Kasutajaliidese uuendamine ei õnnestunud</string>
     <string name="favorite">Lisa lemmikutesse</string>
@@ -755,6 +757,7 @@
     <string name="prefs_two_way_sync_interval">Välp</string>
     <string name="prefs_two_way_sync_summary">Halda sisemisi kaustu kahepoolse sünkroonimise jaoks</string>
     <string name="prefs_two_way_sync_switch_title">Luba kahepoolne sünkroonimine</string>
+    <string name="prefs_two_way_sync_title">Kahepoolne sünkroonimine</string>
     <string name="prefs_value_theme_dark">Hele</string>
     <string name="prefs_value_theme_light">Tume</string>
     <string name="prefs_value_theme_system">Kasuta süsteemi kujundust</string>

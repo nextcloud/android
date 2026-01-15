@@ -13,6 +13,7 @@
     <string name="action_send_share">傳送/分享</string>
     <string name="action_switch_grid_view">格狀檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
+    <string name="action_triggered">觸發動作</string>
     <string name="actionbar_calendar_contacts_restore">復原聯絡人與行事曆</string>
     <string name="actionbar_mkdir">新資料夾</string>
     <string name="actionbar_move_or_copy">移動或複製</string>
@@ -396,6 +397,7 @@
     <string name="failed_to_create_conflict_dialog">無法建立衝突對話方塊</string>
     <string name="failed_to_download">無法將檔案傳遞給下載管理程式</string>
     <string name="failed_to_print">檔案列印失敗</string>
+    <string name="failed_to_start_action">開始動作失敗！</string>
     <string name="failed_to_start_editor">無法啟動編輯器</string>
     <string name="failed_update_ui">更新使用者介面失敗</string>
     <string name="favorite">新增至喜愛</string>

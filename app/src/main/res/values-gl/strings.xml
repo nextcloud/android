@@ -13,6 +13,7 @@
     <string name="action_send_share">Enviar/compartir</string>
     <string name="action_switch_grid_view">Ver como grade</string>
     <string name="action_switch_list_view">Ver como lista</string>
+    <string name="action_triggered">Acción activada</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar contactos e calendario</string>
     <string name="actionbar_mkdir">Novo cartafol</string>
     <string name="actionbar_move_or_copy">Mover ou copiar</string>
@@ -396,6 +397,7 @@
     <string name="failed_to_create_conflict_dialog">Produciuse un fallo ao crear o diálogo de conflito</string>
     <string name="failed_to_download">Produciuse un fallo ao pasar o ficheiro para o xestor de descargas</string>
     <string name="failed_to_print">Produciuse un fallo ao imprimir o ficheiro</string>
+    <string name="failed_to_start_action">Produciuse un fallo ao iniciar a acción!</string>
     <string name="failed_to_start_editor">Produciuse un fallo ao iniciar o editor</string>
     <string name="failed_update_ui">Produciuse un fallo ao actualizar a IU</string>
     <string name="favorite">Engadir a favoritos</string>
