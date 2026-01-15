@@ -257,6 +257,7 @@ class FileDisplayActivity :
 
         intent?.let {
             handleCommonIntents(it)
+            handleEcosystemIntent(it)
         }
 
         loadSavedInstanceState(savedInstanceState)
