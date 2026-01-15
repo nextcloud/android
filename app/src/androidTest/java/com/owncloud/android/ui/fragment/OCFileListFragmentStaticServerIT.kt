@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
@@ -12,19 +13,31 @@ package com.owncloud.android.ui.fragment
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.nextcloud.test.GrantStoragePermissionRule.Companion.grant
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
 import com.owncloud.android.lib.resources.tags.Tag
+import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.ScreenshotTest
+import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.not
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
@@ -34,6 +47,11 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 
     @get:Rule
     var storagePermissionRule: TestRule = grant()
+
+    @Before
+    fun initIntentRecording() {
+        Intents.init()
+    }
 
     @Test
     @ScreenshotTest
@@ -395,6 +413,50 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             sut.adapter.setCurrentDirectory(testFolder)
 
             Assert.assertTrue(sut.adapter.shouldShowHeader())
+        }
+    }
+
+    @Test
+    fun shouldStartMoveInParentFolder() {
+        launchActivity<TestActivity>().use { scenario ->
+            val fragment = OCFileListFragment()
+            var testFolder: OCFile? = null
+
+            scenario.onActivity { activity ->
+                testFolder = OCFile("/folder/").apply {
+                    setFolder()
+                }
+                activity.storageManager.saveNewFile(testFolder)
+
+                val testFile = OCFile("${testFolder.remotePath}myImage.png").apply {
+                    parentId = testFolder.fileId
+                    activity.storageManager.saveNewFile(this)
+                }
+
+                activity.addFragment(fragment)
+                activity.supportFragmentManager.executePendingTransactions()
+
+                fragment.listDirectory(testFolder, false)
+                fragment.onFileActionChosen(R.id.action_move_or_copy, setOf(testFile))
+            }
+            // Check that the FolderPickerActivity was opened
+            intended(hasComponent(FolderPickerActivity::class.java.canonicalName))
+
+            // Check that the Action Bar shows the current folder name as title
+            onView(
+                allOf(
+                    isDescendantOfA(withId(R.id.toolbar)),
+                    withText(testFolder!!.fileName)
+                )
+            ).check(matches(isDisplayed()))
+
+            // Test the button's enabled status. "Move" should not be enabled, but the rest should.
+            onView(allOf(withId(R.id.folder_picker_btn_cancel), isDisplayed()))
+                .check(matches(isEnabled()))
+            onView(allOf(withId(R.id.folder_picker_btn_copy), isDisplayed()))
+                .check(matches(isEnabled()))
+            onView(allOf(withId(R.id.folder_picker_btn_move), isDisplayed()))
+                .check(matches(not(isEnabled())))
         }
     }
 }
