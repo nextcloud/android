@@ -437,9 +437,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                 activity.supportFragmentManager.executePendingTransactions()
 
                 fragment.listDirectory(testFolder, false)
-                activity.supportFragmentManager.executePendingTransactions()
                 fragment.onFileActionChosen(R.id.action_move_or_copy, setOf(testFile))
-                activity.supportFragmentManager.executePendingTransactions()
             }
             // Check that the FolderPickerActivity was opened
             intended(hasComponent(FolderPickerActivity::class.java.canonicalName))
