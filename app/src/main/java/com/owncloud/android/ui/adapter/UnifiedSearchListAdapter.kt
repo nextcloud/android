@@ -220,7 +220,7 @@ class UnifiedSearchListAdapter(
         notifyDataSetChanged()
     }
 
-    fun isCurrentDirItemsEmpty(): Boolean = currentDirItems.isEmpty()
+    fun hasLocalResults(): Boolean = currentDirItems.isNotEmpty()
 
     init {
         // initialise thumbnails cache on background thread
