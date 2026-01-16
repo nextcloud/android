@@ -13,6 +13,7 @@
     <string name="action_send_share">Senden/Teilen</string>
     <string name="action_switch_grid_view">Kachelansicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
+    <string name="action_triggered">Aktion ausgelöst</string>
     <string name="actionbar_calendar_contacts_restore">Kontakte und Kalender wiederherstellen</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
     <string name="actionbar_move_or_copy">Verschieben oder kopieren</string>
@@ -396,6 +397,7 @@
     <string name="failed_to_create_conflict_dialog">Die Erstellung des Konfliktdialogs ist fehlgeschlagen</string>
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
     <string name="failed_to_print">Datei konnte nicht gedruckt werden</string>
+    <string name="failed_to_start_action">Aktion konnte nicht gestartet werden!</string>
     <string name="failed_to_start_editor">Editor konnte nicht gestartet werden</string>
     <string name="failed_update_ui">Oberfläche konnte nicht aktualisiert werden</string>
     <string name="favorite">Zu den Favoriten hinzufügen</string>

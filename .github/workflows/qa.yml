@@ -24,7 +24,7 @@ jobs:
         id: check-secrets
 
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         if: ${{ steps.check-secrets.outputs.ok == 'true' }}
         with:
           persist-credentials: false
@@ -48,8 +48,10 @@ jobs:
           mkdir -p "$HOME/.gradle"
           echo "org.gradle.jvmargs=-Xmx3g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" > "$HOME/.gradle/gradle.properties"
           echo "org.gradle.caching=true; org.gradle.parallel=true; org.gradle.configureondemand=true; kapt.incremental.apt=true" >> "$HOME/.gradle/gradle.properties"
-            sed -i "/qa/,/\}/ s/versionCode .*/versionCode = ${{github.event.number}} /" "app/build.gradle.kts"
-            sed -i "/qa/,/\}/ s/versionName .*/versionName = \"${{github.event.number}}\"/" "app/build.gradle.kts"
+          [ -e app/build.gradle ] && sed -i "/qa/,/\}/ s/versionCode .*/versionCode ${{github.event.number}} /" "app/build.gradle"
+          [ -e app/build.gradle ] && sed -i "/qa/,/\}/ s/versionName .*/versionName \"${{github.event.number}}\"/" "app/build.gradle"
+          [ -e app/build.gradle.kts ] && sed -i "/qa/,/\}/ s/versionCode .*/versionCode = ${{github.event.number}} /" "app/build.gradle.kts"
+          [ -e app/build.gradle.kts ] && sed -i "/qa/,/\}/ s/versionName .*/versionName = \"${{github.event.number}}\"/" "app/build.gradle.kts"
           ./gradlew assembleQaDebug
           $(find /usr/local/lib/android/sdk/build-tools/*/apksigner | sort | tail -n1) sign  --ks-pass pass:"$KS_PASS" --key-pass pass:"$KEY_PASS" --ks-key-alias key0 --ks ".github/workflows/QA_keystore.jks" app/build/outputs/apk/qa/debug/*qa-debug*.apk
           .github/workflows/uploadArtifact.sh "$LOG_USERNAME" "$LOG_PASSWORD" "${{github.event.number}}" "${{github.event.number}}" "$GITHUB_TOKEN"

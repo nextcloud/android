@@ -75,7 +75,7 @@ val ndkEnv = buildMap {
 }
 
 val configProps = Properties().apply {
-    val file = rootProject.file(".gradle/config.properties")
+    val file = rootProject.file("gradle.properties")
     if (file.exists()) load(FileInputStream(file))
 }
 
@@ -136,12 +136,6 @@ android {
             debug {
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 resConfigs("xxxhdpi")
-
-                buildConfigField(
-                    "String",
-                    "NC_TEST_SERVER_DATA_STRING",
-                    "\"nc://login/user:${ncTestServerUsername}&password:${ncTestServerPassword}&server:${ncTestServerBaseUrl}\""
-                )
             }
         }
 

@@ -716,22 +716,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else {
             accountSetupBinding.scanQr.setVisibility(View.GONE);
         }
-
-        addDebugLogin();
-    }
-
-    private void addDebugLogin() {
-        if (BuildConfig.DEBUG) {
-            try {
-                accountSetupBinding.thumbnail.setOnLongClickListener(v -> {
-                    final String dataString = BuildConfig.NC_TEST_SERVER_DATA_STRING;
-                    parseAndLoginFromWebView(dataString);
-                    return false;
-                });
-            } catch (Throwable t) {
-                Log_OC.w(TAG, "Test server data string not available in this build");
-            }
-        }
     }
 
     /**
