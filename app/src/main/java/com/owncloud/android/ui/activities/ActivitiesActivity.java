@@ -89,7 +89,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     }
 
     @Override
-    protected int getCurrentActivityMenuItemId() {
+    protected int getMenuItemId() {
         return R.id.nav_activity;
     }
 
@@ -158,7 +158,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     @Override
     protected void onResume() {
         super.onResume();
-        setNavigationViewItemChecked(getCurrentActivityMenuItemId());
+        highlightNavigationViewItem(getMenuItemId());
         actionListener.onResume();
         setupContent();
     }

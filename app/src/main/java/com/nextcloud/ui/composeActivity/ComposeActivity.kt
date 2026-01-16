@@ -80,11 +80,11 @@ class ComposeActivity : DrawerActivity() {
         composeViewModel.updateSelectedText(text.toString())
     }
 
-    override fun getCurrentActivityMenuItemId(): Int = R.id.nav_assistant
+    override fun getMenuItemId(): Int = R.id.nav_assistant
 
     override fun onResume() {
         super.onResume()
-        setNavigationViewItemChecked(currentActivityMenuItemId)
+        highlightNavigationViewItem(menuItemId)
     }
 
     private fun setupActivityUIFor(destination: ComposeDestination) {

@@ -289,8 +289,7 @@ class FileDisplayActivity :
      * 2) Currently visible fragment (and its active child)
      * 3) Fallback to All Files
      */
-    override fun getCurrentActivityMenuItemId(): Int =
-        MainApp.getMenuItemId() ?: listOfFilesFragment?.menuItemId ?: R.id.nav_all_files
+    override fun getMenuItemId(): Int = MainApp.getMenuItemId() ?: listOfFilesFragment?.menuItemId ?: R.id.nav_all_files
 
     private fun loadSavedInstanceState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
@@ -1337,7 +1336,7 @@ class FileDisplayActivity :
 
         super.onResume()
 
-        setNavigationViewItemChecked(currentActivityMenuItemId)
+        highlightNavigationViewItem(menuItemId)
 
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
