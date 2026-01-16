@@ -278,7 +278,11 @@ class FileDisplayActivity :
         observeWorkerState()
         startMetadataSyncForRoot()
         handleBackPress()
+        setupDrawer(R.id.nav_all_files)
     }
+
+    override fun getCurrentActivityMenuItemId(): Int =
+        MainApp.getMenuItemId() ?: listOfFilesFragment?.menuItemId ?: R.id.nav_all_files
 
     private fun loadSavedInstanceState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
@@ -310,8 +314,6 @@ class FileDisplayActivity :
 
         // reset ui states when file display activity created/recrated
         listOfFilesFragment?.resetSearchAttributes()
-        menuItemId = R.id.nav_all_files
-        setNavigationViewItemChecked()
     }
 
     private fun initTaskRetainerFragment() {
@@ -390,7 +392,6 @@ class FileDisplayActivity :
             ) != null
         ) {
             switchToSearchFragment(savedInstanceState)
-            setupDrawer()
         } else {
             createMinFragments(savedInstanceState)
         }
@@ -565,7 +566,6 @@ class FileDisplayActivity :
 
             ALL_FILES == action -> {
                 Log_OC.d(this, "Switch to oc file fragment")
-                menuItemId = R.id.nav_all_files
 
                 // Replace only if the fragment is NOT exactly OCFileListFragment
                 // Using `is OCFileListFragment` would also match subclasses,
@@ -582,7 +582,6 @@ class FileDisplayActivity :
 
             LIST_GROUPFOLDERS == action -> {
                 Log_OC.d(this, "Switch to list groupfolders fragment")
-                menuItemId = R.id.nav_groupfolders
                 leftFragment = GroupfolderListFragment()
                 supportFragmentManager.executePendingTransactions()
             }
@@ -1264,7 +1263,6 @@ class FileDisplayActivity :
         }
 
         resetScrollingAndUpdateActionBar()
-        configureMenuItem()
         startMetadataSyncForCurrentDir()
     }
 
@@ -1330,6 +1328,9 @@ class FileDisplayActivity :
         Log_OC.v(TAG, "onResume() start")
 
         super.onResume()
+
+        setNavigationViewItemChecked(currentActivityMenuItemId)
+
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
             return
@@ -1367,8 +1368,6 @@ class FileDisplayActivity :
             updateActionBarTitleAndHomeButton(startFile)
         }
 
-        configureMenuItem()
-
         // show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this)
 
@@ -1385,21 +1384,6 @@ class FileDisplayActivity :
         intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
             ?: intent?.getStringExtra(EXTRA_FILE_REMOTE_PATH)
                 ?.let { fileDataStorageManager.getFileByDecryptedRemotePath(it) }
-
-    private fun checkAndSetMenuItemId() {
-        if (MainApp.isOnlyPersonFiles()) {
-            menuItemId = R.id.nav_personal_files
-        } else if (MainApp.isOnlyOnDevice()) {
-            menuItemId = R.id.nav_on_device
-        } else if (menuItemId == Menu.NONE) {
-            menuItemId = R.id.nav_all_files
-        }
-    }
-
-    fun configureMenuItem() {
-        checkAndSetMenuItemId()
-        setNavigationViewItemChecked()
-    }
 
     // region local broadcast manager receivers
     private fun registerReceivers() {
@@ -2857,7 +2841,6 @@ class FileDisplayActivity :
         }
 
         setFile(file)
-        setupDrawer()
 
         val existingAccountName = existingUser.accountName
         mSwitchAccountButton.tag = existingAccountName
