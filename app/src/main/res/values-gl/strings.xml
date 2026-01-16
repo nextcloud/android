@@ -963,6 +963,9 @@
     <string name="suggest">Suxerir</string>
     <string name="sync">Sincronizar</string>
     <string name="sync_anyway">Sincronizar de todos os xeitos</string>
+    <string name="sync_conflict_notification_action_title">Resolver conflitos</string>
+    <string name="sync_conflict_notification_description">Detectáronse conflitos de envío. Abra os envíos para resolvelos.</string>
+    <string name="sync_conflict_notification_title">Conflitos no envío de ficheiros</string>
     <string name="sync_conflicts_in_favourites_ticker">Atopáronse conflitos</string>
     <string name="sync_current_folder_was_removed">O cartafol %1$s xa non existe</string>
     <string name="sync_duplication">Duplicación de sincronización</string>

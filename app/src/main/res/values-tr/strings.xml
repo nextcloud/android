@@ -13,6 +13,7 @@
     <string name="action_send_share">Gönder/paylaş</string>
     <string name="action_switch_grid_view">Tablo görünümü</string>
     <string name="action_switch_list_view">Liste görünümü</string>
+    <string name="action_triggered">İşlem tetiklendi</string>
     <string name="actionbar_calendar_contacts_restore">Kişileri ve takvimi geri yükle</string>
     <string name="actionbar_mkdir">Yeni klasör</string>
     <string name="actionbar_move_or_copy">Taşı ya da kopyala</string>
@@ -396,6 +397,7 @@
     <string name="failed_to_create_conflict_dialog">Çakışma penceresi oluşturulamadı</string>
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
     <string name="failed_to_print">Dosya yazdırılamadı</string>
+    <string name="failed_to_start_action">İşlem başlatılamadı!</string>
     <string name="failed_to_start_editor">Düzenleyici başlatılamadı</string>
     <string name="failed_update_ui">Kullanıcı arayüzü güncellenemedi</string>
     <string name="favorite">Sık kullanılanlara ekle</string>
@@ -755,6 +757,7 @@
     <string name="prefs_two_way_sync_interval">Aralık</string>
     <string name="prefs_two_way_sync_summary">İç klasörleri iki yönlü eşitleme ile yönetin</string>
     <string name="prefs_two_way_sync_switch_title">İki yönlü eşitlemeyi aç</string>
+    <string name="prefs_two_way_sync_title">İki yönlü eşitleme</string>
     <string name="prefs_value_theme_dark">Koyu</string>
     <string name="prefs_value_theme_light">Açık</string>
     <string name="prefs_value_theme_system">Sistem ayarı</string>
@@ -959,6 +962,9 @@
     <string name="suggest">Öner</string>
     <string name="sync">Eşitle</string>
     <string name="sync_anyway">Yine de eşitle</string>
+    <string name="sync_conflict_notification_action_title">Çakışmaları çözümle</string>
+    <string name="sync_conflict_notification_description">Yükleme çakışmaları bulundu. Çözümlemek için yüklemeleri açın.</string>
+    <string name="sync_conflict_notification_title">Dosya yükleme çakışmaları</string>
     <string name="sync_conflicts_in_favourites_ticker">Çakışmalar bulundu</string>
     <string name="sync_current_folder_was_removed">%1$s klasörü artık yok</string>
     <string name="sync_duplication">Eşitleme çifti</string>
