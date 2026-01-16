@@ -93,6 +93,12 @@ android {
     androidResources.generateLocaleConfig = true
 
     defaultConfig {
+        testInstrumentationRunnerArguments += mapOf(
+            "TEST_SERVER_URL" to "ncTestServerBaseUrl.toString()",
+            "TEST_SERVER_USERNAME" to "ncTestServerUsername.toString()",
+            "TEST_SERVER_PASSWORD" to "ncTestServerPassword.toString()",
+            "disableAnalytics" to "true"
+        )
         applicationId = "com.nextcloud.client"
         minSdk = 28
         targetSdk = 36
@@ -108,13 +114,6 @@ android {
         // arguments to be passed to functional tests
         testInstrumentationRunner = if (shotTest) "com.karumi.shot.ShotTestRunner"
         else "com.nextcloud.client.TestRunner"
-
-        testInstrumentationRunnerArguments += mapOf(
-            "TEST_SERVER_URL" to ncTestServerBaseUrl.toString(),
-            "TEST_SERVER_USERNAME" to ncTestServerUsername.toString(),
-            "TEST_SERVER_PASSWORD" to ncTestServerPassword.toString()
-        )
-        testInstrumentationRunnerArguments["disableAnalytics"] = "true"
 
         versionCode = versionMajor * 10000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
         versionName = when {
