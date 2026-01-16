@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -14,12 +15,14 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.contrib.NavigationViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -36,6 +39,7 @@ import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.OCFileListItemViewHolder
 import com.owncloud.android.utils.EspressoIdlingResource
+import org.hamcrest.Matchers.allOf
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -44,6 +48,7 @@ import org.junit.Rule
 import org.junit.Test
 
 class FileDisplayActivityIT : AbstractOnServerIT() {
+
     @Before
     fun registerIdlingResource() {
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
@@ -234,6 +239,55 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
                     onView(withId(R.id.switch_account_button)).perform(click())
                 }
             }
+        }
+    }
+
+    @Test
+    fun testShowAndDismissLoadingDialog() {
+        launchActivity<FileDisplayActivity>().use { scenario ->
+            val loadingText = "Some text displayed while loading"
+
+            // Test that display works
+            scenario.onActivity { sut ->
+                sut.showLoadingDialog(loadingText)
+            }
+            onView(withText(loadingText))
+                .check(matches(isDisplayed()))
+
+            // Test that hiding works
+            scenario.onActivity { sut ->
+                sut.dismissLoadingDialog()
+            }
+            onView(allOf(withText(loadingText), isDisplayed()))
+                .check(doesNotExist())
+
+            // Test that there is no timing issue when hiding the dialog directly after.
+            // This timing issue was reproducible when testing RemoveFilesDialogFragment#removeFiles
+            // as well as sporadically "in the wild".
+            scenario.onActivity { sut ->
+                sut.showLoadingDialog(loadingText)
+                sut.dismissLoadingDialog()
+            }
+            onView(allOf(withText(loadingText), isDisplayed()))
+                .check(doesNotExist())
+            // Wait for a potential timing issue - dialog appearing belatedly
+            Thread.sleep(1000)
+            onView(allOf(withText(loadingText), isDisplayed()))
+                .check(doesNotExist())
+
+            // Test that multiple display calls after another don't cause a timing issue
+            scenario.onActivity { sut ->
+                sut.showLoadingDialog(loadingText)
+                sut.showLoadingDialog(loadingText)
+                sut.showLoadingDialog(loadingText)
+                sut.dismissLoadingDialog()
+            }
+            onView(allOf(withText(loadingText), isDisplayed()))
+                .check(doesNotExist())
+            // Wait for a potential timing issue - dialog appearing belatedly
+            Thread.sleep(1000)
+            onView(allOf(withText(loadingText), isDisplayed()))
+                .check(doesNotExist())
         }
     }
 }
