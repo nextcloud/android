@@ -15,8 +15,8 @@ import shutil
 from xml.etree import ElementTree
 
 XML_PATH = '../../app/src/main/res'
-METADATA_PATH = '../../src/generic/fastlane/metadata/android/'
-METADATA_DEV_PATH = '../../src/versionDev/fastlane/metadata/android/'
+METADATA_PATH = '../../src/generic/fastlane/metadata/'
+METADATA_DEV_PATH = '../../src/versionDev/fastlane/metadata/'
 DEFAULT_LANG = 'en-US'
 LANG_MAP = {
     'values': 'en-US',

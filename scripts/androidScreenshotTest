@@ -1,18 +1,45 @@
 #!/bin/bash
 #
-# SPDX-FileCopyrightText: 2020-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2020-2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
 # SPDX-FileCopyrightText: 2020-2024 Tobias Kaminsky <tobias@kaminsky.me>
 # SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 #
+# Run instrumentation screenshot tests (record or compare) for a given test class/method.
+#
+# Usage:
+#   ./scripts/androidScreenshotTest <record:true|false> <class-pattern> [method] [darkMode: dark|light|all] [color]
+#
+# Arguments:
+#   record         "true" to record/update reference screenshots (-Precord), "false" to compare.
+#   class name     the first matching .java or .kt file under app/src/androidTest/java is passed to the instrumentation runner
+#   method name    optional test method name to run (appends #method to class). If not given, the entire class's tests run
+#   darkMode       optional: dark | light | all  (if "all", the script runs scripts/runAllScreenshotCombinations).
+#   color          optional value passed as COLOR to the instrumentation runner, for testing different color themes
+#
+# Behavior notes:
+#   - Temporarily sets is_beta to true in app/src/main/res/values/setup.xml and restores it afterwards.
+#   - Searches for or launches an emulator AVD named "uiComparison" and sets ANDROID_SERIAL for the run.
+#   - Requires adb and emulator on PATH and the repo's ./gradlew wrapper.
+#   - Caution: If interrupted the setup.xml change may remain; revert with:
+#     git checkout -- app/src/main/res/values/setup.xml
+#
+# Examples:
+#   ./scripts/androidScreenshotTest false MyScreenshotTest
+#   ./scripts/androidScreenshotTest true MyScreenshotTest testCaptureAll all
+#   ./scripts/androidScreenshotTest false MyScreenshotTest "" dark red
+# END_DOCUMENTATION
 set -e
 
 if [ $# -lt 2 ]; then
-    echo "1: record: true/false
-2: class name
-3: method name
-4: darkMode: dark/light / \"all\" to run all screenshot combinations
-5: color"
-
+    # Print the documentation from the file header, up until END_DOCUMENTATION, excluding specific lines
+    sed -n '2,/^#[[:space:]]*END_DOCUMENTATION/ {
+      /^#[[:space:]]*SPDX-FileCopyrightText/ d
+      /^#[[:space:]]*SPDX-License-Identifier/ d
+      /^#[[:space:]]*END_DOCUMENTATION/ d
+      s/^#//
+      p
+    }' "$0" | sed '/^$/d'
     exit
 fi
 
@@ -65,6 +92,20 @@ while read line ; do
 done < <(adb devices | cut -f1)
 
 if [ "$emulatorIsRunning" == false ] ; then
+    if [ -z "$(command -v emulator || true)" ]; then
+        echo "emulator not found in PATH; typically located in Android/sdk/emulator" >&2
+        exit 1
+    fi
+    if [ -z "$(command -v avdmanager || true)" ]; then
+        echo "avdmanager not found in PATH; typically located in Android/sdk/cmdline-tools/latest/bin" >&2
+        exit 1
+    fi
+    # If emulator of expected name doesn't exist, create it
+    # TODO - this was copied from updateScreenshots.sh - move it to a common helper script
+    if [[ $(emulator -list-avds | grep uiComparison -c) -eq 0 ]]; then
+        (sleep 5; echo "no") | avdmanager create avd -n uiComparison -c 100M -k "system-images;android-28;google_apis;x86" --abi "google_apis/x86"
+    fi
+
     "$(command -v emulator)" -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
     sleep 20
 fi

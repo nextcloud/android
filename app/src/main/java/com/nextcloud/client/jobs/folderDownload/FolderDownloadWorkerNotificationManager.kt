@@ -13,9 +13,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.work.ForegroundInfo
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
-import com.nextcloud.utils.ForegroundServiceHelper
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -108,13 +106,6 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
 
         return getForegroundInfo(notification)
     }
-
-    fun getForegroundInfo(notification: Notification): ForegroundInfo =
-        ForegroundServiceHelper.createWorkerForegroundInfo(
-            NOTIFICATION_ID,
-            notification,
-            ForegroundServiceType.DataSync
-        )
 
     fun dismiss() {
         notificationManager.cancel(NOTIFICATION_ID)

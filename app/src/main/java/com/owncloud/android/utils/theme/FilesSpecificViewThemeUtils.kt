@@ -1,8 +1,8 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2022-2026 Nextcloud GmbH and Nextcloud contributors
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
- * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.utils.theme
@@ -16,11 +16,15 @@ import android.preference.PreferenceCategory
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import androidx.annotation.Px
 import androidx.annotation.StringRes
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.card.MaterialCardView
 import com.nextcloud.android.common.ui.color.ColorUtil
@@ -36,6 +40,7 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import me.zhanghai.android.fastscroll.PopupStyles
 import javax.inject.Inject
 
+@Suppress("TooManyFunctions")
 class FilesSpecificViewThemeUtils @Inject constructor(
     schemes: MaterialSchemes,
     private val colorUtil: ColorUtil,
@@ -65,6 +70,7 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                 null
             )
             avatar.cropToPadding = true
+            avatar.scaleType = ImageView.ScaleType.CENTER_INSIDE
             avatar.setPadding(padding, padding, padding, padding)
         }
 
@@ -78,7 +84,7 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
             }
             ShareType.ROOM -> {
-                createAvatarBase(R.drawable.first_run_talk, AvatarPadding.LARGE)
+                createAvatarBase(R.drawable.ic_talk, AvatarPadding.LARGE)
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
             }
             ShareType.CIRCLE -> {
@@ -254,6 +260,23 @@ class FilesSpecificViewThemeUtils @Inject constructor(
         val backArrow = ResourcesCompat.getDrawable(context.resources, R.drawable.ic_arrow_back, null)
         val tinted = androidViewThemeUtils.colorDrawable(backArrow!!, Color.WHITE)
         supportActionBar.setHomeAsUpIndicator(tinted)
+    }
+
+    fun themeContentSearchView(searchView: SearchView) {
+        withScheme(searchView) { scheme ->
+            // hacky as no default way is provided
+            val editText = searchView
+                .findViewById<View?>(androidx.appcompat.R.id.search_src_text) as AppCompatAutoCompleteTextView
+            val searchPlate = searchView.findViewById<View?>(androidx.appcompat.R.id.search_plate) as LinearLayout
+            val closeButton = searchView.findViewById<View?>(androidx.appcompat.R.id.search_close_btn) as ImageView
+            val searchButton = searchView.findViewById<View?>(androidx.appcompat.R.id.search_button) as ImageView
+            editText.setHintTextColor(scheme.onSurfaceVariant)
+            editText.highlightColor = scheme.inverseOnSurface
+            editText.setTextColor(scheme.onSurface)
+            closeButton.setColorFilter(scheme.onSurface)
+            searchButton.setColorFilter(scheme.onSurface)
+            searchPlate.setBackgroundColor(scheme.surfaceContainerHigh)
+        }
     }
 
     companion object {

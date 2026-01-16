@@ -44,8 +44,13 @@
     <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
     <string name="appbar_search_in">Искать в %s</string>
     <string name="appear_offline">\"Не в сети\" для остальных</string>
+    <string name="assistant_output_generation_warning_text">Выходные данные, показанные здесь, сгенерированы с помощью искусственного интеллекта. Обязательно всегда перепроверяйте.</string>
+    <string name="assistant_screen_chat_create_error">Не удалось отправить сообщение</string>
+    <string name="assistant_screen_chat_fetch_error">Не удалось загрузить сообщения чата</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Вы уверены, что хотите удалить эту задачу?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Удалить задачу</string>
+    <string name="assistant_screen_empty_content_description">Попробуйте отправить сообщение, чтобы начать беседу.</string>
+    <string name="assistant_screen_empty_content_title">Здравствуйте! Чем я могу вам помочь сегодня?</string>
     <string name="assistant_screen_task_create_fail_message">Произошла ошибка при создании задачи</string>
     <string name="assistant_screen_task_create_success_message">Задача успешно создана</string>
     <string name="assistant_screen_task_delete_fail_message">Произошла ошибка во время удаления задачи</string>
@@ -56,6 +61,7 @@
     <string name="assistant_screen_top_bar_title">Помощник</string>
     <string name="assistant_task_detail_screen_input_button_title">Ввод</string>
     <string name="assistant_task_detail_screen_output_button_title">Вывод</string>
+    <string name="assistant_thinking">Думаю...</string>
     <string name="associated_account_not_found">Связанный аккаунт не найден!</string>
     <string name="auth_access_failed">Доступ запрещен: %1$s</string>
     <string name="auth_account_does_not_exist">Учётная запись ещё не создана на этом устройстве</string>
@@ -89,11 +95,14 @@
     <string name="authenticator_activity_cancel_login">Отменить вход</string>
     <string name="authenticator_activity_empty_base_url">Пожалуйста, введите действующий адрес сервера.</string>
     <string name="authenticator_activity_login_error">При обработке вашего запроса на вход возникла проблема. Пожалуйста, повторите попытку позже.</string>
+    <string name="authenticator_activity_no_web_browser_found">Ни один браузер не доступен для открытия этой ссылки.</string>
     <string name="authenticator_activity_please_complete_login_process">Пожалуйста, завершите процесс входа в вашем браузере</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
+    <string name="auto_upload_low_battery_warning_info">Батарея разряжена, загрузка может занять больше времени</string>
     <string name="auto_upload_on_wifi">Только через безлимит или Wi-Fi</string>
     <string name="auto_upload_path">/Автозагрузка</string>
     <string name="auto_upload_sub_folder_warning">Эта папка уже включена в синхронизацию родительской папки, что может привести к дублированию загрузок</string>
+    <string name="auto_upload_wifi_only_warning_info">Ожидание Wi-Fi для начала загрузки</string>
     <string name="autoupload_configure">Настроить</string>
     <string name="autoupload_create_new_custom_folder">Создать новую настройку пользовательского каталога</string>
     <string name="autoupload_custom_folder">Задать пользовательский каталог</string>
@@ -198,7 +207,9 @@
     <string name="contacts_preferences_import_scheduled_fail">Не удалось запустить импорт. Пожалуйста, попробуйте снова</string>
     <string name="contacts_preferences_no_file_found">Файл не найден</string>
     <string name="contacts_preferences_something_strange_happened">Не удалось найти последнюю резервную копию!</string>
+    <string name="conversation_screen_create_error_title">Не удалось создать чат</string>
     <string name="conversation_screen_delete_button_title">Удалить обсуждение</string>
+    <string name="conversation_screen_delete_error_title">Не удалось создать чат.</string>
     <string name="conversation_screen_empty_content_title">Не найдено ни одного обсуждения</string>
     <string name="conversation_screen_title">Беседы</string>
     <string name="copied">Скопировано</string>
@@ -601,6 +612,7 @@
     <string name="notification_action_failed">Не удалось выполнить задание.</string>
     <string name="notification_channel_background_operations_description">Показывать уведомления для взаимодействия с результатами фоновых операций</string>
     <string name="notification_channel_background_operations_name">Фоновые задания</string>
+    <string name="notification_channel_content_observer_description">Обнаруживать локальные изменения файлов</string>
     <string name="notification_channel_download_description">Показывает выполнение получения</string>
     <string name="notification_channel_download_name_short">Загрузки</string>
     <string name="notification_channel_file_sync_description">Показывает состояние и результаты синхронизации файлов </string>
@@ -624,6 +636,7 @@
     <string name="offline_mode">Отсутствует подключение к Интернет</string>
     <string name="offline_mode_info_description">Даже без подключения к Интернету вы можете упорядочивать папки и создавать файлы. Как только вы вернетесь в сеть, ваши действия будут автоматически синхронизированы.</string>
     <string name="offline_mode_info_title">Вы не в сети, но работа продолжается</string>
+    <string name="offline_operations_file_does_not_exists_yet">Файл ещё не существует. Пожалуйста, сначала загрузите файл.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Не удалось создать %s. На сервере уже существует файл с таким же именем.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Не удалось создать %s. На сервере уже существует папка с таким же имененм.</string>
     <string name="offline_operations_worker_notification_error_text">Операция в автономном режиме не может быть завершена. %s</string>
@@ -639,6 +652,7 @@
     <string name="overflow_menu">Дополнительное меню</string>
     <string name="pass_code_configure_your_pass_code">Введите код</string>
     <string name="pass_code_enter_pass_code">Введите ваш код</string>
+    <string name="pass_code_explanation">Пароль будет запрашиваться каждый раз при открытии приложения или его повторном открытии через 5 секунд.</string>
     <string name="pass_code_mismatch">Коды не совпадают</string>
     <string name="pass_code_reenter_your_pass_code">Введите ваш код ещё раз</string>
     <string name="pass_code_remove_your_pass_code">Удалите ваш код</string>
@@ -667,6 +681,7 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Переименовать новую версию</string>
     <string name="pref_instant_name_collision_policy_title">Действие в случае, если файл уже существует</string>
     <string name="prefs_add_account">Добавить аккаунт</string>
+    <string name="prefs_all_files_access_summary">Разрешить приложению доступ и управление всеми файлами на вашем устройстве</string>
     <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
     <string name="prefs_calendar_contacts_no_store_error">Ни F-Droid, ни Google Play не установлены</string>
     <string name="prefs_calendar_contacts_summary">Установите DAVx⁵ (ранее известный как DAVdroid) (v1.3.0+) для текущего аккаунта</string>
@@ -902,6 +917,9 @@
     <string name="storage_internal_storage">Внутреннее хранилище</string>
     <string name="storage_movies">Фильмы</string>
     <string name="storage_music">Музыка</string>
+    <string name="storage_permission_banner_auto_upload_text">Для авто-загрузки требуется разрешение на доступ к хранилищу.</string>
+    <string name="storage_permission_banner_upload_text">Для загрузки файлов требуется разрешение на доступ к хранилищу.</string>
+    <string name="storage_permission_dont_ask">Не спрашивать</string>
     <string name="storage_permission_media_read_only">Носитель только для чтения</string>
     <string name="storage_pictures">Изображения</string>
     <string name="store_full_desc">Устанавливаемая на свой сервер платформа для повышения продуктивности, которая позволяет держать всё под контролем.\n\nFeatures:\n* Простой, современный интерфейс, соответствующий тематике вашего сервера\n* Загружайте файлы на свой сервер Nextcloud\n* Делитесь ими с другими\n* Синхронизируйте избранные файлы и папки\n* Поиск по всем папкам на вашем сервере\n* Автоматическая загрузка фотографий и видео, снятых на вашем устройстве\n* Будьте в курсе событий благодаря уведомлениям\n* Поддержка нескольких учётных записей\n* Безопасный доступ к вашим данным с помощью отпечатка пальца или PIN-кода\n* Интеграция с DAVx⁵ (ранее известен как DAVdroid) для простой настройки синхронизации календаря и контактов\n\nПожалуйста, сообщайте обо всех проблемах на https://github.com/nextcloud/android/issues и обсуждайте это приложение на https://help.nextcloud.com/c/clients/android\n\nНовичок в Nextcloud? Nextcloud — это приватный сервер синхронизации и обмена файлами и коммуникационный сервер. Это свободное программное обеспечение, и вы можете разместить его самостоятельно или заплатить компании, чтобы это сделали за вас. Таким образом, вы управляете своими фотографиями, календарём и контактными данными, документами и всем остальным.\n\nОзнакомьтесь с Nextcloud по адресу https://nextcloud.com</string>

@@ -165,7 +165,7 @@ interface BackgroundJobManager {
     fun cancelAllJobs()
     fun schedulePeriodicHealthStatus()
     fun startHealthStatus()
-    fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean
+    fun isAutoUploadWorkerRunning(syncedFolderID: Long): Boolean
     fun startOfflineOperations()
     fun startPeriodicallyOfflineOperation()
     fun scheduleInternal2WaySync(intervalMinutes: Long)

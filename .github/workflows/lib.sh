@@ -2,7 +2,7 @@
 #
 # SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
 # SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
-# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+# SPDX-License-Identifier: AGPL-3.0-or-later
 #
 
 ## This file is intended to be sourced by other scripts

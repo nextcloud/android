@@ -139,7 +139,7 @@
     <string name="prefs_value_theme_dark">Dark</string>
     <string name="prefs_value_theme_system">Follow system</string>
     <string name="prefs_theme_title">Theme</string>
-    <string name="prefs_two_way_sync_switch_title">Enable two way sync</string>
+    <string name="prefs_two_way_sync_title">Two way sync</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
 
     <plurals name="hours">
@@ -1475,4 +1475,10 @@
     <string name="failed_to_create_conflict_dialog">Failed to create conflict dialog</string>
     <string name="editor_web_view_cannot_open_file">Cannot open file chooser</string>
     <string name="send_copy_to">Send copy to</string>
+    <string name="failed_to_start_action">Failed to start action!</string>
+    <string name="action_triggered">Action triggered</string>
+
+    <string name="sync_conflict_notification_title">File upload conflicts</string>
+    <string name="sync_conflict_notification_description">Upload conflicts detected. Open uploads to resolve.</string>
+    <string name="sync_conflict_notification_action_title">Resolve conflicts</string>
 </resources>

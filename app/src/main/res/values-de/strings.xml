@@ -13,6 +13,7 @@
     <string name="action_send_share">Senden/Teilen</string>
     <string name="action_switch_grid_view">Kachelansicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
+    <string name="action_triggered">Aktion ausgelöst</string>
     <string name="actionbar_calendar_contacts_restore">Kontakte und Kalender wiederherstellen</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
     <string name="actionbar_move_or_copy">Verschieben oder kopieren</string>
@@ -195,7 +196,7 @@
     <string name="confirmation_remove_folders_alert">Möchten Sie die ausgewählten Elemente und deren inhalt wirklich löschen?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="conflict_dialog_error">Konfliktlösungsdialog konnte nicht erstellt werden</string>
-    <string name="conflict_folder_headline">Ordnerkonfilikt</string>
+    <string name="conflict_folder_headline">Ordnerkonflikt</string>
     <string name="conflict_local_file">Lokale Datei</string>
     <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
     <string name="conflict_message_description_for_folder">Falls beide Versionen gewählt werden, wird beim lokalen Ordner eine Zahl am Ende des Dateinamens hinzugefügt.</string>
@@ -396,6 +397,7 @@
     <string name="failed_to_create_conflict_dialog">Die Erstellung des Konfliktdialogs ist fehlgeschlagen</string>
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
     <string name="failed_to_print">Datei konnte nicht gedruckt werden</string>
+    <string name="failed_to_start_action">Aktion konnte nicht gestartet werden!</string>
     <string name="failed_to_start_editor">Editor konnte nicht gestartet werden</string>
     <string name="failed_update_ui">Oberfläche konnte nicht aktualisiert werden</string>
     <string name="favorite">Zu den Favoriten hinzufügen</string>
@@ -755,6 +757,7 @@
     <string name="prefs_two_way_sync_interval">Intervall</string>
     <string name="prefs_two_way_sync_summary">Interne Ordner für 2-Wege-Synchronisierung verwalten</string>
     <string name="prefs_two_way_sync_switch_title">2-Wege-Synchronisierung aktivieren</string>
+    <string name="prefs_two_way_sync_title">2-Wege-Synchronisierung</string>
     <string name="prefs_value_theme_dark">Dunkel</string>
     <string name="prefs_value_theme_light">Hell</string>
     <string name="prefs_value_theme_system">Systemvorgaben verwenden</string>
@@ -959,6 +962,9 @@
     <string name="suggest">Vorschlagen</string>
     <string name="sync">Synchronisieren</string>
     <string name="sync_anyway">Trotzdem synchronisieren</string>
+    <string name="sync_conflict_notification_action_title">Konflikte lösen</string>
+    <string name="sync_conflict_notification_description">Datei-Konflikte beim Hochladen erkannt. \"Uploads\" öffen, um sie aufzulösen.</string>
+    <string name="sync_conflict_notification_title">Dateikonflikte beim Hochladen</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
     <string name="sync_current_folder_was_removed">Der Ordner %1$s existiert nicht mehr</string>
     <string name="sync_duplication">Synchronisierungsduplizierung</string>

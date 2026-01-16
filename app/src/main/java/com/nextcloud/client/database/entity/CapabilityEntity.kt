@@ -146,5 +146,7 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_WINDOWS_COMPATIBLE_FILENAMES)
     val isWCFEnabled: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_HAS_VALID_SUBSCRIPTION)
-    val hasValidSubscription: Int?
+    val hasValidSubscription: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_CLIENT_INTEGRATION_JSON)
+    val clientIntegrationJson: String?
 )

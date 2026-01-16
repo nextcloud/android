@@ -421,8 +421,8 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelJob(JOB_PERIODIC_CALENDAR_BACKUP, user)
     }
 
-    override fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean =
-        workManager.isWorkRunning(JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID) &&
+    override fun isAutoUploadWorkerRunning(syncedFolderID: Long): Boolean =
+        workManager.isWorkRunning(JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID) ||
             workManager.isWorkRunning(JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID)
 
     override fun startPeriodicallyOfflineOperation() {

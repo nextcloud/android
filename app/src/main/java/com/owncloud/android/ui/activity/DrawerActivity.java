@@ -49,6 +49,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkConstants;
@@ -330,7 +331,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         mQuotaProgressBar = (LinearProgressIndicator) findQuotaViewById(R.id.drawer_quota_ProgressBar);
         mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
         mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
-        viewThemeUtils.material.colorProgressBar(mQuotaProgressBar);
+        viewThemeUtils.material.colorProgressBar(mQuotaProgressBar, ColorRole.PRIMARY);
+        mQuotaProgressBar.setTrackStopIndicatorSize(0);
+        viewThemeUtils.platform.colorViewBackground(mQuotaView);
     }
 
     public void updateHeader() {
@@ -431,7 +434,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         moreView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppStore("Nextcloud", true, this));
         assistantView.setOnClickListener(v -> {
             DrawerActivity.menuItemId = Menu.NONE;
-            startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
+            startAssistantScreen();
         });
         if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
             assistantView.setVisibility(View.VISIBLE);
@@ -583,7 +586,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             startRecentlyModifiedSearch(menuItem);
         } else if (itemId == R.id.nav_assistant) {
             resetOnlyPersonalAndOnDevice();
-            startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
+            startAssistantScreen();
         } else if (itemId == R.id.nav_groupfolders) {
             resetOnlyPersonalAndOnDevice();
             Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
@@ -621,7 +624,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             } else if (menuItemId == R.id.nav_favorites) {
                 openFavoritesTab();
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
-                startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
+                startAssistantScreen();
             } else if (menuItemId == R.id.nav_gallery) {
                 openMediaTab(menuItem.getItemId());
             }
@@ -648,10 +651,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void startComposeActivity(ComposeDestination destination, int titleId) {
+    private void startAssistantScreen() {
+        final var destination = ComposeDestination.Companion.getAssistantScreen(this);
         Intent composeActivity = new Intent(getApplicationContext(), ComposeActivity.class);
-        composeActivity.putExtra(ComposeActivity.DESTINATION, destination.getId());
-        composeActivity.putExtra(ComposeActivity.TITLE, titleId);
+        final Bundle bundle = new Bundle();
+        bundle.putParcelable(ComposeActivity.DESTINATION, destination);
+        composeActivity.putExtras(bundle);
         startActivity(composeActivity);
     }
 
@@ -860,10 +865,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         mQuotaProgressBar.setProgress(relative);
 
         if (relative < RELATIVE_THRESHOLD_WARNING) {
-            viewThemeUtils.material.colorProgressBar(mQuotaProgressBar);
+            viewThemeUtils.material.colorProgressBar(mQuotaProgressBar, ColorRole.PRIMARY);
         } else {
-            viewThemeUtils.material.colorProgressBar(mQuotaProgressBar,
-                                                     getResources().getColor(R.color.infolevel_warning, getTheme()));
+            viewThemeUtils.material.colorProgressBar(
+                mQuotaProgressBar,
+                getResources().getColor(R.color.infolevel_warning, null)
+                                                    );
         }
 
         updateQuotaLink();

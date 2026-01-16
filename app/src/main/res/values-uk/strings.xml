@@ -13,6 +13,7 @@
     <string name="action_send_share">Надіслати або поділитися</string>
     <string name="action_switch_grid_view">Показувати сіткою</string>
     <string name="action_switch_list_view">Показувати списком</string>
+    <string name="action_triggered">Дію запущено</string>
     <string name="actionbar_calendar_contacts_restore">Відновити контакти та календар</string>
     <string name="actionbar_mkdir">Новий каталог</string>
     <string name="actionbar_move_or_copy">Перемістити або копіювати</string>
@@ -257,7 +258,7 @@
     <string name="direct_login_failed">Відмовлено у авторизації за прямим посиланням!</string>
     <string name="direct_login_text">Увійти до %2$s з %1$s</string>
     <string name="disable_new_media_folder_detection_notifications">Вимкнути</string>
-    <string name="dismiss">Припинити</string>
+    <string name="dismiss">Сховати</string>
     <string name="dismiss_notification_description">Скасувати сповіщення</string>
     <string name="displays_mnemonic">Показати вашу парольну празу з 12 слів</string>
     <string name="dnd">Не турбувати</string>
@@ -396,6 +397,7 @@
     <string name="failed_to_create_conflict_dialog">Не вдалося створити вікно з інформацією про конфлікт</string>
     <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
     <string name="failed_to_print">Не вдалося роздрукувати файл</string>
+    <string name="failed_to_start_action">Не вдалося виконати дію!</string>
     <string name="failed_to_start_editor">Не вдалося відкрити редактор</string>
     <string name="failed_update_ui">Неможливо оновити інтерфейс</string>
     <string name="favorite">Додати зірочку</string>
@@ -755,6 +757,7 @@
     <string name="prefs_two_way_sync_interval">Інтервал</string>
     <string name="prefs_two_way_sync_summary">Керувати внутрішніми каталогами для двосторонньої синхронізації</string>
     <string name="prefs_two_way_sync_switch_title">Увімкнути двосторонню синхронізацію</string>
+    <string name="prefs_two_way_sync_title">Двостороння синхронізація</string>
     <string name="prefs_value_theme_dark">Темна</string>
     <string name="prefs_value_theme_light">Світла</string>
     <string name="prefs_value_theme_system">Системна</string>
@@ -959,6 +962,9 @@
     <string name="suggest">Запропонувати</string>
     <string name="sync">Синхронізація</string>
     <string name="sync_anyway">Синхронізувати попри все</string>
+    <string name="sync_conflict_notification_action_title">Вирішити конфлікти</string>
+    <string name="sync_conflict_notification_description">Знайдено конфлікти при завантаженні. Відкрийте завантаження для вирішення.</string>
+    <string name="sync_conflict_notification_title">Конфлікти при завантаженні файлів</string>
     <string name="sync_conflicts_in_favourites_ticker">Конфліктів знайдено</string>
     <string name="sync_current_folder_was_removed">Каталог %1$s більше недоступний</string>
     <string name="sync_duplication">Синхронізувати із задвоєнням</string>

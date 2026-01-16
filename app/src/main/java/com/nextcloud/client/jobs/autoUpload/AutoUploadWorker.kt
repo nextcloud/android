@@ -25,17 +25,16 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
-import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -85,8 +84,6 @@ class AutoUploadWorker(
             syncedFolder = syncedFolderProvider.getSyncedFolderByID(syncFolderId)
                 ?.takeIf { it.isEnabled } ?: return Result.failure()
 
-            trySetForeground()
-
             /**
              * Receives from [com.nextcloud.client.jobs.ContentObserverWork.checkAndTriggerAutoUpload]
              */
@@ -97,7 +94,6 @@ class AutoUploadWorker(
             }
 
             collectFileChangesFromContentObserverWork(contentUris)
-            updateNotification()
             uploadFiles(syncedFolder)
 
             Log_OC.d(TAG, "✅ ${syncedFolder.remotePath} finished checking files.")
@@ -109,18 +105,11 @@ class AutoUploadWorker(
     }
 
     override suspend fun getForegroundInfo(): ForegroundInfo {
-        val notification = createNotification(
-            context.getString(R.string.upload_files)
-        )
-
-        return ForegroundServiceHelper.createWorkerForegroundInfo(
-            NOTIFICATION_ID,
-            notification,
-            ForegroundServiceType.DataSync
-        )
+        val notification = createNotification(context.getString(R.string.upload_files))
+        return notificationManager.getForegroundInfo(notification)
     }
 
-    private fun updateNotification() {
+    private suspend fun updateNotification() {
         getStartNotificationTitle()?.let { (localFolderName, remoteFolderName) ->
             try {
                 val startNotification = createNotification(
@@ -131,7 +120,7 @@ class AutoUploadWorker(
                     )
                 )
 
-                notificationManager.showNotification(startNotification)
+                setForeground(notificationManager.getForegroundInfo(startNotification))
             } catch (e: Exception) {
                 Log_OC.w(TAG, "⚠️ Could not update notification: ${e.message}")
             }
@@ -141,19 +130,10 @@ class AutoUploadWorker(
     private suspend fun trySetForeground() {
         try {
             val notification = createNotification(context.getString(R.string.upload_files))
-            updateForegroundInfo(notification)
+            setForeground(notificationManager.getForegroundInfo(notification))
         } catch (e: Exception) {
             Log_OC.w(TAG, "⚠️ Could not set foreground service: ${e.message}")
         }
-    }
-
-    private suspend fun updateForegroundInfo(notification: Notification) {
-        val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
-            NOTIFICATION_ID,
-            notification,
-            ForegroundServiceType.DataSync
-        )
-        setForeground(foregroundInfo)
     }
 
     private fun createNotification(title: String): Notification = notificationManager.notificationBuilder
@@ -196,7 +176,7 @@ class AutoUploadWorker(
             return true
         }
 
-        if (backgroundJobManager.bothFilesSyncJobsRunning(syncedFolderID)) {
+        if (backgroundJobManager.isAutoUploadWorkerRunning(syncedFolderID)) {
             Log_OC.w(TAG, "🚧 another worker is already running for $syncedFolderID")
             return true
         }
@@ -297,6 +277,9 @@ class AutoUploadWorker(
         val lightVersion = context.resources.getBoolean(R.bool.syncedFolder_light)
         val currentLocale = context.resources.configuration.locales[0]
 
+        trySetForeground()
+        updateNotification()
+
         var lastId = 0
         while (true) {
             val filePathsWithIds = repository.getFilePathsWithIds(syncedFolder, lastId)
@@ -320,7 +303,14 @@ class AutoUploadWorker(
                 )
 
                 try {
-                    var (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
+                    val result = createEntityAndUpload(user, localPath, remotePath)
+                    if (result == null) {
+                        repository.markFileAsHandled(localPath, syncedFolder)
+                        Log_OC.d(TAG, "Marked file as handled due to existing conflict: $localPath")
+                        continue
+                    }
+
+                    var (uploadEntity, upload) = result
 
                     // if local file deleted, upload process cannot be started or retriable thus needs to be removed
                     if (path.isEmpty() || !file.exists()) {
@@ -349,7 +339,7 @@ class AutoUploadWorker(
                         )
 
                         if (result.isSuccess) {
-                            repository.markFileAsUploaded(localPath, syncedFolder)
+                            repository.markFileAsHandled(localPath, syncedFolder)
                             Log_OC.d(TAG, "✅ upload completed: $localPath")
                         } else {
                             Log_OC.e(
@@ -393,7 +383,11 @@ class AutoUploadWorker(
         uploadsStorageManager.removeUpload(upload)
     }
 
-    private fun createEntityAndUpload(user: User, localPath: String, remotePath: String): Pair<UploadEntity, OCUpload> {
+    private fun createEntityAndUpload(
+        user: User,
+        localPath: String,
+        remotePath: String
+    ): Pair<UploadEntity, OCUpload>? {
         val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)
         Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
 
@@ -403,6 +397,12 @@ class AutoUploadWorker(
             remotePath = remotePath,
             accountName = user.accountName
         )
+
+        val lastUploadResult = uploadEntity?.lastResult?.let { UploadResult.fromValue(it) }
+        if (lastUploadResult == UploadResult.SYNC_CONFLICT) {
+            Log_OC.w(TAG, "Conflict already exists, skipping auto-upload: $localPath")
+            return null
+        }
 
         val upload = (
             uploadEntity?.toOCUpload(null) ?: OCUpload(

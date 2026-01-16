@@ -2,36 +2,36 @@
 <!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2024 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2024-2026 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-FileCopyrightText: 2024 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
-  -->
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/min_list_item_size"
-    android:orientation="horizontal"
-    android:paddingStart="@dimen/standard_half_padding"
-    android:paddingEnd="@dimen/standard_half_padding">
+    android:orientation="horizontal">
 
     <ImageView
+        android:id="@+id/folder_icon"
         android:layout_width="@dimen/file_icon_size"
         android:layout_height="@dimen/file_icon_size"
         android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_half_margin"
         android:contentDescription="@null"
         android:src="@drawable/folder" />
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="@dimen/min_list_item_size"
-        android:layout_marginStart="@dimen/standard_half_margin"
+        android:layout_weight="1"
         android:gravity="center_vertical|start"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="middle"
             android:gravity="center_vertical"
@@ -97,10 +97,11 @@
 
     <ImageView
         android:id="@+id/unset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/minimum_size_for_touchable_area"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/unset_internal_two_way_sync_description"
+        android:padding="@dimen/minimum_size_for_touchable_area_icon_padding"
         android:src="@drawable/ic_close" />
 
 </LinearLayout>

@@ -13,6 +13,7 @@
     <string name="action_send_share">傳送/分享</string>
     <string name="action_switch_grid_view">格狀檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
+    <string name="action_triggered">觸發動作</string>
     <string name="actionbar_calendar_contacts_restore">復原聯絡人與行事曆</string>
     <string name="actionbar_mkdir">新資料夾</string>
     <string name="actionbar_move_or_copy">移動或複製</string>
@@ -396,6 +397,7 @@
     <string name="failed_to_create_conflict_dialog">無法建立衝突對話方塊</string>
     <string name="failed_to_download">無法將檔案傳遞給下載管理程式</string>
     <string name="failed_to_print">檔案列印失敗</string>
+    <string name="failed_to_start_action">開始動作失敗！</string>
     <string name="failed_to_start_editor">無法啟動編輯器</string>
     <string name="failed_update_ui">更新使用者介面失敗</string>
     <string name="favorite">新增至喜愛</string>
@@ -755,6 +757,7 @@
     <string name="prefs_two_way_sync_interval">間隔</string>
     <string name="prefs_two_way_sync_summary">管理內部資料夾以進行雙向同步</string>
     <string name="prefs_two_way_sync_switch_title">啟用雙向同步</string>
+    <string name="prefs_two_way_sync_title">雙向同步</string>
     <string name="prefs_value_theme_dark">深色</string>
     <string name="prefs_value_theme_light">淺色</string>
     <string name="prefs_value_theme_system">跟隨系統</string>
@@ -959,6 +962,9 @@
     <string name="suggest">建議</string>
     <string name="sync">同步</string>
     <string name="sync_anyway">仍要同步</string>
+    <string name="sync_conflict_notification_action_title">解決衝突</string>
+    <string name="sync_conflict_notification_description">偵測到上傳衝突。請開啟上傳檔案以解決問題。</string>
+    <string name="sync_conflict_notification_title">檔案上傳衝突</string>
     <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
     <string name="sync_current_folder_was_removed">資料夾 %1$s 已不存在</string>
     <string name="sync_duplication">重複同步</string>

@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Proxy-ataka</string>
     <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
+    <string name="appear_offline">Lineaz kanpo agertzen da</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ziur zeregin hau ezabatu nahi duzula?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ezabatu zeregina</string>
     <string name="assistant_screen_task_create_fail_message">Errore bat gertatu da zeregina sortzean</string>

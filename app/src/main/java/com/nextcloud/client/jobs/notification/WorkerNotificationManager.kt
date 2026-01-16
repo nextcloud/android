@@ -14,7 +14,10 @@ import android.graphics.BitmapFactory
 import android.os.Handler
 import android.os.Looper
 import androidx.core.app.NotificationCompat
+import androidx.work.ForegroundInfo
+import com.nextcloud.utils.ForegroundServiceHelper
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 open class WorkerNotificationManager(
@@ -75,4 +78,11 @@ open class WorkerNotificationManager(
     fun getId(): Int = id
 
     fun getNotification(): Notification = notificationBuilder.build()
+
+    fun getForegroundInfo(notification: Notification): ForegroundInfo =
+        ForegroundServiceHelper.createWorkerForegroundInfo(
+            id,
+            notification,
+            ForegroundServiceType.DataSync
+        )
 }

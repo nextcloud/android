@@ -27,7 +27,6 @@ concurrency:
 jobs:
     analysis:
         runs-on: ubuntu-latest
-        timeout-minutes: 60
         steps:
             - name: Disabled on forks
               if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
@@ -52,7 +51,7 @@ jobs:
                             echo "repo=${{ github.event.pull_request.head.repo.full_name }}"
                         } >> "$GITHUB_OUTPUT"
                     fi
-            -   uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+            -   uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
                 with:
                     persist-credentials: false
                     repository: ${{ steps.get-vars.outputs.repo }}
@@ -71,9 +70,8 @@ jobs:
                 run: |
                     mkdir -p "$HOME/.gradle"
                     {
-                        echo "org.gradle.jvmargs=-Xmx5g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g"
+                        echo "org.gradle.jvmargs=-Xmx1g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
                         echo "org.gradle.configureondemand=true"
-                        echo "org.gradle.configuration-cache=false"
                         echo "kapt.incremental.apt=true"
                     } > "$HOME/.gradle/gradle.properties"
                     scripts/analysis/analysis-wrapper.sh "${{ steps.get-vars.outputs.branch }}" "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" "$GITHUB_RUN_NUMBER" "${{ steps.get-vars.outputs.pr }}"
