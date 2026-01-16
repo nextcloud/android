@@ -106,7 +106,7 @@ class GalleryAdapter(
     }
 
     private fun updateFilesCount() {
-        cachedFilesCount = files.fold(0) { acc, item -> acc + item.rows.size }
+        cachedFilesCount = files.sumOf { it.rows.sumOf { it.files.size } }
     }
 
     private fun rebuildFilePositionMap() {
