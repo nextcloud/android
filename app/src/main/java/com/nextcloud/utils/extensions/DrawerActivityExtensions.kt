@@ -16,7 +16,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 fun DrawerActivity.navigateToAllFiles() {
     MainApp.showOnlyFilesOnDevice(false)
     MainApp.showOnlyPersonalFiles(false)
-    setNavigationViewItemChecked(R.id.nav_all_files)
+    highlightNavigationViewItem(R.id.nav_all_files)
 
     Intent(applicationContext, FileDisplayActivity::class.java).apply {
         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

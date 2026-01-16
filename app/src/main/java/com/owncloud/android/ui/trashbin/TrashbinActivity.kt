@@ -131,11 +131,11 @@ class TrashbinActivity :
         handleBackPress()
     }
 
-    override fun getCurrentActivityMenuItemId(): Int = R.id.nav_trashbin
+    override fun getMenuItemId(): Int = R.id.nav_trashbin
 
     override fun onResume() {
         super.onResume()
-        setNavigationViewItemChecked(currentActivityMenuItemId)
+        highlightNavigationViewItem(menuItemId)
     }
 
     override fun onStart() {

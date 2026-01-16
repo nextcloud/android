@@ -124,7 +124,7 @@ class PreviewImageActivity :
         handleBackPress()
     }
 
-    override fun getCurrentActivityMenuItemId(): Int = R.id.nav_gallery
+    override fun getMenuItemId(): Int = R.id.nav_gallery
 
     private fun applyDisplayCutOutTopPadding() {
         window.decorView.setOnApplyWindowInsetsListener { view, insets ->
@@ -384,7 +384,7 @@ class PreviewImageActivity :
     override fun onResume() {
         super.onResume()
 
-        setNavigationViewItemChecked(currentActivityMenuItemId)
+        highlightNavigationViewItem(menuItemId)
         downloadFinishReceiver = DownloadFinishReceiver()
         val downloadIntentFilter = IntentFilter(getDownloadFinishMessage())
         localBroadcastManager.registerReceiver(downloadFinishReceiver!!, downloadIntentFilter)

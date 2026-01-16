@@ -219,7 +219,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      *
      * @return the menu item ID to be marked as selected in the drawer
      */
-    protected int getCurrentActivityMenuItemId() {
+    protected int getMenuItemId() {
         return R.id.nav_all_files;
     }
 
@@ -259,7 +259,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             setupDrawerMenu(drawerNavigationView);
             getAndDisplayUserQuota();
             setupQuotaElement();
-            setNavigationViewItemChecked(id);
+            highlightNavigationViewItem(id);
         }
 
         setupDrawerToggle();
@@ -276,7 +276,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             themeBottomNavigationMenu();
             checkAssistantBottomNavigationMenu();
             handleBottomNavigationViewClicks();
-            setNavigationViewItemChecked(id);
+            highlightNavigationViewItem(id);
         }
     }
 
@@ -299,8 +299,9 @@ public abstract class DrawerActivity extends ToolbarActivity
      *
      * @param menuItemId the ID of the menu item to mark as selected/highlighted
      */
-    public void setNavigationViewItemChecked(int menuItemId) {
+    public void highlightNavigationViewItem(int menuItemId) {
         if (drawerNavigationView != null) {
+            NavigationViewExtensionsKt.unsetAllNavigationItems(drawerNavigationView);
             MenuItem menuItem = drawerNavigationView.getMenu().findItem(menuItemId);
 
             if (menuItem != null && !menuItem.isChecked()) {
@@ -309,6 +310,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
 
         if (bottomNavigationView != null) {
+            NavigationViewExtensionsKt.unsetAllNavigationItems(bottomNavigationView);
             MenuItem menuItem = bottomNavigationView.getMenu().findItem(menuItemId);
 
             // Don't highlight assistant bottom navigation item because Assistant screen doesn't have same bottom navigation bar
@@ -667,8 +669,10 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
         }
 
+        // from navigation user always sees root level
         resetFileDepth();
-        setNavigationViewItemChecked(itemId);
+
+        highlightNavigationViewItem(itemId);
     }
 
     @SuppressFBWarnings("RV")
@@ -699,8 +703,10 @@ public abstract class DrawerActivity extends ToolbarActivity
                 getSupportActionBar().setIcon(null);
             }
 
+            // from navigation user always sees root level
             resetFileDepth();
-            setNavigationViewItemChecked(menuItemId);
+
+            highlightNavigationViewItem(menuItemId);
             return false;
         });
     }
@@ -1157,6 +1163,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
+        highlightNavigationViewItem(getSelectedMenuItemId());
     }
 
     @Override
