@@ -281,6 +281,14 @@ class FileDisplayActivity :
         setupDrawer(R.id.nav_all_files)
     }
 
+    /**
+     * Determines which navigation drawer item should be selected.
+     *
+     * Resolution order:
+     * 1) Global app state (static flags in MainApp nav_personal and nav_on_device)
+     * 2) Currently visible fragment (and its active child)
+     * 3) Fallback to All Files
+     */
     override fun getCurrentActivityMenuItemId(): Int =
         MainApp.getMenuItemId() ?: listOfFilesFragment?.menuItemId ?: R.id.nav_all_files
 
