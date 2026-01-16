@@ -655,20 +655,26 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     /**
-     * Get preference value for a folder. If folder is not set itself, it finds an ancestor that is set.
+     * Retrieves a preference value for a specific folder.
+     * <p>
+     * If the folder itself does not have the preference set, the method searches up its ancestor hierarchy
+     * until a value is found. If no value is found in any ancestor, the provided {@code defaultValue} is returned.
+     * <p>
+     * Anonymous users or {@code null} folders will always return the {@code defaultValue}.
      *
-     * @param context        Context object.
-     * @param preferenceName Name of the preference to lookup.
-     * @param folder         Folder.
-     * @param defaultValue   Fallback value in case no ancestor is set.
-     * @return Preference value
+     * @param context        The Android context.
+     * @param user           The user for whom the preference is queried.
+     * @param preferenceName The name/key of the preference to look up.
+     * @param folder         The folder to check.
+     * @param defaultValue   The value to return if no preference is set in the folder hierarchy.
+     * @return The preference value for the folder, or {@code defaultValue} if none is set.
      */
     private static String getFolderPreference(final Context context,
                                               final User user,
                                               final String preferenceName,
                                               final OCFile folder,
                                               final String defaultValue) {
-        if (user.isAnonymous()) {
+        if (user.isAnonymous() || folder == null) {
             return defaultValue;
         }
 
