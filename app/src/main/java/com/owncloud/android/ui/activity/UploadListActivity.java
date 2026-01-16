@@ -126,7 +126,7 @@ public class UploadListActivity extends FileActivity {
     }
 
     @Override
-    protected int getCurrentActivityMenuItemId() {
+    protected int getMenuItemId() {
         return R.id.nav_uploads;
     }
 
@@ -186,7 +186,7 @@ public class UploadListActivity extends FileActivity {
         Log_OC.v(TAG, "onStart() start");
         super.onStart();
 
-        setNavigationViewItemChecked(getCurrentActivityMenuItemId());
+        highlightNavigationViewItem(getMenuItemId());
 
         // Listen for upload messages
         uploadFinishReceiver = new UploadFinishReceiver();

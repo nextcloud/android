@@ -39,11 +39,11 @@ open class CommunityActivity : DrawerActivity() {
         setOnClickListeners()
     }
 
-    override fun getCurrentActivityMenuItemId(): Int = R.id.nav_community
+    override fun getMenuItemId(): Int = R.id.nav_community
 
     override fun onResume() {
         super.onResume()
-        setNavigationViewItemChecked(currentActivityMenuItemId)
+        highlightNavigationViewItem(menuItemId)
     }
 
     private fun setupContributeForumView() {

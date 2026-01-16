@@ -9,6 +9,7 @@ package com.nextcloud.utils.extensions
 
 import android.view.Menu
 import androidx.core.view.forEach
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 
 fun NavigationView.getSelectedMenuItemId(): Int {
@@ -18,4 +19,21 @@ fun NavigationView.getSelectedMenuItemId(): Int {
         }
     }
     return Menu.NONE
+}
+
+fun NavigationView.unsetAllNavigationItems() {
+    uncheckMenu(menu)
+}
+
+fun BottomNavigationView.unsetAllNavigationItems() {
+    uncheckMenu(menu)
+}
+
+private fun uncheckMenu(menu: Menu) {
+    menu.forEach { item ->
+        item.isChecked = false
+
+        // recursively uncheck submenu items
+        item.subMenu?.let { uncheckMenu(it) }
+    }
 }

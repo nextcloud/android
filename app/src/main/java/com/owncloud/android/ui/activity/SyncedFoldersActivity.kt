@@ -200,11 +200,11 @@ class SyncedFoldersActivity :
         setupStoragePermissionWarningBanner()
     }
 
-    override fun getCurrentActivityMenuItemId(): Int = R.id.nav_settings
+    override fun getMenuItemId(): Int = R.id.nav_settings
 
     override fun onResume() {
         super.onResume()
-        setNavigationViewItemChecked(currentActivityMenuItemId)
+        highlightNavigationViewItem(menuItemId)
     }
 
     fun setupStoragePermissionWarningBanner() {
