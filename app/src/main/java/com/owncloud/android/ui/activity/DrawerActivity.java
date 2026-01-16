@@ -65,7 +65,7 @@ import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
-import com.nextcloud.utils.extensions.DrawerActivityExtensionsKt;
+import com.nextcloud.utils.extensions.NavigationViewExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -197,6 +197,28 @@ public abstract class DrawerActivity extends ToolbarActivity
     private BottomNavigationView bottomNavigationView;
     private NavigationView drawerNavigationView;
 
+    /**
+     * Returns the navigation drawer menu item ID that represents
+     * the current activity.
+     *
+     * <p>
+     * This method is used by the DrawerActivity to determine
+     * which drawer item should be highlighted (checked) when the
+     * activity is visible.
+     * </p>
+     *
+     * <p>
+     * Subclasses that are displayed within the drawer must override
+     * this method and return their corresponding menu item ID
+     * (e.g. R.id.nav_gallery, R.id.nav_settings).
+     * </p>
+     *
+     * <p>
+     * The default implementation returns {@link R.id#nav_all_files}.
+     * </p>
+     *
+     * @return the menu item ID to be marked as selected in the drawer
+     */
     protected int getCurrentActivityMenuItemId() {
         return R.id.nav_all_files;
     }
@@ -258,7 +280,26 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    protected void setNavigationViewItemChecked(int menuItemId) {
+    /**
+     * Highlights (checks) the given menu item ID in the app's navigation bars.
+     *
+     * <p>
+     * This method updates both the navigation drawer (`drawerNavigationView`) and
+     * the bottom navigation bar (`bottomNavigationView`).
+     * </p>
+     *
+     * <p>
+     * This method is needs to be called from <code>onResume()</code> of child activities with all possible menu item ids.
+     * This fixes:
+     * <ul>
+     *   <li>When navigating back from another activity (e.g., Activity B → Activity A),
+     *       the previously selected menu item remains highlighted.</li>
+     * </ul>
+     * </p>
+     *
+     * @param menuItemId the ID of the menu item to mark as selected/highlighted
+     */
+    public void setNavigationViewItemChecked(int menuItemId) {
         if (drawerNavigationView != null) {
             MenuItem menuItem = drawerNavigationView.getMenu().findItem(menuItemId);
 
@@ -1434,15 +1475,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             return R.id.nav_all_files;
         }
 
-        Menu menu = drawerNavigationView.getMenu();
-        for (int i = 0; i < menu.size(); i++) {
-            MenuItem item = menu.getItem(i);
-            if (item.isChecked()) {
-                return item.getItemId();
-            }
-        }
-
-        return Menu.NONE;
+        return NavigationViewExtensionsKt.getSelectedMenuItemId(drawerNavigationView);
     }
 
     public boolean isToolbarStyleSearch() {
