@@ -104,7 +104,7 @@ public class ExternalSiteWebView extends FileActivity {
             }
         }
 
-        setupDrawer();
+        setupDrawer(R.id.nav_view);
 
         if (!showSidebar) {
             setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
