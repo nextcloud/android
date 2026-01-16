@@ -3082,10 +3082,14 @@ class FileDisplayActivity :
             object : AccountReceiverCallback {
                 override fun onAccountReceived(accountName: String) {
                     val user = accountManager.getUser(accountName)
+                    if (user.isEmpty) {
+                        Log_OC.e(TAG, "user is not present")
+                        DisplayUtils.showSnackMessage(this@FileDisplayActivity, R.string.account_not_found)
+                        return
+                    }
+
                     if (user.isPresent) {
                         accountClicked(user.get())
-                    } else {
-                        Log_OC.e(TAG, "user is not present")
                     }
                 }
 
