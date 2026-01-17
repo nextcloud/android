@@ -825,6 +825,7 @@
     <string name="select_one_template">بىر قېلىپنى تاللاڭ</string>
     <string name="select_template">قېلىپنى تاللاڭ</string>
     <string name="send">ئەۋەتىڭ</string>
+    <string name="send_copy_to">كۆچۈرمىسىنى ئەۋەت</string>
     <string name="send_share">ھەمبەھىر ئەۋەتىش</string>
     <string name="sendbutton_description">كۇنۇپكا سىنبەلگىسىنى ئەۋەتىڭ</string>
     <string name="server_not_reachable">مەزمۇننى يۈكلىيەلمىدى</string>

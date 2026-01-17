@@ -798,6 +798,7 @@
     <string name="select_one_template">Por favor, selecciona una plantilla</string>
     <string name="select_template">Escoge plantilla</string>
     <string name="send">Mandar</string>
+    <string name="send_copy_to">Enviar copia a</string>
     <string name="send_share">Enviar recurso compartido</string>
     <string name="sendbutton_description">Icono del botón de enviar</string>
     <string name="server_not_reachable">No se pudo cargar el contenido</string>
