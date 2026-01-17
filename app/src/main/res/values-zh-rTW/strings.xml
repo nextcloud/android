@@ -828,6 +828,7 @@
     <string name="select_one_template">請選取一個範本</string>
     <string name="select_template">選取範本</string>
     <string name="send">傳送</string>
+    <string name="send_copy_to">傳送副本至</string>
     <string name="send_share">傳送分享</string>
     <string name="sendbutton_description">傳送按鈕圖示</string>
     <string name="server_not_reachable">無法載入內容</string>

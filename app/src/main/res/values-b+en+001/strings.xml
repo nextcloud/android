@@ -825,6 +825,7 @@
     <string name="select_one_template">Please select one template</string>
     <string name="select_template">Select template</string>
     <string name="send">Send</string>
+    <string name="send_copy_to">Send copy to</string>
     <string name="send_share">Send share</string>
     <string name="sendbutton_description">Send button icon</string>
     <string name="server_not_reachable">Could not load content</string>

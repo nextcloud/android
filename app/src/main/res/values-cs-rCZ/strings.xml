@@ -825,6 +825,7 @@
     <string name="select_one_template">Vyberte jednu šablonu</string>
     <string name="select_template">Vybrat šablonu</string>
     <string name="send">Odeslat</string>
+    <string name="send_copy_to">Poslat kopii uživateli</string>
     <string name="send_share">Poslat sdílení</string>
     <string name="sendbutton_description">Ikona tlačítka pro odesílání</string>
     <string name="server_not_reachable">Nepodařilo se načíst obsah</string>
