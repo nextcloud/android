@@ -825,6 +825,7 @@
     <string name="select_one_template">Vyberte jednu šablónu</string>
     <string name="select_template">Vybrať šablónu</string>
     <string name="send">Odoslať</string>
+    <string name="send_copy_to">Odoslať kópiu na</string>
     <string name="send_share">Odoslať zdieľanie</string>
     <string name="sendbutton_description">Ikona tlačidla na odoslanie</string>
     <string name="server_not_reachable">Nepodarilo sa načítať obsah</string>

@@ -13,6 +13,7 @@
     <string name="action_send_share">Seol/roinn</string>
     <string name="action_switch_grid_view">Radharc greille</string>
     <string name="action_switch_list_view">Amharc liosta</string>
+    <string name="action_triggered">Gníomh spreagtha</string>
     <string name="actionbar_calendar_contacts_restore">Athchóirigh teagmhálacha agus féilire</string>
     <string name="actionbar_mkdir">Fillteán nua</string>
     <string name="actionbar_move_or_copy">Bog nó cóipeáil</string>
@@ -396,6 +397,7 @@
     <string name="failed_to_create_conflict_dialog">Theip ar chomhrá coinbhleachta a chruthú</string>
     <string name="failed_to_download">Theip ar an gcomhad a chur ar aghaidh chuig an mbainisteoir íoslódála</string>
     <string name="failed_to_print">Theip ar an gcomhad a phriontáil</string>
+    <string name="failed_to_start_action">Theip ar an ngníomh a thosú!</string>
     <string name="failed_to_start_editor">Theip ar an eagarthóir a thosú</string>
     <string name="failed_update_ui">Theip ar an Chomhéadain a nuashonrú</string>
     <string name="favorite">Cuir le ceanáin</string>
@@ -755,6 +757,7 @@
     <string name="prefs_two_way_sync_interval">Eatramh</string>
     <string name="prefs_two_way_sync_summary">Bainistigh fillteáin inmheánacha le haghaidh sioncronaithe dhá bhealach</string>
     <string name="prefs_two_way_sync_switch_title">Cumasaigh sioncronú dhá bhealach</string>
+    <string name="prefs_two_way_sync_title">Sioncrónú dhá bhealach</string>
     <string name="prefs_value_theme_dark">Dorcha</string>
     <string name="prefs_value_theme_light">Solas</string>
     <string name="prefs_value_theme_system">Lean an córas</string>
@@ -825,6 +828,7 @@
     <string name="select_one_template">Roghnaigh teimpléad amháin le do thoil</string>
     <string name="select_template">Roghnaigh teimpléad</string>
     <string name="send">Seol</string>
+    <string name="send_copy_to">Seol cóip chuig</string>
     <string name="send_share">Seol sciar</string>
     <string name="sendbutton_description">Seol deilbhín cnaipe</string>
     <string name="server_not_reachable">Níorbh fhéidir an t-ábhar a lódáil</string>
@@ -959,6 +963,9 @@
     <string name="suggest">Mol</string>
     <string name="sync">Sioncrónaigh</string>
     <string name="sync_anyway">Sioncrónaigh ar aon nós</string>
+    <string name="sync_conflict_notification_action_title">Réiteach coinbhleachtaí</string>
+    <string name="sync_conflict_notification_description">Coimhlintí uaslódála braite. Oscail uaslódálacha le réiteach.</string>
+    <string name="sync_conflict_notification_title">Coimhlintí uaslódála comhad</string>
     <string name="sync_conflicts_in_favourites_ticker">Coimhlint aimsithe</string>
     <string name="sync_current_folder_was_removed">Níl fillteán %1$s ann a thuilleadh</string>
     <string name="sync_duplication">Sioncronaigh dúbailt</string>
