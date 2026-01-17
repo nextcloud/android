@@ -962,6 +962,9 @@
     <string name="suggest">建議</string>
     <string name="sync">同步</string>
     <string name="sync_anyway">仍要同步</string>
+    <string name="sync_conflict_notification_action_title">解決衝突</string>
+    <string name="sync_conflict_notification_description">偵測到上傳衝突。請開啟上傳檔案以解決問題。</string>
+    <string name="sync_conflict_notification_title">檔案上傳衝突</string>
     <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
     <string name="sync_current_folder_was_removed">資料夾 %1$s 已不存在</string>
     <string name="sync_duplication">重複同步</string>

@@ -131,6 +131,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/send_copy_btn"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_double_margin"
+                android:layout_marginEnd="@dimen/standard_double_margin"
+                android:layout_marginTop="@dimen/standard_half_padding"
+                android:layout_marginBottom="@dimen/standard_half_padding"
+                app:icon="@drawable/file_link"
+                app:iconGravity="textStart"
+                android:text="@string/send_copy_to" />
+
             <TextView
                 android:paddingStart="@dimen/standard_padding"
                 android:paddingEnd="@dimen/zero"

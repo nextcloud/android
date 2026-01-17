@@ -962,6 +962,9 @@
     <string name="suggest">Vorschlagen</string>
     <string name="sync">Synchronisieren</string>
     <string name="sync_anyway">Trotzdem synchronisieren</string>
+    <string name="sync_conflict_notification_action_title">Konflikte lösen</string>
+    <string name="sync_conflict_notification_description">Datei-Konflikte beim Hochladen erkannt. \"Uploads\" öffen, um sie aufzulösen.</string>
+    <string name="sync_conflict_notification_title">Dateikonflikte beim Hochladen</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
     <string name="sync_current_folder_was_removed">Der Ordner %1$s existiert nicht mehr</string>
     <string name="sync_duplication">Synchronisierungsduplizierung</string>
