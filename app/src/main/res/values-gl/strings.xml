@@ -829,6 +829,7 @@
     <string name="select_one_template">Seleccione un modelo</string>
     <string name="select_template">Seleccionar o modelo</string>
     <string name="send">Enviar</string>
+    <string name="send_copy_to">Enviar copia a</string>
     <string name="send_share">Enviar o compartido</string>
     <string name="sendbutton_description">Icona do botón de envío</string>
     <string name="server_not_reachable">Non foi posíbel cargar o contido</string>

@@ -828,6 +828,7 @@
     <string name="select_one_template">Будь ласка, виберіть один шаблон.</string>
     <string name="select_template">Виберіть шаблон</string>
     <string name="send">Надіслати</string>
+    <string name="send_copy_to">Надіслати копію до</string>
     <string name="send_share">Надати у спільний доступ</string>
     <string name="sendbutton_description">Зображення кнопки надсилання</string>
     <string name="server_not_reachable">Не вдалося завантажити вміст</string>

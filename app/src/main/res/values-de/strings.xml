@@ -828,6 +828,7 @@
     <string name="select_one_template">Bitte eine Vorlage auswählen</string>
     <string name="select_template">Vorlage auswählen</string>
     <string name="send">Senden</string>
+    <string name="send_copy_to">Kopie senden an</string>
     <string name="send_share">Freigabe senden</string>
     <string name="sendbutton_description">Icon für den Senden-Button</string>
     <string name="server_not_reachable">Inhalt konnte nicht geladen werden</string>
