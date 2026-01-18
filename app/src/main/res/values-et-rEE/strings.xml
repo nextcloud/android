@@ -963,6 +963,9 @@
     <string name="suggest">Soovita</string>
     <string name="sync">Sünkrooni</string>
     <string name="sync_anyway">Sünkrooni ikkagi</string>
+    <string name="sync_conflict_notification_action_title">Lahenda failikonfliktid</string>
+    <string name="sync_conflict_notification_description">Tuvastasin failide üleslaadimiskonflikte. Lahendamiseks ava üleslaadimiste vaade.</string>
+    <string name="sync_conflict_notification_title">Failide üleslaadimiskonfliktid</string>
     <string name="sync_conflicts_in_favourites_ticker">Leidsin failikonflikte</string>
     <string name="sync_current_folder_was_removed">„%1$s“ kausta pole enam olemas</string>
     <string name="sync_duplication">Sünkroonimisel tuvastatud duplikaat</string>
