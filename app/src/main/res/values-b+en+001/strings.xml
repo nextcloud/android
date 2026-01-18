@@ -13,6 +13,7 @@
     <string name="action_send_share">Send/share</string>
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
+    <string name="action_triggered">Action triggered</string>
     <string name="actionbar_calendar_contacts_restore">Restore contacts and calendar</string>
     <string name="actionbar_mkdir">New folder</string>
     <string name="actionbar_move_or_copy">Move or copy</string>
@@ -396,6 +397,7 @@
     <string name="failed_to_create_conflict_dialog">Failed to create conflict dialog</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
     <string name="failed_to_print">Failed to print file</string>
+    <string name="failed_to_start_action">Failed to start action!</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="failed_update_ui">Failed to update UI</string>
     <string name="favorite">Add to favourites</string>
@@ -755,6 +757,7 @@
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Manage internal folders for two way sync</string>
     <string name="prefs_two_way_sync_switch_title">Enable two way sync</string>
+    <string name="prefs_two_way_sync_title">Two way sync</string>
     <string name="prefs_value_theme_dark">Dark</string>
     <string name="prefs_value_theme_light">Light</string>
     <string name="prefs_value_theme_system">Follow system</string>
@@ -960,6 +963,9 @@
     <string name="suggest">Suggest</string>
     <string name="sync">Sync</string>
     <string name="sync_anyway">Sync anyway</string>
+    <string name="sync_conflict_notification_action_title">Resolve conflicts</string>
+    <string name="sync_conflict_notification_description">Upload conflicts detected. Open uploads to resolve.</string>
+    <string name="sync_conflict_notification_title">File upload conflicts</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist any more</string>
     <string name="sync_duplication">Sync duplication</string>
