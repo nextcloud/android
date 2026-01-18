@@ -28,8 +28,11 @@ import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
+import com.nextcloud.client.jobs.upload.FileUploadOperationFactory
 import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.client.logger.Logger
+import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -39,6 +42,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 import javax.inject.Provider
+import kotlin.random.Random
 
 /**
  * This factory is responsible for creating all background jobs and for injecting worker dependencies.
@@ -65,6 +69,8 @@ class BackgroundJobFactory @Inject constructor(
     private val localBroadcastManager: Provider<LocalBroadcastManager>,
     private val generatePdfUseCase: GeneratePDFUseCase,
     private val syncedFolderProvider: SyncedFolderProvider,
+    private val clientFactory: ClientFactory,
+    private val fileUploadOperationFactory: FileUploadOperationFactory,
     private val database: NextcloudDatabase
 ) : WorkerFactory() {
 
@@ -237,7 +243,10 @@ class BackgroundJobFactory @Inject constructor(
             localBroadcastManager.get(),
             backgroundJobManager.get(),
             preferences,
+            clientFactory,
+            fileUploadOperationFactory,
             context,
+            UploadNotificationManager(context, viewThemeUtils.get(), Random.nextInt()),
             params
         )
 

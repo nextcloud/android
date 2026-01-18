@@ -20,6 +20,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
+import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
@@ -33,9 +34,7 @@ import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
-import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClient
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
@@ -55,7 +54,6 @@ import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.random.Random
 
 @Suppress("LongParameterList", "TooGenericExceptionCaught")
 class FileUploadWorker(
@@ -67,7 +65,10 @@ class FileUploadWorker(
     val localBroadcastManager: LocalBroadcastManager,
     private val backgroundJobManager: BackgroundJobManager,
     val preferences: AppPreferences,
+    val clientFactory: ClientFactory,
+    val uploadFileOperationFactory: FileUploadOperationFactory,
     val context: Context,
+    val notificationManager: UploadNotificationManager,
     params: WorkerParameters
 ) : CoroutineWorker(context, params),
     OnDatatransferProgressListener {
@@ -141,8 +142,6 @@ class FileUploadWorker(
     private val lastPercents = ConcurrentHashMap<String, Int>()
     private val lastUpdateTimes = ConcurrentHashMap<String, Long>()
 
-    private val notificationId = Random.nextInt()
-    private val notificationManager = UploadNotificationManager(context, viewThemeUtils, notificationId)
     private val intents = FileUploaderIntents(context)
     private val fileUploaderDelegate = FileUploaderDelegate()
 
@@ -184,7 +183,7 @@ class FileUploadWorker(
         val notification = createNotification(notificationTitle)
 
         return ForegroundServiceHelper.createWorkerForegroundInfo(
-            notificationId,
+            notificationManager.getId(),
             notification,
             ForegroundServiceType.DataSync
         )
@@ -192,7 +191,7 @@ class FileUploadWorker(
 
     private suspend fun updateForegroundInfo(notification: Notification) {
         val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
-            notificationId,
+            notificationManager.getId(),
             notification,
             ForegroundServiceType.DataSync
         )
@@ -264,8 +263,12 @@ class FileUploadWorker(
         val user = optionalUser.get()
         val previouslyUploadedFileSize = currentBatchIndex * FileUploadHelper.MAX_FILE_COUNT
         val uploads = uploadsStorageManager.getUploadsByIds(uploadIds, accountName)
-        val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
-        val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
+
+        if (uploads.isNullOrEmpty()) {
+            return@withContext Result.success()
+        }
+
+        val client = clientFactory.create(user)
 
         return@withContext parallelUpload(
             uploads,
@@ -397,19 +400,9 @@ class FileUploadWorker(
         upload: OCUpload,
         user: User,
         storageManager: FileDataStorageManager
-    ): UploadFileOperation = UploadFileOperation(
-        uploadsStorageManager,
-        connectivityService,
-        powerManagementService,
-        user,
-        null,
+    ): UploadFileOperation = uploadFileOperationFactory.create(
         upload,
-        upload.nameCollisionPolicy,
-        upload.localAction,
-        context,
-        upload.isUseWifiOnly,
-        upload.isWhileChargingOnly,
-        true,
+        user,
         storageManager
     ).apply {
         addDataTransferProgressListener(this@FileUploadWorker)

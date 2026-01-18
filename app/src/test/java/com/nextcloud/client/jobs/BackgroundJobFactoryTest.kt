@@ -21,7 +21,9 @@ import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.integrations.deck.DeckApi
+import com.nextcloud.client.jobs.upload.FileUploadOperationFactory
 import com.nextcloud.client.logger.Logger
+import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
@@ -105,6 +107,12 @@ class BackgroundJobFactoryTest {
     private lateinit var syncedFolderProvider: SyncedFolderProvider
 
     @Mock
+    private lateinit var clientFactory: ClientFactory
+
+    @Mock
+    private lateinit var fileUploadOperationFactory: FileUploadOperationFactory
+
+    @Mock
     private lateinit var db: NextcloudDatabase
 
     @Mock private lateinit var fileDao: FileDao
@@ -139,6 +147,8 @@ class BackgroundJobFactoryTest {
             { localBroadcastManager },
             generatePDFUseCase,
             syncedFolderProvider,
+            clientFactory,
+            fileUploadOperationFactory,
             db
         )
     }

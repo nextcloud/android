@@ -24,10 +24,13 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 public class ClientFactoryImpl implements ClientFactory {
 
     private Context context;
 
+    @Inject
     public ClientFactoryImpl(Context context) {
         this.context = context;
     }
