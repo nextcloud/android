@@ -130,6 +130,7 @@
     <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
 
     <string name="prefs_all_files_access_title">All files access</string>
+    <string name="prefs_max_concurrent_uploads">Max concurrent uploads</string>
     <string name="prefs_all_files_access_summary">Allow the app to access and manage all files on your device</string>
 
     <string name="prefs_help">Help</string>

@@ -111,6 +111,8 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private static final String PREF_LAST_DISPLAYED_ACCOUNT_NAME = "last_displayed_user";
 
+    private static final String PREF_MAX_CONCURRENT_UPLOADS = "max_concurrent_uploads";
+
     private static final String LOG_ENTRY = "log_entry";
 
     private final Context context;
@@ -842,5 +844,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setLastDisplayedAccountName(String lastDisplayedAccountName) {
         preferences.edit().putString(PREF_LAST_DISPLAYED_ACCOUNT_NAME, lastDisplayedAccountName).apply();
+    }
+
+    @Override
+    public int getMaxConcurrentUploads() {
+        return preferences.getInt(PREF_MAX_CONCURRENT_UPLOADS, 10);
+    }
+
+    @Override
+    public void setMaxConcurrentUploads(int value) {
+        preferences.edit().putInt(PREF_MAX_CONCURRENT_UPLOADS, value).apply();
     }
 }

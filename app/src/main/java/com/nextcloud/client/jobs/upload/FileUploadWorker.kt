@@ -83,11 +83,6 @@ class FileUploadWorker(
         const val CURRENT_BATCH_INDEX = "batch_index"
         const val TOTAL_UPLOAD_SIZE = "total_upload_size"
 
-        /**
-         * The maximum number of concurrent parallel uploads
-         */
-        const val MAX_CONCURRENT_UPLOADS = 10
-
         const val SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION = "show_same_file_already_exists_notification"
 
         val activeUploadFileOperations = ConcurrentHashMap<String, UploadFileOperation>()
@@ -292,7 +287,7 @@ class FileUploadWorker(
             return Result.success()
         }
 
-        val semaphore = Semaphore(MAX_CONCURRENT_UPLOADS)
+        val semaphore = Semaphore(preferences.maxConcurrentUploads)
         val quotaExceeded = AtomicBoolean(false)
         val completedCount = AtomicInteger(0)
         val storageManager = FileDataStorageManager(user, context.contentResolver)
