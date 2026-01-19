@@ -25,8 +25,8 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
-import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.utils.Throttler;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
@@ -56,7 +56,7 @@ public class UploadListActivity extends FileActivity {
 
     private static final String TAG = UploadListActivity.class.getSimpleName();
 
-    private UploadMessagesReceiver uploadMessagesReceiver;
+    private UploadFinishReceiver uploadFinishReceiver;
 
     private UploadListAdapter uploadListAdapter;
 
@@ -182,12 +182,12 @@ public class UploadListActivity extends FileActivity {
         super.onResume();
 
         // Listen for upload messages
-        uploadMessagesReceiver = new UploadMessagesReceiver();
+        uploadFinishReceiver = new UploadFinishReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter();
-        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadsAddedMessage());
-        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadStartMessage());
-        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadFinishMessage());
-        localBroadcastManager.registerReceiver(uploadMessagesReceiver, uploadIntentFilter);
+        uploadIntentFilter.addAction(FileUploadBroadcastManager.UPLOAD_ADDED);
+        uploadIntentFilter.addAction(FileUploadBroadcastManager.UPLOAD_STARTED);
+        uploadIntentFilter.addAction(FileUploadBroadcastManager.UPLOAD_FINISHED);
+        localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter);
 
         Log_OC.v(TAG, "onResume() end");
 
@@ -196,9 +196,9 @@ public class UploadListActivity extends FileActivity {
     @Override
     protected void onPause() {
         Log_OC.v(TAG, "onPause() start");
-        if (uploadMessagesReceiver != null) {
-            localBroadcastManager.unregisterReceiver(uploadMessagesReceiver);
-            uploadMessagesReceiver = null;
+        if (uploadFinishReceiver != null) {
+            localBroadcastManager.unregisterReceiver(uploadFinishReceiver);
+            uploadFinishReceiver = null;
         }
         super.onPause();
         Log_OC.v(TAG, "onPause() end");
@@ -308,13 +308,9 @@ public class UploadListActivity extends FileActivity {
     /**
      * Once the file upload has changed its status -> update uploads list view
      */
-    private class UploadMessagesReceiver extends BroadcastReceiver {
-        /**
-         * {@link BroadcastReceiver} to enable syncing feedback in UI
-         */
+    private class UploadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             throttler.run("update_upload_list", () -> uploadListAdapter.loadUploadItemsFromDb());
         }
     }
