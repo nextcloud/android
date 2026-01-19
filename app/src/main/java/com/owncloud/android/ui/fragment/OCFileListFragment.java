@@ -186,7 +186,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public static final String SEARCH_EVENT = "SEARCH_EVENT";
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
-    protected static final String KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE";
+    public static final String KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE";
 
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
     private static final String DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT";
