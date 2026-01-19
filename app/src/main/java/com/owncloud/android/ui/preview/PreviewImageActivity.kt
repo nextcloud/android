@@ -256,6 +256,7 @@ class PreviewImageActivity :
 
     public override fun onStart() {
         super.onStart()
+        registerReceivers()
         val optionalUser = user
         if (optionalUser.isPresent) {
             var file: OCFile? = file ?: throw IllegalStateException("Instanced with a NULL OCFile")
@@ -380,9 +381,7 @@ class PreviewImageActivity :
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
+    private fun registerReceivers() {
         downloadFinishReceiver = DownloadFinishReceiver()
         val downloadIntentFilter = IntentFilter(getDownloadFinishMessage())
         localBroadcastManager.registerReceiver(downloadFinishReceiver!!, downloadIntentFilter)
@@ -392,13 +391,13 @@ class PreviewImageActivity :
         localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter)
     }
 
-    public override fun onPause() {
+    public override fun onStop() {
         if (downloadFinishReceiver != null) {
             localBroadcastManager.unregisterReceiver(downloadFinishReceiver!!)
             downloadFinishReceiver = null
         }
 
-        super.onPause()
+        super.onStop()
     }
 
     private fun backToDisplayActivity() {

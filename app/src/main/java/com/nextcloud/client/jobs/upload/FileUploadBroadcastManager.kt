@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -25,13 +25,23 @@ import com.owncloud.android.operations.UploadFileOperation
 class FileUploadBroadcastManager(private val broadcastManager: LocalBroadcastManager) {
 
     companion object {
-        private const val TAG =  "📣" + "FileUploadBroadcastManager"
+        private const val TAG = "📣" + "FileUploadBroadcastManager"
 
         const val UPLOAD_ADDED = "UPLOAD_ADDED"
-        const val UPLOAD_STARTED = "UPLOAD_START"
-        const val UPLOAD_FINISHED = "UPLOAD_FINISH"
+        const val UPLOAD_STARTED = "UPLOAD_STARTED"
+        const val UPLOAD_FINISHED = "UPLOAD_FINISHED"
     }
 
+    /**
+     * Sends a broadcast indicating that an upload added
+     *
+     * ### Triggered when
+     * - [UploadFileOperation] added
+     *
+     *  ### Observed by
+     *  - [com.owncloud.android.ui.activity.UploadListActivity.UploadFinishReceiver]
+     *
+     */
     fun sendAdded(context: Context) {
         Log_OC.d(TAG, "upload added broadcast sent")
         val intent = Intent(UPLOAD_ADDED).apply {
@@ -40,10 +50,17 @@ class FileUploadBroadcastManager(private val broadcastManager: LocalBroadcastMan
         broadcastManager.sendBroadcast(intent)
     }
 
-    fun sendStarted(
-        upload: UploadFileOperation,
-        context: Context,
-    ) {
+    /**
+     * Sends a broadcast indicating that an upload started
+     *
+     * ### Triggered when
+     * - [UploadFileOperation] started
+     *
+     *  ### Observed by
+     *  - [com.owncloud.android.ui.activity.UploadListActivity.UploadFinishReceiver]
+     *
+     */
+    fun sendStarted(upload: UploadFileOperation, context: Context) {
         Log_OC.d(TAG, "upload started broadcast sent")
         val intent = Intent(UPLOAD_STARTED).apply {
             putExtra(FileUploadWorker.EXTRA_REMOTE_PATH, upload.remotePath) // real remote
