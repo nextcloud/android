@@ -630,31 +630,22 @@ class FileDisplayActivity :
         when (searchEvent.searchType) {
             SearchRemoteOperation.SearchType.PHOTO_SEARCH -> {
                 Log_OC.d(this, "Switch to photo search fragment")
-                val bundle = Bundle().apply {
-                    putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
-                }
                 leftFragment = GalleryFragment().apply {
-                    arguments = bundle
+                    arguments = searchEvent.getBundle()
                 }
             }
 
             SearchRemoteOperation.SearchType.SHARED_FILTER -> {
                 Log_OC.d(this, "Switch to shared fragment")
-                val bundle = Bundle().apply {
-                    putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
-                }
                 leftFragment = SharedListFragment().apply {
-                    arguments = bundle
+                    arguments = searchEvent.getBundle()
                 }
             }
 
             else -> {
                 Log_OC.d(this, "Switch to oc file search fragment")
-                val bundle = Bundle().apply {
-                    putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
-                }
                 leftFragment = OCFileListFragment().apply {
-                    arguments = bundle
+                    arguments = searchEvent.getBundle()
                 }
             }
         }
