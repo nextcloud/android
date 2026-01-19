@@ -133,9 +133,13 @@ class FileUploadWorker(
         notificationManager.dismissNotification()
         result
     } catch (t: Throwable) {
-        Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
-        cleanup()
+        Log_OC.e(TAG, "exception $t")
+        currentUploadFileOperation?.cancel(null)
         Result.failure()
+    } finally {
+        // Ensure all database operations are complete before signaling completion
+        uploadsStorageManager.notifyObserversNow()
+        notificationManager.dismissNotification()
     }
 
     private suspend fun trySetForeground() {
@@ -182,13 +186,6 @@ class FileUploadWorker(
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setSilent(true)
             .build()
-
-    private fun cleanup() {
-        Log_OC.e(TAG, "FileUploadWorker stopped")
-
-        currentUploadFileOperation?.cancel(null)
-        notificationManager.dismissNotification()
-    }
 
     @Suppress("ReturnCount", "LongMethod", "DEPRECATION")
     private suspend fun uploadFiles(): Result = withContext(Dispatchers.IO) {
