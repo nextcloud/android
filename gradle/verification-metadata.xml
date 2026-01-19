@@ -173,6 +173,7 @@
          <trusted-key id="4161A24D2E7F660FCFDB6AAFAE094C852B4EE5DC">
             <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.7.1"/>
             <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.7.2"/>
+            <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.7.4"/>
          </trusted-key>
          <trusted-key id="41CD49B4EF5876F9E9F691DABAC30622339994C4" group="org.jspecify" name="jspecify" version="1.0.0"/>
          <trusted-key id="44F4797A52C336FA666CD9271DE461528F1F1B2A" group="org.apache.jackrabbit"/>
