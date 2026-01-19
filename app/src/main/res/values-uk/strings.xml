@@ -406,7 +406,7 @@
     <string name="file_activity_shared_file_cannot_be_updated">Неможливо оновити спільні файли</string>
     <string name="file_already_exists">Файл з таким ім\'ям вже присутній</string>
     <string name="file_delete">Вилучити</string>
-    <string name="file_detail_activity_error">Помилка з отриманням дії для файлу</string>
+    <string name="file_detail_activity_error">Помилка з отриманням подій для файлу</string>
     <string name="file_detail_share_already_active">Ви не можете створити спільний ресурс, оскільки його вже надано цьому користувачеві.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Відсутній застосунок для вибору контактів</string>
     <string name="file_details_no_content">Не вдалося завантажити подробиці</string>
