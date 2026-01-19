@@ -1673,7 +1673,7 @@ class FileDisplayActivity :
         private val tag = "UploadFinishReceiver"
 
         override fun onReceive(context: Context?, intent: Intent) {
-            Log_OC.d(tag,"upload finish received broadcast")
+            Log_OC.d(tag, "upload finish received broadcast")
 
             val uploadedRemotePath = intent.getStringExtra(FileUploadWorker.EXTRA_REMOTE_PATH)
             val accountName = intent.getStringExtra(FileUploadWorker.ACCOUNT_NAME)

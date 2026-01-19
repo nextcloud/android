@@ -284,8 +284,11 @@ class FileUploadWorker(
         operation: UploadFileOperation,
         result: RemoteOperationResult<*>
     ) {
+        val isLastUpload = currentUploadIndex == totalUploadSize
+
         val shouldBroadcast =
-            (totalUploadSize > BATCH_SIZE && currentUploadIndex > 0) && currentUploadIndex % BATCH_SIZE == 0
+            (currentUploadIndex % BATCH_SIZE == 0 && totalUploadSize > BATCH_SIZE) ||
+                isLastUpload
 
         if (shouldBroadcast) {
             fileUploadBroadcastManager.sendFinished(

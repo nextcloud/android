@@ -177,9 +177,9 @@ public class UploadListActivity extends FileActivity {
     }
 
     @Override
-    protected void onResume() {
-        Log_OC.v(TAG, "onResume() start");
-        super.onResume();
+    protected void onStart() {
+        Log_OC.v(TAG, "onStart() start");
+        super.onStart();
 
         // Listen for upload messages
         uploadFinishReceiver = new UploadFinishReceiver();
@@ -189,19 +189,18 @@ public class UploadListActivity extends FileActivity {
         uploadIntentFilter.addAction(FileUploadBroadcastManager.UPLOAD_FINISHED);
         localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter);
 
-        Log_OC.v(TAG, "onResume() end");
-
+        Log_OC.v(TAG, "onStart() end");
     }
 
     @Override
-    protected void onPause() {
-        Log_OC.v(TAG, "onPause() start");
+    protected void onStop() {
+        Log_OC.v(TAG, "onStop() start");
         if (uploadFinishReceiver != null) {
             localBroadcastManager.unregisterReceiver(uploadFinishReceiver);
             uploadFinishReceiver = null;
         }
-        super.onPause();
-        Log_OC.v(TAG, "onPause() end");
+        super.onStop();
+        Log_OC.v(TAG, "onStop() end");
     }
 
     @Override
