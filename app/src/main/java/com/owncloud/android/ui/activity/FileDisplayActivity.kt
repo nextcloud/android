@@ -64,9 +64,9 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadAddedMessage
 import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadFinishMessage
+import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
-import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.getUploadFinishMessage
 import com.nextcloud.client.media.PlayerServiceConnection
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
@@ -74,7 +74,6 @@ import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerState.FileDownloadCompleted
 import com.nextcloud.model.WorkerState.FileDownloadStarted
-import com.nextcloud.model.WorkerState.FileUploadCompleted
 import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
@@ -1409,7 +1408,7 @@ class FileDisplayActivity :
     }
 
     private fun registerUploadFinishReceiver() {
-        val filter = IntentFilter(getUploadFinishMessage())
+        val filter = IntentFilter(FileUploadBroadcastManager.UPLOAD_FINISHED)
         mUploadFinishReceiver = UploadFinishReceiver()
         mUploadFinishReceiver?.let {
             localBroadcastManager.registerReceiver(it, filter)
@@ -1668,13 +1667,11 @@ class FileDisplayActivity :
      * Once the file upload has finished -> update view
      */
     private inner class UploadFinishReceiver : BroadcastReceiver() {
-        /**
-         * Once the file upload has finished -> update view
-         *
-         *
-         * [BroadcastReceiver] to enable upload feedback in UI
-         */
+        private val tag = "UploadFinishReceiver"
+
         override fun onReceive(context: Context?, intent: Intent) {
+            Log_OC.d(tag,"upload finish received broadcast")
+
             val uploadedRemotePath = intent.getStringExtra(FileUploadWorker.EXTRA_REMOTE_PATH)
             val accountName = intent.getStringExtra(FileUploadWorker.ACCOUNT_NAME)
             val account = getAccount()
@@ -1907,12 +1904,6 @@ class FileDisplayActivity :
                 is FileDownloadCompleted -> {
                     fileDownloadProgressListener = null
                     previewFile(state)
-                }
-
-                is FileUploadCompleted -> {
-                    state.currentFile?.let {
-                        ocFileListFragment?.adapter?.insertFile(it)
-                    }
                 }
 
                 is OfflineOperationsCompleted -> {

@@ -231,7 +231,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         binding = FileDetailsFragmentBinding.inflate(inflater, container, false);
-        observeWorkerState();
         view = binding.getRoot();
 
         if (getFile() == null || user == null) {
@@ -622,21 +621,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
         binding.progressBar.setProgress(event.getPercent());
         binding.progressBar.invalidate();
-    }
-
-    private void observeWorkerState() {
-        ActivityExtensionsKt.observeWorker(requireActivity(), state -> {
-            if (binding == null) {
-                return Unit.INSTANCE;
-            }
-
-            if (state instanceof WorkerState.FileUploadStarted) {
-                binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
-            } else {
-                binding.progressBlock.setVisibility(View.GONE);
-            }
-            return Unit.INSTANCE;
-        });
     }
 
     private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
