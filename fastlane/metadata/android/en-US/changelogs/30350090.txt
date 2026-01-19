@@ -1,5 +1,6 @@
 ## 3.35.0 (January 19, 2026)
 
+- Bugfixes
 - Auto-upload fixes
 - Performance improvements
 
