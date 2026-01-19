@@ -66,7 +66,7 @@ class AutoUploadWorker(
     private val backgroundJobManager: BackgroundJobManager,
     private val repository: FileSystemRepository,
     val viewThemeUtils: ViewThemeUtils,
-    private val localBroadcastManager: LocalBroadcastManager
+    localBroadcastManager: LocalBroadcastManager
 ) : CoroutineWorker(context, params) {
 
     companion object {
