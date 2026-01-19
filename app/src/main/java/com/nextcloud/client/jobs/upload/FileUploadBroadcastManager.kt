@@ -33,7 +33,7 @@ class FileUploadBroadcastManager(private val broadcastManager: LocalBroadcastMan
     }
 
     /**
-     * Sends a broadcast indicating that an upload added
+     * Sends a broadcast indicating that an upload added into database.
      *
      * ### Triggered when
      * - [UploadFileOperation] added

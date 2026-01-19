@@ -331,10 +331,12 @@ class AutoUploadWorker(
                         uploadEntity = uploadEntity.copy(id = generatedId.toInt())
                         upload.uploadId = generatedId
 
+                        fileUploadBroadcastManager.sendAdded(context)
                         val operation = createUploadFileOperation(upload, user)
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
                         val result = operation.execute(client)
+                        fileUploadBroadcastManager.sendStarted(operation, context)
                         uploadsStorageManager.updateStatus(uploadEntity, result.isSuccess)
 
                         UploadErrorNotificationManager.handleResult(

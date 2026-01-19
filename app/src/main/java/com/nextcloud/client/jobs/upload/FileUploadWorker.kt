@@ -245,7 +245,6 @@ class FileUploadWorker(
             fileUploadBroadcastManager.sendAdded(context)
             val operation = createUploadFileOperation(upload, user)
             currentUploadFileOperation = operation
-            fileUploadBroadcastManager.sendStarted(operation, context)
 
             val currentIndex = (index + 1)
             val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
@@ -344,6 +343,7 @@ class FileUploadWorker(
             val file = File(operation.originalStoragePath)
             val remoteId: String? = operation.file.remoteId
             task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId))
+            fileUploadBroadcastManager.sendStarted(operation, context)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
             result = RemoteOperationResult<Any?>(e)
