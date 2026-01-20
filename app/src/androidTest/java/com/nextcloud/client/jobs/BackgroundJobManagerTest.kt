@@ -16,10 +16,13 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequest
 import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkContinuation
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.toByteArray
 import com.owncloud.android.lib.common.utils.Log_OC
 import org.apache.commons.io.FileUtils
@@ -42,6 +45,7 @@ import org.mockito.kotlin.argThat
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.timeout
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import java.io.File
@@ -64,6 +68,7 @@ import java.util.concurrent.TimeoutException
     BackgroundJobManagerTest.PeriodicContactsBackup::class,
     BackgroundJobManagerTest.ImmediateContactsBackup::class,
     BackgroundJobManagerTest.ImmediateContactsImport::class,
+    BackgroundJobManagerTest.FilesUpload::class,
     BackgroundJobManagerTest.Tags::class
 )
 class BackgroundJobManagerTest {
@@ -90,6 +95,7 @@ class BackgroundJobManagerTest {
         internal lateinit var user: User
         internal lateinit var workManager: WorkManager
         internal lateinit var clock: Clock
+        internal lateinit var preferences: AppPreferences
         internal lateinit var backgroundJobManager: BackgroundJobManagerImpl
         internal lateinit var context: Context
 
@@ -100,9 +106,10 @@ class BackgroundJobManagerTest {
             whenever(user.accountName).thenReturn(USER_ACCOUNT_NAME)
             workManager = mock()
             clock = mock()
+            preferences = mock()
             whenever(clock.currentTime).thenReturn(TIMESTAMP)
             whenever(clock.currentDate).thenReturn(Date(TIMESTAMP))
-            backgroundJobManager = BackgroundJobManagerImpl(workManager, clock, mock())
+            backgroundJobManager = BackgroundJobManagerImpl(workManager, clock, preferences)
         }
 
         fun assertHasRequiredTags(tags: Set<String>, jobName: String, user: User? = null) {
@@ -382,6 +389,68 @@ class BackgroundJobManagerTest {
             //      converted value is available
             assertNotNull(jobInfo.value)
             assertEquals(workInfo.value?.id, jobInfo.value?.id)
+        }
+    }
+
+    class FilesUpload : Fixture() {
+
+        @Test
+        fun start_files_upload_job_enqueues_batches() {
+
+            val uploadIds = longArrayOf(1, 2, 3, 4, 5)
+            whenever(preferences.maxConcurrentUploads).thenReturn(2)
+
+            val continuation: WorkContinuation = mock()
+            whenever(workManager.beginUniqueWork(any(), any(), any<List<OneTimeWorkRequest>>())).thenReturn(continuation)
+
+
+            backgroundJobManager.startFilesUploadJob(user, uploadIds, true)
+
+
+            val tagCaptor = argumentCaptor<String>()
+            val requestsCaptor = argumentCaptor<List<OneTimeWorkRequest>>()
+
+            verify(workManager, timeout(1000)).beginUniqueWork(
+                tagCaptor.capture(),
+                eq(ExistingWorkPolicy.KEEP),
+                requestsCaptor.capture()
+            )
+
+            val tag = tagCaptor.firstValue
+            assertTrue(tag.startsWith(BackgroundJobManagerImpl.JOB_FILES_UPLOAD + USER_ACCOUNT_NAME + "_"))
+
+            val requests = requestsCaptor.firstValue
+            assertEquals(3, requests.size)
+
+            // Check first batch [1, 2]
+            val data1 = requests[0].workSpec.input
+            assertEquals(true, data1.getBoolean(FileUploadWorker.SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false))
+            assertEquals(USER_ACCOUNT_NAME, data1.getString(FileUploadWorker.ACCOUNT))
+            assertEquals(5, data1.getInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, 0))
+            assertTrue(longArrayOf(1, 2).contentEquals(data1.getLongArray(FileUploadWorker.UPLOAD_IDS)!!))
+            assertEquals(0, data1.getInt(FileUploadWorker.CURRENT_BATCH_INDEX, -1))
+
+            // Check second batch [3, 4]
+            val data2 = requests[1].workSpec.input
+            assertTrue(longArrayOf(3, 4).contentEquals(data2.getLongArray(FileUploadWorker.UPLOAD_IDS)!!))
+            assertEquals(1, data2.getInt(FileUploadWorker.CURRENT_BATCH_INDEX, -1))
+
+            // Check third batch [5]
+            val data3 = requests[2].workSpec.input
+            assertTrue(longArrayOf(5).contentEquals(data3.getLongArray(FileUploadWorker.UPLOAD_IDS)!!))
+            assertEquals(2, data3.getInt(FileUploadWorker.CURRENT_BATCH_INDEX, -1))
+
+            verify(continuation).enqueue()
+        }
+
+        @Test
+        fun start_files_upload_job_does_nothing_when_empty() {
+            val uploadIds = longArrayOf()
+            whenever(preferences.maxConcurrentUploads).thenReturn(2)
+
+            backgroundJobManager.startFilesUploadJob(user, uploadIds, true)
+
+            verify(workManager, timeout(1000).times(0)).beginUniqueWork(any(), any(), any<List<OneTimeWorkRequest>>())
         }
     }
 

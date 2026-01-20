@@ -46,6 +46,7 @@ import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import kotlin.math.round
 import kotlin.reflect.KClass
 
 /**
@@ -657,48 +658,41 @@ internal class BackgroundJobManagerImpl(
      */
     override fun startFilesUploadJob(user: User, uploadIds: LongArray, showSameFileAlreadyExistsNotification: Boolean) {
         defaultDispatcherScope.launch {
-            val batchSize = FileUploadHelper.MAX_FILE_COUNT
-            val batches = uploadIds.toList().chunked(batchSize)
-            val tag = startFileUploadJobTag(user.accountName)
+            val chunkSize = (uploadIds.size / preferences.maxConcurrentUploads).coerceAtLeast(1)
+            val batches = uploadIds.toList().chunked(chunkSize)
+            val executionId = System.currentTimeMillis()
+            val tag = "${startFileUploadJobTag(user.accountName)}_$executionId"
 
             val constraints = Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
 
-            val dataBuilder = Data.Builder()
-                .putBoolean(
-                    FileUploadWorker.SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION,
-                    showSameFileAlreadyExistsNotification
-                )
-                .putString(FileUploadWorker.ACCOUNT, user.accountName)
-                .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
-
             val workRequests = batches.mapIndexed { index, batch ->
-                dataBuilder
+                val data = Data.Builder()
+                    .putBoolean(
+                        FileUploadWorker.SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION,
+                        showSameFileAlreadyExistsNotification
+                    )
+                    .putString(FileUploadWorker.ACCOUNT, user.accountName)
+                    .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
                     .putLongArray(FileUploadWorker.UPLOAD_IDS, batch.toLongArray())
                     .putInt(FileUploadWorker.CURRENT_BATCH_INDEX, index)
+                    .build()
 
                 oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
                     .addTag(tag)
-                    .setInputData(dataBuilder.build())
+                    .setInputData(data)
                     .setConstraints(constraints)
                     .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
                     .build()
             }
 
-            // Chain the work requests sequentially
             if (workRequests.isNotEmpty()) {
-                var workChain = workManager.beginUniqueWork(
+                workManager.beginUniqueWork(
                     tag,
-                    ExistingWorkPolicy.APPEND_OR_REPLACE,
-                    workRequests.first()
-                )
-
-                workRequests.drop(1).forEach { request ->
-                    workChain = workChain.then(request)
-                }
-
-                workChain.enqueue()
+                    ExistingWorkPolicy.KEEP,
+                    workRequests
+                ).enqueue()
             }
         }
     }

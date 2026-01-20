@@ -11,12 +11,7 @@ import android.content.ContextWrapper
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.nextcloud.client.core.Clock
-import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.jobs.upload.FileUploadOperationFactory
-import com.nextcloud.client.jobs.upload.FileUploadOperationFactoryImpl
-import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
-import com.owncloud.android.datamodel.UploadsStorageManager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -46,17 +41,4 @@ class JobsModule {
         clock: Clock,
         preferences: AppPreferences
     ): BackgroundJobManager = BackgroundJobManagerImpl(workManager, clock, preferences)
-
-    @Provides
-    fun fileUploadOperationFactory(
-        uploadsStorageManager: UploadsStorageManager,
-        connectivityService: ConnectivityService,
-        powerManagementService: PowerManagementService,
-        context: Context
-    ): FileUploadOperationFactory = FileUploadOperationFactoryImpl(
-        uploadsStorageManager,
-        connectivityService,
-        powerManagementService,
-        context
-    )
 }

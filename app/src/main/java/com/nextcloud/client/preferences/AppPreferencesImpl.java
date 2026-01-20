@@ -848,7 +848,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     @Override
     public int getMaxConcurrentUploads() {
-        return preferences.getInt(PREF_MAX_CONCURRENT_UPLOADS, 10);
+        return Integer.parseInt(preferences.getString(PREF_MAX_CONCURRENT_UPLOADS, "10"));
     }
 
     @Override
