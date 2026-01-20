@@ -211,6 +211,7 @@
     <string name="conversation_screen_delete_button_title">Удалить обсуждение</string>
     <string name="conversation_screen_delete_error_title">Не удалось создать чат.</string>
     <string name="conversation_screen_empty_content_title">Не найдено ни одного обсуждения</string>
+    <string name="conversation_screen_empty_conversation_list_title">Еще ни одного обсуждения</string>
     <string name="conversation_screen_title">Беседы</string>
     <string name="copied">Скопировано</string>
     <string name="copy_file_error">Произошла ошибка при попытке копирования этого файла или каталога</string>
@@ -737,6 +738,7 @@
     <string name="prefs_two_way_sync_interval">Интервал</string>
     <string name="prefs_two_way_sync_summary">Управление внутренними папками для двусторонней синхронизации</string>
     <string name="prefs_two_way_sync_switch_title">Включить двустороннюю синхронизацию</string>
+    <string name="prefs_two_way_sync_title">Двусторонняя синхронизация</string>
     <string name="prefs_value_theme_dark">Тёмное</string>
     <string name="prefs_value_theme_light">Светлое</string>
     <string name="prefs_value_theme_system">Как в системе</string>
@@ -807,6 +809,7 @@
     <string name="select_one_template">Пожалуйста, выберите один шаблон</string>
     <string name="select_template">Выбрать шаблон</string>
     <string name="send">Отправить</string>
+    <string name="send_copy_to">Отправить копию</string>
     <string name="send_share">Отправить ссылку</string>
     <string name="sendbutton_description">Значок кнопки «отправить»</string>
     <string name="server_not_reachable">Не удалось загрузить содержимое.</string>
@@ -940,6 +943,7 @@
     <string name="suggest">Посоветовать</string>
     <string name="sync">Синхронизировать</string>
     <string name="sync_anyway">Синхронизация в любом случае</string>
+    <string name="sync_conflict_notification_title">Конфликт при загрузке файла</string>
     <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
     <string name="sync_current_folder_was_removed">Каталог %1$s больше не существует</string>
     <string name="sync_duplication">Дублирование синхронизации</string>
@@ -994,6 +998,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Событие не найдено, вы всегда можете синхронизировать его для обновления. Перенаправление на веб-страницу…</string>
     <string name="unified_search_fragment_contact_not_found">Контакт не найден, вы всегда можете синхронизировать его для обновления. Перенаправление на веб-страницу…</string>
     <string name="unified_search_fragment_permission_needed">Для открытия результата поиска требуются разрешения, в противном случае он будет перенаправлен на веб-страницу…</string>
+    <string name="unified_search_fragment_search_in_this_folder">В этой папке</string>
     <string name="unknown">Неизвестно</string>
     <string name="unlock_file">Разблокировать файл</string>
     <string name="unread_comments">Имеются непрочитанные комментарии</string>
@@ -1100,6 +1105,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Сертификат сервера не является доверенным</string>
     <string name="uploads_view_upload_status_fetching_server_version">Получение версия сервера…</string>
     <string name="uploads_view_upload_status_service_interrupted">Работа приложения была прекращена</string>
+    <string name="uploads_view_upload_status_skip">Пропущенно</string>
+    <string name="uploads_view_upload_status_skip_reason">Объект с таким же именем уже существует.</string>
     <string name="uploads_view_upload_status_succeeded">Завершено</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Идентичный файл найден на удаленном сервере, загрузка пропущена</string>
     <string name="uploads_view_upload_status_unknown_fail">Неизвестная ошибка</string>

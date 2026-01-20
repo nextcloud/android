@@ -5,7 +5,7 @@
 androidCommonLibraryVersion = "0.31.0"
 androidGifDrawableVersion = "1.2.30"
 androidImageCropperVersion = "4.7.0"
-androidLibraryVersion = "18dbbc515f0c593402ca276b30e1b24d4183a5a8"
+androidLibraryVersion ="839366c261c52437425cde740c9e5a4ab8c8bace"
 androidPluginVersion = '8.13.2'
 androidsvgVersion = "1.4"
 androidxMediaVersion = "1.5.1"
@@ -34,7 +34,7 @@ espressoVersion = "3.7.0"
 eventbusVersion = "3.3.1"
 exifinterfaceVersion = "1.4.2"
 ezVcardVersion = "0.12.1"
-fbContribVersion = "7.7.2"
+fbContribVersion = "7.7.4"
 findsecbugsPluginVersion = "1.14.0"
 firebaseMessagingVersion = "25.0.1"
 flexboxVersion = "3.0.0"
@@ -84,7 +84,7 @@ spotless = "8.1.0"
 stateless4jVersion = "2.6.0"
 webkitVersion = "1.15.0"
 workRuntime = "2.11.0"
-foundationVersion = "1.10.0"
+foundationVersion = "1.10.1"
 
 [libraries]
 # Crypto
