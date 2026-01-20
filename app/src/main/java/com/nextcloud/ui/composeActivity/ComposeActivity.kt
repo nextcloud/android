@@ -7,9 +7,11 @@
  */
 package com.nextcloud.ui.composeActivity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,6 +37,7 @@ import com.owncloud.android.ui.activity.DrawerActivity
 class ComposeActivity : DrawerActivity() {
 
     lateinit var binding: ActivityComposeBinding
+    private val composeViewModel: ComposeViewModel by viewModels()
 
     companion object {
         const val DESTINATION = "DESTINATION"
@@ -46,9 +49,8 @@ class ComposeActivity : DrawerActivity() {
         setContentView(binding.root)
 
         val destination =
-            intent.getParcelableArgument(DESTINATION, ComposeDestination::class.java) ?: throw IllegalArgumentException(
-                "destination is not exists"
-            )
+            intent.getParcelableArgument(DESTINATION, ComposeDestination::class.java)
+                ?: ComposeDestination.getAssistantScreen(this)
 
         setupActivityUIFor(destination)
 
@@ -60,6 +62,22 @@ class ComposeActivity : DrawerActivity() {
                 }
             )
         }
+
+        processText(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        processText(intent)
+    }
+
+    private fun processText(intent: Intent) {
+        val text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT)
+        if (text.isNullOrEmpty()) {
+            return
+        }
+
+        composeViewModel.updateSelectedText(text.toString())
     }
 
     private fun setupActivityUIFor(destination: ComposeDestination) {
@@ -105,6 +123,7 @@ class ComposeActivity : DrawerActivity() {
                 val client = nextcloudClient ?: return
 
                 AssistantScreen(
+                    composeViewModel = composeViewModel,
                     viewModel = AssistantViewModel(
                         accountName = userAccountManager.user.accountName,
                         remoteRepository = AssistantRemoteRepositoryImpl(client, capabilities),
