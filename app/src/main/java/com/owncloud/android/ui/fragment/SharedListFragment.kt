@@ -7,10 +7,15 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.logger.Logger
@@ -22,6 +27,7 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.GetSharesRemoteOperation
+import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.utils.DisplayUtils
@@ -41,6 +47,11 @@ class SharedListFragment :
 
     @Inject
     lateinit var logger: Logger
+
+    @Inject
+    lateinit var localBroadcastManager: LocalBroadcastManager
+
+    var syncBroadcastReceiver: SyncBroadcastReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +74,34 @@ class SharedListFragment :
                 val fileDisplayActivity = activity as FileDisplayActivity
                 fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_shared))
                 fileDisplayActivity.setMainFabVisible(false)
+            }
+        }
+
+        if (activity is FileDisplayActivity) {
+            if (syncBroadcastReceiver == null) {
+                val syncIntentFilter = IntentFilter(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED)
+                syncBroadcastReceiver = SyncBroadcastReceiver()
+                if (syncBroadcastReceiver != null) {
+                    localBroadcastManager.registerReceiver(syncBroadcastReceiver!!, syncIntentFilter)
+                }
+            }
+        }
+    }
+
+    inner class SyncBroadcastReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED) {
+                if (currentFile != null && currentFile.fileLength == 0L &&
+                    mContainerActivity.storageManager.getFolderContent(currentFile, false).isEmpty()
+                ) {
+                    setEmptyListMessage(SearchType.NO_SEARCH)
+                    isLoading = false
+                    mRefreshListLayout.isRefreshing = false
+                } else {
+                    mEmptyListContainer.visibility = View.GONE
+                }
+
+                adapter.notifyDataSetChanged()
             }
         }
     }
