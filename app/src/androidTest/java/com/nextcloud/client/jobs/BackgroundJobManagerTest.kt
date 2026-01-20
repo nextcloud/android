@@ -396,12 +396,13 @@ class BackgroundJobManagerTest {
 
         @Test
         fun start_files_upload_job_enqueues_batches() {
-
             val uploadIds = longArrayOf(1, 2, 3, 4, 5)
             whenever(preferences.maxConcurrentUploads).thenReturn(2)
 
             val continuation: WorkContinuation = mock()
-            whenever(workManager.beginUniqueWork(any(), any(), any<List<OneTimeWorkRequest>>())).thenReturn(continuation)
+            whenever(
+                workManager.beginUniqueWork(any(), any(), any<List<OneTimeWorkRequest>>())
+            ).thenReturn(continuation)
 
             backgroundJobManager.startFilesUploadJob(user, uploadIds, true)
 
