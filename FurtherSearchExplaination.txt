@@ -1,0 +1,20 @@
+Add further search feature for android app
+
+This pull request implements a new feature that allows users to search
+for files that contain a given word in the android app. Previously, the
+search function only returned files that matched the word exactly, which
+was not very useful for finding relevant documents.
+
+The new feature uses the fulltextsearch service of nextcloud to perform
+a more advanced query on the files. It requires the installation of some
+provider apps that extract content from the files and index them using
+Elasticsearch, a Java-based search engine.
+
+The code changes include creating a new method to perform the search
+request, parsing the response as a JSON object, and displaying the
+results in a recycler view. The code also handles the possible errors
+and exceptions that might occur during the network request.
+
+This feature improves the user experience and makes the app more
+functional and convenient. It also aligns with the nextcloud philosophy
+of providing a unified and secure platform for data and communication.
