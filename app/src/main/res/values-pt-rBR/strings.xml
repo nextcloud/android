@@ -963,6 +963,9 @@
     <string name="suggest">Sugerir </string>
     <string name="sync">Sincronizar</string>
     <string name="sync_anyway">Sincronizar mesmo assim</string>
+    <string name="sync_conflict_notification_action_title">Resolver conflitos</string>
+    <string name="sync_conflict_notification_description">Conflitos de upload detectados. Abra os uploads para resolver.</string>
+    <string name="sync_conflict_notification_title">Conflitos de upload de arquivos</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
     <string name="sync_current_folder_was_removed">A pasta %1$s não existe mais</string>
     <string name="sync_duplication">Duplicação de sincronização</string>
