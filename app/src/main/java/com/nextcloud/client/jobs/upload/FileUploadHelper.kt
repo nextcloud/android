@@ -376,8 +376,10 @@ class FileUploadHelper {
 
         return activeUploadFileOperations.values.any { operation ->
             operation.user?.accountName == upload.accountName &&
-                (upload.remotePath == operation.remotePath ||
-                    upload.remotePath == operation.oldFile?.remotePath)
+                (
+                    upload.remotePath == operation.remotePath ||
+                        upload.remotePath == operation.oldFile?.remotePath
+                    )
         }
     }
 

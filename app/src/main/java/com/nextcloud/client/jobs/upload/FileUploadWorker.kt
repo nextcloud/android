@@ -120,10 +120,8 @@ class FileUploadWorker(
             onCompleted()
         }
 
-        fun isUploading(remotePath: String?, accountName: String?): Boolean {
-            return activeUploadFileOperations.values.any {
-                it.remotePath == remotePath && it.user.accountName == accountName
-            }
+        fun isUploading(remotePath: String?, accountName: String?): Boolean = activeUploadFileOperations.values.any {
+            it.remotePath == remotePath && it.user.accountName == accountName
         }
 
         fun getUploadAction(action: String): Int = when (action) {

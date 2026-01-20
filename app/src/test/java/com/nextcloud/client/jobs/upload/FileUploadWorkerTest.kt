@@ -166,7 +166,6 @@ class FileUploadWorkerTest {
         assertEquals(ListenableWorker.Result.success(), result)
     }
 
-
     @Test
     fun `onTransferProgress updates notification manager`() {
         // GIVEN
@@ -219,13 +218,21 @@ class FileUploadWorkerTest {
 
     @Test
     fun `getUploadAction returns correct values`() {
-        assertEquals(FileUploadWorker.LOCAL_BEHAVIOUR_FORGET,
-            FileUploadWorker.getUploadAction("LOCAL_BEHAVIOUR_FORGET"))
-        assertEquals(FileUploadWorker.LOCAL_BEHAVIOUR_MOVE,
-            FileUploadWorker.getUploadAction("LOCAL_BEHAVIOUR_MOVE"))
-        assertEquals(FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
-            FileUploadWorker.getUploadAction("LOCAL_BEHAVIOUR_DELETE"))
-        assertEquals(FileUploadWorker.LOCAL_BEHAVIOUR_FORGET,
-            FileUploadWorker.getUploadAction("UNKNOWN"))
+        assertEquals(
+            FileUploadWorker.LOCAL_BEHAVIOUR_FORGET,
+            FileUploadWorker.getUploadAction("LOCAL_BEHAVIOUR_FORGET")
+        )
+        assertEquals(
+            FileUploadWorker.LOCAL_BEHAVIOUR_MOVE,
+            FileUploadWorker.getUploadAction("LOCAL_BEHAVIOUR_MOVE")
+        )
+        assertEquals(
+            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
+            FileUploadWorker.getUploadAction("LOCAL_BEHAVIOUR_DELETE")
+        )
+        assertEquals(
+            FileUploadWorker.LOCAL_BEHAVIOUR_FORGET,
+            FileUploadWorker.getUploadAction("UNKNOWN")
+        )
     }
 }

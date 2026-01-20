@@ -18,11 +18,7 @@ import com.owncloud.android.operations.UploadFileOperation
 import javax.inject.Inject
 
 interface FileUploadOperationFactory {
-    fun create(
-        upload: OCUpload,
-        user: User,
-        storageManager: FileDataStorageManager
-    ): UploadFileOperation
+    fun create(upload: OCUpload, user: User, storageManager: FileDataStorageManager): UploadFileOperation
 }
 
 class FileUploadOperationFactoryImpl @Inject constructor(
@@ -31,22 +27,19 @@ class FileUploadOperationFactoryImpl @Inject constructor(
     private val powerManagementService: PowerManagementService,
     private val context: Context
 ) : FileUploadOperationFactory {
-    override fun create(
-        upload: OCUpload,
-        user: User,
-        storageManager: FileDataStorageManager
-    ): UploadFileOperation = UploadFileOperation(
-        uploadsStorageManager,
-        connectivityService,
-        powerManagementService,
-        user,
-        null,
-        upload,
-        upload.nameCollisionPolicy,
-        upload.localAction,
-        context,
-        upload.isUseWifiOnly,
-        upload.isWhileChargingOnly,
-        storageManager
-    )
+    override fun create(upload: OCUpload, user: User, storageManager: FileDataStorageManager): UploadFileOperation =
+        UploadFileOperation(
+            uploadsStorageManager,
+            connectivityService,
+            powerManagementService,
+            user,
+            null,
+            upload,
+            upload.nameCollisionPolicy,
+            upload.localAction,
+            context,
+            upload.isUseWifiOnly,
+            upload.isWhileChargingOnly,
+            storageManager
+        )
 }

@@ -53,13 +53,10 @@ class JobsModule {
         connectivityService: ConnectivityService,
         powerManagementService: PowerManagementService,
         context: Context
-    ): FileUploadOperationFactory {
-        return FileUploadOperationFactoryImpl(
-            uploadsStorageManager,
-            connectivityService,
-            powerManagementService,
-            context
-        )
-    }
-
+    ): FileUploadOperationFactory = FileUploadOperationFactoryImpl(
+        uploadsStorageManager,
+        connectivityService,
+        powerManagementService,
+        context
+    )
 }
