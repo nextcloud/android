@@ -16,6 +16,8 @@ sealed class AssistantScreenState {
 
     data object ChatContent : AssistantScreenState()
 
+    data object Translation : AssistantScreenState()
+
     data class EmptyContent(val iconId: Int?, val titleId: Int?, val descriptionId: Int?) : AssistantScreenState()
 
     companion object {

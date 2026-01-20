@@ -168,9 +168,11 @@ class AssistantViewModel(
                 _filteredTaskList
             ) { selectedTask, chats, tasks ->
                 val isChat = selectedTask?.isChat() == true
+                val isTranslation = selectedTask?.isTranslate() == true
 
                 when {
                     selectedTask == null -> AssistantScreenState.Loading
+                    isTranslation -> AssistantScreenState.Translation
                     isChat && chats.isEmpty() -> AssistantScreenState.emptyChatList()
                     isChat -> AssistantScreenState.ChatContent
                     !isChat && (tasks == null || tasks.isEmpty()) -> AssistantScreenState.emptyTaskList()

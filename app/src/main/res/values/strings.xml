@@ -80,6 +80,12 @@
     <string name="assistant_task_status_successful">successful</string>
     <string name="assistant_task_status_failed">failed</string>
 
+    <!-- Translation Screen -->
+    <string name="translation_screen_label_from">Source Language: </string>
+    <string name="translation_screen_label_to">Translate to: </string>
+    <string name="translation_screen_hint_source">Enter text to translate…</string>
+    <string name="translation_screen_hint_target">Translation will appear here…</string>
+
     <!-- Conversation Screen -->
     <string name="conversation_screen_title">Conversations</string>
     <string name="conversation_screen_empty_conversation_list_title">No conversations yet</string>
