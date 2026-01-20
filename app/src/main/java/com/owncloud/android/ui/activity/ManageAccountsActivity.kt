@@ -126,7 +126,7 @@ class ManageAccountsActivity :
         recyclerView = findViewById(R.id.account_list)
         recyclerView?.setAdapter(userListAdapter)
         recyclerView?.setLayoutManager(LinearLayoutManager(this))
-        observeWorkerState()
+        //observeWorkerState()
     }
 
     @Suppress("ReturnCount")

@@ -10,7 +10,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -24,9 +23,9 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
+import com.nextcloud.client.jobs.download.FileDownloadBroadcastManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
-import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadFinishMessage
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.getUploadFinishMessage
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
@@ -316,6 +315,7 @@ class PreviewImageActivity :
     private fun observeWorkerState() {
         observeWorker { state: WorkerState? ->
             when (state) {
+                /*
                 is WorkerState.FileDownloadStarted -> {
                     Log_OC.d(TAG, "Download worker started")
                     isDownloadWorkStarted = true
@@ -335,6 +335,8 @@ class PreviewImageActivity :
                         setDownloadedItem()
                     }
                 }
+                 */
+
 
                 else -> {
                     Log_OC.d(TAG, "Worker stopped")
@@ -384,7 +386,7 @@ class PreviewImageActivity :
         super.onResume()
 
         downloadFinishReceiver = DownloadFinishReceiver()
-        val downloadIntentFilter = IntentFilter(getDownloadFinishMessage())
+        val downloadIntentFilter = IntentFilter(FileDownloadBroadcastManager.DOWNLOAD_FINISHED)
         localBroadcastManager.registerReceiver(downloadFinishReceiver!!, downloadIntentFilter)
 
         val uploadFinishReceiver = UploadFinishReceiver()
