@@ -403,9 +403,7 @@ class BackgroundJobManagerTest {
             val continuation: WorkContinuation = mock()
             whenever(workManager.beginUniqueWork(any(), any(), any<List<OneTimeWorkRequest>>())).thenReturn(continuation)
 
-
             backgroundJobManager.startFilesUploadJob(user, uploadIds, true)
-
 
             val tagCaptor = argumentCaptor<String>()
             val requestsCaptor = argumentCaptor<List<OneTimeWorkRequest>>()

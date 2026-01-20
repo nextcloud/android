@@ -46,7 +46,6 @@ import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
-import kotlin.math.round
 import kotlin.reflect.KClass
 
 /**
@@ -688,11 +687,11 @@ internal class BackgroundJobManagerImpl(
             }
 
             if (workRequests.isNotEmpty()) {
-                workManager.beginUniqueWork(
+                workManager.enqueueUniqueWork(
                     tag,
                     ExistingWorkPolicy.KEEP,
                     workRequests
-                ).enqueue()
+                )
             }
         }
     }
