@@ -13,14 +13,13 @@ package com.owncloud.android.services;
 
 import android.accounts.Account;
 import android.accounts.AccountsException;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.jobs.download.FileDownloadWorker;
+import com.nextcloud.client.jobs.download.FileDownloadBroadcastManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.IndexedForest;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -49,6 +48,7 @@ class SyncFolderHandler extends Handler {
 
     private Account mCurrentAccount;
     private SynchronizeFolderOperation mCurrentSyncOperation;
+    private FileDownloadBroadcastManager fileDownloadBroadcastManager;
 
 
     public SyncFolderHandler(Looper looper, OperationsService service) {
@@ -57,6 +57,10 @@ class SyncFolderHandler extends Handler {
             throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
         }
         mService = service;
+
+        final var context = mService.getApplicationContext();
+        final var broadcastManager = LocalBroadcastManager.getInstance(context);
+        fileDownloadBroadcastManager = new FileDownloadBroadcastManager(context, broadcastManager);
     }
 
     /**
@@ -104,13 +108,11 @@ class SyncFolderHandler extends Handler {
                         getClientFor(ocAccount, mService);
 
                 result = mCurrentSyncOperation.execute(mOwnCloudClient);
-                sendBroadcastFinishedSyncFolder(account, remotePath, result.isSuccess());
+                fileDownloadBroadcastManager.sendFinished(account.name, remotePath, mService.getPackageName(), result.isSuccess());
                 mService.dispatchResultToOperationListeners(mCurrentSyncOperation, result);
-
             } catch (AccountsException | IOException e) {
-                sendBroadcastFinishedSyncFolder(account, remotePath, false);
-                mService.dispatchResultToOperationListeners(mCurrentSyncOperation, new RemoteOperationResult(e));
-
+                fileDownloadBroadcastManager.sendFinished(account.name, remotePath, mService.getPackageName(), false);
+                mService.dispatchResultToOperationListeners(mCurrentSyncOperation, new RemoteOperationResult<>(e));
                 Log_OC.e(TAG, "Error while trying to get authorization", e);
             } finally {
                 mPendingOperations.removePayload(account.name, remotePath);
@@ -122,7 +124,7 @@ class SyncFolderHandler extends Handler {
                     SynchronizeFolderOperation syncFolderOperation){
         Pair<String, String> putResult = mPendingOperations.putIfAbsent(account.name, remotePath, syncFolderOperation);
         if (putResult != null) {
-            sendBroadcastNewSyncFolder(account, remotePath);    // TODO upgrade!
+            fileDownloadBroadcastManager.sendAdded(account.name, remotePath, mService.getPackageName(), null);
         }
     }
 
@@ -151,33 +153,5 @@ class SyncFolderHandler extends Handler {
                 mCurrentSyncOperation.cancel();
             }
         }
-
-        //sendBroadcastFinishedSyncFolder(account, file.getRemotePath());
-    }
-
-    /**
-     * TODO review this method when "folder synchronization" replaces "folder download";
-     * this is a fast and ugly patch.
-     */
-    private void sendBroadcastNewSyncFolder(Account account, String remotePath) {
-        Intent added = new Intent(FileDownloadWorker.Companion.getDownloadAddedMessage());
-        added.putExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME, account.name);
-        added.putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, remotePath);
-        added.setPackage(mService.getPackageName());
-        LocalBroadcastManager.getInstance(mService.getApplicationContext()).sendBroadcast(added);
-    }
-
-    /**
-     * TODO review this method when "folder synchronization" replaces "folder download";
-     * this is a fast and ugly patch.
-     */
-    private void sendBroadcastFinishedSyncFolder(Account account, String remotePath,
-                                                 boolean success) {
-        Intent finished = new Intent(FileDownloadWorker.Companion.getDownloadFinishMessage());
-        finished.putExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME, account.name);
-        finished.putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, remotePath);
-        finished.putExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, success);
-        finished.setPackage(mService.getPackageName());
-        LocalBroadcastManager.getInstance(mService.getApplicationContext()).sendBroadcast(finished);
     }
 }
