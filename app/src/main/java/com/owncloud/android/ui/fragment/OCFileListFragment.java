@@ -2234,6 +2234,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public boolean shouldNavigateBackToAllFiles() {
-        return ((this instanceof GalleryFragment) || isSearchEventFavorite() || DrawerActivity.menuItemId == R.id.nav_favorites);
+        return this instanceof GalleryFragment ||
+            isSearchEventFavorite() ||
+            isSearchEventShared() ||
+            DrawerActivity.menuItemId == R.id.nav_favorites;
     }
 }
