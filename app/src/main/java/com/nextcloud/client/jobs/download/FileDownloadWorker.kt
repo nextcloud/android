@@ -50,7 +50,7 @@ import kotlin.random.Random
 class FileDownloadWorker(
     viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
-    private var localBroadcastManager: LocalBroadcastManager,
+    localBroadcastManager: LocalBroadcastManager,
     private val context: Context,
     params: WorkerParameters
 ) : CoroutineWorker(context, params),
@@ -83,10 +83,6 @@ class FileDownloadWorker(
         const val EXTRA_REMOTE_PATH = "EXTRA_REMOTE_PATH"
         const val EXTRA_LINKED_TO_PATH = "EXTRA_LINKED_TO_PATH"
         const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
-
-        fun getDownloadAddedMessage(): String = FileDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
-
-        fun getDownloadFinishMessage(): String = FileDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
     }
 
     private var currentDownload: DownloadFileOperation? = null
@@ -94,7 +90,9 @@ class FileDownloadWorker(
     private var conflictUploadId: Long? = null
     private var lastPercent = 0
 
+    private val fileDownloadBroadcastManager = FileDownloadBroadcastManager(context, localBroadcastManager)
     private val intents = FileDownloadIntents(context)
+
     private var notificationManager = DownloadNotificationManager(
         Random.nextInt(),
         context,
@@ -216,9 +214,12 @@ class FileDownloadWorker(
                     requestedDownloads.add(downloadKey)
                 }
 
-                linkedToRemotePath?.let {
-                    localBroadcastManager.sendBroadcast(intents.newDownloadIntent(operation, linkedToRemotePath))
-                }
+                fileDownloadBroadcastManager.sendAdded(
+                    operation.user.accountName,
+                    operation.remotePath,
+                    context.packageName,
+                    linkedToRemotePath
+                )
             }
 
             requestedDownloads
@@ -266,7 +267,6 @@ class FileDownloadWorker(
             return
         }
 
-        setWorkerState(user)
         Log_OC.d(TAG, "downloading: $downloadKey")
 
         val isAccountExist = accountManager.exists(currentDownload?.user?.toPlatformAccount())
@@ -342,13 +342,11 @@ class FileDownloadWorker(
         currentDownload?.run {
             notifyDownloadResult(this, downloadResult)
 
-            val downloadFinishedIntent = intents.downloadFinishedIntent(
+            fileDownloadBroadcastManager.sendFinished(
                 this,
                 downloadResult,
                 removeResult.second
             )
-
-            localBroadcastManager.sendBroadcast(downloadFinishedIntent)
         }
     }
 
