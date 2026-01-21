@@ -2218,6 +2218,38 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    /**
+     * Returns the navigation drawer menu item corresponding to this fragment.
+     *
+     * <p>
+     * OCFileListFragment is the parent for GalleryFragment, SharedListFragment,
+     * and GroupfolderListFragment. It also internally handles listing favorites,
+     * shared files, or recently modified items via search events. This method
+     * checks the current fragment type and search state to give correct drawer menu ID.
+     * </p>
+     *
+     * @return the menu item ID to highlight in the navigation drawer
+     */
+    public int getMenuItemId() {
+        // getMenuItemId will be called from onResume of FileDisplayActivity before checking menu item id
+        // search argument needs to be set if exists
+        setSearchArgs(getArguments());
+
+        if (getClass() == GalleryFragment.class) {
+            return R.id.nav_gallery;
+        } else if (getClass() == SharedListFragment.class || isSearchEventShared() || currentSearchType == SHARED_FILTER) {
+            return R.id.nav_shared;
+        } else if (getClass() == GroupfolderListFragment.class || currentSearchType == SearchType.GROUPFOLDER) {
+            return R.id.nav_groupfolders;
+        } else if (isSearchEventFavorite() || currentSearchType == FAVORITE_SEARCH) {
+            return R.id.nav_favorites;
+        } else if (currentSearchType == RECENTLY_MODIFIED_SEARCH) {
+            return R.id.nav_recently_modified;
+        } else {
+            return R.id.nav_all_files;
+        }
+    }
+
     public boolean isEmpty() {
         return mAdapter == null || mAdapter.isEmpty();
     }
@@ -2244,7 +2276,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public boolean shouldNavigateBackToAllFiles() {
         return this instanceof GalleryFragment ||
             isSearchEventFavorite() ||
-            isSearchEventShared() ||
-            DrawerActivity.menuItemId == R.id.nav_favorites;
+            isSearchEventShared();
     }
 }
