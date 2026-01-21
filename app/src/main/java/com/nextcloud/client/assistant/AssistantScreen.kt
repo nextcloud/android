@@ -192,7 +192,7 @@ fun AssistantScreen(
                         }
                     },
                     bottomBar = {
-                        if (!taskTypes.isNullOrEmpty() && selectedTaskType?.isTranslate() == false) {
+                        if (!taskTypes.isNullOrEmpty()) {
                             InputBar(
                                 sessionId,
                                 selectedTaskType,
@@ -317,7 +317,12 @@ private fun InputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, viewMode
                                 viewModel.createConversation(text)
                             }
                         } else {
-                            viewModel.createTask(input = text, taskType = taskType)
+                            if (taskType.isTranslate()) {
+                                // TODO:
+                                viewModel.translate()
+                            } else {
+                                viewModel.createTask(input = text, taskType = taskType)
+                            }
                         }
 
                         scope.launch {
