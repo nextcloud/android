@@ -33,9 +33,9 @@ interface AssistantDao {
     @Query(
         """
     SELECT * FROM ${ProviderMeta.ProviderTableMeta.ASSISTANT_TABLE_NAME}
-    WHERE accountName = :accountName
+    WHERE accountName = :accountName AND type = :taskType
     ORDER BY lastUpdated DESC
 """
     )
-    suspend fun getAssistantTasksByAccount(accountName: String): List<AssistantEntity>
+    suspend fun getAssistantTasksByAccount(accountName: String, taskType: String): List<AssistantEntity>
 }

@@ -161,6 +161,7 @@ fun AssistantScreen(
                     }
                 })
             }
+
             AssistantPage.Content.id -> {
                 Scaffold(
                     modifier = Modifier.pullToRefresh(
@@ -230,8 +231,15 @@ fun AssistantScreen(
                             )
                         }
 
-                        AssistantScreenState.Translation -> {
-                            TranslationScreen(selectedTaskType, viewModel, selectedText ?: "")
+                        is AssistantScreenState.Translation -> {
+                            val task = (screenState as AssistantScreenState.Translation).task
+                            val textToTranslate = task?.input?.input ?: selectedText ?: ""
+
+                            TranslationScreen(
+                                selectedTaskType,
+                                viewModel,
+                                textToTranslate
+                            )
                         }
 
                         else -> EmptyContent(
@@ -380,6 +388,9 @@ private fun TaskContent(
                 showTaskActions = {
                     val newState = ScreenOverlayState.TaskActions(task)
                     viewModel.updateScreenOverlayState(newState)
+                },
+                showTranslateScreen = {
+                    viewModel.updateScreenState(AssistantScreenState.Translation(it))
                 }
             )
             Spacer(modifier = Modifier.height(8.dp))

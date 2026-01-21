@@ -8,6 +8,7 @@
 package com.nextcloud.client.assistant.model
 
 import com.owncloud.android.R
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
 
 sealed class AssistantScreenState {
     data object Loading : AssistantScreenState()
@@ -16,7 +17,7 @@ sealed class AssistantScreenState {
 
     data object ChatContent : AssistantScreenState()
 
-    data object Translation : AssistantScreenState()
+    data class Translation(val task: Task?) : AssistantScreenState()
 
     data class EmptyContent(val iconId: Int?, val titleId: Int?, val descriptionId: Int?) : AssistantScreenState()
 
