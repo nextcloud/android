@@ -63,6 +63,9 @@ class AssistantViewModel(
     private val _snackbarMessageId = MutableStateFlow<Int?>(null)
     val snackbarMessageId: StateFlow<Int?> = _snackbarMessageId
 
+    private val _selectedTask = MutableStateFlow<Task?>(null)
+    val selectedTask: StateFlow<Task?> = _selectedTask
+
     private val _selectedTaskType = MutableStateFlow<TaskTypeData?>(null)
     val selectedTaskType: StateFlow<TaskTypeData?> = _selectedTaskType
 
@@ -168,14 +171,18 @@ class AssistantViewModel(
     private fun observeScreenState() {
         viewModelScope.launch {
             combine(
+                _selectedTask,
                 _selectedTaskType,
                 _chatMessages,
                 _filteredTaskList
-            ) { selectedTask, chats, tasks ->
-                val isChat = selectedTask?.isChat() == true
+            ) { selectedTask, selectedTaskType, chats, tasks ->
+                val isChat = selectedTaskType?.isChat() == true
+                val isTranslation =
+                    selectedTaskType?.isTranslate() == true && selectedTask?.type == "core:text2text:translate"
 
                 when {
-                    selectedTask == null -> AssistantScreenState.Loading
+                    selectedTaskType == null -> AssistantScreenState.Loading
+                    isTranslation -> AssistantScreenState.Translation(selectedTask)
                     isChat && chats.isEmpty() -> AssistantScreenState.emptyChatList()
                     isChat -> AssistantScreenState.ChatContent
                     !isChat && (tasks == null || tasks.isEmpty()) -> AssistantScreenState.emptyTaskList()
@@ -359,6 +366,12 @@ class AssistantViewModel(
     private fun updateTaskType(value: TaskTypeData) {
         _selectedTaskType.update {
             value
+        }
+    }
+
+    fun selectTask(task: Task) {
+        _selectedTask.update {
+            task
         }
     }
 

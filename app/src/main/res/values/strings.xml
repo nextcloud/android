@@ -81,7 +81,7 @@
     <string name="assistant_task_status_failed">failed</string>
 
     <!-- Translation Screen -->
-    <string name="translation_screen_label_from">Source language: </string>
+    <string name="translation_screen_label_from">Translate from: </string>
     <string name="translation_screen_label_to">Translate to: </string>
     <string name="translation_screen_hint_source">Enter text to translate…</string>
     <string name="translation_screen_hint_target">Translation will appear here…</string>
