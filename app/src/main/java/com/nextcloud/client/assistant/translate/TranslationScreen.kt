@@ -63,7 +63,7 @@ fun TranslationScreen(task: TaskTypeData?, viewModel: AssistantViewModel, textTo
             .padding(16.dp)
             .padding(top = 32.dp), floatingActionButton = {
             FloatingActionButton(onClick = {
-
+                viewModel.translate(textToTranslate, originLanguage, targetLanguage)
             }, content = {
                 Icon(
                     painter = painterResource(R.drawable.ic_translate),
