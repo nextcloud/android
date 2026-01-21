@@ -21,6 +21,9 @@ import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessageRequest
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
+import com.owncloud.android.lib.resources.assistant.v2.model.TranslationLanguage
+import com.owncloud.android.lib.resources.assistant.v2.model.TranslationRequest
+import com.owncloud.android.lib.resources.assistant.v2.model.toTranslationModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -182,6 +185,35 @@ class AssistantViewModel(
                 _screenState.value = newState
             }
         }
+    }
+
+    fun translate(textToTranslate: String, originLanguage: TranslationLanguage, targetLanguage: TranslationLanguage) {
+        val task = _selectedTaskType.value
+        if (task == null) {
+            _snackbarMessageId.update {
+                R.string.assistant_screen_select_task
+            }
+            return
+        }
+
+        val model = task.toTranslationModel()
+
+        if (model == null) {
+            _snackbarMessageId.update {
+                R.string.translation_screen_error_message
+            }
+            return
+        }
+
+        val input = TranslationRequest(
+            input = textToTranslate,
+            originLanguage = originLanguage.code,
+            targetLanguage = targetLanguage.code,
+            maxTokens = model.maxTokens,
+            model = model.model
+        ).toJson()
+
+        createTask(input, task)
     }
 
     // region chat
