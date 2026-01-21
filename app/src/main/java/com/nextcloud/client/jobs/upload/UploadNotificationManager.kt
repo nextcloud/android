@@ -116,21 +116,10 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             return
         }
 
-        dismissOldErrorNotification(operation.file.remotePath, operation.file.storagePath)
-
-        operation.oldFile?.let {
-            dismissOldErrorNotification(it.remotePath, it.storagePath)
-        }
+        dismissNotification(operation.ocUploadId.toInt())
     }
 
     fun dismissErrorNotification() = notificationManager.cancel(FileUploadWorker.NOTIFICATION_ERROR_ID)
-
-    fun dismissOldErrorNotification(remotePath: String, localPath: String) {
-        notificationManager.cancel(
-            NotificationUtils.createUploadNotificationTag(remotePath, localPath),
-            FileUploadWorker.NOTIFICATION_ERROR_ID
-        )
-    }
 
     fun notifyPaused(intent: PendingIntent) {
         notificationBuilder.run {

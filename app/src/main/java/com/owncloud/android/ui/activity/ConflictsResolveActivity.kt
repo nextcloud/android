@@ -230,12 +230,13 @@ class ConflictsResolveActivity :
 
         upload?.let {
             FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
-
-            UploadNotificationManager(
+            val id = it.uploadId.toInt()
+            val nm = UploadNotificationManager(
                 applicationContext,
                 viewThemeUtils,
-                upload.uploadId.toInt()
-            ).dismissOldErrorNotification(it.remotePath, it.localPath)
+                id
+            )
+            nm.dismissNotification(id)
         }
     }
 
