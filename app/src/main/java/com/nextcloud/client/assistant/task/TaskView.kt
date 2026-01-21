@@ -49,7 +49,7 @@ import com.owncloud.android.lib.resources.status.OCCapability
 
 @Suppress("LongMethod", "MagicNumber")
 @Composable
-fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) {
+fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit, showTranslateScreen: (Task) -> Unit) {
     var showTaskDetailBottomSheet by remember { mutableStateOf(false) }
 
     Box {
@@ -59,7 +59,11 @@ fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) 
                 .clip(RoundedCornerShape(8.dp))
                 .background(color = colorResource(R.color.task_container))
                 .clickable {
-                    showTaskDetailBottomSheet = true
+                    if (task.type == "core:text2text:translate") {
+                        showTranslateScreen(task)
+                    } else {
+                        showTaskDetailBottomSheet = true
+                    }
                 }
                 .padding(16.dp)
         ) {
@@ -146,6 +150,8 @@ private fun TaskViewPreview() {
             versionMayor = 30
         },
         showTaskActions = {
+        },
+        showTranslateScreen = {
         }
     )
 }

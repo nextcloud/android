@@ -11,7 +11,7 @@ import com.owncloud.android.lib.resources.assistant.v2.model.Task
 
 interface AssistantLocalRepository {
     suspend fun cacheTasks(tasks: List<Task>, accountName: String)
-    suspend fun getCachedTasks(accountName: String): List<Task>
+    suspend fun getCachedTasks(accountName: String, type: String): List<Task>
     suspend fun insertTask(task: Task, accountName: String)
-    suspend fun deleteTask(id: Long, accountName: String)
+    suspend fun deleteTask(id: Long, accountName: String, type: String)
 }

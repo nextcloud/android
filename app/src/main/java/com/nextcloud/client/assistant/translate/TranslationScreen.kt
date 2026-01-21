@@ -7,6 +7,7 @@
 
 package com.nextcloud.client.assistant.translate
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -38,15 +39,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.AssistantViewModel
+import com.nextcloud.client.assistant.model.AssistantScreenState
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.assistant.v2.model.TranslationLanguage
 import com.owncloud.android.lib.resources.assistant.v2.model.toTranslationLanguages
 
+@Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TranslationScreen(task: TaskTypeData?, viewModel: AssistantViewModel, textToTranslate: String) {
-    val languages = remember(task) { task?.toTranslationLanguages() }
+fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewModel, textToTranslate: String) {
+    val languages = remember(selectedTaskType) { selectedTaskType?.toTranslationLanguages() }
 
     var sourceState by remember {
         mutableStateOf(
@@ -58,6 +61,10 @@ fun TranslationScreen(task: TaskTypeData?, viewModel: AssistantViewModel, textTo
     }
     var targetState by remember {
         mutableStateOf(TranslationSideState(language = languages?.targetLanguages?.firstOrNull()))
+    }
+
+    BackHandler {
+        viewModel.updateScreenState(AssistantScreenState.TaskContent)
     }
 
     Scaffold(
