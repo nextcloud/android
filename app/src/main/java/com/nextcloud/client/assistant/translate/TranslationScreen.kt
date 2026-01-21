@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.DropdownMenu
@@ -33,6 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -127,7 +129,8 @@ private fun TranslationSection(
     Row(
         modifier = Modifier
             .padding(16.dp)
-            .clickable { onStateChange(state.copy(isExpanded = !state.isExpanded)) }
+            .clickable { onStateChange(state.copy(isExpanded = !state.isExpanded)) },
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = stringResource(labelId),
@@ -138,6 +141,14 @@ private fun TranslationSection(
         Text(
             text = state.language?.name ?: "",
             style = MaterialTheme.typography.labelLarge
+        )
+        Icon(
+            painter = painterResource(R.drawable.ic_baseline_arrow_drop_down_24),
+            contentDescription = "dropdown icon",
+            modifier = Modifier
+                .padding(start = 4.dp)
+                .size(16.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
         DropdownMenu(

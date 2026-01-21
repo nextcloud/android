@@ -384,13 +384,11 @@ private fun TaskContent(
         items(taskList, key = { it.id }) { task ->
             TaskView(
                 task,
+                viewModel,
                 capability,
                 showTaskActions = {
                     val newState = ScreenOverlayState.TaskActions(task)
                     viewModel.updateScreenOverlayState(newState)
-                },
-                showTranslateScreen = {
-                    viewModel.updateScreenState(AssistantScreenState.Translation(it))
                 }
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -484,7 +482,7 @@ private fun getMockConversationViewModel(): ConversationViewModel {
     )
 }
 
-private fun getMockAssistantViewModel(giveEmptyTasks: Boolean): AssistantViewModel {
+fun getMockAssistantViewModel(giveEmptyTasks: Boolean): AssistantViewModel {
     val mockLocalRepository = MockAssistantLocalRepository()
     val mockRemoteRepository = MockAssistantRemoteRepository(giveEmptyTasks)
     return AssistantViewModel(
