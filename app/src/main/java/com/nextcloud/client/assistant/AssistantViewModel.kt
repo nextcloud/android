@@ -16,6 +16,7 @@ import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositor
 import com.nextcloud.utils.TimeConstants.MILLIS_PER_SECOND
 import com.nextcloud.utils.extensions.isHuman
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessageRequest
@@ -188,32 +189,35 @@ class AssistantViewModel(
     }
 
     fun translate(textToTranslate: String, originLanguage: TranslationLanguage, targetLanguage: TranslationLanguage) {
-        val task = _selectedTaskType.value
-        if (task == null) {
-            _snackbarMessageId.update {
-                R.string.assistant_screen_select_task
+        viewModelScope.launch(Dispatchers.IO) {
+            val task = _selectedTaskType.value
+            if (task == null) {
+                _snackbarMessageId.update {
+                    R.string.assistant_screen_select_task
+                }
+                return@launch
             }
-            return
-        }
 
-        val model = task.toTranslationModel()
+            val model = task.toTranslationModel()
 
-        if (model == null) {
-            _snackbarMessageId.update {
-                R.string.translation_screen_error_message
+            if (model == null) {
+                _snackbarMessageId.update {
+                    R.string.translation_screen_error_message
+                }
+                return@launch
             }
-            return
+
+            val input = TranslationRequest(
+                input = textToTranslate,
+                originLanguage = originLanguage.code,
+                targetLanguage = targetLanguage.code,
+                maxTokens = model.maxTokens,
+                model = model.model
+            )
+
+            val result = remoteRepository.translate(input, task)
+            handleTaskCreation(result)
         }
-
-        val input = TranslationRequest(
-            input = textToTranslate,
-            originLanguage = originLanguage.code,
-            targetLanguage = targetLanguage.code,
-            maxTokens = model.maxTokens,
-            model = model.model
-        ).toJson()
-
-        createTask(input, task)
     }
 
     // region chat
@@ -261,6 +265,10 @@ class AssistantViewModel(
     // region task
     fun createTask(input: String, taskType: TaskTypeData) = viewModelScope.launch(Dispatchers.IO) {
         val result = remoteRepository.createTask(input, taskType)
+        handleTaskCreation(result)
+    }
+
+    private suspend fun handleTaskCreation(result: RemoteOperationResult<*>) {
         val message = if (result.isSuccess) {
             R.string.assistant_screen_task_create_success_message
         } else {
