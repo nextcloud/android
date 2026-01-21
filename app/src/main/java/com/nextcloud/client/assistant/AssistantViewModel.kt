@@ -44,7 +44,7 @@ class AssistantViewModel(
         private const val POLLING_INTERVAL_MS = 15_000L
     }
 
-    private val _inputBarText = MutableStateFlow<String>("")
+    private val _inputBarText = MutableStateFlow("")
     val inputBarText: StateFlow<String> = _inputBarText
 
     private val _screenState = MutableStateFlow<AssistantScreenState?>(null)
