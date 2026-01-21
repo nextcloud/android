@@ -351,6 +351,7 @@
     <string name="instant_upload_existing">อัปโหลดไฟล์ที่มีอยู่เดิมด้วย</string>
     <string name="instant_upload_on_charging">อัปโหลดขณะชาร์จเท่านั้น</string>
     <string name="instant_upload_path">/อัพโหลดทันที</string>
+    <string name="internal_shares">การแชร์ภายใน</string>
     <string name="invalid_url">URL ไม่ถูกต้อง</string>
     <string name="invisible">มองไม่เห็น</string>
     <string name="label_empty">ป้ายกำกับไม่สามารถเว้นว่างได้</string>
