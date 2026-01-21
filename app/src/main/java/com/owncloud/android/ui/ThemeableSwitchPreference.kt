@@ -1,67 +1,47 @@
-/*
- * Nextcloud - Android Client
- *
- * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
- */
-package com.owncloud.android.ui;
+package com.owncloud.android.ui
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.preference.SwitchPreference;
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Switch;
+import android.content.Context
+import android.preference.SwitchPreference
+import android.util.AttributeSet
+import android.view.View
+import com.google.android.material.materialswitch.MaterialSwitch
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import javax.inject.Inject;
-
-/**
- * Themeable switch preference TODO Migrate to androidx
- */
-public class ThemeableSwitchPreference extends SwitchPreference {
+@Suppress("DEPRECATION")
+class ThemeableSwitchPreference : SwitchPreference {
     @Inject
-    ViewThemeUtils viewThemeUtils;
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-    public ThemeableSwitchPreference(Context context) {
-        super(context);
-        MainApp.getAppComponent().inject(this);
+    /**
+     * Do not delete constructor. These are used.
+     */
+    constructor(context: Context) : super(context) {
+        init()
     }
 
-    public ThemeableSwitchPreference(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        MainApp.getAppComponent().inject(this);
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+        init()
     }
 
-    public ThemeableSwitchPreference(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        MainApp.getAppComponent().inject(this);
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        init()
     }
 
-    @Override
-    protected void onBindView(View view) {
-        super.onBindView(view);
-
-        if (view instanceof ViewGroup) {
-            findSwitch((ViewGroup) view);
-        }
+    private fun init() {
+        MainApp.getAppComponent().inject(this)
+        setWidgetLayoutResource(R.layout.themeable_switch)
     }
 
-    private void findSwitch(ViewGroup viewGroup) {
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            View child = viewGroup.getChildAt(i);
-
-            if (child instanceof @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switchView) {
-                viewThemeUtils.platform.colorSwitch(switchView);
-
-                break;
-            } else if (child instanceof ViewGroup) {
-                findSwitch((ViewGroup) child);
-            }
+    @Deprecated("Deprecated in Java")
+    override fun onBindView(view: View) {
+        super.onBindView(view)
+        val checkable = view.findViewById<View>(R.id.switch_widget)
+        if (checkable is MaterialSwitch) {
+            checkable.setChecked(isChecked)
+            viewThemeUtils.material.colorMaterialSwitch(checkable)
         }
     }
 }
