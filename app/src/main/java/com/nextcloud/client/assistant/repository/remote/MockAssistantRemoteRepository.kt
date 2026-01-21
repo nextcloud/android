@@ -18,6 +18,7 @@ import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
+import com.owncloud.android.lib.resources.assistant.v2.model.TranslationRequest
 
 @Suppress("MagicNumber")
 class MockAssistantRemoteRepository(private val giveEmptyTasks: Boolean = false) : AssistantRemoteRepository {
@@ -68,7 +69,7 @@ class MockAssistantRemoteRepository(private val giveEmptyTasks: Boolean = false)
     }
 
     override suspend fun deleteTask(id: Long): RemoteOperationResult<Void> =
-        RemoteOperationResult<Void>(RemoteOperationResult.ResultCode.OK)
+        RemoteOperationResult(RemoteOperationResult.ResultCode.OK)
     override suspend fun fetchChatMessages(id: Long): List<ChatMessage> = emptyList()
     override suspend fun sendChatMessage(request: ChatMessageRequest): ChatMessage? = null
     override suspend fun createConversation(title: String): CreateConversation? = null
@@ -76,4 +77,6 @@ class MockAssistantRemoteRepository(private val giveEmptyTasks: Boolean = false)
     override suspend fun generateSession(sessionId: String): SessionTask? = null
 
     override suspend fun checkGeneration(taskId: String, sessionId: String): ChatMessage? = null
+    override suspend fun translate(input: TranslationRequest, taskType: TaskTypeData): RemoteOperationResult<Void> =
+        RemoteOperationResult(RemoteOperationResult.ResultCode.OK)
 }
