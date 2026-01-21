@@ -133,7 +133,7 @@ private fun TaskViewPreview() {
             TaskInput("What about other promising tokens like"),
             TaskOutput(
                 "Several tokens show promise for future growth in the" +
-                    "cryptocurrency market"
+                    " cryptocurrency market"
             ),
             1707692337,
             1707692337,
