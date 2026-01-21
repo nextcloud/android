@@ -557,6 +557,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
 
             closeDrawer();
+            setupHomeSearchToolbarWithSortAndListButtons();
+            updateActionBarTitleAndHomeButton(null);
         } else if (itemId == R.id.nav_favorites) {
             openFavoritesTab();
         } else if (itemId == R.id.nav_gallery) {
@@ -630,6 +632,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                     fda.browseToRoot();
                 }
                 EventBus.getDefault().post(new ChangeMenuEvent());
+                setupHomeSearchToolbarWithSortAndListButtons();
+                updateActionBarTitleAndHomeButton(null);
             } else if (menuItemId == R.id.nav_favorites) {
                 openFavoritesTab();
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
@@ -706,8 +710,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    protected void openSharedTab() {
-        resetFileDepth();
+    private void openSharedTab() {
         resetOnlyPersonalAndOnDevice();
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
         launchActivityForSearch(searchEvent, R.id.nav_shared);
