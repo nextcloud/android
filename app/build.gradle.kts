@@ -504,8 +504,9 @@ dependencies {
     "gplayImplementation"(libs.bundles.gplay)
     // endregion
 
-    // region UI
+    // region common
     implementation(libs.ui)
+    implementation(libs.common.core)
     // endregion
 
     // region Image loading

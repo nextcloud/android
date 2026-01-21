@@ -147,6 +147,13 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/Theme.ownCloud.Launcher">
+
+            <intent-filter>
+                <action android:name="com.nextcloud.intent.OPEN_ECOSYSTEM_APP" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
