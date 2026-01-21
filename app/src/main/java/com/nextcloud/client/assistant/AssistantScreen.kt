@@ -65,6 +65,7 @@ import com.nextcloud.client.assistant.repository.local.MockAssistantLocalReposit
 import com.nextcloud.client.assistant.repository.remote.MockAssistantRemoteRepository
 import com.nextcloud.client.assistant.task.TaskView
 import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
+import com.nextcloud.client.assistant.translate.TranslationScreen
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeActivity.ComposeViewModel
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
@@ -227,6 +228,10 @@ fun AssistantScreen(
                                 viewModel = viewModel,
                                 modifier = Modifier.padding(paddingValues)
                             )
+                        }
+
+                        AssistantScreenState.Translation -> {
+                            TranslationScreen(selectedTaskType, viewModel,selectedText ?: "")
                         }
 
                         else -> EmptyContent(
