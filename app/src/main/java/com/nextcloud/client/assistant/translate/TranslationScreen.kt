@@ -39,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.client.assistant.model.AssistantScreenState
@@ -76,6 +77,7 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
             .padding(top = 32.dp),
         floatingActionButton = {
             FloatingActionButton(onClick = {
+                // TODO:
                 val originLang = sourceState.language
                 val targetLang = targetState.language
                 if (originLang != null && targetLang != null) {
@@ -93,6 +95,7 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
                     hintId = R.string.translation_screen_hint_source,
                     state = sourceState,
                     availableLanguages = languages?.originLanguages ?: emptyList(),
+                    maxDp = 120.dp,
                     onStateChange = { sourceState = it }
                 )
             }
@@ -111,6 +114,7 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
                     hintId = R.string.translation_screen_hint_target,
                     state = targetState,
                     availableLanguages = languages?.targetLanguages ?: emptyList(),
+                    maxDp = Dp.Unspecified,
                     onStateChange = { targetState = it }
                 )
             }
@@ -124,6 +128,7 @@ private fun TranslationSection(
     hintId: Int,
     state: TranslationSideState,
     availableLanguages: List<TranslationLanguage>,
+    maxDp: Dp,
     onStateChange: (TranslationSideState) -> Unit
 ) {
     Row(
@@ -171,7 +176,7 @@ private fun TranslationSection(
         onValueChange = { onStateChange(state.copy(text = it)) },
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = 120.dp, max = 240.dp),
+            .heightIn(min = 120.dp, max = maxDp),
         placeholder = {
             Text(text = stringResource(hintId), style = MaterialTheme.typography.headlineSmall)
         },
