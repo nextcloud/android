@@ -27,7 +27,7 @@ jobs:
                 uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
                 with:
                     distribution: "temurin"
-                    java-version: 17
+                    java-version: 21
             -   uses: gradle/actions/wrapper-validation@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
             -   name: Build ${{ matrix.flavor }}
                 run: |
