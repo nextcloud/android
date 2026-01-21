@@ -41,58 +41,51 @@ import com.nextcloud.client.assistant.AssistantViewModel
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.assistant.v2.model.TranslationLanguage
-import com.owncloud.android.lib.resources.assistant.v2.model.TranslationLanguages
 import com.owncloud.android.lib.resources.assistant.v2.model.toTranslationLanguages
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TranslationScreen(task: TaskTypeData?, viewModel: AssistantViewModel, textToTranslate: String) {
-    var originText by remember { mutableStateOf(textToTranslate) }
-    val languages = task?.toTranslationLanguages() ?: TranslationLanguages(listOf(), listOf())
+    val languages = remember(task) { task?.toTranslationLanguages() }
 
-    var originLanguage by remember { mutableStateOf(languages.originLanguages.first()) }
-    var showOriginDropdownMenu by remember { mutableStateOf(false) }
-
-    var targetText by remember { mutableStateOf("") }
-    var targetLanguage by remember { mutableStateOf(languages.targetLanguages.first()) }
-    var showTargetDropdownMenu by remember { mutableStateOf(false) }
+    var sourceState by remember {
+        mutableStateOf(
+            TranslationSideState(
+                text = textToTranslate,
+                language = languages?.originLanguages?.firstOrNull()
+            )
+        )
+    }
+    var targetState by remember {
+        mutableStateOf(TranslationSideState(language = languages?.targetLanguages?.firstOrNull()))
+    }
 
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .padding(top = 32.dp), floatingActionButton = {
+            .padding(top = 32.dp),
+        floatingActionButton = {
             FloatingActionButton(onClick = {
-                viewModel.translate(textToTranslate, originLanguage, targetLanguage)
+                val originLang = sourceState.language
+                val targetLang = targetState.language
+                if (originLang != null && targetLang != null) {
+                    viewModel.translate(sourceState.text, originLang, targetLang)
+                }
             }, content = {
-                Icon(
-                    painter = painterResource(R.drawable.ic_translate),
-                    contentDescription = "translate button"
-                )
+                Icon(painter = painterResource(R.drawable.ic_translate), contentDescription = "translate button")
             })
-        }) {
-        LazyColumn(
-            modifier = Modifier.padding(it)
-        ) {
+        }
+    ) { paddingValues ->
+        LazyColumn(modifier = Modifier.padding(paddingValues)) {
             item {
-                LanguageSelector(
-                    title = originLanguage,
-                    languages = languages.originLanguages,
-                    titleId = R.string.translation_screen_label_from,
-                    expanded = showOriginDropdownMenu,
-                    expand = {
-                        showOriginDropdownMenu = it
-                    }, onLanguageSelect = { newLanguage ->
-                        originLanguage = newLanguage
-                    }
+                TranslationSection(
+                    labelId = R.string.translation_screen_label_from,
+                    hintId = R.string.translation_screen_hint_source,
+                    state = sourceState,
+                    availableLanguages = languages?.originLanguages ?: emptyList(),
+                    onStateChange = { sourceState = it }
                 )
-
-                TranslationTextField(
-                    titleId = R.string.translation_screen_hint_source,
-                    originText,
-                    onValueChange = { updatedText ->
-                        originText = updatedText
-                    })
             }
 
             item {
@@ -104,44 +97,65 @@ fun TranslationScreen(task: TaskTypeData?, viewModel: AssistantViewModel, textTo
             }
 
             item {
-                LanguageSelector(
-                    title = targetLanguage,
-                    languages = languages.targetLanguages,
-                    titleId = R.string.translation_screen_label_to,
-                    expanded = showTargetDropdownMenu,
-                    expand = {
-                        showTargetDropdownMenu = it
-                    }, onLanguageSelect = { newLanguage ->
-                        targetLanguage = newLanguage
-                    }
+                TranslationSection(
+                    labelId = R.string.translation_screen_label_to,
+                    hintId = R.string.translation_screen_hint_target,
+                    state = targetState,
+                    availableLanguages = languages?.targetLanguages ?: emptyList(),
+                    onStateChange = { targetState = it }
                 )
-
-                TranslationTextField(
-                    titleId = R.string.translation_screen_hint_target,
-                    targetText,
-                    onValueChange = { updatedText ->
-                        targetText = updatedText
-                    })
             }
         }
     }
 }
 
 @Composable
-private fun TranslationTextField(titleId: Int, value: String, onValueChange: (String) -> Unit) {
+private fun TranslationSection(
+    labelId: Int,
+    hintId: Int,
+    state: TranslationSideState,
+    availableLanguages: List<TranslationLanguage>,
+    onStateChange: (TranslationSideState) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .padding(16.dp)
+            .clickable { onStateChange(state.copy(isExpanded = !state.isExpanded)) }
+    ) {
+        Text(
+            text = stringResource(labelId),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = state.language?.name ?: "",
+            style = MaterialTheme.typography.labelLarge
+        )
+
+        DropdownMenu(
+            expanded = state.isExpanded,
+            onDismissRequest = { onStateChange(state.copy(isExpanded = false)) }
+        ) {
+            availableLanguages.forEach { language ->
+                DropdownMenuItem(
+                    text = { Text(language.name) },
+                    onClick = {
+                        onStateChange(state.copy(language = language, isExpanded = false))
+                    }
+                )
+            }
+        }
+    }
+
     TextField(
-        value = value,
-        onValueChange = {
-            onValueChange(it)
-        },
+        value = state.text,
+        onValueChange = { onStateChange(state.copy(text = it)) },
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = 120.dp, max = 240.dp),
         placeholder = {
-            Text(
-                text = stringResource(titleId),
-                style = MaterialTheme.typography.headlineSmall
-            )
+            Text(text = stringResource(hintId), style = MaterialTheme.typography.headlineSmall)
         },
         textStyle = MaterialTheme.typography.headlineSmall,
         colors = TextFieldDefaults.colors(
@@ -152,50 +166,4 @@ private fun TranslationTextField(titleId: Int, value: String, onValueChange: (St
             unfocusedIndicatorColor = Color.Transparent
         )
     )
-}
-
-@Composable
-private fun LanguageSelector(
-    title: TranslationLanguage,
-    languages: List<TranslationLanguage>,
-    titleId: Int,
-    expanded: Boolean,
-    expand: (Boolean) -> Unit,
-    onLanguageSelect: (TranslationLanguage) -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .padding(16.dp)
-            .clickable(onClick = {
-                expand(!expanded)
-            })
-    ) {
-        Text(
-            text = stringResource(titleId),
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.primary,
-        )
-
-        Spacer(modifier = Modifier.width(8.dp))
-
-        Text(
-            text = title.name,
-            style = MaterialTheme.typography.labelLarge,
-        )
-
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expand(false) }
-        ) {
-            languages.forEach { language ->
-                DropdownMenuItem(
-                    text = { Text(language.name) },
-                    onClick = {
-                        expand(false)
-                        onLanguageSelect(language)
-                    }
-                )
-            }
-        }
-    }
 }

@@ -231,7 +231,7 @@ fun AssistantScreen(
                         }
 
                         AssistantScreenState.Translation -> {
-                            TranslationScreen(selectedTaskType, viewModel,selectedText ?: "")
+                            TranslationScreen(selectedTaskType, viewModel, selectedText ?: "")
                         }
 
                         else -> EmptyContent(
