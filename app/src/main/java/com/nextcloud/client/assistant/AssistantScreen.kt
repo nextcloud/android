@@ -190,7 +190,7 @@ fun AssistantScreen(
                         }
                     },
                     bottomBar = {
-                        if (!taskTypes.isNullOrEmpty()) {
+                        if (!taskTypes.isNullOrEmpty() && selectedTaskType?.isTranslate() == false) {
                             InputBar(
                                 sessionId,
                                 selectedTaskType,
