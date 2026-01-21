@@ -41,10 +41,8 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -60,8 +58,8 @@ import com.nextcloud.client.assistant.conversation.ConversationScreen
 import com.nextcloud.client.assistant.conversation.ConversationViewModel
 import com.nextcloud.client.assistant.conversation.repository.MockConversationRemoteRepository
 import com.nextcloud.client.assistant.extensions.getInputTitle
-import com.nextcloud.client.assistant.model.AssistantScreenState
 import com.nextcloud.client.assistant.model.AssistantPage
+import com.nextcloud.client.assistant.model.AssistantScreenState
 import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.repository.local.MockAssistantLocalRepository
 import com.nextcloud.client.assistant.repository.remote.MockAssistantRemoteRepository
@@ -76,7 +74,6 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.status.OCCapability
-import com.owncloud.android.utils.ClipboardUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -115,17 +112,18 @@ fun AssistantScreen(
     }
 
     LaunchedEffect(selectedText) {
-        if (selectedText.isNullOrEmpty()) {
-            return@LaunchedEffect
+        selectedText?.let {
+            if (it.isBlank()) {
+                return@LaunchedEffect
+            }
+
+            if (pagerState.currentPage == AssistantPage.Conversation.id) {
+                pagerState.scrollToPage(AssistantPage.Content.id)
+            }
+
+            viewModel.updateInputBarText(it)
+            snackbarHostState.showSnackbar(activity.getString(R.string.assistant_screen_text_selected))
         }
-
-        if (pagerState.currentPage == AssistantPage.Conversation.id) {
-            pagerState.scrollToPage(AssistantPage.Content.id)
-        }
-
-        ClipboardUtil.copyToClipboard(activity, selectedText, false)
-
-        snackbarHostState.showSnackbar(activity.getString(R.string.assistant_screen_text_selected))
     }
 
     LaunchedEffect(sessionId) {
@@ -193,7 +191,7 @@ fun AssistantScreen(
                     },
                     bottomBar = {
                         if (!taskTypes.isNullOrEmpty()) {
-                            ChatInputBar(
+                            InputBar(
                                 sessionId,
                                 selectedTaskType,
                                 viewModel
@@ -253,9 +251,9 @@ fun AssistantScreen(
 
 @Suppress("LongMethod")
 @Composable
-private fun ChatInputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, viewModel: AssistantViewModel) {
+private fun InputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, viewModel: AssistantViewModel) {
     val scope = rememberCoroutineScope()
-    var text by remember { mutableStateOf("") }
+    val text by viewModel.inputBarText.collectAsState()
 
     Surface(
         tonalElevation = 3.dp,
@@ -284,7 +282,7 @@ private fun ChatInputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, view
             ) {
                 OutlinedTextField(
                     value = text,
-                    onValueChange = { text = it },
+                    onValueChange = { viewModel.updateInputBarText(it) },
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 8.dp),
@@ -311,7 +309,7 @@ private fun ChatInputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, view
 
                         scope.launch {
                             delay(CHAT_INPUT_DELAY)
-                            text = ""
+                            viewModel.updateInputBarText("")
                         }
                     }
                 ) {

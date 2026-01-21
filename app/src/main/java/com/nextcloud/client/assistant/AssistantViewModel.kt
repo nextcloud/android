@@ -44,6 +44,9 @@ class AssistantViewModel(
         private const val POLLING_INTERVAL_MS = 15_000L
     }
 
+    private val _inputBarText = MutableStateFlow<String>("")
+    val inputBarText: StateFlow<String> = _inputBarText
+
     private val _screenState = MutableStateFlow<AssistantScreenState?>(null)
     val screenState: StateFlow<AssistantScreenState?> = _screenState
 
@@ -310,6 +313,12 @@ class AssistantViewModel(
 
     fun updateScreenOverlayState(value: ScreenOverlayState?) {
         _screenOverlayState.update {
+            value
+        }
+    }
+
+    fun updateInputBarText(value: String) {
+        _inputBarText.update {
             value
         }
     }
