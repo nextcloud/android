@@ -37,20 +37,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.nextcloud.client.assistant.AssistantViewModel
 import com.owncloud.android.R
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
+import com.owncloud.android.lib.resources.assistant.v2.model.TranslationLanguage
+import com.owncloud.android.lib.resources.assistant.v2.model.TranslationLanguages
+import com.owncloud.android.lib.resources.assistant.v2.model.toTranslationLanguages
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TranslationScreen(textToTranslate: String) {
+fun TranslationScreen(task: TaskTypeData?, viewModel: AssistantViewModel, textToTranslate: String) {
     var originText by remember { mutableStateOf(textToTranslate) }
-    var originLanguage by remember { mutableStateOf("English") }
+    val languages = task?.toTranslationLanguages() ?: TranslationLanguages(listOf(), listOf())
+
+    var originLanguage by remember { mutableStateOf(languages.originLanguages.first()) }
     var showOriginDropdownMenu by remember { mutableStateOf(false) }
 
     var targetText by remember { mutableStateOf("") }
-    var targetLanguage by remember { mutableStateOf("Spanish") }
+    var targetLanguage by remember { mutableStateOf(languages.targetLanguages.first()) }
     var showTargetDropdownMenu by remember { mutableStateOf(false) }
-
-    val languages = listOf("English", "Spanish", "French", "German", "Turkish", "Japanese")
 
     Scaffold(
         modifier = Modifier
@@ -72,19 +77,22 @@ fun TranslationScreen(textToTranslate: String) {
             item {
                 LanguageSelector(
                     title = originLanguage,
-                    languages = languages,
+                    languages = languages.originLanguages,
                     titleId = R.string.translation_screen_label_from,
                     expanded = showOriginDropdownMenu,
                     expand = {
                         showOriginDropdownMenu = it
-                    }, onLanguageSelect = {
-                        originLanguage = it
+                    }, onLanguageSelect = { newLanguage ->
+                        originLanguage = newLanguage
                     }
                 )
 
-                TranslationTextField(titleId = R.string.translation_screen_hint_source, originText, onValueChange = {
-                    originText = it
-                })
+                TranslationTextField(
+                    titleId = R.string.translation_screen_hint_source,
+                    originText,
+                    onValueChange = { updatedText ->
+                        originText = updatedText
+                    })
             }
 
             item {
@@ -98,19 +106,22 @@ fun TranslationScreen(textToTranslate: String) {
             item {
                 LanguageSelector(
                     title = targetLanguage,
-                    languages = languages,
+                    languages = languages.targetLanguages,
                     titleId = R.string.translation_screen_label_to,
                     expanded = showTargetDropdownMenu,
                     expand = {
                         showTargetDropdownMenu = it
-                    }, onLanguageSelect = {
-                        targetLanguage = it
+                    }, onLanguageSelect = { newLanguage ->
+                        targetLanguage = newLanguage
                     }
                 )
 
-                TranslationTextField(titleId = R.string.translation_screen_hint_target, targetText, onValueChange = {
-                    targetText = it
-                })
+                TranslationTextField(
+                    titleId = R.string.translation_screen_hint_target,
+                    targetText,
+                    onValueChange = { updatedText ->
+                        targetText = updatedText
+                    })
             }
         }
     }
@@ -145,12 +156,12 @@ private fun TranslationTextField(titleId: Int, value: String, onValueChange: (St
 
 @Composable
 private fun LanguageSelector(
-    title: String,
-    languages: List<String>,
+    title: TranslationLanguage,
+    languages: List<TranslationLanguage>,
     titleId: Int,
     expanded: Boolean,
     expand: (Boolean) -> Unit,
-    onLanguageSelect: (String) -> Unit
+    onLanguageSelect: (TranslationLanguage) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -160,7 +171,7 @@ private fun LanguageSelector(
             })
     ) {
         Text(
-            text = stringResource(titleId, title),
+            text = stringResource(titleId),
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary,
         )
@@ -168,7 +179,7 @@ private fun LanguageSelector(
         Spacer(modifier = Modifier.width(8.dp))
 
         Text(
-            text = title,
+            text = title.name,
             style = MaterialTheme.typography.labelLarge,
         )
 
@@ -178,7 +189,7 @@ private fun LanguageSelector(
         ) {
             languages.forEach { language ->
                 DropdownMenuItem(
-                    text = { Text(language) },
+                    text = { Text(language.name) },
                     onClick = {
                         expand(false)
                         onLanguageSelect(language)
