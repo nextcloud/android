@@ -80,7 +80,10 @@ object UploadErrorNotificationManager {
         result: RemoteOperationResult<Any?>,
         notifyOnSameFileExists: suspend () -> Unit
     ): Notification? {
-        if (!shouldShowConflictDialog(isSameFileOnRemote, operation, result, notifyOnSameFileExists)) return null
+        if (!shouldShowConflictDialog(isSameFileOnRemote, operation, result, notifyOnSameFileExists)) {
+            Log_OC.d(TAG, "no need to show conflict resolve notification")
+            return null
+        }
 
         val textId = result.code.toFailedResultTitleId()
         val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(result, operation, context.resources)
@@ -176,9 +179,14 @@ object UploadErrorNotificationManager {
             return false
         }
 
-        if (result.code == ResultCode.SYNC_CONFLICT && isSameFileOnRemote) {
-            Log_OC.w(TAG, "same file exists on remote")
-            notifyOnSameFileExists()
+        if (result.code == ResultCode.SYNC_CONFLICT) {
+            if (isSameFileOnRemote) {
+                Log_OC.w(TAG, "same file exists on remote")
+                notifyOnSameFileExists()
+            } else {
+                Log_OC.w(TAG, "SYNC_CONFLICT but file not same on remote - no notification needed")
+            }
+
             return false
         }
 
