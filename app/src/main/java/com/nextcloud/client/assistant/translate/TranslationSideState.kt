@@ -12,5 +12,6 @@ import com.owncloud.android.lib.resources.assistant.v2.model.TranslationLanguage
 data class TranslationSideState(
     val text: String = "",
     val language: TranslationLanguage? = null,
-    val isExpanded: Boolean = false
+    val isExpanded: Boolean = false,
+    val isTarget: Boolean
 )
