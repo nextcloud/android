@@ -8,6 +8,7 @@
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2015 ownCloud Inc.
  * SPDX-FileCopyrightText: 2013-2015 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.ui.preview
@@ -39,6 +40,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import com.caverock.androidsvg.SVG
 import com.caverock.androidsvg.SVGParseException
 import com.github.chrisbanes.photoview.PhotoView
@@ -59,6 +61,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncResizedImageDrawable
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ResizedImageGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.FetchRemoteFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
@@ -69,6 +72,9 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pl.droidsonroids.gif.GifDrawable
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -361,17 +367,7 @@ class PreviewImageFragment :
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
                     R.id.custom_menu_placeholder_item -> {
-                        val file = file
-                        if (containerActivity.storageManager != null && file != null) {
-                            // Update the file
-                            val updatedFile = containerActivity.storageManager.getFileById(file.fileId)
-                            setFile(updatedFile)
-
-                            val fileNew = getFile()
-                            if (fileNew != null) {
-                                showFileActions(file)
-                            }
-                        }
+                        onOverflowClick()
                         true
                     }
 
@@ -381,6 +377,60 @@ class PreviewImageFragment :
             viewLifecycleOwner,
             Lifecycle.State.RESUMED
         )
+    }
+
+    /**
+     * @param isManualClick if true skip album check to avoid calling api in loop if file fetch fails
+     */
+    private fun onOverflowClick(isManualClick: Boolean = false) {
+        val file = file
+        if (containerActivity.storageManager != null && file != null) {
+            // Update the file
+            val updatedFile = containerActivity.storageManager.getFileById(file.fileId)
+            // check for albums file
+            // for album file both local and remoteId will be same configured at operation level
+            if (!isManualClick && updatedFile != null && updatedFile.localId.toString() == updatedFile.remoteId) {
+                fetchFileMetaDataIfAbsent(updatedFile)
+            } else {
+                setFile(updatedFile)
+
+                val fileNew = getFile()
+                if (fileNew != null) {
+                    showFileActions(file)
+                }
+            }
+        }
+    }
+
+    private fun fetchFileMetaDataIfAbsent(ocFile: OCFile) {
+        if (requireActivity() is FileActivity) {
+            (requireActivity() as FileActivity).showLoadingDialog(getString(R.string.wait_a_moment))
+        }
+        lifecycleScope.launch(Dispatchers.IO) {
+            val fetchRemoteFileOperation =
+                FetchRemoteFileOperation(
+                    requireActivity(),
+                    accountManager.user,
+                    ocFile,
+                    removeFileFromDb = true,
+                    storageManager = containerActivity.storageManager
+                )
+            val result = fetchRemoteFileOperation.execute(requireActivity())
+            withContext(Dispatchers.Main) {
+                if (requireActivity() is FileActivity) {
+                    (requireActivity() as FileActivity).dismissLoadingDialog()
+                }
+                if (result?.isSuccess == true && result.resultData != null) {
+                    file = result.resultData as OCFile
+
+                    onOverflowClick(isManualClick = true)
+                } else {
+                    Log_OC.d(TAG, result?.logMessage)
+                    // show error
+                    DisplayUtils.showSnackMessage(binding.root, result.getLogMessage(requireContext()))
+                }
+            }
+        }
     }
 
     private fun showFileActions(file: OCFile) {

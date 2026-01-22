@@ -2,6 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.jobs
@@ -32,6 +33,7 @@ import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
+import com.nextcloud.client.jobs.upload.AlbumFileUploadWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
@@ -87,6 +89,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_NOTIFICATION = "notification"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_FILES_UPLOAD = "files_upload"
+        const val ALBUM_JOB_FILES_UPLOAD = "album_files_upload"
         const val JOB_FOLDER_DOWNLOAD = "folder_download"
         const val JOB_FILES_DOWNLOAD = "files_download"
         const val JOB_PDF_GENERATION = "pdf_generation"
@@ -608,6 +611,8 @@ internal class BackgroundJobManagerImpl(
 
     private fun startFileUploadJobTag(accountName: String): String = JOB_FILES_UPLOAD + accountName
 
+    private fun startAlbumsFileUploadJobTag(accountName: String): String = ALBUM_JOB_FILES_UPLOAD + accountName
+
     override fun isStartFileUploadJobScheduled(accountName: String): Boolean =
         workManager.isWorkScheduled(startFileUploadJobTag(accountName))
 
@@ -651,6 +656,68 @@ internal class BackgroundJobManagerImpl(
                     .setInputData(dataBuilder.build())
                     .setConstraints(constraints)
                     .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                    .build()
+            }
+
+            // Chain the work requests sequentially
+            if (workRequests.isNotEmpty()) {
+                var workChain = workManager.beginUniqueWork(
+                    tag,
+                    ExistingWorkPolicy.APPEND_OR_REPLACE,
+                    workRequests.first()
+                )
+
+                workRequests.drop(1).forEach { request ->
+                    workChain = workChain.then(request)
+                }
+
+                workChain.enqueue()
+            }
+        }
+    }
+
+    /**
+     * This method supports uploading and copying selected files to Album
+     *
+     * @param user The user for whom the upload job is being created.
+     * @param uploadIds Array of upload IDs to be processed. These IDs originate from multiple sources
+     *                  and cannot be determined directly from the account name or a single function
+     *                  within the worker.
+     * @param albumName Album on which selected files should be copy after upload
+     */
+    override fun startAlbumFilesUploadJob(
+        user: User,
+        uploadIds: LongArray,
+        albumName: String,
+        showSameFileAlreadyExistsNotification: Boolean
+    ) {
+        defaultDispatcherScope.launch {
+            val batchSize = FileUploadHelper.MAX_FILE_COUNT
+            val batches = uploadIds.toList().chunked(batchSize)
+            val tag = startAlbumsFileUploadJobTag(user.accountName)
+
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
+
+            val dataBuilder = Data.Builder()
+                .putBoolean(
+                    FileUploadWorker.SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION,
+                    showSameFileAlreadyExistsNotification
+                )
+                .putString(FileUploadWorker.ACCOUNT, user.accountName)
+                .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
+                .putString(AlbumFileUploadWorker.ALBUM_NAME, albumName)
+
+            val workRequests = batches.mapIndexed { index, batch ->
+                dataBuilder
+                    .putLongArray(FileUploadWorker.UPLOAD_IDS, batch.toLongArray())
+                    .putInt(FileUploadWorker.CURRENT_BATCH_INDEX, index)
+
+                oneTimeRequestBuilder(AlbumFileUploadWorker::class, ALBUM_JOB_FILES_UPLOAD, user)
+                    .addTag(tag)
+                    .setInputData(dataBuilder.build())
+                    .setConstraints(constraints)
                     .build()
             }
 

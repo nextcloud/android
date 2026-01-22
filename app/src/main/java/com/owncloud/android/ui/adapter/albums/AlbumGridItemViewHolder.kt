@@ -14,7 +14,8 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.AlbumsGridItemBinding
 
 internal class AlbumGridItemViewHolder(private var binding: AlbumsGridItemBinding) :
-    RecyclerView.ViewHolder(binding.root), AlbumItemViewHolder {
+    RecyclerView.ViewHolder(binding.root),
+    AlbumItemViewHolder {
     override val thumbnail: ImageView
         get() = binding.thumbnail
     override val shimmerThumbnail: LoaderImageView
