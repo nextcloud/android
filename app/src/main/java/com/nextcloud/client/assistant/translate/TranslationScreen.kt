@@ -24,6 +24,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -38,16 +39,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.client.assistant.model.AssistantScreenState
+import com.nextcloud.utils.extensions.getActivity
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.assistant.v2.model.TranslationLanguage
 import com.owncloud.android.lib.resources.assistant.v2.model.toTranslationLanguages
+import com.owncloud.android.utils.ClipboardUtil
 
 @Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,12 +63,13 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
         mutableStateOf(
             TranslationSideState(
                 text = textToTranslate,
-                language = languages?.originLanguages?.firstOrNull()
+                language = languages?.originLanguages?.firstOrNull(),
+                isTarget = false
             )
         )
     }
     var targetState by remember {
-        mutableStateOf(TranslationSideState(language = languages?.targetLanguages?.firstOrNull()))
+        mutableStateOf(TranslationSideState(language = languages?.targetLanguages?.firstOrNull(), isTarget = true))
     }
 
     BackHandler {
@@ -132,6 +137,7 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
     }
 }
 
+@Suppress("LongMethod")
 @Composable
 private fun TranslationSection(
     labelId: Int,
@@ -141,6 +147,8 @@ private fun TranslationSection(
     maxDp: Dp,
     onStateChange: (TranslationSideState) -> Unit
 ) {
+    val activity = LocalContext.current.getActivity()
+
     Row(
         modifier = Modifier
             .padding(16.dp)
@@ -179,11 +187,22 @@ private fun TranslationSection(
                 )
             }
         }
+
+        if (state.isTarget && state.text.isNotBlank()) {
+            Spacer(modifier = Modifier.weight(1f))
+
+            IconButton(onClick = {
+                activity?.let { ClipboardUtil.copyToClipboard(it, state.text, true) }
+            }) {
+                Icon(painter = painterResource(R.drawable.ic_content_copy), contentDescription = "copy button")
+            }
+        }
     }
 
     TextField(
         value = state.text,
         onValueChange = { onStateChange(state.copy(text = it)) },
+        readOnly = state.isTarget,
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = 120.dp, max = maxDp),
