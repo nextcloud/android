@@ -26,7 +26,6 @@ import com.nextcloud.utils.extensions.typedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.EditBoxDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
@@ -120,8 +119,6 @@ class CreateAlbumDialogFragment :
         return builder.create()
     }
 
-    private fun getOCCapability(): OCCapability = fileDataStorageManager.getCapability(accountProvider.user.accountName)
-
     private fun checkFileNameAfterEachType() {
         val newAlbumName = binding.userInput.text?.toString() ?: ""
 
@@ -153,7 +150,6 @@ class CreateAlbumDialogFragment :
             .setNegativeButton(R.string.common_cancel, this)
             .setTitle(if (albumName == null) R.string.create_album_dialog_title else R.string.rename_album_dialog_title)
             .setMessage(R.string.create_album_dialog_message)
-    }
 
     override fun onClick(dialog: DialogInterface, which: Int) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
