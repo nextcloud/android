@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -9,13 +9,16 @@ package com.owncloud.android.ui.fragment.albums
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.view.ActionMode
 import android.view.LayoutInflater
 import android.view.Menu
@@ -34,21 +37,26 @@ import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.get
+import androidx.core.view.size
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.appbar.AppBarLayout
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
-import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.owncloud.android.R
@@ -60,36 +68,50 @@ import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.db.ProviderMeta
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.lib.resources.albums.ReadAlbumItemsRemoteOperation
 import com.owncloud.android.lib.resources.albums.RemoveAlbumFileRemoteOperation
 import com.owncloud.android.lib.resources.albums.ToggleAlbumFavoriteRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.lib.resources.status.Type
+import com.owncloud.android.operations.albums.ReadAlbumItemsOperation
 import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.AlbumsPickerActivity.Companion.intentForPickingMediaFiles
 import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.FileActivity.REQUEST_CODE__LAST_SHARED
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.GalleryAdapter
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
 import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment
 import com.owncloud.android.ui.events.FavoriteEvent
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.ui.preview.PreviewImageFragment
 import com.owncloud.android.ui.preview.PreviewMediaActivity.Companion.canBePreviewed
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
-import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.Optional
+import java.util.function.Supplier
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions")
-class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
+@Suppress("TooManyFunctions", "LargeClass")
+class AlbumItemsFragment :
+    Fragment(),
+    OCFileListFragmentInterface,
+    Injectable {
 
     private var adapter: GalleryAdapter? = null
     private var client: OwnCloudClient? = null
@@ -123,6 +145,10 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
     private var isNewAlbum: Boolean = false
 
     private var mMultiChoiceModeListener: MultiChoiceModeListener? = null
+
+    private var albumRemoteFileList = listOf<RemoteFile>()
+
+    private val refreshFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -160,9 +186,11 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
         return binding.root
     }
 
+    @OptIn(FlowPreview::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         optionalUser = Optional.of(accountManager.user)
+        showAppBar()
         createMenu()
         setupContainingList()
         setupContent()
@@ -171,6 +199,24 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
         // then open gallery to choose media to add
         if (isNewAlbum) {
             openGalleryToAddMedia()
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                refreshFlow.onStart { emit(Unit) } // default fetch
+                    .onEach { binding.swipeContainingList.isRefreshing = true } // show progress on each call
+                    .debounce(DEBOUNCE_DELAY) // debounce background triggers
+                    .collect {
+                        fetchAndSetData()
+                    }
+            }
+        }
+    }
+
+    private fun showAppBar() {
+        if (requireActivity() is FileDisplayActivity) {
+            val appBarLayout = requireActivity().findViewById<AppBarLayout>(R.id.appbar)
+            appBarLayout?.setExpanded(true, false)
         }
     }
 
@@ -194,42 +240,49 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
                     menuInflater.inflate(R.menu.fragment_album_items, menu)
                 }
 
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    return when (menuItem.itemId) {
-                        R.id.action_three_dot_icon -> {
-                            openAlbumActionsMenu()
-                            true
-                        }
-
-                        R.id.action_add_more_photos -> {
-                            // open Gallery fragment as selection then add items to current album
-                            openGalleryToAddMedia()
-                            true
-                        }
-
-                        else -> false
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
+                    R.id.action_three_dot_icon -> {
+                        openAlbumActionsMenu()
+                        true
                     }
+
+                    R.id.action_add_from_camera_roll -> {
+                        // we don't want quick media access bottom sheet for Android 13+ devices
+                        // to avoid that we are not using image/* and video/* mime types
+                        // we are validating mime types when selection is made
+                        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+                            type = "*/*"
+                            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                            addCategory(Intent.CATEGORY_OPENABLE)
+                        }
+                        startActivityForResult(
+                            Intent.createChooser(intent, getString(R.string.upload_chooser_title)),
+                            REQUEST_CODE__SELECT_MEDIA_FROM_APPS
+                        )
+                        true
+                    }
+
+                    R.id.action_add_from_account -> {
+                        // open Gallery fragment as selection then add items to current album
+                        openGalleryToAddMedia()
+                        true
+                    }
+
+                    else -> false
                 }
 
                 override fun onPrepareMenu(menu: Menu) {
                     super.onPrepareMenu(menu)
-                    val moreMenu = menu.findItem(R.id.action_three_dot_icon)
-                    moreMenu.icon?.let {
-                        moreMenu.setIcon(
-                            viewThemeUtils.platform.colorDrawable(
-                                it,
-                                ContextCompat.getColor(requireActivity(), R.color.black)
+                    for (i in 0 until menu.size) {
+                        val item = menu[i]
+                        item.icon?.let {
+                            item.setIcon(
+                                viewThemeUtils.platform.colorDrawable(
+                                    it,
+                                    ContextCompat.getColor(requireContext(), R.color.fontAppbar)
+                                )
                             )
-                        )
-                    }
-                    val add = menu.findItem(R.id.action_add_more_photos)
-                    add.icon?.let {
-                        add.setIcon(
-                            viewThemeUtils.platform.colorDrawable(
-                                it,
-                                ContextCompat.getColor(requireActivity(), R.color.black)
-                            )
-                        )
+                        }
                     }
                 }
             },
@@ -253,40 +306,37 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
         }
     }
 
-    private fun onAlbumActionChosen(@IdRes itemId: Int): Boolean {
-        return when (itemId) {
-            // action to rename album
-            R.id.action_rename_file -> {
-                CreateAlbumDialogFragment.newInstance(albumName)
-                    .show(
-                        requireActivity().supportFragmentManager,
-                        CreateAlbumDialogFragment.TAG
-                    )
-                true
-            }
-
-            // action to delete album
-            R.id.action_delete -> {
-                mContainerActivity?.getFileOperationsHelper()?.removeAlbum(albumName)
-                true
-            }
-
-            else -> false
+    private fun onAlbumActionChosen(@IdRes itemId: Int): Boolean = when (itemId) {
+        // action to rename album
+        R.id.action_rename_file -> {
+            CreateAlbumDialogFragment.newInstance(albumName)
+                .show(
+                    requireActivity().supportFragmentManager,
+                    CreateAlbumDialogFragment.TAG
+                )
+            true
         }
+
+        // action to delete album
+        R.id.action_delete -> {
+            showConfirmationDialog(true, null)
+            true
+        }
+
+        else -> false
     }
 
     private fun setupContent() {
         binding.listRoot.setEmptyView(binding.emptyList.emptyListView)
         val layoutManager = GridLayoutManager(requireContext(), 1)
         binding.listRoot.layoutManager = layoutManager
-        fetchAndSetData()
     }
 
     private fun setupContainingList() {
         viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList)
         binding.swipeContainingList.setOnRefreshListener {
             binding.swipeContainingList.isRefreshing = true
-            fetchAndSetData()
+            refreshData()
         }
     }
 
@@ -303,42 +353,38 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
     }
 
     private fun fetchAndSetData() {
+        binding.swipeContainingList.isRefreshing = true
         mMultiChoiceModeListener?.exitSelectionMode()
         initializeAdapter()
         setEmptyListLoadingMessage()
         lifecycleScope.launch(Dispatchers.IO) {
-            val getRemoteNotificationOperation = ReadAlbumItemsRemoteOperation(albumName)
-            val result = client?.let { getRemoteNotificationOperation.execute(it) }
+            val readAlbumItemsRemoteOperation = ReadAlbumItemsOperation(albumName, mContainerActivity?.storageManager)
+            val result = client?.let { readAlbumItemsRemoteOperation.execute(it) }
             val ocFileList = mutableListOf<OCFile>()
 
             if (result?.isSuccess == true && result.resultData != null) {
                 mContainerActivity?.storageManager?.deleteVirtuals(VirtualFolderType.ALBUM)
                 val contentValues = mutableListOf<ContentValues>()
+                albumRemoteFileList = result.resultData.toMutableList()
 
-                for (remoteFile in result.resultData) {
-                    var ocFile = mContainerActivity?.storageManager?.getFileByLocalId(remoteFile.localId)
-                    if (ocFile == null) {
-                        ocFile = FileStorageUtils.fillOCFile(remoteFile)
-                    } else {
-                        // required: as OCFile will only contains file_name.png not with /albums/album_name/file_name
-                        // to fix this we have to get the remote path from remote file and assign to OCFile
-                        ocFile.remotePath = remoteFile.remotePath
-                        ocFile.decryptedRemotePath = remoteFile.remotePath
+                for (remoteFile in albumRemoteFileList) {
+                    val ocFile = mContainerActivity?.storageManager?.getFileByLocalId(remoteFile.localId)
+                    ocFile?.let {
+                        ocFileList.add(it)
+
+                        val cv = ContentValues()
+                        cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, VirtualFolderType.ALBUM.toString())
+                        cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, it.fileId)
+
+                        contentValues.add(cv)
                     }
-                    ocFileList.add(ocFile!!)
-
-                    val cv = ContentValues()
-                    cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, VirtualFolderType.ALBUM.toString())
-                    cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
-
-                    contentValues.add(cv)
                 }
 
                 mContainerActivity?.storageManager?.saveVirtuals(contentValues)
             }
             withContext(Dispatchers.Main) {
                 if (result?.isSuccess == true && result.resultData != null) {
-                    if (result.resultData.isEmpty()) {
+                    if (result.resultData.isEmpty() || ocFileList.isEmpty()) {
                         setMessageForEmptyList(
                             R.string.file_list_empty_headline_server_search,
                             resources.getString(R.string.file_list_empty_gallery),
@@ -467,13 +513,11 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         lastMediaItemPosition = 0
+        super.onDestroyView()
     }
 
-    override fun getColumnsCount(): Int {
-        return columnSize
-    }
+    override fun getColumnsCount(): Int = columnSize
 
     override fun onShareIconClick(file: OCFile?) {
         // nothing to do here
@@ -545,9 +589,7 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
         mMultiChoiceModeListener?.updateActionModeFile(file)
     }
 
-    override fun isLoading(): Boolean {
-        return false
-    }
+    override fun isLoading(): Boolean = false
 
     override fun onHeaderClicked() {
         // nothing to do here
@@ -564,6 +606,7 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
         requireActivity().supportFragmentManager.popBackStack()
     }
 
+    @Suppress("LongMethod")
     private fun openActionsMenu(filesCount: Int, checkedFiles: Set<OCFile>) {
         throttler.run("overflowClick") {
             var toHide: MutableList<Int>? = ArrayList()
@@ -607,7 +650,21 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
             }
 
             val childFragmentManager = childFragmentManager
-            val actionBottomSheet = newInstance(filesCount, checkedFiles, true, toHide)
+            val endpoints = mContainerActivity?.storageManager?.getCapability(
+                optionalUser?.get()
+            )?.getClientIntegrationEndpoints(
+                Type.CONTEXT_MENU,
+                checkedFiles.iterator().next().mimeType
+            )
+
+            val actionBottomSheet = FileActionsBottomSheet.newInstance(
+                filesCount,
+                checkedFiles,
+                true,
+                toHide,
+                false,
+                endpoints!!
+            )
                 .setResultListener(
                     childFragmentManager,
                     this
@@ -626,7 +683,7 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
 
         when (itemId) {
             R.id.action_remove_file -> {
-                onRemoveFileOperation(checkedFiles)
+                showConfirmationDialog(false, checkedFiles)
                 return true
             }
 
@@ -637,6 +694,18 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
 
             R.id.action_unset_favorite -> {
                 mContainerActivity?.fileOperationsHelper?.toggleFavoriteFiles(checkedFiles, false)
+                return true
+            }
+
+            R.id.action_open_file_with -> {
+                // use only first element as this option will only be shown for single file selection
+                mContainerActivity?.fileOperationsHelper?.openFile(checkedFiles.first())
+                return true
+            }
+
+            R.id.action_stream_media -> {
+                // use only first element as this option will only be shown for single file selection
+                mContainerActivity?.fileOperationsHelper?.streamMediaFile(checkedFiles.first())
                 return true
             }
 
@@ -701,7 +770,7 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
                 }
                 if (files.size == 1) {
                     val removeAlbumFileRemoteOperation = RemoveAlbumFileRemoteOperation(
-                        files.first().remotePath
+                        getAlbumRemotePathForRemoval(files.first())
                     )
                     val remoteOperationResult = removeAlbumFileRemoteOperation.execute(client)
 
@@ -720,7 +789,7 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
                 } else {
                     for (file in files) {
                         val removeAlbumFileRemoteOperation = RemoveAlbumFileRemoteOperation(
-                            file.remotePath
+                            getAlbumRemotePathForRemoval(file)
                         )
                         val remoteOperationResult = removeAlbumFileRemoteOperation.execute(client)
 
@@ -745,8 +814,65 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
                 showDialog(false)
 
                 // refresh data
-                fetchAndSetData()
+                refreshData()
             }
+        }
+    }
+
+    // since after files data are fetched in media the file remote path will be actual instead of Albums prefixed
+    // to remove the file properly form the albums we have to provide the correct album path
+    private fun getAlbumRemotePathForRemoval(ocFile: OCFile): String {
+        if (!ocFile.remotePath.startsWith("/albums/$albumName")) {
+            return albumRemoteFileList.find { it.etag == ocFile.etag || it.etag == ocFile.etagOnServer }?.remotePath
+                ?: ocFile.remotePath
+        }
+        return ocFile.remotePath
+    }
+
+    private fun showConfirmationDialog(isAlbum: Boolean, files: Collection<OCFile>?) {
+        val messagePair = getConfirmationDialogMessage(isAlbum, files)
+        val errorDialog = ConfirmationDialogFragment.newInstance(
+            messageResId = messagePair.first,
+            messageArguments = arrayOf(messagePair.second),
+            titleResId = -1,
+            positiveButtonTextId = R.string.file_delete,
+            negativeButtonTextId = R.string.file_keep,
+            neutralButtonTextId = -1
+        )
+        errorDialog.setCancelable(false)
+        errorDialog.setOnConfirmationListener(
+            object : ConfirmationDialogFragmentListener {
+                override fun onConfirmation(callerTag: String?) {
+                    if (isAlbum) {
+                        mContainerActivity?.getFileOperationsHelper()?.removeAlbum(albumName)
+                    } else {
+                        files?.let {
+                            onRemoveFileOperation(it)
+                        }
+                    }
+                }
+
+                override fun onNeutral(callerTag: String?) {
+                    // not used at the moment
+                }
+
+                override fun onCancel(callerTag: String?) {
+                    // not used at the moment
+                }
+            }
+        )
+        errorDialog.show(requireActivity().supportFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
+    }
+
+    private fun getConfirmationDialogMessage(isAlbum: Boolean, files: Collection<OCFile>?): Pair<Int, String?> {
+        if (isAlbum) {
+            return Pair(R.string.confirmation_remove_folder_alert, albumName)
+        }
+
+        return if (files?.size == SINGLE_SELECTION) {
+            Pair(R.string.confirmation_remove_file_alert, files.first().fileName)
+        } else {
+            Pair(R.string.confirmation_remove_files_alert, null)
         }
     }
 
@@ -788,7 +914,8 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
         val adapter: GalleryAdapter?,
         val viewThemeUtils: ViewThemeUtils,
         val openActionsMenu: (Int, Set<OCFile>) -> Unit
-    ) : AbsListView.MultiChoiceModeListener, DrawerLayout.DrawerListener {
+    ) : AbsListView.MultiChoiceModeListener,
+        DrawerLayout.DrawerListener {
 
         var mActiveActionMode: ActionMode? = null
         private var mIsActionModeNew = false
@@ -818,7 +945,7 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
          * @param drawerView Navigation drawer just closed.
          */
         override fun onDrawerClosed(drawerView: View) {
-            if (mActionModeClosedByDrawer && mSelectionWhenActionModeClosedByDrawer.size > 0) {
+            if (mActionModeClosedByDrawer && mSelectionWhenActionModeClosedByDrawer.isNotEmpty()) {
                 activity.startActionMode(this)
 
                 adapter?.setCheckedItem(mSelectionWhenActionModeClosedByDrawer)
@@ -986,11 +1113,75 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
     }
 
     fun refreshData() {
-        fetchAndSetData()
+        refreshFlow.tryEmit(Unit)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (data != null &&
+            requestCode == REQUEST_CODE__SELECT_MEDIA_FROM_APPS && resultCode == RESULT_OK
+        ) {
+            requestUploadOfContentFromApps(data)
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    // method referenced from FileDisplayActivity#requestUploadOfContentFromApps
+    private fun requestUploadOfContentFromApps(contentIntent: Intent) {
+        val clipData = contentIntent.clipData
+        val uris = mutableListOf<Uri>()
+
+        if (clipData != null) {
+            for (i in 0 until clipData.itemCount) {
+                uris.add(clipData.getItemAt(i).uri)
+            }
+        } else {
+            contentIntent.data?.let { uris.add(it) }
+        }
+
+        // only accept images and videos mime type
+        val validUris = uris.filter { uri ->
+            val type = requireActivity().contentResolver.getType(uri)
+            type?.startsWith("image/") == true || type?.startsWith("video/") == true
+        }
+
+        if (validUris.isEmpty()) {
+            DisplayUtils.showSnackMessage(requireActivity(), R.string.album_unsupported_file)
+            return
+        }
+
+        val streamsToUpload = ArrayList<Parcelable?>()
+        streamsToUpload.addAll(validUris)
+
+        // albums remote path for uploading
+        val remotePath =
+            "${resources.getString(R.string.instant_upload_path)}/${resources.getString(R.string.drawer_item_album)}/"
+
+        if (requireActivity() is FileDisplayActivity) {
+            val uploader = UriUploader(
+                requireActivity() as FileDisplayActivity,
+                streamsToUpload,
+                remotePath,
+                albumName,
+                (requireActivity() as FileDisplayActivity).user.orElseThrow(
+                    Supplier { RuntimeException() }
+                ),
+                FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
+                false, // Not show waiting dialog while file is being copied from private storage
+                null // Not needed copy temp task listener
+            )
+
+            uploader.uploadUris()
+        }
     }
 
     companion object {
         val TAG: String = AlbumItemsFragment::class.java.simpleName
+
+        const val REQUEST_CODE__SELECT_MEDIA_FROM_APPS: Int = REQUEST_CODE__LAST_SHARED + 10
+
+        private const val SINGLE_SELECTION = 1
+
         private const val ARG_ALBUM_NAME = "album_name"
         private const val ARG_IS_NEW_ALBUM = "is_new_album"
         var lastMediaItemPosition: Int? = null
@@ -999,6 +1190,7 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
         private const val MAX_COLUMN_SIZE_PORTRAIT: Int = 2
 
         private const val SLEEP_DELAY = 100L
+        private const val DEBOUNCE_DELAY = 500L
 
         fun newInstance(albumName: String, isNewAlbum: Boolean = false): AlbumItemsFragment {
             val args = Bundle()
