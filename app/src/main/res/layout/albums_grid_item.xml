@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
+  ~ SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -63,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/grid_bottom_view_height"
             android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginBottom="@dimen/grid_bottom_view_margin_bottom"
+            android:layout_marginBottom="@dimen/grid_container_margin"
             android:ellipsize="middle"
             android:singleLine="true"
             android:textColor="@color/list_item_lastmod_and_filesize_text"

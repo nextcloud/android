@@ -7,6 +7,7 @@
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2015 ownCloud Inc.
  * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.datamodel;
@@ -434,6 +435,7 @@ public final class ThumbnailsCacheManager {
         private GetMethod getMethod;
         private Listener mListener;
         private boolean gridViewEnabled = false;
+        private boolean hideVideoOverlay = false;
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, User user)
                 throws IllegalArgumentException {
@@ -458,11 +460,13 @@ public final class ThumbnailsCacheManager {
                                        User user,
                                        List<ThumbnailGenerationTask> asyncTasks,
                                        boolean gridViewEnabled,
-                                       String imageKey)
+                                       String imageKey,
+                                       boolean hideVideoOverlay)
             throws IllegalArgumentException {
             this(imageView, storageManager, user, asyncTasks);
             this.gridViewEnabled = gridViewEnabled;
             mImageKey = imageKey;
+            this.hideVideoOverlay = hideVideoOverlay;
         }
 
         public GetMethod getGetMethod() {
@@ -505,7 +509,7 @@ public final class ThumbnailsCacheManager {
                 if (mFile instanceof ServerFileInterface) {
                     thumbnail = doThumbnailFromOCFileInBackground();
 
-                    if (MimeTypeUtil.isVideo((ServerFileInterface) mFile) && thumbnail != null) {
+                    if (MimeTypeUtil.isVideo((ServerFileInterface) mFile) && thumbnail != null && !hideVideoOverlay) {
                         thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
                     }
                 } else if (mFile instanceof File) {
@@ -514,7 +518,7 @@ public final class ThumbnailsCacheManager {
                     String url = ((File) mFile).getAbsolutePath();
                     String mMimeType = FileStorageUtils.getMimeTypeFromName(url);
 
-                    if (MimeTypeUtil.isVideo(mMimeType) && thumbnail != null) {
+                    if (MimeTypeUtil.isVideo(mMimeType) && thumbnail != null && !hideVideoOverlay) {
                         thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
                     }
                     //} else {  do nothing
