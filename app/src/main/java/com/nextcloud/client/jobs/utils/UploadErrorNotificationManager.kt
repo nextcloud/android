@@ -37,7 +37,7 @@ object UploadErrorNotificationManager {
      * by checking if the remote file is identical. If it's a "real" conflict or error,
      * it displays a notification with relevant actions (e.g., Resolve Conflict, Pause, Cancel).
      *
-     * @param onSameFileConflict Triggered only if a 409 Conflict occurs but files are identical.
+     * @param onSameFileConflict Triggered only if result code is SYNC_CONFLICT and files are identical.
      */
     @Suppress("ReturnCount")
     suspend fun handleResult(
