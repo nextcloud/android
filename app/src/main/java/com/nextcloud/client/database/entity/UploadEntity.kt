@@ -66,8 +66,8 @@ fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload? {
     val upload = try {
         OCUpload(localPath, remotePath, accountName)
     } catch (_: IllegalArgumentException) {
-        null
-    } ?: return null
+        return null
+    }
 
     fileSize?.let { upload.fileSize = it }
     id?.let { upload.uploadId = it.toLong() }
