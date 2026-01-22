@@ -183,8 +183,6 @@ object UploadErrorNotificationManager {
             if (isSameFileOnRemote) {
                 Log_OC.w(TAG, "same file exists on remote")
                 notifyOnSameFileExists()
-            } else {
-                Log_OC.w(TAG, "SYNC_CONFLICT but file not same on remote - no notification needed")
             }
 
             return false
