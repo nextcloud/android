@@ -64,7 +64,7 @@ fun TaskView(task: Task, viewModel: AssistantViewModel, capability: OCCapability
                 .clickable {
                     viewModel.selectTask(task)
 
-                    if (task.isTranslate()) {
+                    if (task.type == "core:text2text:translate") {
                         viewModel.updateScreenState(AssistantScreenState.Translation(task))
                     } else {
                         showTaskDetailBottomSheet = true
