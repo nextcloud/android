@@ -159,20 +159,19 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
                 return
             }
 
+            val entity = dao.getFileByPathAndFolder(localPath, syncedFolder.id.toString())
+            val fileSentForUpload = (entity != null && entity.fileSentForUpload == 1)
+            if (fileSentForUpload) {
+                Log_OC.d(TAG, "File was sent for upload, checking if it changed...")
+            }
+
             val fileModified = (lastModified ?: file.lastModified())
-            val shouldSkipFileBasedOnFolderSettings = syncedFolder.shouldSkipFile(file, fileModified, creationTime)
-            if (shouldSkipFileBasedOnFolderSettings) {
+            if (syncedFolder.shouldSkipFile(file, fileModified, creationTime, fileSentForUpload)) {
                 return
             }
 
-            val entity = dao.getFileByPathAndFolder(localPath, syncedFolder.id.toString())
-            if (entity != null && entity.fileSentForUpload == 1) {
-                Log_OC.w(
-                    TAG,
-                    "file already uploaded path: $localPath, " +
-                        "syncedFolder: ${syncedFolder.localPath}, ${syncedFolder.id}"
-                )
-                return
+            if (fileSentForUpload) {
+                Log_OC.d(TAG, "File was sent for upload before but has changed, will re-upload: $localPath")
             }
 
             val crc = getFileChecksum(file)
@@ -182,7 +181,7 @@ class FileSystemRepository(private val dao: FileSystemDao, private val context: 
                 localPath = localPath,
                 fileIsFolder = if (file.isDirectory) 1 else 0,
                 fileFoundRecently = System.currentTimeMillis(),
-                fileSentForUpload = 0,
+                fileSentForUpload = 0, // Reset to 0 to queue for upload
                 syncedFolderId = syncedFolder.id.toString(),
                 crc32 = crc?.toString(),
                 fileModified = fileModified
