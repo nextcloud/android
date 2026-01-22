@@ -155,6 +155,7 @@
     <string name="community_testing_bug_text">Открили сте грешка? Нещо странно?</string>
     <string name="community_testing_headline">Помогни с тестването</string>
     <string name="community_testing_report_text">Докладвайте за проблем чрез Github</string>
+    <string name="compose_activity_label">Асистент на \"Nextcloud\"</string>
     <string name="configure_new_media_folder_detection_notifications">Настройки</string>
     <string name="confirm_removal">Премахване на локалното криптиране</string>
     <string name="confirmation_remove_file_alert">Наистина ли желаете %1$s да бъде изтрит?</string>

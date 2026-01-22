@@ -188,6 +188,7 @@
     <string name="community_testing_bug_text">Bir hata mı buldunuz? Bir gariplik mi var?</string>
     <string name="community_testing_headline">Deneyerek bize yardımcı olun</string>
     <string name="community_testing_report_text">GitHub üzerinden sorun bildirin</string>
+    <string name="compose_activity_label">Nextcloud Yardımcısı</string>
     <string name="configure_new_media_folder_detection_notifications">Yapılandır</string>
     <string name="confirm_removal">Yerel şifrelemeyi kaldır</string>
     <string name="confirmation_remove_file_alert">%1$s dosyasını silmek istediğinize emin misiniz?</string>

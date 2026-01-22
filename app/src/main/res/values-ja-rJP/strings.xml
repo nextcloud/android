@@ -183,6 +183,7 @@
     <string name="community_testing_bug_text">バグがありましたか? 問題がありますか?</string>
     <string name="community_testing_headline">テストによるヘルプ</string>
     <string name="community_testing_report_text">Githubでエラーを報告する</string>
+    <string name="compose_activity_label">Nextcloud アシスタント</string>
     <string name="configure_new_media_folder_detection_notifications">構成</string>
     <string name="confirm_removal">ローカル暗号化を解除</string>
     <string name="confirmation_remove_file_alert">本当に %1$s を削除しますか？</string>

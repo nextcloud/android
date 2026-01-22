@@ -170,6 +170,7 @@
     <string name="community_testing_bug_text">Funnet en feil? Føles noe rart?</string>
     <string name="community_testing_headline">Hjelp oss å teste</string>
     <string name="community_testing_report_text">Rapporter en feil på GitHub</string>
+    <string name="compose_activity_label">Nextcloud-assistent</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurer</string>
     <string name="confirm_removal">Fjern lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Ønsker du virkelig å slette %1$s?</string>

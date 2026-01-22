@@ -188,6 +188,7 @@
     <string name="community_testing_bug_text">Found a bug? Oddments?</string>
     <string name="community_testing_headline">Help by testing</string>
     <string name="community_testing_report_text">Report an issue on GitHub</string>
+    <string name="compose_activity_label">Nextcloud Assistant</string>
     <string name="configure_new_media_folder_detection_notifications">Configure</string>
     <string name="confirm_removal">Remove local encryption</string>
     <string name="confirmation_remove_file_alert">Do you really want to delete %1$s?</string>

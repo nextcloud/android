@@ -183,6 +183,7 @@
     <string name="community_testing_bug_text">Fundet en fejl? Mærkværdighed?</string>
     <string name="community_testing_headline">Hjælp med at test</string>
     <string name="community_testing_report_text">Rapportér et problem på Github</string>
+    <string name="compose_activity_label">Nextcloud assistent</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurer</string>
     <string name="confirm_removal">Fjern lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Er du sikker på at du vil slette %1$s ?</string>

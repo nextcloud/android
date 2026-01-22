@@ -95,6 +95,7 @@
     <string name="common_switch_account">Cambiar de cuenta</string>
     <string name="common_yes">Sí</string>
     <string name="community_contribute_translate_translate">Traducir</string>
+    <string name="compose_activity_label">Asistente de Nextcloud</string>
     <string name="confirmation_remove_local">Namái llocal</string>
     <string name="conflict_local_file">Ficheru llocal</string>
     <string name="contacts">Contautos</string>

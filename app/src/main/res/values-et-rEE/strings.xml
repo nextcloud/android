@@ -188,6 +188,7 @@
     <string name="community_testing_bug_text">Leidsid vea? Midagi veidrat?</string>
     <string name="community_testing_headline">Aita testimisega</string>
     <string name="community_testing_report_text">Teavita probleemist GitHubis</string>
+    <string name="compose_activity_label">Nextcloudi Abiline</string>
     <string name="configure_new_media_folder_detection_notifications">Seadista</string>
     <string name="confirm_removal">Eemalda kohalik krüptimine</string>
     <string name="confirmation_remove_file_alert">Oled sa kindel, et soovid %1$s kustutada?</string>
