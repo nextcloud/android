@@ -149,6 +149,7 @@
     <string name="community_testing_bug_text">خطایی پیدا کردید؟ عجیب و غریب؟</string>
     <string name="community_testing_headline">با آزمایش کردن کمک کنید</string>
     <string name="community_testing_report_text">گزارش یک مورد در GitHub</string>
+    <string name="compose_activity_label">Nextcloud Assistant</string>
     <string name="configure_new_media_folder_detection_notifications">" پیکربندی"</string>
     <string name="confirm_removal">رمزگذاری محلی را حذف کنید.</string>
     <string name="confirmation_remove_file_alert">آیا واقعا می‌خواهید %1$s را حذف کنید؟</string>

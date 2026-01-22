@@ -187,6 +187,7 @@
     <string name="community_testing_bug_text">Hittat en bugg? Något som är konstigt?</string>
     <string name="community_testing_headline">Hjälp till att testa</string>
     <string name="community_testing_report_text">Rapportera ditt problem på GitHub</string>
+    <string name="compose_activity_label">Nextcloud Assistant</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurera</string>
     <string name="confirm_removal">Ta bort lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Vill du verkligen ta bort %1$s?</string>

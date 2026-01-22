@@ -187,6 +187,7 @@
     <string name="community_testing_bug_text">Je, umepata mdudu? Odds?</string>
     <string name="community_testing_headline">Msaada kwa kupima</string>
     <string name="community_testing_report_text">Ripoti suala kwenye GitHub</string>
+    <string name="compose_activity_label">Msaidizi wa Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Sanidi</string>
     <string name="confirm_removal">Ondoa usimbaji fiche wa ndani</string>
     <string name="confirmation_remove_file_alert">Je, kweli unataka kufuta %1$s?</string>

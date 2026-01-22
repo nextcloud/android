@@ -18,7 +18,7 @@
     <string name="actionbar_move_or_copy">Déplacer ou copier</string>
     <string name="actionbar_open_with">Ouvrir avec</string>
     <string name="actionbar_search">Rechercher</string>
-    <string name="actionbar_see_details">Propriétés</string>
+    <string name="actionbar_see_details">Détails</string>
     <string name="actionbar_send_file">Envoyer</string>
     <string name="actionbar_settings">Paramètres</string>
     <string name="actionbar_sort">Trier</string>
@@ -187,6 +187,7 @@
     <string name="community_testing_bug_text">Vous avez trouvé un bug ? Quelque chose vous semble étrange ?</string>
     <string name="community_testing_headline">Aidez en réalisant des tests</string>
     <string name="community_testing_report_text">Signaler un problème sur Github</string>
+    <string name="compose_activity_label">Assistant Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Configurer</string>
     <string name="confirm_removal">Retirer le chiffrement local</string>
     <string name="confirmation_remove_file_alert">Souhaitez-vous vraiment supprimer %1$s ?</string>
@@ -753,6 +754,7 @@
     <string name="prefs_two_way_sync_interval">Intervalle</string>
     <string name="prefs_two_way_sync_summary">Gestion les dossiers internes pour une synchronisation bidirectionnelle</string>
     <string name="prefs_two_way_sync_switch_title">Activer la synchronisation bidirectionnelle</string>
+    <string name="prefs_two_way_sync_title">Synchronisation bidirectionnelle</string>
     <string name="prefs_value_theme_dark">Sombre</string>
     <string name="prefs_value_theme_light">Clair</string>
     <string name="prefs_value_theme_system">Selon le système</string>
@@ -957,6 +959,8 @@
     <string name="suggest">Suggérer</string>
     <string name="sync">Synchroniser</string>
     <string name="sync_anyway">Synchroniser quand même</string>
+    <string name="sync_conflict_notification_action_title">Résoudre les conflits</string>
+    <string name="sync_conflict_notification_title">Conflits de téléversement de fichiers</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
     <string name="sync_duplication">Duplication de synchronisation</string>

@@ -187,6 +187,7 @@
     <string name="community_testing_bug_text">Našli jste chybu? Něco podivného?</string>
     <string name="community_testing_headline">Pomozte testováním</string>
     <string name="community_testing_report_text">Nahlásit problém prostřednictvím portálu Github</string>
+    <string name="compose_activity_label">Nextcloud Asistent</string>
     <string name="configure_new_media_folder_detection_notifications">Nastavit</string>
     <string name="confirm_removal">Odebrat lokální šifrování</string>
     <string name="confirmation_remove_file_alert">Opravdu chcete %1$s odstranit?</string>

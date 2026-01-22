@@ -187,6 +187,7 @@
     <string name="community_testing_bug_text">Trovato un bug? Stranezze?</string>
     <string name="community_testing_headline">Aiutaci nella fase di test</string>
     <string name="community_testing_report_text">Segnala un problema su GitHub</string>
+    <string name="compose_activity_label">Assistente di Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Configura</string>
     <string name="confirm_removal">Rimuovi la cifratura locale</string>
     <string name="confirmation_remove_file_alert">Vuoi davvero eliminare %1$s?</string>

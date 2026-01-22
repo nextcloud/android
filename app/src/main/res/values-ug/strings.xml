@@ -187,6 +187,7 @@
     <string name="community_testing_bug_text">خاتالىق بايقالدى؟ قالدۇق؟</string>
     <string name="community_testing_headline">سىناق ئارقىلىق ياردەم</string>
     <string name="community_testing_report_text">GitHub دىكى بىر مەسىلىنى دوكلات قىلىڭ</string>
+    <string name="compose_activity_label">Nextcloud ياردەمچىسى</string>
     <string name="configure_new_media_folder_detection_notifications">سەپلەڭ</string>
     <string name="confirm_removal">يەرلىك مەخپىيلەشتۈرۈشنى ئۆچۈرۈڭ</string>
     <string name="confirmation_remove_file_alert">راستىنلا%1$s نى ئۆچۈرمەكچىمۇ؟</string>

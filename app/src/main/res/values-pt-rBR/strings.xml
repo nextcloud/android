@@ -188,6 +188,7 @@
     <string name="community_testing_bug_text">Encontrou um erro? Algo estranho?</string>
     <string name="community_testing_headline">Ajude testando</string>
     <string name="community_testing_report_text">Reporte um problema no GitHub</string>
+    <string name="compose_activity_label">Nextcloud Assistente</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
     <string name="confirm_removal">Remover criptografia local</string>
     <string name="confirmation_remove_file_alert">Quer realmente excluir %1$s?</string>

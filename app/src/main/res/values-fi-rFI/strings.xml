@@ -167,6 +167,7 @@
     <string name="community_testing_bug_text">Löysitkö bugin tai jotain muuta outoa?</string>
     <string name="community_testing_headline">Auta testaamalla</string>
     <string name="community_testing_report_text">Ilmoita ongelmasta GitHubissa</string>
+    <string name="compose_activity_label">Nextcloud-avustaja</string>
     <string name="configure_new_media_folder_detection_notifications">Asetukset</string>
     <string name="confirm_removal">Poista paikallinen salaus</string>
     <string name="confirmation_remove_file_alert">Haluatko varmasti poistaa kohteen %1$s?</string>

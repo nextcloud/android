@@ -151,6 +151,7 @@
     <string name="community_testing_bug_text">Βρήκατε σφάλμα; Κάτι σας φαίνεται παράξενο;</string>
     <string name="community_testing_headline">Βοήθησε δοκιμάζοντας</string>
     <string name="community_testing_report_text">Ανέφερε ένα ζήτημα στο GitHub</string>
+    <string name="compose_activity_label">Βοηθός Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Ρύθμιση</string>
     <string name="confirm_removal">Αφαίρεση τοπικής κρυπτογράφησης</string>
     <string name="confirmation_remove_file_alert">Θέλετε σίγουρα να διαγράψετε το %1$s;</string>
