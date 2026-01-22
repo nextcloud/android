@@ -405,18 +405,14 @@ class AutoUploadWorker(
             return null
         }
 
-        var upload = try {
-            (uploadEntity?.toOCUpload(null) ?: OCUpload(localPath, remotePath, user.accountName))
+        val upload = try {
+            uploadEntity?.toOCUpload(null) ?: OCUpload(localPath, remotePath, user.accountName)
         } catch (_: IllegalArgumentException) {
-            null
-        }
-
-        if (upload == null) {
             Log_OC.e(TAG, "cannot construct oc upload")
             return null
         }
 
-        upload = upload.apply {
+        upload.apply {
             uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
             nameCollisionPolicy = syncedFolder.nameCollisionPolicy
             isUseWifiOnly = needsWifi
