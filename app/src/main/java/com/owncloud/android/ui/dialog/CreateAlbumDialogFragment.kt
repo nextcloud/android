@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -26,7 +26,6 @@ import com.nextcloud.utils.extensions.typedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.EditBoxDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
@@ -39,7 +38,10 @@ import javax.inject.Inject
  *
  * Triggers the folder creation when name is confirmed.
  */
-class CreateAlbumDialogFragment : DialogFragment(), DialogInterface.OnClickListener, Injectable {
+class CreateAlbumDialogFragment :
+    DialogFragment(),
+    DialogInterface.OnClickListener,
+    Injectable {
 
     @Inject
     lateinit var fileDataStorageManager: FileDataStorageManager
@@ -116,13 +118,11 @@ class CreateAlbumDialogFragment : DialogFragment(), DialogInterface.OnClickListe
         return builder.create()
     }
 
-    private fun getOCCapability(): OCCapability = fileDataStorageManager.getCapability(accountProvider.user.accountName)
-
     private fun checkFileNameAfterEachType() {
         val newAlbumName = binding.userInput.text?.toString() ?: ""
 
         val errorMessage = when {
-            newAlbumName.isEmpty() -> getString(R.string.album_name_empty)
+            newAlbumName.isBlank() -> getString(R.string.album_name_empty)
             else -> null
         }
 
@@ -139,25 +139,24 @@ class CreateAlbumDialogFragment : DialogFragment(), DialogInterface.OnClickListe
         }
     }
 
-    private fun buildMaterialAlertDialog(view: View): MaterialAlertDialogBuilder {
-        return MaterialAlertDialogBuilder(requireActivity())
+    private fun buildMaterialAlertDialog(view: View): MaterialAlertDialogBuilder =
+        MaterialAlertDialogBuilder(requireActivity())
             .setView(view)
             .setPositiveButton(
-                if (albumName == null) R.string.folder_confirm_create else R.string.rename_dialog_title,
+                if (albumName == null) R.string.folder_confirm_create else R.string.rename_dialog_button,
                 this
             )
             .setNegativeButton(R.string.common_cancel, this)
             .setTitle(if (albumName == null) R.string.create_album_dialog_title else R.string.rename_album_dialog_title)
             .setMessage(R.string.create_album_dialog_message)
-    }
 
     override fun onClick(dialog: DialogInterface, which: Int) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
             val newAlbumName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
-                .text.toString()
+                .text.toString().trim()
 
             val errorMessage = when {
-                newAlbumName.isEmpty() -> getString(R.string.album_name_empty)
+                newAlbumName.isBlank() -> getString(R.string.album_name_empty)
                 else -> null
             }
 
@@ -190,13 +189,11 @@ class CreateAlbumDialogFragment : DialogFragment(), DialogInterface.OnClickListe
          * @return Dialog ready to show.
          */
         @JvmStatic
-        fun newInstance(albumName: String? = null): CreateAlbumDialogFragment {
-            return CreateAlbumDialogFragment().apply {
-                val argsBundle = bundleOf(
-                    ARG_ALBUM_NAME to albumName
-                )
-                arguments = argsBundle
-            }
+        fun newInstance(albumName: String? = null): CreateAlbumDialogFragment = CreateAlbumDialogFragment().apply {
+            val argsBundle = bundleOf(
+                ARG_ALBUM_NAME to albumName
+            )
+            arguments = argsBundle
         }
     }
 }
