@@ -187,6 +187,7 @@
     <string name="community_testing_bug_text">发现错误？细节？</string>
     <string name="community_testing_headline">通过测试帮助</string>
     <string name="community_testing_report_text">在Github报告问题 OR 通过Github提交问题（issue）</string>
+    <string name="compose_activity_label">Nextcloud助手</string>
     <string name="configure_new_media_folder_detection_notifications">用户配置</string>
     <string name="confirm_removal">移除近端加密</string>
     <string name="confirmation_remove_file_alert">确定删除%1$s？</string>

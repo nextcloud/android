@@ -188,6 +188,7 @@
     <string name="community_testing_bug_text">Помітили ваду чи помилку?</string>
     <string name="community_testing_headline">Допомогти з тестуванням</string>
     <string name="community_testing_report_text">Повідомити про помилку на GitHub</string>
+    <string name="compose_activity_label">Асистент Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Налаштування</string>
     <string name="confirm_removal">Вилучити шифрування на пристрої</string>
     <string name="confirmation_remove_file_alert">Ви справді бажаєте вилучити %1$s?</string>

@@ -175,6 +175,7 @@
     <string name="community_testing_bug_text">버그를 찾으셨나요? 무언가 이상하게 작동하나요?</string>
     <string name="community_testing_headline">테스트로 돕기</string>
     <string name="community_testing_report_text">GitHub에 문제점 보고하기</string>
+    <string name="compose_activity_label">Nextcloud 어시스턴트</string>
     <string name="configure_new_media_folder_detection_notifications">구성</string>
     <string name="confirm_removal">로컬 암호화를 제거합니다.</string>
     <string name="confirmation_remove_file_alert">%1$s을(를) 삭제하시겠습니까?</string>

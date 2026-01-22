@@ -183,6 +183,7 @@
     <string name="community_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
     <string name="community_testing_headline">Помогите нам в тестировании</string>
     <string name="community_testing_report_text">Сообщить о проблеме на GitHub</string>
+    <string name="compose_activity_label">Помощник Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Настроить</string>
     <string name="confirm_removal">Отключить шифрование на устройстве</string>
     <string name="confirmation_remove_file_alert">Действительно удалить «%1$s»?</string>

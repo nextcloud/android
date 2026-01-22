@@ -187,6 +187,7 @@
     <string name="community_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="community_testing_headline">Pomóż nam testować</string>
     <string name="community_testing_report_text">Zgłoś problem na GitHubie</string>
+    <string name="compose_activity_label">Asystent Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguruj</string>
     <string name="confirm_removal">Usuń szyfrowanie lokalne</string>
     <string name="confirmation_remove_file_alert">Czy na pewno chcesz usunąć %1$s?</string>

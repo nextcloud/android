@@ -183,6 +183,7 @@
     <string name="community_testing_bug_text">Нашли сте грешку? Нешто чудно?</string>
     <string name="community_testing_headline">Помози тестирајући</string>
     <string name="community_testing_report_text">Пријавите проблем на Гитхабу</string>
+    <string name="compose_activity_label">Nextcloud Асистент</string>
     <string name="configure_new_media_folder_detection_notifications">Подеси</string>
     <string name="confirm_removal">Уклони локално шифровање</string>
     <string name="confirmation_remove_file_alert">Заиста желите да обришете %1$s?</string>

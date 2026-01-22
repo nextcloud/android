@@ -188,6 +188,7 @@
     <string name="community_testing_bug_text">Aimsíodh fabht? Oddments?</string>
     <string name="community_testing_headline">Cabhair trí thástáil</string>
     <string name="community_testing_report_text">Tuairiscigh saincheist ar GitHub</string>
+    <string name="compose_activity_label">Cúntóir Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Cumraigh</string>
     <string name="confirm_removal">Bain criptiú áitiúil</string>
     <string name="confirmation_remove_file_alert">An bhfuil tú cinnte gur mhaith leat %1$s a scriosadh?</string>

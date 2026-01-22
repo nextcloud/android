@@ -188,6 +188,7 @@
     <string name="community_testing_bug_text">發現問題或瑕疵？</string>
     <string name="community_testing_headline">協助測試</string>
     <string name="community_testing_report_text">在 GitHub 上舉報問題</string>
+    <string name="compose_activity_label">Nextcloud 小幫手</string>
     <string name="configure_new_media_folder_detection_notifications">設定</string>
     <string name="confirm_removal">移除近端加密</string>
     <string name="confirmation_remove_file_alert">你真的想要刪除 %1$s？</string>

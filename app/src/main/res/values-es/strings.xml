@@ -180,6 +180,7 @@
     <string name="community_testing_bug_text">¿Encontraste un error? ¿Algo va mal?</string>
     <string name="community_testing_headline">Ayúdanos a realizar pruebas</string>
     <string name="community_testing_report_text">Informar de un problema en GitHub</string>
+    <string name="compose_activity_label">Asistente de Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
     <string name="confirm_removal">Eliminar cifrado local</string>
     <string name="confirmation_remove_file_alert">¿Estás seguro de que quieres eliminar %1$s?</string>

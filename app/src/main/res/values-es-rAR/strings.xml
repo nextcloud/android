@@ -155,6 +155,7 @@
     <string name="community_testing_bug_text">¿Encontró una falla? ¿Hay algo raro?</string>
     <string name="community_testing_headline">Ayúdenos probando</string>
     <string name="community_testing_report_text">Reportar un error en GitHub</string>
+    <string name="compose_activity_label">Asistente de Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
     <string name="confirm_removal">Eliminar encriptación local</string>
     <string name="confirmation_remove_file_alert">¿Realmente quieres eliminar %1$s?</string>

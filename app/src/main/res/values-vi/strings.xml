@@ -140,6 +140,7 @@
     <string name="community_testing_bug_text">Tìm thấy một lỗi?</string>
     <string name="community_testing_headline">Giúp bằng cách thử</string>
     <string name="community_testing_report_text">Báo cáo vấn đề trên GitHub</string>
+    <string name="compose_activity_label">Trợ lý Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Thiết lập</string>
     <string name="confirmation_remove_file_alert">Bạn thực sự muốn xóa %1$s?</string>
     <string name="confirmation_remove_files_alert">Bạn thực sự muốn xóa mục lựa chọn này?</string>

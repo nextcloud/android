@@ -184,6 +184,7 @@
     <string name="community_testing_bug_text">ພົບຂໍ້ຜິດພາດບໍ? </string>
     <string name="community_testing_headline">ການຊ່ວຍເຫຼືອ ໂດຍການທົດສອບ</string>
     <string name="community_testing_report_text">ລາຍງານບັນຫາກ່ຽວກັບ GitHub</string>
+    <string name="compose_activity_label">ຜູ້ຊ່ວຍ Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">ຕັ້ງຄ່າຄອຍຟິກ</string>
     <string name="confirm_removal">Remove local encryption</string>
     <string name="confirmation_remove_file_alert">ທ່ານຕ້ອງການລືບແທ້ບໍ %1$s?</string>
