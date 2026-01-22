@@ -132,10 +132,10 @@ class AutoUploadHelperTest {
             type = MediaFolderType.CUSTOM
         )
 
-        val shouldSkipOldFile = folder.shouldSkipFile(oldFile, oldFileLastModified, null)
+        val shouldSkipOldFile = folder.shouldSkipFile(oldFile, oldFileLastModified, null, true)
         assertTrue(shouldSkipOldFile)
 
-        val shouldSkipNewFile = folder.shouldSkipFile(newFile, currentTime, null)
+        val shouldSkipNewFile = folder.shouldSkipFile(newFile, currentTime, null, false)
         assertTrue(!shouldSkipNewFile)
     }
 
@@ -157,10 +157,10 @@ class AutoUploadHelperTest {
             lastScanTimestampMs = currentTime
         }
 
-        val shouldSkipOldFile = folder.shouldSkipFile(oldFile, oldFileLastModified, null)
+        val shouldSkipOldFile = folder.shouldSkipFile(oldFile, oldFileLastModified, null, true)
         assertTrue(shouldSkipOldFile)
 
-        val shouldSkipNewFile = folder.shouldSkipFile(newFile, currentTime, null)
+        val shouldSkipNewFile = folder.shouldSkipFile(newFile, currentTime, null, false)
         assertTrue(!shouldSkipNewFile)
     }
 
@@ -305,10 +305,10 @@ class AutoUploadHelperTest {
             setEnabled(true, currentTime)
         }
 
-        val shouldSkipOldFile = folderSkipOld.shouldSkipFile(oldFile, oldFileLastModified, oldFileCreationTime)
+        val shouldSkipOldFile = folderSkipOld.shouldSkipFile(oldFile, oldFileLastModified, oldFileCreationTime, true)
         assertTrue(shouldSkipOldFile)
 
-        val shouldSkipNewFile = folderSkipOld.shouldSkipFile(newFile, newFileLastModified, newFileCreationTime)
+        val shouldSkipNewFile = folderSkipOld.shouldSkipFile(newFile, newFileLastModified, newFileCreationTime, false)
         assertTrue(!shouldSkipNewFile)
 
         val folderUploadAll = createTestFolder(
@@ -320,11 +320,11 @@ class AutoUploadHelperTest {
         }
 
         val shouldSkipOldFileIfAlsoUploadExistingFile =
-            folderUploadAll.shouldSkipFile(oldFile, oldFileLastModified, oldFileCreationTime)
+            folderUploadAll.shouldSkipFile(oldFile, oldFileLastModified, oldFileCreationTime, true)
         assertTrue(!shouldSkipOldFileIfAlsoUploadExistingFile)
 
         val shouldSkipNewFileIfAlsoUploadExistingFile =
-            folderUploadAll.shouldSkipFile(newFile, newFileLastModified, newFileCreationTime)
+            folderUploadAll.shouldSkipFile(newFile, newFileLastModified, newFileCreationTime, false)
         assertTrue(!shouldSkipNewFileIfAlsoUploadExistingFile)
     }
 }
