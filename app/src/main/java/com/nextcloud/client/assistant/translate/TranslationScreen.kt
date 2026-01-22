@@ -68,6 +68,7 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
     }
 
     BackHandler {
+        viewModel.updateTranslationTaskState(false)
         viewModel.selectTask(null)
         viewModel.updateScreenState(AssistantScreenState.TaskContent)
     }
@@ -75,6 +76,7 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
     // task is unselected
     DisposableEffect(Unit) {
         onDispose {
+            viewModel.updateTranslationTaskState(false)
             viewModel.selectTask(null)
         }
     }
@@ -86,7 +88,6 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
             .padding(top = 32.dp),
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                // TODO:
                 val originLang = sourceState.language
                 val targetLang = targetState.language
                 if (originLang != null && targetLang != null) {
