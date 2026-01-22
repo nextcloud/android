@@ -489,6 +489,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                     paths.add(file.getRemotePath());
                 }
                 checkedFiles = null;
+                exitSelectionMode();
                 if (!TextUtils.isEmpty(albumName)) {
                     mContainerActivity.getFileOperationsHelper().albumCopyFiles(paths, albumName);
                 } else {
