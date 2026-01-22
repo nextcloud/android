@@ -1505,6 +1505,7 @@
     <string name="hidden_album_name">Album name cannot start with invalid char</string>
     <string name="add_more">Add more</string>
     <string name="album_rename">Rename Album</string>
+    <string name="rename_dialog_button">Rename</string>
     <string name="album_delete">Delete Album</string>
     <string name="album_delete_failed_message">Failed to delete few of the files.</string>
     <string name="album_items_text">%d Items — %s</string>
@@ -1515,4 +1516,9 @@
     <string name="empty_albums_message">You can organize all your photos in as many albums as you like. You haven\'t created an album yet.</string>
     <string name="add_to_album">Add to Album</string>
     <string name="album_file_added_message">File added successfully</string>
+    <string name="album_unsupported_file">Unsupported media</string>
+    <string name="album_upload_from_camera_roll">Upload from cameraroll</string>
+    <string name="album_upload_from_account">Select images from account</string>
+    <string name="album_rename_conflict">This name is already in use.</string>
+    <string name="album_copy_file_conflict">Already exists.</string>
 </resources>

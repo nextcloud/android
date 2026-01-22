@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -12,6 +12,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -31,12 +32,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.appbar.AppBarLayout
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.utils.Throttler
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AlbumsFragmentBinding
 import com.owncloud.android.datamodel.SyncedFolderProvider
@@ -56,7 +59,10 @@ import kotlinx.coroutines.withContext
 import java.util.Optional
 import javax.inject.Inject
 
-class AlbumsFragment : Fragment(), AlbumFragmentInterface, Injectable {
+class AlbumsFragment :
+    Fragment(),
+    AlbumFragmentInterface,
+    Injectable {
 
     private var adapter: AlbumsAdapter? = null
     private var client: OwnCloudClient? = null
@@ -79,11 +85,15 @@ class AlbumsFragment : Fragment(), AlbumFragmentInterface, Injectable {
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
+    @Inject
+    lateinit var throttler: Throttler
+
     private var mContainerActivity: FileFragment.ContainerActivity? = null
 
     private var isGridView = true
     private var maxColumnSize = 2
     private var isSelectionMode = false
+    private var listState: Parcelable? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -126,11 +136,19 @@ class AlbumsFragment : Fragment(), AlbumFragmentInterface, Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         optionalUser = Optional.of(accountManager.user)
+        showAppBar()
         createMenu()
         setupContainingList()
         setupContent()
         binding.createAlbum.setOnClickListener {
             showCreateAlbumDialog()
+        }
+    }
+
+    private fun showAppBar() {
+        if (requireActivity() is FileDisplayActivity) {
+            val appBarLayout = requireActivity().findViewById<AppBarLayout>(R.id.appbar)
+            appBarLayout?.setExpanded(true, false)
         }
     }
 
@@ -154,15 +172,13 @@ class AlbumsFragment : Fragment(), AlbumFragmentInterface, Injectable {
                     addItem.title = coloredTitle
                 }
 
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    return when (menuItem.itemId) {
-                        R.id.action_create_new_album -> {
-                            showCreateAlbumDialog()
-                            true
-                        }
-
-                        else -> false
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
+                    R.id.action_create_new_album -> {
+                        showCreateAlbumDialog()
+                        true
                     }
+
+                    else -> false
                 }
             },
             viewLifecycleOwner,
@@ -171,11 +187,16 @@ class AlbumsFragment : Fragment(), AlbumFragmentInterface, Injectable {
     }
 
     private fun showCreateAlbumDialog() {
-        CreateAlbumDialogFragment.newInstance()
-            .show(
-                requireActivity().supportFragmentManager,
-                CreateAlbumDialogFragment.TAG
-            )
+        throttler.run("onCreateAlbumClick") {
+            val fragment = requireActivity().supportFragmentManager.findFragmentByTag(CreateAlbumDialogFragment.TAG)
+            if (fragment == null) {
+                CreateAlbumDialogFragment.newInstance()
+                    .show(
+                        requireActivity().supportFragmentManager,
+                        CreateAlbumDialogFragment.TAG
+                    )
+            }
+        }
     }
 
     private fun setupContent() {
@@ -211,8 +232,8 @@ class AlbumsFragment : Fragment(), AlbumFragmentInterface, Injectable {
         initializeAdapter()
         updateEmptyView(false)
         lifecycleScope.launch(Dispatchers.IO) {
-            val getRemoteNotificationOperation = ReadAlbumsRemoteOperation()
-            val result = client?.let { getRemoteNotificationOperation.execute(it) }
+            val albumsRemoteOperation = ReadAlbumsRemoteOperation()
+            val result = client?.let { albumsRemoteOperation.execute(it) }
             withContext(Dispatchers.Main) {
                 if (result?.isSuccess == true && result.resultData != null) {
                     if (result.resultData.isEmpty()) {
@@ -259,6 +280,11 @@ class AlbumsFragment : Fragment(), AlbumFragmentInterface, Injectable {
             )
         }
         binding.listRoot.adapter = adapter
+
+        // Restore scroll state
+        listState?.let {
+            binding.listRoot.layoutManager?.onRestoreInstanceState(it)
+        }
     }
 
     private fun updateEmptyView(isEmpty: Boolean) {
@@ -308,6 +334,7 @@ class AlbumsFragment : Fragment(), AlbumFragmentInterface, Injectable {
     override fun onPause() {
         super.onPause()
         adapter?.cancelAllPendingTasks()
+        listState = binding.listRoot.layoutManager?.onSaveInstanceState()
     }
 
     private val isGridEnabled: Boolean

@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2021-2025 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2021-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2020 Infomaniak Network SA
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
@@ -568,7 +568,16 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else if (itemId == R.id.nav_gallery) {
             openMediaTab(menuItem.getItemId());
         } else if (itemId == R.id.nav_album) {
-            replaceAlbumFragment();
+            if (this instanceof FileDisplayActivity) {
+                replaceAlbumFragment();
+            } else {
+                // when user is not on FileDisplayActivity
+                // if user is on TrashbinActivity then we have to start activity again
+                Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setAction(FileDisplayActivity.ALBUMS);
+                startActivity(intent);
+            }
         } else if (itemId == R.id.nav_on_device) {
             showOnDeviceFiles();
         } else if (itemId == R.id.nav_uploads) {
@@ -646,6 +655,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 startAssistantScreen();
             } else if (menuItemId == R.id.nav_gallery) {
                 openMediaTab(menuItem.getItemId());
+            } else if (menuItemId == R.id.nav_album) {
+                replaceAlbumFragment();
             }
 
             // Remove extra icon from the action bar
@@ -670,7 +681,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void replaceAlbumFragment() {
+    public void replaceAlbumFragment() {
         if (isAlbumsFragment()) {
             return;
         }

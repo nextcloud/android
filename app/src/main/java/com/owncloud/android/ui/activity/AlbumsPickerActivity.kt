@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -31,7 +31,11 @@ import com.owncloud.android.ui.fragment.albums.AlbumsFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 
-class AlbumsPickerActivity : FileActivity(), FileFragment.ContainerActivity, OnEnforceableRefreshListener, Injectable {
+class AlbumsPickerActivity :
+    FileActivity(),
+    FileFragment.ContainerActivity,
+    OnEnforceableRefreshListener,
+    Injectable {
 
     private var captionText: String? = null
 
@@ -51,8 +55,8 @@ class AlbumsPickerActivity : FileActivity(), FileFragment.ContainerActivity, OnE
 
         initBinding()
         setupToolbar()
-        setupActionBar()
         setupAction()
+        setupActionBar()
 
         if (savedInstanceState == null) {
             createFragments()
@@ -66,7 +70,13 @@ class AlbumsPickerActivity : FileActivity(), FileFragment.ContainerActivity, OnE
             View.GONE
         findViewById<View>(R.id.switch_grid_view_button).visibility =
             View.GONE
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.let { actionBar ->
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeButtonEnabled(true)
+            captionText?.let {
+                viewThemeUtils.files.themeActionBar(this, actionBar, it)
+            }
+        }
     }
 
     private fun setupAction() {
@@ -188,17 +198,15 @@ class AlbumsPickerActivity : FileActivity(), FileFragment.ContainerActivity, OnE
 
         private val TAG = AlbumsPickerActivity::class.java.simpleName
 
-        fun intentForPickingAlbum(context: FragmentActivity): Intent {
-            return Intent(context, AlbumsPickerActivity::class.java).apply {
+        fun intentForPickingAlbum(context: FragmentActivity): Intent =
+            Intent(context, AlbumsPickerActivity::class.java).apply {
                 putExtra(EXTRA_ACTION, CHOOSE_ALBUM)
             }
-        }
 
-        fun intentForPickingMediaFiles(context: FragmentActivity): Intent {
-            return Intent(context, AlbumsPickerActivity::class.java).apply {
+        fun intentForPickingMediaFiles(context: FragmentActivity): Intent =
+            Intent(context, AlbumsPickerActivity::class.java).apply {
                 putExtra(EXTRA_ACTION, CHOOSE_MEDIA_FILES)
             }
-        }
     }
 
     override fun onRefresh(enforced: Boolean) {

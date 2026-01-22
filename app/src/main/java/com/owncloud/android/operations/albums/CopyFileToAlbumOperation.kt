@@ -25,8 +25,7 @@ class CopyFileToAlbumOperation(
     private val srcPath: String,
     private var targetParentPath: String,
     storageManager: FileDataStorageManager
-) :
-    SyncOperation(storageManager) {
+) : SyncOperation(storageManager) {
     init {
         if (!targetParentPath.endsWith(OCFile.PATH_SEPARATOR)) {
             this.targetParentPath += OCFile.PATH_SEPARATOR
