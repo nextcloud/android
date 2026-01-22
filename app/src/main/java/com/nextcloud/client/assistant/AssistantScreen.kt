@@ -319,7 +319,7 @@ private fun InputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, viewMode
                         } else {
                             if (taskType.isTranslate()) {
                                 // TODO:
-                                viewModel.translate()
+                                // viewModel.translate()
                             } else {
                                 viewModel.createTask(input = text, taskType = taskType)
                             }
