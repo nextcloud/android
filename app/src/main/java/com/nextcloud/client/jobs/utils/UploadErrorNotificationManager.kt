@@ -98,6 +98,8 @@ object UploadErrorNotificationManager {
         Log_OC.d(TAG, "🔔" + "notification created")
 
         withContext(Dispatchers.Main) {
+
+            // if error code is file specific show new notification for each file
             if (result.code.isFileSpecificError()) {
                 notificationManager.showNotification(operation.ocUploadId.toInt(), notification)
             } else {
