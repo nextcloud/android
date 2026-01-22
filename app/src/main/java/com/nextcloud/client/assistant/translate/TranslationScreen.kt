@@ -30,6 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -67,7 +68,15 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
     }
 
     BackHandler {
+        viewModel.selectTask(null)
         viewModel.updateScreenState(AssistantScreenState.TaskContent)
+    }
+
+    // task is unselected
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.selectTask(null)
+        }
     }
 
     Scaffold(
