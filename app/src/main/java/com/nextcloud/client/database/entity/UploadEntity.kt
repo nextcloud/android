@@ -18,6 +18,7 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.resources.status.OCCapability
+import java.lang.IllegalArgumentException
 
 @Entity(tableName = ProviderTableMeta.UPLOADS_TABLE_NAME)
 data class UploadEntity(
@@ -56,13 +57,17 @@ data class UploadEntity(
     val folderUnlockToken: String?
 )
 
-fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload {
+fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload? {
     val localPath = localPath
     var remotePath = remotePath
     if (capability != null && remotePath != null) {
         remotePath = AutoRename.rename(remotePath, capability)
     }
-    val upload = OCUpload(localPath, remotePath, accountName)
+    val upload = try {
+        OCUpload(localPath, remotePath, accountName)
+    } catch (_: IllegalArgumentException) {
+        return null
+    }
 
     fileSize?.let { upload.fileSize = it }
     id?.let { upload.uploadId = it.toLong() }
