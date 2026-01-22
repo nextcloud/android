@@ -65,6 +65,7 @@ fun TaskView(task: Task, viewModel: AssistantViewModel, capability: OCCapability
                     viewModel.selectTask(task)
 
                     if (task.type == "core:text2text:translate") {
+                        viewModel.updateTranslationTaskState(true)
                         viewModel.updateScreenState(AssistantScreenState.Translation(task))
                     } else {
                         showTaskDetailBottomSheet = true
