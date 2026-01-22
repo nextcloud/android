@@ -383,6 +383,7 @@ class AutoUploadWorker(
         uploadsStorageManager.removeUpload(upload)
     }
 
+    @Suppress("ReturnCount")
     private fun createEntityAndUpload(
         user: User,
         localPath: String,
@@ -404,13 +405,18 @@ class AutoUploadWorker(
             return null
         }
 
-        val upload = (
-            uploadEntity?.toOCUpload(null) ?: OCUpload(
-                localPath,
-                remotePath,
-                user.accountName
-            )
-            ).apply {
+        var upload = try {
+            (uploadEntity?.toOCUpload(null) ?: OCUpload(localPath, remotePath, user.accountName))
+        } catch (_: IllegalArgumentException) {
+            null
+        }
+
+        if (upload == null) {
+            Log_OC.e(TAG, "cannot construct oc upload")
+            return null
+        }
+
+        upload = upload.apply {
             uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
             nameCollisionPolicy = syncedFolder.nameCollisionPolicy
             isUseWifiOnly = needsWifi
