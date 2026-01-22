@@ -63,6 +63,9 @@ class AssistantViewModel(
     private val _snackbarMessageId = MutableStateFlow<Int?>(null)
     val snackbarMessageId: StateFlow<Int?> = _snackbarMessageId
 
+    private val _isTranslationTask = MutableStateFlow<Boolean>(false)
+    val isTranslationTask: StateFlow<Boolean> = _isTranslationTask
+
     private val _selectedTask = MutableStateFlow<Task?>(null)
     val selectedTask: StateFlow<Task?> = _selectedTask
 
@@ -186,7 +189,13 @@ class AssistantViewModel(
                     isChat && chats.isEmpty() -> AssistantScreenState.emptyChatList()
                     isChat -> AssistantScreenState.ChatContent
                     !isChat && (tasks == null || tasks.isEmpty()) -> AssistantScreenState.emptyTaskList()
-                    else -> AssistantScreenState.TaskContent
+                    else -> {
+                        if (!_isTranslationTask.value) {
+                            AssistantScreenState.TaskContent
+                        } else {
+                            _screenState.value
+                        }
+                    }
                 }
             }.collect { newState ->
                 _screenState.value = newState
@@ -396,6 +405,12 @@ class AssistantViewModel(
     fun updateScreenState(state: AssistantScreenState) {
         _screenState.update {
             state
+        }
+    }
+
+    fun updateTranslationTaskState(value: Boolean) {
+        _isTranslationTask.update {
+            value
         }
     }
 

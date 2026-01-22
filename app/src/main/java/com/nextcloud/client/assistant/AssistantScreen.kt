@@ -24,6 +24,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -96,6 +97,7 @@ fun AssistantScreen(
     val messageId by viewModel.snackbarMessageId.collectAsState()
     val screenOverlayState by viewModel.screenOverlayState.collectAsState()
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
+    val isTranslationTask by viewModel.isTranslationTask.collectAsState()
     val filteredTaskList by viewModel.filteredTaskList.collectAsState()
     val screenState by viewModel.screenState.collectAsState()
     val taskTypes by viewModel.taskTypes.collectAsState()
@@ -192,7 +194,7 @@ fun AssistantScreen(
                         }
                     },
                     bottomBar = {
-                        if (!taskTypes.isNullOrEmpty()) {
+                        if (!taskTypes.isNullOrEmpty() && selectedTaskType?.isTranslate() != true) {
                             InputBar(
                                 sessionId,
                                 selectedTaskType,
@@ -202,6 +204,24 @@ fun AssistantScreen(
                     },
                     snackbarHost = {
                         SnackbarHost(snackbarHostState)
+                    },
+                    floatingActionButton = {
+                        if (selectedTaskType?.isTranslate() == true && !isTranslationTask) {
+                            FloatingActionButton(onClick = {
+                                viewModel.updateTranslationTaskState(true)
+                                viewModel.updateScreenState(AssistantScreenState.Translation(null))
+                            }, content = {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier.padding(16.dp)
+                                ) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_plus),
+                                        contentDescription = "translate button"
+                                    )
+                                }
+                            })
+                        }
                     }
                 ) { paddingValues ->
                     when (screenState) {
@@ -317,12 +337,7 @@ private fun InputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, viewMode
                                 viewModel.createConversation(text)
                             }
                         } else {
-                            if (taskType.isTranslate()) {
-                                // TODO:
-                                // viewModel.translate()
-                            } else {
-                                viewModel.createTask(input = text, taskType = taskType)
-                            }
+                            viewModel.createTask(input = text, taskType = taskType)
                         }
 
                         scope.launch {
