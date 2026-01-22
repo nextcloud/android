@@ -502,7 +502,7 @@ class AutoUploadWorker(
                     val dateTime = formatter.parse(exifDate, pos)
                     if (dateTime != null) {
                         lastModificationTime = dateTime.time
-                        Log_OC.w(TAG, "calculateLastModificationTime calculatedTime is: $lastModificationTime")
+                        Log_OC.i(TAG, "calculateLastModificationTime calculatedTime is: $lastModificationTime")
                     } else {
                         Log_OC.w(TAG, "calculateLastModificationTime dateTime is empty")
                     }
