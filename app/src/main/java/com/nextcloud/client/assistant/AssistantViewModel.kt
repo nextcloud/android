@@ -178,7 +178,7 @@ class AssistantViewModel(
             ) { selectedTask, selectedTaskType, chats, tasks ->
                 val isChat = selectedTaskType?.isChat() == true
                 val isTranslation =
-                    selectedTaskType?.isTranslate() == true && selectedTask?.isTranslate() == true
+                    selectedTaskType?.isTranslate() == true && selectedTask?.type == "core:text2text:translate"
 
                 when {
                     selectedTaskType == null -> AssistantScreenState.Loading
