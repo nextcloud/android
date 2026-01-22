@@ -28,7 +28,9 @@ import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class AlbumItemActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
+class AlbumItemActionsBottomSheet :
+    BottomSheetDialogFragment(),
+    Injectable {
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
@@ -120,8 +122,6 @@ class AlbumItemActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
         private const val RESULT_KEY_ACTION_ID = "RESULT_KEY_ACTION_ID"
 
         @JvmStatic
-        fun newInstance(): AlbumItemActionsBottomSheet {
-            return AlbumItemActionsBottomSheet()
-        }
+        fun newInstance(): AlbumItemActionsBottomSheet = AlbumItemActionsBottomSheet()
     }
 }
