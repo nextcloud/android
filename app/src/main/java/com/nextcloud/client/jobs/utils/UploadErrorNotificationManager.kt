@@ -67,7 +67,7 @@ object UploadErrorNotificationManager {
             return
         }
 
-        // Do not show an error notification when uploading the same file again (manual uploads only).
+        // do not show an error notification when uploading the same file again
         if (result.code == ResultCode.SYNC_CONFLICT) {
             val isSameFile = withContext(Dispatchers.IO) {
                 FileUploadHelper.instance().isSameFileOnRemote(
@@ -80,6 +80,8 @@ object UploadErrorNotificationManager {
 
             if (isSameFile) {
                 Log_OC.w(TAG, "exact same file already exists on remote, error notification skipped")
+
+                // only show notification for manual uploads
                 onSameFileConflict()
                 return
             }
