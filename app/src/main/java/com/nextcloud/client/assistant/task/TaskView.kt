@@ -64,7 +64,7 @@ fun TaskView(task: Task, viewModel: AssistantViewModel, capability: OCCapability
                 .clickable {
                     viewModel.selectTask(task)
 
-                    if (task.type == "core:text2text:translate") {
+                    if (task.isTranslate()) {
                         viewModel.updateTranslationTaskState(true)
                         viewModel.updateScreenState(AssistantScreenState.Translation(task))
                     } else {
