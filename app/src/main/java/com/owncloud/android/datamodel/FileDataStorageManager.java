@@ -98,6 +98,7 @@ public class FileDataStorageManager {
     private static final String FAILED_TO_INSERT_MSG = "Fail to insert insert file to database ";
     private static final String SENDING_TO_FILECONTENTPROVIDER_MSG = "Sending %d operations to FileContentProvider";
     private static final String EXCEPTION_MSG = "Exception in batch of operations ";
+    private static final int BATCH_SIZE = 500; // Maximum number of operations per batch to avoid memory issues
 
     public static final int ROOT_PARENT_ID = 0;
     private static final String JSON_NULL_STRING = "null";
@@ -670,13 +671,59 @@ public class FileDataStorageManager {
      * @param filesToRemove
      */
     public void saveFolder(OCFile folder, List<OCFile> updatedFiles, Collection<OCFile> filesToRemove) {
+        String threadName = Thread.currentThread().getName();
         Log_OC.d(TAG, "Saving folder " + folder.getRemotePath() + " with " + updatedFiles.size()
-            + " children and " + filesToRemove.size() + " files to remove");
+            + " children and " + filesToRemove.size() + " files to remove [Thread: " + threadName + "]");
 
-        ArrayList<ContentProviderOperation> operations = new ArrayList<>(updatedFiles.size());
+        // Process files in batches to avoid memory issues with large folders
+        int totalFiles = updatedFiles.size();
+        if (totalFiles > BATCH_SIZE) {
+            Log_OC.d(TAG, "Large folder detected (" + totalFiles + " files). Processing in batches of " + BATCH_SIZE + " [Thread: " + threadName + "]");
+            
+            // Process files in batches
+            for (int i = 0; i < totalFiles; i += BATCH_SIZE) {
+                int endIndex = Math.min(i + BATCH_SIZE, totalFiles);
+                List<OCFile> batchFiles = updatedFiles.subList(i, endIndex);
+                saveFolderBatch(folder, batchFiles, i);
+            }
+        } else {
+            // Small folder - process normally
+            saveFolderBatch(folder, updatedFiles, 0);
+        }
+
+        // Process deletions separately
+        if (!filesToRemove.isEmpty()) {
+            processFileRemovals(folder, filesToRemove);
+        }
+
+        // Update folder metadata (always last)
+        updateFolderMetadata(folder);
+    }
+
+    /**
+     * Saves a batch of files to the database without updating folder metadata.
+     * This is used when processing large folders in batches to avoid memory issues.
+     *
+     * @param folder The parent folder
+     * @param batchFiles The files to save in this batch
+     * @param startIndex The starting index in the original list (for logging)
+     */
+    public void saveFolderBatchOnly(OCFile folder, List<OCFile> batchFiles, int startIndex) {
+        saveFolderBatch(folder, batchFiles, startIndex);
+    }
+
+    /**
+     * Saves a batch of files to the database.
+     *
+     * @param folder The parent folder
+     * @param batchFiles The files to save in this batch
+     * @param startIndex The starting index in the original list (for logging)
+     */
+    private void saveFolderBatch(OCFile folder, List<OCFile> batchFiles, int startIndex) {
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>(batchFiles.size());
 
         // prepare operations to insert or update files to save in the given folder
-        for (OCFile ocFile : updatedFiles) {
+        for (OCFile ocFile : batchFiles) {
             ContentValues contentValues = createContentValuesForFile(ocFile);
             contentValues.put(ProviderTableMeta.FILE_PARENT, folder.getFileId());
 
@@ -700,10 +747,51 @@ public class FileDataStorageManager {
             }
         }
 
-        // prepare operations to remove files in the given folder
+        // apply operations in batch
+        ContentProviderResult[] results = null;
+        Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG + " (batch starting at index %d)", 
+            operations.size(), startIndex));
+
+        try {
+            if (getContentResolver() != null) {
+                results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+            } else {
+                results = getContentProviderClient().applyBatch(operations);
+            }
+        } catch (OperationApplicationException | RemoteException e) {
+            Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
+            return;
+        }
+
+        // update new id in file objects for insertions
+        if (results != null) {
+            Iterator<OCFile> fileIterator = batchFiles.iterator();
+            for (ContentProviderResult result : results) {
+                OCFile ocFile = fileIterator.hasNext() ? fileIterator.next() : null;
+                if (result.uri != null && ocFile != null) {
+                    try {
+                        long newId = Long.parseLong(result.uri.getPathSegments().get(1));
+                        ocFile.setFileId(newId);
+                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                        Log_OC.e(TAG, "Failed to parse file ID from URI: " + result.uri, e);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Processes file removals for a folder.
+     *
+     * @param folder The parent folder
+     * @param filesToRemove The files to remove
+     */
+    public void processFileRemovals(OCFile folder, Collection<OCFile> filesToRemove) {
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + " = ?";
         String[] whereArgs = new String[2];
         whereArgs[0] = user.getAccountName();
+
         for (OCFile ocFile : filesToRemove) {
             if (ocFile.getParentId() == folder.getFileId()) {
                 whereArgs[1] = ocFile.getRemotePath();
@@ -731,48 +819,42 @@ public class FileDataStorageManager {
             }
         }
 
-        // update metadata of folder
-        ContentValues contentValues = createContentValuesForFolder(folder);
+        if (!operations.isEmpty()) {
+            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG + " (deletions)", operations.size()));
+            try {
+                if (getContentResolver() != null) {
+                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+                } else {
+                    getContentProviderClient().applyBatch(operations);
+                }
+            } catch (OperationApplicationException | RemoteException e) {
+                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
+            }
+        }
+    }
 
+    /**
+     * Updates the metadata of a folder.
+     *
+     * @param folder The folder to update
+     */
+    public void updateFolderMetadata(OCFile folder) {
+        ContentValues contentValues = createContentValuesForFolder(folder);
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>(1);
+        
         operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
                            .withValues(contentValues)
                            .withSelection(ProviderTableMeta._ID + " = ?", new String[]{String.valueOf(folder.getFileId())})
                            .build());
 
-        // apply operations in batch
-        ContentProviderResult[] results = null;
-        Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-
         try {
             if (getContentResolver() != null) {
-                results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-
+                getContentResolver().applyBatch(MainApp.getAuthority(), operations);
             } else {
-                results = getContentProviderClient().applyBatch(operations);
+                getContentProviderClient().applyBatch(operations);
             }
-
         } catch (OperationApplicationException | RemoteException e) {
             Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-        }
-
-        // update new id in file objects for insertions
-        if (results != null) {
-            long newId;
-            Iterator<OCFile> fileIterator = updatedFiles.iterator();
-            OCFile ocFile;
-            for (ContentProviderResult result : results) {
-                if (fileIterator.hasNext()) {
-                    ocFile = fileIterator.next();
-                } else {
-                    ocFile = null;
-                }
-                if (result.uri != null) {
-                    newId = Long.parseLong(result.uri.getPathSegments().get(1));
-                    if (ocFile != null) {
-                        ocFile.setFileId(newId);
-                    }
-                }
-            }
         }
     }
 

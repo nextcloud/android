@@ -630,7 +630,18 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         if (localId > 0) {
             return localId;
         } else if (remoteId != null && remoteId.length() > 8) {
-            return Long.parseLong(remoteId.substring(0, 8).replaceAll("^0*", ""));
+            try {
+                // Only try to parse as number if it looks like a number (starts with digit)
+                String potentialNumber = remoteId.substring(0, 8).replaceAll("^0*", "");
+                if (potentialNumber.matches("\\d+")) {
+                    return Long.parseLong(potentialNumber);
+                } else {
+                    return -1;
+                }
+            } catch (NumberFormatException e) {
+                Log_OC.w("OCFile", "Failed to parse localId from remoteId: '" + remoteId + "', returning -1");
+                return -1;
+            }
         } else {
             return -1;
         }
