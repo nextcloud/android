@@ -7,6 +7,8 @@
  */
 package com.owncloud.android.datamodel.e2e.v2.encrypted
 
+import com.nextcloud.utils.e2ee.E2EVersionHelper
+
 /**
  * Decrypted class representation of metadata json of folder metadata.
  */
@@ -14,5 +16,5 @@ data class EncryptedFolderMetadataFile(
     val metadata: EncryptedMetadata,
     val users: List<EncryptedUser>,
     @Transient val filedrop: MutableMap<String, EncryptedFiledrop>?,
-    val version: String = "2.0"
+    val version: String = E2EVersionHelper.getLatestE2EVersion(true).value
 )
