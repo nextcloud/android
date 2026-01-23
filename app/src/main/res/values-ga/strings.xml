@@ -60,6 +60,7 @@
     <string name="assistant_screen_task_list_error_state_message">Ní féidir liosta tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Scrios Tasc</string>
     <string name="assistant_screen_task_output_empty_text">Níl an t-aschur tasc réidh fós.</string>
+    <string name="assistant_screen_text_selected">Téacs cóipeáilte ó aip eile</string>
     <string name="assistant_screen_top_bar_title">Cúntóir</string>
     <string name="assistant_task_detail_screen_input_button_title">Ionchur</string>
     <string name="assistant_task_detail_screen_output_button_title">Aschur</string>
