@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.E2EVersionExtensionsKt;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -538,7 +539,10 @@ public class RefreshFolderOperation extends RemoteOperation {
                                                 mContext);
         }
 
-        if (CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion().compareTo(E2EVersion.V2_0) >= 0) {
+        final var capability = CapabilityUtils.getCapability(mContext);
+        final var e2eeVersion = capability.getEndToEndEncryptionApiVersion();
+
+        if (E2EVersionExtensionsKt.isV2orAbove(e2eeVersion)) {
             if (encryptedAncestor && object == null) {
                 throw new IllegalStateException("metadata is null!");
             }
@@ -551,7 +555,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             e2EVersion = E2EVersion.V1_2;
             localFilesMap = prefillLocalFilesMap(metadataFileV1, fileDataStorageManager.getFolderContent(mLocalFolder, false));
         } else {
-            e2EVersion = E2EVersion.V2_0;
+            e2EVersion = E2EVersion.V2_1;
             localFilesMap = prefillLocalFilesMap(object, fileDataStorageManager.getFolderContent(mLocalFolder, false));
 
             // update counter

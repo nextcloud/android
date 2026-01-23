@@ -55,6 +55,7 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.E2EVersionExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.FragmentExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
@@ -1971,8 +1972,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 String token = EncryptionUtils.lockFolder(folder, client);
 
                 OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(user.getAccountName());
-
-                if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.V2_0) {
+                final var e2eeVersion = ocCapability.getEndToEndEncryptionApiVersion();
+                if (E2EVersionExtensionsKt.isV2orAbove(e2eeVersion)) {
                     // Update metadata
                     Pair<Boolean, DecryptedFolderMetadataFile> metadataPair = EncryptionUtils.retrieveMetadata(folder,
                                                                                                                client,
@@ -1998,13 +1999,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     // unlock folder
                     EncryptionUtils.unlockFolder(folder, client, token);
 
-                } else if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.V1_0 ||
-                    ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.V1_1 ||
-                    ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.V1_2
-                ) {
+
+                } else if (E2EVersionExtensionsKt.isV1(e2eeVersion)) {
                     // unlock folder
                     EncryptionUtils.unlockFolderV1(folder, client, token);
-                } else if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.UNKNOWN) {
+                } else if (e2eeVersion == E2EVersion.UNKNOWN) {
                     throw new IllegalArgumentException("Unknown E2E version");
                 }
 
