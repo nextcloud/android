@@ -31,39 +31,74 @@ import java.io.File
 object UploadErrorNotificationManager {
     private const val TAG = "UploadErrorNotificationManager"
 
+    /**
+     * Processes the result of an upload operation and manages error notifications.
+     * * It filters out successful or silent results and handles [ResultCode.SYNC_CONFLICT]
+     * by checking if the remote file is identical. If it's a "real" conflict or error,
+     * it displays a notification with relevant actions (e.g., Resolve Conflict, Pause, Cancel).
+     *
+     * @param onSameFileConflict Triggered only if result code is SYNC_CONFLICT and files are identical.
+     */
+    @Suppress("ReturnCount")
     suspend fun handleResult(
         context: Context,
         notificationManager: WorkerNotificationManager,
         operation: UploadFileOperation,
         result: RemoteOperationResult<Any?>,
-        showSameFileAlreadyExistsNotification: suspend () -> Unit = {}
+        onSameFileConflict: suspend () -> Unit = {}
     ) {
         Log_OC.d(TAG, "handle upload result with result code: " + result.code)
 
-        val notification = withContext(Dispatchers.IO) {
-            val isSameFileOnRemote = FileUploadHelper.instance().isSameFileOnRemote(
-                operation.user,
-                File(operation.storagePath),
-                operation.remotePath,
-                context
-            )
+        if (result.isSuccess || result.isCancelled || operation.isMissingPermissionThrown) {
+            Log_OC.d(TAG, "operation is successful, cancelled or lack of storage permission, notification skipped")
+            return
+        }
 
-            getNotification(
-                isSameFileOnRemote,
-                context,
-                notificationManager.notificationBuilder,
-                operation,
-                result,
-                notifyOnSameFileExists = {
-                    showSameFileAlreadyExistsNotification()
-                    operation.handleLocalBehaviour()
-                }
-            )
-        } ?: return
+        val silentCodes = setOf(
+            ResultCode.DELAYED_FOR_WIFI,
+            ResultCode.DELAYED_FOR_CHARGING,
+            ResultCode.DELAYED_IN_POWER_SAVE_MODE,
+            ResultCode.LOCAL_FILE_NOT_FOUND,
+            ResultCode.LOCK_FAILED
+        )
+
+        if (result.code in silentCodes) {
+            Log_OC.d(TAG, "silent error code, notification skipped")
+            return
+        }
+
+        // do not show an error notification when uploading the same file again
+        if (result.code == ResultCode.SYNC_CONFLICT) {
+            val isSameFile = withContext(Dispatchers.IO) {
+                FileUploadHelper.instance().isSameFileOnRemote(
+                    operation.user,
+                    File(operation.storagePath),
+                    operation.remotePath,
+                    context
+                )
+            }
+
+            if (isSameFile) {
+                Log_OC.w(TAG, "exact same file already exists on remote, error notification skipped")
+
+                // only show notification for manual uploads
+                onSameFileConflict()
+                return
+            }
+        }
+
+        // now we can show error notification
+        val notification = getNotification(
+            context,
+            notificationManager.notificationBuilder,
+            operation,
+            result
+        )
 
         Log_OC.d(TAG, "🔔" + "notification created")
 
         withContext(Dispatchers.Main) {
+            // if error code is file specific show new notification for each file
             if (result.code.isFileSpecificError()) {
                 notificationManager.showNotification(operation.ocUploadId.toInt(), notification)
             } else {
@@ -72,16 +107,12 @@ object UploadErrorNotificationManager {
         }
     }
 
-    private suspend fun getNotification(
-        isSameFileOnRemote: Boolean,
+    private fun getNotification(
         context: Context,
         builder: NotificationCompat.Builder,
         operation: UploadFileOperation,
-        result: RemoteOperationResult<Any?>,
-        notifyOnSameFileExists: suspend () -> Unit
-    ): Notification? {
-        if (!shouldShowConflictDialog(isSameFileOnRemote, operation, result, notifyOnSameFileExists)) return null
-
+        result: RemoteOperationResult<Any?>
+    ): Notification {
         val textId = result.code.toFailedResultTitleId()
         val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(result, operation, context.resources)
 
@@ -94,7 +125,11 @@ object UploadErrorNotificationManager {
             setProgress(0, 0, false)
             clearActions()
 
-            result.code.takeIf { it == ResultCode.SYNC_CONFLICT }?.let {
+            // actions for all error types
+            addAction(UploadBroadcastAction.PauseAndCancel(operation).pauseAction(context))
+            addAction(UploadBroadcastAction.PauseAndCancel(operation).cancelAction(context))
+
+            if (result.code == ResultCode.SYNC_CONFLICT) {
                 addAction(
                     R.drawable.ic_cloud_upload,
                     context.getString(R.string.upload_list_resolve_conflict),
@@ -102,11 +137,7 @@ object UploadErrorNotificationManager {
                 )
             }
 
-            addAction(UploadBroadcastAction.PauseAndCancel(operation).pauseAction(context))
-
-            addAction(UploadBroadcastAction.PauseAndCancel(operation).cancelAction(context))
-
-            result.code.takeIf { it == ResultCode.UNAUTHORIZED }?.let {
+            if (result.code == ResultCode.UNAUTHORIZED) {
                 setContentIntent(credentialPendingIntent(context, operation))
             }
         }.build()
@@ -158,34 +189,5 @@ object UploadErrorNotificationManager {
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )
-    }
-
-    @Suppress("ReturnCount", "ComplexCondition")
-    private suspend fun shouldShowConflictDialog(
-        isSameFileOnRemote: Boolean,
-        operation: UploadFileOperation,
-        result: RemoteOperationResult<Any?>,
-        notifyOnSameFileExists: suspend () -> Unit
-    ): Boolean {
-        if (result.isSuccess ||
-            result.isCancelled ||
-            result.code == ResultCode.USER_CANCELLED ||
-            operation.isMissingPermissionThrown
-        ) {
-            Log_OC.w(TAG, "operation is successful, cancelled or lack of storage permission")
-            return false
-        }
-
-        if (result.code == ResultCode.SYNC_CONFLICT && isSameFileOnRemote) {
-            Log_OC.w(TAG, "same file exists on remote")
-            notifyOnSameFileExists()
-            return false
-        }
-
-        val delayedCodes =
-            setOf(ResultCode.DELAYED_FOR_WIFI, ResultCode.DELAYED_FOR_CHARGING, ResultCode.DELAYED_IN_POWER_SAVE_MODE)
-        val invalidCodes = setOf(ResultCode.LOCAL_FILE_NOT_FOUND, ResultCode.LOCK_FAILED)
-
-        return result.code !in delayedCodes && result.code !in invalidCodes
     }
 }
