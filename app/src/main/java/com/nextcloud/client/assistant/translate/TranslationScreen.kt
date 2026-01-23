@@ -8,7 +8,13 @@
 package com.nextcloud.client.assistant.translate
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,6 +38,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -56,9 +63,14 @@ import com.owncloud.android.utils.ClipboardUtil
 @Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewModel, textToTranslate: String) {
+fun TranslationScreen(
+    selectedTaskType: TaskTypeData?,
+    viewModel: AssistantViewModel,
+    textToTranslate: String,
+    isTaskExists: Boolean
+) {
     val languages = remember(selectedTaskType) { selectedTaskType?.toTranslationLanguages() }
-
+    val isTranslationTaskCreated by viewModel.isTranslationTaskCreated.collectAsState()
     var sourceState by remember {
         mutableStateOf(
             TranslationSideState(
@@ -73,16 +85,14 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
     }
 
     BackHandler {
-        viewModel.updateTranslationTaskState(false)
-        viewModel.selectTask(null)
+        viewModel.onTranslationScreenDismissed()
         viewModel.updateScreenState(AssistantScreenState.TaskContent)
     }
 
     // task is unselected
     DisposableEffect(Unit) {
         onDispose {
-            viewModel.updateTranslationTaskState(false)
-            viewModel.selectTask(null)
+            viewModel.onTranslationScreenDismissed()
         }
     }
 
@@ -111,6 +121,7 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
                     state = sourceState,
                     availableLanguages = languages?.originLanguages ?: emptyList(),
                     maxDp = 120.dp,
+                    shimmer = false,
                     onStateChange = { sourceState = it }
                 )
             }
@@ -126,10 +137,15 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
             item {
                 TranslationSection(
                     labelId = R.string.translation_screen_label_to,
-                    hintId = R.string.translation_screen_hint_target,
+                    hintId = if (isTaskExists) {
+                        R.string.translation_screen_translating
+                    } else {
+                        R.string.translation_screen_start_to_translate_task
+                    },
                     state = targetState,
                     availableLanguages = languages?.targetLanguages ?: emptyList(),
                     maxDp = Dp.Unspecified,
+                    shimmer = isTaskExists || isTranslationTaskCreated,
                     onStateChange = { targetState = it }
                 )
             }
@@ -137,7 +153,7 @@ fun TranslationScreen(selectedTaskType: TaskTypeData?, viewModel: AssistantViewM
     }
 }
 
-@Suppress("LongMethod")
+@Suppress("LongMethod", "LongParameterList")
 @Composable
 private fun TranslationSection(
     labelId: Int,
@@ -145,6 +161,7 @@ private fun TranslationSection(
     state: TranslationSideState,
     availableLanguages: List<TranslationLanguage>,
     maxDp: Dp,
+    shimmer: Boolean,
     onStateChange: (TranslationSideState) -> Unit
 ) {
     val activity = LocalContext.current.getActivity()
@@ -199,23 +216,56 @@ private fun TranslationSection(
         }
     }
 
-    TextField(
-        value = state.text,
-        onValueChange = { onStateChange(state.copy(text = it)) },
-        readOnly = state.isTarget,
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(min = 120.dp, max = maxDp),
-        placeholder = {
-            Text(text = stringResource(hintId), style = MaterialTheme.typography.headlineSmall)
-        },
-        textStyle = MaterialTheme.typography.headlineSmall,
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color.Transparent,
-            unfocusedContainerColor = Color.Transparent,
-            disabledContainerColor = Color.Transparent,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
+    if (state.isTarget && shimmer) {
+        TranslatingShimmer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 120.dp)
+                .padding(horizontal = 16.dp)
         )
+    } else {
+        TextField(
+            value = state.text,
+            onValueChange = { onStateChange(state.copy(text = it)) },
+            readOnly = state.isTarget,
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 120.dp, max = maxDp),
+            placeholder = {
+                Text(text = stringResource(hintId), style = MaterialTheme.typography.headlineSmall)
+            },
+            textStyle = MaterialTheme.typography.headlineSmall,
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            )
+        )
+    }
+}
+
+@Suppress("MagicNumber")
+@Composable
+private fun TranslatingShimmer(modifier: Modifier = Modifier) {
+    val transition = rememberInfiniteTransition(label = "shimmer")
+    val alpha by transition.animateFloat(
+        initialValue = 0.3f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(900),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "alpha"
     )
+
+    Column(modifier = modifier) {
+        Text(
+            text = stringResource(R.string.translation_screen_translating),
+            style = MaterialTheme.typography.headlineSmall,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = alpha),
+            modifier = Modifier.padding(vertical = 4.dp)
+        )
+    }
 }
