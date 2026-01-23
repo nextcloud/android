@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.extensions.E2EVersionExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -417,7 +418,7 @@ public final class EncryptionUtils {
         EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
         String serializedEncryptedMetadata = getMetadataOperationResult.getResultData().getMetadata();
 
-        E2EVersion version = determinateVersion(serializedEncryptedMetadata);
+        E2EVersion version = E2EVersionExtensionsKt.determineE2EVersion(serializedEncryptedMetadata);
 
         switch (version) {
             case UNKNOWN:
@@ -439,7 +440,8 @@ public final class EncryptionUtils {
                                                                              user,
                                                                              folder.getLocalId());
 
-                    if (capability.getEndToEndEncryptionApiVersion().compareTo(E2EVersion.V2_0) >= 0) {
+                    final var e2eeVersion = capability.getEndToEndEncryptionApiVersion();
+                    if (E2EVersionExtensionsKt.isV2orAbove(e2eeVersion)) {
                         new EncryptionUtilsV2().migrateV1ToV2andUpload(
                             v1,
                             client.getUserId(),
@@ -448,8 +450,7 @@ public final class EncryptionUtils {
                             new FileDataStorageManager(user, context.getContentResolver()),
                             client,
                             user,
-                            context
-                                                                      );
+                            context);
                     } else {
                         return v1;
                     }
@@ -496,6 +497,10 @@ public final class EncryptionUtils {
             if (v2 != null) {
                 if ("2.0".equals(v2.getVersion()) || "2".equals(v2.getVersion())) {
                     return E2EVersion.V2_0;
+                }
+
+                if ("2.1".equals(v2.getVersion())) {
+                    return E2EVersion.V2_1;
                 }
             } else {
                 return E2EVersion.UNKNOWN;
@@ -1322,7 +1327,7 @@ public final class EncryptionUtils {
             metadata = new DecryptedFolderMetadataFile(new com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata(),
                                                        new ArrayList<>(),
                                                        new HashMap<>(),
-                                                       E2EVersion.V2_0.getValue());
+                                                       E2EVersion.V2_1.getValue());
             metadata.getUsers().add(new DecryptedUser(client.getUserId(), publicKey, null));
             byte[] metadataKey = EncryptionUtils.generateKey();
 
@@ -1352,7 +1357,7 @@ public final class EncryptionUtils {
         RemoteOperationResult<String> uploadMetadataOperationResult;
         if (metadataExists) {
             // update metadata
-            if (version == E2EVersion.V2_0) {
+            if (E2EVersionExtensionsKt.isV2orAbove(version)) {
                 uploadMetadataOperationResult = new UpdateMetadataV2RemoteOperation(
                     parentFile.getRemoteId(),
                     serializedFolderMetadata,
@@ -1368,7 +1373,7 @@ public final class EncryptionUtils {
             }
         } else {
             // store metadata
-            if (version == E2EVersion.V2_0) {
+            if (E2EVersionExtensionsKt.isV2orAbove(version)) {
                 uploadMetadataOperationResult = new StoreMetadataV2RemoteOperation(
                     parentFile.getRemoteId(),
                     serializedFolderMetadata,

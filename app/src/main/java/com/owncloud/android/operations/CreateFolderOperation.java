@@ -15,6 +15,7 @@ import android.content.Context;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.extensions.E2EVersionExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -96,15 +97,16 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         boolean encryptedAncestor = FileStorageUtils.checkEncryptionStatus(parent, getStorageManager());
 
         if (encryptedAncestor) {
-            E2EVersion e2EVersion = getStorageManager().getCapability(user).getEndToEndEncryptionApiVersion();
-            if (e2EVersion == E2EVersion.V1_0 ||
-                e2EVersion == E2EVersion.V1_1 ||
-                e2EVersion == E2EVersion.V1_2) {
-                return encryptedCreateV1(parent, client);
-            } else if (e2EVersion == E2EVersion.V2_0) {
+            final var capability = getStorageManager().getCapability(user);
+            final var version = capability.getEndToEndEncryptionApiVersion();
+
+            if (E2EVersionExtensionsKt.isV2orAbove(version)) {
                 return encryptedCreateV2(parent, client);
+            } else if (E2EVersionExtensionsKt.isV1(version)) {
+                return encryptedCreateV1(parent, client);
             }
-            return new RemoteOperationResult(new IllegalStateException("E2E not supported"));
+
+            return new RemoteOperationResult<>(new IllegalStateException("E2E not supported"));
         } else {
             return normalCreate(client);
         }
