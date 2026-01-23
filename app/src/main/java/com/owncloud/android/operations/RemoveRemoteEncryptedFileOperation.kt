@@ -55,8 +55,8 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         var result: RemoteOperationResult<Void>
         var delete: DeleteMethod? = null
         var token: String? = null
-        val e2eVersion = CapabilityUtils.getCapability(context).endToEndEncryptionApiVersion
-        val isE2EVersionAtLeast2 = (E2EVersionHelper.isV2orAbove(e2eVersion))
+        val capability = CapabilityUtils.getCapability(context)
+        val isE2EVersionAtLeast2 = (E2EVersionHelper.isV2orAbove(capability))
 
         try {
             token = EncryptionUtils.lockFolder(parentFolder, client)

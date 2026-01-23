@@ -540,9 +540,8 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
 
         final var capability = CapabilityUtils.getCapability(mContext);
-        final var e2eeVersion = capability.getEndToEndEncryptionApiVersion();
 
-        if (E2EVersionHelper.INSTANCE.isV2orAbove(e2eeVersion)) {
+        if (E2EVersionHelper.INSTANCE.isV2orAbove(capability)) {
             if (encryptedAncestor && object == null) {
                 throw new IllegalStateException("metadata is null!");
             }

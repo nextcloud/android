@@ -11,11 +11,16 @@ import com.google.gson.reflect.TypeToken
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile
 import com.owncloud.android.lib.resources.status.E2EVersion
+import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.utils.EncryptionUtils
 
 object E2EVersionHelper {
 
+    fun isV2orAbove(capability: OCCapability): Boolean = isV2orAbove(capability.endToEndEncryptionApiVersion)
+
     fun isV2orAbove(version: E2EVersion): Boolean = version == E2EVersion.V2_0 || version == E2EVersion.V2_1
+
+    fun isV1(capability: OCCapability): Boolean = isV1(capability.endToEndEncryptionApiVersion)
 
     fun isV1(version: E2EVersion): Boolean =
         version == E2EVersion.V1_0 || version == E2EVersion.V1_1 || version == E2EVersion.V1_2

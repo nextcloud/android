@@ -52,7 +52,6 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
@@ -586,11 +585,8 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private boolean isEndToEndVersionAtLeastV2() {
-        return E2EVersionHelper.INSTANCE.isV2orAbove(getE2EVersion());
-    }
-
-    private E2EVersion getE2EVersion() {
-        return CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion();
+        final var capability = CapabilityUtils.getCapability(mContext);
+        return E2EVersionHelper.INSTANCE.isV2orAbove(capability);
     }
 
     private long getE2ECounter(OCFile parentFile) {
