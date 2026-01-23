@@ -586,7 +586,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private boolean isEndToEndVersionAtLeastV2() {
         final var capability = CapabilityUtils.getCapability(mContext);
-        return E2EVersionHelper.INSTANCE.isV2orAbove(capability);
+        return E2EVersionHelper.INSTANCE.isV2Plus(capability);
     }
 
     private long getE2ECounter(OCFile parentFile) {
@@ -851,7 +851,7 @@ public class UploadFileOperation extends SyncOperation {
                                        clientData.getToken(),
                                        clientData.getClient(),
                                        metadataExists,
-                                       E2EVersionHelper.INSTANCE.getLatestE2EVersion(false),
+                                       E2EVersionHelper.INSTANCE.latestVersion(false),
                                        "",
                                        arbitraryDataProvider,
                                        user);

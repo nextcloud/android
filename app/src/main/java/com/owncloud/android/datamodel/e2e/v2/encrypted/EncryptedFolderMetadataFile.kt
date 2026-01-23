@@ -16,5 +16,5 @@ data class EncryptedFolderMetadataFile(
     val metadata: EncryptedMetadata,
     val users: List<EncryptedUser>,
     @Transient val filedrop: MutableMap<String, EncryptedFiledrop>?,
-    val version: String = E2EVersionHelper.getLatestE2EVersion(true).value
+    val version: String = E2EVersionHelper.latestVersion(true).value
 )

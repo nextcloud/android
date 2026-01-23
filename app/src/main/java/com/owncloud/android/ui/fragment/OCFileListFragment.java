@@ -1972,7 +1972,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 String token = EncryptionUtils.lockFolder(folder, client);
 
                 OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(user.getAccountName());
-                if (E2EVersionHelper.INSTANCE.isV2orAbove(ocCapability)) {
+                if (E2EVersionHelper.INSTANCE.isV2Plus(ocCapability)) {
                     // Update metadata
                     Pair<Boolean, DecryptedFolderMetadataFile> metadataPair = EncryptionUtils.retrieveMetadata(folder,
                                                                                                                client,

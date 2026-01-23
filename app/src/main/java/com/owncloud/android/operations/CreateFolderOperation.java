@@ -34,7 +34,6 @@ import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
@@ -99,7 +98,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         if (encryptedAncestor) {
             final var capability = getStorageManager().getCapability(user);
 
-            if (E2EVersionHelper.INSTANCE.isV2orAbove(capability)) {
+            if (E2EVersionHelper.INSTANCE.isV2Plus(capability)) {
                 return encryptedCreateV2(parent, client);
             } else if (E2EVersionHelper.INSTANCE.isV1(capability)) {
                 return encryptedCreateV1(parent, client);
@@ -175,7 +174,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                token,
                                                client,
                                                metadataExists,
-                                               E2EVersionHelper.INSTANCE.getLatestE2EVersion(false),
+                                               E2EVersionHelper.INSTANCE.latestVersion(false),
                                                "",
                                                arbitraryDataProvider,
                                                user);

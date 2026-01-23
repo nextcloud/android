@@ -607,9 +607,9 @@ class EncryptionUtilsV2 {
             object : TypeToken<EncryptedFolderMetadataFile>() {}
         )
 
-        val e2eeVersion = E2EVersionHelper.determineE2EFromVersionString(v2.version)
+        val e2eeVersion = E2EVersionHelper.fromVersionString(v2.version)
 
-        val decryptedFolderMetadata = if (E2EVersionHelper.isV2orAbove(e2eeVersion)) {
+        val decryptedFolderMetadata = if (E2EVersionHelper.isV2Plus(e2eeVersion)) {
             val userId = AccountManager.get(context).getUserData(
                 user.toPlatformAccount(),
                 AccountUtils.Constants.KEY_USER_ID

@@ -414,9 +414,9 @@ public final class EncryptionUtils {
         }
 
         String serializedEncryptedMetadata = getMetadataOperationResult.getResultData().getMetadata();
-        E2EVersion version = E2EVersionHelper.INSTANCE.determineE2EVersion(serializedEncryptedMetadata);
+        E2EVersion version = E2EVersionHelper.INSTANCE.fromMetadata(serializedEncryptedMetadata);
 
-        if (E2EVersionHelper.INSTANCE.isV2orAbove(version)) {
+        if (E2EVersionHelper.INSTANCE.isV2Plus(version)) {
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
             return encryptionUtilsV2.parseAnyMetadata(getMetadataOperationResult.getResultData(),
                                                       user,
@@ -439,7 +439,7 @@ public final class EncryptionUtils {
                                                                          folder.getLocalId());
 
                 OCCapability capability = CapabilityUtils.getCapability(context);
-                if (E2EVersionHelper.INSTANCE.isV2orAbove(capability)) {
+                if (E2EVersionHelper.INSTANCE.isV2Plus(capability)) {
                     new EncryptionUtilsV2().migrateV1ToV2andUpload(
                         v1,
                         client.getUserId(),
@@ -1220,7 +1220,7 @@ public final class EncryptionUtils {
             metadata = new DecryptedFolderMetadataFileV1();
             metadata.setMetadata(new DecryptedMetadata());
 
-            final var latestV1E2EEVersion = E2EVersionHelper.INSTANCE.getLatestE2EVersion(false);
+            final var latestV1E2EEVersion = E2EVersionHelper.INSTANCE.latestVersion(false);
 
             metadata.getMetadata().setVersion(Double.parseDouble(latestV1E2EEVersion.getValue()));
             metadata.getMetadata().setMetadataKeys(new HashMap<>());
@@ -1281,7 +1281,7 @@ public final class EncryptionUtils {
 
         } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND ||
             getMetadataOperationResult.getHttpCode() == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
-            final var latestE2EEV2Version = E2EVersionHelper.INSTANCE.getLatestE2EVersion(true);
+            final var latestE2EEV2Version = E2EVersionHelper.INSTANCE.latestVersion(true);
 
             // new metadata
             metadata = new DecryptedFolderMetadataFile(new com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata(),
@@ -1317,7 +1317,7 @@ public final class EncryptionUtils {
         RemoteOperationResult<String> uploadMetadataOperationResult;
         if (metadataExists) {
             // update metadata
-            if (E2EVersionHelper.INSTANCE.isV2orAbove(version)) {
+            if (E2EVersionHelper.INSTANCE.isV2Plus(version)) {
                 uploadMetadataOperationResult = new UpdateMetadataV2RemoteOperation(
                     parentFile.getRemoteId(),
                     serializedFolderMetadata,
@@ -1333,7 +1333,7 @@ public final class EncryptionUtils {
             }
         } else {
             // store metadata
-            if (E2EVersionHelper.INSTANCE.isV2orAbove(version)) {
+            if (E2EVersionHelper.INSTANCE.isV2Plus(version)) {
                 uploadMetadataOperationResult = new StoreMetadataV2RemoteOperation(
                     parentFile.getRemoteId(),
                     serializedFolderMetadata,
