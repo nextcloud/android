@@ -17,5 +17,5 @@ data class DecryptedFolderMetadataFile(
     var users: MutableList<DecryptedUser> = mutableListOf(),
     @Transient
     val filedrop: MutableMap<String, DecryptedFile> = HashMap(),
-    val version: String = E2EVersionHelper.getLatestE2EVersion(true).value
+    val version: String = E2EVersionHelper.latestVersion(true).value
 )

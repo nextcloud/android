@@ -541,7 +541,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         final var capability = CapabilityUtils.getCapability(mContext);
 
-        if (E2EVersionHelper.INSTANCE.isV2orAbove(capability)) {
+        if (E2EVersionHelper.INSTANCE.isV2Plus(capability)) {
             if (encryptedAncestor && object == null) {
                 throw new IllegalStateException("metadata is null!");
             }
@@ -551,10 +551,10 @@ public class RefreshFolderOperation extends RemoteOperation {
         Map<String, OCFile> localFilesMap;
         E2EVersion e2EVersion;
         if (object instanceof DecryptedFolderMetadataFileV1 metadataFileV1) {
-            e2EVersion = E2EVersionHelper.INSTANCE.getLatestE2EVersion(false);
+            e2EVersion = E2EVersionHelper.INSTANCE.latestVersion(false);
             localFilesMap = prefillLocalFilesMap(metadataFileV1, fileDataStorageManager.getFolderContent(mLocalFolder, false));
         } else {
-            e2EVersion = E2EVersionHelper.INSTANCE.getLatestE2EVersion(true);
+            e2EVersion = E2EVersionHelper.INSTANCE.latestVersion(true);
             localFilesMap = prefillLocalFilesMap(object, fileDataStorageManager.getFolderContent(mLocalFolder, false));
 
             // update counter
@@ -601,7 +601,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.getAccountName());
 
             // update file name for encrypted files
-            if (e2EVersion == E2EVersionHelper.INSTANCE.getLatestE2EVersion(false)) {
+            if (e2EVersion == E2EVersionHelper.INSTANCE.latestVersion(false)) {
                 updateFileNameForEncryptedFileV1(fileDataStorageManager,
                                                  (DecryptedFolderMetadataFileV1) object,
                                                  updatedFile);
@@ -624,7 +624,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         // save updated contents in local database
         // update file name for encrypted files
-        if (e2EVersion == E2EVersionHelper.INSTANCE.getLatestE2EVersion(false)) {
+        if (e2EVersion == E2EVersionHelper.INSTANCE.latestVersion(false)) {
             updateFileNameForEncryptedFileV1(fileDataStorageManager,
                                              (DecryptedFolderMetadataFileV1) object,
                                              mLocalFolder);

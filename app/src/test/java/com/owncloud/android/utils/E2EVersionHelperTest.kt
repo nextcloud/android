@@ -36,16 +36,16 @@ class E2EVersionHelperTest {
 
     @Test
     fun `isV2orAbove returns true for V2 versions`() {
-        assertTrue(E2EVersionHelper.isV2orAbove(E2EVersion.V2_0))
-        assertTrue(E2EVersionHelper.isV2orAbove(E2EVersion.V2_1))
+        assertTrue(E2EVersionHelper.isV2Plus(E2EVersion.V2_0))
+        assertTrue(E2EVersionHelper.isV2Plus(E2EVersion.V2_1))
     }
 
     @Test
     fun `isV2orAbove returns false for non V2 versions`() {
-        assertFalse(E2EVersionHelper.isV2orAbove(E2EVersion.V1_0))
-        assertFalse(E2EVersionHelper.isV2orAbove(E2EVersion.V1_1))
-        assertFalse(E2EVersionHelper.isV2orAbove(E2EVersion.V1_2))
-        assertFalse(E2EVersionHelper.isV2orAbove(E2EVersion.UNKNOWN))
+        assertFalse(E2EVersionHelper.isV2Plus(E2EVersion.V1_0))
+        assertFalse(E2EVersionHelper.isV2Plus(E2EVersion.V1_1))
+        assertFalse(E2EVersionHelper.isV2Plus(E2EVersion.V1_2))
+        assertFalse(E2EVersionHelper.isV2Plus(E2EVersion.UNKNOWN))
     }
 
     @Test
@@ -64,78 +64,78 @@ class E2EVersionHelperTest {
 
     @Test
     fun `getLatestE2EVersion returns latest V2 when isV2 is true`() {
-        assertEquals(E2EVersion.V2_1, E2EVersionHelper.getLatestE2EVersion(true))
+        assertEquals(E2EVersion.V2_1, E2EVersionHelper.latestVersion(true))
     }
 
     @Test
     fun `getLatestE2EVersion returns latest V1 when isV2 is false`() {
-        assertEquals(E2EVersion.V1_2, E2EVersionHelper.getLatestE2EVersion(false))
+        assertEquals(E2EVersion.V1_2, E2EVersionHelper.latestVersion(false))
     }
 
     @Test
     fun `determineE2EVersion returns V1_0`() {
         mockV1("1.0")
-        assertEquals(E2EVersion.V1_0, E2EVersionHelper.determineE2EVersion("meta"))
+        assertEquals(E2EVersion.V1_0, E2EVersionHelper.fromMetadata("meta"))
     }
 
     @Test
     fun `determineE2EVersion via double returns V1_0`() {
         mockV1Double(1.0)
-        assertEquals(E2EVersion.V1_0, E2EVersionHelper.determineE2EVersion("meta"))
+        assertEquals(E2EVersion.V1_0, E2EVersionHelper.fromMetadata("meta"))
     }
 
     @Test
     fun `determineE2EVersion via second double returns V1_0`() {
         mockV1Double(1.00)
-        assertEquals(E2EVersion.V1_0, E2EVersionHelper.determineE2EVersion("meta"))
+        assertEquals(E2EVersion.V1_0, E2EVersionHelper.fromMetadata("meta"))
     }
 
     @Test
     fun `determineE2EVersion via third double returns V1_1`() {
         mockV1Double(1.10)
-        assertEquals(E2EVersion.V1_1, E2EVersionHelper.determineE2EVersion("meta"))
+        assertEquals(E2EVersion.V1_1, E2EVersionHelper.fromMetadata("meta"))
     }
 
     @Test
     fun `determineE2EVersion via fourth double returns V1_2`() {
         mockV1Double(1.2)
-        assertEquals(E2EVersion.V1_2, E2EVersionHelper.determineE2EVersion("meta"))
+        assertEquals(E2EVersion.V1_2, E2EVersionHelper.fromMetadata("meta"))
     }
 
     @Test
     fun `determineE2EVersion returns V1_1`() {
         mockV1("1.1")
-        assertEquals(E2EVersion.V1_1, E2EVersionHelper.determineE2EVersion("meta"))
+        assertEquals(E2EVersion.V1_1, E2EVersionHelper.fromMetadata("meta"))
     }
 
     @Test
     fun `determineE2EVersion returns V1_2`() {
         mockV1("1.2")
-        assertEquals(E2EVersion.V1_2, E2EVersionHelper.determineE2EVersion("meta"))
+        assertEquals(E2EVersion.V1_2, E2EVersionHelper.fromMetadata("meta"))
     }
 
     @Test
     fun `determineE2EVersion returns V2_0 for 2_0 or 2`() {
         mockV1Throw()
         mockV2("2.0")
-        assertEquals(E2EVersion.V2_0, E2EVersionHelper.determineE2EVersion("meta"))
+        assertEquals(E2EVersion.V2_0, E2EVersionHelper.fromMetadata("meta"))
 
         mockV2("2")
-        assertEquals(E2EVersion.V2_0, E2EVersionHelper.determineE2EVersion("meta"))
+        assertEquals(E2EVersion.V2_0, E2EVersionHelper.fromMetadata("meta"))
     }
 
     @Test
     fun `determineE2EVersion returns V2_1`() {
         mockV1Throw()
         mockV2("2.1")
-        assertEquals(E2EVersion.V2_1, E2EVersionHelper.determineE2EVersion("meta"))
+        assertEquals(E2EVersion.V2_1, E2EVersionHelper.fromMetadata("meta"))
     }
 
     @Test
     fun `determineE2EVersion returns UNKNOWN for unknown V2 version`() {
         mockV1Throw()
         mockV2("3.0")
-        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.determineE2EVersion("meta"))
+        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.fromMetadata("meta"))
     }
 
     @Test
@@ -154,24 +154,24 @@ class E2EVersionHelperTest {
             )
         } throws RuntimeException()
 
-        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.determineE2EVersion("meta"))
+        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.fromMetadata("meta"))
     }
 
     @Test
     fun `determineE2EFromVersionString maps versions correctly`() {
-        assertEquals(E2EVersion.V1_0, E2EVersionHelper.determineE2EFromVersionString("1.0"))
-        assertEquals(E2EVersion.V1_1, E2EVersionHelper.determineE2EFromVersionString("1.1"))
-        assertEquals(E2EVersion.V1_2, E2EVersionHelper.determineE2EFromVersionString("1.2"))
-        assertEquals(E2EVersion.V2_0, E2EVersionHelper.determineE2EFromVersionString("2"))
-        assertEquals(E2EVersion.V2_0, E2EVersionHelper.determineE2EFromVersionString("2.0"))
-        assertEquals(E2EVersion.V2_1, E2EVersionHelper.determineE2EFromVersionString("2.1"))
+        assertEquals(E2EVersion.V1_0, E2EVersionHelper.fromVersionString("1.0"))
+        assertEquals(E2EVersion.V1_1, E2EVersionHelper.fromVersionString("1.1"))
+        assertEquals(E2EVersion.V1_2, E2EVersionHelper.fromVersionString("1.2"))
+        assertEquals(E2EVersion.V2_0, E2EVersionHelper.fromVersionString("2"))
+        assertEquals(E2EVersion.V2_0, E2EVersionHelper.fromVersionString("2.0"))
+        assertEquals(E2EVersion.V2_1, E2EVersionHelper.fromVersionString("2.1"))
     }
 
     @Test
     fun `determineE2EFromVersionString returns UNKNOWN for invalid input`() {
-        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.determineE2EFromVersionString(null))
-        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.determineE2EFromVersionString(""))
-        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.determineE2EFromVersionString("3.0"))
+        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.fromVersionString(null))
+        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.fromVersionString(""))
+        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.fromVersionString("3.0"))
     }
 
     private fun mockV1(version: String) {
