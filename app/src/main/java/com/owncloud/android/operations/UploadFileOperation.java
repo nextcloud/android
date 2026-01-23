@@ -1262,27 +1262,6 @@ public class UploadFileOperation extends SyncOperation {
         return null;
     }
 
-    public void handleLocalBehaviour() {
-        if (user == null || mFile == null || mContext == null) {
-            Log_OC.d(TAG, "handleLocalBehaviour: user, file, or context is null.");
-            return;
-        }
-
-        final var client = getClient();
-        if (client == null) {
-            Log_OC.d(TAG, "handleLocalBehaviour: client is null");
-            return;
-        }
-
-        String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
-        File expectedFile = new File(expectedPath);
-        File originalFile = new File(mOriginalStoragePath);
-        String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) + mFile.getRemotePath();
-        File temporalFile = new File(temporalPath);
-
-        handleLocalBehaviour(temporalFile, expectedFile, originalFile, client);
-    }
-
     private void deleteNonExistingFile(File file) {
         if (file.exists()) {
             return;

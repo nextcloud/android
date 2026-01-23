@@ -37,6 +37,7 @@ import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
@@ -346,6 +347,12 @@ class AutoUploadWorker(
                                 TAG,
                                 "❌ upload failed $localPath (${upload.accountName}): ${result.logMessage}"
                             )
+
+                            // Mark CONFLICT files as handled to prevent retries
+                            if (result.code == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+                                repository.markFileAsHandled(localPath, syncedFolder)
+                                Log_OC.w(TAG, "Marked CONFLICT file as handled: $localPath")
+                            }
                         }
                     } catch (e: Exception) {
                         uploadsStorageManager.updateStatus(
