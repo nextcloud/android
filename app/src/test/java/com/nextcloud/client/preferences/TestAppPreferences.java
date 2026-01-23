@@ -20,7 +20,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.inOrder;
@@ -143,7 +142,6 @@ public class TestAppPreferences {
         public void setUp() {
             MockitoAnnotations.initMocks(this);
             when(editor.remove(anyString())).thenReturn(editor);
-            when(editor.putInt(anyString(), anyInt())).thenReturn(editor);
             when(sharedPreferences.edit()).thenReturn(editor);
             appPreferences = new AppPreferencesImpl(testContext, sharedPreferences, userAccountManager);
         }
@@ -178,16 +176,6 @@ public class TestAppPreferences {
             assertEquals(8, appPreferences.computeBruteForceDelay(25));
             assertEquals(10, appPreferences.computeBruteForceDelay(50));
             assertEquals(10, appPreferences.computeBruteForceDelay(100));
-        }
-
-        @Test
-        public void maxConcurrentUploads() {
-            when(sharedPreferences.getInt("max_concurrent_uploads", 10)).thenReturn(10);
-            assertEquals(10, appPreferences.getMaxConcurrentUploads());
-
-            appPreferences.setMaxConcurrentUploads(5);
-            verify(editor).putInt("max_concurrent_uploads", 5);
-            verify(editor).apply();
         }
     }
 }

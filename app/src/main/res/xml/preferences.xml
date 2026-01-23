@@ -84,13 +84,6 @@
             android:title="@string/prefs_all_files_access_title"
             android:key="allFilesAccess"
             android:summary="@string/prefs_all_files_access_summary" />
-
-        <EditTextPreference
-            android:key="max_concurrent_uploads"
-            android:title="@string/prefs_max_concurrent_uploads"
-            android:dialogTitle="@string/prefs_max_concurrent_uploads"
-            android:inputType="number"
-            android:defaultValue="10" />
     </PreferenceCategory>
 
 	<PreferenceCategory

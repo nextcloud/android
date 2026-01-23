@@ -396,7 +396,4 @@ public interface AppPreferences {
 
     String getLastDisplayedAccountName();
     void setLastDisplayedAccountName(String lastDisplayedAccountName);
-
-    int getMaxConcurrentUploads();
-    void setMaxConcurrentUploads(int value);
 }
