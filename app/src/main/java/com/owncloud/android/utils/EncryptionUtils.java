@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
-import com.nextcloud.utils.extensions.E2EVersionExtensionsKt;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -405,109 +405,65 @@ public final class EncryptionUtils {
                            Context context,
                            User user
                           ) {
-        RemoteOperationResult<MetadataResponse> getMetadataOperationResult = new GetMetadataRemoteOperation(folder.getLocalId())
-            .execute(client);
+        RemoteOperationResult<MetadataResponse> getMetadataOperationResult =
+            new GetMetadataRemoteOperation(folder.getLocalId())
+                .execute(client);
 
         if (!getMetadataOperationResult.isSuccess()) {
             return null;
         }
 
-        OCCapability capability = CapabilityUtils.getCapability(context);
-
-        // decrypt metadata
-        EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
         String serializedEncryptedMetadata = getMetadataOperationResult.getResultData().getMetadata();
+        E2EVersion version = E2EVersionHelper.INSTANCE.determineE2EVersion(serializedEncryptedMetadata);
 
-        E2EVersion version = E2EVersionExtensionsKt.determineE2EVersion(serializedEncryptedMetadata);
+        if (E2EVersionHelper.INSTANCE.isV2orAbove(version)) {
+            EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
+            return encryptionUtilsV2.parseAnyMetadata(getMetadataOperationResult.getResultData(),
+                                                      user,
+                                                      client,
+                                                      context,
+                                                      folder);
+        } else if (E2EVersionHelper.INSTANCE.isV1(version)) {
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
+            String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
+            String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
+            EncryptedFolderMetadataFileV1 encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
+                serializedEncryptedMetadata, new TypeToken<>() {
+                });
 
-        switch (version) {
-            case UNKNOWN:
-                Log_OC.e(TAG, "Unknown e2e state");
+            try {
+                DecryptedFolderMetadataFileV1 v1 = decryptFolderMetaData(encryptedFolderMetadata,
+                                                                         privateKey,
+                                                                         arbitraryDataProvider,
+                                                                         user,
+                                                                         folder.getLocalId());
+
+                OCCapability capability = CapabilityUtils.getCapability(context);
+                final var e2eeVersion = capability.getEndToEndEncryptionApiVersion();
+                if (E2EVersionHelper.INSTANCE.isV2orAbove(e2eeVersion)) {
+                    new EncryptionUtilsV2().migrateV1ToV2andUpload(
+                        v1,
+                        client.getUserId(),
+                        publicKey,
+                        folder,
+                        new FileDataStorageManager(user, context.getContentResolver()),
+                        client,
+                        user,
+                        context);
+                } else {
+                    return v1;
+                }
+            } catch (Exception e) {
+                // TODO do not crash, but show meaningful error
+                Log_OC.e(TAG, "Could not decrypt metadata for " + folder.getDecryptedFileName(), e);
                 return null;
-
-            case V1_0, V1_1, V1_2:
-                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
-                String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
-                String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
-                EncryptedFolderMetadataFileV1 encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
-                    serializedEncryptedMetadata, new TypeToken<>() {
-                    });
-
-                try {
-                    DecryptedFolderMetadataFileV1 v1 = decryptFolderMetaData(encryptedFolderMetadata,
-                                                                             privateKey,
-                                                                             arbitraryDataProvider,
-                                                                             user,
-                                                                             folder.getLocalId());
-
-                    final var e2eeVersion = capability.getEndToEndEncryptionApiVersion();
-                    if (E2EVersionExtensionsKt.isV2orAbove(e2eeVersion)) {
-                        new EncryptionUtilsV2().migrateV1ToV2andUpload(
-                            v1,
-                            client.getUserId(),
-                            publicKey,
-                            folder,
-                            new FileDataStorageManager(user, context.getContentResolver()),
-                            client,
-                            user,
-                            context);
-                    } else {
-                        return v1;
-                    }
-                } catch (Exception e) {
-                    // TODO do not crash, but show meaningful error 
-                    Log_OC.e(TAG, "Could not decrypt metadata for " + folder.getDecryptedFileName(), e);
-                    return null;
-                }
-
-            case V2_0:
-                return encryptionUtilsV2.parseAnyMetadata(getMetadataOperationResult.getResultData(),
-                                                          user,
-                                                          client,
-                                                          context,
-                                                          folder);
+            }
+        } else if (version == E2EVersion.UNKNOWN) {
+            Log_OC.e(TAG, "Unknown e2e state");
+            return null;
         }
+
         return null;
-    }
-
-    public static E2EVersion determinateVersion(String metadata) {
-        try {
-            EncryptedFolderMetadataFileV1 v1 = EncryptionUtils.deserializeJSON(
-                metadata,
-                new TypeToken<>() {
-                });
-
-            double version = v1.getMetadata().getVersion();
-
-            if (version == 1.0) {
-                return E2EVersion.V1_0;
-            } else if (version == 1.1) {
-                return E2EVersion.V1_1;
-            } else if (version == 1.2) {
-                return E2EVersion.V1_2;
-            } else {
-                throw new IllegalStateException("Unknown version");
-            }
-        } catch (Exception e) {
-            EncryptedFolderMetadataFile v2 = EncryptionUtils.deserializeJSON(
-                metadata,
-                new TypeToken<>() {
-                });
-
-            if (v2 != null) {
-                if ("2.0".equals(v2.getVersion()) || "2".equals(v2.getVersion())) {
-                    return E2EVersion.V2_0;
-                }
-
-                if ("2.1".equals(v2.getVersion())) {
-                    return E2EVersion.V2_1;
-                }
-            } else {
-                return E2EVersion.UNKNOWN;
-            }
-        }
-
-        return E2EVersion.UNKNOWN;
     }
 
     /*
@@ -1264,7 +1220,10 @@ public final class EncryptionUtils {
             // new metadata
             metadata = new DecryptedFolderMetadataFileV1();
             metadata.setMetadata(new DecryptedMetadata());
-            metadata.getMetadata().setVersion(Double.parseDouble(E2EVersion.V1_2.getValue()));
+
+            final var latestV1E2EEVersion = E2EVersionHelper.INSTANCE.getLatestE2EVersion(false);
+
+            metadata.getMetadata().setVersion(Double.parseDouble(latestV1E2EEVersion.getValue()));
             metadata.getMetadata().setMetadataKeys(new HashMap<>());
             String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
             String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
@@ -1323,11 +1282,13 @@ public final class EncryptionUtils {
 
         } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND ||
             getMetadataOperationResult.getHttpCode() == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+            final var latestE2EEV2Version = E2EVersionHelper.INSTANCE.getLatestE2EVersion(true);
+
             // new metadata
             metadata = new DecryptedFolderMetadataFile(new com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata(),
                                                        new ArrayList<>(),
                                                        new HashMap<>(),
-                                                       E2EVersion.V2_1.getValue());
+                                                       latestE2EEV2Version.getValue());
             metadata.getUsers().add(new DecryptedUser(client.getUserId(), publicKey, null));
             byte[] metadataKey = EncryptionUtils.generateKey();
 
@@ -1357,7 +1318,7 @@ public final class EncryptionUtils {
         RemoteOperationResult<String> uploadMetadataOperationResult;
         if (metadataExists) {
             // update metadata
-            if (E2EVersionExtensionsKt.isV2orAbove(version)) {
+            if (E2EVersionHelper.INSTANCE.isV2orAbove(version)) {
                 uploadMetadataOperationResult = new UpdateMetadataV2RemoteOperation(
                     parentFile.getRemoteId(),
                     serializedFolderMetadata,
@@ -1373,7 +1334,7 @@ public final class EncryptionUtils {
             }
         } else {
             // store metadata
-            if (E2EVersionExtensionsKt.isV2orAbove(version)) {
+            if (E2EVersionHelper.INSTANCE.isV2orAbove(version)) {
                 uploadMetadataOperationResult = new StoreMetadataV2RemoteOperation(
                     parentFile.getRemoteId(),
                     serializedFolderMetadata,

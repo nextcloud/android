@@ -11,7 +11,7 @@ import android.content.Context
 import androidx.core.util.component1
 import androidx.core.util.component2
 import com.nextcloud.client.account.User
-import com.nextcloud.utils.extensions.isV2orAbove
+import com.nextcloud.utils.e2ee.E2EVersionHelper
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -20,7 +20,6 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.lib.resources.status.E2EVersion
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.EncryptionUtilsV2
 import com.owncloud.android.utils.theme.CapabilityUtils
@@ -57,7 +56,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         var delete: DeleteMethod? = null
         var token: String? = null
         val e2eVersion = CapabilityUtils.getCapability(context).endToEndEncryptionApiVersion
-        val isE2EVersionAtLeast2 = (e2eVersion.isV2orAbove())
+        val isE2EVersionAtLeast2 = (E2EVersionHelper.isV2orAbove(e2eVersion))
 
         try {
             token = EncryptionUtils.lockFolder(parentFolder, client)
@@ -150,7 +149,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             token,
             client,
             metadataExists,
-            E2EVersion.V1_2,
+            E2EVersionHelper.getLatestE2EVersion(false),
             "",
             arbitraryDataProvider,
             user

@@ -54,8 +54,8 @@ import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.E2EVersionExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.FragmentExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
@@ -1973,7 +1973,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                 OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(user.getAccountName());
                 final var e2eeVersion = ocCapability.getEndToEndEncryptionApiVersion();
-                if (E2EVersionExtensionsKt.isV2orAbove(e2eeVersion)) {
+                if (E2EVersionHelper.INSTANCE.isV2orAbove(e2eeVersion)) {
                     // Update metadata
                     Pair<Boolean, DecryptedFolderMetadataFile> metadataPair = EncryptionUtils.retrieveMetadata(folder,
                                                                                                                client,
@@ -2000,7 +2000,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     EncryptionUtils.unlockFolder(folder, client, token);
 
 
-                } else if (E2EVersionExtensionsKt.isV1(e2eeVersion)) {
+                } else if (E2EVersionHelper.INSTANCE.isV1(e2eeVersion)) {
                     // unlock folder
                     EncryptionUtils.unlockFolderV1(folder, client, token);
                 } else if (e2eeVersion == E2EVersion.UNKNOWN) {

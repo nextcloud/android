@@ -15,7 +15,7 @@ import android.content.Context;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.utils.extensions.E2EVersionExtensionsKt;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -100,9 +100,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             final var capability = getStorageManager().getCapability(user);
             final var version = capability.getEndToEndEncryptionApiVersion();
 
-            if (E2EVersionExtensionsKt.isV2orAbove(version)) {
+            if (E2EVersionHelper.INSTANCE.isV2orAbove(version)) {
                 return encryptedCreateV2(parent, client);
-            } else if (E2EVersionExtensionsKt.isV1(version)) {
+            } else if (E2EVersionHelper.INSTANCE.isV1(version)) {
                 return encryptedCreateV1(parent, client);
             }
 
@@ -176,7 +176,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                token,
                                                client,
                                                metadataExists,
-                                               E2EVersion.V1_2,
+                                               E2EVersionHelper.INSTANCE.getLatestE2EVersion(false),
                                                "",
                                                arbitraryDataProvider,
                                                user);
