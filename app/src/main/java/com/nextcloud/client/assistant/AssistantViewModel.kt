@@ -16,7 +16,6 @@ import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositor
 import com.nextcloud.utils.TimeConstants.MILLIS_PER_SECOND
 import com.nextcloud.utils.extensions.isHuman
 import com.owncloud.android.R
-import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessageRequest
@@ -66,8 +65,10 @@ class AssistantViewModel(
     private val _isTranslationTask = MutableStateFlow<Boolean>(false)
     val isTranslationTask: StateFlow<Boolean> = _isTranslationTask
 
-    private val _selectedTask = MutableStateFlow<Task?>(null)
-    val selectedTask: StateFlow<Task?> = _selectedTask
+    private val _isTranslationTaskCreated = MutableStateFlow<Boolean>(false)
+    val isTranslationTaskCreated: StateFlow<Boolean> = _isTranslationTaskCreated
+
+    private val selectedTask = MutableStateFlow<Task?>(null)
 
     private val _selectedTaskType = MutableStateFlow<TaskTypeData?>(null)
     val selectedTaskType: StateFlow<TaskTypeData?> = _selectedTaskType
@@ -174,7 +175,7 @@ class AssistantViewModel(
     private fun observeScreenState() {
         viewModelScope.launch {
             combine(
-                _selectedTask,
+                selectedTask,
                 _selectedTaskType,
                 _chatMessages,
                 _filteredTaskList
@@ -231,7 +232,11 @@ class AssistantViewModel(
             )
 
             val result = remoteRepository.translate(input, task)
-            handleTaskCreation(result)
+            if (result.isSuccess) {
+                _isTranslationTaskCreated.update {
+                    true
+                }
+            }
         }
     }
 
@@ -280,10 +285,6 @@ class AssistantViewModel(
     // region task
     fun createTask(input: String, taskType: TaskTypeData) = viewModelScope.launch(Dispatchers.IO) {
         val result = remoteRepository.createTask(input, taskType)
-        handleTaskCreation(result)
-    }
-
-    private suspend fun handleTaskCreation(result: RemoteOperationResult<*>) {
         val message = if (result.isSuccess) {
             R.string.assistant_screen_task_create_success_message
         } else {
@@ -379,7 +380,7 @@ class AssistantViewModel(
     }
 
     fun selectTask(task: Task?) {
-        _selectedTask.update {
+        selectedTask.update {
             task
         }
     }
@@ -412,6 +413,18 @@ class AssistantViewModel(
         _isTranslationTask.update {
             value
         }
+    }
+
+    fun updateTranslationTaskCreation(value: Boolean) {
+        _isTranslationTaskCreated.update {
+            value
+        }
+    }
+
+    fun onTranslationScreenDismissed() {
+        updateTranslationTaskCreation(false)
+        updateTranslationTaskState(false)
+        selectTask(null)
     }
 
     private fun removeTaskFromList(id: Long) {
