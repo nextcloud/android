@@ -23,7 +23,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.autoRename.AutoRename;
-import com.nextcloud.utils.extensions.E2EVersionExtensionsKt;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -586,7 +586,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private boolean isEndToEndVersionAtLeastV2() {
-        return E2EVersionExtensionsKt.isV2orAbove(getE2EVersion());
+        return E2EVersionHelper.INSTANCE.isV2orAbove(getE2EVersion());
     }
 
     private E2EVersion getE2EVersion() {
@@ -855,7 +855,7 @@ public class UploadFileOperation extends SyncOperation {
                                        clientData.getToken(),
                                        clientData.getClient(),
                                        metadataExists,
-                                       E2EVersion.V1_2,
+                                       E2EVersionHelper.INSTANCE.getLatestE2EVersion(false),
                                        "",
                                        arbitraryDataProvider,
                                        user);
