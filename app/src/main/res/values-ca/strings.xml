@@ -172,6 +172,7 @@
     <string name="community_testing_bug_text">Heu trobat cap error? Alguna cosa fora del corrent?</string>
     <string name="community_testing_headline">Ajudar fent proves</string>
     <string name="community_testing_report_text">Informar d\'una incidència a GitHub</string>
+    <string name="compose_activity_label">Assistent del Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Configura</string>
     <string name="confirm_removal">Suprimeix el xifratge local</string>
     <string name="confirmation_remove_file_alert">Esteu segur que voleu suprimir%1$s?</string>

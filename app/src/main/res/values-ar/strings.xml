@@ -175,6 +175,7 @@
     <string name="community_testing_bug_text">هل وجدت خطأ برمجي أو شيء ناقص؟</string>
     <string name="community_testing_headline">ساعدنا بالتجريب</string>
     <string name="community_testing_report_text">إرسل تقرير أخطاء على GitHub</string>
+    <string name="compose_activity_label">مُساعِد نكست كلاود Nextcloud Assistant</string>
     <string name="configure_new_media_folder_detection_notifications">إعداد</string>
     <string name="confirm_removal">إلغاء التشفير المحلي</string>
     <string name="confirmation_remove_file_alert">هل توَدُّ حقاً حذف %1$s؟</string>

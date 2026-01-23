@@ -53,11 +53,11 @@
     <string name="assistant_screen_empty_content_title">Ciao! Come posso aiutarti oggi?</string>
     <string name="assistant_screen_task_create_fail_message">Un errore è intercorso durante la creazione del task</string>
     <string name="assistant_screen_task_create_success_message">Task creato con successo</string>
-    <string name="assistant_screen_task_delete_fail_message">Un errore è intercorso durante la cancellazione del task</string>
-    <string name="assistant_screen_task_delete_success_message">Task cancellato con successo</string>
+    <string name="assistant_screen_task_delete_fail_message">Un errore è intercorso durante l\'eliminazione dell\'attività</string>
+    <string name="assistant_screen_task_delete_success_message">Attività eliminata correttamente</string>
     <string name="assistant_screen_task_list_empty_warning">L\'elenco delle attività è vuoto. Controllare la configurazione dell\'app di assistenza.</string>
     <string name="assistant_screen_task_list_error_state_message">Impossibile recuperare la lista dei Task, verifica la tua connessione a internet.</string>
-    <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Cancella task</string>
+    <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Elimina attività</string>
     <string name="assistant_screen_task_output_empty_text">Il risultato del task non è ancora pronto.</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
@@ -214,8 +214,8 @@
     <string name="contacts_preferences_something_strange_happened">Non troviamo il tuo ultimo backup!</string>
     <string name="content_observer_work_notification_title">Rilevamento delle modifiche ai contenuti</string>
     <string name="conversation_screen_create_error_title">Impossibile creare conversazione</string>
-    <string name="conversation_screen_delete_button_title">Cancella conversazione</string>
-    <string name="conversation_screen_delete_error_title">Impossibile cancellare conversazione</string>
+    <string name="conversation_screen_delete_button_title">Elimina conversazione</string>
+    <string name="conversation_screen_delete_error_title">Impossibile eliminare la conversazione</string>
     <string name="conversation_screen_empty_content_title">Nessuna conversazione trovata</string>
     <string name="conversation_screen_empty_conversation_list_title">Ancora nessuna conversazione</string>
     <string name="conversation_screen_title">Conversazioni</string>
@@ -280,7 +280,7 @@
     <string name="downloader_download_in_progress_ticker">Scaricamento in corso…</string>
     <string name="downloader_download_succeeded_content">%1$s scaricato</string>
     <string name="downloader_download_succeeded_ticker">Scaricati</string>
-    <string name="downloader_file_download_cancelled">Alcuni file sono stati cancellati dall\'utente durante il download</string>
+    <string name="downloader_file_download_cancelled">Lo scaricamento di alcuni file è stato annullato dall\'utente</string>
     <string name="downloader_file_download_failed">Errore durante lo scaricamento dei file</string>
     <string name="downloader_not_downloaded_yet">Non ancora scaricato</string>
     <string name="downloader_unexpected_error">Errore inaspettato durante il download dei file</string>
