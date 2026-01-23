@@ -258,7 +258,8 @@ fun AssistantScreen(
                             TranslationScreen(
                                 selectedTaskType,
                                 viewModel,
-                                textToTranslate
+                                textToTranslate,
+                                isTaskExists = (task != null)
                             )
                         }
 
