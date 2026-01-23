@@ -44,8 +44,11 @@
     <string name="app_widget_description">Menampilkan satu gawit dari dasbor</string>
     <string name="appbar_search_in">Cari dalam %s</string>
     <string name="appear_offline">Tampak offline</string>
+    <string name="assistant_output_generation_warning_text">Keluaran yang ditampilkan di sini dihasilkan oleh AI. Pastikan untuk selalu memeriksa ulang.</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Apakah Anda yakin ingin menghapus tugas ini?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Hapus tugas</string>
+    <string name="assistant_screen_empty_content_description">Coba kirim pesan untuk memulai percakapan.</string>
+    <string name="assistant_screen_empty_content_title">Halo! Apa yang bisa saya bantu hari ini?</string>
     <string name="assistant_screen_task_create_fail_message">Terjadi kesalahan saat membuat tugas</string>
     <string name="assistant_screen_task_create_success_message">Tugas berhasil dibuat</string>
     <string name="assistant_screen_task_delete_fail_message">Terjadi kesalahan saat menghapus tugas</string>
@@ -181,6 +184,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="community_testing_bug_text">Menemukan kesalahan?</string>
     <string name="community_testing_headline">Bantu dengan menguji.</string>
     <string name="community_testing_report_text">Laporkan di GitHub</string>
+    <string name="compose_activity_label">Nextcloud Assistant</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurasi</string>
     <string name="confirm_removal">Hilangkan enkripsi lokal</string>
     <string name="confirmation_remove_file_alert">Apakah anda yakin ingin menghapus %1$s?</string>
@@ -206,6 +210,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="contacts_preferences_no_file_found">Tidak ada berkas ditemukan.</string>
     <string name="contacts_preferences_something_strange_happened">Tidak dapat menemukan pencadangan terakhir kamu!</string>
     <string name="content_observer_work_notification_title">Mendeteksi perubahan konten</string>
+    <string name="conversation_screen_empty_conversation_list_title">Belum ada percakapan</string>
     <string name="copied">Tersalin</string>
     <string name="copy_file_error">Terjadi kesalahan ketika mencoba menyalin berkas atau folder ini</string>
     <string name="copy_file_invalid_into_descendent">Tidak memungkinkan untuk menyalin folder kedalam turunannya</string>
