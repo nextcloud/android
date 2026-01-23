@@ -371,8 +371,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void swapDirectory(final File directory) {
         localFileListFragmentInterface.setLoading(true);
         currentOffset = 0;
-        mFiles.clear();
-        mFilesAll.clear();
 
         singleThreadExecutor.execute(() -> {
             // Load first page of folders
@@ -398,8 +396,10 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     @SuppressLint("NotifyDataSetChanged")
     private void updateUIForFirstPage(List<File> firstPage) {
         new Handler(Looper.getMainLooper()).post(() -> {
-            mFiles = new ArrayList<>(firstPage);
-            mFilesAll = new ArrayList<>(firstPage);
+            mFiles.clear();
+            mFilesAll.clear();
+            mFiles.addAll(firstPage);
+            mFilesAll.addAll(firstPage);
             notifyDataSetChanged();
             localFileListFragmentInterface.setLoading(false);
         });
@@ -432,15 +432,16 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private void notifyItemRange(List<File> updatedList) {
         new Handler(Looper.getMainLooper()).post(() -> {
-            int from = mFiles.size();
-            int to = updatedList.size();
+            int headerOffset = shouldShowHeader() ? 1 : 0;
+            int startPositionInAdapter = mFiles.size() + headerOffset;
+            int itemCount = updatedList.size();
 
             mFiles.addAll(updatedList);
             mFilesAll.addAll(updatedList);
 
             Log_OC.d(TAG, "notifyItemRange, item size: " + mFilesAll.size());
 
-            notifyItemRangeInserted(from, to);
+            notifyItemRangeInserted(startPositionInAdapter, itemCount);
         });
     }
 
