@@ -439,8 +439,7 @@ public final class EncryptionUtils {
                                                                          folder.getLocalId());
 
                 OCCapability capability = CapabilityUtils.getCapability(context);
-                final var e2eeVersion = capability.getEndToEndEncryptionApiVersion();
-                if (E2EVersionHelper.INSTANCE.isV2orAbove(e2eeVersion)) {
+                if (E2EVersionHelper.INSTANCE.isV2orAbove(capability)) {
                     new EncryptionUtilsV2().migrateV1ToV2andUpload(
                         v1,
                         client.getUserId(),

@@ -98,11 +98,10 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
         if (encryptedAncestor) {
             final var capability = getStorageManager().getCapability(user);
-            final var version = capability.getEndToEndEncryptionApiVersion();
 
-            if (E2EVersionHelper.INSTANCE.isV2orAbove(version)) {
+            if (E2EVersionHelper.INSTANCE.isV2orAbove(capability)) {
                 return encryptedCreateV2(parent, client);
-            } else if (E2EVersionHelper.INSTANCE.isV1(version)) {
+            } else if (E2EVersionHelper.INSTANCE.isV1(capability)) {
                 return encryptedCreateV1(parent, client);
             }
 

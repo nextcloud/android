@@ -1972,8 +1972,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 String token = EncryptionUtils.lockFolder(folder, client);
 
                 OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(user.getAccountName());
-                final var e2eeVersion = ocCapability.getEndToEndEncryptionApiVersion();
-                if (E2EVersionHelper.INSTANCE.isV2orAbove(e2eeVersion)) {
+                if (E2EVersionHelper.INSTANCE.isV2orAbove(ocCapability)) {
                     // Update metadata
                     Pair<Boolean, DecryptedFolderMetadataFile> metadataPair = EncryptionUtils.retrieveMetadata(folder,
                                                                                                                client,
@@ -2000,10 +1999,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     EncryptionUtils.unlockFolder(folder, client, token);
 
 
-                } else if (E2EVersionHelper.INSTANCE.isV1(e2eeVersion)) {
+                } else if (E2EVersionHelper.INSTANCE.isV1(ocCapability)) {
                     // unlock folder
                     EncryptionUtils.unlockFolderV1(folder, client, token);
-                } else if (e2eeVersion == E2EVersion.UNKNOWN) {
+                } else if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.UNKNOWN) {
                     throw new IllegalArgumentException("Unknown E2E version");
                 }
 
