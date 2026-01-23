@@ -1,0 +1,7 @@
+## 3.35.1 (January 23, 2026)
+
+- Auto-upload fixes
+
+Minimum: NC 20 Server, Android 9 Pie
+
+For a full list, please see https://github.com/nextcloud/android/milestone/119
