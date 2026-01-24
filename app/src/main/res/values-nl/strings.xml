@@ -340,6 +340,7 @@
     <string name="error_report_issue_text">Probleem melden? (vereist een GitHub account)</string>
     <string name="error_retrieving_file">Fout bij ophalen van bestand</string>
     <string name="error_retrieving_templates">Fout bij ophalen sjablonen</string>
+    <string name="error_setting_status_message">Fout bij instellen statusbericht!</string>
     <string name="error_showing_encryption_dialog">Fout bij het tonen van encryptie instellingsdialoog!</string>
     <string name="error_starting_direct_camera_upload">Fout bij starten camera</string>
     <string name="error_starting_doc_scan">Fout bij het starten van documentscan</string>
@@ -786,13 +787,16 @@
     <string name="select_one_template">Selecteer een sjabloon</string>
     <string name="select_template">Kies sjabloon</string>
     <string name="send">Versturen</string>
+    <string name="send_copy_to">Stuur kopie naar</string>
     <string name="send_share">Share versturen</string>
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
     <string name="server_not_reachable">Kon inhoud niet laden</string>
     <string name="server_not_reachable_content">Dit apparaat is mogelijk niet aangesloten op het internet</string>
     <string name="set_as">Stel in als</string>
     <string name="set_download_limit_failed">Kan geen downloadlimiet instellen. Controleer svp de capaciteiten</string>
+    <string name="set_message">Stel bericht in</string>
     <string name="set_note">Aantekening instellen</string>
+    <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Gebruik afbeelding als</string>
     <string name="setup_e2e">Tijden het instellen van end-to-end versleuteling ontvang je een mnemonic van 12 woorden, die je nodig hebt om bestanden op je apparaat te openen. Dit wordt alleen opgeslagen op dit apparaat en kan in dit scherm opnieuw getoond worden. Noteer het a.u.b. op een veilige plek!</string>
     <string name="share">Delen</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">%1$s aplikácie pre Android</string>
+    <string name="about_android">%1$s aplikácia pre Android</string>
     <string name="about_title">O</string>
     <string name="about_version">verzia %1$s</string>
     <string name="about_version_with_build">verzia %1$s, zostavenie #%2$s</string>
@@ -13,6 +13,7 @@
     <string name="action_send_share">Odoslať/Zdieľať</string>
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
+    <string name="action_triggered">Akcia spustená</string>
     <string name="actionbar_calendar_contacts_restore">Obnoviť kontakty a kalendár</string>
     <string name="actionbar_mkdir">Nový priečinok</string>
     <string name="actionbar_move_or_copy">Presunúť alebo kopírovať</string>
@@ -59,6 +60,7 @@
     <string name="assistant_screen_task_list_error_state_message">Nie je možné načítať zoznam úloh, skontrolujte svoje internetové pripojenie.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Vymazať Úlohu</string>
     <string name="assistant_screen_task_output_empty_text">Výstup úlohy ešte nie je dostupný.</string>
+    <string name="assistant_screen_text_selected">Text skopírovaný z inej aplikácie</string>
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Vstup</string>
     <string name="assistant_task_detail_screen_output_button_title">Výstup</string>
@@ -397,6 +399,7 @@
     <string name="failed_to_create_conflict_dialog">Nepodarilo sa vytvoriť dialóg o konflikte</string>
     <string name="failed_to_download">Nepodarilo sa odovzdať súbor správcovi preberania</string>
     <string name="failed_to_print">Nepodarilo sa vytlačiť súbor</string>
+    <string name="failed_to_start_action">Spustenie akcie zlyhalo!</string>
     <string name="failed_to_start_editor">Nepodarilo sa spustiť editor</string>
     <string name="failed_update_ui">Nepodarilo sa aktualizovať UI</string>
     <string name="favorite">Pridať do obľúbených</string>
@@ -756,6 +759,7 @@
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Spravovať interné adresáre pre obojsmernú synchronizáciu</string>
     <string name="prefs_two_way_sync_switch_title">Povoliť obojstrannú synchronizáciu</string>
+    <string name="prefs_two_way_sync_title">Obojsmerná synchronizácia</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Svetlý</string>
     <string name="prefs_value_theme_system">Nasledovať systém</string>
@@ -961,6 +965,9 @@
     <string name="suggest">Navrhnúť</string>
     <string name="sync">Synchronizovať</string>
     <string name="sync_anyway">Aj napriek tomu synchronizovať</string>
+    <string name="sync_conflict_notification_action_title">Vyriešiť konflikty</string>
+    <string name="sync_conflict_notification_description">Zistené konflikty pri nahrávaní. Otvorte nahrávania a vyriešte ich.</string>
+    <string name="sync_conflict_notification_title">Konflikty pri nahrávaní súboru</string>
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
     <string name="sync_current_folder_was_removed">Adresár %1$s už neexistuje</string>
     <string name="sync_duplication">Synchronizovať duplikáty</string>
