@@ -11,11 +11,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.test.annotation.UiThreadTest
-import androidx.test.runner.screenshot.Screenshot
 import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy
-import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkContinuation
@@ -27,12 +25,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.toByteArray
 import com.owncloud.android.lib.common.utils.Log_OC
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.slot
 import org.apache.commons.io.FileUtils
-import org.bouncycastle.util.test.SimpleTest.runTest
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
