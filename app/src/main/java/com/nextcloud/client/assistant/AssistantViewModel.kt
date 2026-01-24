@@ -62,11 +62,14 @@ class AssistantViewModel(
     private val _snackbarMessageId = MutableStateFlow<Int?>(null)
     val snackbarMessageId: StateFlow<Int?> = _snackbarMessageId
 
-    private val _isTranslationTask = MutableStateFlow<Boolean>(false)
+    private val _isTranslationTask = MutableStateFlow(false)
     val isTranslationTask: StateFlow<Boolean> = _isTranslationTask
 
-    private val _isTranslationTaskCreated = MutableStateFlow<Boolean>(false)
+    private val _isTranslationTaskCreated = MutableStateFlow(false)
     val isTranslationTaskCreated: StateFlow<Boolean> = _isTranslationTaskCreated
+
+    private val _translationTaskOutput = MutableStateFlow("")
+    val translationTaskOutput: StateFlow<String> = _translationTaskOutput
 
     private val selectedTask = MutableStateFlow<Task?>(null)
 
@@ -204,17 +207,18 @@ class AssistantViewModel(
         }
     }
 
+    // region translation
     fun translate(textToTranslate: String, originLanguage: TranslationLanguage, targetLanguage: TranslationLanguage) {
         viewModelScope.launch(Dispatchers.IO) {
-            val task = _selectedTaskType.value
-            if (task == null) {
+            val taskType = _selectedTaskType.value
+            if (taskType == null) {
                 _snackbarMessageId.update {
                     R.string.assistant_screen_select_task
                 }
                 return@launch
             }
 
-            val model = task.toTranslationModel()
+            val model = taskType.toTranslationModel()
 
             if (model == null) {
                 _snackbarMessageId.update {
@@ -231,14 +235,54 @@ class AssistantViewModel(
                 model = model.model
             )
 
-            val result = remoteRepository.translate(input, task)
+            val result = remoteRepository.translate(input, taskType)
             if (result.isSuccess) {
-                _isTranslationTaskCreated.update {
-                    true
-                }
+                _isTranslationTaskCreated.update { true }
+
+                val selectedTaskId = selectedTask.value?.id ?: return@launch
+
+                pollTranslationResult(
+                    taskType = taskType,
+                    selectedTaskId = selectedTaskId
+                )
+
+                _isTranslationTaskCreated.update { false }
             }
         }
     }
+
+    private suspend fun pollTranslationResult(
+        taskType: TaskTypeData,
+        selectedTaskId: Long,
+        maxRetries: Int = 3,
+    ) {
+        val taskTypeId = taskType.id ?: return
+
+        repeat(maxRetries) { attempt ->
+            val translationTasks = remoteRepository.getTaskList(taskTypeId)
+            val translationResult = translationTasks
+                ?.find { it.id == selectedTaskId }
+                ?.output
+                ?.output
+
+            if (!translationResult.isNullOrBlank()) {
+                _translationTaskOutput.update { translationResult }
+                return
+            }
+
+            Log_OC.d(TAG, "Translation not ready yet (attempt ${attempt + 1}/$maxRetries)")
+
+            if (attempt < maxRetries - 1) {
+                delay(POLLING_INTERVAL_MS)
+            }
+        }
+
+        Log_OC.w(TAG, "Translation polling finished but result is still empty")
+        updateSnackbarMessage(R.string.translation_screen_task_processing)
+        onTranslationScreenDismissed()
+    }
+    // endregion
+
 
     // region chat
     fun sendChatMessage(content: String, sessionId: Long) = viewModelScope.launch(Dispatchers.IO) {

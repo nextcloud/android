@@ -38,6 +38,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -71,6 +72,8 @@ fun TranslationScreen(
 ) {
     val languages = remember(selectedTaskType) { selectedTaskType?.toTranslationLanguages() }
     val isTranslationTaskCreated by viewModel.isTranslationTaskCreated.collectAsState()
+    val translationTaskOutput by viewModel.translationTaskOutput.collectAsState()
+
     var sourceState by remember {
         mutableStateOf(
             TranslationSideState(
@@ -82,6 +85,10 @@ fun TranslationScreen(
     }
     var targetState by remember {
         mutableStateOf(TranslationSideState(language = languages?.targetLanguages?.firstOrNull(), isTarget = true))
+    }
+
+    LaunchedEffect(translationTaskOutput) {
+        targetState = targetState.copy(text = translationTaskOutput)
     }
 
     BackHandler {
