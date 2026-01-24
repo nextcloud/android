@@ -251,11 +251,7 @@ class AssistantViewModel(
         }
     }
 
-    private suspend fun pollTranslationResult(
-        taskType: TaskTypeData,
-        selectedTaskId: Long,
-        maxRetries: Int = 3,
-    ) {
+    private suspend fun pollTranslationResult(taskType: TaskTypeData, selectedTaskId: Long, maxRetries: Int = 3) {
         val taskTypeId = taskType.id ?: return
 
         repeat(maxRetries) { attempt ->
@@ -282,7 +278,6 @@ class AssistantViewModel(
         onTranslationScreenDismissed()
     }
     // endregion
-
 
     // region chat
     fun sendChatMessage(content: String, sessionId: Long) = viewModelScope.launch(Dispatchers.IO) {
