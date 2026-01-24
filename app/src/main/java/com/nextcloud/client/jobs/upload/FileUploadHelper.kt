@@ -18,6 +18,8 @@ import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
+import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.activeUploadFileOperations
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
