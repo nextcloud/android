@@ -657,7 +657,7 @@ internal class BackgroundJobManagerImpl(
      */
     override fun startFilesUploadJob(user: User, uploadIds: LongArray, showSameFileAlreadyExistsNotification: Boolean) {
         defaultDispatcherScope.launch {
-            val chunkSize = (uploadIds.size / 7).coerceAtLeast(1)
+            val chunkSize = (uploadIds.size / 5).coerceAtLeast(1)
             val batches = uploadIds.toList().chunked(chunkSize)
             val executionId = System.currentTimeMillis()
             val tag = "${startFileUploadJobTag(user.accountName)}_$executionId"
@@ -673,7 +673,7 @@ internal class BackgroundJobManagerImpl(
                         showSameFileAlreadyExistsNotification
                     )
                     .putString(FileUploadWorker.ACCOUNT, user.accountName)
-                    .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
+                    .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, chunkSize)
                     .putLongArray(FileUploadWorker.UPLOAD_IDS, batch.toLongArray())
                     .putInt(FileUploadWorker.CURRENT_BATCH_INDEX, index)
                     .build()

@@ -271,11 +271,11 @@ class FileUploadWorker(
             activeUploadFileOperations[operation.originalStoragePath] = operation
 
             val currentIndex = (index + 1)
-            val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
+
             notificationManager.prepareForStart(
                 operation,
                 startIntent = intents.openUploadListIntent(operation),
-                currentUploadIndex = currentUploadIndex,
+                currentUploadIndex = currentIndex,
                 totalUploadSize = totalUploadSize
             )
 
@@ -292,7 +292,7 @@ class FileUploadWorker(
                 break
             }
 
-            sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
+            sendUploadFinishEvent(totalUploadSize, currentIndex, operation, result)
         }
 
         return@withContext Result.success()
