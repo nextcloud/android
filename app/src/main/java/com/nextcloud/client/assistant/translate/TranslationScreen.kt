@@ -109,15 +109,18 @@ fun TranslationScreen(
             .padding(16.dp)
             .padding(top = 32.dp),
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-                val originLang = sourceState.language
-                val targetLang = targetState.language
-                if (originLang != null && targetLang != null) {
-                    viewModel.translate(sourceState.text, originLang, targetLang)
-                }
-            }, content = {
-                Icon(painter = painterResource(R.drawable.ic_translate), contentDescription = "translate button")
-            })
+            if (!isTaskExists) {
+                // TODO: After first task creation dont allow user to create another back to back
+                FloatingActionButton(onClick = {
+                    val originLang = sourceState.language
+                    val targetLang = targetState.language
+                    if (originLang != null && targetLang != null) {
+                        viewModel.translate(sourceState.text, originLang, targetLang)
+                    }
+                }, content = {
+                    Icon(painter = painterResource(R.drawable.ic_translate), contentDescription = "translate button")
+                })
+            }
         }
     ) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
