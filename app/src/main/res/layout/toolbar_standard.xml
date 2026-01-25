@@ -136,14 +136,11 @@
                 android:layout_height="48dp"
                 app:cornerRadius="@dimen/button_corner_radius"
                 app:icon="@drawable/ic_menu"
-                app:iconTint="@color/black" />
+                app:iconSize="@dimen/search_bar_icon_size"
+                app:iconTint="@color/fontAppbar" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/toolbar_title"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:lines="1"
-                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"/>
 

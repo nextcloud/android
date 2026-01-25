@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRowDefaults
@@ -43,7 +44,7 @@ fun TaskTypesRow(
     val selectedTabIndex = data.indexOfFirst { it.id == selectedTaskType?.id }.takeIf { it >= 0 } ?: 0
 
     Row(
-        modifier = Modifier.background(color = colorResource(R.color.actionbar_color)),
+        modifier = Modifier.background(color = MaterialTheme.colorScheme.surface),
         horizontalArrangement = Arrangement.Center
     ) {
         if (data.any { it.isChat() }) {
@@ -63,11 +64,11 @@ fun TaskTypesRow(
         PrimaryScrollableTabRow(
             selectedTabIndex = selectedTabIndex,
             edgePadding = 0.dp,
-            containerColor = colorResource(R.color.actionbar_color),
+            containerColor = MaterialTheme.colorScheme.surface,
             indicator = {
                 TabRowDefaults.SecondaryIndicator(
                     Modifier.tabIndicatorOffset(selectedTabIndex),
-                    color = colorResource(R.color.primary)
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
         ) {
