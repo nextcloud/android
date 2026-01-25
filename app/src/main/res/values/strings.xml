@@ -68,8 +68,17 @@
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
     <string name="assistant_screen_task_delete_success_message">Task successfully deleted</string>
     <string name="assistant_screen_task_delete_fail_message">An error occurred while deleting the task</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">Open conversation list</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Go back to assistant page</string>
+    <string name="assistant_screen_send_message">Send message</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
+    <string name="assistant_task_status_text">Task status: %1$s</string>
+    <string name="assistant_task_status_unknown">unknown</string>
+    <string name="assistant_task_status_scheduled">scheduled</string>
+    <string name="assistant_task_status_running">running</string>
+    <string name="assistant_task_status_successful">successful</string>
+    <string name="assistant_task_status_failed">failed</string>
 
     <!-- Conversation Screen -->
     <string name="conversation_screen_title">Conversations</string>

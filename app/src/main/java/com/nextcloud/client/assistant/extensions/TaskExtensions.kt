@@ -10,6 +10,7 @@
 package com.nextcloud.client.assistant.extensions
 
 import android.content.Context
+import androidx.compose.ui.res.stringResource
 import com.nextcloud.utils.date.DateFormatPattern
 import com.nextcloud.utils.date.DateFormatter
 import com.owncloud.android.R
@@ -46,6 +47,13 @@ fun Task.getStatusIcon(capability: OCCapability): Int =
         getStatusIconV1()
     }
 
+fun Task.getStatusIconDescription(capability: OCCapability): Int =
+    if (capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
+        getStatusIconDescriptionV2()
+    } else {
+        getStatusIconDescriptionV1()
+    }
+
 private fun Task.getStatusIconV1(): Int = when (status) {
     "0" -> {
         R.drawable.ic_unknown
@@ -67,6 +75,27 @@ private fun Task.getStatusIconV1(): Int = when (status) {
     }
 }
 
+private fun Task.getStatusIconDescriptionV1(): Int = when (status) {
+    "0" -> {
+        R.string.assistant_task_status_unknown
+    }
+    "1" -> {
+        R.string.assistant_task_status_scheduled
+    }
+    "2" -> {
+        R.string.assistant_task_status_running
+    }
+    "3" -> {
+        R.string.assistant_task_status_successful
+    }
+    "4" -> {
+        R.string.assistant_task_status_failed
+    }
+    else -> {
+        R.string.assistant_task_status_unknown
+    }
+}
+
 private fun Task.getStatusIconV2(): Int = when (status) {
     "STATUS_UNKNOWN" -> {
         R.drawable.ic_unknown
@@ -85,6 +114,27 @@ private fun Task.getStatusIconV2(): Int = when (status) {
     }
     else -> {
         R.drawable.ic_unknown
+    }
+}
+
+private fun Task.getStatusIconDescriptionV2(): Int = when (status) {
+    "STATUS_UNKNOWN" -> {
+        R.string.assistant_task_status_unknown
+    }
+    "STATUS_SCHEDULED" -> {
+        R.string.assistant_task_status_scheduled
+    }
+    "STATUS_RUNNING" -> {
+        R.string.assistant_task_status_running
+    }
+    "STATUS_SUCCESSFUL" -> {
+        R.string.assistant_task_status_successful
+    }
+    "STATUS_FAILED" -> {
+        R.string.assistant_task_status_failed
+    }
+    else -> {
+        R.string.assistant_task_status_unknown
     }
 }
 
