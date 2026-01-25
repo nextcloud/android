@@ -408,6 +408,7 @@
     <string name="file_list_empty_shared">I file e le cartelle che condividi saranno mostrati qui.</string>
     <string name="file_list_empty_shared_headline">Ancora nessuna condivisione</string>
     <string name="file_list_empty_unified_search_no_results">Nessun risultato trovato per la tua interrogazione</string>
+    <string name="file_list_empty_unified_search_start_search">Avvia la tua ricerca</string>
     <string name="file_list_folder">cartella</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Caricamento in corso…</string>
@@ -582,6 +583,7 @@
     <string name="new_media_folder_detected">Nuova cartella multimediale %1$s rilevata</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Nuova notifica</string>
     <string name="new_version_was_created">Una nuova versione è stata creata</string>
     <string name="no_actions">Nessuna azione per questo utente</string>
     <string name="no_browser_available">Nessun applicazione disponibile per gestire i collegamenti</string>
@@ -653,8 +655,11 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Rinomina la nuova versione</string>
     <string name="pref_instant_name_collision_policy_title">Cosa fare se il file esiste già?</string>
     <string name="prefs_add_account">Aggiungi account</string>
+    <string name="prefs_all_files_access_summary">Consenti all\'applicazione di accedere e gestire tutti i file sul tuo dispositivo</string>
+    <string name="prefs_all_files_access_title">Accesso a tutti i file</string>
     <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid o Google Play non installato</string>
+    <string name="prefs_calendar_contacts_summary">Configura DAVx⁵ (originariamente conosciuto come DAVdroid) (v1.3.0+) per l\'account attuale</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario e contatti configurata</string>
     <string name="prefs_category_about">Informazioni</string>
     <string name="prefs_category_details">Dettagli</string>
@@ -706,6 +711,7 @@
     <string name="prefs_two_way_sync_interval">Intervallo</string>
     <string name="prefs_two_way_sync_summary">Gestisci le cartelle interne per la sincronizzazione bidirezionale</string>
     <string name="prefs_two_way_sync_switch_title">Abilita sincronizzazione bidirezionale</string>
+    <string name="prefs_two_way_sync_title">Sincronizzazione bidirezionale</string>
     <string name="prefs_value_theme_dark">Scuro</string>
     <string name="prefs_value_theme_light">Chiaro</string>
     <string name="prefs_value_theme_system">Segui il sistema</string>
@@ -767,6 +773,7 @@
     <string name="screenshot_05_autoUpload_heading">Caricamento automatico</string>
     <string name="screenshot_05_autoUpload_subline">per le tue foto e video</string>
     <string name="screenshot_06_davdroid_heading">Calendario e contatti</string>
+    <string name="screenshot_06_davdroid_subline">Sincronizza con DAVx⁵</string>
     <string name="search_error">Errore nel recuperare i risultati della ricerca</string>
     <string name="secure_share_not_set_up">La condivisione sicura non è configurata per questo utente</string>
     <string name="secure_share_search">Condivisione sicura...</string>
@@ -775,12 +782,20 @@
     <string name="select_one_template">Scegli un modello</string>
     <string name="select_template">Seleziona modello</string>
     <string name="send">Invia</string>
+    <string name="send_copy_to">Invia copia a</string>
+    <string name="send_share">Invia condivisione</string>
     <string name="sendbutton_description">Icona pulsante di invio</string>
+    <string name="server_not_reachable">Impossibile caricare il contenuto</string>
+    <string name="server_not_reachable_content">È probabile che il dispositivo non sia connesso a Internet</string>
     <string name="set_as">Imposta come</string>
+    <string name="set_message">Imposta message</string>
+    <string name="set_note">Imposta nota</string>
+    <string name="set_online_status">Stato in linea</string>
     <string name="set_picture_as">Usa immagine come</string>
     <string name="setup_e2e">Configurando la cifratura end-to-end, riceverai una frase di 12 parole mnemoniche casuali, che ti servirà per aprire i tuoi file su altri dispositivi. Questa sarà conservata solo su questo dispositivo, e può essere mostrata di nuovo in questa schermata. Annotala in un posto sicuro!</string>
     <string name="share">Condividi</string>
     <string name="share_allow_download_and_sync_permission">Consenti scaricamento e sincr.</string>
+    <string name="share_copy_link">Condividi e copia collegamento</string>
     <string name="share_create_permission">Crea</string>
     <string name="share_custom_permission">Autorizzazioni personalizzate</string>
     <string name="share_delete_permission">Elimina</string>
@@ -805,10 +820,12 @@
     <string name="share_no_expiration_date_label">Imposta data di scadenza</string>
     <string name="share_no_password_title">Imposta password</string>
     <string name="share_not_allowed_when_file_drop">La ricondivisione non è consentita durante il file drop sicuro</string>
+    <string name="share_option_required">Seleziona almeno un\'opzione di condivisione prima di continuare.</string>
     <string name="share_permission_can_edit">Può modificare</string>
     <string name="share_permission_file_request">Richiesta file</string>
     <string name="share_permission_secure_file_drop">File drop sicuro</string>
     <string name="share_permission_view_only">Sola lettura</string>
+    <string name="share_permissions">Permessi di condivisione</string>
     <string name="share_re_share_permission">Condividi</string>
     <string name="share_read_permission">Lettura</string>
     <string name="share_remote_clarification">%1$s (remota)</string>
@@ -833,6 +850,7 @@
     <string name="show_images">Mostra le foto</string>
     <string name="show_less">Mostra meno</string>
     <string name="show_video">Mostra i video</string>
+    <string name="sign_tos_failed">Controlla manualmente i termini di servizio!</string>
     <string name="signup_with_provider">Registrati a un fornitore</string>
     <string name="single_sign_on_request_token" formatted="true">Vuoi consentire a %1$s di accedere al tuo account Nextcloud %2$s?</string>
     <string name="sort_by">Ordina per</string>
@@ -873,6 +891,8 @@
     <string name="storage_internal_storage">Archiviazione interna</string>
     <string name="storage_movies">Video</string>
     <string name="storage_music">Musica</string>
+    <string name="storage_permission_all_files_access">Accesso a tutti i file</string>
+    <string name="storage_permission_dont_ask">Non chiedere</string>
     <string name="storage_permission_media_read_only">Multimediali in sola lettura</string>
     <string name="storage_pictures">Immagini</string>
     <string name="store_full_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando.\nQuesta è la versione di sviluppo ufficiale e include funzionalità nuove, non testate che potrebbero provocare instabilità e perdite di dati. Questa applicazione è pensata per gli utenti che desiderano provare le nuove funzionalità e segnalare bug, se si verificano. Non utilizzarla in ambienti di produzione!\n\nSia la versione di sviluppo che quella normale sono disponibili su F-droid, e possono essere installate contemporaneamente.</string>
@@ -891,6 +911,9 @@
     <string name="subtitle_videos_only">Solo video</string>
     <string name="suggest">Suggerisci</string>
     <string name="sync">Sincronizzazione</string>
+    <string name="sync_anyway">Sincronizza comunque</string>
+    <string name="sync_conflict_notification_action_title">Risolvi i conflitti</string>
+    <string name="sync_conflict_notification_title">Conflitti caricamento file</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>
     <string name="sync_current_folder_was_removed">La cartella %1$s non esiste più</string>
     <string name="sync_fail_content">Impossibile sincronizzare %1$s</string>
@@ -942,6 +965,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Evento non trovato, puoi sempre sincronizzarti per aggiornare. Reindirizzamento al Web...</string>
     <string name="unified_search_fragment_contact_not_found">Contatto non trovato, puoi sempre sincronizzare per aggiornare. Reindirizzamento al Web...</string>
     <string name="unified_search_fragment_permission_needed">Sono necessarie le autorizzazioni per aprire il risultato della ricerca, altrimenti verrà reindirizzato al web...</string>
+    <string name="unified_search_fragment_search_in_this_folder">In questa cartella</string>
     <string name="unknown">Sconosciuto</string>
     <string name="unlock_file">Sblocca file</string>
     <string name="unread_comments">Sono presenti commenti non letti</string>
@@ -990,6 +1014,8 @@
     <string name="upload_local_storage_not_copied">Il file non può essere copiato nell\'archiviazione locale</string>
     <string name="upload_lock_failed">Blocco della cartella non riuscito</string>
     <string name="upload_manually_cancelled">Caricamento annullato dall\'utente</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Consenti l\'accesso a tutti i file</string>
+    <string name="upload_missing_storage_permission_app_permissions">Permessi applicazione</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">La cifratura è possibile solo con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">La mancanza di spazio impedisce di copiare i file selezionati nella cartella %1$s. Vuoi spostarli in quella cartella?</string>
@@ -1044,6 +1070,7 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificato server non fidato</string>
     <string name="uploads_view_upload_status_fetching_server_version">Recupero versione del server…</string>
     <string name="uploads_view_upload_status_service_interrupted">Applicazione terminata</string>
+    <string name="uploads_view_upload_status_skip">Saltato</string>
     <string name="uploads_view_upload_status_succeeded">Completati</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Stesso file trovato in remoto, salto il caricamento</string>
     <string name="uploads_view_upload_status_unknown_fail">Errore sconosciuto</string>
@@ -1086,6 +1113,21 @@
         <item quantity="one">%d minuto</item>
         <item quantity="many">%d minuti</item>
         <item quantity="other">%d minuti</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">%d secondo fa</item>
+        <item quantity="many">%d secondi fa</item>
+        <item quantity="other">%d secondi fa</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d minuto fa</item>
+        <item quantity="many">%d minuti fa</item>
+        <item quantity="other">%d minuti fa</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d ora fa</item>
+        <item quantity="many">%d ore fa</item>
+        <item quantity="other">%d ore fa</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossibile sincronizzare %1$d file (conflitto con: %2$d)</item>
@@ -1142,6 +1184,11 @@
         <item quantity="many">%1$d file</item>
         <item quantity="other">%1$d file</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d elemento </item>
+        <item quantity="many">%1$d file</item>
+        <item quantity="other">%1$d file</item>
+    </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Mostra %1$d cartella nascosta</item>
         <item quantity="many">Mostra %1$d cartelle nascoste</item>
@@ -1151,5 +1198,10 @@
         <item quantity="one">%d selezionato</item>
         <item quantity="many">%d selezionati</item>
         <item quantity="other">%d selezionati</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d secondo</item>
+        <item quantity="many">%d secondi</item>
+        <item quantity="other">%d secondi</item>
     </plurals>
     </resources>

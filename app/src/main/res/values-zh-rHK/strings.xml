@@ -60,6 +60,7 @@
     <string name="assistant_screen_task_list_error_state_message">無法擷取任務清單，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">刪除任務</string>
     <string name="assistant_screen_task_output_empty_text">任務輸出尚未就緒。</string>
+    <string name="assistant_screen_text_selected">已從其他應用程式複製文字</string>
     <string name="assistant_screen_top_bar_title">助手</string>
     <string name="assistant_task_detail_screen_input_button_title">輸入</string>
     <string name="assistant_task_detail_screen_output_button_title">輸出</string>
