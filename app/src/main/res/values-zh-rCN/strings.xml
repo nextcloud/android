@@ -13,6 +13,7 @@
     <string name="action_send_share">发送/分享</string>
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
+    <string name="action_triggered">操作已触发</string>
     <string name="actionbar_calendar_contacts_restore">恢复联系人和日历</string>
     <string name="actionbar_mkdir">新建文件夹</string>
     <string name="actionbar_move_or_copy">移动或复制</string>
@@ -59,6 +60,7 @@
     <string name="assistant_screen_task_list_error_state_message">无法获取任务列表，请检查你的互联网连接。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">删除任务</string>
     <string name="assistant_screen_task_output_empty_text">任务输出尚未就绪。</string>
+    <string name="assistant_screen_text_selected">已从其他应用中复制文本</string>
     <string name="assistant_screen_top_bar_title">助手</string>
     <string name="assistant_task_detail_screen_input_button_title">输入</string>
     <string name="assistant_task_detail_screen_output_button_title">输出结果</string>
@@ -187,7 +189,7 @@
     <string name="community_testing_bug_text">发现错误？细节？</string>
     <string name="community_testing_headline">通过测试帮助</string>
     <string name="community_testing_report_text">在Github报告问题 OR 通过Github提交问题（issue）</string>
-    <string name="compose_activity_label">Nextcloud助手</string>
+    <string name="compose_activity_label">Nextcloud 助手</string>
     <string name="configure_new_media_folder_detection_notifications">用户配置</string>
     <string name="confirm_removal">移除近端加密</string>
     <string name="confirmation_remove_file_alert">确定删除%1$s？</string>
@@ -397,6 +399,7 @@
     <string name="failed_to_create_conflict_dialog">无法创建冲突对话框</string>
     <string name="failed_to_download">无法将文件传递给下载管理器</string>
     <string name="failed_to_print">打印文件已失败</string>
+    <string name="failed_to_start_action">无法启动操作！</string>
     <string name="failed_to_start_editor">启动编辑器失败</string>
     <string name="failed_update_ui">更新用户界面失败</string>
     <string name="favorite">添加到收藏夹</string>
@@ -756,6 +759,7 @@
     <string name="prefs_two_way_sync_interval">间隔</string>
     <string name="prefs_two_way_sync_summary">管理内部文件夹以实现双向同步</string>
     <string name="prefs_two_way_sync_switch_title">启用双向同步</string>
+    <string name="prefs_two_way_sync_title">双向同步</string>
     <string name="prefs_value_theme_dark">深色</string>
     <string name="prefs_value_theme_light">浅色</string>
     <string name="prefs_value_theme_system">跟随系统</string>
@@ -826,6 +830,7 @@
     <string name="select_one_template">请选择一个模板</string>
     <string name="select_template">选择模板</string>
     <string name="send">发送</string>
+    <string name="send_copy_to">发送副本至</string>
     <string name="send_share">发送共享</string>
     <string name="sendbutton_description">发送按钮的图标</string>
     <string name="server_not_reachable">无法加载内容</string>
@@ -963,6 +968,9 @@
     <string name="suggest">建议</string>
     <string name="sync">同步</string>
     <string name="sync_anyway">仍要同步</string>
+    <string name="sync_conflict_notification_action_title">解决冲突</string>
+    <string name="sync_conflict_notification_description">检测到上传冲突。请打开上传进行解决。</string>
+    <string name="sync_conflict_notification_title">文件上传冲突</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
     <string name="sync_current_folder_was_removed">文件夹%1$s不再存在</string>
     <string name="sync_duplication">同步重复</string>

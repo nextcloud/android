@@ -38,5 +38,5 @@
     <color name="appbar">#1E1E1E</color>
     <color name="fontAppbar">@android:color/white</color>
 
-    <color name="actionbar_color">#101418</color>
+    <color name="bg_message_bubble">#2A2A2A</color>
 </resources>
