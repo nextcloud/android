@@ -379,9 +379,8 @@ private fun EmptyContent(paddingValues: PaddingValues, iconId: Int?, description
                 painter = painterResource(id = iconId),
                 modifier = Modifier.size(32.dp),
                 colorFilter = ColorFilter.tint(color = colorResource(R.color.text_color)),
-                contentDescription = "empty content icon"
+                contentDescription = null
             )
-
             Spacer(modifier = Modifier.height(8.dp))
         }
 
