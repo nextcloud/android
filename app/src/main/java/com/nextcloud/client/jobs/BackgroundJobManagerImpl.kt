@@ -117,6 +117,11 @@ internal class BackgroundJobManagerImpl(
 
         private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
+        /**
+         * The maximum number of concurrent parallel uploads
+         */
+        const val MAX_CONCURRENT_UPLOADS = 5
+
         fun formatNameTag(name: String, user: User? = null): String = if (user == null) {
             "$TAG_PREFIX_NAME:$name"
         } else {
@@ -657,7 +662,7 @@ internal class BackgroundJobManagerImpl(
      */
     override fun startFilesUploadJob(user: User, uploadIds: LongArray, showSameFileAlreadyExistsNotification: Boolean) {
         defaultDispatcherScope.launch {
-            val chunkSize = (uploadIds.size / 5).coerceAtLeast(1)
+            val chunkSize = (uploadIds.size / MAX_CONCURRENT_UPLOADS).coerceAtLeast(1)
             val batches = uploadIds.toList().chunked(chunkSize)
             val executionId = System.currentTimeMillis()
             val tag = "${startFileUploadJobTag(user.accountName)}_$executionId"
