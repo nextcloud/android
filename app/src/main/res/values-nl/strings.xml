@@ -44,6 +44,8 @@
     <string name="app_widget_description">Toont één widget van dashboard</string>
     <string name="appbar_search_in">Zoeken in %s</string>
     <string name="appear_offline">Toon afwezig</string>
+    <string name="assistant_screen_chat_create_error">Kon bericht niet versturen</string>
+    <string name="assistant_screen_chat_fetch_error">Chat berichten ophalen is mislukt</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Bent u zeker dat u deze taak wilt verwijderen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Verwijder taak</string>
     <string name="assistant_screen_task_create_fail_message">Er is een fout opgetreden bij het aanmaken van de taak</string>
@@ -53,6 +55,7 @@
     <string name="assistant_screen_task_list_error_state_message">Kan takenlijst niet ophalen. Controleer je internetverbinding.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Verwijder taak</string>
     <string name="assistant_screen_task_output_empty_text">De taakuitvoer is nog niet klaar.</string>
+    <string name="assistant_screen_text_selected">Tekst gekopieerd uit een andere app</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
@@ -93,6 +96,7 @@
     <string name="auto_upload_on_wifi">Upload alleen met Wi-Fi</string>
     <string name="auto_upload_path">/AutomatischUploaden</string>
     <string name="auto_upload_sub_folder_warning">Deze map is al opgenomen in de synchronisatie van de bovenliggende map, wat kan leiden tot dubbele uploads.</string>
+    <string name="auto_upload_worker_start_text">Bestanden aan het uploaden van %s naar %s</string>
     <string name="autoupload_configure">Configureren</string>
     <string name="autoupload_create_new_custom_folder">Maak aangepaste nieuwe map aan</string>
     <string name="autoupload_custom_folder">Instellen aangepaste map</string>
@@ -198,7 +202,12 @@
     <string name="contacts_preferences_import_scheduled_fail">Import kon niet starten. Probeer alstublieft opnieuw</string>
     <string name="contacts_preferences_no_file_found">Geen bestand gevonden</string>
     <string name="contacts_preferences_something_strange_happened">Je laatste backup is niet te vinden!</string>
+    <string name="conversation_screen_create_error_title">Gesprek aanmaken is mislukt</string>
+    <string name="conversation_screen_delete_button_title">Verwijder gesprek</string>
+    <string name="conversation_screen_delete_error_title">Gesprek verwijderen is mislukt</string>
     <string name="conversation_screen_empty_content_title">Geen gesprekken gevonden</string>
+    <string name="conversation_screen_empty_conversation_list_title">Nog geen gesprekken</string>
+    <string name="conversation_screen_fetch_error_title">Ophalen van lijst met gesprekken is mislukt</string>
     <string name="conversation_screen_title">Gesprekken</string>
     <string name="copied">Gekopieerd</string>
     <string name="copy_file_error">Er trad een fout op bij het kopiëren van dit bestand of deze map</string>
@@ -405,6 +414,8 @@
     <string name="file_list_empty_unified_search_no_results">Geen zoekresultaten voor je opvraag</string>
     <string name="file_list_empty_unified_search_start_search">Begin met zoeken</string>
     <string name="file_list_empty_unified_search_start_search_description">Type in bovenstaande zoekbalk om bestanden, contacten, gebeurtenissen en meer te vinden in je account.</string>
+    <string name="file_list_error_description">Controleer uw internetverbinding en probeer het later opnieuw</string>
+    <string name="file_list_error_headline">Slechte verbinding</string>
     <string name="file_list_folder">map</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Laden…</string>
@@ -465,6 +476,9 @@
     <string name="folder_already_exists">Map bestaat al</string>
     <string name="folder_best_viewed_in">Deze map kan het beste worden bekeken in %1$s.</string>
     <string name="folder_confirm_create">Aanmaken</string>
+    <string name="folder_download_counter">%1$d van%2$d &#183; %3$s</string>
+    <string name="folder_download_success_notification_title">%s map succesvol gesynchroniseerd</string>
+    <string name="folder_download_worker_ticker_id">Synchroniseren...</string>
     <string name="folder_list_empty_headline">Hier zijn geen bestanden</string>
     <string name="folder_name_empty">Mapnaam mag niet leeg zijn</string>
     <string name="folder_picker_choose_button_text">Kies</string>
@@ -619,6 +633,7 @@
     <string name="offline_mode">Geen internet verbinding</string>
     <string name="offline_mode_info_description">Zelfs zonder internetverbinding kun je je mappen organiseren en bestanden aanmaken. Zodra je weer online bent, worden de wachtende acties automatisch gesynchroniseerd.</string>
     <string name="offline_mode_info_title">Je bent offline, maar het werk gaat door</string>
+    <string name="offline_operations_file_does_not_exists_yet">Bestand bestaat nog niet. Upload het bestand eerst.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Kon %s niet aanmaken. Een bestand met dezelfde naam bestaat al op de server.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Kon %s niet aanmaken. Een map met dezelfde naam bestaat al op de server.</string>
     <string name="offline_operations_worker_notification_error_text">De offline taak kan niet worden voltooid. %s</string>
@@ -717,6 +732,7 @@
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Interne mappen beheren voor tweeweg-synchronisatie</string>
     <string name="prefs_two_way_sync_switch_title">Tweeweg-synchronisatie inschakelen</string>
+    <string name="prefs_two_way_sync_title">Tweeweg-synchronisatie</string>
     <string name="prefs_value_theme_dark">Donker</string>
     <string name="prefs_value_theme_light">Licht</string>
     <string name="prefs_value_theme_system">Systeem volgen</string>
@@ -972,6 +988,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Gebeurtenis niet gevonden. Je kan altijd synchroniseren voor een update. Doorsturen naar het web...</string>
     <string name="unified_search_fragment_contact_not_found">Contactpersoon niet gevonden. Je kan altijd synchroniseren voor een update. Doorsturen naar het web...</string>
     <string name="unified_search_fragment_permission_needed">Er zijn machtigingen nodig om de zoekresultaten te openen, anders wordt de opdracht doorgestuurd naar het web…</string>
+    <string name="unified_search_fragment_search_in_this_folder">In deze map</string>
     <string name="unknown">Onbekend</string>
     <string name="unlock_file">Ontgrendel bestand</string>
     <string name="unread_comments">Er zijn ongelezen reacties</string>
@@ -1074,6 +1091,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Niet vertrouwd servercertificaat</string>
     <string name="uploads_view_upload_status_fetching_server_version">Server-versie ophalen...</string>
     <string name="uploads_view_upload_status_service_interrupted">App afgesloten</string>
+    <string name="uploads_view_upload_status_skip">Overgeslagen</string>
+    <string name="uploads_view_upload_status_skip_reason">Er bestaat al een bestand met deze naam.</string>
     <string name="uploads_view_upload_status_succeeded">Voltooid</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Hetzelfde bestand op de server gevonden. Upload overgeslagen</string>
     <string name="uploads_view_upload_status_unknown_fail">Onbekende fout</string>
