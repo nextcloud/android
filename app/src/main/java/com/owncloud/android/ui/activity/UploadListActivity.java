@@ -321,6 +321,12 @@ public class UploadListActivity extends FileActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        uploadListAdapter.onDestroy();
+    }
+
     /**
      * Once the file upload has changed its status -> update uploads list view
      */

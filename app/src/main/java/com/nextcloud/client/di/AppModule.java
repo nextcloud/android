@@ -42,13 +42,13 @@ import com.nextcloud.client.notifications.AppNotificationManager;
 import com.nextcloud.client.notifications.AppNotificationManagerImpl;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
-import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApi;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApiImpl;
@@ -134,6 +134,7 @@ class AppModule {
     }
 
     @Provides
+    @Singleton
     UploadsStorageManager uploadsStorageManager(CurrentAccountProvider currentAccountProvider,
                                                 Context context) {
         return new UploadsStorageManager(currentAccountProvider, context.getContentResolver());
