@@ -9,7 +9,7 @@ package com.nextcloud.utils.extensions
 
 import com.owncloud.android.db.UploadResult
 
-fun UploadResult.isPermanentFailure(): Boolean = when (this) {
+fun UploadResult.isNonRetryable(): Boolean = when (this) {
     UploadResult.FILE_NOT_FOUND,
     UploadResult.FILE_ERROR,
     UploadResult.FOLDER_ERROR,
@@ -26,6 +26,6 @@ fun UploadResult.isPermanentFailure(): Boolean = when (this) {
     // user's choice
     UploadResult.CANCELLED -> true
 
-    // Everything else may succeed after retry
+    // everything else may succeed after retry
     else -> false
 }

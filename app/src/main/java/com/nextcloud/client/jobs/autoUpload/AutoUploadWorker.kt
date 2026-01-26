@@ -26,7 +26,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
-import com.nextcloud.utils.extensions.isPermanentFailure
+import com.nextcloud.utils.extensions.isNonRetryable
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
@@ -416,11 +416,10 @@ class AutoUploadWorker(
         )
 
         val lastUploadResult = uploadEntity?.lastResult?.let { UploadResult.fromValue(it) }
-        if (lastUploadResult?.isPermanentFailure() == true) {
+        if (lastUploadResult?.isNonRetryable() == true) {
             Log_OC.w(
                 TAG,
-                "last upload failed with permanent failure, skipping auto-upload: $localPath," +
-                    " failure: ${lastUploadResult.value}"
+                "last upload failed with ${lastUploadResult.value}, skipping auto-upload: $localPath"
             )
             return AutoUploadEntityResult.PermanentFailure
         }
