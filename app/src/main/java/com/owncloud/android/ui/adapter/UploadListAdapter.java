@@ -369,11 +369,16 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         // upload date
         long updateTime = item.getUploadEndTimestamp();
-        CharSequence dateString = DisplayUtils.getRelativeDateTimeString(parentActivity,
-                                                                         updateTime,
-                                                                         DateUtils.SECOND_IN_MILLIS,
-                                                                         DateUtils.WEEK_IN_MILLIS, 0);
-        itemViewHolder.binding.uploadDate.setText(dateString);
+        boolean showUploadDate = item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED && item.getLastResult() == UploadResult.UPLOADED;
+        itemViewHolder.binding.uploadDate.setVisibility(showUploadDate ? View.VISIBLE : View.GONE);
+        if (showUploadDate && updateTime > 0) {
+            CharSequence dateString = DisplayUtils.getRelativeDateTimeString(parentActivity,
+                                                                             updateTime,
+                                                                             DateUtils.SECOND_IN_MILLIS,
+                                                                             DateUtils.WEEK_IN_MILLIS,
+                                                                             0);
+            itemViewHolder.binding.uploadDate.setText(dateString);
+        }
 
         // account
         final Optional<User> optionalUser = accountManager.getUser(item.getAccountName());
@@ -390,7 +395,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }
 
         // Reset fields visibility
-        itemViewHolder.binding.uploadDate.setVisibility(View.VISIBLE);
         itemViewHolder.binding.uploadRemotePath.setVisibility(View.VISIBLE);
         itemViewHolder.binding.uploadFileSize.setVisibility(View.VISIBLE);
         itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
@@ -428,11 +432,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     }
                 }
 
-                itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
                 itemViewHolder.binding.uploadFileSize.setVisibility(View.GONE);
                 itemViewHolder.binding.uploadProgressBar.invalidate();
             }
-            case UPLOAD_FAILED -> itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
+            case UPLOAD_FAILED -> {
+
+            }
             case UPLOAD_SUCCEEDED, UPLOAD_CANCELLED ->
                 itemViewHolder.binding.uploadStatus.setVisibility(View.GONE);
         }
@@ -442,7 +447,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             || item.getUploadStatus() == UploadStatus.UPLOAD_CANCELLED) {
 
             itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
-            itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
             itemViewHolder.binding.uploadFileSize.setVisibility(View.GONE);
         }
 
