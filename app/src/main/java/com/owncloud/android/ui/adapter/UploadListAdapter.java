@@ -359,19 +359,28 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         // remote path to parent folder
         itemViewHolder.binding.uploadRemotePath.setText(new File(item.getRemotePath()).getParent());
 
+        long updateTime = item.getUploadEndTimestamp();
+
         // file size
         if (item.getFileSize() != 0) {
-            itemViewHolder.binding.uploadFileSize.setText(String.format("%s, ",
-                                                                        DisplayUtils.bytesToHumanReadable(item.getFileSize())));
+            String fileSizeFormat = "%s ";
+
+            // we have valid update time so we can show the upload date
+            if (updateTime > 0) {
+                fileSizeFormat = "%s, ";
+            }
+
+            String fileSizeInBytes = DisplayUtils.bytesToHumanReadable(item.getFileSize());
+            String uploadFileSize = String.format(fileSizeFormat, fileSizeInBytes);
+            itemViewHolder.binding.uploadFileSize.setText(uploadFileSize);
         } else {
             itemViewHolder.binding.uploadFileSize.setText("");
         }
 
         // upload date
-        long updateTime = item.getUploadEndTimestamp();
-        boolean showUploadDate = item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED && item.getLastResult() == UploadResult.UPLOADED;
+        boolean showUploadDate = updateTime > 0 && item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED && item.getLastResult() == UploadResult.UPLOADED;
         itemViewHolder.binding.uploadDate.setVisibility(showUploadDate ? View.VISIBLE : View.GONE);
-        if (showUploadDate && updateTime > 0) {
+        if (showUploadDate) {
             CharSequence dateString = DisplayUtils.getRelativeDateTimeString(parentActivity,
                                                                              updateTime,
                                                                              DateUtils.SECOND_IN_MILLIS,

@@ -118,7 +118,9 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_ACCOUNT_NAME, ocUpload.getAccountName());
         cv.put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.getUploadStatus().value);
         cv.put(ProviderTableMeta.UPLOADS_LAST_RESULT, ocUpload.getLastResult().getValue());
-        cv.put(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP, ocUpload.getUploadEndTimestamp());
+
+        long uploadEndTimestamp = ocUpload.getUploadEndTimestamp();
+        cv.put(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP_LONG, uploadEndTimestamp);
         cv.put(ProviderTableMeta.UPLOADS_FILE_SIZE, ocUpload.getFileSize());
         cv.put(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN, ocUpload.getFolderUnlockToken());
 
@@ -465,7 +467,7 @@ public class UploadsStorageManager extends Observable {
             upload.setCreateRemoteFolder(c.getInt(
                 c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER)) == 1);
 
-            final var uploadEndTimestampColumnIndex= c.getColumnIndex(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP);
+            final var uploadEndTimestampColumnIndex= c.getColumnIndex(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP_LONG);
             if (uploadEndTimestampColumnIndex > -1) {
                 final var uploadEndTimestamp = c.getLong(uploadEndTimestampColumnIndex);
                 if (uploadEndTimestamp > 0) {

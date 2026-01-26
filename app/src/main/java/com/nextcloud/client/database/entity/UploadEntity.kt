@@ -43,8 +43,13 @@ data class UploadEntity(
     val nameCollisionPolicy: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER)
     val isCreateRemoteFolder: Int?,
+
+    // do not use integer value of upload end timestamp, instead use long version of it
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP)
     val uploadEndTimestamp: Int?,
+
+    @ColumnInfo(name = ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP_LONG)
+    val uploadEndTimestampLong: Long?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_LAST_RESULT)
     val lastResult: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY)
@@ -75,7 +80,7 @@ fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload? {
     localBehaviour?.let { upload.localAction = it }
     nameCollisionPolicy?.let { upload.nameCollisionPolicy = NameCollisionPolicy.deserialize(it) }
     isCreateRemoteFolder?.let { upload.isCreateRemoteFolder = it == 1 }
-    uploadEndTimestamp?.let { upload.uploadEndTimestamp = it.toLong() }
+    uploadEndTimestampLong?.let { upload.uploadEndTimestamp = it }
     lastResult?.let { upload.lastResult = UploadResult.fromValue(it) }
     createdBy?.let { upload.createdBy = it }
     isWifiOnly?.let { upload.isUseWifiOnly = it == 1 }
@@ -103,7 +108,8 @@ fun OCUpload.toUploadEntity(): UploadEntity {
         localBehaviour = localAction,
         nameCollisionPolicy = nameCollisionPolicy?.serialize(),
         isCreateRemoteFolder = if (isCreateRemoteFolder) 1 else 0,
-        uploadEndTimestamp = uploadEndTimestamp.toInt(),
+        uploadEndTimestamp = 0,
+        uploadEndTimestampLong = uploadEndTimestamp,
         lastResult = lastResult?.value,
         createdBy = createdBy,
         isWifiOnly = if (isUseWifiOnly) 1 else 0,
