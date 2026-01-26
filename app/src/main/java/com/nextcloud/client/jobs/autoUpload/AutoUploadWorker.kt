@@ -16,7 +16,6 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
@@ -35,6 +34,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
+import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -304,14 +304,14 @@ class AutoUploadWorker(
                 )
 
                 try {
-                    val result = createEntityAndUpload(user, localPath, remotePath)
-                    if (result == null) {
+                    val entityResult = getEntityResult(user, localPath, remotePath)
+                    if (entityResult !is AutoUploadEntityResult.Success) {
                         repository.markFileAsHandled(localPath, syncedFolder)
-                        Log_OC.d(TAG, "Marked file as handled due to existing conflict: $localPath")
+                        Log_OC.d(TAG, "marked file as handled: $localPath")
                         continue
                     }
 
-                    var (uploadEntity, upload) = result
+                    var (uploadEntity, upload) = entityResult.data
 
                     // if local file deleted, upload process cannot be started or retriable thus needs to be removed
                     if (path.isEmpty() || !file.exists()) {
@@ -391,11 +391,7 @@ class AutoUploadWorker(
     }
 
     @Suppress("ReturnCount")
-    private fun createEntityAndUpload(
-        user: User,
-        localPath: String,
-        remotePath: String
-    ): Pair<UploadEntity, OCUpload>? {
+    private fun getEntityResult(user: User, localPath: String, remotePath: String): AutoUploadEntityResult {
         val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)
         Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
 
@@ -409,14 +405,22 @@ class AutoUploadWorker(
         val lastUploadResult = uploadEntity?.lastResult?.let { UploadResult.fromValue(it) }
         if (lastUploadResult == UploadResult.SYNC_CONFLICT) {
             Log_OC.w(TAG, "Conflict already exists, skipping auto-upload: $localPath")
-            return null
+            return AutoUploadEntityResult.SyncConflict
         }
 
         val upload = try {
             uploadEntity?.toOCUpload(null) ?: OCUpload(localPath, remotePath, user.accountName)
         } catch (_: IllegalArgumentException) {
             Log_OC.e(TAG, "cannot construct oc upload")
-            return null
+            return AutoUploadEntityResult.CreationError
+        }
+
+        // only valid for skip collision policy other scenarios will be handled in UploadFileOperation.java
+        if (upload.lastResult == UploadResult.UPLOADED &&
+            syncedFolder.nameCollisionPolicy == NameCollisionPolicy.SKIP
+        ) {
+            Log_OC.d(TAG, "no need to create and process this entity file is already uploaded")
+            return AutoUploadEntityResult.Uploaded
         }
 
         upload.apply {
@@ -433,7 +437,7 @@ class AutoUploadWorker(
             }
         }
 
-        return upload.toUploadEntity() to upload
+        return AutoUploadEntityResult.Success(upload.toUploadEntity() to upload)
     }
 
     private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
