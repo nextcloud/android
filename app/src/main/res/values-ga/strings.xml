@@ -64,7 +64,9 @@
     <string name="assistant_screen_top_bar_title">Cúntóir</string>
     <string name="assistant_task_detail_screen_input_button_title">Ionchur</string>
     <string name="assistant_task_detail_screen_output_button_title">Aschur</string>
+    <string name="assistant_task_status_failed">theip</string>
     <string name="assistant_task_status_running">Ag rith</string>
+    <string name="assistant_task_status_scheduled">sceidealta</string>
     <string name="assistant_task_status_unknown">anaithnid</string>
     <string name="assistant_thinking">Ag smaoineamh…</string>
     <string name="associated_account_not_found">Cuntas gaolmhar gan aimsiú!</string>

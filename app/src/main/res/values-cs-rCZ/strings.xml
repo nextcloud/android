@@ -52,6 +52,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Smazat úkol</string>
     <string name="assistant_screen_empty_content_description">Zkuste poslat zprávu pro rozproudění konverzace.</string>
     <string name="assistant_screen_empty_content_title">Zdravím! Jak vám mohu pomoci?</string>
+    <string name="assistant_screen_send_message">Poslat zprávu</string>
     <string name="assistant_screen_task_create_fail_message">Při vytváření úlohy se vyskytla chyba</string>
     <string name="assistant_screen_task_create_success_message">Úkol vytvořen</string>
     <string name="assistant_screen_task_delete_fail_message">Při mazání úlohy se vyskytla chyba</string>
@@ -63,7 +64,10 @@
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Vstup</string>
     <string name="assistant_task_detail_screen_output_button_title">Výstup</string>
+    <string name="assistant_task_status_failed">nezdařilo se</string>
     <string name="assistant_task_status_running">spuštěné</string>
+    <string name="assistant_task_status_scheduled">naplánováno</string>
+    <string name="assistant_task_status_successful">úspěšné</string>
     <string name="assistant_task_status_unknown">neznámý</string>
     <string name="assistant_thinking">Přemýšlení…</string>
     <string name="associated_account_not_found">Související účet nenalezen!</string>

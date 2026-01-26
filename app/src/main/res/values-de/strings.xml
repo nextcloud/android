@@ -48,13 +48,17 @@
     <string name="assistant_output_generation_warning_text">Die hier gezeigte Ausgabe wurde von KI erstellt. Bitte genau überprüfen.</string>
     <string name="assistant_screen_chat_create_error">Eine Nachricht konnte nicht gesendet werden</string>
     <string name="assistant_screen_chat_fetch_error">Chatnachrichten konnten nicht abgerufen werden</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Gehe zurück zur Assistentenseite</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Möchten Sie diese Aufgabe wirklich löschen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Aufgabe löschen</string>
     <string name="assistant_screen_empty_content_description">Versuchen Sie, eine Nachricht zu senden, um eine Unterhaltung anzustoßen.</string>
     <string name="assistant_screen_empty_content_title">Hallo! Womit kann ich Ihnen heute helfen?</string>
+    <string name="assistant_screen_send_message">Nachricht senden</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">Liste der Unterhaltungen öffnen</string>
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
     <string name="assistant_screen_task_create_success_message">Aufgabe erstellt</string>
     <string name="assistant_screen_task_delete_fail_message">Es ist ein Fehler beim Löschen der Aufgabe aufgetreten</string>
+    <string name="assistant_screen_task_delete_success_message">Aufgabe gelöscht</string>
     <string name="assistant_screen_task_list_empty_warning">Die Aufgabenliste ist leer. Bitte die Konfiguration der Assistenten-App überprüfen.</string>
     <string name="assistant_screen_task_list_error_state_message">Die Aufgabenliste kann nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Aufgabe löschen</string>
@@ -63,7 +67,11 @@
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Eingabe</string>
     <string name="assistant_task_detail_screen_output_button_title">Ausgabe</string>
+    <string name="assistant_task_status_failed">fehlgeschlagen</string>
     <string name="assistant_task_status_running">läuft</string>
+    <string name="assistant_task_status_scheduled">geplant</string>
+    <string name="assistant_task_status_successful">erfolgreich</string>
+    <string name="assistant_task_status_text">Aufgabenstatus: %1$s</string>
     <string name="assistant_task_status_unknown">unbekannt</string>
     <string name="assistant_thinking">Denkt nach …</string>
     <string name="associated_account_not_found">Verknüpftes Konto nicht gefunden!</string>
@@ -498,6 +506,7 @@
     <string name="folder_download_counter">%1$d von %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Es ist ein Fehler beim Synchronisieren des Ordners %s aufgetreten.</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Unzureichender Speicherplatz, Synchronisierung abgebrochen</string>
+    <string name="folder_download_success_notification_title">%s Ordner synchronisiert</string>
     <string name="folder_download_worker_ticker_id">Synchronisiere…</string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
     <string name="folder_name_empty">Der Ordnername darf nicht leer sein</string>
