@@ -238,7 +238,6 @@ class AssistantViewModel(
             val result = remoteRepository.translate(input, taskType)
             if (result.isSuccess) {
                 _isTranslationTaskCreated.update { true }
-                // TODO: Select newly created translation task
 
                 val selectedTaskId = selectedTask.value?.id ?: return@launch
 
@@ -420,6 +419,14 @@ class AssistantViewModel(
     }
 
     fun selectTask(task: Task?) {
+        viewModelScope.launch {
+            if (task?.isTranslate() == true) {
+                _selectedTaskType.value?.let {
+                    pollTranslationResult(it, task.id)
+                }
+            }
+        }
+
         selectedTask.update {
             task
         }
