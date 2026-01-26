@@ -64,9 +64,9 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Are you sure you want to delete this task?</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Delete Task</string>
-    <string name="assistant_screen_task_create_success_message">Task successfully created</string>
+    <string name="assistant_screen_task_create_success_message">Task created</string>
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
-    <string name="assistant_screen_task_delete_success_message">Task successfully deleted</string>
+    <string name="assistant_screen_task_delete_success_message">Task deleted</string>
     <string name="assistant_screen_task_delete_fail_message">An error occurred while deleting the task</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Open conversation list</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Go back to assistant page</string>
@@ -262,7 +262,7 @@
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
 
     <string name="folder_download_worker_ticker_id">Syncing…</string>
-    <string name="folder_download_success_notification_title">%s folder successfully synchronized</string>
+    <string name="folder_download_success_notification_title">%s folder synchronized</string>
     <string name="folder_download_error_notification_title">An error occurred during synchronization of the %s folder</string>
     <string name="folder_download_counter">%1$d of %2$d &#183; %3$s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Insufficient disk space, synchronization canceled</string>
