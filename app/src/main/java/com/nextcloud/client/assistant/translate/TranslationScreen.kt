@@ -109,8 +109,7 @@ fun TranslationScreen(
             .padding(16.dp)
             .padding(top = 32.dp),
         floatingActionButton = {
-            if (!isTaskExists) {
-                // TODO: After first task creation dont allow user to create another back to back
+            if (!isTaskExists && !isTranslationTaskCreated) {
                 FloatingActionButton(onClick = {
                     val originLang = sourceState.language
                     val targetLang = targetState.language

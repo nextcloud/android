@@ -81,10 +81,14 @@
     <string name="assistant_task_status_failed">failed</string>
 
     <!-- Translation Screen -->
+    <string name="assistant_screen_select_task">Please select task</string>
     <string name="translation_screen_label_from">Translate from: </string>
     <string name="translation_screen_label_to">Translate to: </string>
+    <string name="translation_screen_translating">Translating…</string>
+    <string name="translation_screen_start_to_translate_task">Press the button to translate</string>
     <string name="translation_screen_hint_source">Enter text to translate…</string>
-    <string name="translation_screen_hint_target">Translation will appear here…</string>
+    <string name="translation_screen_error_message">Translation model not exists.</string>
+    <string name="translation_screen_task_processing">Translation is taking longer than expected.</string>
 
     <!-- Conversation Screen -->
     <string name="conversation_screen_title">Conversations</string>
