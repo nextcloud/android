@@ -10,7 +10,7 @@ Funkce:
 * Budete v obraze díky upozorněním
 * Podpora vícero účtů
 * Zabezpečení přístupu k vašim datům otiskem prstu nebo PIN kódem
-*  Propojení s aplikací DAVx5 (dříve známé jako DAVdroid) pro snadné nastavení synchronizace kalendáře a kontaktů
+*  Propojení s aplikací DAVx⁵ (dříve známé jako DAVdroid) pro snadné nastavení synchronizace kalendáře a kontaktů
 
 Veškeré problémy prosíme hlaste na https://github.com/nextcloud/android/issues, diskutovat lze na https://help.nextcloud.com/c/clients/android
 
