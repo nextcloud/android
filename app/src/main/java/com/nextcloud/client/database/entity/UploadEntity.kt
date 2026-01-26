@@ -103,9 +103,7 @@ fun OCUpload.toUploadEntity(): UploadEntity {
         localBehaviour = localAction,
         nameCollisionPolicy = nameCollisionPolicy?.serialize(),
         isCreateRemoteFolder = if (isCreateRemoteFolder) 1 else 0,
-
-        // uploadEndTimestamp may overflow max int capacity since it is conversion from long to int. coerceAtMost needed
-        uploadEndTimestamp = uploadEndTimestamp.coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
+        uploadEndTimestamp = uploadEndTimestamp.toInt(),
         lastResult = lastResult?.value,
         createdBy = createdBy,
         isWifiOnly = if (isUseWifiOnly) 1 else 0,
