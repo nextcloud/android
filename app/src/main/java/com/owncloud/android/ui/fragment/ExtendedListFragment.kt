@@ -765,9 +765,13 @@ open class ExtendedListFragment :
         }
     }
 
-    protected fun setGridSwitchButton() {
+    protected fun setLayoutSwitchButton() {
+        setLayoutSwitchButton(isGridEnabled)
+    }
+
+    protected fun setLayoutSwitchButton(isGrid: Boolean) {
         mSwitchGridViewButton?.let {
-            if (isGridEnabled) {
+            if (isGrid) {
                 it.setContentDescription(getString(R.string.action_switch_list_view))
                 it.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_list)
             } else {
