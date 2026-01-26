@@ -64,7 +64,8 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     private AppBarLayout mAppBar;
     private RelativeLayout mDefaultToolbar;
     private MaterialToolbar mToolbar;
-    private MaterialCardView mHomeSearchToolbar;
+    private MaterialCardView mHomeSearchContainer;
+    private LinearLayout mHomeSearchToolbar;
     private ImageView mPreviewImage;
     private FrameLayout mPreviewImageContainer;
     private LinearLayout mInfoBox;
@@ -88,6 +89,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         mAppBar = findViewById(R.id.appbar);
         mDefaultToolbar = findViewById(R.id.default_toolbar);
         mHomeSearchToolbar = findViewById(R.id.home_toolbar);
+        mHomeSearchContainer = findViewById(R.id.home_search_container);
         mMenuButton = findViewById(R.id.menu_button);
         mSearchText = findViewById(R.id.search_text);
         mSwitchAccountButton = findViewById(R.id.switch_account_button);
@@ -113,7 +115,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         viewThemeUtils.platform.themeStatusBar(this);
         viewThemeUtils.material.colorMaterialTextButton(mSwitchAccountButton);
 
-        viewThemeUtils.material.themeSearchCardView(mHomeSearchToolbar);
+        viewThemeUtils.material.themeSearchCardView(mHomeSearchContainer);
         viewThemeUtils.material.colorMaterialButtonContent(mMenuButton, ColorRole.ON_SURFACE);
         viewThemeUtils.material.colorMaterialButtonContent(mNotificationButton, ColorRole.ON_SURFACE);
         viewThemeUtils.platform.colorTextView(mSearchText, ColorRole.ON_SURFACE_VARIANT);
@@ -286,7 +288,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
                                                                                 R.animator.appbar_elevation_off));
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
-            viewThemeUtils.material.themeSearchCardView(mHomeSearchToolbar);
+            viewThemeUtils.material.themeSearchCardView(mHomeSearchContainer);
             viewThemeUtils.material.themeSearchBarText(mSearchText);
         } else {
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),

@@ -2,9 +2,9 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2017-2025 Andy Scherzinger <info@andy-scherzinger>
   ~ SPDX-FileCopyrightText: 2018-2020 Tobias Kaminsky <tobias@kaminsky.me>
-  ~ SPDX-FileCopyrightText: 2017-2020 Andy Scherzinger <info@andy-scherzinger>
-  ~ SPDX-FileCopyrightText: 22020 Joris Bodin <joris.bodin@infomaniak.com>
+  ~ SPDX-FileCopyrightText: 2020 Joris Bodin <joris.bodin@infomaniak.com>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,9 +16,9 @@
     android:background="@color/bg_default">
 
     <FrameLayout
+        android:id="@+id/toolbar_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar_frame"
         app:layout_scrollFlags="scroll|enterAlways">
 
         <!-- sorting/layout bar -->
@@ -56,11 +56,11 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/switch_grid_view_button"
                 style="@style/Widget.AppTheme.Button.IconButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/minimum_size_for_touchable_area"
+                android:layout_height="@dimen/minimum_size_for_touchable_area"
                 android:layout_marginEnd="1dp"
                 android:contentDescription="@string/action_switch_grid_view"
-                app:cornerRadius="24dp"
+                app:cornerRadius="@dimen/button_corner_radius"
                 app:icon="@drawable/ic_view_module"
                 app:iconTint="@color/fontAppbar"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -116,24 +116,24 @@
 
         <LinearLayout
             android:id="@+id/toolbar_linear_layout"
-            android:visibility="gone"
-            tools:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_half_margin"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/standard_quarter_margin"
             android:orientation="horizontal"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            tools:visibility="visible">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/toolbar_menu_button"
                 style="@style/Widget.AppTheme.Button.IconButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/minimum_size_for_touchable_area"
+                android:layout_height="@dimen/minimum_size_for_touchable_area"
                 app:cornerRadius="@dimen/button_corner_radius"
                 app:icon="@drawable/ic_menu"
                 app:iconTint="@color/black" />
@@ -145,91 +145,94 @@
                 android:lines="1"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"/>
+                android:layout_height="@dimen/minimum_size_for_touchable_area"/>
 
         </LinearLayout>
 
-
         <!-- home/search toolbar -->
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:id="@+id/home_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:orientation="horizontal"
             android:visibility="gone"
-            app:background="@color/appbar"
-            app:cardCornerRadius="25dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="0dp"
             tools:visibility="visible">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu_button"
+                style="@style/Widget.AppTheme.Button.IconButton"
+                android:layout_width="@dimen/minimum_size_for_touchable_area"
+                android:layout_height="@dimen/minimum_size_for_touchable_area"
+                android:layout_marginStart="@dimen/standard_quarter_margin"
+                android:layout_marginEnd="@dimen/standard_half_margin"
+                android:contentDescription="@string/drawer_open"
+                app:cornerRadius="@dimen/button_corner_radius"
+                app:icon="@drawable/ic_menu"
+                app:iconSize="@dimen/search_bar_icon_size"
+                app:iconTint="@color/fontAppbar" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/menu_button"
-                    style="@style/Widget.AppTheme.Button.IconButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="5dp"
-                    android:contentDescription="@string/action_switch_grid_view"
-                    app:cornerRadius="@dimen/button_corner_radius"
-                    app:icon="@drawable/ic_menu"
-                    app:iconTint="@color/fontAppbar"
-                    app:iconSize="@dimen/search_bar_icon_size"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/home_search_container"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="@dimen/standard_half_margin"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                app:background="@color/appbar"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/search_text"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginEnd="18dp"
-                    android:ellipsize="end"
-                    android:gravity="start|center_vertical"
-                    android:lines="1"
-                    android:textColor="@color/fontSecondaryAppbar"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/menu_button"
-                    app:layout_constraintRight_toLeftOf="@id/notification_button"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@string/placeholder_search_in_nextcloud" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/notification_button"
-                    style="@style/Widget.AppTheme.Button.IconButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:contentDescription="@string/notification_icon_description"
-                    app:cornerRadius="@dimen/button_corner_radius"
-                    app:iconSize="@dimen/search_bar_icon_size"
-                    app:icon="@drawable/ic_notification"
-                    app:iconTint="@color/fontAppbar"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/switch_account_button"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/search_text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/standard_margin"
+                        android:layout_marginEnd="@dimen/zero"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="start|center_vertical"
+                        android:lines="1"
+                        android:textColor="@color/fontSecondaryAppbar"
+                        android:textSize="16sp"
+                        tools:text="@string/placeholder_search_in_nextcloud" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/switch_account_button"
-                    style="@style/Widget.AppTheme.Button.IconButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    app:cornerRadius="@dimen/button_corner_radius"
-                    app:iconSize="30dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/notification_button"
+                        style="@style/Widget.AppTheme.Button.IconButton"
+                        android:layout_width="@dimen/minimum_size_for_touchable_area"
+                        android:layout_height="@dimen/minimum_size_for_touchable_area"
+                        android:layout_marginStart="@dimen/zero"
+                        android:layout_marginEnd="@dimen/standard_quarter_margin"
+                        android:contentDescription="@string/notification_icon_description"
+                        app:cornerRadius="@dimen/button_corner_radius"
+                        app:icon="@drawable/ic_notification"
+                        app:iconSize="@dimen/search_bar_icon_size"
+                        app:iconTint="@color/fontAppbar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/switch_account_button"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/switch_account_button"
+                style="@style/Widget.AppTheme.Button.IconButton"
+                android:layout_width="@dimen/minimum_size_for_touchable_area"
+                android:layout_height="@dimen/minimum_size_for_touchable_area"
+                android:layout_marginEnd="@dimen/standard_quarter_margin"
+                app:cornerRadius="@dimen/button_corner_radius"
+                app:iconSize="30dp"
+                tools:icon="@drawable/ic_user_outline" />
+        </LinearLayout>
 
     </FrameLayout>
 
