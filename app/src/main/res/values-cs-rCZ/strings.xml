@@ -13,6 +13,7 @@
     <string name="action_send_share">Poslat/nasdílet</string>
     <string name="action_switch_grid_view">Zobrazení v mřížce</string>
     <string name="action_switch_list_view">Zobrazení v seznamu</string>
+    <string name="action_triggered">Akce spuštěna</string>
     <string name="actionbar_calendar_contacts_restore">Obnovit kontakty a kalendář</string>
     <string name="actionbar_mkdir">Nová složka</string>
     <string name="actionbar_move_or_copy">Přesunout nebo zkopírovat</string>
@@ -59,6 +60,7 @@
     <string name="assistant_screen_task_list_error_state_message">Nedaří se získat seznam úloh – zkontrolujte připojení k Internetu.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Smazat úlohu</string>
     <string name="assistant_screen_task_output_empty_text">Výstup z úkolu ještě není připraven.</string>
+    <string name="assistant_screen_text_selected">Text zkopírován z jiné aplikace</string>
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Vstup</string>
     <string name="assistant_task_detail_screen_output_button_title">Výstup</string>
@@ -397,6 +399,7 @@
     <string name="failed_to_create_conflict_dialog">Nepodařilo se vytvořit dialog o konfliktu</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
+    <string name="failed_to_start_action">Selhalo spuštění akce!</string>
     <string name="failed_to_start_editor">Editor se nepodařilo spustit</string>
     <string name="failed_update_ui">Nepodařilo se aktualizovat uživatelské rozhraní</string>
     <string name="favorite">Přidat do oblíbených</string>
@@ -756,6 +759,7 @@
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Spravovat interní složky pro dvoucestnou synchronizaci</string>
     <string name="prefs_two_way_sync_switch_title">Zapnout obousměrnou synchronizaci</string>
+    <string name="prefs_two_way_sync_title">Obousměrná synchronizace</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Světlý</string>
     <string name="prefs_value_theme_system">Převzít od systému</string>
@@ -943,6 +947,7 @@
     <string name="storage_permission_dont_ask">Neptat se</string>
     <string name="storage_permission_media_read_only">Média pouze pro čtení</string>
     <string name="storage_pictures">Obrázky</string>
+    <string name="store_full_desc">Platforma pro produktivitu hostovaná u vás, kde vaše data jsou opravdu vaše.\n\nFunkce:\n* Snadno použitelné moderní rozhraní, s motivem vzhledu sladěným s tím nastaveným na serveru\n* Nahrávání souborů na vámi využívaný Nextcloud server\n* Jejich sdílení s ostatními\n* Udržování vašich oblíbených souborů a složek synchronizovaných\n* Vyhledávání napříč všemi složkami na vámi využívaném serveru\n* Automatické nahrávání fotek a videí pořízených vaším zařízením\n* Budete v obraze díky upozorněním\n* Podpora vícero účtů\n* Zabezpečení přístupu k vašim datům otiskem prstu nebo PIN kódem\n*  Propojení s aplikací DAVx⁵ (dříve známé jako DAVdroid) pro snadné nastavení synchronizace kalendáře a kontaktů\n\nVeškeré problémy prosíme hlaste na https://github.com/nextcloud/android/issues, diskutovat lze na https://help.nextcloud.com/c/clients/android\n\nJeště Nextcloud neznáte? Je to server pro komunikaci, synchronizaci a sdílení vašich dat. Jedná se o svobodný software, který můžete provozovat sami, nebo si jako službu koupit u jiné společnosti. Díky tomu máte kontrolu nad svými fotkami, kalendářem, kontakty i dokumenty a vším ostatním.\n\nVíce o Nextcloud naleznete na  https://nextcloud.com</string>
     <string name="store_full_dev_desc">Platforma pro produktivitu hostovaná u vás, kde vaše data jsou opravdu vaše.\nToto je oficiální vývojová verze, sloužící jako denně aktualizovaná ukázka nových nevyzkoušených funkcí, což může způsobovat nestabilitu a ztráty dat. Je určeno pro uživatele, kteří jsou ochotní testovat a hlásit chyby na které narazí. Nepoužívejte pro svou produktivní práci!\n\nJak vývojová tak produkční verze jsou k dispozici na F-droid a mohou být nainstalovány souběžně.</string>
     <string name="store_short_desc">Platforma pro produktivitu hostovaná u vás, kde vaše data jsou opravdu vaše</string>
     <string name="store_short_dev_desc">Platforma pro produktivitu hostovaná u vás, kde vaše data jsou opravdu vaše (vývojová verze)</string>
@@ -960,6 +965,9 @@
     <string name="suggest">Doporučit</string>
     <string name="sync">Synchronizovat</string>
     <string name="sync_anyway">Synchronizovat i tak</string>
+    <string name="sync_conflict_notification_action_title">Vyřešit konflikty</string>
+    <string name="sync_conflict_notification_description">Detekovány konflikty s nahráváním souborů. Otevřít nastavení nahrávání a vyřešit je.</string>
+    <string name="sync_conflict_notification_title">Konflikty při nahrávání souborů</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
     <string name="sync_current_folder_was_removed">Složka %1$s už neexistuje</string>
     <string name="sync_duplication">Synchronizovat duplikaci</string>
