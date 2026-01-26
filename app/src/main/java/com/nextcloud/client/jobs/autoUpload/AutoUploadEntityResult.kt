@@ -11,7 +11,7 @@ import com.nextcloud.client.database.entity.UploadEntity
 import com.owncloud.android.db.OCUpload
 
 sealed class AutoUploadEntityResult {
-    data object SyncConflict : AutoUploadEntityResult()
+    data object PermanentFailure : AutoUploadEntityResult()
     data object CreationError : AutoUploadEntityResult()
     data object Uploaded : AutoUploadEntityResult()
     data class Success(val data: Pair<UploadEntity, OCUpload>) : AutoUploadEntityResult()
