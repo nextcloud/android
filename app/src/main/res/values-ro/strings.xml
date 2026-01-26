@@ -44,15 +44,15 @@
     <string name="appbar_search_in">Caută in %s</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Sigur doriți să ștergeți acest task?</string>
     <string name="assistant_screen_task_create_fail_message">A apărut o eroare la crearea taskului</string>
-    <string name="assistant_screen_task_create_success_message">Task creat cu succes</string>
+    <string name="assistant_screen_task_create_success_message">Sarcina a fost creată</string>
     <string name="assistant_screen_task_delete_fail_message">A apărut o eroare la ștergerea taskului</string>
-    <string name="assistant_screen_task_delete_success_message">Task șters cu succes</string>
     <string name="assistant_screen_task_list_error_state_message">Nu se poate prelua lista taskurilor, vă rugăm să verificați conexiunea la internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Şterge task</string>
     <string name="assistant_screen_task_output_empty_text">Rezultatul sarcinii nu este disponbil încă</string>
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Intrare</string>
     <string name="assistant_task_detail_screen_output_button_title">Rezultat</string>
+    <string name="assistant_task_status_unknown">necunoscut</string>
     <string name="associated_account_not_found">Contul asociat nu a fost găsit!</string>
     <string name="auth_access_failed">Accesul a eșuat: %1$s</string>
     <string name="auth_account_does_not_exist">Contul nu există încă pe dispozitiv</string>

@@ -25,10 +25,13 @@
     <string name="appbar_search_in">Buscar en: %s</string>
     <string name="appear_offline">Apaecer desconectáu</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Desaniciar la xera</string>
+    <string name="assistant_screen_send_message">Unviar el mensaxe</string>
+    <string name="assistant_screen_task_create_success_message">Creóse la xera</string>
     <string name="assistant_screen_task_list_error_state_message">Nun ye posible dir en cata de la llista de xeres. Comprueba la conexón a internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Salida</string>
+    <string name="assistant_task_status_running">n\'execución</string>
     <string name="auth_account_not_new">Yá esiste nel preséu una cuenta pal mesmu usuariu y sirvidor</string>
     <string name="auth_account_not_the_same">L\'usuariu inxertáu nun concasa col usuariu d\'esta cuenta</string>
     <string name="auth_bad_oc_version_title">Versión del sirvidor non reconocida</string>

@@ -55,7 +55,6 @@
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
     <string name="assistant_screen_task_create_success_message">Aufgabe erstellt</string>
     <string name="assistant_screen_task_delete_fail_message">Es ist ein Fehler beim Löschen der Aufgabe aufgetreten</string>
-    <string name="assistant_screen_task_delete_success_message">Aufgabe gelöscht</string>
     <string name="assistant_screen_task_list_empty_warning">Die Aufgabenliste ist leer. Bitte die Konfiguration der Assistenten-App überprüfen.</string>
     <string name="assistant_screen_task_list_error_state_message">Die Aufgabenliste kann nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Aufgabe löschen</string>
@@ -64,6 +63,8 @@
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Eingabe</string>
     <string name="assistant_task_detail_screen_output_button_title">Ausgabe</string>
+    <string name="assistant_task_status_running">läuft</string>
+    <string name="assistant_task_status_unknown">unbekannt</string>
     <string name="assistant_thinking">Denkt nach …</string>
     <string name="associated_account_not_found">Verknüpftes Konto nicht gefunden!</string>
     <string name="auth_access_failed">Zugriffsfehler: %1$s</string>
@@ -497,7 +498,6 @@
     <string name="folder_download_counter">%1$d von %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Es ist ein Fehler beim Synchronisieren des Ordners %s aufgetreten.</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Unzureichender Speicherplatz, Synchronisierung abgebrochen</string>
-    <string name="folder_download_success_notification_title">%s Ordner erfolgreich synchronisiert</string>
     <string name="folder_download_worker_ticker_id">Synchronisiere…</string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
     <string name="folder_name_empty">Der Ordnername darf nicht leer sein</string>

@@ -53,9 +53,8 @@
     <string name="assistant_screen_empty_content_description">尝试发送消息来发起对话。</string>
     <string name="assistant_screen_empty_content_title">您好！请问我能帮您些什么？</string>
     <string name="assistant_screen_task_create_fail_message">创建任务时发生错误</string>
-    <string name="assistant_screen_task_create_success_message">任务已创建</string>
+    <string name="assistant_screen_task_create_success_message">已创建任务</string>
     <string name="assistant_screen_task_delete_fail_message">删除任务时发生错误</string>
-    <string name="assistant_screen_task_delete_success_message">任务已删除</string>
     <string name="assistant_screen_task_list_empty_warning">任务列表为空。请检查助手应用配置。</string>
     <string name="assistant_screen_task_list_error_state_message">无法获取任务列表，请检查你的互联网连接。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">删除任务</string>
@@ -64,6 +63,8 @@
     <string name="assistant_screen_top_bar_title">助手</string>
     <string name="assistant_task_detail_screen_input_button_title">输入</string>
     <string name="assistant_task_detail_screen_output_button_title">输出结果</string>
+    <string name="assistant_task_status_running">运行中</string>
+    <string name="assistant_task_status_unknown">未知</string>
     <string name="assistant_thinking">正在思考 …</string>
     <string name="associated_account_not_found">相关账号未找到！</string>
     <string name="auth_access_failed">访问已失败: %1$s</string>
@@ -497,7 +498,6 @@
     <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">同步 %s 文件夹时出错</string>
     <string name="folder_download_insufficient_disk_space_notification_title">磁盘空间不足，同步已取消</string>
-    <string name="folder_download_success_notification_title">%s 文件夹已成功同步</string>
     <string name="folder_download_worker_ticker_id">正在同步…</string>
     <string name="folder_list_empty_headline">这里没有文件夹</string>
     <string name="folder_name_empty">文件夹名称不能为空</string>
