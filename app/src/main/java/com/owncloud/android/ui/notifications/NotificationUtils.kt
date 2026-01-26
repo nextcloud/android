@@ -22,7 +22,4 @@ object NotificationUtils {
     const val NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS: String = "NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS"
     const val NOTIFICATION_CHANNEL_OFFLINE_OPERATIONS: String = "NOTIFICATION_CHANNEL_OFFLINE_OPERATIONS"
     const val NOTIFICATION_CHANNEL_CONTENT_OBSERVER: String = "NOTIFICATION_CHANNEL_CONTENT_OBSERVER"
-
-    @JvmStatic
-    fun createUploadNotificationTag(remotePath: String?, localPath: String): String = remotePath + localPath
 }

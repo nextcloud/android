@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -112,7 +113,7 @@ fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) 
         ) {
             Icon(
                 imageVector = Icons.Filled.MoreVert,
-                contentDescription = "More button",
+                contentDescription = stringResource(R.string.overflow_menu),
                 tint = colorResource(R.color.text_color)
             )
         }
@@ -133,7 +134,7 @@ private fun TaskViewPreview() {
             TaskInput("What about other promising tokens like"),
             TaskOutput(
                 "Several tokens show promise for future growth in the" +
-                    "cryptocurrency market"
+                    " cryptocurrency market"
             ),
             1707692337,
             1707692337,

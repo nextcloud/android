@@ -77,7 +77,7 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
                         IconButton(onClick = showTaskActions) {
                             Icon(
                                 imageVector = Icons.Filled.MoreVert,
-                                contentDescription = "More button",
+                                contentDescription = stringResource(R.string.overflow_menu),
                                 tint = colorResource(R.color.text_color)
                             )
                         }
@@ -99,7 +99,7 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
             ) {
                 Image(
                     painter = painterResource(R.drawable.ic_assistant),
-                    contentDescription = "assistant icon",
+                    contentDescription = null,
                     modifier = Modifier.size(12.dp)
                 )
 

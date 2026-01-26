@@ -51,10 +51,9 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Futa jukumu</string>
     <string name="assistant_screen_empty_content_description">Jaribu kutuma ujumbe ili kuzua mazungumzo.</string>
     <string name="assistant_screen_empty_content_title">Hujambo! Nikusaidie nini leo?</string>
+    <string name="assistant_screen_send_message">Tuma ujumbe</string>
     <string name="assistant_screen_task_create_fail_message">Hitilafu ilitokea wakati wa kuunda jukumu</string>
-    <string name="assistant_screen_task_create_success_message">Jukumu limeundwa kwa mafanikio</string>
     <string name="assistant_screen_task_delete_fail_message">Hitilafu ilitokea wakati wa kufuta jukumu</string>
-    <string name="assistant_screen_task_delete_success_message">Jukumu limefutwa kwa mafanikio</string>
     <string name="assistant_screen_task_list_empty_warning">Orodha ya majukumu iko tupu. Angalia usanidi wa programu ya Mratibu.</string>
     <string name="assistant_screen_task_list_error_state_message">Imeshindwa kuleta orodha ya kazi, tafadhali angalia muunganisho wako wa mtandao</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Futa jukumu</string>
@@ -62,6 +61,8 @@
     <string name="assistant_screen_top_bar_title">Msaidizi</string>
     <string name="assistant_task_detail_screen_input_button_title">Ingilio</string>
     <string name="assistant_task_detail_screen_output_button_title">Tokeo</string>
+    <string name="assistant_task_status_running">inafanya kazi</string>
+    <string name="assistant_task_status_unknown">haijulikani</string>
     <string name="assistant_thinking">Inafikiri...</string>
     <string name="associated_account_not_found">Akaunti inayohusishwa haijapatikana!</string>
     <string name="auth_access_failed">Ufikiaji umeshindwa: %1$s</string>
@@ -187,6 +188,7 @@
     <string name="community_testing_bug_text">Je, umepata mdudu? Odds?</string>
     <string name="community_testing_headline">Msaada kwa kupima</string>
     <string name="community_testing_report_text">Ripoti suala kwenye GitHub</string>
+    <string name="compose_activity_label">Msaidizi wa Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Sanidi</string>
     <string name="confirm_removal">Ondoa usimbaji fiche wa ndani</string>
     <string name="confirmation_remove_file_alert">Je, kweli unataka kufuta %1$s?</string>
@@ -493,7 +495,6 @@
     <string name="folder_download_counter">%1$d of %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Hitilafu ilitokea wakati wa ulandanishi wa folda ya %s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Nafasi ya diski haitoshi, maingiliano yameghairiwa</string>
-    <string name="folder_download_success_notification_title">Folda %s imesawazishwa</string>
     <string name="folder_download_worker_ticker_id">Inasawazisha...</string>
     <string name="folder_list_empty_headline">Hakuna folda hapa</string>
     <string name="folder_name_empty">Jina la folda haliwezi kuwa tupu</string>

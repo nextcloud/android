@@ -47,15 +47,15 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Ertu viss um að þú viljir eyða þessu verki?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eyða verki</string>
     <string name="assistant_screen_task_create_fail_message">Villa kom upp við að búa til verkið</string>
-    <string name="assistant_screen_task_create_success_message">Tókst að búa til verk</string>
+    <string name="assistant_screen_task_create_success_message">Verk búið til</string>
     <string name="assistant_screen_task_delete_fail_message">Villa kom upp við að eyða verkinu</string>
-    <string name="assistant_screen_task_delete_success_message">Tókst að eyða verki</string>
     <string name="assistant_screen_task_list_error_state_message">Ekki er hægt að sækja verkefnalista, athugaðu nettenginguna þína.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eyða verki</string>
     <string name="assistant_screen_task_output_empty_text">Yfirlitið yfir verkin er ekki tilbúið.</string>
     <string name="assistant_screen_top_bar_title">Meðhjálpari</string>
     <string name="assistant_task_detail_screen_input_button_title">Inntak</string>
     <string name="assistant_task_detail_screen_output_button_title">Frálag</string>
+    <string name="assistant_task_status_unknown">óþekkt</string>
     <string name="associated_account_not_found">Tengdur notandaaðgangur fannst ekki!</string>
     <string name="auth_access_failed">Aðgangur mistókst: %1$s</string>
     <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá til á tækinu</string>
@@ -178,6 +178,7 @@
     <string name="community_testing_bug_text">Fannstu villu? Skringilegheit?</string>
     <string name="community_testing_headline">Hjálpaðu til við prófanir</string>
     <string name="community_testing_report_text">Tilkynntu um vandamál á GitHub</string>
+    <string name="compose_activity_label">Nextcloud Assistant meðhjálpari</string>
     <string name="configure_new_media_folder_detection_notifications">Stilla</string>
     <string name="confirm_removal">Fjarlægja staðværa dulritun</string>
     <string name="confirmation_remove_file_alert">Viltu virkilega eyða \'%s\'?</string>

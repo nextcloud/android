@@ -41,10 +41,8 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -60,6 +58,7 @@ import com.nextcloud.client.assistant.conversation.ConversationScreen
 import com.nextcloud.client.assistant.conversation.ConversationViewModel
 import com.nextcloud.client.assistant.conversation.repository.MockConversationRemoteRepository
 import com.nextcloud.client.assistant.extensions.getInputTitle
+import com.nextcloud.client.assistant.model.AssistantPage
 import com.nextcloud.client.assistant.model.AssistantScreenState
 import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.repository.local.MockAssistantLocalRepository
@@ -67,6 +66,7 @@ import com.nextcloud.client.assistant.repository.remote.MockAssistantRemoteRepos
 import com.nextcloud.client.assistant.task.TaskView
 import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
 import com.nextcloud.ui.composeActivity.ComposeActivity
+import com.nextcloud.ui.composeActivity.ComposeViewModel
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.nextcloud.utils.extensions.getChat
@@ -84,11 +84,13 @@ private const val PULL_TO_REFRESH_DELAY = 1500L
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AssistantScreen(
+    composeViewModel: ComposeViewModel,
     viewModel: AssistantViewModel,
     conversationViewModel: ConversationViewModel,
     capability: OCCapability,
     activity: Activity
 ) {
+    val selectedText by composeViewModel.selectedText.collectAsState()
     val sessionId by viewModel.sessionId.collectAsState()
     val messageId by viewModel.snackbarMessageId.collectAsState()
     val screenOverlayState by viewModel.screenOverlayState.collectAsState()
@@ -99,12 +101,28 @@ fun AssistantScreen(
     val scope = rememberCoroutineScope()
     val pullRefreshState = rememberPullToRefreshState()
     val snackbarHostState = remember { SnackbarHostState() }
-    val pagerState = rememberPagerState(initialPage = 1, pageCount = { 2 })
+    val pagerState =
+        rememberPagerState(initialPage = AssistantPage.Content.id, pageCount = { AssistantPage.entries.size })
 
     LaunchedEffect(messageId) {
         messageId?.let {
             snackbarHostState.showSnackbar(activity.getString(it))
             viewModel.updateSnackbarMessage(null)
+        }
+    }
+
+    LaunchedEffect(selectedText) {
+        selectedText?.let {
+            if (it.isBlank()) {
+                return@LaunchedEffect
+            }
+
+            if (pagerState.currentPage == AssistantPage.Conversation.id) {
+                pagerState.scrollToPage(AssistantPage.Content.id)
+            }
+
+            viewModel.updateInputBarText(it)
+            snackbarHostState.showSnackbar(activity.getString(R.string.assistant_screen_text_selected))
         }
     }
 
@@ -127,10 +145,10 @@ fun AssistantScreen(
         userScrollEnabled = taskTypes.getChat() != null
     ) { page ->
         when (page) {
-            0 -> {
+            AssistantPage.Conversation.id -> {
                 ConversationScreen(viewModel = conversationViewModel, close = {
                     scope.launch {
-                        pagerState.scrollToPage(1)
+                        pagerState.scrollToPage(AssistantPage.Content.id)
                     }
                 }, openChat = { newSessionId ->
                     viewModel.initSessionId(newSessionId)
@@ -138,11 +156,11 @@ fun AssistantScreen(
                         viewModel.selectTaskType(chatTaskType)
                     }
                     scope.launch {
-                        pagerState.scrollToPage(1)
+                        pagerState.scrollToPage(AssistantPage.Content.id)
                     }
                 })
             }
-            1 -> {
+            AssistantPage.Content.id -> {
                 Scaffold(
                     modifier = Modifier.pullToRefresh(
                         false,
@@ -166,14 +184,14 @@ fun AssistantScreen(
                                 viewModel.selectTaskType(task)
                             }, navigateToConversationList = {
                                 scope.launch {
-                                    pagerState.scrollToPage(0)
+                                    pagerState.scrollToPage(AssistantPage.Conversation.id)
                                 }
                             })
                         }
                     },
                     bottomBar = {
                         if (!taskTypes.isNullOrEmpty()) {
-                            ChatInputBar(
+                            InputBar(
                                 sessionId,
                                 selectedTaskType,
                                 viewModel
@@ -233,9 +251,9 @@ fun AssistantScreen(
 
 @Suppress("LongMethod")
 @Composable
-private fun ChatInputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, viewModel: AssistantViewModel) {
+private fun InputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, viewModel: AssistantViewModel) {
     val scope = rememberCoroutineScope()
-    var text by remember { mutableStateOf("") }
+    val text by viewModel.inputBarText.collectAsState()
 
     Surface(
         tonalElevation = 3.dp,
@@ -264,7 +282,7 @@ private fun ChatInputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, view
             ) {
                 OutlinedTextField(
                     value = text,
-                    onValueChange = { text = it },
+                    onValueChange = { viewModel.updateInputBarText(it) },
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 8.dp),
@@ -291,13 +309,13 @@ private fun ChatInputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, view
 
                         scope.launch {
                             delay(CHAT_INPUT_DELAY)
-                            text = ""
+                            viewModel.updateInputBarText("")
                         }
                     }
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_send),
-                        contentDescription = "Send message",
+                        contentDescription = stringResource(R.string.assistant_screen_send_message),
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
@@ -379,9 +397,8 @@ private fun EmptyContent(paddingValues: PaddingValues, iconId: Int?, description
                 painter = painterResource(id = iconId),
                 modifier = Modifier.size(32.dp),
                 colorFilter = ColorFilter.tint(color = colorResource(R.color.text_color)),
-                contentDescription = "empty content icon"
+                contentDescription = null
             )
-
             Spacer(modifier = Modifier.height(8.dp))
         }
 
@@ -413,6 +430,7 @@ private fun AssistantScreenPreview() {
     MaterialTheme(
         content = {
             AssistantScreen(
+                composeViewModel = ComposeViewModel(),
                 conversationViewModel = getMockConversationViewModel(),
                 viewModel = getMockAssistantViewModel(false),
                 activity = ComposeActivity(),
@@ -431,6 +449,7 @@ private fun AssistantEmptyScreenPreview() {
     MaterialTheme(
         content = {
             AssistantScreen(
+                composeViewModel = ComposeViewModel(),
                 conversationViewModel = getMockConversationViewModel(),
                 viewModel = getMockAssistantViewModel(true),
                 activity = ComposeActivity(),

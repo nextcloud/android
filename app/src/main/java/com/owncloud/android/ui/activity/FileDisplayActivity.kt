@@ -52,6 +52,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.android.common.core.utils.ecosystem.AccountReceiverCallback
 import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.account.User
 import com.nextcloud.client.appinfo.AppInfo
@@ -256,6 +257,7 @@ class FileDisplayActivity :
 
         intent?.let {
             handleCommonIntents(it)
+            handleEcosystemIntent(it)
         }
 
         loadSavedInstanceState(savedInstanceState)
@@ -547,6 +549,7 @@ class FileDisplayActivity :
         handleCommonIntents(intent)
         handleSpecialIntents(intent)
         handleRestartIntent(intent)
+        handleEcosystemIntent(intent)
     }
 
     private fun handleSpecialIntents(intent: Intent) {
@@ -2764,7 +2767,6 @@ class FileDisplayActivity :
 
         listOfFilesFragment?.setCurrentSearchType(event)
         updateActionBarTitleAndHomeButton(null)
-        // listOfFilesFragment?.setActionBarTitle()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -3071,6 +3073,28 @@ class FileDisplayActivity :
                 }
             }
         })
+    }
+
+    private fun handleEcosystemIntent(intent: Intent?) {
+        ecosystemManager.receiveAccount(
+            intent,
+            object : AccountReceiverCallback {
+                override fun onAccountReceived(accountName: String) {
+                    val account = accountManager.getUser(accountName).orElse(null)
+                        ?: run {
+                            Log_OC.w(TAG, "user is not present")
+                            DisplayUtils.showSnackMessage(this@FileDisplayActivity, R.string.account_not_found)
+                            return
+                        }
+
+                    accountClicked(account)
+                }
+
+                override fun onAccountError(reason: String) {
+                    Log_OC.w(TAG, "handleEcosystemIntent: $reason")
+                }
+            }
+        )
     }
 
     // region MetadataSyncJob

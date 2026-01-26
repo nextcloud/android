@@ -299,7 +299,7 @@ class FileUploadHelper {
                 dao.getUploadsByAccountNameAndStatus(accountName, status.value, nameCollisionPolicy?.serialize())
             } else {
                 dao.getUploadsByStatus(status.value, nameCollisionPolicy?.serialize())
-            }.map { it.toOCUpload(null) }.toTypedArray()
+            }.mapNotNull { it.toOCUpload(null) }.toTypedArray()
             onCompleted(result)
         }
     }

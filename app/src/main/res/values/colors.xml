@@ -88,5 +88,5 @@
     <color name="fontAppbar">#666666</color>
     <color name="fontSecondaryAppbar">#A5A5A5</color>
 
-    <color name="actionbar_color">#F7F9FF</color>
+    <color name="bg_message_bubble">#EFEFEF</color>
 </resources>

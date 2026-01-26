@@ -18,6 +18,7 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.resources.status.OCCapability
+import java.lang.IllegalArgumentException
 
 @Entity(tableName = ProviderTableMeta.UPLOADS_TABLE_NAME)
 data class UploadEntity(
@@ -42,8 +43,13 @@ data class UploadEntity(
     val nameCollisionPolicy: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER)
     val isCreateRemoteFolder: Int?,
+
+    // do not use integer value of upload end timestamp, instead use long version of it
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP)
     val uploadEndTimestamp: Int?,
+
+    @ColumnInfo(name = ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP_LONG)
+    val uploadEndTimestampLong: Long?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_LAST_RESULT)
     val lastResult: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY)
@@ -56,13 +62,17 @@ data class UploadEntity(
     val folderUnlockToken: String?
 )
 
-fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload {
+fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload? {
     val localPath = localPath
     var remotePath = remotePath
     if (capability != null && remotePath != null) {
         remotePath = AutoRename.rename(remotePath, capability)
     }
-    val upload = OCUpload(localPath, remotePath, accountName)
+    val upload = try {
+        OCUpload(localPath, remotePath, accountName)
+    } catch (_: IllegalArgumentException) {
+        return null
+    }
 
     fileSize?.let { upload.fileSize = it }
     id?.let { upload.uploadId = it.toLong() }
@@ -70,7 +80,7 @@ fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload {
     localBehaviour?.let { upload.localAction = it }
     nameCollisionPolicy?.let { upload.nameCollisionPolicy = NameCollisionPolicy.deserialize(it) }
     isCreateRemoteFolder?.let { upload.isCreateRemoteFolder = it == 1 }
-    uploadEndTimestamp?.let { upload.uploadEndTimestamp = it.toLong() }
+    uploadEndTimestampLong?.let { upload.uploadEndTimestamp = it }
     lastResult?.let { upload.lastResult = UploadResult.fromValue(it) }
     createdBy?.let { upload.createdBy = it }
     isWifiOnly?.let { upload.isUseWifiOnly = it == 1 }
@@ -98,9 +108,8 @@ fun OCUpload.toUploadEntity(): UploadEntity {
         localBehaviour = localAction,
         nameCollisionPolicy = nameCollisionPolicy?.serialize(),
         isCreateRemoteFolder = if (isCreateRemoteFolder) 1 else 0,
-
-        // uploadEndTimestamp may overflow max int capacity since it is conversion from long to int. coerceAtMost needed
-        uploadEndTimestamp = uploadEndTimestamp.coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
+        uploadEndTimestamp = 0,
+        uploadEndTimestampLong = uploadEndTimestamp,
         lastResult = lastResult?.value,
         createdBy = createdBy,
         isWifiOnly = if (isUseWifiOnly) 1 else 0,

@@ -51,10 +51,10 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">ۋەزىپىنى ئۆچۈرۈڭ</string>
     <string name="assistant_screen_empty_content_description">پاراڭلىشىش ئۈچۈن ئۇچۇر ئەۋەتىپ بېقىڭ.</string>
     <string name="assistant_screen_empty_content_title">ياخشىمۇسىز! بۈگۈن سىزگە نېمە ياردەم بېرەلەيمەن؟</string>
+    <string name="assistant_screen_send_message">ئۇچۇر ئەۋەتىڭ</string>
     <string name="assistant_screen_task_create_fail_message">ۋەزىپە قۇرغاندا خاتالىق كۆرۈلدى</string>
-    <string name="assistant_screen_task_create_success_message">ۋەزىپە مۇۋەپپەقىيەتلىك قۇرۇلدى</string>
+    <string name="assistant_screen_task_create_success_message">ۋەزىپە قۇرۇلدى</string>
     <string name="assistant_screen_task_delete_fail_message">ۋەزىپىنى ئۆچۈرگەندە خاتالىق كۆرۈلدى</string>
-    <string name="assistant_screen_task_delete_success_message">ۋەزىپە مۇۋەپپەقىيەتلىك ئۆچۈرۈلدى</string>
     <string name="assistant_screen_task_list_empty_warning">ۋەزىپە تىزىملىكى قۇرۇق. ياردەمچى ئەپنىڭ سەپلىمىسىنى تەكشۈر.</string>
     <string name="assistant_screen_task_list_error_state_message">ۋەزىپە تىزىملىكىنى ئالالمىدى ، تور ئۇلىنىشىڭىزنى تەكشۈرۈپ بېقىڭ.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">ۋەزىپىنى ئۆچۈرۈڭ</string>
@@ -62,6 +62,8 @@
     <string name="assistant_screen_top_bar_title">ياردەمچى</string>
     <string name="assistant_task_detail_screen_input_button_title">كىرگۈزۈش</string>
     <string name="assistant_task_detail_screen_output_button_title">چىقىرىش</string>
+    <string name="assistant_task_status_running">ئىجرا بولۇۋاتىدۇ</string>
+    <string name="assistant_task_status_unknown">نامەلۇم</string>
     <string name="assistant_thinking">ئويلاۋاتىدۇ...</string>
     <string name="associated_account_not_found">بىرلەشمە ھېسابات تېپىلمىدى!</string>
     <string name="auth_access_failed">زىيارەت مەغلۇپ بولدى:%1$s</string>
@@ -187,6 +189,7 @@
     <string name="community_testing_bug_text">خاتالىق بايقالدى؟ قالدۇق؟</string>
     <string name="community_testing_headline">سىناق ئارقىلىق ياردەم</string>
     <string name="community_testing_report_text">GitHub دىكى بىر مەسىلىنى دوكلات قىلىڭ</string>
+    <string name="compose_activity_label">Nextcloud ياردەمچىسى</string>
     <string name="configure_new_media_folder_detection_notifications">سەپلەڭ</string>
     <string name="confirm_removal">يەرلىك مەخپىيلەشتۈرۈشنى ئۆچۈرۈڭ</string>
     <string name="confirmation_remove_file_alert">راستىنلا%1$s نى ئۆچۈرمەكچىمۇ؟</string>
@@ -493,7 +496,6 @@
     <string name="folder_download_counter">%2$d دىن %1$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">%s قىسقۇچىنى ماس-قەدەملەۋاتقاندا بىر خاتالىق يۈز بەردى</string>
     <string name="folder_download_insufficient_disk_space_notification_title">دېسكا بوشلۇقى يىتەرسىز، ماس-قەدەملەش ئەمەلدىن قالدۇرۇلدى</string>
-    <string name="folder_download_success_notification_title">%s قىسقۇچ مۇۋاپىقىيەتلىك ماس-قەدەملەندى</string>
     <string name="folder_download_worker_ticker_id">ماس-قەدەملەۋاتىدۇ...</string>
     <string name="folder_list_empty_headline">بۇ يەردە ھۆججەت قىسقۇچ يوق</string>
     <string name="folder_name_empty">ھۆججەت قىسقۇچنىڭ ئىسمى قۇرۇق بولمايدۇ</string>

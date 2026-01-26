@@ -52,9 +52,8 @@
     <string name="assistant_screen_empty_content_description">Spróbuj wysłać wiadomość, aby rozpocząć rozmowę.</string>
     <string name="assistant_screen_empty_content_title">Cześć! W czym mogę Ci dziś pomóc?</string>
     <string name="assistant_screen_task_create_fail_message">Wystąpił błąd podczas tworzenia zadania</string>
-    <string name="assistant_screen_task_create_success_message">Zadanie pomyślnie utworzone</string>
+    <string name="assistant_screen_task_create_success_message">Zadanie utworzone</string>
     <string name="assistant_screen_task_delete_fail_message">Wystąpił błąd podczas usuwania zadania</string>
-    <string name="assistant_screen_task_delete_success_message">Zadanie pomyślnie usunięte</string>
     <string name="assistant_screen_task_list_empty_warning">Lista zadań jest pusta. Sprawdź konfigurację asystenta aplikacji.</string>
     <string name="assistant_screen_task_list_error_state_message">Nie można pobrać listy zadań. Sprawdź swoje połączenie internetowe.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Usuń zadanie</string>
@@ -62,6 +61,8 @@
     <string name="assistant_screen_top_bar_title">Asystent</string>
     <string name="assistant_task_detail_screen_input_button_title">Wejście</string>
     <string name="assistant_task_detail_screen_output_button_title">Wyjście</string>
+    <string name="assistant_task_status_running">uruchomiony</string>
+    <string name="assistant_task_status_unknown">nieznane</string>
     <string name="assistant_thinking">Mylślę ...</string>
     <string name="associated_account_not_found">Nie znaleziono powiązanego konta!</string>
     <string name="auth_access_failed">Dostęp nieudany: %1$s</string>
@@ -187,6 +188,7 @@
     <string name="community_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="community_testing_headline">Pomóż nam testować</string>
     <string name="community_testing_report_text">Zgłoś problem na GitHubie</string>
+    <string name="compose_activity_label">Asystent Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguruj</string>
     <string name="confirm_removal">Usuń szyfrowanie lokalne</string>
     <string name="confirmation_remove_file_alert">Czy na pewno chcesz usunąć %1$s?</string>
@@ -491,7 +493,6 @@
     <string name="folder_download_counter">%1$d z %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Wystąpił błąd podczas synchronizacji katalogu %s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Brak miejsca na dysku, synchronizacja przewana</string>
-    <string name="folder_download_success_notification_title">%s pomyślnie zsynchronizowany</string>
     <string name="folder_download_worker_ticker_id">Synchronizacja…</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
     <string name="folder_name_empty">Nazwa katalogu nie może być pusta</string>

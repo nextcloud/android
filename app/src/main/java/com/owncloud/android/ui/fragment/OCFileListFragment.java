@@ -435,7 +435,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 } else {
                     setGridAsPreferred();
                 }
-                setGridSwitchButton();
+                setLayoutSwitchButton();
             });
         }
 
@@ -1573,17 +1573,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void updateLayout() {
-        // decide grid vs list view
-        if (isGridViewPreferred(mFile)) {
-            switchToGridView();
-        } else {
-            switchToListView();
-        }
-
+        setLayoutViewMode();
         updateSortButton();
-        if (mSwitchGridViewButton != null) {
-            setGridSwitchButton();
-        }
+        setLayoutSwitchButton();
 
         setFabVisible(!mHideFab);
         slideHideBottomBehaviourForBottomNavigationView(!mHideFab);
@@ -1619,14 +1611,34 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     /**
-     * Determines if user set folder to grid or list view. If folder is not set itself, it finds a parent that is set
-     * (at least root is set).
+     * Determines whether a folder should be displayed in grid or list view.
+     * <p>
+     * The preference is checked for the given folder. If the folder itself does not have a preference set,
+     * it will fall back to its parent folder recursively until a preference is found (root folder is always set).
+     * Additionally, if a search event is active and is of type {@code SHARED_FILTER}, grid view is disabled.
      *
-     * @param folder Folder to check or null for root folder
-     * @return 'true' is folder should be shown in grid mode, 'false' if list mode is preferred.
+     * @param folder The folder to check, or {@code null} to refer to the root folder.
+     * @return {@code true} if the folder should be displayed in grid mode, {@code false} if list mode is preferred.
      */
-    public boolean isGridViewPreferred(@Nullable OCFile folder) {
-        return FOLDER_LAYOUT_GRID.equals(preferences.getFolderLayout(folder));
+    private boolean isGridViewPreferred(@Nullable OCFile folder) {
+        if (searchEvent != null) {
+            return (searchEvent.toSearchType() != SHARED_FILTER) &&
+                FOLDER_LAYOUT_GRID.equals(preferences.getFolderLayout(folder));
+        } else {
+            return FOLDER_LAYOUT_GRID.equals(preferences.getFolderLayout(folder));
+        }
+    }
+
+    private void setLayoutViewMode() {
+        boolean isGrid = isGridViewPreferred(mFile);
+
+        if (isGrid) {
+            switchToGridView();
+        } else {
+            switchToListView();
+        }
+
+        setLayoutSwitchButton(isGrid);
     }
 
     public void setListAsPreferred() {
@@ -1857,11 +1869,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         new Handler(Looper.getMainLooper()).post(() -> {
             updateSortButton();
-            if (isGridViewPreferred(mFile) && !isGridEnabled()) {
-                switchToGridView();
-            } else if (!isGridViewPreferred(mFile) && isGridEnabled()) {
-                switchToListView();
-            }
+            setLayoutViewMode();
         });
 
         final User currentUser = accountManager.getUser();
@@ -2234,6 +2242,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public boolean shouldNavigateBackToAllFiles() {
-        return ((this instanceof GalleryFragment) || isSearchEventFavorite() || DrawerActivity.menuItemId == R.id.nav_favorites);
+        return this instanceof GalleryFragment ||
+            isSearchEventFavorite() ||
+            isSearchEventShared() ||
+            DrawerActivity.menuItemId == R.id.nav_favorites;
     }
 }

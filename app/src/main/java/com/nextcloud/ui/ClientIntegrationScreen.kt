@@ -28,6 +28,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.nextcloud.android.lib.resources.clientintegration.ClientIntegrationUI
 import com.nextcloud.android.lib.resources.clientintegration.Element
@@ -38,6 +39,7 @@ import com.nextcloud.android.lib.resources.clientintegration.LayoutRow
 import com.nextcloud.android.lib.resources.clientintegration.LayoutText
 import com.nextcloud.android.lib.resources.clientintegration.LayoutURL
 import com.nextcloud.utils.extensions.getActivity
+import com.owncloud.android.R
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.utils.DisplayUtils
 
@@ -51,7 +53,7 @@ fun ClientIntegrationScreen(clientIntegrationUI: ClientIntegrationUI, baseUrl: S
             IconButton(onClick = { activity?.finish() }) {
                 Icon(
                     imageVector = Icons.Filled.Close,
-                    contentDescription = "Close"
+                    contentDescription = stringResource(R.string.dialog_close)
                 )
             }
         }

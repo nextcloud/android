@@ -53,9 +53,8 @@
     <string name="assistant_screen_empty_content_description">Bir görüşme başlatacak bir ileti göndermeyi dene.</string>
     <string name="assistant_screen_empty_content_title">Merhaba! Bugün size nasıl yardımcı olabilirim?</string>
     <string name="assistant_screen_task_create_fail_message">Görev oluşturulurken bir sorun çıktı</string>
-    <string name="assistant_screen_task_create_success_message">Görev oluşturuldu</string>
+    <string name="assistant_screen_task_create_success_message">Görev eklendi</string>
     <string name="assistant_screen_task_delete_fail_message">Görev silinirken bir sorun çıktı</string>
-    <string name="assistant_screen_task_delete_success_message">Görev silindi</string>
     <string name="assistant_screen_task_list_empty_warning">Görev listesi boş. Yardımcı uygulamasının yapılandırmasını denetleyin.</string>
     <string name="assistant_screen_task_list_error_state_message">Görev listesi alınamadı. Lütfen İnternet bağlantınızı denetleyin.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Görevi sil</string>
@@ -63,6 +62,10 @@
     <string name="assistant_screen_top_bar_title">Yardımcı</string>
     <string name="assistant_task_detail_screen_input_button_title">Giriş</string>
     <string name="assistant_task_detail_screen_output_button_title">Çıkış</string>
+    <string name="assistant_task_status_failed">tamamlanamadı</string>
+    <string name="assistant_task_status_running">çalışıyor</string>
+    <string name="assistant_task_status_scheduled">zamanlanmış</string>
+    <string name="assistant_task_status_unknown">bilinmiyor</string>
     <string name="assistant_thinking">Düşünüyorum…</string>
     <string name="associated_account_not_found">İlişkili hesap bulunamadı!</string>
     <string name="auth_access_failed">Erişilemedi: %1$s</string>
@@ -188,6 +191,7 @@
     <string name="community_testing_bug_text">Bir hata mı buldunuz? Bir gariplik mi var?</string>
     <string name="community_testing_headline">Deneyerek bize yardımcı olun</string>
     <string name="community_testing_report_text">GitHub üzerinden sorun bildirin</string>
+    <string name="compose_activity_label">Nextcloud Yardımcısı</string>
     <string name="configure_new_media_folder_detection_notifications">Yapılandır</string>
     <string name="confirm_removal">Yerel şifrelemeyi kaldır</string>
     <string name="confirmation_remove_file_alert">%1$s dosyasını silmek istediğinize emin misiniz?</string>
@@ -495,7 +499,6 @@
     <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">%s klasörü eşitlenirken bir sorun çıktı</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Disk alanı yetersiz. Eşitleme iptal edildi</string>
-    <string name="folder_download_success_notification_title">%s klasörü eşitlendi</string>
     <string name="folder_download_worker_ticker_id">Eşitleniyor…</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
     <string name="folder_name_empty">Klasör adı boş olamaz</string>

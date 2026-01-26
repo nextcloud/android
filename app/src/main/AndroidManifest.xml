@@ -135,7 +135,14 @@
 
         <activity
             android:name="com.nextcloud.ui.composeActivity.ComposeActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:label="@string/compose_activity_label">
+            <intent-filter>
+                <action android:name="android.intent.action.PROCESS_TEXT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -147,6 +154,13 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/Theme.ownCloud.Launcher">
+
+            <intent-filter>
+                <action android:name="com.nextcloud.intent.OPEN_ECOSYSTEM_APP" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
