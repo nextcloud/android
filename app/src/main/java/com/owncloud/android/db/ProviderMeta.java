@@ -304,6 +304,8 @@ public class ProviderMeta {
         public static final String UPLOADS_NAME_COLLISION_POLICY = "name_collision_policy";
         public static final String UPLOADS_IS_CREATE_REMOTE_FOLDER = "is_create_remote_folder";
         public static final String UPLOADS_UPLOAD_END_TIMESTAMP = "upload_end_timestamp";
+        public static final String UPLOADS_UPLOAD_END_TIMESTAMP_LONG = "upload_end_timestamp_long";
+
         public static final String UPLOADS_LAST_RESULT = "last_result";
         public static final String UPLOADS_CREATED_BY = "created_by";
         public static final String UPLOADS_DEFAULT_SORT_ORDER = ProviderTableMeta._ID + " collate nocase desc";
