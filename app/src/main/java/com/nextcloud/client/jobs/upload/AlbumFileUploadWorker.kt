@@ -365,7 +365,7 @@ class AlbumFileUploadWorker(
                         notificationManager,
                         operation,
                         result,
-                        showSameFileAlreadyExistsNotification = {
+                        onSameFileConflict = {
                             withContext(Dispatchers.Main) {
                                 val showSameFileAlreadyExistsNotification =
                                     inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
