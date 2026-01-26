@@ -53,9 +53,8 @@
     <string name="assistant_screen_empty_content_description">Zkuste poslat zprávu pro rozproudění konverzace.</string>
     <string name="assistant_screen_empty_content_title">Zdravím! Jak vám mohu pomoci?</string>
     <string name="assistant_screen_task_create_fail_message">Při vytváření úlohy se vyskytla chyba</string>
-    <string name="assistant_screen_task_create_success_message">Úloha byla úspěšně vytvořena</string>
+    <string name="assistant_screen_task_create_success_message">Úkol vytvořen</string>
     <string name="assistant_screen_task_delete_fail_message">Při mazání úlohy se vyskytla chyba</string>
-    <string name="assistant_screen_task_delete_success_message">Úloha úspěšně smazána</string>
     <string name="assistant_screen_task_list_empty_warning">Seznam úkolů je prázdný. Zkontrolujte nastavení aplikace Asistent.</string>
     <string name="assistant_screen_task_list_error_state_message">Nedaří se získat seznam úloh – zkontrolujte připojení k Internetu.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Smazat úlohu</string>
@@ -64,6 +63,8 @@
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Vstup</string>
     <string name="assistant_task_detail_screen_output_button_title">Výstup</string>
+    <string name="assistant_task_status_running">spuštěné</string>
+    <string name="assistant_task_status_unknown">neznámý</string>
     <string name="assistant_thinking">Přemýšlení…</string>
     <string name="associated_account_not_found">Související účet nenalezen!</string>
     <string name="auth_access_failed">Přístup se nezdařil: %1$s</string>
@@ -497,7 +498,6 @@
     <string name="folder_download_counter">%1$d z %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Při synchronizování složky %s došlo k chybě</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Nedostatek prostoru na disku – synchronizace zrušena</string>
-    <string name="folder_download_success_notification_title">složka %s úspěšně synchronizována</string>
     <string name="folder_download_worker_ticker_id">Synchronizování …</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
     <string name="folder_name_empty">Název složky je třeba vyplnit</string>
