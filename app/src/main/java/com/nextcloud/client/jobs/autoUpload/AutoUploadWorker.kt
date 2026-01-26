@@ -421,7 +421,7 @@ class AutoUploadWorker(
                 TAG,
                 "last upload failed with ${lastUploadResult.value}, skipping auto-upload: $localPath"
             )
-            return AutoUploadEntityResult.PermanentFailure
+            return AutoUploadEntityResult.NonRetryable
         }
 
         val upload = try {
