@@ -359,21 +359,35 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         // remote path to parent folder
         itemViewHolder.binding.uploadRemotePath.setText(new File(item.getRemotePath()).getParent());
 
+        long updateTime = item.getUploadEndTimestamp();
+
         // file size
         if (item.getFileSize() != 0) {
-            itemViewHolder.binding.uploadFileSize.setText(String.format("%s, ",
-                                                                        DisplayUtils.bytesToHumanReadable(item.getFileSize())));
+            String fileSizeFormat = "%s ";
+
+            // we have valid update time so we can show the upload date
+            if (updateTime > 0) {
+                fileSizeFormat = "%s, ";
+            }
+
+            String fileSizeInBytes = DisplayUtils.bytesToHumanReadable(item.getFileSize());
+            String uploadFileSize = String.format(fileSizeFormat, fileSizeInBytes);
+            itemViewHolder.binding.uploadFileSize.setText(uploadFileSize);
         } else {
             itemViewHolder.binding.uploadFileSize.setText("");
         }
 
         // upload date
-        long updateTime = item.getUploadEndTimestamp();
-        CharSequence dateString = DisplayUtils.getRelativeDateTimeString(parentActivity,
-                                                                         updateTime,
-                                                                         DateUtils.SECOND_IN_MILLIS,
-                                                                         DateUtils.WEEK_IN_MILLIS, 0);
-        itemViewHolder.binding.uploadDate.setText(dateString);
+        boolean showUploadDate = updateTime > 0 && item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED && item.getLastResult() == UploadResult.UPLOADED;
+        itemViewHolder.binding.uploadDate.setVisibility(showUploadDate ? View.VISIBLE : View.GONE);
+        if (showUploadDate) {
+            CharSequence dateString = DisplayUtils.getRelativeDateTimeString(parentActivity,
+                                                                             updateTime,
+                                                                             DateUtils.SECOND_IN_MILLIS,
+                                                                             DateUtils.WEEK_IN_MILLIS,
+                                                                             0);
+            itemViewHolder.binding.uploadDate.setText(dateString);
+        }
 
         // account
         final Optional<User> optionalUser = accountManager.getUser(item.getAccountName());
@@ -390,7 +404,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }
 
         // Reset fields visibility
-        itemViewHolder.binding.uploadDate.setVisibility(View.VISIBLE);
         itemViewHolder.binding.uploadRemotePath.setVisibility(View.VISIBLE);
         itemViewHolder.binding.uploadFileSize.setVisibility(View.VISIBLE);
         itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
@@ -428,11 +441,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     }
                 }
 
-                itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
                 itemViewHolder.binding.uploadFileSize.setVisibility(View.GONE);
                 itemViewHolder.binding.uploadProgressBar.invalidate();
             }
-            case UPLOAD_FAILED -> itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
+            case UPLOAD_FAILED -> {
+
+            }
             case UPLOAD_SUCCEEDED, UPLOAD_CANCELLED ->
                 itemViewHolder.binding.uploadStatus.setVisibility(View.GONE);
         }
@@ -442,7 +456,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             || item.getUploadStatus() == UploadStatus.UPLOAD_CANCELLED) {
 
             itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
-            itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
             itemViewHolder.binding.uploadFileSize.setVisibility(View.GONE);
         }
 
