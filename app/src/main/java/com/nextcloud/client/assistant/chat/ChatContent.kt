@@ -42,7 +42,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -123,7 +122,7 @@ private fun AssistantTypingIndicator() {
                             bottomEnd = CHAT_BUBBLE_CORNER_RADIUS
                         )
                     )
-                    .background(color = colorResource(R.color.white))
+                    .background(color = colorResource(R.color.bg_message_bubble))
             ) {
                 TypingAnimation()
             }
@@ -148,7 +147,9 @@ private fun AnimatedAssistantIcon() {
         modifier = Modifier
             .size(ASSISTANT_ICON_SIZE)
             .clip(CircleShape)
-            .background(Color.White),
+            .background(
+                color = colorResource(R.color.bg_message_bubble)
+            ),
         contentAlignment = Alignment.Center
     ) {
         Image(
@@ -205,7 +206,9 @@ private fun AssistantMessageItem(message: ChatMessage) {
                 modifier = Modifier
                     .size(ASSISTANT_ICON_SIZE)
                     .clip(CircleShape)
-                    .background(Color.White),
+                    .background(
+                        color = colorResource(R.color.bg_message_bubble)
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
@@ -228,7 +231,7 @@ private fun AssistantMessageItem(message: ChatMessage) {
                         )
                     )
                     .background(
-                        color = colorResource(R.color.white)
+                        color = colorResource(R.color.bg_message_bubble)
                     )
             ) {
                 MessageTextItem(message)
@@ -259,7 +262,7 @@ private fun UserMessageItem(message: ChatMessage) {
                             bottomStart = CHAT_BUBBLE_CORNER_RADIUS
                         )
                     )
-                    .background(color = colorResource(R.color.white))
+                    .background(color = colorResource(R.color.bg_message_bubble))
             ) {
                 MessageTextItem(message)
             }
@@ -280,13 +283,14 @@ private fun MessageTextItem(message: ChatMessage) {
                 fontSize = 16.sp
             )
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = message.time(),
             style = TextStyle(
-                color = colorResource(R.color.text_color),
+                color = colorResource(R.color.secondary_text_color),
                 fontSize = 12.sp
-            )
+            ),
+            modifier = Modifier.align(Alignment.End)
         )
     }
 }
