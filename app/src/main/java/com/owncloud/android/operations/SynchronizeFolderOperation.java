@@ -126,6 +126,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
         try {
             // get locally cached information about folder
             mLocalFolder = getStorageManager().getFileByPath(mRemotePath);
+            if (mLocalFolder == null) {
+                Log_OC.e(TAG, "Local folder is null, cannot run synchronize folder operation, remote path: " + mRemotePath);
+                return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
+            }
 
             result = checkForChanges(client);
 
@@ -163,18 +167,17 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
         // remote request
         ReadFileRemoteOperation operation = new ReadFileRemoteOperation(mRemotePath);
-        RemoteOperationResult result = operation.execute(client);
-        if (result.isSuccess()) {
-            OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+        var result = operation.execute(client);
+        if (result.isSuccess() && result.getData().get(0) instanceof RemoteFile remoteFile) {
+            OCFile remoteFolder = FileStorageUtils.fillOCFile(remoteFile);
 
             // check if remote and local folder are different
             mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
 
-            result = new RemoteOperationResult(ResultCode.OK);
+            result = new RemoteOperationResult<>(ResultCode.OK);
 
             Log_OC.i(TAG, "Checked " + user.getAccountName() + mRemotePath + " : " +
-                    (mRemoteFolderChanged ? "changed" : "not changed"));
-
+                (mRemoteFolderChanged ? "changed" : "not changed"));
         } else {
             // check failed
             if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
