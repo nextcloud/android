@@ -87,7 +87,6 @@
     <string name="translation_screen_translating">Translating…</string>
     <string name="translation_screen_start_to_translate_task">Press the button to translate</string>
     <string name="translation_screen_hint_source">Enter text to translate…</string>
-    <string name="translation_screen_error_message">Translation model not exists.</string>
     <string name="translation_screen_task_processing">Translation is taking longer than expected.</string>
 
     <!-- Conversation Screen -->
