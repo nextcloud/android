@@ -67,6 +67,7 @@ import com.nextcloud.client.assistant.repository.remote.MockAssistantRemoteRepos
 import com.nextcloud.client.assistant.task.TaskView
 import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
 import com.nextcloud.client.assistant.translate.TranslationScreen
+import com.nextcloud.client.assistant.translate.TranslationViewModel
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeActivity.ComposeViewModel
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
@@ -252,15 +253,20 @@ fun AssistantScreen(
                         }
 
                         is AssistantScreenState.Translation -> {
-                            val task = (screenState as AssistantScreenState.Translation).task
-                            val textToTranslate = task?.input?.input ?: selectedText ?: ""
+                            selectedTaskType?.let {
+                                val task = (screenState as AssistantScreenState.Translation).task
+                                val textToTranslate = task?.input?.input ?: selectedText ?: ""
 
-                            TranslationScreen(
-                                selectedTaskType,
-                                viewModel,
-                                textToTranslate,
-                                isTaskExists = (task != null)
-                            )
+                                val translationViewModel =
+                                    TranslationViewModel(remoteRepository = viewModel.getRemoteRepository())
+
+                                translationViewModel.init(it, task, textToTranslate)
+
+                                TranslationScreen(
+                                    viewModel = translationViewModel,
+                                    assistantViewModel = viewModel
+                                )
+                            }
                         }
 
                         else -> EmptyContent(
