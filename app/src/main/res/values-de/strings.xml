@@ -48,7 +48,7 @@
     <string name="assistant_output_generation_warning_text">Die hier gezeigte Ausgabe wurde von KI erstellt. Bitte genau überprüfen.</string>
     <string name="assistant_screen_chat_create_error">Eine Nachricht konnte nicht gesendet werden</string>
     <string name="assistant_screen_chat_fetch_error">Chatnachrichten konnten nicht abgerufen werden</string>
-    <string name="assistant_screen_conversations_go_back_to_assistant">Gehe zurück zur Assistentenseite</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Zurück zur Assistentenseite wechseln</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Möchten Sie diese Aufgabe wirklich löschen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Aufgabe löschen</string>
     <string name="assistant_screen_empty_content_description">Versuchen Sie, eine Nachricht zu senden, um eine Unterhaltung anzustoßen.</string>

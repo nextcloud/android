@@ -48,13 +48,17 @@
     <string name="assistant_output_generation_warning_text">此處顯示的輸出是由人工智慧產生的。請務必仔細檢查。</string>
     <string name="assistant_screen_chat_create_error">傳送訊息失敗</string>
     <string name="assistant_screen_chat_fetch_error">擷取聊天訊息失敗</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">回到小幫手頁面</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您確定要刪除此工作項目嗎？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">刪除工作項目</string>
     <string name="assistant_screen_empty_content_description">嘗試傳送訊息來引發對話。</string>
     <string name="assistant_screen_empty_content_title">嗨！我現在能怎麼協助您呢？</string>
+    <string name="assistant_screen_send_message">傳送訊息</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">開啟對話清單</string>
     <string name="assistant_screen_task_create_fail_message">建立工作項目時發生錯誤</string>
     <string name="assistant_screen_task_create_success_message">已建立工作</string>
     <string name="assistant_screen_task_delete_fail_message">刪除工作項目時發生錯誤</string>
+    <string name="assistant_screen_task_delete_success_message">任務已刪除</string>
     <string name="assistant_screen_task_list_empty_warning">任務清單是空的。請檢查小幫手應用程式設定。</string>
     <string name="assistant_screen_task_list_error_state_message">無法擷取工作項目清單，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">刪除工作項目</string>
@@ -63,7 +67,11 @@
     <string name="assistant_screen_top_bar_title">助理</string>
     <string name="assistant_task_detail_screen_input_button_title">輸入</string>
     <string name="assistant_task_detail_screen_output_button_title">輸出</string>
+    <string name="assistant_task_status_failed">失敗</string>
     <string name="assistant_task_status_running">執行中</string>
+    <string name="assistant_task_status_scheduled">已排定</string>
+    <string name="assistant_task_status_successful">成功</string>
+    <string name="assistant_task_status_text">任務狀態：%1$s</string>
     <string name="assistant_task_status_unknown">未知</string>
     <string name="assistant_thinking">正在思考……</string>
     <string name="associated_account_not_found">找不到相關的帳號！</string>
@@ -498,6 +506,7 @@
     <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">同步 %s 資料夾時發生錯誤</string>
     <string name="folder_download_insufficient_disk_space_notification_title">磁碟空間不足，已取消同步</string>
+    <string name="folder_download_success_notification_title">已同步 %s 個資料夾</string>
     <string name="folder_download_worker_ticker_id">正在同步……</string>
     <string name="folder_list_empty_headline">此處無資料夾</string>
     <string name="folder_name_empty">資料夾名稱不能為空</string>
