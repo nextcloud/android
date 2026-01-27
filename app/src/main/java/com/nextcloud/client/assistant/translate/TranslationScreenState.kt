@@ -21,6 +21,23 @@ sealed class TranslationScreenState(
     open val targetHintMessageId: Int?
 )
 
+data object Uninitialized : TranslationScreenState(
+    taskTypeData = TaskTypeData(null, "", null, mapOf(), mapOf()),
+    source = TranslationSideState(
+        text = "",
+        language = null,
+        isTarget = false
+    ),
+    target = TranslationSideState(
+        text = "",
+        language = null,
+        isTarget = true
+    ),
+    fabVisibility = false,
+    shimmer = false,
+    targetHintMessageId = null
+)
+
 data class NewTranslation(
     override val taskTypeData: TaskTypeData,
     override val source: TranslationSideState,
@@ -117,6 +134,9 @@ fun TranslationScreenState.withShimmer(shimmer: Boolean): TranslationScreenState
     is NewTranslation -> copy(shimmer = shimmer)
     is ExistingTranslation -> copy(shimmer = shimmer)
     is EditedTranslation -> copy(shimmer = shimmer)
+    Uninitialized -> {
+        Uninitialized
+    }
 }
 
 fun TranslationScreenState.withTargetText(text: String): TranslationScreenState = when (this) {
@@ -126,12 +146,18 @@ fun TranslationScreenState.withTargetText(text: String): TranslationScreenState 
         target = target.copy(text = text),
         shimmer = shimmer
     )
+
     is ExistingTranslation -> copy(
         target = target.copy(text = text)
     )
+
     is EditedTranslation -> copy(
         target = target.copy(text = text)
     )
+
+    Uninitialized -> {
+        Uninitialized
+    }
 }
 
 fun TranslationScreenState.withSource(newSource: TranslationSideState): TranslationScreenState = when (this) {
@@ -142,18 +168,27 @@ fun TranslationScreenState.withSource(newSource: TranslationSideState): Translat
         target = target,
         shimmer = shimmer
     )
+
     is EditedTranslation -> copy(source = newSource)
+    Uninitialized -> {
+        Uninitialized
+    }
 }
 
 fun TranslationScreenState.withTarget(newTarget: TranslationSideState): TranslationScreenState = when (this) {
     is NewTranslation -> {
         copy(target = newTarget)
     }
+
     is ExistingTranslation -> EditedTranslation(
         taskTypeData = taskTypeData,
         source = source,
         target = newTarget,
         shimmer = shimmer
     )
+
     is EditedTranslation -> copy(target = newTarget)
+    Uninitialized -> {
+        Uninitialized
+    }
 }
