@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class UploadConversionTest {
+class UploadDateTests {
 
     companion object {
         private const val JANUARY_27_2026 = 1769505718000
@@ -86,147 +86,59 @@ class UploadConversionTest {
 
     @Test
     fun `getRelativeDateTimeString returns seconds ago for recent past`() {
-        val expectedResult = "seconds ago"
+        val expected = "seconds ago"
+        every { context.getString(R.string.file_list_seconds_ago) } returns expected
 
-        every { context.getString(R.string.file_list_seconds_ago) } returns "seconds ago"
-
-        every {
-            DateUtils.getRelativeDateTimeString(
-                any<Context>(),
-                any(),
-                any(),
-                any(),
-                any()
-            )
-        } answers { expectedResult }
-
-        val time = JANUARY_27_2026 - THIRTY_SECONDS
-
-        val result = DisplayUtils.getRelativeDateTimeString(
-            context,
-            time,
-            DateUtils.SECOND_IN_MILLIS,
-            DateUtils.WEEK_IN_MILLIS,
-            0
-        )
-
-        assertEquals(expectedResult, result)
+        assertRelativeDateTimeString(JANUARY_27_2026 - THIRTY_SECONDS, expected, DateUtils.SECOND_IN_MILLIS)
     }
 
     @Test
     fun `getRelativeDateTimeString returns future as human readable when showFuture is false`() {
         val formatter = SimpleDateFormat(DATE_FORMATTER_PATTERN, Locale.US)
-
         val time = JANUARY_27_2026 + ONE_MINUTE
-        val timeAsDate = Date(time)
-        val expectedString = formatter.format(timeAsDate)
+        val expected = formatter.format(Date(time))
 
-        every {
-            DateUtils.getRelativeDateTimeString(
-                any<Context>(),
-                any(),
-                any(),
-                any(),
-                any()
-            )
-        } answers { expectedString }
-
-        val result = DisplayUtils.getRelativeDateTimeString(
-            context,
-            time,
-            DateUtils.SECOND_IN_MILLIS,
-            DateUtils.WEEK_IN_MILLIS,
-            0
-        )
-
-        val normalizedResult = result.toString().normalizeResult()
-        val normalizedExpected = expectedString.normalizeResult()
-        assertEquals(normalizedExpected, normalizedResult)
+        assertRelativeDateTimeString(time, expected, DateUtils.SECOND_IN_MILLIS)
     }
 
     @Test
     fun `getRelativeDateTimeString returns proper relative string for hours ago`() {
-        every {
-            DateUtils.getRelativeDateTimeString(
-                any<Context>(),
-                any(),
-                any(),
-                any(),
-                any()
-            )
-        } answers { "2 hours ago" }
-
+        val expected = "2 hours ago"
         val time = JANUARY_27_2026 - TWO_HOURS
 
-        val result = DisplayUtils.getRelativeDateTimeString(
-            context,
-            time,
-            DateUtils.MINUTE_IN_MILLIS,
-            DateUtils.WEEK_IN_MILLIS,
-            0
-        )
-
-        assert(result.isNotEmpty())
+        assertRelativeDateTimeString(time, expected, DateUtils.MINUTE_IN_MILLIS)
     }
 
     @Test
     fun `getRelativeDateTimeString returns relative string for one week ago`() {
-        val expectedResult = "Jan 20"
-
-        every {
-            DateUtils.getRelativeDateTimeString(
-                any<Context>(),
-                any(),
-                any(),
-                any(),
-                any()
-            )
-        } answers { expectedResult }
-
+        val expected = "Jan 20"
         val time = JANUARY_27_2026 - ONE_WEEK
 
-        val result = DisplayUtils.getRelativeDateTimeString(
-            context,
-            time,
-            DateUtils.MINUTE_IN_MILLIS,
-            DateUtils.WEEK_IN_MILLIS,
-            0
-        )
-
-        assertEquals(expectedResult, result)
+        assertRelativeDateTimeString(time, expected)
     }
 
     @Test
     fun `getRelativeDateTimeString returns relative string for one month ago`() {
-        val expectedResult = "12/28/2025"
-
-        every {
-            DateUtils.getRelativeDateTimeString(
-                any<Context>(),
-                any(),
-                any(),
-                any(),
-                any()
-            )
-        } answers { expectedResult }
-
+        val expected = "12/28/2025"
         val time = JANUARY_27_2026 - ONE_MONTH
 
-        val result = DisplayUtils.getRelativeDateTimeString(
-            context,
-            time,
-            DateUtils.DAY_IN_MILLIS,
-            DateUtils.WEEK_IN_MILLIS,
-            0
-        )
-
-        assertEquals(expectedResult, result)
+        assertRelativeDateTimeString(time, expected, DateUtils.DAY_IN_MILLIS)
     }
 
     @Test
     fun `getRelativeDateTimeString returns relative string for one year ago`() {
-        val expectedResult = "1/27/2025"
+        val expected = "1/27/2025"
+        val time = JANUARY_27_2026 - ONE_YEAR
 
+        assertRelativeDateTimeString(time, expected, DateUtils.DAY_IN_MILLIS)
+    }
+
+    private fun assertRelativeDateTimeString(
+        time: Long,
+        expected: String,
+        minResolution: Long = DateUtils.MINUTE_IN_MILLIS,
+        transitionResolution: Long = DateUtils.WEEK_IN_MILLIS
+    ) {
         every {
             DateUtils.getRelativeDateTimeString(
                 any<Context>(),
@@ -235,22 +147,11 @@ class UploadConversionTest {
                 any(),
                 any()
             )
-        } answers { expectedResult }
+        } answers { expected }
 
-        val time = JANUARY_27_2026 - ONE_YEAR
-
-        val result = DisplayUtils.getRelativeDateTimeString(
-            context,
-            time,
-            DateUtils.DAY_IN_MILLIS,
-            DateUtils.WEEK_IN_MILLIS,
-            0
-        )
-
-        assertEquals(expectedResult, result)
+        val result = DisplayUtils.getRelativeDateTimeString(context, time, minResolution, transitionResolution, 0)
+        assertEquals(expected.normalizeResult(), result.toString().normalizeResult())
     }
 
-    private fun String.normalizeResult(): String {
-        return replace('\u202F', ' ').replace('\u00A0', ' ')
-    }
+    private fun String.normalizeResult(): String = replace('\u202F', ' ').replace('\u00A0', ' ')
 }
