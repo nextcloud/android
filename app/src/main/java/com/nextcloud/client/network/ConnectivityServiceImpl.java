@@ -102,12 +102,19 @@ public class ConnectivityServiceImpl implements ConnectivityService {
             return;
         }
 
-        boolean isConnected = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) || isSupportedTransport(capabilities);
-        boolean isMetered = !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
+        // A network is "connected" for Nextcloud if it has a valid transport,
+        // even if it lacks the global INTERNET capability (e.g., local LAN).
+        boolean isConnected = (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ||
+            isSupportedTransport(capabilities));
+
+        boolean isMetered = !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
+
         boolean isWifi = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
             || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET);
 
         currentConnectivity = new Connectivity(isConnected, isMetered, isWifi, null);
+
+        walledCheckCache.clear();
     }
 
     private boolean isSupportedTransport(@NonNull NetworkCapabilities capabilities) {
