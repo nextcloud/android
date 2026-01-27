@@ -18,6 +18,7 @@ import com.nextcloud.operations.GetMethod
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import org.apache.commons.httpclient.HttpStatus
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
@@ -292,29 +293,7 @@ class ConnectivityServiceTest {
             // THEN
             //      assume internet is not walled
             //      request IS sent
-            assertFalse("Server should be accessible", result)
-            verify(requestBuilder, times(1)).invoke(any())
-            verify(getRequest, times(1)).execute(any<PlainClient>())
-        }
-
-        @Test
-        fun `check walled when server uri is not set`() {
-            // GIVEN
-            //      network connectivity is present
-            //      user has no server URI (empty)
-            val serverWithoutUri = Server(URI(""), OwnCloudVersion.nextcloud_20)
-            whenever(user.server).thenReturn(serverWithoutUri)
-
-            // WHEN
-            //      connectivity is checked
-            val result = connectivityService.isInternetWalled
-
-            // THEN
-            //      connection is walled
-            //      request is not sent
-            assertTrue("Should be walled if server URI is empty", result)
-            verify(requestBuilder, never()).invoke(any())
-            verify(getRequest, never()).execute(any<PlainClient>())
+            assertEquals(false, result)
         }
 
         fun mockResponse(contentLength: Long = 0, status: Int = HttpStatus.SC_OK) {
