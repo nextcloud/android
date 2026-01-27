@@ -315,7 +315,7 @@ private fun InputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, viewMode
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_send),
-                        contentDescription = "Send message",
+                        contentDescription = stringResource(R.string.assistant_screen_send_message),
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }

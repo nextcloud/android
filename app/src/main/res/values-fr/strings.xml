@@ -52,9 +52,8 @@
     <string name="assistant_screen_empty_content_description">Essayez d\'envoyer un message pour déclencher une conversation.</string>
     <string name="assistant_screen_empty_content_title">Bonjour ! En quoi puis-je vous aider aujourd’hui ?</string>
     <string name="assistant_screen_task_create_fail_message">Une erreur est survenue lors de la création de la tâche</string>
-    <string name="assistant_screen_task_create_success_message">La tâche a bien été créée</string>
+    <string name="assistant_screen_task_create_success_message">Tâche créée</string>
     <string name="assistant_screen_task_delete_fail_message">Une erreur est survenue lors de la suppression de la tâche</string>
-    <string name="assistant_screen_task_delete_success_message">Tâche supprimée avec succès</string>
     <string name="assistant_screen_task_list_empty_warning">La liste des tâches est vide. Vérifiez la configuration de l’application de l’assistant.</string>
     <string name="assistant_screen_task_list_error_state_message">Impossible de récupérer la liste des tâches, veuillez vérifier votre connexion Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Supprimer la tâche</string>
@@ -62,6 +61,10 @@
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrée</string>
     <string name="assistant_task_detail_screen_output_button_title">Sortie</string>
+    <string name="assistant_task_status_failed">défectueux</string>
+    <string name="assistant_task_status_running">en cours</string>
+    <string name="assistant_task_status_scheduled">planifié</string>
+    <string name="assistant_task_status_unknown">Inconnu</string>
     <string name="assistant_thinking">En cours de réflexion...</string>
     <string name="associated_account_not_found">Compte associé introuvable !</string>
     <string name="auth_access_failed">L\'accès a échoué: %1$s</string>
@@ -492,7 +495,6 @@
     <string name="folder_download_counter">%1$d de %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Une erreur s\'est produite lors de la synchronisation du dossier %s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Espace disque insuffisant, synchronisation annulée</string>
-    <string name="folder_download_success_notification_title">Dossier %s synchronisé avec succès</string>
     <string name="folder_download_worker_ticker_id">Synchronisation en cours…</string>
     <string name="folder_list_empty_headline">Aucun dossier</string>
     <string name="folder_name_empty">Le nom du dossier ne peut être vide</string>

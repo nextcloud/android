@@ -53,9 +53,8 @@
     <string name="assistant_screen_empty_content_description">Skúste poslať správu, aby ste rozprúdili konverzáciu.</string>
     <string name="assistant_screen_empty_content_title">Dobrý deň! S čím vám dnes môžem pomôcť?</string>
     <string name="assistant_screen_task_create_fail_message">Pri vytváraní úlohy nastala chyba</string>
-    <string name="assistant_screen_task_create_success_message">Úloha bola úspešne vytvorená</string>
+    <string name="assistant_screen_task_create_success_message">Úloha vytvorená</string>
     <string name="assistant_screen_task_delete_fail_message">Pri odstraňovaní úlohy nastala chyba</string>
-    <string name="assistant_screen_task_delete_success_message">Úloha bola úspešne odstránená</string>
     <string name="assistant_screen_task_list_empty_warning">Zoznam úloh je prázdny. Skontrolujte konfiguráciu aplikácie asistenta.</string>
     <string name="assistant_screen_task_list_error_state_message">Nie je možné načítať zoznam úloh, skontrolujte svoje internetové pripojenie.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Vymazať Úlohu</string>
@@ -64,6 +63,8 @@
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Vstup</string>
     <string name="assistant_task_detail_screen_output_button_title">Výstup</string>
+    <string name="assistant_task_status_running">spustené</string>
+    <string name="assistant_task_status_unknown">neznámy</string>
     <string name="assistant_thinking">Premýšľam …</string>
     <string name="associated_account_not_found">Priradený účet sa nenašiel</string>
     <string name="auth_access_failed">Prístup zamietnutý: %1$s</string>
@@ -497,7 +498,6 @@
     <string name="folder_download_counter">%1$d z %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Došlo k chybe počas synchronizácie priečinka %s.</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Nedostatok miesta na disku, synchronizácia zrušená</string>
-    <string name="folder_download_success_notification_title">%s priečinok bol úspešne synchronizovaný</string>
     <string name="folder_download_worker_ticker_id">Synchronizuje sa...</string>
     <string name="folder_list_empty_headline">Nie sú tu žiadne priečinky</string>
     <string name="folder_name_empty">Názov adresára nemôže byť prázdny</string>

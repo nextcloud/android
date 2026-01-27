@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.owncloud.android.R
@@ -55,7 +56,7 @@ fun TaskTypesRow(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_history_back_arrow),
-                    contentDescription = "open conversation list button",
+                    contentDescription = stringResource(R.string.assistant_screen_task_bar_open_conversation_list),
                     tint = colorResource(R.color.text_color)
                 )
             }

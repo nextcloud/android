@@ -88,7 +88,9 @@ fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, open
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                        contentDescription = "go back to assistant page"
+                        contentDescription = stringResource(
+                            R.string.assistant_screen_conversations_go_back_to_assistant
+                        )
                     )
                 }
                 Spacer(modifier = Modifier.width(8.dp))
