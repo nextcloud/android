@@ -41,6 +41,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
@@ -562,13 +563,23 @@ public abstract class FileActivity extends DrawerActivity
      */
     public void showLoadingDialog(String message) {
         runOnUiThread(() -> {
+            if (!ActivityExtensionsKt.isActive(this)) {
+                Log_OC.w(TAG, "cannot show loading dialog, activity is finishing");
+                return;
+            }
+
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.executePendingTransactions();
             Fragment existingDialog = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
 
             if (existingDialog instanceof LoadingDialog loadingDialog) {
                 Log_OC.d(TAG, "dismiss previous loading dialog");
-                loadingDialog.dismiss();
+
+                if (!fragmentManager.isStateSaved()) {
+                    loadingDialog.dismiss();
+                } else {
+                    loadingDialog.dismissAllowingStateLoss();
+                }
             }
 
             // Show new dialog
@@ -585,6 +596,11 @@ public abstract class FileActivity extends DrawerActivity
      */
     public void dismissLoadingDialog() {
         runOnUiThread(() -> {
+            if (!ActivityExtensionsKt.isActive(this)) {
+                Log_OC.w(TAG, "cannot dismiss loading dialog, activity is finishing");
+                return;
+            }
+
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.executePendingTransactions();
             Fragment fragment = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
