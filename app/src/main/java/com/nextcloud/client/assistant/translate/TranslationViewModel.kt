@@ -31,7 +31,8 @@ class TranslationViewModel(private val remoteRepository: AssistantRemoteReposito
         private const val MAX_RETRY = 3
     }
 
-    private lateinit var _screenState: MutableStateFlow<TranslationScreenState>
+    private var _screenState =
+        MutableStateFlow<TranslationScreenState>(Uninitialized)
     val screenState: StateFlow<TranslationScreenState>
         get() = _screenState
 
@@ -53,10 +54,6 @@ class TranslationViewModel(private val remoteRepository: AssistantRemoteReposito
         } else {
             val translatedText = task.output?.output ?: ""
             this.translatedText = translatedText
-
-            viewModelScope.launch {
-                pollTranslationResult()
-            }
             MutableStateFlow(ExistingTranslation.create(taskTypeData, textToTranslate, translatedText))
         }
     }
@@ -70,17 +67,12 @@ class TranslationViewModel(private val remoteRepository: AssistantRemoteReposito
 
             val model = taskTypeData.toTranslationModel()
 
-            if (model == null) {
-                updateSnackbarMessage(R.string.translation_screen_error_message)
-                return@launch
-            }
-
             val input = TranslationRequest(
                 input = textToTranslate,
                 originLanguage = originLanguage.code,
                 targetLanguage = targetLanguage.code,
-                maxTokens = model.maxTokens,
-                model = model.model
+                maxTokens = 0.0,
+                model = model?.model ?: ""
             )
 
             val result = remoteRepository.translate(input, taskTypeData)
@@ -92,13 +84,20 @@ class TranslationViewModel(private val remoteRepository: AssistantRemoteReposito
         }
     }
 
+    @Suppress("ReturnCount")
     private suspend fun pollTranslationResult() {
+        val screenStateValue = _screenState.value
+        if (screenStateValue is Uninitialized) {
+            return
+        }
+
         val taskTypeId = taskTypeData.id ?: return
+        val input = screenStateValue.source.text
 
         repeat(MAX_RETRY) { attempt ->
             val translationTasks = remoteRepository.getTaskList(taskTypeId)
             val translationResult = translationTasks
-                ?.find { it.id == task?.id }
+                ?.find { it.input?.input == input }
                 ?.output
                 ?.output
 
