@@ -261,6 +261,8 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
             onView(allOf(withText(loadingText), isDisplayed()))
                 .check(doesNotExist())
 
+            assertTrue("Do not merge - just testing test failures", false)
+
             // Test that there is no timing issue when hiding the dialog directly after.
             // This timing issue was reproducible when testing RemoveFilesDialogFragment#removeFiles
             // as well as sporadically "in the wild".
