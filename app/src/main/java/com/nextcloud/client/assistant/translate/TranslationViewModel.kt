@@ -71,7 +71,7 @@ class TranslationViewModel(private val remoteRepository: AssistantRemoteReposito
                 input = textToTranslate,
                 originLanguage = originLanguage.code,
                 targetLanguage = targetLanguage.code,
-                maxTokens = 0.0,
+                maxTokens = model?.maxTokens ?: 0.0,
                 model = model?.model ?: ""
             )
 
