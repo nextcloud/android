@@ -33,6 +33,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -41,9 +43,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -56,7 +56,6 @@ import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.client.assistant.model.AssistantScreenState
 import com.nextcloud.utils.extensions.getActivity
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.assistant.v2.model.TranslationLanguage
 import com.owncloud.android.lib.resources.assistant.v2.model.toTranslationLanguages
 import com.owncloud.android.utils.ClipboardUtil
@@ -64,42 +63,28 @@ import com.owncloud.android.utils.ClipboardUtil
 @Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TranslationScreen(
-    selectedTaskType: TaskTypeData?,
-    viewModel: AssistantViewModel,
-    textToTranslate: String,
-    isTaskExists: Boolean
-) {
-    val languages = remember(selectedTaskType) { selectedTaskType?.toTranslationLanguages() }
-    val isTranslationTaskCreated by viewModel.isTranslationTaskCreated.collectAsState()
-    val translationTaskOutput by viewModel.translationTaskOutput.collectAsState()
-
-    var sourceState by remember {
-        mutableStateOf(
-            TranslationSideState(
-                text = textToTranslate,
-                language = languages?.originLanguages?.firstOrNull(),
-                isTarget = false
-            )
-        )
-    }
-    var targetState by remember {
-        mutableStateOf(TranslationSideState(language = languages?.targetLanguages?.firstOrNull(), isTarget = true))
-    }
-
-    LaunchedEffect(translationTaskOutput) {
-        targetState = targetState.copy(text = translationTaskOutput)
-    }
+fun TranslationScreen(viewModel: TranslationViewModel, assistantViewModel: AssistantViewModel) {
+    val context = LocalContext.current
+    val state by viewModel.screenState.collectAsState()
+    val messageId by viewModel.snackbarMessageId.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     BackHandler {
-        viewModel.onTranslationScreenDismissed()
-        viewModel.updateScreenState(AssistantScreenState.TaskContent)
+        assistantViewModel.onTranslationScreenDismissed()
+        assistantViewModel.updateScreenState(AssistantScreenState.TaskContent)
+    }
+
+    LaunchedEffect(messageId) {
+        messageId?.let {
+            snackbarHostState.showSnackbar(context.getString(it))
+            viewModel.updateSnackbarMessage(null)
+        }
     }
 
     // task is unselected
     DisposableEffect(Unit) {
         onDispose {
-            viewModel.onTranslationScreenDismissed()
+            assistantViewModel.onTranslationScreenDismissed()
         }
     }
 
@@ -109,17 +94,16 @@ fun TranslationScreen(
             .padding(16.dp)
             .padding(top = 32.dp),
         floatingActionButton = {
-            if (!isTaskExists && !isTranslationTaskCreated) {
+            if (state.fabVisibility) {
                 FloatingActionButton(onClick = {
-                    val originLang = sourceState.language
-                    val targetLang = targetState.language
-                    if (originLang != null && targetLang != null) {
-                        viewModel.translate(sourceState.text, originLang, targetLang)
-                    }
+                    viewModel.translate()
                 }, content = {
                     Icon(painter = painterResource(R.drawable.ic_translate), contentDescription = "translate button")
                 })
             }
+        },
+        snackbarHost = {
+            SnackbarHost(snackbarHostState)
         }
     ) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
@@ -127,11 +111,13 @@ fun TranslationScreen(
                 TranslationSection(
                     labelId = R.string.translation_screen_label_from,
                     hintId = R.string.translation_screen_hint_source,
-                    state = sourceState,
-                    availableLanguages = languages?.originLanguages ?: emptyList(),
+                    state = state.source,
+                    availableLanguages = state.taskTypeData.toTranslationLanguages().originLanguages,
                     maxDp = 120.dp,
                     shimmer = false,
-                    onStateChange = { sourceState = it }
+                    onStateChange = {
+                        viewModel.updateSourceState(it)
+                    }
                 )
             }
 
@@ -146,16 +132,14 @@ fun TranslationScreen(
             item {
                 TranslationSection(
                     labelId = R.string.translation_screen_label_to,
-                    hintId = if (isTaskExists) {
-                        R.string.translation_screen_translating
-                    } else {
-                        R.string.translation_screen_start_to_translate_task
-                    },
-                    state = targetState,
-                    availableLanguages = languages?.targetLanguages ?: emptyList(),
+                    hintId = state.targetHintMessageId,
+                    state = state.target,
+                    availableLanguages = state.taskTypeData.toTranslationLanguages().targetLanguages,
                     maxDp = Dp.Unspecified,
-                    shimmer = isTaskExists || isTranslationTaskCreated,
-                    onStateChange = { targetState = it }
+                    shimmer = state.shimmer,
+                    onStateChange = {
+                        viewModel.updateTargetState(it)
+                    }
                 )
             }
         }
@@ -166,7 +150,7 @@ fun TranslationScreen(
 @Composable
 private fun TranslationSection(
     labelId: Int,
-    hintId: Int,
+    hintId: Int?,
     state: TranslationSideState,
     availableLanguages: List<TranslationLanguage>,
     maxDp: Dp,
@@ -241,7 +225,7 @@ private fun TranslationSection(
                 .fillMaxWidth()
                 .heightIn(min = 120.dp, max = maxDp),
             placeholder = {
-                Text(text = stringResource(hintId), style = MaterialTheme.typography.headlineSmall)
+                hintId?.let { Text(text = stringResource(it), style = MaterialTheme.typography.headlineSmall) }
             },
             textStyle = MaterialTheme.typography.headlineSmall,
             colors = TextFieldDefaults.colors(
