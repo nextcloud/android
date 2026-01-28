@@ -9,7 +9,6 @@
 
 package com.nextcloud.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,8 +16,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.card.MaterialCardView
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
@@ -31,6 +33,8 @@ import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SetOnlineStatusBottomSheet(val currentStatus: Status?) :
@@ -47,7 +51,6 @@ class SetOnlineStatusBottomSheet(val currentStatus: Status?) :
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
-    @SuppressLint("DefaultLocale")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         accountManager = (activity as BaseActivity).userAccountManager
@@ -56,21 +59,28 @@ class SetOnlineStatusBottomSheet(val currentStatus: Status?) :
             updateCurrentStatusViews(it)
         }
 
-        binding.onlineStatus.setOnClickListener { setStatus(StatusType.ONLINE) }
-        binding.awayStatus.setOnClickListener { setStatus(StatusType.AWAY) }
-        binding.busyStatus.setOnClickListener { setStatus(StatusType.BUSY) }
-        binding.dndStatus.setOnClickListener { setStatus(StatusType.DND) }
-        binding.invisibleStatus.setOnClickListener { setStatus(StatusType.INVISIBLE) }
-
-        viewThemeUtils.files.themeStatusCardView(binding.onlineStatus)
-        viewThemeUtils.files.themeStatusCardView(binding.awayStatus)
-        viewThemeUtils.files.themeStatusCardView(binding.busyStatus)
-        viewThemeUtils.files.themeStatusCardView(binding.dndStatus)
-        viewThemeUtils.files.themeStatusCardView(binding.invisibleStatus)
+        setupStatusViews()
 
         viewThemeUtils.platform.themeDialog(binding.root)
 
-        binding.busyStatus.setVisibleIf(CapabilityUtils.getCapability(context).userStatusSupportsBusy.isTrue)
+        val capability = CapabilityUtils.getCapability(context)
+        val busyStatus = capability.userStatusSupportsBusy.isTrue
+        binding.busyStatus.setVisibleIf(busyStatus)
+    }
+
+    private fun setupStatusViews() {
+        val statuses = listOf(
+            binding.onlineStatus to StatusType.ONLINE,
+            binding.awayStatus to StatusType.AWAY,
+            binding.busyStatus to StatusType.BUSY,
+            binding.dndStatus to StatusType.DND,
+            binding.invisibleStatus to StatusType.INVISIBLE
+        )
+
+        statuses.forEach { (view, status) ->
+            view.setOnClickListener { setStatus(status) }
+            viewThemeUtils.files.themeStatusCardView(view)
+        }
     }
 
     private fun updateCurrentStatusViews(it: Status) {
@@ -98,8 +108,16 @@ class SetOnlineStatusBottomSheet(val currentStatus: Status?) :
     }
 
     private fun showErrorSnackbar() {
-        DisplayUtils.showSnackMessage(view, "Failed to set status!")
-        clearTopStatus()
+        lifecycleScope.launch(Dispatchers.Main) {
+            if (!isAdded) {
+                return@launch
+            }
+
+            activity?.let {
+                DisplayUtils.showSnackMessage(it, R.string.set_online_status_bottom_sheet_error_message)
+            }
+            clearTopStatus()
+        }
     }
 
     private fun visualizeStatus(statusType: StatusType) {
@@ -116,37 +134,37 @@ class SetOnlineStatusBottomSheet(val currentStatus: Status?) :
             }
         }
         views.first.isChecked = true
-        viewThemeUtils.platform.colorOnSecondaryContainerTextViewElement(views.second)
+        viewThemeUtils.platform.colorTextView(views.second, ColorRole.ON_SECONDARY_CONTAINER)
     }
 
     private fun clearTopStatus() {
-        context?.let {
-            binding.onlineHeadline.setTextColor(
-                resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text)
-            )
-            binding.awayHeadline.setTextColor(
-                resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text)
-            )
-            binding.busyHeadline.setTextColor(
-                resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text)
-            )
-            binding.dndHeadline.setTextColor(
-                resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text)
-            )
-            binding.invisibleHeadline.setTextColor(
-                resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text)
-            )
+        val ctx = context ?: return
+        val defaultColor = ContextCompat.getColor(
+            ctx,
+            com.nextcloud.android.common.ui.R.color.high_emphasis_text
+        )
 
-            binding.awayIcon.imageTintList = null
-            binding.dndIcon.imageTintList = null
-            binding.invisibleIcon.imageTintList = null
+        listOf(
+            binding.onlineHeadline,
+            binding.awayHeadline,
+            binding.busyHeadline,
+            binding.dndHeadline,
+            binding.invisibleHeadline
+        ).forEach { it.setTextColor(defaultColor) }
 
-            binding.onlineStatus.isChecked = false
-            binding.awayStatus.isChecked = false
-            binding.busyStatus.isChecked = false
-            binding.dndStatus.isChecked = false
-            binding.invisibleStatus.isChecked = false
-        }
+        listOf(
+            binding.awayIcon,
+            binding.dndIcon,
+            binding.invisibleIcon
+        ).forEach { it.imageTintList = null }
+
+        listOf(
+            binding.onlineStatus,
+            binding.awayStatus,
+            binding.busyStatus,
+            binding.dndStatus,
+            binding.invisibleStatus
+        ).forEach { it.isChecked = false }
     }
 
     companion object {

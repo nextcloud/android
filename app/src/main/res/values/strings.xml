@@ -248,6 +248,9 @@
     <string name="upload_chooser_title">Upload from…</string>
     <string name="uploader_info_dirname">Folder name</string>
 
+    <string name="set_online_status_bottom_sheet_error_message">Failed to set status!</string>
+
+
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
 
     <string name="folder_download_worker_ticker_id">Syncing…</string>
