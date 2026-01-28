@@ -573,7 +573,7 @@ class SyncedFoldersActivity :
             }
         }
         if (syncedFolderDisplayItem.isEnabled) {
-            backgroundJobManager.startAutoUploadImmediately(syncedFolderDisplayItem, overridePowerSaving = false)
+            backgroundJobManager.startAutoUpload(syncedFolderDisplayItem, overridePowerSaving = false)
             showBatteryOptimizationDialogIfNeeded()
         }
     }
@@ -736,7 +736,7 @@ class SyncedFoldersActivity :
             // existing synced folder setup to be updated
             syncedFolderProvider.updateSyncFolder(item)
             if (item.isEnabled) {
-                backgroundJobManager.startAutoUploadImmediately(item, overridePowerSaving = false)
+                backgroundJobManager.startAutoUpload(item, overridePowerSaving = false)
             } else {
                 val syncedFolderInitiatedKey = KEY_SYNCED_FOLDER_INITIATED_PREFIX + item.id
                 val arbitraryDataProvider =
@@ -753,7 +753,7 @@ class SyncedFoldersActivity :
         if (storedId != -1L) {
             item.id = storedId
             if (item.isEnabled) {
-                backgroundJobManager.startAutoUploadImmediately(item, overridePowerSaving = false)
+                backgroundJobManager.startAutoUpload(item, overridePowerSaving = false)
             } else {
                 val syncedFolderInitiatedKey = KEY_SYNCED_FOLDER_INITIATED_PREFIX + item.id
                 arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey)
