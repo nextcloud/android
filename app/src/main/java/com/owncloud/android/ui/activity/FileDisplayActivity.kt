@@ -1802,7 +1802,7 @@ class FileDisplayActivity :
         val listOfFiles = this.listOfFilesFragment
         if (listOfFiles != null) { // should never be null, indeed
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
-            listOfFiles.listDirectory(root, MainApp.isOnlyOnDevice())
+            listOfFiles.resetSearchAttributes()
             file = listOfFiles.currentFile
             startSyncFolderOperation(root, false)
         }
