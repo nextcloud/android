@@ -41,7 +41,8 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         private val activeJobs = WeakHashMap<ImageView, Job>()
 
         fun cancelAllActiveJobs() {
-            for ((_, job) in activeJobs) {
+            val entries = activeJobs.entries.toList()
+            for ((_, job) in entries) {
                 job.cancel()
             }
             activeJobs.clear()
