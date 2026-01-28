@@ -6,13 +6,12 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.client.network;
 
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -25,161 +24,175 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.apache.commons.httpclient.HttpStatus;
 
-import androidx.annotation.NonNull;
-import androidx.core.net.ConnectivityManagerCompat;
-import kotlin.jvm.functions.Function1;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-class ConnectivityServiceImpl implements ConnectivityService {
+import androidx.annotation.NonNull;
+
+public class ConnectivityServiceImpl implements ConnectivityService {
 
     private static final String TAG = "ConnectivityServiceImpl";
     private static final String CONNECTIVITY_CHECK_ROUTE = "/index.php/204";
 
-    private final ConnectivityManager platformConnectivityManager;
+    private final ConnectivityManager connectivityManager;
     private final UserAccountManager accountManager;
     private final ClientFactory clientFactory;
     private final GetRequestBuilder requestBuilder;
     private final WalledCheckCache walledCheckCache;
     private final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private Connectivity currentConnectivity = Connectivity.DISCONNECTED;
 
-    static class GetRequestBuilder implements Function1<String, GetMethod> {
+    private final ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
+        @Override
+        public void onAvailable(@NonNull Network network) {
+            Log_OC.d(TAG, "network available");
+            updateConnectivity();
+        }
+
+        @Override
+        public void onLost(@NonNull Network network) {
+            Log_OC.w(TAG, "connection lost");
+            updateConnectivity();
+        }
+
+        @Override
+        public void onCapabilitiesChanged(@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
+            Log_OC.d(TAG, "capability changed");
+            updateConnectivity();
+        }
+    };
+
+    static class GetRequestBuilder implements kotlin.jvm.functions.Function1<String, GetMethod> {
         @Override
         public GetMethod invoke(String url) {
             return new GetMethod(url, false);
         }
     }
 
-    ConnectivityServiceImpl(ConnectivityManager platformConnectivityManager,
-                            UserAccountManager accountManager,
-                            ClientFactory clientFactory,
-                            GetRequestBuilder requestBuilder,
-                            final WalledCheckCache walledCheckCache) {
-        this.platformConnectivityManager = platformConnectivityManager;
+    public ConnectivityServiceImpl(@NonNull Context context,
+                                   @NonNull UserAccountManager accountManager,
+                                   @NonNull ClientFactory clientFactory,
+                                   @NonNull GetRequestBuilder requestBuilder,
+                                   @NonNull WalledCheckCache walledCheckCache) {
+        this.connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         this.accountManager = accountManager;
         this.clientFactory = clientFactory;
         this.requestBuilder = requestBuilder;
         this.walledCheckCache = walledCheckCache;
+
+        // Register callback for real-time network updates
+        connectivityManager.registerDefaultNetworkCallback(networkCallback);
+        updateConnectivity();
+        Log_OC.d(TAG, "connectivity service constructed");
+    }
+
+    public void updateConnectivity() {
+        Network activeNetwork = connectivityManager.getActiveNetwork();
+        if (activeNetwork == null) {
+            Log_OC.w(TAG, "active network is null, connectivity is disconnected");
+            currentConnectivity = Connectivity.DISCONNECTED;
+            return;
+        }
+
+        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(activeNetwork);
+        if (capabilities == null) {
+            Log_OC.w(TAG, "capabilities is null, connectivity is disconnected");
+            currentConnectivity = Connectivity.DISCONNECTED;
+            return;
+        }
+
+        // A network is "connected" for Nextcloud if it has a valid transport,
+        // even if it lacks the global INTERNET capability (e.g., local LAN).
+        boolean isConnected = (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ||
+            isSupportedTransport(capabilities));
+
+        boolean isMetered = !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
+
+        boolean isWifi = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+            || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET);
+
+        currentConnectivity = new Connectivity(isConnected, isMetered, isWifi, null);
+
+        walledCheckCache.clear();
+    }
+
+    private boolean isSupportedTransport(@NonNull NetworkCapabilities capabilities) {
+        return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ||
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE) ||
+            (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_USB));
     }
 
     @Override
     public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
-        new Thread(() -> {
-            Network activeNetwork = platformConnectivityManager.getActiveNetwork();
-            NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(activeNetwork);
-            boolean hasInternet = networkCapabilities != null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
-
-            boolean result;
-            if (hasInternet) {
-                result = !isInternetWalled();
-            } else {
-                result = false;
-            }
-
-            mainThreadHandler.post(() -> callback.onComplete(result));
-        }).start();
+        executor.execute(() -> {
+            boolean available = !isInternetWalled();
+            Log_OC.d(TAG, "isNetworkAndServerAvailable: " + available);
+            mainThreadHandler.post(() -> callback.onComplete(available));
+        });
     }
 
     @Override
     public boolean isConnected() {
-        Network nw = platformConnectivityManager.getActiveNetwork();
-        NetworkCapabilities actNw = platformConnectivityManager.getNetworkCapabilities(nw);
-
-        if (actNw == null) {
-            return false;
-        }
-
-        if (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE)) {
-            return true;
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_USB)) {
-            return true;
-        }
-
-        return false;
+        return currentConnectivity.isConnected();
     }
 
     @Override
     public boolean isInternetWalled() {
-        final Boolean cachedValue = walledCheckCache.getValue();
-        if (cachedValue != null) {
-            return cachedValue;
-        } else {
-            Server server = accountManager.getUser().getServer();
-            String baseServerAddress = server.getUri().toString();
+        Boolean cached = walledCheckCache.getValue();
+        if (cached != null) {
+            Log_OC.d(TAG, "isInternetWalled(): cached value is used, isWalled: " + cached);
+            return cached;
+        }
 
-            boolean result;
-            Connectivity c = getConnectivity();
-            if (c != null && c.isConnected() && c.isWifi() && !c.isMetered() && !baseServerAddress.isEmpty()) {
-                GetMethod get = requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE);
-                PlainClient client = clientFactory.createPlainClient();
+        Server server = accountManager.getUser().getServer();
+        String baseServerAddress = server.getUri().toString();
 
-                int status = get.execute(client);
-
-                // Content-Length is not available when using chunked transfer encoding, so check for -1 as well
-                result = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0);
-                get.releaseConnection();
-                if (result) {
-                    Log_OC.w(TAG, "isInternetWalled(): Failed to GET " + CONNECTIVITY_CHECK_ROUTE + "," +
-                        " assuming connectivity is impaired");
-                }
-            } else {
-                result = (c != null && !c.isConnected());
-            }
-
+        if (!currentConnectivity.isConnected()
+            || baseServerAddress.isEmpty() ||
+            !currentConnectivity.isWifi() ||
+            currentConnectivity.isMetered()) {
+            final var result = !currentConnectivity.isConnected();
             walledCheckCache.setValue(result);
+            Log_OC.d(TAG, "isInternetWalled(): early return conditions are not matched, isWalled: " + result);
             return result;
         }
+
+        boolean isWalled;
+        GetMethod get = requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE);
+        PlainClient client = clientFactory.createPlainClient();
+
+        try {
+            int status = get.execute(client);
+
+            // Server is reachable and responds correctly = NOT walled
+            isWalled = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0);
+            if (isWalled) {
+                Log_OC.w(TAG, "isInternetWalled(): Server returned unexpected response");
+            }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "isInternetWalled(): Exception during server check", e);
+            isWalled = true;
+        } finally {
+            get.releaseConnection();
+        }
+
+        walledCheckCache.setValue(isWalled);
+        Log_OC.d(TAG, "isInternetWalled(): server check, isWalled: " + isWalled);
+        return isWalled;
     }
 
     @Override
     public Connectivity getConnectivity() {
-        NetworkInfo networkInfo;
-        try {
-            networkInfo = platformConnectivityManager.getActiveNetworkInfo();
-        } catch (Throwable t) {
-            networkInfo = null; // no network available or no information (permission denied?)
-        }
-
-        if (networkInfo != null) {
-            boolean isConnected = networkInfo.isConnectedOrConnecting();
-            // more detailed check
-            boolean isMetered;
-            isMetered = isNetworkMetered();
-            boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI || hasNonCellularConnectivity();
-            return new Connectivity(isConnected, isMetered, isWifi, null);
-        } else {
-            return Connectivity.DISCONNECTED;
-        }
+        return currentConnectivity;
     }
 
-    private boolean isNetworkMetered() {
-        final Network network = platformConnectivityManager.getActiveNetwork();
-        try {
-            NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(network);
-            if (networkCapabilities != null) {
-                return !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
-            } else {
-                return ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
-            }
-        } catch (RuntimeException e) {
-            Log_OC.e(TAG, "Exception when checking network capabilities", e);
-            return false;
-        }
-    }
-
-    private boolean hasNonCellularConnectivity() {
-        for (NetworkInfo networkInfo : platformConnectivityManager.getAllNetworkInfo()) {
-            if (networkInfo.isConnectedOrConnecting() && (networkInfo.getType() == ConnectivityManager.TYPE_WIFI ||
-                networkInfo.getType() == ConnectivityManager.TYPE_ETHERNET)) {
-                return true;
-            }
-        }
-        return false;
+    public void unregisterCallback() {
+        connectivityManager.unregisterNetworkCallback(networkCallback);
     }
 }
