@@ -119,6 +119,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -128,6 +129,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -386,7 +388,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log_OC.i(TAG, "onActivityCreated() start");
+        prepareOCFileList(savedInstanceState);
+        //listDirectory(MainApp.isOnlyOnDevice());
+    }
 
+    public void prepareOCFileList(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_FILE, OCFile.class);
         }
@@ -442,7 +448,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (getActivity() instanceof FileDisplayActivity fda) {
             fda.updateActionBarTitleAndHomeButton(fda.getCurrentDir());
         }
-        listDirectory(MainApp.isOnlyOnDevice());
     }
 
     protected void setAdapter(Bundle args) {
@@ -1476,6 +1481,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public void listDirectory(@Nullable OCFile directory, boolean onlyOnDevice) {
+        for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+            Log_OC.d("TEKNOLOJI",
+                     element.getClassName() + "." + element.getMethodName() +
+                         " (" + element.getLineNumber() + ")"
+                    );
+
+        }
+
         listDirectory(directory, null, onlyOnDevice);
     }
 
@@ -1513,17 +1526,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             directory = getDirectoryForListDirectory(directory, storageManager);
             if (directory == null) {
-                Log_OC.d(TAG, "directory is null, no files, wait for sync");
+                Log_OC.e(TAG, "directory is null, no files, wait for sync");
                 return;
             }
 
             if (mLimitToMimeType == null) {
-                Log_OC.d(TAG, "mLimitToMimeType is null");
+                Log_OC.w(TAG, "mLimitToMimeType is null");
                 return;
             }
 
             if (mAdapter == null) {
-                Log_OC.d(TAG, "mAdapter is null");
+                Log_OC.e(TAG, "❗" + "oc file list adapter is null, cannot list directory" + "❗");
                 return;
             }
 
@@ -1861,6 +1874,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
 
             return;
+        }
+
+        final var activity = getActivity();
+        if (activity != null) {
+            activity.runOnUiThread(() -> {{
+                getAdapter().removeAllFiles();
+                setEmptyListMessage(EmptyListState.LOADING);
+            }});
         }
 
         prepareCurrentSearch(event);

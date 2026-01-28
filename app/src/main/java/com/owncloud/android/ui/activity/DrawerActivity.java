@@ -65,6 +65,7 @@ import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
+import com.nextcloud.utils.extensions.DrawerActivityExtensionsKt;
 import com.nextcloud.utils.extensions.NavigationViewExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -682,12 +683,10 @@ public abstract class DrawerActivity extends ToolbarActivity
             exitSelectionMode();
             resetOnlyPersonalAndOnDevice();
 
+            // TODO: remove duplication of all files logic
             if (menuItemId == R.id.nav_all_files) {
-                showFiles(false,false);
-                if (this instanceof FileDisplayActivity fda) {
-                    fda.browseToRoot();
-                }
-                EventBus.getDefault().post(new ChangeMenuEvent());
+                DrawerActivityExtensionsKt.navigateToAllFiles(this);
+                EventBus.getDefault().post(new ChangeMenuEvent()); // TODO: menu event already sets action bar style?
                 setupHomeSearchToolbarWithSortAndListButtons();
                 updateActionBarTitleAndHomeButton(null);
             } else if (menuItemId == R.id.nav_favorites) {
