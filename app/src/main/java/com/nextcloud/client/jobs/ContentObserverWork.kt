@@ -7,18 +7,12 @@
  */
 package com.nextcloud.client.jobs
 
-import android.app.Notification
 import android.content.Context
-import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.utils.ForegroundServiceHelper
-import com.owncloud.android.R
-import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -26,13 +20,12 @@ import kotlinx.coroutines.withContext
 /**
  * This work is triggered when OS detects change in media folders.
  *
- * It fires media detection job and sync job and finishes immediately.
+ * It fires media detection worker and auto upload worker and finishes immediately.
  *
- * This job must not be started on API < 24.
  */
 @Suppress("TooGenericExceptionCaught")
 class ContentObserverWork(
-    private val context: Context,
+    context: Context,
     private val params: WorkerParameters,
     private val syncedFolderProvider: SyncedFolderProvider,
     private val powerManagementService: PowerManagementService,
@@ -41,8 +34,6 @@ class ContentObserverWork(
 
     companion object {
         private const val TAG = "🔍" + "ContentObserverWork"
-        private const val CHANNEL_ID = NotificationUtils.NOTIFICATION_CHANNEL_CONTENT_OBSERVER
-        private const val NOTIFICATION_ID = 774
     }
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
@@ -53,10 +44,6 @@ class ContentObserverWork(
         try {
             if (params.triggeredContentUris.isNotEmpty()) {
                 Log_OC.d(TAG, "📸 content observer detected file changes.")
-
-                val notificationTitle = context.getString(R.string.content_observer_work_notification_title)
-                val notification = createNotification(notificationTitle)
-                updateForegroundInfo(notification)
                 checkAndTriggerAutoUpload()
 
                 // prevent worker fail because of another worker
@@ -69,8 +56,6 @@ class ContentObserverWork(
                 Log_OC.d(TAG, "⚠️ triggeredContentUris is empty — nothing to sync.")
             }
 
-            rescheduleSelf()
-
             val result = Result.success()
             backgroundJobManager.logEndOfWorker(workerName, result)
             Log_OC.d(TAG, "finished")
@@ -79,34 +64,6 @@ class ContentObserverWork(
             Log_OC.e(TAG, "❌ Exception in ContentObserverWork: ${e.message}", e)
             Result.retry()
         }
-    }
-
-    private suspend fun updateForegroundInfo(notification: Notification) {
-        val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
-            NOTIFICATION_ID,
-            notification,
-            ForegroundServiceType.DataSync
-        )
-        setForeground(foregroundInfo)
-    }
-
-    private fun createNotification(title: String): Notification = NotificationCompat.Builder(context, CHANNEL_ID)
-        .setContentTitle(title)
-        .setSmallIcon(R.drawable.ic_find_in_page)
-        .setOngoing(true)
-        .setSound(null)
-        .setVibrate(null)
-        .setOnlyAlertOnce(true)
-        .setPriority(NotificationCompat.PRIORITY_LOW)
-        .setSilent(true)
-        .build()
-
-    /**
-     * Re-schedules this observer to ensure continuous monitoring of media changes.
-     */
-    private fun rescheduleSelf() {
-        Log_OC.d(TAG, "🔁 Rescheduling ContentObserverWork for continued observation.")
-        backgroundJobManager.scheduleContentObserverJob()
     }
 
     private suspend fun checkAndTriggerAutoUpload() = withContext(Dispatchers.IO) {
@@ -124,15 +81,15 @@ class ContentObserverWork(
         val contentUris = params.triggeredContentUris.map { uri ->
             // adds uri strings e.g. content://media/external/images/media/2281
             uri.toString()
-        }.toTypedArray()
+        }.toTypedArray<String?>()
         Log_OC.d(TAG, "📄 Content uris detected")
 
         try {
-            FilesSyncHelper.startAutoUploadImmediatelyWithContentUris(
+            FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
                 syncedFolderProvider,
                 backgroundJobManager,
-                false,
-                contentUris
+                contentUris,
+                false
             )
             Log_OC.d(TAG, "✅ auto upload triggered successfully for ${contentUris.size} file(s).")
         } catch (e: Exception) {

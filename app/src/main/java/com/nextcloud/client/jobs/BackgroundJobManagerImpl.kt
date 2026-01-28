@@ -278,11 +278,11 @@ internal class BackgroundJobManagerImpl(
             .setTriggerContentMaxDelay(MAX_CONTENT_TRIGGER_DELAY_MS, TimeUnit.MILLISECONDS)
             .build()
 
-        val request = oneTimeRequestBuilder(ContentObserverWork::class, JOB_CONTENT_OBSERVER)
+        val request = periodicRequestBuilder(ContentObserverWork::class, JOB_CONTENT_OBSERVER)
             .setConstraints(constrains)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
+        workManager.enqueueUniquePeriodicWork(JOB_CONTENT_OBSERVER, ExistingPeriodicWorkPolicy.KEEP, request)
     }
 
     override fun schedulePeriodicContactsBackup(user: User) {
@@ -477,40 +477,7 @@ internal class BackgroundJobManagerImpl(
         )
     }
 
-    override fun schedulePeriodicFilesSyncJob(syncedFolder: SyncedFolder) {
-        val syncedFolderID = syncedFolder.id
-
-        val arguments = Data.Builder()
-            .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
-            .build()
-
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .setRequiresCharging(syncedFolder.isChargingOnly)
-            .build()
-
-        val request = periodicRequestBuilder(
-            jobClass = AutoUploadWorker::class,
-            jobName = JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID,
-            intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES,
-            constraints = constraints
-        )
-            .setBackoffCriteria(
-                BackoffPolicy.LINEAR,
-                DEFAULT_BACKOFF_CRITERIA_DELAY_SEC,
-                TimeUnit.SECONDS
-            )
-            .setInputData(arguments)
-            .build()
-
-        workManager.enqueueUniquePeriodicWork(
-            JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID,
-            ExistingPeriodicWorkPolicy.KEEP,
-            request
-        )
-    }
-
-    override fun startAutoUploadImmediately(
+    override fun startAutoUpload(
         syncedFolder: SyncedFolder,
         overridePowerSaving: Boolean,
         contentUris: Array<String?>
@@ -533,6 +500,7 @@ internal class BackgroundJobManagerImpl(
             jobName = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
         )
             .setInputData(arguments)
+            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             .setConstraints(constraints)
             .setBackoffCriteria(
                 BackoffPolicy.LINEAR,

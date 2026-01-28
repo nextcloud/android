@@ -125,8 +125,8 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
 
 
 /**
- * Main Application of the project.
- * Contains methods to build the "static" strings. These strings were before constants in different classes.
+ * Main Application of the project. Contains methods to build the "static" strings. These strings were before constants
+ * in different classes.
  */
 public class MainApp extends Application implements HasAndroidInjector, NetworkChangeListener {
     public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_30;
@@ -142,7 +142,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     private static boolean mOnlyOnDevice;
     private static boolean mOnlyPersonalFiles;
 
-    
+
     @Inject
     protected AppPreferences preferences;
 
@@ -338,6 +338,10 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         } catch (Exception e) {
             Log_OC.d("Debug", "Failed to disable uri exposure");
         }
+
+        Log_OC.d(TAG, "scheduleContentObserverJob, called");
+        backgroundJobManager.scheduleContentObserverJob();
+
         initSyncOperations(this,
                            preferences,
                            uploadsStorageManager,
@@ -347,8 +351,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                            backgroundJobManager,
                            clock,
                            viewThemeUtils,
-                           walledCheckCache,
-                           syncedFolderProvider);
+                           walledCheckCache);
         initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
 
@@ -371,9 +374,9 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         if (!MDMConfig.INSTANCE.sendFilesSupport(this)) {
             disableDocumentsStorageProvider();
         }
-        
-        
-     }
+
+
+    }
 
     public void disableDocumentsStorageProvider() {
         String packageName = getPackageName();
@@ -386,6 +389,10 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
         if (event == Lifecycle.Event.ON_START) {
             Log_OC.d(TAG, "APP IN FOREGROUND");
+            FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(syncedFolderProvider,
+                                                                   backgroundJobManager,
+                                                                   new String[]{},
+                                                                   true);
         } else if (event == Lifecycle.Event.ON_STOP) {
             passCodeManager.setCanAskPin(true);
             Log_OC.d(TAG, "APP IN BACKGROUND");
@@ -403,7 +410,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             Log_OC.d(TAG, "Error caught at setProxyForNonBrandedPlusClients: " + e);
         }
     }
-    
+
     public static boolean isClientBranded() {
         return getAppContext().getResources().getBoolean(R.bool.is_branded_client);
     }
@@ -415,7 +422,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     private final IntentFilter restrictionsFilter = new IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED);
 
     private final BroadcastReceiver restrictionsReceiver = new BroadcastReceiver() {
-        @Override public void onReceive(Context context, Intent intent) {
+        @Override
+        public void onReceive(Context context, Intent intent) {
             setProxyConfig();
         }
     };
@@ -605,8 +613,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         final BackgroundJobManager backgroundJobManager,
         final Clock clock,
         final ViewThemeUtils viewThemeUtils,
-        final WalledCheckCache walledCheckCache,
-        final SyncedFolderProvider syncedFolderProvider) {
+        final WalledCheckCache walledCheckCache) {
         updateToAutoUpload(context);
         cleanOldEntries(clock);
         updateAutoUploadEntries(clock);
@@ -620,11 +627,9 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         }
 
         if (!preferences.isAutoUploadInitialized()) {
-            FilesSyncHelper.startAutoUploadImmediately(syncedFolderProvider, backgroundJobManager, false);
             preferences.setAutoUploadInit(true);
         }
 
-        FilesSyncHelper.scheduleFilesSyncForAllFoldersIfNeeded(appContext.get(), syncedFolderProvider, backgroundJobManager);
         FilesSyncHelper.restartUploadsIfNeeded(
             uploadsStorageManager,
             accountManager,
@@ -857,7 +862,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         }
     }
 
-    
 
     private static void showAutoUploadAlertDialog(Context context) {
         new MaterialAlertDialogBuilder(context, R.style.Theme_ownCloud_Dialog)

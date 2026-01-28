@@ -7,72 +7,49 @@
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.utils;
+package com.owncloud.android.utils
 
-import android.content.Context;
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.upload.FileUploadHelper.Companion.instance
+import com.nextcloud.client.network.ConnectivityService
+import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.lib.common.utils.Log_OC
 
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.device.PowerManagementService;
-import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.jobs.upload.FileUploadHelper;
-import com.nextcloud.client.network.ConnectivityService;
-import com.owncloud.android.datamodel.SyncedFolder;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.lib.common.utils.Log_OC;
+object FilesSyncHelper {
+    private const val TAG: String = "FileSyncHelper"
+    const val GLOBAL: String = "global"
 
-/**
- * Various utilities that make auto upload tick
- */
-public final class FilesSyncHelper {
-    public static final String TAG = "FileSyncHelper";
-
-    public static final String GLOBAL = "global";
-
-    private FilesSyncHelper() {
-        // utility class -> private constructor
-    }
-
-    public static void restartUploadsIfNeeded(final UploadsStorageManager uploadsStorageManager,
-                                              final UserAccountManager accountManager,
-                                              final ConnectivityService connectivityService,
-                                              final PowerManagementService powerManagementService) {
-        Log_OC.d(TAG, "restartUploadsIfNeeded, called");
-        FileUploadHelper.Companion.instance().retryFailedUploads(
+    @JvmStatic
+    fun restartUploadsIfNeeded(
+        uploadsStorageManager: UploadsStorageManager,
+        accountManager: UserAccountManager,
+        connectivityService: ConnectivityService,
+        powerManagementService: PowerManagementService
+    ) {
+        Log_OC.d(TAG, "restartUploadsIfNeeded, called")
+        instance().retryFailedUploads(
             uploadsStorageManager,
             connectivityService,
             accountManager,
-            powerManagementService);
+            powerManagementService
+        )
     }
 
-    public static void scheduleFilesSyncForAllFoldersIfNeeded(Context context, SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager) {
-        Log_OC.d(TAG, "scheduleFilesSyncForAllFoldersIfNeeded, called");
-        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled()) {
-                jobManager.schedulePeriodicFilesSyncJob(syncedFolder);
-            }
-        }
-        if (context != null) {
-            jobManager.scheduleContentObserverJob();
-        } else {
-            Log_OC.w(TAG, "cant scheduleContentObserverJob, context is null");
-        }
-    }
+    @JvmStatic
+    fun startAutoUploadForEnabledSyncedFolders(
+        provider: SyncedFolderProvider,
+        manager: BackgroundJobManager,
+        uris: Array<String?>,
+        overridePowerSaving: Boolean
+    ) {
+        Log_OC.d(TAG, "start auto upload worker for each enabled folder")
 
-    public static void startAutoUploadImmediatelyWithContentUris(SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager, boolean overridePowerSaving, String[] contentUris) {
-        Log_OC.d(TAG, "startAutoUploadImmediatelyWithContentUris");
-        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled()) {
-                jobManager.startAutoUploadImmediately(syncedFolder, overridePowerSaving, contentUris);
-            }
-        }
-    }
-
-    public static void startAutoUploadImmediately(SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager, boolean overridePowerSaving) {
-        Log_OC.d(TAG, "startAutoUploadImmediately");
-        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled()) {
-                jobManager.startAutoUploadImmediately(syncedFolder, overridePowerSaving, new String[]{});
+        provider.syncedFolders.forEach {
+            if (it.isEnabled) {
+                manager.startAutoUpload(it, overridePowerSaving, uris)
             }
         }
     }
