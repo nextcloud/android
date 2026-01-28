@@ -48,7 +48,7 @@
     <string name="assistant_output_generation_warning_text">A saída mostrada aqui é gerada por IA. Certifique-se de sempre verificar novamente.</string>
     <string name="assistant_screen_chat_create_error">Falha ao enviar uma mensagem</string>
     <string name="assistant_screen_chat_fetch_error">Falha ao buscar mensagens de bate-papo</string>
-    <string name="assistant_screen_conversations_go_back_to_assistant">Voltar á página de assistente</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Voltar à página de assistente</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem certeza de que deseja excluir esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Excluir tarefa</string>
     <string name="assistant_screen_empty_content_description">Tente enviar uma mensagem para iniciar uma conversa.</string>
@@ -68,7 +68,7 @@
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Saída</string>
     <string name="assistant_task_status_failed">falhou</string>
-    <string name="assistant_task_status_running">rodando</string>
+    <string name="assistant_task_status_running">executando</string>
     <string name="assistant_task_status_scheduled">agendada</string>
     <string name="assistant_task_status_successful">sucesso</string>
     <string name="assistant_task_status_text">Status da tarefa: %1$s</string>
