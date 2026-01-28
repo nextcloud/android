@@ -221,7 +221,6 @@ class MediaFoldersDetectionWork(
             .setAutoCancel(true)
             .setSound(null)
             .setVibrate(null)
-            .setOnlyAlertOnce(true)
             .setSilent(true)
             .setContentIntent(pendingIntent)
 
