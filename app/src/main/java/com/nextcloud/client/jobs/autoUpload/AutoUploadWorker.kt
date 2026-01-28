@@ -11,6 +11,7 @@ import android.app.Notification
 import android.content.Context
 import android.content.res.Resources
 import androidx.exifinterface.media.ExifInterface
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
@@ -21,6 +22,7 @@ import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
@@ -63,7 +65,8 @@ class AutoUploadWorker(
     private val syncedFolderProvider: SyncedFolderProvider,
     private val backgroundJobManager: BackgroundJobManager,
     private val repository: FileSystemRepository,
-    val viewThemeUtils: ViewThemeUtils
+    val viewThemeUtils: ViewThemeUtils,
+    localBroadcastManager: LocalBroadcastManager
 ) : CoroutineWorker(context, params) {
 
     companion object {
@@ -75,6 +78,7 @@ class AutoUploadWorker(
     }
 
     private val helper = AutoUploadHelper()
+    private val fileUploadBroadcastManager = FileUploadBroadcastManager(localBroadcastManager)
     private lateinit var syncedFolder: SyncedFolder
     private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
 
@@ -282,6 +286,7 @@ class AutoUploadWorker(
         updateNotification()
 
         var lastId = 0
+
         while (true) {
             val filePathsWithIds = repository.getFilePathsWithIds(syncedFolder, lastId)
 
@@ -291,7 +296,7 @@ class AutoUploadWorker(
             }
             Log_OC.d(TAG, "Processing batch: lastId=$lastId, count=${filePathsWithIds.size}")
 
-            filePathsWithIds.forEach { (path, id) ->
+            filePathsWithIds.forEachIndexed { batchIndex, (path, id) ->
                 val file = File(path)
                 val localPath = file.absolutePath
                 val remotePath = getRemotePath(
@@ -326,10 +331,12 @@ class AutoUploadWorker(
                         uploadEntity = uploadEntity.copy(id = generatedId.toInt())
                         upload.uploadId = generatedId
 
+                        fileUploadBroadcastManager.sendAdded(context)
                         val operation = createUploadFileOperation(upload, user)
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
                         val result = operation.execute(client)
+                        fileUploadBroadcastManager.sendStarted(operation, context)
                         uploadsStorageManager.updateStatus(uploadEntity, result.isSuccess)
 
                         UploadErrorNotificationManager.handleResult(
@@ -353,6 +360,11 @@ class AutoUploadWorker(
                                 repository.markFileAsHandled(localPath, syncedFolder)
                                 Log_OC.w(TAG, "Marked CONFLICT file as handled: $localPath")
                             }
+                        }
+
+                        val isLastInBatch = (batchIndex == filePathsWithIds.size - 1)
+                        if (isLastInBatch) {
+                            sendUploadFinishEvent(operation, result)
                         }
                     } catch (e: Exception) {
                         uploadsStorageManager.updateStatus(
@@ -523,5 +535,14 @@ class AutoUploadWorker(
             }
         }
         return lastModificationTime
+    }
+
+    private fun sendUploadFinishEvent(operation: UploadFileOperation, result: RemoteOperationResult<*>) {
+        fileUploadBroadcastManager.sendFinished(
+            operation,
+            result,
+            operation.oldFile?.storagePath,
+            context
+        )
     }
 }

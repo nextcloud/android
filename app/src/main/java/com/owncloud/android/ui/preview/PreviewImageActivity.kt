@@ -10,7 +10,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -27,7 +26,7 @@ import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadFinishMessage
-import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.getUploadFinishMessage
+import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -256,6 +255,7 @@ class PreviewImageActivity :
 
     public override fun onStart() {
         super.onStart()
+        registerReceivers()
         val optionalUser = user
         if (optionalUser.isPresent) {
             var file: OCFile? = file ?: throw IllegalStateException("Instanced with a NULL OCFile")
@@ -380,25 +380,23 @@ class PreviewImageActivity :
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
+    private fun registerReceivers() {
         downloadFinishReceiver = DownloadFinishReceiver()
         val downloadIntentFilter = IntentFilter(getDownloadFinishMessage())
         localBroadcastManager.registerReceiver(downloadFinishReceiver!!, downloadIntentFilter)
 
         val uploadFinishReceiver = UploadFinishReceiver()
-        val uploadIntentFilter = IntentFilter(getUploadFinishMessage())
+        val uploadIntentFilter = IntentFilter(FileUploadBroadcastManager.UPLOAD_FINISHED)
         localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter)
     }
 
-    public override fun onPause() {
+    public override fun onStop() {
         if (downloadFinishReceiver != null) {
             localBroadcastManager.unregisterReceiver(downloadFinishReceiver!!)
             downloadFinishReceiver = null
         }
 
-        super.onPause()
+        super.onStop()
     }
 
     private fun backToDisplayActivity() {

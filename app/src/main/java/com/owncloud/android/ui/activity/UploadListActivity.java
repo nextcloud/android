@@ -25,11 +25,9 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
-import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.utils.Throttler;
-import com.nextcloud.model.WorkerState;
-import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -49,7 +47,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import kotlin.Unit;
 
 /**
  * Activity listing pending, active, and completed uploads. User can delete completed uploads from view. Content of this
@@ -59,7 +56,7 @@ public class UploadListActivity extends FileActivity {
 
     private static final String TAG = UploadListActivity.class.getSimpleName();
 
-    private UploadMessagesReceiver uploadMessagesReceiver;
+    private UploadFinishReceiver uploadFinishReceiver;
 
     private UploadListAdapter uploadListAdapter;
 
@@ -126,19 +123,6 @@ public class UploadListActivity extends FileActivity {
         setupDrawer();
 
         setupContent();
-        observeWorkerState();
-    }
-
-    private void observeWorkerState() {
-        ActivityExtensionsKt.observeWorker(this, state -> {
-            if (state instanceof WorkerState.FileUploadStarted) {
-                Log_OC.d(TAG, "Upload worker started");
-                uploadListAdapter.loadUploadItemsFromDb();
-            } else if (state instanceof WorkerState.FileUploadCompleted) {
-                uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
-            }
-            return Unit.INSTANCE;
-        });
     }
 
     private void setupContent() {
@@ -193,31 +177,30 @@ public class UploadListActivity extends FileActivity {
     }
 
     @Override
-    protected void onResume() {
-        Log_OC.v(TAG, "onResume() start");
-        super.onResume();
+    protected void onStart() {
+        Log_OC.v(TAG, "onStart() start");
+        super.onStart();
 
         // Listen for upload messages
-        uploadMessagesReceiver = new UploadMessagesReceiver();
+        uploadFinishReceiver = new UploadFinishReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter();
-        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadsAddedMessage());
-        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadStartMessage());
-        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadFinishMessage());
-        localBroadcastManager.registerReceiver(uploadMessagesReceiver, uploadIntentFilter);
+        uploadIntentFilter.addAction(FileUploadBroadcastManager.UPLOAD_ADDED);
+        uploadIntentFilter.addAction(FileUploadBroadcastManager.UPLOAD_STARTED);
+        uploadIntentFilter.addAction(FileUploadBroadcastManager.UPLOAD_FINISHED);
+        localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter);
 
-        Log_OC.v(TAG, "onResume() end");
-
+        Log_OC.v(TAG, "onStart() end");
     }
 
     @Override
-    protected void onPause() {
-        Log_OC.v(TAG, "onPause() start");
-        if (uploadMessagesReceiver != null) {
-            localBroadcastManager.unregisterReceiver(uploadMessagesReceiver);
-            uploadMessagesReceiver = null;
+    protected void onStop() {
+        Log_OC.v(TAG, "onStop() start");
+        if (uploadFinishReceiver != null) {
+            localBroadcastManager.unregisterReceiver(uploadFinishReceiver);
+            uploadFinishReceiver = null;
         }
-        super.onPause();
-        Log_OC.v(TAG, "onPause() end");
+        super.onStop();
+        Log_OC.v(TAG, "onStop() end");
     }
 
     @Override
@@ -324,13 +307,9 @@ public class UploadListActivity extends FileActivity {
     /**
      * Once the file upload has changed its status -> update uploads list view
      */
-    private class UploadMessagesReceiver extends BroadcastReceiver {
-        /**
-         * {@link BroadcastReceiver} to enable syncing feedback in UI
-         */
+    private class UploadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             throttler.run("update_upload_list", () -> uploadListAdapter.loadUploadItemsFromDb());
         }
     }
