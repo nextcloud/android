@@ -101,8 +101,6 @@ internal class BackgroundJobManagerImpl(
 
         const val JOB_TEST = "test_job"
 
-        const val MAX_CONTENT_TRIGGER_DELAY_MS = 10000L
-
         const val TAG_PREFIX_NAME = "name"
         const val TAG_PREFIX_USER = "user"
         const val TAG_PREFIX_CLASS = "class"
@@ -275,7 +273,6 @@ internal class BackgroundJobManagerImpl(
             .addContentUriTrigger(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true)
             .addContentUriTrigger(MediaStore.Video.Media.INTERNAL_CONTENT_URI, true)
             .addContentUriTrigger(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, true)
-            .setTriggerContentMaxDelay(MAX_CONTENT_TRIGGER_DELAY_MS, TimeUnit.MILLISECONDS)
             .build()
 
         val request = periodicRequestBuilder(ContentObserverWork::class, JOB_CONTENT_OBSERVER)
