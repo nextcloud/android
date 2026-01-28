@@ -31,16 +31,6 @@ class AutoUploadHelper {
     }
 
     fun insertEntries(folder: SyncedFolder, repository: FileSystemRepository) {
-        val enabledTimestampMs = folder.enabledTimestampMs
-        if (!folder.isEnabled || (!folder.isExisting && enabledTimestampMs < 0)) {
-            Log_OC.w(
-                TAG,
-                "Skipping insertDBEntries: enabled=${folder.isEnabled}, " +
-                    "exists=${folder.isExisting}, enabledTs=$enabledTimestampMs"
-            )
-            return
-        }
-
         when (folder.type) {
             MediaFolderType.IMAGE -> {
                 repository.insertFromUri(MediaStore.Images.Media.INTERNAL_CONTENT_URI, folder)
