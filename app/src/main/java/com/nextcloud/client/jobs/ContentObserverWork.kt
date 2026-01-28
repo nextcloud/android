@@ -63,6 +63,9 @@ class ContentObserverWork(
         } catch (e: Exception) {
             Log_OC.e(TAG, "❌ Exception in ContentObserverWork: ${e.message}", e)
             Result.retry()
+        } finally {
+            Log_OC.d(TAG, "🔄" + "re-scheduling job")
+            backgroundJobManager.scheduleContentObserverJob()
         }
     }
 
