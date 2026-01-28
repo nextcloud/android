@@ -276,7 +276,7 @@ internal class BackgroundJobManagerImpl(
             .addContentUriTrigger(MediaStore.Video.Media.INTERNAL_CONTENT_URI, true)
             .addContentUriTrigger(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, true)
             .setTriggerContentUpdateDelay(Duration.ofSeconds(5))
-            .setTriggerContentUpdateDelay(Duration.ofSeconds(10))
+            .setTriggerContentMaxDelay(Duration.ofSeconds(10))
             .build()
 
         val request = oneTimeRequestBuilder(ContentObserverWork::class, JOB_CONTENT_OBSERVER)
