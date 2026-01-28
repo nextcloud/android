@@ -37,6 +37,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -552,12 +553,20 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mCancellationRequested.set(true);
     }
 
-    public String getFolderPath() {
+    public Optional<String> getFolderNameFromPath() {
+        if (mLocalFolder == null) {
+            return Optional.empty();
+        }
+
         String path = mLocalFolder.getStoragePath();
         if (!TextUtils.isEmpty(path)) {
-            return path;
+            File folder = new File(path);
+            return Optional.of(folder.getName());
         }
-        return FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mLocalFolder);
+
+        String filepath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mLocalFolder);
+        File folder = new File(filepath);
+        return Optional.of(folder.getName());
     }
 
     private void startSyncFolderOperation(String path){
