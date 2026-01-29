@@ -849,6 +849,7 @@
     <string name="set_message">Встановити повідомлення</string>
     <string name="set_note">Додати примітку</string>
     <string name="set_online_status">Мій статус доступності</string>
+    <string name="set_online_status_bottom_sheet_error_message">Не вдалося встановити статус!</string>
     <string name="set_picture_as">Використати як</string>
     <string name="setup_e2e">Під час налаштування наскрізного шифрування ви отримаєте парольну фразу з 12 слів, за допомогою якої ви зможете відкривати ваші файлі на інших пристроях. Її буде збережено лише на цьому пристрої та буде показано знову на цьому екрані. Будь ласка, занотуйте цю фразу та збережіть у безпеченому місці!</string>
     <string name="share">Спільний доступ</string>

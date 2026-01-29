@@ -833,6 +833,7 @@
     <string name="set_message">Ustaw wiadomość</string>
     <string name="set_note">Ustaw notatkę</string>
     <string name="set_online_status">Status online</string>
+    <string name="set_online_status_bottom_sheet_error_message">Nie udało się ustawić statusu.</string>
     <string name="set_picture_as">Użyj obrazu jako</string>
     <string name="setup_e2e">Podczas konfigurowania szyfrowania typu end-to-end otrzymasz losowy mnemonik składający się z 12-stu słów, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
     <string name="share">Udostępnij</string>

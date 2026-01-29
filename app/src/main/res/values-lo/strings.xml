@@ -824,6 +824,7 @@
     <string name="set_message">Set message</string>
     <string name="set_note">Set note</string>
     <string name="set_online_status">ສະຖານະພາບອອນລາຍ</string>
+    <string name="set_online_status_bottom_sheet_error_message">Failed to set status!</string>
     <string name="set_picture_as">ໃຊ້ຮູບເປັນ</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">ແບ່ງປັນ</string>

@@ -812,6 +812,7 @@
     <string name="set_message">Stel bericht in</string>
     <string name="set_note">Aantekening instellen</string>
     <string name="set_online_status">Online status</string>
+    <string name="set_online_status_bottom_sheet_error_message">Instellen status mislukt!</string>
     <string name="set_picture_as">Gebruik afbeelding als</string>
     <string name="setup_e2e">Tijden het instellen van end-to-end versleuteling ontvang je een mnemonic van 12 woorden, die je nodig hebt om bestanden op je apparaat te openen. Dit wordt alleen opgeslagen op dit apparaat en kan in dit scherm opnieuw getoond worden. Noteer het a.u.b. op een veilige plek!</string>
     <string name="share">Delen</string>

@@ -849,6 +849,7 @@
     <string name="set_message">Weka ujumbe</string>
     <string name="set_note">Weka dokezo</string>
     <string name="set_online_status">Hali ya mtandaoni</string>
+    <string name="set_online_status_bottom_sheet_error_message">Imeshindwa kuweka hali!</string>
     <string name="set_picture_as">Tumia picha kama</string>
     <string name="setup_e2e">Wakati wa kusanidi usimbaji fiche kutoka mwanzo hadi mwisho, utapokea maneno 12 ya mnemonic nasibu, ambayo utahitaji kufungua faili zako kwenye vifaa vingine. Hii itahifadhiwa kwenye kifaa hiki pekee, na inaweza kuonyeshwa tena kwenye skrini hii. Tafadhali kumbuka kuwa mahali salama!</string>
     <string name="share">Shirikisha</string>
