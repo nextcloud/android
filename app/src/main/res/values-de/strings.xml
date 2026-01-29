@@ -849,6 +849,7 @@
     <string name="set_message">Nachricht festlegen</string>
     <string name="set_note">Notiz setzen</string>
     <string name="set_online_status">Online-Status</string>
+    <string name="set_online_status_bottom_sheet_error_message">Status konnte nicht gesetzt werden!</string>
     <string name="set_picture_as">Nutze Bild als</string>
     <string name="setup_e2e">Während der Einrichtung der Ende-zu-Ende-Verschlüsselung erhalten Sie eine zufällige 12-Wörter-Gedächtnisstütze, die Sie benötigen, um Ihre Dateien auf anderen Geräten zu öffnen. Diese wird nur auf diesem Gerät gespeichert und kann in diesem Bildschirm erneut angezeigt werden. Bitte notieren Sie es an einem sicheren Ort!</string>
     <string name="share">Teilen</string>

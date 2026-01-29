@@ -32,6 +32,7 @@
     <string name="app_config_base_url_title">Osnovni URL</string>
     <string name="app_config_proxy_port_title">Proxy port</string>
     <string name="appbar_search_in">Traži u %s</string>
+    <string name="appear_offline">Prikaži se kao izvan mreže</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Izbriši zadatak</string>
     <string name="assistant_task_status_running">radi</string>
     <string name="assistant_task_status_unknown">nepoznato</string>
@@ -111,6 +112,7 @@
     <string name="common_error">Pogreška</string>
     <string name="common_error_out_memory">Nema dovoljno memorije</string>
     <string name="common_error_unknown">Nepoznata pogreška</string>
+    <string name="common_leave_this_share">Napusti ovo dijeljenje</string>
     <string name="common_loading">Učitavanje…</string>
     <string name="common_next">Dalje</string>
     <string name="common_no">Ne</string>
@@ -222,6 +224,7 @@
     <string name="drawer_item_home">Početna</string>
     <string name="drawer_item_notifications">Obavijesti</string>
     <string name="drawer_item_on_device">Na uređaju</string>
+    <string name="drawer_item_personal_files">Osobne datoteke</string>
     <string name="drawer_item_recently_modified">Nedavno izmijenjeno</string>
     <string name="drawer_item_shared">Dijeljeno</string>
     <string name="drawer_item_trashbin">Izbrisane datoteke</string>
@@ -311,6 +314,7 @@
     <string name="file_list_empty_shared_headline">Još ništa nije dijeljeno</string>
     <string name="file_list_empty_unified_search_no_results">Nema rezultata za vaš upit</string>
     <string name="file_list_folder">mapa</string>
+    <string name="file_list_live">UŽIVO</string>
     <string name="file_list_loading">Učitavanje…</string>
     <string name="file_list_no_app_for_file_type">Nije postavljena nijedna aplikacija za obrađivanje ove vrste datoteka.</string>
     <string name="file_list_seconds_ago">prije nekoliko sekundi</string>
@@ -437,6 +441,7 @@
     <string name="move_file_invalid_into_descendent">Nije moguće premjestiti mapu u jednu od svojih osnovnih mapa</string>
     <string name="move_file_invalid_overwrite">Datoteka je već prisutna u odredišnoj mapi</string>
     <string name="move_file_not_found">Nije moguće premjestiti datoteku. Provjerite postoji li datoteka.</string>
+    <string name="mute_all_notifications">Utišaj sve obavijesti</string>
     <string name="network_error_connect_timeout_exception">Došlo je do pogreške tijekom čekanja poslužitelja. Nije moguće dovršiti radnju.</string>
     <string name="network_error_socket_exception">Došlo je do pogreške tijekom povezivanja s poslužiteljem</string>
     <string name="network_error_socket_timeout_exception">Došlo je do pogreške tijekom čekanja poslužitelja. Nije moguće dovršiti radnju.</string>
@@ -571,6 +576,7 @@
     <string name="restore_item">Vrati</string>
     <string name="restore_selected">Vrati odabrano</string>
     <string name="retrieving_file">Dohvaćanje datoteke...</string>
+    <string name="retry">Pokušaj ponovno</string>
     <string name="richdocuments_failed_to_load_document">Učitavanje dokumenta nije uspjelo!</string>
     <string name="scanQR_description">Prijavite se putem QR koda</string>
     <string name="screenshot_01_gridView_heading">Zaštita podataka</string>
@@ -639,6 +645,8 @@
     <string name="signup_with_provider">Prijavite se kod davatelja usluga</string>
     <string name="single_sign_on_request_token" formatted="true">Dopusti %1$s pristup Nextcloud računu %2$s?</string>
     <string name="sort_by">Razvrstaj prema</string>
+    <string name="sort_favorites_first">Poredaj favorite na početku</string>
+    <string name="sort_folders_before_files">Poredaj mape prije datoteka</string>
     <string name="ssl_validator_btn_details_hide">Sakrij</string>
     <string name="ssl_validator_btn_details_see">Pojedinosti</string>
     <string name="ssl_validator_header">Nije moguće provjeriti identitet poslužitelja</string>
@@ -768,6 +776,7 @@
     <string name="upload_local_storage_full">Lokalni prostor za pohranu je pun</string>
     <string name="upload_local_storage_not_copied">Datoteku nije moguće kopirati u lokalni prostor za pohranu</string>
     <string name="upload_lock_failed">Zaključavanje mape nije uspjelo</string>
+    <string name="upload_manually_cancelled">Korisnik je prekinuo prilaganje</string>
     <string name="upload_old_android">Šifriranje je moguće samo na inačici &gt;= Androida 5.0</string>
     <string name="upload_query_move_foreign_files">Nedostatak prostora sprječava kopiranje odabranih datoteka u mapu %1$s. Želite li ih premjestiti tamo?</string>
     <string name="upload_scan_doc_upload">Skeniraj dokument pomoću kamere</string>

@@ -840,6 +840,7 @@
     <string name="set_message">Definir a mensaxe</string>
     <string name="set_note">Definir a nota</string>
     <string name="set_online_status">Estado en liña</string>
+    <string name="set_online_status_bottom_sheet_error_message">Produciuse un fallo ao definir o estado!</string>
     <string name="set_picture_as">Usar a imaxe como</string>
     <string name="setup_e2e">Durante a configuración da cifraxe de extremo a extremo, recibirá un mnemotécnico ao chou de 12 palabras, que necesitará para abrir os seus ficheiros noutros dispositivos. Isto só se almacenará neste dispositivo e pódese amosar de novo nesta pantalla. Anóteo nun lugar seguro!</string>
     <string name="share">Compartir</string>

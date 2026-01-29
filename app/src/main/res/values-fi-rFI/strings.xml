@@ -743,6 +743,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="server_not_reachable_content">Laite ei todennäköisesti ole yhteydessä internetiin</string>
     <string name="set_as">Aseta</string>
     <string name="set_message">Aseta viesti</string>
+    <string name="set_online_status_bottom_sheet_error_message">Tilan asettaminen epäonnistui!</string>
     <string name="set_picture_as">Käytä kuvaa</string>
     <string name="share">Jaa</string>
     <string name="share_allow_download_and_sync_permission">Salli lataus ja synkronointi</string>

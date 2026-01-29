@@ -819,6 +819,7 @@
     <string name="set_message">Постави поруку</string>
     <string name="set_note">Постави белешку</string>
     <string name="set_online_status">Мрежни статус</string>
+    <string name="set_online_status_bottom_sheet_error_message">Није успело постављање статуса!</string>
     <string name="set_picture_as">Постави слику као</string>
     <string name="setup_e2e">Током постављања шифрирања од почетка-до-краја примићете 12 случајних речи за памћење које ће вам бити неопходне да фајлове отворите на осталим уређајима. Ово ће се сачувати само на овом уређају и може поново да се прикаже на овом екрану. Молимо вас да их забележите на неко сигурно место!</string>
     <string name="share">Подели</string>
