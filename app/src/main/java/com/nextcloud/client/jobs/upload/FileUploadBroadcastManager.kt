@@ -17,8 +17,8 @@ import com.owncloud.android.operations.UploadFileOperation
 /**
  * Manages local broadcasts related to file upload lifecycle events.
  *
- * This class is responsible for notifying interested components about
- * upload queue changes and upload state transitions (added, started, finished).
+ * This class is responsible for notifying components about upload
+ * queue changes and upload state transitions (added, started, finished).
  *
  * All broadcasts are sent via [LocalBroadcastManager].
  */
