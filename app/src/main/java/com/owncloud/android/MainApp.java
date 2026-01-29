@@ -17,7 +17,6 @@ package com.owncloud.android;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -31,7 +30,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
@@ -389,10 +387,14 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
         if (event == Lifecycle.Event.ON_START) {
             Log_OC.d(TAG, "APP IN FOREGROUND");
-            FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(syncedFolderProvider,
-                                                                   backgroundJobManager,
-                                                                   new String[]{},
-                                                                   true);
+
+            if (preferences.startAutoUploadOnStart()) {
+                FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(syncedFolderProvider,
+                                                                       backgroundJobManager,
+                                                                       new String[]{},
+                                                                       true);
+                preferences.setLastAutoUploadOnStartTime(System.currentTimeMillis());
+            }
         } else if (event == Lifecycle.Event.ON_STOP) {
             passCodeManager.setCanAskPin(true);
             Log_OC.d(TAG, "APP IN BACKGROUND");
