@@ -91,12 +91,14 @@ class AlbumsPickerActivity :
             captionText = resources.getText(R.string.media_picker_toolbar_title).toString()
         }
 
-        folderPickerBinding.folderPickerBtnCopy.visibility = View.GONE
-        folderPickerBinding.folderPickerBtnMove.visibility = View.GONE
-        folderPickerBinding.folderPickerBtnChoose.visibility = View.GONE
-        folderPickerBinding.folderPickerBtnCancel.visibility = View.GONE
-        folderPickerBinding.chooseButtonSpacer.visibility = View.GONE
-        folderPickerBinding.moveOrCopyButtonSpacer.visibility = View.GONE
+        folderPickerBinding.run {
+            folderPickerBtnCopy.visibility = View.GONE
+            folderPickerBtnMove.visibility = View.GONE
+            folderPickerBtnChoose.visibility = View.GONE
+            folderPickerBtnCancel.visibility = View.GONE
+            chooseButtonSpacer.visibility = View.GONE
+            moveOrCopyButtonSpacer.visibility = View.GONE
+        }
     }
 
     private fun createFragments() {
@@ -114,18 +116,22 @@ class AlbumsPickerActivity :
     }
 
     private fun createGalleryFragment() {
-        val photoFragment = GalleryFragment()
-        val bundle = Bundle()
-        bundle.putParcelable(
-            OCFileListFragment.SEARCH_EVENT,
-            SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH)
-        )
-        bundle.putBoolean(EXTRA_FROM_ALBUM, true)
-        photoFragment.arguments = bundle
+        val bundle = Bundle().apply {
+            putParcelable(
+                OCFileListFragment.SEARCH_EVENT,
+                SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH)
+            )
+            putBoolean(EXTRA_FROM_ALBUM, true)
+        }
 
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.fragment_container, photoFragment, TAG_LIST_OF_FOLDERS)
-        transaction.commit()
+        val fragment = GalleryFragment().apply {
+            arguments = bundle
+        }
+
+        supportFragmentManager.beginTransaction().run {
+            add(R.id.fragment_container, fragment, TAG_LIST_OF_FOLDERS)
+            commit()
+        }
     }
 
     private val listOfFilesFragment: AlbumsFragment?
@@ -173,21 +179,13 @@ class AlbumsPickerActivity :
         }
     }
 
-    override fun showDetails(file: OCFile?) {
-        // not used at the moment
-    }
+    override fun showDetails(file: OCFile?) = Unit
 
-    override fun showDetails(file: OCFile?, activeTab: Int) {
-        // not used at the moment
-    }
+    override fun showDetails(file: OCFile?, activeTab: Int) = Unit
 
-    override fun onBrowsedDownTo(folder: OCFile?) {
-        // not used at the moment
-    }
+    override fun onBrowsedDownTo(folder: OCFile?) = Unit
 
-    override fun onTransferStateChanged(file: OCFile?, downloading: Boolean, uploading: Boolean) {
-        // not used at the moment
-    }
+    override fun onTransferStateChanged(file: OCFile?, downloading: Boolean, uploading: Boolean) = Unit
 
     companion object {
         private val EXTRA_ACTION = AlbumsPickerActivity::class.java.canonicalName?.plus(".EXTRA_ACTION")
@@ -209,13 +207,9 @@ class AlbumsPickerActivity :
             }
     }
 
-    override fun onRefresh(enforced: Boolean) {
-        // do nothing
-    }
+    override fun onRefresh(enforced: Boolean) = Unit
 
-    override fun onRefresh() {
-        // do nothing
-    }
+    override fun onRefresh() = Unit
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
