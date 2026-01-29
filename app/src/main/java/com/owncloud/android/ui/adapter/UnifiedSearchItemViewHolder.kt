@@ -54,6 +54,7 @@ class UnifiedSearchItemViewHolder(
 
         val entryType = entry.getType()
         viewThemeUtils.platform.colorImageView(binding.thumbnail, ColorRole.PRIMARY)
+
         GlideHelper.loadIntoImageView(
             context,
             nextcloudClient,

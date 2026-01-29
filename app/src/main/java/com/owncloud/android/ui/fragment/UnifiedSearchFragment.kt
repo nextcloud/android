@@ -209,7 +209,7 @@ class UnifiedSearchFragment :
             // Because this fragment is opened with TextView onClick on the previous screen
             maxWidth = Integer.MAX_VALUE
             viewThemeUtils.androidx.themeToolbarSearchView(this)
-            setQuery(vm.query.value ?: initialQuery, false)
+            setQuery(getLastSearchQuery(), false)
             setOnQueryTextListener(this@UnifiedSearchFragment)
             isIconified = false
             clearFocus()
@@ -362,11 +362,13 @@ class UnifiedSearchFragment :
                 if (showFileActions) {
                     fda.showFileActions(file)
                 } else {
-                    fda.showFile(file, "")
+                    fda.showFile(file, "", getLastSearchQuery())
                 }
             }
         }
     }
+
+    private fun getLastSearchQuery(): String? = vm.query.value ?: initialQuery
 
     private fun setupAdapter() {
         val syncedFolderProvider = SyncedFolderProvider(requireContext().contentResolver, appPreferences, clock)

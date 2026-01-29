@@ -127,6 +127,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -225,6 +226,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
     public static boolean isMultipleFileSelectedForCopyOrMove = false;
+    private String lastSearchQuery = null;
 
     @Inject DeviceInfo deviceInfo;
 
@@ -251,6 +253,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setSearchArgs(state);
         mFile = BundleExtensionsKt.getParcelableArgument(state, KEY_FILE, OCFile.class);
         searchFragment = currentSearchType != null && isSearchEventSet(searchEvent);
+    }
+
+    public void setLastSearchQuery(@Nullable String value) {
+        lastSearchQuery = value;
+    }
+
+    @Nullable
+    public String getLastSearchQuery() {
+        return lastSearchQuery;
     }
 
     @Override
