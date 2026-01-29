@@ -3047,11 +3047,7 @@ class FileDisplayActivity :
     private val unifiedSearchReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val query = intent.getStringExtra(PreviewImageActivity.EXTRA_LAST_SEARCH_QUERY) ?: return
-            Handler(Looper.getMainLooper()).post {
-                if (!isFinishing && !isDestroyed) {
-                    performUnifiedSearch(query, null)
-                }
-            }
+            performUnifiedSearch(query, null)
         }
     }
 
