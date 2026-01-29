@@ -569,7 +569,6 @@ public abstract class FileActivity extends DrawerActivity
             }
 
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.executePendingTransactions();
             Fragment existingDialog = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
 
             if (existingDialog instanceof LoadingDialog loadingDialog) {
@@ -602,7 +601,6 @@ public abstract class FileActivity extends DrawerActivity
             }
 
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.executePendingTransactions();
             Fragment fragment = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
 
             if (fragment instanceof LoadingDialog loadingDialogFragment) {

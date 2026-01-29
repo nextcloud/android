@@ -1287,7 +1287,9 @@ class FileDisplayActivity :
         searchView?.setQuery("", false)
         searchView?.onActionViewCollapsed()
 
-        if (isRoot(getCurrentDir()) && leftFragment is OCFileListFragment) {
+        val isRoot = isRoot(getCurrentDir())
+
+        if (isRoot && leftFragment is OCFileListFragment) {
             // Remove the list to the original state
             leftFragment.adapter?.let { adapter ->
                 val listOfHiddenFiles = adapter.listOfHiddenFiles
@@ -1300,6 +1302,13 @@ class FileDisplayActivity :
         if (leftFragment is UnifiedSearchFragment) {
             showSortListGroup(false)
             supportFragmentManager.popBackStack()
+            supportFragmentManager.popBackStack()
+
+            if (isRoot) {
+                setupHomeSearchToolbarWithSortAndListButtons()
+            } else {
+                setupToolbar()
+            }
         }
     }
 
@@ -3047,6 +3056,7 @@ class FileDisplayActivity :
     private val unifiedSearchReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val query = intent.getStringExtra(PreviewImageActivity.EXTRA_LAST_SEARCH_QUERY) ?: return
+            listOfFilesFragment?.lastSearchQuery = null
             performUnifiedSearch(query, null)
         }
     }
@@ -3069,7 +3079,7 @@ class FileDisplayActivity :
                 }
 
                 if (selectedFile != null) {
-                    listOfFiles.setLastSearchQuery(lastSearchQuery)
+                    listOfFiles.lastSearchQuery = lastSearchQuery
                     listOfFiles.onItemClicked(selectedFile)
                 }
             }
