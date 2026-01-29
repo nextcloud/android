@@ -39,6 +39,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.nextcloud.client.assistant.AssistantViewModel
+import com.nextcloud.client.assistant.getMockAssistantViewModel
+import com.nextcloud.client.assistant.model.AssistantScreenState
 import com.nextcloud.client.assistant.taskDetail.TaskDetailBottomSheet
 import com.nextcloud.utils.extensions.truncateWithEllipsis
 import com.owncloud.android.R
@@ -49,7 +52,7 @@ import com.owncloud.android.lib.resources.status.OCCapability
 
 @Suppress("LongMethod", "MagicNumber")
 @Composable
-fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) {
+fun TaskView(task: Task, viewModel: AssistantViewModel, capability: OCCapability, showTaskActions: () -> Unit) {
     var showTaskDetailBottomSheet by remember { mutableStateOf(false) }
 
     Box {
@@ -59,7 +62,14 @@ fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) 
                 .clip(RoundedCornerShape(8.dp))
                 .background(color = colorResource(R.color.task_container))
                 .clickable {
-                    showTaskDetailBottomSheet = true
+                    viewModel.selectTask(task)
+
+                    if (task.isTranslate()) {
+                        viewModel.updateTranslationTaskState(true)
+                        viewModel.updateScreenState(AssistantScreenState.Translation(task))
+                    } else {
+                        showTaskDetailBottomSheet = true
+                    }
                 }
                 .padding(16.dp)
         ) {
@@ -102,6 +112,8 @@ fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) 
                     showTaskDetailBottomSheet = false
                     showTaskActions()
                 }) {
+                    // task is unselected
+                    viewModel.selectTask(null)
                     showTaskDetailBottomSheet = false
                 }
             }
@@ -142,6 +154,7 @@ private fun TaskViewPreview() {
             1707692337,
             1707692337
         ),
+        viewModel = getMockAssistantViewModel(true),
         OCCapability().apply {
             versionMayor = 30
         },
