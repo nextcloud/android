@@ -82,6 +82,7 @@ import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.navigateToAllFiles
 import com.nextcloud.utils.extensions.observeWorker
+import com.nextcloud.utils.extensions.showToast
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFolderPath
 import com.nextcloud.utils.view.FastScrollUtils
 import com.owncloud.android.MainApp
@@ -279,6 +280,7 @@ class FileDisplayActivity :
         startMetadataSyncForRoot()
         handleBackPress()
         setupDrawer(R.id.nav_all_files)
+        showToast("TEST APK")
     }
 
     /**
