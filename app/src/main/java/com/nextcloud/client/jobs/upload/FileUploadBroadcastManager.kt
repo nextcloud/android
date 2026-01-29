@@ -51,7 +51,7 @@ class FileUploadBroadcastManager(private val broadcastManager: LocalBroadcastMan
     }
 
     /**
-     * Sends a broadcast indicating that an upload started
+     * Sends a broadcast indicating that an upload started.
      *
      * ### Triggered when
      * - [UploadFileOperation] started
