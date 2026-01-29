@@ -3063,10 +3063,10 @@ class FileDisplayActivity :
 
     @JvmOverloads
     fun showFile(selectedFile: OCFile?, message: String?, lastSearchQuery: String? = null) {
-        dismissLoadingDialog()
-
         getOCFileListFragmentFromFile(object : TransactionInterface {
             override fun onOCFileListFragmentComplete(listOfFiles: OCFileListFragment) {
+                dismissLoadingDialog()
+
                 if (message?.isEmpty() == true) {
                     val temp = file
                     file = getCurrentDir()
