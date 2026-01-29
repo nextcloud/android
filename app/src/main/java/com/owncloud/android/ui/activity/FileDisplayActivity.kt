@@ -1301,9 +1301,12 @@ class FileDisplayActivity :
 
         if (leftFragment is UnifiedSearchFragment) {
             showSortListGroup(false)
+
+            // one pop or POP_BACK_STACK_INCLUSIVE is not showing the OCFileListFragment with correct state
             supportFragmentManager.popBackStack()
             supportFragmentManager.popBackStack()
 
+            // needed to set correct action bar style
             if (isRoot) {
                 setupHomeSearchToolbarWithSortAndListButtons()
             } else {
