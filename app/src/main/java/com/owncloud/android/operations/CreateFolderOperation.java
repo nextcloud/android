@@ -15,6 +15,7 @@ import android.content.Context;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -33,7 +34,6 @@ import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
@@ -96,15 +96,15 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         boolean encryptedAncestor = FileStorageUtils.checkEncryptionStatus(parent, getStorageManager());
 
         if (encryptedAncestor) {
-            E2EVersion e2EVersion = getStorageManager().getCapability(user).getEndToEndEncryptionApiVersion();
-            if (e2EVersion == E2EVersion.V1_0 ||
-                e2EVersion == E2EVersion.V1_1 ||
-                e2EVersion == E2EVersion.V1_2) {
-                return encryptedCreateV1(parent, client);
-            } else if (e2EVersion == E2EVersion.V2_0) {
+            final var capability = getStorageManager().getCapability(user);
+
+            if (E2EVersionHelper.INSTANCE.isV2Plus(capability)) {
                 return encryptedCreateV2(parent, client);
+            } else if (E2EVersionHelper.INSTANCE.isV1(capability)) {
+                return encryptedCreateV1(parent, client);
             }
-            return new RemoteOperationResult(new IllegalStateException("E2E not supported"));
+
+            return new RemoteOperationResult<>(new IllegalStateException("E2E not supported"));
         } else {
             return normalCreate(client);
         }
@@ -174,7 +174,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                token,
                                                client,
                                                metadataExists,
-                                               E2EVersion.V1_2,
+                                               E2EVersionHelper.INSTANCE.latestVersion(false),
                                                "",
                                                arbitraryDataProvider,
                                                user);

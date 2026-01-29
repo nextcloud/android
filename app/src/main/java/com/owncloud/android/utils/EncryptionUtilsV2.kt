@@ -13,6 +13,7 @@ import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.autoRename.AutoRename
+import com.nextcloud.utils.e2ee.E2EVersionHelper
 import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -606,7 +607,9 @@ class EncryptionUtilsV2 {
             object : TypeToken<EncryptedFolderMetadataFile>() {}
         )
 
-        val decryptedFolderMetadata = if (v2.version == "2.0" || v2.version == "2") {
+        val e2eeVersion = E2EVersionHelper.fromVersionString(v2.version)
+
+        val decryptedFolderMetadata = if (E2EVersionHelper.isV2Plus(e2eeVersion)) {
             val userId = AccountManager.get(context).getUserData(
                 user.toPlatformAccount(),
                 AccountUtils.Constants.KEY_USER_ID
