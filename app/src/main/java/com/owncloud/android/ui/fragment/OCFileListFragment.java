@@ -387,6 +387,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         super.onActivityCreated(savedInstanceState);
         Log_OC.i(TAG, "onActivityCreated() start");
         prepareOCFileList(savedInstanceState);
+        listDirectory(MainApp.isOnlyOnDevice());
     }
 
     public void prepareOCFileList(Bundle savedInstanceState) {
