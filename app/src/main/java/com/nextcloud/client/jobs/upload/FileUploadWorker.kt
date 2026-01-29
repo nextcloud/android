@@ -22,8 +22,6 @@ import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateObserver
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
 import com.nextcloud.utils.extensions.updateStatus
@@ -77,10 +75,6 @@ class FileUploadWorker(
 
         var currentUploadFileOperation: UploadFileOperation? = null
 
-        private const val UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED"
-        private const val UPLOAD_START_MESSAGE = "UPLOAD_START"
-        private const val UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH"
-
         private const val BATCH_SIZE = 100
 
         const val EXTRA_UPLOAD_RESULT = "RESULT"
@@ -95,12 +89,6 @@ class FileUploadWorker(
         const val LOCAL_BEHAVIOUR_MOVE = 1
         const val LOCAL_BEHAVIOUR_FORGET = 2
         const val LOCAL_BEHAVIOUR_DELETE = 3
-
-        fun getUploadsAddedMessage(): String = FileUploadWorker::class.java.name + UPLOADS_ADDED_MESSAGE
-
-        fun getUploadStartMessage(): String = FileUploadWorker::class.java.name + UPLOAD_START_MESSAGE
-
-        fun getUploadFinishMessage(): String = FileUploadWorker::class.java.name + UPLOAD_FINISH_MESSAGE
 
         fun cancelCurrentUpload(remotePath: String, accountName: String, onCompleted: () -> Unit) {
             currentUploadFileOperation?.let {
@@ -131,7 +119,7 @@ class FileUploadWorker(
     private val notificationId = Random.nextInt()
     private val notificationManager = UploadNotificationManager(context, viewThemeUtils, notificationId)
     private val intents = FileUploaderIntents(context)
-    private val fileUploaderDelegate = FileUploaderDelegate()
+    private val fileUploadBroadcastManager = FileUploadBroadcastManager(localBroadcastManager)
 
     override suspend fun doWork(): Result = try {
         Log_OC.d(TAG, "FileUploadWorker started")
@@ -143,14 +131,15 @@ class FileUploadWorker(
         val result = uploadFiles()
         backgroundJobManager.logEndOfWorker(workerName, result)
         notificationManager.dismissNotification()
-        if (result == Result.success()) {
-            setIdleWorkerState()
-        }
         result
     } catch (t: Throwable) {
-        Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
-        cleanup()
+        Log_OC.e(TAG, "exception $t")
+        currentUploadFileOperation?.cancel(null)
         Result.failure()
+    } finally {
+        // Ensure all database operations are complete before signaling completion
+        uploadsStorageManager.notifyObserversNow()
+        notificationManager.dismissNotification()
     }
 
     private suspend fun trySetForeground() {
@@ -197,22 +186,6 @@ class FileUploadWorker(
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setSilent(true)
             .build()
-
-    private fun cleanup() {
-        Log_OC.e(TAG, "FileUploadWorker stopped")
-
-        setIdleWorkerState()
-        currentUploadFileOperation?.cancel(null)
-        notificationManager.dismissNotification()
-    }
-
-    private fun setWorkerState(user: User?) {
-        WorkerStateObserver.send(WorkerState.FileUploadStarted(user))
-    }
-
-    private fun setIdleWorkerState() {
-        WorkerStateObserver.send(WorkerState.FileUploadCompleted(currentUploadFileOperation?.file))
-    }
 
     @Suppress("ReturnCount", "LongMethod", "DEPRECATION")
     private suspend fun uploadFiles(): Result = withContext(Dispatchers.IO) {
@@ -269,7 +242,7 @@ class FileUploadWorker(
                 return@withContext Result.failure()
             }
 
-            setWorkerState(user)
+            fileUploadBroadcastManager.sendAdded(context)
             val operation = createUploadFileOperation(upload, user)
             currentUploadFileOperation = operation
 
@@ -307,17 +280,18 @@ class FileUploadWorker(
         operation: UploadFileOperation,
         result: RemoteOperationResult<*>
     ) {
+        val isLastUpload = currentUploadIndex == totalUploadSize
+
         val shouldBroadcast =
-            (totalUploadSize > BATCH_SIZE && currentUploadIndex > 0) && currentUploadIndex % BATCH_SIZE == 0
+            (currentUploadIndex % BATCH_SIZE == 0 && totalUploadSize > BATCH_SIZE) ||
+                isLastUpload
 
         if (shouldBroadcast) {
-            // delay broadcast
-            fileUploaderDelegate.sendBroadcastUploadFinished(
+            fileUploadBroadcastManager.sendFinished(
                 operation,
                 result,
                 operation.oldFile?.storagePath,
-                context,
-                localBroadcastManager
+                context
             )
         }
     }
@@ -369,6 +343,7 @@ class FileUploadWorker(
             val file = File(operation.originalStoragePath)
             val remoteId: String? = operation.file.remoteId
             task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId))
+            fileUploadBroadcastManager.sendStarted(operation, context)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
             result = RemoteOperationResult<Any?>(e)
