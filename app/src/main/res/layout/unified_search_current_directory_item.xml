@@ -35,32 +35,36 @@
         android:visibility="gone"
         app:corners="8" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/filename"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/standard_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/more"
         app:layout_constraintStart_toEndOf="@+id/thumbnail"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/two_line_primary_text_size"
-        tools:text="@string/placeholder_filename"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/extension"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/filename"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/two_line_primary_text_size"
-        tools:text="@string/placeholder_extension"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/filename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/two_line_primary_text_size"
+            tools:text="@string/placeholder_filename" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/extension"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/two_line_primary_text_size"
+            tools:text="@string/placeholder_extension" />
+
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/more"

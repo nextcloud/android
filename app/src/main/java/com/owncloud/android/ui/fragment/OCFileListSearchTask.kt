@@ -176,20 +176,25 @@ class OCFileListSearchTask(
             return@withContext FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(newList)
         }
 
-        if (searchType != SearchType.SHARED_FILTER) {
-            val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
-            val favoritesFirst = preferences.isSortFavoritesFirst()
+        val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
+        val favoritesFirst = preferences.isSortFavoritesFirst()
 
-            val sortOrder =
-                if (searchType == SearchType.FAVORITE_SEARCH) {
-                    preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView)
-                } else {
-                    preferences.getSortOrderByFolder(folder)
-                }
+        val sortOrder = when (searchType) {
+            SearchType.FAVORITE_SEARCH -> {
+                preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView)
+            }
 
-            setNewSortOrder(sortOrder)
-            newList = sortOrder.sortCloudFiles(newList, foldersBeforeFiles, favoritesFirst)
+            SearchType.SHARED_FILTER -> {
+                FileSortOrder.SORT_A_TO_Z
+            }
+
+            else -> {
+                preferences.getSortOrderByFolder(folder)
+            }
         }
+
+        setNewSortOrder(sortOrder)
+        newList = sortOrder.sortCloudFiles(newList, foldersBeforeFiles, favoritesFirst)
 
         return@withContext newList
     }

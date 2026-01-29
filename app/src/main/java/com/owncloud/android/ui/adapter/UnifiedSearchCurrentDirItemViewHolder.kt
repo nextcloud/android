@@ -8,11 +8,11 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
+import android.view.View
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -38,10 +38,17 @@ class UnifiedSearchCurrentDirItemViewHolder(
     fun bind(file: OCFile) {
         val filenameWithExtension = storageManager.getFilenameConsideringOfflineOperation(file)
         val isFolder = file.isFolder
-        val (filename, extension) = FileStorageUtils.getFilenameAndExtension(filenameWithExtension, isFolder, isRTL)
-        binding.extension.setVisibleIf(!isFolder)
-        binding.extension.text = extension
-        binding.filename.text = filename
+        val containsBidiControlCharacters = FileStorageUtils.containsBidiControlCharacters(filenameWithExtension)
+
+        if (!containsBidiControlCharacters || isFolder) {
+            binding.extension.visibility = View.GONE
+            binding.filename.text = filenameWithExtension
+        } else {
+            val (filename, extension) = FileStorageUtils.getFilenameAndExtension(filenameWithExtension, false, isRTL)
+            binding.extension.text = extension
+            binding.filename.text = filename
+        }
+
         viewThemeUtils.platform.colorImageView(binding.thumbnail, ColorRole.PRIMARY)
         DisplayUtils.setThumbnail(
             file,
