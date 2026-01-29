@@ -525,21 +525,13 @@ class AlbumItemsFragment :
 
     override fun getColumnsCount(): Int = columnSize
 
-    override fun onShareIconClick(file: OCFile?) {
-        // nothing to do here
-    }
+    override fun onShareIconClick(file: OCFile?) = Unit
 
-    override fun showShareDetailView(file: OCFile?) {
-        // nothing to do here
-    }
+    override fun showShareDetailView(file: OCFile?) = Unit
 
-    override fun showActivityDetailView(file: OCFile?) {
-        // nothing to do here
-    }
+    override fun showActivityDetailView(file: OCFile?) = Unit
 
-    override fun onOverflowIconClicked(file: OCFile?, view: View?) {
-        // nothing to do here
-    }
+    override fun onOverflowIconClicked(file: OCFile?, view: View?) = Unit
 
     override fun onItemClicked(file: OCFile) {
         if (adapter?.isMultiSelect() == true) {
@@ -597,9 +589,7 @@ class AlbumItemsFragment :
 
     override fun isLoading(): Boolean = false
 
-    override fun onHeaderClicked() {
-        // nothing to do here
-    }
+    override fun onHeaderClicked() = Unit
 
     fun onAlbumRenamed(newAlbumName: String) {
         albumName = newAlbumName
@@ -936,13 +926,9 @@ class AlbumItemsFragment :
          */
         private val mSelectionWhenActionModeClosedByDrawer: MutableSet<OCFile> = HashSet()
 
-        override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-            // nothing to do
-        }
+        override fun onDrawerSlide(drawerView: View, slideOffset: Float) = Unit
 
-        override fun onDrawerOpened(drawerView: View) {
-            // nothing to do
-        }
+        override fun onDrawerOpened(drawerView: View) = Unit
 
         /**
          * When the navigation drawer is closed, action mode is recovered in the same state as was when the drawer was
@@ -984,9 +970,7 @@ class AlbumItemsFragment :
         /**
          * Update action mode bar when an item is selected / unselected in the list
          */
-        override fun onItemCheckedStateChanged(mode: ActionMode, position: Int, id: Long, checked: Boolean) {
-            // nothing to do here
-        }
+        override fun onItemCheckedStateChanged(mode: ActionMode, position: Int, id: Long, checked: Boolean) = Unit
 
         /**
          * Load menu and customize UI when action mode is started.
