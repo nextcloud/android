@@ -94,11 +94,7 @@ import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
-import com.owncloud.android.ui.fragment.GalleryFragment;
-import com.owncloud.android.ui.fragment.GroupfolderListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.fragment.SharedListFragment;
-import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
@@ -596,26 +592,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         int itemId = menuItem.getItemId();
 
         if (itemId == R.id.nav_all_files || itemId == R.id.nav_personal_files) {
-            if (this instanceof FileDisplayActivity fda &&
-                !(fda.getLeftFragment() instanceof GalleryFragment) &&
-                !(fda.getLeftFragment() instanceof SharedListFragment) &&
-                !(fda.getLeftFragment() instanceof GroupfolderListFragment) &&
-                !(fda.getLeftFragment() instanceof PreviewTextStringFragment)) {
-                showFiles(false, itemId == R.id.nav_personal_files);
-                fda.browseToRoot();
-                EventBus.getDefault().post(new ChangeMenuEvent());
-            } else {
-                MainApp.showOnlyFilesOnDevice(false);
-                MainApp.showOnlyPersonalFiles(itemId == R.id.nav_personal_files);
-                Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.setAction(FileDisplayActivity.ALL_FILES);
-                startActivity(intent);
-            }
-
             closeDrawer();
-            setupHomeSearchToolbarWithSortAndListButtons();
-            updateActionBarTitleAndHomeButton(null);
+            DrawerActivityExtensionsKt.navigateToAllFiles(this);
+            EventBus.getDefault().post(new ChangeMenuEvent());
         } else if (itemId == R.id.nav_favorites) {
             openFavoritesTab();
         } else if (itemId == R.id.nav_gallery) {
@@ -683,12 +662,9 @@ public abstract class DrawerActivity extends ToolbarActivity
             exitSelectionMode();
             resetOnlyPersonalAndOnDevice();
 
-            // TODO: remove duplication of all files logic
             if (menuItemId == R.id.nav_all_files) {
                 DrawerActivityExtensionsKt.navigateToAllFiles(this);
-                EventBus.getDefault().post(new ChangeMenuEvent()); // TODO: menu event already sets action bar style?
-                setupHomeSearchToolbarWithSortAndListButtons();
-                updateActionBarTitleAndHomeButton(null);
+                EventBus.getDefault().post(new ChangeMenuEvent());
             } else if (menuItemId == R.id.nav_favorites) {
                 openFavoritesTab();
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {

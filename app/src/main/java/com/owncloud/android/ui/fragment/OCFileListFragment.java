@@ -119,7 +119,6 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -129,7 +128,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -389,7 +387,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         super.onActivityCreated(savedInstanceState);
         Log_OC.i(TAG, "onActivityCreated() start");
         prepareOCFileList(savedInstanceState);
-        //listDirectory(MainApp.isOnlyOnDevice());
     }
 
     public void prepareOCFileList(Bundle savedInstanceState) {
@@ -1481,14 +1478,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public void listDirectory(@Nullable OCFile directory, boolean onlyOnDevice) {
-        for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
-            Log_OC.d("TEKNOLOJI",
-                     element.getClassName() + "." + element.getMethodName() +
-                         " (" + element.getLineNumber() + ")"
-                    );
-
-        }
-
         listDirectory(directory, null, onlyOnDevice);
     }
 
@@ -1791,12 +1780,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
+        Log_OC.d(TAG, "event bus --- change menu event triggered");
+
         resetSearchAttributes();
         resetMenuItems();
 
         if (getActivity() instanceof FileDisplayActivity fda) {
             fda.invalidateOptionsMenu();
             fda.getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
+            fda.setupHomeSearchToolbarWithSortAndListButtons();
             fda.updateActionBarTitleAndHomeButton(null);
         }
 
