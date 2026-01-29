@@ -63,7 +63,8 @@ class UnifiedSearchItemViewHolder(
 
         fragment.lifecycleScope.launch(Dispatchers.IO) {
             val client =
-                fragment.getTypedActivity(FileActivity::class.java)?.clientRepository?.getNextcloudClient() ?: return@launch
+                fragment.getTypedActivity(FileActivity::class.java)?.clientRepository?.getNextcloudClient()
+                    ?: return@launch
 
             withContext(Dispatchers.Main) {
                 GlideHelper.loadIntoImageView(
