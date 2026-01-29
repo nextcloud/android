@@ -10,7 +10,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -100,7 +99,7 @@ class PreviewImageActivity :
 
         livePhotoFile = intent.getParcelableArgument(EXTRA_LIVE_PHOTO_FILE, OCFile::class.java)
 
-        setupDrawer()
+        setupDrawer(R.id.nav_gallery)
 
         val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
 
@@ -124,6 +123,8 @@ class PreviewImageActivity :
         applyDisplayCutOutTopPadding()
         handleBackPress()
     }
+
+    override fun getMenuItemId(): Int = R.id.nav_gallery
 
     private fun applyDisplayCutOutTopPadding() {
         window.decorView.setOnApplyWindowInsetsListener { view, insets ->
@@ -383,6 +384,7 @@ class PreviewImageActivity :
     override fun onResume() {
         super.onResume()
 
+        highlightNavigationViewItem(menuItemId)
         downloadFinishReceiver = DownloadFinishReceiver()
         val downloadIntentFilter = IntentFilter(getDownloadFinishMessage())
         localBroadcastManager.registerReceiver(downloadFinishReceiver!!, downloadIntentFilter)

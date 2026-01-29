@@ -123,7 +123,7 @@ public class UploadListActivity extends FileActivity {
         updateActionBarTitleAndHomeButtonByString(getString(R.string.uploads_view_title));
 
         // setup drawer
-        setupDrawer();
+        setupDrawer(R.id.nav_uploads);
 
         setupContent();
         observeWorkerState();
@@ -139,6 +139,11 @@ public class UploadListActivity extends FileActivity {
             }
             return Unit.INSTANCE;
         });
+    }
+
+    @Override
+    protected int getMenuItemId() {
+        return R.id.nav_uploads;
     }
 
     private void setupContent() {
@@ -196,6 +201,8 @@ public class UploadListActivity extends FileActivity {
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
+
+        highlightNavigationViewItem(getMenuItemId());
 
         // Listen for upload messages
         uploadMessagesReceiver = new UploadMessagesReceiver();
