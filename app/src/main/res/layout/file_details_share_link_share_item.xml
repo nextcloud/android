@@ -76,10 +76,11 @@
             android:textSize="@dimen/two_line_secondary_text_size" />
     </LinearLayout>
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/copy_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/minimum_size_for_touchable_area"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/copy_link"
         android:paddingStart="@dimen/standard_padding"
@@ -87,15 +88,21 @@
         android:paddingEnd="@dimen/standard_padding"
         android:paddingBottom="@dimen/standard_quarter_margin"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_content_copy" />
+        app:iconTint="@color/text_color"
+        app:icon="@drawable/ic_content_copy"
+        app:iconGravity="textStart" />
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/overflow_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        style="?attr/materialIconButtonStyle"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/minimum_size_for_touchable_area"
         android:contentDescription="@string/overflow_menu"
         android:paddingStart="@dimen/standard_padding"
         android:paddingEnd="@dimen/standard_padding"
-        android:src="@drawable/ic_dots_vertical" />
+        app:icon="@drawable/ic_dots_vertical"
+        app:iconTint="@color/text_color"
+        app:iconGravity="textStart" />
 
 </LinearLayout>
