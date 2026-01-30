@@ -2245,10 +2245,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @return the menu item ID to highlight in the navigation drawer
      */
     public int getMenuItemId() {
-        // getMenuItemId will be called from onResume of FileDisplayActivity before checking menu item id
-        // search argument needs to be set if exists
-        setSearchArgs(getArguments());
-
         if (getClass() == GalleryFragment.class) {
             return R.id.nav_gallery;
         } else if (getClass() == SharedListFragment.class || isSearchEventShared() || currentSearchType == SHARED_FILTER) {
