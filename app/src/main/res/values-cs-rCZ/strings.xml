@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_create_fail_message">Při vytváření úlohy se vyskytla chyba</string>
     <string name="assistant_screen_task_create_success_message">Úkol vytvořen</string>
     <string name="assistant_screen_task_delete_fail_message">Při mazání úlohy se vyskytla chyba</string>
+    <string name="assistant_screen_task_delete_success_message">Úkol smazán</string>
     <string name="assistant_screen_task_list_empty_warning">Seznam úkolů je prázdný. Zkontrolujte nastavení aplikace Asistent.</string>
     <string name="assistant_screen_task_list_error_state_message">Nedaří se získat seznam úloh – zkontrolujte připojení k Internetu.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Smazat úlohu</string>
@@ -404,7 +405,7 @@
     <string name="failed_to_create_conflict_dialog">Nepodařilo se vytvořit dialog o konfliktu</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
-    <string name="failed_to_start_action">Selhalo spuštění akce!</string>
+    <string name="failed_to_start_action">Spuštění akce se nezdařilo!</string>
     <string name="failed_to_start_editor">Editor se nepodařilo spustit</string>
     <string name="failed_update_ui">Nepodařilo se aktualizovat uživatelské rozhraní</string>
     <string name="favorite">Přidat do oblíbených</string>
@@ -502,6 +503,7 @@
     <string name="folder_download_counter">%1$d z %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Při synchronizování složky %s došlo k chybě</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Nedostatek prostoru na disku – synchronizace zrušena</string>
+    <string name="folder_download_success_notification_title">%s složka synchronizována</string>
     <string name="folder_download_worker_ticker_id">Synchronizování …</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
     <string name="folder_name_empty">Název složky je třeba vyplnit</string>
@@ -971,7 +973,7 @@
     <string name="sync">Synchronizovat</string>
     <string name="sync_anyway">Synchronizovat i tak</string>
     <string name="sync_conflict_notification_action_title">Vyřešit konflikty</string>
-    <string name="sync_conflict_notification_description">Detekovány konflikty s nahráváním souborů. Otevřít nastavení nahrávání a vyřešit je.</string>
+    <string name="sync_conflict_notification_description">Zjištěny konflikty s nahráváním souborů. Otevřete nastavení nahrávání a vyřešte je.</string>
     <string name="sync_conflict_notification_title">Konflikty při nahrávání souborů</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
     <string name="sync_current_folder_was_removed">Složka %1$s už neexistuje</string>
