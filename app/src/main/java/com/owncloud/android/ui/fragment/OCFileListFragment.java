@@ -309,7 +309,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void setSearchArgs(Bundle state) {
+    public void setSearchArgs(Bundle state) {
         SearchType argSearchType = NO_SEARCH;
         SearchEvent argSearchEvent = null;
 
@@ -1783,6 +1783,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
         Log_OC.d(TAG, "event bus --- change menu event triggered");
 
+        final var arguments = getArguments();
+        if (arguments != null) {
+            arguments.clear();
+        }
         resetSearchAttributes();
         resetMenuItems();
 

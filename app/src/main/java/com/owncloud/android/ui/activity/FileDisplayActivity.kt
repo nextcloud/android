@@ -1346,6 +1346,8 @@ class FileDisplayActivity :
         }
 
         val ocFileListFragment = leftFragment
+
+
         syncAndUpdateFolder(ignoreETag = true, ignoreFocus = true)
 
         // Try to get the OCFile from the intent, if one was provided when launching this activity.
@@ -1355,16 +1357,19 @@ class FileDisplayActivity :
             file = it
         }
 
+        ocFileListFragment.setSearchArgs(ocFileListFragment.arguments)
+
         // refresh list of files
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView?.setQuery(searchQuery, false)
         } else if (!ocFileListFragment.isSearchFragment && startFile == null) {
-            updateListOfFilesFragment()
+            ocFileListFragment.listDirectory(MainApp.isOnlyOnDevice())
             ocFileListFragment.registerFabListener()
         } else {
             ocFileListFragment.listDirectory(startFile, false)
             updateActionBarTitleAndHomeButton(startFile)
         }
+
 
         // show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this)
