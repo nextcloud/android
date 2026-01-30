@@ -88,7 +88,7 @@ class AlbumFileUploadWorker(
     private val notificationId = Random.nextInt()
     private val notificationManager = UploadNotificationManager(context, viewThemeUtils, notificationId)
     private val intents = FileUploaderIntents(context)
-    private val fileUploaderDelegate = FileUploaderDelegate()
+    private val fileUploadBroadcastManager = FileUploadBroadcastManager(localBroadcastManager)
 
     override suspend fun doWork(): Result = try {
         Log_OC.d(TAG, "AlbumFileUploadWorker started")
@@ -100,14 +100,15 @@ class AlbumFileUploadWorker(
         val result = uploadFiles()
         backgroundJobManager.logEndOfWorker(workerName, result)
         notificationManager.dismissNotification()
-        if (result == Result.success()) {
-            setIdleWorkerState()
-        }
         result
     } catch (t: Throwable) {
-        Log_OC.e(TAG, "Error caught at AlbumFileUploadWorker $t")
-        cleanup()
+        Log_OC.e(TAG, "exception $t")
+        currentUploadFileOperation?.cancel(null)
         Result.failure()
+    } finally {
+        // Ensure all database operations are complete before signaling completion
+        uploadsStorageManager.notifyObserversNow()
+        notificationManager.dismissNotification()
     }
 
     private suspend fun trySetForeground() {
@@ -154,22 +155,6 @@ class AlbumFileUploadWorker(
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setSilent(true)
             .build()
-
-    private fun cleanup() {
-        Log_OC.e(TAG, "AlbumFileUploadWorker stopped")
-
-        setIdleWorkerState()
-        currentUploadFileOperation?.cancel(null)
-        notificationManager.dismissNotification()
-    }
-
-    private fun setWorkerState(user: User?) {
-        WorkerStateObserver.send(WorkerState.FileUploadStarted(user))
-    }
-
-    private fun setIdleWorkerState() {
-        WorkerStateObserver.send(WorkerState.FileUploadCompleted(currentUploadFileOperation?.file))
-    }
 
     @Suppress("ReturnCount", "LongMethod", "DEPRECATION")
     private suspend fun uploadFiles(): Result = withContext(Dispatchers.IO) {
@@ -232,7 +217,7 @@ class AlbumFileUploadWorker(
                 return@withContext Result.failure()
             }
 
-            setWorkerState(user)
+            fileUploadBroadcastManager.sendAdded(context)
             val operation = createUploadFileOperation(upload, user)
             currentUploadFileOperation = operation
 
@@ -270,17 +255,18 @@ class AlbumFileUploadWorker(
         operation: UploadFileOperation,
         result: RemoteOperationResult<*>
     ) {
+        val isLastUpload = currentUploadIndex == totalUploadSize
+
         val shouldBroadcast =
-            (totalUploadSize > BATCH_SIZE && currentUploadIndex > 0) && currentUploadIndex % BATCH_SIZE == 0
+            (currentUploadIndex % BATCH_SIZE == 0 && totalUploadSize > BATCH_SIZE) ||
+                isLastUpload
 
         if (shouldBroadcast) {
-            // delay broadcast
-            fileUploaderDelegate.sendBroadcastUploadFinished(
+            fileUploadBroadcastManager.sendFinished(
                 operation,
                 result,
                 operation.oldFile?.storagePath,
-                context,
-                localBroadcastManager
+                context
             )
         }
     }
@@ -341,13 +327,14 @@ class AlbumFileUploadWorker(
             } else {
                 Log_OC.e(TAG, "Failed to copy file to Album: $albumName due to ${copyResult.logMessage}")
             }
+            fileUploadBroadcastManager.sendStarted(operation, context)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
             result = RemoteOperationResult<Any?>(e)
         } finally {
             if (!isStopped) {
                 uploadsStorageManager.updateDatabaseUploadResult(result, operation)
-                // NMC: resolving file conflict will trigger normal file upload and shows two upload process
+                // resolving file conflict will trigger normal file upload and shows two upload process
                 // one for normal and one for Album upload
                 // as customizing conflict can break normal upload
                 // so we are removing the upload if it's a conflict

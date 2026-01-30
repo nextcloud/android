@@ -91,7 +91,6 @@ import com.owncloud.android.ui.preview.PreviewImageFragment
 import com.owncloud.android.ui.preview.PreviewMediaActivity.Companion.canBePreviewed
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
-import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -270,8 +269,7 @@ class AlbumItemsFragment :
                         true
                     }
 
-                        else -> false
-                    }
+                    else -> false
                 }
 
                 override fun onPrepareMenu(menu: Menu) {
@@ -333,7 +331,6 @@ class AlbumItemsFragment :
         binding.listRoot.setEmptyView(binding.emptyList.emptyListView)
         val layoutManager = GridLayoutManager(requireContext(), 1)
         binding.listRoot.layoutManager = layoutManager
-        fetchAndSetData()
     }
 
     private fun setupContainingList() {
@@ -382,7 +379,6 @@ class AlbumItemsFragment :
 
                         contentValues.add(cv)
                     }
-                    ocFileList.add(ocFile!!)
                 }
 
                 mContainerActivity?.storageManager?.saveVirtuals(contentValues)
@@ -520,7 +516,6 @@ class AlbumItemsFragment :
     override fun onDestroyView() {
         lastMediaItemPosition = 0
         super.onDestroyView()
-        lastMediaItemPosition = 0
     }
 
     override fun getColumnsCount(): Int = columnSize
