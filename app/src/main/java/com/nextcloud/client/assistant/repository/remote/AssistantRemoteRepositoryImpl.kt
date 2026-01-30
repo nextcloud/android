@@ -27,11 +27,13 @@ import com.owncloud.android.lib.resources.assistant.v1.GetTaskListRemoteOperatio
 import com.owncloud.android.lib.resources.assistant.v1.GetTaskTypesRemoteOperationV1
 import com.owncloud.android.lib.resources.assistant.v1.model.toV2
 import com.owncloud.android.lib.resources.assistant.v2.CreateTaskRemoteOperationV2
+import com.owncloud.android.lib.resources.assistant.v2.CreateTranslationTaskRemoteOperation
 import com.owncloud.android.lib.resources.assistant.v2.DeleteTaskRemoteOperationV2
 import com.owncloud.android.lib.resources.assistant.v2.GetTaskListRemoteOperationV2
 import com.owncloud.android.lib.resources.assistant.v2.GetTaskTypesRemoteOperationV2
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
+import com.owncloud.android.lib.resources.assistant.v2.model.TranslationRequest
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import kotlinx.coroutines.Dispatchers
@@ -123,5 +125,10 @@ class AssistantRemoteRepositoryImpl(private val client: NextcloudClient, capabil
         withContext(Dispatchers.IO) {
             val result = CheckGenerationRemoteOperation(taskId, sessionId).execute(client)
             if (result.isSuccess) result.resultData else null
+        }
+
+    override suspend fun translate(input: TranslationRequest, taskType: TaskTypeData): RemoteOperationResult<Void> =
+        withContext(Dispatchers.IO) {
+            CreateTranslationTaskRemoteOperation(input, taskType).execute(client)
         }
 }
