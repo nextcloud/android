@@ -120,7 +120,7 @@ public class UploadListActivity extends FileActivity {
         updateActionBarTitleAndHomeButtonByString(getString(R.string.uploads_view_title));
 
         // setup drawer
-        setupDrawer(R.id.nav_uploads);
+        setupDrawer(getMenuItemId());
 
         setupContent();
     }

@@ -183,7 +183,7 @@ class SyncedFoldersActivity :
         // setup toolbar
         setupToolbar()
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_synced_folders))
-        setupDrawer(R.id.nav_settings)
+        setupDrawer(menuItemId)
         setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         if (supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)

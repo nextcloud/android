@@ -279,8 +279,7 @@ class FileDisplayActivity :
         observeWorkerState()
         startMetadataSyncForRoot()
         handleBackPress()
-        setupDrawer(R.id.nav_all_files)
-        showToast("TEST APK")
+        setupDrawer(menuItemId)
     }
 
     /**

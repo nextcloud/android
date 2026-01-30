@@ -77,7 +77,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList);
 
         // setup drawer
-        setupDrawer(R.id.nav_activity);
+        setupDrawer(getMenuItemId());
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_activities));
 
         binding.swipeContainingList.setOnRefreshListener(() -> {
