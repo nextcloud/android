@@ -593,7 +593,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         if (itemId == R.id.nav_all_files || itemId == R.id.nav_personal_files) {
             closeDrawer();
-            DrawerActivityExtensionsKt.navigateToAllFiles(this);
+            DrawerActivityExtensionsKt.navigateToAllFiles(this,itemId == R.id.nav_personal_files);
             EventBus.getDefault().post(new ChangeMenuEvent());
         } else if (itemId == R.id.nav_favorites) {
             openFavoritesTab();
