@@ -259,14 +259,6 @@ class GalleryAdapter(
         notifyDataSetChanged()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun showAlbumItems(
-        albumItems: List<OCFile>,
-    ) {
-        files = albumItems.toGalleryItems()
-        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
-    }
-
     private fun transformToRows(list: List<OCFile>): List<GalleryRow> {
         if (list.isEmpty()) return emptyList()
 
