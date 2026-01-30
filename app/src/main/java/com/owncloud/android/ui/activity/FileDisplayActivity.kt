@@ -650,6 +650,7 @@ class FileDisplayActivity :
             }
         }
 
+        listOfFilesFragment?.isSearchFragment = true
         listOfFilesFragment?.setCurrentSearchType(searchEvent)
     }
     // endregion
@@ -1327,6 +1328,9 @@ class FileDisplayActivity :
 
         super.onResume()
 
+        if (ocFileListFragment is SharedListFragment || ocFileListFragment?.isSearchFragment == true) {
+            ocFileListFragment?.setSearchArgs(ocFileListFragment?.arguments)
+        }
         highlightNavigationViewItem(menuItemId)
 
         if (SettingsActivity.isBackPressed) {
@@ -1357,7 +1361,7 @@ class FileDisplayActivity :
             file = it
         }
 
-        ocFileListFragment.setSearchArgs(ocFileListFragment.arguments)
+
 
         // refresh list of files
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
