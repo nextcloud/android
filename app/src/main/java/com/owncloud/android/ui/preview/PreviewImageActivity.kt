@@ -237,8 +237,6 @@ class PreviewImageActivity :
             return super.onOptionsItemSelected(item)
         }
 
-        sendRefreshSearchEventBroadcast()
-
         if (isDrawerOpen) {
             closeDrawer()
         } else {

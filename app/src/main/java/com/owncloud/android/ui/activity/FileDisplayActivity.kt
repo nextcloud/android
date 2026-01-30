@@ -1301,9 +1301,6 @@ class FileDisplayActivity :
 
         if (leftFragment is UnifiedSearchFragment) {
             showSortListGroup(false)
-
-            // one pop or POP_BACK_STACK_INCLUSIVE is not showing the OCFileListFragment with correct state
-            supportFragmentManager.popBackStack()
             supportFragmentManager.popBackStack()
 
             // needed to set correct action bar style
@@ -3058,6 +3055,7 @@ class FileDisplayActivity :
 
     private val unifiedSearchReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
+            Log_OC.d(TAG, "unified search receiver called")
             val query = intent.getStringExtra(PreviewImageActivity.EXTRA_LAST_SEARCH_QUERY) ?: return
             listOfFilesFragment?.lastSearchQuery = null
             performUnifiedSearch(query, null)
