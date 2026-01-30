@@ -991,6 +991,12 @@
         <item quantity="few">%1$d datoteke</item>
         <item quantity="other">%1$d datotek</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d predmet</item>
+        <item quantity="two">%1$d predmeta</item>
+        <item quantity="few">%1$d predmeti</item>
+        <item quantity="other">%1$d predmetov</item>
+    </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Pokaži %1$d skrito mapo</item>
         <item quantity="two">Pokaži %1$d skriti mapi</item>

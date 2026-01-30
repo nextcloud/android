@@ -804,6 +804,7 @@
     <string name="set_message">Üzenet beállítása</string>
     <string name="set_note">Jegyzet beállítása</string>
     <string name="set_online_status">Elérhető állapot</string>
+    <string name="set_online_status_bottom_sheet_error_message">Nem sikerült beállítani az állapotot.</string>
     <string name="set_picture_as">Kép használata mint</string>
     <string name="setup_e2e">A végpontok közti titkosítás beállítása során kap egy 12 véletlenszerű szóból álló mnemonikus kódot, amelyre akkor lesz szüksége, ha más eszközökön akarja megnyitni a fájlokat. Ez csak ezen az eszközön lesz tárolva, és újra megjeleníthető ezen a képernyőn. Jegyezze le, és tárolja biztonságos helyen!</string>
     <string name="share">Megosztás</string>
