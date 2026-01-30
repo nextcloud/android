@@ -73,7 +73,6 @@ class FileUploadHelper {
     companion object {
         private val TAG = FileUploadWorker::class.java.simpleName
 
-        @Suppress("MagicNumber")
         const val MAX_FILE_COUNT = 500
 
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
@@ -501,6 +500,7 @@ class FileUploadHelper {
     fun showFileUploadLimitMessage(activity: Activity) {
         val message = activity.resources.getQuantityString(
             R.plurals.file_upload_limit_message,
+            MAX_FILE_COUNT,
             MAX_FILE_COUNT
         )
         DisplayUtils.showSnackMessage(activity, message)
