@@ -184,20 +184,9 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     private SearchType getSearchType() {
         final OCFileListFragment fragment = getOCFileListFragment();
-
-        // if current navigation not matches, reset search event
-        if (this instanceof DrawerActivity drawerActivity && !drawerActivity.isMenuItemIdBelongsToSearchType()) {
-            if (fragment != null) {
-                fragment.resetSearchAttributes();
-            }
-
-            return SearchType.NO_SEARCH;
-        }
-
         if (fragment != null) {
             return fragment.getCurrentSearchType();
         }
-
         return SearchType.NO_SEARCH;
     }
 
