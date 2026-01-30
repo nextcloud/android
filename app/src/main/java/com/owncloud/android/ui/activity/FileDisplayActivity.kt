@@ -1328,7 +1328,7 @@ class FileDisplayActivity :
 
         super.onResume()
 
-        if (ocFileListFragment is SharedListFragment || ocFileListFragment?.isSearchFragment == true) {
+        if (ocFileListFragment?.isSearchFragment == true) {
             ocFileListFragment?.setSearchArgs(ocFileListFragment?.arguments)
         }
         highlightNavigationViewItem(menuItemId)
