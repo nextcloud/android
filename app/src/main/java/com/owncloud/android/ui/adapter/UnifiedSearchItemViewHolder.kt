@@ -12,6 +12,7 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.common.NextcloudClient
 import com.nextcloud.model.SearchResultEntryType
 import com.nextcloud.utils.CalendarEventManager
 import com.nextcloud.utils.ContactManager
@@ -47,6 +48,7 @@ class UnifiedSearchItemViewHolder(
 
     private val contactManager = ContactManager(context)
     private val calendarEventManager = CalendarEventManager(context)
+    private var cachedClient: NextcloudClient? = null
 
     fun bind(entry: SearchResultEntry) {
         binding.title.text = entry.title
@@ -61,20 +63,21 @@ class UnifiedSearchItemViewHolder(
         val entryType = entry.getType()
         viewThemeUtils.platform.colorImageView(binding.thumbnail, ColorRole.PRIMARY)
 
-        fragment.lifecycleScope.launch(Dispatchers.IO) {
-            val client =
-                fragment.getTypedActivity(FileActivity::class.java)?.clientRepository?.getNextcloudClient()
+        val client = cachedClient
+        if (client != null) {
+            loadThumbnailUrl(client, entry, entryType)
+        } else {
+            fragment.lifecycleScope.launch(Dispatchers.IO) {
+                val newClient = fragment.getTypedActivity(FileActivity::class.java)
+                    ?.clientRepository
+                    ?.getNextcloudClient()
                     ?: return@launch
 
-            withContext(Dispatchers.Main) {
-                GlideHelper.loadIntoImageView(
-                    context,
-                    client,
-                    entry.thumbnailUrl,
-                    binding.thumbnail,
-                    entryType.iconId(),
-                    circleCrop = entry.rounded
-                )
+                cachedClient = newClient
+
+                withContext(Dispatchers.Main) {
+                    loadThumbnailUrl(newClient, entry, entryType)
+                }
             }
         }
 
@@ -90,6 +93,17 @@ class UnifiedSearchItemViewHolder(
         binding.unifiedSearchItemLayout.setOnClickListener {
             searchEntryOnClick(entry, entryType)
         }
+    }
+
+    private fun loadThumbnailUrl(client: NextcloudClient, entry: SearchResultEntry, entryType: SearchResultEntryType) {
+        GlideHelper.loadIntoImageView(
+            context,
+            client,
+            entry.thumbnailUrl,
+            binding.thumbnail,
+            entryType.iconId(),
+            circleCrop = entry.rounded
+        )
     }
 
     private fun searchEntryOnClick(entry: SearchResultEntry, entryType: SearchResultEntryType) {
