@@ -89,7 +89,7 @@ class ComposeActivity : DrawerActivity() {
 
     private fun setupActivityUIFor(destination: ComposeDestination) {
         if (destination is ComposeDestination.AssistantScreen) {
-            setupDrawer(R.id.nav_assistant)
+            setupDrawer(menuItemId)
             setupToolbarShowOnlyMenuButtonAndTitle(destination.title) {
                 openDrawer()
             }
