@@ -1333,6 +1333,7 @@ class FileDisplayActivity :
         }
         highlightNavigationViewItem(menuItemId)
 
+
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
             return
@@ -1349,9 +1350,10 @@ class FileDisplayActivity :
             return
         }
 
+        if (isToolbarStyleSearch) {
+            setupHomeSearchToolbarWithSortAndListButtons()
+        }
         val ocFileListFragment = leftFragment
-
-
         syncAndUpdateFolder(ignoreETag = true, ignoreFocus = true)
 
         // Try to get the OCFile from the intent, if one was provided when launching this activity.
@@ -1360,8 +1362,6 @@ class FileDisplayActivity :
         val startFile = intent?.let { getFileFromIntent(it) }?.also {
             file = it
         }
-
-
 
         // refresh list of files
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
@@ -1373,7 +1373,6 @@ class FileDisplayActivity :
             ocFileListFragment.listDirectory(startFile, false)
             updateActionBarTitleAndHomeButton(startFile)
         }
-
 
         // show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this)
