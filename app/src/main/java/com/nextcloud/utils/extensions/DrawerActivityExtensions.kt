@@ -18,6 +18,7 @@ fun DrawerActivity.navigateToAllFiles(onlyPersonal: Boolean = false) {
     MainApp.showOnlyFilesOnDevice(false)
     MainApp.showOnlyPersonalFiles(onlyPersonal)
     highlightNavigationViewItem(R.id.nav_all_files)
+    setupHomeSearchToolbarWithSortAndListButtons()
 
     Intent(applicationContext, FileDisplayActivity::class.java).apply {
         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
