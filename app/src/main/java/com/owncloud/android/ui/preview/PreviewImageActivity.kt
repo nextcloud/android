@@ -99,7 +99,7 @@ class PreviewImageActivity :
 
         livePhotoFile = intent.getParcelableArgument(EXTRA_LIVE_PHOTO_FILE, OCFile::class.java)
 
-        setupDrawer()
+        setupDrawer(menuItemId)
 
         val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
 
@@ -123,6 +123,8 @@ class PreviewImageActivity :
         applyDisplayCutOutTopPadding()
         handleBackPress()
     }
+
+    override fun getMenuItemId(): Int = R.id.nav_gallery
 
     private fun applyDisplayCutOutTopPadding() {
         window.decorView.setOnApplyWindowInsetsListener { view, insets ->
