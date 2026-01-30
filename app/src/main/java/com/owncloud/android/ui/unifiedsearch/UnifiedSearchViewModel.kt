@@ -25,6 +25,7 @@ import com.owncloud.android.lib.common.SearchResult
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
+import com.owncloud.android.ui.fragment.UnifiedSearchFragmentScreenState
 import javax.inject.Inject
 
 @Suppress("LongParameterList")
@@ -53,6 +54,8 @@ class UnifiedSearchViewModel(application: Application) :
     private lateinit var repository: IUnifiedSearchRepository
     private var results: MutableMap<ProviderID, UnifiedSearchMetadata> = mutableMapOf()
 
+    override val screenState: MutableLiveData<UnifiedSearchFragmentScreenState> =
+        MutableLiveData(UnifiedSearchFragmentScreenState.ShowingContent)
     override val isLoading = MutableLiveData(false)
     override val searchResults = MutableLiveData<List<UnifiedSearchSection>>(mutableListOf())
     override val error = MutableLiveData("")
@@ -243,5 +246,9 @@ class UnifiedSearchViewModel(application: Application) :
     @VisibleForTesting
     fun setConnectivityService(connectivityService: ConnectivityService) {
         this.connectivityService = connectivityService
+    }
+
+    override fun updateScreenState(state: UnifiedSearchFragmentScreenState) {
+        screenState.value = state
     }
 }

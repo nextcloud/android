@@ -38,6 +38,7 @@ import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.searchFilesByName
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.typedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
@@ -230,47 +231,41 @@ class UnifiedSearchFragment :
             adapter.setData(emptyList())
             adapter.setDataCurrentDirItems(listOf())
 
-            showStartYourSearch()
+            vm.updateScreenState(UnifiedSearchFragmentScreenState.Empty.startSearch())
             showKeyboard(searchView)
         }
     }
 
-    private fun makeEmptyListVisible() {
-        binding.emptyList.run {
-            root.visibility = View.VISIBLE
-            emptyListIcon.visibility = View.VISIBLE
-            emptyListViewHeadline.visibility = View.VISIBLE
-            emptyListViewText.visibility = View.VISIBLE
-            emptyListIcon.visibility = View.VISIBLE
+    private fun handleScreenState(state: UnifiedSearchFragmentScreenState) {
+        when (state) {
+            is UnifiedSearchFragmentScreenState.ShowingContent -> {
+                toggleEmptyListVisible(show = false)
+            }
+            is UnifiedSearchFragmentScreenState.Empty -> {
+                showEmptyView(state)
+            }
         }
     }
 
-    private fun showStartYourSearch() {
-        makeEmptyListVisible()
-
+    private fun toggleEmptyListVisible(show: Boolean) {
         binding.emptyList.run {
-            emptyListViewHeadline.text = getString(R.string.file_list_empty_unified_search_start_search)
-            emptyListViewText.text = getString(R.string.file_list_empty_unified_search_start_search_description)
-            emptyListIcon.setImageDrawable(
-                viewThemeUtils.platform.tintDrawable(
-                    requireContext(),
-                    R.drawable.ic_search_grey
-                )
-            )
+            root.setVisibleIf(show)
+            emptyListIcon.setVisibleIf(show)
+            emptyListViewHeadline.setVisibleIf(show)
+            emptyListViewText.setVisibleIf(show)
+            emptyListIcon.setVisibleIf(show)
         }
     }
 
-    private fun showNoResult() {
-        makeEmptyListVisible()
+    private fun showEmptyView(state: UnifiedSearchFragmentScreenState.Empty) {
+        toggleEmptyListVisible(show = true)
 
         binding.emptyList.run {
-            emptyListViewHeadline.text =
-                requireContext().getString(R.string.file_list_empty_headline_server_search)
-            emptyListViewText.text =
-                requireContext().getString(R.string.file_list_empty_unified_search_no_results)
             emptyListIcon.setImageDrawable(
-                viewThemeUtils.platform.tintDrawable(requireContext(), R.drawable.ic_search_grey)
+                viewThemeUtils.platform.tintDrawable(requireContext(), state.iconId)
             )
+            emptyListViewHeadline.text = requireContext().getString(state.titleId)
+            emptyListViewText.text = requireContext().getString(state.descriptionId)
         }
     }
 
@@ -317,6 +312,9 @@ class UnifiedSearchFragment :
         vm.isLoading.observe(viewLifecycleOwner) { loading ->
             binding.swipeContainingList.isRefreshing = loading
         }
+        vm.screenState.observe(viewLifecycleOwner) {
+            handleScreenState(it)
+        }
 
         PairMediatorLiveData(vm.searchResults, vm.isLoading).observe(viewLifecycleOwner) { (searchResults, isLoading) ->
             if (isLoading == true || searchResults.isNullOrEmpty()) {
@@ -329,7 +327,7 @@ class UnifiedSearchFragment :
                 !hasSearchResult &&
                 !adapter.hasLocalResults()
             ) {
-                showNoResult()
+                vm.updateScreenState(UnifiedSearchFragmentScreenState.Empty.noResults())
             }
         }
 
@@ -419,7 +417,11 @@ class UnifiedSearchFragment :
     fun onSearchResultChanged(result: List<UnifiedSearchSection>) {
         Log_OC.d(TAG, "result")
         binding.emptyList.emptyListView.visibility = View.GONE
-        adapter.setData(result.filterOutHiddenFiles(listOfHiddenFiles))
+        val newFiles = result.filterOutHiddenFiles(listOfHiddenFiles)
+        if (newFiles.isNotEmpty()) {
+            vm.updateScreenState(UnifiedSearchFragmentScreenState.ShowingContent)
+        }
+        adapter.setData(newFiles)
     }
 
     @VisibleForTesting
@@ -446,6 +448,9 @@ class UnifiedSearchFragment :
             val files = storageManager
                 .searchFilesByName(this, accountManager.user.accountName, query)
                 .filter { !it.isEncrypted }
+            if (files.isNotEmpty()) {
+                vm.updateScreenState(UnifiedSearchFragmentScreenState.ShowingContent)
+            }
             adapter.setDataCurrentDirItems(files)
         }
     }
