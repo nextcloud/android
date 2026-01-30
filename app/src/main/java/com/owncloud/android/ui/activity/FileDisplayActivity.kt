@@ -278,6 +278,7 @@ class FileDisplayActivity :
         observeWorkerState()
         startMetadataSyncForRoot()
         handleBackPress()
+        registerUnifiedSearchReceiver()
     }
 
     private fun loadSavedInstanceState(savedInstanceState: Bundle?) {
@@ -731,7 +732,13 @@ class FileDisplayActivity :
             val transaction = fragmentManager.beginTransaction()
             transaction.addToBackStack(null)
             transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES)
-            transaction.commit()
+
+            if (fragmentManager.isStateSaved) {
+                transaction.commitAllowingStateLoss()
+            } else {
+                transaction.commit()
+            }
+
             callback.onComplete(true)
         } else {
             callback.onComplete(false)
@@ -1280,7 +1287,9 @@ class FileDisplayActivity :
         searchView?.setQuery("", false)
         searchView?.onActionViewCollapsed()
 
-        if (isRoot(getCurrentDir()) && leftFragment is OCFileListFragment) {
+        val isRoot = isRoot(getCurrentDir())
+
+        if (isRoot && leftFragment is OCFileListFragment) {
             // Remove the list to the original state
             leftFragment.adapter?.let { adapter ->
                 val listOfHiddenFiles = adapter.listOfHiddenFiles
@@ -1293,6 +1302,13 @@ class FileDisplayActivity :
         if (leftFragment is UnifiedSearchFragment) {
             showSortListGroup(false)
             supportFragmentManager.popBackStack()
+
+            // needed to set correct action bar style
+            if (isRoot) {
+                setupHomeSearchToolbarWithSortAndListButtons()
+            } else {
+                setupToolbar()
+            }
         }
     }
 
@@ -1953,7 +1969,7 @@ class FileDisplayActivity :
                 else -> VirtualFolderType.NONE
             }
 
-            startImagePreview(file, type, file.isDown)
+            startImagePreview(file, file.isDown, type)
         } else {
             startImagePreview(file, file.isDown)
         }
@@ -2482,44 +2498,33 @@ class FileDisplayActivity :
         }
     }
 
-    fun startImagePreview(file: OCFile, showPreview: Boolean) {
-        val showDetailsIntent = Intent(this, PreviewImageActivity::class.java)
-        showDetailsIntent.putExtra(EXTRA_FILE, file)
-        showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
-        showDetailsIntent.putExtra(
-            EXTRA_USER,
-            user.orElseThrow(Supplier { RuntimeException() })
-        )
-        if (showPreview) {
-            startActivity(showDetailsIntent)
-        } else {
-            val fileOperationsHelper =
-                FileOperationsHelper(this, userAccountManager, connectivityService, editorUtils)
-            fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent)
+    fun startImagePreview(file: OCFile, preview: Boolean, type: VirtualFolderType? = null) {
+        val optionalUser = user
+        if (optionalUser.isEmpty) {
+            Log_OC.e(TAG, "user is empty cannot preview image")
+            return
         }
-    }
 
-    fun startImagePreview(file: OCFile, type: VirtualFolderType?, showPreview: Boolean) {
-        val showDetailsIntent = Intent(this, PreviewImageActivity::class.java)
-        showDetailsIntent.putExtra(EXTRA_FILE, file)
-        showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
-        showDetailsIntent.putExtra(
-            EXTRA_USER,
-            user.orElseThrow(Supplier { RuntimeException() })
-        )
-        showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type)
-
-        if (showPreview) {
-            startActivity(showDetailsIntent)
-        } else {
-            val fileOperationsHelper = FileOperationsHelper(
-                this,
-                userAccountManager,
-                connectivityService,
-                editorUtils
-            )
-            fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent)
+        val intent = Intent(this, PreviewImageActivity::class.java).apply {
+            putExtra(EXTRA_FILE, file)
+            putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
+            putExtra(EXTRA_USER, optionalUser.get())
+            putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type)
+            putExtra(PreviewImageActivity.EXTRA_LAST_SEARCH_QUERY, listOfFilesFragment?.lastSearchQuery)
         }
+
+        if (preview) {
+            startActivity(intent)
+            return
+        }
+
+        val operation = FileOperationsHelper(
+            this,
+            userAccountManager,
+            connectivityService,
+            editorUtils
+        )
+        operation.startSyncForFileAndIntent(file, intent)
     }
 
     /**
@@ -2782,8 +2787,8 @@ class FileDisplayActivity :
             val virtualType = bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE) as VirtualFolderType?
             startImagePreview(
                 file,
-                virtualType,
-                true
+                true,
+                virtualType
             )
         } else {
             startImagePreview(file, true)
@@ -3043,23 +3048,39 @@ class FileDisplayActivity :
         binding.fabMain.visibility = visibility
     }
 
-    fun showFile(selectedFile: OCFile?, message: String?) {
-        dismissLoadingDialog()
+    private fun registerUnifiedSearchReceiver() {
+        val filter = IntentFilter(UNIFIED_SEARCH_EVENT_ACTION)
+        LocalBroadcastManager.getInstance(this).registerReceiver(unifiedSearchReceiver, filter)
+    }
 
+    private val unifiedSearchReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            Log_OC.d(TAG, "unified search receiver called")
+            val query = intent.getStringExtra(PreviewImageActivity.EXTRA_LAST_SEARCH_QUERY) ?: return
+            listOfFilesFragment?.lastSearchQuery = null
+            performUnifiedSearch(query, null)
+        }
+    }
+
+    @JvmOverloads
+    fun showFile(selectedFile: OCFile?, message: String?, lastSearchQuery: String? = null) {
         getOCFileListFragmentFromFile(object : TransactionInterface {
             override fun onOCFileListFragmentComplete(listOfFiles: OCFileListFragment) {
-                if (TextUtils.isEmpty(message)) {
+                dismissLoadingDialog()
+
+                if (message?.isEmpty() == true) {
                     val temp = file
                     file = getCurrentDir()
                     listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice())
                     updateActionBarTitleAndHomeButton(null)
                 } else {
-                    val view = listOfFiles.view
-                    if (view != null) {
-                        DisplayUtils.showSnackMessage(view, message)
+                    listOfFiles.view?.let {
+                        DisplayUtils.showSnackMessage(it, message)
                     }
                 }
+
                 if (selectedFile != null) {
+                    listOfFiles.lastSearchQuery = lastSearchQuery
                     listOfFiles.onItemClicked(selectedFile)
                 }
             }
@@ -3123,6 +3144,8 @@ class FileDisplayActivity :
         private const val SEARCH_VIEW_FOCUS_DELAY = 100L
 
         const val ACTION_DETAILS: String = "com.owncloud.android.ui.activity.action.DETAILS"
+
+        const val UNIFIED_SEARCH_EVENT_ACTION = "PHOTO_SEARCH_EVENT"
 
         @JvmField
         val REQUEST_CODE__SELECT_CONTENT_FROM_APPS: Int = REQUEST_CODE__LAST_SHARED + 1

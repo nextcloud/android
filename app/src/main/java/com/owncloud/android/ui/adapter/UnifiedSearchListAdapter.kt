@@ -17,7 +17,6 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.databinding.UnifiedSearchEmptyBinding
@@ -28,6 +27,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.ui.fragment.UnifiedSearchFragment
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
@@ -39,6 +39,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
  */
 @Suppress("LongParameterList")
 class UnifiedSearchListAdapter(
+    private val fragment: UnifiedSearchFragment,
     private val supportsOpeningCalendarContactsLocally: Boolean,
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
@@ -48,7 +49,6 @@ class UnifiedSearchListAdapter(
     private val viewThemeUtils: ViewThemeUtils,
     private val appPreferences: AppPreferences,
     private val syncedFolderProvider: SyncedFolderProvider,
-    private val nextcloudClient: NextcloudClient,
     private val currentDirItemAction: UnifiedSearchCurrentDirItemAction
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
@@ -85,13 +85,13 @@ class UnifiedSearchListAdapter(
                     false
                 )
                 UnifiedSearchItemViewHolder(
+                    fragment,
                     supportsOpeningCalendarContactsLocally,
                     binding,
                     storageManager,
                     listInterface,
                     filesAction,
                     context,
-                    nextcloudClient,
                     viewThemeUtils
                 )
             }

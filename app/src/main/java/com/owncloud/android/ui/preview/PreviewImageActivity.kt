@@ -237,8 +237,6 @@ class PreviewImageActivity :
             return super.onOptionsItemSelected(item)
         }
 
-        sendRefreshSearchEventBroadcast()
-
         if (isDrawerOpen) {
             closeDrawer()
         } else {
@@ -249,8 +247,17 @@ class PreviewImageActivity :
     }
 
     private fun sendRefreshSearchEventBroadcast() {
-        val intent = Intent(GalleryFragment.REFRESH_SEARCH_EVENT_RECEIVER)
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+        val broadcastManager = LocalBroadcastManager.getInstance(this)
+
+        val photoSearchIntent = Intent(GalleryFragment.REFRESH_SEARCH_EVENT_RECEIVER)
+        broadcastManager.sendBroadcast(photoSearchIntent)
+
+        intent.getStringExtra(EXTRA_LAST_SEARCH_QUERY)?.let {
+            val unifiedSearchIntent = Intent(FileDisplayActivity.UNIFIED_SEARCH_EVENT_ACTION).apply {
+                putExtra(EXTRA_LAST_SEARCH_QUERY, it)
+            }
+            broadcastManager.sendBroadcast(unifiedSearchIntent)
+        }
     }
 
     public override fun onStart() {
@@ -591,6 +598,8 @@ class PreviewImageActivity :
     companion object {
         val TAG: String = PreviewImageActivity::class.java.simpleName
         const val EXTRA_VIRTUAL_TYPE: String = "EXTRA_VIRTUAL_TYPE"
+        const val EXTRA_LAST_SEARCH_QUERY: String = "EXTRA_LAST_SEARCH_QUERY"
+
         private const val KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER"
         private const val KEY_SYSTEM_VISIBLE = "TRUE"
 
