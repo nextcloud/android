@@ -63,14 +63,15 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/permission_name"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:singleLine="true"
             tools:text="@string/placeholder_view_only"
-            app:drawableEndCompat="@drawable/ic_baseline_arrow_drop_down_24"
-            app:drawableTint="@color/primary"
-            app:drawableRightCompat="@drawable/ic_baseline_arrow_drop_down_24"
+            android:drawablePadding="4dp"
+            app:drawableEndCompat="@drawable/ic_baseline_arrow_drop_down_24"            app:drawableTint="@color/primary"
             android:textColor="@color/primary"
             android:textSize="@dimen/two_line_secondary_text_size" />
     </LinearLayout>
