@@ -1050,4 +1050,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ocFileListDelegate.cleanup();
         helper.cleanup();
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void removeAllFiles() {
+        mFiles.clear();
+        mFilesAll.clear();
+        notifyDataSetChanged();
+    }
 }

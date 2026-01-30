@@ -127,8 +127,15 @@ class TrashbinActivity :
             View.GONE
 
         updateActionBarTitleAndHomeButtonByString(getString(R.string.trashbin_activity_title))
-        setupDrawer()
+        setupDrawer(menuItemId)
         handleBackPress()
+    }
+
+    override fun getMenuItemId(): Int = R.id.nav_trashbin
+
+    override fun onResume() {
+        super.onResume()
+        highlightNavigationViewItem(menuItemId)
     }
 
     override fun onStart() {
@@ -293,8 +300,6 @@ class TrashbinActivity :
     }
 
     override fun onPause() {
-        menuItemId = getPreviousMenuItemId()
-        setNavigationViewItemChecked()
         super.onPause()
         active = false
         trashbinListAdapter?.cancelAllPendingTasks()

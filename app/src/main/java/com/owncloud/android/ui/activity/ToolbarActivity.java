@@ -184,20 +184,9 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     private SearchType getSearchType() {
         final OCFileListFragment fragment = getOCFileListFragment();
-
-        // if current navigation not matches, reset search event
-        if (!DrawerActivity.isMenuItemIdBelongsToSearchType()) {
-            if (fragment != null) {
-                fragment.resetSearchAttributes();
-            }
-
-            return SearchType.NO_SEARCH;
-        }
-
         if (fragment != null) {
             return fragment.getCurrentSearchType();
         }
-
         return SearchType.NO_SEARCH;
     }
 
@@ -232,7 +221,10 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         final String title = getActionBarTitle(file, isRoot);
         updateActionBarTitleAndHomeButtonByString(title);
 
-        final boolean isToolbarStyleSearch = DrawerActivity.isToolbarStyleSearch();
+        boolean isToolbarStyleSearch = false;
+        if (this instanceof DrawerActivity drawerActivity) {
+            isToolbarStyleSearch = drawerActivity.isToolbarStyleSearch();
+        }
         final boolean canShowSearchBar = (isHomeSearchToolbarShow && isRoot && isToolbarStyleSearch);
 
         showHomeSearchToolbar(canShowSearchBar);

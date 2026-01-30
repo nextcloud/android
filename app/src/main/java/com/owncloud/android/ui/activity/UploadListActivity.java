@@ -120,9 +120,14 @@ public class UploadListActivity extends FileActivity {
         updateActionBarTitleAndHomeButtonByString(getString(R.string.uploads_view_title));
 
         // setup drawer
-        setupDrawer();
+        setupDrawer(getMenuItemId());
 
         setupContent();
+    }
+
+    @Override
+    protected int getMenuItemId() {
+        return R.id.nav_uploads;
     }
 
     private void setupContent() {
@@ -180,6 +185,8 @@ public class UploadListActivity extends FileActivity {
     protected void onStart() {
         Log_OC.v(TAG, "onStart() start");
         super.onStart();
+
+        highlightNavigationViewItem(getMenuItemId());
 
         // Listen for upload messages
         uploadFinishReceiver = new UploadFinishReceiver();
