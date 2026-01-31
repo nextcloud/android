@@ -54,6 +54,16 @@ public interface OCFileListBottomSheetActions {
     void scanDocUpload();
 
     /**
+     * Offers scanning a document in a supported external app and then upload to the current folder.
+     */
+    void scanDocUploadFromApp();
+
+    /**
+     * @return true, if a supported external app is available for {@link #scanDocUploadFromApp()}
+     */
+    boolean isScanDocUploadFromAppAvailable();
+
+    /**
      * open template selection for creator @link Creator
      */
     void showTemplate(Creator creator, String headline);

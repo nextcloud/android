@@ -107,6 +107,9 @@
         <intent>
             <action android:name="android.intent.action.GET_CONTENT" />
         </intent>
+        <intent>
+            <action android:name="org.fairscan.app.action.SCAN_TO_PDF" />
+        </intent>
     </queries>
 
     <application
