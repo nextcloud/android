@@ -319,7 +319,10 @@
             <trusting group="^org[.]jetbrains($|([.].*))" regex="true"/>
          </trusted-key>
          <trusted-key id="8A10792983023D5D14C93B488D7F1BEC1E2ECAE7" group="^com[.]fasterxml[.]jackson($|([.].*))" regex="true"/>
-         <trusted-key id="8DF3B0AA23ED78BE5233F6C2DEA3D207428EF16D" group="com.linkedin.dexmaker" name="dexmaker" version="2.28.3"/>
+         <trusted-key id="8DF3B0AA23ED78BE5233F6C2DEA3D207428EF16D">
+            <trusting group="com.linkedin.dexmaker" name="dexmaker" version="2.28.3"/>
+            <trusting group="com.linkedin.dexmaker" name="dexmaker" version="2.28.6"/>
+         </trusted-key>
          <trusted-key id="8E3A02905A1AE67E7B0F9ACD3967D4EDA591B991" group="org.jetbrains.kotlinx" name="kotlinx-html-jvm" version="0.8.1"/>
          <trusted-key id="8F9A3C6D105B9F57844A721D79E193516BE7998F">
             <trusting group="org.dom4j" name="dom4j" version="2.1.3"/>
