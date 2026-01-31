@@ -438,6 +438,8 @@ class DialogFragmentIT : AbstractIT() {
             override fun newPresentation() = Unit
             override fun directCameraUpload() = Unit
             override fun scanDocUpload() = Unit
+            override fun scanDocUploadFromApp() = Unit
+            override fun isScanDocUploadFromAppAvailable(): Boolean = false
             override fun showTemplate(creator: Creator?, headline: String?) = Unit
             override fun createRichWorkspace() = Unit
         }

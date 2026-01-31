@@ -107,6 +107,11 @@
         <intent>
             <action android:name="android.intent.action.GET_CONTENT" />
         </intent>
+        <intent>
+            <!-- Since Android 11 (API level 30), this is required to detect the availability of FairScan to use
+             for external document scanning. See https://developer.android.com/training/package-visibility -->
+            <action android:name="org.fairscan.app.action.SCAN_TO_PDF" />
+        </intent>
     </queries>
 
     <application
