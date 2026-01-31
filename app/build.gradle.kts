@@ -94,9 +94,9 @@ android {
 
     defaultConfig {
         testInstrumentationRunnerArguments += mapOf(
-            "TEST_SERVER_URL" to "ncTestServerBaseUrl.toString()",
-            "TEST_SERVER_USERNAME" to "ncTestServerUsername.toString()",
-            "TEST_SERVER_PASSWORD" to "ncTestServerPassword.toString()",
+            "TEST_SERVER_URL" to ncTestServerBaseUrl.toString(),
+            "TEST_SERVER_USERNAME" to ncTestServerUsername.toString(),
+            "TEST_SERVER_PASSWORD" to ncTestServerPassword.toString(),
             "disableAnalytics" to "true"
         )
         applicationId = "com.nextcloud.client"
