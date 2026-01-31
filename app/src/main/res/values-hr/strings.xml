@@ -495,6 +495,7 @@
     <string name="permission_allow">Dopusti</string>
     <string name="permission_deny">Spriječi</string>
     <string name="picture_set_as_no_app">Nije pronađena nijedna aplikacija za postavljanje slike s</string>
+    <string name="pin_shortcut_label">Otvori %1$s</string>
     <string name="player_stop">zaustavi</string>
     <string name="player_toggle">uključi/isključi</string>
     <string name="power_save_check_dialog_message">Onemogućivanje provjere uštede energije može rezultirati otpremanjem datoteka pri niskoj razini napunjenosti baterije!</string>
