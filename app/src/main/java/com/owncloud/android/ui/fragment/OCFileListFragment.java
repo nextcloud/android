@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2018-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
@@ -593,7 +594,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void scanDocUploadFromApp() {
         requireActivity().startActivityForResult(
             mFairScanIntent,
-            FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS);
+            FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME);
     }
 
     @Override
