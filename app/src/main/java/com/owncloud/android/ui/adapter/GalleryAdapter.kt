@@ -353,20 +353,20 @@ class GalleryAdapter(
     }
 
     /**
-     * Extract the month timestamp from a folder date in the path (YYYY/MM or YYYY/MM/DD).
-     * Returns null if no folder date is found.
+     * Extract folder date from path (YYYY/MM or YYYY/MM/DD).
+     * @return timestamp or null if no folder date found
      */
-    private fun extractFolderDateMonth(path: String?): Long? {
+    private fun extractFolderDate(path: String?): Long? {
         if (path == null) return null
         val matcher = FOLDER_DATE_PATTERN.matcher(path)
         if (matcher.find()) {
             val year = matcher.group(1)?.toIntOrNull() ?: return null
             val month = matcher.group(2)?.toIntOrNull() ?: return null
-            // month in Calendar is 0-based
+            val day = matcher.group(3)?.toIntOrNull() ?: 1
             return Calendar.getInstance().apply {
                 set(Calendar.YEAR, year)
                 set(Calendar.MONTH, month - 1)
-                set(Calendar.DAY_OF_MONTH, 1)
+                set(Calendar.DAY_OF_MONTH, day)
                 set(Calendar.HOUR_OF_DAY, 0)
                 set(Calendar.MINUTE, 0)
                 set(Calendar.SECOND, 0)
@@ -381,7 +381,7 @@ class GalleryAdapter(
      * otherwise fall back to modification timestamp month.
      */
     private fun getGroupingDate(file: OCFile): Long {
-        return extractFolderDateMonth(file.remotePath) ?: firstOfMonth(file.modificationTimestamp)
+        return firstOfMonth(extractFolderDate(file.remotePath) ?: file.modificationTimestamp)
     }
 
     private fun List<OCFile>.toGalleryItems(): List<GalleryItems> {
@@ -389,15 +389,16 @@ class GalleryAdapter(
 
         return groupBy { getGroupingDate(it) }
             .map { (date, filesList) ->
-                // Sort files within group: those with folder-date first (by folder date desc),
-                // then by modification timestamp desc
+                // Sort files within group: by folder day desc, then by modification timestamp desc
                 val sortedFiles = filesList.sortedWith { a, b ->
-                    val aFolderDate = extractFolderDateMonth(a.remotePath)
-                    val bFolderDate = extractFolderDateMonth(b.remotePath)
+                    val aFolderDate = extractFolderDate(a.remotePath)
+                    val bFolderDate = extractFolderDate(b.remotePath)
                     when {
                         aFolderDate != null && bFolderDate != null -> {
-                            // Both have folder dates - compare by modification timestamp within same month
-                            b.modificationTimestamp.compareTo(a.modificationTimestamp)
+                            // Both have folder dates - compare by folder day first (desc)
+                            val dayCompare = bFolderDate.compareTo(aFolderDate)
+                            if (dayCompare != 0) dayCompare
+                            else b.modificationTimestamp.compareTo(a.modificationTimestamp)
                         }
                         aFolderDate != null -> -1 // a has folder date, comes first
                         bFolderDate != null -> 1  // b has folder date, comes first
