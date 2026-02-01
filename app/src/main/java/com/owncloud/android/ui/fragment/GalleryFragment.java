@@ -379,7 +379,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                     // Almost reached the end, continue to load new photos
                     endDate = lastItemTimestamp;
                     this.setPhotoSearchQueryRunning(true);
-                        runGallerySearchTask();
+                    runGallerySearchTask();
                 }
             }
         }
