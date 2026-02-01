@@ -166,24 +166,6 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             }
         });
 
-        // Log sorted results with folder-date info
-        if (BuildConfig.DEBUG) {
-            Log_OC.d(this, "=== SORTED localFiles (by folder-date then timestamp) ===");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-            for (OCFile localFile : localFiles) {
-                String path = localFile.getRemotePath();
-                int[] ymd = extractYmdFromPath(path);
-                String folderDateStr = (ymd != null)
-                    ? String.format(Locale.US, "%04d/%02d/%02d", ymd[0], ymd[1], ymd[2])
-                    : "NO_FOLDER_DATE";
-                Log_OC.d(this,
-                         "sorted file: folderDate=" + folderDateStr
-                             + " modified=" + dateFormat.format(new Date(localFile.getModificationTimestamp()))
-                             + " path=" + path);
-            }
-            Log_OC.d(this, "=== END SORTED localFiles ===");
-        }
-
         Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(null, localFiles);
 
         long filesAdded = 0, filesUpdated = 0, unchangedFiles = 0;
