@@ -849,6 +849,7 @@
     <string name="set_message">设置消息</string>
     <string name="set_note">设置备注</string>
     <string name="set_online_status">在线状态</string>
+    <string name="set_online_status_bottom_sheet_error_message">无法设置状态！</string>
     <string name="set_picture_as">将图片用作</string>
     <string name="setup_e2e">在端对端加密期间，你将接收一个随机12字助记字串，您需要这个字符串才能在其它设备上开放您的文件。这将只会存储在该设备上，并可以在此画面中再次展示。请记在安全的地方！</string>
     <string name="share">共享</string>
