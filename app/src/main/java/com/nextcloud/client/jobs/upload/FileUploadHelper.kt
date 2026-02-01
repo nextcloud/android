@@ -18,12 +18,10 @@ import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
-import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.activeUploadFileOperations
+import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.utils.extensions.getUploadIds
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -75,7 +73,6 @@ class FileUploadHelper {
     companion object {
         private val TAG = FileUploadWorker::class.java.simpleName
 
-        @Suppress("MagicNumber")
         const val MAX_FILE_COUNT = 500
 
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
@@ -500,6 +497,7 @@ class FileUploadHelper {
     fun showFileUploadLimitMessage(activity: Activity) {
         val message = activity.resources.getQuantityString(
             R.plurals.file_upload_limit_message,
+            MAX_FILE_COUNT,
             MAX_FILE_COUNT
         )
         DisplayUtils.showSnackMessage(activity, message)

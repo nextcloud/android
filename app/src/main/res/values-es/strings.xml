@@ -810,6 +810,7 @@
     <string name="set_message">Establecer mensaje</string>
     <string name="set_note">Establecer nota</string>
     <string name="set_online_status">Estado en línea</string>
+    <string name="set_online_status_bottom_sheet_error_message">¡Fallo al establecer estado!</string>
     <string name="set_picture_as">Usar imagen como</string>
     <string name="setup_e2e">Durante la configuración del cifrado de extremo a extremo, recibirá un mnemónico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto solo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor anótelo en un lugar seguro!</string>
     <string name="share">Compartir</string>

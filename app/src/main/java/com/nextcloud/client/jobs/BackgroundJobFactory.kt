@@ -25,9 +25,9 @@ import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
 import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
-import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.client.logger.Logger
@@ -182,7 +182,8 @@ class BackgroundJobFactory @Inject constructor(
         syncedFolderProvider = syncedFolderProvider,
         backgroundJobManager = backgroundJobManager.get(),
         repository = FileSystemRepository(dao = database.fileSystemDao(), context),
-        viewThemeUtils = viewThemeUtils.get()
+        viewThemeUtils = viewThemeUtils.get(),
+        localBroadcastManager = localBroadcastManager.get()
     )
 
     private fun createOfflineSyncWork(context: Context, params: WorkerParameters): OfflineSyncWork = OfflineSyncWork(
@@ -240,7 +241,6 @@ class BackgroundJobFactory @Inject constructor(
             backgroundJobManager.get(),
             preferences,
             context,
-            UploadNotificationManager(context, viewThemeUtils.get(), Random.nextInt()),
             params
         )
 

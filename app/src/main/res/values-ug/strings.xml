@@ -837,6 +837,7 @@
     <string name="set_message">ئۇچۇر بەلگىلە</string>
     <string name="set_note">خاتىرىنى بېكىت</string>
     <string name="set_online_status">توردىكى ھالىتى</string>
+    <string name="set_online_status_bottom_sheet_error_message">ھالەتنى بەلگىلەش مەغلۇپ بولدى!</string>
     <string name="set_picture_as">رەسىمنى ئىشلىتىڭ</string>
     <string name="setup_e2e">ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى تەڭشەش جەريانىدا ، ئىختىيارى 12 سۆزلۈك mnemonic تاپشۇرۇۋالىسىز ، بۇ ھۆججەتلەرنى باشقا ئۈسكۈنىلەردە ئېچىشىڭىز كېرەك. بۇ پەقەت بۇ ئۈسكۈنىدە ساقلىنىدۇ ، بۇ ئېكراندا قايتا كۆرسەتكىلى بولىدۇ. ئۇنى بىخەتەر ئورۇنغا خاتىرىلەڭ!</string>
     <string name="share">ھەمبەھىرلەش</string>

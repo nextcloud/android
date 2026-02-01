@@ -48,14 +48,17 @@
     <string name="assistant_output_generation_warning_text">Zde zobrazený výstup je vytvořen AI. Vždy si informace ověřujte.</string>
     <string name="assistant_screen_chat_create_error">Nepodařilo se odeslat zprávu</string>
     <string name="assistant_screen_chat_fetch_error">Nepodařilo se získat zprávy chatu</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Zpět na stránku asistenta</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Opravdu chcete tuto úlohu smazat?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Smazat úkol</string>
     <string name="assistant_screen_empty_content_description">Zkuste poslat zprávu pro rozproudění konverzace.</string>
     <string name="assistant_screen_empty_content_title">Zdravím! Jak vám mohu pomoci?</string>
     <string name="assistant_screen_send_message">Poslat zprávu</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">Otevřít seznam konverzací</string>
     <string name="assistant_screen_task_create_fail_message">Při vytváření úlohy se vyskytla chyba</string>
     <string name="assistant_screen_task_create_success_message">Úkol vytvořen</string>
     <string name="assistant_screen_task_delete_fail_message">Při mazání úlohy se vyskytla chyba</string>
+    <string name="assistant_screen_task_delete_success_message">Úkol smazán</string>
     <string name="assistant_screen_task_list_empty_warning">Seznam úkolů je prázdný. Zkontrolujte nastavení aplikace Asistent.</string>
     <string name="assistant_screen_task_list_error_state_message">Nedaří se získat seznam úloh – zkontrolujte připojení k Internetu.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Smazat úlohu</string>
@@ -68,6 +71,7 @@
     <string name="assistant_task_status_running">spuštěné</string>
     <string name="assistant_task_status_scheduled">naplánováno</string>
     <string name="assistant_task_status_successful">úspěšné</string>
+    <string name="assistant_task_status_text">Stav úkolu: %1$s</string>
     <string name="assistant_task_status_unknown">neznámý</string>
     <string name="assistant_thinking">Přemýšlení…</string>
     <string name="associated_account_not_found">Související účet nenalezen!</string>
@@ -404,7 +408,7 @@
     <string name="failed_to_create_conflict_dialog">Nepodařilo se vytvořit dialog o konfliktu</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
-    <string name="failed_to_start_action">Selhalo spuštění akce!</string>
+    <string name="failed_to_start_action">Spuštění akce se nezdařilo!</string>
     <string name="failed_to_start_editor">Editor se nepodařilo spustit</string>
     <string name="failed_update_ui">Nepodařilo se aktualizovat uživatelské rozhraní</string>
     <string name="favorite">Přidat do oblíbených</string>
@@ -502,6 +506,7 @@
     <string name="folder_download_counter">%1$d z %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Při synchronizování složky %s došlo k chybě</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Nedostatek prostoru na disku – synchronizace zrušena</string>
+    <string name="folder_download_success_notification_title">%s složka synchronizována</string>
     <string name="folder_download_worker_ticker_id">Synchronizování …</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
     <string name="folder_name_empty">Název složky je třeba vyplnit</string>
@@ -844,6 +849,7 @@
     <string name="set_message">Nastavit zprávu</string>
     <string name="set_note">Nastavit poznámku</string>
     <string name="set_online_status">Stav online</string>
+    <string name="set_online_status_bottom_sheet_error_message">Nepodařilo se nastavit stav!</string>
     <string name="set_picture_as">Použít obrázek jako</string>
     <string name="setup_e2e">V průběhu nastavování šifrování mezi koncovými body obdržíte náhodnou 12 slovnou mnemotechnickou frázi, které bude zapotřebí pro otevírání souborů na ostatních zařízeních. Ta bude uložena pouze na tomto zařízení a je možné ji na této obrazovce znovu zobrazit. Prosím poznamenejte si jí na bezpečné místo!</string>
     <string name="share">Nasdílet</string>
@@ -970,7 +976,7 @@
     <string name="sync">Synchronizovat</string>
     <string name="sync_anyway">Synchronizovat i tak</string>
     <string name="sync_conflict_notification_action_title">Vyřešit konflikty</string>
-    <string name="sync_conflict_notification_description">Detekovány konflikty s nahráváním souborů. Otevřít nastavení nahrávání a vyřešit je.</string>
+    <string name="sync_conflict_notification_description">Zjištěny konflikty s nahráváním souborů. Otevřete nastavení nahrávání a vyřešte je.</string>
     <string name="sync_conflict_notification_title">Konflikty při nahrávání souborů</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
     <string name="sync_current_folder_was_removed">Složka %1$s už neexistuje</string>

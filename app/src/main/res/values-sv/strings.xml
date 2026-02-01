@@ -835,6 +835,7 @@
     <string name="set_message">Ange meddelande</string>
     <string name="set_note">Ange anteckning</string>
     <string name="set_online_status">Online-status</string>
+    <string name="set_online_status_bottom_sheet_error_message">Kunde inte sätta status!</string>
     <string name="set_picture_as">Använd bild som</string>
     <string name="setup_e2e">Under inställningen av end-to-end-kryptering kommer du att få en slumpmässig lista med 12 krypteringsord, som du behöver för att öppna dina filer på andra enheter. Orden kommer endast att lagras på den här enheten och kan visas igen på den här skärmen. Vänligen notera krypteringsorden på ett säkert ställe!</string>
     <string name="share">Dela</string>

@@ -849,6 +849,7 @@
     <string name="set_message">設定訊息</string>
     <string name="set_note">設定備註</string>
     <string name="set_online_status">線上狀態</string>
+    <string name="set_online_status_bottom_sheet_error_message">無法設定狀態！</string>
     <string name="set_picture_as">使用圖片作為</string>
     <string name="setup_e2e">在設置端對端加密過程中，您會收到隨機的 12 字記憶密語，您需要有這段密語才能在其他裝置上開啟檔案。這只會儲存在此裝置上，之後可以在此畫面中再次顯示。請將密語寫下來，妥善存放在安全的地方！</string>
     <string name="share">分享</string>

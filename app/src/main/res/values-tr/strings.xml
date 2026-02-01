@@ -841,6 +841,7 @@
     <string name="set_message">İletiyi ayarla</string>
     <string name="set_note">Notu ayarla</string>
     <string name="set_online_status">Çevrim içi durumu</string>
+    <string name="set_online_status_bottom_sheet_error_message">Durum ayarlanamadı!</string>
     <string name="set_picture_as">Görsel şunun için kullanılsın</string>
     <string name="setup_e2e">Uçtan uca şifrelemenin kurulumu sırasında, dosyalarınızı diğer aygıtlarda açabilmeniz için rastgele 12 sözcükten oluşan bir parola alacaksınız. Bu parola yalnızca bu aygıta kaydedilir ve bu sayfadan yeniden görülebilir. Lütfen güvenli bir yere not edin!</string>
     <string name="share">Paylaş</string>
