@@ -110,8 +110,6 @@ class OCFileListDelegate(
         // Cancel previous job for this ImageView
         GalleryImageGenerationJob.cancelPreviousJob(imageView)
 
-        android.util.Log.d("GALLERY_BIND", "bindGalleryRow STARTED for: ${file.remotePath} (fileId=${file.fileId})")
-
         imageView.tag = file.fileId
 
         // set placeholder before async job
