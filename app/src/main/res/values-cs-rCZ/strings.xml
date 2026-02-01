@@ -48,6 +48,7 @@
     <string name="assistant_output_generation_warning_text">Zde zobrazený výstup je vytvořen AI. Vždy si informace ověřujte.</string>
     <string name="assistant_screen_chat_create_error">Nepodařilo se odeslat zprávu</string>
     <string name="assistant_screen_chat_fetch_error">Nepodařilo se získat zprávy chatu</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Zpět na stránku asistenta</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Opravdu chcete tuto úlohu smazat?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Smazat úkol</string>
     <string name="assistant_screen_empty_content_description">Zkuste poslat zprávu pro rozproudění konverzace.</string>
