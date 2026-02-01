@@ -236,6 +236,9 @@ kapt.useBuildCache = true
 
 ksp.arg("room.schemaLocation", "$projectDir/schemas")
 
+// Configure KSP for test variants
+ksp.arg("dagger.moduleName", project.name)
+
 kotlin.compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
 
 spotless.kotlin {
@@ -436,6 +439,7 @@ dependencies {
     implementation(libs.dagger.android.support)
     ksp(libs.dagger.compiler)
     ksp(libs.dagger.processor)
+    kspAndroidTest(libs.dagger.compiler)
     // endregion
 
     // region Crypto
