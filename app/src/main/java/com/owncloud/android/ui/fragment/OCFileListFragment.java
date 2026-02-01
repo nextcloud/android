@@ -584,7 +584,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void scanDocUploadFromApp() {
         requireActivity().startActivityForResult(
             mFairScanIntent,
-            FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS);
+            FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME);
     }
 
     @Override
