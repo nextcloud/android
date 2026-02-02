@@ -9,7 +9,6 @@ package com.nextcloud.client.jobs.upload
 
 import android.app.Notification
 import android.content.Context
-import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
@@ -39,7 +38,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
-import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
@@ -146,7 +144,8 @@ class FileUploadWorker(
         try {
             val notificationTitle = notificationManager.currentOperationTitle
                 ?: context.getString(R.string.foreground_service_upload)
-            val notification = createNotification(notificationTitle)
+
+            val notification = notificationManager.createSilentNotification(notificationTitle, R.drawable.uploads)
             updateForegroundInfo(notification)
         } catch (e: Exception) {
             // Continue without foreground service - uploads will still work
@@ -157,8 +156,7 @@ class FileUploadWorker(
     override suspend fun getForegroundInfo(): ForegroundInfo {
         val notificationTitle = notificationManager.currentOperationTitle
             ?: context.getString(R.string.foreground_service_upload)
-        val notification = createNotification(notificationTitle)
-
+        val notification = notificationManager.createSilentNotification(notificationTitle, R.drawable.uploads)
         return ForegroundServiceHelper.createWorkerForegroundInfo(
             notificationId,
             notification,
@@ -174,18 +172,6 @@ class FileUploadWorker(
         )
         setForeground(foregroundInfo)
     }
-
-    private fun createNotification(title: String): Notification =
-        NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
-            .setContentTitle(title)
-            .setSmallIcon(R.drawable.uploads)
-            .setOngoing(true)
-            .setSound(null)
-            .setVibrate(null)
-            .setOnlyAlertOnce(true)
-            .setPriority(NotificationCompat.PRIORITY_LOW)
-            .setSilent(true)
-            .build()
 
     @Suppress("ReturnCount", "LongMethod", "DEPRECATION")
     private suspend fun uploadFiles(): Result = withContext(Dispatchers.IO) {

@@ -700,14 +700,14 @@ internal class BackgroundJobManagerImpl(
                 .build()
 
             val dataBuilder = Data.Builder()
-                .putString(FileUploadWorker.ACCOUNT, user.accountName)
-                .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
+                .putString(AlbumFileUploadWorker.ACCOUNT, user.accountName)
+                .putInt(AlbumFileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
                 .putString(AlbumFileUploadWorker.ALBUM_NAME, albumName)
 
             val workRequests = batches.mapIndexed { index, batch ->
                 dataBuilder
-                    .putLongArray(FileUploadWorker.UPLOAD_IDS, batch.toLongArray())
-                    .putInt(FileUploadWorker.CURRENT_BATCH_INDEX, index)
+                    .putLongArray(AlbumFileUploadWorker.UPLOAD_IDS, batch.toLongArray())
+                    .putInt(AlbumFileUploadWorker.CURRENT_BATCH_INDEX, index)
 
                 oneTimeRequestBuilder(AlbumFileUploadWorker::class, ALBUM_JOB_FILES_UPLOAD, user)
                     .addTag(tag)

@@ -89,4 +89,17 @@ open class WorkerNotificationManager(
             notification,
             ForegroundServiceType.DataSync
         )
+
+    fun createSilentNotification(title: String, iconId: Int): Notification {
+        return notificationBuilder
+            .setContentTitle(title)
+            .setSmallIcon(iconId)
+            .setOngoing(true)
+            .setSound(null)
+            .setVibrate(null)
+            .setOnlyAlertOnce(true)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setSilent(true)
+            .build()
+    }
 }
