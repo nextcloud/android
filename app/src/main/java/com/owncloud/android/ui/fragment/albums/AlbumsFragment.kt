@@ -22,7 +22,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuHost
@@ -33,20 +32,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
-import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.network.ClientFactory
-import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AlbumsFragmentBinding
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 import com.owncloud.android.lib.resources.albums.ReadAlbumsRemoteOperation
+import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.albums.AlbumFragmentInterface
 import com.owncloud.android.ui.adapter.albums.AlbumsAdapter
@@ -56,7 +52,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.Optional
 import javax.inject.Inject
 
 class AlbumsFragment :
@@ -65,8 +60,6 @@ class AlbumsFragment :
     Injectable {
 
     private var adapter: AlbumsAdapter? = null
-    private var client: OwnCloudClient? = null
-    private var optionalUser: Optional<User>? = null
 
     private lateinit var binding: AlbumsFragmentBinding
 
@@ -77,9 +70,6 @@ class AlbumsFragment :
     lateinit var accountManager: UserAccountManager
 
     @Inject
-    lateinit var clientFactory: ClientFactory
-
-    @Inject
     lateinit var preferences: AppPreferences
 
     @Inject
@@ -88,7 +78,7 @@ class AlbumsFragment :
     @Inject
     lateinit var throttler: Throttler
 
-    private var mContainerActivity: FileFragment.ContainerActivity? = null
+    private var containerActivity: FileFragment.ContainerActivity? = null
 
     private var isGridView = true
     private var maxColumnSize = 2
@@ -98,7 +88,7 @@ class AlbumsFragment :
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
-            mContainerActivity = context as FileFragment.ContainerActivity
+            containerActivity = context as FileFragment.ContainerActivity
         } catch (e: ClassCastException) {
             throw IllegalArgumentException(
                 context.toString() + " must implement " +
@@ -115,7 +105,7 @@ class AlbumsFragment :
     }
 
     override fun onDetach() {
-        mContainerActivity = null
+        containerActivity = null
         super.onDetach()
     }
 
@@ -135,7 +125,6 @@ class AlbumsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        optionalUser = Optional.of(accountManager.user)
         showAppBar()
         createMenu()
         setupContainingList()
@@ -218,11 +207,9 @@ class AlbumsFragment :
         }
     }
 
-    @VisibleForTesting
     fun populateList(albums: List<PhotoAlbumEntry>?) {
-        if (requireActivity() is FileDisplayActivity) {
-            (requireActivity() as FileDisplayActivity).setMainFabVisible(false)
-        }
+        Log_OC.d(TAG, "loading album list item size: " + albums?.size)
+        (activity as? FileDisplayActivity)?.setMainFabVisible(false)
         initializeAdapter()
         adapter?.setAlbumItems(albums)
     }
@@ -231,21 +218,31 @@ class AlbumsFragment :
         binding.swipeContainingList.isRefreshing = true
         initializeAdapter()
         updateEmptyView(false)
+        readAlbums()
+    }
+
+    private fun readAlbums() {
+        val activity = activity ?: return
+
         lifecycleScope.launch(Dispatchers.IO) {
-            val albumsRemoteOperation = ReadAlbumsRemoteOperation()
-            val result = client?.let { albumsRemoteOperation.execute(it) }
-            withContext(Dispatchers.Main) {
-                if (result?.isSuccess == true && result.resultData != null) {
-                    if (result.resultData.isEmpty()) {
+            if (activity is BaseActivity) {
+                val client = activity.clientRepository.getOwncloudClient()
+                val operation = ReadAlbumsRemoteOperation()
+                val result = operation.execute(client)
+
+                withContext(Dispatchers.Main) {
+                    if (result?.isSuccess == true && result.resultData != null) {
+                        if (result.resultData.isEmpty()) {
+                            updateEmptyView(true)
+                        }
+                        populateList(result.resultData)
+                    } else {
+                        Log_OC.d(TAG, "read album operation failed")
                         updateEmptyView(true)
                     }
-                    populateList(result.resultData)
-                } else {
-                    Log_OC.d(TAG, result?.logMessage)
-                    // show error
-                    updateEmptyView(true)
+
+                    hideRefreshLayoutLoader()
                 }
-                hideRefreshLayoutLoader()
             }
         }
     }
@@ -254,23 +251,11 @@ class AlbumsFragment :
         binding.swipeContainingList.isRefreshing = false
     }
 
-    private fun initializeClient() {
-        if (client == null && optionalUser?.isPresent == true) {
-            try {
-                val user = optionalUser?.get()
-                client = clientFactory.create(user)
-            } catch (e: CreationException) {
-                Log_OC.e(TAG, "Error initializing client", e)
-            }
-        }
-    }
-
     private fun initializeAdapter() {
-        initializeClient()
         if (adapter == null) {
             adapter = AlbumsAdapter(
                 requireContext(),
-                mContainerActivity?.storageManager,
+                containerActivity?.storageManager,
                 accountManager.user,
                 this,
                 syncedFolderProvider,
@@ -279,6 +264,7 @@ class AlbumsFragment :
                 isGridView
             )
         }
+
         binding.listRoot.adapter = adapter
 
         // Restore scroll state
@@ -297,9 +283,10 @@ class AlbumsFragment :
         if (isSelectionMode) {
             binding.root.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.bg_default, null))
         }
-        if (requireActivity() is FileDisplayActivity) {
-            (requireActivity() as FileDisplayActivity).setupToolbar()
-            (requireActivity() as FileDisplayActivity).supportActionBar?.let { actionBar ->
+
+        (activity as? FileDisplayActivity)?.run {
+            setupToolbar()
+            supportActionBar?.let { actionBar ->
                 viewThemeUtils.files.themeActionBar(
                     requireContext(),
                     actionBar,
@@ -307,11 +294,11 @@ class AlbumsFragment :
                     isMenu = true
                 )
             }
-            (requireActivity() as FileDisplayActivity).showSortListGroup(false)
-            (requireActivity() as FileDisplayActivity).setMainFabVisible(false)
+            showSortListGroup(false)
+            setMainFabVisible(false)
 
             // clear the subtitle while navigating to any other screen from Media screen
-            (requireActivity() as FileDisplayActivity).clearToolbarSubtitle()
+            clearToolbarSubtitle()
         }
     }
 
