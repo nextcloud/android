@@ -101,10 +101,10 @@ class EditImageActivity :
                 localPaths = arrayOf(it),
                 remotePaths = arrayOf(file.parentRemotePath + File.separator + newFileName),
                 createRemoteFolder = false,
-                createdBy = UploadFileOperation.CREATED_BY_USER,
+                creationType = UploadFileOperation.CREATED_BY_USER,
                 requiresWifi = false,
                 requiresCharging = false,
-                nameCollisionPolicy = NameCollisionPolicy.RENAME,
+                collisionPolicy = NameCollisionPolicy.RENAME,
                 localBehavior = FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
             )
             FileUploadHelper().uploadNewFiles(data)

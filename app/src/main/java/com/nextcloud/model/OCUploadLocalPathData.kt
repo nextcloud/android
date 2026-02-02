@@ -20,10 +20,10 @@ data class OCUploadLocalPathData(
     val remotePaths: Array<String>,
     val localBehavior: Int,
     val createRemoteFolder: Boolean,
-    val createdBy: Int,
+    val creationType: Int,
     val requiresWifi: Boolean,
     val requiresCharging: Boolean,
-    val nameCollisionPolicy: NameCollisionPolicy,
+    val collisionPolicy: NameCollisionPolicy,
 ) {
     companion object {
         fun forDocument(
@@ -87,13 +87,45 @@ data class OCUploadLocalPathData(
 
     fun toOCUpload(localPath: String, index: Int): OCUpload {
         return OCUpload(localPath, remotePaths[index], user.accountName).apply {
-            this.nameCollisionPolicy = nameCollisionPolicy
+            nameCollisionPolicy = collisionPolicy
             isUseWifiOnly = requiresWifi
             isWhileChargingOnly = requiresCharging
             uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
-            this.createdBy = createdBy
+            createdBy = creationType
             isCreateRemoteFolder = createRemoteFolder
             localAction = localBehavior
         }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as OCUploadLocalPathData
+
+        if (localBehavior != other.localBehavior) return false
+        if (createRemoteFolder != other.createRemoteFolder) return false
+        if (creationType != other.creationType) return false
+        if (requiresWifi != other.requiresWifi) return false
+        if (requiresCharging != other.requiresCharging) return false
+        if (user != other.user) return false
+        if (!localPaths.contentEquals(other.localPaths)) return false
+        if (!remotePaths.contentEquals(other.remotePaths)) return false
+        if (collisionPolicy != other.collisionPolicy) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = localBehavior
+        result = 31 * result + createRemoteFolder.hashCode()
+        result = 31 * result + creationType
+        result = 31 * result + requiresWifi.hashCode()
+        result = 31 * result + requiresCharging.hashCode()
+        result = 31 * result + user.hashCode()
+        result = 31 * result + localPaths.contentHashCode()
+        result = 31 * result + remotePaths.contentHashCode()
+        result = 31 * result + collisionPolicy.hashCode()
+        return result
     }
 }
