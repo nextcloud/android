@@ -285,6 +285,7 @@
     <string name="etm_transfer_type">Prijenos</string>
     <string name="etm_transfer_type_download">Preuzmi</string>
     <string name="etm_transfer_type_upload">Otpremi</string>
+    <string name="external_shares">Vanjska dijeljenja</string>
     <string name="fab_label">Dodaj ili otpremi</string>
     <string name="failed_to_download">Neuspješno prosljeđivanje datoteke upravitelju preuzimanja</string>
     <string name="failed_to_print">Ispisivanje datoteke nije uspjelo</string>
@@ -385,6 +386,7 @@
     <string name="instant_upload_existing">Također otpremi postojeće datoteke</string>
     <string name="instant_upload_on_charging">Otpremanje samo tijekom punjenja</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">Unutarnja dijeljenja</string>
     <string name="invalid_url">Neispravan URL</string>
     <string name="invisible">Nevidljiva</string>
     <string name="label_empty">Oznaka ne može biti prazna</string>
@@ -599,9 +601,12 @@
     <string name="set_as">Postavi kao</string>
     <string name="set_picture_as">Koristi sliku kao</string>
     <string name="share">Dijeli</string>
+    <string name="share_allow_download_and_sync_permission">Dopusti preuzimanje i sinkronizaciju</string>
     <string name="share_create_permission">Stvori</string>
+    <string name="share_custom_permission">Prilagođena dopuštenja</string>
     <string name="share_delete_permission">Izbriši</string>
     <string name="share_dialog_title">Dijeljenje</string>
+    <string name="share_download_limit">Postavi ograničenje preuzimanja</string>
     <string name="share_edit_permission">Uredi</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_file">Dijeli %1$s</string>
@@ -621,6 +626,7 @@
     <string name="share_no_expiration_date_label">Postavi datum isteka</string>
     <string name="share_no_password_title">Postavi zaporku</string>
     <string name="share_permission_can_edit">Uređivanje moguće</string>
+    <string name="share_permission_file_request">Zahtjev za datotekom</string>
     <string name="share_permission_view_only">Samo za gledanje</string>
     <string name="share_re_share_permission">Dijeli</string>
     <string name="share_read_permission">Čitaj</string>
