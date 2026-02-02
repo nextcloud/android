@@ -9,7 +9,6 @@ package com.nextcloud.client.jobs.upload
 
 import android.app.Notification
 import android.content.Context
-import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
@@ -19,16 +18,9 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
-import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.ACCOUNT
-import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.CURRENT_BATCH_INDEX
-import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION
-import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.TOTAL_UPLOAD_SIZE
-import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.UPLOAD_IDS
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateObserver
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
 import com.nextcloud.utils.extensions.updateStatus
@@ -47,7 +39,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.operations.albums.CopyFileToAlbumOperation
-import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
@@ -82,6 +73,11 @@ class AlbumFileUploadWorker(
         private const val BATCH_SIZE = 100
 
         const val ALBUM_NAME = "album_name"
+
+        const val ACCOUNT = "data_account"
+        const val UPLOAD_IDS = "uploads_ids"
+        const val CURRENT_BATCH_INDEX = "batch_index"
+        const val TOTAL_UPLOAD_SIZE = "total_upload_size"
     }
 
     private var lastPercent = 0
@@ -115,7 +111,8 @@ class AlbumFileUploadWorker(
         try {
             val notificationTitle = notificationManager.currentOperationTitle
                 ?: context.getString(R.string.foreground_service_upload)
-            val notification = createNotification(notificationTitle)
+
+            val notification = notificationManager.createSilentNotification(notificationTitle, R.drawable.uploads)
             updateForegroundInfo(notification)
         } catch (e: Exception) {
             // Continue without foreground service - uploads will still work
@@ -126,7 +123,7 @@ class AlbumFileUploadWorker(
     override suspend fun getForegroundInfo(): ForegroundInfo {
         val notificationTitle = notificationManager.currentOperationTitle
             ?: context.getString(R.string.foreground_service_upload)
-        val notification = createNotification(notificationTitle)
+        val notification = notificationManager.createSilentNotification(notificationTitle, R.drawable.uploads)
 
         return ForegroundServiceHelper.createWorkerForegroundInfo(
             notificationId,
@@ -143,18 +140,6 @@ class AlbumFileUploadWorker(
         )
         setForeground(foregroundInfo)
     }
-
-    private fun createNotification(title: String): Notification =
-        NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
-            .setContentTitle(title)
-            .setSmallIcon(R.drawable.uploads)
-            .setOngoing(true)
-            .setSound(null)
-            .setVibrate(null)
-            .setOnlyAlertOnce(true)
-            .setPriority(NotificationCompat.PRIORITY_LOW)
-            .setSilent(true)
-            .build()
 
     @Suppress("ReturnCount", "LongMethod", "DEPRECATION")
     private suspend fun uploadFiles(): Result = withContext(Dispatchers.IO) {
@@ -354,11 +339,7 @@ class AlbumFileUploadWorker(
                         result,
                         onSameFileConflict = {
                             withContext(Dispatchers.Main) {
-                                val showSameFileAlreadyExistsNotification =
-                                    inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
-                                if (showSameFileAlreadyExistsNotification) {
-                                    notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
-                                }
+                                notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
                             }
                         }
                     )
