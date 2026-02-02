@@ -315,7 +315,7 @@ class AlbumFileUploadWorker(
             fileUploadBroadcastManager.sendStarted(operation, context)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
-            result = RemoteOperationResult<Any?>(e)
+            result = RemoteOperationResult(e)
         } finally {
             if (!isStopped) {
                 uploadsStorageManager.updateDatabaseUploadResult(result, operation)
