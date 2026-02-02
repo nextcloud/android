@@ -26,7 +26,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.account.UserAccountManager
@@ -36,7 +35,6 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.searchFilesByName
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.typedActivity
@@ -48,7 +46,6 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.NextcloudVersion
-import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.UnifiedSearchItemViewHolder
 import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
@@ -63,9 +60,6 @@ import com.owncloud.android.ui.unifiedsearch.filterOutHiddenFiles
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -210,7 +204,7 @@ class UnifiedSearchFragment :
             // Because this fragment is opened with TextView onClick on the previous screen
             maxWidth = Integer.MAX_VALUE
             viewThemeUtils.androidx.themeToolbarSearchView(this)
-            setQuery(vm.query.value ?: initialQuery, false)
+            setQuery(getLastSearchQuery(), false)
             setOnQueryTextListener(this@UnifiedSearchFragment)
             isIconified = false
             clearFocus()
@@ -360,47 +354,42 @@ class UnifiedSearchFragment :
                 if (showFileActions) {
                     fda.showFileActions(file)
                 } else {
-                    fda.showFile(file, "")
+                    fda.showFile(file, "", getLastSearchQuery())
                 }
             }
         }
     }
 
+    private fun getLastSearchQuery(): String? = vm.query.value ?: initialQuery
+
     private fun setupAdapter() {
         val syncedFolderProvider = SyncedFolderProvider(requireContext().contentResolver, appPreferences, clock)
         val gridLayoutManager = GridLayoutManager(requireContext(), 1)
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            val client =
-                getTypedActivity(FileActivity::class.java)?.clientRepository?.getNextcloudClient() ?: return@launch
+        adapter = UnifiedSearchListAdapter(
+            this@UnifiedSearchFragment,
+            supportsOpeningCalendarContactsLocally(),
+            storageManager,
+            this@UnifiedSearchFragment,
+            this@UnifiedSearchFragment,
+            currentAccountProvider.user,
+            requireContext(),
+            viewThemeUtils,
+            appPreferences,
+            syncedFolderProvider,
+            this@UnifiedSearchFragment
+        )
 
-            withContext(Dispatchers.Main) {
-                adapter = UnifiedSearchListAdapter(
-                    supportsOpeningCalendarContactsLocally(),
-                    storageManager,
-                    this@UnifiedSearchFragment,
-                    this@UnifiedSearchFragment,
-                    currentAccountProvider.user,
-                    requireContext(),
-                    viewThemeUtils,
-                    appPreferences,
-                    syncedFolderProvider,
-                    client,
-                    this@UnifiedSearchFragment
-                )
+        adapter.shouldShowFooters(true)
+        adapter.setLayoutManager(gridLayoutManager)
+        binding.listRoot.layoutManager = gridLayoutManager
+        binding.listRoot.adapter = adapter
+        searchInCurrentDirectory(initialQuery ?: "")
 
-                adapter.shouldShowFooters(true)
-                adapter.setLayoutManager(gridLayoutManager)
-                binding.listRoot.layoutManager = gridLayoutManager
-                binding.listRoot.adapter = adapter
-                searchInCurrentDirectory(initialQuery ?: "")
-
-                setUpViewModel()
-                if (!initialQuery.isNullOrEmpty()) {
-                    vm.setQuery(initialQuery!!)
-                    vm.initialQuery()
-                }
-            }
+        setUpViewModel()
+        if (!initialQuery.isNullOrEmpty()) {
+            vm.setQuery(initialQuery!!)
+            vm.initialQuery()
         }
     }
 
