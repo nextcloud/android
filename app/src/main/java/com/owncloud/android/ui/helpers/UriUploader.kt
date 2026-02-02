@@ -16,10 +16,9 @@ import android.net.Uri
 import android.os.Parcelable
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.model.OCUploadLocalPathData
 import com.owncloud.android.R
-import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener
@@ -156,34 +155,14 @@ class UriUploader(
      * @param remotePaths    Absolute paths in the current OC account to set to the uploaded file.
      */
     private fun requestUpload(localPaths: Array<String>, remotePaths: Array<String>) {
-        if (albumName.isNullOrEmpty()) {
-            FileUploadHelper.instance().uploadNewFiles(
-                user,
-                localPaths,
-                remotePaths,
-                mBehaviour,
-                // do not create parent folder if not existent
-                false,
-                UploadFileOperation.CREATED_BY_USER,
-                requiresWifi = false,
-                requiresCharging = false,
-                nameCollisionPolicy = NameCollisionPolicy.ASK_USER
-            )
-        } else {
-            FileUploadHelper.instance().uploadAndCopyNewFilesForAlbum(
-                user,
-                localPaths,
-                remotePaths,
-                albumName!!,
-                mBehaviour,
-                // create parent folder if not existent
-                true,
-                UploadFileOperation.CREATED_BY_USER,
-                requiresWifi = false,
-                requiresCharging = false,
-                // use RENAME policy to make sure all files are uploaded
-                nameCollisionPolicy = NameCollisionPolicy.RENAME
-            )
+        FileUploadHelper.instance().run {
+            if (albumName.isNullOrEmpty()) {
+                val data = OCUploadLocalPathData.forFile(user, localPaths, remotePaths, mBehaviour)
+                uploadNewFiles(data)
+            } else {
+                val data = OCUploadLocalPathData.forAlbum(user, localPaths, remotePaths, mBehaviour)
+                uploadAndCopyNewFilesForAlbum(data, albumName!!)
+            }
         }
     }
 

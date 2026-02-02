@@ -141,7 +141,6 @@ interface BackgroundJobManager {
         user: User,
         uploadIds: LongArray,
         albumName: String,
-        showSameFileAlreadyExistsNotification: Boolean
     )
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
     fun cancelFilesUploadJob(user: User)

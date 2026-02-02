@@ -689,7 +689,6 @@ internal class BackgroundJobManagerImpl(
         user: User,
         uploadIds: LongArray,
         albumName: String,
-        showSameFileAlreadyExistsNotification: Boolean
     ) {
         defaultDispatcherScope.launch {
             val batchSize = FileUploadHelper.MAX_FILE_COUNT
@@ -701,10 +700,6 @@ internal class BackgroundJobManagerImpl(
                 .build()
 
             val dataBuilder = Data.Builder()
-                .putBoolean(
-                    FileUploadWorker.SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION,
-                    showSameFileAlreadyExistsNotification
-                )
                 .putString(FileUploadWorker.ACCOUNT, user.accountName)
                 .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
                 .putString(AlbumFileUploadWorker.ALBUM_NAME, albumName)

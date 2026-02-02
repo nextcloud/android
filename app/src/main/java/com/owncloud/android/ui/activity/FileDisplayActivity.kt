@@ -73,6 +73,7 @@ import com.nextcloud.client.media.PlayerServiceConnection
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerState.FileDownloadCompleted
 import com.nextcloud.model.WorkerState.FileDownloadStarted
@@ -93,7 +94,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
-import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -112,7 +112,6 @@ import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.RenameFileOperation
 import com.owncloud.android.operations.SynchronizeFileOperation
-import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.operations.albums.CopyFileToAlbumOperation
 import com.owncloud.android.syncadapter.FileSyncAdapter
 import com.owncloud.android.ui.CompletionCallback
@@ -1100,19 +1099,15 @@ class FileDisplayActivity :
                         return@isNetworkAndServerAvailable
                     }
 
-                    FileUploadHelper.Companion.instance().uploadNewFiles(
-                        user.orElseThrow(
-                            Supplier { RuntimeException() }
-                        ),
+                    val data = OCUploadLocalPathData.forFile(
+                        user.orElseThrow(Supplier { RuntimeException() }),
                         filePaths,
                         decryptedRemotePaths,
                         behaviour,
-                        true,
-                        UploadFileOperation.CREATED_BY_USER,
-                        false,
-                        false,
-                        NameCollisionPolicy.ASK_USER
+                        createRemoteFolder = true
                     )
+
+                    FileUploadHelper.instance().uploadNewFiles(data)
                 } else {
                     fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths)
                 }

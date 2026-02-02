@@ -24,11 +24,10 @@ import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.model.OCUploadLocalPathData;
 import com.owncloud.android.R;
-import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
@@ -187,29 +186,11 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             }
 
             if (TextUtils.isEmpty(mAlbumName)) {
-                FileUploadHelper.Companion.instance().uploadNewFiles(
-                    user,
-                    localPaths,
-                    currentRemotePaths,
-                    behaviour,
-                    false,      // do not create parent folder if not existent
-                    UploadFileOperation.CREATED_BY_USER,
-                    false,
-                    false,
-                    NameCollisionPolicy.ASK_USER);
+                final var data = OCUploadLocalPathData.Companion.forFile(user, localPaths, currentRemotePaths, behaviour);
+                FileUploadHelper.Companion.instance().uploadNewFiles(data);
             } else {
-                FileUploadHelper.Companion.instance().uploadAndCopyNewFilesForAlbum(
-                    user,
-                    localPaths,
-                    currentRemotePaths,
-                    mAlbumName,
-                    behaviour,
-                    true,      // create parent folder if not existent
-                    UploadFileOperation.CREATED_BY_USER,
-                    false,
-                    false,
-                    // use RENAME policy to make sure all files are uploaded
-                    NameCollisionPolicy.RENAME);
+                final var data = OCUploadLocalPathData.Companion.forAlbum(user, localPaths, currentRemotePaths,behaviour);
+                FileUploadHelper.Companion.instance().uploadAndCopyNewFilesForAlbum(data, mAlbumName);
             }
 
             result = ResultCode.OK;
