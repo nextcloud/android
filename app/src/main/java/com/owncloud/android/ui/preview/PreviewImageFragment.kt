@@ -53,6 +53,7 @@ import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.extensions.clickWithDebounce
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.typedActivity
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageFragmentBinding
@@ -403,31 +404,28 @@ class PreviewImageFragment :
     }
 
     private fun fetchFileMetaDataIfAbsent(ocFile: OCFile) {
-        if (requireActivity() is FileActivity) {
-            (requireActivity() as FileActivity).showLoadingDialog(getString(R.string.wait_a_moment))
-        }
+        typedActivity<FileActivity>()?.showLoadingDialog(getString(R.string.wait_a_moment))
+        val context = context ?: return
+
         lifecycleScope.launch(Dispatchers.IO) {
-            val fetchRemoteFileOperation =
-                FetchRemoteFileOperation(
-                    requireActivity(),
-                    accountManager.user,
-                    ocFile,
-                    removeFileFromDb = true,
-                    storageManager = containerActivity.storageManager
-                )
-            val result = fetchRemoteFileOperation.execute(requireActivity())
+            val operation = FetchRemoteFileOperation(
+                context,
+                accountManager.user,
+                ocFile,
+                removeFileFromDb = true,
+                storageManager = containerActivity.storageManager
+            )
+            val result = operation.execute(context)
+
             withContext(Dispatchers.Main) {
-                if (requireActivity() is FileActivity) {
-                    (requireActivity() as FileActivity).dismissLoadingDialog()
-                }
+                typedActivity<FileActivity>()?.dismissLoadingDialog()
+
                 if (result?.isSuccess == true && result.resultData != null) {
                     file = result.resultData as OCFile
-
                     onOverflowClick(isManualClick = true)
                 } else {
                     Log_OC.d(TAG, result?.logMessage)
-                    // show error
-                    DisplayUtils.showSnackMessage(binding.root, result.getLogMessage(requireContext()))
+                    DisplayUtils.showSnackMessage(binding.root, result.getLogMessage(context))
                 }
             }
         }
