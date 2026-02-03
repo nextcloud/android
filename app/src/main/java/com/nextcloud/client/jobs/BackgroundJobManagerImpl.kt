@@ -685,11 +685,7 @@ internal class BackgroundJobManagerImpl(
      *                  within the worker.
      * @param albumName Album on which selected files should be copy after upload
      */
-    override fun startAlbumFilesUploadJob(
-        user: User,
-        uploadIds: LongArray,
-        albumName: String,
-    ) {
+    override fun startAlbumFilesUploadJob(user: User, uploadIds: LongArray, albumName: String) {
         defaultDispatcherScope.launch {
             val batchSize = FileUploadHelper.MAX_FILE_COUNT
             val batches = uploadIds.toList().chunked(batchSize)

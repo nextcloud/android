@@ -99,8 +99,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         super.onCreate(savedInstanceState);
         searchFragment = true;
 
-        if (getArguments() != null) {
-            isFromAlbum = getArguments().getBoolean(AlbumsPickerActivity.Companion.getEXTRA_FROM_ALBUM(), false);
+        final var arguments = getArguments();
+        if (arguments != null) {
+            isFromAlbum = arguments.getBoolean(AlbumsPickerActivity.Companion.getEXTRA_FROM_ALBUM(), false);
         }
 
         // only show menu when not opened from media picker

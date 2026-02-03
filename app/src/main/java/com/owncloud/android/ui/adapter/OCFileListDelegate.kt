@@ -200,7 +200,8 @@ class OCFileListDelegate(
             shimmerThumbnail,
             preferences,
             viewThemeUtils,
-            syncFolderProvider
+            syncFolderProvider,
+            false
         )
     }
 

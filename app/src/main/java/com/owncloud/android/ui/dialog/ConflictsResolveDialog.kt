@@ -232,7 +232,8 @@ class ConflictsResolveDialog :
             null,
             syncedFolderProvider.preferences,
             viewThemeUtils,
-            syncedFolderProvider
+            syncedFolderProvider,
+            false
         )
     }
 

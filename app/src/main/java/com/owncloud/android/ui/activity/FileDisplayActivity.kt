@@ -2907,6 +2907,7 @@ class FileDisplayActivity :
         initFile()
     }
 
+    @Suppress("LongMethod")
     private fun initFile() {
         val userOpt = user
         if (userOpt.isEmpty) {

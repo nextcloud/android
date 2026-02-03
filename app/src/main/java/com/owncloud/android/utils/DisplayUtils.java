@@ -803,33 +803,6 @@ public final class DisplayUtils {
         return df.format(timestamp);
     }
 
-    // required to hide video icon overlay for albums
-    public static void setThumbnail(OCFile file,
-                                    ImageView thumbnailView,
-                                    User user,
-                                    FileDataStorageManager storageManager,
-                                    List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
-                                    boolean gridView,
-                                    Context context,
-                                    LoaderImageView shimmerThumbnail,
-                                    AppPreferences preferences,
-                                    ViewThemeUtils viewThemeUtils,
-                                    SyncedFolderProvider syncedFolderProvider
-                                   ) {
-        setThumbnail(file,
-                     thumbnailView,
-                     user,
-                     storageManager,
-                     asyncTasks,
-                     gridView,
-                     context,
-                     shimmerThumbnail,
-                     preferences,
-                     viewThemeUtils,
-                     syncedFolderProvider,
-                     false);
-    }
-
     /**
      * Sets a thumbnail for a offline file, file or folder with various display options and states.
      * <p>

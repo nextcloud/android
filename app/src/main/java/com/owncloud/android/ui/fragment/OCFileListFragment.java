@@ -873,10 +873,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             final Set<OCFile> checkedFiles = getCommonAdapter().getCheckedItems();
             if (item.getItemId() == R.id.custom_menu_placeholder_item) {
                 openActionsMenu(getCommonAdapter().getFilesCount(), checkedFiles, false);
-            } else if (item.getItemId() == R.id.add_to_album){
-                if (OCFileListFragment.this instanceof GalleryFragment galleryFragment) {
-                    galleryFragment.addImagesToAlbum(checkedFiles);
-                }
+            } else if (item.getItemId() == R.id.add_to_album && OCFileListFragment.this instanceof GalleryFragment galleryFragment) {
+                galleryFragment.addImagesToAlbum(checkedFiles);
             }
             return true;
         }
@@ -2207,7 +2205,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         // to hide the fab if user is on Albums Fragment
-        if (requireActivity() instanceof FileDisplayActivity fda
+        if (getActivity() instanceof FileDisplayActivity fda
             && (fda.isAlbumsFragment()
             || fda.isAlbumItemsFragment())) {
             mFabMain.hide();
