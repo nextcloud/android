@@ -59,7 +59,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private boolean photoSearchQueryRunning = false;
     private AsyncTask<Void, Void, GallerySearchTask.Result> photoSearchTask;
     private long endDate;
-    private int limit = 150;
+    // Use 0 for unlimited - fetch all metadata at once; thumbnails load lazily
+    private int limit = 0;
     private GalleryAdapter mAdapter;
 
     private static final int SELECT_LOCATION_REQUEST_CODE = 212;
