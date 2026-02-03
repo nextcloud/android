@@ -137,8 +137,6 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             }
         }
 
-        // Sorting for display is handled by GalleryAdapter.
-        // Just build a map for sync comparison.
         Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(null, localFiles);
 
         long filesAdded = 0, filesUpdated = 0, unchangedFiles = 0;
