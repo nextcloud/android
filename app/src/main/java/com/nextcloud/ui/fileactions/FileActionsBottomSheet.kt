@@ -152,7 +152,8 @@ class FileActionsBottomSheet :
                 binding.thumbnailLayout.thumbnailShimmer,
                 syncedFolderProvider.preferences,
                 viewThemeUtils,
-                syncedFolderProvider
+                syncedFolderProvider,
+                false
             )
         }
     }

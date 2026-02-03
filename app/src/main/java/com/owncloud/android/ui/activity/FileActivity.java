@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2021 TSI-mc
+ * SPDX-FileCopyrightText: 2021-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2017-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
@@ -88,10 +88,11 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.events.DialogEvent;
 import com.owncloud.android.ui.events.DialogEventType;
-import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
 import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
@@ -839,7 +840,21 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     public void refreshList() {
-        final Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (isAlbumsFragment()) {
+            getFragment(AlbumsFragment.Companion.getTAG(), AlbumsFragment.class)
+                .ifPresent(AlbumsFragment::refreshAlbums);
+            return;
+        }
+
+        if (isAlbumItemsFragment()) {
+            getFragment(AlbumItemsFragment.Companion.getTAG(), AlbumItemsFragment.class)
+                .ifPresent(AlbumItemsFragment::refreshData);
+            return;
+        }
+
+        final var fragment =
+            getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+
         if (fragment instanceof OCFileListFragment listFragment) {
             listFragment.onRefresh();
         } else if (fragment instanceof FileDetailFragment detailFragment) {

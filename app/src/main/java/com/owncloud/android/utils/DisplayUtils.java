@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 ZetaTom
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
- * SPDX-FileCopyrightText: 2021 TSI-mc
+ * SPDX-FileCopyrightText: 2021-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2020 Infomaniak Network SA
  * SPDX-FileCopyrightText: 2020 Joris Bodin <joris.bodin@infomaniak.com>
  * SPDX-FileCopyrightText: 2020 Kilian Périsset <kilian.perisset@infomaniak.com>
@@ -843,7 +843,8 @@ public final class DisplayUtils {
                                     LoaderImageView shimmerThumbnail,
                                     AppPreferences preferences,
                                     ViewThemeUtils viewThemeUtils,
-                                    SyncedFolderProvider syncedFolderProvider) {
+                                    SyncedFolderProvider syncedFolderProvider,
+                                    boolean hideVideoOverlay) {
         if (file == null || thumbnailView == null || context == null) {
             return;
         }
@@ -859,16 +860,16 @@ public final class DisplayUtils {
         }
 
         if (file.getRemoteId() == null || !file.isPreviewAvailable()) {
-            setThumbnailFirstTimeForFile(file, thumbnailView, storageManager, asyncTasks, gridView, shimmerThumbnail, user, preferences, context, viewThemeUtils);
+            setThumbnailFirstTimeForFile(file, thumbnailView, storageManager, asyncTasks, gridView, shimmerThumbnail, user, preferences, context, viewThemeUtils, hideVideoOverlay);
             return;
         }
 
-        setThumbnailFromCache(file, thumbnailView, storageManager, asyncTasks, gridView, shimmerThumbnail, user, preferences, context, viewThemeUtils);
+        setThumbnailFromCache(file, thumbnailView, storageManager, asyncTasks, gridView, shimmerThumbnail, user, preferences, context, viewThemeUtils, hideVideoOverlay);
     }
 
-    private static void setThumbnailFirstTimeForFile(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
+    private static void setThumbnailFirstTimeForFile(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils, boolean hideVideoOverlay) {
         if (file.getRemoteId() != null) {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils, hideVideoOverlay);
             return;
         }
 
@@ -910,10 +911,10 @@ public final class DisplayUtils {
         thumbnailView.setImageDrawable(fileIcon);
     }
 
-    private static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
+    private static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils, boolean hideVideoOverlay) {
         final var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
         if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils, hideVideoOverlay);
             setThumbnailBackgroundForPNGFileIfNeeded(file, context, thumbnailView);
             return;
         }
@@ -921,8 +922,12 @@ public final class DisplayUtils {
         stopShimmer(shimmerThumbnail, thumbnailView);
 
         if (MimeTypeUtil.isVideo(file)) {
-            final var withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);
-            thumbnailView.setImageBitmap(withOverlay);
+            if (hideVideoOverlay) {
+                thumbnailView.setImageBitmap(thumbnail);
+            } else {
+                final var withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);
+                thumbnailView.setImageBitmap(withOverlay);
+            }
         } else {
             BitmapUtils.setRoundedBitmapAccordingToListType(gridView, thumbnail, thumbnailView);
         }
@@ -946,7 +951,8 @@ public final class DisplayUtils {
                                              Context context,
                                              LoaderImageView shimmerThumbnail,
                                              AppPreferences preferences,
-                                             ViewThemeUtils viewThemeUtils) {
+                                             ViewThemeUtils viewThemeUtils,
+                                             boolean hideVideoOverlay) {
         if (!ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
             return;
         }
@@ -977,7 +983,8 @@ public final class DisplayUtils {
                                                                    user,
                                                                    asyncTasks,
                                                                    gridView,
-                                                                   file.getRemoteId());
+                                                                   file.getRemoteId(),
+                                                                   hideVideoOverlay);
             Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                              file.getFileName(),
                                                              context,
