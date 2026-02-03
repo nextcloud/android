@@ -35,6 +35,11 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
             return Result.failure()
         }
 
+        if (user.isAnonymous) {
+            Log_OC.w(TAG, "user is anonymous cannot start metadata worker")
+            return Result.failure()
+        }
+
         val storageManager = FileDataStorageManager(user, context.contentResolver)
         val currentDir = storageManager.getFileByDecryptedRemotePath(filePath)
         if (currentDir == null) {
