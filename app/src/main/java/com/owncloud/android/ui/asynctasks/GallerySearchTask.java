@@ -25,10 +25,13 @@ import com.owncloud.android.utils.FileStorageUtils;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.Result> {
 
@@ -137,6 +140,32 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             }
         }
 
+        // Sort by folder-date (YYYY/MM or YYYY/MM/DD in path) first, then by timestamp.
+        // Files with folder-dates come first (newest folder → newest files).
+        Collections.sort(localFiles, (a, b) -> {
+            String pa = a.getRemotePath() == null ? "" : a.getRemotePath();
+            String pb = b.getRemotePath() == null ? "" : b.getRemotePath();
+
+            int[] da = extractYmdFromPath(pa);
+            int[] db = extractYmdFromPath(pb);
+
+            if (da != null && db != null) {
+                // compare folder date descending (newest folder first)
+                if (da[0] != db[0]) return Integer.compare(db[0], da[0]); // year
+                if (da[1] != db[1]) return Integer.compare(db[1], da[1]); // month
+                if (da[2] != db[2]) return Integer.compare(db[2], da[2]); // day (0 if absent)
+                // same folder -> newest file first
+                return Long.compare(b.getModificationTimestamp(), a.getModificationTimestamp());
+            } else if (da != null) {
+                return -1; // a has folder-date => comes before b
+            } else if (db != null) {
+                return 1;  // b has folder-date => comes before a
+            } else {
+                // neither has folder-date => newest first by timestamp
+                return Long.compare(b.getModificationTimestamp(), a.getModificationTimestamp());
+            }
+        });
+
         Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(null, localFiles);
 
         long filesAdded = 0, filesUpdated = 0, unchangedFiles = 0;
@@ -208,6 +237,23 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         }
 
         return filesAdded <= 0 && filesUpdated <= 0 && filesDeleted <= 0;
+    }
+
+    /**
+     * Extract YYYY/MM or YYYY/MM/DD from a file path.
+     * @return int[]{year, month, day} where day=0 if only YYYY/MM present, or null if no match.
+     */
+    private static final Pattern FOLDER_DATE_PATTERN = Pattern.compile("/(\\d{4})/(\\d{1,2})(?:/(\\d{1,2}))?/");
+
+    private static int[] extractYmdFromPath(String path) {
+        Matcher m = FOLDER_DATE_PATTERN.matcher(path);
+        if (m.find()) {
+            int y = Integer.parseInt(m.group(1));
+            int mo = Integer.parseInt(m.group(2));
+            int d = m.group(3) != null ? Integer.parseInt(m.group(3)) : 0;
+            return new int[]{y, mo, d};
+        }
+        return null;
     }
 
     public static class Result {
