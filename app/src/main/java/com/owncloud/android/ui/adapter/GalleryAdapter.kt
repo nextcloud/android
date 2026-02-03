@@ -61,33 +61,49 @@ class GalleryAdapter(
     companion object {
         private const val TAG = "GalleryAdapter"
         private const val FIRST_DAY_OF_MONTH = 1
-        // Pattern to extract YYYY/MM or YYYY/MM/DD from file path (requires zero-padded month/day)
-        private val FOLDER_DATE_PATTERN: Pattern = Pattern.compile("/(\\d{4})/(\\d{2})(?:/(\\d{2}))?/")
+        private const val FIRST_MONTH = 1
+        private const val YEAR_GROUP = 1
+        private const val MONTH_GROUP = 2
+        private const val DAY_GROUP = 3
+
+        // Pattern to extract YYYY, YYYY/MM, or YYYY/MM/DD from file path (requires zero-padded month/day)
+        private val FOLDER_DATE_PATTERN: Pattern = Pattern.compile("/(\\d{4})(?:/(\\d{2}))?(?:/(\\d{2}))?/")
 
         /**
-         * Extract folder date from path (YYYY/MM or YYYY/MM/DD).
-         * @return timestamp or null if no folder date found
+         * Extract folder date from path (YYYY, YYYY/MM, or YYYY/MM/DD).
+         * Uses LocalDate for calendar-aware validation (leap years, days per month).
+         * Invalid month/day values fall back to defaults. Future dates are rejected.
+         * @return timestamp or null if no folder date found or date is in the future
          */
         @VisibleForTesting
+        @Suppress("TooGenericExceptionCaught")
         fun extractFolderDate(path: String?): Long? {
-            val matcher = path?.let { FOLDER_DATE_PATTERN.matcher(it) } ?: return null
-            if (!matcher.find()) return null
+            return try {
+                val matcher = path?.let { FOLDER_DATE_PATTERN.matcher(it) }
+                if (matcher?.find() != true) return null
+                val year = matcher.group(YEAR_GROUP)?.toIntOrNull() ?: return null
+                val rawMonth = matcher.group(MONTH_GROUP)?.toIntOrNull()
+                val rawDay = matcher.group(DAY_GROUP)?.toIntOrNull()
 
-            val year = matcher.group(1)?.toIntOrNull()
-            val month = matcher.group(2)?.toIntOrNull()
-            val day = matcher.group(3)?.toIntOrNull() ?: FIRST_DAY_OF_MONTH
+                val month = rawMonth ?: FIRST_MONTH
+                val day = rawDay ?: FIRST_DAY_OF_MONTH
 
-            return if (year != null && month != null) {
-                Calendar.getInstance().apply {
-                    set(Calendar.YEAR, year)
-                    set(Calendar.MONTH, month - 1)
-                    set(Calendar.DAY_OF_MONTH, day)
-                    set(Calendar.HOUR_OF_DAY, 0)
-                    set(Calendar.MINUTE, 0)
-                    set(Calendar.SECOND, 0)
-                    set(Calendar.MILLISECOND, 0)
-                }.timeInMillis
-            } else {
+                val localDate = tryCreateDate(year, month, day)
+                    ?: tryCreateDate(year, month, FIRST_DAY_OF_MONTH)
+                    ?: tryCreateDate(year, FIRST_MONTH, FIRST_DAY_OF_MONTH)
+
+                if (localDate?.isAfter(java.time.LocalDate.now()) == true) return null
+
+                localDate?.atStartOfDay(java.time.ZoneId.systemDefault())?.toInstant()?.toEpochMilli()
+            } catch (e: Exception) {
+                null
+            }
+        }
+
+        private fun tryCreateDate(year: Int, month: Int, day: Int): java.time.LocalDate? {
+            return try {
+                java.time.LocalDate.of(year, month, day)
+            } catch (e: java.time.DateTimeException) {
                 null
             }
         }
