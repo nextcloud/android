@@ -691,14 +691,20 @@ public abstract class DrawerActivity extends ToolbarActivity
         transaction.commit();
     }
 
+    public <T extends Fragment> Optional<T> getFragment(String tag, Class<T> clazz) {
+        return Optional.ofNullable(getSupportFragmentManager().findFragmentByTag(tag))
+            .filter(clazz::isInstance)
+            .map(clazz::cast);
+    }
+
     public boolean isAlbumsFragment() {
-        Fragment albumsFragment = getSupportFragmentManager().findFragmentByTag(AlbumsFragment.Companion.getTAG());
-        return albumsFragment instanceof AlbumsFragment && albumsFragment.isVisible();
+        final var fragment = getFragment(AlbumsFragment.Companion.getTAG(), AlbumsFragment.class);
+        return fragment.map(AlbumsFragment::isVisible).orElse(false);
     }
 
     public boolean isAlbumItemsFragment() {
-        Fragment albumItemsFragment = getSupportFragmentManager().findFragmentByTag(AlbumItemsFragment.Companion.getTAG());
-        return albumItemsFragment instanceof AlbumItemsFragment && albumItemsFragment.isVisible();
+        final var fragment = getFragment(AlbumItemsFragment.Companion.getTAG(), AlbumItemsFragment.class);
+        return fragment.map(AlbumItemsFragment::isVisible).orElse(false);
     }
 
     private void startAssistantScreen() {
