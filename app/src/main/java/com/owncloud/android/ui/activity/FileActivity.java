@@ -109,7 +109,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -841,18 +840,25 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     public void refreshList() {
-        // first check for album fragments
         if (isAlbumsFragment()) {
-            ((AlbumsFragment) Objects.requireNonNull(getSupportFragmentManager().findFragmentByTag(AlbumsFragment.Companion.getTAG()))).refreshAlbums();
-        } else if (isAlbumItemsFragment()) {
-            ((AlbumItemsFragment) Objects.requireNonNull(getSupportFragmentManager().findFragmentByTag(AlbumItemsFragment.Companion.getTAG()))).refreshData();
-        } else {
-            final Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
-            if (fragment instanceof OCFileListFragment listFragment) {
-                listFragment.onRefresh();
-            } else if (fragment instanceof FileDetailFragment detailFragment) {
-                detailFragment.goBackToOCFileListFragment();
-            }
+            getFragment(AlbumsFragment.Companion.getTAG(), AlbumsFragment.class)
+                .ifPresent(AlbumsFragment::refreshAlbums);
+            return;
+        }
+
+        if (isAlbumItemsFragment()) {
+            getFragment(AlbumItemsFragment.Companion.getTAG(), AlbumItemsFragment.class)
+                .ifPresent(AlbumItemsFragment::refreshData);
+            return;
+        }
+
+        final var fragment =
+            getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+
+        if (fragment instanceof OCFileListFragment listFragment) {
+            listFragment.onRefresh();
+        } else if (fragment instanceof FileDetailFragment detailFragment) {
+            detailFragment.goBackToOCFileListFragment();
         }
     }
 
