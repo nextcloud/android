@@ -23,15 +23,11 @@ data class OCUploadLocalPathData(
     val creationType: Int,
     val requiresWifi: Boolean,
     val requiresCharging: Boolean,
-    val collisionPolicy: NameCollisionPolicy,
+    val collisionPolicy: NameCollisionPolicy
 ) {
     companion object {
-        fun forDocument(
-            user: User,
-            localPaths: Array<String>,
-            remotePaths: Array<String>
-        ): OCUploadLocalPathData {
-            return OCUploadLocalPathData(
+        fun forDocument(user: User, localPaths: Array<String>, remotePaths: Array<String>): OCUploadLocalPathData =
+            OCUploadLocalPathData(
                 user,
                 localPaths,
                 remotePaths,
@@ -42,26 +38,23 @@ data class OCUploadLocalPathData(
                 requiresCharging = false,
                 NameCollisionPolicy.ASK_USER
             )
-        }
 
         fun forAlbum(
             user: User,
             localPaths: Array<String>,
             remotePaths: Array<String>,
             localBehavior: Int
-        ): OCUploadLocalPathData {
-            return OCUploadLocalPathData(
-                user,
-                localPaths,
-                remotePaths,
-                localBehavior,
-                createRemoteFolder = true,
-                UploadFileOperation.CREATED_BY_USER,
-                requiresWifi = false,
-                requiresCharging = false,
-                NameCollisionPolicy.RENAME
-            )
-        }
+        ): OCUploadLocalPathData = OCUploadLocalPathData(
+            user,
+            localPaths,
+            remotePaths,
+            localBehavior,
+            createRemoteFolder = true,
+            UploadFileOperation.CREATED_BY_USER,
+            requiresWifi = false,
+            requiresCharging = false,
+            NameCollisionPolicy.RENAME
+        )
 
         @JvmOverloads
         fun forFile(
@@ -70,23 +63,21 @@ data class OCUploadLocalPathData(
             remotePaths: Array<String>,
             localBehavior: Int,
             createRemoteFolder: Boolean = false
-        ): OCUploadLocalPathData {
-            return OCUploadLocalPathData(
-                user,
-                localPaths,
-                remotePaths,
-                localBehavior,
-                createRemoteFolder = createRemoteFolder,
-                UploadFileOperation.CREATED_BY_USER,
-                requiresWifi = false,
-                requiresCharging = false,
-                NameCollisionPolicy.ASK_USER
-            )
-        }
+        ): OCUploadLocalPathData = OCUploadLocalPathData(
+            user,
+            localPaths,
+            remotePaths,
+            localBehavior,
+            createRemoteFolder = createRemoteFolder,
+            UploadFileOperation.CREATED_BY_USER,
+            requiresWifi = false,
+            requiresCharging = false,
+            NameCollisionPolicy.ASK_USER
+        )
     }
 
-    fun toOCUpload(localPath: String, index: Int): OCUpload {
-        return OCUpload(localPath, remotePaths[index], user.accountName).apply {
+    fun toOCUpload(localPath: String, index: Int): OCUpload =
+        OCUpload(localPath, remotePaths[index], user.accountName).apply {
             nameCollisionPolicy = collisionPolicy
             isUseWifiOnly = requiresWifi
             isWhileChargingOnly = requiresCharging
@@ -95,7 +86,6 @@ data class OCUploadLocalPathData(
             isCreateRemoteFolder = createRemoteFolder
             localAction = localBehavior
         }
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

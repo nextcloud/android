@@ -233,16 +233,21 @@ class FileUploadHelper {
     @JvmOverloads
     fun uploadNewFiles(data: OCUploadLocalPathData, showSameFileAlreadyExistsNotification: Boolean = true) {
         val uploads = getUploadsFromLocalPaths(data)
-        backgroundJobManager.startFilesUploadJob(data.user, uploads.getUploadIds(), showSameFileAlreadyExistsNotification)
+        backgroundJobManager.startFilesUploadJob(
+            data.user,
+            uploads.getUploadIds(),
+            showSameFileAlreadyExistsNotification
+        )
     }
 
-    private fun getUploadsFromLocalPaths(data: OCUploadLocalPathData): List<OCUpload> {
-        return data.localPaths.mapIndexed { index, localPath ->
-            val result = data.toOCUpload(localPath, index)
-            val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
-            result.uploadId = id
-            result
-        }
+    private fun getUploadsFromLocalPaths(data: OCUploadLocalPathData): List<OCUpload> = data.localPaths.mapIndexed {
+            index,
+            localPath
+        ->
+        val result = data.toOCUpload(localPath, index)
+        val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
+        result.uploadId = id
+        result
     }
 
     @Suppress("LongParameterList")

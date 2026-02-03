@@ -549,24 +549,22 @@ class PreviewMediaActivity :
     private fun fetchFileMetaDataIfAbsent(ocFile: OCFile) {
         showLoadingDialog(getString(R.string.wait_a_moment))
         lifecycleScope.launch(Dispatchers.IO) {
-            val fetchRemoteFileOperation =
-                FetchRemoteFileOperation(
-                    this@PreviewMediaActivity,
-                    accountManager.user,
-                    ocFile,
-                    removeFileFromDb = true,
-                    storageManager = storageManager
-                )
-            val result = fetchRemoteFileOperation.execute(this@PreviewMediaActivity)
+            val operation = FetchRemoteFileOperation(
+                this@PreviewMediaActivity,
+                accountManager.user,
+                ocFile,
+                removeFileFromDb = true,
+                storageManager = storageManager
+            )
+            val result = operation.execute(this@PreviewMediaActivity)
+
             withContext(Dispatchers.Main) {
                 dismissLoadingDialog()
                 if (result?.isSuccess == true && result.resultData != null) {
                     file = result.resultData as OCFile
-
                     onOverflowClick(isManualClick = true)
                 } else {
                     Log_OC.d(TAG, result?.logMessage)
-                    // show error
                     DisplayUtils.showSnackMessage(binding.root, result.getLogMessage(this@PreviewMediaActivity))
                 }
             }
