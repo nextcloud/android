@@ -33,7 +33,7 @@ interface CommonOCFileListAdapterInterface {
     fun removeCheckedFile(file: OCFile)
     fun notifyItemChanged(file: OCFile)
     fun getFilesCount(): Int
-    fun setMultiSelect(boolean: Boolean)
+    fun setMultiSelect(isMultiSelect: Boolean)
     fun clearCheckedItems()
     fun selectAll(value: Boolean)
 }
