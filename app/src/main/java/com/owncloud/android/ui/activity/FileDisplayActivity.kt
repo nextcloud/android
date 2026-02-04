@@ -1368,6 +1368,7 @@ class FileDisplayActivity :
         } else if (!ocFileListFragment.isSearchFragment && startFile == null) {
             ocFileListFragment.listDirectory(MainApp.isOnlyOnDevice())
             ocFileListFragment.registerFabListener()
+            updateActionBarTitleAndHomeButton(currentDir)
         } else {
             ocFileListFragment.listDirectory(startFile, false)
             updateActionBarTitleAndHomeButton(startFile)
