@@ -96,6 +96,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         }
 
         registerRefreshSearchEventReceiver();
+
     }
 
     private void registerRefreshSearchEventReceiver() {

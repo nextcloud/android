@@ -186,7 +186,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public static final String SEARCH_EVENT = "SEARCH_EVENT";
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
-    protected static final String KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE";
+    public static final String KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE";
 
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
     private static final String DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT";
@@ -309,7 +309,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void setSearchArgs(Bundle state) {
+    public void setSearchArgs(Bundle state) {
         SearchType argSearchType = NO_SEARCH;
         SearchEvent argSearchEvent = null;
 
@@ -386,7 +386,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log_OC.i(TAG, "onActivityCreated() start");
+        prepareOCFileList(savedInstanceState);
+        listDirectory(MainApp.isOnlyOnDevice());
+    }
 
+    public void prepareOCFileList(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_FILE, OCFile.class);
         }
@@ -442,7 +446,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (getActivity() instanceof FileDisplayActivity fda) {
             fda.updateActionBarTitleAndHomeButton(fda.getCurrentDir());
         }
-        listDirectory(MainApp.isOnlyOnDevice());
     }
 
     protected void setAdapter(Bundle args) {
@@ -1513,17 +1516,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             directory = getDirectoryForListDirectory(directory, storageManager);
             if (directory == null) {
-                Log_OC.d(TAG, "directory is null, no files, wait for sync");
+                Log_OC.e(TAG, "directory is null, no files, wait for sync");
                 return;
             }
 
             if (mLimitToMimeType == null) {
-                Log_OC.d(TAG, "mLimitToMimeType is null");
+                Log_OC.w(TAG, "mLimitToMimeType is null");
                 return;
             }
 
             if (mAdapter == null) {
-                Log_OC.d(TAG, "mAdapter is null");
+                Log_OC.e(TAG, "❗" + "oc file list adapter is null, cannot list directory" + "❗");
                 return;
             }
 
@@ -1778,12 +1781,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
+        Log_OC.d(TAG, "event bus --- change menu event triggered");
+
+        final var arguments = getArguments();
+        if (arguments != null) {
+            arguments.clear();
+        }
         resetSearchAttributes();
         resetMenuItems();
 
         if (getActivity() instanceof FileDisplayActivity fda) {
             fda.invalidateOptionsMenu();
             fda.getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
+            fda.setupHomeSearchToolbarWithSortAndListButtons();
             fda.updateActionBarTitleAndHomeButton(null);
         }
 
@@ -1861,6 +1871,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
 
             return;
+        }
+
+        final var activity = getActivity();
+        if (activity != null) {
+            activity.runOnUiThread(() -> {{
+                getAdapter().removeAllFiles();
+                setEmptyListMessage(EmptyListState.LOADING);
+            }});
         }
 
         prepareCurrentSearch(event);
@@ -2218,6 +2236,34 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    /**
+     * Returns the navigation drawer menu item corresponding to this fragment.
+     *
+     * <p>
+     * OCFileListFragment is the parent for GalleryFragment, SharedListFragment,
+     * and GroupfolderListFragment. It also internally handles listing favorites,
+     * shared files, or recently modified items via search events. This method
+     * checks the current fragment type and search state to give correct drawer menu ID.
+     * </p>
+     *
+     * @return the menu item ID to highlight in the navigation drawer
+     */
+    public int getMenuItemId() {
+        if (getClass() == GalleryFragment.class) {
+            return R.id.nav_gallery;
+        } else if (getClass() == SharedListFragment.class || isSearchEventShared() || currentSearchType == SHARED_FILTER) {
+            return R.id.nav_shared;
+        } else if (getClass() == GroupfolderListFragment.class || currentSearchType == SearchType.GROUPFOLDER) {
+            return R.id.nav_groupfolders;
+        } else if (isSearchEventFavorite() || currentSearchType == FAVORITE_SEARCH) {
+            return R.id.nav_favorites;
+        } else if (currentSearchType == RECENTLY_MODIFIED_SEARCH) {
+            return R.id.nav_recently_modified;
+        } else {
+            return R.id.nav_all_files;
+        }
+    }
+
     public boolean isEmpty() {
         return mAdapter == null || mAdapter.isEmpty();
     }
@@ -2244,7 +2290,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public boolean shouldNavigateBackToAllFiles() {
         return this instanceof GalleryFragment ||
             isSearchEventFavorite() ||
-            isSearchEventShared() ||
-            DrawerActivity.menuItemId == R.id.nav_favorites;
+            isSearchEventShared();
     }
 }

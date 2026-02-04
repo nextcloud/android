@@ -278,7 +278,18 @@ class FileDisplayActivity :
         observeWorkerState()
         startMetadataSyncForRoot()
         handleBackPress()
+        setupDrawer(menuItemId)
     }
+
+    /**
+     * Determines which navigation drawer item should be selected.
+     *
+     * Resolution order:
+     * 1) Global app state (static flags in MainApp nav_personal and nav_on_device)
+     * 2) Currently visible fragment (and its active child)
+     * 3) Fallback to All Files
+     */
+    override fun getMenuItemId(): Int = MainApp.getMenuItemId() ?: listOfFilesFragment?.menuItemId ?: R.id.nav_all_files
 
     private fun loadSavedInstanceState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
@@ -310,8 +321,6 @@ class FileDisplayActivity :
 
         // reset ui states when file display activity created/recrated
         listOfFilesFragment?.resetSearchAttributes()
-        menuItemId = R.id.nav_all_files
-        setNavigationViewItemChecked()
     }
 
     private fun initTaskRetainerFragment() {
@@ -390,7 +399,6 @@ class FileDisplayActivity :
             ) != null
         ) {
             switchToSearchFragment(savedInstanceState)
-            setupDrawer()
         } else {
             createMinFragments(savedInstanceState)
         }
@@ -565,7 +573,6 @@ class FileDisplayActivity :
 
             ALL_FILES == action -> {
                 Log_OC.d(this, "Switch to oc file fragment")
-                menuItemId = R.id.nav_all_files
 
                 // Replace only if the fragment is NOT exactly OCFileListFragment
                 // Using `is OCFileListFragment` would also match subclasses,
@@ -582,7 +589,6 @@ class FileDisplayActivity :
 
             LIST_GROUPFOLDERS == action -> {
                 Log_OC.d(this, "Switch to list groupfolders fragment")
-                menuItemId = R.id.nav_groupfolders
                 leftFragment = GroupfolderListFragment()
                 supportFragmentManager.executePendingTransactions()
             }
@@ -624,35 +630,27 @@ class FileDisplayActivity :
         when (searchEvent.searchType) {
             SearchRemoteOperation.SearchType.PHOTO_SEARCH -> {
                 Log_OC.d(this, "Switch to photo search fragment")
-                val bundle = Bundle().apply {
-                    putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
-                }
                 leftFragment = GalleryFragment().apply {
-                    arguments = bundle
+                    arguments = searchEvent.getBundle()
                 }
             }
 
             SearchRemoteOperation.SearchType.SHARED_FILTER -> {
                 Log_OC.d(this, "Switch to shared fragment")
-                val bundle = Bundle().apply {
-                    putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
-                }
                 leftFragment = SharedListFragment().apply {
-                    arguments = bundle
+                    arguments = searchEvent.getBundle()
                 }
             }
 
             else -> {
                 Log_OC.d(this, "Switch to oc file search fragment")
-                val bundle = Bundle().apply {
-                    putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
-                }
                 leftFragment = OCFileListFragment().apply {
-                    arguments = bundle
+                    arguments = searchEvent.getBundle()
                 }
             }
         }
 
+        listOfFilesFragment?.isSearchFragment = true
         listOfFilesFragment?.setCurrentSearchType(searchEvent)
     }
     // endregion
@@ -1264,7 +1262,6 @@ class FileDisplayActivity :
         }
 
         resetScrollingAndUpdateActionBar()
-        configureMenuItem()
         startMetadataSyncForCurrentDir()
     }
 
@@ -1330,6 +1327,12 @@ class FileDisplayActivity :
         Log_OC.v(TAG, "onResume() start")
 
         super.onResume()
+
+        if (ocFileListFragment?.isSearchFragment == true) {
+            ocFileListFragment?.setSearchArgs(ocFileListFragment?.arguments)
+        }
+        highlightNavigationViewItem(menuItemId)
+
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
             return
@@ -1346,6 +1349,9 @@ class FileDisplayActivity :
             return
         }
 
+        if (isToolbarStyleSearch) {
+            setupHomeSearchToolbarWithSortAndListButtons()
+        }
         val ocFileListFragment = leftFragment
         syncAndUpdateFolder(ignoreETag = true, ignoreFocus = true)
 
@@ -1360,14 +1366,12 @@ class FileDisplayActivity :
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView?.setQuery(searchQuery, false)
         } else if (!ocFileListFragment.isSearchFragment && startFile == null) {
-            updateListOfFilesFragment()
+            ocFileListFragment.listDirectory(MainApp.isOnlyOnDevice())
             ocFileListFragment.registerFabListener()
         } else {
             ocFileListFragment.listDirectory(startFile, false)
             updateActionBarTitleAndHomeButton(startFile)
         }
-
-        configureMenuItem()
 
         // show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this)
@@ -1385,21 +1389,6 @@ class FileDisplayActivity :
         intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
             ?: intent?.getStringExtra(EXTRA_FILE_REMOTE_PATH)
                 ?.let { fileDataStorageManager.getFileByDecryptedRemotePath(it) }
-
-    private fun checkAndSetMenuItemId() {
-        if (MainApp.isOnlyPersonFiles()) {
-            menuItemId = R.id.nav_personal_files
-        } else if (MainApp.isOnlyOnDevice()) {
-            menuItemId = R.id.nav_on_device
-        } else if (menuItemId == Menu.NONE) {
-            menuItemId = R.id.nav_all_files
-        }
-    }
-
-    fun configureMenuItem() {
-        checkAndSetMenuItemId()
-        setNavigationViewItemChecked()
-    }
 
     // region local broadcast manager receivers
     private fun registerReceivers() {
@@ -1820,7 +1809,7 @@ class FileDisplayActivity :
         val listOfFiles = this.listOfFilesFragment
         if (listOfFiles != null) { // should never be null, indeed
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
-            listOfFiles.listDirectory(root, MainApp.isOnlyOnDevice())
+            listOfFiles.resetSearchAttributes()
             file = listOfFiles.currentFile
             startSyncFolderOperation(root, false)
         }
@@ -2857,7 +2846,6 @@ class FileDisplayActivity :
         }
 
         setFile(file)
-        setupDrawer()
 
         val existingAccountName = existingUser.accountName
         mSwitchAccountButton.tag = existingAccountName
