@@ -9,6 +9,7 @@ package com.nextcloud.client.jobs.upload
 
 import android.app.PendingIntent
 import android.content.Context
+import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.utils.numberFormatter.NumberFormatter
 import com.owncloud.android.R
@@ -51,6 +52,10 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             setContentText(progressText)
             setOngoing(false)
             clearActions()
+            setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(context.getString(R.string.upload_notification_manager_content_intent_description))
+            )
             addAction(UploadBroadcastAction.PauseAndCancel(operation).pauseAction(context))
             addAction(UploadBroadcastAction.PauseAndCancel(operation).cancelAction(context))
             setContentIntent(startIntent)

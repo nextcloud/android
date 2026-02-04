@@ -607,6 +607,8 @@
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
     <string name="network_host_not_available">Could not complete operation. Server unavailable.</string>
 
+    <string name="upload_notification_manager_content_intent_description">You can remove or resume it from Uploads</string>
+
     <string name="forbidden_permissions">You are not permitted %s</string>
     <string name="forbidden_permissions_rename">to rename this file</string>
     <string name="forbidden_permissions_delete">to delete this file</string>
