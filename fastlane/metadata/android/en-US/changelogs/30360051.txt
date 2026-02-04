@@ -1,0 +1,9 @@
+## 3.36.0 RC1 (February 4, 2026)
+
+- Streamlined sharing flow and refined UI
+- Enhanced Nextcloud Assistant with chat and translation support
+- Bug fixes and performance improvements
+
+Minimum: NC 20 Server, Android 9 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/120
