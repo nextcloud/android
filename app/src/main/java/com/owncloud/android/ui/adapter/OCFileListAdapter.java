@@ -840,6 +840,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return;
         }
 
+        if (userId == null) {
+            return;
+        }
+
         helper.prepareFileList(directory,
                                adapterDataProvider,
                                onlyOnDevice,
