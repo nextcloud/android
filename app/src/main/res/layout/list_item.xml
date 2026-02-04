@@ -246,6 +246,7 @@
             android:paddingEnd="@dimen/list_item_share_right_margin"
             android:src="@drawable/ic_comment"
             android:visibility="gone"
+            app:tint="@color/text_color"
             tools:visibility="visible" />
 
         <ImageView
@@ -260,6 +261,7 @@
             android:paddingStart="@dimen/list_item_share_right_margin"
             android:paddingEnd="4dp"
             android:src="@drawable/ic_unshared"
+            app:tint="@color/text_color"
             tools:visibility="visible" />
 
         <com.owncloud.android.ui.AvatarGroupLayout
@@ -282,6 +284,7 @@
             android:minHeight="@dimen/min_list_item_size"
             android:paddingStart="@dimen/standard_half_padding"
             android:paddingEnd="@dimen/alternate_padding"
+            app:tint="@color/text_color"
             android:src="@drawable/ic_checkbox_blank_outline" />
 
         <ImageView
@@ -295,6 +298,7 @@
             android:minHeight="@dimen/min_list_item_size"
             android:paddingStart="@dimen/list_item_share_right_margin"
             android:paddingEnd="@dimen/list_item_share_right_margin"
+            app:tint="@color/text_color"
             android:src="@drawable/ic_dots_vertical" />
 
     </LinearLayout>

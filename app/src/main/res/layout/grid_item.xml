@@ -139,6 +139,7 @@
         android:src="@android:drawable/checkbox_off_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/text_color"
         tools:visibility="visible" />
 
     <LinearLayout
@@ -193,6 +194,7 @@
             android:contentDescription="@string/overflow_menu"
             android:translationZ="2dp"
             app:srcCompat="@drawable/ic_dots_vertical"
+            app:tint="@color/text_color"
             tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
@@ -229,6 +231,7 @@
         app:layout_constraintTop_toBottomOf="@id/thumbnail"
         app:srcCompat="@drawable/ic_dots_vertical"
         tools:ignore="TouchTargetSizeCheck"
+        app:tint="@color/text_color"
         tools:visibility="visible" />
 
 
