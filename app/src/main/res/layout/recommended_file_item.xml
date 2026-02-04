@@ -199,6 +199,7 @@
         android:id="@+id/more"
         android:layout_width="@dimen/grid_bottom_view_height"
         android:layout_height="@dimen/grid_bottom_view_height"
+        app:tint="@color/text_color"
         android:layout_marginHorizontal="@dimen/standard_half_margin"
         android:contentDescription="@string/overflow_menu"
         app:layout_constraintStart_toEndOf="@+id/filename_and_reason_layout"
