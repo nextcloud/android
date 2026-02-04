@@ -106,8 +106,6 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -661,13 +659,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         checkOcServer();
     }
 
-    private boolean checkAllowedServers(@NotNull String server) {
+    private boolean checkAllowedServers(@NonNull String server) {
         String webviewLogin = getString(R.string.webview_login_url);
 
-        if (!webviewLogin.isEmpty()) {
-            if (webviewLogin.startsWith(server)) {
-                return true;
-            }
+        if (!webviewLogin.isEmpty() && webviewLogin.startsWith(server)) {
+            return true;
         }
 
         String enforcedServerList = getString(R.string.enforce_servers);
