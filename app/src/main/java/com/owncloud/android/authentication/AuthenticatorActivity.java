@@ -105,6 +105,8 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -352,7 +354,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         showAuthStatus();
         accountSetupBinding.hostUrlFrame.setVisibility(View.GONE);
         accountSetupBinding.hostUrlInputHelperText.setVisibility(View.GONE);
-        accountSetupBinding.scanQr.setVisibility(View.GONE);
         accountSetupBinding.serversSpinner.setVisibility(View.VISIBLE);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.enforced_servers_spinner);
@@ -650,6 +651,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             String prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/";
             LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, dataString);
 
+            if (!checkAllowedServers(loginUrlInfo.getServer())) {
+                mServerStatusIcon = R.drawable.ic_alert;
+                mServerStatusText = getString(R.string.server_not_allowed);
+                showServerStatus();
+                return;
+            }
+
             if (accountSetupBinding != null) {
                 accountSetupBinding.hostUrlInput.setText("");
             }
@@ -660,8 +668,36 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mServerStatusIcon = R.drawable.ic_alert;
             mServerStatusText = getString(R.string.qr_could_not_be_read);
             showServerStatus();
+            return;
         }
         checkOcServer();
+    }
+
+    private boolean checkAllowedServers(@NotNull String server) {
+        String webviewLogin = getString(R.string.webview_login_url);
+
+        if (!webviewLogin.isEmpty()) {
+            if (webviewLogin.startsWith(server)) {
+                return true;
+            }
+        }
+
+        String enforcedServerList = getString(R.string.enforce_servers);
+
+        if (!enforcedServerList.isEmpty()) {
+            ArrayList<EnforcedServer> enforcedServers = new Gson().fromJson(enforcedServerList,
+                                                                            new TypeToken<ArrayList<EnforcedServer>>() {
+                                                                            }
+                                                                                .getType());
+
+            for (EnforcedServer enforcedServer : enforcedServers) {
+                if (enforcedServer.getUrl().startsWith(server)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
