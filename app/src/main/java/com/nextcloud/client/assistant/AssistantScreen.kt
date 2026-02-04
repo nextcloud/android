@@ -24,6 +24,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -65,6 +66,8 @@ import com.nextcloud.client.assistant.repository.local.MockAssistantLocalReposit
 import com.nextcloud.client.assistant.repository.remote.MockAssistantRemoteRepository
 import com.nextcloud.client.assistant.task.TaskView
 import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
+import com.nextcloud.client.assistant.translate.TranslationScreen
+import com.nextcloud.client.assistant.translate.TranslationViewModel
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeActivity.ComposeViewModel
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
@@ -95,6 +98,7 @@ fun AssistantScreen(
     val messageId by viewModel.snackbarMessageId.collectAsState()
     val screenOverlayState by viewModel.screenOverlayState.collectAsState()
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
+    val isTranslationTask by viewModel.isTranslationTask.collectAsState()
     val filteredTaskList by viewModel.filteredTaskList.collectAsState()
     val screenState by viewModel.screenState.collectAsState()
     val taskTypes by viewModel.taskTypes.collectAsState()
@@ -160,6 +164,7 @@ fun AssistantScreen(
                     }
                 })
             }
+
             AssistantPage.Content.id -> {
                 Scaffold(
                     modifier = Modifier.pullToRefresh(
@@ -190,7 +195,7 @@ fun AssistantScreen(
                         }
                     },
                     bottomBar = {
-                        if (!taskTypes.isNullOrEmpty()) {
+                        if (!taskTypes.isNullOrEmpty() && selectedTaskType?.isTranslate() != true) {
                             InputBar(
                                 sessionId,
                                 selectedTaskType,
@@ -200,6 +205,24 @@ fun AssistantScreen(
                     },
                     snackbarHost = {
                         SnackbarHost(snackbarHostState)
+                    },
+                    floatingActionButton = {
+                        if (selectedTaskType?.isTranslate() == true && !isTranslationTask) {
+                            FloatingActionButton(onClick = {
+                                viewModel.updateTranslationTaskState(true)
+                                viewModel.updateScreenState(AssistantScreenState.Translation(null))
+                            }, content = {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier.padding(16.dp)
+                                ) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_plus),
+                                        contentDescription = "translate button"
+                                    )
+                                }
+                            })
+                        }
                     }
                 ) { paddingValues ->
                     when (screenState) {
@@ -227,6 +250,23 @@ fun AssistantScreen(
                                 viewModel = viewModel,
                                 modifier = Modifier.padding(paddingValues)
                             )
+                        }
+
+                        is AssistantScreenState.Translation -> {
+                            selectedTaskType?.let {
+                                val task = (screenState as AssistantScreenState.Translation).task
+                                val textToTranslate = task?.input?.input ?: selectedText ?: ""
+
+                                val translationViewModel =
+                                    TranslationViewModel(remoteRepository = viewModel.getRemoteRepository())
+
+                                translationViewModel.init(it, task, textToTranslate)
+
+                                TranslationScreen(
+                                    viewModel = translationViewModel,
+                                    assistantViewModel = viewModel
+                                )
+                            }
                         }
 
                         else -> EmptyContent(
@@ -371,6 +411,7 @@ private fun TaskContent(
         items(taskList, key = { it.id }) { task ->
             TaskView(
                 task,
+                viewModel,
                 capability,
                 showTaskActions = {
                     val newState = ScreenOverlayState.TaskActions(task)
@@ -468,7 +509,7 @@ private fun getMockConversationViewModel(): ConversationViewModel {
     )
 }
 
-private fun getMockAssistantViewModel(giveEmptyTasks: Boolean): AssistantViewModel {
+fun getMockAssistantViewModel(giveEmptyTasks: Boolean): AssistantViewModel {
     val mockLocalRepository = MockAssistantLocalRepository()
     val mockRemoteRepository = MockAssistantRemoteRepository(giveEmptyTasks)
     return AssistantViewModel(
