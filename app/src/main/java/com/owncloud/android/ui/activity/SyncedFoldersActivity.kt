@@ -876,7 +876,7 @@ class SyncedFoldersActivity :
                 // until the next time showBatteryOptimizationDialogIfNeeded() runs.
                 alertDialog.dismiss()
             } else {
-                showSnackMessage(getString(R.string.unable_to_open_battery_optimization_settings))
+                showSnackMessage(getString(R.string.battery_optimization_unable_to_open_settings))
             }
         }
 
