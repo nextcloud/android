@@ -908,19 +908,11 @@ public class SettingsActivity extends PreferenceActivity
             mode = DarkMode.SYSTEM;
         }
 
-        String summary;
-        switch (mode) {
-            case LIGHT:
-                summary = getString(R.string.prefs_value_theme_light);
-                break;
-            case DARK:
-                summary = getString(R.string.prefs_value_theme_dark);
-                break;
-            case SYSTEM:
-            default:
-                summary = getString(R.string.prefs_value_theme_system);
-                break;
-        }
+        String summary = switch (mode) {
+            case LIGHT -> getString(R.string.prefs_value_theme_light);
+            case DARK -> getString(R.string.prefs_value_theme_dark);
+            default -> getString(R.string.prefs_value_theme_system);
+        };
 
         themePref.setSummary(summary);
     }
