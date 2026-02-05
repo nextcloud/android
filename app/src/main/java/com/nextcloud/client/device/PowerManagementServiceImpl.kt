@@ -26,6 +26,7 @@ internal class PowerManagementServiceImpl(
 
     companion object {
         private const val TAG = "PowerManagementServiceImpl"
+        private const val PERCENT = 100
 
         /**
          * Convenient factory to create [PowerManagementServiceImpl] from [Context].
@@ -63,7 +64,7 @@ internal class PowerManagementServiceImpl(
             val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
             val scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
             val chargePercent = if (level >= 0 && scale > 0) {
-                ((level * 100) / scale.toFloat()).toInt()
+                ((level * PERCENT) / scale.toFloat()).toInt()
             } else {
                 Log_OC.w(TAG, "Invalid battery info: level=$level, scale=$scale")
                 0 // Unavailable data
