@@ -755,7 +755,6 @@
     <string name="prefs_theme_title">Thème</string>
     <string name="prefs_two_way_sync_interval">Intervalle</string>
     <string name="prefs_two_way_sync_summary">Gestion les dossiers internes pour une synchronisation bidirectionnelle</string>
-    <string name="prefs_two_way_sync_switch_title">Activer la synchronisation bidirectionnelle</string>
     <string name="prefs_two_way_sync_title">Synchronisation bidirectionnelle</string>
     <string name="prefs_value_theme_dark">Sombre</string>
     <string name="prefs_value_theme_light">Clair</string>
@@ -1057,7 +1056,6 @@
     <string name="upload_files">Téléverser des fichiers</string>
     <string name="upload_global_pause_title">Tous les téléversements sont suspendus</string>
     <string name="upload_item_action_button">Bouton d\'action d\'upload</string>
-    <string name="upload_list_cancel_upload">Annuler l\'envoi</string>
     <string name="upload_list_delete">Supprimer</string>
     <string name="upload_list_empty_headline">Aucun téléversement disponible</string>
     <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>

@@ -736,7 +736,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Kelola folder internal untuk sinkronisasi dua arah</string>
-    <string name="prefs_two_way_sync_switch_title">Nyalakan sinkronisasi dua arah</string>
     <string name="prefs_value_theme_dark">Gelap</string>
     <string name="prefs_value_theme_light">Terang</string>
     <string name="prefs_value_theme_system">Ikuti sistem</string>
@@ -1034,7 +1033,6 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="upload_files">Unggah berkas</string>
     <string name="upload_global_pause_title">Semua unggahan dihentikan sebentar</string>
     <string name="upload_item_action_button">Tombol aksi unggah item</string>
-    <string name="upload_list_cancel_upload">Batal unggah</string>
     <string name="upload_list_delete">Hapus</string>
     <string name="upload_list_empty_headline">Tidak ada unggahan yang tersedia</string>
     <string name="upload_list_empty_text_auto_upload">Unggah beberapa foto atau aktifkan unggah otomatis.</string>

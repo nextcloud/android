@@ -767,7 +767,6 @@
     <string name="prefs_theme_title">Motyw</string>
     <string name="prefs_two_way_sync_interval">Interwał</string>
     <string name="prefs_two_way_sync_summary">Zarządzaj wewnętrznymi katalogami w celu synchronizacji dwukierunkowej</string>
-    <string name="prefs_two_way_sync_switch_title">Włącz synchronizację dwukierunkową</string>
     <string name="prefs_two_way_sync_title">Synchronizacja dwukierunkowa</string>
     <string name="prefs_value_theme_dark">Ciemny</string>
     <string name="prefs_value_theme_light">Jasny</string>
@@ -1071,7 +1070,6 @@
     <string name="upload_files">Wyślij pliki</string>
     <string name="upload_global_pause_title">Wszystkie przesyłania zostały wstrzymane</string>
     <string name="upload_item_action_button">Przycisk wysyłania elementu</string>
-    <string name="upload_list_cancel_upload">Anuluj wysyłanie</string>
     <string name="upload_list_delete">Usuń</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij pliki lub włącz automatyczne wysyłanie.</string>

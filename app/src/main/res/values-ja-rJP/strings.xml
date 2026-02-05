@@ -737,7 +737,6 @@
     <string name="prefs_theme_title">テーマ</string>
     <string name="prefs_two_way_sync_interval">間隔</string>
     <string name="prefs_two_way_sync_summary">内部フォルダを管理して双方向同期を行う</string>
-    <string name="prefs_two_way_sync_switch_title">双方向同期を有効にする</string>
     <string name="prefs_value_theme_dark">暗い</string>
     <string name="prefs_value_theme_light">明るい</string>
     <string name="prefs_value_theme_system">システムの設定に従う</string>
@@ -1029,7 +1028,6 @@
     <string name="upload_files">アップロードファイル</string>
     <string name="upload_global_pause_title">すべてのアップロードが一時停止しています</string>
     <string name="upload_item_action_button">アイテムアクションのアップロードボタン</string>
-    <string name="upload_list_cancel_upload">アップロードをキャンセル</string>
     <string name="upload_list_delete">削除</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
     <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>

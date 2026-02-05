@@ -767,6 +767,7 @@
     <string name="upload_content_from_other_apps">Otpremi sadržaj iz drugih aplikacija</string>
     <string name="upload_direct_camera_photo">Fotografija</string>
     <string name="upload_direct_camera_upload">Otpremanje iz kamere</string>
+    <string name="upload_direct_camera_video">Videozapis</string>
     <string name="upload_file_dialog_filename">Naziv datoteke</string>
     <string name="upload_file_dialog_filetype">Vrsta datoteke</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Datoteka prečaca za Google Maps (%s)</string>
@@ -775,7 +776,6 @@
     <string name="upload_file_dialog_title">Unesite naziv datoteke i vrstu datoteke za otpremanje</string>
     <string name="upload_files">Otpremi datoteke</string>
     <string name="upload_item_action_button">Gumb za otpremanje stavke</string>
-    <string name="upload_list_cancel_upload">Otkaži otpremanje</string>
     <string name="upload_list_delete">Izbriši</string>
     <string name="upload_list_empty_headline">Nema dostupnih otprema</string>
     <string name="upload_list_empty_text_auto_upload">Otpremite neki sadržaj ili aktivirajte automatsko otpremanje.</string>

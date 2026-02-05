@@ -767,7 +767,6 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Intervalo</string>
     <string name="prefs_two_way_sync_summary">Gerenciar pastas internas para sincronização bidirecional</string>
-    <string name="prefs_two_way_sync_switch_title">Ativar sincronização bidirecional</string>
     <string name="prefs_two_way_sync_title">Sincronização bidirecional</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
@@ -1071,7 +1070,6 @@
     <string name="upload_files">Enviar arquivos</string>
     <string name="upload_global_pause_title">Todos os uploads estão pausados</string>
     <string name="upload_item_action_button">Enviar botão de ação do item</string>
-    <string name="upload_list_cancel_upload">Cancelar upload</string>
     <string name="upload_list_delete">Excluir</string>
     <string name="upload_list_empty_headline">Nenhum upload disponível</string>
     <string name="upload_list_empty_text_auto_upload">Faça upload de algum conteúdo ou ative o upload automático.</string>

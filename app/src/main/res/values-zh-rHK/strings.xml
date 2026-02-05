@@ -767,7 +767,6 @@
     <string name="prefs_theme_title">佈景主題</string>
     <string name="prefs_two_way_sync_interval">間距</string>
     <string name="prefs_two_way_sync_summary">管理內部資料夾以進行雙向同步</string>
-    <string name="prefs_two_way_sync_switch_title">啟用雙向同步</string>
     <string name="prefs_two_way_sync_title">雙向同步</string>
     <string name="prefs_value_theme_dark">深色</string>
     <string name="prefs_value_theme_light">淺色</string>
@@ -1071,7 +1070,6 @@
     <string name="upload_files">上傳檔案</string>
     <string name="upload_global_pause_title">所有上傳皆已暫停</string>
     <string name="upload_item_action_button">上傳操作按鈕</string>
-    <string name="upload_list_cancel_upload">取消上戴</string>
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
     <string name="upload_list_empty_text_auto_upload">上傳一些內容或者啟動自動上傳。</string>
