@@ -250,7 +250,9 @@ class EncryptionUtilsV2 {
             )
         }
 
-        verifyMetadata(metadataFile, decryptedFolderMetadataFile, oldCounter, signature)
+        if (!verifyMetadata(metadataFile, decryptedFolderMetadataFile, oldCounter, signature)) {
+            throw IllegalStateException("Metadata is corrupt!")
+        }
 
         val transferredFiledrop = filesDropCountBefore > 0 &&
             decryptedFolderMetadataFile.metadata.files.size == filesBefore + filesDropCountBefore
@@ -953,10 +955,10 @@ class EncryptionUtilsV2 {
         decryptedFolderMetadataFile: DecryptedFolderMetadataFile,
         oldCounter: Long,
         signature: String
-    ) {
+    ): Boolean {
         if (decryptedFolderMetadataFile.metadata.counter < oldCounter) {
             MainApp.showMessage(R.string.e2e_counter_too_old)
-            return
+            return false
         }
 
         val message = EncryptionUtils.serializeJSON(encryptedFolderMetadataFile, true)
@@ -965,14 +967,15 @@ class EncryptionUtilsV2 {
 
         if (certs.isNotEmpty() && !verifySignedData(signedData, certs)) {
             MainApp.showMessage(R.string.e2e_signature_does_not_match)
-            return
+            return false
         }
 
         val hashedMetadataKey = hashMetadataKey(decryptedFolderMetadataFile.metadata.metadataKey)
         if (!decryptedFolderMetadataFile.metadata.keyChecksums.contains(hashedMetadataKey)) {
             MainApp.showMessage(R.string.e2e_hash_not_found)
-            return
+            return false
         }
+        return true
     }
 
     private fun getSignedData(base64encodedSignature: String, message: String): CMSSignedData {
