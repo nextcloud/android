@@ -75,6 +75,6 @@
         android:paddingStart="@dimen/standard_padding"
         android:paddingEnd="@dimen/standard_padding"
         app:icon="@drawable/ic_dots_vertical"
-        app:iconTint="@color/text_color"
+        app:iconTint="@color/secondary_text_color"
         app:iconGravity="textStart" />
 </LinearLayout>

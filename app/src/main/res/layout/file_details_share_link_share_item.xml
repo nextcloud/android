@@ -89,7 +89,7 @@
         android:paddingEnd="@dimen/standard_padding"
         android:paddingBottom="@dimen/standard_quarter_margin"
         android:scaleType="fitCenter"
-        app:iconTint="@color/text_color"
+        app:iconTint="@color/secondary_text_color"
         app:icon="@drawable/ic_content_copy"
         app:iconGravity="textStart" />
 
@@ -103,7 +103,7 @@
         android:paddingStart="@dimen/standard_padding"
         android:paddingEnd="@dimen/standard_padding"
         app:icon="@drawable/ic_dots_vertical"
-        app:iconTint="@color/text_color"
+        app:iconTint="@color/secondary_text_color"
         app:iconGravity="textStart" />
 
 </LinearLayout>
