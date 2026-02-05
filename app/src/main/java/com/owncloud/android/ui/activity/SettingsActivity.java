@@ -1064,7 +1064,7 @@ public class SettingsActivity extends PreferenceActivity
         } else if (requestCode == REQ_ALL_FILES_ACCESS) {
             final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
             setupAllFilesAccessPreference(preferenceCategorySync);
-        } else if (requestCode == ExtendedSettingsActivityDialog.StorageLocation.getResultId() && data != null) {
+        } else if (requestCode == ExtendedSettingsActivityDialog.Theme.getResultId() && data != null) {
             String selectedTheme = data.getStringExtra(ThemeSelectionDialog.RESULT_KEY);
             if (selectedTheme != null) {
                 updateThemePreferenceSummary(selectedTheme);
