@@ -84,7 +84,7 @@ internal class PowerManagementServiceImpl(
 
             val isCharging = when {
                 statusChargingOrFull -> true   // Reliable for 99% of devices
-                status == -1 && pluggedIn -> true // Status missing but plugged in? Likely charging (fallback for weird devices)
+                status == -1 && pluggedIn -> true // Status missing but plugged in? Likely charging (fallback)
                 else -> false
             }
 
