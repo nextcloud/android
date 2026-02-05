@@ -76,6 +76,7 @@ import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import io.mockk.mockk
 import org.junit.After
+import org.junit.Assert.fail
 import org.junit.Rule
 import org.junit.Test
 import java.net.URI
@@ -491,7 +492,12 @@ class DialogFragmentIT : AbstractIT() {
                     json
                 )
 
-                val capability = fda.capabilities.apply {
+                val optionalCapability = fda.capabilities
+                if (optionalCapability.isEmpty) {
+                    fail("capabilities is empty")
+                }
+
+                val capability = optionalCapability.get().apply {
                     richDocuments = CapabilityBooleanType.TRUE
                     richDocumentsDirectEditing = CapabilityBooleanType.TRUE
                     richDocumentsTemplatesAvailable = CapabilityBooleanType.TRUE

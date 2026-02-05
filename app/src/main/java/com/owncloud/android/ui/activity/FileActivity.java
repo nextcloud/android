@@ -88,7 +88,6 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.events.DialogEvent;
 import com.owncloud.android.ui.events.DialogEventType;
-import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -887,20 +886,20 @@ public abstract class FileActivity extends DrawerActivity
         } else {
             // Detect Failure (403) --> maybe needs password
             String password = operation.getPassword();
-            if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_FORBIDDEN &&
-                TextUtils.isEmpty(password) &&
-                getCapabilities().getFilesSharingPublicEnabled().isUnknown()) {
-                // Was tried without password, but not sure that it's optional.
+            final var optionalCapabilities = getCapabilities();
 
-                // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
-                if (sharingFragment != null && sharingFragment.isAdded()) {
-                    // only if added to the view hierarchy
-
-                    sharingFragment.requestPasswordForShareViaLink(true,
-                                                                   getCapabilities().getFilesSharingPublicAskForOptionalPassword()
-                                                                       .isTrue());
+            if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_FORBIDDEN && TextUtils.isEmpty(password)) {
+                if (optionalCapabilities.isPresent()) {
+                    final var capabilities = optionalCapabilities.get();
+                    if (capabilities.getFilesSharingPublicEnabled().isUnknown()) {
+                        // Was tried without password, but not sure that it's optional.
+                        // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
+                        if (sharingFragment != null && sharingFragment.isAdded()) {
+                            // only if added to the view hierarchy
+                            sharingFragment.requestPasswordForShareViaLink(true, capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
+                        }
+                    }
                 }
-
             } else {
                 if (sharingFragment != null) {
                     sharingFragment.refreshSharesFromDB();
