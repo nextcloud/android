@@ -27,15 +27,18 @@ import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.navigation.NavigationView
 import com.nextcloud.android.common.ui.color.ColorUtil
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.nextcloud.android.common.ui.theme.ViewThemeUtilsBase
 import com.nextcloud.android.common.ui.theme.utils.AndroidViewThemeUtils
 import com.nextcloud.android.common.ui.theme.utils.AndroidXViewThemeUtils
+import com.nextcloud.android.common.ui.util.buildColorStateList
 import com.nextcloud.utils.view.FastScrollPopupBackground
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.ShareType
+import dynamiccolor.MaterialDynamicColors
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import me.zhanghai.android.fastscroll.PopupStyles
 import javax.inject.Inject
@@ -47,6 +50,8 @@ class FilesSpecificViewThemeUtils @Inject constructor(
     private val androidViewThemeUtils: AndroidViewThemeUtils,
     private val androidXViewThemeUtils: AndroidXViewThemeUtils
 ) : ViewThemeUtilsBase(schemes) {
+    private val dynamicColor = MaterialDynamicColors()
+
     // not ported to common lib because PreferenceCategory is deprecated
     fun themePreferenceCategory(category: PreferenceCategory) {
         withScheme(category.context) {
@@ -276,6 +281,29 @@ class FilesSpecificViewThemeUtils @Inject constructor(
             closeButton.setColorFilter(scheme.onSurface)
             searchButton.setColorFilter(scheme.onSurface)
             searchPlate.setBackgroundColor(scheme.surfaceContainerHigh)
+        }
+    }
+
+    @JvmOverloads
+    fun colorNavigationView(navigationView: NavigationView, colorIcons: Boolean = true) {
+        withScheme(navigationView) { scheme ->
+            navigationView.run {
+                itemBackground?.setTintList(
+                    buildColorStateList(
+                        android.R.attr.state_checked to dynamicColor.secondaryContainer().getArgb(scheme),
+                        -android.R.attr.state_checked to Color.TRANSPARENT
+                    )
+                )
+
+                background.setTintList(ColorStateList.valueOf(dynamicColor.surface().getArgb(scheme)))
+
+                if (colorIcons) {
+                    itemIconTintList = buildColorStateList(
+                        android.R.attr.state_checked to dynamicColor.onSecondaryContainer().getArgb(scheme),
+                        -android.R.attr.state_checked to dynamicColor.onSurfaceVariant().getArgb(scheme)
+                    )
+                }
+            }
         }
     }
 

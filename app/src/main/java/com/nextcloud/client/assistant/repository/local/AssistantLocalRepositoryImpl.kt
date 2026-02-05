@@ -20,8 +20,8 @@ class AssistantLocalRepositoryImpl(private val assistantDao: AssistantDao) : Ass
         assistantDao.insertAssistantTasks(entities)
     }
 
-    override suspend fun getCachedTasks(accountName: String): List<Task> {
-        val entities = assistantDao.getAssistantTasksByAccount(accountName)
+    override suspend fun getCachedTasks(accountName: String, type: String): List<Task> {
+        val entities = assistantDao.getAssistantTasksByAccount(accountName, type)
         return entities.map { it.toTask() }
     }
 
@@ -29,8 +29,8 @@ class AssistantLocalRepositoryImpl(private val assistantDao: AssistantDao) : Ass
         assistantDao.insertAssistantTask(task.toEntity(accountName))
     }
 
-    override suspend fun deleteTask(id: Long, accountName: String) {
-        val cached = assistantDao.getAssistantTasksByAccount(accountName).firstOrNull { it.id == id } ?: return
+    override suspend fun deleteTask(id: Long, accountName: String, type: String) {
+        val cached = assistantDao.getAssistantTasksByAccount(accountName, type).firstOrNull { it.id == id } ?: return
         assistantDao.deleteAssistantTask(cached)
     }
 

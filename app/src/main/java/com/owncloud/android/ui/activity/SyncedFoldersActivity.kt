@@ -183,7 +183,7 @@ class SyncedFoldersActivity :
         // setup toolbar
         setupToolbar()
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_synced_folders))
-        setupDrawer()
+        setupDrawer(menuItemId)
         setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         if (supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -198,6 +198,13 @@ class SyncedFoldersActivity :
         }
         binding.emptyList.emptyListViewAction.setOnClickListener { showHiddenItems() }
         setupStoragePermissionWarningBanner()
+    }
+
+    override fun getMenuItemId(): Int = R.id.nav_settings
+
+    override fun onResume() {
+        super.onResume()
+        highlightNavigationViewItem(menuItemId)
     }
 
     fun setupStoragePermissionWarningBanner() {

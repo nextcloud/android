@@ -23,6 +23,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.autoRename.AutoRename;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -51,7 +52,6 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
@@ -585,11 +585,8 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private boolean isEndToEndVersionAtLeastV2() {
-        return getE2EVersion().compareTo(E2EVersion.V2_0) >= 0;
-    }
-
-    private E2EVersion getE2EVersion() {
-        return CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion();
+        final var capability = CapabilityUtils.getCapability(mContext);
+        return E2EVersionHelper.INSTANCE.isV2Plus(capability);
     }
 
     private long getE2ECounter(OCFile parentFile) {
@@ -854,7 +851,7 @@ public class UploadFileOperation extends SyncOperation {
                                        clientData.getToken(),
                                        clientData.getClient(),
                                        metadataExists,
-                                       E2EVersion.V1_2,
+                                       E2EVersionHelper.INSTANCE.latestVersion(false),
                                        "",
                                        arbitraryDataProvider,
                                        user);

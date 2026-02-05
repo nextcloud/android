@@ -316,7 +316,6 @@ public class SettingsActivity extends PreferenceActivity
                                             getResources().getString(R.string.privacy));
                             intent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl.toString());
                             intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                            DrawerActivity.menuItemId = Menu.NONE;
                         }
 
                         startActivity(intent);
@@ -1185,7 +1184,6 @@ public class SettingsActivity extends PreferenceActivity
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl());
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                        DrawerActivity.menuItemId = link.getId();
                         startActivity(externalWebViewIntent);
 
                         return true;

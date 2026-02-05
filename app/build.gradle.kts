@@ -63,7 +63,7 @@ configurations.configureEach {
 
 // semantic versioning for version code
 val versionMajor = 3
-val versionMinor = 36
+val versionMinor = 37
 val versionPatch = 0
 val versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -347,6 +347,7 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.material3)
+    implementation(libs.compose.activity)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.foundation)
     debugImplementation(libs.compose.ui.tooling)

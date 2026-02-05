@@ -80,9 +80,16 @@ class ComposeActivity : DrawerActivity() {
         composeViewModel.updateSelectedText(text.toString())
     }
 
+    override fun getMenuItemId(): Int = R.id.nav_assistant
+
+    override fun onResume() {
+        super.onResume()
+        highlightNavigationViewItem(menuItemId)
+    }
+
     private fun setupActivityUIFor(destination: ComposeDestination) {
         if (destination is ComposeDestination.AssistantScreen) {
-            setupDrawer()
+            setupDrawer(menuItemId)
             setupToolbarShowOnlyMenuButtonAndTitle(destination.title) {
                 openDrawer()
             }

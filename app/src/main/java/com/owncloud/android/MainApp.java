@@ -803,6 +803,18 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         return mOnlyPersonalFiles;
     }
 
+    public static Integer getMenuItemId() {
+        if (MainApp.isOnlyPersonFiles()) {
+            return R.id.nav_personal_files;
+        }
+
+        if (MainApp.isOnlyOnDevice()) {
+            return R.id.nav_on_device;
+        }
+
+        return null;
+    }
+
     public static String getUserAgent() {
         // Mozilla/5.0 (Android) Nextcloud-android/2.1.0
         return getUserAgent(R.string.nextcloud_user_agent);

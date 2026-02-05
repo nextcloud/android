@@ -314,8 +314,29 @@ class GalleryAdapter(
         }
     }
 
-    override fun setMultiSelect(boolean: Boolean) {
-        ocFileListDelegate.isMultiSelect = boolean
+    /**
+     * Enables or disables multi-select mode in the gallery.
+     *
+     * When multi-select mode is enabled:
+     * - Checkboxes are shown for all items.
+     * - Users can select multiple files.
+     *
+     * When multi-select mode is disabled:
+     * - Checkboxes are hidden.
+     * - Selected files remain visually unselected.
+     *
+     * Note:
+     * - This function is only called when the user explicitly enters or exits multi-select mode.
+     *   It is **not** called for individual file selection or deselection.
+     * - The entire adapter is refreshed using [notifyDataSetChanged] to properly show or hide
+     *   checkboxes across all rows, as individual item updates are not sufficient in this case.
+     *
+     * @param isMultiSelect true to enable multi-select mode, false to disable it.
+     */
+    @SuppressLint("NotifyDataSetChanged")
+    override fun setMultiSelect(isMultiSelect: Boolean) {
+        ocFileListDelegate.isMultiSelect = isMultiSelect
+        notifyDataSetChanged()
     }
 
     private fun getAllFiles(): List<OCFile> = cachedAllFiles ?: files.flatMap { galleryItem ->
