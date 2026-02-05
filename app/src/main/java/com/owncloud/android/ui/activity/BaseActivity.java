@@ -164,7 +164,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      * @return Capabilities of the server where the current OC account lives. Null if the account is not
      * set yet.
      */
-    public OCCapability getCapabilities() {
+    public Optional<OCCapability> getCapabilities() {
         return sessionMixin.getCapabilities();
     }
 
