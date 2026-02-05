@@ -759,7 +759,6 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Aralık</string>
     <string name="prefs_two_way_sync_summary">İç klasörleri iki yönlü eşitleme ile yönetin</string>
-    <string name="prefs_two_way_sync_switch_title">İki yönlü eşitlemeyi aç</string>
     <string name="prefs_two_way_sync_title">İki yönlü eşitleme</string>
     <string name="prefs_value_theme_dark">Koyu</string>
     <string name="prefs_value_theme_light">Açık</string>
@@ -1063,7 +1062,6 @@
     <string name="upload_files">Dosyaları yükle</string>
     <string name="upload_global_pause_title">Tüm yüklemeler duraklatıldı</string>
     <string name="upload_item_action_button">Öge yükleme işlemi düğmesi</string>
-    <string name="upload_list_cancel_upload">Yüklemeyi iptal et</string>
     <string name="upload_list_delete">Sil</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
     <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yükleme özelliğini açın.</string>

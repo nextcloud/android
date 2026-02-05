@@ -700,7 +700,6 @@
     <string name="prefs_theme_title">Gaia</string>
     <string name="prefs_two_way_sync_interval">Tarteak</string>
     <string name="prefs_two_way_sync_summary">Kudeatu barruko karpetak bi norabideko sinkronizaziorako</string>
-    <string name="prefs_two_way_sync_switch_title">Gaitu bi norabideko sinkronizazioa</string>
     <string name="prefs_value_theme_dark">Iluna</string>
     <string name="prefs_value_theme_light">Argia</string>
     <string name="prefs_value_theme_system">Sistemaren berdina</string>
@@ -986,7 +985,6 @@
     <string name="upload_files">Igo fitxategiak</string>
     <string name="upload_global_pause_title">Igoera guztiak pausatuta daude</string>
     <string name="upload_item_action_button">Elementua igotzeko ekintza botoia</string>
-    <string name="upload_list_cancel_upload">Ezeztatu kargatzea</string>
     <string name="upload_list_delete">Ezabatu</string>
     <string name="upload_list_empty_headline">Ezin dira fitxategiak igo</string>
     <string name="upload_list_empty_text_auto_upload">Edukiak igo edo auto-igotzea aktiba ezazu.</string>

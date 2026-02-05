@@ -731,7 +731,6 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Styr interne mapper for to-vejs synkronisering</string>
-    <string name="prefs_two_way_sync_switch_title">Aktivér to-vejs synkronisering</string>
     <string name="prefs_value_theme_dark">Mørk</string>
     <string name="prefs_value_theme_light">Lys</string>
     <string name="prefs_value_theme_system">Følg system</string>
@@ -1025,7 +1024,6 @@
     <string name="upload_files">Send filer</string>
     <string name="upload_global_pause_title">Alle uploads er pauserede</string>
     <string name="upload_item_action_button">Send artikel knap</string>
-    <string name="upload_list_cancel_upload">Annullér upload </string>
     <string name="upload_list_delete">Slet</string>
     <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>
     <string name="upload_list_empty_text_auto_upload">Upload noget indhold eller aktivér auto upload.</string>

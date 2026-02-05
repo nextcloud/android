@@ -661,7 +661,6 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Intervall</string>
     <string name="prefs_two_way_sync_summary">Administrer interne mapper for toveis synkronisering</string>
-    <string name="prefs_two_way_sync_switch_title">Slå på toveis-synkronisering</string>
     <string name="prefs_value_theme_dark">Mørk</string>
     <string name="prefs_value_theme_light">Lys</string>
     <string name="prefs_value_theme_system">Følg system</string>
@@ -931,7 +930,6 @@
     <string name="upload_files">Last opp filer</string>
     <string name="upload_global_pause_title">Alle opplastinger er satt på pause</string>
     <string name="upload_item_action_button">Last opp element handlingsknapp</string>
-    <string name="upload_list_cancel_upload">Avbryt opplasting</string>
     <string name="upload_list_delete">Slett</string>
     <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
     <string name="upload_list_empty_text_auto_upload">Last opp noe innhold eller aktiver automatisk opplasting!</string>
