@@ -849,22 +849,38 @@ class SyncedFoldersActivity :
     }
 
     private fun showBatteryOptimizationDialog() {
+        // Only show dialog if activity is in resumed state (prevents crashes)
         if (!lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
             Log_OC.w(TAG, "Activity not resumed, skipping battery dialog")
             return
         }
 
+        // Build the dialog with NO automatic positive button listener
         val dialog = MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
             .setTitle(R.string.battery_optimization_title)
             .setMessage(R.string.battery_optimization_message)
-            .setPositiveButton(R.string.battery_optimization_disable) { _, _ ->
-                BatteryOptimizationHelper.openBatteryOptimizationSettings(this)
-            }
+            .setPositiveButton(R.string.battery_optimization_disable, null) // Custom handler set below
             .setNeutralButton(R.string.battery_optimization_close, null)
             .setIcon(R.drawable.ic_battery_alert)
 
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(this, dialog)
+
         val alertDialog = dialog.show()
 
+        // Try to open battery optimization settings. If it fails, stay open for visibillity.
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            val success = BatteryOptimizationHelper.openBatteryOptimizationSettings(this)
+            if (success) {
+                // We dismiss here because we successfully sent the user to Settings.
+                // If they come back without changing settings, the dialog stays gone
+                // until the next time showBatteryOptimizationDialogIfNeeded() runs.
+                alertDialog.dismiss()
+            } else {
+                showSnackMessage(getString(R.string.unable_to_open_battery_optimization_settings))
+            }
+        }
+
+         // Consistently style the dialog's buttons
         viewThemeUtils.platform.colorTextButtons(
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
             alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
