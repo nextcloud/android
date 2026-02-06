@@ -1452,6 +1452,7 @@
     <string name="set_download_limit_failed">Unable to set download limit. Please check capabilities.</string>
     <string name="download_limit">Download limit</string>
     <plurals name="share_download_limit_description">
+        <item quantity="zero">No downloads remaining</item>
         <item quantity="one">%1$d download remaining</item>
         <item quantity="other">%1$d downloads remaining</item>
     </plurals>
