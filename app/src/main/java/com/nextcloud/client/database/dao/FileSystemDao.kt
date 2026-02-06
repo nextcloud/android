@@ -8,6 +8,7 @@
 package com.nextcloud.client.database.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -18,6 +19,9 @@ import com.owncloud.android.db.ProviderMeta
 interface FileSystemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrReplace(filesystemEntity: FilesystemEntity)
+
+    @Delete
+    fun delete(entity: FilesystemEntity)
 
     @Query(
         """
