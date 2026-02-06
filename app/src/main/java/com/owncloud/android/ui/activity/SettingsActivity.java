@@ -68,7 +68,6 @@ import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.ui.ListPreferenceDialog;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
-import com.owncloud.android.ui.dialog.ThemeSelectionDialog;
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog;
@@ -890,8 +889,8 @@ public class SettingsActivity extends PreferenceActivity
             updateThemePreferenceSummary(preferences.getDarkThemeMode().name());
 
             themePref.setOnPreferenceClickListener(preference -> {
-                Intent intent = ExtendedSettingsActivity.Companion.createIntent(this, ExtendedSettingsActivityDialog.Theme);
-                startActivityForResult(intent, ExtendedSettingsActivityDialog.Theme.getResultId());
+                Intent intent = ExtendedSettingsActivity.Companion.createIntent(this, ExtendedSettingsActivityDialog.ThemeSelection);
+                startActivityForResult(intent, ExtendedSettingsActivityDialog.ThemeSelection.getResultId());
                 return true;
             });
         }
@@ -1055,20 +1054,19 @@ public class SettingsActivity extends PreferenceActivity
             startActivity(i);
         } else if (requestCode == ExtendedSettingsActivityDialog.StorageLocation.getResultId() && data != null) {
             String newPath = data.getStringExtra(ExtendedSettingsActivityDialog.StorageLocation.getKey());
-
             if (storagePath != null && !storagePath.equals(newPath)) {
                 StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath, viewThemeUtils);
                 storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
             }
-        } else if (requestCode == REQ_ALL_FILES_ACCESS) {
-            final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
-            setupAllFilesAccessPreference(preferenceCategorySync);
-        } else if (requestCode == ExtendedSettingsActivityDialog.Theme.getResultId() && data != null) {
-            String selectedTheme = data.getStringExtra(ThemeSelectionDialog.RESULT_KEY);
+        } else if (requestCode == ExtendedSettingsActivityDialog.ThemeSelection.getResultId() && data != null) {
+            String selectedTheme = data.getStringExtra(ExtendedSettingsActivityDialog.ThemeSelection.getKey());
             if (selectedTheme != null) {
                 updateThemePreferenceSummary(selectedTheme);
             }
+        } else if (requestCode == REQ_ALL_FILES_ACCESS) {
+            final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
+            setupAllFilesAccessPreference(preferenceCategorySync);
         }
     }
 
