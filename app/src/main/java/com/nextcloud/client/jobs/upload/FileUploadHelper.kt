@@ -478,10 +478,10 @@ class FileUploadHelper {
         }
     }
 
-    @Suppress("MagicNumber")
+    @Suppress("MagicNumber", "ReturnCount", "ComplexCondition")
     fun isSameFileOnRemote(user: User?, localFile: File?, remotePath: String?, context: Context?): Boolean {
         if (user == null || localFile == null || remotePath == null || context == null) {
-            Log_OC.e(TAG,"cannot compare remote and local file")
+            Log_OC.e(TAG, "cannot compare remote and local file")
             return false
         }
 
