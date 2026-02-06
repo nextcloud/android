@@ -179,7 +179,7 @@ class BackgroundJobFactory @Inject constructor(
         powerManagementService = powerManagementService,
         syncedFolderProvider = syncedFolderProvider,
         backgroundJobManager = backgroundJobManager.get(),
-        repository = FileSystemRepository(dao = database.fileSystemDao(), context),
+        repository = FileSystemRepository(dao = database.fileSystemDao(), uploadsStorageManager, context),
         viewThemeUtils = viewThemeUtils.get(),
         localBroadcastManager = localBroadcastManager.get()
     )
