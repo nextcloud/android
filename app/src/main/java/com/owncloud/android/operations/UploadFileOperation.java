@@ -1049,7 +1049,7 @@ public class UploadFileOperation extends SyncOperation {
                 try {
                     // request a shared lock instead of exclusive one, since we are just reading file
                     fileLock = channel.tryLock(0L, Long.MAX_VALUE, true);
-                    Log_OC.d(TAG ,"file locked");
+                    Log_OC.d(TAG ,"🔒" + "file locked");
                 } catch (OverlappingFileLockException e) {
                     // if another thread has the lock, current thread can still read the file.
                     Log_OC.e(TAG, "shared lock overlap detected; proceeding safely.");
@@ -1089,7 +1089,7 @@ public class UploadFileOperation extends SyncOperation {
                     size = new File(mFile.getStoragePath()).length();
                 }
             } catch (Exception exception) {
-                Log_OC.e(TAG, "normalUpload, size cannot be determined from channel: " + exception);
+                Log_OC.e(TAG, "size cannot be determined from channel: " + exception);
                 size = new File(mFile.getStoragePath()).length();
             }
 
@@ -1149,7 +1149,7 @@ public class UploadFileOperation extends SyncOperation {
             if (fileLock != null && fileLock.isValid()) {
                 try {
                     fileLock.release();
-                    Log_OC.d(TAG ,"file lock released");
+                    Log_OC.d(TAG ,"🔓" + "file lock released");
                 } catch (IOException ignored) {
                     Log_OC.e(TAG, "failed to unlock file with path " + mOriginalStoragePath);
                 }
@@ -1160,7 +1160,7 @@ public class UploadFileOperation extends SyncOperation {
             if (channel != null) {
                 try {
                     channel.close();
-                    Log_OC.d(TAG ,"file channel closed");
+                    Log_OC.d(TAG ,"📢" + "file channel closed");
                 } catch (IOException ignored) {
                     Log_OC.e(TAG, "failed to close file channel");
                 }
@@ -1171,7 +1171,7 @@ public class UploadFileOperation extends SyncOperation {
             if (fileInputStream != null) {
                 try {
                     fileInputStream.close();
-                    Log_OC.d(TAG ,"file input stream closed");
+                    Log_OC.d(TAG ,"📝" + "file input stream closed");
                 } catch (IOException ignored) {
                     Log_OC.e(TAG, "failed to close file input stream");
                 }
@@ -1181,7 +1181,7 @@ public class UploadFileOperation extends SyncOperation {
 
             if (temporalFile != null && !originalFile.equals(temporalFile)) {
                 boolean isTempFileDeleted = temporalFile.delete();
-                Log_OC.d(TAG, "normalUpload, temp folder deletion: " + isTempFileDeleted);
+                Log_OC.d(TAG, "temp folder deletion: " + isTempFileDeleted);
             }
 
             if (result == null) {

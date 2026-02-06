@@ -34,7 +34,7 @@ class FileSystemRepository(
         const val BATCH_SIZE = 50
     }
 
-    fun deleteAutoUploadEntityAndUploadEntity(syncedFolder: SyncedFolder, localPath: String, entity: FilesystemEntity) {
+    fun deleteAutoUploadAndUploadEntity(syncedFolder: SyncedFolder, localPath: String, entity: FilesystemEntity) {
         Log_OC.d(TAG, "deleting auto upload entity and upload entity")
 
         val file = File(localPath)
@@ -62,13 +62,13 @@ class FileSystemRepository(
                 val file = File(path)
                 if (!file.exists()) {
                     Log_OC.w(TAG, "Ignoring file for upload (doesn't exist): $path")
-                    deleteAutoUploadEntityAndUploadEntity(syncedFolder, path, entity)
+                    deleteAutoUploadAndUploadEntity(syncedFolder, path, entity)
                 } else if (!SyncedFolderUtils.isQualifiedFolder(file.parent)) {
                     Log_OC.w(TAG, "Ignoring file for upload (unqualified folder): $path")
-                    deleteAutoUploadEntityAndUploadEntity(syncedFolder, path, entity)
+                    deleteAutoUploadAndUploadEntity(syncedFolder, path, entity)
                 } else if (!SyncedFolderUtils.isFileNameQualifiedForAutoUpload(file.name)) {
                     Log_OC.w(TAG, "Ignoring file for upload (unqualified file): $path")
-                    deleteAutoUploadEntityAndUploadEntity(syncedFolder, path, entity)
+                    deleteAutoUploadAndUploadEntity(syncedFolder, path, entity)
                 } else {
                     Log_OC.d(TAG, "Adding path to upload: $path")
 
@@ -186,7 +186,7 @@ class FileSystemRepository(
             if (fileModified <= 0L) {
                 Log_OC.d(TAG, "file is deleted, skipping: $localPath")
                 entity?.let {
-                    deleteAutoUploadEntityAndUploadEntity(syncedFolder, localPath, entity)
+                    deleteAutoUploadAndUploadEntity(syncedFolder, localPath, entity)
                 }
                 return
             }
