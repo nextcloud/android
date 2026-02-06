@@ -1063,6 +1063,7 @@ public class SettingsActivity extends PreferenceActivity
             String selectedTheme = data.getStringExtra(ExtendedSettingsActivityDialog.ThemeSelection.getKey());
             if (selectedTheme != null) {
                 updateThemePreferenceSummary(selectedTheme);
+                recreate();
             }
         } else if (requestCode == REQ_ALL_FILES_ACCESS) {
             final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
