@@ -47,7 +47,7 @@ class SyncFolderHelper(context: Context) {
             subFolderRule = syncedFolder.subfolderRule
         }
 
-        return FileStorageUtils.getInstantUploadFilePath(
+        val result =  FileStorageUtils.getInstantUploadFilePath(
             file,
             resources.configuration.locales[0],
             remoteFolder,
@@ -56,6 +56,10 @@ class SyncFolderHelper(context: Context) {
             useSubfolders,
             subFolderRule
         )
+
+        Log_OC.d(TAG, "auto upload remote path: $result")
+
+        return result
     }
 
     @Suppress("NestedBlockDepth")
