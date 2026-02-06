@@ -396,4 +396,7 @@ public interface AppPreferences {
 
     String getLastDisplayedAccountName();
     void setLastDisplayedAccountName(String lastDisplayedAccountName);
+
+    boolean startAutoUploadOnStart();
+    void setLastAutoUploadOnStartTime(long timeInMillisecond);
 }

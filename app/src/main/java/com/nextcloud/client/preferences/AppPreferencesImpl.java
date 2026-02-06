@@ -111,12 +111,18 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private static final String PREF_LAST_DISPLAYED_ACCOUNT_NAME = "last_displayed_user";
 
+    private static final String AUTO_PREF__LAST_AUTO_UPLOAD_ON_START = "last_auto_upload_on_start";
+
+
     private static final String LOG_ENTRY = "log_entry";
 
     private final Context context;
     private final SharedPreferences preferences;
     private final UserAccountManager userAccountManager;
     private final ListenerRegistry listeners;
+
+    private static final int AUTO_UPLOAD_ON_START_DEBOUNCE_IN_MINUTES = 10;
+    private static final long AUTO_UPLOAD_ON_START_DEBOUNCE_MS = AUTO_UPLOAD_ON_START_DEBOUNCE_IN_MINUTES * 60 * 1000L;
 
     /**
      * Adapter delegating raw {@link SharedPreferences.OnSharedPreferenceChangeListener} calls with key-value pairs to
@@ -848,5 +854,17 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setLastDisplayedAccountName(String lastDisplayedAccountName) {
         preferences.edit().putString(PREF_LAST_DISPLAYED_ACCOUNT_NAME, lastDisplayedAccountName).apply();
+    }
+
+    @Override
+    public boolean startAutoUploadOnStart() {
+        long lastRunTime = preferences.getLong(AUTO_PREF__LAST_AUTO_UPLOAD_ON_START, 0L);
+        long now = System.currentTimeMillis();
+        return lastRunTime == 0L || (now - lastRunTime) >= AUTO_UPLOAD_ON_START_DEBOUNCE_MS;
+    }
+
+    @Override
+    public void setLastAutoUploadOnStartTime(long timeInMillisecond) {
+        preferences.edit().putLong(AUTO_PREF__LAST_AUTO_UPLOAD_ON_START, timeInMillisecond).apply();
     }
 }

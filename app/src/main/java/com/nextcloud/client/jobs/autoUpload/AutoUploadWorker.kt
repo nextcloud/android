@@ -190,11 +190,6 @@ class AutoUploadWorker(
         val currentTime = System.currentTimeMillis()
         val passedScanInterval = totalScanInterval <= currentTime
 
-        Log_OC.d(TAG, "lastScanTimestampMs: " + syncedFolder.lastScanTimestampMs)
-        Log_OC.d(TAG, "totalScanInterval: $totalScanInterval")
-        Log_OC.d(TAG, "currentTime: $currentTime")
-        Log_OC.d(TAG, "passedScanInterval: $passedScanInterval")
-
         if (!passedScanInterval && contentUris.isNullOrEmpty() && !overridePowerSaving) {
             Log_OC.w(
                 TAG,
@@ -202,6 +197,8 @@ class AutoUploadWorker(
             )
             return true
         }
+
+        Log_OC.d(TAG, "starting ...")
 
         return false
     }
@@ -212,6 +209,8 @@ class AutoUploadWorker(
      */
     @Suppress("MagicNumber", "TooGenericExceptionCaught")
     private suspend fun collectFileChangesFromContentObserverWork(contentUris: Array<String>?) = try {
+        Log_OC.d(TAG, "collecting file changes")
+
         withContext(Dispatchers.IO) {
             if (contentUris.isNullOrEmpty()) {
                 helper.insertEntries(syncedFolder, repository)
@@ -294,7 +293,7 @@ class AutoUploadWorker(
                 Log_OC.w(TAG, "no more files to upload at lastId: $lastId")
                 break
             }
-            Log_OC.d(TAG, "Processing batch: lastId=$lastId, count=${filePathsWithIds.size}")
+            Log_OC.d(TAG, "started, processing batch: lastId=$lastId, count=${filePathsWithIds.size}")
 
             filePathsWithIds.forEachIndexed { batchIndex, (path, id) ->
                 val file = File(path)
