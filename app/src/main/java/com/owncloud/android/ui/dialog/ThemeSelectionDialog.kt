@@ -9,9 +9,6 @@ package com.owncloud.android.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.RadioButton
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
@@ -23,6 +20,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.DarkMode
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
+import com.owncloud.android.databinding.DialogThemeSelectionBinding
 import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -37,84 +35,50 @@ class ThemeSelectionDialog :
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
+    private lateinit var binding: DialogThemeSelectionBinding
+
     override fun onStart() {
         super.onStart()
-        colorButtons()
-        colorRadioButtons()
-    }
+        val alertDialog = dialog as AlertDialog
 
-    private fun colorButtons() {
-        val dialog = dialog
-
-        if (dialog is AlertDialog) {
-            val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
-            positiveButton?.let {
-                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
-            }
+        val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
+        positiveButton?.let {
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton)
         }
-    }
-
-    private fun colorRadioButtons() {
-        val dialog = dialog
-        if (dialog is AlertDialog) {
-            val listView = dialog.listView ?: return
-
-            for (i in 0 until listView.childCount) {
-                val row = listView.getChildAt(i)
-
-                val radioButton = findRadioButtonInView(row)
-                radioButton?.let {
-                    viewThemeUtils.platform.themeRadioButton(it)
-                }
-            }
-        }
-    }
-
-    @Suppress("ReturnCount")
-    private fun findRadioButtonInView(view: View): RadioButton? {
-        if (view is RadioButton) return view
-        if (view is ViewGroup) {
-            for (i in 0 until view.childCount) {
-                findRadioButtonInView(view.getChildAt(i))?.let { return it }
-            }
-        }
-        return null
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val themeEntries = arrayOf(
-            getString(R.string.prefs_value_theme_light),
-            getString(R.string.prefs_value_theme_dark),
-            getString(R.string.prefs_value_theme_system)
-        )
+        binding = DialogThemeSelectionBinding.inflate(layoutInflater)
 
-        val themeValues = arrayOf(
-            DarkMode.LIGHT.name,
-            DarkMode.DARK.name,
-            DarkMode.SYSTEM.name
-        )
+        val currentTheme = preferences.getDarkThemeMode() ?: DarkMode.SYSTEM
+        val radioGroup = binding.themeRadioGroup
 
-        val currentTheme = preferences.getDarkThemeMode()?.name ?: DarkMode.SYSTEM.name
-        val selectedIndex = themeValues.indexOf(currentTheme)
+        viewThemeUtils.platform.run {
+            colorTextView(binding.dialogTitle)
+            themeRadioButton(binding.themeDark)
+            themeRadioButton(binding.themeLight)
+            themeRadioButton(binding.themeSystem)
+        }
+
+        when (currentTheme) {
+            DarkMode.LIGHT -> radioGroup.check(R.id.theme_light)
+            DarkMode.DARK -> radioGroup.check(R.id.theme_dark)
+            DarkMode.SYSTEM -> radioGroup.check(R.id.theme_system)
+        }
+
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            val selectedMode = when (checkedId) {
+                R.id.theme_light -> DarkMode.LIGHT
+                R.id.theme_dark -> DarkMode.DARK
+                R.id.theme_system -> DarkMode.SYSTEM
+                else -> DarkMode.SYSTEM
+            }
+
+            applyTheme(selectedMode)
+        }
 
         val builder = MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.prefs_theme_title)
-            .setSingleChoiceItems(themeEntries, selectedIndex) { dialog, which ->
-                if (which >= 0 && which < themeValues.size) {
-                    val selectedValue = themeValues[which]
-                    val mode = DarkMode.valueOf(selectedValue)
-
-                    preferences.setDarkThemeMode(mode)
-                    MainApp.setAppTheme(mode)
-
-                    setFragmentResult(
-                        ExtendedSettingsActivityDialog.ThemeSelection.key,
-                        bundleOf(ExtendedSettingsActivityDialog.ThemeSelection.key to selectedValue)
-                    )
-
-                    dialog.dismiss()
-                }
-            }
+            .setView(binding.root)
             .setPositiveButton(R.string.common_ok) { _, _ ->
                 dismiss()
             }
@@ -122,5 +86,15 @@ class ThemeSelectionDialog :
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(requireContext(), builder)
 
         return builder.create()
+    }
+
+    private fun applyTheme(mode: DarkMode) {
+        preferences.setDarkThemeMode(mode)
+        MainApp.setAppTheme(mode)
+
+        setFragmentResult(
+            ExtendedSettingsActivityDialog.ThemeSelection.key,
+            bundleOf(ExtendedSettingsActivityDialog.ThemeSelection.key to mode.name)
+        )
     }
 }
