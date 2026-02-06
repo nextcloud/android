@@ -46,7 +46,7 @@ class SyncFolderHelper(private val context: Context) {
             subFolderRule = syncedFolder.subfolderRule
         }
 
-        val result =  FileStorageUtils.getInstantUploadFilePath(
+        val result = FileStorageUtils.getInstantUploadFilePath(
             file,
             resources.configuration.locales[0],
             remoteFolder,
