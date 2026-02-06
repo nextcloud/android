@@ -98,26 +98,33 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
         }
     }
 
-    private fun setSubline(binding: FileDetailsShareLinkShareItemBinding?, context: Context?, publicShare: OCShare) {
+    /**
+     * Displays download limit information when available, hides subline otherwise.
+     * Clears text on hide to prevent RecyclerView item reuse issues.
+     */
+    private fun setSubline(
+        binding: FileDetailsShareLinkShareItemBinding?,
+        context: Context?,
+        publicShare: OCShare
+    ) {
         if (binding == null || context == null) {
             return
         }
 
-        val downloadLimit = publicShare.fileDownloadLimit
-        if (downloadLimit != null) {
-            val remaining = publicShare.remainingDownloadLimit() ?: return
-            val text = context.resources.getQuantityString(
+        val remaining = publicShare.remainingDownloadLimit()
+
+        if (remaining != null) {
+            val binding.subline.text = context.resources.getQuantityString(
                 R.plurals.share_download_limit_description,
                 remaining,
                 remaining
             )
-
-            binding.subline.text = text
             binding.subline.visibility = View.VISIBLE
-            return
+        } else {
+            // No download limit set at all
+            binding.subline.text = ""
+            binding.subline.visibility = View.GONE
         }
-
-        binding.subline.visibility = View.GONE
     }
 
     private fun setPermissionName(
