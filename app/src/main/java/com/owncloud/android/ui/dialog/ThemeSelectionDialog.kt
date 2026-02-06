@@ -115,7 +115,7 @@ class ThemeSelectionDialog :
                     dialog.dismiss()
                 }
             }
-            .setPositiveButton(R.string.common_cancel) { _, _ ->
+            .setPositiveButton(R.string.common_ok) { _, _ ->
                 dismiss()
             }
 
