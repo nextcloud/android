@@ -1011,6 +1011,7 @@ public class UploadFileOperation extends SyncOperation {
         File expectedFile = null;
         FileLock fileLock = null;
         FileChannel channel = null;
+        FileInputStream fileInputStream = null;
 
         long size;
 
@@ -1043,9 +1044,19 @@ public class UploadFileOperation extends SyncOperation {
             final Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
             try {
-                channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
-                fileLock = channel.tryLock();
+                fileInputStream = new FileInputStream(mFile.getStoragePath());
+                channel = fileInputStream.getChannel();
+                try {
+                    // request a shared lock instead of exclusive one, since we are just reading file
+                    fileLock = channel.tryLock(0L, Long.MAX_VALUE, true);
+                    Log_OC.d(TAG ,"file locked");
+                } catch (OverlappingFileLockException e) {
+                    // if another thread has the lock, current thread can still read the file.
+                    Log_OC.e(TAG, "shared lock overlap detected; proceeding safely.");
+                }
             } catch (FileNotFoundException e) {
+                Log_OC.e(TAG, "file not found exception: normal upload");
+
                 // this basically means that the file is on SD card
                 // try to copy file to temporary dir if it doesn't exist
                 String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) +
@@ -1058,8 +1069,13 @@ public class UploadFileOperation extends SyncOperation {
 
                 if (result.isSuccess()) {
                     if (temporalFile.length() == originalFile.length()) {
-                        channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
-                        fileLock = channel.tryLock();
+                        try {
+                            fileInputStream = new FileInputStream(temporalFile.getAbsolutePath());
+                            channel = fileInputStream.getChannel();
+                            fileLock = channel.tryLock(0L, Long.MAX_VALUE, true);
+                        } catch (OverlappingFileLockException ex) {
+                            Log_OC.e(TAG, "shared lock overlap detected; proceeding safely.");
+                        }
                     } else {
                         result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
                     }
@@ -1067,7 +1083,11 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             try {
-                size = channel.size();
+                if (channel != null && channel.isOpen()) {
+                    size = channel.size();
+                } else {
+                    size = new File(mFile.getStoragePath()).length();
+                }
             } catch (Exception exception) {
                 Log_OC.e(TAG, "normalUpload, size cannot be determined from channel: " + exception);
                 size = new File(mFile.getStoragePath()).length();
@@ -1121,28 +1141,42 @@ public class UploadFileOperation extends SyncOperation {
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
             result = new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
-        } catch (OverlappingFileLockException e) {
-            Log_OC.d(TAG, "Overlapping file lock exception");
-            result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
         } catch (Exception e) {
             result = new RemoteOperationResult<>(e);
         } finally {
             mUploadStarted.set(false);
 
-            if (fileLock != null) {
+            if (fileLock != null && fileLock.isValid()) {
                 try {
                     fileLock.release();
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "Failed to unlock file with path " + mOriginalStoragePath);
+                    Log_OC.d(TAG ,"file lock released");
+                } catch (IOException ignored) {
+                    Log_OC.e(TAG, "failed to unlock file with path " + mOriginalStoragePath);
                 }
+            } else {
+                Log_OC.e(TAG, "file lock is null");
             }
 
             if (channel != null) {
                 try {
                     channel.close();
-                } catch (IOException e) {
-                    Log_OC.w(TAG, "Failed to close file channel");
+                    Log_OC.d(TAG ,"file channel closed");
+                } catch (IOException ignored) {
+                    Log_OC.e(TAG, "failed to close file channel");
                 }
+            } else {
+                Log_OC.e(TAG, "channel is null");
+            }
+
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                    Log_OC.d(TAG ,"file input stream closed");
+                } catch (IOException ignored) {
+                    Log_OC.e(TAG, "failed to close file input stream");
+                }
+            } else {
+                Log_OC.e(TAG, "file input stream is null");
             }
 
             if (temporalFile != null && !originalFile.equals(temporalFile)) {
@@ -1248,7 +1282,24 @@ public class UploadFileOperation extends SyncOperation {
                     break;
                 case ASK_USER:
                     Log_OC.d(TAG, "Name collision; asking the user what to do");
-                    return new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+
+                    // check if its real SYNC_CONFLICT
+                    boolean isSameFileOnRemote = false;
+                    if (mFile != null) {
+                        String localPath = mFile.getStoragePath();
+
+                        if (localPath != null) {
+                            File localFile = new File(localPath);
+                            isSameFileOnRemote = FileUploadHelper.Companion.instance()
+                                .isSameFileOnRemote(user, localFile, mRemotePath, mContext);
+                        }
+                    }
+
+                    if (isSameFileOnRemote) {
+                        return new RemoteOperationResult<>(ResultCode.OK);
+                    } else {
+                        return new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
+                    }
             }
         }
 
@@ -1474,7 +1525,7 @@ public class UploadFileOperation extends SyncOperation {
             return false;
         } else {
             ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, false);
-            RemoteOperationResult result = existsOperation.execute(client);
+            final var result = existsOperation.execute(client);
             return result.isSuccess();
         }
     }
