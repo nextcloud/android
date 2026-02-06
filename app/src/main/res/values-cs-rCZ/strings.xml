@@ -1015,6 +1015,9 @@
     <string name="thumbnail_for_new_file_desc">Náhled pro nový soubor</string>
     <string name="timeout_richDocuments">Načítání trvá déle než očekáváno</string>
     <string name="today">Dnes</string>
+    <string name="translation_screen_label_from">Přeložit z:</string>
+    <string name="translation_screen_label_to">Přeložit do:</string>
+    <string name="translation_screen_translating">Překládá se…</string>
     <string name="trashbin_activity_title">Smazané soubory</string>
     <string name="trashbin_empty_headline">Žádné smazané soubory</string>
     <string name="trashbin_empty_message">Odsud je možné obnovit smazané soubory.</string>
