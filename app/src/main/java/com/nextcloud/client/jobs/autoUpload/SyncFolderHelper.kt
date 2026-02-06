@@ -21,16 +21,15 @@ import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.TimeZone
 
-class SyncFolderHelper(context: Context) {
-
-    private val resources = context.resources
-    private val isLightVersion = resources.getBoolean(R.bool.syncedFolder_light)
+class SyncFolderHelper(private val context: Context) {
 
     companion object {
         private const val TAG = "SyncFolderHelper"
     }
 
     fun getAutoUploadRemotePath(syncedFolder: SyncedFolder, file: File): String {
+        val resources = context.resources
+        val isLightVersion = resources.getBoolean(R.bool.syncedFolder_light)
         val lastModificationTime = calculateLastModificationTime(file, syncedFolder)
 
         val remoteFolder: String
@@ -64,6 +63,7 @@ class SyncFolderHelper(context: Context) {
 
     @Suppress("NestedBlockDepth")
     private fun calculateLastModificationTime(file: File, syncedFolder: SyncedFolder): Long {
+        val resources = context.resources
         val currentLocale = resources.configuration.locales[0]
         val formatter = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale).apply {
             timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
