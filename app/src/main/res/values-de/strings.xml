@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Aufgabe löschen</string>
     <string name="assistant_screen_empty_content_description">Versuchen Sie, eine Nachricht zu senden, um eine Unterhaltung anzustoßen.</string>
     <string name="assistant_screen_empty_content_title">Hallo! Womit kann ich Ihnen heute helfen?</string>
+    <string name="assistant_screen_select_task">Bitte eine Aufgabe auswählen</string>
     <string name="assistant_screen_send_message">Nachricht senden</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Liste der Unterhaltungen öffnen</string>
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
@@ -1015,6 +1016,12 @@
     <string name="thumbnail_for_new_file_desc">Miniaturbild für neue Datei</string>
     <string name="timeout_richDocuments">Laden dauert länger als erwartet</string>
     <string name="today">Heute</string>
+    <string name="translation_screen_hint_source">Text zum Übersetzen eingeben …</string>
+    <string name="translation_screen_label_from">Übersetzen von:</string>
+    <string name="translation_screen_label_to">Übersetzen nach:</string>
+    <string name="translation_screen_start_to_translate_task">Zum Übersetzen den Knopf drücken</string>
+    <string name="translation_screen_task_processing">Die Übersetzung dauert länger als erwartet.</string>
+    <string name="translation_screen_translating">Übersetze …</string>
     <string name="trashbin_activity_title">Gelöschte Dateien</string>
     <string name="trashbin_empty_headline">Keine gelöschten Dateien</string>
     <string name="trashbin_empty_message">Hier können Sie gelöschte Dateien wiederherstellen.</string>
@@ -1083,6 +1090,7 @@
     <string name="upload_missing_storage_permission_app_permissions">App-Berechtigungen</string>
     <string name="upload_missing_storage_permission_description">Ohne Zugriff auf den lokalen Speicher können Ihre Dateien nicht hochgeladen werden. Tippen Sie, um die Berechtigung zu erteilen.</string>
     <string name="upload_missing_storage_permission_title">Hochladen gestoppt – Speicherberechtigung erforderlich</string>
+    <string name="upload_notification_manager_content_intent_description">Sie können es entfernen oder aus den Uploads fortsetzen</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Verschlüsselung ist nur möglich mit &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in das Verzeichnis %1$s zu kopieren. Sollen diese stattdessen verschoben werden?</string>

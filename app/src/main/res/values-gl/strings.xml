@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
     <string name="assistant_screen_empty_content_description">Probe a enviar unha mensaxe para iniciar unha conversa.</string>
     <string name="assistant_screen_empty_content_title">Ola! En que podo axudarlle hoxe?</string>
+    <string name="assistant_screen_select_task">Seleccione a tarefa</string>
     <string name="assistant_screen_send_message">Enviar a mensaxe</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Lista de conversas abertas</string>
     <string name="assistant_screen_task_create_fail_message">Produciuse un erro ao crear a tarefa</string>
@@ -1016,6 +1017,12 @@
     <string name="thumbnail_for_new_file_desc">Miniatura do novo ficheiro</string>
     <string name="timeout_richDocuments">A carga está a levar máis tempo do agardado</string>
     <string name="today">Hoxe</string>
+    <string name="translation_screen_hint_source">Introduza o texto a traducir</string>
+    <string name="translation_screen_label_from">Traducir desde:</string>
+    <string name="translation_screen_label_to">Traducir a:</string>
+    <string name="translation_screen_start_to_translate_task">Prema no botón para traducir</string>
+    <string name="translation_screen_task_processing">A tradución está a levar máis tempo do agardado.</string>
+    <string name="translation_screen_translating">Traducindo…</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Non hai ficheiros eliminados</string>
     <string name="trashbin_empty_message">Poderá recuperar ficheiros eliminados de aquí.</string>
@@ -1084,6 +1091,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Permisos da aplicación</string>
     <string name="upload_missing_storage_permission_description">Non é posíbel enviar os ficheiros cargar sen acceso ao almacenamento local. Toque para conceder permiso.</string>
     <string name="upload_missing_storage_permission_title">Envío detido — É necesario permiso de almacenamento</string>
+    <string name="upload_notification_manager_content_intent_description">Pode retiralo ou retomalo desde Envíos</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">A cifraxe só é posíbel con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. En troques, gustaríalle movelos?</string>

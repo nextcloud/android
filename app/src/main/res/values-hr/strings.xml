@@ -34,6 +34,7 @@
     <string name="appbar_search_in">Traži u %s</string>
     <string name="appear_offline">Prikaži se kao izvan mreže</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Izbriši zadatak</string>
+    <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_task_status_running">radi</string>
     <string name="assistant_task_status_unknown">nepoznato</string>
     <string name="associated_account_not_found">Pripadajući račun nije pronađen!</string>
@@ -81,6 +82,7 @@
     <string name="battery_optimization_disable">Onemogući</string>
     <string name="battery_optimization_message">Možda je omogućena optimizacija rada baterije na uređaju. Mogućnost automatskog otpremanja AutoUpload djeluje samo ako izuzmete ovu aplikaciju iz optimizacije baterije.</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
+    <string name="bottom_navigation_menu_assistant_label">Asistent</string>
     <string name="bottom_navigation_menu_favorites_label">Favoriti</string>
     <string name="bottom_navigation_menu_files_label">Sve datoteke</string>
     <string name="bottom_navigation_menu_media_label">Medij</string>
@@ -144,6 +146,7 @@
     <string name="community_testing_bug_text">Pronašli ste nedostatak? Pogrešku u radu?</string>
     <string name="community_testing_headline">Pomozite nam testiranjem</string>
     <string name="community_testing_report_text">Prijavite problem na GitHubu</string>
+    <string name="compose_activity_label">Nextcloud Asistent</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguriraj</string>
     <string name="confirmation_remove_file_alert">Želite li zaista izbrisati %1$s?</string>
     <string name="confirmation_remove_files_alert">Želite li zaista izbrisati odabrane stavke?</string>
@@ -180,6 +183,7 @@
     <string name="create_new_folder">Nova mapa</string>
     <string name="create_new_presentation">Nova prezentacija</string>
     <string name="create_new_spreadsheet">Nova proračunska tablica</string>
+    <string name="create_rich_workspace">Dodaj opis mape</string>
     <string name="credentials_disabled">Vjerodajnice onemogućene</string>
     <string name="daily_backup">Svakodnevno sigurnosno kopiranje</string>
     <string name="data_to_back_up">Podaci za sigurnosno kopiranje</string>
@@ -219,6 +223,7 @@
     <string name="drawer_header_background">Pozadinska slika zaglavlja ladice</string>
     <string name="drawer_item_activities">Aktivnosti</string>
     <string name="drawer_item_all_files">Sve datoteke</string>
+    <string name="drawer_item_assistant">Asistent</string>
     <string name="drawer_item_favorites">Favoriti</string>
     <string name="drawer_item_gallery">Medij</string>
     <string name="drawer_item_home">Početna</string>
@@ -234,6 +239,7 @@
     <string name="drawer_quota">Iskorišteno %1$s od %2$s</string>
     <string name="drawer_quota_unlimited">Upotrijebljeno %1$s</string>
     <string name="drawer_synced_folders">Automatsko otpremanje</string>
+    <string name="ecosystem_apps_display_assistant">Asistent</string>
     <string name="ecosystem_apps_display_more">Više</string>
     <string name="encrypted">Postavi kao šifrirano</string>
     <string name="end_to_end_encryption_confirm_button">Postavi šifriranje</string>
