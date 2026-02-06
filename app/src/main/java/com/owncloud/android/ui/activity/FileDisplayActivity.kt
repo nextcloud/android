@@ -535,6 +535,12 @@ class FileDisplayActivity :
         }
     }
 
+     /**
+     * Reinitializes the file list fragment after an account change.
+     *
+     * Refreshes the file list directory with the current folder contents.
+     * Does not update UI components - caller is responsible for updating action bar and scrolling.
+     */
     private fun initFragments() {
         /** First fragment */
         val listOfFiles = this.listOfFilesFragment
@@ -543,9 +549,6 @@ class FileDisplayActivity :
         } else {
             Log_OC.e(TAG, "Still have a chance to lose the initialization of list fragment >(")
         }
-
-        /** reset views */
-        resetScrollingAndUpdateActionBar()
     }
 
     // region Handle Intents
@@ -1876,6 +1879,12 @@ class FileDisplayActivity :
         }
     }
 
+    /**
+     * Updates the action bar title and home button for the specified file,
+     * defaulting to the current file if none is provided.
+     *
+     * @param chosenFile The file to display in the action bar, or null to use the current file
+     */
     public override fun updateActionBarTitleAndHomeButton(chosenFile: OCFile?) {
         var chosenFile = chosenFile
         if (chosenFile == null) {
@@ -2799,10 +2808,17 @@ class FileDisplayActivity :
             return
         }
 
-        initFile()
+        initializeCurrentFile()
     }
 
-    private fun initFile() {
+    /**
+     * Initializes or updates the file state for the current account when the activity starts or resumes.
+     *
+     * Validates file existence, falls back to root if invalid, and refreshes UI when
+     * the account differs from the previously displayed one. Called on both initial
+     * load and account changes.
+     */
+    private fun initializeCurrentFile() {
         val userOpt = user
         if (userOpt.isEmpty) {
             Log_OC.w(TAG, "user is not available, cannot init file")
@@ -2816,41 +2832,15 @@ class FileDisplayActivity :
             return
         }
 
-        var file = getFile()
-        if (file != null) {
-            if (file.isDown && file.lastSyncDateForProperties == 0L) {
-                val remote = file.remotePath
-                val name = file.fileName
-
-                val idx = remote.lastIndexOf(name)
-                if (idx > 0) {
-                    val parentPath = remote.take(idx)
-                    if (storageManager.getFileByPath(parentPath) == null) {
-                        file = null
-                    }
-                } else {
-                    file = null
-                }
-            } else {
-                file = storageManager.getFileByPath(file.remotePath)
-            }
-        }
-
-        // fall back to root folder
-        if (file == null) {
-            file = storageManager.getFileByPath(OCFile.ROOT_PATH)
-        }
-
+        val file = resolveCurrentFile(storageManager)
         if (file == null) {
             Log_OC.e(TAG, "Could not retrieve root folder – cannot continue")
             return
         }
-
         setFile(file)
 
         val existingAccountName = existingUser.accountName
         mSwitchAccountButton.tag = existingAccountName
-
         DisplayUtils.setAvatar(
             existingUser,
             this,
@@ -2859,20 +2849,68 @@ class FileDisplayActivity :
             mSwitchAccountButton,
             this
         )
+
         val userChanged = (existingAccountName != lastDisplayedAccountName)
-        if (userChanged) {
+        if (!userChanged) {
+            updateActionBarTitleAndHomeButton(file)
+        } else {
+            // User switched; refresh UI and trigger folder sync (broadcast receiver will update UI again when done)
             Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..")
+            // Display cached (pre-sync) file list for a good user experience
             initFragments()
+            resetScrollingAndUpdateActionBar()
+
             if (file.isFolder && TextUtils.isEmpty(searchQuery)) {
+                // Trigger background sync to get fresh metadata from server
                 startSyncFolderOperation(file, false)
             }
-        } else {
-            updateActionBarTitleAndHomeButton(if (file.isFolder) null else file)
         }
 
         setNewLastDisplayedAccountName(existingAccountName)
         EventBus.getDefault().post(TokenPushEvent())
         checkForNewDevVersionNecessary(applicationContext)
+    }
+
+     /**
+     * Resolves the current file to display, handling possible cases where
+     * the selected file is missing or invalid, and falling back to the root folder if necessary.
+     *
+     * @param storageManager The file data storage manager used to retrieve files.
+     * @return The valid file to display, or null if the root folder cannot be retrieved.
+     */
+    private fun resolveCurrentFile(storageManager: FileDataStorageManager): OCFile? {
+        var file = getFile()
+        if (file != null) {
+            // If file is present locally and has never been synced, check that its parent actually exists.
+            // This handles cases where the file reference is corrupt (e.g. orphaned from its directory).
+            if (file.isDown && file.lastSyncDateForProperties == 0L) {
+                val remote = file.remotePath
+                val name = file.fileName
+
+                // Extract parent path and verify existence.
+                val idx = remote.lastIndexOf(name)
+                if (idx > 0) {
+                    val parentPath = remote.take(idx)
+                    if (storageManager.getFileByPath(parentPath) == null) {
+                        // Parent folder doesn't exist in storage, treat file as invalid
+                        file = null
+                    }
+                } else {
+                    // No valid parent path found, treat file as invalid
+                    file = null
+                }
+            } else {
+                // File is valid or previously synced, retrieve latest record from local storage/database.
+                file = storageManager.getFileByPath(file.remotePath)
+            }
+        }
+
+        // Fall back to root folder if file is invalid, missing, or corrupt
+        if (file == null) {
+            file = storageManager.getFileByPath(OCFile.ROOT_PATH)
+        }
+
+        return file
     }
 
     private fun setNewLastDisplayedAccountName(accountName: String) {
