@@ -702,7 +702,6 @@
     <string name="prefs_theme_title">السمة</string>
     <string name="prefs_two_way_sync_interval">الفسحة الزمنية</string>
     <string name="prefs_two_way_sync_summary">إدارة المجلدات الداخلية للمزامنة في الاتجاهين</string>
-    <string name="prefs_two_way_sync_switch_title">تمكين المزامنة في الاتجاهين</string>
     <string name="prefs_value_theme_dark">غامق</string>
     <string name="prefs_value_theme_light">فاتح</string>
     <string name="prefs_value_theme_system">اتبع النظام</string>
@@ -990,7 +989,6 @@
     <string name="upload_files">حمل الملفات</string>
     <string name="upload_global_pause_title">كل عمليات الرفع مجمدة</string>
     <string name="upload_item_action_button">زر إجراء رفع العنصر</string>
-    <string name="upload_list_cancel_upload">إلغاء الرفع</string>
     <string name="upload_list_delete">حذف</string>
     <string name="upload_list_empty_headline">لا توجد تحميلات</string>
     <string name="upload_list_empty_text_auto_upload">قم بتحميل بعض الملفات أو قم بتفعيل التحميل التلقائي.</string>

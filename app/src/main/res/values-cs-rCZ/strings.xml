@@ -767,7 +767,6 @@
     <string name="prefs_theme_title">Motiv vzhledu</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Spravovat interní složky pro dvoucestnou synchronizaci</string>
-    <string name="prefs_two_way_sync_switch_title">Zapnout obousměrnou synchronizaci</string>
     <string name="prefs_two_way_sync_title">Obousměrná synchronizace</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Světlý</string>
@@ -1071,7 +1070,6 @@
     <string name="upload_files">Nahrát soubory</string>
     <string name="upload_global_pause_title">Veškerá nahrávání jsou pozastavena</string>
     <string name="upload_item_action_button">Tlačítko akce Nahrát položku</string>
-    <string name="upload_list_cancel_upload">Zrušit nahrávání</string>
     <string name="upload_list_delete">Smazat</string>
     <string name="upload_list_empty_headline">Nic k nahrání</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo zapněte automatické nahrávání.</string>

@@ -744,7 +744,6 @@
     <string name="prefs_theme_title">ຫົວຂໍ້</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Manage internal folders for two way sync</string>
-    <string name="prefs_two_way_sync_switch_title">Enable two way sync</string>
     <string name="prefs_value_theme_dark">ມືດ</string>
     <string name="prefs_value_theme_light">ແຈ້ງ</string>
     <string name="prefs_value_theme_system">ຕາມລະບົບ</string>
@@ -1039,7 +1038,6 @@
     <string name="upload_files">ອັບໂຫຼດຟາຍ</string>
     <string name="upload_global_pause_title">All uploads are paused</string>
     <string name="upload_item_action_button">ອັບໂຫຼດປຸ່ມ ໃນລາຍການການອັບໂຫຼດ</string>
-    <string name="upload_list_cancel_upload">Cancel upload</string>
     <string name="upload_list_delete">ລຶບ</string>
     <string name="upload_list_empty_headline">ບໍ່ມີການອັບໂຫຼດ</string>
     <string name="upload_list_empty_text_auto_upload">ອັບໂຫລດເນື້ອຫາບາງຢ່າງ ຫຼື ເປີດການອັບໂຫລດອັດຕະໂນມັດ.</string>

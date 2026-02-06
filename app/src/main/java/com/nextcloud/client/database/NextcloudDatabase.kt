@@ -38,6 +38,7 @@ import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.VirtualEntity
 import com.nextcloud.client.database.migrations.DatabaseMigrationUtil
 import com.nextcloud.client.database.migrations.MIGRATION_88_89
+import com.nextcloud.client.database.migrations.MIGRATION_97_98
 import com.nextcloud.client.database.migrations.Migration67to68
 import com.nextcloud.client.database.migrations.RoomMigration
 import com.nextcloud.client.database.migrations.addLegacyMigrations
@@ -92,8 +93,8 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 93, to = 94, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
         AutoMigration(from = 94, to = 95, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
         AutoMigration(from = 95, to = 96),
-        AutoMigration(from = 96, to = 97, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
-        AutoMigration(from = 97, to = 98)
+        AutoMigration(from = 96, to = 97, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class)
+        // manual migration used for 97 to 98
     ],
     exportSchema = true
 )
@@ -131,6 +132,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                     .addMigrations(RoomMigration())
                     .addMigrations(Migration67to68())
                     .addMigrations(MIGRATION_88_89)
+                    .addMigrations(MIGRATION_97_98)
                     .build()
             }
             return instance!!

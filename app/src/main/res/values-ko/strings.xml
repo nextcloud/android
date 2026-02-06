@@ -689,7 +689,6 @@
     <string name="prefs_theme_title">테마</string>
     <string name="prefs_two_way_sync_interval">간격</string>
     <string name="prefs_two_way_sync_summary">내부 폴더 양방향 동기화 관리</string>
-    <string name="prefs_two_way_sync_switch_title">양방향 동기화 활성화</string>
     <string name="prefs_value_theme_dark">어둡게</string>
     <string name="prefs_value_theme_light">밝게</string>
     <string name="prefs_value_theme_system">시스템을 따르기</string>
@@ -965,7 +964,6 @@
     <string name="upload_files">파일 업로드</string>
     <string name="upload_global_pause_title">모든 업로드가 일시 정지됨</string>
     <string name="upload_item_action_button">항목 업로드 동작 단추</string>
-    <string name="upload_list_cancel_upload">업로드 취소</string>
     <string name="upload_list_delete">삭제</string>
     <string name="upload_list_empty_headline">업로드 없음</string>
     <string name="upload_list_empty_text_auto_upload">콘텐츠를 업로드하거나 자동 업로드를 활성화하십시오.</string>

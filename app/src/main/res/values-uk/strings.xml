@@ -104,7 +104,7 @@
     <string name="auth_unknown_host_title">Вузол не знайдено</string>
     <string name="auth_unsupported_multiaccount">%1$s не підтримує одночасно декілька облікових записів</string>
     <string name="auth_wrong_connection_title">Не вдалося встановити з\'єднання</string>
-    <string name="authenticator_activity_cancel_login">Скасувати авторизацію</string>
+    <string name="authenticator_activity_cancel_login">Скасувати вхід</string>
     <string name="authenticator_activity_empty_base_url">Зазначте дійсну адресу сервера</string>
     <string name="authenticator_activity_empty_response_message">Не вдалося отримати дані для входу. Спробуйте ще раз.</string>
     <string name="authenticator_activity_login_error">Помилка під час обробки запиту на вхід. Спробуйте пізніше.</string>
@@ -767,7 +767,6 @@
     <string name="prefs_theme_title">Тема</string>
     <string name="prefs_two_way_sync_interval">Інтервал</string>
     <string name="prefs_two_way_sync_summary">Керувати внутрішніми каталогами для двосторонньої синхронізації</string>
-    <string name="prefs_two_way_sync_switch_title">Увімкнути двосторонню синхронізацію</string>
     <string name="prefs_two_way_sync_title">Двостороння синхронізація</string>
     <string name="prefs_value_theme_dark">Темна</string>
     <string name="prefs_value_theme_light">Світла</string>
@@ -1071,7 +1070,6 @@
     <string name="upload_files">Завантажити файл</string>
     <string name="upload_global_pause_title">Всі завантаження призупинено</string>
     <string name="upload_item_action_button">Кнопка завантаження</string>
-    <string name="upload_list_cancel_upload">Скасувати завантаження</string>
     <string name="upload_list_delete">Вилучити</string>
     <string name="upload_list_empty_headline">Ви ще нічого не завантажили</string>
     <string name="upload_list_empty_text_auto_upload">Завантажте вміст або увімкніть автоматичне завантаження</string>

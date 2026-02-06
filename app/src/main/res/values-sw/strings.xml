@@ -767,7 +767,6 @@
     <string name="prefs_theme_title">Mandhari</string>
     <string name="prefs_two_way_sync_interval">Muda</string>
     <string name="prefs_two_way_sync_summary">Dhibiti folda za ndani kwa usawazishaji wa njia mbili</string>
-    <string name="prefs_two_way_sync_switch_title">Washa usawazishaji wa njia mbili</string>
     <string name="prefs_two_way_sync_title">Usawazishaji wa njia mbili</string>
     <string name="prefs_value_theme_dark">Giza</string>
     <string name="prefs_value_theme_light">Mwanga</string>
@@ -1071,7 +1070,6 @@
     <string name="upload_files">Pakia faili</string>
     <string name="upload_global_pause_title">Upakiaji wote umesitishwa</string>
     <string name="upload_item_action_button">Kitufe cha kitendo cha kupakia</string>
-    <string name="upload_list_cancel_upload">Ghairi upakiaji</string>
     <string name="upload_list_delete">Futa</string>
     <string name="upload_list_empty_headline">Hakuna vipakiwa vinavyopatikana</string>
     <string name="upload_list_empty_text_auto_upload">Pakia baadhi ya maudhui au uwashe upakiaji kiotomatiki.</string>

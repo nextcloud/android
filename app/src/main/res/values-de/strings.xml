@@ -767,7 +767,6 @@
     <string name="prefs_theme_title">Design</string>
     <string name="prefs_two_way_sync_interval">Intervall</string>
     <string name="prefs_two_way_sync_summary">Interne Ordner für 2-Wege-Synchronisierung verwalten</string>
-    <string name="prefs_two_way_sync_switch_title">2-Wege-Synchronisierung aktivieren</string>
     <string name="prefs_two_way_sync_title">2-Wege-Synchronisierung</string>
     <string name="prefs_value_theme_dark">Dunkel</string>
     <string name="prefs_value_theme_light">Hell</string>
@@ -1071,7 +1070,6 @@
     <string name="upload_files">Dateien hochladen</string>
     <string name="upload_global_pause_title">Alle Uploads wurden pausiert</string>
     <string name="upload_item_action_button">Button, um Objekt hochzuladen</string>
-    <string name="upload_list_cancel_upload">Hochladen abbrechen</string>
     <string name="upload_list_delete">Löschen</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload.</string>

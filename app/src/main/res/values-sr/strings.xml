@@ -739,7 +739,6 @@
     <string name="prefs_theme_title">Тема</string>
     <string name="prefs_two_way_sync_interval">Интервал</string>
     <string name="prefs_two_way_sync_summary">Управљање интерним фолдерима за двосмерну синхронизацију</string>
-    <string name="prefs_two_way_sync_switch_title">Укључи двосмерну синхронизацију</string>
     <string name="prefs_value_theme_dark">тамна</string>
     <string name="prefs_value_theme_light">светла</string>
     <string name="prefs_value_theme_system">системска</string>
@@ -1034,7 +1033,6 @@
     <string name="upload_files">Отпреми фајлове</string>
     <string name="upload_global_pause_title">Сва отпремања су паузирана</string>
     <string name="upload_item_action_button">Дугме за отпремање</string>
-    <string name="upload_list_cancel_upload">Откажи отпремање</string>
     <string name="upload_list_delete">Избриши</string>
     <string name="upload_list_empty_headline">Нема доступних отпремања</string>
     <string name="upload_list_empty_text_auto_upload">Отпремите нешто или укључите аутоматско отпремање.</string>

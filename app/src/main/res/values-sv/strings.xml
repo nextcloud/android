@@ -755,7 +755,6 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Intervall </string>
     <string name="prefs_two_way_sync_summary">Hantera interna mappar för tvåvägssynk</string>
-    <string name="prefs_two_way_sync_switch_title">Aktivera tvåvägssynk</string>
     <string name="prefs_value_theme_dark">Mörkt</string>
     <string name="prefs_value_theme_light">Ljust</string>
     <string name="prefs_value_theme_system">Följ systemet</string>
@@ -1054,7 +1053,6 @@
     <string name="upload_files">Ladda upp filer</string>
     <string name="upload_global_pause_title">Alla uppladdningar är pausade</string>
     <string name="upload_item_action_button">Ladda upp objekthändelse-knapp</string>
-    <string name="upload_list_cancel_upload">Avbryt uppladdning</string>
     <string name="upload_list_delete">Ta bort</string>
     <string name="upload_list_empty_headline">Inga uppladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>

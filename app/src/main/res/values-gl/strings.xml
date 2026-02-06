@@ -768,7 +768,6 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Intervalo</string>
     <string name="prefs_two_way_sync_summary">Xestionar os cartafoles internos para a sincronización bidireccional</string>
-    <string name="prefs_two_way_sync_switch_title">Activar a sincronización bidireccional</string>
     <string name="prefs_two_way_sync_title">Sincronización bidireccional</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
@@ -1072,7 +1071,6 @@
     <string name="upload_files">Enviar ficheiros</string>
     <string name="upload_global_pause_title">Todos os envíos están en pausa</string>
     <string name="upload_item_action_button">Botón da acción do envío de elemento</string>
-    <string name="upload_list_cancel_upload">Cancelar o envío</string>
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">Non hai envíos dispoñíbeis</string>
     <string name="upload_list_empty_text_auto_upload">Envíe algún contido ou active o envío automático.</string>

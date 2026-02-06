@@ -767,7 +767,6 @@
     <string name="prefs_theme_title">Téma</string>
     <string name="prefs_two_way_sync_interval">Időköz</string>
     <string name="prefs_two_way_sync_summary">Belső mappák kezelése kétirányú szinkronizáláshoz</string>
-    <string name="prefs_two_way_sync_switch_title">Kétirányú szinkronizálás engedélyezése</string>
     <string name="prefs_two_way_sync_title">Kétirányú szinkronizálás</string>
     <string name="prefs_value_theme_dark">Sötét</string>
     <string name="prefs_value_theme_light">Világos</string>
@@ -1089,7 +1088,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_files">Fájlok feltöltése</string>
     <string name="upload_global_pause_title">Összes feltöltés szüneteltetve</string>
     <string name="upload_item_action_button">Elem feltöltése műveletgomb</string>
-    <string name="upload_list_cancel_upload">Feltöltés megszakítása</string>
     <string name="upload_list_delete">Törlés</string>
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
     <string name="upload_list_empty_text_auto_upload">Töltsön fel valamilyen tartalmat, vagy aktiválja az automatikus feltöltést.</string>

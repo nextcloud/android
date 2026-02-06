@@ -590,7 +590,6 @@
     <string name="prefs_theme_title">Apipavidalinimas</string>
     <string name="prefs_two_way_sync_interval">Intervalas.</string>
     <string name="prefs_two_way_sync_summary">Administruoti vidines dvipusio sinchronizavimo direktorijas</string>
-    <string name="prefs_two_way_sync_switch_title">Įjungti dvipusį sinchronizavimą.</string>
     <string name="prefs_value_theme_dark">Tamsus</string>
     <string name="prefs_value_theme_light">Šviesus</string>
     <string name="prefs_value_theme_system">Pagal sistemą</string>
@@ -837,7 +836,6 @@
     <string name="upload_file_dialog_title">Įrašykite failo pavadinimą ir tipą įkėlimui</string>
     <string name="upload_files">Įkelti failus</string>
     <string name="upload_item_action_button">Įkelti elemento veiksmo mygtuką</string>
-    <string name="upload_list_cancel_upload">Atšaukti įkėlimą</string>
     <string name="upload_list_delete">Ištrinti</string>
     <string name="upload_list_empty_headline">Atnaujinimų nerasta</string>
     <string name="upload_list_empty_text_auto_upload">Įkelkite failus arba sinchronizuokite su savo įrenginiais</string>

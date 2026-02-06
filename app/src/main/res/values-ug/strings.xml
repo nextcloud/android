@@ -756,7 +756,6 @@
     <string name="prefs_theme_title">باشتېما</string>
     <string name="prefs_two_way_sync_interval">ئىنتىرۋال</string>
     <string name="prefs_two_way_sync_summary">ئىككى خىل ماسقەدەملەش ئۈچۈن ئىچكى قىسقۇچلارنى باشقۇرۇڭ</string>
-    <string name="prefs_two_way_sync_switch_title">ئىككى يۆنىلىشلىك ماس-قەدەملەشنى قوزغات</string>
     <string name="prefs_value_theme_dark">قاراڭغۇ</string>
     <string name="prefs_value_theme_light">نۇر</string>
     <string name="prefs_value_theme_system">سىستېمىغا ئەگىشىڭ</string>
@@ -1056,7 +1055,6 @@
     <string name="upload_files">ھۆججەتلەرنى يۈكلەڭ</string>
     <string name="upload_global_pause_title">بارلىق يۈكلەش توختىتىلدى</string>
     <string name="upload_item_action_button">تۈر ھەرىكەت كۇنۇپكىسىنى يۈكلەڭ</string>
-    <string name="upload_list_cancel_upload">يۈكلەشتىن ۋاز كەچ</string>
     <string name="upload_list_delete">ئۆچۈرۈش</string>
     <string name="upload_list_empty_headline">يوللاشقا بولمايدۇ</string>
     <string name="upload_list_empty_text_auto_upload">بەزى مەزمۇنلارنى يۈكلەڭ ياكى ئاپتوماتىك يوللاشنى قوزغىتىڭ.</string>

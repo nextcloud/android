@@ -754,7 +754,6 @@
     <string name="prefs_theme_title">Оформление</string>
     <string name="prefs_two_way_sync_interval">Интервал</string>
     <string name="prefs_two_way_sync_summary">Управление внутренними папками для двусторонней синхронизации</string>
-    <string name="prefs_two_way_sync_switch_title">Включить двустороннюю синхронизацию</string>
     <string name="prefs_two_way_sync_title">Двусторонняя синхронизация</string>
     <string name="prefs_value_theme_dark">Тёмное</string>
     <string name="prefs_value_theme_light">Светлое</string>
@@ -1054,7 +1053,6 @@
     <string name="upload_files">Отправить файлы</string>
     <string name="upload_global_pause_title">Все загрузки приостановлены</string>
     <string name="upload_item_action_button">Кнопка «выгрузить объект»</string>
-    <string name="upload_list_cancel_upload">Отменить передачу</string>
     <string name="upload_list_delete">Удалить</string>
     <string name="upload_list_empty_headline">Нет файлов, ожидающих передачу на сервер.</string>
     <string name="upload_list_empty_text_auto_upload">Сохраните здесь что-нибудь или включите автоматическую передачу файлов!</string>

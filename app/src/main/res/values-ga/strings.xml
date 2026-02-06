@@ -767,7 +767,6 @@
     <string name="prefs_theme_title">Téama</string>
     <string name="prefs_two_way_sync_interval">Eatramh</string>
     <string name="prefs_two_way_sync_summary">Bainistigh fillteáin inmheánacha le haghaidh sioncronaithe dhá bhealach</string>
-    <string name="prefs_two_way_sync_switch_title">Cumasaigh sioncronú dhá bhealach</string>
     <string name="prefs_two_way_sync_title">Sioncrónú dhá bhealach</string>
     <string name="prefs_value_theme_dark">Dorcha</string>
     <string name="prefs_value_theme_light">Solas</string>
@@ -1071,7 +1070,6 @@
     <string name="upload_files">Uaslódáil comhaid</string>
     <string name="upload_global_pause_title">Tá gach uaslódáil curtha ar sos</string>
     <string name="upload_item_action_button">Íoslódáil an cnaipe gníomh</string>
-    <string name="upload_list_cancel_upload">Cealaigh an uaslódáil</string>
     <string name="upload_list_delete">Scrios</string>
     <string name="upload_list_empty_headline">Níl aon uaslódála ar fáil</string>
     <string name="upload_list_empty_text_auto_upload">Uaslódáil roinnt ábhar nó cuir an uaslódáil uathoibríoch i ngníomh.</string>
