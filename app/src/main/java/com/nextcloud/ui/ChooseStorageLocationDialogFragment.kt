@@ -25,6 +25,7 @@ import com.owncloud.android.datastorage.DataStorageProvider
 import com.owncloud.android.datastorage.StoragePoint
 import com.owncloud.android.datastorage.StoragePoint.PrivacyType
 import com.owncloud.android.datastorage.StoragePoint.StorageType
+import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
@@ -151,19 +152,13 @@ class ChooseStorageLocationDialogFragment :
                 ?: return
 
         val resultBundle = Bundle().apply {
-            putString(KEY_RESULT_STORAGE_LOCATION, newPath.path)
+            putString(ExtendedSettingsActivityDialog.StorageLocation.key, newPath.path)
         }
 
-        parentFragmentManager.setFragmentResult(KEY_RESULT_STORAGE_LOCATION, resultBundle)
+        parentFragmentManager.setFragmentResult(ExtendedSettingsActivityDialog.StorageLocation.key, resultBundle)
     }
 
     companion object {
-        const val KEY_RESULT_STORAGE_LOCATION = "KEY_RESULT_STORAGE_LOCATION"
-        const val STORAGE_LOCATION_RESULT_CODE = 100
-
-        @JvmStatic
-        fun newInstance() = ChooseStorageLocationDialogFragment()
-
         @JvmStatic
         val TAG: String = Companion::class.java.simpleName
     }

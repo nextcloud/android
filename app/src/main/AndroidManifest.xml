@@ -358,7 +358,7 @@
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".ui.activity.ChooseStorageLocationActivity"
+            android:name=".ui.activity.ExtendedSettingsActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false"
             android:theme="@style/Theme.NoBackground" />
