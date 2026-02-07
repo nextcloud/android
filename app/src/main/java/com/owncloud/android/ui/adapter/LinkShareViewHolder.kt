@@ -111,19 +111,19 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
             return
         }
 
-        val remaining = publicShare.remainingDownloadLimit()
+        val remaining = publicShare.remainingDownloadLimit()?.coerceAtLeast(0)
 
-        if (remaining != null) {
+        if (remaining == null) {
+            // No download limit set at all
+            binding.subline.text = ""
+            binding.subline.visibility = View.GONE
+        } else {
             val binding.subline.text = context.resources.getQuantityString(
                 R.plurals.share_download_limit_description,
                 remaining,
                 remaining
             )
             binding.subline.visibility = View.VISIBLE
-        } else {
-            // No download limit set at all
-            binding.subline.text = ""
-            binding.subline.visibility = View.GONE
         }
     }
 
