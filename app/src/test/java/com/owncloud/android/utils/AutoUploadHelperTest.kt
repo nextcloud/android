@@ -15,6 +15,7 @@ import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.extensions.shouldSkipFile
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.UploadsStorageManager
 import io.mockk.clearAllMocks
 import io.mockk.mockk
 import org.junit.After
@@ -36,6 +37,7 @@ class AutoUploadHelperTest {
     private val mockContext: Context = mockk(relaxed = true)
 
     private lateinit var repo: FileSystemRepository
+    private val mockUploadsStorageManager: UploadsStorageManager = mockk(relaxed = true)
 
     @Before
     fun setup() {
@@ -43,7 +45,7 @@ class AutoUploadHelperTest {
         tempDir.mkdirs()
         assertTrue("Failed to create temp directory", tempDir.exists())
 
-        repo = FileSystemRepository(mockDao, mockContext)
+        repo = FileSystemRepository(mockDao, mockUploadsStorageManager, mockContext)
     }
 
     @After
