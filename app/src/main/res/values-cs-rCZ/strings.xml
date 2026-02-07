@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Smazat úkol</string>
     <string name="assistant_screen_empty_content_description">Zkuste poslat zprávu pro rozproudění konverzace.</string>
     <string name="assistant_screen_empty_content_title">Zdravím! Jak vám mohu pomoci?</string>
+    <string name="assistant_screen_select_task">Vyberte úkol</string>
     <string name="assistant_screen_send_message">Poslat zprávu</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Otevřít seznam konverzací</string>
     <string name="assistant_screen_task_create_fail_message">Při vytváření úlohy se vyskytla chyba</string>
@@ -1015,8 +1016,11 @@
     <string name="thumbnail_for_new_file_desc">Náhled pro nový soubor</string>
     <string name="timeout_richDocuments">Načítání trvá déle než očekáváno</string>
     <string name="today">Dnes</string>
+    <string name="translation_screen_hint_source">Zadejte text který přeložit…</string>
     <string name="translation_screen_label_from">Přeložit z:</string>
     <string name="translation_screen_label_to">Přeložit do:</string>
+    <string name="translation_screen_start_to_translate_task">Přeložíte kliknutím na tlačítko</string>
+    <string name="translation_screen_task_processing">Překládání trvá déle než očekáváno.</string>
     <string name="translation_screen_translating">Překládá se…</string>
     <string name="trashbin_activity_title">Smazané soubory</string>
     <string name="trashbin_empty_headline">Žádné smazané soubory</string>
@@ -1086,6 +1090,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Oprávnění aplikace</string>
     <string name="upload_missing_storage_permission_description">Bez přístupu k lokálnímu úložišti není možné vaše soubory nahrávat. Klepnutím udělte oprávnění.</string>
     <string name="upload_missing_storage_permission_title">Nahrávání zastaveno – je zapotřebí oprávnění pro úložiště</string>
+    <string name="upload_notification_manager_content_intent_description">Je možné odebrat nebo pokračovat z Nahrávání</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Šifrování je možné pouze na systému Android verze 5.0 a novějším</string>
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do složky %1$s není dostatek volného místa. Chcete je tam namísto toho přesunout?</string>
