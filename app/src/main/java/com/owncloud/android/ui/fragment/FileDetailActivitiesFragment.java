@@ -51,6 +51,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +94,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private FileOperationsHelper operationsHelper;
     private VersionListInterface.CommentCallback callback;
 
+    private SubmitCommentTask submitCommentTask;
+    
     FileDetailsActivitiesFragmentBinding binding;
 
     @Inject UserAccountManager accountManager;
@@ -152,13 +155,18 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
             @Override
             public void onSuccess() {
-                binding.commentInputField.getText().clear();
-                fetchAndSetData(-1);
+                if (binding != null && getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                    binding.commentInputField.getText().clear();
+                    fetchAndSetData(-1);
+                }
             }
 
             @Override
             public void onError(int error) {
-                Snackbar.make(binding.list, error, Snackbar.LENGTH_LONG).show();
+                View view = getView();
+                if (view != null && isAdded()) {
+                    Snackbar.make(view, error, Snackbar.LENGTH_LONG).show();
+                }
             }
         };
 
@@ -177,6 +185,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
     }
 
     public void submitComment() {
+        if (binding == null) {
+            return;
+        }
+
         Editable commentField = binding.commentInputField.getText();
 
         if (commentField == null) {
@@ -186,24 +198,47 @@ public class FileDetailActivitiesFragment extends Fragment implements
         String trimmedComment = commentField.toString().trim();
 
         if (!trimmedComment.isEmpty() && nextcloudClient != null && isDataFetched) {
-            new SubmitCommentTask(trimmedComment, file.getLocalId(), callback, nextcloudClient).execute();
+            // Cancel previous task
+            if (submitCommentTask != null) {
+                submitCommentTask.cancel(true);
+            }
+
+            submitCommentTask = new SubmitCommentTask(
+                trimmedComment,
+                file.getLocalId(),
+                callback,
+                nextcloudClient
+            );
+            submitCommentTask.execute();
         }
     }
 
     private void setLoadingMessage() {
-        binding.swipeContainingEmpty.setVisibility(View.GONE);
+        if (binding != null) {
+            binding.swipeContainingEmpty.setVisibility(View.GONE);
+        }
     }
 
     @VisibleForTesting
     public void setLoadingMessageEmpty() {
-        binding.swipeContainingList.setVisibility(View.GONE);
-        binding.emptyList.emptyListView.setVisibility(View.GONE);
-        binding.loadingContent.setVisibility(View.VISIBLE);
+        if (binding != null) {
+            binding.swipeContainingList.setVisibility(View.GONE);
+            binding.emptyList.emptyListView.setVisibility(View.GONE);
+            binding.loadingContent.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+        // Cancel any pending async operations
+        if (submitCommentTask != null) {
+            submitCommentTask.cancel(true);
+            submitCommentTask = null;
+        }
+
+        callback = null;  // Clear callback reference
         binding = null;
     }
 
@@ -373,6 +408,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
     public void populateList(List<Object> activities, boolean clear) {
         adapter.setActivityAndVersionItems(activities, nextcloudClient, clear);
 
+        if (binding == null) {
+            return;
+        }
+
         if (adapter.getItemCount() == 0) {
             setEmptyContent(
                 getString(R.string.activities_no_results_headline),
@@ -396,6 +435,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
     }
 
     private void setInfoContent(@DrawableRes int icon, String headline, String message) {
+        if (binding == null) {
+            return;
+        }
+
         binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
                                                                                      icon,
                                                                                      null));
@@ -414,7 +457,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     private void hideRefreshLayoutLoader(FragmentActivity activity) {
         activity.runOnUiThread(() -> {
-            if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+            if (binding != null && getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
                 binding.swipeContainingList.setRefreshing(false);
                 binding.swipeContainingEmpty.setRefreshing(false);
                 binding.emptyList.emptyListView.setVisibility(View.GONE);
@@ -443,7 +486,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
-        binding.avatar.setImageDrawable(avatarDrawable);
+        if (binding != null) {
+            binding.avatar.setImageDrawable(avatarDrawable);
+        }
     }
 
     @Override
@@ -460,7 +505,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         private final String message;
         private final long fileId;
-        private final VersionListInterface.CommentCallback callback;
+        private final WeakReference<VersionListInterface.CommentCallback> callbackRef;
         private final NextcloudClient client;
 
         private SubmitCommentTask(String message,
@@ -469,16 +514,18 @@ public class FileDetailActivitiesFragment extends Fragment implements
                                   NextcloudClient client) {
             this.message = message;
             this.fileId = fileId;
-            this.callback = callback;
+            this.callbackRef = new WeakReference<>(callback);
             this.client = client;
         }
 
         @Override
         protected Boolean doInBackground(Void... voids) {
+            if (isCancelled()) {
+                return false;
+            }
+
             CommentFileOperation commentFileOperation = new CommentFileOperation(message, fileId);
-
             RemoteOperationResult<Void> result = commentFileOperation.execute(client);
-
             return result.isSuccess();
         }
 
@@ -486,6 +533,17 @@ public class FileDetailActivitiesFragment extends Fragment implements
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
 
+            // Don't call callback if task was cancelled
+            if (isCancelled()) {
+                return;
+            }
+
+            VersionListInterface.CommentCallback callback = callbackRef.get();
+            if (callback == null) {
+                // Fragment was destroyed, callback was GC'd
+                return;
+            }
+            
             if (success) {
                 callback.onSuccess();
             } else {
