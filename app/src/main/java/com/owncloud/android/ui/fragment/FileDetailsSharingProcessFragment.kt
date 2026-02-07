@@ -847,16 +847,50 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
+    /**
+     * Validates and applies the download limit from the input field.
+     *
+     * Parses the user's input using locale-aware number formatting to handle
+     * grouping separators (e.g., "1,000" in US or "1.000" in Germany).
+     * Shows inline error messages for invalid input.
+     *
+     * @see [updateFileDownloadLimitView] for how the field is populated
+     */
     private fun setDownloadLimit() {
-        val downloadLimitInput = binding.shareProcessSetDownloadLimitInput.text.toString().trim()
-        val downloadLimit =
-            if (binding.shareProcessSetDownloadLimitSwitch.isChecked && downloadLimitInput.isNotEmpty()) {
-                downloadLimitInput.toInt()
-            } else {
-                0
-            }
+        if (!binding.shareProcessSetDownloadLimitSwitch.isChecked) {
+            // User wants to remove the download limit
+            fileOperationsHelper?.updateFilesDownloadLimit(share, 0)
+            return
+        }
 
-        fileOperationsHelper?.updateFilesDownloadLimit(share, downloadLimit)
+        val downloadLimitInput = binding.shareProcessSetDownloadLimitInput.text.toString().trim()
+
+        if (downloadLimitInput.isEmpty()) {
+            binding.shareProcessSetDownloadLimitInput.error = getString(R.string.share_download_limit_required)
+            return
+        }
+
+        // Parse with locale awareness to match formatting in updateFileDownloadLimitView
+        val downloadLimit = try {
+            NumberFormat.getInstance(Locale.getDefault())
+                .parse(downloadLimitInput)?.toInt()
+        } catch (e: ParseException) {
+            null
+        }
+
+        when {
+            downloadLimit == null -> {
+                binding.shareProcessSetDownloadLimitInput.error = getString(R.string.share_download_limit_invalid)
+                return
+            }
+            downloadLimit <= 0 -> {
+                binding.shareProcessSetDownloadLimitInput.error = getString(R.string.share_download_limit_must_be_positive)
+                return
+            }
+            else -> {
+                fileOperationsHelper?.updateFilesDownloadLimit(share, downloadLimit)
+            }
+        }
     }
 
     private fun createShare(noteText: String) {
