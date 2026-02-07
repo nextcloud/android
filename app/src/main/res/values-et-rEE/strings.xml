@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Kustuta ülesanne</string>
     <string name="assistant_screen_empty_content_description">Vestluse algatamiseks proovi sata üks sõnum.</string>
     <string name="assistant_screen_empty_content_title">Hei! Kuidas saan sind täna aidata?</string>
+    <string name="assistant_screen_select_task">Palun vali ülesanne</string>
     <string name="assistant_screen_send_message">Saada sõnum</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Ava vestluste loend</string>
     <string name="assistant_screen_task_create_fail_message">Ülesande loomisel tekkis viga</string>
@@ -1015,6 +1016,12 @@
     <string name="thumbnail_for_new_file_desc">Uue faili pisipilt</string>
     <string name="timeout_richDocuments">Laadimiseks kulub rohkem aega, kui peaks</string>
     <string name="today">Täna</string>
+    <string name="translation_screen_hint_source">Sisesta tõlgitav tekst…</string>
+    <string name="translation_screen_label_from">Lähtekeel tõlkimisel:</string>
+    <string name="translation_screen_label_to">Tõlke sihtkeel:</string>
+    <string name="translation_screen_start_to_translate_task">Tõlkimiseks klõpsa nuppu</string>
+    <string name="translation_screen_task_processing">Tõlkimiseks kulub rohkem aega, kui peaks…</string>
+    <string name="translation_screen_translating">Tõlgin…</string>
     <string name="trashbin_activity_title">Kustutatud failid</string>
     <string name="trashbin_empty_headline">Kustutatud faile pole</string>
     <string name="trashbin_empty_message">Siit saad kustutatud faile taastada.</string>
