@@ -42,6 +42,7 @@ import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -491,22 +492,24 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
+    /**
+     * Pre-fills download limit controls with current remaining count for existing share.
+     * Clamps negative values to 0. Returns early if no limit is set.
+     */
     private fun updateFileDownloadLimitView() {
         if (!canSetDownloadLimit()) {
             return
         }
 
-        // user can set download limit thus no need to rely on current limit to show download limit
-        showFileDownloadLimitInput(true)
+        showFileDownloadLimitInput(true) // only other option
         binding.shareProcessSetDownloadLimitSwitch.visibility = View.VISIBLE
         binding.shareProcessSetDownloadLimitInput.visibility = View.VISIBLE
 
-        val currentLimit = share?.remainingDownloadLimit() ?: return
-        if (currentLimit > 0) {
-            binding.shareProcessSetDownloadLimitSwitch.isChecked = true
-            binding.shareProcessSetDownloadLimitInput.setText(
-                "%d".format(Locale.getDefault(), currentLimit)
-            )
+        val currentLimit = share?.remainingDownloadLimit()?.coerceAtLeast(0) ?: return
+
+        binding.shareProcessSetDownloadLimitSwitch.isChecked = true
+        binding.shareProcessSetDownloadLimitInput.setText(
+            NumberFormat.getInstance(Locale.getDefault()).format(currentLimit)
         }
     }
 
