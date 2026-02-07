@@ -376,14 +376,24 @@ open class FolderPickerActivity :
         updateNavigationElementsInActionBar()
     }
 
+    @Suppress("ReturnCount")
     private fun toggleChooseEnabled() {
         if (this is FilePickerActivity) {
             return
         }
 
         val selectedFolderPathTitle = getSelectedFolderPathTitle()
+        val optionalCapabilities = capabilities
+        if (optionalCapabilities.isEmpty) {
+            return
+        }
+
         val isFolderPathValid = if (selectedFolderPathTitle != null) {
-            FileNameValidator.checkFolderPath(selectedFolderPathTitle, capabilities, this)
+            FileNameValidator.checkFolderPath(
+                selectedFolderPathTitle,
+                optionalCapabilities.get(),
+                this
+            )
         } else {
             true
         }

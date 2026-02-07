@@ -301,7 +301,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     public void selectFile(OCFile file) {
         if (file.isFolder()) {
-            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), this, null);
+            final var optionalCapabilities = getCapabilities();
+            if (optionalCapabilities.isEmpty()) {
+                return;
+            }
+
+            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), optionalCapabilities.get(), this, null);
             if (filenameErrorMessage != null) {
                 DisplayUtils.showSnackMessage(this, filenameErrorMessage);
                 return;
