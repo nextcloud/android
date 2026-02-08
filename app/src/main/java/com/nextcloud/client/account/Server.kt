@@ -19,8 +19,8 @@ import java.net.URI
 data class Server(val uri: URI, val version: OwnCloudVersion) : Parcelable {
 
     constructor(source: Parcel) : this(
-        source.readSerializable() as URI,
-        source.readParcelable<Parcelable>(OwnCloudVersion::class.java.classLoader) as OwnCloudVersion
+        source.readSerializable(URI::class.java.classLoader, java.io.Serializable::class.java) as URI,
+        source.readParcelable(OwnCloudVersion::class.java.classLoader, OwnCloudVersion::class.java) as OwnCloudVersion
     )
 
     override fun describeContents() = 0
