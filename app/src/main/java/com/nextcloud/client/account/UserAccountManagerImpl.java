@@ -187,9 +187,8 @@ public class UserAccountManagerImpl implements UserAccountManager {
         }
     }
 
-    @Override
     @NonNull
-    public Account getCurrentAccount() {
+    private Account getCurrentAccount() {
         Account[] ocAccounts = getAccounts();
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
