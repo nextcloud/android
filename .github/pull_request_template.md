@@ -13,5 +13,7 @@ UI tests: https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md#ui-te
 🏚️ Before | 🏡 After
 ---|---
 B | A
+
+### 🏁 Checklist
  
 - [ ] Tests written, or not not needed
