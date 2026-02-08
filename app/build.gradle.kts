@@ -107,10 +107,6 @@ android {
         buildConfigField("boolean", "CI", ciBuild.toString())
         buildConfigField("boolean", "RUNTIME_PERF_ANALYSIS", perfAnalysis.toString())
 
-        javaCompileOptions.annotationProcessorOptions {
-            arguments += mapOf("room.schemaLocation" to "$projectDir/schemas")
-        }
-
         // arguments to be passed to functional tests
         testInstrumentationRunner = if (shotTest) "com.karumi.shot.ShotTestRunner"
         else "com.nextcloud.client.TestRunner"
