@@ -1195,7 +1195,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             // current account has changed
             if (data.getBooleanExtra(ManageAccountsActivity.KEY_CURRENT_ACCOUNT_CHANGED, false)) {
-                setAccount(accountManager.getCurrentAccount(), false);
+                setUser(accountManager.getUser());
                 restart();
             }
         } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY && data != null) {
