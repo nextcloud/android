@@ -61,6 +61,7 @@
             <trusting group="androidx.exifinterface" name="exifinterface" version="1.4.2"/>
             <trusting group="androidx.fragment"/>
             <trusting group="androidx.lifecycle"/>
+            <trusting group="androidx.media3"/>
             <trusting group="androidx.room"/>
             <trusting group="androidx.savedstate"/>
             <trusting group="androidx.sqlite"/>
