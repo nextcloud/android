@@ -27,7 +27,10 @@ interface User :
      *
      * @return Account instance that is associated with this User object.
      */
-    @Deprecated("Temporary workaround")
+    @Deprecated(
+        "Temporary workaround: Legacy Android Account access. Refactor code to use User object " +
+            "directly instead of platform Account."
+    )
     override fun toPlatformAccount(): Account
 
     /**
@@ -39,7 +42,10 @@ interface User :
      *
      * @return OwnCloudAccount instance that is associated with this User object.
      */
-    @Deprecated("Temporary workaround")
+    @Deprecated(
+        "Temporary workaround: Legacy OwnCloudAccount access. Refactor code to use User object " +
+            "directly instead of OwnCloudAccount."
+    )
     fun toOwnCloudAccount(): OwnCloudAccount
 
     /**
