@@ -17,6 +17,7 @@ import android.view.ActionMode
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -41,6 +42,8 @@ class RemoveFilesDialogFragment :
     @Inject
     lateinit var fileDataStorageManager: FileDataStorageManager
 
+    @Inject
+    lateinit var connectivityService: ConnectivityService
     private var positiveButton: MaterialButton? = null
 
     override fun onStart() {
@@ -98,16 +101,16 @@ class RemoveFilesDialogFragment :
         val fileActivity = getTypedActivity(FileActivity::class.java)
         val fda = getTypedActivity(FileDisplayActivity::class.java)
         val pia = getTypedActivity(PreviewImageActivity::class.java)
-        fileActivity?.connectivityService?.isNetworkAndServerAvailable { result ->
-            if (result) {
-                fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment))
+        connectivityService.isNetworkAndServerAvailable { isAvailable ->
+            if (isAvailable) {
+                fileActivity?.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment))
 
                 fda?.deleteBatchTracker?.startBatchDelete(files.size)
 
                 if (files.isNotEmpty()) {
                     // Display the snackbar message only when a single file is deleted.
                     val inBackground = (files.size != 1)
-                    fileActivity.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, inBackground)
+                    fileActivity?.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, inBackground)
                 }
 
                 if (offlineFiles.isNotEmpty()) {
@@ -115,10 +118,10 @@ class RemoveFilesDialogFragment :
                     pia?.initViewPager()
                 }
 
-                fileActivity.dismissLoadingDialog()
+                fileActivity?.dismissLoadingDialog()
             } else {
                 if (onlyLocalCopy) {
-                    fileActivity.fileOperationsHelper?.removeFiles(files, true, true)
+                    fileActivity?.fileOperationsHelper?.removeFiles(files, true, true)
                 } else {
                     files.forEach { file ->
                         fileDataStorageManager.addRemoveFileOfflineOperation(file)
