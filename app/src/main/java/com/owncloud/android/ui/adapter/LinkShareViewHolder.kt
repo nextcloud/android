@@ -134,11 +134,11 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
 
         if (TextUtils.isEmpty(permissionName) || (isSecureFileDrop(publicShare) && encrypted)) {
             binding.permissionName.visibility = View.GONE
-            return
+        } else {
+            binding.permissionName.visibility = View.VISIBLE
+            binding.permissionName.text = permissionName
         }
 
-        binding.permissionName.text = permissionName
-        binding.permissionName.visibility = View.VISIBLE
         viewThemeUtils?.androidx?.colorPrimaryTextViewElement(binding.permissionName)
     }
 
