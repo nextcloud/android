@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">刪除任務</string>
     <string name="assistant_screen_empty_content_description">試著發送一條訊息來引發對話。</string>
     <string name="assistant_screen_empty_content_title">你好！今天我能幫你什麼忙呢？</string>
+    <string name="assistant_screen_select_task">請選擇任務</string>
     <string name="assistant_screen_send_message">傳送訊息</string>
     <string name="assistant_screen_task_bar_open_conversation_list">打開對話清單</string>
     <string name="assistant_screen_task_create_fail_message">建立任務項目時發生錯誤</string>
@@ -1015,6 +1016,12 @@
     <string name="thumbnail_for_new_file_desc">新增檔案的縮圖</string>
     <string name="timeout_richDocuments">載入時間比預期久</string>
     <string name="today">今日</string>
+    <string name="translation_screen_hint_source">輸入要翻譯的文字 ...</string>
+    <string name="translation_screen_label_from">翻譯從:</string>
+    <string name="translation_screen_label_to">翻譯至:</string>
+    <string name="translation_screen_start_to_translate_task">按下按鈕翻譯</string>
+    <string name="translation_screen_task_processing">翻譯時間比預期長。</string>
+    <string name="translation_screen_translating">正在翻譯 ...</string>
     <string name="trashbin_activity_title">已刪除檔案</string>
     <string name="trashbin_empty_headline">無已刪除檔案</string>
     <string name="trashbin_empty_message">您可以從這裡還原已刪除的檔案</string>
@@ -1083,6 +1090,7 @@
     <string name="upload_missing_storage_permission_app_permissions">應用程式權限</string>
     <string name="upload_missing_storage_permission_description">您的檔案無法上傳，因為沒有訪問本地存儲的權限。請點擊以授予權限。</string>
     <string name="upload_missing_storage_permission_title">上傳已停止 – 需要儲存權限</string>
+    <string name="upload_notification_manager_content_intent_description">您可以從上傳清單中刪除或還原它</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空間不足導致無法將所選檔案複製到 %1$s 資料夾中。您想改為將檔案移到那裡嗎？</string>
