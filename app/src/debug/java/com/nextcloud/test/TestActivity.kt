@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.network.Connectivity
@@ -131,7 +132,9 @@ class TestActivity :
                 userAccountManager,
                 connectivityServiceMock,
                 EditorUtils(
-                    ArbitraryDataProviderImpl(baseContext)
+                    ArbitraryDataProviderImpl(
+                        NextcloudDatabase.getInstance(baseContext).arbitraryDataDao()
+                    )
                 )
             )
         }
