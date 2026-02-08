@@ -41,8 +41,10 @@ internal data class RegisteredUser(
         return account.name
     }
 
+    @Deprecated("Temporary workaround: Legacy Android Account access. Refactor code to use User object directly instead of platform Account.")
     override fun toPlatformAccount(): Account = account
 
+    @Deprecated("Temporary workaround: Legacy OwnCloudAccount access. Refactor code to use User object directly instead of OwnCloudAccount.")
     override fun toOwnCloudAccount(): OwnCloudAccount = ownCloudAccount
 
     override fun nameEquals(user: User?): Boolean = nameEquals(user?.accountName)
