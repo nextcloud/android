@@ -240,6 +240,9 @@ kapt.useBuildCache = true
 
 ksp.arg("room.schemaLocation", "$projectDir/schemas")
 
+// Configure KSP for test variants
+ksp.arg("dagger.moduleName", project.name)
+
 kotlin.compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
 
 spotless.kotlin {
@@ -423,6 +426,7 @@ dependencies {
     // endregion
 
     // region AppScan, document scanner not available on FDroid (generic) due to OpenCV binaries
+    // To enable the feature for another variant, add it here.
     "gplayImplementation"(project(":appscan"))
     "huaweiImplementation"(project(":appscan"))
     "qaImplementation"(project(":appscan"))
@@ -439,6 +443,7 @@ dependencies {
     implementation(libs.dagger.android.support)
     ksp(libs.dagger.compiler)
     ksp(libs.dagger.processor)
+    kspAndroidTest(libs.dagger.compiler)
     // endregion
 
     // region Crypto
