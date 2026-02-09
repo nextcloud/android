@@ -9,7 +9,6 @@ package com.nextcloud.client.jobs.download
 
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
