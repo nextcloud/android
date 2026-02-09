@@ -118,7 +118,6 @@
     <string name="auto_upload_path">/Pakia Kiotomatiki</string>
     <string name="auto_upload_sub_folder_warning">Folda hii tayari imejumuishwa katika usawazishaji wa folda kuu, ambayo inaweza kusababisha upakiaji unaorudiwa</string>
     <string name="auto_upload_wifi_only_warning_info">Inasubiri Wi-Fi kuanza kupakia</string>
-    <string name="auto_upload_worker_start_text">Inapakia faili kutoka %s hadi %s</string>
     <string name="autoupload_configure">Sanidi</string>
     <string name="autoupload_create_new_custom_folder">Unda usanidi mpya wa folda maalum</string>
     <string name="autoupload_custom_folder">Sanidi folda maalum</string>

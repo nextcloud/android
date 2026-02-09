@@ -96,7 +96,6 @@
     <string name="auto_upload_on_wifi">Upload alleen met Wi-Fi</string>
     <string name="auto_upload_path">/AutomatischUploaden</string>
     <string name="auto_upload_sub_folder_warning">Deze map is al opgenomen in de synchronisatie van de bovenliggende map, wat kan leiden tot dubbele uploads.</string>
-    <string name="auto_upload_worker_start_text">Bestanden aan het uploaden van %s naar %s</string>
     <string name="autoupload_configure">Configureren</string>
     <string name="autoupload_create_new_custom_folder">Maak aangepaste nieuwe map aan</string>
     <string name="autoupload_custom_folder">Instellen aangepaste map</string>

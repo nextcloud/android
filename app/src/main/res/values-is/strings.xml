@@ -97,7 +97,6 @@
     <string name="auto_upload_on_wifi">Aðeins senda inn á gjaldfrjálsu WiFi-neti</string>
     <string name="auto_upload_path">/SjálfvirkInnsending</string>
     <string name="auto_upload_sub_folder_warning">Þessa möppu er nú þegar verið að samstilla úr yfirmöppu, sem getur valdið margföldum innsendingum</string>
-    <string name="auto_upload_worker_start_text">Sendi inn skrár frá %s til %s</string>
     <string name="autoupload_configure">Stilla</string>
     <string name="autoupload_create_new_custom_folder">Búa til nýja nýja sérsniðna uppsetningu á möppum</string>
     <string name="autoupload_custom_folder">Settu upp sérsniðna möppu</string>

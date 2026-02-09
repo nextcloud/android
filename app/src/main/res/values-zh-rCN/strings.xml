@@ -117,7 +117,6 @@
     <string name="auto_upload_path">/自动上传</string>
     <string name="auto_upload_sub_folder_warning">此文件夹已包含在上级文件夹的同步中，这可能会导致重复上传</string>
     <string name="auto_upload_wifi_only_warning_info">正在等待 Wi-Fi 开始上传</string>
-    <string name="auto_upload_worker_start_text">正在将文件从 %s 上传到 %s</string>
     <string name="autoupload_configure">配置</string>
     <string name="autoupload_create_new_custom_folder">创建新的自定义文件夹设定</string>
     <string name="autoupload_custom_folder">设置一个自定义文件夹</string>

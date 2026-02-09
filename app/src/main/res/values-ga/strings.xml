@@ -118,7 +118,6 @@
     <string name="auto_upload_path">/Uaslódáil Uathoibríoch</string>
     <string name="auto_upload_sub_folder_warning">Tá an fillteán seo san áireamh cheana féin i gcomhshioncronú an fhillteáin tuismitheora, rud a d’fhéadfadh uaslódálacha dúblacha a chruthú</string>
     <string name="auto_upload_wifi_only_warning_info">Ag fanacht go dtosóidh Wi-Fi ag uaslódáil</string>
-    <string name="auto_upload_worker_start_text">Ag uaslódáil comhad ó %s go %s</string>
     <string name="autoupload_configure">Cumraigh</string>
     <string name="autoupload_create_new_custom_folder">Cruthaigh socrú fillteán saincheaptha nua</string>
     <string name="autoupload_custom_folder">Socraigh fillteán saincheaptha</string>
