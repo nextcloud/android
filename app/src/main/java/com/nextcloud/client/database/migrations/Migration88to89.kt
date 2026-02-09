@@ -14,15 +14,15 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
 @Suppress("MagicNumber")
 val MIGRATION_88_89 = object : Migration(88, 89) {
-    override fun migrate(database: SupportSQLiteDatabase) {
+    override fun migrate(db: SupportSQLiteDatabase) {
         DatabaseMigrationUtil.addColumnIfNotExists(
-            database,
+            db,
             ProviderTableMeta.FILE_TABLE_NAME,
             ProviderTableMeta.FILE_UPLOADED,
             SQLiteColumnType.INTEGER_DEFAULT_NULL
         )
         DatabaseMigrationUtil.addColumnIfNotExists(
-            database,
+            db,
             ProviderTableMeta.CAPABILITIES_TABLE_NAME,
             ProviderTableMeta.CAPABILITIES_NOTES_FOLDER_PATH,
             SQLiteColumnType.TEXT_DEFAULT_NULL
