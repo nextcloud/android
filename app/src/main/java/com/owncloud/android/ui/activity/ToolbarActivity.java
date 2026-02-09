@@ -39,7 +39,6 @@ import com.owncloud.android.datamodel.OCFileDepth;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -74,7 +73,6 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     private boolean isHomeSearchToolbarShow = false;
     private static final String TAG = "ToolbarActivity";
 
-    @Inject public ThemeColorUtils themeColorUtils;
     @Inject public ThemeUtils themeUtils;
     @Inject public ViewThemeUtils viewThemeUtils;
 
