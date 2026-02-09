@@ -427,7 +427,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 if (Hct.fromInt(primaryColor).getTone() < 80.0) {
                     fontColor = Color.WHITE;
                 } else {
-                    fontColor = getColor(R.color.grey_900);
+                    fontColor = getColor(R.color.text_color);
                 }
                 serverNameView.setTextColor(fontColor);
             }
@@ -569,7 +569,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             final var account = getAccount();
             final OCCapability capability = getCapabilities();
-            int fontColor = getColor(R.color.primary_font); // fallback
+            int fontColor = getColor(R.color.text_color); // fallback
 
             if (account != null && capability != null) {
                 ColorUtil colorUtil = new ColorUtil(this);
@@ -580,7 +580,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 if (Hct.fromInt(primaryColor).getTone() < 80.0) {
                     fontColor = Color.WHITE;
                 } else {
-                    fontColor = getColor(R.color.grey_900);
+                    fontColor = getColor(R.color.text_color);
                 }
             }
 
