@@ -118,7 +118,6 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="auto_upload_wifi_only_warning_info">Waiting for Wi-Fi to start uploading</string>
-    <string name="auto_upload_worker_start_text">Uploading files from %s to %s</string>
     <string name="autoupload_configure">Configure</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
     <string name="autoupload_custom_folder">Set up a custom folder</string>

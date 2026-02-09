@@ -110,7 +110,6 @@
     <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="auto_upload_sub_folder_warning">Bu klasör, üst klasörün eşitlemesine zaten katılmış olduğundan yinelenen yüklemelere neden olabilir.</string>
     <string name="auto_upload_wifi_only_warning_info">Yüklemenin başlatılması için Wi-Fi bağlantısı bekleniyor</string>
-    <string name="auto_upload_worker_start_text">%s üzerindeki dosyalar %s üzerine yükleniyor</string>
     <string name="autoupload_configure">Yapılandır</string>
     <string name="autoupload_create_new_custom_folder">Özel klasör kurulumu ekle</string>
     <string name="autoupload_custom_folder">Bir özel klasör kurun</string>

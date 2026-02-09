@@ -109,7 +109,6 @@
     <string name="auto_upload_path">/TéléversementAuto</string>
     <string name="auto_upload_sub_folder_warning">Ce dossier fait partie de la synchronisation du dossier parent, ce qui peut créer des doublons.</string>
     <string name="auto_upload_wifi_only_warning_info">En attente du Wi-Fi pour commencer le téléversement</string>
-    <string name="auto_upload_worker_start_text">Téléversement des fichiers de %s vers %s</string>
     <string name="autoupload_configure">Configurer</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
     <string name="autoupload_custom_folder">Définir un dossier personnalisé</string>

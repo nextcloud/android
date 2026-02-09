@@ -117,7 +117,6 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Ten katalog jest już uwzględniony w synchronizacji katalogu nadrzędnego, co może powodować duplikowanie wysyłanych plików</string>
     <string name="auto_upload_wifi_only_warning_info">Oczekiwanie na Wi-Fi, aby zacząć aktualizowanie</string>
-    <string name="auto_upload_worker_start_text">Przesyłanie plików z %s do %s</string>
     <string name="autoupload_configure">Konfiguruj</string>
     <string name="autoupload_create_new_custom_folder">Utwórz nową niestandardową konfigurację katalogu</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>

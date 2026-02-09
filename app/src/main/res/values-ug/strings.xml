@@ -108,7 +108,6 @@
     <string name="auto_upload_path">/ ئۆزلىكىدىن چىقىرىش</string>
     <string name="auto_upload_sub_folder_warning">بۇ قىسقۇچ بولشا باش قىسقۇچنىڭ ئىچىدە بار، شۇڭلاشقا قوشلاپ چىقىرىلىشنى كەلتۈرۈپ چىقىرىشى مۇمكىن</string>
     <string name="auto_upload_wifi_only_warning_info">چىقىرىش ئۈچۈن ۋايف</string>
-    <string name="auto_upload_worker_start_text">ھۆججەتلەرنى %s دىن %s</string>
     <string name="autoupload_configure">سەپلەڭ</string>
     <string name="autoupload_create_new_custom_folder">يېڭى خاس ھۆججەت قىسقۇچ قۇرۇش</string>
     <string name="autoupload_custom_folder">ئىختىيارى ھۆججەت قىسقۇچ ئورنىتىڭ</string>

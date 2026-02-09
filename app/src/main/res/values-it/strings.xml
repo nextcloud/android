@@ -107,7 +107,6 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Questa cartella è già inclusa nella sincronizzazione della cartella principale, il che potrebbe causare caricamenti duplicati.</string>
     <string name="auto_upload_wifi_only_warning_info">In attesa del Wi-Fi per avviare il caricamento</string>
-    <string name="auto_upload_worker_start_text">Caricando i file da %s a %s</string>
     <string name="autoupload_configure">Configura</string>
     <string name="autoupload_create_new_custom_folder">Crea nuova configurazione di cartella personalizzata</string>
     <string name="autoupload_custom_folder">Configura una cartella personalizzata</string>

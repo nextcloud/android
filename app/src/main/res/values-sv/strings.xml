@@ -106,7 +106,6 @@
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
     <string name="auto_upload_sub_folder_warning">Denna mapp ingår redan i synkroniseringen av den överordnade mappen, vilket kan orsaka dubbla uppladdningar</string>
     <string name="auto_upload_wifi_only_warning_info">Väntar på Wi-Fi för att starta uppladdning</string>
-    <string name="auto_upload_worker_start_text">Laddar upp filer från %s till %s</string>
     <string name="autoupload_configure">Konfigurera</string>
     <string name="autoupload_create_new_custom_folder">Skapa en ny anpassad mappkonfiguration </string>
     <string name="autoupload_custom_folder">Skapa en anpassad mapp</string>
