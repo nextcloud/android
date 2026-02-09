@@ -81,7 +81,6 @@
     <string name="assistant_task_status_failed">failed</string>
 
     <!-- Translation Screen -->
-    <string name="assistant_screen_select_task">Please select task</string>
     <string name="translation_screen_label_from">Translate from: </string>
     <string name="translation_screen_label_to">Translate to: </string>
     <string name="translation_screen_translating">Translating…</string>
