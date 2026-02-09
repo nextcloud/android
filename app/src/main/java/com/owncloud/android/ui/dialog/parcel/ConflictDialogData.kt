@@ -22,8 +22,8 @@ data class ConflictDialogData(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         checkboxData = Pair(
-            parcel.readParcelableCompat(ConflictFileData::class.java.classLoader) ?: ConflictFileData("", "", ""),
-            parcel.readParcelableCompat(ConflictFileData::class.java.classLoader) ?: ConflictFileData("", "", "")
+            parcel.readParcelableCompat<ConflictFileData>(ConflictFileData::class.java.classLoader) ?: ConflictFileData("", "", ""),
+            parcel.readParcelableCompat<ConflictFileData>(ConflictFileData::class.java.classLoader) ?: ConflictFileData("", "", "")
         )
     )
 
