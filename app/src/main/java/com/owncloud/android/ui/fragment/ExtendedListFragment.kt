@@ -743,12 +743,12 @@ open class ExtendedListFragment :
         }
     }
 
+    /**
+     * Get the text of EmptyListMessage TextView.
+     *
+     * @return String empty text view text-value
+     */
     val emptyViewText: String
-        /**
-         * Get the text of EmptyListMessage TextView.
-         *
-         * @return String empty text view text-value
-         */
         get() = if (mEmptyListContainer != null && mEmptyListMessage != null) {
             mEmptyListMessage?.getText()
                 .toString()

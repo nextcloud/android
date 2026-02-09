@@ -65,13 +65,13 @@ class MultipleAccountsDialog :
         return builder.create()
     }
 
+    /**
+     * creates the account list items list including the add-account action in case
+     * multi account support is enabled.
+     *
+     * @return list of account list items
+     */
     private val accountListItems: List<UserListItem>
-        /**
-         * creates the account list items list including the add-account action in case
-         * multi account support is enabled.
-         *
-         * @return list of account list items
-         */
         get() {
             val users = accountManager?.allUsers ?: listOf()
 

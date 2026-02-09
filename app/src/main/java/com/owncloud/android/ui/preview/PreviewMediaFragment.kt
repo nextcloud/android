@@ -78,26 +78,19 @@ import javax.inject.Inject
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
  *
- *
  * Trying to get an instance with NULL [OCFile] or ownCloud [User] values will produce an
  * [IllegalStateException].
  *
- *
  * By now, if the [OCFile] passed is not downloaded, an [IllegalStateException] is generated on
  * instantiation too.
- */
-
-/**
- * Creates an empty fragment for previews.
  *
+ * Creates an empty fragment for previews.
  *
  * MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically (for instance, when the
  * device is turned a aside).
  *
- *
  * DO NOT CALL IT: an [OCFile] and [User] must be provided for a successful construction
  */
-
 @Suppress("NestedBlockDepth", "ComplexMethod", "LongMethod", "TooManyFunctions")
 class PreviewMediaFragment :
     FileFragment(),
