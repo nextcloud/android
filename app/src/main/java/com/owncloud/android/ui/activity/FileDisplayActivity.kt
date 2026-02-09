@@ -67,6 +67,7 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadAddedMessage
 import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadFinishMessage
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadState
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper
@@ -79,7 +80,6 @@ import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerState.FileDownloadCompleted
 import com.nextcloud.model.WorkerState.FileDownloadStarted
 import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
-import com.nextcloud.model.WorkerStateObserver
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
@@ -2135,6 +2135,11 @@ class FileDisplayActivity :
             }
             supportInvalidateOptionsMenu()
             fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+
+            if (removedFile.isFolder) {
+                val deletedFolderDownloadState = FolderDownloadState.Removed(removedFile.fileId)
+                listOfFilesFragment?.adapter?.notifyFolderDownloadStates(setOf(deletedFolderDownloadState))
+            }
         } else {
             if (result.isSslRecoverableException) {
                 mLastSslUntrustedServerResult = result
@@ -2419,9 +2424,9 @@ class FileDisplayActivity :
     private fun observeFolderDownloadWorker() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                FolderDownloadWorker.activeFolders.collect { activeIds ->
-                    Log_OC.d(TAG, "currently downloading: $activeIds")
-                    listOfFilesFragment?.adapter?.notifyDownloadingFolderIds(activeIds)
+                FolderDownloadWorker.activeFolders.collect { workerStates ->
+                    Log_OC.d(TAG, "currently downloading: ${workerStates.size}")
+                    listOfFilesFragment?.adapter?.notifyFolderDownloadStates(workerStates)
                 }
             }
         }

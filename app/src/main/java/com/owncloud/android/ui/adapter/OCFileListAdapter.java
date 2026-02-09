@@ -30,6 +30,7 @@ import com.nextcloud.android.common.core.utils.ecosystem.EcosystemApp;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadState;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
@@ -1063,19 +1064,20 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-    public void notifyDownloadingFolderIds(Set<Long> ids) {
-        Set<Long> previousIds = new HashSet<>(ocFileListDelegate.getDownloadingFolderIds());
+    public void notifyFolderDownloadStates(Set<FolderDownloadState> states) {
+        Set<FolderDownloadState> previousStates = new HashSet<>(ocFileListDelegate.getFolderDownloadStates());
 
-        ocFileListDelegate.notifyDownloadingFolderIds(ids);
+        ocFileListDelegate.addFolderDownloadStates(states);
 
-        Set<Long> allChangedIds = new HashSet<>();
-        allChangedIds.addAll(ids);
-        allChangedIds.addAll(previousIds);
+        Set<Long> changedFileIds = new HashSet<>();
+        states.forEach(state -> changedFileIds.add(state.getId()));
+        previousStates.forEach(state -> changedFileIds.add(state.getId()));
 
-        allChangedIds.forEach(id -> {
-            OCFile file = findOCFile(id);
+
+        changedFileIds.forEach(fileId -> {
+            OCFile file = findOCFile(fileId);
             if (file != null) {
-                int position = mFiles.indexOf(file);
+                int position = getItemPosition(file);
                 if (position != -1) {
                     notifyItemChanged(position);
                 }

@@ -15,6 +15,7 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadState
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationJob
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
@@ -67,7 +68,7 @@ class OCFileListDelegate(
     private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
     private val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val galleryImageGenerationJob = GalleryImageGenerationJob(user, storageManager)
-    private val downloadingFolderIds = mutableSetOf<Long>()
+    private val folderDownloadStates = mutableSetOf<FolderDownloadState>()
 
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
@@ -331,12 +332,13 @@ class OCFileListDelegate(
     private fun isSynchronizing(file: OCFile): Boolean {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
         val fileDownloadHelper = FileDownloadHelper.instance()
+        val isDownloadingFolder =
+            folderDownloadStates.any { it is FolderDownloadState.Downloading && it.id == file.fileId }
 
-        Log_OC.d(TAG, "size of downloading folder: " + downloadingFolderIds.size)
-
+        Log_OC.d(TAG, "size of downloading folder: " + folderDownloadStates.size)
         return operationsServiceBinder?.isSynchronizing(user, file) == true ||
             fileDownloadHelper.isDownloading(user, file) ||
-            downloadingFolderIds.contains(file.fileId) ||
+            isDownloadingFolder ||
             fileUploadHelper.isUploading(file.remotePath, user.accountName)
     }
 
@@ -345,11 +347,15 @@ class OCFileListDelegate(
         val isSyncing = isSynchronizing(file)
         val hasConflict = (file.etagInConflict != null)
         val isDown = file.isDown
+        val isRemoved = folderDownloadStates.any {
+            it is FolderDownloadState.Removed && it.id == file.fileId
+        }
 
         val icon = when {
             isSyncing -> R.drawable.ic_synchronizing
             hasConflict -> R.drawable.ic_synchronizing_error
             isDown || isFullyDownloaded -> R.drawable.ic_synced
+            isRemoved -> null
             else -> null
         }
 
@@ -415,17 +421,17 @@ class OCFileListDelegate(
         showShareAvatar = bool
     }
 
-    fun notifyDownloadingFolderIds(ids: Set<Long>) {
-        val removed = downloadingFolderIds - ids
-        val added = ids - downloadingFolderIds
+    fun addFolderDownloadStates(ids: Set<FolderDownloadState>) {
+        val removed = folderDownloadStates - ids
+        val added = ids - folderDownloadStates
 
-        downloadingFolderIds.clear()
-        downloadingFolderIds.addAll(ids)
+        folderDownloadStates.clear()
+        folderDownloadStates.addAll(ids)
 
-        Log_OC.d(TAG, "downloading folders - added: $added, removed: $removed, current: $downloadingFolderIds")
+        Log_OC.d(TAG, "downloading folders - added: $added, removed: $removed, current: $folderDownloadStates")
     }
 
-    fun getDownloadingFolderIds(): List<Long> = downloadingFolderIds.toList()
+    fun getFolderDownloadStates(): List<FolderDownloadState> = folderDownloadStates.toList()
 
     fun cleanup() {
         ioScope.cancel()

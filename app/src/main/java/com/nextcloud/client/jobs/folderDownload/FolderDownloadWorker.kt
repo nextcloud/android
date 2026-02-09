@@ -41,8 +41,8 @@ class FolderDownloadWorker(
         const val FOLDER_ID = "FOLDER_ID"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
 
-        private val _activeFolders = MutableStateFlow<Set<Long>>(emptySet())
-        val activeFolders: StateFlow<Set<Long>> = _activeFolders
+        private val _activeFolders = MutableStateFlow<Set<FolderDownloadState>>(emptySet())
+        val activeFolders: StateFlow<Set<FolderDownloadState>> = _activeFolders
     }
 
     private val notificationManager = FolderDownloadWorkerNotificationManager(context, viewThemeUtils)
@@ -79,7 +79,7 @@ class FolderDownloadWorker(
 
         trySetForeground(folder)
 
-        _activeFolders.value += folderID
+        _activeFolders.value += FolderDownloadState.Downloading(folderID)
 
         val downloadHelper = FileDownloadHelper.instance()
 
@@ -137,7 +137,7 @@ class FolderDownloadWorker(
                 Result.failure()
             } finally {
                 WorkerStateObserver.send(WorkerState.FolderDownloadCompleted(folder))
-                _activeFolders.value -= folderID
+                _activeFolders.value -= FolderDownloadState.Downloading(folderID)
                 notificationManager.dismiss()
             }
         }
