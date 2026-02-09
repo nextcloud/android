@@ -9,6 +9,8 @@ package com.nextcloud.client.account
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.nextcloud.utils.extensions.readParcelableCompat
+import com.nextcloud.utils.extensions.readSerializableCompat
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import java.net.URI
 
@@ -19,8 +21,8 @@ import java.net.URI
 data class Server(val uri: URI, val version: OwnCloudVersion) : Parcelable {
 
     constructor(source: Parcel) : this(
-        source.readSerializable(URI::class.java.classLoader, java.io.Serializable::class.java) as URI,
-        source.readParcelable(OwnCloudVersion::class.java.classLoader, OwnCloudVersion::class.java) as OwnCloudVersion
+        source.readSerializableCompat<URI>(URI::class.java.classLoader) as URI,
+        source.readParcelableCompat<OwnCloudVersion>(OwnCloudVersion::class.java.classLoader) as OwnCloudVersion
     )
 
     override fun describeContents() = 0
