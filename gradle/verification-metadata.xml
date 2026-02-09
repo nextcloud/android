@@ -203,6 +203,7 @@
          <trusted-key id="47EB6836245D2D40E89DFB4136D4E9618F3ADAB5">
             <trusting group="io.github.microutils" name="kotlin-logging-jvm" version="3.0.5"/>
             <trusting group="io.github.oshai" name="kotlin-logging-jvm" version="5.1.4"/>
+             <trusting group="io.github.oshai" name="kotlin-logging-jvm" version="7.0.13" />
             <trusting group="io.github.oshai" name="kotlin-logging-jvm" version="7.0.3"/>
             <trusting group="io.github.oshai" name="kotlin-logging-jvm" version="7.0.7"/>
          </trusted-key>

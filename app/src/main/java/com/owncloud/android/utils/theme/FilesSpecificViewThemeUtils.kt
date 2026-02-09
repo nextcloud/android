@@ -84,14 +84,17 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                 createAvatarBase(R.drawable.ic_group)
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
             }
+
             ShareType.FEDERATED_GROUP -> {
                 createAvatarBase(R.drawable.ic_group)
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
             }
+
             ShareType.ROOM -> {
                 createAvatarBase(R.drawable.ic_talk, AvatarPadding.LARGE)
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
             }
+
             ShareType.CIRCLE -> {
                 createAvatarBase(R.drawable.ic_circles)
                 avatar.background.setColorFilter(
@@ -103,10 +106,12 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                     PorterDuff.Mode.SRC_IN
                 )
             }
+
             ShareType.EMAIL -> {
                 createAvatarBase(R.drawable.ic_email, AvatarPadding.LARGE)
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
             }
+
             else -> Log_OC.d(TAG, "Unknown share type")
         }
     }

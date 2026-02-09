@@ -106,6 +106,7 @@ class TrashbinFileActionsBottomSheet :
             }
 
             TrashbinFileActionsViewModel.UiState.Loading -> {}
+
             TrashbinFileActionsViewModel.UiState.Error -> {
                 activity?.let {
                     DisplayUtils.showSnackMessage(it, R.string.error_file_actions)

@@ -71,10 +71,12 @@ class GalleryFragmentBottomSheetDialog(private val actions: GalleryFragmentBotto
                 binding.tickMarkShowImages.visibility = View.VISIBLE
                 binding.tickMarkShowVideos.visibility = View.GONE
             }
+
             MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
                 binding.tickMarkShowImages.visibility = View.GONE
                 binding.tickMarkShowVideos.visibility = View.VISIBLE
             }
+
             else -> {
                 binding.tickMarkShowImages.visibility = View.VISIBLE
                 binding.tickMarkShowVideos.visibility = View.VISIBLE

@@ -234,12 +234,15 @@ class ChooseTemplateDialogFragment :
             selectedTemplate == null -> {
                 DisplayUtils.showSnackMessage(binding.list, R.string.select_one_template)
             }
+
             errorMessage != null -> {
                 DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
             }
+
             name.equals(DOT + selectedTemplate.extension, ignoreCase = true) -> {
                 DisplayUtils.showSnackMessage(binding.list, R.string.enter_filename)
             }
+
             else -> {
                 val fullPath = if (!name.endsWith(selectedTemplate.extension)) {
                     path + DOT + selectedTemplate.extension

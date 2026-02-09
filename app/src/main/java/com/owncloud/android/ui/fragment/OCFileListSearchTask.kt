@@ -286,6 +286,7 @@ class OCFileListSearchTask(
                     metadata,
                     ocFile
                 )
+
             is DecryptedFolderMetadataFile ->
                 RefreshFolderOperation.updateFileNameForEncryptedFile(
                     fileDataStorage,

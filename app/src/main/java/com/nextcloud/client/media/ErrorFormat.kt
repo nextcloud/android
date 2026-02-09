@@ -83,6 +83,7 @@ object ErrorFormat {
             PlaybackException.ERROR_CODE_DECODING_FORMAT_EXCEEDS_CAPABILITIES -> {
                 R.string.media_err_unsupported
             }
+
             PlaybackException.ERROR_CODE_IO_UNSPECIFIED,
             PlaybackException.ERROR_CODE_IO_NETWORK_CONNECTION_FAILED,
             PlaybackException.ERROR_CODE_IO_INVALID_HTTP_CONTENT_TYPE,
@@ -93,13 +94,16 @@ object ErrorFormat {
             PlaybackException.ERROR_CODE_IO_READ_POSITION_OUT_OF_RANGE -> {
                 R.string.media_err_io
             }
+
             PlaybackException.ERROR_CODE_TIMEOUT -> {
                 R.string.media_err_timeout
             }
+
             PlaybackException.ERROR_CODE_PARSING_CONTAINER_MALFORMED,
             PlaybackException.ERROR_CODE_PARSING_MANIFEST_MALFORMED -> {
                 R.string.media_err_malformed
             }
+
             else -> {
                 R.string.media_err_invalid_progressive_playback
             }

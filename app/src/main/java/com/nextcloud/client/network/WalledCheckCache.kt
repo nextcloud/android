@@ -19,6 +19,7 @@ class WalledCheckCache @Inject constructor(private val clock: Clock) {
     @Synchronized
     fun isExpired(): Boolean = when (val timestamp = cachedEntry?.first) {
         null -> true
+
         else -> {
             val diff = clock.currentTime - timestamp
             diff >= CACHE_TIME_MS
