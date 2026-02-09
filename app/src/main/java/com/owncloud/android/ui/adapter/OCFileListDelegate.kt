@@ -422,16 +422,16 @@ class OCFileListDelegate(
     }
 
     fun addFolderDownloadStates(ids: Set<FolderDownloadState>) {
-        val removed = folderDownloadStates - ids
-        val added = ids - folderDownloadStates
-
         folderDownloadStates.clear()
         folderDownloadStates.addAll(ids)
 
-        Log_OC.d(TAG, "downloading folders - added: $added, removed: $removed, current: $folderDownloadStates")
+        Log_OC.d(TAG, "downloading folders - added current: $folderDownloadStates")
     }
 
     fun getFolderDownloadStates(): List<FolderDownloadState> = folderDownloadStates.toList()
+
+    // only clear remove states since downloading states added and removed via worker
+    fun clearFolderDownloadStates() = folderDownloadStates.removeIf { it is FolderDownloadState.Removed }
 
     fun cleanup() {
         ioScope.cancel()

@@ -871,6 +871,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         mFiles = new ArrayList<>(newFiles);
         mFilesAll.clear();
+        ocFileListDelegate.clearFolderDownloadStates();
         mFilesAll.addAll(mFiles);
 
         if (directory != null) {
