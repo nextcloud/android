@@ -118,6 +118,7 @@
     <string name="common_loading">Učitavanje…</string>
     <string name="common_next">Dalje</string>
     <string name="common_no">Ne</string>
+    <string name="common_now">Sada</string>
     <string name="common_ok">U redu</string>
     <string name="common_pending">Na čekanju</string>
     <string name="common_remove">Izbriši</string>
@@ -869,6 +870,11 @@
     <string name="write_email">Pošalji poruku e-pošte</string>
     <string name="wrong_storage_path">Put pohrane ne postoji!</string>
     <string name="wrong_storage_path_desc">To može biti zbog vraćanja sigurnosne kopije na drugom uređaju. Provjerite postavke i prilagodite put pohrane.</string>
+    <plurals name="hours">
+        <item quantity="one">%d sat</item>
+        <item quantity="few">%d sata</item>
+        <item quantity="other">%d sati</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nije moguće sinkronizirati datoteku %1$d (nepodudaranja: %2$d)</item>
         <item quantity="few">Nije moguće sinkronizirati datoteke %1$d (nepodudaranja: %2$d)</item>

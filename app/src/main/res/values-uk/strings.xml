@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Вилучити завдання</string>
     <string name="assistant_screen_empty_content_description">Спробуйте надіслати повідомлення, щоб розпочати розмову.</string>
     <string name="assistant_screen_empty_content_title">Привіт! Чим я можу вам сьогодні допомогти?</string>
+    <string name="assistant_screen_select_task">Виберіть завдання</string>
     <string name="assistant_screen_send_message">Надіслати повідомлення</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Відкрити список розмов</string>
     <string name="assistant_screen_task_create_fail_message">Помилка під час додавання завдання</string>
@@ -1015,6 +1016,12 @@
     <string name="thumbnail_for_new_file_desc">Ескіз нового файлу</string>
     <string name="timeout_richDocuments">Завантаження займає більше часу, ніж очікувалося</string>
     <string name="today">Сьогодні</string>
+    <string name="translation_screen_hint_source">Додайте текст для перекладу...</string>
+    <string name="translation_screen_label_from">Перекласти з:</string>
+    <string name="translation_screen_label_to">Перекласти мовою:</string>
+    <string name="translation_screen_start_to_translate_task">Натисніть кнопку, щоб перекласти</string>
+    <string name="translation_screen_task_processing">Переклад триває довше очікуваного часу.</string>
+    <string name="translation_screen_translating">Триває переклад...</string>
     <string name="trashbin_activity_title">Кошик</string>
     <string name="trashbin_empty_headline">Кошик порожній</string>
     <string name="trashbin_empty_message">Тут можна відновити файли, які було вилучено.</string>
@@ -1083,6 +1090,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Дозволи застосунків</string>
     <string name="upload_missing_storage_permission_description">Неможливо завантажити ваші файли без доступу до місця зберігання файлів на вашому пристрої. Натисніть, щоби надати доступ.</string>
     <string name="upload_missing_storage_permission_title">Завантаження зупинено - потрібний доступ до місця зберігання файлів</string>
+    <string name="upload_notification_manager_content_intent_description">Ви можете вилучити або повторити це із завантажень</string>
     <string name="upload_notification_manager_start_text">%1$d/%2$d-%3$s</string>
     <string name="upload_old_android">Шифрування можливе лише на пристроях з версію Android 5.0+</string>
     <string name="upload_query_move_foreign_files">Нестача місця не дозволяє скопіювати файли до каталогу%1$s. Чи бажаєте перемістити їх замість копіювання?</string>
