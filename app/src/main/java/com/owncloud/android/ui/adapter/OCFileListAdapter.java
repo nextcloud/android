@@ -1074,7 +1074,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         states.forEach(state -> changedFileIds.add(state.getId()));
         previousStates.forEach(state -> changedFileIds.add(state.getId()));
 
-
         changedFileIds.forEach(fileId -> {
             OCFile file = findOCFile(fileId);
             if (file != null) {

@@ -335,7 +335,6 @@ class OCFileListDelegate(
         val isDownloadingFolder =
             folderDownloadStates.any { it is FolderDownloadState.Downloading && it.id == file.fileId }
 
-        Log_OC.d(TAG, "size of downloading folder: " + folderDownloadStates.size)
         return operationsServiceBinder?.isSynchronizing(user, file) == true ||
             fileDownloadHelper.isDownloading(user, file) ||
             isDownloadingFolder ||
