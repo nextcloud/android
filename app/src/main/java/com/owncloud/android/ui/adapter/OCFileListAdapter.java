@@ -1063,20 +1063,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-    // In OCFileListAdapter.java
     public void notifyDownloadingFolderIds(Set<Long> ids) {
-        // Get the previous downloading IDs before updating
         Set<Long> previousIds = new HashSet<>(ocFileListDelegate.getDownloadingFolderIds());
 
-        // Update the delegate
         ocFileListDelegate.notifyDownloadingFolderIds(ids);
 
-        // Find IDs that changed (added OR removed)
         Set<Long> allChangedIds = new HashSet<>();
-        allChangedIds.addAll(ids);  // New downloads
-        allChangedIds.addAll(previousIds);  // Stopped downloads
+        allChangedIds.addAll(ids);
+        allChangedIds.addAll(previousIds);
 
-        // Notify all affected items
         allChangedIds.forEach(id -> {
             OCFile file = findOCFile(id);
             if (file != null) {
