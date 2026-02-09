@@ -64,10 +64,9 @@ import com.owncloud.android.utils.ClipboardUtil
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TranslationScreen(viewModel: TranslationViewModel, assistantViewModel: AssistantViewModel) {
-    val context = LocalContext.current
     val state by viewModel.screenState.collectAsState()
     val messageId by viewModel.snackbarMessageId.collectAsState()
-    val snackbarMessage = messageId?.let { context.getString(it) }
+    val message = messageId?.let { stringResource(it) }
     val snackbarHostState = remember { SnackbarHostState() }
 
     BackHandler {
@@ -75,8 +74,8 @@ fun TranslationScreen(viewModel: TranslationViewModel, assistantViewModel: Assis
         assistantViewModel.updateScreenState(AssistantScreenState.TaskContent)
     }
 
-    LaunchedEffect(snackbarMessage) {
-        snackbarMessage?.let {
+    LaunchedEffect(message) {
+        message?.let {
             snackbarHostState.showSnackbar(it)
             viewModel.updateSnackbarMessage(null)
         }
