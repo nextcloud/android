@@ -11,6 +11,7 @@ import android.accounts.Account
 import android.os.Parcel
 import android.os.Parcelable
 import com.owncloud.android.lib.common.OwnCloudAccount
+import com.nextcloud.utils.extensions.readParcelableCompat
 
 /**
  * This class represents normal user logged into the Nextcloud server.
@@ -30,9 +31,9 @@ internal data class RegisteredUser(
     }
 
     private constructor(source: Parcel) : this(
-        source.readParcelable<Account>(Account::class.java.classLoader) as Account,
-        source.readParcelable<OwnCloudAccount>(OwnCloudAccount::class.java.classLoader) as OwnCloudAccount,
-        source.readParcelable<Server>(Server::class.java.classLoader) as Server
+        source.readParcelableCompat<Account>(Account::class.java.classLoader) as Account,
+        source.readParcelableCompat<OwnCloudAccount>(OwnCloudAccount::class.java.classLoader) as OwnCloudAccount,
+        source.readParcelableCompat<Server>(Server::class.java.classLoader) as Server
     )
 
     override val isAnonymous = false
