@@ -47,7 +47,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -65,6 +67,7 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadAddedMessage
 import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadFinishMessage
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
@@ -76,6 +79,7 @@ import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerState.FileDownloadCompleted
 import com.nextcloud.model.WorkerState.FileDownloadStarted
 import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
+import com.nextcloud.model.WorkerStateObserver
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
@@ -279,6 +283,7 @@ class FileDisplayActivity :
         startMetadataSyncForRoot()
         handleBackPress()
         setupDrawer(menuItemId)
+        observeFolderDownloadWorker()
     }
 
     /**
@@ -2411,10 +2416,21 @@ class FileDisplayActivity :
         }
     }
 
+    private fun observeFolderDownloadWorker() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                FolderDownloadWorker.activeFolders.collect { activeIds ->
+                    Log_OC.d(TAG, "currently downloading: $activeIds")
+                    listOfFilesFragment?.adapter?.notifyDownloadingFolderIds(activeIds)
+                }
+            }
+        }
+    }
+
     private fun requestForDownload(file: OCFile, downloadBehaviour: String, packageName: String, activityName: String) {
         val currentUser = user.orElseThrow(Supplier { RuntimeException() })
-        if (!FileDownloadHelper.Companion.instance().isDownloading(currentUser, file)) {
-            FileDownloadHelper.Companion.instance().downloadFile(
+        if (!FileDownloadHelper.instance().isDownloading(currentUser, file)) {
+            FileDownloadHelper.instance().downloadFile(
                 currentUser,
                 file,
                 downloadBehaviour,

@@ -75,6 +75,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -1060,5 +1061,39 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mFiles.clear();
         mFilesAll.clear();
         notifyDataSetChanged();
+    }
+
+    // In OCFileListAdapter.java
+    public void notifyDownloadingFolderIds(Set<Long> ids) {
+        // Get the previous downloading IDs before updating
+        Set<Long> previousIds = new HashSet<>(ocFileListDelegate.getDownloadingFolderIds());
+
+        // Update the delegate
+        ocFileListDelegate.notifyDownloadingFolderIds(ids);
+
+        // Find IDs that changed (added OR removed)
+        Set<Long> allChangedIds = new HashSet<>();
+        allChangedIds.addAll(ids);  // New downloads
+        allChangedIds.addAll(previousIds);  // Stopped downloads
+
+        // Notify all affected items
+        allChangedIds.forEach(id -> {
+            OCFile file = findOCFile(id);
+            if (file != null) {
+                int position = mFiles.indexOf(file);
+                if (position != -1) {
+                    notifyItemChanged(position);
+                }
+            }
+        });
+    }
+
+    private OCFile findOCFile(long id) {
+        for (OCFile file : mFiles) {
+            if (file.getFileId() == id) {
+                return file;
+            }
+        }
+        return null;
     }
 }

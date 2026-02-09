@@ -24,8 +24,9 @@ import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.withContext
-import java.util.concurrent.ConcurrentHashMap
 
 @Suppress("LongMethod", "TooGenericExceptionCaught")
 class FolderDownloadWorker(
@@ -40,9 +41,8 @@ class FolderDownloadWorker(
         const val FOLDER_ID = "FOLDER_ID"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
 
-        private val pendingDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet<Long>()
-
-        fun isDownloading(id: Long): Boolean = pendingDownloads.contains(id)
+        private val _activeFolders = MutableStateFlow<Set<Long>>(emptySet())
+        val activeFolders: StateFlow<Set<Long>> = _activeFolders
     }
 
     private val notificationManager = FolderDownloadWorkerNotificationManager(context, viewThemeUtils)
@@ -79,7 +79,7 @@ class FolderDownloadWorker(
 
         trySetForeground(folder)
 
-        pendingDownloads.add(folder.fileId)
+        _activeFolders.value += folderID
 
         val downloadHelper = FileDownloadHelper.instance()
 
@@ -137,7 +137,7 @@ class FolderDownloadWorker(
                 Result.failure()
             } finally {
                 WorkerStateObserver.send(WorkerState.FolderDownloadCompleted(folder))
-                pendingDownloads.remove(folder.fileId)
+                _activeFolders.value -= folderID
                 notificationManager.dismiss()
             }
         }

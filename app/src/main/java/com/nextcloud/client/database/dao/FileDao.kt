@@ -99,7 +99,7 @@ interface FileDao {
     ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
     """
     )
-    suspend fun getSubfiles(
+    fun getSubfiles(
         parentId: Long,
         accountName: String,
         dirType: String = MimeType.DIRECTORY,

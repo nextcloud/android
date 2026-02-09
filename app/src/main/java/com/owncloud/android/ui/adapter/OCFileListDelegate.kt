@@ -43,7 +43,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(
@@ -68,6 +67,7 @@ class OCFileListDelegate(
     private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
     private val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val galleryImageGenerationJob = GalleryImageGenerationJob(user, storageManager)
+    private val downloadingFolderIds = mutableSetOf<Long>()
 
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
@@ -323,45 +323,42 @@ class OCFileListDelegate(
         }
     }
 
-    private suspend fun isFolderFullyDownloaded(file: OCFile): Boolean = withContext(Dispatchers.IO) {
-        file.isFolder &&
-            storageManager.getSubfiles(file.fileId, user.accountName)
-                .takeIf { it.isNotEmpty() }
-                ?.all { it.isDown } == true
-    }
+    private fun isFolderFullyDownloaded(file: OCFile): Boolean = file.isFolder &&
+        storageManager.getSubfiles(file.fileId, user.accountName)
+            .takeIf { it.isNotEmpty() }
+            ?.all { it.isDown } == true
 
     private fun isSynchronizing(file: OCFile): Boolean {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
         val fileDownloadHelper = FileDownloadHelper.instance()
 
+        Log_OC.d(TAG, "size of downloading folder: " + downloadingFolderIds.size)
+
         return operationsServiceBinder?.isSynchronizing(user, file) == true ||
             fileDownloadHelper.isDownloading(user, file) ||
+            downloadingFolderIds.contains(file.fileId) ||
             fileUploadHelper.isUploading(file.remotePath, user.accountName)
     }
 
     private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
-        ioScope.launch {
-            val isFullyDownloaded = isFolderFullyDownloaded(file)
-            val isSyncing = isSynchronizing(file)
-            val hasConflict = (file.etagInConflict != null)
-            val isDown = file.isDown
+        val isFullyDownloaded = isFolderFullyDownloaded(file)
+        val isSyncing = isSynchronizing(file)
+        val hasConflict = (file.etagInConflict != null)
+        val isDown = file.isDown
 
-            val icon = when {
-                isSyncing -> R.drawable.ic_synchronizing
-                hasConflict -> R.drawable.ic_synchronizing_error
-                isDown || isFullyDownloaded -> R.drawable.ic_synced
-                else -> null
-            }
+        val icon = when {
+            isSyncing -> R.drawable.ic_synchronizing
+            hasConflict -> R.drawable.ic_synchronizing_error
+            isDown || isFullyDownloaded -> R.drawable.ic_synced
+            else -> null
+        }
 
-            withContext(Dispatchers.Main) {
-                holder.localFileIndicator.run {
-                    if (icon != null && showMetadata) {
-                        setImageResource(icon)
-                        visibility = View.VISIBLE
-                    } else {
-                        visibility = View.GONE
-                    }
-                }
+        holder.localFileIndicator.run {
+            if (icon != null && showMetadata) {
+                setImageResource(icon)
+                visibility = View.VISIBLE
+            } else {
+                visibility = View.GONE
             }
         }
     }
@@ -417,6 +414,18 @@ class OCFileListDelegate(
     fun setShowShareAvatar(bool: Boolean) {
         showShareAvatar = bool
     }
+
+    fun notifyDownloadingFolderIds(ids: Set<Long>) {
+        val removed = downloadingFolderIds - ids
+        val added = ids - downloadingFolderIds
+
+        downloadingFolderIds.clear()
+        downloadingFolderIds.addAll(ids)
+
+        Log_OC.d(TAG, "downloading folders - added: $added, removed: $removed, current: $downloadingFolderIds")
+    }
+
+    fun getDownloadingFolderIds(): List<Long> = downloadingFolderIds.toList()
 
     fun cleanup() {
         ioScope.cancel()

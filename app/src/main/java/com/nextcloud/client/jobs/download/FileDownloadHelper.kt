@@ -47,11 +47,7 @@ class FileDownloadHelper {
             return false
         }
 
-        return if (file.isFolder) {
-            FolderDownloadWorker.isDownloading(file.fileId)
-        } else {
-            FileDownloadWorker.isDownloading(user.accountName, file.fileId)
-        }
+        return FileDownloadWorker.isDownloading(user.accountName, file.fileId)
     }
 
     fun cancelPendingOrCurrentDownloads(user: User?, files: List<OCFile>?) {
