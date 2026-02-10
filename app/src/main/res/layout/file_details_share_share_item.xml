@@ -51,24 +51,30 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/permission_name"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:textColor="@color/primary"
             android:textSize="@dimen/two_line_secondary_text_size"
+            android:drawablePadding="4dp"
             app:drawableEndCompat="@drawable/ic_baseline_arrow_drop_down_24"
-            app:drawableRightCompat="@drawable/ic_baseline_arrow_drop_down_24"
             app:drawableTint="@color/primary"
             tools:text="@string/placeholder_view_only" />
     </LinearLayout>
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/overflow_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        style="?attr/materialIconButtonStyle"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/minimum_size_for_touchable_area"
         android:contentDescription="@string/overflow_menu"
         android:paddingStart="@dimen/standard_padding"
         android:paddingEnd="@dimen/standard_padding"
-        android:src="@drawable/ic_dots_vertical" />
+        app:icon="@drawable/ic_dots_vertical"
+        app:iconTint="@color/secondary_text_color"
+        app:iconGravity="textStart" />
 </LinearLayout>
