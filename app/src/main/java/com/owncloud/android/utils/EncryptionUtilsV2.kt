@@ -997,7 +997,7 @@ class EncryptionUtilsV2 {
 
         return certs.any { cert ->
             runCatching {
-                signer.verify(verifierBuilder.build(cert))
+                signer.verify(verifierBuilder.build(cert.publicKey))
             }.getOrElse {
                 Log_OC.e(TAG, "Exception verifySignedData: $it")
                 false
