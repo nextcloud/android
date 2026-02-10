@@ -93,7 +93,11 @@ class AutoUploadWorker(
             collectFileChangesFromContentObserverWork(contentUris)
             uploadFiles(syncedFolder)
 
-            Log_OC.d(TAG, "✅ ${syncedFolder.remotePath} finished checking files.")
+            // only update last scan time after uploading files
+            syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
+            syncedFolderProvider.updateSyncFolder(syncedFolder)
+
+            Log_OC.d(TAG, "✅ ${syncedFolder.remotePath} completed")
             Result.success()
         } catch (e: Exception) {
             Log_OC.e(TAG, "❌ failed: ${e.message}")
@@ -217,8 +221,6 @@ class AutoUploadWorker(
                     helper.insertEntries(syncedFolder, repository)
                 }
             }
-            syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
-            syncedFolderProvider.updateSyncFolder(syncedFolder)
         }
     } catch (e: Exception) {
         Log_OC.d(TAG, "Exception collectFileChangesFromContentObserverWork: $e")
