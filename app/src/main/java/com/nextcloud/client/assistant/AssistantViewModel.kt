@@ -180,10 +180,15 @@ class AssistantViewModel(
 
                 when {
                     selectedTaskType == null -> AssistantScreenState.Loading
+
                     isTranslation -> AssistantScreenState.Translation(selectedTask)
+
                     isChat && chats.isEmpty() -> AssistantScreenState.emptyChatList()
+
                     isChat -> AssistantScreenState.ChatContent
+
                     !isChat && (tasks == null || tasks.isEmpty()) -> AssistantScreenState.emptyTaskList()
+
                     else -> {
                         if (!_isTranslationTask.value) {
                             AssistantScreenState.TaskContent

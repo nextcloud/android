@@ -105,7 +105,9 @@ class SyncedFoldersActivity :
                 } else if (f1.isEnabled && f2.isEnabled) {
                     when {
                         f1.folderName == null -> -1
+
                         f2.folderName == null -> 1
+
                         else -> f1.folderName.lowercase(Locale.getDefault()).compareTo(
                             f2.folderName.lowercase(Locale.getDefault())
                         )
@@ -531,6 +533,7 @@ class SyncedFoldersActivity :
         var result = true
         when (item.itemId) {
             android.R.id.home -> finish()
+
             R.id.action_create_custom_folder -> {
                 Log_OC.d(TAG, "Show custom folder dialog")
                 if (PermissionUtil.checkStoragePermission(this)) {
@@ -560,6 +563,7 @@ class SyncedFoldersActivity :
                 }
                 result = super.onOptionsItemSelected(item)
             }
+
             else -> result = super.onOptionsItemSelected(item)
         }
         return result
@@ -835,6 +839,7 @@ class SyncedFoldersActivity :
                     load(getItemsDisplayedPerFolder(), true)
                 }
             }
+
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }

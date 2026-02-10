@@ -142,6 +142,7 @@ class AutoUploadHelper {
                             is AccessDeniedException -> {
                                 Log_OC.w(TAG, "Access denied: $file")
                             }
+
                             else -> {
                                 Log_OC.e(TAG, "Failed to visit file: $file", exc)
                             }

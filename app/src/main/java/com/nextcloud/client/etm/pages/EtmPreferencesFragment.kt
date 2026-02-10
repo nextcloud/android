@@ -50,6 +50,7 @@ class EtmPreferencesFragment : EtmBaseFragment() {
             onClickedShare()
             true
         }
+
         else -> super.onOptionsItemSelected(item)
     }
 

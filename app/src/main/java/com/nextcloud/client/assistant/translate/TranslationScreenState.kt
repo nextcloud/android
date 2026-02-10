@@ -132,8 +132,11 @@ data class EditedTranslation(
 
 fun TranslationScreenState.withShimmer(shimmer: Boolean): TranslationScreenState = when (this) {
     is NewTranslation -> copy(shimmer = shimmer)
+
     is ExistingTranslation -> copy(shimmer = shimmer)
+
     is EditedTranslation -> copy(shimmer = shimmer)
+
     Uninitialized -> {
         Uninitialized
     }
@@ -162,6 +165,7 @@ fun TranslationScreenState.withTargetText(text: String): TranslationScreenState 
 
 fun TranslationScreenState.withSource(newSource: TranslationSideState): TranslationScreenState = when (this) {
     is NewTranslation -> copy(source = newSource)
+
     is ExistingTranslation -> EditedTranslation(
         taskTypeData = taskTypeData,
         source = newSource,
@@ -170,6 +174,7 @@ fun TranslationScreenState.withSource(newSource: TranslationSideState): Translat
     )
 
     is EditedTranslation -> copy(source = newSource)
+
     Uninitialized -> {
         Uninitialized
     }
@@ -188,6 +193,7 @@ fun TranslationScreenState.withTarget(newTarget: TranslationSideState): Translat
     )
 
     is EditedTranslation -> copy(target = newTarget)
+
     Uninitialized -> {
         Uninitialized
     }

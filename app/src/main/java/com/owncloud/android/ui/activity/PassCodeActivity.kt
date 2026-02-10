@@ -361,6 +361,7 @@ class PassCodeActivity :
             timeInSecond,
             timeInSecond
         )
+
         else -> {
             val minutes = timeInSecond / 60
             val remainingSeconds = timeInSecond % 60
@@ -371,6 +372,7 @@ class PassCodeActivity :
                     minutes,
                     minutes
                 )
+
                 else -> {
                     val minuteText = resources.getQuantityString(
                         R.plurals.delay_message_minutes_part,

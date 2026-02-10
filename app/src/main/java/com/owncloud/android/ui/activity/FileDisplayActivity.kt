@@ -261,7 +261,7 @@ class FileDisplayActivity :
 
         loadSavedInstanceState(savedInstanceState)
 
-        /** USER INTERFACE */
+        // USER INTERFACE
         initLayout()
         initUI()
         initTaskRetainerFragment()
@@ -536,7 +536,7 @@ class FileDisplayActivity :
     }
 
     private fun initFragments() {
-        /** First fragment */
+        // First fragment
         val listOfFiles = this.listOfFilesFragment
         if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
             listOfFiles.listDirectory(getCurrentDir(), file, MainApp.isOnlyOnDevice())
@@ -544,7 +544,7 @@ class FileDisplayActivity :
             Log_OC.e(TAG, "Still have a chance to lose the initialization of list fragment >(")
         }
 
-        /** reset views */
+        // reset views
         resetScrollingAndUpdateActionBar()
     }
 
@@ -605,6 +605,7 @@ class FileDisplayActivity :
     private fun handleCommonIntents(intent: Intent) {
         when (intent.action) {
             Intent.ACTION_VIEW -> handleOpenFileViaIntent(intent)
+
             OPEN_FILE -> {
                 onOpenFileIntent(intent)
             }
@@ -788,11 +789,7 @@ class FileDisplayActivity :
     var leftFragment: Fragment?
         get() = supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES)
 
-        /**
-         * Replaces the first fragment managed by the activity with the received as a parameter.
-         *
-         * @param fragment New Fragment to set.
-         */
+        // Replaces the first fragment managed by the activity with the received as a parameter.
         private set(fragment) {
             setLeftFragment(fragment, true)
         }
@@ -1235,6 +1232,7 @@ class FileDisplayActivity :
         android.R.id.home -> {
             when {
                 shouldOpenDrawer() -> openDrawer()
+
                 else -> {
                     handleBackPressImpl()
                 }
@@ -1646,9 +1644,11 @@ class FileDisplayActivity :
                 mSyncInProgress -> {
                     it.setEmptyListMessage(EmptyListState.LOADING)
                 }
+
                 MainApp.isOnlyOnDevice() -> {
                     it.setEmptyListMessage(EmptyListState.ONLY_ON_DEVICE)
                 }
+
                 else -> it.setEmptyListMessage(SearchType.NO_SEARCH)
             }
         }
@@ -2351,21 +2351,6 @@ class FileDisplayActivity :
      * change.
      * @param ignoreFocus reloads file list even without focus, e.g. on tablet mode, focus can still be in detail view
      */
-
-    /**
-     * Starts an operation to refresh the requested folder.
-     *
-     *
-     * The operation is run in a new background thread created on the fly.
-     *
-     *
-     * The refresh updates is a "light sync": properties of regular files in folder are updated (including associated
-     * shares), but not their contents. Only the contents of files marked to be kept-in-sync are synchronized too.
-     *
-     * @param folder     Folder to refresh.
-     * @param ignoreETag If 'true', the data from the server will be fetched and sync'ed even if the eTag didn't
-     * change.
-     */
     @JvmOverloads
     fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean, ignoreFocus: Boolean = false) {
         Log_OC.d(TAG, "startSyncFolderOperation called, ignoreEtag: $ignoreETag, ignoreFocus: $ignoreFocus")
@@ -2378,7 +2363,7 @@ class FileDisplayActivity :
 
             handler.postDelayed({
                 val user = getUser()
-                if (!ignoreFocus && !hasWindowFocus() || !user.isPresent) {
+                if ((!ignoreFocus && !hasWindowFocus()) || !user.isPresent) {
                     // do not refresh if the user rotates the device while another window has focus
                     // or if the current user is no longer valid
                     mSyncInProgress = false
@@ -2532,7 +2517,7 @@ class FileDisplayActivity :
             return // not reachable under normal conditions
         }
         val actualUser = user.get()
-        if (showPreview && file.isDown && !file.isDownloading || streamMedia) {
+        if ((showPreview && file.isDown && !file.isDownloading) || streamMedia) {
             if (showInActivity) {
                 startMediaActivity(file, startPlaybackPosition, autoplay, actualUser)
             } else {

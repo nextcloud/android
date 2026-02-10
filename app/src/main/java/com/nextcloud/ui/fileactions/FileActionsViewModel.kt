@@ -109,6 +109,7 @@ class FileActionsViewModel @Inject constructor(
                 val file = files.first()
                 UiState.LoadedForSingleFile(availableActions, file, getLockInfo(file))
             }
+
             else -> UiState.LoadedForMultipleFiles(availableActions, files.size)
         }
         _uiState.postValue(state)
