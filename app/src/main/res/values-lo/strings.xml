@@ -105,7 +105,6 @@
     <string name="auto_upload_path">/ອັບໂຫຼດອັດຕະໂນມັດ</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="auto_upload_wifi_only_warning_info">Waiting for Wi-Fi to start uploading</string>
-    <string name="auto_upload_worker_start_text">Uploading files from %s to %s</string>
     <string name="autoupload_configure">ຕັ້ງຄ່າ Config</string>
     <string name="autoupload_create_new_custom_folder">ສ້າງການຕັ້ງຄ່າໂຟນເດີດ້ວຍຕົນເອງ</string>
     <string name="autoupload_custom_folder">ກຳໜົດການຕັ້ງຄ່າໂຟນເດີດ້ວຍຕົນເອງ</string>

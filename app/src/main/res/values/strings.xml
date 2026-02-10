@@ -81,7 +81,6 @@
     <string name="assistant_task_status_failed">failed</string>
 
     <!-- Translation Screen -->
-    <string name="assistant_screen_select_task">Please select task</string>
     <string name="translation_screen_label_from">Translate from: </string>
     <string name="translation_screen_label_to">Translate to: </string>
     <string name="translation_screen_translating">Translating…</string>
@@ -985,7 +984,7 @@
     <string name="notification_channel_background_operations_description">Show notifications to interact result of background operations</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
-    <string name="auto_upload_worker_start_text">Uploading files from %s to %s</string>
+    <string name="auto_upload_worker_start_text">Uploading files from %1$s to %2$s</string>
     <string name="hidden_character" translatable="false">*</string>
     <string name="hint_name">Name</string>
     <string name="hint_password">Password</string>

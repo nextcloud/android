@@ -103,7 +103,6 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">このフォルダは既に親の同期に含まれているため、重複してアップロードされる可能性があります</string>
     <string name="auto_upload_wifi_only_warning_info">アップロードのためWi-Fiに接続されるのを待っています…</string>
-    <string name="auto_upload_worker_start_text">ファイルを%sから%sへアップロードしています。</string>
     <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新しいカスタムフォルダセットアップを作成する</string>
     <string name="autoupload_custom_folder">カスタムフォルダを設定する</string>

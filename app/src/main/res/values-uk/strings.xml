@@ -118,7 +118,6 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Цей каталог вже включено до синхронізації каталогу вищого рівня, що може призвести до задвоєння завантаження</string>
     <string name="auto_upload_wifi_only_warning_info">Очікується з\'єднання з WiFi для початку завантаження</string>
-    <string name="auto_upload_worker_start_text">Завантаження файлів з %s до %s</string>
     <string name="autoupload_configure">Налаштування</string>
     <string name="autoupload_create_new_custom_folder">Власний каталог користувача</string>
     <string name="autoupload_custom_folder">Каталог користувача</string>

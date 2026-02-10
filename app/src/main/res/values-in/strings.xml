@@ -102,7 +102,6 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Folder ini sudah disertakan dalam sinkronisasi folder induk, sehingga dapat menyebabkan unggahan ganda.</string>
     <string name="auto_upload_wifi_only_warning_info">Menunggu Wi-Fi untuk mulai mengunggah</string>
-    <string name="auto_upload_worker_start_text">Mengunggah berkas dari %s ke %s</string>
     <string name="autoupload_configure">Konfigurasi</string>
     <string name="autoupload_create_new_custom_folder">Buat kostum folder baru.</string>
     <string name="autoupload_custom_folder">Pasang folder kostum.</string>

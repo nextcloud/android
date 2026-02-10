@@ -118,7 +118,6 @@
     <string name="auto_upload_path">/UploadAutomático</string>
     <string name="auto_upload_sub_folder_warning">Esta pasta já está incluída na sincronização da pasta pai, o que pode causar uploads duplicados</string>
     <string name="auto_upload_wifi_only_warning_info">Aguardando o Wi-Fi para iniciar o upload</string>
-    <string name="auto_upload_worker_start_text">Fazendo upload de arquivos de %s a %s</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Criar nova configuração de pasta personalizada</string>
     <string name="autoupload_custom_folder">Configurar uma pasta personalizada</string>

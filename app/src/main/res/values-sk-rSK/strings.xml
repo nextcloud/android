@@ -109,7 +109,6 @@
     <string name="auto_upload_path">/AutomatickéNahrávanie</string>
     <string name="auto_upload_sub_folder_warning">Tento adresár je už zahrnutý v synchronizácii nadradeného adresára, čo môže spôsobiť duplicitné nahrávania</string>
     <string name="auto_upload_wifi_only_warning_info">Čaká sa na Wi-Fi pre spustenie nahrávania.</string>
-    <string name="auto_upload_worker_start_text">Nahrávanie súborov z %s do %s</string>
     <string name="autoupload_configure">Nastaviť</string>
     <string name="autoupload_create_new_custom_folder">Nastavenie vytvorenia vlastného priečinku</string>
     <string name="autoupload_custom_folder">Nastaviť vlastný priečinok</string>
