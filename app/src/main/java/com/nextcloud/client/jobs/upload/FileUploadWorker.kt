@@ -256,10 +256,8 @@ class FileUploadWorker(
             )
 
             val result = withContext(Dispatchers.IO) {
-                upload(operation, user, client)
+                upload(upload, operation, user, client)
             }
-            val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
-            uploadsStorageManager.updateStatus(entity, result.isSuccess)
             currentUploadFileOperation = null
 
             if (result.code == ResultCode.QUOTA_EXCEEDED) {
@@ -330,6 +328,7 @@ class FileUploadWorker(
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
     private suspend fun upload(
+        upload: OCUpload,
         operation: UploadFileOperation,
         user: User,
         client: OwnCloudClient
@@ -346,10 +345,17 @@ class FileUploadWorker(
             fileUploadBroadcastManager.sendStarted(operation, context)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
-            result = RemoteOperationResult<Any?>(e)
+            uploadsStorageManager.run {
+                uploadDao.getUploadById(upload.uploadId, user.accountName)?.let { entity ->
+                    updateStatus(
+                        entity,
+                        UploadsStorageManager.UploadStatus.UPLOAD_FAILED
+                    )
+                }
+            }
+            result = RemoteOperationResult(e)
         } finally {
             if (!isStopped) {
-                uploadsStorageManager.updateDatabaseUploadResult(result, operation)
                 UploadErrorNotificationManager.handleResult(
                     context,
                     notificationManager,
