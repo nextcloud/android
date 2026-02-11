@@ -1106,8 +1106,10 @@ public class UploadFileOperation extends SyncOperation {
                     throw new OperationCancelledException();
                 }
 
-                // Execute
-                result = mUploadOperation.execute(client);
+                // execute
+                if (result.isSuccess() && mUploadOperation != null) {
+                    result = mUploadOperation.execute(client);
+                }
 
                 // move local temporal file or original file to its corresponding
                 // location in the Nextcloud local folder
@@ -1129,10 +1131,19 @@ public class UploadFileOperation extends SyncOperation {
         } finally {
             mUploadStarted.set(false);
 
-            // Clean up temporal file if it exists
-            if (temporalFile != null && !temporalFile.delete() && temporalFile.exists()) {
-                Log_OC.e(TAG, "Could not delete temporal file");
+            // clean up temporal file if it exists
+            try {
+                if (temporalFile != null) {
+                    if (temporalFile.exists() && !temporalFile.delete()) {
+                        Log_OC.e(TAG, "Could not delete temporal file");
+                    }
+                } else {
+                    Log_OC.e(TAG, "temporal file is null, cannot delete it");
+                }
+            } catch (Exception e) {
+                Log_OC.e(TAG, "an exception occurred during deletion of temporal file: ", e);
             }
+
 
             if (result == null) {
                 result = new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);

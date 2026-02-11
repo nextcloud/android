@@ -582,6 +582,8 @@ public class UploadsStorageManager extends Observable {
                 result = UploadResult.SYNC_CONFLICT;
             }
         } else if (code == RemoteOperationResult.ResultCode.LOCAL_FILE_NOT_FOUND) {
+            // upload status is SUCCEEDED because user cannot take action about it, it will always fail
+            status =  UploadStatus.UPLOAD_SUCCEEDED;
             result = UploadResult.FILE_NOT_FOUND;
         }
 

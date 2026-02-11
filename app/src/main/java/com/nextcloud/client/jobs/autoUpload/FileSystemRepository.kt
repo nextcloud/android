@@ -183,14 +183,6 @@ class FileSystemRepository(
             val entity = dao.getFileByPathAndFolder(localPath, syncedFolder.id.toString())
 
             val fileModified = (lastModified ?: file.lastModified())
-            if (fileModified <= 0L) {
-                Log_OC.d(TAG, "file is deleted, skipping: $localPath")
-                entity?.let {
-                    deleteAutoUploadAndUploadEntity(syncedFolder, localPath, entity)
-                }
-                return
-            }
-
             val hasNotChanged = entity?.fileModified == fileModified
             val fileSentForUpload = entity?.fileSentForUpload == 1
 

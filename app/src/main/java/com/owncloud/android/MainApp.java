@@ -392,7 +392,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                 FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(syncedFolderProvider,
                                                                        backgroundJobManager,
                                                                        new String[]{},
-                                                                       true);
+                                                                       false);
                 preferences.setLastAutoUploadOnStartTime(System.currentTimeMillis());
             }
         } else if (event == Lifecycle.Event.ON_STOP) {
