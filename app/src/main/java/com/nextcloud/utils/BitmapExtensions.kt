@@ -78,8 +78,11 @@ fun Bitmap?.rotateBitmapViaExif(orientation: Int): Bitmap? {
     val matrix = Matrix()
     when (orientation) {
         ExifInterface.ORIENTATION_NORMAL -> return this
+
         ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> matrix.setScale(-1f, 1f)
+
         ExifInterface.ORIENTATION_ROTATE_180 -> matrix.setRotate(180f)
+
         ExifInterface.ORIENTATION_FLIP_VERTICAL -> {
             matrix.setRotate(180f)
             matrix.postScale(-1f, 1f)
@@ -91,12 +94,14 @@ fun Bitmap?.rotateBitmapViaExif(orientation: Int): Bitmap? {
         }
 
         ExifInterface.ORIENTATION_ROTATE_90 -> matrix.setRotate(90f)
+
         ExifInterface.ORIENTATION_TRANSVERSE -> {
             matrix.setRotate(-90f)
             matrix.postScale(-1f, 1f)
         }
 
         ExifInterface.ORIENTATION_ROTATE_270 -> matrix.setRotate(-90f)
+
         else -> return this
     }
 

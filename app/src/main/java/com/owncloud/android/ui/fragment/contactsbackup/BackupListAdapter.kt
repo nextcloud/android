@@ -89,6 +89,7 @@ class BackupListAdapter(
                 context
             )
         }
+
         VIEW_TYPE_CONTACTS -> {
             ContactItemViewHolder(
                 ContactlistListItemBinding.inflate(
@@ -98,6 +99,7 @@ class BackupListAdapter(
                 )
             )
         }
+
         else -> {
             CalendarItemViewHolder(
                 CalendarlistListItemBinding.inflate(

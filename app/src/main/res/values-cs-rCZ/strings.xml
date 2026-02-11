@@ -118,6 +118,7 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Tato složka už je obsažena v synchronizaci nadřazené složky, což může způsobovat duplicitní nahrávání</string>
     <string name="auto_upload_wifi_only_warning_info">Čeká se na Wi-Fi, aby bylo možné spustit nahrávání</string>
+    <string name="auto_upload_worker_start_text">Nahrávání souborů z %1$s na %2$s</string>
     <string name="autoupload_configure">Nastavit</string>
     <string name="autoupload_create_new_custom_folder">Vytvořit nové uživatelsky určené nastavení složky</string>
     <string name="autoupload_custom_folder">Nastavit uživatelsky určenou složku</string>

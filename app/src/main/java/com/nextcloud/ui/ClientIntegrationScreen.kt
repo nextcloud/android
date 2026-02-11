@@ -70,6 +70,7 @@ fun ClientIntegrationScreen(clientIntegrationUI: ClientIntegrationUI, baseUrl: S
                     }
                 }
             }
+
             else -> {
                 LazyRow(modifier = Modifier.padding(it)) {
                     items(layoutRows) { row ->

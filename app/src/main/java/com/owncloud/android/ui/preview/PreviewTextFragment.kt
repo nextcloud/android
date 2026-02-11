@@ -235,8 +235,8 @@ abstract class PreviewTextFragment :
                 return
             }
 
-            if ((ignoreMimetype || file != null && MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN == file.mimeType) &&
-                activity != null
+            if ((ignoreMimetype || ((file != null) && (MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN == file.mimeType))) &&
+                (activity != null)
             ) {
                 if (!preview) {
                     // clickable links prevent to open full view of rich workspace

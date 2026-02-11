@@ -70,6 +70,7 @@ class UnifiedSearchListAdapter(
                 )
                 UnifiedSearchHeaderViewHolder(binding, viewThemeUtils, context)
             }
+
             VIEW_TYPE_FOOTER -> {
                 val binding = UnifiedSearchFooterBinding.inflate(
                     layoutInflater,
@@ -78,6 +79,7 @@ class UnifiedSearchListAdapter(
                 )
                 UnifiedSearchFooterViewHolder(binding, context, listInterface)
             }
+
             VIEW_TYPE_ITEM -> {
                 val binding = UnifiedSearchItemBinding.inflate(
                     layoutInflater,
@@ -95,6 +97,7 @@ class UnifiedSearchListAdapter(
                     viewThemeUtils
                 )
             }
+
             VIEW_TYPE_CURRENT_DIR -> {
                 val isRTL = DisplayUtils.isRTL()
                 val binding = UnifiedSearchCurrentDirectoryItemBinding.inflate(layoutInflater, parent, false)
@@ -110,10 +113,12 @@ class UnifiedSearchListAdapter(
                     currentDirItemAction
                 )
             }
+
             VIEW_TYPE_EMPTY -> {
                 val binding = UnifiedSearchEmptyBinding.inflate(layoutInflater, parent, false)
                 EmptyViewHolder(binding)
             }
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }

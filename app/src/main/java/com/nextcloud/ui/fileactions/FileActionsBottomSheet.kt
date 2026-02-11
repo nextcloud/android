@@ -130,6 +130,7 @@ class FileActionsBottomSheet :
             }
 
             FileActionsViewModel.UiState.Loading -> {}
+
             FileActionsViewModel.UiState.Error -> {
                 activity?.let {
                     DisplayUtils.showSnackMessage(it, R.string.error_file_actions)

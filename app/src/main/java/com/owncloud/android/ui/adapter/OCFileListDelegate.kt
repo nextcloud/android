@@ -216,14 +216,22 @@ class OCFileListDelegate(
 
         // shares
         val shouldHideShare = (
-            hideItemOptions ||
-                !file.isFolder &&
-                file.isEncrypted ||
-                file.isEncrypted &&
-                !EncryptionUtils.supportsSecureFiledrop(file, user) ||
-                searchType == SearchType.FAVORITE_SEARCH ||
-                file.isFolder &&
-                currentDirectory?.isEncrypted ?: false
+            (
+                hideItemOptions ||
+                    (
+                        !file.isFolder &&
+                            file.isEncrypted
+                        ) ||
+                    (
+                        file.isEncrypted &&
+                            !EncryptionUtils.supportsSecureFiledrop(file, user)
+                        ) ||
+                    (searchType == SearchType.FAVORITE_SEARCH) ||
+                    (
+                        file.isFolder &&
+                            (currentDirectory?.isEncrypted ?: false)
+                        )
+                )
             ) // sharing an encrypted subfolder is not possible
         if (shouldHideShare) {
             viewHolder.shared.visibility = View.GONE
@@ -390,6 +398,7 @@ class OCFileListDelegate(
             }
 
             file.isSharedViaLink -> R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
+
             else -> R.drawable.ic_unshared to R.string.shared_icon_share
         }
     }

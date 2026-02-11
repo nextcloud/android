@@ -26,9 +26,12 @@ internal class AudioFocusManager(
             AudioManager.AUDIOFOCUS_GAIN,
             AudioManager.AUDIOFOCUS_GAIN_TRANSIENT,
             AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK -> AudioFocus.FOCUS
+
             AudioManager.AUDIOFOCUS_LOSS,
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> AudioFocus.LOST
+
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> AudioFocus.DUCK
+
             else -> null
         }
         focus?.let { onFocusChange(it) }

@@ -31,6 +31,7 @@ class GetSearchProvidersTask(private val client: NextcloudClient) : () -> GetSea
                     providers = result.resultData
                 )
             }
+
             else -> Result()
         }
     }

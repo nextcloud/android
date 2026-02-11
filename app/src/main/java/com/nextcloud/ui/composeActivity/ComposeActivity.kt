@@ -106,6 +106,7 @@ class ComposeActivity : DrawerActivity() {
             toggleDrawer()
             true
         }
+
         else -> super.onOptionsItemSelected(item)
     }
 

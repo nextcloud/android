@@ -149,6 +149,7 @@ class ManageSpaceActivity :
             finish()
             true
         }
+
         else -> {
             Log_OC.w(TAG, "Unknown menu item triggered")
             super.onOptionsItemSelected(item)
