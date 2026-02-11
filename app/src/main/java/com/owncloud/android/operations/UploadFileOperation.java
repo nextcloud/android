@@ -1138,12 +1138,11 @@ public class UploadFileOperation extends SyncOperation {
                         Log_OC.e(TAG, "Could not delete temporal file");
                     }
                 } else {
-                    Log_OC.e(TAG, "temporal file is null, cannot delete it");
+                    Log_OC.d(TAG, "temporal file is null - internal storage is used instead of sd-card");
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, "an exception occurred during deletion of temporal file: ", e);
             }
-
 
             if (result == null) {
                 result = new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
