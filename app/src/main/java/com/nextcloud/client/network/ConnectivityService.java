@@ -64,20 +64,6 @@ public interface ConnectivityService {
      * In other words, it checks whether the server can be reached without network interference
      * such as a hotel's captive portal, Wi-Fi login page, or similar restrictions.</p>
      *
-     * <p>The implementation performs the following steps:</p>
-     * <ul>
-     *     <li>Uses cached results from {@link WalledCheckCache} when available to avoid
-     *         redundant network calls.</li>
-     *     <li>Retrieves the active {@link Server} from {@link UserAccountManager}.</li>
-     *     <li>If connected issues a lightweight
-     *         HTTP {@code GET} request to the server’s <code>/index.php/204</code> endpoint
-     *         (which should respond with HTTP 204 No Content when connectivity is healthy).</li>
-     *     <li>If the response differs from the expected 204 No Content, the connection is
-     *         assumed to be behind a captive portal or otherwise restricted.</li>
-     *     <li>If no active network or server is detected, the method assumes the Internet
-     *         is walled.</li>
-     * </ul>
-     *
      * <p>Results are cached for subsequent checks to minimize unnecessary HTTP requests.</p>
      *
      * @return {@code true} if the Internet appears to be walled (e.g. captive portal or
