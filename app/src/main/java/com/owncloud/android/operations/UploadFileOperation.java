@@ -577,6 +577,9 @@ public class UploadFileOperation extends SyncOperation {
             result = new RemoteOperationResult<>(e);
         } finally {
             result = cleanupE2EUpload(fileLock, channel, e2eFiles, result, object, client, token);
+
+            // update upload status
+            uploadsStorageManager.updateDatabaseUploadResult(result, this);
         }
 
         completeE2EUpload(result, e2eFiles, client);
@@ -1189,6 +1192,9 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             logResult(result, mOriginalStoragePath, mRemotePath);
+
+            // update upload status
+            uploadsStorageManager.updateDatabaseUploadResult(result, this);
         }
 
         if (result.isSuccess()) {

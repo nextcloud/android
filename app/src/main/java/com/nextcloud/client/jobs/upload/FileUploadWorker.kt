@@ -24,7 +24,6 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
-import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ForegroundServiceType
@@ -258,8 +257,6 @@ class FileUploadWorker(
             val result = withContext(Dispatchers.IO) {
                 upload(operation, user, client)
             }
-            val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
-            uploadsStorageManager.updateStatus(entity, result.isSuccess)
             currentUploadFileOperation = null
 
             if (result.code == ResultCode.QUOTA_EXCEEDED) {
@@ -346,10 +343,9 @@ class FileUploadWorker(
             fileUploadBroadcastManager.sendStarted(operation, context)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
-            result = RemoteOperationResult<Any?>(e)
+            result = RemoteOperationResult(e)
         } finally {
             if (!isStopped) {
-                uploadsStorageManager.updateDatabaseUploadResult(result, operation)
                 UploadErrorNotificationManager.handleResult(
                     context,
                     notificationManager,
