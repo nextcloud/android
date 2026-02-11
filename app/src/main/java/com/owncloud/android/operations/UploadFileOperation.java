@@ -1017,16 +1017,23 @@ public class UploadFileOperation extends SyncOperation {
 
         try {
             result = checkConditions(originalFile);
-            if (result != null) return result;
+            if (result != null) {
+                return result;
+            }
 
             final var collisionResult = checkNameCollision(null, client, null, false);
-            if (collisionResult != null) return collisionResult;
+            if (collisionResult != null) {
+                result = collisionResult;
+                return collisionResult;
+            }
 
             String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
             expectedFile = new File(expectedPath);
 
             result = copyFile(originalFile, expectedPath);
-            if (!result.isSuccess()) return result;
+            if (!result.isSuccess()) {
+                return result;
+            }
 
             // Get the last modification date of the file from the file system
             long lastModifiedTimestamp = originalFile.lastModified() / 1000;
@@ -1048,7 +1055,7 @@ public class UploadFileOperation extends SyncOperation {
                 if (!result.isSuccess()) return result;
 
                 if (temporalFile.length() != originalFile.length()) {
-                    return new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
+                    result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
                 }
                 filePath = temporalFile.toPath();
             }
