@@ -562,6 +562,8 @@ public class UploadsStorageManager extends Observable {
         String localPath = (upload.getLocalBehaviour() == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE)
             ? upload.getStoragePath() : null;
 
+
+        Log_OC.d(TAG, "local behaviour: " + upload.getLocalBehaviour());
         Log_OC.d(TAG, "local path of upload: " + localPath);
 
         UploadStatus status = UploadStatus.UPLOAD_FAILED;
