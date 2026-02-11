@@ -554,7 +554,6 @@ public class UploadsStorageManager extends Observable {
      * Updates the persistent upload database with upload result.
      */
     public void updateDatabaseUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
-        // result: success or fail notification
         Log_OC.d(TAG, "updateDatabaseUploadResult uploadResult: " + uploadResult + " upload: " + upload);
 
         if (uploadResult.isCancelled()) {

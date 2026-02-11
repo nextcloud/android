@@ -24,7 +24,6 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.isNonRetryable
-import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -313,7 +312,6 @@ class AutoUploadWorker(
 
                         val result = operation.execute(client)
                         fileUploadBroadcastManager.sendStarted(operation, context)
-                        uploadsStorageManager.updateStatus(uploadEntity, result.isSuccess)
 
                         UploadErrorNotificationManager.handleResult(
                             context,
@@ -343,10 +341,6 @@ class AutoUploadWorker(
                             sendUploadFinishEvent(operation, result)
                         }
                     } catch (e: Exception) {
-                        uploadsStorageManager.updateStatus(
-                            uploadEntity,
-                            UploadsStorageManager.UploadStatus.UPLOAD_FAILED
-                        )
                         Log_OC.e(
                             TAG,
                             "Exception during upload file, localPath: $localPath, remotePath: $remotePath," +
