@@ -24,6 +24,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
+import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ForegroundServiceType
@@ -255,7 +256,7 @@ class FileUploadWorker(
             )
 
             val result = withContext(Dispatchers.IO) {
-                upload(operation, user, client)
+                upload(upload, operation, user, client)
             }
             currentUploadFileOperation = null
 
@@ -327,6 +328,7 @@ class FileUploadWorker(
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
     private suspend fun upload(
+        upload: OCUpload,
         operation: UploadFileOperation,
         user: User,
         client: OwnCloudClient
@@ -343,6 +345,14 @@ class FileUploadWorker(
             fileUploadBroadcastManager.sendStarted(operation, context)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
+            uploadsStorageManager.run {
+                uploadDao.getUploadById(upload.uploadId, user.accountName)?.let { entity ->
+                    updateStatus(
+                        entity,
+                        UploadsStorageManager.UploadStatus.UPLOAD_FAILED
+                    )
+                }
+            }
             result = RemoteOperationResult(e)
         } finally {
             if (!isStopped) {
