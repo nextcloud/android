@@ -550,59 +550,53 @@ public class UploadsStorageManager extends Observable {
         }
     }
 
-    /**
-     * Updates the persistent upload database with upload result.
-     */
     public void updateDatabaseUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
-        // result: success or fail notification
         Log_OC.d(TAG, "updateDatabaseUploadResult uploadResult: " + uploadResult + " upload: " + upload);
 
         if (uploadResult.isCancelled()) {
-            removeUpload(
-                upload.getUser().getAccountName(),
-                upload.getRemotePath()
-                        );
-        } else {
-            String localPath = (FileUploadWorker.LOCAL_BEHAVIOUR_MOVE == upload.getLocalBehaviour())
-                ? upload.getStoragePath() : null;
-
-            if (uploadResult.isSuccess()) {
-                updateUploadStatus(
-                    upload.getOCUploadId(),
-                    UploadStatus.UPLOAD_SUCCEEDED,
-                    UploadResult.UPLOADED,
-                    upload.getRemotePath(),
-                    localPath
-                                  );
-            } else if (uploadResult.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT &&
-                new FileUploadHelper().isSameFileOnRemote(
-                    upload.getUser(), new File(upload.getStoragePath()), upload.getRemotePath(), upload.getContext())) {
-
-                updateUploadStatus(
-                    upload.getOCUploadId(),
-                    UploadStatus.UPLOAD_SUCCEEDED,
-                    UploadResult.SAME_FILE_CONFLICT,
-                    upload.getRemotePath(),
-                    localPath
-                                  );
-            } else if (uploadResult.getCode() == RemoteOperationResult.ResultCode.LOCAL_FILE_NOT_FOUND) {
-                updateUploadStatus(
-                    upload.getOCUploadId(),
-                    UploadStatus.UPLOAD_SUCCEEDED,
-                    UploadResult.FILE_NOT_FOUND,
-                    upload.getRemotePath(),
-                    localPath
-                                  );
-            } else if (uploadResult.getCode() != RemoteOperationResult.ResultCode.USER_CANCELLED){
-                updateUploadStatus(
-                    upload.getOCUploadId(),
-                    UploadStatus.UPLOAD_FAILED,
-                    UploadResult.fromOperationResult(uploadResult),
-                    upload.getRemotePath(),
-                    localPath
-                                  );
-            }
+            Log_OC.w(TAG, "upload is cancelled, removing upload");
+            removeUpload(upload.getUser().getAccountName(), upload.getRemotePath());
+            return;
         }
+
+        String localPath = (upload.getLocalBehaviour() == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE)
+            ? upload.getStoragePath() : null;
+
+
+        Log_OC.d(TAG, "local behaviour: " + upload.getLocalBehaviour());
+        Log_OC.d(TAG, "local path of upload: " + localPath);
+
+        UploadStatus status = UploadStatus.UPLOAD_FAILED;
+        UploadResult result = UploadResult.fromOperationResult(uploadResult);
+        RemoteOperationResult.ResultCode code = uploadResult.getCode();
+
+        if (uploadResult.isSuccess()) {
+            status = UploadStatus.UPLOAD_SUCCEEDED;
+            result = UploadResult.UPLOADED;
+        } else if (code == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+            boolean isSame = new FileUploadHelper().isSameFileOnRemote(
+                upload.getUser(), new File(upload.getStoragePath()), upload.getRemotePath(), upload.getContext());
+
+            if (isSame) {
+                result = UploadResult.SAME_FILE_CONFLICT;
+                status = UploadStatus.UPLOAD_SUCCEEDED;
+            } else {
+                result = UploadResult.SYNC_CONFLICT;
+            }
+        } else if (code == RemoteOperationResult.ResultCode.LOCAL_FILE_NOT_FOUND) {
+            // upload status is SUCCEEDED because user cannot take action about it, it will always fail
+            status =  UploadStatus.UPLOAD_SUCCEEDED;
+            result = UploadResult.FILE_NOT_FOUND;
+        }
+
+        Log_OC.d(TAG, String.format(
+            "Upload Finished [%s] | RemoteCode: %s | internalResult: %s | FinalStatus: %s | Path: %s",
+            uploadResult.isSuccess() ? "✅" : "❌",
+            code,
+            result.name(),
+            status,
+            upload.getRemotePath()));
+        updateUploadStatus(upload.getOCUploadId(), status, result, upload.getRemotePath(), localPath);
     }
 
     /**
