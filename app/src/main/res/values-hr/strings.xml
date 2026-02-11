@@ -34,6 +34,7 @@
     <string name="appbar_search_in">Traži u %s</string>
     <string name="appear_offline">Prikaži se kao izvan mreže</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Izbriši zadatak</string>
+    <string name="assistant_screen_task_create_success_message">Zadatak je stvoren</string>
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_task_status_running">radi</string>
     <string name="assistant_task_status_unknown">nepoznato</string>
@@ -874,6 +875,11 @@
         <item quantity="one">%d sat</item>
         <item quantity="few">%d sata</item>
         <item quantity="other">%d sati</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minuta</item>
+        <item quantity="few">%d minute</item>
+        <item quantity="other">%d minuta</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nije moguće sinkronizirati datoteku %1$d (nepodudaranja: %2$d)</item>
