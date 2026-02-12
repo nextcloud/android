@@ -208,7 +208,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Није успело покретање увоза. Молимо вас да покушате поново</string>
     <string name="contacts_preferences_no_file_found">Није нађен фајл</string>
     <string name="contacts_preferences_something_strange_happened">Не могу да нађем последњу резерву!</string>
-    <string name="content_observer_work_notification_title">Откривају се измене садржаја</string>
     <string name="conversation_screen_delete_button_title">Обриши разовор</string>
     <string name="conversation_screen_empty_content_title">Није пронађен ниједан разговор</string>
     <string name="conversation_screen_empty_conversation_list_title">Још увек нема разговора</string>

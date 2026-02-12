@@ -210,7 +210,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Import failed to start. Please try again</string>
     <string name="contacts_preferences_no_file_found">ບໍ່ພົບຟາຍ</string>
     <string name="contacts_preferences_something_strange_happened">ບໍ່ສາມາດຊອກຫາ ການສໍາຮອງລ່າສຸດຂອງທ່ານໄດ້!</string>
-    <string name="content_observer_work_notification_title">Detecting content changes</string>
     <string name="conversation_screen_delete_button_title">Delete conversation</string>
     <string name="conversation_screen_empty_content_title">No conversations found</string>
     <string name="conversation_screen_empty_conversation_list_title">ຍັງບໍ່ມີການສົນທະນາ</string>

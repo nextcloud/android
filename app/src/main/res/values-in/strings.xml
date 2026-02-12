@@ -208,7 +208,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="contacts_preferences_import_scheduled_fail">Impor gagal dimulai. Coba lagi</string>
     <string name="contacts_preferences_no_file_found">Tidak ada berkas ditemukan.</string>
     <string name="contacts_preferences_something_strange_happened">Tidak dapat menemukan pencadangan terakhir kamu!</string>
-    <string name="content_observer_work_notification_title">Mendeteksi perubahan konten</string>
     <string name="conversation_screen_empty_conversation_list_title">Belum ada percakapan</string>
     <string name="copied">Tersalin</string>
     <string name="copy_file_error">Terjadi kesalahan ketika mencoba menyalin berkas atau folder ini</string>

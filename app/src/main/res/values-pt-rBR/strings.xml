@@ -224,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Falha ao iniciar a importação. Por favor, tente novamente.</string>
     <string name="contacts_preferences_no_file_found">Nenhum arquivo encontrado</string>
     <string name="contacts_preferences_something_strange_happened">Não foi possível encontrar seu último backup!</string>
-    <string name="content_observer_work_notification_title">Detectando alterações no conteúdo</string>
     <string name="conversation_screen_create_error_title">Falha ao criar conversa</string>
     <string name="conversation_screen_delete_button_title">Excluir conversa</string>
     <string name="conversation_screen_delete_error_title">Falha ao excluir conversa</string>

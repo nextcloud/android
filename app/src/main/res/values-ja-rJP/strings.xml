@@ -208,7 +208,6 @@
     <string name="contacts_preferences_import_scheduled_fail">インポートを開始できませんでした。もう一度やり直してください</string>
     <string name="contacts_preferences_no_file_found">ファイルが見つかりません</string>
     <string name="contacts_preferences_something_strange_happened">あなたの最後のバックアップを見つけることができませんでした！</string>
-    <string name="content_observer_work_notification_title">コンテンツの変更の検出</string>
     <string name="conversation_screen_empty_content_title">会話が見つかりません</string>
     <string name="conversation_screen_empty_conversation_list_title">まだ会話はありません</string>
     <string name="conversation_screen_title">会話</string>
