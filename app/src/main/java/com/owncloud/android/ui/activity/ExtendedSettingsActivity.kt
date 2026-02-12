@@ -39,7 +39,8 @@ class ExtendedSettingsActivity : AppCompatActivity() {
             return
         }
 
-        dialogType.showDialog(this)
+        val dismissable = intent.getBooleanExtra(EXTRA_DISMISSABLE, true)
+        dialogType.showDialog(this, dismissable)
         dialogShown = true
     }
 
@@ -49,12 +50,18 @@ class ExtendedSettingsActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val EXTRA_DISMISSABLE = "dismissable"
         private const val EXTRA_DIALOG_TYPE = "dialog_type"
         private const val KEY_DIALOG_SHOWN = "dialog_shown"
 
-        fun createIntent(context: Context, dialogType: ExtendedSettingsActivityDialog): Intent =
-            Intent(context, ExtendedSettingsActivity::class.java).apply {
-                putExtra(EXTRA_DIALOG_TYPE, dialogType.key)
-            }
+        @JvmOverloads
+        fun createIntent(
+            context: Context,
+            dialogType: ExtendedSettingsActivityDialog,
+            dismissable: Boolean = true
+        ): Intent = Intent(context, ExtendedSettingsActivity::class.java).apply {
+            putExtra(EXTRA_DIALOG_TYPE, dialogType.key)
+            putExtra(EXTRA_DISMISSABLE, dismissable)
+        }
     }
 }
