@@ -310,42 +310,47 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                                                                       richObject.getId(),
                                                                                       name
                     );
-                    
-                    DisplayUtils.setAvatar(
-                        currentAccountProvider.getUser(),
-                        richObject.getId(),
-                        name,
-                        this,
-                        context.getResources().getDimension(R.dimen.avatar_icon_radius),
-                        context.getResources(),
-                        drawableForChip,
-                        context
-                                          );
+
+                    if (richObject.getId() != null) {
+                        DisplayUtils.setAvatar(
+                            currentAccountProvider.getUser(),
+                            richObject.getId(),
+                            name,
+                            this,
+                            context.getResources().getDimension(R.dimen.avatar_icon_radius),
+                            context.getResources(),
+                            drawableForChip,
+                            context
+                                              );
+                    }
                     
                     ssb.setSpan(mentionChipSpan, idx1, idx2, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
                 } else {
                     String name = richObject.getName();
-                    ssb.replace(idx1, idx2, name);
-                    text = ssb.toString();
-                    idx2 = idx1 + name.length();
-                    ssb.setSpan(new ClickableSpan() {
-                        @Override
-                        public void onClick(@NonNull View widget) {
-                            activityListInterface.onActivityClicked(richObject);
-                        }
 
-                        @Override
-                        public void updateDrawState(@NonNull TextPaint ds) {
-                            ds.setUnderlineText(false);
-                        }
-                    }, idx1, idx2, 0);
-                    ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), idx1, idx2, 0);
-                    ssb.setSpan(
-                        new ForegroundColorSpan(context.getResources().getColor(R.color.text_color)),
-                        idx1,
-                        idx2,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                               );
+                    if (name != null) {
+                        ssb.replace(idx1, idx2, name);
+                        text = ssb.toString();
+                        idx2 = idx1 + name.length();
+                        ssb.setSpan(new ClickableSpan() {
+                            @Override
+                            public void onClick(@NonNull View widget) {
+                                activityListInterface.onActivityClicked(richObject);
+                            }
+
+                            @Override
+                            public void updateDrawState(@NonNull TextPaint ds) {
+                                ds.setUnderlineText(false);
+                            }
+                        }, idx1, idx2, 0);
+                        ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), idx1, idx2, 0);
+                        ssb.setSpan(
+                            new ForegroundColorSpan(context.getResources().getColor(R.color.text_color)),
+                            idx1,
+                            idx2,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                                   );
+                    }
                 }
             }
             idx1 = text.indexOf('{', idx2);
@@ -356,7 +361,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private RichObject searchObjectByName(List<RichObject> richObjectList, String name) {
         for (RichObject richObject : richObjectList) {
-            if (richObject.getTag().equalsIgnoreCase(name)) {
+            if (richObject.getTag() != null && richObject.getTag().equalsIgnoreCase(name)) {
                 return richObject;
             }
         }
