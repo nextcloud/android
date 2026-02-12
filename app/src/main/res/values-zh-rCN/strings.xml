@@ -222,7 +222,6 @@
     <string name="contacts_preferences_import_scheduled_fail">导入无法开始。请重试</string>
     <string name="contacts_preferences_no_file_found">没有文件被发现</string>
     <string name="contacts_preferences_something_strange_happened">无法找到末次备份</string>
-    <string name="content_observer_work_notification_title">正在检测内容更改</string>
     <string name="conversation_screen_create_error_title">无法创建对话</string>
     <string name="conversation_screen_delete_button_title">删除对话</string>
     <string name="conversation_screen_delete_error_title">无法删除对话</string>

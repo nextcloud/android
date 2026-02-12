@@ -211,7 +211,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Importen kunde inte startas. Försök igen</string>
     <string name="contacts_preferences_no_file_found">Ingen fil funnen</string>
     <string name="contacts_preferences_something_strange_happened">Vi kunde inte hitta din senaste backup!</string>
-    <string name="content_observer_work_notification_title">Upptäcker innehållsförändringar</string>
     <string name="conversation_screen_create_error_title">Kunde inte skapa konversationen</string>
     <string name="conversation_screen_delete_button_title">Ta bort konversationen</string>
     <string name="conversation_screen_delete_error_title">Kunde inte ta bort konversationen</string>

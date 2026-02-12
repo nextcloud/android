@@ -224,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Importación fallou ao iniciar. Ténteo de novo</string>
     <string name="contacts_preferences_no_file_found">Non se atopou ningún ficheiro</string>
     <string name="contacts_preferences_something_strange_happened">Non foi posíbel atopar a súa última copia de seguranza!</string>
-    <string name="content_observer_work_notification_title">Detección de cambios no contido</string>
     <string name="conversation_screen_create_error_title">Produciuse un fallo ao crear a conversa</string>
     <string name="conversation_screen_delete_button_title">Eliminar a conversa</string>
     <string name="conversation_screen_delete_error_title">Produciuse un fallo ao eliminar a conversa</string>

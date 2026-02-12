@@ -224,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Theip ar an iompórtáil. Bain triail eile as</string>
     <string name="contacts_preferences_no_file_found">Níor aimsíodh aon chomhad</string>
     <string name="contacts_preferences_something_strange_happened">Níorbh fhéidir do chúltaca deiridh a aimsiú!</string>
-    <string name="content_observer_work_notification_title">Athruithe ábhair á mbrath</string>
     <string name="conversation_screen_create_error_title">Theip ar chomhrá a chruthú</string>
     <string name="conversation_screen_delete_button_title">Scrios an comhrá</string>
     <string name="conversation_screen_delete_error_title">Theip ar an gcomhrá a scriosadh</string>

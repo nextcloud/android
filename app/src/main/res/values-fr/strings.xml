@@ -214,7 +214,6 @@
     <string name="contacts_preferences_import_scheduled_fail">L\'importation n\'a pas pu démarrer. Veuillez réessayer.</string>
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
     <string name="contacts_preferences_something_strange_happened">Impossible de trouver la dernière sauvegarde !</string>
-    <string name="content_observer_work_notification_title">Détection des modifications de contenu</string>
     <string name="conversation_screen_create_error_title">Échec de la conversation</string>
     <string name="conversation_screen_delete_button_title">Supprimer la conversation</string>
     <string name="conversation_screen_delete_error_title">Impossible de supprimer la conversation</string>

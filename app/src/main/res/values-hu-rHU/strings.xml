@@ -222,7 +222,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Az importálás elkezdése sikertelen. Próbálja újra.</string>
     <string name="contacts_preferences_no_file_found">Nincs fájl</string>
     <string name="contacts_preferences_something_strange_happened">A legutóbbi biztonsági mentés nem található!</string>
-    <string name="content_observer_work_notification_title">Tartalmi változások észlelése</string>
     <string name="conversation_screen_create_error_title">Nem sikerült létrehozni a beszélgetést</string>
     <string name="conversation_screen_delete_button_title">Beszélgetés törlése</string>
     <string name="conversation_screen_delete_error_title">Nem sikerült a beszélgetés törlése</string>
