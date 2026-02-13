@@ -1701,6 +1701,12 @@ class FileDisplayActivity :
                 sameFile = file?.remotePath == uploadedRemotePath || renamedInUpload
             }
 
+            if (uploadWasFine) {
+                file?.let {
+                    removeFileIndicator(it, includeSubFiles = false)
+                }
+            }
+
             if (sameAccount && sameFile && this@FileDisplayActivity.leftFragment is FileDetailFragment) {
                 val fileDetailFragment = leftFragment as FileDetailFragment
                 if (uploadWasFine) {
@@ -2149,8 +2155,12 @@ class FileDisplayActivity :
         }
     }
 
-    private fun removeFileIndicator(file: OCFile) {
+    private fun removeFileIndicator(file: OCFile, includeSubFiles: Boolean = true) {
         FileIndicatorManager.update(file.fileId, FileIndicator.Idle)
+
+        if (!includeSubFiles) {
+            return
+        }
 
         lifecycleScope.launch(Dispatchers.IO) {
             if (user.isEmpty) {
