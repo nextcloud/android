@@ -76,14 +76,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.function.BiConsumer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1079,33 +1077,24 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-    public void removeFileIndicator(OCFile file) {
-        if (file != null) {
-            file.setFileIndicator(null);
-            notifyItemChanged(file);
-        }
-    }
-
     public void updateFileIndicators(Map<Long, FileIndicator> indicators) {
         if (indicators == null || indicators.isEmpty()) {
             return;
         }
 
-        Map<Long, Integer> positionMap = new HashMap<>(mFiles.size());
-        for (int i = 0; i < mFiles.size(); i++) {
-            positionMap.put(mFiles.get(i).getFileId(), i);
-        }
-
-        indicators.forEach((id, fileIndicator) -> {
-            Integer position = positionMap.get(id);
-            if (position != null) {
-                OCFile file = mFiles.get(position);
-                Integer newIndicator = fileIndicator.getIconRes();
-                if (!Objects.equals(file.getFileIndicator(), newIndicator)) {
-                    file.setFileIndicator(newIndicator);
-                    notifyItemChanged(file);
-                }
+        for (OCFile file: mFiles) {
+            final var fileIndicator = indicators.get(file.getFileId());
+            if (fileIndicator == null) {
+                continue;
             }
-        });
+
+            final var newIndicator = fileIndicator.getIconRes();
+            if (Objects.equals(file.getFileIndicator(), newIndicator)) {
+                continue;
+            }
+
+            file.setFileIndicator(newIndicator);
+            notifyItemChanged(file);
+        }
     }
 }
