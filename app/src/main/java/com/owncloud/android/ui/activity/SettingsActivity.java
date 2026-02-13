@@ -77,7 +77,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.UnifiedPushUtils;
+import com.owncloud.android.utils.CommonPushUtils;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -389,14 +389,14 @@ public class SettingsActivity extends PreferenceActivity
             }
             preferences.setUnifiedPushEnabled(prefUnifiedPush.isChecked());
             if (prefUnifiedPush.isChecked()) {
-                UnifiedPushUtils.useDefaultDistributor(this, accountManager, preferences.getPushToken(), service -> {
+                CommonPushUtils.useDefaultUnifiedPushDistributor(this, accountManager, preferences.getPushToken(), service -> {
                     if (prefChangeService != null) {
                         prefChangeService.setSummary(Objects.requireNonNullElse(service, ""));
                     }
                     return null;
                 });
             } else {
-                UnifiedPushUtils.disableUnifiedPush(this, accountManager, preferences.getPushToken());
+                CommonPushUtils.disableUnifiedPush(this, accountManager, preferences.getPushToken());
             }
             return false;
         });
@@ -410,7 +410,7 @@ public class SettingsActivity extends PreferenceActivity
             }
             prefChangeService.setEnabled(unifiedPushEnabled);
             prefChangeService.setOnPreferenceClickListener(preference -> {
-                UnifiedPushUtils.pickDistributor(this, accountManager, preferences.getPushToken(), service -> {
+                CommonPushUtils.pickUnifiedPushDistributor(this, accountManager, preferences.getPushToken(), service -> {
                     if (service != null) {
                         prefChangeService.setSummary(service);
                     }

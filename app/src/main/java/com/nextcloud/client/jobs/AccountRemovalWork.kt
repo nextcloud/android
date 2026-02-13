@@ -42,7 +42,7 @@ import com.owncloud.android.ui.activity.ManageAccountsActivity
 import com.owncloud.android.ui.events.AccountRemovedEvent
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.PushUtils
-import com.owncloud.android.utils.UnifiedPushUtils
+import com.owncloud.android.utils.CommonPushUtils
 import org.greenrobot.eventbus.EventBus
 import java.util.Optional
 
@@ -176,7 +176,7 @@ class AccountRemovalWork(
         context: Context,
         user: User
     ) {
-        UnifiedPushUtils.unregisterWebPushForAccount(context, userAccountManager, user.toOwnCloudAccount())
+        CommonPushUtils.unregisterUnifiedPushForAccount(context, userAccountManager, user.toOwnCloudAccount())
     }
 
     private fun removeSyncedFolders(context: Context, user: User, clock: Clock) {
