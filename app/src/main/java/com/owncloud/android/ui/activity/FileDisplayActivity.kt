@@ -2126,6 +2126,7 @@ class FileDisplayActivity :
             }
             val parentFile = storageManager.getFileById(removedFile.parentId)
             if (parentFile != null && parentFile == getCurrentDir()) {
+                removeFileIndicator(parentFile)
                 updateListOfFilesFragment()
             } else if (leftFragment is OCFileListFragment &&
                 SearchRemoteOperation.SearchType.FAVORITE_SEARCH == leftFragment.searchEvent?.searchType
@@ -2142,8 +2143,7 @@ class FileDisplayActivity :
             supportInvalidateOptionsMenu()
             fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
 
-            FileIndicatorManager.update(removedFile.fileId, FileIndicator.Idle)
-            storageManager.fileDao.updateFileIndicator(removedFile.fileId, null)
+            removeFileIndicator(removedFile)
             listOfFilesFragment?.adapter?.removeFileIndicator(removedFile)
         } else {
             if (result.isSslRecoverableException) {
@@ -2151,6 +2151,11 @@ class FileDisplayActivity :
                 showUntrustedCertDialog(mLastSslUntrustedServerResult)
             }
         }
+    }
+
+    private fun removeFileIndicator(file: OCFile) {
+        FileIndicatorManager.update(file.fileId, FileIndicator.Idle)
+        storageManager.fileDao.updateFileIndicator(file.fileId, null)
     }
 
     private fun onRestoreFileVersionOperationFinish(result: RemoteOperationResult<*>) {
