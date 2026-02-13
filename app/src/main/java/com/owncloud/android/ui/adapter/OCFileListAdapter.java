@@ -30,6 +30,7 @@ import com.nextcloud.android.common.core.utils.ecosystem.EcosystemApp;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
+import com.nextcloud.client.files.FileIndicator;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
@@ -75,10 +76,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1072,5 +1077,28 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mFiles.clear();
         mFilesAll.clear();
         notifyDataSetChanged();
+    }
+
+    public void updateFileIndicators(Map<Long, FileIndicator> indicators) {
+        if (indicators == null || indicators.isEmpty()) {
+            return;
+        }
+
+        Map<Long, Integer> positionMap = new HashMap<>();
+        for (int i = 0; i < mFiles.size(); i++) {
+            positionMap.put(mFiles.get(i).getFileId(), i);
+        }
+
+        indicators.forEach((id, fileIndicator) -> {
+            Integer position = positionMap.get(id);
+            if (position != null) {
+                OCFile file = mFiles.get(position);
+                Integer newIndicator = fileIndicator.getIconRes();
+                if (!Objects.equals(file.getFileIndicator(), newIndicator)) {
+                    file.setFileIndicator(newIndicator);
+                    notifyItemChanged(file);
+                }
+            }
+        });
     }
 }

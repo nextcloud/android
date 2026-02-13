@@ -21,6 +21,8 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.files.FileIndicator
+import com.nextcloud.client.files.FileIndicatorManager
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateObserver
 import com.nextcloud.utils.ForegroundServiceHelper
@@ -211,6 +213,7 @@ class FileDownloadWorker(
                     file.remotePath,
                     operation
                 ) ?: Pair(null, null)
+                FileIndicatorManager.update(file.fileId, FileIndicator.Downloading)
 
                 downloadKey?.let {
                     requestedDownloads.add(downloadKey)
@@ -354,6 +357,7 @@ class FileDownloadWorker(
 
     private fun checkDownloadError(result: RemoteOperationResult<*>) {
         if (result.isSuccess || downloadError != null) {
+            currentDownload?.file?.fileId?.let { FileIndicatorManager.update(it, FileIndicator.Downloaded) }
             notificationManager.dismissNotification()
             return
         }
@@ -363,6 +367,8 @@ class FileDownloadWorker(
         } else {
             FileDownloadError.Failed
         }
+
+        currentDownload?.file?.fileId?.let { FileIndicatorManager.update(it, FileIndicator.Error) }
     }
 
     private fun showDownloadErrorNotification(downloadError: FileDownloadError) {

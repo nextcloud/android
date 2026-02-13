@@ -785,6 +785,12 @@ public class FileDataStorageManager {
     @SuppressFBWarnings("CE")
     private ContentValues createContentValuesBase(OCFile fileOrFolder) {
         final ContentValues cv = new ContentValues();
+
+        Integer fileIndicator = fileOrFolder.getFileIndicator();
+        if (fileIndicator != null) {
+            cv.put(ProviderTableMeta.FILE_INDICATOR, fileIndicator);
+        }
+
         cv.put(ProviderTableMeta.FILE_MODIFIED, fileOrFolder.getModificationTimestamp());
         cv.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, fileOrFolder.getModificationTimestampAtLastSyncForData());
         cv.put(ProviderTableMeta.FILE_PARENT, fileOrFolder.getParentId());
@@ -906,6 +912,8 @@ public class FileDataStorageManager {
                     if (success && !removeDBData) {
                         // maybe unnecessary, but should be checked TODO remove if unnecessary
                         ocFile.setStoragePath(null);
+                        fileDao.updateFileIndicator(ocFile.getFileId(), null);
+                        ocFile.setFileIndicator(null);
                         saveFile(ocFile);
                         saveConflict(ocFile, null);
                     }
@@ -915,9 +923,38 @@ public class FileDataStorageManager {
             return false;
         }
 
-        return success;
+        boolean result = success;
+        if (success) {
+            fileDao.updateFileIndicator(ocFile.getFileId(),null);
+        }
+
+        return result;
     }
 
+    private void clearFileIndicatorsForFolderAndChildren(OCFile folder) {
+        if (folder == null || !folder.isFolder()) {
+            return;
+        }
+
+        try {
+            if (folder.getFileId() > 0) {
+                fileDao.updateFileIndicator(folder.getFileId(), null);
+            }
+
+            List<OCFile> children = getFolderContent(folder.getFileId(), false);
+            for (OCFile child : children) {
+                if (child.isFolder()) {
+                    clearFileIndicatorsForFolderAndChildren(child);
+                } else {
+                    if (child.getFileId() > 0) {
+                        fileDao.updateFileIndicator(child.getFileId(), null);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error clearing file indicators for folder: " + folder.getRemotePath(), e);
+        }
+    }
 
     public boolean removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
         boolean success = true;
@@ -926,6 +963,7 @@ public class FileDataStorageManager {
                 success = removeFolderInDb(folder);
             }
             if (removeLocalContent && success) {
+                clearFileIndicatorsForFolderAndChildren(folder);
                 success = removeLocalFolder(folder);
             }
         } else {
@@ -972,6 +1010,8 @@ public class FileDataStorageManager {
                         // notify MediaScanner about removed file
                         deleteFileInMediaScan(ocFile.getStoragePath());
                         ocFile.setStoragePath(null);
+                        fileDao.updateFileIndicator(ocFile.getFileId(), null);
+                        ocFile.setFileIndicator(null);
                         saveFile(ocFile);
                     }
                 }
@@ -1258,6 +1298,7 @@ public class FileDataStorageManager {
         }
         ocFile.setFileLength(nullToZero(fileEntity.getContentLength()));
         ocFile.setUploadTimestamp(nullToZero(fileEntity.getUploaded()));
+        ocFile.setFileIndicator(nullToZero(fileEntity.getFileIndicator()));
         ocFile.setCreationTimestamp(nullToZero(fileEntity.getCreation()));
         ocFile.setModificationTimestamp(nullToZero(fileEntity.getModified()));
         ocFile.setModificationTimestampAtLastSyncForData(nullToZero(fileEntity.getModifiedAtLastSyncForData()));

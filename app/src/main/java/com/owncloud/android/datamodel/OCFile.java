@@ -134,6 +134,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String reason = "";
     // endregion
 
+    private Integer fileIndicator = null;
+
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to
      * {@link #getStorageUri()}
@@ -212,6 +214,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockTimeout = source.readLong();
         lockToken = source.readString();
         livePhoto = source.readString();
+        fileIndicator = source.readInt();
     }
 
     @Override
@@ -258,6 +261,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeLong(lockTimeout);
         dest.writeString(lockToken);
         dest.writeString(livePhoto);
+        dest.writeInt(fileIndicator != null ? fileIndicator : -1);
     }
 
     public String getLinkedFileIdForLivePhoto() {
@@ -530,6 +534,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockToken = null;
         livePhoto = null;
         imageDimension = null;
+        fileIndicator = null;
     }
 
     /**
@@ -1174,5 +1179,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         } else {
             return getParentId() != 0;
         }
+    }
+
+    public void setFileIndicator(Integer indicator) {
+        fileIndicator = indicator;
+    }
+
+    public Integer getFileIndicator() {
+        return fileIndicator;
     }
 }

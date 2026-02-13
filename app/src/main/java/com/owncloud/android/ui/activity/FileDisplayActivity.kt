@@ -47,7 +47,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -61,6 +63,8 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.files.DeepLinkHandler
+import com.nextcloud.client.files.FileIndicator
+import com.nextcloud.client.files.FileIndicatorManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadAddedMessage
@@ -158,6 +162,9 @@ import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.StringUtils
 import com.owncloud.android.utils.theme.CapabilityUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
@@ -283,6 +290,7 @@ class FileDisplayActivity :
         startMetadataSyncForRoot()
         handleBackPress()
         setupDrawer(menuItemId)
+        observeFileIndicatorState()
     }
 
     /**
@@ -2133,6 +2141,10 @@ class FileDisplayActivity :
             }
             supportInvalidateOptionsMenu()
             fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+
+            FileIndicatorManager.update(removedFile.fileId, FileIndicator.Idle)
+            storageManager.fileDao.updateFileIndicator(removedFile.fileId, null)
+            listOfFilesFragment?.adapter?.updateFileIndicators(mapOf(removedFile.fileId to FileIndicator.Idle))
         } else {
             if (result.isSslRecoverableException) {
                 mLastSslUntrustedServerResult = result
@@ -3058,6 +3070,34 @@ class FileDisplayActivity :
         backgroundJobManager.startMetadataSyncJob(currentDirId)
     }
     // endregion
+
+    @Suppress("MagicNumber")
+    @OptIn(FlowPreview::class)
+    private fun observeFileIndicatorState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                FileIndicatorManager.activeTransfers
+                    .debounce(100)
+                    .collectLatest { indicators ->
+                        if (indicators.isEmpty()) return@collectLatest
+
+                        withContext(Dispatchers.Main) {
+                            // update UI with hot data
+                            listOfFilesFragment?.adapter?.updateFileIndicators(indicators)
+
+                            // update cold data in background
+                            launch(Dispatchers.IO) {
+                                storageManager.fileDao.updateFileIndicatorsBatch(
+                                    indicators.map { (fileId, indicator) ->
+                                        fileId to indicator.iconRes
+                                    }
+                                )
+                            }
+                        }
+                    }
+            }
+        }
+    }
 
     companion object {
         const val RESTART: String = "RESTART"
