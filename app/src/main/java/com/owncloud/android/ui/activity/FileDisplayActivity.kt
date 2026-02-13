@@ -160,7 +160,7 @@ import com.owncloud.android.utils.PermissionUtil.requestNotificationPermission
 import com.owncloud.android.utils.PermissionUtil.requestStoragePermissionIfNeeded
 import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.StringUtils
-import com.owncloud.android.utils.UnifiedPushUtils
+import com.owncloud.android.utils.CommonPushUtils
 import com.owncloud.android.utils.UriUtils
 import com.owncloud.android.utils.theme.CapabilityUtils
 import kotlinx.coroutines.Dispatchers
@@ -2937,7 +2937,7 @@ class FileDisplayActivity :
         if (!preferences.isKeysReInitEnabled()) {
             PushUtils.reinitKeys(userAccountManager)
         }
-        UnifiedPushUtils.registerCurrentPushConfiguration(this, userAccountManager, preferences)
+        CommonPushUtils.registerCurrentPushConfiguration(this, userAccountManager, preferences)
     }
 
     public override fun onStart() {

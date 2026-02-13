@@ -23,8 +23,43 @@ import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import org.unifiedpush.android.connector.UnifiedPush
 
-object UnifiedPushUtils {
-    private val TAG: String = UnifiedPushUtils::class.java.getSimpleName()
+/**
+ * Handle UnifiedPush (web push server side) and proxy push ([PushUtils]) registrations
+ */
+object CommonPushUtils {
+    private val TAG: String = CommonPushUtils::class.java.getSimpleName()
+
+    /**
+     * Register UnifiedPush, or FCM with the current config
+     *
+     * This is run when the application starts, and this is also where push notifications
+     * are set up for the first time
+     */
+    @JvmStatic
+    fun registerCurrentPushConfiguration(context: Context, accountManager: UserAccountManager, preferences: AppPreferences) {
+        if (preferences.isUnifiedPushEnabled) {
+            UnifiedPush.getAckDistributor(context)?.let {
+                registerUnifiedPushForAllAccounts(context, accountManager, preferences.pushToken)
+            } ?: run {
+                // The user has uninstalled the distributor, fallback to play services with the proxy push if available
+                preferences.isUnifiedPushEnabled = false
+                disableUnifiedPush(context, accountManager, preferences.pushToken)
+            }
+        } else {
+            CoroutineScope(Dispatchers.IO).launch {
+                PushUtils.pushRegistrationToServer(accountManager, preferences.pushToken)
+            }
+        }
+    }
+
+    /**
+     * Check if server supports web push
+     */
+    private fun supportsWebPush(context: Context, accountManager: UserAccountManager, accountName: String): Boolean =
+        accountManager.getUser(accountName)
+            .map { CapabilityUtils.getCapability(it, context).supportsWebPush.isTrue }
+            .also { Log_OC.d(TAG, "Found push capability: $it") }
+            .orElse(false)
 
     /**
      * Use default distributor, register all accounts that support webpush
@@ -37,16 +72,16 @@ object UnifiedPushUtils {
      * @param callback: run with the push service name if available
      */
     @JvmStatic
-    fun useDefaultDistributor(
+    fun useDefaultUnifiedPushDistributor(
         activity: Activity,
         accountManager: UserAccountManager,
         proxyPushToken: String?,
         callback: (String?) -> Unit
     ) {
-        Log_OC.d(TAG, "Using default UnifiedPush distrbutor")
+        Log_OC.d(TAG, "Using default UnifiedPush distributor")
         UnifiedPush.tryUseCurrentOrDefaultDistributor(activity as Context) { res ->
             if (res) {
-                registerAllAccounts(activity, accountManager, proxyPushToken)
+                registerUnifiedPushForAllAccounts(activity, accountManager, proxyPushToken)
                 callback(UnifiedPush.getSavedDistributor(activity))
             } else {
                 callback(null)
@@ -65,7 +100,7 @@ object UnifiedPushUtils {
      * @param callback: run with the push service name if available
      */
     @JvmStatic
-    fun pickDistributor(
+    fun pickUnifiedPushDistributor(
         activity: Activity,
         accountManager: UserAccountManager,
         proxyPushToken: String?,
@@ -74,7 +109,7 @@ object UnifiedPushUtils {
         Log_OC.d(TAG, "Picking another UnifiedPush distributor")
         UnifiedPush.tryPickDistributor(activity as Context) { res ->
             if (res) {
-                registerAllAccounts(activity, accountManager, proxyPushToken)
+                registerUnifiedPushForAllAccounts(activity, accountManager, proxyPushToken)
                 callback(UnifiedPush.getSavedDistributor(activity))
             } else {
                 callback(null)
@@ -94,14 +129,14 @@ object UnifiedPushUtils {
         CoroutineScope(Dispatchers.IO).launch {
             for (account in accountManager.getAccounts()) {
                 PushUtils.setRegistrationForAccountEnabled(account, true)
-                unregisterWebPushForAccount(context, accountManager, OwnCloudAccount(account, context))
+                unregisterUnifiedPushForAccount(context, accountManager, OwnCloudAccount(account, context))
             }
             PushUtils.pushRegistrationToServer(accountManager, proxyPushToken)
         }
     }
 
     @JvmStatic
-    fun unregisterWebPushForAccount(
+    fun unregisterUnifiedPushForAccount(
         context: Context,
         accountManager: UserAccountManager,
         account: OwnCloudAccount
@@ -117,26 +152,13 @@ object UnifiedPushUtils {
     }
 
     /**
-     * Register UnifiedPush, or FCM with the current config
+     * Register UnifiedPush for all accounts with the server VAPID key if the server supports web push
+     *
+     * Web push is registered on the nc server when the push endpoint is received
+     *
+     * Proxy push is unregistered for accounts on server with web push support, if a server doesn't support web push, proxy push is re-registered
      */
-    @JvmStatic
-    fun registerCurrentPushConfiguration(context: Context, accountManager: UserAccountManager, preferences: AppPreferences) {
-        if (preferences.isUnifiedPushEnabled) {
-            UnifiedPush.getAckDistributor(context)?.let {
-                registerAllAccounts(context, accountManager, preferences.pushToken)
-            } ?: run {
-                // The user has uninstalled the distributor, fallback to play services with the proxy push if available
-                preferences.isUnifiedPushEnabled = false
-                disableUnifiedPush(context, accountManager, preferences.pushToken)
-            }
-        } else {
-            CoroutineScope(Dispatchers.IO).launch {
-                PushUtils.pushRegistrationToServer(accountManager, preferences.pushToken)
-            }
-        }
-    }
-
-    private fun registerAllAccounts(
+    private fun registerUnifiedPushForAllAccounts(
         context: Context,
         accountManager: UserAccountManager,
         proxyPushToken: String?
@@ -145,7 +167,7 @@ object UnifiedPushUtils {
             val jobs = accountManager.accounts.map { account ->
                 CoroutineScope(Dispatchers.IO).launch {
                     val ocAccount = OwnCloudAccount(account, context)
-                    val res = registerWebPushForAccount(context, accountManager, ocAccount)
+                    val res = registerUnifiedPushForAccount(context, accountManager, ocAccount)
                     if (res) {
                         PushUtils.setRegistrationForAccountEnabled(account, false)
                     }
@@ -159,20 +181,13 @@ object UnifiedPushUtils {
     }
 
     /**
-     * Check if server supports web push
-     */
-    private fun supportsWebPush(context: Context, accountManager: UserAccountManager, accountName: String): Boolean =
-        accountManager.getUser(accountName)
-            .map { CapabilityUtils.getCapability(it, context).supportsWebPush.isTrue }
-            .also { Log_OC.d(TAG, "Found push capability: $it") }
-            .orElse(false)
-
-    /**
-     * Register web push on the server if supported
+     * Register UnifiedPush with the server VAPID key if the server supports web push
+     *
+     * Web push is registered on the nc server when the push endpoint is received
      *
      * @return true if registration succeed
      */
-    private fun registerWebPushForAccount(
+    private fun registerUnifiedPushForAccount(
         context: Context,
         accountManager: UserAccountManager,
         account: OwnCloudAccount
