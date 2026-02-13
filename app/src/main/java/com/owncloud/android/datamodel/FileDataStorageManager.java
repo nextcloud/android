@@ -930,8 +930,6 @@ public class FileDataStorageManager {
                     if (success && !removeDBData) {
                         // maybe unnecessary, but should be checked TODO remove if unnecessary
                         ocFile.setStoragePath(null);
-                        fileDao.updateFileIndicator(ocFile.getFileId(), null);
-                        ocFile.setFileIndicator(null);
                         saveFile(ocFile);
                         saveConflict(ocFile, null);
                     }
@@ -941,37 +939,7 @@ public class FileDataStorageManager {
             return false;
         }
 
-        boolean result = success;
-        if (success) {
-            fileDao.updateFileIndicator(ocFile.getFileId(),null);
-        }
-
-        return result;
-    }
-
-    private void clearFileIndicatorsForFolderAndChildren(OCFile folder) {
-        if (folder == null || !folder.isFolder()) {
-            return;
-        }
-
-        try {
-            if (folder.getFileId() > 0) {
-                fileDao.updateFileIndicator(folder.getFileId(), null);
-            }
-
-            List<OCFile> children = getFolderContent(folder.getFileId(), false);
-            for (OCFile child : children) {
-                if (child.isFolder()) {
-                    clearFileIndicatorsForFolderAndChildren(child);
-                } else {
-                    if (child.getFileId() > 0) {
-                        fileDao.updateFileIndicator(child.getFileId(), null);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Error clearing file indicators for folder: " + folder.getRemotePath(), e);
-        }
+        return success;
     }
 
     public boolean removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
@@ -981,7 +949,6 @@ public class FileDataStorageManager {
                 success = removeFolderInDb(folder);
             }
             if (removeLocalContent && success) {
-                clearFileIndicatorsForFolderAndChildren(folder);
                 success = removeLocalFolder(folder);
             }
         } else {
@@ -1028,8 +995,6 @@ public class FileDataStorageManager {
                         // notify MediaScanner about removed file
                         deleteFileInMediaScan(ocFile.getStoragePath());
                         ocFile.setStoragePath(null);
-                        fileDao.updateFileIndicator(ocFile.getFileId(), null);
-                        ocFile.setFileIndicator(null);
                         saveFile(ocFile);
                     }
                 }

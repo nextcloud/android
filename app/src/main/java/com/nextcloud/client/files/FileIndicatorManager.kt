@@ -25,11 +25,7 @@ object FileIndicatorManager {
 
     fun update(fileId: Long, status: FileIndicator) {
         _activeTransfers.update { current ->
-            if (status is FileIndicator.Idle) {
-                current - fileId
-            } else {
-                current + (fileId to status)
-            }
+            current + (fileId to status)
         }
     }
 }
