@@ -1703,7 +1703,7 @@ class FileDisplayActivity :
 
             if (uploadWasFine) {
                 file?.let {
-                    removeFileIndicator(it, includeSubFiles = false)
+                    setIdleFileIndicator(it, includeSubFiles = false)
                 }
             }
 
@@ -2146,7 +2146,7 @@ class FileDisplayActivity :
             }
             supportInvalidateOptionsMenu()
             fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
-            removeFileIndicator(removedFile)
+            setIdleFileIndicator(removedFile)
         } else {
             if (result.isSslRecoverableException) {
                 mLastSslUntrustedServerResult = result
@@ -2155,7 +2155,7 @@ class FileDisplayActivity :
         }
     }
 
-    private fun removeFileIndicator(file: OCFile, includeSubFiles: Boolean = true) {
+    private fun setIdleFileIndicator(file: OCFile, includeSubFiles: Boolean = true) {
         FileIndicatorManager.update(file.fileId, FileIndicator.Idle)
 
         if (!includeSubFiles) {
