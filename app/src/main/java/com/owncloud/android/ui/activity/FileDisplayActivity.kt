@@ -163,7 +163,6 @@ import com.owncloud.android.utils.StringUtils
 import com.owncloud.android.utils.theme.CapabilityUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -2126,7 +2125,6 @@ class FileDisplayActivity :
             }
             val parentFile = storageManager.getFileById(removedFile.parentId)
             if (parentFile != null && parentFile == getCurrentDir()) {
-                removeFileIndicator(parentFile)
                 updateListOfFilesFragment()
             } else if (leftFragment is OCFileListFragment &&
                 SearchRemoteOperation.SearchType.FAVORITE_SEARCH == leftFragment.searchEvent?.searchType
@@ -2142,9 +2140,7 @@ class FileDisplayActivity :
             }
             supportInvalidateOptionsMenu()
             fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
-
             removeFileIndicator(removedFile)
-            listOfFilesFragment?.adapter?.removeFileIndicator(removedFile)
         } else {
             if (result.isSslRecoverableException) {
                 mLastSslUntrustedServerResult = result
@@ -2155,7 +2151,26 @@ class FileDisplayActivity :
 
     private fun removeFileIndicator(file: OCFile) {
         FileIndicatorManager.update(file.fileId, FileIndicator.Idle)
-        storageManager.fileDao.updateFileIndicator(file.fileId, null)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (user.isEmpty) {
+                return@launch
+            }
+
+            if (file.isFolder) {
+                // clearing first depth child files
+                storageManager.fileDao.getSubfiles(file.fileId, user.get().accountName).forEach {
+                    it.id?.let { id ->
+                        FileIndicatorManager.update(id, FileIndicator.Idle)
+                    }
+                }
+            } else {
+                val parent = storageManager.getFileById(file.parentId)
+                parent?.fileId?.let { parentId ->
+                    FileIndicatorManager.update(parentId, FileIndicator.Idle)
+                }
+            }
+        }
     }
 
     private fun onRestoreFileVersionOperationFinish(result: RemoteOperationResult<*>) {
@@ -3083,8 +3098,8 @@ class FileDisplayActivity :
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 FileIndicatorManager.activeTransfers
                     .debounce(100)
-                    .collectLatest { indicators ->
-                        if (indicators.isEmpty()) return@collectLatest
+                    .collect { indicators ->
+                        Log_OC.d(TAG, "observing file indicators")
 
                         withContext(Dispatchers.Main) {
                             // update UI with hot data
