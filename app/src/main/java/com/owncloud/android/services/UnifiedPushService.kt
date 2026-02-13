@@ -53,7 +53,7 @@ class UnifiedPushService: PushService() {
                 endpoint = endpoint.url,
                 auth = key.auth,
                 uaPublicKey = key.pubKey,
-                apptypes = apptypes()
+                appTypes = apptypes()
             ).execute(mClient)
         }
     }
