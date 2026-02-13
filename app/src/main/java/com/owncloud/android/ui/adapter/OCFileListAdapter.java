@@ -1095,7 +1095,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return;
         }
 
-        Map<Long, Integer> positionMap = new HashMap<>();
+        Map<Long, Integer> positionMap = new HashMap<>(mFiles.size());
         for (int i = 0; i < mFiles.size(); i++) {
             positionMap.put(mFiles.get(i).getFileId(), i);
         }
@@ -1111,14 +1111,5 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
         });
-    }
-
-    private OCFile findOCFile(long id) {
-        for (OCFile file : mFiles) {
-            if (file.getFileId() == id) {
-                return file;
-            }
-        }
-        return null;
     }
 }
