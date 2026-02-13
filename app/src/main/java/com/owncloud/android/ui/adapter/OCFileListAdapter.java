@@ -1083,6 +1083,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+    public void removeFileIndicator(OCFile file) {
+        if (file != null) {
+            file.setFileIndicator(null);
+            notifyItemChanged(file);
+        }
+    }
+
     public void updateFileIndicators(Map<Long, FileIndicator> indicators) {
         if (indicators == null || indicators.isEmpty()) {
             return;
@@ -1104,5 +1111,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
         });
+    }
+
+    private OCFile findOCFile(long id) {
+        for (OCFile file : mFiles) {
+            if (file.getFileId() == id) {
+                return file;
+            }
+        }
+        return null;
     }
 }
