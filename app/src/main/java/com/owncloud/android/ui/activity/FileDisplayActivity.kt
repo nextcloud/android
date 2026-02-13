@@ -2158,10 +2158,12 @@ class FileDisplayActivity :
     private fun setIdleFileIndicator(file: OCFile, includeSubFiles: Boolean = true) {
         FileIndicatorManager.update(file.fileId, FileIndicator.Idle)
 
+        // while uploading files don't include so that downloaded icon can be removed for directory
         if (!includeSubFiles) {
             return
         }
 
+        // while removing files include sub files since it's needed
         lifecycleScope.launch(Dispatchers.IO) {
             if (user.isEmpty) {
                 return@launch
