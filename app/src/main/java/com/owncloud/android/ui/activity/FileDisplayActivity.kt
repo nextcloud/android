@@ -2144,7 +2144,7 @@ class FileDisplayActivity :
 
             FileIndicatorManager.update(removedFile.fileId, FileIndicator.Idle)
             storageManager.fileDao.updateFileIndicator(removedFile.fileId, null)
-            listOfFilesFragment?.adapter?.updateFileIndicators(mapOf(removedFile.fileId to FileIndicator.Idle))
+            listOfFilesFragment?.adapter?.removeFileIndicator(removedFile)
         } else {
             if (result.isSslRecoverableException) {
                 mLastSslUntrustedServerResult = result
