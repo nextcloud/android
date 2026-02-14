@@ -118,6 +118,7 @@
     <string name="auto_upload_path">自動上傳</string>
     <string name="auto_upload_sub_folder_warning">此資料夾已包含在父資料夾的同步中，這可能會導致重複上傳</string>
     <string name="auto_upload_wifi_only_warning_info">等待 Wi-Fi 開始上傳</string>
+    <string name="auto_upload_worker_start_text">正從 %1$s 上傳檔案至 %2$s</string>
     <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
     <string name="autoupload_custom_folder">設定自訂資料夾</string>
@@ -223,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">匯入無法開始。請再試一次</string>
     <string name="contacts_preferences_no_file_found">無檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
-    <string name="content_observer_work_notification_title">偵測內容變更</string>
     <string name="conversation_screen_create_error_title">無法創建對話</string>
     <string name="conversation_screen_delete_button_title">刪除對話</string>
     <string name="conversation_screen_delete_error_title">無法刪除對話</string>

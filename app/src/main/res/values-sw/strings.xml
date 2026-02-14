@@ -118,6 +118,7 @@
     <string name="auto_upload_path">/Pakia Kiotomatiki</string>
     <string name="auto_upload_sub_folder_warning">Folda hii tayari imejumuishwa katika usawazishaji wa folda kuu, ambayo inaweza kusababisha upakiaji unaorudiwa</string>
     <string name="auto_upload_wifi_only_warning_info">Inasubiri Wi-Fi kuanza kupakia</string>
+    <string name="auto_upload_worker_start_text">Inapakia faili kutoka %1$s hadi %2$s</string>
     <string name="autoupload_configure">Sanidi</string>
     <string name="autoupload_create_new_custom_folder">Unda usanidi mpya wa folda maalum</string>
     <string name="autoupload_custom_folder">Sanidi folda maalum</string>
@@ -223,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Imeshindwa kuanza kuleta. Tafadhali jaribu tena</string>
     <string name="contacts_preferences_no_file_found">Hakuna faili iliyopatikana</string>
     <string name="contacts_preferences_something_strange_happened">Haikuweza kupata nakala yako ya mwisho!</string>
-    <string name="content_observer_work_notification_title">Inagundua mabadiliko ya maudhui</string>
     <string name="conversation_screen_create_error_title">Imeshindwa kuunda mazungumzo</string>
     <string name="conversation_screen_delete_button_title">Futa mazungumzo</string>
     <string name="conversation_screen_delete_error_title">Imeshindwa kufuta mazungumzo</string>

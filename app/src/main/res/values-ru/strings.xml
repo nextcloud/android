@@ -220,7 +220,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Не удалось запустить импорт. Пожалуйста, попробуйте снова</string>
     <string name="contacts_preferences_no_file_found">Файл не найден</string>
     <string name="contacts_preferences_something_strange_happened">Не удалось найти последнюю резервную копию!</string>
-    <string name="content_observer_work_notification_title">Проверка изменений в папках</string>
     <string name="conversation_screen_create_error_title">Не удалось создать чат</string>
     <string name="conversation_screen_delete_button_title">Удалить обсуждение</string>
     <string name="conversation_screen_delete_error_title">Не удалось создать чат.</string>

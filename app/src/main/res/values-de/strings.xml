@@ -224,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Der Import konnte nicht gestartet werden. Bitte erneut versuchen</string>
     <string name="contacts_preferences_no_file_found">Keine Datei gefunden</string>
     <string name="contacts_preferences_something_strange_happened">Wir können Ihr letztes Backup nicht finden!</string>
-    <string name="content_observer_work_notification_title">Erkennen von Inhaltsänderungen</string>
     <string name="conversation_screen_create_error_title">Unterhaltung konnte nicht erstellt werden</string>
     <string name="conversation_screen_delete_button_title">Unterhaltung löschen</string>
     <string name="conversation_screen_delete_error_title">Unterhaltung konnte nicht gelöscht werden</string>

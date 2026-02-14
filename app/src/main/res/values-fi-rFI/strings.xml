@@ -191,7 +191,6 @@
     <string name="contacts_preferences_import_scheduled">Tuonti on ajastettu ja se alkaa pian</string>
     <string name="contacts_preferences_no_file_found">Tiedostoa ei löytynyt</string>
     <string name="contacts_preferences_something_strange_happened">Viimeisintä varmuuskopiota ei löytynyt!</string>
-    <string name="content_observer_work_notification_title">Havaitaan sisältömuutoksia</string>
     <string name="conversation_screen_create_error_title">Keskustelun luominen epäonnistui</string>
     <string name="conversation_screen_delete_button_title">Poista keskustelu</string>
     <string name="conversation_screen_delete_error_title">Keskustelun poistaminen epäonnistui</string>

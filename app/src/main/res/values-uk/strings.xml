@@ -224,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Не вдалося здійснити імпорт. Спробуйте ще раз</string>
     <string name="contacts_preferences_no_file_found">Файл не знайдено</string>
     <string name="contacts_preferences_something_strange_happened">Неможливо знайти вашу останню резервну копію</string>
-    <string name="content_observer_work_notification_title">Пошук змін у вмісті</string>
     <string name="conversation_screen_create_error_title">Не вдалося створити розмову</string>
     <string name="conversation_screen_delete_button_title">Вилучити розмову</string>
     <string name="conversation_screen_delete_error_title">Не вдалося вилучити розмову</string>

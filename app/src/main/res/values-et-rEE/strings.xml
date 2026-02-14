@@ -118,6 +118,7 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Kuna ülalpool asuv kaust kuulub sünkroonimisele, siis see kaust on juba kaasatud ning nii võivad tekkida topelt üleslaadimised</string>
     <string name="auto_upload_wifi_only_warning_info">Ootan sünkroonimiseks WiFi ühenduse loomist</string>
+    <string name="auto_upload_worker_start_text">Laadin faile üles: „%1$s“ → „%2$s“</string>
     <string name="autoupload_configure">Seadista</string>
     <string name="autoupload_create_new_custom_folder">Loo uus kohandatud kausta seadistus</string>
     <string name="autoupload_custom_folder">Seadista kohandatud kaust</string>
@@ -223,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Ei õnnestunud käivitada importimist. Palun proovi uuesti</string>
     <string name="contacts_preferences_no_file_found">Faili ei leitud</string>
     <string name="contacts_preferences_something_strange_happened">Sinu viimast varukoopiat ei leidu!</string>
-    <string name="content_observer_work_notification_title">Tuvastan sisu muudatusi</string>
     <string name="conversation_screen_create_error_title">Vestluse loomine ei õnnestunud</string>
     <string name="conversation_screen_delete_button_title">Kustuta vestlus</string>
     <string name="conversation_screen_delete_error_title">Vestluse kustutamine ei õnnestunud</string>

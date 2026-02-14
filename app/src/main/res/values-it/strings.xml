@@ -212,7 +212,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Impossibile avviare l\'importazione. Riprova.</string>
     <string name="contacts_preferences_no_file_found">Nessun file trovato</string>
     <string name="contacts_preferences_something_strange_happened">Non troviamo il tuo ultimo backup!</string>
-    <string name="content_observer_work_notification_title">Rilevamento delle modifiche ai contenuti</string>
     <string name="conversation_screen_create_error_title">Impossibile creare conversazione</string>
     <string name="conversation_screen_delete_button_title">Elimina conversazione</string>
     <string name="conversation_screen_delete_error_title">Impossibile eliminare la conversazione</string>
