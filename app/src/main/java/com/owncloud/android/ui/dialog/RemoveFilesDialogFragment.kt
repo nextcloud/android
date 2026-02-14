@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-FileCopyrightText: 2018 Jessie Chatham Spencer <jessie@teainspace.com>
@@ -25,7 +26,8 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
-import com.owncloud.android.ui.preview.PreviewImageActivity
+import com.owncloud.android.ui.events.FilesRefreshEvent
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 /**
@@ -100,7 +102,6 @@ class RemoveFilesDialogFragment :
 
         val fileActivity = getTypedActivity(FileActivity::class.java)
         val fda = getTypedActivity(FileDisplayActivity::class.java)
-        val pia = getTypedActivity(PreviewImageActivity::class.java)
         connectivityService.isNetworkAndServerAvailable { isAvailable ->
             if (isAvailable) {
                 fileActivity?.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment))
@@ -114,8 +115,7 @@ class RemoveFilesDialogFragment :
                 }
 
                 if (offlineFiles.isNotEmpty()) {
-                    fda?.refreshCurrentDirectory()
-                    pia?.initViewPager()
+                    EventBus.getDefault().post(FilesRefreshEvent())
                 }
 
                 fileActivity?.dismissLoadingDialog()
@@ -127,9 +127,7 @@ class RemoveFilesDialogFragment :
                         fileDataStorageManager.addRemoveFileOfflineOperation(file)
                     }
                 }
-
-                fda?.refreshCurrentDirectory()
-                pia?.initViewPager()
+                EventBus.getDefault().post(FilesRefreshEvent())
             }
 
             finishActionMode()
