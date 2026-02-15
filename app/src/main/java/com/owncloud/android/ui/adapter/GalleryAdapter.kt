@@ -101,12 +101,10 @@ class GalleryAdapter(
             }
         }
 
-        private fun tryCreateDate(year: Int, month: Int, day: Int): java.time.LocalDate? {
-            return try {
-                java.time.LocalDate.of(year, month, day)
-            } catch (e: java.time.DateTimeException) {
-                null
-            }
+        private fun tryCreateDate(year: Int, month: Int, day: Int): java.time.LocalDate? = try {
+            java.time.LocalDate.of(year, month, day)
+        } catch (e: java.time.DateTimeException) {
+            null
         }
     }
 
@@ -423,9 +421,8 @@ class GalleryAdapter(
      * Get the grouping date for a file: use folder date from path if present,
      * otherwise fall back to modification timestamp month.
      */
-    private fun getGroupingDate(file: OCFile): Long {
-        return firstOfMonth(extractFolderDate(file.remotePath) ?: file.modificationTimestamp)
-    }
+    private fun getGroupingDate(file: OCFile): Long =
+        firstOfMonth(extractFolderDate(file.remotePath) ?: file.modificationTimestamp)
 
     private fun List<OCFile>.toGalleryItems(): List<GalleryItems> {
         if (isEmpty()) return emptyList()
@@ -440,11 +437,19 @@ class GalleryAdapter(
                         aFolderDate != null && bFolderDate != null -> {
                             // Both have folder dates - compare by folder day first (desc)
                             val dayCompare = bFolderDate.compareTo(aFolderDate)
-                            if (dayCompare != 0) dayCompare
-                            else b.modificationTimestamp.compareTo(a.modificationTimestamp)
+                            if (dayCompare != 0) {
+                                dayCompare
+                            } else {
+                                b.modificationTimestamp.compareTo(a.modificationTimestamp)
+                            }
                         }
-                        aFolderDate != null -> -1 // a has folder date, comes first
-                        bFolderDate != null -> 1  // b has folder date, comes first
+
+                        aFolderDate != null -> -1
+
+                        // a has folder date, comes first
+                        bFolderDate != null -> 1
+
+                        // b has folder date, comes first
                         else -> b.modificationTimestamp.compareTo(a.modificationTimestamp)
                     }
                 }
