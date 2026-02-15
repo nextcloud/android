@@ -15,15 +15,12 @@ import java.util.Calendar
 class GalleryAdapterFolderDateTest {
 
     @Test
-    fun `extractFolderDate returns null for null path`() {
+    fun `extractFolderDate returns null for invalid paths`() {
         assertNull(GalleryAdapter.extractFolderDate(null))
-    }
-
-    @Test
-    fun `extractFolderDate returns null for path without date pattern`() {
         assertNull(GalleryAdapter.extractFolderDate("/Photos/vacation/image.jpg"))
         assertNull(GalleryAdapter.extractFolderDate("/Documents/file.pdf"))
         assertNull(GalleryAdapter.extractFolderDate(""))
+        assertNull(GalleryAdapter.extractFolderDate("/Photos/2025image.jpg"))
     }
 
     @Test
@@ -49,24 +46,19 @@ class GalleryAdapterFolderDateTest {
     }
 
     @Test
-    fun `extractFolderDate handles single digit month as year only`() {
+    fun `extractFolderDate handles single digit components as partial match`() {
         // Single digit month doesn't match pattern, so only year is captured
-        val result = GalleryAdapter.extractFolderDate("/Photos/2025/3/image.jpg")
-        assertNotNull(result)
-
-        val cal = Calendar.getInstance().apply { timeInMillis = result!! }
+        val monthResult = GalleryAdapter.extractFolderDate("/Photos/2025/3/image.jpg")
+        assertNotNull(monthResult)
+        var cal = Calendar.getInstance().apply { timeInMillis = monthResult!! }
         assertEquals(2025, cal.get(Calendar.YEAR))
         assertEquals(0, cal.get(Calendar.MONTH)) // defaults to January (0)
         assertEquals(1, cal.get(Calendar.DAY_OF_MONTH)) // defaults to 1
-    }
 
-    @Test
-    fun `extractFolderDate ignores single digit day and defaults to 1`() {
         // /2025/03/5/ matches YYYY/MM only, day defaults to 1
-        val result = GalleryAdapter.extractFolderDate("/Photos/2025/03/5/image.jpg")
-        assertNotNull(result)
-
-        val cal = Calendar.getInstance().apply { timeInMillis = result!! }
+        val dayResult = GalleryAdapter.extractFolderDate("/Photos/2025/03/5/image.jpg")
+        assertNotNull(dayResult)
+        cal = Calendar.getInstance().apply { timeInMillis = dayResult!! }
         assertEquals(2025, cal.get(Calendar.YEAR))
         assertEquals(2, cal.get(Calendar.MONTH)) // March is 2
         assertEquals(1, cal.get(Calendar.DAY_OF_MONTH)) // defaults to 1
@@ -110,10 +102,13 @@ class GalleryAdapterFolderDateTest {
         val jan15 = GalleryAdapter.extractFolderDate("/Photos/2025/01/15/a.jpg")!!
         val jan20 = GalleryAdapter.extractFolderDate("/Photos/2025/01/20/b.jpg")!!
         val feb01 = GalleryAdapter.extractFolderDate("/Photos/2025/02/01/c.jpg")!!
+        val y2020 = GalleryAdapter.extractFolderDate("/Photos/2020/06/image.jpg")!!
+        val y2025 = GalleryAdapter.extractFolderDate("/Photos/2025/06/image.jpg")!!
 
         assert(jan20 > jan15) { "Jan 20 should be after Jan 15" }
         assert(feb01 > jan20) { "Feb 1 should be after Jan 20" }
         assert(feb01 > jan15) { "Feb 1 should be after Jan 15" }
+        assert(y2025 > y2020) { "2025 should be after 2020" }
     }
 
     @Test
@@ -128,7 +123,7 @@ class GalleryAdapterFolderDateTest {
     }
 
     @Test
-    fun `extractFolderDate handles invalid month 00 as year only`() {
+    fun `extractFolderDate handles invalid month values`() {
         // Month 00 is invalid, so it defaults to January
         val result = GalleryAdapter.extractFolderDate("/Photos/2025/00/image.jpg")
         assertNotNull(result)
@@ -140,43 +135,35 @@ class GalleryAdapterFolderDateTest {
     }
 
     @Test
-    fun `extractFolderDate handles month 12`() {
-        val result = GalleryAdapter.extractFolderDate("/Photos/2025/12/image.jpg")
-        assertNotNull(result)
-
-        val cal = Calendar.getInstance().apply { timeInMillis = result!! }
+    fun `extractFolderDate handles valid month boundaries`() {
+        // Month 12 (December)
+        val decResult = GalleryAdapter.extractFolderDate("/Photos/2025/12/image.jpg")
+        assertNotNull(decResult)
+        var cal = Calendar.getInstance().apply { timeInMillis = decResult!! }
         assertEquals(2025, cal.get(Calendar.YEAR))
         assertEquals(11, cal.get(Calendar.MONTH)) // December is 11
-    }
 
-    @Test
-    fun `extractFolderDate handles day 31`() {
-        val result = GalleryAdapter.extractFolderDate("/Photos/2025/01/31/image.jpg")
-        assertNotNull(result)
-
-        val cal = Calendar.getInstance().apply { timeInMillis = result!! }
+        // Day 31
+        val day31Result = GalleryAdapter.extractFolderDate("/Photos/2025/01/31/image.jpg")
+        assertNotNull(day31Result)
+        cal = Calendar.getInstance().apply { timeInMillis = day31Result!! }
         assertEquals(31, cal.get(Calendar.DAY_OF_MONTH))
     }
 
     @Test
-    fun `extractFolderDate handles invalid day Feb 30 as Feb 1`() {
+    fun `extractFolderDate handles invalid day values`() {
         // Feb 30 is invalid, so day defaults to 1
-        val result = GalleryAdapter.extractFolderDate("/Photos/2025/02/30/image.jpg")
-        assertNotNull(result)
-
-        val cal = Calendar.getInstance().apply { timeInMillis = result!! }
+        val feb30Result = GalleryAdapter.extractFolderDate("/Photos/2025/02/30/image.jpg")
+        assertNotNull(feb30Result)
+        var cal = Calendar.getInstance().apply { timeInMillis = feb30Result!! }
         assertEquals(2025, cal.get(Calendar.YEAR))
         assertEquals(1, cal.get(Calendar.MONTH)) // February is 1
         assertEquals(1, cal.get(Calendar.DAY_OF_MONTH)) // defaults to 1
-    }
 
-    @Test
-    fun `extractFolderDate handles invalid day 00 as day 1`() {
         // Day 00 is invalid, so day defaults to 1
-        val result = GalleryAdapter.extractFolderDate("/Photos/2025/03/00/image.jpg")
-        assertNotNull(result)
-
-        val cal = Calendar.getInstance().apply { timeInMillis = result!! }
+        val day00Result = GalleryAdapter.extractFolderDate("/Photos/2025/03/00/image.jpg")
+        assertNotNull(day00Result)
+        cal = Calendar.getInstance().apply { timeInMillis = day00Result!! }
         assertEquals(2025, cal.get(Calendar.YEAR))
         assertEquals(2, cal.get(Calendar.MONTH)) // March is 2
         assertEquals(1, cal.get(Calendar.DAY_OF_MONTH)) // defaults to 1
@@ -195,12 +182,6 @@ class GalleryAdapterFolderDateTest {
     }
 
     @Test
-    fun `extractFolderDate returns null when no trailing slash after year`() {
-        // Pattern requires trailing slash after year at minimum
-        assertNull(GalleryAdapter.extractFolderDate("/Photos/2025image.jpg"))
-    }
-
-    @Test
     fun `extractFolderDate works at start of path`() {
         val result = GalleryAdapter.extractFolderDate("/2025/06/15/image.jpg")
         assertNotNull(result)
@@ -209,13 +190,5 @@ class GalleryAdapterFolderDateTest {
         assertEquals(2025, cal.get(Calendar.YEAR))
         assertEquals(5, cal.get(Calendar.MONTH)) // June is 5
         assertEquals(15, cal.get(Calendar.DAY_OF_MONTH))
-    }
-
-    @Test
-    fun `extractFolderDate handles different years`() {
-        val y2020 = GalleryAdapter.extractFolderDate("/Photos/2020/06/image.jpg")!!
-        val y2025 = GalleryAdapter.extractFolderDate("/Photos/2025/06/image.jpg")!!
-
-        assert(y2025 > y2020) { "2025 should be after 2020" }
     }
 }

@@ -78,25 +78,26 @@ class GalleryAdapter(
         @VisibleForTesting
         @Suppress("TooGenericExceptionCaught")
         fun extractFolderDate(path: String?): Long? {
-            return try {
+            try {
                 val matcher = path?.let { FOLDER_DATE_PATTERN.matcher(it) }
-                if (matcher?.find() != true) return null
-                val year = matcher.group(YEAR_GROUP)?.toIntOrNull() ?: return null
-                val rawMonth = matcher.group(MONTH_GROUP)?.toIntOrNull()
-                val rawDay = matcher.group(DAY_GROUP)?.toIntOrNull()
+                val year = matcher?.takeIf { it.find() }?.group(YEAR_GROUP)?.toIntOrNull()
 
-                val month = rawMonth ?: FIRST_MONTH
-                val day = rawDay ?: FIRST_DAY_OF_MONTH
+                return year?.let { y ->
+                    val rawMonth = matcher.group(MONTH_GROUP)?.toIntOrNull()
+                    val rawDay = matcher.group(DAY_GROUP)?.toIntOrNull()
 
-                val localDate = tryCreateDate(year, month, day)
-                    ?: tryCreateDate(year, month, FIRST_DAY_OF_MONTH)
-                    ?: tryCreateDate(year, FIRST_MONTH, FIRST_DAY_OF_MONTH)
+                    val month = rawMonth ?: FIRST_MONTH
+                    val day = rawDay ?: FIRST_DAY_OF_MONTH
 
-                if (localDate?.isAfter(java.time.LocalDate.now()) == true) return null
+                    val localDate = tryCreateDate(y, month, day)
+                        ?: tryCreateDate(y, month, FIRST_DAY_OF_MONTH)
+                        ?: tryCreateDate(y, FIRST_MONTH, FIRST_DAY_OF_MONTH)
 
-                localDate?.atStartOfDay(java.time.ZoneId.systemDefault())?.toInstant()?.toEpochMilli()
+                    localDate?.takeIf { !it.isAfter(java.time.LocalDate.now()) }
+                        ?.atStartOfDay(java.time.ZoneId.systemDefault())?.toInstant()?.toEpochMilli()
+                }
             } catch (e: Exception) {
-                null
+                return null
             }
         }
 
