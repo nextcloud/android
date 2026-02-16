@@ -46,13 +46,13 @@ class PhotoWidgetRepositoryTest {
         MockitoAnnotations.openMocks(this)
         whenever(preferences.edit()).thenReturn(editor)
         whenever(editor.putString(anyString(), anyString())).thenReturn(editor)
+        whenever(editor.putLong(anyString(), org.mockito.ArgumentMatchers.anyLong())).thenReturn(editor)
         whenever(editor.remove(anyString())).thenReturn(editor)
         repository = PhotoWidgetRepository(preferences, userAccountManager, contentResolver)
     }
 
     @Test
-    @Test
-    fun `saveWidgetConfig stores folder path and account name`() {
+    fun `saveWidgetConfig stores folder path account name and interval`() {
         val config = PhotoWidgetConfig(WIDGET_ID, FOLDER_PATH, ACCOUNT_NAME, 15L)
         repository.saveWidgetConfig(config)
 

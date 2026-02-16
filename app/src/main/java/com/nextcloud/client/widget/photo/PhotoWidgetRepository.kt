@@ -41,6 +41,7 @@ data class PhotoWidgetImageResult(
  * - Query FileDataStorageManager for image files in the selected folder
  * - Pick a random image and return a cached thumbnail Bitmap
  */
+@Suppress("MagicNumber", "TooManyFunctions")
 class PhotoWidgetRepository @Inject constructor(
     private val preferences: SharedPreferences,
     private val userAccountManager: UserAccountManager,
@@ -98,6 +99,7 @@ class PhotoWidgetRepository @Inject constructor(
      * This ensures the widget falls back to cached/local images when the network
      * connection is poor, rather than showing a placeholder.
      */
+    @Suppress("LongMethod", "CyclomaticComplexMethod", "ReturnCount")
     fun getRandomImageResult(widgetId: Int): PhotoWidgetImageResult? {
         val config = getWidgetConfig(widgetId) ?: return null
         val folderPath = config.folderPath
@@ -225,7 +227,6 @@ class PhotoWidgetRepository @Inject constructor(
         return (Math.random() * 100).toInt() < chance
     }
 
-    @Suppress("MagicNumber")
     private fun isImageFile(file: OCFile): Boolean {
         val mimeType = file.mimeType ?: return false
         return mimeType.startsWith("image/")
@@ -262,6 +263,7 @@ class PhotoWidgetRepository @Inject constructor(
         return downloadThumbnail(file, imageKey, accountName)
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun downloadThumbnail(file: OCFile, cacheKey: String, accountName: String): Bitmap? {
         val user = userAccountManager.getUser(accountName).orElse(null) ?: return null
         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
