@@ -83,40 +83,47 @@ object CommonPushUtils {
         callback: (String?) -> Unit
     ) {
         UnifiedPush.getAckDistributor(activity)?.let {
+            Log_OC.d(TAG, "Found ack distributor")
             registerUnifiedPushForAllAccounts(activity, accountManager, preferences.pushToken)
             callback(it)
             return
         }
         when (val res = UnifiedPush.resolveDefaultDistributor(activity)) {
             is ResolvedDistributor.Found ->  {
+                Log_OC.d(TAG, "Found default distributor")
                 preferences.isUnifiedPushEnabled = true
                 UnifiedPush.saveDistributor(activity, res.packageName)
                 registerUnifiedPushForAllAccounts(activity, accountManager, preferences.pushToken)
                 callback(res.packageName)
             }
             ResolvedDistributor.NoneAvailable -> {
+                Log_OC.d(TAG, "No default distributor")
                 // Do not change preference
                 disableUnifiedPush(activity, accountManager, preferences.pushToken)
                 callback(null)
             }
             ResolvedDistributor.ToSelect -> {
-                showDistributorSelectionDialog(activity) { confirmed ->
-                    if (confirmed) {
-                        UnifiedPush.tryUseDefaultDistributor(activity) { res ->
-                            if (res) {
-                                preferences.isUnifiedPushEnabled = true
-                                registerUnifiedPushForAllAccounts(activity, accountManager, preferences.pushToken)
-                                callback(UnifiedPush.getSavedDistributor(activity))
-                            } else {
-                                preferences.isUnifiedPushEnabled = false
-                                disableUnifiedPush(activity, accountManager, preferences.pushToken)
-                                callback(null)
+                Log_OC.d(TAG, "Default distributor to select")
+                activity.runOnUiThread {
+                    showDistributorSelectionDialog(activity) { confirmed ->
+                        if (confirmed) {
+                            UnifiedPush.tryUseDefaultDistributor(activity) { res ->
+                                if (res) {
+                                    preferences.isUnifiedPushEnabled = true
+                                    registerUnifiedPushForAllAccounts(activity, accountManager, preferences.pushToken)
+                                    callback(UnifiedPush.getSavedDistributor(activity))
+                                } else {
+                                    preferences.isUnifiedPushEnabled = false
+                                    disableUnifiedPush(activity, accountManager, preferences.pushToken)
+                                    callback(null)
+                                }
                             }
+                        } else {
+                            Log_OC.d(TAG, "Default distributor dismissed")
+                            preferences.isUnifiedPushEnabled = false
+                            disableUnifiedPush(activity, accountManager, preferences.pushToken)
+                            callback(null)
                         }
-                    } else {
-                        preferences.isUnifiedPushEnabled = false
-                        disableUnifiedPush(activity, accountManager, preferences.pushToken)
-                        callback(null)
                     }
                 }
             }
