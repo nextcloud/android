@@ -91,6 +91,7 @@ class BackgroundJobFactory @Inject constructor(
                 OfflineSyncWork::class -> createOfflineSyncWork(context, workerParameters)
                 MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
                 NotificationWork::class -> createNotificationWork(context, workerParameters)
+                UnifiedPushWork::class -> createUnifiedPushWork(context, workerParameters)
                 AccountRemovalWork::class -> createAccountRemovalWork(context, workerParameters)
                 CalendarBackupWork::class -> createCalendarBackupWork(context, workerParameters)
                 CalendarImportWork::class -> createCalendarImportWork(context, workerParameters)
@@ -213,6 +214,12 @@ class BackgroundJobFactory @Inject constructor(
         accountManager,
         deckApi,
         viewThemeUtils.get()
+    )
+
+    private fun createUnifiedPushWork(context: Context, params: WorkerParameters): UnifiedPushWork = UnifiedPushWork(
+        context,
+        params,
+        accountManager,
     )
 
     private fun createAccountRemovalWork(context: Context, params: WorkerParameters): AccountRemovalWork =

@@ -85,6 +85,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_MEDIA_FOLDER_DETECTION = "periodic_media_folder_detection"
         const val JOB_IMMEDIATE_MEDIA_FOLDER_DETECTION = "immediate_media_folder_detection"
         const val JOB_NOTIFICATION = "notification"
+        const val JOB_UNIFIEDPUSH = "unifiedpush"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_FILES_UPLOAD = "files_upload"
         const val JOB_FOLDER_DOWNLOAD = "folder_download"
@@ -601,6 +602,49 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         val request = oneTimeRequestBuilder(NotificationWork::class, JOB_NOTIFICATION)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueue(request)
+    }
+
+    override fun registerWebPush(accountName: String, url: String, uaPublicKey: String, auth: String) {
+        val data = Data.Builder()
+            .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_REGISTER)
+            .putString(UnifiedPushWork.EXTRA_ACCOUNT, accountName)
+            .putString(UnifiedPushWork.EXTRA_URL, url)
+            .putString(UnifiedPushWork.EXTRA_UA_PUBKEY, uaPublicKey)
+            .putString(UnifiedPushWork.EXTRA_AUTH, auth)
+            .build()
+
+        val request = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueue(request)
+    }
+
+    override fun activateWebPush(accountName: String, token: String) {
+        val data = Data.Builder()
+            .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_ACTIVATE)
+            .putString(UnifiedPushWork.EXTRA_ACCOUNT, accountName)
+            .putString(UnifiedPushWork.EXTRA_TOKEN, token)
+            .build()
+
+        val request = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueue(request)
+    }
+
+    override fun unregisterWebPush(accountName: String) {
+        val data = Data.Builder()
+            .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_UNREGISTER)
+            .putString(UnifiedPushWork.EXTRA_ACCOUNT, accountName)
+            .build()
+
+        val request = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
             .setInputData(data)
             .build()
 

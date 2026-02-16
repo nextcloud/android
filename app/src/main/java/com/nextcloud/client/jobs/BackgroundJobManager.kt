@@ -135,6 +135,9 @@ interface BackgroundJobManager {
 
     fun startNotificationJob(subject: String, signature: String)
     fun startDecryptedNotificationJob(accountName: String, message: String)
+    fun registerWebPush(accountName: String, url: String, uaPublicKey: String, auth: String)
+    fun activateWebPush(accountName: String, token: String)
+    fun unregisterWebPush(accountName: String)
 
     fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)
     fun startFilesUploadJob(user: User, uploadIds: LongArray, showSameFileAlreadyExistsNotification: Boolean)
