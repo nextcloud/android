@@ -1510,4 +1510,6 @@
     <string name="prefs_unifiedpush">Enable UnifiedPush</string>
     <string name="prefs_unifiedpush_summary">Receive push notifications with an external UnifiedPush service</string>
     <string name="prefs_disabled_push_system_summary">Enable UnifiedPush first</string>
+    <string name="unifiedpush">UnifiedPush</string>
+    <string name="select_unifiedpush_service_dialog">You are about to select your default push service</string>
 </resources>
