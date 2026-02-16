@@ -26,6 +26,7 @@ import javax.inject.Inject
  * Opens [FolderPickerActivity] for folder selection, then shows an interval
  * picker dialog, saves the config, and triggers an immediate widget update.
  */
+@Suppress("TooManyFunctions")
 class PhotoWidgetConfigActivity : Activity() {
 
     companion object {

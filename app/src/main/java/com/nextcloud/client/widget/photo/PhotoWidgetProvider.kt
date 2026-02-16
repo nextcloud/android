@@ -19,6 +19,7 @@ import javax.inject.Inject
  *
  * Delegates heavy work to [PhotoWidgetWorker] via [BackgroundJobManager].
  */
+@Suppress("TooManyFunctions")
 class PhotoWidgetProvider : AppWidgetProvider() {
 
     companion object {

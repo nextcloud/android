@@ -30,6 +30,7 @@ import kotlinx.coroutines.withContext
  *
  * Constructed by [com.nextcloud.client.jobs.BackgroundJobFactory].
  */
+@Suppress("TooManyFunctions")
 class PhotoWidgetWorker(
     private val context: Context,
     params: WorkerParameters,
@@ -55,6 +56,7 @@ class PhotoWidgetWorker(
         return Result.success()
     }
 
+    @Suppress("LongMethod")
     private suspend fun updateWidget(appWidgetManager: AppWidgetManager, widgetId: Int) {
         val remoteViews = RemoteViews(context.packageName, R.layout.widget_photo)
 
@@ -115,7 +117,7 @@ class PhotoWidgetWorker(
      * Reverse-geocodes lat/long into a human-readable location name.
      * Returns null if geocoding is unavailable or coordinates are missing.
      */
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "TooGenericExceptionCaught", "ReturnCount", "CyclomaticComplexMethod")
     private suspend fun resolveLocationName(latitude: Double?, longitude: Double?): String? = withContext(Dispatchers.IO) {
         if (latitude == null || longitude == null) {
             Log_OC.d(TAG, "Location resolution skipped: latitude=$latitude, longitude=$longitude")
