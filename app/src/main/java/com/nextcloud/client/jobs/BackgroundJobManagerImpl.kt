@@ -854,7 +854,7 @@ internal class BackgroundJobManagerImpl(
 
     override fun startImmediatePhotoWidgetUpdate() {
         val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
             .build()
 
         val request = oneTimeRequestBuilder(

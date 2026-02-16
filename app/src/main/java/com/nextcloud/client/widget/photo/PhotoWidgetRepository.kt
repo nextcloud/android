@@ -53,18 +53,24 @@ class PhotoWidgetRepository @Inject constructor(
         private const val PREF_FOLDER_PATH = "${PREF_PREFIX}folder_path_"
         private const val PREF_ACCOUNT_NAME = "${PREF_PREFIX}account_name_"
         private const val PREF_INTERVAL_MINUTES = "${PREF_PREFIX}interval_minutes_"
-        private const val MAX_BITMAP_DIMENSION = 512
+        private const val MAX_BITMAP_DIMENSION = 800 // Increased from 512 for better quality
+        private const val SERVER_REQUEST_DIMENSION = 2048 // Request high-res preview from server
         private const val READ_TIMEOUT = 40000
         private const val CONNECTION_TIMEOUT = 5000
     }
 
-    // --------------- Configuration persistence ---------------
+    fun getWidgetConfig(widgetId: Int): PhotoWidgetConfig? {
+        val folderPath = preferences.getString(PREF_FOLDER_PATH + widgetId, null) ?: return null
+        val accountName = preferences.getString(PREF_ACCOUNT_NAME + widgetId, null) ?: return null
+        val interval = preferences.getLong(PREF_INTERVAL_MINUTES + widgetId, PhotoWidgetConfig.DEFAULT_INTERVAL_MINUTES)
+        return PhotoWidgetConfig(widgetId, folderPath, accountName, interval)
+    }
 
-    fun saveWidgetConfig(widgetId: Int, folderPath: String, accountName: String, intervalMinutes: Long = PhotoWidgetConfig.DEFAULT_INTERVAL_MINUTES) {
+    fun saveWidgetConfig(config: PhotoWidgetConfig) {
         preferences.edit()
-            .putString(PREF_FOLDER_PATH + widgetId, folderPath)
-            .putString(PREF_ACCOUNT_NAME + widgetId, accountName)
-            .putLong(PREF_INTERVAL_MINUTES + widgetId, intervalMinutes)
+            .putString(PREF_FOLDER_PATH + config.widgetId, config.folderPath)
+            .putString(PREF_ACCOUNT_NAME + config.widgetId, config.accountName)
+            .putLong(PREF_INTERVAL_MINUTES + config.widgetId, config.intervalMinutes)
             .apply()
     }
 
@@ -74,13 +80,6 @@ class PhotoWidgetRepository @Inject constructor(
             .remove(PREF_ACCOUNT_NAME + widgetId)
             .remove(PREF_INTERVAL_MINUTES + widgetId)
             .apply()
-    }
-
-    fun getWidgetConfig(widgetId: Int): PhotoWidgetConfig? {
-        val folderPath = preferences.getString(PREF_FOLDER_PATH + widgetId, null) ?: return null
-        val accountName = preferences.getString(PREF_ACCOUNT_NAME + widgetId, null) ?: return null
-        val interval = preferences.getLong(PREF_INTERVAL_MINUTES + widgetId, PhotoWidgetConfig.DEFAULT_INTERVAL_MINUTES)
-        return PhotoWidgetConfig(widgetId, folderPath, accountName, interval)
     }
 
     // --------------- Image retrieval ---------------
@@ -132,31 +131,33 @@ class PhotoWidgetRepository @Inject constructor(
 
     /**
      * Attempts to retrieve a cached thumbnail, or downloads it if missing.
+     * Tries "resized" (large) cache first for quality.
      */
     private fun getThumbnailForFile(file: OCFile, accountName: String): Bitmap? {
-        // 1. Try "resized" cache key
+        // 1. Try "resized" cache key (Best Quality)
         val imageKey = "r" + file.remoteId
         var bitmap = ThumbnailsCacheManager.getBitmapFromDiskCache(imageKey)
         if (bitmap != null) return scaleBitmap(bitmap)
 
-        // 2. Try "thumbnail" cache key
+        // 2. Try "thumbnail" cache key (Fallback)
         val thumbnailKey = "t" + file.remoteId
         bitmap = ThumbnailsCacheManager.getBitmapFromDiskCache(thumbnailKey)
         if (bitmap != null) return scaleBitmap(bitmap)
 
-        // 3. If missing, download from server
+        // 3. If missing, generate from local file
         if (file.isDown) {
-            // If file is downloaded, generate from local storage
-            val dimension = ThumbnailsCacheManager.getThumbnailDimension()
-            bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.storagePath, dimension, dimension)
+            // Generate high-quality local thumbnail
+            bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.storagePath, SERVER_REQUEST_DIMENSION, SERVER_REQUEST_DIMENSION)
             if (bitmap != null) {
-                ThumbnailsCacheManager.addBitmapToCache(thumbnailKey, bitmap)
+                // Cache as "resized" for future high-quality use
+                val keyToCache = imageKey // Cache as 'r' (resized)
+                ThumbnailsCacheManager.addBitmapToCache(keyToCache, bitmap)
                 return scaleBitmap(bitmap)
             }
         }
 
-        // 4. Download from server
-        return downloadThumbnail(file, thumbnailKey, accountName)
+        // 4. Download from server (High Res)
+        return downloadThumbnail(file, imageKey, accountName)
     }
 
     private fun downloadThumbnail(file: OCFile, cacheKey: String, accountName: String): Bitmap? {
@@ -164,12 +165,12 @@ class PhotoWidgetRepository @Inject constructor(
         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
             .getClientFor(user.toOwnCloudAccount(), MainApp.getAppContext())
 
-        val dimension = ThumbnailsCacheManager.getThumbnailDimension()
+        // Request high-res preview (2048px)
+        val dimension = SERVER_REQUEST_DIMENSION
         val uri = client.baseUri.toString() + "/index.php/core/preview?fileId=" +
             file.localId + "&x=" + dimension + "&y=" + dimension + "&a=1&mode=cover&forceIcon=0"
 
-        val loopKey = "download_thumb_${file.remoteId}"
-        Log_OC.d(TAG, "Downloading widget thumbnail: $uri")
+        Log_OC.d(TAG, "Downloading widget high-res preview: $uri")
 
         val getMethod = GetMethod(uri)
         getMethod.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true")

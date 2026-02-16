@@ -131,7 +131,8 @@ class PhotoWidgetConfigActivity : Activity() {
         val accountName = userAccountManager.user.accountName
 
         // Save configuration (including interval)
-        photoWidgetRepository.saveWidgetConfig(appWidgetId, folderPath, accountName, intervalMinutes)
+        val config = PhotoWidgetConfig(appWidgetId, folderPath, accountName, intervalMinutes)
+        photoWidgetRepository.saveWidgetConfig(config)
 
         // Schedule periodic updates (or cancel if manual)
         backgroundJobManager.schedulePeriodicPhotoWidgetUpdate(intervalMinutes)
