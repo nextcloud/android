@@ -19,8 +19,9 @@ import com.nextcloud.client.account.UserAccountManager
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import java.text.SimpleDateFormat
-import java.util.Date
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -76,9 +77,15 @@ class PhotoWidgetWorker(
                 remoteViews.setViewVisibility(R.id.photo_widget_location, android.view.View.GONE)
             }
 
-            // Date line
-            val dateText = formatDate(imageResult.modificationTimestamp)
-            remoteViews.setTextViewText(R.id.photo_widget_date, dateText)
+            // Date line (only if timestamp is valid)
+            val timestamp = imageResult.modificationTimestamp
+            if (timestamp > 0L) {
+                val dateText = formatDate(timestamp)
+                remoteViews.setTextViewText(R.id.photo_widget_date, dateText)
+                remoteViews.setViewVisibility(R.id.photo_widget_date, android.view.View.VISIBLE)
+            } else {
+                remoteViews.setViewVisibility(R.id.photo_widget_date, android.view.View.GONE)
+            }
         } else {
             remoteViews.setImageViewResource(R.id.photo_widget_image, R.drawable.ic_image_outline)
             remoteViews.setViewVisibility(R.id.photo_widget_text_container, android.view.View.GONE)
@@ -158,8 +165,9 @@ class PhotoWidgetWorker(
     }
 
     private fun formatDate(timestampMillis: Long): String {
-        val sdf = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-        return sdf.format(Date(timestampMillis))
+        val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT, Locale.getDefault())
+        val instant = Instant.ofEpochMilli(timestampMillis)
+        return formatter.format(instant.atZone(ZoneId.systemDefault()))
     }
 
     private fun createOpenFolderIntent(config: PhotoWidgetConfig?): Intent {
