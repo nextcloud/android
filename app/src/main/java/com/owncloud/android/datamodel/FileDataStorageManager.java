@@ -2739,7 +2739,7 @@ public class FileDataStorageManager {
     }
 
     public List<OCFile> getFavoriteFiles() {
-        List<FileEntity> fileEntities = fileDao.getFavoriteFiles(user.getAccountName());
+        List<FileEntity> fileEntities = fileDao.getFavoriteFilesNonBlocking(user.getAccountName());
         List<OCFile> favoriteFiles = new ArrayList<>(fileEntities.size());
 
         for (FileEntity fileEntity : fileEntities) {

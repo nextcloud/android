@@ -57,6 +57,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkConstants;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
+import com.nextcloud.client.player.model.PlaybackModel;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
@@ -146,6 +147,9 @@ public abstract class DrawerActivity extends ToolbarActivity
     private static final int RELATIVE_THRESHOLD_WARNING = 80;
     public static final int REQ_ALL_FILES_ACCESS = 3001;
     public static final int REQ_MEDIA_ACCESS = 3000;
+
+    @Inject
+    PlaybackModel playbackModel;
 
     /**
      * Reference to the drawer layout.
@@ -717,6 +721,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void openAddAccount() {
+        stopMediaPlayerAndHidePip();
         if (MDMConfig.INSTANCE.showIntro(this)) {
             Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
             firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
@@ -724,6 +729,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else {
             startAccountCreation();
         }
+    }
+
+    protected void stopMediaPlayerAndHidePip() {
+        playbackModel.release();
     }
 
     private void resetFileDepth() {

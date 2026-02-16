@@ -59,13 +59,6 @@ interface FileDao {
     @Query("SELECT * FROM filelist WHERE file_owner = :fileOwner ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
     fun getAllFiles(fileOwner: String): List<FileEntity>
 
-    @Query(
-        "SELECT * FROM filelist WHERE favorite = 1" +
-            " AND file_owner = :fileOwner" +
-            " ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}"
-    )
-    fun getFavoriteFiles(fileOwner: String): List<FileEntity>
-
     @Query("SELECT * FROM filelist WHERE path LIKE :pathPattern AND file_owner = :fileOwner ORDER BY path ASC")
     fun getFolderWithDescendants(pathPattern: String, fileOwner: String): List<FileEntity>
 
@@ -150,6 +143,17 @@ interface FileDao {
     """
     )
     suspend fun getFavoriteFiles(fileOwner: String): List<FileEntity>
+
+    @Query(
+        """
+    SELECT * 
+    FROM filelist 
+    WHERE file_owner = :fileOwner 
+      AND favorite = 1
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    fun getFavoriteFilesNonBlocking(fileOwner: String): List<FileEntity>
 
     @Query("SELECT remote_id FROM filelist WHERE file_owner = :accountName AND remote_id IS NOT NULL")
     fun getAllRemoteIds(accountName: String): List<String>
