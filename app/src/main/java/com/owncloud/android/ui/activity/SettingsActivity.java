@@ -390,8 +390,11 @@ public class SettingsActivity extends PreferenceActivity
             preferences.setUnifiedPushEnabled(prefUnifiedPush.isChecked());
             if (prefUnifiedPush.isChecked()) {
                 CommonPushUtils.useDefaultUnifiedPushDistributor(this, accountManager, preferences.getPushToken(), service -> {
-                    if (prefChangeService != null) {
+                    if (service != null) {
                         prefChangeService.setSummary(Objects.requireNonNullElse(service, ""));
+                    } else {
+                        prefUnifiedPush.setChecked(false);
+                        prefChangeService.setEnabled(false);
                     }
                     return null;
                 });
