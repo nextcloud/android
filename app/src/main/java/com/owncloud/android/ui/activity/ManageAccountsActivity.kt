@@ -238,7 +238,7 @@ class ManageAccountsActivity :
     }
 
     override fun showFirstRunActivity() {
-		stopMediaPlayerAndHidePip()
+        stopMediaPlayerAndHidePip()
         val intent = Intent(applicationContext, FirstRunActivity::class.java).apply {
             putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true)
         }

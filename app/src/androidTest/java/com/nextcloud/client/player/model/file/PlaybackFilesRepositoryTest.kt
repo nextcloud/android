@@ -36,6 +36,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
+@Suppress("TooManyFunctions")
 class PlaybackFilesRepositoryTest {
     private lateinit var storageManager: FileDataStorageManager
     private lateinit var preferences: AppPreferences
