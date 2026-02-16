@@ -9,8 +9,12 @@ package com.owncloud.android.utils
 
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.BuildConfig
+import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -22,6 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import org.unifiedpush.android.connector.UnifiedPush
+import org.unifiedpush.android.connector.data.ResolvedDistributor
 
 /**
  * Handle UnifiedPush (web push server side) and proxy push ([PushUtils]) registrations
@@ -34,17 +39,13 @@ object CommonPushUtils {
      *
      * This is run when the application starts, and this is also where push notifications
      * are set up for the first time
+     *
+     * Push notifications are set up for the first time with this function
      */
     @JvmStatic
-    fun registerCurrentPushConfiguration(context: Context, accountManager: UserAccountManager, preferences: AppPreferences) {
-        if (preferences.isUnifiedPushEnabled) {
-            UnifiedPush.getAckDistributor(context)?.let {
-                registerUnifiedPushForAllAccounts(context, accountManager, preferences.pushToken)
-            } ?: run {
-                // The user has uninstalled the distributor, fallback to play services with the proxy push if available
-                preferences.isUnifiedPushEnabled = false
-                disableUnifiedPush(context, accountManager, preferences.pushToken)
-            }
+    fun registerCurrentPushConfiguration(activity: Activity, accountManager: UserAccountManager, preferences: AppPreferences) {
+        if (preferences.isUnifiedPushEnabled){
+            tryUseUnifiedPush(activity, accountManager, preferences) {}
         } else {
             CoroutineScope(Dispatchers.IO).launch {
                 PushUtils.pushRegistrationToServer(accountManager, preferences.pushToken)
@@ -72,21 +73,78 @@ object CommonPushUtils {
      * @param callback: run with the push service name if available
      */
     @JvmStatic
-    fun useDefaultUnifiedPushDistributor(
+    fun tryUseUnifiedPush(
         activity: Activity,
         accountManager: UserAccountManager,
-        proxyPushToken: String?,
+        preferences: AppPreferences,
         callback: (String?) -> Unit
     ) {
-        Log_OC.d(TAG, "Using default UnifiedPush distributor")
-        UnifiedPush.tryUseCurrentOrDefaultDistributor(activity as Context) { res ->
-            if (res) {
-                registerUnifiedPushForAllAccounts(activity, accountManager, proxyPushToken)
-                callback(UnifiedPush.getSavedDistributor(activity))
-            } else {
+        UnifiedPush.getAckDistributor(activity)?.let {
+            registerUnifiedPushForAllAccounts(activity, accountManager, preferences.pushToken)
+            callback(it)
+            return
+        }
+        when (val res = UnifiedPush.resolveDefaultDistributor(activity)) {
+            is ResolvedDistributor.Found ->  {
+                preferences.isUnifiedPushEnabled = true
+                UnifiedPush.saveDistributor(activity, res.packageName)
+                registerUnifiedPushForAllAccounts(activity, accountManager, preferences.pushToken)
+                callback(res.packageName)
+            }
+            ResolvedDistributor.NoneAvailable -> {
+                // Do not change preference
+                disableUnifiedPush(activity, accountManager, preferences.pushToken)
                 callback(null)
             }
+            ResolvedDistributor.ToSelect -> {
+                showDistributorSelectionDialog(activity) { confirmed ->
+                    if (confirmed) {
+                        UnifiedPush.tryUseDefaultDistributor(activity) { res ->
+                            if (res) {
+                                preferences.isUnifiedPushEnabled = true
+                                registerUnifiedPushForAllAccounts(activity, accountManager, preferences.pushToken)
+                                callback(UnifiedPush.getSavedDistributor(activity))
+                            } else {
+                                preferences.isUnifiedPushEnabled = false
+                                disableUnifiedPush(activity, accountManager, preferences.pushToken)
+                                callback(null)
+                            }
+                        }
+                    } else {
+                        preferences.isUnifiedPushEnabled = false
+                        disableUnifiedPush(activity, accountManager, preferences.pushToken)
+                        callback(null)
+                    }
+                }
+            }
         }
+    }
+
+    /**
+     * Inform the user they will have to select a distributor
+     *
+     * **Should nearly never happen**
+     *
+     * It is shown only if the user has many distributors, they haven't set a default yet, nor selected a distributor
+     */
+    private fun showDistributorSelectionDialog(context: Context, onResult: (Boolean) -> Unit) {
+        MaterialAlertDialogBuilder(context, R.style.Theme_ownCloud_Dialog)
+            .setTitle(context.getString(R.string.unifiedpush))
+            .setMessage(context.getString(R.string.select_unifiedpush_service_dialog))
+            .setPositiveButton(
+                android.R.string.ok
+            ) { dialog: DialogInterface?, _: Int ->
+                dialog?.dismiss()
+                onResult(true)
+            }
+            .setNegativeButton(
+                android.R.string.cancel
+            ) { dialog: DialogInterface?, _: Int ->
+                dialog?.dismiss()
+                onResult(false)
+            }
+            .create()
+            .show()
     }
 
     /**
