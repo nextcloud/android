@@ -28,7 +28,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.Dur;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.component.CalendarComponent;
@@ -48,6 +47,7 @@ import java.time.temporal.TemporalAmount;
 import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -56,8 +56,6 @@ import javax.inject.Inject;
 @SuppressLint("NewApi")
 public class ProcessVEvent {
     private static final String TAG = "ICS_ProcessVEvent";
-
-    private static final Duration ONE_DAY = createDuration("P1D");
     private static final Duration ZERO_SECONDS = createDuration("PT0S");
 
     private static final String[] EVENT_QUERY_COLUMNS = new String[]{Events.CALENDAR_ID, Events._ID};
@@ -89,7 +87,7 @@ public class ProcessVEvent {
         }
 
         public List<Integer> getReminders(List<Integer> eventReminders) {
-            if (eventReminders.size() > 0 && getImportReminders()) {
+            if (!eventReminders.isEmpty() && getImportReminders()) {
                 return eventReminders;
             }
             return mDefaultReminders;
@@ -224,7 +222,7 @@ public class ProcessVEvent {
                 continue;
             }
 
-            if (Events.UID_2445 != null && !c.containsKey(Events.UID_2445)) {
+            if (!c.containsKey(Events.UID_2445)) {
                 // Create a UID for this event to use. We create it here so if
                 // exported multiple times it will always have the same id.
                 c.put(Events.UID_2445, generateUid()); // TODO use 
@@ -242,7 +240,7 @@ public class ProcessVEvent {
                 continue;
             }
 
-            final long id = Long.parseLong(uri.getLastPathSegment());
+            final long id = Long.parseLong(Objects.requireNonNull(uri.getLastPathSegment()));
 
             for (int time : options.getReminders(reminders)) {
                 cAlarm.put(Reminders.EVENT_ID, id);
@@ -327,7 +325,7 @@ public class ProcessVEvent {
                 c.put(Events.ORGANIZER, mailTo.getTo());
                 c.put(Events.GUESTS_CAN_MODIFY, 1); // Ensure we can edit if not the organiser
             } catch (ParseException ignored) {
-                Log_OC.e(TAG, "Failed to parse Organiser URI " + uri.toString());
+                Log_OC.e(TAG, "Failed to parse Organiser URI " + uri);
             }
         }
 
@@ -372,24 +370,22 @@ public class ProcessVEvent {
         }
 
         // Work out availability. This is confusing as FREEBUSY and TRANSP overlap.
-        if (Events.AVAILABILITY != null) {
-            int availability = Events.AVAILABILITY_BUSY;
-            if (hasProperty(e, Property.TRANSP)) {
-                if (e.getTransparency() == Transp.TRANSPARENT) {
-                    availability = Events.AVAILABILITY_FREE;
-                }
-
-            } else if (hasProperty(e, Property.FREEBUSY)) {
-                FreeBusy fb = (FreeBusy) e.getProperty(Property.FREEBUSY);
-                FbType fbType = (FbType) fb.getParameter(Parameter.FBTYPE);
-                if (fbType != null && fbType == FbType.FREE) {
-                    availability = Events.AVAILABILITY_FREE;
-                } else if (fbType != null && fbType == FbType.BUSY_TENTATIVE) {
-                    availability = Events.AVAILABILITY_TENTATIVE;
-                }
+        int availability = Events.AVAILABILITY_BUSY;
+        if (hasProperty(e, Property.TRANSP)) {
+            if (e.getTransparency() == Transp.TRANSPARENT) {
+                availability = Events.AVAILABILITY_FREE;
             }
-            c.put(Events.AVAILABILITY, availability);
+
+        } else if (hasProperty(e, Property.FREEBUSY)) {
+            FreeBusy fb = e.getProperty(Property.FREEBUSY);
+            FbType fbType = fb.getParameter(Parameter.FBTYPE);
+            if (fbType != null && fbType == FbType.FREE) {
+                availability = Events.AVAILABILITY_FREE;
+            } else if (fbType != null && fbType == FbType.BUSY_TENTATIVE) {
+                availability = Events.AVAILABILITY_TENTATIVE;
+            }
         }
+        c.put(Events.AVAILABILITY, availability);
 
         copyProperty(c, Events.RRULE, e, Property.RRULE);
         copyProperty(c, Events.RDATE, e, Property.RDATE);
@@ -402,8 +398,7 @@ public class ProcessVEvent {
             c.remove(Events.UID_2445);
         }
 
-        for (Object alarm : e.getAlarms()) {
-            VAlarm a = (VAlarm) alarm;
+        for (VAlarm a : e.getAlarms()) {
 
             if (a.getAction() != Action.AUDIO && a.getAction() != Action.DISPLAY) {
                 continue; // Ignore email and procedure alarms
@@ -419,7 +414,7 @@ public class ProcessVEvent {
             if (t.getDateTime() != null)
                 alarmMs = t.getDateTime().getTime(); // Absolute
             else if (t.getDuration() != null) {
-                Related rel = (Related) t.getParameter(Parameter.RELATED);
+                Related rel = t.getParameter(Parameter.RELATED);
                 if (rel != null && rel == Related.END)
                     alarmStartMs = e.getEndDate().getDate().getTime();
                 alarmMs = alarmStartMs + durationToMs(t.getDuration());
@@ -433,7 +428,7 @@ public class ProcessVEvent {
             }
         }
 
-        if (options.getReminders(reminders).size() > 0) {
+        if (!options.getReminders(reminders).isEmpty()) {
             c.put(Events.HAS_ALARM, 1);
         }
 
@@ -453,16 +448,6 @@ public class ProcessVEvent {
             long unit = u.getDuration().toMillis();
             ms += d.get(u) * unit;
         }
-        return ms;
-    }
-
-    private static long durationToMs(Dur d) {
-        long ms = 0;
-        ms += d.getSeconds() * DateUtils.SECOND_IN_MILLIS;
-        ms += d.getMinutes() * DateUtils.MINUTE_IN_MILLIS;
-        ms += d.getHours() * DateUtils.HOUR_IN_MILLIS;
-        ms += d.getDays() * DateUtils.DAY_IN_MILLIS;
-        ms += d.getWeeks() * DateUtils.WEEK_IN_MILLIS;
         return ms;
     }
 
@@ -523,7 +508,7 @@ public class ProcessVEvent {
         StringBuilder b = new StringBuilder();
         List<String> argsList = new ArrayList<>();
 
-        if (options.getKeepUids() && Events.UID_2445 != null && c.containsKey(Events.UID_2445)) {
+        if (options.getKeepUids() && c.containsKey(Events.UID_2445)) {
             // Use our UID to query, either globally or per-calendar unique
             if (!options.getGlobalUids()) {
                 b.append(Events.CALENDAR_ID).append("=? AND ");
@@ -557,7 +542,7 @@ public class ProcessVEvent {
         return queryEvents(resolver, b, argsList);
     }
 
-    private void checkTestValue(VEvent e, ContentValues c, String keyValue, String testName) {
+    private void checkTestValue(ContentValues c, String keyValue, String testName) {
         String[] parts = keyValue.split("=");
         String key = parts[0];
         String expected = parts.length > 1 ? parts[1] : "";
@@ -597,11 +582,10 @@ public class ProcessVEvent {
         }
         c.put("reminders", reminderValues.toString());
 
-        for (Object o : e.getProperties()) {
-            Property p = (Property) o;
+        for (Property p : e.getProperties()) {
             switch (p.getName()) {
                 case "X-TEST-VALUE":
-                    checkTestValue(e, c, p.getValue(), testName.getValue());
+                    checkTestValue(c, p.getValue(), testName.getValue());
                     break;
                 case "X-TEST-MIN-VERSION":
                     final int ver = Integer.parseInt(p.getValue());
@@ -619,7 +603,7 @@ public class ProcessVEvent {
         // Generated UIDs take the form <ms>-<uuid>@nextcloud.com.
         if (mUidTail == null) {
             String uidPid = preferences.getUidPid();
-            if (uidPid.length() == 0) {
+            if (uidPid.isEmpty()) {
                 uidPid = UUID.randomUUID().toString().replace("-", "");
                 preferences.setUidPid(uidPid);
             }
