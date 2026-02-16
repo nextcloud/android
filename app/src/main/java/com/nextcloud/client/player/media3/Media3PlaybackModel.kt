@@ -29,6 +29,7 @@ import com.nextcloud.client.player.model.file.PlaybackFiles
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.RepeatMode
 import com.nextcloud.client.player.util.PeriodicAction
+import com.owncloud.android.datamodel.OCFile
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -205,6 +206,15 @@ class Media3PlaybackModel @Inject constructor(
             if (mediaItemIndex >= 0 && mediaItemIndex != currentMediaItemIndex) {
                 seekToDefaultPosition(mediaItemIndex)
                 prepare()
+            }
+        }
+    }
+
+    override fun stopPlaying(file: OCFile) {
+        controller?.run {
+            val mediaItemIndex = indexOfFirst { it.mediaId == file.localId.toString() }
+            if (mediaItemIndex >= 0) {
+                release()
             }
         }
     }
