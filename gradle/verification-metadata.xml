@@ -423,6 +423,7 @@
          <trusted-key id="B17136D06153558101DB7DF723778689FBFBE047">
             <trusting group="pl.droidsonroids.gif" name="android-gif-drawable" version="1.2.29"/>
             <trusting group="pl.droidsonroids.gif" name="android-gif-drawable" version="1.2.30"/>
+            <trusting group="pl.droidsonroids.gif" name="android-gif-drawable" version="1.2.31"/>
          </trusted-key>
          <trusted-key id="B69A63A5EF7183DBC09199AC26E74B6874AEE127" group="com.github.bumptech.glide" name="glide" version="3.8.0"/>
          <trusted-key id="B6E73D84EA4FCC47166087253FAAD2CD5ECBB314">
