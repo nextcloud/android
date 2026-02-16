@@ -24,6 +24,7 @@ import org.junit.Before
 import org.junit.Test
 import java.util.Optional
 
+@Suppress("TooManyFunctions")
 class PlayerControlViewTest {
 
     private lateinit var playbackModel: PlaybackModel

@@ -33,7 +33,8 @@ import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Component(
-    modules = [AndroidSupportInjectionModule::class,
+    modules = [
+        AndroidSupportInjectionModule::class,
         AppModule::class,
         PreferencesModule::class,
         AppInfoModule::class,
