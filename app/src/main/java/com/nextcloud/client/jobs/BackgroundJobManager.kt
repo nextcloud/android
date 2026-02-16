@@ -138,6 +138,7 @@ interface BackgroundJobManager {
     fun registerWebPush(accountName: String, url: String, uaPublicKey: String, auth: String)
     fun activateWebPush(accountName: String, token: String)
     fun unregisterWebPush(accountName: String)
+    fun mayResetUnifiedPush()
 
     fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)
     fun startFilesUploadJob(user: User, uploadIds: LongArray, showSameFileAlreadyExistsNotification: Boolean)

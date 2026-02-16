@@ -226,7 +226,7 @@ object CommonPushUtils {
      *
      * Proxy push is unregistered for accounts on server with web push support, if a server doesn't support web push, proxy push is re-registered
      */
-    private fun registerUnifiedPushForAllAccounts(
+    fun registerUnifiedPushForAllAccounts(
         context: Context,
         accountManager: UserAccountManager,
         proxyPushToken: String?

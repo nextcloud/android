@@ -107,6 +107,7 @@ internal class BackgroundJobManagerImpl(
         const val TAG_PREFIX_USER = "user"
         const val TAG_PREFIX_CLASS = "class"
         const val TAG_PREFIX_START_TIMESTAMP = "timestamp"
+        const val UNIQUE_TAG_UNIFIEDPUSH = "unifiedpush.uniqueTag"
         val PREFIXES = setOf(TAG_PREFIX_NAME, TAG_PREFIX_USER, TAG_PREFIX_START_TIMESTAMP, TAG_PREFIX_CLASS)
         const val NOT_SET_VALUE = "not set"
         const val PERIODIC_BACKUP_INTERVAL_MINUTES = 24 * 60L
@@ -649,6 +650,28 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         workManager.enqueue(request)
+    }
+
+    /**
+     * Schedule a unique job, for all accounts, to either reconnect to the distributor
+     * or show a notification to open the app
+     */
+    override fun mayResetUnifiedPush() {
+        val data = Data.Builder()
+            .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_MAY_RESET)
+            .build()
+
+        val work = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
+            .setInitialDelay(10, TimeUnit.SECONDS)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueueUniqueWork(
+            UNIQUE_TAG_UNIFIEDPUSH,
+            ExistingWorkPolicy.REPLACE,
+            work
+        )
+
     }
 
     override fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean) {

@@ -220,6 +220,8 @@ class BackgroundJobFactory @Inject constructor(
         context,
         params,
         accountManager,
+        preferences,
+        viewThemeUtils.get()
     )
 
     private fun createAccountRemovalWork(context: Context, params: WorkerParameters): AccountRemovalWork =

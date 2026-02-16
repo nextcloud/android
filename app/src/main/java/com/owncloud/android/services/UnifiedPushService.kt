@@ -57,6 +57,7 @@ class UnifiedPushService: PushService() {
     override fun onUnregistered(instance: String) {
         Log.d(TAG, "Unregistered: $instance")
         backgroundJobManager.unregisterWebPush(instance)
+        backgroundJobManager.mayResetUnifiedPush()
     }
 
     companion object {
