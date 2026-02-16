@@ -66,17 +66,30 @@
 
     </LinearLayout>
 
-    <!-- Next image button at bottom-right -->
+    <!-- Next image button at top-right -->
     <ImageView
         android:id="@+id/photo_widget_next_button"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:contentDescription="@string/photo_widget_next_image"
-        android:padding="6dp"
+        android:padding="8dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_skip_next" />
+        android:background="@drawable/bg_widget_button_circle"
+        android:tint="@android:color/white"
+        android:src="@drawable/ic_action_refresh" />
+
+    <!-- Loading indicator -->
+    <ProgressBar
+        android:id="@+id/photo_widget_loading"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:indeterminateTint="@android:color/white"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </FrameLayout>

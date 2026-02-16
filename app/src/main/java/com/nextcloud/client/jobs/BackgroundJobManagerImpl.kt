@@ -101,7 +101,6 @@ internal class BackgroundJobManagerImpl(
         const val JOB_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync"
         const val JOB_PERIODIC_PHOTO_WIDGET = "periodic_photo_widget"
         const val JOB_IMMEDIATE_PHOTO_WIDGET = "immediate_photo_widget"
-        const val PHOTO_WIDGET_INTERVAL_MINUTES = 15L
 
         const val JOB_TEST = "test_job"
 
@@ -834,7 +833,6 @@ internal class BackgroundJobManagerImpl(
         }
 
         val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
         val request = periodicRequestBuilder(

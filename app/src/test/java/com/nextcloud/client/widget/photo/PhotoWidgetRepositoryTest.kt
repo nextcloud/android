@@ -51,11 +51,14 @@ class PhotoWidgetRepositoryTest {
     }
 
     @Test
+    @Test
     fun `saveWidgetConfig stores folder path and account name`() {
-        repository.saveWidgetConfig(WIDGET_ID, FOLDER_PATH, ACCOUNT_NAME)
+        val config = PhotoWidgetConfig(WIDGET_ID, FOLDER_PATH, ACCOUNT_NAME, 15L)
+        repository.saveWidgetConfig(config)
 
         verify(editor).putString(eq("photo_widget_folder_path_$WIDGET_ID"), eq(FOLDER_PATH))
         verify(editor).putString(eq("photo_widget_account_name_$WIDGET_ID"), eq(ACCOUNT_NAME))
+        verify(editor).putLong(eq("photo_widget_interval_minutes_$WIDGET_ID"), eq(15L))
         verify(editor).apply()
     }
 

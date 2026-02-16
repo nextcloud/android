@@ -17,10 +17,13 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * Background worker that fetches a random photo and updates all photo widgets.
@@ -52,7 +55,7 @@ class PhotoWidgetWorker(
         return Result.success()
     }
 
-    private fun updateWidget(appWidgetManager: AppWidgetManager, widgetId: Int) {
+    private suspend fun updateWidget(appWidgetManager: AppWidgetManager, widgetId: Int) {
         val remoteViews = RemoteViews(context.packageName, R.layout.widget_photo)
 
         val imageResult = photoWidgetRepository.getRandomImageResult(widgetId)
@@ -100,6 +103,9 @@ class PhotoWidgetWorker(
             nextIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+        // Hide loading and show next button
+        remoteViews.setViewVisibility(R.id.photo_widget_loading, android.view.View.GONE)
+        remoteViews.setViewVisibility(R.id.photo_widget_next_button, android.view.View.VISIBLE)
         remoteViews.setOnClickPendingIntent(R.id.photo_widget_next_button, nextPendingIntent)
 
         appWidgetManager.updateAppWidget(widgetId, remoteViews)
@@ -110,12 +116,21 @@ class PhotoWidgetWorker(
      * Returns null if geocoding is unavailable or coordinates are missing.
      */
     @Suppress("DEPRECATION")
-    private fun resolveLocationName(latitude: Double?, longitude: Double?): String? {
-        if (latitude == null || longitude == null) return null
-        if (latitude == 0.0 && longitude == 0.0) return null
+    private suspend fun resolveLocationName(latitude: Double?, longitude: Double?): String? = withContext(Dispatchers.IO) {
+        if (latitude == null || longitude == null) {
+            Log_OC.d(TAG, "Location resolution skipped: latitude=$latitude, longitude=$longitude")
+            return@withContext null
+        }
+        if (latitude == 0.0 && longitude == 0.0) {
+            Log_OC.d(TAG, "Location resolution skipped: coordinates are 0.0, 0.0")
+            return@withContext null
+        }
 
-        return try {
-            if (!Geocoder.isPresent()) return null
+        try {
+            if (!Geocoder.isPresent()) {
+                Log_OC.e(TAG, "Location resolution failed: Geocoder not present")
+                return@withContext null
+            }
             val geocoder = Geocoder(context, Locale.getDefault())
             val addresses = geocoder.getFromLocation(latitude, longitude, 1)
             if (addresses != null && addresses.isNotEmpty()) {
@@ -123,6 +138,7 @@ class PhotoWidgetWorker(
                 // Build a concise location: "City, Country" or just "Country"
                 val city = address.locality ?: address.subAdminArea
                 val country = address.countryName
+                Log_OC.d(TAG, "Location resolved: city=$city, country=$country")
                 when {
                     city != null && country != null -> "$city, $country"
                     city != null -> city
@@ -130,9 +146,11 @@ class PhotoWidgetWorker(
                     else -> null
                 }
             } else {
+                Log_OC.d(TAG, "Location resolution: No address found for $latitude, $longitude")
                 null
             }
         } catch (e: Exception) {
+            Log_OC.e(TAG, "Location resolution failed", e)
             null
         }
     }
@@ -145,6 +163,10 @@ class PhotoWidgetWorker(
     private fun createOpenFolderIntent(config: PhotoWidgetConfig?): Intent {
         val intent = Intent(context, FileDisplayActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        if (config != null) {
+            intent.putExtra("folderPath", config.folderPath)
+            intent.putExtra("accountName", config.accountName)
+        }
         return intent
     }
 }
