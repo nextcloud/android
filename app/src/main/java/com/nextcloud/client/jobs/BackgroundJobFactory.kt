@@ -65,7 +65,8 @@ class BackgroundJobFactory @Inject constructor(
     private val localBroadcastManager: Provider<LocalBroadcastManager>,
     private val generatePdfUseCase: GeneratePDFUseCase,
     private val syncedFolderProvider: SyncedFolderProvider,
-    private val database: NextcloudDatabase
+    private val database: NextcloudDatabase,
+    private val photoWidgetRepository: Provider<com.nextcloud.client.widget.photo.PhotoWidgetRepository>
 ) : WorkerFactory() {
 
     @SuppressLint("NewApi")
@@ -104,6 +105,7 @@ class BackgroundJobFactory @Inject constructor(
                 InternalTwoWaySyncWork::class -> createInternalTwoWaySyncWork(context, workerParameters)
                 MetadataWorker::class -> createMetadataWorker(context, workerParameters)
                 FolderDownloadWorker::class -> createFolderDownloadWorker(context, workerParameters)
+                com.nextcloud.client.widget.photo.PhotoWidgetWorker::class -> createPhotoWidgetWorker(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -298,5 +300,15 @@ class BackgroundJobFactory @Inject constructor(
             context,
             viewThemeUtils.get(),
             params
+        )
+    private fun createPhotoWidgetWorker(
+        context: Context,
+        params: WorkerParameters
+    ): com.nextcloud.client.widget.photo.PhotoWidgetWorker =
+        com.nextcloud.client.widget.photo.PhotoWidgetWorker(
+            context,
+            params,
+            photoWidgetRepository.get(),
+            accountManager
         )
 }
