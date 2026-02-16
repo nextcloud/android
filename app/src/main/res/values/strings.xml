@@ -186,8 +186,10 @@
     </plurals>
 
     <plurals name="export_start">
-        <item quantity="one">TODO</item>
+        <item quantity="one">Export started (%d file)</item>
+        <item quantity="other">Exports started (%d files)</item>
     </plurals>
+
 
     <string name="recommend_subject">Try %1$s on your device!</string>
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
