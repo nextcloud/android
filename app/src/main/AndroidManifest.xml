@@ -393,11 +393,6 @@
             android:exported="false"
             android:theme="@style/Theme.ownCloud.Overlay" />
         <activity
-            android:name=".ui.preview.PreviewMediaActivity"
-            android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
-            android:exported="false"
-            android:theme="@style/Theme.ownCloud.Media" />
-        <activity
             android:name="com.nextcloud.client.player.ui.PlayerActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTask"
@@ -573,11 +568,6 @@
             android:name="com.nextcloud.client.jobs.transfer.FileTransferService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
-        <service
-            android:name="com.nextcloud.client.media.PlayerService"
-            android:exported="false"
-            android:foregroundServiceType="mediaPlayback" />
-
         <activity
             android:name=".ui.activity.PassCodeActivity"
             android:exported="false"
