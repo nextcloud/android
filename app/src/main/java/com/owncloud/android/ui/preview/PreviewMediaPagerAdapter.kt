@@ -193,10 +193,11 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
     fun getFilePosition(file: OCFile): Int = imageFiles.indexOf(file)
 
     fun updateFile(position: Int, file: OCFile) {
-        val fragmentToUpdate = mCachedFragments[position]
-        if (fragmentToUpdate != null) {
-            mObsoleteFragments.add(fragmentToUpdate)
+        if (position < 0 || position >= imageFiles.size) {
+            return
         }
+
+        mCachedFragments[position]?.let { mObsoleteFragments.add(it) }
         mObsoletePositions.add(position)
         imageFiles[position] = file
     }
