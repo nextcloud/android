@@ -2105,7 +2105,7 @@ class FileDisplayActivity :
 
         if (result.isSuccess) {
             val removedFile = operation.file
-            tryStopPlaying(removedFile)
+            file?.let { playbackModel.stopPlaying(it) }
             val leftFragment = this.leftFragment
 
             // check if file is still available, if so do nothing
@@ -2164,10 +2164,6 @@ class FileDisplayActivity :
         } else {
             DisplayUtils.showSnackMessage(this, R.string.file_version_restored_error)
         }
-    }
-
-    private fun tryStopPlaying(file: OCFile) {
-        // TODO: STOP PLAYER
     }
 
     /**

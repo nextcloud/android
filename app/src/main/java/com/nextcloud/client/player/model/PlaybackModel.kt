@@ -12,6 +12,7 @@ import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.file.PlaybackFiles
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.RepeatMode
+import com.owncloud.android.datamodel.OCFile
 import kotlinx.coroutines.flow.Flow
 import java.util.Optional
 
@@ -49,6 +50,8 @@ interface PlaybackModel {
     fun setShuffle(shuffle: Boolean)
 
     fun switchToFile(file: PlaybackFile)
+
+    fun stopPlaying(file: OCFile)
 
     interface Listener {
 
