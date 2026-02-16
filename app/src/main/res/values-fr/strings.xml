@@ -71,6 +71,7 @@
     <string name="assistant_task_status_running">en cours</string>
     <string name="assistant_task_status_scheduled">planifié</string>
     <string name="assistant_task_status_successful">réussite</string>
+    <string name="assistant_task_status_text">Etat de la tâche : %1$s</string>
     <string name="assistant_task_status_unknown">Inconnu</string>
     <string name="assistant_thinking">En cours de réflexion...</string>
     <string name="associated_account_not_found">Compte associé introuvable !</string>
