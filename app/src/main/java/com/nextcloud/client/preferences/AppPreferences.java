@@ -65,6 +65,8 @@ public interface AppPreferences {
     boolean isShowHiddenFilesEnabled();
     void setShowHiddenFilesEnabled(boolean enabled);
 
+    boolean isPushInitialized();
+
     boolean isUnifiedPushEnabled();
     void setUnifiedPushEnabled(boolean enabled);
     

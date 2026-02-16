@@ -44,7 +44,10 @@ object CommonPushUtils {
      */
     @JvmStatic
     fun registerCurrentPushConfiguration(activity: Activity, accountManager: UserAccountManager, preferences: AppPreferences) {
-        if (preferences.isUnifiedPushEnabled){
+        if (
+            (!preferences.isPushInitialized && BuildConfig.DEFAULT_PUSH_UNIFIEDPUSH)
+            || preferences.isUnifiedPushEnabled
+            ){
             tryUseUnifiedPush(activity, accountManager, preferences) {}
         } else {
             CoroutineScope(Dispatchers.IO).launch {

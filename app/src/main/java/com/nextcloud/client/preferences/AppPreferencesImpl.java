@@ -236,6 +236,11 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
+    public boolean isPushInitialized() {
+        return preferences.contains(PREF__ENABLE_UNIFIEDPUSH);
+    }
+
+    @Override
     public boolean isUnifiedPushEnabled() {
         return preferences.getBoolean(PREF__ENABLE_UNIFIEDPUSH, false);
     }
