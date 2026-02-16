@@ -39,6 +39,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
+@Suppress("TooManyFunctions")
 class Media3PlaybackModelTest {
     private lateinit var settings: PlaybackSettings
     private lateinit var model: PlaybackModel
