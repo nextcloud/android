@@ -1175,7 +1175,7 @@
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo u %1$s</string>
     <string name="whats_your_status">Koji je vaš status?</string>
-    <string name="widgets_not_available">Widgeti nisu dostupni</string>
+    <string name="widgets_not_available">Widgeti su dostupni samo u verziji %1$s 25 ili novijoj kada je aplikacija Dashboard omogućena</string>
     <string name="widgets_not_available_title">Nije dostupno</string>
     <string name="worker_download">Preuzimanje datoteka...</string>
     <string name="write_email">Pošalji poruku e-pošte</string>
