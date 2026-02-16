@@ -26,6 +26,8 @@ import com.nextcloud.client.onboarding.WhatsNewActivity;
 import com.nextcloud.client.widget.DashboardWidgetConfigurationActivity;
 import com.nextcloud.client.widget.DashboardWidgetProvider;
 import com.nextcloud.client.widget.DashboardWidgetService;
+import com.nextcloud.client.widget.photo.PhotoWidgetConfigActivity;
+import com.nextcloud.client.widget.photo.PhotoWidgetProvider;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.ChooseStorageLocationDialogFragment;
@@ -453,6 +455,12 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract DashboardWidgetProvider dashboardWidgetProvider();
+
+    @ContributesAndroidInjector
+    abstract PhotoWidgetProvider photoWidgetProvider();
+
+    @ContributesAndroidInjector
+    abstract PhotoWidgetConfigActivity photoWidgetConfigActivity();
 
     @ContributesAndroidInjector
     abstract GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog();

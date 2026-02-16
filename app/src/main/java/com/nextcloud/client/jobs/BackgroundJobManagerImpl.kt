@@ -99,6 +99,9 @@ internal class BackgroundJobManagerImpl(
         const val JOB_DOWNLOAD_FOLDER = "download_folder"
         const val JOB_METADATA_SYNC = "metadata_sync"
         const val JOB_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync"
+        const val JOB_PERIODIC_PHOTO_WIDGET = "periodic_photo_widget"
+        const val JOB_IMMEDIATE_PHOTO_WIDGET = "immediate_photo_widget"
+        const val PHOTO_WIDGET_INTERVAL_MINUTES = 15L
 
         const val JOB_TEST = "test_job"
 
@@ -819,5 +822,56 @@ internal class BackgroundJobManagerImpl(
 
     override fun cancelFolderDownload() {
         workManager.cancelAllWorkByTag(JOB_DOWNLOAD_FOLDER)
+    }
+
+    // --------------- Photo Widget ---------------
+
+    override fun schedulePeriodicPhotoWidgetUpdate(intervalMinutes: Long) {
+        // Manual mode: cancel any existing periodic work
+        if (intervalMinutes <= 0L) {
+            cancelPeriodicPhotoWidgetUpdate()
+            return
+        }
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val request = periodicRequestBuilder(
+            jobClass = com.nextcloud.client.widget.photo.PhotoWidgetWorker::class,
+            jobName = JOB_PERIODIC_PHOTO_WIDGET,
+            intervalMins = intervalMinutes
+        )
+            .setConstraints(constraints)
+            .build()
+
+        workManager.enqueueUniquePeriodicWork(
+            JOB_PERIODIC_PHOTO_WIDGET,
+            ExistingPeriodicWorkPolicy.REPLACE,
+            request
+        )
+    }
+
+    override fun startImmediatePhotoWidgetUpdate() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val request = oneTimeRequestBuilder(
+            com.nextcloud.client.widget.photo.PhotoWidgetWorker::class,
+            JOB_IMMEDIATE_PHOTO_WIDGET
+        )
+            .setConstraints(constraints)
+            .build()
+
+        workManager.enqueueUniqueWork(
+            JOB_IMMEDIATE_PHOTO_WIDGET,
+            ExistingWorkPolicy.REPLACE,
+            request
+        )
+    }
+
+    override fun cancelPeriodicPhotoWidgetUpdate() {
+        workManager.cancelJob(JOB_PERIODIC_PHOTO_WIDGET)
     }
 }
