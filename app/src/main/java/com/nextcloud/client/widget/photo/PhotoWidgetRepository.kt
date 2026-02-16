@@ -100,27 +100,129 @@ class PhotoWidgetRepository @Inject constructor(
      */
     fun getRandomImageResult(widgetId: Int): PhotoWidgetImageResult? {
         val config = getWidgetConfig(widgetId) ?: return null
-        val user = userAccountManager.getUser(config.accountName).orElse(null) ?: return null
+        val folderPath = config.folderPath
+        val accountName = config.accountName
 
+        val user = userAccountManager.getUser(accountName).orElse(null) ?: return null
         val storageManager = FileDataStorageManager(user, contentResolver)
-        val folder = storageManager.getFileByDecryptedRemotePath(config.folderPath) ?: return null
+        val folder = storageManager.getFileByDecryptedRemotePath(folderPath) ?: return null
         val allFiles = storageManager.getAllFilesRecursivelyInsideFolder(folder)
 
-        val imageFiles = allFiles.filter { isImageFile(it) }.shuffled()
+        // IMPLEMENTATION OF "SMART MIX" STRATEGY
+        // 1. "On This Day": Photos from today's date in past years
+        val onThisDayFiles = allFiles.filter { isOnThisDay(it.modificationTimestamp) }
 
-        for (file in imageFiles) {
-            val bitmap = getThumbnailForFile(file, config.accountName)
-            if (bitmap != null) {
-                val geo = file.geoLocation
-                return PhotoWidgetImageResult(
-                    bitmap = bitmap,
-                    latitude = geo?.latitude,
-                    longitude = geo?.longitude,
-                    modificationTimestamp = file.modificationTimestamp
-                )
+        // 2. "Recent": Top 20 newest photos
+        val recentFiles = allFiles.sortedByDescending { it.modificationTimestamp }.take(20)
+
+        // 3. "Random": 10 random files from the rest to add variety
+        val usedIds = (onThisDayFiles + recentFiles).map { it.remoteId }.toSet()
+        val remainingFiles = allFiles.filter { !usedIds.contains(it.remoteId) }
+        val randomFiles = remainingFiles.shuffled().take(10)
+
+        // Combine all candidates
+        val candidatePool = (onThisDayFiles + recentFiles + randomFiles).filter { isImageFile(it) }
+
+        if (candidatePool.isEmpty()) {
+            return null
+        }
+
+        // Prioritize images that are already downloaded or cached to avoid network timeouts
+        val (offlineFiles, onlineFiles) = candidatePool.partition { file ->
+            file.isDown || ThumbnailsCacheManager.containsBitmap(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId)
+        }
+
+        // 80% chance to pick from offline files if available, otherwise fallback to online
+        // This keeps the "randomness" but strongly biases towards instant loading
+        var candidateFile = if (offlineFiles.isNotEmpty() && (percentage(80) || onlineFiles.isEmpty())) {
+            offlineFiles.random()
+        } else if (onlineFiles.isNotEmpty()) {
+            onlineFiles.random()
+        } else {
+            candidatePool.random()
+        }
+
+        var bitmap = getThumbnailForFile(candidateFile, accountName)
+
+        // FAILSAFE: If the selected candidate failed (e.g. download error or missing file),
+        // and we have offline files available, try one of them instead of showing nothing.
+        if (bitmap == null && offlineFiles.isNotEmpty()) {
+            Log_OC.d(TAG, "Failed to load candidate image (isDown=${candidateFile.isDown}), trying fallback from ${offlineFiles.size} offline files")
+            // Try up to 3 random offline files to find a working one
+            for (i in 0 until 3) {
+                val fallback = offlineFiles.random()
+                bitmap = getThumbnailForFile(fallback, accountName)
+                if (bitmap != null) {
+                    candidateFile = fallback
+                    break
+                }
             }
         }
-        return null
+
+        if (bitmap == null) {
+            Log_OC.e(TAG, "Failed to load any widget image")
+            return null
+        }
+
+        // Update cache history and cleanup old entries
+        manageWidgetCache(widgetId, candidateFile, allFiles)
+
+        val geo = candidateFile.geoLocation
+        return PhotoWidgetImageResult(
+            bitmap = bitmap,
+            latitude = geo?.latitude,
+            longitude = geo?.longitude,
+            modificationTimestamp = candidateFile.modificationTimestamp
+        )
+    }
+
+    private fun isOnThisDay(timestamp: Long): Boolean {
+        val calendar = java.util.Calendar.getInstance()
+        val todayMonth = calendar.get(java.util.Calendar.MONTH)
+        val todayDay = calendar.get(java.util.Calendar.DAY_OF_MONTH)
+
+        calendar.timeInMillis = timestamp
+        val fileMonth = calendar.get(java.util.Calendar.MONTH)
+        val fileDay = calendar.get(java.util.Calendar.DAY_OF_MONTH)
+
+        return (todayMonth == fileMonth && todayDay == fileDay)
+    }
+
+    private fun manageWidgetCache(widgetId: Int, newFile: OCFile, allFiles: List<OCFile>) {
+        val prefKey = "${PREF_PREFIX}history_$widgetId"
+        val historyString = preferences.getString(prefKey, "") ?: ""
+        val history = if (historyString.isNotEmpty()) {
+            historyString.split(",").toMutableList()
+        } else {
+            mutableListOf()
+        }
+
+        // Add new file ID if not present (move to end if present)
+        val newId = newFile.remoteId
+        if (history.contains(newId)) {
+            history.remove(newId)
+        }
+        history.add(newId)
+
+        // Enforce limit of 10
+        while (history.size > 10) {
+            val oldId = history.removeAt(0)
+            // Find the file to remove it from cache
+            val fileToRemove = allFiles.find { it.remoteId == oldId }
+            if (fileToRemove != null) {
+                Log_OC.d(TAG, "Evicting old widget image from cache: ${fileToRemove.fileName}")
+                ThumbnailsCacheManager.removeFromCache(fileToRemove)
+            } else {
+                 Log_OC.d(TAG, "Could not find file object for eviction: $oldId")
+            }
+        }
+
+        // Save updated history
+        preferences.edit().putString(prefKey, history.joinToString(",")).apply()
+    }
+
+    private fun percentage(chance: Int): Boolean {
+        return (Math.random() * 100).toInt() < chance
     }
 
     @Suppress("MagicNumber")
@@ -217,6 +319,10 @@ class PhotoWidgetRepository @Inject constructor(
             newWidth = (MAX_BITMAP_DIMENSION * ratio).toInt()
         }
 
-        return Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+        val scaledBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+        if (scaledBitmap != bitmap) {
+            bitmap.recycle()
+        }
+        return scaledBitmap
     }
 }

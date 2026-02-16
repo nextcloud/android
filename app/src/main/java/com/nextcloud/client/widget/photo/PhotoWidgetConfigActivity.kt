@@ -134,7 +134,12 @@ class PhotoWidgetConfigActivity : Activity() {
         val config = PhotoWidgetConfig(appWidgetId, folderPath, accountName, intervalMinutes)
         photoWidgetRepository.saveWidgetConfig(config)
 
-        // Schedule periodic updates (or cancel if manual)
+        // Schedule periodic updates (or cancel if manual).
+        //
+        // NOTE: The periodic photo widget update is scheduled globally and shared
+        // by all photo widgets. Calling this method updates the single shared
+        // schedule, so the interval chosen here (for the most recently configured
+        // widget) will apply to every photo widget ("last configured wins").
         backgroundJobManager.schedulePeriodicPhotoWidgetUpdate(intervalMinutes)
 
         // Trigger immediate widget update
