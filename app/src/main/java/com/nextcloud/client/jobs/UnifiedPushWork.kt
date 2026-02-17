@@ -21,7 +21,6 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.LinkHelper.APP_NEXTCLOUD_TALK
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
@@ -178,6 +177,7 @@ class UnifiedPushWork(
 
     companion object {
         private const val TAG = "UnifiedPushWork"
+        const val APP_NEXTCLOUD_TALK = "com.nextcloud.talk2"
         const val ACTION = "action"
         const val ACTION_ACTIVATE = "action.activate"
         const val ACTION_REGISTER = "action.register"
