@@ -30,91 +30,47 @@ jobs:
 
       - name: Configure Gradle
         run: |
-          mkdir -p "$HOME/.gradle"
-          cat >> gradle.properties <<EOF
-          org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g
-          org.gradle.caching=true
-          org.gradle.parallel=true
-          org.gradle.configureondemand=true
-          kapt.incremental.apt=true
-          EOF
+          echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
+          echo "org.gradle.caching=true" >> gradle.properties
+          echo "org.gradle.parallel=true" >> gradle.properties
+          echo "org.gradle.configureondemand=true" >> gradle.properties
+          echo "kapt.incremental.apt=true" >> gradle.properties
 
-      - name: Build Generic Release APK
-        run: ./gradlew assembleGenericRelease
+      - name: Build Generic Debug APK
+        run: ./gradlew assembleGenericDebug
 
-      - name: Sign APK
-        if: ${{ env.KEYSTORE_BASE64 != '' }}
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      - name: Prepare release info
+        id: info
         run: |
-          echo "$KEYSTORE_BASE64" | base64 -d > /tmp/release.keystore
-          APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort | tail -n1)
-          $APKSIGNER sign \
-            --ks /tmp/release.keystore \
-            --ks-pass "pass:$KEYSTORE_PASSWORD" \
-            --key-pass "pass:$KEY_PASSWORD" \
-            --ks-key-alias release \
-            app/build/outputs/apk/generic/release/*.apk
-          rm /tmp/release.keystore
-
-      - name: Sign APK (debug fallback)
-        if: ${{ env.KEYSTORE_BASE64 == '' }}
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-        run: |
-          # Use the default debug keystore if no release keystore is configured
-          APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort | tail -n1)
-          DEBUG_KS="$HOME/.android/debug.keystore"
-          if [ ! -f "$DEBUG_KS" ]; then
-            keytool -genkey -v \
-              -keystore "$DEBUG_KS" \
-              -storepass android \
-              -alias androiddebugkey \
-              -keypass android \
-              -keyalg RSA -keysize 2048 -validity 10000 \
-              -dname "CN=Android Debug,O=Android,C=US"
-          fi
-          # Find the unsigned APK
-          APK=$(find app/build/outputs/apk/generic/release -name "*.apk" | head -1)
-          # zipalign first
-          ZIPALIGN=$(find "$ANDROID_HOME/build-tools" -name zipalign | sort | tail -n1)
-          $ZIPALIGN -f 4 "$APK" "${APK%.apk}-aligned.apk"
-          mv "${APK%.apk}-aligned.apk" "$APK"
-          $APKSIGNER sign \
-            --ks "$DEBUG_KS" \
-            --ks-pass pass:android \
-            --key-pass pass:android \
-            --ks-key-alias androiddebugkey \
-            "$APK"
-
-      - name: Get version info
-        id: version
-        run: |
-          APK=$(find app/build/outputs/apk/generic/release -name "*.apk" | head -1)
-          VERSION=$(grep -oP 'versionName = "\K[^"]+' app/build.gradle.kts | head -1 || echo "dev")
-          DATE=$(date -u +"%Y-%m-%d")
+          APK=$(find app/build/outputs/apk/generic/debug -name "*.apk" | head -1)
+          DATE=$(date -u +"%Y%m%d-%H%M%S")
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          TAG="v${DATE}-${SHORT_SHA}"
           echo "apk_path=$APK" >> "$GITHUB_OUTPUT"
-          echo "apk_name=$(basename $APK)" >> "$GITHUB_OUTPUT"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "date=$DATE" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "date=$(date -u +'%Y-%m-%d %H:%M UTC')" >> "$GITHUB_OUTPUT"
 
-      - name: Create/Update Release
+      - name: Rename APK
+        run: |
+          APK="${{ steps.info.outputs.apk_path }}"
+          DIR=$(dirname "$APK")
+          cp "$APK" "${DIR}/nextcloud-photo-widget-${{ steps.info.outputs.tag }}.apk"
+          echo "final_apk=${DIR}/nextcloud-photo-widget-${{ steps.info.outputs.tag }}.apk" >> "$GITHUB_OUTPUT"
+        id: rename
+
+      - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: latest
-          name: "Nextcloud Photos Widget — ${{ steps.version.outputs.date }}"
+          tag_name: ${{ steps.info.outputs.tag }}
+          name: "Photo Widget — ${{ steps.info.outputs.date }}"
           body: |
-            Auto-built from `master` on ${{ steps.version.outputs.date }}.
-
-            **Version**: ${{ steps.version.outputs.version }}
-            **Commit**: ${{ github.sha }}
+            Auto-built from `master` on ${{ steps.info.outputs.date }}.
+            **Commit**: `${{ github.sha }}`
 
             Install via [Obtainium](https://github.com/ImranR98/Obtainium) for automatic updates.
           draft: false
           prerelease: false
           make_latest: true
-          files: ${{ steps.version.outputs.apk_path }}
+          files: ${{ steps.rename.outputs.final_apk }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
