@@ -21,6 +21,7 @@ import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.VideoSize
 import com.nextcloud.client.player.util.getDisplayHeight
 import com.nextcloud.client.player.util.getDisplayWidth
+import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerVideoFileFragmentBinding
 import dagger.android.support.AndroidSupportInjection
@@ -55,7 +56,8 @@ class VideoFileFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidSupportInjection.inject(this)
-        this.file = arguments?.getSerializable(ARGUMENT_FILE) as PlaybackFile
+        val playbackFile = arguments.getSerializableArgument(ARGUMENT_FILE, PlaybackFile::class.java)
+        this.file = playbackFile ?: throw IllegalArgumentException("bundle is not containing playback file")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
