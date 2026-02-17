@@ -232,9 +232,7 @@ class PhotoWidgetRepository @Inject constructor(
             val existingIds = allFiles.map { it.remoteId }.toSet()
             val staleIds = history.filter { !existingIds.contains(it) }
             for (staleId in staleIds) {
-                ThumbnailsCacheManager.removeBitmapFromDiskCache("r$staleId")
-                ThumbnailsCacheManager.removeBitmapFromDiskCache("t$staleId")
-                Log_OC.d(TAG, "Evicted stale cache entry: $staleId")
+                Log_OC.d(TAG, "Stale cache entry detected (will be evicted by LRU): $staleId")
             }
 
             // Update history to remove stale entries
@@ -312,8 +310,7 @@ class PhotoWidgetRepository @Inject constructor(
 
         while (history.size >= MAX_VIDEO_CACHE) {
             val oldId = history.removeAt(0)
-            ThumbnailsCacheManager.removeBitmapFromDiskCache("video_$oldId")
-            Log_OC.d(TAG, "Evicted video thumbnail: $oldId")
+            Log_OC.d(TAG, "Video thumbnail evicted from tracking: $oldId")
         }
 
         preferences.edit().putString(videoHistoryKey, history.joinToString(",")).apply()
