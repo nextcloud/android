@@ -335,9 +335,21 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Nullable
     public OCFile getItem(int position) {
+        if (mFiles == null || mFiles.isEmpty()) {
+            return null;
+        }
+
+        if (position < 0) {
+            return null;
+        }
+
         int newPosition = position;
 
-        if (shouldShowHeader() && position > 0) {
+        if (shouldShowHeader()) {
+            if (position == 0) {
+                // Header position — no file here
+                return null;
+            }
             newPosition = position - 1;
         }
 
