@@ -149,7 +149,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     public static final int REQ_MEDIA_ACCESS = 3000;
 
     @Inject
-    PlaybackModel playbackModel;
+    protected PlaybackModel playbackModel;
 
     /**
      * Reference to the drawer layout.
