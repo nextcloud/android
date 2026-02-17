@@ -436,27 +436,49 @@ public class UploadFileOperation extends SyncOperation {
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
 
-        updateSize(0);
-
         String remoteParentPath = new File(getRemotePath()).getParent();
-        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ? remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
-        remoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities());
+        if (remoteParentPath == null) {
+            Log_OC.e(TAG, "remoteParentPath is null: " + getRemotePath());
+            return new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
+        }
+        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR)
+            ? remoteParentPath
+            : remoteParentPath + OCFile.PATH_SEPARATOR;
+
+        final String renamedRemoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities());
+        if (!remoteParentPath.equals(renamedRemoteParentPath)) {
+            Log_OC.w(TAG, "remoteParentPath was renamed: " + remoteParentPath + " → " + renamedRemoteParentPath);
+        }
+        remoteParentPath = renamedRemoteParentPath;
 
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
+        Log_OC.d(TAG, "parent lookup for path: " + remoteParentPath + " → " +
+            (parent == null ? "not found in DB" : "found, id=" + parent.getFileId()));
 
         // in case of a fresh upload with subfolder, where parent does not exist yet
         if (parent == null && (mFolderUnlockToken == null || mFolderUnlockToken.isEmpty())) {
-            // try to create folder
+            Log_OC.d(TAG, "parent not in DB and no unlock token, attempting to grant folder existence: "
+                + remoteParentPath);
             final var result = grantFolderExistence(remoteParentPath, client);
 
             if (!result.isSuccess()) {
+                Log_OC.e(TAG, "grantFolderExistence failed for: " + remoteParentPath + ", code: " +
+                    result.getCode() + ", message: " + result.getMessage());
                 return result;
             }
 
             parent = getStorageManager().getFileByPath(remoteParentPath);
+            if (parent == null) {
+                Log_OC.e(TAG, "parent still null after grantFolderExistence: " + remoteParentPath);
+                return new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
+            }
+
+            Log_OC.d(TAG, "parent created and retrieved successfully: " + remoteParentPath + ", id=" +
+                parent.getFileId());
         }
 
         if (parent == null) {
+            Log_OC.e(TAG, "parent is null, cannot proceed: " + remoteParentPath + "," + " unlock token: " + mFolderUnlockToken);
             return new RemoteOperationResult<>(false, "Parent folder not found", HttpStatus.SC_NOT_FOUND);
         }
 
@@ -1366,9 +1388,9 @@ public class UploadFileOperation extends SyncOperation {
      * @param pathToGrant Full remote path whose existence will be granted.
      * @return An {@link OCFile} instance corresponding to the folder where the file will be uploaded.
      */
-    private RemoteOperationResult grantFolderExistence(String pathToGrant, OwnCloudClient client) {
-        RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
-        RemoteOperationResult result = operation.execute(client);
+    private RemoteOperationResult<?> grantFolderExistence(String pathToGrant, OwnCloudClient client) {
+        var operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
+        var result = operation.execute(client);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {
             SyncOperation syncOp = new CreateFolderOperation(pathToGrant, user, getContext(), getStorageManager());
             result = syncOp.execute(client);
@@ -1379,9 +1401,9 @@ public class UploadFileOperation extends SyncOperation {
                 parentDir = createLocalFolder(pathToGrant);
             }
             if (parentDir != null) {
-                result = new RemoteOperationResult(ResultCode.OK);
+                result = new RemoteOperationResult<>(ResultCode.OK);
             } else {
-                result = new RemoteOperationResult(ResultCode.CANNOT_CREATE_FILE);
+                result = new RemoteOperationResult<>(ResultCode.CANNOT_CREATE_FILE);
             }
         }
         return result;
