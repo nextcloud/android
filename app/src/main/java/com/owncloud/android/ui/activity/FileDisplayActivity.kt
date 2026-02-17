@@ -3018,24 +3018,20 @@ class FileDisplayActivity :
     }
 
     fun showFile(selectedFile: OCFile?, message: String?) {
-        dismissLoadingDialog()
-
         getOCFileListFragmentFromFile(object : TransactionInterface {
-            override fun onOCFileListFragmentComplete(listOfFiles: OCFileListFragment) {
-                if (TextUtils.isEmpty(message)) {
-                    val temp = file
-                    file = getCurrentDir()
-                    listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice())
+            override fun onOCFileListFragmentComplete(fragment: OCFileListFragment) {
+                dismissLoadingDialog()
+
+                if (message.isNullOrEmpty()) {
+                    val current = getCurrentDir()
+                    fragment.listDirectory(current, file, MainApp.isOnlyOnDevice())
+                    file = current
                     updateActionBarTitleAndHomeButton(null)
                 } else {
-                    val view = listOfFiles.view
-                    if (view != null) {
-                        DisplayUtils.showSnackMessage(view, message)
-                    }
+                    fragment.view?.let { DisplayUtils.showSnackMessage(it, message) }
                 }
-                if (selectedFile != null) {
-                    listOfFiles.onItemClicked(selectedFile)
-                }
+
+                selectedFile?.let(fragment::onItemClicked)
             }
         })
     }

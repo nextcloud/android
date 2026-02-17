@@ -9,7 +9,6 @@ package com.owncloud.android.ui.dialog.setupEncryption
 import android.accounts.AccountManager
 import android.app.Dialog
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.VisibleForTesting
@@ -44,7 +43,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.lang.ref.WeakReference
-import java.util.Arrays
 import javax.inject.Inject
 
 /*
@@ -215,7 +213,7 @@ class SetupEncryptionDialogFragment :
             )
             val secondKey = EncryptionUtils.decodeStringToBase64Bytes(decryptedString)
 
-            if (!Arrays.equals(firstKey, secondKey)) {
+            if (!firstKey.contentEquals(secondKey)) {
                 EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
                 throw Exception("Keys do not match")
             }
@@ -223,7 +221,7 @@ class SetupEncryptionDialogFragment :
             notifyResult()
         } catch (e: Exception) {
             binding.encryptionStatus.setText(R.string.end_to_end_encryption_wrong_password)
-            Log_OC.d(TAG, "Error while decrypting private key: " + e.message)
+            Log_OC.e(TAG, "Error while decrypting private key: " + e.message)
         }
     }
 
@@ -240,22 +238,9 @@ class SetupEncryptionDialogFragment :
     }
 
     private fun notifyResult() {
-        val targetFragment = targetFragment
-        targetFragment?.onActivityResult(
-            targetRequestCode,
-            SETUP_ENCRYPTION_RESULT_CODE,
-            resultIntent
-        )
         parentFragmentManager.setFragmentResult(RESULT_REQUEST_KEY, resultBundle)
     }
 
-    private val resultIntent: Intent
-        get() {
-            return Intent().apply {
-                putExtra(SUCCESS, true)
-                putExtra(ARG_POSITION, requireArguments().getInt(ARG_POSITION))
-            }
-        }
     private val resultBundle: Bundle
         get() {
             return Bundle().apply {
@@ -544,7 +529,6 @@ class SetupEncryptionDialogFragment :
     companion object {
         const val SUCCESS = "SUCCESS"
         const val SETUP_ENCRYPTION_RESULT_CODE = 101
-        const val SETUP_ENCRYPTION_REQUEST_CODE = 100
         const val SETUP_ENCRYPTION_DIALOG_TAG = "SETUP_ENCRYPTION_DIALOG_TAG"
         const val ARG_POSITION = "ARG_POSITION"
         const val RESULT_REQUEST_KEY = "RESULT_REQUEST"
