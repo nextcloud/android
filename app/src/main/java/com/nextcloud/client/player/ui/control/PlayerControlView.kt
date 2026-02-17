@@ -14,6 +14,8 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
@@ -22,7 +24,6 @@ import com.nextcloud.client.player.model.state.PlaybackItemState
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.PlayerState
 import com.nextcloud.client.player.model.state.RepeatMode
-import com.nextcloud.client.player.util.setTint
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerControlViewBinding
 import dagger.android.HasAndroidInjector
@@ -187,17 +188,29 @@ class PlayerControlView @JvmOverloads constructor(
     }
 
     private fun renderRepeatButton(repeatSingle: Boolean) {
-        binding.ivRepeat.setTint(if (repeatSingle) R.color.player_accent_color else R.color.player_default_icon_color)
+        binding.ivRepeat.iconTint = ContextCompat.getColorStateList(
+            binding.root.context,
+            if (repeatSingle) R.color.player_accent_color
+            else R.color.player_default_icon_color
+        )
         binding.ivRepeat.tag = if (repeatSingle) TAG_CLICK_COMMAND_DO_NOT_REPEAT else TAG_CLICK_COMMAND_REPEAT
     }
 
     private fun renderShuffleButton(shuffle: Boolean) {
-        binding.ivRandom.setTint(if (shuffle) R.color.player_accent_color else R.color.player_default_icon_color)
+        binding.ivRandom.iconTint = ContextCompat.getColorStateList(
+            binding.root.context,
+            if (shuffle) R.color.player_accent_color
+            else R.color.player_default_icon_color
+        )
         binding.ivRandom.tag = if (shuffle) TAG_CLICK_COMMAND_DO_NOT_SHUFFLE else TAG_CLICK_COMMAND_SHUFFLE
     }
 
     private fun renderPlayPauseButton(isPlaying: Boolean) {
-        binding.ivPlayPause.setImageResource(if (isPlaying) R.drawable.player_ic_pause else R.drawable.player_ic_play)
+        binding.ivPlayPause.icon = AppCompatResources.getDrawable(
+            binding.root.context,
+            if (isPlaying) R.drawable.player_ic_pause
+            else R.drawable.player_ic_play
+        )
         binding.ivPlayPause.tag = if (isPlaying) TAG_CLICK_COMMAND_PAUSE else TAG_CLICK_COMMAND_PLAY
     }
 
