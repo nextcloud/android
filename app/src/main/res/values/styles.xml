@@ -491,13 +491,25 @@
         <item name="android:maxHeight">@dimen/player_progress_drawable_height</item>
     </style>
 
-    <style name="PlayerButtonStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="PlayerButtonStyle" parent="@style/Widget.Material3.Button.IconButton">
+        <item name="iconSize">32dp</item>
+
+        <item name="android:layout_width">@dimen/minimum_size_for_touchable_area</item>
+        <item name="android:layout_height">@dimen/minimum_size_for_touchable_area</item>
+
+        <item name="android:padding">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+
         <item name="android:layout_marginStart">@dimen/player_button_margin_horizontal</item>
         <item name="android:layout_marginEnd">@dimen/player_button_margin_horizontal</item>
         <item name="android:layout_marginTop">@dimen/player_button_margin_vertical</item>
         <item name="android:layout_marginBottom">@dimen/player_button_margin_vertical</item>
+
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
     </style>
 
 </resources>

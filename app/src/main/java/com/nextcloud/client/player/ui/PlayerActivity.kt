@@ -13,7 +13,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Rect
 import android.media.AudioManager
-import android.os.Build
 import android.os.Bundle
 import android.util.Rational
 import android.view.View
@@ -26,13 +25,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.player.model.PlaybackModel
 import com.nextcloud.client.player.model.file.PlaybackFileType
 import com.nextcloud.client.player.ui.audio.AudioPlayerView
 import com.nextcloud.client.player.ui.video.VideoPlayerView
 import com.nextcloud.client.player.util.isPictureInPictureAllowed
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
+import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileActivity
@@ -60,9 +59,6 @@ class PlayerActivity :
                 addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             }
     }
-
-    @Inject
-    lateinit var playbackModel: PlaybackModel
 
     @Inject
     lateinit var viewModelFactory: PlayerViewModel.Factory
@@ -123,14 +119,9 @@ class PlayerActivity :
         playerView.onStart()
     }
 
-    @Suppress("DEPRECATION")
     private fun Intent.getPlaybackFileType(): PlaybackFileType {
-        val playbackFileType = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            getSerializableExtra(PLAYBACK_FILE_TYPE, PlaybackFileType::class.java)
-        } else {
-            getSerializableExtra(PLAYBACK_FILE_TYPE) as PlaybackFileType?
-        }
-        return playbackFileType ?: throw IllegalStateException("Playback file type was not defined")
+        return getSerializableArgument(PLAYBACK_FILE_TYPE, PlaybackFileType::class.java)
+            ?: throw IllegalStateException("Playback file type was not defined")
     }
 
     override fun onStart() {
