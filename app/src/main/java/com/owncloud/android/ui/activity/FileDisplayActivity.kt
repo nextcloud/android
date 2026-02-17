@@ -1941,11 +1941,12 @@ class FileDisplayActivity :
                 SearchType.GALLERY_SEARCH -> VirtualFolderType.GALLERY
                 else -> VirtualFolderType.NONE
             }
-        } else null
+        } else {
+            null
+        }
 
         startImagePreview(file, file.isDown, type)
     }
-
 
     fun previewFile(file: OCFile, setFabVisible: CompletionCallback?) {
         if (!file.isDown) {
@@ -2455,11 +2456,7 @@ class FileDisplayActivity :
         }
     }
 
-    fun startImagePreview(
-        file: OCFile,
-        showPreview: Boolean,
-        type: VirtualFolderType? = null
-    ) {
+    fun startImagePreview(file: OCFile, showPreview: Boolean, type: VirtualFolderType? = null) {
         if (user.isEmpty) {
             Log_OC.e(TAG, "cannot start image preview")
             return
@@ -2746,7 +2743,7 @@ class FileDisplayActivity :
             startImagePreview(
                 file,
                 true,
-                virtualType,
+                virtualType
             )
         } else {
             startImagePreview(file, true)
