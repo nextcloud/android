@@ -8,8 +8,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/photo_widget_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipChildren="true">
+    android:layout_height="match_parent">
 
     <!-- Main photo image -->
     <ImageView
@@ -36,31 +35,43 @@
         tools:visibility="gone">
 
         <ImageView
+            android:id="@+id/photo_widget_empty_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:contentDescription="@string/photo_widget_content_description"
-            android:src="@drawable/ic_image_outline"
-            android:tint="#666680" />
+            android:src="@drawable/ic_image_outline" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:text="@string/photo_widget_empty_state"
             android:textColor="#9999AA"
             android:textSize="12sp" />
 
+        <!-- Retry button -->
+        <ImageView
+            android:id="@+id/photo_widget_retry_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_widget_button_circle"
+            android:contentDescription="@string/photo_widget_next_image"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_action_refresh" />
+
     </LinearLayout>
 
     <!-- Gradient scrim for text readability -->
-    <View
+    <ImageView
         android:id="@+id/photo_widget_scrim"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_gravity="bottom"
         android:background="@drawable/bg_widget_gradient_scrim"
+        android:contentDescription="@null"
         android:visibility="gone"
         tools:visibility="visible" />
 
@@ -82,7 +93,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="sans-serif-medium"
             android:maxLines="1"
             android:textColor="@android:color/white"
             android:textSize="12sp"
@@ -104,8 +114,7 @@
         android:contentDescription="@string/photo_widget_next_image"
         android:padding="8dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_action_refresh"
-        android:tint="@android:color/white" />
+        android:src="@drawable/ic_action_refresh" />
 
     <!-- Loading indicator -->
     <ProgressBar
@@ -114,7 +123,6 @@
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:indeterminate="true"
-        android:indeterminateTint="@android:color/white"
         android:visibility="gone"
         tools:visibility="visible" />
 

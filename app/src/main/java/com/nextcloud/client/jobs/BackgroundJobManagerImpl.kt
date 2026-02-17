@@ -826,11 +826,15 @@ internal class BackgroundJobManagerImpl(
     // --------------- Photo Widget ---------------
 
     override fun schedulePeriodicPhotoWidgetUpdate(intervalMinutes: Long) {
-        // Manual mode: cancel any existing periodic work
-        if (intervalMinutes <= 0L) {
-            cancelPeriodicPhotoWidgetUpdate()
-            return
-        }
+        // We now ignore the specific intervalMinutes passed here (which is per-widget)
+        // and always schedule the global worker at the minimum 15-minute interval.
+        // The worker itself will check each widget's individual interval preference.
+        
+        // However, if intervalMinutes is <= 0 (manual), we might want to cancel? 
+        // BUT, since this is now a global job for ALL widgets, we should only cancel if NO widgets want updates.
+        // For simplicity in this refactor, we'll just schedule it. If all widgets are manual, the worker will just do nothing 99% of the time.
+        // Or better: The ConfigActivity calls this. 
+        // We should just enforce 15m here.
 
         val constraints = Constraints.Builder()
             .build()
@@ -838,7 +842,7 @@ internal class BackgroundJobManagerImpl(
         val request = periodicRequestBuilder(
             jobClass = com.nextcloud.client.widget.photo.PhotoWidgetWorker::class,
             jobName = JOB_PERIODIC_PHOTO_WIDGET,
-            intervalMins = intervalMinutes
+            intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES
         )
             .setConstraints(constraints)
             .setBackoffCriteria(

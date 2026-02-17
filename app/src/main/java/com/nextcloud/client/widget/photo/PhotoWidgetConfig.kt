@@ -19,6 +19,6 @@ data class PhotoWidgetConfig(
 ) {
     companion object {
         const val DEFAULT_INTERVAL_MINUTES = 15L
-        val INTERVAL_OPTIONS = longArrayOf(5L, 15L, 30L, 60L, 0L) // 0 = manual
+        val INTERVAL_OPTIONS = longArrayOf(15L, 30L, 60L, 0L) // 0 = manual
     }
 }

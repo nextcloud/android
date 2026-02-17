@@ -73,8 +73,6 @@ class PhotoWidgetRepository @Inject constructor(
         private const val CACHE_HISTORY_LIMIT = 10
         private const val OFFLINE_BIAS_PERCENT = 80
         private const val OFFLINE_FALLBACK_ATTEMPTS = 3
-        private const val RECENT_FILES_COUNT = 20
-        private const val RANDOM_FILES_COUNT = 10
         private const val MAX_VIDEO_CACHE = 2
         private const val PLAY_ICON_SIZE_RATIO = 0.15f
     }
@@ -104,6 +102,14 @@ class PhotoWidgetRepository @Inject constructor(
             .apply()
     }
 
+    fun setWidgetLastUpdateTimestamp(widgetId: Int, timestamp: Long) {
+        preferences.edit().putLong("${PREF_PREFIX}last_update_$widgetId", timestamp).apply()
+    }
+
+    fun getWidgetLastUpdateTimestamp(widgetId: Int): Long {
+        return preferences.getLong("${PREF_PREFIX}last_update_$widgetId", 0L)
+    }
+
     // --------------- Image retrieval ---------------
 
     /**
@@ -116,7 +122,7 @@ class PhotoWidgetRepository @Inject constructor(
     /**
      * Returns a random image result with bitmap and metadata, or `null` on failure.
      *
-     * Uses a "Smart Mix" strategy combining On This Day, Recent, and Random files.
+     * Picks a truly random photo from ALL available media files (old, recent, any era).
      * Supports both image and video files (videos show as thumbnail + ▶ overlay).
      * Pre-fetches the next candidate for instant loading.
      */
@@ -134,20 +140,8 @@ class PhotoWidgetRepository @Inject constructor(
         // Cache invalidation: if file count changed, clear stale cache
         invalidateCacheIfNeeded(widgetId, allFiles)
 
-        // IMPLEMENTATION OF "SMART MIX" STRATEGY
-        // 1. "On This Day": Photos from today's date in past years
-        val onThisDayFiles = allFiles.filter { isOnThisDay(it.modificationTimestamp) }
-
-        // 2. "Recent": Top 20 newest photos
-        val recentFiles = allFiles.sortedByDescending { it.modificationTimestamp }.take(RECENT_FILES_COUNT)
-
-        // 3. "Random": 10 random files from the rest to add variety
-        val usedIds = (onThisDayFiles + recentFiles).map { it.remoteId }.toSet()
-        val remainingFiles = allFiles.filter { !usedIds.contains(it.remoteId) }
-        val randomFiles = remainingFiles.shuffled().take(RANDOM_FILES_COUNT)
-
-        // Combine all candidates — include both images and videos
-        val candidatePool = (onThisDayFiles + recentFiles + randomFiles).filter { isMediaFile(it) }
+        // Truly random selection from ALL media files
+        val candidatePool = allFiles.filter { isMediaFile(it) }
 
         if (candidatePool.isEmpty()) {
             return null
@@ -351,18 +345,6 @@ class PhotoWidgetRepository @Inject constructor(
     }
 
     // --------------- Smart Mix helpers ---------------
-
-    private fun isOnThisDay(timestamp: Long): Boolean {
-        val calendar = java.util.Calendar.getInstance()
-        val todayMonth = calendar.get(java.util.Calendar.MONTH)
-        val todayDay = calendar.get(java.util.Calendar.DAY_OF_MONTH)
-
-        calendar.timeInMillis = timestamp
-        val fileMonth = calendar.get(java.util.Calendar.MONTH)
-        val fileDay = calendar.get(java.util.Calendar.DAY_OF_MONTH)
-
-        return (todayMonth == fileMonth && todayDay == fileDay)
-    }
 
     private fun manageWidgetCache(widgetId: Int, newFile: OCFile, allFiles: List<OCFile>) {
         val prefKey = "${PREF_PREFIX}history_$widgetId"

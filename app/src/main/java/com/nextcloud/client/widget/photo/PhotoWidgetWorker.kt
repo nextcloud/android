@@ -47,9 +47,31 @@ class PhotoWidgetWorker(
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val componentName = ComponentName(context, PhotoWidgetProvider::class.java)
         val widgetIds = appWidgetManager.getAppWidgetIds(componentName)
+        val isImmediate = tags.contains("immediate_photo_widget")
 
         for (widgetId in widgetIds) {
-            updateWidget(appWidgetManager, widgetId)
+            // Get config for this widget
+            val config = photoWidgetRepository.getWidgetConfig(widgetId) ?: continue
+            
+            // Determine if we should update based on interval
+            val shouldUpdate = if (isImmediate) {
+                true
+            } else {
+                val intervalMinutes = config.intervalMinutes
+                if (intervalMinutes <= 0) {
+                    false // Manual mode, don't auto-update
+                } else {
+                    val lastUpdate = photoWidgetRepository.getWidgetLastUpdateTimestamp(widgetId)
+                    val intervalMillis = intervalMinutes * 60 * 1000
+                    (System.currentTimeMillis() - lastUpdate) >= intervalMillis
+                }
+            }
+
+            if (shouldUpdate) {
+                updateWidget(appWidgetManager, widgetId)
+                // Save timestamp
+                photoWidgetRepository.setWidgetLastUpdateTimestamp(widgetId, System.currentTimeMillis())
+            }
         }
 
         return Result.success()
@@ -90,6 +112,10 @@ class PhotoWidgetWorker(
             remoteViews.setViewVisibility(R.id.photo_widget_empty_state, android.view.View.VISIBLE)
             remoteViews.setViewVisibility(R.id.photo_widget_scrim, android.view.View.GONE)
             remoteViews.setViewVisibility(R.id.photo_widget_text_container, android.view.View.GONE)
+
+            // Apply static tints programmatically (XML android:tint crashes on some RemoteViews)
+            remoteViews.setInt(R.id.photo_widget_empty_icon, "setColorFilter", android.graphics.Color.parseColor("#666680"))
+            remoteViews.setInt(R.id.photo_widget_retry_button, "setColorFilter", android.graphics.Color.parseColor("#AAAACC"))
         }
 
         // Set click on photo to open the specific file in FileDisplayActivity
@@ -117,6 +143,9 @@ class PhotoWidgetWorker(
         remoteViews.setViewVisibility(R.id.photo_widget_loading, android.view.View.GONE)
         remoteViews.setViewVisibility(R.id.photo_widget_next_button, android.view.View.VISIBLE)
         remoteViews.setOnClickPendingIntent(R.id.photo_widget_next_button, nextPendingIntent)
+
+        // Wire retry button in empty state to same refresh action
+        remoteViews.setOnClickPendingIntent(R.id.photo_widget_retry_button, nextPendingIntent)
 
         appWidgetManager.updateAppWidget(widgetId, remoteViews)
     }
