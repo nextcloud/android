@@ -190,8 +190,11 @@ class PlayerControlView @JvmOverloads constructor(
     private fun renderRepeatButton(repeatSingle: Boolean) {
         binding.ivRepeat.iconTint = ContextCompat.getColorStateList(
             binding.root.context,
-            if (repeatSingle) R.color.player_accent_color
-            else R.color.player_default_icon_color
+            if (repeatSingle) {
+                R.color.player_accent_color
+            } else {
+                R.color.player_default_icon_color
+            }
         )
         binding.ivRepeat.tag = if (repeatSingle) TAG_CLICK_COMMAND_DO_NOT_REPEAT else TAG_CLICK_COMMAND_REPEAT
     }
@@ -199,8 +202,11 @@ class PlayerControlView @JvmOverloads constructor(
     private fun renderShuffleButton(shuffle: Boolean) {
         binding.ivRandom.iconTint = ContextCompat.getColorStateList(
             binding.root.context,
-            if (shuffle) R.color.player_accent_color
-            else R.color.player_default_icon_color
+            if (shuffle) {
+                R.color.player_accent_color
+            } else {
+                R.color.player_default_icon_color
+            }
         )
         binding.ivRandom.tag = if (shuffle) TAG_CLICK_COMMAND_DO_NOT_SHUFFLE else TAG_CLICK_COMMAND_SHUFFLE
     }
@@ -208,8 +214,11 @@ class PlayerControlView @JvmOverloads constructor(
     private fun renderPlayPauseButton(isPlaying: Boolean) {
         binding.ivPlayPause.icon = AppCompatResources.getDrawable(
             binding.root.context,
-            if (isPlaying) R.drawable.player_ic_pause
-            else R.drawable.player_ic_play
+            if (isPlaying) {
+                R.drawable.player_ic_pause
+            } else {
+                R.drawable.player_ic_play
+            }
         )
         binding.ivPlayPause.tag = if (isPlaying) TAG_CLICK_COMMAND_PAUSE else TAG_CLICK_COMMAND_PLAY
     }

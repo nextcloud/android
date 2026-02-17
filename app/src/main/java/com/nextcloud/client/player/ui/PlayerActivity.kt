@@ -13,6 +13,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Rect
 import android.media.AudioManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Rational
 import android.view.View
@@ -119,10 +120,9 @@ class PlayerActivity :
         playerView.onStart()
     }
 
-    private fun Intent.getPlaybackFileType(): PlaybackFileType {
-        return getSerializableArgument(PLAYBACK_FILE_TYPE, PlaybackFileType::class.java)
+    private fun Intent.getPlaybackFileType(): PlaybackFileType =
+        getSerializableArgument(PLAYBACK_FILE_TYPE, PlaybackFileType::class.java)
             ?: throw IllegalStateException("Playback file type was not defined")
-    }
 
     override fun onStart() {
         super.onStart()
@@ -175,11 +175,14 @@ class PlayerActivity :
 
     private fun createPictureInPictureParams(): PictureInPictureParams = PictureInPictureParams.Builder().let {
         it.setAspectRatio(pipAspectRatio)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            it.setAutoEnterEnabled(true)
+        }
         getSourceRectHint().let(it::setSourceRectHint)
         it.build()
     }
 
-    private fun getSourceRectHint(): Rect? {
+    private fun getSourceRectHint(): Rect {
         val containerRect = Rect()
         playerView.getGlobalVisibleRect(containerRect)
         val sourceHeightHint = (containerRect.width() / pipAspectRatio.toFloat()).toInt()
