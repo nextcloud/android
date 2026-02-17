@@ -1935,19 +1935,17 @@ class FileDisplayActivity :
     }
 
     fun previewImageWithSearchContext(file: OCFile, searchFragment: Boolean, currentSearchType: SearchType?) {
-        // preview image - it handles the download, if needed
-        if (searchFragment) {
-            val type = when (currentSearchType) {
+        val type = if (searchFragment) {
+            when (currentSearchType) {
                 SearchType.FAVORITE_SEARCH -> VirtualFolderType.FAVORITE
                 SearchType.GALLERY_SEARCH -> VirtualFolderType.GALLERY
                 else -> VirtualFolderType.NONE
             }
+        } else null
 
-            startImagePreview(file, type, file.isDown)
-        } else {
-            startImagePreview(file, file.isDown)
-        }
+        startImagePreview(file, file.isDown, type)
     }
+
 
     fun previewFile(file: OCFile, setFabVisible: CompletionCallback?) {
         if (!file.isDown) {
@@ -2457,43 +2455,33 @@ class FileDisplayActivity :
         }
     }
 
-    fun startImagePreview(file: OCFile, showPreview: Boolean) {
-        val showDetailsIntent = Intent(this, PreviewImageActivity::class.java)
-        showDetailsIntent.putExtra(EXTRA_FILE, file)
-        showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
-        showDetailsIntent.putExtra(
-            EXTRA_USER,
-            user.orElseThrow(Supplier { RuntimeException() })
-        )
-        if (showPreview) {
-            startActivity(showDetailsIntent)
-        } else {
-            val fileOperationsHelper =
-                FileOperationsHelper(this, userAccountManager, connectivityService, editorUtils)
-            fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent)
+    fun startImagePreview(
+        file: OCFile,
+        showPreview: Boolean,
+        type: VirtualFolderType? = null
+    ) {
+        if (user.isEmpty) {
+            Log_OC.e(TAG, "cannot start image preview")
+            return
         }
-    }
 
-    fun startImagePreview(file: OCFile, type: VirtualFolderType?, showPreview: Boolean) {
-        val showDetailsIntent = Intent(this, PreviewImageActivity::class.java)
-        showDetailsIntent.putExtra(EXTRA_FILE, file)
-        showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
-        showDetailsIntent.putExtra(
-            EXTRA_USER,
-            user.orElseThrow(Supplier { RuntimeException() })
-        )
-        showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type)
+        val intent = Intent(this, PreviewImageActivity::class.java).apply {
+            putExtra(EXTRA_FILE, file)
+            putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
+            putExtra(EXTRA_USER, user.get())
+            type?.let { putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, it) }
+        }
 
         if (showPreview) {
-            startActivity(showDetailsIntent)
+            startActivity(intent)
         } else {
-            val fileOperationsHelper = FileOperationsHelper(
+            val helper = FileOperationsHelper(
                 this,
                 userAccountManager,
                 connectivityService,
                 editorUtils
             )
-            fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent)
+            helper.startSyncForFileAndIntent(file, intent)
         }
     }
 
@@ -2757,8 +2745,8 @@ class FileDisplayActivity :
             val virtualType = bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE) as VirtualFolderType?
             startImagePreview(
                 file,
+                true,
                 virtualType,
-                true
             )
         } else {
             startImagePreview(file, true)
