@@ -48,22 +48,6 @@
             tools:text="Jakarta, Indonesia"
             tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/photo_widget_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-medium"
-            android:maxLines="1"
-            android:shadowColor="#CC000000"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="3"
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:text="16 Feb 2026" />
-
     </LinearLayout>
 
     <!-- Next image button at top-right -->
