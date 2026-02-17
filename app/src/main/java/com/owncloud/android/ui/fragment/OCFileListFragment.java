@@ -1267,7 +1267,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             (requestKey, bundle) -> {
                 boolean result = bundle.getBoolean(SetupEncryptionDialogFragment.SUCCESS, false);
                 if (!result) {
-                    Log_OC.w(TAG, "setup encryption dialog result is not successfully");
+                    Log_OC.d(TAG, "setup encryption dialog is dismissed");
+                    return;
                 }
 
                 int position = bundle.getInt(SetupEncryptionDialogFragment.ARG_POSITION, -1);
