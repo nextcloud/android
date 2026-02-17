@@ -19,9 +19,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import java.time.Instant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -41,7 +38,6 @@ class PhotoWidgetWorker(
 
     companion object {
         const val TAG = "PhotoWidgetWorker"
-        private const val DATE_FORMAT = "dd MMM yyyy"
         private const val NEXT_BUTTON_REQUEST_CODE_OFFSET = 10000
     }
 
@@ -75,16 +71,6 @@ class PhotoWidgetWorker(
                 remoteViews.setViewVisibility(R.id.photo_widget_location, android.view.View.VISIBLE)
             } else {
                 remoteViews.setViewVisibility(R.id.photo_widget_location, android.view.View.GONE)
-            }
-
-            // Date line (only if timestamp is valid)
-            val timestamp = imageResult.modificationTimestamp
-            if (timestamp > 0L) {
-                val dateText = formatDate(timestamp)
-                remoteViews.setTextViewText(R.id.photo_widget_date, dateText)
-                remoteViews.setViewVisibility(R.id.photo_widget_date, android.view.View.VISIBLE)
-            } else {
-                remoteViews.setViewVisibility(R.id.photo_widget_date, android.view.View.GONE)
             }
         } else {
             remoteViews.setImageViewResource(R.id.photo_widget_image, R.drawable.ic_image_outline)
@@ -162,12 +148,6 @@ class PhotoWidgetWorker(
             Log_OC.e(TAG, "Location resolution failed", e)
             null
         }
-    }
-
-    private fun formatDate(timestampMillis: Long): String {
-        val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT, Locale.getDefault())
-        val instant = Instant.ofEpochMilli(timestampMillis)
-        return formatter.format(instant.atZone(ZoneId.systemDefault()))
     }
 
     private fun createOpenFolderIntent(config: PhotoWidgetConfig?): Intent {
