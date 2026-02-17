@@ -166,9 +166,7 @@ class PreviewImageActivity :
                 preferences
             )
         } else {
-            val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
             val parentFolder = file?.let { storageManager.getFileById(it.parentId) }
-                ?: chosenFile?.parentId?.let { storageManager.getFileById(it) }
                 ?: storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
 
             previewImagePagerAdapter = PreviewImagePagerAdapter(
