@@ -1097,8 +1097,16 @@ public class UploadFileOperation extends SyncOperation {
                 long size;
                 try {
                     size = channel.size();
-                } catch (IOException e) {
-                    size = Files.size(filePath);
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "failed to determine file size from channel: ", e);
+
+                    try {
+                        size = Files.size(filePath);
+                    } catch (Exception exception) {
+                        Log_OC.e(TAG, "failed to determine file size from nio.File: ", exception);
+                        result = new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
+                        return result;
+                    }
                 }
                 updateSize(size);
 
