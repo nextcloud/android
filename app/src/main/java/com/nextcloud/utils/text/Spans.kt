@@ -24,32 +24,28 @@ class Spans {
             if (!other.canEqual(this as Any)) {
                 return false
             }
-            val `this$id`: Any? = this.id
-            val `other$id`: Any? = other.id
-            if (if (`this$id` == null) `other$id` != null else (`this$id` != `other$id`)) {
+            val thisId: Any? = this.id
+            val otherId: Any? = other.id
+            if (if (thisId == null) otherId != null else (thisId != otherId)) {
                 return false
             }
-            val `this$label`: Any? = this.label
-            val `other$label`: Any? = other.label
+            val thisLabel: Any? = this.label
+            val otherLabel: Any? = other.label
 
-            return if (`this$label` == null) `other$label` == null else (`this$label` == `other$label`)
+            return if (thisLabel == null) otherLabel == null else (thisLabel == otherLabel)
         }
 
-        protected fun canEqual(other: Any?): Boolean {
-            return other is MentionChipSpan
-        }
+        protected fun canEqual(other: Any?): Boolean = other is MentionChipSpan
 
         override fun hashCode(): Int {
-            val PRIME = 59
+            val prime = 59
             var result = 1
-            val `$id`: Any? = this.id
-            result = result * PRIME + (if (`$id` == null) 43 else `$id`.hashCode())
-            val `$label`: Any? = this.label
-            return result * PRIME + (if (`$label` == null) 43 else `$label`.hashCode())
+            val thisId: Any? = this.id
+            result = result * prime + (if (thisId == null) 43 else thisId.hashCode())
+            val label: Any? = this.label
+            return result * prime + (if (label == null) 43 else label.hashCode())
         }
 
-        override fun toString(): String {
-            return "Spans.MentionChipSpan(id=" + this.id + ", label=" + this.label + ")"
-        }
+        override fun toString(): String = "Spans.MentionChipSpan(id=" + this.id + ", label=" + this.label + ")"
     }
 }
