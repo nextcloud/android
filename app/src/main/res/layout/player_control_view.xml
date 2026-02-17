@@ -8,6 +8,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/transparent"
     android:orientation="vertical">
 
@@ -50,30 +51,35 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/ivRepeat"
+            android:contentDescription="@string/player_control_view_repeat_button_content_description"
             style="@style/PlayerButtonStyle"
-            android:src="@drawable/player_ic_repeat" />
+            app:icon="@drawable/player_ic_repeat" />
 
-        <ImageView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/ivPrevious"
+            android:contentDescription="@string/player_control_view_previous_button_content_description"
             style="@style/PlayerButtonStyle"
-            android:src="@drawable/player_ic_skip_previous" />
+            app:icon="@drawable/player_ic_skip_previous" />
 
-        <ImageView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/ivPlayPause"
+            android:contentDescription="@string/player_control_view_play_pause_button_content_description"
             style="@style/PlayerButtonStyle"
-            android:src="@drawable/player_ic_play" />
+            app:icon="@drawable/player_ic_play" />
 
-        <ImageView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/ivNext"
+            android:contentDescription="@string/player_control_view_next_button_content_description"
             style="@style/PlayerButtonStyle"
-            android:src="@drawable/player_ic_skip_next" />
+            app:icon="@drawable/player_ic_skip_next" />
 
-        <ImageView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/ivRandom"
+            android:contentDescription="@string/player_control_view_random_button_content_description"
             style="@style/PlayerButtonStyle"
-            android:src="@drawable/player_ic_shuffle" />
+            app:icon="@drawable/player_ic_shuffle" />
 
     </LinearLayout>
 
