@@ -99,6 +99,7 @@ open class BetterImageSpan @JvmOverloads constructor(
 
     private fun getOffsetAboveBaseline(fm: Paint.FontMetricsInt): Int = when (mAlignment) {
         ALIGN_BOTTOM -> fm.descent - mHeight
+
         ALIGN_CENTER -> {
             val textHeight = fm.descent - fm.ascent
             val offset = (textHeight - mHeight) / 2
@@ -106,6 +107,7 @@ open class BetterImageSpan @JvmOverloads constructor(
         }
 
         ALIGN_BASELINE -> -mHeight
+
         else -> -mHeight
     }
 
