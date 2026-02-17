@@ -531,6 +531,10 @@ class SetupEncryptionDialogFragment :
         const val SETUP_ENCRYPTION_RESULT_CODE = 101
         const val SETUP_ENCRYPTION_DIALOG_TAG = "SETUP_ENCRYPTION_DIALOG_TAG"
         const val ARG_POSITION = "ARG_POSITION"
+
+        // TODO: ADD file path
+        const val ARG_FILE = "ARG_FILE"
+
         const val RESULT_REQUEST_KEY = "RESULT_REQUEST"
         const val RESULT_KEY_CANCELLED = "IS_CANCELLED"
         private const val NUMBER_OF_WORDS = 12
