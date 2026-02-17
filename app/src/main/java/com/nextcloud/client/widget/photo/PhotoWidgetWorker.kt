@@ -47,7 +47,7 @@ class PhotoWidgetWorker(
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val componentName = ComponentName(context, PhotoWidgetProvider::class.java)
         val widgetIds = appWidgetManager.getAppWidgetIds(componentName)
-        val isImmediate = tags.contains("immediate_photo_widget")
+        val isImmediate = tags.any { it.contains("immediate_photo_widget") }
 
         for (widgetId in widgetIds) {
             // Get config for this widget
