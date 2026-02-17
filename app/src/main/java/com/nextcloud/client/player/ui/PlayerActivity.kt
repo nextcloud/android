@@ -87,10 +87,14 @@ class PlayerActivity :
             .onEach { handleEvent(it) }
             .launchIn(lifecycleScope)
 
-        if (isPictureInPictureAllowed()) {
+        onBackPressedCallback = onBackPressedDispatcher.addCallback(this) {
             val isVideoPlayback = playbackFileType == PlaybackFileType.VIDEO
-            onBackPressedCallback = onBackPressedDispatcher.addCallback(this, enabled = isVideoPlayback) {
+
+            if (isPictureInPictureAllowed() && isVideoPlayback) {
                 switchToPictureInPictureMode()
+            } else {
+                file = file?.parentId?.let { storageManager.getFileById(it) }
+                finish()
             }
         }
 
