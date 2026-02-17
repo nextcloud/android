@@ -13,6 +13,7 @@ import android.content.Context
 import android.content.Intent
 import android.location.Geocoder
 import android.widget.RemoteViews
+import androidx.palette.graphics.Palette
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
@@ -39,6 +40,7 @@ class PhotoWidgetWorker(
     companion object {
         const val TAG = "PhotoWidgetWorker"
         private const val NEXT_BUTTON_REQUEST_CODE_OFFSET = 10000
+        private const val BRIGHTNESS_THRESHOLD = 128
     }
 
     override suspend fun doWork(): Result {
@@ -59,9 +61,13 @@ class PhotoWidgetWorker(
 
         val imageResult = photoWidgetRepository.getRandomImageResult(widgetId)
         if (imageResult != null) {
+            // Show photo, hide empty state
+            remoteViews.setViewVisibility(R.id.photo_widget_image, android.view.View.VISIBLE)
+            remoteViews.setViewVisibility(R.id.photo_widget_empty_state, android.view.View.GONE)
             remoteViews.setImageViewBitmap(R.id.photo_widget_image, imageResult.bitmap)
 
-            // Show the text container
+            // Show gradient scrim and text container
+            remoteViews.setViewVisibility(R.id.photo_widget_scrim, android.view.View.VISIBLE)
             remoteViews.setViewVisibility(R.id.photo_widget_text_container, android.view.View.VISIBLE)
 
             // Location line (only if geolocation is available)
@@ -71,15 +77,24 @@ class PhotoWidgetWorker(
                 remoteViews.setViewVisibility(R.id.photo_widget_location, android.view.View.VISIBLE)
             } else {
                 remoteViews.setViewVisibility(R.id.photo_widget_location, android.view.View.GONE)
+                // Hide scrim and text container if there's no text to show
+                remoteViews.setViewVisibility(R.id.photo_widget_scrim, android.view.View.GONE)
+                remoteViews.setViewVisibility(R.id.photo_widget_text_container, android.view.View.GONE)
             }
+
+            // Adaptive button tint: light icon on dark images, dark icon on light images
+            applyAdaptiveButtonTint(remoteViews, imageResult)
         } else {
-            remoteViews.setImageViewResource(R.id.photo_widget_image, R.drawable.ic_image_outline)
+            // Show empty state, hide photo
+            remoteViews.setViewVisibility(R.id.photo_widget_image, android.view.View.GONE)
+            remoteViews.setViewVisibility(R.id.photo_widget_empty_state, android.view.View.VISIBLE)
+            remoteViews.setViewVisibility(R.id.photo_widget_scrim, android.view.View.GONE)
             remoteViews.setViewVisibility(R.id.photo_widget_text_container, android.view.View.GONE)
         }
 
-        // Set click on photo to open the folder in FileDisplayActivity
+        // Set click on photo to open the specific file in FileDisplayActivity
         val config = photoWidgetRepository.getWidgetConfig(widgetId)
-        val clickIntent = createOpenFolderIntent(config)
+        val clickIntent = createOpenFileIntent(config, imageResult)
         val openPendingIntent = PendingIntent.getActivity(
             context,
             widgetId,
@@ -104,6 +119,56 @@ class PhotoWidgetWorker(
         remoteViews.setOnClickPendingIntent(R.id.photo_widget_next_button, nextPendingIntent)
 
         appWidgetManager.updateAppWidget(widgetId, remoteViews)
+    }
+
+    /**
+     * Applies adaptive tint to the refresh button based on image brightness.
+     * Uses [Palette] to detect the dominant color in the top-right corner
+     * (where the button sits) and sets the button tint accordingly.
+     */
+    @Suppress("MagicNumber")
+    private fun applyAdaptiveButtonTint(remoteViews: RemoteViews, imageResult: PhotoWidgetImageResult) {
+        try {
+            val bitmap = imageResult.bitmap
+            // Sample the top-right quadrant where the button lives
+            val sampleWidth = bitmap.width / 4
+            val sampleHeight = bitmap.height / 4
+            if (sampleWidth <= 0 || sampleHeight <= 0) return
+
+            val cornerBitmap = android.graphics.Bitmap.createBitmap(
+                bitmap,
+                bitmap.width - sampleWidth,
+                0,
+                sampleWidth,
+                sampleHeight
+            )
+
+            val palette = Palette.from(cornerBitmap).generate()
+            val dominantSwatch = palette.dominantSwatch
+
+            if (dominantSwatch != null) {
+                val r = android.graphics.Color.red(dominantSwatch.rgb)
+                val g = android.graphics.Color.green(dominantSwatch.rgb)
+                val b = android.graphics.Color.blue(dominantSwatch.rgb)
+                // Perceived brightness formula
+                val brightness = (r * 0.299 + g * 0.587 + b * 0.114).toInt()
+
+                val tintColor = if (brightness > BRIGHTNESS_THRESHOLD) {
+                    // Light background → dark button
+                    android.graphics.Color.parseColor("#CC333333")
+                } else {
+                    // Dark background → light button
+                    android.graphics.Color.WHITE
+                }
+                remoteViews.setInt(R.id.photo_widget_next_button, "setColorFilter", tintColor)
+            }
+
+            if (cornerBitmap != bitmap) {
+                cornerBitmap.recycle()
+            }
+        } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
+            Log_OC.d(TAG, "Could not apply adaptive tint: ${e.message}")
+        }
     }
 
     /**
@@ -150,12 +215,23 @@ class PhotoWidgetWorker(
         }
     }
 
-    private fun createOpenFolderIntent(config: PhotoWidgetConfig?): Intent {
+    /**
+     * Creates an intent to open the specific file in FileDisplayActivity.
+     * Falls back to opening the folder if file info is not available.
+     */
+    private fun createOpenFileIntent(config: PhotoWidgetConfig?, imageResult: PhotoWidgetImageResult?): Intent {
         val intent = Intent(context, FileDisplayActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
         if (config != null) {
             intent.putExtra("folderPath", config.folderPath)
             intent.putExtra("accountName", config.accountName)
+        }
+        // If we have the file ID, pass it so the activity opens the specific file
+        if (imageResult?.fileId != null) {
+            intent.putExtra("fileId", imageResult.fileId)
+        }
+        if (imageResult?.fileRemotePath != null) {
+            intent.putExtra("filePath", imageResult.fileRemotePath)
         }
         return intent
     }

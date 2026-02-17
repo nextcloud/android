@@ -8,17 +8,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/photo_widget_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipChildren="true">
 
+    <!-- Main photo image -->
     <ImageView
         android:id="@+id/photo_widget_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/photo_widget_content_description"
         android:scaleType="centerCrop"
-        tools:src="@drawable/ic_image_outline" />
+        android:visibility="gone"
+        tools:src="@drawable/ic_image_outline"
+        tools:visibility="visible" />
 
-    <!-- Text overlay: location + date at bottom-left -->
+    <!-- Empty state: shown when no photo is loaded -->
+    <LinearLayout
+        android:id="@+id/photo_widget_empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#1E1E2E"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="visible"
+        tools:visibility="gone">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/photo_widget_content_description"
+            android:src="@drawable/ic_image_outline"
+            android:tint="#666680" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/photo_widget_empty_state"
+            android:textColor="#9999AA"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <!-- Gradient scrim for text readability -->
+    <View
+        android:id="@+id/photo_widget_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_widget_gradient_scrim"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <!-- Text overlay: location at bottom-left -->
     <LinearLayout
         android:id="@+id/photo_widget_text_container"
         android:layout_width="wrap_content"
@@ -36,14 +82,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="sans-serif"
+            android:fontFamily="sans-serif-medium"
             android:maxLines="1"
-            android:shadowColor="#CC000000"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="3"
             android:textColor="@android:color/white"
-            android:textSize="11sp"
+            android:textSize="12sp"
             android:visibility="gone"
             tools:text="Jakarta, Indonesia"
             tools:visibility="visible" />
@@ -58,12 +100,12 @@
         android:layout_gravity="top|end"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_widget_button_circle"
         android:contentDescription="@string/photo_widget_next_image"
         android:padding="8dp"
         android:scaleType="fitCenter"
-        android:background="@drawable/bg_widget_button_circle"
-        android:tint="@android:color/white"
-        android:src="@drawable/ic_action_refresh" />
+        android:src="@drawable/ic_action_refresh"
+        android:tint="@android:color/white" />
 
     <!-- Loading indicator -->
     <ProgressBar

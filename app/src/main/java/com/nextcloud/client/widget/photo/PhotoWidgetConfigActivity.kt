@@ -13,7 +13,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FolderPickerActivity
@@ -21,7 +20,8 @@ import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 /**
- * Configuration activity launched when the user places a Photo Widget.
+ * Configuration activity launched when the user places a Photo Widget
+ * or reconfigures an existing one (Android 12+).
  *
  * Opens [FolderPickerActivity] for folder selection, then shows an interval
  * picker dialog, saves the config, and triggers an immediate widget update.
@@ -34,10 +34,7 @@ class PhotoWidgetConfigActivity : Activity() {
     }
 
     @Inject
-    lateinit var photoWidgetRepository: PhotoWidgetRepository
-
-    @Inject
-    lateinit var backgroundJobManager: BackgroundJobManager
+    lateinit var viewModel: PhotoWidgetConfigViewModel
 
     @Inject
     lateinit var userAccountManager: UserAccountManager
@@ -62,6 +59,8 @@ class PhotoWidgetConfigActivity : Activity() {
             return
         }
 
+        viewModel.setWidgetId(appWidgetId)
+
         // Launch FolderPickerActivity for folder selection
         val folderPickerIntent = Intent(this, FolderPickerActivity::class.java).apply {
             putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION)
@@ -83,6 +82,7 @@ class PhotoWidgetConfigActivity : Activity() {
             }
 
             if (folder != null) {
+                viewModel.setSelectedFolder(folder)
                 showIntervalPicker(folder)
             } else {
                 finish()
@@ -109,6 +109,15 @@ class PhotoWidgetConfigActivity : Activity() {
         // Default selection: 15 minutes (index 1)
         var selectedIndex = 1
 
+        // If reconfiguring, use existing interval as default
+        val existingConfig = viewModel.getExistingConfig()
+        if (existingConfig != null) {
+            val existingIndex = values.indexOf(existingConfig.intervalMinutes)
+            if (existingIndex >= 0) {
+                selectedIndex = existingIndex
+            }
+        }
+
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.photo_widget_interval_title))
             .setSingleChoiceItems(labels, selectedIndex) { _, which ->
@@ -131,20 +140,8 @@ class PhotoWidgetConfigActivity : Activity() {
         val folderPath = folder.remotePath
         val accountName = userAccountManager.user.accountName
 
-        // Save configuration (including interval)
-        val config = PhotoWidgetConfig(appWidgetId, folderPath, accountName, intervalMinutes)
-        photoWidgetRepository.saveWidgetConfig(config)
-
-        // Schedule periodic updates (or cancel if manual).
-        //
-        // NOTE: The periodic photo widget update is scheduled globally and shared
-        // by all photo widgets. Calling this method updates the single shared
-        // schedule, so the interval chosen here (for the most recently configured
-        // widget) will apply to every photo widget ("last configured wins").
-        backgroundJobManager.schedulePeriodicPhotoWidgetUpdate(intervalMinutes)
-
-        // Trigger immediate widget update
-        backgroundJobManager.startImmediatePhotoWidgetUpdate()
+        // Delegate all business logic to ViewModel
+        viewModel.saveConfiguration(folderPath, accountName, intervalMinutes)
 
         // Return success
         val resultValue = Intent().apply {

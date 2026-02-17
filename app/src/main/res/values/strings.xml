@@ -1367,6 +1367,7 @@
     <string name="photo_widget_interval_30">Every 30 minutes</string>
     <string name="photo_widget_interval_60">Every 60 minutes</string>
     <string name="photo_widget_interval_manual">Manual only</string>
+    <string name="photo_widget_empty_state">Tap refresh to load photos</string>
     <string name="icon_for_empty_list">Icon for empty list</string>
     <string name="no_items">No items</string>
     <string name="check_back_later_or_reload">Check back later or reload.</string>

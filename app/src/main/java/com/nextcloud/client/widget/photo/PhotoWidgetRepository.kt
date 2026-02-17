@@ -9,6 +9,10 @@ package com.nextcloud.client.widget.photo
 import android.content.ContentResolver
 import android.content.SharedPreferences
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Path
+import android.media.MediaMetadataRetriever
 import com.nextcloud.client.account.UserAccountManager
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -18,6 +22,8 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.BitmapUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.GetMethod
 import java.io.InputStream
@@ -30,7 +36,10 @@ data class PhotoWidgetImageResult(
     val bitmap: Bitmap,
     val latitude: Double?,
     val longitude: Double?,
-    val modificationTimestamp: Long
+    val modificationTimestamp: Long,
+    val isVideo: Boolean = false,
+    val fileRemotePath: String? = null,
+    val fileId: Long? = null
 )
 
 /**
@@ -40,6 +49,8 @@ data class PhotoWidgetImageResult(
  * - Save / delete / retrieve per-widget config in SharedPreferences
  * - Query FileDataStorageManager for image files in the selected folder
  * - Pick a random image and return a cached thumbnail Bitmap
+ * - Pre-fetch the next candidate for instant loading
+ * - Extract video thumbnails with play icon overlay
  */
 @Suppress("MagicNumber", "TooManyFunctions")
 class PhotoWidgetRepository @Inject constructor(
@@ -54,10 +65,18 @@ class PhotoWidgetRepository @Inject constructor(
         private const val PREF_FOLDER_PATH = "${PREF_PREFIX}folder_path_"
         private const val PREF_ACCOUNT_NAME = "${PREF_PREFIX}account_name_"
         private const val PREF_INTERVAL_MINUTES = "${PREF_PREFIX}interval_minutes_"
-        private const val MAX_BITMAP_DIMENSION = 800 // Increased from 512 for better quality
-        private const val SERVER_REQUEST_DIMENSION = 2048 // Request high-res preview from server
+        private const val PREF_FILE_COUNT = "${PREF_PREFIX}file_count_"
+        private const val MAX_BITMAP_DIMENSION = 800
+        private const val SERVER_REQUEST_DIMENSION = 2048
         private const val READ_TIMEOUT = 40000
         private const val CONNECTION_TIMEOUT = 5000
+        private const val CACHE_HISTORY_LIMIT = 10
+        private const val OFFLINE_BIAS_PERCENT = 80
+        private const val OFFLINE_FALLBACK_ATTEMPTS = 3
+        private const val RECENT_FILES_COUNT = 20
+        private const val RANDOM_FILES_COUNT = 10
+        private const val MAX_VIDEO_CACHE = 2
+        private const val PLAY_ICON_SIZE_RATIO = 0.15f
     }
 
     fun getWidgetConfig(widgetId: Int): PhotoWidgetConfig? {
@@ -80,6 +99,8 @@ class PhotoWidgetRepository @Inject constructor(
             .remove(PREF_FOLDER_PATH + widgetId)
             .remove(PREF_ACCOUNT_NAME + widgetId)
             .remove(PREF_INTERVAL_MINUTES + widgetId)
+            .remove(PREF_FILE_COUNT + widgetId)
+            .remove("${PREF_PREFIX}history_$widgetId")
             .apply()
     }
 
@@ -95,9 +116,9 @@ class PhotoWidgetRepository @Inject constructor(
     /**
      * Returns a random image result with bitmap and metadata, or `null` on failure.
      *
-     * Shuffles all image files and tries each one until a thumbnail loads successfully.
-     * This ensures the widget falls back to cached/local images when the network
-     * connection is poor, rather than showing a placeholder.
+     * Uses a "Smart Mix" strategy combining On This Day, Recent, and Random files.
+     * Supports both image and video files (videos show as thumbnail + ▶ overlay).
+     * Pre-fetches the next candidate for instant loading.
      */
     @Suppress("LongMethod", "CyclomaticComplexMethod", "ReturnCount")
     fun getRandomImageResult(widgetId: Int): PhotoWidgetImageResult? {
@@ -110,20 +131,23 @@ class PhotoWidgetRepository @Inject constructor(
         val folder = storageManager.getFileByDecryptedRemotePath(folderPath) ?: return null
         val allFiles = storageManager.getAllFilesRecursivelyInsideFolder(folder)
 
+        // Cache invalidation: if file count changed, clear stale cache
+        invalidateCacheIfNeeded(widgetId, allFiles)
+
         // IMPLEMENTATION OF "SMART MIX" STRATEGY
         // 1. "On This Day": Photos from today's date in past years
         val onThisDayFiles = allFiles.filter { isOnThisDay(it.modificationTimestamp) }
 
         // 2. "Recent": Top 20 newest photos
-        val recentFiles = allFiles.sortedByDescending { it.modificationTimestamp }.take(20)
+        val recentFiles = allFiles.sortedByDescending { it.modificationTimestamp }.take(RECENT_FILES_COUNT)
 
         // 3. "Random": 10 random files from the rest to add variety
         val usedIds = (onThisDayFiles + recentFiles).map { it.remoteId }.toSet()
         val remainingFiles = allFiles.filter { !usedIds.contains(it.remoteId) }
-        val randomFiles = remainingFiles.shuffled().take(10)
+        val randomFiles = remainingFiles.shuffled().take(RANDOM_FILES_COUNT)
 
-        // Combine all candidates
-        val candidatePool = (onThisDayFiles + recentFiles + randomFiles).filter { isImageFile(it) }
+        // Combine all candidates — include both images and videos
+        val candidatePool = (onThisDayFiles + recentFiles + randomFiles).filter { isMediaFile(it) }
 
         if (candidatePool.isEmpty()) {
             return null
@@ -134,9 +158,8 @@ class PhotoWidgetRepository @Inject constructor(
             file.isDown || ThumbnailsCacheManager.containsBitmap(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId)
         }
 
-        // 80% chance to pick from offline files if available, otherwise fallback to online
-        // This keeps the "randomness" but strongly biases towards instant loading
-        var candidateFile = if (offlineFiles.isNotEmpty() && (percentage(80) || onlineFiles.isEmpty())) {
+        // 80% chance to pick from offline files if available
+        var candidateFile = if (offlineFiles.isNotEmpty() && (percentage(OFFLINE_BIAS_PERCENT) || onlineFiles.isEmpty())) {
             offlineFiles.random()
         } else if (onlineFiles.isNotEmpty()) {
             onlineFiles.random()
@@ -144,14 +167,17 @@ class PhotoWidgetRepository @Inject constructor(
             candidatePool.random()
         }
 
-        var bitmap = getThumbnailForFile(candidateFile, accountName)
+        val isVideo = isVideoFile(candidateFile)
+        var bitmap = if (isVideo) {
+            getVideoThumbnail(candidateFile)
+        } else {
+            getThumbnailForFile(candidateFile, accountName)
+        }
 
-        // FAILSAFE: If the selected candidate failed (e.g. download error or missing file),
-        // and we have offline files available, try one of them instead of showing nothing.
+        // FAILSAFE: If the selected candidate failed, try offline fallback
         if (bitmap == null && offlineFiles.isNotEmpty()) {
-            Log_OC.d(TAG, "Failed to load candidate image (isDown=${candidateFile.isDown}), trying fallback from ${offlineFiles.size} offline files")
-            // Try up to 3 random offline files to find a working one
-            for (i in 0 until 3) {
+            Log_OC.d(TAG, "Failed to load candidate, trying fallback from ${offlineFiles.size} offline files")
+            for (i in 0 until OFFLINE_FALLBACK_ATTEMPTS) {
                 val fallback = offlineFiles.random()
                 bitmap = getThumbnailForFile(fallback, accountName)
                 if (bitmap != null) {
@@ -166,17 +192,168 @@ class PhotoWidgetRepository @Inject constructor(
             return null
         }
 
+        // Add play icon overlay for video files
+        if (isVideo) {
+            bitmap = addPlayIconOverlay(bitmap)
+        }
+
         // Update cache history and cleanup old entries
         manageWidgetCache(widgetId, candidateFile, allFiles)
+
+        // Pre-fetch next candidate in background
+        prefetchNextCandidate(candidatePool, candidateFile, accountName)
 
         val geo = candidateFile.geoLocation
         return PhotoWidgetImageResult(
             bitmap = bitmap,
             latitude = geo?.latitude,
             longitude = geo?.longitude,
-            modificationTimestamp = candidateFile.modificationTimestamp
+            modificationTimestamp = candidateFile.modificationTimestamp,
+            isVideo = isVideo,
+            fileRemotePath = candidateFile.remotePath,
+            fileId = candidateFile.localId
         )
     }
+
+    // --------------- Cache invalidation ---------------
+
+    private fun invalidateCacheIfNeeded(widgetId: Int, allFiles: List<OCFile>) {
+        val prefKey = PREF_FILE_COUNT + widgetId
+        val lastKnownCount = preferences.getInt(prefKey, -1)
+        val currentCount = allFiles.size
+
+        if (lastKnownCount != -1 && lastKnownCount != currentCount) {
+            Log_OC.d(TAG, "File count changed ($lastKnownCount → $currentCount), clearing stale cache")
+            val historyKey = "${PREF_PREFIX}history_$widgetId"
+            val historyString = preferences.getString(historyKey, "") ?: ""
+            val history = if (historyString.isNotEmpty()) historyString.split(",") else emptyList()
+
+            // Remove cached entries for files that no longer exist
+            val existingIds = allFiles.map { it.remoteId }.toSet()
+            val staleIds = history.filter { !existingIds.contains(it) }
+            for (staleId in staleIds) {
+                ThumbnailsCacheManager.removeBitmapFromDiskCache("r$staleId")
+                ThumbnailsCacheManager.removeBitmapFromDiskCache("t$staleId")
+                Log_OC.d(TAG, "Evicted stale cache entry: $staleId")
+            }
+
+            // Update history to remove stale entries
+            val cleanedHistory = history.filter { existingIds.contains(it) }
+            preferences.edit().putString(historyKey, cleanedHistory.joinToString(",")).apply()
+        }
+
+        // Save current file count
+        preferences.edit().putInt(prefKey, currentCount).apply()
+    }
+
+    // --------------- Pre-fetching ---------------
+
+    private fun prefetchNextCandidate(candidates: List<OCFile>, current: OCFile, accountName: String) {
+        val nextCandidates = candidates.filter { it.remoteId != current.remoteId }
+        if (nextCandidates.isEmpty()) return
+
+        val next = nextCandidates.random()
+        // Only pre-fetch if not already cached
+        val imageKey = "r" + next.remoteId
+        val thumbnailKey = "t" + next.remoteId
+        if (ThumbnailsCacheManager.getBitmapFromDiskCache(imageKey) != null ||
+            ThumbnailsCacheManager.getBitmapFromDiskCache(thumbnailKey) != null) {
+            return
+        }
+
+        Log_OC.d(TAG, "Pre-fetching next candidate: ${next.fileName}")
+        if (isVideoFile(next)) {
+            getVideoThumbnail(next)
+        } else {
+            getThumbnailForFile(next, accountName)
+        }
+    }
+
+    // --------------- Video thumbnail support ---------------
+
+    /**
+     * Extracts a video frame thumbnail using [MediaMetadataRetriever].
+     * Only works for downloaded video files. Max 2 video thumbnails are cached.
+     */
+    @Suppress("TooGenericExceptionCaught")
+    private fun getVideoThumbnail(file: OCFile): Bitmap? {
+        if (!file.isDown) {
+            Log_OC.d(TAG, "Video not downloaded, cannot extract thumbnail: ${file.fileName}")
+            return null
+        }
+
+        // Check video cache count
+        val videoCacheKey = "video_${file.remoteId}"
+        val cached = ThumbnailsCacheManager.getBitmapFromDiskCache(videoCacheKey)
+        if (cached != null) return scaleBitmap(cached)
+
+        try {
+            val retriever = MediaMetadataRetriever()
+            retriever.setDataSource(file.storagePath)
+            val frame = retriever.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC)
+            retriever.release()
+
+            if (frame != null) {
+                // Enforce max 2 video thumbnails in cache
+                enforceVideoThumbnailLimit()
+                ThumbnailsCacheManager.addBitmapToCache(videoCacheKey, frame)
+                return scaleBitmap(frame)
+            }
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Error extracting video thumbnail: ${file.fileName}", e)
+        }
+        return null
+    }
+
+    private fun enforceVideoThumbnailLimit() {
+        val videoHistoryKey = "${PREF_PREFIX}video_cache_ids"
+        val historyString = preferences.getString(videoHistoryKey, "") ?: ""
+        val history = if (historyString.isNotEmpty()) historyString.split(",").toMutableList() else mutableListOf()
+
+        while (history.size >= MAX_VIDEO_CACHE) {
+            val oldId = history.removeAt(0)
+            ThumbnailsCacheManager.removeBitmapFromDiskCache("video_$oldId")
+            Log_OC.d(TAG, "Evicted video thumbnail: $oldId")
+        }
+
+        preferences.edit().putString(videoHistoryKey, history.joinToString(",")).apply()
+    }
+
+    /**
+     * Draws a semi-transparent play icon (▶) onto the center of the bitmap.
+     */
+    private fun addPlayIconOverlay(source: Bitmap): Bitmap {
+        val result = source.copy(Bitmap.Config.ARGB_8888, true)
+        val canvas = Canvas(result)
+        val centerX = result.width / 2f
+        val centerY = result.height / 2f
+        val iconSize = result.width * PLAY_ICON_SIZE_RATIO
+
+        // Semi-transparent circle background
+        val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = android.graphics.Color.argb(180, 0, 0, 0)
+            style = Paint.Style.FILL
+        }
+        canvas.drawCircle(centerX, centerY, iconSize, bgPaint)
+
+        // White triangle play icon
+        val trianglePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = android.graphics.Color.WHITE
+            style = Paint.Style.FILL
+        }
+        val triangleSize = iconSize * 0.6f
+        val path = Path().apply {
+            moveTo(centerX - triangleSize * 0.4f, centerY - triangleSize * 0.6f)
+            lineTo(centerX - triangleSize * 0.4f, centerY + triangleSize * 0.6f)
+            lineTo(centerX + triangleSize * 0.6f, centerY)
+            close()
+        }
+        canvas.drawPath(path, trianglePaint)
+
+        return result
+    }
+
+    // --------------- Smart Mix helpers ---------------
 
     private fun isOnThisDay(timestamp: Long): Boolean {
         val calendar = java.util.Calendar.getInstance()
@@ -206,20 +383,18 @@ class PhotoWidgetRepository @Inject constructor(
         }
         history.add(newId)
 
-        // Enforce limit of 10
-        while (history.size > 10) {
+        // Enforce limit
+        while (history.size > CACHE_HISTORY_LIMIT) {
             val oldId = history.removeAt(0)
-            // Find the file to remove it from cache
             val fileToRemove = allFiles.find { it.remoteId == oldId }
             if (fileToRemove != null) {
                 Log_OC.d(TAG, "Evicting old widget image from cache: ${fileToRemove.fileName}")
                 ThumbnailsCacheManager.removeFromCache(fileToRemove)
             } else {
-                 Log_OC.d(TAG, "Could not find file object for eviction: $oldId")
+                Log_OC.d(TAG, "Could not find file object for eviction: $oldId")
             }
         }
 
-        // Save updated history
         preferences.edit().putString(prefKey, history.joinToString(",")).apply()
     }
 
@@ -227,10 +402,17 @@ class PhotoWidgetRepository @Inject constructor(
         return (Math.random() * 100).toInt() < chance
     }
 
-    private fun isImageFile(file: OCFile): Boolean {
+    private fun isMediaFile(file: OCFile): Boolean {
         val mimeType = file.mimeType ?: return false
-        return mimeType.startsWith("image/")
+        return mimeType.startsWith("image/") || mimeType.startsWith("video/")
     }
+
+    private fun isVideoFile(file: OCFile): Boolean {
+        val mimeType = file.mimeType ?: return false
+        return mimeType.startsWith("video/")
+    }
+
+    // --------------- Thumbnail retrieval ---------------
 
     /**
      * Attempts to retrieve a cached thumbnail, or downloads it if missing.
@@ -249,11 +431,9 @@ class PhotoWidgetRepository @Inject constructor(
 
         // 3. If missing, generate from local file
         if (file.isDown) {
-            // Generate high-quality local thumbnail
             bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.storagePath, SERVER_REQUEST_DIMENSION, SERVER_REQUEST_DIMENSION)
             if (bitmap != null) {
-                // Cache as "resized" for future high-quality use
-                val keyToCache = imageKey // Cache as 'r' (resized)
+                val keyToCache = imageKey
                 ThumbnailsCacheManager.addBitmapToCache(keyToCache, bitmap)
                 return scaleBitmap(bitmap)
             }
@@ -269,7 +449,6 @@ class PhotoWidgetRepository @Inject constructor(
         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
             .getClientFor(user.toOwnCloudAccount(), MainApp.getAppContext())
 
-        // Request high-res preview (2048px)
         val dimension = SERVER_REQUEST_DIMENSION
         val uri = client.baseUri.toString() + "/index.php/core/preview?fileId=" +
             file.localId + "&x=" + dimension + "&y=" + dimension + "&a=1&mode=cover&forceIcon=0"

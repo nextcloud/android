@@ -69,6 +69,7 @@ orchestratorVersion = "1.6.1"
 orgJbundleUtilOsgiWrappedOrgApacheHttpClientVersion = "4.1.2"
 osmdroidAndroidVersion = "6.1.20"
 photoviewVersion = "2.3.0"
+paletteVersion = "1.0.0"
 playServicesBaseVersion = "18.10.0"
 prismVersion = "2.0.0"
 qrcodescannerVersion = "0.1.2.4"
@@ -239,6 +240,7 @@ qrcodescanner = { module = "com.github.nextcloud-deps:qrcodescanner", version.re
 # Worker
 work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntime" }
+palette = { module = "androidx.palette:palette", version.ref = "paletteVersion" }
 foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundationVersion" }
 
 [bundles]

@@ -841,6 +841,11 @@ internal class BackgroundJobManagerImpl(
             intervalMins = intervalMinutes
         )
             .setConstraints(constraints)
+            .setBackoffCriteria(
+                androidx.work.BackoffPolicy.EXPONENTIAL,
+                30L,
+                java.util.concurrent.TimeUnit.SECONDS
+            )
             .build()
 
         workManager.enqueueUniquePeriodicWork(

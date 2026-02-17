@@ -377,6 +377,10 @@ dependencies {
     implementation(libs.work.runtime.ktx)
     // endregion
 
+    // region Photo Widget
+    implementation(libs.palette)
+    // endregion
+
     // region Lifecycle
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.service)
