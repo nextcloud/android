@@ -668,17 +668,17 @@
     <string name="offline_mode_info_description">U izvanmrežnom načinu rada dostupne su samo datoteke spremljene za izvanmrežnu upotrebu. Promjene će se sinkronizirati kada se ponovno povežete.</string>
     <string name="offline_mode_info_title">Izvanmrežni način rada</string>
     <string name="offline_operations_file_does_not_exists_yet">Datoteka još ne postoji</string>
-    <string name="offline_operations_worker_notification_create_file_conflict_text">Sukob pri stvaranju datoteke</string>
-    <string name="offline_operations_worker_notification_create_folder_conflict_text">Sukob pri stvaranju mape</string>
-    <string name="offline_operations_worker_notification_error_text">Pogreška pri izvanmrežnim operacijama</string>
-    <string name="offline_operations_worker_notification_manager_ticker">Izvanmrežne operacije…</string>
-    <string name="offline_operations_worker_notification_remove_conflict_text">Sukob pri uklanjanju</string>
-    <string name="offline_operations_worker_notification_rename_conflict_text">Sukob pri preimenovanju</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Sukob pri stvaranju datoteke %s. Na poslužitelju već postoji datoteka istog naziva.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Sukob pri stvaranju mape %s. Na poslužitelju postoji mapa s istim imenom.</string>
+    <string name="offline_operations_worker_notification_error_text">Pogreška pri izvanmrežnim operacijama. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Izvanmrežne operacije</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Sukob pri uklanjanju %s. Datoteka je izmijenjena na poslužitelju.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Sukob pri preimenovanju %s. Na poslužitelju postoji datoteka s istim imenom.</string>
     <string name="offline_operations_worker_notification_start_text">Obrada izvanmrežnih promjena</string>
     <string name="oneHour">1 sat</string>
     <string name="online">Na mreži</string>
     <string name="online_status">Status na mreži</string>
-    <string name="open_in_app">Otvori u aplikaciji</string>
+    <string name="open_in_app">Otvori u %1$s</string>
     <string name="outdated_server">Poslužitelj je na kraju radnog vijeka, nadogradite ga!</string>
     <string name="overflow_menu">Više izbornika</string>
     <string name="pass_code_configure_your_pass_code">Unesite zaporku</string>
@@ -957,7 +957,8 @@
     <string name="storage_permission_dont_ask">Ne pitaj ponovno</string>
     <string name="storage_permission_media_read_only">Medijske datoteke samo za čitanje</string>
     <string name="storage_pictures">Slike</string>
-    <string name="store_full_desc">Nextcloud za Android: sigurna suradnja, razmjena datoteka i sinkronizacija s vašim poslužiteljem.</string>
+    <string name="store_full_desc">Samostalno hostirana platforma za produktivnost koja vam omogućuje kontrolu. n\nZnačajke:\n* Jednostavno, moderno sučelje prilagođeno temi vašeg poslužitelja\n* Učitavanje datoteka na vaš Nextcloud poslužitelj\n* Dijeljenje s drugima\n* Sinkronizacija omiljenih datoteka i mapa\n* Pretraživanje svih mapa na vašem poslužitelju\n* Automatsko učitavanje fotografija i videozapisa snimljenih vašim uređajem\n* Ostanite u tijeku uz obavijesti\n* Podrška za više računa\n* Sigurn pristup vašim podacima pomoću otiska prsta ili PIN-a\n* Integracija s DAVx⁵ (ranije poznatim kao DAVdroid) za jednostavno postavljanje sinkronizacije kalendara i kontakata\n\nMolimo prijavite sve probleme na https://github.com/nextcloud/android/issues i raspravljajte o ovoj aplikaciji na https://help.nextcloud.com/c/clients/android\n\nNovi ste na Nextcloudu? Nextcloud je privatni poslužitelj za sinkronizaciju i dijeljenje datoteka te komunikaciju. To je slobodni softver i možete ga sami hostati ili platiti tvrtki da to učini za vas. Na taj način imate kontrolu nad svojim fotografijama, podacima kalendara i kontakata, dokumentima i svime ostalim.\n\nPogledajte Nextcloud na https://nextcloud.com
+</string>
     <string name="store_full_dev_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu.\nTo je službena razvojna inačica koja se isporučuje s dnevnim uzorkom svake nove neispitane funkcionalnosti, što može uzrokovati nestabilnost i gubitak podataka. Aplikacija je namijenjena korisnicima koji žele testirati i prijaviti pogreške, ako se iste pojave. Nemojte je upotrebljavati za važne radne zadatke!\n\nSlužbena razvojna i uobičajena inačica dostupne su putem F-droida i mogu biti istovremeno instalirane.</string>
     <string name="store_short_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu</string>
     <string name="store_short_dev_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu (razvojna inačica za pretpregled)</string>
@@ -1020,7 +1021,7 @@
     <string name="translation_screen_label_from">S</string>
     <string name="translation_screen_label_to">Na</string>
     <string name="translation_screen_start_to_translate_task">Započni prijevod</string>
-    <string name="translation_screen_task_processing">Obrada zadatka…</string>
+    <string name="translation_screen_task_processing">Prijevod traje duže nego što se očekivalo.</string>
     <string name="translation_screen_translating">Prevođenje…</string>
     <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Nema izbrisanih datoteka</string>
@@ -1091,7 +1092,7 @@
     <string name="upload_missing_storage_permission_description">Za prijenos je potrebno dopustiti pristup datotekama na uređaju.</string>
     <string name="upload_missing_storage_permission_title">Nedostaje dopuštenje za pohranu</string>
     <string name="upload_notification_manager_content_intent_description">Otvori status prijenosa</string>
-    <string name="upload_notification_manager_start_text">Prijenos datoteka…</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Šifriranje je moguće samo na inačici &gt;= Androida 5.0</string>
     <string name="upload_query_move_foreign_files">Nedostatak prostora sprječava kopiranje odabranih datoteka u mapu %1$s. Želite li ih premjestiti tamo?</string>
     <string name="upload_quota_exceeded">Kvote je premašena</string>
@@ -1174,7 +1175,7 @@
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo u %1$s</string>
     <string name="whats_your_status">Koji je vaš status?</string>
-    <string name="widgets_not_available">Widgeti nisu dostupni</string>
+    <string name="widgets_not_available">Widgeti su dostupni samo u verziji %1$s 25 ili novijoj kada je aplikacija Dashboard omogućena</string>
     <string name="widgets_not_available_title">Nije dostupno</string>
     <string name="worker_download">Preuzimanje datoteka...</string>
     <string name="write_email">Pošalji poruku e-pošte</string>
