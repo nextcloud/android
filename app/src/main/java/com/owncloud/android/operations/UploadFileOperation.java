@@ -43,7 +43,6 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.network.ProgressiveDataTransfer;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -415,6 +414,7 @@ public class UploadFileOperation extends SyncOperation {
     @Override
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     protected RemoteOperationResult run(OwnCloudClient client) {
+        Log_OC.d(TAG, "------- Upload File Operation Started -------");
         if (TextUtils.isEmpty(getStoragePath())) {
             Log_OC.e(TAG, "Upload cancelled for " + getStoragePath() + ": file path is null or empty.");
             return new RemoteOperationResult<>(new UploadFileException.EmptyOrNullFilePath());
@@ -437,26 +437,51 @@ public class UploadFileOperation extends SyncOperation {
         mUploadStarted.set(true);
 
         updateSize(0);
+        Log_OC.d(TAG, "file size set to 0KB before upload");
 
         String remoteParentPath = new File(getRemotePath()).getParent();
-        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ? remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
-        remoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities());
+        if (remoteParentPath == null) {
+            Log_OC.e(TAG, "remoteParentPath is null: " + getRemotePath());
+            return new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
+        }
+        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR)
+            ? remoteParentPath
+            : remoteParentPath + OCFile.PATH_SEPARATOR;
+
+        final String renamedRemoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities());
+        if (!remoteParentPath.equals(renamedRemoteParentPath)) {
+            Log_OC.w(TAG, "remoteParentPath was renamed: " + remoteParentPath + " → " + renamedRemoteParentPath);
+        }
+        remoteParentPath = renamedRemoteParentPath;
 
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
+        Log_OC.d(TAG, "parent lookup for path: " + remoteParentPath + " → " +
+            (parent == null ? "not found in DB" : "found, id=" + parent.getFileId()));
 
         // in case of a fresh upload with subfolder, where parent does not exist yet
         if (parent == null && (mFolderUnlockToken == null || mFolderUnlockToken.isEmpty())) {
-            // try to create folder
+            Log_OC.d(TAG, "parent not in DB and no unlock token, attempting to grant folder existence: "
+                + remoteParentPath);
             final var result = grantFolderExistence(remoteParentPath, client);
 
             if (!result.isSuccess()) {
+                Log_OC.e(TAG, "grantFolderExistence failed for: " + remoteParentPath + ", code: " +
+                    result.getCode() + ", message: " + result.getMessage());
                 return result;
             }
 
             parent = getStorageManager().getFileByPath(remoteParentPath);
+            if (parent == null) {
+                Log_OC.e(TAG, "parent still null after grantFolderExistence: " + remoteParentPath);
+                return new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
+            }
+
+            Log_OC.d(TAG, "parent created and retrieved successfully: " + remoteParentPath + ", id=" +
+                parent.getFileId());
         }
 
         if (parent == null) {
+            Log_OC.e(TAG, "parent is null, cannot proceed: " + remoteParentPath + "," + " unlock token: " + mFolderUnlockToken);
             return new RemoteOperationResult<>(false, "Parent folder not found", HttpStatus.SC_NOT_FOUND);
         }
 
@@ -468,10 +493,10 @@ public class UploadFileOperation extends SyncOperation {
         mFile.setEncrypted(encryptedAncestor);
 
         if (encryptedAncestor) {
-            Log_OC.d(TAG, "encrypted upload");
+            Log_OC.d(TAG, "⬆️🔗" + "encrypted upload");
             return encryptedUpload(client, parent);
         } else {
-            Log_OC.d(TAG, "normal upload");
+            Log_OC.d(TAG, "⬆️" + "normal upload");
             return normalUpload(client);
         }
     }
@@ -1016,13 +1041,16 @@ public class UploadFileOperation extends SyncOperation {
         File expectedFile = null;
 
         try {
+            Log_OC.d(TAG, "checking conditions");
             result = checkConditions(originalFile);
             if (result != null) {
                 return result;
             }
 
+            Log_OC.d(TAG, "checking name collision");
             final var collisionResult = checkNameCollision(null, client, null, false);
             if (collisionResult != null) {
+                Log_OC.e(TAG, "name collision detected");
                 result = collisionResult;
                 return collisionResult;
             }
@@ -1032,6 +1060,7 @@ public class UploadFileOperation extends SyncOperation {
 
             result = copyFile(originalFile, expectedPath);
             if (!result.isSuccess()) {
+                Log_OC.e(TAG, "file copying failed");
                 return result;
             }
 
@@ -1075,10 +1104,19 @@ public class UploadFileOperation extends SyncOperation {
                 long size;
                 try {
                     size = channel.size();
-                } catch (IOException e) {
-                    size = Files.size(filePath);
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "failed to determine file size from channel: ", e);
+
+                    try {
+                        size = Files.size(filePath);
+                    } catch (Exception exception) {
+                        Log_OC.e(TAG, "failed to determine file size from nio.File: ", exception);
+                        result = new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
+                        return result;
+                    }
                 }
                 updateSize(size);
+                Log_OC.d(TAG, "file size set to " + size);
 
                 // decide whether chunked or not
                 if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
@@ -1094,6 +1132,8 @@ public class UploadFileOperation extends SyncOperation {
                         mDisableRetries);
                 }
 
+                Log_OC.d(TAG, "upload operation determined");
+
                 /**
                  * Adds the onTransferProgress in FileUploadWorker
                  * {@link FileUploadWorker#onTransferProgress(long, long, long, String)()}
@@ -1103,17 +1143,20 @@ public class UploadFileOperation extends SyncOperation {
                 }
 
                 if (mCancellationRequested.get()) {
+                    Log_OC.e(TAG, "upload operation cancelled");
                     throw new OperationCancelledException();
                 }
 
                 // execute
                 if (result.isSuccess() && mUploadOperation != null) {
+                    Log_OC.d(TAG, "upload operation completed");
                     result = mUploadOperation.execute(client);
                 }
 
                 // move local temporal file or original file to its corresponding
                 // location in the Nextcloud local folder
                 if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
+                    Log_OC.e(TAG, "upload operation failed with SC_PRECONDITION_FAILED");
                     result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
                 }
 
@@ -1169,7 +1212,7 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private void logResult(RemoteOperationResult result, String sourcePath, String targetPath) {
+    private void logResult(RemoteOperationResult<?> result, String sourcePath, String targetPath) {
         if (result.isSuccess()) {
             Log_OC.i(TAG, "Upload of " + sourcePath + " to " + targetPath + ": " + result.getLogMessage());
         } else {
@@ -1202,7 +1245,7 @@ public class UploadFileOperation extends SyncOperation {
             throw new OperationCancelledException();
         }
 
-        return new RemoteOperationResult(ResultCode.OK);
+        return new RemoteOperationResult<>(ResultCode.OK);
     }
 
     @CheckResult
@@ -1366,9 +1409,9 @@ public class UploadFileOperation extends SyncOperation {
      * @param pathToGrant Full remote path whose existence will be granted.
      * @return An {@link OCFile} instance corresponding to the folder where the file will be uploaded.
      */
-    private RemoteOperationResult grantFolderExistence(String pathToGrant, OwnCloudClient client) {
-        RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
-        RemoteOperationResult result = operation.execute(client);
+    private RemoteOperationResult<?> grantFolderExistence(String pathToGrant, OwnCloudClient client) {
+        var operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
+        var result = operation.execute(client);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {
             SyncOperation syncOp = new CreateFolderOperation(pathToGrant, user, getContext(), getStorageManager());
             result = syncOp.execute(client);
@@ -1379,9 +1422,9 @@ public class UploadFileOperation extends SyncOperation {
                 parentDir = createLocalFolder(pathToGrant);
             }
             if (parentDir != null) {
-                result = new RemoteOperationResult(ResultCode.OK);
+                result = new RemoteOperationResult<>(ResultCode.OK);
             } else {
-                result = new RemoteOperationResult(ResultCode.CANNOT_CREATE_FILE);
+                result = new RemoteOperationResult<>(ResultCode.CANNOT_CREATE_FILE);
             }
         }
         return result;
