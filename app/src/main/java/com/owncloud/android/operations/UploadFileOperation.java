@@ -435,6 +435,9 @@ public class UploadFileOperation extends SyncOperation {
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
 
+        updateSize(0);
+        Log_OC.d(TAG, "file size set to 0KB before upload");
+
         String remoteParentPath = new File(getRemotePath()).getParent();
         if (remoteParentPath == null) {
             Log_OC.e(TAG, "remoteParentPath is null: " + getRemotePath());
@@ -489,10 +492,10 @@ public class UploadFileOperation extends SyncOperation {
         mFile.setEncrypted(encryptedAncestor);
 
         if (encryptedAncestor) {
-            Log_OC.d(TAG, "encrypted upload");
+            Log_OC.d(TAG, "⬆️🔗" + "encrypted upload");
             return encryptedUpload(client, parent);
         } else {
-            Log_OC.d(TAG, "normal upload");
+            Log_OC.d(TAG, "⬆️" + "normal upload");
             return normalUpload(client);
         }
     }
@@ -1037,13 +1040,16 @@ public class UploadFileOperation extends SyncOperation {
         File expectedFile = null;
 
         try {
+            Log_OC.d(TAG, "checking conditions");
             result = checkConditions(originalFile);
             if (result != null) {
                 return result;
             }
 
+            Log_OC.d(TAG, "checking name collision");
             final var collisionResult = checkNameCollision(null, client, null, false);
             if (collisionResult != null) {
+                Log_OC.e(TAG, "name collision detected");
                 result = collisionResult;
                 return collisionResult;
             }
@@ -1053,6 +1059,7 @@ public class UploadFileOperation extends SyncOperation {
 
             result = copyFile(originalFile, expectedPath);
             if (!result.isSuccess()) {
+                Log_OC.e(TAG, "file copying failed");
                 return result;
             }
 
@@ -1108,6 +1115,7 @@ public class UploadFileOperation extends SyncOperation {
                     }
                 }
                 updateSize(size);
+                Log_OC.d(TAG, "file size set to " + size);
 
                 // decide whether chunked or not
                 if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
@@ -1123,6 +1131,8 @@ public class UploadFileOperation extends SyncOperation {
                         mDisableRetries);
                 }
 
+                Log_OC.d(TAG, "upload operation determined");
+
                 /**
                  * Adds the onTransferProgress in FileUploadWorker
                  * {@link FileUploadWorker#onTransferProgress(long, long, long, String)()}
@@ -1132,17 +1142,20 @@ public class UploadFileOperation extends SyncOperation {
                 }
 
                 if (mCancellationRequested.get()) {
+                    Log_OC.e(TAG, "upload operation cancelled");
                     throw new OperationCancelledException();
                 }
 
                 // execute
                 if (result.isSuccess() && mUploadOperation != null) {
+                    Log_OC.d(TAG, "upload operation completed");
                     result = mUploadOperation.execute(client);
                 }
 
                 // move local temporal file or original file to its corresponding
                 // location in the Nextcloud local folder
                 if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
+                    Log_OC.e(TAG, "upload operation failed with SC_PRECONDITION_FAILED");
                     result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
                 }
 
@@ -1198,7 +1211,7 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private void logResult(RemoteOperationResult result, String sourcePath, String targetPath) {
+    private void logResult(RemoteOperationResult<?> result, String sourcePath, String targetPath) {
         if (result.isSuccess()) {
             Log_OC.i(TAG, "Upload of " + sourcePath + " to " + targetPath + ": " + result.getLogMessage());
         } else {
@@ -1231,7 +1244,7 @@ public class UploadFileOperation extends SyncOperation {
             throw new OperationCancelledException();
         }
 
-        return new RemoteOperationResult(ResultCode.OK);
+        return new RemoteOperationResult<>(ResultCode.OK);
     }
 
     @CheckResult
