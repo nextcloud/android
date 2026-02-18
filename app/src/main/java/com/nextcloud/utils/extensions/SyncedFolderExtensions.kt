@@ -105,8 +105,6 @@ fun SyncedFolder.calculateScanInterval(
 /**
  * Builds a structured debug string of the SyncedFolder configuration.
  *
- * Important developer notes:
- *
  * uploadAction:
  *     Represents the UI option:
  *     👉 "Original file will be..."
