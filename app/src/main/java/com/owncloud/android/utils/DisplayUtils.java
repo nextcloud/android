@@ -64,6 +64,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
+import com.owncloud.android.utils.overlay.OverlayManager;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.BufferedReader;
@@ -111,12 +112,10 @@ public final class DisplayUtils {
 
     private static final String[] sizeSuffixes = {"B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
     private static final int[] sizeScales = {0, 0, 1, 1, 1, 2, 2, 2, 2};
-    private static final String MIME_TYPE_UNKNOWN = "Unknown type";
 
     private static final String HTTP_PROTOCOL = "http://";
     private static final String HTTPS_PROTOCOL = "https://";
     private static final String TWITTER_HANDLE_PREFIX = "@";
-    private static final int MIMETYPE_PARTS_COUNT = 2;
     private static final int BYTE_SIZE_DIVIDER = 1024;
     private static final double BYTE_SIZE_DIVIDER_DOUBLE = 1024.0;
     private static final int DATE_TIME_PARTS_SIZE = 2;
@@ -124,7 +123,6 @@ public final class DisplayUtils {
     public static final String MONTH_YEAR_PATTERN = "MMMM yyyy";
     public static final String MONTH_PATTERN = "MMMM";
     public static final String YEAR_PATTERN = "yyyy";
-    public static final int SVG_SIZE = 512;
 
     private static Map<String, String> mimeType2HumanReadable;
 
@@ -172,24 +170,6 @@ public final class DisplayUtils {
             return new BigDecimal(String.valueOf(result)).setScale(
                 sizeScales[suffixIndex], RoundingMode.HALF_UP) + " " + sizeSuffixes[suffixIndex];
         }
-    }
-
-    /**
-     * Converts MIME types like "image/jpg" to more end user friendly output
-     * like "JPG image".
-     *
-     * @param mimetype MIME type to convert
-     * @return A human friendly version of the MIME type, {@link #MIME_TYPE_UNKNOWN} if it can't be converted
-     */
-    public static String convertMIMEtoPrettyPrint(String mimetype) {
-        final String humanReadableMime = mimeType2HumanReadable.get(mimetype);
-        if (humanReadableMime != null) {
-            return humanReadableMime;
-        }
-        if (mimetype.split("/").length >= MIMETYPE_PARTS_COUNT) {
-            return mimetype.split("/")[1].toUpperCase(Locale.getDefault()) + " file";
-        }
-        return MIME_TYPE_UNKNOWN;
     }
 
     /**
@@ -354,21 +334,6 @@ public final class DisplayUtils {
             // dateString contains unexpected format. fallback: use relative date time string from android api as is.
             return dateString.toString();
         }
-    }
-
-    /**
-     * Update the passed path removing the last "/" if it is not the root folder.
-     *
-     * @param path the path to be trimmed
-     */
-    public static String getPathWithoutLastSlash(String path) {
-
-        // Remove last slash from path
-        if (path.length() > 1 && path.charAt(path.length() - 1) == OCFile.PATH_SEPARATOR.charAt(0)) {
-            return path.substring(0, path.length() - 1);
-        }
-
-        return path;
     }
 
     /**
@@ -843,7 +808,8 @@ public final class DisplayUtils {
                                     LoaderImageView shimmerThumbnail,
                                     AppPreferences preferences,
                                     ViewThemeUtils viewThemeUtils,
-                                    SyncedFolderProvider syncedFolderProvider) {
+                                    SyncedFolderProvider syncedFolderProvider,
+                                    OverlayManager overlayManager) {
         if (file == null || thumbnailView == null || context == null) {
             return;
         }
@@ -854,7 +820,7 @@ public final class DisplayUtils {
         }
 
         if (file.isFolder()) {
-            setThumbnailForFolder(file, thumbnailView, shimmerThumbnail, user, syncedFolderProvider, preferences, context, viewThemeUtils);
+            overlayManager.setFolderThumbnail(file, thumbnailView, shimmerThumbnail);
             return;
         }
 
@@ -897,17 +863,6 @@ public final class DisplayUtils {
             final var thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY, 100);
             thumbnailView.setImageBitmap(thumbnail);
         }
-    }
-
-    private static void setThumbnailForFolder(OCFile file, ImageView thumbnailView, LoaderImageView shimmerThumbnail, User user, SyncedFolderProvider syncedFolderProvider, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
-        stopShimmer(shimmerThumbnail, thumbnailView);
-
-        boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-        boolean isDarkModeActive = preferences.isDarkModeEnabled();
-
-        final var overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
-        final var fileIcon = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
-        thumbnailView.setImageDrawable(fileIcon);
     }
 
     private static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
