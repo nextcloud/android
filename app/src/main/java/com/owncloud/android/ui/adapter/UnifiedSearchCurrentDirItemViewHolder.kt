@@ -20,6 +20,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
@@ -32,7 +33,8 @@ class UnifiedSearchCurrentDirItemViewHolder(
     private val user: User,
     private val appPreferences: AppPreferences,
     private val syncedFolderProvider: SyncedFolderProvider,
-    private val action: UnifiedSearchCurrentDirItemAction
+    private val action: UnifiedSearchCurrentDirItemAction,
+    private val overlayManager: OverlayManager
 ) : SectionedViewHolder(binding.unifiedSearchCurrentDirItemLayout) {
 
     fun bind(file: OCFile) {
@@ -61,7 +63,8 @@ class UnifiedSearchCurrentDirItemViewHolder(
             binding.thumbnailShimmer,
             appPreferences,
             viewThemeUtils,
-            syncedFolderProvider
+            syncedFolderProvider,
+            overlayManager
         )
 
         binding.more.setOnClickListener {

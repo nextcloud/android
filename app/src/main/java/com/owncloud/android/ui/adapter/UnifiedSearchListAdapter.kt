@@ -17,7 +17,6 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.databinding.UnifiedSearchEmptyBinding
@@ -32,12 +31,13 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 /**
  * This Adapter populates a SectionedRecyclerView with search results by unified search
  */
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "LongMethod")
 class UnifiedSearchListAdapter(
     private val supportsOpeningCalendarContactsLocally: Boolean,
     private val storageManager: FileDataStorageManager,
@@ -48,8 +48,8 @@ class UnifiedSearchListAdapter(
     private val viewThemeUtils: ViewThemeUtils,
     private val appPreferences: AppPreferences,
     private val syncedFolderProvider: SyncedFolderProvider,
-    private val nextcloudClient: NextcloudClient,
-    private val currentDirItemAction: UnifiedSearchCurrentDirItemAction
+    private val currentDirItemAction: UnifiedSearchCurrentDirItemAction,
+    private val overlayManager: OverlayManager
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         private const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
@@ -93,8 +93,9 @@ class UnifiedSearchListAdapter(
                     listInterface,
                     filesAction,
                     context,
-                    nextcloudClient,
-                    viewThemeUtils
+                    viewThemeUtils,
+                    user,
+                    overlayManager
                 )
             }
 
@@ -110,7 +111,8 @@ class UnifiedSearchListAdapter(
                     user,
                     appPreferences,
                     syncedFolderProvider,
-                    currentDirItemAction
+                    currentDirItemAction,
+                    overlayManager
                 )
             }
 

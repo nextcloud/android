@@ -35,6 +35,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -56,6 +57,9 @@ class TrashbinFileActionsBottomSheet :
 
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
+
+    @Inject
+    lateinit var overlayManager: OverlayManager
 
     private lateinit var viewModel: TrashbinFileActionsViewModel
 
@@ -129,7 +133,8 @@ class TrashbinFileActionsBottomSheet :
                 binding.thumbnailLayout.thumbnailShimmer,
                 syncedFolderProvider.preferences,
                 viewThemeUtils,
-                syncedFolderProvider
+                syncedFolderProvider,
+                overlayManager
             )
         }
     }

@@ -37,6 +37,7 @@ import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -177,7 +178,12 @@ class OCFileListDelegate(
         }
     }
 
-    fun setThumbnail(thumbnail: ImageView, shimmerThumbnail: LoaderImageView?, file: OCFile) {
+    fun setThumbnail(
+        thumbnail: ImageView,
+        shimmerThumbnail: LoaderImageView?,
+        file: OCFile,
+        overlayManager: OverlayManager
+    ) {
         DisplayUtils.setThumbnail(
             file,
             thumbnail,
@@ -189,16 +195,23 @@ class OCFileListDelegate(
             shimmerThumbnail,
             preferences,
             viewThemeUtils,
-            syncFolderProvider
+            syncFolderProvider,
+            overlayManager
         )
     }
 
     @Suppress("MagicNumber")
-    fun bindViewHolder(viewHolder: ListViewHolder, file: OCFile, currentDirectory: OCFile?, searchType: SearchType?) {
+    fun bindViewHolder(
+        viewHolder: ListViewHolder,
+        file: OCFile,
+        currentDirectory: OCFile?,
+        searchType: SearchType?,
+        overlayManager: OverlayManager
+    ) {
         // thumbnail
         viewHolder.imageFileName?.text = file.fileName
         viewHolder.thumbnail.tag = file.fileId
-        setThumbnail(viewHolder.thumbnail, viewHolder.shimmerThumbnail, file)
+        setThumbnail(viewHolder.thumbnail, viewHolder.shimmerThumbnail, file, overlayManager)
 
         // item layout + click listeners
         bindGridItemLayout(file, viewHolder)

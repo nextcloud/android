@@ -11,6 +11,7 @@ import android.content.Context
 import android.view.View
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.User
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.model.SearchResultEntryType
 import com.nextcloud.utils.CalendarEventManager
@@ -19,8 +20,10 @@ import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.extensions.getType
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
+import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
@@ -31,12 +34,14 @@ class UnifiedSearchItemViewHolder(
     private val listInterface: UnifiedSearchListInterface,
     private val filesAction: FilesAction,
     val context: Context,
-    private val nextcloudClient: NextcloudClient,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val user: User,
+    private val overlayManager: OverlayManager
 ) : SectionedViewHolder(binding.root) {
 
     interface FilesAction {
         fun showFilesAction(searchResultEntry: SearchResultEntry)
+        fun loadFileThumbnail(searchResultEntry: SearchResultEntry, onClientReady: (NextcloudClient) -> Unit)
     }
 
     private val contactManager = ContactManager(context)
@@ -52,16 +57,27 @@ class UnifiedSearchItemViewHolder(
             binding.localFileIndicator.visibility = View.GONE
         }
 
-        val entryType = entry.getType()
         viewThemeUtils.platform.colorImageView(binding.thumbnail, ColorRole.PRIMARY)
-        GlideHelper.loadIntoImageView(
-            context,
-            nextcloudClient,
-            entry.thumbnailUrl,
-            binding.thumbnail,
-            entryType.iconId(),
-            circleCrop = entry.rounded
-        )
+
+        val remotePath = entry.remotePath() + OCFile.PATH_SEPARATOR
+        val file = storageManager.getFileByDecryptedRemotePath(remotePath)
+        val entryType = entry.getType()
+
+        if (file?.isFolder == true) {
+            // FIXME: icon is not visible
+            overlayManager.setFolderThumbnail(file, binding.thumbnail, binding.thumbnailShimmer)
+        } else {
+            filesAction.loadFileThumbnail(entry, onClientReady = {
+                GlideHelper.loadIntoImageView(
+                    context,
+                    it,
+                    entry.thumbnailUrl,
+                    binding.thumbnail,
+                    entryType.iconId(),
+                    circleCrop = entry.rounded
+                )
+            })
+        }
 
         if (entry.isFile) {
             binding.more.visibility = View.VISIBLE

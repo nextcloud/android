@@ -33,6 +33,7 @@ import com.owncloud.android.ui.dialog.parcel.ConflictDialogData
 import com.owncloud.android.ui.dialog.parcel.ConflictFileData
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
@@ -62,6 +63,9 @@ class ConflictsResolveDialog :
 
     @Inject
     lateinit var fileDataStorageManager: FileDataStorageManager
+
+    @Inject
+    lateinit var overlayManager: OverlayManager
 
     enum class Decision {
         CANCEL,
@@ -232,7 +236,8 @@ class ConflictsResolveDialog :
             null,
             syncedFolderProvider.preferences,
             viewThemeUtils,
-            syncedFolderProvider
+            syncedFolderProvider,
+            overlayManager
         )
     }
 
