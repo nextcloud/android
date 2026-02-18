@@ -17,6 +17,7 @@ import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
 import java.lang.IllegalArgumentException
 
@@ -71,6 +72,7 @@ fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload? {
     val upload = try {
         OCUpload(localPath, remotePath, accountName)
     } catch (_: IllegalArgumentException) {
+        Log_OC.e("UploadEntity", "OCUpload conversion failed")
         return null
     }
 
@@ -92,9 +94,21 @@ fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload? {
 
 fun OCUpload.toUploadEntity(): UploadEntity {
     val id = if (uploadId == -1L) {
+        Log_OC.d(
+            "UploadEntity",
+            "UploadEntity: No existing ID provided (uploadId = -1). " +
+                "Will insert as NEW record and let Room auto-generate the primary key."
+        )
+
         // needed for the insert new records to the db so that insert DAO function returns new generated id
         null
     } else {
+        Log_OC.d(
+            "UploadEntity",
+            "UploadEntity: Using existing ID ($uploadId). " +
+                "This will update/replace the existing database record."
+        )
+
         uploadId
     }
 
