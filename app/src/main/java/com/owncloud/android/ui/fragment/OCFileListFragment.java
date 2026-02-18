@@ -1271,22 +1271,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     return;
                 }
 
-                int position = bundle.getInt(SetupEncryptionDialogFragment.ARG_POSITION, -1);
-                if (position == -1) {
-                    Log_OC.e(TAG, "invalid position received");
+                String fileRemotePath = bundle.getString(SetupEncryptionDialogFragment.ARG_FILE_PATH, null);
+                if (fileRemotePath == null) {
+                    Log_OC.e(TAG, "file path is null");
                     return;
                 }
 
-                OCFile file = mAdapter.getItem(position);
-                if (file == null) {
-                    Log_OC.w(TAG, "file is null, checking via remote path");
-                }
-
-                if (file == null) {
-                    String fileRemotePath = bundle.getString(SetupEncryptionDialogFragment.ARG_FILE_PATH, null);
-                    file = mContainerActivity.getStorageManager().getFileByDecryptedRemotePath(fileRemotePath);
-                }
-
+                OCFile file = mContainerActivity.getStorageManager().getFileByDecryptedRemotePath(fileRemotePath);
                 if (file == null) {
                     Log_OC.e(TAG,"file is null, cannot toggle encryption");
                     return;
@@ -1297,6 +1288,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 searchFragment = false;
                 listDirectory(file, MainApp.isOnlyOnDevice());
                 mContainerActivity.onBrowsedDownTo(file);
+
+                int position = mAdapter.getItemPosition(file);
                 saveIndexAndTopPosition(position);
             });
     }
@@ -1944,15 +1937,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (publicKey.isEmpty() || privateKey.isEmpty()) {
                 Log_OC.d(TAG, "no public key for " + user.getAccountName());
 
-                int position;
-                if (file != null) {
-                    position = mAdapter.getItemPosition(file);
-                } else {
-                    position = -1;
-                }
 
                 requireActivity().runOnUiThread(() -> {
-                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
+                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, file.getRemotePath());
                     dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
                 });
             } else {
