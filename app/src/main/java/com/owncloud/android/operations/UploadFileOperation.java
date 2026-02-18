@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.text.format.Formatter;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.BatteryStatus;
@@ -1055,6 +1056,7 @@ public class UploadFileOperation extends SyncOperation {
                 if (!result.isSuccess()) return result;
 
                 if (temporalFile.length() != originalFile.length()) {
+                    Log_OC.e(TAG, "temporal file and original file lengths are not same - result is LOCK_FAILED");
                     result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
                 }
                 filePath = temporalFile.toPath();
@@ -1078,16 +1080,22 @@ public class UploadFileOperation extends SyncOperation {
                 } catch (IOException e) {
                     size = Files.size(filePath);
                 }
+
+                final var formattedFileSize = Formatter.formatFileSize(mContext, size);
                 updateSize(size);
 
                 // decide whether chunked or not
                 if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
+                    Log_OC.d(TAG, "chunked upload operation will be used");
+
                     boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
                     mUploadOperation = new ChunkedFileUploadRemoteOperation(
                         mFile.getStoragePath(), mFile.getRemotePath(), mFile.getMimeType(),
                         mFile.getEtagInConflict(), lastModifiedTimestamp, creationTimestamp,
                         onWifiConnection, mDisableRetries);
                 } else {
+                    Log_OC.d(TAG, "upload file operation will be used");
+
                     mUploadOperation = new UploadFileRemoteOperation(
                         mFile.getStoragePath(), mFile.getRemotePath(), mFile.getMimeType(),
                         mFile.getEtagInConflict(), lastModifiedTimestamp, creationTimestamp,
@@ -1123,12 +1131,14 @@ public class UploadFileOperation extends SyncOperation {
                 }
             }
         } catch (FileNotFoundException e) {
-            Log_OC.e(TAG, mOriginalStoragePath + " not exists anymore");
+            Log_OC.e(TAG, "normalupload(): file not found exception");
             result = new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
         } catch (Exception e) {
-            Log_OC.e(TAG, "normal upload exception: ", e);
+            Log_OC.e(TAG, "normalupload(): exception: ", e);
             result = new RemoteOperationResult<>(e);
         } finally {
+            Log_OC.d(TAG, "normalupload(): finally block");
+
             mUploadStarted.set(false);
 
             // clean up temporal file if it exists
@@ -1145,6 +1155,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             if (result == null) {
+                Log_OC.e(TAG, "result is null, UNKNOWN_ERROR");
                 result = new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
             }
 
@@ -1157,6 +1168,8 @@ public class UploadFileOperation extends SyncOperation {
         } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
+
+        Log_OC.d(TAG, "returning normalupload() result");
 
         return result;
     }
@@ -1294,6 +1307,7 @@ public class UploadFileOperation extends SyncOperation {
 
         switch (mLocalBehaviour) {
             case FileUploadWorker.LOCAL_BEHAVIOUR_DELETE:
+                Log_OC.d(TAG, "DELETE local behaviour will be handled");
                 try {
                     Files.delete(originalFile.toPath());
                 } catch (IOException e) {
@@ -1305,6 +1319,7 @@ public class UploadFileOperation extends SyncOperation {
                 break;
 
             case FileUploadWorker.LOCAL_BEHAVIOUR_COPY:
+                Log_OC.d(TAG, "COPY local behaviour will be handled");
                 if (temporalFile != null) {
                     try {
                         move(temporalFile, expectedFile);
@@ -1329,6 +1344,7 @@ public class UploadFileOperation extends SyncOperation {
                 break;
 
             case FileUploadWorker.LOCAL_BEHAVIOUR_MOVE:
+                Log_OC.d(TAG, "MOVE local behaviour will be handled");
                 String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
                 File newFile = new File(expectedPath);
 
@@ -1346,6 +1362,7 @@ public class UploadFileOperation extends SyncOperation {
                 break;
 
             default:
+                Log_OC.d(TAG, "DEFAULT local behaviour will be handled");
                 mFile.setStoragePath("");
                 saveUploadedFile(client);
                 break;
