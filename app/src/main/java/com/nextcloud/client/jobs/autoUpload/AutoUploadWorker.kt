@@ -23,6 +23,7 @@ import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.extensions.getLog
 import com.nextcloud.utils.extensions.isNonRetryable
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
@@ -81,6 +82,8 @@ class AutoUploadWorker(
             syncedFolder = syncedFolderProvider.getSyncedFolderByID(syncFolderId)
                 ?.takeIf { it.isEnabled } ?: return Result.failure()
 
+            Log_OC.d(TAG, syncedFolder.getLog())
+
             /**
              * Receives from [com.nextcloud.client.jobs.ContentObserverWork.checkAndTriggerAutoUpload]
              */
@@ -88,6 +91,10 @@ class AutoUploadWorker(
 
             if (canExitEarly(contentUris, syncFolderId)) {
                 return Result.retry()
+            }
+
+            if (powerManagementService.isPowerSavingEnabled) {
+                Log_OC.w(TAG, "power saving mode enabled")
             }
 
             collectFileChangesFromContentObserverWork(contentUris)
@@ -209,8 +216,10 @@ class AutoUploadWorker(
 
         withContext(Dispatchers.IO) {
             if (contentUris.isNullOrEmpty()) {
+                Log_OC.d(TAG, "inserting all entries")
                 helper.insertEntries(syncedFolder, repository)
             } else {
+                Log_OC.d(TAG, "inserting changed entries")
                 val isContentUrisStored = helper.insertChangedEntries(syncedFolder, contentUris, repository)
                 if (!isContentUrisStored) {
                     Log_OC.w(
