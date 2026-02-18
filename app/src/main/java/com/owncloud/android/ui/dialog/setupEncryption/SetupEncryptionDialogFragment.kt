@@ -246,6 +246,7 @@ class SetupEncryptionDialogFragment :
             return Bundle().apply {
                 putBoolean(SUCCESS, true)
                 putInt(ARG_POSITION, requireArguments().getInt(ARG_POSITION))
+                putString(ARG_FILE_PATH, requireArguments().getString(ARG_FILE_PATH))
             }
         }
 
@@ -531,10 +532,7 @@ class SetupEncryptionDialogFragment :
         const val SETUP_ENCRYPTION_RESULT_CODE = 101
         const val SETUP_ENCRYPTION_DIALOG_TAG = "SETUP_ENCRYPTION_DIALOG_TAG"
         const val ARG_POSITION = "ARG_POSITION"
-
-        // TODO: ADD file path
-        const val ARG_FILE = "ARG_FILE"
-
+        const val ARG_FILE_PATH = "ARG_FILE_PATH"
         const val RESULT_REQUEST_KEY = "RESULT_REQUEST"
         const val RESULT_KEY_CANCELLED = "IS_CANCELLED"
         private const val NUMBER_OF_WORDS = 12
@@ -555,6 +553,18 @@ class SetupEncryptionDialogFragment :
             val bundle = Bundle().apply {
                 putParcelable(ARG_USER, user)
                 putInt(ARG_POSITION, position)
+            }
+
+            return SetupEncryptionDialogFragment().apply {
+                arguments = bundle
+            }
+        }
+
+        @JvmStatic
+        fun newInstance(user: User?, filePath: String): SetupEncryptionDialogFragment {
+            val bundle = Bundle().apply {
+                putParcelable(ARG_USER, user)
+                putString(ARG_FILE_PATH, filePath)
             }
 
             return SetupEncryptionDialogFragment().apply {

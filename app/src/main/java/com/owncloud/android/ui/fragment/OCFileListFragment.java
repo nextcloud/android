@@ -1138,7 +1138,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 if (fragmentManager.findFragmentByTag(SETUP_ENCRYPTION_DIALOG_TAG) == null && requireActivity() instanceof FileActivity fileActivity) {
                     fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
                         if (result) {
-                            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
+                            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, file.getRemotePath());
                             dialog.show(fragmentManager, SETUP_ENCRYPTION_DIALOG_TAG);
                         } else {
                             DisplayUtils.showSnackMessage(fileActivity, R.string.internet_connection_required_for_encrypted_folder_setup);
@@ -1279,7 +1279,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                 OCFile file = mAdapter.getItem(position);
                 if (file == null) {
-                    Log_OC.e(TAG, "file is null cannot toggle encryption");
+                    Log_OC.w(TAG, "file is null, checking via remote path");
+                }
+
+                if (file == null) {
+                    String fileRemotePath = bundle.getString(SetupEncryptionDialogFragment.ARG_FILE_PATH, null);
+                    file = mContainerActivity.getStorageManager().getFileByDecryptedRemotePath(fileRemotePath);
+                }
+
+                if (file == null) {
+                    Log_OC.e(TAG,"file is null, cannot toggle encryption");
                     return;
                 }
 
