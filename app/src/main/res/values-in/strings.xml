@@ -680,6 +680,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="pref_instant_name_collision_policy_entries_rename">Ganti nama versi baru</string>
     <string name="pref_instant_name_collision_policy_title">Apa yang harus dilakukan jika berkas sudah ada?</string>
     <string name="prefs_add_account">Tambah akun</string>
+    <string name="prefs_all_files_access_title">Akses semua berkas</string>
     <string name="prefs_calendar_contacts">Sinkronkan kalender dan kontak</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid maupun Google Play tidak terinstal</string>
     <string name="prefs_calendar_contacts_summary">Siapkan DAVx⁵ (sebelumnya dikenal sebagai DAVdroid) (versi 1.3.0 ke atas) untuk akun saat ini</string>
@@ -914,6 +915,9 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="storage_internal_storage">Penyimpanan internal</string>
     <string name="storage_movies">Film</string>
     <string name="storage_music">Musik</string>
+    <string name="storage_permission_all_files_access">Akses semua berkas</string>
+    <string name="storage_permission_banner_auto_upload_text">Izin penyimpanan dibutuhkan untuk Unggah Otomatis</string>
+    <string name="storage_permission_dont_ask">Jangan tanya</string>
     <string name="storage_permission_media_read_only">Media hanya baca</string>
     <string name="storage_pictures">Gambar</string>
     <string name="store_full_desc">Platform produktivitas mandiri yang memberi Anda kendali penuh.\n\Fitur:\n* Mudah, tampilan modern, dan cocok dengan tema server Anda\n* Unggah file ke server Nextcloud Anda\n* Bagikan dengan yang lain\n* Buat file dan folder favorit Anda tetap tersinkron\n* Telusuri semua folder di server Anda\n* Unggah otomatis untuk foto dan video yang diambil dari perangkat Anda\n* Tetap terkabarkan dengan notifikasi\n* Mendukung penggunaan banyak akun (multi-account)\n* Akses data Anda dengan aman dengan sidik jari atau PIN\n* Integrasi dengan DAVx⁵ (dulu dikenal sebagai DAVdroid) untuk pemasangan sinkronisasi kalender dan kontak yang mudah\n\nTolong laporkan semua masalah aplikasi ini di https://github.com/nextcloud/android/issues dan diskusikan aplikasi ini di https://help.nextcloud.com/c/clients/android\n\nBaru mencoba Nextcloud? Nextcloud adalah server pribadi untuk sinkronisasi dan berbagi file serta berkomunikasi. Nextcloud adalah software libre sehingga Anda dapat meng-host sendiri atau membayar perusahaan untuk melakukannya untuk Anda. Dengan begitu, Anda memiliki kendali atas foto Anda, kalender dan data kontak Anda, dokumen dan semuanya yang Anda miliki.\n\nYuk, cek Nextcloud di https://nextcloud.com</string>
@@ -934,6 +938,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="suggest">Sarankan</string>
     <string name="sync">Sinkron</string>
     <string name="sync_anyway">Tetap sinkronkan</string>
+    <string name="sync_conflict_notification_action_title">Perbaiki konflik</string>
+    <string name="sync_conflict_notification_title">Berkas unggahan konflik</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflik ditemukan</string>
     <string name="sync_current_folder_was_removed">Folder %1$s sudah tidak ada lagi</string>
     <string name="sync_duplication">Duplikasi sinkronisasi</string>
@@ -976,6 +982,11 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="thumbnail_for_new_file_desc">Thumbnail untuk berkas baru</string>
     <string name="timeout_richDocuments">Pemuatan membutuhkan waktu lebih lama dari yang diperkirakan.</string>
     <string name="today">Hari ini</string>
+    <string name="translation_screen_hint_source">Masukkan teks untuk di terjemahkan</string>
+    <string name="translation_screen_label_from">Terjemahkan dari :</string>
+    <string name="translation_screen_label_to">Terjemahkan ke :</string>
+    <string name="translation_screen_start_to_translate_task">Tekan tombol nya untuk menerjemahkan</string>
+    <string name="translation_screen_translating">Menerjemahkan...</string>
     <string name="trashbin_activity_title">Berkas terhapus</string>
     <string name="trashbin_empty_headline">Tidak ada berkas yang dihapus.</string>
     <string name="trashbin_empty_message">Anda akan dapat memulihkan berkas yang dihapus dari sini.</string>
@@ -1098,6 +1109,7 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Sertifikat server tidak terpecaya</string>
     <string name="uploads_view_upload_status_fetching_server_version">Mendapatkan versi server...</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikasi ditutup</string>
+    <string name="uploads_view_upload_status_skip">Ter lewat kan</string>
     <string name="uploads_view_upload_status_succeeded">Selesai</string>
     <string name="uploads_view_upload_status_succeeded_same_file">File yang sama ditemukan saat transfer jarak jauh, melewati unggahan</string>
     <string name="uploads_view_upload_status_unknown_fail">Kesalahan tidak diketahui</string>
