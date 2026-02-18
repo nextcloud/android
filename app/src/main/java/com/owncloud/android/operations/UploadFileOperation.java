@@ -1048,7 +1048,6 @@ public class UploadFileOperation extends SyncOperation {
                 return result;
             }
 
-            Log_OC.d(TAG, "checking name collision");
             final var collisionResult = checkNameCollision(null, client, null, false);
             if (collisionResult != null) {
                 Log_OC.e(TAG, "name collision detected");
