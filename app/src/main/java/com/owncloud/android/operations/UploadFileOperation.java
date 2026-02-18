@@ -414,6 +414,7 @@ public class UploadFileOperation extends SyncOperation {
     @Override
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     protected RemoteOperationResult run(OwnCloudClient client) {
+        Log_OC.d(TAG, "------- Upload File Operation Started -------");
         if (TextUtils.isEmpty(getStoragePath())) {
             Log_OC.e(TAG, "Upload cancelled for " + getStoragePath() + ": file path is null or empty.");
             return new RemoteOperationResult<>(new UploadFileException.EmptyOrNullFilePath());
