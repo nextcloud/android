@@ -183,7 +183,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
             isMetered = isNetworkMetered();
             boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI || hasNonCellularConnectivity();
 
-            if (!isMetered) {
+            if (isMetered) {
                 Log_OC.w(TAG, "getConnectivity(): network is metered");
             }
 
