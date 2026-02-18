@@ -33,6 +33,8 @@ data class SearchEvent(val searchQuery: String, val searchType: SearchRemoteOper
         SearchRemoteOperation.SearchType.FAVORITE_SEARCH -> SearchType.FAVORITE_SEARCH
         SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH -> SearchType.RECENTLY_MODIFIED_SEARCH
         SearchRemoteOperation.SearchType.SHARED_FILTER -> SearchType.SHARED_FILTER
+        SearchRemoteOperation.SearchType.PHOTO_SEARCH -> SearchType.GALLERY_SEARCH
+        SearchRemoteOperation.SearchType.GALLERY_SEARCH -> SearchType.GALLERY_SEARCH
         else -> null
     }
 

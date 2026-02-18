@@ -166,13 +166,8 @@ class PreviewImageActivity :
                 preferences
             )
         } else {
-            // get parent from path
-            var parentFolder = file?.let { storageManager.getFileById(it.parentId) }
-
-            if (parentFolder == null) {
-                // should not be necessary
-                parentFolder = storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
-            }
+            val parentFolder = file?.let { storageManager.getFileById(it.parentId) }
+                ?: storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
 
             previewImagePagerAdapter = PreviewImagePagerAdapter(
                 this,
