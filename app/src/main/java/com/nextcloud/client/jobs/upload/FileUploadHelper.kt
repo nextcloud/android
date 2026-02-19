@@ -23,6 +23,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUpload
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
+import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.utils.extensions.getUploadIds
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -230,72 +231,30 @@ class FileUploadHelper {
     }
 
     @JvmOverloads
-    @Suppress("LongParameterList")
-    fun uploadNewFiles(
-        user: User,
-        localPaths: Array<String>,
-        remotePaths: Array<String>,
-        localBehavior: Int,
-        createRemoteFolder: Boolean,
-        createdBy: Int,
-        requiresWifi: Boolean,
-        requiresCharging: Boolean,
-        nameCollisionPolicy: NameCollisionPolicy,
-        showSameFileAlreadyExistsNotification: Boolean = true
-    ) {
-        val uploads = localPaths.mapIndexed { index, localPath ->
-            val result = OCUpload(localPath, remotePaths[index], user.accountName).apply {
-                this.nameCollisionPolicy = nameCollisionPolicy
-                isUseWifiOnly = requiresWifi
-                isWhileChargingOnly = requiresCharging
-                uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
-                this.createdBy = createdBy
-                isCreateRemoteFolder = createRemoteFolder
-                localAction = localBehavior
-            }
-
-            val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
-            result.uploadId = id
-            result
-        }
-        backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds(), showSameFileAlreadyExistsNotification)
+    fun uploadNewFiles(data: OCUploadLocalPathData, showSameFileAlreadyExistsNotification: Boolean = true) {
+        val uploads = getUploadsFromLocalPaths(data)
+        backgroundJobManager.startFilesUploadJob(
+            data.user,
+            uploads.getUploadIds(),
+            showSameFileAlreadyExistsNotification
+        )
     }
 
-    @JvmOverloads
-    @Suppress("LongParameterList")
-    fun uploadAndCopyNewFilesForAlbum(
-        user: User,
-        localPaths: Array<String>,
-        remotePaths: Array<String>,
-        albumName: String,
-        localBehavior: Int,
-        createRemoteFolder: Boolean,
-        createdBy: Int,
-        requiresWifi: Boolean,
-        requiresCharging: Boolean,
-        nameCollisionPolicy: NameCollisionPolicy,
-        showSameFileAlreadyExistsNotification: Boolean = true
-    ) {
-        val uploads = localPaths.mapIndexed { index, localPath ->
-            val result = OCUpload(localPath, remotePaths[index], user.accountName).apply {
-                this.nameCollisionPolicy = nameCollisionPolicy
-                isUseWifiOnly = requiresWifi
-                isWhileChargingOnly = requiresCharging
-                uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
-                this.createdBy = createdBy
-                isCreateRemoteFolder = createRemoteFolder
-                localAction = localBehavior
-            }
-
+    private fun getUploadsFromLocalPaths(data: OCUploadLocalPathData): List<OCUpload> =
+        data.localPaths.mapIndexed { index, localPath ->
+            val result = data.toOCUpload(localPath, index)
             val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
             result.uploadId = id
             result
         }
+
+    @Suppress("LongParameterList")
+    fun uploadAndCopyNewFilesForAlbum(data: OCUploadLocalPathData, albumName: String) {
+        val uploads = getUploadsFromLocalPaths(data)
         backgroundJobManager.startAlbumFilesUploadJob(
-            user,
+            data.user,
             uploads.getUploadIds(),
-            albumName,
-            showSameFileAlreadyExistsNotification
+            albumName
         )
     }
 
@@ -418,7 +377,7 @@ class FileUploadHelper {
             // For file conflicts check old file remote path
             upload.remotePath == currentUploadFileOperation.remotePath ||
                 upload.remotePath == currentUploadFileOperation.oldFile!!
-                    .remotePath
+                .remotePath
         } else {
             upload.remotePath == currentUploadFileOperation.remotePath
         }
