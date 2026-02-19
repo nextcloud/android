@@ -236,7 +236,6 @@ class ConflictsResolveDialog :
             null,
             syncedFolderProvider.preferences,
             viewThemeUtils,
-            syncedFolderProvider,
             overlayManager
         )
     }

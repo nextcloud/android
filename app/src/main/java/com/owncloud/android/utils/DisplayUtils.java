@@ -57,7 +57,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -81,10 +80,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.TimeZone;
 
 import androidx.annotation.NonNull;
@@ -123,23 +120,6 @@ public final class DisplayUtils {
     public static final String MONTH_YEAR_PATTERN = "MMMM yyyy";
     public static final String MONTH_PATTERN = "MMMM";
     public static final String YEAR_PATTERN = "yyyy";
-
-    private static Map<String, String> mimeType2HumanReadable;
-
-    static {
-        mimeType2HumanReadable = new HashMap<>();
-        // images
-        mimeType2HumanReadable.put("image/jpeg", "JPEG image");
-        mimeType2HumanReadable.put("image/jpg", "JPEG image");
-        mimeType2HumanReadable.put("image/png", "PNG image");
-        mimeType2HumanReadable.put("image/bmp", "Bitmap image");
-        mimeType2HumanReadable.put("image/gif", "GIF image");
-        mimeType2HumanReadable.put("image/svg+xml", "JPEG image");
-        mimeType2HumanReadable.put("image/tiff", "TIFF image");
-        // music
-        mimeType2HumanReadable.put("audio/mpeg", "MP3 music file");
-        mimeType2HumanReadable.put("application/ogg", "OGG music file");
-    }
 
     private DisplayUtils() {
         // utility class -> private constructor
@@ -808,7 +788,6 @@ public final class DisplayUtils {
                                     LoaderImageView shimmerThumbnail,
                                     AppPreferences preferences,
                                     ViewThemeUtils viewThemeUtils,
-                                    SyncedFolderProvider syncedFolderProvider,
                                     OverlayManager overlayManager) {
         if (file == null || thumbnailView == null || context == null) {
             return;
