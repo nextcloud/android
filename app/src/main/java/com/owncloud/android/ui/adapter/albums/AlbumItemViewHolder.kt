@@ -13,7 +13,6 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 
 interface AlbumItemViewHolder {
     val thumbnail: ImageView
-    val shimmerThumbnail: LoaderImageView
     val albumName: TextView
     val albumInfo: TextView
 }
