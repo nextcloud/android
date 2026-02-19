@@ -80,7 +80,7 @@ class AlbumsAdapter(
                 asyncTasks,
                 gridView,
                 context,
-                gridViewHolder.shimmerThumbnail,
+               null,
                 preferences,
                 viewThemeUtils,
                 syncedFolderProvider,
@@ -89,7 +89,6 @@ class AlbumsAdapter(
         } else {
             gridViewHolder.thumbnail.setImageResource(R.drawable.file_image)
             gridViewHolder.thumbnail.visibility = View.VISIBLE
-            gridViewHolder.shimmerThumbnail.visibility = View.GONE
         }
 
         holder.itemView.setOnClickListener { albumFragmentInterface.onItemClick(file) }
