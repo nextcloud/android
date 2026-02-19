@@ -48,6 +48,12 @@ class LogsViewModel @Inject constructor(
         }
     }
 
+    fun export() {
+        entries.value?.let {
+            sender.export(it)
+        }
+    }
+
     fun load() {
         if (isLoading.value != true) {
             logsRepository.load(this::onLoaded)
