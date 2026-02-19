@@ -11,6 +11,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -99,4 +100,62 @@ fun SyncedFolder.calculateScanInterval(
         batteryLevel < 80 -> defaultIntervalMillis * 2 to null
         else -> defaultIntervalMillis to null
     }
+}
+
+/**
+ * Builds a structured debug string of the SyncedFolder configuration.
+ *
+ * uploadAction:
+ *     Represents the UI option:
+ *     👉 "Original file will be..."
+ *     (e.g., kept, deleted, moved after upload)
+ *
+ * nameCollisionPolicy:
+ *     Represents the UI option:
+ *     👉 "What to do if the file already exists?"
+ *     (e.g., rename, overwrite, skip)
+ *
+ * subfolderByDate:
+ *     Represents the UI toggle:
+ *     👉 "Use subfolders"
+ *
+ * existing:
+ *     Represents the UI option:
+ *     👉 "Also upload existing files"
+ *     If false → only files created AFTER enabling are uploaded.
+ */
+fun SyncedFolder.getLog(): String {
+    val mediaType = when (type) {
+        MediaFolderType.IMAGE -> "🖼️ Images"
+        MediaFolderType.VIDEO -> "🎬 Videos"
+        MediaFolderType.CUSTOM -> "📁 Custom"
+    }
+
+    return """
+        📦 Synced Folder
+        ─────────────────────────
+        🆔 ID: $id
+        👤 Account: $account
+        
+        📂 Local:  $localPath
+        ☁️ Remote: $remotePath
+        
+        $mediaType
+        📅 Subfolder rule: ${subfolderRule ?: "None"}
+        🗂️ By date: $isSubfolderByDate
+        🙈 Exclude hidden: $isExcludeHidden
+        👀 Hidden config: $isHidden
+        
+        📶 Wi-Fi only: $isWifiOnly
+        🔌 Charging only: $isChargingOnly
+        
+        📤 Upload existing files: $isExisting
+        ⚙️ Upload action: $uploadAction
+        🧩 Name collision: $nameCollisionPolicy
+        
+        ✅ Enabled: $isEnabled
+        🕒 Enabled at: $enabledTimestampMs
+        🔍 Last scan: $lastScanTimestampMs
+        ─────────────────────────
+    """.trimIndent()
 }
