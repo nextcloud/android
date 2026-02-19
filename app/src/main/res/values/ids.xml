@@ -33,4 +33,6 @@
     <item name="action_remove_file" type="id"/>
     <item name="action_pin_to_homescreen" type="id"/>
     <item name="action_retry" type="id"/>
+    <item name="action_upload_from_camera_roll" type="id"/>
+    <item name="action_select_images_from_account" type="id"/>
 </resources>
