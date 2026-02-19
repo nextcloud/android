@@ -68,7 +68,6 @@ import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.db.ProviderMeta
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.lib.resources.albums.ReadAlbumItemsRemoteOperation
 import com.owncloud.android.lib.resources.albums.RemoveAlbumFileRemoteOperation
 import com.owncloud.android.lib.resources.albums.ToggleAlbumFavoriteRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
@@ -535,8 +534,8 @@ class AlbumItemsFragment :
             if (PreviewImageFragment.canBePreviewed(file)) {
                 (mContainerActivity as FileDisplayActivity).startImagePreview(
                     file,
+                    !file.isDown,
                     VirtualFolderType.ALBUM,
-                    !file.isDown
                 )
             } else if (file.isDown) {
                 if (canBePreviewed(file)) {
