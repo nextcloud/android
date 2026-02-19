@@ -26,7 +26,6 @@ import com.owncloud.android.R
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileExportUtils
 import java.io.File
-import java.io.FileWriter
 import java.security.SecureRandom
 import java.util.TimeZone
 
@@ -44,13 +43,17 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
     ) : Function0<Uri?> {
 
         override fun invoke(): Uri? {
-            file.parentFile.mkdirs()
-            val fo = FileWriter(file, false)
-            logs.forEach {
-                fo.write(it.toString(tz))
-                fo.write("\n")
+            file.parentFile?.mkdirs()
+
+            file.outputStream().use { outputStream ->
+                outputStream.writer(Charsets.UTF_8).buffered().use { writer ->
+                    logs.forEach {
+                        writer.write(it.toString(tz))
+                        writer.newLine()
+                    }
+                }
             }
-            fo.close()
+
             return FileProvider.getUriForFile(context, context.getString(R.string.file_provider_authority), file)
         }
     }
@@ -149,12 +152,12 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
 
         intent.putExtra(Intent.EXTRA_TEXT, getPhoneInfo())
 
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.flags = FLAG_ACTIVITY_NEW_TASK
         intent.type = LOGS_MIME_TYPE
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayListOf(uri))
         try {
             context.startActivity(intent)
-        } catch (ex: ActivityNotFoundException) {
+        } catch (_: ActivityNotFoundException) {
             Toast.makeText(context, R.string.log_send_no_mail_app, Toast.LENGTH_SHORT).show()
         }
     }
