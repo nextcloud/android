@@ -63,7 +63,6 @@ class UnifiedSearchCurrentDirItemViewHolder(
             binding.thumbnailShimmer,
             appPreferences,
             viewThemeUtils,
-            syncedFolderProvider,
             overlayManager
         )
 
