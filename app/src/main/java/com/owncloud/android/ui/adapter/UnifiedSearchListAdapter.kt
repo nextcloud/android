@@ -92,7 +92,6 @@ class UnifiedSearchListAdapter(
                     filesAction,
                     context,
                     viewThemeUtils,
-                    user,
                     overlayManager
                 )
             }

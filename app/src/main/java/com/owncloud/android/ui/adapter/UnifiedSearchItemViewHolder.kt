@@ -11,19 +11,19 @@ import android.content.Context
 import android.view.View
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
-import com.nextcloud.client.account.User
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.model.SearchResultEntryType
 import com.nextcloud.utils.CalendarEventManager
 import com.nextcloud.utils.ContactManager
 import com.nextcloud.utils.GlideHelper
-import com.nextcloud.utils.extensions.getPreviewEndpoint
 import com.nextcloud.utils.extensions.getType
+import com.nextcloud.utils.extensions.setVisibleIf
+import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -36,7 +36,6 @@ class UnifiedSearchItemViewHolder(
     private val filesAction: FilesAction,
     val context: Context,
     private val viewThemeUtils: ViewThemeUtils,
-    private val user: User,
     private val overlayManager: OverlayManager
 ) : SectionedViewHolder(binding.root) {
 
@@ -50,26 +49,41 @@ class UnifiedSearchItemViewHolder(
 
     fun bind(entry: SearchResultEntry) {
         binding.title.text = entry.title
-        binding.subline.text = entry.subline
+        bindSubline(entry)
+        bindLocalFileIndicator(entry)
 
-        if (entry.isFile && storageManager.getFileByDecryptedRemotePath(entry.remotePath()) != null) {
-            binding.localFileIndicator.visibility = View.VISIBLE
-        } else {
-            binding.localFileIndicator.visibility = View.GONE
-        }
-
-        viewThemeUtils.platform.colorImageView(binding.thumbnail, ColorRole.PRIMARY)
-
-        val file = storageManager.getFileByRemotePath(entry.remotePath())
         val entryType = entry.getType()
+        bindThumbnail(entry, entryType)
+        bindMoreButton(entry)
+        binding.unifiedSearchItemLayout.setOnClickListener {
+            searchEntryOnClick(entry, entryType)
+        }
+    }
 
+    private fun bindSubline(entry: SearchResultEntry) {
+        if (entry.subline.isNotBlank()) {
+            binding.subline.visibility = View.VISIBLE
+            binding.subline.text = entry.subline
+        } else {
+            binding.subline.visibility = View.GONE
+
+            val paddingInDp = context.resources.getDimension(R.dimen.standard_padding)
+            val paddingInPx = DisplayUtils.convertDpToPixel(paddingInDp, context)
+            binding.titleContainer.setPadding(0, paddingInPx, 0, 0)
+        }
+    }
+
+    private fun bindLocalFileIndicator(entry: SearchResultEntry) {
+        val showLocalFileIndicator =
+            (entry.isFile && storageManager.getFileByDecryptedRemotePath(entry.remotePath()) != null)
+        binding.localFileIndicator.setVisibleIf(showLocalFileIndicator)
+    }
+
+    private fun bindThumbnail(entry: SearchResultEntry, entryType: SearchResultEntryType) {
+        val file = storageManager.getFileByRemotePath(entry.remotePath())
         if (file?.isFolder == true) {
-            // FIXME: icon is not visible
-            overlayManager.setFolderThumbnail(
-                file,
-                binding.thumbnail,
-                binding.thumbnailShimmer
-            )
+            viewThemeUtils.platform.colorImageView(binding.thumbnail, ColorRole.PRIMARY)
+            overlayManager.setFolderOverlayIcon(file, binding.thumbnailOverlayIcon)
         } else {
             filesAction.loadFileThumbnail(entry, onClientReady = {
                 if (binding.thumbnail.tag == entry.thumbnailUrl) {
@@ -88,7 +102,9 @@ class UnifiedSearchItemViewHolder(
                 )
             })
         }
+    }
 
+    private fun bindMoreButton(entry: SearchResultEntry) {
         if (entry.isFile) {
             binding.more.visibility = View.VISIBLE
             binding.more.setOnClickListener {
@@ -96,10 +112,6 @@ class UnifiedSearchItemViewHolder(
             }
         } else {
             binding.more.visibility = View.GONE
-        }
-
-        binding.unifiedSearchItemLayout.setOnClickListener {
-            searchEntryOnClick(entry, entryType)
         }
     }
 
