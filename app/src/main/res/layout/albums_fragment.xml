@@ -40,10 +40,11 @@
             android:contentDescription="@string/create_album"
             android:scaleType="centerCrop"
             android:src="@drawable/bg_image_albums"
-            app:layout_constraintBottom_toTopOf="@+id/empty_album_label"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <TextView
             android:id="@+id/empty_album_label"
@@ -55,9 +56,9 @@
             android:textColor="@color/text_color"
             android:textSize="48sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/empty_album_message_label"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/albums_bg_image" />
 
         <TextView
             android:id="@+id/empty_album_message_label"
@@ -68,29 +69,23 @@
             android:paddingEnd="@dimen/standard_double_padding"
             android:text="@string/empty_albums_message"
             android:textColor="@color/secondary_text_color"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/create_album"
+            android:textSize="@dimen/two_line_primary_text_size"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/empty_album_label" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/create_album"
-            style="@style/Nextcloud.Material.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/account_action_button_height"
-            android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginEnd="@dimen/standard_double_margin"
-            android:layout_marginBottom="@dimen/bottom_navigation_view_margin"
-            android:text="@string/create_album"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/primary"
-            android:textSize="15sp"
-            app:icon="@drawable/ic_plus"
-            app:iconGravity="start"
-            app:iconPadding="4dp"
-            app:iconTint="@color/primary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create_album"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/bottom_navigation_view_margin"
+        android:contentDescription="@string/create_album"
+        app:layout_behavior="com.nextcloud.ui.behavior.OnScrollBehavior"
+        app:srcCompat="@drawable/ic_plus" />
+
 </RelativeLayout>
