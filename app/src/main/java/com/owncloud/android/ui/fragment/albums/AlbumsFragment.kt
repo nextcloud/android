@@ -14,10 +14,16 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -118,9 +124,10 @@ class AlbumsFragment :
         showAppBar()
         setupContainingList()
         setupContent()
+        createMenu()
 
-        viewThemeUtils.material.themeFAB(binding.createAlbum)
-        binding.createAlbum.setOnClickListener {
+        viewThemeUtils.material.themeFAB(binding.addMediaFab)
+        binding.addMediaFab.setOnClickListener {
             showCreateAlbumDialog()
         }
     }
@@ -203,6 +210,22 @@ class AlbumsFragment :
             }
         }
     }
+
+    private fun createMenu() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menu.clear()
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = true
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED
+        )
+    }
+
 
     private fun hideRefreshLayoutLoader() {
         binding.swipeContainingList.isRefreshing = false
