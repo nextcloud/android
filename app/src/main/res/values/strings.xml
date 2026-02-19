@@ -660,6 +660,7 @@
     <string name="logs_title">Logs</string>
     <string name="logs_menu_refresh">Refresh</string>
     <string name="logs_menu_send">Send logs by email</string>
+    <string name="logs_menu_export">Export logs</string>
     <string name="logs_menu_delete">Delete logs</string>
     <string name="log_send_no_mail_app">No app for sending logs found. Please install an email client.</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
