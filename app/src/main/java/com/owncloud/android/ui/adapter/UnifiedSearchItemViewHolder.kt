@@ -17,6 +17,7 @@ import com.nextcloud.model.SearchResultEntryType
 import com.nextcloud.utils.CalendarEventManager
 import com.nextcloud.utils.ContactManager
 import com.nextcloud.utils.GlideHelper
+import com.nextcloud.utils.extensions.getPreviewEndpoint
 import com.nextcloud.utils.extensions.getType
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -59,15 +60,24 @@ class UnifiedSearchItemViewHolder(
 
         viewThemeUtils.platform.colorImageView(binding.thumbnail, ColorRole.PRIMARY)
 
-        val remotePath = entry.remotePath() + OCFile.PATH_SEPARATOR
-        val file = storageManager.getFileByDecryptedRemotePath(remotePath)
+        val file = storageManager.getFileByRemotePath(entry.remotePath())
         val entryType = entry.getType()
 
         if (file?.isFolder == true) {
             // FIXME: icon is not visible
-            overlayManager.setFolderThumbnail(file, binding.thumbnail, binding.thumbnailShimmer)
+            overlayManager.setFolderThumbnail(
+                file,
+                binding.thumbnail,
+                binding.thumbnailShimmer
+            )
         } else {
             filesAction.loadFileThumbnail(entry, onClientReady = {
+                if (binding.thumbnail.tag == entry.thumbnailUrl) {
+                    return@loadFileThumbnail
+                }
+
+                binding.thumbnail.tag = entry.thumbnailUrl
+
                 GlideHelper.loadIntoImageView(
                     context,
                     it,
