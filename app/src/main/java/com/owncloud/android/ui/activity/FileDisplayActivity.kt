@@ -643,6 +643,7 @@ class FileDisplayActivity :
                 leftFragment = GroupfolderListFragment()
                 supportFragmentManager.executePendingTransactions()
             }
+
             ALBUMS == action -> {
                 Log_OC.d(this, "Switch to list albums fragment")
                 replaceAlbumFragment()
