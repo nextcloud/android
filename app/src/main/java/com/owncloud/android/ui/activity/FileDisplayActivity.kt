@@ -620,7 +620,6 @@ class FileDisplayActivity :
             }
             ALBUMS == action -> {
                 Log_OC.d(this, "Switch to list albums fragment")
-                menuItemId = R.id.nav_album
                 replaceAlbumFragment()
                 supportFragmentManager.executePendingTransactions()
             }
