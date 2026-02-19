@@ -77,14 +77,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/create_album"
+        android:id="@+id/add_media_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/bottom_navigation_view_margin"
-        android:contentDescription="@string/create_album"
+        android:contentDescription="@string/add_media"
         app:layout_behavior="com.nextcloud.ui.behavior.OnScrollBehavior"
         app:srcCompat="@drawable/ic_plus" />
 
