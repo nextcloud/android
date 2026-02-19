@@ -18,8 +18,6 @@ internal class AlbumListItemViewHolder(private var binding: AlbumsListItemBindin
     AlbumItemViewHolder {
     override val thumbnail: ImageView
         get() = binding.thumbnail
-    override val shimmerThumbnail: LoaderImageView
-        get() = binding.thumbnailShimmer
     override val albumName: TextView
         get() = binding.Filename
     override val albumInfo: TextView
