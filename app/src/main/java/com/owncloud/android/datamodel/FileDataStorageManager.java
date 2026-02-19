@@ -147,6 +147,17 @@ public class FileDataStorageManager {
         return getFileByPath(ProviderTableMeta.FILE_PATH_DECRYPTED, path);
     }
 
+    @Nullable
+    public OCFile getFileByRemotePath(String path) {
+        OCFile file = getFileByDecryptedRemotePath(path);
+
+        if (file == null) {
+            file = getFileByDecryptedRemotePath(path + OCFile.PATH_SEPARATOR);
+        }
+
+        return file;
+    }
+
     public void addCreateFileOfflineOperation(String[] localPaths, String[] remotePaths) {
         if (localPaths.length != remotePaths.length) {
             Log_OC.d(TAG, "Local path and remote path size do not match");
