@@ -13,21 +13,11 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Parcelable
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -126,9 +116,10 @@ class AlbumsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showAppBar()
-        createMenu()
         setupContainingList()
         setupContent()
+
+        viewThemeUtils.material.themeFAB(binding.createAlbum)
         binding.createAlbum.setOnClickListener {
             showCreateAlbumDialog()
         }
@@ -139,40 +130,6 @@ class AlbumsFragment :
             val appBarLayout = requireActivity().findViewById<AppBarLayout>(R.id.appbar)
             appBarLayout?.setExpanded(true, false)
         }
-    }
-
-    private fun createMenu() {
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(
-            object : MenuProvider {
-                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                    menu.clear() // important: clears any existing activity menu
-                    menuInflater.inflate(R.menu.fragment_create_album, menu)
-
-                    val addItem = menu.findItem(R.id.action_create_new_album)
-                    val coloredTitle = SpannableString(addItem.title).apply {
-                        setSpan(
-                            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.primary)),
-                            0,
-                            length,
-                            Spannable.SPAN_INCLUSIVE_INCLUSIVE
-                        )
-                    }
-                    addItem.title = coloredTitle
-                }
-
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
-                    R.id.action_create_new_album -> {
-                        showCreateAlbumDialog()
-                        true
-                    }
-
-                    else -> false
-                }
-            },
-            viewLifecycleOwner,
-            Lifecycle.State.RESUMED
-        )
     }
 
     private fun showCreateAlbumDialog() {
