@@ -6,6 +6,7 @@
  */
 package com.owncloud.android.ui.adapter
 
+import com.nextcloud.utils.date.DateFormatter
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -16,16 +17,16 @@ class GalleryAdapterFolderDateTest {
 
     @Test
     fun `extractFolderDate returns null for invalid paths`() {
-        assertNull(GalleryAdapter.extractFolderDate(null))
-        assertNull(GalleryAdapter.extractFolderDate("/Photos/vacation/image.jpg"))
-        assertNull(GalleryAdapter.extractFolderDate("/Documents/file.pdf"))
-        assertNull(GalleryAdapter.extractFolderDate(""))
-        assertNull(GalleryAdapter.extractFolderDate("/Photos/2025image.jpg"))
+        assertNull(DateFormatter.extractFolderDate(null))
+        assertNull(DateFormatter.extractFolderDate("/Photos/vacation/image.jpg"))
+        assertNull(DateFormatter.extractFolderDate("/Documents/file.pdf"))
+        assertNull(DateFormatter.extractFolderDate(""))
+        assertNull(DateFormatter.extractFolderDate("/Photos/2025image.jpg"))
     }
 
     @Test
     fun `extractFolderDate extracts YYYY MM pattern`() {
-        val result = GalleryAdapter.extractFolderDate("/Photos/2025/01/image.jpg")
+        val result = DateFormatter.extractFolderDate("/Photos/2025/01/image.jpg")
         assertNotNull(result)
 
         val cal = Calendar.getInstance().apply { timeInMillis = result!! }
@@ -36,7 +37,7 @@ class GalleryAdapterFolderDateTest {
 
     @Test
     fun `extractFolderDate extracts YYYY MM DD pattern`() {
-        val result = GalleryAdapter.extractFolderDate("/Photos/2025/01/15/image.jpg")
+        val result = DateFormatter.extractFolderDate("/Photos/2025/01/15/image.jpg")
         assertNotNull(result)
 
         val cal = Calendar.getInstance().apply { timeInMillis = result!! }
@@ -48,7 +49,7 @@ class GalleryAdapterFolderDateTest {
     @Test
     fun `extractFolderDate handles single digit components as partial match`() {
         // Single digit month doesn't match pattern, so only year is captured
-        val monthResult = GalleryAdapter.extractFolderDate("/Photos/2025/3/image.jpg")
+        val monthResult = DateFormatter.extractFolderDate("/Photos/2025/3/image.jpg")
         assertNotNull(monthResult)
         var cal = Calendar.getInstance().apply { timeInMillis = monthResult!! }
         assertEquals(2025, cal.get(Calendar.YEAR))
@@ -56,7 +57,7 @@ class GalleryAdapterFolderDateTest {
         assertEquals(1, cal.get(Calendar.DAY_OF_MONTH)) // defaults to 1
 
         // /2025/03/5/ matches YYYY/MM only, day defaults to 1
-        val dayResult = GalleryAdapter.extractFolderDate("/Photos/2025/03/5/image.jpg")
+        val dayResult = DateFormatter.extractFolderDate("/Photos/2025/03/5/image.jpg")
         assertNotNull(dayResult)
         cal = Calendar.getInstance().apply { timeInMillis = dayResult!! }
         assertEquals(2025, cal.get(Calendar.YEAR))
@@ -66,7 +67,7 @@ class GalleryAdapterFolderDateTest {
 
     @Test
     fun `extractFolderDate works with nested paths`() {
-        val result = GalleryAdapter.extractFolderDate("/InstantUpload/Camera/2024/12/25/IMG_001.jpg")
+        val result = DateFormatter.extractFolderDate("/InstantUpload/Camera/2024/12/25/IMG_001.jpg")
         assertNotNull(result)
 
         val cal = Calendar.getInstance().apply { timeInMillis = result!! }
@@ -77,7 +78,7 @@ class GalleryAdapterFolderDateTest {
 
     @Test
     fun `extractFolderDate finds first match in path with multiple date patterns`() {
-        val result = GalleryAdapter.extractFolderDate("/2023/06/backup/2024/12/25/image.jpg")
+        val result = DateFormatter.extractFolderDate("/2023/06/backup/2024/12/25/image.jpg")
         assertNotNull(result)
 
         val cal = Calendar.getInstance().apply { timeInMillis = result!! }
@@ -87,7 +88,7 @@ class GalleryAdapterFolderDateTest {
 
     @Test
     fun `extractFolderDate returns midnight timestamp`() {
-        val result = GalleryAdapter.extractFolderDate("/Photos/2025/01/15/image.jpg")
+        val result = DateFormatter.extractFolderDate("/Photos/2025/01/15/image.jpg")
         assertNotNull(result)
 
         val cal = Calendar.getInstance().apply { timeInMillis = result!! }
@@ -99,11 +100,11 @@ class GalleryAdapterFolderDateTest {
 
     @Test
     fun `folder date ordering - newer dates should be greater`() {
-        val jan15 = GalleryAdapter.extractFolderDate("/Photos/2025/01/15/a.jpg")!!
-        val jan20 = GalleryAdapter.extractFolderDate("/Photos/2025/01/20/b.jpg")!!
-        val feb01 = GalleryAdapter.extractFolderDate("/Photos/2025/02/01/c.jpg")!!
-        val y2020 = GalleryAdapter.extractFolderDate("/Photos/2020/06/image.jpg")!!
-        val y2025 = GalleryAdapter.extractFolderDate("/Photos/2025/06/image.jpg")!!
+        val jan15 = DateFormatter.extractFolderDate("/Photos/2025/01/15/a.jpg")!!
+        val jan20 = DateFormatter.extractFolderDate("/Photos/2025/01/20/b.jpg")!!
+        val feb01 = DateFormatter.extractFolderDate("/Photos/2025/02/01/c.jpg")!!
+        val y2020 = DateFormatter.extractFolderDate("/Photos/2020/06/image.jpg")!!
+        val y2025 = DateFormatter.extractFolderDate("/Photos/2025/06/image.jpg")!!
 
         assert(jan20 > jan15) { "Jan 20 should be after Jan 15" }
         assert(feb01 > jan20) { "Feb 1 should be after Jan 20" }
@@ -113,7 +114,7 @@ class GalleryAdapterFolderDateTest {
 
     @Test
     fun `extractFolderDate handles year only path`() {
-        val result = GalleryAdapter.extractFolderDate("/Photos/2025/image.jpg")
+        val result = DateFormatter.extractFolderDate("/Photos/2025/image.jpg")
         assertNotNull(result)
 
         val cal = Calendar.getInstance().apply { timeInMillis = result!! }
@@ -125,7 +126,7 @@ class GalleryAdapterFolderDateTest {
     @Test
     fun `extractFolderDate handles invalid month values`() {
         // Month 00 is invalid, so it defaults to January
-        val result = GalleryAdapter.extractFolderDate("/Photos/2025/00/image.jpg")
+        val result = DateFormatter.extractFolderDate("/Photos/2025/00/image.jpg")
         assertNotNull(result)
 
         val cal = Calendar.getInstance().apply { timeInMillis = result!! }
@@ -137,14 +138,14 @@ class GalleryAdapterFolderDateTest {
     @Test
     fun `extractFolderDate handles valid month boundaries`() {
         // Month 12 (December)
-        val decResult = GalleryAdapter.extractFolderDate("/Photos/2025/12/image.jpg")
+        val decResult = DateFormatter.extractFolderDate("/Photos/2025/12/image.jpg")
         assertNotNull(decResult)
         var cal = Calendar.getInstance().apply { timeInMillis = decResult!! }
         assertEquals(2025, cal.get(Calendar.YEAR))
         assertEquals(11, cal.get(Calendar.MONTH)) // December is 11
 
         // Day 31
-        val day31Result = GalleryAdapter.extractFolderDate("/Photos/2025/01/31/image.jpg")
+        val day31Result = DateFormatter.extractFolderDate("/Photos/2025/01/31/image.jpg")
         assertNotNull(day31Result)
         cal = Calendar.getInstance().apply { timeInMillis = day31Result!! }
         assertEquals(31, cal.get(Calendar.DAY_OF_MONTH))
@@ -153,7 +154,7 @@ class GalleryAdapterFolderDateTest {
     @Test
     fun `extractFolderDate handles invalid day values`() {
         // Feb 30 is invalid, so day defaults to 1
-        val feb30Result = GalleryAdapter.extractFolderDate("/Photos/2025/02/30/image.jpg")
+        val feb30Result = DateFormatter.extractFolderDate("/Photos/2025/02/30/image.jpg")
         assertNotNull(feb30Result)
         var cal = Calendar.getInstance().apply { timeInMillis = feb30Result!! }
         assertEquals(2025, cal.get(Calendar.YEAR))
@@ -161,7 +162,7 @@ class GalleryAdapterFolderDateTest {
         assertEquals(1, cal.get(Calendar.DAY_OF_MONTH)) // defaults to 1
 
         // Day 00 is invalid, so day defaults to 1
-        val day00Result = GalleryAdapter.extractFolderDate("/Photos/2025/03/00/image.jpg")
+        val day00Result = DateFormatter.extractFolderDate("/Photos/2025/03/00/image.jpg")
         assertNotNull(day00Result)
         cal = Calendar.getInstance().apply { timeInMillis = day00Result!! }
         assertEquals(2025, cal.get(Calendar.YEAR))
@@ -172,7 +173,7 @@ class GalleryAdapterFolderDateTest {
     @Test
     fun `extractFolderDate requires trailing slash after date components`() {
         // No trailing slash after month, so only year is captured
-        val result = GalleryAdapter.extractFolderDate("/Photos/2025/03image.jpg")
+        val result = DateFormatter.extractFolderDate("/Photos/2025/03image.jpg")
         assertNotNull(result)
 
         val cal = Calendar.getInstance().apply { timeInMillis = result!! }
@@ -183,7 +184,7 @@ class GalleryAdapterFolderDateTest {
 
     @Test
     fun `extractFolderDate works at start of path`() {
-        val result = GalleryAdapter.extractFolderDate("/2025/06/15/image.jpg")
+        val result = DateFormatter.extractFolderDate("/2025/06/15/image.jpg")
         assertNotNull(result)
 
         val cal = Calendar.getInstance().apply { timeInMillis = result!! }
