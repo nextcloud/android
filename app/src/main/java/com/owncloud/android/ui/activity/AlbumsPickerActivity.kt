@@ -88,6 +88,7 @@ class AlbumsPickerActivity :
         if (action == CHOOSE_ALBUM) {
             captionText = resources.getText(R.string.album_picker_toolbar_title).toString()
         } else if (action == CHOOSE_MEDIA_FILES) {
+            // FIXME: hide fab button
             captionText = resources.getText(R.string.media_picker_toolbar_title).toString()
         }
 

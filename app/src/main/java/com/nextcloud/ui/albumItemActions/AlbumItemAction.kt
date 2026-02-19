@@ -7,21 +7,27 @@
 
 package com.nextcloud.ui.albumItemActions
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
-import androidx.annotation.StringRes
 import com.owncloud.android.R
 
-enum class AlbumItemAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRes val icon: Int? = null) {
+enum class AlbumItemAction(val id: Int, val titleId: Int, val iconId: Int) {
+    UPLOAD_FROM_CAMERA_ROLL(
+        R.id.action_upload_from_camera_roll,
+        R.string.upload_direct_camera_upload,
+        R.drawable.ic_camera
+    ),
+    SELECT_IMAGES_FROM_ACCOUNT(
+        R.id.action_select_images_from_account,
+        R.string.album_upload_from_account,
+        R.drawable.file_image
+    ),
     RENAME_ALBUM(R.id.action_rename_file, R.string.album_rename, R.drawable.ic_edit),
     DELETE_ALBUM(R.id.action_delete, R.string.album_delete, R.drawable.ic_delete);
 
     companion object {
-        /**
-         * All file actions, in the order they should be displayed
-         */
         @JvmField
         val SORTED_VALUES = listOf(
+            UPLOAD_FROM_CAMERA_ROLL,
+            SELECT_IMAGES_FROM_ACCOUNT,
             RENAME_ALBUM,
             DELETE_ALBUM
         )

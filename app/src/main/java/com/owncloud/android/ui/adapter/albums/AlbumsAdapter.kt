@@ -80,7 +80,7 @@ class AlbumsAdapter(
                 asyncTasks,
                 gridView,
                 context,
-               null,
+                null,
                 preferences,
                 viewThemeUtils,
                 syncedFolderProvider,

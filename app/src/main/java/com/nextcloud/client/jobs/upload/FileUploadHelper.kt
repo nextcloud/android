@@ -377,7 +377,7 @@ class FileUploadHelper {
             // For file conflicts check old file remote path
             upload.remotePath == currentUploadFileOperation.remotePath ||
                 upload.remotePath == currentUploadFileOperation.oldFile!!
-                .remotePath
+                    .remotePath
         } else {
             upload.remotePath == currentUploadFileOperation.remotePath
         }

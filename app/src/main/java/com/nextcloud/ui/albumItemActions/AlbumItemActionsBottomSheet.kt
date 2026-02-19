@@ -96,15 +96,13 @@ class AlbumItemActionsBottomSheet :
                 root.setOnClickListener {
                     dispatchActionClick(action.id)
                 }
-                text.setText(action.title)
-                if (action.icon != null) {
-                    val drawable =
-                        viewThemeUtils.platform.tintDrawable(
-                            requireContext(),
-                            AppCompatResources.getDrawable(requireContext(), action.icon)!!
-                        )
-                    icon.setImageDrawable(drawable)
-                }
+                text.setText(action.titleId)
+                val drawable =
+                    viewThemeUtils.platform.tintDrawable(
+                        requireContext(),
+                        AppCompatResources.getDrawable(requireContext(), action.iconId)!!
+                    )
+                icon.setImageDrawable(drawable)
             }
         return itemBinding.root
     }

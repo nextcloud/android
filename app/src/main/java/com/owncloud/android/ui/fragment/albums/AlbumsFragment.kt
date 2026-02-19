@@ -226,7 +226,6 @@ class AlbumsFragment :
         )
     }
 
-
     private fun hideRefreshLayoutLoader() {
         binding.swipeContainingList.isRefreshing = false
     }

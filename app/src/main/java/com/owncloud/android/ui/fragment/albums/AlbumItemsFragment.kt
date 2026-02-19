@@ -54,8 +54,6 @@ import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
-import com.nextcloud.ui.bottomSheet.ActionBottomSheetData
-import com.nextcloud.ui.bottomSheet.ActionsBottomSheet
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.isDialogFragmentReady
@@ -197,7 +195,7 @@ class AlbumItemsFragment :
 
         viewThemeUtils.material.themeFAB(binding.addMedia)
         binding.addMedia.setOnClickListener {
-            showActionsBottomSheet()
+            openAlbumActionsMenu()
         }
 
         // if fragment is opened when new albums is created
@@ -235,17 +233,6 @@ class AlbumItemsFragment :
         ) { filesCount, checkedFiles -> openActionsMenu(filesCount, checkedFiles) }
         (requireActivity() as FileDisplayActivity).addDrawerListener(mMultiChoiceModeListener)
     }
-
-    private fun showActionsBottomSheet() {
-        val actions = listOf(
-            ActionBottomSheetData(getString(R.string.album_upload_from_camera_roll), { openGalleryToAddMedia() }),
-            ActionBottomSheetData(getString(R.string.album_upload_from_account), { addFromCameraRoll() }),
-            ActionBottomSheetData(getString(R.string.more), { openAlbumActionsMenu() })
-        )
-
-        ActionsBottomSheet(actions).show(parentFragmentManager, "actions_bottom_sheet")
-    }
-
 
     private fun addFromCameraRoll() {
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
@@ -290,7 +277,16 @@ class AlbumItemsFragment :
     }
 
     private fun onAlbumActionChosen(@IdRes itemId: Int): Boolean = when (itemId) {
-        // action to rename album
+        R.id.action_upload_from_camera_roll -> {
+            addFromCameraRoll()
+            true
+        }
+
+        R.id.action_select_images_from_account -> {
+            openGalleryToAddMedia()
+            true
+        }
+
         R.id.action_rename_file -> {
             CreateAlbumDialogFragment.newInstance(albumName)
                 .show(
@@ -300,7 +296,6 @@ class AlbumItemsFragment :
             true
         }
 
-        // action to delete album
         R.id.action_delete -> {
             showConfirmationDialog(true, null)
             true
@@ -518,7 +513,7 @@ class AlbumItemsFragment :
                 (mContainerActivity as FileDisplayActivity).startImagePreview(
                     file,
                     !file.isDown,
-                    VirtualFolderType.ALBUM,
+                    VirtualFolderType.ALBUM
                 )
             } else if (file.isDown) {
                 if (canBePreviewed(file)) {
