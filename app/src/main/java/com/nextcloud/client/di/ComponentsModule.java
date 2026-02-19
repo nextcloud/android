@@ -33,6 +33,7 @@ import com.nextcloud.ui.ImageDetailFragment;
 import com.nextcloud.ui.SetOnlineStatusBottomSheet;
 import com.nextcloud.ui.SetStatusMessageBottomSheet;
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet;
+import com.nextcloud.ui.bottomSheet.ActionsBottomSheet;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet;
@@ -473,6 +474,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract FileActionsBottomSheet fileActionsBottomSheet();
+
+    @ContributesAndroidInjector
+    abstract ActionsBottomSheet actionsBottomSheet();
 
     @ContributesAndroidInjector
     abstract SendFilesDialog sendFilesDialog();

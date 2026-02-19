@@ -37,8 +37,6 @@ import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.core.view.get
-import androidx.core.view.size
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -56,6 +54,8 @@ import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
+import com.nextcloud.ui.bottomSheet.ActionBottomSheetData
+import com.nextcloud.ui.bottomSheet.ActionsBottomSheet
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.isDialogFragmentReady
@@ -195,6 +195,11 @@ class AlbumItemsFragment :
         setupContainingList()
         setupContent()
 
+        viewThemeUtils.material.themeFAB(binding.addMedia)
+        binding.addMedia.setOnClickListener {
+            showActionsBottomSheet()
+        }
+
         // if fragment is opened when new albums is created
         // then open gallery to choose media to add
         if (isNewAlbum) {
@@ -231,60 +236,38 @@ class AlbumItemsFragment :
         (requireActivity() as FileDisplayActivity).addDrawerListener(mMultiChoiceModeListener)
     }
 
+    private fun showActionsBottomSheet() {
+        val actions = listOf(
+            ActionBottomSheetData(getString(R.string.album_upload_from_camera_roll), { openGalleryToAddMedia() }),
+            ActionBottomSheetData(getString(R.string.album_upload_from_account), { addFromCameraRoll() }),
+            ActionBottomSheetData(getString(R.string.more), { openAlbumActionsMenu() })
+        )
+
+        ActionsBottomSheet(actions).show(parentFragmentManager, "actions_bottom_sheet")
+    }
+
+
+    private fun addFromCameraRoll() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "*/*"
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            addCategory(Intent.CATEGORY_OPENABLE)
+        }
+        startActivityForResult(
+            Intent.createChooser(intent, getString(R.string.upload_chooser_title)),
+            REQUEST_CODE__SELECT_MEDIA_FROM_APPS
+        )
+    }
+
     private fun createMenu() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(
             object : MenuProvider {
                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                    menu.clear() // important: clears any existing activity menu
-                    menuInflater.inflate(R.menu.fragment_album_items, menu)
+                    menu.clear()
                 }
 
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
-                    R.id.action_three_dot_icon -> {
-                        openAlbumActionsMenu()
-                        true
-                    }
-
-                    R.id.action_add_from_camera_roll -> {
-                        // we don't want quick media access bottom sheet for Android 13+ devices
-                        // to avoid that we are not using image/* and video/* mime types
-                        // we are validating mime types when selection is made
-                        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                            type = "*/*"
-                            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                            addCategory(Intent.CATEGORY_OPENABLE)
-                        }
-                        startActivityForResult(
-                            Intent.createChooser(intent, getString(R.string.upload_chooser_title)),
-                            REQUEST_CODE__SELECT_MEDIA_FROM_APPS
-                        )
-                        true
-                    }
-
-                    R.id.action_add_from_account -> {
-                        // open Gallery fragment as selection then add items to current album
-                        openGalleryToAddMedia()
-                        true
-                    }
-
-                    else -> false
-                }
-
-                override fun onPrepareMenu(menu: Menu) {
-                    super.onPrepareMenu(menu)
-                    for (i in 0 until menu.size) {
-                        val item = menu[i]
-                        item.icon?.let {
-                            item.setIcon(
-                                viewThemeUtils.platform.colorDrawable(
-                                    it,
-                                    ContextCompat.getColor(requireContext(), R.color.fontAppbar)
-                                )
-                            )
-                        }
-                    }
-                }
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = true
             },
             viewLifecycleOwner,
             Lifecycle.State.RESUMED
