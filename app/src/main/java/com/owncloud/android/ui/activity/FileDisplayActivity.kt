@@ -3127,7 +3127,7 @@ class FileDisplayActivity :
                             launch(Dispatchers.IO) {
                                 storageManager.fileDao.updateFileIndicatorsBatch(
                                     indicators.map { (fileId, indicator) ->
-                                        fileId to indicator.iconRes
+                                        fileId to indicator.name
                                     }
                                 )
                             }

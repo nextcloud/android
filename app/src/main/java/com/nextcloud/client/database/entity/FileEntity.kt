@@ -123,5 +123,5 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_UPLOADED)
     val uploaded: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_INDICATOR)
-    val fileIndicator: Int?
+    val fileIndicator: String?
 )
