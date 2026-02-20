@@ -213,7 +213,7 @@ class FileDownloadWorker(
                     file.remotePath,
                     operation
                 ) ?: Pair(null, null)
-                FileIndicatorManager.update(file.fileId, FileIndicator.Downloading)
+                FileIndicatorManager.update(file.fileId, FileIndicator.Syncing)
 
                 downloadKey?.let {
                     requestedDownloads.add(downloadKey)
@@ -357,7 +357,7 @@ class FileDownloadWorker(
 
     private fun checkDownloadError(result: RemoteOperationResult<*>) {
         if (result.isSuccess || downloadError != null) {
-            currentDownload?.file?.fileId?.let { FileIndicatorManager.update(it, FileIndicator.Downloaded) }
+            currentDownload?.file?.fileId?.let { FileIndicatorManager.update(it, FileIndicator.Synced) }
             notificationManager.dismissNotification()
             return
         }

@@ -77,7 +77,7 @@ class FolderDownloadWorker(
             return Result.failure()
         }
 
-        FileIndicatorManager.update(folder.fileId, FileIndicator.Downloading)
+        FileIndicatorManager.update(folder.fileId, FileIndicator.Syncing)
         Log_OC.d(TAG, "🕒 started for ${user.accountName} downloading ${folder.fileName}")
 
         trySetForeground(folder)
@@ -111,11 +111,11 @@ class FolderDownloadWorker(
                         setForeground(foregroundInfo)
                     }
 
-                    FileIndicatorManager.update(file.fileId, FileIndicator.Downloading)
+                    FileIndicatorManager.update(file.fileId, FileIndicator.Syncing)
                     val operation = DownloadFileOperation(user, file, context)
                     val operationResult = operation.execute(client)
                     if (operationResult?.isSuccess == true && operation.downloadType === DownloadType.DOWNLOAD) {
-                        FileIndicatorManager.update(file.fileId, FileIndicator.Downloaded)
+                        FileIndicatorManager.update(file.fileId, FileIndicator.Synced)
                         getOCFile(operation)?.let { ocFile ->
                             downloadHelper.saveFile(ocFile, operation, storageManager)
                         }
@@ -132,7 +132,7 @@ class FolderDownloadWorker(
 
                 if (result) {
                     Log_OC.d(TAG, "✅ completed")
-                    FileIndicatorManager.update(folderID, FileIndicator.Downloaded)
+                    FileIndicatorManager.update(folderID, FileIndicator.Synced)
                     Result.success()
                 } else {
                     Log_OC.d(TAG, "❌ failed")
