@@ -17,6 +17,8 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.files.FileIndicator;
+import com.nextcloud.client.files.FileIndicatorManager;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
@@ -190,6 +192,8 @@ public class SynchronizeFileOperation extends SyncOperation {
             mLocalFile = getStorageManager().getFileByPath(mRemotePath);
         }
 
+        FileIndicatorManager.INSTANCE.update(mLocalFile.getFileId(), FileIndicator.Syncing);
+
         if (!mLocalFile.isDown()) {
             /// easy decision
             requestForDownload(mLocalFile);
@@ -291,6 +295,9 @@ public class SynchronizeFileOperation extends SyncOperation {
         if (postDialogEvent) {
             EventBus.getDefault().post(new DialogEvent(DialogEventType.SYNC));
         }
+
+        FileIndicatorManager.INSTANCE.update(mLocalFile.getFileId(), FileIndicator.Synced);
+
         return result;
     }
 
