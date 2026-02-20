@@ -95,8 +95,16 @@ class AutoUploadWorker(
                 return Result.retry()
             }
 
+            val storageManager = FileDataStorageManager(userAccountManager.user, context.contentResolver)
+            val parentDir =
+                storageManager.getFileByDecryptedRemotePath(syncedFolder.remotePath)
+
             if (powerManagementService.isPowerSavingEnabled) {
                 Log_OC.w(TAG, "power saving mode enabled")
+            }
+
+            parentDir?.let {
+                FileIndicatorManager.update(it.fileId, FileIndicator.Syncing)
             }
 
             collectFileChangesFromContentObserverWork(contentUris)
@@ -105,6 +113,10 @@ class AutoUploadWorker(
             // only update last scan time after uploading files
             syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
             syncedFolderProvider.updateSyncFolder(syncedFolder)
+
+            parentDir?.let {
+                FileIndicatorManager.update(it.fileId, FileIndicator.Idle)
+            }
 
             Log_OC.d(TAG, "✅ ${syncedFolder.remotePath} completed")
             Result.success()
