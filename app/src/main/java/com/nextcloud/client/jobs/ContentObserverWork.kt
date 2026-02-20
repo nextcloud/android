@@ -91,24 +91,26 @@ class ContentObserverWork(
         Log_OC.d(TAG, "📄 Content uris detected")
 
         try {
-            syncedFolderProvider.syncedFolders.forEach {
-                if (it.isEnabled) {
-                    if (contentUris.isEmpty()) {
+            syncedFolderProvider.syncedFolders
+                .filter { it.isEnabled }
+                .forEach { folder ->
+                    val inserted = if (contentUris.isEmpty()) {
                         Log_OC.d(TAG, "inserting all entries")
-                        autoUploadHelper.insertEntries(it)
+                        autoUploadHelper.insertEntries(folder)
+                        true
                     } else {
                         Log_OC.d(TAG, "inserting changed entries")
-                        val isContentUrisStored = autoUploadHelper.insertChangedEntries(it, contentUris)
-                        if (!isContentUrisStored) {
-                            Log_OC.w(
-                                TAG,
-                                "changed content uris not stored, fallback to insert all db entries to not lose files"
-                            )
-                            autoUploadHelper.insertEntries(it)
-                        }
+                        autoUploadHelper.insertChangedEntries(folder, contentUris)
+                    }
+
+                    if (!inserted) {
+                        Log_OC.w(
+                            TAG,
+                            "changed content uris not stored, fallback to insert all db entries to not lose files"
+                        )
+                        autoUploadHelper.insertEntries(folder)
                     }
                 }
-            }
 
             FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
                 syncedFolderProvider,
