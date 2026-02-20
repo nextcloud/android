@@ -34,7 +34,7 @@
     <item
         android:id="@+id/nav_album"
         android:enabled="true"
-        android:icon="@drawable/nav_photos"
+        android:icon="@drawable/ic_album"
         android:title="@string/drawer_item_album"/>
 
 </menu>
