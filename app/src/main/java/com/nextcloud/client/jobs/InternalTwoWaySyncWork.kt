@@ -12,6 +12,8 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.files.FileIndicator
+import com.nextcloud.client.files.FileIndicatorManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
@@ -67,6 +69,7 @@ class InternalTwoWaySyncWork(
                 }
 
                 Log_OC.d(TAG, "Folder ${folder.remotePath}: started!")
+                FileIndicatorManager.update(folder.fileId, FileIndicator.Syncing)
                 operation = SynchronizeFolderOperation(context, folder.remotePath, user, fileDataStorageManager, true)
                 val operationResult = operation?.execute(context)
 
@@ -86,6 +89,7 @@ class InternalTwoWaySyncWork(
                 }
 
                 fileDataStorageManager.saveFile(folder)
+                FileIndicatorManager.update(folder.fileId, FileIndicator.Idle)
             }
         }
 
