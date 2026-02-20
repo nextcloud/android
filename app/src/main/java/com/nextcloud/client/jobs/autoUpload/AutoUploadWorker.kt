@@ -43,8 +43,11 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import java.io.File
+import kotlin.coroutines.cancellation.CancellationException
 
 @Suppress("LongParameterList", "TooManyFunctions", "TooGenericExceptionCaught")
 class AutoUploadWorker(
@@ -90,7 +93,7 @@ class AutoUploadWorker(
             val contentUris = inputData.getStringArray(CONTENT_URIS)
 
             if (canExitEarly(contentUris, syncFolderId)) {
-                return Result.retry()
+                return Result.success()
             }
 
             if (powerManagementService.isPowerSavingEnabled) {
@@ -106,6 +109,9 @@ class AutoUploadWorker(
 
             Log_OC.d(TAG, "✅ ${syncedFolder.remotePath} completed")
             Result.success()
+        } catch (e: CancellationException) {
+            Log_OC.w(TAG, "⚠️ Job cancelled")
+            throw e
         } catch (e: Exception) {
             Log_OC.e(TAG, "❌ failed: ${e.message}")
             Result.failure()
@@ -279,7 +285,7 @@ class AutoUploadWorker(
 
         var lastId = 0
 
-        while (true) {
+        while (isActive) {
             val filePathsWithIds = repository.getFilePathsWithIds(syncedFolder, lastId)
 
             if (filePathsWithIds.isEmpty()) {
@@ -289,6 +295,8 @@ class AutoUploadWorker(
             Log_OC.d(TAG, "started, processing batch: lastId=$lastId, count=${filePathsWithIds.size}")
 
             filePathsWithIds.forEachIndexed { batchIndex, (path, id) ->
+                ensureActive()
+
                 val file = File(path)
                 val localPath = file.absolutePath
                 val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, file)
