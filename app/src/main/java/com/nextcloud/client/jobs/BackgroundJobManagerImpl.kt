@@ -474,10 +474,7 @@ internal class BackgroundJobManagerImpl(
         )
     }
 
-    override fun startAutoUpload(
-        syncedFolder: SyncedFolder,
-        overridePowerSaving: Boolean
-    ) {
+    override fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean) {
         val syncedFolderID = syncedFolder.id
 
         val arguments = Data.Builder()
