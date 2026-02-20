@@ -11,6 +11,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.FilesSyncHelper
@@ -29,7 +30,8 @@ class ContentObserverWork(
     private val params: WorkerParameters,
     private val syncedFolderProvider: SyncedFolderProvider,
     private val powerManagementService: PowerManagementService,
-    private val backgroundJobManager: BackgroundJobManager
+    private val backgroundJobManager: BackgroundJobManager,
+    private val autoUploadHelper: AutoUploadHelper
 ) : CoroutineWorker(context, params) {
 
     companion object {
@@ -84,14 +86,33 @@ class ContentObserverWork(
         val contentUris = params.triggeredContentUris.map { uri ->
             // adds uri strings e.g. content://media/external/images/media/2281
             uri.toString()
-        }.toTypedArray<String?>()
+        }.toTypedArray<String>()
+
         Log_OC.d(TAG, "📄 Content uris detected")
 
         try {
+            syncedFolderProvider.syncedFolders.forEach {
+                if (it.isEnabled) {
+                    if (contentUris.isEmpty()) {
+                        Log_OC.d(TAG, "inserting all entries")
+                        autoUploadHelper.insertEntries(it)
+                    } else {
+                        Log_OC.d(TAG, "inserting changed entries")
+                        val isContentUrisStored = autoUploadHelper.insertChangedEntries(it, contentUris)
+                        if (!isContentUrisStored) {
+                            Log_OC.w(
+                                TAG,
+                                "changed content uris not stored, fallback to insert all db entries to not lose files"
+                            )
+                            autoUploadHelper.insertEntries(it)
+                        }
+                    }
+                }
+            }
+
             FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
                 syncedFolderProvider,
                 backgroundJobManager,
-                contentUris,
                 false
             )
             Log_OC.d(TAG, "✅ auto upload triggered successfully for ${contentUris.size} file(s).")
