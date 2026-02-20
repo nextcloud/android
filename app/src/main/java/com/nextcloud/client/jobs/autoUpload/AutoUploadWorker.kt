@@ -18,6 +18,8 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.files.FileIndicator
+import com.nextcloud.client.files.FileIndicatorManager
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker
@@ -273,6 +275,7 @@ class AutoUploadWorker(
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
             .getClientFor(ocAccount, context)
+        val storageManager = FileDataStorageManager(user, context.contentResolver)
 
         trySetForeground()
         updateNotification()
@@ -322,6 +325,11 @@ class AutoUploadWorker(
 
                         val result = operation.execute(client)
                         fileUploadBroadcastManager.sendStarted(operation, context)
+                        val parentFile =
+                            storageManager.getFileByDecryptedRemotePath(operation.file?.parentRemotePath)
+                        parentFile?.let {
+                            FileIndicatorManager.update(it.fileId, FileIndicator.Syncing)
+                        }
 
                         UploadErrorNotificationManager.handleResult(
                             context,
@@ -344,6 +352,10 @@ class AutoUploadWorker(
                                 repository.markFileAsHandled(localPath, syncedFolder)
                                 Log_OC.w(TAG, "Marked CONFLICT file as handled: $localPath")
                             }
+                        }
+
+                        parentFile?.let {
+                            FileIndicatorManager.update(it.fileId, FileIndicator.Idle)
                         }
 
                         val isLastInBatch = (batchIndex == filePathsWithIds.size - 1)

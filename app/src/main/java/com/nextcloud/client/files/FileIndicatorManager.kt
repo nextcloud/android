@@ -13,14 +13,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
 enum class FileIndicator {
-    Idle, Downloading, Error, Downloaded;
+    Idle, Syncing, Error, Synced;
 
     fun getIconId(): Int? {
         return when(this) {
             Idle -> null
-            Downloading -> R.drawable.ic_synchronizing
+            Syncing -> R.drawable.ic_synchronizing
             Error -> R.drawable.ic_synchronizing_error
-            Downloaded -> R.drawable.ic_synced
+            Synced -> R.drawable.ic_synced
         }
     }
 }
