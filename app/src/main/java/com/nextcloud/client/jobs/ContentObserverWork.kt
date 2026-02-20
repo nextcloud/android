@@ -24,7 +24,7 @@ import kotlinx.coroutines.withContext
  * It fires media detection worker and auto upload worker and finishes immediately.
  *
  */
-@Suppress("TooGenericExceptionCaught")
+@Suppress("TooGenericExceptionCaught", "LongParameterList")
 class ContentObserverWork(
     context: Context,
     private val params: WorkerParameters,
