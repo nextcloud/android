@@ -325,9 +325,9 @@ class OCFileListDelegate(
 
     private fun showFileIndicator(file: OCFile, holder: ListViewHolder) {
         holder.localFileIndicator.run {
-            var indicator = file.fileIndicator
+            var indicator = file.fileIndicator.getIconId()
             if (file.etagInConflict != null) {
-                indicator = FileIndicator.Error.iconRes
+                indicator = FileIndicator.Error.getIconId()
             }
 
             if (indicator != null && indicator != 0) {

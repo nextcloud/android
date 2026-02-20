@@ -20,6 +20,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.nextcloud.client.files.FileIndicator;
 import com.nextcloud.utils.BuildHelper;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.R;
@@ -134,7 +135,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String reason = "";
     // endregion
 
-    private Integer fileIndicator = null;
+    private String fileIndicator = FileIndicator.Idle.name();
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to
@@ -214,7 +215,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockTimeout = source.readLong();
         lockToken = source.readString();
         livePhoto = source.readString();
-        fileIndicator = source.readInt();
+        fileIndicator = source.readString();
     }
 
     @Override
@@ -261,7 +262,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeLong(lockTimeout);
         dest.writeString(lockToken);
         dest.writeString(livePhoto);
-        dest.writeInt(fileIndicator != null ? fileIndicator : -1);
+        dest.writeString(fileIndicator);
     }
 
     public String getLinkedFileIdForLivePhoto() {
@@ -534,7 +535,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockToken = null;
         livePhoto = null;
         imageDimension = null;
-        fileIndicator = null;
+        fileIndicator = FileIndicator.Idle.name();
     }
 
     /**
@@ -1181,11 +1182,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
     }
 
-    public void setFileIndicator(Integer indicator) {
-        fileIndicator = indicator;
+    public void setFileIndicator(FileIndicator indicator) {
+        fileIndicator = indicator.name();
     }
 
-    public Integer getFileIndicator() {
-        return fileIndicator;
+    public FileIndicator getFileIndicator() {
+        return FileIndicator.valueOf(fileIndicator);
     }
 }

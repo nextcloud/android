@@ -1088,12 +1088,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 continue;
             }
 
-            final var newIndicator = fileIndicator.getIconRes();
-            if (Objects.equals(file.getFileIndicator(), newIndicator)) {
+            if (Objects.equals(file.getFileIndicator(), fileIndicator)) {
                 continue;
             }
 
-            file.setFileIndicator(newIndicator);
+            file.setFileIndicator(fileIndicator);
             notifyItemChanged(file);
         }
     }

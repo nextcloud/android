@@ -149,7 +149,7 @@ interface FileDao {
     fun getAllRemoteIds(accountName: String): List<String>
 
     @Transaction
-    fun updateFileIndicatorsBatch(updates: List<Pair<Long, Int?>>) {
+    fun updateFileIndicatorsBatch(updates: List<Pair<Long, String?>>) {
         updates.forEach { (fileId, indicator) ->
             updateFileIndicator(fileId, indicator)
         }
@@ -162,5 +162,5 @@ interface FileDao {
         WHERE ${ProviderTableMeta._ID} = :fileId
     """
     )
-    fun updateFileIndicator(fileId: Long, indicator: Int?)
+    fun updateFileIndicator(fileId: Long, indicator: String?)
 }

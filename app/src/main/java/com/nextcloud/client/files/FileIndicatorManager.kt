@@ -12,11 +12,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-sealed class FileIndicator(val iconRes: Int?) {
-    data object Idle : FileIndicator(null)
-    data object Downloading : FileIndicator(R.drawable.ic_synchronizing)
-    data object Error : FileIndicator(R.drawable.ic_synchronizing_error)
-    data object Downloaded : FileIndicator(R.drawable.ic_synced)
+enum class FileIndicator {
+    Idle, Downloading, Error, Downloaded;
+
+    fun getIconId(): Int? {
+        return when(this) {
+            Idle -> null
+            Downloading -> R.drawable.ic_synchronizing
+            Error -> R.drawable.ic_synchronizing_error
+            Downloaded -> R.drawable.ic_synced
+        }
+    }
 }
 
 object FileIndicatorManager {
