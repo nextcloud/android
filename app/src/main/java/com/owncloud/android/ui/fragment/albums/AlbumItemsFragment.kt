@@ -27,6 +27,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.RelativeLayout
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -45,6 +46,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
@@ -148,6 +150,8 @@ class AlbumItemsFragment :
 
     private val refreshFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
+    private lateinit var addMediaFab: FloatingActionButton
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
@@ -193,10 +197,7 @@ class AlbumItemsFragment :
         setupContainingList()
         setupContent()
 
-        viewThemeUtils.material.themeFAB(binding.addMedia)
-        binding.addMedia.setOnClickListener {
-            openAlbumActionsMenu()
-        }
+        createAddMediaButton()
 
         // if fragment is opened when new albums is created
         // then open gallery to choose media to add
@@ -214,6 +215,33 @@ class AlbumItemsFragment :
                     }
             }
         }
+    }
+
+    private fun createAddMediaButton() {
+        addMediaFab = FloatingActionButton(requireContext()).apply {
+            id = View.generateViewId()
+            setImageResource(R.drawable.ic_plus)
+            contentDescription = getString(R.string.add_media)
+
+            viewThemeUtils.material.themeFAB(this)
+
+            setOnClickListener {
+                openAlbumActionsMenu()
+            }
+        }
+
+        val layoutParams = RelativeLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        ).apply {
+            addRule(RelativeLayout.ALIGN_PARENT_END)
+            addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+
+            marginEnd = resources.getDimensionPixelSize(R.dimen.standard_margin)
+            bottomMargin = resources.getDimensionPixelSize(R.dimen.bottom_navigation_view_margin)
+        }
+
+        binding.listFragmentLayout.addView(addMediaFab, layoutParams)
     }
 
     private fun showAppBar() {
