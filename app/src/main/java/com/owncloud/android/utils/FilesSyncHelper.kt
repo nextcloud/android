@@ -42,14 +42,13 @@ object FilesSyncHelper {
     fun startAutoUploadForEnabledSyncedFolders(
         provider: SyncedFolderProvider,
         manager: BackgroundJobManager,
-        uris: Array<String?>,
         overridePowerSaving: Boolean
     ) {
         Log_OC.d(TAG, "start auto upload worker for each enabled folder")
 
         provider.syncedFolders.forEach {
             if (it.isEnabled) {
-                manager.startAutoUpload(it, overridePowerSaving, uris)
+                manager.startAutoUpload(it, overridePowerSaving)
             }
         }
     }

@@ -391,7 +391,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             if (preferences.startAutoUploadOnStart()) {
                 FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(syncedFolderProvider,
                                                                        backgroundJobManager,
-                                                                       new String[]{},
                                                                        false);
                 preferences.setLastAutoUploadOnStartTime(System.currentTimeMillis());
             }

@@ -122,8 +122,7 @@ interface BackgroundJobManager {
 
     fun startAutoUpload(
         syncedFolder: SyncedFolder,
-        overridePowerSaving: Boolean = false,
-        contentUris: Array<String?> = arrayOf()
+        overridePowerSaving: Boolean = false
     )
 
     fun cancelTwoWaySyncJob()
@@ -163,7 +162,6 @@ interface BackgroundJobManager {
     fun cancelAllJobs()
     fun schedulePeriodicHealthStatus()
     fun startHealthStatus()
-    fun isAutoUploadWorkerRunning(syncedFolderID: Long): Boolean
     fun startOfflineOperations()
     fun startPeriodicallyOfflineOperation()
     fun scheduleInternal2WaySync(intervalMinutes: Long)
