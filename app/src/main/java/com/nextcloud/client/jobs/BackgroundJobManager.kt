@@ -120,10 +120,7 @@ interface BackgroundJobManager {
 
     fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?>
 
-    fun startAutoUpload(
-        syncedFolder: SyncedFolder,
-        overridePowerSaving: Boolean = false
-    )
+    fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean = false)
 
     fun cancelTwoWaySyncJob()
 

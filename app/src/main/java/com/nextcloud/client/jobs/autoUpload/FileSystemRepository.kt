@@ -46,6 +46,8 @@ class FileSystemRepository(
         dao.delete(entity)
     }
 
+    suspend fun hasPendingFiles(syncedFolder: SyncedFolder): Boolean = dao.hasPendingFiles(syncedFolder.id.toString())
+
     suspend fun deleteByLocalPathAndId(path: String, id: Int) {
         dao.deleteByLocalPathAndId(path, id)
     }

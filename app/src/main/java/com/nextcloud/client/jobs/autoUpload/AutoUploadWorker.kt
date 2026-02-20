@@ -58,7 +58,6 @@ class AutoUploadWorker(
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
     private val syncedFolderProvider: SyncedFolderProvider,
-    private val backgroundJobManager: BackgroundJobManager,
     private val repository: FileSystemRepository,
     val viewThemeUtils: ViewThemeUtils,
     localBroadcastManager: LocalBroadcastManager
@@ -84,7 +83,6 @@ class AutoUploadWorker(
                 ?.takeIf { it.isEnabled } ?: return Result.failure()
 
             Log_OC.d(TAG, syncedFolder.getLog())
-
 
             if (canExitEarly(syncFolderId)) {
                 return Result.success()
@@ -171,7 +169,7 @@ class AutoUploadWorker(
     }
 
     @Suppress("ReturnCount")
-    private fun canExitEarly(syncedFolderID: Long): Boolean {
+    private suspend fun canExitEarly(syncedFolderID: Long): Boolean {
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
             Log_OC.w(TAG, "⚡ Skipping: device is in power saving mode")
@@ -181,6 +179,12 @@ class AutoUploadWorker(
         if (syncedFolderID < 0) {
             Log_OC.e(TAG, "invalid sync folder id")
             return true
+        }
+
+        val hasPendingFiles = repository.hasPendingFiles(syncedFolder)
+        if (hasPendingFiles) {
+            Log_OC.d(TAG, "pending files found, starting...")
+            return false
         }
 
         val totalScanInterval = syncedFolder.getTotalScanInterval(connectivityService, powerManagementService)
