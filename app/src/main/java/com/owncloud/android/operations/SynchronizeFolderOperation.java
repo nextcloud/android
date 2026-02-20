@@ -15,6 +15,8 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.files.FileIndicator;
+import com.nextcloud.client.files.FileIndicatorManager;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -132,6 +134,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
             }
 
+            FileIndicatorManager.INSTANCE.update(mLocalFolder.getFileId(), FileIndicator.Syncing);
+
             result = checkForChanges(client);
 
             if (result.isSuccess()) {
@@ -143,15 +147,18 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
                 if (result.isSuccess()) {
                     syncContents(client);
+                    FileIndicatorManager.INSTANCE.update(mLocalFolder.getFileId(), FileIndicator.Synced);
                 }
             }
 
             if (mCancellationRequested.get()) {
+                FileIndicatorManager.INSTANCE.update(mLocalFolder.getFileId(), FileIndicator.Error);
                 throw new OperationCancelledException();
             }
 
         } catch (OperationCancelledException e) {
-            result = new RemoteOperationResult(e);
+            FileIndicatorManager.INSTANCE.update(mLocalFolder.getFileId(), FileIndicator.Error);
+            result = new RemoteOperationResult<>(e);
         }
 
         return result;
