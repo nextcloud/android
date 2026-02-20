@@ -91,7 +91,7 @@ class FileSystemRepository(
             dao.markFileAsUploaded(localPath, syncedFolderIdStr)
             Log_OC.d(TAG, "Marked file as uploaded: $localPath for syncedFolderId=$syncedFolderIdStr")
         } catch (e: Exception) {
-            Log_OC.e(TAG, "Error marking file as uploaded: ${e.message}", e)
+            Log_OC.e(TAG, "markFileAsHandled(): ${e.message}", e)
         }
     }
 

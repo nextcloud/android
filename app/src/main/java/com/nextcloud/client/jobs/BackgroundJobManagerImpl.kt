@@ -511,7 +511,7 @@ internal class BackgroundJobManagerImpl(
 
         workManager.enqueueUniqueWork(
             JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID,
-            ExistingWorkPolicy.APPEND,
+            ExistingWorkPolicy.KEEP,
             request
         )
     }
