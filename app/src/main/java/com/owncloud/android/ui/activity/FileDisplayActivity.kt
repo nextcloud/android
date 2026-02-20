@@ -1673,6 +1673,7 @@ class FileDisplayActivity :
     private inner class UploadFinishReceiver : BroadcastReceiver() {
         private val tag = "UploadFinishReceiver"
 
+        @Suppress("LongMethod")
         override fun onReceive(context: Context?, intent: Intent) {
             Log_OC.d(tag, "upload finish received broadcast")
 
