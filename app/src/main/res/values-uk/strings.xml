@@ -52,7 +52,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Дійсно вилучити це завдання?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Вилучити завдання</string>
     <string name="assistant_screen_empty_content_description">Спробуйте надіслати повідомлення, щоб розпочати розмову.</string>
-    <string name="assistant_screen_empty_content_title">Привіт! Чим я можу вам сьогодні допомогти?</string>
+    <string name="assistant_screen_empty_content_title">Вітаю! Чим я можу вам сьогодні допомогти?</string>
     <string name="assistant_screen_select_task">Виберіть завдання</string>
     <string name="assistant_screen_send_message">Надіслати повідомлення</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Відкрити список розмов</string>

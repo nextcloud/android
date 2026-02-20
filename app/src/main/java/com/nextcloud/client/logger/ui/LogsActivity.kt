@@ -85,6 +85,7 @@ class LogsActivity : ToolbarActivity() {
             android.R.id.home -> finish()
             R.id.action_delete_logs -> vm.deleteAll()
             R.id.action_send_logs -> vm.send()
+            R.id.action_export_logs -> vm.export()
             R.id.action_refresh_logs -> vm.load()
             else -> retval = super.onOptionsItemSelected(item)
         }
