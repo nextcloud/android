@@ -21,12 +21,22 @@ data class E2EFiles(
     private val tag = "E2EFiles"
 
     fun deleteTemporalFile() {
+        if (temporalFile == null) {
+            Log_OC.d(tag, "Could not delete temporal file, temporal file is null")
+            return
+        }
+
         if (temporalFile?.exists() == true && temporalFile?.delete() == false) {
             Log_OC.e(tag, "Could not delete temporal file " + temporalFile?.absolutePath)
         }
     }
 
     fun deleteTemporalFileWithOriginalFileComparison() {
+        if (temporalFile == null) {
+            Log_OC.d(tag, "Could not delete temporal file, temporal file is null")
+            return
+        }
+
         if (originalFile == temporalFile) {
             return
         }
@@ -40,7 +50,7 @@ data class E2EFiles(
             val isTempEncryptedFileDeleted = encryptedTempFile?.delete()
             Log_OC.d(tag, "isTempEncryptedFileDeleted: $isTempEncryptedFileDeleted")
         } else {
-            Log_OC.e(tag, "Encrypted temp file cannot be found")
+            Log_OC.d(tag, "Encrypted temp file cannot be found")
         }
     }
 }
