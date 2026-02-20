@@ -1090,7 +1090,7 @@ class FileDisplayActivity :
                         return@isNetworkAndServerAvailable
                     }
 
-                    FileUploadHelper.Companion.instance().uploadNewFiles(
+                    FileUploadHelper.instance().uploadNewFiles(
                         user.orElseThrow(
                             Supplier { RuntimeException() }
                         ),
@@ -1677,6 +1677,7 @@ class FileDisplayActivity :
             Log_OC.d(tag, "upload finish received broadcast")
 
             val uploadedRemotePath = intent.getStringExtra(FileUploadWorker.EXTRA_REMOTE_PATH)
+            val behaviour = intent.getIntExtra(FileUploadWorker.EXTRA_BEHAVIOUR, -1)
             val accountName = intent.getStringExtra(FileUploadWorker.ACCOUNT_NAME)
             val account = getAccount()
             val sameAccount = accountName != null && account != null && accountName == account.name
@@ -1701,7 +1702,8 @@ class FileDisplayActivity :
                 sameFile = file?.remotePath == uploadedRemotePath || renamedInUpload
             }
 
-            if (uploadWasFine) {
+            // only synced icon can be remove if local behaviour is not move
+            if (uploadWasFine && behaviour != FileUploadWorker.LOCAL_BEHAVIOUR_MOVE) {
                 file?.let {
                     setIdleFileIndicator(it, includeSubFiles = false)
                 }

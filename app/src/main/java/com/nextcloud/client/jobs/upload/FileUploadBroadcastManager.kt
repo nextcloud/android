@@ -102,6 +102,7 @@ class FileUploadBroadcastManager(private val broadcastManager: LocalBroadcastMan
             putExtra(FileUploadWorker.EXTRA_OLD_FILE_PATH, upload.originalStoragePath)
             putExtra(FileUploadWorker.ACCOUNT_NAME, upload.user.accountName)
             putExtra(FileUploadWorker.EXTRA_UPLOAD_RESULT, uploadResult.isSuccess)
+            putExtra(FileUploadWorker.EXTRA_BEHAVIOUR, upload.localBehaviour)
             if (unlinkedFromRemotePath != null) {
                 putExtra(FileUploadWorker.EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
             }

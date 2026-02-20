@@ -84,8 +84,10 @@ class FileUploadWorker(
         const val EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH"
         const val EXTRA_OLD_FILE_PATH = "OLD_FILE_PATH"
         const val EXTRA_LINKED_TO_PATH = "LINKED_TO"
-        const val ACCOUNT_NAME = "ACCOUNT_NAME"
+        const val EXTRA_BEHAVIOUR = "BEHAVIOUR"
         const val EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME"
+
+        const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val ACTION_CANCEL_BROADCAST = "CANCEL"
         const val LOCAL_BEHAVIOUR_COPY = 0
         const val LOCAL_BEHAVIOUR_MOVE = 1
