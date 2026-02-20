@@ -103,14 +103,17 @@ class OCFileListBottomSheetDialog(
 
     @Suppress("ComplexCondition")
     private fun checkTemplateVisibility() {
-        val capability = fileActivity.capabilities
-        if (capability != null &&
-            capability.richDocuments.isTrue &&
-            capability.richDocumentsDirectEditing.isTrue &&
-            capability.richDocumentsTemplatesAvailable.isTrue &&
-            !file.isEncrypted
-        ) {
-            binding.templates.visibility = View.VISIBLE
+        val optionalCapabilities = fileActivity.capabilities
+        if (optionalCapabilities.isPresent) {
+            val capability = optionalCapabilities.get()
+
+            if (capability.richDocuments.isTrue &&
+                capability.richDocumentsDirectEditing.isTrue &&
+                capability.richDocumentsTemplatesAvailable.isTrue &&
+                !file.isEncrypted
+            ) {
+                binding.templates.visibility = View.VISIBLE
+            }
         }
     }
 

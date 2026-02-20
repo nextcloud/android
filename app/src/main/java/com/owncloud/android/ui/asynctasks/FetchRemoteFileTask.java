@@ -18,6 +18,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
@@ -28,6 +29,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.FILE_ID_SEARCH;
 
 public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
+    private static final String TAG = "FetchRemoteFileTask";
     private final User user;
     private final String fileId;
     private final FileDataStorageManager storageManager;
@@ -46,10 +48,17 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... voids) {
+        final var optionalCapabilities = fileDisplayActivity.getCapabilities();
+        if (optionalCapabilities.isEmpty()) {
+            Log_OC.e(TAG, "cannot fetch remote file capability is null");
+            return "";
+        }
+
+
         SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation(fileId,
                                                                                 FILE_ID_SEARCH,
                                                                                 false,
-                                                                                fileDisplayActivity.getCapabilities());
+                                                                                optionalCapabilities.get());
         RemoteOperationResult remoteOperationResult = searchRemoteOperation.execute(user, fileDisplayActivity);
 
         if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
