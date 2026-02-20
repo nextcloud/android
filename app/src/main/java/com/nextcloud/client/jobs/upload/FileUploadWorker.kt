@@ -249,7 +249,7 @@ class FileUploadWorker(
             val operation = createUploadFileOperation(upload, user, storageManager)
             currentUploadFileOperation = operation
             val parentFile =
-                storageManager.getFileByDecryptedRemotePath(currentUploadFileOperation?.file?.parentRemotePath)
+                storageManager.getFileByDecryptedRemotePath(operation.file?.parentRemotePath)
 
             parentFile?.let {
                 FileIndicatorManager.update(it.fileId, FileIndicator.Syncing)
@@ -268,10 +268,8 @@ class FileUploadWorker(
                 upload(upload, operation, user, client)
             }
             currentUploadFileOperation = null
-            if (result.isSuccess) {
-                parentFile?.let {
-                    FileIndicatorManager.update(it.fileId, FileIndicator.Idle)
-                }
+            parentFile?.let {
+                FileIndicatorManager.update(it.fileId, FileIndicator.Idle)
             }
 
             if (result.code == ResultCode.QUOTA_EXCEEDED) {
