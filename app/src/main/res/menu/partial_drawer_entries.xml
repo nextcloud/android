@@ -65,7 +65,7 @@
             android:title="@string/drawer_item_gallery" />
         <item
             android:id="@+id/nav_album"
-            android:icon="@drawable/nav_photos"
+            android:icon="@drawable/ic_album"
             android:orderInCategory="1"
             android:title="@string/drawer_item_album" />
         <item
