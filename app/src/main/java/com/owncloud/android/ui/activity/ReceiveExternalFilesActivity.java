@@ -30,9 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcelable;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -58,6 +56,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
+import com.nextcloud.utils.fileNameValidator.FileNameTextWatcher;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -90,8 +89,6 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -133,7 +130,7 @@ import static com.owncloud.android.utils.UriUtils.getDisplayNameForUri;
 public class ReceiveExternalFilesActivity extends FileActivity
     implements View.OnClickListener, CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener,
     SortingOrderDialogFragment.OnSortingOrderListener, Injectable, AccountChooserInterface,
-    ReceiveExternalFilesAdapter.OnItemClickListener, TextWatcher {
+    ReceiveExternalFilesAdapter.OnItemClickListener {
 
     private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
 
@@ -332,53 +329,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mParents.push(filename);
             populateDirectoryList(file);
         }
-    }
-
-    @Override
-    public void afterTextChanged(Editable editable) {}
-
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-    // TODO: this is copy-paste from RenameFileDialogFragment.kt
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        final var newFileName = Objects.requireNonNullElse(binding.userInput.getText(), "").toString();
-        final var positiveButton = binding.uploaderChooseFolder;
-
-        final var existingFiles = receiveExternalFilesAdapter.getFileNames();
-        final var errorMessage = FileNameValidator.INSTANCE.checkFileName(newFileName, getCapabilities(), this, existingFiles);
-
-        if (FileNameValidator.INSTANCE.isFileHidden(newFileName)) {
-            binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
-            positiveButton.setEnabled(true);
-        } else if (errorMessage != null) {
-            binding.userInputContainer.setError(errorMessage);
-            positiveButton.setEnabled(false);
-        } else if (checkExtensionRenamed(newFileName)) {
-            binding.userInputContainer.setError(getText(R.string.warn_rename_extension));
-            positiveButton.setEnabled(true);
-        } else if (binding.userInputContainer.getError() != null) {
-            binding.userInputContainer.setError(null);
-            // Called to remove extra padding
-            binding.userInputContainer.setErrorEnabled(false);
-            positiveButton.setEnabled(true);
-        }
-    }
-
-    private boolean checkExtensionRenamed(@NonNull String newFileName) {
-        if (mStreamsToUpload == null || mStreamsToUpload.size() != 1) {
-            return false;
-        }
-        final String previousFileName = getDisplayNameForUri((Uri) mStreamsToUpload.get(0), getActivity());
-        if (previousFileName == null) {
-            return false;
-        }
-
-        var previousExtension = FilenameUtils.getExtension(previousFileName);
-        var newExtension = FilenameUtils.getExtension(newFileName);
-
-        return !Objects.equals(previousExtension, newExtension);
     }
 
     public static class DialogNoAccount extends DialogFragment {
@@ -912,7 +862,26 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         binding.userInput.setVisibility(View.VISIBLE);
         binding.userInput.setText(userProvidedFileName.isEmpty() ? fileName : userProvidedFileName);
-        binding.userInput.addTextChangedListener(this);
+        binding.userInput.addTextChangedListener(new FileNameTextWatcher(
+            fileName,
+            this,
+            this::getCapabilities,
+            () -> receiveExternalFilesAdapter.getFileNames(),
+            s -> {
+                binding.userInputContainer.setError(s);
+                binding.uploaderChooseFolder.setEnabled(false);
+            },
+            s -> {
+                binding.userInputContainer.setError(s);
+                binding.uploaderChooseFolder.setEnabled(true);
+            },
+            () -> {
+                binding.userInputContainer.setError(null);
+                binding.userInputContainer.setErrorEnabled(false);
+                binding.uploaderChooseFolder.setEnabled(true);
+            }
+        ));
+
         mFileDisplayNameTransformer = uri ->
             Objects.requireNonNullElse(binding.userInput.getText(), fileName).toString();
 

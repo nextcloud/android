@@ -13,8 +13,6 @@ package com.owncloud.android.ui.dialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
@@ -25,8 +23,8 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.typedActivity
+import com.nextcloud.utils.fileNameValidator.FileNameTextWatcher
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFileName
-import com.nextcloud.utils.fileNameValidator.FileNameValidator.isFileHidden
 import com.owncloud.android.R
 import com.owncloud.android.databinding.EditBoxDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -37,7 +35,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import java.io.File
 import javax.inject.Inject
 
 /**
@@ -47,7 +44,6 @@ import javax.inject.Inject
 class RenameFileDialogFragment :
     DialogFragment(),
     DialogInterface.OnClickListener,
-    TextWatcher,
     Injectable {
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
@@ -99,7 +95,28 @@ class RenameFileDialogFragment :
             fileNames?.add(file.fileName)
         }
 
-        binding.userInput.addTextChangedListener(this)
+        binding.userInput.addTextChangedListener(
+            FileNameTextWatcher(
+                mTargetFile?.fileName,
+                binding.userInputContainer.context,
+                { oCCapability },
+                { fileNames },
+                { s: String? ->
+                    binding.userInputContainer.error = s
+                    positiveButton?.isEnabled = false
+                },
+                { s: String? ->
+                    binding.userInputContainer.error = s
+                    positiveButton?.isEnabled = true
+                },
+                {
+                    binding.userInputContainer.error = null
+                    // Called to remove extra padding
+                    binding.userInputContainer.isErrorEnabled = false
+                    positiveButton?.isEnabled = true
+                }
+            )
+        )
 
         val builder = buildMaterialAlertDialog(binding.root)
 
@@ -165,50 +182,6 @@ class RenameFileDialogFragment :
                 }
             }
         }
-    }
-
-    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
-
-    /**
-     * When user enters a hidden file name, the 'hidden file' message is shown.
-     * Otherwise, the message is ensured to be hidden.
-     */
-    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        var newFileName = ""
-        if (binding.userInput.text != null) {
-            newFileName = binding.userInput.text.toString()
-        }
-
-        val errorMessage = checkFileName(newFileName, oCCapability, requireContext(), fileNames)
-
-        if (isFileHidden(newFileName)) {
-            binding.userInputContainer.error = getText(R.string.hidden_file_name_warning)
-            positiveButton?.isEnabled = true
-        } else if (errorMessage != null) {
-            binding.userInputContainer.error = errorMessage
-            positiveButton?.isEnabled = false
-        } else if (checkExtensionRenamed(newFileName)) {
-            binding.userInputContainer.error = getText(R.string.warn_rename_extension)
-            positiveButton?.isEnabled = true
-        } else if (binding.userInputContainer.error != null) {
-            binding.userInputContainer.error = null
-            // Called to remove extra padding
-            binding.userInputContainer.isErrorEnabled = false
-            positiveButton?.isEnabled = true
-        }
-    }
-
-    override fun afterTextChanged(s: Editable) = Unit
-
-    private fun checkExtensionRenamed(newFileName: String): Boolean {
-        mTargetFile?.fileName?.let { previousFileName ->
-            val previousExtension = File(previousFileName).extension
-            val newExtension = File(newFileName).extension
-
-            return previousExtension != newExtension
-        }
-
-        return false
     }
 
     companion object {
