@@ -5,9 +5,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.events
+package com.owncloud.android.ui.activity
 
-/**
- * Event denoting the need to refresh the files displayed in the current view
- */
-class FilesRefreshEvent
+interface OnFilesRemovedListener {
+    fun onFilesRemoved()
+}

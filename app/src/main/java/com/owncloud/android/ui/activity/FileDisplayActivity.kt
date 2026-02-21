@@ -122,7 +122,6 @@ import com.owncloud.android.ui.dialog.SendShareDialog.SendShareDialogDownloader
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
 import com.owncloud.android.ui.dialog.TermsOfServiceDialog
-import com.owncloud.android.ui.events.FilesRefreshEvent
 import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.ui.events.SyncEventFinished
 import com.owncloud.android.ui.events.TokenPushEvent
@@ -187,6 +186,7 @@ class FileDisplayActivity :
     OnEnforceableRefreshListener,
     OnSortingOrderListener,
     SendShareDialogDownloader,
+    OnFilesRemovedListener,
     Injectable {
     private lateinit var binding: FilesBinding
 
@@ -1455,6 +1455,12 @@ class FileDisplayActivity :
         }
     }
     // endregion
+
+    override fun onStop() {
+        Log_OC.v(TAG, "onStop()")
+        unregisterReceivers()
+        super.onStop()
+    }
 
     override fun onSortingOrderChosen(selection: FileSortOrder?) {
         val ocFileListFragment = this.listOfFilesFragment
@@ -2764,26 +2770,12 @@ class FileDisplayActivity :
 
         registerReceivers()
 
-        // Register for the FilesRefreshEvent, only if not already registered
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this)
-        }
-
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
             return
         }
 
         initFile()
-    }
-
-    public override fun onStop() {
-        Log_OC.v(TAG, "onStop()")
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this)
-        }
-        unregisterReceivers()
-        super.onStop()
     }
 
     private fun initFile() {
@@ -3036,13 +3028,9 @@ class FileDisplayActivity :
         })
     }
 
-    // region EventBus
-    @Suppress("unused")
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onFilesRefreshNeeded(event: FilesRefreshEvent) {
+    override fun onFilesRemoved() {
         refreshCurrentDirectory()
     }
-    // endregion
 
     private fun handleEcosystemIntent(intent: Intent?) {
         ecosystemManager.receiveAccount(

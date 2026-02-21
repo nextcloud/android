@@ -25,9 +25,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.activity.OnFilesRemovedListener
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
-import com.owncloud.android.ui.events.FilesRefreshEvent
-import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 /**
@@ -46,6 +45,7 @@ class RemoveFilesDialogFragment :
 
     @Inject
     lateinit var connectivityService: ConnectivityService
+
     private var positiveButton: MaterialButton? = null
 
     override fun onStart() {
@@ -102,6 +102,7 @@ class RemoveFilesDialogFragment :
 
         val fileActivity = getTypedActivity(FileActivity::class.java)
         val fda = getTypedActivity(FileDisplayActivity::class.java)
+        val filesRemovedListener = getTypedActivity(OnFilesRemovedListener::class.java)
         connectivityService.isNetworkAndServerAvailable { isAvailable ->
             if (isAvailable) {
                 fileActivity?.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment))
@@ -115,7 +116,7 @@ class RemoveFilesDialogFragment :
                 }
 
                 if (offlineFiles.isNotEmpty()) {
-                    EventBus.getDefault().post(FilesRefreshEvent())
+                    filesRemovedListener?.onFilesRemoved()
                 }
 
                 fileActivity?.dismissLoadingDialog()
@@ -127,7 +128,7 @@ class RemoveFilesDialogFragment :
                         fileDataStorageManager.addRemoveFileOfflineOperation(file)
                     }
                 }
-                EventBus.getDefault().post(FilesRefreshEvent())
+                filesRemovedListener?.onFilesRemoved()
             }
 
             finishActionMode()

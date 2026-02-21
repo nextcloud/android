@@ -46,7 +46,7 @@ import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.SynchronizeFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.events.FilesRefreshEvent
+import com.owncloud.android.ui.activity.OnFilesRemovedListener
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
@@ -54,9 +54,6 @@ import com.owncloud.android.ui.preview.model.PreviewImageActivityState
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import java.io.Serializable
 import javax.inject.Inject
 import kotlin.math.max
@@ -70,6 +67,7 @@ class PreviewImageActivity :
     FileActivity(),
     FileFragment.ContainerActivity,
     OnRemoteOperationListener,
+    OnFilesRemovedListener,
     Injectable {
     private var livePhotoFile: OCFile? = null
     private var viewPager: ViewPager2? = null
@@ -213,13 +211,9 @@ class PreviewImageActivity :
         }
     }
 
-    // region EventBus
-    @Suppress("unused")
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onFilesRefreshNeeded(event: FilesRefreshEvent) {
+    override fun onFilesRemoved() {
         initViewPager()
     }
-    // endregion
 
     fun initViewPager() {
         if (user.isPresent) {
@@ -272,11 +266,6 @@ class PreviewImageActivity :
     public override fun onStart() {
         super.onStart()
         registerReceivers()
-
-        // Register for the FilesRefreshEvent, only if not already registered
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this)
-        }
 
         val optionalUser = user
         if (optionalUser.isPresent) {
@@ -416,10 +405,6 @@ class PreviewImageActivity :
         if (downloadFinishReceiver != null) {
             localBroadcastManager.unregisterReceiver(downloadFinishReceiver!!)
             downloadFinishReceiver = null
-        }
-
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this)
         }
 
         super.onStop()
