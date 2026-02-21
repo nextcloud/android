@@ -582,6 +582,7 @@
     <string name="login">Přihlásit</string>
     <string name="login_url_helper_text">Odkaz na webové rozhraní vámi využívané instance %1$s, když ho otevíráte ve webovém prohlížeči.</string>
     <string name="logs_menu_delete">Smazat záznamy událostí</string>
+    <string name="logs_menu_export">Exportovat záznamy událostí</string>
     <string name="logs_menu_refresh">Načíst znovu</string>
     <string name="logs_menu_search">Prohledat záznamy událostí</string>
     <string name="logs_menu_send">Posílat záznamy událostí e-mailem</string>

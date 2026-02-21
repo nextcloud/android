@@ -582,6 +582,7 @@
     <string name="login">Увійти</string>
     <string name="login_url_helper_text">Посилання на ваш веб-інтерфейс %1$s, коли ви відкриєте його у веб-переглядачі.</string>
     <string name="logs_menu_delete">Вилучити журнал</string>
+    <string name="logs_menu_export">Експорт журналу</string>
     <string name="logs_menu_refresh">Оновити</string>
     <string name="logs_menu_search">Шукати у журналі</string>
     <string name="logs_menu_send">Надіслати журнал ел.поштою</string>

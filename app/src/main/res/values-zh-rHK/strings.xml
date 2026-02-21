@@ -582,6 +582,7 @@
     <string name="login">登入</string>
     <string name="login_url_helper_text">在瀏覽器中打開 %1$s 網絡界面的連結。</string>
     <string name="logs_menu_delete">刪除紀錄檔案</string>
+    <string name="logs_menu_export">導出記錄</string>
     <string name="logs_menu_refresh">重整</string>
     <string name="logs_menu_search">搜尋紀錄檔案</string>
     <string name="logs_menu_send">通過電郵發送紀錄</string>

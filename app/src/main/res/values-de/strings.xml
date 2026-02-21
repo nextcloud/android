@@ -582,6 +582,7 @@
     <string name="login">Anmelden</string>
     <string name="login_url_helper_text">Der Link zu Ihrer %1$s Webseite, wenn Sie diese im Browser öffnen.</string>
     <string name="logs_menu_delete">Lösche Logs</string>
+    <string name="logs_menu_export">Protokolle exportieren</string>
     <string name="logs_menu_refresh">Aktualisieren</string>
     <string name="logs_menu_search">Suche Logs</string>
     <string name="logs_menu_send">Protokolldateien per E-Mail versenden</string>
