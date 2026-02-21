@@ -19,6 +19,7 @@ import com.nextcloud.utils.extensions.removeFileExtension
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.OCCapability
+import java.io.File
 
 object FileNameValidator {
 
@@ -29,7 +30,7 @@ object FileNameValidator {
      * @param capability The capabilities affecting the validation criteria
      * such as forbiddenFilenames, forbiddenCharacters.
      * @param context The context used for retrieving error messages.
-     * @param existedFileNames Set of existing file names to avoid duplicates.
+     * @param existingFileNames Set of existing file names to avoid duplicates.
      * @return An error message if the filename is invalid, null otherwise.
      */
     @Suppress("ReturnCount", "NestedBlockDepth")
@@ -37,14 +38,14 @@ object FileNameValidator {
         filename: String,
         capability: OCCapability,
         context: Context,
-        existedFileNames: Set<String>? = null
+        existingFileNames: Set<String>? = null
     ): String? {
         if (filename.isBlank()) {
             return context.getString(R.string.filename_empty)
         }
 
-        existedFileNames?.let {
-            if (isFileNameAlreadyExist(filename, existedFileNames)) {
+        existingFileNames?.let {
+            if (isFileNameAlreadyExist(filename, existingFileNames)) {
                 return context.getString(R.string.file_already_exists)
             }
         }
@@ -145,6 +146,19 @@ object FileNameValidator {
         }
 
         return null
+    }
+
+    /**
+     * @return True, if the extension of both filenames is different. If either filename is null, function returns false
+     */
+    fun isExtensionChanged(previousFileName: String?, newFileName: String?): Boolean {
+        if (previousFileName == null || newFileName == null) {
+            return false
+        }
+        val previousExtension = File(previousFileName).extension
+        val newExtension = File(newFileName).extension
+
+        return previousExtension != newExtension
     }
 
     fun isFileHidden(name: String): Boolean = !TextUtils.isEmpty(name) && name[0] == '.'
