@@ -582,6 +582,7 @@
     <string name="login">Zaloguj</string>
     <string name="login_url_helper_text">Link do interfejsu internetowego %1$s, aby otworzyć w przeglądarce.</string>
     <string name="logs_menu_delete">Usuń dziennik</string>
+    <string name="logs_menu_export">Eksportuj logi</string>
     <string name="logs_menu_refresh">Odśwież</string>
     <string name="logs_menu_search">Przeszukaj dziennik</string>
     <string name="logs_menu_send">Wyślij dziennik e-mailem</string>
