@@ -582,6 +582,7 @@
     <string name="login">Logáil isteach</string>
     <string name="login_url_helper_text">An nasc chuig do chomhéadan gréasáin %1$s nuair a osclaíonn tú é sa bhrabhsálaí.</string>
     <string name="logs_menu_delete">Scrios logs</string>
+    <string name="logs_menu_export">Easpórtáil logaí</string>
     <string name="logs_menu_refresh">Athnuaigh</string>
     <string name="logs_menu_search">Logchomhaid chuardaigh</string>
     <string name="logs_menu_send">Seol logs trí ríomhphost</string>
