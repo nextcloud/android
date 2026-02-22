@@ -9,15 +9,12 @@ package com.nextcloud.client.jobs.autoUpload
 
 import android.app.Notification
 import android.content.Context
-import android.content.res.Resources
-import androidx.exifinterface.media.ExifInterface
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
@@ -26,33 +23,28 @@ import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.client.preferences.SubFolderRule
+import com.nextcloud.utils.extensions.getLog
+import com.nextcloud.utils.extensions.isNonRetryable
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
+import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
-import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
-import java.text.ParsePosition
-import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.TimeZone
 
 @Suppress("LongParameterList", "TooManyFunctions", "TooGenericExceptionCaught")
 class AutoUploadWorker(
@@ -78,6 +70,7 @@ class AutoUploadWorker(
     }
 
     private val helper = AutoUploadHelper()
+    private val syncFolderHelper = SyncFolderHelper(context)
     private val fileUploadBroadcastManager = FileUploadBroadcastManager(localBroadcastManager)
     private lateinit var syncedFolder: SyncedFolder
     private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
@@ -89,6 +82,8 @@ class AutoUploadWorker(
             syncedFolder = syncedFolderProvider.getSyncedFolderByID(syncFolderId)
                 ?.takeIf { it.isEnabled } ?: return Result.failure()
 
+            Log_OC.d(TAG, syncedFolder.getLog())
+
             /**
              * Receives from [com.nextcloud.client.jobs.ContentObserverWork.checkAndTriggerAutoUpload]
              */
@@ -98,10 +93,18 @@ class AutoUploadWorker(
                 return Result.retry()
             }
 
+            if (powerManagementService.isPowerSavingEnabled) {
+                Log_OC.w(TAG, "power saving mode enabled")
+            }
+
             collectFileChangesFromContentObserverWork(contentUris)
             uploadFiles(syncedFolder)
 
-            Log_OC.d(TAG, "✅ ${syncedFolder.remotePath} finished checking files.")
+            // only update last scan time after uploading files
+            syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
+            syncedFolderProvider.updateSyncFolder(syncedFolder)
+
+            Log_OC.d(TAG, "✅ ${syncedFolder.remotePath} completed")
             Result.success()
         } catch (e: Exception) {
             Log_OC.e(TAG, "❌ failed: ${e.message}")
@@ -190,11 +193,6 @@ class AutoUploadWorker(
         val currentTime = System.currentTimeMillis()
         val passedScanInterval = totalScanInterval <= currentTime
 
-        Log_OC.d(TAG, "lastScanTimestampMs: " + syncedFolder.lastScanTimestampMs)
-        Log_OC.d(TAG, "totalScanInterval: $totalScanInterval")
-        Log_OC.d(TAG, "currentTime: $currentTime")
-        Log_OC.d(TAG, "passedScanInterval: $passedScanInterval")
-
         if (!passedScanInterval && contentUris.isNullOrEmpty() && !overridePowerSaving) {
             Log_OC.w(
                 TAG,
@@ -202,6 +200,8 @@ class AutoUploadWorker(
             )
             return true
         }
+
+        Log_OC.d(TAG, "starting ...")
 
         return false
     }
@@ -212,10 +212,14 @@ class AutoUploadWorker(
      */
     @Suppress("MagicNumber", "TooGenericExceptionCaught")
     private suspend fun collectFileChangesFromContentObserverWork(contentUris: Array<String>?) = try {
+        Log_OC.d(TAG, "collecting file changes")
+
         withContext(Dispatchers.IO) {
             if (contentUris.isNullOrEmpty()) {
+                Log_OC.d(TAG, "inserting all entries")
                 helper.insertEntries(syncedFolder, repository)
             } else {
+                Log_OC.d(TAG, "inserting changed entries")
                 val isContentUrisStored = helper.insertChangedEntries(syncedFolder, contentUris, repository)
                 if (!isContentUrisStored) {
                     Log_OC.w(
@@ -226,18 +230,9 @@ class AutoUploadWorker(
                     helper.insertEntries(syncedFolder, repository)
                 }
             }
-            syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
-            syncedFolderProvider.updateSyncFolder(syncedFolder)
         }
     } catch (e: Exception) {
         Log_OC.d(TAG, "Exception collectFileChangesFromContentObserverWork: $e")
-    }
-
-    private fun prepareDateFormat(): SimpleDateFormat {
-        val currentLocale = context.resources.configuration.locales[0]
-        return SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale).apply {
-            timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
-        }
     }
 
     private fun getUserOrReturn(syncedFolder: SyncedFolder): User? {
@@ -274,13 +269,10 @@ class AutoUploadWorker(
 
     @Suppress("LongMethod", "DEPRECATION", "TooGenericExceptionCaught")
     private suspend fun uploadFiles(syncedFolder: SyncedFolder) = withContext(Dispatchers.IO) {
-        val dateFormat = prepareDateFormat()
         val user = getUserOrReturn(syncedFolder) ?: return@withContext
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
             .getClientFor(ocAccount, context)
-        val lightVersion = context.resources.getBoolean(R.bool.syncedFolder_light)
-        val currentLocale = context.resources.configuration.locales[0]
 
         trySetForeground()
         updateNotification()
@@ -294,29 +286,22 @@ class AutoUploadWorker(
                 Log_OC.w(TAG, "no more files to upload at lastId: $lastId")
                 break
             }
-            Log_OC.d(TAG, "Processing batch: lastId=$lastId, count=${filePathsWithIds.size}")
+            Log_OC.d(TAG, "started, processing batch: lastId=$lastId, count=${filePathsWithIds.size}")
 
             filePathsWithIds.forEachIndexed { batchIndex, (path, id) ->
                 val file = File(path)
                 val localPath = file.absolutePath
-                val remotePath = getRemotePath(
-                    file,
-                    syncedFolder,
-                    dateFormat,
-                    lightVersion,
-                    context.resources,
-                    currentLocale
-                )
+                val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, file)
 
                 try {
-                    val result = createEntityAndUpload(user, localPath, remotePath)
-                    if (result == null) {
+                    val entityResult = getEntityResult(user, localPath, remotePath)
+                    if (entityResult !is AutoUploadEntityResult.Success) {
                         repository.markFileAsHandled(localPath, syncedFolder)
-                        Log_OC.d(TAG, "Marked file as handled due to existing conflict: $localPath")
+                        Log_OC.d(TAG, "marked file as handled: $localPath")
                         continue
                     }
 
-                    var (uploadEntity, upload) = result
+                    var (uploadEntity, upload) = entityResult.data
 
                     // if local file deleted, upload process cannot be started or retriable thus needs to be removed
                     if (path.isEmpty() || !file.exists()) {
@@ -337,7 +322,6 @@ class AutoUploadWorker(
 
                         val result = operation.execute(client)
                         fileUploadBroadcastManager.sendStarted(operation, context)
-                        uploadsStorageManager.updateStatus(uploadEntity, result.isSuccess)
 
                         UploadErrorNotificationManager.handleResult(
                             context,
@@ -403,11 +387,7 @@ class AutoUploadWorker(
     }
 
     @Suppress("ReturnCount")
-    private fun createEntityAndUpload(
-        user: User,
-        localPath: String,
-        remotePath: String
-    ): Pair<UploadEntity, OCUpload>? {
+    private fun getEntityResult(user: User, localPath: String, remotePath: String): AutoUploadEntityResult {
         val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)
         Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
 
@@ -419,16 +399,27 @@ class AutoUploadWorker(
         )
 
         val lastUploadResult = uploadEntity?.lastResult?.let { UploadResult.fromValue(it) }
-        if (lastUploadResult == UploadResult.SYNC_CONFLICT) {
-            Log_OC.w(TAG, "Conflict already exists, skipping auto-upload: $localPath")
-            return null
+        if (lastUploadResult?.isNonRetryable() == true) {
+            Log_OC.w(
+                TAG,
+                "last upload failed with ${lastUploadResult.value}, skipping auto-upload: $localPath"
+            )
+            return AutoUploadEntityResult.NonRetryable
         }
 
         val upload = try {
             uploadEntity?.toOCUpload(null) ?: OCUpload(localPath, remotePath, user.accountName)
         } catch (_: IllegalArgumentException) {
             Log_OC.e(TAG, "cannot construct oc upload")
-            return null
+            return AutoUploadEntityResult.CreationError
+        }
+
+        // only valid for skip collision policy other scenarios will be handled in UploadFileOperation.java
+        if (upload.lastResult == UploadResult.UPLOADED &&
+            syncedFolder.nameCollisionPolicy == NameCollisionPolicy.SKIP
+        ) {
+            Log_OC.d(TAG, "no need to create and process this entity file is already uploaded")
+            return AutoUploadEntityResult.Uploaded
         }
 
         upload.apply {
@@ -445,7 +436,7 @@ class AutoUploadWorker(
             }
         }
 
-        return upload.toUploadEntity() to upload
+        return AutoUploadEntityResult.Success(upload.toUploadEntity() to upload)
     }
 
     private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
@@ -463,79 +454,6 @@ class AutoUploadWorker(
         true,
         FileDataStorageManager(user, context.contentResolver)
     )
-
-    private fun getRemotePath(
-        file: File,
-        syncedFolder: SyncedFolder,
-        sFormatter: SimpleDateFormat,
-        lightVersion: Boolean,
-        resources: Resources,
-        currentLocale: Locale
-    ): String {
-        val lastModificationTime = calculateLastModificationTime(file, syncedFolder, sFormatter)
-
-        val (remoteFolder, useSubfolders, subFolderRule) = if (lightVersion) {
-            Triple(
-                resources.getString(R.string.syncedFolder_remote_folder),
-                resources.getBoolean(R.bool.syncedFolder_light_use_subfolders),
-                SubFolderRule.YEAR_MONTH
-            )
-        } else {
-            Triple(
-                syncedFolder.remotePath,
-                syncedFolder.isSubfolderByDate,
-                syncedFolder.subfolderRule
-            )
-        }
-
-        return FileStorageUtils.getInstantUploadFilePath(
-            file,
-            currentLocale,
-            remoteFolder,
-            syncedFolder.localPath,
-            lastModificationTime,
-            useSubfolders,
-            subFolderRule
-        )
-    }
-
-    private fun hasExif(file: File): Boolean {
-        val mimeType = FileStorageUtils.getMimeTypeFromName(file.absolutePath)
-        return MimeType.JPEG.equals(mimeType, ignoreCase = true) || MimeType.TIFF.equals(mimeType, ignoreCase = true)
-    }
-
-    @Suppress("NestedBlockDepth")
-    private fun calculateLastModificationTime(
-        file: File,
-        syncedFolder: SyncedFolder,
-        formatter: SimpleDateFormat
-    ): Long {
-        var lastModificationTime = file.lastModified()
-        if (MediaFolderType.IMAGE == syncedFolder.type && hasExif(file)) {
-            Log_OC.d(TAG, "calculateLastModificationTime exif found")
-
-            @Suppress("TooGenericExceptionCaught")
-            try {
-                val exifInterface = ExifInterface(file.absolutePath)
-                val exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME)
-                if (!exifDate.isNullOrBlank()) {
-                    val pos = ParsePosition(0)
-                    val dateTime = formatter.parse(exifDate, pos)
-                    if (dateTime != null) {
-                        lastModificationTime = dateTime.time
-                        Log_OC.w(TAG, "calculateLastModificationTime calculatedTime is: $lastModificationTime")
-                    } else {
-                        Log_OC.w(TAG, "calculateLastModificationTime dateTime is empty")
-                    }
-                } else {
-                    Log_OC.w(TAG, "calculateLastModificationTime exifDate is empty")
-                }
-            } catch (e: Exception) {
-                Log_OC.d(TAG, "Failed to get the proper time " + e.localizedMessage)
-            }
-        }
-        return lastModificationTime
-    }
 
     private fun sendUploadFinishEvent(operation: UploadFileOperation, result: RemoteOperationResult<*>) {
         fileUploadBroadcastManager.sendFinished(

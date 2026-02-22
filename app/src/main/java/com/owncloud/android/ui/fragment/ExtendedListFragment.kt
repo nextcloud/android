@@ -609,6 +609,7 @@ open class ExtendedListFragment :
                     true
                 )
             }
+
             SearchType.FILE_SEARCH -> {
                 setMessageForEmptyList(
                     R.string.file_list_empty_headline_server_search,
@@ -616,6 +617,7 @@ open class ExtendedListFragment :
                     R.drawable.ic_search_light_grey
                 )
             }
+
             SearchType.FAVORITE_SEARCH -> {
                 setMessageForEmptyList(
                     R.string.file_list_empty_favorite_headline,
@@ -623,6 +625,7 @@ open class ExtendedListFragment :
                     R.drawable.ic_star_light_yellow
                 )
             }
+
             SearchType.RECENTLY_MODIFIED_SEARCH -> {
                 setMessageForEmptyList(
                     R.string.file_list_empty_headline_server_search,
@@ -630,6 +633,7 @@ open class ExtendedListFragment :
                     R.drawable.ic_list_empty_recent
                 )
             }
+
             SearchType.REGULAR_FILTER -> {
                 setMessageForEmptyList(
                     R.string.file_list_empty_headline_search,
@@ -637,6 +641,7 @@ open class ExtendedListFragment :
                     R.drawable.ic_search_light_grey
                 )
             }
+
             SearchType.SHARED_FILTER -> {
                 setMessageForEmptyList(
                     R.string.file_list_empty_shared_headline,
@@ -644,6 +649,7 @@ open class ExtendedListFragment :
                     R.drawable.ic_list_empty_shared
                 )
             }
+
             SearchType.GALLERY_SEARCH -> {
                 setMessageForEmptyList(
                     R.string.file_list_empty_headline_server_search,
@@ -651,6 +657,7 @@ open class ExtendedListFragment :
                     R.drawable.file_image
                 )
             }
+
             SearchType.LOCAL_SEARCH -> {
                 setMessageForEmptyList(
                     R.string.file_list_empty_headline_server_search,
@@ -658,6 +665,7 @@ open class ExtendedListFragment :
                     R.drawable.ic_search_light_grey
                 )
             }
+
             EmptyListState.OFFLINE_MODE -> {
                 setMessageForEmptyList(
                     R.string.offline_mode_info_title,
@@ -666,6 +674,7 @@ open class ExtendedListFragment :
                     true
                 )
             }
+
             EmptyListState.LOADING -> {
                 setMessageForEmptyList(
                     R.string.file_list_loading,
@@ -673,6 +682,7 @@ open class ExtendedListFragment :
                     null
                 )
             }
+
             EmptyListState.ADD_FOLDER -> {
                 setMessageForEmptyList(
                     R.string.folder_list_empty_headline,
@@ -681,6 +691,7 @@ open class ExtendedListFragment :
                     true
                 )
             }
+
             EmptyListState.ONLY_ON_DEVICE -> {
                 setMessageForEmptyList(
                     R.string.file_list_empty_headline,
@@ -689,6 +700,7 @@ open class ExtendedListFragment :
                     true
                 )
             }
+
             EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE -> {
                 setMessageForEmptyList(
                     R.string.file_list_empty_headline,
@@ -697,6 +709,7 @@ open class ExtendedListFragment :
                     true
                 )
             }
+
             EmptyListState.LOCAL_FILE_LIST_EMPTY_FOLDER -> {
                 setMessageForEmptyList(
                     R.string.folder_list_empty_headline,
@@ -705,6 +718,7 @@ open class ExtendedListFragment :
                     true
                 )
             }
+
             EmptyListState.ERROR -> {
                 setMessageForEmptyList(
                     R.string.file_list_error_headline,
@@ -713,6 +727,7 @@ open class ExtendedListFragment :
                     false
                 )
             }
+
             else -> {
                 setMessageForEmptyList(
                     R.string.file_list_empty_headline,
@@ -728,12 +743,12 @@ open class ExtendedListFragment :
         }
     }
 
+    /**
+     * Get the text of EmptyListMessage TextView.
+     *
+     * @return String empty text view text-value
+     */
     val emptyViewText: String
-        /**
-         * Get the text of EmptyListMessage TextView.
-         *
-         * @return String empty text view text-value
-         */
         get() = if (mEmptyListContainer != null && mEmptyListMessage != null) {
             mEmptyListMessage?.getText()
                 .toString()

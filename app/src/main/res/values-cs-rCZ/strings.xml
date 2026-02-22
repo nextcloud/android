@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Smazat úkol</string>
     <string name="assistant_screen_empty_content_description">Zkuste poslat zprávu pro rozproudění konverzace.</string>
     <string name="assistant_screen_empty_content_title">Zdravím! Jak vám mohu pomoci?</string>
+    <string name="assistant_screen_select_task">Vyberte úkol</string>
     <string name="assistant_screen_send_message">Poslat zprávu</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Otevřít seznam konverzací</string>
     <string name="assistant_screen_task_create_fail_message">Při vytváření úlohy se vyskytla chyba</string>
@@ -117,7 +118,7 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Tato složka už je obsažena v synchronizaci nadřazené složky, což může způsobovat duplicitní nahrávání</string>
     <string name="auto_upload_wifi_only_warning_info">Čeká se na Wi-Fi, aby bylo možné spustit nahrávání</string>
-    <string name="auto_upload_worker_start_text">Jsou nahrávány soubory z %s do %s</string>
+    <string name="auto_upload_worker_start_text">Nahrávání souborů z %1$s na %2$s</string>
     <string name="autoupload_configure">Nastavit</string>
     <string name="autoupload_create_new_custom_folder">Vytvořit nové uživatelsky určené nastavení složky</string>
     <string name="autoupload_custom_folder">Nastavit uživatelsky určenou složku</string>
@@ -223,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Import se nepodařilo spustit. Zkuste to znovu</string>
     <string name="contacts_preferences_no_file_found">Nenalezen žádný soubor</string>
     <string name="contacts_preferences_something_strange_happened">Nepodařilo se najít vaši nejaktuálnější zálohu!</string>
-    <string name="content_observer_work_notification_title">Zjišťování změn obsahu</string>
     <string name="conversation_screen_create_error_title">Vytváření konverzace se nezdařilo</string>
     <string name="conversation_screen_delete_button_title">Odstranit konverzaci</string>
     <string name="conversation_screen_delete_error_title">Odstranění konverzace se nezdařilo</string>
@@ -582,6 +582,7 @@
     <string name="login">Přihlásit</string>
     <string name="login_url_helper_text">Odkaz na webové rozhraní vámi využívané instance %1$s, když ho otevíráte ve webovém prohlížeči.</string>
     <string name="logs_menu_delete">Smazat záznamy událostí</string>
+    <string name="logs_menu_export">Exportovat záznamy událostí</string>
     <string name="logs_menu_refresh">Načíst znovu</string>
     <string name="logs_menu_search">Prohledat záznamy událostí</string>
     <string name="logs_menu_send">Posílat záznamy událostí e-mailem</string>
@@ -767,7 +768,6 @@
     <string name="prefs_theme_title">Motiv vzhledu</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Spravovat interní složky pro dvoucestnou synchronizaci</string>
-    <string name="prefs_two_way_sync_switch_title">Zapnout obousměrnou synchronizaci</string>
     <string name="prefs_two_way_sync_title">Obousměrná synchronizace</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Světlý</string>
@@ -1016,6 +1016,12 @@
     <string name="thumbnail_for_new_file_desc">Náhled pro nový soubor</string>
     <string name="timeout_richDocuments">Načítání trvá déle než očekáváno</string>
     <string name="today">Dnes</string>
+    <string name="translation_screen_hint_source">Zadejte text který přeložit…</string>
+    <string name="translation_screen_label_from">Přeložit z:</string>
+    <string name="translation_screen_label_to">Přeložit do:</string>
+    <string name="translation_screen_start_to_translate_task">Přeložíte kliknutím na tlačítko</string>
+    <string name="translation_screen_task_processing">Překládání trvá déle než očekáváno.</string>
+    <string name="translation_screen_translating">Překládání…</string>
     <string name="trashbin_activity_title">Smazané soubory</string>
     <string name="trashbin_empty_headline">Žádné smazané soubory</string>
     <string name="trashbin_empty_message">Odsud je možné obnovit smazané soubory.</string>
@@ -1071,7 +1077,6 @@
     <string name="upload_files">Nahrát soubory</string>
     <string name="upload_global_pause_title">Veškerá nahrávání jsou pozastavena</string>
     <string name="upload_item_action_button">Tlačítko akce Nahrát položku</string>
-    <string name="upload_list_cancel_upload">Zrušit nahrávání</string>
     <string name="upload_list_delete">Smazat</string>
     <string name="upload_list_empty_headline">Nic k nahrání</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo zapněte automatické nahrávání.</string>
@@ -1085,6 +1090,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Oprávnění aplikace</string>
     <string name="upload_missing_storage_permission_description">Bez přístupu k lokálnímu úložišti není možné vaše soubory nahrávat. Klepnutím udělte oprávnění.</string>
     <string name="upload_missing_storage_permission_title">Nahrávání zastaveno – je zapotřebí oprávnění pro úložiště</string>
+    <string name="upload_notification_manager_content_intent_description">Je možné odebrat nebo pokračovat z Nahrávání</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Šifrování je možné pouze na systému Android verze 5.0 a novějším</string>
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do složky %1$s není dostatek volného místa. Chcete je tam namísto toho přesunout?</string>

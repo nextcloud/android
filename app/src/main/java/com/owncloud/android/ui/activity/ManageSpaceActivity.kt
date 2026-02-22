@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.work.WorkManager
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.ui.util.extensions.applyEdgeToEdgeWithSystemBarPadding
 import com.nextcloud.client.account.UserAccountManager
@@ -61,6 +62,9 @@ class ManageSpaceActivity :
     @Suppress("MagicNumber")
     private suspend fun clearData() {
         withContext(Dispatchers.IO) {
+            // cancel all works
+            WorkManager.getInstance(this@ManageSpaceActivity).cancelAllWork()
+
             val lockPref = preferences.lockPreference
             val passCodeEnable = SettingsActivity.LOCK_PASSCODE == lockPref
             var passCodeDigits = arrayOfNulls<String>(4)
@@ -87,6 +91,7 @@ class ManageSpaceActivity :
             val result = clearApplicationData()
             withContext(Dispatchers.Main) {
                 if (result) {
+                    finishAffinity()
                     finishAndRemoveTask()
                     exitProcess(0)
                 } else {
@@ -144,6 +149,7 @@ class ManageSpaceActivity :
             finish()
             true
         }
+
         else -> {
             Log_OC.w(TAG, "Unknown menu item triggered")
             super.onOptionsItemSelected(item)

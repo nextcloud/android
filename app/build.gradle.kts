@@ -62,8 +62,8 @@ configurations.configureEach {
 }
 
 // semantic versioning for version code
-val versionMajor = 3
-val versionMinor = 36
+val versionMajor = 33
+val versionMinor = 1
 val versionPatch = 0
 val versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -94,9 +94,9 @@ android {
 
     defaultConfig {
         testInstrumentationRunnerArguments += mapOf(
-            "TEST_SERVER_URL" to "ncTestServerBaseUrl.toString()",
-            "TEST_SERVER_USERNAME" to "ncTestServerUsername.toString()",
-            "TEST_SERVER_PASSWORD" to "ncTestServerPassword.toString()",
+            "TEST_SERVER_URL" to ncTestServerBaseUrl.toString(),
+            "TEST_SERVER_USERNAME" to ncTestServerUsername.toString(),
+            "TEST_SERVER_PASSWORD" to ncTestServerPassword.toString(),
             "disableAnalytics" to "true"
         )
         applicationId = "com.nextcloud.client"
@@ -106,10 +106,6 @@ android {
 
         buildConfigField("boolean", "CI", ciBuild.toString())
         buildConfigField("boolean", "RUNTIME_PERF_ANALYSIS", perfAnalysis.toString())
-
-        javaCompileOptions.annotationProcessorOptions {
-            arguments += mapOf("room.schemaLocation" to "$projectDir/schemas")
-        }
 
         // arguments to be passed to functional tests
         testInstrumentationRunner = if (shotTest) "com.karumi.shot.ShotTestRunner"
@@ -347,6 +343,7 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.material3)
+    implementation(libs.compose.activity)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.foundation)
     debugImplementation(libs.compose.ui.tooling)

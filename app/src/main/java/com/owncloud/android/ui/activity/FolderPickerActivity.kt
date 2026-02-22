@@ -410,8 +410,11 @@ open class FolderPickerActivity :
     // for copy and move, disable selecting parent folder of target files
     private fun isFolderSelectable(type: String): Boolean = when {
         action != MOVE_OR_COPY -> true
+
         action == MOVE_OR_COPY && type == COPY -> true
+
         targetFilePaths.isNullOrEmpty() -> true
+
         file?.isFolder != true -> true
 
         // all of the target files are already in the selected directory
@@ -419,6 +422,7 @@ open class FolderPickerActivity :
 
         // some of the target files are parents of the selected folder
         targetFilePaths?.any { PathUtils.isAncestor(it, file?.remotePath ?: "") } == true -> false
+
         else -> true
     }
 

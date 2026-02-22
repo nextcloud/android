@@ -206,6 +206,7 @@ class InternalTwoWaySyncActivity :
             android.R.id.home -> {
                 onBackPressedDispatcher.onBackPressed()
             }
+
             R.id.action_dismiss_two_way_sync -> {
                 disableTwoWaySyncAndWorkers()
             }

@@ -30,13 +30,20 @@ open class CommunityActivity : DrawerActivity() {
 
         setupToolbar()
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_community))
-        setupDrawer()
+        setupDrawer(menuItemId)
         binding.communityReleaseCandidateText.movementMethod = LinkMovementMethod.getInstance()
         setupContributeForumView()
         setupContributeTranslationView()
         setupContributeGithubView()
         setupReportButton()
         setOnClickListeners()
+    }
+
+    override fun getMenuItemId(): Int = R.id.nav_community
+
+    override fun onResume() {
+        super.onResume()
+        highlightNavigationViewItem(menuItemId)
     }
 
     private fun setupContributeForumView() {

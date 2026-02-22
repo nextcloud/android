@@ -840,6 +840,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return;
         }
 
+        if (userId == null) {
+            return;
+        }
+
         helper.prepareFileList(directory,
                                adapterDataProvider,
                                onlyOnDevice,
@@ -1049,5 +1053,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void cleanup() {
         ocFileListDelegate.cleanup();
         helper.cleanup();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void removeAllFiles() {
+        mFiles.clear();
+        mFilesAll.clear();
+        notifyDataSetChanged();
     }
 }

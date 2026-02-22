@@ -48,13 +48,18 @@
     <string name="assistant_output_generation_warning_text">Výstup zobrazený tu je generovaný umelou inteligenciou. Uistite sa, že vždy dôkladne skontrolujete.</string>
     <string name="assistant_screen_chat_create_error">Nepodarilo sa odoslať správu</string>
     <string name="assistant_screen_chat_fetch_error">Nepodarilo sa načítať správy chatu</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Vrátiť sa na stránku asistenta</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Naozaj chcete vymazať túto úlohu?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Odstrániť úlohu</string>
     <string name="assistant_screen_empty_content_description">Skúste poslať správu, aby ste rozprúdili konverzáciu.</string>
     <string name="assistant_screen_empty_content_title">Dobrý deň! S čím vám dnes môžem pomôcť?</string>
+    <string name="assistant_screen_select_task">Vyberte úlohu</string>
+    <string name="assistant_screen_send_message">Odoslať správu</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">Otvor zoznam rozhovorov</string>
     <string name="assistant_screen_task_create_fail_message">Pri vytváraní úlohy nastala chyba</string>
     <string name="assistant_screen_task_create_success_message">Úloha vytvorená</string>
     <string name="assistant_screen_task_delete_fail_message">Pri odstraňovaní úlohy nastala chyba</string>
+    <string name="assistant_screen_task_delete_success_message">Úloha vymazaná</string>
     <string name="assistant_screen_task_list_empty_warning">Zoznam úloh je prázdny. Skontrolujte konfiguráciu aplikácie asistenta.</string>
     <string name="assistant_screen_task_list_error_state_message">Nie je možné načítať zoznam úloh, skontrolujte svoje internetové pripojenie.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Vymazať Úlohu</string>
@@ -63,7 +68,11 @@
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Vstup</string>
     <string name="assistant_task_detail_screen_output_button_title">Výstup</string>
+    <string name="assistant_task_status_failed">zlyhalo</string>
     <string name="assistant_task_status_running">spustené</string>
+    <string name="assistant_task_status_scheduled">naplánované</string>
+    <string name="assistant_task_status_successful">úspešné</string>
+    <string name="assistant_task_status_text">Stav úlohy: %1$s</string>
     <string name="assistant_task_status_unknown">neznámy</string>
     <string name="assistant_thinking">Premýšľam …</string>
     <string name="associated_account_not_found">Priradený účet sa nenašiel</string>
@@ -109,7 +118,7 @@
     <string name="auto_upload_path">/AutomatickéNahrávanie</string>
     <string name="auto_upload_sub_folder_warning">Tento adresár je už zahrnutý v synchronizácii nadradeného adresára, čo môže spôsobiť duplicitné nahrávania</string>
     <string name="auto_upload_wifi_only_warning_info">Čaká sa na Wi-Fi pre spustenie nahrávania.</string>
-    <string name="auto_upload_worker_start_text">Nahrávanie súborov z %s do %s</string>
+    <string name="auto_upload_worker_start_text">Nahrávanie súborov z %1$s do %2$s</string>
     <string name="autoupload_configure">Nastaviť</string>
     <string name="autoupload_create_new_custom_folder">Nastavenie vytvorenia vlastného priečinku</string>
     <string name="autoupload_custom_folder">Nastaviť vlastný priečinok</string>
@@ -215,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Spustenie mportu zlyhalo. Prosím skúste to znova</string>
     <string name="contacts_preferences_no_file_found">Nenašiel sa žiadny súbor</string>
     <string name="contacts_preferences_something_strange_happened">Nenašla sa posledná záloha!</string>
-    <string name="content_observer_work_notification_title">Detekcia zmien obsahu</string>
     <string name="conversation_screen_create_error_title">Nepodarilo sa vytvoriť konverzáciu</string>
     <string name="conversation_screen_delete_button_title">Zmazať konverzáciu</string>
     <string name="conversation_screen_delete_error_title">Nepodarilo sa vymazať konverzáciu</string>
@@ -498,6 +506,7 @@
     <string name="folder_download_counter">%1$d z %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Došlo k chybe počas synchronizácie priečinka %s.</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Nedostatok miesta na disku, synchronizácia zrušená</string>
+    <string name="folder_download_success_notification_title">%s zložka synchronizovaná</string>
     <string name="folder_download_worker_ticker_id">Synchronizuje sa...</string>
     <string name="folder_list_empty_headline">Nie sú tu žiadne priečinky</string>
     <string name="folder_name_empty">Názov adresára nemôže byť prázdny</string>
@@ -758,7 +767,6 @@
     <string name="prefs_theme_title">Motív vzhľadu</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Spravovať interné adresáre pre obojsmernú synchronizáciu</string>
-    <string name="prefs_two_way_sync_switch_title">Povoliť obojstrannú synchronizáciu</string>
     <string name="prefs_two_way_sync_title">Obojsmerná synchronizácia</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Svetlý</string>
@@ -1007,6 +1015,12 @@
     <string name="thumbnail_for_new_file_desc">Náhľad nového súboru</string>
     <string name="timeout_richDocuments">Načítavanie trvá dlhšie ako sa očakávalo</string>
     <string name="today">Dnes</string>
+    <string name="translation_screen_hint_source">Zadajte text na preklad…</string>
+    <string name="translation_screen_label_from">Preložiť z:</string>
+    <string name="translation_screen_label_to">Preložiť do:</string>
+    <string name="translation_screen_start_to_translate_task">Stlačte tlačidlo na preklad</string>
+    <string name="translation_screen_task_processing">Preklad trvá dlhšie, než sa očakávalo.</string>
+    <string name="translation_screen_translating">Prekladám…</string>
     <string name="trashbin_activity_title">Zmazané súbory</string>
     <string name="trashbin_empty_headline">Žiadne zmazané súbory</string>
     <string name="trashbin_empty_message">Tu budete mať možnosť obnoviť zmazané súbory.</string>
@@ -1062,7 +1076,6 @@
     <string name="upload_files">Nahrať súbory</string>
     <string name="upload_global_pause_title">Všetky nahrávania sú pozastavené.</string>
     <string name="upload_item_action_button">Tlačítko akcie Nahrať položku</string>
-    <string name="upload_list_cancel_upload">Zrušiť nahrávanie</string>
     <string name="upload_list_delete">Zmazať</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nejaký obsah alebo si zapnite automatické nahrávanie.</string>
@@ -1076,6 +1089,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Povolenia aplikácie</string>
     <string name="upload_missing_storage_permission_description">Vaše súbory nemožno nahrať bez prístupu k miestnemu úložisku. Klepnite pre udelenie povolenia.</string>
     <string name="upload_missing_storage_permission_title">Nahrávanie zastavené – Vyžaduje sa povolenie pre úložisko</string>
+    <string name="upload_notification_manager_content_intent_description">Môžete to odstrániť alebo pokračovať v nahrávaní z nahratých súborov</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Šifrovanie je možné iba pri &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Pre skopírovanie vybratých súborov do adresára %1$s nie je dostatok voľného miesta. Chcete ich namiesto toho presunúť?</string>

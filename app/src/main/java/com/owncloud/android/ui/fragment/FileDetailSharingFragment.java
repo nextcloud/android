@@ -299,6 +299,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         viewThemeUtils.platform.colorImageView(binding.searchViewIcon, ColorRole.ON_SURFACE_VARIANT);
         viewThemeUtils.platform.colorImageView(binding.pickContactEmailBtn, ColorRole.ON_SURFACE_VARIANT);
 
+        viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.sendCopyBtn);
+
         viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.sharesListInternalShowAll);
         viewThemeUtils.material.colorMaterialTextButton(binding.sharesListInternalShowAll);
         binding.sharesListInternalShowAll.setOnClickListener(view -> {

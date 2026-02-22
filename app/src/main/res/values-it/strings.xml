@@ -107,7 +107,6 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Questa cartella è già inclusa nella sincronizzazione della cartella principale, il che potrebbe causare caricamenti duplicati.</string>
     <string name="auto_upload_wifi_only_warning_info">In attesa del Wi-Fi per avviare il caricamento</string>
-    <string name="auto_upload_worker_start_text">Caricando i file da %s a %s</string>
     <string name="autoupload_configure">Configura</string>
     <string name="autoupload_create_new_custom_folder">Crea nuova configurazione di cartella personalizzata</string>
     <string name="autoupload_custom_folder">Configura una cartella personalizzata</string>
@@ -213,7 +212,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Impossibile avviare l\'importazione. Riprova.</string>
     <string name="contacts_preferences_no_file_found">Nessun file trovato</string>
     <string name="contacts_preferences_something_strange_happened">Non troviamo il tuo ultimo backup!</string>
-    <string name="content_observer_work_notification_title">Rilevamento delle modifiche ai contenuti</string>
     <string name="conversation_screen_create_error_title">Impossibile creare conversazione</string>
     <string name="conversation_screen_delete_button_title">Elimina conversazione</string>
     <string name="conversation_screen_delete_error_title">Impossibile eliminare la conversazione</string>
@@ -711,7 +709,6 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Intervallo</string>
     <string name="prefs_two_way_sync_summary">Gestisci le cartelle interne per la sincronizzazione bidirezionale</string>
-    <string name="prefs_two_way_sync_switch_title">Abilita sincronizzazione bidirezionale</string>
     <string name="prefs_two_way_sync_title">Sincronizzazione bidirezionale</string>
     <string name="prefs_value_theme_dark">Scuro</string>
     <string name="prefs_value_theme_light">Chiaro</string>
@@ -1005,7 +1002,6 @@
     <string name="upload_files">Carica file</string>
     <string name="upload_global_pause_title">Tutti i caricamenti sono in pausa</string>
     <string name="upload_item_action_button">Pulsante azione Carica elemento</string>
-    <string name="upload_list_cancel_upload">Annulla caricamento</string>
     <string name="upload_list_delete">Elimina</string>
     <string name="upload_list_empty_headline">Nessun caricamento disponibile</string>
     <string name="upload_list_empty_text_auto_upload">Carica dei contenuti o attiva il caricamento automatico.</string>

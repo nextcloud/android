@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">刪除工作項目</string>
     <string name="assistant_screen_empty_content_description">嘗試傳送訊息來引發對話。</string>
     <string name="assistant_screen_empty_content_title">嗨！我現在能怎麼協助您呢？</string>
+    <string name="assistant_screen_select_task">請選取任務</string>
     <string name="assistant_screen_send_message">傳送訊息</string>
     <string name="assistant_screen_task_bar_open_conversation_list">開啟對話清單</string>
     <string name="assistant_screen_task_create_fail_message">建立工作項目時發生錯誤</string>
@@ -117,7 +118,7 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">此資料夾已包含在上層資料夾的同步中，這可能會導致重複上傳</string>
     <string name="auto_upload_wifi_only_warning_info">等待 Wi-Fi 開始上傳</string>
-    <string name="auto_upload_worker_start_text">從 %s 上傳檔案至 %s</string>
+    <string name="auto_upload_worker_start_text">正在從 %1$s 上傳檔案到 %2$s</string>
     <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
     <string name="autoupload_custom_folder">設置自訂資料夾</string>
@@ -223,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">匯入無法開始。請再試一次</string>
     <string name="contacts_preferences_no_file_found">找不到檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份！</string>
-    <string name="content_observer_work_notification_title">偵測內容變更</string>
     <string name="conversation_screen_create_error_title">建立對話失敗</string>
     <string name="conversation_screen_delete_button_title">刪除對話</string>
     <string name="conversation_screen_delete_error_title">刪除對話失敗</string>
@@ -767,7 +767,6 @@
     <string name="prefs_theme_title">佈景主題</string>
     <string name="prefs_two_way_sync_interval">間隔</string>
     <string name="prefs_two_way_sync_summary">管理內部資料夾以進行雙向同步</string>
-    <string name="prefs_two_way_sync_switch_title">啟用雙向同步</string>
     <string name="prefs_two_way_sync_title">雙向同步</string>
     <string name="prefs_value_theme_dark">深色</string>
     <string name="prefs_value_theme_light">淺色</string>
@@ -1016,6 +1015,12 @@
     <string name="thumbnail_for_new_file_desc">新檔案的縮圖</string>
     <string name="timeout_richDocuments">載入時間比預期久</string>
     <string name="today">今天</string>
+    <string name="translation_screen_hint_source">輸入要翻譯的文字……</string>
+    <string name="translation_screen_label_from">翻譯自：</string>
+    <string name="translation_screen_label_to">翻譯至：</string>
+    <string name="translation_screen_start_to_translate_task">按下按鈕翻譯</string>
+    <string name="translation_screen_task_processing">翻譯時間比預期長。</string>
+    <string name="translation_screen_translating">正在翻譯……</string>
     <string name="trashbin_activity_title">刪除的檔案</string>
     <string name="trashbin_empty_headline">無刪除的檔案</string>
     <string name="trashbin_empty_message">您可以從這裡還原刪除的檔案。</string>
@@ -1071,7 +1076,6 @@
     <string name="upload_files">上傳檔案</string>
     <string name="upload_global_pause_title">所有上傳皆已暫停</string>
     <string name="upload_item_action_button">上傳項目動作按鈕</string>
-    <string name="upload_list_cancel_upload">取消上傳</string>
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
     <string name="upload_list_empty_text_auto_upload">上傳一些內容或者啟用自動上傳。</string>
@@ -1085,6 +1089,7 @@
     <string name="upload_missing_storage_permission_app_permissions">應用程式權限</string>
     <string name="upload_missing_storage_permission_description">若無法存取本機儲存空間，則無法上傳您的檔案。輕點即可授予權限。</string>
     <string name="upload_missing_storage_permission_title">上傳已停止 – 需要儲存空間權限</string>
+    <string name="upload_notification_manager_content_intent_description">您可以從上傳清單中移除或還原它</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">加密功能僅適用於 Android 5.0 及後續版本</string>
     <string name="upload_query_move_foreign_files">空間不足以將選擇的檔案複製到 %1$s 資料夾。是否要改成移動它們？</string>

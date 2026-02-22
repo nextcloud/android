@@ -683,7 +683,6 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Gestioneu les carpetes internes per a la sincronització bidireccional</string>
-    <string name="prefs_two_way_sync_switch_title">Habilita la sincronització bidireccional</string>
     <string name="prefs_value_theme_dark">Fosc</string>
     <string name="prefs_value_theme_light">Clar</string>
     <string name="prefs_value_theme_system">Seguir al sistema</string>

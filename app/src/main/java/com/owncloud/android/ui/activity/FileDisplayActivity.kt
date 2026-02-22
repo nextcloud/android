@@ -261,7 +261,7 @@ class FileDisplayActivity :
 
         loadSavedInstanceState(savedInstanceState)
 
-        /** USER INTERFACE */
+        // USER INTERFACE
         initLayout()
         initUI()
         initTaskRetainerFragment()
@@ -278,7 +278,18 @@ class FileDisplayActivity :
         observeWorkerState()
         startMetadataSyncForRoot()
         handleBackPress()
+        setupDrawer(menuItemId)
     }
+
+    /**
+     * Determines which navigation drawer item should be selected.
+     *
+     * Resolution order:
+     * 1) Global app state (static flags in MainApp nav_personal and nav_on_device)
+     * 2) Currently visible fragment (and its active child)
+     * 3) Fallback to All Files
+     */
+    override fun getMenuItemId(): Int = MainApp.getMenuItemId() ?: listOfFilesFragment?.menuItemId ?: R.id.nav_all_files
 
     private fun loadSavedInstanceState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
@@ -310,8 +321,6 @@ class FileDisplayActivity :
 
         // reset ui states when file display activity created/recrated
         listOfFilesFragment?.resetSearchAttributes()
-        menuItemId = R.id.nav_all_files
-        setNavigationViewItemChecked()
     }
 
     private fun initTaskRetainerFragment() {
@@ -390,7 +399,6 @@ class FileDisplayActivity :
             ) != null
         ) {
             switchToSearchFragment(savedInstanceState)
-            setupDrawer()
         } else {
             createMinFragments(savedInstanceState)
         }
@@ -528,7 +536,7 @@ class FileDisplayActivity :
     }
 
     private fun initFragments() {
-        /** First fragment */
+        // First fragment
         val listOfFiles = this.listOfFilesFragment
         if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
             listOfFiles.listDirectory(getCurrentDir(), file, MainApp.isOnlyOnDevice())
@@ -536,7 +544,7 @@ class FileDisplayActivity :
             Log_OC.e(TAG, "Still have a chance to lose the initialization of list fragment >(")
         }
 
-        /** reset views */
+        // reset views
         resetScrollingAndUpdateActionBar()
     }
 
@@ -565,7 +573,6 @@ class FileDisplayActivity :
 
             ALL_FILES == action -> {
                 Log_OC.d(this, "Switch to oc file fragment")
-                menuItemId = R.id.nav_all_files
 
                 // Replace only if the fragment is NOT exactly OCFileListFragment
                 // Using `is OCFileListFragment` would also match subclasses,
@@ -582,7 +589,6 @@ class FileDisplayActivity :
 
             LIST_GROUPFOLDERS == action -> {
                 Log_OC.d(this, "Switch to list groupfolders fragment")
-                menuItemId = R.id.nav_groupfolders
                 leftFragment = GroupfolderListFragment()
                 supportFragmentManager.executePendingTransactions()
             }
@@ -599,6 +605,7 @@ class FileDisplayActivity :
     private fun handleCommonIntents(intent: Intent) {
         when (intent.action) {
             Intent.ACTION_VIEW -> handleOpenFileViaIntent(intent)
+
             OPEN_FILE -> {
                 onOpenFileIntent(intent)
             }
@@ -624,35 +631,27 @@ class FileDisplayActivity :
         when (searchEvent.searchType) {
             SearchRemoteOperation.SearchType.PHOTO_SEARCH -> {
                 Log_OC.d(this, "Switch to photo search fragment")
-                val bundle = Bundle().apply {
-                    putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
-                }
                 leftFragment = GalleryFragment().apply {
-                    arguments = bundle
+                    arguments = searchEvent.getBundle()
                 }
             }
 
             SearchRemoteOperation.SearchType.SHARED_FILTER -> {
                 Log_OC.d(this, "Switch to shared fragment")
-                val bundle = Bundle().apply {
-                    putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
-                }
                 leftFragment = SharedListFragment().apply {
-                    arguments = bundle
+                    arguments = searchEvent.getBundle()
                 }
             }
 
             else -> {
                 Log_OC.d(this, "Switch to oc file search fragment")
-                val bundle = Bundle().apply {
-                    putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
-                }
                 leftFragment = OCFileListFragment().apply {
-                    arguments = bundle
+                    arguments = searchEvent.getBundle()
                 }
             }
         }
 
+        listOfFilesFragment?.isSearchFragment = true
         listOfFilesFragment?.setCurrentSearchType(searchEvent)
     }
     // endregion
@@ -790,11 +789,7 @@ class FileDisplayActivity :
     var leftFragment: Fragment?
         get() = supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES)
 
-        /**
-         * Replaces the first fragment managed by the activity with the received as a parameter.
-         *
-         * @param fragment New Fragment to set.
-         */
+        // Replaces the first fragment managed by the activity with the received as a parameter.
         private set(fragment) {
             setLeftFragment(fragment, true)
         }
@@ -1237,6 +1232,7 @@ class FileDisplayActivity :
         android.R.id.home -> {
             when {
                 shouldOpenDrawer() -> openDrawer()
+
                 else -> {
                     handleBackPressImpl()
                 }
@@ -1264,7 +1260,6 @@ class FileDisplayActivity :
         }
 
         resetScrollingAndUpdateActionBar()
-        configureMenuItem()
         startMetadataSyncForCurrentDir()
     }
 
@@ -1330,6 +1325,12 @@ class FileDisplayActivity :
         Log_OC.v(TAG, "onResume() start")
 
         super.onResume()
+
+        if (ocFileListFragment?.isSearchFragment == true) {
+            ocFileListFragment?.setSearchArgs(ocFileListFragment?.arguments)
+        }
+        highlightNavigationViewItem(menuItemId)
+
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
             return
@@ -1346,6 +1347,9 @@ class FileDisplayActivity :
             return
         }
 
+        if (isToolbarStyleSearch) {
+            setupHomeSearchToolbarWithSortAndListButtons()
+        }
         val ocFileListFragment = leftFragment
         syncAndUpdateFolder(ignoreETag = true, ignoreFocus = true)
 
@@ -1360,14 +1364,13 @@ class FileDisplayActivity :
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView?.setQuery(searchQuery, false)
         } else if (!ocFileListFragment.isSearchFragment && startFile == null) {
-            updateListOfFilesFragment()
+            ocFileListFragment.listDirectory(MainApp.isOnlyOnDevice())
             ocFileListFragment.registerFabListener()
+            updateActionBarTitleAndHomeButton(currentDir)
         } else {
             ocFileListFragment.listDirectory(startFile, false)
             updateActionBarTitleAndHomeButton(startFile)
         }
-
-        configureMenuItem()
 
         // show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this)
@@ -1385,21 +1388,6 @@ class FileDisplayActivity :
         intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
             ?: intent?.getStringExtra(EXTRA_FILE_REMOTE_PATH)
                 ?.let { fileDataStorageManager.getFileByDecryptedRemotePath(it) }
-
-    private fun checkAndSetMenuItemId() {
-        if (MainApp.isOnlyPersonFiles()) {
-            menuItemId = R.id.nav_personal_files
-        } else if (MainApp.isOnlyOnDevice()) {
-            menuItemId = R.id.nav_on_device
-        } else if (menuItemId == Menu.NONE) {
-            menuItemId = R.id.nav_all_files
-        }
-    }
-
-    fun configureMenuItem() {
-        checkAndSetMenuItemId()
-        setNavigationViewItemChecked()
-    }
 
     // region local broadcast manager receivers
     private fun registerReceivers() {
@@ -1656,9 +1644,11 @@ class FileDisplayActivity :
                 mSyncInProgress -> {
                     it.setEmptyListMessage(EmptyListState.LOADING)
                 }
+
                 MainApp.isOnlyOnDevice() -> {
                     it.setEmptyListMessage(EmptyListState.ONLY_ON_DEVICE)
                 }
+
                 else -> it.setEmptyListMessage(SearchType.NO_SEARCH)
             }
         }
@@ -1820,7 +1810,7 @@ class FileDisplayActivity :
         val listOfFiles = this.listOfFilesFragment
         if (listOfFiles != null) { // should never be null, indeed
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
-            listOfFiles.listDirectory(root, MainApp.isOnlyOnDevice())
+            listOfFiles.resetSearchAttributes()
             file = listOfFiles.currentFile
             startSyncFolderOperation(root, false)
         }
@@ -1945,18 +1935,17 @@ class FileDisplayActivity :
     }
 
     fun previewImageWithSearchContext(file: OCFile, searchFragment: Boolean, currentSearchType: SearchType?) {
-        // preview image - it handles the download, if needed
-        if (searchFragment) {
-            val type = when (currentSearchType) {
+        val type = if (searchFragment) {
+            when (currentSearchType) {
                 SearchType.FAVORITE_SEARCH -> VirtualFolderType.FAVORITE
                 SearchType.GALLERY_SEARCH -> VirtualFolderType.GALLERY
                 else -> VirtualFolderType.NONE
             }
-
-            startImagePreview(file, type, file.isDown)
         } else {
-            startImagePreview(file, file.isDown)
+            null
         }
+
+        startImagePreview(file, file.isDown, type)
     }
 
     fun previewFile(file: OCFile, setFabVisible: CompletionCallback?) {
@@ -2361,21 +2350,6 @@ class FileDisplayActivity :
      * change.
      * @param ignoreFocus reloads file list even without focus, e.g. on tablet mode, focus can still be in detail view
      */
-
-    /**
-     * Starts an operation to refresh the requested folder.
-     *
-     *
-     * The operation is run in a new background thread created on the fly.
-     *
-     *
-     * The refresh updates is a "light sync": properties of regular files in folder are updated (including associated
-     * shares), but not their contents. Only the contents of files marked to be kept-in-sync are synchronized too.
-     *
-     * @param folder     Folder to refresh.
-     * @param ignoreETag If 'true', the data from the server will be fetched and sync'ed even if the eTag didn't
-     * change.
-     */
     @JvmOverloads
     fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean, ignoreFocus: Boolean = false) {
         Log_OC.d(TAG, "startSyncFolderOperation called, ignoreEtag: $ignoreETag, ignoreFocus: $ignoreFocus")
@@ -2388,7 +2362,7 @@ class FileDisplayActivity :
 
             handler.postDelayed({
                 val user = getUser()
-                if (!ignoreFocus && !hasWindowFocus() || !user.isPresent) {
+                if ((!ignoreFocus && !hasWindowFocus()) || !user.isPresent) {
                     // do not refresh if the user rotates the device while another window has focus
                     // or if the current user is no longer valid
                     mSyncInProgress = false
@@ -2482,43 +2456,29 @@ class FileDisplayActivity :
         }
     }
 
-    fun startImagePreview(file: OCFile, showPreview: Boolean) {
-        val showDetailsIntent = Intent(this, PreviewImageActivity::class.java)
-        showDetailsIntent.putExtra(EXTRA_FILE, file)
-        showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
-        showDetailsIntent.putExtra(
-            EXTRA_USER,
-            user.orElseThrow(Supplier { RuntimeException() })
-        )
-        if (showPreview) {
-            startActivity(showDetailsIntent)
-        } else {
-            val fileOperationsHelper =
-                FileOperationsHelper(this, userAccountManager, connectivityService, editorUtils)
-            fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent)
+    fun startImagePreview(file: OCFile, showPreview: Boolean, type: VirtualFolderType? = null) {
+        if (user.isEmpty) {
+            Log_OC.e(TAG, "cannot start image preview")
+            return
         }
-    }
 
-    fun startImagePreview(file: OCFile, type: VirtualFolderType?, showPreview: Boolean) {
-        val showDetailsIntent = Intent(this, PreviewImageActivity::class.java)
-        showDetailsIntent.putExtra(EXTRA_FILE, file)
-        showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
-        showDetailsIntent.putExtra(
-            EXTRA_USER,
-            user.orElseThrow(Supplier { RuntimeException() })
-        )
-        showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type)
+        val intent = Intent(this, PreviewImageActivity::class.java).apply {
+            putExtra(EXTRA_FILE, file)
+            putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
+            putExtra(EXTRA_USER, user.get())
+            type?.let { putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, it) }
+        }
 
         if (showPreview) {
-            startActivity(showDetailsIntent)
+            startActivity(intent)
         } else {
-            val fileOperationsHelper = FileOperationsHelper(
+            val helper = FileOperationsHelper(
                 this,
                 userAccountManager,
                 connectivityService,
                 editorUtils
             )
-            fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent)
+            helper.startSyncForFileAndIntent(file, intent)
         }
     }
 
@@ -2542,7 +2502,7 @@ class FileDisplayActivity :
             return // not reachable under normal conditions
         }
         val actualUser = user.get()
-        if (showPreview && file.isDown && !file.isDownloading || streamMedia) {
+        if ((showPreview && file.isDown && !file.isDownloading) || streamMedia) {
             if (showInActivity) {
                 startMediaActivity(file, startPlaybackPosition, autoplay, actualUser)
             } else {
@@ -2782,8 +2742,8 @@ class FileDisplayActivity :
             val virtualType = bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE) as VirtualFolderType?
             startImagePreview(
                 file,
-                virtualType,
-                true
+                true,
+                virtualType
             )
         } else {
             startImagePreview(file, true)
@@ -2857,7 +2817,6 @@ class FileDisplayActivity :
         }
 
         setFile(file)
-        setupDrawer()
 
         val existingAccountName = existingUser.accountName
         mSwitchAccountButton.tag = existingAccountName

@@ -241,6 +241,7 @@ class UnifiedSearchFragment :
             is UnifiedSearchFragmentScreenState.ShowingContent -> {
                 toggleEmptyListVisible(show = false)
             }
+
             is UnifiedSearchFragmentScreenState.Empty -> {
                 showEmptyView(state)
             }

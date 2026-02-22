@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Usuń zadanie</string>
     <string name="assistant_screen_empty_content_description">Spróbuj wysłać wiadomość, aby rozpocząć rozmowę.</string>
     <string name="assistant_screen_empty_content_title">Cześć! W czym mogę Ci dziś pomóc?</string>
+    <string name="assistant_screen_select_task">Wybierz zadanie</string>
     <string name="assistant_screen_send_message">Wyślij wiadomość</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Otwórz listę rozmowy</string>
     <string name="assistant_screen_task_create_fail_message">Wystąpił błąd podczas tworzenia zadania</string>
@@ -117,7 +118,7 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Ten katalog jest już uwzględniony w synchronizacji katalogu nadrzędnego, co może powodować duplikowanie wysyłanych plików</string>
     <string name="auto_upload_wifi_only_warning_info">Oczekiwanie na Wi-Fi, aby zacząć aktualizowanie</string>
-    <string name="auto_upload_worker_start_text">Przesyłanie plików z %s do %s</string>
+    <string name="auto_upload_worker_start_text">Przesyłanie plików z %1$s do %2$s</string>
     <string name="autoupload_configure">Konfiguruj</string>
     <string name="autoupload_create_new_custom_folder">Utwórz nową niestandardową konfigurację katalogu</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
@@ -223,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Nie udało się rozpocząć importu. Spróbuj ponownie</string>
     <string name="contacts_preferences_no_file_found">Nie znaleziono żadnych plików</string>
     <string name="contacts_preferences_something_strange_happened">Nie odnaleziono Twojej ostatniej kopii zapasowej!</string>
-    <string name="content_observer_work_notification_title">Sprawdzanie zmian treści</string>
     <string name="conversation_screen_create_error_title">Nie udało się utworzyć rozmowy</string>
     <string name="conversation_screen_delete_button_title">Usunąć rozmowę</string>
     <string name="conversation_screen_delete_error_title">Nie udało się usunąć rozmowy</string>
@@ -582,6 +582,7 @@
     <string name="login">Zaloguj</string>
     <string name="login_url_helper_text">Link do interfejsu internetowego %1$s, aby otworzyć w przeglądarce.</string>
     <string name="logs_menu_delete">Usuń dziennik</string>
+    <string name="logs_menu_export">Eksportuj logi</string>
     <string name="logs_menu_refresh">Odśwież</string>
     <string name="logs_menu_search">Przeszukaj dziennik</string>
     <string name="logs_menu_send">Wyślij dziennik e-mailem</string>
@@ -767,7 +768,6 @@
     <string name="prefs_theme_title">Motyw</string>
     <string name="prefs_two_way_sync_interval">Interwał</string>
     <string name="prefs_two_way_sync_summary">Zarządzaj wewnętrznymi katalogami w celu synchronizacji dwukierunkowej</string>
-    <string name="prefs_two_way_sync_switch_title">Włącz synchronizację dwukierunkową</string>
     <string name="prefs_two_way_sync_title">Synchronizacja dwukierunkowa</string>
     <string name="prefs_value_theme_dark">Ciemny</string>
     <string name="prefs_value_theme_light">Jasny</string>
@@ -1016,6 +1016,12 @@
     <string name="thumbnail_for_new_file_desc">Miniaturka dla nowego pliku</string>
     <string name="timeout_richDocuments">Ładowanie trwa dłużej niż oczekiwano</string>
     <string name="today">Dzisiaj</string>
+    <string name="translation_screen_hint_source">Wpisz tekst do przetłumaczenia...</string>
+    <string name="translation_screen_label_from">Tłumacz z:</string>
+    <string name="translation_screen_label_to">Tłumacz na:</string>
+    <string name="translation_screen_start_to_translate_task">Naciśnij przycisk, aby przetłumaczyć</string>
+    <string name="translation_screen_task_processing">Tłumaczenie trwa dłużej niż oczekiwano.</string>
+    <string name="translation_screen_translating">Tłumaczenie...</string>
     <string name="trashbin_activity_title">Usunięte pliki</string>
     <string name="trashbin_empty_headline">Brak usuniętych plików</string>
     <string name="trashbin_empty_message">Tutaj będziesz mógł odzyskać usunięte pliki.</string>
@@ -1071,7 +1077,6 @@
     <string name="upload_files">Wyślij pliki</string>
     <string name="upload_global_pause_title">Wszystkie przesyłania zostały wstrzymane</string>
     <string name="upload_item_action_button">Przycisk wysyłania elementu</string>
-    <string name="upload_list_cancel_upload">Anuluj wysyłanie</string>
     <string name="upload_list_delete">Usuń</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij pliki lub włącz automatyczne wysyłanie.</string>
@@ -1085,6 +1090,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Uprawnienia aplikacji</string>
     <string name="upload_missing_storage_permission_description">Twoje pliki nie mogą być przesłane bez dostępu do pamięci lokalnej. Kliknij, aby udzielić pozwolenia.</string>
     <string name="upload_missing_storage_permission_title">Przesyłanie zatrzymane – wymagane uprawnienie do pamięci</string>
+    <string name="upload_notification_manager_content_intent_description">Możesz usunąć lub wznowić w sekcji Przesyłane pliki</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Szyfrowanie jest możliwe tylko przy &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do katalogu %1$s. Czy chcesz je tam przenieść?</string>

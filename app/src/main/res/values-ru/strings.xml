@@ -115,7 +115,6 @@
     <string name="auto_upload_path">/Автозагрузка</string>
     <string name="auto_upload_sub_folder_warning">Эта папка уже включена в синхронизацию родительской папки, что может привести к дублированию загрузок</string>
     <string name="auto_upload_wifi_only_warning_info">Ожидание Wi-Fi для начала загрузки</string>
-    <string name="auto_upload_worker_start_text">Загрузка файлов из %s в %s</string>
     <string name="autoupload_configure">Настроить</string>
     <string name="autoupload_create_new_custom_folder">Создать новую настройку пользовательского каталога</string>
     <string name="autoupload_custom_folder">Задать пользовательский каталог</string>
@@ -221,7 +220,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Не удалось запустить импорт. Пожалуйста, попробуйте снова</string>
     <string name="contacts_preferences_no_file_found">Файл не найден</string>
     <string name="contacts_preferences_something_strange_happened">Не удалось найти последнюю резервную копию!</string>
-    <string name="content_observer_work_notification_title">Проверка изменений в папках</string>
     <string name="conversation_screen_create_error_title">Не удалось создать чат</string>
     <string name="conversation_screen_delete_button_title">Удалить обсуждение</string>
     <string name="conversation_screen_delete_error_title">Не удалось создать чат.</string>
@@ -754,7 +752,6 @@
     <string name="prefs_theme_title">Оформление</string>
     <string name="prefs_two_way_sync_interval">Интервал</string>
     <string name="prefs_two_way_sync_summary">Управление внутренними папками для двусторонней синхронизации</string>
-    <string name="prefs_two_way_sync_switch_title">Включить двустороннюю синхронизацию</string>
     <string name="prefs_two_way_sync_title">Двусторонняя синхронизация</string>
     <string name="prefs_value_theme_dark">Тёмное</string>
     <string name="prefs_value_theme_light">Светлое</string>
@@ -1054,7 +1051,6 @@
     <string name="upload_files">Отправить файлы</string>
     <string name="upload_global_pause_title">Все загрузки приостановлены</string>
     <string name="upload_item_action_button">Кнопка «выгрузить объект»</string>
-    <string name="upload_list_cancel_upload">Отменить передачу</string>
     <string name="upload_list_delete">Удалить</string>
     <string name="upload_list_empty_headline">Нет файлов, ожидающих передачу на сервер.</string>
     <string name="upload_list_empty_text_auto_upload">Сохраните здесь что-нибудь или включите автоматическую передачу файлов!</string>

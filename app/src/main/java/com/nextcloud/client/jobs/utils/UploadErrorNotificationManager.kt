@@ -125,6 +125,11 @@ object UploadErrorNotificationManager {
             setProgress(0, 0, false)
             clearActions()
 
+            setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(context.getString(R.string.upload_notification_manager_content_intent_description))
+            )
+
             // actions for all error types
             addAction(UploadBroadcastAction.PauseAndCancel(operation).pauseAction(context))
             addAction(UploadBroadcastAction.PauseAndCancel(operation).cancelAction(context))

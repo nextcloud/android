@@ -18,10 +18,12 @@ import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.activeUploadFileOperations
 import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.utils.extensions.getUploadIds
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -261,7 +263,7 @@ class FileUploadHelper {
     }
 
     fun removeFileUpload(remotePath: String, accountName: String) {
-        uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(remotePath, accountName)
+        uploadsStorageManager.uploadDao.deleteByRemotePathAndAccountName(remotePath, accountName)
     }
 
     fun updateUploadStatus(remotePath: String, accountName: String, status: UploadStatus) {
@@ -475,8 +477,13 @@ class FileUploadHelper {
         }
     }
 
-    @Suppress("MagicNumber")
-    fun isSameFileOnRemote(user: User, localFile: File, remotePath: String, context: Context): Boolean {
+    @Suppress("MagicNumber", "ReturnCount", "ComplexCondition")
+    fun isSameFileOnRemote(user: User?, localFile: File?, remotePath: String?, context: Context?): Boolean {
+        if (user == null || localFile == null || remotePath == null || context == null) {
+            Log_OC.e(TAG, "cannot compare remote and local file")
+            return false
+        }
+
         // Compare remote file to local file
         val localLastModifiedTimestamp = localFile.lastModified() / 1000 // remote file timestamp in milli not micro sec
         val localCreationTimestamp = FileUtil.getCreationTimestamp(localFile)

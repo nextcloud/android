@@ -96,7 +96,6 @@
     <string name="auto_upload_on_wifi">Upload alleen met Wi-Fi</string>
     <string name="auto_upload_path">/AutomatischUploaden</string>
     <string name="auto_upload_sub_folder_warning">Deze map is al opgenomen in de synchronisatie van de bovenliggende map, wat kan leiden tot dubbele uploads.</string>
-    <string name="auto_upload_worker_start_text">Bestanden aan het uploaden van %s naar %s</string>
     <string name="autoupload_configure">Configureren</string>
     <string name="autoupload_create_new_custom_folder">Maak aangepaste nieuwe map aan</string>
     <string name="autoupload_custom_folder">Instellen aangepaste map</string>
@@ -730,7 +729,6 @@
     <string name="prefs_theme_title">Thema</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Interne mappen beheren voor tweeweg-synchronisatie</string>
-    <string name="prefs_two_way_sync_switch_title">Tweeweg-synchronisatie inschakelen</string>
     <string name="prefs_two_way_sync_title">Tweeweg-synchronisatie</string>
     <string name="prefs_value_theme_dark">Donker</string>
     <string name="prefs_value_theme_light">Licht</string>
@@ -1027,7 +1025,6 @@
     <string name="upload_files">Bestanden uploaden</string>
     <string name="upload_global_pause_title">Alle uploads zijn gepauzeerd</string>
     <string name="upload_item_action_button">Upload object actie knop</string>
-    <string name="upload_list_cancel_upload">Upload afbreken</string>
     <string name="upload_list_delete">Verwijderen</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto-upload.</string>

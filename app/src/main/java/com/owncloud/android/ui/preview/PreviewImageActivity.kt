@@ -99,7 +99,7 @@ class PreviewImageActivity :
 
         livePhotoFile = intent.getParcelableArgument(EXTRA_LIVE_PHOTO_FILE, OCFile::class.java)
 
-        setupDrawer()
+        setupDrawer(menuItemId)
 
         val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
 
@@ -123,6 +123,8 @@ class PreviewImageActivity :
         applyDisplayCutOutTopPadding()
         handleBackPress()
     }
+
+    override fun getMenuItemId(): Int = R.id.nav_gallery
 
     private fun applyDisplayCutOutTopPadding() {
         window.decorView.setOnApplyWindowInsetsListener { view, insets ->
@@ -164,13 +166,8 @@ class PreviewImageActivity :
                 preferences
             )
         } else {
-            // get parent from path
-            var parentFolder = file?.let { storageManager.getFileById(it.parentId) }
-
-            if (parentFolder == null) {
-                // should not be necessary
-                parentFolder = storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
-            }
+            val parentFolder = file?.let { storageManager.getFileById(it.parentId) }
+                ?: storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
 
             previewImagePagerAdapter = PreviewImagePagerAdapter(
                 this,

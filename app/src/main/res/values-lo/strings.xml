@@ -105,7 +105,6 @@
     <string name="auto_upload_path">/ອັບໂຫຼດອັດຕະໂນມັດ</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="auto_upload_wifi_only_warning_info">Waiting for Wi-Fi to start uploading</string>
-    <string name="auto_upload_worker_start_text">Uploading files from %s to %s</string>
     <string name="autoupload_configure">ຕັ້ງຄ່າ Config</string>
     <string name="autoupload_create_new_custom_folder">ສ້າງການຕັ້ງຄ່າໂຟນເດີດ້ວຍຕົນເອງ</string>
     <string name="autoupload_custom_folder">ກຳໜົດການຕັ້ງຄ່າໂຟນເດີດ້ວຍຕົນເອງ</string>
@@ -211,7 +210,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Import failed to start. Please try again</string>
     <string name="contacts_preferences_no_file_found">ບໍ່ພົບຟາຍ</string>
     <string name="contacts_preferences_something_strange_happened">ບໍ່ສາມາດຊອກຫາ ການສໍາຮອງລ່າສຸດຂອງທ່ານໄດ້!</string>
-    <string name="content_observer_work_notification_title">Detecting content changes</string>
     <string name="conversation_screen_delete_button_title">Delete conversation</string>
     <string name="conversation_screen_empty_content_title">No conversations found</string>
     <string name="conversation_screen_empty_conversation_list_title">ຍັງບໍ່ມີການສົນທະນາ</string>
@@ -744,7 +742,6 @@
     <string name="prefs_theme_title">ຫົວຂໍ້</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Manage internal folders for two way sync</string>
-    <string name="prefs_two_way_sync_switch_title">Enable two way sync</string>
     <string name="prefs_value_theme_dark">ມືດ</string>
     <string name="prefs_value_theme_light">ແຈ້ງ</string>
     <string name="prefs_value_theme_system">ຕາມລະບົບ</string>
@@ -1039,7 +1036,6 @@
     <string name="upload_files">ອັບໂຫຼດຟາຍ</string>
     <string name="upload_global_pause_title">All uploads are paused</string>
     <string name="upload_item_action_button">ອັບໂຫຼດປຸ່ມ ໃນລາຍການການອັບໂຫຼດ</string>
-    <string name="upload_list_cancel_upload">Cancel upload</string>
     <string name="upload_list_delete">ລຶບ</string>
     <string name="upload_list_empty_headline">ບໍ່ມີການອັບໂຫຼດ</string>
     <string name="upload_list_empty_text_auto_upload">ອັບໂຫລດເນື້ອຫາບາງຢ່າງ ຫຼື ເປີດການອັບໂຫລດອັດຕະໂນມັດ.</string>

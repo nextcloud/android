@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Excluir tarefa</string>
     <string name="assistant_screen_empty_content_description">Tente enviar uma mensagem para iniciar uma conversa.</string>
     <string name="assistant_screen_empty_content_title">Oi! Em que posso ajudá-lo hoje?</string>
+    <string name="assistant_screen_select_task">Selecione uma tarefa</string>
     <string name="assistant_screen_send_message">Enviar mensagem</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Abrir lista de conversas</string>
     <string name="assistant_screen_task_create_fail_message">Ocorreu um erro ao criar a tarefa</string>
@@ -117,7 +118,7 @@
     <string name="auto_upload_path">/UploadAutomático</string>
     <string name="auto_upload_sub_folder_warning">Esta pasta já está incluída na sincronização da pasta pai, o que pode causar uploads duplicados</string>
     <string name="auto_upload_wifi_only_warning_info">Aguardando o Wi-Fi para iniciar o upload</string>
-    <string name="auto_upload_worker_start_text">Fazendo upload de arquivos de %s a %s</string>
+    <string name="auto_upload_worker_start_text">Fazendo upload de arquivos de %1$s para %2$s</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Criar nova configuração de pasta personalizada</string>
     <string name="autoupload_custom_folder">Configurar uma pasta personalizada</string>
@@ -223,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Falha ao iniciar a importação. Por favor, tente novamente.</string>
     <string name="contacts_preferences_no_file_found">Nenhum arquivo encontrado</string>
     <string name="contacts_preferences_something_strange_happened">Não foi possível encontrar seu último backup!</string>
-    <string name="content_observer_work_notification_title">Detectando alterações no conteúdo</string>
     <string name="conversation_screen_create_error_title">Falha ao criar conversa</string>
     <string name="conversation_screen_delete_button_title">Excluir conversa</string>
     <string name="conversation_screen_delete_error_title">Falha ao excluir conversa</string>
@@ -767,7 +767,6 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Intervalo</string>
     <string name="prefs_two_way_sync_summary">Gerenciar pastas internas para sincronização bidirecional</string>
-    <string name="prefs_two_way_sync_switch_title">Ativar sincronização bidirecional</string>
     <string name="prefs_two_way_sync_title">Sincronização bidirecional</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
@@ -1016,6 +1015,12 @@
     <string name="thumbnail_for_new_file_desc">Miniatura para arquivo novo</string>
     <string name="timeout_richDocuments">O carregamento está demorando mais do que o esperado</string>
     <string name="today">Hoje</string>
+    <string name="translation_screen_hint_source">Insira o texto a ser traduzido…</string>
+    <string name="translation_screen_label_from">Traduzir do:</string>
+    <string name="translation_screen_label_to">Traduzir para:</string>
+    <string name="translation_screen_start_to_translate_task">Pressione o botão para traduzir</string>
+    <string name="translation_screen_task_processing">A tradução está demorando mais do que o esperado.</string>
+    <string name="translation_screen_translating">Traduzindo…</string>
     <string name="trashbin_activity_title">Arquivos excluídos</string>
     <string name="trashbin_empty_headline">Nenhum arquivo excluído</string>
     <string name="trashbin_empty_message">Você poderá recuperar arquivos excluídos aqui.</string>
@@ -1071,7 +1076,6 @@
     <string name="upload_files">Enviar arquivos</string>
     <string name="upload_global_pause_title">Todos os uploads estão pausados</string>
     <string name="upload_item_action_button">Enviar botão de ação do item</string>
-    <string name="upload_list_cancel_upload">Cancelar upload</string>
     <string name="upload_list_delete">Excluir</string>
     <string name="upload_list_empty_headline">Nenhum upload disponível</string>
     <string name="upload_list_empty_text_auto_upload">Faça upload de algum conteúdo ou ative o upload automático.</string>
@@ -1085,6 +1089,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Permissões do aplicativo</string>
     <string name="upload_missing_storage_permission_description">Seus arquivos não podem ser enviados sem acesso ao armazenamento local. Toque para conceder permissão.</string>
     <string name="upload_missing_storage_permission_title">Upload Interrompido – Permissão de Armazenamento Necessária</string>
+    <string name="upload_notification_manager_content_intent_description">Você pode removê-lo ou retomá-lo em Uploads.</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">A criptografia só é possível com Android &gt;= 5.0</string>
     <string name="upload_query_move_foreign_files">O espaço insuficiente está impedindo a cópia dos arquivos selecionados para a pasta %1$s. Em vez de copiá-los, gostaria de movê-los para lá?</string>

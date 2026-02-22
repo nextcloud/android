@@ -193,11 +193,14 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
 
     private fun setClearStatusAfterValue(item: Int) {
         clearAt = when (item) {
-            POS_DONT_CLEAR -> null // don't clear
+            POS_DONT_CLEAR -> null
+
+            // don't clear
             POS_FIFTEEN_MINUTES -> {
                 // 15 minutes
                 System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + FIFTEEN_MINUTES * ONE_MINUTE_IN_SECONDS
             }
+
             POS_HALF_AN_HOUR -> {
                 // 30 minutes
                 System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + THIRTY_MINUTES * ONE_MINUTE_IN_SECONDS

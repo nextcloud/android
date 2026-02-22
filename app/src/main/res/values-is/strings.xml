@@ -97,7 +97,6 @@
     <string name="auto_upload_on_wifi">Aðeins senda inn á gjaldfrjálsu WiFi-neti</string>
     <string name="auto_upload_path">/SjálfvirkInnsending</string>
     <string name="auto_upload_sub_folder_warning">Þessa möppu er nú þegar verið að samstilla úr yfirmöppu, sem getur valdið margföldum innsendingum</string>
-    <string name="auto_upload_worker_start_text">Sendi inn skrár frá %s til %s</string>
     <string name="autoupload_configure">Stilla</string>
     <string name="autoupload_create_new_custom_folder">Búa til nýja nýja sérsniðna uppsetningu á möppum</string>
     <string name="autoupload_custom_folder">Settu upp sérsniðna möppu</string>
@@ -722,7 +721,6 @@
     <string name="prefs_theme_title">Þema</string>
     <string name="prefs_two_way_sync_interval">Millibil</string>
     <string name="prefs_two_way_sync_summary">Sýsla með möppur vegna tvíátta samstillingar</string>
-    <string name="prefs_two_way_sync_switch_title">Virkja tvíátta samstillingu</string>
     <string name="prefs_value_theme_dark">Dökkt</string>
     <string name="prefs_value_theme_light">Ljóst</string>
     <string name="prefs_value_theme_system">Fylgja kerfinu</string>
@@ -1015,7 +1013,6 @@
     <string name="upload_files">Hlaða inn skrám</string>
     <string name="upload_global_pause_title">Allar innsendingar eru í bið</string>
     <string name="upload_item_action_button">Aðgerðarhnappur til að senda inn atriði</string>
-    <string name="upload_list_cancel_upload">Hætta við innsendingu</string>
     <string name="upload_list_delete">Eyða</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
     <string name="upload_list_empty_text_auto_upload">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>

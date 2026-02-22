@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
     <string name="assistant_screen_empty_content_description">Try sending a message to spark a conversation.</string>
     <string name="assistant_screen_empty_content_title">Hello there! What can I help you with today?</string>
+    <string name="assistant_screen_select_task">Please select task</string>
     <string name="assistant_screen_send_message">Send message</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Open conversation list</string>
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
@@ -117,7 +118,7 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="auto_upload_wifi_only_warning_info">Waiting for Wi-Fi to start uploading</string>
-    <string name="auto_upload_worker_start_text">Uploading files from %s to %s</string>
+    <string name="auto_upload_worker_start_text">Uploading files from %1$s to %2$s</string>
     <string name="autoupload_configure">Configure</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
     <string name="autoupload_custom_folder">Set up a custom folder</string>
@@ -223,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Import failed to start. Please try again</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
-    <string name="content_observer_work_notification_title">Detecting content changes</string>
     <string name="conversation_screen_create_error_title">Failed to create conversation</string>
     <string name="conversation_screen_delete_button_title">Delete conversation</string>
     <string name="conversation_screen_delete_error_title">Failed to delete conversation</string>
@@ -582,6 +582,7 @@
     <string name="login">Log in</string>
     <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
     <string name="logs_menu_delete">Delete logs</string>
+    <string name="logs_menu_export">Export logs</string>
     <string name="logs_menu_refresh">Refresh</string>
     <string name="logs_menu_search">Search logs</string>
     <string name="logs_menu_send">Send logs by email</string>
@@ -767,7 +768,6 @@
     <string name="prefs_theme_title">Theme</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Manage internal folders for two way sync</string>
-    <string name="prefs_two_way_sync_switch_title">Enable two way sync</string>
     <string name="prefs_two_way_sync_title">Two way sync</string>
     <string name="prefs_value_theme_dark">Dark</string>
     <string name="prefs_value_theme_light">Light</string>
@@ -1016,6 +1016,12 @@
     <string name="thumbnail_for_new_file_desc">Thumbnail for new file</string>
     <string name="timeout_richDocuments">Loading is taking longer than expected</string>
     <string name="today">Today</string>
+    <string name="translation_screen_hint_source">Enter text to translate…</string>
+    <string name="translation_screen_label_from">Translate from: </string>
+    <string name="translation_screen_label_to">Translate to: </string>
+    <string name="translation_screen_start_to_translate_task">Press the button to translate</string>
+    <string name="translation_screen_task_processing">Translation is taking longer than expected.</string>
+    <string name="translation_screen_translating">Translating…</string>
     <string name="trashbin_activity_title">Deleted files</string>
     <string name="trashbin_empty_headline">No deleted files</string>
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
@@ -1071,7 +1077,6 @@
     <string name="upload_files">Upload files</string>
     <string name="upload_global_pause_title">All uploads are paused</string>
     <string name="upload_item_action_button">Upload item action button</string>
-    <string name="upload_list_cancel_upload">Cancel upload</string>
     <string name="upload_list_delete">Delete</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
@@ -1085,6 +1090,7 @@
     <string name="upload_missing_storage_permission_app_permissions">App permissions</string>
     <string name="upload_missing_storage_permission_description">Your files cannot be uploaded without access to local storage. Tap to grant permission.</string>
     <string name="upload_missing_storage_permission_title">Upload Stopped – Storage Permission Required</string>
+    <string name="upload_notification_manager_content_intent_description">You can remove or resume it from Uploads</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Encryption is only possible with &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>

@@ -134,6 +134,7 @@ internal class LoggerImpl(
                             event.onResult(entries, loaded.logSize)
                         }
                     }
+
                     is Delete -> handler.deleteAll()
                 }
             }

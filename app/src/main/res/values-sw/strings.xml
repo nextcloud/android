@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Futa jukumu</string>
     <string name="assistant_screen_empty_content_description">Jaribu kutuma ujumbe ili kuzua mazungumzo.</string>
     <string name="assistant_screen_empty_content_title">Hujambo! Nikusaidie nini leo?</string>
+    <string name="assistant_screen_select_task">Tafadhali chagua kazi</string>
     <string name="assistant_screen_send_message">Tuma ujumbe</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Fungua orodha ya mazungumzo</string>
     <string name="assistant_screen_task_create_fail_message">Hitilafu ilitokea wakati wa kuunda jukumu</string>
@@ -117,7 +118,7 @@
     <string name="auto_upload_path">/Pakia Kiotomatiki</string>
     <string name="auto_upload_sub_folder_warning">Folda hii tayari imejumuishwa katika usawazishaji wa folda kuu, ambayo inaweza kusababisha upakiaji unaorudiwa</string>
     <string name="auto_upload_wifi_only_warning_info">Inasubiri Wi-Fi kuanza kupakia</string>
-    <string name="auto_upload_worker_start_text">Inapakia faili kutoka %s hadi %s</string>
+    <string name="auto_upload_worker_start_text">Inapakia faili kutoka %1$s hadi %2$s</string>
     <string name="autoupload_configure">Sanidi</string>
     <string name="autoupload_create_new_custom_folder">Unda usanidi mpya wa folda maalum</string>
     <string name="autoupload_custom_folder">Sanidi folda maalum</string>
@@ -223,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Imeshindwa kuanza kuleta. Tafadhali jaribu tena</string>
     <string name="contacts_preferences_no_file_found">Hakuna faili iliyopatikana</string>
     <string name="contacts_preferences_something_strange_happened">Haikuweza kupata nakala yako ya mwisho!</string>
-    <string name="content_observer_work_notification_title">Inagundua mabadiliko ya maudhui</string>
     <string name="conversation_screen_create_error_title">Imeshindwa kuunda mazungumzo</string>
     <string name="conversation_screen_delete_button_title">Futa mazungumzo</string>
     <string name="conversation_screen_delete_error_title">Imeshindwa kufuta mazungumzo</string>
@@ -767,7 +767,6 @@
     <string name="prefs_theme_title">Mandhari</string>
     <string name="prefs_two_way_sync_interval">Muda</string>
     <string name="prefs_two_way_sync_summary">Dhibiti folda za ndani kwa usawazishaji wa njia mbili</string>
-    <string name="prefs_two_way_sync_switch_title">Washa usawazishaji wa njia mbili</string>
     <string name="prefs_two_way_sync_title">Usawazishaji wa njia mbili</string>
     <string name="prefs_value_theme_dark">Giza</string>
     <string name="prefs_value_theme_light">Mwanga</string>
@@ -1016,6 +1015,12 @@
     <string name="thumbnail_for_new_file_desc">Kijipicha cha faili mpya</string>
     <string name="timeout_richDocuments">Upakiaji unachukua muda mrefu kuliko ilivyotarajiwa</string>
     <string name="today">Leo</string>
+    <string name="translation_screen_hint_source">Weka maandishi ili kutafsiri...</string>
+    <string name="translation_screen_label_from">Tafsiri kutoka:</string>
+    <string name="translation_screen_label_to">Tafsiri kwenye:</string>
+    <string name="translation_screen_start_to_translate_task">Bonyeza kitufe ili kutafsiri</string>
+    <string name="translation_screen_task_processing">Tafsiri inachukua muda mrefu kuliko ilivyotarajiwa.</string>
+    <string name="translation_screen_translating">Inatafsiri...</string>
     <string name="trashbin_activity_title">Faili zilizofutwa</string>
     <string name="trashbin_empty_headline">Hakuna faili zilizofutwa</string>
     <string name="trashbin_empty_message">Utaweza kurejesha faili zilizofutwa kutoka hapa.</string>
@@ -1071,7 +1076,6 @@
     <string name="upload_files">Pakia faili</string>
     <string name="upload_global_pause_title">Upakiaji wote umesitishwa</string>
     <string name="upload_item_action_button">Kitufe cha kitendo cha kupakia</string>
-    <string name="upload_list_cancel_upload">Ghairi upakiaji</string>
     <string name="upload_list_delete">Futa</string>
     <string name="upload_list_empty_headline">Hakuna vipakiwa vinavyopatikana</string>
     <string name="upload_list_empty_text_auto_upload">Pakia baadhi ya maudhui au uwashe upakiaji kiotomatiki.</string>
@@ -1085,6 +1089,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Ruhusa za programu</string>
     <string name="upload_missing_storage_permission_description">Faili zako haziwezi kupakiwa bila ufikiaji wa hifadhi ya ndani. Gusa ili kutoa ruhusa.</string>
     <string name="upload_missing_storage_permission_title">Upakiaji Umesimamishwa - Ruhusa ya Kuhifadhi Inahitajika</string>
+    <string name="upload_notification_manager_content_intent_description">Unaweza kuiondoa au kuirejesha kutoka kwa Vipakiwa</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Usimbaji fiche unawezekana tu kwa &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Nafasi haitoshi huzuia kunakili faili zilizochaguliwa kwenye folda ya %1$s. Je, ungependa kuzihamishia hapo badala yake?</string>

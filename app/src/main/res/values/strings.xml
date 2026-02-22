@@ -80,6 +80,14 @@
     <string name="assistant_task_status_successful">successful</string>
     <string name="assistant_task_status_failed">failed</string>
 
+    <!-- Translation Screen -->
+    <string name="translation_screen_label_from">Translate from: </string>
+    <string name="translation_screen_label_to">Translate to: </string>
+    <string name="translation_screen_translating">Translating…</string>
+    <string name="translation_screen_start_to_translate_task">Press the button to translate</string>
+    <string name="translation_screen_hint_source">Enter text to translate…</string>
+    <string name="translation_screen_task_processing">Translation is taking longer than expected.</string>
+
     <!-- Conversation Screen -->
     <string name="conversation_screen_title">Conversations</string>
     <string name="conversation_screen_empty_conversation_list_title">No conversations yet</string>
@@ -607,6 +615,8 @@
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
     <string name="network_host_not_available">Could not complete operation. Server unavailable.</string>
 
+    <string name="upload_notification_manager_content_intent_description">You can remove or resume it from Uploads</string>
+
     <string name="forbidden_permissions">You are not permitted %s</string>
     <string name="forbidden_permissions_rename">to rename this file</string>
     <string name="forbidden_permissions_delete">to delete this file</string>
@@ -649,6 +659,7 @@
     <string name="logs_title">Logs</string>
     <string name="logs_menu_refresh">Refresh</string>
     <string name="logs_menu_send">Send logs by email</string>
+    <string name="logs_menu_export">Export logs</string>
     <string name="logs_menu_delete">Delete logs</string>
     <string name="log_send_no_mail_app">No app for sending logs found. Please install an email client.</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
@@ -916,7 +927,6 @@
     <string name="notification_channel_offline_operations_name_short">Offline operations</string>
     <string name="notification_channel_offline_operations_description">Shows progress of offline file operations</string>
 
-    <string name="content_observer_work_notification_title">Detecting content changes</string>
     <string name="notification_channel_content_observer_name_short">Content observer</string>
     <string name="notification_channel_content_observer_description">Detects local file changes</string>
 
@@ -975,7 +985,7 @@
     <string name="notification_channel_background_operations_description">Show notifications to interact result of background operations</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
-    <string name="auto_upload_worker_start_text">Uploading files from %s to %s</string>
+    <string name="auto_upload_worker_start_text">Uploading files from %1$s to %2$s</string>
     <string name="hidden_character" translatable="false">*</string>
     <string name="hint_name">Name</string>
     <string name="hint_password">Password</string>

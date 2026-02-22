@@ -20,7 +20,7 @@ import com.nextcloud.client.database.migrations.DatabaseMigrationUtil.TYPE_TEXT
  */
 @Suppress("MagicNumber")
 class Migration67to68 : Migration(67, 68) {
-    override fun migrate(database: SupportSQLiteDatabase) {
+    override fun migrate(db: SupportSQLiteDatabase) {
         val tableName = "filelist"
         val newTableTempName = "${tableName}_new"
         val newColumns = mapOf(
@@ -70,7 +70,7 @@ class Migration67to68 : Migration(67, 68) {
             "lock_token" to TYPE_TEXT
         )
 
-        DatabaseMigrationUtil.migrateTable(database, "filelist", newColumns) { columnName ->
+        DatabaseMigrationUtil.migrateTable(db, "filelist", newColumns) { columnName ->
             when (columnName) {
                 "local_id" -> "IFNULL(local_id, -1)"
                 else -> columnName

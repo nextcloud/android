@@ -13,6 +13,7 @@
     <string name="action_send_share">Envoyer / Partager</string>
     <string name="action_switch_grid_view">Vue en grille</string>
     <string name="action_switch_list_view">Vue en liste</string>
+    <string name="action_triggered">Action déclenchée</string>
     <string name="actionbar_calendar_contacts_restore">Restaurer les contacts et l\'agenda</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move_or_copy">Déplacer ou copier</string>
@@ -51,19 +52,26 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Supprimer la tâche</string>
     <string name="assistant_screen_empty_content_description">Essayez d\'envoyer un message pour déclencher une conversation.</string>
     <string name="assistant_screen_empty_content_title">Bonjour ! En quoi puis-je vous aider aujourd’hui ?</string>
+    <string name="assistant_screen_select_task">Veuillez sélectionner une tâche</string>
+    <string name="assistant_screen_send_message">Envoyer un message</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">Ouvrir la liste des conversations</string>
     <string name="assistant_screen_task_create_fail_message">Une erreur est survenue lors de la création de la tâche</string>
     <string name="assistant_screen_task_create_success_message">Tâche créée</string>
     <string name="assistant_screen_task_delete_fail_message">Une erreur est survenue lors de la suppression de la tâche</string>
+    <string name="assistant_screen_task_delete_success_message">Tâche supprimée</string>
     <string name="assistant_screen_task_list_empty_warning">La liste des tâches est vide. Vérifiez la configuration de l’application de l’assistant.</string>
     <string name="assistant_screen_task_list_error_state_message">Impossible de récupérer la liste des tâches, veuillez vérifier votre connexion Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Supprimer la tâche</string>
     <string name="assistant_screen_task_output_empty_text">Le résultat de la tâche n\'est pas encore prêt.</string>
+    <string name="assistant_screen_text_selected">Texte copié depuis une autre application</string>
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrée</string>
     <string name="assistant_task_detail_screen_output_button_title">Sortie</string>
     <string name="assistant_task_status_failed">défectueux</string>
     <string name="assistant_task_status_running">en cours</string>
     <string name="assistant_task_status_scheduled">planifié</string>
+    <string name="assistant_task_status_successful">réussite</string>
+    <string name="assistant_task_status_text">Etat de la tâche : %1$s</string>
     <string name="assistant_task_status_unknown">Inconnu</string>
     <string name="assistant_thinking">En cours de réflexion...</string>
     <string name="associated_account_not_found">Compte associé introuvable !</string>
@@ -109,7 +117,7 @@
     <string name="auto_upload_path">/TéléversementAuto</string>
     <string name="auto_upload_sub_folder_warning">Ce dossier fait partie de la synchronisation du dossier parent, ce qui peut créer des doublons.</string>
     <string name="auto_upload_wifi_only_warning_info">En attente du Wi-Fi pour commencer le téléversement</string>
-    <string name="auto_upload_worker_start_text">Téléversement des fichiers de %s vers %s</string>
+    <string name="auto_upload_worker_start_text">Téléversement des fichiers de %1$s vers %2$s</string>
     <string name="autoupload_configure">Configurer</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
     <string name="autoupload_custom_folder">Définir un dossier personnalisé</string>
@@ -215,7 +223,6 @@
     <string name="contacts_preferences_import_scheduled_fail">L\'importation n\'a pas pu démarrer. Veuillez réessayer.</string>
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
     <string name="contacts_preferences_something_strange_happened">Impossible de trouver la dernière sauvegarde !</string>
-    <string name="content_observer_work_notification_title">Détection des modifications de contenu</string>
     <string name="conversation_screen_create_error_title">Échec de la conversation</string>
     <string name="conversation_screen_delete_button_title">Supprimer la conversation</string>
     <string name="conversation_screen_delete_error_title">Impossible de supprimer la conversation</string>
@@ -327,6 +334,7 @@
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="ecosystem_apps_display_more">Plus</string>
     <string name="ecosystem_apps_more">Plus d\'applications Nextcloud</string>
+    <string name="editor_web_view_cannot_open_file">Impossible d\'ouvrir le sélecteur de fichiers</string>
     <string name="email_pick_failed">Le choix de l\'adresse e-mail a échoué.</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="end_to_end_encryption_certificate_unavailable">Impossible de retrouver le certificat du serveur</string>
@@ -398,6 +406,7 @@
     <string name="fab_label">Ajouter ou téléverser</string>
     <string name="failed_to_download">Transmission du fichier au gestionnaire de téléchargement échoué</string>
     <string name="failed_to_print">Impossible d\'imprimer le fichier</string>
+    <string name="failed_to_start_action">Impossible de lancer l\'action !</string>
     <string name="failed_to_start_editor">Impossible de lancer l\'éditeur</string>
     <string name="failed_update_ui">Échec de la mise à jour de l\'interface utilisateur</string>
     <string name="favorite">Ajouter aux favoris</string>
@@ -755,7 +764,6 @@
     <string name="prefs_theme_title">Thème</string>
     <string name="prefs_two_way_sync_interval">Intervalle</string>
     <string name="prefs_two_way_sync_summary">Gestion les dossiers internes pour une synchronisation bidirectionnelle</string>
-    <string name="prefs_two_way_sync_switch_title">Activer la synchronisation bidirectionnelle</string>
     <string name="prefs_two_way_sync_title">Synchronisation bidirectionnelle</string>
     <string name="prefs_value_theme_dark">Sombre</string>
     <string name="prefs_value_theme_light">Clair</string>
@@ -827,6 +835,7 @@
     <string name="select_one_template">Veuillez sélectionner un modèle</string>
     <string name="select_template">Sélectionnez un modèle</string>
     <string name="send">Envoyer</string>
+    <string name="send_copy_to">Envoyer une copie à</string>
     <string name="send_share">Envoyer Partager</string>
     <string name="sendbutton_description">Icône du bouton d\'envoi</string>
     <string name="server_not_reachable">Impossible de charger le contenu</string>
@@ -1002,6 +1011,12 @@
     <string name="thumbnail_for_new_file_desc">Vignette pour nouveau fichier</string>
     <string name="timeout_richDocuments">Le chargement prend plus de temps que prévu</string>
     <string name="today">Aujourd\'hui</string>
+    <string name="translation_screen_hint_source">Entrez du texte à traduire...</string>
+    <string name="translation_screen_label_from">Traduire depuis :</string>
+    <string name="translation_screen_label_to">Traduire vers :</string>
+    <string name="translation_screen_start_to_translate_task">Appuyez sur le bouton pour traduire</string>
+    <string name="translation_screen_task_processing">La traduction prend plus de temps que prévu.</string>
+    <string name="translation_screen_translating">Traduction en cours...</string>
     <string name="trashbin_activity_title">Fichiers supprimés</string>
     <string name="trashbin_empty_headline">Aucun fichier supprimé</string>
     <string name="trashbin_empty_message">Les fichiers supprimés s\'afficheront ici et vous pourrez les restaurer.</string>
@@ -1057,7 +1072,6 @@
     <string name="upload_files">Téléverser des fichiers</string>
     <string name="upload_global_pause_title">Tous les téléversements sont suspendus</string>
     <string name="upload_item_action_button">Bouton d\'action d\'upload</string>
-    <string name="upload_list_cancel_upload">Annuler l\'envoi</string>
     <string name="upload_list_delete">Supprimer</string>
     <string name="upload_list_empty_headline">Aucun téléversement disponible</string>
     <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>

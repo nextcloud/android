@@ -16,17 +16,17 @@ import com.nextcloud.client.database.migrations.DatabaseMigrationUtil.TYPE_TEXT
 
 class RoomMigration : Migration(NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1, NextcloudDatabase.FIRST_ROOM_DB_VERSION) {
 
-    override fun migrate(database: SupportSQLiteDatabase) {
-        migrateFilesystemTable(database)
-        migrateUploadsTable(database)
-        migrateCapabilitiesTable(database)
-        migrateFilesTable(database)
+    override fun migrate(db: SupportSQLiteDatabase) {
+        migrateFilesystemTable(db)
+        migrateUploadsTable(db)
+        migrateCapabilitiesTable(db)
+        migrateFilesTable(db)
     }
 
     /**
      * filesystem table: STRING converted to TEXT
      */
-    private fun migrateFilesystemTable(database: SupportSQLiteDatabase) {
+    private fun migrateFilesystemTable(db: SupportSQLiteDatabase) {
         val newColumns = mapOf(
             "_id" to TYPE_INTEGER_PRIMARY_KEY,
             "local_path" to TYPE_TEXT,
@@ -38,13 +38,13 @@ class RoomMigration : Migration(NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1, Nex
             "modified_at" to TYPE_INTEGER
         )
 
-        DatabaseMigrationUtil.migrateTable(database, "filesystem", newColumns)
+        DatabaseMigrationUtil.migrateTable(db, "filesystem", newColumns)
     }
 
     /**
      * uploads table: LONG converted to INTEGER
      */
-    private fun migrateUploadsTable(database: SupportSQLiteDatabase) {
+    private fun migrateUploadsTable(db: SupportSQLiteDatabase) {
         val newColumns = mapOf(
             "_id" to TYPE_INTEGER_PRIMARY_KEY,
             "local_path" to TYPE_TEXT,
@@ -64,13 +64,13 @@ class RoomMigration : Migration(NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1, Nex
             "folder_unlock_token" to TYPE_TEXT
         )
 
-        DatabaseMigrationUtil.migrateTable(database, "list_of_uploads", newColumns)
+        DatabaseMigrationUtil.migrateTable(db, "list_of_uploads", newColumns)
     }
 
     /**
      * capabilities table: "files_drop" column removed
      */
-    private fun migrateCapabilitiesTable(database: SupportSQLiteDatabase) {
+    private fun migrateCapabilitiesTable(db: SupportSQLiteDatabase) {
         val newColumns = mapOf(
             "_id" to TYPE_INTEGER_PRIMARY_KEY,
             "account" to TYPE_TEXT,
@@ -122,13 +122,13 @@ class RoomMigration : Migration(NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1, Nex
             "files_locking_version" to TYPE_TEXT
         )
 
-        DatabaseMigrationUtil.migrateTable(database, "capabilities", newColumns)
+        DatabaseMigrationUtil.migrateTable(db, "capabilities", newColumns)
     }
 
     /**
      * files table: "public_link" column removed
      */
-    private fun migrateFilesTable(database: SupportSQLiteDatabase) {
+    private fun migrateFilesTable(db: SupportSQLiteDatabase) {
         val newColumns = mapOf(
             "_id" to TYPE_INTEGER_PRIMARY_KEY,
             "filename" to TYPE_TEXT,
@@ -174,6 +174,6 @@ class RoomMigration : Migration(NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1, Nex
             "lock_timeout" to TYPE_INTEGER,
             "lock_token" to TYPE_TEXT
         )
-        DatabaseMigrationUtil.migrateTable(database, "filelist", newColumns)
+        DatabaseMigrationUtil.migrateTable(db, "filelist", newColumns)
     }
 }

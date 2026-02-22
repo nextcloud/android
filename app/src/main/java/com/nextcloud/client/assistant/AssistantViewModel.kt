@@ -44,7 +44,7 @@ class AssistantViewModel(
         private const val POLLING_INTERVAL_MS = 15_000L
     }
 
-    private val _inputBarText = MutableStateFlow<String>("")
+    private val _inputBarText = MutableStateFlow("")
     val inputBarText: StateFlow<String> = _inputBarText
 
     private val _screenState = MutableStateFlow<AssistantScreenState?>(null)
@@ -58,6 +58,11 @@ class AssistantViewModel(
 
     private val _snackbarMessageId = MutableStateFlow<Int?>(null)
     val snackbarMessageId: StateFlow<Int?> = _snackbarMessageId
+
+    private val _isTranslationTask = MutableStateFlow(false)
+    val isTranslationTask: StateFlow<Boolean> = _isTranslationTask
+
+    private val selectedTask = MutableStateFlow<Task?>(null)
 
     private val _selectedTaskType = MutableStateFlow<TaskTypeData?>(null)
     val selectedTaskType: StateFlow<TaskTypeData?> = _selectedTaskType
@@ -123,12 +128,13 @@ class AssistantViewModel(
     // endregion
 
     private suspend fun pollTaskList() {
-        val cachedTasks = localRepository.getCachedTasks(accountName)
+        val taskType = _selectedTaskType.value?.id ?: return
+
+        val cachedTasks = localRepository.getCachedTasks(accountName, taskType)
         if (cachedTasks.isNotEmpty()) {
             _filteredTaskList.value = cachedTasks.sortedByDescending { it.id }
         }
 
-        val taskType = _selectedTaskType.value?.id ?: return
         val result = remoteRepository.getTaskList(taskType)
         if (result != null) {
             taskList = result
@@ -163,18 +169,33 @@ class AssistantViewModel(
     private fun observeScreenState() {
         viewModelScope.launch {
             combine(
+                selectedTask,
                 _selectedTaskType,
                 _chatMessages,
                 _filteredTaskList
-            ) { selectedTask, chats, tasks ->
-                val isChat = selectedTask?.isChat() == true
+            ) { selectedTask, selectedTaskType, chats, tasks ->
+                val isChat = selectedTaskType?.isChat() == true
+                val isTranslation =
+                    selectedTaskType?.isTranslate() == true && selectedTask?.isTranslate() == true
 
                 when {
-                    selectedTask == null -> AssistantScreenState.Loading
+                    selectedTaskType == null -> AssistantScreenState.Loading
+
+                    isTranslation -> AssistantScreenState.Translation(selectedTask)
+
                     isChat && chats.isEmpty() -> AssistantScreenState.emptyChatList()
+
                     isChat -> AssistantScreenState.ChatContent
+
                     !isChat && (tasks == null || tasks.isEmpty()) -> AssistantScreenState.emptyTaskList()
-                    else -> AssistantScreenState.TaskContent
+
+                    else -> {
+                        if (!_isTranslationTask.value) {
+                            AssistantScreenState.TaskContent
+                        } else {
+                            _screenState.value
+                        }
+                    }
                 }
             }.collect { newState ->
                 _screenState.value = newState
@@ -240,17 +261,27 @@ class AssistantViewModel(
 
     fun selectTaskType(task: TaskTypeData) {
         Log_OC.d(TAG, "Task type changed: ${task.name}, session id: ${_sessionId.value}")
+
+        // clear task list immediately when task type change
+        if (_selectedTaskType.value != task) {
+            _filteredTaskList.update {
+                listOf()
+            }
+        }
+
         updateTaskType(task)
 
-        val sessionId = _sessionId.value ?: return
-        if (task.isChat()) {
-            if (_chatMessages.value.isEmpty()) {
-                fetchChatMessages(sessionId)
-            } else {
-                fetchNewChatMessage(sessionId)
-            }
-        } else {
+        if (!task.isChat()) {
             fetchTaskList()
+            return
+        }
+
+        // only task chat type needs to be handled differently
+        val sessionId = _sessionId.value ?: return
+        if (_chatMessages.value.isEmpty()) {
+            fetchChatMessages(sessionId)
+        } else {
+            fetchNewChatMessage(sessionId)
         }
     }
 
@@ -268,12 +299,16 @@ class AssistantViewModel(
     }
 
     fun fetchTaskList() = viewModelScope.launch(Dispatchers.IO) {
-        val cached = localRepository.getCachedTasks(accountName)
+        val taskType = _selectedTaskType.value ?: return@launch
+
+        val cached = localRepository.getCachedTasks(accountName, taskType.name)
         if (cached.isNotEmpty()) {
-            _filteredTaskList.value = cached.sortedByDescending { it.id }
+            _filteredTaskList.update {
+                cached.sortedByDescending { it.id }
+            }
         }
 
-        _selectedTaskType.value?.id?.let { typeId ->
+        taskType.id?.let { typeId ->
             remoteRepository.getTaskList(typeId)?.let { result ->
                 taskList = result
                 _filteredTaskList.value = result.sortedByDescending { it.id }
@@ -292,9 +327,11 @@ class AssistantViewModel(
         }
 
         updateSnackbarMessage(message)
+
+        val taskType = _selectedTaskType.value ?: return@launch
         if (result.isSuccess) {
             removeTaskFromList(id)
-            localRepository.deleteTask(id, accountName)
+            localRepository.deleteTask(id, accountName, taskType.name)
         }
     }
     // endregion
@@ -302,6 +339,12 @@ class AssistantViewModel(
     private fun updateTaskType(value: TaskTypeData) {
         _selectedTaskType.update {
             value
+        }
+    }
+
+    fun selectTask(task: Task?) {
+        selectedTask.update {
+            task
         }
     }
 
@@ -322,6 +365,25 @@ class AssistantViewModel(
             value
         }
     }
+
+    fun updateScreenState(state: AssistantScreenState) {
+        _screenState.update {
+            state
+        }
+    }
+
+    fun updateTranslationTaskState(value: Boolean) {
+        _isTranslationTask.update {
+            value
+        }
+    }
+
+    fun onTranslationScreenDismissed() {
+        updateTranslationTaskState(false)
+        selectTask(null)
+    }
+
+    fun getRemoteRepository(): AssistantRemoteRepository = remoteRepository
 
     private fun removeTaskFromList(id: Long) {
         _filteredTaskList.update { currentList ->

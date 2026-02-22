@@ -124,10 +124,15 @@ class SetOnlineStatusBottomSheet(val currentStatus: Status?) :
         clearTopStatus()
         val views: Triple<MaterialCardView, TextView, ImageView> = when (statusType) {
             StatusType.ONLINE -> Triple(binding.onlineStatus, binding.onlineHeadline, binding.onlineIcon)
+
             StatusType.AWAY -> Triple(binding.awayStatus, binding.awayHeadline, binding.awayIcon)
+
             StatusType.BUSY -> Triple(binding.busyStatus, binding.busyHeadline, binding.busyIcon)
+
             StatusType.DND -> Triple(binding.dndStatus, binding.dndHeadline, binding.dndIcon)
+
             StatusType.INVISIBLE -> Triple(binding.invisibleStatus, binding.invisibleHeadline, binding.invisibleIcon)
+
             else -> {
                 Log.d(TAG, "unknown status")
                 return

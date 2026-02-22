@@ -27,6 +27,7 @@ class GrantStoragePermissionRule private constructor() {
             Build.VERSION.SDK_INT < Build.VERSION_CODES.R -> GrantPermissionRule.grant(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
+
             else -> GrantManageExternalStoragePermissionRule()
         }
     }

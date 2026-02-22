@@ -103,7 +103,6 @@
     <string name="auto_upload_path">/Аутоматска отпремања</string>
     <string name="auto_upload_sub_folder_warning">Овај фолдер је већ укључен у синхронизацију фолдера родитеља, па се могу јавити двострука отпремања</string>
     <string name="auto_upload_wifi_only_warning_info">Чека се на Wi-Fi за почетак отпремања</string>
-    <string name="auto_upload_worker_start_text">Отпремају се фајлови са %s на %s</string>
     <string name="autoupload_configure">Подеси</string>
     <string name="autoupload_create_new_custom_folder">Направи нову поставку за посебну фасциклу</string>
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
@@ -209,7 +208,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Није успело покретање увоза. Молимо вас да покушате поново</string>
     <string name="contacts_preferences_no_file_found">Није нађен фајл</string>
     <string name="contacts_preferences_something_strange_happened">Не могу да нађем последњу резерву!</string>
-    <string name="content_observer_work_notification_title">Откривају се измене садржаја</string>
     <string name="conversation_screen_delete_button_title">Обриши разовор</string>
     <string name="conversation_screen_empty_content_title">Није пронађен ниједан разговор</string>
     <string name="conversation_screen_empty_conversation_list_title">Још увек нема разговора</string>
@@ -739,7 +737,6 @@
     <string name="prefs_theme_title">Тема</string>
     <string name="prefs_two_way_sync_interval">Интервал</string>
     <string name="prefs_two_way_sync_summary">Управљање интерним фолдерима за двосмерну синхронизацију</string>
-    <string name="prefs_two_way_sync_switch_title">Укључи двосмерну синхронизацију</string>
     <string name="prefs_value_theme_dark">тамна</string>
     <string name="prefs_value_theme_light">светла</string>
     <string name="prefs_value_theme_system">системска</string>
@@ -1034,7 +1031,6 @@
     <string name="upload_files">Отпреми фајлове</string>
     <string name="upload_global_pause_title">Сва отпремања су паузирана</string>
     <string name="upload_item_action_button">Дугме за отпремање</string>
-    <string name="upload_list_cancel_upload">Откажи отпремање</string>
     <string name="upload_list_delete">Избриши</string>
     <string name="upload_list_empty_headline">Нема доступних отпремања</string>
     <string name="upload_list_empty_text_auto_upload">Отпремите нешто или укључите аутоматско отпремање.</string>
