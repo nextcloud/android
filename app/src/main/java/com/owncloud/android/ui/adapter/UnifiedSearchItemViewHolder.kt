@@ -9,7 +9,11 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.widget.ImageViewCompat
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
+import com.bumptech.glide.Glide
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.model.SearchResultEntryType
@@ -22,7 +26,6 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResultEntry
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
@@ -82,21 +85,25 @@ class UnifiedSearchItemViewHolder(
     }
 
     private fun bindThumbnail(entry: SearchResultEntry, entryType: SearchResultEntryType) {
-        val file = storageManager.getFileByRemotePath(entry.remotePath())
+        // FIXME: ic_find_in_page not visible
+        Glide.with(context).clear(binding.thumbnail)
+        binding.thumbnail.drawable?.mutate()?.let { DrawableCompat.setTintList(it, null) }
+        binding.thumbnail.clearColorFilter()
+        ImageViewCompat.setImageTintList(binding.thumbnail, null)
+        binding.thumbnail.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_find_in_page))
+        binding.thumbnailOverlayIcon.setVisibleIf(false)
 
-        if (file?.isFolder == true) {
-            Log_OC.d("DEBUG FOLDER", "Path: ${entry.remotePath()}, isFolder=${file.isFolder}, " +
-                "mime=${file?.mimeType}")
+        if (entry.isFile) {
+            val file = storageManager.getFileByRemotePath(entry.remotePath())
 
-            viewThemeUtils.platform.colorImageView(binding.thumbnail, ColorRole.PRIMARY)
-            overlayManager.setFolderOverlayIcon(file, binding.thumbnailOverlayIcon)
-        } else {
-            binding.thumbnail.clearColorFilter()
+            if (file?.isFolder == true) {
+                binding.thumbnail.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.folder))
+                viewThemeUtils.platform.colorImageView(binding.thumbnail, ColorRole.PRIMARY)
+                overlayManager.setFolderOverlayIcon(file, binding.thumbnailOverlayIcon)
+                return
+            }
 
             if (file != null) {
-                Log_OC.d("DEBUG FILE", "Path: ${entry.remotePath()}, isFolder=${file.isFolder}, " +
-                    "mime=${file?.mimeType}")
-
                 val icon = MimeTypeUtil.getFileTypeIcon(
                     file.mimeType,
                     file.fileName,
@@ -104,20 +111,21 @@ class UnifiedSearchItemViewHolder(
                     viewThemeUtils
                 )
                 binding.thumbnail.setImageDrawable(icon)
-            } else if (entry.thumbnailUrl.isNotBlank()) {
-                Log_OC.d("DEBUG GLIDE", "URL: " + entry.thumbnailUrl)
+                binding.thumbnail.clearColorFilter()
+                return
+            }
+        }
 
-                filesAction.loadFileThumbnail(entry) { client ->
-                    GlideHelper.loadIntoImageView(
-                        context,
-                        client,
-                        entry.thumbnailUrl,
-                        binding.thumbnail,
-                        entryType.iconId(),
-                        circleCrop = entry.rounded
-                    )
-                }
-            } // FIXME: Settings, Apps category
+        // For Settings, Apps, Contacts, Calendar, etc.
+        filesAction.loadFileThumbnail(entry) { client ->
+            GlideHelper.loadIntoImageView(
+                context,
+                client,
+                entry.thumbnailUrl,
+                binding.thumbnail,
+                entryType.iconId(),
+                circleCrop = entry.rounded
+            )
         }
     }
 

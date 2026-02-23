@@ -45,7 +45,6 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.NextcloudVersion
@@ -370,7 +369,6 @@ class UnifiedSearchFragment :
     }
 
     private fun setupAdapter() {
-        val syncedFolderProvider = SyncedFolderProvider(requireContext().contentResolver, appPreferences, clock)
         val gridLayoutManager = GridLayoutManager(requireContext(), 1)
 
         adapter = UnifiedSearchListAdapter(
@@ -382,7 +380,6 @@ class UnifiedSearchFragment :
             requireContext(),
             viewThemeUtils,
             appPreferences,
-            syncedFolderProvider,
             this@UnifiedSearchFragment,
             overlayManager
         )

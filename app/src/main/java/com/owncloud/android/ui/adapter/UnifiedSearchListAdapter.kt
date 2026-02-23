@@ -13,8 +13,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
+import com.bumptech.glide.Glide
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
@@ -25,7 +27,6 @@ import com.owncloud.android.databinding.UnifiedSearchHeaderBinding
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
@@ -47,7 +48,6 @@ class UnifiedSearchListAdapter(
     private val context: Context,
     private val viewThemeUtils: ViewThemeUtils,
     private val appPreferences: AppPreferences,
-    private val syncedFolderProvider: SyncedFolderProvider,
     private val currentDirItemAction: UnifiedSearchCurrentDirItemAction,
     private val overlayManager: OverlayManager
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
@@ -58,6 +58,55 @@ class UnifiedSearchListAdapter(
 
     private var currentDirItems: List<OCFile> = listOf()
     private var sections: List<UnifiedSearchSection> = emptyList()
+
+    init {
+        setHasStableIds(true)
+
+        // initialise thumbnails cache on background thread
+        ThumbnailsCacheManager.initDiskCacheAsync()
+    }
+
+    override fun getItemId(section: Int, position: Int): Long {
+        return when {
+            // Current directory section
+            isCurrentDirItem(section) -> {
+                currentDirItems.getOrNull(position)?.fileId ?: RecyclerView.NO_ID
+            }
+
+            // Normal unified search sections
+            else -> {
+                val index = getSectionIndex(section)
+                sections.getOrNull(index)
+                    ?.entries
+                    ?.getOrNull(position)?.hashCode()?.toLong() ?: RecyclerView.NO_ID
+            }
+        }
+    }
+
+    override fun getHeaderId(section: Int): Long {
+        return if (isCurrentDirItem(section)) {
+            Long.MAX_VALUE - 1
+        } else {
+            val index = getSectionIndex(section)
+            sections.getOrNull(index)?.name?.hashCode()?.toLong()
+                ?: RecyclerView.NO_ID
+        }
+    }
+
+    override fun getFooterId(section: Int): Long {
+        return if (isCurrentDirItem(section)) {
+            Long.MAX_VALUE
+        } else {
+            val index = getSectionIndex(section)
+            sections.getOrNull(index)?.let {
+                if (it.hasMoreResults) {
+                    (it.name + "_footer").hashCode().toLong()
+                } else {
+                    RecyclerView.NO_ID
+                }
+            } ?: RecyclerView.NO_ID
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
         val layoutInflater = LayoutInflater.from(context)
@@ -186,6 +235,14 @@ class UnifiedSearchListAdapter(
         }
     }
 
+    override fun onViewRecycled(holder: SectionedViewHolder) {
+        super.onViewRecycled(holder)
+        if (holder is UnifiedSearchItemViewHolder) {
+            Glide.with(context).clear(holder.binding.thumbnail)
+            holder.binding.thumbnail.setImageDrawable(null)
+        }
+    }
+
     override fun onBindViewHolder(
         holder: SectionedViewHolder,
         section: Int,
@@ -226,9 +283,4 @@ class UnifiedSearchListAdapter(
     }
 
     fun hasLocalResults(): Boolean = currentDirItems.isNotEmpty()
-
-    init {
-        // initialise thumbnails cache on background thread
-        ThumbnailsCacheManager.initDiskCacheAsync()
-    }
 }
