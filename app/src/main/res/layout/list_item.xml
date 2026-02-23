@@ -225,6 +225,14 @@
 
         </LinearLayout>
 
+        <com.nextcloud.client.player.ui.PlayerProgressIndicator
+            android:id="@+id/player_progress_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
     </LinearLayout>
 
     <LinearLayout

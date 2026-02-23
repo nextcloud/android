@@ -49,6 +49,7 @@ junit = "4.13.2"
 junitVersion = "1.3.0"
 juniversalchardetVersion = "2.5.0"
 kotlin = "2.3.10"
+kotlinxCoroutinesVersion = "1.10.2"
 kotlinxSerializationJson = "1.10.0"
 ksp = "2.3.6"
 leakcanary = "2.14"
@@ -149,6 +150,9 @@ objenesis = { module = "org.objenesis:objenesis", version.ref = "objenesis" }
 play-services-base = { module = "com.google.android.gms:play-services-base", version.ref = "playServicesBaseVersion" }
 review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "reviewKtxVersion" }
 slfj = { module = "org.slf4j:jcl-over-slf4j", version.ref = "slfj" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesVersion" }
+kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutinesVersion" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesVersion" }
 
 # Mockito
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockitoVersion" }
@@ -189,6 +193,7 @@ media3-datasource = { module = "androidx.media3:media3-datasource-okhttp", versi
 media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
 media3-session = { module = "androidx.media3:media3-session", version.ref = "media3" }
 media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
+media3-common = { module = "androidx.media3:media3-common", version.ref = "media3" }
 
 # Room
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
@@ -242,7 +247,7 @@ work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "w
 foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundationVersion" }
 
 [bundles]
-media3 = ["media3-ui", "media3-session", "media3-exoplayer", "media3-datasource"]
+media3 = ["media3-ui", "media3-session", "media3-exoplayer", "media3-datasource", "media3-common"]
 espresso = ["espresso-core", "espresso-contrib", "espresso-web", "espresso-accessibility", "espresso-intents", "espresso-idling-resource"]
 ui = ["appcompat", "webkit", "cardview", "exifinterface", "fragment-ktx"]
 markdown-rendering = [

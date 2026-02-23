@@ -20,6 +20,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.player.model.PlaybackModel
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AccountRemovalDialogBinding
@@ -39,6 +40,9 @@ class AccountRemovalDialog :
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+
+    @Inject
+    lateinit var playbackModel: PlaybackModel
 
     private var user: User? = null
     private lateinit var alertDialog: AlertDialog
@@ -131,12 +135,17 @@ class AccountRemovalDialog :
      */
     private fun removeAccount() {
         user?.let { user ->
+            stopMediaPlayerAndHidePip()
             if (binding.radioRequestDeletion.isChecked) {
                 DisplayUtils.startLinkIntent(activity, user.server.uri.toString() + DROP_ACCOUNT_URI)
             } else {
                 backgroundJobManager.startAccountRemovalJob(user.accountName, false)
             }
         }
+    }
+
+    private fun stopMediaPlayerAndHidePip() {
+        playbackModel.release()
     }
 
     /**

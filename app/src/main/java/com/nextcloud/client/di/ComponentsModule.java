@@ -19,7 +19,6 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.logger.ui.LogsViewModel;
 import com.nextcloud.client.media.BackgroundPlayerService;
-import com.nextcloud.client.media.PlayerService;
 import com.nextcloud.client.migrations.Migrations;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.WhatsNewActivity;
@@ -121,7 +120,6 @@ import com.owncloud.android.ui.preview.FileDownloadFragment;
 import com.owncloud.android.ui.preview.PreviewBitmapActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -204,9 +202,6 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract PreviewImageActivity previewImageActivity();
-
-    @ContributesAndroidInjector
-    abstract PreviewMediaActivity previewMediaActivity();
 
     @ContributesAndroidInjector
     abstract ReceiveExternalFilesActivity receiveExternalFilesActivity();
@@ -348,9 +343,6 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract OperationsService operationsService();
-
-    @ContributesAndroidInjector
-    abstract PlayerService playerService();
 
     @ContributesAndroidInjector
     abstract FileTransferService fileDownloaderService();

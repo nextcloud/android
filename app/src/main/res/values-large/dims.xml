@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+    <!-- Player -->
+    <dimen name="player_toolbar_height">64dp</dimen>
+    <dimen name="player_back_button_margin_start">12dp</dimen>
+    <dimen name="player_audio_file_fragment_padding_horizontal">24dp</dimen>
+    <dimen name="player_audio_album_cover_margin_vertical">24dp</dimen>
+    <dimen name="player_audio_file_details_margin_bottom">48dp</dimen>
+    <dimen name="player_progress_panel_margin_bottom">48dp</dimen>
+    <dimen name="player_button_margin_horizontal">40dp</dimen>
+    <dimen name="player_bottom_bar_margin_bottom">72dp</dimen>
+</resources>
