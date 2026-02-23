@@ -661,6 +661,14 @@
             android:enabled="true"
             android:exported="true"
             tools:ignore="ExportedService" />
+        <service
+            android:name="com.owncloud.android.services.UnifiedPushService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="org.unifiedpush.android.connector.PUSH_EVENT"/>
+            </intent-filter>
+        </service>
 
         <activity
             android:name=".ui.activity.SsoGrantPermissionActivity"

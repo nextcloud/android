@@ -85,6 +85,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_MEDIA_FOLDER_DETECTION = "periodic_media_folder_detection"
         const val JOB_IMMEDIATE_MEDIA_FOLDER_DETECTION = "immediate_media_folder_detection"
         const val JOB_NOTIFICATION = "notification"
+        const val JOB_UNIFIEDPUSH = "unifiedpush"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_FILES_UPLOAD = "files_upload"
         const val JOB_FOLDER_DOWNLOAD = "folder_download"
@@ -106,6 +107,7 @@ internal class BackgroundJobManagerImpl(
         const val TAG_PREFIX_USER = "user"
         const val TAG_PREFIX_CLASS = "class"
         const val TAG_PREFIX_START_TIMESTAMP = "timestamp"
+        const val UNIQUE_TAG_UNIFIEDPUSH = "unifiedpush.uniqueTag"
         val PREFIXES = setOf(TAG_PREFIX_NAME, TAG_PREFIX_USER, TAG_PREFIX_START_TIMESTAMP, TAG_PREFIX_CLASS)
         const val NOT_SET_VALUE = "not set"
         const val PERIODIC_BACKUP_INTERVAL_MINUTES = 24 * 60L
@@ -591,6 +593,84 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         workManager.enqueue(request)
+    }
+
+    override fun startDecryptedNotificationJob(accountName: String, message: String) {
+        val data = Data.Builder()
+            .putString(NotificationWork.KEY_NOTIFICATION_ACCOUNT, accountName)
+            .putString(NotificationWork.KEY_NOTIFICATION_DECRYPTED_MSG, message)
+            .build()
+
+        val request = oneTimeRequestBuilder(NotificationWork::class, JOB_NOTIFICATION)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueue(request)
+    }
+
+    override fun registerWebPush(accountName: String, url: String, uaPublicKey: String, auth: String) {
+        val data = Data.Builder()
+            .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_REGISTER)
+            .putString(UnifiedPushWork.EXTRA_ACCOUNT, accountName)
+            .putString(UnifiedPushWork.EXTRA_URL, url)
+            .putString(UnifiedPushWork.EXTRA_UA_PUBKEY, uaPublicKey)
+            .putString(UnifiedPushWork.EXTRA_AUTH, auth)
+            .build()
+
+        val request = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueue(request)
+    }
+
+    override fun activateWebPush(accountName: String, token: String) {
+        val data = Data.Builder()
+            .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_ACTIVATE)
+            .putString(UnifiedPushWork.EXTRA_ACCOUNT, accountName)
+            .putString(UnifiedPushWork.EXTRA_TOKEN, token)
+            .build()
+
+        val request = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueue(request)
+    }
+
+    override fun unregisterWebPush(accountName: String) {
+        val data = Data.Builder()
+            .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_UNREGISTER)
+            .putString(UnifiedPushWork.EXTRA_ACCOUNT, accountName)
+            .build()
+
+        val request = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueue(request)
+    }
+
+    /**
+     * Schedule a unique job, for all accounts, to either reconnect to the distributor
+     * or show a notification to open the app
+     */
+    override fun mayResetUnifiedPush() {
+        val data = Data.Builder()
+            .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_MAY_RESET)
+            .build()
+
+        val work = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
+            .setInitialDelay(10, TimeUnit.SECONDS)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueueUniqueWork(
+            UNIQUE_TAG_UNIFIEDPUSH,
+            ExistingWorkPolicy.REPLACE,
+            work
+        )
+
     }
 
     override fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean) {

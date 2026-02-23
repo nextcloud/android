@@ -139,16 +139,19 @@ android {
             register("generic") {
                 applicationId = "com.nextcloud.client"
                 dimension = "default"
+                buildConfigField("boolean", "DEFAULT_PUSH_UNIFIEDPUSH", "true")
             }
 
             register("gplay") {
                 applicationId = "com.nextcloud.client"
                 dimension = "default"
+                buildConfigField("boolean", "DEFAULT_PUSH_UNIFIEDPUSH", "false")
             }
 
             register("huawei") {
                 applicationId = "com.nextcloud.client"
                 dimension = "default"
+                buildConfigField("boolean", "DEFAULT_PUSH_UNIFIEDPUSH", "false")
             }
 
             register("versionDev") {
@@ -156,6 +159,7 @@ android {
                 dimension = "default"
                 versionCode = 20220322
                 versionName = "20220322"
+                buildConfigField("boolean", "DEFAULT_PUSH_UNIFIEDPUSH", "false")
             }
 
             register("qa") {
@@ -163,6 +167,7 @@ android {
                 dimension = "default"
                 versionCode = 1
                 versionName = "1"
+                buildConfigField("boolean", "DEFAULT_PUSH_UNIFIEDPUSH", "false")
             }
         }
     }
@@ -498,6 +503,11 @@ dependencies {
 
     // region Google Play dependencies, upon each update first test: new registration, receive push
     "gplayImplementation"(libs.bundles.gplay)
+    // endregion
+
+    // region Push
+    implementation(libs.unifiedpush.connector)
+    "genericImplementation"(libs.unifiedpush.embedded.fcm.distributor)
     // endregion
 
     // region common

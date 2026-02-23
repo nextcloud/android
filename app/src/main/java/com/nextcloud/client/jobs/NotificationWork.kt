@@ -71,6 +71,7 @@ class NotificationWork constructor(
     companion object {
         const val TAG = "NotificationJob"
         const val KEY_NOTIFICATION_ACCOUNT = "KEY_NOTIFICATION_ACCOUNT"
+        const val KEY_NOTIFICATION_DECRYPTED_MSG = "KEY_NOTIFICATION_DECRYPTED_MSG"
         const val KEY_NOTIFICATION_SUBJECT = "subject"
         const val KEY_NOTIFICATION_SIGNATURE = "signature"
         private const val KEY_NOTIFICATION_ACTION_LINK = "KEY_NOTIFICATION_ACTION_LINK"
@@ -81,9 +82,23 @@ class NotificationWork constructor(
 
     @Suppress("TooGenericExceptionCaught", "NestedBlockDepth", "ComplexMethod", "LongMethod") // legacy code
     override fun doWork(): Result {
+        val decryptedMsg = inputData.getString(KEY_NOTIFICATION_DECRYPTED_MSG)
         val subject = inputData.getString(KEY_NOTIFICATION_SUBJECT) ?: ""
         val signature = inputData.getString(KEY_NOTIFICATION_SIGNATURE) ?: ""
-        if (!TextUtils.isEmpty(subject) && !TextUtils.isEmpty(signature)) {
+        if (decryptedMsg != null) {
+            try {
+                val accountName = inputData.getString(KEY_NOTIFICATION_ACCOUNT)
+                accountName
+                    ?: Log_OC.w(TAG, "Trying to work with a decrypted push notification without account")
+                val decryptedPushMessage = Gson().fromJson(
+                    decryptedMsg,
+                    DecryptedPushMessage::class.java
+                )
+                handlePushMessage(accountName, decryptedPushMessage)
+            } catch (exception: Exception) {
+                Log_OC.e(TAG, "Something went very wrong" + exception.localizedMessage)
+            }
+        } else if (!TextUtils.isEmpty(subject) && !TextUtils.isEmpty(signature)) {
             try {
                 val base64DecodedSubject = Base64.decode(subject, Base64.DEFAULT)
                 val base64DecodedSignature = Base64.decode(signature, Base64.DEFAULT)
@@ -104,15 +119,7 @@ class NotificationWork constructor(
                             String(decryptedSubject),
                             DecryptedPushMessage::class.java
                         )
-                        if (decryptedPushMessage.delete) {
-                            notificationManager.cancel(decryptedPushMessage.nid)
-                        } else if (decryptedPushMessage.deleteAll) {
-                            notificationManager.cancelAll()
-                        } else {
-                            val user = accountManager.getUser(signatureVerification.account?.name)
-                                .orElseThrow { RuntimeException() }
-                            fetchCompleteNotification(user, decryptedPushMessage)
-                        }
+                        handlePushMessage(signatureVerification.account?.name, decryptedPushMessage)
                     }
                 } catch (e1: GeneralSecurityException) {
                     Log_OC.d(TAG, "Error decrypting message ${e1.javaClass.name} ${e1.localizedMessage}")
@@ -122,6 +129,22 @@ class NotificationWork constructor(
             }
         }
         return Result.success()
+    }
+
+    private fun handlePushMessage(accountName: String?, decryptedPushMessage: DecryptedPushMessage) {
+        if (decryptedPushMessage.delete) {
+            notificationManager.cancel(decryptedPushMessage.nid)
+        } else if (decryptedPushMessage.deleteMultiple) {
+            decryptedPushMessage.nids.forEach {
+                notificationManager.cancel(it)
+            }
+        } else if (decryptedPushMessage.deleteAll) {
+            notificationManager.cancelAll()
+        } else {
+            val user = accountManager.getUser(accountName)
+                .orElseThrow { RuntimeException() }
+            fetchCompleteNotification(user, decryptedPushMessage)
+        }
     }
 
     @Suppress("LongMethod") // legacy code

@@ -1505,4 +1505,14 @@
     <string name="sync_conflict_notification_title">File upload conflicts</string>
     <string name="sync_conflict_notification_description">Upload conflicts detected. Open uploads to resolve.</string>
     <string name="sync_conflict_notification_action_title">Resolve conflicts</string>
+
+    <string name="prefs_category_push">Push notifications</string>
+    <string name="prefs_push_system">Receive notifications with</string>
+    <string name="prefs_unifiedpush">Enable UnifiedPush</string>
+    <string name="prefs_unifiedpush_summary">Receive push notifications with an external UnifiedPush service</string>
+    <string name="prefs_disabled_push_system_summary">Enable UnifiedPush first</string>
+    <string name="unifiedpush">UnifiedPush</string>
+    <string name="select_unifiedpush_service_dialog">You are about to select your default push service</string>
+    <string name="push_notifications">Push notifications</string>
+    <string name="notif_push_unregistered">Unregistered from UnifiedPush, please open the app to reset push notifications</string>
 </resources>

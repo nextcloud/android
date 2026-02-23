@@ -116,7 +116,7 @@ or
 
 ### Push notifications do not work on F-Droid editions
 
-Push Notifications are not currently supported in the F-Droid builds due to dependencies on Google Play services.
+Push Notifications are not currently supported in the F-Droid builds with Nextcloud up to version 32, due to dependencies on Google Play services.
 
 ## Remarks :scroll:
 

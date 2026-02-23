@@ -99,6 +99,7 @@
     <string name="url_imprint"></string>
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.client"</string>
     <string name="url_server_install">https://nextcloud.com/install</string>
+    <bool name="unifiedpush_enabled">true</bool>
 
     <!-- synced folder light; if enabled: move to setting & global upload settings -->
     <bool name="syncedFolder_light">false</bool>
