@@ -582,6 +582,7 @@
     <string name="login">Logi sisse</string>
     <string name="login_url_helper_text">See on sinu %1$s kasutajaliidese veebiaadress, kui sa avad ta veebibrauseris.</string>
     <string name="logs_menu_delete">Kustuta logid</string>
+    <string name="logs_menu_export">Ekspordi logid</string>
     <string name="logs_menu_refresh">Värskenda</string>
     <string name="logs_menu_search">Otsi  logisid</string>
     <string name="logs_menu_send">Saada logid e-postiga</string>
