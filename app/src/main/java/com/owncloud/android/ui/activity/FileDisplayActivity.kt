@@ -76,6 +76,7 @@ import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerState.FileDownloadCompleted
 import com.nextcloud.model.WorkerState.FileDownloadStarted
 import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
+import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
@@ -213,6 +214,9 @@ class FileDisplayActivity :
 
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager
+
+    @Inject
+    lateinit var composeProcessTextAlias: ComposeProcessTextAlias
 
     @Inject
     lateinit var preferences: AppPreferences
@@ -2831,6 +2835,7 @@ class FileDisplayActivity :
         )
         val userChanged = (existingAccountName != lastDisplayedAccountName)
         if (userChanged) {
+            composeProcessTextAlias.configure()
             Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..")
             initFragments()
             if (file.isFolder && TextUtils.isEmpty(searchQuery)) {
