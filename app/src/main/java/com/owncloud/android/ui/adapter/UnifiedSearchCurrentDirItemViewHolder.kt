@@ -32,7 +32,6 @@ class UnifiedSearchCurrentDirItemViewHolder(
     private val isRTL: Boolean,
     private val user: User,
     private val appPreferences: AppPreferences,
-    private val syncedFolderProvider: SyncedFolderProvider,
     private val action: UnifiedSearchCurrentDirItemAction,
     private val overlayManager: OverlayManager
 ) : SectionedViewHolder(binding.unifiedSearchCurrentDirItemLayout) {
@@ -51,7 +50,6 @@ class UnifiedSearchCurrentDirItemViewHolder(
             binding.filename.text = filename
         }
 
-        viewThemeUtils.platform.colorImageView(binding.thumbnail, ColorRole.PRIMARY)
         DisplayUtils.setThumbnail(
             file,
             binding.thumbnail,

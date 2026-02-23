@@ -22,8 +22,10 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResultEntry
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -81,26 +83,41 @@ class UnifiedSearchItemViewHolder(
 
     private fun bindThumbnail(entry: SearchResultEntry, entryType: SearchResultEntryType) {
         val file = storageManager.getFileByRemotePath(entry.remotePath())
+
         if (file?.isFolder == true) {
+            Log_OC.d("DEBUG FOLDER", "Path: ${entry.remotePath()}, isFolder=${file.isFolder}, " +
+                "mime=${file?.mimeType}")
+
             viewThemeUtils.platform.colorImageView(binding.thumbnail, ColorRole.PRIMARY)
             overlayManager.setFolderOverlayIcon(file, binding.thumbnailOverlayIcon)
         } else {
-            filesAction.loadFileThumbnail(entry, onClientReady = {
-                if (binding.thumbnail.tag == entry.thumbnailUrl) {
-                    return@loadFileThumbnail
-                }
+            binding.thumbnail.clearColorFilter()
 
-                binding.thumbnail.tag = entry.thumbnailUrl
+            if (file != null) {
+                Log_OC.d("DEBUG FILE", "Path: ${entry.remotePath()}, isFolder=${file.isFolder}, " +
+                    "mime=${file?.mimeType}")
 
-                GlideHelper.loadIntoImageView(
+                val icon = MimeTypeUtil.getFileTypeIcon(
+                    file.mimeType,
+                    file.fileName,
                     context,
-                    it,
-                    entry.thumbnailUrl,
-                    binding.thumbnail,
-                    entryType.iconId(),
-                    circleCrop = entry.rounded
+                    viewThemeUtils
                 )
-            })
+                binding.thumbnail.setImageDrawable(icon)
+            } else if (entry.thumbnailUrl.isNotBlank()) {
+                Log_OC.d("DEBUG GLIDE", "URL: " + entry.thumbnailUrl)
+
+                filesAction.loadFileThumbnail(entry) { client ->
+                    GlideHelper.loadIntoImageView(
+                        context,
+                        client,
+                        entry.thumbnailUrl,
+                        binding.thumbnail,
+                        entryType.iconId(),
+                        circleCrop = entry.rounded
+                    )
+                }
+            } // FIXME: Settings, Apps category
         }
     }
 
