@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.utils;
 
+import android.accounts.Account;
 import android.content.Context;
 
 import com.nextcloud.client.account.UserAccountManager;
@@ -20,6 +21,10 @@ public final class PushUtils {
     public static final String KEY_PUSH = "push";
 
     private PushUtils() {
+    }
+
+    public static void setRegistrationForAccountEnabled(Account account, Boolean enabled) {
+        // do nothing
     }
 
     public static void pushRegistrationToServer(final UserAccountManager accountManager, final String pushToken) {

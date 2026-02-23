@@ -17,6 +17,8 @@ public class PushConfigurationState {
     public String deviceIdentifierSignature;
     public String userPublicKey;
     public boolean shouldBeDeleted;
+    public boolean shouldBeDisabled = false;
+    public boolean disabled = false;
 
     public PushConfigurationState(String pushToken, String deviceIdentifier, String deviceIdentifierSignature, String userPublicKey, boolean shouldBeDeleted) {
         this.pushToken = pushToken;
