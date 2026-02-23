@@ -584,7 +584,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void filterDrawerMenu(final Menu menu, @NonNull final User user) {
         OCCapability capability = getCapabilities();
 
-        DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources());
+        DrawerMenuUtil.filterSearchMenuItems(menu, user);
         DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
         DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability);
