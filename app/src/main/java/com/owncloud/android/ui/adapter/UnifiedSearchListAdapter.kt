@@ -106,7 +106,6 @@ class UnifiedSearchListAdapter(
                     isRTL,
                     user,
                     appPreferences,
-                    syncedFolderProvider,
                     currentDirItemAction,
                     overlayManager
                 )
