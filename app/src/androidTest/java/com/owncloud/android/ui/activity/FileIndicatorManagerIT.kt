@@ -114,7 +114,7 @@ class FileIndicatorManagerIT : AbstractIT() {
         }
     }
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "ReturnCount")
     private fun insertFileIntoDB(sut: FileDisplayActivity) {
         val storageManager = sut.storageManager ?: return
         val rootDir = storageManager.getFileByPath(OCFile.ROOT_PATH) ?: return
