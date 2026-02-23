@@ -1505,4 +1505,5 @@
     <string name="sync_conflict_notification_title">File upload conflicts</string>
     <string name="sync_conflict_notification_description">Upload conflicts detected. Open uploads to resolve.</string>
     <string name="sync_conflict_notification_action_title">Resolve conflicts</string>
+    <string name="server_not_allowed">Server not allowed</string>
 </resources>
