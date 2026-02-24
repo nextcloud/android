@@ -181,7 +181,7 @@
     <string name="community_testing_bug_text">Fundet en fejl? Mærkværdighed?</string>
     <string name="community_testing_headline">Hjælp med at test</string>
     <string name="community_testing_report_text">Rapportér et problem på Github</string>
-    <string name="compose_activity_label">Nextcloud assistent</string>
+    <string name="compose_activity_label">Nextcloud Assistent</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurer</string>
     <string name="confirm_removal">Fjern lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Er du sikker på at du vil slette %1$s ?</string>
@@ -800,6 +800,7 @@
     <string name="select_one_template">Vælg venligst en skabelon</string>
     <string name="select_template">Vælg model</string>
     <string name="send">Send</string>
+    <string name="send_copy_to">Send kopi til</string>
     <string name="send_share">Send deling</string>
     <string name="sendbutton_description">Send knap ikon</string>
     <string name="server_not_reachable">Kunne ikke indlæse indhold</string>
@@ -809,6 +810,7 @@
     <string name="set_message">Indstil besked</string>
     <string name="set_note">Sæt note</string>
     <string name="set_online_status">Online status</string>
+    <string name="set_online_status_bottom_sheet_error_message">Kunne ikke sætte status!</string>
     <string name="set_picture_as">Anvend billede som</string>
     <string name="setup_e2e">Undervejs i opsætningen af end-to-end kryptering, så vil du modtage en tilfældig huskeregel på 12 ord, som du får brug for til at åbne dine filer på andre enheder. Denne vil kun blive gemt på denne enhed, og kan blive vist senere i denne visning. Skriv den venligst ned et sikkert sted!</string>
     <string name="share">Del</string>

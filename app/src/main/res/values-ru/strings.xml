@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Удалить задачу</string>
     <string name="assistant_screen_empty_content_description">Попробуйте отправить сообщение, чтобы начать беседу.</string>
     <string name="assistant_screen_empty_content_title">Здравствуйте! Чем я могу вам помочь сегодня?</string>
+    <string name="assistant_screen_select_task">Выберите задачу</string>
     <string name="assistant_screen_send_message">ОТправить сообщение</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Открыть список обсуждений</string>
     <string name="assistant_screen_task_create_fail_message">Произошла ошибка при создании задачи</string>
@@ -106,15 +107,18 @@
     <string name="auth_wrong_connection_title">Не удается установить соединение</string>
     <string name="authenticator_activity_cancel_login">Отменить вход</string>
     <string name="authenticator_activity_empty_base_url">Пожалуйста, введите действующий адрес сервера.</string>
+    <string name="authenticator_activity_empty_response_message">Не удалось получить данные для входа. Попробуйте ещё раз.</string>
     <string name="authenticator_activity_login_error">При обработке вашего запроса на вход возникла проблема. Пожалуйста, повторите попытку позже.</string>
     <string name="authenticator_activity_no_web_browser_found">Ни один браузер не доступен для открытия этой ссылки.</string>
     <string name="authenticator_activity_please_complete_login_process">Пожалуйста, завершите процесс входа в вашем браузере</string>
+    <string name="auto_upload_battery_saver_mode_warning">Автозагрузка приостановлена из-за включенного режима энергосбережения.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
     <string name="auto_upload_low_battery_warning_info">Батарея разряжена, загрузка может занять больше времени</string>
     <string name="auto_upload_on_wifi">Только через безлимит или Wi-Fi</string>
     <string name="auto_upload_path">/Автозагрузка</string>
     <string name="auto_upload_sub_folder_warning">Эта папка уже включена в синхронизацию родительской папки, что может привести к дублированию загрузок</string>
     <string name="auto_upload_wifi_only_warning_info">Ожидание Wi-Fi для начала загрузки</string>
+    <string name="auto_upload_worker_start_text">Загрузка файлов с %1$s на %2$s</string>
     <string name="autoupload_configure">Настроить</string>
     <string name="autoupload_create_new_custom_folder">Создать новую настройку пользовательского каталога</string>
     <string name="autoupload_custom_folder">Задать пользовательский каталог</string>
@@ -327,9 +331,11 @@
     <string name="e2e_not_yet_setup">Сквозное шифрование не настроено</string>
     <string name="e2e_offline">Невозможно без подключения к интернету</string>
     <string name="e2e_signature_does_not_match">Подпись не совпадает</string>
+    <string name="e2e_signature_is_empty">Не удалось проверить метаданные: подпись пуста.</string>
     <string name="ecosystem_apps_display_assistant">Помощник</string>
     <string name="ecosystem_apps_display_more">Больше</string>
     <string name="ecosystem_apps_more">Больше приложений для Nextcloud</string>
+    <string name="editor_web_view_cannot_open_file">Не удалось открыть окно выбора файлов</string>
     <string name="email_pick_failed">Невозможно выбрать адрес электронной почты.</string>
     <string name="encrypted">Зашифровать</string>
     <string name="end_to_end_encryption_certificate_unavailable">Не удается получить сертификат сервера</string>
@@ -399,8 +405,10 @@
     <string name="extented_list_fragment_empty_list_message_no_write_permission">У вас нет разрешения на создание или загрузку файлов в эту папку.</string>
     <string name="external_shares">Внешние ссылки</string>
     <string name="fab_label">Добавить или выгрузить</string>
+    <string name="failed_to_create_conflict_dialog">Не удалось создать диалог разрешения конфликтов</string>
     <string name="failed_to_download">Не удалось передать файл в диспетчер загрузок</string>
     <string name="failed_to_print">Ошибка печати файла</string>
+    <string name="failed_to_start_action">Не удалось выполнить действие!</string>
     <string name="failed_to_start_editor">Не удалось запустить редактор</string>
     <string name="failed_update_ui">Не удалось обновить пользовательский интерфейс</string>
     <string name="favorite">Добавить в избранное</string>
@@ -432,6 +440,8 @@
     <string name="file_list_empty_unified_search_no_results">По вашему запросу ничего не найдено</string>
     <string name="file_list_empty_unified_search_start_search">Начните ваш поиск</string>
     <string name="file_list_empty_unified_search_start_search_description">Напишите в поле поиска наверху, чтобы найти файлы, контакты, события календаря и больше в вашей учетной записи.</string>
+    <string name="file_list_error_description">Проверьте подключение к интернету или повторите попытку позже</string>
+    <string name="file_list_error_headline">Нестабильное соединение</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_live">ТРАНСЛИРУЕТСЯ</string>
     <string name="file_list_loading">Получение данных…</string>
@@ -493,6 +503,8 @@
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_best_viewed_in">Эту папку лучше всего просматривать в %1$s.</string>
     <string name="folder_confirm_create">Создать</string>
+    <string name="folder_download_error_notification_title">При синхронизации папки %s произошла ошибка</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Недостаточно места на диске, синхронизация отменена</string>
     <string name="folder_download_success_notification_title">Синхронизировано папок: %s</string>
     <string name="folder_download_worker_ticker_id">Синхронизация …</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
@@ -569,6 +581,7 @@
     <string name="login">Войти</string>
     <string name="login_url_helper_text">Ссылка для в %1$s через веб-интерфейс для использования в браузере.</string>
     <string name="logs_menu_delete">Удалить журнал</string>
+    <string name="logs_menu_export">Экспорт логов</string>
     <string name="logs_menu_refresh">Обновить</string>
     <string name="logs_menu_search">Искать в журнале</string>
     <string name="logs_menu_send">Отправка журналов по электронной почте</string>
@@ -629,6 +642,7 @@
     <string name="notification_channel_background_operations_description">Показывать уведомления для взаимодействия с результатами фоновых операций</string>
     <string name="notification_channel_background_operations_name">Фоновые задания</string>
     <string name="notification_channel_content_observer_description">Обнаруживать локальные изменения файлов</string>
+    <string name="notification_channel_content_observer_name_short">Отслеживание изменений файлов</string>
     <string name="notification_channel_download_description">Показывает выполнение получения</string>
     <string name="notification_channel_download_name_short">Загрузки</string>
     <string name="notification_channel_file_sync_description">Показывает состояние и результаты синхронизации файлов </string>
@@ -698,6 +712,7 @@
     <string name="pref_instant_name_collision_policy_title">Действие в случае, если файл уже существует</string>
     <string name="prefs_add_account">Добавить аккаунт</string>
     <string name="prefs_all_files_access_summary">Разрешить приложению доступ и управление всеми файлами на вашем устройстве</string>
+    <string name="prefs_all_files_access_title">Доступ ко всем файлам</string>
     <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
     <string name="prefs_calendar_contacts_no_store_error">Ни F-Droid, ни Google Play не установлены</string>
     <string name="prefs_calendar_contacts_summary">Установите DAVx⁵ (ранее известный как DAVdroid) (v1.3.0+) для текущего аккаунта</string>
@@ -833,6 +848,7 @@
     <string name="set_message">Установить сообщение</string>
     <string name="set_note">Создать заметку</string>
     <string name="set_online_status">Онлайн подключения</string>
+    <string name="set_online_status_bottom_sheet_error_message">Не удалось установить статус!</string>
     <string name="set_picture_as">Использовать изображение</string>
     <string name="setup_e2e">При настройке сквозного шифрования будет создана  мнемофраза из 12 слов, которая понадобится для открытия файлов на других устройствах. Мнемофраза будет сохранена  только на этом устройстве и может быть просмотрена повторно. Сохраните мнемофразу в надежном месте!</string>
     <string name="share">Общий ресурс</string>
@@ -934,6 +950,7 @@
     <string name="storage_internal_storage">Внутреннее хранилище</string>
     <string name="storage_movies">Фильмы</string>
     <string name="storage_music">Музыка</string>
+    <string name="storage_permission_all_files_access">Доступ ко всем файлам</string>
     <string name="storage_permission_banner_auto_upload_text">Для авто-загрузки требуется разрешение на доступ к хранилищу.</string>
     <string name="storage_permission_banner_upload_text">Для загрузки файлов требуется разрешение на доступ к хранилищу.</string>
     <string name="storage_permission_dont_ask">Не спрашивать</string>
@@ -957,6 +974,8 @@
     <string name="suggest">Посоветовать</string>
     <string name="sync">Синхронизировать</string>
     <string name="sync_anyway">Синхронизация в любом случае</string>
+    <string name="sync_conflict_notification_action_title">Разрешить конфликты</string>
+    <string name="sync_conflict_notification_description">Обнаружены конфликты загрузки. Откройте раздел загрузок для разрешения.</string>
     <string name="sync_conflict_notification_title">Конфликт при загрузке файла</string>
     <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
     <string name="sync_current_folder_was_removed">Каталог %1$s больше не существует</string>
@@ -996,6 +1015,10 @@
     <string name="thumbnail_for_new_file_desc">Миниатюра нового файла</string>
     <string name="timeout_richDocuments">Загрузка занимает больше времени, чем ожидалось</string>
     <string name="today">Сегодня</string>
+    <string name="translation_screen_hint_source">Введите текст для перевода…</string>
+    <string name="translation_screen_start_to_translate_task">Нажмите для перевода</string>
+    <string name="translation_screen_task_processing">Перевод занимает больше времени, чем ожидалось.</string>
+    <string name="translation_screen_translating">Перевод…</string>
     <string name="trashbin_activity_title">Удалённые файлы</string>
     <string name="trashbin_empty_headline">Нет удалённых файлов</string>
     <string name="trashbin_empty_message">Отсюда могут быть восстановлены удалённые файлы.</string>
@@ -1064,6 +1087,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Разрешения для приложения</string>
     <string name="upload_missing_storage_permission_description">Ваши файлы не могут быть загружены без доступа к локальному хранилищу. Нажмите для получения разрешения.</string>
     <string name="upload_missing_storage_permission_title">Загрузка остановлена - необходимы разрешения для хранилища</string>
+    <string name="upload_notification_manager_content_intent_description">Вы можете удалить или возобновить в разделе «Загрузки»</string>
     <string name="upload_notification_manager_start_text">%1$d/%2$d - %3$s</string>
     <string name="upload_old_android">Шифрование возможно только в &gt; Android 5.0</string>
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку «%1$s». Выполнить перемещение вместо копирования?</string>

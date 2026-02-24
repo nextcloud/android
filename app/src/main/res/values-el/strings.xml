@@ -32,6 +32,7 @@
     <string name="app_config_proxy_port_title">Θύρα διαμεσολαβητή</string>
     <string name="app_widget_description">Εμφάνιση ενός γραφικού στοιχείου από τον πίνακα ελέγχου</string>
     <string name="appbar_search_in">Αναζήτηση στο %s</string>
+    <string name="appear_offline">Εμφάνιση ως αποσυνδεδεμένος/η</string>
     <string name="assistant_output_generation_warning_text">Τα αποτελέσματα που εμφανίζονται εδώ έχουν δημιουργηθεί από τεχνητή νοημοσύνη. Φροντίστε να τα ελέγχετε πάντα διπλά.</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Διαγραφή εργασίας</string>
     <string name="assistant_screen_empty_content_description">Δοκιμάστε να στείλετε ένα μήνυμα για να ξεκινήσετε μια συνομιλία.</string>
@@ -480,6 +481,7 @@
     <string name="move_file_invalid_into_descendent">Δεν είναι δυνατό να μετακινηθεί ο φάκελος σε έναν απογονικό</string>
     <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
     <string name="move_file_not_found">Αδύνατη η μετακίνηση αρχείου. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
+    <string name="mute_all_notifications">Σίγαση όλων των ειδοποιήσεων</string>
     <string name="network_error_connect_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή απόκρισης του διακομιστή. Η εργασία δεν μπορεί να ολοκληρωθεί.</string>
     <string name="network_error_socket_exception">Παρουσιάστηκε σφάλμα κατά τη σύνδεση με το διακομιστή.</string>
     <string name="network_error_socket_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή απόκρισης του διακομιστή. Η εργασία δεν μπορεί να ολοκληρωθεί.</string>
