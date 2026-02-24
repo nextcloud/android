@@ -10,7 +10,6 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.ImageViewCompat
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
@@ -25,6 +24,7 @@ import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.DisplayUtils
@@ -85,38 +85,39 @@ class UnifiedSearchItemViewHolder(
     }
 
     private fun bindThumbnail(entry: SearchResultEntry, entryType: SearchResultEntryType) {
-        // FIXME: ic_find_in_page not visible
+        val file = storageManager.getFileByRemotePath(entry.remotePath())
         Glide.with(context).clear(binding.thumbnail)
-        binding.thumbnail.drawable?.mutate()?.let { DrawableCompat.setTintList(it, null) }
-        binding.thumbnail.clearColorFilter()
-        ImageViewCompat.setImageTintList(binding.thumbnail, null)
-        binding.thumbnail.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_find_in_page))
         binding.thumbnailOverlayIcon.setVisibleIf(false)
 
-        if (entry.isFile) {
-            val file = storageManager.getFileByRemotePath(entry.remotePath())
-
-            if (file?.isFolder == true) {
-                binding.thumbnail.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.folder))
-                viewThemeUtils.platform.colorImageView(binding.thumbnail, ColorRole.PRIMARY)
-                overlayManager.setFolderOverlayIcon(file, binding.thumbnailOverlayIcon)
-                return
-            }
-
-            if (file != null) {
-                val icon = MimeTypeUtil.getFileTypeIcon(
-                    file.mimeType,
-                    file.fileName,
-                    context,
-                    viewThemeUtils
-                )
-                binding.thumbnail.setImageDrawable(icon)
-                binding.thumbnail.clearColorFilter()
-                return
-            }
+        when {
+            file != null && file.isFolder -> bindFolderThumbnail(file)
+            file != null && !file.isFolder -> bindLocalFileThumbnail(file)
+            else -> bindRemoteThumbnail(entry, entryType)
         }
+    }
 
-        // For Settings, Apps, Contacts, Calendar, etc.
+    private fun bindFolderThumbnail(file: OCFile) {
+        binding.thumbnail.apply {
+            setImageDrawable(ContextCompat.getDrawable(context, R.drawable.folder))
+            viewThemeUtils.platform.colorImageView(this, ColorRole.PRIMARY)
+        }
+        overlayManager.setFolderOverlayIcon(file, binding.thumbnailOverlayIcon)
+    }
+
+    private fun bindLocalFileThumbnail(file: OCFile) {
+        val icon = MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, context, viewThemeUtils)
+        binding.thumbnail.apply {
+            setImageDrawable(icon)
+            clearColorFilter()
+            ImageViewCompat.setImageTintList(this, null)
+        }
+    }
+
+    private fun bindRemoteThumbnail(entry: SearchResultEntry, entryType: SearchResultEntryType) {
+        binding.thumbnail.apply {
+            setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_find_in_page))
+            viewThemeUtils.platform.colorImageView(this, ColorRole.PRIMARY)
+        }
         filesAction.loadFileThumbnail(entry) { client ->
             GlideHelper.loadIntoImageView(
                 context,
