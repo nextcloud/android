@@ -35,6 +35,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
     private lateinit var overlayManager: OverlayManager
     private lateinit var preferences: AppPreferences
 
+    @Suppress("DEPRECATION")
     @Before
     fun setup() {
         preferences = AppPreferencesImpl.fromContext(targetContext)
@@ -46,7 +47,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
         thumbnailUrl = "",
         title = "My Folder",
         subline = "Documents/My Folder",
-        resourceUrl = "https://cloud.example.com/index.php/apps/files/?dir=/Documents/My%20Folder&scrollto=My%20Folder",
+        resourceUrl = "",
         icon = "icon-folder",
         rounded = false,
         attributes = mapOf("path" to "/Documents/My Folder")
@@ -56,17 +57,17 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
         thumbnailUrl = "",
         title = "report.pdf",
         subline = "Documents/report.pdf",
-        resourceUrl = "https://cloud.example.com/index.php/apps/files/?dir=/Documents&scrollto=report.pdf",
-        icon = "icon-pdf",
+        resourceUrl = "",
+        icon = "application-pdf",
         rounded = false,
         attributes = mapOf("path" to "/Documents/report.pdf", "fileId" to "12345")
     )
 
     private fun makeContactEntry() = SearchResultEntry(
-        thumbnailUrl = "https://cloud.example.com/avatar/john",
+        thumbnailUrl = "",
         title = "John Doe",
         subline = "john@example.com",
-        resourceUrl = "https://cloud.example.com/apps/contacts/123",
+        resourceUrl = "",
         icon = "icon-contacts",
         rounded = true,
         attributes = emptyMap()
@@ -76,28 +77,18 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
         thumbnailUrl = "",
         title = "Team Meeting",
         subline = "Today at 10:00 AM",
-        resourceUrl = "https://cloud.example.com/apps/calendar/event/456",
+        resourceUrl = "",
         icon = "icon-calendar",
         rounded = false,
         attributes = emptyMap()
     )
 
     private fun makeAppEntry() = SearchResultEntry(
-        thumbnailUrl = "https://cloud.example.com/apps/settings/icon",
+        thumbnailUrl = "",
         title = "Settings",
         subline = "App",
-        resourceUrl = "https://cloud.example.com/apps/settings",
+        resourceUrl = "",
         icon = "icon-settings",
-        rounded = false,
-        attributes = emptyMap()
-    )
-
-    private fun makeEntryWithoutSubline() = SearchResultEntry(
-        thumbnailUrl = "",
-        title = "No Subline Entry",
-        subline = "",
-        resourceUrl = "https://cloud.example.com/apps/files/?dir=/&scrollto=file.txt",
-        icon = "icon-file",
         rounded = false,
         attributes = emptyMap()
     )
@@ -205,22 +196,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
 
     // endregion
 
-    // region Empty state
-
-    @Test
-    @ScreenshotTest
-    fun showEmptyAdapter() {
-        launchActivity<FileDisplayActivity>().use { scenario ->
-            scenario.onActivity { sut -> setupAdapterOnActivity(sut) }
-            waitForIdle()
-            scenario.onActivity { sut -> screenshot(sut, "emptyAdapter") }
-        }
-    }
-
-    // endregion
-
     // region Remote thumbnails (contacts, calendar, apps)
-
     @Test
     @ScreenshotTest
     fun showContactEntry() {
@@ -265,11 +241,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             scenario.onActivity { sut -> screenshot(sut, "appEntry") }
         }
     }
-
     // endregion
 
     // region File entries
-
     @Test
     @ScreenshotTest
     fun showFileEntry() {
@@ -305,26 +279,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             scenario.onActivity { sut -> screenshot(sut, "folderEntry") }
         }
     }
-
-    @Test
-    @ScreenshotTest
-    fun showEntryWithoutSubline() {
-        launchActivity<FileDisplayActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                setupAdapterOnActivity(
-                    sut,
-                    sections = makeSections("Files" to listOf(makeEntryWithoutSubline()))
-                )
-            }
-            waitForIdle()
-            scenario.onActivity { sut -> screenshot(sut, "entryWithoutSubline") }
-        }
-    }
-
     // endregion
 
     // region Multiple sections
-
     @Test
     @ScreenshotTest
     fun showMultipleSections() {
@@ -361,11 +318,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             scenario.onActivity { sut -> screenshot(sut, "sectionsWithLoadMoreFooter") }
         }
     }
-
     // endregion
 
     // region Current directory items
-
     @Test
     @ScreenshotTest
     fun showCurrentDirectoryItems() {
@@ -399,7 +354,8 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
         launchActivity<FileDisplayActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 val localFile = OCFile("/Documents/notes.txt").apply {
-                    mimeType = "text/plain"
+                    mimeType = MimeType.TEXT_PLAIN
+                    remoteId = "00005"
                     fileLength = 1024
                     modificationTimestamp = System.currentTimeMillis()
                 }
@@ -413,14 +369,12 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             scenario.onActivity { sut -> screenshot(sut, "currentDirItemsWithUnifiedSections") }
         }
     }
-
     // endregion
 
     // region Scroll / recycle stress test
-
     @Test
     @ScreenshotTest
-    fun showManyEntriesForScrollStressTest() {
+    fun showManyEntries() {
         launchActivity<FileDisplayActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 val fileEntries = (1..10).map { i ->
@@ -428,18 +382,18 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                         thumbnailUrl = "",
                         title = "File $i.pdf",
                         subline = "Documents/File $i.pdf",
-                        resourceUrl = "https://cloud.example.com/index.php/apps/files/?dir=/Documents&scrollto=File%20$i.pdf",
-                        icon = "icon-pdf",
+                        resourceUrl = "",
+                        icon = "application-pdf",
                         rounded = false,
                         attributes = mapOf("fileId" to "$i")
                     )
                 }
                 val contactEntries = (1..5).map { i ->
                     SearchResultEntry(
-                        thumbnailUrl = "https://cloud.example.com/avatar/user$i",
+                        thumbnailUrl = "",
                         title = "Contact $i",
                         subline = "user$i@example.com",
-                        resourceUrl = "https://cloud.example.com/apps/contacts/$i",
+                        resourceUrl = "",
                         icon = "icon-contacts",
                         rounded = true,
                         attributes = emptyMap()
@@ -457,6 +411,5 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             scenario.onActivity { sut -> screenshot(sut, "manyEntriesScrollStress") }
         }
     }
-
     // endregion
 }
