@@ -137,15 +137,20 @@ class UnifiedSearchItemViewHolder(
             setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_find_in_page))
             viewThemeUtils.platform.colorImageView(this, ColorRole.SECONDARY)
         }
-        filesAction.loadFileThumbnail(entry) { client ->
-            GlideHelper.loadIntoImageView(
-                context,
-                client,
-                entry.thumbnailUrl,
-                binding.thumbnail,
-                entryType.iconId(),
-                circleCrop = entry.rounded
-            )
+
+        if (entry.thumbnailUrl.isNotBlank()) {
+            filesAction.loadFileThumbnail(entry) { client ->
+                GlideHelper.loadIntoImageView(
+                    context,
+                    client,
+                    entry.thumbnailUrl,
+                    binding.thumbnail,
+                    entryType.iconId(),
+                    circleCrop = entry.rounded
+                )
+            }
+        } else {
+            binding.thumbnail.setImageDrawable(ContextCompat.getDrawable(context, entryType.iconId()))
         }
     }
 
