@@ -23,12 +23,6 @@ fun OCFile.isTempFile(): Boolean {
     return storagePath?.startsWith(appTempPath) == true
 }
 
-fun OCFile.mediaSize(defaultThumbnailSize: Float): Pair<Int, Int> {
-    val width = (imageDimension?.width?.toInt() ?: defaultThumbnailSize.toInt())
-    val height = (imageDimension?.height?.toInt() ?: defaultThumbnailSize.toInt())
-    return width to height
-}
-
 fun OCFile?.isPNG(): Boolean {
     if (this == null) {
         return false

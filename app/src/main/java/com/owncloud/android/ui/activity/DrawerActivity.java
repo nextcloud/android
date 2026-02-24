@@ -635,7 +635,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
         } else if (itemId == R.id.nav_shared) {
             openSharedTab();
-        } else if (itemId == R.id.nav_recently_modified) {
+        } else if (itemId == R.id.nav_recent_files) {
             resetOnlyPersonalAndOnDevice();
             startRecentlyModifiedSearch(menuItem);
         } else if (itemId == R.id.nav_assistant) {
@@ -1494,7 +1494,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         return menuItemId == R.id.nav_favorites ||
             menuItemId == R.id.nav_shared ||
             menuItemId == R.id.nav_on_device ||
-            menuItemId == R.id.nav_recently_modified ||
+            menuItemId == R.id.nav_recent_files ||
             menuItemId == R.id.nav_gallery;
     }
 }
