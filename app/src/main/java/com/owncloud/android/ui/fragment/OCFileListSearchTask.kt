@@ -247,7 +247,7 @@ class OCFileListSearchTask(
                     }
                     contentValuesList.add(cv)
                 } catch (e: Exception) {
-                    Log_OC.e(TAG, "parseAndSaveVirtuals():" ,e)
+                    Log_OC.e(TAG, "parseAndSaveVirtuals():", e)
                 }
             }
 
