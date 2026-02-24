@@ -1943,7 +1943,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         long nowSeconds = System.currentTimeMillis() / 1000L;
         long last14DaysTimestamp = nowSeconds - 14L * 24 * 60 * 60;
 
-        remoteOperation.setTimestamp(last14DaysTimestamp);
+        remoteOperation.setStartDate(last14DaysTimestamp);
+        remoteOperation.setEndDate(nowSeconds);
         remoteOperation.setLimit(100);
 
         return remoteOperation;
