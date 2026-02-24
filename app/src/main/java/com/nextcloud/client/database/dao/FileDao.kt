@@ -47,13 +47,17 @@ interface FileDao {
     @Query("SELECT * FROM filelist WHERE parent = :parentId ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
     suspend fun getFolderContentSuspended(parentId: Long): List<FileEntity>
 
-    @Query(
-        "SELECT * FROM filelist WHERE modified >= :startDate" +
-            " AND modified < :endDate" +
-            " AND (content_type LIKE 'image/%' OR content_type LIKE 'video/%')" +
-            " AND file_owner = :fileOwner" +
-            " ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}"
-    )
+    @Query("""
+    SELECT 
+        filelist.*,
+        IFNULL(${ProviderTableMeta.FILE_LOCAL_ID}, -1) AS ${ProviderTableMeta.FILE_LOCAL_ID}
+    FROM filelist
+    WHERE modified >= :startDate
+    AND modified < :endDate
+    AND (content_type LIKE 'image/%' OR content_type LIKE 'video/%')
+    AND file_owner = :fileOwner
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """)
     fun getGalleryItems(startDate: Long, endDate: Long, fileOwner: String): List<FileEntity>
 
     @Query("SELECT * FROM filelist WHERE file_owner = :fileOwner ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
