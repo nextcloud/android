@@ -30,20 +30,6 @@ class OverlayManager @Inject constructor(
     private val accountManager: UserAccountManager
 ) : Injectable {
 
-    /**
-     * Sets the overlay icon for a folder into the provided [ImageView].
-     *
-     * The icon is only applied when:
-     * - The [folder] is not null
-     * - The [folder] represents a directory
-     * - A valid overlay icon resource can be resolved
-     *
-     * The overlay icon depends on whether the folder is configured
-     * as an auto-upload folder for the current user.
-     *
-     * @param folder The [OCFile] representing the folder.
-     * @param imageView The [ImageView] where the overlay icon will be displayed.
-     */
     fun setFolderOverlayIcon(folder: OCFile?, imageView: ImageView) {
         val overlayIconId = folder
             ?.takeIf { it.isFolder }
@@ -64,29 +50,6 @@ class OverlayManager @Inject constructor(
         }
     }
 
-    /**
-     * Sets the thumbnail for a folder into the provided [ImageView].
-     *
-     * This method:
-     * - Ensures the given [folder] is not null and represents a directory.
-     * - Stops any active shimmer/loading animation on [loaderImageView].
-     * - Resolves whether the folder is configured as an auto-upload folder
-     *   for the current user.
-     * - Detects whether dark mode is currently enabled.
-     * - Retrieves the appropriate folder icon and overlay.
-     *
-     * The final drawable is created via `MimeTypeUtil.getFolderIcon(...)`,
-     * which returns a LayerDrawable. This drawable is built programmatically
-     * by stacking multiple layers (e.g., base folder icon + optional overlay icon)
-     * on top of each other, so everything is rendered inside a single [ImageView].
-     *
-     * @param folder The [OCFile] representing the folder.
-     * @param imageView The [ImageView] where the composed folder thumbnail
-     * will be displayed.
-     * @param loaderImageView Optional [LoaderImageView] used for shimmer/loading
-     * state handling. If provided, its shimmer animation will be stopped before
-     * applying the final icon.
-     */
     fun setFolderThumbnail(folder: OCFile?, imageView: ImageView, loaderImageView: LoaderImageView?) {
         if (folder == null || !folder.isFolder) return
 
