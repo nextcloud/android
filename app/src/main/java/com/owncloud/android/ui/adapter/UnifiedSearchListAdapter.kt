@@ -143,7 +143,9 @@ class UnifiedSearchListAdapter(
                     filesAction,
                     context,
                     viewThemeUtils,
-                    overlayManager
+                    overlayManager,
+                    user,
+                    appPreferences
                 )
             }
 
