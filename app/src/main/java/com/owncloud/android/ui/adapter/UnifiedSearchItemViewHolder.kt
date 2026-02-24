@@ -116,7 +116,7 @@ class UnifiedSearchItemViewHolder(
     private fun bindRemoteThumbnail(entry: SearchResultEntry, entryType: SearchResultEntryType) {
         binding.thumbnail.apply {
             setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_find_in_page))
-            viewThemeUtils.platform.colorImageView(this, ColorRole.PRIMARY)
+            viewThemeUtils.platform.colorImageView(this, ColorRole.SECONDARY)
         }
         filesAction.loadFileThumbnail(entry) { client ->
             GlideHelper.loadIntoImageView(
