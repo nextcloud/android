@@ -22,6 +22,7 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
+import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.ScreenshotTest
 import com.owncloud.android.utils.overlay.OverlayManager
 import org.junit.Before
@@ -40,6 +41,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
     }
 
     // region Fake Data
+
     private fun makeFolderEntry() = SearchResultEntry(
         thumbnailUrl = "",
         title = "My Folder",
@@ -209,10 +211,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
     @ScreenshotTest
     fun showEmptyAdapter() {
         launchActivity<FileDisplayActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                setupAdapterOnActivity(sut)
-                screenshot(sut, "emptyAdapter")
-            }
+            scenario.onActivity { sut -> setupAdapterOnActivity(sut) }
+            waitForIdle()
+            scenario.onActivity { sut -> screenshot(sut, "emptyAdapter") }
         }
     }
 
@@ -229,8 +230,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                     sut,
                     sections = makeSections("Contacts" to listOf(makeContactEntry()))
                 )
-                screenshot(sut, "contactEntry")
             }
+            waitForIdle()
+            scenario.onActivity { sut -> screenshot(sut, "contactEntry") }
         }
     }
 
@@ -243,8 +245,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                     sut,
                     sections = makeSections("Calendar" to listOf(makeCalendarEntry()))
                 )
-                screenshot(sut, "calendarEntry")
             }
+            waitForIdle()
+            scenario.onActivity { sut -> screenshot(sut, "calendarEntry") }
         }
     }
 
@@ -257,8 +260,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                     sut,
                     sections = makeSections("Apps" to listOf(makeAppEntry()))
                 )
-                screenshot(sut, "appEntry")
             }
+            waitForIdle()
+            scenario.onActivity { sut -> screenshot(sut, "appEntry") }
         }
     }
 
@@ -275,8 +279,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                     sut,
                     sections = makeSections("Files" to listOf(makeFileEntry()))
                 )
-                screenshot(sut, "fileEntry")
             }
+            waitForIdle()
+            scenario.onActivity { sut -> screenshot(sut, "fileEntry") }
         }
     }
 
@@ -286,16 +291,16 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
         launchActivity<FileDisplayActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 val folder = OCFile("/Documents/My Folder").apply {
-                    mimeType = "inode/directory"
+                    mimeType = MimeType.DIRECTORY
+                    remoteId = "0001"
+                    setFolder()
                 }
                 sut.storageManager.saveFile(folder)
-
                 setupAdapterOnActivity(
                     sut,
                     sections = makeSections("Files" to listOf(makeFolderEntry()))
                 )
             }
-
             waitForIdle()
             scenario.onActivity { sut -> screenshot(sut, "folderEntry") }
         }
@@ -310,8 +315,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                     sut,
                     sections = makeSections("Files" to listOf(makeEntryWithoutSubline()))
                 )
-                screenshot(sut, "entryWithoutSubline")
             }
+            waitForIdle()
+            scenario.onActivity { sut -> screenshot(sut, "entryWithoutSubline") }
         }
     }
 
@@ -332,8 +338,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                         "Calendar" to listOf(makeCalendarEntry())
                     )
                 )
-                screenshot(sut, "multipleSections")
             }
+            waitForIdle()
+            scenario.onActivity { sut -> screenshot(sut, "multipleSections") }
         }
     }
 
@@ -349,8 +356,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                         "Contacts" to listOf(makeContactEntry())
                     )
                 )
-                screenshot(sut, "sectionsWithLoadMoreFooter")
             }
+            waitForIdle()
+            scenario.onActivity { sut -> screenshot(sut, "sectionsWithLoadMoreFooter") }
         }
     }
 
@@ -364,22 +372,24 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
         launchActivity<FileDisplayActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 val file1 = OCFile("/Documents/report.pdf").apply {
-                    mimeType = "application/pdf"
+                    mimeType = MimeType.PDF
+                    remoteId = "0002"
                     fileLength = 1024 * 512
                     modificationTimestamp = System.currentTimeMillis()
                 }
                 val file2 = OCFile("/Documents/photo.jpg").apply {
-                    mimeType = "image/jpeg"
+                    mimeType = MimeType.JPEG
+                    remoteId = "0003"
                     fileLength = 1024 * 1024
                     modificationTimestamp = System.currentTimeMillis()
                 }
-
                 setupAdapterOnActivity(
                     sut,
                     currentDirItems = listOf(file1, file2)
                 )
-                screenshot(sut, "currentDirectoryItems")
             }
+            waitForIdle()
+            scenario.onActivity { sut -> screenshot(sut, "currentDirectoryItems") }
         }
     }
 
@@ -393,14 +403,14 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                     fileLength = 1024
                     modificationTimestamp = System.currentTimeMillis()
                 }
-
                 setupAdapterOnActivity(
                     sut,
                     sections = makeSections("Files" to listOf(makeFileEntry())),
                     currentDirItems = listOf(localFile)
                 )
-                screenshot(sut, "currentDirItemsWithUnifiedSections")
             }
+            waitForIdle()
+            scenario.onActivity { sut -> screenshot(sut, "currentDirItemsWithUnifiedSections") }
         }
     }
 
@@ -424,7 +434,6 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                         attributes = mapOf("fileId" to "$i")
                     )
                 }
-
                 val contactEntries = (1..5).map { i ->
                     SearchResultEntry(
                         thumbnailUrl = "https://cloud.example.com/avatar/user$i",
@@ -436,7 +445,6 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                         attributes = emptyMap()
                     )
                 }
-
                 setupAdapterOnActivity(
                     sut,
                     sections = makeSections(
@@ -444,8 +452,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                         "Contacts" to contactEntries
                     )
                 )
-                screenshot(sut, "manyEntriesScrollStress")
             }
+            waitForIdle()
+            scenario.onActivity { sut -> screenshot(sut, "manyEntriesScrollStress") }
         }
     }
 
