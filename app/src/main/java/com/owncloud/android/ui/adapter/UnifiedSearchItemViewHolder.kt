@@ -14,6 +14,8 @@ import androidx.core.widget.ImageViewCompat
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.User
+import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.model.SearchResultEntryType
 import com.nextcloud.utils.CalendarEventManager
@@ -41,7 +43,9 @@ class UnifiedSearchItemViewHolder(
     private val filesAction: FilesAction,
     val context: Context,
     private val viewThemeUtils: ViewThemeUtils,
-    private val overlayManager: OverlayManager
+    private val overlayManager: OverlayManager,
+    private val user: User,
+    private val preferences: AppPreferences
 ) : SectionedViewHolder(binding.root) {
 
     interface FilesAction {
@@ -105,11 +109,26 @@ class UnifiedSearchItemViewHolder(
     }
 
     private fun bindLocalFileThumbnail(file: OCFile) {
-        val icon = MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, context, viewThemeUtils)
-        binding.thumbnail.apply {
-            setImageDrawable(icon)
-            clearColorFilter()
-            ImageViewCompat.setImageTintList(this, null)
+        if (file.remoteId == null || !file.isPreviewAvailable) {
+            val icon = MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, context, viewThemeUtils)
+            binding.thumbnail.apply {
+                setImageDrawable(icon)
+                clearColorFilter()
+                ImageViewCompat.setImageTintList(this, null)
+            }
+        } else {
+            DisplayUtils.setThumbnailFromCache(
+                file,
+                binding.thumbnail,
+                storageManager,
+                listOf(),
+                false,
+                binding.thumbnailShimmer,
+                user,
+                preferences,
+                context,
+                viewThemeUtils
+            )
         }
     }
 

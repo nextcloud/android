@@ -141,7 +141,9 @@ class UnifiedSearchListAdapter(
                     filesAction,
                     context,
                     viewThemeUtils,
-                    overlayManager
+                    overlayManager,
+                    user,
+                    appPreferences
                 )
             }
             VIEW_TYPE_CURRENT_DIR -> {
