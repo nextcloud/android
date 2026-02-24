@@ -34,7 +34,6 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.test.GrantStoragePermissionRule;
 import com.nextcloud.test.RandomStringGenerator;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -59,8 +58,6 @@ import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestRule;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -92,8 +89,8 @@ import static org.junit.Assume.assumeTrue;
  * Common base for all integration tests.
  */
 public abstract class AbstractIT {
-    @Rule
-    public final TestRule storagePermissionRule = GrantStoragePermissionRule.grant();
+//    @Rule
+//    public final TestRule storagePermissionRule = GrantStoragePermissionRule.grant();
 
     protected ConnectivityService connectivityServiceMock = ConnectivityManagerFactory.INSTANCE.getMock();
 
