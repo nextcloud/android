@@ -6,7 +6,6 @@
  */
 package com.owncloud.android;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -35,7 +34,6 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.test.GrantStoragePermissionRule;
 import com.nextcloud.test.RandomStringGenerator;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -60,8 +58,6 @@ import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestRule;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -77,7 +73,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
@@ -92,11 +87,11 @@ import static org.junit.Assume.assumeTrue;
  * Common base for all integration tests.
  */
 public abstract class AbstractIT {
-    @Rule
-    public final TestRule storagePermissionRule = GrantStoragePermissionRule.grant();
+//    @Rule
+//    public final TestRule storagePermissionRule = GrantStoragePermissionRule.grant();
 
-    @Rule
-    public GrantPermissionRule notificationsPermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS);
+//    @Rule
+//    public GrantPermissionRule notificationsPermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS);
 
     protected static OwnCloudClient client;
     protected static NextcloudClient nextcloudClient;
