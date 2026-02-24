@@ -66,46 +66,40 @@ class UnifiedSearchListAdapter(
         ThumbnailsCacheManager.initDiskCacheAsync()
     }
 
-    override fun getItemId(section: Int, position: Int): Long {
-        return when {
-            // Current directory section
-            isCurrentDirItem(section) -> {
-                currentDirItems.getOrNull(position)?.fileId ?: RecyclerView.NO_ID
-            }
+    override fun getItemId(section: Int, position: Int): Long = when {
+        // Current directory section
+        isCurrentDirItem(section) -> {
+            currentDirItems.getOrNull(position)?.fileId ?: RecyclerView.NO_ID
+        }
 
-            // Normal unified search sections
-            else -> {
-                val index = getSectionIndex(section)
-                sections.getOrNull(index)
-                    ?.entries
-                    ?.getOrNull(position)?.hashCode()?.toLong() ?: RecyclerView.NO_ID
-            }
+        // Normal unified search sections
+        else -> {
+            val index = getSectionIndex(section)
+            sections.getOrNull(index)
+                ?.entries
+                ?.getOrNull(position)?.hashCode()?.toLong() ?: RecyclerView.NO_ID
         }
     }
 
-    override fun getHeaderId(section: Int): Long {
-        return if (isCurrentDirItem(section)) {
-            Long.MAX_VALUE - 1
-        } else {
-            val index = getSectionIndex(section)
-            sections.getOrNull(index)?.name?.hashCode()?.toLong()
-                ?: RecyclerView.NO_ID
-        }
+    override fun getHeaderId(section: Int): Long = if (isCurrentDirItem(section)) {
+        Long.MAX_VALUE - 1
+    } else {
+        val index = getSectionIndex(section)
+        sections.getOrNull(index)?.name?.hashCode()?.toLong()
+            ?: RecyclerView.NO_ID
     }
 
-    override fun getFooterId(section: Int): Long {
-        return if (isCurrentDirItem(section)) {
-            Long.MAX_VALUE
-        } else {
-            val index = getSectionIndex(section)
-            sections.getOrNull(index)?.let {
-                if (it.hasMoreResults) {
-                    (it.name + "_footer").hashCode().toLong()
-                } else {
-                    RecyclerView.NO_ID
-                }
-            } ?: RecyclerView.NO_ID
-        }
+    override fun getFooterId(section: Int): Long = if (isCurrentDirItem(section)) {
+        Long.MAX_VALUE
+    } else {
+        val index = getSectionIndex(section)
+        sections.getOrNull(index)?.let {
+            if (it.hasMoreResults) {
+                (it.name + "_footer").hashCode().toLong()
+            } else {
+                RecyclerView.NO_ID
+            }
+        } ?: RecyclerView.NO_ID
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
