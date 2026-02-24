@@ -325,7 +325,13 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     @SuppressFBWarnings("RV")
     private void checkAssistantBottomNavigationMenu() {
-        boolean isAssistantAvailable = getCapabilities().getAssistant().isTrue();
+        final var capability = getCapabilities();
+        boolean isAssistantAvailable;
+        if (capability == null) {
+            isAssistantAvailable = false;
+        } else {
+            isAssistantAvailable = capability.getAssistant().isTrue();
+        }
 
         bottomNavigationView
             .getMenu()
