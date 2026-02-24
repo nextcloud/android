@@ -870,13 +870,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void updateAdapter(List<OCFile> newFiles, OCFile directory) {
-        boolean hasSameContent = OCFileExtensionsKt.hasSameContentAs(mFiles, newFiles);
-
-        if (hasSameContent) {
-            Log_OC.d(TAG, "same data passed skipping update");
-            return;
-        }
-
         Log_OC.d(TAG, "updating the adapter");
 
         mFiles = new ArrayList<>(newFiles);
