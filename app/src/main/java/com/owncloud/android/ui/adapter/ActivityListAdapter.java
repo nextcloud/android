@@ -16,6 +16,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Spannable;
@@ -24,7 +25,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
@@ -35,10 +35,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.chip.ChipDrawable;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.GlideHelper;
+import com.nextcloud.utils.text.Spans;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ActivityListItemBinding;
@@ -61,11 +63,13 @@ import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import thirdparties.fresco.BetterImageSpan;
 
 /**
  * Adapter for the activity view.
  */
-public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements StickyHeaderAdapter {
+public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements StickyHeaderAdapter, 
+    DisplayUtils.AvatarGenerationListener {
 
     static final int HEADER_TYPE = 100;
     static final int ACTIVITY_TYPE = 101;
@@ -147,9 +151,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             if (!TextUtils.isEmpty(activity.getRichSubjectElement().getRichSubject())) {
                 activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
-                activityViewHolder.binding.subject.setMovementMethod(LinkMovementMethod.getInstance());
-                activityViewHolder.binding.subject.setText(addClickablePart(activity.getRichSubjectElement()),
-                                                           TextView.BufferType.SPANNABLE);
+                activityViewHolder.binding.subject.setText(addClickablePart(activity.getRichSubjectElement()));
+                
                 activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
             } else if (!TextUtils.isEmpty(activity.getSubject())) {
                 activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
@@ -275,6 +278,17 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return imageView;
     }
 
+    private ChipDrawable getDrawableForMentionChipSpan(int chipResource, String text) {
+        ChipDrawable chip = ChipDrawable.createFromResource(context, chipResource);
+        chip.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+        chip.setLayoutDirection(context.getResources().getConfiguration().getLayoutDirection());
+        chip.setText(text);
+        chip.setChipIconResource(R.drawable.accent_circle);
+        chip.setBounds(0, 0, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+
+        return chip;
+    }
+
     private SpannableStringBuilder addClickablePart(RichElement richElement) {
         String text = richElement.getRichSubject();
         SpannableStringBuilder ssb = new SpannableStringBuilder(text);
@@ -286,28 +300,58 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             final String clickString = text.substring(idx1 + 1, idx2 - 1);
             final RichObject richObject = searchObjectByName(richElement.getRichObjectList(), clickString);
             if (richObject != null) {
-                String name = richObject.getName();
-                ssb.replace(idx1, idx2, name);
-                text = ssb.toString();
-                idx2 = idx1 + name.length();
-                ssb.setSpan(new ClickableSpan() {
-                    @Override
-                    public void onClick(@NonNull View widget) {
-                        activityListInterface.onActivityClicked(richObject);
-                    }
+                if ("user".equals(richObject.getType())) {
+                    String name = richObject.getName();
 
-                    @Override
-                    public void updateDrawState(@NonNull TextPaint ds) {
-                        ds.setUnderlineText(false);
+                    ChipDrawable drawableForChip = getDrawableForMentionChipSpan(R.xml.chip_others, name);
+
+                    Spans.MentionChipSpan mentionChipSpan = new Spans.MentionChipSpan(drawableForChip, 
+                                                                                      BetterImageSpan.ALIGN_CENTER,
+                                                                                      richObject.getId(),
+                                                                                      name
+                    );
+
+                    if (richObject.getId() != null) {
+                        DisplayUtils.setAvatar(
+                            currentAccountProvider.getUser(),
+                            richObject.getId(),
+                            name,
+                            this,
+                            context.getResources().getDimension(R.dimen.avatar_icon_radius),
+                            context.getResources(),
+                            drawableForChip,
+                            context
+                                              );
                     }
-                }, idx1, idx2, 0);
-                ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), idx1, idx2, 0);
-                ssb.setSpan(
-                    new ForegroundColorSpan(context.getResources().getColor(R.color.text_color)),
-                    idx1,
-                    idx2,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                );
+                    
+                    ssb.setSpan(mentionChipSpan, idx1, idx2, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                } else {
+                    String name = richObject.getName();
+
+                    if (name != null) {
+                        ssb.replace(idx1, idx2, name);
+                        text = ssb.toString();
+                        idx2 = idx1 + name.length();
+                        ssb.setSpan(new ClickableSpan() {
+                            @Override
+                            public void onClick(@NonNull View widget) {
+                                activityListInterface.onActivityClicked(richObject);
+                            }
+
+                            @Override
+                            public void updateDrawState(@NonNull TextPaint ds) {
+                                ds.setUnderlineText(false);
+                            }
+                        }, idx1, idx2, 0);
+                        ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), idx1, idx2, 0);
+                        ssb.setSpan(
+                            new ForegroundColorSpan(context.getResources().getColor(R.color.text_color)),
+                            idx1,
+                            idx2,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                                   );
+                    }
+                }
             }
             idx1 = text.indexOf('{', idx2);
         }
@@ -317,7 +361,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private RichObject searchObjectByName(List<RichObject> richObjectList, String name) {
         for (RichObject richObject : richObjectList) {
-            if (richObject.getTag().equalsIgnoreCase(name)) {
+            if (richObject.getTag() != null && richObject.getTag().equalsIgnoreCase(name)) {
                 return richObject;
             }
         }
@@ -394,6 +438,16 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public boolean isHeader(int itemPosition) {
         return this.getItemViewType(itemPosition) == HEADER_TYPE;
+    }
+
+    @Override
+    public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
+        ((ChipDrawable) callContext).setChipIcon(avatarDrawable);
+    }
+
+    @Override
+    public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
+        return true;
     }
 
     protected class ActivityViewHolder extends RecyclerView.ViewHolder {
