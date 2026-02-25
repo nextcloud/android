@@ -21,7 +21,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.BitmapFactory
-import android.media.RingtoneManager
 import android.text.TextUtils
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
@@ -49,7 +48,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.Random
 
 @Suppress("LongParameterList") // dependencies injection
-class MediaFoldersDetectionWork constructor(
+class MediaFoldersDetectionWork(
     private val context: Context,
     params: WorkerParameters,
     private val resources: Resources,
@@ -195,13 +194,15 @@ class MediaFoldersDetectionWork constructor(
     @Suppress("LongMethod")
     private fun sendNotification(contentTitle: String, subtitle: String, user: User, path: String, type: Int) {
         val notificationId = randomIdGenerator.nextInt()
-        val context = context
-        val intent = Intent(context, SyncedFoldersActivity::class.java)
-        intent.putExtra(NOTIFICATION_ID, notificationId)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.putExtra(NotificationWork.KEY_NOTIFICATION_ACCOUNT, user.accountName)
-        intent.putExtra(KEY_MEDIA_FOLDER_PATH, path)
-        intent.putExtra(KEY_MEDIA_FOLDER_TYPE, type)
+
+        val intent = Intent(context, SyncedFoldersActivity::class.java).apply {
+            putExtra(NOTIFICATION_ID, notificationId)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            putExtra(NotificationWork.KEY_NOTIFICATION_ACCOUNT, user.accountName)
+            putExtra(KEY_MEDIA_FOLDER_PATH, path)
+            putExtra(KEY_MEDIA_FOLDER_TYPE, type)
+        }
+
         val pendingIntent = PendingIntent.getActivity(
             context,
             0,
@@ -217,21 +218,26 @@ class MediaFoldersDetectionWork constructor(
             .setSubText(user.accountName)
             .setContentTitle(contentTitle)
             .setContentText(subtitle)
-            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
             .setAutoCancel(true)
+            .setSound(null)
+            .setVibrate(null)
+            .setSilent(true)
             .setContentIntent(pendingIntent)
 
         viewThemeUtils.androidx.themeNotificationCompatBuilder(context, notificationBuilder)
 
-        val disableDetection = Intent(context, NotificationReceiver::class.java)
-        disableDetection.putExtra(NOTIFICATION_ID, notificationId)
-        disableDetection.action = DISABLE_DETECTION_CLICK
+        val disableDetection = Intent(context, NotificationReceiver::class.java).apply {
+            putExtra(NOTIFICATION_ID, notificationId)
+            action = DISABLE_DETECTION_CLICK
+        }
+
         val disableIntent = PendingIntent.getBroadcast(
             context,
             notificationId,
             disableDetection,
             PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+
         notificationBuilder.addAction(
             NotificationCompat.Action(
                 R.drawable.ic_close,
@@ -239,12 +245,14 @@ class MediaFoldersDetectionWork constructor(
                 disableIntent
             )
         )
+
         val configureIntent = PendingIntent.getActivity(
             context,
             notificationId,
             intent,
             PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+
         notificationBuilder.addAction(
             NotificationCompat.Action(
                 R.drawable.ic_settings,
@@ -252,6 +260,7 @@ class MediaFoldersDetectionWork constructor(
                 configureIntent
             )
         )
+
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(notificationId, notificationBuilder.build())
     }
