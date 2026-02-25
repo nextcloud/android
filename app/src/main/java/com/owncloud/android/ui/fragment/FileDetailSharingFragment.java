@@ -186,7 +186,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             return Unit.INSTANCE;
         }, () -> {
             showShareContainer();
-            DisplayUtils.showSnackMessage(getView(), R.string.error_fetching_sharees);
+            try {
+                DisplayUtils.showSnackMessage(requireView(), R.string.error_fetching_sharees);
+            } catch (IllegalStateException e) {
+                // do nothing since view is already destroyed
+            }
             return Unit.INSTANCE;
         });
     }
