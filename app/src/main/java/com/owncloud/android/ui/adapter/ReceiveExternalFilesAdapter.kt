@@ -18,6 +18,7 @@ import com.nextcloud.client.account.User
 import com.owncloud.android.databinding.UploaderListItemLayoutBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderObserver
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncThumbnailDrawable
@@ -112,7 +113,7 @@ class ReceiveExternalFilesAdapter(
     }
 
     private fun setupThumbnailForFolder(thumbnailImageView: ImageView, file: OCFile) {
-        val isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user)
+        val isAutoUploadFolder = SyncedFolderObserver.isAutoUploadFolder(file, user)
         val isDarkModeActive = syncedFolderProvider.preferences.isDarkModeEnabled
         val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
         val icon = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils)
