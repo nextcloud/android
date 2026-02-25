@@ -28,6 +28,7 @@ import com.owncloud.android.utils.overlay.OverlayManager
 import org.junit.Before
 import org.junit.Test
 
+@Suppress("TooManyFunctions")
 class UnifiedSearchListAdapterIT : AbstractIT() {
 
     private val testClassName = "com.owncloud.android.ui.adapter.UnifiedSearchListAdapterIT"
@@ -118,12 +119,12 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
     // region Helpers
 
     private val noopListInterface = object : UnifiedSearchListInterface {
-        override fun onSearchResultClicked(searchResultEntry: SearchResultEntry) {}
-        override fun onLoadMoreClicked(providerID: ProviderID) {}
+        override fun onSearchResultClicked(searchResultEntry: SearchResultEntry) = Unit
+        override fun onLoadMoreClicked(providerID: ProviderID) = Unit
     }
 
     private val noopCurrentDirAction = object : UnifiedSearchCurrentDirItemAction {
-        override fun openFile(remotePath: String, showMoreActions: Boolean) {}
+        override fun openFile(remotePath: String, showMoreActions: Boolean) = Unit
     }
 
     private fun setupAdapterOnActivity(
@@ -153,11 +154,11 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             storageManager = sut.storageManager,
             listInterface = noopListInterface,
             filesAction = object : UnifiedSearchItemViewHolder.FilesAction {
-                override fun showFilesAction(searchResultEntry: SearchResultEntry) {}
+                override fun showFilesAction(searchResultEntry: SearchResultEntry) = Unit
                 override fun loadFileThumbnail(
                     searchResultEntry: SearchResultEntry,
                     onClientReady: (com.nextcloud.common.NextcloudClient) -> Unit
-                ) {}
+                ) = Unit
             },
             user = sut.user.get(),
             context = sut,
