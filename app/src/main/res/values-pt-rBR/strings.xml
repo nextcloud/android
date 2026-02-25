@@ -582,6 +582,7 @@
     <string name="login">Entrar</string>
     <string name="login_url_helper_text">O link da interface da web do seu %1$s quando você o abre no navegador.</string>
     <string name="logs_menu_delete">Excluir logs</string>
+    <string name="logs_menu_export">Exportar registros</string>
     <string name="logs_menu_refresh">Atualizar</string>
     <string name="logs_menu_search">Pesquisar logs</string>
     <string name="logs_menu_send">Enviar registros por e-mail </string>
