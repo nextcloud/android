@@ -186,7 +186,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             return Unit.INSTANCE;
         }, () -> {
             showShareContainer();
-            DisplayUtils.showSnackMessage(getView(), R.string.error_fetching_sharees);
+            final var view = getView();
+            if (view != null) {
+                DisplayUtils.showSnackMessage(view, R.string.error_fetching_sharees);
+            }
             return Unit.INSTANCE;
         });
     }
@@ -411,7 +414,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         OwnCloudAccount account = accountManager.getCurrentOwnCloudAccount();
 
         if (account == null) {
-            DisplayUtils.showSnackMessage(getView(), getString(R.string.could_not_retrieve_url));
+            final var view = getView();
+            if (view != null) {
+                DisplayUtils.showSnackMessage(view, getString(R.string.could_not_retrieve_url));
+            }
             return;
         }
 
@@ -575,7 +581,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
 
         if (internalShareeListAdapter == null) {
-            DisplayUtils.showSnackMessage(getView(), getString(R.string.could_not_retrieve_shares));
+            final var view = getView();
+            if (view != null) {
+                DisplayUtils.showSnackMessage(view, getString(R.string.could_not_retrieve_shares));
+            }
             return;
         }
 
@@ -728,7 +737,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 fileDataStorageManager.updateFileEntity(entity);
             }
         } else {
-            DisplayUtils.showSnackMessage(getView(), getString(R.string.failed_update_ui));
+            final var view = getView();
+            if (view != null) {
+                DisplayUtils.showSnackMessage(view, getString(R.string.failed_update_ui));
+            }
         }
     }
 
