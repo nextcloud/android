@@ -161,7 +161,7 @@ class FileDeletionTests : AbstractIT() {
         list.add(createFolder(2, 1, "/Documents"))
         list.add(createFile(11, 7, "/Photos/Vacation/img2.jpg", 300000, MimeType.JPEG))
         list.add(createFolder(7, 3, "/Photos/Vacation"))
-        list.add(createFile(4, 2, "/Documents/resume.pdf", 50000, MimeType.PDF))
+        list.add(createFile(4, 2, "/Documents/example.pdf", 150000, MimeType.PDF))
         list.add(createFolder(3, 1, "/Photos"))
         list.add(createFile(12, 3, "/Photos/cover.png", 80000, MimeType.PNG))
         list.add(createFile(6, 5, "/Documents/Projects/readme.txt", 2000, MimeType.TEXT_PLAIN))
@@ -169,8 +169,8 @@ class FileDeletionTests : AbstractIT() {
         list.add(createFile(13, 8, "/Documents/Projects/Archive/old.bmp", 900000, MimeType.BMP))
         list.add(createFile(10, 7, "/Photos/Vacation/img1.jpg", 250000, MimeType.JPEG))
         list.add(createFolder(14, 1, "/Temp"))
-        list.add(createFile(15, 14, "/Temp/tmp1.txt", 400, MimeType.TEXT_PLAIN))
-        list.add(createFile(16, 14, "/Temp/tmp2.txt", 800, MimeType.TEXT_PLAIN))
+        list.add(createFile(15, 14, "/Temp/tmp_file_1.txt", 400, MimeType.TEXT_PLAIN))
+        list.add(createFile(16, 14, "/Temp/tmp_file_2.txt", 800, MimeType.TEXT_PLAIN))
         list.add(createFolder(17, 14, "/Temp/Nested"))
         list.add(createFile(18, 17, "/Temp/Nested/deep.txt", 100, MimeType.TEXT_PLAIN))
         list.add(createFile(19, 2, "/Documents/notes.txt", 1500, MimeType.TEXT_PLAIN))
@@ -272,11 +272,11 @@ class FileDeletionTests : AbstractIT() {
         // Folder removed from DB
         assertNull(storageManager.getFileById(folder.fileId))
 
-        // Children removed
+        // subdirectories and files are removed
         val children = storageManager.getFolderContent(folder, false)
         assertTrue(children.isEmpty())
 
-        // Local folder gone
+        // local folder removed
         val localPath = FileStorageUtils.getDefaultSavePathFor(user.accountName, folder)
         assertFalse(File(localPath).exists())
     }
