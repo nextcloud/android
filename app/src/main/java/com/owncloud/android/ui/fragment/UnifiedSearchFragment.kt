@@ -352,18 +352,13 @@ class UnifiedSearchFragment :
         }
     }
 
-    private fun showFile(file: OCFile, showFileActions: Boolean) {
-        activity.let {
-            if (activity is FileDisplayActivity) {
-                val fda = activity as FileDisplayActivity
-                fda.file = file
-
-                if (showFileActions) {
-                    fda.showFileActions(file)
-                } else {
-                    fda.showFile(file, "")
-                }
+    private fun showFile(file: OCFile, showFileActions: Boolean, updateCurrentFile: Boolean = true) {
+        (activity as? FileDisplayActivity)?.apply {
+            if (updateCurrentFile) {
+                this.file = file
             }
+
+            if (showFileActions) showFileActions(file) else showFile(file, "")
         }
     }
 
@@ -407,7 +402,15 @@ class UnifiedSearchFragment :
 
     override fun onSearchResultClicked(searchResultEntry: SearchResultEntry) {
         showMoreActions = false
-        vm.openResult(searchResultEntry)
+
+        val remotePath = searchResultEntry.remotePath() + OCFile.PATH_SEPARATOR
+        val file = storageManager.getFileByDecryptedRemotePath(remotePath)
+
+        if (file?.isEncrypted == true) {
+            showFile(file, showMoreActions, updateCurrentFile = false)
+        } else {
+            vm.openResult(searchResultEntry)
+        }
     }
 
     override fun onLoadMoreClicked(providerID: ProviderID) {
