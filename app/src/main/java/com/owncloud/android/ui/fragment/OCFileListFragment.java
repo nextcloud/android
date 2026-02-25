@@ -1285,6 +1285,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mContainerActivity.getFileOperationsHelper().toggleEncryption(file, true);
                 mAdapter.setEncryptionAttributeForItemID(file.getRemoteId(), true);
                 searchFragment = false;
+                setFileDepth(file);
                 listDirectory(file, MainApp.isOnlyOnDevice());
                 mContainerActivity.onBrowsedDownTo(file);
 
