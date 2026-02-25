@@ -148,7 +148,6 @@ import kotlin.Unit;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG;
-import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_REQUEST_CODE;
 import static com.owncloud.android.ui.fragment.SearchType.FAVORITE_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.FILE_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.NO_SEARCH;
@@ -252,6 +251,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setSearchArgs(state);
         mFile = BundleExtensionsKt.getParcelableArgument(state, KEY_FILE, OCFile.class);
         searchFragment = currentSearchType != null && isSearchEventSet(searchEvent);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        listenSetupEncryptionDialogResult();
     }
 
     @Override
@@ -1132,8 +1137,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 if (fragmentManager.findFragmentByTag(SETUP_ENCRYPTION_DIALOG_TAG) == null && requireActivity() instanceof FileActivity fileActivity) {
                     fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
                         if (result) {
-                            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
-                            dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
+                            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, file.getRemotePath());
                             dialog.show(fragmentManager, SETUP_ENCRYPTION_DIALOG_TAG);
                         } else {
                             DisplayUtils.showSnackMessage(fileActivity, R.string.internet_connection_required_for_encrypted_folder_setup);
@@ -1255,30 +1259,38 @@ public class OCFileListFragment extends ExtendedListFragment implements
         saveIndexAndTopPosition(position);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SETUP_ENCRYPTION_REQUEST_CODE &&
-            resultCode == SetupEncryptionDialogFragment.SETUP_ENCRYPTION_RESULT_CODE &&
-            data.getBooleanExtra(SetupEncryptionDialogFragment.SUCCESS, false)) {
+    private void listenSetupEncryptionDialogResult() {
+        getParentFragmentManager().setFragmentResultListener(
+            SetupEncryptionDialogFragment.RESULT_REQUEST_KEY,
+            this,
+            (requestKey, bundle) -> {
+                boolean result = bundle.getBoolean(SetupEncryptionDialogFragment.SUCCESS, false);
+                if (!result) {
+                    Log_OC.d(TAG, "setup encryption dialog is dismissed");
+                    return;
+                }
 
-            int position = data.getIntExtra(SetupEncryptionDialogFragment.ARG_POSITION, -1);
-            OCFile file = mAdapter.getItem(position);
+                String fileRemotePath = bundle.getString(SetupEncryptionDialogFragment.ARG_FILE_PATH, null);
+                if (fileRemotePath == null) {
+                    Log_OC.e(TAG, "file path is null");
+                    return;
+                }
 
-            if (file != null) {
+                OCFile file = mContainerActivity.getStorageManager().getFileByDecryptedRemotePath(fileRemotePath);
+                if (file == null) {
+                    Log_OC.e(TAG,"file is null, cannot toggle encryption");
+                    return;
+                }
+
                 mContainerActivity.getFileOperationsHelper().toggleEncryption(file, true);
                 mAdapter.setEncryptionAttributeForItemID(file.getRemoteId(), true);
-            }
+                searchFragment = false;
+                listDirectory(file, MainApp.isOnlyOnDevice());
+                mContainerActivity.onBrowsedDownTo(file);
 
-            // update state and view of this fragment
-            searchFragment = false;
-            listDirectory(file, MainApp.isOnlyOnDevice());
-            // then, notify parent activity to let it update its state and view
-            mContainerActivity.onBrowsedDownTo(file);
-            // save index and top position
-            saveIndexAndTopPosition(position);
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+                int position = mAdapter.getItemPosition(file);
+                saveIndexAndTopPosition(position);
+            });
     }
 
     /**
@@ -1924,16 +1936,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (publicKey.isEmpty() || privateKey.isEmpty()) {
                 Log_OC.d(TAG, "no public key for " + user.getAccountName());
 
-                int position;
-                if (file != null) {
-                    position = mAdapter.getItemPosition(file);
-                } else {
-                    position = -1;
-                }
 
                 requireActivity().runOnUiThread(() -> {
-                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
-                    dialog.setTargetFragment(OCFileListFragment.this, SETUP_ENCRYPTION_REQUEST_CODE);
+                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, file.getRemotePath());
                     dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
                 });
             } else {
