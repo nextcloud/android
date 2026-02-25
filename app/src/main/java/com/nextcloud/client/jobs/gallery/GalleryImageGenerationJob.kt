@@ -108,8 +108,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
             }
 
             setThumbnail(bitmap, file, imageView, newImage, listener)
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "gallery image generation job: ", e)
+        } catch (_: Exception) {
             withContext(Dispatchers.Main) {
                 listener.onError()
             }

@@ -411,10 +411,15 @@ class OCFileListDelegate(
         showShareAvatar = bool
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun cleanup() {
         ioScope.cancel()
 
-        GalleryImageGenerationJob.cancelAllActiveJobs()
+        try {
+            GalleryImageGenerationJob.cancelAllActiveJobs()
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "exception: ", e)
+        }
 
         // cancel async tasks from ThumbnailsCacheManager
         cancelAllPendingTasks()
