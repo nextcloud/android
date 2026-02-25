@@ -42,6 +42,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -152,7 +153,8 @@ class OCFileListDelegate(
                     }
                 )
             } finally {
-                GalleryImageGenerationJob.removeActiveJob(imageView, this)
+                val currentJob = coroutineContext.job
+                GalleryImageGenerationJob.removeActiveJob(imageView, currentJob)
             }
         }
 
@@ -418,10 +420,15 @@ class OCFileListDelegate(
         showShareAvatar = bool
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun cleanup() {
         ioScope.cancel()
 
-        GalleryImageGenerationJob.cancelAllActiveJobs()
+        try {
+            GalleryImageGenerationJob.cancelAllActiveJobs()
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "exception: ", e)
+        }
 
         // cancel async tasks from ThumbnailsCacheManager
         cancelAllPendingTasks()
