@@ -24,6 +24,7 @@ import androidx.core.graphics.drawable.toDrawable
 import com.nextcloud.client.account.User
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderObserver
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.ui.activity.FileActivity
@@ -91,7 +92,7 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
             thumbnail != null -> IconCompat.createWithAdaptiveBitmap(bitmapToAdaptiveBitmap(thumbnail))
 
             file.isFolder -> {
-                val isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user)
+                val isAutoUploadFolder = SyncedFolderObserver.isAutoUploadFolder(file, user)
                 val isDarkModeActive = syncedFolderProvider.preferences.isDarkModeEnabled
                 val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
                 val drawable = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, mContext, viewThemeUtils)
