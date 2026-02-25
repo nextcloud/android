@@ -21,12 +21,12 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.MimeTypeUtil
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
+import java.util.Collections
 import java.util.WeakHashMap
 
 class GalleryImageGenerationJob(private val user: User, private val storageManager: FileDataStorageManager) {
@@ -38,35 +38,48 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
                 Runtime.getRuntime().availableProcessors() / 2
             )
         )
-        private val activeJobs = WeakHashMap<ImageView, Job>()
+        private val activeJobs = Collections.synchronizedMap(WeakHashMap<ImageView, Job>())
 
         fun cancelAllActiveJobs() {
-            val entries = activeJobs.entries.toList()
-            for ((_, job) in entries) {
+            val jobsToCancel = synchronized(activeJobs) {
+                val list = activeJobs.values.toList()
+                activeJobs.clear()
+                list
+            }
+            for (job in jobsToCancel) {
                 job.cancel()
             }
-            activeJobs.clear()
         }
 
-        fun removeActiveJob(imageView: ImageView, job: CoroutineScope) {
-            if (isActiveJob(imageView, job)) {
-                removeJob(imageView)
+        fun removeActiveJob(imageView: ImageView, job: Job) {
+            synchronized(activeJobs) {
+                if (isActiveJob(imageView, job)) {
+                    removeJob(imageView)
+                }
             }
         }
 
-        fun isActiveJob(imageView: ImageView, job: CoroutineScope): Boolean = activeJobs[imageView] === job
+        fun isActiveJob(imageView: ImageView, job: Job): Boolean = synchronized(activeJobs) {
+            activeJobs[imageView] === job
+        }
 
         fun storeJob(job: Job, imageView: ImageView) {
-            activeJobs[imageView] = job
+            synchronized(activeJobs) {
+                activeJobs[imageView] = job
+            }
         }
 
         fun cancelPreviousJob(imageView: ImageView) {
-            activeJobs[imageView]?.cancel()
-            removeJob(imageView)
+            synchronized(activeJobs) {
+                activeJobs[imageView]?.cancel()
+                activeJobs.remove(imageView)
+            }
         }
 
         fun removeJob(imageView: ImageView) {
-            activeJobs.remove(imageView)
+            synchronized(activeJobs) {
+                activeJobs.remove(imageView)
+            }
         }
     }
 
@@ -95,8 +108,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
             }
 
             setThumbnail(bitmap, file, imageView, newImage, listener)
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "gallery image generation job: ", e)
+        } catch (_: Exception) {
             withContext(Dispatchers.Main) {
                 listener.onError()
             }
