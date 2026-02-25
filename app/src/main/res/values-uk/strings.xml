@@ -25,7 +25,7 @@
     <string name="actionbar_sort">Впорядкувати</string>
     <string name="active_user">Активний користувач</string>
     <string name="activities_no_results_headline">Поки що активність відсутня</string>
-    <string name="activities_no_results_message">Поки відсутні події, такі як створення, зміни, надання у спільний доступ.</string>
+    <string name="activities_no_results_message">Такі події, як створення, зміни, надання у спільний доступ, відсутні.</string>
     <string name="activity_chooser_send_file_title">Надіслати</string>
     <string name="activity_chooser_title">Надіслати посилання до…</string>
     <string name="activity_icon">Ваші дії</string>
@@ -667,7 +667,7 @@
     <string name="offline_mode">Відсутнє з\'єднання з мережею</string>
     <string name="offline_mode_info_description">Ви можете впорядковувати каталоги, створювати файли без наявного з\'єднання з мережею. Одразу після відновлення доступу завдання, що в очікуванні, буде автоматично виконано, а файли синхронізовано.</string>
     <string name="offline_mode_info_title">Ви користуєтеся застосунком без доступу до мережі</string>
-    <string name="offline_operations_file_does_not_exists_yet">Поки відсутні файли. Спочатку додайте їх.</string>
+    <string name="offline_operations_file_does_not_exists_yet">Файли відсутні. Спочатку додайте їх.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Не вдалося створити %s. Файл з таким ім\'ям вже присутній у хмарі.</string>
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Не вдалося створити %s. Каталог з таким ім\'ям вже присутній у хмарі.</string>
     <string name="offline_operations_worker_notification_error_text">Неможливо виконати офлайнову операцію. %s</string>
