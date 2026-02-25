@@ -9,7 +9,6 @@ package com.owncloud.android.datamodel
 
 import com.nextcloud.client.account.User
 import com.nextcloud.client.database.dao.SyncedFolderDao
-import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,11 +16,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
-import java.util.concurrent.CopyOnWriteArraySet
 
 object SyncedFolderObserver {
 
-    private val entities = CopyOnWriteArraySet<SyncedFolderEntity>()
+    @Volatile
+    private var syncedFoldersMap = mapOf<String, Set<String>>()
+
     private var job: Job? = null
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
@@ -32,23 +32,23 @@ object SyncedFolderObserver {
             dao.getAllAsFlow()
                 .distinctUntilChanged()
                 .collect { updatedEntities ->
-                    entities.clear()
-                    entities.addAll(updatedEntities)
+                    syncedFoldersMap = updatedEntities
+                        .filter { it.remotePath != null && it.account != null }
+                        .groupBy { it.account!! }
+                        .mapValues { (_, entities) ->
+                            entities.map { it.remotePath!!.trimEnd('/') }.toSet()
+                        }
                 }
         }
     }
 
+    @Suppress("ReturnCount")
     fun isAutoUploadFolder(file: ServerFileInterface, user: User): Boolean {
-        val normalizedRemotePath = file.remotePath
-            .trimEnd('/')
-
-        return entities
-            .stream()
-            .filter { it.account == user.accountName }
-            .filter { it.remotePath != null }
-            .anyMatch { entity ->
-                val entityRemotePath = entity.remotePath?.trimEnd('/') ?: return@anyMatch false
-                normalizedRemotePath.contains(entityRemotePath)
-            }
+        val accountFolders = syncedFoldersMap[user.accountName] ?: return false
+        val normalizedRemotePath = file.remotePath.trimEnd('/')
+        if (normalizedRemotePath.isEmpty()) return false
+        return accountFolders.any { entityPath ->
+            normalizedRemotePath == entityPath
+        }
     }
 }
