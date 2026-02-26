@@ -22,10 +22,6 @@ enum class ExtendedSettingsActivityDialog(val tag: String, val key: String, val 
 
     fun showDialog(activity: ExtendedSettingsActivity, dismissable: Boolean = true) {
         activity.run {
-            if (supportFragmentManager.findFragmentByTag(tag) != null) {
-                return
-            }
-
             supportFragmentManager.setFragmentResultListener(
                 key,
                 this
@@ -38,6 +34,10 @@ enum class ExtendedSettingsActivityDialog(val tag: String, val key: String, val 
                     )
                 )
                 finish()
+            }
+
+            if (supportFragmentManager.findFragmentByTag(tag) != null) {
+                return
             }
 
             when (this@ExtendedSettingsActivityDialog) {
