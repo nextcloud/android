@@ -402,6 +402,7 @@
     <string name="etm_transfer_type">Transferencia</string>
     <string name="etm_transfer_type_download">Descargar</string>
     <string name="etm_transfer_type_upload">Enviar</string>
+    <string name="extension_cannot_be_changed">Non é posíbel cambiar a extensión</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Non ten permiso para ou crear ou enviar os ficheiros neste cartafol.</string>
     <string name="external_shares">Comparticións externas</string>
     <string name="fab_label">Engadir ou enviar</string>
