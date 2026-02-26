@@ -78,6 +78,8 @@ class AutoUploadWorker(
     @Suppress("ReturnCount")
     override suspend fun doWork(): Result {
         return try {
+            trySetForeground()
+
             val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
             syncedFolder = syncedFolderProvider.getSyncedFolderByID(syncFolderId)
                 ?.takeIf { it.isEnabled } ?: return Result.failure()
@@ -274,7 +276,6 @@ class AutoUploadWorker(
         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
             .getClientFor(ocAccount, context)
 
-        trySetForeground()
         updateNotification()
 
         var lastId = 0
