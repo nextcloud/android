@@ -31,7 +31,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-class DisplayUtilsSnackbarTest {
+class SnackbarTests {
 
     class NormalTestFragment : Fragment()
     class DialogTestFragment : DialogFragment()
