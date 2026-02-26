@@ -289,7 +289,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     private void onFileActionChosen(final int itemId) {
         if (itemId == R.id.action_send_share_file) {
             if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-                DisplayUtils.showSnackMessage(getView(), R.string.resharing_is_not_allowed);
+                DisplayUtils.showSnackMessage(this, R.string.resharing_is_not_allowed);
             } else {
                 containerActivity.getFileOperationsHelper().sendShareFile(getFile());
             }
