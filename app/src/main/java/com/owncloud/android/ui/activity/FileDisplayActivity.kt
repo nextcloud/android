@@ -591,7 +591,7 @@ class FileDisplayActivity :
                 leftFragment?.let {
                     // check for albums fragment to load All Files
                     // when user is on AlbumsFragment and click on All Files
-                    if (it::class != OCFileListFragment::class || isAlbumsFragment()) {
+                    if (it::class != OCFileListFragment::class || isAlbumsFragment) {
                         leftFragment = OCFileListFragment()
                         supportFragmentManager.executePendingTransactions()
                     }
@@ -1749,9 +1749,9 @@ class FileDisplayActivity :
             }
 
             // notify when upload is finished and user is on albums screen
-            if (isAlbumsFragment()) {
+            if (isAlbumsFragment) {
                 (supportFragmentManager.findFragmentByTag(AlbumsFragment.TAG) as AlbumsFragment).refreshAlbums()
-            } else if (isAlbumItemsFragment()) {
+            } else if (isAlbumItemsFragment) {
                 (supportFragmentManager.findFragmentByTag(AlbumItemsFragment.TAG) as AlbumItemsFragment).refreshData()
             }
         }
