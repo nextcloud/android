@@ -600,13 +600,13 @@ public final class DisplayUtils {
     }
 
     public static void showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
-        final Snackbar snackbar = Snackbar.make(view, String.format(context.getString(messageResource, formatArgs)), Snackbar.LENGTH_LONG);
+        final var snackbar = Snackbar.make(view, String.format(context.getString(messageResource, formatArgs)), Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 
     public static void showSnackMessage(Activity activity, String message) {
         activity.runOnUiThread(() -> {
-            final Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
+            final var snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
             var fab = findFABView(activity);
             if (fab != null && fab.getVisibility() == View.VISIBLE) {
                 snackbar.setAnchorView(fab);
@@ -616,8 +616,8 @@ public final class DisplayUtils {
     }
 
     public static void showSnackMessage(View view, @StringRes int messageResource) {
-        final Snackbar snackbar = Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG);
         mainLooper.post(() -> {
+            final var snackbar = Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG);
             var fab = findFABView(view.getRootView());
             if (fab != null && fab.getVisibility() == View.VISIBLE) {
                 snackbar.setAnchorView(fab);
