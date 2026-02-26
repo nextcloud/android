@@ -272,16 +272,18 @@ class ChooseTemplateDialogFragment :
 
         val isNameValid = (errorMessage == null) && !name.equals(DOT + selectedTemplate?.extension, ignoreCase = true)
         val isHiddenFileName = FileNameValidator.isFileHidden(name)
+        val isChangedExtension = name.substringAfterLast(DOT) != selectedTemplate?.extension
 
-        binding.filenameContainer.isErrorEnabled = !isNameValid || isHiddenFileName
+        binding.filenameContainer.isErrorEnabled = !isNameValid || isHiddenFileName || isChangedExtension
         binding.filenameContainer.error = when {
             !isNameValid -> errorMessage ?: getString(R.string.enter_filename)
             isHiddenFileName -> getText(R.string.hidden_file_name_warning)
+            isChangedExtension -> getString(R.string.extension_cannot_be_changed)
             else -> null
         }
 
         positiveButton?.apply {
-            isEnabled = isNameValid && !isHiddenFileName
+            isEnabled = isNameValid && !isHiddenFileName && !isChangedExtension
             isClickable = isEnabled
         }
     }
