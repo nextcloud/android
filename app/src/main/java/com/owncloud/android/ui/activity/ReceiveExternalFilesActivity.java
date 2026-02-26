@@ -804,9 +804,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private void setupReceiveExternalFilesAdapter(List<OCFile> files) {
+        final var optionalUser = getUser();
+        if (optionalUser.isEmpty()) {
+            return;
+        }
+
         receiveExternalFilesAdapter = new ReceiveExternalFilesAdapter(files,
                                                                       this,
-                                                                      getUser().get(),
+                                                                      optionalUser.get(),
                                                                       getStorageManager(),
                                                                       viewThemeUtils,
                                                                       syncedFolderProvider,
@@ -1079,13 +1084,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                receiveExternalFilesAdapter.filter(query);
+                if (receiveExternalFilesAdapter != null) {
+                    receiveExternalFilesAdapter.filter(query);
+                }
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                receiveExternalFilesAdapter.filter(newText);
+                if (receiveExternalFilesAdapter != null) {
+                    receiveExternalFilesAdapter.filter(newText);
+                }
                 return false;
             }
         });
