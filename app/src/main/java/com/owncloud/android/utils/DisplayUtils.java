@@ -580,11 +580,13 @@ public final class DisplayUtils {
     // region snackbar
     public static void showSnackMessage(Fragment fragment, @StringRes int messageResource) {
         if (fragment == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown fragment is null");
             return;
         }
 
         final var activity = fragment.getActivity();
         if (activity == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
             return;
         }
 
@@ -592,19 +594,39 @@ public final class DisplayUtils {
     }
 
     public static void showSnackMessage(Activity activity, @StringRes int messageResource) {
+        if (activity == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
+            return;
+        }
+
          showSnackMessage(activity.findViewById(android.R.id.content), messageResource);
     }
 
     public static void showSnackMessage(Activity activity, @StringRes int messageResource, Object... formatArgs) {
+        if (activity == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
+            return;
+        }
+
         showSnackMessage(activity, activity.findViewById(android.R.id.content), messageResource, formatArgs);
     }
 
     public static void showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
+        if (context == null || view == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown view is null");
+            return;
+        }
+
         final var snackbar = Snackbar.make(view, String.format(context.getString(messageResource, formatArgs)), Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 
     public static void showSnackMessage(Activity activity, String message) {
+        if (activity == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
+            return;
+        }
+
         activity.runOnUiThread(() -> {
             final var snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
             var fab = findFABView(activity);
@@ -616,6 +638,11 @@ public final class DisplayUtils {
     }
 
     public static void showSnackMessage(View view, @StringRes int messageResource) {
+        if (view == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown view is null");
+            return;
+        }
+
         mainLooper.post(() -> {
             final var snackbar = Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG);
             var fab = findFABView(view.getRootView());
@@ -627,6 +654,11 @@ public final class DisplayUtils {
     }
 
     public static void showSnackMessage(View view, String message) {
+        if (view == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown view is null");
+            return;
+        }
+
         mainLooper.post(() -> {
             final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
             snackbar.show();
