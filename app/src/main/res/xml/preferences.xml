@@ -51,7 +51,7 @@
     </PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_details" android:key="details">
-		<com.owncloud.android.ui.ListPreferenceDialog
+		<Preference
 			android:title="@string/prefs_lock"
 			android:key="lock"
 			android:dialogTitle="@string/prefs_lock_title"
