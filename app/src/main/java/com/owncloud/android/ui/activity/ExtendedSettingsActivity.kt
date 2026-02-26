@@ -15,19 +15,9 @@ import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
 
 class ExtendedSettingsActivity : AppCompatActivity() {
 
-    private var dialogShown = false
-
     @Suppress("ReturnCount")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        if (savedInstanceState != null) {
-            dialogShown = savedInstanceState.getBoolean(KEY_DIALOG_SHOWN, false)
-        }
-
-        if (dialogShown) {
-            return
-        }
 
         val dialogKey = intent.getStringExtra(EXTRA_DIALOG_TYPE) ?: run {
             finish()
@@ -41,18 +31,11 @@ class ExtendedSettingsActivity : AppCompatActivity() {
 
         val dismissable = intent.getBooleanExtra(EXTRA_DISMISSABLE, true)
         dialogType.showDialog(this, dismissable)
-        dialogShown = true
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean(KEY_DIALOG_SHOWN, dialogShown)
     }
 
     companion object {
         private const val EXTRA_DISMISSABLE = "dismissable"
         private const val EXTRA_DIALOG_TYPE = "dialog_type"
-        private const val KEY_DIALOG_SHOWN = "dialog_shown"
 
         @JvmOverloads
         fun createIntent(
