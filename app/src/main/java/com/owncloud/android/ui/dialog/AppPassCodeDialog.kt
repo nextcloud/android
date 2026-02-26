@@ -39,6 +39,8 @@ class AppPassCodeDialog :
 
     private lateinit var binding: DialogAppPasscodeBinding
 
+    private var currentSelection = SettingsActivity.LOCK_NONE
+
     override fun onStart() {
         super.onStart()
         val alertDialog = dialog as AlertDialog
@@ -55,7 +57,8 @@ class AppPassCodeDialog :
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = DialogAppPasscodeBinding.inflate(layoutInflater)
 
-        val currentLock = preferences.lockPreference ?: SettingsActivity.LOCK_NONE
+        currentSelection = preferences.lockPreference ?: SettingsActivity.LOCK_NONE
+
         val passCodeEnabled = resources.getBoolean(R.bool.passcode_enabled)
         val deviceCredentialsEnabled = resources.getBoolean(R.bool.device_credentials_enabled)
         val enforceProtection = MDMConfig.enforceProtection(requireContext())
@@ -67,7 +70,7 @@ class AppPassCodeDialog :
         binding.lockNone.setVisibleIf(!enforceProtection)
 
         setupTheme()
-        setCurrentSelection(currentLock)
+        setCurrentSelection()
         setupListener()
 
         val builder = MaterialAlertDialogBuilder(requireContext())
@@ -99,10 +102,10 @@ class AppPassCodeDialog :
         }
     }
 
-    private fun setCurrentSelection(currentLock: String) {
+    private fun setCurrentSelection() {
         val radioGroup = binding.lockRadioGroup
 
-        when (currentLock) {
+        when (currentSelection) {
             SettingsActivity.LOCK_PASSCODE -> radioGroup.check(R.id.lock_passcode)
             SettingsActivity.LOCK_DEVICE_CREDENTIALS -> radioGroup.check(R.id.lock_device_credentials)
             SettingsActivity.LOCK_NONE -> radioGroup.check(R.id.lock_none)
@@ -122,10 +125,8 @@ class AppPassCodeDialog :
         }
     }
 
-    private var currentSelection: String? = null
-
     private fun applySelection() {
-        val selectedLock = currentSelection ?: return
+        val selectedLock = currentSelection
 
         setFragmentResult(
             ExtendedSettingsActivityDialog.AppPasscode.key,
