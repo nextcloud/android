@@ -1377,7 +1377,12 @@ class FileDisplayActivity :
         if (ocFileListFragment?.isSearchFragment == true) {
             ocFileListFragment?.setSearchArgs(ocFileListFragment?.arguments)
         }
-        highlightNavigationViewItem(menuItemId)
+        if (isAlbumsFragment || isAlbumItemsFragment) {
+            highlightNavigationViewItem(R.id.nav_album)
+        } else {
+            highlightNavigationViewItem(menuItemId)
+        }
+
 
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
