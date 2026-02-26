@@ -15,10 +15,8 @@
     android:layout_marginEnd="@dimen/grid_container_margin"
     android:layout_marginTop="@dimen/grid_container_margin"
     android:layout_margin="@dimen/grid_container_margin"
-    app:cardElevation="6dp"
-    app:cardUseCompatPadding="false"
     android:backgroundTint="@color/bg_default"
-    style="@style/Widget.Material3.CardView.Elevated">
+    style="@style/Widget.Material3.CardView.Outlined">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
