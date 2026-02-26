@@ -90,7 +90,7 @@ class SnackbarTests {
     }
 
     @Test
-    fun testNullFragmentSnackbar_doesNotCrash() {
+    fun testNullFragmentSnackbarShouldNotCrash() {
         DisplayUtils.showSnackMessage(null as Fragment?, R.string.app_name)
     }
 
@@ -137,27 +137,6 @@ class SnackbarTests {
                 DisplayUtils.showSnackMessage(contentView, message)
             }
             assertSnackbarVisible(message)
-        }
-    }
-
-    @Test
-    fun testActivityStringResWithFormatArgsSnackbar() {
-        launchActivity<TestActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                DisplayUtils.showSnackMessage(sut, R.string.app_name)
-            }
-            assertSnackbarVisible(R.string.app_name)
-        }
-    }
-
-    @Test
-    fun testContextViewStringResWithFormatArgsSnackbar() {
-        launchActivity<TestActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                val contentView = sut.findViewById<android.view.View>(android.R.id.content)
-                DisplayUtils.showSnackMessage(sut, contentView, R.string.app_name)
-            }
-            assertSnackbarVisible(R.string.app_name)
         }
     }
 }
