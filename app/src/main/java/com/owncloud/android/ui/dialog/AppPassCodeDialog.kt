@@ -48,11 +48,8 @@ class AppPassCodeDialog :
         val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
         positiveButton?.let {
             viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
-            val enforceProtection = MDMConfig.enforceProtection(requireContext())
-            if (enforceProtection) {
-                it.isEnabled = (binding.lockPasscode.isChecked || binding.lockDeviceCredentials.isChecked)
-            }
         }
+        checkPositiveButtonActiveness()
 
         val dismissable = arguments?.getBoolean(ARG_DISMISSABLE, true) ?: true
         isCancelable = dismissable
@@ -126,13 +123,16 @@ class AppPassCodeDialog :
             }
 
             currentSelection = selectedLock
+            checkPositiveButtonActiveness()
+        }
+    }
 
-            val positiveButton = (dialog as? AlertDialog)
-                ?.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
-            val enforceProtection = MDMConfig.enforceProtection(requireContext())
-            if (enforceProtection) {
-                positiveButton?.isEnabled = (binding.lockPasscode.isChecked || binding.lockDeviceCredentials.isChecked)
-            }
+    private fun checkPositiveButtonActiveness() {
+        val positiveButton = (dialog as? AlertDialog)
+            ?.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
+        val enforceProtection = MDMConfig.enforceProtection(requireContext())
+        if (enforceProtection) {
+            positiveButton?.isEnabled = (binding.lockPasscode.isChecked || binding.lockDeviceCredentials.isChecked)
         }
     }
 
