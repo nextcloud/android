@@ -8,7 +8,6 @@
 package com.owncloud.android.ui.fragment.albums
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.ContentValues
 import android.content.Context
@@ -76,7 +75,6 @@ import com.owncloud.android.operations.albums.ReadAlbumItemsOperation
 import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.AlbumsPickerActivity.Companion.intentForPickingMediaFiles
 import com.owncloud.android.ui.activity.FileActivity
-import com.owncloud.android.ui.activity.FileActivity.REQUEST_CODE__LAST_SHARED
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.GalleryAdapter
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
@@ -104,7 +102,6 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.Optional
-import java.util.function.Supplier
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions", "LargeClass")
@@ -245,8 +242,8 @@ class AlbumItemsFragment :
     }
 
     private fun showAppBar() {
-        if (requireActivity() is FileDisplayActivity) {
-            val appBarLayout = requireActivity().findViewById<AppBarLayout>(R.id.appbar)
+        getTypedActivity(FileDisplayActivity::class.java)?.let {
+            val appBarLayout = it.findViewById<AppBarLayout>(R.id.appbar)
             appBarLayout?.setExpanded(true, false)
         }
     }
@@ -268,9 +265,9 @@ class AlbumItemsFragment :
             putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             addCategory(Intent.CATEGORY_OPENABLE)
         }
-        startActivityForResult(
-            Intent.createChooser(intent, getString(R.string.upload_chooser_title)),
-            REQUEST_CODE__SELECT_MEDIA_FROM_APPS
+
+        selectMediaFromAppsLauncher.launch(
+            Intent.createChooser(intent, getString(R.string.upload_chooser_title))
         )
     }
 
@@ -350,10 +347,7 @@ class AlbumItemsFragment :
     fun populateList(albums: List<OCFile>) {
         // exit action mode on data refresh
         mMultiChoiceModeListener?.exitSelectionMode()
-
-        if (requireActivity() is FileDisplayActivity) {
-            (requireActivity() as FileDisplayActivity).setMainFabVisible(false)
-        }
+        getTypedActivity(FileDisplayActivity::class.java)?.setMainFabVisible(false)
         initializeAdapter()
         adapter?.showAlbumItems(albums)
     }
@@ -487,16 +481,16 @@ class AlbumItemsFragment :
 
     override fun onResume() {
         super.onResume()
-        if (requireActivity() is FileDisplayActivity) {
-            (requireActivity() as FileDisplayActivity).setupToolbar()
-            (requireActivity() as FileDisplayActivity).supportActionBar?.let { actionBar ->
+        getTypedActivity(FileDisplayActivity::class.java)?.run {
+            setupToolbar()
+            supportActionBar?.let { actionBar ->
                 viewThemeUtils.files.themeActionBar(requireContext(), actionBar, albumName)
             }
-            (requireActivity() as FileDisplayActivity).showSortListGroup(false)
-            (requireActivity() as FileDisplayActivity).setMainFabVisible(false)
+            showSortListGroup(false)
+            setMainFabVisible(false)
 
             // clear the subtitle while navigating to any other screen from Media screen
-            (requireActivity() as FileDisplayActivity).clearToolbarSubtitle()
+            clearToolbarSubtitle()
         }
     }
 
@@ -536,25 +530,36 @@ class AlbumItemsFragment :
     override fun onItemClicked(file: OCFile) {
         if (adapter?.isMultiSelect() == true) {
             toggleItemToCheckedList(file)
-        } else {
-            if (PreviewImageFragment.canBePreviewed(file)) {
-                (mContainerActivity as FileDisplayActivity).startImagePreview(
+            return
+        }
+
+        val activity = mContainerActivity as FileDisplayActivity
+
+        when {
+            PreviewImageFragment.canBePreviewed(file) -> {
+                activity.startImagePreview(
                     file,
                     !file.isDown,
                     VirtualFolderType.ALBUM
                 )
-            } else if (file.isDown) {
-                if (canBePreviewed(file)) {
-                    (mContainerActivity as FileDisplayActivity).startMediaPreview(file, 0, true, true, false, true)
-                } else {
-                    mContainerActivity?.getFileOperationsHelper()?.openFile(file)
-                }
-            } else {
-                if (canBePreviewed(file) && !file.isEncrypted) {
-                    (mContainerActivity as FileDisplayActivity).startMediaPreview(file, 0, true, true, true, true)
-                } else {
-                    Log_OC.d(TAG, "Couldn't handle item click")
-                }
+            }
+
+            file.isDown && canBePreviewed(file) -> {
+                activity.startMediaPreview(file, 0, true, true, false, true)
+            }
+
+            file.isDown -> {
+                mContainerActivity
+                    ?.getFileOperationsHelper()
+                    ?.openFile(file)
+            }
+
+            canBePreviewed(file) && !file.isEncrypted -> {
+                activity.startMediaPreview(file, 0, true, true, true, true)
+            }
+
+            else -> {
+                Log_OC.d(TAG, "Couldn't handle item click")
             }
         }
     }
@@ -593,9 +598,7 @@ class AlbumItemsFragment :
 
     fun onAlbumRenamed(newAlbumName: String) {
         albumName = newAlbumName
-        if (requireActivity() is FileDisplayActivity) {
-            (requireActivity() as FileDisplayActivity).updateActionBarTitleAndHomeButtonByString(albumName)
-        }
+        getTypedActivity(FileDisplayActivity::class.java)?.updateActionBarTitleAndHomeButtonByString(albumName)
     }
 
     fun onAlbumDeleted() {
@@ -847,14 +850,8 @@ class AlbumItemsFragment :
                         }
                     }
                 }
-
-                override fun onNeutral(callerTag: String?) {
-                    // not used at the moment
-                }
-
-                override fun onCancel(callerTag: String?) {
-                    // not used at the moment
-                }
+                override fun onNeutral(callerTag: String?) = Unit
+                override fun onCancel(callerTag: String?) = Unit
             }
         )
         errorDialog.show(requireActivity().supportFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
@@ -873,15 +870,11 @@ class AlbumItemsFragment :
     }
 
     private fun showDialog(isShow: Boolean) {
-        if (requireActivity() is FileDisplayActivity) {
+        getTypedActivity(FileDisplayActivity::class.java)?.run {
             if (isShow) {
-                (requireActivity() as FileDisplayActivity).showLoadingDialog(
-                    requireContext().resources.getString(
-                        R.string.wait_a_moment
-                    )
-                )
+                showLoadingDialog(resources.getString(R.string.wait_a_moment))
             } else {
-                (requireActivity() as FileDisplayActivity).dismissLoadingDialog()
+                dismissLoadingDialog()
             }
         }
     }
@@ -1079,7 +1072,7 @@ class AlbumItemsFragment :
     private val activityResult: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { intentResult: ActivityResult ->
-        if (Activity.RESULT_OK == intentResult.resultCode) {
+        if (RESULT_OK == intentResult.resultCode) {
             intentResult.data?.let {
                 val paths = it.getStringArrayListExtra(AlbumsPickerActivity.EXTRA_MEDIA_FILES_PATH)
                 paths?.let { p ->
@@ -1106,15 +1099,14 @@ class AlbumItemsFragment :
         refreshFlow.tryEmit(Unit)
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (data != null &&
-            requestCode == REQUEST_CODE__SELECT_MEDIA_FROM_APPS && resultCode == RESULT_OK
-        ) {
-            requestUploadOfContentFromApps(data)
+    private val selectMediaFromAppsLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                result.data?.let { intent ->
+                    requestUploadOfContentFromApps(intent)
+                }
+            }
         }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
 
     // method referenced from FileDisplayActivity#requestUploadOfContentFromApps
     private fun requestUploadOfContentFromApps(contentIntent: Intent) {
@@ -1147,15 +1139,18 @@ class AlbumItemsFragment :
         val remotePath =
             "${resources.getString(R.string.instant_upload_path)}/${resources.getString(R.string.drawer_item_album)}/"
 
-        if (requireActivity() is FileDisplayActivity) {
+        getTypedActivity(FileDisplayActivity::class.java)?.let {
+            val optionalUser = it.user
+            if (optionalUser.isEmpty) {
+                return
+            }
+
             val uploader = UriUploader(
-                requireActivity() as FileDisplayActivity,
+                it,
                 streamsToUpload,
                 remotePath,
                 albumName,
-                (requireActivity() as FileDisplayActivity).user.orElseThrow(
-                    Supplier { RuntimeException() }
-                ),
+                optionalUser.get(),
                 FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 false, // Not show waiting dialog while file is being copied from private storage
                 null // Not needed copy temp task listener
@@ -1167,8 +1162,6 @@ class AlbumItemsFragment :
 
     companion object {
         val TAG: String = AlbumItemsFragment::class.java.simpleName
-
-        const val REQUEST_CODE__SELECT_MEDIA_FROM_APPS: Int = REQUEST_CODE__LAST_SHARED + 10
 
         private const val SINGLE_SELECTION = 1
 
@@ -1182,14 +1175,12 @@ class AlbumItemsFragment :
         private const val SLEEP_DELAY = 100L
         private const val DEBOUNCE_DELAY = 500L
 
-        fun newInstance(albumName: String, isNewAlbum: Boolean = false): AlbumItemsFragment {
-            val args = Bundle()
-
-            val fragment = AlbumItemsFragment()
-            fragment.arguments = args
-            args.putString(ARG_ALBUM_NAME, albumName)
-            args.putBoolean(ARG_IS_NEW_ALBUM, isNewAlbum)
-            return fragment
-        }
+        fun newInstance(albumName: String, isNewAlbum: Boolean = false): AlbumItemsFragment =
+            AlbumItemsFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_ALBUM_NAME, albumName)
+                    putBoolean(ARG_IS_NEW_ALBUM, isNewAlbum)
+                }
+            }
     }
 }
