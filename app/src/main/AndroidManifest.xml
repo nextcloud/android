@@ -136,13 +136,20 @@
         <activity
             android:name="com.nextcloud.ui.composeActivity.ComposeActivity"
             android:exported="true"
-            android:label="@string/compose_activity_label">
+            android:label="@string/compose_activity_label"/>
+
+        <activity-alias
+            android:name="com.nextcloud.ui.composeActivity.ComposeProcessTextAlias"
+            android:targetActivity="com.nextcloud.ui.composeActivity.ComposeActivity"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.PROCESS_TEXT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
             </intent-filter>
-        </activity>
+
+        </activity-alias>
 
         <uses-library
             android:name="org.apache.http.legacy"

@@ -76,6 +76,7 @@ import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerState.FileDownloadCompleted
 import com.nextcloud.model.WorkerState.FileDownloadStarted
 import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
+import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
@@ -213,6 +214,9 @@ class FileDisplayActivity :
 
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager
+
+    @Inject
+    lateinit var composeProcessTextAlias: ComposeProcessTextAlias
 
     @Inject
     lateinit var preferences: AppPreferences
@@ -2831,6 +2835,7 @@ class FileDisplayActivity :
         )
         val userChanged = (existingAccountName != lastDisplayedAccountName)
         if (userChanged) {
+            composeProcessTextAlias.configure()
             Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..")
             initFragments()
             if (file.isFolder && TextUtils.isEmpty(searchQuery)) {
@@ -3003,24 +3008,20 @@ class FileDisplayActivity :
     }
 
     fun showFile(selectedFile: OCFile?, message: String?) {
-        dismissLoadingDialog()
-
         getOCFileListFragmentFromFile(object : TransactionInterface {
-            override fun onOCFileListFragmentComplete(listOfFiles: OCFileListFragment) {
-                if (TextUtils.isEmpty(message)) {
-                    val temp = file
-                    file = getCurrentDir()
-                    listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice())
+            override fun onOCFileListFragmentComplete(fragment: OCFileListFragment) {
+                dismissLoadingDialog()
+
+                if (message.isNullOrEmpty()) {
+                    val current = getCurrentDir()
+                    fragment.listDirectory(current, file, MainApp.isOnlyOnDevice())
+                    file = current
                     updateActionBarTitleAndHomeButton(null)
                 } else {
-                    val view = listOfFiles.view
-                    if (view != null) {
-                        DisplayUtils.showSnackMessage(view, message)
-                    }
+                    fragment.view?.let { DisplayUtils.showSnackMessage(it, message) }
                 }
-                if (selectedFile != null) {
-                    listOfFiles.onItemClicked(selectedFile)
-                }
+
+                selectedFile?.let(fragment::onItemClicked)
             }
         })
     }
