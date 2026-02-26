@@ -37,6 +37,8 @@ class ThemeSelectionDialog :
 
     private lateinit var binding: DialogThemeSelectionBinding
 
+    private var selectedMode: DarkMode = DarkMode.SYSTEM
+
     override fun onStart() {
         super.onStart()
         val alertDialog = dialog as AlertDialog
@@ -50,7 +52,7 @@ class ThemeSelectionDialog :
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = DialogThemeSelectionBinding.inflate(layoutInflater)
 
-        val currentTheme = preferences.getDarkThemeMode() ?: DarkMode.SYSTEM
+        selectedMode = preferences.getDarkThemeMode() ?: DarkMode.SYSTEM
         val radioGroup = binding.themeRadioGroup
 
         viewThemeUtils.platform.run {
@@ -60,26 +62,25 @@ class ThemeSelectionDialog :
             themeRadioButton(binding.themeSystem)
         }
 
-        when (currentTheme) {
+        when (selectedMode) {
             DarkMode.LIGHT -> radioGroup.check(R.id.theme_light)
             DarkMode.DARK -> radioGroup.check(R.id.theme_dark)
             DarkMode.SYSTEM -> radioGroup.check(R.id.theme_system)
         }
 
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            val selectedMode = when (checkedId) {
+            selectedMode = when (checkedId) {
                 R.id.theme_light -> DarkMode.LIGHT
                 R.id.theme_dark -> DarkMode.DARK
                 R.id.theme_system -> DarkMode.SYSTEM
                 else -> DarkMode.SYSTEM
             }
-
-            applyTheme(selectedMode)
         }
 
         val builder = MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
             .setPositiveButton(R.string.common_ok) { _, _ ->
+                applyTheme(selectedMode)
                 dismiss()
             }
 
