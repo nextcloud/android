@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -34,6 +35,8 @@ import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.SearchType
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
+import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
@@ -161,8 +164,16 @@ class OCFileListDelegate(
         GalleryImageGenerationJob.storeJob(job, imageView)
 
         imageView.setOnClickListener {
-            ocFileListFragmentInterface.onItemClicked(file)
-            GalleryFragment.setLastMediaItemPosition(galleryRowHolder.absoluteAdapterPosition)
+            // while picking media directly perform long click
+            if (context is AlbumsPickerActivity) {
+                ocFileListFragmentInterface.onLongItemClicked(
+                    file
+                )
+            } else {
+                ocFileListFragmentInterface.onItemClicked(file)
+                GalleryFragment.setLastMediaItemPosition(galleryRowHolder.absoluteAdapterPosition)
+                AlbumItemsFragment.lastMediaItemPosition = galleryRowHolder.absoluteAdapterPosition
+            }
         }
 
         if (!hideItemOptions) {
@@ -189,7 +200,8 @@ class OCFileListDelegate(
             shimmerThumbnail,
             preferences,
             viewThemeUtils,
-            syncFolderProvider
+            syncFolderProvider,
+            false
         )
     }
 

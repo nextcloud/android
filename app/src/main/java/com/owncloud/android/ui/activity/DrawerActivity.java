@@ -95,6 +95,8 @@ import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
@@ -126,6 +128,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hct.Hct;
 import kotlin.Unit;
@@ -605,6 +608,17 @@ public abstract class DrawerActivity extends ToolbarActivity
             openFavoritesTab();
         } else if (itemId == R.id.nav_gallery) {
             openMediaTab(menuItem.getItemId());
+        } else if (itemId == R.id.nav_album) {
+            if (this instanceof FileDisplayActivity) {
+                replaceAlbumFragment();
+            } else {
+                // when user is not on FileDisplayActivity
+                // if user is on TrashbinActivity then we have to start activity again
+                Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setAction(FileDisplayActivity.ALBUMS);
+                startActivity(intent);
+            }
         } else if (itemId == R.id.nav_on_device) {
             showOnDeviceFiles();
         } else if (itemId == R.id.nav_uploads) {
@@ -677,6 +691,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 startAssistantScreen();
             } else if (menuItemId == R.id.nav_gallery) {
                 openMediaTab(menuItem.getItemId());
+            } else if (menuItemId == R.id.nav_album) {
+                replaceAlbumFragment();
             }
 
             // Remove extra icon from the action bar
@@ -1474,13 +1490,31 @@ public abstract class DrawerActivity extends ToolbarActivity
             menuItemId == R.id.nav_personal_files;
     }
 
-    public boolean isMenuItemIdBelongsToSearchType() {
-        int menuItemId = getSelectedMenuItemId();
+    public void replaceAlbumFragment() {
+        if (isAlbumsFragment()) {
+            return;
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.left_fragment_container, AlbumsFragment.Companion.newInstance(false), AlbumsFragment.Companion.getTAG());
+        transaction.commit();
+    }
 
-        return menuItemId == R.id.nav_favorites ||
-            menuItemId == R.id.nav_shared ||
-            menuItemId == R.id.nav_on_device ||
-            menuItemId == R.id.nav_recently_modified ||
-            menuItemId == R.id.nav_gallery;
+    public <T extends Fragment> Optional<T> getFragment(String tag, Class<T> clazz) {
+        return Optional.ofNullable(getSupportFragmentManager().findFragmentByTag(tag))
+            .filter(clazz::isInstance)
+            .map(clazz::cast);
+    }
+
+    public boolean isAlbumItemsFragment() {
+        return getFragment(AlbumItemsFragment.Companion.getTAG(), AlbumItemsFragment.class)
+            .filter(Fragment::isVisible)
+            .isPresent();
+    }
+
+    public boolean isAlbumsFragment() {
+        return getFragment(AlbumsFragment.Companion.getTAG(), AlbumsFragment.class)
+            .filter(Fragment::isVisible)
+            .isPresent();
     }
 }

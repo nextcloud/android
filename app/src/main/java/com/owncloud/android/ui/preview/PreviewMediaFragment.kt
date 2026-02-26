@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2023 Parneet Singh <gurayaparneet@gmail.com>
  * SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
@@ -37,6 +37,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
@@ -65,12 +66,17 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.StreamMediaFileOperation
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.FetchRemoteFileOperation
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
 import java.util.concurrent.Executors
 import javax.inject.Inject
@@ -311,13 +317,7 @@ class PreviewMediaFragment :
                     return when (menuItem.itemId) {
                         R.id.custom_menu_placeholder_item -> {
                             if (containerActivity.storageManager == null || file == null) return false
-
-                            val updatedFile = containerActivity.storageManager.getFileById(file.fileId)
-                            file = updatedFile
-                            file?.let { newFile ->
-                                showFileActions(newFile)
-                            }
-
+                            onOverflowClick()
                             true
                         }
 
@@ -328,6 +328,54 @@ class PreviewMediaFragment :
             viewLifecycleOwner,
             Lifecycle.State.RESUMED
         )
+    }
+
+    /**
+     * @param isManualClick if true skip album check to avoid calling api in loop if file fetch fails
+     */
+    private fun onOverflowClick(isManualClick: Boolean = false) {
+        val updatedFile = containerActivity.storageManager.getFileById(file.fileId)
+        // check for albums file
+        // for album file both local and remoteId will be same configured at operation level
+        if (!isManualClick && updatedFile != null && updatedFile.localId.toString() == updatedFile.remoteId) {
+            fetchFileMetaDataIfAbsent(updatedFile)
+        } else {
+            file = updatedFile
+            file?.let { newFile ->
+                showFileActions(newFile)
+            }
+        }
+    }
+
+    private fun fetchFileMetaDataIfAbsent(ocFile: OCFile) {
+        if (requireActivity() is FileActivity) {
+            (requireActivity() as FileActivity).showLoadingDialog(getString(R.string.wait_a_moment))
+        }
+        lifecycleScope.launch(Dispatchers.IO) {
+            val fetchRemoteFileOperation =
+                FetchRemoteFileOperation(
+                    requireActivity(),
+                    accountManager.user,
+                    ocFile,
+                    removeFileFromDb = true,
+                    storageManager = containerActivity.storageManager
+                )
+            val result = fetchRemoteFileOperation.execute(requireActivity())
+            withContext(Dispatchers.Main) {
+                if (requireActivity() is FileActivity) {
+                    (requireActivity() as FileActivity).dismissLoadingDialog()
+                }
+                if (result?.isSuccess == true && result.resultData != null) {
+                    file = result.resultData as OCFile
+
+                    onOverflowClick(isManualClick = true)
+                } else {
+                    Log_OC.d(TAG, result?.logMessage)
+                    // show error
+                    DisplayUtils.showSnackMessage(binding.root, result.getLogMessage(requireContext()))
+                }
+            }
+        }
     }
 
     private fun showFileActions(file: OCFile) {

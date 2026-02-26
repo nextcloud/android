@@ -51,6 +51,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.model.OCUploadLocalPathData;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
@@ -930,16 +931,16 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     public void uploadFile(String tmpName, String filename) {
-        FileUploadHelper.Companion.instance().uploadNewFiles(
-            getUser().orElseThrow(RuntimeException::new),
-            new String[]{ tmpName },
-            new String[]{ mFile.getRemotePath() + filename},
-            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
-            true,
-            UploadFileOperation.CREATED_BY_USER,
-            false,
-            false,
-            NameCollisionPolicy.ASK_USER);
+        final var data = new OCUploadLocalPathData(getUser().orElseThrow(RuntimeException::new),
+                                                    new String[]{ tmpName },
+                                                    new String[]{ mFile.getRemotePath() + filename},
+                                                    FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
+                                                    true,
+                                                    UploadFileOperation.CREATED_BY_USER,
+                                                    false,
+                                                    false,
+                                                    NameCollisionPolicy.ASK_USER);
+        FileUploadHelper.Companion.instance().uploadNewFiles(data);
         finish();
     }
 

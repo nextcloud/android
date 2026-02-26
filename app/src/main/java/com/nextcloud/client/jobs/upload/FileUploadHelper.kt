@@ -3,6 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.jobs.upload
@@ -22,6 +23,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUpload
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
+import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.utils.extensions.getUploadIds
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -229,35 +231,31 @@ class FileUploadHelper {
     }
 
     @JvmOverloads
-    @Suppress("LongParameterList")
-    fun uploadNewFiles(
-        user: User,
-        localPaths: Array<String>,
-        remotePaths: Array<String>,
-        localBehavior: Int,
-        createRemoteFolder: Boolean,
-        createdBy: Int,
-        requiresWifi: Boolean,
-        requiresCharging: Boolean,
-        nameCollisionPolicy: NameCollisionPolicy,
-        showSameFileAlreadyExistsNotification: Boolean = true
-    ) {
-        val uploads = localPaths.mapIndexed { index, localPath ->
-            val result = OCUpload(localPath, remotePaths[index], user.accountName).apply {
-                this.nameCollisionPolicy = nameCollisionPolicy
-                isUseWifiOnly = requiresWifi
-                isWhileChargingOnly = requiresCharging
-                uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
-                this.createdBy = createdBy
-                isCreateRemoteFolder = createRemoteFolder
-                localAction = localBehavior
-            }
+    fun uploadNewFiles(data: OCUploadLocalPathData, showSameFileAlreadyExistsNotification: Boolean = true) {
+        val uploads = getUploadsFromLocalPaths(data)
+        backgroundJobManager.startFilesUploadJob(
+            data.user,
+            uploads.getUploadIds(),
+            showSameFileAlreadyExistsNotification
+        )
+    }
 
+    private fun getUploadsFromLocalPaths(data: OCUploadLocalPathData): List<OCUpload> =
+        data.localPaths.mapIndexed { index, localPath ->
+            val result = data.toOCUpload(localPath, index)
             val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
             result.uploadId = id
             result
         }
-        backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds(), showSameFileAlreadyExistsNotification)
+
+    @Suppress("LongParameterList")
+    fun uploadAndCopyNewFilesForAlbum(data: OCUploadLocalPathData, albumName: String) {
+        val uploads = getUploadsFromLocalPaths(data)
+        backgroundJobManager.startAlbumFilesUploadJob(
+            data.user,
+            uploads.getUploadIds(),
+            albumName
+        )
     }
 
     fun removeFileUpload(remotePath: String, accountName: String) {
@@ -371,7 +369,7 @@ class FileUploadHelper {
 
     @Suppress("ReturnCount")
     fun isUploadingNow(upload: OCUpload?): Boolean {
-        val currentUploadFileOperation = currentUploadFileOperation
+        val currentUploadFileOperation = currentUploadFileOperation ?: AlbumFileUploadWorker.currentUploadFileOperation
         if (currentUploadFileOperation == null || currentUploadFileOperation.user == null) return false
         if (upload == null || upload.accountName != currentUploadFileOperation.user.accountName) return false
 
