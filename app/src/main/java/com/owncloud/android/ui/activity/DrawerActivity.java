@@ -1506,13 +1506,15 @@ public abstract class DrawerActivity extends ToolbarActivity
             .map(clazz::cast);
     }
 
-    public boolean isAlbumsFragment() {
-        final var fragment = getFragment(AlbumsFragment.Companion.getTAG(), AlbumsFragment.class);
-        return fragment.map(AlbumsFragment::isVisible).orElse(false);
+    public boolean isAlbumItemsFragment() {
+        return getFragment(AlbumItemsFragment.Companion.getTAG(), AlbumItemsFragment.class)
+            .filter(Fragment::isVisible)
+            .isPresent();
     }
 
-    public boolean isAlbumItemsFragment() {
-        final var fragment = getFragment(AlbumItemsFragment.Companion.getTAG(), AlbumItemsFragment.class);
-        return fragment.map(AlbumItemsFragment::isVisible).orElse(false);
+    public boolean isAlbumsFragment() {
+        return getFragment(AlbumsFragment.Companion.getTAG(), AlbumsFragment.class)
+            .filter(Fragment::isVisible)
+            .isPresent();
     }
 }
