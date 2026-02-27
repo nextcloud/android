@@ -473,6 +473,12 @@
     <string name="ssl_validator_reason_hostname_not_verified">- The URL does not match the hostname in the certificate</string>
     <string name="ssl_validator_question">Do you want to trust this certificate anyway?</string>
     <string name="ssl_validator_not_saved">Could not save certificate</string>
+    <string name="media_player_seek_forward">Seek forward</string>
+    <string name="media_player_seek_backward">Seek backward</string>
+    <string name="media_player_play">Play</string>
+    <string name="media_player_pause">Pause</string>
+
+
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_btn_details_hide">Hide</string>
     <string name="ssl_validator_label_subject">Issued to:</string>
