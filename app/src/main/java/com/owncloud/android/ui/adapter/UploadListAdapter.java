@@ -8,6 +8,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -827,6 +828,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public final void loadUploadItemsFromDb(Runnable onCompleted) {
         parentActivity.getUser().ifPresent(user -> {
             String accountName = user.getAccountName();
@@ -842,9 +844,11 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     Arrays.sort(uploads, new OCUploadComparator());
 
                     sections.set(index, sec.withItems(uploads));
-                    parentActivity.runOnUiThread(this::notifyDataSetChanged);
-                    onCompleted.run();
 
+                    parentActivity.runOnUiThread(() -> {
+                        notifyDataSetChanged();
+                        onCompleted.run();
+                    });
                     return Unit.INSTANCE;
                 });
             }
