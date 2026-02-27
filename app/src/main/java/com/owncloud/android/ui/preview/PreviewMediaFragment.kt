@@ -438,7 +438,7 @@ class PreviewMediaFragment :
         }
     }
 
-
+    @Suppress("ReturnCount")
     private fun loadStreamUrl(user: User?, clientFactory: ClientFactory?, fileId: Long): Uri? {
         val client: OwnCloudClient? = try {
             clientFactory?.create(user)

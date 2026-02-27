@@ -13,8 +13,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.ServiceInfo
+import android.os.Build
 import android.os.Bundle
 import androidx.annotation.OptIn
+import androidx.core.app.NotificationCompat
+import androidx.core.app.ServiceCompat
 import androidx.media3.common.Player
 import androidx.media3.common.Player.COMMAND_PLAY_PAUSE
 import androidx.media3.common.Player.COMMAND_SEEK_TO_NEXT
@@ -45,6 +49,7 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ReceiverFlag
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.notifications.NotificationUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -81,6 +86,7 @@ class BackgroundPlayerService :
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.action) {
                 RELEASE_MEDIA_SESSION_BROADCAST_ACTION -> release()
+
                 STOP_MEDIA_SESSION_BROADCAST_ACTION -> {
                     if (isPlayerReady) {
                         exoPlayer.stop()
@@ -92,6 +98,26 @@ class BackgroundPlayerService :
         }
     }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val notification = NotificationCompat.Builder(this, NotificationUtils.NOTIFICATION_CHANNEL_MEDIA)
+            .setSmallIcon(R.drawable.logo)
+            .setContentTitle(getString(R.string.media_player_playing))
+            .setSilent(true)
+            .build()
+
+        ServiceCompat.startForeground(
+            this,
+            DefaultMediaNotificationProvider.DEFAULT_NOTIFICATION_ID,
+            notification,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
+            } else {
+                0
+            }
+        )
+        return super.onStartCommand(intent, flags, startId)
+    }
+
     @Suppress("DEPRECATION")
     override fun onCreate() {
         super.onCreate()
@@ -100,14 +126,14 @@ class BackgroundPlayerService :
 
         seekForward = CommandButton.Builder()
             .setDisplayName(getString(R.string.media_player_seek_forward))
-            .setIconResId(CommandButton.getIconResIdForIconConstant(CommandButton.ICON_SKIP_FORWARD_15))
+            .setIconResId(R.drawable.ic_skip_next)
             .setSessionCommand(seekForwardSessionCommand)
             .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 2) })
             .build()
 
         seekBackward = CommandButton.Builder()
             .setDisplayName(getString(R.string.media_player_seek_backward))
-            .setIconResId(CommandButton.getIconResIdForIconConstant(CommandButton.ICON_SKIP_BACK_15))
+            .setIconResId(R.drawable.ic_skip_previous)
             .setSessionCommand(seekBackSessionCommand)
             .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 0) })
             .build()
@@ -129,6 +155,7 @@ class BackgroundPlayerService :
         initExoPlayer()
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun initExoPlayer() {
         serviceScope.launch {
             try {
@@ -151,15 +178,12 @@ class BackgroundPlayerService :
         }
     }
 
-    private fun buildMediaSession(player: ExoPlayer): MediaSession =
-        MediaSession.Builder(applicationContext, player)
-            .setId(BACKGROUND_MEDIA_SESSION_ID)
-            .setCustomLayout(listOf(seekBackward, seekForward))
-            .setCallback(object : MediaSession.Callback {
-                override fun onConnect(
-                    session: MediaSession,
-                    controller: MediaSession.ControllerInfo
-                ): ConnectionResult = AcceptedResultBuilder(mediaSession ?: session)
+    private fun buildMediaSession(player: ExoPlayer): MediaSession = MediaSession.Builder(applicationContext, player)
+        .setId(BACKGROUND_MEDIA_SESSION_ID)
+        .setCustomLayout(listOf(seekBackward, seekForward))
+        .setCallback(object : MediaSession.Callback {
+            override fun onConnect(session: MediaSession, controller: MediaSession.ControllerInfo): ConnectionResult =
+                AcceptedResultBuilder(mediaSession ?: session)
                     .setAvailablePlayerCommands(
                         ConnectionResult.DEFAULT_PLAYER_COMMANDS.buildUpon()
                             .remove(COMMAND_SEEK_TO_NEXT)
@@ -176,37 +200,32 @@ class BackgroundPlayerService :
                     )
                     .build()
 
-                override fun onPostConnect(
-                    session: MediaSession,
-                    controller: MediaSession.ControllerInfo
-                ) {
-                    session.setCustomLayout(listOf(seekBackward, seekForward))
+            override fun onPostConnect(session: MediaSession, controller: MediaSession.ControllerInfo) {
+                session.setCustomLayout(listOf(seekBackward, seekForward))
+            }
+
+            override fun onCustomCommand(
+                session: MediaSession,
+                controller: MediaSession.ControllerInfo,
+                customCommand: SessionCommand,
+                args: Bundle
+            ): ListenableFuture<SessionResult> = when (customCommand.customAction) {
+                SESSION_COMMAND_ACTION_SEEK_FORWARD -> {
+                    session.player.seekForward()
+                    Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
                 }
 
-                override fun onCustomCommand(
-                    session: MediaSession,
-                    controller: MediaSession.ControllerInfo,
-                    customCommand: SessionCommand,
-                    args: Bundle
-                ): ListenableFuture<SessionResult> = when (customCommand.customAction) {
-                    SESSION_COMMAND_ACTION_SEEK_FORWARD -> {
-                        session.player.seekForward()
-                        Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
-                    }
-
-                    SESSION_COMMAND_ACTION_SEEK_BACK -> {
-                        session.player.seekBack()
-                        Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
-                    }
-
-                    else -> super.onCustomCommand(session, controller, customCommand, args)
+                SESSION_COMMAND_ACTION_SEEK_BACK -> {
+                    session.player.seekBack()
+                    Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
                 }
-            })
-            .build()
+
+                else -> super.onCustomCommand(session, controller, customCommand, args)
+            }
+        })
+        .build()
 
     private fun buildNotificationProvider() = object : DefaultMediaNotificationProvider(this) {
-        val isPlaying = mediaSession?.player?.isPlaying ?: false
-
         @Suppress("DEPRECATION")
         override fun getMediaButtons(
             session: MediaSession,
@@ -214,18 +233,19 @@ class BackgroundPlayerService :
             customLayout: ImmutableList<CommandButton>,
             showPauseButton: Boolean
         ): ImmutableList<CommandButton> {
-            val playPauseButton =
-                CommandButton.Builder()
-                    .setDisplayName(
-                        if (isPlaying) getString(R.string.media_player_pause)
-                        else getString(R.string.media_player_play)
-                    )
-                    .setIconResId(
-                        if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
-                    )
-                    .setPlayerCommand(COMMAND_PLAY_PAUSE)
-                    .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 1) })
-                    .build()
+            val isPlaying = mediaSession?.player?.isPlaying == true
+            val playPauseButton = CommandButton.Builder()
+                .setDisplayName(
+                    if (isPlaying) {
+                        getString(R.string.media_player_pause)
+                    } else {
+                        getString(R.string.media_player_play)
+                    }
+                )
+                .setIconResId(if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow)
+                .setPlayerCommand(COMMAND_PLAY_PAUSE)
+                .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 1) })
+                .build()
 
             return ImmutableList.of(seekBackward, playPauseButton, seekForward)
         }
