@@ -78,6 +78,7 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.ui.dialog.AccountRemovalDialog;
+import com.owncloud.android.ui.dialog.AppPassCodeDialog;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -426,6 +427,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract ThemeSelectionDialog themeSelectionDialog();
+
+    @ContributesAndroidInjector
+    abstract AppPassCodeDialog appPassCodeDialog();
 
     @ContributesAndroidInjector
     abstract SharePasswordDialogFragment sharePasswordDialogFragment();

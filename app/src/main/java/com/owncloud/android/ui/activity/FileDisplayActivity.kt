@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023-2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2023 Archontis E. Kostis <arxontisk02@gmail.com>
@@ -185,6 +186,7 @@ class FileDisplayActivity :
     OnEnforceableRefreshListener,
     OnSortingOrderListener,
     SendShareDialogDownloader,
+    OnFilesRemovedListener,
     Injectable {
     private lateinit var binding: FilesBinding
 
@@ -3024,6 +3026,10 @@ class FileDisplayActivity :
                 selectedFile?.let(fragment::onItemClicked)
             }
         })
+    }
+
+    override fun onFilesRemoved() {
+        refreshCurrentDirectory()
     }
 
     private fun handleEcosystemIntent(intent: Intent?) {

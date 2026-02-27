@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -45,6 +46,7 @@ import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.SynchronizeFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.activity.OnFilesRemovedListener
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
@@ -65,6 +67,7 @@ class PreviewImageActivity :
     FileActivity(),
     FileFragment.ContainerActivity,
     OnRemoteOperationListener,
+    OnFilesRemovedListener,
     Injectable {
     private var livePhotoFile: OCFile? = null
     private var viewPager: ViewPager2? = null
@@ -208,7 +211,17 @@ class PreviewImageActivity :
         }
     }
 
-    private fun updateViewPagerAfterDeletionAndAdvanceForward() {
+    override fun onFilesRemoved() {
+        initViewPager()
+    }
+
+    fun initViewPager() {
+        if (user.isPresent) {
+            initViewPager(user.get())
+        }
+    }
+
+    fun updateViewPagerAfterDeletionAndAdvanceForward() {
         val deletePosition = viewPager?.currentItem ?: return
         previewImagePagerAdapter?.let { adapter ->
             val nextPosition = min(deletePosition, adapter.itemCount - 1)
@@ -253,6 +266,7 @@ class PreviewImageActivity :
     public override fun onStart() {
         super.onStart()
         registerReceivers()
+
         val optionalUser = user
         if (optionalUser.isPresent) {
             var file: OCFile? = file ?: throw IllegalStateException("Instanced with a NULL OCFile")
