@@ -1369,8 +1369,31 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 RemoveFilesDialogFragment.newInstance(new ArrayList<>(checkedFiles), mActiveActionMode);
             dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
             return true;
-        } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
+        } else if (itemId == R.id.action_download_file) {
             syncAndCheckFiles(checkedFiles);
+            exitSelectionMode();
+            return true;
+        } else if (itemId == R.id.action_sync_file) {
+            // Check if a single folder is selected - show confirmation dialog for folders
+            if (checkedFiles.size() == 1) {
+                OCFile file = checkedFiles.iterator().next();
+                if (file.isFolder() && mContainerActivity instanceof FileActivity activity) {
+                    activity.showSyncFolderConfirmation(file);
+                    exitSelectionMode();
+                    return true;
+                }
+            }
+            syncAndCheckFiles(checkedFiles);
+            exitSelectionMode();
+            return true;
+        } else if (itemId == R.id.action_sync_file_recursive) {
+            // Handle recursive download - only for single folder selection
+            if (checkedFiles.size() == 1) {
+                OCFile folder = checkedFiles.iterator().next();
+                if (folder.isFolder() && mContainerActivity instanceof FileActivity) {
+                    ((FileActivity) mContainerActivity).showDownloadFolderRecursiveConfirmation(folder);
+                }
+            }
             exitSelectionMode();
             return true;
         } else if (itemId == R.id.action_export_file) {
