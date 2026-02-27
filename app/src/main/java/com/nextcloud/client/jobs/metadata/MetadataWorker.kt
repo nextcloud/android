@@ -18,6 +18,8 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RefreshFolderOperation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.LinkedList
+import java.util.Queue
 
 @Suppress("DEPRECATION", "ReturnCount", "TooGenericExceptionCaught")
 class MetadataWorker(private val context: Context, params: WorkerParameters, private val user: User) :
@@ -26,6 +28,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
     companion object {
         private const val TAG = "MetadataWorker"
         const val FILE_PATH = "file_path"
+        const val FORCE_REFRESH = "force_refresh"  // When true, ignore eTag and always fetch content
     }
 
     override suspend fun doWork(): Result {
@@ -34,6 +37,10 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
             Log_OC.e(TAG, "❌ Invalid folder path. Aborting metadata sync. $filePath")
             return Result.failure()
         }
+
+        // Check if we should force a full refresh (ignore eTag)
+        val forceRefresh = inputData.getBoolean(FORCE_REFRESH, false)
+        Log_OC.d(TAG, "📥 Force refresh mode: $forceRefresh for path: $filePath")
 
         if (user.isAnonymous) {
             Log_OC.w(TAG, "user is anonymous cannot start metadata worker")
@@ -54,7 +61,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
         Log_OC.d(TAG, "🕒 Starting metadata sync for folder: $filePath, id: ${currentDir.fileId}")
 
         // First check current dir
-        val currentRefreshResult = refreshFolder(currentDir, storageManager)
+        val currentRefreshResult = refreshFolder(currentDir, storageManager, forceRefresh)
         if (!currentRefreshResult) {
             Log_OC.e(TAG, "❌ Failed to refresh current directory: $filePath")
             return Result.failure()
@@ -67,31 +74,72 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
             return Result.failure()
         }
 
-        // then get up-to-date subfolders
-        val subfolders = storageManager.getNonEncryptedSubfolders(refreshedDir.fileId, user.accountName)
-        Log_OC.d(TAG, "Found ${subfolders.size} subfolders to sync")
+        // IMPORTANT: Also fetch immediate files in the current folder, not just subfolders
+        // This ensures FolderDownloadWorker has access to files when it runs after MetadataWorker
+        val currentFolderFiles = storageManager.getFolderContent(refreshedDir.fileId, false)
+            .filter { !it.isFolder }
+        Log_OC.d(TAG, "Found ${currentFolderFiles.size} files in current folder: $filePath")
 
+        // Use BFS to recursively process ALL nested subfolders
+        // This ensures we fetch metadata for folders at all depth levels
+        // (e.g., Artists/ABBA, Artists/Beatles, etc.)
+        val folderQueue: Queue<OCFile> = LinkedList()
+        
+        // Get the first level of subfolders
+        val initialSubfolders = storageManager.getNonEncryptedSubfolders(refreshedDir.fileId, user.accountName)
+        Log_OC.d(TAG, "Found ${initialSubfolders.size} top-level subfolders to sync")
+        folderQueue.addAll(initialSubfolders)
+
+        var processedCount = 0
         var failedCount = 0
-        subfolders.forEach { subFolder ->
+
+        // BFS: Process all folders level by level
+        while (folderQueue.isNotEmpty()) {
+            val subFolder = folderQueue.poll() ?: continue
+            processedCount++
+
             if (!subFolder.hasValidParentId()) {
                 Log_OC.e(TAG, "❌ Skipping subfolder with invalid ID: ${subFolder.remotePath}")
                 failedCount++
-                return@forEach
+                continue
             }
 
-            val success = refreshFolder(subFolder, storageManager)
+            Log_OC.d(TAG, "📂 Processing folder (${processedCount}): ${subFolder.remotePath}")
+
+            // Refresh this folder
+            val success = refreshFolder(subFolder, storageManager, forceRefresh)
             if (!success) {
+                Log_OC.e(TAG, "❌ Failed to refresh folder: ${subFolder.remotePath}")
                 failedCount++
+            }
+
+            // After refreshing, get this folder's subfolders and add them to the queue
+            // This enables recursive processing of ALL nested folders
+            val reloadedFolder = storageManager.getFileByPath(subFolder.remotePath)
+            if (reloadedFolder != null && reloadedFolder.hasValidParentId()) {
+                val nestedSubfolders = storageManager.getNonEncryptedSubfolders(reloadedFolder.fileId, user.accountName)
+                if (nestedSubfolders.isNotEmpty()) {
+                    Log_OC.d(TAG, "  └── Found ${nestedSubfolders.size} nested subfolders in: ${subFolder.remotePath}")
+                    folderQueue.addAll(nestedSubfolders)
+                }
+                
+                // Also fetch files in this subfolder (not just sub-subfolders)
+                // This ensures FolderDownloadWorker has access to all files at every level
+                val subfolderFiles = storageManager.getFolderContent(reloadedFolder.fileId, false)
+                    .filter { !it.isFolder }
+                if (subfolderFiles.isNotEmpty()) {
+                    Log_OC.d(TAG, "  └── Found ${subfolderFiles.size} files in: ${subFolder.remotePath}")
+                }
             }
         }
 
-        Log_OC.d(TAG, "🏁 Metadata sync completed for folder: $filePath. Failed: $failedCount/${subfolders.size}")
+        Log_OC.d(TAG, "🏁 Metadata sync completed for folder: $filePath. Processed: $processedCount, Failed: $failedCount")
 
         return Result.success()
     }
 
     @Suppress("DEPRECATION")
-    private suspend fun refreshFolder(folder: OCFile, storageManager: FileDataStorageManager): Boolean =
+    private suspend fun refreshFolder(folder: OCFile, storageManager: FileDataStorageManager, forceRefresh: Boolean = false): Boolean =
         withContext(Dispatchers.IO) {
             Log_OC.d(
                 TAG,
@@ -105,9 +153,15 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
                 return@withContext false
             }
 
-            if (!folder.isEtagChanged) {
+            // Skip eTag check if forceRefresh is true
+            if (!forceRefresh && !folder.isEtagChanged) {
                 Log_OC.d(TAG, "Skipping ${folder.remotePath}, eTag didn't change")
                 return@withContext true
+            }
+
+            // If forceRefresh is true, log that we're doing a forced refresh
+            if (forceRefresh) {
+                Log_OC.d(TAG, "🔄 Forcing refresh for: ${folder.remotePath}, ignoring eTag")
             }
 
             Log_OC.d(TAG, "⏳ Fetching metadata for: ${folder.remotePath}, id: ${folder.fileId}")
