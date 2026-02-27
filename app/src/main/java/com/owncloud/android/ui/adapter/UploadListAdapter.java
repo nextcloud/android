@@ -88,7 +88,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         new Section(Type.CURRENT, R.string.uploads_view_group_current_uploads, UploadStatus.UPLOAD_IN_PROGRESS, null, new OCUpload[0]),
         new Section(Type.FAILED, R.string.uploads_view_group_failed_uploads, UploadStatus.UPLOAD_FAILED, null, new OCUpload[0]),
         new Section(Type.CANCELLED, R.string.uploads_view_group_manually_cancelled_uploads, UploadStatus.UPLOAD_CANCELLED, null, new OCUpload[0]),
-        new Section(Type.FINISHED, R.string.uploads_view_upload_status_succeeded, UploadStatus.UPLOAD_SUCCEEDED, NameCollisionPolicy.ASK_USER, new OCUpload[0]),
+        new Section(Type.COMPLETED, R.string.uploads_view_group_completed_uploads, UploadStatus.UPLOAD_SUCCEEDED, NameCollisionPolicy.ASK_USER, new OCUpload[0]),
         new Section(Type.SKIPPED, R.string.uploads_view_upload_status_skip, UploadStatus.UPLOAD_SUCCEEDED, NameCollisionPolicy.SKIP, new OCUpload[0])));
 
     private UploadProgressListener uploadProgressListener;
@@ -163,7 +163,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }});
 
         switch (group.type) {
-            case CURRENT, FINISHED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
+            case CURRENT, COMPLETED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
             case CANCELLED, FAILED ->
                 headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_dots_vertical);
 
@@ -203,7 +203,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         });
                     }
                 }
-                case FINISHED -> {
+                case COMPLETED -> {
                     uploadsStorageManager.clearSuccessfulUploads();
                     loadUploadItemsFromDb(() -> {});
                 }
@@ -926,7 +926,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     enum Type {
-        CURRENT, FINISHED, FAILED, CANCELLED, SKIPPED
+        CURRENT, COMPLETED, FAILED, CANCELLED, SKIPPED
     }
 
     public void cancelOldErrorNotification(OCUpload upload) {
