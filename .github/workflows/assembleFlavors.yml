@@ -28,7 +28,7 @@ jobs:
                 with:
                     distribution: "temurin"
                     java-version: 21
-            -   uses: gradle/actions/wrapper-validation@f29f5a9d7b09a7c6b29859002d29d24e1674c884 # v5.0.1
+            -   uses: gradle/actions/wrapper-validation@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
             -   name: Build ${{ matrix.flavor }}
                 run: |
                     echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
