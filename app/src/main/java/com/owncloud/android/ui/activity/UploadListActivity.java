@@ -317,7 +317,9 @@ public class UploadListActivity extends FileActivity {
     private class UploadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            throttler.run("update_upload_list", () -> uploadListAdapter.loadUploadItemsFromDb());
+            throttler.run("update_upload_list", () -> uploadListAdapter.loadUploadItemsFromDb(() -> {
+
+            }));
         }
     }
 }
