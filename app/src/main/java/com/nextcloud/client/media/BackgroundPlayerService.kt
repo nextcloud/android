@@ -79,7 +79,6 @@ class BackgroundPlayerService :
 
     private lateinit var exoPlayer: ExoPlayer
     private var mediaSession: MediaSession? = null
-
     private var isPlayerReady = false
 
     private val stopReceiver = object : BroadcastReceiver() {
@@ -115,6 +114,7 @@ class BackgroundPlayerService :
                 0
             }
         )
+
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -164,7 +164,6 @@ class BackgroundPlayerService :
                 }
 
                 val realPlayer = createNextcloudExoplayer(this@BackgroundPlayerService, nextcloudClient)
-
                 exoPlayer.release()
                 exoPlayer = realPlayer
                 isPlayerReady = true
@@ -273,6 +272,7 @@ class BackgroundPlayerService :
         }
         val nm = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         nm.cancel(DefaultMediaNotificationProvider.DEFAULT_NOTIFICATION_ID)
+        stopForeground(STOP_FOREGROUND_REMOVE)
         stopSelf()
     }
 
