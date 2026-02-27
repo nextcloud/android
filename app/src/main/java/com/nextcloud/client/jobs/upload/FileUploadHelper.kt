@@ -265,7 +265,12 @@ class FileUploadHelper {
     }
 
     @JvmOverloads
-    fun updateUploadStatus(remotePath: String, accountName: String, status: UploadStatus, onCompleted: () -> Unit = {}) {
+    fun updateUploadStatus(
+        remotePath: String,
+        accountName: String,
+        status: UploadStatus,
+        onCompleted: () -> Unit = {}
+    ) {
         ioScope.launch {
             uploadsStorageManager.uploadDao.updateStatus(remotePath, accountName, status.value)
             onCompleted()
