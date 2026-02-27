@@ -63,19 +63,8 @@ class BackgroundPlayerService :
     private val seekBackSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_BACK, Bundle.EMPTY)
     private val seekForwardSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_FORWARD, Bundle.EMPTY)
 
-    private val seekForward =
-        CommandButton.Builder(CommandButton.getIconResIdForIconConstant(CommandButton.ICON_SKIP_FORWARD_15))
-            .setDisplayName(getString(R.string.media_player_seek_forward))
-            .setSessionCommand(seekForwardSessionCommand)
-            .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 2) })
-            .build()
-
-    private val seekBackward =
-        CommandButton.Builder(CommandButton.getIconResIdForIconConstant(CommandButton.ICON_SKIP_BACK_15))
-            .setDisplayName(getString(R.string.media_player_seek_backward))
-            .setSessionCommand(seekBackSessionCommand)
-            .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 0) })
-            .build()
+    private lateinit var seekForward: CommandButton
+    private lateinit var seekBackward: CommandButton
 
     @Inject
     lateinit var clientFactory: ClientFactory
@@ -103,10 +92,25 @@ class BackgroundPlayerService :
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onCreate() {
         super.onCreate()
 
         MainApp.getAppComponent().inject(this)
+
+        seekForward = CommandButton.Builder()
+            .setDisplayName(getString(R.string.media_player_seek_forward))
+            .setIconResId(CommandButton.getIconResIdForIconConstant(CommandButton.ICON_SKIP_FORWARD_15))
+            .setSessionCommand(seekForwardSessionCommand)
+            .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 2) })
+            .build()
+
+        seekBackward = CommandButton.Builder()
+            .setDisplayName(getString(R.string.media_player_seek_backward))
+            .setIconResId(CommandButton.getIconResIdForIconConstant(CommandButton.ICON_SKIP_BACK_15))
+            .setSessionCommand(seekBackSessionCommand)
+            .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 0) })
+            .build()
 
         exoPlayer = ExoPlayer.Builder(this).build()
         mediaSession = buildMediaSession(exoPlayer)
@@ -201,18 +205,9 @@ class BackgroundPlayerService :
             .build()
 
     private fun buildNotificationProvider() = object : DefaultMediaNotificationProvider(this) {
-        val icon = if (mediaSession?.player?.isPlaying == true) {
-            CommandButton.ICON_PAUSE
-        } else {
-            CommandButton.ICON_PLAY
-        }
+        val isPlaying = mediaSession?.player?.isPlaying ?: false
 
-        val displayName = if (mediaSession?.player?.isPlaying == true) {
-            getString(R.string.media_player_pause)
-        } else {
-            getString(R.string.media_player_play)
-        }
-
+        @Suppress("DEPRECATION")
         override fun getMediaButtons(
             session: MediaSession,
             playerCommands: Player.Commands,
@@ -220,8 +215,14 @@ class BackgroundPlayerService :
             showPauseButton: Boolean
         ): ImmutableList<CommandButton> {
             val playPauseButton =
-                CommandButton.Builder(CommandButton.getIconResIdForIconConstant(icon))
-                    .setDisplayName(displayName)
+                CommandButton.Builder()
+                    .setDisplayName(
+                        if (isPlaying) getString(R.string.media_player_pause)
+                        else getString(R.string.media_player_play)
+                    )
+                    .setIconResId(
+                        if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
+                    )
                     .setPlayerCommand(COMMAND_PLAY_PAUSE)
                     .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 1) })
                     .build()
