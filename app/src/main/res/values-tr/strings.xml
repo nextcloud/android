@@ -48,23 +48,31 @@
     <string name="assistant_output_generation_warning_text">Bu çıktı yapay zeka tarafından oluşturuldu. Her zaman iki kez kontrol ettiğinizden emin olun.</string>
     <string name="assistant_screen_chat_create_error">Bir ileti gönderilemedi</string>
     <string name="assistant_screen_chat_fetch_error">Sohbet iletileri alınamadı</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Yardımcı sayfasına dön</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Bu görevi silmek istediğinize emin misiniz?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Görevi sil</string>
     <string name="assistant_screen_empty_content_description">Bir görüşme başlatacak bir ileti göndermeyi dene.</string>
     <string name="assistant_screen_empty_content_title">Merhaba! Bugün size nasıl yardımcı olabilirim?</string>
+    <string name="assistant_screen_select_task">Lütfen görevi seçin</string>
+    <string name="assistant_screen_send_message">İleti gönder</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">Açık görüşmeler listesi</string>
     <string name="assistant_screen_task_create_fail_message">Görev oluşturulurken bir sorun çıktı</string>
     <string name="assistant_screen_task_create_success_message">Görev eklendi</string>
     <string name="assistant_screen_task_delete_fail_message">Görev silinirken bir sorun çıktı</string>
+    <string name="assistant_screen_task_delete_success_message">Görev silindi</string>
     <string name="assistant_screen_task_list_empty_warning">Görev listesi boş. Yardımcı uygulamasının yapılandırmasını denetleyin.</string>
     <string name="assistant_screen_task_list_error_state_message">Görev listesi alınamadı. Lütfen İnternet bağlantınızı denetleyin.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Görevi sil</string>
     <string name="assistant_screen_task_output_empty_text">Görev çıktısı henüz hazır değil.</string>
+    <string name="assistant_screen_text_selected">Yazı başka bir uygulamadan kopyalandı</string>
     <string name="assistant_screen_top_bar_title">Yardımcı</string>
     <string name="assistant_task_detail_screen_input_button_title">Giriş</string>
     <string name="assistant_task_detail_screen_output_button_title">Çıkış</string>
     <string name="assistant_task_status_failed">tamamlanamadı</string>
     <string name="assistant_task_status_running">çalışıyor</string>
     <string name="assistant_task_status_scheduled">zamanlanmış</string>
+    <string name="assistant_task_status_successful">tamamlandı</string>
+    <string name="assistant_task_status_text">Görev durumu: %1$s</string>
     <string name="assistant_task_status_unknown">bilinmiyor</string>
     <string name="assistant_thinking">Düşünüyorum…</string>
     <string name="associated_account_not_found">İlişkili hesap bulunamadı!</string>
@@ -110,6 +118,7 @@
     <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="auto_upload_sub_folder_warning">Bu klasör, üst klasörün eşitlemesine zaten katılmış olduğundan yinelenen yüklemelere neden olabilir.</string>
     <string name="auto_upload_wifi_only_warning_info">Yüklemenin başlatılması için Wi-Fi bağlantısı bekleniyor</string>
+    <string name="auto_upload_worker_start_text">%1$s üzerindeki dosyalar %2$s üzerine yükleniyor</string>
     <string name="autoupload_configure">Yapılandır</string>
     <string name="autoupload_create_new_custom_folder">Özel klasör kurulumu ekle</string>
     <string name="autoupload_custom_folder">Bir özel klasör kurun</string>
@@ -393,6 +402,7 @@
     <string name="etm_transfer_type">Aktarım</string>
     <string name="etm_transfer_type_download">İndirme</string>
     <string name="etm_transfer_type_upload">Yükleme</string>
+    <string name="extension_cannot_be_changed">Uzantı değiştirilemez</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Bu klasörde dosya oluşturma ya da yükleme izniniz yok.</string>
     <string name="external_shares">Dış paylaşımlar</string>
     <string name="fab_label">Ekle ya da yükle</string>
@@ -497,6 +507,7 @@
     <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">%s klasörü eşitlenirken bir sorun çıktı</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Disk alanı yetersiz. Eşitleme iptal edildi</string>
+    <string name="folder_download_success_notification_title">%s klasör eşitlendi</string>
     <string name="folder_download_worker_ticker_id">Eşitleniyor…</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
     <string name="folder_name_empty">Klasör adı boş olamaz</string>
@@ -572,6 +583,7 @@
     <string name="login">Oturum aç</string>
     <string name="login_url_helper_text">%1$s site arayüzü için tarayıcıda açacağınız bağlantı.</string>
     <string name="logs_menu_delete">Günlükleri sil</string>
+    <string name="logs_menu_export">Günlükleri dışa aktar</string>
     <string name="logs_menu_refresh">Yenile</string>
     <string name="logs_menu_search">Günlük arama</string>
     <string name="logs_menu_send">Günlükler e-posta ile gönderilsin</string>
@@ -1005,6 +1017,12 @@
     <string name="thumbnail_for_new_file_desc">Yeni dosyanın küçük görseli</string>
     <string name="timeout_richDocuments">Yükleme beklenenden uzun sürüyor</string>
     <string name="today">Bugün</string>
+    <string name="translation_screen_hint_source">Çevrilecek yazıyı yazın...</string>
+    <string name="translation_screen_label_from">Kaynak dil:</string>
+    <string name="translation_screen_label_to">Hedef dil:</string>
+    <string name="translation_screen_start_to_translate_task">Çevirmek için düğmeye tıklayın</string>
+    <string name="translation_screen_task_processing">Çeviri beklenenden uzun sürüyor.</string>
+    <string name="translation_screen_translating">Çevriliyor...</string>
     <string name="trashbin_activity_title">Silinmiş dosyalar</string>
     <string name="trashbin_empty_headline">Silinmiş bir dosya yok</string>
     <string name="trashbin_empty_message">Silinmiş dosyalarınızı buradan geri yükleyebilirsiniz.</string>
@@ -1073,6 +1091,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Uygulama izinleri</string>
     <string name="upload_missing_storage_permission_description">Yerel depolama alanına erişme izni olmadan dosyalarınız yüklenemez. İzin vermek için dokunun.</string>
     <string name="upload_missing_storage_permission_title">Yükleme durdu. Depolama alanına erişme izni gerekli</string>
+    <string name="upload_notification_manager_content_intent_description">Yüklemeler arasından kaldırabilir ya da sürdürebilirsiniz</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Şifreleme yalnızca >=Android 5.0 üzerinde kullanılabilir </string>
     <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>
