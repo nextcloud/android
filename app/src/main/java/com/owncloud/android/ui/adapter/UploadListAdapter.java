@@ -88,7 +88,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         new Section(Type.CURRENT, R.string.uploads_view_group_current_uploads, UploadStatus.UPLOAD_IN_PROGRESS, null, new OCUpload[0]),
         new Section(Type.FAILED, R.string.uploads_view_group_failed_uploads, UploadStatus.UPLOAD_FAILED, null, new OCUpload[0]),
         new Section(Type.CANCELLED, R.string.uploads_view_group_manually_cancelled_uploads, UploadStatus.UPLOAD_CANCELLED, null, new OCUpload[0]),
-        new Section(Type.FINISHED, R.string.uploads_view_group_finished_uploads, UploadStatus.UPLOAD_SUCCEEDED, NameCollisionPolicy.ASK_USER, new OCUpload[0]),
+        new Section(Type.FINISHED, R.string.uploads_view_upload_status_succeeded, UploadStatus.UPLOAD_SUCCEEDED, NameCollisionPolicy.ASK_USER, new OCUpload[0]),
         new Section(Type.SKIPPED, R.string.uploads_view_upload_status_skip, UploadStatus.UPLOAD_SUCCEEDED, NameCollisionPolicy.SKIP, new OCUpload[0])));
 
     private UploadProgressListener uploadProgressListener;
