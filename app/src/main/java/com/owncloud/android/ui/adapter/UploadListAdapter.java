@@ -64,6 +64,7 @@ import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 
 /**
  * This Adapter populates a ListView with following types of uploads: pending, active, completed. Filtering possible.
@@ -176,11 +177,31 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 case CURRENT -> {
                     String accountName = group.items()[0].getAccountName();
 
-                    for (OCUpload upload: group.items) {
-                        uploadHelper.updateUploadStatus(upload.getRemotePath(), accountName, UploadStatus.UPLOAD_CANCELLED);
-                        FileUploadWorker.Companion.cancelCurrentUpload(upload.getRemotePath(), accountName, () -> Unit.INSTANCE);
+                    final int totalUploads = group.items().length;
+                    final int[] completedCount = {0};
+
+                    for (int i=0; i<group.items.length; i++) {
+                        OCUpload upload = group.items[i];
+                        uploadHelper.updateUploadStatus(upload.getRemotePath(), accountName, UploadStatus.UPLOAD_CANCELLED, new Function0<Unit>() {
+                            @Override
+                            public Unit invoke() {
+                                FileUploadWorker.Companion.cancelCurrentUpload(upload.getRemotePath(), accountName, new Function0<Unit>() {
+                                    @Override
+                                    public Unit invoke() {
+                                        completedCount[0]++;
+                                        if (completedCount[0] == totalUploads) {
+                                            Log_OC.d(TAG, "refreshing upload items");
+
+                                            // All uploads finished, refresh UI once
+                                            loadUploadItemsFromDb(() -> {});
+                                        }
+                                        return Unit.INSTANCE;
+                                    }
+                                });
+                                return Unit.INSTANCE;
+                            }
+                        });
                     }
-                    loadUploadItemsFromDb(() -> {});
                 }
                 case FINISHED -> {
                     uploadsStorageManager.clearSuccessfulUploads();
@@ -211,7 +232,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     connectivityService,
                     accountManager,
                     powerManagementService);
-                loadUploadItemsFromDb(() -> {});
             }
 
             return true;
@@ -254,7 +274,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 connectivityService,
                 accountManager,
                 powerManagementService);
-            loadUploadItemsFromDb(() -> {});
             parentActivity.runOnUiThread(() -> {
                 if (showNotExistMessage) {
                     showNotExistMessage();
@@ -407,9 +426,13 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_cancel_grey);
             itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
             itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> {
-                uploadHelper.updateUploadStatus(item.getRemotePath(), item.getAccountName(), UploadStatus.UPLOAD_CANCELLED);
-                FileUploadWorker.Companion.cancelCurrentUpload(item.getRemotePath(), item.getAccountName(), () -> Unit.INSTANCE);
-                loadUploadItemsFromDb(() -> {});
+                uploadHelper.updateUploadStatus(item.getRemotePath(), item.getAccountName(), UploadStatus.UPLOAD_CANCELLED, () -> {
+                    FileUploadWorker.Companion.cancelCurrentUpload(item.getRemotePath(), item.getAccountName(), () -> {
+                        loadUploadItemsFromDb(() -> {});
+                        return Unit.INSTANCE;
+                    });
+                    return Unit.INSTANCE;
+                });
             });
 
         } else if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
@@ -456,7 +479,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 Optional<User> user = accountManager.getUser(item.getAccountName());
                 if (file.exists() && user.isPresent()) {
                     uploadHelper.retryUpload(item, user.get());
-                    loadUploadItemsFromDb(() -> {});
                 } else {
                     DisplayUtils.showSnackMessage(v.getRootView().findViewById(android.R.id.content), R.string.local_file_not_found_message);
                 }
