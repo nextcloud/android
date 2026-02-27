@@ -477,7 +477,7 @@
     <string name="media_player_seek_backward">Seek backward</string>
     <string name="media_player_play">Play</string>
     <string name="media_player_pause">Pause</string>
-
+    <string name="media_player_playing">Playing media</string>
 
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_btn_details_hide">Hide</string>
