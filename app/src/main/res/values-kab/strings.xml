@@ -3,6 +3,7 @@
     <string name="about_android">Asnas Android %1$s</string>
     <string name="about_title">Ɣef</string>
     <string name="about_version">lqem %1$s</string>
+    <string name="about_version_with_build">lqem %1$s, lebni #%2$s</string>
     <string name="account_creation_failed">Timerna n umiḍan ur teddi ara</string>
     <string name="account_icon">Tignit n umiḍan</string>
     <string name="account_not_found">Ur yettwaf ara umiḍan!</string>
@@ -24,6 +25,7 @@
     <string name="actionbar_sort">Smizzwer</string>
     <string name="active_user">Aseqdac urmid</string>
     <string name="activities_no_results_headline">Ulac armud yakan</string>
+    <string name="activities_no_results_message">Ulac tidyanin am timerna, ibeddilen d yibeṭṭuyen akka tura.</string>
     <string name="activity_chooser_send_file_title">Tuzna</string>
     <string name="activity_chooser_title">Azen aseɣwen ɣer... </string>
     <string name="activity_icon">Armud</string>
@@ -32,6 +34,7 @@
     <string name="add_to_cloud">Rnu ɣer %1$s</string>
     <string name="app_config_base_url_title">URL n uzadur</string>
     <string name="app_config_disable_clipboard_title">Sens Tecfawit</string>
+    <string name="app_config_disable_intro_title">Sens Tazwart</string>
     <string name="app_config_disable_log_title">Sens aɣmis</string>
     <string name="app_config_disable_more_external_site_title">Sens ismal izɣarayen</string>
     <string name="app_config_disable_multiaccount_title">Sens usgit n imiḍanen</string>
@@ -42,6 +45,7 @@
     <string name="app_widget_description">Sken yiwen n uwiǧit seg tfelwit n tedbelt</string>
     <string name="appbar_search_in">Nadi di %s</string>
     <string name="appear_offline">Timeẓriwt n war tuqqna</string>
+    <string name="assistant_output_generation_warning_text">Tuffɣa i d-yettwaseknen da tettusirew sɣur Tigzi Taragmawant. Selken yal tikkelt anect-a.</string>
     <string name="assistant_screen_chat_create_error">Tecceḍ tuzna n yizen</string>
     <string name="assistant_screen_chat_fetch_error">Ur izmir ara ad d-yawi iznan n udiwenni</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Uɣal ɣer usebter amalal</string>
@@ -105,6 +109,7 @@
     <string name="authenticator_activity_login_error">Teḍra-d tuccḍa deg usesfer n usuter n tuqqna-k·m. Ma ulac aɣilif, ɛreḍ tikelt nniḍen ticki.</string>
     <string name="authenticator_activity_no_web_browser_found">Ulac iminig iwejden i welday n useɣwen.</string>
     <string name="authenticator_activity_please_complete_login_process">Ttxil-k·m, kemmel akala n tuqqna deg iminig-ik·im</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">eǧǧ deg ukaram aɣbalu, imi yella s wudem n tɣuṛi kan</string>
     <string name="auto_upload_path">/Asali s Wudem Awurman</string>
     <string name="auto_upload_wifi_only_warning_info">Yettraǧu Wi-Fi ad yebdu asali</string>
     <string name="auto_upload_worker_start_text">Asali n yifuyla seg %1$s ɣer %2$s</string>
@@ -135,6 +140,7 @@
     <string name="choose_which_file">Fren anwa afaylu ara teǧǧeḍ!</string>
     <string name="choose_widget">Fren awiǧit</string>
     <string name="clear">Ṣfeḍ</string>
+    <string name="clear_notifications_failed">Yecceḍ usfaḍ n yilɣa.</string>
     <string name="clear_status_after">Sfeḍ addad deffir</string>
     <string name="clipboard_label">Aḍris yettwanɣel seg %1$s</string>
     <string name="clipboard_no_text_to_copy">Ur d-yettwarmes ara uḍris akken ad yenɣel ɣer tecfawit</string>
@@ -166,13 +172,20 @@
     <string name="common_switch_account">Beddel amiḍan</string>
     <string name="common_switch_to_account">Amiḍan ɣer wanda ara tbeddleḍ</string>
     <string name="common_yes">Ih</string>
+    <string name="community_beta_headline">Sekyed lqem n tneflit</string>
     <string name="community_contribute_forum_forum">Askasi</string>
     <string name="community_contribute_forum_text">Mudd-asen afus n tallalt i wiyyaḍ ɣef</string>
     <string name="community_contribute_translate_text">asnas</string>
     <string name="community_contribute_translate_translate">Suqel</string>
+    <string name="community_testing_headline">Mudd tallelt deg usekyed</string>
+    <string name="community_testing_report_text">Mmel ugur deg GitHub</string>
     <string name="compose_activity_label">Amallal n Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Swel</string>
+    <string name="confirm_removal">Kkes awgelhen adigan</string>
+    <string name="confirmation_remove_file_alert">Tebɣiḍ ad tekkseḍ s tidet %1$s?</string>
     <string name="confirmation_remove_files_alert">Tebɣiḍ ad tekkseḍ iferdisen yettwafernen?</string>
+    <string name="confirmation_remove_folder_alert">Tebɣiḍ ad tekkseḍ s tidet %1$s d ugbur-is?</string>
+    <string name="confirmation_remove_folders_alert">D tidet tebɣiḍ ad tekkseḍ iferdisen yettwafernen akked igburen-nnsen?</string>
     <string name="confirmation_remove_local">Adigan kan</string>
     <string name="conflict_local_file">Afaylu adigan</string>
     <string name="conflict_server_file">Afaylu n uqeddac</string>
@@ -183,6 +196,8 @@
     <string name="contacts">Inermisen</string>
     <string name="contacts_backup_button">Ḥrez tura</string>
     <string name="contacts_preferences_backup_scheduled">Aḥraz yettusɣiwes yerna ad yekker akka deg drus n wakud </string>
+    <string name="contacts_preferences_import_scheduled">Akter yettusɣiwes yerna ad yekker akka cwiṭ</string>
+    <string name="contacts_preferences_import_scheduled_fail">Akter ur yeddi ara. Ma ulac aɣilif, ɛreḍ tikelt nniḍen</string>
     <string name="contacts_preferences_no_file_found">Ulac afaylu i yettwafen</string>
     <string name="contacts_preferences_something_strange_happened">Ur izmir ara ad yaf aḥraz-ik·im aneggaru!</string>
     <string name="conversation_screen_create_error_title">Tuccḍa deg usnulfu n udiwenni </string>
@@ -194,11 +209,13 @@
     <string name="conversation_screen_title">Idiwenniyen</string>
     <string name="copied">Yettwanɣel</string>
     <string name="copy_file_error">Teḍra-d tuccḍa deg uneɛruḍ n unɣal n ufaylu-agi neɣ n ukaram</string>
+    <string name="copy_file_invalid_into_descendent">D awezɣi anɣal n ukaram deg yiwen gar ikaramen-is inaddawen</string>
     <string name="copy_file_invalid_overwrite">Afaylu-agi yella yakan deg ukaram aɣerwaḍ</string>
     <string name="copy_file_not_found">Ulamek anɣal. Ma ulac aɣilif senqed ma yella afaylu yella.</string>
     <string name="copy_link">Nɣel aseɣwen</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Nɣel/smutti ɣer ukaram awgelhan akka tura ur yettwasefrak ara.</string>
     <string name="could_not_download_image">Ulamek asider n tugna tummidt</string>
+    <string name="could_not_retrieve_shares">Yegguma ad d-yawi ibuṭṭuyen</string>
     <string name="could_not_retrieve_url">Ur izmir ara ad d-yawi URL</string>
     <string name="create">Snulfu-d</string>
     <string name="create_dir_fail_msg">Ulamek asnulfu n ukaram</string>
@@ -226,6 +243,9 @@
     <string name="direct_login_text">Qqen s %1$s ar %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Désactiver</string>
     <string name="dismiss">Agi</string>
+    <string name="dismiss_notification_description">Zgel ilɣa</string>
+    <string name="displays_mnemonic">Beqqeḍ tafyirt-ik·im n uεeddi n 12 wawalen</string>
+    <string name="dnd">Ur ttcewwil ara</string>
     <string name="document_scan_export_dialog_images">Usgit tugniwin</string>
     <string name="document_scan_export_dialog_pdf">Afaylu PDF</string>
     <string name="document_scan_export_dialog_title">fren anaw n usifeḍ</string>
