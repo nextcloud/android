@@ -97,19 +97,19 @@ class RenameFileDialogFragment :
 
         binding.userInput.addTextChangedListener(
             FileNameTextWatcher(
-                mTargetFile?.fileName,
-                binding.userInputContainer.context,
-                { oCCapability },
-                { fileNames },
-                { s: String? ->
-                    binding.userInputContainer.error = s
+                previousFileName = mTargetFile?.fileName,
+                context = binding.userInputContainer.context,
+                capabilitiesProvider = { oCCapability },
+                existingFileNamesProvider = { fileNames },
+                onValidationError = { validationError: String ->
+                    binding.userInputContainer.error = validationError
                     positiveButton?.isEnabled = false
                 },
-                { s: String? ->
-                    binding.userInputContainer.error = s
+                onValidationWarning = { validationWarning: String ->
+                    binding.userInputContainer.error = validationWarning
                     positiveButton?.isEnabled = true
                 },
-                {
+                onValidationSuccess = {
                     binding.userInputContainer.error = null
                     // Called to remove extra padding
                     binding.userInputContainer.isErrorEnabled = false
