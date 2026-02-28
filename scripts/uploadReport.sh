@@ -51,7 +51,7 @@ if [ -z $USER ] || [ -z $PASS ]; then
 fi
 
 if [ $TYPE = "IT" ]; then
-    FOLDER=app/build/reports/androidTests/connected/flavors/gplay
+    FOLDER=app/build/reports/androidTests/connected/debug/flavors/gplay
 elif [ $TYPE = "Unit" ]; then
     FOLDER=app/build/reports/tests/testGplayDebugUnitTest
 else
@@ -68,10 +68,10 @@ else
     -X POST https://api.github.com/repos/nextcloud/android/issues/$PR/comments \
     -d "{ \"body\" : \"$BRANCH_TYPE test failed, but no output was generated. Maybe a preliminary stage failed. \" }"
 
-    if [ -e app/build/reports/androidTests/connected/flavors/gplay ] ; then
+    if [ -e app/build/reports/androidTests/connected/debug/flavors/gplay ] ; then
         TYPE="IT"
         BRANCH_TYPE=$BRANCH-$TYPE
-        upload "app/build/reports/androidTests/connected/flavors/gplay"
+        upload "app/build/reports/androidTests/connected/debug/flavors/gplay"
     fi
 
     if [ -e app/build/reports/tests/testGplayDebugUnitTest ] ; then
