@@ -24,35 +24,45 @@ import com.owncloud.android.lib.resources.status.OCCapability
 class FileNameTextWatcher(
     private val previousFileName: String?,
     private val context: Context,
-    private val getCapabilities: () -> OCCapability,
-    private val getExistingFileNames: () -> Set<String>?,
-    private val onError: Consumer<String>,
-    private val onWarning: Consumer<String>,
-    private val onOkay: Runnable
+    private val capabilitiesProvider: () -> OCCapability,
+    private val existingFileNamesProvider: () -> Set<String>?,
+    private val onValidationError: Consumer<String>,
+    private val onValidationWarning: Consumer<String>,
+    private val onValidationSuccess: Runnable
 ) : TextWatcher {
 
-    private var isOkay: Boolean = true // Used to trigger the onOkay callback only once
+    // Used to trigger the onValidationSuccess callback only once (on "error/warn -> valid" transition)
+    private var isNameCurrentlyValid: Boolean = true
 
     override fun afterTextChanged(s: Editable?) {
-        var newFileName = ""
-        if (s != null) {
-            newFileName = s.toString()
-        }
+        val currentFileName = s?.toString().orEmpty()
+        val validationError = checkFileName(
+            currentFileName,
+            capabilitiesProvider(),
+            context,
+            existingFileNamesProvider()
+        )
 
-        val errorMessage = checkFileName(newFileName, getCapabilities(), context, getExistingFileNames())
+        when {
+            isFileHidden(currentFileName) -> {
+                isNameCurrentlyValid = false
+                onValidationWarning.accept(context.getString(R.string.hidden_file_name_warning))
+            }
 
-        if (isFileHidden(newFileName)) {
-            isOkay = false
-            onWarning.accept(context.getString(R.string.hidden_file_name_warning))
-        } else if (errorMessage != null) {
-            isOkay = false
-            onError.accept(errorMessage)
-        } else if (isExtensionChanged(previousFileName, newFileName)) {
-            isOkay = false
-            onWarning.accept(context.getString(R.string.warn_rename_extension))
-        } else if (!isOkay) {
-            isOkay = true
-            onOkay.run()
+            validationError != null -> {
+                isNameCurrentlyValid = false
+                onValidationError.accept(validationError)
+            }
+
+            isExtensionChanged(previousFileName, currentFileName) -> {
+                isNameCurrentlyValid = false
+                onValidationWarning.accept(context.getString(R.string.warn_rename_extension))
+            }
+
+            !isNameCurrentlyValid -> {
+                isNameCurrentlyValid = true
+                onValidationSuccess.run()
+            }
         }
     }
 

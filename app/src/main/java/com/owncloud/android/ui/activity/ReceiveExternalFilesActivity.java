@@ -867,15 +867,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
             this,
             this::getCapabilities,
             () -> receiveExternalFilesAdapter.getFileNames(),
-            s -> {
-                binding.userInputContainer.setError(s);
+            validationError -> {
+                binding.userInputContainer.setError(validationError);
                 binding.uploaderChooseFolder.setEnabled(false);
             },
-            s -> {
-                binding.userInputContainer.setError(s);
+            validationWarning -> {
+                binding.userInputContainer.setError(validationWarning);
                 binding.uploaderChooseFolder.setEnabled(true);
             },
-            () -> {
+            () -> { // onValidationSuccess
                 binding.userInputContainer.setError(null);
                 binding.userInputContainer.setErrorEnabled(false);
                 binding.uploaderChooseFolder.setEnabled(true);
