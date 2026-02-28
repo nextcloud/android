@@ -37,7 +37,7 @@ jobs:
               run: scripts/deleteOldComments.sh "test" "Unit" ${{github.event.number}}
 
             - name: Setup Gradle
-              uses: gradle/actions/setup-gradle@f29f5a9d7b09a7c6b29859002d29d24e1674c884 # v5.0.1
+              uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
 
             - name: Run unit tests with coverage
               run: ./gradlew jacocoTestGplayDebugUnitTest
@@ -58,7 +58,7 @@ jobs:
 
             - name: Upload jacoco artifacts
               if: ${{ failure() }}
-              uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+              uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
               with:
                   name: test-results
                   path: app/build/reports/jacoco/jacocoTestGplayDebugUnitTestReport/html/

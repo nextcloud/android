@@ -583,7 +583,7 @@
     <string name="share_link_with_label">Сподели линк (%1$s)</string>
     <string name="share_no_expiration_date_label">Постави рок на траење</string>
     <string name="share_no_password_title">Поставете лозинка</string>
-    <string name="share_permission_can_edit">Може да се уредува</string>
+    <string name="share_permission_can_edit">Може да уредува</string>
     <string name="share_permission_file_request">Барање за датотека</string>
     <string name="share_permission_view_only">Само за гледање</string>
     <string name="share_re_share_permission">Сподели</string>
