@@ -354,7 +354,10 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
     @SuppressLint("NotifyDataSetChanged")
     @VisibleForTesting
     fun setPredefinedStatus(predefinedStatus: ArrayList<PredefinedStatus>) {
-        adapter.list = predefinedStatus
-        binding.predefinedStatusList.adapter?.notifyDataSetChanged()
+        this.predefinedStatus = predefinedStatus
+        if (this::adapter.isInitialized) {
+            adapter.list = predefinedStatus
+            binding.predefinedStatusList.adapter?.notifyDataSetChanged()
+        }
     }
 }
