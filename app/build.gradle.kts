@@ -130,6 +130,7 @@ android {
 
             debug {
                 enableUnitTestCoverage = project.hasProperty("coverage")
+                enableAndroidTestCoverage = project.hasProperty("coverage")
                 resConfigs("xxxhdpi")
             }
         }
