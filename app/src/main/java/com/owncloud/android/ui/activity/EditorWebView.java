@@ -31,6 +31,7 @@ import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderObserver;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask;
@@ -251,7 +252,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         // Todo minimize: only icon by mimetype
         OCFile file = getFile();
         if (file.isFolder()) {
-            boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+            boolean isAutoUploadFolder = SyncedFolderObserver.INSTANCE.isAutoUploadFolder(file, user);
 
             Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
             LayerDrawable drawable = MimeTypeUtil.getFolderIcon(preferences.isDarkModeEnabled(), overlayIconId, this, viewThemeUtils);

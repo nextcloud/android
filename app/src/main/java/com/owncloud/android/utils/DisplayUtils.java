@@ -57,6 +57,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderObserver;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -902,7 +903,7 @@ public final class DisplayUtils {
     private static void setThumbnailForFolder(OCFile file, ImageView thumbnailView, LoaderImageView shimmerThumbnail, User user, SyncedFolderProvider syncedFolderProvider, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
         stopShimmer(shimmerThumbnail, thumbnailView);
 
-        boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+        boolean isAutoUploadFolder = SyncedFolderObserver.INSTANCE.isAutoUploadFolder(file, user);
         boolean isDarkModeActive = preferences.isDarkModeEnabled();
 
         final var overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);

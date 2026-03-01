@@ -25,7 +25,6 @@ import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,6 +60,7 @@ public class SyncedFolderProvider extends Observable {
         mContentResolver = contentResolver;
         this.preferences = preferences;
         this.clock = clock;
+        SyncedFolderObserver.INSTANCE.start(dao);
     }
 
     /**
@@ -82,10 +82,6 @@ public class SyncedFolderProvider extends Observable {
             Log_OC.e(TAG, "Failed to insert item " + syncedFolder.getLocalPath() + " into folder sync db.");
             return -1;
         }
-    }
-
-    public static boolean isAutoUploadFolder(SyncedFolderProvider syncedFolderProvider, ServerFileInterface file, User user) {
-        return syncedFolderProvider != null && syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user);
     }
 
     public int countEnabledSyncedFolders() {
@@ -422,45 +418,5 @@ public class SyncedFolderProvider extends Observable {
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXCLUDE_HIDDEN, syncedFolder.isExcludeHidden());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS, syncedFolder.getLastScanTimestampMs());
         return cv;
-    }
-
-    /**
-     * method to check if sync folder for the remote path exist in table or not
-     *
-     * @param remotePath to be check
-     * @param user       for which we are looking
-     * @return <code>true</code> if exist, <code>false</code> otherwise
-     */
-    public boolean findByRemotePathAndAccount(String remotePath, User user) {
-        boolean result = false;
-
-        //if path ends with / then remove the last / to work the query right way
-        //because the sub folders of synced folders will not have the slash at the end
-        if (remotePath.endsWith("/")) {
-            remotePath = remotePath.substring(0, remotePath.length() - 1);
-        }
-
-        Cursor cursor = mContentResolver.query(
-            ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
-            null,
-            ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH + " LIKE ? AND " +
-                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " =? ",
-            new String[]{"%" + remotePath + "%", user.getAccountName()},
-            null);
-
-        if (cursor != null && cursor.getCount() >= 1) {
-            result = true;
-        } else {
-            if (cursor == null) {
-                Log_OC.e(TAG, "Sync folder db cursor for remote path = " + remotePath + " in NULL.");
-            }
-        }
-
-        if (cursor != null) {
-            cursor.close();
-        }
-
-        return result;
-
     }
 }

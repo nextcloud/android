@@ -11,6 +11,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.owncloud.android.db.ProviderMeta
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SyncedFolderDao {
@@ -23,4 +24,7 @@ interface SyncedFolderDao {
         """
     )
     fun findByLocalPathAndAccount(localPath: String, account: String): SyncedFolderEntity?
+
+    @Query("SELECT * FROM ${ProviderMeta.ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME}")
+    fun getAllAsFlow(): Flow<List<SyncedFolderEntity>>
 }
