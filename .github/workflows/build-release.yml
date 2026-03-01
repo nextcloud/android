@@ -1,0 +1,76 @@
+# SPDX-FileCopyrightText: 2026 Axel
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+
+name: "Build & Release APK"
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-release
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: 21
+
+      - name: Configure Gradle
+        run: |
+          echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
+          echo "org.gradle.caching=true" >> gradle.properties
+          echo "org.gradle.parallel=true" >> gradle.properties
+          echo "org.gradle.configureondemand=true" >> gradle.properties
+          echo "kapt.incremental.apt=true" >> gradle.properties
+
+      - name: Build Generic Debug APK
+        run: ./gradlew assembleGenericDebug
+
+      - name: Prepare release info
+        id: info
+        run: |
+          APK=$(find app/build/outputs/apk/generic/debug -name "*.apk" | head -1)
+          DATE=$(date -u +"%Y%m%d-%H%M%S")
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          TAG="v${DATE}-${SHORT_SHA}"
+          echo "apk_path=$APK" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "date=$(date -u +'%Y-%m-%d %H:%M UTC')" >> "$GITHUB_OUTPUT"
+
+      - name: Rename APK
+        run: |
+          APK="${{ steps.info.outputs.apk_path }}"
+          DIR=$(dirname "$APK")
+          cp "$APK" "${DIR}/nextcloud-photo-widget-${{ steps.info.outputs.tag }}.apk"
+          echo "final_apk=${DIR}/nextcloud-photo-widget-${{ steps.info.outputs.tag }}.apk" >> "$GITHUB_OUTPUT"
+        id: rename
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.info.outputs.tag }}
+          name: "Photo Widget — ${{ steps.info.outputs.date }}"
+          body: |
+            Auto-built from `master` on ${{ steps.info.outputs.date }}.
+            **Commit**: `${{ github.sha }}`
+
+            Install via [Obtainium](https://github.com/ImranR98/Obtainium) for automatic updates.
+          draft: false
+          prerelease: false
+          make_latest: true
+          files: ${{ steps.rename.outputs.final_apk }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

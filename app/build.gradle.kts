@@ -123,6 +123,15 @@ android {
 
         flavorDimensions += "default"
 
+        signingConfigs {
+            getByName("debug") {
+                storeFile = file("debug.keystore")
+                storePassword = "android"
+                keyAlias = "androiddebugkey"
+                keyPassword = "android"
+            }
+        }
+
         buildTypes {
             release {
                 buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
@@ -375,6 +384,10 @@ dependencies {
     // region Worker
     implementation(libs.work.runtime)
     implementation(libs.work.runtime.ktx)
+    // endregion
+
+    // region Photo Widget
+    implementation(libs.palette)
     // endregion
 
     // region Lifecycle

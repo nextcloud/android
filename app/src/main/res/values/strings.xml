@@ -1355,6 +1355,23 @@
     <string name="reload">Reload</string>
     <string name="widgets_not_available">Widgets are only available in %1$s 25 or later when the Dashboard app is enabled</string>
     <string name="widgets_not_available_title">Not available</string>
+
+    <!-- Photo Widget -->
+    <string name="photo_widget_description">Displays a random photo from a Nextcloud folder</string>
+    <string name="photo_widget_content_description">Photo from Nextcloud</string>
+    <string name="photo_widget_select_folder">Select photo folder</string>
+    <string name="photo_widget_no_images">No images found in selected folder</string>
+    <string name="photo_widget_next_image">Next image</string>
+    <string name="photo_widget_configure_title">Configure Widget</string>
+    <string name="photo_widget_configure_subtitle">Choose a folder and refresh interval</string>
+    <string name="photo_widget_source_folder">Source folder</string>
+    <string name="photo_widget_add_button">Add Widget</string>
+    <string name="photo_widget_interval_title">Refresh interval</string>
+    <string name="photo_widget_interval_15">15m</string>
+    <string name="photo_widget_interval_30">30m</string>
+    <string name="photo_widget_interval_60">1h</string>
+    <string name="photo_widget_interval_manual">Manual</string>
+    <string name="photo_widget_empty_state">Tap refresh to load photos</string>
     <string name="icon_for_empty_list">Icon for empty list</string>
     <string name="no_items">No items</string>
     <string name="check_back_later_or_reload">Check back later or reload.</string>
@@ -1385,6 +1402,7 @@
     <string name="document_scan_export_dialog_title">Choose export type</string>
     <string name="document_scan_export_dialog_pdf">PDF file</string>
     <string name="document_scan_export_dialog_images">Multiple images</string>
+    <string name="common_change">Change</string>
     <string name="download_cannot_create_file">Cannot create local file</string>
     <string name="download_download_invalid_local_file_name">Invalid filename for local file</string>
     <string name="drawer_item_groupfolders">Groupfolders</string>

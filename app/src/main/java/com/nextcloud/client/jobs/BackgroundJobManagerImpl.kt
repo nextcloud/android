@@ -99,6 +99,8 @@ internal class BackgroundJobManagerImpl(
         const val JOB_DOWNLOAD_FOLDER = "download_folder"
         const val JOB_METADATA_SYNC = "metadata_sync"
         const val JOB_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync"
+        const val JOB_PERIODIC_PHOTO_WIDGET = "periodic_photo_widget"
+        const val JOB_IMMEDIATE_PHOTO_WIDGET = "immediate_photo_widget"
 
         const val JOB_TEST = "test_job"
 
@@ -818,5 +820,64 @@ internal class BackgroundJobManagerImpl(
 
     override fun cancelFolderDownload() {
         workManager.cancelAllWorkByTag(JOB_DOWNLOAD_FOLDER)
+    }
+
+    // --------------- Photo Widget ---------------
+
+    override fun schedulePeriodicPhotoWidgetUpdate(intervalMinutes: Long) {
+        // We now ignore the specific intervalMinutes passed here (which is per-widget)
+        // and always schedule the global worker at the minimum 15-minute interval.
+        // The worker itself will check each widget's individual interval preference.
+        
+        // However, if intervalMinutes is <= 0 (manual), we might want to cancel? 
+        // BUT, since this is now a global job for ALL widgets, we should only cancel if NO widgets want updates.
+        // For simplicity in this refactor, we'll just schedule it. If all widgets are manual, the worker will just do nothing 99% of the time.
+        // Or better: The ConfigActivity calls this. 
+        // We should just enforce 15m here.
+
+        val constraints = Constraints.Builder()
+            .build()
+
+        val request = periodicRequestBuilder(
+            jobClass = com.nextcloud.client.widget.photo.PhotoWidgetWorker::class,
+            jobName = JOB_PERIODIC_PHOTO_WIDGET,
+            intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES
+        )
+            .setConstraints(constraints)
+            .setBackoffCriteria(
+                androidx.work.BackoffPolicy.EXPONENTIAL,
+                30L,
+                java.util.concurrent.TimeUnit.SECONDS
+            )
+            .build()
+
+        workManager.enqueueUniquePeriodicWork(
+            JOB_PERIODIC_PHOTO_WIDGET,
+            ExistingPeriodicWorkPolicy.REPLACE,
+            request
+        )
+    }
+
+    override fun startImmediatePhotoWidgetUpdate() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
+            .build()
+
+        val request = oneTimeRequestBuilder(
+            com.nextcloud.client.widget.photo.PhotoWidgetWorker::class,
+            JOB_IMMEDIATE_PHOTO_WIDGET
+        )
+            .setConstraints(constraints)
+            .build()
+
+        workManager.enqueueUniqueWork(
+            JOB_IMMEDIATE_PHOTO_WIDGET,
+            ExistingWorkPolicy.REPLACE,
+            request
+        )
+    }
+
+    override fun cancelPeriodicPhotoWidgetUpdate() {
+        workManager.cancelJob(JOB_PERIODIC_PHOTO_WIDGET)
     }
 }
