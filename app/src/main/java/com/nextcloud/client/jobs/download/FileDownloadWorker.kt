@@ -117,7 +117,7 @@ class FileDownloadWorker(
 
         return try {
             setUser()
-            val remotePath = inputData.keyValueMap[FILE_REMOTE_PATH] as String? ?: return Result.failure()
+            val remotePath = inputData.keyValueMap[FILE_REMOTE_PATH] as? String? ?: return Result.failure()
             val ocFile = fileDataStorageManager?.getFileByEncryptedRemotePath(remotePath) ?: return Result.failure()
             val requestDownloads = getRequestDownloads(ocFile)
             addAccountUpdateListener()
