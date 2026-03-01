@@ -71,7 +71,8 @@ class MockOCFileListAdapterDataProvider : OCFileListAdapterDataProvider {
             e2eCounter = 0L,
             internalTwoWaySync = 0L,
             internalTwoWaySyncResult = null,
-            uploaded = 0L
+            uploaded = 0L,
+            fileIndicator = null
         )
     }
 

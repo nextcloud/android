@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 98;
+    public static final int DB_VERSION = 99;
 
     private ProviderMeta() {
         // No instance
@@ -91,6 +91,7 @@ public class ProviderMeta {
         public static final String FILE_CREATION = "created";
         public static final String FILE_MODIFIED = "modified";
         public static final String FILE_UPLOADED = "uploaded";
+        public static final String FILE_INDICATOR = "file_indicator";
         public static final String FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA = "modified_at_last_sync_for_data";
         public static final String FILE_CONTENT_LENGTH = "content_length";
         public static final String FILE_CONTENT_TYPE = "content_type";
@@ -190,7 +191,8 @@ public class ProviderMeta {
                                                                     FILE_TAGS,
                                                                     FILE_METADATA_GPS,
                                                                     FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP,
-                                                                    FILE_INTERNAL_TWO_WAY_SYNC_RESULT);
+                                                                    FILE_INTERNAL_TWO_WAY_SYNC_RESULT,
+                                                                    FILE_INDICATOR);
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
         // Columns of ocshares table

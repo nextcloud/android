@@ -12,6 +12,8 @@ import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.files.FileIndicator
+import com.nextcloud.client.files.FileIndicatorManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateObserver
@@ -75,6 +77,7 @@ class FolderDownloadWorker(
             return Result.failure()
         }
 
+        FileIndicatorManager.update(folder.fileId, FileIndicator.Syncing)
         Log_OC.d(TAG, "🕒 started for ${user.accountName} downloading ${folder.fileName}")
 
         trySetForeground(folder)
@@ -108,9 +111,11 @@ class FolderDownloadWorker(
                         setForeground(foregroundInfo)
                     }
 
+                    FileIndicatorManager.update(file.fileId, FileIndicator.Syncing)
                     val operation = DownloadFileOperation(user, file, context)
                     val operationResult = operation.execute(client)
                     if (operationResult?.isSuccess == true && operation.downloadType === DownloadType.DOWNLOAD) {
+                        FileIndicatorManager.update(file.fileId, FileIndicator.Synced)
                         getOCFile(operation)?.let { ocFile ->
                             downloadHelper.saveFile(ocFile, operation, storageManager)
                         }
@@ -127,13 +132,16 @@ class FolderDownloadWorker(
 
                 if (result) {
                     Log_OC.d(TAG, "✅ completed")
+                    FileIndicatorManager.update(folderID, FileIndicator.Synced)
                     Result.success()
                 } else {
                     Log_OC.d(TAG, "❌ failed")
+                    FileIndicatorManager.update(folderID, FileIndicator.Error)
                     Result.failure()
                 }
             } catch (e: Exception) {
                 Log_OC.d(TAG, "❌ failed reason: $e")
+                FileIndicatorManager.update(folderID, FileIndicator.Error)
                 Result.failure()
             } finally {
                 WorkerStateObserver.send(WorkerState.FolderDownloadCompleted(folder))

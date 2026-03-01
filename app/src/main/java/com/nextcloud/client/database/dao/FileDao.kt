@@ -9,6 +9,7 @@ package com.nextcloud.client.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.nextcloud.client.database.entity.FileEntity
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
@@ -146,4 +147,20 @@ interface FileDao {
 
     @Query("SELECT remote_id FROM filelist WHERE file_owner = :accountName AND remote_id IS NOT NULL")
     fun getAllRemoteIds(accountName: String): List<String>
+
+    @Transaction
+    fun updateFileIndicatorsBatch(updates: List<Pair<Long, String?>>) {
+        updates.forEach { (fileId, indicator) ->
+            updateFileIndicator(fileId, indicator)
+        }
+    }
+
+    @Query(
+        """
+        UPDATE ${ProviderTableMeta.FILE_TABLE_NAME}
+        SET ${ProviderTableMeta.FILE_INDICATOR} = :indicator
+        WHERE ${ProviderTableMeta._ID} = :fileId
+    """
+    )
+    fun updateFileIndicator(fileId: Long, indicator: String?)
 }

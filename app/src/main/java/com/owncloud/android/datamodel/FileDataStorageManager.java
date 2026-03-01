@@ -41,6 +41,7 @@ import com.nextcloud.client.database.dao.RecommendedFileDao;
 import com.nextcloud.client.database.dao.ShareDao;
 import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
+import com.nextcloud.client.files.FileIndicator;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepositoryType;
 import com.nextcloud.model.OfflineOperationRawType;
@@ -785,6 +786,10 @@ public class FileDataStorageManager {
     @SuppressFBWarnings("CE")
     private ContentValues createContentValuesBase(OCFile fileOrFolder) {
         final ContentValues cv = new ContentValues();
+
+        FileIndicator fileIndicator = fileOrFolder.getFileIndicator();
+        cv.put(ProviderTableMeta.FILE_INDICATOR, fileIndicator.name());
+
         cv.put(ProviderTableMeta.FILE_MODIFIED, fileOrFolder.getModificationTimestamp());
         cv.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, fileOrFolder.getModificationTimestampAtLastSyncForData());
         cv.put(ProviderTableMeta.FILE_PARENT, fileOrFolder.getParentId());
@@ -917,7 +922,6 @@ public class FileDataStorageManager {
 
         return success;
     }
-
 
     public boolean removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
         boolean success = true;
@@ -1258,6 +1262,7 @@ public class FileDataStorageManager {
         }
         ocFile.setFileLength(nullToZero(fileEntity.getContentLength()));
         ocFile.setUploadTimestamp(nullToZero(fileEntity.getUploaded()));
+        ocFile.setFileIndicator(FileIndicator.valueOf(fileEntity.getFileIndicator()));
         ocFile.setCreationTimestamp(nullToZero(fileEntity.getCreation()));
         ocFile.setModificationTimestamp(nullToZero(fileEntity.getModified()));
         ocFile.setModificationTimestampAtLastSyncForData(nullToZero(fileEntity.getModifiedAtLastSyncForData()));

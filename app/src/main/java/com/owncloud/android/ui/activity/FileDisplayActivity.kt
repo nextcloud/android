@@ -48,7 +48,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -62,6 +64,8 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.files.DeepLinkHandler
+import com.nextcloud.client.files.FileIndicator
+import com.nextcloud.client.files.FileIndicatorManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadAddedMessage
@@ -159,6 +163,8 @@ import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.StringUtils
 import com.owncloud.android.utils.theme.CapabilityUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
@@ -285,6 +291,7 @@ class FileDisplayActivity :
         startMetadataSyncForRoot()
         handleBackPress()
         setupDrawer(menuItemId)
+        observeFileIndicatorState()
     }
 
     /**
@@ -1085,7 +1092,7 @@ class FileDisplayActivity :
                         return@isNetworkAndServerAvailable
                     }
 
-                    FileUploadHelper.Companion.instance().uploadNewFiles(
+                    FileUploadHelper.instance().uploadNewFiles(
                         user.orElseThrow(
                             Supplier { RuntimeException() }
                         ),
@@ -1668,10 +1675,12 @@ class FileDisplayActivity :
     private inner class UploadFinishReceiver : BroadcastReceiver() {
         private val tag = "UploadFinishReceiver"
 
+        @Suppress("LongMethod")
         override fun onReceive(context: Context?, intent: Intent) {
             Log_OC.d(tag, "upload finish received broadcast")
 
             val uploadedRemotePath = intent.getStringExtra(FileUploadWorker.EXTRA_REMOTE_PATH)
+            val behaviour = intent.getIntExtra(FileUploadWorker.EXTRA_BEHAVIOUR, -1)
             val accountName = intent.getStringExtra(FileUploadWorker.ACCOUNT_NAME)
             val account = getAccount()
             val sameAccount = accountName != null && account != null && accountName == account.name
@@ -1694,6 +1703,13 @@ class FileDisplayActivity :
                 renamedInUpload =
                     file?.remotePath == intent.getStringExtra(FileUploadWorker.EXTRA_OLD_REMOTE_PATH)
                 sameFile = file?.remotePath == uploadedRemotePath || renamedInUpload
+            }
+
+            // only synced icon can be remove if local behaviour is not move
+            if (uploadWasFine && behaviour != FileUploadWorker.LOCAL_BEHAVIOUR_MOVE) {
+                file?.let {
+                    setIdleFileIndicator(it, includeSubFiles = false)
+                }
             }
 
             if (sameAccount && sameFile && this@FileDisplayActivity.leftFragment is FileDetailFragment) {
@@ -2135,10 +2151,41 @@ class FileDisplayActivity :
             }
             supportInvalidateOptionsMenu()
             fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+            setIdleFileIndicator(removedFile)
         } else {
             if (result.isSslRecoverableException) {
                 mLastSslUntrustedServerResult = result
                 showUntrustedCertDialog(mLastSslUntrustedServerResult)
+            }
+        }
+    }
+
+    private fun setIdleFileIndicator(file: OCFile, includeSubFiles: Boolean = true) {
+        FileIndicatorManager.update(file.fileId, FileIndicator.Idle)
+
+        // while uploading files don't include so that downloaded icon can be removed for directory
+        if (!includeSubFiles) {
+            return
+        }
+
+        // while removing files include sub files since it's needed
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (user.isEmpty) {
+                return@launch
+            }
+
+            if (file.isFolder) {
+                // clearing first depth child files
+                storageManager.fileDao.getSubfiles(file.fileId, user.get().accountName).forEach {
+                    it.id?.let { id ->
+                        FileIndicatorManager.update(id, FileIndicator.Idle)
+                    }
+                }
+            } else {
+                val parent = storageManager.getFileById(file.parentId)
+                parent?.fileId?.let { parentId ->
+                    FileIndicatorManager.update(parentId, FileIndicator.Idle)
+                }
             }
         }
     }
@@ -3064,6 +3111,34 @@ class FileDisplayActivity :
         backgroundJobManager.startMetadataSyncJob(currentDirId)
     }
     // endregion
+
+    @Suppress("MagicNumber")
+    @OptIn(FlowPreview::class)
+    private fun observeFileIndicatorState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                FileIndicatorManager.activeTransfers
+                    .debounce(100)
+                    .collect { indicators ->
+                        Log_OC.d(TAG, "observing file indicators")
+
+                        withContext(Dispatchers.Main) {
+                            // update UI with hot data
+                            listOfFilesFragment?.adapter?.updateFileIndicators(indicators)
+
+                            // update cold data in background
+                            launch(Dispatchers.IO) {
+                                storageManager.fileDao.updateFileIndicatorsBatch(
+                                    indicators.map { (fileId, indicator) ->
+                                        fileId to indicator.name
+                                    }
+                                )
+                            }
+                        }
+                    }
+            }
+        }
+    }
 
     companion object {
         const val RESTART: String = "RESTART"

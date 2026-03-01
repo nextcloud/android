@@ -17,6 +17,8 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.files.FileIndicator
+import com.nextcloud.client.files.FileIndicatorManager
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
@@ -82,8 +84,10 @@ class FileUploadWorker(
         const val EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH"
         const val EXTRA_OLD_FILE_PATH = "OLD_FILE_PATH"
         const val EXTRA_LINKED_TO_PATH = "LINKED_TO"
-        const val ACCOUNT_NAME = "ACCOUNT_NAME"
+        const val EXTRA_BEHAVIOUR = "BEHAVIOUR"
         const val EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME"
+
+        const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val ACTION_CANCEL_BROADCAST = "CANCEL"
         const val LOCAL_BEHAVIOUR_COPY = 0
         const val LOCAL_BEHAVIOUR_MOVE = 1
@@ -225,6 +229,7 @@ class FileUploadWorker(
         val uploads = uploadsStorageManager.getUploadsByIds(uploadIds, accountName)
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
+        val storageManager = FileDataStorageManager(user, context.contentResolver)
 
         for ((index, upload) in uploads.withIndex()) {
             ensureActive()
@@ -243,8 +248,14 @@ class FileUploadWorker(
             }
 
             fileUploadBroadcastManager.sendAdded(context)
-            val operation = createUploadFileOperation(upload, user)
+            val operation = createUploadFileOperation(upload, user, storageManager)
             currentUploadFileOperation = operation
+            val parentFile =
+                storageManager.getFileByDecryptedRemotePath(operation.file?.parentRemotePath)
+
+            parentFile?.let {
+                FileIndicatorManager.update(it.fileId, FileIndicator.Syncing)
+            }
 
             val currentIndex = (index + 1)
             val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
@@ -259,6 +270,9 @@ class FileUploadWorker(
                 upload(upload, operation, user, client)
             }
             currentUploadFileOperation = null
+            parentFile?.let {
+                FileIndicatorManager.update(it.fileId, FileIndicator.Idle)
+            }
 
             if (result.code == ResultCode.QUOTA_EXCEEDED) {
                 Log_OC.w(TAG, "Quota exceeded, stopping uploads")
@@ -308,7 +322,11 @@ class FileUploadWorker(
         return result
     }
 
-    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
+    private fun createUploadFileOperation(
+        upload: OCUpload,
+        user: User,
+        storageManager: FileDataStorageManager
+    ): UploadFileOperation = UploadFileOperation(
         uploadsStorageManager,
         connectivityService,
         powerManagementService,
@@ -321,7 +339,7 @@ class FileUploadWorker(
         upload.isUseWifiOnly,
         upload.isWhileChargingOnly,
         true,
-        FileDataStorageManager(user, context.contentResolver)
+        storageManager
     ).apply {
         addDataTransferProgressListener(this@FileUploadWorker)
     }

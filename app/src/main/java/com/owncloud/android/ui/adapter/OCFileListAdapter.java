@@ -30,6 +30,7 @@ import com.nextcloud.android.common.core.utils.ecosystem.EcosystemApp;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
+import com.nextcloud.client.files.FileIndicator;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
@@ -77,6 +78,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -1072,5 +1075,25 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mFiles.clear();
         mFilesAll.clear();
         notifyDataSetChanged();
+    }
+
+    public void updateFileIndicators(Map<Long, FileIndicator> indicators) {
+        if (indicators == null || indicators.isEmpty()) {
+            return;
+        }
+
+        for (OCFile file: mFiles) {
+            final var fileIndicator = indicators.get(file.getFileId());
+            if (fileIndicator == null) {
+                continue;
+            }
+
+            if (Objects.equals(file.getFileIndicator(), fileIndicator)) {
+                continue;
+            }
+
+            file.setFileIndicator(fileIndicator);
+            notifyItemChanged(file);
+        }
     }
 }
