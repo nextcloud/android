@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2016-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
@@ -24,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -54,6 +56,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
+import com.nextcloud.utils.fileNameValidator.FileNameTextWatcher;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -96,6 +99,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -110,6 +114,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.util.Function;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -117,6 +122,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
+import static com.owncloud.android.utils.UriUtils.getDisplayNameForUri;
 
 /**
  * This can be used to upload things to an Nextcloud instance.
@@ -141,9 +147,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
-    private List<Parcelable> mStreamsToUpload;
+    @Nullable private List<Parcelable> mStreamsToUpload;
     private String mUploadPath;
     private OCFile mFile;
+
+    @Nullable
+    private Function<Uri, String> mFileDisplayNameTransformer = null;
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private ReceiveExternalFilesAdapter receiveExternalFilesAdapter;
@@ -785,6 +794,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             files = sortFileList(files);
             setupReceiveExternalFilesAdapter(files);
         }
+        setupFileNameInputField();
 
         MaterialButton btnChooseFolder = binding.uploaderChooseFolder;
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(btnChooseFolder);
@@ -834,6 +844,59 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mEmptyListIcon.setImageDrawable(viewThemeUtils.platform.tintPrimaryDrawable(this, icon));
                 mEmptyListIcon.setVisibility(View.VISIBLE);
                 mEmptyListMessage.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void setupFileNameInputField() {
+        binding.userInput.setVisibility(View.GONE);
+        mFileDisplayNameTransformer = null;
+        if (mStreamsToUpload == null || mStreamsToUpload.size() != 1) {
+            return;
+        }
+        final String fileName = getDisplayNameForUri((Uri) mStreamsToUpload.get(0), getActivity());
+        if (fileName == null) {
+            return;
+        }
+        final String userProvidedFileName = Objects.requireNonNullElse(binding.userInput.getText(), "").toString();
+
+        binding.userInput.setVisibility(View.VISIBLE);
+        binding.userInput.setText(userProvidedFileName.isEmpty() ? fileName : userProvidedFileName);
+        binding.userInput.addTextChangedListener(new FileNameTextWatcher(
+            fileName,
+            this,
+            this::getCapabilities,
+            () -> receiveExternalFilesAdapter.getFileNames(),
+            validationError -> {
+                binding.userInputContainer.setError(validationError);
+                binding.uploaderChooseFolder.setEnabled(false);
+            },
+            validationWarning -> {
+                binding.userInputContainer.setError(validationWarning);
+                binding.uploaderChooseFolder.setEnabled(true);
+            },
+            () -> { // onValidationSuccess
+                binding.userInputContainer.setError(null);
+                binding.userInputContainer.setErrorEnabled(false);
+                binding.uploaderChooseFolder.setEnabled(true);
+            }
+        ));
+
+        mFileDisplayNameTransformer = uri ->
+            Objects.requireNonNullElse(binding.userInput.getText(), fileName).toString();
+
+        // When entering the text field, pre-select the name (without extension if present), for convenient editing
+        binding.userInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                final String currentText = Objects.requireNonNullElse(binding.userInput.getText(), "").toString();
+                binding.userInput.post(() -> {
+                    if (currentText.lastIndexOf('.') != -1) {
+                        binding.userInput.setSelection(0, currentText.lastIndexOf('.'));
+                    } else {
+                        // No file extension - select all
+                        binding.userInput.selectAll();
+                    }
+                });
             }
         });
     }
@@ -961,7 +1024,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             getUser().orElseThrow(RuntimeException::new),
             FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
             true, // Show waiting dialog while file is being copied from private storage
-            this  // Copy temp task listener
+            this,  // Listener for copying to temporary files
+            mFileDisplayNameTransformer
         );
 
         UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
