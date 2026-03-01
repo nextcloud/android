@@ -51,7 +51,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
     }
 
     @Override
-    protected GallerySearchTask.Result doInBackground(Void... voids) {
+    protected Result doInBackground(Void... voids) {
         if (photoFragmentWeakReference.get() == null) {
             return new Result(false, false, -1);
         }
@@ -98,7 +98,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
     }
 
     @Override
-    protected void onPostExecute(GallerySearchTask.Result result) {
+    protected void onPostExecute(Result result) {
         if (photoFragmentWeakReference.get() != null) {
             GalleryFragment photoFragment = photoFragmentWeakReference.get();
             photoFragment.searchCompleted(result.emptySearch, result.lastTimestamp);
@@ -147,9 +147,11 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
                 continue;
             }
 
+
             final OCFile existingFile = storageManager.getFileByDecryptedRemotePath(remoteFile.getRemotePath());
 
             // add missing values from local storage to prevent override with null values
+
             if (existingFile != null) {
                 final var imageDimension = existingFile.getImageDimension();
                 if (imageDimension != null) {
@@ -160,7 +162,14 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
                 remoteFile.setUploadTimestamp(existingFile.getUploadTimestamp());
             }
 
+            // initialize oc file from remote file
             OCFile ocFile = FileStorageUtils.fillOCFile(remoteFile);
+
+            // since remote does not contains parent id information use existing file to prevent overriding parent id with 0
+            if (existingFile != null) {
+                ocFile.setParentId(existingFile.getParentId());
+                ocFile.setCreationTimestamp(existingFile.getCreationTimestamp());
+            }
 
             if (BuildConfig.DEBUG) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
