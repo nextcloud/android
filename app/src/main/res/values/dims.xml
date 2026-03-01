@@ -68,6 +68,7 @@
     <dimen name="file_list_item_avatar_icon_radius">10dp</dimen>
     <dimen name="account_action_layout_height">72dp</dimen>
     <dimen name="zero">0dp</dimen>
+    <dimen name="creator_container_start_padding">20dp</dimen>
     <dimen name="iconized_single_line_item_layout_height">56dp</dimen>
     <dimen name="iconized_single_line_item_icon_size">24dp</dimen>
     <dimen name="user_info_icon_horizontal_margin">24dp</dimen>
