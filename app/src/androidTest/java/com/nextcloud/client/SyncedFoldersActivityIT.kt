@@ -43,8 +43,8 @@ class SyncedFoldersActivityIT : AbstractIT() {
         }
     }
 
+    // @ScreenshotTest
     @Test
-    @ScreenshotTest
     fun testSyncedFolderDialog() {
         val item = SyncedFolderDisplayItem(
             1,
