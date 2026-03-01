@@ -17,6 +17,7 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.ListenableWorker
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.Operation
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequest
@@ -795,25 +796,62 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 
-    override fun downloadFolder(folder: OCFile, accountName: String) {
+    override fun downloadFolder(folder: OCFile, accountName: String, recursive: Boolean) {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .setRequiresStorageNotLow(true)
             .build()
 
-        val data = Data.Builder()
+        // Prepare input data for FolderDownloadWorker
+        val downloadData = Data.Builder()
             .putLong(FolderDownloadWorker.FOLDER_ID, folder.fileId)
             .putString(FolderDownloadWorker.ACCOUNT_NAME, accountName)
+            .putBoolean(FolderDownloadWorker.RECURSIVE_DOWNLOAD, recursive)
             .build()
 
-        val request = oneTimeRequestBuilder(FolderDownloadWorker::class, JOB_DOWNLOAD_FOLDER)
+        // Prepare input data for MetadataWorker (needs folder path to sync metadata)
+        // IMPORTANT: Add FORCE_REFRESH flag to ensure MetadataWorker fetches content
+        // regardless of eTag - this fixes the issue where FolderDownloadWorker runs
+        // before database is populated with file entries
+        val metadataData = Data.Builder()
+            .putString(MetadataWorker.FILE_PATH, folder.remotePath)
+            .putBoolean(MetadataWorker.FORCE_REFRESH, true)  // Force full refresh
+            .build()
+
+        val metadataConstraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresBatteryNotLow(true)
+            .build()
+
+        // Create MetadataWorker request - this will sync folder metadata to database first
+        val metadataWork = OneTimeWorkRequestBuilder<MetadataWorker>()
+            .addTag(TAG_ALL)
+            .addTag(formatNameTag(JOB_METADATA_SYNC))
+            .addTag(formatTimeTag(clock.currentTime))
+            .addTag(formatClassTag(MetadataWorker::class))
+            .setConstraints(metadataConstraints)
+            .setInputData(metadataData)
+            .build()
+
+        // Create FolderDownloadWorker request
+        val downloadWork = OneTimeWorkRequestBuilder<FolderDownloadWorker>()
+            .addTag(TAG_ALL)
+            .addTag(formatNameTag(JOB_DOWNLOAD_FOLDER))
+            .addTag(formatTimeTag(clock.currentTime))
+            .addTag(formatClassTag(FolderDownloadWorker::class))
             .addTag(JOB_DOWNLOAD_FOLDER)
-            .setInputData(data)
+            .setInputData(downloadData)
             .setConstraints(constraints)
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_DOWNLOAD_FOLDER, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
+        // Use WorkChain to ensure MetadataWorker completes before FolderDownloadWorker starts
+        // This fixes the race condition where FolderDownloadWorker was running before
+        // MetadataWorker populated the database with folder contents
+        workManager
+            .beginWith(metadataWork)
+            .then(downloadWork)
+            .enqueue()
     }
 
     override fun cancelFolderDownload() {

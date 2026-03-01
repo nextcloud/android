@@ -235,6 +235,10 @@
     <string name="file_upload_worker_error_notification_title">Upload failed. No internet connection</string>
     <string name="filedetails_download">Download</string>
     <string name="filedetails_sync_file">Sync</string>
+    <string name="filedetails_sync_file_message">Do you want to sync this folder?</string>
+    <string name="filedetails_sync_file_include_subfolders">Also sync subfolders</string>
+    <string name="filedetails_sync_file_recursive">Download all subfolders</string>
+    <string name="filedetails_sync_file_recursive_message">This will download all files and subfolders from this folder. This may use a large amount of data and storage space. Do you want to continue?</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed %1$s during upload</string>
     <string name="list_layout">Listed layout</string>
     <string name="action_send_share">Send/share</string>

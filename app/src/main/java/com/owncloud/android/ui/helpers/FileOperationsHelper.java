@@ -873,9 +873,24 @@ public class FileOperationsHelper {
      * @param file The file or folder to synchronize
      */
     public void syncFile(OCFile file) {
+        syncFile(file, false);
+    }
+
+    /**
+     * Request the synchronization of a file or folder with the OC server, optionally including subfolders.
+     *
+     * @param file The file or folder to synchronize
+     * @param recursive If true and file is a folder, sync all subfolders recursively
+     */
+    public void syncFile(OCFile file, boolean recursive) {
         if (file.isFolder()) {
-            Intent intent = getSyncFolderIntent(file);
-            fileActivity.startService(intent);
+            if (recursive) {
+                // Sync folder recursively
+                downloadFolderRecursive(file);
+            } else {
+                Intent intent = getSyncFolderIntent(file);
+                fileActivity.startService(intent);
+            }
         } else {
             Intent intent = getSyncFileIntent(file);
             mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
@@ -900,14 +915,21 @@ public class FileOperationsHelper {
     }
 
 
-    public void syncFile(OCFile file, boolean postDialogEvent) {
-        if (file.isFolder()) {
-            Intent intent = getSyncFolderIntent(file);
-            fileActivity.startService(intent);
-        } else {
-            Intent intent = getSyncFileIntent(file);
-            intent.putExtra(OperationsService.EXTRA_POST_DIALOG_EVENT, postDialogEvent);
-            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
+    /**
+     * Download all files and subfolders from a folder recursively
+     * This uses the FolderDownloadWorker to perform the download
+     *
+     * @param folder The folder to download recursively
+     */
+    public void downloadFolderRecursive(OCFile folder) {
+        if (folder == null || !folder.isFolder()) {
+            return;
+        }
+
+        java.util.Optional<User> userOpt = fileActivity.getUser();
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            FileDownloadHelper.Companion.instance().downloadFolder(folder, user.getAccountName(), true);
         }
     }
 

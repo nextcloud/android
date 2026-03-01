@@ -24,6 +24,7 @@
     <item name="action_send_file" type="id"/>
     <item name="action_open_file_with" type="id"/>
     <item name="action_sync_file" type="id"/>
+    <item name="action_sync_file_recursive" type="id"/>
     <item name="action_cancel_sync" type="id"/>
     <item name="action_select_all_action_menu" type="id"/>
     <item name="action_deselect_all_action_menu" type="id"/>

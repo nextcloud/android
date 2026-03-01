@@ -139,12 +139,12 @@ class FileDownloadHelper {
         )
     }
 
-    fun downloadFolder(folder: OCFile?, accountName: String) {
+    fun downloadFolder(folder: OCFile?, accountName: String, recursive: Boolean = false) {
         if (folder == null) {
             Log_OC.e(TAG, "folder cannot be null, cant sync")
             return
         }
-        backgroundJobManager.downloadFolder(folder, accountName)
+        backgroundJobManager.downloadFolder(folder, accountName, recursive)
     }
 
     fun cancelFolderDownload() = backgroundJobManager.cancelFolderDownload()
