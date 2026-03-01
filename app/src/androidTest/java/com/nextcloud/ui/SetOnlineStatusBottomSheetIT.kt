@@ -37,15 +37,14 @@ class SetOnlineStatusBottomSheetIT : AbstractIT() {
         launchActivity<FileDisplayActivity>().use { scenario ->
             onView(isRoot()).check(matches(isDisplayed()))
 
-            onView(withId(R.id.clearStatusAfterSpinner))
-                .check(matches(isDisplayed()))
-
             scenario.onActivity { activity ->
                 val sut = SetOnlineStatusBottomSheet(
                     Status(StatusType.DND, "Working hard…", "🤖", -1)
                 )
                 sut.show(activity.supportFragmentManager, "")
             }
+            onView(withId(R.id.onlineStatus))
+                .check(matches(isDisplayed()))
         }
     }
 }
