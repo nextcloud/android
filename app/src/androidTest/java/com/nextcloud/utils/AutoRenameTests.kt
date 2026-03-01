@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -243,11 +244,32 @@ class AutoRenameTests : AbstractOnServerIT() {
 
     @Test
     fun skipAutoRenameWhenWCFDisabled() {
+        var capability = capability
+        val filename = "   readme.txt  "
+
+        // Nextcloud 32+: Respects the isWCFEnabled flag
         capability = capability.apply {
+            versionMayor = NextcloudVersion.nextcloud_32.majorVersionNumber
             isWCFEnabled = CapabilityBooleanType.FALSE
         }
-        val filename = "   readme.txt  "
-        val result = AutoRename.rename(filename, capability, isFolderPath = true)
+        var result = AutoRename.rename(filename, capability, isFolderPath = true)
+        assert(result == filename) { "Expected $filename but got $result" }
+
+        // Nextcloud 30-31+: Always applies WCF restrictions, even if flag is set to false
+        capability = capability.apply {
+            versionMayor = NextcloudVersion.nextcloud_30.majorVersionNumber
+            isWCFEnabled = CapabilityBooleanType.FALSE
+        }
+        result = AutoRename.rename(filename, capability, isFolderPath = true)
+        val expectedWCFFilename = "readme.txt"
+        assert(result == expectedWCFFilename) { "Expected $expectedWCFFilename but got $result" }
+
+        // Nextcloud <30: No WCF restrictions, even if flag is set to true
+        capability = capability.apply {
+            versionMayor = NextcloudVersion.nextcloud_29.majorVersionNumber
+            isWCFEnabled = CapabilityBooleanType.TRUE
+        }
+        result = AutoRename.rename(filename, capability, isFolderPath = true)
         assert(result == filename) { "Expected $filename but got $result" }
     }
 }
