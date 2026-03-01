@@ -526,6 +526,7 @@
 
         <activity
             android:name=".authentication.AuthenticatorActivity"
+            android:windowSoftInputMode="adjustResize"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:exported="true"
             android:launchMode="singleTask"
