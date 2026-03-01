@@ -12,6 +12,8 @@ import android.os.Parcelable
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.PostUploadAction
 import com.nextcloud.client.jobs.upload.UploadTrigger
+import com.nextcloud.utils.extensions.readParcelableCompat
+import com.nextcloud.utils.extensions.readSerializableCompat
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
@@ -54,10 +56,10 @@ class DownloadRequest internal constructor(
     ) : this(user, file, UUID.randomUUID(), Direction.DOWNLOAD, test)
 
     constructor(parcel: Parcel) : this(
-        user = parcel.readParcelable<User>(User::class.java.classLoader) as User,
-        file = parcel.readParcelable<OCFile>(OCFile::class.java.classLoader) as OCFile,
-        uuid = parcel.readSerializable() as UUID,
-        type = parcel.readSerializable() as Direction,
+        user = parcel.readParcelableCompat<User>(User::class.java.classLoader) as User,
+        file = parcel.readParcelableCompat<OCFile>(OCFile::class.java.classLoader) as OCFile,
+        uuid = parcel.readSerializableCompat<UUID>(UUID::class.java.classLoader) as UUID,
+        type = parcel.readSerializableCompat<Direction>(Direction::class.java.classLoader) as Direction,
         test = parcel.readInt() != 0
     )
 
@@ -110,11 +112,11 @@ class UploadRequest internal constructor(
     ) : this(user, upload, false)
 
     constructor(parcel: Parcel) : this(
-        user = parcel.readParcelable<User>(User::class.java.classLoader) as User,
-        file = parcel.readParcelable<OCFile>(OCFile::class.java.classLoader) as OCFile,
-        upload = parcel.readParcelable<OCUpload>(OCUpload::class.java.classLoader) as OCUpload,
-        uuid = parcel.readSerializable() as UUID,
-        type = parcel.readSerializable() as Direction,
+        user = parcel.readParcelableCompat<User>(User::class.java.classLoader) as User,
+        file = parcel.readParcelableCompat<OCFile>(OCFile::class.java.classLoader) as OCFile,
+        upload = parcel.readParcelableCompat<OCUpload>(OCUpload::class.java.classLoader) as OCUpload,
+        uuid = parcel.readSerializableCompat<UUID>(UUID::class.java.classLoader) as UUID,
+        type = parcel.readSerializableCompat<Direction>(Direction::class.java.classLoader) as Direction,
         test = parcel.readInt() != 0
     )
 
