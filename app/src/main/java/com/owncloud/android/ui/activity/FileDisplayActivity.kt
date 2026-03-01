@@ -45,6 +45,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.FileProvider
 import androidx.core.view.MenuItemCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -157,10 +158,12 @@ import com.owncloud.android.utils.PermissionUtil.requestNotificationPermission
 import com.owncloud.android.utils.PermissionUtil.requestStoragePermissionIfNeeded
 import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.StringUtils
+import com.owncloud.android.utils.UriUtils
 import com.owncloud.android.utils.theme.CapabilityUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.apache.commons.io.FilenameUtils
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -971,10 +974,13 @@ class FileDisplayActivity :
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (data != null &&
-            requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS &&
+            (
+                requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS ||
+                    requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME
+                ) &&
             (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
         ) {
-            requestUploadOfContentFromApps(data, resultCode)
+            requestUploadOfContentFromApps(requestCode, resultCode, data)
         } else if (data != null &&
             requestCode == REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM &&
             (
@@ -1108,7 +1114,7 @@ class FileDisplayActivity :
         }
     }
 
-    private fun requestUploadOfContentFromApps(contentIntent: Intent, resultCode: Int) {
+    private fun requestUploadOfContentFromApps(requestCode: Int, resultCode: Int, contentIntent: Intent) {
         val streamsToUpload = ArrayList<Parcelable?>()
 
         if (contentIntent.clipData != null && (contentIntent.clipData?.itemCount ?: 0) > 0) {
@@ -1130,6 +1136,17 @@ class FileDisplayActivity :
 
         val currentDir = getCurrentDir()
         val remotePath = if (currentDir != null) currentDir.remotePath else OCFile.ROOT_PATH
+        var fileDisplayNameTransformer: androidx.core.util.Function<Uri, String?>? = null
+        if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME) {
+            fileDisplayNameTransformer = { uri: Uri ->
+                val displayName = UriUtils.getDisplayNameForUri(uri, applicationContext)
+                if (displayName != null && displayName.isNotEmpty()) {
+                    FileOperationsHelper.getTimestampedFileName("." + FilenameUtils.getExtension(displayName))
+                } else {
+                    null
+                }
+            }
+        }
 
         val uploader = UriUploader(
             this,
@@ -1140,7 +1157,8 @@ class FileDisplayActivity :
             ),
             behaviour,
             false, // Not show waiting dialog while file is being copied from private storage
-            null // Not needed copy temp task listener
+            null, // Not needed copy temp task listener
+            fileDisplayNameTransformer
         )
 
         uploader.uploadUris()
@@ -3104,6 +3122,9 @@ class FileDisplayActivity :
 
         @JvmField
         val REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA: Int = REQUEST_CODE__LAST_SHARED + 6
+
+        @JvmField
+        val REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME: Int = REQUEST_CODE__LAST_SHARED + 7
 
         protected val DELAY_TO_REQUEST_REFRESH_OPERATION_LATER: Long = DELAY_TO_REQUEST_OPERATIONS_LATER + 350
 
