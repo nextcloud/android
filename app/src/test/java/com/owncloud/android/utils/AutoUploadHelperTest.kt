@@ -30,13 +30,12 @@ import java.nio.file.Files
 class AutoUploadHelperTest {
 
     private lateinit var tempDir: File
-    private val helper = AutoUploadHelper()
+    private lateinit var helper: AutoUploadHelper
     private val accountName = "testAccount"
 
     private val mockDao: FileSystemDao = mockk(relaxed = true)
     private val mockContext: Context = mockk(relaxed = true)
 
-    private lateinit var repo: FileSystemRepository
     private val mockUploadsStorageManager: UploadsStorageManager = mockk(relaxed = true)
 
     @Before
@@ -45,7 +44,8 @@ class AutoUploadHelperTest {
         tempDir.mkdirs()
         assertTrue("Failed to create temp directory", tempDir.exists())
 
-        repo = FileSystemRepository(mockDao, mockUploadsStorageManager, mockContext)
+        val repo = FileSystemRepository(mockDao, mockUploadsStorageManager, mockContext)
+        helper = AutoUploadHelper(repo)
     }
 
     @After
@@ -96,7 +96,7 @@ class AutoUploadHelperTest {
             type = MediaFolderType.CUSTOM
         )
 
-        val processedCount = helper.insertCustomFolderIntoDB(folder, repo)
+        val processedCount = helper.insertCustomFolderIntoDB(folder)
 
         assertEquals("Should process 2 files", 2, processedCount)
     }
@@ -113,7 +113,7 @@ class AutoUploadHelperTest {
             type = MediaFolderType.CUSTOM
         )
 
-        val processedCount = helper.insertCustomFolderIntoDB(folder, repo)
+        val processedCount = helper.insertCustomFolderIntoDB(folder)
 
         assertTrue("Should process at least 1 file", processedCount >= 1)
     }
@@ -169,7 +169,7 @@ class AutoUploadHelperTest {
     @Test
     fun testInsertCustomFolderEmpty() {
         val folder = createTestFolder(type = MediaFolderType.CUSTOM)
-        val processedCount = helper.insertCustomFolderIntoDB(folder, repo)
+        val processedCount = helper.insertCustomFolderIntoDB(folder)
 
         assertEquals("Empty folder should process 0 files", 0, processedCount)
     }
@@ -182,7 +182,7 @@ class AutoUploadHelperTest {
             type = MediaFolderType.CUSTOM
         )
 
-        val processedCount = helper.insertCustomFolderIntoDB(folder, repo)
+        val processedCount = helper.insertCustomFolderIntoDB(folder)
 
         assertEquals("Non-existent folder should return 0", 0, processedCount)
     }
@@ -196,7 +196,7 @@ class AutoUploadHelperTest {
         File(subDir, "nested.txt").writeText("Nested file")
 
         val folder = createTestFolder(type = MediaFolderType.CUSTOM)
-        val processedCount = helper.insertCustomFolderIntoDB(folder, repo)
+        val processedCount = helper.insertCustomFolderIntoDB(folder)
 
         assertEquals("Should process files in root and subdirectories", 2, processedCount)
     }
@@ -224,7 +224,7 @@ class AutoUploadHelperTest {
             lastScanTimestampMs = currentTime
         }
 
-        val processedCount = helper.insertCustomFolderIntoDB(folder, repo)
+        val processedCount = helper.insertCustomFolderIntoDB(folder)
 
         // Should skip hidden directory and its contents
         assertEquals("Should only process regular file", 1, processedCount)
@@ -277,7 +277,7 @@ class AutoUploadHelperTest {
          * ${tempDir.absolutePath}/FOLDER_A/FOLDER_B/FOLDER_D/FOLDER_E/FILE_A.txt -> 1
          * Total = 5 files
          */
-        val processedCount = helper.insertCustomFolderIntoDB(syncedFolder, repo)
+        val processedCount = helper.insertCustomFolderIntoDB(syncedFolder)
         assertEquals("Should process all files in complex nested structure", 5, processedCount)
     }
 

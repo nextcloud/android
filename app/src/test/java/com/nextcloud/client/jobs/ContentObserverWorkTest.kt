@@ -11,9 +11,16 @@ package com.nextcloud.client.jobs
 import android.content.Context
 import android.net.Uri
 import androidx.work.WorkerParameters
+import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
+import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
 import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.UploadsStorageManager
+import io.mockk.clearAllMocks
+import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
@@ -42,18 +49,32 @@ class ContentObserverWorkTest {
     @Mock
     lateinit var backgroundJobManager: BackgroundJobManager
 
+    private val mockDao: FileSystemDao = mockk(relaxed = true)
+    private val mockContext: Context = mockk(relaxed = true)
+    private val mockUploadsStorageManager: UploadsStorageManager = mockk(relaxed = true)
+
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
+
+        val repo = FileSystemRepository(mockDao, mockUploadsStorageManager, mockContext)
+        val helper = AutoUploadHelper(repo)
+
         worker = ContentObserverWork(
             context = context,
             params = params,
             syncedFolderProvider = folderProvider,
             powerManagementService = powerManagementService,
-            backgroundJobManager = backgroundJobManager
+            backgroundJobManager = backgroundJobManager,
+            autoUploadHelper = helper
         )
         val uri: Uri = Mockito.mock(Uri::class.java)
         whenever(params.triggeredContentUris).thenReturn(listOf(uri))
+    }
+
+    @After
+    fun cleanup() {
+        clearAllMocks()
     }
 
     @Test

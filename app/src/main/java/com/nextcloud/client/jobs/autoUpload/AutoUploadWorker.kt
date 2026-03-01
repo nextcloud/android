@@ -43,8 +43,11 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import java.io.File
+import kotlin.coroutines.cancellation.CancellationException
 
 @Suppress("LongParameterList", "TooManyFunctions", "TooGenericExceptionCaught")
 class AutoUploadWorker(
@@ -55,7 +58,6 @@ class AutoUploadWorker(
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
     private val syncedFolderProvider: SyncedFolderProvider,
-    private val backgroundJobManager: BackgroundJobManager,
     private val repository: FileSystemRepository,
     val viewThemeUtils: ViewThemeUtils,
     localBroadcastManager: LocalBroadcastManager
@@ -64,12 +66,10 @@ class AutoUploadWorker(
     companion object {
         const val TAG = "🔄📤" + "AutoUpload"
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
-        const val CONTENT_URIS = "content_uris"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
         const val NOTIFICATION_ID = 266
     }
 
-    private val helper = AutoUploadHelper()
     private val syncFolderHelper = SyncFolderHelper(context)
     private val fileUploadBroadcastManager = FileUploadBroadcastManager(localBroadcastManager)
     private lateinit var syncedFolder: SyncedFolder
@@ -84,20 +84,14 @@ class AutoUploadWorker(
 
             Log_OC.d(TAG, syncedFolder.getLog())
 
-            /**
-             * Receives from [com.nextcloud.client.jobs.ContentObserverWork.checkAndTriggerAutoUpload]
-             */
-            val contentUris = inputData.getStringArray(CONTENT_URIS)
-
-            if (canExitEarly(contentUris, syncFolderId)) {
-                return Result.retry()
+            if (canExitEarly(syncFolderId)) {
+                return Result.success()
             }
 
             if (powerManagementService.isPowerSavingEnabled) {
                 Log_OC.w(TAG, "power saving mode enabled")
             }
 
-            collectFileChangesFromContentObserverWork(contentUris)
             uploadFiles(syncedFolder)
 
             // only update last scan time after uploading files
@@ -106,6 +100,9 @@ class AutoUploadWorker(
 
             Log_OC.d(TAG, "✅ ${syncedFolder.remotePath} completed")
             Result.success()
+        } catch (e: CancellationException) {
+            Log_OC.w(TAG, "⚠️ Job cancelled")
+            throw e
         } catch (e: Exception) {
             Log_OC.e(TAG, "❌ failed: ${e.message}")
             Result.failure()
@@ -172,7 +169,7 @@ class AutoUploadWorker(
     }
 
     @Suppress("ReturnCount")
-    private fun canExitEarly(contentUris: Array<String>?, syncedFolderID: Long): Boolean {
+    private suspend fun canExitEarly(syncedFolderID: Long): Boolean {
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
             Log_OC.w(TAG, "⚡ Skipping: device is in power saving mode")
@@ -184,16 +181,17 @@ class AutoUploadWorker(
             return true
         }
 
-        if (backgroundJobManager.isAutoUploadWorkerRunning(syncedFolderID)) {
-            Log_OC.w(TAG, "🚧 another worker is already running for $syncedFolderID")
-            return true
+        val hasPendingFiles = repository.hasPendingFiles(syncedFolder)
+        if (hasPendingFiles) {
+            Log_OC.d(TAG, "pending files found, starting...")
+            return false
         }
 
         val totalScanInterval = syncedFolder.getTotalScanInterval(connectivityService, powerManagementService)
         val currentTime = System.currentTimeMillis()
         val passedScanInterval = totalScanInterval <= currentTime
 
-        if (!passedScanInterval && contentUris.isNullOrEmpty() && !overridePowerSaving) {
+        if (!passedScanInterval && !overridePowerSaving) {
             Log_OC.w(
                 TAG,
                 "skipped since started before scan interval and nothing todo: " + syncedFolder.localPath
@@ -204,35 +202,6 @@ class AutoUploadWorker(
         Log_OC.d(TAG, "starting ...")
 
         return false
-    }
-
-    /**
-     * Instead of scanning the entire local folder, optional content URIs can be passed to the worker
-     * to detect only the relevant changes.
-     */
-    @Suppress("MagicNumber", "TooGenericExceptionCaught")
-    private suspend fun collectFileChangesFromContentObserverWork(contentUris: Array<String>?) = try {
-        Log_OC.d(TAG, "collecting file changes")
-
-        withContext(Dispatchers.IO) {
-            if (contentUris.isNullOrEmpty()) {
-                Log_OC.d(TAG, "inserting all entries")
-                helper.insertEntries(syncedFolder, repository)
-            } else {
-                Log_OC.d(TAG, "inserting changed entries")
-                val isContentUrisStored = helper.insertChangedEntries(syncedFolder, contentUris, repository)
-                if (!isContentUrisStored) {
-                    Log_OC.w(
-                        TAG,
-                        "changed content uris not stored, fallback to insert all db entries to not lose files"
-                    )
-
-                    helper.insertEntries(syncedFolder, repository)
-                }
-            }
-        }
-    } catch (e: Exception) {
-        Log_OC.d(TAG, "Exception collectFileChangesFromContentObserverWork: $e")
     }
 
     private fun getUserOrReturn(syncedFolder: SyncedFolder): User? {
@@ -279,7 +248,7 @@ class AutoUploadWorker(
 
         var lastId = 0
 
-        while (true) {
+        while (isActive) {
             val filePathsWithIds = repository.getFilePathsWithIds(syncedFolder, lastId)
 
             if (filePathsWithIds.isEmpty()) {
@@ -289,6 +258,8 @@ class AutoUploadWorker(
             Log_OC.d(TAG, "started, processing batch: lastId=$lastId, count=${filePathsWithIds.size}")
 
             filePathsWithIds.forEachIndexed { batchIndex, (path, id) ->
+                ensureActive()
+
                 val file = File(path)
                 val localPath = file.absolutePath
                 val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, file)
