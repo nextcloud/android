@@ -39,10 +39,10 @@
             android:icon="@drawable/selector_share"
             android:title="@string/drawer_item_shared" />
         <item
-            android:id="@+id/nav_recently_modified"
+            android:id="@+id/nav_recent_files"
             android:icon="@drawable/selector_recently"
             android:orderInCategory="0"
-            android:title="@string/drawer_item_recently_modified"
+            android:title="@string/drawer_item_recent_files"
             android:visible="true"/>
         <item
             android:id="@+id/nav_groupfolders"
