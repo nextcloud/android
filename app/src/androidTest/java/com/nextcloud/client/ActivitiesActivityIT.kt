@@ -34,10 +34,6 @@ class ActivitiesActivityIT : AbstractIT() {
     @ScreenshotTest
     fun openDrawer() {
         launchActivity<ActivitiesActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                sut.dismissSnackbar()
-            }
-
             onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
 
             scenario.onActivity { sut ->
@@ -54,7 +50,6 @@ class ActivitiesActivityIT : AbstractIT() {
     fun loading() {
         launchActivity<ActivitiesActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                sut.dismissSnackbar()
                 sut.binding.emptyList.root.visibility = View.GONE
                 sut.binding.swipeContainingList.visibility = View.GONE
                 sut.binding.loadingContent.visibility = View.VISIBLE
@@ -76,7 +71,6 @@ class ActivitiesActivityIT : AbstractIT() {
             scenario.onActivity { sut ->
                 sut.showActivities(mutableListOf(), nextcloudClient, -1)
                 sut.setProgressIndicatorState(false)
-                sut.dismissSnackbar()
             }
 
             val screenShotName = createName(testClassName + "_" + "empty", "")
@@ -170,7 +164,6 @@ class ActivitiesActivityIT : AbstractIT() {
             scenario.onActivity { sut ->
                 sut.showActivities(activities as List<Any>?, nextcloudClient, -1)
                 sut.setProgressIndicatorState(false)
-                sut.dismissSnackbar()
             }
 
             val screenShotName = createName(testClassName + "_" + "showActivities", "")
@@ -189,7 +182,6 @@ class ActivitiesActivityIT : AbstractIT() {
             scenario.onActivity { sut ->
                 sut.showEmptyContent("Error", "Error! Please try again later!")
                 sut.setProgressIndicatorState(false)
-                sut.dismissSnackbar()
             }
 
             val screenShotName = createName(testClassName + "_" + "error", "")

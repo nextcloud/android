@@ -35,6 +35,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -124,6 +126,7 @@ public final class DisplayUtils {
     public static final String MONTH_YEAR_PATTERN = "MMMM yyyy";
     public static final String MONTH_PATTERN = "MMMM";
     public static final String YEAR_PATTERN = "yyyy";
+    private static final Handler mainLooper = new Handler(Looper.getMainLooper());
     public static final int SVG_SIZE = 512;
 
     private static Map<String, String> mimeType2HumanReadable;
@@ -574,46 +577,94 @@ public final class DisplayUtils {
         return text.toString();
     }
 
-    public static Snackbar showSnackMessage(Fragment fragment, @StringRes int messageResource) {
+    // region snackbar
+    public static void showSnackMessage(Fragment fragment, @StringRes int messageResource) {
         if (fragment == null) {
-            return null;
+            Log_OC.e(TAG, "snackbar cannot be shown fragment is null");
+            return;
         }
 
         final var activity = fragment.getActivity();
         if (activity == null) {
-            return null;
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
+            return;
         }
 
-        return showSnackMessage(activity, messageResource);
+         showSnackMessage(activity, messageResource);
     }
 
-    /**
-     * Show a temporary message in a {@link Snackbar} bound to the content view.
-     *
-     * @param activity        The {@link Activity} to which's content view the {@link Snackbar} is bound.
-     * @param messageResource The resource id of the string resource to use. Can be formatted text.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar showSnackMessage(Activity activity, @StringRes int messageResource) {
-        return showSnackMessage(activity.findViewById(android.R.id.content), messageResource);
-    }
-
-    /**
-     * Show a temporary message in a {@link Snackbar} bound to the content view.
-     *
-     * @param activity The {@link Activity} to which's content view the {@link Snackbar} is bound.
-     * @param message  Message to show.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar showSnackMessage(Activity activity, String message) {
-        final Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
-        var fab = findFABView(activity);
-        if (fab != null && fab.getVisibility() == View.VISIBLE) {
-            snackbar.setAnchorView(fab);
+    public static void showSnackMessage(Activity activity, @StringRes int messageResource) {
+        if (activity == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
+            return;
         }
+
+         showSnackMessage(activity.findViewById(android.R.id.content), messageResource);
+    }
+
+    public static void showSnackMessage(Activity activity, @StringRes int messageResource, Object... formatArgs) {
+        if (activity == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
+            return;
+        }
+
+        showSnackMessage(activity, activity.findViewById(android.R.id.content), messageResource, formatArgs);
+    }
+
+    public static void showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
+        if (context == null || view == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown view is null");
+            return;
+        }
+
+        final var snackbar = Snackbar.make(view, String.format(context.getString(messageResource, formatArgs)), Snackbar.LENGTH_LONG);
         snackbar.show();
-        return snackbar;
     }
+
+    public static void showSnackMessage(Activity activity, String message) {
+        if (activity == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
+            return;
+        }
+
+        activity.runOnUiThread(() -> {
+            final var snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
+            var fab = findFABView(activity);
+            if (fab != null && fab.getVisibility() == View.VISIBLE) {
+                snackbar.setAnchorView(fab);
+            }
+            snackbar.show();
+        });
+    }
+
+    public static void showSnackMessage(View view, @StringRes int messageResource) {
+        if (view == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown view is null");
+            return;
+        }
+
+        mainLooper.post(() -> {
+            final var snackbar = Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG);
+            var fab = findFABView(view.getRootView());
+            if (fab != null && fab.getVisibility() == View.VISIBLE) {
+                snackbar.setAnchorView(fab);
+            }
+            snackbar.show();
+        });
+    }
+
+    public static void showSnackMessage(View view, String message) {
+        if (view == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown view is null");
+            return;
+        }
+
+        mainLooper.post(() -> {
+            final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+            snackbar.show();
+        });
+    }
+    // endregion
 
     private static View findFABView(Activity activity) {
         return activity.findViewById(R.id.fab_main);
@@ -621,36 +672,6 @@ public final class DisplayUtils {
 
     private static View findFABView(View view) {
         return view.findViewById(R.id.fab_main);
-    }
-
-    /**
-     * Show a temporary message in a {@link Snackbar} bound to the given view.
-     *
-     * @param view            The view the {@link Snackbar} is bound to.
-     * @param messageResource The resource id of the string resource to use. Can be formatted text.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar showSnackMessage(View view, @StringRes int messageResource) {
-        final Snackbar snackbar = Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG);
-        var fab = findFABView(view.getRootView());
-        if (fab != null && fab.getVisibility() == View.VISIBLE) {
-            snackbar.setAnchorView(fab);
-        }
-        snackbar.show();
-        return snackbar;
-    }
-
-    /**
-     * Show a temporary message in a {@link Snackbar} bound to the given view.
-     *
-     * @param view    The view the {@link Snackbar} is bound to.
-     * @param message The message.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar showSnackMessage(View view, String message) {
-        final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
-        snackbar.show();
-        return snackbar;
     }
 
     /**
@@ -664,36 +685,6 @@ public final class DisplayUtils {
         return Snackbar.make(view, messageResource, length);
     }
 
-    /**
-     * Show a temporary message in a {@link Snackbar} bound to the content view.
-     *
-     * @param activity        The {@link Activity} to which's content view the {@link Snackbar} is bound.
-     * @param messageResource The resource id of the string resource to use. Can be formatted text.
-     * @param formatArgs      The format arguments that will be used for substitution.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar showSnackMessage(Activity activity, @StringRes int messageResource, Object... formatArgs) {
-        return showSnackMessage(activity, activity.findViewById(android.R.id.content), messageResource, formatArgs);
-    }
-
-    /**
-     * Show a temporary message in a {@link Snackbar} bound to the content view.
-     *
-     * @param context         to load resources.
-     * @param view            The content view the {@link Snackbar} is bound to.
-     * @param messageResource The resource id of the string resource to use. Can be formatted text.
-     * @param formatArgs      The format arguments that will be used for substitution.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
-        final Snackbar snackbar = Snackbar.make(
-            view,
-            String.format(context.getString(messageResource, formatArgs)),
-            Snackbar.LENGTH_LONG);
-        snackbar
-            .show();
-        return snackbar;
-    }
 
     // Solution inspired by https://stackoverflow.com/questions/34936590/why-isnt-my-vector-drawable-scaling-as-expected
     // Copied from https://raw.githubusercontent.com/nextcloud/talk-android/8ec8606bc61878e87e3ac8ad32c8b72d4680013c/app/src/main/java/com/nextcloud/talk/utils/DisplayUtils.java
