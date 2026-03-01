@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Josh Richards <josh.t.richards@gmail.com>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2016-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
@@ -24,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -110,6 +112,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.IntentCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -119,7 +122,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
- * This can be used to upload things to an Nextcloud instance.
+ * Activity for handling files or text shared to the Nextcloud app from external apps.
+ *
+ * Allows users to select a destination folder, handles account selection,
+ * and manages the upload process for received files or shared text into their Nextcloud account.
+ * Supports single/multiple file uploads, plain text, and provides rich UI feedback for all actions.
+ *
  */
 public class ReceiveExternalFilesActivity extends FileActivity
     implements View.OnClickListener, CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener,
@@ -141,7 +149,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
-    private List<Parcelable> mStreamsToUpload;
+    private ArrayList<Uri> mStreamsToUpload = new ArrayList<>();
+    private int mIntendedUploadCount = 0;
     private String mUploadPath;
     private OCFile mFile;
 
@@ -892,19 +901,115 @@ public class ReceiveExternalFilesActivity extends FileActivity
         return full_path.toString();
     }
 
+    /**
+     * Prepares the list of files or text to upload by parsing the incoming Intent.
+     * Supports single file (ACTION_SEND + EXTRA_STREAM), multiple files (ACTION_SEND_MULTIPLE + EXTRA_STREAM),
+     * and plain text (ACTION_SEND + EXTRA_TEXT).
+     */
     private void prepareStreamsToUpload() {
         Intent intent = getIntent();
+        String action = intent.getAction();
 
-        if (intent.hasExtra(Intent.EXTRA_STREAM) && Intent.ACTION_SEND.equals(intent.getAction())) {
+        // Multiple files
+        if (Intent.ACTION_SEND_MULTIPLE.equals(action)) {
             mStreamsToUpload = new ArrayList<>();
-            mStreamsToUpload.add(IntentExtensionsKt.getParcelableArgument(intent, Intent.EXTRA_STREAM, Parcelable.class));
-        } else if (intent.hasExtra(Intent.EXTRA_STREAM) && Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction())) {
-            mStreamsToUpload = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-        } else if (intent.hasExtra(Intent.EXTRA_TEXT) && Intent.ACTION_SEND.equals(intent.getAction())) {
-            mStreamsToUpload = null;
-            saveTextsFromIntent(intent);
-        } else {
-            showErrorDialog(R.string.uploader_error_message_no_file_to_upload, R.string.uploader_error_title_file_cannot_be_uploaded);
+
+            ArrayList<Uri> uriList = IntentCompat.getParcelableArrayListExtra(intent, Intent.EXTRA_STREAM, Uri.class);
+            Log.d(TAG, "ACTION_SEND_MULTIPLE received with uriList: " + uriList);
+
+            if (uriList == null || uriList.isEmpty()) {
+                showErrorDialog(R.string.uploader_error_message_no_file_to_upload,
+                                R.string.uploader_error_title_file_cannot_be_uploaded);
+                return;
+            }
+            mIntendedUploadCount = uriList.size();
+
+            // Remove any nulls and check readabilty of each Uri (background thread)
+            executorService.execute(() -> {
+                ArrayList<Uri> accepted = new ArrayList<>();
+                ArrayList<Uri> failed = new ArrayList<>();
+                for (Uri uri : uriList) {
+                    if (uri != null && isUriAccessible(uri)) {
+                        accepted.add(uri);
+                    } else {
+                        failed.add(uri);
+                        Log.w(TAG, "Uri not accessible or null: " + uri);
+                    }
+                }
+                if (!isFinishing() && !isDestroyed()) {
+                    runOnUiThread(() -> handleParsedUris(accepted, failed));
+                }
+            });
+            return;
+        }
+
+        // Single file
+        if (Intent.ACTION_SEND.equals(action)) {
+            mStreamsToUpload = new ArrayList<>();
+
+            Uri stream = IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri.class);
+            if (stream != null) {
+                mIntendedUploadCount = 1;
+                executorService.execute(() -> {
+                    ArrayList<Uri> accepted = new ArrayList<>();
+                    ArrayList<Uri> failed = new ArrayList<>();
+                    if (isUriAccessible(stream)) {
+                        accepted.add(stream);
+                    } else {
+                        failed.add(stream);
+                        Log.w(TAG, "Single Uri not accessible: " + stream);
+                    }
+                    if (!isFinishing() && !isDestroyed()) {
+                        runOnUiThread(() -> handleParsedUris(accepted, failed));
+                    }
+                });
+                return;
+            }
+
+            // Plain text sharing (ACTION_SEND, no stream, but has text)
+            if (intent.hasExtra(Intent.EXTRA_TEXT)) { 
+                mStreamsToUpload = null;
+                saveTextsFromIntent(intent);
+                Log.d(TAG, "Text received via EXTRA_TEXT");
+                return;
+            }
+        }
+
+        // Fallback: No recognized share type found or error scenario
+        showErrorDialog(R.string.uploader_error_message_no_file_to_upload,
+                       R.string.uploader_error_title_file_cannot_be_uploaded);
+    }
+
+    // Helper method for UI-thread result handling and user feedback
+    private void handleParsedUris(ArrayList<Uri> accepted, ArrayList<Uri> failed) {
+        mStreamsToUpload = accepted;
+
+        if (accepted.isEmpty()) {
+            showErrorDialog(R.string.uploader_error_message_file_cannot_be_accessed,
+                            R.string.uploader_error_title_file_cannot_be_uploaded);
+            return;
+        }
+
+        if (!failed.isEmpty()) {
+            // User feedback for any files that could not be processed
+            String msg = getResources().getQuantityString(
+                R.plurals.uploader_error_partial_success,
+                accepted.size(),
+                accepted.size(), (accepted.size() + failed.size())
+            );
+            DisplayUtils.showSnackMessage(this, msg);
+        }
+        // Otherwise, proceed as normal (trigger upload next step)
+    }
+
+    // Defensive helper to check Uri access (run on background thread only!)
+    private boolean isUriAccessible(Uri uri) {
+        if (uri == null) return false;
+        try (InputStream in = getContentResolver().openInputStream(uri)) {
+            return in != null;
+        } catch (Exception e) {
+            Log.w(TAG, "Cannot access file Uri: " + uri, e);
+            return false;
         }
     }
 
@@ -925,8 +1030,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private boolean somethingToUpload() {
-        return (mStreamsToUpload != null && !mStreamsToUpload.isEmpty() && mStreamsToUpload.get(0) != null ||
-            mUploadFromTmpFile);
+        if (mUploadFromTmpFile) {
+            return true;
+        }
+
+        // Valid stream
+        return mStreamsToUpload != null
+                && !mStreamsToUpload.isEmpty();
     }
 
     public void uploadFile(String tmpName, String filename) {

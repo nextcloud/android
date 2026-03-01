@@ -204,6 +204,11 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s is not allowed to read a received file</string>
     <string name="uploader_error_message_source_file_not_found">File selected for upload not found. Please check whether the file exists.</string>
     <string name="uploader_error_message_source_file_not_copied">Could not copy file to a temporary folder. Try to resend it.</string>
+    <plurals name="uploader_error_partial_success">
+        <item quantity="one">%1$d of %2$d files was accepted and will be uploaded.</item>
+        <item quantity="other">%1$d of %2$d files were accepted and will be uploaded.</item>
+    </plurals>
+    <string name="uploader_error_message_file_cannot_be_accessed">Some files couldn't be accessed. Please check permissions or try again.</string>
     <string name="uploader_upload_files_behaviour">Upload option:</string>
     <string name="file_upload_worker_same_file_already_exists">%s already exists, no conflict detected</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Move file to %1$s folder</string>
