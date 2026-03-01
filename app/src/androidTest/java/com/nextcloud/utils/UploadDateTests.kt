@@ -18,6 +18,8 @@ import com.owncloud.android.utils.DisplayUtils
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -47,8 +49,13 @@ class UploadDateTests {
     fun setup() {
         context = InstrumentationRegistry.getInstrumentation().context
         MockKAnnotations.init(this, relaxed = true)
-        mockkStatic(System::class)
+        mockkStatic(System::currentTimeMillis)
         every { System.currentTimeMillis() } returns JANUARY_27_2026
+    }
+
+    @After
+    fun tearDown() {
+        unmockkStatic(System::currentTimeMillis)
     }
 
     @Test
