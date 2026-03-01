@@ -432,6 +432,10 @@ public class SyncedFolderProvider extends Observable {
      * @return <code>true</code> if exist, <code>false</code> otherwise
      */
     public boolean findByRemotePathAndAccount(String remotePath, User user) {
+        if (user == null) {
+            return false;
+        }
+
         boolean result = false;
 
         //if path ends with / then remove the last / to work the query right way
