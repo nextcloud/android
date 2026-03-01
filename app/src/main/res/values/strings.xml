@@ -1452,9 +1452,13 @@
     <string name="set_download_limit_failed">Unable to set download limit. Please check capabilities.</string>
     <string name="download_limit">Download limit</string>
     <plurals name="share_download_limit_description">
+        <item quantity="zero">No downloads remaining</item>
         <item quantity="one">%1$d download remaining</item>
         <item quantity="other">%1$d downloads remaining</item>
     </plurals>
+    <string name="share_download_limit_required">Download limit is required</string>
+    <string name="share_download_limit_invalid">Please enter a valid number</string>
+    <string name="share_download_limit_must_be_positive">Download limit must be greater than 0</string>
     <string name="sign_tos_failed">Please manually check terms of service!</string>
     <string name="terms_of_service_title">Terms of service</string>
     <string name="terms_of_services_agree">I agree to the above ToS</string>
