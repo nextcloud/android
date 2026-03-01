@@ -23,6 +23,7 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.date.DateFormatter
 import com.owncloud.android.databinding.GalleryHeaderBinding
 import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -256,8 +257,8 @@ class GalleryAdapter(
     private fun transformToRows(list: List<OCFile>): List<GalleryRow> {
         if (list.isEmpty()) return emptyList()
 
+        // List is already sorted by toGalleryItems(), just chunk into rows
         return list
-            .sortedByDescending { it.modificationTimestamp }
             .chunked(columns)
             .map { chunk -> GalleryRow(chunk, defaultThumbnailSize, defaultThumbnailSize) }
     }
@@ -370,12 +371,43 @@ class GalleryAdapter(
         }
     }
 
+    /**
+     * Get the grouping date for a file: use folder date from path if present,
+     * otherwise fall back to modification timestamp month.
+     */
+    private fun getGroupingDate(file: OCFile): Long =
+        firstOfMonth(DateFormatter.extractFolderDate(file.remotePath) ?: file.modificationTimestamp)
+
     private fun List<OCFile>.toGalleryItems(): List<GalleryItems> {
         if (isEmpty()) return emptyList()
 
-        return groupBy { firstOfMonth(it.modificationTimestamp) }
+        return groupBy { getGroupingDate(it) }
             .map { (date, filesList) ->
-                GalleryItems(date, transformToRows(filesList))
+                // Sort files within group: by folder day desc, then by modification timestamp desc
+                val sortedFiles = filesList.sortedWith { a, b ->
+                    val aFolderDate = DateFormatter.extractFolderDate(a.remotePath)
+                    val bFolderDate = DateFormatter.extractFolderDate(b.remotePath)
+                    when {
+                        aFolderDate != null && bFolderDate != null -> {
+                            // Both have folder dates - compare by folder day first (desc)
+                            val dayCompare = bFolderDate.compareTo(aFolderDate)
+                            if (dayCompare != 0) {
+                                dayCompare
+                            } else {
+                                b.modificationTimestamp.compareTo(a.modificationTimestamp)
+                            }
+                        }
+
+                        aFolderDate != null -> -1
+
+                        // a has folder date, comes first
+                        bFolderDate != null -> 1
+
+                        // b has folder date, comes first
+                        else -> b.modificationTimestamp.compareTo(a.modificationTimestamp)
+                    }
+                }
+                GalleryItems(date, transformToRows(sortedFiles))
             }
             .sortedByDescending { it.date }
     }
