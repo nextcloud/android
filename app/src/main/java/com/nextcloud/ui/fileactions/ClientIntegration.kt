@@ -9,14 +9,10 @@ package com.nextcloud.ui.fileactions
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Canvas
-import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.graphics.createBitmap
-import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.Gson
@@ -81,31 +77,25 @@ class ClientIntegration(
                 }
                 text.text = endpoint.name
 
+                val px = DisplayUtils.convertDpToPixel(
+                    context.resources.getDimension(R.dimen.iconized_single_line_item_icon_size),
+                    context
+                )
+
                 if (endpoint.icon != null) {
                     sheet.lifecycleScope.launch(Dispatchers.IO) {
                         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                             .getNextcloudClientFor(user.toOwnCloudAccount(), context)
 
-                        val drawable =
-                            GlideHelper.getDrawable(context, client, client.baseUri.toString() + endpoint.icon)
-                                ?.mutate()
-
-                        val px = DisplayUtils.convertDpToPixel(
-                            context.resources.getDimension(R.dimen.iconized_single_line_item_icon_size),
-                            context
-                        )
-                        val returnedBitmap =
-                            createBitmap(drawable?.intrinsicWidth ?: px, drawable?.intrinsicHeight ?: px)
-
-                        val canvas = Canvas(returnedBitmap)
-                        canvas.drawPicture((drawable as PictureDrawable).picture)
-
-                        val d = returnedBitmap.toDrawable(context.resources)
-
-                        val tintedDrawable = viewThemeUtils.platform.tintDrawable(
+                        val drawable = GlideHelper.fetchDrawable(
                             context,
-                            d
-                        )
+                            client,
+                            client.baseUri.toString() + endpoint.icon,
+                            width = px,
+                            height = px
+                        )?.mutate()
+
+                        val tintedDrawable = drawable?.let { viewThemeUtils.platform.tintDrawable(context, it) }
 
                         withContext(Dispatchers.Main) {
                             icon.setImageDrawable(tintedDrawable)
