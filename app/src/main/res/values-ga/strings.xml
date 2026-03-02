@@ -402,6 +402,7 @@
     <string name="etm_transfer_type">Aistriú</string>
     <string name="etm_transfer_type_download">Íoslódáil</string>
     <string name="etm_transfer_type_upload">Uaslódáil</string>
+    <string name="extension_cannot_be_changed">Ní féidir an síneadh a athrú</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Níl cead agat comhaid a chruthú ná a uaslódáil sa fhillteán seo.</string>
     <string name="external_shares">Scaireanna seachtracha</string>
     <string name="fab_label">Cuir leis nó uaslódáil</string>
