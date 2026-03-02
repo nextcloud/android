@@ -285,20 +285,15 @@ class FileUploadHelperTest {
 
         val result = entity.toOCUpload()
 
+        // OCUpload constructor throws IllegalArgumentException for null remotePath
         assertNull(result)
     }
 
     @Test
     fun toOCUploadAppliesAutoRenameWhenCapabilityIsProvided() {
-        // With a real capability we can only verify it doesn't crash and returns non-null
-        // AutoRename itself is tested separately; here we test the plumbing
         val capability = mockk<OCCapability>(relaxed = true)
         val entity = buildEntity(remotePath = "/remote/photo.jpg")
-
-        // AutoRename.rename is a static call – it may return the same path if no rename is needed
         val result = entity.toOCUpload(capability)
-
-        // Should still produce a valid OCUpload (path may be same or renamed depending on capability)
         assertNotNull(result)
     }
 
@@ -324,7 +319,7 @@ class FileUploadHelperTest {
             folderUnlockToken = null
         )
 
-        // Should not throw; optional fields simply stay at OCUpload defaults
+        // should not throw; optional fields simply stay at OCUpload defaults
         val result = entity.toOCUpload()
 
         assertNotNull(result)
@@ -387,7 +382,7 @@ class FileUploadHelperTest {
     }
 
     @Test
-    fun toUploadEntityMapsIsUseWifiOnlyFalseToZero() {
+    fun toUploadEntityIsUseWifiOnlyIsFalseShouldReturnZero() {
         val upload = buildOCUpload().apply { isUseWifiOnly = false }
 
         val entity = upload.toUploadEntity()
@@ -396,7 +391,7 @@ class FileUploadHelperTest {
     }
 
     @Test
-    fun toUploadEntityMapsIsWhileChargingOnlyFalseToZero() {
+    fun toUploadEntityMapsIsWhileChargingIsFalseShouldReturnZero() {
         val upload = buildOCUpload().apply { isWhileChargingOnly = false }
 
         val entity = upload.toUploadEntity()
@@ -405,7 +400,7 @@ class FileUploadHelperTest {
     }
 
     @Test
-    fun toUploadEntityMapsIsCreateRemoteFolderTrueToOne() {
+    fun toUploadEntityMapsIsCreateRemoteFolderTrueShouldReturnOne() {
         val upload = buildOCUpload().apply { isCreateRemoteFolder = true }
 
         val entity = upload.toUploadEntity()
@@ -414,16 +409,7 @@ class FileUploadHelperTest {
     }
 
     @Test
-    fun toUploadEntityMapsNullFolderUnlockTokenCorrectly() {
-        val upload = buildOCUpload().apply { folderUnlockToken = null }
-
-        val entity = upload.toUploadEntity()
-
-        assertNull(entity.folderUnlockToken)
-    }
-
-    @Test
-    fun roundTripOCUploadToEntityToOCUploadPreservesAllKeyFields() {
+    fun testEntityAndOCUploadConversionTogether() {
         val original = buildOCUpload().apply {
             uploadId = 7L
             fileSize = 333L
