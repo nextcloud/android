@@ -11,6 +11,7 @@ import android.content.Context
 import android.text.TextUtils
 import com.nextcloud.utils.extensions.StringConstants
 import com.nextcloud.utils.extensions.checkWCFRestrictions
+import com.nextcloud.utils.extensions.extension
 import com.nextcloud.utils.extensions.forbiddenFilenameBaseNames
 import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtensions
@@ -19,7 +20,6 @@ import com.nextcloud.utils.extensions.removeFileExtension
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.OCCapability
-import java.io.File
 
 object FileNameValidator {
 
@@ -148,17 +148,12 @@ object FileNameValidator {
         return null
     }
 
-    /**
-     * @return True, if the extension of both filenames is different. If either filename is null, function returns false
-     */
     fun isExtensionChanged(previousFileName: String?, newFileName: String?): Boolean {
         if (previousFileName == null || newFileName == null) {
-            return false
+            return previousFileName != newFileName
         }
-        val previousExtension = File(previousFileName).extension
-        val newExtension = File(newFileName).extension
 
-        return previousExtension != newExtension
+        return previousFileName.extension() != newFileName.extension()
     }
 
     fun isFileHidden(name: String): Boolean = !TextUtils.isEmpty(name) && name[0] == '.'
