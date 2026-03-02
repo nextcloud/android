@@ -166,7 +166,11 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         return new UploadGroup(config.type, parentActivity.getString(config.titleRes)) {
             @Override
             public void refresh(LoadCompleteListener listener) {
-                uploadHelper.getUploadsByStatus(accountName, config.status, config.nameCollisionPolicy,ocUploads -> {
+                uploadHelper.getUploadsByStatus(accountName,
+                                                config.status,
+                                                parentActivity.getCapabilities(),
+                                                config.nameCollisionPolicy,
+                                                ocUploads -> {
                     fixAndSortItems(ocUploads);
                     listener.onComplete();
                     return Unit.INSTANCE;
