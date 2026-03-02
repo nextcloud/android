@@ -402,6 +402,7 @@
     <string name="etm_transfer_type">Передати</string>
     <string name="etm_transfer_type_download">Звантажити</string>
     <string name="etm_transfer_type_upload">Завантажити</string>
+    <string name="extension_cannot_be_changed">Неможливо змінити розширення</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">У вас відсутній доступ на створення або завантаження файлів до цього каталогу.</string>
     <string name="external_shares">Зовнішні спільні ресурси</string>
     <string name="fab_label">Додати або завантажити</string>
