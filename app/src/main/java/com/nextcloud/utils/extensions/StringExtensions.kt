@@ -38,7 +38,7 @@ fun String?.eTagChanged(eTagOnServer: String?): Boolean {
 fun String.extension(): String {
     val lastDot = lastIndexOf('.')
 
-    //  return empty string for filenames like ".gitignore"
+    // return empty string for filenames like ".gitignore"
     if (lastDot <= 0 || lastDot == length - 1) {
         return ""
     }
