@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2018-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
@@ -227,6 +228,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
     public static boolean isMultipleFileSelectedForCopyOrMove = false;
+
+    private static final Intent scanIntentExternalApp = new Intent("org.fairscan.app.action.SCAN_TO_PDF");
 
     @Inject DeviceInfo deviceInfo;
 
@@ -588,6 +591,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 ", currentFile=" + currentFile);
             DisplayUtils.showSnackMessage(this, R.string.error_starting_doc_scan);
         }
+    }
+
+    @Override
+    public void scanDocUploadFromApp() {
+        requireActivity().startActivityForResult(
+            scanIntentExternalApp,
+            FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME);
+    }
+
+    @Override
+    public boolean isScanDocUploadFromAppAvailable() {
+        var context = getActivity();
+        if (context == null) {
+            return false;
+        }
+        return scanIntentExternalApp.resolveActivity(context.getPackageManager()) != null;
     }
 
     @Override
