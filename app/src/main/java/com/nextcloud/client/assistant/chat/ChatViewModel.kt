@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepository
 import com.nextcloud.utils.TimeConstants.MILLIS_PER_SECOND
+import com.nextcloud.utils.date.DateFormatPattern
+import com.nextcloud.utils.date.DateFormatter
 import com.nextcloud.utils.extensions.isHuman
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessageRequest
@@ -56,13 +58,18 @@ class ChatViewModel(private val remoteRepository: AssistantRemoteRepository) : V
 
             val lastMessageIsHuman = currentMessages.lastOrNull()?.isHuman() == true
 
-            _sessionTitle.update {
-                session?.sessionTitle
+            // update session title if exists
+            session?.sessionTitle?.let {
+                _sessionTitle.update {
+                    it
+                }
             }
 
             when {
                 currentChatTaskId != null && currentChatTaskId != "0" -> startPolling(sessionId)
+
                 lastMessageIsHuman -> _uiState.update { ChatUIState.RetryAvailable(currentMessages) }
+
                 else -> _uiState.update {
                     if (currentMessages.isEmpty()) {
                         ChatUIState.Empty
@@ -178,6 +185,18 @@ class ChatViewModel(private val remoteRepository: AssistantRemoteRepository) : V
             _sessionId.update { newSessionId }
             currentChatTaskId = null
             sendMessageInternal(content, newSessionId)
+        }
+    }
+
+    fun updateSessionTitle(timestamp: Long) {
+        val newSessionTitle = DateFormatter
+            .timestampToDateRepresentation(
+                timestamp,
+                DateFormatPattern.MonthDayYearTime
+            )
+
+        _sessionTitle.update {
+            newSessionTitle
         }
     }
 
