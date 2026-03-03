@@ -37,7 +37,19 @@
                 android:layout_width="@dimen/file_icon_size"
                 android:layout_height="@dimen/file_icon_size"
                 android:contentDescription="@null"
-                android:src="@drawable/folder" />
+                android:src="@drawable/ic_find_in_page" />
+
+            <ImageView
+                android:id="@+id/thumbnail_overlay_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:tint="@color/text_color_inverse"
+                tools:visibility="visible"
+                android:padding="@dimen/standard_quarter_padding"
+                android:src="@drawable/ic_lock"
+                android:contentDescription="@null" />
 
             <com.elyeproj.loaderviewlibrary.LoaderImageView
                 android:id="@+id/thumbnail_shimmer"
@@ -63,6 +75,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/titleContainer"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -88,7 +101,8 @@
             android:layout_height="wrap_content"
             android:ellipsize="middle"
             android:singleLine="true"
-            android:text=""
+            android:visibility="gone"
+            tools:visibility="visible"
             android:textColor="@color/list_item_lastmod_and_filesize_text"
             android:textSize="@dimen/two_line_secondary_text_size"
             tools:text="@string/placeholder_in_folder" />
