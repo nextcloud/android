@@ -118,6 +118,13 @@ class ChatViewModel(private val remoteRepository: AssistantRemoteRepository) : V
     }
 
     fun sendMessage(content: String, sessionId: Long) {
+        _uiState.update { ChatUIState.Sending(currentMessages) }
+        viewModelScope.launch(Dispatchers.IO) {
+            sendMessageInternal(content, sessionId)
+        }
+    }
+
+    private suspend fun sendMessageInternal(content: String, sessionId: Long) {
         val request = ChatMessageRequest(
             sessionId = sessionId.toString(),
             role = "human",
@@ -126,18 +133,14 @@ class ChatViewModel(private val remoteRepository: AssistantRemoteRepository) : V
             firstHumanMessage = currentMessages.isEmpty()
         )
 
-        _uiState.update { ChatUIState.Sending(currentMessages) }
-
-        viewModelScope.launch(Dispatchers.IO) {
-            val sentMessage = remoteRepository.sendChatMessage(request)
-            if (sentMessage != null) {
-                currentMessages = currentMessages + sentMessage
-                stopPolling()
-                generateSession(sessionId)
-                startPolling(sessionId)
-            } else {
-                _uiState.update { ChatUIState.Error(currentMessages, ChatErrorType.SendMessage) }
-            }
+        val sentMessage = remoteRepository.sendChatMessage(request)
+        if (sentMessage != null) {
+            currentMessages = currentMessages + sentMessage
+            stopPolling()
+            generateSession(sessionId)
+            startPolling(sessionId)
+        } else {
+            _uiState.update { ChatUIState.Error(currentMessages, ChatErrorType.SendMessage) }
         }
     }
 
@@ -156,6 +159,11 @@ class ChatViewModel(private val remoteRepository: AssistantRemoteRepository) : V
     }
 
     fun startNewConversation(content: String) {
+        if (_sessionId.value != null) {
+            sendMessage(content, _sessionId.value!!)
+            return
+        }
+
         _uiState.update { ChatUIState.Sending(currentMessages) }
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -167,7 +175,7 @@ class ChatViewModel(private val remoteRepository: AssistantRemoteRepository) : V
             val newSessionId = result.session.id
             _sessionId.update { newSessionId }
             currentChatTaskId = null
-            sendMessage(content, newSessionId)
+            sendMessageInternal(content, newSessionId)
         }
     }
 
