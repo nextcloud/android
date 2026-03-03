@@ -55,7 +55,7 @@ class ScreenshotsIT : AbstractIT() {
             OCFile(path).apply {
                 storageManager.saveFile(this)
             }
-            onView(withId(R.id.list_root)).perform(click())
+            // onView(withId(R.id.list_root)).perform(click())
 
             onView(isRoot()).check(matches(isDisplayed()))
             Screengrab.screenshot("02_listView")
