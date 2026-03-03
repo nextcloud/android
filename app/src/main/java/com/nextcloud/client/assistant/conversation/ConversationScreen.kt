@@ -107,6 +107,7 @@ fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, open
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 viewModel.createConversation(null, onResult = {
+                    viewModel.selectConversation(null)
                     openChat(it)
                 })
             }) {
