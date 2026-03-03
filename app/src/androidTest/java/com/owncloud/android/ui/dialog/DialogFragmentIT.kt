@@ -63,10 +63,6 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.dialog.LoadingDialog.Companion.newInstance
-import com.owncloud.android.ui.dialog.RenameFileDialogFragment.Companion.newInstance
-import com.owncloud.android.ui.dialog.SharePasswordDialogFragment.Companion.newInstance
-import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.Companion.newInstanceForEmptySslError
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog
@@ -104,7 +100,7 @@ class DialogFragmentIT : AbstractIT() {
             Looper.prepare()
         }
 
-        newInstance(
+        RenameFileDialogFragment.newInstance(
             OCFile("/Test/"),
             OCFile("/")
         ).run {
@@ -115,7 +111,7 @@ class DialogFragmentIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun testLoadingDialog() {
-        newInstance("Wait…").run {
+        LoadingDialog.newInstance("Wait…").run {
             showDialog(this)
         }
     }
@@ -240,7 +236,7 @@ class DialogFragmentIT : AbstractIT() {
         if (Looper.myLooper() == null) {
             Looper.prepare()
         }
-        val sut = newInstance(OCFile("/"), true, false)
+        val sut = SharePasswordDialogFragment.newInstance(OCFile("/"), createShare = true, askForPassword = false)
         showDialog(sut)
     }
 
@@ -250,7 +246,7 @@ class DialogFragmentIT : AbstractIT() {
         if (Looper.myLooper() == null) {
             Looper.prepare()
         }
-        val sut = newInstance(OCFile("/"), true, true)
+        val sut = SharePasswordDialogFragment.newInstance(OCFile("/"), createShare = true, askForPassword = true)
         showDialog(sut)
     }
 
@@ -634,7 +630,7 @@ class DialogFragmentIT : AbstractIT() {
 
         val handler = mockk<SslErrorHandler>(relaxed = true)
 
-        newInstanceForEmptySslError(sslError, handler).run {
+        SslUntrustedCertDialog.newInstanceForEmptySslError(sslError, handler).run {
             showDialog(this)
         }
     }
