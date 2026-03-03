@@ -63,7 +63,13 @@ class ChatViewModel(private val remoteRepository: AssistantRemoteRepository) : V
             when {
                 currentChatTaskId != null && currentChatTaskId != "0" -> startPolling(sessionId)
                 lastMessageIsHuman -> _uiState.update { ChatUIState.RetryAvailable(currentMessages) }
-                else -> _uiState.update { ChatUIState.Content(currentMessages) }
+                else -> _uiState.update {
+                    if (currentMessages.isEmpty()) {
+                        ChatUIState.Empty
+                    } else {
+                        ChatUIState.Content(currentMessages)
+                    }
+                }
             }
         }
     }
