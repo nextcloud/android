@@ -78,8 +78,10 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.status.OCCapability
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private const val CHAT_INPUT_DELAY = 100L
 private const val PULL_TO_REFRESH_DELAY = 1500L
@@ -126,9 +128,14 @@ fun AssistantScreen(
                 pagerState.scrollToPage(AssistantPage.Content.id)
             }
 
-            taskTypes?.let { taskTypes ->
-                viewModel.updateScreenOverlayState(ScreenOverlayState.TaskTypes(copiedText, taskTypes))
-                snackbarHostState.showSnackbar(activity.getString(R.string.assistant_screen_text_selected))
+            scope.launch(Dispatchers.IO) {
+                val types = viewModel.getRemoteRepository().fetchTaskTypes()
+                if (!types.isNullOrEmpty()) {
+                    withContext(Dispatchers.Main) {
+                        viewModel.updateScreenOverlayState(ScreenOverlayState.TaskTypes(copiedText, types))
+                        snackbarHostState.showSnackbar(activity.getString(R.string.assistant_screen_text_selected))
+                    }
+                }
             }
         }
     }
@@ -399,6 +406,11 @@ private fun OverlayState(state: ScreenOverlayState?, activity: Activity, viewMod
                 }, onConfirm = {
                     viewModel.selectTaskType(it)
                     viewModel.updateInputBarText(state.copiedText)
+
+                    if (it.isTranslate()) {
+                        viewModel.updateTranslationTaskState(true)
+                        viewModel.updateScreenState(AssistantScreenState.Translation(null))
+                    }
                 })
             }
         }
