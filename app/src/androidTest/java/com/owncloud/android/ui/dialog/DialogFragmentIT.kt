@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.dialog
 
-import android.Manifest
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.app.Dialog
@@ -27,7 +26,6 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
-import androidx.test.rule.GrantPermissionRule
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -72,7 +70,6 @@ import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import io.mockk.mockk
 import org.junit.After
-import org.junit.Rule
 import org.junit.Test
 import java.net.URI
 import java.util.function.Supplier
@@ -81,11 +78,6 @@ import java.util.function.Supplier
 class DialogFragmentIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.dialog.DialogFragmentIT"
     private val serverUrl = "https://nextcloud.localhost"
-
-    @get:Rule
-    val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.POST_NOTIFICATIONS
-    )
 
     @After
     fun quitLooperIfNeeded() {

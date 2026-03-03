@@ -95,6 +95,7 @@ public abstract class AbstractIT {
     @Rule
     public final TestRule storagePermissionRule = GrantStoragePermissionRule.grant();
 
+//    Not needed for API29, might needed for newer API
 //    @Rule
 //    public GrantPermissionRule notificationsPermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS);
 
