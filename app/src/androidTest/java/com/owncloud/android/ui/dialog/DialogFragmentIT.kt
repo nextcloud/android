@@ -95,7 +95,7 @@ class DialogFragmentIT : AbstractIT() {
             OCFile("/Test/"),
             OCFile("/")
         ).run {
-            showDialog(this)
+            showDialog(this, "testRenameFileDialog")
         }
     }
 
@@ -103,7 +103,7 @@ class DialogFragmentIT : AbstractIT() {
     @ScreenshotTest
     fun testLoadingDialog() {
         LoadingDialog.newInstance("Wait…").run {
-            showDialog(this)
+            showDialog(this, "testLoadingDialog")
         }
     }
 
@@ -119,7 +119,7 @@ class DialogFragmentIT : AbstractIT() {
             -1,
             -1
         ).run {
-            showDialog(this)
+            showDialog(this, "testConfirmationDialogWithOneAction")
         }
     }
 
@@ -135,7 +135,7 @@ class DialogFragmentIT : AbstractIT() {
             -1,
             -1
         ).run {
-            showDialog(this)
+            showDialog(this, "testConfirmationDialogWithTwoAction")
         }
     }
 
@@ -151,7 +151,7 @@ class DialogFragmentIT : AbstractIT() {
             R.string.common_confirm,
             -1
         ).run {
-            showDialog(this)
+            showDialog(this, "testConfirmationDialogWithThreeAction")
         }
     }
 
@@ -168,7 +168,7 @@ class DialogFragmentIT : AbstractIT() {
             R.string.common_confirm,
             -1
         ).run {
-            showDialog(this)
+            showDialog(this, "testConfirmationDialogWithThreeActionRTL")
             resetLocale()
         }
     }
@@ -177,7 +177,7 @@ class DialogFragmentIT : AbstractIT() {
     @ScreenshotTest
     fun testRemoveFileDialog() {
         RemoveFilesDialogFragment.newInstance(OCFile("/Test.md")).run {
-            showDialog(this)
+            showDialog(this, "testRemoveFileDialog")
         }
     }
 
@@ -190,14 +190,14 @@ class DialogFragmentIT : AbstractIT() {
         }
 
         val dialog: RemoveFilesDialogFragment = RemoveFilesDialogFragment.newInstance(toDelete)
-        showDialog(dialog)
+        showDialog(dialog, "testRemoveFilesDialog")
     }
 
     @Test
     @ScreenshotTest
     fun testRemoveFolderDialog() {
         val dialog = RemoveFilesDialogFragment.newInstance(OCFile("/Folder/"))
-        showDialog(dialog)
+        showDialog(dialog, "testRemoveFolderDialog")
     }
 
     @Test
@@ -208,7 +208,7 @@ class DialogFragmentIT : AbstractIT() {
         toDelete.add(OCFile("/Documents/"))
 
         val dialog: RemoveFilesDialogFragment = RemoveFilesDialogFragment.newInstance(toDelete)
-        showDialog(dialog)
+        showDialog(dialog, "testRemoveFoldersDialog")
     }
 
     @Test
@@ -218,7 +218,7 @@ class DialogFragmentIT : AbstractIT() {
             Looper.prepare()
         }
         val sut = CreateFolderDialogFragment.newInstance(OCFile("/"))
-        showDialog(sut)
+        showDialog(sut, "testNewFolderDialog")
     }
 
     @Test
@@ -228,7 +228,7 @@ class DialogFragmentIT : AbstractIT() {
             Looper.prepare()
         }
         val sut = SharePasswordDialogFragment.newInstance(OCFile("/"), createShare = true, askForPassword = false)
-        showDialog(sut)
+        showDialog(sut, "testEnforcedPasswordDialog")
     }
 
     @Test
@@ -237,8 +237,8 @@ class DialogFragmentIT : AbstractIT() {
         if (Looper.myLooper() == null) {
             Looper.prepare()
         }
-        val sut = SharePasswordDialogFragment.newInstance(OCFile("/"), createShare = true, askForPassword = true)
-        showDialog(sut)
+        val sut = SharePasswordDialogFragment.newInstance(OCFile("/"), true, true)
+        showDialog(sut, "testOptionalPasswordDialog")
     }
 
     @Test
@@ -624,7 +624,7 @@ class DialogFragmentIT : AbstractIT() {
         val handler = mockk<SslErrorHandler>(relaxed = true)
 
         SslUntrustedCertDialog.newInstanceForEmptySslError(sslError, handler).run {
-            showDialog(this)
+            showDialog(this, "testSslUntrustedCertDialog")
         }
     }
 
@@ -636,7 +636,7 @@ class DialogFragmentIT : AbstractIT() {
         }
 
         val dialog = StoragePermissionDialogFragment()
-        showDialog(dialog)
+        showDialog(dialog, "testStoragePermissionDialog")
     }
 
     @Test
@@ -651,11 +651,11 @@ class DialogFragmentIT : AbstractIT() {
         }
 
         newInstance(ocFile, false).run {
-            showDialog(this)
+            showDialog(this, "testFileActionsBottomSheet")
         }
     }
 
-    private fun showDialog(dialog: DialogFragment) {
+    private fun showDialog(dialog: DialogFragment, testName: String) {
         launchActivity<FileDisplayActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 dialog.show(sut.supportFragmentManager, null)
@@ -668,7 +668,7 @@ class DialogFragmentIT : AbstractIT() {
                 if (viewGroup != null) {
                     hideCursors(viewGroup)
                 }
-                screenshot(dialogInstance.window?.decorView)
+                screenshotViaName(dialogInstance.window?.decorView, "${testClassName}_$testName")
             }
 
             onView(isRoot()).check(matches(isDisplayed()))
