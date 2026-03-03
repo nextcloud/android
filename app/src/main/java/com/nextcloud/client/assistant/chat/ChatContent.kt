@@ -201,9 +201,9 @@ private fun ChatEmptyContent(modifier: Modifier = Modifier) {
 
             Text(
                 text = stringResource(R.string.assistant_screen_empty_content_title),
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.headlineSmall,
                 textAlign = TextAlign.Center,
-                color = colorResource(R.color.secondary_text_color)
+                color = colorResource(R.color.text_color)
             )
 
             Spacer(modifier = Modifier.height(8.dp))

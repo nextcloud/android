@@ -60,7 +60,7 @@ import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 @OptIn(ExperimentalMaterial3Api::class)
 @Suppress("LongMethod")
 @Composable
-fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, openChat: (Long) -> Unit) {
+fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, openChat: (Conversation) -> Unit) {
     val screenState by viewModel.screenState.collectAsState()
     val errorMessageId by viewModel.errorMessageId.collectAsState()
     val conversations by viewModel.conversations.collectAsState()
@@ -160,7 +160,7 @@ private fun ConversationList(
     viewModel: ConversationViewModel,
     conversations: List<Conversation>,
     modifier: Modifier = Modifier,
-    openChat: (Long) -> Unit
+    openChat: (Conversation) -> Unit
 ) {
     var showConversationActions by remember { mutableStateOf(false) }
     val selectedConversationId by viewModel.selectedConversationId.collectAsState()
@@ -177,7 +177,7 @@ private fun ConversationList(
                 isSelected = (conversation.id == selectedConversationId),
                 onClick = {
                     viewModel.selectConversation(conversation.id)
-                    openChat(conversation.id)
+                    openChat(conversation)
                 },
                 onLongPressed = {
                     showConversationActions = true
@@ -220,10 +220,11 @@ private fun ConversationListItem(
             .fillMaxWidth()
             .height(52.dp)
             .background(
-                if (isSelected)
+                if (isSelected) {
                     MaterialTheme.colorScheme.surfaceVariant
-                else
+                } else {
                     MaterialTheme.colorScheme.surface
+                }
             )
             .combinedClickable(
                 onClick = onClick,
@@ -237,10 +238,11 @@ private fun ConversationListItem(
             style = MaterialTheme.typography.bodyLarge,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            color = if (isSelected)
+            color = if (isSelected) {
                 MaterialTheme.colorScheme.onSurface
-            else
-                colorResource(R.color.text_color),
+            } else {
+                colorResource(R.color.text_color)
+            },
             textAlign = TextAlign.Start,
             modifier = Modifier.fillMaxWidth()
         )
