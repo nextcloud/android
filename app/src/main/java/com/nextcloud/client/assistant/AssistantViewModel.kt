@@ -374,6 +374,7 @@ class AssistantViewModel(
     }
 
     fun onTranslationScreenDismissed() {
+        updateInputBarText("")
         updateTranslationTaskState(false)
         selectTask(null)
     }
