@@ -22,6 +22,7 @@ import org.junit.Test
 import java.io.File
 import kotlin.random.Random
 
+@Suppress("TooManyFunctions", "MagicNumber")
 class FileDeletionTests : AbstractIT() {
 
     private lateinit var tempDir: File
