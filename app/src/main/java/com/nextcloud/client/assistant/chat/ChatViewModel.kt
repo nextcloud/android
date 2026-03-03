@@ -99,11 +99,7 @@ class ChatViewModel(private val remoteRepository: AssistantRemoteRepository) : V
 
     private suspend fun fetchNewChatMessage(sessionId: Long) {
         val taskId = currentChatTaskId ?: return
-        val newMessage = remoteRepository.checkGeneration(taskId, sessionId.toString()) ?: run {
-            stopPolling()
-            _uiState.update { ChatUIState.Error(currentMessages, ChatErrorType.GenerateResponse) }
-            return
-        }
+        val newMessage = remoteRepository.checkGeneration(taskId, sessionId.toString()) ?: return
 
         val alreadyExists = currentMessages.any {
             it.id == newMessage.id ||
