@@ -250,4 +250,23 @@ class AutoRenameTests : AbstractOnServerIT() {
         val result = AutoRename.rename(filename, capability, isFolderPath = true)
         assert(result == filename) { "Expected $filename but got $result" }
     }
+
+    @Test
+    fun testRenameWithLowercasedFiles() {
+        val filename = "1.txt"
+        val result = AutoRename.rename(filename, capability)
+        assert(result == filename) { "Expected $filename but got $result" }
+
+        val secondFilename = "/1.txt"
+        val secondResult = AutoRename.rename(secondFilename, capability)
+        assert(secondResult == secondFilename) { "Expected $secondFilename but got $secondResult" }
+
+        val thirdFilename = "/A/1.txt"
+        val thirdResult = AutoRename.rename(thirdFilename, capability)
+        assert(thirdResult == thirdFilename) { "Expected $thirdFilename but got $thirdResult" }
+
+        val path = "/A/BB/"
+        val pathResult = AutoRename.rename(path, capability)
+        assert(pathResult == path) { "Expected $path but got $pathResult" }
+    }
 }
