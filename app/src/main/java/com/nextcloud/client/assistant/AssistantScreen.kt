@@ -71,6 +71,7 @@ import com.nextcloud.client.assistant.translate.TranslationViewModel
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeActivity.ComposeViewModel
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
+import com.nextcloud.ui.composeComponents.alertDialog.TaskSelectionAlertDialog
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.nextcloud.utils.extensions.getChat
 import com.owncloud.android.R
@@ -116,8 +117,8 @@ fun AssistantScreen(
     }
 
     LaunchedEffect(selectedText) {
-        selectedText?.let {
-            if (it.isBlank()) {
+        selectedText?.let { copiedText ->
+            if (copiedText.isBlank()) {
                 return@LaunchedEffect
             }
 
@@ -125,8 +126,10 @@ fun AssistantScreen(
                 pagerState.scrollToPage(AssistantPage.Content.id)
             }
 
-            viewModel.updateInputBarText(it)
-            snackbarHostState.showSnackbar(activity.getString(R.string.assistant_screen_text_selected))
+            taskTypes?.let { taskTypes ->
+                viewModel.updateScreenOverlayState(ScreenOverlayState.TaskTypes(copiedText, taskTypes))
+                snackbarHostState.showSnackbar(activity.getString(R.string.assistant_screen_text_selected))
+            }
         }
     }
 
@@ -367,29 +370,38 @@ private fun InputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, viewMode
 @Suppress("LongMethod")
 @Composable
 private fun OverlayState(state: ScreenOverlayState?, activity: Activity, viewModel: AssistantViewModel) {
-    when (state) {
-        is ScreenOverlayState.DeleteTask -> {
-            SimpleAlertDialog(
-                title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
-                description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
-                dismiss = { viewModel.updateScreenOverlayState(null) },
-                onComplete = { viewModel.deleteTask(state.id) }
-            )
+    state?.let {
+        when (state) {
+            is ScreenOverlayState.DeleteTask -> {
+                SimpleAlertDialog(
+                    title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
+                    description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
+                    onDismiss = { viewModel.updateScreenOverlayState(null) },
+                    onComplete = { viewModel.deleteTask(state.id) }
+                )
+            }
+
+            is ScreenOverlayState.TaskActions -> {
+                val actions = state.getActions(activity, onDeleteCompleted = { deleteTask ->
+                    viewModel.updateScreenOverlayState(deleteTask)
+                })
+
+                MoreActionsBottomSheet(
+                    title = state.task.getInputTitle(),
+                    actions = actions,
+                    onDismiss = { viewModel.updateScreenOverlayState(null) }
+                )
+            }
+
+            is ScreenOverlayState.TaskTypes -> {
+                TaskSelectionAlertDialog(state.taskTypes, onDismiss = {
+                    viewModel.updateScreenOverlayState(null)
+                }, onConfirm = {
+                    viewModel.selectTaskType(it)
+                    viewModel.updateInputBarText(state.copiedText)
+                })
+            }
         }
-
-        is ScreenOverlayState.TaskActions -> {
-            val actions = state.getActions(activity, onDeleteCompleted = { deleteTask ->
-                viewModel.updateScreenOverlayState(deleteTask)
-            })
-
-            MoreActionsBottomSheet(
-                title = state.task.getInputTitle(),
-                actions = actions,
-                dismiss = { viewModel.updateScreenOverlayState(null) }
-            )
-        }
-
-        else -> Unit
     }
 }
 

@@ -200,7 +200,7 @@ private fun ConversationList(
 
         MoreActionsBottomSheet(
             actions = bottomSheetAction,
-            dismiss = { selectedConversationId = -1L }
+            onDismiss = { selectedConversationId = -1L }
         )
     }
 }
