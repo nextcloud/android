@@ -402,6 +402,7 @@
     <string name="etm_transfer_type">Transferir</string>
     <string name="etm_transfer_type_download">Baixar</string>
     <string name="etm_transfer_type_upload">Enviar</string>
+    <string name="extension_cannot_be_changed">A extensão não pode ser alterada</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Você não tem permissão para criar ou enviar arquivos para esta pasta.</string>
     <string name="external_shares">Compartilhamentos externos</string>
     <string name="fab_label">Adicionar ou enviar</string>
