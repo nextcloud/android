@@ -11,7 +11,6 @@ import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -25,10 +24,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -167,8 +164,9 @@ fun AssistantScreen(
                     scope.launch {
                         pagerState.scrollToPage(AssistantPage.Content.id)
                     }
-                }, openChat = { newSessionId ->
-                    chatViewModel.selectConversation(newSessionId)
+                }, openChat = { conversation ->
+                    chatViewModel.updateSessionTitle(conversation.timestamp)
+                    chatViewModel.selectConversation(conversation.id)
                     taskTypes.getChat()?.let { chatTaskType ->
                         viewModel.selectTaskType(chatTaskType)
                     }
