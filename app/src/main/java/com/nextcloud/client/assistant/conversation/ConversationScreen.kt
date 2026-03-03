@@ -41,7 +41,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -162,7 +162,8 @@ private fun ConversationList(
     modifier: Modifier = Modifier,
     openChat: (Long) -> Unit
 ) {
-    var selectedConversationId by remember { mutableLongStateOf(-1L) }
+    var showConversationActions by remember { mutableStateOf(false) }
+    val selectedConversationId by viewModel.selectedConversationId.collectAsState()
 
     LazyColumn(
         modifier = modifier
@@ -173,18 +174,20 @@ private fun ConversationList(
         items(conversations) { conversation ->
             ConversationListItem(
                 conversation = conversation,
+                isSelected = (conversation.id == selectedConversationId),
                 onClick = {
+                    viewModel.selectConversation(conversation.id)
                     openChat(conversation.id)
                 },
                 onLongPressed = {
-                    selectedConversationId = conversation.id
+                    showConversationActions = true
                 }
             )
             Spacer(modifier = Modifier.height(4.dp))
         }
     }
 
-    if (selectedConversationId != -1L) {
+    if (showConversationActions) {
         val currentId = selectedConversationId
 
         val bottomSheetAction = listOf(
@@ -194,26 +197,37 @@ private fun ConversationList(
             ) {
                 val sessionId: String = currentId.toString()
                 viewModel.deleteConversation(sessionId)
-                selectedConversationId = -1L
+                showConversationActions = false
             }
         )
 
         MoreActionsBottomSheet(
             actions = bottomSheetAction,
-            dismiss = { selectedConversationId = -1L }
+            dismiss = { showConversationActions = false }
         )
     }
 }
 
 @Composable
-private fun ConversationListItem(conversation: Conversation, onClick: () -> Unit, onLongPressed: () -> Unit) {
+private fun ConversationListItem(
+    conversation: Conversation,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    onLongPressed: () -> Unit
+) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .combinedClickable(
                 onClick = onClick,
                 onLongClick = onLongPressed
-            )
+            ),
+        color = if (isSelected) {
+            MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
+        } else {
+            MaterialTheme.colorScheme.surface
+        },
+        tonalElevation = if (isSelected) 2.dp else 0.dp
     ) {
         Row(
             modifier = Modifier
@@ -237,13 +251,13 @@ private fun ConversationListItem(conversation: Conversation, onClick: () -> Unit
 @Composable
 private fun ConversationListPreview() {
     Column {
-        ConversationListItem(Conversation(1L, "User1", "Who is Al Pacino?", 1762847286L, "", null), {
+        ConversationListItem(Conversation(1L, "User1", "Who is Al Pacino?", 1762847286L, "", null), false, {
         }, {
         })
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        ConversationListItem(Conversation(2L, "User1", "What is JetpackCompose?", 1761847286L, "", null), {
+        ConversationListItem(Conversation(2L, "User1", "What is JetpackCompose?", 1761847286L, "", null), false, {
         }, {
         })
 
