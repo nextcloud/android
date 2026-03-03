@@ -22,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
+import com.nextcloud.client.assistant.chat.ChatViewModel
 import com.nextcloud.client.assistant.conversation.ConversationViewModel
 import com.nextcloud.client.assistant.conversation.repository.ConversationRemoteRepositoryImpl
 import com.nextcloud.client.assistant.repository.local.AssistantLocalRepositoryImpl
@@ -128,15 +129,17 @@ class ComposeActivity : DrawerActivity() {
                 val dao = NextcloudDatabase.instance().assistantDao()
                 val sessionId = (currentScreen as? ComposeDestination.AssistantScreen)?.sessionId
                 val client = nextcloudClient ?: return
+                val remoteRepository = AssistantRemoteRepositoryImpl(client, capabilities)
 
                 AssistantScreen(
                     composeViewModel = composeViewModel,
                     viewModel = AssistantViewModel(
                         accountName = userAccountManager.user.accountName,
-                        remoteRepository = AssistantRemoteRepositoryImpl(client, capabilities),
+                        remoteRepository = remoteRepository,
                         localRepository = AssistantLocalRepositoryImpl(dao),
                         sessionIdArg = sessionId
                     ),
+                    chatViewModel = ChatViewModel(remoteRepository),
                     conversationViewModel = ConversationViewModel(
                         remoteRepository = ConversationRemoteRepositoryImpl(client)
                     ),
