@@ -1785,7 +1785,7 @@ class FileDisplayActivity :
      */
     private inner class FileDownloadCompletedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
-            Log_OC.d(TAG, "DownloadFinishReceiver: download finish received broadcast")
+            Log_OC.d(TAG, "file download completed received")
             fileDownloadProgressListener = null
 
             if (fileIDForImmediatePreview == -1L) {
@@ -1793,7 +1793,6 @@ class FileDisplayActivity :
                 updateUIForFileDownload()
                 return
             }
-
 
             Log_OC.d(TAG, "updating ui immediate file preview")
 
