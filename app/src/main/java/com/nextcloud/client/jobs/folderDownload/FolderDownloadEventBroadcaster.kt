@@ -10,26 +10,28 @@ package com.nextcloud.client.jobs.folderDownload
 import android.content.Context
 import android.content.Intent
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.owncloud.android.lib.common.utils.Log_OC
 
-class FolderDownloadBroadcastManager(
+class FolderDownloadEventBroadcaster(
     private val context: Context,
     private val broadcastManager: LocalBroadcastManager
 ) {
     companion object {
         private const val TAG = "📣" + "FolderDownloadBroadcastManager"
 
-        const val DOWNLOAD_ADDED = "DOWNLOAD_ADDED"
-        const val DOWNLOAD_FINISHED = "DOWNLOAD_FINISHED"
+        private const val ARG_PREFIX = "com.nextcloud.client.folderDownload."
 
-        const val EXTRA_FILE_ID = "EXTRA_FILE_ID"
+        const val ACTION_DOWNLOAD_ENQUEUED = ARG_PREFIX + "ACTION_DOWNLOAD_ENQUEUED"
+        const val ACTION_DOWNLOAD_COMPLETED = ARG_PREFIX + "ACTION_DOWNLOAD_COMPLETED"
+
+        const val EXTRA_FILE_ID = ARG_PREFIX + "EXTRA_FILE_ID"
     }
 
     fun sendAdded(id: Long) {
-        Log_OC.d(TAG, "download added broadcast sent")
+        Log_OC.d(TAG, "Download enqueued broadcast sent")
 
-        val intent = Intent(DOWNLOAD_ADDED).apply {
+        val intent = Intent(ACTION_DOWNLOAD_ENQUEUED).apply {
             putExtra(EXTRA_FILE_ID, id)
         }
 
@@ -37,9 +39,9 @@ class FolderDownloadBroadcastManager(
     }
 
     fun sendFinished(id: Long) {
-        Log_OC.d(TAG, "download finished broadcast sent")
+        Log_OC.d(TAG, "Download completed broadcast sent")
 
-        val intent = Intent(DOWNLOAD_FINISHED).apply {
+        val intent = Intent(ACTION_DOWNLOAD_COMPLETED).apply {
             putExtra(EXTRA_FILE_ID, id)
         }
 

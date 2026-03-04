@@ -246,8 +246,6 @@ class SendShareDialog :
         private const val KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD = "KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD"
         private const val KEY_HIDE_NCSHARING_OPTIONS = "KEY_HIDE_NCSHARING_OPTIONS"
         private val TAG = SendShareDialog::class.java.simpleName
-        const val PACKAGE_NAME = "PACKAGE_NAME"
-        const val ACTIVITY_NAME = "ACTIVITY_NAME"
 
         @JvmStatic
         fun newInstance(file: OCFile?, hideNcSharingOptions: Boolean, capability: OCCapability): SendShareDialog {

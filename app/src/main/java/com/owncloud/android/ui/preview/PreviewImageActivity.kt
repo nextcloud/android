@@ -24,10 +24,9 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
-import com.nextcloud.client.jobs.download.FileDownloadBroadcastManager
+import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
-import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -49,7 +48,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.OnFilesRemovedListener
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
-import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.preview.model.PreviewImageActivityState
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
@@ -77,7 +75,6 @@ class PreviewImageActivity :
     private val downloadStartReceiver = DownloadStartReceiver()
     private val downloadFinishReceiver = DownloadFinishReceiver()
 
-    private val uploadFinishReceiver = UploadFinishReceiver()
     private var fullScreenAnchorView: View? = null
 
     private var isDownloadWorkStarted = false
@@ -331,7 +328,6 @@ class PreviewImageActivity :
     private fun observeWorkerState() {
         observeWorker { state: WorkerState? ->
             when (state) {
-
                 else -> {
                     Log_OC.d(TAG, "Worker stopped")
                     isDownloadWorkStarted = false
@@ -378,14 +374,11 @@ class PreviewImageActivity :
 
     private fun registerReceivers() {
         localBroadcastManager.run {
-            val downloadStartIntentFilter = IntentFilter(FileDownloadBroadcastManager.DOWNLOAD_ADDED)
+            val downloadStartIntentFilter = IntentFilter(FileDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED)
             registerReceiver(downloadStartReceiver, downloadStartIntentFilter)
 
-            val downloadFinishIntentFilter = IntentFilter(FileDownloadBroadcastManager.DOWNLOAD_FINISHED)
+            val downloadFinishIntentFilter = IntentFilter(FileDownloadEventBroadcaster.ACTION_DOWNLOAD_COMPLETED)
             registerReceiver(downloadFinishReceiver, downloadFinishIntentFilter)
-
-            val uploadFinishIntentFilter = IntentFilter(FileUploadBroadcastManager.UPLOAD_FINISHED)
-            registerReceiver(uploadFinishReceiver, uploadFinishIntentFilter)
         }
     }
 
@@ -393,7 +386,6 @@ class PreviewImageActivity :
         localBroadcastManager.run {
             unregisterReceiver(downloadStartReceiver)
             unregisterReceiver(downloadFinishReceiver)
-            unregisterReceiver(uploadFinishReceiver)
         }
     }
 
@@ -477,7 +469,6 @@ class PreviewImageActivity :
      */
     private inner class DownloadFinishReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-
             /*
              Log_OC.d(TAG, "Download worker stopped")
             isDownloadWorkStarted = false
@@ -504,24 +495,18 @@ class PreviewImageActivity :
         }
     }
 
-    private inner class UploadFinishReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            previewNewImage(intent)
-        }
-    }
-
     @Suppress("NestedBlockDepth", "ReturnCount")
     private fun previewNewImage(intent: Intent) {
-        val accountName = intent.getStringExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME)
-        val downloadedRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_REMOTE_PATH)
-        val downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR)
+        val accountName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACCOUNT_NAME)
+        val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
+        val downloadBehaviour = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_DOWNLOAD_BEHAVIOUR)
 
         if (account.name != accountName || downloadedRemotePath == null) {
             return
         }
 
         val file = storageManager.getFileByEncryptedRemotePath(downloadedRemotePath)
-        val downloadWasFine = intent.getBooleanExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, false)
+        val downloadWasFine = intent.getBooleanExtra(FileDownloadEventBroadcaster.EXTRA_DOWNLOAD_RESULT, false)
 
         if (EditImageActivity.OPEN_IMAGE_EDITOR == downloadBehaviour) {
             startImageEditor(file)

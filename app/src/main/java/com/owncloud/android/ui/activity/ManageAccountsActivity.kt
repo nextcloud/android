@@ -19,6 +19,7 @@ import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Handler
 import android.view.MenuItem
@@ -27,13 +28,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.FragmentManager
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.common.collect.Sets
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
-import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.onboarding.FirstRunActivity
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.mdm.MDMConfig.multiAccountSupport
@@ -53,6 +55,7 @@ import com.owncloud.android.ui.events.AccountRemovedEvent
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import javax.inject.Inject
 
 /**
  * An Activity that allows the user to manage accounts.
@@ -72,7 +75,10 @@ class ManageAccountsActivity :
     private var originalCurrentUser: String? = null
 
     private var multipleAccountsSupported = false
+    private val fileDownloadStartedReceiver = FileDownloadStartedReceiver()
 
+    @Inject
+    lateinit var localBroadcastManager: LocalBroadcastManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,7 +129,6 @@ class ManageAccountsActivity :
         recyclerView = findViewById(R.id.account_list)
         recyclerView?.setAdapter(userListAdapter)
         recyclerView?.setLayoutManager(LinearLayoutManager(this))
-        //observeWorkerState()
     }
 
     @Suppress("ReturnCount")
@@ -466,18 +471,29 @@ class ManageAccountsActivity :
         }
     }
 
+    override fun onStart() {
+        val downloadFileStartedIntentFilter = IntentFilter(FileDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED)
+        localBroadcastManager.registerReceiver(fileDownloadStartedReceiver, downloadFileStartedIntentFilter)
+        super.onStart()
+    }
+
+    override fun onStop() {
+        localBroadcastManager.unregisterReceiver(fileDownloadStartedReceiver)
+        super.onStop()
+    }
+
     override fun onAccountClicked(user: User) {
         openAccount(user)
     }
 
-    private class DownloadReceiver : BroadcastReceiver() {
+    private class FileDownloadStartedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             Log_OC.d(TAG, "download received")
 
-            workerAccountName = intent.getStringExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME)
+            workerAccountName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACCOUNT_NAME)
             workerCurrentDownloadAccountName =
-                intent.getStringExtra(FileDownloadWorker.EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME)
-            workerFileId = intent.getLongExtra(FileDownloadWorker.EXTRA_CURRENT_DOWNLOAD_FILE_ID, -1L)
+                intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME)
+            workerFileId = intent.getLongExtra(FileDownloadEventBroadcaster.EXTRA_CURRENT_DOWNLOAD_FILE_ID, -1L)
         }
     }
 
@@ -495,7 +511,6 @@ class ManageAccountsActivity :
         private var workerAccountName: String? = null
         private var workerCurrentDownloadAccountName: String? = null
         private var workerFileId: Long = -1L
-
 
         private fun toAccountNames(users: Collection<User>): Set<String> {
             val accountNames: MutableSet<String> = Sets.newHashSetWithExpectedSize(users.size)
