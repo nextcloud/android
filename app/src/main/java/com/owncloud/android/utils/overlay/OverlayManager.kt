@@ -16,6 +16,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderObserver
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
@@ -34,8 +35,7 @@ class OverlayManager @Inject constructor(
         val overlayIconId = folder
             ?.takeIf { it.isFolder }
             ?.let { currentFolder ->
-                val isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(
-                    syncedFolderProvider,
+                val isAutoUploadFolder = SyncedFolderObserver.isAutoUploadFolder(
                     currentFolder,
                     accountManager.user
                 )
@@ -56,7 +56,7 @@ class OverlayManager @Inject constructor(
         DisplayUtils.stopShimmer(loaderImageView, imageView)
 
         val isAutoUploadFolder =
-            SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, folder, accountManager.user)
+            SyncedFolderObserver.isAutoUploadFolder(folder, accountManager.user)
         val isDarkModeActive = preferences.isDarkModeEnabled()
 
         val overlayIconId = folder.getFileOverlayIconId(isAutoUploadFolder)
