@@ -19,7 +19,7 @@ import android.os.Message;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.jobs.download.FileDownloadBroadcastManager;
+import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.IndexedForest;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -48,7 +48,7 @@ class SyncFolderHandler extends Handler {
 
     private Account mCurrentAccount;
     private SynchronizeFolderOperation mCurrentSyncOperation;
-    private FileDownloadBroadcastManager fileDownloadBroadcastManager;
+    private FileDownloadEventBroadcaster fileDownloadEventBroadcaster;
 
 
     public SyncFolderHandler(Looper looper, OperationsService service) {
@@ -60,7 +60,7 @@ class SyncFolderHandler extends Handler {
 
         final var context = mService.getApplicationContext();
         final var broadcastManager = LocalBroadcastManager.getInstance(context);
-        fileDownloadBroadcastManager = new FileDownloadBroadcastManager(context, broadcastManager);
+        fileDownloadEventBroadcaster = new FileDownloadEventBroadcaster(context, broadcastManager);
     }
 
     /**
@@ -108,10 +108,10 @@ class SyncFolderHandler extends Handler {
                         getClientFor(ocAccount, mService);
 
                 result = mCurrentSyncOperation.execute(mOwnCloudClient);
-                fileDownloadBroadcastManager.sendFinished(account.name, remotePath, mService.getPackageName(), result.isSuccess());
+                fileDownloadEventBroadcaster.sendDownloadCompleted(account.name, remotePath, mService.getPackageName(), result.isSuccess());
                 mService.dispatchResultToOperationListeners(mCurrentSyncOperation, result);
             } catch (AccountsException | IOException e) {
-                fileDownloadBroadcastManager.sendFinished(account.name, remotePath, mService.getPackageName(), false);
+                fileDownloadEventBroadcaster.sendDownloadCompleted(account.name, remotePath, mService.getPackageName(), false);
                 mService.dispatchResultToOperationListeners(mCurrentSyncOperation, new RemoteOperationResult<>(e));
                 Log_OC.e(TAG, "Error while trying to get authorization", e);
             } finally {
@@ -124,12 +124,12 @@ class SyncFolderHandler extends Handler {
                     SynchronizeFolderOperation syncFolderOperation){
         Pair<String, String> putResult = mPendingOperations.putIfAbsent(account.name, remotePath, syncFolderOperation);
         if (putResult != null) {
-            fileDownloadBroadcastManager.sendAdded(account.name,
-                                                   remotePath,
-                                                   mService.getPackageName(),
-                                                   syncFolderOperation.getFolderId(),
-                                                   null,
-                                                   syncFolderOperation.getAccountName());
+            fileDownloadEventBroadcaster.sendDownloadEnqueued(account.name,
+                                                              remotePath,
+                                                              mService.getPackageName(),
+                                                              syncFolderOperation.getFolderId(),
+                                                              null,
+                                                              syncFolderOperation.getAccountName());
         }
     }
 
