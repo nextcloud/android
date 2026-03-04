@@ -77,12 +77,6 @@ class FileDownloadWorker(
         const val ACTIVITY_NAME = "ACTIVITY_NAME"
         const val PACKAGE_NAME = "PACKAGE_NAME"
         const val CONFLICT_UPLOAD_ID = "CONFLICT_UPLOAD_ID"
-        const val EXTRA_DOWNLOAD_RESULT = "EXTRA_DOWNLOAD_RESULT"
-        const val EXTRA_REMOTE_PATH = "EXTRA_REMOTE_PATH"
-        const val EXTRA_LINKED_TO_PATH = "EXTRA_LINKED_TO_PATH"
-        const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
-        const val EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME = "EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME"
-        const val EXTRA_CURRENT_DOWNLOAD_FILE_ID = "EXTRA_CURRENT_DOWNLOAD_FILE_ID"
     }
 
     private var currentDownload: DownloadFileOperation? = null
@@ -90,7 +84,7 @@ class FileDownloadWorker(
     private var conflictUploadId: Long? = null
     private var lastPercent = 0
 
-    private val fileDownloadBroadcastManager = FileDownloadBroadcastManager(context, localBroadcastManager)
+    private val fileDownloadEventBroadcaster = FileDownloadEventBroadcaster(context, localBroadcastManager)
     private val intents = FileDownloadIntents(context)
 
     private var notificationManager = DownloadNotificationManager(
@@ -205,7 +199,7 @@ class FileDownloadWorker(
                     requestedDownloads.add(downloadKey)
                 }
 
-                fileDownloadBroadcastManager.sendAdded(
+                fileDownloadEventBroadcaster.sendDownloadEnqueued(
                     operation.user.accountName,
                     operation.remotePath,
                     context.packageName,
@@ -335,7 +329,7 @@ class FileDownloadWorker(
         currentDownload?.run {
             notifyDownloadResult(this, downloadResult)
 
-            fileDownloadBroadcastManager.sendFinished(
+            fileDownloadEventBroadcaster.sendDownloadCompleted(
                 this,
                 downloadResult,
                 removeResult.second

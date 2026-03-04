@@ -46,7 +46,7 @@ class FolderDownloadWorker(
     }
 
     private val notificationManager = FolderDownloadWorkerNotificationManager(context, viewThemeUtils)
-    private val folderDownloadBroadcastManager = FolderDownloadBroadcastManager(context, localBroadcastManager)
+    private val folderDownloadEventBroadcaster = FolderDownloadEventBroadcaster(context, localBroadcastManager)
     private lateinit var storageManager: FileDataStorageManager
 
     @Suppress("ReturnCount", "DEPRECATION")
@@ -80,7 +80,7 @@ class FolderDownloadWorker(
 
         trySetForeground(folder)
 
-        folderDownloadBroadcastManager.sendAdded(folder.fileId)
+        folderDownloadEventBroadcaster.sendAdded(folder.fileId)
         pendingDownloads.add(folder.fileId)
 
         val downloadHelper = FileDownloadHelper.instance()
@@ -138,7 +138,7 @@ class FolderDownloadWorker(
                 Log_OC.d(TAG, "❌ failed reason: $e")
                 Result.failure()
             } finally {
-                folderDownloadBroadcastManager.sendFinished(folder.fileId)
+                folderDownloadEventBroadcaster.sendFinished(folder.fileId)
                 pendingDownloads.remove(folder.fileId)
                 notificationManager.dismiss()
             }
