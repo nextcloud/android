@@ -83,6 +83,8 @@ class FileDownloadWorker(
         const val EXTRA_REMOTE_PATH = "EXTRA_REMOTE_PATH"
         const val EXTRA_LINKED_TO_PATH = "EXTRA_LINKED_TO_PATH"
         const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
+        const val EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME = "EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME"
+        const val EXTRA_CURRENT_DOWNLOAD_FILE_ID = "EXTRA_CURRENT_DOWNLOAD_FILE_ID"
     }
 
     private var currentDownload: DownloadFileOperation? = null
@@ -218,7 +220,9 @@ class FileDownloadWorker(
                     operation.user.accountName,
                     operation.remotePath,
                     context.packageName,
-                    linkedToRemotePath
+                    operation.file.fileId,
+                    linkedToRemotePath,
+                    operation.user.accountName
                 )
             }
 
