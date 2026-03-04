@@ -462,12 +462,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
     }
 
     private void showPermissionErrorMessage() {
-        final var view = getView();
-        if (view != null) {
-            DisplayUtils.showSnackMessage(view, R.string.contactlist_no_permission);
-        } else {
-            DisplayUtils.showSnackMessage(this, R.string.contactlist_no_permission);
-        }
+        DisplayUtils.showSnackMessage(this, R.string.contactlist_no_permission);
     }
 
     private Unit onDownloadUpdate(Transfer download) {
