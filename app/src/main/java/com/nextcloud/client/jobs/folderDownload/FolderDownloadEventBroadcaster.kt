@@ -19,12 +19,12 @@ class FolderDownloadEventBroadcaster(
     companion object {
         private const val TAG = "📣" + "FolderDownloadBroadcastManager"
 
-        private const val ARG_PREFIX = "com.nextcloud.client.folderDownload."
+        private const val PREFIX = "com.nextcloud.client.folderDownload."
 
-        const val ACTION_DOWNLOAD_ENQUEUED = ARG_PREFIX + "ACTION_DOWNLOAD_ENQUEUED"
-        const val ACTION_DOWNLOAD_COMPLETED = ARG_PREFIX + "ACTION_DOWNLOAD_COMPLETED"
+        const val ACTION_DOWNLOAD_ENQUEUED = PREFIX + "ACTION_DOWNLOAD_ENQUEUED"
+        const val ACTION_DOWNLOAD_COMPLETED = PREFIX + "ACTION_DOWNLOAD_COMPLETED"
 
-        const val EXTRA_FILE_ID = ARG_PREFIX + "EXTRA_FILE_ID"
+        const val EXTRA_FILE_ID = PREFIX + "EXTRA_FILE_ID"
     }
 
     fun sendDownloadEnqueued(id: Long) {
