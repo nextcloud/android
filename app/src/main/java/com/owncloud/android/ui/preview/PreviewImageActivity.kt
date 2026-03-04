@@ -24,9 +24,9 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
+import com.nextcloud.client.jobs.download.FileDownloadBroadcastManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
-import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadFinishMessage
 import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
@@ -393,7 +393,7 @@ class PreviewImageActivity :
 
     private fun registerReceivers() {
         downloadFinishReceiver = DownloadFinishReceiver()
-        val downloadIntentFilter = IntentFilter(getDownloadFinishMessage())
+        val downloadIntentFilter = IntentFilter(FileDownloadBroadcastManager.DOWNLOAD_FINISHED)
         localBroadcastManager.registerReceiver(downloadFinishReceiver!!, downloadIntentFilter)
 
         val uploadFinishReceiver = UploadFinishReceiver()

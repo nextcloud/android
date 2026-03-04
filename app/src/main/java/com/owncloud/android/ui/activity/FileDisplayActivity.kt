@@ -63,10 +63,9 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.files.DeepLinkHandler
+import com.nextcloud.client.jobs.download.FileDownloadBroadcastManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
-import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadAddedMessage
-import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadFinishMessage
 import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
@@ -76,7 +75,6 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerState.FileDownloadCompleted
-import com.nextcloud.model.WorkerState.FileDownloadStarted
 import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -841,11 +839,11 @@ class FileDisplayActivity :
             if (fileInFragment != null && downloadedRemotePath != fileInFragment.remotePath) {
                 // the user browsed to other file ; forget the automatic preview
                 mWaitingToPreview = null
-            } else if (downloadEvent == getDownloadAddedMessage()) {
+            } else if (downloadEvent == FileDownloadBroadcastManager.DOWNLOAD_ADDED) {
                 // grant that the details fragment updates the progress bar
                 leftFragment.listenForTransferProgress()
                 leftFragment.updateFileDetails(true, false)
-            } else if (downloadEvent == getDownloadFinishMessage()) {
+            } else if (downloadEvent == FileDownloadBroadcastManager.DOWNLOAD_FINISHED) {
                 //  update the details panel
                 var detailsFragmentChanged = false
                 if (waitedPreview) {
@@ -1431,8 +1429,8 @@ class FileDisplayActivity :
     }
 
     private fun registerDownloadFinishReceiver() {
-        val filter = IntentFilter(getDownloadAddedMessage()).apply {
-            addAction(getDownloadFinishMessage())
+        val filter = IntentFilter(FileDownloadBroadcastManager.DOWNLOAD_ADDED).apply {
+            addAction(FileDownloadBroadcastManager.DOWNLOAD_FINISHED)
         }
         mDownloadFinishReceiver = DownloadFinishReceiver()
         mDownloadFinishReceiver?.let {
@@ -1765,6 +1763,8 @@ class FileDisplayActivity :
      */
     private inner class DownloadFinishReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
+            Log_OC.d(TAG, "DownloadFinishReceiver: download finish received broadcast")
+
             val sameAccount = isSameAccount(intent)
             val downloadedRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_REMOTE_PATH)
             val downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR)
@@ -1913,6 +1913,7 @@ class FileDisplayActivity :
     private fun observeWorkerState() {
         observeWorker { state ->
             when (state) {
+                /*
                 is FileDownloadStarted -> {
                     Log_OC.d(TAG, "Download worker started")
                     handleDownloadWorkerState()
@@ -1922,6 +1923,8 @@ class FileDisplayActivity :
                     fileDownloadProgressListener = null
                     previewFile(state)
                 }
+                 */
+
 
                 is OfflineOperationsCompleted -> {
                     refreshCurrentDirectory()

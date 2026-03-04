@@ -120,7 +120,7 @@ class InternalTwoWaySyncActivity :
                 val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(currentUser)
                 folders.forEach { folder ->
                     FileDownloadWorker.cancelOperation(currentUser.accountName, folder.fileId)
-                    backgroundJobManager.cancelFilesDownloadJob(currentUser, folder.fileId)
+                    backgroundJobManager.cancelFilesDownloadJob(currentUser.accountName, folder.fileId)
 
                     folder.internalFolderSyncTimestamp = -1L
                     fileDataStorageManager.saveFile(folder)
