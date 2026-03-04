@@ -274,7 +274,7 @@ class FileDeletionTests : AbstractIT() {
         assertNull(storageManager.getFileById(folder.fileId))
 
         // subdirectories and files are removed
-        val children = storageManager.getFolderContent(folder, false)
+        val children = storageManager.getAllFilesRecursivelyInsideFolder(folder)
         assertTrue(children.isEmpty())
 
         // local folder removed
