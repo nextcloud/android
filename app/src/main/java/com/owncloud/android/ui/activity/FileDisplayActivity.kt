@@ -1777,28 +1777,6 @@ class FileDisplayActivity :
         }
     }
 
-    /*
-
-     private fun previewFile(finishedState: FileDownloadCompleted) {
-        if (fileIDForImmediatePreview == -1L) {
-            return
-        }
-
-        val currentFile = finishedState.currentFile ?: return
-
-        if (fileIDForImmediatePreview != currentFile.fileId || !currentFile.isDown) {
-            return
-        }
-
-        fileIDForImmediatePreview = -1
-        if (PreviewImageFragment.canBePreviewed(currentFile)) {
-            startImagePreview(currentFile, currentFile.isDown)
-        } else {
-            previewFile(currentFile, null)
-        }
-    }
-     */
-
     /**
      * Class waiting for broadcast events from the [FileDownloadWorker] service.
      *
@@ -1807,13 +1785,33 @@ class FileDisplayActivity :
      */
     private inner class FileDownloadCompletedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
-            /*
-            fileDownloadProgressListener = null
-                    previewFile(state)
-             */
-
             Log_OC.d(TAG, "DownloadFinishReceiver: download finish received broadcast")
+            fileDownloadProgressListener = null
 
+            if (fileIDForImmediatePreview == -1L) {
+                Log_OC.d(TAG, "updating ui for file download")
+                updateUIForFileDownload()
+                return
+            }
+
+
+            Log_OC.d(TAG, "updating ui immediate file preview")
+
+            val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
+            val currentFile = storageManager.getFileByDecryptedRemotePath(downloadedRemotePath) ?: return
+            if (fileIDForImmediatePreview != currentFile.fileId || !currentFile.isDown) {
+                return
+            }
+
+            fileIDForImmediatePreview = -1
+            if (PreviewImageFragment.canBePreviewed(currentFile)) {
+                startImagePreview(currentFile, currentFile.isDown)
+            } else {
+                previewFile(currentFile, null)
+            }
+        }
+
+        private fun updateUIForFileDownload() {
             val sameAccount = isSameAccount(intent)
             val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
             val downloadBehaviour = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_DOWNLOAD_BEHAVIOUR)
@@ -1998,7 +1996,7 @@ class FileDisplayActivity :
         } else if (PreviewTextFileFragment.canBePreviewed(file)) {
             setFabVisible?.onComplete(false)
             startTextPreview(file, false)
-        } else if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
+        } else if (PreviewMediaActivity.canBePreviewed(file)) {
             setFabVisible?.onComplete(false)
             startMediaPreview(file, 0, true, true, false, true)
         } else {

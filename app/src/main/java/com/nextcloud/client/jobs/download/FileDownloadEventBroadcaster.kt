@@ -18,20 +18,20 @@ class FileDownloadEventBroadcaster(private val context: Context, private val bro
     companion object {
         private const val TAG = "📣" + "FileDownloadBroadcastManager"
 
-        private const val ARG_PREFIX = "com.nextcloud.client.download."
+        private const val PREFIX = "com.nextcloud.client.download."
 
-        const val ACTION_DOWNLOAD_ENQUEUED = ARG_PREFIX + "ACTION_DOWNLOAD_ENQUEUED"
-        const val ACTION_DOWNLOAD_COMPLETED = ARG_PREFIX + "ACTION_DOWNLOAD_COMPLETED"
+        const val ACTION_DOWNLOAD_ENQUEUED = PREFIX + "ACTION_DOWNLOAD_ENQUEUED"
+        const val ACTION_DOWNLOAD_COMPLETED = PREFIX + "ACTION_DOWNLOAD_COMPLETED"
 
-        const val EXTRA_DOWNLOAD_RESULT = ARG_PREFIX + "EXTRA_DOWNLOAD_RESULT"
-        const val EXTRA_REMOTE_PATH = ARG_PREFIX + "EXTRA_REMOTE_PATH"
-        const val EXTRA_LINKED_TO_PATH = ARG_PREFIX + "EXTRA_LINKED_TO_PATH"
-        const val EXTRA_ACCOUNT_NAME = ARG_PREFIX + "EXTRA_ACCOUNT_NAME"
-        const val EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME = ARG_PREFIX + "EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME"
-        const val EXTRA_CURRENT_DOWNLOAD_FILE_ID = ARG_PREFIX + "EXTRA_CURRENT_DOWNLOAD_FILE_ID"
-        const val EXTRA_PACKAGE_NAME = ARG_PREFIX + "PACKAGE_NAME"
-        const val EXTRA_ACTIVITY_NAME = ARG_PREFIX + "ACTIVITY_NAME"
-        const val EXTRA_DOWNLOAD_BEHAVIOUR = ARG_PREFIX + "DOWNLOAD_BEHAVIOUR"
+        const val EXTRA_DOWNLOAD_RESULT = PREFIX + "EXTRA_DOWNLOAD_RESULT"
+        const val EXTRA_REMOTE_PATH = PREFIX + "EXTRA_REMOTE_PATH"
+        const val EXTRA_LINKED_TO_PATH = PREFIX + "EXTRA_LINKED_TO_PATH"
+        const val EXTRA_ACCOUNT_NAME = PREFIX + "EXTRA_ACCOUNT_NAME"
+        const val EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME = PREFIX + "EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME"
+        const val EXTRA_CURRENT_DOWNLOAD_FILE_ID = PREFIX + "EXTRA_CURRENT_DOWNLOAD_FILE_ID"
+        const val EXTRA_PACKAGE_NAME = PREFIX + "PACKAGE_NAME"
+        const val EXTRA_ACTIVITY_NAME = PREFIX + "ACTIVITY_NAME"
+        const val EXTRA_DOWNLOAD_BEHAVIOUR = PREFIX + "DOWNLOAD_BEHAVIOUR"
     }
 
     fun sendDownloadEnqueued(
