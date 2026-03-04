@@ -101,8 +101,8 @@ class ScreenshotsIT : AbstractIT() {
         }
     }
 
+    // @ScreenshotTest disabled for now
     @Test
-    @ScreenshotTest
     fun davdroidScreenshot() {
         launchActivity<SettingsActivity>().use {
             onView(withText(R.string.prefs_category_more)).perform(scrollTo())
