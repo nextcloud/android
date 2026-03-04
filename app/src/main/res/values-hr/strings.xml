@@ -402,6 +402,7 @@
     <string name="etm_transfer_type">Prijenos</string>
     <string name="etm_transfer_type_download">Preuzmi</string>
     <string name="etm_transfer_type_upload">Otpremi</string>
+    <string name="extension_cannot_be_changed">Ekstenziju nije moguće promijeniti</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Nemate dopuštenje za stvaranje ili prijenos datoteka u ovoj mapi.</string>
     <string name="external_shares">Vanjska dijeljenja</string>
     <string name="fab_label">Dodaj ili otpremi</string>
@@ -583,6 +584,7 @@
     <string name="login">Prijava</string>
     <string name="login_url_helper_text">Poveznica do vašeg web-sučelja %1$s kada ga otvorite u pregledniku.</string>
     <string name="logs_menu_delete">Izbriši zapise</string>
+    <string name="logs_menu_export">Izvoz zapisa</string>
     <string name="logs_menu_refresh">Osvježi</string>
     <string name="logs_menu_search">Pretraži zapise</string>
     <string name="logs_menu_send">Pošalji zapise e-poštom</string>
