@@ -11,6 +11,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.FilesSyncHelper
@@ -23,13 +24,14 @@ import kotlinx.coroutines.withContext
  * It fires media detection worker and auto upload worker and finishes immediately.
  *
  */
-@Suppress("TooGenericExceptionCaught")
+@Suppress("TooGenericExceptionCaught", "LongParameterList")
 class ContentObserverWork(
     context: Context,
     private val params: WorkerParameters,
     private val syncedFolderProvider: SyncedFolderProvider,
     private val powerManagementService: PowerManagementService,
-    private val backgroundJobManager: BackgroundJobManager
+    private val backgroundJobManager: BackgroundJobManager,
+    private val autoUploadHelper: AutoUploadHelper
 ) : CoroutineWorker(context, params) {
 
     companion object {
@@ -84,14 +86,35 @@ class ContentObserverWork(
         val contentUris = params.triggeredContentUris.map { uri ->
             // adds uri strings e.g. content://media/external/images/media/2281
             uri.toString()
-        }.toTypedArray<String?>()
+        }.toTypedArray<String>()
+
         Log_OC.d(TAG, "📄 Content uris detected")
 
         try {
+            syncedFolderProvider.syncedFolders
+                .filter { it.isEnabled }
+                .forEach { folder ->
+                    val inserted = if (contentUris.isEmpty()) {
+                        Log_OC.d(TAG, "inserting all entries")
+                        autoUploadHelper.insertEntries(folder)
+                        true
+                    } else {
+                        Log_OC.d(TAG, "inserting changed entries")
+                        autoUploadHelper.insertChangedEntries(folder, contentUris)
+                    }
+
+                    if (!inserted) {
+                        Log_OC.w(
+                            TAG,
+                            "changed content uris not stored, fallback to insert all db entries to not lose files"
+                        )
+                        autoUploadHelper.insertEntries(folder)
+                    }
+                }
+
             FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
                 syncedFolderProvider,
                 backgroundJobManager,
-                contentUris,
                 false
             )
             Log_OC.d(TAG, "✅ auto upload triggered successfully for ${contentUris.size} file(s).")
