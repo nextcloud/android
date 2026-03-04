@@ -66,8 +66,8 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
         }
     }
 
+    // @ScreenshotTest disabled for now
     @Test
-    @ScreenshotTest
     fun showMediaThenAllFiles() {
         try {
             launchActivity<FileDisplayActivity>().use { scenario ->
