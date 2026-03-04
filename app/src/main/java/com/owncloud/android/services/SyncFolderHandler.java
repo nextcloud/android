@@ -124,7 +124,12 @@ class SyncFolderHandler extends Handler {
                     SynchronizeFolderOperation syncFolderOperation){
         Pair<String, String> putResult = mPendingOperations.putIfAbsent(account.name, remotePath, syncFolderOperation);
         if (putResult != null) {
-            fileDownloadBroadcastManager.sendAdded(account.name, remotePath, mService.getPackageName(), null);
+            fileDownloadBroadcastManager.sendAdded(account.name,
+                                                   remotePath,
+                                                   mService.getPackageName(),
+                                                   syncFolderOperation.getFolderId(),
+                                                   null,
+                                                   syncFolderOperation.getAccountName());
         }
     }
 

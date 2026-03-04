@@ -16,6 +16,8 @@ import android.accounts.AccountManagerCallback
 import android.accounts.AccountManagerFuture
 import android.accounts.OperationCanceledException
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -31,11 +33,9 @@ import com.google.common.collect.Sets
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.onboarding.FirstRunActivity
-import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerState.FileDownloadStarted
 import com.nextcloud.utils.extensions.getParcelableArgument
-import com.nextcloud.utils.extensions.observeWorker
 import com.nextcloud.utils.mdm.MDMConfig.multiAccountSupport
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -45,7 +45,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.UserInfo
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder
 import com.owncloud.android.ui.adapter.UserListAdapter
 import com.owncloud.android.ui.adapter.UserListItem
@@ -74,8 +73,6 @@ class ManageAccountsActivity :
 
     private var multipleAccountsSupported = false
 
-    private var workerAccountName: String? = null
-    private var workerCurrentDownload: DownloadFileOperation? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -303,7 +300,7 @@ class ManageAccountsActivity :
 
             if (!user.isPresent) {
                 fileUploadHelper.cancel(it)
-                FileDownloadHelper.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload)
+                cancelAllDownloadsForAccount()
             }
         }
 
@@ -364,7 +361,7 @@ class ManageAccountsActivity :
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(this)
         arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, PENDING_FOR_REMOVAL, true.toString())
 
-        FileDownloadHelper.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload)
+        cancelAllDownloadsForAccount()
         fileUploadHelper.cancel(user.accountName)
         backgroundJobManager.startAccountRemovalJob(user.accountName, false)
 
@@ -394,6 +391,20 @@ class ManageAccountsActivity :
             resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, true)
             setResult(RESULT_OK, resultIntent)
             onBackPressedDispatcher.onBackPressed()
+        }
+    }
+
+    private fun cancelAllDownloadsForAccount() {
+        workerAccountName?.let { accountName ->
+            workerCurrentDownloadAccountName?.let { currentDownloadAccountName ->
+                if (workerFileId != -1L) {
+                    FileDownloadHelper.instance().cancelAllDownloadsForAccount(
+                        accountName,
+                        currentDownloadAccountName,
+                        workerFileId
+                    )
+                }
+            }
         }
     }
 
@@ -453,18 +464,19 @@ class ManageAccountsActivity :
         }
     }
 
-    private fun observeWorkerState() {
-        observeWorker { state: WorkerState? ->
-            if (state is FileDownloadStarted) {
-                Log_OC.d(TAG, "Download worker started")
-                workerAccountName = state.user?.accountName
-                workerCurrentDownload = state.currentDownload
-            }
-        }
-    }
-
     override fun onAccountClicked(user: User) {
         openAccount(user)
+    }
+
+    private class DownloadReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            Log_OC.d(TAG, "download received")
+
+            workerAccountName = intent.getStringExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME)
+            workerCurrentDownloadAccountName =
+                intent.getStringExtra(FileDownloadWorker.EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME)
+            workerFileId = intent.getLongExtra(FileDownloadWorker.EXTRA_CURRENT_DOWNLOAD_FILE_ID, -1L)
+        }
     }
 
     companion object {
@@ -477,6 +489,11 @@ class ManageAccountsActivity :
         private const val KEY_DELETE_CODE = 101
         private const val SINGLE_ACCOUNT = 1
         private const val MIN_MULTI_ACCOUNT_SIZE = 2
+
+        private var workerAccountName: String? = null
+        private var workerCurrentDownloadAccountName: String? = null
+        private var workerFileId: Long = -1L
+
 
         private fun toAccountNames(users: Collection<User>): Set<String> {
             val accountNames: MutableSet<String> = Sets.newHashSetWithExpectedSize(users.size)

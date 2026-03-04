@@ -27,12 +27,27 @@ class FileDownloadBroadcastManager(
         const val DOWNLOAD_FINISHED = "DOWNLOAD_FINISHED"
     }
 
-    fun sendAdded(accountName: String, remotePath: String, packageName: String, linkedToRemotePath: String?) {
+    fun sendAdded(
+        accountName: String,
+        remotePath: String,
+        packageName: String,
+        fileId: Long?,
+        linkedToRemotePath: String?,
+        currentDownloadAccountName: String?
+    ) {
         Log_OC.d(TAG, "download added broadcast sent")
 
         val intent = Intent(DOWNLOAD_ADDED).apply {
             putExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME, accountName)
             putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, remotePath)
+
+            fileId?.let {
+                putExtra(FileDownloadWorker.EXTRA_CURRENT_DOWNLOAD_FILE_ID, fileId)
+            }
+
+            currentDownloadAccountName?.let {
+                putExtra(FileDownloadWorker.EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME, currentDownloadAccountName)
+            }
 
             linkedToRemotePath?.let {
                 putExtra(FileDownloadWorker.EXTRA_LINKED_TO_PATH, linkedToRemotePath)

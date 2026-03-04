@@ -35,7 +35,6 @@ import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.extensions.isWorkRunning
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolder
@@ -662,8 +661,8 @@ internal class BackgroundJobManagerImpl(
         }
     }
 
-    private fun startFileDownloadJobTag(user: User, fileId: Long): String =
-        JOB_FOLDER_DOWNLOAD + user.accountName + fileId
+    private fun startFileDownloadJobTag(accountName: String, fileId: Long): String =
+        JOB_FOLDER_DOWNLOAD + accountName + fileId
 
     override fun startFileDownloadJob(
         user: User,
@@ -674,7 +673,7 @@ internal class BackgroundJobManagerImpl(
         packageName: String,
         conflictUploadId: Long?
     ) {
-        val tag = startFileDownloadJobTag(user, file.fileId)
+        val tag = startFileDownloadJobTag(user.accountName, file.fileId)
 
         val data = workDataOf(
             FileDownloadWorker.ACCOUNT_NAME to user.accountName,
@@ -706,8 +705,8 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelJob(JOB_FILES_UPLOAD, user)
     }
 
-    override fun cancelFilesDownloadJob(user: User, fileId: Long) {
-        workManager.cancelAllWorkByTag(startFileDownloadJobTag(user, fileId))
+    override fun cancelFilesDownloadJob(accountName: String, fileId: Long) {
+        workManager.cancelAllWorkByTag(startFileDownloadJobTag(accountName, fileId))
     }
 
     override fun startPdfGenerateAndUploadWork(
