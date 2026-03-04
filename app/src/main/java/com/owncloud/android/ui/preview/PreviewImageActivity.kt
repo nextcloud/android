@@ -415,8 +415,7 @@ class PreviewImageActivity :
         showDetails(file)
     }
 
-    @JvmOverloads
-    fun requestForDownload(file: OCFile?, downloadBehaviour: String? = null) {
+    fun requestForDownload(file: OCFile?) {
         if (file == null) return
         val user = user.orElseThrow { RuntimeException() }
         FileDownloadHelper.instance().downloadFileIfNotStartedBefore(user, file)
@@ -469,18 +468,20 @@ class PreviewImageActivity :
      */
     private inner class DownloadFinishReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            /*
-             Log_OC.d(TAG, "Download worker stopped")
+            Log_OC.d(TAG, "Download worker stopped")
             isDownloadWorkStarted = false
+            val accountName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACCOUNT_NAME)
+            val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
+            if (account.name != accountName || downloadedRemotePath == null) {
+                return
+            }
+            val file = storageManager.getFileByEncryptedRemotePath(downloadedRemotePath)
 
             if (screenState == PreviewImageActivityState.Edit) {
-                onImageDownloadComplete(state.currentFile)
+                onImageDownloadComplete(file)
             } else {
                 setDownloadedItem()
             }
-             */
-
-            previewNewImage(intent)
         }
     }
 
@@ -491,45 +492,6 @@ class PreviewImageActivity :
 
             if (screenState == PreviewImageActivityState.WaitingForBinder) {
                 selectPageOnDownload()
-            }
-        }
-    }
-
-    @Suppress("NestedBlockDepth", "ReturnCount")
-    private fun previewNewImage(intent: Intent) {
-        val accountName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACCOUNT_NAME)
-        val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
-        val downloadBehaviour = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_DOWNLOAD_BEHAVIOUR)
-
-        if (account.name != accountName || downloadedRemotePath == null) {
-            return
-        }
-
-        val file = storageManager.getFileByEncryptedRemotePath(downloadedRemotePath)
-        val downloadWasFine = intent.getBooleanExtra(FileDownloadEventBroadcaster.EXTRA_DOWNLOAD_RESULT, false)
-
-        if (EditImageActivity.OPEN_IMAGE_EDITOR == downloadBehaviour) {
-            startImageEditor(file)
-        } else {
-            val position = previewImagePagerAdapter?.getFilePosition(file) ?: return
-
-            if (position >= 0) {
-                if (downloadWasFine) {
-                    previewImagePagerAdapter?.updateFile(position, file)
-                } else {
-                    previewImagePagerAdapter?.updateWithDownloadError(position)
-                }
-                previewImagePagerAdapter?.notifyItemChanged(position)
-            } else if (downloadWasFine) {
-                val user = user
-
-                if (user.isPresent) {
-                    initViewPager(user.get())
-                    val newPosition = previewImagePagerAdapter?.getFilePosition(file) ?: return
-                    if (newPosition >= 0) {
-                        viewPager?.currentItem = newPosition
-                    }
-                }
             }
         }
     }
@@ -554,7 +516,7 @@ class PreviewImageActivity :
         } else {
             showLoadingDialog(getString(R.string.preview_image_downloading_image_for_edit))
             screenState = PreviewImageActivityState.Edit
-            requestForDownload(file, EditImageActivity.OPEN_IMAGE_EDITOR)
+            requestForDownload(file)
         }
     }
 

@@ -80,7 +80,7 @@ class FolderDownloadWorker(
 
         trySetForeground(folder)
 
-        folderDownloadEventBroadcaster.sendAdded(folder.fileId)
+        folderDownloadEventBroadcaster.sendDownloadEnqueued(folder.fileId)
         pendingDownloads.add(folder.fileId)
 
         val downloadHelper = FileDownloadHelper.instance()
@@ -138,7 +138,7 @@ class FolderDownloadWorker(
                 Log_OC.d(TAG, "❌ failed reason: $e")
                 Result.failure()
             } finally {
-                folderDownloadEventBroadcaster.sendFinished(folder.fileId)
+                folderDownloadEventBroadcaster.sendDownloadCompleted(folder.fileId)
                 pendingDownloads.remove(folder.fileId)
                 notificationManager.dismiss()
             }
