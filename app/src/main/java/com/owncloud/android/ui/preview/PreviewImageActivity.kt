@@ -70,7 +70,11 @@ class PreviewImageActivity :
     private var viewPager: ViewPager2? = null
     private var previewImagePagerAdapter: PreviewImagePagerAdapter? = null
     private var savedPosition: Int? = null
-    private var downloadFinishReceiver: DownloadFinishReceiver? = null
+
+    private val downloadStartReceiver = DownloadStartReceiver()
+    private val downloadFinishReceiver = DownloadFinishReceiver()
+
+    private val uploadFinishReceiver = UploadFinishReceiver()
     private var fullScreenAnchorView: View? = null
 
     private var isDownloadWorkStarted = false
@@ -313,25 +317,6 @@ class PreviewImageActivity :
     private fun observeWorkerState() {
         observeWorker { state: WorkerState? ->
             when (state) {
-                is WorkerState.FileDownloadStarted -> {
-                    Log_OC.d(TAG, "Download worker started")
-                    isDownloadWorkStarted = true
-
-                    if (screenState == PreviewImageActivityState.WaitingForBinder) {
-                        selectPageOnDownload()
-                    }
-                }
-
-                is WorkerState.FileDownloadCompleted -> {
-                    Log_OC.d(TAG, "Download worker stopped")
-                    isDownloadWorkStarted = false
-
-                    if (screenState == PreviewImageActivityState.Edit) {
-                        onImageDownloadComplete(state.currentFile)
-                    } else {
-                        setDownloadedItem()
-                    }
-                }
 
                 else -> {
                     Log_OC.d(TAG, "Worker stopped")
@@ -378,21 +363,28 @@ class PreviewImageActivity :
     }
 
     private fun registerReceivers() {
-        downloadFinishReceiver = DownloadFinishReceiver()
-        val downloadIntentFilter = IntentFilter(FileDownloadBroadcastManager.DOWNLOAD_FINISHED)
-        localBroadcastManager.registerReceiver(downloadFinishReceiver!!, downloadIntentFilter)
+        localBroadcastManager.run {
+            val downloadStartIntentFilter = IntentFilter(FileDownloadBroadcastManager.DOWNLOAD_ADDED)
+            registerReceiver(downloadStartReceiver, downloadStartIntentFilter)
 
-        val uploadFinishReceiver = UploadFinishReceiver()
-        val uploadIntentFilter = IntentFilter(FileUploadBroadcastManager.UPLOAD_FINISHED)
-        localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter)
+            val downloadFinishIntentFilter = IntentFilter(FileDownloadBroadcastManager.DOWNLOAD_FINISHED)
+            registerReceiver(downloadFinishReceiver, downloadFinishIntentFilter)
+
+            val uploadFinishIntentFilter = IntentFilter(FileUploadBroadcastManager.UPLOAD_FINISHED)
+            registerReceiver(uploadFinishReceiver, uploadFinishIntentFilter)
+        }
+    }
+
+    private fun unregisterReceivers() {
+        localBroadcastManager.run {
+            unregisterReceiver(downloadStartReceiver)
+            unregisterReceiver(downloadFinishReceiver)
+            unregisterReceiver(uploadFinishReceiver)
+        }
     }
 
     public override fun onStop() {
-        if (downloadFinishReceiver != null) {
-            localBroadcastManager.unregisterReceiver(downloadFinishReceiver!!)
-            downloadFinishReceiver = null
-        }
-
+        unregisterReceivers()
         super.onStop()
     }
 
@@ -471,7 +463,30 @@ class PreviewImageActivity :
      */
     private inner class DownloadFinishReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
+
+            /*
+             Log_OC.d(TAG, "Download worker stopped")
+            isDownloadWorkStarted = false
+
+            if (screenState == PreviewImageActivityState.Edit) {
+                onImageDownloadComplete(state.currentFile)
+            } else {
+                setDownloadedItem()
+            }
+             */
+
             previewNewImage(intent)
+        }
+    }
+
+    private inner class DownloadStartReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            Log_OC.d(TAG, "Download worker started")
+            isDownloadWorkStarted = true
+
+            if (screenState == PreviewImageActivityState.WaitingForBinder) {
+                selectPageOnDownload()
+            }
         }
     }
 
@@ -556,13 +571,8 @@ class PreviewImageActivity :
         startActivity(intent)
     }
 
-    override fun onBrowsedDownTo(folder: OCFile) {
-        // TODO Auto-generated method stub
-    }
-
-    override fun onTransferStateChanged(file: OCFile, downloading: Boolean, uploading: Boolean) {
-        // TODO Auto-generated method stub
-    }
+    override fun onBrowsedDownTo(folder: OCFile) = Unit
+    override fun onTransferStateChanged(file: OCFile, downloading: Boolean, uploading: Boolean) = Unit
 
     @Suppress("DEPRECATION")
     private fun hideSystemUI(anchorView: View) {
