@@ -26,7 +26,7 @@
     <integer name="file_avatar_px">512</integer>
     <dimen name="drawer_content_horizontal_padding">28dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
-    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
     <dimen name="standard_double_padding">32dp</dimen>
     <dimen name="standard_quadruple_icon_size">64dp</dimen>
     <dimen name="standard_half_padding">8dp</dimen>

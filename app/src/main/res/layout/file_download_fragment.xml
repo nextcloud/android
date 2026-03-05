@@ -20,13 +20,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:padding="@dimen/card_corner_radius">
+        android:padding="@dimen/standard_padding">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/progressCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/standard_padding"
+            app:cardCornerRadius="@dimen/card_corner_radius"
             app:cardElevation="0dp"
             app:strokeWidth="0dp">
 
@@ -69,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/standard_margin"
-                    android:indeterminate="false"
+                    android:indeterminate="true"
                     app:indicatorColor="?attr/colorPrimary"
                     app:trackColor="?attr/colorSurfaceContainerHighest" />
 

@@ -27,7 +27,6 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDownloadFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.adapter.progressListener.DownloadProgressListener
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -43,8 +42,6 @@ class FileDownloadFragment :
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
-    var progressListener: DownloadProgressListener? = null
-    private var listening = false
     private var ignoreFirstSavedState = false
     private var downloadError = false
 
@@ -76,8 +73,6 @@ class FileDownloadFragment :
             themeCardView(binding.errorCard)
         }
 
-        progressListener = DownloadProgressListener(binding.progressBar)
-
         binding.cancelBtn.setOnClickListener(this)
         binding.fileDownloadLL.setOnClickListener {
             getTypedActivity(PreviewImageActivity::class.java)?.toggleFullScreen()
@@ -100,16 +95,6 @@ class FileDownloadFragment :
             putParcelable(EXTRA_USER, user)
             putBoolean(EXTRA_ERROR, downloadError)
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        listenForTransferProgress()
-    }
-
-    override fun onStop() {
-        leaveTransferProgress()
-        super.onStop()
     }
 
     override fun onClick(v: View) {
@@ -136,23 +121,6 @@ class FileDownloadFragment :
                 visibility = transferringVisibility
             }
         }
-    }
-
-    fun listenForTransferProgress() {
-        val listener = containerActivity.getFileDownloadProgressListener() ?: return
-        if (progressListener == null || listening) return
-
-        listener.addDataTransferProgressListener(progressListener, file)
-        listening = true
-        setButtonsForTransferring(isTransferring = true)
-    }
-
-    fun leaveTransferProgress() {
-        val listener = containerActivity.getFileDownloadProgressListener() ?: return
-        if (progressListener == null) return
-
-        listener.removeDataTransferProgressListener(progressListener, file)
-        listening = false
     }
 
     fun setError(error: Boolean) {
