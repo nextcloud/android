@@ -22,6 +22,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.integrations.deck.DeckApi
+import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
 import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
 import com.nextcloud.client.jobs.download.FileDownloadWorker
@@ -132,7 +133,10 @@ class BackgroundJobFactory @Inject constructor(
             workerParameters,
             SyncedFolderProvider(contentResolver, preferences, clock),
             powerManagementService,
-            backgroundJobManager.get()
+            backgroundJobManager.get(),
+            AutoUploadHelper(
+                FileSystemRepository(dao = database.fileSystemDao(), uploadsStorageManager, context)
+            )
         )
 
     private fun createContactsBackupWork(context: Context, params: WorkerParameters): ContactsBackupWork =
@@ -178,7 +182,6 @@ class BackgroundJobFactory @Inject constructor(
         connectivityService = connectivityService,
         powerManagementService = powerManagementService,
         syncedFolderProvider = syncedFolderProvider,
-        backgroundJobManager = backgroundJobManager.get(),
         repository = FileSystemRepository(dao = database.fileSystemDao(), uploadsStorageManager, context),
         viewThemeUtils = viewThemeUtils.get(),
         localBroadcastManager = localBroadcastManager.get()

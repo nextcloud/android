@@ -146,4 +146,21 @@ interface FileDao {
 
     @Query("SELECT remote_id FROM filelist WHERE file_owner = :accountName AND remote_id IS NOT NULL")
     fun getAllRemoteIds(accountName: String): List<String>
+
+    @Query(
+        """
+    WITH RECURSIVE descendants AS (
+        SELECT _id FROM filelist WHERE _id = :folderId AND file_owner = :fileOwner
+        UNION ALL
+        SELECT f._id FROM filelist f
+        INNER JOIN descendants d ON f.parent = d._id
+        WHERE f.file_owner = :fileOwner
+    )
+    DELETE FROM filelist WHERE _id IN (SELECT _id FROM descendants)
+"""
+    )
+    fun deleteFolderWithDescendants(fileOwner: String, folderId: Long): Int
+
+    @Query("DELETE FROM filelist WHERE file_owner = :fileOwner AND path = :remotePath")
+    fun deleteFileByRemotePath(fileOwner: String, remotePath: String): Int
 }

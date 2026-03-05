@@ -422,10 +422,6 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelJob(JOB_PERIODIC_CALENDAR_BACKUP, user)
     }
 
-    override fun isAutoUploadWorkerRunning(syncedFolderID: Long): Boolean =
-        workManager.isWorkRunning(JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID) ||
-            workManager.isWorkRunning(JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID)
-
     override fun startPeriodicallyOfflineOperation() {
         val inputData = Data.Builder()
             .putString(OfflineOperationsWorker.JOB_NAME, JOB_PERIODIC_OFFLINE_OPERATIONS)
@@ -478,16 +474,11 @@ internal class BackgroundJobManagerImpl(
         )
     }
 
-    override fun startAutoUpload(
-        syncedFolder: SyncedFolder,
-        overridePowerSaving: Boolean,
-        contentUris: Array<String?>
-    ) {
+    override fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean) {
         val syncedFolderID = syncedFolder.id
 
         val arguments = Data.Builder()
             .putBoolean(AutoUploadWorker.OVERRIDE_POWER_SAVING, overridePowerSaving)
-            .putStringArray(AutoUploadWorker.CONTENT_URIS, contentUris)
             .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
             .build()
 
@@ -511,7 +502,7 @@ internal class BackgroundJobManagerImpl(
 
         workManager.enqueueUniqueWork(
             JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID,
-            ExistingWorkPolicy.APPEND,
+            ExistingWorkPolicy.KEEP,
             request
         )
     }
