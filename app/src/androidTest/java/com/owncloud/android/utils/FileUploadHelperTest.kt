@@ -35,6 +35,7 @@ class FileUploadHelperTest {
     private val accountName = "test@nextcloud.example.com"
     private val localPath = "/sdcard/DCIM/photo.jpg"
 
+    @Suppress("LongParameterList")
     private fun buildEntity(
         id: Int = 1,
         localPath: String = this.localPath,
