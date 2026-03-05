@@ -147,6 +147,24 @@ public class FileDataStorageManager {
         return getFileByPath(ProviderTableMeta.FILE_PATH_DECRYPTED, path);
     }
 
+    /**
+     * Returns the {@link OCFile} for the given remote path.
+     * Tries the path as-is first; if not found, appends a trailing "/" for folders.
+     *
+     * @param path The file or folder path.
+     * @return The matching {@link OCFile}, or null if not found.
+     */
+    @Nullable
+    public OCFile getFileByRemotePath(String path) {
+        OCFile file = getFileByDecryptedRemotePath(path);
+
+        if (file == null) {
+            file = getFileByDecryptedRemotePath(path + OCFile.PATH_SEPARATOR);
+        }
+
+        return file;
+    }
+
     public void addCreateFileOfflineOperation(String[] localPaths, String[] remotePaths) {
         if (localPaths.length != remotePaths.length) {
             Log_OC.d(TAG, "Local path and remote path size do not match");
@@ -868,140 +886,208 @@ public class FileDataStorageManager {
         return cv;
     }
 
+    // region remove file/folder
     public boolean removeFile(OCFile ocFile, boolean removeDBData, boolean removeLocalCopy) {
-        boolean success = true;
-
-        if (ocFile != null) {
-            if (ocFile.isFolder()) {
-                success = removeFolder(ocFile, removeDBData, removeLocalCopy);
-            } else {
-
-                if (removeDBData) {
-                    //Uri file_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE,
-                    // ""+file.getFileId());
-                    Uri file_uri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, ocFile.getFileId());
-                    String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
-
-                    String[] whereArgs = new String[]{user.getAccountName(), ocFile.getRemotePath()};
-                    int deleted = 0;
-                    if (getContentProviderClient() != null) {
-                        try {
-                            deleted = getContentProviderClient().delete(file_uri, where, whereArgs);
-                        } catch (RemoteException e) {
-                            Log_OC.d(TAG, e.getMessage(), e);
-                        }
-                    } else {
-                        deleted = getContentResolver().delete(file_uri, where, whereArgs);
-                    }
-                    success = deleted > 0;
-                }
-
-                String localPath = ocFile.getStoragePath();
-                if (removeLocalCopy && ocFile.isDown() && localPath != null && success) {
-                    success = new File(localPath).delete();
-                    if (success) {
-                        deleteFileInMediaScan(localPath);
-                    }
-
-                    if (success && !removeDBData) {
-                        // maybe unnecessary, but should be checked TODO remove if unnecessary
-                        ocFile.setStoragePath(null);
-                        saveFile(ocFile);
-                        saveConflict(ocFile, null);
-                    }
-                }
-            }
-        } else {
+        if (ocFile == null) {
+            Log_OC.e(TAG, "oc file is null, cannot delete it");
             return false;
+        }
+
+        if (ocFile.isFolder()) {
+            Log_OC.d(TAG, "deleting folder");
+            return removeFolder(ocFile, removeDBData, removeLocalCopy);
+        }
+
+        boolean success = true;
+        if (removeDBData) {
+            Log_OC.d(TAG, "deleting db data of file");
+            success = fileDao.deleteFileByRemotePath(user.getAccountName(), ocFile.getRemotePath()) > 0;
+        }
+
+        if (success) {
+            Log_OC.d(TAG, "deleting local copy of file");
+            success = removeLocalCopyIfNeeded(ocFile, removeLocalCopy, removeDBData);
         }
 
         return success;
     }
 
+    private boolean removeLocalCopyIfNeeded(OCFile ocFile, boolean removeLocalCopy, boolean removeDBData) {
+        String localPath = ocFile.getStoragePath();
 
-    public boolean removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
-        boolean success = true;
-        if (folder != null && folder.isFolder()) {
-            if (removeDBData && folder.getFileId() != -1) {
-                success = removeFolderInDb(folder);
-            }
-            if (removeLocalContent && success) {
-                success = removeLocalFolder(folder);
-            }
-        } else {
-            success = false;
+        if (!removeLocalCopy) {
+            Log_OC.d(TAG, "removeLocalCopyIfNeeded: removeLocalCopy=false");
+            return true;
         }
 
+        if (!ocFile.isDown()) {
+            Log_OC.d(TAG, "removeLocalCopyIfNeeded: file not downloaded -> skip");
+            return true;
+        }
+
+        if (localPath == null) {
+            Log_OC.d(TAG, "removeLocalCopyIfNeeded: localPath is null -> skip");
+            return true;
+        }
+
+        Log_OC.d(TAG, "removeLocalCopyIfNeeded: deleting local file -> " + localPath);
+
+        boolean success = new File(localPath).delete();
+        Log_OC.d(TAG, "removeLocalCopyIfNeeded: file deletion result=" + success);
+
+        if (!success) {
+            return false;
+        }
+
+        deleteFileInMediaScan(localPath);
+
+        if (!removeDBData) {
+            Log_OC.d(TAG, "removeLocalCopyIfNeeded: updating DB after local deletion");
+            ocFile.setStoragePath(null);
+            saveFile(ocFile);
+            saveConflict(ocFile, null);
+        }
+
+        return true;
+    }
+
+    public boolean removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
+        if (folder == null) {
+            Log_OC.d(TAG,"removeFolder: folder is null");
+            return false;
+        }
+
+        if (!folder.isFolder()) {
+            Log_OC.d(TAG,"removeFolder: not a folder -> " + folder.getRemotePath());
+            return false;
+        }
+
+        Log_OC.d(TAG,"removeFolder: start -> " + folder.getRemotePath() +
+                     " | removeDBData=" + removeDBData +
+                     " | removeLocalContent=" + removeLocalContent);
+
+        boolean success = true;
+
+        if (removeDBData && folder.getFileId() != -1) {
+            Log_OC.d(TAG,"removeFolder: removing from DB -> fileId=" + folder.getFileId());
+            success = removeFolderInDb(folder);
+            Log_OC.d(TAG,"removeFolder: DB removal result=" + success);
+        }
+
+        if (success && removeLocalContent) {
+            Log_OC.d(TAG,"removeFolder: removing local content -> " + folder.getStoragePath());
+            success = removeLocalFolder(folder);
+            Log_OC.d(TAG,"removeFolder: local removal result=" + success);
+        }
+
+        Log_OC.d(TAG, "removeFolder: finished -> result=" + success);
         return success;
     }
 
     private boolean removeFolderInDb(OCFile folder) {
-        Uri folderUri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, String.valueOf(folder.getFileId()));
-        // for recursive deletion
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
-        String[] whereArgs = new String[]{user.getAccountName(), folder.getRemotePath()};
-        int deleted = 0;
-        if (getContentProviderClient() != null) {
-            try {
-                deleted = getContentProviderClient().delete(folderUri, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.d(TAG, e.getMessage(), e);
-            }
-        } else {
-            deleted = getContentResolver().delete(folderUri, where, whereArgs);
-        }
-        return deleted > 0;
+        return fileDao.deleteFolderWithDescendants(user.getAccountName(), folder.getFileId()) > 0;
     }
 
     private boolean removeLocalFolder(OCFile folder) {
-        boolean success = true;
-        String localFolderPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), folder);
-        File localFolder = new File(localFolderPath);
-
-        if (localFolder.exists()) {
-            // stage 1: remove the local files already registered in the files database
-            List<OCFile> files = getFolderContent(folder.getFileId(), false);
-            for (OCFile ocFile : files) {
-                if (ocFile.isFolder()) {
-                    success &= removeLocalFolder(ocFile);
-                } else if (ocFile.isDown()) {
-                    File localFile = new File(ocFile.getStoragePath());
-                    success &= localFile.delete();
-
-                    if (success) {
-                        // notify MediaScanner about removed file
-                        deleteFileInMediaScan(ocFile.getStoragePath());
-                        ocFile.setStoragePath(null);
-                        saveFile(ocFile);
-                    }
-                }
-            }
-
-            // stage 2: remove the folder itself and any local file inside out of sync;
-            //          for instance, after clearing the app cache or reinstalling
-            success &= removeLocalFolder(localFolder);
+        if (folder == null) {
+            Log_OC.d(TAG, "removeLocalFolder: folder is null");
+            return false;
         }
 
+        String localFolderPath = FileStorageUtils
+            .getDefaultSavePathFor(user.getAccountName(), folder);
+        File localFolder = new File(localFolderPath);
+
+        if (!localFolder.exists()) {
+            Log_OC.d(TAG, "removeLocalFolder: local folder does not exist -> " + localFolderPath);
+            return true;
+        }
+
+        Log_OC.d(TAG, "removeLocalFolder: start -> " + localFolderPath);
+
+        boolean success = true;
+
+        // remove DB content
+        List<OCFile> files = getFolderContent(folder.getFileId(), false);
+        Log_OC.d(TAG, "removeLocalFolder: found " + files.size() + " entries in DB");
+
+        for (OCFile ocFile : files) {
+            if (!success) {
+                break;
+            }
+
+            if (ocFile.isFolder()) {
+                Log_OC.d(TAG, "removeLocalFolder: removing subfolder -> " + ocFile.getRemotePath());
+                success = removeLocalFolder(ocFile);
+                Log_OC.d(TAG, "removeLocalFolder: subfolder removal result=" + success);
+
+            } else if (ocFile.isDown()) {
+
+                File localFile = new File(ocFile.getStoragePath());
+                Log_OC.d(TAG, "removeLocalFolder: deleting file -> " + ocFile.getStoragePath());
+
+                boolean deleted = localFile.delete();
+                success = deleted;
+
+                Log_OC.d(TAG, "removeLocalFolder: file deletion result=" + deleted);
+
+                if (deleted) {
+                    deleteFileInMediaScan(ocFile.getStoragePath());
+                    ocFile.setStoragePath(null);
+                    saveFile(ocFile);
+                }
+            }
+        }
+
+        // remove folder itself (and any untracked content)
+        if (success) {
+            Log_OC.d(TAG, "removeLocalFolder: deleting folder -> " + localFolder.getAbsolutePath());
+            success = removeLocalFolder(localFolder);
+            Log_OC.d(TAG, "removeLocalFolder: folder deletion result=" + success);
+        }
+
+        Log_OC.d(TAG, "removeLocalFolder: finished -> result=" + success);
         return success;
     }
 
     private boolean removeLocalFolder(File localFolder) {
-        boolean success = true;
-        File[] localFiles = localFolder.listFiles();
+        if (localFolder == null) {
+            Log_OC.d(TAG, "removeLocalFolder(File): folder is null");
+            return false;
+        }
 
-        if (localFiles != null) {
-            for (File localFile : localFiles) {
-                if (localFile.isDirectory()) {
-                    success &= removeLocalFolder(localFile);
+        if (!localFolder.exists()) {
+            Log_OC.d(TAG, "removeLocalFolder(File): folder does not exist -> " + localFolder.getAbsolutePath());
+            return true;
+        }
+
+        Log_OC.d(TAG, "removeLocalFolder(File): start -> " + localFolder.getAbsolutePath());
+
+        File[] children = localFolder.listFiles();
+        if (children != null) {
+            for (File child : children) {
+                boolean childDeleted;
+
+                if (child.isDirectory()) {
+                    childDeleted = removeLocalFolder(child);
                 } else {
-                    success &= localFile.delete();
+                    childDeleted = child.delete();
+                    Log_OC.d(TAG, "removeLocalFolder(File): deleting file -> " + child.getAbsolutePath() + " result=" + childDeleted);
+                }
+
+                if (!childDeleted) {
+                    Log_OC.d(TAG, "removeLocalFolder(File): failed at -> " + child.getAbsolutePath());
+                    return false;
                 }
             }
         }
-        success &= localFolder.delete();
 
-        return success;
+        boolean folderDeleted = localFolder.delete();
+        Log_OC.d(TAG, "removeLocalFolder(File): deleting folder -> " + localFolder.getAbsolutePath() + " result=" + folderDeleted);
+
+        return folderDeleted;
     }
+    // endregion
 
     /**
      * Updates database and file system for a file or folder that was moved to a different location.

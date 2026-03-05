@@ -752,14 +752,14 @@ class FileDetailsSharingProcessFragment :
     @Suppress("ReturnCount")
     private fun validateShareProcessFirst() {
         if (permission == OCShare.NO_PERMISSION) {
-            DisplayUtils.showSnackMessage(binding.root, R.string.no_share_permission_selected)
+            DisplayUtils.showSnackMessage(this, R.string.no_share_permission_selected)
             return
         }
 
         if (binding.shareProcessSetPasswordSwitch.isChecked &&
             binding.shareProcessEnterPassword.text?.isBlank() == true
         ) {
-            DisplayUtils.showSnackMessage(binding.root, R.string.share_link_empty_password)
+            DisplayUtils.showSnackMessage(this, R.string.share_link_empty_password)
             return
         }
 
@@ -773,7 +773,7 @@ class FileDetailsSharingProcessFragment :
         if (binding.shareProcessChangeNameSwitch.isChecked &&
             binding.shareProcessChangeName.text?.isBlank() == true
         ) {
-            DisplayUtils.showSnackMessage(binding.root, R.string.label_empty)
+            DisplayUtils.showSnackMessage(this, R.string.label_empty)
             return
         }
 
@@ -790,13 +790,13 @@ class FileDetailsSharingProcessFragment :
     @Suppress("ReturnCount")
     private fun createShareOrUpdateNoteShare() {
         if (!isAnySharePermissionChecked()) {
-            DisplayUtils.showSnackMessage(requireActivity(), R.string.share_option_required)
+            DisplayUtils.showSnackMessage(this, R.string.share_option_required)
             return
         }
 
         val noteText = binding.noteText.text.toString().trim()
         if (file == null && (share != null && share?.note == noteText)) {
-            DisplayUtils.showSnackMessage(requireActivity(), R.string.share_cannot_update_empty_note)
+            DisplayUtils.showSnackMessage(this, R.string.share_cannot_update_empty_note)
             return
         }
 
@@ -807,7 +807,7 @@ class FileDetailsSharingProcessFragment :
             }
 
             file == null -> {
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.file_not_found_cannot_share)
+                DisplayUtils.showSnackMessage(this, R.string.file_not_found_cannot_share)
                 return
             }
 

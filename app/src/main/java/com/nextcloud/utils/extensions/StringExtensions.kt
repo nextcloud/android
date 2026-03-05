@@ -35,6 +35,17 @@ fun String?.eTagChanged(eTagOnServer: String?): Boolean {
     return !this.equals(eTagOnServer, ignoreCase = true)
 }
 
+fun String.extension(): String {
+    val lastDot = lastIndexOf('.')
+
+    // return empty string for filenames like ".gitignore"
+    if (lastDot <= 0 || lastDot == length - 1) {
+        return ""
+    }
+
+    return substring(lastDot + 1).lowercase()
+}
+
 fun String.truncateWithEllipsis(limit: Int) = take(limit) + if (length > limit) StringConstants.THREE_DOT else ""
 
 object StringConstants {

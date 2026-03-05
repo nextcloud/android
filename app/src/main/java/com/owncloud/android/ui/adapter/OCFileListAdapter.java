@@ -67,6 +67,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.overlay.OverlayManager;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -134,6 +135,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private ArrayList<OCFile> recommendedFiles = new ArrayList<>();
     private RecommendedFilesAdapter recommendedFilesAdapter;
     private final OCFileListAdapterHelper helper = new OCFileListAdapterHelper();
+    private final OverlayManager overlayManager;
 
     public OCFileListAdapter(
         Activity activity,
@@ -144,7 +146,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         OCFileListFragmentInterface ocFileListFragmentInterface,
         boolean argHideItemOptions,
         boolean gridView,
-        final ViewThemeUtils viewThemeUtils) {
+        final ViewThemeUtils viewThemeUtils,
+        OverlayManager overlayManager) {
+        this.overlayManager = overlayManager;
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
         this.preferences = preferences;
@@ -488,7 +492,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void bindHolder(@NonNull RecyclerView.ViewHolder holder, ListViewHolder viewHolder, OCFile file) {
-        ocFileListDelegate.bindViewHolder(viewHolder, file, currentDirectory, searchType);
+        ocFileListDelegate.bindViewHolder(viewHolder, file, currentDirectory, searchType, overlayManager);
 
         if (holder instanceof ListItemViewHolder itemViewHolder) {
             bindListItemViewHolder(itemViewHolder, file);

@@ -113,7 +113,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         }
 
         setFile(BundleExtensionsKt.getParcelableArgument(args, ARG_FILE, OCFile.class));
-            // TODO better in super, but needs to check ALL the class extending FileFragment; not right now
+        // TODO better in super, but needs to check ALL the class extending FileFragment; not right now
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         user = BundleExtensionsKt.getParcelableArgument(args, ARG_USER, User.class);

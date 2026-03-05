@@ -120,11 +120,7 @@ interface BackgroundJobManager {
 
     fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?>
 
-    fun startAutoUpload(
-        syncedFolder: SyncedFolder,
-        overridePowerSaving: Boolean = false,
-        contentUris: Array<String?> = arrayOf()
-    )
+    fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean = false)
 
     fun cancelTwoWaySyncJob()
 
@@ -163,7 +159,6 @@ interface BackgroundJobManager {
     fun cancelAllJobs()
     fun schedulePeriodicHealthStatus()
     fun startHealthStatus()
-    fun isAutoUploadWorkerRunning(syncedFolderID: Long): Boolean
     fun startOfflineOperations()
     fun startPeriodicallyOfflineOperation()
     fun scheduleInternal2WaySync(intervalMinutes: Long)

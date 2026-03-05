@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2018-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
@@ -114,6 +115,7 @@ import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.overlay.OverlayManager;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -205,6 +207,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject ShortcutUtil shortcutUtil;
     @Inject SyncedFolderProvider syncedFolderProvider;
     @Inject AppScanOptionalFeature appScanOptionalFeature;
+    @Inject OverlayManager overlayManager;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -225,6 +228,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
     public static boolean isMultipleFileSelectedForCopyOrMove = false;
+
+    private static final Intent scanIntentExternalApp = new Intent("org.fairscan.app.action.SCAN_TO_PDF");
 
     @Inject DeviceInfo deviceInfo;
 
@@ -466,7 +471,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             this,
             hideItemOptions,
             isGridViewPreferred(mFile),
-            viewThemeUtils
+            viewThemeUtils,
+            overlayManager
         );
 
         setRecyclerViewAdapter(mAdapter);
@@ -585,6 +591,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 ", currentFile=" + currentFile);
             DisplayUtils.showSnackMessage(this, R.string.error_starting_doc_scan);
         }
+    }
+
+    @Override
+    public void scanDocUploadFromApp() {
+        requireActivity().startActivityForResult(
+            scanIntentExternalApp,
+            FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME);
+    }
+
+    @Override
+    public boolean isScanDocUploadFromAppAvailable() {
+        var context = getActivity();
+        if (context == null) {
+            return false;
+        }
+        return scanIntentExternalApp.resolveActivity(context.getPackageManager()) != null;
     }
 
     @Override
@@ -1285,6 +1307,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mContainerActivity.getFileOperationsHelper().toggleEncryption(file, true);
                 mAdapter.setEncryptionAttributeForItemID(file.getRemoteId(), true);
                 searchFragment = false;
+                setFileDepth(file);
                 listDirectory(file, MainApp.isOnlyOnDevice());
                 mContainerActivity.onBrowsedDownTo(file);
 

@@ -35,6 +35,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -57,13 +59,13 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
+import com.owncloud.android.utils.overlay.OverlayManager;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.BufferedReader;
@@ -80,10 +82,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.TimeZone;
 
 import androidx.annotation.NonNull;
@@ -111,37 +111,17 @@ public final class DisplayUtils {
 
     private static final String[] sizeSuffixes = {"B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
     private static final int[] sizeScales = {0, 0, 1, 1, 1, 2, 2, 2, 2};
-    private static final String MIME_TYPE_UNKNOWN = "Unknown type";
 
     private static final String HTTP_PROTOCOL = "http://";
     private static final String HTTPS_PROTOCOL = "https://";
     private static final String TWITTER_HANDLE_PREFIX = "@";
-    private static final int MIMETYPE_PARTS_COUNT = 2;
     private static final int BYTE_SIZE_DIVIDER = 1024;
     private static final double BYTE_SIZE_DIVIDER_DOUBLE = 1024.0;
     private static final int DATE_TIME_PARTS_SIZE = 2;
-
+    private static final Handler mainLooper = new Handler(Looper.getMainLooper());
     public static final String MONTH_YEAR_PATTERN = "MMMM yyyy";
     public static final String MONTH_PATTERN = "MMMM";
     public static final String YEAR_PATTERN = "yyyy";
-    public static final int SVG_SIZE = 512;
-
-    private static Map<String, String> mimeType2HumanReadable;
-
-    static {
-        mimeType2HumanReadable = new HashMap<>();
-        // images
-        mimeType2HumanReadable.put("image/jpeg", "JPEG image");
-        mimeType2HumanReadable.put("image/jpg", "JPEG image");
-        mimeType2HumanReadable.put("image/png", "PNG image");
-        mimeType2HumanReadable.put("image/bmp", "Bitmap image");
-        mimeType2HumanReadable.put("image/gif", "GIF image");
-        mimeType2HumanReadable.put("image/svg+xml", "JPEG image");
-        mimeType2HumanReadable.put("image/tiff", "TIFF image");
-        // music
-        mimeType2HumanReadable.put("audio/mpeg", "MP3 music file");
-        mimeType2HumanReadable.put("application/ogg", "OGG music file");
-    }
 
     private DisplayUtils() {
         // utility class -> private constructor
@@ -172,24 +152,6 @@ public final class DisplayUtils {
             return new BigDecimal(String.valueOf(result)).setScale(
                 sizeScales[suffixIndex], RoundingMode.HALF_UP) + " " + sizeSuffixes[suffixIndex];
         }
-    }
-
-    /**
-     * Converts MIME types like "image/jpg" to more end user friendly output
-     * like "JPG image".
-     *
-     * @param mimetype MIME type to convert
-     * @return A human friendly version of the MIME type, {@link #MIME_TYPE_UNKNOWN} if it can't be converted
-     */
-    public static String convertMIMEtoPrettyPrint(String mimetype) {
-        final String humanReadableMime = mimeType2HumanReadable.get(mimetype);
-        if (humanReadableMime != null) {
-            return humanReadableMime;
-        }
-        if (mimetype.split("/").length >= MIMETYPE_PARTS_COUNT) {
-            return mimetype.split("/")[1].toUpperCase(Locale.getDefault()) + " file";
-        }
-        return MIME_TYPE_UNKNOWN;
     }
 
     /**
@@ -354,21 +316,6 @@ public final class DisplayUtils {
             // dateString contains unexpected format. fallback: use relative date time string from android api as is.
             return dateString.toString();
         }
-    }
-
-    /**
-     * Update the passed path removing the last "/" if it is not the root folder.
-     *
-     * @param path the path to be trimmed
-     */
-    public static String getPathWithoutLastSlash(String path) {
-
-        // Remove last slash from path
-        if (path.length() > 1 && path.charAt(path.length() - 1) == OCFile.PATH_SEPARATOR.charAt(0)) {
-            return path.substring(0, path.length() - 1);
-        }
-
-        return path;
     }
 
     /**
@@ -574,46 +521,94 @@ public final class DisplayUtils {
         return text.toString();
     }
 
-    public static Snackbar showSnackMessage(Fragment fragment, @StringRes int messageResource) {
+    // region snackbar
+    public static void showSnackMessage(Fragment fragment, @StringRes int messageResource) {
         if (fragment == null) {
-            return null;
+            Log_OC.e(TAG, "snackbar cannot be shown fragment is null");
+            return;
         }
 
         final var activity = fragment.getActivity();
         if (activity == null) {
-            return null;
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
+            return;
         }
 
-        return showSnackMessage(activity, messageResource);
+        showSnackMessage(activity, messageResource);
     }
 
-    /**
-     * Show a temporary message in a {@link Snackbar} bound to the content view.
-     *
-     * @param activity        The {@link Activity} to which's content view the {@link Snackbar} is bound.
-     * @param messageResource The resource id of the string resource to use. Can be formatted text.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar showSnackMessage(Activity activity, @StringRes int messageResource) {
-        return showSnackMessage(activity.findViewById(android.R.id.content), messageResource);
-    }
-
-    /**
-     * Show a temporary message in a {@link Snackbar} bound to the content view.
-     *
-     * @param activity The {@link Activity} to which's content view the {@link Snackbar} is bound.
-     * @param message  Message to show.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar showSnackMessage(Activity activity, String message) {
-        final Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
-        var fab = findFABView(activity);
-        if (fab != null && fab.getVisibility() == View.VISIBLE) {
-            snackbar.setAnchorView(fab);
+    public static void showSnackMessage(Activity activity, @StringRes int messageResource) {
+        if (activity == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
+            return;
         }
+
+        showSnackMessage(activity.findViewById(android.R.id.content), messageResource);
+    }
+
+    public static void showSnackMessage(Activity activity, @StringRes int messageResource, Object... formatArgs) {
+        if (activity == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
+            return;
+        }
+
+        showSnackMessage(activity, activity.findViewById(android.R.id.content), messageResource, formatArgs);
+    }
+
+    public static void showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
+        if (context == null || view == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown view is null");
+            return;
+        }
+
+        final var snackbar = Snackbar.make(view, String.format(context.getString(messageResource, formatArgs)), Snackbar.LENGTH_LONG);
         snackbar.show();
-        return snackbar;
     }
+
+    public static void showSnackMessage(Activity activity, String message) {
+        if (activity == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
+            return;
+        }
+
+        activity.runOnUiThread(() -> {
+            final var snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
+            var fab = findFABView(activity);
+            if (fab != null && fab.getVisibility() == View.VISIBLE) {
+                snackbar.setAnchorView(fab);
+            }
+            snackbar.show();
+        });
+    }
+
+    public static void showSnackMessage(View view, @StringRes int messageResource) {
+        if (view == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown view is null");
+            return;
+        }
+
+        mainLooper.post(() -> {
+            final var snackbar = Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG);
+            var fab = findFABView(view.getRootView());
+            if (fab != null && fab.getVisibility() == View.VISIBLE) {
+                snackbar.setAnchorView(fab);
+            }
+            snackbar.show();
+        });
+    }
+
+    public static void showSnackMessage(View view, String message) {
+        if (view == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown view is null");
+            return;
+        }
+
+        mainLooper.post(() -> {
+            final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+            snackbar.show();
+        });
+    }
+    // endregion
 
     private static View findFABView(Activity activity) {
         return activity.findViewById(R.id.fab_main);
@@ -623,35 +618,6 @@ public final class DisplayUtils {
         return view.findViewById(R.id.fab_main);
     }
 
-    /**
-     * Show a temporary message in a {@link Snackbar} bound to the given view.
-     *
-     * @param view            The view the {@link Snackbar} is bound to.
-     * @param messageResource The resource id of the string resource to use. Can be formatted text.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar showSnackMessage(View view, @StringRes int messageResource) {
-        final Snackbar snackbar = Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG);
-        var fab = findFABView(view.getRootView());
-        if (fab != null && fab.getVisibility() == View.VISIBLE) {
-            snackbar.setAnchorView(fab);
-        }
-        snackbar.show();
-        return snackbar;
-    }
-
-    /**
-     * Show a temporary message in a {@link Snackbar} bound to the given view.
-     *
-     * @param view    The view the {@link Snackbar} is bound to.
-     * @param message The message.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar showSnackMessage(View view, String message) {
-        final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
-        snackbar.show();
-        return snackbar;
-    }
 
     /**
      * create a temporary message in a {@link Snackbar} bound to the given view.
@@ -662,37 +628,6 @@ public final class DisplayUtils {
      */
     public static Snackbar createSnackbar(View view, @StringRes int messageResource, int length) {
         return Snackbar.make(view, messageResource, length);
-    }
-
-    /**
-     * Show a temporary message in a {@link Snackbar} bound to the content view.
-     *
-     * @param activity        The {@link Activity} to which's content view the {@link Snackbar} is bound.
-     * @param messageResource The resource id of the string resource to use. Can be formatted text.
-     * @param formatArgs      The format arguments that will be used for substitution.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar showSnackMessage(Activity activity, @StringRes int messageResource, Object... formatArgs) {
-        return showSnackMessage(activity, activity.findViewById(android.R.id.content), messageResource, formatArgs);
-    }
-
-    /**
-     * Show a temporary message in a {@link Snackbar} bound to the content view.
-     *
-     * @param context         to load resources.
-     * @param view            The content view the {@link Snackbar} is bound to.
-     * @param messageResource The resource id of the string resource to use. Can be formatted text.
-     * @param formatArgs      The format arguments that will be used for substitution.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
-        final Snackbar snackbar = Snackbar.make(
-            view,
-            String.format(context.getString(messageResource, formatArgs)),
-            Snackbar.LENGTH_LONG);
-        snackbar
-            .show();
-        return snackbar;
     }
 
     // Solution inspired by https://stackoverflow.com/questions/34936590/why-isnt-my-vector-drawable-scaling-as-expected
@@ -843,7 +778,7 @@ public final class DisplayUtils {
                                     LoaderImageView shimmerThumbnail,
                                     AppPreferences preferences,
                                     ViewThemeUtils viewThemeUtils,
-                                    SyncedFolderProvider syncedFolderProvider) {
+                                    OverlayManager overlayManager) {
         if (file == null || thumbnailView == null || context == null) {
             return;
         }
@@ -854,7 +789,7 @@ public final class DisplayUtils {
         }
 
         if (file.isFolder()) {
-            setThumbnailForFolder(file, thumbnailView, shimmerThumbnail, user, syncedFolderProvider, preferences, context, viewThemeUtils);
+            overlayManager.setFolderThumbnail(file, thumbnailView, shimmerThumbnail);
             return;
         }
 
@@ -899,18 +834,7 @@ public final class DisplayUtils {
         }
     }
 
-    private static void setThumbnailForFolder(OCFile file, ImageView thumbnailView, LoaderImageView shimmerThumbnail, User user, SyncedFolderProvider syncedFolderProvider, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
-        stopShimmer(shimmerThumbnail, thumbnailView);
-
-        boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-        boolean isDarkModeActive = preferences.isDarkModeEnabled();
-
-        final var overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
-        final var fileIcon = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
-        thumbnailView.setImageDrawable(fileIcon);
-    }
-
-    private static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
+    public static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
         final var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
         if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
             generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);

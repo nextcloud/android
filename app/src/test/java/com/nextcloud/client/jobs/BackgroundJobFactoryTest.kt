@@ -17,6 +17,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.database.dao.FileDao
+import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
@@ -107,6 +108,8 @@ class BackgroundJobFactoryTest {
     @Mock
     private lateinit var db: NextcloudDatabase
 
+    @Mock private lateinit var fileSystemDao: FileSystemDao
+
     @Mock private lateinit var fileDao: FileDao
 
     private lateinit var factory: BackgroundJobFactory
@@ -119,6 +122,7 @@ class BackgroundJobFactoryTest {
         MockitoAnnotations.openMocks(this)
 
         whenever(db.fileDao()).thenReturn(fileDao)
+        whenever(db.fileSystemDao()).thenReturn(fileSystemDao)
 
         factory = BackgroundJobFactory(
             logger,

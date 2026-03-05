@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.common.NextcloudClient;
@@ -54,7 +53,6 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     private long lastGiven;
     private boolean isLoadingActivities;
     private ActivitiesContract.ActionListener actionListener;
-    private Snackbar snackbar;
 
     @Inject ActivitiesRepository activitiesRepository;
     @Inject FilesRepository filesRepository;
@@ -191,7 +189,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     public void showActivitiesLoadError(String error) {
         connectivityService.isNetworkAndServerAvailable(result -> {
             if (result) {
-                snackbar = DisplayUtils.showSnackMessage(this, error);
+                DisplayUtils.showSnackMessage(this, error);
             } else {
                 showEmptyContent(getString(R.string.server_not_reachable),
                                  getString(R.string.server_not_reachable_content));
@@ -217,12 +215,12 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
 
     @Override
     public void showActivityDetailUIIsNull() {
-        snackbar = DisplayUtils.showSnackMessage(this, R.string.file_not_found);
+        DisplayUtils.showSnackMessage(this, R.string.file_not_found);
     }
 
     @Override
     public void showActivityDetailError(String error) {
-        snackbar = DisplayUtils.showSnackMessage(this, error);
+        DisplayUtils.showSnackMessage(this, error);
     }
 
     @Override
@@ -254,13 +252,5 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         super.onStop();
 
         actionListener.onStop();
-    }
-
-    @VisibleForTesting
-    public void dismissSnackbar() {
-        if (snackbar != null && snackbar.isShown()) {
-            snackbar.dismiss();
-            snackbar = null;
-        }
     }
 }

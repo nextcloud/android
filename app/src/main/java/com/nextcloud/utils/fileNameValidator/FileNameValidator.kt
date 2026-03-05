@@ -11,6 +11,7 @@ import android.content.Context
 import android.text.TextUtils
 import com.nextcloud.utils.extensions.StringConstants
 import com.nextcloud.utils.extensions.checkWCFRestrictions
+import com.nextcloud.utils.extensions.extension
 import com.nextcloud.utils.extensions.forbiddenFilenameBaseNames
 import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtensions
@@ -29,7 +30,7 @@ object FileNameValidator {
      * @param capability The capabilities affecting the validation criteria
      * such as forbiddenFilenames, forbiddenCharacters.
      * @param context The context used for retrieving error messages.
-     * @param existedFileNames Set of existing file names to avoid duplicates.
+     * @param existingFileNames Set of existing file names to avoid duplicates.
      * @return An error message if the filename is invalid, null otherwise.
      */
     @Suppress("ReturnCount", "NestedBlockDepth")
@@ -37,14 +38,14 @@ object FileNameValidator {
         filename: String,
         capability: OCCapability,
         context: Context,
-        existedFileNames: Set<String>? = null
+        existingFileNames: Set<String>? = null
     ): String? {
         if (filename.isBlank()) {
             return context.getString(R.string.filename_empty)
         }
 
-        existedFileNames?.let {
-            if (isFileNameAlreadyExist(filename, existedFileNames)) {
+        existingFileNames?.let {
+            if (isFileNameAlreadyExist(filename, existingFileNames)) {
                 return context.getString(R.string.file_already_exists)
             }
         }
@@ -145,6 +146,14 @@ object FileNameValidator {
         }
 
         return null
+    }
+
+    fun isExtensionChanged(previousFileName: String?, newFileName: String?): Boolean {
+        if (previousFileName == null || newFileName == null) {
+            return previousFileName != newFileName
+        }
+
+        return previousFileName.extension() != newFileName.extension()
     }
 
     fun isFileHidden(name: String): Boolean = !TextUtils.isEmpty(name) && name[0] == '.'
