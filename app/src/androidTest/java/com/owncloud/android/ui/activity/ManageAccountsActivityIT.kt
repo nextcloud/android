@@ -56,11 +56,13 @@ class ManageAccountsActivityIT : AbstractIT() {
                 sut.showUser(user, userInfo)
             }
 
-            val screenShotName = createName(testClassName + "_" + "open", "")
+            val screenShotName = createName(testClassName + "_" + "userInfoDetail", "")
             onView(isRoot()).check(matches(isDisplayed()))
 
+            val a = getCurrentActivity()
+            
             scenario.onActivity {
-                screenshotViaName(getCurrentActivity(), screenShotName)
+                screenshotViaName(a, screenShotName)
             }
         }
     }
