@@ -61,7 +61,6 @@
     <string name="assistant_screen_chat_fetch_error">Failed to fetch chat messages</string>
     <string name="assistant_screen_chat_generate_error">Failed to generate response</string>
     <string name="assistant_screen_retry_response_generation">Retry response generation</string>
-    <string name="assistant_screen_chat_no_chat_messages">Failed to fetch chat messages</string>
     <string name="assistant_screen_task_list_error_state_message">Unable to fetch task list, please check your internet connection.</string>
     <string name="assistant_screen_task_list_empty_warning">Task list is empty. Check assistant app configuration.</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
