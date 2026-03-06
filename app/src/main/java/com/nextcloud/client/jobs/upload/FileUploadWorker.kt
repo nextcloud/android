@@ -81,7 +81,6 @@ class FileUploadWorker(
         const val EXTRA_REMOTE_PATH = "REMOTE_PATH"
         const val EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH"
         const val EXTRA_OLD_FILE_PATH = "OLD_FILE_PATH"
-        const val EXTRA_LINKED_TO_PATH = "LINKED_TO"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME"
         const val ACTION_CANCEL_BROADCAST = "CANCEL"
@@ -288,7 +287,6 @@ class FileUploadWorker(
             fileUploadBroadcastManager.sendFinished(
                 operation,
                 result,
-                operation.oldFile?.storagePath,
                 context
             )
         }
