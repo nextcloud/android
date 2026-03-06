@@ -84,12 +84,7 @@ class FileUploadBroadcastManager(private val broadcastManager: LocalBroadcastMan
      *  - [com.owncloud.android.ui.preview.PreviewImageActivity.UploadFinishReceiver]
      *
      */
-    fun sendFinished(
-        upload: UploadFileOperation,
-        uploadResult: RemoteOperationResult<*>,
-        unlinkedFromRemotePath: String?,
-        context: Context
-    ) {
+    fun sendFinished(upload: UploadFileOperation, uploadResult: RemoteOperationResult<*>, context: Context) {
         Log_OC.d(TAG, "upload finished broadcast sent")
         val intent = Intent(UPLOAD_FINISHED).apply {
             // real remote path, after possible automatic renaming
@@ -102,9 +97,6 @@ class FileUploadBroadcastManager(private val broadcastManager: LocalBroadcastMan
             putExtra(FileUploadWorker.EXTRA_OLD_FILE_PATH, upload.originalStoragePath)
             putExtra(FileUploadWorker.ACCOUNT_NAME, upload.user.accountName)
             putExtra(FileUploadWorker.EXTRA_UPLOAD_RESULT, uploadResult.isSuccess)
-            if (unlinkedFromRemotePath != null) {
-                putExtra(FileUploadWorker.EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
-            }
             setPackage(context.packageName)
         }
         broadcastManager.sendBroadcast(intent)
