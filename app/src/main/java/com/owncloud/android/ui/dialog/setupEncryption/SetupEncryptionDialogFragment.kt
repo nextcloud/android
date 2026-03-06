@@ -115,6 +115,7 @@ class SetupEncryptionDialogFragment :
 
         // Setup layout
         viewThemeUtils.material.colorTextInputLayout(binding.encryptionPasswordInputContainer)
+        viewThemeUtils.material.colorProgressBar(binding.progressBar)
 
         val builder = buildMaterialAlertDialog(binding.root)
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(requireContext(), builder)
@@ -158,6 +159,7 @@ class SetupEncryptionDialogFragment :
     private fun decryptPrivateKey(dialog: DialogInterface) {
         Log_OC.d(TAG, "Decrypt private key")
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_decrypting)
+        binding.progressBar.visibility = View.VISIBLE
 
         try {
             if (downloadKeyResult !is DownloadKeyResult.Success) {
@@ -221,6 +223,7 @@ class SetupEncryptionDialogFragment :
             notifyResult()
         } catch (e: Exception) {
             binding.encryptionStatus.setText(R.string.end_to_end_encryption_wrong_password)
+            binding.progressBar.visibility = View.GONE
             Log_OC.e(TAG, "Error while decrypting private key: " + e.message)
         }
     }
