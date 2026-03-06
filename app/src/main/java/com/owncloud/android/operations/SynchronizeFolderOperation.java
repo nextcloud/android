@@ -580,4 +580,16 @@ public class SynchronizeFolderOperation extends SyncOperation {
     public String getRemotePath() {
         return mRemotePath;
     }
+
+    public String getAccountName() {
+        return user.getAccountName();
+    }
+
+    public Long getFolderId() {
+        if (mLocalFolder == null) {
+            return null;
+        }
+
+        return mLocalFolder.getFileId();
+    }
 }

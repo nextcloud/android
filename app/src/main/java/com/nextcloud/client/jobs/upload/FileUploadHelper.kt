@@ -513,8 +513,8 @@ class FileUploadHelper {
 
     class UploadNotificationActionReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            val accountName = intent.getStringExtra(FileUploadWorker.EXTRA_ACCOUNT_NAME)
-            val remotePath = intent.getStringExtra(FileUploadWorker.EXTRA_REMOTE_PATH)
+            val accountName = intent.getStringExtra(FileUploadEventBroadcaster.EXTRA_ACCOUNT_NAME)
+            val remotePath = intent.getStringExtra(FileUploadEventBroadcaster.EXTRA_REMOTE_PATH)
             val action = intent.action
 
             if (FileUploadWorker.ACTION_CANCEL_BROADCAST == action) {

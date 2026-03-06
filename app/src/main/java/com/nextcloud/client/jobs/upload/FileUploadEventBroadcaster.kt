@@ -22,14 +22,23 @@ import com.owncloud.android.operations.UploadFileOperation
  *
  * All broadcasts are sent via [LocalBroadcastManager].
  */
-class FileUploadBroadcastManager(private val broadcastManager: LocalBroadcastManager) {
+class FileUploadEventBroadcaster(private val broadcastManager: LocalBroadcastManager) {
 
     companion object {
         private const val TAG = "📣" + "FileUploadBroadcastManager"
 
-        const val UPLOAD_ADDED = "UPLOAD_ADDED"
-        const val UPLOAD_STARTED = "UPLOAD_STARTED"
-        const val UPLOAD_FINISHED = "UPLOAD_FINISHED"
+        private const val PREFIX = "com.nextcloud.client.upload."
+
+        const val ACTION_UPLOAD_ENQUEUED = PREFIX + "ACTION_UPLOAD_ENQUEUED"
+        const val ACTION_UPLOAD_STARTED = PREFIX + "ACTION_UPLOAD_STARTED"
+        const val ACTION_UPLOAD_COMPLETED = PREFIX + "UPLOAD_FINISHED"
+
+        const val EXTRA_REMOTE_PATH = PREFIX + "EXTRA_REMOTE_PATH"
+        const val EXTRA_OLD_FILE_PATH = PREFIX + "EXTRA_OLD_FILE_PATH"
+        const val EXTRA_ACCOUNT_NAME = PREFIX + "EXTRA_ACCOUNT_NAME"
+        const val EXTRA_OLD_REMOTE_PATH = PREFIX + "EXTRA_OLD_REMOTE_PATH"
+        const val EXTRA_UPLOAD_RESULT = PREFIX + "EXTRA_UPLOAD_RESULT"
+        const val EXTRA_LINKED_TO_PATH = PREFIX + "EXTRA_LINKED_TO_PATH"
     }
 
     /**
@@ -42,9 +51,10 @@ class FileUploadBroadcastManager(private val broadcastManager: LocalBroadcastMan
      *  - [com.owncloud.android.ui.activity.UploadListActivity.UploadFinishReceiver]
      *
      */
-    fun sendAdded(context: Context) {
-        Log_OC.d(TAG, "upload added broadcast sent")
-        val intent = Intent(UPLOAD_ADDED).apply {
+    fun sendUploadEnqueued(context: Context) {
+        Log_OC.d(TAG, "Upload enqueued broadcast sent")
+
+        val intent = Intent(ACTION_UPLOAD_ENQUEUED).apply {
             setPackage(context.packageName)
         }
         broadcastManager.sendBroadcast(intent)
@@ -60,12 +70,13 @@ class FileUploadBroadcastManager(private val broadcastManager: LocalBroadcastMan
      *  - [com.owncloud.android.ui.activity.UploadListActivity.UploadFinishReceiver]
      *
      */
-    fun sendStarted(upload: UploadFileOperation, context: Context) {
-        Log_OC.d(TAG, "upload started broadcast sent")
-        val intent = Intent(UPLOAD_STARTED).apply {
-            putExtra(FileUploadWorker.EXTRA_REMOTE_PATH, upload.remotePath) // real remote
-            putExtra(FileUploadWorker.EXTRA_OLD_FILE_PATH, upload.originalStoragePath)
-            putExtra(FileUploadWorker.ACCOUNT_NAME, upload.user.accountName)
+    fun sendUploadStarted(upload: UploadFileOperation, context: Context) {
+        Log_OC.d(TAG, "Upload started broadcast sent")
+
+        val intent = Intent(ACTION_UPLOAD_STARTED).apply {
+            putExtra(EXTRA_REMOTE_PATH, upload.remotePath) // real remote
+            putExtra(EXTRA_OLD_FILE_PATH, upload.originalStoragePath)
+            putExtra(EXTRA_ACCOUNT_NAME, upload.user.accountName)
             setPackage(context.packageName)
         }
         broadcastManager.sendBroadcast(intent)
@@ -79,31 +90,31 @@ class FileUploadBroadcastManager(private val broadcastManager: LocalBroadcastMan
      * - [UploadFileOperation] completes execution
      *
      *  ### Observed by
-     *  - [com.owncloud.android.ui.activity.FileDisplayActivity.UploadFinishReceiver]
+     *  - [com.owncloud.android.ui.activity.FileDisplayActivity.FileUploadCompletedReceiver]
      *  - [com.owncloud.android.ui.activity.UploadListActivity.UploadFinishReceiver]
-     *  - [com.owncloud.android.ui.preview.PreviewImageActivity.UploadFinishReceiver]
      *
      */
-    fun sendFinished(
+    fun sendUploadCompleted(
         upload: UploadFileOperation,
         uploadResult: RemoteOperationResult<*>,
         unlinkedFromRemotePath: String?,
         context: Context
     ) {
-        Log_OC.d(TAG, "upload finished broadcast sent")
-        val intent = Intent(UPLOAD_FINISHED).apply {
+        Log_OC.d(TAG, "Upload completed broadcast sent")
+
+        val intent = Intent(ACTION_UPLOAD_COMPLETED).apply {
             // real remote path, after possible automatic renaming
-            putExtra(FileUploadWorker.EXTRA_REMOTE_PATH, upload.remotePath)
+            putExtra(EXTRA_REMOTE_PATH, upload.remotePath)
             if (upload.wasRenamed()) {
                 upload.oldFile?.let {
-                    putExtra(FileUploadWorker.EXTRA_OLD_REMOTE_PATH, it.remotePath)
+                    putExtra(EXTRA_OLD_REMOTE_PATH, it.remotePath)
                 }
             }
-            putExtra(FileUploadWorker.EXTRA_OLD_FILE_PATH, upload.originalStoragePath)
-            putExtra(FileUploadWorker.ACCOUNT_NAME, upload.user.accountName)
-            putExtra(FileUploadWorker.EXTRA_UPLOAD_RESULT, uploadResult.isSuccess)
+            putExtra(EXTRA_OLD_FILE_PATH, upload.originalStoragePath)
+            putExtra(EXTRA_ACCOUNT_NAME, upload.user.accountName)
+            putExtra(EXTRA_UPLOAD_RESULT, uploadResult.isSuccess)
             if (unlinkedFromRemotePath != null) {
-                putExtra(FileUploadWorker.EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
+                putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
             }
             setPackage(context.packageName)
         }
