@@ -33,6 +33,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -47,12 +51,11 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.utils.TimeConstants
-import com.nextcloud.utils.extensions.isHuman
 import com.nextcloud.utils.extensions.time
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
@@ -63,25 +66,90 @@ private val CHAT_BUBBLE_CORNER_RADIUS = 8.dp
 private val ASSISTANT_ICON_SIZE = 40.dp
 
 @Composable
-fun ChatContent(viewModel: AssistantViewModel, modifier: Modifier = Modifier) {
-    val chatMessages by viewModel.chatMessages.collectAsState()
-    val isAssistantAnswering by viewModel.isAssistantAnswering.collectAsState()
+fun ChatContent(chatViewModel: ChatViewModel, modifier: Modifier = Modifier) {
+    val uiState by chatViewModel.uiState.collectAsState()
     val listState = rememberLazyListState()
 
-    LaunchedEffect(chatMessages) {
-        listState.animateScrollToItem(listState.layoutInfo.totalItemsCount)
+    val messages = uiState.messages()
+
+    LaunchedEffect(messages.size) {
+        if (messages.isNotEmpty()) {
+            listState.animateScrollToItem(messages.size - 1)
+        }
     }
 
+    when (uiState) {
+        is ChatUIState.Loading -> {
+            ChatLoadingContent(modifier)
+        }
+
+        is ChatUIState.Empty -> {
+            ChatEmptyContent(modifier)
+        }
+
+        is ChatUIState.Error -> {
+            val errorState = uiState as ChatUIState.Error
+            ChatMessageList(
+                messages = messages,
+                showTypingIndicator = false,
+                modifier = modifier,
+                listState = listState,
+                bottomSlot = {
+                    ChatErrorBanner(errorState.errorType)
+                }
+            )
+        }
+
+        is ChatUIState.RetryAvailable -> {
+            ChatMessageList(
+                messages = messages,
+                showTypingIndicator = false,
+                modifier = modifier,
+                listState = listState,
+                bottomSlot = {
+                    RetryButton(onClick = { chatViewModel.retryResponseGeneration() })
+                }
+            )
+        }
+
+        is ChatUIState.Thinking -> {
+            ChatMessageList(
+                messages = messages,
+                showTypingIndicator = true,
+                modifier = modifier,
+                listState = listState
+            )
+        }
+
+        is ChatUIState.Content,
+        is ChatUIState.Sending -> {
+            ChatMessageList(
+                messages = messages,
+                showTypingIndicator = false,
+                modifier = modifier,
+                listState = listState
+            )
+        }
+    }
+}
+
+@Composable
+private fun ChatMessageList(
+    messages: List<ChatMessage>,
+    showTypingIndicator: Boolean,
+    modifier: Modifier = Modifier,
+    listState: androidx.compose.foundation.lazy.LazyListState,
+    bottomSlot: (@Composable () -> Unit)? = null
+) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 12.dp, vertical = 8.dp),
         verticalArrangement = Arrangement.Bottom,
-        reverseLayout = false,
         state = listState
     ) {
-        items(chatMessages, key = { it.id }) { message ->
-            if (message.isHuman()) {
+        items(messages, key = { it.id }) { message ->
+            if (message.role == "human") {
                 UserMessageItem(message)
             } else {
                 AssistantMessageItem(message)
@@ -89,11 +157,101 @@ fun ChatContent(viewModel: AssistantViewModel, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(8.dp))
         }
 
-        if (isAssistantAnswering) {
+        if (showTypingIndicator) {
             item {
                 AssistantTypingIndicator()
                 Spacer(modifier = Modifier.height(8.dp))
             }
+        }
+
+        bottomSlot?.let {
+            item { it() }
+        }
+    }
+}
+
+@Composable
+private fun ChatLoadingContent(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun ChatEmptyContent(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_assistant),
+                contentDescription = null,
+                tint = colorResource(R.color.secondary_text_color),
+                modifier = Modifier.size(48.dp)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = stringResource(R.string.assistant_screen_empty_content_title),
+                style = MaterialTheme.typography.headlineSmall,
+                textAlign = TextAlign.Center,
+                color = colorResource(R.color.text_color)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = stringResource(R.string.assistant_screen_empty_content_description),
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center,
+                color = colorResource(R.color.secondary_text_color)
+            )
+        }
+    }
+}
+
+@Composable
+private fun ChatErrorBanner(errorType: ChatErrorType) {
+    val messageRes = when (errorType) {
+        ChatErrorType.LoadMessages -> R.string.assistant_screen_chat_fetch_error
+        ChatErrorType.SendMessage -> R.string.assistant_screen_chat_create_error
+        ChatErrorType.GenerateResponse -> R.string.assistant_screen_chat_generate_error
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(MaterialTheme.colorScheme.errorContainer)
+            .padding(12.dp)
+    ) {
+        Text(
+            text = stringResource(messageRes),
+            color = MaterialTheme.colorScheme.onErrorContainer,
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+@Composable
+private fun RetryButton(onClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Button(onClick = onClick) {
+            Text(text = stringResource(R.string.assistant_screen_retry_response_generation))
         }
     }
 }
@@ -106,11 +264,8 @@ private fun AssistantTypingIndicator() {
             .fillMaxWidth(),
         contentAlignment = Alignment.CenterStart
     ) {
-        Row(
-            verticalAlignment = Alignment.Bottom
-        ) {
+        Row(verticalAlignment = Alignment.Bottom) {
             AnimatedAssistantIcon()
-
             Box(
                 modifier = Modifier
                     .padding(start = 8.dp, end = 16.dp)
@@ -147,9 +302,7 @@ private fun AnimatedAssistantIcon() {
         modifier = Modifier
             .size(ASSISTANT_ICON_SIZE)
             .clip(CircleShape)
-            .background(
-                color = colorResource(R.color.bg_message_bubble)
-            ),
+            .background(color = colorResource(R.color.bg_message_bubble)),
         contentAlignment = Alignment.Center
     ) {
         Image(
@@ -157,8 +310,7 @@ private fun AnimatedAssistantIcon() {
             contentDescription = null,
             contentScale = ContentScale.Crop,
             alignment = Alignment.Center,
-            modifier = Modifier
-                .scale(scale)
+            modifier = Modifier.scale(scale)
         )
     }
 }
@@ -166,7 +318,6 @@ private fun AnimatedAssistantIcon() {
 @Composable
 private fun TypingAnimation() {
     val infiniteTransition = rememberInfiniteTransition(label = "typing_animation")
-
     val alpha by infiniteTransition.animateFloat(
         initialValue = 0.3f,
         targetValue = 1f,
@@ -177,10 +328,7 @@ private fun TypingAnimation() {
         label = "typing_alpha"
     )
 
-    Column(
-        modifier = Modifier.padding(8.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
+    Column(modifier = Modifier.padding(8.dp), horizontalAlignment = Alignment.Start) {
         Text(
             text = stringResource(R.string.assistant_thinking),
             style = TextStyle(
@@ -199,16 +347,12 @@ private fun AssistantMessageItem(message: ChatMessage) {
             .fillMaxWidth(),
         contentAlignment = Alignment.CenterStart
     ) {
-        Row(
-            verticalAlignment = Alignment.Bottom
-        ) {
+        Row(verticalAlignment = Alignment.Bottom) {
             Box(
                 modifier = Modifier
                     .size(ASSISTANT_ICON_SIZE)
                     .clip(CircleShape)
-                    .background(
-                        color = colorResource(R.color.bg_message_bubble)
-                    ),
+                    .background(color = colorResource(R.color.bg_message_bubble)),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
@@ -218,7 +362,6 @@ private fun AssistantMessageItem(message: ChatMessage) {
                     alignment = Alignment.Center
                 )
             }
-
             Box(
                 modifier = Modifier
                     .padding(start = 8.dp, end = 16.dp)
@@ -230,9 +373,7 @@ private fun AssistantMessageItem(message: ChatMessage) {
                             bottomEnd = CHAT_BUBBLE_CORNER_RADIUS
                         )
                     )
-                    .background(
-                        color = colorResource(R.color.bg_message_bubble)
-                    )
+                    .background(color = colorResource(R.color.bg_message_bubble))
             ) {
                 MessageTextItem(message)
             }
@@ -248,48 +389,35 @@ private fun UserMessageItem(message: ChatMessage) {
             .fillMaxWidth(),
         contentAlignment = Alignment.CenterEnd
     ) {
-        Row(
-            verticalAlignment = Alignment.Bottom
-        ) {
-            Box(
-                modifier = Modifier
-                    .padding(start = 16.dp, end = 8.dp)
-                    .defaultMinSize(minHeight = MIN_CHAT_HEIGHT)
-                    .clip(
-                        RoundedCornerShape(
-                            topEnd = CHAT_BUBBLE_CORNER_RADIUS,
-                            topStart = CHAT_BUBBLE_CORNER_RADIUS,
-                            bottomStart = CHAT_BUBBLE_CORNER_RADIUS
-                        )
+        Box(
+            modifier = Modifier
+                .padding(start = 16.dp, end = 8.dp)
+                .defaultMinSize(minHeight = MIN_CHAT_HEIGHT)
+                .clip(
+                    RoundedCornerShape(
+                        topEnd = CHAT_BUBBLE_CORNER_RADIUS,
+                        topStart = CHAT_BUBBLE_CORNER_RADIUS,
+                        bottomStart = CHAT_BUBBLE_CORNER_RADIUS
                     )
-                    .background(color = colorResource(R.color.bg_message_bubble))
-            ) {
-                MessageTextItem(message)
-            }
+                )
+                .background(color = colorResource(R.color.bg_message_bubble))
+        ) {
+            MessageTextItem(message)
         }
     }
 }
 
 @Composable
 private fun MessageTextItem(message: ChatMessage) {
-    Column(
-        modifier = Modifier.padding(8.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
+    Column(modifier = Modifier.padding(8.dp), horizontalAlignment = Alignment.Start) {
         Text(
             text = message.content,
-            style = TextStyle(
-                color = colorResource(R.color.text_color),
-                fontSize = 16.sp
-            )
+            style = TextStyle(color = colorResource(R.color.text_color), fontSize = 16.sp)
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = message.time(),
-            style = TextStyle(
-                color = colorResource(R.color.secondary_text_color),
-                fontSize = 12.sp
-            ),
+            style = TextStyle(color = colorResource(R.color.secondary_text_color), fontSize = 12.sp),
             modifier = Modifier.align(Alignment.End)
         )
     }
@@ -313,18 +441,8 @@ private fun MessageTextItemPreview() {
             id = 2,
             sessionId = 101,
             role = "assistant",
-            content = "I'm good! Here’s a message from yesterday.",
-            timestamp = Instant.now().minusSeconds(86_400).epochSecond, // 1 day ago
-            ocpTaskId = null,
-            sources = "",
-            attachments = emptyList()
-        ),
-        ChatMessage(
-            id = 3,
-            sessionId = 101,
-            role = "human",
-            content = "And an older one from last week.",
-            timestamp = Instant.now().minusSeconds(7 * 86_400).epochSecond, // 7 days ago
+            content = "I'm good! Here's a message from yesterday.",
+            timestamp = Instant.now().minusSeconds(86_400).epochSecond,
             ocpTaskId = null,
             sources = "",
             attachments = emptyList()

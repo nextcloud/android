@@ -9,6 +9,7 @@ package com.nextcloud.client.assistant
 
 import android.app.Activity
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -55,6 +56,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.chat.ChatContent
+import com.nextcloud.client.assistant.chat.ChatViewModel
 import com.nextcloud.client.assistant.conversation.ConversationScreen
 import com.nextcloud.client.assistant.conversation.ConversationViewModel
 import com.nextcloud.client.assistant.conversation.repository.MockConversationRemoteRepository
@@ -89,11 +91,13 @@ private const val PULL_TO_REFRESH_DELAY = 1500L
 fun AssistantScreen(
     composeViewModel: ComposeViewModel,
     viewModel: AssistantViewModel,
+    chatViewModel: ChatViewModel,
     conversationViewModel: ConversationViewModel,
     capability: OCCapability,
     activity: Activity
 ) {
     val selectedText by composeViewModel.selectedText.collectAsState()
+    val sessionTitle by chatViewModel.sessionTitle.collectAsState()
     val sessionId by viewModel.sessionId.collectAsState()
     val messageId by viewModel.snackbarMessageId.collectAsState()
     val screenOverlayState by viewModel.screenOverlayState.collectAsState()
@@ -130,12 +134,8 @@ fun AssistantScreen(
         }
     }
 
-    LaunchedEffect(sessionId) {
+    LaunchedEffect(Unit) {
         viewModel.startPolling(sessionId)
-
-        sessionId?.let {
-            viewModel.fetchChatMessages(it)
-        }
     }
 
     DisposableEffect(Unit) {
@@ -154,8 +154,9 @@ fun AssistantScreen(
                     scope.launch {
                         pagerState.scrollToPage(AssistantPage.Content.id)
                     }
-                }, openChat = { newSessionId ->
-                    viewModel.initSessionId(newSessionId)
+                }, openChat = { conversation ->
+                    chatViewModel.updateSessionTitle(conversation.timestamp)
+                    chatViewModel.selectConversation(conversation.id)
                     taskTypes.getChat()?.let { chatTaskType ->
                         viewModel.selectTaskType(chatTaskType)
                     }
@@ -174,9 +175,9 @@ fun AssistantScreen(
                             scope.launch {
                                 delay(PULL_TO_REFRESH_DELAY)
 
-                                val newSessionId = sessionId
-                                if (newSessionId != null) {
-                                    viewModel.fetchChatMessages(newSessionId)
+                                val currentSessionId = sessionId
+                                if (currentSessionId != null) {
+                                    chatViewModel.selectConversation(currentSessionId)
                                 } else {
                                     viewModel.fetchTaskList()
                                 }
@@ -184,14 +185,35 @@ fun AssistantScreen(
                         }
                     ),
                     topBar = {
-                        taskTypes?.let {
-                            TaskTypesRow(selectedTaskType, data = it, selectTaskType = { task ->
-                                viewModel.selectTaskType(task)
-                            }, navigateToConversationList = {
-                                scope.launch {
-                                    pagerState.scrollToPage(AssistantPage.Conversation.id)
+                        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.Start) {
+                            taskTypes?.let {
+                                TaskTypesRow(selectedTaskType, data = it, selectTaskType = { task ->
+                                    viewModel.selectTaskType(task)
+                                }, navigateToConversationList = {
+                                    scope.launch {
+                                        pagerState.scrollToPage(AssistantPage.Conversation.id)
+                                    }
+                                })
+                            }
+
+                            if (selectedTaskType?.isChat() == true && sessionTitle != null) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f))
+                                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                                    verticalArrangement = Arrangement.Center
+                                ) {
+                                    Text(
+                                        text = sessionTitle!!,
+                                        style = MaterialTheme.typography.titleMedium,
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                        maxLines = 1
+                                    )
+
+                                    Spacer(modifier = Modifier.height(8.dp))
                                 }
-                            })
+                            }
                         }
                     },
                     bottomBar = {
@@ -199,7 +221,8 @@ fun AssistantScreen(
                             InputBar(
                                 sessionId,
                                 selectedTaskType,
-                                viewModel
+                                viewModel,
+                                chatViewModel
                             )
                         }
                     },
@@ -247,7 +270,7 @@ fun AssistantScreen(
 
                         AssistantScreenState.ChatContent -> {
                             ChatContent(
-                                viewModel = viewModel,
+                                chatViewModel = chatViewModel,
                                 modifier = Modifier.padding(paddingValues)
                             )
                         }
@@ -291,7 +314,12 @@ fun AssistantScreen(
 
 @Suppress("LongMethod")
 @Composable
-private fun InputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, viewModel: AssistantViewModel) {
+private fun InputBar(
+    sessionId: Long?,
+    selectedTaskType: TaskTypeData?,
+    viewModel: AssistantViewModel,
+    chatViewModel: ChatViewModel
+) {
     val scope = rememberCoroutineScope()
     val text by viewModel.inputBarText.collectAsState()
 
@@ -339,9 +367,9 @@ private fun InputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, viewMode
                         val taskType = selectedTaskType ?: return@IconButton
                         if (taskType.isChat()) {
                             if (sessionId != null) {
-                                viewModel.sendChatMessage(content = text, sessionId)
+                                chatViewModel.sendMessage(content = text, sessionId = sessionId)
                             } else {
-                                viewModel.createConversation(text)
+                                chatViewModel.startNewConversation(content = text)
                             }
                         } else {
                             viewModel.createTask(input = text, taskType = taskType)
@@ -474,6 +502,7 @@ private fun AssistantScreenPreview() {
                 composeViewModel = ComposeViewModel(),
                 conversationViewModel = getMockConversationViewModel(),
                 viewModel = getMockAssistantViewModel(false),
+                chatViewModel = ChatViewModel(MockAssistantRemoteRepository()),
                 activity = ComposeActivity(),
                 capability = OCCapability().apply {
                     versionMayor = 30
@@ -493,6 +522,7 @@ private fun AssistantEmptyScreenPreview() {
                 composeViewModel = ComposeViewModel(),
                 conversationViewModel = getMockConversationViewModel(),
                 viewModel = getMockAssistantViewModel(true),
+                chatViewModel = ChatViewModel(MockAssistantRemoteRepository()),
                 activity = ComposeActivity(),
                 capability = OCCapability().apply {
                     versionMayor = 30
