@@ -52,6 +52,7 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.nextcloud.android.common.core.utils.ecosystem.EcosystemApp;
 import com.nextcloud.android.common.core.utils.ecosystem.EcosystemManager;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
+import com.nextcloud.android.common.ui.color.ColorUtil;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkConstants;
@@ -412,17 +413,31 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     public void updateHeader() {
         final var account = getAccount();
+        ColorUtil colorUtil = new ColorUtil(this);
         boolean isClientBranded = getResources().getBoolean(R.bool.is_branded_client);
         final OCCapability capability = getCapabilities();
 
         if (capability != null && account != null && capability.getServerBackground() != null && !isClientBranded) {
-            int primaryColor = themeColorUtils.unchangedPrimaryColor(account, this);
+            String serverColor = capability.getServerColor();
+            int primaryColor = colorUtil.getNullSafeColorWithFallbackRes(serverColor, R.color.primary);
             String serverLogoURL = capability.getServerLogo();
 
             // set background to primary color
             LinearLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
             drawerHeader.setBackgroundColor(primaryColor);
 
+            // set header server name text color to high-contrast against background
+            TextView serverNameView = mNavigationViewHeader.findViewById(R.id.drawer_header_server_name);
+            if (serverNameView != null && serverNameView.getVisibility() == View.VISIBLE) {
+                int fontColor;
+                if (Hct.fromInt(primaryColor).getTone() < 80.0) {
+                    fontColor = Color.WHITE;
+                } else {
+                    fontColor = getColor(R.color.text_color);
+                }
+                serverNameView.setTextColor(fontColor);
+            }
+            
             if (!TextUtils.isEmpty(serverLogoURL) && URLUtil.isValidUrl(serverLogoURL)) {
                 Target<Drawable> target = createSVGLogoTarget(primaryColor, capability);
                 getClientRepository().getNextcloudClient(nextcloudClient -> {
@@ -502,6 +517,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         LinearLayout talkView = banner.findViewById(R.id.drawer_ecosystem_talk);
         LinearLayout moreView = banner.findViewById(R.id.drawer_ecosystem_more);
         LinearLayout assistantView = banner.findViewById(R.id.drawer_ecosystem_assistant);
+        final OCCapability capability = getCapabilities();
 
         final var optionalUser = getUser();
         if (optionalUser.isPresent()) {
@@ -512,7 +528,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         moreView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppStore("Nextcloud", true, this));
         assistantView.setOnClickListener(v -> startAssistantScreen());
-        if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
+        if (capability != null && capability.getAssistant().isTrue()) {
             assistantView.setVisibility(View.VISIBLE);
         } else {
             assistantView.setVisibility(View.GONE);
@@ -522,8 +538,10 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         int iconColor;
         final var account = getAccount();
+        ColorUtil colorUtil = new ColorUtil(this);
         if (account != null) {
-            int primaryColor = themeColorUtils.unchangedPrimaryColor(account, this);
+            String serverColor = capability.getServerColor();
+            int primaryColor = colorUtil.getNullSafeColorWithFallbackRes(serverColor, R.color.primary);
             if (Hct.fromInt(primaryColor).getTone() < 80.0) {
                 iconColor = Color.WHITE;
             } else {
@@ -554,9 +572,26 @@ public abstract class DrawerActivity extends ToolbarActivity
             TextView serverNameView = mNavigationViewHeader.findViewById(R.id.drawer_header_server_name);
             serverNameView.setVisibility(View.VISIBLE);
             serverNameView.setText(serverName);
-            serverNameView.setTextColor(themeColorUtils.unchangedFontColor(this));
-        }
 
+            final var account = getAccount();
+            final OCCapability capability = getCapabilities();
+            int fontColor = getColor(R.color.text_color); // fallback
+
+            if (account != null && capability != null) {
+                ColorUtil colorUtil = new ColorUtil(this);
+                String serverColor = capability.getServerColor();
+                int primaryColor = colorUtil.getNullSafeColorWithFallbackRes(serverColor, R.color.primary);
+
+                // Choose an appropriate font color based on contrast/tone of primaryColor
+                if (Hct.fromInt(primaryColor).getTone() < 80.0) {
+                    fontColor = Color.WHITE;
+                } else {
+                    fontColor = getColor(R.color.text_color);
+                }
+            }
+
+            serverNameView.setTextColor(fontColor);
+        }
     }
 
     /**
