@@ -122,11 +122,11 @@ class FileUploadWorker(
     private val fileUploadBroadcastManager = FileUploadBroadcastManager(localBroadcastManager)
 
     override suspend fun doWork(): Result = try {
+        trySetForeground()
+
         Log_OC.d(TAG, "FileUploadWorker started")
         val workerName = BackgroundJobManagerImpl.formatClassTag(this::class)
         backgroundJobManager.logStartOfWorker(workerName)
-
-        trySetForeground()
 
         val result = uploadFiles()
         backgroundJobManager.logEndOfWorker(workerName, result)
