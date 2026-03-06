@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Axel
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+
+name: "Sync Upstream"
+
+on:
+  schedule:
+    # Run daily at 04:00 UTC (11:00 WIB)
+    - cron: "0 4 * * *"
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote
+        run: git remote add upstream https://github.com/nextcloud/android.git || true
+
+      - name: Fetch upstream
+        run: git fetch upstream master
+
+      - name: Rebase on upstream
+        id: rebase
+        run: |
+          git rebase upstream/master
+          echo "success=true" >> "$GITHUB_OUTPUT"
+        continue-on-error: true
+
+      - name: Handle rebase failure
+        if: steps.rebase.outputs.success != 'true'
+        run: |
+          git rebase --abort
+          echo "::error::Rebase failed due to conflicts. Manual resolution needed."
+
+      - name: Push changes
+        if: steps.rebase.outputs.success == 'true'
+        run: git push --force-with-lease origin master
+
+      - name: Create issue on failure
+        if: steps.rebase.outputs.success != 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'sync-conflict'
+            });
+            if (existing.data.length === 0) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '⚠️ Upstream sync failed — rebase conflict',
+                body: 'The daily upstream sync failed due to merge conflicts.\n\nPlease resolve manually:\n```bash\ngit fetch upstream master\ngit rebase upstream/master\n# resolve conflicts\ngit push --force-with-lease origin master\n```',
+                labels: ['sync-conflict']
+              });
+            }
