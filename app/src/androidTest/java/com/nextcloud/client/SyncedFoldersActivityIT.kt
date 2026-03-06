@@ -75,7 +75,9 @@ class SyncedFoldersActivityIT : AbstractIT() {
             scenario.onActivity { sut ->
                 val fragment = newInstance(item, 0)
                 fragment!!.show(sut.supportFragmentManager, "")
-                screenshot(fragment.requireDialog().window?.decorView, screenShotName)
+            }
+            scenario.onActivity { sut ->
+                screenshotViaName(sut, screenShotName)
             }
         }
     }
@@ -96,9 +98,12 @@ class SyncedFoldersActivityIT : AbstractIT() {
                 sut.showPowerCheckDialog()
             }
 
-            val screenShotName = createName(testClassName + "_" + "showPowerCheckDialog", "")
             onView(isRoot()).check(matches(isDisplayed()))
-            screenshot(dialog!!.window?.decorView, screenShotName)
+
+            scenario.onActivity { sut ->
+                val screenShotName = createName(testClassName + "_" + "showPowerCheckDialog", "")
+                screenshotViaName(sut, screenShotName)
+            }
         }
     }
 }

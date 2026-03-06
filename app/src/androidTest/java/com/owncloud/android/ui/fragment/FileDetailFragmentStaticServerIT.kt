@@ -79,11 +79,10 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
             var activity: TestActivity? = null
             scenario.onActivity { sut ->
                 activity = sut
-                val fragment = ImageDetailFragment.newInstance(oCFile, user).apply {
-                    hideMap()
-                }
+                val fragment = ImageDetailFragment.newInstance(oCFile, user)
                 sut.addFragment(fragment)
                 sut.supportFragmentManager.executePendingTransactions()
+                fragment.hideMap()
             }
 
             val screenShotName = createName(testClassName + "_" + "showFileDetailDetailsFragment", "")
@@ -155,7 +154,11 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
                 val fragment = FileDetailFragment.newInstance(oCFile, user, 0)
                 sut.addFragment(fragment)
                 sut.supportFragmentManager.executePendingTransactions()
-                fragment.fileDetailActivitiesFragment.populateList(activities as List<Any>?, true)
+            }
+
+            scenario.onActivity { sut ->
+                (sut.fragment as FileDetailFragment)
+                    .fileDetailActivitiesFragment.populateList(activities as List<Any>?, true)
             }
 
             val screenShotName = createName(testClassName + "_" + "showDetailsActivities", "")
@@ -171,10 +174,14 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
             var activity: TestActivity? = null
             scenario.onActivity { sut ->
                 activity = sut
-                val fragment = FileDetailFragment.newInstance(oCFile, user, 0)
+                val fragment = FileDetailFragment.newInstance(oCFile, user, 1)
                 sut.addFragment(fragment)
                 activity.supportFragmentManager.executePendingTransactions()
-                fragment.fileDetailActivitiesFragment.populateList(emptyList(), true)
+            }
+
+            scenario.onActivity { sut ->
+                (sut.fragment as FileDetailFragment)
+                    .fileDetailActivitiesFragment.populateList(emptyList(), true)
             }
 
             val screenShotName = createName(testClassName + "_" + "showDetailsActivitiesNone", "")
@@ -193,6 +200,10 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
                 val fragment = FileDetailFragment.newInstance(oCFile, user, 0)
                 sut.addFragment(fragment)
                 sut.supportFragmentManager.executePendingTransactions()
+            }
+
+            scenario.onActivity { sut ->
+                val fragment = sut.fragment as FileDetailFragment
                 fragment.fileDetailActivitiesFragment.disableLoadingActivities()
                 fragment.fileDetailActivitiesFragment.setErrorContent(
                     targetContext.resources.getString(R.string.file_detail_activity_error)
