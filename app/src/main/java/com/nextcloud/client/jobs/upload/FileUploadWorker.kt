@@ -45,7 +45,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import java.io.File
-import kotlin.random.Random
+import java.util.concurrent.ConcurrentHashMap
 
 @Suppress("LongParameterList", "TooGenericExceptionCaught")
 class FileUploadWorker(
@@ -58,6 +58,7 @@ class FileUploadWorker(
     private val backgroundJobManager: BackgroundJobManager,
     val preferences: AppPreferences,
     val context: Context,
+    val notificationManager: UploadNotificationManager,
     params: WorkerParameters
 ) : CoroutineWorker(context, params),
     OnDatatransferProgressListener {
@@ -73,7 +74,7 @@ class FileUploadWorker(
         const val TOTAL_UPLOAD_SIZE = "total_upload_size"
         const val SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION = "show_same_file_already_exists_notification"
 
-        var currentUploadFileOperation: UploadFileOperation? = null
+        val activeUploadFileOperations = ConcurrentHashMap<String, UploadFileOperation>()
 
         private const val BATCH_SIZE = 100
 
@@ -91,20 +92,16 @@ class FileUploadWorker(
         const val LOCAL_BEHAVIOUR_DELETE = 3
 
         fun cancelCurrentUpload(remotePath: String, accountName: String, onCompleted: () -> Unit) {
-            currentUploadFileOperation?.let {
+            activeUploadFileOperations.values.forEach {
                 if (it.remotePath == remotePath && it.user.accountName == accountName) {
                     it.cancel(ResultCode.USER_CANCELLED)
-                    onCompleted()
                 }
             }
+            onCompleted()
         }
 
-        fun isUploading(remotePath: String?, accountName: String?): Boolean {
-            currentUploadFileOperation?.let {
-                return it.remotePath == remotePath && it.user.accountName == accountName
-            }
-
-            return false
+        fun isUploading(remotePath: String?, accountName: String?): Boolean = activeUploadFileOperations.values.any {
+            it.remotePath == remotePath && it.user.accountName == accountName
         }
 
         fun getUploadAction(action: String): Int = when (action) {
@@ -115,9 +112,9 @@ class FileUploadWorker(
         }
     }
 
-    private var lastPercent = 0
-    private val notificationId = Random.nextInt()
-    private val notificationManager = UploadNotificationManager(context, viewThemeUtils, notificationId)
+    private val lastPercents = ConcurrentHashMap<String, Int>()
+    private val lastUpdateTimes = ConcurrentHashMap<String, Long>()
+
     private val intents = FileUploaderIntents(context)
     private val fileUploadBroadcastManager = FileUploadBroadcastManager(localBroadcastManager)
 
@@ -134,7 +131,7 @@ class FileUploadWorker(
         result
     } catch (t: Throwable) {
         Log_OC.e(TAG, "exception $t")
-        currentUploadFileOperation?.cancel(null)
+        activeUploadFileOperations.values.forEach { it.cancel(null) }
         Result.failure()
     } finally {
         // Ensure all database operations are complete before signaling completion
@@ -160,7 +157,7 @@ class FileUploadWorker(
         val notification = createNotification(notificationTitle)
 
         return ForegroundServiceHelper.createWorkerForegroundInfo(
-            notificationId,
+            notificationManager.getId(),
             notification,
             ForegroundServiceType.DataSync
         )
@@ -168,7 +165,7 @@ class FileUploadWorker(
 
     private suspend fun updateForegroundInfo(notification: Notification) {
         val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
-            notificationId,
+            notificationManager.getId(),
             notification,
             ForegroundServiceType.DataSync
         )
@@ -244,21 +241,23 @@ class FileUploadWorker(
 
             fileUploadBroadcastManager.sendAdded(context)
             val operation = createUploadFileOperation(upload, user)
-            currentUploadFileOperation = operation
+            activeUploadFileOperations[operation.originalStoragePath] = operation
 
             val currentIndex = (index + 1)
-            val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
+
             notificationManager.prepareForStart(
                 operation,
                 startIntent = intents.openUploadListIntent(operation),
-                currentUploadIndex = currentUploadIndex,
+                currentUploadIndex = currentIndex,
                 totalUploadSize = totalUploadSize
             )
 
             val result = withContext(Dispatchers.IO) {
                 upload(upload, operation, user, client)
             }
-            currentUploadFileOperation = null
+            val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
+            uploadsStorageManager.updateStatus(entity, result.isSuccess)
+            activeUploadFileOperations.remove(operation.originalStoragePath)
 
             if (result.code == ResultCode.QUOTA_EXCEEDED) {
                 Log_OC.w(TAG, "Quota exceeded, stopping uploads")
@@ -266,7 +265,7 @@ class FileUploadWorker(
                 break
             }
 
-            sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
+            sendUploadFinishEvent(totalUploadSize, currentIndex, operation, result)
         }
 
         return@withContext Result.success()
@@ -391,20 +390,24 @@ class FileUploadWorker(
         totalToTransfer: Long,
         fileAbsoluteName: String
     ) {
+        val operation = activeUploadFileOperations[fileAbsoluteName] ?: return
         val percent = getPercent(totalTransferredSoFar, totalToTransfer)
         val currentTime = System.currentTimeMillis()
 
+        val lastPercent = lastPercents[fileAbsoluteName] ?: 0
+        val lastUpdateTime = lastUpdateTimes[fileAbsoluteName] ?: 0L
+
         if (percent != lastPercent && (currentTime - lastUpdateTime) >= minProgressUpdateInterval) {
             notificationManager.run {
-                val accountName = currentUploadFileOperation?.user?.accountName
-                val remotePath = currentUploadFileOperation?.remotePath
+                val accountName = operation.user.accountName
+                val remotePath = operation.remotePath
 
-                updateUploadProgress(percent, currentUploadFileOperation)
+                updateUploadProgress(percent, operation)
 
                 if (accountName != null && remotePath != null) {
                     val key: String = FileUploadHelper.buildRemoteName(accountName, remotePath)
                     val boundListener = FileUploadHelper.mBoundListeners[key]
-                    val filename = currentUploadFileOperation?.fileName ?: ""
+                    val filename = operation.fileName ?: ""
 
                     boundListener?.onTransferProgress(
                         progressRate,
@@ -414,11 +417,10 @@ class FileUploadWorker(
                     )
                 }
 
-                dismissOldErrorNotification(currentUploadFileOperation)
+                dismissOldErrorNotification(operation)
             }
-            lastUpdateTime = currentTime
+            lastUpdateTimes[fileAbsoluteName] = currentTime
+            lastPercents[fileAbsoluteName] = percent
         }
-
-        lastPercent = percent
     }
 }
