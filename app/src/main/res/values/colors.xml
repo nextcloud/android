@@ -23,7 +23,6 @@
     <color name="list_divider_background">#CAC4D0</color>
     <color name="fg_inverse">#FFFFFF</color>
     <color name="filelist_icon_background">#DDDDDD</color>
-    <color name="dark_background_text_color">#EEEEEE</color>
     <color name="transparent">#00000000</color>
     <color name="secondary_text_color">#666666</color>
     <color name="highlight_textColor_Warning">#e53935</color>

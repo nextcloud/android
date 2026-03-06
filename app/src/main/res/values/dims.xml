@@ -26,7 +26,9 @@
     <integer name="file_avatar_px">512</integer>
     <dimen name="drawer_content_horizontal_padding">28dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
     <dimen name="standard_double_padding">32dp</dimen>
+    <dimen name="standard_quadruple_icon_size">64dp</dimen>
     <dimen name="standard_half_padding">8dp</dimen>
     <dimen name="standard_quarter_padding">4dp</dimen>
     <dimen name="standard_icon_size">32dp</dimen>
@@ -86,9 +88,6 @@
     <dimen name="user_icon_size_independent">40dip</dimen>
     <dimen name="drawer_header_subtext">12sp</dimen>
     <dimen name="fragment_margin">12dp</dimen>
-    <dimen name="file_download_fragment_layout_padding">20dp</dimen>
-    <dimen name="alternate_fragment_margin">15dp</dimen>
-    <dimen name="file_download_fragment_display_text_margin">40dp</dimen>
     <dimen name="drawer_width">240dp</dimen>
     <dimen name="grid_item_text_size">16sp</dimen>
     <dimen name="share_file_layout_text_size">12sp</dimen>
