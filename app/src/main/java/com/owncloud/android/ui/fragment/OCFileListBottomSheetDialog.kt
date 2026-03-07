@@ -148,13 +148,12 @@ class OCFileListBottomSheetDialog(
             val itemHeight = context.resources.getDimensionPixelSize(R.dimen.bottom_sheet_item_height)
             val standardPadding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
             val iconSize = context.resources.getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size)
-            val startPadding = context.resources.getDimensionPixelSize(R.dimen.creator_container_start_padding)
 
             for (creator in directEditing.creators.values) {
                 val creatorButton = MaterialButton(
                     ContextThemeWrapper(
                         context,
-                        com.google.android.material.R.style.Widget_Material3_Button_IconButton
+                        R.style.ThemeOverlay_App_Button_BottomSheetItem
                     ),
                     null,
                     com.google.android.material.R.attr.materialButtonStyle
@@ -166,9 +165,7 @@ class OCFileListBottomSheetDialog(
                     )
 
                     gravity = Gravity.START or Gravity.CENTER_VERTICAL
-                    setPaddingRelative(startPadding, 0, standardPadding, 0)
-                    insetTop = 0
-                    insetBottom = 0
+                    setPaddingRelative(standardPadding, 0, standardPadding, 0)
 
                     val buttonText = String.format(
                         fileActivity.getString(R.string.editor_placeholder),

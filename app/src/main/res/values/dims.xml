@@ -17,7 +17,7 @@
     <dimen name="action_bar_margin_top">64dp</dimen>
     <dimen name="bottom_sheet_text_start_margin">40dp</dimen>
     <dimen name="bottom_sheet_item_height">56dp</dimen>
-    <dimen name="bottom_sheet_menu_item_divider_standard_margin">80dp</dimen>
+    <dimen name="bottom_sheet_menu_item_divider_standard_margin">56dp</dimen>
     <dimen name="file_icon_size">40dp</dimen>
     <dimen name="live_photo_indicator_margin">100dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
@@ -70,7 +70,6 @@
     <dimen name="file_list_item_avatar_icon_radius">10dp</dimen>
     <dimen name="account_action_layout_height">72dp</dimen>
     <dimen name="zero">0dp</dimen>
-    <dimen name="creator_container_start_padding">20dp</dimen>
     <dimen name="iconized_single_line_item_layout_height">56dp</dimen>
     <dimen name="iconized_single_line_item_icon_size">24dp</dimen>
     <dimen name="user_info_icon_horizontal_margin">24dp</dimen>

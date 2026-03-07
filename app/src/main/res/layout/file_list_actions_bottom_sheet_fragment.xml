@@ -43,7 +43,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_upload_files"
-                style="@style/Widget.Material3.Button.IconButton"
+                style="@style/Widget.App.Button.BottomSheetItem"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_sheet_item_height"
                 android:contentDescription="@string/upload_files"
@@ -61,7 +61,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_upload_from_app"
-                style="@style/Widget.Material3.Button.IconButton"
+                style="@style/Widget.App.Button.BottomSheetItem"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_sheet_item_height"
                 android:contentDescription="@string/upload_content_from_other_apps"
@@ -79,7 +79,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_direct_camera_upload"
-                style="@style/Widget.Material3.Button.IconButton"
+                style="@style/Widget.App.Button.BottomSheetItem"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_sheet_item_height"
                 android:contentDescription="@string/upload_direct_camera_upload"
@@ -97,7 +97,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_scan_doc_upload"
-                style="@style/Widget.Material3.Button.IconButton"
+                style="@style/Widget.App.Button.BottomSheetItem"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_sheet_item_height"
                 android:contentDescription="@string/upload_scan_doc_upload"
@@ -116,7 +116,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_mkdir"
-                style="@style/Widget.Material3.Button.IconButton"
+                style="@style/Widget.App.Button.BottomSheetItem"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_sheet_item_height"
                 android:contentDescription="@string/create_new_folder"
@@ -134,7 +134,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_new_document"
-                style="@style/Widget.Material3.Button.IconButton"
+                style="@style/Widget.App.Button.BottomSheetItem"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_sheet_item_height"
                 android:contentDescription="@string/create_new_document"
@@ -152,7 +152,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_new_spreadsheet"
-                style="@style/Widget.Material3.Button.IconButton"
+                style="@style/Widget.App.Button.BottomSheetItem"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_sheet_item_height"
                 android:contentDescription="@string/create_new_spreadsheet"
@@ -170,7 +170,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_new_presentation"
-                style="@style/Widget.Material3.Button.IconButton"
+                style="@style/Widget.App.Button.BottomSheetItem"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_sheet_item_height"
                 android:contentDescription="@string/create_new_presentation"
@@ -205,13 +205,13 @@
                 android:id="@+id/menu_create_rich_workspace_divider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/bottom_sheet_menu_item_divider_standard_margin"
+                android:layout_marginStart="@dimen/bottom_sheet_menu_item_divider_standard_margin"
                 android:layout_marginVertical="@dimen/standard_half_margin"
                 app:dividerColor="@color/list_divider_background" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_create_rich_workspace"
-                style="@style/Widget.Material3.Button.IconButton"
+                style="@style/Widget.App.Button.BottomSheetItem"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_sheet_item_height"
                 android:contentDescription="@string/create_rich_workspace"
