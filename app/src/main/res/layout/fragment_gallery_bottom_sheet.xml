@@ -42,13 +42,13 @@
                     android:id="@+id/btn_hide_images"
                     style="@style/Widget.Material3.Button.IconButton"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:gravity="start"
-                    android:layout_height="wrap_content"
                     android:text="@string/show_images"
-                    app:iconPadding="@dimen/standard_half_padding"
                     android:textSize="@dimen/bottom_sheet_text_size"
-                    app:icon="@drawable/ic_camera" />
+                    app:icon="@drawable/ic_camera"
+                    app:iconPadding="@dimen/standard_half_padding" />
 
                 <View
                     android:layout_width="0dp"
