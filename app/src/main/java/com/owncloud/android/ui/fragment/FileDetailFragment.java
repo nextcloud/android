@@ -466,10 +466,19 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         } else if (itemId == R.id.action_cancel_sync) {
             ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
-            if (containerActivity instanceof FileActivity activity) {
-                activity.showSyncLoadingDialog(getFile().isFolder());
+            if (getFile().isFolder() && containerActivity instanceof FileActivity activity) {
+                // Show confirmation dialog for folders
+                activity.showSyncFolderConfirmation(getFile());
+            } else {
+                if (containerActivity instanceof FileActivity activity) {
+                    activity.showSyncLoadingDialog(getFile().isFolder());
+                }
+                containerActivity.getFileOperationsHelper().syncFile(getFile());
             }
-            containerActivity.getFileOperationsHelper().syncFile(getFile());
+        } else if (itemId == R.id.action_sync_file_recursive) {
+            if (getFile().isFolder() && containerActivity instanceof FileActivity activity) {
+                activity.showDownloadFolderRecursiveConfirmation(getFile());
+            }
         } else if (itemId == R.id.action_export_file) {
             ArrayList<OCFile> list = new ArrayList<>();
             list.add(getFile());
