@@ -115,7 +115,8 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Favorites</string>
     <string name="drawer_item_on_device">On device</string>
-    <string name="drawer_item_recently_modified">Recently modified</string>
+    <string name="drawer_item_recent_files">Recent files</string>
+
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_uploads_list">Uploads</string>
     <string name="drawer_item_activities">Activities</string>
@@ -212,6 +213,8 @@
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_empty_headline">No files here</string>
+    <string name="file_list_empty_recent_files_headline">No recently modified files</string>
+    <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
     <string name="folder_list_empty_headline">No folders here</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
@@ -226,7 +229,6 @@
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
-    <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
     <string name="trashbin_empty_headline">No deleted files</string>
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
     <string name="upload_list_empty_headline">No uploads available</string>
