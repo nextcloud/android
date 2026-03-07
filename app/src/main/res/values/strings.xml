@@ -546,7 +546,6 @@
     <string name="placeholder_image_detail_condition" translatable="false">ƒ/1.8 • 1/374 s • 28 mm • ISO 200</string>
     <string name="placeholder_image_detail_location" translatable="false">Mitte, Berlin, Germany</string>
     <string name="placeholder_image_detail_example_copyright" translatable="false">© OpenStreetMap contributors</string>
-    <string name="placeholder_compose_mail" translatable="false">Compose email</string>
     <string name="placeholder_passphrase" translatable="false">passphrase</string>
     <string name="placeholder_show_hidden_folders" translatable="false">Show 3 hidden folders</string>
     <string name="placeholder_template" translatable="false">Template</string>
