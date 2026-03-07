@@ -1698,10 +1698,7 @@ class FileDisplayActivity :
                 currentDir != null && uploadedRemotePath != null && uploadedRemotePath.startsWith(currentDir.remotePath)
 
             if (sameAccount && isDescendant) {
-                val linkedToRemotePath = intent.getStringExtra(FileUploadWorker.EXTRA_LINKED_TO_PATH)
-                if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
-                    updateListOfFilesFragment()
-                }
+                updateListOfFilesFragment()
             }
 
             val uploadWasFine = intent.getBooleanExtra(FileUploadWorker.EXTRA_UPLOAD_RESULT, false)
@@ -1748,12 +1745,6 @@ class FileDisplayActivity :
                     }
                 }
             }
-        }
-
-        // TODO refactor this receiver, and maybe DownloadFinishReceiver; this method is duplicated :S
-        fun isAscendant(linkedToRemotePath: String): Boolean {
-            val currentDir = getCurrentDir()
-            return currentDir != null && currentDir.remotePath.startsWith(linkedToRemotePath)
         }
     }
 
