@@ -84,7 +84,7 @@ class UploadDateTests {
         val result = DisplayUtils.getRelativeDateTimeString(
             context,
             System.currentTimeMillis() - THIRTY_SECONDS,
-            DateUtils.SECOND_IN_MILLIS,
+            DateUtils.MINUTE_IN_MILLIS,
             DateUtils.WEEK_IN_MILLIS,
             0
         )
