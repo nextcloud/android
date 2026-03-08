@@ -13,138 +13,85 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="@dimen/dialog_padding"
+    android:paddingTop="@dimen/standard_padding"
     android:background="@color/bg_default">
 
-    <LinearLayout
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/menu_share_advanced_permissions"
+        style="@style/Widget.App.Button.BottomSheetItem"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_sheet_item_height"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:layout_gravity="center_vertical"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingTop="@dimen/standard_half_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_half_padding"
-        tools:ignore="UseCompoundDrawables">
+        android:contentDescription="@string/share_settings"
+        android:gravity="start|center_vertical"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_padding"
+        android:text="@string/share_settings"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/bottom_sheet_text_size"
+        app:icon="@drawable/ic_edit"
+        app:iconGravity="start"
+        app:iconPadding="@dimen/standard_padding"
+        app:iconSize="@dimen/iconized_single_line_item_icon_size"
+        app:iconTint="@color/primary" />
 
-        <ImageView
-            android:id="@+id/menu_icon_advanced_permissions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_edit"
-            app:tint="@color/primary" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
-            android:text="@string/share_settings"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/bottom_sheet_text_size" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/menu_share_send_new_email"
+        style="@style/Widget.App.Button.BottomSheetItem"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_sheet_item_height"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingTop="@dimen/standard_half_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_half_padding"
-        tools:ignore="UseCompoundDrawables">
+        android:contentDescription="@string/share_send_new_email"
+        android:gravity="start|center_vertical"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_padding"
+        android:text="@string/share_send_new_email"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/bottom_sheet_text_size"
+        app:icon="@drawable/ic_email"
+        app:iconGravity="start"
+        app:iconPadding="@dimen/standard_padding"
+        app:iconSize="@dimen/iconized_single_line_item_icon_size"
+        app:iconTint="@color/primary" />
 
-        <ImageView
-            android:id="@+id/menu_icon_send_new_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_email"
-            app:tint="@color/primary" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
-            android:text="@string/share_send_new_email"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/bottom_sheet_text_size" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/menu_share_send_link"
+        style="@style/Widget.App.Button.BottomSheetItem"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_sheet_item_height"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingTop="@dimen/standard_half_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_half_padding"
+        android:contentDescription="@string/share_via_link_send_link_label"
+        android:gravity="start|center_vertical"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_padding"
+        android:text="@string/share_via_link_send_link_label"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/bottom_sheet_text_size"
         android:visibility="gone"
-        tools:ignore="UseCompoundDrawables"
-        tools:visibility="visible">
+        app:icon="@drawable/ic_link"
+        app:iconGravity="start"
+        app:iconPadding="@dimen/standard_padding"
+        app:iconSize="@dimen/iconized_single_line_item_icon_size"
+        app:iconTint="@color/primary"
+        tools:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/menu_icon_send_link"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_link"
-            app:tint="@color/primary" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
-            android:text="@string/share_via_link_send_link_label"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/bottom_sheet_text_size" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/menu_share_unshare"
+        style="@style/Widget.App.Button.BottomSheetItem"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_sheet_item_height"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingTop="@dimen/standard_half_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_half_padding"
-        tools:ignore="UseCompoundDrawables">
-
-        <ImageView
-            android:id="@+id/menu_icon_unshare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_delete"
-            app:tint="@color/primary" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
-            android:text="@string/delete_link"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/bottom_sheet_text_size" />
-
-    </LinearLayout>
+        android:contentDescription="@string/delete_link"
+        android:gravity="start|center_vertical"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_padding"
+        android:text="@string/delete_link"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/bottom_sheet_text_size"
+        app:icon="@drawable/ic_delete"
+        app:iconGravity="start"
+        app:iconPadding="@dimen/standard_padding"
+        app:iconSize="@dimen/iconized_single_line_item_icon_size"
+        app:iconTint="@color/primary" />
 
 </LinearLayout>
