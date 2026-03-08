@@ -17,9 +17,6 @@
          <trust file=".*-javadoc[.]jar" regex="true" reason="Android Studio downloads javadoc jars but doesn't add checksums - fixes building in AS"/>
          <trust file=".*-sources[.]jar" regex="true" reason="Android Studio downloads source jars but doesn't add checksums - fixes building in AS"/>
       </trusted-artifacts>
-      <ignored-keys>
-         <ignored-key id="5A68A2249128E2C6" reason="Key couldn't be downloaded from any key server"/>
-      </ignored-keys>
       <trusted-keys>
          <trusted-key id="015479E1055341431B4545AB72475FD306B9CAB7" group="com.googlecode.javaewah" name="JavaEWAH" version="1.2.3"/>
          <trusted-key id="03C123038C20AAE9E286C857479D601F3A7B5C1A" group="^com[.]github[.]ajalt($|([.].*))" regex="true"/>
