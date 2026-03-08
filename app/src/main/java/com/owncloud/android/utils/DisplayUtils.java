@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 ZetaTom
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
@@ -80,6 +81,7 @@ import java.net.IDN;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -268,14 +270,14 @@ public final class DisplayUtils {
      * @return a relative time string
      */
     public static CharSequence getRelativeTimestamp(Context context, long modificationTimestamp) {
-        return getRelativeDateTimeString(context, modificationTimestamp, DateUtils.SECOND_IN_MILLIS,
+        return getRelativeDateTimeString(context, modificationTimestamp, DateUtils.MINUTE_IN_MILLIS,
                                          DateUtils.WEEK_IN_MILLIS, 0);
     }
 
     public static CharSequence getRelativeTimestamp(Context context, long modificationTimestamp, boolean showFuture) {
         return getRelativeDateTimeString(context,
                                          modificationTimestamp,
-                                         DateUtils.SECOND_IN_MILLIS,
+                                         DateUtils.MINUTE_IN_MILLIS,
                                          DateUtils.WEEK_IN_MILLIS,
                                          0,
                                          showFuture);
@@ -283,7 +285,7 @@ public final class DisplayUtils {
 
     public static CharSequence getRelativeDateTimeString(Context c, long time, long minResolution,
                                                          long transitionResolution, int flags) {
-        return getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags, false);
+        return getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags, false, Clock.systemUTC());
     }
 
     public static CharSequence getRelativeDateTimeString(Context c,
@@ -292,18 +294,58 @@ public final class DisplayUtils {
                                                          long transitionResolution,
                                                          int flags,
                                                          boolean showFuture) {
+        return getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags, showFuture, Clock.systemUTC());
+    }
 
+    public static CharSequence getRelativeDateTimeString(Context c,
+                                                         long time,
+                                                         long minResolution,
+                                                         long transitionResolution,
+                                                         int flags,
+                                                         Clock clock) {
+        return getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags, false, clock);
+    }
+
+    /**
+     *
+     * @param minResolution the minimum timespan to report. For example, a time
+     *            3 seconds in the past will be reported as "seconds ago" if
+     *            this is set to MINUTE_IN_MILLIS. Pass one of 0,
+     *            MINUTE_IN_MILLIS, HOUR_IN_MILLIS, DAY_IN_MILLIS,
+     *            WEEK_IN_MILLIS
+     */
+    public static CharSequence getRelativeDateTimeString(Context c,
+                                                         long time,
+                                                         long minResolution,
+                                                         long transitionResolution,
+                                                         int flags,
+                                                         boolean showFuture,
+                                                         Clock clock) {
+
+        long now = clock.millis();
 
         // in Future
-        if (!showFuture && time > System.currentTimeMillis()) {
+        if (!showFuture && time > now) {
             return DisplayUtils.unixTimeToHumanReadable(time);
         }
         // < 60 seconds -> seconds ago
-        long diff = System.currentTimeMillis() - time;
-        if (diff > 0 && diff < 60 * 1000 && minResolution == DateUtils.SECOND_IN_MILLIS) {
+        long diff = now - time;
+        if (diff > 0 && diff < 60 * 1000 && minResolution == DateUtils.MINUTE_IN_MILLIS) {
             return c.getString(R.string.file_list_seconds_ago);
         } else {
-            CharSequence dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
+            CharSequence dateString;
+
+            // If the time difference exceeds transitionResolution, use absolute numeric date format
+            if (transitionResolution > 0 && Math.abs(now - time) > transitionResolution) {
+                dateString = DateUtils.formatDateTime(c,
+                                                      time,
+                                                      flags | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_YEAR);
+            } else {
+                dateString = DateUtils.getRelativeTimeSpanString(time,
+                                                                 now,
+                                                                 minResolution,
+                                                                 flags | DateUtils.FORMAT_ABBREV_MONTH);
+            }
 
             String[] parts = dateString.toString().split(",");
             if (parts.length == DATE_TIME_PARTS_SIZE) {
