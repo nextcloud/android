@@ -23,11 +23,7 @@ import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 @Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TaskSelectionAlertDialog(
-    taskTypes: List<TaskTypeData>,
-    onDismiss: () -> Unit,
-    onConfirm: (TaskTypeData) -> Unit
-) {
+fun TaskSelectionAlertDialog(taskTypes: List<TaskTypeData>, onDismiss: () -> Unit, onConfirm: (TaskTypeData) -> Unit) {
     Dialog(onDismissRequest = onDismiss) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
