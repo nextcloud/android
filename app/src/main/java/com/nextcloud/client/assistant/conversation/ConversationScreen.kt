@@ -9,6 +9,7 @@
 
 package com.nextcloud.client.assistant.conversation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,13 +36,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -52,7 +52,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.conversation.model.ConversationScreenState
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
@@ -61,7 +60,7 @@ import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 @OptIn(ExperimentalMaterial3Api::class)
 @Suppress("LongMethod")
 @Composable
-fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, openChat: (Long) -> Unit) {
+fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, openChat: (Conversation) -> Unit) {
     val screenState by viewModel.screenState.collectAsState()
     val errorMessageId by viewModel.errorMessageId.collectAsState()
     val conversations by viewModel.conversations.collectAsState()
@@ -161,9 +160,10 @@ private fun ConversationList(
     viewModel: ConversationViewModel,
     conversations: List<Conversation>,
     modifier: Modifier = Modifier,
-    openChat: (Long) -> Unit
+    openChat: (Conversation) -> Unit
 ) {
-    var selectedConversationId by remember { mutableLongStateOf(-1L) }
+    var showConversationActions by remember { mutableStateOf(false) }
+    val selectedConversationId by viewModel.selectedConversationId.collectAsState()
 
     LazyColumn(
         modifier = modifier
@@ -174,18 +174,20 @@ private fun ConversationList(
         items(conversations) { conversation ->
             ConversationListItem(
                 conversation = conversation,
+                isSelected = (conversation.id == selectedConversationId),
                 onClick = {
-                    openChat(conversation.id)
+                    viewModel.selectConversation(conversation.id)
+                    openChat(conversation)
                 },
                 onLongPressed = {
-                    selectedConversationId = conversation.id
+                    showConversationActions = true
                 }
             )
             Spacer(modifier = Modifier.height(4.dp))
         }
     }
 
-    if (selectedConversationId != -1L) {
+    if (showConversationActions) {
         val currentId = selectedConversationId
 
         val bottomSheetAction = listOf(
@@ -195,7 +197,7 @@ private fun ConversationList(
             ) {
                 val sessionId: String = currentId.toString()
                 viewModel.deleteConversation(sessionId)
-                selectedConversationId = -1L
+                showConversationActions = false
             }
         )
 
@@ -207,30 +209,43 @@ private fun ConversationList(
 }
 
 @Composable
-private fun ConversationListItem(conversation: Conversation, onClick: () -> Unit, onLongPressed: () -> Unit) {
-    Surface(
+private fun ConversationListItem(
+    conversation: Conversation,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    onLongPressed: () -> Unit
+) {
+    Box(
         modifier = Modifier
             .fillMaxWidth()
+            .height(52.dp)
+            .background(
+                if (isSelected) {
+                    MaterialTheme.colorScheme.surfaceVariant
+                } else {
+                    MaterialTheme.colorScheme.surface
+                }
+            )
             .combinedClickable(
                 onClick = onClick,
                 onLongClick = onLongPressed
             )
+            .padding(horizontal = 4.dp),
+        contentAlignment = Alignment.CenterStart
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp, vertical = 6.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = conversation.titleRepresentation(),
-                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = colorResource(R.color.text_color),
-                modifier = Modifier.weight(1f)
-            )
-        }
+        Text(
+            text = conversation.titleRepresentation(),
+            style = MaterialTheme.typography.bodyLarge,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = if (isSelected) {
+                MaterialTheme.colorScheme.onSurface
+            } else {
+                colorResource(R.color.text_color)
+            },
+            textAlign = TextAlign.Start,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
@@ -238,15 +253,35 @@ private fun ConversationListItem(conversation: Conversation, onClick: () -> Unit
 @Composable
 private fun ConversationListPreview() {
     Column {
-        ConversationListItem(Conversation(1L, "User1", "Who is Al Pacino?", 1762847286L, "", null), {
-        }, {
-        })
+        ConversationListItem(
+            Conversation(
+                1L,
+                "User1",
+                "Who is Al Pacino?",
+                1762847286L,
+                "",
+                null
+            ),
+            false, {
+            }, {
+            }
+        )
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        ConversationListItem(Conversation(2L, "User1", "What is JetpackCompose?", 1761847286L, "", null), {
-        }, {
-        })
+        ConversationListItem(
+            Conversation(
+                2L,
+                "User1",
+                "What is JetpackCompose?",
+                1761847286L,
+                "",
+                null
+            ),
+            false, {
+            }, {
+            }
+        )
 
         Spacer(modifier = Modifier.height(8.dp))
     }
