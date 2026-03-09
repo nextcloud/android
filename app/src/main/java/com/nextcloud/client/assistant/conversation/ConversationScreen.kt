@@ -168,7 +168,7 @@ private fun ConversationList(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(vertical = 16.dp),
         verticalArrangement = Arrangement.Bottom
     ) {
         items(conversations) { conversation ->
@@ -218,7 +218,6 @@ private fun ConversationListItem(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(52.dp)
             .background(
                 if (isSelected) {
                     MaterialTheme.colorScheme.surfaceVariant
@@ -226,11 +225,11 @@ private fun ConversationListItem(
                     MaterialTheme.colorScheme.surface
                 }
             )
+            .height(52.dp)
             .combinedClickable(
                 onClick = onClick,
                 onLongClick = onLongPressed
-            )
-            .padding(horizontal = 4.dp),
+            ),
         contentAlignment = Alignment.CenterStart
     ) {
         Text(
@@ -244,7 +243,9 @@ private fun ConversationListItem(
                 colorResource(R.color.text_color)
             },
             textAlign = TextAlign.Start,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp)
         )
     }
 }
