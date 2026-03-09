@@ -36,6 +36,7 @@ import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.ScreenshotTest
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.not
+import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -51,6 +52,11 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     @Before
     fun initIntentRecording() {
         Intents.init()
+    }
+
+    @After
+    fun releaseIntentRecording() {
+        Intents.release()
     }
 
     @Test
