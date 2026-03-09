@@ -220,8 +220,6 @@ fun AssistantScreen(
                                         color = MaterialTheme.colorScheme.onSurface,
                                         maxLines = 1
                                     )
-
-                                    Spacer(modifier = Modifier.height(8.dp))
                                 }
                             }
                         }
