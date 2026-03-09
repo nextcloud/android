@@ -262,8 +262,10 @@ private fun ConversationListPreview() {
                 "",
                 null
             ),
-            false, {
-            }, {
+            false,
+            {
+            },
+            {
             }
         )
 
@@ -278,8 +280,10 @@ private fun ConversationListPreview() {
                 "",
                 null
             ),
-            false, {
-            }, {
+            false,
+            {
+            },
+            {
             }
         )
 
