@@ -242,34 +242,52 @@ class AutoRenameTests : AbstractOnServerIT() {
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
 
-    @Test
-    fun skipAutoRenameWhenWCFDisabled() {
-        var capability = capability
-        val filename = "   readme.txt  "
+    // For the following WCF tests, refer to the doc of OCCapability.checkWCFRestrictions() for the expected behavior
+    // based on Nextcloud server versions and WCF configuration.
 
-        // Nextcloud 32+: Respects the isWCFEnabled flag
-        capability = capability.apply {
+    @Test
+    fun testWCFDisabledOnNextcloud32ShouldSkipRestrictions() {
+        val filename = "   readme.txt  "
+        val nc32Capability = capability.apply {
             versionMayor = NextcloudVersion.nextcloud_32.majorVersionNumber
             isWCFEnabled = CapabilityBooleanType.FALSE
         }
-        var result = AutoRename.rename(filename, capability, isFolderPath = true)
+        val result = AutoRename.rename(filename, nc32Capability, isFolderPath = true)
         assert(result == filename) { "Expected $filename but got $result" }
+    }
 
-        // Nextcloud 30-31+: Always applies WCF restrictions, even if flag is set to false
-        capability = capability.apply {
+    @Test
+    fun testWCFEnabledOnNextcloud32ShouldApplyRestrictions() {
+        val filename = "   readme.txt  "
+        val nc32Capability = capability.apply {
+            versionMayor = NextcloudVersion.nextcloud_32.majorVersionNumber
+            isWCFEnabled = CapabilityBooleanType.TRUE
+        }
+        val result = AutoRename.rename(filename, nc32Capability, isFolderPath = true)
+        val expectedFilename = "readme.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testWCFDisabledOnNextcloud30to31ShouldStillApplyRestrictions() {
+        val filename = "   readme.txt  "
+        val nc30Capability = capability.apply {
             versionMayor = NextcloudVersion.nextcloud_30.majorVersionNumber
             isWCFEnabled = CapabilityBooleanType.FALSE
         }
-        result = AutoRename.rename(filename, capability, isFolderPath = true)
-        val expectedWCFFilename = "readme.txt"
-        assert(result == expectedWCFFilename) { "Expected $expectedWCFFilename but got $result" }
+        val result = AutoRename.rename(filename, nc30Capability, isFolderPath = true)
+        val expectedFilename = "readme.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
 
-        // Nextcloud <30: No WCF restrictions, even if flag is set to true
-        capability = capability.apply {
+    @Test
+    fun testWCFOnNextcloudBelow30ShouldSkipRestrictions() {
+        val filename = "   readme.txt  "
+        val nc29Capability = capability.apply {
             versionMayor = NextcloudVersion.nextcloud_29.majorVersionNumber
             isWCFEnabled = CapabilityBooleanType.TRUE
         }
-        result = AutoRename.rename(filename, capability, isFolderPath = true)
+        val result = AutoRename.rename(filename, nc29Capability, isFolderPath = true)
         assert(result == filename) { "Expected $filename but got $result" }
     }
 }
