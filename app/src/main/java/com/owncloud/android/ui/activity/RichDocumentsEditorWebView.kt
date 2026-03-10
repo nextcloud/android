@@ -169,8 +169,13 @@ class RichDocumentsEditorWebView : EditorWebView() {
                 val url = downloadJson.getString(URL).toUri()
                 when (downloadJson.getString(TYPE)) {
                     PRINT -> printFile(url)
+
                     SLIDESHOW -> showSlideShow(url)
-                    else -> downloadFile(url, fileName)
+
+                    else -> {
+                        val downloadFileName = downloadJson.optString(FILENAME, fileName)
+                        downloadFile(url, downloadFileName)
+                    }
                 }
             } catch (e: JSONException) {
                 Log_OC.e(this, "Failed to parse download json message: $e")
@@ -219,5 +224,6 @@ class RichDocumentsEditorWebView : EditorWebView() {
         private const val PRINT = "print"
         private const val SLIDESHOW = "slideshow"
         private const val NEW_NAME = "NewName"
+        private const val FILENAME = "filename"
     }
 }
