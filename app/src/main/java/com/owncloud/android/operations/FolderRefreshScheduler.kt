@@ -63,7 +63,7 @@ class FolderRefreshScheduler(private val activity: FileDisplayActivity) {
             try {
                 CheckEtagRemoteOperation(currentDir.remotePath, localEtag).execute(currentUser, activity)
             } catch (e: Exception) {
-                Log_OC.e(TAG, "eTag poll: could not create client — ${e.message}")
+                Log_OC.e(TAG, e.message)
                 null
             }
         } ?: return
@@ -79,7 +79,7 @@ class FolderRefreshScheduler(private val activity: FileDisplayActivity) {
             }
 
             RemoteOperationResult.ResultCode.FILE_NOT_FOUND -> {
-                Log_OC.w(TAG, "eTag poll → directory not found on server, refreshing to handle deletion")
+                Log_OC.w(TAG, "eTag poll → directory not found on server")
                 activity.startSyncFolderOperation(currentDir, ignoreETag = true)
             }
 
