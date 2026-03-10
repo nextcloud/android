@@ -154,6 +154,7 @@ class UploadDateTests {
         assertRelativeDateTimeString(time, expected, DateUtils.SECOND_IN_MILLIS)
     }
 
+    @Suppress("MagicNumber")
     @Test
     fun getRelativeDateTimeStringReturnsDaysForDayInMillis() {
         var testTimestamp = System.currentTimeMillis()
