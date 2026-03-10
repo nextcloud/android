@@ -24,6 +24,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.AppScanOptionalFeature
 import com.nextcloud.utils.BuildHelper.isFlavourGPlay
 import com.nextcloud.utils.EditorUtils
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding
@@ -74,6 +75,7 @@ class OCFileListBottomSheetDialog(
         createRichWorkspace()
         setupClickListener()
         filterActionsForOfflineOperations()
+        checkCreateEncryptedFolderVisibility()
 
         if (MainApp.isClientBranded() && isFlavourGPlay()) {
             // this way we can have branded clients with that permission
@@ -88,6 +90,10 @@ class OCFileListBottomSheetDialog(
                 binding.menuUploadFromApp.text = context.getString(R.string.upload_files)
             }
         }
+    }
+
+    private fun checkCreateEncryptedFolderVisibility() {
+        binding.menuEncryptedMkdir.setVisibleIf(file.isRootDirectory)
     }
 
     private fun applyBranding() {

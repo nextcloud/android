@@ -536,6 +536,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
+        if (encrypted) {
+            User user = accountManager.getUser();
+            String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
+            String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
+
+            if (publicKey.isEmpty() || privateKey.isEmpty()) {
+                Log_OC.w(TAG,"cannot create encrypted folder directly, needs to setup encryption first");
+
+                requireActivity().runOnUiThread(() -> {
+                    final var dialog = SetupEncryptionDialogFragment.newInstance(user, mFile.getRemotePath());
+                    dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
+                });
+                return;
+            }
+        }
+
         CreateFolderDialogFragment.newInstance(mFile, encrypted)
             .show(activity.getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
     }

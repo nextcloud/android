@@ -59,8 +59,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
     protected String remotePath;
     private RemoteFile createdRemoteFolder;
-    private User user;
-    private Context context;
+    private boolean encrypt = false;
+    private final User user;
+    private final Context context;
 
     /**
      * Constructor
@@ -71,6 +72,14 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         this.remotePath = remotePath;
         this.user = user;
         this.context = context;
+    }
+
+    public void setEncrypt(boolean value) {
+        encrypt = value;
+    }
+
+    public boolean shouldEncrypt() {
+        return encrypt;
     }
 
     @Override
@@ -490,15 +499,23 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         return encryptedFileName;
     }
 
-    private RemoteOperationResult normalCreate(OwnCloudClient client) {
-        RemoteOperationResult result = new CreateFolderRemoteOperation(remotePath, true).execute(client);
+    private RemoteOperationResult<?> normalCreate(OwnCloudClient client) {
+        final var result = new CreateFolderRemoteOperation(remotePath, true).execute(client);
 
         if (result.isSuccess()) {
-            RemoteOperationResult remoteFolderOperationResult = new ReadFolderRemoteOperation(remotePath)
+            final var remoteFolderOperationResult = new ReadFolderRemoteOperation(remotePath)
                 .execute(client);
 
-            createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
+            if (remoteFolderOperationResult.isSuccess() &&
+                remoteFolderOperationResult.getData().get(0) instanceof RemoteFile remoteFile) {
+                createdRemoteFolder = remoteFile;
+            }
+
             saveFolderInDB();
+
+            if (encrypt) {
+
+            }
         } else {
             Log_OC.e(TAG, remotePath + " hasn't been created");
         }
