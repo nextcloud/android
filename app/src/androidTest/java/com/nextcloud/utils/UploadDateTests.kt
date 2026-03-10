@@ -14,6 +14,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
+import com.nextcloud.utils.date.DateFormatPattern
 import com.owncloud.android.R
 import com.owncloud.android.utils.DisplayUtils
 import org.junit.Assert.assertEquals
@@ -129,7 +130,7 @@ class UploadDateTests {
     @Test
     fun getRelativeDateTimeStringReturnsAbbreviatedStringForOneWeekAgo() {
         val time = System.currentTimeMillis() - ONE_WEEK
-        val formatter = SimpleDateFormat("MMM d", Locale.US)
+        val formatter = SimpleDateFormat(DateFormatPattern.MonthWithDate.pattern, Locale.US)
         val expected = formatter.format(Date(time))
 
         assertRelativeDateTimeString(time, expected)
@@ -138,7 +139,7 @@ class UploadDateTests {
     @Test
     fun getRelativeDateTimeStringReturnsAbbreviatedStringForOneMonthAgo() {
         val time = System.currentTimeMillis() - ONE_MONTH
-        val formatter = SimpleDateFormat("MMM d", Locale.US)
+        val formatter = SimpleDateFormat(DateFormatPattern.MonthWithDate.pattern, Locale.US)
         val expected = formatter.format(Date(time))
 
         assertRelativeDateTimeString(time, expected, DateUtils.SECOND_IN_MILLIS)
@@ -192,7 +193,7 @@ class UploadDateTests {
         assertEquals(expected, result)
 
         testTimestamp = System.currentTimeMillis() - 7 * DateUtils.DAY_IN_MILLIS
-        expected = SimpleDateFormat("MMM d", Locale.US).format(testTimestamp)
+        expected = SimpleDateFormat(DateFormatPattern.MonthWithDate.pattern, Locale.US).format(testTimestamp)
         result = DisplayUtils.getRelativeDateTimeString(
             context,
             testTimestamp,
