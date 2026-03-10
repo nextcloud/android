@@ -982,12 +982,12 @@ public class FileOperationsHelper {
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
     }
 
-    public void createFolder(String remotePath) {
-        // Create Folder
+    public void createFolder(String remotePath, boolean encrypted) {
         Intent service = new Intent(fileActivity, OperationsService.class);
         service.setAction(OperationsService.ACTION_CREATE_FOLDER);
         service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
+        service.putExtra(OperationsService.EXTRA_ENCRYPTED, encrypted);
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));

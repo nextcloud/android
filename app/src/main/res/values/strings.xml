@@ -999,6 +999,7 @@
     <string name="upload_scan_doc_upload">Scan document from camera</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
     <string name="create_new_folder">New folder</string>
+    <string name="create_new_encrypted_folder">New encrypted folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
     <string name="tags">Tags</string>
     <string name="error_fetching_sharees">Unable to fetch sharees.</string>

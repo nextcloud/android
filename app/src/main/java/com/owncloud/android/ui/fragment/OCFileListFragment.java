@@ -529,9 +529,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
-    public void createFolder() {
-        CreateFolderDialogFragment.newInstance(mFile)
-            .show(getActivity().getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
+    public void createFolder(boolean encrypted) {
+        final var activity = getActivity();
+        if (activity == null) {
+            Log_OC.e(TAG, "activity is null, cannot create a folder");
+            return;
+        }
+
+        CreateFolderDialogFragment.newInstance(mFile, encrypted)
+            .show(activity.getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
     }
 
     @Override

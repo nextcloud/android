@@ -70,6 +70,7 @@ class CreateFolderDialogFragment :
 
     private var parentFolder: OCFile? = null
     private var positiveButton: MaterialButton? = null
+    private var encrypted: Boolean = false
 
     private lateinit var binding: EditBoxDialogBinding
 
@@ -112,6 +113,7 @@ class CreateFolderDialogFragment :
         viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer)
 
         val parentFolder = requireArguments().getParcelableArgument(ARG_PARENT_FOLDER, OCFile::class.java)
+        encrypted = requireArguments().getBoolean(ARG_ENCRYPTED, false)
 
         val folderContent = fileDataStorageManager.getFolderContent(parentFolder, false)
         val fileNames: MutableSet<String> = Sets.newHashSetWithExpectedSize(folderContent.size)
@@ -190,7 +192,7 @@ class CreateFolderDialogFragment :
             val path = parentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
             connectivityService.isNetworkAndServerAvailable { result ->
                 if (result) {
-                    typedActivity<ComponentsGetter>()?.fileOperationsHelper?.createFolder(path)
+                    typedActivity<ComponentsGetter>()?.fileOperationsHelper?.createFolder(path, encrypted)
                 } else {
                     Log_OC.d(TAG, "Network not available, creating offline operation")
                     fileDataStorageManager.addCreateFolderOfflineOperation(
@@ -208,6 +210,8 @@ class CreateFolderDialogFragment :
     companion object {
         private const val TAG = "CreateFolderDialogFragment"
         private const val ARG_PARENT_FOLDER = "PARENT_FOLDER"
+        private const val ARG_ENCRYPTED = "ENCRYPTED"
+
         const val CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT"
 
         /**
@@ -217,8 +221,9 @@ class CreateFolderDialogFragment :
          * @return Dialog ready to show.
          */
         @JvmStatic
-        fun newInstance(parentFolder: OCFile?): CreateFolderDialogFragment {
+        fun newInstance(parentFolder: OCFile?, encrypted: Boolean): CreateFolderDialogFragment {
             val bundle = Bundle().apply {
+                putBoolean(ARG_ENCRYPTED, encrypted)
                 putParcelable(ARG_PARENT_FOLDER, parentFolder)
             }
 

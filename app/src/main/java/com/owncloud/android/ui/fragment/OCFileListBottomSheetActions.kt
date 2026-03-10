@@ -4,72 +4,51 @@
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.fragment;
+package com.owncloud.android.ui.fragment
 
-import com.owncloud.android.lib.common.Creator;
+import com.owncloud.android.lib.common.Creator
 
-/**
- * Actions interface to be implemented by any class that makes use of
- * {@link com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog}.
- */
-public interface OCFileListBottomSheetActions {
-    /**
-     * creates a folder within the actual folder.
-     */
-    void createFolder();
+interface OCFileListBottomSheetActions {
+    fun createFolder(encrypted: Boolean)
 
     /**
      * offers a file upload with the Android OS file picker to the current folder.
      */
-    void uploadFromApp();
+    fun uploadFromApp()
 
     /**
      * offers a file upload with the app file picker to the current folder.
      */
-    void uploadFiles();
+    fun uploadFiles()
 
     /**
      * opens template selection for documents
      */
-    void newDocument();
+    fun newDocument()
 
     /**
      * opens template selection for spreadsheets
      */
-    void newSpreadsheet();
+    fun newSpreadsheet()
 
-    /**
-     * opens template selection for presentations
-     */
-    void newPresentation();
-
-    /**
-     * offers direct camera upload to the current folder.
-     */
-    void directCameraUpload();
-
-    /**
-     * offers scanning document upload to the current folder.
-     */
-    void scanDocUpload();
+    fun newPresentation()
+    fun directCameraUpload()
+    fun scanDocUpload()
 
     /**
      * Offers scanning a document in a supported external app and then upload to the current folder.
      */
-    void scanDocUploadFromApp();
+    fun scanDocUploadFromApp()
 
     /**
-     * @return true, if a supported external app is available for {@link #scanDocUploadFromApp()}
+     * @return true, if a supported external app is available for [.scanDocUploadFromApp]
      */
-    boolean isScanDocUploadFromAppAvailable();
+    val isScanDocUploadFromAppAvailable: Boolean
 
     /**
      * open template selection for creator @link Creator
      */
-    void showTemplate(Creator creator, String headline);
+    fun showTemplate(creator: Creator?, headline: String?)
 
-    /**
-     * open editor for rich workspace
-     */
-    void createRichWorkspace();
+    fun createRichWorkspace()
 }
