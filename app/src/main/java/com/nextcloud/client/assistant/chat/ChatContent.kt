@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
@@ -138,7 +139,7 @@ private fun ChatMessageList(
     messages: List<ChatMessage>,
     showTypingIndicator: Boolean,
     modifier: Modifier = Modifier,
-    listState: androidx.compose.foundation.lazy.LazyListState,
+    listState: LazyListState,
     bottomSlot: (@Composable () -> Unit)? = null
 ) {
     LazyColumn(
