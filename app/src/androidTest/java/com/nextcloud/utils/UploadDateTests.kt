@@ -27,12 +27,15 @@ import java.util.Locale
 class UploadDateTests {
 
     companion object {
-        private const val ONE_YEAR = 365L * 24 * 60 * 60 * 1000
-        private const val ONE_MONTH = 30L * 24 * 60 * 60 * 1000
-        private const val ONE_WEEK = 7L * 24 * 60 * 60 * 1000
-        private const val TWO_HOURS = 2L * 60 * 60 * 1000
-        private const val ONE_MINUTE = 60_000L
         private const val THIRTY_SECONDS = 30_000L
+        private const val ONE_MINUTE = 60_000L
+        private const val ONE_HOUR = 60 * ONE_MINUTE
+        private const val ONE_DAY = 24 * ONE_HOUR
+
+        private const val ONE_YEAR = 365L * ONE_DAY
+        private const val ONE_MONTH = 30L * ONE_DAY
+        private const val ONE_WEEK = 7L * ONE_DAY
+        private const val TWO_HOURS = 2L * ONE_HOUR
     }
 
     private lateinit var context: Context
