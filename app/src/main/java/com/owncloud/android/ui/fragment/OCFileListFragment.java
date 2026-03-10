@@ -1326,6 +1326,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     return;
                 }
 
+                if (file.isRootDirectory()) {
+                    Log_OC.d(TAG, "result of setup encryption triggered in root directory, this call is for " +
+                        "creating encrypted folder");
+                    createFolder(true);
+                    return;
+                }
+
                 mContainerActivity.getFileOperationsHelper().toggleEncryption(file, true);
                 mAdapter.updateFileEncryptionById(file.getRemoteId(), true);
                 searchFragment = false;
@@ -2012,7 +2019,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             Log_OC.d(TAG, "encrypt folder " + folder.getRemoteId());
             User user = accountManager.getUser();
             OwnCloudClient client = clientFactory.create(user);
-            RemoteOperationResult remoteOperationResult = new ToggleEncryptionRemoteOperation(localId,
+            final var remoteOperationResult = new ToggleEncryptionRemoteOperation(localId,
                                                                                               remotePath,
                                                                                               shouldBeEncrypted)
                 .execute(client);
@@ -2056,7 +2063,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     throw new IllegalArgumentException("Unknown E2E version");
                 }
 
-                requireActivity().runOnUiThread(() -> mAdapter.updateFileEncryptionById(remoteId, shouldBeEncrypted));
+                requireActivity().runOnUiThread(() -> {
+                    boolean isFileExists = (mAdapter.getFileByRemoteId(remoteId) != null);
+                    if (!isFileExists) {
+                        OCFile newFile = storageManager.getFileByRemoteId(remoteId);
+                        mAdapter.insertFile(newFile);
+                    }
+
+                    mAdapter.updateFileEncryptionById(remoteId, shouldBeEncrypted);
+                });
             } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN && getRecyclerView() != null) {
                 requireActivity().runOnUiThread(() -> Snackbar.make(getRecyclerView(),
                                                             R.string.end_to_end_encryption_folder_not_empty,

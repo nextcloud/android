@@ -290,6 +290,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void updateFileEncryptionById(String fileId, boolean encrypted) {
+        if (fileId == null) return;
+
         mFilesAll.stream()
             .filter(f -> fileId.equals(f.getRemoteId()))
             .findFirst()
@@ -297,8 +299,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 file.setEncrypted(encrypted);
                 file.setE2eCounter(0L);
                 mStorageManager.saveFile(file);
+
                 int position = getItemPosition(file);
-                notifyItemChanged(position);
+                if (position != -1) {
+                    notifyItemChanged(position);
+                }
             });
     }
 
@@ -958,6 +963,28 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public List<OCFile> getFiles() {
         return mFiles;
+    }
+
+    @Nullable
+    public OCFile getFileByRemoteId(@Nullable String fileId) {
+        return mFilesAll.stream()
+            .filter(f -> java.util.Objects.equals(fileId, f.getRemoteId()))
+            .findFirst()
+            .orElse(null);
+    }
+
+    public void insertFile(@Nullable OCFile file) {
+        if (file == null) return;
+
+        if (mFilesAll.contains(file)) return;
+
+        mFilesAll.add(file);
+        mFiles.add(file);
+
+        int position = getItemPosition(file);
+        if (position != -1) {
+            notifyItemInserted(position);
+        }
     }
 
     public void addVirtualFile(@NonNull OCFile file) {
