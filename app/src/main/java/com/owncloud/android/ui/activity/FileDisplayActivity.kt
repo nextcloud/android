@@ -2313,7 +2313,10 @@ class FileDisplayActivity :
             if (operation.shouldEncrypt()) {
                 val file = storageManager.getFileByDecryptedRemotePath(operation.remotePath)
                 if (file == null) {
-                    Log_OC.e(TAG, "onCreateFolderOperationFinish(): file not saved after create folder operation, cannot encrypt")
+                    Log_OC.e(
+                        TAG,
+                        "onCreateFolderOperationFinish(): file not saved after create folder operation, cannot encrypt"
+                    )
                     return
                 }
                 fileOperationsHelper.toggleEncryption(file, true)
