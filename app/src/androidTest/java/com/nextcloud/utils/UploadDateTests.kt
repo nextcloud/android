@@ -97,7 +97,7 @@ class UploadDateTests {
 
     @Test
     fun getRelativeDateTimeStringReturnsFutureAsAbsoluteWhenShowFutureIsFalse() {
-        val formatter = SimpleDateFormat("MMM d, yyyy hh:mm:ss a", Locale.US)
+        val formatter = SimpleDateFormat("MMM d, yyyy h:mm:ss a", Locale.US)
         val expected = formatter.format(Date(System.currentTimeMillis() + ONE_MINUTE))
 
         val result = DisplayUtils.getRelativeDateTimeString(
