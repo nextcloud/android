@@ -242,9 +242,9 @@ class AutoRenameTests : AbstractOnServerIT() {
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
 
-    // For the following WCF tests, refer to the doc of OCCapability.checkWCFRestrictions() for the expected behavior
-    // based on Nextcloud server versions and WCF configuration.
-
+    /**
+     * For documentation see [com.nextcloud.utils.extensions.checkWCFRestrictions]
+     */
     @Test
     fun testWCFDisabledOnNextcloud32ShouldSkipRestrictions() {
         val filename = "   readme.txt  "
