@@ -289,25 +289,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
-    public void setEncryptionAttributeForItemID(String fileId, boolean encrypted) {
-        for (OCFile file : mFiles) {
-            if (file.getRemoteId().equals(fileId)) {
+    public void updateFileEncryptionById(String fileId, boolean encrypted) {
+        mFilesAll.stream()
+            .filter(f -> fileId.equals(f.getRemoteId()))
+            .findFirst()
+            .ifPresent(file -> {
                 file.setEncrypted(encrypted);
                 file.setE2eCounter(0L);
                 mStorageManager.saveFile(file);
-
-                break;
-            }
-        }
-
-        for (OCFile file : mFilesAll) {
-            if (file.getRemoteId().equals(fileId)) {
-                file.setEncrypted(encrypted);
-                file.setE2eCounter(0L);
-            }
-        }
-
-        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
+                int position = getItemPosition(file);
+                notifyItemChanged(position);
+            });
     }
 
     @Override

@@ -1327,7 +1327,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 }
 
                 mContainerActivity.getFileOperationsHelper().toggleEncryption(file, true);
-                mAdapter.setEncryptionAttributeForItemID(file.getRemoteId(), true);
+                mAdapter.updateFileEncryptionById(file.getRemoteId(), true);
                 searchFragment = false;
                 setFileDepth(file);
                 listDirectory(file, MainApp.isOnlyOnDevice());
@@ -2056,7 +2056,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     throw new IllegalArgumentException("Unknown E2E version");
                 }
 
-                requireActivity().runOnUiThread(() -> mAdapter.setEncryptionAttributeForItemID(remoteId, shouldBeEncrypted));
+                requireActivity().runOnUiThread(() -> mAdapter.updateFileEncryptionById(remoteId, shouldBeEncrypted));
             } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN && getRecyclerView() != null) {
                 requireActivity().runOnUiThread(() -> Snackbar.make(getRecyclerView(),
                                                             R.string.end_to_end_encryption_folder_not_empty,
