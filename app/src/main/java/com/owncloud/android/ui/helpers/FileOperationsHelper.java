@@ -68,6 +68,7 @@ import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.FileLockEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -931,12 +932,34 @@ public class FileOperationsHelper {
     }
 
     public void toggleEncryption(OCFile file, boolean shouldBeEncrypted) {
-        if (file.isEncrypted() != shouldBeEncrypted && !file.isRootDirectory()) {
-            EventBus.getDefault().post(new EncryptionEvent(file.getLocalId(),
-                                                           file.getRemoteId(),
-                                                           file.getRemotePath(),
-                                                           shouldBeEncrypted));
+        if (file.isEncrypted() == shouldBeEncrypted) {
+            Log_OC.d(TAG, "file already in wanted encryption state. " +
+                "isEncrypted: " + file.isEncrypted() + " should be encrypted: "+ shouldBeEncrypted);
+            return;
         }
+
+        if (file.isRootDirectory()) {
+            Log_OC.d(TAG, "toggle encryption triggered in root directory, this call is for creating encrypted folder");
+            if (!(fileActivity instanceof FileDisplayActivity fda)) {
+                Log_OC.e(TAG, "file display activity is not active, cannot show create folder dialog");
+                return;
+            }
+
+            OCFileListFragment fragment = fda.getListOfFilesFragment();
+            if (fragment == null) {
+                Log_OC.e(TAG, "file list fragment is null, cannot show create folder dialog");
+                return;
+            }
+
+            fragment.createFolder(true);
+            return;
+        }
+
+        Log_OC.d(TAG, "toggling encryption for: " + file.getRemotePath());
+        EventBus.getDefault().post(new EncryptionEvent(file.getLocalId(),
+                                                       file.getRemoteId(),
+                                                       file.getRemotePath(),
+                                                       shouldBeEncrypted));
     }
 
     public void toggleFileLock(OCFile file, boolean shouldBeLocked) {
