@@ -320,6 +320,7 @@ private fun InputBar(
 ) {
     val scope = rememberCoroutineScope()
     val text by viewModel.inputBarText.collectAsState()
+    val chatUIState by chatViewModel.uiState.collectAsState()
 
     Surface(
         tonalElevation = 3.dp,
@@ -377,7 +378,8 @@ private fun InputBar(
                             delay(CHAT_INPUT_DELAY)
                             viewModel.updateInputBarText("")
                         }
-                    }
+                    },
+                    enabled = chatUIState.canSend()
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_send),

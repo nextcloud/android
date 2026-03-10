@@ -17,13 +17,15 @@ sealed class ChatUIState {
     data class Thinking(val messages: List<ChatMessage>) : ChatUIState()
     data class RetryAvailable(val messages: List<ChatMessage>) : ChatUIState()
     data class Error(val messages: List<ChatMessage>, val errorType: ChatErrorType) : ChatUIState()
-}
 
-fun ChatUIState.messages(): List<ChatMessage> = when (this) {
-    is ChatUIState.Content -> messages
-    is ChatUIState.Sending -> messages
-    is ChatUIState.Thinking -> messages
-    is ChatUIState.RetryAvailable -> messages
-    is ChatUIState.Error -> messages
-    is ChatUIState.Loading, is ChatUIState.Empty -> emptyList()
+    fun messages(): List<ChatMessage> = when (this) {
+        is Content -> messages
+        is Sending -> messages
+        is Thinking -> messages
+        is RetryAvailable -> messages
+        is Error -> messages
+        is Loading, is Empty -> emptyList()
+    }
+
+    fun canSend(): Boolean = (this == Empty || this is Content)
 }
