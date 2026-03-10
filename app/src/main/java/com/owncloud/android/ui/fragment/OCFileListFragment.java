@@ -544,7 +544,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (publicKey.isEmpty() || privateKey.isEmpty()) {
                 Log_OC.w(TAG,"cannot create encrypted folder directly, needs to setup encryption first");
 
-                requireActivity().runOnUiThread(() -> {
+                activity.runOnUiThread(() -> {
                     final var dialog = SetupEncryptionDialogFragment.newInstance(user, mFile.getRemotePath());
                     dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
                 });
@@ -1131,10 +1131,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void folderOnItemClick(OCFile file, int position) {
-        if (requireActivity() instanceof FolderPickerActivity) {
+        if (requireActivity() instanceof FolderPickerActivity fpa) {
             String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), requireContext(), null);
             if (filenameErrorMessage != null) {
-                DisplayUtils.showSnackMessage(requireActivity(), filenameErrorMessage);
+                DisplayUtils.showSnackMessage(fpa, filenameErrorMessage);
                 return;
             }
         }

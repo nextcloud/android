@@ -59,7 +59,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
     protected String remotePath;
     private RemoteFile createdRemoteFolder;
-    private boolean encrypt = false;
+    private volatile boolean encrypt = false;
     private final User user;
     private final Context context;
 
@@ -512,10 +512,6 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             }
 
             saveFolderInDB();
-
-            if (encrypt) {
-
-            }
         } else {
             Log_OC.e(TAG, remotePath + " hasn't been created");
         }
