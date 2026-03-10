@@ -105,6 +105,7 @@ import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOp
 import com.owncloud.android.operations.CopyFileOperation
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.DownloadType
+import com.owncloud.android.operations.FolderRefreshScheduler
 import com.owncloud.android.operations.MoveFileOperation
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.operations.RemoveFileOperation
@@ -250,6 +251,8 @@ class FileDisplayActivity :
      */
     private var fileIDForImmediatePreview: Long = -1
 
+    private lateinit var folderRefreshScheduler: FolderRefreshScheduler
+
     fun setFileIDForImmediatePreview(fileIDForImmediatePreview: Long) {
         this.fileIDForImmediatePreview = fileIDForImmediatePreview
     }
@@ -262,6 +265,7 @@ class FileDisplayActivity :
 
         super.onCreate(savedInstanceState)
         lastDisplayedAccountName = preferences.lastDisplayedAccountName
+        folderRefreshScheduler = FolderRefreshScheduler(this)
 
         intent?.let {
             handleCommonIntents(it)
@@ -1164,7 +1168,7 @@ class FileDisplayActivity :
         uploader.uploadUris()
     }
 
-    private fun isSearchOpen(): Boolean {
+    fun isSearchOpen(): Boolean {
         if (searchView == null) {
             return false
         } else {
@@ -1350,6 +1354,8 @@ class FileDisplayActivity :
 
         super.onResume()
 
+        folderRefreshScheduler.start()
+
         if (ocFileListFragment?.isSearchFragment == true) {
             ocFileListFragment?.setSearchArgs(ocFileListFragment?.arguments)
         }
@@ -1476,6 +1482,7 @@ class FileDisplayActivity :
 
     override fun onStop() {
         Log_OC.v(TAG, "onStop()")
+        folderRefreshScheduler.stop()
         unregisterReceivers()
         super.onStop()
     }
