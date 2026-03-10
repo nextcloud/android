@@ -931,7 +931,7 @@ public class FileOperationsHelper {
     }
 
     public void toggleEncryption(OCFile file, boolean shouldBeEncrypted) {
-        if (file.isEncrypted() != shouldBeEncrypted) {
+        if (file.isEncrypted() != shouldBeEncrypted && !file.isRootDirectory()) {
             EventBus.getDefault().post(new EncryptionEvent(file.getLocalId(),
                                                            file.getRemoteId(),
                                                            file.getRemotePath(),
