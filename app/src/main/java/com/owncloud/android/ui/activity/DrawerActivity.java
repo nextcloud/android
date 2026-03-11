@@ -663,9 +663,16 @@ public abstract class DrawerActivity extends ToolbarActivity
         highlightNavigationViewItem(itemId);
     }
 
+    /**
+     * If navigator activity already exists just push else start navigator activity.
+     */
     private void pushFragment(NavigatorScreen screen) {
-        final var intent = NavigatorActivity.Companion.intent(this, screen);
-        startActivity(intent);
+        if (this instanceof NavigatorActivity navigatorActivity) {
+            navigatorActivity.push(screen);
+        } else {
+            final var intent = NavigatorActivity.Companion.intent(this, screen);
+            startActivity(intent);
+        }
     }
 
     @SuppressFBWarnings("RV")

@@ -30,7 +30,12 @@ class NavigatorActivity : DrawerActivity() {
 
         val screen = intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java) ?: return
         val fragmentContainerView = findViewById<FragmentContainerView>(R.id.fragment_container_view)
+
         navigator = Navigator(supportFragmentManager, fragmentContainerView)
+        push(screen)
+    }
+
+    fun push(screen: NavigatorScreen) {
         navigator.push(screen)
     }
 
