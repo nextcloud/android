@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -241,13 +242,52 @@ class AutoRenameTests : AbstractOnServerIT() {
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
 
+    /**
+     * For documentation see [com.nextcloud.utils.extensions.checkWCFRestrictions]
+     */
     @Test
-    fun skipAutoRenameWhenWCFDisabled() {
-        capability = capability.apply {
+    fun testWCFDisabledOnNextcloud32ShouldSkipRestrictions() {
+        val filename = "   readme.txt  "
+        val nc32Capability = capability.apply {
+            versionMayor = NextcloudVersion.nextcloud_32.majorVersionNumber
             isWCFEnabled = CapabilityBooleanType.FALSE
         }
+        val result = AutoRename.rename(filename, nc32Capability, isFolderPath = true)
+        assert(result == filename) { "Expected $filename but got $result" }
+    }
+
+    @Test
+    fun testWCFEnabledOnNextcloud32ShouldApplyRestrictions() {
         val filename = "   readme.txt  "
-        val result = AutoRename.rename(filename, capability, isFolderPath = true)
+        val nc32Capability = capability.apply {
+            versionMayor = NextcloudVersion.nextcloud_32.majorVersionNumber
+            isWCFEnabled = CapabilityBooleanType.TRUE
+        }
+        val result = AutoRename.rename(filename, nc32Capability, isFolderPath = true)
+        val expectedFilename = "readme.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testWCFDisabledOnNextcloud30to31ShouldStillApplyRestrictions() {
+        val filename = "   readme.txt  "
+        val nc30Capability = capability.apply {
+            versionMayor = NextcloudVersion.nextcloud_30.majorVersionNumber
+            isWCFEnabled = CapabilityBooleanType.FALSE
+        }
+        val result = AutoRename.rename(filename, nc30Capability, isFolderPath = true)
+        val expectedFilename = "readme.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testWCFOnNextcloudBelow30ShouldSkipRestrictions() {
+        val filename = "   readme.txt  "
+        val nc29Capability = capability.apply {
+            versionMayor = NextcloudVersion.nextcloud_29.majorVersionNumber
+            isWCFEnabled = CapabilityBooleanType.TRUE
+        }
+        val result = AutoRename.rename(filename, nc29Capability, isFolderPath = true)
         assert(result == filename) { "Expected $filename but got $result" }
     }
 }

@@ -113,10 +113,12 @@ public class UploadStorageManagerTest extends AbstractIT {
         }
 
         OCUpload[] storedUploads = uploadsStorageManager.getAllStoredUploads();
-        assertEquals(size, uploadsStorageManager.getAllStoredUploads().length);
+        assertEquals(size, storedUploads.length);
+        assertEquals(uploads.size(), storedUploads.length);
 
         for (int i = 0; i < size; i++) {
-            assertTrue(contains(uploads, storedUploads[i]));
+            assertTrue("Upload " + (i+1) + "/" + size + " not found in stored uploads: " + storedUploads[i].getLocalPath(),
+                contains(uploads, storedUploads[i]));
         }
     }
 
@@ -138,7 +140,7 @@ public class UploadStorageManagerTest extends AbstractIT {
 
     private boolean contains(ArrayList<OCUpload> uploads, OCUpload storedUpload) {
         for (int i = 0; i < uploads.size(); i++) {
-            if (storedUpload.isSame(uploads.get(i))) {
+            if (storedUpload.isSame(uploads.get(i), true)) {
                 return true;
             }
         }
