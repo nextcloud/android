@@ -44,36 +44,42 @@ class CommunityFragment : Fragment() {
 
     private fun setupViews(activity: DrawerActivity) {
         val primaryColor = activity.viewThemeUtils.files.primaryColorToHexString(requireContext())
+        val helpLink = getString(R.string.help_link)
+        val forum = getString(R.string.community_contribute_forum_forum)
+        val translationLink = getString(R.string.translation_link)
+        val translate = getString(R.string.community_contribute_translate_translate)
+        val contributingLink = getString(R.string.contributing_link)
 
-        binding.communityContributeForumText.setHtmlContent(
-            getString(R.string.community_contribute_forum_text) + " " +
+        listOf(
+            binding.communityContributeForumText to
+                "${getString(R.string.community_contribute_forum_text)} " +
                 getString(
                     R.string.community_contribute_forum_text_link,
                     primaryColor,
-                    getString(R.string.help_link),
-                    getString(R.string.community_contribute_forum_forum)
-                )
-        )
+                    helpLink,
+                    forum
+                ),
 
-        binding.communityContributeTranslateText.setHtmlContent(
-            getString(
-                R.string.community_contribute_translate_link,
-                primaryColor,
-                getString(R.string.translation_link),
-                getString(R.string.community_contribute_translate_translate)
-            ) + " " + getString(R.string.community_contribute_translate_text)
-        )
-
-        binding.communityContributeGithubText.setHtmlContent(
-            getString(
-                R.string.community_contribute_github_text,
+            binding.communityContributeTranslateText to
                 getString(
-                    R.string.community_contribute_github_text_link,
+                    R.string.community_contribute_translate_link,
                     primaryColor,
-                    getString(R.string.contributing_link)
+                    translationLink,
+                    translate
+                ) + " " + getString(R.string.community_contribute_translate_text),
+
+            binding.communityContributeGithubText to
+                getString(
+                    R.string.community_contribute_github_text,
+                    getString(
+                        R.string.community_contribute_github_text_link,
+                        primaryColor,
+                        contributingLink
+                    )
                 )
-            )
-        )
+        ).forEach { (view, content) ->
+            view.setHtmlContent(content)
+        }
 
         activity.viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.communityTestingReport)
         binding.communityTestingReport.setOnClickListener {
@@ -82,17 +88,17 @@ class CommunityFragment : Fragment() {
     }
 
     private fun setOnClickListeners() {
-        binding.communityBetaFdroid.setOnClickListener {
-            DisplayUtils.startLinkIntent(requireActivity(), R.string.fdroid_beta_link)
-        }
-        binding.communityReleaseCandidateFdroid.setOnClickListener {
-            DisplayUtils.startLinkIntent(requireActivity(), R.string.fdroid_link)
-        }
-        binding.communityReleaseCandidatePlaystore.setOnClickListener {
-            DisplayUtils.startLinkIntent(requireActivity(), R.string.play_store_register_beta)
-        }
-        binding.communityBetaApk.setOnClickListener {
-            DisplayUtils.startLinkIntent(requireActivity(), R.string.beta_apk_link)
+        val activity = requireActivity()
+
+        listOf(
+            binding.communityBetaFdroid to R.string.fdroid_beta_link,
+            binding.communityReleaseCandidateFdroid to R.string.fdroid_link,
+            binding.communityReleaseCandidatePlaystore to R.string.play_store_register_beta,
+            binding.communityBetaApk to R.string.beta_apk_link
+        ).forEach { (view, linkRes) ->
+            view.setOnClickListener {
+                DisplayUtils.startLinkIntent(activity, linkRes)
+            }
         }
     }
 
