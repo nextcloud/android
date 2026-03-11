@@ -16,6 +16,7 @@
          <trust group="com.github.bumptech.glide" version="4.16.0" reason=""/>
          <trust file=".*-javadoc[.]jar" regex="true" reason="Android Studio downloads javadoc jars but doesn't add checksums - fixes building in AS"/>
          <trust file=".*-sources[.]jar" regex="true" reason="Android Studio downloads source jars but doesn't add checksums - fixes building in AS"/>
+         <trust group="androidx.palette" reason="Photo widget dependency - official Google artifact"/>
       </trusted-artifacts>
       <trusted-keys>
          <trusted-key id="015479E1055341431B4545AB72475FD306B9CAB7" group="com.googlecode.javaewah" name="JavaEWAH" version="1.2.3"/>

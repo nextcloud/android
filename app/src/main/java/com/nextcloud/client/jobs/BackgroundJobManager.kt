@@ -166,4 +166,9 @@ interface BackgroundJobManager {
     fun startMetadataSyncJob(currentDirPath: String)
     fun downloadFolder(folder: OCFile, accountName: String)
     fun cancelFolderDownload()
+
+    // Photo widget
+    fun schedulePeriodicPhotoWidgetUpdate(intervalMinutes: Long = 15L)
+    fun startImmediatePhotoWidgetUpdate()
+    fun cancelPeriodicPhotoWidgetUpdate()
 }

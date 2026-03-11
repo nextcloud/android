@@ -1,0 +1,129 @@
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Axel
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/photo_widget_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Main photo image -->
+    <ImageView
+        android:id="@+id/photo_widget_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/photo_widget_content_description"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        tools:src="@drawable/ic_image_outline"
+        tools:visibility="visible" />
+
+    <!-- Empty state: shown when no photo is loaded -->
+    <LinearLayout
+        android:id="@+id/photo_widget_empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#1E1E2E"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="visible"
+        tools:visibility="gone">
+
+        <ImageView
+            android:id="@+id/photo_widget_empty_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/photo_widget_content_description"
+            android:src="@drawable/ic_image_outline" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/photo_widget_empty_state"
+            android:textColor="#9999AA"
+            android:textSize="12sp" />
+
+        <!-- Retry button -->
+        <ImageView
+            android:id="@+id/photo_widget_retry_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_widget_button_circle"
+            android:contentDescription="@string/photo_widget_next_image"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_action_refresh" />
+
+    </LinearLayout>
+
+    <!-- Gradient scrim for text readability -->
+    <ImageView
+        android:id="@+id/photo_widget_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_widget_gradient_scrim"
+        android:contentDescription="@null"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <!-- Text overlay: location at bottom-left -->
+    <LinearLayout
+        android:id="@+id/photo_widget_text_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:orientation="vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="48dp"
+        android:paddingBottom="12dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/photo_widget_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:text="Jakarta, Indonesia"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+    <!-- Next image button at top-right -->
+    <ImageView
+        android:id="@+id/photo_widget_next_button"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_widget_button_circle"
+        android:contentDescription="@string/photo_widget_next_image"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_action_refresh" />
+
+    <!-- Loading indicator -->
+    <ProgressBar
+        android:id="@+id/photo_widget_loading"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</FrameLayout>
