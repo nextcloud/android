@@ -226,7 +226,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     AppPreferences preferences;
 
     @Inject
-    ClientFactory clientFactory;
+    protected ClientFactory clientFactory;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {

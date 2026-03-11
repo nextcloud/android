@@ -50,9 +50,9 @@ class ActivitiesActivityIT : AbstractIT() {
     fun loading() {
         launchActivity<ActivitiesActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                sut.binding.emptyList.root.visibility = View.GONE
-                sut.binding.swipeContainingList.visibility = View.GONE
-                sut.binding.loadingContent.visibility = View.VISIBLE
+                sut.binding?.emptyList?.root?.visibility = View.GONE
+                sut.binding?.swipeContainingList?.visibility = View.GONE
+                sut.binding?.loadingContent?.visibility = View.VISIBLE
             }
 
             val screenShotName = createName(testClassName + "_" + "loading", "")

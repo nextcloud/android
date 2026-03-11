@@ -1,256 +1,239 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2018 Edvard Holst <edvard.holst@gmail.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.activities;
+package com.owncloud.android.ui.activities
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
+import android.content.Intent
+import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import androidx.core.view.size
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.common.NextcloudClient
+import com.owncloud.android.R
+import com.owncloud.android.databinding.ActivityListLayoutBinding
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.activities.model.RichObject
+import com.owncloud.android.lib.resources.files.FileUtils
+import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository
+import com.owncloud.android.ui.activities.data.files.FilesRepository
+import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.adapter.ActivityListAdapter
+import com.owncloud.android.ui.interfaces.ActivityListInterface
+import com.owncloud.android.ui.preview.PreviewImageActivity
+import com.owncloud.android.ui.preview.PreviewImageFragment.Companion.canBePreviewed
+import com.owncloud.android.utils.DisplayUtils
+import java.util.function.Supplier
+import javax.inject.Inject
 
-import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.common.NextcloudClient;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.ActivityListLayoutBinding;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.activities.model.RichObject;
-import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
-import com.owncloud.android.ui.activities.data.files.FilesRepository;
-import com.owncloud.android.ui.activity.DrawerActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.adapter.ActivityListAdapter;
-import com.owncloud.android.ui.interfaces.ActivityListInterface;
-import com.owncloud.android.ui.preview.PreviewImageActivity;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.utils.DisplayUtils;
+class ActivitiesActivity :
+    DrawerActivity(),
+    ActivityListInterface,
+    ActivitiesContract.View {
+    var binding: ActivityListLayoutBinding? = null
+    private var adapter: ActivityListAdapter? = null
+    private var lastGiven: Long = 0
+    private var isLoadingActivities = false
+    private var actionListener: ActivitiesContract.ActionListener? = null
 
-import java.util.List;
+    @Inject
+    lateinit var activitiesRepository: ActivitiesRepository
 
-import javax.inject.Inject;
+    @Inject
+    lateinit var filesRepository: FilesRepository
 
-import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+    @Inject
+    lateinit var connectivityService: ConnectivityService
 
-import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
-import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        Log_OC.v(TAG, "onCreate() start")
+        super.onCreate(savedInstanceState)
 
-/**
- * This Activity presents activities feed.
- */
-public class ActivitiesActivity extends DrawerActivity implements ActivityListInterface, ActivitiesContract.View {
-    private static final String TAG = ActivitiesActivity.class.getSimpleName();
+        actionListener = ActivitiesPresenter(activitiesRepository, filesRepository, this)
 
-    ActivityListLayoutBinding binding;
-    private ActivityListAdapter adapter;
-    private long lastGiven;
-    private boolean isLoadingActivities;
-    private ActivitiesContract.ActionListener actionListener;
+        binding = ActivityListLayoutBinding.inflate(layoutInflater)
+        setContentView(binding?.getRoot())
 
-    @Inject ActivitiesRepository activitiesRepository;
-    @Inject FilesRepository filesRepository;
-    @Inject ClientFactory clientFactory;
-    @Inject ConnectivityService connectivityService;
+        setupToolbar()
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Log_OC.v(TAG, "onCreate() start");
-        super.onCreate(savedInstanceState);
+        binding?.swipeContainingList?.let { viewThemeUtils.androidx.themeSwipeRefreshLayout(it) }
 
-        actionListener = new ActivitiesPresenter(activitiesRepository, filesRepository, this);
+        setupDrawer(menuItemId)
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_activities))
 
-        binding = ActivityListLayoutBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        // setup toolbar
-        setupToolbar();
-
-        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList);
-
-        // setup drawer
-        setupDrawer(getMenuItemId());
-        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_activities));
-
-        binding.swipeContainingList.setOnRefreshListener(() -> {
+        binding?.swipeContainingList?.setOnRefreshListener {
             // We set lastGiven variable to undefined here since when manually refreshing
             // activities data we want to clear the list and reset the pagination.
-            lastGiven = ActivitiesContract.ActionListener.UNDEFINED;
-            actionListener.loadActivities(lastGiven);
-        });
+            lastGiven = ActivitiesContract.ActionListener.UNDEFINED.toLong()
+            actionListener?.loadActivities(lastGiven)
+        }
     }
 
-    @Override
-    protected int getMenuItemId() {
-        return R.id.nav_activity;
-    }
+    override fun getMenuItemId(): Int = R.id.nav_activity
 
-    @VisibleForTesting
-    public ActivityListLayoutBinding getBinding() {
-        return binding;
-    }
+    @Suppress("MagicNumber")
+    private fun setupContent() {
+        binding?.emptyList?.emptyListIcon?.setImageResource(R.drawable.ic_activity)
 
-    /**
-     * sets up the UI elements and loads all activity items.
-     */
-    private void setupContent() {
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_activity);
+        adapter = ActivityListAdapter(
+            this,
+            userAccountManager,
+            this,
+            clientFactory,
+            false,
+            viewThemeUtils
+        )
+        binding?.list?.setAdapter(adapter)
 
-        adapter = new ActivityListAdapter(this,
-                                          getUserAccountManager(),
-                                          this,
-                                          clientFactory,
-                                          false,
-                                          viewThemeUtils);
-        binding.list.setAdapter(adapter);
+        val layoutManager = LinearLayoutManager(this)
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        binding?.list?.setLayoutManager(layoutManager)
+        binding?.list?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
 
-        binding.list.setLayoutManager(layoutManager);
-        binding.list.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                int visibleItemCount = recyclerView.getChildCount();
-                int totalItemCount = layoutManager.getItemCount();
-                int firstVisibleItemIndex = layoutManager.findFirstVisibleItemPosition();
+                val visibleItemCount = recyclerView.size
+                val totalItemCount = layoutManager.getItemCount()
+                val firstVisibleItemIndex = layoutManager.findFirstVisibleItemPosition()
 
                 // synchronize loading state when item count changes
-                if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)
-                    && lastGiven > 0) {
+                if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5) &&
+                    lastGiven > 0
+                ) {
                     // Almost reached the end, continue to load new activities
-                    actionListener.loadActivities(lastGiven);
+                    actionListener?.loadActivities(lastGiven)
                 }
             }
-        });
+        })
 
-        actionListener.loadActivities(ActivitiesContract.ActionListener.UNDEFINED);
+        actionListener?.loadActivities(ActivitiesContract.ActionListener.UNDEFINED.toLong())
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval = true;
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var retval = true
 
-        if (item.getItemId() == android.R.id.home) {
-            if (isDrawerOpen()) {
-                closeDrawer();
+        if (item.itemId == android.R.id.home) {
+            if (isDrawerOpen) {
+                closeDrawer()
             } else {
-                openDrawer();
+                openDrawer()
             }
         } else {
-            Log_OC.w(TAG, "Unknown menu item triggered");
-            retval = super.onOptionsItemSelected(item);
+            Log_OC.w(TAG, "Unknown menu item triggered")
+            retval = super.onOptionsItemSelected(item)
         }
 
-        return retval;
+        return retval
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        highlightNavigationViewItem(getMenuItemId());
-        actionListener.onResume();
-        setupContent();
+    override fun onResume() {
+        super.onResume()
+        highlightNavigationViewItem(menuItemId)
+        actionListener?.onResume()
+        setupContent()
     }
 
-    @Override
-    public void onActivityClicked(RichObject richObject) {
-        String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
-        actionListener.openActivity(path, this);
+    override fun onActivityClicked(richObject: RichObject) {
+        val path = FileUtils.PATH_SEPARATOR + richObject.path
+        actionListener?.openActivity(path, this)
     }
 
-    @Override
-    public void showActivities(List<Object> activities, NextcloudClient client, long lastGiven) {
-        boolean clear = this.lastGiven == ActivitiesContract.ActionListener.UNDEFINED;
-        adapter.setActivityItems(activities, client, clear);
-        this.lastGiven = lastGiven;
+    override fun showActivities(activities: List<Any>, client: NextcloudClient, lastGiven: Long) {
+        val clear = this.lastGiven == ActivitiesContract.ActionListener.UNDEFINED.toLong()
+        adapter?.setActivityItems(activities, client, clear)
+        this.lastGiven = lastGiven
 
         // Hide the recyclerView if list is empty
-        if (adapter.isEmpty()) {
-            showEmptyContent(getString(R.string.activities_no_results_headline), getString(R.string.activities_no_results_message));
-            binding.loadingContent.setVisibility(View.GONE);
-            binding.list.setVisibility(View.GONE);
+        if (adapter?.isEmpty == true) {
+            showEmptyContent(
+                getString(R.string.activities_no_results_headline),
+                getString(R.string.activities_no_results_message)
+            )
+            binding?.loadingContent?.visibility = View.GONE
+            binding?.list?.visibility = View.GONE
         } else {
-            binding.emptyList.emptyListView.setVisibility(View.GONE);
-            binding.loadingContent.setVisibility(View.GONE);
-            binding.list.setVisibility(View.VISIBLE);
+            binding?.emptyList?.emptyListView?.visibility = View.GONE
+            binding?.loadingContent?.visibility = View.GONE
+            binding?.list?.visibility = View.VISIBLE
         }
     }
 
-    @Override
-    public void showActivitiesLoadError(String error) {
-        connectivityService.isNetworkAndServerAvailable(result -> {
-            if (result) {
-                DisplayUtils.showSnackMessage(this, error);
+    override fun showActivitiesLoadError(error: String) {
+        connectivityService.isNetworkAndServerAvailable {
+            if (it) {
+                DisplayUtils.showSnackMessage(this, error)
             } else {
-                showEmptyContent(getString(R.string.server_not_reachable),
-                                 getString(R.string.server_not_reachable_content));
-                binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_sync_off);
+                showEmptyContent(
+                    getString(R.string.server_not_reachable),
+                    getString(R.string.server_not_reachable_content)
+                )
+                binding?.emptyList?.emptyListIcon?.setImageResource(R.drawable.ic_sync_off)
             }
-        });
-        
+        }
     }
 
-    @Override
-    public void showActivityDetailUI(OCFile ocFile) {
-        Intent showDetailsIntent;
-        if (PreviewImageFragment.canBePreviewed(ocFile)) {
-            showDetailsIntent = new Intent(getBaseContext(), PreviewImageActivity.class);
+    override fun showActivityDetailUI(ocFile: OCFile) {
+        val intent = if (canBePreviewed(ocFile)) {
+            Intent(baseContext, PreviewImageActivity::class.java)
         } else {
-            showDetailsIntent = new Intent(getBaseContext(), FileDisplayActivity.class);
+            Intent(baseContext, FileDisplayActivity::class.java)
+        }.apply {
+            putExtra(FileActivity.EXTRA_FILE, ocFile)
+            putExtra(
+                FileActivity.EXTRA_USER,
+                user.orElseThrow(Supplier { RuntimeException() })
+            )
         }
-        showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
-        showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
-        startActivity(showDetailsIntent);
 
+        startActivity(intent)
     }
 
-    @Override
-    public void showActivityDetailUIIsNull() {
-        DisplayUtils.showSnackMessage(this, R.string.file_not_found);
+    override fun showActivityDetailUIIsNull() {
+        DisplayUtils.showSnackMessage(this, R.string.file_not_found)
     }
 
-    @Override
-    public void showActivityDetailError(String error) {
-        DisplayUtils.showSnackMessage(this, error);
+    override fun showActivityDetailError(error: String) {
+        DisplayUtils.showSnackMessage(this, error)
     }
 
-    @Override
-    public void showLoadingMessage() {
-        binding.emptyList.emptyListView.setVisibility(View.GONE);
+    override fun showLoadingMessage() {
+        binding?.emptyList?.emptyListView?.visibility = View.GONE
     }
 
-    @Override
-    public void showEmptyContent(String headline, String message) {
-        binding.emptyList.emptyListViewHeadline.setText(headline);
-        binding.emptyList.emptyListViewText.setText(message);
-        binding.loadingContent.setVisibility(View.GONE);
-        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListViewHeadline.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void setProgressIndicatorState(boolean isActive) {
-        isLoadingActivities = isActive;
-        if (!adapter.isEmpty()) {
-            binding.swipeContainingList.post(() -> binding.swipeContainingList.setRefreshing(isActive));
+    override fun showEmptyContent(headline: String, message: String) {
+        binding?.run {
+            emptyList.emptyListViewHeadline.text = headline
+            emptyList.emptyListViewText.text = message
+            loadingContent.visibility = View.GONE
+            emptyList.emptyListIcon.setVisibility(View.VISIBLE)
+            emptyList.emptyListViewHeadline.visibility = View.VISIBLE
+            emptyList.emptyListViewText.visibility = View.VISIBLE
+            emptyList.emptyListView.visibility = View.VISIBLE
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+    override fun setProgressIndicatorState(isActive: Boolean) {
+        isLoadingActivities = isActive
+        if (adapter?.isEmpty == false) {
+            binding?.swipeContainingList?.post { binding?.swipeContainingList?.isRefreshing = isActive }
+        }
+    }
 
-        actionListener.onStop();
+    override fun onStop() {
+        super.onStop()
+        actionListener?.onStop()
+    }
+
+    companion object {
+        private val TAG: String = ActivitiesActivity::class.java.getSimpleName()
     }
 }
