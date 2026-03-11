@@ -384,7 +384,13 @@ private fun InputBar(
                     Icon(
                         painter = painterResource(id = R.drawable.ic_send),
                         contentDescription = stringResource(R.string.assistant_screen_send_message),
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = if (chatUIState.canSend()) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            colorResource(
+                                R.color.disabled_text
+                            )
+                        }
                     )
                 }
             }
