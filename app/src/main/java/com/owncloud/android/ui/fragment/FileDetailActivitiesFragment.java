@@ -355,7 +355,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     }
 
                     activity.runOnUiThread(() -> {
-                        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
                             populateList(activitiesAndVersions, lastGiven == -1);
                         }
                     });
