@@ -95,6 +95,8 @@ import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.navigation.NavigatorActivity;
+import com.owncloud.android.ui.navigation.NavigatorScreen;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
@@ -622,7 +624,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             startActivity(intent);
         } else if (itemId == R.id.nav_community) {
             resetOnlyPersonalAndOnDevice();
-            startActivity(CommunityActivity.class);
+            pushFragment(NavigatorScreen.Community.INSTANCE);
         } else if (itemId == R.id.nav_logout) {
             resetOnlyPersonalAndOnDevice();
             MenuItem isNewMenuItemChecked = menuItem.setChecked(false);
@@ -659,6 +661,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         resetFileDepth();
 
         highlightNavigationViewItem(itemId);
+    }
+
+    private void pushFragment(NavigatorScreen screen) {
+        final var intent = NavigatorActivity.Companion.intent(this, screen);
+        startActivity(intent);
     }
 
     @SuppressFBWarnings("RV")
