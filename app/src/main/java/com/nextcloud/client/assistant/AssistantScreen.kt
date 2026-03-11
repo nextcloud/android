@@ -155,6 +155,7 @@ fun AssistantScreen(
                         pagerState.scrollToPage(AssistantPage.Content.id)
                     }
                 }, openChat = { conversation ->
+                    viewModel.updateInputBarText("")
                     chatViewModel.updateSessionTitle(conversation.timestamp)
                     chatViewModel.selectConversation(conversation.id)
                     taskTypes.getChat()?.let { chatTaskType ->
