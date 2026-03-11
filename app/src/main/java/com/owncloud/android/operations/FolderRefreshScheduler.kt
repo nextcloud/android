@@ -15,6 +15,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -30,30 +31,39 @@ class FolderRefreshScheduler(private val activity: FileDisplayActivity) {
         stop()
 
         job = activity.lifecycleScope.launch {
-            while (true) {
+            while (isActive) {
                 delay(ETAG_POLL_INTERVAL_MS)
                 checkAndRefreshIfETagChanged()
             }
         }
 
-        Log_OC.d(TAG, "ETag polling started (interval=${ETAG_POLL_INTERVAL_MS}ms)")
+        Log_OC.d(TAG, "eTag polling started interval 30 seconds")
     }
 
     fun stop() {
         job?.cancel()
         job = null
-        Log_OC.d(TAG, "ETag polling stopped")
+        Log_OC.d(TAG, "eTag polling stopped")
     }
 
     @Suppress("ReturnCount", "TooGenericExceptionCaught")
     private suspend fun checkAndRefreshIfETagChanged() {
-        if (activity.isFinishing || activity.isSearchOpen()) return
+        if (activity.isFinishing || activity.isSearchOpen()) {
+            Log_OC.w(TAG, "activity is finished or search is opened")
+            return
+        }
 
-        val fragment = activity.listOfFilesFragment ?: return
-        if (fragment.isSearchFragment) return
+        val currentDir = activity.getCurrentDir()
+        if (currentDir == null) {
+            Log_OC.w(TAG, "current directory is null")
+            return
+        }
 
-        val currentDir = activity.getCurrentDir() ?: return
-        val currentUser = activity.user.orElse(null) ?: return
+        val currentUser = activity.user.orElse(null)
+        if (currentUser == null) {
+            Log_OC.w(TAG, "current user is null")
+            return
+        }
 
         val localEtag = currentDir.etag ?: ""
 
