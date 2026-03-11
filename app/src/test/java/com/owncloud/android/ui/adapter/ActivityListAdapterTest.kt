@@ -1,122 +1,63 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2019 Alex Plutta <alex.plutta@googlemail.com>
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.adapter;
+package com.owncloud.android.ui.adapter
 
-import com.owncloud.android.lib.resources.activities.model.Activity;
+import com.owncloud.android.lib.resources.activities.model.Activity
+import com.owncloud.android.ui.activities.adapter.ActivityListAdapter
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Test
+import org.mockito.Mock
+import org.mockito.Mockito.mock
+import org.mockito.MockitoAnnotations
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-
-import java.util.ArrayList;
-
-public final class ActivityListAdapterTest {
-
+class ActivityListAdapterTest {
 
     @Mock
-    private ActivityListAdapter activityListAdapter;
+    private lateinit var adapter: ActivityListAdapter
+
+    private val header: Any = "Hello"
+    private lateinit var activity: Activity
 
     @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        MockitoAnnotations.initMocks(activityListAdapter);
-        activityListAdapter.values = new ArrayList<>();
+    fun setUp() {
+        MockitoAnnotations.openMocks(this)
+        activity = mock(Activity::class.java)
+        adapter.values.clear()
     }
 
     @Test
-    public void isHeader__ObjectIsHeader_ReturnTrue() {
-        Object header = "Hello";
-        Object activity = Mockito.mock(Activity.class);
-
-        Mockito.when(activityListAdapter.isHeader(0)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getItemViewType(0)).thenCallRealMethod();
-
-        activityListAdapter.values.add(header);
-        activityListAdapter.values.add(activity);
-
-        final boolean result = activityListAdapter.isHeader(0);
-        Assert.assertTrue(result);
+    fun `isHeader returns true when item is a String header`() {
+        adapter.values.addAll(listOf(header, activity))
+        assertTrue(adapter.isHeader(0))
     }
 
     @Test
-    public void isHeader__ObjectIsActivity_ReturnFalse() {
-        Object header = "Hello";
-        Object activity = Mockito.mock(Activity.class);
-
-        Mockito.when(activityListAdapter.isHeader(1)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getItemViewType(1)).thenCallRealMethod();
-
-        activityListAdapter.values.add(header);
-        activityListAdapter.values.add(activity);
-        Assert.assertFalse(activityListAdapter.isHeader(1));
+    fun `isHeader returns false when item is an Activity`() {
+        adapter.values.addAll(listOf(header, activity))
+        assertFalse(adapter.isHeader(1))
     }
 
     @Test
-    public void getHeaderPositionForItem__AdapterIsEmpty_ReturnZero(){
-        Mockito.when(activityListAdapter.isHeader(0)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getItemViewType(0)).thenCallRealMethod();
-
-        Assert.assertEquals(0,activityListAdapter.getHeaderPositionForItem(0));
+    fun `getHeaderPositionForItem returns 0 when adapter is empty`() {
+        assertEquals(0, adapter.getHeaderPositionForItem(0))
     }
 
     @Test
-    public void getHeaderPositionForItem__ItemIsHeader_ReturnCurrentItem() {
-        Object header = "Hello";
-        Object activity = Mockito.mock(Activity.class);
-
-        Mockito.when(activityListAdapter.isHeader(0)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getItemViewType(0)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.isHeader(1)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getItemViewType(1)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.isHeader(2)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getItemViewType(2)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getHeaderPositionForItem(2)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.isHeader(3)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getItemViewType(3)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getHeaderPositionForItem(3)).thenCallRealMethod();
-
-
-        activityListAdapter.values.add(header);
-        activityListAdapter.values.add(activity);
-        activityListAdapter.values.add(header);
-        activityListAdapter.values.add(activity);
-
-
-        Assert.assertEquals(2, activityListAdapter.getHeaderPositionForItem(2));
-
+    fun `getHeaderPositionForItem returns current position when item is a header`() {
+        adapter.values.addAll(listOf(header, activity, header, activity))
+        assertEquals(2, adapter.getHeaderPositionForItem(2))
     }
 
     @Test
-    public void getHeaderPositionForItem__ItemIsActivity_ReturnNextHeader() {
-        Object header = "Hello";
-        Object activity = Mockito.mock(Activity.class);
-
-        Mockito.when(activityListAdapter.isHeader(0)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getItemViewType(0)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getHeaderPositionForItem(0)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.isHeader(1)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getItemViewType(1)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getHeaderPositionForItem(1)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.isHeader(2)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getItemViewType(2)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getHeaderPositionForItem(2)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.isHeader(3)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getItemViewType(3)).thenCallRealMethod();
-        Mockito.when(activityListAdapter.getHeaderPositionForItem(3)).thenCallRealMethod();
-
-        activityListAdapter.values.add(header);
-        activityListAdapter.values.add(activity);
-        activityListAdapter.values.add(header);
-        activityListAdapter.values.add(activity);
-
-        Assert.assertEquals(2, activityListAdapter.getHeaderPositionForItem(2));
+    fun `getHeaderPositionForItem returns preceding header position when item is an Activity`() {
+        adapter.values.addAll(listOf(header, activity, header, activity))
+        assertEquals(2, adapter.getHeaderPositionForItem(3))
     }
-
 }

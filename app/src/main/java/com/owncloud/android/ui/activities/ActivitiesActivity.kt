@@ -27,7 +27,7 @@ import com.owncloud.android.ui.activities.data.files.FilesRepository
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.adapter.ActivityListAdapter
+import com.owncloud.android.ui.activities.adapter.ActivityListAdapter
 import com.owncloud.android.ui.interfaces.ActivityListInterface
 import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.ui.preview.PreviewImageFragment.Companion.canBePreviewed
@@ -35,6 +35,7 @@ import com.owncloud.android.utils.DisplayUtils
 import java.util.function.Supplier
 import javax.inject.Inject
 
+@Suppress("MagicNumber")
 class ActivitiesActivity :
     DrawerActivity(),
     ActivityListInterface,
@@ -88,7 +89,6 @@ class ActivitiesActivity :
             this,
             userAccountManager,
             this,
-            clientFactory,
             false,
             viewThemeUtils
         )
@@ -96,43 +96,42 @@ class ActivitiesActivity :
 
         val layoutManager = LinearLayoutManager(this)
 
-        binding?.list?.setLayoutManager(layoutManager)
-        binding?.list?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val visibleItemCount = recyclerView.size
-                val totalItemCount = layoutManager.getItemCount()
-                val firstVisibleItemIndex = layoutManager.findFirstVisibleItemPosition()
-
-                // synchronize loading state when item count changes
-                if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5) &&
-                    lastGiven > 0
-                ) {
-                    // Almost reached the end, continue to load new activities
-                    actionListener?.loadActivities(lastGiven)
-                }
-            }
-        })
+        binding?.list?.run {
+            setLayoutManager(layoutManager)
+            addOnScrollListener(getOnScrollListener(layoutManager))
+        }
 
         actionListener?.loadActivities(ActivitiesContract.ActionListener.UNDEFINED.toLong())
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var retval = true
+    private fun getOnScrollListener(layoutManager: LinearLayoutManager) = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
 
-        if (item.itemId == android.R.id.home) {
-            if (isDrawerOpen) {
-                closeDrawer()
-            } else {
-                openDrawer()
+            val visibleItemCount = recyclerView.size
+            val totalItemCount = layoutManager.getItemCount()
+            val firstVisibleItemIndex = layoutManager.findFirstVisibleItemPosition()
+
+            // synchronize loading state when item count changes
+            if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5) &&
+                lastGiven > 0
+            ) {
+                // Almost reached the end, continue to load new activities
+                actionListener?.loadActivities(lastGiven)
             }
-        } else {
-            Log_OC.w(TAG, "Unknown menu item triggered")
-            retval = super.onOptionsItemSelected(item)
         }
+    }
 
-        return retval
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = if (item.itemId == android.R.id.home) {
+        if (isDrawerOpen) {
+            closeDrawer()
+        } else {
+            openDrawer()
+        }
+        true
+    } else {
+        Log_OC.w(TAG, "Unknown menu item triggered")
+        super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {
@@ -153,7 +152,7 @@ class ActivitiesActivity :
         this.lastGiven = lastGiven
 
         // Hide the recyclerView if list is empty
-        if (adapter?.isEmpty == true) {
+        if (adapter?.isEmpty() == true) {
             showEmptyContent(
                 getString(R.string.activities_no_results_headline),
                 getString(R.string.activities_no_results_message)
@@ -223,7 +222,7 @@ class ActivitiesActivity :
 
     override fun setProgressIndicatorState(isActive: Boolean) {
         isLoadingActivities = isActive
-        if (adapter?.isEmpty == false) {
+        if (adapter?.isEmpty() == false) {
             binding?.swipeContainingList?.post { binding?.swipeContainingList?.isRefreshing = isActive }
         }
     }
