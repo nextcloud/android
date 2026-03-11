@@ -8,18 +8,19 @@ package com.owncloud.android.ui.adapter
 
 import com.owncloud.android.lib.resources.activities.model.Activity
 import com.owncloud.android.ui.activities.adapter.ActivityListAdapter
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Answers
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 
 class ActivityListAdapterTest {
 
-    @Mock
+    @Mock(answer = Answers.CALLS_REAL_METHODS)
     private lateinit var adapter: ActivityListAdapter
 
     private val header: Any = "Hello"
@@ -29,7 +30,11 @@ class ActivityListAdapterTest {
     fun setUp() {
         MockitoAnnotations.openMocks(this)
         activity = mock(Activity::class.java)
-        adapter.values.clear()
+
+        ActivityListAdapter::class.java
+            .getDeclaredField("values")
+            .apply { isAccessible = true }
+            .set(adapter, mutableListOf<Any>())
     }
 
     @Test
@@ -45,8 +50,8 @@ class ActivityListAdapterTest {
     }
 
     @Test
-    fun `getHeaderPositionForItem returns 0 when adapter is empty`() {
-        assertEquals(0, adapter.getHeaderPositionForItem(0))
+    fun `getHeaderPositionForItem returns -1 when adapter is empty`() {
+        assertEquals(-1, adapter.getHeaderPositionForItem(0))
     }
 
     @Test

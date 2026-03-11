@@ -306,7 +306,8 @@ open class ActivityListAdapter(
         header?.findViewById<TextView>(R.id.header)?.text = values[headerPosition] as String
     }
 
-    override fun isHeader(itemPosition: Int) = getItemViewType(itemPosition) == HEADER_TYPE
+    override fun isHeader(itemPosition: Int) =
+        itemPosition in values.indices && getItemViewType(itemPosition) == HEADER_TYPE
 
     protected class ActivityViewHolder(val binding: ActivityListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
