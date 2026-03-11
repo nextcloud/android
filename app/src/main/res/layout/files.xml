@@ -2,7 +2,6 @@
 <!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
   ~ SPDX-FileCopyrightText: 2023 Parneet Singh <gurayaparneet@gmail.com>
   ~ SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
   ~ SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
@@ -43,14 +42,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragment_container"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                tools:visibility="visible"
-                android:visibility="gone" />
 
         </LinearLayout>
 
