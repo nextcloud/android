@@ -50,9 +50,9 @@ class ActivitiesActivityIT : AbstractIT() {
     fun loading() {
         launchActivity<ActivitiesActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                sut.binding.emptyList.root.visibility = View.GONE
-                sut.binding.swipeContainingList.visibility = View.GONE
-                sut.binding.loadingContent.visibility = View.VISIBLE
+                sut.binding?.emptyList?.root?.visibility = View.GONE
+                sut.binding?.swipeContainingList?.visibility = View.GONE
+                sut.binding?.loadingContent?.visibility = View.VISIBLE
             }
 
             val screenShotName = createName(testClassName + "_" + "loading", "")
@@ -162,7 +162,7 @@ class ActivitiesActivityIT : AbstractIT() {
 
         launchActivity<ActivitiesActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                sut.showActivities(activities as List<Any>?, nextcloudClient, -1)
+                sut.showActivities(activities as List<Any>, nextcloudClient, -1)
                 sut.setProgressIndicatorState(false)
             }
 
