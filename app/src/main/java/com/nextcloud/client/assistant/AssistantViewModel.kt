@@ -281,7 +281,7 @@ class AssistantViewModel(
     }
 
     private fun fetchTaskTypes() = viewModelScope.launch(Dispatchers.IO) {
-        val result = remoteRepository.getTaskTypes()
+        val result = remoteRepository.fetchTaskTypes()
         if (result.isNullOrEmpty()) {
             _screenState.value = AssistantScreenState.emptyTaskTypes()
             return@launch
@@ -374,6 +374,7 @@ class AssistantViewModel(
     }
 
     fun onTranslationScreenDismissed() {
+        updateInputBarText("")
         updateTranslationTaskState(false)
         selectTask(null)
     }

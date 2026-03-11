@@ -44,7 +44,7 @@ class AssistantRemoteRepositoryImpl(private val client: NextcloudClient, capabil
 
     private val supportsV2 = capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)
 
-    override suspend fun getTaskTypes(): List<TaskTypeData>? = withContext(Dispatchers.IO) {
+    override suspend fun fetchTaskTypes(): List<TaskTypeData>? = withContext(Dispatchers.IO) {
         if (supportsV2) {
             val result = GetTaskTypesRemoteOperationV2().execute(client)
             if (result.isSuccess) {
