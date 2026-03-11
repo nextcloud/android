@@ -613,9 +613,21 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private void addExternalAndPublicShares(List<OCShare> externalShares) {
-        final var publicShares = fileDataStorageManager.getSharesByPathAndType(file.getRemotePath(), ShareType.PUBLIC_LINK, "");
+        final var publicShares = fileDataStorageManager.getSharesByPathAndType(
+            file.getRemotePath(), ShareType.PUBLIC_LINK, "");
         externalShareeListAdapter.removeAll();
         final var shares = OCShareExtensionsKt.mergeDistinctByToken(externalShares, publicShares);
+
+        boolean hasNoSecureFileDrop = shares.stream()
+            .noneMatch(s -> s.getShareType() == ShareType.PUBLIC_LINK
+                || s.getShareType() == ShareType.NEW_PUBLIC_LINK);
+
+        if (file.isEncrypted() && hasNoSecureFileDrop) {
+            OCShare placeholder = new OCShare();
+            placeholder.setShareType(ShareType.NEW_PUBLIC_LINK);
+            shares.add(placeholder);
+        }
+
         externalShareeListAdapter.addShares(shares);
     }
 
