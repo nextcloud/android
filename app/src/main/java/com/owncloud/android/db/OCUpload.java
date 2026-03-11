@@ -31,6 +31,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import java.io.File;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -292,12 +293,18 @@ public class OCUpload implements Parcelable {
         return this.hashCode();
     }
 
-    @SuppressFBWarnings("SEO_SUBOPTIMAL_EXPRESSION_ORDER")
+
     public boolean isSame(@Nullable Object obj) {
+        return isSame(obj, false);
+    }
+
+    @SuppressFBWarnings("SEO_SUBOPTIMAL_EXPRESSION_ORDER")
+    @VisibleForTesting
+    public boolean isSame(@Nullable Object obj, boolean ignoreUploadId) {
         if (!(obj instanceof OCUpload other)) {
             return false;
         }
-        return this.uploadId == other.uploadId &&
+        return (ignoreUploadId || this.uploadId == other.uploadId) &&
             localPath.equals(other.localPath) &&
             remotePath.equals(other.remotePath) &&
             accountName.equals(other.accountName) &&
