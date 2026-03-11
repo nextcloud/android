@@ -162,7 +162,7 @@ class ActivitiesActivityIT : AbstractIT() {
 
         launchActivity<ActivitiesActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                sut.showActivities(activities as List<Any>?, nextcloudClient, -1)
+                sut.showActivities(activities as List<Any>, nextcloudClient, -1)
                 sut.setProgressIndicatorState(false)
             }
 
