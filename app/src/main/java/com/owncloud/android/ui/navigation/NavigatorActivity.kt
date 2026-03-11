@@ -11,6 +11,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentContainerView
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
@@ -18,18 +19,34 @@ import com.owncloud.android.ui.activity.DrawerActivity
 
 class NavigatorActivity : DrawerActivity() {
 
+    private lateinit var navigator: Navigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigator)
         setupToolbar()
         setupDrawer(menuItemId)
+        setupBackPressedHandler()
 
-        if (savedInstanceState == null) {
-            val screen = intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java) ?: return
-            val fragmentContainerView = findViewById<FragmentContainerView>(R.id.fragment_container_view)
-            val navigator = Navigator(supportFragmentManager, fragmentContainerView)
-            navigator.push(screen)
-        }
+        val screen = intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java) ?: return
+        val fragmentContainerView = findViewById<FragmentContainerView>(R.id.fragment_container_view)
+        navigator = Navigator(supportFragmentManager, fragmentContainerView)
+        navigator.push(screen)
+    }
+
+    private fun setupBackPressedHandler() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    when {
+                        isDrawerOpen -> closeDrawer()
+                        supportFragmentManager.backStackEntryCount == 1 -> finish()
+                        else -> navigator.pop()
+                    }
+                }
+            }
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
