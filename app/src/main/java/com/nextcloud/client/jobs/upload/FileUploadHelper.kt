@@ -264,9 +264,16 @@ class FileUploadHelper {
         uploadsStorageManager.uploadDao.deleteByRemotePathAndAccountName(remotePath, accountName)
     }
 
-    fun updateUploadStatus(remotePath: String, accountName: String, status: UploadStatus) {
+    @JvmOverloads
+    fun updateUploadStatus(
+        remotePath: String,
+        accountName: String,
+        status: UploadStatus,
+        onCompleted: () -> Unit = {}
+    ) {
         ioScope.launch {
             uploadsStorageManager.uploadDao.updateStatus(remotePath, accountName, status.value)
+            onCompleted()
         }
     }
 
