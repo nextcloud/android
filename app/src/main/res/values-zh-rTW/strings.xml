@@ -54,6 +54,7 @@
     <string name="assistant_screen_empty_content_description">嘗試傳送訊息來引發對話。</string>
     <string name="assistant_screen_empty_content_title">嗨！我現在能怎麼協助您呢？</string>
     <string name="assistant_screen_select_task">請選取任務</string>
+    <string name="assistant_screen_select_task_type_label">選擇選項</string>
     <string name="assistant_screen_send_message">傳送訊息</string>
     <string name="assistant_screen_task_bar_open_conversation_list">開啟對話清單</string>
     <string name="assistant_screen_task_create_fail_message">建立工作項目時發生錯誤</string>

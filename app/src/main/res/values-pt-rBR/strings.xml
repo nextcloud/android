@@ -54,6 +54,7 @@
     <string name="assistant_screen_empty_content_description">Tente enviar uma mensagem para iniciar uma conversa.</string>
     <string name="assistant_screen_empty_content_title">Oi! Em que posso ajudá-lo hoje?</string>
     <string name="assistant_screen_select_task">Selecione uma tarefa</string>
+    <string name="assistant_screen_select_task_type_label">Escolha uma opção</string>
     <string name="assistant_screen_send_message">Enviar mensagem</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Abrir lista de conversas</string>
     <string name="assistant_screen_task_create_fail_message">Ocorreu um erro ao criar a tarefa</string>

@@ -383,7 +383,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         if (showUploadDate) {
             CharSequence dateString = DisplayUtils.getRelativeDateTimeString(parentActivity,
                                                                              updateTime,
-                                                                             DateUtils.SECOND_IN_MILLIS,
+                                                                             DateUtils.MINUTE_IN_MILLIS,
                                                                              DateUtils.WEEK_IN_MILLIS,
                                                                              0);
             itemViewHolder.binding.uploadDate.setText(dateString);

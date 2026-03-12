@@ -40,7 +40,7 @@ import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.CommentFileOperation;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.adapter.ActivityAndVersionListAdapter;
+import com.owncloud.android.ui.activities.adapter.ActivityAndVersionListAdapter;
 import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
@@ -253,11 +253,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
         binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_activity, null));
         binding.emptyList.emptyListView.setVisibility(View.GONE);
 
-        adapter = new ActivityAndVersionListAdapter(getContext(),
+        adapter = new ActivityAndVersionListAdapter(requireActivity(),
                                                     accountManager,
                                                     this,
                                                     this,
-                                                    clientFactory,
                                                     viewThemeUtils
         );
         binding.list.setAdapter(adapter);
@@ -356,7 +355,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     }
 
                     activity.runOnUiThread(() -> {
-                        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
                             populateList(activitiesAndVersions, lastGiven == -1);
                         }
                     });
