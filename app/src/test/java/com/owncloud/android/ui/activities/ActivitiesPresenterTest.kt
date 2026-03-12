@@ -19,12 +19,11 @@ import com.owncloud.android.ui.activities.data.files.FilesRepository.ReadRemoteF
 import com.owncloud.android.ui.activity.BaseActivity
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentCaptor
-import org.mockito.ArgumentMatchers.eq
-import org.mockito.Captor
 import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.argumentCaptor
+import org.mockito.kotlin.eq
 import java.util.Date
 
 class ActivitiesPresenterTest {
@@ -50,18 +49,12 @@ class ActivitiesPresenterTest {
     @Mock
     private lateinit var lifecycleScope: LifecycleCoroutineScope
 
-    @Captor
-    private lateinit var readRemoteFileCallbackCaptor: ArgumentCaptor<ReadRemoteFileCallback>
-
-    @Captor
-    private lateinit var loadActivitiesCallbackCaptor: ArgumentCaptor<LoadActivitiesCallback>
-
     private lateinit var activitiesPresenter: ActivitiesPresenter
     private lateinit var activitiesList: List<Any>
 
     @Before
     fun setupActivitiesPresenter() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         activitiesPresenter = ActivitiesPresenter(activitiesRepository, filesRepository, view)
 
         activitiesList = mutableListOf(
@@ -79,104 +72,84 @@ class ActivitiesPresenterTest {
     @Test
     fun loadInitialActivitiesFromRepositoryIntoView() {
         val lastGiven = -1L
+        val captor = argumentCaptor<LoadActivitiesCallback>()
 
-        // When loading activities from repository is requested from presenter...
         activitiesPresenter.loadActivities(lifecycleScope, lastGiven)
-        // Empty list view is hidden in view
         verify(view).showLoadingMessage()
-        // Repository starts retrieving activities from server
         verify(activitiesRepository).getActivities(
             eq(lifecycleScope),
             eq(lastGiven),
-            loadActivitiesCallbackCaptor.capture()
+            captor.capture()
         )
-        // Repository returns data
-        loadActivitiesCallbackCaptor.value.onActivitiesLoaded(
-            activitiesList,
-            nextcloudClient,
-            lastGiven
-        )
-        // Progress indicator is hidden
+        captor.firstValue.onActivitiesLoaded(activitiesList, nextcloudClient, lastGiven)
         verify(view).setProgressIndicatorState(eq(false))
-        // List of activities is shown in view
         verify(view).showActivities(eq(activitiesList), eq(nextcloudClient), eq(lastGiven))
     }
 
     @Test
     fun loadFollowUpActivitiesFromRepositoryIntoView() {
         val lastGiven = 1L
+        val captor = argumentCaptor<LoadActivitiesCallback>()
 
-        // When loading activities from repository is requested from presenter...
         activitiesPresenter.loadActivities(lifecycleScope, lastGiven)
-        // Progress indicator is shown in view
         verify(view).setProgressIndicatorState(eq(true))
-        // Repository starts retrieving activities from server
         verify(activitiesRepository).getActivities(
             eq(lifecycleScope),
             eq(lastGiven),
-            loadActivitiesCallbackCaptor.capture()
+            captor.capture()
         )
-        // Repository returns data
-        loadActivitiesCallbackCaptor.value.onActivitiesLoaded(activitiesList, nextcloudClient, lastGiven)
-        // Progress indicator is hidden
+        captor.firstValue.onActivitiesLoaded(activitiesList, nextcloudClient, lastGiven)
         verify(view).setProgressIndicatorState(eq(false))
-        // List of activities is shown in view
         verify(view).showActivities(eq(activitiesList), eq(nextcloudClient), eq(lastGiven))
     }
 
     @Test
     fun loadActivitiesFromRepositoryShowError() {
         val lastGiven = -1L
+        val captor = argumentCaptor<LoadActivitiesCallback>()
 
-        // When loading activities from repository is requested from presenter...
         activitiesPresenter.loadActivities(lifecycleScope, lastGiven)
-        // Repository starts retrieving activities from server
         verify(activitiesRepository).getActivities(
             eq(lifecycleScope),
             eq(lastGiven),
-            loadActivitiesCallbackCaptor.capture()
+            captor.capture()
         )
-        // Repository returns an error
-        loadActivitiesCallbackCaptor.value.onActivitiesLoadedError("error")
-        // Correct error is shown in view
+        captor.firstValue.onActivitiesLoadedError("error")
         verify(view).showActivitiesLoadError(eq("error"))
     }
 
     @Test
     fun loadRemoteFileFromRepositoryShowDetailUI() {
-        // When retrieving remote file from repository...
+        val captor = argumentCaptor<ReadRemoteFileCallback>()
+
         activitiesPresenter.openActivity("null", baseActivity)
         verify(view).setProgressIndicatorState(eq(true))
-        verify(filesRepository).readRemoteFile(eq("null"), eq(baseActivity), readRemoteFileCallbackCaptor.capture())
-
-        // Repository returns a valid file object
-        readRemoteFileCallbackCaptor.value.onFileLoaded(ocFile)
+        verify(filesRepository).readRemoteFile(eq("null"), eq(baseActivity), captor.capture())
+        captor.firstValue.onFileLoaded(ocFile)
         verify(view).setProgressIndicatorState(eq(false))
         verify(view).showActivityDetailUI(eq(ocFile))
     }
 
     @Test
     fun loadRemoteFileFromRepositoryShowEmptyFile() {
-        // When retrieving remote file from repository...
+        val captor = argumentCaptor<ReadRemoteFileCallback>()
+
         activitiesPresenter.openActivity("null", baseActivity)
         verify(view).setProgressIndicatorState(eq(true))
-        verify(filesRepository).readRemoteFile(eq("null"), eq(baseActivity), readRemoteFileCallbackCaptor.capture())
-
-        // Repository returns a valid but null file object
-        readRemoteFileCallbackCaptor.value.onFileLoaded(null)
+        verify(filesRepository).readRemoteFile(eq("null"), eq(baseActivity), captor.capture())
+        captor.firstValue.onFileLoaded(null)
         verify(view).setProgressIndicatorState(eq(false))
         verify(view).showActivityDetailUIIsNull()
     }
 
     @Test
     fun loadRemoteFileFromRepositoryShowError() {
-        // When retrieving remote file from repository...
+        val captor = argumentCaptor<ReadRemoteFileCallback>()
+
         activitiesPresenter.openActivity("null", baseActivity)
         verify(view).setProgressIndicatorState(eq(true))
-        verify(filesRepository).readRemoteFile(eq("null"), eq(baseActivity), readRemoteFileCallbackCaptor.capture())
-
-        // Repository returns an error
-        readRemoteFileCallbackCaptor.value.onFileLoadError("error")
+        verify(filesRepository).readRemoteFile(eq("null"), eq(baseActivity), captor.capture())
+        captor.firstValue.onFileLoadError("error")
         verify(view).setProgressIndicatorState(eq(false))
         verify(view).showActivityDetailError(eq("error"))
     }

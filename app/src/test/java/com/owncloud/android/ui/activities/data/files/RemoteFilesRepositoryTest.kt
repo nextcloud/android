@@ -13,12 +13,11 @@ import com.owncloud.android.ui.activities.data.files.FilesServiceApi.FilesServic
 import com.owncloud.android.ui.activity.BaseActivity
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentCaptor
-import org.mockito.ArgumentMatchers.eq
-import org.mockito.Captor
 import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.argumentCaptor
+import org.mockito.kotlin.eq
 
 class RemoteFilesRepositoryTest {
 
@@ -30,8 +29,6 @@ class RemoteFilesRepositoryTest {
 
     @Mock private lateinit var ocFile: OCFile
 
-    @Captor private lateinit var filesServiceCallbackCaptor: ArgumentCaptor<FilesServiceCallback<OCFile>>
-
     private lateinit var filesRepository: FilesRepository
 
     @Before
@@ -42,17 +39,21 @@ class RemoteFilesRepositoryTest {
 
     @Test
     fun readRemoteFileReturnSuccess() {
+        val captor = argumentCaptor<FilesServiceCallback<OCFile>>()
+
         filesRepository.readRemoteFile("path", baseActivity, mockedReadRemoteFileCallback)
-        verify(serviceApi).readRemoteFile(eq("path"), eq(baseActivity), filesServiceCallbackCaptor.capture())
-        filesServiceCallbackCaptor.value.onLoaded(ocFile)
+        verify(serviceApi).readRemoteFile(eq("path"), eq(baseActivity), captor.capture())
+        captor.firstValue.onLoaded(ocFile)
         verify(mockedReadRemoteFileCallback).onFileLoaded(eq(ocFile))
     }
 
     @Test
     fun readRemoteFileReturnError() {
+        val captor = argumentCaptor<FilesServiceCallback<OCFile>>()
+
         filesRepository.readRemoteFile("path", baseActivity, mockedReadRemoteFileCallback)
-        verify(serviceApi).readRemoteFile(eq("path"), eq(baseActivity), filesServiceCallbackCaptor.capture())
-        filesServiceCallbackCaptor.value.onError("error")
+        verify(serviceApi).readRemoteFile(eq("path"), eq(baseActivity), captor.capture())
+        captor.firstValue.onError("error")
         verify(mockedReadRemoteFileCallback).onFileLoadError(eq("error"))
     }
 }
