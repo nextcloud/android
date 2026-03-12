@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.size
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.network.ConnectivityService
@@ -75,7 +76,7 @@ class ActivitiesActivity :
             // We set lastGiven variable to undefined here since when manually refreshing
             // activities data we want to clear the list and reset the pagination.
             lastGiven = ActivitiesContract.ActionListener.UNDEFINED.toLong()
-            actionListener?.loadActivities(lastGiven)
+            actionListener?.loadActivities(lifecycleScope, lastGiven)
         }
     }
 
@@ -101,7 +102,7 @@ class ActivitiesActivity :
             addOnScrollListener(getOnScrollListener(layoutManager))
         }
 
-        actionListener?.loadActivities(ActivitiesContract.ActionListener.UNDEFINED.toLong())
+        actionListener?.loadActivities(lifecycleScope, ActivitiesContract.ActionListener.UNDEFINED.toLong())
     }
 
     private fun getOnScrollListener(layoutManager: LinearLayoutManager) = object : RecyclerView.OnScrollListener() {
@@ -117,7 +118,7 @@ class ActivitiesActivity :
                 lastGiven > 0
             ) {
                 // Almost reached the end, continue to load new activities
-                actionListener?.loadActivities(lastGiven)
+                actionListener?.loadActivities(lifecycleScope, lastGiven)
             }
         }
     }

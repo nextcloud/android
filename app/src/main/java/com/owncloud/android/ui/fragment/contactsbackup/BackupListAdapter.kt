@@ -20,6 +20,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.CheckedTextView
 import android.widget.ImageView
+import androidx.lifecycle.lifecycleScope
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.request.target.CustomTarget
@@ -255,7 +256,7 @@ class BackupListAdapter(
                 }
             }
 
-            CoroutineScope(Dispatchers.IO).launch {
+            backupListFragment.lifecycleScope.launch(Dispatchers.IO) {
                 val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                     .getNextcloudClientFor(accountManager.currentOwnCloudAccount, context)
 

@@ -515,9 +515,7 @@ class FileUploadHelper {
      * @param user Needed for creating client
      */
     fun removeDuplicatedFile(duplicatedFile: OCFile, client: OwnCloudClient, user: User, onCompleted: () -> Unit) {
-        val job = CoroutineScope(Dispatchers.IO)
-
-        job.launch {
+        ioScope.launch {
             val removeFileOperation = RemoveFileOperation(
                 duplicatedFile,
                 false,

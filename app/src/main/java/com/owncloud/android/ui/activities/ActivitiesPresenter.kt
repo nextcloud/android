@@ -14,6 +14,7 @@ import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository.L
 import com.owncloud.android.ui.activities.data.files.FilesRepository
 import com.owncloud.android.ui.activities.data.files.FilesRepository.ReadRemoteFileCallback
 import com.owncloud.android.ui.activity.BaseActivity
+import kotlinx.coroutines.CoroutineScope
 
 class ActivitiesPresenter internal constructor(
     private val activitiesRepository: ActivitiesRepository,
@@ -22,13 +23,14 @@ class ActivitiesPresenter internal constructor(
 ) : ActivitiesContract.ActionListener {
     private var activityStopped = false
 
-    override fun loadActivities(lastGiven: Long) {
+    override fun loadActivities(lifecycleScope: CoroutineScope, lastGiven: Long) {
         if (ActivitiesContract.ActionListener.UNDEFINED.toLong() == lastGiven) {
             activitiesView.showLoadingMessage()
         } else {
             activitiesView.setProgressIndicatorState(true)
         }
         activitiesRepository.getActivities(
+            lifecycleScope,
             lastGiven,
             object : LoadActivitiesCallback {
                 override fun onActivitiesLoaded(activities: List<Any>, client: NextcloudClient, lastGiven: Long) {

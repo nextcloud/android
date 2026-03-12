@@ -8,15 +8,13 @@
 package com.owncloud.android.ui.activities.data.activities
 
 import com.nextcloud.common.NextcloudClient
+import kotlinx.coroutines.CoroutineScope
 
-/**
- * Main entry point for accessing activities data.
- */
 interface ActivitiesRepository {
     interface LoadActivitiesCallback {
         fun onActivitiesLoaded(activities: List<Any>, client: NextcloudClient, lastGiven: Long)
         fun onActivitiesLoadedError(error: String)
     }
 
-    fun getActivities(lastGiven: Long, callback: LoadActivitiesCallback)
+    fun getActivities(lifecycleScope: CoroutineScope, lastGiven: Long, callback: LoadActivitiesCallback)
 }
