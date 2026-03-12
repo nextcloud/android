@@ -8,13 +8,12 @@
 package com.nextcloud.client.jobs.folderDownload
 
 import android.content.Context
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
-import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateObserver
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
@@ -32,6 +31,7 @@ class FolderDownloadWorker(
     private val accountManager: UserAccountManager,
     private val context: Context,
     viewThemeUtils: ViewThemeUtils,
+    localBroadcastManager: LocalBroadcastManager,
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
 
@@ -46,6 +46,7 @@ class FolderDownloadWorker(
     }
 
     private val notificationManager = FolderDownloadWorkerNotificationManager(context, viewThemeUtils)
+    private val folderDownloadEventBroadcaster = FolderDownloadEventBroadcaster(context, localBroadcastManager)
     private lateinit var storageManager: FileDataStorageManager
 
     @Suppress("ReturnCount", "DEPRECATION")
@@ -79,6 +80,7 @@ class FolderDownloadWorker(
 
         trySetForeground(folder)
 
+        folderDownloadEventBroadcaster.sendDownloadEnqueued(folder.fileId)
         pendingDownloads.add(folder.fileId)
 
         val downloadHelper = FileDownloadHelper.instance()
@@ -136,7 +138,7 @@ class FolderDownloadWorker(
                 Log_OC.d(TAG, "❌ failed reason: $e")
                 Result.failure()
             } finally {
-                WorkerStateObserver.send(WorkerState.FolderDownloadCompleted(folder))
+                folderDownloadEventBroadcaster.sendDownloadCompleted(folder.fileId)
                 pendingDownloads.remove(folder.fileId)
                 notificationManager.dismiss()
             }
