@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 [versions]
-androidCommonLibraryVersion = "4fc0f29981"
+androidCommonLibraryVersion = "0.33.2"
 androidGifDrawableVersion = "1.2.30"
 androidImageCropperVersion = "4.7.0"
 androidLibraryVersion ="2.23.0"
