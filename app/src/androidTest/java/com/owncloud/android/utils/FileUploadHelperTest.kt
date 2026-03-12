@@ -11,6 +11,7 @@ import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
@@ -34,6 +35,18 @@ class FileUploadHelperTest {
 
     private val accountName = "test@nextcloud.example.com"
     private val localPath = "/sdcard/DCIM/photo.jpg"
+
+    private fun toggleWCFRestrictions(value: Boolean) {
+        val mockCapability = mockk<OCCapability>(relaxed = true)
+        every { mockCapability.checkWCFRestrictions() } returns value
+
+        val mockFileStorageManager = mockk<com.owncloud.android.datamodel.FileDataStorageManager>(relaxed = true)
+        every { mockFileStorageManager.getCapability(any<com.nextcloud.client.account.User>()) } returns mockCapability
+
+        val field = FileUploadHelper::class.java.getDeclaredField("fileStorageManager")
+        field.isAccessible = true
+        field.set(fileUploadHelper, mockFileStorageManager)
+    }
 
     @Suppress("LongParameterList")
     private fun buildEntity(
@@ -124,6 +137,8 @@ class FileUploadHelperTest {
 
     @Test
     fun getUploadByPathsCaseInsensitiveExtensionFallback() {
+        toggleWCFRestrictions(true)
+
         // DB stores "/a/b/1.TXT", caller searches with "/a/b/1.txt"
         val searchPath = "/a/b/AAA/b/1.txt"
         val storedPath = "/a/b/AAA/b/1.TXT"
@@ -142,6 +157,8 @@ class FileUploadHelperTest {
 
     @Test
     fun getUploadByPathsFindsRecordWhenDBHasLowercaseExtensionButSearchUsesUppercase() {
+        toggleWCFRestrictions(true)
+
         // DB stores "/a/b/1.txt", caller searches with "/a/b/1.TXT"
         val searchPath = "/a/b/AAA/b/1.TXT"
         val storedPath = "/a/b/AAA/b/1.txt"
@@ -189,6 +206,8 @@ class FileUploadHelperTest {
 
     @Test
     fun getUploadByPathsHandlesDeepNestedPathWithUppercaseExtension() {
+        toggleWCFRestrictions(true)
+
         val searchPath = "/a/b/c/d/e/file.PNG"
         val storedPath = "/a/b/c/d/e/file.png"
         val entity = buildEntity(remotePath = storedPath)
@@ -204,6 +223,8 @@ class FileUploadHelperTest {
 
     @Test
     fun getUploadByPathsOnlyTogglesExtensionNotRestOfFilenameOrPath() {
+        toggleWCFRestrictions(true)
+
         val searchPath = "/a/b/AAA/b/1.txt"
         val wrongPath = "/a/b/aaa/b/1.TXT"
         val storedPath = "/a/b/AAA/b/1.TXT"
@@ -217,6 +238,74 @@ class FileUploadHelperTest {
 
         assertNotNull(result)
         assertEquals(storedPath, result?.remotePath)
+        verify(exactly = 0) { uploadDao.getUploadByAccountAndPaths(accountName, localPath, wrongPath) }
+    }
+
+    @Test
+    fun getUploadByPathsCaseInsensitiveExtensionFallbackWCFDisabled() {
+        toggleWCFRestrictions(false)
+
+        val searchPath = "/a/b/AAA/b/1.txt"
+        val storedPath = "/a/b/AAA/b/1.TXT"
+
+        every { uploadDao.getUploadByAccountAndPaths(accountName, localPath, searchPath) } returns null
+
+        val result = fileUploadHelper.getUploadByPaths(accountName, localPath, searchPath)
+
+        assertNull(result)
+
+        // counts getUploadByAccountAndPaths call times based on fileUploadHelper.getUploadByPaths call
+        verify(exactly = 1) { uploadDao.getUploadByAccountAndPaths(accountName, localPath, searchPath) }
+        verify(exactly = 0) { uploadDao.getUploadByAccountAndPaths(accountName, localPath, storedPath) }
+    }
+
+    @Test
+    fun getUploadByPathsFindsRecordWhenDBHasLowercaseExtensionButSearchUsesUppercaseWCFDisabled() {
+        toggleWCFRestrictions(false)
+
+        val searchPath = "/a/b/AAA/b/1.TXT"
+        val storedPath = "/a/b/AAA/b/1.txt"
+
+        every { uploadDao.getUploadByAccountAndPaths(accountName, localPath, searchPath) } returns null
+
+        val result = fileUploadHelper.getUploadByPaths(accountName, localPath, searchPath)
+
+        assertNull(result)
+        verify(exactly = 1) { uploadDao.getUploadByAccountAndPaths(accountName, localPath, searchPath) }
+        verify(exactly = 0) { uploadDao.getUploadByAccountAndPaths(accountName, localPath, storedPath) }
+    }
+
+    @Test
+    fun getUploadByPathsHandlesDeepNestedPathWithUppercaseExtensionWCFDisabled() {
+        toggleWCFRestrictions(false)
+
+        val searchPath = "/a/b/c/d/e/file.PNG"
+        val storedPath = "/a/b/c/d/e/file.png"
+
+        every { uploadDao.getUploadByAccountAndPaths(accountName, localPath, searchPath) } returns null
+
+        val result = fileUploadHelper.getUploadByPaths(accountName, localPath, searchPath)
+
+        assertNull(result)
+        verify(exactly = 1) { uploadDao.getUploadByAccountAndPaths(accountName, localPath, searchPath) }
+        verify(exactly = 0) { uploadDao.getUploadByAccountAndPaths(accountName, localPath, storedPath) }
+    }
+
+    @Test
+    fun getUploadByPathsOnlyTogglesExtensionNotRestOfFilenameOrPathWCFDisabled() {
+        toggleWCFRestrictions(false)
+
+        val searchPath = "/a/b/AAA/b/1.txt"
+        val wrongPath = "/a/b/aaa/b/1.TXT"
+        val storedPath = "/a/b/AAA/b/1.TXT"
+
+        every { uploadDao.getUploadByAccountAndPaths(accountName, localPath, searchPath) } returns null
+
+        val result = fileUploadHelper.getUploadByPaths(accountName, localPath, searchPath)
+
+        assertNull(result)
+        verify(exactly = 1) { uploadDao.getUploadByAccountAndPaths(accountName, localPath, searchPath) }
+        verify(exactly = 0) { uploadDao.getUploadByAccountAndPaths(accountName, localPath, storedPath) }
         verify(exactly = 0) { uploadDao.getUploadByAccountAndPaths(accountName, localPath, wrongPath) }
     }
 
