@@ -22,14 +22,23 @@ steps:
         from_secret: GIT_TOKEN
     commands:
       - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
+      - export _CP=$SECONDS; checkpoint() { echo "=== +$(($SECONDS - $_CP))s === $*"; export _CP=$SECONDS; }
+      - checkpoint "Starting emulator"
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
+      - checkpoint "assembleGplayDebugAndroidTest"
       - ./gradlew assembleGplayDebugAndroidTest
+      - checkpoint "Waiting for emulator"
       - scripts/wait_for_emulator.sh
+      - checkpoint "installGplayDebugAndroidTest"
       - ./gradlew installGplayDebugAndroidTest
+      - checkpoint "Waiting for server"
       - scripts/wait_for_server.sh "server"
+      - checkpoint "deleteOldComments"
       - scripts/deleteOldComments.sh "stable" "IT" $DRONE_PULL_REQUEST
+      - checkpoint "createGplayDebugCoverageReport"
       - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST
+      - checkpoint "Done"
 
 services:
   - name: server
@@ -88,9 +97,13 @@ steps:
         from_secret: GIT_TOKEN
     commands:
       - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
+      - export _CP=$SECONDS; checkpoint() { echo "=== +$(($SECONDS - $_CP))s === $*"; export _CP=$SECONDS; }
+      - checkpoint "Starting emulator"
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
+      - checkpoint "runCombinedTest"
       - scripts/runCombinedTest.sh $DRONE_PULL_REQUEST $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER
+      - checkpoint "Done"
 
 services:
   - name: server

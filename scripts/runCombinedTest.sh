@@ -8,6 +8,7 @@ DRONE_PULL_REQUEST=$1
 LOG_USERNAME=$2
 LOG_PASSWORD=$3
 DRONE_BUILD_NUMBER=$4
+_CP=$SECONDS; checkpoint() { echo "=== +$(($SECONDS - $_CP))s === $*"; _CP=$SECONDS; }
 
 function upload_logcat() {
     log_filename="${DRONE_PULL_REQUEST}_logcat.txt.xz"
@@ -21,14 +22,20 @@ function upload_logcat() {
 
 scripts/deleteOldComments.sh "master" "IT" "$DRONE_PULL_REQUEST"
 
+checkpoint "assembleGplayDebugAndroidTest"
 ./gradlew assembleGplayDebugAndroidTest
 
+checkpoint "Waiting for emulator"
 scripts/wait_for_emulator.sh || exit 1
 
+checkpoint "installGplayDebugAndroidTest"
 ./gradlew installGplayDebugAndroidTest
+
+checkpoint "Waiting for server"
 scripts/wait_for_server.sh "server" || exit 1
 
 # clear logcat and start saving it to file
+checkpoint "createGplayDebugCoverageReport"
 adb logcat -c
 adb logcat > logcat.txt &
 LOGCAT_PID=$!
@@ -37,6 +44,7 @@ LOGCAT_PID=$!
 -Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED"
 
 stat=$?
+checkpoint "Tests finished (exit code: $stat)"
 # stop saving logcat
 kill $LOGCAT_PID
 
