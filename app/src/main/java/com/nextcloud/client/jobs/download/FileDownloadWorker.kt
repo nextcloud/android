@@ -189,7 +189,7 @@ class FileDownloadWorker(
 
                 operation.addDownloadDataTransferProgressListener(this)
                 operation.addDownloadDataTransferProgressListener(downloadProgressListener)
-                val (downloadKey, linkedToRemotePath) = pendingDownloads.putIfAbsent(
+                val (downloadKey, _) = pendingDownloads.putIfAbsent(
                     user?.accountName,
                     file.remotePath,
                     operation
@@ -204,7 +204,6 @@ class FileDownloadWorker(
                     operation.remotePath,
                     context.packageName,
                     operation.file.fileId,
-                    linkedToRemotePath,
                     operation.user.accountName
                 )
             }
@@ -331,8 +330,7 @@ class FileDownloadWorker(
 
             fileDownloadEventBroadcaster.sendDownloadCompleted(
                 this,
-                downloadResult,
-                removeResult.second
+                downloadResult
             )
         }
     }

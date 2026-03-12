@@ -18,7 +18,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
+import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
@@ -70,7 +70,7 @@ class AutoUploadWorker(
     }
 
     private val syncFolderHelper = SyncFolderHelper(context)
-    private val fileUploadBroadcastManager = FileUploadBroadcastManager(localBroadcastManager)
+    private val fileUploadEventBroadcaster = FileUploadEventBroadcaster(localBroadcastManager)
     private lateinit var syncedFolder: SyncedFolder
     private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
 
@@ -287,12 +287,12 @@ class AutoUploadWorker(
                         uploadEntity = uploadEntity.copy(id = generatedId.toInt())
                         upload.uploadId = generatedId
 
-                        fileUploadBroadcastManager.sendAdded(context)
+                        fileUploadEventBroadcaster.sendUploadEnqueued(context)
                         val operation = createUploadFileOperation(upload, user)
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
                         val result = operation.execute(client)
-                        fileUploadBroadcastManager.sendStarted(operation, context)
+                        fileUploadEventBroadcaster.sendUploadStarted(operation, context)
 
                         UploadErrorNotificationManager.handleResult(
                             context,
@@ -427,7 +427,7 @@ class AutoUploadWorker(
     )
 
     private fun sendUploadFinishEvent(operation: UploadFileOperation, result: RemoteOperationResult<*>) {
-        fileUploadBroadcastManager.sendFinished(
+        fileUploadEventBroadcaster.sendUploadCompleted(
             operation,
             result,
             context

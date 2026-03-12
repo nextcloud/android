@@ -25,7 +25,6 @@ class FileDownloadEventBroadcaster(private val context: Context, private val bro
 
         const val EXTRA_DOWNLOAD_RESULT = PREFIX + "EXTRA_DOWNLOAD_RESULT"
         const val EXTRA_REMOTE_PATH = PREFIX + "EXTRA_REMOTE_PATH"
-        const val EXTRA_LINKED_TO_PATH = PREFIX + "EXTRA_LINKED_TO_PATH"
         const val EXTRA_ACCOUNT_NAME = PREFIX + "EXTRA_ACCOUNT_NAME"
         const val EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME = PREFIX + "EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME"
         const val EXTRA_CURRENT_DOWNLOAD_FILE_ID = PREFIX + "EXTRA_CURRENT_DOWNLOAD_FILE_ID"
@@ -39,7 +38,6 @@ class FileDownloadEventBroadcaster(private val context: Context, private val bro
         remotePath: String,
         packageName: String,
         fileId: Long?,
-        linkedToRemotePath: String?,
         currentDownloadAccountName: String?
     ) {
         Log_OC.d(TAG, "Download enqueued broadcast sent")
@@ -55,21 +53,13 @@ class FileDownloadEventBroadcaster(private val context: Context, private val bro
             currentDownloadAccountName?.let {
                 putExtra(EXTRA_CURRENT_DOWNLOAD_ACCOUNT_NAME, currentDownloadAccountName)
             }
-
-            linkedToRemotePath?.let {
-                putExtra(EXTRA_LINKED_TO_PATH, linkedToRemotePath)
-            }
             setPackage(packageName)
         }
 
         broadcastManager.sendBroadcast(intent)
     }
 
-    fun sendDownloadCompleted(
-        download: DownloadFileOperation,
-        downloadResult: RemoteOperationResult<*>,
-        unlinkedFromRemotePath: String?
-    ) {
+    fun sendDownloadCompleted(download: DownloadFileOperation, downloadResult: RemoteOperationResult<*>) {
         Log_OC.d(TAG, "Download completed broadcast sent")
 
         val intent = Intent(ACTION_DOWNLOAD_COMPLETED).apply {
@@ -79,9 +69,6 @@ class FileDownloadEventBroadcaster(private val context: Context, private val bro
             putExtra(EXTRA_DOWNLOAD_BEHAVIOUR, download.behaviour)
             putExtra(EXTRA_ACTIVITY_NAME, download.activityName)
             putExtra(EXTRA_PACKAGE_NAME, download.packageName)
-            if (unlinkedFromRemotePath != null) {
-                putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
-            }
             setPackage(context.packageName)
         }
 

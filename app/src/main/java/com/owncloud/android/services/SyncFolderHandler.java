@@ -128,7 +128,6 @@ class SyncFolderHandler extends Handler {
                                                               remotePath,
                                                               mService.getPackageName(),
                                                               syncFolderOperation.getFolderId(),
-                                                              null,
                                                               syncFolderOperation.getAccountName());
         }
     }
