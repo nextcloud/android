@@ -19,6 +19,7 @@ import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
@@ -38,8 +39,10 @@ import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
+import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
@@ -73,6 +76,7 @@ class AutoUploadWorker(
     private val fileUploadEventBroadcaster = FileUploadEventBroadcaster(localBroadcastManager)
     private lateinit var syncedFolder: SyncedFolder
     private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
+    private val fileUploadHelper = FileUploadHelper.instance()
 
     @Suppress("ReturnCount")
     override suspend fun doWork(): Result {
@@ -243,6 +247,7 @@ class AutoUploadWorker(
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
             .getClientFor(ocAccount, context)
+        val capability = CapabilityUtils.getCapability(user, context)
 
         updateNotification()
 
@@ -265,7 +270,7 @@ class AutoUploadWorker(
                 val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, file)
 
                 try {
-                    val entityResult = getEntityResult(user, localPath, remotePath)
+                    val entityResult = getEntityResult(user, localPath, remotePath, capability)
                     if (entityResult !is AutoUploadEntityResult.Success) {
                         repository.markFileAsHandled(localPath, syncedFolder)
                         Log_OC.d(TAG, "marked file as handled: $localPath")
@@ -358,12 +363,17 @@ class AutoUploadWorker(
     }
 
     @Suppress("ReturnCount")
-    private fun getEntityResult(user: User, localPath: String, remotePath: String): AutoUploadEntityResult {
+    private fun getEntityResult(
+        user: User,
+        localPath: String,
+        remotePath: String,
+        capability: OCCapability
+    ): AutoUploadEntityResult {
         val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)
         Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
 
         // Get existing upload or create new one
-        val uploadEntity = uploadsStorageManager.uploadDao.getUploadByAccountAndPaths(
+        val uploadEntity = fileUploadHelper.getUploadByPaths(
             localPath = localPath,
             remotePath = remotePath,
             accountName = user.accountName
@@ -379,7 +389,7 @@ class AutoUploadWorker(
         }
 
         val upload = try {
-            uploadEntity?.toOCUpload(null) ?: OCUpload(localPath, remotePath, user.accountName)
+            uploadEntity?.toOCUpload(capability) ?: OCUpload(localPath, remotePath, user.accountName)
         } catch (_: IllegalArgumentException) {
             Log_OC.e(TAG, "cannot construct oc upload")
             return AutoUploadEntityResult.CreationError

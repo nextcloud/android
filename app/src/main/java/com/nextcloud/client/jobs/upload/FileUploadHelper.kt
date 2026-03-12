@@ -23,6 +23,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUpload
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
+import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.getUploadIds
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -281,11 +282,18 @@ class FileUploadHelper {
 
     @Suppress("ReturnCount")
     fun getUploadByPaths(accountName: String, localPath: String, remotePath: String): UploadEntity? {
-        uploadsStorageManager.uploadDao.getUploadByAccountAndPaths(
+        val entity = uploadsStorageManager.uploadDao.getUploadByAccountAndPaths(
             accountName,
             localPath,
             remotePath
         )?.let { return it }
+
+        val capability = fileStorageManager.getCapability(accountManager.user)
+        if (!capability.checkWCFRestrictions()) {
+            // The filesystem should treat files as case-sensitive. For example, "a.TXT" and "a.txt"
+            // are allowed to exist in the same directory as two distinct files.
+            return entity
+        }
 
         val dotIndex = remotePath.lastIndexOf('.')
         if (dotIndex == -1) return null
