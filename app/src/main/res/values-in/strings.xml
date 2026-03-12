@@ -49,6 +49,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Hapus tugas</string>
     <string name="assistant_screen_empty_content_description">Coba kirim pesan untuk memulai percakapan.</string>
     <string name="assistant_screen_empty_content_title">Halo! Apa yang bisa saya bantu hari ini?</string>
+    <string name="assistant_screen_retry_response_generation">Coba lagi pembuatan respons</string>
     <string name="assistant_screen_task_create_fail_message">Terjadi kesalahan saat membuat tugas</string>
     <string name="assistant_screen_task_create_success_message">Tugas dibuat</string>
     <string name="assistant_screen_task_delete_fail_message">Terjadi kesalahan saat menghapus tugas</string>

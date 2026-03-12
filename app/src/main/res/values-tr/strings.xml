@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Görevi sil</string>
     <string name="assistant_screen_empty_content_description">Bir görüşme başlatacak bir ileti göndermeyi dene.</string>
     <string name="assistant_screen_empty_content_title">Merhaba! Bugün size nasıl yardımcı olabilirim?</string>
+    <string name="assistant_screen_retry_response_generation">Yanıtı yeniden oluştur</string>
     <string name="assistant_screen_select_task">Lütfen görevi seçin</string>
     <string name="assistant_screen_send_message">İleti gönder</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Açık görüşmeler listesi</string>

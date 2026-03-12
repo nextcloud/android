@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Usuń zadanie</string>
     <string name="assistant_screen_empty_content_description">Spróbuj wysłać wiadomość, aby rozpocząć rozmowę.</string>
     <string name="assistant_screen_empty_content_title">Cześć! W czym mogę Ci dziś pomóc?</string>
+    <string name="assistant_screen_retry_response_generation">Ponów generowanie odpowiedzi</string>
     <string name="assistant_screen_select_task">Wybierz zadanie</string>
     <string name="assistant_screen_send_message">Wyślij wiadomość</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Otwórz listę rozmowy</string>

@@ -45,6 +45,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Slett oppgave</string>
     <string name="assistant_screen_empty_content_description">Prøv å sende en melding for å starte en samtale.</string>
     <string name="assistant_screen_empty_content_title">Hallo der! Hva kan jeg hjelpe deg med i dag?</string>
+    <string name="assistant_screen_retry_response_generation">Prøv å generere svar på nytt</string>
     <string name="assistant_screen_task_create_fail_message">Det oppstod en feil under oppretting av oppgaven</string>
     <string name="assistant_screen_task_create_success_message">Oppgave opprettet</string>
     <string name="assistant_screen_task_delete_fail_message">Det oppstod en feil under sletting av oppgaven</string>
