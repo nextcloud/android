@@ -111,6 +111,8 @@ class PreviewImageActivity :
             updateActionBarTitleAndHomeButton(chosenFile)
             viewThemeUtils.files.setWhiteBackButton(this, it)
             it.setDisplayHomeAsUpEnabled(true)
+            // DO NOT MERGE - just some code change to trigger Drone CI run
+            it.setDisplayHomeAsUpEnabled(true)
             it.setBackgroundDrawable(R.color.black.toDrawable())
         }
 
