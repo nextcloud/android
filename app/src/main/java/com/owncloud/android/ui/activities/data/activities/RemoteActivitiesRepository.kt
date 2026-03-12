@@ -10,10 +10,12 @@ package com.owncloud.android.ui.activities.data.activities
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository.LoadActivitiesCallback
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApi.ActivitiesServiceCallback
+import kotlinx.coroutines.CoroutineScope
 
 class RemoteActivitiesRepository(private val activitiesServiceApi: ActivitiesServiceApi) : ActivitiesRepository {
-    override fun getActivities(lastGiven: Long, callback: LoadActivitiesCallback) {
+    override fun getActivities(lifecycleScope: CoroutineScope, lastGiven: Long, callback: LoadActivitiesCallback) {
         activitiesServiceApi.getAllActivities(
+            lifecycleScope,
             lastGiven,
             object : ActivitiesServiceCallback<List<Any>> {
                 override fun onLoaded(activities: List<Any>, client: NextcloudClient, lastGiven: Long) {

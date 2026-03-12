@@ -29,8 +29,12 @@ import org.apache.commons.httpclient.HttpStatus
 @Suppress("TooGenericExceptionThrown")
 class ActivitiesServiceApiImpl(private val accountManager: UserAccountManager) : ActivitiesServiceApi {
 
-    override fun getAllActivities(lastGiven: Long, callback: ActivitiesServiceCallback<List<Any>>) {
-        CoroutineScope(Dispatchers.Main).launch {
+    override fun getAllActivities(
+        lifecycleScope: CoroutineScope,
+        lastGiven: Long,
+        callback: ActivitiesServiceCallback<List<Any>>
+    ) {
+        lifecycleScope.launch(Dispatchers.Main) {
             val result = runCatching {
                 withContext(Dispatchers.IO) { fetchActivities(lastGiven) }
             }

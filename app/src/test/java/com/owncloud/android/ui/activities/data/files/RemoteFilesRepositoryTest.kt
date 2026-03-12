@@ -1,61 +1,58 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2018 Edvard Holst <edvard.holst@gmail.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.activities.data.files;
+package com.owncloud.android.ui.activities.data.files
 
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.activity.BaseActivity;
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.ui.activities.data.files.FilesRepository.ReadRemoteFileCallback
+import com.owncloud.android.ui.activities.data.files.FilesServiceApi.FilesServiceCallback
+import com.owncloud.android.ui.activity.BaseActivity
+import org.junit.Before
+import org.junit.Test
+import org.mockito.ArgumentCaptor
+import org.mockito.ArgumentMatchers.eq
+import org.mockito.Captor
+import org.mockito.Mock
+import org.mockito.Mockito.verify
+import org.mockito.MockitoAnnotations
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+class RemoteFilesRepositoryTest {
 
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
+    @Mock private lateinit var serviceApi: FilesServiceApi
 
-public class RemoteFilesRepositoryTest {
+    @Mock private lateinit var mockedReadRemoteFileCallback: ReadRemoteFileCallback
 
-    @Mock
-    private FilesServiceApi serviceApi;
+    @Mock private lateinit var baseActivity: BaseActivity
 
-    @Mock
-    private FilesRepository.ReadRemoteFileCallback mockedReadRemoteFileCallback;
+    @Mock private lateinit var ocFile: OCFile
 
-    @Mock
-    private BaseActivity baseActivity;
+    @Captor private lateinit var filesServiceCallbackCaptor: ArgumentCaptor<FilesServiceCallback<OCFile>>
 
-    @Captor
-    private ArgumentCaptor<FilesServiceApi.FilesServiceCallback> filesServiceCallbackCaptor;
-
-    private FilesRepository mFilesRepository;
-
-    private OCFile mOCFile = null;
+    private lateinit var filesRepository: FilesRepository
 
     @Before
-    public void setUpFilesRepository() {
-        MockitoAnnotations.initMocks(this);
-        mFilesRepository = new RemoteFilesRepository(serviceApi);
+    fun setUpFilesRepository() {
+        MockitoAnnotations.openMocks(this)
+        filesRepository = RemoteFilesRepository(serviceApi)
     }
 
     @Test
-    public void readRemoteFileReturnSuccess() {
-        mFilesRepository.readRemoteFile("path", baseActivity, mockedReadRemoteFileCallback);
-        verify(serviceApi).readRemoteFile(eq("path"), eq(baseActivity), filesServiceCallbackCaptor.capture());
-        filesServiceCallbackCaptor.getValue().onLoaded(mOCFile);
-        verify(mockedReadRemoteFileCallback).onFileLoaded(eq(mOCFile));
+    fun readRemoteFileReturnSuccess() {
+        filesRepository.readRemoteFile("path", baseActivity, mockedReadRemoteFileCallback)
+        verify(serviceApi).readRemoteFile(eq("path"), eq(baseActivity), filesServiceCallbackCaptor.capture())
+        filesServiceCallbackCaptor.value.onLoaded(ocFile)
+        verify(mockedReadRemoteFileCallback).onFileLoaded(eq(ocFile))
     }
 
     @Test
-    public void readRemoteFileReturnError() {
-        mFilesRepository.readRemoteFile("path", baseActivity, mockedReadRemoteFileCallback);
-        verify(serviceApi).readRemoteFile(eq("path"), eq(baseActivity), filesServiceCallbackCaptor.capture());
-        filesServiceCallbackCaptor.getValue().onError("error");
-        verify(mockedReadRemoteFileCallback).onFileLoadError(eq("error"));
+    fun readRemoteFileReturnError() {
+        filesRepository.readRemoteFile("path", baseActivity, mockedReadRemoteFileCallback)
+        verify(serviceApi).readRemoteFile(eq("path"), eq(baseActivity), filesServiceCallbackCaptor.capture())
+        filesServiceCallbackCaptor.value.onError("error")
+        verify(mockedReadRemoteFileCallback).onFileLoadError(eq("error"))
     }
 }
