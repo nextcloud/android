@@ -61,11 +61,11 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.files.DeepLinkHandler
-import com.nextcloud.client.jobs.download.FileDownloadBroadcastManager
+import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
-import com.nextcloud.client.jobs.folderDownload.FolderDownloadBroadcastManager
-import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadEventBroadcaster
+import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.media.PlayerServiceConnection
@@ -113,7 +113,6 @@ import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask.CheckAvailable
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import com.owncloud.android.ui.dialog.DeleteBatchTracker
-import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.dialog.SendShareDialog.SendShareDialogDownloader
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
@@ -185,14 +184,14 @@ class FileDisplayActivity :
     Injectable {
     private lateinit var binding: FilesBinding
 
-    private val syncBroadcastReceiver = SyncBroadcastReceiver()
-    private val uploadFinishReceiver = UploadFinishReceiver()
+    private val syncReceiver = SyncReceiver()
+    private val fileUploadCompletedReceiver = FileUploadCompletedReceiver()
 
-    private val fileDownloadStartReceiver = FileDownloadStartReceiver()
-    private val fileDownloadFinishReceiver = FileDownloadFinishReceiver()
+    private val fileDownloadStartedReceiver = FileDownloadStartedReceiver()
+    private val fileDownloadCompletedReceiver = FileDownloadCompletedReceiver()
 
-    private val folderDownloadStartReceiver = FolderDownloadStartReceiver()
-    private val folderDownloadFinishReceiver = FolderDownloadFinishReceiver()
+    private val folderDownloadStartedReceiver = FolderDownloadStartedReceiver()
+    private val folderDownloadCompletedReceiver = FolderDownloadCompletedReceiver()
 
     private var mLastSslUntrustedServerResult: RemoteOperationResult<*>? = null
 
@@ -842,11 +841,11 @@ class FileDisplayActivity :
             if (fileInFragment != null && downloadedRemotePath != fileInFragment.remotePath) {
                 // the user browsed to other file ; forget the automatic preview
                 mWaitingToPreview = null
-            } else if (downloadEvent == FileDownloadBroadcastManager.DOWNLOAD_ADDED) {
+            } else if (downloadEvent == FileDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED) {
                 // grant that the details fragment updates the progress bar
                 leftFragment.listenForTransferProgress()
                 leftFragment.updateFileDetails(true, false)
-            } else if (downloadEvent == FileDownloadBroadcastManager.DOWNLOAD_FINISHED) {
+            } else if (downloadEvent == FileDownloadEventBroadcaster.ACTION_DOWNLOAD_COMPLETED) {
                 //  update the details panel
                 var detailsFragmentChanged = false
                 if (waitedPreview) {
@@ -1403,20 +1402,22 @@ class FileDisplayActivity :
         Log_OC.d(TAG, "registering receivers")
 
         localBroadcastManager.run {
-            val uploadFinishedIntent = IntentFilter(FileUploadBroadcastManager.UPLOAD_FINISHED)
-            registerReceiver(uploadFinishReceiver, uploadFinishedIntent)
+            val uploadFinishedIntent = IntentFilter(FileUploadEventBroadcaster.ACTION_UPLOAD_COMPLETED)
+            registerReceiver(fileUploadCompletedReceiver, uploadFinishedIntent)
 
-            val folderDownloadStartIntentFilter = IntentFilter(FolderDownloadBroadcastManager.DOWNLOAD_ADDED)
-            registerReceiver(folderDownloadStartReceiver, folderDownloadStartIntentFilter)
+            val folderDownloadStartedIntentFilter =
+                IntentFilter(FolderDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED)
+            registerReceiver(folderDownloadStartedReceiver, folderDownloadStartedIntentFilter)
 
-            val folderDownloadFinishIntentFilter = IntentFilter(FolderDownloadBroadcastManager.DOWNLOAD_FINISHED)
-            registerReceiver(folderDownloadFinishReceiver, folderDownloadFinishIntentFilter)
+            val folderDownloadFinishedIntentFilter =
+                IntentFilter(FolderDownloadEventBroadcaster.ACTION_DOWNLOAD_COMPLETED)
+            registerReceiver(folderDownloadCompletedReceiver, folderDownloadFinishedIntentFilter)
 
-            val fileDownloadStartIntentFilter = IntentFilter(FileDownloadBroadcastManager.DOWNLOAD_ADDED)
-            registerReceiver(fileDownloadStartReceiver, fileDownloadStartIntentFilter)
+            val fileDownloadStartedIntentFilter = IntentFilter(FileDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED)
+            registerReceiver(fileDownloadStartedReceiver, fileDownloadStartedIntentFilter)
 
-            val fileDownloadFinishIntentFilter = IntentFilter(FileDownloadBroadcastManager.DOWNLOAD_FINISHED)
-            registerReceiver(fileDownloadFinishReceiver, fileDownloadFinishIntentFilter)
+            val fileDownloadFinishedIntentFilter = IntentFilter(FileDownloadEventBroadcaster.ACTION_DOWNLOAD_COMPLETED)
+            registerReceiver(fileDownloadCompletedReceiver, fileDownloadFinishedIntentFilter)
 
             val syncBroadcastIntentFilter = IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START).apply {
                 addAction(FileSyncAdapter.EVENT_FULL_SYNC_END)
@@ -1424,7 +1425,7 @@ class FileDisplayActivity :
                 addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED)
                 addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED)
             }
-            registerReceiver(syncBroadcastReceiver, syncBroadcastIntentFilter)
+            registerReceiver(syncReceiver, syncBroadcastIntentFilter)
         }
     }
 
@@ -1432,12 +1433,12 @@ class FileDisplayActivity :
         Log_OC.d(TAG, "unregistering receivers")
 
         localBroadcastManager.run {
-            unregisterReceiver(syncBroadcastReceiver)
-            unregisterReceiver(uploadFinishReceiver)
-            unregisterReceiver(fileDownloadStartReceiver)
-            unregisterReceiver(fileDownloadFinishReceiver)
-            unregisterReceiver(folderDownloadStartReceiver)
-            unregisterReceiver(folderDownloadFinishReceiver)
+            unregisterReceiver(syncReceiver)
+            unregisterReceiver(fileUploadCompletedReceiver)
+            unregisterReceiver(fileDownloadStartedReceiver)
+            unregisterReceiver(fileDownloadCompletedReceiver)
+            unregisterReceiver(folderDownloadStartedReceiver)
+            unregisterReceiver(folderDownloadCompletedReceiver)
         }
     }
     // endregion
@@ -1460,7 +1461,7 @@ class FileDisplayActivity :
     }
 
     // region SyncBroadcastReceiver
-    private inner class SyncBroadcastReceiver : BroadcastReceiver() {
+    private inner class SyncReceiver : BroadcastReceiver() {
         @SuppressLint("VisibleForTests")
         override fun onReceive(context: Context?, intent: Intent) {
             try {
@@ -1649,14 +1650,14 @@ class FileDisplayActivity :
     /**
      * Once the file upload has finished -> update view
      */
-    private inner class UploadFinishReceiver : BroadcastReceiver() {
+    private inner class FileUploadCompletedReceiver : BroadcastReceiver() {
         private val tag = "UploadFinishReceiver"
 
         override fun onReceive(context: Context?, intent: Intent) {
             Log_OC.d(tag, "upload finish received broadcast")
 
-            val uploadedRemotePath = intent.getStringExtra(FileUploadWorker.EXTRA_REMOTE_PATH)
-            val accountName = intent.getStringExtra(FileUploadWorker.ACCOUNT_NAME)
+            val uploadedRemotePath = intent.getStringExtra(FileUploadEventBroadcaster.EXTRA_REMOTE_PATH)
+            val accountName = intent.getStringExtra(FileUploadEventBroadcaster.EXTRA_ACCOUNT_NAME)
             val account = getAccount()
             val sameAccount = accountName != null && account != null && accountName == account.name
             val currentDir = getCurrentDir()
@@ -1667,13 +1668,13 @@ class FileDisplayActivity :
                 updateListOfFilesFragment()
             }
 
-            val uploadWasFine = intent.getBooleanExtra(FileUploadWorker.EXTRA_UPLOAD_RESULT, false)
+            val uploadWasFine = intent.getBooleanExtra(FileUploadEventBroadcaster.EXTRA_UPLOAD_RESULT, false)
 
             var renamedInUpload = false
             var sameFile = false
             if (file != null) {
                 renamedInUpload =
-                    file?.remotePath == intent.getStringExtra(FileUploadWorker.EXTRA_OLD_REMOTE_PATH)
+                    file?.remotePath == intent.getStringExtra(FileUploadEventBroadcaster.EXTRA_OLD_REMOTE_PATH)
                 sameFile = file?.remotePath == uploadedRemotePath || renamedInUpload
             }
 
@@ -1714,24 +1715,24 @@ class FileDisplayActivity :
         }
     }
 
-    private inner class FileDownloadStartReceiver: BroadcastReceiver() {
+    private inner class FileDownloadStartedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             Log_OC.d(TAG, "download worker started")
             handleDownloadWorkerState()
         }
     }
 
-    private inner class FolderDownloadStartReceiver: BroadcastReceiver() {
+    private class FolderDownloadStartedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             Log_OC.d(TAG, "download worker started")
         }
     }
 
-    private inner class FolderDownloadFinishReceiver: BroadcastReceiver() {
+    private inner class FolderDownloadCompletedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             Log_OC.d(TAG, "download worker finished")
 
-            val id = intent.getLongExtra(FolderDownloadBroadcastManager.EXTRA_FILE_ID, -1L)
+            val id = intent.getLongExtra(FolderDownloadEventBroadcaster.EXTRA_FILE_ID, -1L)
             if (id == -1L) {
                 Log_OC.e(TAG, "invalid id received")
                 return
@@ -1747,61 +1748,53 @@ class FileDisplayActivity :
         }
     }
 
-    /*
-
-     private fun previewFile(finishedState: FileDownloadCompleted) {
-        if (fileIDForImmediatePreview == -1L) {
-            return
-        }
-
-        val currentFile = finishedState.currentFile ?: return
-
-        if (fileIDForImmediatePreview != currentFile.fileId || !currentFile.isDown) {
-            return
-        }
-
-        fileIDForImmediatePreview = -1
-        if (PreviewImageFragment.canBePreviewed(currentFile)) {
-            startImagePreview(currentFile, currentFile.isDown)
-        } else {
-            previewFile(currentFile, null)
-        }
-    }
-     */
-
-
     /**
      * Class waiting for broadcast events from the [FileDownloadWorker] service.
      *
      *
      * Updates the UI when a download is started or finished, provided that it is relevant for the current folder.
      */
-    private inner class FileDownloadFinishReceiver : BroadcastReceiver() {
+    private inner class FileDownloadCompletedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
-            /*
+            Log_OC.d(TAG, "file download completed received")
             fileDownloadProgressListener = null
-                    previewFile(state)
-             */
 
-            Log_OC.d(TAG, "DownloadFinishReceiver: download finish received broadcast")
+            if (fileIDForImmediatePreview == -1L) {
+                Log_OC.d(TAG, "updating ui for file download")
+                updateUIForFileDownload()
+                return
+            }
 
+            Log_OC.d(TAG, "updating ui immediate file preview")
+
+            val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
+            val currentFile = storageManager.getFileByDecryptedRemotePath(downloadedRemotePath) ?: return
+            if (fileIDForImmediatePreview != currentFile.fileId || !currentFile.isDown) {
+                return
+            }
+
+            fileIDForImmediatePreview = -1
+            if (PreviewImageFragment.canBePreviewed(currentFile)) {
+                startImagePreview(currentFile, currentFile.isDown)
+            } else {
+                previewFile(currentFile, null)
+            }
+        }
+
+        private fun updateUIForFileDownload() {
             val sameAccount = isSameAccount(intent)
-            val downloadedRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_REMOTE_PATH)
-            val downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR)
+            val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
+            val downloadBehaviour = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_DOWNLOAD_BEHAVIOUR)
             val isDescendant = isDescendant(downloadedRemotePath)
 
             if (sameAccount && isDescendant) {
-                val linkedToRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_LINKED_TO_PATH)
-                if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
-                    updateListOfFilesFragment()
-                }
-
+                updateListOfFilesFragment()
                 val intentAction = intent.action
                 if (intentAction != null && downloadedRemotePath != null) {
                     refreshDetailsFragmentIfVisible(
                         intentAction,
                         downloadedRemotePath,
-                        intent.getBooleanExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, false)
+                        intent.getBooleanExtra(FileDownloadEventBroadcaster.EXTRA_DOWNLOAD_RESULT, false)
                     )
                 }
             }
@@ -1813,8 +1806,8 @@ class FileDisplayActivity :
                     mWaitingToSend?.isDown == true &&
                     OCFileListFragment.DOWNLOAD_SEND == downloadBehaviour
                 ) {
-                    val packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME) ?: return
-                    val activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME) ?: return
+                    val packageName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_PACKAGE_NAME) ?: return
+                    val activityName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACTIVITY_NAME) ?: return
                     sendDownloadedFile(packageName, activityName)
                 }
             }
@@ -1839,13 +1832,8 @@ class FileDisplayActivity :
                 downloadedRemotePath.startsWith(currentDir.remotePath)
         }
 
-        fun isAscendant(linkedToRemotePath: String): Boolean {
-            val currentDir = getCurrentDir()
-            return currentDir != null && currentDir.remotePath.startsWith(linkedToRemotePath)
-        }
-
         fun isSameAccount(intent: Intent): Boolean {
-            val accountName = intent.getStringExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME)
+            val accountName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACCOUNT_NAME)
             return accountName != null && account != null && accountName == account.name
         }
     }
