@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Smazat úkol</string>
     <string name="assistant_screen_empty_content_description">Zkuste poslat zprávu pro rozproudění konverzace.</string>
     <string name="assistant_screen_empty_content_title">Zdravím! Jak vám mohu pomoci?</string>
+    <string name="assistant_screen_retry_response_generation">Znovu zkusit vytvořit odpověď</string>
     <string name="assistant_screen_select_task">Vyberte úkol</string>
     <string name="assistant_screen_send_message">Poslat zprávu</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Otevřít seznam konverzací</string>

@@ -49,6 +49,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Slet opgave</string>
     <string name="assistant_screen_empty_content_description">Prøv at sende en besked for at starte en samtale.</string>
     <string name="assistant_screen_empty_content_title">Hej! Hvad kan jeg hjælpe dig med i dag?</string>
+    <string name="assistant_screen_retry_response_generation">Forsøg responsgenerering igen</string>
     <string name="assistant_screen_task_create_fail_message">En fejl opstod under oprettelse af opgaven</string>
     <string name="assistant_screen_task_delete_fail_message">En fejl opstod under sletning af opgaven</string>
     <string name="assistant_screen_task_list_error_state_message">Kan ikke hente ophaveliste. Kontroller venligst din internetforbindelse.</string>

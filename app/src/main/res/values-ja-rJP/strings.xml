@@ -49,6 +49,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">タスクを削除</string>
     <string name="assistant_screen_empty_content_description">メッセージを送って会話を始めてみましょう。</string>
     <string name="assistant_screen_empty_content_title"> こんにちは！何かお手伝いできることはありますか？</string>
+    <string name="assistant_screen_retry_response_generation">応答の生成を再試行</string>
     <string name="assistant_screen_select_task">タスクを選択して下さい</string>
     <string name="assistant_screen_send_message">メッセージを送信する</string>
     <string name="assistant_screen_task_create_fail_message">タスクの作成中にエラーが発生しました。</string>

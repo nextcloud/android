@@ -49,6 +49,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Обриши задатак</string>
     <string name="assistant_screen_empty_content_description">Покушајте да пошаљете поруку и тако започнете разговор.</string>
     <string name="assistant_screen_empty_content_title">Здраво! Како данас могу да вам помогнем?</string>
+    <string name="assistant_screen_retry_response_generation">Поново покушај генерисање одговора</string>
     <string name="assistant_screen_task_create_fail_message">Дошло је до грешке током креирања задатка</string>
     <string name="assistant_screen_task_create_success_message">Креиран је задатак</string>
     <string name="assistant_screen_task_delete_fail_message">Дошло је до грешке током брисања задатка</string>

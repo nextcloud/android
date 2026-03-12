@@ -49,6 +49,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">결과 삭제</string>
     <string name="assistant_screen_empty_content_description">대화를 시작하기 위해 메시지를 보내보세요.</string>
     <string name="assistant_screen_empty_content_title">안녕하세요! 오늘은 무엇을 도와드릴까요?</string>
+    <string name="assistant_screen_retry_response_generation">응답 생성 재시도</string>
     <string name="assistant_screen_task_create_fail_message">작업을 생성하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_create_success_message">작업이 생성됨</string>
     <string name="assistant_screen_task_delete_fail_message">작업을 삭제하는 중에 오류가 발생했습니다.</string>

@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Odstrániť úlohu</string>
     <string name="assistant_screen_empty_content_description">Skúste poslať správu, aby ste rozprúdili konverzáciu.</string>
     <string name="assistant_screen_empty_content_title">Dobrý deň! S čím vám dnes môžem pomôcť?</string>
+    <string name="assistant_screen_retry_response_generation">Opätovné generovanie odpovede</string>
     <string name="assistant_screen_select_task">Vyberte úlohu</string>
     <string name="assistant_screen_send_message">Odoslať správu</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Otvor zoznam rozhovorov</string>

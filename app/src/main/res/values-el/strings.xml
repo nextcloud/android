@@ -37,6 +37,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Διαγραφή εργασίας</string>
     <string name="assistant_screen_empty_content_description">Δοκιμάστε να στείλετε ένα μήνυμα για να ξεκινήσετε μια συνομιλία.</string>
     <string name="assistant_screen_empty_content_title">Γεια σας! Τι μπορώ να κάνω για σας σήμερα;</string>
+    <string name="assistant_screen_retry_response_generation">Επανάληψη δημιουργίας απάντησης</string>
     <string name="assistant_screen_task_create_success_message">Η εργασία δημιουργήθηκε</string>
     <string name="assistant_screen_top_bar_title">Βοηθός</string>
     <string name="assistant_task_detail_screen_input_button_title">Είσοδος</string>

@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
     <string name="assistant_screen_empty_content_description">Probe a enviar unha mensaxe para iniciar unha conversa.</string>
     <string name="assistant_screen_empty_content_title">Ola! En que podo axudarlle hoxe?</string>
+    <string name="assistant_screen_retry_response_generation">Volver tentar a xeración de respostas</string>
     <string name="assistant_screen_select_task">Seleccione a tarefa</string>
     <string name="assistant_screen_send_message">Enviar a mensaxe</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Lista de conversas abertas</string>

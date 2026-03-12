@@ -48,6 +48,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">حذف المهمّة</string>
     <string name="assistant_screen_empty_content_description">حاول إرسالة رسالة لإثارة محادثة.</string>
     <string name="assistant_screen_empty_content_title">أهلاً بك! كيف يمكنني مساعدتك اليوم؟</string>
+    <string name="assistant_screen_retry_response_generation">إعادة توليد الاستجابة</string>
     <string name="assistant_screen_task_create_fail_message">حدث خطأ أثناء إنشاء المهمة</string>
     <string name="assistant_screen_task_create_success_message">تمّ إنشاء المُهِمَّة task</string>
     <string name="assistant_screen_task_delete_fail_message">حدث خطأ أثناء حذف المهمة</string>

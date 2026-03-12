@@ -49,6 +49,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
     <string name="assistant_screen_empty_content_description">ລອງສົ່ງຂໍ້ຄວາມເພື່ອເລີ່ມການສົນທະນາ.</string>
     <string name="assistant_screen_empty_content_title">ສະບາຍດີ! ມີຫຍັງໃຫ້ຂ້ອຍຊ່ວຍມື້ນີ້ບໍ່?</string>
+    <string name="assistant_screen_retry_response_generation">ລອງສ້າງການຕອບກັບໃໝ່</string>
     <string name="assistant_screen_send_message">Send message</string>
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
     <string name="assistant_screen_task_create_success_message">Task created</string>
