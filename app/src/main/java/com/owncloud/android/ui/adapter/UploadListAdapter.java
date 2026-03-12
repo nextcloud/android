@@ -837,7 +837,11 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 final int index = i;
                 Section sec = sections.get(index);
 
-                uploadHelper.getUploadsByStatus(accountName, sec.status(), sec.collisionPolicy(), uploads -> {
+                uploadHelper.getUploadsByStatus(accountName,
+                                                sec.status(),
+                                                parentActivity.getCapabilities(),
+                                                sec.collisionPolicy(),
+                                                uploads -> {
                     for (OCUpload upload : uploads) {
                         upload.setDataFixed(uploadHelper);
                     }
