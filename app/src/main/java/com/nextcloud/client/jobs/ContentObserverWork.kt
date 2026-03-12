@@ -90,6 +90,7 @@ class ContentObserverWork(
 
         Log_OC.d(TAG, "📄 Content uris detected")
 
+        // insert entries based on content uris
         try {
             syncedFolderProvider.syncedFolders
                 .filter { it.isEnabled }
