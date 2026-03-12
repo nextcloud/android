@@ -21,8 +21,6 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateObserver
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
 import com.owncloud.android.R
@@ -50,7 +48,7 @@ import kotlin.random.Random
 class FileDownloadWorker(
     viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
-    private var localBroadcastManager: LocalBroadcastManager,
+    localBroadcastManager: LocalBroadcastManager,
     private val context: Context,
     params: WorkerParameters
 ) : CoroutineWorker(context, params),
@@ -79,14 +77,6 @@ class FileDownloadWorker(
         const val ACTIVITY_NAME = "ACTIVITY_NAME"
         const val PACKAGE_NAME = "PACKAGE_NAME"
         const val CONFLICT_UPLOAD_ID = "CONFLICT_UPLOAD_ID"
-        const val EXTRA_DOWNLOAD_RESULT = "EXTRA_DOWNLOAD_RESULT"
-        const val EXTRA_REMOTE_PATH = "EXTRA_REMOTE_PATH"
-        const val EXTRA_LINKED_TO_PATH = "EXTRA_LINKED_TO_PATH"
-        const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
-
-        fun getDownloadAddedMessage(): String = FileDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
-
-        fun getDownloadFinishMessage(): String = FileDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
     }
 
     private var currentDownload: DownloadFileOperation? = null
@@ -94,7 +84,9 @@ class FileDownloadWorker(
     private var conflictUploadId: Long? = null
     private var lastPercent = 0
 
+    private val fileDownloadEventBroadcaster = FileDownloadEventBroadcaster(context, localBroadcastManager)
     private val intents = FileDownloadIntents(context)
+
     private var notificationManager = DownloadNotificationManager(
         Random.nextInt(),
         context,
@@ -140,7 +132,6 @@ class FileDownloadWorker(
         } finally {
             Log_OC.d(TAG, "cleanup")
             notificationManager.dismissNotification()
-            setIdleWorkerState()
         }
     }
 
@@ -167,14 +158,6 @@ class FileDownloadWorker(
         notificationManager.getNotification(),
         ForegroundServiceType.DataSync
     )
-
-    private fun setWorkerState(user: User?) {
-        WorkerStateObserver.send(WorkerState.FileDownloadStarted(user, currentDownload))
-    }
-
-    private fun setIdleWorkerState() {
-        WorkerStateObserver.send(WorkerState.FileDownloadCompleted(getCurrentFile()))
-    }
 
     private fun removePendingDownload(accountName: String?) {
         pendingDownloads.remove(accountName)
@@ -206,7 +189,7 @@ class FileDownloadWorker(
 
                 operation.addDownloadDataTransferProgressListener(this)
                 operation.addDownloadDataTransferProgressListener(downloadProgressListener)
-                val (downloadKey, linkedToRemotePath) = pendingDownloads.putIfAbsent(
+                val (downloadKey, _) = pendingDownloads.putIfAbsent(
                     user?.accountName,
                     file.remotePath,
                     operation
@@ -216,9 +199,13 @@ class FileDownloadWorker(
                     requestedDownloads.add(downloadKey)
                 }
 
-                linkedToRemotePath?.let {
-                    localBroadcastManager.sendBroadcast(intents.newDownloadIntent(operation, linkedToRemotePath))
-                }
+                fileDownloadEventBroadcaster.sendDownloadEnqueued(
+                    operation.user.accountName,
+                    operation.remotePath,
+                    context.packageName,
+                    operation.file.fileId,
+                    operation.user.accountName
+                )
             }
 
             requestedDownloads
@@ -266,7 +253,6 @@ class FileDownloadWorker(
             return
         }
 
-        setWorkerState(user)
         Log_OC.d(TAG, "downloading: $downloadKey")
 
         val isAccountExist = accountManager.exists(currentDownload?.user?.toPlatformAccount())
@@ -342,13 +328,10 @@ class FileDownloadWorker(
         currentDownload?.run {
             notifyDownloadResult(this, downloadResult)
 
-            val downloadFinishedIntent = intents.downloadFinishedIntent(
+            fileDownloadEventBroadcaster.sendDownloadCompleted(
                 this,
-                downloadResult,
-                removeResult.second
+                downloadResult
             )
-
-            localBroadcastManager.sendBroadcast(downloadFinishedIntent)
         }
     }
 

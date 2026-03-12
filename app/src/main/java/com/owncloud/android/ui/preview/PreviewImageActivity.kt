@@ -23,10 +23,9 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
+import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
-import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadFinishMessage
-import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -47,7 +46,6 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
-import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.preview.model.PreviewImageActivityState
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
@@ -70,7 +68,10 @@ class PreviewImageActivity :
     private var viewPager: ViewPager2? = null
     private var previewImagePagerAdapter: PreviewImagePagerAdapter? = null
     private var savedPosition: Int? = null
-    private var downloadFinishReceiver: DownloadFinishReceiver? = null
+
+    private val downloadStartReceiver = DownloadStartReceiver()
+    private val downloadFinishReceiver = DownloadFinishReceiver()
+
     private var fullScreenAnchorView: View? = null
 
     private var isDownloadWorkStarted = false
@@ -313,26 +314,6 @@ class PreviewImageActivity :
     private fun observeWorkerState() {
         observeWorker { state: WorkerState? ->
             when (state) {
-                is WorkerState.FileDownloadStarted -> {
-                    Log_OC.d(TAG, "Download worker started")
-                    isDownloadWorkStarted = true
-
-                    if (screenState == PreviewImageActivityState.WaitingForBinder) {
-                        selectPageOnDownload()
-                    }
-                }
-
-                is WorkerState.FileDownloadCompleted -> {
-                    Log_OC.d(TAG, "Download worker stopped")
-                    isDownloadWorkStarted = false
-
-                    if (screenState == PreviewImageActivityState.Edit) {
-                        onImageDownloadComplete(state.currentFile)
-                    } else {
-                        setDownloadedItem()
-                    }
-                }
-
                 else -> {
                     Log_OC.d(TAG, "Worker stopped")
                     isDownloadWorkStarted = false
@@ -378,21 +359,24 @@ class PreviewImageActivity :
     }
 
     private fun registerReceivers() {
-        downloadFinishReceiver = DownloadFinishReceiver()
-        val downloadIntentFilter = IntentFilter(getDownloadFinishMessage())
-        localBroadcastManager.registerReceiver(downloadFinishReceiver!!, downloadIntentFilter)
+        localBroadcastManager.run {
+            val downloadStartIntentFilter = IntentFilter(FileDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED)
+            registerReceiver(downloadStartReceiver, downloadStartIntentFilter)
 
-        val uploadFinishReceiver = UploadFinishReceiver()
-        val uploadIntentFilter = IntentFilter(FileUploadBroadcastManager.UPLOAD_FINISHED)
-        localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter)
+            val downloadFinishIntentFilter = IntentFilter(FileDownloadEventBroadcaster.ACTION_DOWNLOAD_COMPLETED)
+            registerReceiver(downloadFinishReceiver, downloadFinishIntentFilter)
+        }
+    }
+
+    private fun unregisterReceivers() {
+        localBroadcastManager.run {
+            unregisterReceiver(downloadStartReceiver)
+            unregisterReceiver(downloadFinishReceiver)
+        }
     }
 
     public override fun onStop() {
-        if (downloadFinishReceiver != null) {
-            localBroadcastManager.unregisterReceiver(downloadFinishReceiver!!)
-            downloadFinishReceiver = null
-        }
-
+        unregisterReceivers()
         super.onStop()
     }
 
@@ -417,8 +401,7 @@ class PreviewImageActivity :
         showDetails(file)
     }
 
-    @JvmOverloads
-    fun requestForDownload(file: OCFile?, downloadBehaviour: String? = null) {
+    fun requestForDownload(file: OCFile?) {
         if (file == null) return
         val user = user.orElseThrow { RuntimeException() }
         FileDownloadHelper.instance().downloadFileIfNotStartedBefore(user, file)
@@ -471,51 +454,30 @@ class PreviewImageActivity :
      */
     private inner class DownloadFinishReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            previewNewImage(intent)
+            Log_OC.d(TAG, "Download worker stopped")
+            isDownloadWorkStarted = false
+            val accountName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACCOUNT_NAME)
+            val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
+            if (account.name != accountName || downloadedRemotePath == null) {
+                return
+            }
+            val file = storageManager.getFileByEncryptedRemotePath(downloadedRemotePath)
+
+            if (screenState == PreviewImageActivityState.Edit) {
+                onImageDownloadComplete(file)
+            } else {
+                setDownloadedItem()
+            }
         }
     }
 
-    private inner class UploadFinishReceiver : BroadcastReceiver() {
+    private inner class DownloadStartReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            previewNewImage(intent)
-        }
-    }
+            Log_OC.d(TAG, "Download worker started")
+            isDownloadWorkStarted = true
 
-    @Suppress("NestedBlockDepth", "ReturnCount")
-    private fun previewNewImage(intent: Intent) {
-        val accountName = intent.getStringExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME)
-        val downloadedRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_REMOTE_PATH)
-        val downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR)
-
-        if (account.name != accountName || downloadedRemotePath == null) {
-            return
-        }
-
-        val file = storageManager.getFileByEncryptedRemotePath(downloadedRemotePath)
-        val downloadWasFine = intent.getBooleanExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, false)
-
-        if (EditImageActivity.OPEN_IMAGE_EDITOR == downloadBehaviour) {
-            startImageEditor(file)
-        } else {
-            val position = previewImagePagerAdapter?.getFilePosition(file) ?: return
-
-            if (position >= 0) {
-                if (downloadWasFine) {
-                    previewImagePagerAdapter?.updateFile(position, file)
-                } else {
-                    previewImagePagerAdapter?.updateWithDownloadError(position)
-                }
-                previewImagePagerAdapter?.notifyItemChanged(position)
-            } else if (downloadWasFine) {
-                val user = user
-
-                if (user.isPresent) {
-                    initViewPager(user.get())
-                    val newPosition = previewImagePagerAdapter?.getFilePosition(file) ?: return
-                    if (newPosition >= 0) {
-                        viewPager?.currentItem = newPosition
-                    }
-                }
+            if (screenState == PreviewImageActivityState.WaitingForBinder) {
+                selectPageOnDownload()
             }
         }
     }
@@ -540,7 +502,7 @@ class PreviewImageActivity :
         } else {
             showLoadingDialog(getString(R.string.preview_image_downloading_image_for_edit))
             screenState = PreviewImageActivityState.Edit
-            requestForDownload(file, EditImageActivity.OPEN_IMAGE_EDITOR)
+            requestForDownload(file)
         }
     }
 
@@ -556,13 +518,8 @@ class PreviewImageActivity :
         startActivity(intent)
     }
 
-    override fun onBrowsedDownTo(folder: OCFile) {
-        // TODO Auto-generated method stub
-    }
-
-    override fun onTransferStateChanged(file: OCFile, downloading: Boolean, uploading: Boolean) {
-        // TODO Auto-generated method stub
-    }
+    override fun onBrowsedDownTo(folder: OCFile) = Unit
+    override fun onTransferStateChanged(file: OCFile, downloading: Boolean, uploading: Boolean) = Unit
 
     @Suppress("DEPRECATION")
     private fun hideSystemUI(anchorView: View) {
