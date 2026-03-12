@@ -18,7 +18,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
@@ -430,7 +429,6 @@ class AutoUploadWorker(
         fileUploadBroadcastManager.sendFinished(
             operation,
             result,
-            operation.oldFile?.storagePath,
             context
         )
     }
