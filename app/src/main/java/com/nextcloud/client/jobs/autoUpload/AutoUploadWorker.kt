@@ -62,7 +62,8 @@ class AutoUploadWorker(
     private val syncedFolderProvider: SyncedFolderProvider,
     private val repository: FileSystemRepository,
     val viewThemeUtils: ViewThemeUtils,
-    localBroadcastManager: LocalBroadcastManager
+    localBroadcastManager: LocalBroadcastManager,
+    private val autoUploadHelper: AutoUploadHelper
 ) : CoroutineWorker(context, params) {
 
     companion object {
@@ -97,6 +98,8 @@ class AutoUploadWorker(
                 Log_OC.w(TAG, "power saving mode enabled")
             }
 
+            // insert entries based on selected local storage path
+            autoUploadHelper.insertEntries(syncedFolder)
             uploadFiles(syncedFolder)
 
             // only update last scan time after uploading files
