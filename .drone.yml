@@ -6,6 +6,7 @@ name: tests-stable
 # SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
 # SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 
+timeout: 90
 
 steps:
   - name: gplay
@@ -24,12 +25,7 @@ steps:
       - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
-      - ./gradlew assembleGplayDebugAndroidTest
-      - scripts/wait_for_emulator.sh
-      - ./gradlew installGplayDebugAndroidTest
-      - scripts/wait_for_server.sh "server"
-      - scripts/deleteOldComments.sh "stable" "IT" $DRONE_PULL_REQUEST
-      - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST
+      - scripts/runCombinedTest.sh $DRONE_PULL_REQUEST $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER stable
 
 services:
   - name: server
@@ -72,6 +68,8 @@ trigger:
 kind: pipeline
 type: docker
 name: tests-master
+
+timeout: 90
 
 steps:
   - name: gplay
