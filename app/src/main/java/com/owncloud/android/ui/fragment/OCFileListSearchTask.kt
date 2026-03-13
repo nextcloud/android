@@ -84,7 +84,7 @@ class OCFileListSearchTask(
             if (result?.isSuccess == true) {
                 if (result.resultData?.isEmpty() == true) {
                     withContext(Dispatchers.Main) {
-                        fragment.setEmptyListMessage(SearchType.NO_SEARCH)
+                        fragment.setEmptyListMessage(fragment.currentSearchType)
                         return@withContext
                     }
 
@@ -171,7 +171,7 @@ class OCFileListSearchTask(
         var newList = list.toMutableList()
 
         if (searchType == SearchType.GALLERY_SEARCH ||
-            searchType == SearchType.RECENTLY_MODIFIED_SEARCH
+            searchType == SearchType.RECENT_FILES_SEARCH
         ) {
             return@withContext FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(newList)
         }
@@ -246,7 +246,8 @@ class OCFileListSearchTask(
                         put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
                     }
                     contentValuesList.add(cv)
-                } catch (_: Exception) {
+                } catch (e: Exception) {
+                    Log_OC.e(TAG, "parseAndSaveVirtuals():", e)
                 }
             }
 

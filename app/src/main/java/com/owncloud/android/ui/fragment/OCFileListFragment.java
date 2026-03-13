@@ -80,6 +80,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.Type;
@@ -153,7 +154,7 @@ import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDial
 import static com.owncloud.android.ui.fragment.SearchType.FAVORITE_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.FILE_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.NO_SEARCH;
-import static com.owncloud.android.ui.fragment.SearchType.RECENTLY_MODIFIED_SEARCH;
+import static com.owncloud.android.ui.fragment.SearchType.RECENT_FILES_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.SHARED_FILTER;
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
@@ -1805,7 +1806,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     break;
 
                 case RECENTLY_MODIFIED_SEARCH:
-                    setEmptyListMessage(RECENTLY_MODIFIED_SEARCH);
+                    setEmptyListMessage(RECENT_FILES_SEARCH);
                     break;
 
                 case SHARED_FILTER:
@@ -1917,10 +1918,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         final var activity = getActivity();
         if (activity != null) {
-            activity.runOnUiThread(() -> {{
+            activity.runOnUiThread(() -> {
                 getAdapter().removeAllFiles();
                 setEmptyListMessage(EmptyListState.LOADING);
-            }});
+            });
         }
 
         prepareCurrentSearch(event);
@@ -1933,7 +1934,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
         });
 
         final User currentUser = accountManager.getUser();
-        final var remoteOperation = getSearchRemoteOperation(currentUser, event);
+        RemoteOperation remoteOperation;
+        if (currentSearchType == RECENT_FILES_SEARCH) {
+            remoteOperation = getRecentFilesSearchRemoteOperation();
+        } else {
+            remoteOperation = getSearchRemoteOperation(currentUser, event);
+        }
+
         searchTask = new OCFileListSearchTask(mContainerActivity, this, remoteOperation, currentUser, event, SharedListFragment.TASK_TIMEOUT, preferences);
         searchTask.execute();
     }
@@ -1948,6 +1955,28 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                          event.getSearchType(),
                                          searchOnlyFolders,
                                          ocCapability);
+    }
+
+    private RemoteOperation getRecentFilesSearchRemoteOperation() {
+        String accountName = accountManager.getUser().getAccountName();
+        OCCapability capability = mContainerActivity.getStorageManager().getCapability(accountName);
+        String searchQuery = "";
+
+        SearchRemoteOperation remoteOperation = new SearchRemoteOperation(
+            searchQuery,
+            SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH,
+            false,
+            capability
+        );
+
+        long nowSeconds = System.currentTimeMillis() / 1000L;
+        long last14DaysTimestamp = nowSeconds - 14L * 24 * 60 * 60;
+
+        remoteOperation.setStartDate(last14DaysTimestamp);
+        remoteOperation.setEndDate(nowSeconds);
+        remoteOperation.setLimit(100);
+
+        return remoteOperation;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -2289,8 +2318,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return R.id.nav_groupfolders;
         } else if (isSearchEventFavorite() || currentSearchType == FAVORITE_SEARCH) {
             return R.id.nav_favorites;
-        } else if (currentSearchType == RECENTLY_MODIFIED_SEARCH) {
-            return R.id.nav_recently_modified;
+        } else if (currentSearchType == RECENT_FILES_SEARCH) {
+            return R.id.nav_recent_files;
         } else {
             return R.id.nav_all_files;
         }
