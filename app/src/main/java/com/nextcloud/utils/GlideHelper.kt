@@ -30,6 +30,8 @@ import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.LinkHelper.validateAndGetURL
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * Utility object for loading images (including SVGs) using Glide.
@@ -177,6 +179,25 @@ object GlideHelper {
 
     fun getDrawable(context: Context, client: NextcloudClient?, urlString: String?): Drawable? =
         createRequestBuilder<Drawable>(context, client, urlString)?.submit()?.get()
+
+    @Suppress("TooGenericExceptionCaught")
+    suspend fun fetchDrawable(
+        context: Context,
+        client: NextcloudClient?,
+        urlString: String?,
+        width: Int = Target.SIZE_ORIGINAL,
+        height: Int = Target.SIZE_ORIGINAL
+    ): Drawable? = withContext(Dispatchers.IO) {
+        try {
+            createRequestBuilder<Drawable>(context, client, urlString)
+                ?.override(width, height)
+                ?.submit()
+                ?.get()
+        } catch (e: Exception) {
+            Log_OC.e("GlideHelper", "fetchDrawable failed", e)
+            null
+        }
+    }
 
     fun <T> loadIntoTarget(
         context: Context,
