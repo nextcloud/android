@@ -538,6 +538,8 @@
     <string name="media_forward_description">Botó d\'avançament ràpid</string>
     <string name="media_notif_ticker">Reproductor de música %1$s</string>
     <string name="media_play_pause_description">Botó de reproducció o pausa</string>
+    <string name="media_player_pause">Posa en pausa</string>
+    <string name="media_player_play">Joguina</string>
     <string name="media_rewind_description">Botó de rebobinat</string>
     <string name="media_state_playing">%1$s (està sonant)</string>
     <string name="menu_item_sort_by_date_newest_first">Més recent primer</string>
@@ -970,9 +972,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configuració</string>
     <string name="uploader_wrn_no_account_text">No hi ha comptes %1$s al vostre dispositiu. Primer configureu un compte.</string>
     <string name="uploader_wrn_no_account_title">No s\'ha trobat el compte</string>
+    <string name="uploads_view_group_completed_uploads">S\'ha completat</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
     <string name="uploads_view_group_failed_uploads">Error de reinici/pendent de reiniciar</string>
-    <string name="uploads_view_group_finished_uploads">Carregat</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Cancel·lat</string>
     <string name="uploads_view_later_waiting_to_upload">S\'està esperant per pujar-lo</string>
     <string name="uploads_view_title">Fitxers carregats</string>

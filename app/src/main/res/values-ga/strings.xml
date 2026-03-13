@@ -605,6 +605,8 @@
     <string name="media_forward_description">Cnaipe tapa ar aghaidh</string>
     <string name="media_notif_ticker">Seinnteoir ceoil %1$s</string>
     <string name="media_play_pause_description">Seinn nó cnaipe sos</string>
+    <string name="media_player_pause">Sos</string>
+    <string name="media_player_play">Imir</string>
     <string name="media_rewind_description">Cnaipe athchasadh</string>
     <string name="media_state_playing">%1$s (ag imirt)</string>
     <string name="menu_item_sort_by_date_newest_first">Is nua ar dtús</string>
@@ -1130,9 +1132,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Socrú</string>
     <string name="uploader_wrn_no_account_text">Níl aon chuntas %1$s ar do ghléas. Socraigh cuntas ar dtús le do thoil.</string>
     <string name="uploader_wrn_no_account_title">Níor aimsíodh aon chuntas</string>
+    <string name="uploads_view_group_completed_uploads">Críochnaithe</string>
     <string name="uploads_view_group_current_uploads">Reatha</string>
     <string name="uploads_view_group_failed_uploads">Theip/ar feitheamh atosú</string>
-    <string name="uploads_view_group_finished_uploads">Uaslódáilte</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Ar ceal</string>
     <string name="uploads_view_later_waiting_to_upload">Ag fanacht le uaslódáil</string>
     <string name="uploads_view_title">uaslódálacha</string>

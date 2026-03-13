@@ -584,6 +584,8 @@
     <string name="media_forward_description">早送りボタン</string>
     <string name="media_notif_ticker">%1$s ミュージックプレイヤー</string>
     <string name="media_play_pause_description">再生/一時停止ボタン</string>
+    <string name="media_player_pause">一時停止</string>
+    <string name="media_player_play">再生</string>
     <string name="media_rewind_description">巻き戻しボタン</string>
     <string name="media_state_playing">%1$s (再生中)</string>
     <string name="menu_item_sort_by_date_newest_first">日付（降順）</string>
@@ -1089,9 +1091,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
     <string name="uploader_wrn_no_account_text">端末に %1$s のアカウントがありません。まずアカウントを登録してください。</string>
     <string name="uploader_wrn_no_account_title">アカウントが見つかりません</string>
+    <string name="uploads_view_group_completed_uploads">完了</string>
     <string name="uploads_view_group_current_uploads">現在</string>
     <string name="uploads_view_group_failed_uploads">失敗/再開待ち</string>
-    <string name="uploads_view_group_finished_uploads">アップロード済み</string>
     <string name="uploads_view_group_manually_cancelled_uploads">キャンセル済</string>
     <string name="uploads_view_later_waiting_to_upload">アップロード待ち</string>
     <string name="uploads_view_title">アップロード</string>

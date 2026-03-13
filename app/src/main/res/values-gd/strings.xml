@@ -709,9 +709,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Suidhich</string>
     <string name="uploader_wrn_no_account_text">Chan eil chunntas %1$s air an uidheam agad. Suidhich cunntas an toiseach.</string>
     <string name="uploader_wrn_no_account_title">Cha deach cunntas a lorg</string>
+    <string name="uploads_view_group_completed_uploads">Coileanta</string>
     <string name="uploads_view_group_current_uploads">Làithreach</string>
     <string name="uploads_view_group_failed_uploads">Dh’fhàillig e/ath-thòiseachadh ri dhèiligeadh</string>
-    <string name="uploads_view_group_finished_uploads">Air a luchdadh suas</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Sguireadh dheth</string>
     <string name="uploads_view_later_waiting_to_upload">A’ feitheamh ris an luchdadh suas</string>
     <string name="uploads_view_title">Na chaidh a luchdadh suas</string>

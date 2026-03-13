@@ -502,6 +502,8 @@
     <string name="media_forward_description">Botão de Avançar Rápido</string>
     <string name="media_notif_ticker">%1$s reprodutor de música</string>
     <string name="media_play_pause_description">Botão de Reproduzir/Pausar</string>
+    <string name="media_player_pause">Pausar</string>
+    <string name="media_player_play">Reproduzir</string>
     <string name="media_rewind_description">Botão de Retroceder</string>
     <string name="media_state_playing">%1$s (a reproduzir)</string>
     <string name="menu_item_sort_by_date_newest_first">Recentes primeiro</string>
@@ -911,9 +913,9 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
     <string name="uploader_wrn_no_account_text">Não existem contas %1$s no seu dispositivo. Por favor, configure primeiro uma conta.</string>
     <string name="uploader_wrn_no_account_title">Não foi encontrada nenhuma conta</string>
+    <string name="uploads_view_group_completed_uploads">Concluída</string>
     <string name="uploads_view_group_current_uploads">Atual</string>
     <string name="uploads_view_group_failed_uploads">Falhou/reinício pendente</string>
-    <string name="uploads_view_group_finished_uploads">Enviado</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Cancelado</string>
     <string name="uploads_view_later_waiting_to_upload">A aguardar para enviar</string>
     <string name="uploads_view_title">Envios</string>

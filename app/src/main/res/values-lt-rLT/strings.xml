@@ -472,6 +472,8 @@
     <string name="media_forward_description">Prasukimo mygtukas</string>
     <string name="media_notif_ticker">%1$s muzikos grotuvas</string>
     <string name="media_play_pause_description">Grojimo arba pauzės mygtukas</string>
+    <string name="media_player_pause">Pristabdyti</string>
+    <string name="media_player_play">Atkurti</string>
     <string name="media_rewind_description">Atsukimo mygtukas</string>
     <string name="media_state_playing">%1$s (atkuriama)</string>
     <string name="menu_item_sort_by_date_newest_first">Naujausi pirma</string>
@@ -876,9 +878,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Sąranka</string>
     <string name="uploader_wrn_no_account_text">Jūsų įrenginyje nėra %1$s paskyrų. Iš pradžių, nusistatykite paskyrą.</string>
     <string name="uploader_wrn_no_account_title">Paskyrų nerasta</string>
+    <string name="uploads_view_group_completed_uploads">Užbaigta</string>
     <string name="uploads_view_group_current_uploads">Dabartinis</string>
     <string name="uploads_view_group_failed_uploads">Nepavyko/laukiama paleidimo iš naujo</string>
-    <string name="uploads_view_group_finished_uploads">Įkelta</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Atsisakytas</string>
     <string name="uploads_view_later_waiting_to_upload">Įkelinėjamas failas</string>
     <string name="uploads_view_title">Įkėlimai</string>

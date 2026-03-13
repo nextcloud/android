@@ -391,6 +391,8 @@
     <string name="media_forward_description">לחצן הרצה קדימה</string>
     <string name="media_notif_ticker">נגן מוזיקה %1$s</string>
     <string name="media_play_pause_description">לחצן ניגון או השהייה</string>
+    <string name="media_player_pause">השהה</string>
+    <string name="media_player_play">נגן</string>
     <string name="media_rewind_description">לחצן החזרה אחורה</string>
     <string name="media_state_playing">%1$s (מתגנן)</string>
     <string name="menu_item_sort_by_date_newest_first">החדשים ביותר ראשונים</string>
@@ -733,9 +735,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>
     <string name="uploader_wrn_no_account_text">לא מוגדרים חשבונות %1$s במכשיר שלך. יש להגדיר חשבות תחילה.</string>
     <string name="uploader_wrn_no_account_title">לא נמצא חשבון</string>
+    <string name="uploads_view_group_completed_uploads">הושלם</string>
     <string name="uploads_view_group_current_uploads">נוכחי</string>
     <string name="uploads_view_group_failed_uploads">הפעלה מחדש ממתינה/נכשלה.</string>
-    <string name="uploads_view_group_finished_uploads">הועלה</string>
     <string name="uploads_view_group_manually_cancelled_uploads">בוטל</string>
     <string name="uploads_view_later_waiting_to_upload">ממתין להעלאה</string>
     <string name="uploads_view_title">העלאות</string>

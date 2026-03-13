@@ -405,6 +405,8 @@
     <string name="media_forward_description">Копче за брзо премотување</string>
     <string name="media_notif_ticker">%1$s пуштач на музика</string>
     <string name="media_play_pause_description">Копче за пуштање или пауза</string>
+    <string name="media_player_pause">Пауза</string>
+    <string name="media_player_play">Слајдшоу</string>
     <string name="media_rewind_description">Копче за премотување</string>
     <string name="media_state_playing">%1$s (свири)</string>
     <string name="menu_item_sort_by_date_newest_first">Новите прво</string>
@@ -753,9 +755,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Нагодување</string>
     <string name="uploader_wrn_no_account_text">Нема %1$s сметка на твојот уред. Додадете сметка.</string>
     <string name="uploader_wrn_no_account_title">Не е пронајдена сметка</string>
+    <string name="uploads_view_group_completed_uploads">Завршено</string>
     <string name="uploads_view_group_current_uploads">Моменталлни</string>
     <string name="uploads_view_group_failed_uploads">Неуспешни/на чекање рестарт</string>
-    <string name="uploads_view_group_finished_uploads">Прикачено</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Откажано</string>
     <string name="uploads_view_later_waiting_to_upload">Чекање за прикачување</string>
     <string name="uploads_view_title">Прикачувања</string>

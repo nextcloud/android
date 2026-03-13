@@ -526,6 +526,8 @@
     <string name="media_forward_description">Spol fremover</string>
     <string name="media_notif_ticker">%1$s musikkspiller</string>
     <string name="media_play_pause_description">Spill eller pause</string>
+    <string name="media_player_pause">Pause</string>
+    <string name="media_player_play">Spill</string>
     <string name="media_rewind_description">Spol tilbake</string>
     <string name="media_state_playing">%1$s (spiller)</string>
     <string name="menu_item_sort_by_date_newest_first">Nyeste først</string>
@@ -977,9 +979,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>
     <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s-kontoer på enheten din. Sett opp en konto først.</string>
     <string name="uploader_wrn_no_account_title">Ingen konto funnet</string>
+    <string name="uploads_view_group_completed_uploads">Ferdig</string>
     <string name="uploads_view_group_current_uploads">Nåværende</string>
     <string name="uploads_view_group_failed_uploads">Mislyktes/venter omstart</string>
-    <string name="uploads_view_group_finished_uploads">Opplastet</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Avbrutt</string>
     <string name="uploads_view_later_waiting_to_upload">Venter på å laste opp</string>
     <string name="uploads_view_title">Opplastinger</string>

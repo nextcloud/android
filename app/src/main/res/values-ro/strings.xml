@@ -523,6 +523,8 @@
     <string name="media_forward_description">Butonul pentru repede înainte</string>
     <string name="media_notif_ticker">%1$s</string>
     <string name="media_play_pause_description">Buton de play sau pauză </string>
+    <string name="media_player_pause">Pauză</string>
+    <string name="media_player_play">Start Joc</string>
     <string name="media_rewind_description">Butonul rewind</string>
     <string name="media_state_playing">%1$s (redare)</string>
     <string name="menu_item_sort_by_date_newest_first">Cel mai nou mai întâi</string>
@@ -909,9 +911,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configurare</string>
     <string name="uploader_wrn_no_account_text">Nu există conturi %1$s pe dispozitivul tău. Te rugăm să configurezi unul mai întâi.</string>
     <string name="uploader_wrn_no_account_title">Nici un cont găsit</string>
+    <string name="uploads_view_group_completed_uploads">Terminat</string>
     <string name="uploads_view_group_current_uploads">Curent</string>
     <string name="uploads_view_group_failed_uploads">Repornire eșuată/în așteptare</string>
-    <string name="uploads_view_group_finished_uploads">Încărcat</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Anulat</string>
     <string name="uploads_view_later_waiting_to_upload">Se așteaptă încărcarea</string>
     <string name="uploads_view_title">Încărcări</string>

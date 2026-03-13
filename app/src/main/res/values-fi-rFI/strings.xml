@@ -526,6 +526,8 @@
     <string name="media_forward_description">Eteenpäin kelaus -painike</string>
     <string name="media_notif_ticker">%1$s-musiikkisoitin</string>
     <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
+    <string name="media_player_pause">Keskeytä</string>
+    <string name="media_player_play">Esitys</string>
     <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
     <string name="media_state_playing">%1$s (toistetaan)</string>
     <string name="menu_item_sort_by_date_newest_first">Uusin ensin</string>
@@ -984,9 +986,9 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>
     <string name="uploader_wrn_no_account_text">Laitteellasi ei ole %1$s-tilejä. Määritä tilin asetukset ensin.</string>
     <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
+    <string name="uploads_view_group_completed_uploads">Valmiit</string>
     <string name="uploads_view_group_current_uploads">Nykyiset</string>
     <string name="uploads_view_group_failed_uploads">Epäonnistuneet/odottaa uudelleenlähetystä</string>
-    <string name="uploads_view_group_finished_uploads">Lähetetty</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Peruttu</string>
     <string name="uploads_view_later_waiting_to_upload">Odottaa siirtoa</string>
     <string name="uploads_view_title">Lähetykset</string>

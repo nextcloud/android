@@ -471,6 +471,8 @@
     <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>
     <string name="media_notif_ticker">Predvajalnik glasbe %1$s</string>
     <string name="media_play_pause_description">Gumb za predvajanje in premor</string>
+    <string name="media_player_pause">Premor</string>
+    <string name="media_player_play">Predvajaj</string>
     <string name="media_rewind_description">Vrni nazaj</string>
     <string name="media_state_playing">%1$s (predvajanje)</string>
     <string name="menu_item_sort_by_date_newest_first">najprej najnovejše</string>
@@ -877,9 +879,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Nastavi</string>
     <string name="uploader_wrn_no_account_text">Za %1$s ni določenega računa. Pred nadaljevanjem ga je treba ustvariti.</string>
     <string name="uploader_wrn_no_account_title">Ni najdenega nobenega računa</string>
+    <string name="uploads_view_group_completed_uploads">Končano</string>
     <string name="uploads_view_group_current_uploads">Trenutno</string>
     <string name="uploads_view_group_failed_uploads">Ponovno pošiljanje je spodletelo oziroma je na čakanju.</string>
-    <string name="uploads_view_group_finished_uploads">Poslano</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Preklicano</string>
     <string name="uploads_view_later_waiting_to_upload">Poteka čakanje na začetek pošiljanja …</string>
     <string name="uploads_view_title">Poslano</string>

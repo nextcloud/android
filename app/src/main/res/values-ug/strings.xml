@@ -590,6 +590,8 @@
     <string name="media_forward_description">تېز ئىلگىرىلەش كۇنۇپكىسى</string>
     <string name="media_notif_ticker">%1$s مۇزىكا قويغۇچ</string>
     <string name="media_play_pause_description">قويۇش ياكى توختىتىش كۇنۇپكىسى</string>
+    <string name="media_player_pause">توختات</string>
+    <string name="media_player_play">ئويناش</string>
     <string name="media_rewind_description">كەينىگە قايتۇرۇش كۇنۇپكىسى</string>
     <string name="media_state_playing">%1$s (ئويناش)</string>
     <string name="menu_item_sort_by_date_newest_first">ئەڭ يېڭى</string>
@@ -1104,9 +1106,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">تەڭشەك</string>
     <string name="uploader_wrn_no_account_text">ئۈسكۈنىڭىزدە%1$s ھېسابات يوق. ئالدى بىلەن ھېسابات قۇرۇڭ.</string>
     <string name="uploader_wrn_no_account_title">ھېسابات تېپىلمىدى</string>
+    <string name="uploads_view_group_completed_uploads">تاماملاندى</string>
     <string name="uploads_view_group_current_uploads">نۆۋەتتىكى</string>
     <string name="uploads_view_group_failed_uploads">قايتا قوزغىتىش مەغلۇب بولدى</string>
-    <string name="uploads_view_group_finished_uploads">يۈكلەندى</string>
     <string name="uploads_view_group_manually_cancelled_uploads">ئەمەلدىن قالدۇرۇلدى</string>
     <string name="uploads_view_later_waiting_to_upload">يوللاشنى ساقلاۋاتىدۇ</string>
     <string name="uploads_view_title">يۈكلەش</string>

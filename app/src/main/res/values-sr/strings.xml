@@ -577,6 +577,8 @@
     <string name="media_forward_description">Унапред</string>
     <string name="media_notif_ticker">%1$s музички плејер</string>
     <string name="media_play_pause_description">Пуштање-пауза</string>
+    <string name="media_player_pause">Паузирај</string>
+    <string name="media_player_play">Пусти</string>
     <string name="media_rewind_description">Уназад</string>
     <string name="media_state_playing">%1$s (пушта)</string>
     <string name="menu_item_sort_by_date_newest_first">прво новије</string>
@@ -1082,9 +1084,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Подеси</string>
     <string name="uploader_wrn_no_account_text">Нема %1$s налога на вашем уређају. Најпре подесите налог.</string>
     <string name="uploader_wrn_no_account_title">Није пронађен налог</string>
+    <string name="uploads_view_group_completed_uploads">Завршено</string>
     <string name="uploads_view_group_current_uploads">Текуће</string>
     <string name="uploads_view_group_failed_uploads">Грешка/чекам на поновно покретање</string>
-    <string name="uploads_view_group_finished_uploads">Отпремљено</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Отказано</string>
     <string name="uploads_view_later_waiting_to_upload">Чекам отпремање</string>
     <string name="uploads_view_title">Отпремања</string>

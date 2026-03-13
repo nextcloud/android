@@ -605,6 +605,8 @@
     <string name="media_forward_description">快進按鈕</string>
     <string name="media_notif_ticker">%1$s 音樂播放器</string>
     <string name="media_play_pause_description">播放或暫停按鈕</string>
+    <string name="media_player_pause">暫停</string>
+    <string name="media_player_play">播放</string>
     <string name="media_rewind_description">倒回按鈕</string>
     <string name="media_state_playing">%1$s（播放中）</string>
     <string name="menu_item_sort_by_date_newest_first">最新</string>
@@ -1130,9 +1132,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
     <string name="uploader_wrn_no_account_text">無 %1$s 帳戶，請先建立帳戶。</string>
     <string name="uploader_wrn_no_account_title">找不到帳戶</string>
+    <string name="uploads_view_group_completed_uploads">已完成</string>
     <string name="uploads_view_group_current_uploads">目前</string>
     <string name="uploads_view_group_failed_uploads">失敗/等待重啟</string>
-    <string name="uploads_view_group_finished_uploads">已上傳</string>
     <string name="uploads_view_group_manually_cancelled_uploads">已取消</string>
     <string name="uploads_view_later_waiting_to_upload">上傳等候中</string>
     <string name="uploads_view_title">上傳</string>

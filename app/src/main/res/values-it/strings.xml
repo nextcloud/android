@@ -560,6 +560,8 @@
     <string name="media_forward_description">Pulsante Avanti veloce</string>
     <string name="media_notif_ticker">Lettore musicale %1$s</string>
     <string name="media_play_pause_description">Pulsante Riproduci o pausa</string>
+    <string name="media_player_pause">Pausa</string>
+    <string name="media_player_play">Gioca</string>
     <string name="media_rewind_description">Pulsante Riavvolgi</string>
     <string name="media_state_playing">%1$s (in riproduzione)</string>
     <string name="menu_item_sort_by_date_newest_first">Prima i più recenti</string>
@@ -1050,9 +1052,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configurazione</string>
     <string name="uploader_wrn_no_account_text">Non ci sono account %1$s sul tuo dispositivo. Configura prima un account.</string>
     <string name="uploader_wrn_no_account_title">Nessun account trovato</string>
+    <string name="uploads_view_group_completed_uploads">Completate</string>
     <string name="uploads_view_group_current_uploads">Attuale</string>
     <string name="uploads_view_group_failed_uploads">Riavvio non riuscito/in corso</string>
-    <string name="uploads_view_group_finished_uploads">Caricati</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Annullato</string>
     <string name="uploads_view_later_waiting_to_upload">In attesa di caricamento</string>
     <string name="uploads_view_title">Caricamenti</string>

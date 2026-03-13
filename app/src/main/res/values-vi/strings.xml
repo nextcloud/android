@@ -427,6 +427,8 @@
     <string name="media_forward_description">Nút đẩy nhanh tốc độ phát</string>
     <string name="media_notif_ticker">%1$s trình nghe nhạc</string>
     <string name="media_play_pause_description">Nút phát hoặc tạm dừng</string>
+    <string name="media_player_pause">Tạm dừng</string>
+    <string name="media_player_play">Phát</string>
     <string name="media_rewind_description">Nút chuyển lại</string>
     <string name="media_state_playing">%1$s (đang phát)</string>
     <string name="menu_item_sort_by_date_newest_first">Mới trước</string>
@@ -808,9 +810,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Cài đặt</string>
     <string name="uploader_wrn_no_account_text">Không có tài khoản %1$s trên thiết bị của bạn. Cần thiết lập tài khoản trước.</string>
     <string name="uploader_wrn_no_account_title">Không tìm thấy tài khoản</string>
+    <string name="uploads_view_group_completed_uploads">Hoàn thành</string>
     <string name="uploads_view_group_current_uploads">Hiện tại</string>
     <string name="uploads_view_group_failed_uploads">Không thành công/đang chờ khởi động lại</string>
-    <string name="uploads_view_group_finished_uploads">Đã tải lên</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Đã hủy</string>
     <string name="uploads_view_later_waiting_to_upload">Chờ tải lên</string>
     <string name="uploads_view_title">Tải lên</string>
