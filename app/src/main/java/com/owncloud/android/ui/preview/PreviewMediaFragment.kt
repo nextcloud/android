@@ -18,10 +18,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -37,6 +34,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
@@ -58,7 +56,6 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.logFileSize
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
@@ -71,8 +68,9 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.utils.MimeTypeUtil
-import java.lang.ref.WeakReference
-import java.util.concurrent.Executors
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -222,27 +220,30 @@ class PreviewMediaFragment :
             Log_OC.d(TAG, "File is null or fragment not attached to a context.")
             return
         }
-        prepareForVideo(context ?: MainApp.getAppContext())
+        prepareForVideo()
     }
 
     @Suppress("DEPRECATION", "TooGenericExceptionCaught")
-    private fun prepareForVideo(context: Context) {
+    private fun prepareForVideo() {
         if (exoPlayer != null) {
             playVideo()
-        } else {
-            val handler = Handler(Looper.getMainLooper())
-            Executors.newSingleThreadExecutor().execute {
-                try {
-                    nextcloudClient = clientFactory.createNextcloudClient(accountManager.user)
-                    handler.post {
-                        nextcloudClient?.let { client ->
-                            createExoPlayer(context, client)
-                            playVideo()
-                        }
-                    }
-                } catch (e: CreationException) {
-                    handler.post { Log_OC.e(TAG, "error setting up ExoPlayer", e) }
+            return
+        }
+
+        lifecycleScope.launch {
+            try {
+                val client = withContext(Dispatchers.IO) {
+                    clientFactory.createNextcloudClient(accountManager.user)
                 }
+                nextcloudClient = client
+                val ctx = this@PreviewMediaFragment.context ?: return@launch
+
+                withContext(Dispatchers.Main) {
+                    createExoPlayer(ctx, client)
+                    playVideo()
+                }
+            } catch (e: CreationException) {
+                Log_OC.e(TAG, "error setting up ExoPlayer", e)
             }
         }
     }
@@ -253,9 +254,8 @@ class PreviewMediaFragment :
             val listener = ExoplayerListener(context, binding.exoplayerView, it) { goBackToLivePhoto() }
             it.addListener(listener)
         }
-        // session id needs to be unique since this fragment is used in viewpager multiple fragments can exist at a time
         mediaSession = MediaSession.Builder(
-            requireContext(),
+            context,
             exoPlayer as Player
         ).setId(System.currentTimeMillis().toString()).build()
     }
@@ -408,19 +408,46 @@ class PreviewMediaFragment :
     @Suppress("TooGenericExceptionCaught")
     private fun playVideo() {
         setupVideoView()
-        // load the video file in the video player
-        // when done, VideoHelper#onPrepared() will be called
         if (file.isDown) {
             playVideoUri(file.storageUri)
-        } else {
+            return
+        }
+
+        lifecycleScope.launch {
             try {
-                LoadStreamUrl(this, user, clientFactory).execute(
-                    file.localId
-                )
+                val uri = withContext(Dispatchers.IO) {
+                    loadStreamUrl(user, clientFactory, file.localId)
+                }
+                if (uri != null) {
+                    videoUri = uri
+                    playVideoUri(uri)
+                } else {
+                    emptyListView?.visibility = View.VISIBLE
+                    setVideoErrorMessage(getString(R.string.stream_not_possible_headline))
+                }
             } catch (e: Exception) {
                 Log_OC.e(TAG, "Loading stream url not possible: $e")
             }
         }
+    }
+
+    @Suppress("ReturnCount")
+    private fun loadStreamUrl(user: User?, clientFactory: ClientFactory?, fileId: Long): Uri? {
+        val client: OwnCloudClient? = try {
+            clientFactory?.create(user)
+        } catch (e: CreationException) {
+            Log_OC.e(TAG, "Loading stream url not possible: $e")
+            return null
+        }
+
+        val sfo = StreamMediaFileOperation(fileId)
+        val result = sfo.execute(client)
+
+        if (result?.isSuccess == false) {
+            return null
+        }
+
+        return (result?.data?.get(0) as String).toUri()
     }
 
     private fun playVideoUri(uri: Uri) {
@@ -436,56 +463,6 @@ class PreviewMediaFragment :
 
         // only autoplay video once
         autoplay = false
-    }
-
-    @Suppress("DEPRECATION", "ReturnCount")
-    private class LoadStreamUrl(
-        previewMediaFragment: PreviewMediaFragment,
-        private val user: User?,
-        private val clientFactory: ClientFactory?
-    ) : AsyncTask<Long?, Void?, Uri?>() {
-        private val previewMediaFragmentWeakReference = WeakReference(previewMediaFragment)
-
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg fileId: Long?): Uri? {
-            val client: OwnCloudClient?
-            try {
-                client = clientFactory?.create(user)
-            } catch (e: CreationException) {
-                Log_OC.e(TAG, "Loading stream url not possible: $e")
-                return null
-            }
-
-            val sfo = fileId[0]?.let { StreamMediaFileOperation(it) }
-            val result = sfo?.execute(client)
-
-            if (result?.isSuccess == false) {
-                return null
-            }
-
-            return (result?.data?.get(0) as String).toUri()
-        }
-
-        @Deprecated("Deprecated in Java")
-        override fun onPostExecute(uri: Uri?) {
-            val previewMediaFragment = previewMediaFragmentWeakReference.get()
-            val context = previewMediaFragment?.context
-
-            if (previewMediaFragment?.binding == null || context == null) {
-                Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!")
-                return
-            }
-
-            previewMediaFragment.run {
-                if (uri != null) {
-                    videoUri = uri
-                    playVideoUri(uri)
-                } else {
-                    emptyListView?.visibility = View.VISIBLE
-                    setVideoErrorMessage(getString(R.string.stream_not_possible_headline))
-                }
-            }
-        }
     }
 
     override fun onStop() {

@@ -14,6 +14,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.network.ClientFactory
@@ -79,6 +80,7 @@ class UnifiedSearchViewModel(application: Application) :
         this.connectivityService = connectivityService
 
         repository = UnifiedSearchRemoteRepository(
+            viewModelScope,
             clientFactory,
             currentAccountProvider,
             runner

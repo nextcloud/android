@@ -25,7 +25,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager;
+import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.utils.Throttler;
 import com.owncloud.android.R;
@@ -191,9 +191,9 @@ public class UploadListActivity extends FileActivity {
         // Listen for upload messages
         uploadFinishReceiver = new UploadFinishReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter();
-        uploadIntentFilter.addAction(FileUploadBroadcastManager.UPLOAD_ADDED);
-        uploadIntentFilter.addAction(FileUploadBroadcastManager.UPLOAD_STARTED);
-        uploadIntentFilter.addAction(FileUploadBroadcastManager.UPLOAD_FINISHED);
+        uploadIntentFilter.addAction(FileUploadEventBroadcaster.ACTION_UPLOAD_ENQUEUED);
+        uploadIntentFilter.addAction(FileUploadEventBroadcaster.ACTION_UPLOAD_STARTED);
+        uploadIntentFilter.addAction(FileUploadEventBroadcaster.ACTION_UPLOAD_COMPLETED);
         localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter);
 
         Log_OC.v(TAG, "onStart() end");
@@ -317,7 +317,7 @@ public class UploadListActivity extends FileActivity {
     private class UploadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            throttler.run("update_upload_list", () -> uploadListAdapter.loadUploadItemsFromDb());
+            throttler.run("update_upload_list", () -> uploadListAdapter.loadUploadItemsFromDb(() -> {}));
         }
     }
 }

@@ -8,20 +8,20 @@
  */
 package com.owncloud.android.ui.activities.data.files
 
+import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.ui.activities.data.files.FilesServiceApi.FilesServiceCallback
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.utils.FileStorageUtils
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -33,7 +33,7 @@ class FilesServiceApiImpl(private val accountManager: UserAccountManager, privat
     FilesServiceApi {
 
     override fun readRemoteFile(fileUrl: String, activity: BaseActivity, callback: FilesServiceCallback<OCFile>) {
-        CoroutineScope(Dispatchers.Main).launch {
+        activity.lifecycleScope.launch(Dispatchers.Main) {
             val result = runCatching {
                 withContext(Dispatchers.IO) { fetchRemoteFile(fileUrl, activity) }
             }

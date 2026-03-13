@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Scrios tasc</string>
     <string name="assistant_screen_empty_content_description">Bain triail as teachtaireacht a sheoladh chun tús a chur le comhrá.</string>
     <string name="assistant_screen_empty_content_title">Dia duit ann! Cad is féidir liom cabhrú leat inniu?</string>
+    <string name="assistant_screen_retry_response_generation">Bain triail eile as giniúint freagartha</string>
     <string name="assistant_screen_select_task">Roghnaigh tasc le do thoil</string>
     <string name="assistant_screen_send_message">Seol teachtaireacht</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Oscail an liosta comhrá</string>

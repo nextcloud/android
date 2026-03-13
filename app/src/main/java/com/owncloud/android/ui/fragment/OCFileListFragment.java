@@ -179,7 +179,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public final static String ARG_SEARCH_ONLY_FOLDER = MY_PACKAGE + ".SEARCH_ONLY_FOLDER";
     public final static String ARG_MIMETYPE = MY_PACKAGE + ".MIMETYPE";
 
-    public static final String DOWNLOAD_BEHAVIOUR = "DOWNLOAD_BEHAVIOUR";
     public static final String DOWNLOAD_SEND = "DOWNLOAD_SEND";
 
 
@@ -896,16 +895,23 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             // show FAB on multi selection mode exit
             if (!mHideFab && !searchFragment) {
-                setFabVisible(mFile.canCreateFileAndFolder());
+                final var file = mFile;
+                if (file != null) {
+                    setFabVisible(file.canCreateFileAndFolder());
+                }
             }
 
-            Activity activity = getActivity();
+            final var activity = getActivity();
             if (activity != null) {
                 viewThemeUtils.platform.resetStatusBar(activity);
             }
 
-            getCommonAdapter().setMultiSelect(false);
-            getCommonAdapter().clearCheckedItems();
+            final var adapter = getCommonAdapter();
+            if (adapter != null) {
+                adapter.setMultiSelect(false);
+                adapter.clearCheckedItems();
+            }
+
             isMultipleFileSelectedForCopyOrMove = false;
         }
 

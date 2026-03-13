@@ -10,6 +10,7 @@ package com.owncloud.android.ui.activities
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.BaseActivity
+import kotlinx.coroutines.CoroutineScope
 
 interface ActivitiesContract {
     interface View {
@@ -24,7 +25,7 @@ interface ActivitiesContract {
     }
 
     interface ActionListener {
-        fun loadActivities(lastGiven: Long)
+        fun loadActivities(lifecycleScope: CoroutineScope, lastGiven: Long)
 
         fun openActivity(fileUrl: String, baseActivity: BaseActivity)
 

@@ -77,12 +77,6 @@ class FileUploadWorker(
 
         private const val BATCH_SIZE = 100
 
-        const val EXTRA_UPLOAD_RESULT = "RESULT"
-        const val EXTRA_REMOTE_PATH = "REMOTE_PATH"
-        const val EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH"
-        const val EXTRA_OLD_FILE_PATH = "OLD_FILE_PATH"
-        const val EXTRA_LINKED_TO_PATH = "LINKED_TO"
-        const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME"
         const val ACTION_CANCEL_BROADCAST = "CANCEL"
         const val LOCAL_BEHAVIOUR_COPY = 0
@@ -119,14 +113,14 @@ class FileUploadWorker(
     private val notificationId = Random.nextInt()
     private val notificationManager = UploadNotificationManager(context, viewThemeUtils, notificationId)
     private val intents = FileUploaderIntents(context)
-    private val fileUploadBroadcastManager = FileUploadBroadcastManager(localBroadcastManager)
+    private val fileUploadEventBroadcaster = FileUploadEventBroadcaster(localBroadcastManager)
 
     override suspend fun doWork(): Result = try {
+        trySetForeground()
+
         Log_OC.d(TAG, "FileUploadWorker started")
         val workerName = BackgroundJobManagerImpl.formatClassTag(this::class)
         backgroundJobManager.logStartOfWorker(workerName)
-
-        trySetForeground()
 
         val result = uploadFiles()
         backgroundJobManager.logEndOfWorker(workerName, result)
@@ -242,7 +236,7 @@ class FileUploadWorker(
                 return@withContext Result.failure()
             }
 
-            fileUploadBroadcastManager.sendAdded(context)
+            fileUploadEventBroadcaster.sendUploadEnqueued(context)
             val operation = createUploadFileOperation(upload, user)
             currentUploadFileOperation = operation
 
@@ -285,10 +279,9 @@ class FileUploadWorker(
                 isLastUpload
 
         if (shouldBroadcast) {
-            fileUploadBroadcastManager.sendFinished(
+            fileUploadEventBroadcaster.sendUploadCompleted(
                 operation,
                 result,
-                operation.oldFile?.storagePath,
                 context
             )
         }
@@ -342,7 +335,7 @@ class FileUploadWorker(
             val file = File(operation.originalStoragePath)
             val remoteId: String? = operation.file.remoteId
             task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId))
-            fileUploadBroadcastManager.sendStarted(operation, context)
+            fileUploadEventBroadcaster.sendUploadStarted(operation, context)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
             uploadsStorageManager.run {

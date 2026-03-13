@@ -20,6 +20,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.NominatimClient
 import com.nextcloud.client.account.User
@@ -154,7 +155,7 @@ class ImageDetailFragment :
             binding.imageLocation.visibility = View.VISIBLE
 
             // launch reverse geocoding request
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 val geocodingResult = nominatimClient.reverseGeocode(location.first, location.second)
                 if (geocodingResult != null) {
                     withContext(Dispatchers.Main) {

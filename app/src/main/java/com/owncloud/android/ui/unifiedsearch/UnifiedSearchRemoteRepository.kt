@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UnifiedSearchRemoteRepository(
+    private val viewModelScope: CoroutineScope,
     private val clientFactory: ClientFactory,
     private val currentAccountProvider: CurrentAccountProvider,
     private val asyncRunner: AsyncRunner
@@ -32,7 +33,7 @@ class UnifiedSearchRemoteRepository(
             Log_OC.d(tag, "CoroutineExceptionHandler got at runAsyncWithNcClient $exception")
         }
 
-        CoroutineScope(Dispatchers.IO).launch(coroutineExceptionHandler) {
+        viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
             val client = clientFactory.createNextcloudClient(currentAccountProvider.user)
             callback(client)
         }

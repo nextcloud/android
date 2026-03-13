@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Kustuta ülesanne</string>
     <string name="assistant_screen_empty_content_description">Vestluse algatamiseks proovi saata üks sõnum.</string>
     <string name="assistant_screen_empty_content_title">Hei! Kuidas saan sind täna aidata?</string>
+    <string name="assistant_screen_retry_response_generation">Proovi uuesti vastuste koostamist</string>
     <string name="assistant_screen_select_task">Palun vali ülesanne</string>
     <string name="assistant_screen_send_message">Saada sõnum</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Ava vestluste loend</string>

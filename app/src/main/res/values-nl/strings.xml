@@ -49,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Bent u zeker dat u deze taak wilt verwijderen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Verwijder taak</string>
     <string name="assistant_screen_empty_content_description">Probeer een bericht te versturen om het gesprek op te starten!</string>
-    <string name="assistant_screen_select_task_type_label">Kies een optie</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Open gesprekslijst</string>
     <string name="assistant_screen_task_create_fail_message">Er is een fout opgetreden bij het aanmaken van de taak</string>
     <string name="assistant_screen_task_delete_fail_message">Er is een fout opgetreden bij het verwijderen van de taak</string>

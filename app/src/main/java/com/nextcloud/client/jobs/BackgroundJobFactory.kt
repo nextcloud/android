@@ -88,7 +88,7 @@ class BackgroundJobFactory @Inject constructor(
             when (workerClass) {
                 ContactsBackupWork::class -> createContactsBackupWork(context, workerParameters)
                 ContactsImportWork::class -> createContactsImportWork(context, workerParameters)
-                AutoUploadWorker::class -> createFilesSyncWork(context, workerParameters)
+                AutoUploadWorker::class -> createAutoUploadWorker(context, workerParameters)
                 OfflineSyncWork::class -> createOfflineSyncWork(context, workerParameters)
                 MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
                 NotificationWork::class -> createNotificationWork(context, workerParameters)
@@ -174,7 +174,7 @@ class BackgroundJobFactory @Inject constructor(
             contentResolver
         )
 
-    private fun createFilesSyncWork(context: Context, params: WorkerParameters): AutoUploadWorker = AutoUploadWorker(
+    private fun createAutoUploadWorker(context: Context, params: WorkerParameters): AutoUploadWorker = AutoUploadWorker(
         context = context,
         params = params,
         userAccountManager = accountManager,
@@ -184,7 +184,10 @@ class BackgroundJobFactory @Inject constructor(
         syncedFolderProvider = syncedFolderProvider,
         repository = FileSystemRepository(dao = database.fileSystemDao(), uploadsStorageManager, context),
         viewThemeUtils = viewThemeUtils.get(),
-        localBroadcastManager = localBroadcastManager.get()
+        localBroadcastManager = localBroadcastManager.get(),
+        autoUploadHelper = AutoUploadHelper(
+            FileSystemRepository(dao = database.fileSystemDao(), uploadsStorageManager, context)
+        )
     )
 
     private fun createOfflineSyncWork(context: Context, params: WorkerParameters): OfflineSyncWork = OfflineSyncWork(
@@ -300,6 +303,7 @@ class BackgroundJobFactory @Inject constructor(
             accountManager,
             context,
             viewThemeUtils.get(),
+            localBroadcastManager.get(),
             params
         )
 }

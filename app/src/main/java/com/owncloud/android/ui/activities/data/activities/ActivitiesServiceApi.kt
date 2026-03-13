@@ -8,6 +8,7 @@
 package com.owncloud.android.ui.activities.data.activities
 
 import com.nextcloud.common.NextcloudClient
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * Defines an interface to the Activities service API. All ([Activity]) data requests should
@@ -19,5 +20,9 @@ interface ActivitiesServiceApi {
         fun onError(error: String)
     }
 
-    fun getAllActivities(lastGiven: Long, callback: ActivitiesServiceCallback<List<Any>>)
+    fun getAllActivities(
+        lifecycleScope: CoroutineScope,
+        lastGiven: Long,
+        callback: ActivitiesServiceCallback<List<Any>>
+    )
 }
