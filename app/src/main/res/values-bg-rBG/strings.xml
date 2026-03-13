@@ -859,7 +859,6 @@
     <string name="uploader_wrn_no_account_title">Не е открит профил</string>
     <string name="uploads_view_group_current_uploads">Текущ</string>
     <string name="uploads_view_group_failed_uploads">Провален/в очакване на рестарт</string>
-    <string name="uploads_view_group_finished_uploads">Качени</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Отказано</string>
     <string name="uploads_view_later_waiting_to_upload">Изчакване за качване</string>
     <string name="uploads_view_title">Качени</string>

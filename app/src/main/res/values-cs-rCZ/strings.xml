@@ -1131,7 +1131,6 @@
     <string name="uploader_wrn_no_account_title">Nenalezen žádný účet</string>
     <string name="uploads_view_group_current_uploads">Stávající</string>
     <string name="uploads_view_group_failed_uploads">Neúspěšné / čekající na restart</string>
-    <string name="uploads_view_group_finished_uploads">Nahráno</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Zrušeno</string>
     <string name="uploads_view_later_waiting_to_upload">Čeká se na nahrání</string>
     <string name="uploads_view_title">Nahrání</string>

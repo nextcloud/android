@@ -1039,7 +1039,6 @@
     <string name="uploader_wrn_no_account_title">لم يتم العثور على أي حساب</string>
     <string name="uploads_view_group_current_uploads">الحالي</string>
     <string name="uploads_view_group_failed_uploads">فشل / في انتظار إعادة التشغيل</string>
-    <string name="uploads_view_group_finished_uploads">تم رفعه</string>
     <string name="uploads_view_group_manually_cancelled_uploads">ملغى</string>
     <string name="uploads_view_later_waiting_to_upload">بانتظار الرفع</string>
     <string name="uploads_view_title">التحميلات</string>

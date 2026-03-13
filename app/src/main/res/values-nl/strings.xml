@@ -573,6 +573,8 @@
     <string name="media_forward_description">Doorspoelknop</string>
     <string name="media_notif_ticker">%1$s muziekspeler</string>
     <string name="media_play_pause_description">Speel- of pauzeknop</string>
+    <string name="media_player_pause">Pauze</string>
+    <string name="media_player_play">Spelen</string>
     <string name="media_rewind_description">Terugspoelknop</string>
     <string name="media_state_playing">%1$s (speelt)</string>
     <string name="menu_item_sort_by_date_newest_first">Nieuwste eerst</string>
@@ -1074,9 +1076,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configureren</string>
     <string name="uploader_wrn_no_account_text">Er zijn geen %1$s-accounts op dit apparaat. Stel eerst een account in.</string>
     <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
+    <string name="uploads_view_group_completed_uploads">Voltooid</string>
     <string name="uploads_view_group_current_uploads">Huidige</string>
     <string name="uploads_view_group_failed_uploads">Mislukt/Wacht op herstart</string>
-    <string name="uploads_view_group_finished_uploads">Geüpload</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Geannuleerd</string>
     <string name="uploads_view_later_waiting_to_upload">Wachten om te uploaden</string>
     <string name="uploads_view_title">Uploads</string>

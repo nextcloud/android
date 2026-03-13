@@ -972,7 +972,6 @@
     <string name="uploader_wrn_no_account_title">No s\'ha trobat el compte</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
     <string name="uploads_view_group_failed_uploads">Error de reinici/pendent de reiniciar</string>
-    <string name="uploads_view_group_finished_uploads">Carregat</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Cancel·lat</string>
     <string name="uploads_view_later_waiting_to_upload">S\'està esperant per pujar-lo</string>
     <string name="uploads_view_title">Fitxers carregats</string>

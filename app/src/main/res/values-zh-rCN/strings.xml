@@ -601,6 +601,8 @@
     <string name="media_forward_description">快进按钮</string>
     <string name="media_notif_ticker">%1$s 音乐播放器</string>
     <string name="media_play_pause_description">播放 / 暂停按钮</string>
+    <string name="media_player_pause">暂停</string>
+    <string name="media_player_play">玩</string>
     <string name="media_rewind_description">快退按钮</string>
     <string name="media_state_playing">%1$s (正在播放)</string>
     <string name="menu_item_sort_by_date_newest_first">新文件在前</string>
@@ -1122,9 +1124,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">安装</string>
     <string name="uploader_wrn_no_account_text">您的设备上没有账号 %1$s。 请先设置一个账号。</string>
     <string name="uploader_wrn_no_account_title">没有找到账号</string>
+    <string name="uploads_view_group_completed_uploads">已完成</string>
     <string name="uploads_view_group_current_uploads">当前</string>
     <string name="uploads_view_group_failed_uploads">失败 / 等待重启</string>
-    <string name="uploads_view_group_finished_uploads">已上传</string>
     <string name="uploads_view_group_manually_cancelled_uploads">已取消</string>
     <string name="uploads_view_later_waiting_to_upload">等待上传</string>
     <string name="uploads_view_title">上传</string>

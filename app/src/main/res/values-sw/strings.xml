@@ -603,6 +603,8 @@
     <string name="media_forward_description">Kitufe cha kusonga mbele kwa kasi</string>
     <string name="media_notif_ticker">%1$s kicheza muziki</string>
     <string name="media_play_pause_description">Kitufe cha kucheza au kusitisha</string>
+    <string name="media_player_pause">Sitisha</string>
+    <string name="media_player_play">Cheza</string>
     <string name="media_rewind_description">Kitufe cha kurudi nyuma</string>
     <string name="media_state_playing">%1$s (inacheza)</string>
     <string name="menu_item_sort_by_date_newest_first">Mpya kwanza</string>
@@ -1128,9 +1130,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Mpangilio</string>
     <string name="uploader_wrn_no_account_text">Hakuna akaunti %1$s kwenye kifaa chako. Tafadhali fungua akaunti kwanza.</string>
     <string name="uploader_wrn_no_account_title">Hakuna akaunti iliyopatikana</string>
+    <string name="uploads_view_group_completed_uploads">Imekamilika</string>
     <string name="uploads_view_group_current_uploads">Ya sasa</string>
     <string name="uploads_view_group_failed_uploads">Imeshindwa/inasubiri kuwasha upya</string>
-    <string name="uploads_view_group_finished_uploads">Imepakiwa</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Imeghairiwa</string>
     <string name="uploads_view_later_waiting_to_upload">Inasubiri kupakia</string>
     <string name="uploads_view_title">Vipakiwa</string>

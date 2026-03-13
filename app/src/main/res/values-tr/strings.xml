@@ -605,6 +605,8 @@
     <string name="media_forward_description">İleri alma düğmesi</string>
     <string name="media_notif_ticker">%1$s müzik oynatıcı</string>
     <string name="media_play_pause_description">Oynatma ya da duraklatma düğmesi</string>
+    <string name="media_player_pause">Duraklat</string>
+    <string name="media_player_play">Oynat</string>
     <string name="media_rewind_description">Geri alma düğmesi</string>
     <string name="media_state_playing">%1$s (oynatılıyor)</string>
     <string name="menu_item_sort_by_date_newest_first">Yeniden eskiye</string>
@@ -1130,9 +1132,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Kurulum</string>
     <string name="uploader_wrn_no_account_text">Aygıtınızda herhangi bir %1$s hesabı yok. Lütfen önce bir hesap kurun.</string>
     <string name="uploader_wrn_no_account_title">Herhangi bir hesap bulunamadı</string>
+    <string name="uploads_view_group_completed_uploads">Tamamlanmış</string>
     <string name="uploads_view_group_current_uploads">Geçerli</string>
     <string name="uploads_view_group_failed_uploads">Tamamlanamadı / yeniden başlatma bekleniyor</string>
-    <string name="uploads_view_group_finished_uploads">Yüklendi</string>
     <string name="uploads_view_group_manually_cancelled_uploads">İptal edildi</string>
     <string name="uploads_view_later_waiting_to_upload">Yüklenmeyi bekliyor</string>
     <string name="uploads_view_title">Yüklemeler</string>

@@ -562,6 +562,8 @@
     <string name="media_forward_description">Spóla-hratt-áfram hnappur</string>
     <string name="media_notif_ticker">%1$s tónlistarspilari</string>
     <string name="media_play_pause_description">Afspilun-eða-hlé hnappur</string>
+    <string name="media_player_pause">Í bið</string>
+    <string name="media_player_play">Spila</string>
     <string name="media_rewind_description">Spóla-til-baka hnappur</string>
     <string name="media_state_playing">%1$s (í spilun)</string>
     <string name="menu_item_sort_by_date_newest_first">Nýjast fyrst</string>
@@ -1063,9 +1065,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Uppsetning</string>
     <string name="uploader_wrn_no_account_text">Það eru engir %1$s aðgangar á tækinu þínu. Settu fyrst upp notandaaðgang.</string>
     <string name="uploader_wrn_no_account_title">Enginn notandaaðgangur fannst</string>
+    <string name="uploads_view_group_completed_uploads">Lokið</string>
     <string name="uploads_view_group_current_uploads">Núverandi</string>
     <string name="uploads_view_group_failed_uploads">Mistókst/Bíður endurræsingar</string>
-    <string name="uploads_view_group_finished_uploads">Hlaðið inn</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Hætt við</string>
     <string name="uploads_view_later_waiting_to_upload">Bíð eftir að senda inn</string>
     <string name="uploads_view_title">Innsendingar</string>

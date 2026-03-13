@@ -605,6 +605,8 @@
     <string name="media_forward_description">Перемотка вперед</string>
     <string name="media_notif_ticker">%1$s музичний програвач</string>
     <string name="media_play_pause_description">Відтворення або пауза</string>
+    <string name="media_player_pause">Пауза</string>
+    <string name="media_player_play">Грати</string>
     <string name="media_rewind_description">Перемтка назад</string>
     <string name="media_state_playing">%1$s (програвання)</string>
     <string name="menu_item_sort_by_date_newest_first">Новіші спочатку</string>
@@ -1130,9 +1132,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Налаштування</string>
     <string name="uploader_wrn_no_account_text">На вашому пристрої немає %1$s облікових записів. Будь ласка, спочатку створіть обліковий запис.</string>
     <string name="uploader_wrn_no_account_title">Не знайдено облікового запису</string>
+    <string name="uploads_view_group_completed_uploads">Виконано</string>
     <string name="uploads_view_group_current_uploads">Поточний</string>
     <string name="uploads_view_group_failed_uploads">Не вдалося/триває перезапуск</string>
-    <string name="uploads_view_group_finished_uploads">Завантажено</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Скасовано</string>
     <string name="uploads_view_later_waiting_to_upload">Очікування завантаження</string>
     <string name="uploads_view_title">Завантаження</string>

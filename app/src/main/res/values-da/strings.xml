@@ -1078,7 +1078,6 @@
     <string name="uploader_wrn_no_account_title">Ingen konto fundet</string>
     <string name="uploads_view_group_current_uploads">Nuværende</string>
     <string name="uploads_view_group_failed_uploads">Fejl/venter på genstart</string>
-    <string name="uploads_view_group_finished_uploads">Sendt</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Annulleret</string>
     <string name="uploads_view_later_waiting_to_upload">Venter med upload</string>
     <string name="uploads_view_title">Uploadede filer</string>

@@ -610,7 +610,6 @@
     <string name="uploader_wrn_no_account_text">Nun hai nenguna cuenta %1$s nel to preséu. Por favor configura una cuenta enantes.</string>
     <string name="uploader_wrn_no_account_title">Nun s\'alcontraron cuentes</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
-    <string name="uploads_view_group_finished_uploads">Xubíu</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Encaboxáu</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando pa xubir</string>
     <string name="uploads_view_title">Xubes</string>

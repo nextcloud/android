@@ -546,6 +546,7 @@
     <string name="media_err_unsupported">Akudak n umidya ur yettwasefrak ara</string>
     <string name="media_notif_ticker">%1$s imeɣri n uẓawan</string>
     <string name="media_play_pause_description">Taqeffalt n tɣuṛi neɣ usarǧu</string>
+    <string name="media_player_pause">Aḥbas</string>
     <string name="media_rewind_description">Taqeffalt n tuɣalin </string>
     <string name="media_state_playing">%1$s (taɣuṛi)</string>
     <string name="menu_item_sort_by_date_newest_first">Imaynuten d imezwura</string>
@@ -724,6 +725,7 @@
     <string name="uploader_upload_in_progress_ticker">Asali …</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quitter</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Sbadu</string>
+    <string name="uploads_view_group_completed_uploads">Yemmed</string>
     <string name="uploads_view_group_current_uploads">Amiran</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Ittwasefsex</string>
     <string name="uploads_view_title">Ifuyla yettwaznen</string>

@@ -581,6 +581,8 @@
     <string name="media_forward_description">ປຸ່ມກົດໄປຂ້າງຫນ້າ</string>
     <string name="media_notif_ticker">ເຄື່ອງຫຼິ້ນເພງ%1$s</string>
     <string name="media_play_pause_description">ປຸ່ມ ຫຼິ້ນ ຫຼື ຢຸດ</string>
+    <string name="media_player_pause">Pause</string>
+    <string name="media_player_play">Play</string>
     <string name="media_rewind_description">ປຸຸ່ມກັບຄືນ</string>
     <string name="media_state_playing"> (ຫຼິ້ນ)%1$s</string>
     <string name="menu_item_sort_by_date_newest_first">ໃໝ່ທີ່ສຸດກ່ອນ</string>
@@ -1087,9 +1089,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">ການຕັ້ງຄ່າ</string>
     <string name="uploader_wrn_no_account_text">ບໍ່ມີບັນຊີ%1$sໃນອຸປະກອນຂອງທ່ານ. ກະລຸນາຕັ້ງບັນຊີກ່ອນ.</string>
     <string name="uploader_wrn_no_account_title">ບໍ່ພົບບັນຊີ</string>
+    <string name="uploads_view_group_completed_uploads">ສຳເລັດ</string>
     <string name="uploads_view_group_current_uploads">ປັດຈຸບັນ</string>
     <string name="uploads_view_group_failed_uploads">ການເລີ່ມບໍ່ສຳເລັດ/ຄ້າງ</string>
-    <string name="uploads_view_group_finished_uploads">ອັບໂຫຼດແລ້ວ</string>
     <string name="uploads_view_group_manually_cancelled_uploads">ຍົກເລີກ</string>
     <string name="uploads_view_later_waiting_to_upload">ລໍຖ້າເພື່ອອັບໂຫຼດ</string>
     <string name="uploads_view_title">ອັບໂຫຼດ</string>

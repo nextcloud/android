@@ -778,7 +778,6 @@
     <string name="uploader_wrn_no_account_title">Kont ebet kavet</string>
     <string name="uploads_view_group_current_uploads">A red</string>
     <string name="uploads_view_group_failed_uploads">Adlakaat war dro c\'hwitet pe re hir</string>
-    <string name="uploads_view_group_finished_uploads">Pellkaset</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Nullet</string>
     <string name="uploads_view_later_waiting_to_upload">O gortoz ar pellkas</string>
     <string name="uploads_view_title">Pellkasadennoù</string>

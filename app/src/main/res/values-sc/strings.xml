@@ -412,6 +412,7 @@
     <string name="media_forward_description">Butone bae a in antis a sa lestra</string>
     <string name="media_notif_ticker">%1$s riprodutore de mùsica</string>
     <string name="media_play_pause_description">Butone reprodue o pàusa</string>
+    <string name="media_player_pause">Pàusa</string>
     <string name="media_rewind_description">Butone torra in segus</string>
     <string name="media_state_playing">%1$s (in riprodutzione)</string>
     <string name="menu_item_sort_by_date_newest_first">Prima su prus nou</string>
@@ -791,9 +792,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Cunfigura</string>
     <string name="uploader_wrn_no_account_text">Non ddoe sunt %1$s contos in su dispositivu tuo. Prima cunfigura unu contu.</string>
     <string name="uploader_wrn_no_account_title">Perunu contu agatadu</string>
+    <string name="uploads_view_group_completed_uploads">Cumpletadu</string>
     <string name="uploads_view_group_current_uploads">Atuale</string>
     <string name="uploads_view_group_failed_uploads">Faddidu/in isetu de aviare torra</string>
-    <string name="uploads_view_group_finished_uploads">Carrigadu</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Annulladu</string>
     <string name="uploads_view_later_waiting_to_upload">Abetende pro carrigare</string>
     <string name="uploads_view_title">Carrigamentos</string>

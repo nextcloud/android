@@ -870,7 +870,6 @@
     <string name="uploader_wrn_no_account_title">Δεν βρέθηκε λογαριασμός</string>
     <string name="uploads_view_group_current_uploads">Τρέχουσα</string>
     <string name="uploads_view_group_failed_uploads">Αποτυχία/αναμονή επανεκκίνησης</string>
-    <string name="uploads_view_group_finished_uploads">Μεταφορτώθηκε</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Ακυρώθηκε</string>
     <string name="uploads_view_later_waiting_to_upload">Αναμονή για μεταφόρτωση</string>
     <string name="uploads_view_title">Μεταφορτώσεις</string>

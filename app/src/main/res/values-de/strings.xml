@@ -48,12 +48,13 @@
     <string name="assistant_output_generation_warning_text">Die hier gezeigte Ausgabe wurde von KI erstellt. Bitte genau überprüfen.</string>
     <string name="assistant_screen_chat_create_error">Eine Nachricht konnte nicht gesendet werden</string>
     <string name="assistant_screen_chat_fetch_error">Chatnachrichten konnten nicht abgerufen werden</string>
+    <string name="assistant_screen_chat_generate_error">Antwort konnte nicht generiert werden</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Zurück zur Assistentenseite wechseln</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Möchten Sie diese Aufgabe wirklich löschen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Aufgabe löschen</string>
     <string name="assistant_screen_empty_content_description">Versuchen Sie, eine Nachricht zu senden, um eine Unterhaltung anzustoßen.</string>
     <string name="assistant_screen_empty_content_title">Hallo! Womit kann ich Ihnen heute helfen?</string>
-    <string name="assistant_screen_retry_response_generation">Antworterstellung wiederholen</string>
+    <string name="assistant_screen_retry_response_generation">Antwortgenerierung wiederholen</string>
     <string name="assistant_screen_select_task">Bitte eine Aufgabe auswählen</string>
     <string name="assistant_screen_send_message">Nachricht senden</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Liste der Unterhaltungen öffnen</string>
@@ -1132,7 +1133,6 @@
     <string name="uploader_wrn_no_account_title">Kein Konto gefunden</string>
     <string name="uploads_view_group_current_uploads">Aktuell</string>
     <string name="uploads_view_group_failed_uploads">Fehlgeschlagene/Wartende neustarten</string>
-    <string name="uploads_view_group_finished_uploads">Hochgeladen</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Abgebrochen</string>
     <string name="uploads_view_later_waiting_to_upload">Warte auf Hochladen</string>
     <string name="uploads_view_title">Uploads</string>

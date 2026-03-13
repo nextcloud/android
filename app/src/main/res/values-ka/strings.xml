@@ -464,6 +464,7 @@
     <string name="media_forward_description">Fast forward button</string>
     <string name="media_notif_ticker">%1$s music player</string>
     <string name="media_play_pause_description">Play or pause button</string>
+    <string name="media_player_play">Play</string>
     <string name="media_rewind_description">Rewind button</string>
     <string name="media_state_playing">%1$s (playing)</string>
     <string name="menu_item_sort_by_date_newest_first">Newest first</string>
@@ -866,9 +867,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please set up an account first.</string>
     <string name="uploader_wrn_no_account_title">No account found</string>
+    <string name="uploads_view_group_completed_uploads">Completed</string>
     <string name="uploads_view_group_current_uploads">Current</string>
     <string name="uploads_view_group_failed_uploads">Failed/pending restart</string>
-    <string name="uploads_view_group_finished_uploads">Uploaded</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Cancelled</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_title">Uploads</string>

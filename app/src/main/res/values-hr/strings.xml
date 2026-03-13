@@ -605,6 +605,8 @@
     <string name="media_forward_description">Tipka za ubrzavanje reprodukcije</string>
     <string name="media_notif_ticker">Alat za reprodukciju glazbe %1$s</string>
     <string name="media_play_pause_description">Tipka za reprodukciju ili pauzu</string>
+    <string name="media_player_pause">Pauza</string>
+    <string name="media_player_play">Zabava</string>
     <string name="media_rewind_description">Tipka za premotavanje</string>
     <string name="media_state_playing">%1$s (reprodukcija)</string>
     <string name="menu_item_sort_by_date_newest_first">Najnoviji prvi</string>
@@ -1131,9 +1133,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Podesi</string>
     <string name="uploader_wrn_no_account_text">Ne postoje %1$s računi na vašem uređaju. Prvo postavite račun.</string>
     <string name="uploader_wrn_no_account_title">Račun nije pronađen</string>
+    <string name="uploads_view_group_completed_uploads">Završeno</string>
     <string name="uploads_view_group_current_uploads">Trenutno</string>
     <string name="uploads_view_group_failed_uploads">Neuspješno/čekanje na ponovno pokretanje</string>
-    <string name="uploads_view_group_finished_uploads">Otpremljeno</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Otkazano</string>
     <string name="uploads_view_later_waiting_to_upload">Čekanje otpreme</string>
     <string name="uploads_view_title">Otpreme</string>

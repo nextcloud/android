@@ -547,6 +547,8 @@
     <string name="media_forward_description">Bizkor aurreratu botoia</string>
     <string name="media_notif_ticker">%1$s musika erreproduzigailua</string>
     <string name="media_play_pause_description">Erreproduzitu edo pausatu botoia</string>
+    <string name="media_player_pause">Gelditu</string>
+    <string name="media_player_play">Jokatu</string>
     <string name="media_rewind_description">Birbobinatu botoia</string>
     <string name="media_state_playing">%1$s (erreproduzitzen)</string>
     <string name="menu_item_sort_by_date_newest_first">Berriena lehenengo</string>
@@ -1032,9 +1034,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Konfigurazioa</string>
     <string name="uploader_wrn_no_account_text">Ez dago %1$s konturik zure gailuan. Mesedez, konfiguratu kontu bat lehenbizi.</string>
     <string name="uploader_wrn_no_account_title">Ez da konturik aurkitu</string>
+    <string name="uploads_view_group_completed_uploads">Osatua</string>
     <string name="uploads_view_group_current_uploads">Unekoa</string>
     <string name="uploads_view_group_failed_uploads">Berrabiarazteko zain/huts egin du.</string>
-    <string name="uploads_view_group_finished_uploads">Igoa</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Ezeztatua</string>
     <string name="uploads_view_later_waiting_to_upload">Igotzeko itxoiten</string>
     <string name="uploads_view_title">Kargak</string>

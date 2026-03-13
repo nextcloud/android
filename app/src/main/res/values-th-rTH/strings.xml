@@ -393,6 +393,8 @@
     <string name="media_forward_description">ปุ่มเลื่อนไปข้างหน้า</string>
     <string name="media_notif_ticker">โปรแกรมเล่นเพลง %1$s</string>
     <string name="media_play_pause_description">เล่นหรือกดปุ่มหยุดชั่วคราว</string>
+    <string name="media_player_pause">หยุดชั่วคราว</string>
+    <string name="media_player_play">เล่น</string>
     <string name="media_rewind_description">ปุ่มย้อนกลับ</string>
     <string name="media_state_playing">%1$s (เล่นอยู่)</string>
     <string name="menu_item_sort_by_date_newest_first">ใหม่ที่สุดก่อน</string>
@@ -604,8 +606,8 @@
     <string name="uploader_wrn_no_account_setup_btn_text">ตั้งค่า</string>
     <string name="uploader_wrn_no_account_text">ไม่มีบัญชีผู้ใช้ %1$s ในอุปกรณ์ของคุณ กรุณาตั้งค่าบัญชีผู้ใช้ก่อน</string>
     <string name="uploader_wrn_no_account_title">ไม่พบบัญชี</string>
+    <string name="uploads_view_group_completed_uploads">เสร็จแล้ว</string>
     <string name="uploads_view_group_current_uploads">ปัจจุบัน</string>
-    <string name="uploads_view_group_finished_uploads">ถูกอัพโหลด</string>
     <string name="uploads_view_group_manually_cancelled_uploads">ยกเลิกแล้ว</string>
     <string name="uploads_view_later_waiting_to_upload">กำลังรอที่จะอัปโหลด</string>
     <string name="uploads_view_title">อัปโหลด</string>

@@ -484,6 +484,8 @@
     <string name="media_forward_description">دکمه رو به جلو سریع</string>
     <string name="media_notif_ticker">%1$s پخش کننده موسیقی</string>
     <string name="media_play_pause_description">دکمه پخش یا توقف</string>
+    <string name="media_player_pause">توقف کردن</string>
+    <string name="media_player_play">پخش کردن</string>
     <string name="media_rewind_description">دکمه عقبگرد</string>
     <string name="media_state_playing">%1$s (در حال پخش)</string>
     <string name="menu_item_sort_by_date_newest_first">تازه ترین ها اول </string>
@@ -913,9 +915,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">نصب</string>
     <string name="uploader_wrn_no_account_text">هیچ حساب کاربری %1$s برای دستگاه شما وجود ندارد. لطفا ابتدا  یک حساب ایجاد کنید </string>
     <string name="uploader_wrn_no_account_title">هیچ حسابی یافت نشد</string>
+    <string name="uploads_view_group_completed_uploads">نکمیل شده</string>
     <string name="uploads_view_group_current_uploads">کنونی</string>
     <string name="uploads_view_group_failed_uploads">شکست. در انتظار شروع دوباره</string>
-    <string name="uploads_view_group_finished_uploads">آپلود شده</string>
     <string name="uploads_view_group_manually_cancelled_uploads">لغو شده</string>
     <string name="uploads_view_later_waiting_to_upload">درحال انتظار برای آپلود</string>
     <string name="uploads_view_title">آپلودها</string>

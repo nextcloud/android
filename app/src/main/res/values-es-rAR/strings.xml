@@ -487,6 +487,8 @@
     <string name="media_forward_description">Botón de avanzar rápido</string>
     <string name="media_notif_ticker">%1$s reproductor de música</string>
     <string name="media_play_pause_description">Botón de reproducir o pausar</string>
+    <string name="media_player_pause">Pausar</string>
+    <string name="media_player_play">Reproducir</string>
     <string name="media_rewind_description">Botón de rebobinar</string>
     <string name="media_state_playing">%1$s (reproduciendo)</string>
     <string name="menu_item_sort_by_date_newest_first">Más reciente primero</string>
@@ -921,7 +923,6 @@
     <string name="uploader_wrn_no_account_title">No se encontró la cuenta</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
     <string name="uploads_view_group_failed_uploads">Reinicio fallido/pendiente</string>
-    <string name="uploads_view_group_finished_uploads">Cargado</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Cancelado</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando para cargar</string>
     <string name="uploads_view_title">Cargas</string>
