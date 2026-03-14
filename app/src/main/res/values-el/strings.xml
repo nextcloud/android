@@ -469,6 +469,8 @@
     <string name="media_forward_description">Κουμπί γρήγορης προώθησης</string>
     <string name="media_notif_ticker">%1$sαναπαραγωγή μουσικής</string>
     <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
+    <string name="media_player_pause">Παύση</string>
+    <string name="media_player_play">Αναπαραγωγή</string>
     <string name="media_rewind_description">Κουμπί ταχείας κίνησης πίσω</string>
     <string name="media_state_playing">%1$s(αναπαραγωγή)</string>
     <string name="menu_item_sort_by_date_newest_first">Νεότερο πρώτα</string>
@@ -868,6 +870,7 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Ρύθμιση</string>
     <string name="uploader_wrn_no_account_text">Δεν υπάρχουν λογαριασμοί %1$s στη συσκευή σας. Παρακαλώ ρυθμίστε πρώτα ένα λογαριασμό.</string>
     <string name="uploader_wrn_no_account_title">Δεν βρέθηκε λογαριασμός</string>
+    <string name="uploads_view_group_completed_uploads">Ολοκληρωμένες</string>
     <string name="uploads_view_group_current_uploads">Τρέχουσα</string>
     <string name="uploads_view_group_failed_uploads">Αποτυχία/αναμονή επανεκκίνησης</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Ακυρώθηκε</string>

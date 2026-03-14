@@ -461,6 +461,8 @@
     <string name="media_forward_description">Бутон за превъртане напред</string>
     <string name="media_notif_ticker">%1$s музикален плеър</string>
     <string name="media_play_pause_description">Бутон възпроизведи / пауза </string>
+    <string name="media_player_pause">Пауза</string>
+    <string name="media_player_play">Пускане</string>
     <string name="media_rewind_description">Бутон за превъртане назад</string>
     <string name="media_state_playing">%1$s (възпроизвеждане)</string>
     <string name="menu_item_sort_by_date_newest_first">Най-нов</string>
@@ -857,6 +859,7 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
     <string name="uploader_wrn_no_account_text">На устройството няма профил за %1$s. Моля съдайте такъв.</string>
     <string name="uploader_wrn_no_account_title">Не е открит профил</string>
+    <string name="uploads_view_group_completed_uploads">Завършен</string>
     <string name="uploads_view_group_current_uploads">Текущ</string>
     <string name="uploads_view_group_failed_uploads">Провален/в очакване на рестарт</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Отказано</string>

@@ -50,7 +50,7 @@
     <string name="assistant_screen_chat_fetch_error">Chatnachrichten konnten nicht abgerufen werden</string>
     <string name="assistant_screen_chat_generate_error">Antwort konnte nicht generiert werden</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Zurück zur Assistentenseite wechseln</string>
-    <string name="assistant_screen_delete_task_alert_dialog_description">Möchten Sie diese Aufgabe wirklich löschen?</string>
+    <string name="assistant_screen_delete_task_alert_dialog_description">Soll diese Aufgabe gelöscht werden?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Aufgabe löschen</string>
     <string name="assistant_screen_empty_content_description">Versuchen Sie, eine Nachricht zu senden, um eine Unterhaltung anzustoßen.</string>
     <string name="assistant_screen_empty_content_title">Hallo! Womit kann ich Ihnen heute helfen?</string>
@@ -204,10 +204,10 @@
     <string name="compose_activity_label">Nextcloud Assistant</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurieren</string>
     <string name="confirm_removal">Lokale Verschlüsselung entfernen</string>
-    <string name="confirmation_remove_file_alert">Wollen Sie %1$s wirklich löschen?</string>
-    <string name="confirmation_remove_files_alert">Möchten Sie die ausgewählten Elemente wirklich löschen?</string>
-    <string name="confirmation_remove_folder_alert">Wollen Sie %1$s und deren Inhalte wirklich löschen?</string>
-    <string name="confirmation_remove_folders_alert">Möchten Sie die ausgewählten Elemente und deren inhalt wirklich löschen?</string>
+    <string name="confirmation_remove_file_alert">Soll %1$s gelöscht werden?</string>
+    <string name="confirmation_remove_files_alert">Sollen die ausgewählten Elemente gelöscht werden?</string>
+    <string name="confirmation_remove_folder_alert">Soll %1$s und deren Inhalte gelöscht werden?</string>
+    <string name="confirmation_remove_folders_alert">Sollen die ausgewählten Elemente und deren Inhalt gelöscht werden?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="conflict_dialog_error">Konfliktlösungsdialog konnte nicht erstellt werden</string>
     <string name="conflict_folder_headline">Ordnerkonflikt</string>
@@ -470,7 +470,7 @@
     <string name="file_migration_preparing">Bereite Migration vor…</string>
     <string name="file_migration_restoring_accounts_configuration">Konfiguration der Konten wiederherstellen…</string>
     <string name="file_migration_saving_accounts_configuration">Sichere Konfiguration der Konten…</string>
-    <string name="file_migration_source_not_readable">Möchten Sie wirklich den Speicherordner in %1$s ändern?\n\nHinweis: Alle Daten müssen dann erneut heruntergeladen werden. </string>
+    <string name="file_migration_source_not_readable">Soll der Speicherordner in %1$s geändert werden?\n\nHinweis: Alle Daten müssen dann erneut heruntergeladen werden. </string>
     <string name="file_migration_source_not_readable_title">Quellverzeichnis kann nicht gelesen werden!</string>
     <string name="file_migration_updating_index">Aktualisiere Index…</string>
     <string name="file_migration_use_data_folder">Verwende bestehenden</string>
@@ -606,6 +606,11 @@
     <string name="media_forward_description">Vorspulknopf</string>
     <string name="media_notif_ticker">%1$s Musik Player</string>
     <string name="media_play_pause_description">Wiedergabe-/Pause Knopf</string>
+    <string name="media_player_pause">Pausieren</string>
+    <string name="media_player_play">Spielen</string>
+    <string name="media_player_playing">Medien abspielen</string>
+    <string name="media_player_seek_backward">Rückwärts suchen</string>
+    <string name="media_player_seek_forward">Vorwärts suchen</string>
     <string name="media_rewind_description">Rückspulknopf</string>
     <string name="media_state_playing">%1$s (wird abgespielt)</string>
     <string name="menu_item_sort_by_date_newest_first">Neue zuerst</string>
@@ -1131,6 +1136,7 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Einrichten</string>
     <string name="uploader_wrn_no_account_text">Es sind keine %1$s Konten auf Ihrem Gerät eingerichtet. Bitte erstellen Sie zuerst ein Konto.</string>
     <string name="uploader_wrn_no_account_title">Kein Konto gefunden</string>
+    <string name="uploads_view_group_completed_uploads">Fertiggestellt</string>
     <string name="uploads_view_group_current_uploads">Aktuell</string>
     <string name="uploads_view_group_failed_uploads">Fehlgeschlagene/Wartende neustarten</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Abgebrochen</string>

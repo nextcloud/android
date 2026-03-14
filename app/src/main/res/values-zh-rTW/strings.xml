@@ -608,6 +608,9 @@
     <string name="media_play_pause_description">播放或暫停按鈕</string>
     <string name="media_player_pause">暫停</string>
     <string name="media_player_play">播放</string>
+    <string name="media_player_playing">正在播放媒體</string>
+    <string name="media_player_seek_backward">倒帶</string>
+    <string name="media_player_seek_forward">快轉</string>
     <string name="media_rewind_description">倒帶按鈕</string>
     <string name="media_state_playing">%1$s（播放中）</string>
     <string name="menu_item_sort_by_date_newest_first">新的在前</string>
