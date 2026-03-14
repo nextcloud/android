@@ -39,6 +39,7 @@ class FolderDownloadWorker(
         private const val TAG = "📂" + "FolderDownloadWorker"
         const val FOLDER_ID = "FOLDER_ID"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
+        const val RECURSIVE_DOWNLOAD = "RECURSIVE_DOWNLOAD"
 
         private val pendingDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet<Long>()
 
@@ -62,6 +63,8 @@ class FolderDownloadWorker(
             return Result.failure()
         }
 
+        val recursiveDownload = inputData.getBoolean(RECURSIVE_DOWNLOAD, false)
+
         val optionalUser = accountManager.getUser(accountName)
         if (optionalUser.isEmpty) {
             Log_OC.e(TAG, "failed user is not present")
@@ -76,7 +79,7 @@ class FolderDownloadWorker(
             return Result.failure()
         }
 
-        Log_OC.d(TAG, "🕒 started for ${user.accountName} downloading ${folder.fileName}")
+        Log_OC.d(TAG, "🕒 started for ${user.accountName} downloading ${folder.fileName} (recursive: $recursiveDownload)")
 
         trySetForeground(folder)
 
@@ -87,7 +90,13 @@ class FolderDownloadWorker(
 
         return withContext(Dispatchers.IO) {
             try {
-                val files = getFiles(folder, storageManager)
+                val files = getFiles(folder, storageManager, recursiveDownload)
+                
+                // Add warning log when no files found for recursive download
+                if (files.isEmpty()) {
+                    Log_OC.w(TAG, "⚠️ No files found for recursive download in folder: ${folder.fileName}")
+                }
+                
                 val account = user.toOwnCloudAccount()
                 val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(account, context)
 
@@ -184,9 +193,40 @@ class FolderDownloadWorker(
         return file
     }
 
-    private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =
-        storageManager.getFolderContent(folder, false)
-            .filter { !it.isFolder && !it.isDown }
+    private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager, recursive: Boolean): List<OCFile> {
+        if (recursive) {
+            return getAllFilesRecursive(folder, storageManager)
+        }
+        // Use folder ID to avoid fileExists() check
+        return storageManager.getFolderContent(folder.fileId, false)
+            .filter { !it.isFolder }
+    }
+
+    /**
+     * Recursively get all files in the folder and its subfolders
+     */
+    private fun getAllFilesRecursive(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> {
+        val result = mutableListOf<OCFile>()
+        
+        // Use the folder ID directly to avoid fileExists() check that fails for subfolders not yet downloaded
+        val folderContent = storageManager.getFolderContent(folder.fileId, false)
+        
+        Log_OC.d(TAG, "📂 getAllFilesRecursive: folder=${folder.fileName}, folderId=${folder.fileId}, contentCount=${folderContent.size}")
+        
+        for (file in folderContent) {
+            if (!file.isFolder) {
+                // Add all files, regardless of download status, to ensure subfolders are synced
+                result.add(file)
+            } else {
+                Log_OC.d(TAG, "📂 Found subfolder: ${file.fileName}, recursing...")
+                // Recursively process subfolders
+                result.addAll(getAllFilesRecursive(file, storageManager))
+            }
+        }
+        
+        Log_OC.d(TAG, "📂 getAllFilesRecursive: returning ${result.size} files from folder ${folder.fileName}")
+        return result
+    }
 
     private fun checkDiskSize(file: OCFile): Boolean {
         val fileSizeInByte = file.fileLength

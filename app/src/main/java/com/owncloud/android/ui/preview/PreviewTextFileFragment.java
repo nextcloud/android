@@ -303,10 +303,15 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         } else if (itemId == R.id.action_see_details) {
             seeDetails();
         } else if (itemId == R.id.action_sync_file) {
-            if (containerActivity instanceof FileActivity activity) {
-                activity.showSyncLoadingDialog(getFile().isFolder());
+            if (getFile().isFolder() && containerActivity instanceof FileActivity activity) {
+                // Show confirmation dialog for folders
+                activity.showSyncFolderConfirmation(getFile());
+            } else {
+                if (containerActivity instanceof FileActivity activity) {
+                    activity.showSyncLoadingDialog(getFile().isFolder());
+                }
+                containerActivity.getFileOperationsHelper().syncFile(getFile());
             }
-            containerActivity.getFileOperationsHelper().syncFile(getFile());
         } else if(itemId == R.id.action_cancel_sync){
             containerActivity.getFileOperationsHelper().cancelTransference(getFile());
         } else if (itemId == R.id.action_edit) {

@@ -488,7 +488,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
             }
         } else {
-            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName());
+            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName(), false);
         }
     }
 

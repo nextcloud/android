@@ -30,7 +30,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
+import android.view.View;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -1034,6 +1036,53 @@ public abstract class FileActivity extends DrawerActivity
         }
 
         showLoadingDialog(getApplicationContext().getString(R.string.wait_a_moment));
+    }
+
+    /**
+     * Show confirmation dialog for downloading all subfolders recursively
+     */
+    public void showDownloadFolderRecursiveConfirmation(OCFile folder) {
+        if (folder == null || !folder.isFolder()) {
+            return;
+        }
+
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.filedetails_sync_file_recursive)
+            .setMessage(R.string.filedetails_sync_file_recursive_message)
+            .setPositiveButton(R.string.common_ok, (dialog, which) -> {
+                // Trigger the recursive download
+                getFileOperationsHelper().downloadFolderRecursive(folder);
+            })
+            .setNegativeButton(R.string.common_cancel, null)
+            .show();
+    }
+
+    /**
+     * Show confirmation dialog for syncing a folder with optional subfolder sync
+     */
+    public void showSyncFolderConfirmation(OCFile folder) {
+        if (folder == null || !folder.isFolder()) {
+            return;
+        }
+
+        View checkBoxView = View.inflate(this, android.R.layout.simple_list_item_multiple_choice, null);
+        android.widget.CheckedTextView checkBox = checkBoxView.findViewById(android.R.id.text1);
+        checkBox.setText(R.string.filedetails_sync_file_include_subfolders);
+        checkBox.setChecked(false);
+        checkBox.setFocusable(true);
+        checkBox.setClickable(true);
+        checkBox.setOnClickListener(v -> checkBox.setChecked(!checkBox.isChecked()));
+
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.filedetails_sync_file)
+            .setMessage(R.string.filedetails_sync_file_message)
+            .setView(checkBoxView)
+            .setPositiveButton(R.string.common_ok, (dialog, which) -> {
+                // Trigger sync with or without recursive based on checkbox
+                getFileOperationsHelper().syncFile(folder, checkBox.isChecked());
+            })
+            .setNegativeButton(R.string.common_cancel, null)
+            .show();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

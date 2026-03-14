@@ -40,6 +40,7 @@ enum class FileAction(
     // Uploads and downloads
     DOWNLOAD_FILE(R.id.action_download_file, R.string.filedetails_download, R.drawable.ic_cloud_download),
     DOWNLOAD_FOLDER(R.id.action_sync_file, R.string.filedetails_sync_file, R.drawable.ic_sync),
+    DOWNLOAD_FOLDER_RECURSIVE(R.id.action_sync_file_recursive, R.string.filedetails_sync_file_recursive, R.drawable.ic_sync),
     CANCEL_SYNC(R.id.action_cancel_sync, R.string.common_cancel_sync, R.drawable.ic_sync_off),
 
     // File sharing
@@ -136,6 +137,7 @@ enum class FileAction(
             if (file?.isFolder == true) {
                 result.add(R.id.action_send_file)
                 result.add(R.id.action_sync_file)
+                result.add(R.id.action_sync_file_recursive)
             }
 
             if (file?.isAPKorAAB == true) {

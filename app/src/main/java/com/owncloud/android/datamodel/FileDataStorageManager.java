@@ -1278,7 +1278,7 @@ public class FileDataStorageManager {
         }
     }
 
-    private List<OCFile> getFolderContent(long parentId, boolean onlyOnDevice) {
+    public List<OCFile> getFolderContent(long parentId, boolean onlyOnDevice) {
         Log_OC.d(TAG, "getFolderContent - start");
         List<OCFile> folderContent = new ArrayList<>();
 
