@@ -113,7 +113,6 @@
                 app:iconSize="@dimen/iconized_single_line_item_icon_size"
                 app:iconTint="@color/primary" />
 
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_mkdir"
                 style="@style/Widget.App.Button.BottomSheetItem"
@@ -127,6 +126,24 @@
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/bottom_sheet_text_size"
                 app:icon="@drawable/ic_action_create_dir"
+                app:iconGravity="start"
+                app:iconPadding="@dimen/standard_padding"
+                app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                app:iconTint="@color/primary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu_encrypted_mkdir"
+                style="@style/Widget.App.Button.BottomSheetItem"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_sheet_item_height"
+                android:contentDescription="@string/create_new_encrypted_folder"
+                android:gravity="start|center_vertical"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingEnd="@dimen/standard_padding"
+                android:text="@string/create_new_encrypted_folder"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/bottom_sheet_text_size"
+                app:icon="@drawable/ic_action_create_encrypted_dir"
                 app:iconGravity="start"
                 app:iconPadding="@dimen/standard_padding"
                 app:iconSize="@dimen/iconized_single_line_item_icon_size"

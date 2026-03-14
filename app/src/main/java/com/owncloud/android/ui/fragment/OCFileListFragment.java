@@ -528,9 +528,31 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
-    public void createFolder() {
-        CreateFolderDialogFragment.newInstance(mFile)
-            .show(getActivity().getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
+    public void createFolder(boolean encrypted) {
+        final var activity = getActivity();
+        if (activity == null) {
+            Log_OC.e(TAG, "activity is null, cannot create a folder");
+            return;
+        }
+
+        if (encrypted) {
+            User user = accountManager.getUser();
+            String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
+            String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
+
+            if (publicKey.isEmpty() || privateKey.isEmpty()) {
+                Log_OC.w(TAG,"cannot create encrypted folder directly, needs to setup encryption first");
+
+                activity.runOnUiThread(() -> {
+                    final var dialog = SetupEncryptionDialogFragment.newInstance(user, mFile.getRemotePath());
+                    dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
+                });
+                return;
+            }
+        }
+
+        CreateFolderDialogFragment.newInstance(mFile, encrypted)
+            .show(activity.getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
     }
 
     @Override
@@ -1115,10 +1137,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void folderOnItemClick(OCFile file, int position) {
-        if (requireActivity() instanceof FolderPickerActivity) {
+        if (requireActivity() instanceof FolderPickerActivity fpa) {
             String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), requireContext(), null);
             if (filenameErrorMessage != null) {
-                DisplayUtils.showSnackMessage(requireActivity(), filenameErrorMessage);
+                DisplayUtils.showSnackMessage(fpa, filenameErrorMessage);
                 return;
             }
         }
@@ -1310,8 +1332,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     return;
                 }
 
+                if (file.isRootDirectory()) {
+                    Log_OC.d(TAG, "result of setup encryption triggered in root directory, this call is for " +
+                        "creating encrypted folder");
+                    createFolder(true);
+                    return;
+                }
+
                 mContainerActivity.getFileOperationsHelper().toggleEncryption(file, true);
-                mAdapter.setEncryptionAttributeForItemID(file.getRemoteId(), true);
+                mAdapter.updateFileEncryptionById(file.getRemoteId(), true);
                 searchFragment = false;
                 setFileDepth(file);
                 listDirectory(file, MainApp.isOnlyOnDevice());
@@ -1996,7 +2025,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             Log_OC.d(TAG, "encrypt folder " + folder.getRemoteId());
             User user = accountManager.getUser();
             OwnCloudClient client = clientFactory.create(user);
-            RemoteOperationResult remoteOperationResult = new ToggleEncryptionRemoteOperation(localId,
+            final var remoteOperationResult = new ToggleEncryptionRemoteOperation(localId,
                                                                                               remotePath,
                                                                                               shouldBeEncrypted)
                 .execute(client);
@@ -2040,7 +2069,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     throw new IllegalArgumentException("Unknown E2E version");
                 }
 
-                requireActivity().runOnUiThread(() -> mAdapter.setEncryptionAttributeForItemID(remoteId, shouldBeEncrypted));
+                requireActivity().runOnUiThread(() -> {
+                    boolean isFileExists = (mAdapter.getFileByRemoteId(remoteId) != null);
+                    if (!isFileExists) {
+                        OCFile newFile = storageManager.getFileByRemoteId(remoteId);
+                        mAdapter.insertFile(newFile);
+                    }
+
+                    mAdapter.updateFileEncryptionById(remoteId, shouldBeEncrypted);
+                });
             } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN && getRecyclerView() != null) {
                 requireActivity().runOnUiThread(() -> Snackbar.make(getRecyclerView(),
                                                             R.string.end_to_end_encryption_folder_not_empty,

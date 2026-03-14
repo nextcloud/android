@@ -24,6 +24,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.AppScanOptionalFeature
 import com.nextcloud.utils.BuildHelper.isFlavourGPlay
 import com.nextcloud.utils.EditorUtils
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding
@@ -74,6 +75,7 @@ class OCFileListBottomSheetDialog(
         createRichWorkspace()
         setupClickListener()
         filterActionsForOfflineOperations()
+        checkCreateEncryptedFolderVisibility()
 
         if (MainApp.isClientBranded() && isFlavourGPlay()) {
             // this way we can have branded clients with that permission
@@ -90,6 +92,10 @@ class OCFileListBottomSheetDialog(
         }
     }
 
+    private fun checkCreateEncryptedFolderVisibility() {
+        binding.menuEncryptedMkdir.setVisibleIf(file.isRootDirectory)
+    }
+
     private fun applyBranding() {
         viewThemeUtils.material.run {
             binding.run {
@@ -98,6 +104,7 @@ class OCFileListBottomSheetDialog(
                 colorMaterialButtonContent(menuDirectCameraUpload, ColorRole.PRIMARY)
                 colorMaterialButtonContent(menuScanDocUpload, ColorRole.PRIMARY)
                 colorMaterialButtonContent(menuMkdir, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuEncryptedMkdir, ColorRole.PRIMARY)
                 colorMaterialButtonContent(menuCreateRichWorkspace, ColorRole.PRIMARY)
             }
         }
@@ -112,6 +119,7 @@ class OCFileListBottomSheetDialog(
             menuDirectCameraUpload.setTextColor(textColor)
             menuScanDocUpload.setTextColor(textColor)
             menuMkdir.setTextColor(textColor)
+            menuEncryptedMkdir.setTextColor(textColor)
             menuCreateRichWorkspace.setTextColor(textColor)
         }
     }
@@ -226,7 +234,12 @@ class OCFileListBottomSheetDialog(
             }
 
             menuMkdir.setOnClickListener {
-                actions.createFolder()
+                actions.createFolder(encrypted = false)
+                dismiss()
+            }
+
+            menuEncryptedMkdir.setOnClickListener {
+                actions.createFolder(encrypted = true)
                 dismiss()
             }
 
