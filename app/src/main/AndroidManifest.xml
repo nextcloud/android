@@ -286,9 +286,6 @@
             android:name=".ui.activity.NotificationsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.CommunityActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.activities.ActivitiesActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false" />
@@ -700,6 +697,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.navigation.NavigatorActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
