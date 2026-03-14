@@ -608,6 +608,9 @@
     <string name="media_play_pause_description">Botão reproduzir ou pausar</string>
     <string name="media_player_pause">Pausar</string>
     <string name="media_player_play">Peça teatral</string>
+    <string name="media_player_playing">Reproduzindo mídia</string>
+    <string name="media_player_seek_backward">Buscar para trás</string>
+    <string name="media_player_seek_forward">Buscar para a frente</string>
     <string name="media_rewind_description">Botão rebobinar</string>
     <string name="media_state_playing">%1$s (tocando)</string>
     <string name="menu_item_sort_by_date_newest_first">Mais novos primeiro</string>
