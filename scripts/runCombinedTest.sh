@@ -32,8 +32,8 @@ scripts/wait_for_server.sh "server" || exit 1
 adb logcat -c
 adb logcat > logcat.txt &
 LOGCAT_PID=$!
-./gradlew createGplayDebugCoverageReport \
--Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest \
+./gradlew connectedGplayDebugAndroidTest \
+-Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest \
 -Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED"
 
 stat=$?
@@ -44,10 +44,6 @@ if [ ! $stat -eq 0 ]; then
     upload_logcat
     bash scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" "$DRONE_BUILD_NUMBER" "master" "IT" "$DRONE_PULL_REQUEST"
 fi
-
-curl -Os https://uploader.codecov.io/latest/linux/codecov
-chmod +x codecov
-./codecov -t fc506ba4-33c3-43e4-a760-aada38c24fd5 -F integration
 
 echo "Exit with: " $stat
 exit $stat
