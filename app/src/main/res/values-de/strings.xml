@@ -27,7 +27,7 @@
     <string name="activities_no_results_headline">Bislang keine Aktivitäten</string>
     <string name="activities_no_results_message">Bisher keine Ereignisse wie Hinzugekommenes, Änderungen und Freigaben</string>
     <string name="activity_chooser_send_file_title">Senden</string>
-    <string name="activity_chooser_title">Link senden an…</string>
+    <string name="activity_chooser_title">Link senden an …</string>
     <string name="activity_icon">Aktivitäten</string>
     <string name="add_new_public_share">Öffentlichen Freigabe-Link hinzufügen</string>
     <string name="add_new_secure_file_drop">Neue sichere Dateiablage hinzufügen</string>
@@ -99,7 +99,7 @@
     <string name="auth_ssl_unverified_server_title">SSL-Server-Identität konnte nicht überprüft werden</string>
     <string name="auth_testing_connection">Verbindung testen</string>
     <string name="auth_timeout_title">Der Server braucht zu lange für eine Antwort.</string>
-    <string name="auth_trying_to_login">Versuche Anmeldung…</string>
+    <string name="auth_trying_to_login">Versuche Anmeldung …</string>
     <string name="auth_unauthorized">Falscher Benutzername oder Passwort</string>
     <string name="auth_unknown_error_exception_title">Unbekannter Fehler: %1$s</string>
     <string name="auth_unknown_error_http_title">Es ist ein unbekannter HTTP-Fehler aufgetreten!</string>
@@ -347,12 +347,12 @@
     <string name="end_to_end_encryption_dialog_close">Schließen</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Geben Sie Ihre Passphrase ein, um auf Ihre Dateien zuzugreifen</string>
     <string name="end_to_end_encryption_folder_not_empty">Dieser Ordner ist nicht leer.</string>
-    <string name="end_to_end_encryption_generating_keys">Neue Schlüssel generieren…</string>
+    <string name="end_to_end_encryption_generating_keys">Neue Schlüssel generieren …</string>
     <string name="end_to_end_encryption_keywords_description">Diese 12 Wörter-Phrase ist wie ein sehr starkes Passwort: Sie bietet vollen Zugriff um Ihre verschlüsselten Dateien anzusehen und zu verwenden. Bitte schreiben Sie sie auf und verwahren sie an einem sicheren Ort.</string>
     <string name="end_to_end_encryption_not_enabled">Ende-zu-Ende-Verschlüsselung ist auf diesem Server deaktiviert.</string>
     <string name="end_to_end_encryption_passphrase_title">Notieren Sie Ihre Verschlüsselungs-Passphrase</string>
-    <string name="end_to_end_encryption_password">Passwort…</string>
-    <string name="end_to_end_encryption_retrieving_keys">Schlüssel abrufen…</string>
+    <string name="end_to_end_encryption_password">Passwort …</string>
+    <string name="end_to_end_encryption_retrieving_keys">Schlüssel abrufen …</string>
     <string name="end_to_end_encryption_server_private_key_unavailable">Privater Schlüssel kann nicht abgerufen werden</string>
     <string name="end_to_end_encryption_server_public_key_unavailable">Öffentlicher Schlüssel kann nicht abgerufen werden</string>
     <string name="end_to_end_encryption_storing_keys">Schlüssel speichern</string>
@@ -453,8 +453,8 @@
     <string name="file_management_permission_optional">Speicherberechtigungen</string>
     <string name="file_management_permission_optional_text">%1$s funktioniert am besten mit Berechtigungen für den Zugriff auf den Speicher. Sie können vollen Zugriff auf alle Dateien oder schreibgeschützten Zugriff auf Fotos und Videos wählen.</string>
     <string name="file_migration_allow_media_indexing">Zugriff von anderen Apps zulassen</string>
-    <string name="file_migration_checking_destination">Prüfe Zielort…</string>
-    <string name="file_migration_cleaning">Aufräumen…</string>
+    <string name="file_migration_checking_destination">Prüfe Zielort …</string>
+    <string name="file_migration_cleaning">Aufräumen …</string>
     <string name="file_migration_dialog_title">Aktualisiere Speicherordner</string>
     <string name="file_migration_directory_already_exists">Daten-Verzeichnis existiert bereits. Bitte auswählen:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud-Verzeichnis existiert bereits</string>
@@ -464,12 +464,12 @@
     <string name="file_migration_failed_while_coping">Migration fehlgeschlagen</string>
     <string name="file_migration_failed_while_updating_index">Index konnte nicht aktualisiert werden</string>
     <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
-    <string name="file_migration_migrating">Verschiebe Daten…</string>
+    <string name="file_migration_migrating">Verschiebe Daten …</string>
     <string name="file_migration_ok_finished">Abgeschlossen</string>
     <string name="file_migration_override_data_folder">Überschreiben</string>
     <string name="file_migration_preparing">Bereite Migration vor…</string>
-    <string name="file_migration_restoring_accounts_configuration">Konfiguration der Konten wiederherstellen…</string>
-    <string name="file_migration_saving_accounts_configuration">Sichere Konfiguration der Konten…</string>
+    <string name="file_migration_restoring_accounts_configuration">Konfiguration der Konten wiederherstellen …</string>
+    <string name="file_migration_saving_accounts_configuration">Sichere Konfiguration der Konten …</string>
     <string name="file_migration_source_not_readable">Soll der Speicherordner in %1$s geändert werden?\n\nHinweis: Alle Daten müssen dann erneut heruntergeladen werden. </string>
     <string name="file_migration_source_not_readable_title">Quellverzeichnis kann nicht gelesen werden!</string>
     <string name="file_migration_updating_index">Aktualisiere Index…</string>
@@ -523,7 +523,7 @@
     <string name="forbidden_permissions_delete">diese Datei zu löschen</string>
     <string name="forbidden_permissions_move">um diese Datei zu verschieben</string>
     <string name="forbidden_permissions_rename">diese Datei umzubenennen</string>
-    <string name="foreground_service_upload">Dateien werden hochgeladen…</string>
+    <string name="foreground_service_upload">Dateien werden hochgeladen …</string>
     <string name="foreign_files_fail">Einige Dateien konnten nicht verschoben werden</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_move">Alle verschieben</string>
@@ -708,7 +708,7 @@
     <string name="pin_shortcut_label">%1$s öffnen</string>
     <string name="player_stop">Stopp</string>
     <string name="player_toggle">Umschalten</string>
-    <string name="please_select_a_server">Bitte einen Server auswählen…</string>
+    <string name="please_select_a_server">Bitte einen Server auswählen …</string>
     <string name="power_save_check_dialog_message">Bei deaktiviertem Energiesparmodus werden Daten auch bei niedrigem Batterieladezustand hochgeladen.</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
@@ -781,7 +781,7 @@
     <string name="prefs_value_theme_light">Hell</string>
     <string name="prefs_value_theme_system">Systemvorgaben verwenden</string>
     <string name="preview_image_description">Bildvorschau</string>
-    <string name="preview_image_downloading_image_for_edit">Bild wird für das Bearbeiten heruntergeladen, bitte warten…</string>
+    <string name="preview_image_downloading_image_for_edit">Bild wird für das Bearbeiten heruntergeladen, bitte warten …</string>
     <string name="preview_image_error_no_local_file">Keine lokale Datei für die Vorschau vorhanden</string>
     <string name="preview_image_error_unknown_format">Bild kann nicht angezeigt werden</string>
     <string name="preview_image_file_is_not_downloaded">Datei nicht heruntergeladen</string>
@@ -969,7 +969,7 @@
     <string name="store_full_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.\nDies ist die offizielle Entwicklungsversion und bietet neue, ungetestete Funkitionen. Dies kann zu Instabilitäten und Datenverlust führen. Die App ist für alle Benutzer, die Testen wollen und falls nötig Fehlerberichte erstellen. Nutzen Sie diese Version nicht für Ihre Produktivarbeit!\n\nSowohl die reguläre als auch die Entwicklerversion sind auf F-droid verfügbar und können parallel installiert werden.</string>
     <string name="store_short_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle</string>
     <string name="store_short_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle (Vorab- Entwicklungsversion)</string>
-    <string name="stream">Streamen mit…</string>
+    <string name="stream">Streamen mit …</string>
     <string name="stream_not_possible_headline">Internes Streamen nicht möglich</string>
     <string name="stream_not_possible_message">Laden Sie sich den Inhalt herunter oder nutzen Sie eine externe App.</string>
     <string name="sub_folder_rule_day">Jahr/Monat/Tag</string>
@@ -1043,8 +1043,8 @@
     <string name="two_way_sync_activity_empty_list_title">Zwei-Wege-Synchronisierung nicht eingerichtet</string>
     <string name="two_way_sync_activity_title">Interne 2-Wege-Synchronisierung</string>
     <string name="unexpected_error_occurred">Es ist ein unerwarteter Fehler aufgetreten</string>
-    <string name="unified_search_fragment_calendar_event_not_found">Termin nicht gefunden, Sie können jederzeit die Synchronisierung wiederholen. Weiterleiten zum Web…</string>
-    <string name="unified_search_fragment_contact_not_found">Kontakt nicht gefunden, Sie können jederzeit synchronisieren für eine Aktualisierung. Weiterleiten zum Web…</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Termin nicht gefunden, Sie können jederzeit die Synchronisierung wiederholen. Weiterleiten zum Web …</string>
+    <string name="unified_search_fragment_contact_not_found">Kontakt nicht gefunden, Sie können jederzeit synchronisieren für eine Aktualisierung. Weiterleiten zum Web …</string>
     <string name="unified_search_fragment_permission_needed">Berechtigungen für das Öffnen der Suchergebnisse notwendig, ansonsten werden Sie zum Web weitergeleitet</string>
     <string name="unified_search_fragment_search_in_this_folder">In diesem Ordner</string>
     <string name="unknown">Unbekannt</string>
@@ -1070,7 +1070,7 @@
     <string name="upload_action_global_upload_pause">Alle Uploads pausieren</string>
     <string name="upload_action_global_upload_resume">Alle Uploads fortsetzen</string>
     <string name="upload_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
-    <string name="upload_chooser_title">Dateien hochladen von…</string>
+    <string name="upload_chooser_title">Dateien hochladen von …</string>
     <string name="upload_content_from_other_apps">Inhalt anderer Apps hochladen</string>
     <string name="upload_direct_camera_photo">Foto</string>
     <string name="upload_direct_camera_promt">Möchten Sie ein Foto oder ein Video aufnehmen?</string>
@@ -1174,7 +1174,7 @@
     <string name="username">Benutzername</string>
     <string name="version_dev_download">Herunterladen</string>
     <string name="video_overlay_icon">Video Überlagerungsicon</string>
-    <string name="wait_a_moment">Bitte warten…</string>
+    <string name="wait_a_moment">Bitte warten …</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei von privatem Speicher</string>
     <string name="warn_rename_extension">Das Ändern der Erweiterung kann dazu führen, dass diese Datei in einer anderen Anwendung geöffnet wird</string>
@@ -1184,7 +1184,7 @@
     <string name="whats_your_status">Wie ist Ihr Status?</string>
     <string name="widgets_not_available">Widgets sind nur in %1$s 25 oder neuer verfügbar, wenn die Dashboard-App aktiviert ist</string>
     <string name="widgets_not_available_title">Nicht verfügbar</string>
-    <string name="worker_download">Dateien werden heruntergeladen…</string>
+    <string name="worker_download">Dateien werden heruntergeladen …</string>
     <string name="write_email">E-Mail senden</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>

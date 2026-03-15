@@ -48,6 +48,7 @@
     <string name="assistant_output_generation_warning_text">Is í an intleacht shaorga a ghineann an t-aschur a thaispeántar anseo. Déan cinnte go ndéanann tú seiceáil dhúbailte i gcónaí.</string>
     <string name="assistant_screen_chat_create_error">Theip ar theachtaireacht a sheoladh</string>
     <string name="assistant_screen_chat_fetch_error">Theip ar theachtaireachtaí comhrá a fháil</string>
+    <string name="assistant_screen_chat_generate_error">Theip ar fhreagra a ghiniúint</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Téigh ar ais chuig leathanach an chúntóra</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">An bhfuil tú cinnte gur mhaith leat an tasc seo a scriosadh?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Scrios tasc</string>
@@ -607,6 +608,9 @@
     <string name="media_play_pause_description">Seinn nó cnaipe sos</string>
     <string name="media_player_pause">Sos</string>
     <string name="media_player_play">Imir</string>
+    <string name="media_player_playing">Ag seinm meán</string>
+    <string name="media_player_seek_backward">Cuardaigh siar</string>
+    <string name="media_player_seek_forward">Lorg ar aghaidh</string>
     <string name="media_rewind_description">Cnaipe athchasadh</string>
     <string name="media_state_playing">%1$s (ag imirt)</string>
     <string name="menu_item_sort_by_date_newest_first">Is nua ar dtús</string>
