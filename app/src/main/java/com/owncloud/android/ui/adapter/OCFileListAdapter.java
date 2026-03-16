@@ -289,25 +289,22 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
-    public void setEncryptionAttributeForItemID(String fileId, boolean encrypted) {
-        for (OCFile file : mFiles) {
-            if (file.getRemoteId().equals(fileId)) {
+    public void updateFileEncryptionById(String fileId, boolean encrypted) {
+        if (fileId == null) return;
+
+        mFilesAll.stream()
+            .filter(f -> fileId.equals(f.getRemoteId()))
+            .findFirst()
+            .ifPresent(file -> {
                 file.setEncrypted(encrypted);
                 file.setE2eCounter(0L);
                 mStorageManager.saveFile(file);
 
-                break;
-            }
-        }
-
-        for (OCFile file : mFilesAll) {
-            if (file.getRemoteId().equals(fileId)) {
-                file.setEncrypted(encrypted);
-                file.setE2eCounter(0L);
-            }
-        }
-
-        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
+                int position = getItemPosition(file);
+                if (position != -1) {
+                    notifyItemChanged(position);
+                }
+            });
     }
 
     @Override
@@ -966,6 +963,28 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public List<OCFile> getFiles() {
         return mFiles;
+    }
+
+    @Nullable
+    public OCFile getFileByRemoteId(@Nullable String fileId) {
+        return mFilesAll.stream()
+            .filter(f -> java.util.Objects.equals(fileId, f.getRemoteId()))
+            .findFirst()
+            .orElse(null);
+    }
+
+    public void insertFile(@Nullable OCFile file) {
+        if (file == null) return;
+
+        if (mFilesAll.contains(file)) return;
+
+        mFilesAll.add(file);
+        mFiles.add(file);
+
+        int position = getItemPosition(file);
+        if (position != -1) {
+            notifyItemInserted(position);
+        }
     }
 
     public void addVirtualFile(@NonNull OCFile file) {
