@@ -9,6 +9,7 @@ package com.nextcloud.client.jobs.autoUpload
 
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.entity.FilesystemEntity
@@ -115,7 +116,11 @@ class FileSystemRepository(
             syncedPath += File.separator
         }
 
-        val selection = "${MediaStore.MediaColumns.DATA} LIKE ?"
+        val selection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            "${MediaStore.MediaColumns.DATA} LIKE ? AND ${MediaStore.MediaColumns.IS_PENDING} = 0"
+        } else {
+            "${MediaStore.MediaColumns.DATA} LIKE ?"
+        }
         val selectionArgs = arrayOf("$syncedPath%")
 
         Log_OC.d(TAG, "Querying MediaStore for files in: $syncedPath, uri: $uri")
