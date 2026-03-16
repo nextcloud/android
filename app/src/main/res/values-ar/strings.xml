@@ -552,6 +552,8 @@
     <string name="media_forward_description">زر التقدم للأمام</string>
     <string name="media_notif_ticker">مشغل الموسيقى %1$s</string>
     <string name="media_play_pause_description">زر التشغيل أو الإيقاف</string>
+    <string name="media_player_pause">إيقاف</string>
+    <string name="media_player_play">تشغيل</string>
     <string name="media_rewind_description">زر الترجيع</string>
     <string name="media_state_playing">%1$s  (يتم التشغيل)</string>
     <string name="menu_item_sort_by_date_newest_first">الأحدث أولا</string>
@@ -1037,9 +1039,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">تهيئة</string>
     <string name="uploader_wrn_no_account_text">لا توجد حسابات %1$s على جهازك.  أنت بحاجة لإعداد حساب في البداية.</string>
     <string name="uploader_wrn_no_account_title">لم يتم العثور على أي حساب</string>
+    <string name="uploads_view_group_completed_uploads">مُكتمل</string>
     <string name="uploads_view_group_current_uploads">الحالي</string>
     <string name="uploads_view_group_failed_uploads">فشل / في انتظار إعادة التشغيل</string>
-    <string name="uploads_view_group_finished_uploads">تم رفعه</string>
     <string name="uploads_view_group_manually_cancelled_uploads">ملغى</string>
     <string name="uploads_view_later_waiting_to_upload">بانتظار الرفع</string>
     <string name="uploads_view_title">التحميلات</string>

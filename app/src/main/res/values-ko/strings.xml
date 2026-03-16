@@ -544,6 +544,8 @@
     <string name="media_forward_description">빨리감기 단추</string>
     <string name="media_notif_ticker">%1$s 음악 재생기</string>
     <string name="media_play_pause_description">재생 혹은 일시 정지 단추</string>
+    <string name="media_player_pause">일시 정지</string>
+    <string name="media_player_play">재생</string>
     <string name="media_rewind_description">되감기 단추</string>
     <string name="media_state_playing">%1$s(재생 중)</string>
     <string name="menu_item_sort_by_date_newest_first">최신 항목 먼저</string>
@@ -1011,9 +1013,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">설정</string>
     <string name="uploader_wrn_no_account_text">이 장치에 %1$s 계정이 없습니다. 먼저 계정을 설정하십시오.</string>
     <string name="uploader_wrn_no_account_title">계정 없음</string>
+    <string name="uploads_view_group_completed_uploads">완료됨</string>
     <string name="uploads_view_group_current_uploads">현재</string>
     <string name="uploads_view_group_failed_uploads">다시 시작 실패/대기 중</string>
-    <string name="uploads_view_group_finished_uploads">업로드됨</string>
     <string name="uploads_view_group_manually_cancelled_uploads">취소됨</string>
     <string name="uploads_view_later_waiting_to_upload">업로드 대기 중</string>
     <string name="uploads_view_title">업로드</string>

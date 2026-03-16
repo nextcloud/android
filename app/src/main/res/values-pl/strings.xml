@@ -604,6 +604,8 @@
     <string name="media_forward_description">Przycisk przewijania do przodu</string>
     <string name="media_notif_ticker">%1$s odtwarzacz muzyki</string>
     <string name="media_play_pause_description">Przycisk odtwarzania/pauzowania</string>
+    <string name="media_player_pause">Wstrzymaj</string>
+    <string name="media_player_play">Odtwarzaj</string>
     <string name="media_rewind_description">Przycisk przewijania do tyłu</string>
     <string name="media_state_playing">%1$s (odtwarzanie)</string>
     <string name="menu_item_sort_by_date_newest_first">Od najnowszych</string>
@@ -1129,9 +1131,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Ustawienia</string>
     <string name="uploader_wrn_no_account_text">Brak %1$s kont na Twoim urządzeniu. Załóż konto.</string>
     <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
+    <string name="uploads_view_group_completed_uploads">Zakończone</string>
     <string name="uploads_view_group_current_uploads">Bieżące</string>
     <string name="uploads_view_group_failed_uploads">Nieudane/oczekujące na ponowne uruchomienie</string>
-    <string name="uploads_view_group_finished_uploads">Wysłane</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Anulowane</string>
     <string name="uploads_view_later_waiting_to_upload">Oczekuje na wysłanie</string>
     <string name="uploads_view_title">Wysłane</string>

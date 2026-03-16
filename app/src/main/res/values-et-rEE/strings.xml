@@ -48,6 +48,7 @@
     <string name="assistant_output_generation_warning_text">See väljund on loodud tehisaru poolt. Palun topeltkontrolli selle õigsust ka ise.</string>
     <string name="assistant_screen_chat_create_error">Sõnumi saatmine ei õnnestu</string>
     <string name="assistant_screen_chat_fetch_error">Ei õnnestunud laadida vestluse sõnumeid</string>
+    <string name="assistant_screen_chat_generate_error">Vastuse koostamine ei õnnestunud</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Tagasi Abilise lehele</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Kas sa oled kindel, et soovid selle ülesande kustutada?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Kustuta ülesanne</string>
@@ -236,7 +237,7 @@
     <string name="copy_file_error">Selle faili või kausta kopeerimisel tekkis tõrge</string>
     <string name="copy_file_invalid_into_descendent">Kausta ei saa kopeerida tema enda alamkausta</string>
     <string name="copy_file_invalid_overwrite">See fail on juba sihtkaustas olemas</string>
-    <string name="copy_file_not_found">Kopeerimine ebaõnnestus. Palun kontrolli, kas fail on olemas.</string>
+    <string name="copy_file_not_found">Kopeerimine ei õnnestunud. Palun kontrolli, kas fail on olemas.</string>
     <string name="copy_link">Kopeeri link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopeerimine/teisaldamine krüptitud kausta pole hetkel toetatud.</string>
     <string name="could_not_download_image">Täieliku pildifaili allalaadimine ebaõnnestus</string>
@@ -605,6 +606,8 @@
     <string name="media_forward_description">Edasikerimise nupp</string>
     <string name="media_notif_ticker">%1$s muusikaesitaja</string>
     <string name="media_play_pause_description">Esitamise või pausi nupp</string>
+    <string name="media_player_pause">Peata</string>
+    <string name="media_player_play">Esita</string>
     <string name="media_rewind_description">Tagasikerimise nupp</string>
     <string name="media_state_playing">%1$s (esitamisel)</string>
     <string name="menu_item_sort_by_date_newest_first">Uuemad esimesena</string>
@@ -1052,7 +1055,7 @@
     <string name="unshare_link_forbidden_permissions">faili jagamise lõpetamiseks</string>
     <string name="unsharing_failed">Jagamist ei õnnestunud lõpetada</string>
     <string name="untrusted_domain">Ligipääs toimib mitteusaldusväärse domeeni kaudu. Täpsemat teavet leiad dokumentatsioonist.</string>
-    <string name="update_link_file_error">Jaosmeedia uuendmisel tekkis viga.</string>
+    <string name="update_link_file_error">Jaosmeedia uuendamisel tekkis viga.</string>
     <string name="update_link_file_no_exist">Uuendamine ei õnnestu. Palun kontrolli, kas fail päriselt on olemas.</string>
     <string name="update_link_forbidden_permissions">jagamise uuendamiseks</string>
     <string name="updating_share_failed">Jaosmeediat ei õnnestunud uuendada</string>
@@ -1130,9 +1133,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Seadista</string>
     <string name="uploader_wrn_no_account_text">Sinu seadmes ei ole ühtegi %1$s kontot. Esmalt palun seadista oma kasutajakonto.</string>
     <string name="uploader_wrn_no_account_title">Kasutajakontot ei leidu</string>
+    <string name="uploads_view_group_completed_uploads">Lõpetatud</string>
     <string name="uploads_view_group_current_uploads">Praegune</string>
     <string name="uploads_view_group_failed_uploads">Ebaõnnestunud või ootel taaskäivitus</string>
-    <string name="uploads_view_group_finished_uploads">Üleslaaditud</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Tühistatud</string>
     <string name="uploads_view_later_waiting_to_upload">Üleslaadimise ootel</string>
     <string name="uploads_view_title">Üleslaadimised</string>

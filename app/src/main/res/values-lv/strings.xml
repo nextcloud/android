@@ -350,6 +350,8 @@
     <string name="media_forward_description">Patīšanas poga</string>
     <string name="media_notif_ticker">%1$s mūzikas atskaņotājs</string>
     <string name="media_play_pause_description">Atskaņot vai pauzēt</string>
+    <string name="media_player_pause">Pauzēt</string>
+    <string name="media_player_play">Atskaņot</string>
     <string name="media_rewind_description">Attīšanas poga</string>
     <string name="media_state_playing">%1$s (atskaņot)</string>
     <string name="menu_item_sort_by_date_newest_first">Jaunākie pirms</string>
@@ -636,9 +638,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Iestatīt</string>
     <string name="uploader_wrn_no_account_text">Ierīcē nav neviena %1$s konta. Lūgums vispirms iestatīt kontu.</string>
     <string name="uploader_wrn_no_account_title">Nav atrastu kontu</string>
+    <string name="uploads_view_group_completed_uploads">Pabeigts</string>
     <string name="uploads_view_group_current_uploads">Pašreizējās</string>
     <string name="uploads_view_group_failed_uploads">Neizdevās/gaida atsākšanu</string>
-    <string name="uploads_view_group_finished_uploads">Augšupielādētas</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Atcelts</string>
     <string name="uploads_view_later_waiting_to_upload">Gaida augšupielādi</string>
     <string name="uploads_view_title">Augšupielādes</string>

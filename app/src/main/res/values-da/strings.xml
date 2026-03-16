@@ -571,6 +571,8 @@
     <string name="media_forward_description">Hurtigt fremad-knap</string>
     <string name="media_notif_ticker">%1$s musik afspiller</string>
     <string name="media_play_pause_description">Afspil eller pause knap</string>
+    <string name="media_player_pause">Pause</string>
+    <string name="media_player_play">Afspil</string>
     <string name="media_rewind_description">Tilbagespolingsknap</string>
     <string name="media_state_playing">%1$s (afspiller)</string>
     <string name="menu_item_sort_by_date_newest_first">Nyeste først</string>
@@ -1076,9 +1078,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Opsætning</string>
     <string name="uploader_wrn_no_account_text">Der er ingen %1$s-konti på din enhed. Angiv venligst en konto først.</string>
     <string name="uploader_wrn_no_account_title">Ingen konto fundet</string>
+    <string name="uploads_view_group_completed_uploads">Gennemført</string>
     <string name="uploads_view_group_current_uploads">Nuværende</string>
     <string name="uploads_view_group_failed_uploads">Fejl/venter på genstart</string>
-    <string name="uploads_view_group_finished_uploads">Sendt</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Annulleret</string>
     <string name="uploads_view_later_waiting_to_upload">Venter med upload</string>
     <string name="uploads_view_title">Uploadede filer</string>

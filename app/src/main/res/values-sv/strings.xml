@@ -604,6 +604,8 @@
     <string name="media_forward_description">Snappspolningsknapp</string>
     <string name="media_notif_ticker">%1$s musikspelare</string>
     <string name="media_play_pause_description">Spela- / Pausknapp</string>
+    <string name="media_player_pause">Pausa</string>
+    <string name="media_player_play">Spela</string>
     <string name="media_rewind_description">Bakåtspolningsknapp</string>
     <string name="media_state_playing">%1$s (spelar)</string>
     <string name="menu_item_sort_by_date_newest_first">Nyaste först</string>
@@ -1130,9 +1132,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Skapa</string>
     <string name="uploader_wrn_no_account_text">Det finns inga %1$s-konton på din enhet. Vänligen lägg till ett konto först</string>
     <string name="uploader_wrn_no_account_title">Hittade inget konto</string>
+    <string name="uploads_view_group_completed_uploads">Slutförd</string>
     <string name="uploads_view_group_current_uploads">Nuvarande</string>
     <string name="uploads_view_group_failed_uploads">Misslyckades/väntar omstart</string>
-    <string name="uploads_view_group_finished_uploads">Uppladdad</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Avbokad</string>
     <string name="uploads_view_later_waiting_to_upload">Väntar på att ladda upp</string>
     <string name="uploads_view_title">Uppladdningar</string>

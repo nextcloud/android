@@ -48,6 +48,7 @@
     <string name="assistant_output_generation_warning_text">A saída mostrada aqui é gerada por IA. Certifique-se de sempre verificar novamente.</string>
     <string name="assistant_screen_chat_create_error">Falha ao enviar uma mensagem</string>
     <string name="assistant_screen_chat_fetch_error">Falha ao buscar mensagens de bate-papo</string>
+    <string name="assistant_screen_chat_generate_error">Falha ao gerar a resposta</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Voltar à página de assistente</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem certeza de que deseja excluir esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Excluir tarefa</string>
@@ -605,6 +606,11 @@
     <string name="media_forward_description">Botão de avanço rápido</string>
     <string name="media_notif_ticker">%1$s player</string>
     <string name="media_play_pause_description">Botão reproduzir ou pausar</string>
+    <string name="media_player_pause">Pausar</string>
+    <string name="media_player_play">Peça teatral</string>
+    <string name="media_player_playing">Reproduzindo mídia</string>
+    <string name="media_player_seek_backward">Buscar para trás</string>
+    <string name="media_player_seek_forward">Buscar para a frente</string>
     <string name="media_rewind_description">Botão rebobinar</string>
     <string name="media_state_playing">%1$s (tocando)</string>
     <string name="menu_item_sort_by_date_newest_first">Mais novos primeiro</string>
@@ -1130,9 +1136,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Instalação</string>
     <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s em seu dispositivo. Por favor, configure uma conta primeiro.</string>
     <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
+    <string name="uploads_view_group_completed_uploads">Concluído</string>
     <string name="uploads_view_group_current_uploads">Atual</string>
     <string name="uploads_view_group_failed_uploads">Reinício falhado/pendente</string>
-    <string name="uploads_view_group_finished_uploads">Enviado</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Cancelado</string>
     <string name="uploads_view_later_waiting_to_upload">Aguardando para enviar</string>
     <string name="uploads_view_title">Uploads</string>

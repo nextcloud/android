@@ -642,9 +642,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Podesi</string>
     <string name="uploader_wrn_no_account_text">Nema %1$s naloga na vašem uređaju. Najpre podesite nalog.</string>
     <string name="uploader_wrn_no_account_title">Nije pronađen nalog</string>
+    <string name="uploads_view_group_completed_uploads">Završeno</string>
     <string name="uploads_view_group_current_uploads">Tekuće</string>
     <string name="uploads_view_group_failed_uploads">Greška/čekam na ponovno pokretanje</string>
-    <string name="uploads_view_group_finished_uploads">Otpremljeno</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Otkazano</string>
     <string name="uploads_view_later_waiting_to_upload">Čekam otpremanje</string>
     <string name="uploads_view_title">Otpremanja</string>

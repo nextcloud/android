@@ -574,6 +574,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="media_forward_description">Tombol maju</string>
     <string name="media_notif_ticker">Pemutar musik %1$s</string>
     <string name="media_play_pause_description">Tombol main dan jeda</string>
+    <string name="media_player_pause">Jeda</string>
+    <string name="media_player_play">Putar</string>
     <string name="media_rewind_description">Tombol mundur</string>
     <string name="media_state_playing">%1$s (dimainkan)</string>
     <string name="menu_item_sort_by_date_newest_first">Terbaru</string>
@@ -1093,9 +1095,9 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="uploader_wrn_no_account_setup_btn_text">Pengaturan</string>
     <string name="uploader_wrn_no_account_text">Tidak ada akun %1$s dalam perangkat Anda. Silakan membuat akun terlebih dahulu.</string>
     <string name="uploader_wrn_no_account_title">Tidak ada akun yang ditemukan</string>
+    <string name="uploads_view_group_completed_uploads">Selesai</string>
     <string name="uploads_view_group_current_uploads">Saat ini</string>
     <string name="uploads_view_group_failed_uploads">Ulangi proses yang gagal/tertunda</string>
-    <string name="uploads_view_group_finished_uploads">Terunggah</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Dibatalkan</string>
     <string name="uploads_view_later_waiting_to_upload">Menunggu unggahan</string>
     <string name="uploads_view_title">Unggah</string>

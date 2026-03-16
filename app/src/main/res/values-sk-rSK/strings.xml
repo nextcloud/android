@@ -603,6 +603,8 @@
     <string name="media_forward_description">Tlačidlo \"rýchlo vpred\"</string>
     <string name="media_notif_ticker">Hudobný prehrávač %1$s</string>
     <string name="media_play_pause_description">Tlačidlo prehrávania / pauzy</string>
+    <string name="media_player_pause">Pauza</string>
+    <string name="media_player_play">Hrať</string>
     <string name="media_rewind_description">Tlačidlo pretáčania</string>
     <string name="media_state_playing">%1$s (prehráva sa)</string>
     <string name="menu_item_sort_by_date_newest_first">Najnovšie prvé</string>
@@ -1128,9 +1130,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Nastavenie</string>
     <string name="uploader_wrn_no_account_text">Na zariadení nie sú žiadne %1$s účty. Prosím najprv nastavte účet.</string>
     <string name="uploader_wrn_no_account_title">Účet sa nenašiel</string>
+    <string name="uploads_view_group_completed_uploads">Dokončené</string>
     <string name="uploads_view_group_current_uploads">Aktuálne</string>
     <string name="uploads_view_group_failed_uploads">Zlyhaný / Čakajúci reštart</string>
-    <string name="uploads_view_group_finished_uploads">Odoslané</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Zrušené</string>
     <string name="uploads_view_later_waiting_to_upload">Čaká sa na nahratie</string>
     <string name="uploads_view_title">Nahranie</string>

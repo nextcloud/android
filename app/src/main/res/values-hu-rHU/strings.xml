@@ -600,6 +600,8 @@
     <string name="media_forward_description">Előre gomb</string>
     <string name="media_notif_ticker">%1$s zenelejátszó</string>
     <string name="media_play_pause_description">Lejátszás vagy szüneteltetés gomb</string>
+    <string name="media_player_pause">Szünet</string>
+    <string name="media_player_play">Lejátszás</string>
     <string name="media_rewind_description">Vissza gomb</string>
     <string name="media_state_playing">%1$s (lejátszás)</string>
     <string name="menu_item_sort_by_date_newest_first">Újabbak elöl</string>
@@ -1136,9 +1138,9 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Beállítások</string>
     <string name="uploader_wrn_no_account_text">Nem található %1$s fiók az eszközén. Először állítson be egy fiókot.</string>
     <string name="uploader_wrn_no_account_title">Nem található a fiók</string>
+    <string name="uploads_view_group_completed_uploads">Kész</string>
     <string name="uploads_view_group_current_uploads">Jelenlegi</string>
     <string name="uploads_view_group_failed_uploads">Sikertelen/Függőben lévő újraindítás</string>
-    <string name="uploads_view_group_finished_uploads">Feltöltve</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Megszakítva</string>
     <string name="uploads_view_later_waiting_to_upload">Várakozás a feltöltésre</string>
     <string name="uploads_view_title">Feltöltések</string>
