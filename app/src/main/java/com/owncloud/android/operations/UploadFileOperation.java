@@ -463,7 +463,7 @@ public class UploadFileOperation extends SyncOperation {
         if (parent == null && (mFolderUnlockToken == null || mFolderUnlockToken.isEmpty())) {
             Log_OC.d(TAG, "parent not in DB and no unlock token, attempting to grant folder existence: "
                 + remoteParentPath);
-            final var result = grantFolderExistence(remoteParentPath, client);
+            final var result = prepareRemoteParentFolder(remoteParentPath, client);
 
             if (!result.isSuccess()) {
                 Log_OC.e(TAG, "grantFolderExistence failed for: " + remoteParentPath + ", code: " +
@@ -1425,24 +1425,40 @@ public class UploadFileOperation extends SyncOperation {
      * @param pathToGrant Full remote path whose existence will be granted.
      * @return An {@link OCFile} instance corresponding to the folder where the file will be uploaded.
      */
-    private RemoteOperationResult<?> grantFolderExistence(String pathToGrant, OwnCloudClient client) {
+    private RemoteOperationResult<?> prepareRemoteParentFolder(String pathToGrant, OwnCloudClient client) {
         var operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
         var result = operation.execute(client);
-        if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {
+
+        if (!result.isSuccess() || mRemoteFolderToBeCreated) {
+            Log_OC.w(TAG, "prepareRemoteParentFolder: existence check failed or creation enforced"
+                + " (code=" + result.getCode() + ", mRemoteFolderToBeCreated=" + mRemoteFolderToBeCreated + ")"
+                + " → attempting MKCOL for: " + pathToGrant);
             SyncOperation syncOp = new CreateFolderOperation(pathToGrant, user, getContext(), getStorageManager());
             result = syncOp.execute(client);
+            Log_OC.d(TAG, "prepareRemoteParentFolder: CreateFolderOperation result: " + result.getCode()
+                + " for: " + pathToGrant);
         }
-        if (result.isSuccess()) {
+
+        if (result.isSuccess() || result.getCode() == ResultCode.FOLDER_ALREADY_EXISTS) {
             OCFile parentDir = getStorageManager().getFileByPath(pathToGrant);
             if (parentDir == null) {
+                Log_OC.w(TAG, "prepareRemoteParentFolder: folder exists remotely but missing from local DB"
+                    + ", creating local entry for: " + pathToGrant);
                 parentDir = createLocalFolder(pathToGrant);
             }
             if (parentDir != null) {
+                Log_OC.d(TAG, "prepareRemoteParentFolder: parent folder ready, id=" + parentDir.getFileId()
+                    + " path=" + pathToGrant);
                 result = new RemoteOperationResult<>(ResultCode.OK);
             } else {
+                Log_OC.e(TAG, "prepareRemoteParentFolder: failed to create local folder entry for: " + pathToGrant);
                 result = new RemoteOperationResult<>(ResultCode.CANNOT_CREATE_FILE);
             }
+        } else {
+            Log_OC.e(TAG, "prepareRemoteParentFolder: could not ensure folder existence"
+                + " (code=" + result.getCode() + ") for: " + pathToGrant);
         }
+
         return result;
     }
 
