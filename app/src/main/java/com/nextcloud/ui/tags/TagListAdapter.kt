@@ -17,10 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.tags.Tag
 
-class TagListAdapter(
-    private val onTagChecked: (Tag, Boolean) -> Unit,
-    private val onCreateTag: (String) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TagListAdapter(private val onTagChecked: (Tag, Boolean) -> Unit, private val onCreateTag: (String) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var tags: List<Tag> = emptyList()
     private var assignedTagIds: Set<String> = emptySet()
@@ -49,9 +47,8 @@ class TagListAdapter(
 
     override fun getItemCount(): Int = tags.size + if (showCreateItem) 1 else 0
 
-    override fun getItemViewType(position: Int): Int {
-        return if (showCreateItem && position == tags.size) VIEW_TYPE_CREATE else VIEW_TYPE_TAG
-    }
+    override fun getItemViewType(position: Int): Int =
+        if (showCreateItem && position == tags.size) VIEW_TYPE_CREATE else VIEW_TYPE_TAG
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -70,6 +67,7 @@ class TagListAdapter(
                 val tag = tags[position]
                 holder.bind(tag, tag.id in assignedTagIds)
             }
+
             is CreateTagViewHolder -> {
                 holder.bind(query)
             }
