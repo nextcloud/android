@@ -1085,6 +1085,27 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         currentDirectory = folder;
     }
 
+    // payload only for local file indicator
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (!payloads.isEmpty() && payloads.get(0) instanceof Integer iconId && holder instanceof ListViewHolder listViewHolder) {
+            listViewHolder.getLocalFileIndicator().setImageResource(iconId);
+            listViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+            // skip full rebind
+            return;
+        }
+        super.onBindViewHolder(holder, position, payloads);
+    }
+
+    public void updateFileIndicator(int iconId, OCFile file) {
+        if (file == null) return;
+
+        int position = getItemPosition(file);
+        if (position != -1) {
+            notifyItemChanged(position, iconId);
+        }
+    }
+
     public void cleanup() {
         ocFileListDelegate.cleanup();
         helper.cleanup();

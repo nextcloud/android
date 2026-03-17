@@ -91,20 +91,27 @@ interface FileDao {
 
     @Query(
         """
-    SELECT * 
-    FROM filelist 
-    WHERE parent = :parentId 
-      AND file_owner = :accountName 
-      AND (content_type != :dirType AND content_type != :webdavType)  
-    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
-    """
+    SELECT 
+        EXISTS (
+            SELECT 1
+            FROM filelist
+            WHERE parent = :parentId
+              AND file_owner = :accountName
+              AND content_type != '${MimeType.DIRECTORY}'
+              AND content_type != '${MimeType.WEBDAV_FOLDER}'
+        )
+        AND NOT EXISTS (
+            SELECT 1
+            FROM filelist
+            WHERE parent = :parentId
+              AND file_owner = :accountName
+              AND content_type != '${MimeType.DIRECTORY}'
+              AND content_type != '${MimeType.WEBDAV_FOLDER}'
+              AND media_path IS NULL
+        )
+"""
     )
-    suspend fun getSubfiles(
-        parentId: Long,
-        accountName: String,
-        dirType: String = MimeType.DIRECTORY,
-        webdavType: String = MimeType.WEBDAV_FOLDER
-    ): List<FileEntity>
+    fun isFolderFullyDownloaded(parentId: Long, accountName: String): Boolean
 
     @Query(
         """
