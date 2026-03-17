@@ -29,11 +29,7 @@ class TagManagementViewModel @Inject constructor(
 
     sealed interface TagUiState {
         object Loading : TagUiState
-        data class Loaded(
-            val allTags: List<Tag>,
-            val assignedTagIds: Set<String>,
-            val query: String = ""
-        ) : TagUiState
+        data class Loaded(val allTags: List<Tag>, val assignedTagIds: Set<String>, val query: String = "") : TagUiState
 
         data class Error(val message: String) : TagUiState
     }
@@ -45,7 +41,7 @@ class TagManagementViewModel @Inject constructor(
 
     fun load(fileId: Long, currentTags: List<Tag>) {
         this.fileId = fileId
-        val assignedIds = currentTags.map { it.id }.toSet()
+        val assignedTagNames = currentTags.map { it.name }.toSet()
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -53,6 +49,11 @@ class TagManagementViewModel @Inject constructor(
                 val result = GetTagsRemoteOperation().execute(client)
 
                 if (result.isSuccess) {
+                    val assignedIds = result.resultData
+                        .filter { it.name in assignedTagNames }
+                        .map { it.id }
+                        .toSet()
+
                     _uiState.update {
                         TagUiState.Loaded(
                             allTags = result.resultData,
