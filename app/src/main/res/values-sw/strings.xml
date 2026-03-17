@@ -247,6 +247,7 @@
     <string name="create_link">Tengeneza kiungo</string>
     <string name="create_new">Mpya</string>
     <string name="create_new_document">Waraka mpya</string>
+    <string name="create_new_encrypted_folder">Folda mpya iliyosimbwa kwa njia fiche</string>
     <string name="create_new_folder">Kisanduku kipya</string>
     <string name="create_new_presentation">Wasilisho jipya</string>
     <string name="create_new_spreadsheet">Lahajedwali mpya</string>

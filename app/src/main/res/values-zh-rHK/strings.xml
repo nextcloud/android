@@ -248,6 +248,7 @@
     <string name="create_link">創建連結</string>
     <string name="create_new">新</string>
     <string name="create_new_document">新文件</string>
+    <string name="create_new_encrypted_folder">新的加密資料夾</string>
     <string name="create_new_folder">新資料夾</string>
     <string name="create_new_presentation">新簡報</string>
     <string name="create_new_spreadsheet">新試算表</string>
