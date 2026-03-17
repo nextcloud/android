@@ -236,6 +236,7 @@
     <string name="create_link">ئۇلىنىش قۇر</string>
     <string name="create_new">يېڭى</string>
     <string name="create_new_document">يېڭى ھۆججەت</string>
+    <string name="create_new_encrypted_folder">يېڭى شىفىرلانغان قىسقۇچ</string>
     <string name="create_new_folder">يېڭى ھۆججەت قىسقۇچ</string>
     <string name="create_new_presentation">يېڭى تونۇشتۇرۇش</string>
     <string name="create_new_spreadsheet">يېڭى ئېلېكترونلۇق جەدۋەل</string>

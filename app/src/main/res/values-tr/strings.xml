@@ -248,6 +248,7 @@
     <string name="create_link">Bağlantı oluştur</string>
     <string name="create_new">Yeni</string>
     <string name="create_new_document">Yeni belge</string>
+    <string name="create_new_encrypted_folder">Yeni şifrelenmiş klasör</string>
     <string name="create_new_folder">Yeni klasör</string>
     <string name="create_new_presentation">Yeni sunum</string>
     <string name="create_new_spreadsheet">Yeni çalışma sayfası</string>

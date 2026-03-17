@@ -248,6 +248,7 @@
     <string name="create_link">Loo link</string>
     <string name="create_new">Uus</string>
     <string name="create_new_document">Uus dokument</string>
+    <string name="create_new_encrypted_folder">Uus krüptitud kaust</string>
     <string name="create_new_folder">Uus kaust</string>
     <string name="create_new_presentation">Uus esitlus</string>
     <string name="create_new_spreadsheet">Uus arvutustabel</string>
@@ -608,6 +609,9 @@
     <string name="media_play_pause_description">Esitamise või pausi nupp</string>
     <string name="media_player_pause">Peata</string>
     <string name="media_player_play">Esita</string>
+    <string name="media_player_playing">Meedium on esitamisel</string>
+    <string name="media_player_seek_backward">Keri tagasi</string>
+    <string name="media_player_seek_forward">Keri edasi</string>
     <string name="media_rewind_description">Tagasikerimise nupp</string>
     <string name="media_state_playing">%1$s (esitamisel)</string>
     <string name="menu_item_sort_by_date_newest_first">Uuemad esimesena</string>
@@ -891,7 +895,7 @@
     <string name="share_permission_secure_file_drop">Turvaline failiedastus</string>
     <string name="share_permission_view_only">Ainult vaatamine</string>
     <string name="share_permissions">Jagamisõigused</string>
-    <string name="share_re_share_permission">Jaga</string>
+    <string name="share_re_share_permission">Jagamine</string>
     <string name="share_read_permission">Lugemine</string>
     <string name="share_remote_clarification">%1$s (kaugseadmes)</string>
     <string name="share_room_clarification">%1$s (vestlus)</string>

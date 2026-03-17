@@ -247,6 +247,7 @@
     <string name="create_link">Crear ligazón</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
+    <string name="create_new_encrypted_folder">Novo cartafol cifrado</string>
     <string name="create_new_folder">Novo cartafol</string>
     <string name="create_new_presentation">Nova presentación</string>
     <string name="create_new_spreadsheet">Nova folla de cálculo</string>

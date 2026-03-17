@@ -236,6 +236,7 @@
     <string name="create_link">リンクを作成する</string>
     <string name="create_new">新規作成</string>
     <string name="create_new_document">新規ドキュメント</string>
+    <string name="create_new_encrypted_folder">新しい暗号化フォルダー</string>
     <string name="create_new_folder">新しいフォルダー</string>
     <string name="create_new_presentation">新規プレゼンテーション</string>
     <string name="create_new_spreadsheet">新規スプレッドシート</string>
