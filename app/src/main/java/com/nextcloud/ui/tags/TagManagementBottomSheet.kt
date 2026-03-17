@@ -30,7 +30,9 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TagManagementBottomSheet : BottomSheetDialogFragment(), Injectable {
+class TagManagementBottomSheet :
+    BottomSheetDialogFragment(),
+    Injectable {
 
     @Inject
     lateinit var vmFactory: ViewModelFactory
@@ -101,11 +103,13 @@ class TagManagementBottomSheet : BottomSheetDialogFragment(), Injectable {
                             binding.loadingIndicator.visibility = View.VISIBLE
                             binding.tagList.visibility = View.GONE
                         }
+
                         is TagManagementViewModel.TagUiState.Loaded -> {
                             binding.loadingIndicator.visibility = View.GONE
                             binding.tagList.visibility = View.VISIBLE
                             tagAdapter.update(state.allTags, state.assignedTagIds, state.query)
                         }
+
                         is TagManagementViewModel.TagUiState.Error -> {
                             binding.loadingIndicator.visibility = View.GONE
                             binding.tagList.visibility = View.GONE
@@ -130,13 +134,12 @@ class TagManagementBottomSheet : BottomSheetDialogFragment(), Injectable {
         private const val ARG_FILE_ID = "ARG_FILE_ID"
         private const val ARG_CURRENT_TAGS = "ARG_CURRENT_TAGS"
 
-        fun newInstance(fileId: Long, currentTags: List<Tag>): TagManagementBottomSheet {
-            return TagManagementBottomSheet().apply {
+        fun newInstance(fileId: Long, currentTags: List<Tag>): TagManagementBottomSheet =
+            TagManagementBottomSheet().apply {
                 arguments = bundleOf(
                     ARG_FILE_ID to fileId,
                     ARG_CURRENT_TAGS to ArrayList(currentTags)
                 )
             }
-        }
     }
 }
