@@ -68,11 +68,11 @@ class AuthenticatorAsyncTask(activity: Activity) : AsyncTask<Any?, Void?, Remote
                 @Suppress("UNCHECKED_CAST")
                 result = operation.execute(client) as RemoteOperationResult<UserInfo?>
                 if (operation.wasRedirected()) {
-                    val redirectionPath = operation.redirectionPath
-                    val permanentLocation = redirectionPath.lastPermanentLocation
+                    val redirectionPath = operation.getRedirectionPath()
+                    val permanentLocation = redirectionPath?.lastPermanentLocation
                     result.lastPermanentLocation = permanentLocation
                 }
-                result.setResultData(userInfoResult.resultData)
+                result.resultData = userInfoResult.resultData
             } else {
                 result = userInfoResult
             }
