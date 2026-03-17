@@ -331,7 +331,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         viewThemeUtils.material.themeChipSuggestion(editChip);
         editChip.setOnClickListener(v -> {
             TagManagementBottomSheet bottomSheet = TagManagementBottomSheet.Companion.newInstance(
-                getFile().getFileId(),
+                getFile().getLocalId(),
                 getFile().getTags()
             );
 //            FileActionsBottomSheet bottomSheet =  FileActionsBottomSheet.Companion.newInstance(getFile(), false);
