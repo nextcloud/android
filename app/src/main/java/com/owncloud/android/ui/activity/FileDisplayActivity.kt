@@ -2302,6 +2302,19 @@ class FileDisplayActivity :
     private fun onCreateFolderOperationFinish(operation: CreateFolderOperation, result: RemoteOperationResult<*>) {
         if (result.isSuccess) {
             val fileListFragment = this.listOfFilesFragment
+            if (operation.shouldEncrypt()) {
+                val file = storageManager.getFileByDecryptedRemotePath(operation.remotePath)
+                if (file == null) {
+                    Log_OC.e(
+                        TAG,
+                        "onCreateFolderOperationFinish(): file not saved after create folder operation, cannot encrypt"
+                    )
+                    return
+                }
+                fileOperationsHelper.toggleEncryption(file, true)
+                return
+            }
+
             fileListFragment?.onItemClicked(storageManager.getFileByDecryptedRemotePath(operation.getRemotePath()))
         } else {
             try {

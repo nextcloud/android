@@ -81,6 +81,7 @@ public class OperationsService extends Service {
 
     private static final String TAG = OperationsService.class.getSimpleName();
 
+    public static final String EXTRA_ENCRYPTED = "ENCRYPTED";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_POST_DIALOG_EVENT = "EXTRA_POST_DIALOG_EVENT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
@@ -708,10 +709,13 @@ public class OperationsService extends Service {
 
                     case ACTION_CREATE_FOLDER:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        operation = new CreateFolderOperation(remotePath,
-                                                              user,
-                                                              getApplicationContext(),
-                                                              fileDataStorageManager);
+                        boolean encrypt = operationIntent.getBooleanExtra(EXTRA_ENCRYPTED, false);
+                        final var createFolderOperation = new CreateFolderOperation(remotePath,
+                                                                                    user,
+                                                                                    getApplicationContext(),
+                                                                                    fileDataStorageManager);
+                        createFolderOperation.setEncrypt(encrypt);
+                        operation = createFolderOperation;
                         break;
 
                     case ACTION_SYNC_FILE:

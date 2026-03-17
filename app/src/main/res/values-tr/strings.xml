@@ -48,12 +48,13 @@
     <string name="assistant_output_generation_warning_text">Bu çıktı yapay zeka tarafından oluşturuldu. Her zaman iki kez kontrol ettiğinizden emin olun.</string>
     <string name="assistant_screen_chat_create_error">Bir ileti gönderilemedi</string>
     <string name="assistant_screen_chat_fetch_error">Sohbet iletileri alınamadı</string>
+    <string name="assistant_screen_chat_generate_error">Yanıt oluşturulamadı</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Yardımcı sayfasına dön</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Bu görevi silmek istediğinize emin misiniz?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Görevi sil</string>
     <string name="assistant_screen_empty_content_description">Bir görüşme başlatacak bir ileti göndermeyi dene.</string>
     <string name="assistant_screen_empty_content_title">Merhaba! Bugün size nasıl yardımcı olabilirim?</string>
-    <string name="assistant_screen_retry_response_generation">Yanıtı yeniden oluştur</string>
+    <string name="assistant_screen_retry_response_generation">Yanıt oluşturmayı yeniden dene</string>
     <string name="assistant_screen_select_task">Lütfen görevi seçin</string>
     <string name="assistant_screen_send_message">İleti gönder</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Açık görüşmeler listesi</string>
@@ -607,6 +608,9 @@
     <string name="media_play_pause_description">Oynatma ya da duraklatma düğmesi</string>
     <string name="media_player_pause">Duraklat</string>
     <string name="media_player_play">Oynat</string>
+    <string name="media_player_playing">Ortam oynatılıyor</string>
+    <string name="media_player_seek_backward">Geri atla</string>
+    <string name="media_player_seek_forward">İleri atla</string>
     <string name="media_rewind_description">Geri alma düğmesi</string>
     <string name="media_state_playing">%1$s (oynatılıyor)</string>
     <string name="menu_item_sort_by_date_newest_first">Yeniden eskiye</string>
