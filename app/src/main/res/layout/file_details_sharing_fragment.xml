@@ -144,6 +144,7 @@
                 android:text="@string/send_copy_to" />
 
             <TextView
+                android:id="@+id/internal_share_headline"
                 android:paddingStart="@dimen/standard_padding"
                 android:paddingEnd="@dimen/zero"
                 android:paddingTop="@dimen/standard_half_padding"
@@ -152,6 +153,20 @@
                 android:layout_height="wrap_content"
                 android:text="@string/internal_shares"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/internal_share_description"
+                android:paddingStart="@dimen/standard_padding"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:paddingEnd="@dimen/zero"
+                android:paddingTop="@dimen/standard_half_padding"
+                android:paddingBottom="@dimen/standard_half_padding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/internal_share_description_end_to_end_encrypted"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/sharesList_internal"

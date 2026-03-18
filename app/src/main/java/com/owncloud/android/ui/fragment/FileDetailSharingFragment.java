@@ -321,6 +321,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         if (file.canReshare() && !FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities)) {
             if (file.isEncrypted() || (parentFile != null && parentFile.isEncrypted())) {
+               binding.internalShareHeadline.setText(getResources().getString(R.string.internal_share_headline_end_to_end_encrypted));
+               binding.internalShareDescription.setVisibility(View.VISIBLE);
+               binding.externalSharesHeadline.setText(getResources().getString(R.string.create_end_to_end_encrypted_share_title));
+
                 if (file.getE2eCounter() == -1) {
                     // V1 cannot share
                     binding.searchContainer.setVisibility(View.GONE);
@@ -618,11 +622,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         externalShareeListAdapter.removeAll();
         final var shares = OCShareExtensionsKt.mergeDistinctByToken(externalShares, publicShares);
 
-        boolean hasNoSecureFileDrop = shares.stream()
-            .noneMatch(s -> s.getShareType() == ShareType.PUBLIC_LINK
-                || s.getShareType() == ShareType.NEW_PUBLIC_LINK);
-
-        if (file.isEncrypted() && hasNoSecureFileDrop) {
+        if (file.isEncrypted()) {
             OCShare placeholder = new OCShare();
             placeholder.setShareType(ShareType.NEW_PUBLIC_LINK);
             shares.add(placeholder);

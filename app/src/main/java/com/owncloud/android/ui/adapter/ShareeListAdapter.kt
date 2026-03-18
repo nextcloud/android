@@ -77,7 +77,7 @@ class ShareeListAdapter(
             shareType == ShareType.NEW_PUBLIC_LINK -> {
                 if (encrypted) {
                     val binding = FileDetailsShareSecureFileDropAddNewItemBinding.inflate(inflater, parent, false)
-                    NewSecureFileDropViewHolder(binding)
+                    NewSecureFileDropViewHolder(binding, viewThemeUtils)
                 } else {
                     val binding = FileDetailsSharePublicLinkAddNewItemBinding.inflate(inflater, parent, false)
                     NewLinkShareViewHolder(binding)
