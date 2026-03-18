@@ -33,7 +33,6 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
-import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -871,13 +870,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void updateAdapter(List<OCFile> newFiles, OCFile directory) {
-        boolean hasSameContent = OCFileExtensionsKt.hasSameContentAs(mFiles, newFiles);
-
-        if (hasSameContent) {
-            Log_OC.d(TAG, "same data passed skipping update");
-            return;
-        }
-
         Log_OC.d(TAG, "updating the adapter");
 
         mFiles = new ArrayList<>(newFiles);
@@ -1083,6 +1075,27 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @VisibleForTesting
     public void setCurrentDirectory(OCFile folder) {
         currentDirectory = folder;
+    }
+
+    // payload only for local file indicator
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (!payloads.isEmpty() && payloads.get(0) instanceof Integer iconId && holder instanceof ListViewHolder listViewHolder) {
+            listViewHolder.getLocalFileIndicator().setImageResource(iconId);
+            listViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+            // skip full rebind
+            return;
+        }
+        super.onBindViewHolder(holder, position, payloads);
+    }
+
+    public void updateFileIndicator(int iconId, OCFile file) {
+        if (file == null) return;
+
+        int position = getItemPosition(file);
+        if (position != -1) {
+            notifyItemChanged(position, iconId);
+        }
     }
 
     public void cleanup() {

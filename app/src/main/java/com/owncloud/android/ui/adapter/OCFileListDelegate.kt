@@ -20,7 +20,6 @@ import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.OCFileUtils
-import com.nextcloud.utils.extensions.getSubfiles
 import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.mdm.MDMConfig
@@ -45,7 +44,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(
@@ -337,13 +335,6 @@ class OCFileListDelegate(
         }
     }
 
-    private suspend fun isFolderFullyDownloaded(file: OCFile): Boolean = withContext(Dispatchers.IO) {
-        file.isFolder &&
-            storageManager.getSubfiles(file.fileId, user.accountName)
-                .takeIf { it.isNotEmpty() }
-                ?.all { it.isDown } == true
-    }
-
     private fun isSynchronizing(file: OCFile): Boolean {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
         val fileDownloadHelper = FileDownloadHelper.instance()
@@ -354,28 +345,24 @@ class OCFileListDelegate(
     }
 
     private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
-        ioScope.launch {
-            val isFullyDownloaded = isFolderFullyDownloaded(file)
-            val isSyncing = isSynchronizing(file)
-            val hasConflict = (file.etagInConflict != null)
-            val isDown = file.isDown
+        val isFullyDownloaded = storageManager.fileDao.isFolderFullyDownloaded(file.fileId, user.accountName)
+        val isSyncing = isSynchronizing(file)
+        val hasConflict = (file.etagInConflict != null)
+        val isDown = file.isDown
 
-            val icon = when {
-                isSyncing -> R.drawable.ic_synchronizing
-                hasConflict -> R.drawable.ic_synchronizing_error
-                isDown || isFullyDownloaded -> R.drawable.ic_synced
-                else -> null
-            }
+        val icon = when {
+            isSyncing -> R.drawable.ic_synchronizing
+            hasConflict -> R.drawable.ic_synchronizing_error
+            isDown || isFullyDownloaded -> R.drawable.ic_synced
+            else -> null
+        }
 
-            withContext(Dispatchers.Main) {
-                holder.localFileIndicator.run {
-                    if (icon != null && showMetadata) {
-                        setImageResource(icon)
-                        visibility = View.VISIBLE
-                    } else {
-                        visibility = View.GONE
-                    }
-                }
+        holder.localFileIndicator.run {
+            if (icon != null && showMetadata) {
+                setImageResource(icon)
+                visibility = View.VISIBLE
+            } else {
+                visibility = View.GONE
             }
         }
     }
