@@ -1196,8 +1196,10 @@
     <string name="share_permission_file_request">File request</string>
     <string name="share_permission_view_only">View only</string>
     <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
-
+    <string name="create_end_to_end_encrypted_share_title">End-to-end encrypted link shares</string>
+    <string name="create_end_to_end_encrypted_share">Link share</string>
+    <string name="internal_share_headline_end_to_end_encrypted">End-to-end encrypted shares</string>
+    <string name="internal_share_description_end_to_end_encrypted">Share recipients always have access to the full encrypted folder. It is only possible to share with accounts that have already setup end-to-end encryption.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Choose what to sync</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
