@@ -1,4 +1,4 @@
-## 33.0.1 (March 12, 2026)
+## 33.0.1 RC1 (March 12, 2026)
 
 - Auto upload improvements
 - Bug fixes and performance improvements
