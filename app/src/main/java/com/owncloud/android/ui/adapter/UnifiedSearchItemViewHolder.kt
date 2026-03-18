@@ -127,7 +127,8 @@ class UnifiedSearchItemViewHolder(
                 user,
                 preferences,
                 context,
-                viewThemeUtils
+                viewThemeUtils,
+                false
             )
         }
     }

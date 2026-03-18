@@ -204,7 +204,8 @@ class OCFileListDelegate(
             shimmerThumbnail,
             preferences,
             viewThemeUtils,
-            overlayManager
+            overlayManager,
+            false
         )
     }
 
