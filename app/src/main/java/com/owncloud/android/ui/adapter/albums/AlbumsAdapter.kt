@@ -25,6 +25,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
@@ -33,7 +34,7 @@ class AlbumsAdapter(
     private val storageManager: FileDataStorageManager?,
     private val user: User,
     private val albumFragmentInterface: AlbumFragmentInterface,
-    private val syncedFolderProvider: SyncedFolderProvider,
+    private val overlayManager: OverlayManager,
     private val preferences: AppPreferences,
     private val viewThemeUtils: ViewThemeUtils,
     private val gridView: Boolean = true
@@ -83,7 +84,7 @@ class AlbumsAdapter(
                 null,
                 preferences,
                 viewThemeUtils,
-                syncedFolderProvider,
+                overlayManager,
                 true
             )
         } else {

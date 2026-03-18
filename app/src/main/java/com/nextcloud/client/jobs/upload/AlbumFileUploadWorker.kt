@@ -84,7 +84,7 @@ class AlbumFileUploadWorker(
     private val notificationId = Random.nextInt()
     private val notificationManager = UploadNotificationManager(context, viewThemeUtils, notificationId)
     private val intents = FileUploaderIntents(context)
-    private val fileUploadBroadcastManager = FileUploadBroadcastManager(localBroadcastManager)
+    private val fileUploadEventBroadcaster = FileUploadEventBroadcaster(localBroadcastManager)
 
     override suspend fun doWork(): Result = try {
         Log_OC.d(TAG, "AlbumFileUploadWorker started")
@@ -202,7 +202,7 @@ class AlbumFileUploadWorker(
                 return@withContext Result.failure()
             }
 
-            fileUploadBroadcastManager.sendAdded(context)
+            fileUploadEventBroadcaster.sendUploadEnqueued(context)
             val operation = createUploadFileOperation(upload, user)
             currentUploadFileOperation = operation
 
@@ -247,10 +247,9 @@ class AlbumFileUploadWorker(
                 isLastUpload
 
         if (shouldBroadcast) {
-            fileUploadBroadcastManager.sendFinished(
+            fileUploadEventBroadcaster.sendUploadCompleted(
                 operation,
                 result,
-                operation.oldFile?.storagePath,
                 context
             )
         }
@@ -312,7 +311,7 @@ class AlbumFileUploadWorker(
             } else {
                 Log_OC.e(TAG, "Failed to copy file to Album: $albumName due to ${copyResult.logMessage}")
             }
-            fileUploadBroadcastManager.sendStarted(operation, context)
+            fileUploadEventBroadcaster.sendUploadStarted(operation, context)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
             result = RemoteOperationResult(e)

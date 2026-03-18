@@ -778,7 +778,8 @@ public final class DisplayUtils {
                                     LoaderImageView shimmerThumbnail,
                                     AppPreferences preferences,
                                     ViewThemeUtils viewThemeUtils,
-                                    OverlayManager overlayManager) {
+                                    OverlayManager overlayManager,
+                                    boolean hideVideoOverlay) {
         if (file == null || thumbnailView == null || context == null) {
             return;
         }
@@ -794,16 +795,16 @@ public final class DisplayUtils {
         }
 
         if (file.getRemoteId() == null || !file.isPreviewAvailable()) {
-            setThumbnailFirstTimeForFile(file, thumbnailView, storageManager, asyncTasks, gridView, shimmerThumbnail, user, preferences, context, viewThemeUtils);
+            setThumbnailFirstTimeForFile(file, thumbnailView, storageManager, asyncTasks, gridView, shimmerThumbnail, user, preferences, context, viewThemeUtils, hideVideoOverlay);
             return;
         }
 
-        setThumbnailFromCache(file, thumbnailView, storageManager, asyncTasks, gridView, shimmerThumbnail, user, preferences, context, viewThemeUtils);
+        setThumbnailFromCache(file, thumbnailView, storageManager, asyncTasks, gridView, shimmerThumbnail, user, preferences, context, viewThemeUtils, hideVideoOverlay);
     }
 
-    private static void setThumbnailFirstTimeForFile(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
+    private static void setThumbnailFirstTimeForFile(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils, boolean hideVideoOverlay) {
         if (file.getRemoteId() != null) {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils, hideVideoOverlay);
             return;
         }
 
@@ -834,10 +835,10 @@ public final class DisplayUtils {
         }
     }
 
-    public static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
+    public static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils, boolean hideVideoOverlay) {
         final var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
         if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils, hideVideoOverlay);
             setThumbnailBackgroundForPNGFileIfNeeded(file, context, thumbnailView);
             return;
         }
@@ -845,8 +846,12 @@ public final class DisplayUtils {
         stopShimmer(shimmerThumbnail, thumbnailView);
 
         if (MimeTypeUtil.isVideo(file)) {
-            final var withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);
-            thumbnailView.setImageBitmap(withOverlay);
+            if (hideVideoOverlay) {
+                thumbnailView.setImageBitmap(thumbnail);
+            } else {
+                final var withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);
+                thumbnailView.setImageBitmap(withOverlay);
+            }
         } else {
             BitmapUtils.setRoundedBitmapAccordingToListType(gridView, thumbnail, thumbnailView);
         }
@@ -870,7 +875,8 @@ public final class DisplayUtils {
                                              Context context,
                                              LoaderImageView shimmerThumbnail,
                                              AppPreferences preferences,
-                                             ViewThemeUtils viewThemeUtils) {
+                                             ViewThemeUtils viewThemeUtils,
+                                             boolean hideVideoOverlay) {
         if (!ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
             return;
         }
@@ -901,7 +907,8 @@ public final class DisplayUtils {
                                                                    user,
                                                                    asyncTasks,
                                                                    gridView,
-                                                                   file.getRemoteId());
+                                                                   file.getRemoteId(),
+                                                                   hideVideoOverlay);
             Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                              file.getFileName(),
                                                              context,
