@@ -10,7 +10,7 @@ package com.owncloud.android.ui.navigation
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-sealed class NavigatorScreen(val tag : String) : Parcelable {
+sealed class NavigatorScreen(val tag: String) : Parcelable {
 
     @Parcelize
     object Community : NavigatorScreen("Community")
