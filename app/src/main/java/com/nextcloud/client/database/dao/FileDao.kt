@@ -91,27 +91,19 @@ interface FileDao {
 
     @Query(
         """
-    SELECT 
-        EXISTS (
-            SELECT 1
-            FROM filelist
-            WHERE parent = :parentId
-              AND file_owner = :accountName
-              AND content_type != '${MimeType.DIRECTORY}'
-              AND content_type != '${MimeType.WEBDAV_FOLDER}'
-        )
-        AND NOT EXISTS (
-            SELECT 1
-            FROM filelist
-            WHERE parent = :parentId
-              AND file_owner = :accountName
-              AND content_type != '${MimeType.DIRECTORY}'
-              AND content_type != '${MimeType.WEBDAV_FOLDER}'
-              AND media_path IS NULL
-        )
+    SELECT NOT EXISTS (
+        SELECT 1
+        FROM filelist
+        WHERE parent = :parentId
+          AND file_owner = :accountName
+          AND content_type IS NOT NULL
+          AND content_type != '${MimeType.DIRECTORY}'
+          AND content_type != '${MimeType.WEBDAV_FOLDER}'
+          AND (media_path IS NULL OR TRIM(media_path) = '')
+    )
 """
     )
-    fun isFolderFullyDownloaded(parentId: Long, accountName: String): Boolean
+    fun areAllFilesHaveMediaPath(parentId: Long, accountName: String): Boolean
 
     @Query(
         """
