@@ -34,7 +34,6 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AlbumsFragmentBinding
-import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 import com.owncloud.android.lib.resources.albums.ReadAlbumsRemoteOperation
@@ -44,6 +43,7 @@ import com.owncloud.android.ui.adapter.albums.AlbumFragmentInterface
 import com.owncloud.android.ui.adapter.albums.AlbumsAdapter
 import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -69,7 +69,7 @@ class AlbumsFragment :
     lateinit var preferences: AppPreferences
 
     @Inject
-    lateinit var syncedFolderProvider: SyncedFolderProvider
+    lateinit var overlayManager: OverlayManager
 
     @Inject
     lateinit var throttler: Throttler
@@ -237,7 +237,7 @@ class AlbumsFragment :
                 containerActivity?.storageManager,
                 accountManager.user,
                 this,
-                syncedFolderProvider,
+                overlayManager,
                 preferences,
                 viewThemeUtils,
                 isGridView
