@@ -4,6 +4,7 @@
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2018-2021 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-FileCopyrightText: 2016 ownCloud Inc.
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
@@ -16,10 +17,9 @@ import android.os.Parcelable
 import androidx.core.util.Function
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.model.OCUploadLocalPathData
 import com.owncloud.android.R
-import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener
@@ -54,6 +54,29 @@ class UriUploader @JvmOverloads constructor(
     /** If non-null, this function is called to determine the desired display name (i.e. filename) after upload**/
     private val mFileDisplayNameTransformer: Function<Uri, String?>? = null
 ) {
+    // used when uploading from Albums
+    var albumName: String? = null
+
+    constructor(
+        activity: FileActivity,
+        urisToUpload: List<Parcelable?>,
+        uploadPath: String,
+        albumName: String?,
+        user: User,
+        behaviour: Int,
+        showWaitingDialog: Boolean,
+        copyTmpTaskListener: OnCopyTmpFilesTaskListener?
+    ) : this(
+        activity,
+        urisToUpload,
+        uploadPath,
+        user,
+        behaviour,
+        showWaitingDialog,
+        copyTmpTaskListener
+    ) {
+        this.albumName = albumName
+    }
 
     enum class UriUploaderResultCode {
         OK,
@@ -136,18 +159,15 @@ class UriUploader @JvmOverloads constructor(
      * @param remotePaths    Absolute paths in the current OC account to set to the uploaded file.
      */
     private fun requestUpload(localPaths: Array<String>, remotePaths: Array<String>) {
-        FileUploadHelper.instance().uploadNewFiles(
-            user,
-            localPaths,
-            remotePaths,
-            mBehaviour,
-            // do not create parent folder if not existent
-            false,
-            UploadFileOperation.CREATED_BY_USER,
-            requiresWifi = false,
-            requiresCharging = false,
-            nameCollisionPolicy = NameCollisionPolicy.ASK_USER
-        )
+        FileUploadHelper.instance().run {
+            if (albumName.isNullOrEmpty()) {
+                val data = OCUploadLocalPathData.forFile(user, localPaths, remotePaths, mBehaviour)
+                uploadNewFiles(data)
+            } else {
+                val data = OCUploadLocalPathData.forAlbum(user, localPaths, remotePaths, mBehaviour)
+                uploadAndCopyNewFilesForAlbum(data, albumName!!)
+            }
+        }
     }
 
     /**
@@ -159,7 +179,7 @@ class UriUploader @JvmOverloads constructor(
         if (mShowWaitingDialog) {
             mActivity.showLoadingDialog(mActivity.resources.getString(R.string.wait_for_tmp_copy_from_private_storage))
         }
-        val copyTask = CopyAndUploadContentUrisTask(mCopyTmpTaskListener, mActivity)
+        val copyTask = CopyAndUploadContentUrisTask(mCopyTmpTaskListener, mActivity, albumName)
         val fm = mActivity.supportFragmentManager
 
         // Init Fragment without UI to retain AsyncTask across configuration changes

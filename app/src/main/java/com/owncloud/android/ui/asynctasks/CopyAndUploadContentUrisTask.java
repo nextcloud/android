@@ -8,6 +8,7 @@
  * SPDX-FileCopyrightText: 2016 Juan Carlos González Cabrero <malkomich@gmail.com>
  * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
  * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.ui.asynctasks;
@@ -18,15 +19,15 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.DocumentsContract;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.model.OCUploadLocalPathData;
 import com.owncloud.android.R;
-import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
@@ -54,6 +55,9 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
      * needs to exist until the end of the AsyncTask although the caller Activity were finished before.
      */
     private final Context mAppContext;
+
+    // will be used when uploading is happening for Albums
+    private final String mAlbumName;
 
     /**
      * Helper method building a correct array of parameters to be passed to {@link #execute(Object[])} )}
@@ -98,9 +102,10 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
         };
     }
 
-    public CopyAndUploadContentUrisTask(OnCopyTmpFilesTaskListener listener, Context context) {
+    public CopyAndUploadContentUrisTask(OnCopyTmpFilesTaskListener listener, Context context, String albumName) {
         mListener = new WeakReference<>(listener);
         mAppContext = context.getApplicationContext();
+        mAlbumName = albumName;
     }
 
     /**
@@ -180,16 +185,13 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 }
             }
 
-            FileUploadHelper.Companion.instance().uploadNewFiles(
-                user,
-                localPaths,
-                currentRemotePaths,
-                behaviour,
-                false,      // do not create parent folder if not existent
-                UploadFileOperation.CREATED_BY_USER,
-                false,
-                false,
-                NameCollisionPolicy.ASK_USER);
+            if (TextUtils.isEmpty(mAlbumName)) {
+                final var data = OCUploadLocalPathData.Companion.forFile(user, localPaths, currentRemotePaths, behaviour);
+                FileUploadHelper.Companion.instance().uploadNewFiles(data);
+            } else {
+                final var data = OCUploadLocalPathData.Companion.forAlbum(user, localPaths, currentRemotePaths,behaviour);
+                FileUploadHelper.Companion.instance().uploadAndCopyNewFilesForAlbum(data, mAlbumName);
+            }
 
             result = ResultCode.OK;
 

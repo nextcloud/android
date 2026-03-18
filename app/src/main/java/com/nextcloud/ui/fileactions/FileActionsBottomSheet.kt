@@ -157,7 +157,8 @@ class FileActionsBottomSheet :
                 binding.thumbnailLayout.thumbnailShimmer,
                 syncedFolderProvider.preferences,
                 viewThemeUtils,
-                overlayManager
+                overlayManager,
+                false
             )
         }
     }

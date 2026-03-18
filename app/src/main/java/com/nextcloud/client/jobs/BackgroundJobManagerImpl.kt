@@ -32,6 +32,7 @@ import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
+import com.nextcloud.client.jobs.upload.AlbumFileUploadWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
@@ -112,6 +113,7 @@ internal class BackgroundJobManagerImpl(
         const val OFFLINE_OPERATIONS_PERIODIC_JOB_INTERVAL_MINUTES = 5L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
         const val DEFAULT_BACKOFF_CRITERIA_DELAY_SEC = 300L
+        const val ALBUM_JOB_FILES_UPLOAD = "album_files_upload"
 
         private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
@@ -641,6 +643,61 @@ internal class BackgroundJobManagerImpl(
                     .setInputData(dataBuilder.build())
                     .setConstraints(constraints)
                     .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                    .build()
+            }
+
+            // Chain the work requests sequentially
+            if (workRequests.isNotEmpty()) {
+                var workChain = workManager.beginUniqueWork(
+                    tag,
+                    ExistingWorkPolicy.APPEND_OR_REPLACE,
+                    workRequests.first()
+                )
+
+                workRequests.drop(1).forEach { request ->
+                    workChain = workChain.then(request)
+                }
+
+                workChain.enqueue()
+            }
+        }
+    }
+
+    private fun startAlbumsFileUploadJobTag(accountName: String): String = ALBUM_JOB_FILES_UPLOAD + accountName
+
+    /**
+     * This method supports uploading and copying selected files to Album
+     *
+     * @param user The user for whom the upload job is being created.
+     * @param uploadIds Array of upload IDs to be processed. These IDs originate from multiple sources
+     *                  and cannot be determined directly from the account name or a single function
+     *                  within the worker.
+     * @param albumName Album on which selected files should be copy after upload
+     */
+    override fun startAlbumFilesUploadJob(user: User, uploadIds: LongArray, albumName: String) {
+        defaultDispatcherScope.launch {
+            val batchSize = FileUploadHelper.MAX_FILE_COUNT
+            val batches = uploadIds.toList().chunked(batchSize)
+            val tag = startAlbumsFileUploadJobTag(user.accountName)
+
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
+
+            val dataBuilder = Data.Builder()
+                .putString(AlbumFileUploadWorker.ACCOUNT, user.accountName)
+                .putInt(AlbumFileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
+                .putString(AlbumFileUploadWorker.ALBUM_NAME, albumName)
+
+            val workRequests = batches.mapIndexed { index, batch ->
+                dataBuilder
+                    .putLongArray(AlbumFileUploadWorker.UPLOAD_IDS, batch.toLongArray())
+                    .putInt(AlbumFileUploadWorker.CURRENT_BATCH_INDEX, index)
+
+                oneTimeRequestBuilder(AlbumFileUploadWorker::class, ALBUM_JOB_FILES_UPLOAD, user)
+                    .addTag(tag)
+                    .setInputData(dataBuilder.build())
+                    .setConstraints(constraints)
                     .build()
             }
 
