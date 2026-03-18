@@ -221,7 +221,8 @@ class CreateFolderDialogFragment :
          * @return Dialog ready to show.
          */
         @JvmStatic
-        fun newInstance(parentFolder: OCFile?, encrypted: Boolean): CreateFolderDialogFragment {
+        @JvmOverloads
+        fun newInstance(parentFolder: OCFile?, encrypted: Boolean = true): CreateFolderDialogFragment {
             val bundle = Bundle().apply {
                 putBoolean(ARG_ENCRYPTED, encrypted)
                 putParcelable(ARG_PARENT_FOLDER, parentFolder)
