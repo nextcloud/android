@@ -8,21 +8,22 @@
  */
 package com.nextcloud.client
 
-import androidx.test.core.app.launchActivity
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.test.GrantStoragePermissionRule.Companion.grant
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.ui.activity.CommunityActivity
+import com.owncloud.android.ui.navigation.NavigatorActivity
+import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 
-class CommunityActivityIT : AbstractIT() {
-    private val testClassName = "com.nextcloud.client.CommunityActivityIT"
+class CommunityFragmentIT : AbstractIT() {
+    private val testClassName = "com.nextcloud.client.CommunityFragmentIT"
 
     @get:Rule
     var storagePermissionRule: TestRule = grant()
@@ -30,7 +31,8 @@ class CommunityActivityIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun open() {
-        launchActivity<CommunityActivity>().use { scenario ->
+        val intent = NavigatorActivity.intent(targetContext, NavigatorScreen.Community)
+        ActivityScenario.launch<NavigatorActivity>(intent).use { scenario ->
             val screenShotName = createName(testClassName + "_" + "open", "")
             onView(isRoot()).check(matches(isDisplayed()))
 
