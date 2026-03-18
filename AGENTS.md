@@ -54,4 +54,4 @@ Avoid creating source files that implement multiple types; instead, place each t
 - Do not use multiple boolean flags to determine states instead use enums or sealed classes.
 - Use modern Java for Java classes. Optionals, virtual threads, records, streams if necessary.
 - Avoid hardcoded strings, colors, dimensions. Use resources.
-- For linting / formatting, use ktlint or detekt for Kotlin, and Android Lint for Java.
+- Run lint, spotbugsGplayDebug, detekt, spotlessKotlinCheck and fix findings inside the files that have been changed.
