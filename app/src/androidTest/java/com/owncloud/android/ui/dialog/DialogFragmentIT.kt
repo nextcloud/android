@@ -426,7 +426,7 @@ class DialogFragmentIT : AbstractIT() {
         }
 
         val action: OCFileListBottomSheetActions = object : OCFileListBottomSheetActions {
-            override fun createFolder() = Unit
+            override fun createFolder(encrypted: Boolean) = Unit
             override fun uploadFromApp() = Unit
             override fun uploadFiles() = Unit
             override fun newDocument() = Unit
@@ -435,7 +435,8 @@ class DialogFragmentIT : AbstractIT() {
             override fun directCameraUpload() = Unit
             override fun scanDocUpload() = Unit
             override fun scanDocUploadFromApp() = Unit
-            override fun isScanDocUploadFromAppAvailable(): Boolean = false
+            override val isScanDocUploadFromAppAvailable: Boolean
+                get() = false
             override fun showTemplate(creator: Creator?, headline: String?) = Unit
             override fun createRichWorkspace() = Unit
         }
