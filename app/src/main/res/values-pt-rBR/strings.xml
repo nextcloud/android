@@ -248,6 +248,7 @@
     <string name="create_link">Criar link</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
+    <string name="create_new_encrypted_folder">Nova pasta criptografada</string>
     <string name="create_new_folder">Nova pasta</string>
     <string name="create_new_presentation">Nova apresentação</string>
     <string name="create_new_spreadsheet">Nova planilha</string>

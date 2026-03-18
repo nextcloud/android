@@ -246,6 +246,7 @@
     <string name="create_link">Skapa länk</string>
     <string name="create_new">Ny</string>
     <string name="create_new_document">Nytt dokument</string>
+    <string name="create_new_encrypted_folder">Ny krypterad mapp</string>
     <string name="create_new_folder">Ny mapp</string>
     <string name="create_new_presentation">Ny presentation</string>
     <string name="create_new_spreadsheet">Nytt kalkylblad</string>

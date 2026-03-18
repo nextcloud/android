@@ -921,6 +921,7 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Ajustes</string>
     <string name="uploader_wrn_no_account_text">No existen cuentas  %1$s en su dispositivo. Favor de configurar una cuenta primero.</string>
     <string name="uploader_wrn_no_account_title">No se encontró la cuenta</string>
+    <string name="uploads_view_group_completed_uploads">Completado</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
     <string name="uploads_view_group_failed_uploads">Reinicio fallido/pendiente</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Cancelado</string>

@@ -247,6 +247,7 @@
     <string name="create_link">Vytvořit odkaz</string>
     <string name="create_new">Nové</string>
     <string name="create_new_document">Nový dokument</string>
+    <string name="create_new_encrypted_folder">Nová šifrovaná složka</string>
     <string name="create_new_folder">Nová složka</string>
     <string name="create_new_presentation">Nová prezentace</string>
     <string name="create_new_spreadsheet">Nová tabulka</string>

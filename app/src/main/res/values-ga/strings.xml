@@ -248,6 +248,7 @@
     <string name="create_link">Cruthaigh nasc</string>
     <string name="create_new">Nua</string>
     <string name="create_new_document">Doiciméad nua</string>
+    <string name="create_new_encrypted_folder">Fillteán criptithe nua</string>
     <string name="create_new_folder">Fillteán nua</string>
     <string name="create_new_presentation">Cur i láthair nua</string>
     <string name="create_new_spreadsheet">Scarbhileog nua</string>

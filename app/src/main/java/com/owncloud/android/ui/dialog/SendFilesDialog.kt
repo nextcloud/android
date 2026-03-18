@@ -24,14 +24,15 @@ import com.nextcloud.client.utils.IntentUtil.createSendIntent
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SendFilesFragmentBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.adapter.SendButtonAdapter
-import com.owncloud.android.ui.components.SendButtonData
+import com.owncloud.android.ui.adapter.sendButton.SendButtonAdapter
+import com.owncloud.android.ui.adapter.sendButton.SendButtonData
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 class SendFilesDialog :
     BottomSheetDialogFragment(R.layout.send_files_fragment),
+    SendButtonAdapter.ClickListener,
     Injectable {
 
     private var files: Array<OCFile>? = null
@@ -41,16 +42,18 @@ class SendFilesDialog :
     @Inject
     var viewThemeUtils: ViewThemeUtils? = null
 
+    private var sendIntent: Intent? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // keep the state of the fragment on configuration changes
         retainInstance = true
 
         files = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getParcelableArray(KEY_OCFILES, OCFile::class.java)
+            requireArguments().getParcelableArray(KEY_OC_FILES, OCFile::class.java)
         } else {
             @Suppress("DEPRECATION")
-            requireArguments().getParcelableArray(KEY_OCFILES) as Array<OCFile>?
+            requireArguments().getParcelableArray(KEY_OC_FILES) as Array<OCFile>?
         }
     }
 
@@ -64,7 +67,8 @@ class SendFilesDialog :
     }
 
     private fun setupSendButtonRecyclerView() {
-        val sendIntent = createSendIntent(requireContext(), files!!)
+        sendIntent = createSendIntent(requireContext(), files!!)
+        val sendIntent = sendIntent ?: return
         val matches = requireActivity().packageManager.queryIntentActivities(sendIntent, 0)
 
         if (matches.isEmpty()) {
@@ -76,21 +80,11 @@ class SendFilesDialog :
         }
 
         val sendButtonDataList = setupSendButtonData(matches)
-        val clickListener = setupSendButtonClickListener(sendIntent)
 
         @Suppress("MagicNumber")
         binding.sendButtonRecyclerView.layoutManager = GridLayoutManager(requireActivity(), 4)
-        binding.sendButtonRecyclerView.adapter = SendButtonAdapter(sendButtonDataList, clickListener)
+        binding.sendButtonRecyclerView.adapter = SendButtonAdapter(sendButtonDataList, this)
     }
-
-    private fun setupSendButtonClickListener(sendIntent: Intent): SendButtonAdapter.ClickListener =
-        SendButtonAdapter.ClickListener { sendButtonDataData: SendButtonData ->
-            val packageName = sendButtonDataData.packageName
-            val activityName = sendButtonDataData.activityName
-            sendIntent.component = ComponentName(packageName, activityName)
-            requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
-            dismiss()
-        }
 
     private fun setupSendButtonData(matches: List<ResolveInfo>): List<SendButtonData> {
         var icon: Drawable
@@ -111,15 +105,25 @@ class SendFilesDialog :
         return sendButtonDataList
     }
 
-    companion object {
-        private const val KEY_OCFILES = "KEY_OCFILES"
+    @Suppress("ReturnCount")
+    override fun onSendButtonClick(sendButtonData: SendButtonData?) {
+        sendButtonData ?: return
+        sendIntent ?: return
 
-        fun newInstance(files: Set<OCFile>): SendFilesDialog {
-            val dialogFragment = SendFilesDialog()
-            val args = Bundle()
-            args.putParcelableArray(KEY_OCFILES, files.toTypedArray())
-            dialogFragment.arguments = args
-            return dialogFragment
+        val packageName = sendButtonData.packageName ?: return
+        val activityName = sendButtonData.activityName ?: return
+        sendIntent?.component = ComponentName(packageName, activityName)
+        requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
+        dismiss()
+    }
+
+    companion object {
+        private const val KEY_OC_FILES = "KEY_OC_FILES"
+
+        fun newInstance(files: Set<OCFile>): SendFilesDialog = SendFilesDialog().apply {
+            arguments = Bundle().apply {
+                putParcelableArray(KEY_OC_FILES, files.toTypedArray())
+            }
         }
     }
 }

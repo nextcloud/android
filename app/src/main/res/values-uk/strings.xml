@@ -48,6 +48,7 @@
     <string name="assistant_output_generation_warning_text">Показаний тут результат генерується штучним інтелектом. Обов\'язково перевіряйте його двічі.</string>
     <string name="assistant_screen_chat_create_error">Не вдалося надіслати повідомлення</string>
     <string name="assistant_screen_chat_fetch_error">Не вдалося отримати повідомлення чату</string>
+    <string name="assistant_screen_chat_generate_error">Не вдалося створити відповідь</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Перейти на сторінку асистента</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Дійсно вилучити це завдання?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Вилучити завдання</string>
@@ -247,6 +248,7 @@
     <string name="create_link">Створити посилання</string>
     <string name="create_new">Створити</string>
     <string name="create_new_document">Новий документ</string>
+    <string name="create_new_encrypted_folder">Новий зашифрований каталог</string>
     <string name="create_new_folder">Новий каталог</string>
     <string name="create_new_presentation">Нова презентація</string>
     <string name="create_new_spreadsheet">Нова електронна таблиця</string>
@@ -607,6 +609,9 @@
     <string name="media_play_pause_description">Відтворення або пауза</string>
     <string name="media_player_pause">Пауза</string>
     <string name="media_player_play">Грати</string>
+    <string name="media_player_playing">Програвання</string>
+    <string name="media_player_seek_backward">Шукати назад</string>
+    <string name="media_player_seek_forward">Шукати вперед</string>
     <string name="media_rewind_description">Перемтка назад</string>
     <string name="media_state_playing">%1$s (програвання)</string>
     <string name="menu_item_sort_by_date_newest_first">Новіші спочатку</string>

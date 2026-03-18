@@ -188,7 +188,7 @@
     <string name="community_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht komplett qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melden Sie uns solche bitte.</string>
     <string name="community_contribute_forum_forum">Forum</string>
     <string name="community_contribute_forum_text">Helfen Sie anderen auf</string>
-    <string name="community_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, weitere Enzelheiten finden Sie hier: %1$s.</string>
+    <string name="community_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, weitere Einzelheiten finden Sie hier: %1$s.</string>
     <string name="community_contribute_headline">Aktiv etwas beitragen</string>
     <string name="community_contribute_translate_text">die App</string>
     <string name="community_contribute_translate_translate">Übersetzen</string>
@@ -248,6 +248,7 @@
     <string name="create_link">Link erstellen</string>
     <string name="create_new">Neu</string>
     <string name="create_new_document">Neues Dokument</string>
+    <string name="create_new_encrypted_folder">Neuer verschlüsselter Ordner</string>
     <string name="create_new_folder">Neuer Ordner</string>
     <string name="create_new_presentation">Neue Präsentation</string>
     <string name="create_new_spreadsheet">Neue Tabelle</string>
@@ -341,7 +342,7 @@
     <string name="email_pick_failed">E-Mail-Adresse konnte nicht ausgewählt werden.</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="end_to_end_encryption_certificate_unavailable">Serverzertifikat kann nicht abgerufen werden</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Der öffentliche Schlüssel konnte nicht verifiziert werden.</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Der öffentliche Schlüssel konnte nicht verifiziert werden</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_decrypting">Entschlüssele…</string>
     <string name="end_to_end_encryption_dialog_close">Schließen</string>

@@ -230,6 +230,7 @@
     <string name="create_link">Create link</string>
     <string name="create_new">New</string>
     <string name="create_new_document">New document</string>
+    <string name="create_new_encrypted_folder">New encrypted folder</string>
     <string name="create_new_folder">ໂຟນເດີໃຫມ່</string>
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>

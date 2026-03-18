@@ -608,6 +608,7 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Agordi</string>
     <string name="uploader_wrn_no_account_text">Neniu konto %1$s sur via aparato. Bonvolu unue agordi konton.</string>
     <string name="uploader_wrn_no_account_title">Neniu konto troviĝis</string>
+    <string name="uploads_view_group_completed_uploads">Plenumita</string>
     <string name="uploads_view_group_current_uploads">Nuna</string>
     <string name="uploads_view_group_failed_uploads">Malsukcesa aŭ atendante reprovadon</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Nuligita</string>

@@ -247,6 +247,7 @@
     <string name="create_link">Crear enlace</string>
     <string name="create_new">Nuevo</string>
     <string name="create_new_document">Nuevo documento</string>
+    <string name="create_new_encrypted_folder">Nueva carpeta cifrada</string>
     <string name="create_new_folder">Nueva carpeta</string>
     <string name="create_new_presentation">Nueva presentación</string>
     <string name="create_new_spreadsheet">Nueva hoja de cálculo</string>
@@ -1131,6 +1132,7 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
     <string name="uploader_wrn_no_account_text">No hay cuentas %1$s en tu dispositivo. Por favor, añade primero una cuenta.</string>
     <string name="uploader_wrn_no_account_title">No se encontró ninguna cuenta</string>
+    <string name="uploads_view_group_completed_uploads">Completado</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
     <string name="uploads_view_group_failed_uploads">Fallo / reinicio pendiente</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Cancelado</string>
