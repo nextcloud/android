@@ -345,9 +345,9 @@ class OCFileListDelegate(
     }
 
     private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
-        var isFullyDownloaded = false
+        var isFolderDown = false
         if (file.isFolder && !file.isEncrypted && file.fileLength != 0L) {
-            isFullyDownloaded = storageManager.fileDao.areAllFilesHaveMediaPath(file.fileId, user.accountName)
+            isFolderDown = storageManager.fileDao.areAllFilesHaveMediaPath(file.fileId, user.accountName)
         }
 
         val isSyncing = isSynchronizing(file)
@@ -357,7 +357,7 @@ class OCFileListDelegate(
         val icon = when {
             isSyncing -> R.drawable.ic_synchronizing
             hasConflict -> R.drawable.ic_synchronizing_error
-            isDown || isFullyDownloaded -> R.drawable.ic_synced
+            isDown || isFolderDown -> R.drawable.ic_synced
             else -> null
         }
 
