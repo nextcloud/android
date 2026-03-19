@@ -48,11 +48,13 @@
     <string name="assistant_output_generation_warning_text">Prikazani izlaz generirala je umjetna inteligencija. Obavezno ga uvijek provjerite.</string>
     <string name="assistant_screen_chat_create_error">Slanje poruke nije uspjelo</string>
     <string name="assistant_screen_chat_fetch_error">Dohvat poruka chata nije uspio</string>
+    <string name="assistant_screen_chat_generate_error">Dohvat odgovora nije uspio</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Natrag na stranicu asistenta</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Jeste li sigurni da želite izbrisati ovaj zadatak?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Izbriši zadatak</string>
     <string name="assistant_screen_empty_content_description">Pošaljite poruku kako biste započeli razgovor.</string>
     <string name="assistant_screen_empty_content_title">Bok! Kako vam mogu pomoći danas?</string>
+    <string name="assistant_screen_retry_response_generation">Pokušaj ponovno generirati odgovor</string>
     <string name="assistant_screen_select_task">Odaberite zadatak</string>
     <string name="assistant_screen_send_message">Pošalji poruku</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Otvori popis razgovora</string>
@@ -246,6 +248,7 @@
     <string name="create_link">Stvori poveznicu</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novi dokument</string>
+    <string name="create_new_encrypted_folder">Nova šifrirana mapa</string>
     <string name="create_new_folder">Nova mapa</string>
     <string name="create_new_presentation">Nova prezentacija</string>
     <string name="create_new_spreadsheet">Nova proračunska tablica</string>
@@ -606,7 +609,10 @@
     <string name="media_notif_ticker">Alat za reprodukciju glazbe %1$s</string>
     <string name="media_play_pause_description">Tipka za reprodukciju ili pauzu</string>
     <string name="media_player_pause">Pauza</string>
-    <string name="media_player_play">Zabava</string>
+    <string name="media_player_play">Reprodukcija</string>
+    <string name="media_player_playing">Reprodukcija medijskog sadržaja</string>
+    <string name="media_player_seek_backward">Premotaj unatrag</string>
+    <string name="media_player_seek_forward">Premotaj unaprijed</string>
     <string name="media_rewind_description">Tipka za premotavanje</string>
     <string name="media_state_playing">%1$s (reprodukcija)</string>
     <string name="menu_item_sort_by_date_newest_first">Najnoviji prvi</string>
