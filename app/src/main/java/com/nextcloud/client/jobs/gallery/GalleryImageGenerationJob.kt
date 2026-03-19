@@ -34,6 +34,7 @@ import kotlinx.coroutines.withContext
 import java.util.Collections
 import java.util.WeakHashMap
 
+@Suppress("DEPRECATION", "TooGenericExceptionCaught", "ReturnCount")
 class GalleryImageGenerationJob(private val user: User, private val storageManager: FileDataStorageManager) {
     companion object {
         private const val TAG = "GalleryImageGenerationJob"
@@ -88,7 +89,6 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     suspend fun run(file: OCFile, imageView: ImageView, listener: GalleryImageGenerationListener) {
         try {
             var newImage = false
@@ -229,7 +229,6 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         return result
     }
 
-    @Suppress("DEPRECATION", "TooGenericExceptionCaught")
     private suspend fun getThumbnailFromServerAndAddToCache(file: OCFile, thumbnail: Bitmap?): Bitmap? {
         var thumbnail = thumbnail
         try {
