@@ -1325,4 +1325,12 @@ public final class ThumbnailsCacheManager {
 
         return thumbnail;
     }
+
+    public static String getCacheKey(@NonNull OCFile file) {
+        if (MimeTypeUtil.isVideo(file)) {
+            return ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId();
+        } else {
+            return ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getRemoteId();
+        }
+    }
 }
