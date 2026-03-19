@@ -21,6 +21,9 @@ Java, Kotlin, XML, Jetpack Compose are the key technologies used for building th
 
 './app/src/main/java/com' main package of the project.
 '.app/src/main/java/com/nextcloud/utils/extensions' package used for creating extensions.
+'./app/src/main/res/values' used for translations. Only update
+'./app/src/main/res/values/strings.xml'. Do not modify any other translation files or folders. Ignore all values- 
+directories (e.g., values-es, values-fr).
 
 ## General Guidance
 
@@ -50,4 +53,5 @@ Avoid creating source files that implement multiple types; instead, place each t
 - Apply fail fast principle instead of using nested if-else statements.
 - Do not use multiple boolean flags to determine states instead use enums or sealed classes.
 - Use modern Java for Java classes. Optionals, virtual threads, records, streams if necessary.
-
+- Avoid hardcoded strings, colors, dimensions. Use resources.
+- Run lint, spotbugsGplayDebug, detekt, spotlessKotlinCheck and fix findings inside the files that have been changed.

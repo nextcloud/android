@@ -49,7 +49,6 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.activity.BaseActivity;
-import com.owncloud.android.ui.activity.CommunityActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.activity.CopyToClipboardActivity;
@@ -116,8 +115,10 @@ import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
+import com.owncloud.android.ui.fragment.community.CommunityFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
+import com.owncloud.android.ui.navigation.NavigatorActivity;
 import com.owncloud.android.ui.preview.FileDownloadFragment;
 import com.owncloud.android.ui.preview.PreviewBitmapActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
@@ -193,9 +194,6 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract NotificationsActivity notificationsActivity();
-
-    @ContributesAndroidInjector
-    abstract CommunityActivity participateActivity();
 
     @ContributesAndroidInjector
     abstract ComposeActivity composeActivity();
@@ -503,7 +501,6 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector
     abstract InternalTwoWaySyncActivity internalTwoWaySyncActivity();
 
-
     @OptIn(markerClass = UnstableApi.class)
     @ContributesAndroidInjector
     abstract BackgroundPlayerService backgroundPlayerService();
@@ -513,4 +510,10 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract SetStatusMessageBottomSheet setStatusMessageBottomSheet();
+
+    @ContributesAndroidInjector
+    abstract NavigatorActivity navigatorActivity();
+
+    @ContributesAndroidInjector
+    abstract CommunityFragment communityFragment();
 }

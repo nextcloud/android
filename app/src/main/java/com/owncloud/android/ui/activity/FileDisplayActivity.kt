@@ -1735,48 +1735,74 @@ class FileDisplayActivity :
         }
     }
 
-    private inner class FileDownloadStartedReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            Log_OC.d(TAG, "download worker started")
-            handleDownloadWorkerState()
-        }
+    private enum class FileDownloadIndicator(val iconId: Int) {
+        Downloading(R.drawable.ic_synchronizing),
+        Downloaded(R.drawable.ic_synced)
     }
 
-    private class FolderDownloadStartedReceiver : BroadcastReceiver() {
+    private fun updateFileDownloadIndicator(state: FileDownloadIndicator, file: OCFile) {
+        ocFileListFragment?.adapter?.updateFileIndicator(state.iconId, file)
+    }
+
+    // region FolderDownloadWorker receivers
+    @Suppress("ReturnCount")
+    private fun getFolderFromFolderDownloadWorker(intent: Intent): OCFile? {
+        val id = intent.getLongExtra(FolderDownloadEventBroadcaster.EXTRA_FILE_ID, -1L)
+        if (id == -1L) {
+            Log_OC.e(TAG, "invalid id received")
+            return null
+        }
+
+        val folder = storageManager.getFileById(id)
+        if (folder == null) {
+            Log_OC.e(TAG, "folder not exists")
+            return null
+        }
+
+        return folder
+    }
+
+    private inner class FolderDownloadStartedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             Log_OC.d(TAG, "download worker started")
+            val folder = getFolderFromFolderDownloadWorker(intent) ?: return
+            updateFileDownloadIndicator(FileDownloadIndicator.Downloading, folder)
         }
     }
 
     private inner class FolderDownloadCompletedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             Log_OC.d(TAG, "download worker finished")
+            val folder = getFolderFromFolderDownloadWorker(intent) ?: return
+            updateFileDownloadIndicator(FileDownloadIndicator.Downloaded, folder)
+        }
+    }
+    // endregion
 
-            val id = intent.getLongExtra(FolderDownloadEventBroadcaster.EXTRA_FILE_ID, -1L)
-            if (id == -1L) {
-                Log_OC.e(TAG, "invalid id received")
-                return
+    // region FileDownloadWorker receivers
+    private fun getFileFromFileDownloadWorker(intent: Intent): OCFile? {
+        val remotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
+        val file = fileDataStorageManager.getFileByDecryptedRemotePath(remotePath) ?: return null
+        return file
+    }
+
+    private inner class FileDownloadStartedReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            Log_OC.d(TAG, "download worker started")
+            getFileFromFileDownloadWorker(intent)?.let {
+                updateFileDownloadIndicator(FileDownloadIndicator.Downloading, it)
             }
-
-            val folder = storageManager.getFileById(id)
-            if (folder == null) {
-                Log_OC.e(TAG, "folder not exists")
-                return
-            }
-
-            ocFileListFragment?.adapter?.notifyItemChanged(folder)
+            handleDownloadWorkerState()
         }
     }
 
-    /**
-     * Class waiting for broadcast events from the [FileDownloadWorker] service.
-     *
-     *
-     * Updates the UI when a download is started or finished, provided that it is relevant for the current folder.
-     */
     private inner class FileDownloadCompletedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             Log_OC.d(TAG, "file download completed received")
+            getFileFromFileDownloadWorker(intent)?.let {
+                updateFileDownloadIndicator(FileDownloadIndicator.Downloaded, it)
+            }
+
             fileDownloadProgressListener = null
 
             if (fileIDForImmediatePreview == -1L) {
@@ -1857,6 +1883,7 @@ class FileDisplayActivity :
             return accountName != null && account != null && accountName == account.name
         }
     }
+    // endregion
 
     fun browseToRoot() {
         val listOfFiles = this.listOfFilesFragment
@@ -2356,7 +2383,7 @@ class FileDisplayActivity :
     private fun requestForDownload() {
         val user = user.orElseThrow(Supplier { RuntimeException() })
         mWaitingToPreview?.let {
-            FileDownloadHelper.Companion.instance().downloadFileIfNotStartedBefore(user, it)
+            FileDownloadHelper.instance().downloadFileIfNotStartedBefore(user, it)
         }
     }
 

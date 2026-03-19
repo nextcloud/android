@@ -91,20 +91,19 @@ interface FileDao {
 
     @Query(
         """
-    SELECT * 
-    FROM filelist 
-    WHERE parent = :parentId 
-      AND file_owner = :accountName 
-      AND (content_type != :dirType AND content_type != :webdavType)  
-    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
-    """
+    SELECT NOT EXISTS (
+        SELECT 1
+        FROM filelist
+        WHERE parent = :parentId
+          AND file_owner = :accountName
+          AND content_type IS NOT NULL
+          AND content_type != '${MimeType.DIRECTORY}'
+          AND content_type != '${MimeType.WEBDAV_FOLDER}'
+          AND (media_path IS NULL OR TRIM(media_path) = '')
     )
-    suspend fun getSubfiles(
-        parentId: Long,
-        accountName: String,
-        dirType: String = MimeType.DIRECTORY,
-        webdavType: String = MimeType.WEBDAV_FOLDER
-    ): List<FileEntity>
+"""
+    )
+    fun areAllFilesHaveMediaPath(parentId: Long, accountName: String): Boolean
 
     @Query(
         """

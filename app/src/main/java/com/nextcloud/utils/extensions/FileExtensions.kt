@@ -38,7 +38,7 @@ fun Path.toLocalPath(): String = toAbsolutePath().toString()
 @Suppress("ReturnCount")
 fun String.toFile(): File? {
     if (isNullOrEmpty()) {
-        Log_OC.e(TAG, "given path is null or empty")
+        Log_OC.w(TAG, "given path is null or empty: $this")
         return null
     }
 

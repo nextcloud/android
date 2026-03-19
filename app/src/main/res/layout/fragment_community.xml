@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-FileCopyrightText: 2016 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2016 Nextcloud GmbH
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/standard_padding">
+
+        <TextView
+            android:id="@+id/community_headline"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/community_testing_headline"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/community_testing_bug_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/standard_half_padding"
+            android:text="@string/community_testing_bug_text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/community_testing_report"
+            app:cornerRadius="@dimen/button_corner_radius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/community_testing_report_text"
+            android:theme="@style/Button.Primary" />
+
+        <TextView
+            android:id="@+id/community_contribute_headline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/standard_padding"
+            android:text="@string/community_contribute_headline"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/community_contribute_forum_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/standard_quarter_padding"
+            android:text="@string/community_contribute_forum_text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/community_contribute_translate_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/standard_quarter_padding"
+            android:text="@string/community_contribute_translate_text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/community_contribute_github_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/community_contribute_github_text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/community_release_candidate_headline"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/standard_padding"
+            android:text="@string/community_release_candidate_headline"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/community_release_candidate_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/community_release_candidate_text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/community_release_candidate_fdroid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_default"
+                android:contentDescription="@string/community_rc_fdroid"
+                android:padding="@dimen/zero"
+                android:src="@drawable/fdroid" />
+
+            <ImageButton
+                android:id="@+id/community_release_candidate_playstore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_default"
+                android:contentDescription="@string/community_rc_play_store"
+                android:padding="@dimen/zero"
+                android:src="@drawable/playstore" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/community_beta_headline"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/standard_padding"
+            android:text="@string/community_beta_headline"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/community_beta_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/community_beta_text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/community_beta_fdroid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_default"
+                android:contentDescription="@string/community_dev_fdroid"
+                android:padding="@dimen/zero"
+                android:src="@drawable/fdroid" />
+
+            <ImageButton
+                android:id="@+id/community_beta_apk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_default"
+                android:contentDescription="@string/community_dev_direct_download"
+                android:padding="@dimen/zero"
+                android:src="@drawable/apk" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -44,11 +44,6 @@ fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
         .joinToString(OCFile.PATH_SEPARATOR)
 }
 
-suspend fun FileDataStorageManager.getSubfiles(id: Long, accountName: String): List<OCFile> =
-    fileDao.getSubfiles(id, accountName).map {
-        createFileInstance(it)
-    }
-
 fun FileDataStorageManager.getNonEncryptedSubfolders(id: Long, accountName: String): List<OCFile> =
     fileDao.getNonEncryptedSubfolders(id, accountName).map {
         createFileInstance(it)
