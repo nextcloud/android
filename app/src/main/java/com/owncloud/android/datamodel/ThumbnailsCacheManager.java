@@ -1092,10 +1092,12 @@ public final class ThumbnailsCacheManager {
 
         c.drawBitmap(thumbnail, 0, 0, null);
 
+        float left = (thumbnail.getWidth() - px) / 2f;
+        float top = (thumbnail.getHeight() - px) / 2f;
+
         Paint p = new Paint();
         p.setAlpha(230);
-
-        c.drawBitmap(resizedPlayButton, px, px, p);
+        c.drawBitmap(resizedPlayButton, left, top, p);
 
         return resultBitmap;
     }

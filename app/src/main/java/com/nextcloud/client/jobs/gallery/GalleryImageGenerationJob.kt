@@ -9,12 +9,15 @@ package com.nextcloud.client.jobs.gallery
 
 import android.graphics.Bitmap
 import android.media.ThumbnailUtils
+import android.os.Build
 import android.provider.MediaStore
+import android.util.Size
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.allocationKilobyte
 import com.nextcloud.utils.extensions.isPNG
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -137,10 +140,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         onThumbnailGeneration()
         var bitmap: Bitmap? = null
         if (file.isDown) {
-            bitmap = ThumbnailUtils.createVideoThumbnail(
-                file.storagePath,
-                MediaStore.Images.Thumbnails.MINI_KIND
-            )
+            bitmap = createVideoThumbnail(file.storagePath)
         }
 
         if (bitmap == null) {
@@ -154,6 +154,22 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
             return ThumbnailsCacheManager.addVideoOverlay(bitmap, MainApp.getAppContext())
         }
         return null
+    }
+
+    private fun createVideoThumbnail(storagePath: String): Bitmap? {
+        val file = storagePath.toFile() ?: return null
+        val size = ThumbnailsCacheManager.getThumbnailDimension()
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            try {
+                ThumbnailUtils.createVideoThumbnail(file, Size(size, size), null)
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "Failed to create video thumbnail: ${e.message}")
+                null
+            }
+        } else {
+            @Suppress("DEPRECATION")
+            ThumbnailUtils.createVideoThumbnail(storagePath, MediaStore.Images.Thumbnails.MINI_KIND)
+        }
     }
 
     private suspend fun getResizedImageBitmap(file: OCFile, onThumbnailGeneration: () -> Unit): Bitmap? {
