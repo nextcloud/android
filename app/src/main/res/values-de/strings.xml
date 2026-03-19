@@ -913,7 +913,7 @@
     <string name="shared_icon_shared">geteilt</string>
     <string name="shared_icon_shared_via_link">Über einen Link geteilt</string>
     <string name="shared_with_you_by">Geteilt mit Ihnen von %1$s</string>
-    <string name="sharee_add_failed">Freigeben fehlgeschlagen</string>
+    <string name="sharee_add_failed">Hinzufügen des Empfängers ist fehlgeschlagen</string>
     <string name="sharee_already_added_to_file">Das Hinzufügen der Freigabe ist fehlgeschlagen. Diese Datei oder dieser Ordner wurden bereits für diese Person oder Gruppe freigegeben.</string>
     <string name="show_all">Alle anzeigen</string>
     <string name="show_images">Fotos anzeigen</string>
@@ -949,7 +949,7 @@
     <string name="ssl_validator_reason_cert_expired">- Das Zertifikat des Servers ist abgelaufen</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Das Gültigkeitsdatum des Serverzertifikats liegt in der Zukunft</string>
-    <string name="ssl_validator_reason_hostname_not_verified">- Die Adresse stimmt nicht mit dem im Zertifikat angegebenen Hostnamen  überein</string>
+    <string name="ssl_validator_reason_hostname_not_verified">- Die Adresse stimmt nicht mit dem im Zertifikat angegebenen Hostnamen überein</string>
     <string name="status_message">Statusnachricht</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Speicherort auswählen</string>
@@ -1016,7 +1016,7 @@
     <string name="synced_icon">Synchronisiert</string>
     <string name="tags">Schlagworte</string>
     <string name="terms_of_service_title">Nutzungsbedingungen</string>
-    <string name="terms_of_services_agree">Ich stimme den oben genannten ToS zu</string>
+    <string name="terms_of_services_agree">Ich stimme den oben genannten Nutzungsbedingungen zu</string>
     <string name="test_server_button">Prüfe Serververbindung</string>
     <string name="thirtyMinutes">30 Minuten</string>
     <string name="thisWeek">Diese Woche</string>
@@ -1059,7 +1059,7 @@
     <string name="unshare_link_forbidden_permissions">diese Datei nicht mehr zu teilen</string>
     <string name="unsharing_failed">Freigabe aufheben fehlgeschlagen</string>
     <string name="untrusted_domain">Zugriff über nicht vertrauenswürdige Domain. Weitere Informationen finden sich in der Dokumentation.</string>
-    <string name="update_link_file_error">Es ist ein Fehler bei der Aktualisierungd der Freigabe aufgetreten.</string>
+    <string name="update_link_file_error">Es ist ein Fehler bei der Aktualisierung der Freigabe aufgetreten.</string>
     <string name="update_link_file_no_exist">Aktualisierung nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="update_link_forbidden_permissions">zum Aktualisieren dieser Freigabe</string>
     <string name="updating_share_failed">Aktualisierung der Freigabe fehlgeschlagen</string>
@@ -1127,9 +1127,9 @@
     <string name="uploader_upload_files_behaviour">Upload Option:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Datei in Ordner %1$s verschieben</string>
     <string name="uploader_upload_files_behaviour_not_writable">Quellverzeichnis ist nur lesbar; Datei wird nur hochgeladen</string>
-    <string name="uploader_upload_files_behaviour_only_upload">Hochladen und im Quellordner behalten</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Hochladen und Datei im Quellordner löschen</string>
-    <string name="uploader_upload_forbidden_permissions">diesen Ordner hochzuladen</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Datei im Quellordner behalten</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Datei im Quellordner löschen</string>
+    <string name="uploader_upload_forbidden_permissions">in diesen Ordner hochzuladen</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Hochladen %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Lade hoch…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s hochgeladen</string>
