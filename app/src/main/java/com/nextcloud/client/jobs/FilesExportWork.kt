@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -21,14 +22,12 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileExportUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import java.security.SecureRandom
 
 class FilesExportWork(
     private val appContext: Context,
@@ -49,118 +48,70 @@ class FilesExportWork(
         }
 
         storageManager = FileDataStorageManager(user, contentResolver)
+        val (succeeded, failed) = exportFiles(fileIDs, storageManager)
 
-        val successfulExports = exportFiles(fileIDs)
-
-        showSuccessNotification(successfulExports)
+        showSummaryNotification(succeeded, failed)
         return Result.success()
     }
 
-    private fun exportFiles(fileIDs: LongArray): Int {
+    private fun exportFiles(fileIDs: LongArray, storageManager: FileDataStorageManager): Pair<Int, Int> {
         val fileDownloadHelper = FileDownloadHelper.instance()
+        val fileExportUtils = FileExportUtils()
+        var succeeded = 0
+        var failed = 0
 
-        var successfulExports = 0
         fileIDs
             .asSequence()
-            .map { storageManager.getFileById(it) }
-            .filterNotNull()
+            .mapNotNull { storageManager.getFileById(it) }
             .forEach { ocFile ->
-                if (!FileStorageUtils.checkIfEnoughSpace(ocFile)) {
-                    showErrorNotification(successfulExports)
-                    return@forEach
-                }
+                val exported = when {
+                    !FileStorageUtils.checkIfEnoughSpace(ocFile) -> false
 
-                if (ocFile.isDown) {
-                    try {
-                        exportFile(ocFile)
-                    } catch (e: IllegalStateException) {
-                        Log_OC.e(TAG, "Error exporting file", e)
-                        showErrorNotification(successfulExports)
+                    ocFile.isDown -> runCatching {
+                        fileExportUtils.exportFile(ocFile.fileName, ocFile.mimeType, contentResolver, ocFile, null)
+                    }.onFailure { Log_OC.e(TAG, "Error exporting file", it) }.isSuccess
+
+                    else -> {
+                        fileDownloadHelper.downloadFile(user, ocFile, downloadType = DownloadType.EXPORT)
+                        true
                     }
-                } else {
-                    fileDownloadHelper.downloadFile(
-                        user,
-                        ocFile,
-                        downloadType = DownloadType.EXPORT
-                    )
                 }
 
-                successfulExports++
+                if (exported) succeeded++ else failed++
             }
-        return successfulExports
+
+        return succeeded to failed
     }
 
-    @Throws(IllegalStateException::class)
-    private fun exportFile(ocFile: OCFile) {
-        FileExportUtils().exportFile(
-            ocFile.fileName,
-            ocFile.mimeType,
-            contentResolver,
-            ocFile,
-            null
-        )
-    }
-
-    private fun showErrorNotification(successfulExports: Int) {
-        val message = if (successfulExports == 0) {
-            appContext.resources.getQuantityString(R.plurals.export_failed, successfulExports, successfulExports)
-        } else {
-            appContext.resources.getQuantityString(
-                R.plurals.export_partially_failed,
-                successfulExports,
-                successfulExports
-            )
+    private fun showSummaryNotification(succeeded: Int, failed: Int) {
+        val resources = appContext.resources
+        val message = when {
+            failed == 0 -> resources.getQuantityString(R.plurals.export_successful, succeeded, succeeded)
+            succeeded == 0 -> resources.getQuantityString(R.plurals.export_failed, failed, failed)
+            else -> resources.getQuantityString(R.plurals.export_partially_failed, succeeded, succeeded)
         }
-        showNotification(message)
-    }
 
-    private fun showSuccessNotification(successfulExports: Int) {
-        showNotification(
-            appContext.resources.getQuantityString(
-                R.plurals.export_successful,
-                successfulExports,
-                successfulExports
-            )
-        )
-    }
-
-    private fun showNotification(message: String) {
-        val notificationId = SecureRandom().nextInt()
-
-        val notificationBuilder = NotificationCompat.Builder(
+        val pendingIntent = PendingIntent.getActivity(
             appContext,
-            NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
+            NOTIFICATION_ID,
+            Intent(DownloadManager.ACTION_VIEW_DOWNLOADS).apply { flags = FLAG_ACTIVITY_NEW_TASK },
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+
+        val notification = NotificationCompat.Builder(appContext, NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
             .setSmallIcon(R.drawable.notification_icon)
             .setContentTitle(message)
             .setAutoCancel(true)
+            .addAction(NotificationCompat.Action(null, appContext.getString(R.string.locate_folder), pendingIntent))
+            .also { viewThemeUtils.androidx.themeNotificationCompatBuilder(appContext, it) }
+            .build()
 
-        viewThemeUtils.androidx.themeNotificationCompatBuilder(appContext, notificationBuilder)
-
-        val actionIntent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS).apply {
-            flags = FLAG_ACTIVITY_NEW_TASK
-        }
-        val actionPendingIntent = PendingIntent.getActivity(
-            appContext,
-            notificationId,
-            actionIntent,
-            PendingIntent.FLAG_CANCEL_CURRENT or
-                PendingIntent.FLAG_IMMUTABLE
-        )
-        notificationBuilder.addAction(
-            NotificationCompat.Action(
-                null,
-                appContext.getString(R.string.locate_folder),
-                actionPendingIntent
-            )
-        )
-
-        val notificationManager = appContext
-            .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(notificationId, notificationBuilder.build())
+        (appContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
+            .notify(NOTIFICATION_ID, notification)
     }
 
     companion object {
+        private const val NOTIFICATION_ID = 179
         const val FILES_TO_DOWNLOAD = "files_to_download"
         private val TAG = FilesExportWork::class.simpleName
     }
