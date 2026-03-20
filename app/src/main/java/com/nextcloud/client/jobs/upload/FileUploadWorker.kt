@@ -26,6 +26,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
+import com.nextcloud.utils.extensions.toFile
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -291,7 +292,7 @@ class FileUploadWorker(
         if (!filesystemRepository.isBelongToAnyAutoFolder(upload.localPath)) return false
 
         return syncedFolders.any { folder ->
-            val file = File(upload.localPath)
+            val file = upload.localPath.toFile() ?: return false
             val expectedRemotePath = syncFolderHelper.getAutoUploadRemotePath(folder, file)
             expectedRemotePath == upload.remotePath
         }
