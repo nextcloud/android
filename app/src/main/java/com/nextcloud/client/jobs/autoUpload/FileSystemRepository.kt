@@ -16,6 +16,7 @@ import com.nextcloud.client.database.entity.FilesystemEntity
 import com.nextcloud.utils.extensions.shouldSkipFile
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.SyncedFolderUtils
 import java.io.File
@@ -78,6 +79,21 @@ class FileSystemRepository(
         }
 
         return filtered
+    }
+
+    suspend fun updateRemotePath(upload: OCUpload, syncedFolder: SyncedFolder) {
+        val syncedFolderIdStr = syncedFolder.id.toString()
+
+        try {
+            dao.updateRemotePath(remotePath = upload.remotePath, localPath = upload.localPath, syncedFolderIdStr)
+            Log_OC.d(
+                TAG,
+                "file system entity remote path updated. remotePath: ${upload.remotePath}, localPath: " +
+                    "${upload.localPath} for syncedFolderId=$syncedFolderIdStr"
+            )
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "updateRemotePath(): ${e.message}", e)
+        }
     }
 
     suspend fun markFileAsHandled(localPath: String, syncedFolder: SyncedFolder) {
@@ -199,6 +215,7 @@ class FileSystemRepository(
             val newEntity = FilesystemEntity(
                 id = entity?.id,
                 localPath = localPath,
+                remotePath = null, // will be updated later
                 fileIsFolder = if (file.isDirectory) 1 else 0,
                 fileFoundRecently = System.currentTimeMillis(),
                 fileSentForUpload = 0, // Reset to 0 to queue for upload

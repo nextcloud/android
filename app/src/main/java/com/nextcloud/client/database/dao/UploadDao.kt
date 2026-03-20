@@ -17,15 +17,6 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 @Dao
 interface UploadDao {
     @Query(
-        """
-    DELETE FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME}
-    WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName
-      AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} LIKE :remotePath || '%'
-    """
-    )
-    suspend fun removeEntities(accountName: String, remotePath: String)
-
-    @Query(
         "SELECT _id FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
             " WHERE " + ProviderTableMeta.UPLOADS_STATUS + " = :status AND " +
             ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " = :accountName AND _id IS NOT NULL"
@@ -51,6 +42,15 @@ interface UploadDao {
             "AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath"
     )
     fun deleteByRemotePathAndAccountName(remotePath: String, accountName: String)
+
+    @Query(
+        """
+    DELETE FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME}
+    WHERE ${ProviderTableMeta.UPLOADS_LOCAL_PATH} = :localPath
+      AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath
+"""
+    )
+    suspend fun deleteByLocalRemotePath(localPath: String, remotePath: String)
 
     @Query(
         "SELECT * FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +

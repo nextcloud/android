@@ -19,6 +19,8 @@ data class FilesystemEntity(
     val id: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH)
     val localPath: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILESYSTEM_FILE_REMOTE_PATH)
+    val remotePath: String?,
     @ColumnInfo(name = ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER)
     val fileIsFolder: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY)
