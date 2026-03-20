@@ -48,12 +48,14 @@
     <string name="assistant_output_generation_warning_text">此处显示的输出结果由 AI 生成。请务必仔细检查。</string>
     <string name="assistant_screen_chat_create_error">无法发送消息</string>
     <string name="assistant_screen_chat_fetch_error">无法获取聊天消息</string>
+    <string name="assistant_screen_chat_generate_error">无法生成响应</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">返回助手页面</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您确定要删除这些任务吗？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">删除任务</string>
     <string name="assistant_screen_empty_content_description">尝试发送消息来发起对话。</string>
     <string name="assistant_screen_empty_content_title">您好！请问我能帮您些什么？</string>
     <string name="assistant_screen_retry_response_generation">重试响应生成</string>
+    <string name="assistant_screen_select_task">请选择任务</string>
     <string name="assistant_screen_send_message">发送消息</string>
     <string name="assistant_screen_task_bar_open_conversation_list">打开对话列表</string>
     <string name="assistant_screen_task_create_fail_message">创建任务时发生错误</string>
@@ -118,6 +120,7 @@
     <string name="auto_upload_path">/自动上传</string>
     <string name="auto_upload_sub_folder_warning">此文件夹已包含在上级文件夹的同步中，这可能会导致重复上传</string>
     <string name="auto_upload_wifi_only_warning_info">正在等待 Wi-Fi 开始上传</string>
+    <string name="auto_upload_worker_start_text">正在将文件从 %1$s 上传到 %2$s</string>
     <string name="autoupload_configure">配置</string>
     <string name="autoupload_create_new_custom_folder">创建新的自定义文件夹设定</string>
     <string name="autoupload_custom_folder">设置一个自定义文件夹</string>
@@ -245,7 +248,8 @@
     <string name="create_link">创建链接</string>
     <string name="create_new">新建</string>
     <string name="create_new_document">新文档</string>
-    <string name="create_new_folder">新建文件夹</string>
+    <string name="create_new_encrypted_folder">新加密文件夹</string>
+    <string name="create_new_folder">新文件夹</string>
     <string name="create_new_presentation">新演示文稿</string>
     <string name="create_new_spreadsheet">新表格</string>
     <string name="create_rich_workspace">添加文件夹描述</string>
@@ -401,6 +405,7 @@
     <string name="etm_transfer_type">传输</string>
     <string name="etm_transfer_type_download">下载</string>
     <string name="etm_transfer_type_upload">上传</string>
+    <string name="extension_cannot_be_changed">无法更改扩展名</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">您没有在此文件夹中创建或上传文件的权限。</string>
     <string name="external_shares">外部共享</string>
     <string name="fab_label">添加或上传</string>
@@ -581,6 +586,7 @@
     <string name="login">登录</string>
     <string name="login_url_helper_text">在浏览器中打开 %1$s 时显示的 web 界面的链接</string>
     <string name="logs_menu_delete">删除日志</string>
+    <string name="logs_menu_export">导出日志</string>
     <string name="logs_menu_refresh">刷新</string>
     <string name="logs_menu_search">搜索日志</string>
     <string name="logs_menu_send">通过电子邮件发送日志</string>
@@ -602,7 +608,10 @@
     <string name="media_notif_ticker">%1$s 音乐播放器</string>
     <string name="media_play_pause_description">播放 / 暂停按钮</string>
     <string name="media_player_pause">暂停</string>
-    <string name="media_player_play">玩</string>
+    <string name="media_player_play">播放</string>
+    <string name="media_player_playing">正在播放媒体</string>
+    <string name="media_player_seek_backward">快退</string>
+    <string name="media_player_seek_forward">快进</string>
     <string name="media_rewind_description">快退按钮</string>
     <string name="media_state_playing">%1$s (正在播放)</string>
     <string name="menu_item_sort_by_date_newest_first">新文件在前</string>
@@ -1019,6 +1028,12 @@
     <string name="thumbnail_for_new_file_desc">新文件的缩略图</string>
     <string name="timeout_richDocuments">加载比预期时间要长</string>
     <string name="today">今天</string>
+    <string name="translation_screen_hint_source">输入要翻译的文本…</string>
+    <string name="translation_screen_label_from">原文：</string>
+    <string name="translation_screen_label_to">译文：</string>
+    <string name="translation_screen_start_to_translate_task">按下按钮翻译</string>
+    <string name="translation_screen_task_processing">翻译时间比预期长。</string>
+    <string name="translation_screen_translating">正在翻译…</string>
     <string name="trashbin_activity_title">回收站</string>
     <string name="trashbin_empty_headline">没有被删除的文件</string>
     <string name="trashbin_empty_message">你可以在此处还原已删除的文件。</string>
@@ -1087,6 +1102,7 @@
     <string name="upload_missing_storage_permission_app_permissions">应用权限</string>
     <string name="upload_missing_storage_permission_description">如果无法访问本地存储，则无法上传您的文件。点击即可授予权限。</string>
     <string name="upload_missing_storage_permission_title">上传已停止 — 需要存储权限</string>
+    <string name="upload_notification_manager_content_intent_description">您可以从上传中移除或恢复它</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">加密功能仅适用于安卓 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
