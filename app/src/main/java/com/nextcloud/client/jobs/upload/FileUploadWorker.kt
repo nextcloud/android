@@ -30,6 +30,7 @@ import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ForegroundServiceType
+import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -225,11 +226,12 @@ class FileUploadWorker(
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
         val syncFolderHelper = SyncFolderHelper(context)
+        val syncedFolders = syncedFolderProvider.syncedFolders
 
         for ((index, upload) in uploads.withIndex()) {
             ensureActive()
 
-            if (isBelongToAnySyncedFolder(upload, syncFolderHelper)) {
+            if (isBelongToAnySyncedFolder(upload, syncFolderHelper, syncedFolders)) {
                 Log_OC.d(TAG, "skipping upload, will be handled by AutoUploadWorker: ${upload.localPath}")
                 uploadsStorageManager.uploadDao.deleteByRemotePathAndAccountName(
                     remotePath = upload.remotePath,
@@ -281,10 +283,14 @@ class FileUploadWorker(
         return@withContext Result.success()
     }
 
-    suspend fun isBelongToAnySyncedFolder(upload: OCUpload, syncFolderHelper: SyncFolderHelper): Boolean {
+    suspend fun isBelongToAnySyncedFolder(
+        upload: OCUpload,
+        syncFolderHelper: SyncFolderHelper,
+        syncedFolders: List<SyncedFolder>
+    ): Boolean {
         if (!filesystemRepository.isBelongToAnyAutoFolder(upload.localPath)) return false
 
-        return syncedFolderProvider.syncedFolders.any { folder ->
+        return syncedFolders.any { folder ->
             val file = File(upload.localPath)
             val expectedRemotePath = syncFolderHelper.getAutoUploadRemotePath(folder, file)
             expectedRemotePath == upload.remotePath
