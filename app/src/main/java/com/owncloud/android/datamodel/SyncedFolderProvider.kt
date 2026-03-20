@@ -32,7 +32,7 @@ class SyncedFolderProvider(
 ) : Observable() {
 
     companion object {
-        private val TAG: String = SyncedFolderProvider::class.java.getSimpleName()
+        private val TAG: String = SyncedFolderProvider::class.java.simpleName
     }
 
     private val resolver: ContentResolver = contentResolver
