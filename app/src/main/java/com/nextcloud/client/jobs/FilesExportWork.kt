@@ -43,11 +43,20 @@ class FilesExportWork(
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
 
+    companion object {
+        private const val NOTIFICATION_ID = 179
+        const val FILES_TO_DOWNLOAD = "files_to_download"
+        private val TAG = FilesExportWork::class.simpleName
+    }
+
+    private val notificationManager =
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
     override suspend fun doWork(): Result {
         val path = inputData.getString(FILES_TO_DOWNLOAD)
         val fileIds = WorkerFilesPayload.read(path)
         if (fileIds.isEmpty()) {
-            Log_OC.w(TAG, "File export was started without any file")
+            Log_OC.w(TAG, "file export was started without any file")
             WorkerFilesPayload.cleanup(path)
             return Result.success()
         }
@@ -56,6 +65,7 @@ class FilesExportWork(
 
         try {
             val (succeeded, failed) = exportFiles(fileIds, storageManager)
+            notificationManager.cancel(NOTIFICATION_ID)
             showSummaryNotification(succeeded, failed)
         } finally {
             WorkerFilesPayload.cleanup(path)
@@ -75,29 +85,31 @@ class FilesExportWork(
             }.getOrNull()
 
             val fileExportUtils = FileExportUtils()
+            val files = fileIDs.mapNotNull { storageManager.getFileById(it) }
+            val total = files.size
             var succeeded = 0
             var failed = 0
 
-            fileIDs
-                .mapNotNull { storageManager.getFileById(it) }
-                .forEach { ocFile ->
-                    val exported = when {
-                        !FileStorageUtils.checkIfEnoughSpace(ocFile) -> false
+            files.forEachIndexed { index, ocFile ->
+                showProgressNotification(index, total, ocFile.fileName)
 
-                        ocFile.isDown -> runCatching {
-                            fileExportUtils.exportFile(ocFile.fileName, ocFile.mimeType, contentResolver, ocFile, null)
-                        }.onFailure { Log_OC.e(TAG, "Error exporting file", it) }.isSuccess
+                val exported = when {
+                    !FileStorageUtils.checkIfEnoughSpace(ocFile) -> false
 
-                        client != null -> downloadFile(ocFile, client)
+                    ocFile.isDown -> runCatching {
+                        fileExportUtils.exportFile(ocFile.fileName, ocFile.mimeType, contentResolver, ocFile, null)
+                    }.onFailure { Log_OC.e(TAG, "Error exporting file", it) }.isSuccess
 
-                        else -> {
-                            Log_OC.e(TAG, "Skipping download, client unavailable: ${ocFile.remotePath}")
-                            false
-                        }
+                    client != null -> downloadFile(ocFile, client)
+
+                    else -> {
+                        Log_OC.e(TAG, "Skipping download, client unavailable: ${ocFile.remotePath}")
+                        false
                     }
-
-                    if (exported) succeeded++ else failed++
                 }
+
+                if (exported) succeeded++ else failed++
+            }
 
             return@withContext succeeded to failed
         }
@@ -111,6 +123,22 @@ class FilesExportWork(
         }.onFailure {
             Log_OC.e(TAG, "Exception downloading file: ${file.remotePath}", it)
         }.getOrDefault(false)
+    }
+
+    private fun showProgressNotification(current: Int, total: Int, fileName: String) {
+        val title = context.getString(R.string.export_in_progress, current + 1, total)
+
+        val notification = NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+            .setSmallIcon(R.drawable.notification_icon)
+            .setContentTitle(title)
+            .setContentText(fileName)
+            .setProgress(total, current + 1, false)
+            .setOngoing(true)
+            .setOnlyAlertOnce(true)
+            .also { viewThemeUtils.androidx.themeNotificationCompatBuilder(context, it) }
+            .build()
+
+        notificationManager.notify(NOTIFICATION_ID, notification)
     }
 
     private fun showSummaryNotification(succeeded: Int, failed: Int) {
@@ -136,13 +164,6 @@ class FilesExportWork(
             .also { viewThemeUtils.androidx.themeNotificationCompatBuilder(context, it) }
             .build()
 
-        (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
-            .notify(NOTIFICATION_ID, notification)
-    }
-
-    companion object {
-        private const val NOTIFICATION_ID = 179
-        const val FILES_TO_DOWNLOAD = "files_to_download"
-        private val TAG = FilesExportWork::class.simpleName
+        notificationManager.notify(NOTIFICATION_ID, notification)
     }
 }
