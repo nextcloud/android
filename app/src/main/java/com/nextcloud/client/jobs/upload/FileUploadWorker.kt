@@ -19,6 +19,8 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
+import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
+import com.nextcloud.client.jobs.autoUpload.SyncFolderHelper
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
@@ -28,6 +30,7 @@ import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ForegroundServiceType
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
@@ -57,6 +60,8 @@ class FileUploadWorker(
     val localBroadcastManager: LocalBroadcastManager,
     private val backgroundJobManager: BackgroundJobManager,
     val preferences: AppPreferences,
+    val filesystemRepository: FileSystemRepository,
+    val syncedFolderProvider: SyncedFolderProvider,
     val context: Context,
     params: WorkerParameters
 ) : CoroutineWorker(context, params),
@@ -219,9 +224,19 @@ class FileUploadWorker(
         val uploads = uploadsStorageManager.getUploadsByIds(uploadIds, accountName)
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
+        val syncFolderHelper = SyncFolderHelper(context)
 
         for ((index, upload) in uploads.withIndex()) {
             ensureActive()
+
+            if (isBelongToAnySyncedFolder(upload, syncFolderHelper)) {
+                Log_OC.d(TAG, "skipping upload, will be handled by AutoUploadWorker: ${upload.localPath}")
+                uploadsStorageManager.uploadDao.deleteByRemotePathAndAccountName(
+                    remotePath = upload.remotePath,
+                    accountName = accountName
+                )
+                continue
+            }
 
             if (preferences.isGlobalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")
@@ -264,6 +279,16 @@ class FileUploadWorker(
         }
 
         return@withContext Result.success()
+    }
+
+    suspend fun isBelongToAnySyncedFolder(upload: OCUpload, syncFolderHelper: SyncFolderHelper): Boolean {
+        if (!filesystemRepository.isBelongToAnyAutoFolder(upload.localPath)) return false
+
+        return syncedFolderProvider.syncedFolders.any { folder ->
+            val file = File(upload.localPath)
+            val expectedRemotePath = syncFolderHelper.getAutoUploadRemotePath(folder, file)
+            expectedRemotePath == upload.remotePath
+        }
     }
 
     private fun sendUploadFinishEvent(

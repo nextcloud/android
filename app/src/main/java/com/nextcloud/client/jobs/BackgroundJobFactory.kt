@@ -244,6 +244,8 @@ class BackgroundJobFactory @Inject constructor(
             localBroadcastManager.get(),
             backgroundJobManager.get(),
             preferences,
+            FileSystemRepository(dao = database.fileSystemDao(), uploadsStorageManager, context),
+            syncedFolderProvider,
             context,
             params
         )
