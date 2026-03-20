@@ -172,7 +172,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             float cornerRadius = context.getResources().getDimension(R.dimen.selected_grid_container_radius);
 
-            boolean isDarkModeActive = (syncedFolderProvider.getPreferences().isDarkModeEnabled());
+            boolean isDarkModeActive = (syncedFolderProvider.preferences.isDarkModeEnabled());
             int selectedItemBackgroundColorId;
             if (isDarkModeActive) {
                 selectedItemBackgroundColorId = R.color.action_mode_background;
