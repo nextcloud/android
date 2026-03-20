@@ -17,6 +17,15 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 @Dao
 interface UploadDao {
     @Query(
+        """
+    DELETE FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME}
+    WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName
+      AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} LIKE :remotePath || '%'
+    """
+    )
+    suspend fun deleteAllForAutoUploadFolder(accountName: String, remotePath: String)
+
+    @Query(
         "SELECT _id FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
             " WHERE " + ProviderTableMeta.UPLOADS_STATUS + " = :status AND " +
             ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " = :accountName AND _id IS NOT NULL"
