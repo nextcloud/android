@@ -54,32 +54,4 @@ jobs:
           [ -e app/build.gradle.kts ] && sed -i "/qa/,/\}/ s/versionName .*/versionName = \"${{github.event.number}}\"/" "app/build.gradle.kts"
           ./gradlew assembleQaDebug
           $(find /usr/local/lib/android/sdk/build-tools/*/apksigner | sort | tail -n1) sign  --ks-pass pass:"$KS_PASS" --key-pass pass:"$KEY_PASS" --ks-key-alias key0 --ks ".github/workflows/QA_keystore.jks" app/build/outputs/apk/qa/debug/*qa-debug*.apk
-
-      -   name: Upload APK
-          id: upload-apk
-          uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
-          with:
-              path: app/build/outputs/apk/qa/debug/*qa-debug*.apk
-              retention-days: 7
-              archive: false
-
-      -   name: Create QR Code
-          run: |
-              sudo apt-get -y install qrencode
-              qrencode -o qr.png "${{ steps.upload-apk.outputs.artifact-url }}"
-
-      -   name: Upload QR
-          id: upload-qr
-          uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
-          with:
-              path: qr.png
-              retention-days: 7
-              archive: false
-
-      -   name: Comment PR
-          uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b
-          with:
-              message: |
-                  APK file: ${{ steps.upload-apk.outputs.artifact-url }}
-                  To test this change/fix you can simply download above APK file and install and test it in parallel to your existing Nextcloud app.
-                  ![qrcode](${{ steps.upload-qr.outputs.artifact-url }}) (please click on link to get QR code displayed)
+          .github/workflows/uploadArtifact.sh "$LOG_USERNAME" "$LOG_PASSWORD" "${{github.event.number}}" "${{github.event.number}}" "$GITHUB_TOKEN"
