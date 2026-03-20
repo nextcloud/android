@@ -95,7 +95,7 @@ import javax.inject.Inject
  *
  * DO NOT CALL IT: an [OCFile] and [User] must be provided for a successful construction
  */
-@Suppress("NestedBlockDepth", "ComplexMethod", "LongMethod", "TooManyFunctions")
+@Suppress("NestedBlockDepth", "ComplexMethod", "LongMethod", "TooManyFunctions", "ReturnCount")
 class PreviewMediaFragment :
     FileFragment(),
     OnTouchListener,
@@ -466,7 +466,6 @@ class PreviewMediaFragment :
         }
     }
 
-    @Suppress("ReturnCount")
     private fun loadStreamUrl(user: User?, clientFactory: ClientFactory?, fileId: Long): Uri? {
         val client: OwnCloudClient? = try {
             clientFactory?.create(user)
