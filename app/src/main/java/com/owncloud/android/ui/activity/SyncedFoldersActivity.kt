@@ -782,6 +782,13 @@ class SyncedFoldersActivity :
         }
     }
 
+    /**
+     * When a synced folder is disabled or deleted, its associated OCUpload entries in the uploads
+     * table must be cleaned up. Without this, stale upload entries outlive the folder config that
+     * created them, causing FileUploadWorker to keep retrying uploads for a folder that no longer
+     * exists or is intentionally turned off, and AutoUploadWorker to re-queue already handled files
+     * on its next scan via FileSystemRepository.getFilePathsWithIds.
+     */
     private suspend fun removeEntityFromUploadEntities(id: Long) {
         val storageManager = fileUploadHelper.uploadsStorageManager
         storageManager.fileSystemDao.getBySyncedFolderId(id.toString())
