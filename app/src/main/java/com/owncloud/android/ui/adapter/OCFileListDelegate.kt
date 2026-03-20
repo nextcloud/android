@@ -346,7 +346,7 @@ class OCFileListDelegate(
 
     private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
         var isFolderDown = false
-        if (file.isFolder && !file.isEncrypted && file.fileLength != 0L) {
+        if (file.isFolder && !file.isEncrypted && file.fileLength != 0L && file.etag.isNotBlank()) {
             isFolderDown = storageManager.fileDao.areAllFilesHaveMediaPath(file.fileId, user.accountName)
         }
 
