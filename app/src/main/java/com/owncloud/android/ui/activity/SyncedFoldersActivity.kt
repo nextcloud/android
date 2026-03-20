@@ -779,7 +779,7 @@ class SyncedFoldersActivity :
 
         lifecycleScope.launch(Dispatchers.IO) {
             fileUploadHelper.uploadsStorageManager.uploadDao
-                .deleteAllForAutoUploadFolder(
+                .removeEntities(
                     accountName = userAccountManager.user.accountName,
                     remotePath = item.remotePath
                 )
@@ -795,7 +795,7 @@ class SyncedFoldersActivity :
 
         lifecycleScope.launch(Dispatchers.IO) {
             fileUploadHelper.uploadsStorageManager.uploadDao
-                .deleteAllForAutoUploadFolder(
+                .removeEntities(
                     accountName = userAccountManager.user.accountName,
                     remotePath = syncedFolder.remotePath
                 )
