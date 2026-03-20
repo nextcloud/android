@@ -2172,6 +2172,21 @@ class FileDisplayActivity :
             }
             supportInvalidateOptionsMenu()
             fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+
+            // clean stale upload entities for auto upload folder
+            if (removedFile.isFolder) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val optionalUser = user
+                    if (user.isEmpty) {
+                        return@launch
+                    }
+
+                    val autoUploadFolder = fileUploadHelper
+                        .getAutoUploadFolderEntity(removedFile, optionalUser.get()) ?: return@launch
+
+                    autoUploadFolder.id?.toLong()?.let { fileUploadHelper.removeEntityFromUploadEntities(it) }
+                }
+            }
         } else {
             if (result.isSslRecoverableException) {
                 mLastSslUntrustedServerResult = result

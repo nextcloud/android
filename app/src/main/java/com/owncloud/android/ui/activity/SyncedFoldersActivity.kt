@@ -778,31 +778,8 @@ class SyncedFoldersActivity :
         Log_OC.d(TAG, "auto-upload configuration sync status is disabled: " + item.remotePath)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            removeEntityFromUploadEntities(item.id)
+            fileUploadHelper.removeEntityFromUploadEntities(item.id)
         }
-    }
-
-    /**
-     * When a synced folder is disabled or deleted, its associated OCUpload entries in the uploads
-     * table must be cleaned up. Without this, stale upload entries outlive the folder config that
-     * created them, causing FileUploadWorker to keep retrying uploads for a folder that no longer
-     * exists or is intentionally turned off, and AutoUploadWorker to re-queue already handled files
-     * on its next scan via FileSystemRepository.getFilePathsWithIds.
-     */
-    private suspend fun removeEntityFromUploadEntities(id: Long) {
-        val storageManager = fileUploadHelper.uploadsStorageManager
-        storageManager.fileSystemDao.getBySyncedFolderId(id.toString())
-            .filter { it.localPath != null && it.remotePath != null }
-            .forEach {
-                Log_OC.d(
-                    TAG,
-                    "deleting upload entity localPath: ${it.localPath}, " + "remotePath: ${it.remotePath}"
-                )
-                storageManager.uploadDao.deleteByLocalRemotePath(
-                    localPath = it.localPath!!,
-                    remotePath = it.remotePath!!
-                )
-            }
     }
 
     override fun onDeleteSyncedFolderPreference(syncedFolder: SyncedFolderParcelable?) {
@@ -813,7 +790,7 @@ class SyncedFoldersActivity :
         Log_OC.d(TAG, "deleting auto upload configuration: " + syncedFolder.remotePath)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            removeEntityFromUploadEntities(syncedFolder.id)
+            fileUploadHelper.removeEntityFromUploadEntities(syncedFolder.id)
             syncedFolderProvider.deleteSyncedFolder(syncedFolder.id)
             withContext(Dispatchers.Main) {
                 adapter.removeItem(syncedFolder.section)

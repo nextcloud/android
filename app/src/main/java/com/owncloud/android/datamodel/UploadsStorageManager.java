@@ -23,6 +23,7 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.FileSystemDao;
+import com.nextcloud.client.database.dao.SyncedFolderDao;
 import com.nextcloud.client.database.dao.UploadDao;
 import com.nextcloud.client.database.entity.UploadEntity;
 import com.nextcloud.client.database.entity.UploadEntityKt;
@@ -72,6 +73,7 @@ public class UploadsStorageManager extends Observable {
     private OCCapability capability;
     public final UploadDao uploadDao = NextcloudDatabase.instance().uploadDao();
     public final FileSystemDao fileSystemDao = NextcloudDatabase.instance().fileSystemDao();
+    public final SyncedFolderDao syncedFolderDao = NextcloudDatabase.instance().syncedFolderDao();
 
     public UploadsStorageManager(
         CurrentAccountProvider currentAccountProvider,
