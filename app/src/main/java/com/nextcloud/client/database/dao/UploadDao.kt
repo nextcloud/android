@@ -23,7 +23,7 @@ interface UploadDao {
       AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} LIKE :remotePath || '%'
     """
     )
-    suspend fun deleteAllForAutoUploadFolder(accountName: String, remotePath: String)
+    suspend fun removeEntities(accountName: String, remotePath: String)
 
     @Query(
         "SELECT _id FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
