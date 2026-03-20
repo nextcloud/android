@@ -19,6 +19,8 @@ import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.SyncedFolderUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.zip.CRC32
 
@@ -34,6 +36,9 @@ class FileSystemRepository(
         private const val TAG = "FilesystemRepository"
         const val BATCH_SIZE = 50
     }
+
+    suspend fun isBelongToAnyAutoFolder(localPath: String): Boolean =
+        dao.isBelongToAnyAutoFolder(localPath)
 
     fun deleteAutoUploadAndUploadEntity(syncedFolder: SyncedFolder, localPath: String, entity: FilesystemEntity) {
         Log_OC.d(TAG, "deleting auto upload entity and upload entity")
@@ -179,6 +184,16 @@ class FileSystemRepository(
             val file = localPath?.toFile()
             if (file == null) {
                 Log_OC.w(TAG, "file null, cannot insert or replace: $localPath")
+                return
+            }
+
+            if (!SyncedFolderUtils.isQualifiedFolder(file.parent)) {
+                Log_OC.d(TAG, "Skipping unqualified folder: $localPath")
+                return
+            }
+
+            if (!SyncedFolderUtils.isFileNameQualifiedForAutoUpload(file.name)) {
+                Log_OC.d(TAG, "Skipping unqualified file: $localPath")
                 return
             }
 

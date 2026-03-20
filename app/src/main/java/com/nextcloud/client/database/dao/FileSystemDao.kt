@@ -67,6 +67,14 @@ interface FileSystemDao {
     )
     fun getFileByPathAndFolder(localPath: String, syncedFolderId: String): FilesystemEntity?
 
+    @Query("""
+    SELECT COUNT(*) > 0 FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
+    WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH} = :localPath
+      AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} IS NOT NULL
+    LIMIT 1
+""")
+    suspend fun isBelongToAnyAutoFolder(localPath: String): Boolean
+
     @Query(
         """
     SELECT COUNT(*) > 0

@@ -569,26 +569,6 @@ class SyncedFoldersActivity :
         return result
     }
 
-    override fun onSyncStatusToggleClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?) {
-        if (syncedFolderDisplayItem == null) return
-
-        if (syncedFolderDisplayItem.id > SyncedFolder.UNPERSISTED_ID) {
-            syncedFolderProvider.updateSyncedFolderEnabled(
-                syncedFolderDisplayItem.id,
-                syncedFolderDisplayItem.isEnabled
-            )
-        } else {
-            val storedId = syncedFolderProvider.storeSyncedFolder(syncedFolderDisplayItem)
-            if (storedId != -1L) {
-                syncedFolderDisplayItem.id = storedId
-            }
-        }
-        if (syncedFolderDisplayItem.isEnabled) {
-            backgroundJobManager.startAutoUpload(syncedFolderDisplayItem, overridePowerSaving = false)
-            showBatteryOptimizationDialogIfNeeded()
-        }
-    }
-
     override fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?) {
         check(Looper.getMainLooper().isCurrentThread) { "This must be called on the main thread!" }
 
@@ -776,13 +756,57 @@ class SyncedFoldersActivity :
         dialogFragment = null
     }
 
+    override fun onSyncStatusToggleClick(
+        section: Int,
+        item: SyncedFolderDisplayItem?
+    ) {
+        item ?: return
+
+        // Ensure the item is persisted
+        if (item.id <= SyncedFolder.UNPERSISTED_ID) {
+            syncedFolderProvider.storeSyncedFolder(item)
+                .takeIf { it != -1L }
+                ?.let { item.id = it }
+        } else {
+            syncedFolderProvider.updateSyncedFolderEnabled(item.id, item.isEnabled)
+        }
+
+        if (item.isEnabled) {
+            Log_OC.d(TAG, "auto-upload configuration sync status is enabled: " + item.remotePath)
+            backgroundJobManager.startAutoUpload(item, overridePowerSaving = false)
+            showBatteryOptimizationDialogIfNeeded()
+            return
+        }
+
+        Log_OC.d(TAG, "auto-upload configuration sync status is disabled: " + item.remotePath)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            fileUploadHelper.uploadsStorageManager.uploadDao
+                .deleteAllForAutoUploadFolder(
+                    accountName = userAccountManager.user.accountName,
+                    remotePath = item.remotePath
+                )
+        }
+    }
+
     override fun onDeleteSyncedFolderPreference(syncedFolder: SyncedFolderParcelable?) {
         if (syncedFolder == null) {
             return
         }
 
-        syncedFolderProvider.deleteSyncedFolder(syncedFolder.id)
-        adapter.removeItem(syncedFolder.section)
+        Log_OC.d(TAG, "deleting auto upload configuration: " + syncedFolder.remotePath)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            fileUploadHelper.uploadsStorageManager.uploadDao
+                .deleteAllForAutoUploadFolder(
+                    accountName = userAccountManager.user.accountName,
+                    remotePath = syncedFolder.remotePath
+                )
+            syncedFolderProvider.deleteSyncedFolder(syncedFolder.id)
+            withContext(Dispatchers.Main) {
+                adapter.removeItem(syncedFolder.section)
+            }
+        }
     }
 
     /**

@@ -513,7 +513,7 @@ class SyncedFolderAdapter(
         get() = syncFolderItems.size - filteredSyncFolderItems.size
 
     interface ClickListener {
-        fun onSyncStatusToggleClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?)
+        fun onSyncStatusToggleClick(section: Int, item: SyncedFolderDisplayItem?)
         fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?)
         fun onVisibilityToggleClick(section: Int, item: SyncedFolderDisplayItem?)
         fun showSubFolderWarningDialog()

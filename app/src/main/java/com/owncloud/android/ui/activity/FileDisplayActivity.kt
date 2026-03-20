@@ -89,6 +89,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.FilesBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderObserver
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.files.services.NameCollisionPolicy
@@ -2172,6 +2173,19 @@ class FileDisplayActivity :
             }
             supportInvalidateOptionsMenu()
             fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+
+            user.ifPresent {
+                val isAutoUploadFolder = SyncedFolderObserver.isAutoUploadFolder(operation.file, it)
+                if (isAutoUploadFolder) {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        Log_OC.d(TAG, "auto upload folder is deleted, clearing oc-upload entities")
+                        fileUploadHelper.uploadsStorageManager.uploadDao.deleteAllForAutoUploadFolder(
+                            accountName = it.accountName,
+                            remotePath = operation.file.remotePath
+                        )
+                    }
+                }
+            }
         } else {
             if (result.isSslRecoverableException) {
                 mLastSslUntrustedServerResult = result
