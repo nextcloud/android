@@ -124,6 +124,7 @@ class PreviewMediaFragment :
     private var exoPlayer: ExoPlayer? = null
     private var mediaSession: MediaSession? = null
     private var nextcloudClient: NextcloudClient? = null
+    private var isFullscreenActive = false
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -503,6 +504,9 @@ class PreviewMediaFragment :
     }
 
     override fun onStop() {
+        if (!isFullscreenActive) {
+            releaseVideoPlayer()
+        }
         releaseVideoPlayer()
         super.onStop()
     }
@@ -520,13 +524,24 @@ class PreviewMediaFragment :
     }
 
     private fun startFullScreenVideo() {
-        activity?.let { activity ->
-            nextcloudClient?.let { client ->
-                exoPlayer?.let { player ->
-                    PreviewVideoFullscreenDialog(activity, client, player, binding.exoplayerView).show()
-                }
+        val activity = activity ?: return
+        val client = nextcloudClient ?: return
+        val player = exoPlayer ?: return
+
+        isFullscreenActive = true
+        val dialog = PreviewVideoFullscreenDialog(
+            activity,
+            client,
+            player,
+            binding.exoplayerView
+        ).apply {
+            setOnDismissListener {
+                isFullscreenActive = false
+                setupVideoView()
             }
         }
+
+        dialog.show()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
