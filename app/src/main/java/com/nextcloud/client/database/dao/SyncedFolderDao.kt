@@ -27,4 +27,14 @@ interface SyncedFolderDao {
 
     @Query("SELECT * FROM ${ProviderMeta.ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME}")
     fun getAllAsFlow(): Flow<List<SyncedFolderEntity>>
+
+    @Query(
+        """
+    SELECT * FROM ${ProviderMeta.ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME}
+    WHERE ${ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH} = :remotePath
+      AND ${ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT} = :account
+    LIMIT 1
+"""
+    )
+    suspend fun findByRemotePathAndAccount(remotePath: String, account: String): SyncedFolderEntity?
 }
