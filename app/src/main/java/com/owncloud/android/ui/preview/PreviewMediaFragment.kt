@@ -62,7 +62,6 @@ import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
-import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
@@ -175,7 +174,6 @@ class PreviewMediaFragment :
     }
 
     private fun initArguments(bundle: Bundle) {
-        file.logFileSize(TAG)
         file = bundle.getParcelableArgument(FILE, OCFile::class.java)
         user = bundle.getParcelableArgument(USER, User::class.java)
 
@@ -234,7 +232,6 @@ class PreviewMediaFragment :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        file.logFileSize(TAG)
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         outState.run {
