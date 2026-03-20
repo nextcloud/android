@@ -292,6 +292,7 @@ class AutoUploadWorker(
                     try {
                         // Insert/update to IN_PROGRESS state before starting upload
                         val generatedId = uploadsStorageManager.uploadDao.insertOrReplace(uploadEntity)
+                        repository.updateRemotePath(upload, syncedFolder)
                         uploadEntity = uploadEntity.copy(id = generatedId.toInt())
                         upload.uploadId = generatedId
 

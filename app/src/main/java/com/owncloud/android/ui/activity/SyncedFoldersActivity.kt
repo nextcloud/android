@@ -778,12 +778,24 @@ class SyncedFoldersActivity :
         Log_OC.d(TAG, "auto-upload configuration sync status is disabled: " + item.remotePath)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            fileUploadHelper.uploadsStorageManager.uploadDao
-                .removeEntities(
-                    accountName = userAccountManager.user.accountName,
-                    remotePath = item.remotePath
-                )
+            removeEntityFromUploadEntities(item.id)
         }
+    }
+
+    private suspend fun removeEntityFromUploadEntities(id: Long) {
+        val storageManager = fileUploadHelper.uploadsStorageManager
+        storageManager.fileSystemDao.getBySyncedFolderId(id.toString())
+            .filter { it.localPath != null && it.remotePath != null }
+            .forEach {
+                Log_OC.d(
+                    TAG,
+                    "deleting upload entity localPath: ${it.localPath}, " + "remotePath: ${it.remotePath}"
+                )
+                storageManager.uploadDao.deleteByLocalRemotePath(
+                    localPath = it.localPath!!,
+                    remotePath = it.remotePath!!
+                )
+            }
     }
 
     override fun onDeleteSyncedFolderPreference(syncedFolder: SyncedFolderParcelable?) {
@@ -794,11 +806,7 @@ class SyncedFoldersActivity :
         Log_OC.d(TAG, "deleting auto upload configuration: " + syncedFolder.remotePath)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            fileUploadHelper.uploadsStorageManager.uploadDao
-                .removeEntities(
-                    accountName = userAccountManager.user.accountName,
-                    remotePath = syncedFolder.remotePath
-                )
+            removeEntityFromUploadEntities(syncedFolder.id)
             syncedFolderProvider.deleteSyncedFolder(syncedFolder.id)
             withContext(Dispatchers.Main) {
                 adapter.removeItem(syncedFolder.section)

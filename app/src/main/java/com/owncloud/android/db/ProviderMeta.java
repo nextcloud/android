@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 98;
+    public static final int DB_VERSION = 99;
 
     private ProviderMeta() {
         // No instance
@@ -361,6 +361,7 @@ public class ProviderMeta {
 
         // Columns of filesystem data table
         public static final String FILESYSTEM_FILE_LOCAL_PATH = "local_path";
+        public static final String FILESYSTEM_FILE_REMOTE_PATH = "remote_path";
         public static final String FILESYSTEM_FILE_MODIFIED = "modified_at";
         public static final String FILESYSTEM_FILE_IS_FOLDER = "is_folder";
         public static final String FILESYSTEM_FILE_FOUND_RECENTLY = "found_at";
