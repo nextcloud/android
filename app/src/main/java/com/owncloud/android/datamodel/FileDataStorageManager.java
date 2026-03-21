@@ -22,6 +22,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaScannerConnection;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -2044,7 +2045,19 @@ public class FileDataStorageManager {
                     MainApp.getAppContext().sendBroadcast(intent);
                 }
             } else {
-                Log_OC.d(TAG, "SDK > 29, skipping media scan");
+                String mimeType = file != null ? file.getMimeType() : null;
+                MediaScannerConnection.scanFile(
+                    MainApp.getAppContext(),
+                    new String[]{path},
+                    mimeType != null ? new String[]{mimeType} : null,
+                    (scannedPath, scannedUri) -> {
+                        if (scannedUri != null) {
+                            Log_OC.d(TAG, "Media scan completed for " + scannedPath);
+                        } else {
+                            Log_OC.w(TAG, "Media scan failed for " + scannedPath);
+                        }
+                    }
+                );
             }
         }
     }
