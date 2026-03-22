@@ -72,12 +72,12 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
         AuthenticationMethod authMethod = AuthenticationMethod.UNKNOWN;
 
-        RemoteOperation operation = new ExistenceCheckRemoteOperation("", mContext, false);
+        final var operation = new ExistenceCheckRemoteOperation("", false);
         client.clearCredentials();
         client.setFollowRedirects(false);
 
         // try to access the root folder, following redirections but not SAML SSO redirections
-        RemoteOperationResult result = operation.execute(client);
+        var result = operation.execute(client);
         String redirectedLocation = result.getRedirectedLocation();
         while (!TextUtils.isEmpty(redirectedLocation) && !result.isIdPRedirection()) {
             client.setBaseUri(Uri.parse(result.getRedirectedLocation()));
