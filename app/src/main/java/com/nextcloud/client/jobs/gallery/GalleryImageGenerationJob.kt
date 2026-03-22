@@ -8,11 +8,16 @@
 package com.nextcloud.client.jobs.gallery
 
 import android.graphics.Bitmap
+import android.media.ThumbnailUtils
+import android.os.Build
+import android.provider.MediaStore
+import android.util.Size
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.allocationKilobyte
 import com.nextcloud.utils.extensions.isPNG
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -29,6 +34,7 @@ import kotlinx.coroutines.withContext
 import java.util.Collections
 import java.util.WeakHashMap
 
+@Suppress("DEPRECATION", "TooGenericExceptionCaught", "ReturnCount")
 class GalleryImageGenerationJob(private val user: User, private val storageManager: FileDataStorageManager) {
     companion object {
         private const val TAG = "GalleryImageGenerationJob"
@@ -83,7 +89,6 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     suspend fun run(file: OCFile, imageView: ImageView, listener: GalleryImageGenerationListener) {
         try {
             var newImage = false
@@ -117,22 +122,69 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
 
     private suspend fun getBitmap(file: OCFile, onThumbnailGeneration: () -> Unit): Bitmap? =
         withContext(Dispatchers.IO) {
-            val key = file.remoteId
-            val cachedThumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
-            )
-            if (cachedThumbnail != null && !file.isUpdateThumbnailNeeded) {
-                Log_OC.d(TAG, "cached thumbnail is used for: ${file.fileName}")
-                return@withContext getThumbnailFromCache(file, cachedThumbnail, key)
-            }
-
-            Log_OC.d(TAG, "generating new thumbnail for: ${file.fileName}")
-
-            onThumbnailGeneration()
-            semaphore.withPermit {
-                return@withContext getThumbnailFromServerAndAddToCache(file, cachedThumbnail)
+            if (MimeTypeUtil.isVideo(file)) {
+                getVideoBitmap(file, onThumbnailGeneration)
+            } else {
+                getResizedImageBitmap(file, onThumbnailGeneration)
             }
         }
+
+    private fun getVideoBitmap(file: OCFile, onThumbnailGeneration: () -> Unit): Bitmap? {
+        val key = ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
+        val cached = ThumbnailsCacheManager.getBitmapFromDiskCache(key)
+
+        if (cached != null && !file.isUpdateThumbnailNeeded) {
+            return ThumbnailsCacheManager.addVideoOverlay(cached, MainApp.getAppContext())
+        }
+
+        onThumbnailGeneration()
+        var bitmap: Bitmap? = null
+        if (file.isDown) {
+            bitmap = createVideoThumbnail(file.storagePath)
+        }
+
+        if (bitmap == null) {
+            bitmap = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
+            )
+        }
+
+        if (bitmap != null) {
+            ThumbnailsCacheManager.addBitmapToCache(key, bitmap)
+            return ThumbnailsCacheManager.addVideoOverlay(bitmap, MainApp.getAppContext())
+        }
+        return null
+    }
+
+    private fun createVideoThumbnail(storagePath: String): Bitmap? {
+        val file = storagePath.toFile() ?: return null
+        val size = ThumbnailsCacheManager.getThumbnailDimension()
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            try {
+                ThumbnailUtils.createVideoThumbnail(file, Size(size, size), null)
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "Failed to create video thumbnail: ${e.message}")
+                null
+            }
+        } else {
+            @Suppress("DEPRECATION")
+            ThumbnailUtils.createVideoThumbnail(storagePath, MediaStore.Images.Thumbnails.MINI_KIND)
+        }
+    }
+
+    private suspend fun getResizedImageBitmap(file: OCFile, onThumbnailGeneration: () -> Unit): Bitmap? {
+        val key = file.remoteId
+        val cachedThumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+            ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + key
+        )
+        if (cachedThumbnail != null && !file.isUpdateThumbnailNeeded) {
+            return getThumbnailFromCache(file, cachedThumbnail, key)
+        }
+        onThumbnailGeneration()
+        semaphore.withPermit {
+            return getThumbnailFromServerAndAddToCache(file, cachedThumbnail)
+        }
+    }
 
     private suspend fun setThumbnail(
         bitmap: Bitmap,
@@ -168,18 +220,15 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
 
     private fun getThumbnailFromCache(file: OCFile, thumbnail: Bitmap, key: String): Bitmap {
         var result = thumbnail
-        if (MimeTypeUtil.isVideo(file)) {
-            result = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext())
-        }
-
         if (thumbnail.allocationKilobyte() > ThumbnailsCacheManager.THUMBNAIL_SIZE_IN_KB) {
             result = ThumbnailsCacheManager.getScaledThumbnailAfterSave(result, key)
         }
-
+        if (MimeTypeUtil.isVideo(file)) {
+            result = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext())
+        }
         return result
     }
 
-    @Suppress("DEPRECATION", "TooGenericExceptionCaught")
     private suspend fun getThumbnailFromServerAndAddToCache(file: OCFile, thumbnail: Bitmap?): Bitmap? {
         var thumbnail = thumbnail
         try {
