@@ -44,6 +44,15 @@ interface UploadDao {
     fun deleteByRemotePathAndAccountName(remotePath: String, accountName: String)
 
     @Query(
+        """
+    DELETE FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME}
+    WHERE ${ProviderTableMeta.UPLOADS_LOCAL_PATH} = :localPath
+      AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath
+"""
+    )
+    suspend fun deleteByLocalRemotePath(localPath: String, remotePath: String)
+
+    @Query(
         "SELECT * FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
             " WHERE " + ProviderTableMeta._ID + " = :id AND " +
             ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " = :accountName " +
