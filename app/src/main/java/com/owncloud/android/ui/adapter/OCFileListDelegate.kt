@@ -344,6 +344,7 @@ class OCFileListDelegate(
             fileUploadHelper.isUploading(file.remotePath, user.accountName)
     }
 
+    @Suppress("ComplexCondition")
     private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
         var isFolderDown = false
         if (file.isFolder && !file.isEncrypted && file.fileLength != 0L && file.etag.isNotBlank()) {
