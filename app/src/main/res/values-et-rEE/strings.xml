@@ -314,7 +314,7 @@
     <string name="drawer_item_assistant">Abiline</string>
     <string name="drawer_item_favorites">Lemmikud</string>
     <string name="drawer_item_gallery">Meedia</string>
-    <string name="drawer_item_groupfolders">Grupikaustad</string>
+    <string name="drawer_item_groupfolders">Tiimi kaustad</string>
     <string name="drawer_item_home">Avaleht</string>
     <string name="drawer_item_notifications">Märguanded</string>
     <string name="drawer_item_on_device">Seadmes</string>

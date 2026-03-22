@@ -314,7 +314,7 @@
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_favorites">Favourites</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Groupfolders</string>
+    <string name="drawer_item_groupfolders">Team folders</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">On device</string>

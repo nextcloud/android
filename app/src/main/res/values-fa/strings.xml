@@ -245,7 +245,7 @@
     <string name="drawer_item_all_files">تمامی فایل‌ها</string>
     <string name="drawer_item_favorites">مورد علاقه</string>
     <string name="drawer_item_gallery">رسانه‌ها</string>
-    <string name="drawer_item_groupfolders">گروه پوشه ها</string>
+    <string name="drawer_item_groupfolders">پوشه‌های تیم</string>
     <string name="drawer_item_home">خانه </string>
     <string name="drawer_item_notifications">پیغام ها</string>
     <string name="drawer_item_on_device">در دستگاه </string>

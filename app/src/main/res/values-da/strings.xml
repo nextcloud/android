@@ -289,7 +289,7 @@
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Favoritter</string>
     <string name="drawer_item_gallery">Medier</string>
-    <string name="drawer_item_groupfolders">Gruppemapper</string>
+    <string name="drawer_item_groupfolders">Teammapper</string>
     <string name="drawer_item_home">Hjem</string>
     <string name="drawer_item_notifications">Notifikationer</string>
     <string name="drawer_item_on_device">På enhed</string>

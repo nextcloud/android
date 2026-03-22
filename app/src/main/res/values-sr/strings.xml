@@ -293,7 +293,7 @@
     <string name="drawer_item_assistant">Асистент</string>
     <string name="drawer_item_favorites">Омиљено</string>
     <string name="drawer_item_gallery">Медији</string>
-    <string name="drawer_item_groupfolders">Фолдери групе</string>
+    <string name="drawer_item_groupfolders">Фолдери тима</string>
     <string name="drawer_item_home">Почетна</string>
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_item_on_device">На уређају</string>

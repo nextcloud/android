@@ -246,7 +246,6 @@
     <string name="drawer_item_assistant">Asistente</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Grupos de carpetas</string>
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">Disponibles sin conexión</string>

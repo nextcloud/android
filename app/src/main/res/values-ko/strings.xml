@@ -277,7 +277,6 @@
     <string name="drawer_item_assistant">어시스턴트</string>
     <string name="drawer_item_favorites">즐겨찾기</string>
     <string name="drawer_item_gallery">미디어</string>
-    <string name="drawer_item_groupfolders">그룹 폴더</string>
     <string name="drawer_item_home">홈</string>
     <string name="drawer_item_notifications">알림</string>
     <string name="drawer_item_on_device">장치</string>
