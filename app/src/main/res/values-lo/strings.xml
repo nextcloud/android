@@ -296,7 +296,7 @@
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_favorites">ລາຍການທີ່ມັກ</string>
     <string name="drawer_item_gallery">ຊື່ມວນຊົນ</string>
-    <string name="drawer_item_groupfolders">Groupfolders</string>
+    <string name="drawer_item_groupfolders">Team folders</string>
     <string name="drawer_item_home">ໜ້າຫຼັກ</string>
     <string name="drawer_item_notifications">ການເເຈ້ງເຕືອນ</string>
     <string name="drawer_item_on_device">ເທິງອຸປະກອນ</string>

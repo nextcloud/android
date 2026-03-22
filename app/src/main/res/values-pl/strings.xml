@@ -312,7 +312,7 @@
     <string name="drawer_item_assistant">Asystent</string>
     <string name="drawer_item_favorites">Ulubione</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Katalog grupowy</string>
+    <string name="drawer_item_groupfolders">Foldery zespołów</string>
     <string name="drawer_item_home">Start</string>
     <string name="drawer_item_notifications">Powiadomienia</string>
     <string name="drawer_item_on_device">Na urządzeniu</string>

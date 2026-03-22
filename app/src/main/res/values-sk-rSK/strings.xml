@@ -312,7 +312,7 @@
     <string name="drawer_item_assistant">Asistent</string>
     <string name="drawer_item_favorites">Obľúbené</string>
     <string name="drawer_item_gallery">Média</string>
-    <string name="drawer_item_groupfolders">Skupinové priečinky</string>
+    <string name="drawer_item_groupfolders">Tímové adresáre</string>
     <string name="drawer_item_home">Domov</string>
     <string name="drawer_item_notifications">Upozornenia</string>
     <string name="drawer_item_on_device">V zariadení</string>

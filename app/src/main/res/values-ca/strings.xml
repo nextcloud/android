@@ -275,7 +275,6 @@
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Preferits</string>
     <string name="drawer_item_gallery">Multimèdia</string>
-    <string name="drawer_item_groupfolders">Carpetes de grup</string>
     <string name="drawer_item_home">Inici</string>
     <string name="drawer_item_notifications">Notificacions</string>
     <string name="drawer_item_on_device">Al dispositiu</string>

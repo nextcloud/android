@@ -246,7 +246,7 @@
     <string name="drawer_item_assistant">Βοηθός</string>
     <string name="drawer_item_favorites">Αγαπημένα</string>
     <string name="drawer_item_gallery">Πολυμέσα</string>
-    <string name="drawer_item_groupfolders">Ομαδικοί φάκελοι</string>
+    <string name="drawer_item_groupfolders">Φάκελοι ομάδας</string>
     <string name="drawer_item_home">Αρχική</string>
     <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_item_on_device">Στην συσκευή</string>

@@ -314,7 +314,7 @@
     <string name="drawer_item_assistant">助手</string>
     <string name="drawer_item_favorites">收藏</string>
     <string name="drawer_item_gallery">媒体文件</string>
-    <string name="drawer_item_groupfolders">组文件夹</string>
+    <string name="drawer_item_groupfolders">团队文件夹</string>
     <string name="drawer_item_home">首页</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">此设备上的</string>

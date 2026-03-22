@@ -290,7 +290,7 @@
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Favorieten</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Groepfolders</string>
+    <string name="drawer_item_groupfolders">Teammappen</string>
     <string name="drawer_item_home">Thuis</string>
     <string name="drawer_item_notifications">Meldingen</string>
     <string name="drawer_item_on_device">Op het apparaat</string>
