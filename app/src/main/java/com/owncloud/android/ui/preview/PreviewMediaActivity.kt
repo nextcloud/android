@@ -59,9 +59,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.MoreExecutors
 import com.nextcloud.client.account.User
-import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.media.BackgroundPlayerService
 import com.nextcloud.client.media.ErrorFormat
@@ -69,6 +67,7 @@ import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.ResultListener
@@ -101,7 +100,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
-import javax.inject.Inject
 
 /**
  * This activity shows a preview of a downloaded media file (audio or video).
@@ -126,15 +124,7 @@ class PreviewMediaActivity :
     private var savedPlaybackPosition: Long = 0
     private var autoplay = true
     private var streamUri: Uri? = null
-
-    @Inject
-    lateinit var clientFactory: ClientFactory
-
-    @Inject
-    lateinit var accountManager: UserAccountManager
-
-    @Inject
-    lateinit var backgroundJobManager: BackgroundJobManager
+    private var nextcloudClient: NextcloudClient? = null
 
     private lateinit var binding: ActivityPreviewMediaBinding
     private var emptyListView: ViewGroup? = null
@@ -332,6 +322,7 @@ class PreviewMediaActivity :
             val client = clientRepository.getNextcloudClient() ?: return@launch
 
             withContext(Dispatchers.Main) {
+                nextcloudClient = client
                 videoPlayer = createNextcloudExoplayer(this@PreviewMediaActivity, client)
                 val uniqueSessionId = "preview_session_" + System.currentTimeMillis()
                 videoMediaSession = MediaSession.Builder(this@PreviewMediaActivity, videoPlayer as Player)
@@ -491,15 +482,34 @@ class PreviewMediaActivity :
                 PlayerView.ControllerVisibilityListener { visibility ->
                     if (visibility == View.VISIBLE) {
                         windowInsetsController.show(type)
-                        supportActionBar!!.show()
+                        supportActionBar?.show()
                     } else if (visibility == View.GONE) {
                         windowInsetsController.hide(type)
-                        supportActionBar!!.hide()
+                        supportActionBar?.hide()
                     }
                 }
             )
             it.player = videoPlayer
+            it.setFullscreenButtonClickListener { startFullScreenVideo() }
         }
+    }
+
+    private fun startFullScreenVideo() {
+        val client = nextcloudClient ?: return
+        val player = videoPlayer ?: return
+        val dialog = PreviewVideoFullscreenDialog(
+            this,
+            client,
+            player,
+            binding.exoplayerView
+        )
+            .apply {
+                setOnDismissListener {
+                    setupVideoView()
+                }
+            }
+
+        dialog.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -592,7 +602,7 @@ class PreviewMediaActivity :
                     list,
                     this,
                     binding.root,
-                    backgroundJobManager
+                    this.backgroundJobManager
                 )
             }
 
