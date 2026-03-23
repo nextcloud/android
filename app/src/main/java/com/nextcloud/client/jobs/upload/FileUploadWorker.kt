@@ -91,6 +91,7 @@ class FileUploadWorker(
                 activeOperations.values.find { it.remotePath == remotePath && it.user.accountName == accountName }
 
             operation?.let {
+                Log_OC.d(TAG, "upload operation is cancelled: $remotePath")
                 operation.cancel(ResultCode.USER_CANCELLED)
                 activeOperations.remove(operation.ocUploadId)
             }
@@ -351,24 +352,24 @@ class FileUploadWorker(
                 }
             }
             result = RemoteOperationResult(e)
-        } finally {
-            if (!isStopped) {
-                UploadErrorNotificationManager.handleResult(
-                    context,
-                    notificationManager,
-                    operation,
-                    result,
-                    onSameFileConflict = {
-                        withContext(Dispatchers.Main) {
-                            val showSameFileAlreadyExistsNotification =
-                                inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
-                            if (showSameFileAlreadyExistsNotification) {
-                                notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
-                            }
+        }
+
+        if (!isStopped) {
+            UploadErrorNotificationManager.handleResult(
+                context,
+                notificationManager,
+                operation,
+                result,
+                onSameFileConflict = {
+                    withContext(Dispatchers.Main) {
+                        val showSameFileAlreadyExistsNotification =
+                            inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
+                        if (showSameFileAlreadyExistsNotification) {
+                            notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
                         }
                     }
-                )
-            }
+                }
+            )
         }
 
         return@withContext result
