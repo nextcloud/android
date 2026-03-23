@@ -314,7 +314,7 @@
     <string name="drawer_item_assistant">Yardımcı</string>
     <string name="drawer_item_favorites">Sık kullanılanlar</string>
     <string name="drawer_item_gallery">Ortam</string>
-    <string name="drawer_item_groupfolders">Grup klasörleri</string>
+    <string name="drawer_item_groupfolders">Takım klasörleri</string>
     <string name="drawer_item_home">Giriş</string>
     <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_item_on_device">Aygıt üzerinde</string>

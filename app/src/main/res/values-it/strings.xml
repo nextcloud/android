@@ -291,7 +291,7 @@
     <string name="drawer_item_assistant">Assistente</string>
     <string name="drawer_item_favorites">Preferiti</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Cartelle di gruppo</string>
+    <string name="drawer_item_groupfolders">Cartelle del team</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifiche</string>
     <string name="drawer_item_on_device">Su dispositivo</string>

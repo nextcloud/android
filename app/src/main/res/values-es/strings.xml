@@ -48,6 +48,7 @@
     <string name="assistant_output_generation_warning_text">Esta salida fue generada mediante IA. Asegúrese de revisar de nuevo.</string>
     <string name="assistant_screen_chat_create_error">Fallo al mandar un mensaje</string>
     <string name="assistant_screen_chat_fetch_error">Fallo al cargar los mensajes del chat</string>
+    <string name="assistant_screen_chat_generate_error">Fallo al generar la respuesta</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Volver a la página de asistente</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">¿Está seguro de querer eliminar esta tarea?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarea</string>
@@ -313,7 +314,7 @@
     <string name="drawer_item_assistant">Asistente</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_gallery">Multimedia</string>
-    <string name="drawer_item_groupfolders">Carpetas de grupo</string>
+    <string name="drawer_item_groupfolders">Carpetas de equipo</string>
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
@@ -404,6 +405,7 @@
     <string name="etm_transfer_type">Transferir</string>
     <string name="etm_transfer_type_download">Descarga</string>
     <string name="etm_transfer_type_upload">Subir</string>
+    <string name="extension_cannot_be_changed">La extensión no puede cambiarse</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">No tiene permisos para crear o cargar archivos en esta carpeta.</string>
     <string name="external_shares">Recursos compartidos externos</string>
     <string name="fab_label">Añadir o subir</string>
@@ -607,6 +609,9 @@
     <string name="media_play_pause_description">Botón de reproducción o pausa </string>
     <string name="media_player_pause">Pausar</string>
     <string name="media_player_play">Reproducir</string>
+    <string name="media_player_playing">Reproduciendo multimedia</string>
+    <string name="media_player_seek_backward">Buscar hacia atrás</string>
+    <string name="media_player_seek_forward">Buscar hacia delante</string>
     <string name="media_rewind_description">Botón de rebobinado</string>
     <string name="media_state_playing">%1$s (reproduciendo)</string>
     <string name="menu_item_sort_by_date_newest_first">El más reciente primero</string>

@@ -48,6 +48,7 @@
     <string name="assistant_output_generation_warning_text">Zde zobrazený výstup je vytvořen AI. Vždy si informace ověřujte.</string>
     <string name="assistant_screen_chat_create_error">Nepodařilo se odeslat zprávu</string>
     <string name="assistant_screen_chat_fetch_error">Nepodařilo se získat zprávy chatu</string>
+    <string name="assistant_screen_chat_generate_error">Nepodařilo se vytvořit odpověď</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Zpět na stránku asistenta</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Opravdu chcete tuto úlohu smazat?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Smazat úkol</string>
@@ -313,7 +314,7 @@
     <string name="drawer_item_assistant">Asistent</string>
     <string name="drawer_item_favorites">Oblíbené</string>
     <string name="drawer_item_gallery">Média</string>
-    <string name="drawer_item_groupfolders">Skupinové složky</string>
+    <string name="drawer_item_groupfolders">Týmové složky</string>
     <string name="drawer_item_home">Domů</string>
     <string name="drawer_item_notifications">Upozornění</string>
     <string name="drawer_item_on_device">Na přístroji</string>
@@ -404,6 +405,7 @@
     <string name="etm_transfer_type">Přenos</string>
     <string name="etm_transfer_type_download">Stáhnout</string>
     <string name="etm_transfer_type_upload">Nahrát</string>
+    <string name="extension_cannot_be_changed">Příponu není možné změnit</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Nemáte oprávnění pro vytváření nebo nahrávání souborů v této složce.</string>
     <string name="external_shares">Externí sdílení</string>
     <string name="fab_label">Přidat nebo nahrát</string>
@@ -607,6 +609,9 @@
     <string name="media_play_pause_description">Tlačítko Přehrát/Pozastavit</string>
     <string name="media_player_pause">Pozastavit</string>
     <string name="media_player_play">Přehrát</string>
+    <string name="media_player_playing">Přehrávané médium</string>
+    <string name="media_player_seek_backward">Posunout nazpět</string>
+    <string name="media_player_seek_forward">Posunout vpřed</string>
     <string name="media_rewind_description">Tlačítko přeskočit na začátek/konec</string>
     <string name="media_state_playing">%1$s (přehrává)</string>
     <string name="menu_item_sort_by_date_newest_first">Nejnovější jako první</string>

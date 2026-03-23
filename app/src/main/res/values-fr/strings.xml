@@ -48,6 +48,8 @@
     <string name="assistant_output_generation_warning_text">Les résultats affichés ici sont générés par l\'IA. Veillez à toujours les vérifier.</string>
     <string name="assistant_screen_chat_create_error">Échec de l\'envoi du message</string>
     <string name="assistant_screen_chat_fetch_error">Impossible de récupérer les messages de conversation</string>
+    <string name="assistant_screen_chat_generate_error">Impossible de générer une réponse</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Retour à la page de l\'assistant</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Êtes-vous sûr de vouloir supprimer cette tâche ?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Supprimer la tâche</string>
     <string name="assistant_screen_empty_content_description">Essayez d\'envoyer un message pour déclencher une conversation.</string>
@@ -312,7 +314,7 @@
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_favorites">Favoris</string>
     <string name="drawer_item_gallery">Médias</string>
-    <string name="drawer_item_groupfolders">Dossiers de groupe</string>
+    <string name="drawer_item_groupfolders">Dossiers d\'équipe</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
@@ -403,9 +405,11 @@
     <string name="etm_transfer_type">Transfert</string>
     <string name="etm_transfer_type_download">Téléchargement</string>
     <string name="etm_transfer_type_upload">Téléverser</string>
+    <string name="extension_cannot_be_changed">L\'extension ne peut pas être modifiée</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Vous n\'avez pas le droit de créer ou de téléverser des fichiers dans ce dossier.</string>
     <string name="external_shares">Partages externes</string>
     <string name="fab_label">Ajouter ou téléverser</string>
+    <string name="failed_to_create_conflict_dialog">Échec de la création de la boîte de dialogue de conflit</string>
     <string name="failed_to_download">Transmission du fichier au gestionnaire de téléchargement échoué</string>
     <string name="failed_to_print">Impossible d\'imprimer le fichier</string>
     <string name="failed_to_start_action">Impossible de lancer l\'action !</string>
@@ -506,6 +510,7 @@
     <string name="folder_download_counter">%1$d de %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Une erreur s\'est produite lors de la synchronisation du dossier %s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Espace disque insuffisant, synchronisation annulée</string>
+    <string name="folder_download_success_notification_title">Dossier %s synchronisé</string>
     <string name="folder_download_worker_ticker_id">Synchronisation en cours…</string>
     <string name="folder_list_empty_headline">Aucun dossier</string>
     <string name="folder_name_empty">Le nom du dossier ne peut être vide</string>
@@ -581,6 +586,7 @@
     <string name="login">Se connecter</string>
     <string name="login_url_helper_text">Adresse URL visible dans la barre d\'adresse de votre navigateur Web lorsque vous êtes connecté à %1$s.</string>
     <string name="logs_menu_delete">Supprimer les logs</string>
+    <string name="logs_menu_export">Exporter les logs</string>
     <string name="logs_menu_refresh">Actualiser</string>
     <string name="logs_menu_search">Chercher dans les logs</string>
     <string name="logs_menu_send">Envoyer logs par e-mail</string>
@@ -976,6 +982,7 @@
     <string name="sync">Synchroniser</string>
     <string name="sync_anyway">Synchroniser quand même</string>
     <string name="sync_conflict_notification_action_title">Résoudre les conflits</string>
+    <string name="sync_conflict_notification_description">Des conflits de téléversement ont été détectés. Ouvrez les téléversements pour les résoudre.</string>
     <string name="sync_conflict_notification_title">Conflits de téléversement de fichiers</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
@@ -1089,6 +1096,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Autorisations de l\'application</string>
     <string name="upload_missing_storage_permission_description">Vos fichiers ne peuvent pas être téléversés sans accès au stockage local. Appuyez pour accorder l\'autorisation.</string>
     <string name="upload_missing_storage_permission_title">Envoi interrompu – Autorisation de stockage requise</string>
+    <string name="upload_notification_manager_content_intent_description">Vous pouvez le supprimer ou le relancer depuis Téléversements</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Le chiffrement n\'est disponible que pour les versions d\'Android&gt;= 5.0</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>

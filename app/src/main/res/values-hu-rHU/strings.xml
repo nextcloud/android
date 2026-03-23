@@ -309,7 +309,6 @@
     <string name="drawer_item_assistant">Asszisztens</string>
     <string name="drawer_item_favorites">Kedvencek</string>
     <string name="drawer_item_gallery">Média</string>
-    <string name="drawer_item_groupfolders">Csoportmappák</string>
     <string name="drawer_item_home">Saját mappa</string>
     <string name="drawer_item_notifications">Értesítések</string>
     <string name="drawer_item_on_device">Az eszközön</string>

@@ -267,7 +267,7 @@
     <string name="drawer_item_assistant">Avustaja</string>
     <string name="drawer_item_favorites">Suosikit</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Ryhmäkansiot</string>
+    <string name="drawer_item_groupfolders">Tiimikansiot</string>
     <string name="drawer_item_home">Koti</string>
     <string name="drawer_item_notifications">Ilmoitukset</string>
     <string name="drawer_item_on_device">Laitteessa</string>

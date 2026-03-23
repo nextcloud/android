@@ -282,7 +282,6 @@
     <string name="drawer_item_assistant">Meðhjálpari</string>
     <string name="drawer_item_favorites">Eftirlæti</string>
     <string name="drawer_item_gallery">Margmiðlunargögn</string>
-    <string name="drawer_item_groupfolders">Hópamöppur</string>
     <string name="drawer_item_home">Heim</string>
     <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_item_on_device">Á tækinu</string>

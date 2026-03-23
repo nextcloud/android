@@ -314,7 +314,7 @@
     <string name="drawer_item_assistant">Asistent</string>
     <string name="drawer_item_favorites">Favoriti</string>
     <string name="drawer_item_gallery">Medij</string>
-    <string name="drawer_item_groupfolders">Grupe mape</string>
+    <string name="drawer_item_groupfolders">Timske mape</string>
     <string name="drawer_item_home">Početna</string>
     <string name="drawer_item_notifications">Obavijesti</string>
     <string name="drawer_item_on_device">Na uređaju</string>

@@ -265,7 +265,6 @@
     <string name="drawer_item_assistant">Asistent</string>
     <string name="drawer_item_favorites">Favorite</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Gruparedirectoare</string>
     <string name="drawer_item_home">Acasă</string>
     <string name="drawer_item_notifications">Notificări</string>
     <string name="drawer_item_on_device">Pe dispozitiv</string>

@@ -313,7 +313,7 @@
     <string name="drawer_item_assistant">Asistente</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_gallery">Multimedia</string>
-    <string name="drawer_item_groupfolders">Cartafoles de grupo</string>
+    <string name="drawer_item_groupfolders">Cartafoles de equipo</string>
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificacións</string>
     <string name="drawer_item_on_device">No dispositivo</string>

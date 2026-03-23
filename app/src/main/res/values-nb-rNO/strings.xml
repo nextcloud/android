@@ -270,7 +270,6 @@
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Favoritter</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Gruppemappe</string>
     <string name="drawer_item_home">Hjem</string>
     <string name="drawer_item_notifications">Varsler</string>
     <string name="drawer_item_on_device">På enheten</string>

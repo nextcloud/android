@@ -290,7 +290,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="drawer_item_assistant">Asisten</string>
     <string name="drawer_item_favorites">Disukai</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Folder kelompok</string>
     <string name="drawer_item_home">Beranda</string>
     <string name="drawer_item_notifications">Pemberitahuan</string>
     <string name="drawer_item_on_device">Dalam perangkat</string>
