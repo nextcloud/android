@@ -609,6 +609,9 @@
     <string name="media_play_pause_description">Bouton de lecture ou de pause</string>
     <string name="media_player_pause">Pause</string>
     <string name="media_player_play">Lire</string>
+    <string name="media_player_playing">Lecture du média</string>
+    <string name="media_player_seek_backward">Retour rapide</string>
+    <string name="media_player_seek_forward">Avance rapide</string>
     <string name="media_rewind_description">Bouton de retour arrière</string>
     <string name="media_state_playing">%1$s (lecture)</string>
     <string name="menu_item_sort_by_date_newest_first">Date : Récent en premier</string>
