@@ -143,7 +143,7 @@ GEM
       google-cloud-errors (~> 1.0)
     google-cloud-env (1.6.0)
       faraday (>= 0.17.3, < 3.0)
-    google-cloud-errors (1.5.0)
+    google-cloud-errors (1.6.0)
     google-cloud-storage (1.47.0)
       addressable (~> 2.8)
       digest-crc (~> 0.4)
