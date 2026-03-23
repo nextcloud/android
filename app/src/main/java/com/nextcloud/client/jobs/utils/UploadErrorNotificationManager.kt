@@ -131,7 +131,6 @@ object UploadErrorNotificationManager {
             )
 
             // actions for all error types
-            addAction(UploadBroadcastAction.PauseAndCancel(operation).pauseAction(context))
             addAction(UploadBroadcastAction.PauseAndCancel(operation).cancelAction(context))
 
             if (result.code == ResultCode.SYNC_CONFLICT) {

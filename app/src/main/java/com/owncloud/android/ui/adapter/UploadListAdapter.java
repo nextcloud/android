@@ -186,7 +186,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         uploadHelper.updateUploadStatus(upload.getRemotePath(), accountName, UploadStatus.UPLOAD_CANCELLED, new Function0<Unit>() {
                             @Override
                             public Unit invoke() {
-                                FileUploadWorker.Companion.cancelCurrentUpload(upload.getRemotePath(), accountName, new Function0<Unit>() {
+                                FileUploadWorker.Companion.cancelUpload(upload.getRemotePath(), accountName, new Function0<Unit>() {
                                     @Override
                                     public Unit invoke() {
                                         completedCount[0]++;
@@ -428,7 +428,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
             itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> {
                 uploadHelper.updateUploadStatus(item.getRemotePath(), item.getAccountName(), UploadStatus.UPLOAD_CANCELLED, () -> {
-                    FileUploadWorker.Companion.cancelCurrentUpload(item.getRemotePath(), item.getAccountName(), () -> {
+                    FileUploadWorker.Companion.cancelUpload(item.getRemotePath(), item.getAccountName(), () -> {
                         loadUploadItemsFromDb(() -> {});
                         return Unit.INSTANCE;
                     });

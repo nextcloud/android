@@ -57,7 +57,7 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
 
         val remove = intent.getBooleanExtra(REMOVE, false)
 
-        FileUploadWorker.cancelCurrentUpload(remotePath, accountName, onCompleted = {})
+        FileUploadWorker.cancelUpload(remotePath, accountName)
 
         if (remove) {
             uploadsStorageManager.removeUpload(uploadId)

@@ -106,6 +106,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         notificationManager.cancel(getId())
 
         notificationBuilder.run {
+            clearActions()
             setContentTitle(context.getString(R.string.file_upload_worker_error_notification_title))
             setContentText("")
         }

@@ -19,7 +19,6 @@ import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
@@ -440,7 +439,7 @@ class FileUploadHelper {
 
     @Suppress("ReturnCount")
     fun isUploadingNow(upload: OCUpload?): Boolean {
-        val currentUploadFileOperation = currentUploadFileOperation
+        val currentUploadFileOperation = FileUploadWorker.getCurrentUpload(upload?.uploadId)
         if (currentUploadFileOperation == null || currentUploadFileOperation.user == null) return false
         if (upload == null || upload.accountName != currentUploadFileOperation.user.accountName) return false
 
@@ -610,7 +609,7 @@ class FileUploadHelper {
                     return
                 }
 
-                FileUploadWorker.cancelCurrentUpload(remotePath, accountName, onCompleted = {
+                FileUploadWorker.cancelUpload(remotePath, accountName, onCompleted = {
                     instance().updateUploadStatus(remotePath, accountName, UploadStatus.UPLOAD_CANCELLED)
                 })
             }
