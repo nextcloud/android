@@ -1,260 +1,179 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2021 Chris Narkiewicz <hello@ezaquarii.com>
- * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2017 Andy Scherzinger <info@andy-scherzinger.de>
- * SPDX-FileCopyrightText: 2016 ownCloud Inc.
- * SPDX-FileCopyrightText: 2016 Juan Carlos González Cabrero <malkomich@gmail.com>
- * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
- * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
- * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.asynctasks;
+package com.owncloud.android.ui.asynctasks
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.provider.DocumentsContract;
-import android.widget.Toast;
+import android.content.ContentResolver
+import android.content.Context
+import android.net.Uri
+import android.provider.DocumentsContract
+import android.widget.Toast
+import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.owncloud.android.R
+import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.utils.FileStorageUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.InputStream
+import java.lang.ref.WeakReference
 
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.jobs.upload.FileUploadHelper;
-import com.owncloud.android.R;
-import com.owncloud.android.files.services.NameCollisionPolicy;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.utils.FileStorageUtils;
+class CopyAndUploadContentUrisTask(
+    listener: OnCopyTmpFilesTaskListener?,
+    context: Context,
+    private val scope: CoroutineScope
+) {
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-
-/**
- * AsyncTask to copy a file from a uri in a temporal file
- */
-public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, ResultCode> {
-
-    private final String TAG = CopyAndUploadContentUrisTask.class.getSimpleName();
-
-    /**
-     * Listener in main thread to be notified when the task ends. Held in a WeakReference assuming that its
-     * lifespan is associated with an Activity context, that could be finished by the user before the AsyncTask
-     * ends.
-     */
-    private WeakReference<OnCopyTmpFilesTaskListener> mListener;
-
-    /**
-     * Reference to application context, used to access app resources. Holding it should not be a problem, since it
-     * needs to exist until the end of the AsyncTask although the caller Activity were finished before.
-     */
-    private final Context mAppContext;
-
-    /**
-     * Helper method building a correct array of parameters to be passed to {@link #execute(Object[])} )}
-     * <p>
-     * Just packages the received parameters in correct order, doesn't check anything about them.
-     *
-     * @param   user                user uploading shared files
-     * @param   sourceUris          Array of "content://" URIs to the files to be uploaded.
-     * @param   remotePaths         Array of absolute paths in the OC account to set to the uploaded files.
-     * @param   behaviour           Indicates what to do with the local file once uploaded.
-     * @param   contentResolver     {@link ContentResolver} instance with appropriate permissions to open the
-     *                              URIs in 'sourceUris'.
-     * <p>
-     * Handling this parameter in {@link #doInBackground(Object[])} keeps an indirect reference to the
-     * caller Activity, what is technically wrong, since it will be held in memory
-     * (with all its associated resources) until the task finishes even though the user leaves the Activity.
-     * <p>
-     * But we really, really, really want that the files are copied to temporary files in the OC folder and then
-     * uploaded, even if the user gets bored of waiting while the copy finishes. And we can't forward the job to
-     * another {@link Context}, because if any of the content:// URIs is constrained by a TEMPORARY READ PERMISSION,
-     * trying to open it will fail with a {@link SecurityException} after the user leaves the ReceiveExternalFilesActivity Activity. We
-     * really tried it.
-     * <p>
-     * So we are doomed to leak here for the best interest of the user. Please, don't do similar in other places.
-     * <p>
-     * Any idea to prevent this while keeping the functionality will be welcome.
-     *
-     * @return Correct array of parameters to be passed to {@link #execute(Object[])}
-     */
-    public static Object[] makeParamsToExecute(
-        User user,
-        Uri[] sourceUris,
-        String[] remotePaths,
-        int behaviour,
-        ContentResolver contentResolver) {
-        return new Object[]{
-            user,
-            sourceUris,
-            remotePaths,
-            behaviour,
-            contentResolver
-        };
+    companion object {
+        private const val TAG = "CopyAndUploadContentUrisTask"
     }
 
-    public CopyAndUploadContentUrisTask(OnCopyTmpFilesTaskListener listener, Context context) {
-        mListener = new WeakReference<>(listener);
-        mAppContext = context.getApplicationContext();
+    private var listenerRef = WeakReference(listener)
+    private val appContext = context.applicationContext
+
+    fun execute(
+        user: User,
+        sourceUris: Array<Uri>,
+        remotePaths: Array<String>,
+        behaviour: Int,
+        contentResolver: ContentResolver
+    ) {
+        val inputStreams: List<InputStream?> = try {
+            sourceUris.map { contentResolver.openInputStream(it) }
+        } catch (e: FileNotFoundException) {
+            Log_OC.e(TAG, "Source file not found", e)
+            dispatchResult(ResultCode.LOCAL_FILE_NOT_FOUND)
+            return
+        } catch (e: SecurityException) {
+            Log_OC.e(TAG, "Insufficient permissions to open source URIs", e)
+            dispatchResult(ResultCode.FORBIDDEN)
+            return
+        }
+
+        scope.launch(Dispatchers.IO) {
+            val result = performCopy(user, sourceUris, remotePaths, behaviour, contentResolver, inputStreams)
+            withContext(Dispatchers.Main) {
+                dispatchResult(result)
+            }
+        }
     }
 
-    /**
-     * @param params    Params to execute the task; see
-     *                  {@link #makeParamsToExecute(User, Uri[], String[], int, ContentResolver)}
-     *                  for further details.
-     */
-    @Override
-    protected ResultCode doInBackground(Object[] params) {
+    private fun performCopy(
+        user: User,
+        sourceUris: Array<Uri>,
+        remotePaths: Array<String>,
+        behaviour: Int,
+        contentResolver: ContentResolver,
+        inputStreams: List<InputStream?>
+    ): ResultCode {
+        val localPaths = arrayOfNulls<String>(sourceUris.size)
+        val resolvedRemotePaths = arrayOfNulls<String>(sourceUris.size)
+        var currentTempPath: String? = null
 
-        ResultCode result = ResultCode.UNKNOWN_ERROR;
-        String fullTempPath = null;
-        Uri currentUri = null;
+        return try {
+            sourceUris.forEachIndexed { index, uri ->
+                val remotePath = remotePaths[index]
+                val lastModified = queryLastModified(contentResolver, uri)
 
-        try {
-            User user = (User) params[0];
-            Uri[] uris = (Uri[]) params[1];
-            String[] remotePaths = (String[]) params[2];
-            int behaviour = (Integer) params[3];
-            ContentResolver leakedContentResolver = (ContentResolver) params[4];
-            String[] localPaths = new String[uris.length];
-            String[] currentRemotePaths = new String[uris.length];
-            String currentRemotePath;
+                currentTempPath = "${FileStorageUtils.getTemporalPath(user.accountName)}$remotePath"
+                val cacheFile = File(currentTempPath)
 
-            for (int i = 0; i < uris.length; i++) {
-                currentUri = uris[i];
-                currentRemotePath = remotePaths[i];
+                cacheFile.parentFile?.takeIf { !it.exists() }?.let {
+                    Log_OC.d(TAG, "Temp dir creation result: ${it.mkdirs()}")
+                }
+                Log_OC.d(TAG, "Cache file creation result: ${cacheFile.createNewFile()}")
 
-                long lastModified = 0;
-                try (Cursor cursor = leakedContentResolver.query(currentUri, null, null, null, null)) {
-                    if (cursor != null && cursor.moveToFirst()) {
-                        // this check prevents a crash when last modification time is not available on certain phones
-                        int columnIndex = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED);
-                        if (columnIndex >= 0) {
-                            lastModified = cursor.getLong(columnIndex);
-                        }
+                inputStreams[index]?.use { input ->
+                    FileOutputStream(currentTempPath).use { output ->
+                        input.copyTo(output)
                     }
                 }
 
-                fullTempPath = FileStorageUtils.getTemporalPath(user.getAccountName()) + currentRemotePath;
-                File cacheFile = new File(fullTempPath);
-                File tempDir = cacheFile.getParentFile();
-                if (tempDir != null && !tempDir.exists()) {
-                    boolean isTempFileCreated = tempDir.mkdirs();
-                    Log_OC.d(TAG, "Temp file creation result: " + isTempFileCreated);
-                }
+                applyLastModified(cacheFile, lastModified)
 
-                boolean isCacheFileCreated = cacheFile.createNewFile();
-                Log_OC.d(TAG, "Cache file creation result: " + isCacheFileCreated);
-
-                try (InputStream inputStream = leakedContentResolver.openInputStream(currentUri);
-                     FileOutputStream outputStream = new FileOutputStream(fullTempPath)) {
-                    byte[] buffer = new byte[4096];
-                    int count;
-
-                    if (inputStream != null) {
-                        while ((count = inputStream.read(buffer)) > 0) {
-                            outputStream.write(buffer, 0, count);
-                        }
-                    }
-
-                    if (lastModified != 0) {
-                        try {
-                            if (!cacheFile.setLastModified(lastModified)) {
-                                Log_OC.w(TAG, "Could not change mtime of cacheFile");
-                            }
-                        } catch (SecurityException e) {
-                            Log_OC.e(TAG, "Not enough permissions to change mtime of cacheFile", e);
-                        } catch (IllegalArgumentException e) {
-                            Log_OC.e(TAG, "Could not change mtime of cacheFile, mtime is negativ: " + lastModified, e);
-                        }
-                    }
-
-                    localPaths[i] = fullTempPath;
-                    currentRemotePaths[i] = currentRemotePath;
-                    fullTempPath = null;
-                }
+                localPaths[index] = currentTempPath
+                resolvedRemotePaths[index] = remotePath
+                currentTempPath = null
             }
 
-            FileUploadHelper.Companion.instance().uploadNewFiles(
+            FileUploadHelper.instance().uploadNewFiles(
                 user,
-                localPaths,
-                currentRemotePaths,
+                localPaths.requireNoNulls(),
+                resolvedRemotePaths.requireNoNulls(),
                 behaviour,
-                false,      // do not create parent folder if not existent
+                false,
                 UploadFileOperation.CREATED_BY_USER,
                 false,
                 false,
-                NameCollisionPolicy.ASK_USER);
+                NameCollisionPolicy.ASK_USER
+            )
 
-            result = ResultCode.OK;
-
-        } catch (ArrayIndexOutOfBoundsException e) {
-            Log_OC.e(TAG, "Wrong number of arguments received ", e);
-        } catch (ClassCastException e) {
-            Log_OC.e(TAG, "Wrong parameter received ", e);
-        } catch (FileNotFoundException e) {
-            Log_OC.e(TAG, "Could not find source file " + currentUri, e);
-            result = ResultCode.LOCAL_FILE_NOT_FOUND;
-        } catch (SecurityException e) {
-            Log_OC.e(TAG, "Not enough permissions to read source file " + currentUri, e);
-            result = ResultCode.FORBIDDEN;
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Exception while copying " + currentUri + " to temporary file", e);
-            result = ResultCode.LOCAL_STORAGE_NOT_COPIED;
-            if (fullTempPath != null) {
-                File f = new File(fullTempPath);
-                if (f.exists() && !f.delete()) {
-                    Log_OC.e(TAG, "Could not delete temporary file " + fullTempPath);
+            ResultCode.OK
+        } catch (e: FileNotFoundException) {
+            Log_OC.e(TAG, "Source file not found during copy", e)
+            ResultCode.LOCAL_FILE_NOT_FOUND
+        } catch (e: SecurityException) {
+            Log_OC.e(TAG, "Insufficient permissions during copy", e)
+            ResultCode.FORBIDDEN
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Unexpected error during file copy", e)
+            currentTempPath?.let { path ->
+                val partial = File(path)
+                if (partial.exists() && !partial.delete()) {
+                    Log_OC.e(TAG, "Failed to delete partial temp file: $path")
                 }
             }
+            ResultCode.LOCAL_STORAGE_NOT_COPIED
         }
-
-        return result;
     }
 
-    @Override
-    protected void onPostExecute(ResultCode result) {
-        OnCopyTmpFilesTaskListener listener = mListener.get();
-        if (listener!= null) {
-            listener.onTmpFilesCopied(result);
+    private fun queryLastModified(contentResolver: ContentResolver, uri: Uri): Long = runCatching {
+        contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+            if (!cursor.moveToFirst()) return@use 0L
+            val col = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED)
+            if (col >= 0) cursor.getLong(col) else 0L
+        } ?: 0L
+    }.getOrDefault(0L)
 
-        } else {
-            Log_OC.i(TAG, "User left the caller activity before the temporal copies were finished ");
-            if (result != ResultCode.OK) {
-                // if the user left the app, report background error in a Toast
-                int messageId = switch (result) {
-                    case LOCAL_FILE_NOT_FOUND -> R.string.uploader_error_message_source_file_not_found;
-                    case LOCAL_STORAGE_NOT_COPIED -> R.string.uploader_error_message_source_file_not_copied;
-                    case FORBIDDEN -> R.string.uploader_error_message_read_permission_not_granted;
-                    default -> R.string.common_error_unknown;
-                };
-                String message = String.format(
-                    mAppContext.getString(messageId),
-                    mAppContext.getString(R.string.app_name)
-                );
-                Toast.makeText(mAppContext, message, Toast.LENGTH_LONG).show();
+    private fun applyLastModified(file: File, lastModified: Long) {
+        if (lastModified == 0L) return
+        runCatching { file.setLastModified(lastModified) }
+            .onFailure { Log_OC.w(TAG, "Could not set lastModified on cache file: ${it.message}") }
+    }
+
+    private fun dispatchResult(result: ResultCode) {
+        listenerRef.get()?.onTmpFilesCopied(result) ?: run {
+            if (result == ResultCode.OK) return
+            val messageResId = when (result) {
+                ResultCode.LOCAL_FILE_NOT_FOUND -> R.string.uploader_error_message_source_file_not_found
+                ResultCode.LOCAL_STORAGE_NOT_COPIED -> R.string.uploader_error_message_source_file_not_copied
+                ResultCode.FORBIDDEN -> R.string.uploader_error_message_read_permission_not_granted
+                else -> R.string.common_error_unknown
             }
+            Toast.makeText(
+                appContext,
+                appContext.getString(messageResId, appContext.getString(R.string.app_name)),
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
-    /**
-     * Sets the object waiting for progress report via callbacks.
-     *
-     * @param listener      New object to report progress via callbacks
-     */
-    public void setListener(OnCopyTmpFilesTaskListener listener) {
-        mListener = new WeakReference<>(listener);
+    fun setListener(listener: OnCopyTmpFilesTaskListener?) {
+        listenerRef = WeakReference(listener)
     }
 
-    /**
-     * Interface to retrieve data from recognition task
-     */
-    public interface OnCopyTmpFilesTaskListener {
-        void onTmpFilesCopied(ResultCode result);
+    fun interface OnCopyTmpFilesTaskListener {
+        fun onTmpFilesCopied(result: ResultCode)
     }
 }
