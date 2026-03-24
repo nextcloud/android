@@ -465,11 +465,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
         } else if (itemId == R.id.action_cancel_sync) {
             ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
-        } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
+        } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file || itemId == R.id.action_sync_all_files) {
             if (containerActivity instanceof FileActivity activity) {
                 activity.showSyncLoadingDialog(getFile().isFolder());
             }
-            containerActivity.getFileOperationsHelper().syncFile(getFile());
+            boolean syncAll = (itemId == R.id.action_sync_all_files);
+            containerActivity.getFileOperationsHelper().syncFile(getFile(), syncAll);
         } else if (itemId == R.id.action_export_file) {
             ArrayList<OCFile> list = new ArrayList<>();
             list.add(getFile());

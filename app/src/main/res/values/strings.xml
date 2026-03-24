@@ -238,6 +238,7 @@
     <string name="file_upload_worker_error_notification_title">Upload failed. No internet connection</string>
     <string name="filedetails_download">Download</string>
     <string name="filedetails_sync_file">Sync</string>
+    <string name="filedetails_sync_all_files">Sync all</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed %1$s during upload</string>
     <string name="list_layout">Listed layout</string>
     <string name="action_send_share">Send/share</string>

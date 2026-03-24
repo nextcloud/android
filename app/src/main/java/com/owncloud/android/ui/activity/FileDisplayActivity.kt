@@ -2261,8 +2261,8 @@ class FileDisplayActivity :
                 fileOperationsHelper.removeFiles(list, true, true)
 
                 // download new version, only if file was previously download
-                showSyncLoadingDialog(file.isFolder == true)
-                fileOperationsHelper.syncFile(file)
+                showSyncLoadingDialog(file.isFolder)
+                fileOperationsHelper.syncFile(file, false)
             }
 
             val parent = file?.let { storageManager.getFileById(it.parentId) }

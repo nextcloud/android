@@ -873,9 +873,9 @@ public class FileOperationsHelper {
      *
      * @param file The file or folder to synchronize
      */
-    public void syncFile(OCFile file) {
+    public void syncFile(OCFile file, boolean syncAll) {
         if (file.isFolder()) {
-            Intent intent = getSyncFolderIntent(file);
+            Intent intent = getSyncFolderIntent(file, syncAll);
             fileActivity.startService(intent);
         } else {
             Intent intent = getSyncFileIntent(file);
@@ -883,11 +883,12 @@ public class FileOperationsHelper {
         }
     }
 
-    private Intent getSyncFolderIntent(ServerFileInterface file) {
+    private Intent getSyncFolderIntent(ServerFileInterface file, boolean syncAll) {
         Intent intent = new Intent(fileActivity, OperationsService.class);
         intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        intent.putExtra(OperationsService.EXTRA_SYNC_ALL, syncAll);
         return intent;
     }
 
@@ -901,9 +902,9 @@ public class FileOperationsHelper {
     }
 
 
-    public void syncFile(OCFile file, boolean postDialogEvent) {
+    public void syncFile(OCFile file, boolean postDialogEvent, boolean syncAll) {
         if (file.isFolder()) {
-            Intent intent = getSyncFolderIntent(file);
+            Intent intent = getSyncFolderIntent(file, syncAll);
             fileActivity.startService(intent);
         } else {
             Intent intent = getSyncFileIntent(file);

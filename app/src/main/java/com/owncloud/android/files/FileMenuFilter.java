@@ -323,6 +323,7 @@ public class FileMenuFilter {
         if (files.isEmpty() || (!anyFileDown() && !containsFolder()) || synchronizing || containsEncryptedFile()
             || containsEncryptedFolder()) {
             toHide.add(R.id.action_sync_file);
+            toHide.add(R.id.action_sync_all_files);
         }
     }
 
