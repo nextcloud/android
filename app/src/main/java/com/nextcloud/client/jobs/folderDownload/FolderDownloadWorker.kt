@@ -20,7 +20,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
-import com.owncloud.android.ui.helpers.FileOperationsHelper
+import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -81,8 +81,8 @@ class FolderDownloadWorker(
 
         if (syncAll) {
             Log_OC.d(TAG, "checking folder size including all nested subfolders")
-            val folderSize = storageManager.fileDao.getTotalFolderSize(folderID, accountName)
-            if (!checkDiskSize(folderSize)) {
+            if (!FileStorageUtils.checkIfEnoughSpace(folder)) {
+                notificationManager.showNotAvailableDiskSpace()
                 return Result.failure()
             }
         }
@@ -104,7 +104,8 @@ class FolderDownloadWorker(
 
                 var result = true
                 files.forEachIndexed { index, file ->
-                    if (!checkDiskSize(file.fileLength)) {
+                    if (!FileStorageUtils.checkIfEnoughSpace(folder)) {
+                        notificationManager.showNotAvailableDiskSpace()
                         return@withContext Result.failure()
                     }
 
@@ -203,16 +204,4 @@ class FolderDownloadWorker(
             storageManager.getFolderContent(folder, false)
                 .filter { !it.isFolder && !it.isDown }
         }
-
-    private fun checkDiskSize(fileSizeInByte: Long): Boolean {
-        val availableDiskSpace = FileOperationsHelper.getAvailableSpaceOnDevice()
-
-        return if (availableDiskSpace < fileSizeInByte) {
-            Log_OC.w(TAG, "available disk space is not sufficient")
-            notificationManager.showNotAvailableDiskSpace()
-            false
-        } else {
-            true
-        }
-    }
 }

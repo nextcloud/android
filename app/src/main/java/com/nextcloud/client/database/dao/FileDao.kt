@@ -162,27 +162,4 @@ interface FileDao {
 
     @Query("DELETE FROM filelist WHERE file_owner = :fileOwner AND path = :remotePath")
     fun deleteFileByRemotePath(fileOwner: String, remotePath: String): Int
-
-    @Query(
-        """
-    WITH RECURSIVE descendants AS (
-        SELECT _id, content_length, content_type
-        FROM filelist
-        WHERE _id = :folderId AND file_owner = :fileOwner
-
-        UNION ALL
-
-        SELECT f._id, f.content_length, f.content_type
-        FROM filelist f
-        INNER JOIN descendants d ON f.parent = d._id
-        WHERE f.file_owner = :fileOwner
-    )
-    SELECT COALESCE(SUM(content_length), 0)
-    FROM descendants
-    WHERE content_type IS NOT NULL
-      AND content_type != '${MimeType.DIRECTORY}'
-      AND content_type != '${MimeType.WEBDAV_FOLDER}'
-    """
-    )
-    suspend fun getTotalFolderSize(folderId: Long, fileOwner: String): Long
 }
