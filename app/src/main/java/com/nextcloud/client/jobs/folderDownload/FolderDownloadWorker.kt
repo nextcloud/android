@@ -12,17 +12,14 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
-import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -101,8 +98,6 @@ class FolderDownloadWorker(
                         notificationManager.showNotAvailableDiskSpace()
                         return@withContext Result.failure()
                     }
-                    Log_OC.d(TAG, "🔄 syncing full folder tree from server before collecting files")
-                    syncFolderRecursivelyFromServer(folder, user, client)
                 }
 
                 val files = getFiles(folder, storageManager, syncAll)
@@ -172,50 +167,6 @@ class FolderDownloadWorker(
                 delay(2000)
                 notificationManager.dismiss()
             }
-        }
-    }
-
-    private fun syncFolderRecursivelyFromServer(folder: OCFile, user: User, client: OwnCloudClient) {
-        if (isStopped) return
-
-        try {
-            Log_OC.d(TAG, "🔄 refreshing from server: ${folder.remotePath}")
-
-            val operation = RefreshFolderOperation(
-                folder,
-                System.currentTimeMillis(),
-                false,
-                true,
-                false,
-                storageManager,
-                user,
-                context
-            )
-
-            val result = operation.execute(client)
-
-            if (!result.isSuccess) {
-                Log_OC.w(TAG, "⚠️ failed to refresh ${folder.remotePath}: ${result.logMessage}")
-                return
-            }
-
-            val refreshedFolder = storageManager.getFileById(folder.fileId) ?: run {
-                Log_OC.w(TAG, "⚠️ folder ${folder.fileId} missing from DB after refresh")
-                return
-            }
-
-            val subFolders = storageManager
-                .getFolderContent(refreshedFolder, false)
-                .filter { it.isFolder }
-
-            for (subFolder in subFolders) {
-                if (isStopped) return
-                syncFolderRecursivelyFromServer(subFolder, user, client)
-            }
-        } catch (e: Exception) {
-            Log_OC.w(TAG, "⚠️ exception syncing ${folder.remotePath}: $e")
-        } finally {
-            Log_OC.d(TAG, "sub folders are fetched before downloading all")
         }
     }
 
