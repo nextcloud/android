@@ -12,17 +12,21 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
+import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
+import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.util.concurrent.ConcurrentHashMap
 
@@ -40,9 +44,7 @@ class FolderDownloadWorker(
         const val FOLDER_ID = "FOLDER_ID"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val SYNC_ALL = "SYNC_ALL"
-
         private val pendingDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet()
-
         fun isDownloading(id: Long): Boolean = pendingDownloads.contains(id)
     }
 
@@ -59,38 +61,29 @@ class FolderDownloadWorker(
 
         val accountName = inputData.getString(ACCOUNT_NAME)
         if (accountName == null) {
-            Log_OC.e(TAG, "failed accountName cannot be null")
+            Log_OC.e(TAG, "failed: accountName cannot be null")
             return Result.failure()
         }
 
         val optionalUser = accountManager.getUser(accountName)
         if (optionalUser.isEmpty) {
-            Log_OC.e(TAG, "failed user is not present")
+            Log_OC.e(TAG, "failed: user is not present")
             return Result.failure()
         }
 
         val syncAll = inputData.getBoolean(SYNC_ALL, false)
-
         val user = optionalUser.get()
         storageManager = FileDataStorageManager(user, context.contentResolver)
+
         val folder = storageManager.getFileById(folderID)
         if (folder == null) {
-            Log_OC.e(TAG, "failed folder cannot be nul")
+            Log_OC.e(TAG, "failed: folder cannot be null")
             return Result.failure()
         }
 
-        if (syncAll) {
-            Log_OC.d(TAG, "checking folder size including all nested subfolders")
-            if (!FileStorageUtils.checkIfEnoughSpace(folder)) {
-                notificationManager.showNotAvailableDiskSpace()
-                return Result.failure()
-            }
-        }
-
-        Log_OC.d(TAG, "🕒 started for ${user.accountName} downloading ${folder.fileName}")
+        Log_OC.d(TAG, "🕒 started for ${user.accountName} | folder=${folder.fileName} | syncAll=$syncAll")
 
         trySetForeground(folder)
-
         folderDownloadEventBroadcaster.sendDownloadEnqueued(folder.fileId)
         pendingDownloads.add(folder.fileId)
 
@@ -98,12 +91,35 @@ class FolderDownloadWorker(
 
         return withContext(Dispatchers.IO) {
             try {
-                val files = getFiles(folder, storageManager, syncAll)
                 val account = user.toOwnCloudAccount()
-                val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(account, context)
+                val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                    .getClientFor(account, context)
 
-                var result = true
+                if (syncAll) {
+                    Log_OC.d(TAG, "checking available disk space for full recursive download")
+                    if (!FileStorageUtils.checkIfEnoughSpace(folder)) {
+                        notificationManager.showNotAvailableDiskSpace()
+                        return@withContext Result.failure()
+                    }
+                    Log_OC.d(TAG, "🔄 syncing full folder tree from server before collecting files")
+                    syncFolderRecursivelyFromServer(folder, user, client)
+                }
+
+                val files = getFiles(folder, storageManager, syncAll)
+                if (files.isEmpty()) {
+                    Log_OC.d(TAG, "✅ no files need downloading")
+                    notificationManager.showCompletionNotification(folder.fileName, true)
+                    return@withContext Result.success()
+                }
+
+                var overallSuccess = true
+
                 files.forEachIndexed { index, file ->
+                    if (isStopped) {
+                        Log_OC.d(TAG, "⚠️ worker stopped mid-download, aborting remaining files")
+                        return@withContext Result.failure()
+                    }
+
                     if (!FileStorageUtils.checkIfEnoughSpace(folder)) {
                         notificationManager.showNotAvailableDiskSpace()
                         return@withContext Result.failure()
@@ -117,43 +133,89 @@ class FolderDownloadWorker(
                             files.size
                         )
                         notificationManager.showNotification(notification)
-
-                        val foregroundInfo = notificationManager.getForegroundInfo(notification)
-                        setForeground(foregroundInfo)
+                        setForeground(notificationManager.getForegroundInfo(notification))
                     }
 
                     val operation = DownloadFileOperation(user, file, context)
                     val operationResult = operation.execute(client)
+
                     if (operationResult?.isSuccess == true && operation.downloadType === DownloadType.DOWNLOAD) {
                         getOCFile(operation)?.let { ocFile ->
                             downloadHelper.saveFile(ocFile, operation, storageManager)
                         }
                     }
 
-                    if (!operationResult.isSuccess) {
-                        result = false
+                    if (operationResult?.isSuccess != true) {
+                        Log_OC.w(TAG, "⚠️ download failed for ${file.remotePath}: ${operationResult?.logMessage}")
+                        overallSuccess = false
                     }
                 }
 
-                withContext(Dispatchers.Main) {
-                    notificationManager.showCompletionNotification(folder.fileName, result)
-                }
+                notificationManager.showCompletionNotification(folder.fileName, overallSuccess)
 
-                if (result) {
-                    Log_OC.d(TAG, "✅ completed")
+                if (overallSuccess) {
+                    Log_OC.d(TAG, "✅ completed successfully")
                     Result.success()
                 } else {
-                    Log_OC.d(TAG, "❌ failed")
+                    Log_OC.d(TAG, "❌ completed with failures")
                     Result.failure()
                 }
             } catch (e: Exception) {
-                Log_OC.d(TAG, "❌ failed reason: $e")
+                Log_OC.e(TAG, "❌ unexpected failure: $e")
+                notificationManager.showCompletionNotification(folder.fileName, false)
                 Result.failure()
             } finally {
                 folderDownloadEventBroadcaster.sendDownloadCompleted(folder.fileId)
                 pendingDownloads.remove(folder.fileId)
+
+                // delay so that user can see the error or success notification
+                delay(2000)
                 notificationManager.dismiss()
             }
+        }
+    }
+
+    private fun syncFolderRecursivelyFromServer(folder: OCFile, user: User, client: OwnCloudClient) {
+        if (isStopped) return
+
+        try {
+            Log_OC.d(TAG, "🔄 refreshing from server: ${folder.remotePath}")
+
+            val operation = RefreshFolderOperation(
+                folder,
+                System.currentTimeMillis(),
+                false,
+                true,
+                false,
+                storageManager,
+                user,
+                context
+            )
+
+            val result = operation.execute(client)
+
+            if (!result.isSuccess) {
+                Log_OC.w(TAG, "⚠️ failed to refresh ${folder.remotePath}: ${result.logMessage}")
+                return
+            }
+
+            val refreshedFolder = storageManager.getFileById(folder.fileId) ?: run {
+                Log_OC.w(TAG, "⚠️ folder ${folder.fileId} missing from DB after refresh")
+                return
+            }
+
+            val subFolders = storageManager
+                .getFolderContent(refreshedFolder, false)
+                .filter { it.isFolder }
+
+            for (subFolder in subFolders) {
+                if (isStopped) return
+                syncFolderRecursivelyFromServer(subFolder, user, client)
+            }
+        } catch (e: Exception) {
+            Log_OC.w(TAG, "⚠️ exception syncing ${folder.remotePath}: $e")
+        } finally {
+            Log_OC.d(TAG, "sub folders are fetched before downloading all")
         }
     }
 
@@ -167,11 +229,12 @@ class FolderDownloadWorker(
                 return notificationManager.getForegroundInfo(null)
             }
 
-            val folder = storageManager.getFileById(folderID) ?: return notificationManager.getForegroundInfo(null)
+            val folder = storageManager.getFileById(folderID)
+                ?: return notificationManager.getForegroundInfo(null)
 
-            return notificationManager.getForegroundInfo(folder)
+            notificationManager.getForegroundInfo(folder)
         } catch (e: Exception) {
-            Log_OC.w(TAG, "⚠️ Error getting foreground info: ${e.message}")
+            Log_OC.w(TAG, "⚠️ error getting foreground info: ${e.message}")
             notificationManager.getForegroundInfo(null)
         }
     }
@@ -181,20 +244,18 @@ class FolderDownloadWorker(
             val foregroundInfo = notificationManager.getForegroundInfo(folder)
             setForeground(foregroundInfo)
         } catch (e: Exception) {
-            Log_OC.w(TAG, "⚠️ Could not set foreground service: ${e.message}")
+            Log_OC.w(TAG, "⚠️ could not set foreground service: ${e.message}")
         }
     }
 
-    private fun getOCFile(operation: DownloadFileOperation): OCFile? {
-        val file = operation.file?.fileId?.let { storageManager.getFileById(it) }
-            ?: storageManager.getFileByDecryptedRemotePath(operation.file?.remotePath)
-            ?: run {
-                Log_OC.e(TAG, "could not save ${operation.file?.remotePath}")
-                return null
-            }
-
-        return file
+    private fun getOCFile(operation: DownloadFileOperation): OCFile? = operation.file?.fileId?.let {
+        storageManager.getFileById(it)
     }
+        ?: storageManager.getFileByDecryptedRemotePath(operation.file?.remotePath)
+        ?: run {
+            Log_OC.e(TAG, "could not resolve OCFile for save: ${operation.file?.remotePath}")
+            null
+        }
 
     private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager, syncAll: Boolean): List<OCFile> =
         if (syncAll) {

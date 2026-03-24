@@ -17,6 +17,8 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 class FolderDownloadWorkerNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
@@ -78,7 +80,7 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
         return getNotification(folderName, description, progress)
     }
 
-    fun showCompletionNotification(folderName: String, success: Boolean) {
+    suspend fun showCompletionNotification(folderName: String, success: Boolean) = withContext(Dispatchers.Main) {
         val titleId = if (success) {
             R.string.folder_download_success_notification_title
         } else {
@@ -91,10 +93,10 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
         notificationManager.notify(NOTIFICATION_ID, notification)
     }
 
-    fun showNotAvailableDiskSpace() {
+    suspend fun showNotAvailableDiskSpace() = withContext(Dispatchers.Main) {
         val title = context.getString(R.string.folder_download_insufficient_disk_space_notification_title)
         val notification = getNotification(title)
-        notificationManager.notify(NOTIFICATION_ID, notification)
+        notificationManager.notify(Random.nextInt(), notification)
     }
 
     fun getForegroundInfo(folder: OCFile?): ForegroundInfo {
