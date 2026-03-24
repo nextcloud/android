@@ -86,6 +86,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_POST_DIALOG_EVENT = "EXTRA_POST_DIALOG_EVENT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
+    public static final String EXTRA_SYNC_ALL = "SYNC_ALL";
     public static final String EXTRA_NEWNAME = "NEWNAME";
     public static final String EXTRA_REMOVE_ONLY_LOCAL = "REMOVE_LOCAL_COPY";
     public static final String EXTRA_SYNC_FILE_CONTENTS = "SYNC_FILE_CONTENTS";
@@ -733,12 +734,14 @@ public class OperationsService extends Service {
 
                     case ACTION_SYNC_FOLDER:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        boolean syncAll = operationIntent.getBooleanExtra(EXTRA_SYNC_ALL, false);
                         operation = new SynchronizeFolderOperation(
-                            this,                       // TODO remove this dependency from construction time
+                            this,
                             remotePath,
                             user,
                             fileDataStorageManager,
-                            false
+                            false,
+                            syncAll
                         );
                         break;
 

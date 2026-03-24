@@ -39,8 +39,9 @@ class FolderDownloadWorker(
         private const val TAG = "📂" + "FolderDownloadWorker"
         const val FOLDER_ID = "FOLDER_ID"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
+        const val SYNC_ALL = "SYNC_ALL"
 
-        private val pendingDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet<Long>()
+        private val pendingDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet()
 
         fun isDownloading(id: Long): Boolean = pendingDownloads.contains(id)
     }
@@ -68,12 +69,22 @@ class FolderDownloadWorker(
             return Result.failure()
         }
 
+        val syncAll = inputData.getBoolean(SYNC_ALL, false)
+
         val user = optionalUser.get()
         storageManager = FileDataStorageManager(user, context.contentResolver)
         val folder = storageManager.getFileById(folderID)
         if (folder == null) {
             Log_OC.e(TAG, "failed folder cannot be nul")
             return Result.failure()
+        }
+
+        if (syncAll) {
+            Log_OC.d(TAG, "checking folder size including all nested subfolders")
+            val folderSize = storageManager.fileDao.getTotalFolderSize(folderID, accountName)
+            if (!checkDiskSize(folderSize)) {
+                return Result.failure()
+            }
         }
 
         Log_OC.d(TAG, "🕒 started for ${user.accountName} downloading ${folder.fileName}")
@@ -87,13 +98,13 @@ class FolderDownloadWorker(
 
         return withContext(Dispatchers.IO) {
             try {
-                val files = getFiles(folder, storageManager)
+                val files = getFiles(folder, storageManager, syncAll)
                 val account = user.toOwnCloudAccount()
                 val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(account, context)
 
                 var result = true
                 files.forEachIndexed { index, file ->
-                    if (!checkDiskSize(file)) {
+                    if (!checkDiskSize(file.fileLength)) {
                         return@withContext Result.failure()
                     }
 
@@ -184,15 +195,20 @@ class FolderDownloadWorker(
         return file
     }
 
-    private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =
-        storageManager.getFolderContent(folder, false)
-            .filter { !it.isFolder && !it.isDown }
+    private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager, syncAll: Boolean): List<OCFile> =
+        if (syncAll) {
+            storageManager.getAllFilesRecursivelyInsideFolder(folder)
+                .filter { !it.isDown }
+        } else {
+            storageManager.getFolderContent(folder, false)
+                .filter { !it.isFolder && !it.isDown }
+        }
 
-    private fun checkDiskSize(file: OCFile): Boolean {
-        val fileSizeInByte = file.fileLength
+    private fun checkDiskSize(fileSizeInByte: Long): Boolean {
         val availableDiskSpace = FileOperationsHelper.getAvailableSpaceOnDevice()
 
         return if (availableDiskSpace < fileSizeInByte) {
+            Log_OC.w(TAG, "available disk space is not sufficient")
             notificationManager.showNotAvailableDiskSpace()
             false
         } else {

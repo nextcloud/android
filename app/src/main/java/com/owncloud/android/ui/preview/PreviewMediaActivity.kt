@@ -584,7 +584,7 @@ class PreviewMediaActivity :
 
             R.id.action_sync_file -> {
                 showSyncLoadingDialog(file?.isFolder == true)
-                fileOperationsHelper.syncFile(file)
+                fileOperationsHelper.syncFile(file, false)
             }
 
             R.id.action_cancel_sync -> {

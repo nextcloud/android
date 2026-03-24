@@ -88,6 +88,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     private final boolean syncInBackgroundWorker;
 
+    private final boolean syncAll;
+
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
      *
@@ -99,7 +101,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                                       String remotePath,
                                       User user,
                                       FileDataStorageManager storageManager,
-                                      boolean syncInBackgroundWorker) {
+                                      boolean syncInBackgroundWorker,
+                                      boolean syncAll) {
         super(storageManager);
 
         mRemotePath = remotePath;
@@ -110,6 +113,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFilesToSyncContents = new Vector<>();
         mCancellationRequested = new AtomicBoolean(false);
         this.syncInBackgroundWorker = syncInBackgroundWorker;
+        this.syncAll = syncAll;
     }
 
 
@@ -488,7 +492,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
             }
         } else {
-            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName());
+            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName(), syncAll);
         }
     }
 

@@ -393,7 +393,7 @@ class PreviewMediaFragment :
 
             R.id.action_sync_file -> {
                 getTypedActivity(FileActivity::class.java)?.showSyncLoadingDialog(file.isFolder)
-                containerActivity.fileOperationsHelper.syncFile(file)
+                containerActivity.fileOperationsHelper.syncFile(file, false)
             }
 
             R.id.action_cancel_sync -> {
