@@ -876,8 +876,12 @@ public class FileOperationsHelper {
         }
     }
 
-    public void syncFileOrFolder(OCFile file, boolean syncAll) {
-        syncFileOrFolder(file, false, syncAll);
+    public void syncFileOrFolder(OCFile file) {
+        syncFileOrFolder(file, false, false);
+    }
+
+    public void syncFolderIncludingNestedFiles(OCFile file) {
+        syncFileOrFolder(file, false, true);
     }
 
     private void startSyncFolderIntent(ServerFileInterface file, boolean syncAll) {
@@ -886,6 +890,7 @@ public class FileOperationsHelper {
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         intent.putExtra(OperationsService.EXTRA_SYNC_ALL, syncAll);
+
         fileActivity.startService(intent);
     }
 

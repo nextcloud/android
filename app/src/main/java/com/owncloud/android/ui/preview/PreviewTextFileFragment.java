@@ -306,7 +306,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             if (containerActivity instanceof FileActivity activity) {
                 activity.showSyncLoadingDialog(getFile().isFolder());
             }
-            containerActivity.getFileOperationsHelper().syncFileOrFolder(getFile(), false);
+            containerActivity.getFileOperationsHelper().syncFileOrFolder(getFile());
         } else if(itemId == R.id.action_cancel_sync){
             containerActivity.getFileOperationsHelper().cancelTransference(getFile());
         } else if (itemId == R.id.action_edit) {

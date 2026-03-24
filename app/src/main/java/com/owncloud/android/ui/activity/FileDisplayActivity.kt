@@ -2280,7 +2280,7 @@ class FileDisplayActivity :
 
                 // download new version, only if file was previously download
                 showSyncLoadingDialog(file.isFolder)
-                fileOperationsHelper.syncFileOrFolder(file, false)
+                fileOperationsHelper.syncFileOrFolder(file)
             }
 
             val parent = file?.let { storageManager.getFileById(it.parentId) }
