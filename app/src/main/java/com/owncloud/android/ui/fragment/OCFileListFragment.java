@@ -128,7 +128,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -2244,7 +2243,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void syncFolderIncludingAllNestedFiles(OCFile folder) {
         if (FileStorageUtils.checkIfEnoughSpace(folder)) {
-            mContainerActivity.getFileOperationsHelper().syncFile(folder, false, true);
+            mContainerActivity.getFileOperationsHelper().syncFileOrFolder(folder, false, true);
         } else {
             SyncFileNotEnoughSpaceDialogFragment
                 .newInstance(folder, FileOperationsHelper.getAvailableSpaceOnDevice())
@@ -2267,7 +2266,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             boolean isLast = i == fileList.size() - 1;
 
             if (FileStorageUtils.checkIfEnoughSpace(file)) {
-                mContainerActivity.getFileOperationsHelper().syncFile(file, isLast, false);
+                mContainerActivity.getFileOperationsHelper().syncFileOrFolder(file, isLast, false);
             } else {
                 showSpaceErrorDialog(file, FileOperationsHelper.getAvailableSpaceOnDevice());
             }
