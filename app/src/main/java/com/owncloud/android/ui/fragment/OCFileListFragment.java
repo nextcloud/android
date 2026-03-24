@@ -2243,12 +2243,42 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void syncFolderIncludingAllNestedFiles(OCFile folder) {
         if (FileStorageUtils.checkIfEnoughSpace(folder)) {
-            mContainerActivity.getFileOperationsHelper().syncFolderIncludingNestedFiles(folder);
+            informUserForSyncAllAction(folder);
         } else {
             SyncFileNotEnoughSpaceDialogFragment
                 .newInstance(folder, FileOperationsHelper.getAvailableSpaceOnDevice())
                 .show(getParentFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
         }
+    }
+
+    private void informUserForSyncAllAction(OCFile folder) {
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
+            R.string.sync_all_action_dialog_description,
+            null,
+            R.string.sync_all_action_dialog_title,
+            R.drawable.ic_sync_all,
+            R.string.common_ok,
+            R.string.common_cancel,
+            -1);
+
+        dialog.setCancelable(false);
+
+        dialog.setOnConfirmationListener(new ConfirmationDialogFragment.ConfirmationDialogFragmentListener() {
+            @Override
+            public void onConfirmation(String callerTag) {
+                mContainerActivity.getFileOperationsHelper().syncFolderIncludingNestedFiles(folder);
+            }
+
+            @Override
+            public void onNeutral(String callerTag) {
+            }
+
+            @Override
+            public void onCancel(String callerTag) {
+            }
+        });
+
+        dialog.show(getParentFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
     }
 
     private void syncAndCheckFiles(Collection<OCFile> files) {
