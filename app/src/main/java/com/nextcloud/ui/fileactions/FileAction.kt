@@ -97,7 +97,7 @@ enum class FileAction(
                 PIN_TO_HOMESCREEN,
                 RETRY
             ).apply {
-                if (files.size == 1 && files.first().isFolder) {
+                if (files.size == 1 && files.first().isFolder && !files.first().isEncrypted) {
                     add(DOWNLOAD_ALL_FOLDERS)
                 }
 
