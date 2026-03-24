@@ -181,7 +181,7 @@ public abstract class FileActivity extends DrawerActivity
     @Inject public ConnectivityService connectivityService;
 
     @Inject
-    BackgroundJobManager backgroundJobManager;
+    protected BackgroundJobManager backgroundJobManager;
 
     @Inject
     EditorUtils editorUtils;

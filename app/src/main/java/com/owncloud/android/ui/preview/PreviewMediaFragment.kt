@@ -27,11 +27,17 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
 import androidx.core.net.toUri
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.marginBottom
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -40,6 +46,7 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaSession
+import androidx.media3.ui.DefaultTimeBar
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
@@ -55,7 +62,6 @@ import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
-import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
@@ -89,7 +95,7 @@ import javax.inject.Inject
  *
  * DO NOT CALL IT: an [OCFile] and [User] must be provided for a successful construction
  */
-@Suppress("NestedBlockDepth", "ComplexMethod", "LongMethod", "TooManyFunctions")
+@Suppress("NestedBlockDepth", "ComplexMethod", "LongMethod", "TooManyFunctions", "ReturnCount")
 class PreviewMediaFragment :
     FileFragment(),
     OnTouchListener,
@@ -117,6 +123,7 @@ class PreviewMediaFragment :
     private var exoPlayer: ExoPlayer? = null
     private var mediaSession: MediaSession? = null
     private var nextcloudClient: NextcloudClient? = null
+    private var isFullscreenActive = false
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -167,13 +174,42 @@ class PreviewMediaFragment :
     }
 
     private fun initArguments(bundle: Bundle) {
-        file.logFileSize(TAG)
         file = bundle.getParcelableArgument(FILE, OCFile::class.java)
         user = bundle.getParcelableArgument(USER, User::class.java)
 
         savedPlaybackPosition = bundle.getLong(PLAYBACK_POSITION)
         autoplay = bundle.getBoolean(AUTOPLAY)
         isLivePhoto = bundle.getBoolean(IS_LIVE_PHOTO)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        applyWindowInsets()
+    }
+
+    @OptIn(UnstableApi::class)
+    private fun applyWindowInsets() {
+        binding.root.post {
+            val rootInsets = ViewCompat.getRootWindowInsets(binding.root) ?: return@post
+            val insets = rootInsets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or
+                    WindowInsetsCompat.Type.displayCutout()
+            )
+            val playerView = binding.exoplayerView
+            val exoControls = playerView
+                .findViewById<FrameLayout>(androidx.media3.ui.R.id.exo_bottom_bar)
+            val exoProgress = playerView
+                .findViewById<DefaultTimeBar>(androidx.media3.ui.R.id.exo_progress)
+            val progressOriginalMargin = exoProgress?.marginBottom ?: 0
+            exoControls?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = insets.bottom
+            }
+            exoProgress?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = insets.bottom + progressOriginalMargin
+            }
+            exoControls?.updatePadding(left = insets.left, right = insets.right)
+            exoProgress?.updatePadding(left = insets.left, right = insets.right)
+        }
     }
 
     private fun setLoadingView() {
@@ -196,7 +232,6 @@ class PreviewMediaFragment :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        file.logFileSize(TAG)
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         outState.run {
@@ -431,7 +466,6 @@ class PreviewMediaFragment :
         }
     }
 
-    @Suppress("ReturnCount")
     private fun loadStreamUrl(user: User?, clientFactory: ClientFactory?, fileId: Long): Uri? {
         val client: OwnCloudClient? = try {
             clientFactory?.create(user)
@@ -466,6 +500,9 @@ class PreviewMediaFragment :
     }
 
     override fun onStop() {
+        if (!isFullscreenActive) {
+            releaseVideoPlayer()
+        }
         releaseVideoPlayer()
         super.onStop()
     }
@@ -483,13 +520,24 @@ class PreviewMediaFragment :
     }
 
     private fun startFullScreenVideo() {
-        activity?.let { activity ->
-            nextcloudClient?.let { client ->
-                exoPlayer?.let { player ->
-                    PreviewVideoFullscreenDialog(activity, client, player, binding.exoplayerView).show()
-                }
+        val activity = activity ?: return
+        val client = nextcloudClient ?: return
+        val player = exoPlayer ?: return
+
+        isFullscreenActive = true
+        val dialog = PreviewVideoFullscreenDialog(
+            activity,
+            client,
+            player,
+            binding.exoplayerView
+        ).apply {
+            setOnDismissListener {
+                isFullscreenActive = false
+                setupVideoView()
             }
         }
+
+        dialog.show()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -576,20 +624,14 @@ class PreviewMediaFragment :
             startPlaybackPosition: Long,
             autoplay: Boolean,
             isLivePhoto: Boolean
-        ): PreviewMediaFragment {
-            val previewMediaFragment = PreviewMediaFragment()
-
-            val bundle = Bundle().apply {
+        ): PreviewMediaFragment = PreviewMediaFragment().apply {
+            arguments = Bundle().apply {
                 putParcelable(FILE, fileToDetail)
                 putParcelable(USER, user)
                 putLong(PLAYBACK_POSITION, startPlaybackPosition)
                 putBoolean(AUTOPLAY, autoplay)
                 putBoolean(IS_LIVE_PHOTO, isLivePhoto)
             }
-
-            previewMediaFragment.arguments = bundle
-
-            return previewMediaFragment
         }
 
         /**
