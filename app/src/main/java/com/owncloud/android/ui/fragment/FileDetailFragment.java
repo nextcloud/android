@@ -32,11 +32,9 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.model.WorkerState;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.MenuUtils;
-import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -84,7 +82,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
-import kotlin.Unit;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -470,7 +467,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 activity.showSyncLoadingDialog(getFile().isFolder());
             }
             boolean syncAll = (itemId == R.id.action_sync_all_files);
-            containerActivity.getFileOperationsHelper().syncFile(getFile(), syncAll);
+            containerActivity.getFileOperationsHelper().syncFileOrFolder(getFile(), syncAll);
         } else if (itemId == R.id.action_export_file) {
             ArrayList<OCFile> list = new ArrayList<>();
             list.add(getFile());

@@ -415,7 +415,7 @@ class PreviewImageFragment :
                 val activity = containerActivity as FileActivity
                 activity.showSyncLoadingDialog(file.isFolder)
             }
-            containerActivity.fileOperationsHelper.syncFile(file, false)
+            containerActivity.fileOperationsHelper.syncFileOrFolder(file, false)
         } else if (itemId == R.id.action_cancel_sync) {
             containerActivity.fileOperationsHelper.cancelTransference(file)
         } else if (itemId == R.id.action_set_as_wallpaper) {
