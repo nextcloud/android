@@ -787,7 +787,7 @@
     <string name="push_notifications_temp_error">Push notifikácie sú v súčasnosti nedostupné.</string>
     <string name="qr_could_not_be_read">QR kód nie je možné načítať!</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Adresár sa nenašiel, operácia synchronizácie bola prerušená</string>
-    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Nepodarilo sa nájisť súbor pre nahratie</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Nepodarilo sa nájsť súbor pre nahratie</string>
     <string name="recommend_subject">Vyskúšajte %1$s na vašom zariadení!</string>
     <string name="recommend_text">Chcel by som odporučiť %1$s pre vaše zariadenie.\nZískať ho môžete aj tu: %2$s</string>
     <string name="recommend_urls">%1$s alebo %2$s</string>
