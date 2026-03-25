@@ -288,7 +288,16 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         searchConfig.reset();
     }
 
+    private void resetSearchView() {
+        toggleSearchViewEnable(binding.searchView, true);
+        binding.searchView.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        binding.searchView.setQueryHint(null);
+        binding.searchView.setQuery("", false);
+        binding.pickContactEmailBtn.setVisibility(View.VISIBLE);
+    }
+
     private void setupView() {
+        resetSearchView();
         setShareWithYou();
 
         OCFile parentFile = fileDataStorageManager.getFileById(file.getParentId());
@@ -743,7 +752,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         if (binding.sharesListInternal.getAdapter() instanceof ShareeListAdapter adapter) {
             adapter.remove(share);
             if (entity != null && adapter.isAdapterEmpty()) {
-                toggleSearchViewEnable(binding.searchView, true);
                 entity.setSharedWithSharee(0);
                 fileDataStorageManager.updateFileEntity(entity);
             }
