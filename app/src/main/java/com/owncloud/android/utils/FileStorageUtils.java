@@ -173,6 +173,8 @@ public final class FileStorageUtils {
      * Get local path where OCFile file is to be stored after upload. That is,
      * corresponding local path (in local owncloud storage) to remote uploaded
      * file.
+     * <p>
+     * e.g. /storage/emulated/0/Android/media/com.nextcloud.client/nextcloud/admin@example.cloud/folder/file.txt
      */
     public static String getDefaultSavePathFor(String accountName, OCFile file) {
         return getSavePath(accountName) + file.getDecryptedRemotePath();
