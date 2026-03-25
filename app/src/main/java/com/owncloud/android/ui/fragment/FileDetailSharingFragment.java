@@ -340,7 +340,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                        if (file.isSharedViaLink()) {
                            binding.searchView.setQueryHint(getResources().getString(R.string.share_not_allowed_when_file_drop));
                            binding.searchView.setInputType(InputType.TYPE_NULL);
-                           disableSearchView(binding.searchView);
+                           toggleSearchViewEnable(binding.searchView, false);
                        }
                    }
                });
@@ -357,7 +357,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             binding.externalSharesHeadline.setVisibility(View.GONE);
             binding.searchView.setInputType(InputType.TYPE_NULL);
             binding.pickContactEmailBtn.setVisibility(View.GONE);
-            disableSearchView(binding.searchView);
+            toggleSearchViewEnable(binding.searchView, false);
             binding.createLink.setOnClickListener(null);
         }
 
@@ -395,12 +395,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
     }
 
-    private void disableSearchView(View view) {
-        view.setEnabled(false);
-
+    private void toggleSearchViewEnable(View view, boolean enable) {
+        view.setEnabled(enable);
         if (view instanceof ViewGroup viewGroup) {
             for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                disableSearchView(viewGroup.getChildAt(i));
+                toggleSearchViewEnable(viewGroup.getChildAt(i), enable);
             }
         }
     }
@@ -744,6 +743,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         if (binding.sharesListInternal.getAdapter() instanceof ShareeListAdapter adapter) {
             adapter.remove(share);
             if (entity != null && adapter.isAdapterEmpty()) {
+                toggleSearchViewEnable(binding.searchView, true);
                 entity.setSharedWithSharee(0);
                 fileDataStorageManager.updateFileEntity(entity);
             }
