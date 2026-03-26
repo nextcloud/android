@@ -114,7 +114,7 @@ class OCFileListDelegate(
         imageView.tag = file.fileId
 
         // set placeholder before async job
-        val cacheKey = ThumbnailsCacheManager.getCacheKey(file)
+        val cacheKey = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
         val cachedBitmap = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
         if (cachedBitmap != null) {
             val overlay = if (MimeTypeUtil.isVideo(file)) {
