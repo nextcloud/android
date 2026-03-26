@@ -187,6 +187,7 @@ public final class ThumbnailsCacheManager {
 
     /**
      * Add thumbnail to cache
+     *
      * @param imageKey: thumb key
      * @param bitmap:   image for extracting thumbnail
      * @param path:     image path
@@ -194,7 +195,7 @@ public final class ThumbnailsCacheManager {
      * @param pxH:      thumbnail height in pixel
      * @return Bitmap
      */
-    private static Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int pxW, int pxH){
+    public static Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int pxW, int pxH) {
 
         Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
 
@@ -1142,7 +1143,7 @@ public final class ThumbnailsCacheManager {
     /**
      * adapted from <a href="https://stackoverflow.com/a/8113368">...</a>
      */
-    private static Bitmap handlePNG(Bitmap source, int newWidth, int newHeight) {
+    public static Bitmap handlePNG(Bitmap source, int newWidth, int newHeight) {
         Bitmap softwareBitmap = source.copy(Bitmap.Config.ARGB_8888, false);
 
         int sourceWidth = source.getWidth();
@@ -1326,13 +1327,5 @@ public final class ThumbnailsCacheManager {
         }
 
         return thumbnail;
-    }
-
-    public static String getCacheKey(@NonNull OCFile file) {
-        if (MimeTypeUtil.isVideo(file)) {
-            return ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId();
-        } else {
-            return ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getRemoteId();
-        }
     }
 }
