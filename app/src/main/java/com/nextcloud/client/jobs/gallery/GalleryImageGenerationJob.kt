@@ -109,37 +109,34 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         }
     }
 
-    private suspend fun getBitmap(file: OCFile, onNewThumbnail: () -> Unit): Bitmap? =
-        withContext(Dispatchers.IO) {
-            val cacheKey = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
+    private suspend fun getBitmap(file: OCFile, onNewThumbnail: () -> Unit): Bitmap? = withContext(Dispatchers.IO) {
+        val cacheKey = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
 
-            val cached = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
-            if (cached != null && !file.isUpdateThumbnailNeeded) {
-                return@withContext applyVideoOverlayIfNeeded(file, cached)
-            }
-
-            onNewThumbnail()
-
-            val local = decodeLocalThumbnail(file)
-            if (local != null) {
-                ThumbnailsCacheManager.addBitmapToCache(cacheKey, local)
-                return@withContext applyVideoOverlayIfNeeded(file, local)
-            }
-
-            val remote = semaphore.withPermit { fetchFromServer(file) }
-            if (remote != null) {
-                return@withContext applyVideoOverlayIfNeeded(file, remote)
-            }
-
-            null
+        val cached = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
+        if (cached != null && !file.isUpdateThumbnailNeeded) {
+            return@withContext applyVideoOverlayIfNeeded(file, cached)
         }
 
-    private fun decodeLocalThumbnail(file: OCFile): Bitmap? {
-        return if (MimeTypeUtil.isVideo(file)) {
-            createVideoThumbnail(file.storagePath)
-        } else {
-            createImageThumbnail(file)
+        onNewThumbnail()
+
+        val local = decodeLocalThumbnail(file)
+        if (local != null) {
+            ThumbnailsCacheManager.addBitmapToCache(cacheKey, local)
+            return@withContext applyVideoOverlayIfNeeded(file, local)
         }
+
+        val remote = semaphore.withPermit { fetchFromServer(file) }
+        if (remote != null) {
+            return@withContext applyVideoOverlayIfNeeded(file, remote)
+        }
+
+        null
+    }
+
+    private fun decodeLocalThumbnail(file: OCFile): Bitmap? = if (MimeTypeUtil.isVideo(file)) {
+        createVideoThumbnail(file.storagePath)
+    } else {
+        createImageThumbnail(file)
     }
 
     private fun createImageThumbnail(file: OCFile): Bitmap? {
@@ -180,26 +177,22 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         }
     }
 
-    private suspend fun fetchFromServer(file: OCFile): Bitmap? {
-        return try {
-            val client = withContext(Dispatchers.IO) {
-                OwnCloudClientManagerFactory.getDefaultSingleton()
-                    .getClientFor(user.toOwnCloudAccount(), MainApp.getAppContext())
-            }
-            ThumbnailsCacheManager.setClient(client)
-            ThumbnailsCacheManager.doResizedImageInBackground(file, storageManager)
-        } catch (t: Throwable) {
-            Log_OC.e(TAG, "Server fetch failed for $file", t)
-            null
+    private suspend fun fetchFromServer(file: OCFile): Bitmap? = try {
+        val client = withContext(Dispatchers.IO) {
+            OwnCloudClientManagerFactory.getDefaultSingleton()
+                .getClientFor(user.toOwnCloudAccount(), MainApp.getAppContext())
         }
+        ThumbnailsCacheManager.setClient(client)
+        ThumbnailsCacheManager.doResizedImageInBackground(file, storageManager)
+    } catch (t: Throwable) {
+        Log_OC.e(TAG, "Server fetch failed for $file", t)
+        null
     }
 
-    private fun applyVideoOverlayIfNeeded(file: OCFile, bitmap: Bitmap): Bitmap {
-        return if (MimeTypeUtil.isVideo(file)) {
-            ThumbnailsCacheManager.addVideoOverlay(bitmap, MainApp.getAppContext())
-        } else {
-            bitmap
-        }
+    private fun applyVideoOverlayIfNeeded(file: OCFile, bitmap: Bitmap): Bitmap = if (MimeTypeUtil.isVideo(file)) {
+        ThumbnailsCacheManager.addVideoOverlay(bitmap, MainApp.getAppContext())
+    } else {
+        bitmap
     }
 
     private suspend fun setThumbnail(
