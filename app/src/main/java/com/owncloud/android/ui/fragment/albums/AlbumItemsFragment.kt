@@ -1146,14 +1146,15 @@ class AlbumItemsFragment :
             }
 
             val uploader = UriUploader(
-                it,
-                streamsToUpload,
-                remotePath,
-                albumName,
-                optionalUser.get(),
-                FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
-                false, // Not show waiting dialog while file is being copied from private storage
-                null // Not needed copy temp task listener
+                activity = it,
+                urisToUpload = streamsToUpload,
+                uploadPath = remotePath,
+                user = optionalUser.get(),
+                behaviour =  FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
+                showWaitingDialog = false, // Not show waiting dialog while file is being copied from private storage
+                copyTmpTaskListener = null, // Not needed copy temp task listener,
+                fileDisplayNameTransformer = null,
+                albumName = albumName,
             )
 
             uploader.uploadUris()
