@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_containing_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:footerDividersEnabled="false">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/activity_list_layout_recycler_view_margin"
+            android:layout_marginRight="@dimen/activity_list_layout_recycler_view_margin"
+            android:layout_marginBottom="@dimen/activity_list_layout_recycler_view_margin"
+            android:background="@color/bg_default"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/empty_list"
+        layout="@layout/empty_list" />
+
+    <LinearLayout
+        android:id="@+id/loading_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.elyeproj.loaderviewlibrary.LoaderTextView
+            android:id="@+id/shimmer_header"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_list_item_size"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginBottom="40dp" />
+
+        <include layout="@layout/activity_list_item_shimmer" />
+
+        <include layout="@layout/activity_list_item_shimmer" />
+
+        <include layout="@layout/activity_list_item_shimmer" />
+
+        <include layout="@layout/activity_list_item_shimmer" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentContainerView
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.ui.activity.DrawerActivity
+import dagger.android.support.AndroidSupportInjection
 
 class NavigatorActivity : DrawerActivity() {
 
@@ -24,19 +25,37 @@ class NavigatorActivity : DrawerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigator)
-        setupToolbar()
-        setupDrawer(menuItemId)
-        setupBackPressedHandler()
 
         val screen = intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java) ?: return
         val fragmentContainerView = findViewById<FragmentContainerView>(R.id.fragment_container_view)
-
         navigator = Navigator(supportFragmentManager, fragmentContainerView)
+
+        setupBackPressedHandler()
         push(screen)
+        supportFragmentManager.addFragmentOnAttachListener { _, fragment ->
+            AndroidSupportInjection.inject(fragment)
+        }
+    }
+
+    fun pop() {
+        val previousScreen = navigator.pop() ?: return
+        setupActionBar(previousScreen)
     }
 
     fun push(screen: NavigatorScreen) {
+        setupActionBar(screen)
         navigator.push(screen)
+    }
+
+    private fun setupActionBar(screen: NavigatorScreen) {
+        val (style, titleId) = screen.actionBarStyle()
+        if (style == ActionBarStyle.Plain) {
+            setupToolbar()
+        } else {
+            setupHomeSearchToolbarWithSortAndListButtons()
+        }
+        updateActionBarTitleAndHomeButtonByString(getString(titleId))
+        setupDrawer(menuItemId)
     }
 
     private fun setupBackPressedHandler() {
@@ -47,7 +66,7 @@ class NavigatorActivity : DrawerActivity() {
                     when {
                         isDrawerOpen -> closeDrawer()
                         supportFragmentManager.backStackEntryCount == 1 -> finish()
-                        else -> navigator.pop()
+                        else -> pop()
                     }
                 }
             }
@@ -66,9 +85,9 @@ class NavigatorActivity : DrawerActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun getMenuItemId(): Int = when (intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java)) {
-        NavigatorScreen.Community -> R.id.nav_community
-        else -> super.getMenuItemId()
+    override fun getMenuItemId(): Int {
+        val screen = intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java)
+        return screen?.menuItemId() ?: super.getMenuItemId()
     }
 
     override fun onResume() {

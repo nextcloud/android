@@ -286,10 +286,6 @@
             android:name=".ui.activity.NotificationsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.ActivitiesActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false" />
-        <activity
             android:name=".ui.activity.SyncedFoldersActivity"
             android:exported="false" />
         <activity
