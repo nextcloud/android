@@ -1299,7 +1299,7 @@ public final class ThumbnailsCacheManager {
                         Log_OC.d(TAG, "resized image generated");
                     }
                 } else {
-                    Log_OC.e(TAG, "cannot generate thumbnail not supported file type, status: " + status);
+                    Log_OC.e(TAG, "cannot generate thumbnail not supported file type, status: " + status + " file: " + file.getRemotePath());
                     mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
                 }
 
