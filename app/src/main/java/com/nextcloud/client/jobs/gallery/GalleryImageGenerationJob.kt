@@ -138,11 +138,11 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         return if (MimeTypeUtil.isVideo(file)) {
             createVideoThumbnail(file.storagePath)
         } else {
-            doResizedImageInBackgroundFromLocalFile(file)
+            createImageThumbnail(file)
         }
     }
 
-    private fun doResizedImageInBackgroundFromLocalFile(file: OCFile): Bitmap? {
+    private fun createImageThumbnail(file: OCFile): Bitmap? {
         val wm = MainApp.getAppContext().getSystemService(android.content.Context.WINDOW_SERVICE) as WindowManager
         val p = Point()
         wm.defaultDisplay.getSize(p)
