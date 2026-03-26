@@ -35,6 +35,8 @@ class FileSystemRepository(
         const val BATCH_SIZE = 50
     }
 
+    suspend fun isBelongToAnyAutoFolder(localPath: String): Boolean = dao.isBelongToAnyAutoFolder(localPath)
+
     fun deleteAutoUploadAndUploadEntity(syncedFolder: SyncedFolder, localPath: String, entity: FilesystemEntity) {
         Log_OC.d(TAG, "deleting auto upload entity and upload entity")
 

@@ -17,6 +17,16 @@ import com.owncloud.android.db.ProviderMeta
 
 @Dao
 interface FileSystemDao {
+    @Query(
+        """
+    SELECT COUNT(*) > 0 FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
+    WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH} = :localPath
+      AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} IS NOT NULL
+    LIMIT 1
+"""
+    )
+    suspend fun isBelongToAnyAutoFolder(localPath: String): Boolean
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrReplace(filesystemEntity: FilesystemEntity)
 
