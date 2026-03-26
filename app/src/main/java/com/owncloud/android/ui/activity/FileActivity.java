@@ -177,7 +177,7 @@ public abstract class FileActivity extends DrawerActivity
     protected boolean isFileDisplayActivityResumed = false;
 
     @Inject
-    UserAccountManager accountManager;
+    public UserAccountManager accountManager;
 
     @Inject public ConnectivityService connectivityService;
 
