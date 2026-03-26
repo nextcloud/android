@@ -77,7 +77,7 @@ jobs:
           archive: false
 
       - name: Comment PR
-        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b
+        uses: thollander/actions-comment-pull-request@e4a76dd2b0a3c2027c3fd84147a67c22ee4c90fa
         with:
           message: |
             APK file: ${{ steps.upload-apk.outputs.artifact-url }}
