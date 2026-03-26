@@ -112,8 +112,8 @@ class RemoveFilesDialogFragment :
         val listener = getTypedActivity(OnFilesRemovedListener::class.java)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val autoUploadEntities =
-                FileUploadHelper.instance().getAutoUploadFolder(files, userAccountManager.user.accountName)
+            val (autoUploadEntities, filesToRemove) =
+                FileUploadHelper.instance().splitFilesByAutoUpload(files, userAccountManager.user.accountName)
             withContext(Dispatchers.Main) {
                 if (autoUploadEntities.isNotEmpty()) {
                     listener?.onAutoUploadFolderRemoved(
@@ -121,11 +121,10 @@ class RemoveFilesDialogFragment :
                         filesToRemove = files,
                         onlyLocalCopy = onlyLocalCopy
                     )
-                    return@withContext
                 }
 
                 val fileActivity = getTypedActivity(FileActivity::class.java)
-                fileActivity?.removeFiles(offlineFiles, files, onlyLocalCopy, listener)
+                fileActivity?.removeFiles(offlineFiles, filesToRemove, onlyLocalCopy, listener)
                 finishActionMode()
             }
         }

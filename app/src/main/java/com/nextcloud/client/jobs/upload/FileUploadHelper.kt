@@ -639,10 +639,30 @@ class FileUploadHelper {
             }
     }
 
-    suspend fun getAutoUploadFolder(files: List<OCFile>, accountName: String): List<SyncedFolderEntity> =
-        files.mapNotNull { file ->
-            getAutoUploadFolderEntity(file, accountName)
+    /**
+     * Splits a list of files into:
+     * 1. Files that have an auto-upload folder configured.
+     * 2. Files that don't.
+     */
+    suspend fun splitFilesByAutoUpload(
+        files: List<OCFile>,
+        accountName: String
+    ): Pair<List<SyncedFolderEntity>, List<OCFile>> {
+
+        val autoUploadFolders = mutableListOf<SyncedFolderEntity>()
+        val nonAutoUploadFiles = mutableListOf<OCFile>()
+
+        for (file in files) {
+            val entity = getAutoUploadFolderEntity(file, accountName)
+            if (entity != null) {
+                autoUploadFolders.add(entity)
+            } else {
+                nonAutoUploadFiles.add(file)
+            }
         }
+
+        return autoUploadFolders to nonAutoUploadFiles
+    }
 
     suspend fun getAutoUploadFolderEntity(file: ServerFileInterface, accountName: String): SyncedFolderEntity? {
         val dao = uploadsStorageManager.syncedFolderDao
