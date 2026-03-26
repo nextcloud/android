@@ -50,6 +50,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
 
 @Suppress("LongParameterList", "TooGenericExceptionCaught")
@@ -80,8 +81,6 @@ class FileUploadWorker(
         const val TOTAL_UPLOAD_SIZE = "total_upload_size"
         const val SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION = "show_same_file_already_exists_notification"
 
-        var currentUploadFileOperation: UploadFileOperation? = null
-
         private const val BATCH_SIZE = 100
 
         const val EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME"
@@ -91,21 +90,26 @@ class FileUploadWorker(
         const val LOCAL_BEHAVIOUR_FORGET = 2
         const val LOCAL_BEHAVIOUR_DELETE = 3
 
-        fun cancelCurrentUpload(remotePath: String, accountName: String, onCompleted: () -> Unit) {
-            currentUploadFileOperation?.let {
-                if (it.remotePath == remotePath && it.user.accountName == accountName) {
-                    it.cancel(ResultCode.USER_CANCELLED)
-                    onCompleted()
-                }
+        private val activeOperations = ConcurrentHashMap<Long, UploadFileOperation>()
+
+        @JvmOverloads
+        fun cancelUpload(remotePath: String?, accountName: String?, onCompleted: () -> Unit = {}) {
+            val operation =
+                activeOperations.values.find { it.remotePath == remotePath && it.user.accountName == accountName }
+
+            operation?.let {
+                Log_OC.d(TAG, "upload operation is cancelled: $remotePath")
+                operation.cancel(ResultCode.USER_CANCELLED)
+                activeOperations.remove(operation.ocUploadId)
             }
+
+            onCompleted()
         }
 
-        fun isUploading(remotePath: String?, accountName: String?): Boolean {
-            currentUploadFileOperation?.let {
-                return it.remotePath == remotePath && it.user.accountName == accountName
-            }
+        fun getCurrentUpload(id: Long?): UploadFileOperation? = activeOperations[id]
 
-            return false
+        fun isUploading(remotePath: String?, accountName: String?): Boolean = activeOperations.values.any {
+            it.remotePath == remotePath && it.user.accountName == accountName
         }
 
         fun getUploadAction(action: String): Int = when (action) {
@@ -135,7 +139,8 @@ class FileUploadWorker(
         result
     } catch (t: Throwable) {
         Log_OC.e(TAG, "exception $t")
-        currentUploadFileOperation?.cancel(null)
+        activeOperations.values.forEach { it.cancel(null) }
+        activeOperations.clear()
         Result.failure()
     } finally {
         // Ensure all database operations are complete before signaling completion
@@ -256,7 +261,7 @@ class FileUploadWorker(
 
             fileUploadEventBroadcaster.sendUploadEnqueued(context)
             val operation = createUploadFileOperation(upload, user)
-            currentUploadFileOperation = operation
+            activeOperations[upload.uploadId] = operation
 
             val currentIndex = (index + 1)
             val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
@@ -270,7 +275,7 @@ class FileUploadWorker(
             val result = withContext(Dispatchers.IO) {
                 upload(upload, operation, user, client)
             }
-            currentUploadFileOperation = null
+            activeOperations.remove(upload.uploadId)
 
             if (result.code == ResultCode.QUOTA_EXCEEDED) {
                 Log_OC.w(TAG, "Quota exceeded, stopping uploads")
@@ -379,24 +384,24 @@ class FileUploadWorker(
                 }
             }
             result = RemoteOperationResult(e)
-        } finally {
-            if (!isStopped) {
-                UploadErrorNotificationManager.handleResult(
-                    context,
-                    notificationManager,
-                    operation,
-                    result,
-                    onSameFileConflict = {
-                        withContext(Dispatchers.Main) {
-                            val showSameFileAlreadyExistsNotification =
-                                inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
-                            if (showSameFileAlreadyExistsNotification) {
-                                notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
-                            }
+        }
+
+        if (!isStopped) {
+            UploadErrorNotificationManager.handleResult(
+                context,
+                notificationManager,
+                operation,
+                result,
+                onSameFileConflict = {
+                    withContext(Dispatchers.Main) {
+                        val showSameFileAlreadyExistsNotification =
+                            inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
+                        if (showSameFileAlreadyExistsNotification) {
+                            notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
                         }
                     }
-                )
-            }
+                }
+            )
         }
 
         return@withContext result
@@ -421,6 +426,9 @@ class FileUploadWorker(
 
         if (percent != lastPercent && (currentTime - lastUpdateTime) >= minProgressUpdateInterval) {
             notificationManager.run {
+                val currentUploadFileOperation =
+                    activeOperations.values.find { it.originalStoragePath == fileAbsoluteName }
+
                 val accountName = currentUploadFileOperation?.user?.accountName
                 val remotePath = currentUploadFileOperation?.remotePath
 
