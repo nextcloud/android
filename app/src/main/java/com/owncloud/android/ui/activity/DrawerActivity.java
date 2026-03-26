@@ -89,7 +89,6 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.GetCapabilitiesOperation;
-import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
@@ -626,7 +625,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             startActivity(TrashbinActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_activity) {
             resetOnlyPersonalAndOnDevice();
-            startActivity(ActivitiesActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pushFragment(NavigatorScreen.Activities.INSTANCE);
         } else if (itemId == R.id.nav_settings) {
             resetOnlyPersonalAndOnDevice();
             final Intent intent = new Intent(this, SettingsActivity.class);
