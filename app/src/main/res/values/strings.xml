@@ -1473,6 +1473,10 @@
     <string name="create_link">Create link</string>
     <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="open_in_app">Open in %1$s</string>
+    <string name="auto_upload_delete_dialog_title">Delete auto-upload folder?</string>
+    <string name="auto_upload_delete_dialog_description">
+    This will remove the folder and auto-upload configuration. Any unfinished uploads will be canceled.
+</string>
     <string name="auto_upload_battery_saver_mode_warning">Auto-upload is paused because Battery Saver is on.</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="sync_anyway">Sync anyway</string>

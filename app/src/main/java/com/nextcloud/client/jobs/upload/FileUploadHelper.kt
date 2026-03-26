@@ -45,7 +45,6 @@ import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.UploadFileOperation
-import com.owncloud.android.ui.activity.SyncedFoldersActivity
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileUtil
 import kotlinx.coroutines.CoroutineScope
@@ -640,10 +639,15 @@ class FileUploadHelper {
             }
     }
 
-    suspend fun getAutoUploadFolderEntity(file: ServerFileInterface, user: User): SyncedFolderEntity? {
+    suspend fun getAutoUploadFolder(files: List<OCFile>, accountName: String): List<SyncedFolderEntity> =
+        files.mapNotNull { file ->
+            getAutoUploadFolderEntity(file, accountName)
+        }
+
+    suspend fun getAutoUploadFolderEntity(file: ServerFileInterface, accountName: String): SyncedFolderEntity? {
         val dao = uploadsStorageManager.syncedFolderDao
         val normalizedRemotePath = file.remotePath.trimEnd()
         if (normalizedRemotePath.isEmpty()) return null
-        return dao.findByRemotePathAndAccount(normalizedRemotePath, user.accountName)
+        return dao.findByRemotePathAndAccount(normalizedRemotePath, accountName)
     }
 }
