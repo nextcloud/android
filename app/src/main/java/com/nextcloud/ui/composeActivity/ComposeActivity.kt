@@ -130,7 +130,12 @@ class ComposeActivity : DrawerActivity() {
                 val dao = NextcloudDatabase.instance().assistantDao()
                 val sessionId = (currentScreen as? ComposeDestination.AssistantScreen)?.sessionId
                 val client = nextcloudClient ?: return
-                val remoteRepository = AssistantRemoteRepositoryImpl(client, capabilities)
+                val optionalCapability = capabilities
+                if (optionalCapability.isEmpty) {
+                    return
+                }
+                val capability = optionalCapability.get()
+                val remoteRepository = AssistantRemoteRepositoryImpl(client, capability)
 
                 AssistantScreen(
                     composeViewModel = composeViewModel,
@@ -145,7 +150,7 @@ class ComposeActivity : DrawerActivity() {
                         remoteRepository = ConversationRemoteRepositoryImpl(client)
                     ),
                     activity = this,
-                    capability = capabilities
+                    capability = capability
                 )
             }
 
