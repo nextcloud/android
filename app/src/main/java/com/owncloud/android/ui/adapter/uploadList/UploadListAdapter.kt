@@ -29,6 +29,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.getStatusText
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.sortedByUploadOrder
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadListHeaderBinding
 import com.owncloud.android.databinding.UploadListItemBinding
@@ -486,15 +487,22 @@ class UploadListAdapter(
     }
 
     private fun retryOrShowError(item: OCUpload) {
-        val file = File(item.localPath)
         val user = accountManager.getUser(item.accountName)
-        if (file.exists() && user.isPresent) {
-            uploadHelper.retryUpload(item, user.get())
-        } else {
-            DisplayUtils.showSnackMessage(
-                activity,
-                R.string.local_file_not_found_message
-            )
+        if (user.isEmpty) return
+
+        activity.lifecycleScope.launch(Dispatchers.IO) {
+            val file = item.localPath.toFile()
+
+            withContext(Dispatchers.Main) {
+                if (file != null) {
+                    uploadHelper.retryUpload(item, user.get())
+                } else {
+                    DisplayUtils.showSnackMessage(
+                        activity,
+                        R.string.local_file_not_found_message
+                    )
+                }
+            }
         }
     }
 
@@ -726,20 +734,14 @@ class UploadListAdapter(
     @JvmOverloads
     fun loadUploadItemsFromDb(onCompleted: Runnable = {}) {
         val optionalUser = activity.user
-        if (optionalUser.isEmpty) {
-            return
-        }
-        val accountName = optionalUser.get().accountName
-
         val optionalCapabilities = activity.capabilities
-        if (optionalCapabilities.isEmpty) {
-            return
-        }
+        if (optionalUser.isEmpty || optionalCapabilities.isEmpty) return
+
+        val accountName = optionalUser.get().accountName
         val capabilities = optionalCapabilities.get()
 
         activity.lifecycleScope.launch(Dispatchers.IO) {
-            uploadListSections.indices.forEach { i ->
-                val sec = uploadListSections[i]
+            val updatedSections = uploadListSections.map { sec ->
                 val uploads = uploadHelper.getUploadsByStatus(
                     accountName,
                     sec.status!!,
@@ -747,11 +749,15 @@ class UploadListAdapter(
                     sec.collisionPolicy
                 )
                 uploads.forEach { it.setDataFixed(uploadHelper) }
-                uploadListSections[i] = sec.withItems(uploads.sortedByUploadOrder())
-                activity.runOnUiThread {
-                    notifyDataSetChanged()
-                    onCompleted.run()
+                sec.withItems(uploads.sortedByUploadOrder())
+            }
+
+            withContext(Dispatchers.Main) {
+                for (i in uploadListSections.indices) {
+                    uploadListSections[i] = updatedSections[i]
                 }
+                notifyDataSetChanged()
+                onCompleted.run()
             }
         }
     }
