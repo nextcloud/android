@@ -14,6 +14,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.android.lib.resources.dashboard.DashBoardButtonType
 import com.nextcloud.android.lib.resources.dashboard.DashboardListWidgetsRemoteOperation
@@ -77,7 +78,11 @@ class DashboardWidgetConfigurationActivity :
 
         val layoutManager = LinearLayoutManager(this)
         // TODO follow our new architecture
-        mAdapter = DashboardWidgetListAdapter(accountManager, clientFactory, this, this)
+        mAdapter = DashboardWidgetListAdapter(lifecycleScope,
+            accountManager,
+            clientFactory,
+            this,
+            this)
         binding.list.apply {
             setHasFooter(false)
             setAdapter(mAdapter)

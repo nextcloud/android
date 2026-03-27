@@ -11,28 +11,27 @@ import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.View
 import android.widget.RemoteViews
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
+import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.AppWidgetTarget
+import com.bumptech.glide.request.transition.Transition
 import com.nextcloud.android.lib.resources.dashboard.DashboardButton
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.GlideHelper
+import com.nextcloud.utils.LinkHelper
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.utils.BitmapUtils
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DashboardWidgetUpdater @Inject constructor(
     private val context: Context,
-    private val clientFactory: ClientFactory,
     private val accountProvider: CurrentAccountProvider
 ) {
 
@@ -154,17 +153,26 @@ class DashboardWidgetUpdater @Inject constructor(
     // endregion
 
     private fun loadIcon(appWidgetId: Int, iconUrl: String, remoteViews: RemoteViews) {
-        val target = AppWidgetTarget(context, R.id.icon, remoteViews, appWidgetId)
-        CoroutineScope(Dispatchers.IO).launch {
-            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                .getNextcloudClientFor(accountProvider.user.toOwnCloudAccount(), context)
-            val drawable = GlideHelper.getDrawable(context, client, iconUrl)
-            val bitmap = drawable?.toBitmap() ?: return@launch
-            val tintedBitmap = BitmapUtils.tintImage(bitmap, R.color.black)
+        val safeUrl = LinkHelper.validateAndGetURL(iconUrl) ?: return
+        val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+            .getNextcloudClientFor(accountProvider.user.toOwnCloudAccount(), context)
+        val glideUrl = GlideHelper.createGlideUrl(safeUrl, client)
 
-            withContext(Dispatchers.Main) {
-                target.onResourceReady(tintedBitmap, null)
+        val target = object : AppWidgetTarget(context, R.id.icon, remoteViews, appWidgetId) {
+            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                val tinted = BitmapUtils.tintImage(resource, R.color.black)
+                super.onResourceReady(tinted, transition)
+            }
+
+            override fun onLoadFailed(errorDrawable: Drawable?) {
+                remoteViews.setImageViewResource(R.id.icon, R.drawable.ic_dashboard)
+                AppWidgetManager.getInstance(context).updateAppWidget(appWidgetId, remoteViews)
             }
         }
+
+        Glide.with(context)
+            .asBitmap()
+            .load(glideUrl)
+            .into(target)
     }
 }

@@ -13,9 +13,11 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.PictureDrawable
 import android.widget.ImageView
+import androidx.activity.ComponentActivity
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.core.net.toUri
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DataSource
@@ -28,8 +30,13 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.target.Target
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.LinkHelper.validateAndGetURL
+import com.owncloud.android.lib.common.OwnCloudAccount
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Utility object for loading images (including SVGs) using Glide.
@@ -97,6 +104,7 @@ object GlideHelper {
                 ?.placeholder(placeholder)
                 ?.error(placeholder)
                 ?.apply { if (circleCrop) circleCrop() }
+                ?.withLogging("loadIntoImageView", url ?: "null")
                 ?.into(imageView) ?: imageView.setImageResource(placeholder)
         } catch (e: Exception) {
             Log_OC.e(TAG, "exception loadIntoImageView: $e")
@@ -114,40 +122,35 @@ object GlideHelper {
     }
 
     fun <T> loadIntoTarget(
-        context: Context,
-        client: NextcloudClient?,
+        activity: ComponentActivity,
+        account: OwnCloudAccount?,
         url: String,
         target: Target<T>,
         @DrawableRes placeholder: Int
     ) {
-        try {
-            createRequestBuilder<T>(context, client, url)
-                ?.placeholder(placeholder)
-                ?.error(placeholder)
-                ?.into(target)
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "exception loadIntoTarget: $e")
+        if (account == null) {
+            Log_OC.e(TAG, "loadIntoTargetWithActivity: account cannot be null")
+            return
+        }
+
+        activity.lifecycleScope.launch(Dispatchers.IO) {
+            val clientFactory = OwnCloudClientManagerFactory.getDefaultSingleton()
+            val client = clientFactory.getNextcloudClientFor(account, activity)
+            withContext(Dispatchers.Main) {
+                try {
+                    createRequestBuilder<T>(activity, client, url)
+                        ?.placeholder(placeholder)
+                        ?.error(placeholder)
+                        ?.withLogging("loadIntoTarget", url)
+                        ?.into(target)
+                } catch (e: Exception) {
+                    Log_OC.e(TAG, "exception loadIntoTarget: $e")
+                }
+            }
         }
     }
 
-    // region private methods
-    private class GlideLogger<T>(private val methodName: String, private val identifier: String) : RequestListener<T> {
-        override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<T>, p3: Boolean): Boolean {
-            Log_OC.e(TAG, "$methodName: Load failed for $identifier")
-            Log_OC.e(TAG, "$methodName: Error: ${p0?.message}")
-            p0?.logRootCauses(TAG)
-            return false
-        }
-
-        override fun onResourceReady(p0: T & Any, p1: Any, p2: Target<T?>?, p3: DataSource, p4: Boolean): Boolean {
-            Log_OC.i(TAG, "Glide load completed: $p0")
-            return false
-        }
-    }
-
-    private fun isSVG(url: String): Boolean = (url.toUri().encodedPath?.endsWith(".svg") == true)
-
-    private fun createGlideUrl(url: String, client: NextcloudClient) = GlideUrl(
+    fun createGlideUrl(url: String, client: NextcloudClient) = GlideUrl(
         url,
         LazyHeaders.Builder()
             .addHeader("Authorization", client.credentials)
@@ -155,8 +158,42 @@ object GlideHelper {
             .build()
     )
 
-    private fun <T> RequestBuilder<T>.withLogging(methodName: String, identifier: String): RequestBuilder<T> =
-        listener(GlideLogger(methodName, identifier))
+    // region private methods
+    private class GlideLogger<T>(
+        private val methodName: String,
+        private val identifier: String
+    ) : RequestListener<T> {
+
+        override fun onLoadFailed(
+            e: GlideException?,
+            model: Any?,
+            target: Target<T>,
+            isFirstResource: Boolean
+        ): Boolean {
+            Log_OC.e(TAG, "$methodName: Load failed for $identifier")
+            Log_OC.e(TAG, "$methodName: Error: ${e?.message}")
+            e?.logRootCauses(TAG)
+            return false
+        }
+
+        override fun onResourceReady(
+            resource: T & Any,
+            model: Any?,
+            target: Target<T?>?,
+            dataSource: DataSource,
+            isFirstResource: Boolean
+        ): Boolean {
+            Log_OC.i(TAG, "$methodName: Successfully loaded $identifier from $dataSource")
+            return false
+        }
+    }
+
+    private fun isSVG(url: String): Boolean = (url.toUri().encodedPath?.endsWith(".svg") == true)
+
+    private fun <T> RequestBuilder<T>.withLogging(
+        methodName: String,
+        identifier: String
+    ): RequestBuilder<T> = listener(GlideLogger(methodName, identifier))
 
     @SuppressLint("CheckResult")
     private fun createSvgRequestBuilder(
@@ -191,7 +228,6 @@ object GlideHelper {
             .centerCrop()
     }
 
-
     @Suppress("UNCHECKED_CAST", "TooGenericExceptionCaught", "ReturnCount")
     private fun <T> createRequestBuilder(context: Context, client: NextcloudClient?, url: String?): RequestBuilder<T>? {
         if (client == null) {
@@ -204,12 +240,11 @@ object GlideHelper {
         return try {
             val isSVG = isSVG(validatedUrl)
 
-            return if (isSVG) {
+            if (isSVG) {
                 createSvgRequestBuilder(context, validatedUrl, client)
             } else {
                 createUrlRequestBuilder(context, client, validatedUrl)
-            }
-                .withLogging("createRequestBuilder", validatedUrl) as RequestBuilder<T>?
+            }.withLogging("createRequestBuilder", validatedUrl) as RequestBuilder<T>?
         } catch (e: Exception) {
             Log_OC.e(TAG, "exception createRequestBuilder: $e")
             null
