@@ -16,15 +16,17 @@ import androidx.fragment.app.Fragment
 import com.nextcloud.utils.extensions.setHtmlContent
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentCommunityBinding
-import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
 class CommunityFragment : Fragment() {
 
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
 
-    private val drawerActivity get() = activity as? DrawerActivity
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCommunityBinding.inflate(inflater, container, false)
@@ -33,17 +35,13 @@ class CommunityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        drawerActivity?.run {
-            setupToolbar()
-            updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_community))
-        }
         binding.communityReleaseCandidateText.movementMethod = LinkMovementMethod.getInstance()
-        drawerActivity?.let { setupViews(it) }
+        setupViews()
         setOnClickListeners()
     }
 
-    private fun setupViews(activity: DrawerActivity) {
-        val primaryColor = activity.viewThemeUtils.files.primaryColorToHexString(requireContext())
+    private fun setupViews() {
+        val primaryColor = viewThemeUtils.files.primaryColorToHexString(requireContext())
         val helpLink = getString(R.string.help_link)
         val forum = getString(R.string.community_contribute_forum_forum)
         val translationLink = getString(R.string.translation_link)
@@ -81,7 +79,7 @@ class CommunityFragment : Fragment() {
             view.setHtmlContent(content)
         }
 
-        activity.viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.communityTestingReport)
+        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.communityTestingReport)
         binding.communityTestingReport.setOnClickListener {
             DisplayUtils.startLinkIntent(requireActivity(), R.string.report_issue_empty_link)
         }

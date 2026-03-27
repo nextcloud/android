@@ -14,7 +14,6 @@ import android.provider.MediaStore
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.entity.FilesystemEntity
 import com.nextcloud.utils.extensions.shouldSkipFile
-import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -34,6 +33,8 @@ class FileSystemRepository(
         private const val TAG = "FilesystemRepository"
         const val BATCH_SIZE = 50
     }
+
+    suspend fun isBelongToAnyAutoFolder(localPath: String): Boolean = dao.isBelongToAnyAutoFolder(localPath)
 
     fun deleteAutoUploadAndUploadEntity(syncedFolder: SyncedFolder, localPath: String, entity: FilesystemEntity) {
         Log_OC.d(TAG, "deleting auto upload entity and upload entity")
@@ -60,27 +61,19 @@ class FileSystemRepository(
         val entities = dao.getAutoUploadFilesEntities(syncedFolderId, BATCH_SIZE, lastId)
         val filtered = mutableListOf<Pair<String, Int>>()
 
-        entities.forEach { entity ->
-            entity.localPath?.let { path ->
-                val file = File(path)
-                if (!file.exists()) {
-                    Log_OC.w(TAG, "Ignoring file for upload (doesn't exist): $path")
-                    deleteAutoUploadAndUploadEntity(syncedFolder, path, entity)
-                } else if (!SyncedFolderUtils.isQualifiedFolder(file.parent)) {
-                    Log_OC.w(TAG, "Ignoring file for upload (unqualified folder): $path")
-                    deleteAutoUploadAndUploadEntity(syncedFolder, path, entity)
-                } else if (!SyncedFolderUtils.isFileNameQualifiedForAutoUpload(file.name)) {
-                    Log_OC.w(TAG, "Ignoring file for upload (unqualified file): $path")
-                    deleteAutoUploadAndUploadEntity(syncedFolder, path, entity)
-                } else {
-                    Log_OC.d(TAG, "Adding path to upload: $path")
+        for (entity in entities) {
+            val file = SyncedFolderUtils.validateForAutoUpload(entity.localPath)
+            if (file == null) {
+                deleteAutoUploadAndUploadEntity(syncedFolder, entity.localPath ?: "", entity)
+                continue
+            }
 
-                    if (entity.id != null) {
-                        filtered.add(path to entity.id)
-                    } else {
-                        Log_OC.w(TAG, "cant adding path to upload, id is null")
-                    }
-                }
+            Log_OC.d(TAG, "Adding path to upload: ${entity.localPath}")
+
+            if (entity.id != null) {
+                filtered.add(entity.localPath!! to entity.id)
+            } else {
+                Log_OC.w(TAG, "cant adding path to upload, id is null")
             }
         }
 
@@ -176,7 +169,7 @@ class FileSystemRepository(
         checkFileType: Boolean = false
     ) {
         try {
-            val file = localPath?.toFile()
+            val file = SyncedFolderUtils.validateForAutoUpload(localPath)
             if (file == null) {
                 Log_OC.w(TAG, "file null, cannot insert or replace: $localPath")
                 return
@@ -187,7 +180,7 @@ class FileSystemRepository(
                 return
             }
 
-            val entity = dao.getFileByPathAndFolder(localPath, syncedFolder.id.toString())
+            val entity = dao.getFileByPathAndFolder(localPath!!, syncedFolder.id.toString())
 
             val fileModified = (lastModified ?: file.lastModified())
             val hasNotChanged = entity?.fileModified == fileModified

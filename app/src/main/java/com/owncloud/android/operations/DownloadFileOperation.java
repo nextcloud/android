@@ -350,4 +350,8 @@ public class DownloadFileOperation extends RemoteOperation {
     public DownloadType getDownloadType() {
         return downloadType;
     }
+
+    public void setDownloadType(DownloadType type) {
+        downloadType = type;
+    }
 }

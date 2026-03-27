@@ -14,6 +14,7 @@ import android.content.ContentResolver
 import android.net.Uri
 import android.os.Parcelable
 import androidx.core.util.Function
+import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.owncloud.android.R
@@ -159,7 +160,7 @@ class UriUploader @JvmOverloads constructor(
         if (mShowWaitingDialog) {
             mActivity.showLoadingDialog(mActivity.resources.getString(R.string.wait_for_tmp_copy_from_private_storage))
         }
-        val copyTask = CopyAndUploadContentUrisTask(mCopyTmpTaskListener, mActivity)
+        val copyTask = CopyAndUploadContentUrisTask(mCopyTmpTaskListener, mActivity, mActivity.lifecycleScope)
         val fm = mActivity.supportFragmentManager
 
         // Init Fragment without UI to retain AsyncTask across configuration changes
@@ -167,13 +168,11 @@ class UriUploader @JvmOverloads constructor(
             fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT) as TaskRetainerFragment?
         taskRetainerFragment?.setTask(copyTask)
         copyTask.execute(
-            *CopyAndUploadContentUrisTask.makeParamsToExecute(
-                user,
-                sourceUris,
-                remotePaths,
-                mBehaviour,
-                mActivity.contentResolver
-            )
+            user,
+            sourceUris,
+            remotePaths,
+            mBehaviour,
+            mActivity.contentResolver
         )
     }
 

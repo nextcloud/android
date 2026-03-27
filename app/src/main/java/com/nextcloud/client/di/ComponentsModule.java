@@ -47,7 +47,6 @@ import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.services.AccountManagerService;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.syncadapter.FileSyncService;
-import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
@@ -101,6 +100,7 @@ import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.TermsOfServiceDialog;
 import com.owncloud.android.ui.dialog.ThemeSelectionDialog;
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
+import com.owncloud.android.ui.fragment.ActivitiesFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FeatureFragment;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
@@ -142,7 +142,7 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 abstract class ComponentsModule {
     @ContributesAndroidInjector
-    abstract ActivitiesActivity activitiesActivity();
+    abstract ActivitiesFragment activitiesFragment();
 
     @ContributesAndroidInjector
     abstract AuthenticatorActivity authenticatorActivity();

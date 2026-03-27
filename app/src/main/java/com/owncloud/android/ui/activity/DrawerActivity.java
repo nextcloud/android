@@ -89,7 +89,6 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.GetCapabilitiesOperation;
-import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
@@ -327,12 +326,10 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     @SuppressFBWarnings("RV")
     private void checkAssistantBottomNavigationMenu() {
-        final var capability = getCapabilities();
-        boolean isAssistantAvailable;
-        if (capability == null) {
-            isAssistantAvailable = false;
-        } else {
-            isAssistantAvailable = capability.getAssistant().isTrue();
+        final var optionalCapabilities = getCapabilities();
+        boolean isAssistantAvailable = false;
+        if (optionalCapabilities.isPresent()) {
+            isAssistantAvailable = optionalCapabilities.get().getAssistant().isTrue();
         }
 
         bottomNavigationView
@@ -415,26 +412,28 @@ public abstract class DrawerActivity extends ToolbarActivity
     public void updateHeader() {
         final var account = getAccount();
         boolean isClientBranded = getResources().getBoolean(R.bool.is_branded_client);
-        final OCCapability capability = getCapabilities();
+        final var optionalCapability = getCapabilities();
+        if (optionalCapability.isPresent()) {
+            final var capability = optionalCapability.get();
+            if (account != null && capability.getServerBackground() != null && !isClientBranded) {
+                int primaryColor = themeColorUtils.unchangedPrimaryColor(account, this);
+                String serverLogoURL = capability.getServerLogo();
 
-        if (capability != null && account != null && capability.getServerBackground() != null && !isClientBranded) {
-            int primaryColor = themeColorUtils.unchangedPrimaryColor(account, this);
-            String serverLogoURL = capability.getServerLogo();
+                // set background to primary color
+                LinearLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
+                drawerHeader.setBackgroundColor(primaryColor);
 
-            // set background to primary color
-            LinearLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
-            drawerHeader.setBackgroundColor(primaryColor);
-
-            if (!TextUtils.isEmpty(serverLogoURL) && URLUtil.isValidUrl(serverLogoURL)) {
-                Target<Drawable> target = createSVGLogoTarget(primaryColor, capability);
-                getClientRepository().getNextcloudClient(nextcloudClient -> {
-                    GlideHelper.INSTANCE.loadIntoTarget(DrawerActivity.this,
-                                                        nextcloudClient,
-                                                        serverLogoURL,
-                                                        target,
-                                                        R.drawable.background);
-                    return Unit.INSTANCE;
-                });
+                if (!TextUtils.isEmpty(serverLogoURL) && URLUtil.isValidUrl(serverLogoURL)) {
+                    Target<Drawable> target = createSVGLogoTarget(primaryColor, capability);
+                    getClientRepository().getNextcloudClient(nextcloudClient -> {
+                        GlideHelper.INSTANCE.loadIntoTarget(DrawerActivity.this,
+                                                            nextcloudClient,
+                                                            serverLogoURL,
+                                                            target,
+                                                            R.drawable.background);
+                        return Unit.INSTANCE;
+                    });
+                }
             }
         }
 
@@ -514,8 +513,14 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         moreView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppStore("Nextcloud", true, this));
         assistantView.setOnClickListener(v -> startAssistantScreen());
-        if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
-            assistantView.setVisibility(View.VISIBLE);
+        final var optionalCapabilities = getCapabilities();
+        if (optionalCapabilities.isPresent()) {
+            final var capabilities = optionalCapabilities.get();
+            if (capabilities.getAssistant().isTrue()) {
+                assistantView.setVisibility(View.VISIBLE);
+            } else {
+                assistantView.setVisibility(View.GONE);
+            }
         } else {
             assistantView.setVisibility(View.GONE);
         }
@@ -582,13 +587,16 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void filterDrawerMenu(final Menu menu, @NonNull final User user) {
-        OCCapability capability = getCapabilities();
+        final var optionalCapability = getCapabilities();
+        if (optionalCapability.isPresent()) {
+            final var capability = optionalCapability.get();
+            DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
+            DrawerMenuUtil.filterActivityMenuItem(menu, capability);
+            DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability);
+            DrawerMenuUtil.filterAssistantMenuItem(menu, capability, getResources());
+        }
 
         DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources());
-        DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
-        DrawerMenuUtil.filterActivityMenuItem(menu, capability);
-        DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability);
-        DrawerMenuUtil.filterAssistantMenuItem(menu, capability, getResources());
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community, !getResources().getBoolean(R.bool.participate_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !getResources().getBoolean(R.bool.shared_enabled));
@@ -617,7 +625,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             startActivity(TrashbinActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_activity) {
             resetOnlyPersonalAndOnDevice();
-            startActivity(ActivitiesActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pushFragment(NavigatorScreen.Activities.INSTANCE);
         } else if (itemId == R.id.nav_settings) {
             resetOnlyPersonalAndOnDevice();
             final Intent intent = new Intent(this, SettingsActivity.class);
@@ -1371,11 +1379,13 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         Thread t = new Thread(() -> {
             // fetch capabilities as early as possible
-            final OCCapability capability = getCapabilities();
-            if ((capability == null || capability.getAccountName() == null || !capability.getAccountName().isEmpty())
-                && getStorageManager() != null) {
-                GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
-                getCapabilities.execute(getBaseContext());
+            final var optionalCapability = getCapabilities();
+            if (optionalCapability.isPresent()) {
+                final var capability = optionalCapability.get();
+                if ((capability.getAccountName() == null || !capability.getAccountName().isEmpty()) && getStorageManager() != null) {
+                    GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
+                    getCapabilities.execute(getBaseContext());
+                }
             }
 
             if (getStorageManager() != null && CapabilityUtils.getCapability(user, this)

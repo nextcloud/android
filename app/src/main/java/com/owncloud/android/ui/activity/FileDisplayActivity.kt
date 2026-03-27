@@ -102,6 +102,7 @@ import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOp
 import com.owncloud.android.operations.CopyFileOperation
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.DownloadType
+import com.owncloud.android.operations.FolderRefreshScheduler
 import com.owncloud.android.operations.MoveFileOperation
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.operations.RemoveFileOperation
@@ -252,6 +253,8 @@ class FileDisplayActivity :
      */
     private var fileIDForImmediatePreview: Long = -1
 
+    private lateinit var folderRefreshScheduler: FolderRefreshScheduler
+
     fun setFileIDForImmediatePreview(fileIDForImmediatePreview: Long) {
         this.fileIDForImmediatePreview = fileIDForImmediatePreview
     }
@@ -264,6 +267,7 @@ class FileDisplayActivity :
 
         super.onCreate(savedInstanceState)
         lastDisplayedAccountName = preferences.lastDisplayedAccountName
+        folderRefreshScheduler = FolderRefreshScheduler(this)
 
         intent?.let {
             handleCommonIntents(it)
@@ -448,13 +452,16 @@ class FileDisplayActivity :
 
     private fun checkOutdatedServer() {
         val user = getUser()
+        val optionalCapability = capabilities
+
         // show outdated warning
         if (user.isPresent &&
+            optionalCapability.isPresent &&
             CapabilityUtils.checkOutdatedWarning(
                 getResources(),
                 user.get().server.version,
-                capabilities.extendedSupport.isTrue,
-                capabilities.hasValidSubscription.isTrue
+                optionalCapability.get().extendedSupport.isTrue,
+                optionalCapability.get().hasValidSubscription.isTrue
             )
         ) {
             DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG)
@@ -1084,28 +1091,38 @@ class FileDisplayActivity :
 
             connectivityService.isNetworkAndServerAvailable { result: Boolean? ->
                 if (result == true) {
-                    val isValidFolderPath = remotePathBase?.let { checkFolderPath(it, capabilities, this) }
-                    if (isValidFolderPath == false) {
-                        DisplayUtils.showSnackMessage(
-                            this,
-                            R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters
-                        )
-                        return@isNetworkAndServerAvailable
-                    }
+                    val optionalCapabilities = capabilities
+                    if (optionalCapabilities.isPresent) {
+                        val isValidFolderPath =
+                            remotePathBase?.let {
+                                checkFolderPath(
+                                    it,
+                                    optionalCapabilities.get(),
+                                    this
+                                )
+                            }
+                        if (isValidFolderPath == false) {
+                            DisplayUtils.showSnackMessage(
+                                this,
+                                R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters
+                            )
+                            return@isNetworkAndServerAvailable
+                        }
 
-                    FileUploadHelper.Companion.instance().uploadNewFiles(
-                        user.orElseThrow(
-                            Supplier { RuntimeException() }
-                        ),
-                        filePaths,
-                        decryptedRemotePaths,
-                        behaviour,
-                        true,
-                        UploadFileOperation.CREATED_BY_USER,
-                        false,
-                        false,
-                        NameCollisionPolicy.ASK_USER
-                    )
+                        FileUploadHelper.instance().uploadNewFiles(
+                            user.orElseThrow(
+                                Supplier { RuntimeException() }
+                            ),
+                            filePaths,
+                            decryptedRemotePaths,
+                            behaviour,
+                            true,
+                            UploadFileOperation.CREATED_BY_USER,
+                            false,
+                            false,
+                            NameCollisionPolicy.ASK_USER
+                        )
+                    }
                 } else {
                     fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths)
                 }
@@ -1166,7 +1183,7 @@ class FileDisplayActivity :
         uploader.uploadUris()
     }
 
-    private fun isSearchOpen(): Boolean {
+    fun isSearchOpen(): Boolean {
         if (searchView == null) {
             return false
         } else {
@@ -1352,6 +1369,8 @@ class FileDisplayActivity :
 
         super.onResume()
 
+        folderRefreshScheduler.start()
+
         if (ocFileListFragment?.isSearchFragment == true) {
             ocFileListFragment?.setSearchArgs(ocFileListFragment?.arguments)
         }
@@ -1463,6 +1482,7 @@ class FileDisplayActivity :
 
     override fun onStop() {
         Log_OC.v(TAG, "onStop()")
+        folderRefreshScheduler.stop()
         unregisterReceivers()
         super.onStop()
     }
@@ -2450,7 +2470,12 @@ class FileDisplayActivity :
     }
 
     private fun fetchRecommendedFilesIfNeeded(ignoreETag: Boolean, folder: OCFile?) {
-        if (folder?.isRootDirectory == false || capabilities == null || capabilities.recommendations.isFalse) {
+        val optionalCapabilities = capabilities
+        if (optionalCapabilities.isEmpty) {
+            return
+        }
+
+        if (folder?.isRootDirectory == false || optionalCapabilities.get().recommendations.isFalse) {
             return
         }
 

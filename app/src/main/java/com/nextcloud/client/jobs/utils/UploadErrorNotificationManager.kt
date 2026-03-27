@@ -49,7 +49,7 @@ object UploadErrorNotificationManager {
     ) {
         Log_OC.d(TAG, "handle upload result with result code: " + result.code)
 
-        if (result.isSuccess || result.isCancelled || operation.isMissingPermissionThrown) {
+        if (result.isSuccess || operation.isMissingPermissionThrown) {
             Log_OC.d(TAG, "operation is successful, cancelled or lack of storage permission, notification skipped")
             return
         }
@@ -59,7 +59,9 @@ object UploadErrorNotificationManager {
             ResultCode.DELAYED_FOR_CHARGING,
             ResultCode.DELAYED_IN_POWER_SAVE_MODE,
             ResultCode.LOCAL_FILE_NOT_FOUND,
-            ResultCode.LOCK_FAILED
+            ResultCode.LOCK_FAILED,
+            ResultCode.CANCELLED,
+            ResultCode.USER_CANCELLED
         )
 
         if (result.code in silentCodes) {
@@ -131,7 +133,6 @@ object UploadErrorNotificationManager {
             )
 
             // actions for all error types
-            addAction(UploadBroadcastAction.PauseAndCancel(operation).pauseAction(context))
             addAction(UploadBroadcastAction.PauseAndCancel(operation).cancelAction(context))
 
             if (result.code == ResultCode.SYNC_CONFLICT) {

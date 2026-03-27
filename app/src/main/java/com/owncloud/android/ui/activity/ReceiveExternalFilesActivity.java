@@ -69,6 +69,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -310,7 +311,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     public void selectFile(OCFile file) {
         if (file.isFolder()) {
-            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), this, null);
+            final var optionalCapabilities = getCapabilities();
+            if (optionalCapabilities.isEmpty()) {
+                return;
+            }
+
+            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), optionalCapabilities.get(), this, null);
             if (filenameErrorMessage != null) {
                 DisplayUtils.showSnackMessage(this, filenameErrorMessage);
                 return;
@@ -867,25 +873,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         binding.userInput.setVisibility(View.VISIBLE);
         binding.userInput.setText(userProvidedFileName.isEmpty() ? fileName : userProvidedFileName);
-        binding.userInput.addTextChangedListener(new FileNameTextWatcher(
-            fileName,
-            this,
-            this::getCapabilities,
-            () -> receiveExternalFilesAdapter.getFileNames(),
-            validationError -> {
-                binding.userInputContainer.setError(validationError);
-                binding.uploaderChooseFolder.setEnabled(false);
-            },
-            validationWarning -> {
-                binding.userInputContainer.setError(validationWarning);
-                binding.uploaderChooseFolder.setEnabled(true);
-            },
-            () -> { // onValidationSuccess
-                binding.userInputContainer.setError(null);
-                binding.userInputContainer.setErrorEnabled(false);
-                binding.uploaderChooseFolder.setEnabled(true);
-            }
-        ));
+        final var optionalCapabilities = getCapabilities();
+        if (optionalCapabilities.isPresent()) {
+            final var validator = getFileNameTextWatcher(optionalCapabilities.get(), fileName);
+            binding.userInput.addTextChangedListener(validator);
+        }
 
         mFileDisplayNameTransformer = uri ->
             Objects.requireNonNullElse(binding.userInput.getText(), fileName).toString();
@@ -904,6 +896,29 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 });
             }
         });
+    }
+
+    @NonNull
+    private FileNameTextWatcher getFileNameTextWatcher(OCCapability capability, String fileName) {
+        return new FileNameTextWatcher(
+            fileName,
+            this,
+            () -> capability,
+            () -> receiveExternalFilesAdapter.getFileNames(),
+            validationError -> {
+                binding.userInputContainer.setError(validationError);
+                binding.uploaderChooseFolder.setEnabled(false);
+            },
+            validationWarning -> {
+                binding.userInputContainer.setError(validationWarning);
+                binding.uploaderChooseFolder.setEnabled(true);
+            },
+            () -> { // onValidationSuccess
+                binding.userInputContainer.setError(null);
+                binding.userInputContainer.setErrorEnabled(false);
+                binding.uploaderChooseFolder.setEnabled(true);
+            }
+        );
     }
 
     @Override

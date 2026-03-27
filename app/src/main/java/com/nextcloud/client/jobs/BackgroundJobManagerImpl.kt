@@ -8,6 +8,7 @@ package com.nextcloud.client.jobs
 
 import android.provider.MediaStore
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.work.BackoffPolicy
 import androidx.work.Constraints
@@ -34,10 +35,12 @@ import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.client.jobs.worker.WorkerFilesPayload
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -71,6 +74,8 @@ internal class BackgroundJobManagerImpl(
     Injectable {
 
     companion object {
+        private const val TAG = "BackgroundJobManagerImpl"
+
         const val TAG_ALL = "*" // This tag allows us to retrieve list of all jobs run by Nextcloud client
         const val JOB_CONTENT_OBSERVER = "content_observer"
         const val JOB_PERIODIC_CONTACTS_BACKUP = "periodic_contacts_backup"
@@ -359,10 +364,13 @@ internal class BackgroundJobManagerImpl(
     }
 
     override fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?> {
-        val ids = files.map { it.fileId }.toLongArray()
+        val path = WorkerFilesPayload.write(files.toList()) ?: run {
+            Log_OC.w(TAG, "File export was started without any file")
+            return MutableLiveData(null)
+        }
 
         val data = Data.Builder()
-            .putLongArray(FilesExportWork.FILES_TO_DOWNLOAD, ids)
+            .putString(FilesExportWork.FILES_TO_DOWNLOAD, path)
             .build()
 
         val request = oneTimeRequestBuilder(FilesExportWork::class, JOB_IMMEDIATE_FILES_EXPORT)

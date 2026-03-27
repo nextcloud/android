@@ -186,7 +186,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         uploadHelper.updateUploadStatus(upload.getRemotePath(), accountName, UploadStatus.UPLOAD_CANCELLED, new Function0<Unit>() {
                             @Override
                             public Unit invoke() {
-                                FileUploadWorker.Companion.cancelCurrentUpload(upload.getRemotePath(), accountName, new Function0<Unit>() {
+                                FileUploadWorker.Companion.cancelUpload(upload.getRemotePath(), accountName, new Function0<Unit>() {
                                     @Override
                                     public Unit invoke() {
                                         completedCount[0]++;
@@ -428,7 +428,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
             itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> {
                 uploadHelper.updateUploadStatus(item.getRemotePath(), item.getAccountName(), UploadStatus.UPLOAD_CANCELLED, () -> {
-                    FileUploadWorker.Companion.cancelCurrentUpload(item.getRemotePath(), item.getAccountName(), () -> {
+                    FileUploadWorker.Companion.cancelUpload(item.getRemotePath(), item.getAccountName(), () -> {
                         loadUploadItemsFromDb(() -> {});
                         return Unit.INSTANCE;
                     });
@@ -832,29 +832,32 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     public final void loadUploadItemsFromDb(Runnable onCompleted) {
         parentActivity.getUser().ifPresent(user -> {
             String accountName = user.getAccountName();
+            final var optionalCapabilities = parentActivity.getCapabilities();
+            if (optionalCapabilities.isPresent()) {
+                final var capabilities = optionalCapabilities.get();
+                for (int i = 0; i < sections.size(); i++) {
+                    final int index = i;
+                    Section sec = sections.get(index);
 
-            for (int i = 0; i < sections.size(); i++) {
-                final int index = i;
-                Section sec = sections.get(index);
+                    uploadHelper.getUploadsByStatus(accountName,
+                                                    sec.status(),
+                                                    capabilities,
+                                                    sec.collisionPolicy(),
+                                                    uploads -> {
+                                                        for (OCUpload upload : uploads) {
+                                                            upload.setDataFixed(uploadHelper);
+                                                        }
+                                                        Arrays.sort(uploads, new OCUploadComparator());
 
-                uploadHelper.getUploadsByStatus(accountName,
-                                                sec.status(),
-                                                parentActivity.getCapabilities(),
-                                                sec.collisionPolicy(),
-                                                uploads -> {
-                    for (OCUpload upload : uploads) {
-                        upload.setDataFixed(uploadHelper);
-                    }
-                    Arrays.sort(uploads, new OCUploadComparator());
+                                                        sections.set(index, sec.withItems(uploads));
 
-                    sections.set(index, sec.withItems(uploads));
-
-                    parentActivity.runOnUiThread(() -> {
-                        notifyDataSetChanged();
-                        onCompleted.run();
-                    });
-                    return Unit.INSTANCE;
-                });
+                                                        parentActivity.runOnUiThread(() -> {
+                                                            notifyDataSetChanged();
+                                                            onCompleted.run();
+                                                        });
+                                                        return Unit.INSTANCE;
+                                                    });
+                }
             }
         });
     }
