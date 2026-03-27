@@ -9,10 +9,7 @@ package com.owncloud.android.ui.adapter.uploadList
 
 import android.annotation.SuppressLint
 import android.app.NotificationManager
-import android.content.ActivityNotFoundException
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +26,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.utils.extensions.getFailedStatusText
+import com.nextcloud.utils.extensions.getStatusText
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.sortedByUploadOrder
 import com.owncloud.android.R
@@ -41,17 +38,13 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
-import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RefreshFolderOperation
-import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.ui.activity.FileActivity
-import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.progressListener.UploadProgressListener
-import com.owncloud.android.ui.preview.PreviewImageFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -62,9 +55,17 @@ import java.io.File
 import java.util.Optional
 import java.util.function.Consumer
 
-@Suppress("TooManyFunctions", "LargeClass", "LongParameterList", "NestedBlockDepth", "MaxLineLength", "ReturnCount")
+@Suppress(
+    "LongMethod",
+    "TooManyFunctions",
+    "LargeClass",
+    "LongParameterList",
+    "NestedBlockDepth",
+    "MaxLineLength",
+    "ReturnCount"
+)
 class UploadListAdapter(
-    private val fileActivity: FileActivity,
+    private val activity: FileActivity,
     private val uploadsStorageManager: UploadsStorageManager,
     private val storageManager: FileDataStorageManager,
     private val accountManager: UserAccountManager,
@@ -75,12 +76,11 @@ class UploadListAdapter(
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
 
     private val uploadListSections = UploadListSection.sections()
-
-    private val parentActivity: FileActivity = fileActivity
     private val showUser: Boolean = accountManager.getAccounts().size > 1
     private val uploadHelper = FileUploadHelper.instance()
     private var uploadProgressListener: UploadProgressListener? = null
-    private var mNotificationManager: NotificationManager? = null
+    private var notificationManager: NotificationManager? = null
+    private val helper = UploadListAdapterHelper(activity)
 
     init {
         Log_OC.d(TAG, "UploadListAdapter")
@@ -107,8 +107,8 @@ class UploadListAdapter(
     }
 
     private fun bindHeaderTitle(holder: HeaderViewHolder, group: UploadListSection, section: Int) {
-        val title = parentActivity.getString(group.titleRes)
-        val headerText = parentActivity.getString(R.string.uploads_view_group_header)
+        val title = activity.getString(group.titleRes)
+        val headerText = activity.getString(R.string.uploads_view_group_header)
         holder.binding.uploadListTitle.text = String.format(headerText, title, group.items.size)
         viewThemeUtils.platform.colorTextView(holder.binding.uploadListTitle)
 
@@ -177,7 +177,7 @@ class UploadListAdapter(
     }
 
     private fun showFailedPopupMenu(holder: HeaderViewHolder) {
-        PopupMenu(fileActivity, holder.binding.uploadListAction).apply {
+        PopupMenu(activity, holder.binding.uploadListAction).apply {
             inflate(R.menu.upload_list_failed_options)
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {
@@ -202,7 +202,7 @@ class UploadListAdapter(
     }
 
     private fun showCancelledPopupMenu(holder: HeaderViewHolder) {
-        PopupMenu(fileActivity, holder.binding.uploadListAction).apply {
+        PopupMenu(activity, holder.binding.uploadListAction).apply {
             inflate(R.menu.upload_list_cancelled_options)
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {
@@ -221,7 +221,7 @@ class UploadListAdapter(
     }
 
     private fun clearTempEncryptedFolder() {
-        val user = parentActivity.user
+        val user = activity.user
         user.ifPresent(
             Consumer { value: User? ->
                 FileDataStorageManager.clearTempEncryptedFolder(value!!.accountName)
@@ -231,7 +231,7 @@ class UploadListAdapter(
 
     // FIXME For e2e resume is not working
     private fun retryCancelledUploads() {
-        fileActivity.lifecycleScope.launch(Dispatchers.IO) {
+        activity.lifecycleScope.launch(Dispatchers.IO) {
             val showNotExistMessage = uploadHelper.retryCancelledUploads(
                 uploadsStorageManager,
                 connectivityService,
@@ -240,7 +240,7 @@ class UploadListAdapter(
             )
             if (showNotExistMessage) {
                 withContext(Dispatchers.Main) {
-                    DisplayUtils.showSnackMessage(parentActivity, R.string.upload_action_file_not_exist_message)
+                    DisplayUtils.showSnackMessage(activity, R.string.upload_action_file_not_exist_message)
                 }
             }
         }
@@ -302,7 +302,7 @@ class UploadListAdapter(
 
         if (showDate) {
             holder.binding.uploadDate.text = DisplayUtils.getRelativeDateTimeString(
-                parentActivity,
+                activity,
                 updateTime,
                 DateUtils.MINUTE_IN_MILLIS,
                 DateUtils.WEEK_IN_MILLIS,
@@ -332,7 +332,11 @@ class UploadListAdapter(
             uploadStatus.visibility = View.VISIBLE
             uploadProgressBar.visibility = View.GONE
 
-            val status = getStatusText(item)
+            val status = item.getStatusText(
+                activity,
+                activity.appPreferences.isGlobalUploadPaused,
+                uploadHelper.isUploadingNow(item)
+            )
             when (item.uploadStatus) {
                 UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS -> bindItemInProgress(holder, item)
 
@@ -389,7 +393,11 @@ class UploadListAdapter(
     private fun bindItemActions(holder: ItemViewHolder, item: OCUpload) {
         holder.binding.run {
             val optionalUser = accountManager.getUser(item.accountName)
-            val status = getStatusText(item)
+            val status = item.getStatusText(
+                activity,
+                activity.appPreferences.isGlobalUploadPaused,
+                uploadHelper.isUploadingNow(item)
+            )
 
             // Right-side button
             when (item.uploadStatus) {
@@ -443,7 +451,7 @@ class UploadListAdapter(
                         }
 
                     UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED ->
-                        setOnClickListener { onUploadedItemClick(item) }
+                        setOnClickListener { helper.onUploadedItemClick(item) }
 
                     else -> {}
                 }
@@ -451,7 +459,7 @@ class UploadListAdapter(
 
             // Thumbnail click to open locally
             if (item.uploadStatus != UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED) {
-                thumbnail.setOnClickListener { onUploadingItemClick(item) }
+                thumbnail.setOnClickListener { helper.onUploadingItemClick(item) }
             }
         }
     }
@@ -465,7 +473,7 @@ class UploadListAdapter(
         when (item.lastResult) {
             UploadResult.CREDENTIAL_ERROR -> {
                 val user = optionalUser.orElseThrow { RuntimeException() }
-                parentActivity.fileOperationsHelper.checkCurrentCredentials(user)
+                activity.fileOperationsHelper.checkCurrentCredentials(user)
             }
 
             UploadResult.SYNC_CONFLICT if optionalUser.isPresent -> {
@@ -484,7 +492,7 @@ class UploadListAdapter(
             uploadHelper.retryUpload(item, user.get())
         } else {
             DisplayUtils.showSnackMessage(
-                fileActivity,
+                activity,
                 R.string.local_file_not_found_message
             )
         }
@@ -513,7 +521,7 @@ class UploadListAdapter(
                 bindLocalThumbnail(holder, item, allowedToCreateNewThumbnail)
 
             optionalUser.isPresent -> {
-                val icon = MimeTypeUtil.getFileTypeIcon(item.mimeType, fileName, parentActivity, viewThemeUtils)
+                val icon = MimeTypeUtil.getFileTypeIcon(item.mimeType, fileName, activity, viewThemeUtils)
                 holder.binding.thumbnail.setImageDrawable(icon)
             }
         }
@@ -531,11 +539,11 @@ class UploadListAdapter(
         if (thumbnail != null && !fakeFile.isUpdateThumbnailNeeded) {
             holder.binding.thumbnail.setImageBitmap(thumbnail)
         } else if (allowedToCreateNewThumbnail) {
-            val user = parentActivity.user
+            val user = activity.user
             if (user.isPresent) {
                 val task = ThumbnailsCacheManager.ThumbnailGenerationTask(
                     holder.binding.thumbnail,
-                    parentActivity.storageManager,
+                    activity.storageManager,
                     user.get()
                 )
                 thumbnail = thumbnail ?: if (MimeTypeUtil.isVideo(fakeFile)) {
@@ -544,14 +552,14 @@ class UploadListAdapter(
                     ThumbnailsCacheManager.mDefaultImg
                 }
                 holder.binding.thumbnail.setImageDrawable(
-                    ThumbnailsCacheManager.AsyncThumbnailDrawable(parentActivity.resources, thumbnail, task)
+                    ThumbnailsCacheManager.AsyncThumbnailDrawable(activity.resources, thumbnail, task)
                 )
                 task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(fakeFile, null))
             }
         }
 
         if (item.mimeType == "image/png") {
-            holder.binding.thumbnail.setBackgroundColor(ContextCompat.getColor(parentActivity, R.color.bg_default))
+            holder.binding.thumbnail.setBackgroundColor(ContextCompat.getColor(activity, R.color.bg_default))
         }
     }
 
@@ -570,7 +578,7 @@ class UploadListAdapter(
                 ThumbnailsCacheManager.mDefaultImg
             }
             val asyncDrawable =
-                ThumbnailsCacheManager.AsyncThumbnailDrawable(parentActivity.resources, defaultThumbnail, task)
+                ThumbnailsCacheManager.AsyncThumbnailDrawable(activity.resources, defaultThumbnail, task)
             task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null))
             task.setListener(object : ThumbnailsCacheManager.ThumbnailGenerationTask.Listener {
                 override fun onSuccess() {
@@ -585,7 +593,7 @@ class UploadListAdapter(
         }
 
         if (item.mimeType.equals("image/png", ignoreCase = true)) {
-            holder.binding.thumbnail.setBackgroundColor(ContextCompat.getColor(parentActivity, R.color.bg_default))
+            holder.binding.thumbnail.setBackgroundColor(ContextCompat.getColor(activity, R.color.bg_default))
         }
     }
     // endregion
@@ -593,7 +601,7 @@ class UploadListAdapter(
     override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) = Unit
 
     private fun getThumbnailFromFileTypeAndSetIcon(localPath: String?, itemViewHolder: ItemViewHolder) {
-        val drawable = MimeTypeUtil.getIcon(localPath, parentActivity, viewThemeUtils) ?: return
+        val drawable = MimeTypeUtil.getIcon(localPath, activity, viewThemeUtils) ?: return
         itemViewHolder.binding.thumbnail.setImageDrawable(drawable)
     }
 
@@ -619,7 +627,7 @@ class UploadListAdapter(
         }
 
         if (localFile != null) {
-            this.openConflictActivity(localFile, item)
+            helper.openConflictActivity(localFile, item)
             return true
         }
 
@@ -644,9 +652,9 @@ class UploadListAdapter(
             if (result?.isSuccess == true) {
                 val fileOnServer = storageManager.getFileByEncryptedRemotePath(remotePath)
                 if (fileOnServer != null) {
-                    openConflictActivity(fileOnServer, item)
+                    helper.openConflictActivity(fileOnServer, item)
                 } else {
-                    displayFileNotFoundError(holder.itemView, fileActivity)
+                    displayFileNotFoundError(holder.itemView, activity)
                 }
             }
         }
@@ -664,7 +672,7 @@ class UploadListAdapter(
         status: String?,
         view: View?
     ) {
-        PopupMenu(fileActivity, view).apply {
+        PopupMenu(activity, view).apply {
             inflate(R.menu.upload_list_item_file_conflict)
             setOnMenuItemClickListener { menuItem ->
                 if (menuItem.itemId == R.id.action_upload_list_resolve_conflict) {
@@ -695,75 +703,12 @@ class UploadListAdapter(
             true,
             storageManager,
             user,
-            fileActivity
+            activity
         )
-            .execute(user, fileActivity, { caller, result ->
+            .execute(user, activity, { caller, result ->
                 view.binding.uploadListItemLayout.isClickable = true
                 listener.onRemoteOperationFinish(caller, result)
-            }, parentActivity.handler)
-    }
-
-    private fun openConflictActivity(file: OCFile, upload: OCUpload) {
-        file.setStoragePath(upload.localPath)
-        val user = accountManager.getUser(upload.accountName)
-        if (user.isPresent) {
-            val intent = ConflictsResolveActivity.Companion.createIntent(
-                file,
-                user.get(),
-                upload.uploadId,
-                Intent.FLAG_ACTIVITY_NEW_TASK,
-                fileActivity
-            )
-            fileActivity.startActivity(intent)
-        }
-    }
-
-    /**
-     * Gets the status text to show to the user according to the status and last result of the the given upload.
-     *
-     * @param upload Upload to describe.
-     * @return Text describing the status of the given upload.
-     */
-    private fun getStatusText(upload: OCUpload): String {
-        val status: String
-        val res = parentActivity.getResources()
-        val prefs = parentActivity.appPreferences
-        when (val uploadStatus = upload.uploadStatus) {
-            UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS -> {
-                status = if (prefs.isGlobalUploadPaused()) {
-                    res.getString(R.string.upload_global_pause_title)
-                } else if (uploadHelper.isUploadingNow(upload)) {
-                    res.getString(R.string.uploader_upload_in_progress_ticker)
-                } else {
-                    res.getString(R.string.uploads_view_later_waiting_to_upload)
-                }
-            }
-
-            UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED -> {
-                val result = upload.lastResult
-                status = if (result == UploadResult.SAME_FILE_CONFLICT) {
-                    res.getString(R.string.uploads_view_upload_status_succeeded_same_file)
-                } else if (result == UploadResult.FILE_NOT_FOUND) {
-                    result.getFailedStatusText(fileActivity)
-                } else if (upload.nameCollisionPolicy == NameCollisionPolicy.SKIP) {
-                    res.getString(R.string.uploads_view_upload_status_skip_reason)
-                } else {
-                    res.getString(R.string.uploads_view_upload_status_succeeded)
-                }
-            }
-
-            UploadsStorageManager.UploadStatus.UPLOAD_FAILED ->
-                status =
-                    upload.lastResult.getFailedStatusText(fileActivity)
-
-            UploadsStorageManager.UploadStatus.UPLOAD_CANCELLED ->
-                status =
-                    res.getString(R.string.upload_manually_cancelled)
-
-            else -> status = "Uncontrolled status: $uploadStatus"
-        }
-
-        return status
+            }, activity.handler)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder =
@@ -779,97 +724,46 @@ class UploadListAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun loadUploadItemsFromDb(onCompleted: Runnable) {
-        parentActivity.user.ifPresent { user ->
-            val accountName = user.accountName
-            val optionalCapabilities = parentActivity.capabilities
-            if (!optionalCapabilities.isPresent) return@ifPresent
-            val capabilities = optionalCapabilities.get()
+        val optionalUser = activity.user
+        if (optionalUser.isEmpty) {
+            return
+        }
+        val accountName = optionalUser.get().accountName
 
-            uploadListSections.indices.forEach { i ->
-                val sec = uploadListSections[i]
-                uploadHelper.getUploadsByStatus(
-                    accountName,
-                    sec.status!!,
-                    capabilities,
-                    sec.collisionPolicy
-                ) { uploads ->
-                    uploads.forEach { it.setDataFixed(uploadHelper) }
-                    uploadListSections[i] = sec.withItems(uploads.sortedByUploadOrder())
-                    parentActivity.runOnUiThread {
-                        notifyDataSetChanged()
-                        onCompleted.run()
-                    }
+        val optionalCapabilities = activity.capabilities
+        if (optionalCapabilities.isEmpty) {
+            return
+        }
+        val capabilities = optionalCapabilities.get()
+
+        uploadListSections.indices.forEach { i ->
+            val sec = uploadListSections[i]
+            uploadHelper.getUploadsByStatus(
+                accountName,
+                sec.status!!,
+                capabilities,
+                sec.collisionPolicy
+            ) { uploads ->
+                uploads.forEach { it.setDataFixed(uploadHelper) }
+                uploadListSections[i] = sec.withItems(uploads.sortedByUploadOrder())
+                activity.runOnUiThread {
+                    notifyDataSetChanged()
+                    onCompleted.run()
                 }
             }
         }
     }
 
-    /**
-     * Open local file.
-     */
-    private fun onUploadingItemClick(file: OCUpload) {
-        val f = File(file.localPath)
-        if (!f.exists()) {
-            DisplayUtils.showSnackMessage(parentActivity, R.string.local_file_not_found_message)
-        } else {
-            openFileWithDefault(file.localPath)
-        }
-    }
-
-    /**
-     * Open remote file.
-     */
-    private fun onUploadedItemClick(upload: OCUpload) {
-        val file = parentActivity.storageManager.getFileByEncryptedRemotePath(upload.remotePath)
-        if (file == null) {
-            DisplayUtils.showSnackMessage(parentActivity, R.string.error_retrieving_file)
-            Log_OC.i(TAG, "Could not find uploaded file on remote.")
-            return
-        }
-
-        val optionalUser = parentActivity.user
-
-        if (PreviewImageFragment.canBePreviewed(file) && optionalUser.isPresent) {
-            // show image preview and stay in uploads tab
-            val intent = FileDisplayActivity.openFileIntent(parentActivity, optionalUser.get(), file)
-            parentActivity.startActivity(intent)
-        } else {
-            val intent = Intent(parentActivity, FileDisplayActivity::class.java)
-            intent.setAction(Intent.ACTION_VIEW)
-            intent.putExtra(FileDisplayActivity.Companion.KEY_FILE_PATH, upload.remotePath)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            parentActivity.startActivity(intent)
-        }
-    }
-
-    /**
-     * Open file with app associates with its MIME type. If MIME type unknown, show list with all apps.
-     */
-    private fun openFileWithDefault(localPath: String) {
-        var mimetype = MimeTypeUtil.getBestMimeTypeByFilename(localPath)
-        if (mimetype == "application/octet-stream") mimetype = "*/*"
-        try {
-            parentActivity.startActivity(
-                Intent(Intent.ACTION_VIEW).apply {
-                    setDataAndType(Uri.fromFile(File(localPath)), mimetype)
-                }
-            )
-        } catch (e: ActivityNotFoundException) {
-            DisplayUtils.showSnackMessage(parentActivity, R.string.file_list_no_app_for_file_type)
-            Log_OC.i(TAG, "Could not find app for sending log history: $e")
-        }
-    }
-
     fun cancelOldErrorNotification(upload: OCUpload?) {
-        if (mNotificationManager == null) {
-            mNotificationManager = parentActivity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
+        if (notificationManager == null) {
+            notificationManager = activity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
         }
 
         if (upload == null) {
             return
         }
 
-        mNotificationManager!!.cancel(upload.uploadId.toInt())
+        notificationManager?.cancel(upload.uploadId.toInt())
     }
 
     companion object {
