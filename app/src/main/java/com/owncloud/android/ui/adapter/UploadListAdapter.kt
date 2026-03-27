@@ -14,7 +14,6 @@ import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
@@ -32,7 +31,6 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.cancelUpload
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.sortedByUploadOrder
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadListHeaderBinding
 import com.owncloud.android.databinding.UploadListItemBinding
@@ -66,8 +64,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.function.Consumer
-import java.util.function.Supplier
 
+@Suppress("TooManyFunctions", "LargeClass", "LongParameterList", "NestedBlockDepth", "MaxLineLength", "ReturnCount")
 class UploadListAdapter(
     private val fileActivity: FileActivity,
     private val uploadsStorageManager: UploadsStorageManager,
@@ -91,11 +89,9 @@ class UploadListAdapter(
 
     internal enum class Type { CURRENT, COMPLETED, FAILED, CANCELLED, SKIPPED }
 
-    internal class HeaderViewHolder(val binding: UploadListHeaderBinding) :
-        SectionedViewHolder(binding.root)
+    internal class HeaderViewHolder(val binding: UploadListHeaderBinding) : SectionedViewHolder(binding.root)
 
-    internal class ItemViewHolder(val binding: UploadListItemBinding) :
-        SectionedViewHolder(binding.root)
+    internal class ItemViewHolder(val binding: UploadListItemBinding) : SectionedViewHolder(binding.root)
 
     private val sections: MutableList<Section> = ArrayList<Section>(
         listOf(
@@ -104,7 +100,7 @@ class UploadListAdapter(
                 R.string.uploads_view_group_current_uploads,
                 UploadStatus.UPLOAD_IN_PROGRESS,
                 null,
-                listOf(),
+                listOf()
             ),
             Section(
                 Type.FAILED,
@@ -148,13 +144,9 @@ class UploadListAdapter(
         shouldShowHeadersForEmptySections(false)
     }
 
-    override fun getSectionCount(): Int {
-        return sections.size
-    }
+    override fun getSectionCount(): Int = sections.size
 
-    override fun getItemCount(section: Int): Int {
-        return sections[section].items.size
-    }
+    override fun getItemCount(section: Int): Int = sections[section].items.size
 
     // region header
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder?, section: Int, expanded: Boolean) {
@@ -185,7 +177,7 @@ class UploadListAdapter(
     private fun bindHeaderActionButton(holder: HeaderViewHolder, group: Section) {
         val iconRes = when (group.type) {
             Type.CURRENT, Type.COMPLETED -> R.drawable.ic_close
-            Type.CANCELLED, Type.FAILED  -> R.drawable.ic_dots_vertical
+            Type.CANCELLED, Type.FAILED -> R.drawable.ic_dots_vertical
             else -> return
         }
         holder.binding.uploadListAction.setImageResource(iconRes)
@@ -200,10 +192,17 @@ class UploadListAdapter(
     private fun bindHeaderActionClickListener(holder: HeaderViewHolder, group: Section) {
         holder.binding.uploadListAction.setOnClickListener {
             when (group.type) {
-                Type.CURRENT   -> cancelAllCurrentUploads(group)
-                Type.COMPLETED -> { uploadsStorageManager.clearSuccessfulUploads(); loadUploadItemsFromDb {} }
-                Type.FAILED    -> showFailedPopupMenu(holder)
+                Type.CURRENT -> cancelAllCurrentUploads(group)
+
+                Type.COMPLETED -> {
+                    uploadsStorageManager.clearSuccessfulUploads()
+                    loadUploadItemsFromDb {}
+                }
+
+                Type.FAILED -> showFailedPopupMenu(holder)
+
                 Type.CANCELLED -> showCancelledPopupMenu(holder)
+
                 else -> {}
             }
         }
@@ -236,9 +235,13 @@ class UploadListAdapter(
                         clearTempEncryptedFolder()
                         loadUploadItemsFromDb {}
                     }
+
                     R.id.action_upload_list_failed_retry ->
                         uploadHelper.retryFailedUploads(
-                            uploadsStorageManager, connectivityService, accountManager, powerManagementService
+                            uploadsStorageManager,
+                            connectivityService,
+                            accountManager,
+                            powerManagementService
                         )
                 }
                 true
@@ -257,6 +260,7 @@ class UploadListAdapter(
                         loadUploadItemsFromDb {}
                         clearTempEncryptedFolder()
                     }
+
                     R.id.action_upload_list_cancelled_resume -> retryCancelledUploads()
                 }
                 true
@@ -267,14 +271,21 @@ class UploadListAdapter(
 
     private fun clearTempEncryptedFolder() {
         val user = parentActivity.user
-        user.ifPresent(Consumer { value: User? -> FileDataStorageManager.clearTempEncryptedFolder(value!!.accountName) })
+        user.ifPresent(
+            Consumer { value: User? ->
+                FileDataStorageManager.clearTempEncryptedFolder(value!!.accountName)
+            }
+        )
     }
 
     // FIXME For e2e resume is not working
     private fun retryCancelledUploads() {
         fileActivity.lifecycleScope.launch(Dispatchers.IO) {
             val showNotExistMessage = uploadHelper.retryCancelledUploads(
-                uploadsStorageManager, connectivityService, accountManager, powerManagementService
+                uploadsStorageManager,
+                connectivityService,
+                accountManager,
+                powerManagementService
             )
             if (showNotExistMessage) {
                 withContext(Dispatchers.Main) {
@@ -285,38 +296,31 @@ class UploadListAdapter(
     }
     // endregion
 
-    override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) = Unit
-
+    // region content
     override fun onBindViewHolder(
         holder: SectionedViewHolder?,
         section: Int,
         relativePosition: Int,
         absolutePosition: Int
     ) {
-        if (sections.isEmpty() || section < 0 || section >= sections.size) {
-            return
-        }
-
-        val sectionData = sections[section]
-        val item = sectionData.items[relativePosition]
-
+        if (sections.isEmpty() || section !in sections.indices) return
+        val item = sections[section].items[relativePosition]
         val itemViewHolder = holder as ItemViewHolder
-        itemViewHolder.binding.uploadName.text = item.localPath
 
-        // local file name
+        bindItemText(holder, item)
+        bindItemStatus(itemViewHolder, item)
+        bindItemActions(itemViewHolder, item)
+        bindItemThumbnail(itemViewHolder, item)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun bindItemText(holder: ItemViewHolder, item: OCUpload) {
         val remoteFile = File(item.remotePath)
-        var fileName = remoteFile.getName()
-        if (fileName.isEmpty()) {
-            fileName = File.separator
-        }
-        itemViewHolder.binding.uploadName.text = fileName
-
-        // remote path to parent folder
-        itemViewHolder.binding.uploadRemotePath.text = File(item.remotePath).getParent()
+        val fileName = remoteFile.name.takeIf { it.isNotEmpty() } ?: File.separator
+        holder.binding.uploadName.text = fileName
+        holder.binding.uploadRemotePath.text = File(item.remotePath).parent
 
         val updateTime = item.uploadEndTimestamp
-
-        // file size
         if (item.fileSize != 0L) {
             var fileSizeFormat = "%s "
 
@@ -327,305 +331,303 @@ class UploadListAdapter(
 
             val fileSizeInBytes = DisplayUtils.bytesToHumanReadable(item.fileSize)
             val uploadFileSize = String.format(fileSizeFormat, fileSizeInBytes)
-            itemViewHolder.binding.uploadFileSize.text = uploadFileSize
+            holder.binding.uploadFileSize.text = uploadFileSize
         } else {
-            itemViewHolder.binding.uploadFileSize.text = ""
+            holder.binding.uploadFileSize.text = ""
         }
 
-        // upload date
-        val showUploadDate =
-            (updateTime > 0 && item.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED && item.lastResult == UploadResult.UPLOADED)
-        itemViewHolder.binding.uploadDate.visibility = if (showUploadDate) View.VISIBLE else View.GONE
-        if (showUploadDate) {
-            val dateString = DisplayUtils.getRelativeDateTimeString(
+        bindItemDate(holder, item, updateTime)
+        bindItemAccount(holder, item)
+    }
+
+    private fun bindItemDate(holder: ItemViewHolder, item: OCUpload, updateTime: Long) {
+        val showDate = (
+            updateTime > 0 &&
+                item.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED &&
+                item.lastResult == UploadResult.UPLOADED
+            )
+
+        holder.binding.uploadDate.setVisibleIf(showDate)
+
+        if (showDate) {
+            holder.binding.uploadDate.text = DisplayUtils.getRelativeDateTimeString(
                 parentActivity,
                 updateTime,
                 DateUtils.MINUTE_IN_MILLIS,
                 DateUtils.WEEK_IN_MILLIS,
                 0
             )
-            itemViewHolder.binding.uploadDate.text = dateString
         }
+    }
 
-        // account
-        val optionalUser = accountManager.getUser(item.accountName)
+    private fun bindItemAccount(holder: ItemViewHolder, item: OCUpload) {
         if (showUser) {
-            itemViewHolder.binding.uploadAccount.visibility = View.VISIBLE
-            if (optionalUser.isPresent) {
-                itemViewHolder.binding.uploadAccount.text = DisplayUtils.getAccountNameDisplayText(optionalUser.get())
+            holder.binding.uploadAccount.visibility = View.VISIBLE
+            val optionalUser = accountManager.getUser(item.accountName)
+            holder.binding.uploadAccount.text = if (optionalUser.isPresent) {
+                DisplayUtils.getAccountNameDisplayText(optionalUser.get())
             } else {
-                itemViewHolder.binding.uploadAccount.text = item.accountName
+                item.accountName
             }
         } else {
-            itemViewHolder.binding.uploadAccount.visibility = View.GONE
+            holder.binding.uploadAccount.visibility = View.GONE
         }
+    }
 
-        // Reset fields visibility
-        itemViewHolder.binding.uploadRemotePath.visibility = View.VISIBLE
-        itemViewHolder.binding.uploadFileSize.visibility = View.VISIBLE
-        itemViewHolder.binding.uploadStatus.visibility = View.VISIBLE
-        itemViewHolder.binding.uploadProgressBar.visibility = View.GONE
+    private fun bindItemStatus(holder: ItemViewHolder, item: OCUpload) {
+        holder.binding.run {
+            uploadRemotePath.visibility = View.VISIBLE
+            uploadFileSize.visibility = View.VISIBLE
+            uploadStatus.visibility = View.VISIBLE
+            uploadProgressBar.visibility = View.GONE
 
-        // Update information depending of upload details
-        val status = getStatusText(item)
-        when (item.uploadStatus) {
-            UploadStatus.UPLOAD_IN_PROGRESS -> {
-                viewThemeUtils.platform.themeHorizontalProgressBar(itemViewHolder.binding.uploadProgressBar)
-                itemViewHolder.binding.uploadProgressBar.progress = 0
-                itemViewHolder.binding.uploadProgressBar.visibility = View.VISIBLE
+            val status = getStatusText(item)
+            when (item.uploadStatus) {
+                UploadStatus.UPLOAD_IN_PROGRESS -> bindItemInProgress(holder, item)
 
-                if (uploadHelper.isUploadingNow(item)) {
-                    // really uploading, so...
-                    // ... unbind the old progress bar, if any; ...
-                    if (uploadProgressListener != null) {
-                        val upload = uploadProgressListener!!.upload
-                        if (upload != null) {
-                            val targetKey = buildRemoteName(
-                                upload.accountName,
-                                upload.remotePath
-                            )
-                            uploadHelper.removeUploadTransferProgressListener(uploadProgressListener!!, targetKey)
+                UploadStatus.UPLOAD_SUCCEEDED,
+                UploadStatus.UPLOAD_CANCELLED -> uploadStatus.visibility = View.GONE
+
+                else -> {}
+            }
+
+            // Override visibility for edge cases
+            if ((item.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED && item.lastResult != UploadResult.UPLOADED) ||
+                item.uploadStatus == UploadStatus.UPLOAD_CANCELLED
+            ) {
+                uploadStatus.visibility = View.VISIBLE
+                uploadFileSize.visibility = View.GONE
+            }
+
+            uploadStatus.text = status
+        }
+    }
+
+    private fun bindItemInProgress(holder: ItemViewHolder, item: OCUpload) {
+        holder.binding.run {
+            viewThemeUtils.platform.themeHorizontalProgressBar(uploadProgressBar)
+            uploadProgressBar.progress = 0
+            uploadProgressBar.visibility = View.VISIBLE
+            uploadFileSize.visibility = View.GONE
+
+            if (uploadHelper.isUploadingNow(item)) {
+                uploadProgressListener?.upload?.let { prevUpload ->
+                    val key = buildRemoteName(prevUpload.accountName, prevUpload.remotePath)
+                    uploadHelper.removeUploadTransferProgressListener(uploadProgressListener!!, key)
+                }
+                uploadProgressListener = UploadProgressListener(item, uploadProgressBar)
+                uploadHelper.addUploadTransferProgressListener(
+                    uploadProgressListener!!,
+                    buildRemoteName(item.accountName, item.remotePath)
+                )
+            } else if (uploadProgressListener?.isWrapping(uploadProgressBar) == true) {
+                uploadProgressListener?.upload?.let { prevUpload ->
+                    val key = buildRemoteName(prevUpload.accountName, prevUpload.remotePath)
+                    uploadHelper.removeUploadTransferProgressListener(uploadProgressListener!!, key)
+                    uploadProgressListener = null
+                }
+            }
+
+            uploadProgressBar.invalidate()
+        }
+    }
+
+    private fun bindItemActions(holder: ItemViewHolder, item: OCUpload) {
+        holder.binding.run {
+            val optionalUser = accountManager.getUser(item.accountName)
+            val status = getStatusText(item)
+
+            // Right-side button
+            when (item.uploadStatus) {
+                UploadStatus.UPLOAD_IN_PROGRESS -> {
+                    uploadRightButton.run {
+                        setImageResource(R.drawable.ic_action_cancel_grey)
+                        visibility = View.VISIBLE
+                        setOnClickListener {
+                            uploadHelper.updateUploadStatus(
+                                item.remotePath,
+                                item.accountName,
+                                UploadStatus.UPLOAD_CANCELLED
+                            ) {
+                                cancelUpload(item.remotePath, item.accountName) { loadUploadItemsFromDb {} }
+                            }
                         }
                     }
-                    // ... then, bind the current progress bar to listen for updates
-                    uploadProgressListener = UploadProgressListener(item, itemViewHolder.binding.uploadProgressBar)
-                    val targetKey = buildRemoteName(item.accountName, item.remotePath)
-                    uploadHelper.addUploadTransferProgressListener(uploadProgressListener!!, targetKey)
-                } else {
-                    // not really uploading; stop listening progress if view is reused!
-                    if (uploadProgressListener != null &&
-                        uploadProgressListener!!.isWrapping(itemViewHolder.binding.uploadProgressBar)
-                    ) {
-                        val upload = uploadProgressListener!!.upload
-                        if (upload != null) {
-                            val targetKey = buildRemoteName(
-                                upload.accountName,
-                                upload.remotePath
-                            )
-                            uploadHelper.removeUploadTransferProgressListener(uploadProgressListener!!, targetKey)
-                            uploadProgressListener = null
-                        }
-                    }
                 }
 
-                itemViewHolder.binding.uploadFileSize.visibility = View.GONE
-                itemViewHolder.binding.uploadProgressBar.invalidate()
-            }
-
-            UploadStatus.UPLOAD_FAILED -> {
-            }
-
-            UploadStatus.UPLOAD_SUCCEEDED, UploadStatus.UPLOAD_CANCELLED -> itemViewHolder.binding.uploadStatus.visibility =
-                View.GONE
-        }
-
-        // show status if same file conflict or local file deleted or upload cancelled
-        if ((item.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED && item.lastResult != UploadResult.UPLOADED)
-            || item.uploadStatus == UploadStatus.UPLOAD_CANCELLED
-        ) {
-            itemViewHolder.binding.uploadStatus.visibility = View.VISIBLE
-            itemViewHolder.binding.uploadFileSize.visibility = View.GONE
-        }
-
-        itemViewHolder.binding.uploadStatus.text = status
-
-        // bind listeners to perform actions
-        if (item.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS) {
-            // Cancel
-            itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_cancel_grey)
-            itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE)
-            itemViewHolder.binding.uploadRightButton.setOnClickListener {
-                uploadHelper.updateUploadStatus(
-                    item.remotePath,
-                    item.accountName,
-                    UploadStatus.UPLOAD_CANCELLED
-                ) {
-                    cancelUpload(item.remotePath, item.accountName) {
-                        loadUploadItemsFromDb {}
-                    }
-                }
-            }
-        } else if (item.uploadStatus == UploadStatus.UPLOAD_FAILED) {
-            if (item.lastResult == UploadResult.SYNC_CONFLICT) {
-                itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_dots_vertical)
-                itemViewHolder.binding.uploadRightButton.setOnClickListener { view: View? ->
-                    optionalUser.ifPresent(
-                        Consumer { user: User? -> showItemConflictPopup(user, itemViewHolder, item, status, view) })
-                }
-            } else {
-                // Delete
-                itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_delete_grey)
-                itemViewHolder.binding.uploadRightButton.setOnClickListener {
-                    removeUpload(
-                        item
-                    )
-                }
-            }
-            itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE)
-        } else {    // UploadStatus.UPLOAD_SUCCEEDED
-            itemViewHolder.binding.uploadRightButton.setVisibility(View.INVISIBLE)
-        }
-
-        itemViewHolder.binding.uploadListItemLayout.setOnClickListener(null)
-
-        // Set icon or thumbnail
-        itemViewHolder.binding.thumbnail.setImageResource(R.drawable.file)
-
-        // click on item
-        if (item.uploadStatus == UploadStatus.UPLOAD_FAILED ||
-            item.uploadStatus == UploadStatus.UPLOAD_CANCELLED
-        ) {
-            val uploadResult = item.lastResult
-            itemViewHolder.binding.uploadListItemLayout.setOnClickListener { v: View? ->
-                if (uploadResult == UploadResult.CREDENTIAL_ERROR) {
-                    val optUser = accountManager.getUser(item.accountName)
-                    val user = optUser.orElseThrow(Supplier { RuntimeException() })
-                    parentActivity.fileOperationsHelper.checkCurrentCredentials(user)
-                    return@setOnClickListener
-                } else if (uploadResult == UploadResult.SYNC_CONFLICT && optionalUser.isPresent) {
-                    val user = optionalUser.get()
-                    if (checkAndOpenConflictResolutionDialog(user, itemViewHolder, item, status)) {
-                        return@setOnClickListener
-                    }
-                }
-                // not a credentials error
-                val file = File(item.localPath)
-                val user = accountManager.getUser(item.accountName)
-                if (file.exists() && user.isPresent) {
-                    uploadHelper.retryUpload(item, user.get())
-                } else {
-                    DisplayUtils.showSnackMessage(
-                        v!!.getRootView().findViewById(android.R.id.content),
-                        R.string.local_file_not_found_message
-                    )
-                }
-            }
-        } else if (item.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED) {
-            itemViewHolder.binding.uploadListItemLayout.setOnClickListener {
-                onUploadedItemClick(
-                    item
-                )
-            }
-        }
-
-        // click on thumbnail to open locally
-        if (item.uploadStatus != UploadStatus.UPLOAD_SUCCEEDED) {
-            itemViewHolder.binding.thumbnail.setOnClickListener {
-                onUploadingItemClick(
-                    item
-                )
-            }
-        }
-
-        /*
-         * Cancellation needs do be checked and done before changing the drawable in fileIcon, or
-         * {@link ThumbnailsCacheManager#cancelPotentialWork} will NEVER cancel any task.
-         */
-        val fakeFileToCheatThumbnailsCacheManagerInterface = OCFile(item.remotePath)
-        fakeFileToCheatThumbnailsCacheManagerInterface.setStoragePath(item.localPath)
-        fakeFileToCheatThumbnailsCacheManagerInterface.mimeType = item.mimeType
-
-        val allowedToCreateNewThumbnail = ThumbnailsCacheManager.cancelPotentialThumbnailWork(
-            fakeFileToCheatThumbnailsCacheManagerInterface, itemViewHolder.binding.thumbnail
-        )
-
-        // TODO this code is duplicated; refactor to a common place
-        if (MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)
-            && fakeFileToCheatThumbnailsCacheManagerInterface.remoteId != null && item.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED
-        ) {
-            // Thumbnail in Cache?
-
-            val cacheKey = fakeFileToCheatThumbnailsCacheManagerInterface.remoteId.toString()
-            var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
-
-            if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.isUpdateThumbnailNeeded) {
-                itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail)
-            } else {
-                // generate new Thumbnail
-                val user = parentActivity.user
-                if (allowedToCreateNewThumbnail && user.isPresent) {
-                    val task =
-                        ThumbnailGenerationTask(
-                            itemViewHolder.binding.thumbnail,
-                            parentActivity.storageManager,
-                            user.get()
-                        )
-                    if (thumbnail == null) {
-                        if (MimeTypeUtil.isVideo(fakeFileToCheatThumbnailsCacheManagerInterface)) {
-                            thumbnail = ThumbnailsCacheManager.mDefaultVideo
+                UploadStatus.UPLOAD_FAILED -> {
+                    uploadRightButton.run {
+                        if (item.lastResult == UploadResult.SYNC_CONFLICT) {
+                            setImageResource(R.drawable.ic_dots_vertical)
+                            setOnClickListener { view ->
+                                optionalUser.ifPresent { user ->
+                                    showItemConflictPopup(user, holder, item, status, view)
+                                }
+                            }
                         } else {
-                            thumbnail = ThumbnailsCacheManager.mDefaultImg
+                            setImageResource(R.drawable.ic_action_delete_grey)
+                            setOnClickListener { removeUpload(item) }
                         }
+                        visibility = View.VISIBLE
                     }
-                    val asyncDrawable =
-                        AsyncThumbnailDrawable(
-                            parentActivity.getResources(),
-                            thumbnail,
-                            task
-                        )
-                    itemViewHolder.binding.thumbnail.setImageDrawable(asyncDrawable)
-                    task.execute(
-                        ThumbnailGenerationTaskObject(
-                            fakeFileToCheatThumbnailsCacheManagerInterface, null
-                        )
-                    )
+                }
+
+                else -> uploadRightButton.visibility = View.INVISIBLE
+            }
+
+            // Row click
+            uploadListItemLayout.run {
+                setOnClickListener(null)
+                when (item.uploadStatus) {
+                    UploadStatus.UPLOAD_FAILED, UploadStatus.UPLOAD_CANCELLED ->
+                        setOnClickListener {
+                            onFailedOrCancelledItemClick(item, optionalUser, holder, status)
+                        }
+
+                    UploadStatus.UPLOAD_SUCCEEDED ->
+                        setOnClickListener { onUploadedItemClick(item) }
+
+                    else -> {}
                 }
             }
 
-            if ("image/png" == item.mimeType) {
-                val backgroundColor = ContextCompat.getColor(parentActivity, R.color.bg_default)
-                itemViewHolder.binding.thumbnail.setBackgroundColor(backgroundColor)
-            }
-        } else if (MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)) {
-            val file = File(item.localPath)
-            var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.hashCode().toString())
-
-            if (thumbnail != null) {
-                itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail)
-            } else if (allowedToCreateNewThumbnail) {
-                getThumbnailFromFileTypeAndSetIcon(item.localPath, itemViewHolder)
-
-                val task =
-                    ThumbnailGenerationTask(itemViewHolder.binding.thumbnail)
-
-                if (MimeTypeUtil.isVideo(file)) {
-                    thumbnail = ThumbnailsCacheManager.mDefaultVideo
-                } else {
-                    thumbnail = ThumbnailsCacheManager.mDefaultImg
-                }
-
-                val asyncDrawable =
-                    AsyncThumbnailDrawable(parentActivity.getResources(), thumbnail, task)
-                task.execute(ThumbnailGenerationTaskObject(file, null))
-                task.setListener(object : ThumbnailGenerationTask.Listener {
-                    override fun onSuccess() {
-                        itemViewHolder.binding.thumbnail.setImageDrawable(asyncDrawable)
-                    }
-
-                    override fun onError() {
-                        getThumbnailFromFileTypeAndSetIcon(item.localPath, itemViewHolder)
-                    }
-                })
-
-                Log_OC.v(TAG, "Executing task to generate a new thumbnail")
-            }
-
-            if ("image/png".equals(item.mimeType, ignoreCase = true)) {
-                val backgroundColor = ContextCompat.getColor(parentActivity, R.color.bg_default)
-                itemViewHolder.binding.thumbnail.setBackgroundColor(backgroundColor)
-            }
-        } else {
-            if (optionalUser.isPresent) {
-                val icon = MimeTypeUtil.getFileTypeIcon(
-                    item.mimeType,
-                    fileName,
-                    parentActivity,
-                    viewThemeUtils
-                )
-                itemViewHolder.binding.thumbnail.setImageDrawable(icon)
+            // Thumbnail click to open locally
+            if (item.uploadStatus != UploadStatus.UPLOAD_SUCCEEDED) {
+                thumbnail.setOnClickListener { onUploadingItemClick(item) }
             }
         }
     }
+
+    private fun onFailedOrCancelledItemClick(
+        item: OCUpload,
+        optionalUser: java.util.Optional<User>,
+        holder: ItemViewHolder,
+        status: String
+    ) {
+        when (item.lastResult) {
+            UploadResult.CREDENTIAL_ERROR -> {
+                val user = optionalUser.orElseThrow { RuntimeException() }
+                parentActivity.fileOperationsHelper.checkCurrentCredentials(user)
+            }
+
+            UploadResult.SYNC_CONFLICT if optionalUser.isPresent -> {
+                if (checkAndOpenConflictResolutionDialog(optionalUser.get(), holder, item, status)) return
+                retryOrShowError(item)
+            }
+
+            else -> retryOrShowError(item)
+        }
+    }
+
+    private fun retryOrShowError(item: OCUpload) {
+        val file = File(item.localPath)
+        val user = accountManager.getUser(item.accountName)
+        if (file.exists() && user.isPresent) {
+            uploadHelper.retryUpload(item, user.get())
+        } else {
+            DisplayUtils.showSnackMessage(
+                fileActivity,
+                R.string.local_file_not_found_message
+            )
+        }
+    }
+
+    private fun bindItemThumbnail(holder: ItemViewHolder, item: OCUpload) {
+        holder.binding.thumbnail.setImageResource(R.drawable.file)
+
+        val fakeFile = OCFile(item.remotePath).apply {
+            setStoragePath(item.localPath)
+            mimeType = item.mimeType
+        }
+
+        val allowedToCreateNewThumbnail =
+            ThumbnailsCacheManager.cancelPotentialThumbnailWork(fakeFile, holder.binding.thumbnail)
+
+        val optionalUser = accountManager.getUser(item.accountName)
+        val fileName = File(item.remotePath).name.takeIf { it.isNotEmpty() } ?: File.separator
+
+        when {
+            MimeTypeUtil.isImage(fakeFile) && fakeFile.remoteId != null &&
+                item.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED ->
+                bindRemoteThumbnail(holder, item, fakeFile, allowedToCreateNewThumbnail)
+
+            MimeTypeUtil.isImage(fakeFile) ->
+                bindLocalThumbnail(holder, item, allowedToCreateNewThumbnail)
+
+            optionalUser.isPresent -> {
+                val icon = MimeTypeUtil.getFileTypeIcon(item.mimeType, fileName, parentActivity, viewThemeUtils)
+                holder.binding.thumbnail.setImageDrawable(icon)
+            }
+        }
+    }
+
+    private fun bindRemoteThumbnail(
+        holder: ItemViewHolder,
+        item: OCUpload,
+        fakeFile: OCFile,
+        allowedToCreateNewThumbnail: Boolean
+    ) {
+        val cacheKey = fakeFile.remoteId.toString()
+        var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
+
+        if (thumbnail != null && !fakeFile.isUpdateThumbnailNeeded) {
+            holder.binding.thumbnail.setImageBitmap(thumbnail)
+        } else if (allowedToCreateNewThumbnail) {
+            val user = parentActivity.user
+            if (user.isPresent) {
+                val task = ThumbnailGenerationTask(holder.binding.thumbnail, parentActivity.storageManager, user.get())
+                thumbnail = thumbnail ?: if (MimeTypeUtil.isVideo(fakeFile)) {
+                    ThumbnailsCacheManager.mDefaultVideo
+                } else {
+                    ThumbnailsCacheManager.mDefaultImg
+                }
+                holder.binding.thumbnail.setImageDrawable(
+                    AsyncThumbnailDrawable(parentActivity.resources, thumbnail, task)
+                )
+                task.execute(ThumbnailGenerationTaskObject(fakeFile, null))
+            }
+        }
+
+        if (item.mimeType == "image/png") {
+            holder.binding.thumbnail.setBackgroundColor(ContextCompat.getColor(parentActivity, R.color.bg_default))
+        }
+    }
+
+    private fun bindLocalThumbnail(holder: ItemViewHolder, item: OCUpload, allowedToCreateNewThumbnail: Boolean) {
+        val file = File(item.localPath)
+        val thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.hashCode().toString())
+
+        if (thumbnail != null) {
+            holder.binding.thumbnail.setImageBitmap(thumbnail)
+        } else if (allowedToCreateNewThumbnail) {
+            getThumbnailFromFileTypeAndSetIcon(item.localPath, holder)
+            val task = ThumbnailGenerationTask(holder.binding.thumbnail)
+            val defaultThumbnail = if (MimeTypeUtil.isVideo(file)) {
+                ThumbnailsCacheManager.mDefaultVideo
+            } else {
+                ThumbnailsCacheManager.mDefaultImg
+            }
+            val asyncDrawable = AsyncThumbnailDrawable(parentActivity.resources, defaultThumbnail, task)
+            task.execute(ThumbnailGenerationTaskObject(file, null))
+            task.setListener(object : ThumbnailGenerationTask.Listener {
+                override fun onSuccess() {
+                    holder.binding.thumbnail.setImageDrawable(asyncDrawable)
+                }
+
+                override fun onError() {
+                    getThumbnailFromFileTypeAndSetIcon(item.localPath, holder)
+                }
+            })
+            Log_OC.v(TAG, "Executing task to generate a new thumbnail")
+        }
+
+        if (item.mimeType.equals("image/png", ignoreCase = true)) {
+            holder.binding.thumbnail.setBackgroundColor(ContextCompat.getColor(parentActivity, R.color.bg_default))
+        }
+    }
+    // endregion
+
+    override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) = Unit
 
     private fun getThumbnailFromFileTypeAndSetIcon(localPath: String?, itemViewHolder: ItemViewHolder) {
         val drawable = MimeTypeUtil.getIcon(localPath, parentActivity, viewThemeUtils) ?: return
@@ -663,25 +665,25 @@ class UploadListAdapter(
     }
 
     private fun refreshFolderAndUpdateUI(
-        holder: ItemViewHolder, user: User?, folder: OCFile?, remotePath: String?,
-        item: OCUpload, status: String?
+        holder: ItemViewHolder,
+        user: User?,
+        folder: OCFile?,
+        remotePath: String?,
+        item: OCUpload,
+        status: String?
     ) {
-        val context = MainApp.getAppContext()
-
-        this.refreshFolder(
-            context,
+        refreshFolder(
             holder,
             user,
             folder
         ) { _: RemoteOperation<*>?, result: RemoteOperationResult<*>? ->
             holder.binding.uploadStatus.text = status
-            if (result!!.isSuccess) {
+            if (result?.isSuccess == true) {
                 val fileOnServer = storageManager.getFileByEncryptedRemotePath(remotePath)
-
                 if (fileOnServer != null) {
                     openConflictActivity(fileOnServer, item)
                 } else {
-                    displayFileNotFoundError(holder.itemView, context)
+                    displayFileNotFoundError(holder.itemView, fileActivity)
                 }
             }
         }
@@ -694,23 +696,23 @@ class UploadListAdapter(
 
     private fun showItemConflictPopup(
         user: User?,
-        itemViewHolder: ItemViewHolder,
+        holder: ItemViewHolder,
         item: OCUpload,
         status: String?,
         view: View?
     ) {
-        val popup = PopupMenu(MainApp.getAppContext(), view)
-        popup.inflate(R.menu.upload_list_item_file_conflict)
-        popup.setOnMenuItemClickListener { i: MenuItem? ->
-            val itemId = i!!.itemId
-            if (itemId == R.id.action_upload_list_resolve_conflict) {
-                checkAndOpenConflictResolutionDialog(user, itemViewHolder, item, status)
-            } else {
-                removeUpload(item)
+        PopupMenu(fileActivity, view).apply {
+            inflate(R.menu.upload_list_item_file_conflict)
+            setOnMenuItemClickListener { menuItem ->
+                if (menuItem.itemId == R.id.action_upload_list_resolve_conflict) {
+                    checkAndOpenConflictResolutionDialog(user, holder, item, status)
+                } else {
+                    removeUpload(item)
+                }
+                true
             }
-            true
+            show()
         }
-        popup.show()
     }
 
     fun removeUpload(item: OCUpload?) {
@@ -719,13 +721,7 @@ class UploadListAdapter(
         loadUploadItemsFromDb {}
     }
 
-    private fun refreshFolder(
-        context: Context?,
-        view: ItemViewHolder,
-        user: User?,
-        folder: OCFile?,
-        listener: OnRemoteOperationListener
-    ) {
+    private fun refreshFolder(view: ItemViewHolder, user: User?, folder: OCFile?, listener: OnRemoteOperationListener) {
         view.binding.uploadListItemLayout.isClickable = false
         view.binding.uploadStatus.setText(R.string.uploads_view_upload_status_fetching_server_version)
         RefreshFolderOperation(
@@ -736,23 +732,16 @@ class UploadListAdapter(
             true,
             storageManager,
             user,
-            context
+            fileActivity
         )
-            .execute(
-                user,
-                context,
-                { caller: RemoteOperation<*>?, result: RemoteOperationResult<*>? ->
-                    view.binding.uploadListItemLayout.isClickable = true
-                    listener.onRemoteOperationFinish(caller, result)
-                },
-                parentActivity.handler
-            )
+            .execute(user, fileActivity, { caller, result ->
+                view.binding.uploadListItemLayout.isClickable = true
+                listener.onRemoteOperationFinish(caller, result)
+            }, parentActivity.handler)
     }
 
     private fun openConflictActivity(file: OCFile, upload: OCUpload) {
         file.setStoragePath(upload.localPath)
-
-        val context = MainApp.getAppContext()
         val user = accountManager.getUser(upload.accountName)
         if (user.isPresent) {
             val intent = createIntent(
@@ -760,99 +749,127 @@ class UploadListAdapter(
                 user.get(),
                 upload.uploadId,
                 Intent.FLAG_ACTIVITY_NEW_TASK,
-                context
+                fileActivity
             )
-
-            context.startActivity(intent)
+            fileActivity.startActivity(intent)
         }
     }
 
     /**
      * Gets the status text to show to the user according to the status and last result of the the given upload.
-     * 
+     *
      * @param upload Upload to describe.
      * @return Text describing the status of the given upload.
      */
     private fun getStatusText(upload: OCUpload): String {
         val status: String
-        val statusRes = parentActivity.getResources()
+        val res = parentActivity.getResources()
         val prefs = parentActivity.appPreferences
-        val uploadStatus = upload.uploadStatus
-
-        when (uploadStatus) {
+        when (val uploadStatus = upload.uploadStatus) {
             UploadStatus.UPLOAD_IN_PROGRESS -> {
                 status = if (prefs.isGlobalUploadPaused()) {
-                    statusRes.getString(R.string.upload_global_pause_title)
+                    res.getString(R.string.upload_global_pause_title)
                 } else if (uploadHelper.isUploadingNow(upload)) {
-                    statusRes.getString(R.string.uploader_upload_in_progress_ticker)
+                    res.getString(R.string.uploader_upload_in_progress_ticker)
                 } else {
-                    statusRes.getString(R.string.uploads_view_later_waiting_to_upload)
+                    res.getString(R.string.uploads_view_later_waiting_to_upload)
                 }
             }
 
             UploadStatus.UPLOAD_SUCCEEDED -> {
                 val result = upload.lastResult
                 status = if (result == UploadResult.SAME_FILE_CONFLICT) {
-                    statusRes.getString(R.string.uploads_view_upload_status_succeeded_same_file)
+                    res.getString(R.string.uploads_view_upload_status_succeeded_same_file)
                 } else if (result == UploadResult.FILE_NOT_FOUND) {
                     getUploadFailedStatusText(result)
                 } else if (upload.nameCollisionPolicy == NameCollisionPolicy.SKIP) {
-                    statusRes.getString(R.string.uploads_view_upload_status_skip_reason)
+                    res.getString(R.string.uploads_view_upload_status_skip_reason)
                 } else {
-                    statusRes.getString(R.string.uploads_view_upload_status_succeeded)
+                    res.getString(R.string.uploads_view_upload_status_succeeded)
                 }
             }
 
             UploadStatus.UPLOAD_FAILED -> status = getUploadFailedStatusText(upload.lastResult)
-            UploadStatus.UPLOAD_CANCELLED -> status = statusRes.getString(R.string.upload_manually_cancelled)
+
+            UploadStatus.UPLOAD_CANCELLED -> status = res.getString(R.string.upload_manually_cancelled)
+
             else -> status = "Uncontrolled status: $uploadStatus"
         }
 
         return status
     }
 
-    private fun getUploadFailedStatusText(result: UploadResult): String {
-        return when (result) {
-            UploadResult.CREDENTIAL_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_credentials_error)
-            UploadResult.FOLDER_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_folder_error)
-            UploadResult.FILE_NOT_FOUND -> parentActivity.getString(R.string.uploads_view_upload_status_failed_localfile_error)
-            UploadResult.FILE_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_file_error)
-            UploadResult.PRIVILEGES_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_permission_error)
-            UploadResult.NETWORK_CONNECTION -> parentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error)
-            UploadResult.DELAYED_FOR_WIFI -> parentActivity.getString(R.string.uploads_view_upload_status_waiting_for_wifi)
-            UploadResult.DELAYED_FOR_CHARGING -> parentActivity.getString(R.string.uploads_view_upload_status_waiting_for_charging)
-            UploadResult.CONFLICT_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_conflict)
-            UploadResult.SERVICE_INTERRUPTED -> parentActivity.getString(R.string.uploads_view_upload_status_service_interrupted)
-            UploadResult.CANCELLED ->  // should not get here ; cancelled uploads should be wiped out
-                parentActivity.getString(R.string.uploads_view_upload_status_cancelled)
+    private fun getUploadFailedStatusText(result: UploadResult): String = when (result) {
+        UploadResult.CREDENTIAL_ERROR ->
+            parentActivity.getString(R.string.uploads_view_upload_status_failed_credentials_error)
 
-            UploadResult.UPLOADED ->  // should not get here ; status should be UPLOAD_SUCCESS
-                parentActivity.getString(R.string.uploads_view_upload_status_succeeded)
+        UploadResult.FOLDER_ERROR ->
+            parentActivity.getString(R.string.uploads_view_upload_status_failed_folder_error)
 
-            UploadResult.MAINTENANCE_MODE -> parentActivity.getString(R.string.maintenance_mode)
-            UploadResult.SSL_RECOVERABLE_PEER_UNVERIFIED -> parentActivity.getString(
-                R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
-            )
+        UploadResult.FILE_NOT_FOUND ->
+            parentActivity.getString(R.string.uploads_view_upload_status_failed_localfile_error)
 
-            UploadResult.UNKNOWN -> parentActivity.getString(R.string.uploads_view_upload_status_unknown_fail)
-            UploadResult.LOCK_FAILED -> parentActivity.getString(R.string.upload_lock_failed)
-            UploadResult.DELAYED_IN_POWER_SAVE_MODE -> parentActivity.getString(
-                R.string.uploads_view_upload_status_waiting_exit_power_save_mode
-            )
+        UploadResult.FILE_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_file_error)
 
-            UploadResult.VIRUS_DETECTED -> parentActivity.getString(R.string.uploads_view_upload_status_virus_detected)
-            UploadResult.LOCAL_STORAGE_FULL -> parentActivity.getString(R.string.upload_local_storage_full)
-            UploadResult.OLD_ANDROID_API -> parentActivity.getString(R.string.upload_old_android)
-            UploadResult.SYNC_CONFLICT -> parentActivity.getString(R.string.upload_sync_conflict)
-            UploadResult.CANNOT_CREATE_FILE -> parentActivity.getString(R.string.upload_cannot_create_file)
-            UploadResult.LOCAL_STORAGE_NOT_COPIED -> parentActivity.getString(R.string.upload_local_storage_not_copied)
-            UploadResult.QUOTA_EXCEEDED -> parentActivity.getString(R.string.upload_quota_exceeded)
-            else -> parentActivity.getString(R.string.upload_unknown_error)
-        }
+        UploadResult.PRIVILEGES_ERROR -> parentActivity.getString(
+            R.string.uploads_view_upload_status_failed_permission_error
+        )
+
+        UploadResult.NETWORK_CONNECTION ->
+            parentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error)
+
+        UploadResult.DELAYED_FOR_WIFI -> parentActivity.getString(
+            R.string.uploads_view_upload_status_waiting_for_wifi
+        )
+
+        UploadResult.DELAYED_FOR_CHARGING ->
+            parentActivity.getString(R.string.uploads_view_upload_status_waiting_for_charging)
+
+        UploadResult.CONFLICT_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_conflict)
+
+        UploadResult.SERVICE_INTERRUPTED -> parentActivity.getString(
+            R.string.uploads_view_upload_status_service_interrupted
+        )
+
+        UploadResult.CANCELLED -> // should not get here ; cancelled uploads should be wiped out
+            parentActivity.getString(R.string.uploads_view_upload_status_cancelled)
+
+        UploadResult.UPLOADED -> // should not get here ; status should be UPLOAD_SUCCESS
+            parentActivity.getString(R.string.uploads_view_upload_status_succeeded)
+
+        UploadResult.MAINTENANCE_MODE -> parentActivity.getString(R.string.maintenance_mode)
+
+        UploadResult.SSL_RECOVERABLE_PEER_UNVERIFIED -> parentActivity.getString(
+            R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
+        )
+
+        UploadResult.UNKNOWN -> parentActivity.getString(R.string.uploads_view_upload_status_unknown_fail)
+
+        UploadResult.LOCK_FAILED -> parentActivity.getString(R.string.upload_lock_failed)
+
+        UploadResult.DELAYED_IN_POWER_SAVE_MODE -> parentActivity.getString(
+            R.string.uploads_view_upload_status_waiting_exit_power_save_mode
+        )
+
+        UploadResult.VIRUS_DETECTED -> parentActivity.getString(R.string.uploads_view_upload_status_virus_detected)
+
+        UploadResult.LOCAL_STORAGE_FULL -> parentActivity.getString(R.string.upload_local_storage_full)
+
+        UploadResult.OLD_ANDROID_API -> parentActivity.getString(R.string.upload_old_android)
+
+        UploadResult.SYNC_CONFLICT -> parentActivity.getString(R.string.upload_sync_conflict)
+
+        UploadResult.CANNOT_CREATE_FILE -> parentActivity.getString(R.string.upload_cannot_create_file)
+
+        UploadResult.LOCAL_STORAGE_NOT_COPIED -> parentActivity.getString(R.string.upload_local_storage_not_copied)
+
+        UploadResult.QUOTA_EXCEEDED -> parentActivity.getString(R.string.upload_quota_exceeded)
+
+        else -> parentActivity.getString(R.string.upload_unknown_error)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
-        return if (viewType == VIEW_TYPE_HEADER) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder =
+        if (viewType == VIEW_TYPE_HEADER) {
             HeaderViewHolder(
                 UploadListHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             )
@@ -861,7 +878,6 @@ class UploadListAdapter(
                 UploadListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             )
         }
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun loadUploadItemsFromDb(onCompleted: Runnable) {
@@ -916,7 +932,7 @@ class UploadListAdapter(
         val optionalUser = parentActivity.user
 
         if (canBePreviewed(file) && optionalUser.isPresent) {
-            //show image preview and stay in uploads tab
+            // show image preview and stay in uploads tab
             val intent = openFileIntent(parentActivity, optionalUser.get(), file)
             parentActivity.startActivity(intent)
         } else {
@@ -932,15 +948,14 @@ class UploadListAdapter(
      * Open file with app associates with its MIME type. If MIME type unknown, show list with all apps.
      */
     private fun openFileWithDefault(localPath: String) {
-        val myIntent = Intent(Intent.ACTION_VIEW)
-        val file = File(localPath)
         var mimetype = MimeTypeUtil.getBestMimeTypeByFilename(localPath)
-        if ("application/octet-stream" == mimetype) {
-            mimetype = "*/*"
-        }
-        myIntent.setDataAndType(Uri.fromFile(file), mimetype)
+        if (mimetype == "application/octet-stream") mimetype = "*/*"
         try {
-            parentActivity.startActivity(myIntent)
+            parentActivity.startActivity(
+                Intent(Intent.ACTION_VIEW).apply {
+                    setDataAndType(Uri.fromFile(File(localPath)), mimetype)
+                }
+            )
         } catch (e: ActivityNotFoundException) {
             DisplayUtils.showSnackMessage(parentActivity, R.string.file_list_no_app_for_file_type)
             Log_OC.i(TAG, "Could not find app for sending log history: $e")
