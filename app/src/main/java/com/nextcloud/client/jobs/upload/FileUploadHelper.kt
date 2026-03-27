@@ -339,13 +339,10 @@ class FileUploadHelper {
      * belonging to that account are retrieved. If [accountName] is `null`, uploads with the
      * given [status] from **all user accounts** are returned.
      *
-     * Once the uploads are fetched, the [onCompleted] callback is invoked with the resulting array.
-     *
      * @param accountName The name of the account to filter uploads by.
      * If `null`, uploads matching the given [status] from all accounts are returned.
      * @param status The [UploadStatus] to filter uploads by (e.g., `UPLOAD_FAILED`).
      * @param nameCollisionPolicy The [NameCollisionPolicy] to filter uploads by (e.g., `SKIP`).
-     * @param onCompleted A callback invoked with the resulting array of [OCUpload] objects.
      */
     suspend fun getUploadsByStatus(
         accountName: String?,
