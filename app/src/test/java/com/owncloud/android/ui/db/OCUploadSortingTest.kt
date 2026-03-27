@@ -44,17 +44,23 @@ class OCUploadSortingTest {
             whenever(failedSameTimeOtherId.fixedUploadStatus).thenReturn(UPLOAD_FAILED)
             whenever(equalsNotSame.fixedUploadStatus).thenReturn(UPLOAD_FAILED)
 
+            whenever(failed.fixedUploadId).thenReturn(UPLOAD_ID)
+            whenever(failedLater.fixedUploadId).thenReturn(UPLOAD_ID2)
+            whenever(failedSameTimeOtherId.fixedUploadId).thenReturn(UPLOAD_ID)
+            whenever(equalsNotSame.fixedUploadId).thenReturn(UPLOAD_ID)
+
             whenever(inProgressNow.isFixedUploadingNow).thenReturn(true)
             whenever(inProgress.isFixedUploadingNow).thenReturn(false)
+
+            whenever(failed.isFixedUploadingNow).thenReturn(false)
+            whenever(failedLater.isFixedUploadingNow).thenReturn(false)
+            whenever(failedSameTimeOtherId.isFixedUploadingNow).thenReturn(false)
+            whenever(equalsNotSame.isFixedUploadingNow).thenReturn(false)
 
             whenever(failed.fixedUploadEndTimeStamp).thenReturn(FIXED_UPLOAD_END_TIMESTAMP)
             whenever(failedLater.fixedUploadEndTimeStamp).thenReturn(FIXED_UPLOAD_END_TIMESTAMP_LATER)
             whenever(failedSameTimeOtherId.fixedUploadEndTimeStamp).thenReturn(FIXED_UPLOAD_END_TIMESTAMP)
             whenever(equalsNotSame.fixedUploadEndTimeStamp).thenReturn(FIXED_UPLOAD_END_TIMESTAMP)
-
-            whenever(failedLater.fixedUploadId).thenReturn(UPLOAD_ID2)
-            whenever(failedSameTimeOtherId.fixedUploadId).thenReturn(UPLOAD_ID)
-            whenever(equalsNotSame.fixedUploadId).thenReturn(UPLOAD_ID)
         }
     }
 
