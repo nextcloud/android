@@ -20,7 +20,6 @@ import org.apache.commons.httpclient.methods.GetMethod
 import java.io.IOException
 import java.io.InputStream
 
-
 @Suppress("TooGenericExceptionCaught")
 class HttpStreamFetcher internal constructor(private val url: String) : DataFetcher<InputStream> {
 
@@ -30,7 +29,8 @@ class HttpStreamFetcher internal constructor(private val url: String) : DataFetc
     override fun loadData(priority: Priority, callback: DataFetcher.DataCallback<in InputStream>) {
         try {
             val ownCloudAccount = UserAccountManagerImpl.fromContext(MainApp.getAppContext()).currentOwnCloudAccount
-            val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ownCloudAccount, MainApp.getAppContext())
+            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                .getClientFor(ownCloudAccount, MainApp.getAppContext())
 
             if (client == null || url.isBlank()) {
                 callback.onLoadFailed(IllegalStateException("Invalid client or URL"))

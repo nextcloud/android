@@ -78,11 +78,13 @@ class DashboardWidgetConfigurationActivity :
 
         val layoutManager = LinearLayoutManager(this)
         // TODO follow our new architecture
-        mAdapter = DashboardWidgetListAdapter(lifecycleScope,
+        mAdapter = DashboardWidgetListAdapter(
+            lifecycleScope,
             accountManager,
             clientFactory,
             this,
-            this)
+            this
+        )
         binding.list.apply {
             setHasFooter(false)
             setAdapter(mAdapter)

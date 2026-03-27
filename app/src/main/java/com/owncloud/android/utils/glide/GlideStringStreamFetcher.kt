@@ -31,7 +31,8 @@ class GlideStringStreamFetcher(private val url: String?) : DataFetcher<InputStre
     override fun loadData(priority: Priority, callback: DataFetcher.DataCallback<in InputStream>) {
         try {
             val ownCloudAccount = UserAccountManagerImpl.fromContext(MainApp.getAppContext()).currentOwnCloudAccount
-            val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ownCloudAccount, MainApp.getAppContext())
+            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                .getClientFor(ownCloudAccount, MainApp.getAppContext())
 
             get = GetMethod(url)
             get?.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true")

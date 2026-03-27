@@ -27,6 +27,7 @@ import com.owncloud.android.utils.BitmapUtils
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
+@Suppress("TooGenericExceptionCaught")
 class DashboardWidgetService : RemoteViewsService() {
     @Inject
     lateinit var userAccountManager: UserAccountManager
@@ -51,6 +52,7 @@ class DashboardWidgetService : RemoteViewsService() {
     )
 }
 
+@Suppress("TooGenericExceptionCaught")
 class StackRemoteViewsFactory(
     private val context: Context,
     val userAccountManager: UserAccountManager,
@@ -175,7 +177,9 @@ class StackRemoteViewsFactory(
         try {
             val finalBitmap = if (widgetConfiguration.roundIcon) {
                 BitmapUtils.roundBitmap(bitmap)
-            } else bitmap
+            } else {
+                bitmap
+            }
 
             remoteViews.setImageViewBitmap(R.id.icon, finalBitmap)
         } catch (e: Exception) {

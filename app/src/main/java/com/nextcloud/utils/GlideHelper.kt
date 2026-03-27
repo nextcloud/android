@@ -44,7 +44,7 @@ import kotlinx.coroutines.withContext
  * Provides methods for loading images into `ImageView`, `Target<Drawable>`, `Target<Bitmap>` ...
  * from both URLs and URIs.
  */
-@Suppress("TooManyFunctions")
+@Suppress("TooManyFunctions", "TooGenericExceptionCaught")
 object GlideHelper {
     private const val TAG = "GlideHelper"
 
@@ -67,7 +67,7 @@ object GlideHelper {
         }
     }
 
-    fun loadCircularBitmapIntoImageView(context: Context, url: String?, imageView: ImageView, placeholder: Drawable) {
+    fun loadCircularBitmapIntoImageView(context: Context, url: String?, imageView: ImageView, placeholder: Drawable?) {
         val validatedUrl = validateAndGetURL(url) ?: return
 
         try {
@@ -112,13 +112,11 @@ object GlideHelper {
         }
     }
 
-    fun getDrawable(context: Context, client: NextcloudClient?, urlString: String?): Drawable? {
-        return try {
-            createRequestBuilder<Drawable>(context, client, urlString)?.submit()?.get()
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "exception getDrawable: $e")
-            null
-        }
+    fun getDrawable(context: Context, client: NextcloudClient?, urlString: String?): Drawable? = try {
+        createRequestBuilder<Drawable>(context, client, urlString)?.submit()?.get()
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "exception getDrawable: $e")
+        null
     }
 
     fun <T> loadIntoTarget(
@@ -159,10 +157,7 @@ object GlideHelper {
     )
 
     // region private methods
-    private class GlideLogger<T>(
-        private val methodName: String,
-        private val identifier: String
-    ) : RequestListener<T> {
+    private class GlideLogger<T>(private val methodName: String, private val identifier: String) : RequestListener<T> {
 
         override fun onLoadFailed(
             e: GlideException?,
@@ -190,10 +185,8 @@ object GlideHelper {
 
     private fun isSVG(url: String): Boolean = (url.toUri().encodedPath?.endsWith(".svg") == true)
 
-    private fun <T> RequestBuilder<T>.withLogging(
-        methodName: String,
-        identifier: String
-    ): RequestBuilder<T> = listener(GlideLogger(methodName, identifier))
+    private fun <T> RequestBuilder<T>.withLogging(methodName: String, identifier: String): RequestBuilder<T> =
+        listener(GlideLogger(methodName, identifier))
 
     @SuppressLint("CheckResult")
     private fun createSvgRequestBuilder(
