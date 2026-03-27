@@ -61,7 +61,7 @@ class ActivitiesFragment :
     lateinit var userAccountManager: UserAccountManager
 
     private var _binding: FragmentActivitiesBinding? = null
-    private val binding get() = _binding!!
+    internal val binding get() = _binding!!
 
     private var adapter: ActivityListAdapter? = null
     private var lastGiven: Long = 0
