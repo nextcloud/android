@@ -1042,7 +1042,7 @@
     <string name="trashbin_empty_message">Čia galėsite atkurti ištrintus failus.</string>
     <string name="trashbin_file_not_deleted">Nepavyko ištrinti failo %1$s!</string>
     <string name="trashbin_file_not_restored">Nepavyko atkurti failo %1$s!</string>
-    <string name="trashbin_file_remove">Ištrinti negrįžtamai</string>
+    <string name="trashbin_file_remove">Ištrinti visam laikui</string>
     <string name="trashbin_loading_failed">Nepavyko įkelti šiukšlinės!</string>
     <string name="trashbin_not_emptied">Nepavyko ištrinti failų visam laikui!</string>
     <string name="two_way_sync_activity_disable_all_button_title">Išjungti visoms direktorijoms</string>
