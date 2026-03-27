@@ -1,962 +1,992 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
- * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2018 Nextcloud
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.adapter;
+package com.owncloud.android.ui.adapter
 
-import android.annotation.SuppressLint;
-import android.app.NotificationManager;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.text.format.DateUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.PopupMenu;
+import android.annotation.SuppressLint
+import android.app.NotificationManager
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.text.format.DateUtils
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.PopupMenu
+import androidx.core.content.ContextCompat
+import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
+import com.afollestad.sectionedrecyclerview.SectionedViewHolder
+import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.core.Clock
+import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.jobs.upload.FileUploadHelper.Companion.buildRemoteName
+import com.nextcloud.client.jobs.upload.FileUploadHelper.Companion.instance
+import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.cancelUpload
+import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.extensions.sortedByUploadOrder
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.databinding.UploadListHeaderBinding
+import com.owncloud.android.databinding.UploadListItemBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncThumbnailDrawable
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTaskObject
+import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
+import com.owncloud.android.db.OCUpload
+import com.owncloud.android.db.UploadResult
+import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener
+import com.owncloud.android.lib.common.operations.RemoteOperation
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.RefreshFolderOperation
+import com.owncloud.android.ui.activity.ConflictsResolveActivity.Companion.createIntent
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.activity.FileDisplayActivity.Companion.openFileIntent
+import com.owncloud.android.ui.adapter.progressListener.UploadProgressListener
+import com.owncloud.android.ui.preview.PreviewImageFragment.Companion.canBePreviewed
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.io.File
+import java.util.function.Consumer
+import java.util.function.Supplier
 
-import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
-import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.core.Clock;
-import com.nextcloud.client.device.PowerManagementService;
-import com.nextcloud.client.jobs.upload.FileUploadHelper;
-import com.nextcloud.client.jobs.upload.FileUploadWorker;
-import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.utils.extensions.ViewExtensionsKt;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.UploadListHeaderBinding;
-import com.owncloud.android.databinding.UploadListItemBinding;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
-import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.OCUploadComparator;
-import com.owncloud.android.db.UploadResult;
-import com.owncloud.android.files.services.NameCollisionPolicy;
-import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.ui.activity.ConflictsResolveActivity;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.adapter.progressListener.UploadProgressListener;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+class UploadListAdapter(
+    fileActivity: FileActivity,
+    uploadsStorageManager: UploadsStorageManager,
+    storageManager: FileDataStorageManager,
+    accountManager: UserAccountManager,
+    connectivityService: ConnectivityService,
+    powerManagementService: PowerManagementService,
+    clock: Clock,
+    viewThemeUtils: ViewThemeUtils
+) : SectionedRecyclerViewAdapter<SectionedViewHolder?>() {
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import kotlin.Unit;
-
-/**
- * This Adapter populates a ListView with following types of uploads: pending, active, completed. Filtering possible.
- */
-public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedViewHolder> {
-    private static final String TAG = UploadListAdapter.class.getSimpleName();
-
-    private record Section(
-        Type type,
-        int titleRes,
-        UploadStatus status,
-        NameCollisionPolicy collisionPolicy,
-        OCUpload[] items
+    private data class Section(
+        val type: Type?,
+        val titleRes: Int,
+        val status: UploadStatus?,
+        val collisionPolicy: NameCollisionPolicy?,
+        val items: List<OCUpload>
     ) {
-        Section withItems(OCUpload[] newItems) {
-            return new Section(type, titleRes, status, collisionPolicy, newItems);
+        fun withItems(newItems: List<OCUpload>) = copy(items = newItems)
+    }
+
+    private val sections: MutableList<Section> = ArrayList<Section>(
+        listOf(
+            Section(
+                Type.CURRENT,
+                R.string.uploads_view_group_current_uploads,
+                UploadStatus.UPLOAD_IN_PROGRESS,
+                null,
+                listOf(),
+            ),
+            Section(
+                Type.FAILED,
+                R.string.uploads_view_group_failed_uploads,
+                UploadStatus.UPLOAD_FAILED,
+                null,
+                listOf()
+            ),
+            Section(
+                Type.CANCELLED,
+                R.string.uploads_view_group_manually_cancelled_uploads,
+                UploadStatus.UPLOAD_CANCELLED,
+                null,
+                listOf()
+            ),
+            Section(
+                Type.COMPLETED,
+                R.string.uploads_view_group_completed_uploads,
+                UploadStatus.UPLOAD_SUCCEEDED,
+                NameCollisionPolicy.ASK_USER,
+                listOf()
+            ),
+            Section(
+                Type.SKIPPED,
+                R.string.uploads_view_upload_status_skip,
+                UploadStatus.UPLOAD_SUCCEEDED,
+                NameCollisionPolicy.SKIP,
+                listOf()
+            )
+        )
+    )
+
+    private var uploadProgressListener: UploadProgressListener? = null
+    private val parentActivity: FileActivity
+    private val uploadsStorageManager: UploadsStorageManager
+    private val storageManager: FileDataStorageManager
+    private val connectivityService: ConnectivityService
+    private val powerManagementService: PowerManagementService
+    private val accountManager: UserAccountManager
+    private val clock: Clock
+    private val showUser: Boolean
+    private val viewThemeUtils: ViewThemeUtils
+    private var mNotificationManager: NotificationManager? = null
+    private val uploadHelper = instance()
+
+    init {
+        Log_OC.d(TAG, "UploadListAdapter")
+
+        this.parentActivity = fileActivity
+        this.uploadsStorageManager = uploadsStorageManager
+        this.storageManager = storageManager
+        this.accountManager = accountManager
+        this.connectivityService = connectivityService
+        this.powerManagementService = powerManagementService
+        this.clock = clock
+        this.viewThemeUtils = viewThemeUtils
+        shouldShowHeadersForEmptySections(false)
+        showUser = accountManager.getAccounts().size > 1
+    }
+
+    override fun getSectionCount(): Int {
+        return sections.size
+    }
+
+    override fun getItemCount(section: Int): Int {
+        return sections[section].items.size
+    }
+
+    override fun onBindHeaderViewHolder(holder: SectionedViewHolder?, section: Int, expanded: Boolean) {
+        val headerViewHolder = holder as HeaderViewHolder
+
+        val group = sections[section]
+        val title = parentActivity.getString(group.titleRes)
+        val count = group.items.size
+
+        headerViewHolder.binding.uploadListTitle.text =
+            String.format(parentActivity.getString(R.string.uploads_view_group_header), title, count)
+        viewThemeUtils.platform.colorTextView(headerViewHolder.binding.uploadListTitle)
+
+        headerViewHolder.binding.uploadListTitle.setOnClickListener {
+            toggleSectionExpanded(section)
+            val icon = if (isSectionExpanded(section)) R.drawable.ic_expand_less else R.drawable.ic_expand_more
+            headerViewHolder.binding.uploadListState.setImageResource(icon)
         }
-    }
 
-    private final List<Section> sections = new ArrayList<>(List.of(
-        new Section(Type.CURRENT, R.string.uploads_view_group_current_uploads, UploadStatus.UPLOAD_IN_PROGRESS, null, new OCUpload[0]),
-        new Section(Type.FAILED, R.string.uploads_view_group_failed_uploads, UploadStatus.UPLOAD_FAILED, null, new OCUpload[0]),
-        new Section(Type.CANCELLED, R.string.uploads_view_group_manually_cancelled_uploads, UploadStatus.UPLOAD_CANCELLED, null, new OCUpload[0]),
-        new Section(Type.COMPLETED, R.string.uploads_view_group_completed_uploads, UploadStatus.UPLOAD_SUCCEEDED, NameCollisionPolicy.ASK_USER, new OCUpload[0]),
-        new Section(Type.SKIPPED, R.string.uploads_view_upload_status_skip, UploadStatus.UPLOAD_SUCCEEDED, NameCollisionPolicy.SKIP, new OCUpload[0])));
-
-    private UploadProgressListener uploadProgressListener;
-    private final FileActivity parentActivity;
-    private final UploadsStorageManager uploadsStorageManager;
-    private final FileDataStorageManager storageManager;
-    private final ConnectivityService connectivityService;
-    private final PowerManagementService powerManagementService;
-    private final UserAccountManager accountManager;
-    private final Clock clock;
-    private final boolean showUser;
-    private final ViewThemeUtils viewThemeUtils;
-    private NotificationManager mNotificationManager;
-    private final FileUploadHelper uploadHelper = FileUploadHelper.Companion.instance();
-
-    public UploadListAdapter(final FileActivity fileActivity,
-                             final UploadsStorageManager uploadsStorageManager,
-                             final FileDataStorageManager storageManager,
-                             final UserAccountManager accountManager,
-                             final ConnectivityService connectivityService,
-                             final PowerManagementService powerManagementService,
-                             final Clock clock,
-                             final ViewThemeUtils viewThemeUtils) {
-        Log_OC.d(TAG, "UploadListAdapter");
-
-        this.parentActivity = fileActivity;
-        this.uploadsStorageManager = uploadsStorageManager;
-        this.storageManager = storageManager;
-        this.accountManager = accountManager;
-        this.connectivityService = connectivityService;
-        this.powerManagementService = powerManagementService;
-        this.clock = clock;
-        this.viewThemeUtils = viewThemeUtils;
-        shouldShowHeadersForEmptySections(false);
-        showUser = accountManager.getAccounts().length > 1;
-    }
-
-    @Override
-    public int getSectionCount() {
-        return sections.size();
-    }
-
-    @Override
-    public int getItemCount(int section) {
-        return sections.get(section).items().length;
-    }
-
-    @Override
-    public void onBindHeaderViewHolder(SectionedViewHolder holder, int section, boolean expanded) {
-        HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-
-        Section group = sections.get(section);
-        String title = parentActivity.getString(group.titleRes());
-        int count = group.items().length;
-
-        headerViewHolder.binding.uploadListTitle.setText(
-            String.format(parentActivity.getString(R.string.uploads_view_group_header), title, count));
-        viewThemeUtils.platform.colorPrimaryTextViewElement(headerViewHolder.binding.uploadListTitle);
-
-        headerViewHolder.binding.uploadListTitle.setOnClickListener(v -> {
-            toggleSectionExpanded(section);
-            headerViewHolder.binding.uploadListState.setImageResource(isSectionExpanded(section) ?
-                                                                          R.drawable.ic_expand_less :
-                                                                          R.drawable.ic_expand_more);
-        });
-
-        headerViewHolder.binding.uploadListStateLayout.setOnClickListener(v -> {{
-            toggleSectionExpanded(section);
-            headerViewHolder.binding.uploadListState.setImageResource(isSectionExpanded(section) ?
-                                                                          R.drawable.ic_expand_less :
-                                                                          R.drawable.ic_expand_more);
-        }});
-
-        switch (group.type) {
-            case CURRENT, COMPLETED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
-            case CANCELLED, FAILED ->
-                headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_dots_vertical);
-
+        headerViewHolder.binding.uploadListStateLayout.setOnClickListener {
+            toggleSectionExpanded(section)
+            val icon = if (isSectionExpanded(section)) R.drawable.ic_expand_less else R.drawable.ic_expand_more
+            headerViewHolder.binding.uploadListState.setImageResource(icon)
         }
 
-        ViewExtensionsKt.setVisibleIf(headerViewHolder.binding.autoUploadBatterySaverWarningCard.root,
-                                      powerManagementService.isPowerSavingEnabled());
-        viewThemeUtils.material.themeCardView(headerViewHolder.binding.autoUploadBatterySaverWarningCard.root);
+        when (group.type) {
+            Type.CURRENT, Type.COMPLETED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close)
+            Type.CANCELLED, Type.FAILED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_dots_vertical)
+            else -> {}
+        }
 
-        headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
-            switch (group.type) {
-                case CURRENT -> {
-                    OCUpload[] items = group.items();
-                    if (items.length == 0) return;
+        headerViewHolder.binding.autoUploadBatterySaverWarningCard.root
+            .setVisibleIf(powerManagementService.isPowerSavingEnabled)
+        viewThemeUtils.material.themeCardView(headerViewHolder.binding.autoUploadBatterySaverWarningCard.root)
 
-                    String accountName = items[0].getAccountName();
+        headerViewHolder.binding.uploadListAction.setOnClickListener {
+            when (group.type) {
+                Type.CURRENT -> {
+                    val items = group.items
+                    if (items.isEmpty()) return@setOnClickListener
 
-                    final int totalUploads = group.items().length;
-                    final int[] completedCount = {0};
+                    val accountName = items[0].accountName
 
-                    for (int i=0; i<group.items.length; i++) {
-                        OCUpload upload = group.items[i];
-                        uploadHelper.updateUploadStatus(upload.getRemotePath(), accountName, UploadStatus.UPLOAD_CANCELLED, () -> {
-                            FileUploadWorker.Companion.cancelUpload(upload.getRemotePath(), accountName, () -> {
-                                completedCount[0]++;
+                    val totalUploads = group.items.size
+                    val completedCount = intArrayOf(0)
+
+                    for (i in group.items.indices) {
+                        val upload = group.items[i]
+                        uploadHelper.updateUploadStatus(
+                            upload.remotePath,
+                            accountName,
+                            UploadStatus.UPLOAD_CANCELLED
+                        ) {
+                            cancelUpload(upload.remotePath, accountName) {
+                                completedCount[0]++
                                 if (completedCount[0] == totalUploads) {
-                                    Log_OC.d(TAG, "refreshing upload items");
+                                    Log_OC.d(TAG, "refreshing upload items")
 
                                     // All uploads finished, refresh UI once
-                                    loadUploadItemsFromDb(() -> {});
+                                    loadUploadItemsFromDb(Runnable {})
                                 }
-                                return Unit.INSTANCE;
-                            });
-                            return Unit.INSTANCE;
-                        });
+                            }
+                        }
                     }
                 }
-                case COMPLETED -> {
-                    uploadsStorageManager.clearSuccessfulUploads();
-                    loadUploadItemsFromDb(() -> {});
-                }
-                case FAILED -> showFailedPopupMenu(headerViewHolder);
-                case CANCELLED -> showCancelledPopupMenu(headerViewHolder);
-                default -> {
 
+                Type.COMPLETED -> {
+                    uploadsStorageManager.clearSuccessfulUploads()
+                    loadUploadItemsFromDb {}
                 }
+
+                Type.FAILED -> showFailedPopupMenu(headerViewHolder)
+                Type.CANCELLED -> showCancelledPopupMenu(headerViewHolder)
+                else -> {}
             }
-        });
+        }
     }
 
-    private void showFailedPopupMenu(HeaderViewHolder headerViewHolder) {
-        PopupMenu failedPopup = new PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction);
-        failedPopup.inflate(R.menu.upload_list_failed_options);
-        failedPopup.setOnMenuItemClickListener(i -> {
-            int itemId = i.getItemId();
-
+    private fun showFailedPopupMenu(headerViewHolder: HeaderViewHolder) {
+        val failedPopup = PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction)
+        failedPopup.inflate(R.menu.upload_list_failed_options)
+        failedPopup.setOnMenuItemClickListener { i: MenuItem? ->
+            val itemId = i!!.itemId
             if (itemId == R.id.action_upload_list_failed_clear) {
-                uploadsStorageManager.clearFailedButNotDelayedUploads();
-                clearTempEncryptedFolder();
-                loadUploadItemsFromDb(() -> {});
+                uploadsStorageManager.clearFailedButNotDelayedUploads()
+                clearTempEncryptedFolder()
+                loadUploadItemsFromDb {}
             } else if (itemId == R.id.action_upload_list_failed_retry) {
                 uploadHelper.retryFailedUploads(
                     uploadsStorageManager,
                     connectivityService,
                     accountManager,
-                    powerManagementService);
+                    powerManagementService
+                )
             }
+            true
+        }
 
-            return true;
-        });
-
-        failedPopup.show();
+        failedPopup.show()
     }
 
-    private void showCancelledPopupMenu(HeaderViewHolder headerViewHolder) {
-        PopupMenu popup = new PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction);
-        popup.inflate(R.menu.upload_list_cancelled_options);
+    private fun showCancelledPopupMenu(headerViewHolder: HeaderViewHolder) {
+        val popup = PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction)
+        popup.inflate(R.menu.upload_list_cancelled_options)
 
-        popup.setOnMenuItemClickListener(i -> {
-            int itemId = i.getItemId();
-
+        popup.setOnMenuItemClickListener { i: MenuItem ->
+            val itemId = i.itemId
             if (itemId == R.id.action_upload_list_cancelled_clear) {
-                uploadsStorageManager.clearCancelledUploadsForCurrentAccount();
-                loadUploadItemsFromDb(() -> {});
-                clearTempEncryptedFolder();
+                uploadsStorageManager.clearCancelledUploadsForCurrentAccount()
+                loadUploadItemsFromDb(Runnable {})
+                clearTempEncryptedFolder()
             } else if (itemId == R.id.action_upload_list_cancelled_resume) {
-                retryCancelledUploads();
+                retryCancelledUploads()
             }
+            true
+        }
 
-            return true;
-        });
-
-        popup.show();
+        popup.show()
     }
 
-    private void clearTempEncryptedFolder() {
-        Optional<User> user = parentActivity.getUser();
-        user.ifPresent(value -> FileDataStorageManager.clearTempEncryptedFolder(value.getAccountName()));
+    private fun clearTempEncryptedFolder() {
+        val user = parentActivity.user
+        user.ifPresent(Consumer { value: User? -> FileDataStorageManager.clearTempEncryptedFolder(value!!.accountName) })
     }
 
     // FIXME For e2e resume is not working
-    private void retryCancelledUploads() {
-        new Thread(() -> {
-            boolean showNotExistMessage = uploadHelper.retryCancelledUploads(
+    private fun retryCancelledUploads() {
+        Thread {
+            val showNotExistMessage = uploadHelper.retryCancelledUploads(
                 uploadsStorageManager,
                 connectivityService,
                 accountManager,
-                powerManagementService);
-            parentActivity.runOnUiThread(() -> {
+                powerManagementService
+            )
+            parentActivity.runOnUiThread {
                 if (showNotExistMessage) {
-                    showNotExistMessage();
+                    showNotExistMessage()
                 }
-            });
-        }).start();
+            }
+        }.start()
     }
 
-    private void showNotExistMessage() {
-        DisplayUtils.showSnackMessage(parentActivity, R.string.upload_action_file_not_exist_message);
+    private fun showNotExistMessage() {
+        DisplayUtils.showSnackMessage(parentActivity, R.string.upload_action_file_not_exist_message)
     }
 
-    @Override
-    public void onBindFooterViewHolder(SectionedViewHolder holder, int section) {
-        // not needed
-    }
+    override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) = Unit
 
-    @Override
-    public void onBindViewHolder(SectionedViewHolder holder, int section, int relativePosition, int absolutePosition) {
-        if (sections.isEmpty() || section < 0 || section >= sections.size()) {
-            return;
+    override fun onBindViewHolder(
+        holder: SectionedViewHolder?,
+        section: Int,
+        relativePosition: Int,
+        absolutePosition: Int
+    ) {
+        if (sections.isEmpty() || section < 0 || section >= sections.size) {
+            return
         }
 
-        Section sectionData = sections.get(section);
-        OCUpload item = sectionData.items()[relativePosition];
+        val sectionData = sections[section]
+        val item = sectionData.items[relativePosition]
 
-        if (item == null) {
-            return;
-        }
-
-        ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-        itemViewHolder.binding.uploadName.setText(item.getLocalPath());
+        val itemViewHolder = holder as ItemViewHolder
+        itemViewHolder.binding.uploadName.text = item.localPath
 
         // local file name
-        File remoteFile = new File(item.getRemotePath());
-        String fileName = remoteFile.getName();
+        val remoteFile = File(item.remotePath)
+        var fileName = remoteFile.getName()
         if (fileName.isEmpty()) {
-            fileName = File.separator;
+            fileName = File.separator
         }
-        itemViewHolder.binding.uploadName.setText(fileName);
+        itemViewHolder.binding.uploadName.text = fileName
 
         // remote path to parent folder
-        itemViewHolder.binding.uploadRemotePath.setText(new File(item.getRemotePath()).getParent());
+        itemViewHolder.binding.uploadRemotePath.text = File(item.remotePath).getParent()
 
-        long updateTime = item.getUploadEndTimestamp();
+        val updateTime = item.uploadEndTimestamp
 
         // file size
-        if (item.getFileSize() != 0) {
-            String fileSizeFormat = "%s ";
+        if (item.fileSize != 0L) {
+            var fileSizeFormat = "%s "
 
             // we have valid update time so we can show the upload date
             if (updateTime > 0) {
-                fileSizeFormat = "%s, ";
+                fileSizeFormat = "%s, "
             }
 
-            String fileSizeInBytes = DisplayUtils.bytesToHumanReadable(item.getFileSize());
-            String uploadFileSize = String.format(fileSizeFormat, fileSizeInBytes);
-            itemViewHolder.binding.uploadFileSize.setText(uploadFileSize);
+            val fileSizeInBytes = DisplayUtils.bytesToHumanReadable(item.fileSize)
+            val uploadFileSize = String.format(fileSizeFormat, fileSizeInBytes)
+            itemViewHolder.binding.uploadFileSize.text = uploadFileSize
         } else {
-            itemViewHolder.binding.uploadFileSize.setText("");
+            itemViewHolder.binding.uploadFileSize.text = ""
         }
 
         // upload date
-        boolean showUploadDate = (updateTime > 0 && item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED &&
-            item.getLastResult() == UploadResult.UPLOADED);
-        itemViewHolder.binding.uploadDate.setVisibility(showUploadDate ? View.VISIBLE : View.GONE);
+        val showUploadDate =
+            (updateTime > 0 && item.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED && item.lastResult == UploadResult.UPLOADED)
+        itemViewHolder.binding.uploadDate.visibility = if (showUploadDate) View.VISIBLE else View.GONE
         if (showUploadDate) {
-            CharSequence dateString = DisplayUtils.getRelativeDateTimeString(parentActivity,
-                                                                             updateTime,
-                                                                             DateUtils.MINUTE_IN_MILLIS,
-                                                                             DateUtils.WEEK_IN_MILLIS,
-                                                                             0);
-            itemViewHolder.binding.uploadDate.setText(dateString);
+            val dateString = DisplayUtils.getRelativeDateTimeString(
+                parentActivity,
+                updateTime,
+                DateUtils.MINUTE_IN_MILLIS,
+                DateUtils.WEEK_IN_MILLIS,
+                0
+            )
+            itemViewHolder.binding.uploadDate.text = dateString
         }
 
         // account
-        final Optional<User> optionalUser = accountManager.getUser(item.getAccountName());
+        val optionalUser = accountManager.getUser(item.accountName)
         if (showUser) {
-            itemViewHolder.binding.uploadAccount.setVisibility(View.VISIBLE);
-            if (optionalUser.isPresent()) {
-                itemViewHolder.binding.uploadAccount.setText(
-                    DisplayUtils.getAccountNameDisplayText(optionalUser.get()));
+            itemViewHolder.binding.uploadAccount.visibility = View.VISIBLE
+            if (optionalUser.isPresent) {
+                itemViewHolder.binding.uploadAccount.text = DisplayUtils.getAccountNameDisplayText(optionalUser.get())
             } else {
-                itemViewHolder.binding.uploadAccount.setText(item.getAccountName());
+                itemViewHolder.binding.uploadAccount.text = item.accountName
             }
         } else {
-            itemViewHolder.binding.uploadAccount.setVisibility(View.GONE);
+            itemViewHolder.binding.uploadAccount.visibility = View.GONE
         }
 
         // Reset fields visibility
-        itemViewHolder.binding.uploadRemotePath.setVisibility(View.VISIBLE);
-        itemViewHolder.binding.uploadFileSize.setVisibility(View.VISIBLE);
-        itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
-        itemViewHolder.binding.uploadProgressBar.setVisibility(View.GONE);
+        itemViewHolder.binding.uploadRemotePath.visibility = View.VISIBLE
+        itemViewHolder.binding.uploadFileSize.visibility = View.VISIBLE
+        itemViewHolder.binding.uploadStatus.visibility = View.VISIBLE
+        itemViewHolder.binding.uploadProgressBar.visibility = View.GONE
 
         // Update information depending of upload details
-        String status = getStatusText(item);
-        switch (item.getUploadStatus()) {
-            case UPLOAD_IN_PROGRESS -> {
-                viewThemeUtils.platform.themeHorizontalProgressBar(itemViewHolder.binding.uploadProgressBar);
-                itemViewHolder.binding.uploadProgressBar.setProgress(0);
-                itemViewHolder.binding.uploadProgressBar.setVisibility(View.VISIBLE);
+        val status = getStatusText(item)
+        when (item.uploadStatus) {
+            UploadStatus.UPLOAD_IN_PROGRESS -> {
+                viewThemeUtils.platform.themeHorizontalProgressBar(itemViewHolder.binding.uploadProgressBar)
+                itemViewHolder.binding.uploadProgressBar.progress = 0
+                itemViewHolder.binding.uploadProgressBar.visibility = View.VISIBLE
 
                 if (uploadHelper.isUploadingNow(item)) {
                     // really uploading, so...
                     // ... unbind the old progress bar, if any; ...
                     if (uploadProgressListener != null) {
-                        final var upload = uploadProgressListener.getUpload();
+                        val upload = uploadProgressListener!!.upload
                         if (upload != null) {
-                            String targetKey = FileUploadHelper.Companion.buildRemoteName(upload.getAccountName(),
-                                                                                          upload.getRemotePath());
-                            uploadHelper.removeUploadTransferProgressListener(uploadProgressListener, targetKey);
+                            val targetKey = buildRemoteName(
+                                upload.accountName,
+                                upload.remotePath
+                            )
+                            uploadHelper.removeUploadTransferProgressListener(uploadProgressListener!!, targetKey)
                         }
                     }
                     // ... then, bind the current progress bar to listen for updates
-                    uploadProgressListener = new UploadProgressListener(item, itemViewHolder.binding.uploadProgressBar);
-                    String targetKey = FileUploadHelper.Companion.buildRemoteName(item.getAccountName(), item.getRemotePath());
-                    uploadHelper.addUploadTransferProgressListener(uploadProgressListener, targetKey);
-
+                    uploadProgressListener = UploadProgressListener(item, itemViewHolder.binding.uploadProgressBar)
+                    val targetKey = buildRemoteName(item.accountName, item.remotePath)
+                    uploadHelper.addUploadTransferProgressListener(uploadProgressListener!!, targetKey)
                 } else {
                     // not really uploading; stop listening progress if view is reused!
                     if (uploadProgressListener != null &&
-                        uploadProgressListener.isWrapping(itemViewHolder.binding.uploadProgressBar)) {
-                        final var upload = uploadProgressListener.getUpload();
+                        uploadProgressListener!!.isWrapping(itemViewHolder.binding.uploadProgressBar)
+                    ) {
+                        val upload = uploadProgressListener!!.upload
                         if (upload != null) {
-                            String targetKey = FileUploadHelper.Companion.buildRemoteName(upload.getAccountName(),
-                                                                                          upload.getRemotePath());
-                            uploadHelper.removeUploadTransferProgressListener(uploadProgressListener, targetKey);
-                            uploadProgressListener = null;
+                            val targetKey = buildRemoteName(
+                                upload.accountName,
+                                upload.remotePath
+                            )
+                            uploadHelper.removeUploadTransferProgressListener(uploadProgressListener!!, targetKey)
+                            uploadProgressListener = null
                         }
                     }
                 }
 
-                itemViewHolder.binding.uploadFileSize.setVisibility(View.GONE);
-                itemViewHolder.binding.uploadProgressBar.invalidate();
+                itemViewHolder.binding.uploadFileSize.visibility = View.GONE
+                itemViewHolder.binding.uploadProgressBar.invalidate()
             }
-            case UPLOAD_FAILED -> {
 
+            UploadStatus.UPLOAD_FAILED -> {
             }
-            case UPLOAD_SUCCEEDED, UPLOAD_CANCELLED ->
-                itemViewHolder.binding.uploadStatus.setVisibility(View.GONE);
+
+            UploadStatus.UPLOAD_SUCCEEDED, UploadStatus.UPLOAD_CANCELLED -> itemViewHolder.binding.uploadStatus.visibility =
+                View.GONE
         }
 
         // show status if same file conflict or local file deleted or upload cancelled
-        if ((item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED && item.getLastResult() != UploadResult.UPLOADED)
-            || item.getUploadStatus() == UploadStatus.UPLOAD_CANCELLED) {
-
-            itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
-            itemViewHolder.binding.uploadFileSize.setVisibility(View.GONE);
+        if ((item.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED && item.lastResult != UploadResult.UPLOADED)
+            || item.uploadStatus == UploadStatus.UPLOAD_CANCELLED
+        ) {
+            itemViewHolder.binding.uploadStatus.visibility = View.VISIBLE
+            itemViewHolder.binding.uploadFileSize.visibility = View.GONE
         }
 
-        itemViewHolder.binding.uploadStatus.setText(status);
+        itemViewHolder.binding.uploadStatus.text = status
 
         // bind listeners to perform actions
-        if (item.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
+        if (item.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS) {
             // Cancel
-            itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_cancel_grey);
-            itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
-            itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> {
-                uploadHelper.updateUploadStatus(item.getRemotePath(), item.getAccountName(), UploadStatus.UPLOAD_CANCELLED, () -> {
-                    FileUploadWorker.Companion.cancelUpload(item.getRemotePath(), item.getAccountName(), () -> {
-                        loadUploadItemsFromDb(() -> {});
-                        return Unit.INSTANCE;
-                    });
-                    return Unit.INSTANCE;
-                });
-            });
-
-        } else if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
-            if (item.getLastResult() == UploadResult.SYNC_CONFLICT) {
-                itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_dots_vertical);
-                itemViewHolder.binding.uploadRightButton.setOnClickListener(view -> optionalUser.ifPresent(user -> showItemConflictPopup(user, itemViewHolder, item, status, view)));
-            } else {
-                // Delete
-                itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_delete_grey);
-                itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> removeUpload(item));
-            }
-            itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
-        } else {    // UploadStatus.UPLOAD_SUCCEEDED
-            itemViewHolder.binding.uploadRightButton.setVisibility(View.INVISIBLE);
-        }
-
-        itemViewHolder.binding.uploadListItemLayout.setOnClickListener(null);
-
-        // Set icon or thumbnail
-        itemViewHolder.binding.thumbnail.setImageResource(R.drawable.file);
-
-        // click on item
-        if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED ||
-            item.getUploadStatus() == UploadStatus.UPLOAD_CANCELLED) {
-
-            final UploadResult uploadResult = item.getLastResult();
-            itemViewHolder.binding.uploadListItemLayout.setOnClickListener(v -> {
-                if (uploadResult == UploadResult.CREDENTIAL_ERROR) {
-                    final Optional<User> optUser = accountManager.getUser(item.getAccountName());
-                    final User user = optUser.orElseThrow(RuntimeException::new);
-                    parentActivity.getFileOperationsHelper().checkCurrentCredentials(user);
-                    return;
-                } else if (uploadResult == UploadResult.SYNC_CONFLICT && optionalUser.isPresent()) {
-                    User user = optionalUser.get();
-                    if (checkAndOpenConflictResolutionDialog(user, itemViewHolder, item, status)) {
-                        return;
+            itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_cancel_grey)
+            itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE)
+            itemViewHolder.binding.uploadRightButton.setOnClickListener {
+                uploadHelper.updateUploadStatus(
+                    item.remotePath,
+                    item.accountName,
+                    UploadStatus.UPLOAD_CANCELLED
+                ) {
+                    cancelUpload(item.remotePath, item.accountName) {
+                        loadUploadItemsFromDb {}
                     }
                 }
-
-                // not a credentials error
-                File file = new File(item.getLocalPath());
-                Optional<User> user = accountManager.getUser(item.getAccountName());
-                if (file.exists() && user.isPresent()) {
-                    uploadHelper.retryUpload(item, user.get());
-                } else {
-                    DisplayUtils.showSnackMessage(v.getRootView().findViewById(android.R.id.content), R.string.local_file_not_found_message);
+            }
+        } else if (item.uploadStatus == UploadStatus.UPLOAD_FAILED) {
+            if (item.lastResult == UploadResult.SYNC_CONFLICT) {
+                itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_dots_vertical)
+                itemViewHolder.binding.uploadRightButton.setOnClickListener { view: View? ->
+                    optionalUser.ifPresent(
+                        Consumer { user: User? -> showItemConflictPopup(user, itemViewHolder, item, status, view) })
                 }
-            });
-        } else if (item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
-            itemViewHolder.binding.uploadListItemLayout.setOnClickListener(v -> onUploadedItemClick(item));
+            } else {
+                // Delete
+                itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_delete_grey)
+                itemViewHolder.binding.uploadRightButton.setOnClickListener {
+                    removeUpload(
+                        item
+                    )
+                }
+            }
+            itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE)
+        } else {    // UploadStatus.UPLOAD_SUCCEEDED
+            itemViewHolder.binding.uploadRightButton.setVisibility(View.INVISIBLE)
         }
 
+        itemViewHolder.binding.uploadListItemLayout.setOnClickListener(null)
+
+        // Set icon or thumbnail
+        itemViewHolder.binding.thumbnail.setImageResource(R.drawable.file)
+
+        // click on item
+        if (item.uploadStatus == UploadStatus.UPLOAD_FAILED ||
+            item.uploadStatus == UploadStatus.UPLOAD_CANCELLED
+        ) {
+            val uploadResult = item.lastResult
+            itemViewHolder.binding.uploadListItemLayout.setOnClickListener { v: View? ->
+                if (uploadResult == UploadResult.CREDENTIAL_ERROR) {
+                    val optUser = accountManager.getUser(item.accountName)
+                    val user = optUser.orElseThrow(Supplier { RuntimeException() })
+                    parentActivity.fileOperationsHelper.checkCurrentCredentials(user)
+                    return@setOnClickListener
+                } else if (uploadResult == UploadResult.SYNC_CONFLICT && optionalUser.isPresent) {
+                    val user = optionalUser.get()
+                    if (checkAndOpenConflictResolutionDialog(user, itemViewHolder, item, status)) {
+                        return@setOnClickListener
+                    }
+                }
+                // not a credentials error
+                val file = File(item.localPath)
+                val user = accountManager.getUser(item.accountName)
+                if (file.exists() && user.isPresent) {
+                    uploadHelper.retryUpload(item, user.get())
+                } else {
+                    DisplayUtils.showSnackMessage(
+                        v!!.getRootView().findViewById(android.R.id.content),
+                        R.string.local_file_not_found_message
+                    )
+                }
+            }
+        } else if (item.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED) {
+            itemViewHolder.binding.uploadListItemLayout.setOnClickListener {
+                onUploadedItemClick(
+                    item
+                )
+            }
+        }
 
         // click on thumbnail to open locally
-        if (item.getUploadStatus() != UploadStatus.UPLOAD_SUCCEEDED) {
-            itemViewHolder.binding.thumbnail.setOnClickListener(v -> onUploadingItemClick(item));
+        if (item.uploadStatus != UploadStatus.UPLOAD_SUCCEEDED) {
+            itemViewHolder.binding.thumbnail.setOnClickListener {
+                onUploadingItemClick(
+                    item
+                )
+            }
         }
 
         /*
          * Cancellation needs do be checked and done before changing the drawable in fileIcon, or
          * {@link ThumbnailsCacheManager#cancelPotentialWork} will NEVER cancel any task.
          */
-        OCFile fakeFileToCheatThumbnailsCacheManagerInterface = new OCFile(item.getRemotePath());
-        fakeFileToCheatThumbnailsCacheManagerInterface.setStoragePath(item.getLocalPath());
-        fakeFileToCheatThumbnailsCacheManagerInterface.setMimeType(item.getMimeType());
+        val fakeFileToCheatThumbnailsCacheManagerInterface = OCFile(item.remotePath)
+        fakeFileToCheatThumbnailsCacheManagerInterface.setStoragePath(item.localPath)
+        fakeFileToCheatThumbnailsCacheManagerInterface.mimeType = item.mimeType
 
-        boolean allowedToCreateNewThumbnail = ThumbnailsCacheManager.cancelPotentialThumbnailWork(
+        val allowedToCreateNewThumbnail = ThumbnailsCacheManager.cancelPotentialThumbnailWork(
             fakeFileToCheatThumbnailsCacheManagerInterface, itemViewHolder.binding.thumbnail
-                                                                                                 );
+        )
 
         // TODO this code is duplicated; refactor to a common place
         if (MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)
-            && fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId() != null &&
-            item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
+            && fakeFileToCheatThumbnailsCacheManagerInterface.remoteId != null && item.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED
+        ) {
             // Thumbnail in Cache?
 
-            final var cacheKey = String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId());
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey);
+            val cacheKey = fakeFileToCheatThumbnailsCacheManagerInterface.remoteId.toString()
+            var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
 
-            if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.isUpdateThumbnailNeeded()) {
-                itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail);
+            if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.isUpdateThumbnailNeeded) {
+                itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail)
             } else {
                 // generate new Thumbnail
-                Optional<User> user = parentActivity.getUser();
-                if (allowedToCreateNewThumbnail && user.isPresent()) {
-                    final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                        new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                val user = parentActivity.user
+                if (allowedToCreateNewThumbnail && user.isPresent) {
+                    val task =
+                        ThumbnailGenerationTask(
                             itemViewHolder.binding.thumbnail,
-                            parentActivity.getStorageManager(),
+                            parentActivity.storageManager,
                             user.get()
-                        );
+                        )
                     if (thumbnail == null) {
                         if (MimeTypeUtil.isVideo(fakeFileToCheatThumbnailsCacheManagerInterface)) {
-                            thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                            thumbnail = ThumbnailsCacheManager.mDefaultVideo
                         } else {
-                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                            thumbnail = ThumbnailsCacheManager.mDefaultImg
                         }
                     }
-                    final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                        new ThumbnailsCacheManager.AsyncThumbnailDrawable(
+                    val asyncDrawable =
+                        AsyncThumbnailDrawable(
                             parentActivity.getResources(),
                             thumbnail,
                             task
-                        );
-                    itemViewHolder.binding.thumbnail.setImageDrawable(asyncDrawable);
-                    task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(
-                        fakeFileToCheatThumbnailsCacheManagerInterface, null));
+                        )
+                    itemViewHolder.binding.thumbnail.setImageDrawable(asyncDrawable)
+                    task.execute(
+                        ThumbnailGenerationTaskObject(
+                            fakeFileToCheatThumbnailsCacheManagerInterface, null
+                        )
+                    )
                 }
             }
 
-            if ("image/png".equals(item.getMimeType())) {
-                final var backgroundColor = ContextCompat.getColor(parentActivity, R.color.bg_default);
-                itemViewHolder.binding.thumbnail.setBackgroundColor(backgroundColor);
+            if ("image/png" == item.mimeType) {
+                val backgroundColor = ContextCompat.getColor(parentActivity, R.color.bg_default)
+                itemViewHolder.binding.thumbnail.setBackgroundColor(backgroundColor)
             }
         } else if (MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)) {
-            File file = new File(item.getLocalPath());
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(String.valueOf(file.hashCode()));
+            val file = File(item.localPath)
+            var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.hashCode().toString())
 
             if (thumbnail != null) {
-                itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail);
+                itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail)
             } else if (allowedToCreateNewThumbnail) {
-                getThumbnailFromFileTypeAndSetIcon(item.getLocalPath(), itemViewHolder);
+                getThumbnailFromFileTypeAndSetIcon(item.localPath, itemViewHolder)
 
-                final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                    new ThumbnailsCacheManager.ThumbnailGenerationTask(itemViewHolder.binding.thumbnail);
+                val task =
+                    ThumbnailGenerationTask(itemViewHolder.binding.thumbnail)
 
                 if (MimeTypeUtil.isVideo(file)) {
-                    thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                    thumbnail = ThumbnailsCacheManager.mDefaultVideo
                 } else {
-                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                    thumbnail = ThumbnailsCacheManager.mDefaultImg
                 }
 
-                final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(parentActivity.getResources(), thumbnail, task);
-                task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null));
-                task.setListener(new ThumbnailsCacheManager.ThumbnailGenerationTask.Listener() {
-                    @Override
-                    public void onSuccess() {
-                        itemViewHolder.binding.thumbnail.setImageDrawable(asyncDrawable);
+                val asyncDrawable =
+                    AsyncThumbnailDrawable(parentActivity.getResources(), thumbnail, task)
+                task.execute(ThumbnailGenerationTaskObject(file, null))
+                task.setListener(object : ThumbnailGenerationTask.Listener {
+                    override fun onSuccess() {
+                        itemViewHolder.binding.thumbnail.setImageDrawable(asyncDrawable)
                     }
 
-                    @Override
-                    public void onError() {
-                        getThumbnailFromFileTypeAndSetIcon(item.getLocalPath(), itemViewHolder);
+                    override fun onError() {
+                        getThumbnailFromFileTypeAndSetIcon(item.localPath, itemViewHolder)
                     }
-                });
+                })
 
-                Log_OC.v(TAG, "Executing task to generate a new thumbnail");
+                Log_OC.v(TAG, "Executing task to generate a new thumbnail")
             }
 
-            if ("image/png".equalsIgnoreCase(item.getMimeType())) {
-                final var backgroundColor = ContextCompat.getColor(parentActivity, R.color.bg_default);
-                itemViewHolder.binding.thumbnail.setBackgroundColor(backgroundColor);
+            if ("image/png".equals(item.mimeType, ignoreCase = true)) {
+                val backgroundColor = ContextCompat.getColor(parentActivity, R.color.bg_default)
+                itemViewHolder.binding.thumbnail.setBackgroundColor(backgroundColor)
             }
         } else {
-            if (optionalUser.isPresent()) {
-                final Drawable icon = MimeTypeUtil.getFileTypeIcon(item.getMimeType(),
-                                                                   fileName,
-                                                                   parentActivity,
-                                                                   viewThemeUtils);
-                itemViewHolder.binding.thumbnail.setImageDrawable(icon);
+            if (optionalUser.isPresent) {
+                val icon = MimeTypeUtil.getFileTypeIcon(
+                    item.mimeType,
+                    fileName,
+                    parentActivity,
+                    viewThemeUtils
+                )
+                itemViewHolder.binding.thumbnail.setImageDrawable(icon)
             }
         }
     }
 
-    private void getThumbnailFromFileTypeAndSetIcon(String localPath, ItemViewHolder itemViewHolder) {
-        Drawable drawable = MimeTypeUtil.getIcon(localPath, parentActivity, viewThemeUtils);
-        if (drawable == null) return;
-        itemViewHolder.binding.thumbnail.setImageDrawable(drawable);
+    private fun getThumbnailFromFileTypeAndSetIcon(localPath: String?, itemViewHolder: ItemViewHolder) {
+        val drawable = MimeTypeUtil.getIcon(localPath, parentActivity, viewThemeUtils) ?: return
+        itemViewHolder.binding.thumbnail.setImageDrawable(drawable)
     }
 
-    private boolean checkAndOpenConflictResolutionDialog(User user,
-                                                         ItemViewHolder itemViewHolder,
-                                                         OCUpload item,
-                                                         String status) {
-        String remotePath = item.getRemotePath();
-        OCFile localFile = storageManager.getFileByEncryptedRemotePath(remotePath);
+    private fun checkAndOpenConflictResolutionDialog(
+        user: User?,
+        itemViewHolder: ItemViewHolder,
+        item: OCUpload,
+        status: String?
+    ): Boolean {
+        val remotePath = item.remotePath
+        val localFile = storageManager.getFileByEncryptedRemotePath(remotePath)
 
         if (localFile == null) {
             // Remote file doesn't exist, try to refresh folder
-            OCFile folder = storageManager.getFileByEncryptedRemotePath(new File(remotePath).getParent() + "/");
+            val folder = storageManager.getFileByEncryptedRemotePath(File(remotePath).getParent() + "/")
 
-            if (folder != null && folder.isFolder()) {
-                refreshFolderAndUpdateUI(itemViewHolder, user, folder, remotePath, item, status);
-                return true;
+            if (folder != null && folder.isFolder) {
+                refreshFolderAndUpdateUI(itemViewHolder, user, folder, remotePath, item, status)
+                return true
             }
 
             // Destination folder doesn't exist anymore
         }
 
         if (localFile != null) {
-            this.openConflictActivity(localFile, item);
-            return true;
+            this.openConflictActivity(localFile, item)
+            return true
         }
 
         // Remote file doesn't exist anymore = there is no more conflict
-        return false;
+        return false
     }
 
-    private void refreshFolderAndUpdateUI(ItemViewHolder holder, User user, OCFile folder, String remotePath,
-                                          OCUpload item, String status) {
-        Context context = MainApp.getAppContext();
+    private fun refreshFolderAndUpdateUI(
+        holder: ItemViewHolder, user: User?, folder: OCFile?, remotePath: String?,
+        item: OCUpload, status: String?
+    ) {
+        val context = MainApp.getAppContext()
 
-        this.refreshFolder(context, holder, user, folder, (caller, result) -> {
-            holder.binding.uploadStatus.setText(status);
-
-            if (result.isSuccess()) {
-                OCFile fileOnServer = storageManager.getFileByEncryptedRemotePath(remotePath);
+        this.refreshFolder(
+            context,
+            holder,
+            user,
+            folder
+        ) { _: RemoteOperation<*>?, result: RemoteOperationResult<*>? ->
+            holder.binding.uploadStatus.text = status
+            if (result!!.isSuccess) {
+                val fileOnServer = storageManager.getFileByEncryptedRemotePath(remotePath)
 
                 if (fileOnServer != null) {
-                    openConflictActivity(fileOnServer, item);
+                    openConflictActivity(fileOnServer, item)
                 } else {
-                    displayFileNotFoundError(holder.itemView, context);
+                    displayFileNotFoundError(holder.itemView, context)
                 }
             }
-        });
+        }
     }
 
-    private void displayFileNotFoundError(View itemView, Context context) {
-        String message = context.getString(R.string.uploader_file_not_found_message);
-        DisplayUtils.showSnackMessage(itemView, message);
+    private fun displayFileNotFoundError(itemView: View?, context: Context) {
+        val message = context.getString(R.string.uploader_file_not_found_message)
+        DisplayUtils.showSnackMessage(itemView, message)
     }
 
-    private void showItemConflictPopup(User user,
-                                       ItemViewHolder itemViewHolder,
-                                       OCUpload item,
-                                       String status,
-                                       View view) {
-        PopupMenu popup = new PopupMenu(MainApp.getAppContext(), view);
-        popup.inflate(R.menu.upload_list_item_file_conflict);
-        popup.setOnMenuItemClickListener(i -> {
-            int itemId = i.getItemId();
-
+    private fun showItemConflictPopup(
+        user: User?,
+        itemViewHolder: ItemViewHolder,
+        item: OCUpload,
+        status: String?,
+        view: View?
+    ) {
+        val popup = PopupMenu(MainApp.getAppContext(), view)
+        popup.inflate(R.menu.upload_list_item_file_conflict)
+        popup.setOnMenuItemClickListener { i: MenuItem? ->
+            val itemId = i!!.itemId
             if (itemId == R.id.action_upload_list_resolve_conflict) {
-                checkAndOpenConflictResolutionDialog(user, itemViewHolder, item, status);
+                checkAndOpenConflictResolutionDialog(user, itemViewHolder, item, status)
             } else {
-                removeUpload(item);
+                removeUpload(item)
             }
-
-            return true;
-        });
-        popup.show();
+            true
+        }
+        popup.show()
     }
 
-    public void removeUpload(OCUpload item) {
-        uploadsStorageManager.removeUpload(item);
-        cancelOldErrorNotification(item);
-        loadUploadItemsFromDb(() -> {});
+    fun removeUpload(item: OCUpload?) {
+        uploadsStorageManager.removeUpload(item)
+        cancelOldErrorNotification(item)
+        loadUploadItemsFromDb {}
     }
 
-    private void refreshFolder(
-        Context context,
-        ItemViewHolder view,
-        User user,
-        OCFile folder,
-        OnRemoteOperationListener listener) {
-        view.binding.uploadListItemLayout.setClickable(false);
-        view.binding.uploadStatus.setText(R.string.uploads_view_upload_status_fetching_server_version);
-        new RefreshFolderOperation(folder,
-                                   clock.getCurrentTime(),
-                                   false,
-                                   false,
-                                   true,
-                                   storageManager,
-                                   user,
-                                   context)
-            .execute(user, context, (caller, result) -> {
-                view.binding.uploadListItemLayout.setClickable(true);
-                listener.onRemoteOperationFinish(caller, result);
-            }, parentActivity.getHandler());
+    private fun refreshFolder(
+        context: Context?,
+        view: ItemViewHolder,
+        user: User?,
+        folder: OCFile?,
+        listener: OnRemoteOperationListener
+    ) {
+        view.binding.uploadListItemLayout.isClickable = false
+        view.binding.uploadStatus.setText(R.string.uploads_view_upload_status_fetching_server_version)
+        RefreshFolderOperation(
+            folder,
+            clock.currentTime,
+            false,
+            false,
+            true,
+            storageManager,
+            user,
+            context
+        )
+            .execute(
+                user,
+                context,
+                { caller: RemoteOperation<*>?, result: RemoteOperationResult<*>? ->
+                    view.binding.uploadListItemLayout.isClickable = true
+                    listener.onRemoteOperationFinish(caller, result)
+                },
+                parentActivity.handler
+            )
     }
 
-    private void openConflictActivity(OCFile file, OCUpload upload) {
-        file.setStoragePath(upload.getLocalPath());
+    private fun openConflictActivity(file: OCFile, upload: OCUpload) {
+        file.setStoragePath(upload.localPath)
 
-        Context context = MainApp.getAppContext();
-        Optional<User> user = accountManager.getUser(upload.getAccountName());
-        if (user.isPresent()) {
-            Intent intent = ConflictsResolveActivity.createIntent(file,
-                                                                  user.get(),
-                                                                  upload.getUploadId(),
-                                                                  Intent.FLAG_ACTIVITY_NEW_TASK,
-                                                                  context);
+        val context = MainApp.getAppContext()
+        val user = accountManager.getUser(upload.accountName)
+        if (user.isPresent) {
+            val intent = createIntent(
+                file,
+                user.get(),
+                upload.uploadId,
+                Intent.FLAG_ACTIVITY_NEW_TASK,
+                context
+            )
 
-            context.startActivity(intent);
+            context.startActivity(intent)
         }
     }
 
     /**
      * Gets the status text to show to the user according to the status and last result of the the given upload.
-     *
+     * 
      * @param upload Upload to describe.
      * @return Text describing the status of the given upload.
      */
-    private String getStatusText(OCUpload upload) {
-        String status;
-        var statusRes = parentActivity.getResources();
-        var prefs = parentActivity.getAppPreferences();
-        var uploadStatus = upload.getUploadStatus();
+    private fun getStatusText(upload: OCUpload): String {
+        val status: String
+        val statusRes = parentActivity.getResources()
+        val prefs = parentActivity.appPreferences
+        val uploadStatus = upload.uploadStatus
 
-        switch (uploadStatus) {
-            case UPLOAD_IN_PROGRESS -> {
-                if (prefs.isGlobalUploadPaused()) {
-                    status = statusRes.getString(R.string.upload_global_pause_title);
+        when (uploadStatus) {
+            UploadStatus.UPLOAD_IN_PROGRESS -> {
+                status = if (prefs.isGlobalUploadPaused()) {
+                    statusRes.getString(R.string.upload_global_pause_title)
                 } else if (uploadHelper.isUploadingNow(upload)) {
-                    status = statusRes.getString(R.string.uploader_upload_in_progress_ticker);
+                    statusRes.getString(R.string.uploader_upload_in_progress_ticker)
                 } else {
-                    status = statusRes.getString(R.string.uploads_view_later_waiting_to_upload);
+                    statusRes.getString(R.string.uploads_view_later_waiting_to_upload)
                 }
             }
 
-            case UPLOAD_SUCCEEDED -> {
-                UploadResult result = upload.getLastResult();
-                if (result == UploadResult.SAME_FILE_CONFLICT) {
-                    status = statusRes.getString(R.string.uploads_view_upload_status_succeeded_same_file);
+            UploadStatus.UPLOAD_SUCCEEDED -> {
+                val result = upload.lastResult
+                status = if (result == UploadResult.SAME_FILE_CONFLICT) {
+                    statusRes.getString(R.string.uploads_view_upload_status_succeeded_same_file)
                 } else if (result == UploadResult.FILE_NOT_FOUND) {
-                    status = getUploadFailedStatusText(result);
-                } else if (upload.getNameCollisionPolicy() == NameCollisionPolicy.SKIP) {
-                    status = statusRes.getString(R.string.uploads_view_upload_status_skip_reason);
+                    getUploadFailedStatusText(result)
+                } else if (upload.nameCollisionPolicy == NameCollisionPolicy.SKIP) {
+                    statusRes.getString(R.string.uploads_view_upload_status_skip_reason)
                 } else {
-                    status = statusRes.getString(R.string.uploads_view_upload_status_succeeded);
+                    statusRes.getString(R.string.uploads_view_upload_status_succeeded)
                 }
             }
 
-            case UPLOAD_FAILED ->
-                status = getUploadFailedStatusText(upload.getLastResult());
-
-            case UPLOAD_CANCELLED ->
-                status = statusRes.getString(R.string.upload_manually_cancelled);
-
-            default ->
-                status = "Uncontrolled status: " + uploadStatus;
+            UploadStatus.UPLOAD_FAILED -> status = getUploadFailedStatusText(upload.lastResult)
+            UploadStatus.UPLOAD_CANCELLED -> status = statusRes.getString(R.string.upload_manually_cancelled)
+            else -> status = "Uncontrolled status: $uploadStatus"
         }
 
-        return status;
+        return status
     }
 
+    private fun getUploadFailedStatusText(result: UploadResult): String {
+        return when (result) {
+            UploadResult.CREDENTIAL_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_credentials_error)
+            UploadResult.FOLDER_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_folder_error)
+            UploadResult.FILE_NOT_FOUND -> parentActivity.getString(R.string.uploads_view_upload_status_failed_localfile_error)
+            UploadResult.FILE_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_file_error)
+            UploadResult.PRIVILEGES_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_permission_error)
+            UploadResult.NETWORK_CONNECTION -> parentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error)
+            UploadResult.DELAYED_FOR_WIFI -> parentActivity.getString(R.string.uploads_view_upload_status_waiting_for_wifi)
+            UploadResult.DELAYED_FOR_CHARGING -> parentActivity.getString(R.string.uploads_view_upload_status_waiting_for_charging)
+            UploadResult.CONFLICT_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_conflict)
+            UploadResult.SERVICE_INTERRUPTED -> parentActivity.getString(R.string.uploads_view_upload_status_service_interrupted)
+            UploadResult.CANCELLED ->  // should not get here ; cancelled uploads should be wiped out
+                parentActivity.getString(R.string.uploads_view_upload_status_cancelled)
 
-    @NonNull
-    private String getUploadFailedStatusText(UploadResult result) {
-        return switch (result) {
-            case CREDENTIAL_ERROR ->
-                parentActivity.getString(R.string.uploads_view_upload_status_failed_credentials_error);
-            case FOLDER_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_folder_error);
-            case FILE_NOT_FOUND -> parentActivity.getString(R.string.uploads_view_upload_status_failed_localfile_error);
-            case FILE_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_file_error);
-            case PRIVILEGES_ERROR ->
-                parentActivity.getString(R.string.uploads_view_upload_status_failed_permission_error);
-            case NETWORK_CONNECTION ->
-                parentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error);
-            case DELAYED_FOR_WIFI -> parentActivity.getString(R.string.uploads_view_upload_status_waiting_for_wifi);
-            case DELAYED_FOR_CHARGING ->
-                parentActivity.getString(R.string.uploads_view_upload_status_waiting_for_charging);
-            case CONFLICT_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_conflict);
-            case SERVICE_INTERRUPTED ->
-                parentActivity.getString(R.string.uploads_view_upload_status_service_interrupted);
-            case CANCELLED ->
-                // should not get here ; cancelled uploads should be wiped out
-                parentActivity.getString(R.string.uploads_view_upload_status_cancelled);
-            case UPLOADED ->
-                // should not get here ; status should be UPLOAD_SUCCESS
-                parentActivity.getString(R.string.uploads_view_upload_status_succeeded);
-            case MAINTENANCE_MODE -> parentActivity.getString(R.string.maintenance_mode);
-            case SSL_RECOVERABLE_PEER_UNVERIFIED -> parentActivity.getString(
+            UploadResult.UPLOADED ->  // should not get here ; status should be UPLOAD_SUCCESS
+                parentActivity.getString(R.string.uploads_view_upload_status_succeeded)
+
+            UploadResult.MAINTENANCE_MODE -> parentActivity.getString(R.string.maintenance_mode)
+            UploadResult.SSL_RECOVERABLE_PEER_UNVERIFIED -> parentActivity.getString(
                 R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
-                                                                            );
-            case UNKNOWN -> parentActivity.getString(R.string.uploads_view_upload_status_unknown_fail);
-            case LOCK_FAILED -> parentActivity.getString(R.string.upload_lock_failed);
-            case DELAYED_IN_POWER_SAVE_MODE -> parentActivity.getString(
-                R.string.uploads_view_upload_status_waiting_exit_power_save_mode);
-            case VIRUS_DETECTED -> parentActivity.getString(R.string.uploads_view_upload_status_virus_detected);
-            case LOCAL_STORAGE_FULL -> parentActivity.getString(R.string.upload_local_storage_full);
-            case OLD_ANDROID_API -> parentActivity.getString(R.string.upload_old_android);
-            case SYNC_CONFLICT -> parentActivity.getString(R.string.upload_sync_conflict);
-            case CANNOT_CREATE_FILE -> parentActivity.getString(R.string.upload_cannot_create_file);
-            case LOCAL_STORAGE_NOT_COPIED -> parentActivity.getString(R.string.upload_local_storage_not_copied);
-            case QUOTA_EXCEEDED -> parentActivity.getString(R.string.upload_quota_exceeded);
-            default -> parentActivity.getString(R.string.upload_unknown_error);
-        };
+            )
+
+            UploadResult.UNKNOWN -> parentActivity.getString(R.string.uploads_view_upload_status_unknown_fail)
+            UploadResult.LOCK_FAILED -> parentActivity.getString(R.string.upload_lock_failed)
+            UploadResult.DELAYED_IN_POWER_SAVE_MODE -> parentActivity.getString(
+                R.string.uploads_view_upload_status_waiting_exit_power_save_mode
+            )
+
+            UploadResult.VIRUS_DETECTED -> parentActivity.getString(R.string.uploads_view_upload_status_virus_detected)
+            UploadResult.LOCAL_STORAGE_FULL -> parentActivity.getString(R.string.upload_local_storage_full)
+            UploadResult.OLD_ANDROID_API -> parentActivity.getString(R.string.upload_old_android)
+            UploadResult.SYNC_CONFLICT -> parentActivity.getString(R.string.upload_sync_conflict)
+            UploadResult.CANNOT_CREATE_FILE -> parentActivity.getString(R.string.upload_cannot_create_file)
+            UploadResult.LOCAL_STORAGE_NOT_COPIED -> parentActivity.getString(R.string.upload_local_storage_not_copied)
+            UploadResult.QUOTA_EXCEEDED -> parentActivity.getString(R.string.upload_quota_exceeded)
+            else -> parentActivity.getString(R.string.upload_unknown_error)
+        }
     }
 
-    @Override
-    @NonNull
-    public SectionedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == VIEW_TYPE_HEADER) {
-            return new HeaderViewHolder(
-                UploadListHeaderBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
-            );
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
+        return if (viewType == VIEW_TYPE_HEADER) {
+            HeaderViewHolder(
+                UploadListHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            )
         } else {
-            return new ItemViewHolder(
-                UploadListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
-            );
+            ItemViewHolder(
+                UploadListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            )
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public final void loadUploadItemsFromDb(Runnable onCompleted) {
-        parentActivity.getUser().ifPresent(user -> {
-            String accountName = user.getAccountName();
-            final var optionalCapabilities = parentActivity.getCapabilities();
-            if (optionalCapabilities.isPresent()) {
-                final var capabilities = optionalCapabilities.get();
-                for (int i = 0; i < sections.size(); i++) {
-                    final int index = i;
-                    Section sec = sections.get(index);
+    fun loadUploadItemsFromDb(onCompleted: Runnable) {
+        parentActivity.user.ifPresent { user ->
+            val accountName = user.accountName
+            val optionalCapabilities = parentActivity.capabilities
+            if (!optionalCapabilities.isPresent) return@ifPresent
+            val capabilities = optionalCapabilities.get()
 
-                    uploadHelper.getUploadsByStatus(accountName,
-                                                    sec.status(),
-                                                    capabilities,
-                                                    sec.collisionPolicy(),
-                                                    uploads -> {
-                                                        for (OCUpload upload : uploads) {
-                                                            upload.setDataFixed(uploadHelper);
-                                                        }
-                                                        Arrays.sort(uploads, new OCUploadComparator());
-
-                                                        sections.set(index, sec.withItems(uploads));
-
-                                                        parentActivity.runOnUiThread(() -> {
-                                                            notifyDataSetChanged();
-                                                            onCompleted.run();
-                                                        });
-                                                        return Unit.INSTANCE;
-                                                    });
+            sections.indices.forEach { i ->
+                val sec = sections[i]
+                uploadHelper.getUploadsByStatus(accountName, sec.status!!, capabilities, sec.collisionPolicy) { uploads ->
+                    uploads.forEach { it.setDataFixed(uploadHelper) }
+                    sections[i] = sec.withItems(uploads.sortedByUploadOrder())
+                    parentActivity.runOnUiThread {
+                        notifyDataSetChanged()
+                        onCompleted.run()
+                    }
                 }
             }
-        });
+        }
     }
 
     /**
      * Open local file.
      */
-    private void onUploadingItemClick(OCUpload file) {
-        File f = new File(file.getLocalPath());
+    private fun onUploadingItemClick(file: OCUpload) {
+        val f = File(file.localPath)
         if (!f.exists()) {
-            DisplayUtils.showSnackMessage(parentActivity, R.string.local_file_not_found_message);
+            DisplayUtils.showSnackMessage(parentActivity, R.string.local_file_not_found_message)
         } else {
-            openFileWithDefault(file.getLocalPath());
+            openFileWithDefault(file.localPath)
         }
     }
 
     /**
      * Open remote file.
      */
-    private void onUploadedItemClick(OCUpload upload) {
-        final OCFile file = parentActivity.getStorageManager().getFileByEncryptedRemotePath(upload.getRemotePath());
+    private fun onUploadedItemClick(upload: OCUpload) {
+        val file = parentActivity.storageManager.getFileByEncryptedRemotePath(upload.remotePath)
         if (file == null) {
-            DisplayUtils.showSnackMessage(parentActivity, R.string.error_retrieving_file);
-            Log_OC.i(TAG, "Could not find uploaded file on remote.");
-            return;
+            DisplayUtils.showSnackMessage(parentActivity, R.string.error_retrieving_file)
+            Log_OC.i(TAG, "Could not find uploaded file on remote.")
+            return
         }
 
-        final var optionalUser = parentActivity.getUser();
+        val optionalUser = parentActivity.user
 
-        if (PreviewImageFragment.canBePreviewed(file) && optionalUser.isPresent()) {
+        if (canBePreviewed(file) && optionalUser.isPresent) {
             //show image preview and stay in uploads tab
-            Intent intent = FileDisplayActivity.openFileIntent(parentActivity, optionalUser.get(), file);
-            parentActivity.startActivity(intent);
+            val intent = openFileIntent(parentActivity, optionalUser.get(), file)
+            parentActivity.startActivity(intent)
         } else {
-            Intent intent = new Intent(parentActivity, FileDisplayActivity.class);
-            intent.setAction(Intent.ACTION_VIEW);
-            intent.putExtra(FileDisplayActivity.KEY_FILE_PATH, upload.getRemotePath());
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            parentActivity.startActivity(intent);
+            val intent = Intent(parentActivity, FileDisplayActivity::class.java)
+            intent.setAction(Intent.ACTION_VIEW)
+            intent.putExtra(FileDisplayActivity.KEY_FILE_PATH, upload.remotePath)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            parentActivity.startActivity(intent)
         }
     }
-
 
     /**
      * Open file with app associates with its MIME type. If MIME type unknown, show list with all apps.
      */
-    private void openFileWithDefault(String localPath) {
-        Intent myIntent = new Intent(Intent.ACTION_VIEW);
-        File file = new File(localPath);
-        String mimetype = MimeTypeUtil.getBestMimeTypeByFilename(localPath);
-        if ("application/octet-stream".equals(mimetype)) {
-            mimetype = "*/*";
+    private fun openFileWithDefault(localPath: String) {
+        val myIntent = Intent(Intent.ACTION_VIEW)
+        val file = File(localPath)
+        var mimetype = MimeTypeUtil.getBestMimeTypeByFilename(localPath)
+        if ("application/octet-stream" == mimetype) {
+            mimetype = "*/*"
         }
-        myIntent.setDataAndType(Uri.fromFile(file), mimetype);
+        myIntent.setDataAndType(Uri.fromFile(file), mimetype)
         try {
-            parentActivity.startActivity(myIntent);
-        } catch (ActivityNotFoundException e) {
-            DisplayUtils.showSnackMessage(parentActivity, R.string.file_list_no_app_for_file_type);
-            Log_OC.i(TAG, "Could not find app for sending log history.");
+            parentActivity.startActivity(myIntent)
+        } catch (e: ActivityNotFoundException) {
+            DisplayUtils.showSnackMessage(parentActivity, R.string.file_list_no_app_for_file_type)
+            Log_OC.i(TAG, "Could not find app for sending log history: $e")
         }
     }
 
-    static class HeaderViewHolder extends SectionedViewHolder {
-        UploadListHeaderBinding binding;
+    internal class HeaderViewHolder(var binding: UploadListHeaderBinding) : SectionedViewHolder(
+        binding.getRoot()
+    )
 
-        HeaderViewHolder(UploadListHeaderBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-    }
+    internal class ItemViewHolder(var binding: UploadListItemBinding) : SectionedViewHolder(
+        binding.getRoot()
+    )
 
-    static class ItemViewHolder extends SectionedViewHolder {
-        UploadListItemBinding binding;
-
-        ItemViewHolder(UploadListItemBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-    }
-
-    enum Type {
+    internal enum class Type {
         CURRENT, COMPLETED, FAILED, CANCELLED, SKIPPED
     }
 
-    public void cancelOldErrorNotification(OCUpload upload) {
+    fun cancelOldErrorNotification(upload: OCUpload?) {
         if (mNotificationManager == null) {
-            mNotificationManager = (NotificationManager) parentActivity.getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationManager = parentActivity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
         }
 
         if (upload == null) {
-            return;
+            return
         }
 
-        mNotificationManager.cancel((int) upload.getUploadId());
+        mNotificationManager!!.cancel(upload.uploadId.toInt())
+    }
+
+    companion object {
+        private val TAG: String = UploadListAdapter::class.java.getSimpleName()
     }
 }

@@ -12,3 +12,11 @@ import com.owncloud.android.db.OCUpload
 fun List<OCUpload>.getUploadIds(): LongArray = map { it.uploadId }.toLongArray()
 
 fun Array<OCUpload>.getUploadIds(): LongArray = map { it.uploadId }.toLongArray()
+
+fun List<OCUpload>.sortedByUploadOrder(): List<OCUpload> =
+    sortedWith(
+        compareBy<OCUpload> { it.fixedUploadStatus }
+            .thenByDescending { it.isFixedUploadingNow }
+            .thenByDescending { it.fixedUploadEndTimeStamp }
+            .thenBy { it.fixedUploadId }
+    )

@@ -172,7 +172,7 @@ class FileUploadHelper {
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService,
-        uploads: Array<OCUpload>
+        uploads: List<OCUpload>
     ): Boolean {
         var showNotExistMessage = false
         var showSyncConflictNotification = false
@@ -356,7 +356,7 @@ class FileUploadHelper {
         status: UploadStatus,
         capability: OCCapability,
         nameCollisionPolicy: NameCollisionPolicy? = null,
-        onCompleted: (Array<OCUpload>) -> Unit
+        onCompleted: (List<OCUpload>) -> Unit
     ) {
         ioScope.launch {
             val dao = uploadsStorageManager.uploadDao
@@ -366,7 +366,7 @@ class FileUploadHelper {
                 dao.getUploadsByStatus(status.value, nameCollisionPolicy?.serialize())
             }.mapNotNull {
                 it.toOCUpload(capability)
-            }.toTypedArray()
+            }
             onCompleted(result)
         }
     }
