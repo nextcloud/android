@@ -15,7 +15,7 @@ import com.owncloud.android.files.services.NameCollisionPolicy
 data class UploadListSection(
     val type: UploadListType?,
     val titleRes: Int,
-    val status: UploadsStorageManager.UploadStatus?,
+    val status: UploadsStorageManager.UploadStatus,
     val collisionPolicy: NameCollisionPolicy?,
     val items: List<OCUpload>
 ) {

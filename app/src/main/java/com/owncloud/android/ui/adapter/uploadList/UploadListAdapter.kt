@@ -744,7 +744,7 @@ class UploadListAdapter(
             val updatedSections = uploadListSections.map { sec ->
                 val uploads = uploadHelper.getUploadsByStatus(
                     accountName,
-                    sec.status!!,
+                    sec.status,
                     capabilities,
                     sec.collisionPolicy
                 )
