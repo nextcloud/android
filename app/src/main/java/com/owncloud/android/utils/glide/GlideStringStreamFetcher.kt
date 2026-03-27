@@ -25,46 +25,46 @@ import java.io.InputStream
 class GlideStringStreamFetcher(private val url: String?) : DataFetcher<InputStream> {
 
     private var stream: InputStream? = null
+    private var get: GetMethod? = null
 
     @Suppress("TooGenericExceptionCaught")
     override fun loadData(priority: Priority, callback: DataFetcher.DataCallback<in InputStream>) {
-        var get: GetMethod? = null
         try {
-            val ownCloudAccount =
-                UserAccountManagerImpl.fromContext(MainApp.getAppContext()).currentOwnCloudAccount
-            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                .getClientFor(ownCloudAccount, MainApp.getAppContext())
+            val ownCloudAccount = UserAccountManagerImpl.fromContext(MainApp.getAppContext()).currentOwnCloudAccount
+            val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ownCloudAccount, MainApp.getAppContext())
+
             get = GetMethod(url)
-            get.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true")
-            get.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE)
-            val status = client.executeMethod(get)
+            get?.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true")
+            get?.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE)
+
+            val status = client?.executeMethod(get)
             if (status == HttpStatus.SC_OK) {
-                val inputStream = get.getResponseBodyAsStream()
-                this.stream = inputStream
-                callback.onDataReady(inputStream)
+                stream = get?.responseBodyAsStream
+                stream?.let { callback.onDataReady(it) } ?: callback.onLoadFailed(IOException("Stream is null"))
             } else {
-                client.exhaustResponse(get.getResponseBodyAsStream())
+                client?.exhaustResponse(get?.responseBodyAsStream)
                 callback.onLoadFailed(IOException("Unexpected HTTP status $status"))
             }
         } catch (e: Exception) {
-            Log_OC.e(TAG, e.message, e)
+            Log_OC.e(TAG, "exception GlideStringStreamFetcher.loadData: $e")
             callback.onLoadFailed(e)
+        }
+    }
+
+    override fun cleanup() {
+        try {
+            stream?.close()
+        } catch (_: IOException) {
         } finally {
             get?.releaseConnection()
         }
     }
 
-    override fun cleanup() {
-        Log_OC.i(TAG, "Cleanup")
-        try {
-            stream?.close()
-        } catch (e: IOException) {
-            Log_OC.w(TAG, "Cleanup failed$e")
-        }
-    }
-
     override fun cancel() {
-        Log_OC.i(TAG, "Cancel")
+        try {
+            get?.abort()
+        } catch (_: Exception) {
+        }
     }
 
     override fun getDataClass(): Class<InputStream> = InputStream::class.java

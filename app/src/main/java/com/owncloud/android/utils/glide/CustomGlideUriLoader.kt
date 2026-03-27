@@ -20,7 +20,7 @@ import java.io.InputStream
  */
 class CustomGlideUriLoader : ModelLoader<Uri, InputStream> {
     override fun buildLoadData(uri: Uri, width: Int, height: Int, options: Options): LoadData<InputStream> =
-        LoadData<InputStream>(ObjectKey(uri), HttpStreamFetcher(uri.toString()))
+        LoadData(ObjectKey(uri), HttpStreamFetcher(uri.toString()))
 
     override fun handles(uri: Uri): Boolean = false
 }
