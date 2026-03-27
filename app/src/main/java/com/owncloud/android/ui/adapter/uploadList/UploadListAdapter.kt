@@ -143,7 +143,7 @@ class UploadListAdapter(
 
                 UploadListType.COMPLETED -> {
                     uploadsStorageManager.clearSuccessfulUploads()
-                    loadUploadItemsFromDb {}
+                    loadUploadItemsFromDb()
                 }
 
                 UploadListType.FAILED -> showFailedPopupMenu(holder)
@@ -169,7 +169,7 @@ class UploadListAdapter(
                     completedCount++
                     if (completedCount == items.size) {
                         Log_OC.d(TAG, "refreshing upload items")
-                        loadUploadItemsFromDb {}
+                        loadUploadItemsFromDb()
                     }
                 }
             }
@@ -184,7 +184,7 @@ class UploadListAdapter(
                     R.id.action_upload_list_failed_clear -> {
                         uploadsStorageManager.clearFailedButNotDelayedUploads()
                         clearTempEncryptedFolder()
-                        loadUploadItemsFromDb {}
+                        loadUploadItemsFromDb()
                     }
 
                     R.id.action_upload_list_failed_retry ->
@@ -208,7 +208,7 @@ class UploadListAdapter(
                 when (item.itemId) {
                     R.id.action_upload_list_cancelled_clear -> {
                         uploadsStorageManager.clearCancelledUploadsForCurrentAccount()
-                        loadUploadItemsFromDb {}
+                        loadUploadItemsFromDb()
                         clearTempEncryptedFolder()
                     }
 
@@ -414,7 +414,7 @@ class UploadListAdapter(
                                 FileUploadWorker.cancelUpload(
                                     item.remotePath,
                                     item.accountName
-                                ) { loadUploadItemsFromDb {} }
+                                ) { loadUploadItemsFromDb() }
                             }
                         }
                     }
@@ -689,7 +689,7 @@ class UploadListAdapter(
     fun removeUpload(item: OCUpload?) {
         uploadsStorageManager.removeUpload(item)
         cancelOldErrorNotification(item)
-        loadUploadItemsFromDb {}
+        loadUploadItemsFromDb()
     }
 
     private fun refreshFolder(view: ItemViewHolder, user: User?, folder: OCFile?, listener: OnRemoteOperationListener) {
@@ -723,7 +723,8 @@ class UploadListAdapter(
         }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun loadUploadItemsFromDb(onCompleted: Runnable) {
+    @JvmOverloads
+    fun loadUploadItemsFromDb(onCompleted: Runnable = {}) {
         val optionalUser = activity.user
         if (optionalUser.isEmpty) {
             return
@@ -736,14 +737,15 @@ class UploadListAdapter(
         }
         val capabilities = optionalCapabilities.get()
 
-        uploadListSections.indices.forEach { i ->
-            val sec = uploadListSections[i]
-            uploadHelper.getUploadsByStatus(
-                accountName,
-                sec.status!!,
-                capabilities,
-                sec.collisionPolicy
-            ) { uploads ->
+        activity.lifecycleScope.launch(Dispatchers.IO) {
+            uploadListSections.indices.forEach { i ->
+                val sec = uploadListSections[i]
+                val uploads = uploadHelper.getUploadsByStatus(
+                    accountName,
+                    sec.status!!,
+                    capabilities,
+                    sec.collisionPolicy
+                )
                 uploads.forEach { it.setDataFixed(uploadHelper) }
                 uploadListSections[i] = sec.withItems(uploads.sortedByUploadOrder())
                 activity.runOnUiThread {
