@@ -19,6 +19,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
@@ -60,19 +61,22 @@ import com.owncloud.android.ui.preview.PreviewImageFragment.Companion.canBePrevi
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.function.Consumer
 import java.util.function.Supplier
 
 class UploadListAdapter(
-    fileActivity: FileActivity,
-    uploadsStorageManager: UploadsStorageManager,
-    storageManager: FileDataStorageManager,
-    accountManager: UserAccountManager,
-    connectivityService: ConnectivityService,
-    powerManagementService: PowerManagementService,
-    clock: Clock,
-    viewThemeUtils: ViewThemeUtils
+    private val fileActivity: FileActivity,
+    private val uploadsStorageManager: UploadsStorageManager,
+    private val storageManager: FileDataStorageManager,
+    private val accountManager: UserAccountManager,
+    private val connectivityService: ConnectivityService,
+    private val powerManagementService: PowerManagementService,
+    private val clock: Clock,
+    private val viewThemeUtils: ViewThemeUtils
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder?>() {
 
     private data class Section(
@@ -84,6 +88,14 @@ class UploadListAdapter(
     ) {
         fun withItems(newItems: List<OCUpload>) = copy(items = newItems)
     }
+
+    internal enum class Type { CURRENT, COMPLETED, FAILED, CANCELLED, SKIPPED }
+
+    internal class HeaderViewHolder(val binding: UploadListHeaderBinding) :
+        SectionedViewHolder(binding.root)
+
+    internal class ItemViewHolder(val binding: UploadListItemBinding) :
+        SectionedViewHolder(binding.root)
 
     private val sections: MutableList<Section> = ArrayList<Section>(
         listOf(
@@ -125,32 +137,15 @@ class UploadListAdapter(
         )
     )
 
-    private var uploadProgressListener: UploadProgressListener? = null
-    private val parentActivity: FileActivity
-    private val uploadsStorageManager: UploadsStorageManager
-    private val storageManager: FileDataStorageManager
-    private val connectivityService: ConnectivityService
-    private val powerManagementService: PowerManagementService
-    private val accountManager: UserAccountManager
-    private val clock: Clock
-    private val showUser: Boolean
-    private val viewThemeUtils: ViewThemeUtils
-    private var mNotificationManager: NotificationManager? = null
+    private val parentActivity: FileActivity = fileActivity
+    private val showUser: Boolean = accountManager.getAccounts().size > 1
     private val uploadHelper = instance()
+    private var uploadProgressListener: UploadProgressListener? = null
+    private var mNotificationManager: NotificationManager? = null
 
     init {
         Log_OC.d(TAG, "UploadListAdapter")
-
-        this.parentActivity = fileActivity
-        this.uploadsStorageManager = uploadsStorageManager
-        this.storageManager = storageManager
-        this.accountManager = accountManager
-        this.connectivityService = connectivityService
-        this.powerManagementService = powerManagementService
-        this.clock = clock
-        this.viewThemeUtils = viewThemeUtils
         shouldShowHeadersForEmptySections(false)
-        showUser = accountManager.getAccounts().size > 1
     }
 
     override fun getSectionCount(): Int {
@@ -161,122 +156,113 @@ class UploadListAdapter(
         return sections[section].items.size
     }
 
+    // region header
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder?, section: Int, expanded: Boolean) {
         val headerViewHolder = holder as HeaderViewHolder
-
         val group = sections[section]
+
+        bindHeaderTitle(headerViewHolder, group, section)
+        bindHeaderActionButton(headerViewHolder, group)
+        bindHeaderBatterySaverWarning(headerViewHolder)
+        bindHeaderActionClickListener(headerViewHolder, group)
+    }
+
+    private fun bindHeaderTitle(holder: HeaderViewHolder, group: Section, section: Int) {
         val title = parentActivity.getString(group.titleRes)
-        val count = group.items.size
+        val headerText = parentActivity.getString(R.string.uploads_view_group_header)
+        holder.binding.uploadListTitle.text = String.format(headerText, title, group.items.size)
+        viewThemeUtils.platform.colorTextView(holder.binding.uploadListTitle)
 
-        headerViewHolder.binding.uploadListTitle.text =
-            String.format(parentActivity.getString(R.string.uploads_view_group_header), title, count)
-        viewThemeUtils.platform.colorTextView(headerViewHolder.binding.uploadListTitle)
-
-        headerViewHolder.binding.uploadListTitle.setOnClickListener {
+        val toggleExpand = {
             toggleSectionExpanded(section)
             val icon = if (isSectionExpanded(section)) R.drawable.ic_expand_less else R.drawable.ic_expand_more
-            headerViewHolder.binding.uploadListState.setImageResource(icon)
+            holder.binding.uploadListState.setImageResource(icon)
         }
+        holder.binding.uploadListTitle.setOnClickListener { toggleExpand() }
+        holder.binding.uploadListStateLayout.setOnClickListener { toggleExpand() }
+    }
 
-        headerViewHolder.binding.uploadListStateLayout.setOnClickListener {
-            toggleSectionExpanded(section)
-            val icon = if (isSectionExpanded(section)) R.drawable.ic_expand_less else R.drawable.ic_expand_more
-            headerViewHolder.binding.uploadListState.setImageResource(icon)
+    private fun bindHeaderActionButton(holder: HeaderViewHolder, group: Section) {
+        val iconRes = when (group.type) {
+            Type.CURRENT, Type.COMPLETED -> R.drawable.ic_close
+            Type.CANCELLED, Type.FAILED  -> R.drawable.ic_dots_vertical
+            else -> return
         }
+        holder.binding.uploadListAction.setImageResource(iconRes)
+    }
 
-        when (group.type) {
-            Type.CURRENT, Type.COMPLETED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close)
-            Type.CANCELLED, Type.FAILED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_dots_vertical)
-            else -> {}
-        }
-
-        headerViewHolder.binding.autoUploadBatterySaverWarningCard.root
+    private fun bindHeaderBatterySaverWarning(holder: HeaderViewHolder) {
+        holder.binding.autoUploadBatterySaverWarningCard.root
             .setVisibleIf(powerManagementService.isPowerSavingEnabled)
-        viewThemeUtils.material.themeCardView(headerViewHolder.binding.autoUploadBatterySaverWarningCard.root)
+        viewThemeUtils.material.themeCardView(holder.binding.autoUploadBatterySaverWarningCard.root)
+    }
 
-        headerViewHolder.binding.uploadListAction.setOnClickListener {
+    private fun bindHeaderActionClickListener(holder: HeaderViewHolder, group: Section) {
+        holder.binding.uploadListAction.setOnClickListener {
             when (group.type) {
-                Type.CURRENT -> {
-                    val items = group.items
-                    if (items.isEmpty()) return@setOnClickListener
-
-                    val accountName = items[0].accountName
-
-                    val totalUploads = group.items.size
-                    val completedCount = intArrayOf(0)
-
-                    for (i in group.items.indices) {
-                        val upload = group.items[i]
-                        uploadHelper.updateUploadStatus(
-                            upload.remotePath,
-                            accountName,
-                            UploadStatus.UPLOAD_CANCELLED
-                        ) {
-                            cancelUpload(upload.remotePath, accountName) {
-                                completedCount[0]++
-                                if (completedCount[0] == totalUploads) {
-                                    Log_OC.d(TAG, "refreshing upload items")
-
-                                    // All uploads finished, refresh UI once
-                                    loadUploadItemsFromDb(Runnable {})
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Type.COMPLETED -> {
-                    uploadsStorageManager.clearSuccessfulUploads()
-                    loadUploadItemsFromDb {}
-                }
-
-                Type.FAILED -> showFailedPopupMenu(headerViewHolder)
-                Type.CANCELLED -> showCancelledPopupMenu(headerViewHolder)
+                Type.CURRENT   -> cancelAllCurrentUploads(group)
+                Type.COMPLETED -> { uploadsStorageManager.clearSuccessfulUploads(); loadUploadItemsFromDb {} }
+                Type.FAILED    -> showFailedPopupMenu(holder)
+                Type.CANCELLED -> showCancelledPopupMenu(holder)
                 else -> {}
             }
         }
     }
 
-    private fun showFailedPopupMenu(headerViewHolder: HeaderViewHolder) {
-        val failedPopup = PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction)
-        failedPopup.inflate(R.menu.upload_list_failed_options)
-        failedPopup.setOnMenuItemClickListener { i: MenuItem? ->
-            val itemId = i!!.itemId
-            if (itemId == R.id.action_upload_list_failed_clear) {
-                uploadsStorageManager.clearFailedButNotDelayedUploads()
-                clearTempEncryptedFolder()
-                loadUploadItemsFromDb {}
-            } else if (itemId == R.id.action_upload_list_failed_retry) {
-                uploadHelper.retryFailedUploads(
-                    uploadsStorageManager,
-                    connectivityService,
-                    accountManager,
-                    powerManagementService
-                )
+    private fun cancelAllCurrentUploads(group: Section) {
+        val items = group.items.takeIf { it.isNotEmpty() } ?: return
+        val accountName = items[0].accountName
+        var completedCount = 0
+        items.forEach { upload ->
+            uploadHelper.updateUploadStatus(upload.remotePath, accountName, UploadStatus.UPLOAD_CANCELLED) {
+                cancelUpload(upload.remotePath, accountName) {
+                    completedCount++
+                    if (completedCount == items.size) {
+                        Log_OC.d(TAG, "refreshing upload items")
+                        loadUploadItemsFromDb {}
+                    }
+                }
             }
-            true
         }
-
-        failedPopup.show()
     }
 
-    private fun showCancelledPopupMenu(headerViewHolder: HeaderViewHolder) {
-        val popup = PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction)
-        popup.inflate(R.menu.upload_list_cancelled_options)
-
-        popup.setOnMenuItemClickListener { i: MenuItem ->
-            val itemId = i.itemId
-            if (itemId == R.id.action_upload_list_cancelled_clear) {
-                uploadsStorageManager.clearCancelledUploadsForCurrentAccount()
-                loadUploadItemsFromDb(Runnable {})
-                clearTempEncryptedFolder()
-            } else if (itemId == R.id.action_upload_list_cancelled_resume) {
-                retryCancelledUploads()
+    private fun showFailedPopupMenu(holder: HeaderViewHolder) {
+        PopupMenu(fileActivity, holder.binding.uploadListAction).apply {
+            inflate(R.menu.upload_list_failed_options)
+            setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.action_upload_list_failed_clear -> {
+                        uploadsStorageManager.clearFailedButNotDelayedUploads()
+                        clearTempEncryptedFolder()
+                        loadUploadItemsFromDb {}
+                    }
+                    R.id.action_upload_list_failed_retry ->
+                        uploadHelper.retryFailedUploads(
+                            uploadsStorageManager, connectivityService, accountManager, powerManagementService
+                        )
+                }
+                true
             }
-            true
+            show()
         }
+    }
 
-        popup.show()
+    private fun showCancelledPopupMenu(holder: HeaderViewHolder) {
+        PopupMenu(fileActivity, holder.binding.uploadListAction).apply {
+            inflate(R.menu.upload_list_cancelled_options)
+            setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.action_upload_list_cancelled_clear -> {
+                        uploadsStorageManager.clearCancelledUploadsForCurrentAccount()
+                        loadUploadItemsFromDb {}
+                        clearTempEncryptedFolder()
+                    }
+                    R.id.action_upload_list_cancelled_resume -> retryCancelledUploads()
+                }
+                true
+            }
+            show()
+        }
     }
 
     private fun clearTempEncryptedFolder() {
@@ -286,24 +272,18 @@ class UploadListAdapter(
 
     // FIXME For e2e resume is not working
     private fun retryCancelledUploads() {
-        Thread {
+        fileActivity.lifecycleScope.launch(Dispatchers.IO) {
             val showNotExistMessage = uploadHelper.retryCancelledUploads(
-                uploadsStorageManager,
-                connectivityService,
-                accountManager,
-                powerManagementService
+                uploadsStorageManager, connectivityService, accountManager, powerManagementService
             )
-            parentActivity.runOnUiThread {
-                if (showNotExistMessage) {
-                    showNotExistMessage()
+            if (showNotExistMessage) {
+                withContext(Dispatchers.Main) {
+                    DisplayUtils.showSnackMessage(parentActivity, R.string.upload_action_file_not_exist_message)
                 }
             }
-        }.start()
+        }
     }
-
-    private fun showNotExistMessage() {
-        DisplayUtils.showSnackMessage(parentActivity, R.string.upload_action_file_not_exist_message)
-    }
+    // endregion
 
     override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) = Unit
 
@@ -893,7 +873,12 @@ class UploadListAdapter(
 
             sections.indices.forEach { i ->
                 val sec = sections[i]
-                uploadHelper.getUploadsByStatus(accountName, sec.status!!, capabilities, sec.collisionPolicy) { uploads ->
+                uploadHelper.getUploadsByStatus(
+                    accountName,
+                    sec.status!!,
+                    capabilities,
+                    sec.collisionPolicy
+                ) { uploads ->
                     uploads.forEach { it.setDataFixed(uploadHelper) }
                     sections[i] = sec.withItems(uploads.sortedByUploadOrder())
                     parentActivity.runOnUiThread {
@@ -960,18 +945,6 @@ class UploadListAdapter(
             DisplayUtils.showSnackMessage(parentActivity, R.string.file_list_no_app_for_file_type)
             Log_OC.i(TAG, "Could not find app for sending log history: $e")
         }
-    }
-
-    internal class HeaderViewHolder(var binding: UploadListHeaderBinding) : SectionedViewHolder(
-        binding.getRoot()
-    )
-
-    internal class ItemViewHolder(var binding: UploadListItemBinding) : SectionedViewHolder(
-        binding.getRoot()
-    )
-
-    internal enum class Type {
-        CURRENT, COMPLETED, FAILED, CANCELLED, SKIPPED
     }
 
     fun cancelOldErrorNotification(upload: OCUpload?) {
