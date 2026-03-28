@@ -149,7 +149,7 @@
     <string name="choose_local_folder">Wähle einen lokalen Ordner …</string>
     <string name="choose_remote_folder">Wähle einen entfernten Ordner …</string>
     <string name="choose_template_helper_text">Bitte eine Vorlage auswählen und einen Dateinamen eingeben.</string>
-    <string name="choose_which_file">Wählen Sie, welche Datei behalten werden soll!</string>
+    <string name="choose_which_file">Bitte auswählen, welche Datei behalten werden soll!</string>
     <string name="choose_widget">Widget auswählen</string>
     <string name="clear">Leeren</string>
     <string name="clear_notifications_failed">Benachrichtigungen konnten nicht gelöscht werden</string>
@@ -405,6 +405,7 @@
     <string name="etm_transfer_type">Übertragen</string>
     <string name="etm_transfer_type_download">Herunterladen</string>
     <string name="etm_transfer_type_upload">Hochladen</string>
+    <string name="export_in_progress">Exportiere %1$d von %2$d</string>
     <string name="extension_cannot_be_changed">Erweiterung kann nicht geändert werden</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Sie haben keine Berechtigung, in diesen Ordner Dateien hochzuladen oder zu erstellen.</string>
     <string name="external_shares">Externe Freigaben</string>
@@ -1016,7 +1017,7 @@
     <string name="synced_icon">Synchronisiert</string>
     <string name="tags">Schlagworte</string>
     <string name="terms_of_service_title">Nutzungsbedingungen</string>
-    <string name="terms_of_services_agree">Ich stimme den oben genannten Nutzungsbedingungen zu</string>
+    <string name="terms_of_services_agree">Ich stimme den vorstehenden Nutzungsbedingungen zu</string>
     <string name="test_server_button">Prüfe Serververbindung</string>
     <string name="thirtyMinutes">30 Minuten</string>
     <string name="thisWeek">Diese Woche</string>
@@ -1060,7 +1061,7 @@
     <string name="unsharing_failed">Freigabe aufheben fehlgeschlagen</string>
     <string name="untrusted_domain">Zugriff über nicht vertrauenswürdige Domain. Weitere Informationen finden sich in der Dokumentation.</string>
     <string name="update_link_file_error">Es ist ein Fehler bei der Aktualisierung der Freigabe aufgetreten.</string>
-    <string name="update_link_file_no_exist">Aktualisierung nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
+    <string name="update_link_file_no_exist">Aktualisierung nicht möglich. Bitte prüfen, ob die Datei existiert.</string>
     <string name="update_link_forbidden_permissions">zum Aktualisieren dieser Freigabe</string>
     <string name="updating_share_failed">Aktualisierung der Freigabe fehlgeschlagen</string>
     <string name="upload_action_cancelled_clear">Abgebrochene Uploads entfernen</string>
