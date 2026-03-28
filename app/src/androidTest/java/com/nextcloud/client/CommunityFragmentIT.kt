@@ -26,7 +26,7 @@ class CommunityFragmentIT : AbstractIT() {
     private val testClassName = "com.nextcloud.client.CommunityFragmentIT"
 
     @get:Rule
-    var storagePermissionRule: TestRule = grant()
+    var storagePermissionRules: TestRule = grant()
 
     @Test
     @ScreenshotTest

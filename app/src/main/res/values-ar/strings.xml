@@ -277,6 +277,7 @@
     <string name="drawer_item_assistant">المُساعِد</string>
     <string name="drawer_item_favorites">المفضلة </string>
     <string name="drawer_item_gallery">الوسائط</string>
+    <string name="drawer_item_groupfolders">مُجلّدات الفريق</string>
     <string name="drawer_item_home">الرئيسية</string>
     <string name="drawer_item_notifications">الإخطارات</string>
     <string name="drawer_item_on_device">على الجهاز</string>
