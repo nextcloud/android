@@ -12,12 +12,10 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,6 +27,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -48,15 +47,12 @@ import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -68,7 +64,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
-import androidx.recyclerview.widget.RecyclerView;
 import kotlin.Unit;
 
 /**
@@ -127,8 +122,6 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             viewThemeUtils.files.themeActionBar(this, actionBar);
         }
 
-        binding.userinfoList.setAdapter(new UserInfoAdapter(null, viewThemeUtils));
-
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
         } else {
@@ -174,7 +167,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     }
 
     private void setMultiListLoadingMessage() {
-        binding.userinfoList.setVisibility(View.GONE);
+        binding.userinfoListContainer.setVisibility(View.GONE);
         binding.emptyList.emptyListView.setVisibility(View.GONE);
     }
 
@@ -185,7 +178,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
 
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
-        binding.userinfoList.setVisibility(View.GONE);
+        binding.userinfoListContainer.setVisibility(View.GONE);
         binding.loadingContent.setVisibility(View.GONE);
     }
 
@@ -267,10 +260,12 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             binding.userinfoFullName.setText(userInfo.getDisplayName());
         }
 
-        if (TextUtils.isEmpty(userInfo.getPhone()) && TextUtils.isEmpty(userInfo.getEmail())
+        final boolean userInfoEmpty = TextUtils.isEmpty(userInfo.getPhone()) && TextUtils.isEmpty(userInfo.getEmail())
             && TextUtils.isEmpty(userInfo.getAddress()) && TextUtils.isEmpty(userInfo.getTwitter())
-            && TextUtils.isEmpty(userInfo.getWebsite()) && (userInfo.getGroups() == null || userInfo.getGroups().isEmpty())) {
-            binding.userinfoList.setVisibility(View.GONE);
+            && TextUtils.isEmpty(userInfo.getWebsite());
+        final boolean groupInfoEmpty = userInfo.getGroups() == null || userInfo.getGroups().isEmpty();
+        if (userInfoEmpty && groupInfoEmpty) {
+            binding.userinfoListContainer.setVisibility(View.GONE);
             binding.loadingContent.setVisibility(View.GONE);
             binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
 
@@ -280,41 +275,72 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             binding.loadingContent.setVisibility(View.VISIBLE);
             binding.emptyList.emptyListView.setVisibility(View.GONE);
 
-            if (binding.userinfoList.getAdapter() instanceof UserInfoAdapter) {
-                binding.userinfoList.setAdapter(new UserInfoAdapter(createUserInfoDetails(userInfo), viewThemeUtils));
+            if (!userInfoEmpty) {
+                viewThemeUtils.platform.colorTextView(binding.userinfoListTitle, ColorRole.PRIMARY);
+                showUserInfoDetails(binding.userinfoList, userInfo);
+                binding.userinfoList.setVisibility(View.VISIBLE);
+                binding.userinfoListTitle.setVisibility(View.VISIBLE);
+            } else {
+                binding.userinfoList.setVisibility(View.GONE);
+                binding.userinfoListTitle.setVisibility(View.GONE);
+            }
+
+            if (!groupInfoEmpty) {
+                viewThemeUtils.platform.colorTextView(binding.groupinfoListTitle, ColorRole.PRIMARY);
+                showGroupsInfoDetails(binding.groupinfoList, userInfo);
+                binding.groupinfoList.setVisibility(View.VISIBLE);
+                binding.groupinfoListTitle.setVisibility(View.VISIBLE);
+            } else {
+                binding.groupinfoList.setVisibility(View.GONE);
+                binding.groupinfoListTitle.setVisibility(View.GONE);
             }
 
             binding.loadingContent.setVisibility(View.GONE);
-            binding.userinfoList.setVisibility(View.VISIBLE);
+            binding.userinfoListContainer.setVisibility(View.VISIBLE);
         }
     }
 
-    private List<UserInfoDetailsItem> createUserInfoDetails(UserInfo userInfo) {
-        List<UserInfoDetailsItem> result = new LinkedList<>();
+    private void showUserInfoDetails(ViewGroup container, UserInfo userInfo) {
+        container.removeAllViews();
+        addToListIfNeeded(container, R.drawable.ic_phone, userInfo.getPhone(), R.string.user_info_phone);
+        addToListIfNeeded(container, R.drawable.ic_email, userInfo.getEmail(), R.string.user_info_email);
+        addToListIfNeeded(container, R.drawable.ic_map_marker, userInfo.getAddress(), R.string.user_info_address);
+        addToListIfNeeded(container, R.drawable.ic_web, DisplayUtils.beautifyURL(userInfo.getWebsite()),
+                R.string.user_info_website);
+        addToListIfNeeded(container, R.drawable.ic_twitter, DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()),
+                R.string.user_info_twitter);
+    }
 
-        addToListIfNeeded(result, R.drawable.ic_phone, userInfo.getPhone(), R.string.user_info_phone);
-        addToListIfNeeded(result, R.drawable.ic_email, userInfo.getEmail(), R.string.user_info_email);
-        addToListIfNeeded(result, R.drawable.ic_map_marker, userInfo.getAddress(), R.string.user_info_address);
-        addToListIfNeeded(result, R.drawable.ic_web, DisplayUtils.beautifyURL(userInfo.getWebsite()),
-                    R.string.user_info_website);
-        addToListIfNeeded(result, R.drawable.ic_twitter, DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()),
-                    R.string.user_info_twitter);
-
+    private void showGroupsInfoDetails(ViewGroup container, UserInfo userInfo) {
+        container.removeAllViews();
         if (userInfo.getGroups() != null) {
             final ArrayList<String> sortedGroups = new ArrayList<>(userInfo.getGroups());
             Collections.sort(sortedGroups);
-            addToListIfNeeded(result, R.drawable.ic_group, String.join(", ", sortedGroups),
-                              R.string.user_info_groups);
+            addToListIfNeeded(container, R.drawable.ic_group, String.join(", ", sortedGroups),
+                          R.string.user_info_groups);
         }
-
-        return result;
     }
 
-    private void addToListIfNeeded(List<UserInfoDetailsItem> info, @DrawableRes int icon, String text,
+    private void addToListIfNeeded(ViewGroup container, @DrawableRes int icon, String text,
                                    @StringRes int contentDescriptionInt) {
-        if (!TextUtils.isEmpty(text)) {
-            info.add(new UserInfoDetailsItem(icon, text, getResources().getString(contentDescriptionInt)));
-        }
+        if (TextUtils.isEmpty(text))
+            return;
+
+        final UserInfoDetailsTableItemBinding binding = UserInfoDetailsTableItemBinding.inflate(
+            getLayoutInflater(),
+            container,
+            false
+        );
+        binding.icon.setImageResource(icon);
+        binding.text.setText(text);
+        binding.icon.setContentDescription(getString(contentDescriptionInt));
+        viewThemeUtils.platform.colorImageView(binding.icon, ColorRole.PRIMARY);
+
+        // Separator
+        if (container.getChildCount() > 0)
+            binding.getRoot().setBackgroundResource(R.drawable.rounded_corners_group_item_background);
+
+        container.addView(binding.getRoot());
     }
 
     public static void openAccountRemovalDialog(User user, FragmentManager fragmentManager) {
@@ -369,68 +395,5 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(TokenPushEvent event) {
         PushUtils.pushRegistrationToServer(getUserAccountManager(), preferences.getPushToken());
-    }
-
-
-    protected static class UserInfoDetailsItem {
-        @DrawableRes public int icon;
-        public String text;
-        public String iconContentDescription;
-
-        public UserInfoDetailsItem(@DrawableRes int icon, String text, String iconContentDescription) {
-            this.icon = icon;
-            this.text = text;
-            this.iconContentDescription = iconContentDescription;
-        }
-    }
-
-    protected static class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHolder> {
-        protected List<UserInfoDetailsItem> mDisplayList;
-        protected ViewThemeUtils viewThemeUtils;
-
-        public static class ViewHolder extends RecyclerView.ViewHolder {
-            protected UserInfoDetailsTableItemBinding binding;
-
-            public ViewHolder(UserInfoDetailsTableItemBinding binding) {
-                super(binding.getRoot());
-                this.binding = binding;
-            }
-        }
-
-        public UserInfoAdapter(List<UserInfoDetailsItem> displayList, ViewThemeUtils viewThemeUtils) {
-            mDisplayList = displayList == null ? new LinkedList<>() : displayList;
-            this.viewThemeUtils = viewThemeUtils;
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        public void setData(List<UserInfoDetailsItem> displayList) {
-            mDisplayList = displayList == null ? new LinkedList<>() : displayList;
-            notifyDataSetChanged();
-        }
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new ViewHolder(
-                UserInfoDetailsTableItemBinding.inflate(
-                    LayoutInflater.from(parent.getContext()),
-                    parent,
-                    false)
-            );
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            UserInfoDetailsItem item = mDisplayList.get(position);
-            holder.binding.icon.setImageResource(item.icon);
-            holder.binding.text.setText(item.text);
-            holder.binding.icon.setContentDescription(item.iconContentDescription);
-            viewThemeUtils.platform.colorImageView(holder.binding.icon);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mDisplayList.size();
-        }
     }
 }

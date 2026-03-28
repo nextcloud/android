@@ -84,16 +84,57 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/userinfo_list"
+    <ScrollView
+        android:id="@+id/userinfo_list_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="3"
-        tools:listitem="@layout/user_info_details_table_item"
-        tools:visibility="gone" />
+        tools:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/standard_margin"
+            android:clipToPadding="false"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/userinfo_list_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:textAppearance="@style/NextcloudTextAppearanceSectionTitle"
+                android:text="@string/user_info_profile"/>
+
+            <LinearLayout
+                android:id="@+id/userinfo_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_corners_group_background"
+                android:elevation="@dimen/cardview_default_elevation"/>
+
+            <TextView
+                android:id="@+id/groupinfo_list_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:textAppearance="@style/NextcloudTextAppearanceSectionTitle"
+                android:text="@string/user_info_groups"/>
+
+            <LinearLayout
+                android:id="@+id/groupinfo_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_corners_group_background"
+                android:elevation="@dimen/cardview_default_elevation"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <include
         android:id="@+id/emptyList"
