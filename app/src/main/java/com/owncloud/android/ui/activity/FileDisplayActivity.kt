@@ -3,7 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2023-2024 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2023-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2023 Archontis E. Kostis <arxontisk02@gmail.com>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018-2022 Tobias Kaminsky <tobias@kaminsky.me>
@@ -74,6 +74,7 @@ import com.nextcloud.client.media.PlayerServiceConnection
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -91,11 +92,13 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
-import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.albums.CreateNewAlbumRemoteOperation
+import com.owncloud.android.lib.resources.albums.RemoveAlbumRemoteOperation
+import com.owncloud.android.lib.resources.albums.RenameAlbumRemoteOperation
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation
 import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOperation
@@ -108,7 +111,7 @@ import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.RenameFileOperation
 import com.owncloud.android.operations.SynchronizeFileOperation
-import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.albums.CopyFileToAlbumOperation
 import com.owncloud.android.syncadapter.FileSyncAdapter
 import com.owncloud.android.ui.CompletionCallback
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask
@@ -133,6 +136,9 @@ import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.fragment.SharedListFragment
 import com.owncloud.android.ui.fragment.TaskRetainerFragment
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
+import com.owncloud.android.ui.fragment.albums.AlbumOperationListener
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.TransactionInterface
@@ -199,7 +205,9 @@ class FileDisplayActivity :
     private val folderDownloadStartedReceiver = FolderDownloadStartedReceiver()
     private val folderDownloadCompletedReceiver = FolderDownloadCompletedReceiver()
 
-    private var mLastSslUntrustedServerResult: RemoteOperationResult<*>? = null
+    private lateinit var albumOperationListener: AlbumOperationListener
+
+    var mLastSslUntrustedServerResult: RemoteOperationResult<*>? = null
 
     private var mWaitingToPreview: OCFile? = null
 
@@ -267,6 +275,7 @@ class FileDisplayActivity :
 
         super.onCreate(savedInstanceState)
         lastDisplayedAccountName = preferences.lastDisplayedAccountName
+        albumOperationListener = AlbumOperationListener(this)
         folderRefreshScheduler = FolderRefreshScheduler(this)
 
         intent?.let {
@@ -596,7 +605,9 @@ class FileDisplayActivity :
                 // Using `is OCFileListFragment` would also match subclasses,
                 // its needed because reinitializing OCFileListFragment itself causes an empty screen
                 leftFragment?.let {
-                    if (it::class != OCFileListFragment::class) {
+                    // check for albums fragment to load All Files
+                    // when user is on AlbumsFragment and click on All Files
+                    if (it::class != OCFileListFragment::class || isAlbumsFragment) {
                         leftFragment = OCFileListFragment()
                         supportFragmentManager.executePendingTransactions()
                     }
@@ -608,6 +619,12 @@ class FileDisplayActivity :
             LIST_GROUPFOLDERS == action -> {
                 Log_OC.d(this, "Switch to list groupfolders fragment")
                 leftFragment = GroupfolderListFragment()
+                supportFragmentManager.executePendingTransactions()
+            }
+
+            ALBUMS == action -> {
+                Log_OC.d(this, "Switch to list albums fragment")
+                replaceAlbumFragment()
                 supportFragmentManager.executePendingTransactions()
             }
 
@@ -976,7 +993,8 @@ class FileDisplayActivity :
     private fun shouldOpenDrawer(): Boolean = !isDrawerOpen &&
         !isSearchOpen() &&
         isRoot(getCurrentDir()) &&
-        this.leftFragment is OCFileListFragment
+        this.leftFragment is OCFileListFragment &&
+        !isAlbumItemsFragment
 
     /**
      * Called, when the user selected something for uploading
@@ -1109,19 +1127,15 @@ class FileDisplayActivity :
                             return@isNetworkAndServerAvailable
                         }
 
-                        FileUploadHelper.instance().uploadNewFiles(
-                            user.orElseThrow(
-                                Supplier { RuntimeException() }
-                            ),
+                        val data = OCUploadLocalPathData.forFile(
+                            user.orElseThrow(Supplier { RuntimeException() }),
                             filePaths,
                             decryptedRemotePaths,
                             behaviour,
-                            true,
-                            UploadFileOperation.CREATED_BY_USER,
-                            false,
-                            false,
-                            NameCollisionPolicy.ASK_USER
+                            createRemoteFolder = true
                         )
+
+                        FileUploadHelper.instance().uploadNewFiles(data)
                     }
                 } else {
                     fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths)
@@ -1234,6 +1248,13 @@ class FileDisplayActivity :
             isDrawerOpen -> {
                 before()
                 closeDrawer()
+                after()
+            }
+
+            // pop back if current fragment is AlbumItemsFragment
+            isAlbumItemsFragment -> {
+                before()
+                popBack()
                 after()
             }
 
@@ -1374,7 +1395,12 @@ class FileDisplayActivity :
         if (ocFileListFragment?.isSearchFragment == true) {
             ocFileListFragment?.setSearchArgs(ocFileListFragment?.arguments)
         }
-        highlightNavigationViewItem(menuItemId)
+        if (isAlbumsFragment || isAlbumItemsFragment) {
+            highlightNavigationViewItem(R.id.nav_album)
+        } else {
+            highlightNavigationViewItem(menuItemId)
+        }
+
 
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
@@ -1752,6 +1778,13 @@ class FileDisplayActivity :
                     }
                 }
             }
+
+            // notify when upload is finished and user is on albums screen
+            if (isAlbumsFragment) {
+                (supportFragmentManager.findFragmentByTag(AlbumsFragment.TAG) as AlbumsFragment).refreshAlbums()
+            } else if (isAlbumItemsFragment) {
+                (supportFragmentManager.findFragmentByTag(AlbumItemsFragment.TAG) as AlbumItemsFragment).refreshData()
+            }
         }
     }
 
@@ -2117,6 +2150,22 @@ class FileDisplayActivity :
 
             is RestoreFileVersionRemoteOperation -> {
                 onRestoreFileVersionOperationFinish(result)
+            }
+
+            is CreateNewAlbumRemoteOperation -> {
+                albumOperationListener.onCreateAlbumOperationFinish(operation, result)
+            }
+
+            is CopyFileToAlbumOperation -> {
+                albumOperationListener.onCopyAlbumFileOperationFinish(operation, result)
+            }
+
+            is RenameAlbumRemoteOperation -> {
+                albumOperationListener.onRenameAlbumOperationFinish(operation, result)
+            }
+
+            is RemoveAlbumRemoteOperation -> {
+                albumOperationListener.onRemoveAlbumOperationFinish(operation, result)
             }
         }
     }
@@ -2779,7 +2828,10 @@ class FileDisplayActivity :
         val ocFileListFragment = this.listOfFilesFragment
         if (ocFileListFragment != null &&
             (ocFileListFragment !is GalleryFragment) &&
-            (ocFileListFragment !is SharedListFragment)
+            (ocFileListFragment !is SharedListFragment) &&
+            // album fragment check will help in showing offline files screen
+            // when navigating from Albums to Offline Files
+            !isAlbumsFragment && !isAlbumItemsFragment
         ) {
             ocFileListFragment.refreshDirectory()
         } else {
@@ -3145,6 +3197,7 @@ class FileDisplayActivity :
         const val RESTART: String = "RESTART"
         const val ALL_FILES: String = "ALL_FILES"
         const val LIST_GROUPFOLDERS: String = "LIST_GROUPFOLDERS"
+        const val ALBUMS: String = "ALBUMS"
         const val SINGLE_USER_SIZE: Int = 1
         const val OPEN_FILE: String = "NC_OPEN_FILE"
         const val ON_DEVICE = "ON_DEVICE"

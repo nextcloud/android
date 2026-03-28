@@ -13,11 +13,10 @@ import android.provider.DocumentsContract
 import android.widget.Toast
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.model.OCUploadLocalPathData
 import com.owncloud.android.R
-import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,9 +31,9 @@ import java.lang.ref.WeakReference
 class CopyAndUploadContentUrisTask(
     listener: OnCopyTmpFilesTaskListener?,
     context: Context,
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
+    private val albumName: String?
 ) {
-
     companion object {
         private const val TAG = "CopyAndUploadContentUrisTask"
     }
@@ -107,17 +106,23 @@ class CopyAndUploadContentUrisTask(
                 currentTempPath = null
             }
 
-            FileUploadHelper.instance().uploadNewFiles(
-                user,
-                localPaths.requireNoNulls(),
-                resolvedRemotePaths.requireNoNulls(),
-                behaviour,
-                false,
-                UploadFileOperation.CREATED_BY_USER,
-                false,
-                false,
-                NameCollisionPolicy.ASK_USER
-            )
+            if (albumName.isNullOrEmpty()) {
+                val data = OCUploadLocalPathData.forFile(
+                    user,
+                    localPaths.requireNoNulls(),
+                    resolvedRemotePaths.requireNoNulls(),
+                    behaviour
+                )
+                FileUploadHelper.instance().uploadNewFiles(data)
+            } else {
+                val data = OCUploadLocalPathData.forAlbum(
+                    user,
+                    localPaths.requireNoNulls(),
+                    resolvedRemotePaths.requireNoNulls(),
+                    behaviour
+                )
+                FileUploadHelper.instance().uploadAndCopyNewFilesForAlbum(data, albumName)
+            }
 
             ResultCode.OK
         } catch (e: FileNotFoundException) {
