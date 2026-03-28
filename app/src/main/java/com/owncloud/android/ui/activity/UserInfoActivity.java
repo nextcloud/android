@@ -53,6 +53,8 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -267,7 +269,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
 
         if (TextUtils.isEmpty(userInfo.getPhone()) && TextUtils.isEmpty(userInfo.getEmail())
             && TextUtils.isEmpty(userInfo.getAddress()) && TextUtils.isEmpty(userInfo.getTwitter())
-            && TextUtils.isEmpty(userInfo.getWebsite())) {
+            && TextUtils.isEmpty(userInfo.getWebsite()) && (userInfo.getGroups() == null || userInfo.getGroups().isEmpty())) {
             binding.userinfoList.setVisibility(View.GONE);
             binding.loadingContent.setVisibility(View.GONE);
             binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
@@ -297,6 +299,13 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                     R.string.user_info_website);
         addToListIfNeeded(result, R.drawable.ic_twitter, DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()),
                     R.string.user_info_twitter);
+
+        if (userInfo.getGroups() != null) {
+            final ArrayList<String> sortedGroups = new ArrayList<>(userInfo.getGroups());
+            Collections.sort(sortedGroups);
+            addToListIfNeeded(result, R.drawable.ic_group, String.join(", ", sortedGroups),
+                              R.string.user_info_groups);
+        }
 
         return result;
     }
