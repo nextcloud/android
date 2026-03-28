@@ -363,6 +363,7 @@ dependencies {
 
     // region UI
     implementation(libs.bundles.ui)
+    implementation(libs.browser)
     // endregion
 
     // region Worker

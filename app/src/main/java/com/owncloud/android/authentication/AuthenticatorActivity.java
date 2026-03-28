@@ -128,6 +128,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
+import androidx.browser.customtabs.CustomTabColorSchemeParams;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -492,20 +495,37 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             return;
         }
 
-        try {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            PackageManager packageManager = getPackageManager();
+        Uri uri = Uri.parse(url);
 
+        try {
+            int toolbarColor = ContextCompat.getColor(this, R.color.primary);
+            CustomTabColorSchemeParams colorParams = new CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(toolbarColor)
+                .build();
+            CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+                .setDefaultColorSchemeParams(colorParams)
+                .setColorScheme(CustomTabsIntent.COLOR_SCHEME_SYSTEM)
+                .setShowTitle(true)
+                .setShareState(CustomTabsIntent.SHARE_STATE_OFF)
+                .build();
+            customTabsIntent.launchUrl(this, uri);
+            return;
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Custom Tab login URL launch failed: " + e);
+        }
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            PackageManager packageManager = getPackageManager();
             if (intent.resolveActivity(packageManager) != null) {
                 startActivity(intent);
-            } else {
-                DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_no_web_browser_found);
+                return;
             }
         } catch (Exception e) {
-            Log_OC.e(TAG, "Exception launchDefaultWebBrowser: " + e);
-            DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
+            Log_OC.e(TAG, "External browser launch failed: " + e);
         }
+
+        DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_no_web_browser_found);
     }
 
     private Pair<String, String> extractPollUrlAndToken() {

@@ -13,6 +13,7 @@ androidxTestVersion = "1.7.0"
 annotationVersion = "1.9.1"
 annotationsVersion = "3.0.1u2"
 appCompatVersion = "1.7.1"
+browserVersion = "1.10.0"
 bcpkixJdk18onVersion = "1.83"
 cardviewVersion = "1.0.0"
 checker = "3.21.2"
@@ -93,6 +94,7 @@ conscrypt-android = { module = "org.conscrypt:conscrypt-android", version.ref = 
 bcpkix-jdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bcpkixJdk18onVersion" }
 
 # UI
+browser = { module = "androidx.browser:browser", version.ref = "browserVersion" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompatVersion" }
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardviewVersion" }
 core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidxTestVersion" }
