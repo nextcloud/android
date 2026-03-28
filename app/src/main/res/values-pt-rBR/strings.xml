@@ -405,6 +405,7 @@
     <string name="etm_transfer_type">Transferir</string>
     <string name="etm_transfer_type_download">Baixar</string>
     <string name="etm_transfer_type_upload">Enviar</string>
+    <string name="export_in_progress">Exportando %1$d de %2$d</string>
     <string name="extension_cannot_be_changed">A extensão não pode ser alterada</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Você não tem permissão para criar ou enviar arquivos para esta pasta.</string>
     <string name="external_shares">Compartilhamentos externos</string>
@@ -608,7 +609,7 @@
     <string name="media_notif_ticker">%1$s player</string>
     <string name="media_play_pause_description">Botão reproduzir ou pausar</string>
     <string name="media_player_pause">Pausar</string>
-    <string name="media_player_play">Peça teatral</string>
+    <string name="media_player_play">Reproduzir</string>
     <string name="media_player_playing">Reproduzindo mídia</string>
     <string name="media_player_seek_backward">Buscar para trás</string>
     <string name="media_player_seek_forward">Buscar para a frente</string>

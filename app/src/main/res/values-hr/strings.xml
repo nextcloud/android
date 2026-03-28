@@ -405,6 +405,7 @@
     <string name="etm_transfer_type">Prijenos</string>
     <string name="etm_transfer_type_download">Preuzmi</string>
     <string name="etm_transfer_type_upload">Otpremi</string>
+    <string name="export_in_progress">Izvozim %1$d od %2$d</string>
     <string name="extension_cannot_be_changed">Ekstenziju nije moguće promijeniti</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Nemate dopuštenje za stvaranje ili prijenos datoteka u ovoj mapi.</string>
     <string name="external_shares">Vanjska dijeljenja</string>
