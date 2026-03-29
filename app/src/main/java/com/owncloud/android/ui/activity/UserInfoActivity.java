@@ -8,21 +8,19 @@
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
  * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2026 Daniele Verducci <daniele.verducci@ichibi.eu
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
 
@@ -36,7 +34,6 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
-import com.owncloud.android.databinding.UserInfoDetailsTableItemBinding;
 import com.owncloud.android.databinding.UserInfoLayoutBinding;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.UserInfo;
@@ -44,11 +41,11 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
+import com.owncloud.android.ui.adapter.UserInfoAdapter;
 import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -66,7 +63,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
-import androidx.recyclerview.widget.RecyclerView;
 import kotlin.Unit;
 
 /**
@@ -124,8 +120,6 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             actionBar.setDisplayShowHomeEnabled(true);
             viewThemeUtils.files.themeActionBar(this, actionBar);
         }
-
-        binding.userinfoList.setAdapter(new UserInfoAdapter(null, viewThemeUtils));
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
@@ -278,17 +272,15 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             binding.loadingContent.setVisibility(View.VISIBLE);
             binding.emptyList.emptyListView.setVisibility(View.GONE);
 
-            if (binding.userinfoList.getAdapter() instanceof UserInfoAdapter) {
-                binding.userinfoList.setAdapter(new UserInfoAdapter(createUserInfoDetails(userInfo), viewThemeUtils));
-            }
+            binding.userinfoList.setAdapter(new UserInfoAdapter(createUserInfoDetails(userInfo), viewThemeUtils));
 
             binding.loadingContent.setVisibility(View.GONE);
             binding.userinfoList.setVisibility(View.VISIBLE);
         }
     }
 
-    private List<UserInfoDetailsItem> createUserInfoDetails(UserInfo userInfo) {
-        List<UserInfoDetailsItem> result = new LinkedList<>();
+    private List<UserInfoAdapter.UserInfoDetailsItem> createUserInfoDetails(UserInfo userInfo) {
+        List<UserInfoAdapter.UserInfoDetailsItem> result = new LinkedList<>();
 
         addToListIfNeeded(result, R.drawable.ic_phone, userInfo.getPhone(), R.string.user_info_phone);
         addToListIfNeeded(result, R.drawable.ic_email, userInfo.getEmail(), R.string.user_info_email);
@@ -301,10 +293,10 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         return result;
     }
 
-    private void addToListIfNeeded(List<UserInfoDetailsItem> info, @DrawableRes int icon, String text,
+    private void addToListIfNeeded(List<UserInfoAdapter.UserInfoDetailsItem> info, @DrawableRes int icon, String text,
                                    @StringRes int contentDescriptionInt) {
         if (!TextUtils.isEmpty(text)) {
-            info.add(new UserInfoDetailsItem(icon, text, getResources().getString(contentDescriptionInt)));
+            info.add(new UserInfoAdapter.UserInfoDetailsItem(icon, text, getResources().getString(contentDescriptionInt)));
         }
     }
 
@@ -362,66 +354,4 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         PushUtils.pushRegistrationToServer(getUserAccountManager(), preferences.getPushToken());
     }
 
-
-    protected static class UserInfoDetailsItem {
-        @DrawableRes public int icon;
-        public String text;
-        public String iconContentDescription;
-
-        public UserInfoDetailsItem(@DrawableRes int icon, String text, String iconContentDescription) {
-            this.icon = icon;
-            this.text = text;
-            this.iconContentDescription = iconContentDescription;
-        }
-    }
-
-    protected static class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHolder> {
-        protected List<UserInfoDetailsItem> mDisplayList;
-        protected ViewThemeUtils viewThemeUtils;
-
-        public static class ViewHolder extends RecyclerView.ViewHolder {
-            protected UserInfoDetailsTableItemBinding binding;
-
-            public ViewHolder(UserInfoDetailsTableItemBinding binding) {
-                super(binding.getRoot());
-                this.binding = binding;
-            }
-        }
-
-        public UserInfoAdapter(List<UserInfoDetailsItem> displayList, ViewThemeUtils viewThemeUtils) {
-            mDisplayList = displayList == null ? new LinkedList<>() : displayList;
-            this.viewThemeUtils = viewThemeUtils;
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        public void setData(List<UserInfoDetailsItem> displayList) {
-            mDisplayList = displayList == null ? new LinkedList<>() : displayList;
-            notifyDataSetChanged();
-        }
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new ViewHolder(
-                UserInfoDetailsTableItemBinding.inflate(
-                    LayoutInflater.from(parent.getContext()),
-                    parent,
-                    false)
-            );
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            UserInfoDetailsItem item = mDisplayList.get(position);
-            holder.binding.icon.setImageResource(item.icon);
-            holder.binding.text.setText(item.text);
-            holder.binding.icon.setContentDescription(item.iconContentDescription);
-            viewThemeUtils.platform.colorImageView(holder.binding.icon);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mDisplayList.size();
-        }
-    }
 }
