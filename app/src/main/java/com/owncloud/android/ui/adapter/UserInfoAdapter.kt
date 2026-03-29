@@ -7,7 +7,6 @@
 
 package com.owncloud.android.ui.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -20,10 +19,11 @@ import com.owncloud.android.databinding.UserInfoDetailsTableItemBinding
 import com.owncloud.android.databinding.UserInfoDetailsTableItemTitleBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class UserInfoAdapter(val context: Context, val mDisplayList: MutableList<UserInfoDetailsItem>, val viewThemeUtils: ViewThemeUtils) :
+class UserInfoAdapter(val context: Context, val mDisplayList: Map<Int, MutableList<UserInfoDetailsItem>>, val viewThemeUtils: ViewThemeUtils) :
     SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         const val SECTION_USERINFO = 0
+        const val SECTION_GROUPS = 1
     }
 
     class UserInfoDetailsItem(
@@ -37,13 +37,6 @@ class UserInfoAdapter(val context: Context, val mDisplayList: MutableList<UserIn
 
     class UserInfoSectionedViewHolder(var binding: UserInfoDetailsTableItemBinding) :
         SectionedViewHolder(binding.getRoot())
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun setData(displayList: MutableList<UserInfoDetailsItem>) {
-        mDisplayList.clear()
-        mDisplayList.addAll(displayList)
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder = when (viewType) {
         VIEW_TYPE_HEADER -> HeaderSectionedViewHolder(
@@ -68,7 +61,7 @@ class UserInfoAdapter(val context: Context, val mDisplayList: MutableList<UserIn
         relativePosition: Int,
         absolutePosition: Int
     ) {
-        val item = mDisplayList[relativePosition]
+        val item = mDisplayList[section]?.get(relativePosition)
         val isFirst = relativePosition == 0
         val isLast = relativePosition == getItemCount(section) - 1
         val uiHolder = holder as UserInfoSectionedViewHolder
@@ -83,16 +76,17 @@ class UserInfoAdapter(val context: Context, val mDisplayList: MutableList<UserIn
         }
 
         // Populate views
-        uiHolder.binding.icon.setImageResource(item.icon)
-        uiHolder.binding.text.text = item.text
-        uiHolder.binding.icon.contentDescription = item.iconContentDescription
+        uiHolder.binding.icon.setImageResource(item?.icon ?: R.drawable.ic_user_outline)
+        uiHolder.binding.text.text = item?.text
+        uiHolder.binding.icon.contentDescription = item?.iconContentDescription
         viewThemeUtils.platform.colorImageView(holder.binding.icon, ColorRole.PRIMARY)
     }
 
-    override fun getSectionCount(): Int = 1
+    override fun getSectionCount(): Int = 2
 
     override fun getItemCount(section: Int): Int = when (section) {
-        SECTION_USERINFO -> mDisplayList.size
+        SECTION_GROUPS -> mDisplayList[SECTION_GROUPS]?.size ?: 0
+        SECTION_USERINFO -> mDisplayList[SECTION_USERINFO]?.size ?: 0
         else -> 0
     }
 
@@ -100,7 +94,15 @@ class UserInfoAdapter(val context: Context, val mDisplayList: MutableList<UserIn
         holder: SectionedViewHolder?,
         section: Int,
         expanded: Boolean
-    ) {}
+    ) {
+        val title = when (section) {
+            SECTION_GROUPS -> context.getString(R.string.user_info_groups)
+            SECTION_USERINFO -> context.getString(R.string.user_info_profile)
+            else -> ""
+        }
+        val titleHolder = holder as HeaderSectionedViewHolder
+        titleHolder.binding.root.text = title
+    }
 
     override fun onBindFooterViewHolder(p0: SectionedViewHolder?, p1: Int) {}
 }

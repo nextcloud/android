@@ -50,8 +50,12 @@ import com.owncloud.android.utils.PushUtils;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -272,15 +276,18 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             binding.loadingContent.setVisibility(View.VISIBLE);
             binding.emptyList.emptyListView.setVisibility(View.GONE);
 
-            binding.userinfoList.setAdapter(new UserInfoAdapter(this, createUserInfoDetails(userInfo), viewThemeUtils));
+            Map<Integer, LinkedList<UserInfoAdapter.UserInfoDetailsItem>> list = new HashMap<>();
+            list.put(UserInfoAdapter.SECTION_USERINFO, createUserInfoDetails(userInfo));
+            list.put(UserInfoAdapter.SECTION_GROUPS, createGroupInfoDetails(userInfo));
+            binding.userinfoList.setAdapter(new UserInfoAdapter(this, list, viewThemeUtils));
 
             binding.loadingContent.setVisibility(View.GONE);
             binding.userinfoList.setVisibility(View.VISIBLE);
         }
     }
 
-    private List<UserInfoAdapter.UserInfoDetailsItem> createUserInfoDetails(UserInfo userInfo) {
-        List<UserInfoAdapter.UserInfoDetailsItem> result = new LinkedList<>();
+    private LinkedList<UserInfoAdapter.UserInfoDetailsItem> createUserInfoDetails(UserInfo userInfo) {
+        LinkedList<UserInfoAdapter.UserInfoDetailsItem> result = new LinkedList<>();
 
         addToListIfNeeded(result, R.drawable.ic_phone, userInfo.getPhone(), R.string.user_info_phone);
         addToListIfNeeded(result, R.drawable.ic_email, userInfo.getEmail(), R.string.user_info_email);
@@ -289,6 +296,19 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                     R.string.user_info_website);
         addToListIfNeeded(result, R.drawable.ic_twitter, DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()),
                     R.string.user_info_twitter);
+
+        return result;
+    }
+
+    private LinkedList<UserInfoAdapter.UserInfoDetailsItem> createGroupInfoDetails(UserInfo userInfo) {
+        LinkedList<UserInfoAdapter.UserInfoDetailsItem> result = new LinkedList<>();
+
+        if (userInfo.getGroups() != null) {
+            final ArrayList<String> sortedGroups = new ArrayList<>(userInfo.getGroups());
+            Collections.sort(sortedGroups);
+            addToListIfNeeded(result, R.drawable.ic_group, String.join(", ", sortedGroups),
+                              R.string.user_info_groups);
+        }
 
         return result;
     }
