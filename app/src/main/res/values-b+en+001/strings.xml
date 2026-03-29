@@ -405,6 +405,7 @@
     <string name="etm_transfer_type">Transfer</string>
     <string name="etm_transfer_type_download">Download</string>
     <string name="etm_transfer_type_upload">Upload</string>
+    <string name="export_in_progress">Exporting %1$d of %2$d</string>
     <string name="extension_cannot_be_changed">Extension cannot be changed</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">You don’t have permission to create or upload files in this folder.</string>
     <string name="external_shares">External shares</string>
