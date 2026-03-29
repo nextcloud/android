@@ -102,6 +102,7 @@ class UserInfoAdapter(val context: Context, val mDisplayList: Map<Int, MutableLi
         }
         val titleHolder = holder as HeaderSectionedViewHolder
         titleHolder.binding.root.text = title
+        viewThemeUtils.platform.colorTextView(titleHolder.binding.root, ColorRole.PRIMARY)
     }
 
     override fun onBindFooterViewHolder(p0: SectionedViewHolder?, p1: Int) {}
