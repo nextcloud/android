@@ -272,7 +272,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             binding.loadingContent.setVisibility(View.VISIBLE);
             binding.emptyList.emptyListView.setVisibility(View.GONE);
 
-            binding.userinfoList.setAdapter(new UserInfoAdapter(createUserInfoDetails(userInfo), viewThemeUtils));
+            binding.userinfoList.setAdapter(new UserInfoAdapter(this, createUserInfoDetails(userInfo), viewThemeUtils));
 
             binding.loadingContent.setVisibility(View.GONE);
             binding.userinfoList.setVisibility(View.VISIBLE);
