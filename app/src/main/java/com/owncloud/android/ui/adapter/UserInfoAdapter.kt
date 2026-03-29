@@ -64,10 +64,13 @@ class UserInfoAdapter(val context: Context, val mDisplayList: Map<Int, MutableLi
         val item = mDisplayList[section]?.get(relativePosition)
         val isFirst = relativePosition == 0
         val isLast = relativePosition == getItemCount(section) - 1
+        val isSingle = isFirst && isLast
         val uiHolder = holder as UserInfoSectionedViewHolder
 
         // Set background
-        if (isFirst) {
+        if (isSingle) {
+            uiHolder.binding.root.setBackgroundResource(R.drawable.rounded_corners_listitem_single_background)
+        } else if (isFirst) {
             uiHolder.binding.root.setBackgroundResource(R.drawable.rounded_corners_listitem_first_background)
         } else if (isLast) {
             uiHolder.binding.root.setBackgroundResource(R.drawable.rounded_corners_listitem_last_background)
