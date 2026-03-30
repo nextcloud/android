@@ -56,8 +56,6 @@ tests/proguard-project.txt
 .gradle
 .idea/*
 !.idea/codeStyles/
-!.idea/dictionaries
-!.idea/vcs.xml
 build
 /gradle.properties
 /gradle/wrapper/gradle-wrapper.jar
