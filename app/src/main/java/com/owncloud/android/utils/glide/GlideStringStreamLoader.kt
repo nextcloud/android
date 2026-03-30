@@ -18,7 +18,7 @@ import java.io.InputStream
  */
 class GlideStringStreamLoader : ModelLoader<String, InputStream> {
     override fun buildLoadData(url: String, width: Int, height: Int, options: Options): LoadData<InputStream> =
-        LoadData<InputStream>(ObjectKey(url), GlideStringStreamFetcher(url))
+        LoadData(ObjectKey(url), GlideStringStreamFetcher(url))
 
     override fun handles(s: String): Boolean = true
 }

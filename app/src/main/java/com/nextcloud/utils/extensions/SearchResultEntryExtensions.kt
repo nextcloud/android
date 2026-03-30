@@ -13,6 +13,11 @@ import com.owncloud.android.lib.common.SearchResultEntry
 fun SearchResultEntry.getType(): SearchResultEntryType {
     val value = icon.lowercase()
 
+    fun isAvatarUrl(url: String): Boolean {
+        val regex = Regex("""^https?://[^/]+/avatar/[^/]+/\d+$""")
+        return regex.matches(url)
+    }
+
     return when {
         value.contains("icon-folder") -> SearchResultEntryType.Folder
         value.contains("icon-note") -> SearchResultEntryType.Note
@@ -33,6 +38,7 @@ fun SearchResultEntry.getType(): SearchResultEntryType {
         value.contains("text-code") -> SearchResultEntryType.TextCode
         value.contains("link") -> SearchResultEntryType.Link
         value.contains("font") -> SearchResultEntryType.Font
+        isAvatarUrl(thumbnailUrl) -> SearchResultEntryType.Avatar
         else -> SearchResultEntryType.Unknown
     }
 }
