@@ -26,7 +26,7 @@ class UserInfoAdapter(val context: Context, val displayList: Map<Int, List<UserI
         const val SECTION_GROUPS = 1
     }
 
-    class UserInfoDetailsItem(
+    data class UserInfoDetailsItem(
         @field:DrawableRes @param:DrawableRes var icon: Int,
         var text: String?,
         var iconContentDescription: String?
