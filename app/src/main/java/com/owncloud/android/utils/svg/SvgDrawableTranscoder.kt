@@ -26,6 +26,6 @@ class SvgDrawableTranscoder : ResourceTranscoder<SVG, PictureDrawable> {
         val svg = toTranscode.get()
         val picture = svg.renderToPicture()
         val drawable = PictureDrawable(picture)
-        return SimpleResource<PictureDrawable>(drawable)
+        return SimpleResource(drawable)
     }
 }

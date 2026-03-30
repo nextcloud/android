@@ -20,7 +20,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.CheckedTextView
 import android.widget.ImageView
-import androidx.lifecycle.lifecycleScope
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.request.target.CustomTarget
@@ -33,7 +32,6 @@ import com.owncloud.android.databinding.BackupListItemHeaderBinding
 import com.owncloud.android.databinding.CalendarlistListItemBinding
 import com.owncloud.android.databinding.ContactlistListItemBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.TextDrawable
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment.getDisplayName
@@ -41,10 +39,6 @@ import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import ezvcard.VCard
 import ezvcard.property.Photo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import third_parties.sufficientlysecure.AndroidCalendar
 
 @Suppress("LongParameterList", "TooManyFunctions")
@@ -256,20 +250,13 @@ class BackupListAdapter(
                 }
             }
 
-            backupListFragment.lifecycleScope.launch(Dispatchers.IO) {
-                val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                    .getNextcloudClientFor(accountManager.currentOwnCloudAccount, context)
-
-                withContext(Dispatchers.Main) {
-                    GlideHelper.loadIntoTarget(
-                        context,
-                        client,
-                        url,
-                        target,
-                        R.drawable.ic_user_outline
-                    )
-                }
-            }
+            GlideHelper.loadIntoTarget(
+                backupListFragment.requireActivity(),
+                accountManager.currentOwnCloudAccount,
+                url,
+                target,
+                R.drawable.ic_user_outline
+            )
         }
     }
 

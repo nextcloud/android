@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class WidgetListItemViewHolder(
+    private val lifecycleScope: CoroutineScope,
     val binding: WidgetListItemBinding,
     val accountManager: UserAccountManager,
     val clientFactory: ClientFactory,
@@ -34,7 +35,7 @@ class WidgetListItemViewHolder(
     ) {
         binding.layout.setOnClickListener { dashboardWidgetConfigurationInterface.onItemClicked(dashboardWidget) }
 
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                 .getNextcloudClientFor(accountManager.currentOwnCloudAccount, context)
 

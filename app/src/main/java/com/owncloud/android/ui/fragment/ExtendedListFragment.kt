@@ -626,11 +626,11 @@ open class ExtendedListFragment :
                 )
             }
 
-            SearchType.RECENTLY_MODIFIED_SEARCH -> {
+            SearchType.RECENT_FILES_SEARCH -> {
                 setMessageForEmptyList(
-                    R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty_recently_modified,
-                    R.drawable.ic_list_empty_recent
+                    R.string.file_list_empty_recent_files_headline,
+                    R.string.file_list_empty_recent_files_description,
+                    R.drawable.nav_recently_outline
                 )
             }
 

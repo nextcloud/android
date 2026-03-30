@@ -207,14 +207,11 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         }
 
         Target<Drawable> backgroundImageTarget = createBackgroundImageTarget(backgroundImageView);
-        getClientRepository().getNextcloudClient(nextcloudClient -> {
-            GlideHelper.INSTANCE.loadIntoTarget(this,
-                                                nextcloudClient,
-                                                backgroundURL,
-                                                backgroundImageTarget,
-                                                R.drawable.background);
-            return Unit.INSTANCE;
-        });
+        GlideHelper.INSTANCE.loadIntoTarget(this,
+                                            accountManager.getCurrentOwnCloudAccount(),
+                                            backgroundURL,
+                                            backgroundImageTarget,
+                                            R.drawable.background);
     }
 
     private Target<Drawable> createBackgroundImageTarget(ImageView backgroundImageView) {

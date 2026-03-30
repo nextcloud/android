@@ -37,7 +37,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
-import com.owncloud.android.ui.adapter.UploadListAdapter;
+import com.owncloud.android.ui.adapter.uploadList.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.utils.FilesSyncHelper;
 
@@ -317,7 +317,7 @@ public class UploadListActivity extends FileActivity {
     private class UploadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            throttler.run("update_upload_list", () -> uploadListAdapter.loadUploadItemsFromDb(() -> {}));
+            throttler.run("update_upload_list", () -> uploadListAdapter.loadUploadItemsFromDb());
         }
     }
 }
