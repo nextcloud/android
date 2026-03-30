@@ -1827,7 +1827,7 @@ class FileDisplayActivity :
 
             if (fileIDForImmediatePreview == -1L) {
                 Log_OC.d(TAG, "updating ui for file download")
-                updateUIForFileDownload()
+                updateUIForFileDownload(intent)
                 return
             }
 
@@ -1847,7 +1847,7 @@ class FileDisplayActivity :
             }
         }
 
-        private fun updateUIForFileDownload() {
+        private fun updateUIForFileDownload(intent: Intent) {
             val sameAccount = isSameAccount(intent)
             val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
             val downloadBehaviour = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_DOWNLOAD_BEHAVIOUR)
@@ -2493,8 +2493,8 @@ class FileDisplayActivity :
 
     private fun requestForDownload(file: OCFile, downloadBehaviour: String, packageName: String, activityName: String) {
         val currentUser = user.orElseThrow(Supplier { RuntimeException() })
-        if (!FileDownloadHelper.Companion.instance().isDownloading(currentUser, file)) {
-            FileDownloadHelper.Companion.instance().downloadFile(
+        if (!FileDownloadHelper.instance().isDownloading(currentUser, file)) {
+            FileDownloadHelper.instance().downloadFile(
                 currentUser,
                 file,
                 downloadBehaviour,
@@ -2720,8 +2720,6 @@ class FileDisplayActivity :
                 packageName,
                 this.javaClass.simpleName
             )
-            updateActionBarTitleAndHomeButton(file)
-            setFile(file)
         }
     }
 
