@@ -55,28 +55,44 @@ class UserInfoAdapter(val context: Context, val displayList: Map<Int, List<UserI
         )
     }
 
+    private enum class ItemPosition {
+        SINGLE, FIRST, MIDDLE, LAST;
+
+        fun backgroundRes(): Int = when (this) {
+            SINGLE -> R.drawable.rounded_corners_listitem_single_background
+            FIRST -> R.drawable.rounded_corners_listitem_first_background
+            LAST -> R.drawable.rounded_corners_listitem_last_background
+            MIDDLE -> R.drawable.rounded_corners_listitem_center_background
+        }
+    }
+
+    private fun resolvePosition(position: Int, count: Int): ItemPosition {
+        val isFirst = (position == 0)
+        val isLast = (position == count - 1)
+
+        return when {
+            isFirst && isLast -> ItemPosition.SINGLE
+            isFirst -> ItemPosition.FIRST
+            isLast -> ItemPosition.LAST
+            else -> ItemPosition.MIDDLE
+        }
+    }
+
     override fun onBindViewHolder(
         holder: SectionedViewHolder,
         section: Int,
         relativePosition: Int,
         absolutePosition: Int
     ) {
-        val item = displayList[section]?.get(relativePosition)
-        val isFirst = relativePosition == 0
-        val isLast = relativePosition == getItemCount(section) - 1
-        val isSingle = isFirst && isLast
+        val count = getItemCount(section)
+        val positionType = resolvePosition(relativePosition, count)
         val uiHolder = holder as UserInfoSectionedViewHolder
+        val item = displayList[section]?.get(relativePosition)
 
         // Set background
-        if (isSingle) {
-            uiHolder.binding.root.setBackgroundResource(R.drawable.rounded_corners_listitem_single_background)
-        } else if (isFirst) {
-            uiHolder.binding.root.setBackgroundResource(R.drawable.rounded_corners_listitem_first_background)
-        } else if (isLast) {
-            uiHolder.binding.root.setBackgroundResource(R.drawable.rounded_corners_listitem_last_background)
-        } else {
-            uiHolder.binding.root.setBackgroundResource(R.drawable.rounded_corners_listitem_center_background)
-        }
+        uiHolder.binding.root.setBackgroundResource(
+            positionType.backgroundRes()
+        )
 
         // Populate views
         uiHolder.binding.icon.setImageResource(item?.icon ?: R.drawable.ic_user_outline)
