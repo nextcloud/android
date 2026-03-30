@@ -159,21 +159,16 @@ class UploadListAdapter(
     private fun cancelAllCurrentUploads(group: UploadListSection) {
         val items = group.items.takeIf { it.isNotEmpty() } ?: return
         val accountName = items[0].accountName
-        var completedCount = 0
-        items.forEach { upload ->
-            uploadHelper.updateUploadStatus(
-                upload.remotePath,
+        val remotePaths = items.map { it.remotePath }
+        activity.lifecycleScope.launch(Dispatchers.IO) {
+            uploadHelper.updateUploadStatuses(
+                remotePaths,
                 accountName,
                 UploadsStorageManager.UploadStatus.UPLOAD_CANCELLED
-            ) {
-                FileUploadWorker.cancelUpload(upload.remotePath, accountName) {
-                    completedCount++
-                    if (completedCount == items.size) {
-                        Log_OC.d(TAG, "refreshing upload items")
-                        loadUploadItemsFromDb()
-                    }
-                }
-            }
+            )
+            FileUploadWorker.cancelUploads(remotePaths, accountName)
+            Log_OC.d(TAG, "refreshing upload items")
+            loadUploadItemsFromDb()
         }
     }
 
