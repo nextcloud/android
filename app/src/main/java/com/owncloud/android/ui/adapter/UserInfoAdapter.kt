@@ -56,7 +56,7 @@ class UserInfoAdapter(val context: Context, val displayList: Map<Int, List<UserI
     }
 
     override fun onBindViewHolder(
-        holder: SectionedViewHolder?,
+        holder: SectionedViewHolder,
         section: Int,
         relativePosition: Int,
         absolutePosition: Int
