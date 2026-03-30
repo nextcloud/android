@@ -181,6 +181,7 @@ class UnifiedSearchFragment :
             setupToolbar()
             setMainFabVisible(false)
             updateActionBarTitleAndHomeButtonByString(null)
+            setDrawerIndicatorEnabled(false)
         }
     }
 
