@@ -592,7 +592,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             DrawerMenuUtil.filterAssistantMenuItem(menu, capability, getResources());
         }
 
-        DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources());
+        DrawerMenuUtil.filterSearchMenuItems(menu, user);
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community, !getResources().getBoolean(R.bool.participate_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !getResources().getBoolean(R.bool.shared_enabled));
@@ -639,7 +639,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
         } else if (itemId == R.id.nav_shared) {
             openSharedTab();
-        } else if (itemId == R.id.nav_recently_modified) {
+        } else if (itemId == R.id.nav_recent_files) {
             resetOnlyPersonalAndOnDevice();
             startRecentlyModifiedSearch(menuItem);
         } else if (itemId == R.id.nav_assistant) {
@@ -1485,15 +1485,5 @@ public abstract class DrawerActivity extends ToolbarActivity
         return menuItemId == Menu.NONE ||
             menuItemId == R.id.nav_all_files ||
             menuItemId == R.id.nav_personal_files;
-    }
-
-    public boolean isMenuItemIdBelongsToSearchType() {
-        int menuItemId = getSelectedMenuItemId();
-
-        return menuItemId == R.id.nav_favorites ||
-            menuItemId == R.id.nav_shared ||
-            menuItemId == R.id.nav_on_device ||
-            menuItemId == R.id.nav_recently_modified ||
-            menuItemId == R.id.nav_gallery;
     }
 }
