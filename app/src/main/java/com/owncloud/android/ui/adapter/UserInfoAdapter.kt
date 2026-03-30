@@ -19,7 +19,7 @@ import com.owncloud.android.databinding.UserInfoDetailsTableItemBinding
 import com.owncloud.android.databinding.UserInfoDetailsTableItemTitleBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class UserInfoAdapter(val context: Context, val mDisplayList: Map<Int, MutableList<UserInfoDetailsItem>>, val viewThemeUtils: ViewThemeUtils) :
+class UserInfoAdapter(val context: Context, val displayList: Map<Int, List<UserInfoDetailsItem>>, val viewThemeUtils: ViewThemeUtils) :
     SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         const val SECTION_USERINFO = 0
@@ -61,7 +61,7 @@ class UserInfoAdapter(val context: Context, val mDisplayList: Map<Int, MutableLi
         relativePosition: Int,
         absolutePosition: Int
     ) {
-        val item = mDisplayList[section]?.get(relativePosition)
+        val item = displayList[section]?.get(relativePosition)
         val isFirst = relativePosition == 0
         val isLast = relativePosition == getItemCount(section) - 1
         val isSingle = isFirst && isLast
@@ -88,8 +88,8 @@ class UserInfoAdapter(val context: Context, val mDisplayList: Map<Int, MutableLi
     override fun getSectionCount(): Int = 2
 
     override fun getItemCount(section: Int): Int = when (section) {
-        SECTION_GROUPS -> mDisplayList[SECTION_GROUPS]?.size ?: 0
-        SECTION_USERINFO -> mDisplayList[SECTION_USERINFO]?.size ?: 0
+        SECTION_GROUPS -> displayList[SECTION_GROUPS]?.size ?: 0
+        SECTION_USERINFO -> displayList[SECTION_USERINFO]?.size ?: 0
         else -> 0
     }
 
