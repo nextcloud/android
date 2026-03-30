@@ -22,8 +22,31 @@ target/
 local.properties
 tests/local.properties
 
+# Signing & secrets
+*.jks
+*.keystore
+keystore.properties
+release.properties
+google-services.json
+GoogleService-Info.plist
+*.p12
+*.pem
+secrets.properties
+.env
+.env.*
+
+# Windows
+Thumbs.db
+desktop.ini
+
 # Mac .DS_Store files
 .DS_Store
+
+# Linux/editor temp files
+*~
+*.swp
+*.swo
+.vscode/
 
 # Proguard README
 proguard-project.txt
@@ -33,11 +56,27 @@ tests/proguard-project.txt
 .gradle
 .idea/*
 !.idea/codeStyles/
+!.idea/dictionaries
+!.idea/vcs.xml
 build
 /gradle.properties
+/gradle/wrapper/gradle-wrapper.jar
 .attach_pid*
 fastlane/Fastfile
 *.hprof
+
+# NDK / C++
+*.so
+obj/
+*.o
+*.a
+
+# Testing & coverage
+.kotlin/
+*.lcov
+test-results/
+jacoco/
+*.exec
 
 # fastlane specific
 **/fastlane/report.xml
