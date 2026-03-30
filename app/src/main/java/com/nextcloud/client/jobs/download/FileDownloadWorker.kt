@@ -318,7 +318,7 @@ class FileDownloadWorker(
             checkDownloadError(it)
         }
 
-        val removeResult = pendingDownloads.removePayload(
+        pendingDownloads.removePayload(
             currentDownload?.user?.accountName,
             currentDownload?.remotePath
         )
