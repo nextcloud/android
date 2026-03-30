@@ -62,7 +62,7 @@ class UnifiedSearchListAdapter(
     init {
         setHasStableIds(true)
 
-        // initialise thumbnails cache on background thread
+        // initialize thumbnails cache on background thread
         ThumbnailsCacheManager.initDiskCacheAsync()
     }
 
