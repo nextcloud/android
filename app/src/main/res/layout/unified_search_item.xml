@@ -90,7 +90,7 @@
             android:textSize="@dimen/two_line_secondary_text_size"
             android:visibility="gone"
             tools:text="@string/placeholder_in_folder"
-            tools:visibility="g" />
+            tools:visibility="visible" />
 
     </LinearLayout>
 
