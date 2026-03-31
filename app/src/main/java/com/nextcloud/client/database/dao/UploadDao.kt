@@ -73,6 +73,16 @@ interface UploadDao {
 
     @Query(
         """
+    UPDATE ${ProviderTableMeta.UPLOADS_TABLE_NAME}
+    SET ${ProviderTableMeta.UPLOADS_STATUS} = :status
+    WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName
+      AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} IN (:remotePaths)
+"""
+    )
+    suspend fun updateStatuses(remotePaths: List<String>, accountName: String, status: Int): Int
+
+    @Query(
+        """
     SELECT * FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME}
     WHERE ${ProviderTableMeta.UPLOADS_STATUS} = :status
       AND (:nameCollisionPolicy IS NULL OR ${ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY} = :nameCollisionPolicy)
