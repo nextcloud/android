@@ -14,6 +14,7 @@ import android.os.Build
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ConnectivityService.GenericCallback
 import com.nextcloud.operations.GetMethod
+import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +26,7 @@ import kotlin.jvm.functions.Function1
 
 @Suppress("TooGenericExceptionCaught", "ReturnCount")
 class ConnectivityServiceImpl(
-    context: Context,
+    private val context: Context,
     private val accountManager: UserAccountManager,
     private val clientFactory: ClientFactory,
     private val requestBuilder: GetRequestBuilder,
@@ -36,13 +37,30 @@ class ConnectivityServiceImpl(
     private var availabilityCheckJob: Job? = null
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private var currentConnectivity = Connectivity.DISCONNECTED
+    private val listeners = mutableSetOf<NetworkChangeListener>()
+
+    override fun addListener(listener: NetworkChangeListener) {
+        listeners.add(listener)
+    }
+
+    override fun removeListener(listener: NetworkChangeListener) {
+        listeners.remove(listener)
+    }
+
+    private fun notifyListeners() {
+        scope.launch {
+            val available = !isInternetWalled()
+            withContext(Dispatchers.Main) {
+                listeners.forEach {
+                    Log_OC.d(TAG, "notifying listeners")
+                    context.showToast("NOTIFIYING LISTENERS !!!: $available")
+                    it.networkAndServerConnectionListener(available)
+                }
+            }
+        }
+    }
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
-        override fun onAvailable(network: Network) {
-            Log_OC.d(TAG, "network available")
-            updateConnectivity()
-        }
-
         override fun onLost(network: Network) {
             Log_OC.w(TAG, "connection lost")
             updateConnectivity()
@@ -71,6 +89,8 @@ class ConnectivityServiceImpl(
         if (capabilities == null) {
             Log_OC.w(TAG, "no active network or capabilities, connectivity is disconnected")
             currentConnectivity = Connectivity.DISCONNECTED
+            walledCheckCache.clear()
+            notifyListeners()
             return
         }
 
@@ -86,6 +106,7 @@ class ConnectivityServiceImpl(
         )
 
         walledCheckCache.clear()
+        notifyListeners()
     }
 
     private fun isSupportedTransport(capabilities: NetworkCapabilities) =
@@ -123,7 +144,6 @@ class ConnectivityServiceImpl(
         val baseServerAddress = accountManager.user.server.uri.toString()
         if (baseServerAddress.isEmpty()) {
             Log_OC.e(TAG, "no base server address, internet is walled")
-            walledCheckCache.setValue(true)
             return true
         }
 
@@ -132,28 +152,18 @@ class ConnectivityServiceImpl(
 
         if (activeCapabilities == null) {
             Log_OC.e(TAG, "no active network capabilities at check time, treating as walled")
-            walledCheckCache.setValue(true)
             return true
         }
 
         val hasLiveTransport = isSupportedTransport(activeCapabilities)
         if (!hasLiveTransport) {
             Log_OC.e(TAG, "no supported transport at check time, treating as walled")
-            walledCheckCache.setValue(true)
             return true
-        }
-
-        val isVpnActive = activeCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
-        if (isVpnActive) {
-            Log_OC.w(TAG, "skipping server reachability check, VPN is active")
-            walledCheckCache.setValue(false)
-            return false
         }
 
         val isMeteredNonWifi = !currentConnectivity.isWifi && currentConnectivity.isMetered
         if (isMeteredNonWifi) {
             Log_OC.w(TAG, "skipping server reachability check, internet is metered and not Wi-Fi")
-            walledCheckCache.setValue(false)
             return false
         }
 
