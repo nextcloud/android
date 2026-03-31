@@ -22,6 +22,14 @@ sealed class NavigatorScreen(val tag: String) : Parcelable {
     @Parcelize
     object Community : NavigatorScreen("Community")
 
+    companion object {
+        fun fromTag(tag: String?): NavigatorScreen? = when (tag) {
+            "Activities" -> Activities
+            "Community" -> Community
+            else -> null
+        }
+    }
+
     fun menuItemId(): Int = when (this) {
         Community -> R.id.nav_community
         Activities -> R.id.nav_activity
