@@ -26,7 +26,6 @@ sealed class NavigatorScreen(val tag: String) : Parcelable {
         private const val ACTIVITIES_TAG = "Activities"
         private const val COMMUNITY_TAG = "Community"
 
-
         fun fromTag(tag: String?): NavigatorScreen? = when (tag) {
             ACTIVITIES_TAG -> Activities
             COMMUNITY_TAG -> Community
