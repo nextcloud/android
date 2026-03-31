@@ -1,202 +1,161 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Chris Narkiewicz
- * Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.nextcloud.client.network;
+package com.nextcloud.client.network
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.os.Build
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.network.ConnectivityService.GenericCallback
+import com.nextcloud.operations.GetMethod
+import com.owncloud.android.lib.common.utils.Log_OC
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.apache.commons.httpclient.HttpStatus
+import kotlin.jvm.functions.Function1
 
-import com.nextcloud.client.account.Server;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.common.PlainClient;
-import com.nextcloud.operations.GetMethod;
-import com.owncloud.android.lib.common.utils.Log_OC;
+class ConnectivityServiceImpl(
+    context: Context,
+    private val accountManager: UserAccountManager,
+    private val clientFactory: ClientFactory,
+    private val requestBuilder: GetRequestBuilder,
+    private val walledCheckCache: WalledCheckCache
+) : ConnectivityService {
 
-import org.apache.commons.httpclient.HttpStatus;
+    private val scope = CoroutineScope(Dispatchers.IO)
+    private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private var currentConnectivity = Connectivity.DISCONNECTED
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import androidx.annotation.NonNull;
-
-public class ConnectivityServiceImpl implements ConnectivityService {
-
-    private static final String TAG = "ConnectivityServiceImpl";
-    private static final String CONNECTIVITY_CHECK_ROUTE = "/index.php/204";
-
-    private final ConnectivityManager connectivityManager;
-    private final UserAccountManager accountManager;
-    private final ClientFactory clientFactory;
-    private final GetRequestBuilder requestBuilder;
-    private final WalledCheckCache walledCheckCache;
-    private final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
-    private Connectivity currentConnectivity = Connectivity.DISCONNECTED;
-
-    private final ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
-        @Override
-        public void onAvailable(@NonNull Network network) {
-            Log_OC.d(TAG, "network available");
-            updateConnectivity();
+    private val networkCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onAvailable(network: Network) {
+            Log_OC.d(TAG, "network available")
+            updateConnectivity()
         }
 
-        @Override
-        public void onLost(@NonNull Network network) {
-            Log_OC.w(TAG, "connection lost");
-            updateConnectivity();
+        override fun onLost(network: Network) {
+            Log_OC.w(TAG, "connection lost")
+            updateConnectivity()
         }
 
-        @Override
-        public void onCapabilitiesChanged(@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
-            Log_OC.d(TAG, "capability changed");
-            updateConnectivity();
-        }
-    };
-
-    static class GetRequestBuilder implements kotlin.jvm.functions.Function1<String, GetMethod> {
-        @Override
-        public GetMethod invoke(String url) {
-            return new GetMethod(url, false);
+        override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+            Log_OC.d(TAG, "capability changed")
+            updateConnectivity()
         }
     }
 
-    public ConnectivityServiceImpl(@NonNull Context context,
-                                   @NonNull UserAccountManager accountManager,
-                                   @NonNull ClientFactory clientFactory,
-                                   @NonNull GetRequestBuilder requestBuilder,
-                                   @NonNull WalledCheckCache walledCheckCache) {
-        this.connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        this.accountManager = accountManager;
-        this.clientFactory = clientFactory;
-        this.requestBuilder = requestBuilder;
-        this.walledCheckCache = walledCheckCache;
-
-        // Register callback for real-time network updates
-        connectivityManager.registerDefaultNetworkCallback(networkCallback);
-        updateConnectivity();
-        Log_OC.d(TAG, "connectivity service constructed");
+    class GetRequestBuilder : Function1<String, GetMethod> {
+        override fun invoke(url: String) = GetMethod(url, false)
     }
 
-    public void updateConnectivity() {
-        Network activeNetwork = connectivityManager.getActiveNetwork();
-        if (activeNetwork == null) {
-            Log_OC.w(TAG, "active network is null, connectivity is disconnected");
-            currentConnectivity = Connectivity.DISCONNECTED;
-            return;
-        }
+    init {
+        connectivityManager.registerDefaultNetworkCallback(networkCallback)
+        updateConnectivity()
+        Log_OC.d(TAG, "connectivity service constructed")
+    }
 
-        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(activeNetwork);
+    fun updateConnectivity() {
+        val capabilities = connectivityManager.activeNetwork
+            ?.let { connectivityManager.getNetworkCapabilities(it) }
+
         if (capabilities == null) {
-            Log_OC.w(TAG, "capabilities is null, connectivity is disconnected");
-            currentConnectivity = Connectivity.DISCONNECTED;
-            return;
+            Log_OC.w(TAG, "no active network or capabilities, connectivity is disconnected")
+            currentConnectivity = Connectivity.DISCONNECTED
+            return
         }
 
-        // A network is "connected" for Nextcloud if it has a valid transport,
-        // even if it lacks the global INTERNET capability (e.g., local LAN).
-        boolean isConnected = (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ||
-            isSupportedTransport(capabilities));
+        currentConnectivity = Connectivity(
+            isConnected = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ||
+                isSupportedTransport(capabilities),
+            isMetered = !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED),
+            isWifi = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET),
+        )
 
-        boolean isMetered = !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
-
-        boolean isWifi = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-            || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET);
-
-        currentConnectivity = new Connectivity(isConnected, isMetered, isWifi, null);
-
-        walledCheckCache.clear();
+        walledCheckCache.clear()
     }
 
-    private boolean isSupportedTransport(@NonNull NetworkCapabilities capabilities) {
-        return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+    private fun isSupportedTransport(capabilities: NetworkCapabilities) =
+        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ||
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE) ||
             (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_USB));
-    }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_USB))
 
-    @Override
-    public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
-        executor.execute(() -> {
-            boolean available = !isInternetWalled();
-            Log_OC.d(TAG, "isNetworkAndServerAvailable: " + available);
-            mainThreadHandler.post(() -> callback.onComplete(available));
-        });
-    }
-
-    @Override
-    public boolean isConnected() {
-        return currentConnectivity.isConnected();
-    }
-
-    @Override
-    public boolean isInternetWalled() {
-        Boolean cached = walledCheckCache.getValue();
-        if (cached != null) {
-            Log_OC.d(TAG, "isInternetWalled(): cached value is used, isWalled: " + cached);
-            return cached;
-        }
-
-        Server server = accountManager.getUser().getServer();
-        String baseServerAddress = server.getUri().toString();
-
-        // no connection or no server configured
-        if (!currentConnectivity.isConnected() || baseServerAddress.isEmpty()) {
-            final var result = !currentConnectivity.isConnected();
-            walledCheckCache.setValue(result);
-            Log_OC.d(TAG, "isInternetWalled(): no connection or server address, isWalled: " + result);
-            return result;
-        }
-
-        // skip HTTP call on metered non-WiFi (e.g. cellular).
-        if (!currentConnectivity.isWifi() && currentConnectivity.isMetered()) {
-            final var isWalled = !currentConnectivity.isConnected();
-            walledCheckCache.setValue(isWalled);
-            Log_OC.d(TAG, "isInternetWalled(): metered non-WiFi, skipping probe, isWalled: " + isWalled);
-            return isWalled;
-        }
-
-        boolean isWalled;
-        GetMethod get = requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE);
-        PlainClient client = clientFactory.createPlainClient();
-
-        try {
-            int status = get.execute(client);
-            isWalled = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0);
-            if (isWalled) {
-                Log_OC.w(TAG, "isInternetWalled(): Server returned unexpected response");
+    override fun isNetworkAndServerAvailable(callback: GenericCallback<Boolean?>) {
+        scope.launch {
+            val available = !isInternetWalled()
+            Log_OC.d(TAG, "isNetworkAndServerAvailable: $available")
+            withContext(Dispatchers.Main) {
+                callback.onComplete(available)
             }
-        } catch (Exception e) {
-            Log_OC.e(TAG, "isInternetWalled(): Exception during server check", e);
-            isWalled = true;
-        } finally {
-            get.releaseConnection();
+        }
+    }
+
+    override fun isConnected() = currentConnectivity.isConnected
+
+    override fun isInternetWalled(): Boolean {
+        walledCheckCache.getValue()?.let {
+            Log_OC.d(TAG, "isInternetWalled(): cached value is used, isWalled: $it")
+            return it
         }
 
-        walledCheckCache.setValue(isWalled);
-        Log_OC.d(TAG, "isInternetWalled(): server check, isWalled: " + isWalled);
-        return isWalled;
+        val baseServerAddress = accountManager.user.server.uri.toString()
+
+        // No connection or no server configured
+        if (!currentConnectivity.isConnected || baseServerAddress.isEmpty()) {
+            return (!currentConnectivity.isConnected).also {
+                walledCheckCache.setValue(it)
+                Log_OC.d(TAG, "isInternetWalled(): no connection or server address, isWalled: $it")
+            }
+        }
+
+        // Skip HTTP probe on metered non-WiFi (e.g. cellular)
+        if (!currentConnectivity.isWifi && currentConnectivity.isMetered) {
+            return (!currentConnectivity.isConnected).also {
+                walledCheckCache.setValue(it)
+                Log_OC.d(TAG, "isInternetWalled(): metered non-WiFi, skipping probe, isWalled: $it")
+            }
+        }
+
+        val get = requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE)
+        val client = clientFactory.createPlainClient()
+
+        val isWalled = try {
+            val status = get.execute(client)
+            (!(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0)).also {
+                if (it) Log_OC.w(TAG, "isInternetWalled(): Server returned unexpected response")
+            }
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "isInternetWalled(): Exception during server check", e)
+            true
+        } finally {
+            get.releaseConnection()
+        }
+
+        walledCheckCache.setValue(isWalled)
+        Log_OC.d(TAG, "isInternetWalled(): server check, isWalled: $isWalled")
+        return isWalled
     }
 
-    @Override
-    public Connectivity getConnectivity() {
-        return currentConnectivity;
+    override fun getConnectivity() = currentConnectivity
+
+    fun unregisterCallback() {
+        connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 
-    public void unregisterCallback() {
-        connectivityManager.unregisterNetworkCallback(networkCallback);
+    companion object {
+        private const val TAG = "ConnectivityServiceImpl"
+        private const val CONNECTIVITY_CHECK_ROUTE = "/index.php/204"
     }
 }
