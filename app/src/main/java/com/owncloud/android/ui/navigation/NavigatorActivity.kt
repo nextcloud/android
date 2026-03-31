@@ -32,7 +32,7 @@ class NavigatorActivity : DrawerActivity() {
         val fragmentContainerView = findViewById<FragmentContainerView>(R.id.fragment_container_view)
         navigator = Navigator(supportFragmentManager, fragmentContainerView)
         setupBackPressedHandler()
-        pushOrRestoreFirstScreen(savedInstanceState, screen)
+        pushOrRestoreScreen(savedInstanceState, screen)
     }
 
     // addFragmentOnAttachListener or via registerFragmentLifecycleCallbacks not providing same result
@@ -79,7 +79,7 @@ class NavigatorActivity : DrawerActivity() {
     // endregion
 
     // region Private Methods
-    private fun pushOrRestoreFirstScreen(savedInstanceState: Bundle?, screen: NavigatorScreen) {
+    private fun pushOrRestoreScreen(savedInstanceState: Bundle?, screen: NavigatorScreen) {
         if (savedInstanceState == null) {
             push(screen)
         } else {
