@@ -22,6 +22,7 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
 import kotlin.jvm.functions.Function1
 
+@Suppress("TooGenericExceptionCaught", "ReturnCount")
 class ConnectivityServiceImpl(
     context: Context,
     private val accountManager: UserAccountManager,
@@ -71,12 +72,15 @@ class ConnectivityServiceImpl(
             return
         }
 
+        val hasTransport = isSupportedTransport(capabilities)
+        val hasInternetCapability = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+
         currentConnectivity = Connectivity(
-            isConnected = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ||
-                isSupportedTransport(capabilities),
+            isConnected = hasTransport || hasInternetCapability,
             isMetered = !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED),
             isWifi = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET),
+            isVPN = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
         )
 
         walledCheckCache.clear()
@@ -89,10 +93,12 @@ class ConnectivityServiceImpl(
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ||
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE) ||
-            (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_USB))
+            (
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_USB)
+                )
 
-    override fun isNetworkAndServerAvailable(callback: GenericCallback<Boolean?>) {
+    override fun isNetworkAndServerAvailable(callback: GenericCallback<Boolean>) {
         scope.launch {
             val available = !isInternetWalled()
             Log_OC.d(TAG, "isNetworkAndServerAvailable: $available")
@@ -105,27 +111,47 @@ class ConnectivityServiceImpl(
     override fun isConnected() = currentConnectivity.isConnected
 
     override fun isInternetWalled(): Boolean {
-        walledCheckCache.getValue()?.let {
-            Log_OC.d(TAG, "isInternetWalled(): cached value is used, isWalled: $it")
-            return it
+        val cachedValue = walledCheckCache.getValue()
+        if (cachedValue != null) {
+            Log_OC.d(TAG, "cached value is used, isWalled: $cachedValue")
+            return cachedValue
         }
 
         val baseServerAddress = accountManager.user.server.uri.toString()
-
-        // No connection or no server configured
-        if (!currentConnectivity.isConnected || baseServerAddress.isEmpty()) {
-            return (!currentConnectivity.isConnected).also {
-                walledCheckCache.setValue(it)
-                Log_OC.d(TAG, "isInternetWalled(): no connection or server address, isWalled: $it")
-            }
+        if (baseServerAddress.isEmpty()) {
+            Log_OC.e(TAG, "no base server address, internet is walled")
+            walledCheckCache.setValue(true)
+            return true
         }
 
-        // Skip HTTP probe on metered non-WiFi (e.g. cellular)
-        if (!currentConnectivity.isWifi && currentConnectivity.isMetered) {
-            return (!currentConnectivity.isConnected).also {
-                walledCheckCache.setValue(it)
-                Log_OC.d(TAG, "isInternetWalled(): metered non-WiFi, skipping probe, isWalled: $it")
-            }
+        val activeCapabilities = connectivityManager.activeNetwork
+            ?.let { connectivityManager.getNetworkCapabilities(it) }
+
+        if (activeCapabilities == null) {
+            Log_OC.e(TAG, "no active network capabilities at check time, treating as walled")
+            walledCheckCache.setValue(true)
+            return true
+        }
+
+        val hasLiveTransport = isSupportedTransport(activeCapabilities)
+        if (!hasLiveTransport) {
+            Log_OC.e(TAG, "no supported transport at check time, treating as walled")
+            walledCheckCache.setValue(true)
+            return true
+        }
+
+        val isVpnActive = activeCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+        if (isVpnActive) {
+            Log_OC.w(TAG, "skipping server reachability check, VPN is active")
+            walledCheckCache.setValue(false)
+            return false
+        }
+
+        val isMeteredNonWifi = !currentConnectivity.isWifi && currentConnectivity.isMetered
+        if (isMeteredNonWifi) {
+            Log_OC.w(TAG, "skipping server reachability check, internet is metered and not Wi-Fi")
+            walledCheckCache.setValue(false)
+            return false
         }
 
         val get = requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE)
@@ -134,21 +160,48 @@ class ConnectivityServiceImpl(
         val isWalled = try {
             val status = get.execute(client)
             (!(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0)).also {
-                if (it) Log_OC.w(TAG, "isInternetWalled(): Server returned unexpected response")
+                if (it) Log_OC.w(TAG, "server returned unexpected response")
             }
         } catch (e: Exception) {
-            Log_OC.e(TAG, "isInternetWalled(): Exception during server check", e)
-            true
+            Log_OC.e(TAG, "exception during server check", e)
+            getWalledValueFromException(e)
         } finally {
             get.releaseConnection()
         }
 
         walledCheckCache.setValue(isWalled)
-        Log_OC.d(TAG, "isInternetWalled(): server check, isWalled: $isWalled")
+        Log_OC.d(TAG, "server check, isWalled: $isWalled")
         return isWalled
     }
 
     override fun getConnectivity() = currentConnectivity
+
+    private fun getWalledValueFromException(e: Exception): Boolean = when (e) {
+        is java.net.UnknownHostException -> {
+            Log_OC.w(TAG, "UnknownHostException")
+            false
+        }
+
+        is javax.net.ssl.SSLException -> {
+            Log_OC.w(TAG, "SSLException")
+            false
+        }
+
+        is java.net.SocketTimeoutException -> {
+            Log_OC.w(TAG, "SocketTimeoutException")
+            false
+        }
+
+        is java.io.IOException -> {
+            Log_OC.w(TAG, "IOException")
+            false
+        }
+
+        else -> {
+            Log_OC.w(TAG, "Unknown error, fallback to walled assumption")
+            true
+        }
+    }
 
     fun unregisterCallback() {
         connectivityManager.unregisterNetworkCallback(networkCallback)
