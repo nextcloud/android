@@ -22,20 +22,20 @@ import javax.inject.Inject
 
 class CommunityFragment : Fragment() {
 
-    private var _binding: FragmentCommunityBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentCommunityBinding? = null
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentCommunityBinding.inflate(inflater, container, false)
+        binding = FragmentCommunityBinding.inflate(inflater, container, false)
+        val binding = binding!!
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.communityReleaseCandidateText.movementMethod = LinkMovementMethod.getInstance()
+        binding?.communityReleaseCandidateText?.movementMethod = LinkMovementMethod.getInstance()
         setupViews()
         setOnClickListeners()
     }
@@ -49,7 +49,7 @@ class CommunityFragment : Fragment() {
         val contributingLink = getString(R.string.contributing_link)
 
         listOf(
-            binding.communityContributeForumText to
+            binding?.communityContributeForumText to
                 "${getString(R.string.community_contribute_forum_text)} " +
                 getString(
                     R.string.community_contribute_forum_text_link,
@@ -58,7 +58,7 @@ class CommunityFragment : Fragment() {
                     forum
                 ),
 
-            binding.communityContributeTranslateText to
+            binding?.communityContributeTranslateText to
                 getString(
                     R.string.community_contribute_translate_link,
                     primaryColor,
@@ -66,7 +66,7 @@ class CommunityFragment : Fragment() {
                     translate
                 ) + " " + getString(R.string.community_contribute_translate_text),
 
-            binding.communityContributeGithubText to
+            binding?.communityContributeGithubText to
                 getString(
                     R.string.community_contribute_github_text,
                     getString(
@@ -76,11 +76,11 @@ class CommunityFragment : Fragment() {
                     )
                 )
         ).forEach { (view, content) ->
-            view.setHtmlContent(content)
+            view?.setHtmlContent(content)
         }
 
-        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.communityTestingReport)
-        binding.communityTestingReport.setOnClickListener {
+        binding?.communityTestingReport?.let { viewThemeUtils.material.colorMaterialButtonPrimaryFilled(it) }
+        binding?.communityTestingReport?.setOnClickListener {
             DisplayUtils.startLinkIntent(requireActivity(), R.string.report_issue_empty_link)
         }
     }
@@ -89,12 +89,12 @@ class CommunityFragment : Fragment() {
         val activity = requireActivity()
 
         listOf(
-            binding.communityBetaFdroid to R.string.fdroid_beta_link,
-            binding.communityReleaseCandidateFdroid to R.string.fdroid_link,
-            binding.communityReleaseCandidatePlaystore to R.string.play_store_register_beta,
-            binding.communityBetaApk to R.string.beta_apk_link
+            binding?.communityBetaFdroid to R.string.fdroid_beta_link,
+            binding?.communityReleaseCandidateFdroid to R.string.fdroid_link,
+            binding?.communityReleaseCandidatePlaystore to R.string.play_store_register_beta,
+            binding?.communityBetaApk to R.string.beta_apk_link
         ).forEach { (view, linkRes) ->
-            view.setOnClickListener {
+            view?.setOnClickListener {
                 DisplayUtils.startLinkIntent(activity, linkRes)
             }
         }
@@ -102,6 +102,6 @@ class CommunityFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 }

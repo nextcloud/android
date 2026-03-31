@@ -12,6 +12,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
@@ -29,12 +30,16 @@ class NavigatorActivity : DrawerActivity() {
         val screen = intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java) ?: return
         val fragmentContainerView = findViewById<FragmentContainerView>(R.id.fragment_container_view)
         navigator = Navigator(supportFragmentManager, fragmentContainerView)
-
         setupBackPressedHandler()
         push(screen)
-        supportFragmentManager.addFragmentOnAttachListener { _, fragment ->
-            AndroidSupportInjection.inject(fragment)
-        }
+    }
+
+    // addFragmentOnAttachListener or via registerFragmentLifecycleCallbacks not providing same result
+    @Suppress("DEPRECATION")
+    @Deprecated("Deprecated in Java")
+    override fun onAttachFragment(fragment: Fragment) {
+        AndroidSupportInjection.inject(fragment)
+        super.onAttachFragment(fragment)
     }
 
     fun pop() {
