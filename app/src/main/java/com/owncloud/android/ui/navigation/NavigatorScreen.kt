@@ -17,10 +17,21 @@ import kotlinx.parcelize.Parcelize
 sealed class NavigatorScreen(val tag: String) : Parcelable {
 
     @Parcelize
-    object Activities : NavigatorScreen("Activities")
+    object Activities : NavigatorScreen(ACTIVITIES_TAG)
 
     @Parcelize
-    object Community : NavigatorScreen("Community")
+    object Community : NavigatorScreen(COMMUNITY_TAG)
+
+    companion object {
+        private const val ACTIVITIES_TAG = "Activities"
+        private const val COMMUNITY_TAG = "Community"
+
+        fun fromTag(tag: String?): NavigatorScreen? = when (tag) {
+            ACTIVITIES_TAG -> Activities
+            COMMUNITY_TAG -> Community
+            else -> null
+        }
+    }
 
     fun menuItemId(): Int = when (this) {
         Community -> R.id.nav_community
