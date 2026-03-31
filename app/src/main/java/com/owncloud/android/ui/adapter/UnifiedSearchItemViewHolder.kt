@@ -9,6 +9,7 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import android.view.View
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
@@ -57,8 +58,8 @@ class UnifiedSearchItemViewHolder(
     private val calendarEventManager = CalendarEventManager(context)
 
     fun bind(entry: SearchResultEntry) {
-        binding.title.text = entry.title
-        bindSubline(entry)
+        bindTextView(binding.title, entry.title)
+        bindTextView(binding.subline, entry.subline)
         bindLocalFileIndicator(entry)
 
         val entryType = entry.getType()
@@ -69,16 +70,12 @@ class UnifiedSearchItemViewHolder(
         }
     }
 
-    private fun bindSubline(entry: SearchResultEntry) {
-        if (entry.subline.isNotBlank()) {
-            binding.subline.visibility = View.VISIBLE
-            binding.subline.text = entry.subline
+    private fun bindTextView(view: TextView, text: String?) {
+        if (text.isNullOrEmpty()) {
+            view.visibility = View.GONE
         } else {
-            binding.subline.visibility = View.GONE
-
-            val paddingInDp = context.resources.getDimension(R.dimen.standard_padding)
-            val paddingInPx = DisplayUtils.convertDpToPixel(paddingInDp, context)
-            binding.titleContainer.setPadding(0, paddingInPx, 0, 0)
+            view.visibility = View.VISIBLE
+            view.text = text
         }
     }
 
