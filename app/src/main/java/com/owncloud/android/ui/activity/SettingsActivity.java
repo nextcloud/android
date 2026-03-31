@@ -78,6 +78,7 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -89,6 +90,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 import static com.owncloud.android.ui.activity.DrawerActivity.REQ_ALL_FILES_ACCESS;
 
@@ -1156,14 +1159,16 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void loadExternalSettingLinks(PreferenceCategory preferenceCategory) {
-        if (MDMConfig.INSTANCE.externalSiteSupport(this)) {
-            ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
+        if (!MDMConfig.INSTANCE.externalSiteSupport(this)) {
+            return;
+        }
 
-            for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS)) {
-
+        ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
+        externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS, externalLinks -> {
+            for (final ExternalLink link : externalLinks) {
                 // only add if it does not exist, in case activity is reused
                 if (findPreference(String.valueOf(link.getId())) == null) {
-                    Preference p = new Preference(this);
+                    Preference p = new Preference(SettingsActivity.this);
                     p.setTitle(link.getName());
                     p.setKey(String.valueOf(link.getId()));
 
@@ -1180,7 +1185,9 @@ public class SettingsActivity extends PreferenceActivity
                     preferenceCategory.addPreference(p);
                 }
             }
-        }
+            return Unit.INSTANCE;
+        });
+        externalLinksProvider.cleanup();
     }
 
     /**
