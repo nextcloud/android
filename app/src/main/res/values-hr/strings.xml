@@ -438,6 +438,8 @@
     <string name="file_list_empty_local_search">Nema datoteka ili mapa koje odgovaraju pretraživanju</string>
     <string name="file_list_empty_moving">Ovdje nema ničega. Možete dodati mapu.</string>
     <string name="file_list_empty_on_device">Ovdje će se prikazati preuzete datoteke i mape.</string>
+    <string name="file_list_empty_recent_files_description">Ovdje će se prikazati datoteke i mape koje ste nedavno izmijenili.</string>
+    <string name="file_list_empty_recent_files_headline">Nema nedavno izmijenjenih datoteka.</string>
     <string name="file_list_empty_recently_modified">Nije pronađena nijedna datoteka izmijenjena u posljednjih 7 dana</string>
     <string name="file_list_empty_search">Možda je u drugoj mapi?</string>
     <string name="file_list_empty_shared">Ovdje će se prikazati datoteke i mape koje dijelite.</string>

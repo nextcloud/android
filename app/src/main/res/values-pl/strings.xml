@@ -434,6 +434,8 @@
     <string name="file_list_empty_local_search">Brak plików lub katalogów spełniających kryteria wyszukiwania</string>
     <string name="file_list_empty_moving">Pusto. Możesz dodać katalog.</string>
     <string name="file_list_empty_on_device">Tutaj pojawią się pobrane pliki i katalogi.</string>
+    <string name="file_list_empty_recent_files_description">Tutaj pojawią się pliki i katalogi, które ostatnio zmodyfikowałeś.</string>
+    <string name="file_list_empty_recent_files_headline">Brak ostatnio zmodyfikowanych plików</string>
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
     <string name="file_list_empty_search">Może jest w innym katalogu?</string>
     <string name="file_list_empty_shared">Tutaj pojawią się pliki i katalogi, które udostępnisz.</string>

@@ -407,6 +407,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_list_empty_local_search">Tidak ada file atau folder yang cocok dengan pencarian Anda</string>
     <string name="file_list_empty_moving">Kosong. Anda dapat menambahkan folder</string>
     <string name="file_list_empty_on_device">Berkas dan folder yang diunduh akan muncul di sini.</string>
+    <string name="file_list_empty_recent_files_description">File dan folder yang baru-baru ini Anda modifikasi akan muncul di sini.</string>
+    <string name="file_list_empty_recent_files_headline">Tidak ada file yang baru-baru ini dimodifikasi</string>
     <string name="file_list_empty_recently_modified">Tidak ditemukan berkas yang diubah 7 hari terakhir</string>
     <string name="file_list_empty_search">Mungkin ada di folder yang berbeda?</string>
     <string name="file_list_empty_shared">Berkas dan folder yang Anda bagikan akan muncul di sini.</string>

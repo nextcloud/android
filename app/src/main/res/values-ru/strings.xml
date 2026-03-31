@@ -433,6 +433,8 @@
     <string name="file_list_empty_local_search">Нет файла или папки, соответствующих вашему запросу</string>
     <string name="file_list_empty_moving">Здесь ничего нет. Вы можете создать каталог!</string>
     <string name="file_list_empty_on_device">Здесь будут показаны загруженные файлы и папки</string>
+    <string name="file_list_empty_recent_files_description">Здесь будут показаны недавно изменённые файлы и папки</string>
+    <string name="file_list_empty_recent_files_headline">Нет недавно измененных файлов</string>
     <string name="file_list_empty_recently_modified">Изменённых за последние 7 дней файлов не найдено</string>
     <string name="file_list_empty_search">Искать в другом каталоге?</string>
     <string name="file_list_empty_shared">Здесь будут показаны опубликованные вами папки и файлы.</string>

@@ -352,6 +352,8 @@
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
     <string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
     <string name="file_list_empty_on_device">Los archivos y carpetas descargados se mostrarán aquí.</string>
+    <string name="file_list_empty_recent_files_description">Los archivos y carpetas que ha modificado recientemente aparecerán aquí.</string>
+    <string name="file_list_empty_recent_files_headline">No hay archivos modificados recientemente</string>
     <string name="file_list_empty_recently_modified">No se encontraron archivos modificados dentro de los últimos 7 días</string>
     <string name="file_list_empty_search">¿Tal vez está dentro de una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que comparta se mostrarán aquí.</string>

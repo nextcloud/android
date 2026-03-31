@@ -312,6 +312,8 @@
     <string name="file_list_empty_headline_server_search">Không có kết quả</string>
     <string name="file_list_empty_moving">Không có gì ở đây. Bạn có thể thêm một thư mục</string>
     <string name="file_list_empty_on_device">Các tập tin và thư mục đã tải xuống sẽ hiển thị ở đây.</string>
+    <string name="file_list_empty_recent_files_description">Các tập tin và thư mục bạn sửa đổi gần đây sẽ hiển thị ở đây.</string>
+    <string name="file_list_empty_recent_files_headline">Không có tập tin được sửa đổi gần đây</string>
     <string name="file_list_empty_recently_modified">Không tìm thấy tệp nào được sửa đổi trong 7 ngày qua</string>
     <string name="file_list_empty_search">Có lẽ nó trong một thư mục khác?</string>
     <string name="file_list_empty_shared">Các tệp và thư mục bạn chia sẻ sẽ hiển thị ở đây.</string>

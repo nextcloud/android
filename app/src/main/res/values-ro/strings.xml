@@ -369,6 +369,8 @@
     <string name="file_list_empty_local_search">Niciun fișier sau dosar care să corespundă căutării dvs</string>
     <string name="file_list_empty_moving">Nu este nimic aici. Poți adăuga un dosar.</string>
     <string name="file_list_empty_on_device">FIșierele și dosarele descărcate vor apărea aici</string>
+    <string name="file_list_empty_recent_files_description">Fișierele și dosarele modificate recent vor fi afișate aici</string>
+    <string name="file_list_empty_recent_files_headline">Niciun fișier modificat recent</string>
     <string name="file_list_empty_recently_modified">Nu au fost găsite fișiere modificate în ultimele 7 zile</string>
     <string name="file_list_empty_search">Poate că este într-un alt dosar?</string>
     <string name="file_list_empty_shared">FIșierele și dosarele partajate vor apărea aici</string>

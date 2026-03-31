@@ -435,6 +435,8 @@
     <string name="file_list_empty_local_search">Hakuna faili au folda inayolingana na utafutaji wako</string>
     <string name="file_list_empty_moving">Hakuna kitu humu. Unaweza kuongeza folda.</string>
     <string name="file_list_empty_on_device">Faili na folda zilizopakuliwa zitaonekana hapa.</string>
+    <string name="file_list_empty_recent_files_description">Faili na vikasha ulivyoboresha hivi karibuni vitaonekana hapa</string>
+    <string name="file_list_empty_recent_files_headline">Hakuna faili zilizoboreshwa hivi karibuni</string>
     <string name="file_list_empty_recently_modified">Haijapata faili zilizobadilishwa ndani ya siku 7 zilizopita</string>
     <string name="file_list_empty_search">Labda iko kwenye folda tofauti?</string>
     <string name="file_list_empty_shared">Faili na folda unazoshiriki zitaonekana hapa.</string>

@@ -438,6 +438,8 @@
     <string name="file_list_empty_local_search">沒有檔案或資料夾與搜尋匹配</string>
     <string name="file_list_empty_moving">這裡空無一物，你可以新增一個資料夾。</string>
     <string name="file_list_empty_on_device">下載的檔案跟資料夾會顯示這裡。</string>
+    <string name="file_list_empty_recent_files_description">您最近修改的檔案和資料夾將顯示在此處。</string>
+    <string name="file_list_empty_recent_files_headline">近期無修改檔案</string>
     <string name="file_list_empty_recently_modified">沒有找到最近 7 日修改的檔案</string>
     <string name="file_list_empty_search">說不定它在其他的資料夾?</string>
     <string name="file_list_empty_shared">您分享的檔案跟資料夾會顯示在這裡。</string>

@@ -407,6 +407,8 @@
     <string name="file_list_empty_local_search">Ingen fil eller mappe matcher din søgning</string>
     <string name="file_list_empty_moving">Der er intet her. Du kan tilføje en mappe.</string>
     <string name="file_list_empty_on_device">Hentede filer og mapper vil blive vist her.</string>
+    <string name="file_list_empty_recent_files_description">Filer og mapper som du har ændret for nyligt, vil blive vist her.</string>
+    <string name="file_list_empty_recent_files_headline">Ingen filer er ændret for nyligt</string>
     <string name="file_list_empty_recently_modified">Fandt ikke nogen filer ændre inden for de sidste 7 dage</string>
     <string name="file_list_empty_search">Måske den er i en anden mappe?</string>
     <string name="file_list_empty_shared">Filer og mapper du deler vil blive vist her.</string>

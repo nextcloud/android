@@ -373,6 +373,8 @@
     <string name="file_list_empty_local_search">Ingen fil eller mappe som samsvarer med søket ditt</string>
     <string name="file_list_empty_moving">Ingenting her. Du kan legge til en mappe!</string>
     <string name="file_list_empty_on_device">Nedlastede filer og mapper vil vises her.</string>
+    <string name="file_list_empty_recent_files_description">Filer og mapper du nylig har endret, vises her.</string>
+    <string name="file_list_empty_recent_files_headline">Ingen nylig endrede filer</string>
     <string name="file_list_empty_recently_modified">Fant ingen filer endret de siste 7 dagene</string>
     <string name="file_list_empty_search">Vil du prøve i en annen mappe?</string>
     <string name="file_list_empty_shared">Filer og mapper du deler vil dukke opp her.</string>

@@ -437,6 +437,8 @@
     <string name="file_list_empty_local_search">Vyhledávanému neodpovídá žádný soubor nebo složka</string>
     <string name="file_list_empty_moving">Nic tu není. Můžete přidat složku.</string>
     <string name="file_list_empty_on_device">Stažené soubory a složky se zobrazí zde.</string>
+    <string name="file_list_empty_recent_files_description">Zde budou zobrazeny soubory a složky, které jste nedávno změnili.</string>
+    <string name="file_list_empty_recent_files_headline">Žádné nedávno změněné soubory.</string>
     <string name="file_list_empty_recently_modified">Nenalezeny žádné soubory změněné za uplynulých 7 dnů</string>
     <string name="file_list_empty_search">Možná se nachází v jiné složce?</string>
     <string name="file_list_empty_shared">Zde budou zobrazeny vámi nasdílené soubory a složky.</string>

@@ -434,6 +434,8 @@
     <string name="file_list_empty_local_search">Vášmu vyhľadávaniu nezodpovedá žiadny súbor ani adresár</string>
     <string name="file_list_empty_moving">Nič tu nie je. Môžete pridať priečinok.</string>
     <string name="file_list_empty_on_device">Tu sa zobrazia nahraté súbory a priečinky</string>
+    <string name="file_list_empty_recent_files_description">Súbory a priečinky, ktoré ste nedávno upravili sa zobrazia tu</string>
+    <string name="file_list_empty_recent_files_headline">Žiadne nedávno upravené súbory</string>
     <string name="file_list_empty_recently_modified">V posledných 7 dňoch sa nenašli žiadne zmeny</string>
     <string name="file_list_empty_search">Možno to je v inom priečinku?</string>
     <string name="file_list_empty_shared">Tu sa zobrazia súbory a priečinky, ktoré ste sprístupnili.</string>
