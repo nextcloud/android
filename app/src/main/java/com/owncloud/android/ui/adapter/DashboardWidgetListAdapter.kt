@@ -17,8 +17,10 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.widget.DashboardWidgetConfigurationInterface
 import com.owncloud.android.databinding.WidgetListItemBinding
+import kotlinx.coroutines.CoroutineScope
 
 class DashboardWidgetListAdapter(
+    private val lifecycleScope: CoroutineScope,
     val accountManager: UserAccountManager,
     val clientFactory: ClientFactory,
     val context: Context,
@@ -28,6 +30,7 @@ class DashboardWidgetListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         WidgetListItemViewHolder(
+            lifecycleScope,
             WidgetListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             accountManager,
             clientFactory,

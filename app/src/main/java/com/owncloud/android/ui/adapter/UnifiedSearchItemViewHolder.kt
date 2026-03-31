@@ -140,14 +140,23 @@ class UnifiedSearchItemViewHolder(
 
         if (entry.thumbnailUrl.isNotBlank()) {
             filesAction.loadFileThumbnail(entry) { client ->
-                GlideHelper.loadIntoImageView(
-                    context,
-                    client,
-                    entry.thumbnailUrl,
-                    binding.thumbnail,
-                    entryType.iconId(),
-                    circleCrop = entry.rounded
-                )
+                if (entryType == SearchResultEntryType.Avatar) {
+                    GlideHelper.loadCircularBitmapIntoImageView(
+                        context,
+                        entry.thumbnailUrl,
+                        binding.thumbnail,
+                        ContextCompat.getDrawable(context, R.drawable.ic_user)
+                    )
+                } else {
+                    GlideHelper.loadIntoImageView(
+                        context,
+                        client,
+                        entry.thumbnailUrl,
+                        binding.thumbnail,
+                        entryType.iconId(),
+                        circleCrop = entry.rounded
+                    )
+                }
             }
         } else {
             binding.thumbnail.setImageDrawable(ContextCompat.getDrawable(context, entryType.iconId()))

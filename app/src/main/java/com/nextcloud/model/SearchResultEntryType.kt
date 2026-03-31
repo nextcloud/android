@@ -29,9 +29,11 @@ enum class SearchResultEntryType {
     TextCode,
     Link,
     Font,
+    Avatar,
     Unknown;
 
     fun iconId(): Int = when (this) {
+        Avatar -> R.drawable.ic_user
         CalendarEvent -> R.drawable.file_calendar
         Folder -> R.drawable.folder
         Note -> R.drawable.ic_edit

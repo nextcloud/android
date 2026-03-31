@@ -124,8 +124,9 @@ class FileUploadHelper {
         val capability = fileStorageManager.getCapability(accountManager.user)
 
         try {
-            getUploadsByStatus(null, UploadStatus.UPLOAD_FAILED, capability) {
-                if (it.isNotEmpty()) {
+            ioScope.launch {
+                val uploads = getUploadsByStatus(null, UploadStatus.UPLOAD_FAILED, capability)
+                if (uploads.isNotEmpty()) {
                     isUploadStarted = true
                 }
 
@@ -134,7 +135,7 @@ class FileUploadHelper {
                     connectivityService,
                     accountManager,
                     powerManagementService,
-                    uploads = it
+                    uploads
                 )
             }
         } finally {
@@ -144,26 +145,21 @@ class FileUploadHelper {
         return isUploadStarted
     }
 
-    fun retryCancelledUploads(
+    suspend fun retryCancelledUploads(
         uploadsStorageManager: UploadsStorageManager,
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService
     ): Boolean {
-        var result = false
         val capability = fileStorageManager.getCapability(accountManager.user)
-
-        getUploadsByStatus(accountManager.user.accountName, UploadStatus.UPLOAD_CANCELLED, capability) {
-            result = retryUploads(
-                uploadsStorageManager,
-                connectivityService,
-                accountManager,
-                powerManagementService,
-                it
-            )
-        }
-
-        return result
+        val uploads = getUploadsByStatus(accountManager.user.accountName, UploadStatus.UPLOAD_CANCELLED, capability)
+        return retryUploads(
+            uploadsStorageManager,
+            connectivityService,
+            accountManager,
+            powerManagementService,
+            uploads
+        )
     }
 
     @Suppress("ComplexCondition")
@@ -172,7 +168,7 @@ class FileUploadHelper {
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService,
-        uploads: Array<OCUpload>
+        uploads: List<OCUpload>
     ): Boolean {
         var showNotExistMessage = false
         var showSyncConflictNotification = false
@@ -343,31 +339,24 @@ class FileUploadHelper {
      * belonging to that account are retrieved. If [accountName] is `null`, uploads with the
      * given [status] from **all user accounts** are returned.
      *
-     * Once the uploads are fetched, the [onCompleted] callback is invoked with the resulting array.
-     *
      * @param accountName The name of the account to filter uploads by.
      * If `null`, uploads matching the given [status] from all accounts are returned.
      * @param status The [UploadStatus] to filter uploads by (e.g., `UPLOAD_FAILED`).
      * @param nameCollisionPolicy The [NameCollisionPolicy] to filter uploads by (e.g., `SKIP`).
-     * @param onCompleted A callback invoked with the resulting array of [OCUpload] objects.
      */
-    fun getUploadsByStatus(
+    suspend fun getUploadsByStatus(
         accountName: String?,
         status: UploadStatus,
         capability: OCCapability,
-        nameCollisionPolicy: NameCollisionPolicy? = null,
-        onCompleted: (Array<OCUpload>) -> Unit
-    ) {
-        ioScope.launch {
-            val dao = uploadsStorageManager.uploadDao
-            val result = if (accountName != null) {
-                dao.getUploadsByAccountNameAndStatus(accountName, status.value, nameCollisionPolicy?.serialize())
-            } else {
-                dao.getUploadsByStatus(status.value, nameCollisionPolicy?.serialize())
-            }.mapNotNull {
-                it.toOCUpload(capability)
-            }.toTypedArray()
-            onCompleted(result)
+        nameCollisionPolicy: NameCollisionPolicy? = null
+    ): List<OCUpload> {
+        val dao = uploadsStorageManager.uploadDao
+        return if (accountName != null) {
+            dao.getUploadsByAccountNameAndStatus(accountName, status.value, nameCollisionPolicy?.serialize())
+        } else {
+            dao.getUploadsByStatus(status.value, nameCollisionPolicy?.serialize())
+        }.mapNotNull {
+            it.toOCUpload(capability)
         }
     }
 

@@ -405,6 +405,7 @@
     <string name="etm_transfer_type">傳輸</string>
     <string name="etm_transfer_type_download">下載</string>
     <string name="etm_transfer_type_upload">上傳</string>
+    <string name="export_in_progress">正在匯出第 %1$d 個（共 %2$d 個）</string>
     <string name="extension_cannot_be_changed">無法變更副檔名</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">您無權在此資料夾建立或上傳檔案。</string>
     <string name="external_shares">外部分享</string>
