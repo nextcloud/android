@@ -17,6 +17,7 @@ import com.nextcloud.operations.GetMethod
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
@@ -32,6 +33,7 @@ class ConnectivityServiceImpl(
 ) : ConnectivityService {
 
     private val scope = CoroutineScope(Dispatchers.IO)
+    private var availabilityCheckJob: Job? = null
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private var currentConnectivity = Connectivity.DISCONNECTED
 
@@ -99,7 +101,8 @@ class ConnectivityServiceImpl(
                 )
 
     override fun isNetworkAndServerAvailable(callback: GenericCallback<Boolean>) {
-        scope.launch {
+        availabilityCheckJob?.cancel()
+        availabilityCheckJob = scope.launch {
             val available = !isInternetWalled()
             Log_OC.d(TAG, "isNetworkAndServerAvailable: $available")
             withContext(Dispatchers.Main) {
