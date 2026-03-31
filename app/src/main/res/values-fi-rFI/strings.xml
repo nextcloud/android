@@ -373,6 +373,8 @@
     <string name="file_list_empty_local_search">Hakuasi vastaavaa tiedostoa tai kansiota ei löytynyt</string>
     <string name="file_list_empty_moving">Täällä ei ole mitään. Voit lisätä kansion.</string>
     <string name="file_list_empty_on_device">Ladatut tiedostot ja kansiot näkyvät täällä.</string>
+    <string name="file_list_empty_recent_files_description">Äskettäin muokkaamasi tiedostot ja kansiot näkyvät täällä.</string>
+    <string name="file_list_empty_recent_files_headline">Ei äskettäin muokattuja tiedostoja</string>
     <string name="file_list_empty_recently_modified">Viimeisen 7 päivän aikana muokattuja tiedostoja ei löytynyt</string>
     <string name="file_list_empty_search">Ehkä se on toisessa kansiossa?</string>
     <string name="file_list_empty_shared">Jakamasi tiedostot ja kansiot näkyvät tässä.</string>

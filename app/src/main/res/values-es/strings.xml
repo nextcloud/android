@@ -437,6 +437,8 @@
     <string name="file_list_empty_local_search">Ningún archivo ni carpeta coincide con su búsqueda</string>
     <string name="file_list_empty_moving">Nada por aquí. Puedes agregar una carpeta.</string>
     <string name="file_list_empty_on_device">Los archivos y carpetas que descargues aparecerán aquí.</string>
+    <string name="file_list_empty_recent_files_description">Los archivos y carpetas que ha modificado recientemente aparecerán aquí.</string>
+    <string name="file_list_empty_recent_files_headline">No hay archivos modificados recientemente.</string>
     <string name="file_list_empty_recently_modified">No se han encontrado archivos modificados en los últimos 7 días</string>
     <string name="file_list_empty_search">¿Quizás está en una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que compartas aparecerán aquí.</string>

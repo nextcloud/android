@@ -343,6 +343,8 @@
     <string name="file_list_empty_headline_server_search">نتیجه ای یافت نشد</string>
     <string name="file_list_empty_moving">هیچ چیز در اینجا نیست. می توانید یک پوشه اضافه کنید.</string>
     <string name="file_list_empty_on_device">فایل‌ها و پوشه‌های بارگیری شده، در این قسمت نمایش داده خواهند شد.</string>
+    <string name="file_list_empty_recent_files_description">فایل‌ها و پوشه‌هایی که اخیراً تغییر داده‌اید در اینجا نمایش داده می‌شوند.</string>
+    <string name="file_list_empty_recent_files_headline">هیچ فایلی که اخیراً اصلاح شده است</string>
     <string name="file_list_empty_recently_modified">در ۷ روز گذشته هیچ فایلی تغییر نیافته است.</string>
     <string name="file_list_empty_search">شاید در پوشه های مختلف باشد؟</string>
     <string name="file_list_empty_shared">فایل‌ها و پوشه‌های به اشتراک گذاشته شده در این قسمت نمایش داده خواهند شد.</string>

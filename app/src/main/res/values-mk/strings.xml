@@ -297,6 +297,8 @@
     <string name="file_list_empty_headline_server_search">Нема резултати</string>
     <string name="file_list_empty_moving">Тука нема ништо. Можете да додадете папка!</string>
     <string name="file_list_empty_on_device">Преземените датотеки и папки  ќе се појават тука.</string>
+    <string name="file_list_empty_recent_files_description">Датотеките и папките кои скоро ќе ги измените ќе се појават тука.</string>
+    <string name="file_list_empty_recent_files_headline">Нема скоро изменети датотеки</string>
     <string name="file_list_empty_recently_modified">Нема пронајдено датотеки изменети во последните 7 дена.</string>
     <string name="file_list_empty_search">Можеби е во друга папка?</string>
     <string name="file_list_empty_shared">Датотеките и папките кои ги споделувате ќе се појават тука.</string>

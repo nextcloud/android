@@ -437,6 +437,8 @@
     <string name="file_list_empty_local_search">没有文件或文件夹匹配你的搜索</string>
     <string name="file_list_empty_moving">这里空无一物。你可以添加一个文件夹。</string>
     <string name="file_list_empty_on_device">已下载的文件和文件夹将显示在此处</string>
+    <string name="file_list_empty_recent_files_description">你最近修改的文件与文件夹将会显示在此处。</string>
+    <string name="file_list_empty_recent_files_headline">近期无修改文件</string>
     <string name="file_list_empty_recently_modified">在过去的7天内没有被修改过的文件</string>
     <string name="file_list_empty_search">也许它在其他文件夹中？</string>
     <string name="file_list_empty_shared">你共享的文件和文件夹将显示在此处</string>

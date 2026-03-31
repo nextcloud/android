@@ -438,6 +438,8 @@
     <string name="file_list_empty_local_search">Sinu otsingule ei vasta ühtegi faili ega kausta</string>
     <string name="file_list_empty_moving">Siin pole midagi. Sa võid lisada kausta.</string>
     <string name="file_list_empty_on_device">Allalaaditud failid ja kaustad ilmuvad siia.</string>
+    <string name="file_list_empty_recent_files_description">Failid ja kaustad, mida oled hiljuti muutnud, ilmuvad siia.</string>
+    <string name="file_list_empty_recent_files_headline">Hiljuti muudetud faile pole.</string>
     <string name="file_list_empty_recently_modified">Viimase 7 päeva jooksul muudetud faile ei leidu</string>
     <string name="file_list_empty_search">Võibolla on see teises kaustas?</string>
     <string name="file_list_empty_shared">Sinu poolt jagatud failid ja kaustad saavad olema siin nähtavad</string>

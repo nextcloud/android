@@ -408,6 +408,8 @@
     <string name="file_list_empty_local_search">Geen overeenkomstig bestand of map gevonden</string>
     <string name="file_list_empty_moving">Het is hier leeg. Je kan een map toevoegen!</string>
     <string name="file_list_empty_on_device">Gedownloade bestanden en mappen zie je hier.</string>
+    <string name="file_list_empty_recent_files_description">Bestanden en mappen die je recent gewijzigd hebt, worden hier getoond.</string>
+    <string name="file_list_empty_recent_files_headline">Geen recent gewijzigde bestanden</string>
     <string name="file_list_empty_recently_modified">Geen bestanden gevonden die de afgelopen 7 dagen zijn gewijzigd</string>
     <string name="file_list_empty_search">Misschien staat het in een andere map?</string>
     <string name="file_list_empty_shared">Bestanden en mappen die je deelt, worden hier getoond.</string>

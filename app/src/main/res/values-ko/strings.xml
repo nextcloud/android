@@ -387,6 +387,8 @@
     <string name="file_list_empty_local_search">검색 결과가 없습니다</string>
     <string name="file_list_empty_moving">항목이 없습니다. 폴더를 추가할 수 있습니다.</string>
     <string name="file_list_empty_on_device">다운로드 받은 파일과 폴더가 여기 나타날 것입니다.</string>
+    <string name="file_list_empty_recent_files_description">최근에 수정한 파일과 폴더가 이곳에 표시됩니다.</string>
+    <string name="file_list_empty_recent_files_headline">최근에 수정된 파일 없음</string>
     <string name="file_list_empty_recently_modified">검색 결과 지난 7일간 수정한 파일 없음</string>
     <string name="file_list_empty_search">다른 폴더에 있을 수도 있습니다.</string>
     <string name="file_list_empty_shared">당신이 공유한 파일과 폴더가 여기 나타날 것입니다.</string>

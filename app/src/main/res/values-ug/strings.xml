@@ -423,6 +423,8 @@
     <string name="file_list_empty_local_search">ئىزدىشىڭىزگە ماس كېلىدىغان ھۆججەت ياكى ھۆججەت قىسقۇچ يوق</string>
     <string name="file_list_empty_moving">بۇ يەردە ھېچنېمە يوق. قىسقۇچ قوشالايسىز.</string>
     <string name="file_list_empty_on_device">چۈشۈرۈلگەن ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
+    <string name="file_list_empty_recent_files_description">سىز يېقىندا ئۆزگەرتكەن ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
+    <string name="file_list_empty_recent_files_headline">يېقىندا ئۆزگەرتىلگەن ھۆججەت يوق</string>
     <string name="file_list_empty_recently_modified">يېقىنقى 7 كۈن ئىچىدە ئۆزگەرتىلگەن ھۆججەت تېپىلمىدى</string>
     <string name="file_list_empty_search">بەلكىم ئۇ باشقا ھۆججەت قىسقۇچتا بولۇشى مۇمكىن؟</string>
     <string name="file_list_empty_shared">سىز ئورتاقلاشقان ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>

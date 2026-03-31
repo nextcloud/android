@@ -438,6 +438,8 @@
     <string name="file_list_empty_local_search">Níl aon chomhad nó fillteán ag teacht le do chuardach</string>
     <string name="file_list_empty_moving">Ní dhéanfaidh aon ní anseo. Is féidir leat fillteán a chur leis.</string>
     <string name="file_list_empty_on_device">Taispeánfar comhaid agus fillteáin íosluchtaithe anseo.</string>
+    <string name="file_list_empty_recent_files_description">Taispeánfar comhaid agus fillteáin a d\'athraigh tú le déanaí anseo.</string>
+    <string name="file_list_empty_recent_files_headline">Níl aon chomhaid athraithe le déanaí</string>
     <string name="file_list_empty_recently_modified">Níor aimsíodh aon chomhad a athraíodh le 7 lá anuas</string>
     <string name="file_list_empty_search">B\'fhéidir go bhfuil sé i bhfillteán eile?</string>
     <string name="file_list_empty_shared">Taispeánfar na comhaid agus na fillteáin a roinneann tú anseo.</string>

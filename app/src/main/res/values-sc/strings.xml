@@ -298,6 +298,8 @@
     <string name="file_list_empty_headline_server_search">Perunu resurtadu</string>
     <string name="file_list_empty_moving">Non b\'at nudda. Podes agiùnghere una cartella.</string>
     <string name="file_list_empty_on_device">Is cartellas e is archìvios iscarrigados ant a aparèssere inoghe.</string>
+    <string name="file_list_empty_recent_files_description">Is cartellas e is archìvios chi apas modificadu de reghente ant a èssere mustrados inoghe.</string>
+    <string name="file_list_empty_recent_files_headline">Nissunu archìviu modificadu de reghente</string>
     <string name="file_list_empty_recently_modified">Perunu archìviu modificadu in is ùrtimas 7 dies agatadu</string>
     <string name="file_list_empty_search">Forsis est in un\'àtera cartella?</string>
     <string name="file_list_empty_shared">Is cartellas e is archìvios chi cumpartzis ant a aparèssere inoghe.</string>

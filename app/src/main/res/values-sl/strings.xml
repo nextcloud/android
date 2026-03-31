@@ -336,6 +336,8 @@
     <string name="file_list_empty_headline_server_search">Ni rezultatov</string>
     <string name="file_list_empty_moving">Ni vsebine. Lahko ustvariš na primer mapo.</string>
     <string name="file_list_empty_on_device">Prejete datoteke in mape bodo zbrane na tem mestu.</string>
+    <string name="file_list_empty_recent_files_description">Nedavno spremenjene datoteke ali mape, bodo zbrane na tem mestu.</string>
+    <string name="file_list_empty_recent_files_headline">Ni nedavno spremenjenih datotek</string>
     <string name="file_list_empty_recently_modified">Ni datotek, spremenjenih v zadnjih 7. dneh</string>
     <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
     <string name="file_list_empty_shared">Datoteke in mape v souporabi bodo zbrane na tem mestu.</string>
