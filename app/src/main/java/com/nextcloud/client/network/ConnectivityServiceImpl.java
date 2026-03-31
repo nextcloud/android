@@ -153,14 +153,20 @@ public class ConnectivityServiceImpl implements ConnectivityService {
         Server server = accountManager.getUser().getServer();
         String baseServerAddress = server.getUri().toString();
 
-        if (!currentConnectivity.isConnected()
-            || baseServerAddress.isEmpty() ||
-            !currentConnectivity.isWifi() ||
-            currentConnectivity.isMetered()) {
+        // no connection or no server configured
+        if (!currentConnectivity.isConnected() || baseServerAddress.isEmpty()) {
             final var result = !currentConnectivity.isConnected();
             walledCheckCache.setValue(result);
-            Log_OC.d(TAG, "isInternetWalled(): early return conditions are not matched, isWalled: " + result);
+            Log_OC.d(TAG, "isInternetWalled(): no connection or server address, isWalled: " + result);
             return result;
+        }
+
+        // skip HTTP call on metered non-WiFi (e.g. cellular).
+        if (!currentConnectivity.isWifi() && currentConnectivity.isMetered()) {
+            final var isWalled = !currentConnectivity.isConnected();
+            walledCheckCache.setValue(isWalled);
+            Log_OC.d(TAG, "isInternetWalled(): metered non-WiFi, skipping probe, isWalled: " + isWalled);
+            return isWalled;
         }
 
         boolean isWalled;
@@ -169,8 +175,6 @@ public class ConnectivityServiceImpl implements ConnectivityService {
 
         try {
             int status = get.execute(client);
-
-            // Server is reachable and responds correctly = NOT walled
             isWalled = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0);
             if (isWalled) {
                 Log_OC.w(TAG, "isInternetWalled(): Server returned unexpected response");
