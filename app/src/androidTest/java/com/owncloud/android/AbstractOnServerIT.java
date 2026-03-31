@@ -21,6 +21,7 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.NetworkChangeListener;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
@@ -203,6 +204,16 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
     public void uploadOCUpload(OCUpload ocUpload, int localBehaviour) {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
+            @Override
+            public void addListener(@NonNull NetworkChangeListener listener) {
+
+            }
+
+            @Override
+            public void removeListener(@NonNull NetworkChangeListener listener) {
+
+            }
+
             @Override
             public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
 

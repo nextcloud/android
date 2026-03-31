@@ -52,13 +52,12 @@ import com.nextcloud.client.logger.LegacyLoggerAdapter;
 import com.nextcloud.client.logger.Logger;
 import com.nextcloud.client.migrations.MigrationsManager;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.NetworkChangeListener;
 import com.nextcloud.client.network.WalledCheckCache;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
-import com.nextcloud.receiver.NetworkChangeListener;
-import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -205,8 +204,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
     private static AppComponent appComponent;
 
-    private NetworkChangeReceiver networkChangeReceiver;
-
     /**
      * Temporary hack
      */
@@ -228,11 +225,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
      */
     public PowerManagementService getPowerManagementService() {
         return powerManagementService;
-    }
-
-    private void registerNetworkChangeReceiver() {
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(networkChangeReceiver, filter);
     }
 
     private String getAppProcessName() {
@@ -371,12 +363,10 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         }
 
         registerGlobalPassCodeProtection();
-        networkChangeReceiver = new NetworkChangeReceiver(this, connectivityService);
-        registerNetworkChangeReceiver();
-
         if (!MDMConfig.INSTANCE.sendFilesSupport(this)) {
             disableDocumentsStorageProvider();
         }
+        connectivityService.addListener(this);
     }
 
     public void disableDocumentsStorageProvider() {
@@ -1034,6 +1024,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     @Override
     public void onTerminate() {
         super.onTerminate();
+        connectivityService.removeListener(this);
         ReceiversHelper.shutdown();
     }
 }

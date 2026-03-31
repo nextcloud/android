@@ -9,10 +9,6 @@ package com.nextcloud.client.network;
 
 import android.net.ConnectivityManager;
 import android.net.Network;
-
-import com.nextcloud.client.account.Server;
-import com.nextcloud.client.account.UserAccountManager;
-
 import androidx.annotation.NonNull;
 
 /**
@@ -20,6 +16,9 @@ import androidx.annotation.NonNull;
  * and server reachability.
  */
 public interface ConnectivityService {
+    void addListener(@NonNull NetworkChangeListener listener);
+    void removeListener(@NonNull NetworkChangeListener listener);
+
     /**
      * Asynchronously checks whether both the device's network connection
      * and the Nextcloud server are available.

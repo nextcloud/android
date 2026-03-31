@@ -16,6 +16,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.network.NetworkChangeListener
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -34,10 +35,10 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     private var uploadsStorageManager: UploadsStorageManager? = null
 
     private val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
+        override fun addListener(listener: NetworkChangeListener) = Unit
+        override fun removeListener(listener: NetworkChangeListener) = Unit
         override fun isNetworkAndServerAvailable(callback: ConnectivityService.GenericCallback<Boolean>) = Unit
-
         override fun isConnected(): Boolean = false
-
         override fun isInternetWalled(): Boolean = false
         override fun getConnectivity(): Connectivity = Connectivity.CONNECTED_WIFI
     }
