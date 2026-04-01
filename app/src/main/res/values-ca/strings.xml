@@ -382,6 +382,8 @@
     <string name="file_list_empty_local_search">Cap fitxer o carpeta coincideix amb la cerca.</string>
     <string name="file_list_empty_moving">Aquí no hi ha res. Podeu afegir una carpeta.</string>
     <string name="file_list_empty_on_device">Els fitxers i les carpetes que baixeu es mostraran aquí.</string>
+    <string name="file_list_empty_recent_files_description">Els fitxers i les carpetes que heu modificat recentment es mostraran aquí.</string>
+    <string name="file_list_empty_recent_files_headline">No hi ha cap fitxer modificat recentment</string>
     <string name="file_list_empty_recently_modified">No s\'han trobat fitxers modificats els darrers 7 dies</string>
     <string name="file_list_empty_search">Potser és a una altra carpeta?</string>
     <string name="file_list_empty_shared">Els fitxers i les carpetes que compartiu es mostraran aquí.</string>
