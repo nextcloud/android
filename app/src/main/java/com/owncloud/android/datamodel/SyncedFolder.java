@@ -10,6 +10,8 @@
 
 package com.owncloud.android.datamodel;
 
+import android.text.TextUtils;
+
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.SubFolderRule;
@@ -302,7 +304,9 @@ public class SyncedFolder implements Serializable, Cloneable {
     }
 
     public boolean containsTypedFile(File file, String filePath) {
-        if (filePath == null || localPath == null) return false;
+        if (filePath == null || filePath.isEmpty() || localPath == null || localPath.isEmpty()) {
+            return false;
+        }
 
         String normalizedLocal = localPath.endsWith(File.separator)
             ? localPath
