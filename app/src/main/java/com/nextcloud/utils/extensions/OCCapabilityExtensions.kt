@@ -8,11 +8,15 @@
 package com.nextcloud.utils.extensions
 
 import com.google.gson.Gson
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import org.json.JSONException
 
 private val gson = Gson()
+
+private const val TAG = "OCCapabilityExtensions"
+private const val MAX_JSON_BYTES = 512 * 1024
 
 /**
  * Determines whether **Windows-compatible file (WCF)** restrictions should be applied
@@ -47,13 +51,18 @@ fun OCCapability.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8(): Bo
         forbiddenFilenameExtensions().isNotEmpty() ||
         forbiddenFilenameBaseNames().isNotEmpty()
 
-@Suppress("ReturnCount")
-private fun jsonToList(json: String?): List<String> {
-    if (json == null) return emptyList()
+@Suppress("ReturnCount", "TooGenericExceptionCaught")
+fun jsonToList(json: String?): List<String> {
+    if (json.isNullOrBlank()) return emptyList()
+
+    if (json.length > MAX_JSON_BYTES) {
+        Log_OC.e(TAG, "jsonToList: JSON exceeds size limit (${json.length} chars), skipping")
+        return emptyList()
+    }
 
     return try {
-        return gson.fromJson(json, Array<String>::class.java).toList()
-    } catch (_: JSONException) {
+        gson.fromJson(json, Array<String>::class.java)?.toList() ?: emptyList()
+    } catch (_: Throwable) {
         emptyList()
     }
 }

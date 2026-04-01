@@ -441,6 +441,8 @@
     <string name="file_list_empty_local_search">Nėra failų ar aplankų, atitinkančių jūsų paiešką</string>
     <string name="file_list_empty_moving">Čia tuščia. Įkelkite ką nors!</string>
     <string name="file_list_empty_on_device">Čia bus rodomi parsiųsti failai ir aplankai.</string>
+    <string name="file_list_empty_recent_files_description">Čia bus rodomi neseniai modifikuoti failai ir aplankai.</string>
+    <string name="file_list_empty_recent_files_headline">Nėra jokių paskiausiai modifikuotų failų</string>
     <string name="file_list_empty_recently_modified">Nerasta jokių per paskutines 7 dienas modifikuotų failų.</string>
     <string name="file_list_empty_search">Gal tai yra kitame aplanke?</string>
     <string name="file_list_empty_shared">Čia bus rodomi bendrinami failai ir aplankai.</string>

@@ -106,6 +106,14 @@ class FileUploadWorker(
             onCompleted()
         }
 
+        suspend fun cancelUploads(remotePaths: List<String>, accountName: String) {
+            withContext(Dispatchers.IO) {
+                remotePaths.forEach {
+                    cancelUpload(it, accountName)
+                }
+            }
+        }
+
         fun getCurrentUpload(id: Long?): UploadFileOperation? = activeOperations[id]
 
         fun isUploading(remotePath: String?, accountName: String?): Boolean = activeOperations.values.any {

@@ -430,6 +430,8 @@
     <string name="file_list_empty_local_search">Nincs a keresésnek megfelelő fájl vagy mappa</string>
     <string name="file_list_empty_moving">Nincs itt semmi. Hozzáadhat egy mappát.</string>
     <string name="file_list_empty_on_device">A letöltött fájlok és mappák itt fognak megjelenni.</string>
+    <string name="file_list_empty_recent_files_description">Az Ön által módosított fájlok és mappák itt jelennek meg.</string>
+    <string name="file_list_empty_recent_files_headline">Nincs a közelmúltban módosított fájl</string>
     <string name="file_list_empty_recently_modified">Nem található az utóbbi 7 napban módosított fájl</string>
     <string name="file_list_empty_search">Lehet, hogy másik mappában található?</string>
     <string name="file_list_empty_shared">Az Ön által megosztott fájlok és mappák itt jelennek meg.</string>

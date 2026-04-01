@@ -435,6 +435,8 @@
     <string name="file_list_empty_local_search">Ingen fil eller mapp matchar din sökning</string>
     <string name="file_list_empty_moving">Inget här. Du kan lägga till en mapp.</string>
     <string name="file_list_empty_on_device">Nedladdade filer och mappar kommer att visas här.</string>
+    <string name="file_list_empty_recent_files_description">Filer och mappar som du nyligen ändrat kommer att visas här.</string>
+    <string name="file_list_empty_recent_files_headline">Inga nyligen ändrade filer</string>
     <string name="file_list_empty_recently_modified">Hittade inga ändrade filer de senaste 7 dagarna</string>
     <string name="file_list_empty_search">Kanske finns den i en annan mapp?</string>
     <string name="file_list_empty_shared">Filer och mappar som du delar kommer visas här.</string>

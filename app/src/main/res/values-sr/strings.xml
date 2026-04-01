@@ -411,6 +411,8 @@
     <string name="file_list_empty_local_search">Ни један фајл или фолдер не одговара условима претраге</string>
     <string name="file_list_empty_moving">Овде нема ничег. Можете додати фасциклу.</string>
     <string name="file_list_empty_on_device">Преузети фајлови и фасцикле ће се појавити овде.</string>
+    <string name="file_list_empty_recent_files_description">Овде ће се појавити фајлови и фолдери које сте недавно изменили.</string>
+    <string name="file_list_empty_recent_files_headline">Нема недавно промењених фајлова</string>
     <string name="file_list_empty_recently_modified">Нема фајлова измењених у последњих 7 дана</string>
     <string name="file_list_empty_search">Можда су у некој другој фасцикли?</string>
     <string name="file_list_empty_shared">Фајлови и фасцикле које делите појавиће се овде.</string>

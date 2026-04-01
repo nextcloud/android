@@ -129,6 +129,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hct.Hct;
+import kotlin.Unit;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -804,10 +805,19 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void externalLinkClicked(MenuItem menuItem) {
-        for (ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
-            if (menuItem.getTitle().toString().equalsIgnoreCase(link.getName())) {
+        externalLinksProvider.getExternalLink(ExternalLinkType.LINK, externalLinks -> {
+            for (ExternalLink link : externalLinks) {
+                final var menuTitle = menuItem.getTitle();
+                if (menuTitle == null) {
+                    continue;
+                }
+
+                if (!menuTitle.toString().equalsIgnoreCase(link.getName())) {
+                    continue;
+                }
+
                 if (link.getRedirect()) {
-                    DisplayUtils.startLinkIntent(this, link.getUrl());
+                    DisplayUtils.startLinkIntent(DrawerActivity.this, link.getUrl());
                 } else {
                     Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                     externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
@@ -816,7 +826,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                     startActivity(externalWebViewIntent);
                 }
             }
-        }
+            return Unit.INSTANCE;
+        });
     }
 
     /**
@@ -940,39 +951,43 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void updateQuotaLink() {
-        if (mQuotaTextLink != null) {
-            if (MDMConfig.INSTANCE.externalSiteSupport(this)) {
-                List<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
-
-                float density = getResources().getDisplayMetrics().density;
-                final int size = Math.round(24 * density);
-
-                if (!quotas.isEmpty()) {
-                    final ExternalLink firstQuota = quotas.get(0);
-                    mQuotaTextLink.setText(firstQuota.getName());
-                    mQuotaTextLink.setClickable(true);
-                    mQuotaTextLink.setVisibility(View.VISIBLE);
-                    mQuotaTextLink.setOnClickListener(v -> {
-                        Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.getName());
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.getUrl());
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-                        startActivity(externalWebViewIntent);
-                    });
-
-                    Target<Drawable> quotaTarget = createQuotaDrawableTarget(size, mQuotaTextLink);
-                    GlideHelper.INSTANCE.loadIntoTarget(this,
-                                                        accountManager.getCurrentOwnCloudAccount(),
-                                                        firstQuota.getIconUrl(),
-                                                        quotaTarget,
-                                                        R.drawable.ic_link);
-                } else {
-                    mQuotaTextLink.setVisibility(View.GONE);
-                }
-            } else {
-                mQuotaTextLink.setVisibility(View.GONE);
-            }
+        if (mQuotaTextLink == null) {
+            return;
         }
+
+        if (!MDMConfig.INSTANCE.externalSiteSupport(this)) {
+            mQuotaTextLink.setVisibility(View.GONE);
+            return;
+        }
+
+        externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA, quotas -> {
+            float density = getResources().getDisplayMetrics().density;
+            final int size = Math.round(24 * density);
+            if (quotas.isEmpty()) {
+                mQuotaTextLink.setVisibility(View.GONE);
+                return Unit.INSTANCE;
+            }
+
+            final ExternalLink firstQuota = quotas.get(0);
+            mQuotaTextLink.setText(firstQuota.getName());
+            mQuotaTextLink.setClickable(true);
+            mQuotaTextLink.setVisibility(View.VISIBLE);
+            mQuotaTextLink.setOnClickListener(v -> {
+                Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.getName());
+                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.getUrl());
+                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
+                startActivity(externalWebViewIntent);
+            });
+
+            Target<Drawable> quotaTarget = createQuotaDrawableTarget(size, mQuotaTextLink);
+            GlideHelper.INSTANCE.loadIntoTarget(DrawerActivity.this,
+                                                accountManager.getCurrentOwnCloudAccount(),
+                                                firstQuota.getIconUrl(),
+                                                quotaTarget,
+                                                R.drawable.ic_link);
+            return Unit.INSTANCE;
+        });
     }
 
     private Target<Drawable> createQuotaDrawableTarget(int size, TextView quotaTextLink) {
@@ -1077,25 +1092,28 @@ public abstract class DrawerActivity extends ToolbarActivity
         drawerNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
 
         int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
+        externalLinksProvider.getExternalLink(ExternalLinkType.LINK, externalLinks -> {
+            for (final ExternalLink link : externalLinks) {
+                int id = drawerNavigationView
+                    .getMenu()
+                    .add(R.id.drawer_menu_external_links,
+                         MENU_ITEM_EXTERNAL_LINK +
+                             link.getId(),
+                         MENU_ORDER_EXTERNAL_LINKS,
+                         link.getName()
+                        )
+                    .setCheckable(true)
+                    .getItemId();
 
-        for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
-            int id = drawerNavigationView
-                .getMenu()
-                .add(R.id.drawer_menu_external_links,
-                     MENU_ITEM_EXTERNAL_LINK +
-                         link.getId(), MENU_ORDER_EXTERNAL_LINKS,
-                     link.getName()
-                    )
-                .setCheckable(true)
-                .getItemId();
-
-            Target<Drawable> iconTarget = createMenuItemTarget(id, greyColor);
-            GlideHelper.INSTANCE.loadIntoTarget(this,
-                                                accountManager.getCurrentOwnCloudAccount(),
-                                                link.getIconUrl(),
-                                                iconTarget,
-                                                R.drawable.ic_link);
-        }
+                Target<Drawable> iconTarget = createMenuItemTarget(id, greyColor);
+                GlideHelper.INSTANCE.loadIntoTarget(DrawerActivity.this,
+                                                    accountManager.getCurrentOwnCloudAccount(),
+                                                    link.getIconUrl(),
+                                                    iconTarget,
+                                                    R.drawable.ic_link);
+            }
+            return Unit.INSTANCE;
+        });
     }
 
     private Target<Drawable> createMenuItemTarget(int menuItemId, int tintColor) {
@@ -1144,6 +1162,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         ecosystemManager = new EcosystemManager(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        externalLinksProvider.cleanup();
+        super.onDestroy();
+    }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {

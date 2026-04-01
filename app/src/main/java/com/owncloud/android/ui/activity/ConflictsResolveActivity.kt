@@ -47,7 +47,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions")
+@Suppress("TooManyFunctions", "ReturnCount")
 class ConflictsResolveActivity :
     FileActivity(),
     OnConflictDecisionMadeListener {
@@ -120,27 +120,31 @@ class ConflictsResolveActivity :
                 return@OnConflictDecisionMadeListener
             }
 
-            val offlineOperation = offlineOperationPath?.let {
-                fileDataStorageManager.offlineOperationDao.getByPath(it)
-            }
+            lifecycleScope.launch(Dispatchers.IO) {
+                val offlineOperation = offlineOperationPath?.let {
+                    fileDataStorageManager.offlineOperationDao.getByPath(it)
+                }
 
-            when (decision) {
-                Decision.KEEP_LOCAL -> handleFile(file, upload, optionalUser.get(), NameCollisionPolicy.OVERWRITE)
-                Decision.KEEP_BOTH -> handleFile(file, upload, optionalUser.get(), NameCollisionPolicy.RENAME)
-                Decision.KEEP_SERVER -> keepServer(file, upload, optionalUser.get())
-                Decision.KEEP_OFFLINE_FOLDER -> keepOfflineFolder(file, offlineOperation)
-                Decision.KEEP_SERVER_FOLDER -> keepServerFile(offlineOperation)
-                Decision.KEEP_BOTH_FOLDER -> keepBothFolder(offlineOperation, file)
-                else -> Unit
-            }
+                when (decision) {
+                    Decision.KEEP_LOCAL -> handleFile(file, upload, optionalUser.get(), NameCollisionPolicy.OVERWRITE)
+                    Decision.KEEP_BOTH -> handleFile(file, upload, optionalUser.get(), NameCollisionPolicy.RENAME)
+                    Decision.KEEP_SERVER -> keepServer(file, upload, optionalUser.get())
+                    Decision.KEEP_OFFLINE_FOLDER -> keepOfflineFolder(file, offlineOperation)
+                    Decision.KEEP_SERVER_FOLDER -> keepServerFile(offlineOperation)
+                    Decision.KEEP_BOTH_FOLDER -> keepBothFolder(offlineOperation, file)
+                    else -> Unit
+                }
 
-            upload?.remotePath?.let { path ->
-                val oldFile = storageManager.getFileByDecryptedRemotePath(path)
-                updateThumbnailIfNeeded(decision, file, oldFile)
-            }
+                upload?.remotePath?.let { path ->
+                    val oldFile = storageManager.getFileByDecryptedRemotePath(path)
+                    updateThumbnailIfNeeded(decision, file, oldFile)
+                }
 
-            dismissConflictResolveNotification()
-            finish()
+                withContext(Dispatchers.Main) {
+                    dismissConflictResolveNotification()
+                    finish()
+                }
+            }
         }
     }
 
@@ -149,7 +153,7 @@ class ConflictsResolveActivity :
         uploadHelper.uploadUpdatedFile(user, arrayOf(file), localBehaviour, policy)
     }
 
-    private fun keepServer(file: OCFile?, upload: OCUpload?, user: User) {
+    private suspend fun keepServer(file: OCFile?, upload: OCUpload?, user: User) {
         if (!shouldDeleteLocal()) {
             file?.let {
                 downloadHelper.downloadFile(
@@ -163,41 +167,48 @@ class ConflictsResolveActivity :
         upload?.let {
             uploadHelper.removeFileUpload(it.remotePath, it.accountName)
             val id = it.uploadId.toInt()
-            UploadNotificationManager(applicationContext, viewThemeUtils, id).dismissNotification(id)
+
+            withContext(Dispatchers.Main) {
+                UploadNotificationManager(applicationContext, viewThemeUtils, id).dismissNotification(id)
+            }
         }
     }
 
-    private fun keepBothFolder(offlineOperation: OfflineOperationEntity?, serverFile: OCFile?) {
+    private suspend fun keepBothFolder(offlineOperation: OfflineOperationEntity?, serverFile: OCFile?) {
         offlineOperation ?: return
         fileDataStorageManager.keepOfflineOperationAndServerFile(offlineOperation, serverFile)
         backgroundJobManager.startOfflineOperations()
-        offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
+        withContext(Dispatchers.Main) {
+            offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
+        }
     }
 
-    private fun keepServerFile(offlineOperation: OfflineOperationEntity?) {
+    private suspend fun keepServerFile(offlineOperation: OfflineOperationEntity?) {
         offlineOperation ?: return
         fileDataStorageManager.offlineOperationDao.delete(offlineOperation)
-        offlineOperation.id?.let { offlineOperationNotificationManager.dismissNotification(it) }
+        offlineOperation.id?.let {
+            withContext(Dispatchers.Main) {
+                offlineOperationNotificationManager.dismissNotification(it)
+            }
+        }
     }
 
-    private fun keepOfflineFolder(serverFile: OCFile?, offlineOperation: OfflineOperationEntity?) {
+    private suspend fun keepOfflineFolder(serverFile: OCFile?, offlineOperation: OfflineOperationEntity?) {
         serverFile ?: return
         offlineOperation ?: return
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            val client = clientRepository.getOwncloudClient() ?: return@launch
-            val isSuccess = fileOperationHelper.removeFile(
-                serverFile,
-                onlyLocalCopy = false,
-                inBackground = false,
-                client = client
-            )
+        val client = clientRepository.getOwncloudClient() ?: return
+        val isSuccess = fileOperationHelper.removeFile(
+            serverFile,
+            onlyLocalCopy = false,
+            inBackground = false,
+            client = client
+        )
 
-            if (isSuccess) {
-                backgroundJobManager.startOfflineOperations()
-                withContext(Dispatchers.Main) {
-                    offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
-                }
+        if (isSuccess) {
+            backgroundJobManager.startOfflineOperations()
+            withContext(Dispatchers.Main) {
+                offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
             }
         }
     }

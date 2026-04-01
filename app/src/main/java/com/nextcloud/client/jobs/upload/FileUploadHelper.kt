@@ -47,6 +47,7 @@ import com.owncloud.android.utils.FileUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.concurrent.Semaphore
 import javax.inject.Inject
@@ -330,6 +331,11 @@ class FileUploadHelper {
             onCompleted()
         }
     }
+
+    suspend fun updateUploadStatuses(remotePaths: List<String>, accountName: String, status: UploadStatus) =
+        withContext(Dispatchers.IO) {
+            uploadsStorageManager.uploadDao.updateStatuses(remotePaths, accountName, status.value)
+        }
 
     /**
      * Retrieves uploads filtered by their status, optionally for a specific account.
