@@ -60,8 +60,7 @@ class ActivitiesFragment :
     @Inject
     lateinit var userAccountManager: UserAccountManager
 
-    private var _binding: FragmentActivitiesBinding? = null
-    internal val binding get() = _binding!!
+    private var binding: FragmentActivitiesBinding? = null
 
     private var adapter: ActivityListAdapter? = null
     private var lastGiven: Long = 0
@@ -69,15 +68,16 @@ class ActivitiesFragment :
     private var actionListener: ActivitiesContract.ActionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentActivitiesBinding.inflate(inflater, container, false)
+        binding = FragmentActivitiesBinding.inflate(inflater, container, false)
+        val binding = binding!!
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         actionListener = ActivitiesPresenter(activitiesRepository, filesRepository, this)
-        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList)
-        binding.swipeContainingList.setOnRefreshListener {
+        binding?.swipeContainingList?.let { viewThemeUtils.androidx.themeSwipeRefreshLayout(it) }
+        binding?.swipeContainingList?.setOnRefreshListener {
             lastGiven = ActivitiesContract.ActionListener.UNDEFINED.toLong()
             actionListener?.loadActivities(lifecycleScope, lastGiven)
         }
@@ -85,8 +85,7 @@ class ActivitiesFragment :
     }
 
     private fun setupContent() {
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_activity)
-
+        binding?.emptyList?.emptyListIcon?.setImageResource(R.drawable.ic_activity)
         adapter = ActivityListAdapter(
             requireActivity(),
             userAccountManager,
@@ -94,14 +93,12 @@ class ActivitiesFragment :
             false,
             viewThemeUtils
         )
-        binding.list.adapter = adapter
-
+        binding?.list?.adapter = adapter
         val layoutManager = LinearLayoutManager(requireContext())
-        binding.list.run {
+        binding?.list?.run {
             setLayoutManager(layoutManager)
             addOnScrollListener(getOnScrollListener(layoutManager))
         }
-
         actionListener?.loadActivities(lifecycleScope, ActivitiesContract.ActionListener.UNDEFINED.toLong())
     }
 
@@ -138,6 +135,7 @@ class ActivitiesFragment :
     }
 
     override fun showActivities(activities: List<Any>, client: NextcloudClient, lastGiven: Long) {
+        val binding = binding ?: return
         val clear = this.lastGiven == ActivitiesContract.ActionListener.UNDEFINED.toLong()
         adapter?.setActivityItems(activities, client, clear)
         this.lastGiven = lastGiven
@@ -157,6 +155,7 @@ class ActivitiesFragment :
     }
 
     override fun showActivitiesLoadError(error: String) {
+        val binding = binding ?: return
         connectivityService.isNetworkAndServerAvailable {
             if (it) {
                 DisplayUtils.showSnackMessage(requireView(), error)
@@ -192,11 +191,11 @@ class ActivitiesFragment :
     }
 
     override fun showLoadingMessage() {
-        binding.emptyList.emptyListView.visibility = View.GONE
+        binding?.emptyList?.emptyListView?.visibility = View.GONE
     }
 
     override fun showEmptyContent(headline: String, message: String) {
-        binding.run {
+        binding?.run {
             emptyList.emptyListViewHeadline.text = headline
             emptyList.emptyListViewText.text = message
             loadingContent.visibility = View.GONE
@@ -208,6 +207,7 @@ class ActivitiesFragment :
     }
 
     override fun setProgressIndicatorState(isActive: Boolean) {
+        val binding = binding ?: return
         isLoadingActivities = isActive
         if (adapter?.isEmpty() == false) {
             binding.swipeContainingList.post { binding.swipeContainingList.isRefreshing = isActive }
@@ -216,6 +216,6 @@ class ActivitiesFragment :
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 }

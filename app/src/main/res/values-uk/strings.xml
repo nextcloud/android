@@ -438,6 +438,8 @@
     <string name="file_list_empty_local_search">Не знайдено файли або каталоги згідно із запитом</string>
     <string name="file_list_empty_moving">Тут нічого немає. Ви можете створити каталог.</string>
     <string name="file_list_empty_on_device">Тут ти можете знайти каталоги та файли, які було звантажено.</string>
+    <string name="file_list_empty_recent_files_description">Тут показуватимуться файли та каталоги, які було нещодавно змінено.</string>
+    <string name="file_list_empty_recent_files_headline">Відсутні файли, які було нещодавно змінено</string>
     <string name="file_list_empty_recently_modified">Відсутні зміни серед файлів за останні 7 днів</string>
     <string name="file_list_empty_search">Можливо, це інший каталог?</string>
     <string name="file_list_empty_shared">Тут можна буде знайти файли та каталоги, якими ви поділилися.</string>

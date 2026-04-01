@@ -420,6 +420,8 @@
     <string name="file_list_empty_local_search">検索条件に一致するファイルやフォルダーがありません</string>
     <string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
     <string name="file_list_empty_on_device">ダウンロードされたファイルやフォルダーがここに表示されます。</string>
+    <string name="file_list_empty_recent_files_description">最近変更したファイルやフォルダーがここに表示されます。</string>
+    <string name="file_list_empty_recent_files_headline">最近更新されたファイルはありません</string>
     <string name="file_list_empty_recently_modified">ここ7日間に更新されたファイルが見つかりません</string>
     <string name="file_list_empty_search">別のフォルダーにありませんか？</string>
     <string name="file_list_empty_shared">共有したファイルやフォルダーがここに表示されます。</string>

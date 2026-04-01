@@ -414,6 +414,8 @@
     <string name="file_list_empty_local_search">No file or folder matching your search</string>
     <string name="file_list_empty_moving">ບໍ່ມີຫຍັງໃນນີ້. ທ່ານສາມາດເພີ່ມໂຟນເດີໄດ້.</string>
     <string name="file_list_empty_on_device">ຟາຍແລະ ໂຟນ ເດີທີ່ດາວໂຫຼດ  ຈະສະແດງໃຫ້ເຫັນຢູ່ທີ່ນີ້ .</string>
+    <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
+    <string name="file_list_empty_recent_files_headline">No recently modified files</string>
     <string name="file_list_empty_recently_modified">ບໍ່ພົບຟາຍດັດແປງພາຍໃນ 7 ວັນລ່າສຸດ</string>
     <string name="file_list_empty_search">ບາງທີອາດຢູ່ໃນໂຟນເດີທີ່ແຕກຕ່າງກັນ?</string>
     <string name="file_list_empty_shared">ຟາຍ ແລະ ໂຟນເດີ ທີ່ ທ່ານແບ່ງປັນຈະສະແດງ ໃຫ້ເຫັນຢູ່ທີ່ນີ້</string>

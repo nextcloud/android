@@ -399,6 +399,8 @@
     <string name="file_list_empty_local_search">Engar skrár eða möppur samsvara þessari leit</string>
     <string name="file_list_empty_moving">Ekkert hér. Þú getur bætt við möppu.</string>
     <string name="file_list_empty_on_device">Skrár og möppur sem þú sækir birtast hér.</string>
+    <string name="file_list_empty_recent_files_description">Skrár og möppur sem þú breyttir nýlega birtast hér.</string>
+    <string name="file_list_empty_recent_files_headline">Engar nýlega breyttar skrár</string>
     <string name="file_list_empty_recently_modified">Fann engar skrár sem breytt hefur verið síðustu 7 daga</string>
     <string name="file_list_empty_search">Er þetta kannski í einhverri annarri möppu?</string>
     <string name="file_list_empty_shared">Skrár og möppur sem þú deilir birtast hér.</string>

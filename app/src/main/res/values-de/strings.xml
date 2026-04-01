@@ -319,6 +319,7 @@
     <string name="drawer_item_notifications">Benachrichtigungen</string>
     <string name="drawer_item_on_device">Auf dem Gerät</string>
     <string name="drawer_item_personal_files">Persönliche Dateien</string>
+    <string name="drawer_item_recent_files">Aktuelle Dateien</string>
     <string name="drawer_item_recently_modified">Kürzlich geändert</string>
     <string name="drawer_item_shared">Geteilt</string>
     <string name="drawer_item_trashbin">Gelöschte Dateien</string>
@@ -438,6 +439,8 @@
     <string name="file_list_empty_local_search">Keine Datei oder Ordner entsprechen Ihrer Suche</string>
     <string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen.</string>
     <string name="file_list_empty_on_device">Heruntergeladene Dateien und Ordner werden hier angezeigt werden.</string>
+    <string name="file_list_empty_recent_files_description">Vor kurzem geänderten Dateien und Ordner werden hier angezeigt.</string>
+    <string name="file_list_empty_recent_files_headline">Keine kürzlich geänderten Dateien</string>
     <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
     <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
     <string name="file_list_empty_shared">Von Ihnen geteilte Dateien und Ordner werden hier angezeigt.</string>
@@ -1155,7 +1158,7 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Serverzertifikat ist nicht vertrauenswürdig</string>
     <string name="uploads_view_upload_status_fetching_server_version">Serverversion wird abgerufen …</string>
     <string name="uploads_view_upload_status_service_interrupted">App beendet</string>
-    <string name="uploads_view_upload_status_skip">Überspringen</string>
+    <string name="uploads_view_upload_status_skip">Übersprungen</string>
     <string name="uploads_view_upload_status_skip_reason">Eine Datei mit demselben Namen ist bereits vorhanden.</string>
     <string name="uploads_view_upload_status_succeeded">Fertiggestellt</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Gleiche Datei auf dem Remote-Server gefunden, überspringe das Hochladen</string>

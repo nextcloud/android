@@ -319,6 +319,7 @@
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
     <string name="drawer_item_personal_files">Archivos personales</string>
+    <string name="drawer_item_recent_files">Archivos recientes</string>
     <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Archivos eliminados</string>
@@ -405,6 +406,7 @@
     <string name="etm_transfer_type">Transferir</string>
     <string name="etm_transfer_type_download">Descarga</string>
     <string name="etm_transfer_type_upload">Subir</string>
+    <string name="export_in_progress">Exportando %1$d de %2$d</string>
     <string name="extension_cannot_be_changed">La extensión no puede cambiarse</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">No tiene permisos para crear o cargar archivos en esta carpeta.</string>
     <string name="external_shares">Recursos compartidos externos</string>
@@ -437,6 +439,8 @@
     <string name="file_list_empty_local_search">Ningún archivo ni carpeta coincide con su búsqueda</string>
     <string name="file_list_empty_moving">Nada por aquí. Puedes agregar una carpeta.</string>
     <string name="file_list_empty_on_device">Los archivos y carpetas que descargues aparecerán aquí.</string>
+    <string name="file_list_empty_recent_files_description">Los archivos y carpetas que ha modificado recientemente aparecerán aquí.</string>
+    <string name="file_list_empty_recent_files_headline">No hay archivos modificados recientemente.</string>
     <string name="file_list_empty_recently_modified">No se han encontrado archivos modificados en los últimos 7 días</string>
     <string name="file_list_empty_search">¿Quizás está en una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que compartas aparecerán aquí.</string>

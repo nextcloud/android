@@ -38,4 +38,11 @@ class Navigator(private val fragmentManager: FragmentManager, private val fragme
         fragmentManager.popBackStack()
         return stack.lastOrNull()
     }
+
+    fun getTopScreen(): NavigatorScreen? {
+        val topTag = fragmentManager
+            .getBackStackEntryAt(fragmentManager.backStackEntryCount - 1)
+            .name
+        return NavigatorScreen.fromTag(topTag)
+    }
 }

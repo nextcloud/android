@@ -437,6 +437,8 @@
     <string name="file_list_empty_local_search">Aramanıza uygun bir dosya ya da klasör bulunamadı</string>
     <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
     <string name="file_list_empty_on_device">İndirilmiş dosya ve klasörler burada görüntülenir.</string>
+    <string name="file_list_empty_recent_files_description">Son zamanlarda değiştirdiğiniz dosya ve klasörler burada görüntülenir.</string>
+    <string name="file_list_empty_recent_files_headline">Yakınlarda değiştirilmiş bir dosya yok</string>
     <string name="file_list_empty_recently_modified">Son 7 gün içinde düzenlenmiş bir dosya bulunamadı</string>
     <string name="file_list_empty_search">Başka bir klasöre bakılmasını ister misiniz?</string>
     <string name="file_list_empty_shared">Paylaştığınız dosya ve klasörler burada görüntülenir.</string>

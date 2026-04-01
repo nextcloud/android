@@ -438,6 +438,8 @@
     <string name="file_list_empty_local_search">No file or folder matching your search</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
+    <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
+    <string name="file_list_empty_recent_files_headline">No recently modified files</string>
     <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>

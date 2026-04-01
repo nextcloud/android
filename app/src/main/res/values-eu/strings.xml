@@ -388,6 +388,8 @@
     <string name="file_list_empty_local_search">Ez dago zure bilaketarekin bat datorren fitxategi edo karpetarik</string>
     <string name="file_list_empty_moving">Hemen ez dago ezer. Karpeta bat gehi dezakezu.</string>
     <string name="file_list_empty_on_device">Deskargaturiko fitxategiak eta karpetak hemen agertuko dira.</string>
+    <string name="file_list_empty_recent_files_description">Azkenaldian aldatu dituzun fitxategi eta karpetak hemen agertuko dira.</string>
+    <string name="file_list_empty_recent_files_headline">Ez dago azkenaldian aldatutako fitxategirik</string>
     <string name="file_list_empty_recently_modified">Ez da aurkitu azken 7 egunetan aldatu den fitxategirik</string>
     <string name="file_list_empty_search">Agian beste karpeta batean dago?</string>
     <string name="file_list_empty_shared">Partekatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>

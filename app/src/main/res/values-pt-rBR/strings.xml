@@ -319,6 +319,7 @@
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_item_on_device">No dispositivo</string>
     <string name="drawer_item_personal_files">Arquivos pessoais</string>
+    <string name="drawer_item_recent_files">Arquivos recentes</string>
     <string name="drawer_item_recently_modified">Modificados recentemente</string>
     <string name="drawer_item_shared">Compartilhado</string>
     <string name="drawer_item_trashbin">Arquivos excluídos</string>
@@ -438,6 +439,8 @@
     <string name="file_list_empty_local_search">Nenhum arquivo ou pasta que corresponda à sua pesquisa</string>
     <string name="file_list_empty_moving">Não há nada aqui. Você pode adicionar uma pasta.</string>
     <string name="file_list_empty_on_device">Os arquivos e pastas baixados aparecerão aqui.</string>
+    <string name="file_list_empty_recent_files_description">Arquivos e pastas que você modificou recentemente aparecerão aqui.</string>
+    <string name="file_list_empty_recent_files_headline">Nenhum arquivo modificado recentemente</string>
     <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
     <string name="file_list_empty_search">Talvez seja uma pasta diferente?</string>
     <string name="file_list_empty_shared">Arquivos e pastas que você compartilhar serão exibidos aqui.</string>

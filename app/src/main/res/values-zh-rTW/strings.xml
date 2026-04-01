@@ -319,6 +319,7 @@
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">在裝置上</string>
     <string name="drawer_item_personal_files">個人檔案</string>
+    <string name="drawer_item_recent_files">近期檔案</string>
     <string name="drawer_item_recently_modified">最近修改</string>
     <string name="drawer_item_shared">已分享</string>
     <string name="drawer_item_trashbin">刪除的檔案</string>
@@ -438,6 +439,8 @@
     <string name="file_list_empty_local_search">沒有檔案或資料夾符合您的搜尋</string>
     <string name="file_list_empty_moving">此處空無一物。您可以新增資料夾。</string>
     <string name="file_list_empty_on_device">已下載的檔案跟資料夾會顯示在這裡。</string>
+    <string name="file_list_empty_recent_files_description">您最近修改的檔案與資料夾將會顯示在此處。</string>
+    <string name="file_list_empty_recent_files_headline">最近無修改檔案</string>
     <string name="file_list_empty_recently_modified">沒有找到最近 7 天修改的檔案</string>
     <string name="file_list_empty_search">也許在其他資料夾中？</string>
     <string name="file_list_empty_shared">您分享的檔案跟資料夾會顯示在這裡。</string>
