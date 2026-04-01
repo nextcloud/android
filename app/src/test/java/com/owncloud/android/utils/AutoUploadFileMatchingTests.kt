@@ -21,7 +21,7 @@ import org.junit.Test
 import java.io.File
 
 @Suppress("TooManyFunctions")
-class ContainsTypedFileTest {
+class AutoUploadFileMatchingTests {
 
     companion object {
         private const val LOCAL_PATH = "/storage/emulated/0/DCIM/Camera"
@@ -84,7 +84,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(imageFile) } returns false
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
-        assertTrue(folder.containsTypedFile(imageFile, IMAGE_FILE_PATH))
+        assertTrue(folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH))
     }
 
     @Test
@@ -93,7 +93,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(videoFile) } returns true
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
-        assertFalse(folder.containsTypedFile(videoFile, VIDEO_FILE_PATH))
+        assertFalse(folder.isFileInFolderWithCorrectMediaType(videoFile, VIDEO_FILE_PATH))
     }
 
     @Test
@@ -103,7 +103,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(outsideFile) } returns false
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
-        assertFalse(folder.containsTypedFile(outsideFile, IMAGE_FILE_OUTSIDE_PATH))
+        assertFalse(folder.isFileInFolderWithCorrectMediaType(outsideFile, IMAGE_FILE_OUTSIDE_PATH))
     }
 
     @Test
@@ -112,7 +112,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(imageFile) } returns false
 
         val folder = createSyncedFolder(LOCAL_PATH_WITH_SEPARATOR, MediaFolderType.IMAGE)
-        assertTrue(folder.containsTypedFile(imageFile, IMAGE_FILE_PATH))
+        assertTrue(folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH))
     }
 
     @Test
@@ -124,21 +124,21 @@ class ContainsTypedFileTest {
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
         assertFalse(
             "Should not match path in a folder that starts with the same prefix but is a different folder",
-            folder.containsTypedFile(similarFile, IMAGE_FILE_SIMILAR_PATH)
+            folder.isFileInFolderWithCorrectMediaType(similarFile, IMAGE_FILE_SIMILAR_PATH)
         )
     }
 
     @Test
     fun `given image folder when file path is null then returns false`() {
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
-        assertFalse(folder.containsTypedFile(imageFile, null))
+        assertFalse(folder.isFileInFolderWithCorrectMediaType(imageFile, null))
     }
 
     @Test
     fun `given image folder when local path is null then returns false`() {
         every { MimeTypeUtil.isImage(imageFile) } returns true
         val folder = createSyncedFolder(null, MediaFolderType.IMAGE)
-        assertFalse(folder.containsTypedFile(imageFile, IMAGE_FILE_PATH))
+        assertFalse(folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH))
     }
 
     // endregion
@@ -150,7 +150,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(videoFile) } returns true
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.VIDEO)
-        assertTrue(folder.containsTypedFile(videoFile, VIDEO_FILE_PATH))
+        assertTrue(folder.isFileInFolderWithCorrectMediaType(videoFile, VIDEO_FILE_PATH))
     }
 
     @Test
@@ -159,7 +159,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(imageFile) } returns false
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.VIDEO)
-        assertFalse(folder.containsTypedFile(imageFile, IMAGE_FILE_PATH))
+        assertFalse(folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH))
     }
 
     @Test
@@ -169,7 +169,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(outsideVideo) } returns true
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.VIDEO)
-        assertFalse(folder.containsTypedFile(outsideVideo, VIDEO_FILE_OUTSIDE_PATH))
+        assertFalse(folder.isFileInFolderWithCorrectMediaType(outsideVideo, VIDEO_FILE_OUTSIDE_PATH))
     }
 
     @Test
@@ -178,7 +178,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(videoFile) } returns true
 
         val folder = createSyncedFolder(LOCAL_PATH_WITH_SEPARATOR, MediaFolderType.VIDEO)
-        assertTrue(folder.containsTypedFile(videoFile, VIDEO_FILE_PATH))
+        assertTrue(folder.isFileInFolderWithCorrectMediaType(videoFile, VIDEO_FILE_PATH))
     }
 
     @Test
@@ -190,14 +190,14 @@ class ContainsTypedFileTest {
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.VIDEO)
         assertFalse(
             "Should not match path in a folder that starts with the same prefix but is a different folder",
-            folder.containsTypedFile(similarVideo, VIDEO_FILE_SIMILAR_PATH)
+            folder.isFileInFolderWithCorrectMediaType(similarVideo, VIDEO_FILE_SIMILAR_PATH)
         )
     }
 
     @Test
     fun `given video folder when file path is null then returns false`() {
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.VIDEO)
-        assertFalse(folder.containsTypedFile(videoFile, null))
+        assertFalse(folder.isFileInFolderWithCorrectMediaType(videoFile, null))
     }
 
     // endregion
@@ -209,7 +209,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(customFile) } returns false
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.CUSTOM)
-        assertTrue(folder.containsTypedFile(customFile, CUSTOM_FILE_PATH))
+        assertTrue(folder.isFileInFolderWithCorrectMediaType(customFile, CUSTOM_FILE_PATH))
     }
 
     @Test
@@ -218,7 +218,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(imageFile) } returns false
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.CUSTOM)
-        assertTrue(folder.containsTypedFile(imageFile, IMAGE_FILE_PATH))
+        assertTrue(folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH))
     }
 
     @Test
@@ -227,7 +227,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(videoFile) } returns true
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.CUSTOM)
-        assertTrue(folder.containsTypedFile(videoFile, VIDEO_FILE_PATH))
+        assertTrue(folder.isFileInFolderWithCorrectMediaType(videoFile, VIDEO_FILE_PATH))
     }
 
     @Test
@@ -237,7 +237,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(outsideFile) } returns false
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.CUSTOM)
-        assertFalse(folder.containsTypedFile(outsideFile, IMAGE_FILE_OUTSIDE_PATH))
+        assertFalse(folder.isFileInFolderWithCorrectMediaType(outsideFile, IMAGE_FILE_OUTSIDE_PATH))
     }
 
     @Test
@@ -246,7 +246,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(customFile) } returns false
 
         val folder = createSyncedFolder(LOCAL_PATH_WITH_SEPARATOR, MediaFolderType.CUSTOM)
-        assertTrue(folder.containsTypedFile(customFile, CUSTOM_FILE_PATH))
+        assertTrue(folder.isFileInFolderWithCorrectMediaType(customFile, CUSTOM_FILE_PATH))
     }
 
     @Test
@@ -258,14 +258,14 @@ class ContainsTypedFileTest {
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.CUSTOM)
         assertFalse(
             "Should not match path in a folder that starts with the same prefix but is a different folder",
-            folder.containsTypedFile(similarFile, IMAGE_FILE_SIMILAR_PATH)
+            folder.isFileInFolderWithCorrectMediaType(similarFile, IMAGE_FILE_SIMILAR_PATH)
         )
     }
 
     @Test
     fun `given custom folder when file path is null then returns false`() {
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.CUSTOM)
-        assertFalse(folder.containsTypedFile(customFile, null))
+        assertFalse(folder.isFileInFolderWithCorrectMediaType(customFile, null))
     }
     // endregion
 
@@ -276,7 +276,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(imageFile) } returns false
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
-        assertTrue(folder.containsTypedFile(imageFile, IMAGE_FILE_PATH))
+        assertTrue(folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH))
     }
 
     @Test
@@ -287,7 +287,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isVideo(nestedFile) } returns false
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
-        assertTrue(folder.containsTypedFile(nestedFile, nestedPath))
+        assertTrue(folder.isFileInFolderWithCorrectMediaType(nestedFile, nestedPath))
     }
 
     @Test
@@ -295,7 +295,7 @@ class ContainsTypedFileTest {
         every { MimeTypeUtil.isImage(imageFile) } returns true
 
         val folder = createSyncedFolder("", MediaFolderType.IMAGE)
-        val result = folder.containsTypedFile(imageFile, IMAGE_FILE_PATH)
+        val result = folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH)
         assertFalse("Empty local path should not match arbitrary paths", result)
     }
     // endregion

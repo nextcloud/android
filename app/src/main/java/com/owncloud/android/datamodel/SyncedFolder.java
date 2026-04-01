@@ -10,8 +10,6 @@
 
 package com.owncloud.android.datamodel;
 
-import android.text.TextUtils;
-
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.SubFolderRule;
@@ -303,7 +301,19 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.excludeHidden = excludeHidden;
     }
 
-    public boolean containsTypedFile(File file, String filePath) {
+    /**
+     * Determines whether the given file:
+     * <ul>
+     *     <li>Exists under the configured {@code localPath}</li>
+     *     <li>Matches the expected media type of this folder</li>
+     * </ul>
+     *
+     * @param file the file to validate
+     * @param filePath the absolute path of the file e.g. /storage/emulated/0/DCIM/Camera/document.pdf
+     * @return {@code true} if the file is located under {@code localPath}
+     *         and matches the folder's media type; {@code false} otherwise
+     */
+    public boolean isFileInFolderWithCorrectMediaType(File file, String filePath) {
         if (filePath == null || filePath.isEmpty() || localPath == null || localPath.isEmpty()) {
             return false;
         }
@@ -312,14 +322,14 @@ public class SyncedFolder implements Serializable, Cloneable {
             ? localPath
             : localPath + File.separator;
 
-        boolean isUnderLocalPath = filePath.startsWith(normalizedLocal);
+        boolean isInLocalDirectory = filePath.startsWith(normalizedLocal);
 
         boolean isCorrectMediaType =
             (getType() == MediaFolderType.IMAGE && MimeTypeUtil.isImage(file)) ||
                 (getType() == MediaFolderType.VIDEO && MimeTypeUtil.isVideo(file)) ||
                 getType() == MediaFolderType.CUSTOM;
 
-        return isUnderLocalPath && isCorrectMediaType;
+        return isInLocalDirectory && isCorrectMediaType;
     }
 
     public long getLastScanTimestampMs() { return lastScanTimestampMs; }
