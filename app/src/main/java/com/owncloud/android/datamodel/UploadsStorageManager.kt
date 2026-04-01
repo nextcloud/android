@@ -13,632 +13,522 @@
  * SPDX-FileCopyrightText: 2014 Luke Owncloud <owncloud@ohrt.org>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.datamodel;
+package com.owncloud.android.datamodel
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.os.Handler;
-import android.os.Looper;
+import android.content.ContentResolver
+import android.content.ContentValues
+import android.database.Cursor
+import android.os.Handler
+import android.os.Looper
+import androidx.annotation.VisibleForTesting
+import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.client.account.User
+import com.nextcloud.client.database.NextcloudDatabase
+import com.nextcloud.client.database.dao.UploadDao
+import com.nextcloud.client.database.entity.UploadEntity
+import com.nextcloud.client.database.entity.toOCUpload
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.utils.autoRename.AutoRename
+import com.nextcloud.utils.extensions.isConflict
+import com.owncloud.android.MainApp
+import com.owncloud.android.db.OCUpload
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
+import com.owncloud.android.db.UploadResult
+import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.utils.theme.CapabilityUtils
+import java.io.File
+import java.util.Calendar
+import java.util.Locale
+import java.util.Observable
 
-import com.nextcloud.client.account.CurrentAccountProvider;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.database.NextcloudDatabase;
-import com.nextcloud.client.database.dao.UploadDao;
-import com.nextcloud.client.database.entity.UploadEntity;
-import com.nextcloud.client.database.entity.UploadEntityKt;
-import com.nextcloud.client.jobs.upload.FileUploadHelper;
-import com.nextcloud.client.jobs.upload.FileUploadWorker;
-import com.nextcloud.utils.autoRename.AutoRename;
-import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.db.UploadResult;
-import com.owncloud.android.files.services.NameCollisionPolicy;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.utils.theme.CapabilityUtils;
+class UploadsStorageManager(
+    private val currentAccountProvider: CurrentAccountProvider,
+    private val contentResolver: ContentResolver
+) : Observable() {
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
-import java.util.Observable;
+    private var capability: OCCapability? = null
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
+    @JvmField
+    val uploadDao: UploadDao = NextcloudDatabase.instance().uploadDao()
 
-/**
- * Database helper for storing list of files to be uploaded, including status information for each file.
- */
-public class UploadsStorageManager extends Observable {
-    private static final String TAG = UploadsStorageManager.class.getSimpleName();
-
-    private static final String IS_EQUAL =  "== ?";
-    private static final String EQUAL =  "==";
-    private static final String OR =  " OR ";
-    private static final String AND = " AND ";
-    private static final String ANGLE_BRACKETS = "<>";
-    private static final int SINGLE_RESULT = 1;
-
-    private static final long QUERY_PAGE_SIZE = 100;
-
-    private final ContentResolver contentResolver;
-    private final CurrentAccountProvider currentAccountProvider;
-    private OCCapability capability;
-    public final UploadDao uploadDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).uploadDao();
-
-    public UploadsStorageManager(
-        CurrentAccountProvider currentAccountProvider,
-        ContentResolver contentResolver
-                                ) {
-        if (contentResolver == null) {
-            throw new IllegalArgumentException("Cannot create an instance with a NULL contentResolver");
-        }
-        this.contentResolver = contentResolver;
-        this.currentAccountProvider = currentAccountProvider;
-    }
-
-    private void initOCCapability() {
+    private fun initOCCapability() {
         try {
-            this.capability = CapabilityUtils.getCapability(MainApp.getAppContext());
-        } catch (RuntimeException e) {
-            Log_OC.e(TAG,"Failed to set OCCapability: Dependencies are not yet ready.");
+            this.capability = CapabilityUtils.getCapability(MainApp.getAppContext())
+        } catch (e: RuntimeException) {
+            Log_OC.e(TAG, "Failed to set OCCapability: Dependencies are not yet ready.")
         }
     }
 
-    /**
-     * Update an upload object in DB.
-     *
-     * @param ocUpload Upload object with state to update
-     * @return num of updated uploads.
-     */
-    public synchronized int updateUpload(OCUpload ocUpload) {
-        Log_OC.v(TAG, "Updating " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
+    @Synchronized
+    fun updateUpload(ocUpload: OCUpload): Int {
+        Log_OC.v(TAG, "Updating " + ocUpload.localPath + " with status=" + ocUpload.uploadStatus)
 
-        OCUpload existingUpload = getUploadById(ocUpload.getUploadId());
+        val existingUpload = getUploadById(ocUpload.uploadId)
         if (existingUpload == null) {
-            Log_OC.e(TAG, "Upload not found for ID: " + ocUpload.getUploadId());
-            return 0;
+            Log_OC.e(TAG, "Upload not found for ID: " + ocUpload.uploadId)
+            return 0
         }
 
-        if (!existingUpload.getAccountName().equals(ocUpload.getAccountName())) {
-            Log_OC.e(TAG, "Account mismatch for upload ID " + ocUpload.getUploadId() +
-                ": expected " + existingUpload.getAccountName() +
-                ", got " + ocUpload.getAccountName());
-            return 0;
+        if (existingUpload.accountName != ocUpload.accountName) {
+            Log_OC.e(
+                TAG, "Account mismatch for upload ID " + ocUpload.uploadId +
+                    ": expected " + existingUpload.accountName +
+                    ", got " + ocUpload.accountName
+            )
+            return 0
         }
 
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.UPLOADS_LOCAL_PATH, ocUpload.getLocalPath());
-        cv.put(ProviderTableMeta.UPLOADS_REMOTE_PATH, ocUpload.getRemotePath());
-        cv.put(ProviderTableMeta.UPLOADS_ACCOUNT_NAME, ocUpload.getAccountName());
-        cv.put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.getUploadStatus().value);
-        cv.put(ProviderTableMeta.UPLOADS_LAST_RESULT, ocUpload.getLastResult().getValue());
+        val cv = ContentValues().apply {
+            put(ProviderTableMeta.UPLOADS_LOCAL_PATH, ocUpload.localPath)
+            put(ProviderTableMeta.UPLOADS_REMOTE_PATH, ocUpload.remotePath)
+            put(ProviderTableMeta.UPLOADS_ACCOUNT_NAME, ocUpload.accountName)
+            put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.uploadStatus.value)
+            put(ProviderTableMeta.UPLOADS_LAST_RESULT, ocUpload.lastResult.value)
 
-        long uploadEndTimestamp = ocUpload.getUploadEndTimestamp();
-        cv.put(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP_LONG, uploadEndTimestamp);
-        cv.put(ProviderTableMeta.UPLOADS_FILE_SIZE, ocUpload.getFileSize());
-        cv.put(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN, ocUpload.getFolderUnlockToken());
+            val uploadEndTimestamp = ocUpload.uploadEndTimestamp
+            put(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP_LONG, uploadEndTimestamp)
+            put(ProviderTableMeta.UPLOADS_FILE_SIZE, ocUpload.fileSize)
+            put(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN, ocUpload.folderUnlockToken)
+        }
 
-        int result = getDB().update(ProviderTableMeta.CONTENT_URI_UPLOADS,
-                                    cv,
-                                    ProviderTableMeta._ID + "=? AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
-                                    new String[]{String.valueOf(ocUpload.getUploadId()), ocUpload.getAccountName()}
-                                   );
+        val result: Int = contentResolver.update(
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            cv,
+            ProviderTableMeta._ID + "=? AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
+            arrayOf<String>(ocUpload.uploadId.toString(), ocUpload.accountName)
+        )
 
-        Log_OC.d(TAG, "updateUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
+        Log_OC.d(TAG, "updateUpload returns with: " + result + " for file: " + ocUpload.localPath)
         if (result != SINGLE_RESULT) {
-            Log_OC.e(TAG, "Failed to update item " + ocUpload.getLocalPath() + " into upload db.");
+            Log_OC.e(TAG, "Failed to update item " + ocUpload.localPath + " into upload db.")
         } else {
-            notifyObserversNow();
+            notifyObserversNow()
         }
 
-        return result;
+        return result
     }
 
-    private int updateUploadInternal(Cursor c, UploadStatus status, UploadResult result, String remotePath,
-                                     String localPath) {
-
-        int r = 0;
+    private fun updateUploadInternal(
+        c: Cursor, status: UploadStatus?, result: UploadResult?, remotePath: String?,
+        localPath: String?
+    ): Int {
+        var r = 0
         while (c.moveToNext()) {
-            // read upload object and update
-            OCUpload upload = createOCUploadFromCursor(c);
+            val upload = createOCUploadFromCursor(c)
 
-            String path = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_LOCAL_PATH));
+            val path = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_LOCAL_PATH))
             Log_OC.v(
                 TAG,
-                "Updating " + path + " with status:" + status + " and result:"
-                    + (result == null ? "null" : result.toString()) + " (old:"
-                    + upload.toFormattedString() + ')');
+                ("Updating " + path + " with status:" + status + " and result:"
+                    + (result?.toString() ?: "null") + " (old:"
+                    + upload.toFormattedString() + ')')
+            )
 
-            upload.setUploadStatus(status);
-            upload.setLastResult(result);
-            upload.setRemotePath(remotePath);
+            upload.setUploadStatus(status)
+            upload.lastResult = result
+            upload.remotePath = remotePath
+
             if (localPath != null) {
-                upload.setLocalPath(localPath);
+                upload.localPath = localPath
             }
+
             if (status == UploadStatus.UPLOAD_SUCCEEDED) {
-                upload.setUploadEndTimestamp(Calendar.getInstance().getTimeInMillis());
+                upload.uploadEndTimestamp = Calendar.getInstance().getTimeInMillis()
             }
 
-            // store update upload object to db
-            r = updateUpload(upload);
-
+            r = updateUpload(upload)
         }
 
-        return r;
+        return r
     }
 
-    /**
-     * Update upload status of file uniquely referenced by id.
-     *
-     * @param id         upload id.
-     * @param status     new status.
-     * @param result     new result of upload operation
-     * @param remotePath path of the file to upload in the ownCloud storage
-     * @param localPath  path of the file to upload in the device storage
-     * @return 1 if file status was updated, else 0.
-     */
-    private void updateUploadStatus(long id, UploadStatus status, UploadResult result, String remotePath,
-                                   String localPath) {
-        //Log_OC.v(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
-
-        Cursor c = getDB().query(
+    private fun updateUploadStatus(
+        id: Long, status: UploadStatus?, result: UploadResult?, remotePath: String?,
+        localPath: String?
+    ) {
+        val c = contentResolver.query(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             null,
             ProviderTableMeta._ID + "=?",
-            new String[]{String.valueOf(id)},
+            arrayOf(id.toString()),
             null
-                                );
+        )
 
         if (c != null) {
-            if (c.getCount() != SINGLE_RESULT) {
-                Log_OC.e(TAG, c.getCount() + " items for id=" + id
-                    + " available in UploadDb. Expected 1. Failed to update upload db.");
+            if (c.count != SINGLE_RESULT) {
+                Log_OC.e(
+                    TAG, (c.count.toString() + " items for id=" + id
+                        + " available in UploadDb. Expected 1. Failed to update upload db.")
+                )
             } else {
-                updateUploadInternal(c, status, result, remotePath, localPath);
+                updateUploadInternal(c, status, result, remotePath, localPath)
             }
-            c.close();
+            c.close()
         } else {
-            Log_OC.e(TAG, "Cursor is null");
-        }
-
-    }
-
-    /**
-     * Should be called when some value of this DB was changed. All observers are informed.
-     */
-    public void notifyObserversNow() {
-        Log_OC.d(TAG, "notifyObserversNow");
-        new Handler(Looper.getMainLooper()).post(() -> {
-            setChanged();
-            notifyObservers();
-        });
-    }
-
-    /**
-     * Remove an upload from the uploads list, known its target account and remote path.
-     *
-     * @param upload Upload instance to remove from persisted storage.
-     * @return true when the upload was stored and could be removed.
-     */
-    public int removeUpload(@Nullable OCUpload upload) {
-        if (upload == null) {
-            return 0;
-        } else {
-            return removeUpload(upload.getUploadId());
+            Log_OC.e(TAG, "Cursor is null")
         }
     }
 
-    /**
-     * Remove an upload from the uploads list, known its target account and remote path.
-     *
-     * @param id to remove from persisted storage.
-     * @return true when the upload was stored and could be removed.
-     */
-    public int removeUpload(long id) {
-        int result = getDB().delete(
+    fun notifyObserversNow() {
+        Log_OC.d(TAG, "notifyObserversNow")
+        Handler(Looper.getMainLooper()).post {
+            setChanged()
+            notifyObservers()
+        }
+    }
+
+    fun removeUpload(upload: OCUpload?): Int {
+        return if (upload == null) 0 else removeUpload(upload.uploadId)
+    }
+
+    fun removeUpload(id: Long): Int {
+        val result: Int = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta._ID + "=?",
-            new String[]{Long.toString(id)}
-                                   );
-        Log_OC.d(TAG, "delete returns " + result + " for upload with id " + id);
+            arrayOf(id.toString())
+        )
+        Log_OC.d(TAG, "delete returns $result for upload with id $id")
         if (result > 0) {
-            notifyObserversNow();
+            notifyObserversNow()
         }
-        return result;
+        return result
     }
 
-    /**
-     * Remove an upload from the uploads list, known its target account and remote path.
-     *
-     * @param accountName Name of the OC account target of the upload to remove.
-     * @param remotePath  Absolute path in the OC account target of the upload to remove.
-     * @return true when one or more upload entries were removed
-     */
-    public int removeUpload(String accountName, String remotePath) {
-        int result = getDB().delete(
+    fun removeUpload(accountName: String?, remotePath: String?): Int {
+        val result: Int = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=? AND " + ProviderTableMeta.UPLOADS_REMOTE_PATH + "=?",
-            new String[]{accountName, remotePath}
-                                   );
-        Log_OC.d(TAG, "delete returns " + result + " for file " + remotePath + " in " + accountName);
+            arrayOf(accountName, remotePath)
+        )
+        Log_OC.d(TAG, "delete returns $result for file $remotePath in $accountName")
         if (result > 0) {
-            notifyObserversNow();
+            notifyObserversNow()
         }
-        return result;
+        return result
     }
 
-    /**
-     * Remove all the uploads of a given account from the uploads list.
-     *
-     * @param accountName Name of the OC account target of the uploads to remove.
-     * @return true when one or more upload entries were removed
-     */
-    public int removeUploads(String accountName) {
-        int result = getDB().delete(
+    fun removeUploads(accountName: String?): Int {
+        val result: Int = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
-            new String[]{accountName}
-                                   );
-        Log_OC.d(TAG, "delete returns " + result + " for uploads in " + accountName);
+            arrayOf(accountName)
+        )
+        Log_OC.d(TAG, "delete returns $result for uploads in $accountName")
         if (result > 0) {
-            notifyObserversNow();
+            notifyObserversNow()
         }
-        return result;
+        return result
     }
 
-    public OCUpload[] getAllStoredUploads() {
-        return getUploads(null, (String[]) null);
-    }
+    fun getAllStoredUploads(): Array<OCUpload> = getUploads(null, null)
 
-    public @Nullable
-    OCUpload getUploadById(long id) {
-        OCUpload result = null;
-        Cursor cursor = getDB().query(
+    fun getUploadById(id: Long): OCUpload? {
+        var result: OCUpload? = null
+        val cursor = contentResolver.query(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             null,
             ProviderTableMeta._ID + "=?",
-            new String[]{Long.toString(id)},
-            "_id ASC");
+            arrayOf(id.toString()),
+            "_id ASC"
+        )
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                result = createOCUploadFromCursor(cursor);
+                result = createOCUploadFromCursor(cursor)
             }
         }
-        Log_OC.d(TAG, "Retrieve job " + result + " for id " + id);
-        return result;
+        Log_OC.d(TAG, "Retrieve job $result for id $id")
+        return result
     }
 
-    public List<OCUpload> getUploadsByIds(long[] uploadIds, String accountName) {
-        final List<OCUpload> result = new ArrayList<>();
-
-        final List<UploadEntity> entities = uploadDao.getUploadsByIds(uploadIds, accountName);
-        entities.forEach(uploadEntity -> {
-            OCUpload ocUpload = createOCUploadFromEntity(uploadEntity);
-            if (ocUpload != null) {
-                result.add(ocUpload);
-            }
-        });
-
-        return result;
+    fun getUploadsByIds(uploadIds: LongArray, accountName: String): List<OCUpload> {
+        val result = ArrayList<OCUpload>()
+        uploadDao.getUploadsByIds(uploadIds, accountName).forEach { entity ->
+            createOCUploadFromEntity(entity)?.let { result.add(it) }
+        }
+        return result
     }
 
-    private OCUpload[] getUploads(@Nullable String selection, @Nullable String... selectionArgs) {
-        final List<OCUpload> uploads = new ArrayList<>();
-        long page = 0;
-        long rowsRead;
-        long rowsTotal = 0;
-        long lastRowID = -1;
+    private fun getUploads(selection: String?, vararg selectionArgs: String?): Array<OCUpload> {
+        val uploads = ArrayList<OCUpload>()
+        var page: Long = 0
+        var rowsRead: Long
+        var rowsTotal: Long = 0
+        var lastRowID: Long = -1
 
         do {
-            final List<OCUpload> uploadsPage = getUploadPage(lastRowID, selection, selectionArgs);
-            rowsRead = uploadsPage.size();
-            rowsTotal += rowsRead;
-            if (!uploadsPage.isEmpty()) {
-                lastRowID = uploadsPage.get(uploadsPage.size() - 1).getUploadId();
+            val uploadsPage = getUploadPage(lastRowID, selection, *selectionArgs)
+            rowsRead = uploadsPage.size.toLong()
+            rowsTotal += rowsRead
+            if (uploadsPage.isNotEmpty()) {
+                lastRowID = uploadsPage.last().uploadId
             }
-            Log_OC.v(TAG, String.format(Locale.ENGLISH,
-                                        "getUploads() got %d rows from page %d, %d rows total so far, last ID %d",
-                                        rowsRead,
-                                        page,
-                                        rowsTotal,
-                                        lastRowID
-                                       ));
-            uploads.addAll(uploadsPage);
-            page++;
-        } while (rowsRead > 0);
+            Log_OC.v(
+                TAG, String.format(
+                    Locale.ENGLISH,
+                    "getUploads() got %d rows from page %d, %d rows total so far, last ID %d",
+                    rowsRead,
+                    page,
+                    rowsTotal,
+                    lastRowID
+                )
+            )
+            uploads.addAll(uploadsPage)
+            page++
+        } while (rowsRead > 0)
+
+        Log_OC.v(
+            TAG, String.format(
+                Locale.ENGLISH,
+                "getUploads() returning %d (%d) rows after reading %d pages",
+                rowsTotal,
+                uploads.size,
+                page
+            )
+        )
 
 
-        Log_OC.v(TAG, String.format(Locale.ENGLISH,
-                                    "getUploads() returning %d (%d) rows after reading %d pages",
-                                    rowsTotal,
-                                    uploads.size(),
-                                    page
-                                   ));
-
-
-        return uploads.toArray(new OCUpload[0]);
+        return uploads.toTypedArray<OCUpload>()
     }
 
-    @NonNull
-    private List<OCUpload> getUploadPage(final long afterId, @Nullable String selection, @Nullable String... selectionArgs) {
-        return getUploadPage(QUERY_PAGE_SIZE, afterId, true, selection, selectionArgs);
-    }
+    private fun getUploadPage(afterId: Long, selection: String?, vararg selectionArgs: String?): List<OCUpload> =
+        getUploadPage(QUERY_PAGE_SIZE, afterId, true, selection, *selectionArgs)
 
-    @NonNull
-    private List<OCUpload> getUploadPage(long limit, final long afterId, final boolean descending, @Nullable String selection, @Nullable String... selectionArgs) {
-        List<OCUpload> uploads = new ArrayList<>();
-        String pageSelection = selection;
-        String[] pageSelectionArgs = selectionArgs;
-
-        String idComparator;
-        String sortDirection;
-        if (descending) {
-            sortDirection = "DESC";
-            idComparator = "<";
-        } else {
-            sortDirection = "ASC";
-            idComparator = ">";
-        }
+    private fun getUploadPage(
+        limit: Long,
+        afterId: Long,
+        descending: Boolean,
+        selection: String?,
+        vararg selectionArgs: String?
+    ): List<OCUpload> {
+        val uploads = ArrayList<OCUpload>()
+        val (sortDirection, idComparator) = if (descending) "DESC" to "<" else "ASC" to ">"
+        val pageSelection: String?
+        val pageSelectionArgs: Array<String?>
 
         if (afterId >= 0) {
-            if (selection != null) {
-                pageSelection = "(" + selection + ") AND _id " + idComparator + " ?";
-            } else {
-                pageSelection = "_id " + idComparator + " ?";
+            pageSelection = if (selection != null) "($selection) AND _id $idComparator ?" else "_id $idComparator ?"
+            pageSelectionArgs = arrayOfNulls<String>(selectionArgs.size + 1).also { arr ->
+                selectionArgs.forEachIndexed { i, v -> arr[i] = v }
+                arr[selectionArgs.size] = afterId.toString()
             }
-            if (selectionArgs != null) {
-                pageSelectionArgs = Arrays.copyOf(selectionArgs, selectionArgs.length + 1);
-            } else {
-                pageSelectionArgs = new String[1];
-            }
-            pageSelectionArgs[pageSelectionArgs.length - 1] = String.valueOf(afterId);
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, "QUERY: %s ROWID: %d", pageSelection, afterId));
+            Log_OC.d(TAG, String.format(Locale.ENGLISH, "QUERY: %s ROWID: %d", pageSelection, afterId))
         } else {
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, "QUERY: %s ROWID: %d", selection, afterId));
+            pageSelection = selection
+            pageSelectionArgs = arrayOfNulls<String>(selectionArgs.size).also { arr ->
+                selectionArgs.forEachIndexed { i, v -> arr[i] = v }
+            }
+            Log_OC.d(TAG, String.format(Locale.ENGLISH, "QUERY: %s ROWID: %d", selection, afterId))
         }
 
-        String sortOrder;
-        if (limit > 0) {
-            sortOrder = String.format(Locale.ENGLISH, "_id " + sortDirection + " LIMIT %d", limit);
+        val sortOrder = if (limit > 0) {
+            String.format(Locale.ENGLISH, "_id $sortDirection LIMIT %d", limit)
         } else {
-            sortOrder = String.format(Locale.ENGLISH, "_id " + sortDirection);
+            "_id $sortDirection"
         }
 
-        Cursor c = getDB().query(
+        contentResolver.query(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             null,
             pageSelection,
             pageSelectionArgs,
-            sortOrder);
-
-        if (c != null) {
+            sortOrder
+        )?.use { c ->
             if (c.moveToFirst()) {
                 do {
-                    OCUpload upload = createOCUploadFromCursor(c);
-                    if (upload == null) {
-                        Log_OC.e(TAG, "OCUpload could not be created from cursor");
-                    } else {
-                        uploads.add(upload);
-                    }
-                } while (c.moveToNext() && !c.isAfterLast());
+                    uploads.add(createOCUploadFromCursor(c))
+                } while (c.moveToNext() && !c.isAfterLast)
             }
-            c.close();
         }
-        return uploads;
+
+        return uploads
     }
 
-    @Nullable
-    private OCUpload createOCUploadFromEntity(UploadEntity entity) {
-        if (entity == null) {
-            return null;
-        }
-        initOCCapability();
-        return UploadEntityKt.toOCUpload(entity, capability);
+    private fun createOCUploadFromEntity(entity: UploadEntity?): OCUpload? {
+        if (entity == null) return null
+        initOCCapability()
+        return entity.toOCUpload(capability)
     }
 
-    private OCUpload createOCUploadFromCursor(Cursor c) {
-        initOCCapability();
+    private fun createOCUploadFromCursor(c: Cursor): OCUpload {
+        initOCCapability()
 
-        OCUpload upload = null;
-        if (c != null) {
-            String localPath = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_LOCAL_PATH));
+        fun Cursor.str(col: String): String = getString(getColumnIndexOrThrow(col))
+        fun Cursor.int(col: String): Int = getInt(getColumnIndexOrThrow(col))
+        fun Cursor.long(col: String): Long = getLong(getColumnIndexOrThrow(col))
 
-            String remotePath = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_REMOTE_PATH));
-            if (capability != null) {
-                remotePath = AutoRename.INSTANCE.rename(remotePath, capability);
+        var remotePath = c.str(ProviderTableMeta.UPLOADS_REMOTE_PATH)
+        if (capability != null) {
+            remotePath = AutoRename.rename(remotePath, capability!!)
+        }
+
+        return OCUpload(
+            c.str(ProviderTableMeta.UPLOADS_LOCAL_PATH),
+            remotePath,
+            c.str(ProviderTableMeta.UPLOADS_ACCOUNT_NAME)
+        ).apply {
+            fileSize = c.long(ProviderTableMeta.UPLOADS_FILE_SIZE)
+            uploadId = c.long(ProviderTableMeta._ID)
+            setUploadStatus(UploadStatus.fromValue(c.int(ProviderTableMeta.UPLOADS_STATUS)))
+            localAction = c.int(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR)
+            nameCollisionPolicy = NameCollisionPolicy.deserialize(c.int(ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY))
+            isCreateRemoteFolder = c.int(ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER) == 1
+
+            val timestampIndex = c.getColumnIndex(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP_LONG)
+            if (timestampIndex > -1) {
+                val ts = c.getLong(timestampIndex)
+                if (ts > 0) uploadEndTimestamp = ts
             }
 
-            String accountName = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_ACCOUNT_NAME));
-            upload = new OCUpload(localPath, remotePath, accountName);
-
-            upload.setFileSize(c.getLong(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_FILE_SIZE)));
-            upload.setUploadId(c.getLong(c.getColumnIndexOrThrow(ProviderTableMeta._ID)));
-            upload.setUploadStatus(
-                UploadStatus.fromValue(c.getInt(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_STATUS)))
-                                  );
-            upload.setLocalAction(c.getInt(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR)));
-            upload.setNameCollisionPolicy(NameCollisionPolicy.deserialize(c.getInt(
-                c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY))));
-            upload.setCreateRemoteFolder(c.getInt(
-                c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER)) == 1);
-
-            final var uploadEndTimestampColumnIndex= c.getColumnIndex(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP_LONG);
-            if (uploadEndTimestampColumnIndex > -1) {
-                final var uploadEndTimestamp = c.getLong(uploadEndTimestampColumnIndex);
-                if (uploadEndTimestamp > 0) {
-                    upload.setUploadEndTimestamp(uploadEndTimestamp);
-                }
-            }
-            upload.setLastResult(UploadResult.fromValue(
-                c.getInt(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_LAST_RESULT))));
-            upload.setCreatedBy(c.getInt(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_CREATED_BY)));
-            upload.setUseWifiOnly(c.getInt(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY)) == 1);
-            upload.setWhileChargingOnly(c.getInt(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY))
-                                            == 1);
-            upload.setFolderUnlockToken(c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN)));
+            lastResult = UploadResult.fromValue(c.int(ProviderTableMeta.UPLOADS_LAST_RESULT))
+            createdBy = c.int(ProviderTableMeta.UPLOADS_CREATED_BY)
+            isUseWifiOnly = c.int(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY) == 1
+            isWhileChargingOnly = c.int(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY) == 1
+            folderUnlockToken = c.str(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN)
         }
-        return upload;
     }
 
-    public long[] getCurrentUploadIds(final @NonNull String accountName) {
-        final var result = uploadDao.getAllIds(UploadStatus.UPLOAD_IN_PROGRESS.value, accountName);
-        return result.stream()
-            .mapToLong(Integer::longValue)
-            .toArray();
-    }
+    fun getCurrentUploadIds(accountName: String): LongArray =
+        uploadDao.getAllIds(UploadStatus.UPLOAD_IN_PROGRESS.value, accountName)
+            .stream()
+            .mapToLong { it.toLong() }
+            .toArray()
 
-    public OCUpload[] getUploadsForAccount(final @NonNull String accountName) {
-        return getUploads(ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, accountName);
-    }
+    fun getUploadsForAccount(accountName: String): Array<OCUpload> =
+        getUploads(ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, accountName)
 
-    private ContentResolver getDB() {
-        return contentResolver;
-    }
-
-    public void clearFailedButNotDelayedUploads() {
-        User user = currentAccountProvider.getUser();
-        final long deleted = getDB().delete(
+    fun clearFailedButNotDelayedUploads() {
+        val user = currentAccountProvider.user
+        val deleted = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_FAILED.value +
-                AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                ANGLE_BRACKETS + UploadResult.LOCK_FAILED.getValue() +
-                AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                ANGLE_BRACKETS + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                ANGLE_BRACKETS + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                ANGLE_BRACKETS + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.LOCK_FAILED.value +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.DELAYED_FOR_WIFI.value +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.DELAYED_FOR_CHARGING.value +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.DELAYED_IN_POWER_SAVE_MODE.value +
                 AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL,
-            new String[]{user.getAccountName()}
-                                           );
-        Log_OC.d(TAG, "delete all failed uploads but those delayed for Wifi");
-        if (deleted > 0) {
-            notifyObserversNow();
-        }
+            arrayOf(user.accountName)
+        )
+
+        Log_OC.d(TAG, "delete all failed uploads but those delayed for Wifi")
+
+        if (deleted > 0) notifyObserversNow()
     }
 
-    public void clearCancelledUploadsForCurrentAccount() {
-        User user = currentAccountProvider.getUser();
-        final long deleted = getDB().delete(
+    fun clearCancelledUploadsForCurrentAccount() {
+        val user = currentAccountProvider.user
+        val deleted = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
-            ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_CANCELLED.value + AND +
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, new String[]{user.getAccountName()}
-                                           );
-
-        Log_OC.d(TAG, "delete all cancelled uploads");
-        if (deleted > 0) {
-            notifyObserversNow();
-        }
+            ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_CANCELLED.value +
+                AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL,
+            arrayOf(user.accountName)
+        )
+        Log_OC.d(TAG, "delete all cancelled uploads")
+        if (deleted > 0) notifyObserversNow()
     }
 
-    public void clearSuccessfulUploads() {
-        User user = currentAccountProvider.getUser();
-        final long deleted = getDB().delete(
+    fun clearSuccessfulUploads() {
+        val user = currentAccountProvider.user
+        val deleted = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
-            ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, new String[]{user.getAccountName()}
-                                           );
-
-        Log_OC.d(TAG, "delete all successful uploads");
-        if (deleted > 0) {
-            notifyObserversNow();
-        }
+            ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_SUCCEEDED.value +
+                AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL,
+            arrayOf(user.accountName)
+        )
+        Log_OC.d(TAG, "delete all successful uploads")
+        if (deleted > 0) notifyObserversNow()
     }
 
-    public void updateDatabaseUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
-        Log_OC.d(TAG, "updateDatabaseUploadResult uploadResult: " + uploadResult + " upload: " + upload);
+    fun updateDatabaseUploadResult(uploadResult: RemoteOperationResult<*>, upload: UploadFileOperation) {
+        Log_OC.d(TAG, "updateDatabaseUploadResult uploadResult: $uploadResult upload: $upload")
 
-        if (uploadResult.isCancelled()) {
-            Log_OC.w(TAG, "upload is cancelled, removing upload");
-            removeUpload(upload.getUser().getAccountName(), upload.getRemotePath());
-            return;
+        if (uploadResult.isCancelled) {
+            Log_OC.w(TAG, "upload is cancelled, removing upload")
+            removeUpload(upload.user.accountName, upload.remotePath)
+            return
         }
 
-        String localPath = (upload.getLocalBehaviour() == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE)
-            ? upload.getStoragePath() : null;
+        val localPath =
+            if (upload.localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE) upload.storagePath else null
 
+        Log_OC.d(TAG, "local behaviour: " + upload.localBehaviour)
+        Log_OC.d(TAG, "local path of upload: $localPath")
 
-        Log_OC.d(TAG, "local behaviour: " + upload.getLocalBehaviour());
-        Log_OC.d(TAG, "local path of upload: " + localPath);
+        var status = UploadStatus.UPLOAD_FAILED
+        var result = UploadResult.fromOperationResult(uploadResult)
+        val code = uploadResult.code
 
-        UploadStatus status = UploadStatus.UPLOAD_FAILED;
-        UploadResult result = UploadResult.fromOperationResult(uploadResult);
-        RemoteOperationResult.ResultCode code = uploadResult.getCode();
-
-        if (uploadResult.isSuccess()) {
-            status = UploadStatus.UPLOAD_SUCCEEDED;
-            result = UploadResult.UPLOADED;
-        } else if (RemoteOperationResultExtensionsKt.isConflict(code)) {
-            boolean isSame = new FileUploadHelper().isSameFileOnRemote(
-                upload.getUser(), new File(upload.getStoragePath()), upload.getRemotePath(), upload.getContext());
+        if (uploadResult.isSuccess) {
+            status = UploadStatus.UPLOAD_SUCCEEDED
+            result = UploadResult.UPLOADED
+        } else if (code.isConflict()) {
+            val isSame = FileUploadHelper().isSameFileOnRemote(
+                upload.user, File(upload.storagePath), upload.remotePath, upload.context
+            )
 
             if (isSame) {
-                result = UploadResult.SAME_FILE_CONFLICT;
-                status = UploadStatus.UPLOAD_SUCCEEDED;
+                result = UploadResult.SAME_FILE_CONFLICT
+                status = UploadStatus.UPLOAD_SUCCEEDED
             } else {
-                result = UploadResult.SYNC_CONFLICT;
+                result = UploadResult.SYNC_CONFLICT
             }
         } else if (code == RemoteOperationResult.ResultCode.LOCAL_FILE_NOT_FOUND) {
             // upload status is SUCCEEDED because user cannot take action about it, it will always fail
-            status =  UploadStatus.UPLOAD_SUCCEEDED;
-            result = UploadResult.FILE_NOT_FOUND;
+            status = UploadStatus.UPLOAD_SUCCEEDED
+            result = UploadResult.FILE_NOT_FOUND
         }
 
-        Log_OC.d(TAG, String.format(
-            "Upload Finished [%s] | RemoteCode: %s | internalResult: %s | FinalStatus: %s | Path: %s",
-            uploadResult.isSuccess() ? "✅" : "❌",
-            code,
-            result.name(),
-            status,
-            upload.getRemotePath()));
-        updateUploadStatus(upload.getOCUploadId(), status, result, upload.getRemotePath(), localPath);
+        Log_OC.d(
+            TAG, String.format(
+                "Upload Finished [%s] | RemoteCode: %s | internalResult: %s | FinalStatus: %s | Path: %s",
+                if (uploadResult.isSuccess) "✅" else "❌",
+                code,
+                result.name,
+                status,
+                upload.remotePath
+            )
+        )
+        updateUploadStatus(upload.ocUploadId, status, result, upload.remotePath, localPath)
     }
 
-    /**
-     * Updates the persistent upload database with an upload now in progress.
-     */
-    public void updateDatabaseUploadStart(UploadFileOperation upload) {
-        String localPath = (FileUploadWorker.LOCAL_BEHAVIOUR_MOVE == upload.getLocalBehaviour())
-            ? upload.getStoragePath() : null;
+    fun updateDatabaseUploadStart(upload: UploadFileOperation) {
+        val localPath =
+            if (FileUploadWorker.LOCAL_BEHAVIOUR_MOVE == upload.localBehaviour) upload.storagePath else null
 
         updateUploadStatus(
-            upload.getOCUploadId(),
+            upload.ocUploadId,
             UploadStatus.UPLOAD_IN_PROGRESS,
             UploadResult.UNKNOWN,
-            upload.getRemotePath(),
+            upload.remotePath,
             localPath
-                          );
+        )
     }
 
     @VisibleForTesting
-    public void removeAllUploads() {
-        Log_OC.v(TAG, "Delete all uploads!");
-        getDB().delete(
+    fun removeAllUploads() {
+        Log_OC.v(TAG, "Delete all uploads!")
+        contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             "",
-            new String[]{});
+            arrayOf<String?>()
+        )
     }
 
-    public int removeUserUploads(User user) {
-        Log_OC.v(TAG, "Delete all uploads for account " + user.getAccountName());
-        return getDB().delete(
+    fun removeUserUploads(user: User): Int {
+        Log_OC.v(TAG, "Delete all uploads for account " + user.accountName)
+        return contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
-            new String[]{user.getAccountName()});
+            arrayOf(user.accountName)
+        )
     }
 
-    public enum UploadStatus {
-
+    enum class UploadStatus(val value: Int) {
         /**
          * Upload currently in progress or scheduled to be executed.
          */
@@ -659,25 +549,29 @@ public class UploadsStorageManager extends Observable {
          */
         UPLOAD_CANCELLED(3);
 
-        private final int value;
-
-        UploadStatus(int value) {
-            this.value = value;
+        companion object {
+            fun fromValue(value: Int): UploadStatus? {
+                return when (value) {
+                    0 -> UPLOAD_IN_PROGRESS
+                    1 -> UPLOAD_FAILED
+                    2 -> UPLOAD_SUCCEEDED
+                    3 -> UPLOAD_CANCELLED
+                    else -> null
+                }
+            }
         }
+    }
 
-        public static UploadStatus fromValue(int value) {
-            return switch (value) {
-                case 0 -> UPLOAD_IN_PROGRESS;
-                case 1 -> UPLOAD_FAILED;
-                case 2 -> UPLOAD_SUCCEEDED;
-                case 3 -> UPLOAD_CANCELLED;
-                default -> null;
-            };
-        }
+    companion object {
+        private val TAG: String = UploadsStorageManager::class.java.getSimpleName()
 
-        public int getValue() {
-            return value;
-        }
+        private const val IS_EQUAL = "== ?"
+        private const val EQUAL = "=="
+        private const val OR = " OR "
+        private const val AND = " AND "
+        private const val ANGLE_BRACKETS = "<>"
+        private const val SINGLE_RESULT = 1
 
+        private const val QUERY_PAGE_SIZE: Long = 100
     }
 }
