@@ -27,6 +27,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.getStatusText
+import com.nextcloud.utils.extensions.isLastResultConflictError
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.sortedByUploadOrder
 import com.nextcloud.utils.extensions.toFile
@@ -418,7 +419,7 @@ class UploadListAdapter(
 
                 UploadsStorageManager.UploadStatus.UPLOAD_FAILED -> {
                     uploadRightButton.run {
-                        if (item.lastResult == UploadResult.SYNC_CONFLICT) {
+                        if (item.isLastResultConflictError()) {
                             setImageResource(R.drawable.ic_dots_vertical)
                             setOnClickListener { view ->
                                 optionalUser.ifPresent { user ->
@@ -466,18 +467,20 @@ class UploadListAdapter(
         holder: ItemViewHolder,
         status: String
     ) {
-        when (item.lastResult) {
-            UploadResult.CREDENTIAL_ERROR -> {
-                val user = optionalUser.orElseThrow { RuntimeException() }
-                activity.fileOperationsHelper.checkCurrentCredentials(user)
-            }
+        if (optionalUser.isEmpty) {
+            return
+        }
+        val user = optionalUser.get()
 
-            UploadResult.SYNC_CONFLICT if optionalUser.isPresent -> {
-                if (checkAndOpenConflictResolutionDialog(optionalUser.get(), holder, item, status)) return
-                retryOrShowError(item)
+        if (item.lastResult == UploadResult.CREDENTIAL_ERROR) {
+            activity.fileOperationsHelper.checkCurrentCredentials(user)
+        } else if (item.isLastResultConflictError()) {
+            if (checkAndOpenConflictResolutionDialog(user, holder, item, status)) {
+                return
             }
-
-            else -> retryOrShowError(item)
+            retryOrShowError(item)
+        } else {
+            retryOrShowError(item)
         }
     }
 

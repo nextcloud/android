@@ -25,6 +25,7 @@ import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.autoRename.AutoRename;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
+import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -913,7 +914,7 @@ public class UploadFileOperation extends SyncOperation {
     private void completeE2EUpload(RemoteOperationResult result, E2EFiles e2eFiles, OwnCloudClient client) {
         if (result.isSuccess()) {
             handleLocalBehaviour(e2eFiles.getTemporalFile(), e2eFiles.getExpectedFile(), e2eFiles.getOriginalFile(), client);
-        } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+        } else if (RemoteOperationResultExtensionsKt.isConflict(result.getCode())) {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
 
