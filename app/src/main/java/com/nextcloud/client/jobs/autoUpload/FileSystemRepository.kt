@@ -175,7 +175,7 @@ class FileSystemRepository(
                 return
             }
 
-            if (checkFileType && !syncedFolder.containsTypedFile(file, localPath)) {
+            if (checkFileType && !syncedFolder.isFileInFolderWithCorrectMediaType(file, localPath)) {
                 Log_OC.w(TAG, "synced folder not contains typed file: $localPath")
                 return
             }
