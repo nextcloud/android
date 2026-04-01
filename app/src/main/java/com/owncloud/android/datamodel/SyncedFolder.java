@@ -301,12 +301,21 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.excludeHidden = excludeHidden;
     }
 
-    public boolean containsTypedFile(File file,String filePath){
+    public boolean containsTypedFile(File file, String filePath) {
+        if (filePath == null || localPath == null) return false;
+
+        String normalizedLocal = localPath.endsWith(File.separator)
+            ? localPath
+            : localPath + File.separator;
+
+        boolean isUnderLocalPath = filePath.startsWith(normalizedLocal);
+
         boolean isCorrectMediaType =
-                (getType() == MediaFolderType.IMAGE && MimeTypeUtil.isImage(file)) ||
+            (getType() == MediaFolderType.IMAGE && MimeTypeUtil.isImage(file)) ||
                 (getType() == MediaFolderType.VIDEO && MimeTypeUtil.isVideo(file)) ||
-                    getType() == MediaFolderType.CUSTOM;
-        return filePath.contains(localPath) && isCorrectMediaType;
+                getType() == MediaFolderType.CUSTOM;
+
+        return isUnderLocalPath && isCorrectMediaType;
     }
 
     public long getLastScanTimestampMs() { return lastScanTimestampMs; }

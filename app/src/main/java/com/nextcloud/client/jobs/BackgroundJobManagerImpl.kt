@@ -272,24 +272,6 @@ internal class BackgroundJobManagerImpl(
             return workInfo.map { it -> it.map { fromWorkInfo(it) ?: JobInfo() }.sortedBy { it.started }.reversed() }
         }
 
-    @Suppress("MagicNumber")
-    override fun scheduleContentObserverJob() {
-        val constrains = Constraints.Builder()
-            .addContentUriTrigger(MediaStore.Images.Media.INTERNAL_CONTENT_URI, true)
-            .addContentUriTrigger(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true)
-            .addContentUriTrigger(MediaStore.Video.Media.INTERNAL_CONTENT_URI, true)
-            .addContentUriTrigger(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, true)
-            .setTriggerContentUpdateDelay(Duration.ofSeconds(5))
-            .setTriggerContentMaxDelay(Duration.ofSeconds(10))
-            .build()
-
-        val request = oneTimeRequestBuilder(ContentObserverWork::class, JOB_CONTENT_OBSERVER)
-            .setConstraints(constrains)
-            .build()
-
-        workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
-    }
-
     override fun schedulePeriodicContactsBackup(user: User) {
         val data = Data.Builder()
             .putString(ContactsBackupWork.KEY_ACCOUNT, user.accountName)
@@ -479,6 +461,25 @@ internal class BackgroundJobManagerImpl(
             ExistingWorkPolicy.KEEP,
             request
         )
+    }
+
+    @Suppress("MagicNumber")
+    override fun scheduleContentObserverJob() {
+        val constrains = Constraints.Builder()
+            .addContentUriTrigger(MediaStore.Images.Media.INTERNAL_CONTENT_URI, true)
+            .addContentUriTrigger(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true)
+            .addContentUriTrigger(MediaStore.Video.Media.INTERNAL_CONTENT_URI, true)
+            .addContentUriTrigger(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, true)
+            .addContentUriTrigger(MediaStore.Files.getContentUri("external"), true)
+            .setTriggerContentUpdateDelay(Duration.ofSeconds(5))
+            .setTriggerContentMaxDelay(Duration.ofSeconds(10))
+            .build()
+
+        val request = oneTimeRequestBuilder(ContentObserverWork::class, JOB_CONTENT_OBSERVER)
+            .setConstraints(constrains)
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
     }
 
     override fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean) {
