@@ -80,7 +80,7 @@ class FileUploadWorker(
         const val CURRENT_BATCH_INDEX = "batch_index"
         const val TOTAL_UPLOAD_SIZE = "total_upload_size"
         const val SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION = "show_same_file_already_exists_notification"
-
+        const val SKIP_AUTO_UPLOAD_CHECK = "skip_auto_upload_check"
         private const val BATCH_SIZE = 100
 
         const val EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME"
@@ -234,6 +234,8 @@ class FileUploadWorker(
             return@withContext Result.failure()
         }
 
+        val skipAutoUploadCheck = inputData.getBoolean(SKIP_AUTO_UPLOAD_CHECK, false)
+
         val user = optionalUser.get()
         val previouslyUploadedFileSize = currentBatchIndex * FileUploadHelper.MAX_FILE_COUNT
         val uploads = uploadsStorageManager.getUploadsByIds(uploadIds, accountName)
@@ -245,7 +247,7 @@ class FileUploadWorker(
         for ((index, upload) in uploads.withIndex()) {
             ensureActive()
 
-            if (isBelongToAnySyncedFolder(upload, syncFolderHelper, syncedFolders)) {
+            if (!skipAutoUploadCheck && isBelongToAnySyncedFolder(upload, syncFolderHelper, syncedFolders)) {
                 Log_OC.d(TAG, "skipping upload, will be handled by AutoUploadWorker: ${upload.localPath}")
                 uploadsStorageManager.uploadDao.deleteByRemotePathAndAccountName(
                     remotePath = upload.remotePath,
@@ -445,7 +447,7 @@ class FileUploadWorker(
                 if (accountName != null && remotePath != null) {
                     val key: String = FileUploadHelper.buildRemoteName(accountName, remotePath)
                     val boundListener = FileUploadHelper.mBoundListeners[key]
-                    val filename = currentUploadFileOperation?.fileName ?: ""
+                    val filename = currentUploadFileOperation.fileName ?: ""
 
                     boundListener?.onTransferProgress(
                         progressRate,
