@@ -24,6 +24,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.getUploadIds
+import com.nextcloud.utils.extensions.isLastResultConflictError
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -180,7 +181,7 @@ class FileUploadHelper {
         val uploadsToRetry = mutableListOf<Long>()
 
         for (upload in uploads) {
-            if (upload.lastResult == UploadResult.SYNC_CONFLICT) {
+            if (upload.isLastResultConflictError()) {
                 Log_OC.d(TAG, "retry upload skipped, sync conflict: ${upload.remotePath}")
                 showSyncConflictNotification = true
                 continue

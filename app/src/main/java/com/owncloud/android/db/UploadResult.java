@@ -12,6 +12,8 @@ package com.owncloud.android.db;
 
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public enum UploadResult {
@@ -50,6 +52,10 @@ public enum UploadResult {
     public int getValue() {
         return value;
     }
+
+    public static final List<UploadResult> CONFLICT_ERRORS = List.of(
+        UploadResult.CONFLICT_ERROR,
+        UploadResult.SYNC_CONFLICT);
 
     private static final Map<Integer, UploadResult> valueMap = Map.ofEntries(
         Map.entry(0, UPLOADED),

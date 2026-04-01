@@ -24,6 +24,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.getLog
+import com.nextcloud.utils.extensions.isConflict
 import com.nextcloud.utils.extensions.isNonRetryable
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
@@ -319,7 +320,7 @@ class AutoUploadWorker(
                             )
 
                             // Mark CONFLICT files as handled to prevent retries
-                            if (result.code == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+                            if (result.code.isConflict()) {
                                 repository.markFileAsHandled(localPath, syncedFolder)
                                 Log_OC.w(TAG, "Marked CONFLICT file as handled: $localPath")
                             }

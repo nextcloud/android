@@ -15,6 +15,7 @@ import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.UploadBroadcastAction
+import com.nextcloud.utils.extensions.isConflict
 import com.nextcloud.utils.extensions.isFileSpecificError
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
@@ -33,11 +34,11 @@ object UploadErrorNotificationManager {
 
     /**
      * Processes the result of an upload operation and manages error notifications.
-     * * It filters out successful or silent results and handles [ResultCode.SYNC_CONFLICT]
+     * * It filters out successful or silent results and handles [ResultCode.SYNC_CONFLICT], [ResultCode.CONFLICT]
      * by checking if the remote file is identical. If it's a "real" conflict or error,
      * it displays a notification with relevant actions (e.g., Resolve Conflict, Pause, Cancel).
      *
-     * @param onSameFileConflict Triggered only if result code is SYNC_CONFLICT and files are identical.
+     * @param onSameFileConflict Triggered only if result code is CONFLICT or SYNC_CONFLICT and files are identical.
      */
     @Suppress("ReturnCount")
     suspend fun handleResult(
@@ -70,7 +71,7 @@ object UploadErrorNotificationManager {
         }
 
         // do not show an error notification when uploading the same file again
-        if (result.code == ResultCode.SYNC_CONFLICT) {
+        if (result.code.isConflict()) {
             val isSameFile = withContext(Dispatchers.IO) {
                 FileUploadHelper.instance().isSameFileOnRemote(
                     operation.user,
@@ -135,7 +136,7 @@ object UploadErrorNotificationManager {
             // actions for all error types
             addAction(UploadBroadcastAction.PauseAndCancel(operation).cancelAction(context))
 
-            if (result.code == ResultCode.SYNC_CONFLICT) {
+            if (result.code.isConflict()) {
                 addAction(
                     R.drawable.ic_cloud_upload,
                     context.getString(R.string.upload_list_resolve_conflict),
@@ -152,6 +153,7 @@ object UploadErrorNotificationManager {
     private fun ResultCode.toFailedResultTitleId(): Int = when (this) {
         ResultCode.UNAUTHORIZED -> R.string.uploader_upload_failed_credentials_error
         ResultCode.SYNC_CONFLICT -> R.string.uploader_upload_failed_sync_conflict_error
+        ResultCode.CONFLICT -> R.string.uploader_upload_failed_sync_conflict_error
         else -> R.string.uploader_upload_failed_ticker
     }
 

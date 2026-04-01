@@ -30,6 +30,7 @@ import com.nextcloud.client.database.entity.UploadEntityKt;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.utils.autoRename.AutoRename;
+import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -577,7 +578,7 @@ public class UploadsStorageManager extends Observable {
         if (uploadResult.isSuccess()) {
             status = UploadStatus.UPLOAD_SUCCEEDED;
             result = UploadResult.UPLOADED;
-        } else if (code == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+        } else if (RemoteOperationResultExtensionsKt.isConflict(code)) {
             boolean isSame = new FileUploadHelper().isSameFileOnRemote(
                 upload.getUser(), new File(upload.getStoragePath()), upload.getRemotePath(), upload.getContext());
 
