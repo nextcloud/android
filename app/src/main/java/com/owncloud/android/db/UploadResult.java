@@ -55,8 +55,7 @@ public enum UploadResult {
 
     public static final List<UploadResult> CONFLICT_ERRORS = List.of(
         UploadResult.CONFLICT_ERROR,
-        UploadResult.SYNC_CONFLICT,
-        UploadResult.SAME_FILE_CONFLICT);
+        UploadResult.SYNC_CONFLICT);
 
     private static final Map<Integer, UploadResult> valueMap = Map.ofEntries(
         Map.entry(0, UPLOADED),
