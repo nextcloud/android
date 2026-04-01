@@ -18,6 +18,8 @@ package com.owncloud.android.datamodel;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
@@ -214,8 +216,10 @@ public class UploadsStorageManager extends Observable {
      */
     public void notifyObserversNow() {
         Log_OC.d(TAG, "notifyObserversNow");
-        setChanged();
-        notifyObservers();
+        new Handler(Looper.getMainLooper()).post(() -> {
+            setChanged();
+            notifyObservers();
+        });
     }
 
     /**

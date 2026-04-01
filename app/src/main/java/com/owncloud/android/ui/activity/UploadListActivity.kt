@@ -1,323 +1,274 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
- * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2018 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.activity
 
-import android.accounts.Account;
-import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.accounts.Account
+import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.nextcloud.client.account.User
+import com.nextcloud.client.core.Clock
+import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.utils.Throttler
+import com.owncloud.android.R
+import com.owncloud.android.databinding.UploadListLayoutBinding
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.lib.common.operations.RemoteOperation
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.CheckCurrentCredentialsOperation
+import com.owncloud.android.ui.adapter.uploadList.UploadListAdapter
+import com.owncloud.android.ui.decoration.MediaGridItemDecoration
+import com.owncloud.android.utils.FilesSyncHelper
+import javax.inject.Inject
 
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.core.Clock;
-import com.nextcloud.client.device.PowerManagementService;
-import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster;
-import com.nextcloud.client.jobs.upload.FileUploadHelper;
-import com.nextcloud.client.utils.Throttler;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.UploadListLayoutBinding;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
-import com.owncloud.android.ui.adapter.uploadList.UploadListAdapter;
-import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
-import com.owncloud.android.utils.FilesSyncHelper;
+@Suppress("MagicNumber")
+class UploadListActivity : FileActivity() {
+    @Inject lateinit var uploadsStorageManager: UploadsStorageManager
 
-import javax.inject.Inject;
+    @Inject lateinit var powerManagementService: PowerManagementService
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+    @Inject lateinit var clock: Clock
 
-/**
- * Activity listing pending, active, and completed uploads. User can delete completed uploads from view. Content of this
- * list of coming from {@link UploadsStorageManager}.
- */
-public class UploadListActivity extends FileActivity {
+    @Inject lateinit var syncedFolderProvider: SyncedFolderProvider
 
-    private static final String TAG = UploadListActivity.class.getSimpleName();
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
-    private UploadFinishReceiver uploadFinishReceiver;
+    @Inject lateinit var throttler: Throttler
 
-    private UploadListAdapter uploadListAdapter;
+    private var swipeListRefreshLayout: SwipeRefreshLayout? = null
+    private var binding: UploadListLayoutBinding? = null
+    private var uploadListAdapter: UploadListAdapter? = null
+    private var uploadFinishReceiver: UploadFinishReceiver? = null
 
-    public SwipeRefreshLayout swipeListRefreshLayout;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    @Inject
-    UserAccountManager userAccountManager;
-
-    @Inject
-    UploadsStorageManager uploadsStorageManager;
-
-    @Inject
-    PowerManagementService powerManagementService;
-
-    @Inject
-    Clock clock;
-
-    @Inject
-    BackgroundJobManager backgroundJobManager;
-
-    @Inject
-    SyncedFolderProvider syncedFolderProvider;
-
-    @Inject
-    LocalBroadcastManager localBroadcastManager;
-
-    @Inject Throttler throttler;
-
-    private UploadListLayoutBinding binding;
-
-    public static Intent createIntent(OCFile file, User user, Integer flag, Context context) {
-        Intent intent = new Intent(context, UploadListActivity.class);
-        if (flag != null) {
-            intent.setFlags(intent.getFlags() | flag);
-        }
-        intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_USER, user);
-
-        return intent;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        throttler.setIntervalMillis(1000);
-
-        binding = UploadListLayoutBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        swipeListRefreshLayout = binding.swipeContainingList;
+        throttler.intervalMillis = 1000
+        binding = UploadListLayoutBinding.inflate(layoutInflater)
+        val binding = binding!!
+        setContentView(binding.getRoot())
+        swipeListRefreshLayout = binding.swipeContainingList
 
         // this activity has no file really bound, it's for multiple accounts at the same time; should no inherit
         // from FileActivity; moreover, some behaviours inherited from FileActivity should be delegated to Fragments;
         // but that's other story
-        setFile(null);
+        file = null
 
-        // setup toolbar
-        setupToolbar();
-
-        updateActionBarTitleAndHomeButtonByString(getString(R.string.uploads_view_title));
-
-        // setup drawer
-        setupDrawer(getMenuItemId());
-
-        setupContent();
+        setupToolbar()
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.uploads_view_title))
+        setupDrawer(menuItemId)
+        setupContent()
     }
 
-    @Override
-    protected int getMenuItemId() {
-        return R.id.nav_uploads;
+    override fun getMenuItemId() = R.id.nav_uploads
+
+    private fun setupContent() {
+        setupEmptyList()
+        uploadListAdapter = UploadListAdapter(
+            this,
+            uploadsStorageManager,
+            storageManager,
+            userAccountManager,
+            connectivityService,
+            powerManagementService,
+            clock,
+            viewThemeUtils
+        )
+
+        val lm = GridLayoutManager(this, 1)
+        uploadListAdapter?.setLayoutManager(lm)
+
+        val spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_spacing)
+        binding?.list?.run {
+            addItemDecoration(MediaGridItemDecoration(spacing))
+            setLayoutManager(lm)
+            setAdapter(uploadListAdapter)
+        }
+
+        swipeListRefreshLayout?.let { viewThemeUtils.androidx.themeSwipeRefreshLayout(it) }
+        swipeListRefreshLayout?.setOnRefreshListener { this.refresh() }
+        loadItems()
     }
 
-    private void setupContent() {
-        binding.list.setEmptyView(binding.emptyList.getRoot());
-        binding.emptyList.getRoot().setVisibility(View.GONE);
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.uploads);
-        binding.emptyList.emptyListIcon.getDrawable().mutate();
-        binding.emptyList.emptyListIcon.setAlpha(0.5f);
-        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListViewHeadline.setText(getString(R.string.upload_list_empty_headline));
-        binding.emptyList.emptyListViewText.setText(getString(R.string.upload_list_empty_text_auto_upload));
-        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
+    private fun setupEmptyList() {
+        binding?.run {
+            list.setEmptyView(emptyList.getRoot())
+            emptyList.run {
+                root.visibility = View.GONE
 
-        uploadListAdapter = new UploadListAdapter(this,
-                                                  uploadsStorageManager,
-                                                  getStorageManager(),
-                                                  userAccountManager,
-                                                  connectivityService,
-                                                  powerManagementService,
-                                                  clock,
-                                                  viewThemeUtils);
+                emptyListIcon.run {
+                    setImageResource(R.drawable.uploads)
+                    getDrawable().mutate()
+                    setAlpha(0.5f)
+                    setVisibility(View.VISIBLE)
+                }
 
-        final GridLayoutManager lm = new GridLayoutManager(this, 1);
-        uploadListAdapter.setLayoutManager(lm);
+                emptyListViewHeadline.text = getString(R.string.upload_list_empty_headline)
 
-        int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_spacing);
-        binding.list.addItemDecoration(new MediaGridItemDecoration(spacing));
-        binding.list.setLayoutManager(lm);
-        binding.list.setAdapter(uploadListAdapter);
-
-        viewThemeUtils.androidx.themeSwipeRefreshLayout(swipeListRefreshLayout);
-        swipeListRefreshLayout.setOnRefreshListener(this::refresh);
-
-        loadItems();
+                emptyListViewText.run {
+                    text = getString(R.string.upload_list_empty_text_auto_upload)
+                    visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
-    private void loadItems() {
-        swipeListRefreshLayout.setRefreshing(true);
-        uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
+    private fun loadItems() {
+        swipeListRefreshLayout?.isRefreshing = true
+        uploadListAdapter?.loadUploadItemsFromDb { swipeListRefreshLayout?.isRefreshing = false }
     }
 
-    private void refresh() {
-        boolean isUploadStarted = FileUploadHelper.Companion.instance().retryFailedUploads(
+    private fun refresh() {
+        val isUploadStarted = FileUploadHelper.instance().retryFailedUploads(
             uploadsStorageManager,
             connectivityService,
             accountManager,
-            powerManagementService);
+            powerManagementService
+        )
 
         if (!isUploadStarted) {
-            uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
+            uploadListAdapter?.loadUploadItemsFromDb { swipeListRefreshLayout?.isRefreshing = false }
         }
     }
 
-    @Override
-    protected void onStart() {
-        Log_OC.v(TAG, "onStart() start");
-        super.onStart();
+    override fun onStart() {
+        Log_OC.v(TAG, "onStart() start")
+        super.onStart()
 
-        highlightNavigationViewItem(getMenuItemId());
+        highlightNavigationViewItem(menuItemId)
 
-        // Listen for upload messages
-        uploadFinishReceiver = new UploadFinishReceiver();
-        IntentFilter uploadIntentFilter = new IntentFilter();
-        uploadIntentFilter.addAction(FileUploadEventBroadcaster.ACTION_UPLOAD_ENQUEUED);
-        uploadIntentFilter.addAction(FileUploadEventBroadcaster.ACTION_UPLOAD_STARTED);
-        uploadIntentFilter.addAction(FileUploadEventBroadcaster.ACTION_UPLOAD_COMPLETED);
-        localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter);
+        uploadFinishReceiver = UploadFinishReceiver()
+        val intentFilter = IntentFilter().apply {
+            addAction(FileUploadEventBroadcaster.ACTION_UPLOAD_ENQUEUED)
+            addAction(FileUploadEventBroadcaster.ACTION_UPLOAD_STARTED)
+            addAction(FileUploadEventBroadcaster.ACTION_UPLOAD_COMPLETED)
+        }
+        uploadFinishReceiver?.let { localBroadcastManager.registerReceiver(it, intentFilter) }
 
-        Log_OC.v(TAG, "onStart() end");
+        Log_OC.v(TAG, "onStart() end")
     }
 
-    @Override
-    protected void onStop() {
-        Log_OC.v(TAG, "onStop() start");
+    override fun onStop() {
+        Log_OC.v(TAG, "onStop() start")
         if (uploadFinishReceiver != null) {
-            localBroadcastManager.unregisterReceiver(uploadFinishReceiver);
-            uploadFinishReceiver = null;
+            uploadFinishReceiver?.let { localBroadcastManager.unregisterReceiver(it) }
+            uploadFinishReceiver = null
         }
-        super.onStop();
-        Log_OC.v(TAG, "onStop() end");
+        super.onStop()
+        Log_OC.v(TAG, "onStop() end")
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_upload_list, menu);
-        updateGlobalPauseIcon(menu.getItem(0));
-        return true;
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.activity_upload_list, menu)
+        menu.findItem(R.id.action_toggle_global_pause)?.let { updateGlobalPauseIcon(it) }
+        return true
     }
 
-    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-    private void updateGlobalPauseIcon(MenuItem pauseMenuItem) {
-        if (pauseMenuItem.getItemId() != R.id.action_toggle_global_pause) {
-            return;
-        }
-
-        int iconId;
-        String title;
-        if (preferences.isGlobalUploadPaused()) {
-            iconId = R.drawable.ic_global_resume;
-            title = getString(R.string.upload_action_global_upload_resume);
-        } else {
-            iconId = R.drawable.ic_global_pause;
-            title = getString(R.string.upload_action_global_upload_pause);
-        }
-
-        pauseMenuItem.setIcon(iconId);
-        pauseMenuItem.setTitle(title);
+    private fun updateGlobalPauseIcon(item: MenuItem) {
+        val paused = preferences.isGlobalUploadPaused()
+        item.setIcon(if (paused) R.drawable.ic_global_resume else R.drawable.ic_global_pause)
+        item.title = getString(
+            if (paused) {
+                R.string.upload_action_global_upload_resume
+            } else {
+                R.string.upload_action_global_upload_pause
+            }
+        )
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void toggleGlobalPause(MenuItem pauseMenuItem) {
-        preferences.setGlobalUploadPaused(!preferences.isGlobalUploadPaused());
-        updateGlobalPauseIcon(pauseMenuItem);
-
-        for (User user : accountManager.getAllUsers()) {
-            if (user != null) {
-                final var uploadIds = uploadsStorageManager.getCurrentUploadIds(user.getAccountName());
-                FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user, uploadIds);
-            }
+    private fun toggleGlobalPause(item: MenuItem) {
+        preferences.setGlobalUploadPaused(!preferences.isGlobalUploadPaused())
+        updateGlobalPauseIcon(item)
+        val uploadHelper = FileUploadHelper.instance()
+        accountManager.getAllUsers().filterNotNull().forEach { user ->
+            val ids = uploadsStorageManager.getCurrentUploadIds(user.accountName)
+            uploadHelper.cancelAndRestartUploadJob(user, ids)
         }
-
-        uploadListAdapter.notifyDataSetChanged();
+        uploadListAdapter?.notifyDataSetChanged()
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            if (isDrawerOpen) closeDrawer() else openDrawer()
+            true
+        }
 
-        int itemId = item.getItemId();
+        R.id.action_toggle_global_pause -> {
+            toggleGlobalPause(item)
+            true
+        }
 
-        if (itemId == android.R.id.home) {
-            if (isDrawerOpen()) {
-                closeDrawer();
-            } else {
-                openDrawer();
-            }
-        } else if (itemId == R.id.action_toggle_global_pause) {
-            toggleGlobalPause(item);
+        else -> super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE__UPDATE_CREDENTIALS && resultCode == RESULT_OK) {
+            FilesSyncHelper.restartUploadsIfNeeded(
+                uploadsStorageManager,
+                userAccountManager,
+                connectivityService,
+                powerManagementService
+            )
+        }
+    }
+
+    override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {
+        if (operation !is CheckCurrentCredentialsOperation) {
+            super.onRemoteOperationFinish(operation, result)
+            return
+        }
+
+        fileOperationsHelper.opIdWaitingFor = Long.MAX_VALUE
+        dismissLoadingDialog()
+        val account = result.getData()[0] as? Account
+        if (!result.isSuccess) {
+            requestCredentialsUpdate(account)
         } else {
-            return super.onOptionsItemSelected(item);
-        }
-
-        return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS && resultCode == RESULT_OK) {
-            FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
-                                                   userAccountManager,
-                                                   connectivityService,
-                                                   powerManagementService);
+            FilesSyncHelper.restartUploadsIfNeeded(
+                uploadsStorageManager,
+                userAccountManager,
+                connectivityService,
+                powerManagementService
+            )
         }
     }
 
-    /**
-     * @param operation Operation performed.
-     * @param result    Result of the removal.
-     */
-    @Override
-    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        if (operation instanceof CheckCurrentCredentialsOperation) {
-            // Do not call super in this case; more refactoring needed around onRemoteOperationFinish :'(
-            getFileOperationsHelper().setOpIdWaitingFor(Long.MAX_VALUE);
-            dismissLoadingDialog();
-            Account account = (Account) result.getData().get(0);
-            if (!result.isSuccess()) {
-                requestCredentialsUpdate(account);
+    private inner class UploadFinishReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            throttler.run("update_upload_list") { uploadListAdapter?.loadUploadItemsFromDb() }
+        }
+    }
 
-            } else {
-                // already updated -> just retry!
-                FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
-                                                       userAccountManager,
-                                                       connectivityService,
-                                                       powerManagementService);
+    companion object {
+        private val TAG: String = UploadListActivity::class.java.getSimpleName()
+
+        fun createIntent(file: OCFile?, user: User?, flag: Int?, context: Context?): Intent =
+            Intent(context, UploadListActivity::class.java).apply {
+                if (flag != null) {
+                    setFlags(flags or flag)
+                }
+                putExtra(EXTRA_FILE, file)
+                putExtra(EXTRA_USER, user)
             }
-
-        } else {
-            super.onRemoteOperationFinish(operation, result);
-        }
-    }
-
-    /**
-     * Once the file upload has changed its status -> update uploads list view
-     */
-    private class UploadFinishReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            throttler.run("update_upload_list", () -> uploadListAdapter.loadUploadItemsFromDb());
-        }
     }
 }
