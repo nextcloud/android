@@ -46,6 +46,7 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.Observable
 
+@Suppress("TooManyFunctions", "TooGenericExceptionCaught", "MagicNumber", "ReturnCount")
 class UploadsStorageManager(
     private val currentAccountProvider: CurrentAccountProvider,
     private val contentResolver: ContentResolver
@@ -74,7 +75,8 @@ class UploadsStorageManager(
 
         if (existingUpload.accountName != ocUpload.accountName) {
             Log_OC.e(
-                TAG, "Account mismatch for upload ID " + ocUpload.uploadId +
+                TAG,
+                "Account mismatch for upload ID " + ocUpload.uploadId +
                     ": expected " + existingUpload.accountName +
                     ", got " + ocUpload.accountName
             )
@@ -128,9 +130,11 @@ class UploadsStorageManager(
             val path = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_LOCAL_PATH))
             Log_OC.v(
                 TAG,
-                ("Updating " + path + " with status:" + status + " and result:"
-                    + (result?.toString() ?: "null") + " (old:"
-                    + upload.toFormattedString() + ')')
+                (
+                    "Updating " + path + " with status:" + status + " and result:" +
+                        (result?.toString() ?: "null") + " (old:" +
+                        upload.toFormattedString() + ')'
+                    )
             )
 
             upload.setUploadStatus(status)
@@ -169,8 +173,11 @@ class UploadsStorageManager(
         if (c != null) {
             if (c.count != SINGLE_RESULT) {
                 Log_OC.e(
-                    TAG, (c.count.toString() + " items for id=" + id
-                        + " available in UploadDb. Expected 1. Failed to update upload db.")
+                    TAG,
+                    (
+                        c.count.toString() + " items for id=" + id +
+                            " available in UploadDb. Expected 1. Failed to update upload db."
+                        )
                 )
             } else {
                 updateUploadInternal(c, status, result, remotePath, localPath)
@@ -189,9 +196,7 @@ class UploadsStorageManager(
         }
     }
 
-    fun removeUpload(upload: OCUpload?): Int {
-        return if (upload == null) 0 else removeUpload(upload.uploadId)
-    }
+    fun removeUpload(upload: OCUpload?): Int = if (upload == null) 0 else removeUpload(upload.uploadId)
 
     fun removeUpload(id: Long): Int {
         val result = contentResolver.delete(
@@ -276,7 +281,8 @@ class UploadsStorageManager(
                 lastRowID = uploadsPage.last().uploadId
             }
             Log_OC.v(
-                TAG, String.format(
+                TAG,
+                String.format(
                     Locale.ENGLISH,
                     "getUploads() got %d rows from page %d, %d rows total so far, last ID %d",
                     rowsRead,
@@ -290,7 +296,8 @@ class UploadsStorageManager(
         } while (rowsRead > 0)
 
         Log_OC.v(
-            TAG, String.format(
+            TAG,
+            String.format(
                 Locale.ENGLISH,
                 "getUploads() returning %d (%d) rows after reading %d pages",
                 rowsTotal,
@@ -298,7 +305,6 @@ class UploadsStorageManager(
                 page
             )
         )
-
 
         return uploads.toTypedArray<OCUpload>()
     }
@@ -383,7 +389,8 @@ class UploadsStorageManager(
             uploadId = c.long(ProviderTableMeta._ID)
             setUploadStatus(UploadStatus.fromValue(c.int(ProviderTableMeta.UPLOADS_STATUS)))
             localAction = c.int(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR)
-            nameCollisionPolicy = NameCollisionPolicy.deserialize(c.int(ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY))
+            nameCollisionPolicy =
+                NameCollisionPolicy.deserialize(c.int(ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY))
             isCreateRemoteFolder = c.int(ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER) == 1
 
             val timestampIndex = c.getColumnIndex(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP_LONG)
@@ -417,7 +424,8 @@ class UploadsStorageManager(
                 AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.LOCK_FAILED.value +
                 AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.DELAYED_FOR_WIFI.value +
                 AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.DELAYED_FOR_CHARGING.value +
-                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.DELAYED_IN_POWER_SAVE_MODE.value +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS +
+                UploadResult.DELAYED_IN_POWER_SAVE_MODE.value +
                 AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL,
             arrayOf(user.accountName)
         )
@@ -475,7 +483,10 @@ class UploadsStorageManager(
             result = UploadResult.UPLOADED
         } else if (code.isConflict()) {
             val isSame = FileUploadHelper().isSameFileOnRemote(
-                upload.user, File(upload.storagePath), upload.remotePath, upload.context
+                upload.user,
+                File(upload.storagePath),
+                upload.remotePath,
+                upload.context
             )
 
             if (isSame) {
@@ -491,7 +502,8 @@ class UploadsStorageManager(
         }
 
         Log_OC.d(
-            TAG, String.format(
+            TAG,
+            String.format(
                 "Upload Finished [%s] | RemoteCode: %s | internalResult: %s | FinalStatus: %s | Path: %s",
                 if (uploadResult.isSuccess) "✅" else "❌",
                 code,
@@ -558,14 +570,12 @@ class UploadsStorageManager(
         UPLOAD_CANCELLED(3);
 
         companion object {
-            fun fromValue(value: Int): UploadStatus? {
-                return when (value) {
-                    0 -> UPLOAD_IN_PROGRESS
-                    1 -> UPLOAD_FAILED
-                    2 -> UPLOAD_SUCCEEDED
-                    3 -> UPLOAD_CANCELLED
-                    else -> null
-                }
+            fun fromValue(value: Int): UploadStatus? = when (value) {
+                0 -> UPLOAD_IN_PROGRESS
+                1 -> UPLOAD_FAILED
+                2 -> UPLOAD_SUCCEEDED
+                3 -> UPLOAD_CANCELLED
+                else -> null
             }
         }
     }
