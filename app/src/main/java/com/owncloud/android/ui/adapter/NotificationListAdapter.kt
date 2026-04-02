@@ -149,7 +149,7 @@ class NotificationListAdapter(
                     )
                 }
             }.onFailure { e ->
-                Log_OC.e("RichDocumentsTemplateAdapter", "exception setData: $e")
+                Log_OC.e("NotificationListAdapter", "exception setData: $e")
             }
         }
     }
