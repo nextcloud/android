@@ -12,25 +12,27 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
+import com.owncloud.android.databinding.ActivityNavigatorBinding
 import com.owncloud.android.ui.activity.DrawerActivity
 import dagger.android.support.AndroidSupportInjection
 
 class NavigatorActivity : DrawerActivity() {
 
+    private lateinit var binding: ActivityNavigatorBinding
     private lateinit var navigator: Navigator
 
     // region Lifecycle Methods
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityNavigatorBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_navigator)
 
         val screen = intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java) ?: return
-        val fragmentContainerView = findViewById<FragmentContainerView>(R.id.fragment_container_view)
-        navigator = Navigator(supportFragmentManager, fragmentContainerView)
+        navigator = Navigator(supportFragmentManager, binding.fragmentContainerView)
         setupBackPressedHandler()
         pushOrRestoreScreen(savedInstanceState, screen)
     }
@@ -45,10 +47,16 @@ class NavigatorActivity : DrawerActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            if (isDrawerOpen) {
-                closeDrawer()
+            val currentScreen = navigator.getTopScreen()
+
+            if (currentScreen?.hasDrawer == false) {
+                onBackPressedDispatcher.onBackPressed()
             } else {
-                openDrawer()
+                if (isDrawerOpen) {
+                    closeDrawer()
+                } else {
+                    openDrawer()
+                }
             }
             return true
         }
@@ -97,7 +105,15 @@ class NavigatorActivity : DrawerActivity() {
             setupHomeSearchToolbarWithSortAndListButtons()
         }
         updateActionBarTitleAndHomeButtonByString(getString(titleId))
-        setupDrawer(menuItemId)
+
+        if (screen.hasDrawer) {
+            setupDrawer(menuItemId)
+            binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        } else {
+            binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_foreground)
+        }
     }
 
     private fun setupBackPressedHandler() {
