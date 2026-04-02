@@ -5,22 +5,19 @@
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.notifications;
+package com.owncloud.android.ui.notifications
 
-import com.owncloud.android.lib.resources.notifications.models.Notification;
-import com.owncloud.android.ui.adapter.NotificationListAdapter;
+import com.owncloud.android.lib.resources.notifications.models.Notification
+import com.owncloud.android.ui.adapter.NotificationListAdapter.NotificationViewHolder
 
-public interface NotificationsContract {
-
+interface NotificationsContract {
     interface View {
-        void onRemovedNotification(boolean isSuccess);
+        fun onRemovedNotification(isSuccess: Boolean)
 
-        void removeNotification(NotificationListAdapter.NotificationViewHolder holder);
+        fun removeNotification(holder: NotificationViewHolder)
 
-        void onRemovedAllNotifications(boolean isSuccess);
+        fun onRemovedAllNotifications(isSuccess: Boolean)
 
-        void onActionCallback(boolean isSuccess,
-                              Notification notification,
-                              NotificationListAdapter.NotificationViewHolder holder);
+        fun onActionCallback(isSuccess: Boolean, notification: Notification, holder: NotificationViewHolder)
     }
 }
