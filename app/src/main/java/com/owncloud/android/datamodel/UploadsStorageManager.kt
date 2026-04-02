@@ -60,14 +60,12 @@ class UploadsStorageManager(
         try {
             this.capability = CapabilityUtils.getCapability(MainApp.getAppContext())
         } catch (e: RuntimeException) {
-            Log_OC.e(TAG, "Failed to set OCCapability: Dependencies are not yet ready.")
+            Log_OC.e(TAG, "Failed to set OCCapability: Dependencies are not yet ready. $e")
         }
     }
 
     @Synchronized
     fun updateUpload(ocUpload: OCUpload): Int {
-        Log_OC.v(TAG, "Updating " + ocUpload.localPath + " with status=" + ocUpload.uploadStatus)
-
         val existingUpload = getUploadById(ocUpload.uploadId)
         if (existingUpload == null) {
             Log_OC.e(TAG, "Upload not found for ID: " + ocUpload.uploadId)
@@ -83,6 +81,8 @@ class UploadsStorageManager(
             return 0
         }
 
+        Log_OC.v(TAG, "Updating " + ocUpload.localPath + " with status=" + ocUpload.uploadStatus)
+
         val cv = ContentValues().apply {
             put(ProviderTableMeta.UPLOADS_LOCAL_PATH, ocUpload.localPath)
             put(ProviderTableMeta.UPLOADS_REMOTE_PATH, ocUpload.remotePath)
@@ -96,7 +96,7 @@ class UploadsStorageManager(
             put(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN, ocUpload.folderUnlockToken)
         }
 
-        val result: Int = contentResolver.update(
+        val result = contentResolver.update(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             cv,
             ProviderTableMeta._ID + "=? AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
@@ -104,6 +104,7 @@ class UploadsStorageManager(
         )
 
         Log_OC.d(TAG, "updateUpload returns with: " + result + " for file: " + ocUpload.localPath)
+
         if (result != SINGLE_RESULT) {
             Log_OC.e(TAG, "Failed to update item " + ocUpload.localPath + " into upload db.")
         } else {
@@ -114,7 +115,10 @@ class UploadsStorageManager(
     }
 
     private fun updateUploadInternal(
-        c: Cursor, status: UploadStatus?, result: UploadResult?, remotePath: String?,
+        c: Cursor,
+        status: UploadStatus?,
+        result: UploadResult?,
+        remotePath: String?,
         localPath: String?
     ): Int {
         var r = 0
@@ -148,7 +152,10 @@ class UploadsStorageManager(
     }
 
     private fun updateUploadStatus(
-        id: Long, status: UploadStatus?, result: UploadResult?, remotePath: String?,
+        id: Long,
+        status: UploadStatus?,
+        result: UploadResult?,
+        remotePath: String?,
         localPath: String?
     ) {
         val c = contentResolver.query(
@@ -175,7 +182,7 @@ class UploadsStorageManager(
     }
 
     fun notifyObserversNow() {
-        Log_OC.d(TAG, "notifyObserversNow")
+        Log_OC.d(TAG, "notifying upload storage manager observers")
         Handler(Looper.getMainLooper()).post {
             setChanged()
             notifyObservers()
@@ -187,7 +194,7 @@ class UploadsStorageManager(
     }
 
     fun removeUpload(id: Long): Int {
-        val result: Int = contentResolver.delete(
+        val result = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta._ID + "=?",
             arrayOf(id.toString())
@@ -199,8 +206,8 @@ class UploadsStorageManager(
         return result
     }
 
-    fun removeUpload(accountName: String?, remotePath: String?): Int {
-        val result: Int = contentResolver.delete(
+    private fun removeUpload(accountName: String?, remotePath: String?): Int {
+        val result = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=? AND " + ProviderTableMeta.UPLOADS_REMOTE_PATH + "=?",
             arrayOf(accountName, remotePath)
@@ -213,7 +220,7 @@ class UploadsStorageManager(
     }
 
     fun removeUploads(accountName: String?): Int {
-        val result: Int = contentResolver.delete(
+        val result = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
             arrayOf(accountName)
@@ -493,6 +500,7 @@ class UploadsStorageManager(
                 upload.remotePath
             )
         )
+
         updateUploadStatus(upload.ocUploadId, status, result, upload.remotePath, localPath)
     }
 
