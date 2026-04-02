@@ -38,7 +38,6 @@ import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationListItemBinding
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.notifications.DeleteNotificationRemoteOperation
 import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
@@ -74,12 +73,7 @@ class NotificationListAdapter(
 
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
         val notification = notificationsList[position]
-        with(holder.binding) {
-            datetime.text = DisplayUtils.getRelativeTimestamp(
-                fragment.requireContext(),
-                notification.getDatetime().time
-            )
-        }
+        bindDateTime(holder, notification)
         bindSubject(holder, notification)
         bindMessage(holder, notification)
         bindIcon(holder, notification)
@@ -91,11 +85,19 @@ class NotificationListAdapter(
 
     // region Bind helpers
 
+    private fun bindDateTime(holder: NotificationViewHolder, notification: Notification) {
+        val timestamp = DisplayUtils.getRelativeTimestamp(
+            fragment.requireContext(),
+            notification.getDatetime().time
+        )
+        holder.binding.datetime.text = timestamp
+    }
+
     private fun bindSubject(holder: NotificationViewHolder, notification: Notification) {
         val file = notification.subjectRichParameters[FILE]
         if (file == null && !TextUtils.isEmpty(notification.getLink())) {
             val subject = "${notification.getSubject()} ↗"
-            holder.binding.subject.apply {
+            holder.binding.subject.run {
                 setTypeface(typeface, Typeface.BOLD)
                 text = subject
                 setOnClickListener {
@@ -103,7 +105,7 @@ class NotificationListAdapter(
                 }
             }
         } else {
-            holder.binding.subject.apply {
+            holder.binding.subject.run {
                 text = if (!TextUtils.isEmpty(notification.subjectRich)) {
                     makeSpecialPartsBold(notification)
                 } else {
@@ -124,7 +126,7 @@ class NotificationListAdapter(
 
     private fun bindMessage(holder: NotificationViewHolder, notification: Notification) {
         val message = notification.getMessage()
-        holder.binding.message.apply {
+        holder.binding.message.run {
             if (!message.isNullOrEmpty()) {
                 text = message
                 visibility = View.VISIBLE
@@ -136,22 +138,15 @@ class NotificationListAdapter(
 
     private fun bindIcon(holder: NotificationViewHolder, notification: Notification) {
         if (notification.getIcon().isNullOrEmpty()) return
-        fragment.lifecycleScope.launch(Dispatchers.IO) {
-            runCatching {
-                withContext(Dispatchers.Main) {
-                    GlideHelper.loadIntoImageView(
-                        fragment.requireContext(),
-                        client,
-                        notification.getIcon(),
-                        holder.binding.icon,
-                        R.drawable.ic_notification,
-                        false
-                    )
-                }
-            }.onFailure { e ->
-                Log_OC.e("NotificationListAdapter", "exception setData: $e")
-            }
-        }
+
+        GlideHelper.loadIntoImageView(
+            fragment.requireContext(),
+            client,
+            notification.getIcon(),
+            holder.binding.icon,
+            R.drawable.ic_notification,
+            false
+        )
     }
 
     private fun colorViewHolder(holder: NotificationViewHolder) {
@@ -171,13 +166,18 @@ class NotificationListAdapter(
     fun bindButtons(holder: NotificationViewHolder, notification: Notification) {
         holder.binding.dismiss.setOnClickListener {
             fragment.lifecycleScope.launch(Dispatchers.IO) {
-                val result = DeleteNotificationRemoteOperation(notification.notificationId).execute(client!!)
-                withContext(Dispatchers.Main) { fragment.onRemovedNotification(result.isSuccess) }
+                val result =
+                    client?.let { clientValue ->
+                        DeleteNotificationRemoteOperation(notification.notificationId).execute(
+                            clientValue
+                        )
+                    }
+                withContext(Dispatchers.Main) { fragment.onRemovedNotification(result?.isSuccess == true) }
             }
         }
 
         val actions = notification.getActions()
-        holder.binding.buttons.apply {
+        holder.binding.buttons.run {
             removeAllViews()
             setVisibleIf(actions.isNotEmpty())
             if (actions.isEmpty()) return
@@ -269,7 +269,7 @@ class NotificationListAdapter(
                 Intent(Intent.ACTION_VIEW).apply { data = action.link?.toUri() }
             )
         } else {
-            NotificationExecuteActionTask(client!!, holder, notification, fragment).execute(action)
+            client?.let { NotificationExecuteActionTask(it, holder, notification, fragment) }?.execute(action)
         }
     }
 
@@ -323,23 +323,24 @@ class NotificationListAdapter(
     private fun makeSpecialPartsBold(notification: Notification): SpannableStringBuilder {
         var text = notification.getSubjectRich()
         val ssb = SpannableStringBuilder(text)
+
         var openingBrace = text.indexOf('{')
+        var closingBrace: Int
+        var replaceablePart: String?
         while (openingBrace != -1) {
-            val closingBrace = text.indexOf('}', openingBrace) + 1
-            val key = text.substring(openingBrace + 1, closingBrace - 1)
-            val richObject = notification.subjectRichParameters[key]
-            if (richObject != null) {
-                val name = richObject.name ?: ""
+            closingBrace = text.indexOf('}', openingBrace) + 1
+            replaceablePart = text.substring(openingBrace + 1, closingBrace - 1)
+            notification.subjectRichParameters[replaceablePart]?.name?.let { name ->
                 ssb.replace(openingBrace, closingBrace, name)
                 text = ssb.toString()
-                val end = openingBrace + name.length
-                ssb.setSpan(styleSpanBold, openingBrace, end, 0)
-                ssb.setSpan(foregroundColorSpanBlack, openingBrace, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                openingBrace = text.indexOf('{', end)
-            } else {
-                openingBrace = text.indexOf('{', closingBrace)
+                closingBrace = openingBrace + name.length
+
+                ssb.setSpan(styleSpanBold, openingBrace, closingBrace, 0)
+                ssb.setSpan(foregroundColorSpanBlack, openingBrace, closingBrace, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
+            openingBrace = text.indexOf('{', closingBrace)
         }
+
         return ssb
     }
 
