@@ -281,12 +281,10 @@ class NotificationsFragment :
     }
 
     private fun showError() {
-        requireActivity().runOnUiThread {
-            setEmptyContent(
-                getString(R.string.notifications_no_results_headline),
-                getString(R.string.account_not_found)
-            )
-        }
+        setEmptyContent(
+            getString(R.string.notifications_no_results_headline),
+            getString(R.string.account_not_found)
+        )
     }
     // endregion
 
