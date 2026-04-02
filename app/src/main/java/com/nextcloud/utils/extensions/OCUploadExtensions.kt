@@ -65,3 +65,5 @@ fun OCUpload.getStatusText(activity: Context, isGlobalUploadPaused: Boolean, isU
 
     return status
 }
+
+fun OCUpload.isLastResultConflictError(): Boolean = lastResult in UploadResult.CONFLICT_ERRORS

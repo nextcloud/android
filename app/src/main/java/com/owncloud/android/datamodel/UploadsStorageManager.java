@@ -18,6 +18,8 @@ package com.owncloud.android.datamodel;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
@@ -28,6 +30,7 @@ import com.nextcloud.client.database.entity.UploadEntityKt;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.utils.autoRename.AutoRename;
+import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -214,8 +217,10 @@ public class UploadsStorageManager extends Observable {
      */
     public void notifyObserversNow() {
         Log_OC.d(TAG, "notifyObserversNow");
-        setChanged();
-        notifyObservers();
+        new Handler(Looper.getMainLooper()).post(() -> {
+            setChanged();
+            notifyObservers();
+        });
     }
 
     /**
@@ -573,7 +578,7 @@ public class UploadsStorageManager extends Observable {
         if (uploadResult.isSuccess()) {
             status = UploadStatus.UPLOAD_SUCCEEDED;
             result = UploadResult.UPLOADED;
-        } else if (code == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+        } else if (RemoteOperationResultExtensionsKt.isConflict(code)) {
             boolean isSame = new FileUploadHelper().isSameFileOnRemote(
                 upload.getUser(), new File(upload.getStoragePath()), upload.getRemotePath(), upload.getContext());
 

@@ -338,6 +338,8 @@
     <string name="file_list_empty_local_search">Не бяха открити файлове или папки, които да отговарят на търсенето</string>
     <string name="file_list_empty_moving">Тук няма нищо. Можете да добавите папка.</string>
     <string name="file_list_empty_on_device">Свалените файлове и папки ще се показват тук.</string>
+    <string name="file_list_empty_recent_files_description">Файловете и папките, които наскоро сте променили, ще се покажат тук.</string>
+    <string name="file_list_empty_recent_files_headline">Няма наскоро модифицирани файлове</string>
     <string name="file_list_empty_recently_modified">Няма модифицирани файлове през последните 7 дни</string>
     <string name="file_list_empty_search">Вероятно е в друга директория?</string>
     <string name="file_list_empty_shared">Споделените файлове и папки ще се показват тук.</string>

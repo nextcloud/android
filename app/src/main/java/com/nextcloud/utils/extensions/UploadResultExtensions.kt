@@ -17,10 +17,11 @@ fun UploadResult.isNonRetryable(): Boolean = when (this) {
     UploadResult.FOLDER_ERROR,
     UploadResult.CANNOT_CREATE_FILE,
     UploadResult.SYNC_CONFLICT,
+    UploadResult.CONFLICT_ERROR,
+    UploadResult.SAME_FILE_CONFLICT,
     UploadResult.LOCAL_STORAGE_NOT_COPIED,
     UploadResult.VIRUS_DETECTED,
     UploadResult.QUOTA_EXCEEDED,
-    UploadResult.SAME_FILE_CONFLICT,
     UploadResult.PRIVILEGES_ERROR,
     UploadResult.CREDENTIAL_ERROR,
 

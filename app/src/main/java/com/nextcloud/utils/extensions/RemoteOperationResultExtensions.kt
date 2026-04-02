@@ -42,3 +42,12 @@ fun ResultCode.isFileSpecificError(): Boolean {
 
     return !errorCodes.contains(this)
 }
+
+fun ResultCode.isConflict(): Boolean {
+    val errorCodes = listOf(
+        ResultCode.SYNC_CONFLICT,
+        ResultCode.CONFLICT
+    )
+
+    return errorCodes.contains(this)
+}
