@@ -98,10 +98,9 @@ class NotificationsFragment :
     // region Setup
     private fun initUser() {
         optionalUser = Optional.of(accountManager.user)
-        arguments?.getString(NotificationWork.KEY_NOTIFICATION_ACCOUNT)?.let { accountName ->
-            if (optionalUser?.get()?.accountName.equals(accountName, ignoreCase = true)) {
-                accountManager.setCurrentOwnCloudAccount(accountName)
-            }
+        val accountName = activity?.intent?.getStringExtra(NotificationWork.KEY_NOTIFICATION_ACCOUNT)
+        if (optionalUser?.get()?.accountName.equals(accountName, ignoreCase = true)) {
+            accountManager.setCurrentOwnCloudAccount(accountName)
         }
     }
 
