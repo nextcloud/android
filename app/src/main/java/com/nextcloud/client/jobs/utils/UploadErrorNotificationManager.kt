@@ -15,6 +15,7 @@ import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.UploadBroadcastAction
+import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.utils.extensions.isConflict
 import com.nextcloud.utils.extensions.isFileSpecificError
 import com.owncloud.android.R
@@ -144,9 +145,12 @@ object UploadErrorNotificationManager {
                 )
             }
 
-            if (result.code == ResultCode.UNAUTHORIZED) {
-                setContentIntent(credentialPendingIntent(context, operation))
+            val pendingIntent = if (result.code == ResultCode.UNAUTHORIZED) {
+                credentialPendingIntent(context, operation)
+            } else {
+                AppWideNotificationManager.getUploadListPendingIntent(context)
             }
+            setContentIntent(pendingIntent)
         }.build()
     }
 
