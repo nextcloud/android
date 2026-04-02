@@ -68,9 +68,9 @@ class ActivitiesFragmentIT : AbstractIT() {
         launchActivitiesActivity().use { scenario ->
             val fragment = scenario.getFragment() ?: return
             scenario.onActivity {
-                fragment.binding.emptyList.root.visibility = View.GONE
-                fragment.binding.swipeContainingList.visibility = View.GONE
-                fragment.binding.loadingContent.visibility = View.VISIBLE
+                fragment.binding?.emptyList?.root?.visibility = View.GONE
+                fragment.binding?.swipeContainingList?.visibility = View.GONE
+                fragment.binding?.loadingContent?.visibility = View.VISIBLE
             }
             val screenShotName = createName("${testClassName}_loading", "")
             onView(isRoot()).check(matches(isDisplayed()))
