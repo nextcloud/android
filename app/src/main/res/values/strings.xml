@@ -331,7 +331,7 @@
     <string name="common_switch_to_account">Switch to account</string>
     <string name="sync_all_action_dialog_title">Download entire folder?</string>
     <string name="sync_all_action_dialog_description">
-    All files and subfolders will be downloaded to your device. This may use significant storage space and take some time depending on your connection.
+    All contained files and folders will be downloaded. This may require a significant amount of storage and take some time depending on your connection.
     </string>
     <string name="sync_fail_ticker">Sync failed</string>
     <string name="sync_fail_ticker_unauthorized">Sync failed, log in again</string>
