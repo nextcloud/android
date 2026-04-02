@@ -2,6 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2018-2022 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2017 Andy Scherzinger <info@andy-scherzinger.de>
@@ -12,7 +13,6 @@ package com.owncloud.android.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -35,6 +35,7 @@ import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.GlideHelper
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationListItemBinding
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -50,9 +51,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/**
- * This Adapter populates a RecyclerView with all notifications for an account within the app.
- */
 class NotificationListAdapter(
     private val client: NextcloudClient?,
     private val fragment: NotificationsFragment,
@@ -78,6 +76,10 @@ class NotificationListAdapter(
         )
     }
 
+    override fun getItemCount(): Int {
+        return notificationsList.size
+    }
+
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
         val notification = notificationsList[position]
         holder.binding.datetime.text = DisplayUtils.getRelativeTimestamp(
@@ -85,65 +87,77 @@ class NotificationListAdapter(
             notification.getDatetime().time
         )
 
+        bindSubject(holder, notification)
+        bindMessage(holder, notification)
+        bindIcon(holder, notification)
+        colorViewHolder(holder)
+        bindButtons(holder, notification)
+    }
+
+    private fun bindSubject(holder: NotificationViewHolder, notification: Notification) {
         val file = notification.subjectRichParameters[FILE]
-        var subject = notification.getSubject()
         if (file == null && !TextUtils.isEmpty(notification.getLink())) {
-            subject = "$subject ↗"
-            holder.binding.subject.setTypeface(
-                holder.binding.subject.typeface,
-                Typeface.BOLD
-            )
-            holder.binding.subject.setOnClickListener {
-                DisplayUtils.startLinkIntent(
-                    fragment.requireActivity(),
-                    notification.getLink()
-                )
-            }
-            holder.binding.subject.text = subject
-        } else {
-            if (!TextUtils.isEmpty(notification.subjectRich)) {
-                holder.binding.subject.text = makeSpecialPartsBold(notification)
-            } else {
-                holder.binding.subject.text = subject
-            }
-
-            if (file != null && !TextUtils.isEmpty(file.id)) {
-                holder.binding.subject.setOnClickListener {
-                    val intent = Intent(fragment.requireActivity(), FileDisplayActivity::class.java)
-                    intent.setAction(Intent.ACTION_VIEW)
-                    intent.putExtra(FileDisplayActivity.KEY_FILE_ID, file.id)
-                    fragment.requireActivity().startActivity(intent)
+            val subject = "${notification.getSubject()} ↗"
+            holder.binding.subject.run {
+                setTypeface(typeface, Typeface.BOLD)
+                text = subject
+                setOnClickListener {
+                    DisplayUtils.startLinkIntent(fragment.requireActivity(), notification.getLink())
                 }
             }
-        }
-
-        if (notification.getMessage() != null && !notification.getMessage().isEmpty()) {
-            holder.binding.message.text = notification.getMessage()
-            holder.binding.message.visibility = View.VISIBLE
         } else {
-            holder.binding.message.visibility = View.GONE
-        }
-
-        if (!TextUtils.isEmpty(notification.getIcon())) {
-            fragment.lifecycleScope.launch(Dispatchers.IO) {
-                try {
-                    withContext(Dispatchers.Main) {
-                        GlideHelper
-                            .loadIntoImageView(
-                                fragment.requireContext(),
-                                client,
-                                notification.getIcon(),
-                                holder.binding.icon,
-                                R.drawable.ic_notification,
-                                false
-                            )
+            holder.binding.subject.run {
+                text = if (!TextUtils.isEmpty(notification.subjectRich)) {
+                    makeSpecialPartsBold(notification)
+                } else {
+                    notification.getSubject()
+                }
+                if (file?.id?.isNotEmpty() == true) {
+                    setOnClickListener {
+                        val intent = Intent(fragment.requireActivity(), FileDisplayActivity::class.java).apply {
+                            action = Intent.ACTION_VIEW
+                            putExtra(FileDisplayActivity.KEY_FILE_ID, file.id)
+                        }
+                        fragment.requireActivity().startActivity(intent)
                     }
-                } catch (e: Exception) {
-                    Log_OC.e("RichDocumentsTemplateAdapter", "Exception setData: " + e)
                 }
             }
         }
+    }
 
+    private fun bindMessage(holder: NotificationViewHolder, notification: Notification) {
+        holder.binding.message.run {
+            if (notification.getMessage() != null && !notification.getMessage().isEmpty()) {
+                text = notification.getMessage()
+                visibility = View.VISIBLE
+            } else {
+                visibility = View.GONE
+            }
+        }
+    }
+
+    private fun bindIcon(holder: NotificationViewHolder, notification: Notification) {
+        if (notification.getIcon().isNullOrEmpty()) return
+
+        fragment.lifecycleScope.launch(Dispatchers.IO) {
+            runCatching {
+                withContext(Dispatchers.Main) {
+                    GlideHelper.loadIntoImageView(
+                        fragment.requireContext(),
+                        client,
+                        notification.getIcon(),
+                        holder.binding.icon,
+                        R.drawable.ic_notification,
+                        false
+                    )
+                }
+            }.onFailure { e ->
+                Log_OC.e("RichDocumentsTemplateAdapter", "exception setData: $e")
+            }
+        }
+    }
+
+    private fun colorViewHolder(holder: NotificationViewHolder) {
         viewThemeUtils.platform.run {
             colorImageView(holder.binding.icon, ColorRole.ON_SURFACE_VARIANT)
             colorImageView(holder.binding.dismiss, ColorRole.ON_SURFACE_VARIANT)
@@ -151,10 +165,105 @@ class NotificationListAdapter(
             colorTextView(holder.binding.message, ColorRole.ON_SURFACE_VARIANT)
             colorTextView(holder.binding.datetime, ColorRole.ON_SURFACE_VARIANT)
         }
+    }
 
+    private fun getPrimaryButton(
+        holder: NotificationViewHolder,
+        action: Action,
+        notification: Notification,
+        params: LinearLayout.LayoutParams
+    ): MaterialButton {
+        return MaterialButton(fragment.requireContext()).apply {
+            setAllCaps(false)
+            text = action.label
+            setCornerRadiusResource(R.dimen.button_corner_radius)
+            setLayoutParams(params)
+            setGravity(Gravity.CENTER)
+            setOnClickListener {
+                onPrimaryAction(holder, action, notification)
+            }
+        }
+    }
 
-        setButtons(holder, notification)
+    private fun onPrimaryAction(holder: NotificationViewHolder, action: Action, notification: Notification) {
+        setButtonEnabled(holder, false)
+        if (ACTION_TYPE_WEB == action.type) {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.setData(action.link?.toUri())
+            fragment.requireActivity().startActivity(intent)
+        } else {
+            NotificationExecuteActionTask(
+                client!!,
+                holder,
+                notification,
+                fragment
+            ).execute(action)
+        }
+    }
 
+    private fun getMoreButton(
+        overflowActions: ArrayList<Action>,
+        params: LinearLayout.LayoutParams,
+        holder: NotificationViewHolder,
+        notification: Notification
+    ): MaterialButton {
+        return MaterialButton(fragment.requireContext()).apply {
+            setBackgroundColor(
+                ResourcesCompat.getColor(
+                    resources,
+                    android.R.color.transparent,
+                    null
+                )
+            )
+            setAllCaps(false)
+            setText(R.string.more)
+            setCornerRadiusResource(R.dimen.button_corner_radius)
+            setLayoutParams(params)
+            setGravity(Gravity.CENTER)
+            setOnClickListener {
+                val popup = PopupMenu(fragment.requireContext(), this)
+                for (action in overflowActions) {
+                    popup.menu.add(action.label)
+                        .setOnMenuItemClickListener {
+                            onPrimaryAction(holder, action, notification)
+                            true
+                        }
+                }
+                popup.show()
+            }
+        }
+    }
+
+    private fun getButton(
+        action: Action,
+        holder: NotificationViewHolder,
+        params: LinearLayout.LayoutParams,
+        notification: Notification
+    ): MaterialButton {
+        return MaterialButton(fragment.requireContext()).apply {
+            if (action.primary) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryFilled(this)
+            } else {
+                setBackgroundColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        android.R.color.transparent,
+                        null
+                    )
+                )
+                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(this)
+            }
+            setAllCaps(false)
+            text = action.label
+            setCornerRadiusResource(R.dimen.button_corner_radius)
+            setLayoutParams(params)
+            setOnClickListener {
+                onPrimaryAction(holder, action, notification)
+            }
+        }
+    }
+
+    fun bindButtons(holder: NotificationViewHolder, notification: Notification) {
         holder.binding.dismiss.setOnClickListener {
             fragment.lifecycleScope.launch(Dispatchers.IO) {
                 val result = DeleteNotificationRemoteOperation(notification.notificationId)
@@ -164,65 +273,22 @@ class NotificationListAdapter(
                 }
             }
         }
-    }
 
-    override fun getItemCount(): Int {
-        return notificationsList.size
-    }
-
-    fun setButtons(holder: NotificationViewHolder, notification: Notification) {
-        // add action buttons
         holder.binding.buttons.removeAllViews()
 
-        val resources: Resources = fragment.resources
-        val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+        val resources = fragment.resources
+        val params = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
-        params.setMargins(
-            resources.getDimensionPixelOffset(R.dimen.standard_quarter_margin),
-            0,
-            resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
-            0
-        )
-
+        params.setMargins(resources.getDimensionPixelOffset(R.dimen.standard_quarter_margin), 0, resources.getDimensionPixelOffset(R.dimen.standard_half_margin), 0)
         val overflowActions = ArrayList<Action>()
-
-        if (notification.getActions().isNotEmpty()) {
-            holder.binding.buttons.visibility = View.VISIBLE
-        } else {
-            holder.binding.buttons.visibility = View.GONE
-        }
+        holder.binding.buttons.setVisibleIf(notification.getActions().isNotEmpty())
 
         if (notification.getActions().size > 2) {
             for (action in notification.getActions()) {
                 if (action.primary) {
-                    val button: MaterialButton = MaterialButton(fragment.requireContext())
-                    button.setAllCaps(false)
-
-                    button.text = action.label
-                    button.setCornerRadiusResource(R.dimen.button_corner_radius)
-
-                    button.setLayoutParams(params)
-                    button.setGravity(Gravity.CENTER)
-
-                    button.setOnClickListener {
-                        setButtonEnabled(holder, false)
-                        if (ACTION_TYPE_WEB == action.type) {
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.setData(action.link?.toUri())
-                            fragment.requireActivity().startActivity(intent)
-                        } else {
-                            NotificationExecuteActionTask(
-                                client!!,
-                                holder,
-                                notification,
-                                fragment
-                            )
-                                .execute(action)
-                        }
-                    }
-
+                    val button = getPrimaryButton(holder, action, notification, params)
                     viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button)
                     holder.binding.buttons.addView(button)
                 } else {
@@ -230,89 +296,12 @@ class NotificationListAdapter(
                 }
             }
 
-            // further actions
-            val moreButton = MaterialButton(fragment.requireContext())
-            moreButton.setBackgroundColor(
-                ResourcesCompat.getColor(
-                    resources,
-                    android.R.color.transparent,
-                    null
-                )
-            )
+            val moreButton = getMoreButton(overflowActions, params, holder, notification)
             viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(moreButton)
-
-            moreButton.setAllCaps(false)
-            moreButton.setText(R.string.more)
-            moreButton.setCornerRadiusResource(R.dimen.button_corner_radius)
-            moreButton.setLayoutParams(params)
-            moreButton.setGravity(Gravity.CENTER)
-            moreButton.setOnClickListener {
-                val popup = PopupMenu(fragment.requireContext(), moreButton)
-                for (action in overflowActions) {
-                    popup.menu.add(action.label)
-                        .setOnMenuItemClickListener {
-                            setButtonEnabled(holder, false)
-                            if (ACTION_TYPE_WEB == action.type) {
-                                val intent = Intent(Intent.ACTION_VIEW)
-                                intent.setData(action.link?.toUri())
-                                fragment.requireActivity().startActivity(intent)
-                            } else {
-                                NotificationExecuteActionTask(
-                                    client!!,
-                                    holder,
-                                    notification,
-                                    fragment
-                                )
-                                    .execute(action)
-                            }
-                            true
-                        }
-                }
-                popup.show()
-            }
-
             holder.binding.buttons.addView(moreButton)
         } else {
             for (action in notification.getActions()) {
-                val button = MaterialButton(fragment.requireContext())
-
-                if (action.primary) {
-                    viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button)
-                } else {
-                    button.setBackgroundColor(
-                        ResourcesCompat.getColor(
-                            resources,
-                            android.R.color.transparent,
-                            null
-                        )
-                    )
-                    viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(button)
-                }
-
-                button.setAllCaps(false)
-
-                button.text = action.label
-                button.setCornerRadiusResource(R.dimen.button_corner_radius)
-
-                button.setLayoutParams(params)
-
-                button.setOnClickListener {
-                    setButtonEnabled(holder, false)
-                    if (ACTION_TYPE_WEB == action.type) {
-                        val intent = Intent(Intent.ACTION_VIEW)
-                        intent.setData(action.link?.toUri())
-                        fragment.requireActivity().startActivity(intent)
-                    } else {
-                        NotificationExecuteActionTask(
-                            client!!,
-                            holder,
-                            notification,
-                            fragment
-                        )
-                            .execute(action)
-                    }
-                }
-
+                val button = getButton(action, holder, params, notification)
                 holder.binding.buttons.addView(button)
             }
         }

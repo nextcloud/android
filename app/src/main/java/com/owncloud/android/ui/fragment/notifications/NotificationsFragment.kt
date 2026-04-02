@@ -386,7 +386,7 @@ class NotificationsFragment :
         if (isSuccess) {
             adapter?.removeNotification(holder)
         } else {
-            adapter?.setButtons(holder, notification)
+            adapter?.bindButtons(holder, notification)
             DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.notification_action_failed))
         }
     }
