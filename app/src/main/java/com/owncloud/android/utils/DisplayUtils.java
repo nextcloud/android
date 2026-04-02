@@ -941,6 +941,10 @@ public final class DisplayUtils {
                 @Override
                 public void onError() {
                     stopShimmer(shimmerThumbnail, thumbnailView);
+                    final var icon = MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
+                    thumbnailView.setImageDrawable(icon);
+                    thumbnailView.invalidate();
+                    Log_OC.w(TAG, "setting thumbnail failed, using icon from mime type");
                 }
             });
 
