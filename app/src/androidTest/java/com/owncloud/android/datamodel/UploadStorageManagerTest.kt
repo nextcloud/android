@@ -154,7 +154,7 @@ class UploadStorageManagerTest : AbstractIT() {
         return false
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test(expected = NullPointerException::class)
     fun corruptedUpload() {
         val corruptUpload = OCUpload(
             File.separator + "LocalPath",

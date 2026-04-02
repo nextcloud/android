@@ -237,7 +237,7 @@ class UploadsStorageManager(
         return result
     }
 
-    fun getAllStoredUploads(): Array<OCUpload> = getUploads(null, null)
+    fun getAllStoredUploads(): Array<OCUpload> = getUploads(null)
 
     fun getUploadById(id: Long): OCUpload? {
         var result: OCUpload? = null
