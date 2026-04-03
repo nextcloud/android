@@ -150,7 +150,13 @@ class ConflictsResolveActivity :
 
     private fun handleFile(file: OCFile?, upload: OCUpload?, user: User, policy: NameCollisionPolicy) {
         upload?.let { uploadHelper.removeFileUpload(it.remotePath, it.accountName) }
-        uploadHelper.uploadUpdatedFile(user, arrayOf(file), localBehaviour, policy)
+        uploadHelper.uploadUpdatedFile(
+            user,
+            arrayOf(file),
+            localBehaviour,
+            policy,
+            skipAutoUploadCheck = true
+        )
     }
 
     private suspend fun keepServer(file: OCFile?, upload: OCUpload?, user: User) {

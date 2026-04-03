@@ -44,6 +44,10 @@
     <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
     <string name="appear_offline">Lineaz kanpo agertzen da</string>
+    <string name="assistant_screen_chat_create_error">Ezin izan da mezua bidali</string>
+    <string name="assistant_screen_chat_fetch_error">Ezin izan dira txat-mezuak eskuratu</string>
+    <string name="assistant_screen_chat_generate_error">Ezin izan da erantzuna sortu</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Itzuli laguntza orrira</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ziur zeregin hau ezabatu nahi duzula?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ezabatu zeregina</string>
     <string name="assistant_screen_task_create_fail_message">Errore bat gertatu da zeregina sortzean</string>

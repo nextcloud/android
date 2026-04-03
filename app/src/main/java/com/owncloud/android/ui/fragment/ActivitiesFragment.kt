@@ -60,7 +60,7 @@ class ActivitiesFragment :
     @Inject
     lateinit var userAccountManager: UserAccountManager
 
-    private var binding: FragmentActivitiesBinding? = null
+    var binding: FragmentActivitiesBinding? = null
 
     private var adapter: ActivityListAdapter? = null
     private var lastGiven: Long = 0

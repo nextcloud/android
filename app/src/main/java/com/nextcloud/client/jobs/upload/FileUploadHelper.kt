@@ -449,16 +449,14 @@ class FileUploadHelper {
         }
     }
 
+    @JvmOverloads
     fun uploadUpdatedFile(
         user: User,
-        existingFiles: Array<OCFile?>?,
+        existingFiles: Array<OCFile?>,
         behaviour: Int,
-        nameCollisionPolicy: NameCollisionPolicy
+        nameCollisionPolicy: NameCollisionPolicy,
+        skipAutoUploadCheck: Boolean = false
     ) {
-        if (existingFiles == null) {
-            return
-        }
-
         Log_OC.d(this, "upload updated file")
 
         val uploads = existingFiles.map { file ->
@@ -496,7 +494,12 @@ class FileUploadHelper {
             }
         }
         val uploadIds: LongArray = uploads.filterNotNull().map { it.uploadId }.toLongArray()
-        backgroundJobManager.startFilesUploadJob(user, uploadIds, true)
+        backgroundJobManager.startFilesUploadJob(
+            user,
+            uploadIds,
+            true,
+            skipAutoUploadCheck
+        )
     }
 
     /**
