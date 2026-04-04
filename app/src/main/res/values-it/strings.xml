@@ -542,6 +542,7 @@
     <string name="login">Accedi</string>
     <string name="login_url_helper_text">Il collegamento alla tua interfaccia web di %1$s quando la apri nel browser.</string>
     <string name="logs_menu_delete">Elimina log</string>
+    <string name="logs_menu_export">Esporta log</string>
     <string name="logs_menu_refresh">Aggiorna</string>
     <string name="logs_menu_search">Cerca log</string>
     <string name="logs_menu_send">Invia log tramite email</string>

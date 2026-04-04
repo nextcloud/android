@@ -749,7 +749,7 @@
     <string name="prefs_data_storage_location">Duomenų saugojimo vieta</string>
     <string name="prefs_data_storage_location_summary">Tvarkyti duomenų saugojimo vietą</string>
     <string name="prefs_davx5_setup_error">Netikėta klaida diegiant DAVx⁵ (anksčiau žinomą kaip DAVdroid)</string>
-    <string name="prefs_e2e_active">Nustatytas „nuo galo iki galo“ šifravimas!</string>
+    <string name="prefs_e2e_active">Nustatytas ištisinis šifravimas!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemoninis</string>
     <string name="prefs_e2e_no_device_credentials">Norėdami parodyti \"mnemoniką\", įjunkite įrenginio prisijungimo duomenis.</string>
     <string name="prefs_enable_media_scan_notifications">Rodyti medijos nuskaitymo pranešimus</string>
@@ -764,7 +764,7 @@
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Saugoti poaplankiuose pagal datą</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Naudoti poaplankius</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Poaplankio parinktys</string>
-    <string name="prefs_keys_exist">Pridėti visapusišką šifravimą šiam klientui</string>
+    <string name="prefs_keys_exist">Pridėti ištisinį šifravimą šiam klientui</string>
     <string name="prefs_license">Licencija</string>
     <string name="prefs_lock">Programos užraktas</string>
     <string name="prefs_lock_device_credentials_enabled">Įrenginio prisijungimo duomenys įjungti</string>
