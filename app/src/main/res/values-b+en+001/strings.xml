@@ -319,6 +319,7 @@
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">On device</string>
     <string name="drawer_item_personal_files">Personal files</string>
+    <string name="drawer_item_recent_files">Recent files</string>
     <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_trashbin">Deleted files</string>
