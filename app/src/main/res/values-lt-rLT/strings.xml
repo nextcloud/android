@@ -322,6 +322,7 @@
     <string name="drawer_item_notifications">Pranešimai</string>
     <string name="drawer_item_on_device">Įrenginyje</string>
     <string name="drawer_item_personal_files">Asmeniniai failai</string>
+    <string name="drawer_item_recent_files">Naujausi failai</string>
     <string name="drawer_item_recently_modified">Paskiausiai modifikuoti</string>
     <string name="drawer_item_shared">Bendrinami</string>
     <string name="drawer_item_trashbin">Ištrinti failai</string>
@@ -408,6 +409,7 @@
     <string name="etm_transfer_type">Persiųsti</string>
     <string name="etm_transfer_type_download">Atsisiųsti</string>
     <string name="etm_transfer_type_upload">Įkelti</string>
+    <string name="export_in_progress">Eksportuojama %1$d iš %2$d</string>
     <string name="extension_cannot_be_changed">Plėtinio pakeisti negalima</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Jūs neturite leidimo kurti arba įkelti failų šiame aplanke.</string>
     <string name="external_shares">Išoriniai bendrinimai</string>
