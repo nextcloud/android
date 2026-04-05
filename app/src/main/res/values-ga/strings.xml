@@ -319,6 +319,7 @@
     <string name="drawer_item_notifications">Fógraí</string>
     <string name="drawer_item_on_device">Ar gléas</string>
     <string name="drawer_item_personal_files">Comhaid phearsanta</string>
+    <string name="drawer_item_recent_files">Comhaid le déanaí</string>
     <string name="drawer_item_recently_modified">Athraithe le déanaí</string>
     <string name="drawer_item_shared">Roinnte</string>
     <string name="drawer_item_trashbin">Comhaid scriosta</string>
