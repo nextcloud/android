@@ -68,6 +68,7 @@ import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.FileLockEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -931,12 +932,34 @@ public class FileOperationsHelper {
     }
 
     public void toggleEncryption(OCFile file, boolean shouldBeEncrypted) {
-        if (file.isEncrypted() != shouldBeEncrypted) {
-            EventBus.getDefault().post(new EncryptionEvent(file.getLocalId(),
-                                                           file.getRemoteId(),
-                                                           file.getRemotePath(),
-                                                           shouldBeEncrypted));
+        if (file.isEncrypted() == shouldBeEncrypted) {
+            Log_OC.d(TAG, "file already in wanted encryption state. " +
+                "isEncrypted: " + file.isEncrypted() + " should be encrypted: "+ shouldBeEncrypted);
+            return;
         }
+
+        if (file.isRootDirectory()) {
+            Log_OC.d(TAG, "toggle encryption triggered in root directory, this call is for creating encrypted folder");
+            if (!(fileActivity instanceof FileDisplayActivity fda)) {
+                Log_OC.e(TAG, "file display activity is not active, cannot show create folder dialog");
+                return;
+            }
+
+            OCFileListFragment fragment = fda.getListOfFilesFragment();
+            if (fragment == null) {
+                Log_OC.e(TAG, "file list fragment is null, cannot show create folder dialog");
+                return;
+            }
+
+            fragment.createFolder(true);
+            return;
+        }
+
+        Log_OC.d(TAG, "toggling encryption for: " + file.getRemotePath());
+        EventBus.getDefault().post(new EncryptionEvent(file.getLocalId(),
+                                                       file.getRemoteId(),
+                                                       file.getRemotePath(),
+                                                       shouldBeEncrypted));
     }
 
     public void toggleFileLock(OCFile file, boolean shouldBeLocked) {
@@ -982,12 +1005,12 @@ public class FileOperationsHelper {
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
     }
 
-    public void createFolder(String remotePath) {
-        // Create Folder
+    public void createFolder(String remotePath, boolean encrypted) {
         Intent service = new Intent(fileActivity, OperationsService.class);
         service.setAction(OperationsService.ACTION_CREATE_FOLDER);
         service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
+        service.putExtra(OperationsService.EXTRA_ENCRYPTED, encrypted);
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
@@ -1020,7 +1043,7 @@ public class FileOperationsHelper {
 
         final var fileUploadHelper = FileUploadHelper.Companion.instance();
         if (fileUploadHelper.isUploading(file.getRemotePath(), currentUser.getAccountName())) {
-            FileUploadWorker.Companion.cancelCurrentUpload(file.getRemotePath(), currentUser.getAccountName(), () -> {
+            FileUploadWorker.Companion.cancelUpload(file.getRemotePath(), currentUser.getAccountName(), () -> {
                 fileUploadHelper.updateUploadStatus(file.getRemotePath(), currentUser.getAccountName(), UploadsStorageManager.UploadStatus.UPLOAD_CANCELLED);
                 return Unit.INSTANCE;
             });

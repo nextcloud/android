@@ -100,8 +100,8 @@ public final class ThumbnailsCacheManager {
     private static final String ETAG = "ETag";
 
     private static final Object mThumbnailsDiskCacheLock = new Object();
-    private static DiskLruImageCache mThumbnailCache;
-    private static boolean mThumbnailCacheStarting = true;
+    private static volatile DiskLruImageCache mThumbnailCache;
+    private static volatile boolean mThumbnailCacheStarting = true;
 
     private static final int DISK_CACHE_SIZE = 1024 * 1024 * 200; // 200MB
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
@@ -1243,8 +1243,12 @@ public final class ThumbnailsCacheManager {
 
     @VisibleForTesting
     public static void clearCache() {
-        mThumbnailCache.clearCache();
-        mThumbnailCache = null;
+        synchronized (mThumbnailsDiskCacheLock) {
+            if (mThumbnailCache != null) {
+                mThumbnailCache.clearCache();
+                mThumbnailCache = null;
+            }
+        }
     }
 
     public static void setClient(OwnCloudClient client) {
@@ -1266,7 +1270,7 @@ public final class ThumbnailsCacheManager {
         int pxW = p.x;
         int pxH = p.y;
 
-        if (file.isDown()) {
+        if (file.isDown() && MimeTypeUtil.isImage(file)) {
             Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
             if (bitmap != null) {
                 if (OCFileExtensionsKt.isPNG(file)) {
@@ -1279,7 +1283,7 @@ public final class ThumbnailsCacheManager {
             GetMethod getMethod = null;
 
             try {
-                String uri = OwnCloudClientExtensionsKt.getPreviewEndpoint(mClient, file.getLocalId(), pxW, pxH);
+                String uri = OwnCloudClientExtensionsKt.getPreviewEndpoint(mClient, file.getRemoteId(), pxW, pxH);
                 Log_OC.d(TAG, "generating resized image: " + file.getFileName() + " URI: " + uri);
 
                 getMethod = new GetMethod(uri);

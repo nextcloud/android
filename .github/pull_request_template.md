@@ -8,4 +8,12 @@ Unit tests: https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md#uni
 Instrumented tests: https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md#instrumented-tests
 UI tests: https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md#ui-tests
  -->
+### 🖼️ Screenshots
+
+🏚️ Before | 🏡 After
+---|---
+B | A
+
+### 🏁 Checklist
+ 
 - [ ] Tests written, or not not needed

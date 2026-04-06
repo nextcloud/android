@@ -61,7 +61,6 @@ class SharedListFragment :
         Handler().post {
             if (activity is FileDisplayActivity) {
                 val fileDisplayActivity = activity as FileDisplayActivity
-                fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_shared))
                 fileDisplayActivity.setMainFabVisible(false)
             }
         }

@@ -36,14 +36,15 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.searchFilesByName
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.typedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.NextcloudVersion
@@ -61,6 +62,7 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.ui.unifiedsearch.filterOutHiddenFiles
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PermissionUtil
+import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -106,6 +108,9 @@ class UnifiedSearchFragment :
     }
 
     @Inject
+    lateinit var overlayManager: OverlayManager
+
+    @Inject
     lateinit var vmFactory: ViewModelFactory
 
     @Inject
@@ -131,6 +136,8 @@ class UnifiedSearchFragment :
 
     @Inject
     lateinit var clock: Clock
+
+    @Volatile private var client: NextcloudClient? = null
 
     private var listOfHiddenFiles = ArrayList<String>()
     private var showMoreActions = false
@@ -174,6 +181,7 @@ class UnifiedSearchFragment :
             setupToolbar()
             setMainFabVisible(false)
             updateActionBarTitleAndHomeButtonByString(null)
+            setDrawerIndicatorEnabled(false)
         }
     }
 
@@ -230,47 +238,42 @@ class UnifiedSearchFragment :
             adapter.setData(emptyList())
             adapter.setDataCurrentDirItems(listOf())
 
-            showStartYourSearch()
+            vm.updateScreenState(UnifiedSearchFragmentScreenState.Empty.startSearch())
             showKeyboard(searchView)
         }
     }
 
-    private fun makeEmptyListVisible() {
-        binding.emptyList.run {
-            root.visibility = View.VISIBLE
-            emptyListIcon.visibility = View.VISIBLE
-            emptyListViewHeadline.visibility = View.VISIBLE
-            emptyListViewText.visibility = View.VISIBLE
-            emptyListIcon.visibility = View.VISIBLE
+    private fun handleScreenState(state: UnifiedSearchFragmentScreenState) {
+        when (state) {
+            is UnifiedSearchFragmentScreenState.ShowingContent -> {
+                toggleEmptyListVisible(show = false)
+            }
+
+            is UnifiedSearchFragmentScreenState.Empty -> {
+                showEmptyView(state)
+            }
         }
     }
 
-    private fun showStartYourSearch() {
-        makeEmptyListVisible()
-
+    private fun toggleEmptyListVisible(show: Boolean) {
         binding.emptyList.run {
-            emptyListViewHeadline.text = getString(R.string.file_list_empty_unified_search_start_search)
-            emptyListViewText.text = getString(R.string.file_list_empty_unified_search_start_search_description)
-            emptyListIcon.setImageDrawable(
-                viewThemeUtils.platform.tintDrawable(
-                    requireContext(),
-                    R.drawable.ic_search_grey
-                )
-            )
+            root.setVisibleIf(show)
+            emptyListIcon.setVisibleIf(show)
+            emptyListViewHeadline.setVisibleIf(show)
+            emptyListViewText.setVisibleIf(show)
+            emptyListIcon.setVisibleIf(show)
         }
     }
 
-    private fun showNoResult() {
-        makeEmptyListVisible()
+    private fun showEmptyView(state: UnifiedSearchFragmentScreenState.Empty) {
+        toggleEmptyListVisible(show = true)
 
         binding.emptyList.run {
-            emptyListViewHeadline.text =
-                requireContext().getString(R.string.file_list_empty_headline_server_search)
-            emptyListViewText.text =
-                requireContext().getString(R.string.file_list_empty_unified_search_no_results)
             emptyListIcon.setImageDrawable(
-                viewThemeUtils.platform.tintDrawable(requireContext(), R.drawable.ic_search_grey)
+                viewThemeUtils.platform.tintDrawable(requireContext(), state.iconId)
             )
+            emptyListViewHeadline.text = requireContext().getString(state.titleId)
+            emptyListViewText.text = requireContext().getString(state.descriptionId)
         }
     }
 
@@ -317,22 +320,22 @@ class UnifiedSearchFragment :
         vm.isLoading.observe(viewLifecycleOwner) { loading ->
             binding.swipeContainingList.isRefreshing = loading
         }
+        vm.screenState.observe(viewLifecycleOwner) {
+            handleScreenState(it)
+        }
 
-        PairMediatorLiveData(vm.searchResults, vm.isLoading).observe(viewLifecycleOwner) { pair ->
-            if (pair.second == false) {
-                var count = 0
+        PairMediatorLiveData(vm.searchResults, vm.isLoading).observe(viewLifecycleOwner) { (searchResults, isLoading) ->
+            if (isLoading == true || searchResults.isNullOrEmpty()) {
+                return@observe
+            }
 
-                pair.first?.forEach {
-                    count += it.entries.size
-                }
+            val hasSearchResult = searchResults.any { searchResult -> searchResult.entries.isNotEmpty() }
 
-                if (count == 0 &&
-                    pair.first?.isNotEmpty() == true &&
-                    context != null &&
-                    !adapter.isCurrentDirItemsEmpty()
-                ) {
-                    showNoResult()
-                }
+            if (context != null &&
+                !hasSearchResult &&
+                !adapter.hasLocalResults()
+            ) {
+                vm.updateScreenState(UnifiedSearchFragmentScreenState.Empty.noResults())
             }
         }
 
@@ -356,62 +359,56 @@ class UnifiedSearchFragment :
         }
     }
 
-    private fun showFile(file: OCFile, showFileActions: Boolean) {
-        activity.let {
-            if (activity is FileDisplayActivity) {
-                val fda = activity as FileDisplayActivity
-                fda.file = file
-
-                if (showFileActions) {
-                    fda.showFileActions(file)
-                } else {
-                    fda.showFile(file, "")
-                }
+    private fun showFile(file: OCFile, showFileActions: Boolean, updateCurrentFile: Boolean = true) {
+        (activity as? FileDisplayActivity)?.apply {
+            if (updateCurrentFile) {
+                this.file = file
             }
+
+            if (showFileActions) showFileActions(file) else showFile(file, "")
         }
     }
 
     private fun setupAdapter() {
-        val syncedFolderProvider = SyncedFolderProvider(requireContext().contentResolver, appPreferences, clock)
         val gridLayoutManager = GridLayoutManager(requireContext(), 1)
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            val client =
-                getTypedActivity(FileActivity::class.java)?.clientRepository?.getNextcloudClient() ?: return@launch
+        adapter = UnifiedSearchListAdapter(
+            supportsOpeningCalendarContactsLocally(),
+            storageManager,
+            this@UnifiedSearchFragment,
+            this@UnifiedSearchFragment,
+            currentAccountProvider.user,
+            requireContext(),
+            viewThemeUtils,
+            appPreferences,
+            this@UnifiedSearchFragment,
+            overlayManager
+        )
 
-            withContext(Dispatchers.Main) {
-                adapter = UnifiedSearchListAdapter(
-                    supportsOpeningCalendarContactsLocally(),
-                    storageManager,
-                    this@UnifiedSearchFragment,
-                    this@UnifiedSearchFragment,
-                    currentAccountProvider.user,
-                    requireContext(),
-                    viewThemeUtils,
-                    appPreferences,
-                    syncedFolderProvider,
-                    client,
-                    this@UnifiedSearchFragment
-                )
+        adapter.shouldShowFooters(true)
+        adapter.setLayoutManager(gridLayoutManager)
+        binding.listRoot.layoutManager = gridLayoutManager
+        binding.listRoot.adapter = adapter
+        searchInCurrentDirectory(initialQuery ?: "")
 
-                adapter.shouldShowFooters(true)
-                adapter.setLayoutManager(gridLayoutManager)
-                binding.listRoot.layoutManager = gridLayoutManager
-                binding.listRoot.adapter = adapter
-                searchInCurrentDirectory(initialQuery ?: "")
-
-                setUpViewModel()
-                if (!initialQuery.isNullOrEmpty()) {
-                    vm.setQuery(initialQuery!!)
-                    vm.initialQuery()
-                }
-            }
+        setUpViewModel()
+        if (!initialQuery.isNullOrEmpty()) {
+            vm.setQuery(initialQuery!!)
+            vm.initialQuery()
         }
     }
 
     override fun onSearchResultClicked(searchResultEntry: SearchResultEntry) {
         showMoreActions = false
-        vm.openResult(searchResultEntry)
+
+        val remotePath = searchResultEntry.remotePath() + OCFile.PATH_SEPARATOR
+        val file = storageManager.getFileByDecryptedRemotePath(remotePath)
+
+        if (file?.isEncrypted == true) {
+            showFile(file, showMoreActions, updateCurrentFile = false)
+        } else {
+            vm.openResult(searchResultEntry)
+        }
     }
 
     override fun onLoadMoreClicked(providerID: ProviderID) {
@@ -422,7 +419,11 @@ class UnifiedSearchFragment :
     fun onSearchResultChanged(result: List<UnifiedSearchSection>) {
         Log_OC.d(TAG, "result")
         binding.emptyList.emptyListView.visibility = View.GONE
-        adapter.setData(result.filterOutHiddenFiles(listOfHiddenFiles))
+        val newFiles = result.filterOutHiddenFiles(listOfHiddenFiles)
+        if (newFiles.isNotEmpty()) {
+            vm.updateScreenState(UnifiedSearchFragmentScreenState.ShowingContent)
+        }
+        adapter.setData(newFiles)
     }
 
     @VisibleForTesting
@@ -449,6 +450,9 @@ class UnifiedSearchFragment :
             val files = storageManager
                 .searchFilesByName(this, accountManager.user.accountName, query)
                 .filter { !it.isEncrypted }
+            if (files.isNotEmpty()) {
+                vm.updateScreenState(UnifiedSearchFragmentScreenState.ShowingContent)
+            }
             adapter.setDataCurrentDirItems(files)
         }
     }
@@ -461,6 +465,26 @@ class UnifiedSearchFragment :
     override fun showFilesAction(searchResultEntry: SearchResultEntry) {
         showMoreActions = true
         vm.openResult(searchResultEntry)
+    }
+
+    override fun loadFileThumbnail(searchResultEntry: SearchResultEntry, onClientReady: (NextcloudClient) -> Unit) {
+        client?.let {
+            onClientReady(it)
+            return
+        }
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val newClient = getTypedActivity(FileActivity::class.java)
+                ?.clientRepository
+                ?.getNextcloudClient()
+                ?: return@launch
+
+            client = newClient
+
+            withContext(Dispatchers.Main) {
+                onClientReady(newClient)
+            }
+        }
     }
 
     override fun openFile(remotePath: String, showMoreActions: Boolean) {

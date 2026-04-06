@@ -131,6 +131,7 @@ class PreviewVideoFullscreenDialog(
                 sourceView.showController()
             }
             dismiss()
+            isEnabled = false
         }
     }
 

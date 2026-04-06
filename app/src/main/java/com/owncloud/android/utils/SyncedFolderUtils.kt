@@ -7,15 +7,19 @@
  */
 package com.owncloud.android.utils
 
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.File
 
 /**
  * Utility class with methods for processing synced folders.
  */
 object SyncedFolderUtils {
+    private const val TAG = "SyncedFolderUtils"
+
     private val DISQUALIFIED_MEDIA_DETECTION_SOURCE = listOf(
         "cover.jpg",
         "cover.jpeg",
@@ -41,15 +45,20 @@ object SyncedFolderUtils {
      */
     fun isQualifyingMediaFolder(mediaFolder: MediaFolder?): Boolean = when {
         mediaFolder == null -> false
+
         AUTO_QUALIFYING_FOLDER_TYPE_SET.contains(mediaFolder.type) -> true
+
         !isQualifiedFolder(mediaFolder.absolutePath) -> false
+
         else -> {
             when {
                 mediaFolder.numberOfFiles < SINGLE_FILE -> false
+
                 // music album (just one cover-art image)
                 mediaFolder.type == MediaFolderType.IMAGE -> containsQualifiedImages(
                     mediaFolder.filePaths.map { File(it) }
                 )
+
                 else -> true
             }
         }
@@ -79,15 +88,20 @@ object SyncedFolderUtils {
      */
     fun isQualifyingMediaFolder(folderPath: String?, folderType: MediaFolderType): Boolean = when {
         AUTO_QUALIFYING_FOLDER_TYPE_SET.contains(folderType) -> true
+
         !isQualifiedFolder(folderPath) -> false
+
         folderPath == null -> false
+
         else -> {
             val files: List<File> = getFileList(File(folderPath))
             when {
                 // no files
                 files.size < SINGLE_FILE -> false
+
                 // music album (just one cover-art image)
                 folderType == MediaFolderType.IMAGE -> containsQualifiedImages(files)
+
                 else -> true
             }
         }
@@ -130,6 +144,7 @@ object SyncedFolderUtils {
             !DISQUALIFIED_MEDIA_DETECTION_FILE_SET.contains(fileName.lowercase()) &&
                 !hasExcludePrefix(fileName)
         }
+
         else -> false
     }
 
@@ -162,5 +177,26 @@ object SyncedFolderUtils {
             }
         }
         return false
+    }
+
+    @Suppress("ReturnCount")
+    fun validateForAutoUpload(path: String?): File? {
+        val file = path?.toFile()
+        if (file == null) {
+            Log_OC.w(TAG, "Ignoring file for upload (doesn't exist): $path")
+            return null
+        }
+
+        if (!isQualifiedFolder(file.parent)) {
+            Log_OC.w(TAG, "Ignoring file for upload (unqualified folder): $path")
+            return null
+        }
+
+        if (!isFileNameQualifiedForAutoUpload(file.name)) {
+            Log_OC.w(TAG, "Ignoring file for upload (unqualified file): $path")
+            return null
+        }
+
+        return file
     }
 }

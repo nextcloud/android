@@ -13,15 +13,18 @@ import android.content.Context
 import android.content.Intent
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.notifications.AppWideNotificationManager
+import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.getUploadIds
+import com.nextcloud.utils.extensions.isLastResultConflictError
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -37,6 +40,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.utils.DisplayUtils
@@ -44,6 +48,7 @@ import com.owncloud.android.utils.FileUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.concurrent.Semaphore
 import javax.inject.Inject
@@ -72,7 +77,6 @@ class FileUploadHelper {
     companion object {
         private val TAG = FileUploadWorker::class.java.simpleName
 
-        @Suppress("MagicNumber")
         const val MAX_FILE_COUNT = 500
 
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
@@ -119,10 +123,12 @@ class FileUploadHelper {
         }
 
         var isUploadStarted = false
+        val capability = fileStorageManager.getCapability(accountManager.user)
 
         try {
-            getUploadsByStatus(null, UploadStatus.UPLOAD_FAILED) {
-                if (it.isNotEmpty()) {
+            ioScope.launch {
+                val uploads = getUploadsByStatus(null, UploadStatus.UPLOAD_FAILED, capability)
+                if (uploads.isNotEmpty()) {
                     isUploadStarted = true
                 }
 
@@ -131,7 +137,7 @@ class FileUploadHelper {
                     connectivityService,
                     accountManager,
                     powerManagementService,
-                    uploads = it
+                    uploads
                 )
             }
         } finally {
@@ -141,24 +147,21 @@ class FileUploadHelper {
         return isUploadStarted
     }
 
-    fun retryCancelledUploads(
+    suspend fun retryCancelledUploads(
         uploadsStorageManager: UploadsStorageManager,
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService
     ): Boolean {
-        var result = false
-        getUploadsByStatus(accountManager.user.accountName, UploadStatus.UPLOAD_CANCELLED) {
-            result = retryUploads(
-                uploadsStorageManager,
-                connectivityService,
-                accountManager,
-                powerManagementService,
-                it
-            )
-        }
-
-        return result
+        val capability = fileStorageManager.getCapability(accountManager.user)
+        val uploads = getUploadsByStatus(accountManager.user.accountName, UploadStatus.UPLOAD_CANCELLED, capability)
+        return retryUploads(
+            uploadsStorageManager,
+            connectivityService,
+            accountManager,
+            powerManagementService,
+            uploads
+        )
     }
 
     @Suppress("ComplexCondition")
@@ -167,9 +170,10 @@ class FileUploadHelper {
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService,
-        uploads: Array<OCUpload>
+        uploads: List<OCUpload>
     ): Boolean {
         var showNotExistMessage = false
+        var showSyncConflictNotification = false
         val isOnline = checkConnectivity(connectivityService)
         val connectivity = connectivityService.connectivity
         val batteryStatus = powerManagementService.battery
@@ -177,6 +181,12 @@ class FileUploadHelper {
         val uploadsToRetry = mutableListOf<Long>()
 
         for (upload in uploads) {
+            if (upload.isLastResultConflictError()) {
+                Log_OC.d(TAG, "retry upload skipped, sync conflict: ${upload.remotePath}")
+                showSyncConflictNotification = true
+                continue
+            }
+
             val uploadResult = checkUploadConditions(
                 upload,
                 connectivity,
@@ -214,6 +224,10 @@ class FileUploadHelper {
             )
         }
 
+        if (showSyncConflictNotification) {
+            AppWideNotificationManager.showSyncConflictNotification(MainApp.getAppContext())
+        }
+
         return showNotExistMessage
     }
 
@@ -232,32 +246,97 @@ class FileUploadHelper {
         showSameFileAlreadyExistsNotification: Boolean = true
     ) {
         val uploads = localPaths.mapIndexed { index, localPath ->
-            val result = OCUpload(localPath, remotePaths[index], user.accountName).apply {
-                this.nameCollisionPolicy = nameCollisionPolicy
-                isUseWifiOnly = requiresWifi
-                isWhileChargingOnly = requiresCharging
-                uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
-                this.createdBy = createdBy
-                isCreateRemoteFolder = createRemoteFolder
-                localAction = localBehavior
+            fun createOCUpload(): OCUpload {
+                val result = OCUpload(localPath, remotePaths[index], user.accountName).apply {
+                    this.nameCollisionPolicy = nameCollisionPolicy
+                    isUseWifiOnly = requiresWifi
+                    isWhileChargingOnly = requiresCharging
+                    uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
+                    this.createdBy = createdBy
+                    isCreateRemoteFolder = createRemoteFolder
+                    localAction = localBehavior
+                }
+
+                val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
+                result.uploadId = id
+                return result
             }
 
-            val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
-            result.uploadId = id
-            result
+            val entity = getUploadByPaths(
+                accountName = user.accountName,
+                localPath = localPath,
+                remotePath = remotePaths[index]
+            )
+            if (entity != null) {
+                val capability = fileStorageManager.getCapability(user)
+                entity.toOCUpload(capability) ?: createOCUpload()
+            } else {
+                createOCUpload()
+            }
         }
         backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds(), showSameFileAlreadyExistsNotification)
     }
 
-    fun removeFileUpload(remotePath: String, accountName: String) {
-        uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(remotePath, accountName)
+    @Suppress("ReturnCount")
+    fun getUploadByPaths(accountName: String, localPath: String, remotePath: String): UploadEntity? {
+        val entity = uploadsStorageManager.uploadDao.getUploadByAccountAndPaths(
+            accountName,
+            localPath,
+            remotePath
+        )?.let { return it }
+
+        val capability = fileStorageManager.getCapability(accountManager.user)
+        if (!capability.checkWCFRestrictions()) {
+            // The filesystem should treat files as case-sensitive. For example, "a.TXT" and "a.txt"
+            // are allowed to exist in the same directory as two distinct files.
+            return entity
+        }
+
+        val dotIndex = remotePath.lastIndexOf('.')
+        if (dotIndex == -1) return null
+
+        val namePart = remotePath.substring(0, dotIndex + 1)
+        val extension = remotePath.substring(dotIndex + 1)
+
+        // before uploading file remote path may end with uppercase file extension thus we have to search
+        // via renamed remote path otherwise it will return null
+        val alternativeExtension =
+            if (extension == extension.lowercase()) {
+                extension.uppercase()
+            } else {
+                extension.lowercase()
+            }
+
+        val alternativeRemotePath = namePart + alternativeExtension
+
+        return uploadsStorageManager.uploadDao.getUploadByAccountAndPaths(
+            accountName,
+            localPath,
+            alternativeRemotePath
+        )
     }
 
-    fun updateUploadStatus(remotePath: String, accountName: String, status: UploadStatus) {
+    fun removeFileUpload(remotePath: String, accountName: String) {
+        uploadsStorageManager.uploadDao.deleteByRemotePathAndAccountName(remotePath, accountName)
+    }
+
+    @JvmOverloads
+    fun updateUploadStatus(
+        remotePath: String,
+        accountName: String,
+        status: UploadStatus,
+        onCompleted: () -> Unit = {}
+    ) {
         ioScope.launch {
             uploadsStorageManager.uploadDao.updateStatus(remotePath, accountName, status.value)
+            onCompleted()
         }
     }
+
+    suspend fun updateUploadStatuses(remotePaths: List<String>, accountName: String, status: UploadStatus) =
+        withContext(Dispatchers.IO) {
+            uploadsStorageManager.uploadDao.updateStatuses(remotePaths, accountName, status.value)
+        }
 
     /**
      * Retrieves uploads filtered by their status, optionally for a specific account.
@@ -267,28 +346,24 @@ class FileUploadHelper {
      * belonging to that account are retrieved. If [accountName] is `null`, uploads with the
      * given [status] from **all user accounts** are returned.
      *
-     * Once the uploads are fetched, the [onCompleted] callback is invoked with the resulting array.
-     *
      * @param accountName The name of the account to filter uploads by.
      * If `null`, uploads matching the given [status] from all accounts are returned.
      * @param status The [UploadStatus] to filter uploads by (e.g., `UPLOAD_FAILED`).
      * @param nameCollisionPolicy The [NameCollisionPolicy] to filter uploads by (e.g., `SKIP`).
-     * @param onCompleted A callback invoked with the resulting array of [OCUpload] objects.
      */
-    fun getUploadsByStatus(
+    suspend fun getUploadsByStatus(
         accountName: String?,
         status: UploadStatus,
-        nameCollisionPolicy: NameCollisionPolicy? = null,
-        onCompleted: (Array<OCUpload>) -> Unit
-    ) {
-        ioScope.launch {
-            val dao = uploadsStorageManager.uploadDao
-            val result = if (accountName != null) {
-                dao.getUploadsByAccountNameAndStatus(accountName, status.value, nameCollisionPolicy?.serialize())
-            } else {
-                dao.getUploadsByStatus(status.value, nameCollisionPolicy?.serialize())
-            }.map { it.toOCUpload(null) }.toTypedArray()
-            onCompleted(result)
+        capability: OCCapability,
+        nameCollisionPolicy: NameCollisionPolicy? = null
+    ): List<OCUpload> {
+        val dao = uploadsStorageManager.uploadDao
+        return if (accountName != null) {
+            dao.getUploadsByAccountNameAndStatus(accountName, status.value, nameCollisionPolicy?.serialize())
+        } else {
+            dao.getUploadsByStatus(status.value, nameCollisionPolicy?.serialize())
+        }.mapNotNull {
+            it.toOCUpload(capability)
         }
     }
 
@@ -360,7 +435,7 @@ class FileUploadHelper {
 
     @Suppress("ReturnCount")
     fun isUploadingNow(upload: OCUpload?): Boolean {
-        val currentUploadFileOperation = currentUploadFileOperation
+        val currentUploadFileOperation = FileUploadWorker.getCurrentUpload(upload?.uploadId)
         if (currentUploadFileOperation == null || currentUploadFileOperation.user == null) return false
         if (upload == null || upload.accountName != currentUploadFileOperation.user.accountName) return false
 
@@ -374,37 +449,57 @@ class FileUploadHelper {
         }
     }
 
+    @JvmOverloads
     fun uploadUpdatedFile(
         user: User,
-        existingFiles: Array<OCFile?>?,
+        existingFiles: Array<OCFile?>,
         behaviour: Int,
-        nameCollisionPolicy: NameCollisionPolicy
+        nameCollisionPolicy: NameCollisionPolicy,
+        skipAutoUploadCheck: Boolean = false
     ) {
-        if (existingFiles == null) {
-            return
-        }
-
         Log_OC.d(this, "upload updated file")
 
         val uploads = existingFiles.map { file ->
             file?.let {
-                val result = OCUpload(file, user).apply {
-                    fileSize = file.fileLength
-                    this.nameCollisionPolicy = nameCollisionPolicy
-                    isCreateRemoteFolder = true
-                    this.localAction = behaviour
-                    isUseWifiOnly = false
-                    isWhileChargingOnly = false
-                    uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
+                fun createOCUpload(): OCUpload {
+                    val result = OCUpload(file, user).apply {
+                        fileSize = file.fileLength
+                        this.nameCollisionPolicy = nameCollisionPolicy
+                        isCreateRemoteFolder = true
+                        this.localAction = behaviour
+                        isUseWifiOnly = false
+                        isWhileChargingOnly = false
+                        uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
+                    }
+
+                    val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
+                    result.uploadId = id
+                    return result
                 }
 
-                val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
-                result.uploadId = id
-                result
+                val entity =
+                    file.storagePath?.let {
+                        getUploadByPaths(
+                            accountName = user.accountName,
+                            localPath = it,
+                            remotePath = file.remotePath
+                        )
+                    }
+                if (entity != null) {
+                    val capability = fileStorageManager.getCapability(user)
+                    entity.toOCUpload(capability) ?: createOCUpload()
+                } else {
+                    createOCUpload()
+                }
             }
         }
         val uploadIds: LongArray = uploads.filterNotNull().map { it.uploadId }.toLongArray()
-        backgroundJobManager.startFilesUploadJob(user, uploadIds, true)
+        backgroundJobManager.startFilesUploadJob(
+            user,
+            uploadIds,
+            true,
+            skipAutoUploadCheck
+        )
     }
 
     /**
@@ -418,9 +513,7 @@ class FileUploadHelper {
      * @param user Needed for creating client
      */
     fun removeDuplicatedFile(duplicatedFile: OCFile, client: OwnCloudClient, user: User, onCompleted: () -> Unit) {
-        val job = CoroutineScope(Dispatchers.IO)
-
-        job.launch {
+        ioScope.launch {
             val removeFileOperation = RemoveFileOperation(
                 duplicatedFile,
                 false,
@@ -467,8 +560,13 @@ class FileUploadHelper {
         }
     }
 
-    @Suppress("MagicNumber")
-    fun isSameFileOnRemote(user: User, localFile: File, remotePath: String, context: Context): Boolean {
+    @Suppress("MagicNumber", "ReturnCount", "ComplexCondition")
+    fun isSameFileOnRemote(user: User?, localFile: File?, remotePath: String?, context: Context?): Boolean {
+        if (user == null || localFile == null || remotePath == null || context == null) {
+            Log_OC.e(TAG, "cannot compare remote and local file")
+            return false
+        }
+
         // Compare remote file to local file
         val localLastModifiedTimestamp = localFile.lastModified() / 1000 // remote file timestamp in milli not micro sec
         val localCreationTimestamp = FileUtil.getCreationTimestamp(localFile)
@@ -489,6 +587,7 @@ class FileUploadHelper {
     fun showFileUploadLimitMessage(activity: Activity) {
         val message = activity.resources.getQuantityString(
             R.plurals.file_upload_limit_message,
+            MAX_FILE_COUNT,
             MAX_FILE_COUNT
         )
         DisplayUtils.showSnackMessage(activity, message)
@@ -496,8 +595,8 @@ class FileUploadHelper {
 
     class UploadNotificationActionReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            val accountName = intent.getStringExtra(FileUploadWorker.EXTRA_ACCOUNT_NAME)
-            val remotePath = intent.getStringExtra(FileUploadWorker.EXTRA_REMOTE_PATH)
+            val accountName = intent.getStringExtra(FileUploadEventBroadcaster.EXTRA_ACCOUNT_NAME)
+            val remotePath = intent.getStringExtra(FileUploadEventBroadcaster.EXTRA_REMOTE_PATH)
             val action = intent.action
 
             if (FileUploadWorker.ACTION_CANCEL_BROADCAST == action) {
@@ -509,7 +608,7 @@ class FileUploadHelper {
                     return
                 }
 
-                FileUploadWorker.cancelCurrentUpload(remotePath, accountName, onCompleted = {
+                FileUploadWorker.cancelUpload(remotePath, accountName, onCompleted = {
                     instance().updateUploadStatus(remotePath, accountName, UploadStatus.UPLOAD_CANCELLED)
                 })
             }

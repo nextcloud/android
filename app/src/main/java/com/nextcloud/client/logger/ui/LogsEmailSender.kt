@@ -6,20 +6,27 @@
  */
 package com.nextcloud.client.logger.ui
 
+import android.app.DownloadManager
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
 import android.os.Build
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
 import androidx.core.content.FileProvider
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.core.Cancellable
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.logger.LogEntry
 import com.owncloud.android.R
+import com.owncloud.android.ui.notifications.NotificationUtils
+import com.owncloud.android.utils.FileExportUtils
 import java.io.File
-import java.io.FileWriter
+import java.security.SecureRandom
 import java.util.TimeZone
 
 class LogsEmailSender(private val context: Context, private val clock: Clock, private val runner: AsyncRunner) {
@@ -36,13 +43,17 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
     ) : Function0<Uri?> {
 
         override fun invoke(): Uri? {
-            file.parentFile.mkdirs()
-            val fo = FileWriter(file, false)
-            logs.forEach {
-                fo.write(it.toString(tz))
-                fo.write("\n")
+            file.parentFile?.mkdirs()
+
+            file.outputStream().use { outputStream ->
+                outputStream.writer(Charsets.UTF_8).buffered().use { writer ->
+                    logs.forEach {
+                        writer.write(it.toString(tz))
+                        writer.newLine()
+                    }
+                }
             }
-            fo.close()
+
             return FileProvider.getUriForFile(context, context.getString(R.string.file_provider_authority), file)
         }
     }
@@ -59,11 +70,76 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
         }
     }
 
+    fun export(logs: List<LogEntry>) {
+        if (task == null) {
+            val outFile = File(context.cacheDir, "attachments/logs.txt")
+            task = runner.postQuickTask(Task(context, logs, outFile, clock.tz), onResult = {
+                task = null
+                export(outFile)
+            })
+        }
+    }
+
     fun stop() {
         if (task != null) {
             task?.cancel()
             task = null
         }
+    }
+
+    private fun export(file: File) {
+        FileExportUtils().exportFile(
+            "Nextcloud Android Files Logs",
+            "text/plain",
+            context.contentResolver,
+            null,
+            file
+        )
+        showSuccessNotification(1)
+    }
+
+    fun showSuccessNotification(successfulExports: Int) {
+        showNotification(
+            context.resources.getQuantityString(
+                R.plurals.export_successful,
+                successfulExports,
+                successfulExports
+            )
+        )
+    }
+
+    private fun showNotification(message: String) {
+        val notificationId = SecureRandom().nextInt()
+
+        val notificationBuilder = NotificationCompat.Builder(
+            context,
+            NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
+        )
+            .setSmallIcon(R.drawable.notification_icon)
+            .setContentTitle(message)
+            .setAutoCancel(true)
+
+        val actionIntent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS).apply {
+            flags = FLAG_ACTIVITY_NEW_TASK
+        }
+        val actionPendingIntent = PendingIntent.getActivity(
+            context,
+            notificationId,
+            actionIntent,
+            PendingIntent.FLAG_CANCEL_CURRENT or
+                PendingIntent.FLAG_IMMUTABLE
+        )
+        notificationBuilder.addAction(
+            NotificationCompat.Action(
+                null,
+                context.getString(R.string.locate_folder),
+                actionPendingIntent
+            )
+        )
+
+        val notificationManager = context
+            .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
     private fun send(uri: Uri?) {
@@ -76,12 +152,12 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
 
         intent.putExtra(Intent.EXTRA_TEXT, getPhoneInfo())
 
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.flags = FLAG_ACTIVITY_NEW_TASK
         intent.type = LOGS_MIME_TYPE
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayListOf(uri))
         try {
             context.startActivity(intent)
-        } catch (ex: ActivityNotFoundException) {
+        } catch (_: ActivityNotFoundException) {
             Toast.makeText(context, R.string.log_send_no_mail_app, Toast.LENGTH_SHORT).show()
         }
     }

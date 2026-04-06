@@ -64,7 +64,8 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     private AppBarLayout mAppBar;
     private RelativeLayout mDefaultToolbar;
     private MaterialToolbar mToolbar;
-    private MaterialCardView mHomeSearchToolbar;
+    private MaterialCardView mHomeSearchContainer;
+    private LinearLayout mHomeSearchToolbar;
     private ImageView mPreviewImage;
     private FrameLayout mPreviewImageContainer;
     private LinearLayout mInfoBox;
@@ -88,6 +89,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         mAppBar = findViewById(R.id.appbar);
         mDefaultToolbar = findViewById(R.id.default_toolbar);
         mHomeSearchToolbar = findViewById(R.id.home_toolbar);
+        mHomeSearchContainer = findViewById(R.id.home_search_container);
         mMenuButton = findViewById(R.id.menu_button);
         mSearchText = findViewById(R.id.search_text);
         mSwitchAccountButton = findViewById(R.id.switch_account_button);
@@ -113,7 +115,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         viewThemeUtils.platform.themeStatusBar(this);
         viewThemeUtils.material.colorMaterialTextButton(mSwitchAccountButton);
 
-        viewThemeUtils.material.themeSearchCardView(mHomeSearchToolbar);
+        viewThemeUtils.material.themeSearchCardView(mHomeSearchContainer);
         viewThemeUtils.material.colorMaterialButtonContent(mMenuButton, ColorRole.ON_SURFACE);
         viewThemeUtils.material.colorMaterialButtonContent(mNotificationButton, ColorRole.ON_SURFACE);
         viewThemeUtils.platform.colorTextView(mSearchText, ColorRole.ON_SURFACE_VARIANT);
@@ -182,20 +184,9 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     private SearchType getSearchType() {
         final OCFileListFragment fragment = getOCFileListFragment();
-
-        // if current navigation not matches, reset search event
-        if (!DrawerActivity.isMenuItemIdBelongsToSearchType()) {
-            if (fragment != null) {
-                fragment.resetSearchAttributes();
-            }
-
-            return SearchType.NO_SEARCH;
-        }
-
         if (fragment != null) {
             return fragment.getCurrentSearchType();
         }
-
         return SearchType.NO_SEARCH;
     }
 
@@ -230,7 +221,10 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         final String title = getActionBarTitle(file, isRoot);
         updateActionBarTitleAndHomeButtonByString(title);
 
-        final boolean isToolbarStyleSearch = DrawerActivity.isToolbarStyleSearch();
+        boolean isToolbarStyleSearch = false;
+        if (this instanceof DrawerActivity drawerActivity) {
+            isToolbarStyleSearch = drawerActivity.isToolbarStyleSearch();
+        }
         final boolean canShowSearchBar = (isHomeSearchToolbarShow && isRoot && isToolbarStyleSearch);
 
         showHomeSearchToolbar(canShowSearchBar);
@@ -286,7 +280,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
                                                                                 R.animator.appbar_elevation_off));
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
-            viewThemeUtils.material.themeSearchCardView(mHomeSearchToolbar);
+            viewThemeUtils.material.themeSearchCardView(mHomeSearchContainer);
             viewThemeUtils.material.themeSearchBarText(mSearchText);
         } else {
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),

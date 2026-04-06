@@ -36,8 +36,8 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.adapter.SendButtonAdapter
-import com.owncloud.android.ui.components.SendButtonData
+import com.owncloud.android.ui.adapter.sendButton.SendButtonAdapter
+import com.owncloud.android.ui.adapter.sendButton.SendButtonData
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -45,6 +45,7 @@ import javax.inject.Inject
 
 class SendShareDialog :
     BottomSheetDialogFragment(R.layout.send_share_fragment),
+    SendButtonAdapter.ClickListener,
     Injectable {
 
     private lateinit var binding: SendShareFragmentBinding
@@ -59,6 +60,8 @@ class SendShareDialog :
     @Inject
     var viewThemeUtils: ViewThemeUtils? = null
 
+    private var sendIntent: Intent? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -66,8 +69,8 @@ class SendShareDialog :
         retainInstance = true
         val arguments = requireArguments()
 
-        file = arguments.getParcelableArgument(KEY_OCFILE, OCFile::class.java)
-        hideNcSharingOptions = arguments.getBoolean(KEY_HIDE_NCSHARING_OPTIONS, false)
+        file = arguments.getParcelableArgument(KEY_OC_FILE, OCFile::class.java)
+        hideNcSharingOptions = arguments.getBoolean(KEY_HIDE_NC_SHARING_OPTIONS, false)
         sharingPublicPasswordEnforced = arguments.getBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED, false)
         sharingPublicAskForPassword = arguments.getBoolean(KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD)
     }
@@ -97,12 +100,11 @@ class SendShareDialog :
             return
         }
 
-        val sendIntent = createSendIntent(requireContext(), file!!)
+        sendIntent = createSendIntent(requireContext(), file!!)
+        val sendIntent = sendIntent ?: return
         val sendButtonDataList = setupSendButtonData(sendIntent)
-        val clickListener = setupSendButtonClickListener(sendIntent)
-
         binding.sendButtonRecyclerView.layoutManager = GridLayoutManager(activity, 4)
-        binding.sendButtonRecyclerView.adapter = SendButtonAdapter(sendButtonDataList, clickListener)
+        binding.sendButtonRecyclerView.adapter = SendButtonAdapter(sendButtonDataList, this)
     }
 
     private fun setupBottomSheetBehaviour() {
@@ -180,28 +182,6 @@ class SendShareDialog :
         message.show()
     }
 
-    private fun setupSendButtonClickListener(sendIntent: Intent): SendButtonAdapter.ClickListener =
-        SendButtonAdapter.ClickListener { sendButtonDataData: SendButtonData ->
-            val packageName = sendButtonDataData.packageName
-            val activityName = sendButtonDataData.activityName
-
-            if (MimeTypeUtil.isImage(file) && !file!!.isDown) {
-                fileOperationsHelper?.sendCachedImage(file, packageName, activityName)
-            } else {
-                // Obtain the file
-                if (file!!.isDown) {
-                    sendIntent.component = ComponentName(packageName, activityName)
-                    requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
-                } else { // Download the file
-                    Log_OC.d(TAG, file!!.remotePath + ": File must be downloaded")
-                    (requireActivity() as SendShareDialogDownloader)
-                        .downloadFile(file, packageName, activityName)
-                }
-            }
-
-            dismiss()
-        }
-
     private fun setupSendButtonData(sendIntent: Intent): List<SendButtonData> {
         var icon: Drawable
         var sendButtonData: SendButtonData
@@ -236,35 +216,54 @@ class SendShareDialog :
         this.fileOperationsHelper = fileOperationsHelper
     }
 
+    @Suppress("ReturnCount")
+    override fun onSendButtonClick(sendButtonData: SendButtonData?) {
+        val packageName = sendButtonData?.packageName ?: return
+        val activityName = sendButtonData.activityName ?: return
+
+        if (MimeTypeUtil.isImage(file) && !file!!.isDown) {
+            fileOperationsHelper?.sendCachedImage(file, packageName, activityName)
+        } else {
+            // Obtain the file
+            if (file!!.isDown) {
+                sendIntent?.component = ComponentName(packageName, activityName)
+                requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
+            } else { // Download the file
+                Log_OC.d(TAG, file!!.remotePath + ": File must be downloaded")
+                (requireActivity() as SendShareDialogDownloader)
+                    .downloadFile(file, packageName, activityName)
+            }
+        }
+
+        dismiss()
+    }
+
     interface SendShareDialogDownloader {
         fun downloadFile(file: OCFile?, packageName: String?, activityName: String?)
     }
 
     companion object {
-        private const val KEY_OCFILE = "KEY_OCFILE"
+        private const val KEY_OC_FILE = "KEY_OC_FILE"
         private const val KEY_SHARING_PUBLIC_PASSWORD_ENFORCED = "KEY_SHARING_PUBLIC_PASSWORD_ENFORCED"
         private const val KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD = "KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD"
-        private const val KEY_HIDE_NCSHARING_OPTIONS = "KEY_HIDE_NCSHARING_OPTIONS"
+        private const val KEY_HIDE_NC_SHARING_OPTIONS = "KEY_HIDE_NC_SHARING_OPTIONS"
         private val TAG = SendShareDialog::class.java.simpleName
-        const val PACKAGE_NAME = "PACKAGE_NAME"
-        const val ACTIVITY_NAME = "ACTIVITY_NAME"
 
         @JvmStatic
-        fun newInstance(file: OCFile?, hideNcSharingOptions: Boolean, capability: OCCapability): SendShareDialog {
-            val dialogFragment = SendShareDialog()
-            val args = Bundle()
-            args.putParcelable(KEY_OCFILE, file)
-            args.putBoolean(KEY_HIDE_NCSHARING_OPTIONS, hideNcSharingOptions)
-            args.putBoolean(
-                KEY_SHARING_PUBLIC_PASSWORD_ENFORCED,
-                capability.filesSharingPublicPasswordEnforced.isTrue
-            )
-            args.putBoolean(
-                KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD,
-                capability.filesSharingPublicAskForOptionalPassword.isTrue
-            )
-            dialogFragment.arguments = args
-            return dialogFragment
-        }
+        fun newInstance(file: OCFile?, hideNcSharingOptions: Boolean, capability: OCCapability): SendShareDialog =
+            SendShareDialog().apply {
+                arguments = Bundle().apply {
+                    putParcelable(KEY_OC_FILE, file)
+                    putBoolean(KEY_HIDE_NC_SHARING_OPTIONS, hideNcSharingOptions)
+                    putBoolean(
+                        KEY_SHARING_PUBLIC_PASSWORD_ENFORCED,
+                        capability.filesSharingPublicPasswordEnforced.isTrue
+                    )
+                    putBoolean(
+                        KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD,
+                        capability.filesSharingPublicAskForOptionalPassword.isTrue
+                    )
+                }
+            }
     }
 }

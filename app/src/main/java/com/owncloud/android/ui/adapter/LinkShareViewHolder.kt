@@ -93,13 +93,12 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
         }
 
         val label = publicShare.label
-        if (label.isNullOrEmpty()) {
-            return
+        if (!label.isNullOrEmpty()) {
+            binding.name.text = context.getString(R.string.share_link_with_label, label)
         }
-
-        binding.name.text = context.getString(R.string.share_link_with_label, label)
     }
 
+    @Suppress("ReturnCount")
     private fun setSubline(binding: FileDetailsShareLinkShareItemBinding?, context: Context?, publicShare: OCShare) {
         if (binding == null || context == null) {
             return
@@ -136,11 +135,11 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
 
         if (TextUtils.isEmpty(permissionName) || (isSecureFileDrop(publicShare) && encrypted)) {
             binding.permissionName.visibility = View.GONE
-            return
+        } else {
+            binding.permissionName.visibility = View.VISIBLE
+            binding.permissionName.text = permissionName
         }
 
-        binding.permissionName.text = permissionName
-        binding.permissionName.visibility = View.VISIBLE
         viewThemeUtils?.androidx?.colorPrimaryTextViewElement(binding.permissionName)
     }
 

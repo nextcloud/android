@@ -63,6 +63,7 @@ class ShowErrorActivity : AppCompatActivity() {
             onClickedShare()
             true
         }
+
         else -> super.onOptionsItemSelected(item)
     }
 

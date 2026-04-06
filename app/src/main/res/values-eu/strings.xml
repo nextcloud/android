@@ -43,18 +43,24 @@
     <string name="app_config_proxy_port_title">Proxy-ataka</string>
     <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
+    <string name="appear_offline">Lineaz kanpo agertzen da</string>
+    <string name="assistant_screen_chat_create_error">Ezin izan da mezua bidali</string>
+    <string name="assistant_screen_chat_fetch_error">Ezin izan dira txat-mezuak eskuratu</string>
+    <string name="assistant_screen_chat_generate_error">Ezin izan da erantzuna sortu</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Itzuli laguntza orrira</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ziur zeregin hau ezabatu nahi duzula?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ezabatu zeregina</string>
     <string name="assistant_screen_task_create_fail_message">Errore bat gertatu da zeregina sortzean</string>
-    <string name="assistant_screen_task_create_success_message">Zeregina behar bezala sortu da</string>
+    <string name="assistant_screen_task_create_success_message">Eginkizuna sortuta</string>
     <string name="assistant_screen_task_delete_fail_message">Errore bat gertatu da zeregina ezabatzean</string>
-    <string name="assistant_screen_task_delete_success_message">Zeregina ongi ezabatu da</string>
     <string name="assistant_screen_task_list_error_state_message">Ezin da zereginen zerrenda eskuratu. Egiaztatu Interneteko konexioa.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ezabatu zeregina</string>
     <string name="assistant_screen_task_output_empty_text">Zereginaren irteera ez dago prest oraindik.</string>
     <string name="assistant_screen_top_bar_title">Morroia</string>
     <string name="assistant_task_detail_screen_input_button_title">Sarrera</string>
     <string name="assistant_task_detail_screen_output_button_title">Irteera</string>
+    <string name="assistant_task_status_running">Exekutatzen</string>
+    <string name="assistant_task_status_unknown">ezezaguna</string>
     <string name="associated_account_not_found">Ez da aurkitu lotutako konturik</string>
     <string name="auth_access_failed">Huts egin du atzitzean: %1$s</string>
     <string name="auth_account_does_not_exist">Kontua ez da gailu honetan gehitu oraindik</string>
@@ -173,6 +179,7 @@
     <string name="community_testing_bug_text">Errore bat topatu duzu? Gauza arraroren bat?</string>
     <string name="community_testing_headline">Lagundu probatzen</string>
     <string name="community_testing_report_text">Jakinarazi arazoa GitHub-en</string>
+    <string name="compose_activity_label">Nextcloud Assistant</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguratu</string>
     <string name="confirm_removal">Kendu enkriptatze lokala</string>
     <string name="confirmation_remove_file_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
@@ -272,7 +279,6 @@
     <string name="drawer_item_assistant">Morroia</string>
     <string name="drawer_item_favorites">Gogokoak</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Talde-karpetak</string>
     <string name="drawer_item_home">Etxea</string>
     <string name="drawer_item_notifications">Jakinarazpenak</string>
     <string name="drawer_item_on_device">Gailura</string>
@@ -386,6 +392,8 @@
     <string name="file_list_empty_local_search">Ez dago zure bilaketarekin bat datorren fitxategi edo karpetarik</string>
     <string name="file_list_empty_moving">Hemen ez dago ezer. Karpeta bat gehi dezakezu.</string>
     <string name="file_list_empty_on_device">Deskargaturiko fitxategiak eta karpetak hemen agertuko dira.</string>
+    <string name="file_list_empty_recent_files_description">Azkenaldian aldatu dituzun fitxategi eta karpetak hemen agertuko dira.</string>
+    <string name="file_list_empty_recent_files_headline">Ez dago azkenaldian aldatutako fitxategirik</string>
     <string name="file_list_empty_recently_modified">Ez da aurkitu azken 7 egunetan aldatu den fitxategirik</string>
     <string name="file_list_empty_search">Agian beste karpeta batean dago?</string>
     <string name="file_list_empty_shared">Partekatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
@@ -544,6 +552,8 @@
     <string name="media_forward_description">Bizkor aurreratu botoia</string>
     <string name="media_notif_ticker">%1$s musika erreproduzigailua</string>
     <string name="media_play_pause_description">Erreproduzitu edo pausatu botoia</string>
+    <string name="media_player_pause">Gelditu</string>
+    <string name="media_player_play">Jokatu</string>
     <string name="media_rewind_description">Birbobinatu botoia</string>
     <string name="media_state_playing">%1$s (erreproduzitzen)</string>
     <string name="menu_item_sort_by_date_newest_first">Berriena lehenengo</string>
@@ -697,7 +707,6 @@
     <string name="prefs_theme_title">Gaia</string>
     <string name="prefs_two_way_sync_interval">Tarteak</string>
     <string name="prefs_two_way_sync_summary">Kudeatu barruko karpetak bi norabideko sinkronizaziorako</string>
-    <string name="prefs_two_way_sync_switch_title">Gaitu bi norabideko sinkronizazioa</string>
     <string name="prefs_value_theme_dark">Iluna</string>
     <string name="prefs_value_theme_light">Argia</string>
     <string name="prefs_value_theme_system">Sistemaren berdina</string>
@@ -983,7 +992,6 @@
     <string name="upload_files">Igo fitxategiak</string>
     <string name="upload_global_pause_title">Igoera guztiak pausatuta daude</string>
     <string name="upload_item_action_button">Elementua igotzeko ekintza botoia</string>
-    <string name="upload_list_cancel_upload">Ezeztatu kargatzea</string>
     <string name="upload_list_delete">Ezabatu</string>
     <string name="upload_list_empty_headline">Ezin dira fitxategiak igo</string>
     <string name="upload_list_empty_text_auto_upload">Edukiak igo edo auto-igotzea aktiba ezazu.</string>
@@ -1031,9 +1039,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Konfigurazioa</string>
     <string name="uploader_wrn_no_account_text">Ez dago %1$s konturik zure gailuan. Mesedez, konfiguratu kontu bat lehenbizi.</string>
     <string name="uploader_wrn_no_account_title">Ez da konturik aurkitu</string>
+    <string name="uploads_view_group_completed_uploads">Osatua</string>
     <string name="uploads_view_group_current_uploads">Unekoa</string>
     <string name="uploads_view_group_failed_uploads">Berrabiarazteko zain/huts egin du.</string>
-    <string name="uploads_view_group_finished_uploads">Igoa</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Ezeztatua</string>
     <string name="uploads_view_later_waiting_to_upload">Igotzeko itxoiten</string>
     <string name="uploads_view_title">Kargak</string>

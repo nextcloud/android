@@ -13,6 +13,7 @@
     <string name="action_send_share">Skicka/dela</string>
     <string name="action_switch_grid_view">Rutnätsvy</string>
     <string name="action_switch_list_view">Listvy</string>
+    <string name="action_triggered">Åtgärd utlöst</string>
     <string name="actionbar_calendar_contacts_restore">Återställ kontakter och kalender</string>
     <string name="actionbar_mkdir">Ny mapp</string>
     <string name="actionbar_move_or_copy">Flytta eller kopiera</string>
@@ -47,21 +48,32 @@
     <string name="assistant_output_generation_warning_text">Utdata som visas här genereras av AI. Se till att alltid dubbelkolla.</string>
     <string name="assistant_screen_chat_create_error">Kunde inte skicka ett meddelande</string>
     <string name="assistant_screen_chat_fetch_error">Kunde inte hämta chattmeddelanden</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Gå tillbaka till assistentsidan</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Är du säker på att du vill ta bort den här uppgiften?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ta bort uppgift</string>
     <string name="assistant_screen_empty_content_description">Försök att skicka ett meddelande för att få igång en konversation.</string>
     <string name="assistant_screen_empty_content_title">Hej! Vad kan jag hjälpa dig med idag?</string>
+    <string name="assistant_screen_select_task">Vänligen välj uppgift</string>
+    <string name="assistant_screen_send_message">Skicka meddelande</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">Öppna konversationslista</string>
     <string name="assistant_screen_task_create_fail_message">Ett fel uppstod när uppgiften skapades</string>
-    <string name="assistant_screen_task_create_success_message">Uppgiften har skapats</string>
+    <string name="assistant_screen_task_create_success_message">Uppgift skapad</string>
     <string name="assistant_screen_task_delete_fail_message">Ett fel uppstod när uppgiften skulle tas bort</string>
-    <string name="assistant_screen_task_delete_success_message">Uppgiften har raderats</string>
+    <string name="assistant_screen_task_delete_success_message">Uppgift raderad</string>
     <string name="assistant_screen_task_list_empty_warning">Uppgiftslistan är tom. Kontrollera konfigurationen för assistentappen.</string>
     <string name="assistant_screen_task_list_error_state_message">Det går inte att hämta uppgiftslistan, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ta bort uppgift</string>
     <string name="assistant_screen_task_output_empty_text">Uppgiftens resultat är inte redo än.</string>
+    <string name="assistant_screen_text_selected">Text kopierad från en annan app</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Inmatning</string>
     <string name="assistant_task_detail_screen_output_button_title">Utdata</string>
+    <string name="assistant_task_status_failed">misslyckades</string>
+    <string name="assistant_task_status_running">aktiv</string>
+    <string name="assistant_task_status_scheduled">schemalagd</string>
+    <string name="assistant_task_status_successful">framgångsrik</string>
+    <string name="assistant_task_status_text">Status på uppgift: %1$s</string>
+    <string name="assistant_task_status_unknown">okänt</string>
     <string name="assistant_thinking">Tänker …</string>
     <string name="associated_account_not_found">Associerat konto kunde inte hittas!</string>
     <string name="auth_access_failed">Åtkomst misslyckades: %1$s</string>
@@ -106,7 +118,7 @@
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
     <string name="auto_upload_sub_folder_warning">Denna mapp ingår redan i synkroniseringen av den överordnade mappen, vilket kan orsaka dubbla uppladdningar</string>
     <string name="auto_upload_wifi_only_warning_info">Väntar på Wi-Fi för att starta uppladdning</string>
-    <string name="auto_upload_worker_start_text">Laddar upp filer från %s till %s</string>
+    <string name="auto_upload_worker_start_text">Laddar upp filer från %1$s till %2$s</string>
     <string name="autoupload_configure">Konfigurera</string>
     <string name="autoupload_create_new_custom_folder">Skapa en ny anpassad mappkonfiguration </string>
     <string name="autoupload_custom_folder">Skapa en anpassad mapp</string>
@@ -187,6 +199,7 @@
     <string name="community_testing_bug_text">Hittat en bugg? Något som är konstigt?</string>
     <string name="community_testing_headline">Hjälp till att testa</string>
     <string name="community_testing_report_text">Rapportera ditt problem på GitHub</string>
+    <string name="compose_activity_label">Nextcloud Assistant</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurera</string>
     <string name="confirm_removal">Ta bort lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Vill du verkligen ta bort %1$s?</string>
@@ -211,7 +224,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Importen kunde inte startas. Försök igen</string>
     <string name="contacts_preferences_no_file_found">Ingen fil funnen</string>
     <string name="contacts_preferences_something_strange_happened">Vi kunde inte hitta din senaste backup!</string>
-    <string name="content_observer_work_notification_title">Upptäcker innehållsförändringar</string>
     <string name="conversation_screen_create_error_title">Kunde inte skapa konversationen</string>
     <string name="conversation_screen_delete_button_title">Ta bort konversationen</string>
     <string name="conversation_screen_delete_error_title">Kunde inte ta bort konversationen</string>
@@ -234,6 +246,7 @@
     <string name="create_link">Skapa länk</string>
     <string name="create_new">Ny</string>
     <string name="create_new_document">Nytt dokument</string>
+    <string name="create_new_encrypted_folder">Ny krypterad mapp</string>
     <string name="create_new_folder">Ny mapp</string>
     <string name="create_new_presentation">Ny presentation</string>
     <string name="create_new_spreadsheet">Nytt kalkylblad</string>
@@ -299,7 +312,7 @@
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Favoriter</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Gruppmappar</string>
+    <string name="drawer_item_groupfolders">Teammappar</string>
     <string name="drawer_item_home">Hem</string>
     <string name="drawer_item_notifications">Aviseringar</string>
     <string name="drawer_item_on_device">Filer på enheten</string>
@@ -390,12 +403,14 @@
     <string name="etm_transfer_type">Överför</string>
     <string name="etm_transfer_type_download">Ladda ner</string>
     <string name="etm_transfer_type_upload">Ladda upp</string>
+    <string name="extension_cannot_be_changed">Filändelsen kan inte ändras.</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Du har inte behörighet att skapa eller ladda upp filer i den här mappen.</string>
     <string name="external_shares">Externa delningar</string>
     <string name="fab_label">Lägg till eller ladda upp</string>
     <string name="failed_to_create_conflict_dialog">Kunde inte skapa konfliktdialog</string>
     <string name="failed_to_download">Misslyckades skicka filen till hämtningshanteraren</string>
     <string name="failed_to_print">Kunde inte skriva ut filen</string>
+    <string name="failed_to_start_action">Det gick inte att starta åtgärden!</string>
     <string name="failed_to_start_editor">Kunde inte starta editor</string>
     <string name="failed_update_ui">Misslyckades med att uppdatera UI</string>
     <string name="favorite">Lägg till favoriter</string>
@@ -420,6 +435,8 @@
     <string name="file_list_empty_local_search">Ingen fil eller mapp matchar din sökning</string>
     <string name="file_list_empty_moving">Inget här. Du kan lägga till en mapp.</string>
     <string name="file_list_empty_on_device">Nedladdade filer och mappar kommer att visas här.</string>
+    <string name="file_list_empty_recent_files_description">Filer och mappar som du nyligen ändrat kommer att visas här.</string>
+    <string name="file_list_empty_recent_files_headline">Inga nyligen ändrade filer</string>
     <string name="file_list_empty_recently_modified">Hittade inga ändrade filer de senaste 7 dagarna</string>
     <string name="file_list_empty_search">Kanske finns den i en annan mapp?</string>
     <string name="file_list_empty_shared">Filer och mappar som du delar kommer visas här.</string>
@@ -493,7 +510,7 @@
     <string name="folder_download_counter">%1$d av %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Ett fel uppstod under synkronisering av mappen %s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Otillräckligt diskutrymme, synkronisering avbruten</string>
-    <string name="folder_download_success_notification_title">Mappen %s har synkroniserats</string>
+    <string name="folder_download_success_notification_title">%s mapp synkroniserad</string>
     <string name="folder_download_worker_ticker_id">Synkroniserar...</string>
     <string name="folder_list_empty_headline">Inga mappar här</string>
     <string name="folder_name_empty">Mappnamnet får inte vara tomt</string>
@@ -569,6 +586,7 @@
     <string name="login">Logga in</string>
     <string name="login_url_helper_text">Länken till din %1$s webbsida när du öppnar den i webbläsaren.</string>
     <string name="logs_menu_delete">Ta bort loggar</string>
+    <string name="logs_menu_export">Exportera loggar</string>
     <string name="logs_menu_refresh">Uppdatera</string>
     <string name="logs_menu_search">Sök i loggar</string>
     <string name="logs_menu_send">Skicka loggar via e-post</string>
@@ -589,6 +607,8 @@
     <string name="media_forward_description">Snappspolningsknapp</string>
     <string name="media_notif_ticker">%1$s musikspelare</string>
     <string name="media_play_pause_description">Spela- / Pausknapp</string>
+    <string name="media_player_pause">Pausa</string>
+    <string name="media_player_play">Spela</string>
     <string name="media_rewind_description">Bakåtspolningsknapp</string>
     <string name="media_state_playing">%1$s (spelar)</string>
     <string name="menu_item_sort_by_date_newest_first">Nyaste först</string>
@@ -755,7 +775,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Intervall </string>
     <string name="prefs_two_way_sync_summary">Hantera interna mappar för tvåvägssynk</string>
-    <string name="prefs_two_way_sync_switch_title">Aktivera tvåvägssynk</string>
+    <string name="prefs_two_way_sync_title">Tvåvägssynkronisering</string>
     <string name="prefs_value_theme_dark">Mörkt</string>
     <string name="prefs_value_theme_light">Ljust</string>
     <string name="prefs_value_theme_system">Följ systemet</string>
@@ -826,6 +846,7 @@
     <string name="select_one_template">Vänligen välj en mall</string>
     <string name="select_template">Välj mall</string>
     <string name="send">Skicka</string>
+    <string name="send_copy_to">Skicka kopia till</string>
     <string name="send_share">Skicka delning</string>
     <string name="sendbutton_description">Ikonen för Skicka-knapp</string>
     <string name="server_not_reachable">Kunde inte ladda innehåll</string>
@@ -835,6 +856,7 @@
     <string name="set_message">Ange meddelande</string>
     <string name="set_note">Ange anteckning</string>
     <string name="set_online_status">Online-status</string>
+    <string name="set_online_status_bottom_sheet_error_message">Kunde inte sätta status!</string>
     <string name="set_picture_as">Använd bild som</string>
     <string name="setup_e2e">Under inställningen av end-to-end-kryptering kommer du att få en slumpmässig lista med 12 krypteringsord, som du behöver för att öppna dina filer på andra enheter. Orden kommer endast att lagras på den här enheten och kan visas igen på den här skärmen. Vänligen notera krypteringsorden på ett säkert ställe!</string>
     <string name="share">Dela</string>
@@ -960,6 +982,9 @@
     <string name="suggest">Föreslå</string>
     <string name="sync">Synkronisera</string>
     <string name="sync_anyway">Synkronisera ändå</string>
+    <string name="sync_conflict_notification_action_title">Lös konflikter</string>
+    <string name="sync_conflict_notification_description">Konflikter upptäcka vid uppladdning. Lös genom att öppna uppladdningarna.</string>
+    <string name="sync_conflict_notification_title">Konflikt vid uppladdning</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finns inte längre</string>
     <string name="sync_duplication">Synkroniseringsduplicering</string>
@@ -998,6 +1023,12 @@
     <string name="thumbnail_for_new_file_desc">Miniatyrbild för ny fil</string>
     <string name="timeout_richDocuments">Inläsningen tar längre tid än förväntat</string>
     <string name="today">Idag</string>
+    <string name="translation_screen_hint_source">Ange text som ska översättas...</string>
+    <string name="translation_screen_label_from">Översätt från:</string>
+    <string name="translation_screen_label_to">Översätt till:</string>
+    <string name="translation_screen_start_to_translate_task">Tryck på knappen för att översätta</string>
+    <string name="translation_screen_task_processing">Översättningen tar längre tid än väntat.</string>
+    <string name="translation_screen_translating">Översätter...</string>
     <string name="trashbin_activity_title">Borttagna filer</string>
     <string name="trashbin_empty_headline">Inga borttagna filer</string>
     <string name="trashbin_empty_message">Du kan återställa borttagna filer här.</string>
@@ -1053,7 +1084,6 @@
     <string name="upload_files">Ladda upp filer</string>
     <string name="upload_global_pause_title">Alla uppladdningar är pausade</string>
     <string name="upload_item_action_button">Ladda upp objekthändelse-knapp</string>
-    <string name="upload_list_cancel_upload">Avbryt uppladdning</string>
     <string name="upload_list_delete">Ta bort</string>
     <string name="upload_list_empty_headline">Inga uppladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
@@ -1067,6 +1097,7 @@
     <string name="upload_missing_storage_permission_app_permissions">App-behörigheter</string>
     <string name="upload_missing_storage_permission_description">Dina filer kan inte laddas upp utan åtkomst till lokal lagring. Tryck för att ge behörighet.</string>
     <string name="upload_missing_storage_permission_title">Uppladdning stoppad – lagringsbehörighet krävs</string>
+    <string name="upload_notification_manager_content_intent_description">Du kan ta bort eller återuppta den från Uppladdningar.</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Kryptering är endast möjlig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s -mappen. Vill du flytta dem dit i stället?</string>
@@ -1104,9 +1135,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Skapa</string>
     <string name="uploader_wrn_no_account_text">Det finns inga %1$s-konton på din enhet. Vänligen lägg till ett konto först</string>
     <string name="uploader_wrn_no_account_title">Hittade inget konto</string>
+    <string name="uploads_view_group_completed_uploads">Slutförd</string>
     <string name="uploads_view_group_current_uploads">Nuvarande</string>
     <string name="uploads_view_group_failed_uploads">Misslyckades/väntar omstart</string>
-    <string name="uploads_view_group_finished_uploads">Uppladdad</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Avbokad</string>
     <string name="uploads_view_later_waiting_to_upload">Väntar på att ladda upp</string>
     <string name="uploads_view_title">Uppladdningar</string>

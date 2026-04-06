@@ -323,7 +323,7 @@ open class FolderPickerActivity :
         val itemId = item.itemId
 
         if (itemId == R.id.action_create_dir) {
-            val dialog = CreateFolderDialogFragment.newInstance(currentFolder)
+            val dialog = CreateFolderDialogFragment.newInstance(currentFolder, false)
             dialog.show(supportFragmentManager, CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT)
         } else if (itemId == android.R.id.home) {
             val currentDir = currentFolder
@@ -376,14 +376,24 @@ open class FolderPickerActivity :
         updateNavigationElementsInActionBar()
     }
 
+    @Suppress("ReturnCount")
     private fun toggleChooseEnabled() {
         if (this is FilePickerActivity) {
             return
         }
 
         val selectedFolderPathTitle = getSelectedFolderPathTitle()
+        val optionalCapabilities = capabilities
+        if (optionalCapabilities.isEmpty) {
+            return
+        }
+
         val isFolderPathValid = if (selectedFolderPathTitle != null) {
-            FileNameValidator.checkFolderPath(selectedFolderPathTitle, capabilities, this)
+            FileNameValidator.checkFolderPath(
+                selectedFolderPathTitle,
+                optionalCapabilities.get(),
+                this
+            )
         } else {
             true
         }
@@ -410,8 +420,11 @@ open class FolderPickerActivity :
     // for copy and move, disable selecting parent folder of target files
     private fun isFolderSelectable(type: String): Boolean = when {
         action != MOVE_OR_COPY -> true
+
         action == MOVE_OR_COPY && type == COPY -> true
+
         targetFilePaths.isNullOrEmpty() -> true
+
         file?.isFolder != true -> true
 
         // all of the target files are already in the selected directory
@@ -419,6 +432,7 @@ open class FolderPickerActivity :
 
         // some of the target files are parents of the selected folder
         targetFilePaths?.any { PathUtils.isAncestor(it, file?.remotePath ?: "") } == true -> false
+
         else -> true
     }
 

@@ -77,7 +77,7 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
             }
         }
 
-        if (!askedForPin && preferences.lockTimestamp != 0L || askPinWhenDeviceLocked) {
+        if ((!askedForPin && preferences.lockTimestamp != 0L) || askPinWhenDeviceLocked) {
             updateLockTimestamp()
             askPinWhenDeviceLocked = false
         }

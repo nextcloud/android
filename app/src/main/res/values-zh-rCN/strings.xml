@@ -13,6 +13,7 @@
     <string name="action_send_share">发送/分享</string>
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
+    <string name="action_triggered">操作已触发</string>
     <string name="actionbar_calendar_contacts_restore">恢复联系人和日历</string>
     <string name="actionbar_mkdir">新建文件夹</string>
     <string name="actionbar_move_or_copy">移动或复制</string>
@@ -47,10 +48,16 @@
     <string name="assistant_output_generation_warning_text">此处显示的输出结果由 AI 生成。请务必仔细检查。</string>
     <string name="assistant_screen_chat_create_error">无法发送消息</string>
     <string name="assistant_screen_chat_fetch_error">无法获取聊天消息</string>
+    <string name="assistant_screen_chat_generate_error">无法生成响应</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">返回助手页面</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您确定要删除这些任务吗？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">删除任务</string>
     <string name="assistant_screen_empty_content_description">尝试发送消息来发起对话。</string>
     <string name="assistant_screen_empty_content_title">您好！请问我能帮您些什么？</string>
+    <string name="assistant_screen_retry_response_generation">重试响应生成</string>
+    <string name="assistant_screen_select_task">请选择任务</string>
+    <string name="assistant_screen_send_message">发送消息</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">打开对话列表</string>
     <string name="assistant_screen_task_create_fail_message">创建任务时发生错误</string>
     <string name="assistant_screen_task_create_success_message">任务已创建</string>
     <string name="assistant_screen_task_delete_fail_message">删除任务时发生错误</string>
@@ -59,9 +66,16 @@
     <string name="assistant_screen_task_list_error_state_message">无法获取任务列表，请检查你的互联网连接。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">删除任务</string>
     <string name="assistant_screen_task_output_empty_text">任务输出尚未就绪。</string>
+    <string name="assistant_screen_text_selected">已从其他应用中复制文本</string>
     <string name="assistant_screen_top_bar_title">助手</string>
     <string name="assistant_task_detail_screen_input_button_title">输入</string>
     <string name="assistant_task_detail_screen_output_button_title">输出结果</string>
+    <string name="assistant_task_status_failed">失败</string>
+    <string name="assistant_task_status_running">正在运行</string>
+    <string name="assistant_task_status_scheduled">已排定</string>
+    <string name="assistant_task_status_successful">成功</string>
+    <string name="assistant_task_status_text">任务状态：%1$s</string>
+    <string name="assistant_task_status_unknown">未知</string>
     <string name="assistant_thinking">正在思考 …</string>
     <string name="associated_account_not_found">相关账号未找到！</string>
     <string name="auth_access_failed">访问已失败: %1$s</string>
@@ -106,7 +120,7 @@
     <string name="auto_upload_path">/自动上传</string>
     <string name="auto_upload_sub_folder_warning">此文件夹已包含在上级文件夹的同步中，这可能会导致重复上传</string>
     <string name="auto_upload_wifi_only_warning_info">正在等待 Wi-Fi 开始上传</string>
-    <string name="auto_upload_worker_start_text">正在将文件从 %s 上传到 %s</string>
+    <string name="auto_upload_worker_start_text">正在将文件从 %1$s 上传到 %2$s</string>
     <string name="autoupload_configure">配置</string>
     <string name="autoupload_create_new_custom_folder">创建新的自定义文件夹设定</string>
     <string name="autoupload_custom_folder">设置一个自定义文件夹</string>
@@ -187,6 +201,7 @@
     <string name="community_testing_bug_text">发现错误？细节？</string>
     <string name="community_testing_headline">通过测试帮助</string>
     <string name="community_testing_report_text">在Github报告问题 OR 通过Github提交问题（issue）</string>
+    <string name="compose_activity_label">Nextcloud 助手</string>
     <string name="configure_new_media_folder_detection_notifications">用户配置</string>
     <string name="confirm_removal">移除近端加密</string>
     <string name="confirmation_remove_file_alert">确定删除%1$s？</string>
@@ -211,7 +226,6 @@
     <string name="contacts_preferences_import_scheduled_fail">导入无法开始。请重试</string>
     <string name="contacts_preferences_no_file_found">没有文件被发现</string>
     <string name="contacts_preferences_something_strange_happened">无法找到末次备份</string>
-    <string name="content_observer_work_notification_title">正在检测内容更改</string>
     <string name="conversation_screen_create_error_title">无法创建对话</string>
     <string name="conversation_screen_delete_button_title">删除对话</string>
     <string name="conversation_screen_delete_error_title">无法删除对话</string>
@@ -234,7 +248,8 @@
     <string name="create_link">创建链接</string>
     <string name="create_new">新建</string>
     <string name="create_new_document">新文档</string>
-    <string name="create_new_folder">新建文件夹</string>
+    <string name="create_new_encrypted_folder">新加密文件夹</string>
+    <string name="create_new_folder">新文件夹</string>
     <string name="create_new_presentation">新演示文稿</string>
     <string name="create_new_spreadsheet">新表格</string>
     <string name="create_rich_workspace">添加文件夹描述</string>
@@ -299,7 +314,7 @@
     <string name="drawer_item_assistant">助手</string>
     <string name="drawer_item_favorites">收藏</string>
     <string name="drawer_item_gallery">媒体文件</string>
-    <string name="drawer_item_groupfolders">组文件夹</string>
+    <string name="drawer_item_groupfolders">团队文件夹</string>
     <string name="drawer_item_home">首页</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">此设备上的</string>
@@ -390,12 +405,14 @@
     <string name="etm_transfer_type">传输</string>
     <string name="etm_transfer_type_download">下载</string>
     <string name="etm_transfer_type_upload">上传</string>
+    <string name="extension_cannot_be_changed">无法更改扩展名</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">您没有在此文件夹中创建或上传文件的权限。</string>
     <string name="external_shares">外部共享</string>
     <string name="fab_label">添加或上传</string>
     <string name="failed_to_create_conflict_dialog">无法创建冲突对话框</string>
     <string name="failed_to_download">无法将文件传递给下载管理器</string>
     <string name="failed_to_print">打印文件已失败</string>
+    <string name="failed_to_start_action">无法启动操作！</string>
     <string name="failed_to_start_editor">启动编辑器失败</string>
     <string name="failed_update_ui">更新用户界面失败</string>
     <string name="favorite">添加到收藏夹</string>
@@ -420,6 +437,8 @@
     <string name="file_list_empty_local_search">没有文件或文件夹匹配你的搜索</string>
     <string name="file_list_empty_moving">这里空无一物。你可以添加一个文件夹。</string>
     <string name="file_list_empty_on_device">已下载的文件和文件夹将显示在此处</string>
+    <string name="file_list_empty_recent_files_description">你最近修改的文件与文件夹将会显示在此处。</string>
+    <string name="file_list_empty_recent_files_headline">近期无修改文件</string>
     <string name="file_list_empty_recently_modified">在过去的7天内没有被修改过的文件</string>
     <string name="file_list_empty_search">也许它在其他文件夹中？</string>
     <string name="file_list_empty_shared">你共享的文件和文件夹将显示在此处</string>
@@ -493,7 +512,7 @@
     <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">同步 %s 文件夹时出错</string>
     <string name="folder_download_insufficient_disk_space_notification_title">磁盘空间不足，同步已取消</string>
-    <string name="folder_download_success_notification_title">%s 文件夹已成功同步</string>
+    <string name="folder_download_success_notification_title">%s 文件夹已同步</string>
     <string name="folder_download_worker_ticker_id">正在同步…</string>
     <string name="folder_list_empty_headline">这里没有文件夹</string>
     <string name="folder_name_empty">文件夹名称不能为空</string>
@@ -569,6 +588,7 @@
     <string name="login">登录</string>
     <string name="login_url_helper_text">在浏览器中打开 %1$s 时显示的 web 界面的链接</string>
     <string name="logs_menu_delete">删除日志</string>
+    <string name="logs_menu_export">导出日志</string>
     <string name="logs_menu_refresh">刷新</string>
     <string name="logs_menu_search">搜索日志</string>
     <string name="logs_menu_send">通过电子邮件发送日志</string>
@@ -589,6 +609,11 @@
     <string name="media_forward_description">快进按钮</string>
     <string name="media_notif_ticker">%1$s 音乐播放器</string>
     <string name="media_play_pause_description">播放 / 暂停按钮</string>
+    <string name="media_player_pause">暂停</string>
+    <string name="media_player_play">播放</string>
+    <string name="media_player_playing">正在播放媒体</string>
+    <string name="media_player_seek_backward">快退</string>
+    <string name="media_player_seek_forward">快进</string>
     <string name="media_rewind_description">快退按钮</string>
     <string name="media_state_playing">%1$s (正在播放)</string>
     <string name="menu_item_sort_by_date_newest_first">新文件在前</string>
@@ -754,7 +779,7 @@
     <string name="prefs_theme_title">主题</string>
     <string name="prefs_two_way_sync_interval">间隔</string>
     <string name="prefs_two_way_sync_summary">管理内部文件夹以实现双向同步</string>
-    <string name="prefs_two_way_sync_switch_title">启用双向同步</string>
+    <string name="prefs_two_way_sync_title">双向同步</string>
     <string name="prefs_value_theme_dark">深色</string>
     <string name="prefs_value_theme_light">浅色</string>
     <string name="prefs_value_theme_system">跟随系统</string>
@@ -825,6 +850,7 @@
     <string name="select_one_template">请选择一个模板</string>
     <string name="select_template">选择模板</string>
     <string name="send">发送</string>
+    <string name="send_copy_to">发送副本至</string>
     <string name="send_share">发送共享</string>
     <string name="sendbutton_description">发送按钮的图标</string>
     <string name="server_not_reachable">无法加载内容</string>
@@ -834,6 +860,7 @@
     <string name="set_message">设置消息</string>
     <string name="set_note">设置备注</string>
     <string name="set_online_status">在线状态</string>
+    <string name="set_online_status_bottom_sheet_error_message">无法设置状态！</string>
     <string name="set_picture_as">将图片用作</string>
     <string name="setup_e2e">在端对端加密期间，你将接收一个随机12字助记字串，您需要这个字符串才能在其它设备上开放您的文件。这将只会存储在该设备上，并可以在此画面中再次展示。请记在安全的地方！</string>
     <string name="share">共享</string>
@@ -962,6 +989,9 @@
     <string name="suggest">建议</string>
     <string name="sync">同步</string>
     <string name="sync_anyway">仍要同步</string>
+    <string name="sync_conflict_notification_action_title">解决冲突</string>
+    <string name="sync_conflict_notification_description">检测到上传冲突。请打开上传进行解决。</string>
+    <string name="sync_conflict_notification_title">文件上传冲突</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
     <string name="sync_current_folder_was_removed">文件夹%1$s不再存在</string>
     <string name="sync_duplication">同步重复</string>
@@ -1000,6 +1030,12 @@
     <string name="thumbnail_for_new_file_desc">新文件的缩略图</string>
     <string name="timeout_richDocuments">加载比预期时间要长</string>
     <string name="today">今天</string>
+    <string name="translation_screen_hint_source">输入要翻译的文本…</string>
+    <string name="translation_screen_label_from">原文：</string>
+    <string name="translation_screen_label_to">译文：</string>
+    <string name="translation_screen_start_to_translate_task">按下按钮翻译</string>
+    <string name="translation_screen_task_processing">翻译时间比预期长。</string>
+    <string name="translation_screen_translating">正在翻译…</string>
     <string name="trashbin_activity_title">回收站</string>
     <string name="trashbin_empty_headline">没有被删除的文件</string>
     <string name="trashbin_empty_message">你可以在此处还原已删除的文件。</string>
@@ -1055,7 +1091,6 @@
     <string name="upload_files">上传文件</string>
     <string name="upload_global_pause_title">所有上传已暂停</string>
     <string name="upload_item_action_button">上传项操作按钮</string>
-    <string name="upload_list_cancel_upload">取消上传</string>
     <string name="upload_list_delete">删除</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
     <string name="upload_list_empty_text_auto_upload">上传一些内容或启用自动上传。</string>
@@ -1069,6 +1104,7 @@
     <string name="upload_missing_storage_permission_app_permissions">应用权限</string>
     <string name="upload_missing_storage_permission_description">如果无法访问本地存储，则无法上传您的文件。点击即可授予权限。</string>
     <string name="upload_missing_storage_permission_title">上传已停止 — 需要存储权限</string>
+    <string name="upload_notification_manager_content_intent_description">您可以从上传中移除或恢复它</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">加密功能仅适用于安卓 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
@@ -1106,9 +1142,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">安装</string>
     <string name="uploader_wrn_no_account_text">您的设备上没有账号 %1$s。 请先设置一个账号。</string>
     <string name="uploader_wrn_no_account_title">没有找到账号</string>
+    <string name="uploads_view_group_completed_uploads">已完成</string>
     <string name="uploads_view_group_current_uploads">当前</string>
     <string name="uploads_view_group_failed_uploads">失败 / 等待重启</string>
-    <string name="uploads_view_group_finished_uploads">已上传</string>
     <string name="uploads_view_group_manually_cancelled_uploads">已取消</string>
     <string name="uploads_view_later_waiting_to_upload">等待上传</string>
     <string name="uploads_view_title">上传</string>

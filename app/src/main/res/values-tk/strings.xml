@@ -29,6 +29,7 @@
     <string name="add_new_public_share">Täze köpçülikleýin paýlaşma baglanyşygyny goşuň</string>
     <string name="add_to_cloud">Goşuň%1$s</string>
     <string name="appbar_search_in">Gözlemek%siçinde</string>
+    <string name="assistant_task_status_unknown">näbelli</string>
     <string name="associated_account_not_found">Baglanyşyk hasaby tapylmady!</string>
     <string name="auth_access_failed">Şowsuz Giriş%1$s:</string>
     <string name="auth_account_does_not_exist">Akaunt entek bu enjamda goşulmaýar</string>
@@ -699,9 +700,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Gurmak</string>
     <string name="uploader_wrn_no_account_text">Enjamyňyzda %1$shasap ýok. Ilki bilen hasap açmagyňyzy haýyş edýäris.</string>
     <string name="uploader_wrn_no_account_title">Hasap tapylmady</string>
+    <string name="uploads_view_group_completed_uploads">Tamamlanan</string>
     <string name="uploads_view_group_current_uploads">Häzirki</string>
     <string name="uploads_view_group_failed_uploads">Şowsuz / täzeden başlamaga garaşýar</string>
-    <string name="uploads_view_group_finished_uploads">Ýüklendi</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Ýatyryldy</string>
     <string name="uploads_view_later_waiting_to_upload">Ýüklemek üçin garaşýar</string>
     <string name="uploads_view_title">Ýüklemeler</string>

@@ -124,7 +124,9 @@ class GalleryFastScrollViewHelper(private val mView: RecyclerView, private val m
         val totalSeenRows = seenRowsInPreviousSections + seenRowsInThisSection
 
         val seenHeaders = when {
-            isHeader -> itemCoord.section() // don't count the current section header
+            isHeader -> itemCoord.section()
+
+            // don't count the current section header
             else -> itemCoord.section() + 1
         }
 

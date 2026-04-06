@@ -70,6 +70,7 @@ class EtmMigrations : EtmBaseFragment() {
             onDeleteMigrationsClicked()
             true
         }
+
         else -> super.onOptionsItemSelected(item)
     }
 

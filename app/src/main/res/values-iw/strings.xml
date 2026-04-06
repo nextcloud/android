@@ -35,6 +35,7 @@
     <string name="appbar_search_in">חפש ב %s</string>
     <string name="appear_offline">להופיע במצב בלתי מקוון</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">מחיקת משימה</string>
+    <string name="assistant_task_status_unknown">לא ידוע</string>
     <string name="associated_account_not_found">לא נמצא חשבון משויך!</string>
     <string name="auth_access_failed">גישה נכשלה: %1$s</string>
     <string name="auth_account_does_not_exist">החשבון לא נוסף למכשיר הזה עדיין</string>
@@ -390,6 +391,8 @@
     <string name="media_forward_description">לחצן הרצה קדימה</string>
     <string name="media_notif_ticker">נגן מוזיקה %1$s</string>
     <string name="media_play_pause_description">לחצן ניגון או השהייה</string>
+    <string name="media_player_pause">השהה</string>
+    <string name="media_player_play">נגן</string>
     <string name="media_rewind_description">לחצן החזרה אחורה</string>
     <string name="media_state_playing">%1$s (מתגנן)</string>
     <string name="menu_item_sort_by_date_newest_first">החדשים ביותר ראשונים</string>
@@ -694,7 +697,6 @@
     <string name="upload_file_dialog_title">נא לציין שם קובץ וסוג קובץ לשליחה</string>
     <string name="upload_files">העלאת קבצים</string>
     <string name="upload_item_action_button">כפתור פעולת העלאת פריט</string>
-    <string name="upload_list_cancel_upload">ביטול העלאה</string>
     <string name="upload_list_delete">מחיקה</string>
     <string name="upload_list_empty_headline">אין העלאות זמינות</string>
     <string name="upload_list_empty_text_auto_upload">יש להעלות תוכן כלשהו או להפעיל העלאה אוטומטית.</string>
@@ -733,9 +735,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>
     <string name="uploader_wrn_no_account_text">לא מוגדרים חשבונות %1$s במכשיר שלך. יש להגדיר חשבות תחילה.</string>
     <string name="uploader_wrn_no_account_title">לא נמצא חשבון</string>
+    <string name="uploads_view_group_completed_uploads">הושלם</string>
     <string name="uploads_view_group_current_uploads">נוכחי</string>
     <string name="uploads_view_group_failed_uploads">הפעלה מחדש ממתינה/נכשלה.</string>
-    <string name="uploads_view_group_finished_uploads">הועלה</string>
     <string name="uploads_view_group_manually_cancelled_uploads">בוטל</string>
     <string name="uploads_view_later_waiting_to_upload">ממתין להעלאה</string>
     <string name="uploads_view_title">העלאות</string>

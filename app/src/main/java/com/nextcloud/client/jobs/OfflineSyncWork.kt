@@ -119,6 +119,7 @@ class OfflineSyncWork(
                 Log_OC.d(TAG, "$folderName: eTag unchanged")
                 null
             }
+
             ResultCode.FILE_NOT_FOUND -> {
                 val removalResult = storageManager.removeFolder(folder, true, true)
                 if (!removalResult) {
@@ -126,10 +127,12 @@ class OfflineSyncWork(
                 }
                 null
             }
+
             ResultCode.ETAG_CHANGED -> {
                 Log_OC.d(TAG, "$folderName: eTag changed")
                 result?.data?.get(0) as? String
             }
+
             else -> if (connectivityService.isInternetWalled) {
                 Log_OC.d(TAG, "No connectivity, skipping sync")
                 null

@@ -27,6 +27,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Suite
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.any
+import org.mockito.kotlin.anyVararg
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import java.util.Date
@@ -77,7 +78,7 @@ class LogsViewModelTest {
 
         @Before
         fun setUpFixture() {
-            MockitoAnnotations.initMocks(this)
+            MockitoAnnotations.openMocks(this)
             context = mock()
             clock = mock()
             repository = TestLogRepository()
@@ -204,7 +205,7 @@ class LogsViewModelTest {
         @Test
         fun `filtered logs are displayed`() {
             var statusArgs: Array<Any> = emptyArray()
-            whenever(context.getString(any(), any())).thenAnswer {
+            whenever(context.getString(any(), anyVararg())).thenAnswer {
                 statusArgs = it.arguments
                 "${it.arguments}"
             }

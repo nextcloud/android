@@ -84,7 +84,7 @@ class OCFileListSearchTask(
             if (result?.isSuccess == true) {
                 if (result.resultData?.isEmpty() == true) {
                     withContext(Dispatchers.Main) {
-                        fragment.setEmptyListMessage(SearchType.NO_SEARCH)
+                        fragment.setEmptyListMessage(fragment.currentSearchType)
                         return@withContext
                     }
 
@@ -171,25 +171,30 @@ class OCFileListSearchTask(
         var newList = list.toMutableList()
 
         if (searchType == SearchType.GALLERY_SEARCH ||
-            searchType == SearchType.RECENTLY_MODIFIED_SEARCH
+            searchType == SearchType.RECENT_FILES_SEARCH
         ) {
             return@withContext FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(newList)
         }
 
-        if (searchType != SearchType.SHARED_FILTER) {
-            val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
-            val favoritesFirst = preferences.isSortFavoritesFirst()
+        val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
+        val favoritesFirst = preferences.isSortFavoritesFirst()
 
-            val sortOrder =
-                if (searchType == SearchType.FAVORITE_SEARCH) {
-                    preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView)
-                } else {
-                    preferences.getSortOrderByFolder(folder)
-                }
+        val sortOrder = when (searchType) {
+            SearchType.FAVORITE_SEARCH -> {
+                preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView)
+            }
 
-            setNewSortOrder(sortOrder)
-            newList = sortOrder.sortCloudFiles(newList, foldersBeforeFiles, favoritesFirst)
+            SearchType.SHARED_FILTER -> {
+                FileSortOrder.SORT_A_TO_Z
+            }
+
+            else -> {
+                preferences.getSortOrderByFolder(folder)
+            }
         }
+
+        setNewSortOrder(sortOrder)
+        newList = sortOrder.sortCloudFiles(newList, foldersBeforeFiles, favoritesFirst)
 
         return@withContext newList
     }
@@ -241,7 +246,8 @@ class OCFileListSearchTask(
                         put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
                     }
                     contentValuesList.add(cv)
-                } catch (_: Exception) {
+                } catch (e: Exception) {
+                    Log_OC.e(TAG, "parseAndSaveVirtuals():", e)
                 }
             }
 
@@ -281,6 +287,7 @@ class OCFileListSearchTask(
                     metadata,
                     ocFile
                 )
+
             is DecryptedFolderMetadataFile ->
                 RefreshFolderOperation.updateFileNameForEncryptedFile(
                     fileDataStorage,

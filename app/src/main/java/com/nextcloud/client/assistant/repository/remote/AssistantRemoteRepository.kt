@@ -15,9 +15,10 @@ import com.owncloud.android.lib.resources.assistant.chat.model.Session
 import com.owncloud.android.lib.resources.assistant.chat.model.SessionTask
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
+import com.owncloud.android.lib.resources.assistant.v2.model.TranslationRequest
 
 interface AssistantRemoteRepository {
-    suspend fun getTaskTypes(): List<TaskTypeData>?
+    suspend fun fetchTaskTypes(): List<TaskTypeData>?
 
     suspend fun createTask(input: String, taskType: TaskTypeData): RemoteOperationResult<Void>
 
@@ -36,4 +37,6 @@ interface AssistantRemoteRepository {
     suspend fun generateSession(sessionId: String): SessionTask?
 
     suspend fun checkGeneration(taskId: String, sessionId: String): ChatMessage?
+
+    suspend fun translate(input: TranslationRequest, taskType: TaskTypeData): RemoteOperationResult<Void>
 }

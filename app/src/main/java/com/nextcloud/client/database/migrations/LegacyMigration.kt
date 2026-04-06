@@ -26,9 +26,9 @@ class LegacyMigration(
     private val context: Context
 ) : Migration(from, to) {
 
-    override fun migrate(database: SupportSQLiteDatabase) {
+    override fun migrate(db: SupportSQLiteDatabase) {
         LegacyMigrationHelper(clock, context)
-            .tryUpgrade(database, from, to)
+            .tryUpgrade(db, from, to)
     }
 }
 

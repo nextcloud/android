@@ -13,6 +13,7 @@
     <string name="action_send_share">Wyślij/udostępnij</string>
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
+    <string name="action_triggered">Wywołano akcję</string>
     <string name="actionbar_calendar_contacts_restore">Przywróć kontakty i kalendarz</string>
     <string name="actionbar_mkdir">Nowy katalog</string>
     <string name="actionbar_move_or_copy">Przenieś lub kopiuj</string>
@@ -47,21 +48,33 @@
     <string name="assistant_output_generation_warning_text">Ten wynik został wygenerowany przez AI. Upewnij się, że został sprawdzony i odpowiednio dostosowany.</string>
     <string name="assistant_screen_chat_create_error">Nie udało się wysłać wiadomości</string>
     <string name="assistant_screen_chat_fetch_error">Nie udało się pobrać wiadomości czatu</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Wróć do strony asystenta</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Czy na pewno chcesz usunąć to zadanie?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Usuń zadanie</string>
     <string name="assistant_screen_empty_content_description">Spróbuj wysłać wiadomość, aby rozpocząć rozmowę.</string>
     <string name="assistant_screen_empty_content_title">Cześć! W czym mogę Ci dziś pomóc?</string>
+    <string name="assistant_screen_retry_response_generation">Ponów generowanie odpowiedzi</string>
+    <string name="assistant_screen_select_task">Wybierz zadanie</string>
+    <string name="assistant_screen_send_message">Wyślij wiadomość</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">Otwórz listę rozmowy</string>
     <string name="assistant_screen_task_create_fail_message">Wystąpił błąd podczas tworzenia zadania</string>
-    <string name="assistant_screen_task_create_success_message">Zadanie pomyślnie utworzone</string>
+    <string name="assistant_screen_task_create_success_message">Zadanie utworzone</string>
     <string name="assistant_screen_task_delete_fail_message">Wystąpił błąd podczas usuwania zadania</string>
-    <string name="assistant_screen_task_delete_success_message">Zadanie pomyślnie usunięte</string>
+    <string name="assistant_screen_task_delete_success_message">Zadanie usunięte</string>
     <string name="assistant_screen_task_list_empty_warning">Lista zadań jest pusta. Sprawdź konfigurację asystenta aplikacji.</string>
     <string name="assistant_screen_task_list_error_state_message">Nie można pobrać listy zadań. Sprawdź swoje połączenie internetowe.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Usuń zadanie</string>
     <string name="assistant_screen_task_output_empty_text">Wynik zadanie nie jest jeszcze gotowy</string>
+    <string name="assistant_screen_text_selected">Tekst skopiowany z innej aplikacji</string>
     <string name="assistant_screen_top_bar_title">Asystent</string>
     <string name="assistant_task_detail_screen_input_button_title">Wejście</string>
     <string name="assistant_task_detail_screen_output_button_title">Wyjście</string>
+    <string name="assistant_task_status_failed">nie powiodło się</string>
+    <string name="assistant_task_status_running">uruchomiony</string>
+    <string name="assistant_task_status_scheduled">zaplanowane</string>
+    <string name="assistant_task_status_successful">powiodło się</string>
+    <string name="assistant_task_status_text">Status zadania: %1$s</string>
+    <string name="assistant_task_status_unknown">nieznane</string>
     <string name="assistant_thinking">Mylślę ...</string>
     <string name="associated_account_not_found">Nie znaleziono powiązanego konta!</string>
     <string name="auth_access_failed">Dostęp nieudany: %1$s</string>
@@ -106,7 +119,7 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Ten katalog jest już uwzględniony w synchronizacji katalogu nadrzędnego, co może powodować duplikowanie wysyłanych plików</string>
     <string name="auto_upload_wifi_only_warning_info">Oczekiwanie na Wi-Fi, aby zacząć aktualizowanie</string>
-    <string name="auto_upload_worker_start_text">Przesyłanie plików z %s do %s</string>
+    <string name="auto_upload_worker_start_text">Przesyłanie plików z %1$s do %2$s</string>
     <string name="autoupload_configure">Konfiguruj</string>
     <string name="autoupload_create_new_custom_folder">Utwórz nową niestandardową konfigurację katalogu</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
@@ -187,6 +200,7 @@
     <string name="community_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="community_testing_headline">Pomóż nam testować</string>
     <string name="community_testing_report_text">Zgłoś problem na GitHubie</string>
+    <string name="compose_activity_label">Asystent Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguruj</string>
     <string name="confirm_removal">Usuń szyfrowanie lokalne</string>
     <string name="confirmation_remove_file_alert">Czy na pewno chcesz usunąć %1$s?</string>
@@ -211,7 +225,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Nie udało się rozpocząć importu. Spróbuj ponownie</string>
     <string name="contacts_preferences_no_file_found">Nie znaleziono żadnych plików</string>
     <string name="contacts_preferences_something_strange_happened">Nie odnaleziono Twojej ostatniej kopii zapasowej!</string>
-    <string name="content_observer_work_notification_title">Sprawdzanie zmian treści</string>
     <string name="conversation_screen_create_error_title">Nie udało się utworzyć rozmowy</string>
     <string name="conversation_screen_delete_button_title">Usunąć rozmowę</string>
     <string name="conversation_screen_delete_error_title">Nie udało się usunąć rozmowy</string>
@@ -299,7 +312,7 @@
     <string name="drawer_item_assistant">Asystent</string>
     <string name="drawer_item_favorites">Ulubione</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Katalog grupowy</string>
+    <string name="drawer_item_groupfolders">Foldery zespołów</string>
     <string name="drawer_item_home">Start</string>
     <string name="drawer_item_notifications">Powiadomienia</string>
     <string name="drawer_item_on_device">Na urządzeniu</string>
@@ -323,6 +336,7 @@
     <string name="ecosystem_apps_display_assistant">Asystent</string>
     <string name="ecosystem_apps_display_more">Więcej</string>
     <string name="ecosystem_apps_more">Więcej aplikacji Nextcloud</string>
+    <string name="editor_web_view_cannot_open_file">Nie można otworzyć selektora plików</string>
     <string name="email_pick_failed">Nie udało się wybrać adresu e-mail.</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
     <string name="end_to_end_encryption_certificate_unavailable">Nie można pobrać certyfikatu serwera</string>
@@ -392,8 +406,10 @@
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Nie masz uprawnień do tworzenia ani przesyłania plików w tym folderze.</string>
     <string name="external_shares">Udostępnienia zewnętrzne</string>
     <string name="fab_label">Dodaj lub wyślij</string>
+    <string name="failed_to_create_conflict_dialog">Nie udało się utworzyć okna dialogowego konfliktu</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
     <string name="failed_to_print">Nie udało się wydrukować pliku</string>
+    <string name="failed_to_start_action">Nie udało się rozpocząć akcji!</string>
     <string name="failed_to_start_editor">Nie można uruchomić edytora</string>
     <string name="failed_update_ui">Nie udało się zaktualizować UI</string>
     <string name="favorite">Dodaj do ulubionych</string>
@@ -418,6 +434,8 @@
     <string name="file_list_empty_local_search">Brak plików lub katalogów spełniających kryteria wyszukiwania</string>
     <string name="file_list_empty_moving">Pusto. Możesz dodać katalog.</string>
     <string name="file_list_empty_on_device">Tutaj pojawią się pobrane pliki i katalogi.</string>
+    <string name="file_list_empty_recent_files_description">Tutaj pojawią się pliki i katalogi, które ostatnio zmodyfikowałeś.</string>
+    <string name="file_list_empty_recent_files_headline">Brak ostatnio zmodyfikowanych plików</string>
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
     <string name="file_list_empty_search">Może jest w innym katalogu?</string>
     <string name="file_list_empty_shared">Tutaj pojawią się pliki i katalogi, które udostępnisz.</string>
@@ -491,7 +509,7 @@
     <string name="folder_download_counter">%1$d z %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Wystąpił błąd podczas synchronizacji katalogu %s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Brak miejsca na dysku, synchronizacja przewana</string>
-    <string name="folder_download_success_notification_title">%s pomyślnie zsynchronizowany</string>
+    <string name="folder_download_success_notification_title">Katalog zsynchronizowany %s</string>
     <string name="folder_download_worker_ticker_id">Synchronizacja…</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
     <string name="folder_name_empty">Nazwa katalogu nie może być pusta</string>
@@ -567,6 +585,7 @@
     <string name="login">Zaloguj</string>
     <string name="login_url_helper_text">Link do interfejsu internetowego %1$s, aby otworzyć w przeglądarce.</string>
     <string name="logs_menu_delete">Usuń dziennik</string>
+    <string name="logs_menu_export">Eksportuj logi</string>
     <string name="logs_menu_refresh">Odśwież</string>
     <string name="logs_menu_search">Przeszukaj dziennik</string>
     <string name="logs_menu_send">Wyślij dziennik e-mailem</string>
@@ -587,6 +606,8 @@
     <string name="media_forward_description">Przycisk przewijania do przodu</string>
     <string name="media_notif_ticker">%1$s odtwarzacz muzyki</string>
     <string name="media_play_pause_description">Przycisk odtwarzania/pauzowania</string>
+    <string name="media_player_pause">Wstrzymaj</string>
+    <string name="media_player_play">Odtwarzaj</string>
     <string name="media_rewind_description">Przycisk przewijania do tyłu</string>
     <string name="media_state_playing">%1$s (odtwarzanie)</string>
     <string name="menu_item_sort_by_date_newest_first">Od najnowszych</string>
@@ -752,7 +773,7 @@
     <string name="prefs_theme_title">Motyw</string>
     <string name="prefs_two_way_sync_interval">Interwał</string>
     <string name="prefs_two_way_sync_summary">Zarządzaj wewnętrznymi katalogami w celu synchronizacji dwukierunkowej</string>
-    <string name="prefs_two_way_sync_switch_title">Włącz synchronizację dwukierunkową</string>
+    <string name="prefs_two_way_sync_title">Synchronizacja dwukierunkowa</string>
     <string name="prefs_value_theme_dark">Ciemny</string>
     <string name="prefs_value_theme_light">Jasny</string>
     <string name="prefs_value_theme_system">Śledź system</string>
@@ -823,6 +844,7 @@
     <string name="select_one_template">Wybierz jeden szablon</string>
     <string name="select_template">Wybierz szablon</string>
     <string name="send">Wyślij</string>
+    <string name="send_copy_to">Wyślij kopię do</string>
     <string name="send_share">Wyślij udostępnienie</string>
     <string name="sendbutton_description">Ikona przycisku wysyłania</string>
     <string name="server_not_reachable">Nie można załadować zawartości</string>
@@ -832,6 +854,7 @@
     <string name="set_message">Ustaw wiadomość</string>
     <string name="set_note">Ustaw notatkę</string>
     <string name="set_online_status">Status online</string>
+    <string name="set_online_status_bottom_sheet_error_message">Nie udało się ustawić statusu.</string>
     <string name="set_picture_as">Użyj obrazu jako</string>
     <string name="setup_e2e">Podczas konfigurowania szyfrowania typu end-to-end otrzymasz losowy mnemonik składający się z 12-stu słów, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
     <string name="share">Udostępnij</string>
@@ -957,6 +980,9 @@
     <string name="suggest">Propozycja</string>
     <string name="sync">Synchronizuj</string>
     <string name="sync_anyway">Synchronizuj mimo wszystko</string>
+    <string name="sync_conflict_notification_action_title">Rozwiąż konflikty</string>
+    <string name="sync_conflict_notification_description">Wykryto konflikty wysyłania. Otwórz pliki do wysłania, aby je rozwiązać.</string>
+    <string name="sync_conflict_notification_title">Konflikty wysyłania plików</string>
     <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
     <string name="sync_current_folder_was_removed">Katalog %1$s nie istnieje</string>
     <string name="sync_duplication">Synchronizuj z duplikowane</string>
@@ -995,6 +1021,12 @@
     <string name="thumbnail_for_new_file_desc">Miniaturka dla nowego pliku</string>
     <string name="timeout_richDocuments">Ładowanie trwa dłużej niż oczekiwano</string>
     <string name="today">Dzisiaj</string>
+    <string name="translation_screen_hint_source">Wpisz tekst do przetłumaczenia...</string>
+    <string name="translation_screen_label_from">Tłumacz z:</string>
+    <string name="translation_screen_label_to">Tłumacz na:</string>
+    <string name="translation_screen_start_to_translate_task">Naciśnij przycisk, aby przetłumaczyć</string>
+    <string name="translation_screen_task_processing">Tłumaczenie trwa dłużej niż oczekiwano.</string>
+    <string name="translation_screen_translating">Tłumaczenie...</string>
     <string name="trashbin_activity_title">Usunięte pliki</string>
     <string name="trashbin_empty_headline">Brak usuniętych plików</string>
     <string name="trashbin_empty_message">Tutaj będziesz mógł odzyskać usunięte pliki.</string>
@@ -1050,7 +1082,6 @@
     <string name="upload_files">Wyślij pliki</string>
     <string name="upload_global_pause_title">Wszystkie przesyłania zostały wstrzymane</string>
     <string name="upload_item_action_button">Przycisk wysyłania elementu</string>
-    <string name="upload_list_cancel_upload">Anuluj wysyłanie</string>
     <string name="upload_list_delete">Usuń</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij pliki lub włącz automatyczne wysyłanie.</string>
@@ -1064,6 +1095,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Uprawnienia aplikacji</string>
     <string name="upload_missing_storage_permission_description">Twoje pliki nie mogą być przesłane bez dostępu do pamięci lokalnej. Kliknij, aby udzielić pozwolenia.</string>
     <string name="upload_missing_storage_permission_title">Przesyłanie zatrzymane – wymagane uprawnienie do pamięci</string>
+    <string name="upload_notification_manager_content_intent_description">Możesz usunąć lub wznowić w sekcji Przesyłane pliki</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Szyfrowanie jest możliwe tylko przy &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do katalogu %1$s. Czy chcesz je tam przenieść?</string>
@@ -1101,9 +1133,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Ustawienia</string>
     <string name="uploader_wrn_no_account_text">Brak %1$s kont na Twoim urządzeniu. Załóż konto.</string>
     <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
+    <string name="uploads_view_group_completed_uploads">Zakończone</string>
     <string name="uploads_view_group_current_uploads">Bieżące</string>
     <string name="uploads_view_group_failed_uploads">Nieudane/oczekujące na ponowne uruchomienie</string>
-    <string name="uploads_view_group_finished_uploads">Wysłane</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Anulowane</string>
     <string name="uploads_view_later_waiting_to_upload">Oczekuje na wysłanie</string>
     <string name="uploads_view_title">Wysłane</string>

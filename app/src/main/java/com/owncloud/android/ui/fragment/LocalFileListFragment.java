@@ -134,7 +134,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
             }
         }
 
-        setGridSwitchButton();
+        setLayoutSwitchButton();
 
         if (mSwitchGridViewButton != null) {
             mSwitchGridViewButton.setOnClickListener(v -> {
@@ -143,7 +143,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
                 } else {
                     switchToGridView();
                 }
-                setGridSwitchButton();
+                setLayoutSwitchButton();
             });
         }
 

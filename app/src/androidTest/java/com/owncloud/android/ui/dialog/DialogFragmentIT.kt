@@ -63,10 +63,6 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.dialog.LoadingDialog.Companion.newInstance
-import com.owncloud.android.ui.dialog.RenameFileDialogFragment.Companion.newInstance
-import com.owncloud.android.ui.dialog.SharePasswordDialogFragment.Companion.newInstance
-import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.Companion.newInstanceForEmptySslError
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog
@@ -76,6 +72,7 @@ import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import io.mockk.mockk
 import org.junit.After
+import org.junit.Assert.fail
 import org.junit.Rule
 import org.junit.Test
 import java.net.URI
@@ -104,7 +101,7 @@ class DialogFragmentIT : AbstractIT() {
             Looper.prepare()
         }
 
-        newInstance(
+        RenameFileDialogFragment.newInstance(
             OCFile("/Test/"),
             OCFile("/")
         ).run {
@@ -115,7 +112,7 @@ class DialogFragmentIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun testLoadingDialog() {
-        newInstance("Wait…").run {
+        LoadingDialog.newInstance("Wait…").run {
             showDialog(this)
         }
     }
@@ -240,7 +237,7 @@ class DialogFragmentIT : AbstractIT() {
         if (Looper.myLooper() == null) {
             Looper.prepare()
         }
-        val sut = newInstance(OCFile("/"), true, false)
+        val sut = SharePasswordDialogFragment.newInstance(OCFile("/"), createShare = true, askForPassword = false)
         showDialog(sut)
     }
 
@@ -250,7 +247,7 @@ class DialogFragmentIT : AbstractIT() {
         if (Looper.myLooper() == null) {
             Looper.prepare()
         }
-        val sut = newInstance(OCFile("/"), true, true)
+        val sut = SharePasswordDialogFragment.newInstance(OCFile("/"), createShare = true, askForPassword = true)
         showDialog(sut)
     }
 
@@ -430,7 +427,7 @@ class DialogFragmentIT : AbstractIT() {
         }
 
         val action: OCFileListBottomSheetActions = object : OCFileListBottomSheetActions {
-            override fun createFolder() = Unit
+            override fun createFolder(encrypted: Boolean) = Unit
             override fun uploadFromApp() = Unit
             override fun uploadFiles() = Unit
             override fun newDocument() = Unit
@@ -438,6 +435,9 @@ class DialogFragmentIT : AbstractIT() {
             override fun newPresentation() = Unit
             override fun directCameraUpload() = Unit
             override fun scanDocUpload() = Unit
+            override fun scanDocUploadFromApp() = Unit
+            override val isScanDocUploadFromAppAvailable: Boolean
+                get() = false
             override fun showTemplate(creator: Creator?, headline: String?) = Unit
             override fun createRichWorkspace() = Unit
         }
@@ -491,7 +491,12 @@ class DialogFragmentIT : AbstractIT() {
                     json
                 )
 
-                val capability = fda.capabilities.apply {
+                val optionalCapability = fda.capabilities
+                if (optionalCapability.isEmpty) {
+                    fail("capabilities is empty")
+                }
+
+                val capability = optionalCapability.get().apply {
                     richDocuments = CapabilityBooleanType.TRUE
                     richDocumentsDirectEditing = CapabilityBooleanType.TRUE
                     richDocumentsTemplatesAvailable = CapabilityBooleanType.TRUE
@@ -504,9 +509,8 @@ class DialogFragmentIT : AbstractIT() {
                         throw UnsupportedOperationException("Document scan is not available")
                 }
 
-                val materialSchemesProvider = getMaterialSchemesProvider()
                 val viewThemeUtils = ViewThemeUtils(
-                    materialSchemesProvider.getMaterialSchemesForCurrentUser(),
+                    materialSchemesForCurrentUser,
                     ColorUtil(targetContext)
                 )
 
@@ -635,7 +639,7 @@ class DialogFragmentIT : AbstractIT() {
 
         val handler = mockk<SslErrorHandler>(relaxed = true)
 
-        newInstanceForEmptySslError(sslError, handler).run {
+        SslUntrustedCertDialog.newInstanceForEmptySslError(sslError, handler).run {
             showDialog(this)
         }
     }

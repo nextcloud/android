@@ -33,6 +33,8 @@
     <string name="appbar_search_in">Chirca in %s</string>
     <string name="appear_offline">Mustra•ti foras de lìnia</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Cantzella faina</string>
+    <string name="assistant_task_status_running">in esecutzione</string>
+    <string name="assistant_task_status_unknown">non connotu</string>
     <string name="associated_account_not_found">Contu assotziadu no agatadu!</string>
     <string name="auth_access_failed">Atzessu faddidu: %1$s</string>
     <string name="auth_account_does_not_exist">Su contu non s\'agatat ancora in custu dispositivu</string>
@@ -296,6 +298,8 @@
     <string name="file_list_empty_headline_server_search">Perunu resurtadu</string>
     <string name="file_list_empty_moving">Non b\'at nudda. Podes agiùnghere una cartella.</string>
     <string name="file_list_empty_on_device">Is cartellas e is archìvios iscarrigados ant a aparèssere inoghe.</string>
+    <string name="file_list_empty_recent_files_description">Is cartellas e is archìvios chi apas modificadu de reghente ant a èssere mustrados inoghe.</string>
+    <string name="file_list_empty_recent_files_headline">Nissunu archìviu modificadu de reghente</string>
     <string name="file_list_empty_recently_modified">Perunu archìviu modificadu in is ùrtimas 7 dies agatadu</string>
     <string name="file_list_empty_search">Forsis est in un\'àtera cartella?</string>
     <string name="file_list_empty_shared">Is cartellas e is archìvios chi cumpartzis ant a aparèssere inoghe.</string>
@@ -410,6 +414,7 @@
     <string name="media_forward_description">Butone bae a in antis a sa lestra</string>
     <string name="media_notif_ticker">%1$s riprodutore de mùsica</string>
     <string name="media_play_pause_description">Butone reprodue o pàusa</string>
+    <string name="media_player_pause">Pàusa</string>
     <string name="media_rewind_description">Butone torra in segus</string>
     <string name="media_state_playing">%1$s (in riprodutzione)</string>
     <string name="menu_item_sort_by_date_newest_first">Prima su prus nou</string>
@@ -789,9 +794,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Cunfigura</string>
     <string name="uploader_wrn_no_account_text">Non ddoe sunt %1$s contos in su dispositivu tuo. Prima cunfigura unu contu.</string>
     <string name="uploader_wrn_no_account_title">Perunu contu agatadu</string>
+    <string name="uploads_view_group_completed_uploads">Cumpletadu</string>
     <string name="uploads_view_group_current_uploads">Atuale</string>
     <string name="uploads_view_group_failed_uploads">Faddidu/in isetu de aviare torra</string>
-    <string name="uploads_view_group_finished_uploads">Carrigadu</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Annulladu</string>
     <string name="uploads_view_later_waiting_to_upload">Abetende pro carrigare</string>
     <string name="uploads_view_title">Carrigamentos</string>

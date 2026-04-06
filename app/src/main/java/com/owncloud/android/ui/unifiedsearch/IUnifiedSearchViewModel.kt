@@ -8,10 +8,13 @@ package com.owncloud.android.ui.unifiedsearch
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
+import com.owncloud.android.ui.fragment.UnifiedSearchFragmentScreenState
 
 interface IUnifiedSearchViewModel {
+    val screenState: MutableLiveData<UnifiedSearchFragmentScreenState>
     val browserUri: LiveData<Uri>
     val error: LiveData<String>
     val file: LiveData<OCFile>
@@ -25,4 +28,5 @@ interface IUnifiedSearchViewModel {
     fun setQuery(query: String)
     fun openFile(remotePath: String)
     fun getRemoteFile(remotePath: String)
+    fun updateScreenState(state: UnifiedSearchFragmentScreenState)
 }

@@ -49,6 +49,7 @@ object ContentResolverHelper {
                 val queryArgs = getQueryArgsBundle(selection, sortColumn, sortDirection, limit)
                 contentResolver.query(uri, projection, queryArgs, cancellationSignal)
             }
+
             else -> {
                 val sortOrder = getSortOrderString(sortColumn, sortDirection, limit)
                 contentResolver.query(

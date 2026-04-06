@@ -11,6 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="clip_horizontal"
     android:orientation="vertical"
     android:padding="@dimen/dialog_padding">
@@ -34,6 +35,17 @@
         android:visibility="gone"
         tools:text="@string/placeholder_passphrase"
         tools:visibility="visible" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:indeterminate="true"
+        app:indicatorColor="?attr/colorPrimary"
+        app:trackColor="?attr/colorSurfaceContainerHighest" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/encryption_passwordInput_container"

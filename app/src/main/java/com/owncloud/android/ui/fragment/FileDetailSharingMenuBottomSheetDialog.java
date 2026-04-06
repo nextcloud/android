@@ -13,6 +13,8 @@ package com.owncloud.android.ui.fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.core.content.ContextCompat;
+import com.owncloud.android.R;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -59,10 +61,15 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
 
         viewThemeUtils.platform.themeDialog(binding.getRoot());
 
-        viewThemeUtils.platform.colorImageView(binding.menuIconAdvancedPermissions, ColorRole.PRIMARY);
-        viewThemeUtils.platform.colorImageView(binding.menuIconSendLink, ColorRole.PRIMARY);
-        viewThemeUtils.platform.colorImageView(binding.menuIconUnshare, ColorRole.PRIMARY);
-        viewThemeUtils.platform.colorImageView(binding.menuIconSendNewEmail, ColorRole.PRIMARY);
+        int textColor = ContextCompat.getColor(getContext(), R.color.text_color);
+        viewThemeUtils.material.colorMaterialButtonContent(binding.menuShareAdvancedPermissions, ColorRole.PRIMARY);
+        viewThemeUtils.material.colorMaterialButtonContent(binding.menuShareSendNewEmail, ColorRole.PRIMARY);
+        viewThemeUtils.material.colorMaterialButtonContent(binding.menuShareSendLink, ColorRole.PRIMARY);
+        viewThemeUtils.material.colorMaterialButtonContent(binding.menuShareUnshare, ColorRole.PRIMARY);
+        binding.menuShareAdvancedPermissions.setTextColor(textColor);
+        binding.menuShareSendNewEmail.setTextColor(textColor);
+        binding.menuShareSendLink.setTextColor(textColor);
+        binding.menuShareUnshare.setTextColor(textColor);
 
         updateUI();
 

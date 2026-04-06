@@ -17,7 +17,6 @@ package com.owncloud.android;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -31,7 +30,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
@@ -61,6 +59,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
+import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.nmc.android.ui.LauncherActivity;
@@ -80,6 +79,7 @@ import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
@@ -88,6 +88,7 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.conscrypt.Conscrypt;
@@ -125,8 +126,8 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
 
 
 /**
- * Main Application of the project.
- * Contains methods to build the "static" strings. These strings were before constants in different classes.
+ * Main Application of the project. Contains methods to build the "static" strings. These strings were before constants
+ * in different classes.
  */
 public class MainApp extends Application implements HasAndroidInjector, NetworkChangeListener {
     public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_30;
@@ -142,7 +143,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     private static boolean mOnlyOnDevice;
     private static boolean mOnlyPersonalFiles;
 
-    
+
     @Inject
     protected AppPreferences preferences;
 
@@ -191,6 +192,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     PassCodeManager passCodeManager;
 
     @Inject WalledCheckCache walledCheckCache;
+
+    @Inject ComposeProcessTextAlias composeProcessTextAlias;
 
     // workaround because injection is initialized on onAttachBaseContext
     // and getApplicationContext is null at that point, which crashes when getting current user
@@ -338,6 +341,10 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         } catch (Exception e) {
             Log_OC.d("Debug", "Failed to disable uri exposure");
         }
+
+        Log_OC.d(TAG, "scheduleContentObserverJob, called");
+        backgroundJobManager.scheduleContentObserverJob();
+
         initSyncOperations(this,
                            preferences,
                            uploadsStorageManager,
@@ -347,8 +354,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                            backgroundJobManager,
                            clock,
                            viewThemeUtils,
-                           walledCheckCache,
-                           syncedFolderProvider);
+                           walledCheckCache);
         initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
 
@@ -371,9 +377,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         if (!MDMConfig.INSTANCE.sendFilesSupport(this)) {
             disableDocumentsStorageProvider();
         }
-        
-        
-     }
+    }
 
     public void disableDocumentsStorageProvider() {
         String packageName = getPackageName();
@@ -386,6 +390,14 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
         if (event == Lifecycle.Event.ON_START) {
             Log_OC.d(TAG, "APP IN FOREGROUND");
+            composeProcessTextAlias.configure();
+
+            if (preferences.startAutoUploadOnStart()) {
+                FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(syncedFolderProvider,
+                                                                       backgroundJobManager,
+                                                                       false);
+                preferences.setLastAutoUploadOnStartTime(System.currentTimeMillis());
+            }
         } else if (event == Lifecycle.Event.ON_STOP) {
             passCodeManager.setCanAskPin(true);
             Log_OC.d(TAG, "APP IN BACKGROUND");
@@ -403,7 +415,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             Log_OC.d(TAG, "Error caught at setProxyForNonBrandedPlusClients: " + e);
         }
     }
-    
+
     public static boolean isClientBranded() {
         return getAppContext().getResources().getBoolean(R.bool.is_branded_client);
     }
@@ -415,7 +427,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     private final IntentFilter restrictionsFilter = new IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED);
 
     private final BroadcastReceiver restrictionsReceiver = new BroadcastReceiver() {
-        @Override public void onReceive(Context context, Intent intent) {
+        @Override
+        public void onReceive(Context context, Intent intent) {
             setProxyConfig();
         }
     };
@@ -605,8 +618,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         final BackgroundJobManager backgroundJobManager,
         final Clock clock,
         final ViewThemeUtils viewThemeUtils,
-        final WalledCheckCache walledCheckCache,
-        final SyncedFolderProvider syncedFolderProvider) {
+        final WalledCheckCache walledCheckCache) {
         updateToAutoUpload(context);
         cleanOldEntries(clock);
         updateAutoUploadEntries(clock);
@@ -620,11 +632,9 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         }
 
         if (!preferences.isAutoUploadInitialized()) {
-            FilesSyncHelper.startAutoUploadImmediately(syncedFolderProvider, backgroundJobManager, false);
             preferences.setAutoUploadInit(true);
         }
 
-        FilesSyncHelper.scheduleFilesSyncForAllFoldersIfNeeded(appContext.get(), syncedFolderProvider, backgroundJobManager);
         FilesSyncHelper.restartUploadsIfNeeded(
             uploadsStorageManager,
             accountManager,
@@ -803,6 +813,18 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         return mOnlyPersonalFiles;
     }
 
+    public static Integer getMenuItemId() {
+        if (MainApp.isOnlyPersonFiles()) {
+            return R.id.nav_personal_files;
+        }
+
+        if (MainApp.isOnlyOnDevice()) {
+            return R.id.nav_on_device;
+        }
+
+        return null;
+    }
+
     public static String getUserAgent() {
         // Mozilla/5.0 (Android) Nextcloud-android/2.1.0
         return getUserAgent(R.string.nextcloud_user_agent);
@@ -845,7 +867,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         }
     }
 
-    
 
     private static void showAutoUploadAlertDialog(Context context) {
         new MaterialAlertDialogBuilder(context, R.style.Theme_ownCloud_Dialog)

@@ -138,6 +138,7 @@ class DocumentScanViewModel @Inject constructor(
             ExportType.PDF -> {
                 exportToPdf(state.pageList)
             }
+
             ExportType.IMAGES -> {
                 exportToImages(state.pageList)
             }

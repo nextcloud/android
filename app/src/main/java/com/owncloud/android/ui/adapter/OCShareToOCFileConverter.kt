@@ -84,7 +84,7 @@ object OCShareToOCFileConverter {
         }
 
         storageManager?.saveShares(newShares, accountName)
-        cachedFiles + newFiles
+        (cachedFiles + newFiles).distinctBy { it.remotePath }
     }
 
     private fun buildOcFile(path: String, shares: List<OCShare>): OCFile {

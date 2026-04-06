@@ -103,10 +103,12 @@ class DocumentScanActivity :
                         viewModel.onClickDone()
                         true
                     }
+
                     android.R.id.home -> {
                         onBackPressedDispatcher.onBackPressed()
                         true
                     }
+
                     else -> false
                 }
             }
@@ -129,6 +131,7 @@ class DocumentScanActivity :
                         startPageScan()
                     }
                 }
+
                 is DocumentScanViewModel.UIState.RequestExportState -> {
                     updateButtonsEnabled(false)
                     if (state.shouldRequestExportType) {
@@ -137,6 +140,7 @@ class DocumentScanActivity :
                     }
                 }
             }
+
             DocumentScanViewModel.UIState.DoneState, DocumentScanViewModel.UIState.CanceledState -> {
                 finish()
             }

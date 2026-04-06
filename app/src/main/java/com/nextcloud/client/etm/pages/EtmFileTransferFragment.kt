@@ -144,10 +144,12 @@ class EtmFileTransferFragment : EtmBaseFragment() {
             scheduleTestDownload()
             true
         }
+
         R.id.etm_test_upload -> {
             scheduleTestUpload()
             true
         }
+
         else -> super.onOptionsItemSelected(item)
     }
 

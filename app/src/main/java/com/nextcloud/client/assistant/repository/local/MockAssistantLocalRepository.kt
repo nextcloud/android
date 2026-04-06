@@ -23,13 +23,14 @@ class MockAssistantLocalRepository : AssistantLocalRepository {
         }
     }
 
-    override suspend fun getCachedTasks(accountName: String): List<Task> = mutex.withLock { tasks.toList() }
+    override suspend fun getCachedTasks(accountName: String, type: String): List<Task> =
+        mutex.withLock { tasks.toList() }
 
     override suspend fun insertTask(task: Task, accountName: String) {
         mutex.withLock { tasks.add(task) }
     }
 
-    override suspend fun deleteTask(id: Long, accountName: String) {
+    override suspend fun deleteTask(id: Long, accountName: String, type: String) {
         mutex.withLock { tasks.removeAll { it.id == id } }
     }
 }

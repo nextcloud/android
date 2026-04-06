@@ -1,0 +1,161 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+package com.nextcloud.client
+
+import android.view.View
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.DrawerActions
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import com.owncloud.android.AbstractIT
+import com.owncloud.android.R
+import com.owncloud.android.lib.resources.activities.model.Activity
+import com.owncloud.android.lib.resources.activities.model.RichElement
+import com.owncloud.android.lib.resources.activities.model.RichObject
+import com.owncloud.android.lib.resources.activities.models.PreviewObject
+import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.ui.fragment.ActivitiesFragment
+import com.owncloud.android.ui.navigation.NavigatorActivity
+import com.owncloud.android.ui.navigation.NavigatorScreen
+import com.owncloud.android.utils.ScreenshotTest
+import org.junit.Test
+import java.util.GregorianCalendar
+
+class ActivitiesFragmentIT : AbstractIT() {
+    private val testClassName = "com.nextcloud.client.ActivitiesFragmentIT"
+
+    private fun ActivityScenario<NavigatorActivity>.getFragment(): ActivitiesFragment? {
+        var fragment: ActivitiesFragment? = null
+        onActivity { activity ->
+            fragment = activity.supportFragmentManager
+                .findFragmentByTag(NavigatorScreen.Activities.tag) as? ActivitiesFragment
+        }
+        return fragment
+    }
+
+    private fun launchActivitiesActivity(): ActivityScenario<NavigatorActivity> {
+        val intent = NavigatorActivity.intent(
+            ApplicationProvider.getApplicationContext(),
+            NavigatorScreen.Activities
+        )
+        return ActivityScenario.launch(intent)
+    }
+
+    @Test
+    @ScreenshotTest
+    fun openDrawer() {
+        launchActivitiesActivity().use { scenario ->
+            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
+            scenario.onActivity { sut ->
+                val screenShotName = createName("${testClassName}_openDrawer", "")
+                screenshotViaName(sut, screenShotName)
+            }
+            onView(withId(R.id.drawer_layout)).check(matches(isDisplayed()))
+        }
+    }
+
+    @Test
+    @ScreenshotTest
+    fun loading() {
+        launchActivitiesActivity().use { scenario ->
+            val fragment = scenario.getFragment() ?: return
+            scenario.onActivity {
+                fragment.binding?.emptyList?.root?.visibility = View.GONE
+                fragment.binding?.swipeContainingList?.visibility = View.GONE
+                fragment.binding?.loadingContent?.visibility = View.VISIBLE
+            }
+            val screenShotName = createName("${testClassName}_loading", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+            scenario.onActivity { sut -> screenshotViaName(sut, screenShotName) }
+        }
+    }
+
+    @Test
+    @ScreenshotTest
+    fun empty() {
+        launchActivitiesActivity().use { scenario ->
+            val fragment = scenario.getFragment() ?: return
+            scenario.onActivity {
+                fragment.showActivities(mutableListOf(), nextcloudClient, -1)
+                fragment.setProgressIndicatorState(false)
+            }
+            val screenShotName = createName("${testClassName}_empty", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+            scenario.onActivity { sut -> screenshotViaName(sut, screenShotName) }
+        }
+    }
+
+    @Test
+    @ScreenshotTest
+    @SuppressWarnings("MagicNumber")
+    fun showActivities() {
+        val capability = OCCapability()
+        capability.versionMayor = 20
+        fileDataStorageManager.saveCapabilities(capability)
+
+        val date = GregorianCalendar()
+        date.set(2005, 4, 17, 10, 35, 30)
+
+        val richObjectList: ArrayList<RichObject> = ArrayList()
+        richObjectList.add(RichObject("file", "abc", "text.txt", "/text.txt", "link", "tag"))
+        richObjectList.add(RichObject("file", "1", "text.txt", "/text.txt", "link", "tag"))
+
+        val previewObjectList1: ArrayList<PreviewObject> = ArrayList()
+        previewObjectList1.add(PreviewObject(1, "source", "link", true, "text/plain", "view", "test1.txt"))
+
+        val previewObjectList3: ArrayList<PreviewObject> = ArrayList()
+        previewObjectList3.add(PreviewObject(1, "source", "link", true, "image/jpg", "view", "test1.jpg"))
+
+        val activities = mutableListOf(
+            Activity(
+                1, date.time, date.time, "files", "file_changed", "user1", "user1",
+                "You changed text.txt", "", "icon", "link", "files", "1", "/text.txt",
+                previewObjectList1, RichElement("", richObjectList)
+            ),
+            Activity(
+                1, date.time, date.time, "dav", "calendar_event", "user1", "user1",
+                "You have deleted calendar entry Appointment", "", "icon", "link", "calendar",
+                "35", "", ArrayList(), RichElement()
+            ),
+            Activity(
+                1, date.time, date.time, "files", "file_changed", "user1", "user1",
+                "You changed image.jpg", "", "icon", "link", "files", "1", "/image.jpg",
+                previewObjectList3, RichElement("", richObjectList)
+            )
+        )
+
+        launchActivitiesActivity().use { scenario ->
+            val fragment = scenario.getFragment() ?: return
+            scenario.onActivity {
+                fragment.showActivities(activities as List<Any>, nextcloudClient, -1)
+                fragment.setProgressIndicatorState(false)
+            }
+            val screenShotName = createName("${testClassName}_showActivities", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+            scenario.onActivity { sut -> screenshotViaName(sut, screenShotName) }
+        }
+    }
+
+    @Test
+    @ScreenshotTest
+    fun error() {
+        launchActivitiesActivity().use { scenario ->
+            val fragment = scenario.getFragment() ?: return
+            scenario.onActivity {
+                fragment.showEmptyContent("Error", "Error! Please try again later!")
+                fragment.setProgressIndicatorState(false)
+            }
+            val screenShotName = createName("${testClassName}_error", "")
+            onView(isRoot()).check(matches(isDisplayed()))
+            scenario.onActivity { sut -> screenshotViaName(sut, screenShotName) }
+        }
+    }
+}

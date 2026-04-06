@@ -49,6 +49,7 @@ internal class MaterialSchemesProviderImpl @Inject constructor(
             logger.d(TAG, "User is anonymous, using default schemes")
             getDefaultMaterialSchemes()
         }
+
         else -> getMaterialSchemesForUser(user)
     }
 

@@ -51,10 +51,11 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">ۋەزىپىنى ئۆچۈرۈڭ</string>
     <string name="assistant_screen_empty_content_description">پاراڭلىشىش ئۈچۈن ئۇچۇر ئەۋەتىپ بېقىڭ.</string>
     <string name="assistant_screen_empty_content_title">ياخشىمۇسىز! بۈگۈن سىزگە نېمە ياردەم بېرەلەيمەن؟</string>
+    <string name="assistant_screen_retry_response_generation">قايتا-قايتا جاۋاب قايتۇرۇش</string>
+    <string name="assistant_screen_send_message">ئۇچۇر ئەۋەتىڭ</string>
     <string name="assistant_screen_task_create_fail_message">ۋەزىپە قۇرغاندا خاتالىق كۆرۈلدى</string>
-    <string name="assistant_screen_task_create_success_message">ۋەزىپە مۇۋەپپەقىيەتلىك قۇرۇلدى</string>
+    <string name="assistant_screen_task_create_success_message">ۋەزىپە قۇرۇلدى</string>
     <string name="assistant_screen_task_delete_fail_message">ۋەزىپىنى ئۆچۈرگەندە خاتالىق كۆرۈلدى</string>
-    <string name="assistant_screen_task_delete_success_message">ۋەزىپە مۇۋەپپەقىيەتلىك ئۆچۈرۈلدى</string>
     <string name="assistant_screen_task_list_empty_warning">ۋەزىپە تىزىملىكى قۇرۇق. ياردەمچى ئەپنىڭ سەپلىمىسىنى تەكشۈر.</string>
     <string name="assistant_screen_task_list_error_state_message">ۋەزىپە تىزىملىكىنى ئالالمىدى ، تور ئۇلىنىشىڭىزنى تەكشۈرۈپ بېقىڭ.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">ۋەزىپىنى ئۆچۈرۈڭ</string>
@@ -62,6 +63,8 @@
     <string name="assistant_screen_top_bar_title">ياردەمچى</string>
     <string name="assistant_task_detail_screen_input_button_title">كىرگۈزۈش</string>
     <string name="assistant_task_detail_screen_output_button_title">چىقىرىش</string>
+    <string name="assistant_task_status_running">ئىجرا بولۇۋاتىدۇ</string>
+    <string name="assistant_task_status_unknown">نامەلۇم</string>
     <string name="assistant_thinking">ئويلاۋاتىدۇ...</string>
     <string name="associated_account_not_found">بىرلەشمە ھېسابات تېپىلمىدى!</string>
     <string name="auth_access_failed">زىيارەت مەغلۇپ بولدى:%1$s</string>
@@ -106,7 +109,6 @@
     <string name="auto_upload_path">/ ئۆزلىكىدىن چىقىرىش</string>
     <string name="auto_upload_sub_folder_warning">بۇ قىسقۇچ بولشا باش قىسقۇچنىڭ ئىچىدە بار، شۇڭلاشقا قوشلاپ چىقىرىلىشنى كەلتۈرۈپ چىقىرىشى مۇمكىن</string>
     <string name="auto_upload_wifi_only_warning_info">چىقىرىش ئۈچۈن ۋايف</string>
-    <string name="auto_upload_worker_start_text">ھۆججەتلەرنى %s دىن %s</string>
     <string name="autoupload_configure">سەپلەڭ</string>
     <string name="autoupload_create_new_custom_folder">يېڭى خاس ھۆججەت قىسقۇچ قۇرۇش</string>
     <string name="autoupload_custom_folder">ئىختىيارى ھۆججەت قىسقۇچ ئورنىتىڭ</string>
@@ -187,6 +189,7 @@
     <string name="community_testing_bug_text">خاتالىق بايقالدى؟ قالدۇق؟</string>
     <string name="community_testing_headline">سىناق ئارقىلىق ياردەم</string>
     <string name="community_testing_report_text">GitHub دىكى بىر مەسىلىنى دوكلات قىلىڭ</string>
+    <string name="compose_activity_label">Nextcloud ياردەمچىسى</string>
     <string name="configure_new_media_folder_detection_notifications">سەپلەڭ</string>
     <string name="confirm_removal">يەرلىك مەخپىيلەشتۈرۈشنى ئۆچۈرۈڭ</string>
     <string name="confirmation_remove_file_alert">راستىنلا%1$s نى ئۆچۈرمەكچىمۇ؟</string>
@@ -211,7 +214,6 @@
     <string name="contacts_preferences_import_scheduled_fail">كىرگۈزۈشنى باشلىغىلى بولمىدى. قايتا سىناڭ</string>
     <string name="contacts_preferences_no_file_found">ھۆججەت تېپىلمىدى</string>
     <string name="contacts_preferences_something_strange_happened">ئاخىرقى زاپاسلاشنى تاپالمىدىڭىز!</string>
-    <string name="content_observer_work_notification_title">مەزمۇن ئۆزگ</string>
     <string name="conversation_screen_create_error_title">سۆھبەت قۇرۇش مەغلۇپ بولدى</string>
     <string name="conversation_screen_delete_button_title">سۆھبەتنى ئۆچۈرۈڭ</string>
     <string name="conversation_screen_delete_error_title">سۆھبەتنى ئۆچۈرۈش مەغلۇپ بولدى</string>
@@ -234,6 +236,7 @@
     <string name="create_link">ئۇلىنىش قۇر</string>
     <string name="create_new">يېڭى</string>
     <string name="create_new_document">يېڭى ھۆججەت</string>
+    <string name="create_new_encrypted_folder">يېڭى شىفىرلانغان قىسقۇچ</string>
     <string name="create_new_folder">يېڭى ھۆججەت قىسقۇچ</string>
     <string name="create_new_presentation">يېڭى تونۇشتۇرۇش</string>
     <string name="create_new_spreadsheet">يېڭى ئېلېكترونلۇق جەدۋەل</string>
@@ -299,7 +302,7 @@
     <string name="drawer_item_assistant">ياردەمچى</string>
     <string name="drawer_item_favorites">ياقتۇرىدىغانلار</string>
     <string name="drawer_item_gallery">كۆپ-ۋاستە</string>
-    <string name="drawer_item_groupfolders">گۇرۇپپا ھۆججەتلىرى</string>
+    <string name="drawer_item_groupfolders">ئەتىرەت قىسقۇچى</string>
     <string name="drawer_item_home">ئۆي</string>
     <string name="drawer_item_notifications">ئۇقتۇرۇش</string>
     <string name="drawer_item_on_device">ئۈسكۈنىدە</string>
@@ -420,6 +423,8 @@
     <string name="file_list_empty_local_search">ئىزدىشىڭىزگە ماس كېلىدىغان ھۆججەت ياكى ھۆججەت قىسقۇچ يوق</string>
     <string name="file_list_empty_moving">بۇ يەردە ھېچنېمە يوق. قىسقۇچ قوشالايسىز.</string>
     <string name="file_list_empty_on_device">چۈشۈرۈلگەن ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
+    <string name="file_list_empty_recent_files_description">سىز يېقىندا ئۆزگەرتكەن ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
+    <string name="file_list_empty_recent_files_headline">يېقىندا ئۆزگەرتىلگەن ھۆججەت يوق</string>
     <string name="file_list_empty_recently_modified">يېقىنقى 7 كۈن ئىچىدە ئۆزگەرتىلگەن ھۆججەت تېپىلمىدى</string>
     <string name="file_list_empty_search">بەلكىم ئۇ باشقا ھۆججەت قىسقۇچتا بولۇشى مۇمكىن؟</string>
     <string name="file_list_empty_shared">سىز ئورتاقلاشقان ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
@@ -493,7 +498,6 @@
     <string name="folder_download_counter">%2$d دىن %1$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">%s قىسقۇچىنى ماس-قەدەملەۋاتقاندا بىر خاتالىق يۈز بەردى</string>
     <string name="folder_download_insufficient_disk_space_notification_title">دېسكا بوشلۇقى يىتەرسىز، ماس-قەدەملەش ئەمەلدىن قالدۇرۇلدى</string>
-    <string name="folder_download_success_notification_title">%s قىسقۇچ مۇۋاپىقىيەتلىك ماس-قەدەملەندى</string>
     <string name="folder_download_worker_ticker_id">ماس-قەدەملەۋاتىدۇ...</string>
     <string name="folder_list_empty_headline">بۇ يەردە ھۆججەت قىسقۇچ يوق</string>
     <string name="folder_name_empty">ھۆججەت قىسقۇچنىڭ ئىسمى قۇرۇق بولمايدۇ</string>
@@ -589,6 +593,8 @@
     <string name="media_forward_description">تېز ئىلگىرىلەش كۇنۇپكىسى</string>
     <string name="media_notif_ticker">%1$s مۇزىكا قويغۇچ</string>
     <string name="media_play_pause_description">قويۇش ياكى توختىتىش كۇنۇپكىسى</string>
+    <string name="media_player_pause">توختات</string>
+    <string name="media_player_play">ئويناش</string>
     <string name="media_rewind_description">كەينىگە قايتۇرۇش كۇنۇپكىسى</string>
     <string name="media_state_playing">%1$s (ئويناش)</string>
     <string name="menu_item_sort_by_date_newest_first">ئەڭ يېڭى</string>
@@ -754,7 +760,6 @@
     <string name="prefs_theme_title">باشتېما</string>
     <string name="prefs_two_way_sync_interval">ئىنتىرۋال</string>
     <string name="prefs_two_way_sync_summary">ئىككى خىل ماسقەدەملەش ئۈچۈن ئىچكى قىسقۇچلارنى باشقۇرۇڭ</string>
-    <string name="prefs_two_way_sync_switch_title">ئىككى يۆنىلىشلىك ماس-قەدەملەشنى قوزغات</string>
     <string name="prefs_value_theme_dark">قاراڭغۇ</string>
     <string name="prefs_value_theme_light">نۇر</string>
     <string name="prefs_value_theme_system">سىستېمىغا ئەگىشىڭ</string>
@@ -825,6 +830,7 @@
     <string name="select_one_template">بىر قېلىپنى تاللاڭ</string>
     <string name="select_template">قېلىپنى تاللاڭ</string>
     <string name="send">ئەۋەتىڭ</string>
+    <string name="send_copy_to">كۆچۈرمىسىنى ئەۋەت</string>
     <string name="send_share">ھەمبەھىر ئەۋەتىش</string>
     <string name="sendbutton_description">كۇنۇپكا سىنبەلگىسىنى ئەۋەتىڭ</string>
     <string name="server_not_reachable">مەزمۇننى يۈكلىيەلمىدى</string>
@@ -834,6 +840,7 @@
     <string name="set_message">ئۇچۇر بەلگىلە</string>
     <string name="set_note">خاتىرىنى بېكىت</string>
     <string name="set_online_status">توردىكى ھالىتى</string>
+    <string name="set_online_status_bottom_sheet_error_message">ھالەتنى بەلگىلەش مەغلۇپ بولدى!</string>
     <string name="set_picture_as">رەسىمنى ئىشلىتىڭ</string>
     <string name="setup_e2e">ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى تەڭشەش جەريانىدا ، ئىختىيارى 12 سۆزلۈك mnemonic تاپشۇرۇۋالىسىز ، بۇ ھۆججەتلەرنى باشقا ئۈسكۈنىلەردە ئېچىشىڭىز كېرەك. بۇ پەقەت بۇ ئۈسكۈنىدە ساقلىنىدۇ ، بۇ ئېكراندا قايتا كۆرسەتكىلى بولىدۇ. ئۇنى بىخەتەر ئورۇنغا خاتىرىلەڭ!</string>
     <string name="share">ھەمبەھىرلەش</string>
@@ -1052,7 +1059,6 @@
     <string name="upload_files">ھۆججەتلەرنى يۈكلەڭ</string>
     <string name="upload_global_pause_title">بارلىق يۈكلەش توختىتىلدى</string>
     <string name="upload_item_action_button">تۈر ھەرىكەت كۇنۇپكىسىنى يۈكلەڭ</string>
-    <string name="upload_list_cancel_upload">يۈكلەشتىن ۋاز كەچ</string>
     <string name="upload_list_delete">ئۆچۈرۈش</string>
     <string name="upload_list_empty_headline">يوللاشقا بولمايدۇ</string>
     <string name="upload_list_empty_text_auto_upload">بەزى مەزمۇنلارنى يۈكلەڭ ياكى ئاپتوماتىك يوللاشنى قوزغىتىڭ.</string>
@@ -1103,9 +1109,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">تەڭشەك</string>
     <string name="uploader_wrn_no_account_text">ئۈسكۈنىڭىزدە%1$s ھېسابات يوق. ئالدى بىلەن ھېسابات قۇرۇڭ.</string>
     <string name="uploader_wrn_no_account_title">ھېسابات تېپىلمىدى</string>
+    <string name="uploads_view_group_completed_uploads">تاماملاندى</string>
     <string name="uploads_view_group_current_uploads">نۆۋەتتىكى</string>
     <string name="uploads_view_group_failed_uploads">قايتا قوزغىتىش مەغلۇب بولدى</string>
-    <string name="uploads_view_group_finished_uploads">يۈكلەندى</string>
     <string name="uploads_view_group_manually_cancelled_uploads">ئەمەلدىن قالدۇرۇلدى</string>
     <string name="uploads_view_later_waiting_to_upload">يوللاشنى ساقلاۋاتىدۇ</string>
     <string name="uploads_view_title">يۈكلەش</string>

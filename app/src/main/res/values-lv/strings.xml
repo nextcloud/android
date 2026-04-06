@@ -33,6 +33,7 @@
     <string name="assistant_screen_empty_content_title">Sveiciens! Ar ko šodien varu palīdzēt?</string>
     <string name="assistant_screen_task_list_error_state_message">Nevar iegūt uzdevumu sarakstu, lūgums pārbaudīt savienojumu ar internetu.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Izdzēst uzdevumu</string>
+    <string name="assistant_task_status_unknown">nezināms</string>
     <string name="associated_account_not_found">Saistītais konts nav atrasts!</string>
     <string name="auth_access_failed">Piekļuve neizdevās: %1$s</string>
     <string name="auth_account_does_not_exist">Konts vēl nav pievienots šai iekārtai</string>
@@ -349,6 +350,8 @@
     <string name="media_forward_description">Patīšanas poga</string>
     <string name="media_notif_ticker">%1$s mūzikas atskaņotājs</string>
     <string name="media_play_pause_description">Atskaņot vai pauzēt</string>
+    <string name="media_player_pause">Pauzēt</string>
+    <string name="media_player_play">Atskaņot</string>
     <string name="media_rewind_description">Attīšanas poga</string>
     <string name="media_state_playing">%1$s (atskaņot)</string>
     <string name="menu_item_sort_by_date_newest_first">Jaunākie pirms</string>
@@ -456,7 +459,6 @@
     <string name="prefs_synced_folders_remote_path_title">Attālā mape</string>
     <string name="prefs_theme_title">Izskats</string>
     <string name="prefs_two_way_sync_summary">Pārvaldīt iekšējās mapes divvirzienu sinhronizēšanai</string>
-    <string name="prefs_two_way_sync_switch_title">Iespējot divvirzienu sinhronizēšanu</string>
     <string name="prefs_value_theme_dark">Tumšs</string>
     <string name="prefs_value_theme_light">Gaišs</string>
     <string name="prefs_value_theme_system">Izmantot sistēmas</string>
@@ -604,7 +606,6 @@
     <string name="upload_file_dialog_filetype_internet_shortcut">Interneta saīsnes datne(%s)</string>
     <string name="upload_file_dialog_filetype_snippet_text">Maza teksta datne(.txt)</string>
     <string name="upload_files">Augšupielādēt datnes</string>
-    <string name="upload_list_cancel_upload">Atcelt augšupielādi</string>
     <string name="upload_list_delete">Izdzēst</string>
     <string name="upload_list_empty_headline">Augšupielādes nav pieejamas.</string>
     <string name="upload_list_empty_text_auto_upload">Augšupielādē kaut ko vai ieslēdz automātisko augšupielādi!</string>
@@ -637,9 +638,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Iestatīt</string>
     <string name="uploader_wrn_no_account_text">Ierīcē nav neviena %1$s konta. Lūgums vispirms iestatīt kontu.</string>
     <string name="uploader_wrn_no_account_title">Nav atrastu kontu</string>
+    <string name="uploads_view_group_completed_uploads">Pabeigts</string>
     <string name="uploads_view_group_current_uploads">Pašreizējās</string>
     <string name="uploads_view_group_failed_uploads">Neizdevās/gaida atsākšanu</string>
-    <string name="uploads_view_group_finished_uploads">Augšupielādētas</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Atcelts</string>
     <string name="uploads_view_later_waiting_to_upload">Gaida augšupielādi</string>
     <string name="uploads_view_title">Augšupielādes</string>

@@ -15,6 +15,7 @@ import android.content.Context;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -33,7 +34,6 @@ import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
@@ -59,8 +59,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
     protected String remotePath;
     private RemoteFile createdRemoteFolder;
-    private User user;
-    private Context context;
+    private volatile boolean encrypt = false;
+    private final User user;
+    private final Context context;
 
     /**
      * Constructor
@@ -71,6 +72,14 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         this.remotePath = remotePath;
         this.user = user;
         this.context = context;
+    }
+
+    public void setEncrypt(boolean value) {
+        encrypt = value;
+    }
+
+    public boolean shouldEncrypt() {
+        return encrypt;
     }
 
     @Override
@@ -96,15 +105,15 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         boolean encryptedAncestor = FileStorageUtils.checkEncryptionStatus(parent, getStorageManager());
 
         if (encryptedAncestor) {
-            E2EVersion e2EVersion = getStorageManager().getCapability(user).getEndToEndEncryptionApiVersion();
-            if (e2EVersion == E2EVersion.V1_0 ||
-                e2EVersion == E2EVersion.V1_1 ||
-                e2EVersion == E2EVersion.V1_2) {
-                return encryptedCreateV1(parent, client);
-            } else if (e2EVersion == E2EVersion.V2_0) {
+            final var capability = getStorageManager().getCapability(user);
+
+            if (E2EVersionHelper.INSTANCE.isV2Plus(capability)) {
                 return encryptedCreateV2(parent, client);
+            } else if (E2EVersionHelper.INSTANCE.isV1(capability)) {
+                return encryptedCreateV1(parent, client);
             }
-            return new RemoteOperationResult(new IllegalStateException("E2E not supported"));
+
+            return new RemoteOperationResult<>(new IllegalStateException("E2E not supported"));
         } else {
             return normalCreate(client);
         }
@@ -174,7 +183,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                token,
                                                client,
                                                metadataExists,
-                                               E2EVersion.V1_2,
+                                               E2EVersionHelper.INSTANCE.latestVersion(false),
                                                "",
                                                arbitraryDataProvider,
                                                user);
@@ -490,14 +499,18 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         return encryptedFileName;
     }
 
-    private RemoteOperationResult normalCreate(OwnCloudClient client) {
-        RemoteOperationResult result = new CreateFolderRemoteOperation(remotePath, true).execute(client);
+    private RemoteOperationResult<?> normalCreate(OwnCloudClient client) {
+        final var result = new CreateFolderRemoteOperation(remotePath, true).execute(client);
 
         if (result.isSuccess()) {
-            RemoteOperationResult remoteFolderOperationResult = new ReadFolderRemoteOperation(remotePath)
+            final var remoteFolderOperationResult = new ReadFolderRemoteOperation(remotePath)
                 .execute(client);
 
-            createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
+            if (remoteFolderOperationResult.isSuccess() &&
+                remoteFolderOperationResult.getData().get(0) instanceof RemoteFile remoteFile) {
+                createdRemoteFolder = remoteFile;
+            }
+
             saveFolderInDB();
         } else {
             Log_OC.e(TAG, remotePath + " hasn't been created");

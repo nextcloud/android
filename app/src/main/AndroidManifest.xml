@@ -74,6 +74,7 @@
         <package android:name="it.niedermann.nextcloud.deck.play" />
         <package android:name="it.niedermann.nextcloud.deck.dev" />
         <package android:name="at.bitfire.davdroid" />
+        <package android:name="org.fairscan.app" />
 
         <intent>
             <action android:name="android.intent.action.VIEW" />
@@ -135,7 +136,21 @@
 
         <activity
             android:name="com.nextcloud.ui.composeActivity.ComposeActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:label="@string/compose_activity_label"/>
+
+        <activity-alias
+            android:name="com.nextcloud.ui.composeActivity.ComposeProcessTextAlias"
+            android:targetActivity="com.nextcloud.ui.composeActivity.ComposeActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.PROCESS_TEXT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+        </activity-alias>
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -147,6 +162,13 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/Theme.ownCloud.Launcher">
+
+            <intent-filter>
+                <action android:name="com.nextcloud.intent.OPEN_ECOSYSTEM_APP" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -264,13 +286,6 @@
             android:name=".ui.activity.NotificationsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.CommunityActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.ActivitiesActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false" />
-        <activity
             android:name=".ui.activity.SyncedFoldersActivity"
             android:exported="false" />
         <activity
@@ -288,6 +303,9 @@
             android:exported="false"
             tools:replace="android:exported" />
 
+        <receiver
+            android:name="com.nextcloud.client.notifications.action.SyncConflictNotificationBroadcastReceiver"
+            android:exported="false" />
         <receiver
             android:name="com.nextcloud.client.jobs.offlineOperations.receiver.OfflineOperationReceiver"
             android:exported="false" />
@@ -341,7 +359,7 @@
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".ui.activity.ChooseStorageLocationActivity"
+            android:name=".ui.activity.ExtendedSettingsActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false"
             android:theme="@style/Theme.NoBackground" />
@@ -675,6 +693,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.navigation.NavigatorActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

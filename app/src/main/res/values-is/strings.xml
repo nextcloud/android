@@ -47,15 +47,15 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Ertu viss um að þú viljir eyða þessu verki?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eyða verki</string>
     <string name="assistant_screen_task_create_fail_message">Villa kom upp við að búa til verkið</string>
-    <string name="assistant_screen_task_create_success_message">Tókst að búa til verk</string>
+    <string name="assistant_screen_task_create_success_message">Verk búið til</string>
     <string name="assistant_screen_task_delete_fail_message">Villa kom upp við að eyða verkinu</string>
-    <string name="assistant_screen_task_delete_success_message">Tókst að eyða verki</string>
     <string name="assistant_screen_task_list_error_state_message">Ekki er hægt að sækja verkefnalista, athugaðu nettenginguna þína.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eyða verki</string>
     <string name="assistant_screen_task_output_empty_text">Yfirlitið yfir verkin er ekki tilbúið.</string>
     <string name="assistant_screen_top_bar_title">Meðhjálpari</string>
     <string name="assistant_task_detail_screen_input_button_title">Inntak</string>
     <string name="assistant_task_detail_screen_output_button_title">Frálag</string>
+    <string name="assistant_task_status_unknown">óþekkt</string>
     <string name="associated_account_not_found">Tengdur notandaaðgangur fannst ekki!</string>
     <string name="auth_access_failed">Aðgangur mistókst: %1$s</string>
     <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá til á tækinu</string>
@@ -97,7 +97,6 @@
     <string name="auto_upload_on_wifi">Aðeins senda inn á gjaldfrjálsu WiFi-neti</string>
     <string name="auto_upload_path">/SjálfvirkInnsending</string>
     <string name="auto_upload_sub_folder_warning">Þessa möppu er nú þegar verið að samstilla úr yfirmöppu, sem getur valdið margföldum innsendingum</string>
-    <string name="auto_upload_worker_start_text">Sendi inn skrár frá %s til %s</string>
     <string name="autoupload_configure">Stilla</string>
     <string name="autoupload_create_new_custom_folder">Búa til nýja nýja sérsniðna uppsetningu á möppum</string>
     <string name="autoupload_custom_folder">Settu upp sérsniðna möppu</string>
@@ -178,6 +177,7 @@
     <string name="community_testing_bug_text">Fannstu villu? Skringilegheit?</string>
     <string name="community_testing_headline">Hjálpaðu til við prófanir</string>
     <string name="community_testing_report_text">Tilkynntu um vandamál á GitHub</string>
+    <string name="compose_activity_label">Nextcloud Assistant meðhjálpari</string>
     <string name="configure_new_media_folder_detection_notifications">Stilla</string>
     <string name="confirm_removal">Fjarlægja staðværa dulritun</string>
     <string name="confirmation_remove_file_alert">Viltu virkilega eyða \'%s\'?</string>
@@ -282,7 +282,6 @@
     <string name="drawer_item_assistant">Meðhjálpari</string>
     <string name="drawer_item_favorites">Eftirlæti</string>
     <string name="drawer_item_gallery">Margmiðlunargögn</string>
-    <string name="drawer_item_groupfolders">Hópamöppur</string>
     <string name="drawer_item_home">Heim</string>
     <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_item_on_device">Á tækinu</string>
@@ -400,6 +399,8 @@
     <string name="file_list_empty_local_search">Engar skrár eða möppur samsvara þessari leit</string>
     <string name="file_list_empty_moving">Ekkert hér. Þú getur bætt við möppu.</string>
     <string name="file_list_empty_on_device">Skrár og möppur sem þú sækir birtast hér.</string>
+    <string name="file_list_empty_recent_files_description">Skrár og möppur sem þú breyttir nýlega birtast hér.</string>
+    <string name="file_list_empty_recent_files_headline">Engar nýlega breyttar skrár</string>
     <string name="file_list_empty_recently_modified">Fann engar skrár sem breytt hefur verið síðustu 7 daga</string>
     <string name="file_list_empty_search">Er þetta kannski í einhverri annarri möppu?</string>
     <string name="file_list_empty_shared">Skrár og möppur sem þú deilir birtast hér.</string>
@@ -562,6 +563,8 @@
     <string name="media_forward_description">Spóla-hratt-áfram hnappur</string>
     <string name="media_notif_ticker">%1$s tónlistarspilari</string>
     <string name="media_play_pause_description">Afspilun-eða-hlé hnappur</string>
+    <string name="media_player_pause">Í bið</string>
+    <string name="media_player_play">Spila</string>
     <string name="media_rewind_description">Spóla-til-baka hnappur</string>
     <string name="media_state_playing">%1$s (í spilun)</string>
     <string name="menu_item_sort_by_date_newest_first">Nýjast fyrst</string>
@@ -721,7 +724,6 @@
     <string name="prefs_theme_title">Þema</string>
     <string name="prefs_two_way_sync_interval">Millibil</string>
     <string name="prefs_two_way_sync_summary">Sýsla með möppur vegna tvíátta samstillingar</string>
-    <string name="prefs_two_way_sync_switch_title">Virkja tvíátta samstillingu</string>
     <string name="prefs_value_theme_dark">Dökkt</string>
     <string name="prefs_value_theme_light">Ljóst</string>
     <string name="prefs_value_theme_system">Fylgja kerfinu</string>
@@ -1014,7 +1016,6 @@
     <string name="upload_files">Hlaða inn skrám</string>
     <string name="upload_global_pause_title">Allar innsendingar eru í bið</string>
     <string name="upload_item_action_button">Aðgerðarhnappur til að senda inn atriði</string>
-    <string name="upload_list_cancel_upload">Hætta við innsendingu</string>
     <string name="upload_list_delete">Eyða</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
     <string name="upload_list_empty_text_auto_upload">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
@@ -1065,9 +1066,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Uppsetning</string>
     <string name="uploader_wrn_no_account_text">Það eru engir %1$s aðgangar á tækinu þínu. Settu fyrst upp notandaaðgang.</string>
     <string name="uploader_wrn_no_account_title">Enginn notandaaðgangur fannst</string>
+    <string name="uploads_view_group_completed_uploads">Lokið</string>
     <string name="uploads_view_group_current_uploads">Núverandi</string>
     <string name="uploads_view_group_failed_uploads">Mistókst/Bíður endurræsingar</string>
-    <string name="uploads_view_group_finished_uploads">Hlaðið inn</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Hætt við</string>
     <string name="uploads_view_later_waiting_to_upload">Bíð eftir að senda inn</string>
     <string name="uploads_view_title">Innsendingar</string>

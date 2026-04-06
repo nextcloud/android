@@ -223,18 +223,22 @@ class OfflineOperationsWorker(
                 Log_OC.d(TAG, "📂 Creating folder at ${type.path}")
                 createFolder(operation, client)
             }
+
             is OfflineOperationType.CreateFile -> {
                 Log_OC.d(TAG, "📤 Uploading file: local=${type.localPath} → remote=${type.remotePath}")
                 createFile(operation, client)
             }
+
             is OfflineOperationType.RenameFile -> {
                 Log_OC.d(TAG, "✏️ Renaming ${operation.path} → ${type.newName}")
                 renameFile(operation, client)
             }
+
             is OfflineOperationType.RemoveFile -> {
                 Log_OC.d(TAG, "🗑 Removing file: ${operation.path}")
                 ocFile?.let { removeFile(it, client) }
             }
+
             else -> {
                 Log_OC.d(TAG, "⚠️ Unsupported operation type: $type")
                 null

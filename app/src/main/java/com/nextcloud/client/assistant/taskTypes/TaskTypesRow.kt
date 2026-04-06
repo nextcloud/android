@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRowDefaults
@@ -23,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.owncloud.android.R
@@ -43,7 +45,7 @@ fun TaskTypesRow(
     val selectedTabIndex = data.indexOfFirst { it.id == selectedTaskType?.id }.takeIf { it >= 0 } ?: 0
 
     Row(
-        modifier = Modifier.background(color = colorResource(R.color.actionbar_color)),
+        modifier = Modifier.background(color = MaterialTheme.colorScheme.surface),
         horizontalArrangement = Arrangement.Center
     ) {
         if (data.any { it.isChat() }) {
@@ -54,7 +56,7 @@ fun TaskTypesRow(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_history_back_arrow),
-                    contentDescription = "open conversation list button",
+                    contentDescription = stringResource(R.string.assistant_screen_task_bar_open_conversation_list),
                     tint = colorResource(R.color.text_color)
                 )
             }
@@ -63,11 +65,11 @@ fun TaskTypesRow(
         PrimaryScrollableTabRow(
             selectedTabIndex = selectedTabIndex,
             edgePadding = 0.dp,
-            containerColor = colorResource(R.color.actionbar_color),
+            containerColor = MaterialTheme.colorScheme.surface,
             indicator = {
                 TabRowDefaults.SecondaryIndicator(
                     Modifier.tabIndicatorOffset(selectedTabIndex),
-                    color = colorResource(R.color.primary)
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
         ) {

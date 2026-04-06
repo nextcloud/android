@@ -36,7 +36,10 @@
     <string name="appbar_search_in">جستجو در %s</string>
     <string name="appear_offline">نمایش آفلاین</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">وظیفه را حذف کنید</string>
-    <string name="assistant_screen_task_delete_success_message">Task successfully deleted</string>
+    <string name="assistant_screen_send_message">فرستادن پیام</string>
+    <string name="assistant_screen_task_create_success_message">Task created</string>
+    <string name="assistant_task_status_running">running</string>
+    <string name="assistant_task_status_unknown">نامشخص</string>
     <string name="associated_account_not_found">حساب مرتبط یافت نشد!</string>
     <string name="auth_access_failed">دسترسی خطای  %1$s</string>
     <string name="auth_account_does_not_exist">حساب به این وسیله اضافه نشده است</string>
@@ -149,6 +152,7 @@
     <string name="community_testing_bug_text">خطایی پیدا کردید؟ عجیب و غریب؟</string>
     <string name="community_testing_headline">با آزمایش کردن کمک کنید</string>
     <string name="community_testing_report_text">گزارش یک مورد در GitHub</string>
+    <string name="compose_activity_label">Nextcloud Assistant</string>
     <string name="configure_new_media_folder_detection_notifications">" پیکربندی"</string>
     <string name="confirm_removal">رمزگذاری محلی را حذف کنید.</string>
     <string name="confirmation_remove_file_alert">آیا واقعا می‌خواهید %1$s را حذف کنید؟</string>
@@ -241,7 +245,7 @@
     <string name="drawer_item_all_files">تمامی فایل‌ها</string>
     <string name="drawer_item_favorites">مورد علاقه</string>
     <string name="drawer_item_gallery">رسانه‌ها</string>
-    <string name="drawer_item_groupfolders">گروه پوشه ها</string>
+    <string name="drawer_item_groupfolders">پوشه‌های تیم</string>
     <string name="drawer_item_home">خانه </string>
     <string name="drawer_item_notifications">پیغام ها</string>
     <string name="drawer_item_on_device">در دستگاه </string>
@@ -339,6 +343,8 @@
     <string name="file_list_empty_headline_server_search">نتیجه ای یافت نشد</string>
     <string name="file_list_empty_moving">هیچ چیز در اینجا نیست. می توانید یک پوشه اضافه کنید.</string>
     <string name="file_list_empty_on_device">فایل‌ها و پوشه‌های بارگیری شده، در این قسمت نمایش داده خواهند شد.</string>
+    <string name="file_list_empty_recent_files_description">فایل‌ها و پوشه‌هایی که اخیراً تغییر داده‌اید در اینجا نمایش داده می‌شوند.</string>
+    <string name="file_list_empty_recent_files_headline">هیچ فایلی که اخیراً اصلاح شده است</string>
     <string name="file_list_empty_recently_modified">در ۷ روز گذشته هیچ فایلی تغییر نیافته است.</string>
     <string name="file_list_empty_search">شاید در پوشه های مختلف باشد؟</string>
     <string name="file_list_empty_shared">فایل‌ها و پوشه‌های به اشتراک گذاشته شده در این قسمت نمایش داده خواهند شد.</string>
@@ -480,6 +486,8 @@
     <string name="media_forward_description">دکمه رو به جلو سریع</string>
     <string name="media_notif_ticker">%1$s پخش کننده موسیقی</string>
     <string name="media_play_pause_description">دکمه پخش یا توقف</string>
+    <string name="media_player_pause">توقف کردن</string>
+    <string name="media_player_play">پخش کردن</string>
     <string name="media_rewind_description">دکمه عقبگرد</string>
     <string name="media_state_playing">%1$s (در حال پخش)</string>
     <string name="menu_item_sort_by_date_newest_first">تازه ترین ها اول </string>
@@ -865,7 +873,6 @@
     <string name="upload_files">بارگذاری فایل ها</string>
     <string name="upload_global_pause_title">همه آپلودها به طور موقت متوقف شدند</string>
     <string name="upload_item_action_button">دکمه فعال‌سازی موارد بارگذاری</string>
-    <string name="upload_list_cancel_upload">متوقف کردن بار گذاری</string>
     <string name="upload_list_delete">حذف</string>
     <string name="upload_list_empty_headline">هیچ بارگذاری وجود ندارد</string>
     <string name="upload_list_empty_text_auto_upload">تعدادی عکس آپلود کنید یا آپلود خودکار را فعال کنید</string>
@@ -910,9 +917,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">نصب</string>
     <string name="uploader_wrn_no_account_text">هیچ حساب کاربری %1$s برای دستگاه شما وجود ندارد. لطفا ابتدا  یک حساب ایجاد کنید </string>
     <string name="uploader_wrn_no_account_title">هیچ حسابی یافت نشد</string>
+    <string name="uploads_view_group_completed_uploads">نکمیل شده</string>
     <string name="uploads_view_group_current_uploads">کنونی</string>
     <string name="uploads_view_group_failed_uploads">شکست. در انتظار شروع دوباره</string>
-    <string name="uploads_view_group_finished_uploads">آپلود شده</string>
     <string name="uploads_view_group_manually_cancelled_uploads">لغو شده</string>
     <string name="uploads_view_later_waiting_to_upload">درحال انتظار برای آپلود</string>
     <string name="uploads_view_title">آپلودها</string>

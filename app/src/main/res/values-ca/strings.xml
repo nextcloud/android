@@ -46,16 +46,18 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Suprimeix la tasca</string>
     <string name="assistant_screen_empty_content_description">Prova d\'enviar un missatge per iniciar una conversa.</string>
     <string name="assistant_screen_empty_content_title">Hola! En què et puc ajudar avui?</string>
+    <string name="assistant_screen_retry_response_generation">Torna a intentar la generació de la resposta</string>
     <string name="assistant_screen_task_create_fail_message">S\'ha produït un error en crear la tasca</string>
-    <string name="assistant_screen_task_create_success_message">La tasca s\'ha creat correctament</string>
+    <string name="assistant_screen_task_create_success_message">Tasca creada</string>
     <string name="assistant_screen_task_delete_fail_message">S\'ha produït un error en suprimir la tasca</string>
-    <string name="assistant_screen_task_delete_success_message">La tasca s\'ha suprimit correctament</string>
     <string name="assistant_screen_task_list_error_state_message">No s\'ha pogut obtenir la llista de tasques. Comproveu la vostra connexió a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Suprimeix la tasca</string>
     <string name="assistant_screen_task_output_empty_text">La sortida de la tasca encara no està a punt.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Sortida</string>
+    <string name="assistant_task_status_running">en execució</string>
+    <string name="assistant_task_status_unknown">desconegut</string>
     <string name="associated_account_not_found">No s\'ha trobat el compte associat!</string>
     <string name="auth_access_failed">No s\'ha tingut accés: %1$s</string>
     <string name="auth_account_does_not_exist">Encara no s\'ha afegit el compte en aquest dispositiu</string>
@@ -172,6 +174,7 @@
     <string name="community_testing_bug_text">Heu trobat cap error? Alguna cosa fora del corrent?</string>
     <string name="community_testing_headline">Ajudar fent proves</string>
     <string name="community_testing_report_text">Informar d\'una incidència a GitHub</string>
+    <string name="compose_activity_label">Assistent del Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Configura</string>
     <string name="confirm_removal">Suprimeix el xifratge local</string>
     <string name="confirmation_remove_file_alert">Esteu segur que voleu suprimir%1$s?</string>
@@ -272,7 +275,6 @@
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Preferits</string>
     <string name="drawer_item_gallery">Multimèdia</string>
-    <string name="drawer_item_groupfolders">Carpetes de grup</string>
     <string name="drawer_item_home">Inici</string>
     <string name="drawer_item_notifications">Notificacions</string>
     <string name="drawer_item_on_device">Al dispositiu</string>
@@ -380,6 +382,8 @@
     <string name="file_list_empty_local_search">Cap fitxer o carpeta coincideix amb la cerca.</string>
     <string name="file_list_empty_moving">Aquí no hi ha res. Podeu afegir una carpeta.</string>
     <string name="file_list_empty_on_device">Els fitxers i les carpetes que baixeu es mostraran aquí.</string>
+    <string name="file_list_empty_recent_files_description">Els fitxers i les carpetes que heu modificat recentment es mostraran aquí.</string>
+    <string name="file_list_empty_recent_files_headline">No hi ha cap fitxer modificat recentment</string>
     <string name="file_list_empty_recently_modified">No s\'han trobat fitxers modificats els darrers 7 dies</string>
     <string name="file_list_empty_search">Potser és a una altra carpeta?</string>
     <string name="file_list_empty_shared">Els fitxers i les carpetes que compartiu es mostraran aquí.</string>
@@ -535,6 +539,8 @@
     <string name="media_forward_description">Botó d\'avançament ràpid</string>
     <string name="media_notif_ticker">Reproductor de música %1$s</string>
     <string name="media_play_pause_description">Botó de reproducció o pausa</string>
+    <string name="media_player_pause">Posa en pausa</string>
+    <string name="media_player_play">Joguina</string>
     <string name="media_rewind_description">Botó de rebobinat</string>
     <string name="media_state_playing">%1$s (està sonant)</string>
     <string name="menu_item_sort_by_date_newest_first">Més recent primer</string>
@@ -681,7 +687,6 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Gestioneu les carpetes internes per a la sincronització bidireccional</string>
-    <string name="prefs_two_way_sync_switch_title">Habilita la sincronització bidireccional</string>
     <string name="prefs_value_theme_dark">Fosc</string>
     <string name="prefs_value_theme_light">Clar</string>
     <string name="prefs_value_theme_system">Seguir al sistema</string>
@@ -968,9 +973,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configuració</string>
     <string name="uploader_wrn_no_account_text">No hi ha comptes %1$s al vostre dispositiu. Primer configureu un compte.</string>
     <string name="uploader_wrn_no_account_title">No s\'ha trobat el compte</string>
+    <string name="uploads_view_group_completed_uploads">S\'ha completat</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
     <string name="uploads_view_group_failed_uploads">Error de reinici/pendent de reiniciar</string>
-    <string name="uploads_view_group_finished_uploads">Carregat</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Cancel·lat</string>
     <string name="uploads_view_later_waiting_to_upload">S\'està esperant per pujar-lo</string>
     <string name="uploads_view_title">Fitxers carregats</string>

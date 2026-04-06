@@ -50,7 +50,8 @@ class InternalTwoWaySyncActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        internalTwoWaySyncAdapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), this, this)
+        internalTwoWaySyncAdapter =
+            InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), this, this, viewThemeUtils)
 
         binding = InternalTwoWaySyncLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -119,7 +120,7 @@ class InternalTwoWaySyncActivity :
                 val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(currentUser)
                 folders.forEach { folder ->
                     FileDownloadWorker.cancelOperation(currentUser.accountName, folder.fileId)
-                    backgroundJobManager.cancelFilesDownloadJob(currentUser, folder.fileId)
+                    backgroundJobManager.cancelFilesDownloadJob(currentUser.accountName, folder.fileId)
 
                     folder.internalFolderSyncTimestamp = -1L
                     fileDataStorageManager.saveFile(folder)
@@ -163,6 +164,7 @@ class InternalTwoWaySyncActivity :
                 handleDurationSelected(durations[position].first.inWholeMinutes)
             }
         }
+        viewThemeUtils.material.colorTextInputLayout(binding.twoWaySyncIntervalLayout)
     }
 
     private fun handleDurationSelected(duration: Long) {
@@ -184,6 +186,7 @@ class InternalTwoWaySyncActivity :
                 backgroundJobManager.cancelTwoWaySyncJob()
             }
         }
+        viewThemeUtils.material.colorMaterialSwitch(binding.twoWaySyncToggle)
     }
 
     private fun checkLayoutVisibilities(condition: Boolean) {
@@ -203,6 +206,7 @@ class InternalTwoWaySyncActivity :
             android.R.id.home -> {
                 onBackPressedDispatcher.onBackPressed()
             }
+
             R.id.action_dismiss_two_way_sync -> {
                 disableTwoWaySyncAndWorkers()
             }

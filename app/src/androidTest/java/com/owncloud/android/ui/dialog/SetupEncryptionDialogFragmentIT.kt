@@ -28,7 +28,7 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
         launchActivity<TestActivity>().use { scenario ->
             var sut: SetupEncryptionDialogFragment? = null
             scenario.onActivity { activity ->
-                sut = SetupEncryptionDialogFragment.newInstance(user, 0)
+                sut = SetupEncryptionDialogFragment.newInstance(user, null)
                 sut.show(activity.supportFragmentManager, "1")
                 val keyWords = arrayListOf(
                     "ability",
@@ -64,7 +64,7 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
         launchActivity<TestActivity>().use { scenario ->
             var sut: SetupEncryptionDialogFragment? = null
             scenario.onActivity { activity ->
-                sut = SetupEncryptionDialogFragment.newInstance(user, 0)
+                sut = SetupEncryptionDialogFragment.newInstance(user, null)
                 sut.show(activity.supportFragmentManager, "1")
                 sut.errorSavingKeys()
             }

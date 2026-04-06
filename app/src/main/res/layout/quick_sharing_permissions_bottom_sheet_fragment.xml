@@ -14,6 +14,10 @@
     android:paddingBottom="@dimen/standard_padding"
     android:orientation="vertical">
 
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_quick_share_permissions"
         android:layout_width="match_parent"

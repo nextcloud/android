@@ -588,6 +588,11 @@ public final class FileStorageUtils {
      * @return true if file itself or ancestor is encrypted
      */
     public static boolean checkEncryptionStatus(OCFile file, FileDataStorageManager storageManager) {
+        if (file == null) {
+            Log_OC.e(TAG, "checkEncryptionStatus called with null file");
+            return false;
+        }
+
         if (file.isEncrypted()) {
             return true;
         }

@@ -13,6 +13,7 @@
     <string name="action_send_share">Enviar/compartir</string>
     <string name="action_switch_grid_view">Ver como grade</string>
     <string name="action_switch_list_view">Ver como lista</string>
+    <string name="action_triggered">Acción activada</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar contactos e calendario</string>
     <string name="actionbar_mkdir">Novo cartafol</string>
     <string name="actionbar_move_or_copy">Mover ou copiar</string>
@@ -47,21 +48,33 @@
     <string name="assistant_output_generation_warning_text">O resultado que se amosa aquí foi xerado por IA. Asegúrese de facer sempre unha dobre comprobación</string>
     <string name="assistant_screen_chat_create_error">Produciuse un fallo ao enviar unha mensaxe</string>
     <string name="assistant_screen_chat_fetch_error">Produciuse un fallo ao recuperar as mensaxes da parola</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Volver á páxina do asistente</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Confirma que quere eliminar esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
     <string name="assistant_screen_empty_content_description">Probe a enviar unha mensaxe para iniciar unha conversa.</string>
     <string name="assistant_screen_empty_content_title">Ola! En que podo axudarlle hoxe?</string>
+    <string name="assistant_screen_retry_response_generation">Volver tentar a xeración de respostas</string>
+    <string name="assistant_screen_select_task">Seleccione a tarefa</string>
+    <string name="assistant_screen_send_message">Enviar a mensaxe</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">Lista de conversas abertas</string>
     <string name="assistant_screen_task_create_fail_message">Produciuse un erro ao crear a tarefa</string>
-    <string name="assistant_screen_task_create_success_message">A tarefa creouse satisfactoriamente</string>
+    <string name="assistant_screen_task_create_success_message">Tarefa creada</string>
     <string name="assistant_screen_task_delete_fail_message">Produciuse un erro ao eliminar a tarefa</string>
-    <string name="assistant_screen_task_delete_success_message">A tarefa foi eliminada satisfactoriamente</string>
+    <string name="assistant_screen_task_delete_success_message">Tarefa eliminada</string>
     <string name="assistant_screen_task_list_empty_warning">A lista de tarefas está baleira. Comprobe a configuración da aplicación do asistente.</string>
     <string name="assistant_screen_task_list_error_state_message">Non é posíbel recuperar a lista de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarefa</string>
     <string name="assistant_screen_task_output_empty_text">A saída da tarefa aínda non está preparada.</string>
+    <string name="assistant_screen_text_selected">Texto copiado desde outra aplicación</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Saída</string>
+    <string name="assistant_task_status_failed">fallou</string>
+    <string name="assistant_task_status_running">en execución</string>
+    <string name="assistant_task_status_scheduled">programado</string>
+    <string name="assistant_task_status_successful">satisfactorio</string>
+    <string name="assistant_task_status_text">Estado da tarefa: %1$s</string>
+    <string name="assistant_task_status_unknown">descoñecido</string>
     <string name="assistant_thinking">Pensando…</string>
     <string name="associated_account_not_found">Non se atopou unha conta asociada!</string>
     <string name="auth_access_failed">Acceso fallado: %1$s</string>
@@ -106,7 +119,7 @@
     <string name="auto_upload_path">/EnvíoAutomático</string>
     <string name="auto_upload_sub_folder_warning">Este cartafol xa está incluído na sincronización do cartafol principal, iso pode provocar envíos duplicados</string>
     <string name="auto_upload_wifi_only_warning_info">Agardando pola wifi para iniciar o envío</string>
-    <string name="auto_upload_worker_start_text">Enviar ficheiros de %s a %s</string>
+    <string name="auto_upload_worker_start_text">Enviar ficheiros desde %1$s cara a %2$s</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Crear un cartafol personalizado novo</string>
     <string name="autoupload_custom_folder">Configurar un cartafol personalizado</string>
@@ -187,6 +200,7 @@
     <string name="community_testing_bug_text">Atopou un fallo? hai algo estraño?</string>
     <string name="community_testing_headline">Axúdenos facendo probas</string>
     <string name="community_testing_report_text">Informe dun incidente no GitHub</string>
+    <string name="compose_activity_label">Asistente de Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
     <string name="confirm_removal">Retirar a cifraxe local</string>
     <string name="confirmation_remove_file_alert">Confirma que quere eliminar %1$s?</string>
@@ -211,7 +225,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Importación fallou ao iniciar. Ténteo de novo</string>
     <string name="contacts_preferences_no_file_found">Non se atopou ningún ficheiro</string>
     <string name="contacts_preferences_something_strange_happened">Non foi posíbel atopar a súa última copia de seguranza!</string>
-    <string name="content_observer_work_notification_title">Detección de cambios no contido</string>
     <string name="conversation_screen_create_error_title">Produciuse un fallo ao crear a conversa</string>
     <string name="conversation_screen_delete_button_title">Eliminar a conversa</string>
     <string name="conversation_screen_delete_error_title">Produciuse un fallo ao eliminar a conversa</string>
@@ -234,6 +247,7 @@
     <string name="create_link">Crear ligazón</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
+    <string name="create_new_encrypted_folder">Novo cartafol cifrado</string>
     <string name="create_new_folder">Novo cartafol</string>
     <string name="create_new_presentation">Nova presentación</string>
     <string name="create_new_spreadsheet">Nova folla de cálculo</string>
@@ -299,7 +313,7 @@
     <string name="drawer_item_assistant">Asistente</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_gallery">Multimedia</string>
-    <string name="drawer_item_groupfolders">Cartafoles de grupo</string>
+    <string name="drawer_item_groupfolders">Cartafoles de equipo</string>
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificacións</string>
     <string name="drawer_item_on_device">No dispositivo</string>
@@ -390,12 +404,14 @@
     <string name="etm_transfer_type">Transferencia</string>
     <string name="etm_transfer_type_download">Descargar</string>
     <string name="etm_transfer_type_upload">Enviar</string>
+    <string name="extension_cannot_be_changed">Non é posíbel cambiar a extensión</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Non ten permiso para ou crear ou enviar os ficheiros neste cartafol.</string>
     <string name="external_shares">Comparticións externas</string>
     <string name="fab_label">Engadir ou enviar</string>
     <string name="failed_to_create_conflict_dialog">Produciuse un fallo ao crear o diálogo de conflito</string>
     <string name="failed_to_download">Produciuse un fallo ao pasar o ficheiro para o xestor de descargas</string>
     <string name="failed_to_print">Produciuse un fallo ao imprimir o ficheiro</string>
+    <string name="failed_to_start_action">Produciuse un fallo ao iniciar a acción!</string>
     <string name="failed_to_start_editor">Produciuse un fallo ao iniciar o editor</string>
     <string name="failed_update_ui">Produciuse un fallo ao actualizar a IU</string>
     <string name="favorite">Engadir a favoritos</string>
@@ -420,6 +436,8 @@
     <string name="file_list_empty_local_search">Non hai ningún ficheiro ou cartafol que coincida coa busca</string>
     <string name="file_list_empty_moving">Aquí non hai ren. Pode engadir un cartafol.</string>
     <string name="file_list_empty_on_device">Aquí amosaranse os ficheiros e cartafoles descargados</string>
+    <string name="file_list_empty_recent_files_description">Os ficheiros e cartafoles que modificou recentemente amosaranse aquí.</string>
+    <string name="file_list_empty_recent_files_headline">Non hai ficheiros modificados recentemente</string>
     <string name="file_list_empty_recently_modified">Non se atopou ningún ficheiro modificado nos últimos 7 días.</string>
     <string name="file_list_empty_search">Quizáis estea nun cartafol diferente?</string>
     <string name="file_list_empty_shared">Aquí amosaranse os ficheiros e cartafoles que comparta.</string>
@@ -493,7 +511,7 @@
     <string name="folder_download_counter">%1$d de %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Produciuse un erro durante a sincronización do cartafol %s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Non hai espazo abondo no disco, cancelouse a sincronización</string>
-    <string name="folder_download_success_notification_title">O cartafol %s foi sincronizado correctamente</string>
+    <string name="folder_download_success_notification_title">Cartafol %s sincronizado</string>
     <string name="folder_download_worker_ticker_id">Sincronizando…</string>
     <string name="folder_list_empty_headline">Aquí non hai cartafoles</string>
     <string name="folder_name_empty">O nome do cartafol non pode estar baleiro</string>
@@ -569,6 +587,7 @@
     <string name="login">Acceder</string>
     <string name="login_url_helper_text">A ligazón á súa interface web %1$s cando a abre no navegador.</string>
     <string name="logs_menu_delete">Eliminar rexistros</string>
+    <string name="logs_menu_export">Exportar os rexistros</string>
     <string name="logs_menu_refresh">Actualizar</string>
     <string name="logs_menu_search">Buscar rexistros</string>
     <string name="logs_menu_send">Enviar rexistros por correo-e</string>
@@ -589,6 +608,8 @@
     <string name="media_forward_description">Botón de avance rápido</string>
     <string name="media_notif_ticker">Reprodutor de música %1$s</string>
     <string name="media_play_pause_description">Botón de reprodución ou pausa</string>
+    <string name="media_player_pause">Pausa</string>
+    <string name="media_player_play">Reproducir</string>
     <string name="media_rewind_description">Botón de retroceso</string>
     <string name="media_state_playing">%1$s (reproducindo)</string>
     <string name="menu_item_sort_by_date_newest_first">Os máis recentes primeiro</string>
@@ -755,7 +776,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Intervalo</string>
     <string name="prefs_two_way_sync_summary">Xestionar os cartafoles internos para a sincronización bidireccional</string>
-    <string name="prefs_two_way_sync_switch_title">Activar a sincronización bidireccional</string>
+    <string name="prefs_two_way_sync_title">Sincronización bidireccional</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir o sistema</string>
@@ -826,6 +847,7 @@
     <string name="select_one_template">Seleccione un modelo</string>
     <string name="select_template">Seleccionar o modelo</string>
     <string name="send">Enviar</string>
+    <string name="send_copy_to">Enviar copia a</string>
     <string name="send_share">Enviar o compartido</string>
     <string name="sendbutton_description">Icona do botón de envío</string>
     <string name="server_not_reachable">Non foi posíbel cargar o contido</string>
@@ -835,6 +857,7 @@
     <string name="set_message">Definir a mensaxe</string>
     <string name="set_note">Definir a nota</string>
     <string name="set_online_status">Estado en liña</string>
+    <string name="set_online_status_bottom_sheet_error_message">Produciuse un fallo ao definir o estado!</string>
     <string name="set_picture_as">Usar a imaxe como</string>
     <string name="setup_e2e">Durante a configuración da cifraxe de extremo a extremo, recibirá un mnemotécnico ao chou de 12 palabras, que necesitará para abrir os seus ficheiros noutros dispositivos. Isto só se almacenará neste dispositivo e pódese amosar de novo nesta pantalla. Anóteo nun lugar seguro!</string>
     <string name="share">Compartir</string>
@@ -960,6 +983,9 @@
     <string name="suggest">Suxerir</string>
     <string name="sync">Sincronizar</string>
     <string name="sync_anyway">Sincronizar de todos os xeitos</string>
+    <string name="sync_conflict_notification_action_title">Resolver conflitos</string>
+    <string name="sync_conflict_notification_description">Detectáronse conflitos de envío. Abra os envíos para resolvelos.</string>
+    <string name="sync_conflict_notification_title">Conflitos no envío de ficheiros</string>
     <string name="sync_conflicts_in_favourites_ticker">Atopáronse conflitos</string>
     <string name="sync_current_folder_was_removed">O cartafol %1$s xa non existe</string>
     <string name="sync_duplication">Duplicación de sincronización</string>
@@ -998,6 +1024,12 @@
     <string name="thumbnail_for_new_file_desc">Miniatura do novo ficheiro</string>
     <string name="timeout_richDocuments">A carga está a levar máis tempo do agardado</string>
     <string name="today">Hoxe</string>
+    <string name="translation_screen_hint_source">Introduza o texto a traducir</string>
+    <string name="translation_screen_label_from">Traducir desde:</string>
+    <string name="translation_screen_label_to">Traducir a:</string>
+    <string name="translation_screen_start_to_translate_task">Prema no botón para traducir</string>
+    <string name="translation_screen_task_processing">A tradución está a levar máis tempo do agardado.</string>
+    <string name="translation_screen_translating">Traducindo…</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Non hai ficheiros eliminados</string>
     <string name="trashbin_empty_message">Poderá recuperar ficheiros eliminados de aquí.</string>
@@ -1053,7 +1085,6 @@
     <string name="upload_files">Enviar ficheiros</string>
     <string name="upload_global_pause_title">Todos os envíos están en pausa</string>
     <string name="upload_item_action_button">Botón da acción do envío de elemento</string>
-    <string name="upload_list_cancel_upload">Cancelar o envío</string>
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">Non hai envíos dispoñíbeis</string>
     <string name="upload_list_empty_text_auto_upload">Envíe algún contido ou active o envío automático.</string>
@@ -1067,6 +1098,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Permisos da aplicación</string>
     <string name="upload_missing_storage_permission_description">Non é posíbel enviar os ficheiros cargar sen acceso ao almacenamento local. Toque para conceder permiso.</string>
     <string name="upload_missing_storage_permission_title">Envío detido — É necesario permiso de almacenamento</string>
+    <string name="upload_notification_manager_content_intent_description">Pode retiralo ou retomalo desde Envíos</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">A cifraxe só é posíbel con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. En troques, gustaríalle movelos?</string>
@@ -1104,9 +1136,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
     <string name="uploader_wrn_no_account_text">Non existen contas %1$s no seu dispositivo. Prepare antes unha conta.</string>
     <string name="uploader_wrn_no_account_title">Non se atopou a conta</string>
+    <string name="uploads_view_group_completed_uploads">Completado</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
     <string name="uploads_view_group_failed_uploads">Produciuse un fallo / reinicio pendente</string>
-    <string name="uploads_view_group_finished_uploads">Enviado</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Cancelado</string>
     <string name="uploads_view_later_waiting_to_upload">Agardando para enviar</string>
     <string name="uploads_view_title">Envíos</string>

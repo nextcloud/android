@@ -35,7 +35,7 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
         }
 
         runBlocking {
-            val result = sut?.getTaskTypes()
+            val result = sut?.fetchTaskTypes()
             assertTrue(result?.isNotEmpty() == true)
         }
     }

@@ -9,13 +9,10 @@ package com.nextcloud.utils.extensions
 
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
-import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.utils.ErrorMessageAdapter
-import com.owncloud.android.utils.FileStorageUtils
 
 @Suppress("ReturnCount")
 fun Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?.getErrorMessage(): String {
@@ -46,19 +43,11 @@ fun ResultCode.isFileSpecificError(): Boolean {
     return !errorCodes.contains(this)
 }
 
-@Suppress("Deprecation")
-fun RemoteOperationResult<*>?.toOCFile(): List<OCFile>? = if (this?.isSuccess == true) {
-    data?.toOCFileList()
-} else {
-    null
+fun ResultCode.isConflict(): Boolean {
+    val errorCodes = listOf(
+        ResultCode.SYNC_CONFLICT,
+        ResultCode.CONFLICT
+    )
+
+    return errorCodes.contains(this)
 }
-
-private fun ArrayList<Any>.toOCFileList(): List<OCFile> = this.mapNotNull {
-    val remoteFile = (it as? RemoteFile)
-
-    remoteFile?.let {
-        remoteFile.toOCFile()
-    }
-}
-
-private fun RemoteFile?.toOCFile(): OCFile = FileStorageUtils.fillOCFile(this)

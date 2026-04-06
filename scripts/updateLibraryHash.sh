@@ -9,17 +9,17 @@ git checkout master
 git pull
 
 latestCommit=$(curl -s https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')
-currentCommit=$(grep "androidLibraryVersion" build.gradle | cut -f2 -d'"')
+currentCommit=$(grep "androidLibraryVersion ="  gradle/libs.versions.toml | cut -f2 -d'"')
 
 [[ $latestCommit == "$currentCommit" ]] && echo "Nothing to do. Commit is: $latestCommit" && exit # nothing to do
 
 git fetch
 git checkout -B update-library-"$(date +%F)" origin/master
  
-sed -i s"#androidLibraryVersion\ =.*#androidLibraryVersion =\"$latestCommit\"#" build.gradle
+sed -i s"#androidLibraryVersion\ =.*#androidLibraryVersion =\"$latestCommit\"#" gradle/libs.versions.toml
 ./gradlew --console=plain --dependency-verification lenient -q --write-verification-metadata sha256,pgp help
 
-git add build.gradle
+git add gradle/libs.versions.toml
 git add gradle/verification-metadata.xml
 git commit -s -m "Update library to $(date +%F)" 
 

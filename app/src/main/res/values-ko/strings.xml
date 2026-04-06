@@ -49,16 +49,18 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">결과 삭제</string>
     <string name="assistant_screen_empty_content_description">대화를 시작하기 위해 메시지를 보내보세요.</string>
     <string name="assistant_screen_empty_content_title">안녕하세요! 오늘은 무엇을 도와드릴까요?</string>
+    <string name="assistant_screen_retry_response_generation">응답 생성 재시도</string>
     <string name="assistant_screen_task_create_fail_message">작업을 생성하는 중에 오류가 발생했습니다.</string>
-    <string name="assistant_screen_task_create_success_message">작업이 성공적으로 생성됨</string>
+    <string name="assistant_screen_task_create_success_message">작업이 생성됨</string>
     <string name="assistant_screen_task_delete_fail_message">작업을 삭제하는 중에 오류가 발생했습니다.</string>
-    <string name="assistant_screen_task_delete_success_message">작업이 성공적으로 삭제됨</string>
     <string name="assistant_screen_task_list_error_state_message">작업 목록을 가져올 수 없습니다. 인터넷 연결을 확인하세요.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">작업 삭제</string>
     <string name="assistant_screen_task_output_empty_text">작업을 출력할 준비가 되지 않았습니다.</string>
     <string name="assistant_screen_top_bar_title">어시스턴트</string>
     <string name="assistant_task_detail_screen_input_button_title">입력</string>
     <string name="assistant_task_detail_screen_output_button_title">출력</string>
+    <string name="assistant_task_status_running">실행중</string>
+    <string name="assistant_task_status_unknown">알 수 없음</string>
     <string name="associated_account_not_found">관련 계정을 찾을 수 없습니다!</string>
     <string name="auth_access_failed">접근 실패: %1$s</string>
     <string name="auth_account_does_not_exist">이 장치에 아직 계정이 추가되지 않았음</string>
@@ -175,6 +177,7 @@
     <string name="community_testing_bug_text">버그를 찾으셨나요? 무언가 이상하게 작동하나요?</string>
     <string name="community_testing_headline">테스트로 돕기</string>
     <string name="community_testing_report_text">GitHub에 문제점 보고하기</string>
+    <string name="compose_activity_label">Nextcloud 어시스턴트</string>
     <string name="configure_new_media_folder_detection_notifications">구성</string>
     <string name="confirm_removal">로컬 암호화를 제거합니다.</string>
     <string name="confirmation_remove_file_alert">%1$s을(를) 삭제하시겠습니까?</string>
@@ -201,6 +204,7 @@
     <string name="conversation_screen_empty_content_title">대화를 찾을 수 없습니다.</string>
     <string name="conversation_screen_empty_conversation_list_title">아직 대화가 존재하지 않음</string>
     <string name="conversation_screen_title">대화</string>
+    <string name="copied">복사됨</string>
     <string name="copy_file_error">이 파일이나 폴더를 복사할 수 없음</string>
     <string name="copy_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 복사할 수 없음</string>
     <string name="copy_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
@@ -273,7 +277,6 @@
     <string name="drawer_item_assistant">어시스턴트</string>
     <string name="drawer_item_favorites">즐겨찾기</string>
     <string name="drawer_item_gallery">미디어</string>
-    <string name="drawer_item_groupfolders">그룹 폴더</string>
     <string name="drawer_item_home">홈</string>
     <string name="drawer_item_notifications">알림</string>
     <string name="drawer_item_on_device">장치</string>
@@ -384,6 +387,8 @@
     <string name="file_list_empty_local_search">검색 결과가 없습니다</string>
     <string name="file_list_empty_moving">항목이 없습니다. 폴더를 추가할 수 있습니다.</string>
     <string name="file_list_empty_on_device">다운로드 받은 파일과 폴더가 여기 나타날 것입니다.</string>
+    <string name="file_list_empty_recent_files_description">최근에 수정한 파일과 폴더가 이곳에 표시됩니다.</string>
+    <string name="file_list_empty_recent_files_headline">최근에 수정된 파일 없음</string>
     <string name="file_list_empty_recently_modified">검색 결과 지난 7일간 수정한 파일 없음</string>
     <string name="file_list_empty_search">다른 폴더에 있을 수도 있습니다.</string>
     <string name="file_list_empty_shared">당신이 공유한 파일과 폴더가 여기 나타날 것입니다.</string>
@@ -540,6 +545,8 @@
     <string name="media_forward_description">빨리감기 단추</string>
     <string name="media_notif_ticker">%1$s 음악 재생기</string>
     <string name="media_play_pause_description">재생 혹은 일시 정지 단추</string>
+    <string name="media_player_pause">일시 정지</string>
+    <string name="media_player_play">재생</string>
     <string name="media_rewind_description">되감기 단추</string>
     <string name="media_state_playing">%1$s(재생 중)</string>
     <string name="menu_item_sort_by_date_newest_first">최신 항목 먼저</string>
@@ -686,7 +693,6 @@
     <string name="prefs_theme_title">테마</string>
     <string name="prefs_two_way_sync_interval">간격</string>
     <string name="prefs_two_way_sync_summary">내부 폴더 양방향 동기화 관리</string>
-    <string name="prefs_two_way_sync_switch_title">양방향 동기화 활성화</string>
     <string name="prefs_value_theme_dark">어둡게</string>
     <string name="prefs_value_theme_light">밝게</string>
     <string name="prefs_value_theme_system">시스템을 따르기</string>
@@ -962,7 +968,6 @@
     <string name="upload_files">파일 업로드</string>
     <string name="upload_global_pause_title">모든 업로드가 일시 정지됨</string>
     <string name="upload_item_action_button">항목 업로드 동작 단추</string>
-    <string name="upload_list_cancel_upload">업로드 취소</string>
     <string name="upload_list_delete">삭제</string>
     <string name="upload_list_empty_headline">업로드 없음</string>
     <string name="upload_list_empty_text_auto_upload">콘텐츠를 업로드하거나 자동 업로드를 활성화하십시오.</string>
@@ -1009,9 +1014,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">설정</string>
     <string name="uploader_wrn_no_account_text">이 장치에 %1$s 계정이 없습니다. 먼저 계정을 설정하십시오.</string>
     <string name="uploader_wrn_no_account_title">계정 없음</string>
+    <string name="uploads_view_group_completed_uploads">완료됨</string>
     <string name="uploads_view_group_current_uploads">현재</string>
     <string name="uploads_view_group_failed_uploads">다시 시작 실패/대기 중</string>
-    <string name="uploads_view_group_finished_uploads">업로드됨</string>
     <string name="uploads_view_group_manually_cancelled_uploads">취소됨</string>
     <string name="uploads_view_later_waiting_to_upload">업로드 대기 중</string>
     <string name="uploads_view_title">업로드</string>

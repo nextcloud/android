@@ -34,11 +34,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.OCShareExtensionsKt;
@@ -184,7 +186,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             return Unit.INSTANCE;
         }, () -> {
             showShareContainer();
-            DisplayUtils.showSnackMessage(getView(), R.string.error_fetching_sharees);
+            DisplayUtils.showSnackMessage(this, R.string.error_fetching_sharees);
             return Unit.INSTANCE;
         });
     }
@@ -292,8 +294,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
             binding.searchView,
             fileActivity.getComponentName());
-        viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
+        viewThemeUtils.material.themeSearchCardView(binding.searchCardWrapper);
+        viewThemeUtils.files.themeContentSearchView(binding.searchView);
+        viewThemeUtils.platform.colorImageView(binding.searchViewIcon, ColorRole.ON_SURFACE_VARIANT);
+        viewThemeUtils.platform.colorImageView(binding.pickContactEmailBtn, ColorRole.ON_SURFACE_VARIANT);
 
+        viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.sendCopyBtn);
+
+        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.sharesListInternalShowAll);
         viewThemeUtils.material.colorMaterialTextButton(binding.sharesListInternalShowAll);
         binding.sharesListInternalShowAll.setOnClickListener(view -> {
             internalShareeListAdapter.toggleShowAll();
@@ -301,6 +309,9 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             binding.sharesListInternalShowAll.setText(textRes);
         });
 
+        viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.createLink);
+
+        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.sharesListExternalShowAll);
         viewThemeUtils.material.colorMaterialTextButton(binding.sharesListExternalShowAll);
         binding.sharesListExternalShowAll.setOnClickListener(view -> {
             externalShareeListAdapter.toggleShowAll();
@@ -342,6 +353,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
 
         checkShareViaUser();
+
+        if (file.isFolder()) {
+            binding.sendCopyBtn.setVisibility(View.GONE);
+        }
+            binding.sendCopyBtn.setOnClickListener(v ->
+                                                       startActivity(Intent.createChooser(IntentUtil.createSendIntent(requireContext(), file), 
+                                                                                          requireContext().getString(R.string.activity_chooser_send_file_title)))
+                                                  );
     }
 
     private void checkShareViaUser() {
@@ -392,7 +411,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         OwnCloudAccount account = accountManager.getCurrentOwnCloudAccount();
 
         if (account == null) {
-            DisplayUtils.showSnackMessage(getView(), getString(R.string.could_not_retrieve_url));
+            DisplayUtils.showSnackMessage(this, R.string.could_not_retrieve_url);
             return;
         }
 
@@ -556,7 +575,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
 
         if (internalShareeListAdapter == null) {
-            DisplayUtils.showSnackMessage(getView(), getString(R.string.could_not_retrieve_shares));
+            DisplayUtils.showSnackMessage(this, R.string.could_not_retrieve_shares);
             return;
         }
 
@@ -614,7 +633,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         if (intent.resolveActivity(requireContext().getPackageManager()) != null) {
             onContactSelectionResultLauncher.launch(intent);
         } else {
-            DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.file_detail_sharing_fragment_no_contact_app_message));
+            DisplayUtils.showSnackMessage(this, R.string.file_detail_sharing_fragment_no_contact_app_message);
         }
     }
 
@@ -637,16 +656,16 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                         binding.searchView.requestFocus();
                     });
                 } else {
-                    DisplayUtils.showSnackMessage(binding.getRoot(), R.string.email_pick_failed);
+                    DisplayUtils.showSnackMessage(this, R.string.email_pick_failed);
                     Log_OC.e(FileDetailSharingFragment.class.getSimpleName(), "Failed to pick email address.");
                 }
             } else {
-                DisplayUtils.showSnackMessage(binding.getRoot(), R.string.email_pick_failed);
+                DisplayUtils.showSnackMessage(this, R.string.email_pick_failed);
                 Log_OC.e(FileDetailSharingFragment.class.getSimpleName(), "Failed to pick email address as no Email found.");
             }
             cursor.close();
         } else {
-            DisplayUtils.showSnackMessage(binding.getRoot(), R.string.email_pick_failed);
+            DisplayUtils.showSnackMessage(this, R.string.email_pick_failed);
             Log_OC.e(FileDetailSharingFragment.class.getSimpleName(), "Failed to pick email address as Cursor is null.");
         }
     }
@@ -709,7 +728,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 fileDataStorageManager.updateFileEntity(entity);
             }
         } else {
-            DisplayUtils.showSnackMessage(getView(), getString(R.string.failed_update_ui));
+            DisplayUtils.showSnackMessage(this, R.string.failed_update_ui);
         }
     }
 
@@ -747,7 +766,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             if (isGranted) {
                 pickContactEmail();
             } else {
-                DisplayUtils.showSnackMessage(binding.getRoot(), R.string.contact_no_permission);
+                DisplayUtils.showSnackMessage(this, R.string.contact_no_permission);
             }
         });
 
@@ -758,13 +777,13 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                       if (result.getResultCode() == Activity.RESULT_OK) {
                                           Intent intent = result.getData();
                                           if (intent == null) {
-                                              DisplayUtils.showSnackMessage(binding.getRoot(), R.string.email_pick_failed);
+                                              DisplayUtils.showSnackMessage(this, R.string.email_pick_failed);
                                               return;
                                           }
 
                                           Uri contactUri = intent.getData();
                                           if (contactUri == null) {
-                                              DisplayUtils.showSnackMessage(binding.getRoot(), R.string.email_pick_failed);
+                                              DisplayUtils.showSnackMessage(this, R.string.email_pick_failed);
                                               return;
                                           }
 

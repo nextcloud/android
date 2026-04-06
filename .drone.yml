@@ -40,6 +40,7 @@ services:
     commands:
       - BRANCH="$SERVER_VERSION" /usr/local/bin/initnc.sh
       - echo 127.0.0.1 server >> /etc/hosts
+      - rm /etc/apt/sources.list.d/php.list
       - apt-get update && apt-get install -y composer
       - su www-data -c "OC_PASS=user1 php /var/www/html/occ user:add --password-from-env --display-name='User One' user1"
       - su www-data -c "OC_PASS=user2 php /var/www/html/occ user:add --password-from-env --display-name='User Two' user2"
@@ -99,6 +100,7 @@ services:
     commands:
       - /usr/local/bin/initnc.sh
       - echo 127.0.0.1 server >> /etc/hosts
+      - rm /etc/apt/sources.list.d/php.list
       - apt-get update && apt-get install -y composer
       - su www-data -c "OC_PASS=user1 php /var/www/html/occ user:add --password-from-env --display-name='User One' user1"
       - su www-data -c "OC_PASS=user2 php /var/www/html/occ user:add --password-from-env --display-name='User Two' user2"
@@ -185,6 +187,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: d52e0df1af49c1b30e42a877655c6699914130adf3a3b881db46a70b90356c3a
+hmac: de23b70b660e9f78e936d89699fd24777a83c8caaad97d086bbc0c8a0373aa91
 
 ...

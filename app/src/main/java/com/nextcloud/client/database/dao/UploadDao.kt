@@ -41,7 +41,7 @@ interface UploadDao {
             "WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName " +
             "AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath"
     )
-    fun deleteByAccountAndRemotePath(remotePath: String, accountName: String)
+    fun deleteByRemotePathAndAccountName(remotePath: String, accountName: String)
 
     @Query(
         "SELECT * FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
@@ -51,7 +51,7 @@ interface UploadDao {
     )
     fun getUploadById(id: Long, accountName: String): UploadEntity?
 
-    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrReplace(entity: UploadEntity): Long
 
     @Query(
@@ -70,6 +70,16 @@ interface UploadDao {
             "AND ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName"
     )
     suspend fun updateStatus(remotePath: String, accountName: String, status: Int): Int
+
+    @Query(
+        """
+    UPDATE ${ProviderTableMeta.UPLOADS_TABLE_NAME}
+    SET ${ProviderTableMeta.UPLOADS_STATUS} = :status
+    WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName
+      AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} IN (:remotePaths)
+"""
+    )
+    suspend fun updateStatuses(remotePaths: List<String>, accountName: String, status: Int): Int
 
     @Query(
         """

@@ -7,18 +7,6 @@
  */
 package com.nextcloud.model
 
-import com.nextcloud.client.account.User
-import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.operations.DownloadFileOperation
-
 sealed class WorkerState {
-    data class FolderDownloadCompleted(var folder: OCFile) : WorkerState()
-
-    data class FileDownloadStarted(var user: User?, var currentDownload: DownloadFileOperation?) : WorkerState()
-    data class FileDownloadCompleted(var currentFile: OCFile?) : WorkerState()
-
-    data class FileUploadStarted(var user: User?) : WorkerState()
-    data class FileUploadCompleted(var currentFile: OCFile?) : WorkerState()
-
     data object OfflineOperationsCompleted : WorkerState()
 }

@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.text.format.Formatter;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.BatteryStatus;
@@ -23,6 +24,8 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.autoRename.AutoRename;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
+import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -42,7 +45,6 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.network.ProgressiveDataTransfer;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -51,7 +53,6 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
@@ -83,7 +84,9 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -413,6 +416,7 @@ public class UploadFileOperation extends SyncOperation {
     @Override
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     protected RemoteOperationResult run(OwnCloudClient client) {
+        Log_OC.d(TAG, "------- Upload File Operation Started -------");
         if (TextUtils.isEmpty(getStoragePath())) {
             Log_OC.e(TAG, "Upload cancelled for " + getStoragePath() + ": file path is null or empty.");
             return new RemoteOperationResult<>(new UploadFileException.EmptyOrNullFilePath());
@@ -435,26 +439,51 @@ public class UploadFileOperation extends SyncOperation {
         mUploadStarted.set(true);
 
         updateSize(0);
+        Log_OC.d(TAG, "file size set to 0KB before upload");
 
         String remoteParentPath = new File(getRemotePath()).getParent();
-        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ? remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
-        remoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities());
+        if (remoteParentPath == null) {
+            Log_OC.e(TAG, "remoteParentPath is null: " + getRemotePath());
+            return new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
+        }
+        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR)
+            ? remoteParentPath
+            : remoteParentPath + OCFile.PATH_SEPARATOR;
+
+        final String renamedRemoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities());
+        if (!remoteParentPath.equals(renamedRemoteParentPath)) {
+            Log_OC.w(TAG, "remoteParentPath was renamed: " + remoteParentPath + " → " + renamedRemoteParentPath);
+        }
+        remoteParentPath = renamedRemoteParentPath;
 
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
+        Log_OC.d(TAG, "parent lookup for path: " + remoteParentPath + " → " +
+            (parent == null ? "not found in DB" : "found, id=" + parent.getFileId()));
 
         // in case of a fresh upload with subfolder, where parent does not exist yet
         if (parent == null && (mFolderUnlockToken == null || mFolderUnlockToken.isEmpty())) {
-            // try to create folder
+            Log_OC.d(TAG, "parent not in DB and no unlock token, attempting to grant folder existence: "
+                + remoteParentPath);
             final var result = grantFolderExistence(remoteParentPath, client);
 
             if (!result.isSuccess()) {
+                Log_OC.e(TAG, "grantFolderExistence failed for: " + remoteParentPath + ", code: " +
+                    result.getCode() + ", message: " + result.getMessage());
                 return result;
             }
 
             parent = getStorageManager().getFileByPath(remoteParentPath);
+            if (parent == null) {
+                Log_OC.e(TAG, "parent still null after grantFolderExistence: " + remoteParentPath);
+                return new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
+            }
+
+            Log_OC.d(TAG, "parent created and retrieved successfully: " + remoteParentPath + ", id=" +
+                parent.getFileId());
         }
 
         if (parent == null) {
+            Log_OC.e(TAG, "parent is null, cannot proceed: " + remoteParentPath + "," + " unlock token: " + mFolderUnlockToken);
             return new RemoteOperationResult<>(false, "Parent folder not found", HttpStatus.SC_NOT_FOUND);
         }
 
@@ -466,10 +495,10 @@ public class UploadFileOperation extends SyncOperation {
         mFile.setEncrypted(encryptedAncestor);
 
         if (encryptedAncestor) {
-            Log_OC.d(TAG, "encrypted upload");
+            Log_OC.d(TAG, "⬆️🔗" + "encrypted upload");
             return encryptedUpload(client, parent);
         } else {
-            Log_OC.d(TAG, "normal upload");
+            Log_OC.d(TAG, "⬆️" + "normal upload");
             return normalUpload(client);
         }
     }
@@ -577,6 +606,9 @@ public class UploadFileOperation extends SyncOperation {
             result = new RemoteOperationResult<>(e);
         } finally {
             result = cleanupE2EUpload(fileLock, channel, e2eFiles, result, object, client, token);
+
+            // update upload status
+            uploadsStorageManager.updateDatabaseUploadResult(result, this);
         }
 
         completeE2EUpload(result, e2eFiles, client);
@@ -585,11 +617,8 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private boolean isEndToEndVersionAtLeastV2() {
-        return getE2EVersion().compareTo(E2EVersion.V2_0) >= 0;
-    }
-
-    private E2EVersion getE2EVersion() {
-        return CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion();
+        final var capability = CapabilityUtils.getCapability(mContext);
+        return E2EVersionHelper.INSTANCE.isV2Plus(capability);
     }
 
     private long getE2ECounter(OCFile parentFile) {
@@ -854,7 +883,7 @@ public class UploadFileOperation extends SyncOperation {
                                        clientData.getToken(),
                                        clientData.getClient(),
                                        metadataExists,
-                                       E2EVersion.V1_2,
+                                       E2EVersionHelper.INSTANCE.latestVersion(false),
                                        "",
                                        arbitraryDataProvider,
                                        user);
@@ -885,7 +914,7 @@ public class UploadFileOperation extends SyncOperation {
     private void completeE2EUpload(RemoteOperationResult result, E2EFiles e2eFiles, OwnCloudClient client) {
         if (result.isSuccess()) {
             handleLocalBehaviour(e2eFiles.getTemporalFile(), e2eFiles.getExpectedFile(), e2eFiles.getOriginalFile(), client);
-        } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+        } else if (RemoteOperationResultExtensionsKt.isConflict(result.getCode())) {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
 
@@ -1008,26 +1037,21 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private RemoteOperationResult normalUpload(OwnCloudClient client) {
-        RemoteOperationResult result = null;
+        RemoteOperationResult<?> result = null;
         File temporalFile = null;
         File originalFile = new File(mOriginalStoragePath);
         File expectedFile = null;
-        FileLock fileLock = null;
-        FileChannel channel = null;
-
-        long size;
 
         try {
-            // check conditions
+            Log_OC.d(TAG, "checking conditions");
             result = checkConditions(originalFile);
-
             if (result != null) {
                 return result;
             }
 
-            // check name collision
             final var collisionResult = checkNameCollision(null, client, null, false);
             if (collisionResult != null) {
+                Log_OC.e(TAG, "name collision detected");
                 result = collisionResult;
                 return collisionResult;
             }
@@ -1037,20 +1061,19 @@ public class UploadFileOperation extends SyncOperation {
 
             result = copyFile(originalFile, expectedPath);
             if (!result.isSuccess()) {
+                Log_OC.e(TAG, "file copying failed");
                 return result;
             }
 
             // Get the last modification date of the file from the file system
             long lastModifiedTimestamp = originalFile.lastModified() / 1000;
-
             final Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
-            try {
-                channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
-                fileLock = channel.tryLock();
-            } catch (FileNotFoundException e) {
-                // this basically means that the file is on SD card
-                // try to copy file to temporary dir if it doesn't exist
+            Path filePath = Paths.get(mFile.getStoragePath());
+
+            // file does not exists in storage
+            if (!Files.exists(filePath)) {
+                Log_OC.e(TAG, "file not found exception: normal upload, probably file in sd card");
                 String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) +
                     mFile.getRemotePath();
                 mFile.setStoragePath(temporalPath);
@@ -1059,105 +1082,128 @@ public class UploadFileOperation extends SyncOperation {
                 Files.deleteIfExists(Paths.get(temporalPath));
                 result = copy(originalFile, temporalFile);
 
-                if (result.isSuccess()) {
-                    if (temporalFile.length() == originalFile.length()) {
-                        channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
-                        fileLock = channel.tryLock();
-                    } else {
-                        result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
+                if (!result.isSuccess()) return result;
+
+                if (temporalFile.length() != originalFile.length()) {
+                    Log_OC.e(TAG, "temporal file and original file lengths are not same - result is LOCK_FAILED");
+                    result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
+                }
+                filePath = temporalFile.toPath();
+            }
+
+            // file exists in storage
+            try (FileChannel channel = FileChannel.open(filePath, StandardOpenOption.READ)) {
+                FileLock fileLock = null;
+                try {
+                    // request a shared lock instead of exclusive one, since we are just reading file
+                    fileLock = channel.tryLock(0L, Long.MAX_VALUE, true);
+                    Log_OC.d(TAG ,"🔒" + "file locked");
+                } catch (OverlappingFileLockException e) {
+                    Log_OC.e(TAG, "shared lock overlap detected; proceeding safely.");
+                }
+
+                // determine size
+                long size;
+                try {
+                    size = channel.size();
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "failed to determine file size from channel: ", e);
+
+                    try {
+                        size = Files.size(filePath);
+                    } catch (Exception exception) {
+                        Log_OC.e(TAG, "failed to determine file size from nio.File: ", exception);
+                        result = new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
+                        return result;
                     }
                 }
-            }
 
-            try {
-                size = channel.size();
-            } catch (Exception exception) {
-                Log_OC.e(TAG, "normalUpload, size cannot be determined from channel: " + exception);
-                size = new File(mFile.getStoragePath()).length();
-            }
+                final var formattedFileSize = Formatter.formatFileSize(mContext, size);
+                updateSize(size);
+                Log_OC.d(TAG, "file size set to " + formattedFileSize);
 
-            updateSize(size);
+                // decide whether chunked or not
+                if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
+                    Log_OC.d(TAG, "chunked upload operation will be used");
 
-            // perform the upload
-            if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-                boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
+                    boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
+                    mUploadOperation = new ChunkedFileUploadRemoteOperation(
+                        mFile.getStoragePath(), mFile.getRemotePath(), mFile.getMimeType(),
+                        mFile.getEtagInConflict(), lastModifiedTimestamp, creationTimestamp,
+                        onWifiConnection, mDisableRetries);
+                } else {
+                    Log_OC.d(TAG, "upload file operation will be used");
 
-                mUploadOperation = new ChunkedFileUploadRemoteOperation(mFile.getStoragePath(),
-                                                                        mFile.getRemotePath(),
-                                                                        mFile.getMimeType(),
-                                                                        mFile.getEtagInConflict(),
-                                                                        lastModifiedTimestamp,
-                                                                        creationTimestamp,
-                                                                        onWifiConnection,
-                                                                        mDisableRetries);
-            } else {
-                mUploadOperation = new UploadFileRemoteOperation(mFile.getStoragePath(),
-                                                                 mFile.getRemotePath(),
-                                                                 mFile.getMimeType(),
-                                                                 mFile.getEtagInConflict(),
-                                                                 lastModifiedTimestamp,
-                                                                 creationTimestamp,
-                                                                 mDisableRetries);
-            }
+                    mUploadOperation = new UploadFileRemoteOperation(
+                        mFile.getStoragePath(), mFile.getRemotePath(), mFile.getMimeType(),
+                        mFile.getEtagInConflict(), lastModifiedTimestamp, creationTimestamp,
+                        mDisableRetries);
+                }
 
-            /**
-             * Adds the onTransferProgress in FileUploadWorker
-             * {@link FileUploadWorker#onTransferProgress(long, long, long, String)()}
-             */
-            for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
-                mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
-            }
+                Log_OC.d(TAG, "upload type operation determined");
 
-            if (mCancellationRequested.get()) {
-                throw new OperationCancelledException();
-            }
+                /**
+                 * Adds the onTransferProgress in FileUploadWorker
+                 * {@link FileUploadWorker#onTransferProgress(long, long, long, String)()}
+                 */
+                for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
+                    mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
+                }
 
-            if (result.isSuccess() && mUploadOperation != null) {
-                result = mUploadOperation.execute(client);
+                if (mCancellationRequested.get()) {
+                    Log_OC.e(TAG, "upload operation cancelled");
+                    throw new OperationCancelledException();
+                }
 
-                /// move local temporal file or original file to its corresponding
+                // execute
+                if (result.isSuccess() && mUploadOperation != null) {
+                    Log_OC.d(TAG, "upload operation completed");
+                    result = mUploadOperation.execute(client);
+                }
+
+                // move local temporal file or original file to its corresponding
                 // location in the Nextcloud local folder
                 if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
+                    Log_OC.e(TAG, "upload operation failed with SC_PRECONDITION_FAILED");
                     result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
+                }
+
+                if (fileLock != null && fileLock.isValid()) {
+                    fileLock.release();
+                    Log_OC.d(TAG ,"🔓" + "file lock released");
                 }
             }
         } catch (FileNotFoundException e) {
-            Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
+            Log_OC.e(TAG, "normalupload(): file not found exception");
             result = new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
-        } catch (OverlappingFileLockException e) {
-            Log_OC.d(TAG, "Overlapping file lock exception");
-            result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
         } catch (Exception e) {
+            Log_OC.e(TAG, "normalupload(): exception: ", e);
             result = new RemoteOperationResult<>(e);
         } finally {
+            Log_OC.d(TAG, "normalupload(): finally block");
+
             mUploadStarted.set(false);
 
-            if (fileLock != null) {
-                try {
-                    fileLock.release();
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "Failed to unlock file with path " + mOriginalStoragePath);
+            // clean up temporal file if it exists
+            try {
+                if (temporalFile != null) {
+                    if (temporalFile.exists() && !temporalFile.delete()) {
+                        Log_OC.e(TAG, "Could not delete temporal file");
+                    }
+                } else {
+                    Log_OC.d(TAG, "temporal file is null - internal storage is used instead of sd-card");
                 }
-            }
-
-            if (channel != null) {
-                try {
-                    channel.close();
-                } catch (IOException e) {
-                    Log_OC.w(TAG, "Failed to close file channel");
-                }
-            }
-
-            if (temporalFile != null && !originalFile.equals(temporalFile)) {
-                boolean isTempFileDeleted = temporalFile.delete();
-                Log_OC.d(TAG, "normalUpload, temp folder deletion: " + isTempFileDeleted);
+            } catch (Exception e) {
+                Log_OC.e(TAG, "an exception occurred during deletion of temporal file: ", e);
             }
 
             if (result == null) {
+                Log_OC.e(TAG, "result is null, UNKNOWN_ERROR");
                 result = new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
             }
 
             logResult(result, mOriginalStoragePath, mRemotePath);
+            uploadsStorageManager.updateDatabaseUploadResult(result, this);
         }
 
         if (result.isSuccess()) {
@@ -1166,10 +1212,7 @@ public class UploadFileOperation extends SyncOperation {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
 
-        // delete temporal file
-        if (temporalFile != null && temporalFile.exists() && !temporalFile.delete()) {
-            Log_OC.e(TAG, "Could not delete temporal file " + temporalFile.getAbsolutePath());
-        }
+        Log_OC.d(TAG, "returning normalupload() result");
 
         return result;
     }
@@ -1182,7 +1225,7 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private void logResult(RemoteOperationResult result, String sourcePath, String targetPath) {
+    private void logResult(RemoteOperationResult<?> result, String sourcePath, String targetPath) {
         if (result.isSuccess()) {
             Log_OC.i(TAG, "Upload of " + sourcePath + " to " + targetPath + ": " + result.getLogMessage());
         } else {
@@ -1215,7 +1258,7 @@ public class UploadFileOperation extends SyncOperation {
             throw new OperationCancelledException();
         }
 
-        return new RemoteOperationResult(ResultCode.OK);
+        return new RemoteOperationResult<>(ResultCode.OK);
     }
 
     @CheckResult
@@ -1251,7 +1294,24 @@ public class UploadFileOperation extends SyncOperation {
                     break;
                 case ASK_USER:
                     Log_OC.d(TAG, "Name collision; asking the user what to do");
-                    return new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+
+                    // check if its real SYNC_CONFLICT
+                    boolean isSameFileOnRemote = false;
+                    if (mFile != null) {
+                        String localPath = mFile.getStoragePath();
+
+                        if (localPath != null) {
+                            File localFile = new File(localPath);
+                            isSameFileOnRemote = FileUploadHelper.Companion.instance()
+                                .isSameFileOnRemote(user, localFile, mRemotePath, mContext);
+                        }
+                    }
+
+                    if (isSameFileOnRemote) {
+                        return new RemoteOperationResult<>(ResultCode.OK);
+                    } else {
+                        return new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
+                    }
             }
         }
 
@@ -1260,27 +1320,6 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return null;
-    }
-
-    public void handleLocalBehaviour() {
-        if (user == null || mFile == null || mContext == null) {
-            Log_OC.d(TAG, "handleLocalBehaviour: user, file, or context is null.");
-            return;
-        }
-
-        final var client = getClient();
-        if (client == null) {
-            Log_OC.d(TAG, "handleLocalBehaviour: client is null");
-            return;
-        }
-
-        String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
-        File expectedFile = new File(expectedPath);
-        File originalFile = new File(mOriginalStoragePath);
-        String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) + mFile.getRemotePath();
-        File temporalFile = new File(temporalPath);
-
-        handleLocalBehaviour(temporalFile, expectedFile, originalFile, client);
     }
 
     private void deleteNonExistingFile(File file) {
@@ -1311,6 +1350,7 @@ public class UploadFileOperation extends SyncOperation {
 
         switch (mLocalBehaviour) {
             case FileUploadWorker.LOCAL_BEHAVIOUR_DELETE:
+                Log_OC.d(TAG, "DELETE local behaviour will be handled");
                 try {
                     Files.delete(originalFile.toPath());
                 } catch (IOException e) {
@@ -1322,6 +1362,7 @@ public class UploadFileOperation extends SyncOperation {
                 break;
 
             case FileUploadWorker.LOCAL_BEHAVIOUR_COPY:
+                Log_OC.d(TAG, "COPY local behaviour will be handled");
                 if (temporalFile != null) {
                     try {
                         move(temporalFile, expectedFile);
@@ -1346,6 +1387,7 @@ public class UploadFileOperation extends SyncOperation {
                 break;
 
             case FileUploadWorker.LOCAL_BEHAVIOUR_MOVE:
+                Log_OC.d(TAG, "MOVE local behaviour will be handled");
                 String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
                 File newFile = new File(expectedPath);
 
@@ -1363,6 +1405,7 @@ public class UploadFileOperation extends SyncOperation {
                 break;
 
             default:
+                Log_OC.d(TAG, "DEFAULT local behaviour will be handled");
                 mFile.setStoragePath("");
                 saveUploadedFile(client);
                 break;
@@ -1383,9 +1426,9 @@ public class UploadFileOperation extends SyncOperation {
      * @param pathToGrant Full remote path whose existence will be granted.
      * @return An {@link OCFile} instance corresponding to the folder where the file will be uploaded.
      */
-    private RemoteOperationResult grantFolderExistence(String pathToGrant, OwnCloudClient client) {
-        RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
-        RemoteOperationResult result = operation.execute(client);
+    private RemoteOperationResult<?> grantFolderExistence(String pathToGrant, OwnCloudClient client) {
+        var operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
+        var result = operation.execute(client);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {
             SyncOperation syncOp = new CreateFolderOperation(pathToGrant, user, getContext(), getStorageManager());
             result = syncOp.execute(client);
@@ -1396,9 +1439,9 @@ public class UploadFileOperation extends SyncOperation {
                 parentDir = createLocalFolder(pathToGrant);
             }
             if (parentDir != null) {
-                result = new RemoteOperationResult(ResultCode.OK);
+                result = new RemoteOperationResult<>(ResultCode.OK);
             } else {
-                result = new RemoteOperationResult(ResultCode.CANNOT_CREATE_FILE);
+                result = new RemoteOperationResult<>(ResultCode.CANNOT_CREATE_FILE);
             }
         }
         return result;
@@ -1498,7 +1541,7 @@ public class UploadFileOperation extends SyncOperation {
             return false;
         } else {
             ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, false);
-            RemoteOperationResult result = existsOperation.execute(client);
+            final var result = existsOperation.execute(client);
             return result.isSuccess();
         }
     }

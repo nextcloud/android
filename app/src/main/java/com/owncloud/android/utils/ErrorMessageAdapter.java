@@ -35,6 +35,7 @@ import org.apache.commons.httpclient.ConnectTimeoutException;
 
 import java.io.File;
 import java.net.SocketTimeoutException;
+import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -160,10 +161,13 @@ public final class ErrorMessageAdapter {
         Resources res) {
 
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND) {
-            return String.format(
-                res.getString(R.string.sync_current_folder_was_removed),
-                new File(operation.getFolderPath()).getName()
-                                );
+            Optional<String> folderName = operation.getFolderNameFromPath();
+            if (folderName.isEmpty()) {
+                return null;
+            }
+
+            String format = res.getString(R.string.sync_current_folder_was_removed);
+            return String.format(format, folderName.get());
         }
         return null;
     }
@@ -488,11 +492,14 @@ public final class ErrorMessageAdapter {
         } else if (operation instanceof MoveFileOperation) {
             message = res.getString(R.string.move_file_error);
 
-        } else if (operation instanceof SynchronizeFolderOperation) {
-            String folderPathName = new File(
-                    ((SynchronizeFolderOperation) operation).getFolderPath()
-            ).getName();
-            message = String.format(res.getString(R.string.sync_folder_failed_content), folderPathName);
+        } else if (operation instanceof SynchronizeFolderOperation synchronizeFolderOperation) {
+            Optional<String> folderName = synchronizeFolderOperation.getFolderNameFromPath();
+            if (folderName.isEmpty()) {
+                return null;
+            }
+
+            String format = res.getString(R.string.sync_folder_failed_content);
+            message = String.format(format, folderName.get());
 
         } else if (operation instanceof CopyFileOperation) {
             message = res.getString(R.string.copy_file_error);

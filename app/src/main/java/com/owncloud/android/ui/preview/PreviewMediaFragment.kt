@@ -18,10 +18,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -30,18 +27,26 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
 import androidx.core.net.toUri
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.marginBottom
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaSession
+import androidx.media3.ui.DefaultTimeBar
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
@@ -57,8 +62,6 @@ import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
-import com.nextcloud.utils.extensions.logFileSize
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
@@ -71,34 +74,28 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.utils.MimeTypeUtil
-import java.lang.ref.WeakReference
-import java.util.concurrent.Executors
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
  *
- *
  * Trying to get an instance with NULL [OCFile] or ownCloud [User] values will produce an
  * [IllegalStateException].
  *
- *
  * By now, if the [OCFile] passed is not downloaded, an [IllegalStateException] is generated on
  * instantiation too.
- */
-
-/**
- * Creates an empty fragment for previews.
  *
+ * Creates an empty fragment for previews.
  *
  * MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically (for instance, when the
  * device is turned a aside).
  *
- *
  * DO NOT CALL IT: an [OCFile] and [User] must be provided for a successful construction
  */
-
-@Suppress("NestedBlockDepth", "ComplexMethod", "LongMethod", "TooManyFunctions")
+@Suppress("NestedBlockDepth", "ComplexMethod", "LongMethod", "TooManyFunctions", "ReturnCount")
 class PreviewMediaFragment :
     FileFragment(),
     OnTouchListener,
@@ -126,6 +123,7 @@ class PreviewMediaFragment :
     private var exoPlayer: ExoPlayer? = null
     private var mediaSession: MediaSession? = null
     private var nextcloudClient: NextcloudClient? = null
+    private var isFullscreenActive = false
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -176,13 +174,42 @@ class PreviewMediaFragment :
     }
 
     private fun initArguments(bundle: Bundle) {
-        file.logFileSize(TAG)
         file = bundle.getParcelableArgument(FILE, OCFile::class.java)
         user = bundle.getParcelableArgument(USER, User::class.java)
 
         savedPlaybackPosition = bundle.getLong(PLAYBACK_POSITION)
         autoplay = bundle.getBoolean(AUTOPLAY)
         isLivePhoto = bundle.getBoolean(IS_LIVE_PHOTO)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        applyWindowInsets()
+    }
+
+    @OptIn(UnstableApi::class)
+    private fun applyWindowInsets() {
+        binding.root.post {
+            val rootInsets = ViewCompat.getRootWindowInsets(binding.root) ?: return@post
+            val insets = rootInsets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or
+                    WindowInsetsCompat.Type.displayCutout()
+            )
+            val playerView = binding.exoplayerView
+            val exoControls = playerView
+                .findViewById<FrameLayout>(androidx.media3.ui.R.id.exo_bottom_bar)
+            val exoProgress = playerView
+                .findViewById<DefaultTimeBar>(androidx.media3.ui.R.id.exo_progress)
+            val progressOriginalMargin = exoProgress?.marginBottom ?: 0
+            exoControls?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = insets.bottom
+            }
+            exoProgress?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = insets.bottom + progressOriginalMargin
+            }
+            exoControls?.updatePadding(left = insets.left, right = insets.right)
+            exoProgress?.updatePadding(left = insets.left, right = insets.right)
+        }
     }
 
     private fun setLoadingView() {
@@ -205,7 +232,6 @@ class PreviewMediaFragment :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        file.logFileSize(TAG)
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         outState.run {
@@ -229,27 +255,30 @@ class PreviewMediaFragment :
             Log_OC.d(TAG, "File is null or fragment not attached to a context.")
             return
         }
-        prepareForVideo(context ?: MainApp.getAppContext())
+        prepareForVideo()
     }
 
     @Suppress("DEPRECATION", "TooGenericExceptionCaught")
-    private fun prepareForVideo(context: Context) {
+    private fun prepareForVideo() {
         if (exoPlayer != null) {
             playVideo()
-        } else {
-            val handler = Handler(Looper.getMainLooper())
-            Executors.newSingleThreadExecutor().execute {
-                try {
-                    nextcloudClient = clientFactory.createNextcloudClient(accountManager.user)
-                    handler.post {
-                        nextcloudClient?.let { client ->
-                            createExoPlayer(context, client)
-                            playVideo()
-                        }
-                    }
-                } catch (e: CreationException) {
-                    handler.post { Log_OC.e(TAG, "error setting up ExoPlayer", e) }
+            return
+        }
+
+        lifecycleScope.launch {
+            try {
+                val client = withContext(Dispatchers.IO) {
+                    clientFactory.createNextcloudClient(accountManager.user)
                 }
+                nextcloudClient = client
+                val ctx = this@PreviewMediaFragment.context ?: return@launch
+
+                withContext(Dispatchers.Main) {
+                    createExoPlayer(ctx, client)
+                    playVideo()
+                }
+            } catch (e: CreationException) {
+                Log_OC.e(TAG, "error setting up ExoPlayer", e)
             }
         }
     }
@@ -260,9 +289,8 @@ class PreviewMediaFragment :
             val listener = ExoplayerListener(context, binding.exoplayerView, it) { goBackToLivePhoto() }
             it.addListener(listener)
         }
-        // session id needs to be unique since this fragment is used in viewpager multiple fragments can exist at a time
         mediaSession = MediaSession.Builder(
-            requireContext(),
+            context,
             exoPlayer as Player
         ).setId(System.currentTimeMillis().toString()).build()
     }
@@ -415,19 +443,45 @@ class PreviewMediaFragment :
     @Suppress("TooGenericExceptionCaught")
     private fun playVideo() {
         setupVideoView()
-        // load the video file in the video player
-        // when done, VideoHelper#onPrepared() will be called
         if (file.isDown) {
             playVideoUri(file.storageUri)
-        } else {
+            return
+        }
+
+        lifecycleScope.launch {
             try {
-                LoadStreamUrl(this, user, clientFactory).execute(
-                    file.localId
-                )
+                val uri = withContext(Dispatchers.IO) {
+                    loadStreamUrl(user, clientFactory, file.localId)
+                }
+                if (uri != null) {
+                    videoUri = uri
+                    playVideoUri(uri)
+                } else {
+                    emptyListView?.visibility = View.VISIBLE
+                    setVideoErrorMessage(getString(R.string.stream_not_possible_headline))
+                }
             } catch (e: Exception) {
                 Log_OC.e(TAG, "Loading stream url not possible: $e")
             }
         }
+    }
+
+    private fun loadStreamUrl(user: User?, clientFactory: ClientFactory?, fileId: Long): Uri? {
+        val client: OwnCloudClient? = try {
+            clientFactory?.create(user)
+        } catch (e: CreationException) {
+            Log_OC.e(TAG, "Loading stream url not possible: $e")
+            return null
+        }
+
+        val sfo = StreamMediaFileOperation(fileId)
+        val result = sfo.execute(client)
+
+        if (result?.isSuccess == false) {
+            return null
+        }
+
+        return (result?.data?.get(0) as String).toUri()
     }
 
     private fun playVideoUri(uri: Uri) {
@@ -445,57 +499,10 @@ class PreviewMediaFragment :
         autoplay = false
     }
 
-    @Suppress("DEPRECATION", "ReturnCount")
-    private class LoadStreamUrl(
-        previewMediaFragment: PreviewMediaFragment,
-        private val user: User?,
-        private val clientFactory: ClientFactory?
-    ) : AsyncTask<Long?, Void?, Uri?>() {
-        private val previewMediaFragmentWeakReference = WeakReference(previewMediaFragment)
-
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg fileId: Long?): Uri? {
-            val client: OwnCloudClient?
-            try {
-                client = clientFactory?.create(user)
-            } catch (e: CreationException) {
-                Log_OC.e(TAG, "Loading stream url not possible: $e")
-                return null
-            }
-
-            val sfo = fileId[0]?.let { StreamMediaFileOperation(it) }
-            val result = sfo?.execute(client)
-
-            if (result?.isSuccess == false) {
-                return null
-            }
-
-            return (result?.data?.get(0) as String).toUri()
-        }
-
-        @Deprecated("Deprecated in Java")
-        override fun onPostExecute(uri: Uri?) {
-            val previewMediaFragment = previewMediaFragmentWeakReference.get()
-            val context = previewMediaFragment?.context
-
-            if (previewMediaFragment?.binding == null || context == null) {
-                Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!")
-                return
-            }
-
-            previewMediaFragment.run {
-                if (uri != null) {
-                    videoUri = uri
-                    playVideoUri(uri)
-                } else {
-                    emptyListView?.visibility = View.VISIBLE
-                    setVideoErrorMessage(getString(R.string.stream_not_possible_headline))
-                }
-            }
-        }
-    }
-
     override fun onStop() {
+        if (!isFullscreenActive) {
+            releaseVideoPlayer()
+        }
         releaseVideoPlayer()
         super.onStop()
     }
@@ -513,13 +520,24 @@ class PreviewMediaFragment :
     }
 
     private fun startFullScreenVideo() {
-        activity?.let { activity ->
-            nextcloudClient?.let { client ->
-                exoPlayer?.let { player ->
-                    PreviewVideoFullscreenDialog(activity, client, player, binding.exoplayerView).show()
-                }
+        val activity = activity ?: return
+        val client = nextcloudClient ?: return
+        val player = exoPlayer ?: return
+
+        isFullscreenActive = true
+        val dialog = PreviewVideoFullscreenDialog(
+            activity,
+            client,
+            player,
+            binding.exoplayerView
+        ).apply {
+            setOnDismissListener {
+                isFullscreenActive = false
+                setupVideoView()
             }
         }
+
+        dialog.show()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -606,20 +624,14 @@ class PreviewMediaFragment :
             startPlaybackPosition: Long,
             autoplay: Boolean,
             isLivePhoto: Boolean
-        ): PreviewMediaFragment {
-            val previewMediaFragment = PreviewMediaFragment()
-
-            val bundle = Bundle().apply {
+        ): PreviewMediaFragment = PreviewMediaFragment().apply {
+            arguments = Bundle().apply {
                 putParcelable(FILE, fileToDetail)
                 putParcelable(USER, user)
                 putLong(PLAYBACK_POSITION, startPlaybackPosition)
                 putBoolean(AUTOPLAY, autoplay)
                 putBoolean(IS_LIVE_PHOTO, isLivePhoto)
             }
-
-            previewMediaFragment.arguments = bundle
-
-            return previewMediaFragment
         }
 
         /**

@@ -26,6 +26,7 @@
     <string name="activity_icon">Veprimtari</string>
     <string name="add_to_cloud">Shtojeni tek %1$s</string>
     <string name="appbar_search_in">Kërkoni në %s</string>
+    <string name="assistant_task_status_unknown">panjohur</string>
     <string name="associated_account_not_found">Llogaria e lidhur nuk u gjet!</string>
     <string name="auth_access_failed">Hyrja dështoi: %1$s</string>
     <string name="auth_account_does_not_exist">Kjo llogari nuk është shtuar në këtë paisje akoma</string>
@@ -347,6 +348,8 @@
     <string name="media_forward_description">Butoni Përpara</string>
     <string name="media_notif_ticker">Lojtësi %1$s i muzikës</string>
     <string name="media_play_pause_description">Butoni Luaje ose Pushoje</string>
+    <string name="media_player_pause">Pauzë</string>
+    <string name="media_player_play">Luaje</string>
     <string name="media_rewind_description">Butoni Mbrapsht</string>
     <string name="media_state_playing">%1$s (po luhet)</string>
     <string name="menu_item_sort_by_date_newest_first">Më i riu në fillim</string>
@@ -628,7 +631,6 @@
     <string name="upload_file_dialog_title">Vendos emrin dhe tipin e dokumentit të aploduar </string>
     <string name="upload_files">Ngarko skedarët</string>
     <string name="upload_item_action_button">Butoni i veprimit të ngarkimit të një artikulli</string>
-    <string name="upload_list_cancel_upload">Anullo ngarkimin</string>
     <string name="upload_list_delete">Delete</string>
     <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
     <string name="upload_list_empty_text_auto_upload">Ngarko disa përmbajtje ose aktivizo ngarkimin direkt. </string>
@@ -667,9 +669,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Rregullim</string>
     <string name="uploader_wrn_no_account_text">S’ka llogari %1$s te pajisja juaj. Ju lutemi, së pari krijoni një llogari.</string>
     <string name="uploader_wrn_no_account_title">S’u gjet llogari</string>
+    <string name="uploads_view_group_completed_uploads">Të plotësuara</string>
     <string name="uploads_view_group_current_uploads">Të tanishëm</string>
     <string name="uploads_view_group_failed_uploads">Dështoi/Rindezja në pritje</string>
-    <string name="uploads_view_group_finished_uploads">U ngarkua</string>
     <string name="uploads_view_group_manually_cancelled_uploads">U anulua</string>
     <string name="uploads_view_later_waiting_to_upload">Po pritet për ngarkim</string>
     <string name="uploads_view_title">Ngarkime</string>

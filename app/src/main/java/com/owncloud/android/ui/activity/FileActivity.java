@@ -41,6 +41,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
@@ -87,7 +88,6 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.events.DialogEvent;
 import com.owncloud.android.ui.events.DialogEventType;
-import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -175,12 +175,12 @@ public abstract class FileActivity extends DrawerActivity
     protected boolean isFileDisplayActivityResumed = false;
 
     @Inject
-    UserAccountManager accountManager;
+    public UserAccountManager accountManager;
 
     @Inject public ConnectivityService connectivityService;
 
     @Inject
-    BackgroundJobManager backgroundJobManager;
+    protected BackgroundJobManager backgroundJobManager;
 
     @Inject
     EditorUtils editorUtils;
@@ -562,12 +562,23 @@ public abstract class FileActivity extends DrawerActivity
      */
     public void showLoadingDialog(String message) {
         runOnUiThread(() -> {
+            if (!ActivityExtensionsKt.isActive(this)) {
+                Log_OC.w(TAG, "cannot show loading dialog, activity is finishing");
+                return;
+            }
+
             FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.executePendingTransactions();
             Fragment existingDialog = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
 
             if (existingDialog instanceof LoadingDialog loadingDialog) {
                 Log_OC.d(TAG, "dismiss previous loading dialog");
-                loadingDialog.dismiss();
+
+                if (!fragmentManager.isStateSaved()) {
+                    loadingDialog.dismiss();
+                } else {
+                    loadingDialog.dismissAllowingStateLoss();
+                }
             }
 
             // Show new dialog
@@ -584,7 +595,13 @@ public abstract class FileActivity extends DrawerActivity
      */
     public void dismissLoadingDialog() {
         runOnUiThread(() -> {
+            if (!ActivityExtensionsKt.isActive(this)) {
+                Log_OC.w(TAG, "cannot dismiss loading dialog, activity is finishing");
+                return;
+            }
+
             FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.executePendingTransactions();
             Fragment fragment = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
 
             if (fragment instanceof LoadingDialog loadingDialogFragment) {
@@ -869,20 +886,20 @@ public abstract class FileActivity extends DrawerActivity
         } else {
             // Detect Failure (403) --> maybe needs password
             String password = operation.getPassword();
-            if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_FORBIDDEN &&
-                TextUtils.isEmpty(password) &&
-                getCapabilities().getFilesSharingPublicEnabled().isUnknown()) {
-                // Was tried without password, but not sure that it's optional.
+            final var optionalCapabilities = getCapabilities();
 
-                // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
-                if (sharingFragment != null && sharingFragment.isAdded()) {
-                    // only if added to the view hierarchy
-
-                    sharingFragment.requestPasswordForShareViaLink(true,
-                                                                   getCapabilities().getFilesSharingPublicAskForOptionalPassword()
-                                                                       .isTrue());
+            if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_FORBIDDEN && TextUtils.isEmpty(password)) {
+                if (optionalCapabilities.isPresent()) {
+                    final var capabilities = optionalCapabilities.get();
+                    if (capabilities.getFilesSharingPublicEnabled().isUnknown()) {
+                        // Was tried without password, but not sure that it's optional.
+                        // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
+                        if (sharingFragment != null && sharingFragment.isAdded()) {
+                            // only if added to the view hierarchy
+                            sharingFragment.requestPasswordForShareViaLink(true, capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
+                        }
+                    }
                 }
-
             } else {
                 if (sharingFragment != null) {
                     sharingFragment.refreshSharesFromDB();

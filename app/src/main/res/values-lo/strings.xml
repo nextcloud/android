@@ -49,10 +49,11 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
     <string name="assistant_screen_empty_content_description">ລອງສົ່ງຂໍ້ຄວາມເພື່ອເລີ່ມການສົນທະນາ.</string>
     <string name="assistant_screen_empty_content_title">ສະບາຍດີ! ມີຫຍັງໃຫ້ຂ້ອຍຊ່ວຍມື້ນີ້ບໍ່?</string>
+    <string name="assistant_screen_retry_response_generation">ລອງສ້າງການຕອບກັບໃໝ່</string>
+    <string name="assistant_screen_send_message">Send message</string>
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
-    <string name="assistant_screen_task_create_success_message">Task successfully created</string>
+    <string name="assistant_screen_task_create_success_message">Task created</string>
     <string name="assistant_screen_task_delete_fail_message">An error occurred while deleting the task</string>
-    <string name="assistant_screen_task_delete_success_message">Task successfully deleted</string>
     <string name="assistant_screen_task_list_empty_warning">Task list is empty. Check assistant app configuration.</string>
     <string name="assistant_screen_task_list_error_state_message">Unable to fetch task list, please check your internet connection.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Delete Task</string>
@@ -60,6 +61,8 @@
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
+    <string name="assistant_task_status_running">running</string>
+    <string name="assistant_task_status_unknown">ບໍ່ຮູ້</string>
     <string name="associated_account_not_found">ບໍ່ພົບບັນຊີທີ່ກ່ຽວຂ້ອງ!</string>
     <string name="auth_access_failed">ການເຂົ້າເຖິງໄດ້ບໍ່ສຳເລັດ%1$s:</string>
     <string name="auth_account_does_not_exist">ຍັງບໍ່ໄດ້ເພີ່ມບັນຊີໃສ່ໃນອຸປະກອນນີ້</string>
@@ -103,7 +106,6 @@
     <string name="auto_upload_path">/ອັບໂຫຼດອັດຕະໂນມັດ</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="auto_upload_wifi_only_warning_info">Waiting for Wi-Fi to start uploading</string>
-    <string name="auto_upload_worker_start_text">Uploading files from %s to %s</string>
     <string name="autoupload_configure">ຕັ້ງຄ່າ Config</string>
     <string name="autoupload_create_new_custom_folder">ສ້າງການຕັ້ງຄ່າໂຟນເດີດ້ວຍຕົນເອງ</string>
     <string name="autoupload_custom_folder">ກຳໜົດການຕັ້ງຄ່າໂຟນເດີດ້ວຍຕົນເອງ</string>
@@ -184,6 +186,7 @@
     <string name="community_testing_bug_text">ພົບຂໍ້ຜິດພາດບໍ? </string>
     <string name="community_testing_headline">ການຊ່ວຍເຫຼືອ ໂດຍການທົດສອບ</string>
     <string name="community_testing_report_text">ລາຍງານບັນຫາກ່ຽວກັບ GitHub</string>
+    <string name="compose_activity_label">ຜູ້ຊ່ວຍ Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">ຕັ້ງຄ່າຄອຍຟິກ</string>
     <string name="confirm_removal">Remove local encryption</string>
     <string name="confirmation_remove_file_alert">ທ່ານຕ້ອງການລືບແທ້ບໍ %1$s?</string>
@@ -208,7 +211,6 @@
     <string name="contacts_preferences_import_scheduled_fail">Import failed to start. Please try again</string>
     <string name="contacts_preferences_no_file_found">ບໍ່ພົບຟາຍ</string>
     <string name="contacts_preferences_something_strange_happened">ບໍ່ສາມາດຊອກຫາ ການສໍາຮອງລ່າສຸດຂອງທ່ານໄດ້!</string>
-    <string name="content_observer_work_notification_title">Detecting content changes</string>
     <string name="conversation_screen_delete_button_title">Delete conversation</string>
     <string name="conversation_screen_empty_content_title">No conversations found</string>
     <string name="conversation_screen_empty_conversation_list_title">ຍັງບໍ່ມີການສົນທະນາ</string>
@@ -228,6 +230,7 @@
     <string name="create_link">Create link</string>
     <string name="create_new">New</string>
     <string name="create_new_document">New document</string>
+    <string name="create_new_encrypted_folder">New encrypted folder</string>
     <string name="create_new_folder">ໂຟນເດີໃຫມ່</string>
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
@@ -293,7 +296,7 @@
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_favorites">ລາຍການທີ່ມັກ</string>
     <string name="drawer_item_gallery">ຊື່ມວນຊົນ</string>
-    <string name="drawer_item_groupfolders">Groupfolders</string>
+    <string name="drawer_item_groupfolders">Team folders</string>
     <string name="drawer_item_home">ໜ້າຫຼັກ</string>
     <string name="drawer_item_notifications">ການເເຈ້ງເຕືອນ</string>
     <string name="drawer_item_on_device">ເທິງອຸປະກອນ</string>
@@ -411,6 +414,8 @@
     <string name="file_list_empty_local_search">No file or folder matching your search</string>
     <string name="file_list_empty_moving">ບໍ່ມີຫຍັງໃນນີ້. ທ່ານສາມາດເພີ່ມໂຟນເດີໄດ້.</string>
     <string name="file_list_empty_on_device">ຟາຍແລະ ໂຟນ ເດີທີ່ດາວໂຫຼດ  ຈະສະແດງໃຫ້ເຫັນຢູ່ທີ່ນີ້ .</string>
+    <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
+    <string name="file_list_empty_recent_files_headline">No recently modified files</string>
     <string name="file_list_empty_recently_modified">ບໍ່ພົບຟາຍດັດແປງພາຍໃນ 7 ວັນລ່າສຸດ</string>
     <string name="file_list_empty_search">ບາງທີອາດຢູ່ໃນໂຟນເດີທີ່ແຕກຕ່າງກັນ?</string>
     <string name="file_list_empty_shared">ຟາຍ ແລະ ໂຟນເດີ ທີ່ ທ່ານແບ່ງປັນຈະສະແດງ ໃຫ້ເຫັນຢູ່ທີ່ນີ້</string>
@@ -484,7 +489,6 @@
     <string name="folder_download_counter">%1$d of %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">An error occurred during synchronization of the %s folder</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Insufficient disk space, synchronization canceled</string>
-    <string name="folder_download_success_notification_title">%s folder successfully synchronized</string>
     <string name="folder_download_worker_ticker_id">Syncing…</string>
     <string name="folder_list_empty_headline">ບໍ່ມີໂຟນເດີ</string>
     <string name="folder_name_empty">Folder name cannot be empty</string>
@@ -580,6 +584,8 @@
     <string name="media_forward_description">ປຸ່ມກົດໄປຂ້າງຫນ້າ</string>
     <string name="media_notif_ticker">ເຄື່ອງຫຼິ້ນເພງ%1$s</string>
     <string name="media_play_pause_description">ປຸ່ມ ຫຼິ້ນ ຫຼື ຢຸດ</string>
+    <string name="media_player_pause">Pause</string>
+    <string name="media_player_play">Play</string>
     <string name="media_rewind_description">ປຸຸ່ມກັບຄືນ</string>
     <string name="media_state_playing"> (ຫຼິ້ນ)%1$s</string>
     <string name="menu_item_sort_by_date_newest_first">ໃໝ່ທີ່ສຸດກ່ອນ</string>
@@ -742,7 +748,6 @@
     <string name="prefs_theme_title">ຫົວຂໍ້</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Manage internal folders for two way sync</string>
-    <string name="prefs_two_way_sync_switch_title">Enable two way sync</string>
     <string name="prefs_value_theme_dark">ມືດ</string>
     <string name="prefs_value_theme_light">ແຈ້ງ</string>
     <string name="prefs_value_theme_system">ຕາມລະບົບ</string>
@@ -822,6 +827,7 @@
     <string name="set_message">Set message</string>
     <string name="set_note">Set note</string>
     <string name="set_online_status">ສະຖານະພາບອອນລາຍ</string>
+    <string name="set_online_status_bottom_sheet_error_message">Failed to set status!</string>
     <string name="set_picture_as">ໃຊ້ຮູບເປັນ</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">ແບ່ງປັນ</string>
@@ -1036,7 +1042,6 @@
     <string name="upload_files">ອັບໂຫຼດຟາຍ</string>
     <string name="upload_global_pause_title">All uploads are paused</string>
     <string name="upload_item_action_button">ອັບໂຫຼດປຸ່ມ ໃນລາຍການການອັບໂຫຼດ</string>
-    <string name="upload_list_cancel_upload">Cancel upload</string>
     <string name="upload_list_delete">ລຶບ</string>
     <string name="upload_list_empty_headline">ບໍ່ມີການອັບໂຫຼດ</string>
     <string name="upload_list_empty_text_auto_upload">ອັບໂຫລດເນື້ອຫາບາງຢ່າງ ຫຼື ເປີດການອັບໂຫລດອັດຕະໂນມັດ.</string>
@@ -1087,9 +1092,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">ການຕັ້ງຄ່າ</string>
     <string name="uploader_wrn_no_account_text">ບໍ່ມີບັນຊີ%1$sໃນອຸປະກອນຂອງທ່ານ. ກະລຸນາຕັ້ງບັນຊີກ່ອນ.</string>
     <string name="uploader_wrn_no_account_title">ບໍ່ພົບບັນຊີ</string>
+    <string name="uploads_view_group_completed_uploads">ສຳເລັດ</string>
     <string name="uploads_view_group_current_uploads">ປັດຈຸບັນ</string>
     <string name="uploads_view_group_failed_uploads">ການເລີ່ມບໍ່ສຳເລັດ/ຄ້າງ</string>
-    <string name="uploads_view_group_finished_uploads">ອັບໂຫຼດແລ້ວ</string>
     <string name="uploads_view_group_manually_cancelled_uploads">ຍົກເລີກ</string>
     <string name="uploads_view_later_waiting_to_upload">ລໍຖ້າເພື່ອອັບໂຫຼດ</string>
     <string name="uploads_view_title">ອັບໂຫຼດ</string>

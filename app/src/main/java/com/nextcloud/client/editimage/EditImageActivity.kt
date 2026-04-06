@@ -174,6 +174,7 @@ class EditImageActivity :
         // determine output file format
         format = when (file.mimeType) {
             MimeType.PNG -> Bitmap.CompressFormat.PNG
+
             MimeType.WEBP -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     Bitmap.CompressFormat.WEBP_LOSSY

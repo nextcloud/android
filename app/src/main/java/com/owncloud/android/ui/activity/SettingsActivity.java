@@ -27,7 +27,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
@@ -65,11 +64,11 @@ import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.providers.DocumentsStorageProvider;
-import com.owncloud.android.ui.ListPreferenceDialog;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
@@ -79,7 +78,6 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -92,6 +90,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 import static com.owncloud.android.ui.activity.DrawerActivity.REQ_ALL_FILES_ACCESS;
 
@@ -121,7 +121,6 @@ public class SettingsActivity extends PreferenceActivity
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
     private static final int ACTION_SHOW_MNEMONIC = 11;
     private static final int ACTION_E2E = 12;
-    private static final int ACTION_SET_STORAGE_LOCATION = 13;
     private static final int TRUE_VALUE = 1;
 
     private static final String DAV_PATH = "/remote.php/dav";
@@ -130,7 +129,7 @@ public class SettingsActivity extends PreferenceActivity
 
     private Uri serverBaseUri;
 
-    private ListPreferenceDialog lock;
+    private Preference lock;
     private ThemeableSwitchPreference showHiddenFiles;
     private ThemeableSwitchPreference showEcosystemApps;
     private AppCompatDelegate delegate;
@@ -213,9 +212,8 @@ public class SettingsActivity extends PreferenceActivity
 
     private void showPasscodeDialogIfEnforceAppProtection() {
         if (MDMConfig.INSTANCE.enforceProtection(this) && Objects.equals(preferences.getLockPreference(), SettingsActivity.LOCK_NONE) && lock != null) {
-            lock.showDialog();
-            lock.dismissible(false);
-            lock.enableCancelButton(false);
+            Intent intent = ExtendedSettingsActivity.Companion.createIntent(this, ExtendedSettingsActivityDialog.AppPasscode, false);
+            startActivityForResult(intent, ExtendedSettingsActivityDialog.AppPasscode.getResultId());
         }
     }
 
@@ -316,7 +314,6 @@ public class SettingsActivity extends PreferenceActivity
                                             getResources().getString(R.string.privacy));
                             intent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl.toString());
                             intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                            DrawerActivity.menuItemId = Menu.NONE;
                         }
 
                         startActivity(intent);
@@ -744,61 +741,31 @@ public class SettingsActivity extends PreferenceActivity
     private void setupLockPreference(PreferenceCategory preferenceCategoryDetails,
                                      boolean passCodeEnabled,
                                      boolean deviceCredentialsEnabled) {
-        boolean enforceProtection = MDMConfig.INSTANCE.enforceProtection(this);
-        lock = (ListPreferenceDialog) findPreference(PREFERENCE_LOCK);
-        int optionSize = 3;
-        if (enforceProtection) {
-            optionSize = 2;
-        }
-
+        lock = findPreference(PREFERENCE_LOCK);
         if (lock != null && (passCodeEnabled || deviceCredentialsEnabled)) {
-            ArrayList<String> lockEntries = new ArrayList<>(optionSize);
-            lockEntries.add(getString(R.string.prefs_lock_using_passcode));
-            lockEntries.add(getString(R.string.prefs_lock_using_device_credentials));
+            String currentLock = preferences.getLockPreference();
+            updateLockSummary(lock, currentLock);
 
-            ArrayList<String> lockValues = new ArrayList<>(optionSize);
-            lockValues.add(LOCK_PASSCODE);
-            lockValues.add(LOCK_DEVICE_CREDENTIALS);
-
-            if (!enforceProtection) {
-                lockEntries.add(getString(R.string.prefs_lock_none));
-                lockValues.add(LOCK_NONE);
-            }
-
-            if (!passCodeEnabled) {
-                lockEntries.remove(getString(R.string.prefs_lock_using_passcode));
-                lockValues.remove(LOCK_PASSCODE);
-            } else if (!deviceCredentialsEnabled || !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
-                lockEntries.remove(getString(R.string.prefs_lock_using_device_credentials));
-                lockValues.remove(LOCK_DEVICE_CREDENTIALS);
-            }
-
-            String[] lockEntriesArr = new String[lockEntries.size()];
-            lockEntriesArr = lockEntries.toArray(lockEntriesArr);
-            String[] lockValuesArr = new String[lockValues.size()];
-            lockValuesArr = lockValues.toArray(lockValuesArr);
-
-            lock.setEntries(lockEntriesArr);
-            lock.setEntryValues(lockValuesArr);
-            lock.setSummary(lock.getEntry());
-
-            lock.setOnPreferenceChangeListener((preference, o) -> {
-                pendingLock = LOCK_NONE;
-                String oldValue = ((ListPreference) preference).getValue();
-                String newValue = (String) o;
-                if (!oldValue.equals(newValue)) {
-                    if (LOCK_NONE.equals(oldValue)) {
-                        enableLock(newValue);
-                    } else {
-                        pendingLock = newValue;
-                        disableLock(oldValue);
-                    }
-                }
-                return false;
+            lock.setOnPreferenceClickListener(preference -> {
+                Intent intent = ExtendedSettingsActivity.Companion.createIntent(this, ExtendedSettingsActivityDialog.AppPasscode);
+                startActivityForResult(intent, ExtendedSettingsActivityDialog.AppPasscode.getResultId());
+                return true;
             });
         } else {
             preferenceCategoryDetails.removePreference(lock);
         }
+    }
+
+    private void updateLockSummary(Preference lockPreference, String lockValue) {
+        String summary;
+        if (LOCK_PASSCODE.equals(lockValue)) {
+            summary = getString(R.string.prefs_lock_using_passcode);
+        } else if (LOCK_DEVICE_CREDENTIALS.equals(lockValue)) {
+            summary = getString(R.string.prefs_lock_using_device_credentials);
+        } else {
+            summary = getString(R.string.prefs_lock_none);
+        }
+        lockPreference.setSummary(summary);
     }
 
     private void setupAutoUploadCategory(PreferenceScreen preferenceScreen) {
@@ -855,8 +822,10 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void changeLockSetting(String value) {
-        lock.setValue(value);
-        lock.setSummary(lock.getEntry());
+        preferences.setLockPreference(value);
+        if (lock != null) {
+            updateLockSummary(lock, value);
+        }
         DocumentsStorageProvider.notifyRootsChanged(this);
     }
 
@@ -880,41 +849,42 @@ public class SettingsActivity extends PreferenceActivity
         prefDataLoc = findPreference(AppPreferencesImpl.DATA_STORAGE_LOCATION);
         if (prefDataLoc != null) {
             prefDataLoc.setOnPreferenceClickListener(p -> {
-                Intent intent = new Intent(MainApp.getAppContext(), ChooseStorageLocationActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivityForResult(intent, ACTION_SET_STORAGE_LOCATION);
+                Intent intent = ExtendedSettingsActivity.Companion.createIntent(this, ExtendedSettingsActivityDialog.StorageLocation);
+                startActivityForResult(intent, ExtendedSettingsActivityDialog.StorageLocation.getResultId());
                 return true;
             });
         }
 
-        ListPreference themePref = (ListPreference) findPreference("darkMode");
+        final var themePref = findPreference("darkMode");
+        if (themePref != null) {
+            updateThemePreferenceSummary(preferences.getDarkThemeMode().name());
 
-        List<String> themeEntries = new ArrayList<>(3);
-        themeEntries.add(getString(R.string.prefs_value_theme_light));
-        themeEntries.add(getString(R.string.prefs_value_theme_dark));
-        themeEntries.add(getString(R.string.prefs_value_theme_system));
+            themePref.setOnPreferenceClickListener(preference -> {
+                Intent intent = ExtendedSettingsActivity.Companion.createIntent(this, ExtendedSettingsActivityDialog.ThemeSelection);
+                startActivityForResult(intent, ExtendedSettingsActivityDialog.ThemeSelection.getResultId());
+                return true;
+            });
+        }
+    }
 
-        List<String> themeValues = new ArrayList<>(3);
-        themeValues.add(DarkMode.LIGHT.name());
-        themeValues.add(DarkMode.DARK.name());
-        themeValues.add(DarkMode.SYSTEM.name());
+    private void updateThemePreferenceSummary(String themeValue) {
+        Preference themePref = findPreference("darkMode");
+        if (themePref == null) return;
 
-        themePref.setEntries(themeEntries.toArray(new String[0]));
-        themePref.setEntryValues(themeValues.toArray(new String[0]));
-
-        if (TextUtils.isEmpty(themePref.getEntry())) {
-            themePref.setValue(DarkMode.SYSTEM.name());
-            themePref.setSummary(TextUtils.isEmpty(themePref.getEntry()) ? DarkMode.SYSTEM.name() : themePref.getEntry());
+        DarkMode mode;
+        try {
+            mode = DarkMode.valueOf(themeValue);
+        } catch (IllegalArgumentException e) {
+            mode = DarkMode.SYSTEM;
         }
 
-        themePref.setOnPreferenceChangeListener((preference, newValue) -> {
-            DarkMode mode = DarkMode.valueOf((String) newValue);
-            preferences.setDarkThemeMode(mode);
-            MainApp.setAppTheme(mode);
-            setListBackground();
+        String summary = switch (mode) {
+            case LIGHT -> getString(R.string.prefs_value_theme_light);
+            case DARK -> getString(R.string.prefs_value_theme_dark);
+            default -> getString(R.string.prefs_value_theme_system);
+        };
 
-            return true;
-        });
+        themePref.setSummary(summary);
     }
 
     private void setListBackground() {
@@ -1053,13 +1023,33 @@ public class SettingsActivity extends PreferenceActivity
         } else if (requestCode == ACTION_E2E && data != null && data.getBooleanExtra(SetupEncryptionDialogFragment.SUCCESS, false)) {
             Intent i = new Intent(this, SettingsActivity.class);
             startActivity(i);
-        } else if (requestCode == ACTION_SET_STORAGE_LOCATION && data != null) {
-            String newPath = data.getStringExtra(ChooseStorageLocationActivity.KEY_RESULT_STORAGE_LOCATION);
-
+        } else if (requestCode == ExtendedSettingsActivityDialog.StorageLocation.getResultId() && data != null) {
+            String newPath = data.getStringExtra(ExtendedSettingsActivityDialog.StorageLocation.getKey());
             if (storagePath != null && !storagePath.equals(newPath)) {
                 StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath, viewThemeUtils);
                 storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
+            }
+        } else if (requestCode == ExtendedSettingsActivityDialog.ThemeSelection.getResultId() && data != null) {
+            String selectedTheme = data.getStringExtra(ExtendedSettingsActivityDialog.ThemeSelection.getKey());
+            if (selectedTheme != null) {
+                updateThemePreferenceSummary(selectedTheme);
+
+                // needed for to change status bar color
+                recreate();
+            }
+        } else if (requestCode == ExtendedSettingsActivityDialog.AppPasscode.getResultId() && data != null) {
+            String selectedLock = data.getStringExtra(ExtendedSettingsActivityDialog.AppPasscode.getKey());
+            if (selectedLock != null) {
+                String currentLock = preferences.getLockPreference();
+                if (!currentLock.equals(selectedLock)) {
+                    if (LOCK_NONE.equals(currentLock)) {
+                        enableLock(selectedLock);
+                    } else {
+                        pendingLock = selectedLock;
+                        disableLock(currentLock);
+                    }
+                }
             }
         } else if (requestCode == REQ_ALL_FILES_ACCESS) {
             final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
@@ -1169,14 +1159,16 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void loadExternalSettingLinks(PreferenceCategory preferenceCategory) {
-        if (MDMConfig.INSTANCE.externalSiteSupport(this)) {
-            ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
+        if (!MDMConfig.INSTANCE.externalSiteSupport(this)) {
+            return;
+        }
 
-            for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS)) {
-
+        ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
+        externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS, externalLinks -> {
+            for (final ExternalLink link : externalLinks) {
                 // only add if it does not exist, in case activity is reused
                 if (findPreference(String.valueOf(link.getId())) == null) {
-                    Preference p = new Preference(this);
+                    Preference p = new Preference(SettingsActivity.this);
                     p.setTitle(link.getName());
                     p.setKey(String.valueOf(link.getId()));
 
@@ -1185,7 +1177,6 @@ public class SettingsActivity extends PreferenceActivity
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl());
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                        DrawerActivity.menuItemId = link.getId();
                         startActivity(externalWebViewIntent);
 
                         return true;
@@ -1194,7 +1185,9 @@ public class SettingsActivity extends PreferenceActivity
                     preferenceCategory.addPreference(p);
                 }
             }
-        }
+            return Unit.INSTANCE;
+        });
+        externalLinksProvider.cleanup();
     }
 
     /**

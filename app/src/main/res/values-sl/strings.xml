@@ -36,6 +36,9 @@
     <string name="appbar_search_in">Poišči v %s</string>
     <string name="appear_offline">Pokaže kot brez povezave</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Izbriši nalogo</string>
+    <string name="assistant_screen_task_create_success_message">Naloga je ustvarjena</string>
+    <string name="assistant_task_status_running">zagnano</string>
+    <string name="assistant_task_status_unknown">neznano</string>
     <string name="associated_account_not_found">Povezanega računa ni mogoče najti!</string>
     <string name="auth_access_failed">Dostop je spodletel: %1$s</string>
     <string name="auth_account_does_not_exist">Račun še ni dodan na to napravo.</string>
@@ -238,7 +241,7 @@
     <string name="drawer_item_all_files">Vse datoteke</string>
     <string name="drawer_item_favorites">Priljubljene</string>
     <string name="drawer_item_gallery">Predstavna vsebina</string>
-    <string name="drawer_item_groupfolders">Skupinske mape</string>
+    <string name="drawer_item_groupfolders">Ekipne mape</string>
     <string name="drawer_item_home">Začetna stran</string>
     <string name="drawer_item_notifications">Obvestila</string>
     <string name="drawer_item_on_device">Na napravi</string>
@@ -333,6 +336,8 @@
     <string name="file_list_empty_headline_server_search">Ni rezultatov</string>
     <string name="file_list_empty_moving">Ni vsebine. Lahko ustvariš na primer mapo.</string>
     <string name="file_list_empty_on_device">Prejete datoteke in mape bodo zbrane na tem mestu.</string>
+    <string name="file_list_empty_recent_files_description">Nedavno spremenjene datoteke ali mape, bodo zbrane na tem mestu.</string>
+    <string name="file_list_empty_recent_files_headline">Ni nedavno spremenjenih datotek</string>
     <string name="file_list_empty_recently_modified">Ni datotek, spremenjenih v zadnjih 7. dneh</string>
     <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
     <string name="file_list_empty_shared">Datoteke in mape v souporabi bodo zbrane na tem mestu.</string>
@@ -468,6 +473,8 @@
     <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>
     <string name="media_notif_ticker">Predvajalnik glasbe %1$s</string>
     <string name="media_play_pause_description">Gumb za predvajanje in premor</string>
+    <string name="media_player_pause">Premor</string>
+    <string name="media_player_play">Predvajaj</string>
     <string name="media_rewind_description">Vrni nazaj</string>
     <string name="media_state_playing">%1$s (predvajanje)</string>
     <string name="menu_item_sort_by_date_newest_first">najprej najnovejše</string>
@@ -833,7 +840,6 @@
     <string name="upload_file_dialog_title">Ime in zvrst datoteke za pošiljanje</string>
     <string name="upload_files">Pošlji datoteke</string>
     <string name="upload_item_action_button">Gumb za pošiljanje</string>
-    <string name="upload_list_cancel_upload">Prekliči pošiljanje</string>
     <string name="upload_list_delete">Izbriši</string>
     <string name="upload_list_empty_headline">Ni pripravljenih datotek za pošiljanje</string>
     <string name="upload_list_empty_text_auto_upload">Pošljite kakšno vsebino, ali pa omogočite samodejno nalaganje.</string>
@@ -875,9 +881,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Nastavi</string>
     <string name="uploader_wrn_no_account_text">Za %1$s ni določenega računa. Pred nadaljevanjem ga je treba ustvariti.</string>
     <string name="uploader_wrn_no_account_title">Ni najdenega nobenega računa</string>
+    <string name="uploads_view_group_completed_uploads">Končano</string>
     <string name="uploads_view_group_current_uploads">Trenutno</string>
     <string name="uploads_view_group_failed_uploads">Ponovno pošiljanje je spodletelo oziroma je na čakanju.</string>
-    <string name="uploads_view_group_finished_uploads">Poslano</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Preklicano</string>
     <string name="uploads_view_later_waiting_to_upload">Poteka čakanje na začetek pošiljanja …</string>
     <string name="uploads_view_title">Poslano</string>
@@ -987,6 +993,12 @@
         <item quantity="two">%1$d datoteki</item>
         <item quantity="few">%1$d datoteke</item>
         <item quantity="other">%1$d datotek</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d predmet</item>
+        <item quantity="two">%1$d predmeta</item>
+        <item quantity="few">%1$d predmeti</item>
+        <item quantity="other">%1$d predmetov</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Pokaži %1$d skrito mapo</item>

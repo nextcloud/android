@@ -22,12 +22,13 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.integrations.deck.DeckApi
+import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
 import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
 import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
-import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
@@ -87,7 +88,7 @@ class BackgroundJobFactory @Inject constructor(
             when (workerClass) {
                 ContactsBackupWork::class -> createContactsBackupWork(context, workerParameters)
                 ContactsImportWork::class -> createContactsImportWork(context, workerParameters)
-                AutoUploadWorker::class -> createFilesSyncWork(context, workerParameters)
+                AutoUploadWorker::class -> createAutoUploadWorker(context, workerParameters)
                 OfflineSyncWork::class -> createOfflineSyncWork(context, workerParameters)
                 MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
                 NotificationWork::class -> createNotificationWork(context, workerParameters)
@@ -132,7 +133,10 @@ class BackgroundJobFactory @Inject constructor(
             workerParameters,
             SyncedFolderProvider(contentResolver, preferences, clock),
             powerManagementService,
-            backgroundJobManager.get()
+            backgroundJobManager.get(),
+            AutoUploadHelper(
+                FileSystemRepository(dao = database.fileSystemDao(), uploadsStorageManager, context)
+            )
         )
 
     private fun createContactsBackupWork(context: Context, params: WorkerParameters): ContactsBackupWork =
@@ -170,7 +174,7 @@ class BackgroundJobFactory @Inject constructor(
             contentResolver
         )
 
-    private fun createFilesSyncWork(context: Context, params: WorkerParameters): AutoUploadWorker = AutoUploadWorker(
+    private fun createAutoUploadWorker(context: Context, params: WorkerParameters): AutoUploadWorker = AutoUploadWorker(
         context = context,
         params = params,
         userAccountManager = accountManager,
@@ -178,9 +182,12 @@ class BackgroundJobFactory @Inject constructor(
         connectivityService = connectivityService,
         powerManagementService = powerManagementService,
         syncedFolderProvider = syncedFolderProvider,
-        backgroundJobManager = backgroundJobManager.get(),
-        repository = FileSystemRepository(dao = database.fileSystemDao(), context),
-        viewThemeUtils = viewThemeUtils.get()
+        repository = FileSystemRepository(dao = database.fileSystemDao(), uploadsStorageManager, context),
+        viewThemeUtils = viewThemeUtils.get(),
+        localBroadcastManager = localBroadcastManager.get(),
+        autoUploadHelper = AutoUploadHelper(
+            FileSystemRepository(dao = database.fileSystemDao(), uploadsStorageManager, context)
+        )
     )
 
     private fun createOfflineSyncWork(context: Context, params: WorkerParameters): OfflineSyncWork = OfflineSyncWork(
@@ -237,6 +244,8 @@ class BackgroundJobFactory @Inject constructor(
             localBroadcastManager.get(),
             backgroundJobManager.get(),
             preferences,
+            FileSystemRepository(dao = database.fileSystemDao(), uploadsStorageManager, context),
+            syncedFolderProvider,
             context,
             params
         )
@@ -296,6 +305,7 @@ class BackgroundJobFactory @Inject constructor(
             accountManager,
             context,
             viewThemeUtils.get(),
+            localBroadcastManager.get(),
             params
         )
 }

@@ -25,10 +25,13 @@
     <string name="appbar_search_in">Buscar en: %s</string>
     <string name="appear_offline">Apaecer desconectáu</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Desaniciar la xera</string>
+    <string name="assistant_screen_send_message">Unviar el mensaxe</string>
+    <string name="assistant_screen_task_create_success_message">Creóse la xera</string>
     <string name="assistant_screen_task_list_error_state_message">Nun ye posible dir en cata de la llista de xeres. Comprueba la conexón a internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Salida</string>
+    <string name="assistant_task_status_running">n\'execución</string>
     <string name="auth_account_not_new">Yá esiste nel preséu una cuenta pal mesmu usuariu y sirvidor</string>
     <string name="auth_account_not_the_same">L\'usuariu inxertáu nun concasa col usuariu d\'esta cuenta</string>
     <string name="auth_bad_oc_version_title">Versión del sirvidor non reconocida</string>
@@ -95,6 +98,7 @@
     <string name="common_switch_account">Cambiar de cuenta</string>
     <string name="common_yes">Sí</string>
     <string name="community_contribute_translate_translate">Traducir</string>
+    <string name="compose_activity_label">Asistente de Nextcloud</string>
     <string name="confirmation_remove_local">Namái llocal</string>
     <string name="conflict_local_file">Ficheru llocal</string>
     <string name="contacts">Contautos</string>
@@ -320,6 +324,8 @@
     <string name="media_err_unsupported">Códec multimedia non soportáu</string>
     <string name="media_forward_description">Botón d\'avance rápidu</string>
     <string name="media_play_pause_description">Botón de reproducción o posa</string>
+    <string name="media_player_pause">Posar</string>
+    <string name="media_player_play">Reproducir</string>
     <string name="media_rewind_description">Botón de rebobináu</string>
     <string name="menu_item_sort_by_date_newest_first">Lo más nuevo</string>
     <string name="menu_item_sort_by_date_oldest_first">Lo más vieyo</string>
@@ -580,7 +586,6 @@
     <string name="upload_file_dialog_filename">Nome de ficheru</string>
     <string name="upload_file_dialog_filetype">Triba de ficheru</string>
     <string name="upload_global_pause_title">Toles descargues tán posaes</string>
-    <string name="upload_list_cancel_upload">Encaboxar xuba</string>
     <string name="upload_list_delete">Desaniciar</string>
     <string name="upload_list_empty_headline">Nun hai xubes disponibles</string>
     <string name="upload_manually_cancelled">L\'usuariu anuló la xuba</string>
@@ -606,8 +611,8 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
     <string name="uploader_wrn_no_account_text">Nun hai nenguna cuenta %1$s nel to preséu. Por favor configura una cuenta enantes.</string>
     <string name="uploader_wrn_no_account_title">Nun s\'alcontraron cuentes</string>
+    <string name="uploads_view_group_completed_uploads">Completóse</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
-    <string name="uploads_view_group_finished_uploads">Xubíu</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Encaboxáu</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando pa xubir</string>
     <string name="uploads_view_title">Xubes</string>

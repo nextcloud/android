@@ -17,7 +17,7 @@
     <dimen name="action_bar_margin_top">64dp</dimen>
     <dimen name="bottom_sheet_text_start_margin">40dp</dimen>
     <dimen name="bottom_sheet_item_height">56dp</dimen>
-    <dimen name="bottom_sheet_menu_item_divider_standard_margin">80dp</dimen>
+    <dimen name="bottom_sheet_menu_item_divider_standard_margin">56dp</dimen>
     <dimen name="file_icon_size">40dp</dimen>
     <dimen name="live_photo_indicator_margin">100dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
@@ -26,7 +26,9 @@
     <integer name="file_avatar_px">512</integer>
     <dimen name="drawer_content_horizontal_padding">28dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
     <dimen name="standard_double_padding">32dp</dimen>
+    <dimen name="standard_quadruple_icon_size">64dp</dimen>
     <dimen name="standard_half_padding">8dp</dimen>
     <dimen name="standard_quarter_padding">4dp</dimen>
     <dimen name="standard_icon_size">32dp</dimen>
@@ -86,9 +88,6 @@
     <dimen name="user_icon_size_independent">40dip</dimen>
     <dimen name="drawer_header_subtext">12sp</dimen>
     <dimen name="fragment_margin">12dp</dimen>
-    <dimen name="file_download_fragment_layout_padding">20dp</dimen>
-    <dimen name="alternate_fragment_margin">15dp</dimen>
-    <dimen name="file_download_fragment_display_text_margin">40dp</dimen>
     <dimen name="drawer_width">240dp</dimen>
     <dimen name="grid_item_text_size">16sp</dimen>
     <dimen name="share_file_layout_text_size">12sp</dimen>
@@ -142,6 +141,7 @@
     <dimen name="account_action_button_vertical_margin">10dp</dimen>
     <dimen name="online_status_item_height">60dp</dimen>
     <dimen name="minimum_size_for_touchable_area">48dp</dimen>
+    <dimen name="minimum_size_for_touchable_area_icon_padding">12dp</dimen>
     <dimen name="dialog_elevation">24dp</dimen>
     <dimen name="default_login_width">400dp</dimen>
     <dimen name="dialogBorderRadius">24dp</dimen>

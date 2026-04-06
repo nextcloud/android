@@ -78,7 +78,6 @@ class UploadTask(
         val client = clientProvider()
         uploadsStorageManager.updateDatabaseUploadStart(op)
         val result = op.execute(client)
-        uploadsStorageManager.updateDatabaseUploadResult(result, op)
         return Result(file, result.isSuccess)
     }
 }

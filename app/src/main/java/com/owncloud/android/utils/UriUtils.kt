@@ -71,12 +71,15 @@ object UriUtils {
         MimeTypeUtil.isImage(mimeType) -> {
             MediaStore.Images.ImageColumns.DISPLAY_NAME
         }
+
         MimeTypeUtil.isVideo(mimeType) -> {
             MediaStore.Video.VideoColumns.DISPLAY_NAME
         }
+
         MimeTypeUtil.isAudio(mimeType) -> {
             MediaStore.Audio.AudioColumns.DISPLAY_NAME
         }
+
         else -> {
             MediaStore.Files.FileColumns.DISPLAY_NAME
         }

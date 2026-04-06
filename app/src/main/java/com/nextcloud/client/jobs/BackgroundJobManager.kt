@@ -120,13 +120,7 @@ interface BackgroundJobManager {
 
     fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?>
 
-    fun schedulePeriodicFilesSyncJob(syncedFolder: SyncedFolder)
-
-    fun startAutoUploadImmediately(
-        syncedFolder: SyncedFolder,
-        overridePowerSaving: Boolean = false,
-        contentUris: Array<String?> = arrayOf()
-    )
+    fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean = false)
 
     fun cancelTwoWaySyncJob()
 
@@ -137,12 +131,17 @@ interface BackgroundJobManager {
 
     fun startNotificationJob(subject: String, signature: String)
     fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)
-    fun startFilesUploadJob(user: User, uploadIds: LongArray, showSameFileAlreadyExistsNotification: Boolean)
+    fun startFilesUploadJob(
+        user: User,
+        uploadIds: LongArray,
+        showSameFileAlreadyExistsNotification: Boolean,
+        skipAutoUploadCheck: Boolean = false
+    )
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
     fun cancelFilesUploadJob(user: User)
     fun isStartFileUploadJobScheduled(accountName: String): Boolean
 
-    fun cancelFilesDownloadJob(user: User, fileId: Long)
+    fun cancelFilesDownloadJob(accountName: String, fileId: Long)
 
     @Suppress("LongParameterList")
     fun startFileDownloadJob(
@@ -165,7 +164,6 @@ interface BackgroundJobManager {
     fun cancelAllJobs()
     fun schedulePeriodicHealthStatus()
     fun startHealthStatus()
-    fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean
     fun startOfflineOperations()
     fun startPeriodicallyOfflineOperation()
     fun scheduleInternal2WaySync(intervalMinutes: Long)

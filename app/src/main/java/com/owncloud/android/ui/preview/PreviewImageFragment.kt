@@ -82,19 +82,14 @@ import kotlin.math.min
  * This fragment shows a preview of a downloaded image.
  * Trying to get an instance with a NULL [OCFile] will produce an [IllegalStateException].
  * If the [OCFile] passed is not downloaded, an [IllegalStateException] is generated on instantiation too.
- */
-
-/**
- * Creates an empty fragment for image previews.
  *
+ * Creates an empty fragment for image previews.
  *
  * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically (for instance, when the
  * device is turned a aside).
  *
- *
  * DO NOT CALL IT: an [OCFile] and [User] must be provided for a successful construction
  */
-
 @Suppress("TooManyFunctions")
 class PreviewImageFragment :
     FileFragment(),

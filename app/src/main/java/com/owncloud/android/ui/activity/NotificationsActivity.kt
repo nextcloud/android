@@ -319,9 +319,11 @@ class NotificationsActivity :
             android.R.id.home -> {
                 onBackPressedDispatcher.onBackPressed()
             }
+
             R.id.action_empty_notifications -> {
                 DeleteAllNotificationsTask(client, this).execute()
             }
+
             else -> {
                 retval = super.onOptionsItemSelected(item)
             }

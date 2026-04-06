@@ -475,6 +475,7 @@ class SyncedFolderAdapter(
                 )
             )
         }
+
         VIEW_TYPE_FOOTER -> {
             FooterViewHolder(
                 SyncedFoldersFooterBinding.inflate(
@@ -484,6 +485,7 @@ class SyncedFolderAdapter(
                 )
             )
         }
+
         VIEW_TYPE_EMPTY -> {
             EmptyViewHolder(
                 SyncedFoldersEmptyBinding.inflate(
@@ -493,6 +495,7 @@ class SyncedFolderAdapter(
                 )
             )
         }
+
         else -> {
             MainViewHolder(
                 GridSyncItemBinding.inflate(

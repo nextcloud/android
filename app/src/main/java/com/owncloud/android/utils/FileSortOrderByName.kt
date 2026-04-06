@@ -70,8 +70,11 @@ class FileSortOrderByName internal constructor(name: String?, ascending: Boolean
             when {
                 o1.isDirectory && o2.isDirectory -> sortMultiplier * o1.path.lowercase(Locale.getDefault())
                     .compareTo(o2.path.lowercase(Locale.getDefault()))
+
                 o1.isDirectory -> -1
+
                 o2.isDirectory -> 1
+
                 else -> sortMultiplier * AlphanumComparator.compare(
                     o1.path.lowercase(Locale.getDefault()),
                     o2.path.lowercase(Locale.getDefault())

@@ -24,10 +24,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.extensions.getModifiedAtRepresentation
 import com.nextcloud.client.assistant.extensions.getStatusIcon
+import com.nextcloud.client.assistant.extensions.getStatusIconDescription
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
@@ -46,13 +48,17 @@ fun TaskStatusView(task: Task, capability: OCCapability) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         val iconId = task.getStatusIcon(capability)
+        val iconDescriptionId = task.getStatusIconDescription(capability)
         val description = task.getModifiedAtRepresentation(context)
 
         Image(
             painter = painterResource(id = iconId),
             modifier = Modifier.size(16.dp),
             colorFilter = ColorFilter.tint(color = colorResource(R.color.text_color)),
-            contentDescription = "status icon"
+            contentDescription = stringResource(
+                R.string.assistant_task_status_text,
+                stringResource(iconDescriptionId)
+            )
         )
 
         description?.let {

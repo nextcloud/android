@@ -28,6 +28,7 @@ class TrashbinLocalRepository(private val testCase: TrashbinActivityIT.TestCase)
     override fun getFolder(remotePath: String?, callback: LoadFolderCallback?) {
         when (testCase) {
             TrashbinActivityIT.TestCase.ERROR -> callback?.onError(R.string.trashbin_loading_failed)
+
             TrashbinActivityIT.TestCase.FILES -> {
                 val files = ArrayList<TrashbinFile>()
                 files.add(
@@ -69,6 +70,7 @@ class TrashbinLocalRepository(private val testCase: TrashbinActivityIT.TestCase)
 
                 callback?.onSuccess(files)
             }
+
             TrashbinActivityIT.TestCase.EMPTY -> callback?.onSuccess(ArrayList<TrashbinFile>())
         }
     }
