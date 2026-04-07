@@ -15,7 +15,7 @@ import com.owncloud.android.datamodel.OCFile
 
 class RecommendedFilesAdapter(
     private val fileListAdapter: OCFileListAdapter,
-    private val recommendations: ArrayList<OCFile>
+    private val recommendations: List<OCFile>
 ) : RecyclerView.Adapter<OCFileListRecommendedItemViewHolder>() {
 
     fun getItemPosition(file: OCFile): Int = recommendations.indexOf(file)
