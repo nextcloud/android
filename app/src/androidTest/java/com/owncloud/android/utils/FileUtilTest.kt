@@ -67,4 +67,34 @@ class FileUtilTest : AbstractIT() {
             readOnlyDir.delete()
         }
     }
+
+    @Test
+    fun testIsFolderWritableWhenGivenNestedStructureShouldReturnTrue() = runBlocking {
+        val rootDir = File(context.cacheDir, "test_root")
+        rootDir.mkdir()
+
+        try {
+            val result = isFolderWritable(rootDir)
+            assertTrue("Should be able to create and delete nested temp structures", result)
+            val children = rootDir.list()
+            assertTrue("Temp directory should have been cleaned up", children == null || children.isEmpty())
+        } finally {
+            rootDir.delete()
+        }
+    }
+
+    @Test
+    fun testIsFolderWritableWhenGivenReadonlyNestedStructureShouldReturnFalse() = runBlocking {
+        val readOnlyDir = File(context.cacheDir, "locked_dir")
+        readOnlyDir.mkdir()
+        readOnlyDir.setReadOnly()
+
+        try {
+            val result = isFolderWritable(readOnlyDir)
+            assertFalse("Should return false if temp folder creation fails", result)
+        } finally {
+            readOnlyDir.setWritable(true)
+            readOnlyDir.delete()
+        }
+    }
 }

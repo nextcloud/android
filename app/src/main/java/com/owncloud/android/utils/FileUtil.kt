@@ -51,9 +51,16 @@ object FileUtil {
         }
 
         return@withContext try {
-            val testFile = File.createTempFile(".test_write_", null, folder)
-            testFile.delete()
-            true
+            val tempDir = File(folder, ".test_write_dir_${System.currentTimeMillis()}")
+            if (!tempDir.mkdir()) return@withContext false
+
+            val tempFile = File(tempDir, "test_file")
+            val created = tempFile.createNewFile()
+
+            if (created) tempFile.delete()
+            tempDir.delete()
+
+            created
         } catch (_: Exception) {
             false
         }
