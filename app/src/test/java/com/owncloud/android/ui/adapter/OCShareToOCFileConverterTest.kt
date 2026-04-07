@@ -7,12 +7,42 @@
  */
 package com.owncloud.android.ui.adapter
 
+import android.text.TextUtils
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.ui.activity.ComponentsGetter
+import io.mockk.every
+import io.mockk.mockkStatic
+import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.whenever
 
 class OCShareToOCFileConverterTest {
+
+    @Mock
+    lateinit var storageManager: FileDataStorageManager
+
+    @Mock
+    lateinit var transferServiceGetter: ComponentsGetter
+
+    private lateinit var mocks: AutoCloseable
+
+    @Before
+    fun setUpMocks() {
+        mocks = MockitoAnnotations.openMocks(this)
+        whenever(transferServiceGetter.storageManager) doReturn storageManager
+    }
+
+    @After
+    fun tearDownMocks() {
+        mocks.close()
+    }
 
     @Test
     fun testSingleOCShare() {
@@ -24,7 +54,7 @@ class OCShareToOCFileConverterTest {
                 }
         )
 
-        val result = OCShareToOCFileConverter.buildOCFilesFromShares(shares)
+        val result = OCShareToOCFileConverter.buildOCFilesFromShares(shares, storageManager)
 
         assertEquals("Wrong file list size", 1, result.size)
         val ocFile = result[0]
@@ -56,7 +86,7 @@ class OCShareToOCFileConverterTest {
                 }
         )
 
-        val result = OCShareToOCFileConverter.buildOCFilesFromShares(shares)
+        val result = OCShareToOCFileConverter.buildOCFilesFromShares(shares, storageManager)
 
         assertEquals("Wrong file list size", 1, result.size)
         val ocFile = result[0]
@@ -99,7 +129,7 @@ class OCShareToOCFileConverterTest {
                 }
         )
 
-        val result = OCShareToOCFileConverter.buildOCFilesFromShares(shares)
+        val result = OCShareToOCFileConverter.buildOCFilesFromShares(shares, storageManager)
 
         assertEquals("Wrong file list size", 2, result.size)
 

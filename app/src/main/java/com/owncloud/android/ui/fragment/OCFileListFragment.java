@@ -1970,7 +1970,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
             remoteOperation = getSearchRemoteOperation(currentUser, event);
         }
 
-        searchTask = new OCFileListSearchTask(mContainerActivity, this, remoteOperation, currentUser, event, SharedListFragment.TASK_TIMEOUT, preferences);
+        var storageManager = mContainerActivity.getStorageManager();
+        if (storageManager == null) {
+            storageManager = new FileDataStorageManager(currentUser, requireContext().getContentResolver());
+        }
+
+        searchTask = new OCFileListSearchTask(this,
+                                              remoteOperation,
+                                              currentUser, event,
+                                              SharedListFragment.TASK_TIMEOUT,
+                                              preferences,
+                                              storageManager);
         searchTask.execute();
     }
 
