@@ -298,25 +298,9 @@ public abstract class DrawerActivity extends ToolbarActivity
      * @param menuItemId the ID of the menu item to mark as selected/highlighted
      */
     public void highlightNavigationViewItem(int menuItemId) {
-        if (drawerNavigationView != null) {
-            NavigationViewExtensionsKt.unsetAllNavigationItems(drawerNavigationView);
-            MenuItem menuItem = drawerNavigationView.getMenu().findItem(menuItemId);
-
-            if (menuItem != null && !menuItem.isChecked()) {
-                menuItem.setChecked(true);
-            }
-        }
-
-        if (bottomNavigationView != null) {
-            NavigationViewExtensionsKt.unsetAllNavigationItems(bottomNavigationView);
-            MenuItem menuItem = bottomNavigationView.getMenu().findItem(menuItemId);
-
-            // Don't highlight assistant bottom navigation item because Assistant screen doesn't have same bottom navigation bar
-            if (menuItem != null && !menuItem.isChecked() && menuItem.getItemId() != R.id.nav_assistant) {
-                menuItem.setChecked(true);
-            }
-        }
-
+        NavigationViewExtensionsKt.highlightNavigationView(drawerNavigationView,
+                                                           bottomNavigationView,
+                                                           menuItemId);
         Log_OC.d(TAG, "New menu item is: " + menuItemId);
     }
 
