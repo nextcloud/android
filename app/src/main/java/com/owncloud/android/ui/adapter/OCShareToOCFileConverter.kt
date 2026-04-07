@@ -41,7 +41,7 @@ object OCShareToOCFileConverter {
             path.isNotEmpty() && path.startsWith(OCFile.PATH_SEPARATOR)
         }
         .map { (path, sharesForPath) ->
-            buildOcFile(path, sharesForPath, storageManager)
+            buildOCFile(path, sharesForPath, storageManager)
         }
         .sortedByDescending { it.firstShareTimestamp }
 
@@ -88,38 +88,30 @@ object OCShareToOCFileConverter {
         (cachedFiles + newFiles).distinctBy { it.remotePath }
     }
 
-    private fun buildOcFile(path: String, shares: List<OCShare>, storageManager: FileDataStorageManager): OCFile {
+    private fun buildOCFile(path: String, shares: List<OCShare>, storageManager: FileDataStorageManager): OCFile {
         require(shares.all { it.path == path })
 
         val firstShare = shares.first()
         val firstShareTimestamp = shares.minOf { it.sharedDate * MILLIS_PER_SECOND }
 
-        val existingFile = (
-            storageManager.getFileByDecryptedRemotePath(path)
-                ?.applyShareData(firstShare, firstShareTimestamp)
-            )
-        val fileCreatedFromShare = OCFile(path).applyShareData(firstShare, firstShareTimestamp)
-        val file = existingFile ?: fileCreatedFromShare.apply {
-            decryptedRemotePath = path
-            fileLength = -1
-            modificationTimestamp = -1
-        }
+        val linkShares = shares.filter { it.shareType in LINK_SHARE_TYPES }
+        val userShares = shares.filter { it.shareType !in LINK_SHARE_TYPES }
 
-        return file.apply {
-            isSharedViaLink = shares.any { it.shareType in LINK_SHARE_TYPES }
-            isSharedWithSharee = shares.any { it.shareType !in LINK_SHARE_TYPES }
-            if (isSharedWithSharee) {
-                sharees = shares
-                    .filter { it.shareType !in LINK_SHARE_TYPES }
-                    .map {
-                        ShareeUser(
-                            userId = it.userId,
-                            displayName = it.sharedWithDisplayName,
-                            shareType = it.shareType
-                        )
-                    }
-            }
-        }
+        val file = (storageManager.getFileByDecryptedRemotePath(path) ?: newOCFile(path))
+
+        file.applyShareData(firstShare, firstShareTimestamp)
+
+        file.isSharedViaLink = linkShares.isNotEmpty()
+        file.isSharedWithSharee = userShares.isNotEmpty()
+        file.sharees = userShares.map { ShareeUser(it.userId, it.sharedWithDisplayName, it.shareType) }
+
+        return file
+    }
+
+    private fun newOCFile(path: String) = OCFile(path).also {
+        it.decryptedRemotePath = path
+        it.fileLength = -1
+        it.modificationTimestamp = -1
     }
 
     private fun OCFile.applyShareData(firstShare: OCShare, firstShareTimestamp: Long) = apply {
