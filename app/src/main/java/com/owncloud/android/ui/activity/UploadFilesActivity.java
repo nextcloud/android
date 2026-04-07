@@ -51,7 +51,7 @@ import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.FileUtil;
 import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
@@ -69,6 +69,8 @@ import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
 
@@ -596,23 +598,24 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     private void checkWritableFolder(File folder) {
-        boolean canWriteIntoFolder = FileStorageUtils.isFolderWritable(folder);
-        
-        binding.uploadFilesSpinnerBehaviour.setEnabled(canWriteIntoFolder);
+        FileUtil.INSTANCE.isFolderWritable(folder, getLifecycle(), canWriteIntoFolder -> {
+            binding.uploadFilesSpinnerBehaviour.setEnabled(canWriteIntoFolder);
 
-        TextView textView = findViewById(R.id.upload_files_upload_files_behaviour_text);
+            TextView textView = findViewById(R.id.upload_files_upload_files_behaviour_text);
 
-        if (canWriteIntoFolder) {
-            textView.setText(getString(R.string.uploader_upload_files_behaviour));
-            int localBehaviour = preferences.getUploaderBehaviour();
-            binding.uploadFilesSpinnerBehaviour.setSelection(localBehaviour);
-        } else {
-            binding.uploadFilesSpinnerBehaviour.setSelection(1);
-            textView.setText(new StringBuilder().append(getString(R.string.uploader_upload_files_behaviour))
-                                 .append(' ')
-                                 .append(getString(R.string.uploader_upload_files_behaviour_not_writable))
-                                 .toString());
-        }
+            if (canWriteIntoFolder) {
+                textView.setText(getString(R.string.uploader_upload_files_behaviour));
+                int localBehaviour = preferences.getUploaderBehaviour();
+                binding.uploadFilesSpinnerBehaviour.setSelection(localBehaviour);
+            } else {
+                binding.uploadFilesSpinnerBehaviour.setSelection(1);
+                textView.setText(new StringBuilder().append(getString(R.string.uploader_upload_files_behaviour))
+                                     .append(' ')
+                                     .append(getString(R.string.uploader_upload_files_behaviour_not_writable))
+                                     .toString());
+            }
+            return Unit.INSTANCE;
+        });
     }
 
     /**
