@@ -67,7 +67,6 @@ import com.nextcloud.common.PlainClient;
 import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
-import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
@@ -128,8 +127,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
-import androidx.browser.customtabs.CustomTabColorSchemeParams;
-import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.browser.auth.AuthTabIntent;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -496,22 +494,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         Uri uri = Uri.parse(url);
+        String loginScheme = getString(R.string.login_data_own_scheme);
 
         try {
             int toolbarColor = ContextCompat.getColor(this, R.color.primary);
-            CustomTabColorSchemeParams colorParams = new CustomTabColorSchemeParams.Builder()
-                .setToolbarColor(toolbarColor)
-                .build();
-            CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
-                .setDefaultColorSchemeParams(colorParams)
-                .setColorScheme(CustomTabsIntent.COLOR_SCHEME_SYSTEM)
-                .setShowTitle(true)
-                .setShareState(CustomTabsIntent.SHARE_STATE_OFF)
-                .build();
-            customTabsIntent.launchUrl(this, uri);
+            AuthTabIntent authTabIntent = new AuthTabIntent.Builder().setColorScheme(toolbarColor).build();
+            authTabIntent.launch(authTabResultLauncher, uri, loginScheme);
             return;
         } catch (Exception e) {
-            Log_OC.e(TAG, "Custom Tab login URL launch failed: " + e);
+            Log_OC.e(TAG, "Auth Tab login URL launch failed: " + e);
         }
 
         try {
@@ -1577,6 +1568,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Intent intent = new Intent(this, QrCodeActivity.class);
         qrScanResultLauncher.launch(intent);
     }
+
+    private final ActivityResultLauncher<Intent> authTabResultLauncher = AuthTabIntent.registerActivityResultLauncher(
+        this,
+        result -> Log_OC.d(TAG, "Auth Tab result code: " + result.resultCode)
+    );
 
     private final ActivityResultLauncher<Intent> qrScanResultLauncher = registerForActivityResult(
         new ActivityResultContracts.StartActivityForResult(),

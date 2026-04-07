@@ -77,9 +77,6 @@
         <package android:name="org.fairscan.app" />
 
         <intent>
-            <action android:name="android.support.customtabs.action.CustomTabsService" />
-        </intent>
-        <intent>
             <action android:name="android.intent.action.VIEW" />
 
             <data android:mimeType="*/*" />
