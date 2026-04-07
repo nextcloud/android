@@ -26,53 +26,43 @@ class FileUtilTest : AbstractIT() {
     }
 
     @Test
-    fun isFolderWritable_returnsTrueForInternalCache() = runBlocking {
+    fun testIsFolderWritableWhenGivenCacheDirShouldReturnTrue() = runBlocking {
         val writableDir = context.cacheDir
         val result = isFolderWritable(writableDir)
         assertTrue("Internal cache directory should be writable", result)
     }
 
     @Test
-    fun isFolderWritable_returnsFalseForNonExistentFile() = runBlocking {
+    fun testIsFolderWritableWhenGivenNonExistentDirShouldReturnFalse() = runBlocking {
         val nonExistentFile = File(context.cacheDir, "ghost_folder_123")
-
         val result = isFolderWritable(nonExistentFile)
-
         assertFalse("Non-existent folder should not be writable", result)
     }
 
     @Test
-    fun isFolderWritable_returnsFalseForRegularFile() = runBlocking {
-        // Create a regular file, not a directory
+    fun testIsFolderWritableWhenGivenFileShouldReturnFalse() = runBlocking {
         val regularFile = File(context.cacheDir, "test_file.txt")
         regularFile.createNewFile()
-
         val result = isFolderWritable(regularFile)
-
         assertFalse("A regular file should not be treated as a writable folder", result)
     }
 
     @Test
-    fun isFolderWritable_returnsFalseForNull() = runBlocking {
+    fun testIsFolderWritableWhenGivenNullShouldReturnFalse() = runBlocking {
         val result = isFolderWritable(null)
-
         assertFalse("Null input should return false", result)
     }
 
     @Test
-    fun isFolderWritable_returnsFalseForReadOnlyDirectory() = runBlocking {
+    fun testIsFolderWritableWhenGivenReadOnlyDirShouldReturnFalse() = runBlocking {
         val readOnlyDir = File(context.cacheDir, "readonly_test")
         readOnlyDir.mkdir()
 
         try {
-            // Set directory to read-only
             readOnlyDir.setReadOnly()
-
             val result = isFolderWritable(readOnlyDir)
-
             assertFalse("Read-only directory should return false", result)
         } finally {
-            // Cleanup: restore write permission so it can be deleted
             readOnlyDir.setWritable(true)
             readOnlyDir.delete()
         }
