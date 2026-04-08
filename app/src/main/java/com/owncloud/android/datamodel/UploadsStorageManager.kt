@@ -54,8 +54,9 @@ class UploadsStorageManager(
 
     private var capability: OCCapability? = null
 
-    @JvmField
     val uploadDao: UploadDao = NextcloudDatabase.instance().uploadDao()
+    val fileSystemDao = NextcloudDatabase.instance().fileSystemDao()
+    val syncedFolderDao = NextcloudDatabase.instance().syncedFolderDao()
 
     private fun initOCCapability() {
         try {
