@@ -40,7 +40,6 @@ class FolderDownloadWorker(
         private const val TAG = "📂" + "FolderDownloadWorker"
         const val FOLDER_ID = "FOLDER_ID"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
-        const val SYNC_ALL = "SYNC_ALL"
         private val pendingDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet()
         fun isDownloading(id: Long): Boolean = pendingDownloads.contains(id)
     }
@@ -68,7 +67,6 @@ class FolderDownloadWorker(
             return Result.failure()
         }
 
-        val syncAll = inputData.getBoolean(SYNC_ALL, false)
         val user = optionalUser.get()
         storageManager = FileDataStorageManager(user, context.contentResolver)
 
@@ -78,7 +76,7 @@ class FolderDownloadWorker(
             return Result.failure()
         }
 
-        Log_OC.d(TAG, "🕒 started for ${user.accountName} | folder=${folder.fileName} | syncAll=$syncAll")
+        Log_OC.d(TAG, "🕒 started for ${user.accountName} | folder=${folder.fileName}")
 
         trySetForeground(folder)
         folderDownloadEventBroadcaster.sendDownloadEnqueued(folder.fileId)
@@ -91,16 +89,7 @@ class FolderDownloadWorker(
                 val account = user.toOwnCloudAccount()
                 val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                     .getClientFor(account, context)
-
-                if (syncAll) {
-                    Log_OC.d(TAG, "checking available disk space for full recursive download")
-                    if (!FileStorageUtils.checkIfEnoughSpace(folder)) {
-                        notificationManager.showNotAvailableDiskSpace()
-                        return@withContext Result.failure()
-                    }
-                }
-
-                val files = getFiles(folder, storageManager, syncAll)
+                val files = getFiles(folder, storageManager)
                 if (files.isEmpty()) {
                     Log_OC.d(TAG, "✅ no files need downloading")
                     notificationManager.showCompletionNotification(folder.fileName, true)
@@ -208,12 +197,7 @@ class FolderDownloadWorker(
             null
         }
 
-    private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager, syncAll: Boolean): List<OCFile> =
-        if (syncAll) {
-            storageManager.getAllFilesRecursivelyInsideFolder(folder)
-                .filter { !it.isDown }
-        } else {
-            storageManager.getFolderContent(folder, false)
-                .filter { !it.isFolder && !it.isDown }
-        }
+    private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =
+        storageManager.getFolderContent(folder, false)
+            .filter { !it.isFolder && !it.isDown }
 }
