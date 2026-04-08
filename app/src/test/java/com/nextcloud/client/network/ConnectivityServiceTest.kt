@@ -105,7 +105,7 @@ class ConnectivityServiceTest {
                 .thenReturn(true)
             whenever(
                 networkCapabilities
-                    .hasCapability(eq(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED))
+                    .hasCapability(eq(NetworkCapabilities.NET_CAPABILITY_NOT_METERED))
             )
                 .thenReturn(true)
 
@@ -273,7 +273,7 @@ class ConnectivityServiceTest {
             //      network is connected to wifi, but metered
             whenever(
                 networkCapabilities
-                    .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+                    .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
             )
                 .thenReturn(false)
             connectivityService.updateConnectivity()
