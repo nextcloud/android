@@ -27,7 +27,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.util.concurrent.ConcurrentHashMap
 
-@Suppress("LongMethod", "TooGenericExceptionCaught")
+@Suppress("LongMethod", "TooGenericExceptionCaught", "MagicNumber")
 class FolderDownloadWorker(
     private val accountManager: UserAccountManager,
     private val context: Context,
