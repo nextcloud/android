@@ -180,7 +180,10 @@ class NotificationListAdapter(
         holder.binding.buttons.run {
             removeAllViews()
             setVisibleIf(actions.isNotEmpty())
-            if (actions.isEmpty()) return
+        }
+
+        if (actions.isEmpty()) {
+            return
         }
 
         val params = buttonLayoutParams()
