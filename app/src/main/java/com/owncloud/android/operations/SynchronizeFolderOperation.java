@@ -139,7 +139,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             result = checkForChanges(client);
 
             if (result.isSuccess()) {
-                if (mRemoteFolderChanged) {
+                if (mRemoteFolderChanged || syncAll) {
                     result = fetchAndSyncRemoteFolder(client);
                 } else {
                     prepareOpsFromLocalKnowledge();
@@ -208,14 +208,14 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         ReadFolderRemoteOperation operation = new ReadFolderRemoteOperation(mRemotePath);
-        RemoteOperationResult result = operation.execute(client);
+        var result = operation.execute(client);
         Log_OC.d(TAG, "Synchronizing " + user.getAccountName() + mRemotePath);
         Log_OC.d(TAG, "Synchronizing remote id" + mLocalFolder.getRemoteId());
 
         if (result.isSuccess()) {
             synchronizeData(result.getData());
             if (mConflictsFound > 0  || mFailsInFileSyncsFound > 0) {
-                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+                result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
                     // should be a different result code, but will do the job
             }
         } else {
@@ -330,8 +330,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             boolean encrypted = updatedFile.isEncrypted() || mLocalFolder.isEncrypted();
             updatedFile.setEncrypted(encrypted);
 
-            /// classify file to sync/download contents later
-            classifyFileForLaterSyncOrDownload(remoteFile, localFile);
+            syncFileOrFolder(remoteFile, localFile);
 
             updatedFiles.add(updatedFile);
         }
@@ -378,19 +377,29 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
     }
 
+    /**
+     * Schedules synchronization for the given remote file or folder.
+     * <p>
+     * If the remote file is a regular file, a {@link SynchronizeFileOperation} is created
+     * and added to the list of pending file synchronizations.
+     * If the remote file is a folder, the method triggers a folder synchronization operation,
+     * which recursively synchronizes all nested files and subfolders.
+     * </p>
+     *
+     * @param remoteFile the remote file or folder to synchronize
+     * @param localFile the corresponding local file or folder
+     * @throws OperationCancelledException if the synchronization was cancelled
+     */
     @SuppressFBWarnings("JLM")
-    private void classifyFileForLaterSyncOrDownload(OCFile remoteFile, OCFile localFile) throws OperationCancelledException {
+    private void syncFileOrFolder(OCFile remoteFile, OCFile localFile) throws OperationCancelledException {
         if (remoteFile.isFolder()) {
-            /// to download children files recursively
             synchronized (mCancellationRequested) {
                 if (mCancellationRequested.get()) {
                     throw new OperationCancelledException();
                 }
                 startSyncFolderOperation(remoteFile.getRemotePath());
             }
-
         } else {
-            /// prepare content synchronization for files (any file, not just favorites)
             SynchronizeFileOperation operation = new SynchronizeFileOperation(
                 localFile,
                 remoteFile,
@@ -492,7 +501,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
             }
         } else {
-            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName(), syncAll);
+            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName());
         }
     }
 

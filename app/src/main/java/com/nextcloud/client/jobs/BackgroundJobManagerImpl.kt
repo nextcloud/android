@@ -800,7 +800,7 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 
-    override fun downloadFolder(folder: OCFile, accountName: String, syncAll: Boolean) {
+    override fun downloadFolder(folder: OCFile, accountName: String) {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .setRequiresStorageNotLow(true)
@@ -809,7 +809,6 @@ internal class BackgroundJobManagerImpl(
         val data = Data.Builder()
             .putLong(FolderDownloadWorker.FOLDER_ID, folder.fileId)
             .putString(FolderDownloadWorker.ACCOUNT_NAME, accountName)
-            .putBoolean(FolderDownloadWorker.SYNC_ALL, syncAll)
             .build()
 
         val request = oneTimeRequestBuilder(FolderDownloadWorker::class, JOB_DOWNLOAD_FOLDER)
