@@ -683,33 +683,27 @@ class FileDisplayActivity :
 
         val currentFragment = leftFragment
 
-        if (currentFragment == null) {
-            Log_OC.e(TAG, "Can't open file intent, left fragment is null")
-            return
-        }
-
-        val fileListFragment: OCFileListFragment = when {
-            currentFragment is OCFileListFragment && currentFragment !is GalleryFragment -> {
-                currentFragment
+        if (currentFragment !is OCFileListFragment || currentFragment is GalleryFragment) {
+            val name = if (currentFragment == null) {
+                "null"
+            } else {
+                currentFragment::class.simpleName
             }
 
-            else -> {
-                Log_OC.w(
-                    TAG,
-                    "Left fragment is not a valid OCFileListFragment " +
-                        "(was ${currentFragment::class.simpleName}). " +
-                        "Replacing with OCFileListFragment."
-                )
-                val newFragment = OCFileListFragment()
-                setLeftFragment(newFragment, false)
-                setupHomeSearchToolbarWithSortAndListButtons()
-                newFragment
-            }
+            Log_OC.w(
+                TAG,
+                "Left fragment is not a valid OCFileListFragment (was $name). " +
+                    "Replacing with OCFileListFragment."
+            )
+            val newFragment = OCFileListFragment()
+            setLeftFragment(newFragment, false)
         }
 
         // Post to main thread to ensure fragment is fully attached before interacting
         Handler(Looper.getMainLooper()).post {
-            fileListFragment.onItemClicked(file)
+            leftFragment = supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES)
+            setupHomeSearchToolbarWithSortAndListButtons()
+            (leftFragment as OCFileListFragment).onItemClicked(file)
         }
     }
 
