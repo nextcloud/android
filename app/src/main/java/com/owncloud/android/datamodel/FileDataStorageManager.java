@@ -935,11 +935,15 @@ public class FileDataStorageManager {
         if (!localPath.equalsIgnoreCase(expectedPath)) {
             Log_OC.w(TAG, "removeLocalCopyIfNeeded: Path mismatch! Expected " + expectedPath
                 + " but found " + localPath + ". Skipping deletion to prevent data loss.");
-            return true;
         }
 
         Log_OC.d(TAG, "removeLocalCopyIfNeeded: deleting local file -> " + localPath);
-        boolean success = new File(localPath).delete();
+        boolean success = false;
+        try {
+            success = new File(expectedPath).delete();
+        } catch (Exception e) {
+            Log_OC.e(TAG, "removeLocalCopyIfNeeded: deletion error: ", e);
+        }
         Log_OC.d(TAG, "removeLocalCopyIfNeeded: file deletion result=" + success);
 
         if (!success) {
