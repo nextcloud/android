@@ -1,0 +1,11 @@
+## 33.1.0 RC1 (April 8, 2026)
+
+- Auto upload improvements
+- Smart folder refresh
+- Better Unified search
+- Recent files
+- Bug fixes and performance improvements
+
+Minimum: NC 20 Server, Android 9 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/123
