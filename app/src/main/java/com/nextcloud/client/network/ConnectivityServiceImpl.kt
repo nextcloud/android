@@ -31,12 +31,12 @@ class ConnectivityServiceImpl(
     private val requestBuilder: GetRequestBuilder,
     private val walledCheckCache: WalledCheckCache
 ) : ConnectivityService {
-
     private val scope = CoroutineScope(Dispatchers.IO)
     private var availabilityCheckJob: Job? = null
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    private var currentConnectivity = Connectivity.DISCONNECTED
     private val listeners = mutableSetOf<NetworkChangeListener>()
+    private val key: ConnectivityKey
+        get() = ConnectivityKey.getBy(accountManager)
 
     override fun addListener(listener: NetworkChangeListener) {
         listeners.add(listener)
@@ -81,30 +81,43 @@ class ConnectivityServiceImpl(
     }
 
     fun updateConnectivity() {
+        val currentKey = key
+        val previous = walledCheckCache.getConnectivity(currentKey) ?: Connectivity.DISCONNECTED
+
         val capabilities = connectivityManager.activeNetwork
             ?.let { connectivityManager.getNetworkCapabilities(it) }
 
-        if (capabilities == null) {
+        val newConnectivity = if (capabilities == null) {
             Log_OC.w(TAG, "no active network or capabilities, connectivity is disconnected")
-            currentConnectivity = Connectivity.DISCONNECTED
-            walledCheckCache.clear()
-            notifyListeners()
-            return
+            Connectivity.DISCONNECTED
+        } else {
+            val hasTransport = isSupportedTransport(capabilities)
+            val hasInternetCapability = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+
+            Connectivity(
+                isConnected = hasTransport || hasInternetCapability,
+                isMetered = !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED),
+                isWifi = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET),
+                isServerAvailable = previous.isServerAvailable,
+                isVPN = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+            )
         }
 
-        val hasTransport = isSupportedTransport(capabilities)
-        val hasInternetCapability = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        if (previous != newConnectivity) {
+            walledCheckCache.putConnectivityValue(currentKey, newConnectivity)
 
-        currentConnectivity = Connectivity(
-            isConnected = hasTransport || hasInternetCapability,
-            isMetered = !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED),
-            isWifi = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET),
-            isVPN = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
-        )
+            // only clear server cache if structural change happened
+            val isStructural = (
+                previous.isConnected != newConnectivity.isConnected ||
+                    previous.isWifi != newConnectivity.isWifi
+                )
 
-        walledCheckCache.clear()
-        notifyListeners()
+            if (isStructural) {
+                walledCheckCache.clear(currentKey)
+            }
+            notifyListeners()
+        }
     }
 
     private fun isSupportedTransport(capabilities: NetworkCapabilities) =
@@ -130,10 +143,12 @@ class ConnectivityServiceImpl(
         }
     }
 
-    override fun isConnected() = currentConnectivity.isConnected
+    override fun isConnected() =
+        walledCheckCache.getConnectivity(key)?.isConnected ?: Connectivity.DISCONNECTED.isConnected
 
     override fun isInternetWalled(): Boolean {
-        val cachedValue = walledCheckCache.getValue()
+        val currentKey = key
+        val cachedValue = walledCheckCache.getValue(currentKey)
         if (cachedValue != null) {
             Log_OC.d(TAG, "cached value is used, isWalled: $cachedValue")
             return cachedValue
@@ -159,6 +174,9 @@ class ConnectivityServiceImpl(
             return true
         }
 
+        val currentConnectivity =
+            walledCheckCache.getConnectivity(key) ?: Connectivity.DISCONNECTED
+
         val isMeteredNonWifi = !currentConnectivity.isWifi && currentConnectivity.isMetered
         if (isMeteredNonWifi) {
             Log_OC.w(TAG, "skipping server reachability check, internet is metered and not Wi-Fi")
@@ -180,12 +198,12 @@ class ConnectivityServiceImpl(
             get.releaseConnection()
         }
 
-        walledCheckCache.setValue(isWalled)
+        walledCheckCache.setValue(currentKey, isWalled)
         Log_OC.d(TAG, "server check, isWalled: $isWalled")
         return isWalled
     }
 
-    override fun getConnectivity() = currentConnectivity
+    override fun getConnectivity() = walledCheckCache.getConnectivity(key) ?: Connectivity.DISCONNECTED
 
     private fun getWalledValueFromException(e: Exception): Boolean = when (e) {
         is java.net.UnknownHostException -> {
