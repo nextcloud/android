@@ -31,6 +31,7 @@
     <string name="add_to_cloud">Add to %1$s</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
+    <string name="appear_offline">ხაზგარეშე გამოჩენა</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
     <string name="assistant_screen_send_message">Send message</string>
     <string name="assistant_screen_task_create_success_message">Task created</string>
@@ -479,6 +480,7 @@
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
+    <string name="mute_all_notifications">ყველა გაფრთხილების დადუმება</string>
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
     <string name="network_error_socket_exception">An error occurred during connection to the server</string>
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
@@ -552,6 +554,7 @@
     <string name="prefs_category_about">About</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">ფაილები</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_category_sync">Sync</string>
