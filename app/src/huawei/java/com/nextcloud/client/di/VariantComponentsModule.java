@@ -6,13 +6,9 @@
  */
 package com.nextcloud.client.di;
 
-import com.owncloud.android.ui.activity.HuaweiCommunityActivity;
 
 import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
 
 @Module
 abstract class VariantComponentsModule {
-    @ContributesAndroidInjector
-    abstract HuaweiCommunityActivity participateActivity();
 }
