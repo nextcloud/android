@@ -14,7 +14,6 @@ import android.os.Build
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ConnectivityService.GenericCallback
 import com.nextcloud.operations.GetMethod
-import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +25,7 @@ import kotlin.jvm.functions.Function1
 
 @Suppress("TooGenericExceptionCaught", "ReturnCount")
 class ConnectivityServiceImpl(
-    private val context: Context,
+    context: Context,
     private val accountManager: UserAccountManager,
     private val clientFactory: ClientFactory,
     private val requestBuilder: GetRequestBuilder,
@@ -53,7 +52,6 @@ class ConnectivityServiceImpl(
             withContext(Dispatchers.Main) {
                 listeners.forEach {
                     Log_OC.d(TAG, "notifying listeners")
-                    context.showToast("NOTIFIYING LISTENERS !!!: $available")
                     it.networkAndServerConnectionListener(available)
                 }
             }
