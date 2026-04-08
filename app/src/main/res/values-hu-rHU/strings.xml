@@ -48,11 +48,14 @@
     <string name="assistant_output_generation_warning_text">Az itt megjelenített kimenetet MI állította elő. Ne felejtse el ellenőrizni.</string>
     <string name="assistant_screen_chat_create_error">Nem sikerült elküldeni az üzenetet</string>
     <string name="assistant_screen_chat_fetch_error">Nem sikerült lekérni a csevegőüzeneteket</string>
+    <string name="assistant_screen_chat_generate_error">Nem sikerült a válasz előállítása</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Vissza az asszisztens oldalára</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Valóban törölni akarja ezt a feladatot?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Feladat törlése</string>
     <string name="assistant_screen_empty_content_description">Küldjön egy üzenetet egy beszélgetés elindításához.</string>
     <string name="assistant_screen_empty_content_title">Üdvözlöm! Mit tehetek ma Önért?</string>
+    <string name="assistant_screen_retry_response_generation">Újrapróbálkozás a válasz előállításával</string>
+    <string name="assistant_screen_select_task">Válasszon feladatot</string>
     <string name="assistant_screen_send_message">Üzenet küldése</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Beszélgetések megnyitása</string>
     <string name="assistant_screen_task_create_fail_message">Hiba történt egy feladat létrehozása során</string>
@@ -116,7 +119,8 @@
     <string name="auto_upload_on_wifi">Feltöltés csak forgalomkorlát nélküli Wi-Fin</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Ez a mappa már szerepel a szülőmappája szinkronizálásában, ami ismételt feltöltéseket okozhat</string>
-    <string name="auto_upload_wifi_only_warning_info">Várakozás a Wi-Fire a feltöltés megkezdéséhez</string>
+    <string name="auto_upload_wifi_only_warning_info">Várakozás a Wi-Fi-re a feltöltés megkezdéséhez</string>
+    <string name="auto_upload_worker_start_text">Fájlok feltöltése innen: %1$s, ide: %2$s</string>
     <string name="autoupload_configure">Beállítás</string>
     <string name="autoupload_create_new_custom_folder">Új egyéni mappabeállítás létrehozása</string>
     <string name="autoupload_custom_folder">Egyéni mappa beállítása</string>
@@ -224,7 +228,7 @@
     <string name="contacts_preferences_something_strange_happened">A legutóbbi biztonsági mentés nem található!</string>
     <string name="conversation_screen_create_error_title">Nem sikerült létrehozni a beszélgetést</string>
     <string name="conversation_screen_delete_button_title">Beszélgetés törlése</string>
-    <string name="conversation_screen_delete_error_title">Nem sikerült a beszélgetés törlése</string>
+    <string name="conversation_screen_delete_error_title">Nem sikerült törölni a beszélgetést</string>
     <string name="conversation_screen_empty_content_title">Nem található beszélgetés</string>
     <string name="conversation_screen_empty_conversation_list_title">Még nincsenek beszélgetések</string>
     <string name="conversation_screen_fetch_error_title">Nem sikerült lekérni a beszélgetéseket</string>
@@ -244,6 +248,7 @@
     <string name="create_link">Hivatkozás létrehozása</string>
     <string name="create_new">Új</string>
     <string name="create_new_document">Új dokumentum</string>
+    <string name="create_new_encrypted_folder">Új titkosított mappa</string>
     <string name="create_new_folder">Új mappa</string>
     <string name="create_new_presentation">Új bemutató</string>
     <string name="create_new_spreadsheet">Új munkafüzet</string>
@@ -309,10 +314,12 @@
     <string name="drawer_item_assistant">Asszisztens</string>
     <string name="drawer_item_favorites">Kedvencek</string>
     <string name="drawer_item_gallery">Média</string>
+    <string name="drawer_item_groupfolders">Csapatmappák</string>
     <string name="drawer_item_home">Saját mappa</string>
     <string name="drawer_item_notifications">Értesítések</string>
     <string name="drawer_item_on_device">Az eszközön</string>
     <string name="drawer_item_personal_files">Személyes fájlok</string>
+    <string name="drawer_item_recent_files">Legutóbbi fájlok</string>
     <string name="drawer_item_recently_modified">Utoljára módosítva</string>
     <string name="drawer_item_shared">Megosztott</string>
     <string name="drawer_item_trashbin">Törölt fájlok</string>
@@ -399,6 +406,8 @@
     <string name="etm_transfer_type">Átvitel</string>
     <string name="etm_transfer_type_download">Letöltés</string>
     <string name="etm_transfer_type_upload">Feltöltés</string>
+    <string name="export_in_progress">%1$d. / %2$d exportálása</string>
+    <string name="extension_cannot_be_changed">A kiterjesztés nem változtatható meg</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Nincs engedélye arra, hogy fájlokat hozzon létre vagy töltsön fel ebbe a mappába.</string>
     <string name="external_shares">Külső megosztások</string>
     <string name="fab_label">Hozzáadás vagy feltöltés</string>
@@ -581,6 +590,7 @@
     <string name="login">Bejelentkezés</string>
     <string name="login_url_helper_text">A %1$s webes felületére mutató hivatkozás, amikor megnyitja a böngészőben.</string>
     <string name="logs_menu_delete">Naplók törlése</string>
+    <string name="logs_menu_export">Napló exportálása</string>
     <string name="logs_menu_refresh">Frissítés</string>
     <string name="logs_menu_search">Naplók keresése</string>
     <string name="logs_menu_send">Naplók küldése e-mailben</string>
@@ -603,6 +613,9 @@
     <string name="media_play_pause_description">Lejátszás vagy szüneteltetés gomb</string>
     <string name="media_player_pause">Szünet</string>
     <string name="media_player_play">Lejátszás</string>
+    <string name="media_player_playing">Média lejátszása</string>
+    <string name="media_player_seek_backward">Tekerés előrefelé</string>
+    <string name="media_player_seek_forward">Tekerés visszafelé</string>
     <string name="media_rewind_description">Vissza gomb</string>
     <string name="media_state_playing">%1$s (lejátszás)</string>
     <string name="menu_item_sort_by_date_newest_first">Újabbak elöl</string>
@@ -1034,6 +1047,12 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="thumbnail_for_new_file_desc">Új fájl bélyegképe</string>
     <string name="timeout_richDocuments">A feladat a vártnál tovább tart</string>
     <string name="today">Ma</string>
+    <string name="translation_screen_hint_source">Adja meg a fordítandó szöveget…</string>
+    <string name="translation_screen_label_from">Fordítás erről:</string>
+    <string name="translation_screen_label_to">Fordítás erre:</string>
+    <string name="translation_screen_start_to_translate_task">Nyomja meg a gombot a fordításhoz</string>
+    <string name="translation_screen_task_processing">A fordítás a vártnál tovább tart.</string>
+    <string name="translation_screen_translating">Fordítás…</string>
     <string name="trashbin_activity_title">Törölt fájlok</string>
     <string name="trashbin_empty_headline">Nincs törölt fájl</string>
     <string name="trashbin_empty_message">Innen vissza tudja állítani a törölt fájljait.</string>
@@ -1102,6 +1121,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_missing_storage_permission_app_permissions">Alkalmazásengedélyek</string>
     <string name="upload_missing_storage_permission_description">A fájlok nem tölthetőek fel a helyi tárhelyhez való hozzáférés nélkül. Koppintson az engedély megadásához.</string>
     <string name="upload_missing_storage_permission_title">Feltöltés megszakítva – tárhelyengedély szükséges</string>
+    <string name="upload_notification_manager_content_intent_description">Eltávolíthatja, vagy folytathatja a Feltöltésekből</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d – %3$s</string>
     <string name="upload_old_android">A titkosítás csak 5.0-s vagy újabb Android esetén lehetséges</string>
     <string name="upload_query_move_foreign_files">Nincs elég hely a fájlok ebbe a mappába másolásához: %1$s. Áthelyezi inkább őket?</string>
