@@ -60,6 +60,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.files.DeepLinkHandler
@@ -78,6 +79,7 @@ import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
+import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.navigateToAllFiles
@@ -115,6 +117,7 @@ import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask.CheckAvailableSpaceListener
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.DeleteBatchTracker
 import com.owncloud.android.ui.dialog.SendShareDialog.SendShareDialogDownloader
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
@@ -2197,6 +2200,63 @@ class FileDisplayActivity :
                 mLastSslUntrustedServerResult = result
                 showUntrustedCertDialog(mLastSslUntrustedServerResult)
             }
+        }
+    }
+
+    override fun onAutoUploadFolderRemoved(
+        entities: List<SyncedFolderEntity>,
+        filesToRemove: List<OCFile>,
+        onlyLocalCopy: Boolean
+    ) {
+        val dialog = ConfirmationDialogFragment.newInstance(
+            messageResId = R.string.auto_upload_delete_dialog_description,
+            messageArguments = null,
+            titleResId = R.string.auto_upload_delete_dialog_title,
+            titleIconId = R.drawable.ic_info,
+            positiveButtonTextId = R.string.common_delete,
+            negativeButtonTextId = R.string.common_cancel,
+            neutralButtonTextId = -1
+        )
+
+        dialog.setOnConfirmationListener(object : ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
+            override fun onConfirmation(callerTag: String?) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    entities.forEach { entity ->
+                        entity.id?.toLong()?.let {
+                            fileUploadHelper.removeEntityFromUploadEntities(it)
+                            syncedFolderProvider.deleteSyncedFolder(it)
+                        }
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        connectivityService.isNetworkAndServerAvailable { isAvailable ->
+                            if (isAvailable) {
+                                fileOperationsHelper?.removeFiles(
+                                    filesToRemove,
+                                    onlyLocalCopy,
+                                    true
+                                )
+                            } else {
+                                if (onlyLocalCopy) {
+                                    fileOperationsHelper?.removeFiles(filesToRemove, true, true)
+                                } else {
+                                    filesToRemove.forEach { file ->
+                                        fileDataStorageManager.addRemoveFileOfflineOperation(file)
+                                    }
+                                }
+                            }
+                            onFilesRemoved()
+                        }
+                    }
+                }
+            }
+
+            override fun onNeutral(callerTag: String?) = Unit
+            override fun onCancel(callerTag: String?) = Unit
+        })
+
+        if (isDialogFragmentReady(dialog)) {
+            dialog.show(supportFragmentManager, null)
         }
     }
 

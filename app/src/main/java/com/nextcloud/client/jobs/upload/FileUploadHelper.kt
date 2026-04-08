@@ -13,6 +13,7 @@ import android.content.Context
 import android.content.Intent
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
@@ -40,6 +41,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.UploadFileOperation
@@ -613,5 +615,59 @@ class FileUploadHelper {
                 })
             }
         }
+    }
+
+    /**
+     * When a synced folder is disabled or deleted, its associated OCUpload entries in the uploads
+     * table must be cleaned up. Without this, stale upload entries outlive the folder config that
+     * created them, causing FileUploadWorker to keep retrying uploads for a folder that no longer
+     * exists or is intentionally turned off, and AutoUploadWorker to re-queue already handled files
+     * on its next scan via FileSystemRepository.getFilePathsWithIds.
+     */
+    suspend fun removeEntityFromUploadEntities(id: Long) {
+        uploadsStorageManager.fileSystemDao.getBySyncedFolderId(id.toString())
+            .filter { it.localPath != null && it.remotePath != null }
+            .forEach {
+                Log_OC.d(
+                    TAG,
+                    "deleting upload entity localPath: ${it.localPath}, " + "remotePath: ${it.remotePath}"
+                )
+                uploadsStorageManager.uploadDao.deleteByLocalRemotePath(
+                    localPath = it.localPath!!,
+                    remotePath = it.remotePath!!
+                )
+            }
+    }
+
+    /**
+     * Splits a list of files into:
+     * 1. Files that have an auto-upload folder configured.
+     * 2. Files that don't.
+     */
+    suspend fun splitFilesByAutoUpload(
+        files: List<OCFile>,
+        accountName: String
+    ): Pair<List<SyncedFolderEntity>, List<OCFile>> {
+
+        val autoUploadFolders = mutableListOf<SyncedFolderEntity>()
+        val nonAutoUploadFiles = mutableListOf<OCFile>()
+
+        for (file in files) {
+            val entity = getAutoUploadFolderEntity(file, accountName)
+            if (entity != null) {
+                autoUploadFolders.add(entity)
+            } else {
+                nonAutoUploadFiles.add(file)
+            }
+        }
+
+        return autoUploadFolders to nonAutoUploadFiles
+    }
+
+    suspend fun getAutoUploadFolderEntity(file: ServerFileInterface, accountName: String): SyncedFolderEntity? {
+        val dao = uploadsStorageManager.syncedFolderDao
+        val normalizedRemotePath = file.remotePath.trimEnd()
+        if (normalizedRemotePath.isEmpty()) return null
+        return dao.findByRemotePathAndAccount(normalizedRemotePath, accountName)
     }
 }
