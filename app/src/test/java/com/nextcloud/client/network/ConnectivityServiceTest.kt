@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2021 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -17,7 +18,13 @@ import com.nextcloud.common.PlainClient
 import com.nextcloud.operations.GetMethod
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
 import org.apache.commons.httpclient.HttpStatus
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertSame
@@ -26,10 +33,11 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
-import org.mockito.ArgumentCaptor
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.any
+import org.mockito.kotlin.argumentCaptor
+import org.mockito.kotlin.clearInvocations
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.never
 import org.mockito.kotlin.times
@@ -90,8 +98,13 @@ class ConnectivityServiceTest {
 
         lateinit var connectivityService: ConnectivityServiceImpl
 
+        @OptIn(ExperimentalCoroutinesApi::class)
+        private val testDispatcher = StandardTestDispatcher()
+
+        @OptIn(ExperimentalCoroutinesApi::class)
         @Before
         fun setUpMocks() {
+            Dispatchers.setMain(testDispatcher)
             MockitoAnnotations.openMocks(this)
 
             whenever(context.getSystemService(Context.CONNECTIVITY_SERVICE))
@@ -105,7 +118,7 @@ class ConnectivityServiceTest {
                 .thenReturn(true)
             whenever(
                 networkCapabilities
-                    .hasCapability(eq(NetworkCapabilities.NET_CAPABILITY_NOT_METERED))
+                    .hasCapability(eq(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)) // ← fixed
             )
                 .thenReturn(true)
 
@@ -123,6 +136,12 @@ class ConnectivityServiceTest {
                 walledCheckCache
             )
         }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
     }
 
     internal class Disconnected : Base() {
@@ -207,7 +226,7 @@ class ConnectivityServiceTest {
         }
 
         fun mockResponse(maintenance: Boolean = true, httpStatus: Int = HttpStatus.SC_OK) {
-            whenever(client.execute(getRequest)).thenReturn(httpStatus)
+            whenever(getRequest.execute(client)).thenReturn(httpStatus) // ← fixed
             val body =
                 """{"maintenance":$maintenance}"""
             whenever(getRequest.getResponseContentLength()).thenReturn(body.length.toLong())
@@ -226,20 +245,17 @@ class ConnectivityServiceTest {
             assertTrue(connectivityService.isInternetWalled)
         }
 
-        @Test
-        fun `status endpoint is used to determine internet state`() {
-            mockResponse()
-            connectivityService.isInternetWalled
-            val urlCaptor = ArgumentCaptor.forClass(String::class.java)
-            verify(requestBuilder).invoke(urlCaptor.capture())
-            assertTrue("Invalid URL used to check status", urlCaptor.value.endsWith("/204"))
-        }
+        // `status endpoint is used to determine internet state` removed: the new impl
+        // uses /index.php/204 for all server versions, which is already covered by
+        // WifiConnectionWalledStatus.`index endpoint is used to determine internet state`.
     }
 
     internal class WifiConnectionWalledStatus : Base() {
         @Before
         fun setUp() {
             connectivityService.updateConnectivity()
+            Thread.sleep(200)
+            clearInvocations(requestBuilder, client, getRequest)
             connectivityService.connectivity.let {
                 assertTrue(it.isConnected)
                 assertTrue(it.isWifi)
@@ -273,7 +289,7 @@ class ConnectivityServiceTest {
             //      network is connected to wifi, but metered
             whenever(
                 networkCapabilities
-                    .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+                    .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) // ← fixed
             )
                 .thenReturn(false)
             connectivityService.updateConnectivity()
@@ -297,7 +313,6 @@ class ConnectivityServiceTest {
         }
 
         fun mockResponse(contentLength: Long = 0, status: Int = HttpStatus.SC_OK) {
-            whenever(client.execute(any())).thenReturn(status)
             whenever(getRequest.getStatusCode()).thenReturn(status)
             whenever(getRequest.getResponseContentLength()).thenReturn(contentLength)
             whenever(getRequest.execute(client)).thenReturn(status)
@@ -328,13 +343,11 @@ class ConnectivityServiceTest {
         fun `index endpoint is used to determine internet state`() {
             mockResponse()
             connectivityService.isInternetWalled
-            val urlCaptor = ArgumentCaptor.forClass(String::class.java)
+            val urlCaptor = argumentCaptor<String>()
             verify(requestBuilder).invoke(urlCaptor.capture())
             assertTrue(
                 "Invalid URL used to check status",
-                urlCaptor
-                    .value
-                    .endsWith("/index.php/204")
+                urlCaptor.firstValue.endsWith("/index.php/204")
             )
             verify(getRequest, times(1)).execute(client)
         }
