@@ -791,16 +791,6 @@ public final class FileStorageUtils {
         return checkIfEnoughSpace(availableSpaceOnDevice, file);
     }
     
-    public static boolean isFolderWritable(File folder) {
-        File[] children = folder.listFiles();
-        
-        if (children != null && children.length > 0) {
-            return children[0].canWrite();
-        } else {
-            return folder.canWrite();
-        }
-    }
-
     @VisibleForTesting
     public static boolean checkIfEnoughSpace(long availableSpaceOnDevice, OCFile file) {
         if (file.isFolder()) {
