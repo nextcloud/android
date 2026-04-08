@@ -15,6 +15,7 @@ import android.content.IntentFilter;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.network.ConnectivityKey;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.WalledCheckCache;
 import com.nextcloud.common.DNSCache;
@@ -55,7 +56,7 @@ public final class ReceiversHelper {
             public void onReceive(Context context, Intent intent) {
                 executor.execute(() -> {
                     DNSCache.clear();
-                    walledCheckCache.clear();
+                    walledCheckCache.clear(ConnectivityKey.Companion.getBy(accountManager));
                     Log_OC.d(TAG,"DNS caches are cleared");
                 });
 
