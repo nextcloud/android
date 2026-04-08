@@ -58,6 +58,7 @@
     <string name="assistant_screen_task_list_error_state_message">Impossibile recuperare la lista dei Task, verifica la tua connessione a internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Elimina attività</string>
     <string name="assistant_screen_task_output_empty_text">Il risultato del task non è ancora pronto.</string>
+    <string name="assistant_screen_text_selected">Testo copiato da un\'altra app</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
@@ -1073,6 +1074,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Recupero versione del server…</string>
     <string name="uploads_view_upload_status_service_interrupted">Applicazione terminata</string>
     <string name="uploads_view_upload_status_skip">Saltato</string>
+    <string name="uploads_view_upload_status_skip_reason">Esiste già un file con lo stesso nome.</string>
     <string name="uploads_view_upload_status_succeeded">Completati</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Stesso file trovato in remoto, salto il caricamento</string>
     <string name="uploads_view_upload_status_unknown_fail">Errore sconosciuto</string>
