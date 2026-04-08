@@ -65,7 +65,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private static final int SELECT_LOCATION_REQUEST_CODE = 212;
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
 
-    @Inject FileDataStorageManager fileDataStorageManager;
     private final static int maxColumnSizeLandscape = 5;
     private final static int maxColumnSizePortrait = 2;
     private int columnSize;
@@ -119,9 +118,17 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public void onDestroyView() {
+        if (photoSearchTask != null) {
+            photoSearchTask.cancel(true);
+            photoSearchTask = null;
+        }
+
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(refreshSearchEventReceiver);
+
         setLastMediaItemPosition(null);
+
         mAdapter.cleanup();
+
         super.onDestroyView();
     }
 
@@ -264,6 +271,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     public void searchCompleted(boolean emptySearch, long lastTimeStamp) {
+        if (!isAdded()) return;
+
         this.setPhotoSearchQueryRunning(false);
 
         if (lastTimeStamp > -1) {
@@ -407,7 +416,12 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     private void updateSubtitle(GalleryFragmentBottomSheetDialog.MediaState mediaState) {
-        requireActivity().runOnUiThread(() -> {
+        final var activity = getActivity();
+        if (!isAdded() || activity == null) {
+            return;
+        }
+
+        activity.runOnUiThread(() -> {
             if (!isAdded()) {
                 return;
             }
@@ -419,7 +433,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                 subTitle = getResources().getString(R.string.subtitle_videos_only);
             }
 
-            if (requireActivity() instanceof ToolbarActivity toolbarActivity) {
+            if (activity instanceof ToolbarActivity toolbarActivity) {
                 toolbarActivity.updateToolbarSubtitle(subTitle);
             }
         });
