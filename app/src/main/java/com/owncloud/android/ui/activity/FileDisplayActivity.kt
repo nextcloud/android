@@ -678,41 +678,28 @@ class FileDisplayActivity :
     // endregion
 
     private fun onOpenFileIntent(intent: Intent) {
-        val file = getFileFromIntent(intent)
-        if (file == null) {
+        val file = getFileFromIntent(intent) ?: run {
             Log_OC.e(TAG, "Can't open file intent, file is null")
             return
         }
 
-        val currentFragment = leftFragment
-
-        if (currentFragment == null) {
-            Log_OC.e(TAG, "Can't open file intent, left fragment is null")
-            return
+        // Ensure we have the correct fragment type
+        if (leftFragment !is OCFileListFragment || leftFragment is GalleryFragment) {
+            Log_OC.w(
+                TAG,
+                "Invalid fragment (${leftFragment?.let { it::class.simpleName } ?: "null"}). " +
+                    "Replacing."
+            )
+            setLeftFragment(OCFileListFragment(), false)
         }
 
-        val fileListFragment: OCFileListFragment = when {
-            currentFragment is OCFileListFragment && currentFragment !is GalleryFragment -> {
-                currentFragment
-            }
-
-            else -> {
-                Log_OC.w(
-                    TAG,
-                    "Left fragment is not a valid OCFileListFragment " +
-                        "(was ${currentFragment::class.simpleName}). " +
-                        "Replacing with OCFileListFragment."
-                )
-                val newFragment = OCFileListFragment()
-                setLeftFragment(newFragment, false)
-                setupHomeSearchToolbarWithSortAndListButtons()
-                newFragment
-            }
-        }
-
-        // Post to main thread to ensure fragment is fully attached before interacting
+        // Ensure fragment is attached before interaction
         Handler(Looper.getMainLooper()).post {
-            fileListFragment.onItemClicked(file)
+            (supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES) as? OCFileListFragment)?.let { fragment ->
+                leftFragment = fragment
+                setupHomeSearchToolbarWithSortAndListButtons()
+                fragment.onItemClicked(file)
+            }
         }
     }
 
