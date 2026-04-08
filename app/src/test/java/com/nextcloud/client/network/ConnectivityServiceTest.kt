@@ -118,7 +118,7 @@ class ConnectivityServiceTest {
                 .thenReturn(true)
             whenever(
                 networkCapabilities
-                    .hasCapability(eq(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)) // ← fixed
+                    .hasCapability(eq(NetworkCapabilities.NET_CAPABILITY_NOT_METERED))
             )
                 .thenReturn(true)
 
@@ -126,7 +126,9 @@ class ConnectivityServiceTest {
             whenever(clientFactory.createPlainClient()).thenReturn(client)
             whenever(user.server).thenReturn(newServer)
             whenever(accountManager.user).thenReturn(user)
-            whenever(walledCheckCache.getValue()).thenReturn(null)
+
+            val key = ConnectivityKey(user.accountName,newServer.uri.toString())
+            whenever(walledCheckCache.getValue(key)).thenReturn(null)
 
             connectivityService = ConnectivityServiceImpl(
                 context,
@@ -226,7 +228,7 @@ class ConnectivityServiceTest {
         }
 
         fun mockResponse(maintenance: Boolean = true, httpStatus: Int = HttpStatus.SC_OK) {
-            whenever(getRequest.execute(client)).thenReturn(httpStatus) // ← fixed
+            whenever(getRequest.execute(client)).thenReturn(httpStatus)
             val body =
                 """{"maintenance":$maintenance}"""
             whenever(getRequest.getResponseContentLength()).thenReturn(body.length.toLong())
@@ -289,7 +291,7 @@ class ConnectivityServiceTest {
             //      network is connected to wifi, but metered
             whenever(
                 networkCapabilities
-                    .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) // ← fixed
+                    .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
             )
                 .thenReturn(false)
             connectivityService.updateConnectivity()
