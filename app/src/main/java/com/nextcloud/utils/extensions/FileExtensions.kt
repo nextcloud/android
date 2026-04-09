@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
+import androidx.exifinterface.media.ExifInterface
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.DisplayUtils
@@ -49,4 +50,39 @@ fun String.toFile(): File? {
     }
 
     return file
+}
+
+fun String.getExifSize(): Pair<Int, Int>? = try {
+    val exif = ExifInterface(this)
+    var w = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0)
+    var h = exif.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, 0)
+
+    val orientation = exif.getAttributeInt(
+        ExifInterface.TAG_ORIENTATION,
+        ExifInterface.ORIENTATION_NORMAL
+    )
+    if (orientation == ExifInterface.ORIENTATION_ROTATE_90 ||
+        orientation == ExifInterface.ORIENTATION_ROTATE_270
+    ) {
+        val tmp = w
+        w = h
+        h = tmp
+    }
+
+    Log_OC.d(TAG, "Using exif imageDimension: $w x $h")
+    if (w > 0 && h > 0) w to h else null
+} catch (_: Exception) {
+    null
+}
+
+fun String.getBitmapSize(): Pair<Int, Int>? = try {
+    val options = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
+    android.graphics.BitmapFactory.decodeFile(this, options)
+    val w = options.outWidth
+    val h = options.outHeight
+
+    Log_OC.d(TAG, "Using bitmap factory imageDimension: $w x $h")
+    if (w > 0 && h > 0) w to h else null
+} catch (_: Exception) {
+    null
 }

@@ -7,7 +7,6 @@
 
 package com.nextcloud.utils.extensions
 
-import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.TimeConstants
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.utils.FileUtil
@@ -35,7 +34,7 @@ private fun RemoteFile.areImageDimensionsSame(path: String): Boolean {
         return true
     }
 
-    val localFileImageDimension = OCFileUtils.getExifSize(path) ?: OCFileUtils.getBitmapSize(path)
+    val localFileImageDimension = path.getExifSize() ?: path.getBitmapSize()
     if (localFileImageDimension == null) {
         // can't compare local file image dimension is not determined
         return true
