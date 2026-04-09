@@ -8,11 +8,14 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.net.Uri
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import androidx.test.platform.app.InstrumentationRegistry
+import com.nextcloud.common.NextcloudClient
 import com.nextcloud.test.GrantStoragePermissionRule.Companion.grant
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.notifications.models.Action
@@ -37,6 +40,15 @@ class NotificationsFragmentIT : AbstractIT() {
         val cal = GregorianCalendar()
         cal.set(2005, 4, 17, 10, 35, 30)
         return cal.time
+    }
+
+    private val testClient: NextcloudClient by lazy {
+        NextcloudClient(
+            Uri.parse("https://cloud.example.com"),
+            "testuser",
+            "Basic dXNlcjpwYXNz",
+            targetContext
+        )
     }
 
     private fun buildNotificationNoActions(): Notification = Notification(
@@ -98,7 +110,8 @@ class NotificationsFragmentIT : AbstractIT() {
             "Help improve Nextcloud",
             "SubjectRich",
             HashMap(),
-            "Do you want to help us to improve Nextcloud by providing some anonymize data about your setup and usage?",
+            "Do you want to help us to improve Nextcloud by providing some anonymize data about your setup" +
+                " and usage?",
             "MessageRich",
             HashMap(),
             "link",
@@ -122,8 +135,10 @@ class NotificationsFragmentIT : AbstractIT() {
         val intent = NavigatorActivity.intent(targetContext, NavigatorScreen.Notifications)
         ActivityScenario.launch<NavigatorActivity>(intent).use { scenario ->
             scenario.onActivity { sut ->
-                findFragment(sut)?.populateList(ArrayList())
+                findFragment(sut)?.populateList(ArrayList(), testClient)
             }
+
+            InstrumentationRegistry.getInstrumentation().waitForIdleSync()
 
             val screenShotName = createName(testClassName + "_" + "empty", "")
             onView(isRoot()).check(matches(isDisplayed()))
@@ -140,7 +155,7 @@ class NotificationsFragmentIT : AbstractIT() {
         val intent = NavigatorActivity.intent(targetContext, NavigatorScreen.Notifications)
         ActivityScenario.launch<NavigatorActivity>(intent).use { scenario ->
             scenario.onActivity { sut ->
-                findFragment(sut)?.populateList(buildMockNotifications())
+                findFragment(sut)?.populateList(buildMockNotifications(), testClient)
             }
 
             val screenShotName = createName(testClassName + "_" + "showNotifications", "")

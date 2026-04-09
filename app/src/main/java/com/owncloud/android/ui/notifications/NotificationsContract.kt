@@ -7,12 +7,13 @@
  */
 package com.owncloud.android.ui.notifications
 
+import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.ui.adapter.NotificationListAdapter.NotificationViewHolder
 
 interface NotificationsContract {
     interface View {
-        fun onRemovedNotification(isSuccess: Boolean)
+        fun onRemovedNotification(isSuccess: Boolean, client: NextcloudClient)
 
         fun removeNotification(holder: NotificationViewHolder)
 

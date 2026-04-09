@@ -29,7 +29,6 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.NotificationWork
-import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.BuildHelper
@@ -62,14 +61,11 @@ class NotificationsFragment :
     private var binding: NotificationsLayoutBinding? = null
     private var adapter: NotificationListAdapter? = null
     private var snackbar: Snackbar? = null
-    private var client: NextcloudClient? = null
     private var optionalUser: Optional<User>? = null
 
     @Inject lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject lateinit var accountManager: UserAccountManager
-
-    @Inject lateinit var clientFactory: ClientFactory
 
     @Inject lateinit var preferences: AppPreferences
 
@@ -81,12 +77,23 @@ class NotificationsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupMenu()
-        initUser()
-        setupSwipeRefresh()
-        setupPushWarning()
-        setupContent()
-        if (optionalUser?.isPresent == false) showError()
+
+        lifecycleScope.launch {
+            val baseActivity = getTypedActivity(BaseActivity::class.java)
+            val client = baseActivity?.clientRepository?.getNextcloudClient() ?: run {
+                showError()
+                return@launch
+            }
+
+            withContext(Dispatchers.Main) {
+                setupMenu(client)
+                initUser()
+                setupSwipeRefresh(client)
+                setupPushWarning()
+                setupContent(client)
+                if (optionalUser?.isPresent == false) showError()
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -104,32 +111,32 @@ class NotificationsFragment :
         }
     }
 
-    private fun setupSwipeRefresh() {
+    private fun setupSwipeRefresh(client: NextcloudClient) {
         binding?.run {
             viewThemeUtils.androidx.themeSwipeRefreshLayout(swipeContainingList)
             viewThemeUtils.androidx.themeSwipeRefreshLayout(swipeContainingEmpty)
             swipeContainingList.setOnRefreshListener {
                 setLoadingMessage()
                 swipeContainingList.isRefreshing = true
-                fetchAndSetData()
+                fetchAndSetData(client)
             }
             swipeContainingEmpty.setOnRefreshListener {
                 setLoadingMessageEmpty()
-                fetchAndSetData()
+                fetchAndSetData(client)
             }
         }
     }
 
-    private fun setupContent() {
+    private fun setupContent(client: NextcloudClient) {
         binding?.run {
             emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification)
             setLoadingMessageEmpty()
             list.layoutManager = LinearLayoutManager(requireContext())
-            fetchAndSetData()
+            fetchAndSetData(client)
         }
     }
 
-    private fun setupMenu() {
+    private fun setupMenu(client: NextcloudClient) {
         (requireActivity() as MenuHost).addMenuProvider(
             object : MenuProvider {
                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -139,7 +146,7 @@ class NotificationsFragment :
                 override fun onMenuItemSelected(item: MenuItem): Boolean {
                     if (item.itemId != R.id.action_empty_notifications) return false
                     lifecycleScope.launch(Dispatchers.IO) {
-                        val result = DeleteAllNotificationsRemoteOperation().execute(client!!)
+                        val result = DeleteAllNotificationsRemoteOperation().execute(client)
                         withContext(Dispatchers.Main) { onRemovedAllNotifications(result.isSuccess) }
                     }
                     return true
@@ -186,13 +193,13 @@ class NotificationsFragment :
     // endregion
 
     // region Data loading
-    private fun fetchAndSetData() {
+    private fun fetchAndSetData(client: NextcloudClient) {
         lifecycleScope.launch(Dispatchers.IO) {
-            initializeAdapter()
-            val result = client?.let { GetNotificationsRemoteOperation().execute(it) }
+            initializeAdapter(client)
+            val result = GetNotificationsRemoteOperation().execute(client)
             withContext(Dispatchers.Main) {
                 if (result?.isSuccess == true && result.resultData != null) {
-                    populateList(result.resultData ?: listOf())
+                    populateList(result.resultData ?: listOf(), client)
                 } else {
                     try {
                         Log_OC.d(TAG, result?.logMessage)
@@ -208,17 +215,10 @@ class NotificationsFragment :
         }
     }
 
-    private fun initializeAdapter() {
-        lifecycleScope.launch {
-            val baseActivity = getTypedActivity(BaseActivity::class.java)
-            client = baseActivity?.clientRepository?.getNextcloudClient()
-
-            withContext(Dispatchers.Main) {
-                if (adapter == null) {
-                    adapter = NotificationListAdapter(client, this@NotificationsFragment, viewThemeUtils)
-                    binding?.list?.adapter = adapter
-                }
-            }
+    private fun initializeAdapter(client: NextcloudClient) {
+        if (adapter == null) {
+            adapter = NotificationListAdapter(client, this@NotificationsFragment, viewThemeUtils)
+            binding?.list?.adapter = adapter
         }
     }
 
@@ -229,9 +229,8 @@ class NotificationsFragment :
     // endregion
 
     // region View state
-    @VisibleForTesting
-    fun populateList(notifications: List<Notification>) {
-        initializeAdapter()
+    fun populateList(notifications: List<Notification>, client: NextcloudClient) {
+        initializeAdapter(client)
         adapter?.setNotificationItems(notifications)
         binding?.run {
             loadingContent.visibility = View.GONE
@@ -289,10 +288,10 @@ class NotificationsFragment :
     // endregion
 
     // region callbacks
-    override fun onRemovedNotification(isSuccess: Boolean) {
+    override fun onRemovedNotification(isSuccess: Boolean, client: NextcloudClient) {
         if (!isSuccess) {
             DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.remove_notification_failed))
-            fetchAndSetData()
+            fetchAndSetData(client)
         }
     }
 

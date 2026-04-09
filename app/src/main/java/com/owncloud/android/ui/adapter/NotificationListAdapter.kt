@@ -52,7 +52,7 @@ import kotlinx.coroutines.withContext
 
 @Suppress("TooManyFunctions")
 class NotificationListAdapter(
-    private val client: NextcloudClient?,
+    private val client: NextcloudClient,
     private val fragment: NotificationsFragment,
     private val viewThemeUtils: ViewThemeUtils
 ) : RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder>() {
@@ -167,12 +167,12 @@ class NotificationListAdapter(
         holder.binding.dismiss.setOnClickListener {
             fragment.lifecycleScope.launch(Dispatchers.IO) {
                 val result =
-                    client?.let { clientValue ->
-                        DeleteNotificationRemoteOperation(notification.notificationId).execute(
-                            clientValue
-                        )
-                    }
-                withContext(Dispatchers.Main) { fragment.onRemovedNotification(result?.isSuccess == true) }
+                    DeleteNotificationRemoteOperation(notification.notificationId).execute(
+                        client
+                    )
+                withContext(Dispatchers.Main) {
+                    fragment.onRemovedNotification(result?.isSuccess == true, client)
+                }
             }
         }
 
@@ -272,7 +272,7 @@ class NotificationListAdapter(
                 Intent(Intent.ACTION_VIEW).apply { data = action.link?.toUri() }
             )
         } else {
-            client?.let { NotificationExecuteActionTask(it, holder, notification, fragment) }?.execute(action)
+            NotificationExecuteActionTask(client, holder, notification, fragment).execute(action)
         }
     }
 
