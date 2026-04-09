@@ -22,6 +22,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.nextcloud.client.account.User
+import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
@@ -215,6 +216,12 @@ class PreviewImageActivity :
     override fun onFilesRemoved() {
         initViewPager()
     }
+
+    override fun onAutoUploadFolderRemoved(
+        entities: List<SyncedFolderEntity>,
+        filesToRemove: List<OCFile>,
+        onlyLocalCopy: Boolean
+    ) = Unit
 
     fun initViewPager() {
         if (user.isPresent) {

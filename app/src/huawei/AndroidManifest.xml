@@ -16,19 +16,6 @@
         android:label="@string/app_name"
         android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity"
         android:theme="@style/Theme.ownCloud.Toolbar">
-
-        <activity
-            android:name=".ui.activity.HuaweiCommunityActivity"
-            android:exported="false" />
-
-        <activity-alias
-            android:name=".ui.activity.CommunityActivity"
-            android:targetActivity=".ui.activity.HuaweiCommunityActivity"
-            tools:replace="android:targetActivity" />
-
-        <activity
-            tools:node="remove"
-            android:name=".ui.activity.CommunityActivity" />
     </application>
 
 </manifest>

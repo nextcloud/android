@@ -319,6 +319,7 @@
     <string name="drawer_item_notifications">Obavijesti</string>
     <string name="drawer_item_on_device">Na uređaju</string>
     <string name="drawer_item_personal_files">Osobne datoteke</string>
+    <string name="drawer_item_recent_files">Nedavne datoteke</string>
     <string name="drawer_item_recently_modified">Nedavno izmijenjeno</string>
     <string name="drawer_item_shared">Dijeljeno</string>
     <string name="drawer_item_trashbin">Izbrisane datoteke</string>

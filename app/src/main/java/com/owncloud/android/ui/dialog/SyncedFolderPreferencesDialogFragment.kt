@@ -19,6 +19,7 @@ import android.view.View
 import android.widget.AdapterView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.SubFolderRule
@@ -35,7 +36,11 @@ import com.owncloud.android.ui.activity.UploadFilesActivity
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
@@ -279,20 +284,29 @@ class SyncedFolderPreferencesDialogFragment :
             binding?.settingInstantBehaviourContainer?.alpha = ALPHA_DISABLED
             return
         }
-        if (syncedFolder!!.localPath != null &&
-            FileStorageUtils.isFolderWritable(File(syncedFolder!!.localPath))
-        ) {
-            binding?.settingInstantBehaviourContainer?.isEnabled = true
-            binding?.settingInstantBehaviourContainer?.alpha = ALPHA_ENABLED
-            binding?.settingInstantBehaviourSummary?.text =
-                uploadBehaviorItemStrings[syncedFolder!!.uploadActionInteger]
-        } else {
-            binding?.settingInstantBehaviourContainer?.isEnabled = false
-            binding?.settingInstantBehaviourContainer?.alpha = ALPHA_DISABLED
-            syncedFolder?.setUploadAction(
-                resources.getTextArray(R.array.pref_behaviour_entryValues)[0].toString()
-            )
-            binding?.settingInstantBehaviourSummary?.setText(R.string.auto_upload_file_behaviour_kept_in_folder)
+
+        val folderFile = syncedFolder?.localPath?.let { File(it) }
+        lifecycleScope.launch {
+            val writable = FileUtil.isFolderWritable(folderFile)
+            withContext(Dispatchers.Main) {
+                binding?.settingInstantBehaviourContainer?.run {
+                    if (writable) {
+                        isEnabled = true
+                        alpha = ALPHA_ENABLED
+                        binding?.settingInstantBehaviourSummary?.text =
+                            uploadBehaviorItemStrings[syncedFolder!!.uploadActionInteger]
+                    } else {
+                        isEnabled = false
+                        alpha = ALPHA_DISABLED
+                        syncedFolder?.setUploadAction(
+                            resources.getTextArray(R.array.pref_behaviour_entryValues)[0].toString()
+                        )
+                        binding?.settingInstantBehaviourSummary?.setText(
+                            R.string.auto_upload_file_behaviour_kept_in_folder
+                        )
+                    }
+                }
+            }
         }
     }
 
