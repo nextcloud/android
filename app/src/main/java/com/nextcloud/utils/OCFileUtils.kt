@@ -55,7 +55,7 @@ object OCFileUtils {
         return fallbackPair
     }
 
-    private fun getExifSize(path: String): Pair<Int, Int>? = try {
+    fun getExifSize(path: String): Pair<Int, Int>? = try {
         val exif = ExifInterface(path)
         var w = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0)
         var h = exif.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, 0)
@@ -78,7 +78,7 @@ object OCFileUtils {
         null
     }
 
-    private fun getBitmapSize(path: String): Pair<Int, Int>? = try {
+    fun getBitmapSize(path: String): Pair<Int, Int>? = try {
         val options = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
         android.graphics.BitmapFactory.decodeFile(path, options)
         val w = options.outWidth
