@@ -8,9 +8,9 @@
 package com.owncloud.android.ui.adapter.uploadList.helper
 
 import com.nextcloud.utils.extensions.isSame
+import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
-import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -64,8 +64,8 @@ class UploadListAdapterActionHandler : UploadListAdapterAction {
         upload: OCUpload,
         storageManager: UploadsStorageManager
     ): ConflictHandlingResult.ConflictNotExists {
-        upload.lastResult = UploadResult.UNKNOWN
-        storageManager.updateUpload(upload)
+        val entity = storageManager.uploadDao.getUploadById(upload.uploadId, upload.accountName)
+        storageManager.updateStatus(entity, UploadsStorageManager.UploadStatus.UPLOAD_FAILED)
         return ConflictHandlingResult.ConflictNotExists
     }
 }

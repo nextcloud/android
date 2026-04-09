@@ -37,6 +37,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation
+import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.ui.adapter.uploadList.UploadListAdapter
 import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterAction
@@ -44,7 +45,6 @@ import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterAction
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterHelper
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListItemOnClick
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -66,6 +66,8 @@ class UploadListActivity :
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     @Inject lateinit var throttler: Throttler
+
+    @Inject lateinit var uploadFileOperationFactory: UploadFileOperationFactory
 
     private var swipeListRefreshLayout: SwipeRefreshLayout? = null
     private var binding: UploadListLayoutBinding? = null
@@ -272,8 +274,16 @@ class UploadListActivity :
         }
     }
 
+    private var conflictSnackbar: Snackbar? = null
+
     override fun onLastUploadResultConflictClick(upload: OCUpload) {
-        DisplayUtils.showSnackMessage(this, R.string.upload_sync_conflict_checking)
+        val rootView = binding?.root ?: return
+
+        conflictSnackbar = Snackbar.make(
+            rootView,
+            R.string.upload_sync_conflict_checking,
+            Snackbar.LENGTH_INDEFINITE
+        ).apply { show() }
 
         lifecycleScope.launch {
             val client = clientRepository.getOwncloudClient() ?: return@launch
@@ -282,18 +292,15 @@ class UploadListActivity :
             withContext(Dispatchers.Main) {
                 when (result) {
                     is ConflictHandlingResult.ConflictNotExists -> {
-                        uploadListAdapter.notifyUploadChanged(upload)
-                        onConflictNotExists(upload)
+                        showConflictNotExists(upload)
                     }
 
                     is ConflictHandlingResult.CannotCheckConflict -> {
-                        DisplayUtils.showSnackMessage(
-                            this@UploadListActivity,
-                            R.string.upload_sync_conflict_check_error
-                        )
+                        showConflictError()
                     }
 
                     is ConflictHandlingResult.ShowConflictResolveDialog -> {
+                        conflictSnackbar?.dismiss()
                         adapterHelper.openConflictActivity(result.file, result.upload)
                     }
                 }
@@ -301,22 +308,32 @@ class UploadListActivity :
         }
     }
 
-    private fun onConflictNotExists(upload: OCUpload) {
-        val rootView = binding?.root ?: return
-        val snackbar = Snackbar.make(
-            rootView,
-            R.string.upload_sync_conflict_not_exists,
-            Snackbar.LENGTH_LONG
-        )
-
-        snackbar.setAction(R.string.retry) {
-            val optionalUser = userAccountManager.getUser(upload.accountName)
-            if (optionalUser.isPresent) {
-                FileUploadHelper.instance().retryUpload(upload, optionalUser.get())
+    private fun showConflictNotExists(upload: OCUpload) {
+        conflictSnackbar?.apply {
+            setText(R.string.upload_sync_conflict_not_exists)
+            setDuration(Snackbar.LENGTH_LONG)
+            setAction(R.string.retry) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val client = clientRepository.getOwncloudClient()
+                    val operation = uploadFileOperationFactory.create(upload).execute(client)
+                    if (operation.isSuccess) {
+                        withContext(Dispatchers.Main) {
+                            uploadListAdapter.loadUploadItemsFromDb()
+                        }
+                    }
+                }
             }
+            show()
         }
+    }
 
-        snackbar.show()
+    private fun showConflictError() {
+        conflictSnackbar?.apply {
+            setText(R.string.upload_sync_conflict_check_error)
+            setDuration(Snackbar.LENGTH_LONG)
+            setAction(null, null)
+            show()
+        }
     }
 
     private inner class UploadFinishReceiver : BroadcastReceiver() {
