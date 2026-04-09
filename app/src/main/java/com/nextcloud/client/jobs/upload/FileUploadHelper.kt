@@ -25,6 +25,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.getUploadIds
+import com.nextcloud.utils.extensions.isAnonymous
 import com.nextcloud.utils.extensions.isLastResultConflictError
 import com.nextcloud.utils.extensions.isSame
 import com.owncloud.android.MainApp
@@ -184,14 +185,22 @@ class FileUploadHelper {
         val batteryStatus = powerManagementService.battery
 
         val uploadsToRetry = mutableListOf<Long>()
-        val ownCloudClient =
-            OwnCloudClientFactory.createOwnCloudClient(accountManager.currentAccount, MainApp.getAppContext())
+
+        val currentAccount = accountManager.currentAccount
+        val context = MainApp.getAppContext()
+        var ownCloudClient: OwnCloudClient? = null
+        if (!currentAccount.isAnonymous(context)) {
+            ownCloudClient =
+                OwnCloudClientFactory.createOwnCloudClient(accountManager.currentAccount, MainApp.getAppContext())
+        }
         val uploadActionHandler = UploadListAdapterActionHandler()
 
         for (upload in uploads) {
             if (upload.isLastResultConflictError()) {
-                conflictHandlingResult =
-                    uploadActionHandler.handleConflict(upload, ownCloudClient, uploadsStorageManager)
+                ownCloudClient?.let {
+                    conflictHandlingResult =
+                        uploadActionHandler.handleConflict(upload, ownCloudClient, uploadsStorageManager)
+                }
                 continue
             }
 
