@@ -94,7 +94,7 @@ fun UploadResult.getFailedStatusText(context: Context): String = when (this) {
 
     UploadResult.OLD_ANDROID_API -> context.getString(R.string.upload_old_android)
 
-    UploadResult.SYNC_CONFLICT -> context.getString(R.string.upload_sync_conflict)
+    UploadResult.SYNC_CONFLICT -> context.getString(R.string.upload_sync_conflict_check)
 
     UploadResult.CANNOT_CREATE_FILE -> context.getString(R.string.upload_cannot_create_file)
 

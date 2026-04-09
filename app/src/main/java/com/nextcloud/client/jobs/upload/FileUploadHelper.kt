@@ -26,6 +26,7 @@ import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.getUploadIds
 import com.nextcloud.utils.extensions.isLastResultConflictError
+import com.nextcloud.utils.extensions.isSame
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -46,7 +47,6 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.FileUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -563,25 +563,17 @@ class FileUploadHelper {
     }
 
     @Suppress("MagicNumber", "ReturnCount", "ComplexCondition")
-    fun isSameFileOnRemote(user: User?, localFile: File?, remotePath: String?, context: Context?): Boolean {
-        if (user == null || localFile == null || remotePath == null || context == null) {
+    fun isSameFileOnRemote(user: User?, localPath: String?, remotePath: String?, context: Context?): Boolean {
+        if (user == null || localPath == null || remotePath == null || context == null) {
             Log_OC.e(TAG, "cannot compare remote and local file")
             return false
         }
-
-        // Compare remote file to local file
-        val localLastModifiedTimestamp = localFile.lastModified() / 1000 // remote file timestamp in milli not micro sec
-        val localCreationTimestamp = FileUtil.getCreationTimestamp(localFile)
-        val localSize: Long = localFile.length()
 
         val operation = ReadFileRemoteOperation(remotePath)
         val result: RemoteOperationResult<*> = operation.execute(user, context)
         if (result.isSuccess) {
             val remoteFile = result.data[0] as RemoteFile
-            return remoteFile.size == localSize &&
-                localCreationTimestamp != null &&
-                localCreationTimestamp == remoteFile.creationTimestamp &&
-                remoteFile.modifiedTimestamp == localLastModifiedTimestamp * 1000
+            return remoteFile.isSame(localPath)
         }
         return false
     }
