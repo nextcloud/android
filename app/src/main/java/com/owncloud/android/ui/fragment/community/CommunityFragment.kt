@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.nextcloud.utils.BuildHelper
 import com.nextcloud.utils.extensions.setHtmlContent
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentCommunityBinding
@@ -38,6 +39,9 @@ class CommunityFragment : Fragment() {
         binding?.communityReleaseCandidateText?.movementMethod = LinkMovementMethod.getInstance()
         setupViews()
         setOnClickListeners()
+        if (BuildHelper.isHuaweiFlavor()) {
+            hideRCSection()
+        }
     }
 
     private fun setupViews() {
@@ -97,6 +101,15 @@ class CommunityFragment : Fragment() {
             view?.setOnClickListener {
                 DisplayUtils.startLinkIntent(activity, linkRes)
             }
+        }
+    }
+
+    private fun hideRCSection() {
+        binding?.run {
+            communityReleaseCandidateHeadline.visibility = View.GONE
+            communityReleaseCandidateText.visibility = View.GONE
+            communityReleaseCandidateFdroid.visibility = View.GONE
+            communityReleaseCandidatePlaystore.visibility = View.GONE
         }
     }
 
