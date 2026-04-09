@@ -10,7 +10,6 @@ package com.owncloud.android.ui.adapter.uploadList
 import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.content.Context
-import android.os.Looper
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -669,43 +668,6 @@ class UploadListAdapter(
         }
 
         notificationManager?.cancel(upload.uploadId.toInt())
-    }
-
-    fun notifyUploadChanged(upload: OCUpload) {
-        for (sectionIndex in uploadListSections.indices) {
-            val section = uploadListSections[sectionIndex]
-
-            val itemIndex = section.items.indexOfFirst { it.uploadId == upload.uploadId }
-
-            if (itemIndex != -1) {
-                val adapterPosition = getAdapterPosition(sectionIndex, itemIndex)
-
-                if (adapterPosition != -1) {
-                    val updatedItems = section.items.toMutableList().apply {
-                        this[itemIndex] = upload
-                    }
-
-                    uploadListSections[sectionIndex] = section.withItems(updatedItems)
-
-                    if (Looper.myLooper() == Looper.getMainLooper()) {
-                        notifyItemChanged(adapterPosition)
-                    } else {
-                        activity.runOnUiThread {
-                            notifyItemChanged(adapterPosition)
-                        }
-                    }
-                }
-                return
-            }
-        }
-    }
-
-    private fun getAdapterPosition(section: Int, relativePosition: Int): Int {
-        var position = 0
-        for (i in 0 until section) {
-            position += uploadListSections[i].items.size + 1
-        }
-        return position + 1 + relativePosition
     }
 
     companion object {

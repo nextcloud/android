@@ -29,7 +29,6 @@ import com.nextcloud.utils.extensions.getPercent
 import com.nextcloud.utils.extensions.toFile
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
@@ -44,6 +43,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -66,6 +66,7 @@ class FileUploadWorker(
     val filesystemRepository: FileSystemRepository,
     val syncedFolderProvider: SyncedFolderProvider,
     val context: Context,
+    val uploadFileOperationFactory: UploadFileOperationFactory,
     params: WorkerParameters
 ) : CoroutineWorker(context, params),
     OnDatatransferProgressListener {
@@ -270,7 +271,7 @@ class FileUploadWorker(
             }
 
             fileUploadEventBroadcaster.sendUploadEnqueued(context)
-            val operation = createUploadFileOperation(upload, user)
+            val operation = uploadFileOperationFactory.create(upload, this@FileUploadWorker)
             activeOperations[upload.uploadId] = operation
 
             val currentIndex = (index + 1)
@@ -346,24 +347,6 @@ class FileUploadWorker(
         }
 
         return result
-    }
-
-    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
-        uploadsStorageManager,
-        connectivityService,
-        powerManagementService,
-        user,
-        null,
-        upload,
-        upload.nameCollisionPolicy,
-        upload.localAction,
-        context,
-        upload.isUseWifiOnly,
-        upload.isWhileChargingOnly,
-        true,
-        FileDataStorageManager(user, context.contentResolver)
-    ).apply {
-        addDataTransferProgressListener(this@FileUploadWorker)
     }
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
