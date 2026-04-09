@@ -5,6 +5,6 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.adapter.uploadList
+package com.owncloud.android.ui.adapter.uploadList.model
 
 enum class UploadListType { CURRENT, COMPLETED, FAILED, CANCELLED, SKIPPED }
