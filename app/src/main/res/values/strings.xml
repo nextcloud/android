@@ -1095,7 +1095,7 @@
     <string name="upload_local_storage_full">Local storage full</string>
     <string name="upload_old_android">Encryption is only possible with &gt;= Android 5.0</string>
     <string name="upload_sync_conflict_checking">Checking for upload conflicts…</string>
-    <string name="upload_sync_conflict_not_exists">Upload has no conflicts anymore, conflict cleared.</string>
+    <string name="upload_sync_conflict_not_exists">Conflict resolved.</string>
     <string name="upload_sync_conflict_check_error">Could not check for upload conflicts. Please try again.</string>
     <string name="upload_sync_conflict_check">There might be a conflict from your last upload. Tap to check.</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
