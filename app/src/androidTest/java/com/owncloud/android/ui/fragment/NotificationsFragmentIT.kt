@@ -13,7 +13,6 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
-import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.test.GrantStoragePermissionRule.Companion.grant
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.notifications.models.Action
@@ -34,11 +33,9 @@ class NotificationsFragmentIT : AbstractIT() {
     @get:Rule
     var storagePermissionRules: TestRule = grant()
 
-    private fun buildDate(): Date {
-        val cal = GregorianCalendar()
-        cal.set(2005, 4, 17, 10, 35, 30)
-        return cal.time
-    }
+    private fun buildDate(): Date = GregorianCalendar().apply {
+        set(2005, 4, 17, 10, 35, 30)
+    }.time
 
     private fun buildNotificationNoActions(): Notification = Notification(
         1,
@@ -59,9 +56,10 @@ class NotificationsFragmentIT : AbstractIT() {
     )
 
     private fun buildNotificationTwoActions(): Notification {
-        val actions = ArrayList<Action>()
-        actions.add(Action("Send usage", "link", "url", true))
-        actions.add(Action("Not now", "link", "url", false))
+        val actions = ArrayList<Action>().apply {
+            add(Action("Send usage", "link", "url", true))
+            add(Action("Not now", "link", "url", false))
+        }
 
         return Notification(
             2,
@@ -83,11 +81,12 @@ class NotificationsFragmentIT : AbstractIT() {
     }
 
     private fun buildNotificationManyActions(): Notification {
-        val actions = ArrayList<Action>()
-        actions.add(Action("Send usage", "link", "url", true))
-        actions.add(Action("Not now", "link", "url", false))
-        actions.add(Action("Third action", "link", "url", false))
-        actions.add(Action("Delay", "link", "url", false))
+        val actions = ArrayList<Action>().apply {
+            add(Action("Send usage", "link", "url", true))
+            add(Action("Not now", "link", "url", false))
+            add(Action("Third action", "link", "url", false))
+            add(Action("Delay", "link", "url", false))
+        }
 
         return Notification(
             3,
@@ -116,7 +115,7 @@ class NotificationsFragmentIT : AbstractIT() {
     }
 
     private fun findFragment(sut: NavigatorActivity): NotificationsFragment? = sut.supportFragmentManager
-        .findFragmentByTag(NotificationsFragment::class.java.simpleName) as? NotificationsFragment
+        .findFragmentByTag(NavigatorScreen.Notifications.tag) as? NotificationsFragment
 
     @Test
     @ScreenshotTest
@@ -126,8 +125,6 @@ class NotificationsFragmentIT : AbstractIT() {
             scenario.onActivity { sut ->
                 findFragment(sut)?.populateList(ArrayList())
             }
-
-            InstrumentationRegistry.getInstrumentation().waitForIdleSync()
 
             val screenShotName = createName(testClassName + "_" + "empty", "")
             onView(isRoot()).check(matches(isDisplayed()))
