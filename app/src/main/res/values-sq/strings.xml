@@ -185,7 +185,6 @@
     <string name="drawer_item_home">Kryefaqja</string>
     <string name="drawer_item_notifications">Njoftime</string>
     <string name="drawer_item_on_device">Në pajisjen</string>
-    <string name="drawer_item_recently_modified">Modifikuar së fundmi</string>
     <string name="drawer_item_shared">U nda</string>
     <string name="drawer_item_trashbin">Skedar të fshirë</string>
     <string name="drawer_item_uploads_list">Ngarkimet</string>
@@ -253,7 +252,6 @@
     <string name="file_list_empty_headline_search">Nuk ka rezultate në këtë dosje</string>
     <string name="file_list_empty_headline_server_search">Asnjë rezultat</string>
     <string name="file_list_empty_moving">S’ka gjë këtu. Mund të shtoni një dosje.</string>
-    <string name="file_list_empty_recently_modified">Nuk u gjetë asnjë skedar i modifikuar 7 ditët e fundit</string>
     <string name="file_list_empty_search">Përpiquni të shikoni në një dosje tjetër</string>
     <string name="file_list_empty_shared_headline">Asgjë e shpërndarë akoma</string>
     <string name="file_list_folder">dosje</string>
@@ -484,7 +482,6 @@
     <string name="select_all">Zgjidhi të gjitha</string>
     <string name="select_template">Zgjidh shabllonin</string>
     <string name="send">Dërgo</string>
-    <string name="sendbutton_description">Ikona e butonit dërgo</string>
     <string name="set_as">Vendos Si</string>
     <string name="set_picture_as">Vendos fotografinë</string>
     <string name="share">Ndaje</string>

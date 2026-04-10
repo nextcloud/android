@@ -229,7 +229,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="create_new_presentation">Presentasi baru</string>
     <string name="create_new_spreadsheet">Spreadsheet baru</string>
     <string name="create_rich_workspace">Tambahkan deskripsi folder</string>
-    <string name="creates_rich_workspace">Menambah deskripsi folder</string>
     <string name="credentials_disabled">Kredensial dimatikan</string>
     <string name="daily_backup">Pencadangan harian</string>
     <string name="data_to_back_up">Data untuk dicadangkan</string>
@@ -294,7 +293,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="drawer_item_notifications">Pemberitahuan</string>
     <string name="drawer_item_on_device">Dalam perangkat</string>
     <string name="drawer_item_personal_files">Berkas pribadi</string>
-    <string name="drawer_item_recently_modified">Baru diubah</string>
     <string name="drawer_item_shared">Dibagikan</string>
     <string name="drawer_item_trashbin">Berkas terhapus</string>
     <string name="drawer_item_uploads_list">Unggah</string>
@@ -409,7 +407,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_list_empty_on_device">Berkas dan folder yang diunduh akan muncul di sini.</string>
     <string name="file_list_empty_recent_files_description">File dan folder yang baru-baru ini Anda modifikasi akan muncul di sini.</string>
     <string name="file_list_empty_recent_files_headline">Tidak ada file yang baru-baru ini dimodifikasi</string>
-    <string name="file_list_empty_recently_modified">Tidak ditemukan berkas yang diubah 7 hari terakhir</string>
     <string name="file_list_empty_search">Mungkin ada di folder yang berbeda?</string>
     <string name="file_list_empty_shared">Berkas dan folder yang Anda bagikan akan muncul di sini.</string>
     <string name="file_list_empty_shared_headline">Belum ada yang dibagikan.</string>
@@ -810,7 +807,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="select_template">Pilih template</string>
     <string name="send">Kirim</string>
     <string name="send_share">Kirim tautan berbagi</string>
-    <string name="sendbutton_description">Ikon tombol kirim</string>
     <string name="server_not_reachable">Tidak dapat memuat konten</string>
     <string name="server_not_reachable_content">Perangkat ini kemungkinan tidak terhubung ke internet</string>
     <string name="set_as">Gunakan sebagai</string>
@@ -851,7 +847,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="share_option_required">Silahkan pilih setidaknya satu opsi berbagi sebelum melanjutkan.</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_request">Permintaan file</string>
-    <string name="share_permission_secure_file_drop">Tempat penyimpanan file aman</string>
     <string name="share_permission_view_only">Hanya lihat</string>
     <string name="share_permissions">Bagikan izin</string>
     <string name="share_re_share_permission">Bagikan</string>

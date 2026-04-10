@@ -190,7 +190,6 @@
     <string name="drawer_item_home">Dachaigh</string>
     <string name="drawer_item_notifications">Brathan</string>
     <string name="drawer_item_on_device">Air an uidheam</string>
-    <string name="drawer_item_recently_modified">Air atharrachadh o chionn goirid</string>
     <string name="drawer_item_shared">Co-roinnte</string>
     <string name="drawer_item_trashbin">Faidhlichean air an sguabadh às</string>
     <string name="drawer_item_uploads_list">Na chaidh a luchdadh suas</string>
@@ -265,7 +264,6 @@
     <string name="file_list_empty_headline_server_search">Gun toradh</string>
     <string name="file_list_empty_moving">Chan eil dad an-seo. ’S urrainn dhut pasgan a chur ris.</string>
     <string name="file_list_empty_on_device">Nochdaidh na faidhlichean ’s pasganan a luchdaich thu a-nuas an-seo.</string>
-    <string name="file_list_empty_recently_modified">Cha do lorg sinn faidhle a chaidh atharrachadh sna 7 làithean seo chaidh</string>
     <string name="file_list_empty_search">Saoil a bheil e ann am pasgan eile?</string>
     <string name="file_list_empty_shared">Nochdaidh na faidhlichean ’s pasganan cho-roinn thu an-seo.</string>
     <string name="file_list_empty_shared_headline">Chan eil dad ’ga cho-roinneadh fhathast</string>
@@ -518,7 +516,6 @@
     <string name="select_one_template">Tagh teamplaid</string>
     <string name="select_template">Tagh teamplaid</string>
     <string name="send">Cuir</string>
-    <string name="sendbutton_description">Ìomhaigheag putan a’ chuir</string>
     <string name="set_as">Suidhich mar</string>
     <string name="set_online_status">Staid air loidhne</string>
     <string name="set_picture_as">Cleachd an dealbh mar</string>

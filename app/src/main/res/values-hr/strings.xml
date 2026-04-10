@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Pošaljite poruku kako biste započeli razgovor.</string>
     <string name="assistant_screen_empty_content_title">Bok! Kako vam mogu pomoći danas?</string>
     <string name="assistant_screen_retry_response_generation">Pokušaj ponovno generirati odgovor</string>
-    <string name="assistant_screen_select_task">Odaberite zadatak</string>
     <string name="assistant_screen_send_message">Pošalji poruku</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Otvori popis razgovora</string>
     <string name="assistant_screen_task_create_fail_message">Došlo je do pogreške pri stvaranju zadatka</string>
@@ -253,7 +252,6 @@
     <string name="create_new_presentation">Nova prezentacija</string>
     <string name="create_new_spreadsheet">Nova proračunska tablica</string>
     <string name="create_rich_workspace">Dodaj opis mape</string>
-    <string name="creates_rich_workspace">Dodaje opis mape</string>
     <string name="credentials_disabled">Vjerodajnice onemogućene</string>
     <string name="daily_backup">Svakodnevno sigurnosno kopiranje</string>
     <string name="data_to_back_up">Podaci za sigurnosno kopiranje</string>
@@ -320,7 +318,6 @@
     <string name="drawer_item_on_device">Na uređaju</string>
     <string name="drawer_item_personal_files">Osobne datoteke</string>
     <string name="drawer_item_recent_files">Nedavne datoteke</string>
-    <string name="drawer_item_recently_modified">Nedavno izmijenjeno</string>
     <string name="drawer_item_shared">Dijeljeno</string>
     <string name="drawer_item_trashbin">Izbrisane datoteke</string>
     <string name="drawer_item_uploads_list">Otpreme</string>
@@ -441,7 +438,6 @@
     <string name="file_list_empty_on_device">Ovdje će se prikazati preuzete datoteke i mape.</string>
     <string name="file_list_empty_recent_files_description">Ovdje će se prikazati datoteke i mape koje ste nedavno izmijenili.</string>
     <string name="file_list_empty_recent_files_headline">Nema nedavno izmijenjenih datoteka.</string>
-    <string name="file_list_empty_recently_modified">Nije pronađena nijedna datoteka izmijenjena u posljednjih 7 dana</string>
     <string name="file_list_empty_search">Možda je u drugoj mapi?</string>
     <string name="file_list_empty_shared">Ovdje će se prikazati datoteke i mape koje dijelite.</string>
     <string name="file_list_empty_shared_headline">Još ništa nije dijeljeno</string>
@@ -855,7 +851,6 @@
     <string name="send">Pošalji</string>
     <string name="send_copy_to">Pošalji kopiju u</string>
     <string name="send_share">Pošalji dijeljenje</string>
-    <string name="sendbutton_description">Ikona gumba za slanje</string>
     <string name="server_not_reachable">Poslužitelj nije dostupan</string>
     <string name="server_not_reachable_content">Nije moguće uspostaviti vezu s poslužiteljem. Provjerite internetsku vezu i pokušajte ponovno.</string>
     <string name="set_as">Postavi kao</string>
@@ -897,7 +892,6 @@
     <string name="share_option_required">Potrebno je odabrati opciju dijeljenja</string>
     <string name="share_permission_can_edit">Uređivanje moguće</string>
     <string name="share_permission_file_request">Zahtjev za datotekom</string>
-    <string name="share_permission_secure_file_drop">Siguran prijenos datoteka</string>
     <string name="share_permission_view_only">Samo za gledanje</string>
     <string name="share_permissions">Dopuštenja dijeljenja</string>
     <string name="share_re_share_permission">Dijeli</string>

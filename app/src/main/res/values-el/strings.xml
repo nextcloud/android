@@ -251,7 +251,6 @@
     <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_item_on_device">Στην συσκευή</string>
     <string name="drawer_item_personal_files">Προσωπικά αρχεία</string>
-    <string name="drawer_item_recently_modified">Τροποποιήθηκαν πρόσφατα</string>
     <string name="drawer_item_shared">Κοινόχρηστα</string>
     <string name="drawer_item_trashbin">Διεγραμμένα αρχεία</string>
     <string name="drawer_item_uploads_list">Μεταφορτώσεις</string>
@@ -345,7 +344,6 @@
     <string name="file_list_empty_on_device">Τα ληφθέντα αρχεία και φάκελοι θα εμφανίζονται εδώ.</string>
     <string name="file_list_empty_recent_files_description">Εδώ θα εμφανίζονται τα αρχεία και οι φάκελοι που τροποποιήσατε πρόσφατα.</string>
     <string name="file_list_empty_recent_files_headline">Δεν υπάρχουν πρόσφατα τροποποιημένα αρχεία</string>
-    <string name="file_list_empty_recently_modified">Δεν βρέθηκαν τροποποιημένα αρχεία εντός των τελευταίων 7 ημερών</string>
     <string name="file_list_empty_search">Θα δοκιμάστε αναζήτηση και σε άλλο φάκελο;</string>
     <string name="file_list_empty_shared">Τα αρχεία και οι φάκελοι που διαμοιράζεστε θα εμφανίζονται εδώ.</string>
     <string name="file_list_empty_shared_headline">Δεν έχει διαμοιραστεί τίποτα μέχρι στιγμής</string>
@@ -650,7 +648,6 @@
     <string name="select_one_template">Παρακαλούμε επιλέξτε ένα πρότυπο</string>
     <string name="select_template">Επιλογή προτύπου</string>
     <string name="send">Αποστολή</string>
-    <string name="sendbutton_description">Εικονίδιο κουμπιού αποστολής</string>
     <string name="set_as">Ορισμός ως</string>
     <string name="set_online_status">Κατάσταση σε σύνδεση</string>
     <string name="set_picture_as">Χρησιμοποίησε την εικόνα ως</string>

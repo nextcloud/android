@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Try sending a message to spark a conversation.</string>
     <string name="assistant_screen_empty_content_title">Hello there! What can I help you with today?</string>
     <string name="assistant_screen_retry_response_generation">Retry response generation</string>
-    <string name="assistant_screen_select_task">Please select task</string>
     <string name="assistant_screen_send_message">Send message</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Open conversation list</string>
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
@@ -245,6 +244,8 @@
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="create">Create</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
+    <string name="create_end_to_end_encrypted_share">Link share</string>
+    <string name="create_end_to_end_encrypted_share_title">End-to-end encrypted link shares</string>
     <string name="create_link">Create link</string>
     <string name="create_new">New</string>
     <string name="create_new_document">New document</string>
@@ -253,7 +254,6 @@
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
     <string name="create_rich_workspace">Add folder description</string>
-    <string name="creates_rich_workspace">Adds folder description</string>
     <string name="credentials_disabled">Credentials disabled</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
@@ -320,7 +320,6 @@
     <string name="drawer_item_on_device">On device</string>
     <string name="drawer_item_personal_files">Personal files</string>
     <string name="drawer_item_recent_files">Recent files</string>
-    <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_trashbin">Deleted files</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -441,7 +440,6 @@
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
     <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
     <string name="file_list_empty_recent_files_headline">No recently modified files</string>
-    <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
@@ -562,6 +560,7 @@
     <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_headline_end_to_end_encrypted">End-to-end encrypted shares</string>
     <string name="internal_shares">Internal shares</string>
     <string name="internal_two_way_sync">Internal two way sync</string>
     <string name="internal_two_way_sync_not_yet">Not yet, soon to be synced</string>
@@ -854,7 +853,6 @@
     <string name="send">Send</string>
     <string name="send_copy_to">Send copy to</string>
     <string name="send_share">Send share</string>
-    <string name="sendbutton_description">Send button icon</string>
     <string name="server_not_reachable">Could not load content</string>
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="set_as">Set As</string>
@@ -896,7 +894,6 @@
     <string name="share_option_required">Please select at least one sharing option before continuing.</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_request">File request</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
     <string name="share_permissions">Share permissions</string>
     <string name="share_re_share_permission">Share</string>

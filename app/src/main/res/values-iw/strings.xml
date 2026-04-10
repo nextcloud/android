@@ -218,7 +218,6 @@
     <string name="drawer_item_home">בית</string>
     <string name="drawer_item_notifications">התרעות</string>
     <string name="drawer_item_on_device">בהתקן</string>
-    <string name="drawer_item_recently_modified">השתנו לאחרונה</string>
     <string name="drawer_item_shared">שותף</string>
     <string name="drawer_item_trashbin">קבצים שנמחקו</string>
     <string name="drawer_item_uploads_list">העלאות</string>
@@ -289,7 +288,6 @@
     <string name="file_list_empty_headline_search">לא נמצאו תוצאות בתקיה זו</string>
     <string name="file_list_empty_headline_server_search">לא נמצאו תוצאות</string>
     <string name="file_list_empty_moving">אין כאן כלום. ניתן להוסיף תיקייה.</string>
-    <string name="file_list_empty_recently_modified">לא נמצאו קבצים שנערכו בשבוע החולף</string>
     <string name="file_list_empty_search">יכול להיות שזה בתיקייה אחרת?</string>
     <string name="file_list_empty_shared_headline">שום דבר לא שותף עדיין</string>
     <string name="file_list_folder">תקיה</string>
@@ -537,7 +535,6 @@
     <string name="select_all">בחר הכל</string>
     <string name="select_template">בחירת תבנית</string>
     <string name="send">שליחה</string>
-    <string name="sendbutton_description">סמל כפתור שליחה</string>
     <string name="set_as">הגדרה בתור</string>
     <string name="set_online_status">מצב מקוון</string>
     <string name="set_picture_as">שימוש בתמונה בתור</string>

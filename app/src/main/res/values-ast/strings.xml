@@ -155,7 +155,6 @@
     <string name="drawer_item_notifications">Avisos</string>
     <string name="drawer_item_on_device">Nel preséu</string>
     <string name="drawer_item_personal_files">Ficheros personales</string>
-    <string name="drawer_item_recently_modified">Modificao apocayá</string>
     <string name="drawer_item_shared">Compartío</string>
     <string name="drawer_item_trashbin">Ficheros desaniciaos</string>
     <string name="drawer_item_uploads_list">Xubes </string>
@@ -231,6 +230,8 @@
     <string name="file_list_empty_headline_search">Ensin resultaos nesta carpeta</string>
     <string name="file_list_empty_headline_server_search">Ensin resultaos</string>
     <string name="file_list_empty_moving">Equí nun hai nada. Pes amestar una carpeta</string>
+    <string name="file_list_empty_recent_files_description">Equí apaecen los ficheros y les carpetes modificaes de recién.</string>
+    <string name="file_list_empty_recent_files_headline">Nun hai nengún ficheru modificáu de recién</string>
     <string name="file_list_empty_search">¿Quiciabes tea nuna carpeta diferente?</string>
     <string name="file_list_empty_shared_headline">Entá nun se compartió nada</string>
     <string name="file_list_empty_unified_search_no_results">Nun s\'atopó nengún resultáu pa la to consulta</string>

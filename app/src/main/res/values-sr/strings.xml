@@ -232,7 +232,6 @@
     <string name="create_new_presentation">Нова презентација</string>
     <string name="create_new_spreadsheet">Нова табела</string>
     <string name="create_rich_workspace">Додај опис фолдера</string>
-    <string name="creates_rich_workspace">Додаје опис фолдера</string>
     <string name="credentials_disabled">Акредитиви искључени</string>
     <string name="daily_backup">Дневна резервна копија</string>
     <string name="data_to_back_up">Подаци који се чувају</string>
@@ -298,7 +297,6 @@
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_item_on_device">На уређају</string>
     <string name="drawer_item_personal_files">Лични фајлови</string>
-    <string name="drawer_item_recently_modified">Недавно измењено</string>
     <string name="drawer_item_shared">Дељено</string>
     <string name="drawer_item_trashbin">Обрисани фајлови</string>
     <string name="drawer_item_uploads_list">Отпремања</string>
@@ -413,7 +411,6 @@
     <string name="file_list_empty_on_device">Преузети фајлови и фасцикле ће се појавити овде.</string>
     <string name="file_list_empty_recent_files_description">Овде ће се појавити фајлови и фолдери које сте недавно изменили.</string>
     <string name="file_list_empty_recent_files_headline">Нема недавно промењених фајлова</string>
-    <string name="file_list_empty_recently_modified">Нема фајлова измењених у последњих 7 дана</string>
     <string name="file_list_empty_search">Можда су у некој другој фасцикли?</string>
     <string name="file_list_empty_shared">Фајлови и фасцикле које делите појавиће се овде.</string>
     <string name="file_list_empty_shared_headline">Још се ништа не дели</string>
@@ -813,7 +810,6 @@
     <string name="select_template">Одаберите шаблон</string>
     <string name="send">Пошаљи</string>
     <string name="send_share">Пошаљи дељење</string>
-    <string name="sendbutton_description">Икона за слање</string>
     <string name="server_not_reachable">Није могао да се учита садржај</string>
     <string name="server_not_reachable_content">Изгледа да уређај није повезан са интернетом</string>
     <string name="set_as">Постави као</string>
@@ -855,7 +851,6 @@
     <string name="share_option_required">Пре него што наставите, молимо вас да изаберете барем једну опцију дељења.</string>
     <string name="share_permission_can_edit">Може да уређује</string>
     <string name="share_permission_file_request">Захтев за фајл</string>
-    <string name="share_permission_secure_file_drop">Сигурно место за упуштање фајлова</string>
     <string name="share_permission_view_only">Само преглед</string>
     <string name="share_permissions">Дозволе за дељење</string>
     <string name="share_re_share_permission">Пдели</string>

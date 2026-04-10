@@ -221,7 +221,6 @@
     <string name="create_new_presentation">Ný kynning</string>
     <string name="create_new_spreadsheet">Nýr töflureiknir</string>
     <string name="create_rich_workspace">Bæta við lýsingu á möppu</string>
-    <string name="creates_rich_workspace">Bætir við lýsingu á möppu</string>
     <string name="credentials_disabled">Auðkenni óvirk</string>
     <string name="daily_backup">Dagleg öryggisafritun</string>
     <string name="data_to_back_up">Gögn sem á að taka öryggisafrit af</string>
@@ -286,7 +285,6 @@
     <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_item_on_device">Á tækinu</string>
     <string name="drawer_item_personal_files">Einkaskrár</string>
-    <string name="drawer_item_recently_modified">Nýleg tillaga</string>
     <string name="drawer_item_shared">Sameiginlegt</string>
     <string name="drawer_item_trashbin">eyddar skrár</string>
     <string name="drawer_item_uploads_list">Innsendingar</string>
@@ -401,7 +399,6 @@
     <string name="file_list_empty_on_device">Skrár og möppur sem þú sækir birtast hér.</string>
     <string name="file_list_empty_recent_files_description">Skrár og möppur sem þú breyttir nýlega birtast hér.</string>
     <string name="file_list_empty_recent_files_headline">Engar nýlega breyttar skrár</string>
-    <string name="file_list_empty_recently_modified">Fann engar skrár sem breytt hefur verið síðustu 7 daga</string>
     <string name="file_list_empty_search">Er þetta kannski í einhverri annarri möppu?</string>
     <string name="file_list_empty_shared">Skrár og möppur sem þú deilir birtast hér.</string>
     <string name="file_list_empty_shared_headline">Engu deilt ennþá</string>
@@ -795,7 +792,6 @@
     <string name="select_template">Veldu sniðmát</string>
     <string name="send">Senda</string>
     <string name="send_share">Senda sameign</string>
-    <string name="sendbutton_description">Táknmynd á sendihnappi</string>
     <string name="server_not_reachable">Gat ekki hlaðið inn efni</string>
     <string name="server_not_reachable_content">Tækið er líklega ekki tengt við internetið</string>
     <string name="set_as">Setja sem</string>
@@ -836,7 +832,6 @@
     <string name="share_option_required">Veldu a.m.k. einn valkost deilingar áður en þú heldur áfram.</string>
     <string name="share_permission_can_edit">Getur breytt</string>
     <string name="share_permission_file_request">Beiðni um skrá</string>
-    <string name="share_permission_secure_file_drop">Örugg slepping skráa</string>
     <string name="share_permission_view_only">Einungis skoða</string>
     <string name="share_permissions">Heimildir sameignar</string>
     <string name="share_re_share_permission">Deila</string>
