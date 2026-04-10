@@ -47,6 +47,7 @@ import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.adapter.NotificationListAdapter
 import com.owncloud.android.ui.asynctasks.NotificationExecuteActionTask
+import com.owncloud.android.ui.fragment.notifications.model.NotificationsUIState
 import com.owncloud.android.ui.notifications.NotificationsContract
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PushUtils
@@ -69,13 +70,22 @@ class NotificationsFragment :
     private var snackbar: Snackbar? = null
     private var optionalUser: Optional<User>? = null
 
-    @Inject lateinit var viewThemeUtils: ViewThemeUtils
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-    @Inject lateinit var accountManager: UserAccountManager
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
-    @Inject lateinit var preferences: AppPreferences
+    @Inject
+    lateinit var preferences: AppPreferences
 
     private var client: NextcloudClient? = null
+
+    private var state: NotificationsUIState = NotificationsUIState.Loading
+        set(value) {
+            field = value
+            renderState(value)
+        }
 
     // region Lifecycle
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -85,11 +95,13 @@ class NotificationsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val initForTesting = activity?.intent?.getBooleanExtra(EXTRA_INIT_FOR_TESTING, false)
+        if (initForTesting == true) return
 
         lifecycleScope.launch {
             val baseActivity = getTypedActivity(BaseActivity::class.java)
             val client = baseActivity?.clientRepository?.getNextcloudClient() ?: run {
-                showError()
+                state = NotificationsUIState.Error(getString(R.string.account_not_found))
                 return@launch
             }
             this@NotificationsFragment.client = client
@@ -100,7 +112,9 @@ class NotificationsFragment :
                 setupSwipeRefresh(client)
                 setupPushWarning()
                 setupContent(client)
-                if (optionalUser?.isPresent == false) showError()
+                if (optionalUser?.isPresent == false) {
+                    state = NotificationsUIState.Error(getString(R.string.account_not_found))
+                }
             }
         }
     }
@@ -108,6 +122,69 @@ class NotificationsFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+    // endregion
+
+    // region State rendering
+
+    private fun renderState(state: NotificationsUIState) {
+        binding?.run {
+            itemSwipeRefreshLayout.visibility = View.GONE
+            shimmerAndEmptySwipeRefreshLayout.visibility = View.GONE
+
+            shimmerLayout.visibility = View.GONE
+            emptyList.root.visibility = View.GONE
+
+            emptyList.emptyListViewHeadline.text = ""
+            emptyList.emptyListViewText.text = ""
+            emptyList.emptyListViewText.visibility = View.GONE
+
+            when (state) {
+                is NotificationsUIState.Loading -> renderLoading()
+
+                is NotificationsUIState.Loaded -> renderLoaded(state.items)
+
+                is NotificationsUIState.Empty -> renderEmpty(
+                    headline = getString(R.string.notifications_no_results_headline),
+                    message = getString(R.string.notifications_no_results_message)
+                )
+
+                is NotificationsUIState.Error -> renderEmpty(
+                    headline = getString(R.string.notifications_no_results_headline),
+                    message = state.message
+                )
+            }
+        }
+    }
+
+    private fun NotificationsLayoutBinding.renderEmpty(headline: String, message: String?) {
+        shimmerAndEmptySwipeRefreshLayout.visibility = View.VISIBLE
+
+        shimmerLayout.visibility = View.GONE
+
+        emptyList.run {
+            root.visibility = View.VISIBLE
+            emptyListIcon.visibility = View.VISIBLE
+
+            emptyListViewHeadline.text = headline
+            emptyListIcon.setImageResource(R.drawable.ic_notification)
+            emptyListViewText.apply {
+                text = message ?: ""
+                visibility = if (message.isNullOrEmpty()) View.GONE else View.VISIBLE
+            }
+        }
+    }
+
+    private fun renderLoading() {
+        binding?.shimmerAndEmptySwipeRefreshLayout?.visibility = View.VISIBLE
+        binding?.shimmerLayout?.visibility = View.VISIBLE
+        binding?.emptyList?.root?.visibility = View.GONE
+    }
+
+    private fun renderLoaded(items: List<Notification>) {
+        initializeAdapter()
+        adapter?.setNotificationItems(items)
+        binding?.itemSwipeRefreshLayout?.visibility = View.VISIBLE
     }
     // endregion
 
@@ -122,15 +199,15 @@ class NotificationsFragment :
 
     private fun setupSwipeRefresh(client: NextcloudClient) {
         binding?.run {
-            viewThemeUtils.androidx.themeSwipeRefreshLayout(swipeContainingList)
-            viewThemeUtils.androidx.themeSwipeRefreshLayout(swipeContainingEmpty)
-            swipeContainingList.setOnRefreshListener {
-                setLoadingMessage()
-                swipeContainingList.isRefreshing = true
+            viewThemeUtils.androidx.themeSwipeRefreshLayout(itemSwipeRefreshLayout)
+            viewThemeUtils.androidx.themeSwipeRefreshLayout(shimmerAndEmptySwipeRefreshLayout)
+            itemSwipeRefreshLayout.setOnRefreshListener {
+                state = NotificationsUIState.Loading
+                itemSwipeRefreshLayout.isRefreshing = true
                 fetchAndSetData(client)
             }
-            swipeContainingEmpty.setOnRefreshListener {
-                setLoadingMessageEmpty()
+            shimmerAndEmptySwipeRefreshLayout.setOnRefreshListener {
+                state = NotificationsUIState.Loading
                 fetchAndSetData(client)
             }
         }
@@ -139,7 +216,6 @@ class NotificationsFragment :
     private fun setupContent(client: NextcloudClient) {
         binding?.run {
             emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification)
-            setLoadingMessageEmpty()
             list.layoutManager = LinearLayoutManager(requireContext())
             fetchAndSetData(client)
         }
@@ -207,16 +283,26 @@ class NotificationsFragment :
             initializeAdapter()
             val result = GetNotificationsRemoteOperation().execute(client)
             withContext(Dispatchers.Main) {
-                if (result?.isSuccess == true && result.resultData != null) {
-                    populateList(result.resultData ?: listOf())
-                } else {
-                    try {
-                        Log_OC.d(TAG, result?.logMessage)
-                        setEmptyContent(
-                            getString(R.string.notifications_no_results_headline),
-                            result?.getLogMessage(requireContext())
-                        )
-                    } catch (_: Exception) {
+                state = when {
+                    result?.isSuccess == true && result.resultData != null -> {
+                        val items = result.resultData ?: emptyList()
+                        if (items.isEmpty()) {
+                            NotificationsUIState.Empty
+                        } else {
+                            NotificationsUIState.Loaded(items)
+                        }
+                    }
+
+                    else -> {
+                        try {
+                            Log_OC.d(TAG, result?.logMessage)
+                            NotificationsUIState.Error(
+                                result?.getLogMessage(requireContext())
+                                    ?: getString(R.string.notifications_no_results_message)
+                            )
+                        } catch (_: Exception) {
+                            NotificationsUIState.Error(getString(R.string.notifications_no_results_message))
+                        }
                     }
                 }
                 hideRefreshLayoutLoader()
@@ -232,71 +318,20 @@ class NotificationsFragment :
     }
 
     private fun hideRefreshLayoutLoader() {
-        binding?.swipeContainingList?.isRefreshing = false
-        binding?.swipeContainingEmpty?.isRefreshing = false
+        binding?.itemSwipeRefreshLayout?.isRefreshing = false
+        binding?.shimmerAndEmptySwipeRefreshLayout?.isRefreshing = false
     }
     // endregion
 
-    // region View state
-    fun populateList(notifications: List<Notification>) {
-        initializeAdapter()
-        adapter?.setNotificationItems(notifications)
-        binding?.run {
-            loadingContent.visibility = View.GONE
-            if (notifications.isNotEmpty()) {
-                swipeContainingEmpty.visibility = View.GONE
-                swipeContainingList.visibility = View.VISIBLE
-            } else {
-                setEmptyContent(
-                    getString(R.string.notifications_no_results_headline),
-                    getString(R.string.notifications_no_results_message)
-                )
-                swipeContainingList.visibility = View.GONE
-                swipeContainingEmpty.visibility = View.VISIBLE
-            }
-        }
-    }
-
-    private fun setLoadingMessage() {
-        binding?.swipeContainingEmpty?.visibility = View.GONE
-    }
-
     @VisibleForTesting
-    fun setLoadingMessageEmpty() {
-        binding?.run {
-            swipeContainingList.visibility = View.GONE
-            emptyList.emptyListView.visibility = View.GONE
-            loadingContent.visibility = View.VISIBLE
-        }
+    fun initForTesting(state: NotificationsUIState) {
+        adapter = NotificationListAdapter(this@NotificationsFragment, viewThemeUtils, this)
+        binding?.list?.adapter = adapter
+        binding?.list?.layoutManager = LinearLayoutManager(requireContext())
+        this.state = state
     }
 
-    @VisibleForTesting
-    fun setEmptyContent(headline: String?, message: String?) {
-        binding?.run {
-            swipeContainingList.visibility = View.GONE
-            loadingContent.visibility = View.GONE
-            swipeContainingEmpty.visibility = View.VISIBLE
-
-            emptyList.run {
-                emptyListView.visibility = View.VISIBLE
-                emptyListViewHeadline.text = headline
-                emptyListViewText.text = message
-                emptyListIcon.setImageResource(R.drawable.ic_notification)
-                emptyListViewText.visibility = View.VISIBLE
-                emptyListIcon.visibility = View.VISIBLE
-            }
-        }
-    }
-
-    private fun showError() {
-        setEmptyContent(
-            getString(R.string.notifications_no_results_headline),
-            getString(R.string.account_not_found)
-        )
-    }
-    // endregion
-
-    // region callbacks
+    // region Callbacks
     override fun onRemovedNotification(isSuccess: Boolean, client: NextcloudClient) {
         if (!isSuccess) {
             DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.remove_notification_failed))
@@ -307,30 +342,14 @@ class NotificationsFragment :
     override fun removeNotification(holder: NotificationListAdapter.NotificationViewHolder) {
         adapter?.removeNotification(holder)
         if (adapter?.itemCount == 0) {
-            setEmptyContent(
-                getString(R.string.notifications_no_results_headline),
-                getString(R.string.notifications_no_results_message)
-            )
-            binding?.run {
-                swipeContainingList.visibility = View.GONE
-                loadingContent.visibility = View.GONE
-                swipeContainingEmpty.visibility = View.VISIBLE
-            }
+            state = NotificationsUIState.Empty
         }
     }
 
     override fun onRemovedAllNotifications(isSuccess: Boolean) {
         if (isSuccess) {
             adapter?.removeAllNotifications()
-            setEmptyContent(
-                getString(R.string.notifications_no_results_headline),
-                getString(R.string.notifications_no_results_message)
-            )
-            binding?.run {
-                loadingContent.visibility = View.GONE
-                swipeContainingList.visibility = View.GONE
-                swipeContainingEmpty.visibility = View.VISIBLE
-            }
+            state = NotificationsUIState.Empty
         } else {
             DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.clear_notifications_failed))
         }
@@ -367,10 +386,7 @@ class NotificationsFragment :
         }
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val result =
-                DeleteNotificationRemoteOperation(id).execute(
-                    client
-                )
+            val result = DeleteNotificationRemoteOperation(id).execute(client)
             withContext(Dispatchers.Main) {
                 onRemovedNotification(result?.isSuccess == true, client)
             }
@@ -393,5 +409,6 @@ class NotificationsFragment :
 
     companion object {
         private val TAG = NotificationsFragment::class.java.simpleName
+        const val EXTRA_INIT_FOR_TESTING = "init_for_testing"
     }
 }

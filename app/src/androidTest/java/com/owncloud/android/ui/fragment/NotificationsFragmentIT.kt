@@ -18,6 +18,7 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
+import com.owncloud.android.ui.fragment.notifications.model.NotificationsUIState
 import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.utils.ScreenshotTest
@@ -114,21 +115,32 @@ class NotificationsFragmentIT : AbstractIT() {
         add(buildNotificationManyActions())
     }
 
-    private fun findFragment(sut: NavigatorActivity): NotificationsFragment? = sut.supportFragmentManager
-        .findFragmentByTag(NavigatorScreen.Notifications.tag) as? NotificationsFragment
+    private fun findFragment(sut: NavigatorActivity): NotificationsFragment? {
+        val allFragments = sut.supportFragmentManager.fragments
+        for (f in allFragments) {
+            if (f is NotificationsFragment) return f
+            val child = f.childFragmentManager.fragments.filterIsInstance<NotificationsFragment>().firstOrNull()
+            if (child != null) return child
+        }
+        return null
+    }
 
-    @Test
-    @ScreenshotTest
-    fun empty() {
+    private fun launchFragment(name: String, block: NotificationsFragment.() -> Unit) {
         val intent = NavigatorActivity.intent(targetContext, NavigatorScreen.Notifications)
-        ActivityScenario.launch<NavigatorActivity>(intent).use { scenario ->
-            scenario.onActivity { sut ->
-                findFragment(sut)?.populateList(ArrayList())
-            }
+            .putExtra(NotificationsFragment.EXTRA_INIT_FOR_TESTING, true)
 
-            val screenShotName = createName(testClassName + "_" + "empty", "")
+        ActivityScenario.launch<NavigatorActivity>(intent).use { scenario ->
             onView(isRoot()).check(matches(isDisplayed()))
 
+            scenario.onActivity { sut ->
+                val fragment = findFragment(sut)
+                    ?: throw IllegalStateException("NotificationsFragment not found in NavigatorActivity!")
+                fragment.block()
+            }
+
+            onView(isRoot()).check(matches(isDisplayed()))
+
+            val screenShotName = createName(testClassName + "_" + name, "")
             scenario.onActivity { sut ->
                 screenshotViaName(sut, screenShotName)
             }
@@ -137,37 +149,23 @@ class NotificationsFragmentIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
+    fun empty() {
+        launchFragment("empty") { initForTesting(NotificationsUIState.Empty) }
+    }
+
+    @Test
+    @ScreenshotTest
     fun showNotifications() {
-        val intent = NavigatorActivity.intent(targetContext, NavigatorScreen.Notifications)
-        ActivityScenario.launch<NavigatorActivity>(intent).use { scenario ->
-            scenario.onActivity { sut ->
-                findFragment(sut)?.populateList(buildMockNotifications())
-            }
-
-            val screenShotName = createName(testClassName + "_" + "showNotifications", "")
-            onView(isRoot()).check(matches(isDisplayed()))
-
-            scenario.onActivity { sut ->
-                screenshotViaName(sut, screenShotName)
-            }
+        launchFragment("showNotifications") {
+            initForTesting(NotificationsUIState.Loaded(buildMockNotifications()))
         }
     }
 
     @Test
     @ScreenshotTest
     fun error() {
-        val intent = NavigatorActivity.intent(targetContext, NavigatorScreen.Notifications)
-        ActivityScenario.launch<NavigatorActivity>(intent).use { scenario ->
-            scenario.onActivity { sut ->
-                findFragment(sut)?.setEmptyContent("Error", "Error! Please try again later!")
-            }
-
-            val screenShotName = createName(testClassName + "_" + "error", "")
-            onView(isRoot()).check(matches(isDisplayed()))
-
-            scenario.onActivity { sut ->
-                screenshotViaName(sut, screenShotName)
-            }
+        launchFragment("error") {
+            initForTesting(NotificationsUIState.Error("Error! Please try again later!"))
         }
     }
 }

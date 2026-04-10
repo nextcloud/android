@@ -16,7 +16,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_containing_list"
+        android:id="@+id/item_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:footerDividersEnabled="false"
@@ -39,18 +39,20 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_containing_empty"
+        android:id="@+id/shimmer_and_empty_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:footerDividersEnabled="false"
         android:visibility="visible">
 
         <FrameLayout
+            android:id="@+id/shimmer_and_empty_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
             <LinearLayout
-                android:id="@+id/loading_content"
+                android:id="@+id/shimmer_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
