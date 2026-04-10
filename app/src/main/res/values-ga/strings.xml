@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Bain triail as teachtaireacht a sheoladh chun tús a chur le comhrá.</string>
     <string name="assistant_screen_empty_content_title">Dia duit ann! Cad is féidir liom cabhrú leat inniu?</string>
     <string name="assistant_screen_retry_response_generation">Bain triail eile as giniúint freagartha</string>
-    <string name="assistant_screen_select_task">Roghnaigh tasc le do thoil</string>
     <string name="assistant_screen_send_message">Seol teachtaireacht</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Oscail an liosta comhrá</string>
     <string name="assistant_screen_task_create_fail_message">Tharla earráid agus an tasc á chruthú</string>
@@ -245,6 +244,8 @@
     <string name="could_not_retrieve_url">Níorbh fhéidir an URL a aisghabháil</string>
     <string name="create">Cruthaigh</string>
     <string name="create_dir_fail_msg">Níorbh fhéidir fillteán a chruthú</string>
+    <string name="create_end_to_end_encrypted_share">Comhroinnt nasc</string>
+    <string name="create_end_to_end_encrypted_share_title">Comhroinnt nasc criptithe ó cheann ceann go ceann</string>
     <string name="create_link">Cruthaigh nasc</string>
     <string name="create_new">Nua</string>
     <string name="create_new_document">Doiciméad nua</string>
@@ -253,7 +254,6 @@
     <string name="create_new_presentation">Cur i láthair nua</string>
     <string name="create_new_spreadsheet">Scarbhileog nua</string>
     <string name="create_rich_workspace">Cuir cur síos ar fhillteán leis</string>
-    <string name="creates_rich_workspace">Cuireann sé seo síos ar fhillteán</string>
     <string name="credentials_disabled">Dintiúir díchumasaithe</string>
     <string name="daily_backup">Cúltaca laethúil</string>
     <string name="data_to_back_up">Sonraí le cúltaca</string>
@@ -320,7 +320,6 @@
     <string name="drawer_item_on_device">Ar gléas</string>
     <string name="drawer_item_personal_files">Comhaid phearsanta</string>
     <string name="drawer_item_recent_files">Comhaid le déanaí</string>
-    <string name="drawer_item_recently_modified">Athraithe le déanaí</string>
     <string name="drawer_item_shared">Roinnte</string>
     <string name="drawer_item_trashbin">Comhaid scriosta</string>
     <string name="drawer_item_uploads_list">Uaslódálacha</string>
@@ -441,7 +440,6 @@
     <string name="file_list_empty_on_device">Taispeánfar comhaid agus fillteáin íosluchtaithe anseo.</string>
     <string name="file_list_empty_recent_files_description">Taispeánfar comhaid agus fillteáin a d\'athraigh tú le déanaí anseo.</string>
     <string name="file_list_empty_recent_files_headline">Níl aon chomhaid athraithe le déanaí</string>
-    <string name="file_list_empty_recently_modified">Níor aimsíodh aon chomhad a athraíodh le 7 lá anuas</string>
     <string name="file_list_empty_search">B\'fhéidir go bhfuil sé i bhfillteán eile?</string>
     <string name="file_list_empty_shared">Taispeánfar na comhaid agus na fillteáin a roinneann tú anseo.</string>
     <string name="file_list_empty_shared_headline">Ní dhéanfaidh aon ní roinnte go fóill</string>
@@ -562,6 +560,7 @@
     <string name="instant_upload_existing">Uaslódáil comhaid atá ann cheana féin freisin</string>
     <string name="instant_upload_on_charging">Íoslódáil ach amháin nuair a mhuirearú</string>
     <string name="instant_upload_path">/Uaslódáil Meandaracha</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Scaireanna criptithe ó cheann ceann go ceann</string>
     <string name="internal_shares">Scaireanna inmheánacha</string>
     <string name="internal_two_way_sync">Sioncronú inmheánach dhá bhealach</string>
     <string name="internal_two_way_sync_not_yet">Níl go fóill, go luath le synced</string>
@@ -854,7 +853,6 @@
     <string name="send">Seol</string>
     <string name="send_copy_to">Seol cóip chuig</string>
     <string name="send_share">Seol sciar</string>
-    <string name="sendbutton_description">Seol deilbhín cnaipe</string>
     <string name="server_not_reachable">Níorbh fhéidir an t-ábhar a lódáil</string>
     <string name="server_not_reachable_content">Is dócha nach bhfuil an gléas ceangailte leis an idirlíon</string>
     <string name="set_as">Socraigh Mar</string>
@@ -896,7 +894,6 @@
     <string name="share_option_required">Roghnaigh rogha comhroinnte amháin ar a laghad sula leanann tú ar aghaidh.</string>
     <string name="share_permission_can_edit">Is féidir eagarthóireacht a dhéanamh</string>
     <string name="share_permission_file_request">Iarratas comhad</string>
-    <string name="share_permission_secure_file_drop">Titim comhad slán</string>
     <string name="share_permission_view_only">Amharc amháin</string>
     <string name="share_permissions">Ceadanna a roinnt</string>
     <string name="share_re_share_permission">Comhroinn</string>

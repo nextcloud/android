@@ -241,7 +241,6 @@
     <string name="create_new_presentation">يېڭى تونۇشتۇرۇش</string>
     <string name="create_new_spreadsheet">يېڭى ئېلېكترونلۇق جەدۋەل</string>
     <string name="create_rich_workspace">ھۆججەت قىسقۇچ چۈشەندۈرۈشىنى قوشۇڭ</string>
-    <string name="creates_rich_workspace">ھۆججەت قىسقۇچ چۈشەندۈرۈشىنى قوشىدۇ</string>
     <string name="credentials_disabled">كىنىشكىسى چەكلەنگەن</string>
     <string name="daily_backup">كۈندىلىك زاپاسلاش</string>
     <string name="data_to_back_up">زاپاسلاش ئۈچۈن سانلىق مەلۇمات</string>
@@ -307,7 +306,6 @@
     <string name="drawer_item_notifications">ئۇقتۇرۇش</string>
     <string name="drawer_item_on_device">ئۈسكۈنىدە</string>
     <string name="drawer_item_personal_files">شەخسىي ھۆججەتلەر</string>
-    <string name="drawer_item_recently_modified">يېقىندا ئۆزگەرتىلدى</string>
     <string name="drawer_item_shared">ئورتاقلاشتى</string>
     <string name="drawer_item_trashbin">ئۆچۈرۈلگەن ھۆججەتلەر</string>
     <string name="drawer_item_uploads_list">يۈكلەش</string>
@@ -425,7 +423,6 @@
     <string name="file_list_empty_on_device">چۈشۈرۈلگەن ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
     <string name="file_list_empty_recent_files_description">سىز يېقىندا ئۆزگەرتكەن ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
     <string name="file_list_empty_recent_files_headline">يېقىندا ئۆزگەرتىلگەن ھۆججەت يوق</string>
-    <string name="file_list_empty_recently_modified">يېقىنقى 7 كۈن ئىچىدە ئۆزگەرتىلگەن ھۆججەت تېپىلمىدى</string>
     <string name="file_list_empty_search">بەلكىم ئۇ باشقا ھۆججەت قىسقۇچتا بولۇشى مۇمكىن؟</string>
     <string name="file_list_empty_shared">سىز ئورتاقلاشقان ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
     <string name="file_list_empty_shared_headline">ھازىرچە ھېچقانداق نەرسە ئورتاقلاشمىدى</string>
@@ -545,6 +542,7 @@
     <string name="instant_upload_existing">مەۋجۇت ھۆججەتلەرنىمۇ يۈكلەڭ</string>
     <string name="instant_upload_on_charging">توك قاچىلىغاندا ئاندىن يۈكلەڭ</string>
     <string name="instant_upload_path">/ InstantUpload</string>
+    <string name="internal_share_headline_end_to_end_encrypted">باشتىن-ئاخىر شىفىرلانغان ھەمبەھىر</string>
     <string name="internal_shares">ئىچكى ھەمبەھىر</string>
     <string name="internal_two_way_sync">ئىچكى ئىككى خىل ماسقەدەملەش</string>
     <string name="internal_two_way_sync_not_yet">تېخى ئەمەس ، ئۇزۇن ئۆتمەي ماسقەدەملىنىدۇ</string>
@@ -832,7 +830,6 @@
     <string name="send">ئەۋەتىڭ</string>
     <string name="send_copy_to">كۆچۈرمىسىنى ئەۋەت</string>
     <string name="send_share">ھەمبەھىر ئەۋەتىش</string>
-    <string name="sendbutton_description">كۇنۇپكا سىنبەلگىسىنى ئەۋەتىڭ</string>
     <string name="server_not_reachable">مەزمۇننى يۈكلىيەلمىدى</string>
     <string name="server_not_reachable_content">بۇ ئۈسكۈنە ئىنتىرنېتقا ئۇلانمىغاندەك تۇرىدۇ</string>
     <string name="set_as">تەڭشەك</string>
@@ -874,7 +871,6 @@
     <string name="share_option_required">داۋاملاشتۇرۇشتىن بۇرۇن ئەڭ كەمدە بىر ئورتاقلىشىش تاللانمىسىنى تاللاڭ.</string>
     <string name="share_permission_can_edit">تەھرىرلىيەلەيدۇ</string>
     <string name="share_permission_file_request">ھۆججەت تەلىپى</string>
-    <string name="share_permission_secure_file_drop">بىخەتەر ھۆججەت چۈشۈرۈش</string>
     <string name="share_permission_view_only">پەقەت كۆرۈش</string>
     <string name="share_permissions">ھەمبەھىرلەش ئىجازەتلىرى</string>
     <string name="share_re_share_permission">ھەمبەھىرلەش</string>

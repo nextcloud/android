@@ -237,7 +237,6 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">On device</string>
-    <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_trashbin">Deleted files</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -330,7 +329,6 @@
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
     <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
     <string name="file_list_empty_recent_files_headline">No recently modified files</string>
-    <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
@@ -651,7 +649,6 @@
     <string name="select_one_template">Please select one template</string>
     <string name="select_template">Select template</string>
     <string name="send">Send</string>
-    <string name="sendbutton_description">Send button icon</string>
     <string name="set_as">Set As</string>
     <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Use picture as</string>
@@ -680,7 +677,6 @@
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_no_password_title">Set password</string>
     <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
     <string name="share_re_share_permission">გაზიარება</string>
     <string name="share_read_permission">Read</string>

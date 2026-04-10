@@ -200,7 +200,6 @@
     <string name="create_new_presentation">Nueva presentación</string>
     <string name="create_new_spreadsheet">Nueva hoja de cálculo</string>
     <string name="create_rich_workspace">Añadir descripción de carpeta</string>
-    <string name="creates_rich_workspace">Añade una descripción de carpeta</string>
     <string name="credentials_disabled">Credenciales deshabilitadas</string>
     <string name="daily_backup">Respaldo diario</string>
     <string name="data_to_back_up">Datos a respaldar</string>
@@ -257,7 +256,6 @@
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">Disponibles sin conexión</string>
     <string name="drawer_item_personal_files">Archivos personales</string>
-    <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Papelera</string>
     <string name="drawer_item_uploads_list">Cargas</string>
@@ -354,7 +352,6 @@
     <string name="file_list_empty_on_device">Los archivos y carpetas descargados se mostrarán aquí.</string>
     <string name="file_list_empty_recent_files_description">Los archivos y carpetas que ha modificado recientemente aparecerán aquí.</string>
     <string name="file_list_empty_recent_files_headline">No hay archivos modificados recientemente</string>
-    <string name="file_list_empty_recently_modified">No se encontraron archivos modificados dentro de los últimos 7 días</string>
     <string name="file_list_empty_search">¿Tal vez está dentro de una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que comparta se mostrarán aquí.</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
@@ -696,7 +693,6 @@
     <string name="select_one_template">Por favor, seleccione una plantilla</string>
     <string name="select_template">Seleccionar plantilla</string>
     <string name="send">Enviar</string>
-    <string name="sendbutton_description">Ícono de botón de envío</string>
     <string name="set_as">Establecer Como</string>
     <string name="set_online_status">Estado en línea</string>
     <string name="set_picture_as">Usar imagen como</string>
@@ -727,7 +723,6 @@
     <string name="share_not_allowed_when_file_drop">No se permite volver a compartir durante la entrega segura de archivos</string>
     <string name="share_permission_can_edit">Puede editar</string>
     <string name="share_permission_file_request">Solicitud de archivo</string>
-    <string name="share_permission_secure_file_drop">Entrega de archivos segura</string>
     <string name="share_permission_view_only">Sólo lectura</string>
     <string name="share_re_share_permission">Compartir</string>
     <string name="share_read_permission">Leer</string>

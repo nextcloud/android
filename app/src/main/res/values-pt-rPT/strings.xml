@@ -207,7 +207,6 @@
     <string name="create_new_presentation">Nova apresentação</string>
     <string name="create_new_spreadsheet">Nova folha de calculo</string>
     <string name="create_rich_workspace">Adicionar descrição da pasta</string>
-    <string name="creates_rich_workspace">Adiciona uma descrição à pasta</string>
     <string name="credentials_disabled">Credenciais desativadas</string>
     <string name="daily_backup">Cópia de segurança diária </string>
     <string name="data_to_back_up">Dados para a cópia de segurança</string>
@@ -265,7 +264,6 @@
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_item_on_device">No dispositivo</string>
     <string name="drawer_item_personal_files">Ficheiros pessoais</string>
-    <string name="drawer_item_recently_modified">Modificados recentemente</string>
     <string name="drawer_item_shared">Partilhados</string>
     <string name="drawer_item_trashbin">Ficheiros eliminados</string>
     <string name="drawer_item_uploads_list">Envios</string>
@@ -363,7 +361,6 @@
     <string name="file_list_empty_headline_server_search">Sem resultados</string>
     <string name="file_list_empty_moving">Não está aqui nada. Pode adicionar uma pasta.</string>
     <string name="file_list_empty_on_device">Os ficheiros e as pastas que foram transferidos serão mostrados aqui.</string>
-    <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
     <string name="file_list_empty_search">Poderá estar numa pasta diferente?</string>
     <string name="file_list_empty_shared">Os ficheiros e as pastas que partilhou serão mostrados aqui.</string>
     <string name="file_list_empty_shared_headline">Ainda sem partilhas</string>
@@ -688,7 +685,6 @@
     <string name="select_one_template">Por favor, selecione um modelo</string>
     <string name="select_template">Seleccionar modelo</string>
     <string name="send">Enviar</string>
-    <string name="sendbutton_description">Botão de envio</string>
     <string name="set_as">Definir como</string>
     <string name="set_note">Definir nota</string>
     <string name="set_online_status">Estado on-line</string>

@@ -53,7 +53,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Ta bort uppgift</string>
     <string name="assistant_screen_empty_content_description">Försök att skicka ett meddelande för att få igång en konversation.</string>
     <string name="assistant_screen_empty_content_title">Hej! Vad kan jag hjälpa dig med idag?</string>
-    <string name="assistant_screen_select_task">Vänligen välj uppgift</string>
     <string name="assistant_screen_send_message">Skicka meddelande</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Öppna konversationslista</string>
     <string name="assistant_screen_task_create_fail_message">Ett fel uppstod när uppgiften skapades</string>
@@ -243,6 +242,8 @@
     <string name="could_not_retrieve_url">Kunde inte hämta URL</string>
     <string name="create">Skapa</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
+    <string name="create_end_to_end_encrypted_share">Dela länken</string>
+    <string name="create_end_to_end_encrypted_share_title">Delning av länkar med end-to-end-kryptering</string>
     <string name="create_link">Skapa länk</string>
     <string name="create_new">Ny</string>
     <string name="create_new_document">Nytt dokument</string>
@@ -251,7 +252,6 @@
     <string name="create_new_presentation">Ny presentation</string>
     <string name="create_new_spreadsheet">Nytt kalkylblad</string>
     <string name="create_rich_workspace">Lägg till mappbeskrivning</string>
-    <string name="creates_rich_workspace">Lägger till mappbeskrivning</string>
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="daily_backup">Daglig säkerhetskopiering</string>
     <string name="data_to_back_up">Data att säkerhetskopiera</string>
@@ -317,7 +317,6 @@
     <string name="drawer_item_notifications">Aviseringar</string>
     <string name="drawer_item_on_device">Filer på enheten</string>
     <string name="drawer_item_personal_files">Personliga filer</string>
-    <string name="drawer_item_recently_modified">Nyligen ändrad</string>
     <string name="drawer_item_shared">Delat</string>
     <string name="drawer_item_trashbin">Borttagna filer</string>
     <string name="drawer_item_uploads_list">Uppladdningar</string>
@@ -437,7 +436,6 @@
     <string name="file_list_empty_on_device">Nedladdade filer och mappar kommer att visas här.</string>
     <string name="file_list_empty_recent_files_description">Filer och mappar som du nyligen ändrat kommer att visas här.</string>
     <string name="file_list_empty_recent_files_headline">Inga nyligen ändrade filer</string>
-    <string name="file_list_empty_recently_modified">Hittade inga ändrade filer de senaste 7 dagarna</string>
     <string name="file_list_empty_search">Kanske finns den i en annan mapp?</string>
     <string name="file_list_empty_shared">Filer och mappar som du delar kommer visas här.</string>
     <string name="file_list_empty_shared_headline">Inget delat ännu</string>
@@ -558,6 +556,7 @@
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
+    <string name="internal_share_headline_end_to_end_encrypted">End-to-end-krypterade delningar</string>
     <string name="internal_shares">Interna delningar</string>
     <string name="internal_two_way_sync">Intern tvåvägssynk</string>
     <string name="internal_two_way_sync_not_yet">Inte än, synkroniseras snart</string>
@@ -848,7 +847,6 @@
     <string name="send">Skicka</string>
     <string name="send_copy_to">Skicka kopia till</string>
     <string name="send_share">Skicka delning</string>
-    <string name="sendbutton_description">Ikonen för Skicka-knapp</string>
     <string name="server_not_reachable">Kunde inte ladda innehåll</string>
     <string name="server_not_reachable_content">Den här enheten är troligen inte ansluten till internet</string>
     <string name="set_as">Sätt som</string>
@@ -890,7 +888,6 @@
     <string name="share_option_required">Välj minst ett delningsalternativ innan du fortsätter.</string>
     <string name="share_permission_can_edit">Kan ändra</string>
     <string name="share_permission_file_request">Filförfrågan</string>
-    <string name="share_permission_secure_file_drop">Säkert filinkast</string>
     <string name="share_permission_view_only">Skrivskyddat läge</string>
     <string name="share_permissions">Delningsbehörigheter</string>
     <string name="share_re_share_permission">Dela</string>

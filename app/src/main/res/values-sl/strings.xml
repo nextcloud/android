@@ -246,7 +246,6 @@
     <string name="drawer_item_notifications">Obvestila</string>
     <string name="drawer_item_on_device">Na napravi</string>
     <string name="drawer_item_personal_files">Osebne datoteke</string>
-    <string name="drawer_item_recently_modified">Nedavno spremenjeno</string>
     <string name="drawer_item_shared">V souporabi</string>
     <string name="drawer_item_trashbin">Izbrisane datoteke</string>
     <string name="drawer_item_uploads_list">Poslano</string>
@@ -338,7 +337,6 @@
     <string name="file_list_empty_on_device">Prejete datoteke in mape bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_recent_files_description">Nedavno spremenjene datoteke ali mape, bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_recent_files_headline">Ni nedavno spremenjenih datotek</string>
-    <string name="file_list_empty_recently_modified">Ni datotek, spremenjenih v zadnjih 7. dneh</string>
     <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
     <string name="file_list_empty_shared">Datoteke in mape v souporabi bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_shared_headline">Ni še datotek v souporabi</string>
@@ -658,7 +656,6 @@
     <string name="select_one_template">Izbor predloge</string>
     <string name="select_template">Izbor predloge</string>
     <string name="send">Pošlji</string>
-    <string name="sendbutton_description">Ikona gumba za pošiljanje</string>
     <string name="set_as">Nastavi kot</string>
     <string name="set_picture_as">Uporabi sliko kot</string>
     <string name="setup_e2e">Med nastavitvijo šifriranja E2E boste prejeli naključno 12-mestno besedno geslo, brez katerega na drugih napravah datotek ne bo mogoče odpreti. To geslo bo shranjeno izključno na tej napravi in ga bo mogoče ponovno prikazati na tem zaslonu. Priporočljivo ga je zabeležiti na varno mesto!</string>
@@ -687,7 +684,6 @@
     <string name="share_no_expiration_date_label">Nastavi datum preteka</string>
     <string name="share_no_password_title">Nastavi geslo</string>
     <string name="share_permission_can_edit">Lahko ureja</string>
-    <string name="share_permission_secure_file_drop">Varno pošiljanje daottek</string>
     <string name="share_permission_view_only">Le ogled</string>
     <string name="share_re_share_permission">Souporaba</string>
     <string name="share_read_permission">Branje</string>

@@ -211,7 +211,6 @@
     <string name="create_new_presentation">Prezentare nouă</string>
     <string name="create_new_spreadsheet">Foaie de calcul nouă</string>
     <string name="create_rich_workspace">Adăugați descrierea directorului</string>
-    <string name="creates_rich_workspace">Adăugă descrierea directorului</string>
     <string name="credentials_disabled">Autentificare dezactivată</string>
     <string name="daily_backup">Copie de rezervă zilnică</string>
     <string name="data_to_back_up">Date pentru copia de rezervă</string>
@@ -269,7 +268,6 @@
     <string name="drawer_item_notifications">Notificări</string>
     <string name="drawer_item_on_device">Pe dispozitiv</string>
     <string name="drawer_item_personal_files">Fișiere personale</string>
-    <string name="drawer_item_recently_modified">Modificate recent</string>
     <string name="drawer_item_shared">Partajate</string>
     <string name="drawer_item_trashbin">Fișiere șterse</string>
     <string name="drawer_item_uploads_list">Încărcări</string>
@@ -371,7 +369,6 @@
     <string name="file_list_empty_on_device">FIșierele și dosarele descărcate vor apărea aici</string>
     <string name="file_list_empty_recent_files_description">Fișierele și dosarele modificate recent vor fi afișate aici</string>
     <string name="file_list_empty_recent_files_headline">Niciun fișier modificat recent</string>
-    <string name="file_list_empty_recently_modified">Nu au fost găsite fișiere modificate în ultimele 7 zile</string>
     <string name="file_list_empty_search">Poate că este într-un alt dosar?</string>
     <string name="file_list_empty_shared">FIșierele și dosarele partajate vor apărea aici</string>
     <string name="file_list_empty_shared_headline">Nimic partajat încă</string>
@@ -700,7 +697,6 @@
     <string name="select_one_template">Te rugăm selectează un șablon</string>
     <string name="select_template">Selectează șablon</string>
     <string name="send">Trimite</string>
-    <string name="sendbutton_description">Pictograma butonului de trimite</string>
     <string name="set_as">Setează ca</string>
     <string name="set_picture_as">Folosește imaginea ca</string>
     <string name="share">Partajează</string>

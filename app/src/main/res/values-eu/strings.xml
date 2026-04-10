@@ -225,7 +225,6 @@
     <string name="create_new_presentation">Aurkezpen berria</string>
     <string name="create_new_spreadsheet">Kalkulu-orri berria</string>
     <string name="create_rich_workspace">Gehitu karpetaren deskribapena</string>
-    <string name="creates_rich_workspace">Karpetaren deskribapena gehitzen du</string>
     <string name="credentials_disabled">Kredentzialak desgaituta</string>
     <string name="daily_backup">Eguneko babeskopia</string>
     <string name="data_to_back_up">Babesteko datuak</string>
@@ -283,7 +282,6 @@
     <string name="drawer_item_notifications">Jakinarazpenak</string>
     <string name="drawer_item_on_device">Gailura</string>
     <string name="drawer_item_personal_files">Fitxategi pertsonalak</string>
-    <string name="drawer_item_recently_modified">Berriki aldatuak</string>
     <string name="drawer_item_shared">Partekatuta</string>
     <string name="drawer_item_trashbin">Ezabatutako fitxategiak</string>
     <string name="drawer_item_uploads_list">Kargak</string>
@@ -394,7 +392,6 @@
     <string name="file_list_empty_on_device">Deskargaturiko fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_recent_files_description">Azkenaldian aldatu dituzun fitxategi eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_recent_files_headline">Ez dago azkenaldian aldatutako fitxategirik</string>
-    <string name="file_list_empty_recently_modified">Ez da aurkitu azken 7 egunetan aldatu den fitxategirik</string>
     <string name="file_list_empty_search">Agian beste karpeta batean dago?</string>
     <string name="file_list_empty_shared">Partekatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_shared_headline">Oraindik ez dago ezer partekatuta</string>
@@ -778,7 +775,6 @@
     <string name="select_template">Hautatu txantiloia</string>
     <string name="send">Bidali</string>
     <string name="send_share">Bidali partekatzea</string>
-    <string name="sendbutton_description">Bidali botoiaren ikonoa</string>
     <string name="set_as">Ezarri honela</string>
     <string name="set_note">Ezarri oharra</string>
     <string name="set_picture_as">Erabili irudia honela</string>
@@ -812,7 +808,6 @@
     <string name="share_not_allowed_when_file_drop">Ez da birpartekatzea onartzen fitxategiak seguruen jariotzea erabiltzean</string>
     <string name="share_permission_can_edit">Editatu dezake</string>
     <string name="share_permission_file_request">Fitxategi eskaera</string>
-    <string name="share_permission_secure_file_drop">Fitxategi-jartze segurua</string>
     <string name="share_permission_view_only">Ikusi soilik</string>
     <string name="share_permissions">Partekatu baimenak</string>
     <string name="share_re_share_permission">Partekatu</string>
