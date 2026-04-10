@@ -17,6 +17,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.annotation.VisibleForTesting
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -32,16 +33,20 @@ import com.nextcloud.client.jobs.NotificationWork
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.BuildHelper
+import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationsLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.notifications.DeleteAllNotificationsRemoteOperation
+import com.owncloud.android.lib.resources.notifications.DeleteNotificationRemoteOperation
 import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOperation
+import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.adapter.NotificationListAdapter
+import com.owncloud.android.ui.asynctasks.NotificationExecuteActionTask
 import com.owncloud.android.ui.notifications.NotificationsContract
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PushUtils
@@ -56,6 +61,7 @@ import javax.inject.Inject
 class NotificationsFragment :
     Fragment(),
     NotificationsContract.View,
+    NotificationsAdapterItemClick,
     Injectable {
 
     private var binding: NotificationsLayoutBinding? = null
@@ -68,6 +74,8 @@ class NotificationsFragment :
     @Inject lateinit var accountManager: UserAccountManager
 
     @Inject lateinit var preferences: AppPreferences
+
+    private var client: NextcloudClient? = null
 
     // region Lifecycle
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -84,6 +92,7 @@ class NotificationsFragment :
                 showError()
                 return@launch
             }
+            this@NotificationsFragment.client = client
 
             withContext(Dispatchers.Main) {
                 setupMenu(client)
@@ -195,11 +204,11 @@ class NotificationsFragment :
     // region Data loading
     private fun fetchAndSetData(client: NextcloudClient) {
         lifecycleScope.launch(Dispatchers.IO) {
-            initializeAdapter(client)
+            initializeAdapter()
             val result = GetNotificationsRemoteOperation().execute(client)
             withContext(Dispatchers.Main) {
                 if (result?.isSuccess == true && result.resultData != null) {
-                    populateList(result.resultData ?: listOf(), client)
+                    populateList(result.resultData ?: listOf())
                 } else {
                     try {
                         Log_OC.d(TAG, result?.logMessage)
@@ -215,9 +224,9 @@ class NotificationsFragment :
         }
     }
 
-    private fun initializeAdapter(client: NextcloudClient) {
+    private fun initializeAdapter() {
         if (adapter == null) {
-            adapter = NotificationListAdapter(client, this@NotificationsFragment, viewThemeUtils)
+            adapter = NotificationListAdapter(this@NotificationsFragment, viewThemeUtils, this)
             binding?.list?.adapter = adapter
         }
     }
@@ -229,8 +238,8 @@ class NotificationsFragment :
     // endregion
 
     // region View state
-    fun populateList(notifications: List<Notification>, client: NextcloudClient) {
-        initializeAdapter(client)
+    fun populateList(notifications: List<Notification>) {
+        initializeAdapter()
         adapter?.setNotificationItems(notifications)
         binding?.run {
             loadingContent.visibility = View.GONE
@@ -338,6 +347,47 @@ class NotificationsFragment :
             adapter?.bindButtons(holder, notification)
             DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.notification_action_failed))
         }
+    }
+
+    override fun onBindIcon(imageView: ImageView, url: String) {
+        GlideHelper.loadIntoImageView(
+            requireContext(),
+            client,
+            url,
+            imageView,
+            R.drawable.ic_notification,
+            false
+        )
+    }
+
+    override fun deleteNotification(id: Int) {
+        val client = client ?: run {
+            Log_OC.e(TAG, "client not initialized")
+            return
+        }
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val result =
+                DeleteNotificationRemoteOperation(id).execute(
+                    client
+                )
+            withContext(Dispatchers.Main) {
+                onRemovedNotification(result?.isSuccess == true, client)
+            }
+        }
+    }
+
+    override fun onActionClick(
+        holder: NotificationListAdapter.NotificationViewHolder,
+        action: Action,
+        notification: Notification
+    ) {
+        val client = client ?: run {
+            Log_OC.e(TAG, "client not initialized")
+            return
+        }
+
+        NotificationExecuteActionTask(client, holder, notification, this).execute(action)
     }
     // endregion
 

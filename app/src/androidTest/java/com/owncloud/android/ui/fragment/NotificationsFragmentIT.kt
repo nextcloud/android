@@ -8,14 +8,12 @@
  */
 package com.owncloud.android.ui.fragment
 
-import android.net.Uri
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.platform.app.InstrumentationRegistry
-import com.nextcloud.common.NextcloudClient
 import com.nextcloud.test.GrantStoragePermissionRule.Companion.grant
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.notifications.models.Action
@@ -40,15 +38,6 @@ class NotificationsFragmentIT : AbstractIT() {
         val cal = GregorianCalendar()
         cal.set(2005, 4, 17, 10, 35, 30)
         return cal.time
-    }
-
-    private val testClient: NextcloudClient by lazy {
-        NextcloudClient(
-            Uri.parse("https://cloud.example.com"),
-            "testuser",
-            "Basic dXNlcjpwYXNz",
-            targetContext
-        )
     }
 
     private fun buildNotificationNoActions(): Notification = Notification(
@@ -135,7 +124,7 @@ class NotificationsFragmentIT : AbstractIT() {
         val intent = NavigatorActivity.intent(targetContext, NavigatorScreen.Notifications)
         ActivityScenario.launch<NavigatorActivity>(intent).use { scenario ->
             scenario.onActivity { sut ->
-                findFragment(sut)?.populateList(ArrayList(), testClient)
+                findFragment(sut)?.populateList(ArrayList())
             }
 
             InstrumentationRegistry.getInstrumentation().waitForIdleSync()
@@ -155,7 +144,7 @@ class NotificationsFragmentIT : AbstractIT() {
         val intent = NavigatorActivity.intent(targetContext, NavigatorScreen.Notifications)
         ActivityScenario.launch<NavigatorActivity>(intent).use { scenario ->
             scenario.onActivity { sut ->
-                findFragment(sut)?.populateList(buildMockNotifications(), testClient)
+                findFragment(sut)?.populateList(buildMockNotifications())
             }
 
             val screenShotName = createName(testClassName + "_" + "showNotifications", "")

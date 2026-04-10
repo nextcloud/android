@@ -29,32 +29,25 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.core.view.size
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
-import com.nextcloud.common.NextcloudClient
-import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationListItemBinding
-import com.owncloud.android.lib.resources.notifications.DeleteNotificationRemoteOperation
 import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.asynctasks.NotificationExecuteActionTask
+import com.owncloud.android.ui.fragment.notifications.NotificationsAdapterItemClick
 import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @Suppress("TooManyFunctions")
 class NotificationListAdapter(
-    private val client: NextcloudClient,
     private val fragment: NotificationsFragment,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val itemClick: NotificationsAdapterItemClick
 ) : RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder>() {
 
     private val styleSpanBold = StyleSpan(Typeface.BOLD)
@@ -138,15 +131,7 @@ class NotificationListAdapter(
 
     private fun bindIcon(holder: NotificationViewHolder, notification: Notification) {
         if (notification.getIcon().isNullOrEmpty()) return
-
-        GlideHelper.loadIntoImageView(
-            fragment.requireContext(),
-            client,
-            notification.getIcon(),
-            holder.binding.icon,
-            R.drawable.ic_notification,
-            false
-        )
+        itemClick.onBindIcon(holder.binding.icon, notification.getIcon())
     }
 
     private fun colorViewHolder(holder: NotificationViewHolder) {
@@ -162,18 +147,9 @@ class NotificationListAdapter(
     // endregion
 
     // region Button binding
-
     fun bindButtons(holder: NotificationViewHolder, notification: Notification) {
         holder.binding.dismiss.setOnClickListener {
-            fragment.lifecycleScope.launch(Dispatchers.IO) {
-                val result =
-                    DeleteNotificationRemoteOperation(notification.notificationId).execute(
-                        client
-                    )
-                withContext(Dispatchers.Main) {
-                    fragment.onRemovedNotification(result?.isSuccess == true, client)
-                }
-            }
+            itemClick.deleteNotification(notification.notificationId)
         }
 
         val actions = notification.getActions()
@@ -272,7 +248,7 @@ class NotificationListAdapter(
                 Intent(Intent.ACTION_VIEW).apply { data = action.link?.toUri() }
             )
         } else {
-            NotificationExecuteActionTask(client, holder, notification, fragment).execute(action)
+            itemClick.onActionClick(holder, action, notification)
         }
     }
 
