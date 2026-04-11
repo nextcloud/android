@@ -113,6 +113,8 @@
     <string name="authenticator_activity_no_web_browser_found">Aucun navigateur n\'est disponible pour ouvrir ce lien.</string>
     <string name="authenticator_activity_please_complete_login_process">Veuillez finaliser la connexion dans votre navigateur</string>
     <string name="auto_upload_battery_saver_mode_warning">Le téléversement automatique est suspendu, car l\'économiseur de batterie est activé.</string>
+    <string name="auto_upload_delete_dialog_description">Cette action supprimera le dossier et la configuration de téléchargement automatique. Tout téléchargement inachevé sera annulé.</string>
+    <string name="auto_upload_delete_dialog_title">Supprimer le dossier de téléchargement automatique ?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
     <string name="auto_upload_low_battery_warning_info">Batterie faible, le téléversement peut prendre plus de temps</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
