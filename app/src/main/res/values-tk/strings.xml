@@ -192,7 +192,6 @@
     <string name="drawer_item_home">Baş sahypa</string>
     <string name="drawer_item_notifications">Duýduryşlar</string>
     <string name="drawer_item_on_device">Enjamda</string>
-    <string name="drawer_item_recently_modified">Ýakynda üýtgedildi</string>
     <string name="drawer_item_shared">Paýlaşyldy</string>
     <string name="drawer_item_trashbin">Pozulan faýllar</string>
     <string name="drawer_item_uploads_list">Ýüklenmeler</string>
@@ -264,7 +263,6 @@
     <string name="file_list_empty_headline_server_search"> Netije ýok</string>
     <string name="file_list_empty_moving">Bu ýerde hiç zat ýok. Bukja goşup bilersiňiz</string>
     <string name="file_list_empty_on_device">ýüklenen faýllar we bukjalar şu ýerde görkeziler.</string>
-    <string name="file_list_empty_recently_modified">Soňky 7 günüň içinde üýtgedilen faýl tapylmady</string>
     <string name="file_list_empty_search"> Belki başga bir bukjada bar? </string>
     <string name="file_list_empty_shared">Paýlaşýan faýllaryňyz we bukjalaryňyz şu ýerde görkeziler.</string>
     <string name="file_list_empty_shared_headline">Entek hiç zat paýlaşylmady</string>
@@ -511,7 +509,6 @@
     <string name="select_one_template">Bir şablon saýlaň</string>
     <string name="select_template">Şablon saýlaň</string>
     <string name="send">Iber</string>
-    <string name="sendbutton_description">\"Ibermek\" düwmesiniň nyşanyny</string>
     <string name="set_as">Hökmünde ornaşdyryň</string>
     <string name="set_online_status">Onlaýn ýagdaýy</string>
     <string name="set_picture_as">Suraty ulanmak hökmünde</string>

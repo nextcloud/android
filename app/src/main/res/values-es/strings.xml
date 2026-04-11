@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Intente enviar un mensaje para iniciar una conversación.</string>
     <string name="assistant_screen_empty_content_title">¡Hola!, ¿En qué te puedo ayudar hoy?</string>
     <string name="assistant_screen_retry_response_generation">Reintentar la generación de respuesta</string>
-    <string name="assistant_screen_select_task">Selecciona una tarea</string>
     <string name="assistant_screen_send_message">Enviar mensaje</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Abrir la lista de chats</string>
     <string name="assistant_screen_task_create_fail_message">Ocurrió un error al crear la tarea</string>
@@ -245,6 +244,8 @@
     <string name="could_not_retrieve_url">No se ha podido recuperar la URL</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
+    <string name="create_end_to_end_encrypted_share">Compartir enlace</string>
+    <string name="create_end_to_end_encrypted_share_title">Enlaces cifrados de extremo a extremo compartidos</string>
     <string name="create_link">Crear enlace</string>
     <string name="create_new">Nuevo</string>
     <string name="create_new_document">Nuevo documento</string>
@@ -253,7 +254,6 @@
     <string name="create_new_presentation">Nueva presentación</string>
     <string name="create_new_spreadsheet">Nueva hoja de cálculo</string>
     <string name="create_rich_workspace">Añadir una descripción a la carpeta</string>
-    <string name="creates_rich_workspace">Añade una descripción a la carpeta</string>
     <string name="credentials_disabled">Credenciales desactivadas</string>
     <string name="daily_backup">Copia de seguridad diaria</string>
     <string name="data_to_back_up">Datos a respaldar</string>
@@ -320,7 +320,6 @@
     <string name="drawer_item_on_device">En el dispositivo</string>
     <string name="drawer_item_personal_files">Archivos personales</string>
     <string name="drawer_item_recent_files">Archivos recientes</string>
-    <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Archivos eliminados</string>
     <string name="drawer_item_uploads_list">Subidas</string>
@@ -441,7 +440,6 @@
     <string name="file_list_empty_on_device">Los archivos y carpetas que descargues aparecerán aquí.</string>
     <string name="file_list_empty_recent_files_description">Los archivos y carpetas que ha modificado recientemente aparecerán aquí.</string>
     <string name="file_list_empty_recent_files_headline">No hay archivos modificados recientemente.</string>
-    <string name="file_list_empty_recently_modified">No se han encontrado archivos modificados en los últimos 7 días</string>
     <string name="file_list_empty_search">¿Quizás está en una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que compartas aparecerán aquí.</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
@@ -562,6 +560,7 @@
     <string name="instant_upload_existing">Subir también archivos existentes</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Compartidos los recursos de extremo a extremo</string>
     <string name="internal_shares">Recursos compartidos internos</string>
     <string name="internal_two_way_sync">Sincronización interna bidireccional</string>
     <string name="internal_two_way_sync_not_yet">Todavía no, se sincronizará pronto</string>
@@ -854,7 +853,6 @@
     <string name="send">Mandar</string>
     <string name="send_copy_to">Enviar copia a</string>
     <string name="send_share">Enviar recurso compartido</string>
-    <string name="sendbutton_description">Icono del botón de enviar</string>
     <string name="server_not_reachable">No se pudo cargar el contenido</string>
     <string name="server_not_reachable_content">El dispositivo parece no estar conectado a la internet</string>
     <string name="set_as">Establecer como</string>
@@ -896,7 +894,6 @@
     <string name="share_option_required">Por favor, seleccione al menos una opción de uso compartido antes de continuar.</string>
     <string name="share_permission_can_edit">Puede editar</string>
     <string name="share_permission_file_request">Solicitud de archivo</string>
-    <string name="share_permission_secure_file_drop">Entrega de archivos segura</string>
     <string name="share_permission_view_only">Solo lectura</string>
     <string name="share_permissions">Permisos del recurso compartido</string>
     <string name="share_re_share_permission">Compartir</string>

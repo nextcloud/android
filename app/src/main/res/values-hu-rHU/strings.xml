@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Küldjön egy üzenetet egy beszélgetés elindításához.</string>
     <string name="assistant_screen_empty_content_title">Üdvözlöm! Mit tehetek ma Önért?</string>
     <string name="assistant_screen_retry_response_generation">Újrapróbálkozás a válasz előállításával</string>
-    <string name="assistant_screen_select_task">Válasszon feladatot</string>
     <string name="assistant_screen_send_message">Üzenet küldése</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Beszélgetések megnyitása</string>
     <string name="assistant_screen_task_create_fail_message">Hiba történt egy feladat létrehozása során</string>
@@ -253,7 +252,6 @@
     <string name="create_new_presentation">Új bemutató</string>
     <string name="create_new_spreadsheet">Új munkafüzet</string>
     <string name="create_rich_workspace">Mappaleírás hozzáadása</string>
-    <string name="creates_rich_workspace">Mappaleírást ad hozzá</string>
     <string name="credentials_disabled">Hitelesítő adatok letiltva</string>
     <string name="daily_backup">Napi biztonsági mentés</string>
     <string name="data_to_back_up">Mentendő adatok</string>
@@ -320,7 +318,6 @@
     <string name="drawer_item_on_device">Az eszközön</string>
     <string name="drawer_item_personal_files">Személyes fájlok</string>
     <string name="drawer_item_recent_files">Legutóbbi fájlok</string>
-    <string name="drawer_item_recently_modified">Utoljára módosítva</string>
     <string name="drawer_item_shared">Megosztott</string>
     <string name="drawer_item_trashbin">Törölt fájlok</string>
     <string name="drawer_item_uploads_list">Feltöltések</string>
@@ -441,7 +438,6 @@
     <string name="file_list_empty_on_device">A letöltött fájlok és mappák itt fognak megjelenni.</string>
     <string name="file_list_empty_recent_files_description">Az Ön által módosított fájlok és mappák itt jelennek meg.</string>
     <string name="file_list_empty_recent_files_headline">Nincs a közelmúltban módosított fájl</string>
-    <string name="file_list_empty_recently_modified">Nem található az utóbbi 7 napban módosított fájl</string>
     <string name="file_list_empty_search">Lehet, hogy másik mappában található?</string>
     <string name="file_list_empty_shared">Az Ön által megosztott fájlok és mappák itt jelennek meg.</string>
     <string name="file_list_empty_shared_headline">Még semmi sincs megosztva</string>
@@ -854,7 +850,6 @@
     <string name="send">Küldés</string>
     <string name="send_copy_to">Másolat küldése…</string>
     <string name="send_share">Megosztás küldése</string>
-    <string name="sendbutton_description">Küldés gomb ikonja</string>
     <string name="server_not_reachable">A tartalom nem tölthető be</string>
     <string name="server_not_reachable_content">Az eszköz valószínűleg nem kapcsolódik az internethez</string>
     <string name="set_as">Beállítás…</string>
@@ -896,7 +891,6 @@
     <string name="share_option_required">A folytatás előtt válasszon legalább egy megosztási lehetőséget.</string>
     <string name="share_permission_can_edit">Szerkesztheti</string>
     <string name="share_permission_file_request">Fájlkérés</string>
-    <string name="share_permission_secure_file_drop">Biztonságos fájllerakat</string>
     <string name="share_permission_view_only">Csak megtekintés</string>
     <string name="share_permissions">Megosztási jogosultságok</string>
     <string name="share_re_share_permission">Megosztás</string>

@@ -194,7 +194,6 @@
     <string name="create_new_presentation">Kinnig nevez</string>
     <string name="create_new_spreadsheet">Taolenner nevez</string>
     <string name="create_rich_workspace">Ouzhpennañ un deskrivadur evit ar renkell</string>
-    <string name="creates_rich_workspace">Ouzhpennañ a ra un deskrivadur evit ar renkell</string>
     <string name="credentials_disabled">Diweredekaet eo ar c\'hredadurioù</string>
     <string name="daily_backup">Savete pemdeziek</string>
     <string name="data_to_back_up">Roadennoù da vezañ saveteet</string>
@@ -251,7 +250,6 @@
     <string name="drawer_item_notifications">Kemennadennoù</string>
     <string name="drawer_item_on_device">War ar benveg</string>
     <string name="drawer_item_personal_files">Restroù personel</string>
-    <string name="drawer_item_recently_modified">Kemmet da ziwezhañ</string>
     <string name="drawer_item_shared">Rannet</string>
     <string name="drawer_item_trashbin">Restroù dilamet</string>
     <string name="drawer_item_uploads_list">Enporzhiadennoù</string>
@@ -345,7 +343,6 @@
     <string name="file_list_empty_headline_server_search">Disoc\'h ebet</string>
     <string name="file_list_empty_moving">Netra amañ. Gallout a rit ouzhpennañ ur renkell.</string>
     <string name="file_list_empty_on_device">Amaén e vo kavet ar testroù ha renkelloù pellgarget.</string>
-    <string name="file_list_empty_recently_modified">N\'eus bet kavet restr ebet bet kemmet er 7 deiz divezhañ</string>
     <string name="file_list_empty_search">Mateze emañ en ur renkell all ?</string>
     <string name="file_list_empty_shared">Amañ e vo kavet ar restroù ha renkelloù rannet ganeoc\'h</string>
     <string name="file_list_empty_shared_headline">N\'eus bet rannet netra evit poent</string>
@@ -591,7 +588,6 @@
     <string name="select_all">Dibab pep tra</string>
     <string name="select_template">Choaz ur stumm skouer</string>
     <string name="send">Kas</string>
-    <string name="sendbutton_description">Kas skeudenn ar bouton</string>
     <string name="set_as">Lakaat evel</string>
     <string name="set_picture_as">Implij skeudenn evel</string>
     <string name="share">Rannan</string>

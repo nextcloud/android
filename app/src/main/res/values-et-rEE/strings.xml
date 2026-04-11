@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Vestluse algatamiseks proovi saata üks sõnum.</string>
     <string name="assistant_screen_empty_content_title">Hei! Kuidas saan sind täna aidata?</string>
     <string name="assistant_screen_retry_response_generation">Proovi uuesti vastuste koostamist</string>
-    <string name="assistant_screen_select_task">Palun vali ülesanne</string>
     <string name="assistant_screen_send_message">Saada sõnum</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Ava vestluste loend</string>
     <string name="assistant_screen_task_create_fail_message">Ülesande loomisel tekkis viga</string>
@@ -245,6 +244,8 @@
     <string name="could_not_retrieve_url">Võrguaadressi laadimine ei õnnestu</string>
     <string name="create">Loo</string>
     <string name="create_dir_fail_msg">Ei suuda kausta luua</string>
+    <string name="create_end_to_end_encrypted_share">Jagamislink</string>
+    <string name="create_end_to_end_encrypted_share_title">Läbivalt krüptitud jagamislingid</string>
     <string name="create_link">Loo link</string>
     <string name="create_new">Uus</string>
     <string name="create_new_document">Uus dokument</string>
@@ -253,7 +254,6 @@
     <string name="create_new_presentation">Uus esitlus</string>
     <string name="create_new_spreadsheet">Uus arvutustabel</string>
     <string name="create_rich_workspace">Lisa kausta kirjeldus</string>
-    <string name="creates_rich_workspace">Lisab kausta kirjelduse</string>
     <string name="credentials_disabled">Täiendav autentimine on lülitatud välja</string>
     <string name="daily_backup">Igapäevane varundus</string>
     <string name="data_to_back_up">Varundatavad andmed</string>
@@ -319,7 +319,6 @@
     <string name="drawer_item_notifications">Märguanded</string>
     <string name="drawer_item_on_device">Seadmes</string>
     <string name="drawer_item_personal_files">Isiklikud failid</string>
-    <string name="drawer_item_recently_modified">Viimati muudetud</string>
     <string name="drawer_item_shared">Jagatud</string>
     <string name="drawer_item_trashbin">Kustutatud failid</string>
     <string name="drawer_item_uploads_list">Üleslaadimised</string>
@@ -440,7 +439,6 @@
     <string name="file_list_empty_on_device">Allalaaditud failid ja kaustad ilmuvad siia.</string>
     <string name="file_list_empty_recent_files_description">Failid ja kaustad, mida oled hiljuti muutnud, ilmuvad siia.</string>
     <string name="file_list_empty_recent_files_headline">Hiljuti muudetud faile pole.</string>
-    <string name="file_list_empty_recently_modified">Viimase 7 päeva jooksul muudetud faile ei leidu</string>
     <string name="file_list_empty_search">Võibolla on see teises kaustas?</string>
     <string name="file_list_empty_shared">Sinu poolt jagatud failid ja kaustad saavad olema siin nähtavad</string>
     <string name="file_list_empty_shared_headline">Midagi pole veel jagatud</string>
@@ -561,6 +559,7 @@
     <string name="instant_upload_existing">Laadi üles ka olemasolevad failid</string>
     <string name="instant_upload_on_charging">Laadi üles ainult aku laadimise ajal</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Läbivalt krüptitud jaosmeedia</string>
     <string name="internal_shares">Sisemised jaoskaustad</string>
     <string name="internal_two_way_sync">Sisemine kahepoolne sünkroonimine</string>
     <string name="internal_two_way_sync_not_yet">Veel mitte, aga varsti saab sünkroonitud</string>
@@ -853,7 +852,6 @@
     <string name="send">Saada</string>
     <string name="send_copy_to">Saada koopia asukohta</string>
     <string name="send_share">Saada jaosmeediat</string>
-    <string name="sendbutton_description">Saatmisnupu ikoon</string>
     <string name="server_not_reachable">Sisu laadimine ei õnnestunud</string>
     <string name="server_not_reachable_content">Seadmes ilmselt puudub internetiühendus</string>
     <string name="set_as">Määra kui</string>
@@ -895,7 +893,6 @@
     <string name="share_option_required">Enne jätkamist palun vali vähemalt üks jagamisvalik.</string>
     <string name="share_permission_can_edit">Võib muuta</string>
     <string name="share_permission_file_request">Failipäring</string>
-    <string name="share_permission_secure_file_drop">Turvaline failiedastus</string>
     <string name="share_permission_view_only">Ainult vaatamine</string>
     <string name="share_permissions">Jagamisõigused</string>
     <string name="share_re_share_permission">Jagamine</string>

@@ -178,7 +178,6 @@
     <string name="create_new_presentation">Presentatzione noa</string>
     <string name="create_new_spreadsheet">Fògiu eletrònicu nou</string>
     <string name="create_rich_workspace">Agiunghe una descritzione de sa cartella</string>
-    <string name="creates_rich_workspace">Agiunghet una descritzione de sa cartella</string>
     <string name="credentials_disabled">Credentziales disativadas</string>
     <string name="default_credentials_wrong">Credentziales isballiadas</string>
     <string name="delete_account">Boga·nche su contu</string>
@@ -219,7 +218,6 @@
     <string name="drawer_item_notifications">Notìficas</string>
     <string name="drawer_item_on_device">In su dispositivu</string>
     <string name="drawer_item_personal_files">Archìvios personales</string>
-    <string name="drawer_item_recently_modified">Modificadas pagu ora</string>
     <string name="drawer_item_shared">Cumpartziduras</string>
     <string name="drawer_item_trashbin">Archìvios cantzellados</string>
     <string name="drawer_item_uploads_list">Carrigamentos</string>
@@ -300,7 +298,6 @@
     <string name="file_list_empty_on_device">Is cartellas e is archìvios iscarrigados ant a aparèssere inoghe.</string>
     <string name="file_list_empty_recent_files_description">Is cartellas e is archìvios chi apas modificadu de reghente ant a èssere mustrados inoghe.</string>
     <string name="file_list_empty_recent_files_headline">Nissunu archìviu modificadu de reghente</string>
-    <string name="file_list_empty_recently_modified">Perunu archìviu modificadu in is ùrtimas 7 dies agatadu</string>
     <string name="file_list_empty_search">Forsis est in un\'àtera cartella?</string>
     <string name="file_list_empty_shared">Is cartellas e is archìvios chi cumpartzis ant a aparèssere inoghe.</string>
     <string name="file_list_empty_shared_headline">Ancora peruna cumpartzidura</string>
@@ -582,7 +579,6 @@
     <string name="select_one_template">Sèbera unu tema</string>
     <string name="select_template">Seletziona modellu</string>
     <string name="send">Imbia</string>
-    <string name="sendbutton_description">Imbia s\'icona de su butone</string>
     <string name="set_as">Cunfigura comente</string>
     <string name="set_online_status">Istadu in lìnia</string>
     <string name="set_picture_as">Imprea immàgine comente</string>

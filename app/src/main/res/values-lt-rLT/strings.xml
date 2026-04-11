@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Pabandykite išsiųsti žinutę, kad pradėtumėte pokalbį.</string>
     <string name="assistant_screen_empty_content_title">Sveiki! Kuo šiandien galiu jums padėti?</string>
     <string name="assistant_screen_retry_response_generation">Pakartotinio bandymo atsakymo generavimas</string>
-    <string name="assistant_screen_select_task">Pasirinkite užduotį</string>
     <string name="assistant_screen_send_message">Siųsti žinutę</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Atidaryti pokalbių sąrašą
  </string>
@@ -256,7 +255,6 @@
     <string name="create_new_presentation">Nauja pateiktis</string>
     <string name="create_new_spreadsheet">Nauja skaičiuoklė</string>
     <string name="create_rich_workspace">Pridėti aplanko aprašą</string>
-    <string name="creates_rich_workspace">Prideda aplanko aprašą</string>
     <string name="credentials_disabled">Prisijungimo duomenys išjungti</string>
     <string name="daily_backup">Kasdienės atsarginės kopijos</string>
     <string name="data_to_back_up">Duomenys, kurių atsarginę kopiją daryti</string>
@@ -323,7 +321,6 @@
     <string name="drawer_item_on_device">Įrenginyje</string>
     <string name="drawer_item_personal_files">Asmeniniai failai</string>
     <string name="drawer_item_recent_files">Naujausi failai</string>
-    <string name="drawer_item_recently_modified">Paskiausiai modifikuoti</string>
     <string name="drawer_item_shared">Bendrinami</string>
     <string name="drawer_item_trashbin">Ištrinti failai</string>
     <string name="drawer_item_uploads_list">Įkėlimai</string>
@@ -445,7 +442,6 @@
     <string name="file_list_empty_on_device">Čia bus rodomi parsiųsti failai ir aplankai.</string>
     <string name="file_list_empty_recent_files_description">Čia bus rodomi neseniai modifikuoti failai ir aplankai.</string>
     <string name="file_list_empty_recent_files_headline">Nėra jokių paskiausiai modifikuotų failų</string>
-    <string name="file_list_empty_recently_modified">Nerasta jokių per paskutines 7 dienas modifikuotų failų.</string>
     <string name="file_list_empty_search">Gal tai yra kitame aplanke?</string>
     <string name="file_list_empty_shared">Čia bus rodomi bendrinami failai ir aplankai.</string>
     <string name="file_list_empty_shared_headline">Kol kas nieko nėra bendrinama</string>
@@ -860,7 +856,6 @@
     <string name="send">Siųsti</string>
     <string name="send_copy_to">Siųsti kopiją į</string>
     <string name="send_share">Siųsti pasidalinimą</string>
-    <string name="sendbutton_description">Siuntimo mygtuko priktograma</string>
     <string name="server_not_reachable">Nepavyko įkelti turinio</string>
     <string name="server_not_reachable_content">Įrenginys greičiausiai neprijungtas prie interneto</string>
     <string name="set_as">Nustatyti kaip</string>
@@ -902,7 +897,6 @@
     <string name="share_option_required">Prieš tęsdami pasirinkite bent vieną bendrinimo parinktį.</string>
     <string name="share_permission_can_edit">Galima redaguoti</string>
     <string name="share_permission_file_request">Failų įkėlimui</string>
-    <string name="share_permission_secure_file_drop">Saugus failų įkėlimas</string>
     <string name="share_permission_view_only">Tik peržiūrėti</string>
     <string name="share_permissions">Bendrinti leidimus</string>
     <string name="share_re_share_permission">Bendrinti</string>

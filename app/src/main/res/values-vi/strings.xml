@@ -229,7 +229,6 @@
     <string name="drawer_item_home">Trang nhất</string>
     <string name="drawer_item_notifications">Thông báo</string>
     <string name="drawer_item_on_device">Trên thiết bị</string>
-    <string name="drawer_item_recently_modified">Mới sửa</string>
     <string name="drawer_item_shared">Chia sẻ</string>
     <string name="drawer_item_trashbin">File đã bị xóa</string>
     <string name="drawer_item_uploads_list">Tải lên</string>
@@ -314,7 +313,6 @@
     <string name="file_list_empty_on_device">Các tập tin và thư mục đã tải xuống sẽ hiển thị ở đây.</string>
     <string name="file_list_empty_recent_files_description">Các tập tin và thư mục bạn sửa đổi gần đây sẽ hiển thị ở đây.</string>
     <string name="file_list_empty_recent_files_headline">Không có tập tin được sửa đổi gần đây</string>
-    <string name="file_list_empty_recently_modified">Không tìm thấy tệp nào được sửa đổi trong 7 ngày qua</string>
     <string name="file_list_empty_search">Có lẽ nó trong một thư mục khác?</string>
     <string name="file_list_empty_shared">Các tệp và thư mục bạn chia sẻ sẽ hiển thị ở đây.</string>
     <string name="file_list_empty_shared_headline">Chưa có gì được chia sẻ</string>
@@ -600,7 +598,6 @@
     <string name="select_one_template">Vui lòng chọn một mẫu</string>
     <string name="select_template">Chon mẫu</string>
     <string name="send">Gửi</string>
-    <string name="sendbutton_description">Biểu tượng nút gửi</string>
     <string name="set_as">Đặt như</string>
     <string name="set_online_status">Trạng thái trực tuyến</string>
     <string name="set_picture_as">Dùng hình ảnh như</string>
