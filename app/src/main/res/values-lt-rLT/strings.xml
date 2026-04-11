@@ -115,6 +115,8 @@
  </string>
     <string name="authenticator_activity_please_complete_login_process">Prašome užbaikite prisijungimo procesą savo naršyklėje</string>
     <string name="auto_upload_battery_saver_mode_warning">Automatinis įkėlimas pristabdytas, nes įjungtas akumuliatoriaus tausojimo režimas.</string>
+    <string name="auto_upload_delete_dialog_description">Tai pašalins aplanką ir automatinio įkėlimo konfigūraciją. Visi nebaigti įkėlimai bus atšaukti.</string>
+    <string name="auto_upload_delete_dialog_title">Ištrinti automatinio įkėlimo aplanką?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">saugomi originaliame aplanke, nes jis yra tik skaitomas</string>
     <string name="auto_upload_low_battery_warning_info">Išsikrovęs akumuliatorius, įkėlimas gali užtrukti ilgiau</string>
     <string name="auto_upload_on_wifi">Įkelti tik esant Wi-Fi prisijungimui.</string>
@@ -247,6 +249,8 @@
     <string name="could_not_retrieve_url">Nepavyko nuskaityti URL</string>
     <string name="create">Sukurti</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
+    <string name="create_end_to_end_encrypted_share">Nuorodos dalijimasis</string>
+    <string name="create_end_to_end_encrypted_share_title">Ištisinio šifravimo nuorodų bendrinimas</string>
     <string name="create_link">Sukurti nuorodą</string>
     <string name="create_new">Nauja</string>
     <string name="create_new_document">Naujas dokumentas</string>
@@ -563,6 +567,8 @@
     <string name="instant_upload_existing">Taip pat įkelkite esamus failus</string>
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_description_end_to_end_encrypted">Bendrinimo gavėjai visada turi prieigą prie viso užšifruoto aplanko. Bendrinti galima tik su paskyromis, kuriose jau nustatytas ištisinis šifravimas.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Ištisinio šifravimo nuorodos</string>
     <string name="internal_shares">Vidiniai bendrinimai</string>
     <string name="internal_two_way_sync">Vidinis dvipusis sinchronizavimas</string>
     <string name="internal_two_way_sync_not_yet">Dar ne, netrukus bus sinchronizuota</string>
