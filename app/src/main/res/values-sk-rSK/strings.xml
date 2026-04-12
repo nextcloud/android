@@ -48,6 +48,7 @@
     <string name="assistant_output_generation_warning_text">Výstup zobrazený tu je generovaný umelou inteligenciou. Uistite sa, že vždy dôkladne skontrolujete.</string>
     <string name="assistant_screen_chat_create_error">Nepodarilo sa odoslať správu</string>
     <string name="assistant_screen_chat_fetch_error">Nepodarilo sa načítať správy chatu</string>
+    <string name="assistant_screen_chat_generate_error">Nepodarilo sa vygenerovať odpoveď</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Vrátiť sa na stránku asistenta</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Naozaj chcete vymazať túto úlohu?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Odstrániť úlohu</string>
@@ -112,6 +113,8 @@
     <string name="authenticator_activity_no_web_browser_found">Pre tento odkaz nie je k dispozícii žiadny prehliadač.</string>
     <string name="authenticator_activity_please_complete_login_process">Prosím, dokončite proces prihlasovania vo vašom prehliadači</string>
     <string name="auto_upload_battery_saver_mode_warning">Automatické nahrávanie je pozastavené, pretože je zapnutý režim šetrenia batérie.</string>
+    <string name="auto_upload_delete_dialog_description">Týmto sa odstráni priečinok a konfigurácia automatického nahrávania. Všetky nedokončené nahrávania budú zrušené.</string>
+    <string name="auto_upload_delete_dialog_title">Vymazať priečinok automatického nahrávania?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechané v pôvodnom priečinku, pretože je iba na čítanie</string>
     <string name="auto_upload_low_battery_warning_info">Nízka úroveň batérie, nahrávanie môže trvať dlhšie</string>
     <string name="auto_upload_on_wifi">Nahrávaj iba na neobmedzenom Wi-Fi</string>
@@ -243,9 +246,12 @@
     <string name="could_not_retrieve_url">Nepodarilo sa načítať webovú adresu</string>
     <string name="create">Vytvoriť</string>
     <string name="create_dir_fail_msg">Nemožno vytvoriť priečinok</string>
+    <string name="create_end_to_end_encrypted_share">Zdieľať odkaz</string>
+    <string name="create_end_to_end_encrypted_share_title">Konverzácie cez odkazy s end-to-end šifrovaním</string>
     <string name="create_link">Vytvoriť odkaz</string>
     <string name="create_new">Nový</string>
     <string name="create_new_document">Nový dokument</string>
+    <string name="create_new_encrypted_folder">Nová šifrovaná zložka</string>
     <string name="create_new_folder">Nový priečinok</string>
     <string name="create_new_presentation">Nová prezentácia</string>
     <string name="create_new_spreadsheet">Nová tabuľka</string>
@@ -315,6 +321,7 @@
     <string name="drawer_item_notifications">Upozornenia</string>
     <string name="drawer_item_on_device">V zariadení</string>
     <string name="drawer_item_personal_files">Osobné súbory</string>
+    <string name="drawer_item_recent_files">Nedávne súbory</string>
     <string name="drawer_item_shared">Zdieľané</string>
     <string name="drawer_item_trashbin">Zmazané súbory</string>
     <string name="drawer_item_uploads_list">Nahranie</string>
@@ -400,6 +407,8 @@
     <string name="etm_transfer_type">Prenos</string>
     <string name="etm_transfer_type_download">Stiahnuť</string>
     <string name="etm_transfer_type_upload">Nahrať</string>
+    <string name="export_in_progress">Exportovanie %1$d z %2$d</string>
+    <string name="extension_cannot_be_changed">Rozšírenie nie je možné zmeniť</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Nemáte povolenie na vytváranie alebo nahrávanie súborov do tejto zložky.</string>
     <string name="external_shares">Externé zdieľania</string>
     <string name="fab_label">Pridať alebo nahrať</string>
@@ -553,6 +562,8 @@
     <string name="instant_upload_existing">Nahrať aj existujúce súbory</string>
     <string name="instant_upload_on_charging">Nahrať iba počas nabíjania</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_description_end_to_end_encrypted">Príjemcovia zdieľania majú vždy prístup k celému šifrovanému priečinku. Zdieľať je možné iba s účtami, ktoré už majú nastavené end-to-end šifrovanie.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">End-to-end šifrované zdieľania</string>
     <string name="internal_shares">Interné zdieľania</string>
     <string name="internal_two_way_sync">Interná obojsmerná synchronizácia</string>
     <string name="internal_two_way_sync_not_yet">Zatiaľ nie, čoskoro bude zosynchronizované</string>
@@ -581,6 +592,7 @@
     <string name="login">Prihlásiť sa</string>
     <string name="login_url_helper_text">Odkaz k vašemu %1$s webovému rozhraniu keď ho otvoríte v prehliadači. </string>
     <string name="logs_menu_delete">Zmazať záznamy</string>
+    <string name="logs_menu_export">Exportovať záznamy</string>
     <string name="logs_menu_refresh">Obnoviť</string>
     <string name="logs_menu_search">Hľadať v záznamoch</string>
     <string name="logs_menu_send">Odoslať logy e-mailom</string>
@@ -603,6 +615,9 @@
     <string name="media_play_pause_description">Tlačidlo prehrávania / pauzy</string>
     <string name="media_player_pause">Pauza</string>
     <string name="media_player_play">Hrať</string>
+    <string name="media_player_playing">Prehrávanie médií</string>
+    <string name="media_player_seek_backward">Hľadať späť</string>
+    <string name="media_player_seek_forward">Hľadaj vpred</string>
     <string name="media_rewind_description">Tlačidlo pretáčania</string>
     <string name="media_state_playing">%1$s (prehráva sa)</string>
     <string name="menu_item_sort_by_date_newest_first">Najnovšie prvé</string>
