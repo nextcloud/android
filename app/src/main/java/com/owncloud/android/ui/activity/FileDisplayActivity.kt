@@ -2400,8 +2400,8 @@ class FileDisplayActivity :
         operation: SynchronizeFileOperation,
         result: RemoteOperationResult<*>
     ) {
-        if (result.isSuccess && operation.transferWasRequested()) {
-            val syncedFile = operation.localFile
+        if (result.isSuccess && operation.transferWasRequested) {
+            val syncedFile = operation.localFile ?: return
             onTransferStateChanged(syncedFile, true, true)
             supportInvalidateOptionsMenu()
             refreshShowDetails()
