@@ -299,6 +299,7 @@ class FileUploadWorker(
         return@withContext Result.success()
     }
 
+    @Suppress("ReturnCount")
     suspend fun isBelongToAnySyncedFolder(
         upload: OCUpload,
         syncFolderHelper: SyncFolderHelper,
