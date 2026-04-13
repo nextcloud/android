@@ -29,6 +29,7 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.operations.manager.SynchronizeFileNotificationManager;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -81,7 +82,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private List<OCFile> mFilesForDirectDownload;
     // to avoid extra PROPFINDs when there was no change in the folder
 
-    private List<SyncOperation> mFilesToSyncContents;
+    private List<SynchronizeFileOperation> mFilesToSyncContents;
     // this will be used for every file when 'folder synchronization' replaces 'folder download'
 
     private final AtomicBoolean mCancellationRequested;
@@ -89,6 +90,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private final boolean useWorkerWithNotification;
 
     private final boolean syncAll;
+
+    final SynchronizeFileNotificationManager notificationManager;
 
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
@@ -114,6 +117,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mCancellationRequested = new AtomicBoolean(false);
         this.useWorkerWithNotification = useWorkerWithNotification;
         this.syncAll = syncAll;
+        notificationManager = new SynchronizeFileNotificationManager(context, null);
     }
 
 
@@ -504,25 +508,40 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
     }
 
+
     /**
      * Performs a list of synchronization operations, determining if a download or upload is needed
      * or if exists conflict due to changes both in local and remote contents of the each file.
-     *
+     * <p>
      * If download or upload is needed, request the operation to the corresponding service and goes on.
      *
      * @param filesToSyncContents       Synchronization operations to execute.
      */
-    private void startContentSynchronizations(List<SyncOperation> filesToSyncContents)
-            throws OperationCancelledException {
-
+    private void startContentSynchronizations(List<SynchronizeFileOperation> filesToSyncContents) throws OperationCancelledException {
         Log_OC.v(TAG, "Starting content synchronization... ");
+
         RemoteOperationResult contentsResult;
-        for (SyncOperation op: filesToSyncContents) {
+
+        int total = filesToSyncContents.size();
+        int current = 0;
+        boolean success = true;
+
+        for (SynchronizeFileOperation op: filesToSyncContents) {
             if (mCancellationRequested.get()) {
                 throw new OperationCancelledException();
             }
+
             contentsResult = op.execute(mContext);
+            current++;
+
+            int progress = (int) ((current * 100.0f) / total);
+            final var file = op.getLocalFile();
+            if (file != null) {
+                notificationManager.showProgress(file.getFileName(), progress);
+            }
+
             if (!contentsResult.isSuccess()) {
+                success = false;
                 if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
                     mConflictsFound++;
                 } else {
@@ -535,9 +554,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
                                 + contentsResult.getLogMessage());
                     }
                 }
-                // TODO - use the errors count in notifications
-            }   // won't let these fails break the synchronization process
+            }
         }
+
+        // FIXME:  NOT DISPLAYING
+        notificationManager.showCompletion(mLocalFolder.getFileName(), success);
     }
 
     /**

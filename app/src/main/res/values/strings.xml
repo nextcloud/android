@@ -281,7 +281,7 @@
     <string name="folder_download_error_notification_title">An error occurred during synchronization of the %s folder</string>
     <string name="folder_download_counter">%1$d of %2$d &#183; %3$s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Insufficient disk space, synchronization canceled</string>
-
+    <string name="sync_file_notification_progress">%1$d%%</string>
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
