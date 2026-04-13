@@ -338,6 +338,12 @@
 
     <style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium"></style>
 
+    <style name="NextcloudTextAppearanceSectionTitle" parent="@style/TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/activity_list_item_title_header_text_size</item>
+    </style>
+
     <style name="Widget.App.Login.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Login.TextInputLayout</item>
         <item name="shapeAppearance">@style/ShapeAppearance.Material3.SmallComponent</item>
