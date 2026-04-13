@@ -48,11 +48,13 @@
     <string name="assistant_output_generation_warning_text">Utdata som visas här genereras av AI. Se till att alltid dubbelkolla.</string>
     <string name="assistant_screen_chat_create_error">Kunde inte skicka ett meddelande</string>
     <string name="assistant_screen_chat_fetch_error">Kunde inte hämta chattmeddelanden</string>
+    <string name="assistant_screen_chat_generate_error">Kunde inte generera svar</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Gå tillbaka till assistentsidan</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Är du säker på att du vill ta bort den här uppgiften?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ta bort uppgift</string>
     <string name="assistant_screen_empty_content_description">Försök att skicka ett meddelande för att få igång en konversation.</string>
     <string name="assistant_screen_empty_content_title">Hej! Vad kan jag hjälpa dig med idag?</string>
+    <string name="assistant_screen_retry_response_generation">Försök att generera svar igen</string>
     <string name="assistant_screen_send_message">Skicka meddelande</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Öppna konversationslista</string>
     <string name="assistant_screen_task_create_fail_message">Ett fel uppstod när uppgiften skapades</string>
@@ -111,6 +113,8 @@
     <string name="authenticator_activity_no_web_browser_found">Ingen webbläsare finns tillgänglig för att öppna denna länk.</string>
     <string name="authenticator_activity_please_complete_login_process">Slutför inloggningsprocessen i din webbläsare</string>
     <string name="auto_upload_battery_saver_mode_warning">Automatisk uppladdning är pausad eftersom batterisparläge är aktiverat.</string>
+    <string name="auto_upload_delete_dialog_description">Detta tar bort mappen och konfigurationen för automatisk uppladdning. Alla pågående uppladdningar avbryts.</string>
+    <string name="auto_upload_delete_dialog_title">Ta bort mapp för automatisk uppladdning?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
     <string name="auto_upload_low_battery_warning_info">Låg batterinivå, uppladdningen kan ta längre tid</string>
     <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
@@ -317,6 +321,7 @@
     <string name="drawer_item_notifications">Aviseringar</string>
     <string name="drawer_item_on_device">Filer på enheten</string>
     <string name="drawer_item_personal_files">Personliga filer</string>
+    <string name="drawer_item_recent_files">Senaste filer</string>
     <string name="drawer_item_shared">Delat</string>
     <string name="drawer_item_trashbin">Borttagna filer</string>
     <string name="drawer_item_uploads_list">Uppladdningar</string>
@@ -402,6 +407,7 @@
     <string name="etm_transfer_type">Överför</string>
     <string name="etm_transfer_type_download">Ladda ner</string>
     <string name="etm_transfer_type_upload">Ladda upp</string>
+    <string name="export_in_progress">Exporterar %1$d av %2$d</string>
     <string name="extension_cannot_be_changed">Filändelsen kan inte ändras.</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Du har inte behörighet att skapa eller ladda upp filer i den här mappen.</string>
     <string name="external_shares">Externa delningar</string>
@@ -556,6 +562,7 @@
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
+    <string name="internal_share_description_end_to_end_encrypted">Mottagare av delningar har alltid åtkomst till hela den krypterade mappen. Det går endast att dela med konton som redan har konfigurerat end-to-end-kryptering.</string>
     <string name="internal_share_headline_end_to_end_encrypted">End-to-end-krypterade delningar</string>
     <string name="internal_shares">Interna delningar</string>
     <string name="internal_two_way_sync">Intern tvåvägssynk</string>
@@ -608,6 +615,9 @@
     <string name="media_play_pause_description">Spela- / Pausknapp</string>
     <string name="media_player_pause">Pausa</string>
     <string name="media_player_play">Spela</string>
+    <string name="media_player_playing">Spelar upp media</string>
+    <string name="media_player_seek_backward">Spola bakåt</string>
+    <string name="media_player_seek_forward">Spola framåt</string>
     <string name="media_rewind_description">Bakåtspolningsknapp</string>
     <string name="media_state_playing">%1$s (spelar)</string>
     <string name="menu_item_sort_by_date_newest_first">Nyaste först</string>
