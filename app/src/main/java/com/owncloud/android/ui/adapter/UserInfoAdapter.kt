@@ -20,8 +20,11 @@ import com.owncloud.android.databinding.UserInfoDetailsTableItemBinding
 import com.owncloud.android.databinding.UserInfoDetailsTableItemTitleBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class UserInfoAdapter(val context: Context, val displayList: Map<Int, List<UserInfoDetailsItem>>, val viewThemeUtils: ViewThemeUtils) :
-    SectionedRecyclerViewAdapter<SectionedViewHolder>() {
+class UserInfoAdapter(
+    val context: Context,
+    val displayList: Map<Int, List<UserInfoDetailsItem>>,
+    val viewThemeUtils: ViewThemeUtils
+) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         const val SECTION_USERINFO = 0
         const val SECTION_GROUPS = 1
@@ -47,17 +50,21 @@ class UserInfoAdapter(val context: Context, val displayList: Map<Int, List<UserI
                 false
             )
         )
+
         else -> UserInfoSectionedViewHolder(
             UserInfoDetailsTableItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ),
+            )
         )
     }
 
     private enum class ItemPosition {
-        SINGLE, FIRST, MIDDLE, LAST;
+        SINGLE,
+        FIRST,
+        MIDDLE,
+        LAST;
 
         fun backgroundRes(): Int = when (this) {
             SINGLE -> R.drawable.rounded_corners_listitem_single_background
@@ -110,11 +117,7 @@ class UserInfoAdapter(val context: Context, val displayList: Map<Int, List<UserI
         else -> 0
     }
 
-    override fun onBindHeaderViewHolder(
-        holder: SectionedViewHolder?,
-        section: Int,
-        expanded: Boolean
-    ) {
+    override fun onBindHeaderViewHolder(holder: SectionedViewHolder?, section: Int, expanded: Boolean) {
         val title = when (section) {
             SECTION_GROUPS -> context.getString(R.string.user_info_groups)
             SECTION_USERINFO -> context.getString(R.string.user_info_profile)

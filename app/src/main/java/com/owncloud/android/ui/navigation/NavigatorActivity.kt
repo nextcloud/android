@@ -29,9 +29,14 @@ class NavigatorActivity : DrawerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNavigatorBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_navigator)
+        setContentView(binding.root)
 
-        val screen = intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java) ?: return
+        val screen = requireNotNull(
+            intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java)
+        ) {
+            "NavigatorScreen is required in intent extras"
+        }
+
         navigator = Navigator(supportFragmentManager, binding.fragmentContainerView)
         setupBackPressedHandler()
         pushOrRestoreScreen(savedInstanceState, screen)

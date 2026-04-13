@@ -25,7 +25,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
@@ -67,7 +66,6 @@ class NotificationsFragment :
 
     private var binding: NotificationsLayoutBinding? = null
     private var adapter: NotificationListAdapter? = null
-    private var snackbar: Snackbar? = null
     private var optionalUser: Optional<User>? = null
 
     @Inject
@@ -245,11 +243,6 @@ class NotificationsFragment :
     private fun setupPushWarning() {
         if (!resources.getBoolean(R.bool.show_push_warning)) return
 
-        if (snackbar?.isShown == false) {
-            snackbar?.show()
-            return
-        }
-
         val pushUrl = resources.getString(R.string.push_server_url)
         if (pushUrl.isEmpty() && BuildHelper.isFlavourGPlay()) return
 
@@ -260,9 +253,7 @@ class NotificationsFragment :
             else -> return
         }
 
-        snackbar = binding?.emptyList?.emptyListView?.let {
-            Snackbar.make(it, messageRes, Snackbar.LENGTH_INDEFINITE).also { s -> s.show() }
-        }
+        DisplayUtils.showSnackMessage(this, messageRes)
     }
 
     private fun isUsingOldLogin(): Boolean {
