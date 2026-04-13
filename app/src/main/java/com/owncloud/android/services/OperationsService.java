@@ -728,19 +728,24 @@ public class OperationsService extends Service {
                                                                  syncFileContents,
                                                                  getApplicationContext(),
                                                                  fileDataStorageManager,
-                                                                 false,
+                                                                 true,
                                                                  postDialogEvent);
                         break;
 
                     case ACTION_SYNC_FOLDER:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         boolean syncAll = operationIntent.getBooleanExtra(EXTRA_SYNC_ALL, false);
+
+                        // since this is triggered from service and can run in background no need to fire
+                        // workers for each sub file
+                        boolean useWorkerWithNotification = !syncAll;
+
                         operation = new SynchronizeFolderOperation(
                             this,
                             remotePath,
                             user,
                             fileDataStorageManager,
-                            false,
+                            useWorkerWithNotification,
                             syncAll
                         );
                         break;

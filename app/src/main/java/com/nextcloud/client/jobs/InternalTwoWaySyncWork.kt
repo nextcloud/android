@@ -73,7 +73,7 @@ class InternalTwoWaySyncWork(
                         folder.remotePath,
                         user,
                         fileDataStorageManager,
-                        true,
+                        false,
                         false
                     )
                 val operationResult = operation?.execute(context)

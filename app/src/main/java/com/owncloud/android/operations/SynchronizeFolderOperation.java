@@ -86,7 +86,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     private final AtomicBoolean mCancellationRequested;
 
-    private final boolean syncInBackgroundWorker;
+    private final boolean useWorkerWithNotification;
 
     private final boolean syncAll;
 
@@ -101,7 +101,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                                       String remotePath,
                                       User user,
                                       FileDataStorageManager storageManager,
-                                      boolean syncInBackgroundWorker,
+                                      boolean useWorkerWithNotification,
                                       boolean syncAll) {
         super(storageManager);
 
@@ -112,7 +112,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFilesForDirectDownload = new Vector<>();
         mFilesToSyncContents = new Vector<>();
         mCancellationRequested = new AtomicBoolean(false);
-        this.syncInBackgroundWorker = syncInBackgroundWorker;
+        this.useWorkerWithNotification = useWorkerWithNotification;
         this.syncAll = syncAll;
     }
 
@@ -407,12 +407,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 true,
                 mContext,
                 getStorageManager(),
-                syncInBackgroundWorker
+                useWorkerWithNotification
             );
             mFilesToSyncContents.add(operation);
         }
     }
-
 
     private void prepareOpsFromLocalKnowledge() throws OperationCancelledException {
         List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder, false);
@@ -429,7 +428,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                         true,
                         mContext,
                         getStorageManager(),
-                        syncInBackgroundWorker
+                        useWorkerWithNotification
                     );
                     mFilesToSyncContents.add(operation);
                 }
@@ -468,8 +467,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     private void startDirectDownloads() {
         final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
-        
-        if (syncInBackgroundWorker) {
+
+        if (useWorkerWithNotification) {
+            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName());
+        } else {
             try {
                 for (OCFile file: mFilesForDirectDownload) {
                     synchronized (mCancellationRequested) {
@@ -500,8 +501,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
             } catch (Exception e) {
                 Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
             }
-        } else {
-            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName());
         }
     }
 
@@ -587,6 +586,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, user.toPlatformAccount());
         intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
+        intent.putExtra(OperationsService.EXTRA_SYNC_ALL, syncAll);
         mContext.startService(intent);
     }
 

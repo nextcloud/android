@@ -27,6 +27,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.util.concurrent.ConcurrentHashMap
 
+/**
+ * Only used for downloading files in first level of the folder, not subfolders.
+ */
 @Suppress("LongMethod", "TooGenericExceptionCaught", "MagicNumber")
 class FolderDownloadWorker(
     private val accountManager: UserAccountManager,
@@ -117,7 +120,6 @@ class FolderDownloadWorker(
                             files.size
                         )
                         notificationManager.showNotification(notification)
-                        setForeground(notificationManager.getForegroundInfo(notification))
                     }
 
                     val operation = DownloadFileOperation(user, file, context)
