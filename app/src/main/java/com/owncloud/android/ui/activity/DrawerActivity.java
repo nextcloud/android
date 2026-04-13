@@ -655,7 +655,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * If navigator activity already exists just push else start navigator activity.
      */
-    private void pushFragment(NavigatorScreen screen) {
+    public void pushFragment(NavigatorScreen screen) {
         if (this instanceof NavigatorActivity navigatorActivity) {
             navigatorActivity.push(screen);
         } else {
@@ -1449,7 +1449,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 LinkHelper.INSTANCE.openAppStore(getPackageName(), false, this);
                 break;
             case OPEN_NOTIFICATIONS:
-                startActivity(NotificationsActivity.class);
+                pushFragment(NavigatorScreen.Notifications.INSTANCE);
                 break;
             default:
                 handleNavItemClickEvent(deepLinkType.getNavId());
