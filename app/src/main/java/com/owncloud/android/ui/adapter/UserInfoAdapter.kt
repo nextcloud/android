@@ -128,5 +128,5 @@ class UserInfoAdapter(
         viewThemeUtils.platform.colorTextView(titleHolder.binding.root, ColorRole.PRIMARY)
     }
 
-    override fun onBindFooterViewHolder(p0: SectionedViewHolder?, p1: Int) {}
+    override fun onBindFooterViewHolder(viewHolder: SectionedViewHolder, positon: Int) = Unit
 }
