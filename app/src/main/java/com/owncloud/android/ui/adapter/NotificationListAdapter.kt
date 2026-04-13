@@ -57,9 +57,12 @@ class NotificationListAdapter(
     private val notificationsList = ArrayList<Notification>()
 
     // region Adapter overrides
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = NotificationViewHolder(
-        NotificationListItemBinding.inflate(LayoutInflater.from(fragment.requireContext()))
+        NotificationListItemBinding.inflate(
+            LayoutInflater.from(fragment.requireContext()),
+            parent,
+            false
+        )
     )
 
     override fun getItemCount() = notificationsList.size
