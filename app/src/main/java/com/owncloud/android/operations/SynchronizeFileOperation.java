@@ -50,7 +50,7 @@ public class SynchronizeFileOperation extends SyncOperation {
     private boolean mSyncFileContents;
     private Context mContext;
     private boolean mTransferWasRequested;
-    private final boolean syncInBackgroundWorker;
+    private final boolean useWorkerWithNotification;
     private boolean postDialogEvent = true;
 
 
@@ -82,7 +82,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         boolean syncFileContents,
         Context context,
         FileDataStorageManager storageManager,
-        boolean syncInBackgroundWorker,
+        boolean useWorkerWithNotification,
         boolean postDialogEvent) {
         super(storageManager);
 
@@ -93,7 +93,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         mSyncFileContents = syncFileContents;
         mContext = context;
         mAllowUploads = true;
-        this.syncInBackgroundWorker = syncInBackgroundWorker;
+        this.useWorkerWithNotification = useWorkerWithNotification;
         this.postDialogEvent = postDialogEvent;
     }
 
@@ -122,7 +122,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         boolean syncFileContents,
         Context context,
         FileDataStorageManager storageManager,
-        boolean syncInBackgroundWorker) {
+        boolean useWorkerWithNotification) {
         super(storageManager);
 
         mLocalFile = localFile;
@@ -142,42 +142,8 @@ public class SynchronizeFileOperation extends SyncOperation {
         mSyncFileContents = syncFileContents;
         mContext = context;
         mAllowUploads = true;
-        this.syncInBackgroundWorker = syncInBackgroundWorker;
+        this.useWorkerWithNotification = useWorkerWithNotification;
     }
-
-
-    /**
-     * Temporal constructor.
-     * <p>
-     * Extends the previous one to allow constrained synchronizations where uploads are never performed - only downloads
-     * or conflict detection.
-     * <p>
-     * Do not use unless you are involved in 'folder synchronization' or 'folder download' work in progress.
-     * <p>
-     * TODO Remove when 'folder synchronization' replaces 'folder download'.
-     *
-     * @param localFile        Data of file (just) retrieved from local cache/database. MUSTN't be null.
-     * @param serverFile       Data of file (just) retrieved from a remote server. If null, will be retrieved from
-     *                         network by the operation when executed.
-     * @param user             Nextcloud user owning the file.
-     * @param syncFileContents When 'true', transference of data will be started by the operation if needed and no
-     *                         conflict is detected.
-     * @param allowUploads     When 'false', uploads to the server are not done; only downloads or conflict detection.
-     * @param context          Android context; needed to start transfers.
-     */
-    public SynchronizeFileOperation(
-        OCFile localFile,
-        OCFile serverFile,
-        User user,
-        boolean syncFileContents,
-        boolean allowUploads,
-        Context context,
-        FileDataStorageManager storageManager,
-        boolean syncInBackgroundWorker) {
-        this(localFile, serverFile, user, syncFileContents, context, storageManager, syncInBackgroundWorker);
-        mAllowUploads = allowUploads;
-    }
-
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
@@ -314,7 +280,11 @@ public class SynchronizeFileOperation extends SyncOperation {
         final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
         final var filename = file.getFileName();
 
-        if (syncInBackgroundWorker) {
+        if (useWorkerWithNotification) {
+            Log_OC.d(TAG, "downloading file with notification: " + filename);
+            mTransferWasRequested = true;
+            fileDownloadHelper.downloadFile(mUser, file);
+        } else {
             Log_OC.d(TAG, "downloading file without notification: " + filename);
 
             try {
@@ -332,10 +302,6 @@ public class SynchronizeFileOperation extends SyncOperation {
             } catch (Exception e) {
                 Log_OC.d(TAG, "Exception caught at requestForDownload" + e);
             }
-        } else {
-            Log_OC.d(TAG, "downloading file with notification: " + filename);
-            mTransferWasRequested = true;
-            fileDownloadHelper.downloadFile(mUser, file);
         }
     }
 
