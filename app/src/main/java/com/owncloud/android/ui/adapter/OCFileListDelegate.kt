@@ -349,10 +349,16 @@ class OCFileListDelegate(
             fileUploadHelper.isUploading(file.remotePath, user.accountName)
     }
 
+    private fun OCFile.canCheckFolderDown(): Boolean = mimeType != null &&
+        isFolder &&
+        !isEncrypted &&
+        fileLength != 0L &&
+        !etag.isNullOrBlank()
+
     @Suppress("ComplexCondition")
     private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
         var isFolderDown = false
-        if (file.isFolder && !file.isEncrypted && file.fileLength != 0L && file.etag.isNotBlank()) {
+        if (file.canCheckFolderDown()) {
             isFolderDown = storageManager.fileDao.areAllFilesHaveMediaPath(file.fileId, user.accountName)
         }
 
