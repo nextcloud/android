@@ -1577,6 +1577,7 @@
     <string name="webview_not_available">Android System WebView is missing or disabled on this device</string>
     <string name="send_copy_to">Send copy to</string>
     <string name="failed_to_start_action">Failed to start action!</string>
+    <string name="failed_to_load_tags">Failed to load tags</string>
     <string name="action_triggered">Action triggered</string>
 
     <string name="sync_conflict_notification_title">File upload conflicts</string>
