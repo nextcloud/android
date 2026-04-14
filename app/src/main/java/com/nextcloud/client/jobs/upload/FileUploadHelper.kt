@@ -648,7 +648,6 @@ class FileUploadHelper {
         files: List<OCFile>,
         accountName: String
     ): Pair<List<SyncedFolderEntity>, List<OCFile>> {
-
         val autoUploadFolders = mutableListOf<SyncedFolderEntity>()
         val nonAutoUploadFiles = mutableListOf<OCFile>()
 

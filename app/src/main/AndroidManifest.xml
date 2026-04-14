@@ -283,9 +283,6 @@
             android:name=".ui.activity.UserInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.NotificationsActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.activity.SyncedFoldersActivity"
             android:exported="false" />
         <activity

@@ -139,6 +139,7 @@ import com.owncloud.android.ui.fragment.UnifiedSearchFragment
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.TransactionInterface
+import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.ui.preview.PreviewImageFragment
 import com.owncloud.android.ui.preview.PreviewMediaActivity
@@ -334,7 +335,9 @@ class FileDisplayActivity :
         setupHomeSearchToolbarWithSortAndListButtons()
         mMenuButton.setOnClickListener { v: View? -> openDrawer() }
         mSwitchAccountButton.setOnClickListener { v: View? -> showManageAccountsDialog() }
-        mNotificationButton.setOnClickListener { v: View? -> startActivity(NotificationsActivity::class.java) }
+        mNotificationButton.setOnClickListener {
+            pushFragment(NavigatorScreen.Notifications)
+        }
         fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout)
 
         // reset ui states when file display activity created/recrated

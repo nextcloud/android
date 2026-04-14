@@ -778,7 +778,7 @@
     <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
     <string name="prefs_recommend">Rekomenduoti draugui</string>
     <string name="prefs_remove_e2e">Pašalinkite šifravimą vietoje</string>
-    <string name="prefs_setup_e2e">Nustatykite visą šifravimą</string>
+    <string name="prefs_setup_e2e">Nustatyti ištisinį šifravimą</string>
     <string name="prefs_show_ecosystem_apps">Rodyti programėllių perjungiklį</string>
     <string name="prefs_show_ecosystem_apps_summary">„Nextcloud“ programėlės pasiūlymai naršymo antraštėje</string>
     <string name="prefs_show_hidden_files">Rodyti paslėptus failus</string>
