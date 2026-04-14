@@ -557,25 +557,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             }
         }
 
-        // FIXME:  NOT DISPLAYING
         notificationManager.showCompletionNotification(folderName, success);
-    }
-
-    /**
-     * Scans the default location for saving local copies of files searching for
-     * a 'lost' file with the same full name as the {@link com.owncloud.android.datamodel.OCFile}
-     * received as parameter.
-     *
-     * @param file      File to associate a possible 'lost' local file.
-     */
-    private void searchForLocalFileInDefaultPath(OCFile file) {
-        if (file.getStoragePath() == null && !file.isFolder()) {
-            File f = new File(FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), file));
-            if (f.exists()) {
-                file.setStoragePath(f.getAbsolutePath());
-                file.setLastSyncDateForData(f.lastModified());
-            }
-        }
     }
 
 
@@ -602,7 +584,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         return Optional.of(folder.getName());
     }
 
-    private void startSyncFolderOperation(String path){
+    private void startSyncFolderOperation(String path) {
         Intent intent = new Intent(mContext, OperationsService.class);
         intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, user.toPlatformAccount());
