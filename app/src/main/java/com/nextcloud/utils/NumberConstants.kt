@@ -10,8 +10,3 @@ package com.nextcloud.utils
 object TimeConstants {
     const val MILLIS_PER_SECOND = 1000
 }
-
-object DelayConstants {
-    const val FIFTY = 50L
-    const val ONE_HUNDRED = 100L
-}

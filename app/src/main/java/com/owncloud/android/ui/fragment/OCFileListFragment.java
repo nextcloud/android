@@ -80,7 +80,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.Type;
@@ -123,6 +122,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -148,6 +148,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG;
@@ -1088,9 +1089,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void updateFileList() {
-        listDirectory(mFile, MainApp.isOnlyOnDevice());
-        onRefresh(false);
-        restoreIndexAndTopPosition();
+        listDirectory(mFile, MainApp.isOnlyOnDevice(), () -> {
+            Log_OC.d(TAG, "list directory completed");
+            onRefresh(false);
+            return Unit.INSTANCE;
+        });
     }
 
     /**
@@ -1551,7 +1554,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public void listDirectory(@Nullable OCFile directory, boolean onlyOnDevice) {
-        listDirectory(directory, null, onlyOnDevice);
+        listDirectory(directory, null, onlyOnDevice, () -> Unit.INSTANCE);
+    }
+
+    public void listDirectory(@Nullable OCFile directory, OCFile file, boolean onlyOnDevice) {
+        listDirectory(directory, file, onlyOnDevice, () -> Unit.INSTANCE);
+    }
+
+    public void listDirectory(@Nullable OCFile directory, boolean onlyOnDevice, @NotNull Function0<@NotNull Unit> onComplete) {
+        listDirectory(directory, null, onlyOnDevice, onComplete);
     }
 
     private OCFile getDirectoryForListDirectory(@Nullable OCFile directory, FileDataStorageManager storageManager) {
@@ -1578,7 +1589,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @param directory File to be listed
      */
-    public void listDirectory(@Nullable OCFile directory, OCFile file, boolean onlyOnDevice) {
+    public void listDirectory(@Nullable OCFile directory,
+                              OCFile file,
+                              boolean onlyOnDevice,
+                              @NotNull Function0<@NotNull Unit> onComplete) {
         if (!searchFragment) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             if (storageManager == null) {
@@ -1607,7 +1621,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 directory,
                 storageManager,
                 onlyOnDevice,
-                mLimitToMimeType);
+                mLimitToMimeType,
+                onComplete);
 
             OCFile previousDirectory = mFile;
             mFile = directory;

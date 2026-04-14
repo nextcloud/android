@@ -87,6 +87,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import kotlin.Pair;
 import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
 
 /**
@@ -832,7 +833,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @NonNull OCFile directory,
         @NonNull FileDataStorageManager updatedStorageManager,
         boolean onlyOnDevice,
-        @NonNull String limitToMimeType) {
+        @NonNull String limitToMimeType,
+        @NonNull Function0<Unit> onComplete) {
 
         this.onlyOnDevice = onlyOnDevice;
 
@@ -861,6 +863,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                (newList, fileSortOrder) ->
         {
             updateAdapter((List<OCFile>) newList, directory);
+            onComplete.invoke();
             return Unit.INSTANCE;
         });
     }

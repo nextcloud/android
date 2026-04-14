@@ -1591,7 +1591,9 @@ class FileDisplayActivity :
             return
         }
 
-        ocFileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice())
+        ocFileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice()) {
+            ocFileListFragment.restoreIndexAndTopPosition()
+        }
     }
 
     private fun handleScrollBehaviour(ocFileListFragment: OCFileListFragment?) {

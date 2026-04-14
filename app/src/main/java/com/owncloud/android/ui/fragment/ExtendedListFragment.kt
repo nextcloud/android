@@ -55,7 +55,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
-import com.nextcloud.utils.DelayConstants
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.mainThread
 import com.owncloud.android.MainApp
@@ -416,10 +415,6 @@ open class ExtendedListFragment :
         if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && recyclerView?.adapter != null) {
             switchToGridView()
         }
-
-        mainThread(delay = DelayConstants.FIFTY) {
-            restoreIndexAndTopPosition()
-        }
     }
 
     override fun onSaveInstanceState(savedInstanceState: Bundle) {
@@ -446,7 +441,7 @@ open class ExtendedListFragment :
             return mScale.roundToInt()
         }
 
-    protected fun restoreIndexAndTopPosition() {
+    fun restoreIndexAndTopPosition() {
         if (mIndexes.isEmpty()) {
             Log_OC.d(TAG, "Indexes is null or empty")
             return
@@ -465,7 +460,7 @@ open class ExtendedListFragment :
         )
 
         if (firstPosition != null && firstPosition >= 0) {
-            mainThread(delay = DelayConstants.ONE_HUNDRED) {
+            mainThread(delay = 0L) {
                 scrollToPosition(firstPosition, top ?: 0)
             }
         }
