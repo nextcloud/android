@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerNotificationManager;
+import com.nextcloud.utils.extensions.ExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
@@ -43,6 +44,8 @@ import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 
 /**
  *  Remote operation performing the synchronization of the list of files contained
@@ -92,8 +95,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private final boolean syncAll;
 
     final FolderDownloadWorkerNotificationManager notificationManager;
-
-    private boolean hasChildFolders = false;
 
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
@@ -399,7 +400,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
     @SuppressFBWarnings("JLM")
     private void syncFileOrFolder(OCFile remoteFile, OCFile localFile) throws OperationCancelledException {
         if (remoteFile.isFolder()) {
-            hasChildFolders = true;
             synchronized (mCancellationRequested) {
                 if (mCancellationRequested.get()) {
                     throw new OperationCancelledException();
@@ -523,47 +523,44 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private void startContentSynchronizations(List<SynchronizeFileOperation> filesToSyncContents) throws OperationCancelledException {
         Log_OC.v(TAG, "Starting content synchronization... ");
 
-        RemoteOperationResult contentsResult;
-
         int total = filesToSyncContents.size();
-        int current = 0;
-        boolean success = true;
         String folderName = mLocalFolder.getFileName();
 
-        for (SynchronizeFileOperation op: filesToSyncContents) {
+        for (int current = 0; current < filesToSyncContents.size(); current++) {
             if (mCancellationRequested.get()) {
                 throw new OperationCancelledException();
             }
 
-            contentsResult = op.execute(mContext);
-            current++;
+            final var synchronizeFileOperation = filesToSyncContents.get(current);
+            final var result = synchronizeFileOperation.execute(mContext);
+            final var file = synchronizeFileOperation.getLocalFile();
 
-            final var file = op.getLocalFile();
-            if (file != null) {
+            if (result.isSuccess() && file != null) {
                 notificationManager.showProgressNotification(folderName, file.getFileName(), current, total);
-            }
-
-            if (!contentsResult.isSuccess()) {
-                success = false;
-                if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
+            } else {
+                if (result.getCode() == ResultCode.SYNC_CONFLICT) {
                     mConflictsFound++;
                 } else {
                     mFailsInFileSyncsFound++;
-                    if (contentsResult.getException() != null) {
-                        Log_OC.e(TAG, "Error while synchronizing file : "
-                                +  contentsResult.getLogMessage(), contentsResult.getException());
+
+                    String message = "Error while synchronizing file : ";
+
+                    if (result.getException() != null) {
+                        message = message + result.getLogMessage() + " Exception: "
+                            + result.getException().getMessage();
                     } else {
-                        Log_OC.e(TAG, "Error while synchronizing file : "
-                                + contentsResult.getLogMessage());
+                        message = message + result.getLogMessage();
                     }
+
+                    Log_OC.e(TAG, message);
                 }
             }
         }
 
-        if (!hasChildFolders) {
-            notificationManager.showCompletionNotification(folderName, success);
+        ExtensionsKt.mainThread(0L, () -> {
             notificationManager.dismiss();
-        }
+            return Unit.INSTANCE;
+        });
     }
 
 
