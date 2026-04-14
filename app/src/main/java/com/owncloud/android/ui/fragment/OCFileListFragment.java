@@ -80,7 +80,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.Type;
@@ -106,6 +105,7 @@ import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.FileLockEvent;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.fragment.helper.ParentFolderFinder;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
@@ -124,7 +124,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -228,6 +227,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
     public static boolean isMultipleFileSelectedForCopyOrMove = false;
+    private final ParentFolderFinder parentFolderFinder = new ParentFolderFinder();
 
     private static final Intent scanIntentExternalApp = new Intent("org.fairscan.app.action.SCAN_TO_PDF");
 
@@ -1019,7 +1019,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-
     /**
      * Call this, when the user presses the up button.
      * <p>
@@ -1029,62 +1028,27 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * return Count of folder levels browsed up.
      */
     public int onBrowseUp() {
-        if (mFile == null) {
+        if (mFile == null || mFile.isRootDirectory()) {
             return 0;
         }
 
-        Pair<Integer, OCFile> result = getPreviousFile();
-        mFile = result.second;
+        final var result = parentFolderFinder.getParent(mFile, mContainerActivity.getStorageManager());
+        OCFile target = result.getSecond();
+
+        if (target == null) {
+            Log_OC.e(TAG, "onBrowseUp: could not resolve parent, staying put");
+            return 0;
+        }
+
+        mFile = target;
         setFileDepth(mFile);
 
-        // since on browse down sets it to the false, browse up should set back to true if current search type is not NO_SEARCH
         if (mFile.isRootDirectory() && currentSearchType != NO_SEARCH) {
             searchFragment = true;
         }
 
         updateFileList();
-        return result.first;
-    }
-
-    private Pair<Integer, OCFile> getPreviousFile() {
-        if (mFile == null) {
-            return new Pair<>(0, null);
-        }
-
-        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-        int moveCount = 0;
-        String parentPath;
-        OCFile parentDir;
-
-        if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
-            parentPath = new File(mFile.getRemotePath()).getParent();
-            parentPath = ensureTrailingSeparator(parentPath);
-            parentDir = storageManager.getFileByPath(parentPath);
-            moveCount++;
-        } else {
-            parentDir = storageManager.getFileByPath(ROOT_PATH);
-            parentPath = ROOT_PATH;
-        }
-
-        // Keep going up until we find a valid folder
-        while (parentDir == null && !ROOT_PATH.equals(parentPath)) {
-            parentPath = new File(parentPath).getParent();
-            if (parentPath == null) {
-                parentPath = ROOT_PATH; // fallback to root
-            }
-            parentPath = ensureTrailingSeparator(parentPath);
-            parentDir = storageManager.getFileByPath(parentPath);
-            moveCount++;
-        }
-
-        return new Pair<>(moveCount, parentDir);
-    }
-
-    private String ensureTrailingSeparator(String path) {
-        if (path == null) {
-            return ROOT_PATH;
-        }
-        return path.endsWith(OCFile.PATH_SEPARATOR) ? path : path + OCFile.PATH_SEPARATOR;
+        return result.getFirst();
     }
 
     private void updateFileList() {
