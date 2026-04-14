@@ -11,6 +11,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 
+@Suppress("ReturnCount")
 class ParentFolderFinder {
     companion object {
         private const val TAG = "ParentFolderFinder"
