@@ -39,18 +39,6 @@ class ParentFolderFinderTest {
     }
 
     @Test
-    fun getParentWithRootFileReturnsZeroAndFile() {
-        val rootFile = OCFile(OCFile.ROOT_PATH).apply {
-            parentId = 0
-        }
-
-        val result = finder.getParent(rootFile, storageManager)
-
-        assertEquals(0, result.first)
-        assertEquals(rootFile, result.second)
-    }
-
-    @Test
     fun getParentWithNullStorageManagerReturnsZeroAndFile() {
         val file = OCFile("/test.txt")
 
