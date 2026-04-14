@@ -13,6 +13,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.work.ForegroundInfo
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
+import com.nextcloud.utils.extensions.mainThread
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
@@ -21,7 +22,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
-class FolderDownloadWorkerNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
+class FolderDownloadWorkerNotificationManager(
+    private val context: Context,
+    private val showCancel: Boolean = true,
+    viewThemeUtils: ViewThemeUtils?
+) :
     WorkerNotificationManager(
         id = NOTIFICATION_ID,
         context,
@@ -42,7 +47,7 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
             clearActions()
             setContentText(description)
 
-            if (progress != null) {
+            if (progress != null && showCancel) {
                 setProgress(MAX_PROGRESS, progress, false)
                 addAction(
                     R.drawable.ic_cancel,
@@ -68,29 +73,35 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
     }
 
     @Suppress("MagicNumber")
-    fun getProgressNotification(
+    fun showProgressNotification(
         folderName: String,
         filename: String,
         currentIndex: Int,
         totalFileSize: Int
-    ): Notification {
-        val currentFileIndex = (currentIndex + 1)
-        val description = context.getString(R.string.folder_download_counter, currentFileIndex, totalFileSize, filename)
-        val progress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
-        return getNotification(folderName, description, progress)
+    ) {
+        mainThread(delay = 0) {
+            val currentFileIndex = (currentIndex + 1)
+            val description =
+                context.getString(R.string.folder_download_counter, currentFileIndex, totalFileSize, filename)
+            val progress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
+            val notification = getNotification(folderName, description, progress)
+            showNotification(notification)
+        }
     }
 
-    suspend fun showCompletionNotification(folderName: String, success: Boolean) = withContext(Dispatchers.Main) {
-        val titleId = if (success) {
-            R.string.folder_download_success_notification_title
-        } else {
-            R.string.folder_download_error_notification_title
+    fun showCompletionNotification(folderName: String, success: Boolean) {
+        mainThread(delay = 0) {
+            val titleId = if (success) {
+                R.string.folder_download_success_notification_title
+            } else {
+                R.string.folder_download_error_notification_title
+            }
+
+            val title = context.getString(titleId, folderName)
+
+            val notification = getNotification(title)
+            notificationManager.notify(NOTIFICATION_ID, notification)
         }
-
-        val title = context.getString(titleId, folderName)
-
-        val notification = getNotification(title)
-        notificationManager.notify(NOTIFICATION_ID, notification)
     }
 
     suspend fun showNotAvailableDiskSpace() = withContext(Dispatchers.Main) {
