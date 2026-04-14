@@ -1118,7 +1118,9 @@
     <string name="user_icon">ユーザー</string>
     <string name="user_info_address">住所</string>
     <string name="user_info_email">メール</string>
+    <string name="user_info_groups">グループ</string>
     <string name="user_info_phone">電話番号</string>
+    <string name="user_info_profile">プロフィール</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">ウェブサイト</string>
     <string name="user_information_retrieval_error">ユーザー情報を取得中にエラーが発生しました</string>

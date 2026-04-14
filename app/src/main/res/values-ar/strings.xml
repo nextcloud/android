@@ -1063,7 +1063,9 @@
     <string name="user_icon">المستخدم</string>
     <string name="user_info_address"> العنوان</string>
     <string name="user_info_email">البريد الإلكتروني</string>
+    <string name="user_info_groups">المجموعات</string>
     <string name="user_info_phone"> رقم الهاتف</string>
+    <string name="user_info_profile">لمحة تعريفية</string>
     <string name="user_info_twitter">تويتر</string>
     <string name="user_info_website"> الموقع الإلكتروني</string>
     <string name="user_information_retrieval_error">خطأ في استرداد معلومات المستخدم</string>

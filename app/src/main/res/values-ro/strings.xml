@@ -934,6 +934,7 @@
     <string name="user_icon">Utilizator</string>
     <string name="user_info_address">Adresă</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Grupuri</string>
     <string name="user_info_phone">Număr telefon</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site web</string>

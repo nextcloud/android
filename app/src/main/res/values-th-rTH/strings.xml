@@ -624,6 +624,7 @@
     <string name="user_icon">ผู้ใช้</string>
     <string name="user_info_address">ที่อยู่</string>
     <string name="user_info_email">อีเมล</string>
+    <string name="user_info_groups">กลุ่ม</string>
     <string name="user_info_phone">หมายเลขโทรศัพท์</string>
     <string name="user_info_twitter">ทวิตเตอร์</string>
     <string name="user_info_website">เว็บไซต์</string>

@@ -1164,7 +1164,9 @@
     <string name="user_icon">Utilisateur</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Groupes</string>
     <string name="user_info_phone">Numéro de téléphone</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site web</string>
     <string name="user_information_retrieval_error">Erreur de récupération des informations utilisateur</string>

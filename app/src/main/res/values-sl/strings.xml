@@ -903,7 +903,9 @@
     <string name="user_icon">Uporabnik</string>
     <string name="user_info_address">Naslov</string>
     <string name="user_info_email">Elektronski naslov</string>
+    <string name="user_info_groups">Skupine</string>
     <string name="user_info_phone">Telefonska številka</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Račun Twitter</string>
     <string name="user_info_website">Spletna stran</string>
     <string name="user_information_retrieval_error">Napaka pridobivanja podatkov uporabnika</string>

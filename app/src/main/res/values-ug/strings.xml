@@ -1134,7 +1134,9 @@
     <string name="user_icon">ئىشلەتكۈچى</string>
     <string name="user_info_address">ئادرېس</string>
     <string name="user_info_email">ئېلخەت</string>
+    <string name="user_info_groups">گۇرۇپپىلار</string>
     <string name="user_info_phone">تېلېفون نومۇرى</string>
+    <string name="user_info_profile">ئارخىپ</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">تور بېكەت</string>
     <string name="user_information_retrieval_error">ئىشلەتكۈچى ئۇچۇرىنى ئەسلىگە كەلتۈرۈشتە خاتالىق</string>

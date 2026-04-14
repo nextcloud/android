@@ -1165,7 +1165,9 @@
     <string name="user_icon">Kullanıcı</string>
     <string name="user_info_address">Adres</string>
     <string name="user_info_email">E-posta</string>
+    <string name="user_info_groups">Gruplar</string>
     <string name="user_info_phone">Telefon numarası</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site</string>
     <string name="user_information_retrieval_error">Kullanıcı bilgileri alınırken sorun çıktı</string>

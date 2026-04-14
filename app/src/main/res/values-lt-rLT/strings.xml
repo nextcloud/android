@@ -72,7 +72,7 @@
     <string name="assistant_task_detail_screen_output_button_title">Išvestis</string>
     <string name="assistant_task_status_failed">nepavyko</string>
     <string name="assistant_task_status_running">vykdoma</string>
-    <string name="assistant_task_status_scheduled">scheduled</string>
+    <string name="assistant_task_status_scheduled">suplanuota</string>
     <string name="assistant_task_status_successful">sėkmingas</string>
     <string name="assistant_task_status_text">Užduoties būsena: %1$s</string>
     <string name="assistant_task_status_unknown">nežinomas</string>
@@ -1176,7 +1176,9 @@
     <string name="user_icon">Naudotojas</string>
     <string name="user_info_address">Adresas</string>
     <string name="user_info_email">El. paštas</string>
+    <string name="user_info_groups">Grupės</string>
     <string name="user_info_phone">Telefono numeris</string>
+    <string name="user_info_profile">Profilis</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Svetainė</string>
     <string name="user_information_retrieval_error">Klaida gaunant vartotojo informaciją</string>
@@ -1188,7 +1190,7 @@
     <string name="wait_a_moment">Palaukite…</string>
     <string name="wait_checking_credentials">Dekriptuojami prisijungimo duomenys</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopijuojamas failas iš privačios saugyklos</string>
-    <string name="warn_rename_extension">Pakeitus plėtinį, šis failas gali būti atidarytas kitoje programoje</string>
+    <string name="warn_rename_extension">Pakeitus plėtinį, šis failas gali būti atidarytas kitoje programėlėje</string>
     <string name="what_s_new_image">Koks naujas vaizdas</string>
     <string name="whats_new_skip">Praleisti</string>
     <string name="whats_new_title">Naujas %1$s</string>

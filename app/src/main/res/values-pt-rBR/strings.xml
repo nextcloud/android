@@ -1170,7 +1170,9 @@
     <string name="user_icon">Usuário</string>
     <string name="user_info_address">Endereço</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Grupos</string>
     <string name="user_info_phone">Número do telefone</string>
+    <string name="user_info_profile">Perfil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Erro ao recuperar informação do usuário</string>

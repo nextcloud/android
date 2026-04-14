@@ -1170,7 +1170,9 @@
     <string name="user_icon">Kasutaja</string>
     <string name="user_info_address">Aadress</string>
     <string name="user_info_email">Epost</string>
+    <string name="user_info_groups">Grupid</string>
     <string name="user_info_phone">Telefoninumber</string>
+    <string name="user_info_profile">Profiil</string>
     <string name="user_info_twitter">X/Twitter</string>
     <string name="user_info_website">Veebisait</string>
     <string name="user_information_retrieval_error">Kasutaja teabe laadimisel tekkis viga</string>

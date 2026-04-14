@@ -633,7 +633,9 @@
     <string name="user_icon">Usuariu</string>
     <string name="user_info_address">Direición</string>
     <string name="user_info_email">Corréu electrónicu</string>
+    <string name="user_info_groups">Grupos</string>
     <string name="user_info_phone">Númberu telefónicu</string>
+    <string name="user_info_profile">Perfil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Sitiu web</string>
     <string name="user_information_retrieval_error">Hebo un error al recuperar la información del usuariu</string>
