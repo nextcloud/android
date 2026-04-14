@@ -11,7 +11,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Suppress("MagicNumber", "LongMethod")
-val MIGRATION_98_99 = object : Migration(98, 99) {
+val MIGRATION_99_100 = object : Migration(99, 100) {
     override fun migrate(db: SupportSQLiteDatabase) {
         db.execSQL("DROP TABLE IF EXISTS capabilities")
 
