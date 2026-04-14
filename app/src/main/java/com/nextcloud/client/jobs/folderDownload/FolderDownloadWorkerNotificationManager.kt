@@ -47,13 +47,15 @@ class FolderDownloadWorkerNotificationManager(
             clearActions()
             setContentText(description)
 
-            if (progress != null && showCancel) {
+            if (progress != null) {
                 setProgress(MAX_PROGRESS, progress, false)
-                addAction(
-                    R.drawable.ic_cancel,
-                    context.getString(R.string.common_cancel),
-                    getCancelPendingIntent()
-                )
+                if (showCancel) {
+                    addAction(
+                        R.drawable.ic_cancel,
+                        context.getString(R.string.common_cancel),
+                        getCancelPendingIntent()
+                    )
+                }
             } else {
                 setProgress(0, 0, false)
             }
