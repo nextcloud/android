@@ -45,7 +45,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 
 /**
  *  Remote operation performing the synchronization of the list of files contained
