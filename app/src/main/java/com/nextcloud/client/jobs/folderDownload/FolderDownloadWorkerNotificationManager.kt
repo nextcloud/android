@@ -26,14 +26,13 @@ class FolderDownloadWorkerNotificationManager(
     private val context: Context,
     private val showCancel: Boolean = true,
     viewThemeUtils: ViewThemeUtils?
-) :
-    WorkerNotificationManager(
-        id = NOTIFICATION_ID,
-        context,
-        viewThemeUtils,
-        tickerId = R.string.folder_download_worker_ticker_id,
-        channelId = NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
-    ) {
+) : WorkerNotificationManager(
+    id = NOTIFICATION_ID,
+    context,
+    viewThemeUtils,
+    tickerId = R.string.folder_download_worker_ticker_id,
+    channelId = NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
+) {
 
     companion object {
         private const val NOTIFICATION_ID = 391
@@ -75,12 +74,7 @@ class FolderDownloadWorkerNotificationManager(
     }
 
     @Suppress("MagicNumber")
-    fun showProgressNotification(
-        folderName: String,
-        filename: String,
-        currentIndex: Int,
-        totalFileSize: Int
-    ) {
+    fun showProgressNotification(folderName: String, filename: String, currentIndex: Int, totalFileSize: Int) {
         mainThread(delay = 0) {
             val currentFileIndex = (currentIndex + 1)
             val description =
