@@ -36,6 +36,7 @@ import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
@@ -113,11 +114,15 @@ class OCFileListDelegate(
         imageView.tag = file.fileId
 
         // set placeholder before async job
-        val cached = ThumbnailsCacheManager.getBitmapFromDiskCache(
-            ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
-        )
-        if (cached != null) {
-            imageView.setImageBitmap(cached)
+        val cacheKey = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
+        val cachedBitmap = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
+        if (cachedBitmap != null) {
+            val overlay = if (MimeTypeUtil.isVideo(file)) {
+                ThumbnailsCacheManager.addVideoOverlay(cachedBitmap, context)
+            } else {
+                cachedBitmap
+            }
+            imageView.setImageBitmap(overlay)
         } else {
             imageView.setImageDrawable(OCFileUtils.getMediaPlaceholder(file, imageDimension))
         }
