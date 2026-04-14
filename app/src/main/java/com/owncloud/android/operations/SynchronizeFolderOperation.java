@@ -93,6 +93,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     final FolderDownloadWorkerNotificationManager notificationManager;
 
+    private boolean hasChildFolders = false;
+
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
      *
@@ -397,6 +399,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     @SuppressFBWarnings("JLM")
     private void syncFileOrFolder(OCFile remoteFile, OCFile localFile) throws OperationCancelledException {
         if (remoteFile.isFolder()) {
+            hasChildFolders = true;
             synchronized (mCancellationRequested) {
                 if (mCancellationRequested.get()) {
                     throw new OperationCancelledException();
@@ -557,7 +560,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
             }
         }
 
-        notificationManager.showCompletionNotification(folderName, success);
+        if (!hasChildFolders) {
+            notificationManager.showCompletionNotification(folderName, success);
+            notificationManager.dismiss();
+        }
     }
 
 
