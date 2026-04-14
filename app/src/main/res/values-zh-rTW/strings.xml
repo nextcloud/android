@@ -1170,7 +1170,9 @@
     <string name="user_icon">使用者</string>
     <string name="user_info_address">地址</string>
     <string name="user_info_email">電子郵件</string>
+    <string name="user_info_groups">群組</string>
     <string name="user_info_phone">電話號碼</string>
+    <string name="user_info_profile">個人檔案</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">網站</string>
     <string name="user_information_retrieval_error">擷取使用者資訊時發生錯誤</string>

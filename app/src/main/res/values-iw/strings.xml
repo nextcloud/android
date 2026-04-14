@@ -757,6 +757,7 @@
     <string name="user_icon">משתמש</string>
     <string name="user_info_address">כתובת</string>
     <string name="user_info_email">דוא״ל</string>
+    <string name="user_info_groups">קבוצות</string>
     <string name="user_info_phone">מספר טלפון</string>
     <string name="user_info_twitter">טוויטר</string>
     <string name="user_info_website">אתר</string>

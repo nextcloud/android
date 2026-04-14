@@ -1157,7 +1157,9 @@
     <string name="user_icon">Mtumiaji</string>
     <string name="user_info_address">Anwani</string>
     <string name="user_info_email">Barua pepe</string>
+    <string name="user_info_groups">Makundi</string>
     <string name="user_info_phone">Namba ya simu</string>
+    <string name="user_info_profile">Wasifu</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Wavuti</string>
     <string name="user_information_retrieval_error">Hitilafu katika kurejesha maelezo ya mtumiaji</string>

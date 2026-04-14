@@ -1165,7 +1165,9 @@
     <string name="user_icon">用户</string>
     <string name="user_info_address">地址</string>
     <string name="user_info_email">电子邮箱</string>
+    <string name="user_info_groups">群组</string>
     <string name="user_info_phone">电话号码</string>
+    <string name="user_info_profile">个人资料</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">网站</string>
     <string name="user_information_retrieval_error">检索用户信息时报错</string>
