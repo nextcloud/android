@@ -16,6 +16,7 @@ import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerNotificationManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
@@ -29,7 +30,6 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
-import com.owncloud.android.operations.manager.SynchronizeFileNotificationManager;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -91,7 +91,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     private final boolean syncAll;
 
-    final SynchronizeFileNotificationManager notificationManager;
+    final FolderDownloadWorkerNotificationManager notificationManager;
 
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
@@ -117,7 +117,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mCancellationRequested = new AtomicBoolean(false);
         this.useWorkerWithNotification = useWorkerWithNotification;
         this.syncAll = syncAll;
-        notificationManager = new SynchronizeFileNotificationManager(context, null);
+        notificationManager = new FolderDownloadWorkerNotificationManager(context, false,null);
     }
 
 
@@ -525,6 +525,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         int total = filesToSyncContents.size();
         int current = 0;
         boolean success = true;
+        String folderName = mLocalFolder.getFileName();
 
         for (SynchronizeFileOperation op: filesToSyncContents) {
             if (mCancellationRequested.get()) {
@@ -534,10 +535,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
             contentsResult = op.execute(mContext);
             current++;
 
-            int progress = (int) ((current * 100.0f) / total);
             final var file = op.getLocalFile();
             if (file != null) {
-                notificationManager.showProgress(file.getFileName(), progress);
+                notificationManager.showProgressNotification(folderName, file.getFileName(), current, total);
             }
 
             if (!contentsResult.isSuccess()) {
@@ -558,7 +558,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // FIXME:  NOT DISPLAYING
-        notificationManager.showCompletion(mLocalFolder.getFileName(), success);
+        notificationManager.showCompletionNotification(folderName, success);
     }
 
     /**

@@ -47,7 +47,7 @@ class FolderDownloadWorker(
         fun isDownloading(id: Long): Boolean = pendingDownloads.contains(id)
     }
 
-    private val notificationManager = FolderDownloadWorkerNotificationManager(context, viewThemeUtils)
+    private val notificationManager = FolderDownloadWorkerNotificationManager(context, true, viewThemeUtils)
     private val folderDownloadEventBroadcaster = FolderDownloadEventBroadcaster(context, localBroadcastManager)
     private lateinit var storageManager: FileDataStorageManager
 
@@ -112,15 +112,12 @@ class FolderDownloadWorker(
                         return@withContext Result.failure()
                     }
 
-                    withContext(Dispatchers.Main) {
-                        val notification = notificationManager.getProgressNotification(
-                            folder.fileName,
-                            file.fileName,
-                            index,
-                            files.size
-                        )
-                        notificationManager.showNotification(notification)
-                    }
+                    notificationManager.showProgressNotification(
+                        folder.fileName,
+                        file.fileName,
+                        index,
+                        files.size
+                    )
 
                     val operation = DownloadFileOperation(user, file, context)
                     val operationResult = operation.execute(client)
