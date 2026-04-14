@@ -229,6 +229,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
     public static boolean isMultipleFileSelectedForCopyOrMove = false;
+    private static boolean isBrowseUp = false;
 
     private static final Intent scanIntentExternalApp = new Intent("org.fairscan.app.action.SCAN_TO_PDF");
 
@@ -246,6 +247,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
     private static OCFileDepth fileDepth = OCFileDepth.Root;
+
+    public boolean isBrowseUp() {
+        return isBrowseUp;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1043,6 +1048,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             searchFragment = true;
         }
 
+        isBrowseUp = true;
         updateFileList();
         return result.first;
     }
@@ -1309,6 +1315,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(file, MainApp.isOnlyOnDevice());
         // then, notify parent activity to let it update its state and view
         mContainerActivity.onBrowsedDownTo(file);
+
+        isBrowseUp = false;
+
         // save index and top position
         saveIndexAndTopPosition(position);
     }

@@ -1592,7 +1592,9 @@ class FileDisplayActivity :
         }
 
         ocFileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice()) {
-            ocFileListFragment.restoreIndexAndTopPosition()
+            if (ocFileListFragment.isBrowseUp) {
+                ocFileListFragment.restoreIndexAndTopPosition()
+            }
         }
     }
 
