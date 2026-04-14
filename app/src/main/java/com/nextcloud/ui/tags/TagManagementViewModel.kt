@@ -6,10 +6,12 @@
  */
 package com.nextcloud.ui.tags
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.network.ClientFactory
+import com.owncloud.android.R
 import com.owncloud.android.lib.resources.tags.CreateTagRemoteOperation
 import com.owncloud.android.lib.resources.tags.DeleteTagRemoteOperation
 import com.owncloud.android.lib.resources.tags.GetTagsRemoteOperation
@@ -31,7 +33,7 @@ class TagManagementViewModel @Inject constructor(
         object Loading : TagUiState
         data class Loaded(val allTags: List<Tag>, val assignedTagIds: Set<String>, val query: String = "") : TagUiState
 
-        data class Error(val message: String) : TagUiState
+        data class Error(@StringRes val messageId: Int) : TagUiState
     }
 
     private val _uiState = MutableStateFlow<TagUiState>(TagUiState.Loading)
@@ -61,10 +63,10 @@ class TagManagementViewModel @Inject constructor(
                         )
                     }
                 } else {
-                    _uiState.update { TagUiState.Error("Failed to load tags") }
+                    _uiState.update { TagUiState.Error(R.string.failed_to_load_tags) }
                 }
             } catch (e: ClientFactory.CreationException) {
-                _uiState.update { TagUiState.Error("Failed to create client") }
+                _uiState.update { TagUiState.Error(R.string.failed_to_load_tags) }
             }
         }
     }
