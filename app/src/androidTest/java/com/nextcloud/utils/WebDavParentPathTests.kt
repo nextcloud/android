@@ -11,9 +11,8 @@ import com.nextcloud.utils.extensions.webDavParentPath
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
+@Suppress("TooManyFunctions")
 class WebDavParentPathTests {
-
-    // ── Happy path ────────────────────────────────────────────────────────────
 
     @Test
     fun testWebDavParentPathWhenGivenCorrectParentShouldReturnOneLevelAbove() {
@@ -25,8 +24,6 @@ class WebDavParentPathTests {
     fun testWebDavParentPathWhenGivenDeepNestingShouldReturnDirectParent() {
         assertEquals("/a/b/c/d/", "/a/b/c/d/e.txt".webDavParentPath())
     }
-
-    // ── Root cases ────────────────────────────────────────────────────────────
 
     @Test
     fun testWebDavParentPathWhenGivenRootFileShouldReturnRoot() {
@@ -48,8 +45,6 @@ class WebDavParentPathTests {
         assertEquals("/", "///".webDavParentPath())
     }
 
-    // ── Relative paths ────────────────────────────────────────────────────────
-
     @Test
     fun testWebDavParentPathWhenGivenRelativePathShouldReturnOneLevelAbove() {
         assertEquals("Documents/", "Documents/file.pdf".webDavParentPath())
@@ -59,8 +54,6 @@ class WebDavParentPathTests {
     fun testWebDavParentPathWhenGivenSingleWordPathShouldReturnRoot() {
         assertEquals("/", "readme.md".webDavParentPath())
     }
-
-    // ── Trailing slashes ──────────────────────────────────────────────────────
 
     @Test
     fun testWebDavParentPathWhenGivenTrailingSlashShouldReturnOneLevelAbove() {
@@ -72,8 +65,6 @@ class WebDavParentPathTests {
         assertEquals("/Photos/", "/Photos/Vacation///".webDavParentPath())
     }
 
-    // ── Encoded characters (WebDAV percent-encoding must be preserved) ────────
-
     @Test
     fun testWebDavParentPathWhenGivenEncodedSpacesShouldPreserveEncoding() {
         assertEquals("/My%20Photos/", "/My%20Photos/beach%20photo.jpg".webDavParentPath())
@@ -84,14 +75,10 @@ class WebDavParentPathTests {
         assertEquals("/files/%23reports/", "/files/%23reports/q1%262.pdf".webDavParentPath())
     }
 
-    // ── Unicode ───────────────────────────────────────────────────────────────
-
     @Test
     fun testWebDavParentPathWhenGivenUnicodeCharsShouldReturnOneLevelAbove() {
         assertEquals("/照片/假期/", "/照片/假期/海滩.jpg".webDavParentPath())
     }
-
-    // ── Single character ──────────────────────────────────────────────────────
 
     @Test
     fun testWebDavParentPathWhenGivenSingleCharFileAtRootShouldReturnRoot() {
