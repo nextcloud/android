@@ -9,6 +9,7 @@ package com.nextcloud.ui.fileactions
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -87,30 +88,35 @@ class ClientIntegration(
                         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                             .getNextcloudClientFor(user.toOwnCloudAccount(), context)
 
-                        val drawable = GlideHelper.fetchDrawable(
-                            context,
-                            client,
-                            client.baseUri.toString() + endpoint.icon,
-                            width = px,
-                            height = px
-                        )?.mutate()
-
-                        val tintedDrawable = drawable?.let { viewThemeUtils.platform.tintDrawable(context, it) }
+                        val drawable = GlideHelper
+                            .getDrawable(context, client, client.baseUri.toString() + endpoint.icon)?.mutate()
 
                         withContext(Dispatchers.Main) {
-                            icon.setImageDrawable(tintedDrawable)
+                            val tintedDrawable = drawable?.let { viewThemeUtils.platform.tintDrawable(context, it) }
+                            if (tintedDrawable != null) {
+                                icon.setImageDrawable(tintedDrawable)
+                            } else {
+                                getDefaultTintedIconDrawable(viewThemeUtils)?.let {
+                                    icon.setImageDrawable(it)
+                                }
+                            }
                         }
                     }
                 } else {
-                    val tintedDrawable = viewThemeUtils.platform.tintDrawable(
-                        context,
-                        AppCompatResources.getDrawable(context, R.drawable.ic_activity)!!
-                    )
-
-                    icon.setImageDrawable(tintedDrawable)
+                    getDefaultTintedIconDrawable(viewThemeUtils)?.let {
+                        icon.setImageDrawable(it)
+                    }
                 }
             }
         return itemBinding.root
+    }
+
+    private fun getDefaultTintedIconDrawable(viewThemeUtils: ViewThemeUtils): Drawable? {
+        val drawable = AppCompatResources.getDrawable(context, R.drawable.ic_activity) ?: return null
+        return viewThemeUtils.platform.tintDrawable(
+            context,
+            drawable
+        )
     }
 
     private fun requestClientIntegration(endpoint: Endpoint, fileId: String, filePath: String) {
