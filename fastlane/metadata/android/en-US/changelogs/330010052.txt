@@ -1,0 +1,8 @@
+## 33.1.0 RC2 (April 15, 2026)
+
+- Better upload conflict handling
+- Bug fixes and performance improvements
+
+Minimum: NC 20 Server, Android 9 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/123
