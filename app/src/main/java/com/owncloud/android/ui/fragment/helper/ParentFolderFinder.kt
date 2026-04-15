@@ -17,6 +17,24 @@ class ParentFolderFinder {
         private const val TAG = "ParentFolderFinder"
     }
 
+    /**
+     * User tries to move up but parent folder was deleted thus parent of parent
+     * will be used as destination else ROOT directory
+     */
+    fun getParentOnFirstParentRemoved(path: String?, storageManager: FileDataStorageManager?): OCFile? {
+        if (storageManager == null) {
+            Log_OC.e(TAG, "StorageManager is null")
+            return null
+        }
+
+        if (path.isNullOrEmpty() || path == OCFile.ROOT_PATH) {
+            Log_OC.w(TAG, "Path is null, empty, or already at root. Falling back to ROOT.")
+            return storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
+        }
+
+        return walkUpByPath(path, storageManager).second
+    }
+
     fun getParent(file: OCFile?, storageManager: FileDataStorageManager?): Pair<Int, OCFile?> {
         if (file == null || file.isRootDirectory) {
             Log_OC.e(TAG, "File is null or already at root")
