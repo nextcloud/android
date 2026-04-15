@@ -35,7 +35,8 @@ class UploadListAdapterActionHandler : UploadListAdapterAction {
         if (!operationResult.isSuccess) {
             return@withContext when (operationResult.code) {
                 RemoteOperationResult.ResultCode.FILE_NOT_FOUND -> {
-                    onConflictNotExists(upload, storageManager)
+                    updateStatus(upload, storageManager, success = false)
+                    ConflictHandlingResult.ConflictNotExistsRemoteFileNotFound
                 }
 
                 else -> {
@@ -54,18 +55,15 @@ class UploadListAdapterActionHandler : UploadListAdapterAction {
         val ocFile = FileStorageUtils.fillOCFile(remoteFile)
 
         if (remoteFile.isSame(ocFile.storagePath)) {
-            onConflictNotExists(upload, storageManager)
+            updateStatus(upload, storageManager, success = true)
+            ConflictHandlingResult.ConflictNotExistsSameFile
         } else {
             ConflictHandlingResult.ShowConflictResolveDialog(ocFile, upload)
         }
     }
 
-    private fun onConflictNotExists(
-        upload: OCUpload,
-        storageManager: UploadsStorageManager
-    ): ConflictHandlingResult.ConflictNotExists {
+    private fun updateStatus(upload: OCUpload, storageManager: UploadsStorageManager, success: Boolean) {
         val entity = storageManager.uploadDao.getUploadById(upload.uploadId, upload.accountName)
-        storageManager.updateStatus(entity, UploadsStorageManager.UploadStatus.UPLOAD_FAILED)
-        return ConflictHandlingResult.ConflictNotExists
+        storageManager.updateStatus(entity, success)
     }
 }

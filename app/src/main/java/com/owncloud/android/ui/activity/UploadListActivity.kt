@@ -36,6 +36,7 @@ import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.ui.adapter.uploadList.UploadListAdapter
@@ -291,47 +292,65 @@ class UploadListActivity :
 
             withContext(Dispatchers.Main) {
                 when (result) {
-                    is ConflictHandlingResult.ConflictNotExists -> {
-                        showConflictNotExists(upload)
+                    is ConflictHandlingResult.ConflictNotExistsRemoteFileNotFound -> {
+                        showConflictSnackbar(R.string.upload_sync_conflict_not_exists)
+                        retryUpload(upload)
                     }
 
                     is ConflictHandlingResult.CannotCheckConflict -> {
-                        showConflictError()
+                        showConflictSnackbar(R.string.upload_sync_conflict_check_error)
                     }
 
                     is ConflictHandlingResult.ShowConflictResolveDialog -> {
                         conflictSnackbar?.dismiss()
                         adapterHelper.openConflictActivity(result.file, result.upload)
                     }
-                }
-            }
-        }
-    }
 
-    private fun showConflictNotExists(upload: OCUpload) {
-        conflictSnackbar?.apply {
-            setText(R.string.upload_sync_conflict_not_exists)
-            setDuration(Snackbar.LENGTH_LONG)
-            setAction(R.string.retry) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    val client = clientRepository.getOwncloudClient()
-                    val operation = uploadFileOperationFactory.create(upload).execute(client)
-                    if (operation.isSuccess) {
-                        withContext(Dispatchers.Main) {
-                            uploadListAdapter.loadUploadItemsFromDb()
-                        }
+                    is ConflictHandlingResult.ConflictNotExistsSameFile -> {
+                        showConflictSnackbar(R.string.upload_sync_conflict_same_file)
                     }
                 }
             }
-            show()
         }
     }
 
-    private fun showConflictError() {
+    private fun retryUpload(upload: OCUpload) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val client = clientRepository.getOwncloudClient()
+
+            // Check parent folder exists
+            val parentPath = storageManager
+                .getFileByPath(upload.remotePath)
+                .parentRemotePath
+
+            val checkOp = ExistenceCheckRemoteOperation(parentPath, false)
+            val checkResult = checkOp.execute(client)
+
+            if (!checkResult.isSuccess &&
+                checkResult.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND
+            ) {
+                withContext(Dispatchers.Main) {
+                    showConflictSnackbar(R.string.uploader_file_not_found_message)
+                }
+                return@launch
+            }
+
+            val result = uploadFileOperationFactory
+                .create(upload)
+                .execute(client)
+
+            if (result.isSuccess) {
+                withContext(Dispatchers.Main) {
+                    uploadListAdapter.loadUploadItemsFromDb()
+                }
+            }
+        }
+    }
+
+    private fun showConflictSnackbar(messageId: Int) {
         conflictSnackbar?.apply {
-            setText(R.string.upload_sync_conflict_check_error)
+            setText(messageId)
             setDuration(Snackbar.LENGTH_LONG)
-            setAction(null, null)
             show()
         }
     }
