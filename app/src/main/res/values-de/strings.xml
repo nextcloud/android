@@ -1170,6 +1170,7 @@
     <string name="user_icon">Nutzer</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-Mail</string>
+    <string name="user_info_groups">Gruppen</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">X</string>
