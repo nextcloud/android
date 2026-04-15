@@ -12,6 +12,7 @@ import com.owncloud.android.db.OCUpload
 
 sealed class ConflictHandlingResult {
     data object CannotCheckConflict : ConflictHandlingResult()
-    data object ConflictNotExists : ConflictHandlingResult()
+    data object ConflictNotExistsSameFile : ConflictHandlingResult()
+    data object ConflictNotExistsRemoteFileNotFound : ConflictHandlingResult()
     data class ShowConflictResolveDialog(val file: OCFile, val upload: OCUpload) : ConflictHandlingResult()
 }
