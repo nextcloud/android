@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -13,37 +14,35 @@ import javax.inject.Singleton
 
 @Singleton
 class WalledCheckCache @Inject constructor(private val clock: Clock) {
-
-    private var cachedEntry: Pair<Long, Boolean>? = null
+    private var connectivityCache = mutableMapOf<ConnectivityKey, Connectivity>()
+    private val walledStatusCache = mutableMapOf<ConnectivityKey, Pair<Long, Boolean>>()
 
     @Synchronized
-    fun isExpired(): Boolean = when (val timestamp = cachedEntry?.first) {
-        null -> true
-
-        else -> {
-            val diff = clock.currentTime - timestamp
-            diff >= CACHE_TIME_MS
-        }
+    fun setValue(key: ConnectivityKey, isWalled: Boolean) {
+        walledStatusCache[key] = Pair(clock.currentTime, isWalled)
     }
 
     @Synchronized
-    fun setValue(isWalled: Boolean) {
-        this.cachedEntry = Pair(clock.currentTime, isWalled)
+    fun clear(key: ConnectivityKey) {
+        walledStatusCache.remove(key)
     }
 
     @Synchronized
-    fun getValue(): Boolean? = when (isExpired()) {
-        true -> null
-        else -> cachedEntry?.second
+    fun getValue(key: ConnectivityKey): Boolean? {
+        val entry = walledStatusCache[key] ?: return null
+        val isExpired = (clock.currentTime - entry.first) >= CACHE_TIME_MS
+        return if (isExpired) null else entry.second
     }
 
     @Synchronized
-    fun clear() {
-        cachedEntry = null
+    fun putConnectivityValue(key: ConnectivityKey, connectivity: Connectivity) {
+        connectivityCache[key] = connectivity
     }
+
+    @Synchronized
+    fun getConnectivity(key: ConnectivityKey): Connectivity? = connectivityCache[key]
 
     companion object {
-        // 10 minutes
         private const val CACHE_TIME_MS = 10 * 60 * 1000
     }
 }

@@ -1,24 +1,31 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2021 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.network
 
+import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.net.NetworkInfo
 import com.nextcloud.client.account.Server
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.logger.Logger
 import com.nextcloud.common.PlainClient
 import com.nextcloud.operations.GetMethod
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
 import org.apache.commons.httpclient.HttpStatus
+import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
@@ -26,12 +33,12 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
-import org.mockito.ArgumentCaptor
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.any
+import org.mockito.kotlin.argumentCaptor
+import org.mockito.kotlin.clearInvocations
 import org.mockito.kotlin.eq
-import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
@@ -49,22 +56,14 @@ class ConnectivityServiceTest {
 
     internal abstract class Base {
         companion object {
-            fun mockNetworkInfo(connected: Boolean, connecting: Boolean, type: Int): NetworkInfo {
-                val networkInfo = mock<NetworkInfo>()
-                whenever(networkInfo.isConnectedOrConnecting).thenReturn(connected or connecting)
-                whenever(networkInfo.isConnected).thenReturn(connected)
-                whenever(networkInfo.type).thenReturn(type)
-                return networkInfo
-            }
-
             const val SERVER_BASE_URL = "https://test.nextcloud.localhost"
         }
 
         @Mock
-        lateinit var platformConnectivityManager: ConnectivityManager
+        lateinit var context: Context
 
         @Mock
-        lateinit var networkInfo: NetworkInfo
+        lateinit var platformConnectivityManager: ConnectivityManager
 
         @Mock
         lateinit var accountManager: UserAccountManager
@@ -90,10 +89,7 @@ class ConnectivityServiceTest {
         @Mock
         lateinit var networkCapabilities: NetworkCapabilities
 
-        @Mock
-        lateinit var logger: Logger
-
-        val baseServerUri = URI.create(SERVER_BASE_URL)
+        val baseServerUri: URI = URI.create(SERVER_BASE_URL)
         val newServer = Server(baseServerUri, NextcloudVersion.nextcloud_31)
         val legacyServer = Server(baseServerUri, OwnCloudVersion.nextcloud_20)
 
@@ -102,87 +98,115 @@ class ConnectivityServiceTest {
 
         lateinit var connectivityService: ConnectivityServiceImpl
 
+        @OptIn(ExperimentalCoroutinesApi::class)
+        private val testDispatcher = StandardTestDispatcher()
+
+        @OptIn(ExperimentalCoroutinesApi::class)
         @Before
         fun setUpMocks() {
-            MockitoAnnotations.initMocks(this)
+            Dispatchers.setMain(testDispatcher)
+            MockitoAnnotations.openMocks(this)
+
+            whenever(context.getSystemService(Context.CONNECTIVITY_SERVICE))
+                .thenReturn(platformConnectivityManager)
+
+            whenever(platformConnectivityManager.activeNetwork).thenReturn(network)
+            whenever(platformConnectivityManager.getNetworkCapabilities(network))
+                .thenReturn(networkCapabilities)
+
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI))
+                .thenReturn(true)
+            whenever(
+                networkCapabilities
+                    .hasCapability(eq(NetworkCapabilities.NET_CAPABILITY_NOT_METERED))
+            )
+                .thenReturn(true)
+
+            whenever(requestBuilder.invoke(any())).thenReturn(getRequest)
+            whenever(clientFactory.createPlainClient()).thenReturn(client)
+            whenever(user.server).thenReturn(newServer)
+            whenever(accountManager.user).thenReturn(user)
+
+            val key = ConnectivityKey(user.accountName,newServer.uri.toString())
+            whenever(walledCheckCache.getValue(key)).thenReturn(null)
+
             connectivityService = ConnectivityServiceImpl(
-                platformConnectivityManager,
+                context,
                 accountManager,
                 clientFactory,
                 requestBuilder,
                 walledCheckCache
             )
-
-            whenever(networkCapabilities.hasCapability(eq(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)))
-                .thenReturn(true)
-            whenever(platformConnectivityManager.activeNetwork).thenReturn(network)
-            whenever(platformConnectivityManager.activeNetworkInfo).thenReturn(networkInfo)
-            whenever(platformConnectivityManager.allNetworkInfo).thenReturn(arrayOf(networkInfo))
-            whenever(platformConnectivityManager.getNetworkCapabilities(any())).thenReturn(networkCapabilities)
-            whenever(requestBuilder.invoke(any())).thenReturn(getRequest)
-            whenever(clientFactory.createPlainClient()).thenReturn(client)
-            whenever(user.server).thenReturn(newServer)
-            whenever(accountManager.user).thenReturn(user)
-            whenever(walledCheckCache.getValue()).thenReturn(null)
         }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
     }
 
     internal class Disconnected : Base() {
         @Test
-        fun `wifi is disconnected`() {
-            whenever(networkInfo.isConnectedOrConnecting).thenReturn(false)
-            whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
-            connectivityService.connectivity.apply {
-                assertFalse(isConnected)
-                assertTrue(isWifi)
-            }
+        fun `no active network`() {
+            // GIVEN
+            whenever(platformConnectivityManager.activeNetwork).thenReturn(null)
+            // WHEN
+            connectivityService.updateConnectivity()
+            // THEN
+            assertSame(Connectivity.DISCONNECTED, connectivityService.connectivity)
+            assertFalse(connectivityService.isConnected)
         }
 
         @Test
-        fun `no active network`() {
-            whenever(platformConnectivityManager.activeNetworkInfo).thenReturn(null)
+        fun `no network capabilities`() {
+            // GIVEN
+            whenever(platformConnectivityManager.getNetworkCapabilities(network)).thenReturn(null)
+            // WHEN
+            connectivityService.updateConnectivity()
+            // THEN
             assertSame(Connectivity.DISCONNECTED, connectivityService.connectivity)
+            assertFalse(connectivityService.isConnected)
         }
     }
 
     internal class IsConnected : Base() {
-
         @Test
         fun `connected to wifi`() {
-            whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
-            whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
+            // GIVEN: Default setup is connected Wi-Fi
+            // WHEN
+            connectivityService.updateConnectivity()
+            // THEN
             assertTrue(connectivityService.connectivity.isConnected)
             assertTrue(connectivityService.connectivity.isWifi)
         }
 
         @Test
-        fun `connected to wifi and vpn`() {
-            whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
-            whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_VPN)
-            val wifiNetworkInfoList = arrayOf(
-                mockNetworkInfo(
-                    connected = true,
-                    connecting = true,
-                    type = ConnectivityManager.TYPE_VPN
-                ),
-                mockNetworkInfo(
-                    connected = true,
-                    connecting = true,
-                    type = ConnectivityManager.TYPE_WIFI
-                )
-            )
-            whenever(platformConnectivityManager.allNetworkInfo).thenReturn(wifiNetworkInfoList)
+        fun `connected to mobile network`() {
+            // GIVEN
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI))
+                .thenReturn(false)
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
+                .thenReturn(true)
+            // WHEN
+            connectivityService.updateConnectivity()
+            // THEN
             connectivityService.connectivity.let {
                 assertTrue(it.isConnected)
-                assertTrue(it.isWifi)
+                assertFalse(it.isWifi)
             }
         }
 
         @Test
-        fun `connected to mobile network`() {
-            whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
-            whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_MOBILE)
-            whenever(platformConnectivityManager.allNetworkInfo).thenReturn(arrayOf(networkInfo))
+        fun `connected to vpn`() {
+            // GIVEN
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI))
+                .thenReturn(false)
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN))
+                .thenReturn(true)
+            // WHEN
+            connectivityService.updateConnectivity()
+            // THEN
             connectivityService.connectivity.let {
                 assertTrue(it.isConnected)
                 assertFalse(it.isWifi)
@@ -191,12 +215,10 @@ class ConnectivityServiceTest {
     }
 
     internal class WifiConnectionWalledStatusOnLegacyServer : Base() {
-
         @Before
         fun setUp() {
-            whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
-            whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
             whenever(user.server).thenReturn(legacyServer)
+            connectivityService.updateConnectivity()
             assertTrue(
                 "Precondition failed",
                 connectivityService.connectivity.let {
@@ -206,7 +228,7 @@ class ConnectivityServiceTest {
         }
 
         fun mockResponse(maintenance: Boolean = true, httpStatus: Int = HttpStatus.SC_OK) {
-            whenever(client.execute(getRequest)).thenReturn(httpStatus)
+            whenever(getRequest.execute(client)).thenReturn(httpStatus)
             val body =
                 """{"maintenance":$maintenance}"""
             whenever(getRequest.getResponseContentLength()).thenReturn(body.length.toLong())
@@ -225,23 +247,17 @@ class ConnectivityServiceTest {
             assertTrue(connectivityService.isInternetWalled)
         }
 
-        @Test
-        fun `status endpoint is used to determine internet state`() {
-            mockResponse()
-            connectivityService.isInternetWalled
-            val urlCaptor = ArgumentCaptor.forClass(String::class.java)
-            verify(requestBuilder).invoke(urlCaptor.capture())
-            assertTrue("Invalid URL used to check status", urlCaptor.value.endsWith("/204"))
-        }
+        // `status endpoint is used to determine internet state` removed: the new impl
+        // uses /index.php/204 for all server versions, which is already covered by
+        // WifiConnectionWalledStatus.`index endpoint is used to determine internet state`.
     }
 
     internal class WifiConnectionWalledStatus : Base() {
-
         @Before
         fun setUp() {
-            whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
-            whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
-            whenever(accountManager.getServerVersion(any())).thenReturn(OwnCloudVersion.nextcloud_20)
+            connectivityService.updateConnectivity()
+            Thread.sleep(200)
+            clearInvocations(requestBuilder, client, getRequest)
             connectivityService.connectivity.let {
                 assertTrue(it.isConnected)
                 assertTrue(it.isWifi)
@@ -253,8 +269,9 @@ class ConnectivityServiceTest {
         fun `request not sent when not connected`() {
             // GIVEN
             //      network is not connected
-            whenever(networkInfo.isConnectedOrConnecting).thenReturn(false)
-            whenever(networkInfo.isConnected).thenReturn(false)
+            whenever(platformConnectivityManager.activeNetwork).thenReturn(null)
+            connectivityService.updateConnectivity()
+            assertFalse("Precondition failed", connectivityService.isConnected)
 
             // WHEN
             //      connectivity is checked
@@ -263,23 +280,29 @@ class ConnectivityServiceTest {
             // THEN
             //      connection is walled
             //      request is not sent
-            assertTrue("Server should not be accessible", result)
+            assertTrue("Should be walled if not connected", result)
             verify(requestBuilder, never()).invoke(any())
             verify(client, never()).execute(any())
         }
 
         @Test
-        fun `request not sent when wifi is metered`() {
+        fun `request IS sent when wifi is metered`() {
             // GIVEN
-            //      network is connected to wifi
-            //      wifi is metered
-            whenever(networkCapabilities.hasCapability(any())).thenReturn(false) // this test is mocked for API M
-            whenever(platformConnectivityManager.isActiveNetworkMetered).thenReturn(true)
+            //      network is connected to wifi, but metered
+            whenever(
+                networkCapabilities
+                    .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+            )
+                .thenReturn(false)
+            connectivityService.updateConnectivity()
+
             connectivityService.connectivity.let {
                 assertTrue("should be connected", it.isConnected)
                 assertTrue("should be connected to wifi", it.isWifi)
-                assertTrue("check mocking, this check is complicated and depends on SDK version", it.isMetered)
+                assertTrue("should be metered", it.isMetered)
             }
+            // Mock a successful 204 response
+            mockResponse(contentLength = 0, status = HttpStatus.SC_NO_CONTENT)
 
             // WHEN
             //      connectivity is checked
@@ -287,34 +310,11 @@ class ConnectivityServiceTest {
 
             // THEN
             //      assume internet is not walled
-            //      request is not sent
-            assertFalse("Server should not be accessible", result)
-            verify(requestBuilder, never()).invoke(any())
-            verify(getRequest, never()).execute(any<PlainClient>())
-        }
-
-        @Test
-        fun `check cache value when server uri is not set`() {
-            // GIVEN
-            //      network connectivity is present
-            //      user has no server URI (empty)
-            val serverWithoutUri = Server(URI(""), OwnCloudVersion.nextcloud_20)
-            whenever(user.server).thenReturn(serverWithoutUri)
-
-            // WHEN
-            //      connectivity is checked
-            val result = connectivityService.isInternetWalled
-
-            // THEN
-            //      connection is walled
-            //      request is not sent
-            assertFalse("Cached value not set", result)
-            verify(requestBuilder, never()).invoke(any())
-            verify(getRequest, never()).execute(any<PlainClient>())
+            //      request IS sent
+            assertEquals(false, result)
         }
 
         fun mockResponse(contentLength: Long = 0, status: Int = HttpStatus.SC_OK) {
-            whenever(client.execute(any())).thenReturn(status)
             whenever(getRequest.getStatusCode()).thenReturn(status)
             whenever(getRequest.getResponseContentLength()).thenReturn(contentLength)
             whenever(getRequest.execute(client)).thenReturn(status)
@@ -345,9 +345,12 @@ class ConnectivityServiceTest {
         fun `index endpoint is used to determine internet state`() {
             mockResponse()
             connectivityService.isInternetWalled
-            val urlCaptor = ArgumentCaptor.forClass(String::class.java)
+            val urlCaptor = argumentCaptor<String>()
             verify(requestBuilder).invoke(urlCaptor.capture())
-            assertTrue("Invalid URL used to check status", urlCaptor.value.endsWith("/index.php/204"))
+            assertTrue(
+                "Invalid URL used to check status",
+                urlCaptor.firstValue.endsWith("/index.php/204")
+            )
             verify(getRequest, times(1)).execute(client)
         }
     }

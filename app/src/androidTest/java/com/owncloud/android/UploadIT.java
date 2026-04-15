@@ -14,6 +14,7 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.NetworkChangeListener;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
@@ -56,6 +57,16 @@ public class UploadIT extends AbstractOnServerIT {
                                   targetContext.getContentResolver());
 
     private ConnectivityService connectivityServiceMock = new ConnectivityService() {
+        @Override
+        public void addListener(@NonNull NetworkChangeListener listener) {
+
+        }
+
+        @Override
+        public void removeListener(@NonNull NetworkChangeListener listener) {
+
+        }
+
         @Override
         public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
 
@@ -269,6 +280,16 @@ public class UploadIT extends AbstractOnServerIT {
     public void testUploadOnWifiOnlyButNoWifi() {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
+            public void addListener(@NonNull NetworkChangeListener listener) {
+
+            }
+
+            @Override
+            public void removeListener(@NonNull NetworkChangeListener listener) {
+
+            }
+
+            @Override
             public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
 
             }
@@ -285,7 +306,7 @@ public class UploadIT extends AbstractOnServerIT {
 
             @Override
             public Connectivity getConnectivity() {
-                return new Connectivity(true, false, false, true);
+                return new Connectivity(true, false, false, true, false);
             }
         };
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
@@ -358,6 +379,16 @@ public class UploadIT extends AbstractOnServerIT {
     public void testUploadOnWifiOnlyButMeteredWifi() {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
+            public void addListener(@NonNull NetworkChangeListener listener) {
+
+            }
+
+            @Override
+            public void removeListener(@NonNull NetworkChangeListener listener) {
+
+            }
+
+            @Override
             public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
 
             }
@@ -374,7 +405,7 @@ public class UploadIT extends AbstractOnServerIT {
 
             @Override
             public Connectivity getConnectivity() {
-                return new Connectivity(true, true, true, true);
+                return new Connectivity(true, true, true, true, false);
             }
         };
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",

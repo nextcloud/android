@@ -393,6 +393,8 @@ dependencies {
     androidTestImplementation(libs.core.testing)
     // endregion
 
+    testImplementation(libs.kotlinx.coroutines.test)
+
     // region other libraries
     compileOnly(libs.org.jbundle.util.osgi.wrapped.org.apache.http.client)
     implementation(libs.commons.httpclient.commons.httpclient) // remove after entire switch to lib v2
