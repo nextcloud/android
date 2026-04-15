@@ -17,57 +17,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/appbar"
-            layout="@layout/toolbar_standard" />
-
-        <!-- The main content view -->
-        <LinearLayout
-            android:id="@+id/root_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bg_default"
-            android:baselineAligned="false"
-            android:contentDescription="@string/list_layout"
-            android:orientation="horizontal"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <FrameLayout
-                android:id="@+id/left_fragment_container"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        </LinearLayout>
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            app:labelVisibilityMode="labeled"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:menu="@menu/bottom_navigation_menu"
-            app:layout_behavior="com.nextcloud.ui.behavior.OnScrollBehavior" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_marginEnd="@dimen/standard_margin"
-            android:layout_marginBottom="@dimen/floating_action_button_bottom_margin"
-            android:contentDescription="@string/fab_label"
-            app:srcCompat="@drawable/ic_plus"
-            app:layout_behavior="com.nextcloud.ui.behavior.OnScrollBehavior"
+        <FrameLayout
+            android:id="@+id/sidebar_menu"
+            android:layout_width="@dimen/drawer_width"
+            android:layout_height="0dp"
             android:visibility="gone"
-            tools:visibility="visible" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <include
+                layout="@layout/sidebar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start" />
+
+        </FrameLayout>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sidebar_menu"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/appbar"
+                layout="@layout/toolbar_standard" />
+
+            <!-- The main content view -->
+            <LinearLayout
+                android:id="@+id/root_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_default"
+                android:baselineAligned="false"
+                android:contentDescription="@string/list_layout"
+                android:orientation="horizontal"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <FrameLayout
+                    android:id="@+id/left_fragment_container"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            </LinearLayout>
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                app:labelVisibilityMode="labeled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:menu="@menu/bottom_navigation_menu"
+                app:layout_behavior="com.nextcloud.ui.behavior.OnScrollBehavior" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/floating_action_button_bottom_margin"
+                android:contentDescription="@string/fab_label"
+                app:srcCompat="@drawable/ic_plus"
+                app:layout_behavior="com.nextcloud.ui.behavior.OnScrollBehavior"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         layout="@layout/drawer"

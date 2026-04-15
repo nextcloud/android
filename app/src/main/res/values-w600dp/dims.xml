@@ -7,7 +7,5 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <resources>
-  <integer name="media_grid_width">6</integer>
-  <dimen name="file_icon_size_grid">512dp</dimen>
   <dimen name="drawer_width">300dp</dimen>
 </resources>

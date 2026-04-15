@@ -15,71 +15,97 @@
     android:layout_height="match_parent"
     tools:openDrawer="start">
 
-    <!-- Main content -->
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Toolbar -->
-        <include layout="@layout/toolbar_standard" />
-
-        <LinearLayout
-            android:id="@+id/ListLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <FrameLayout
+            android:id="@+id/sidebar_menu"
+            android:layout_width="@dimen/drawer_width"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <include
-                android:id="@+id/storage_permission_warning_banner"
-                layout="@layout/storage_permission_warning_banner"
+                layout="@layout/sidebar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/standard_margin"
-                android:layout_marginHorizontal="@dimen/standard_margin"
-                tools:visibility="visible" />
+                android:layout_height="match_parent"
+                android:layout_gravity="start" />
 
-            <FrameLayout
+        </FrameLayout>
+
+        <!-- Main content -->
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sidebar_menu"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Toolbar -->
+            <include layout="@layout/toolbar_standard" />
+
+            <LinearLayout
+                android:id="@+id/ListLayout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@android:id/list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/synced_folders_recycler_view_layout_margin"
-                    android:layout_marginLeft="@dimen/synced_folders_recycler_view_layout_margin"
-                    android:layout_marginRight="@dimen/synced_folders_recycler_view_layout_margin"
-                    android:clipToPadding="false"
-                    android:scrollbarStyle="outsideOverlay"
-                    android:scrollbars="vertical"
-                    android:visibility="visible" />
-
-                <LinearLayout
-                    android:id="@+id/loading_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <include layout="@layout/synced_folders_list_item_shimmer" />
-                    <include layout="@layout/synced_folders_list_item_shimmer" />
-
-                </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <include
-                    android:id="@+id/emptyList"
-                    layout="@layout/empty_list"
+                    android:id="@+id/storage_permission_warning_banner"
+                    layout="@layout/storage_permission_warning_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_marginHorizontal="@dimen/standard_margin"
+                    tools:visibility="visible" />
 
-            </FrameLayout>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
 
-        </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@android:id/list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/synced_folders_recycler_view_layout_margin"
+                        android:layout_marginLeft="@dimen/synced_folders_recycler_view_layout_margin"
+                        android:layout_marginRight="@dimen/synced_folders_recycler_view_layout_margin"
+                        android:clipToPadding="false"
+                        android:scrollbarStyle="outsideOverlay"
+                        android:scrollbars="vertical"
+                        android:visibility="visible" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                    <LinearLayout
+                        android:id="@+id/loading_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <include layout="@layout/synced_folders_list_item_shimmer" />
+                        <include layout="@layout/synced_folders_list_item_shimmer" />
+
+                    </LinearLayout>
+
+                    <include
+                        android:id="@+id/emptyList"
+                        layout="@layout/empty_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         layout="@layout/drawer"
