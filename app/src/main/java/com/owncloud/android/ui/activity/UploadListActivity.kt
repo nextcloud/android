@@ -27,6 +27,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.utils.Throttler
+import com.nextcloud.utils.extensions.webDavParentPath
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadListLayoutBinding
 import com.owncloud.android.datamodel.OCFile
@@ -50,6 +51,7 @@ import com.owncloud.android.utils.FilesSyncHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.apache.commons.io.FilenameUtils
 import javax.inject.Inject
 
 @Suppress("MagicNumber")
@@ -322,6 +324,7 @@ class UploadListActivity :
             val parentPath = storageManager
                 .getFileByPath(upload.remotePath)
                 .parentRemotePath
+                ?: upload.remotePath.webDavParentPath()
 
             val checkOp = ExistenceCheckRemoteOperation(parentPath, false)
             val checkResult = checkOp.execute(client)
