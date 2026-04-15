@@ -1576,6 +1576,7 @@ class FileDisplayActivity :
             it.parentFolderFinder.getParentOnFirstParentRemoved(syncFolderRemotePath, storageManager)?.let { target ->
                 it.listDirectory(target, MainApp.isOnlyOnDevice())
                 updateActionBarTitleAndHomeButton(target)
+                file = target
             }
         }
     }
