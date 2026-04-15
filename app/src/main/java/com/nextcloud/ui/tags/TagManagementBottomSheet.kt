@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.ui.tags.adapter.TagListAdapter
+import com.nextcloud.ui.tags.model.TagUiState
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -100,18 +101,18 @@ class TagManagementBottomSheet :
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
                     when (state) {
-                        is TagManagementViewModel.TagUiState.Loading -> {
+                        is TagUiState.Loading -> {
                             binding.loadingIndicator.visibility = View.VISIBLE
                             binding.tagList.visibility = View.GONE
                         }
 
-                        is TagManagementViewModel.TagUiState.Loaded -> {
+                        is TagUiState.Loaded -> {
                             binding.loadingIndicator.visibility = View.GONE
                             binding.tagList.visibility = View.VISIBLE
                             tagAdapter.update(state.allTags, state.assignedTagIds, state.query)
                         }
 
-                        is TagManagementViewModel.TagUiState.Error -> {
+                        is TagUiState.Error -> {
                             binding.loadingIndicator.visibility = View.GONE
                             binding.tagList.visibility = View.GONE
                         }
