@@ -995,6 +995,7 @@
     <string name="user_icon">Usuari</string>
     <string name="user_info_address">Adreça</string>
     <string name="user_info_email">Correu electrònic</string>
+    <string name="user_info_groups">Grups</string>
     <string name="user_info_phone">Número de telèfon</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Pàgina web</string>
