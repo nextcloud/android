@@ -6,12 +6,13 @@
  */
 package com.nextcloud.ui.tags
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.ui.tags.model.TagUiState
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.tags.CreateTagRemoteOperation
 import com.owncloud.android.lib.resources.tags.DeleteTagRemoteOperation
 import com.owncloud.android.lib.resources.tags.GetTagsRemoteOperation
@@ -28,13 +29,6 @@ class TagManagementViewModel @Inject constructor(
     private val clientFactory: ClientFactory,
     private val currentAccountProvider: CurrentAccountProvider
 ) : ViewModel() {
-
-    sealed interface TagUiState {
-        object Loading : TagUiState
-        data class Loaded(val allTags: List<Tag>, val assignedTagIds: Set<String>, val query: String = "") : TagUiState
-
-        data class Error(@StringRes val messageId: Int) : TagUiState
-    }
 
     private val _uiState = MutableStateFlow<TagUiState>(TagUiState.Loading)
     val uiState: StateFlow<TagUiState> = _uiState
@@ -147,7 +141,7 @@ class TagManagementViewModel @Inject constructor(
                     }
                 }
             } catch (e: ClientFactory.CreationException) {
-                // ignore
+                Log_OC.e("TagManagement", e.message)
             }
         }
     }
