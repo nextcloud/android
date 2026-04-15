@@ -1575,7 +1575,12 @@ class FileDisplayActivity :
 
     private fun handleRemovedFolder(syncFolderRemotePath: String?) {
         DisplayUtils.showSnackMessage(this, R.string.sync_current_folder_was_removed, syncFolderRemotePath)
-        browseToRoot()
+        fileListFragment?.let {
+            it.parentFolderFinder.getParentOnFirstParentRemoved(syncFolderRemotePath, storageManager)?.let { target ->
+                it.listDirectory(target, MainApp.isOnlyOnDevice())
+                updateActionBarTitleAndHomeButton(target)
+            }
+        }
     }
 
     private fun updateFileList(
@@ -1899,13 +1904,13 @@ class FileDisplayActivity :
     // endregion
 
     fun browseToRoot() {
-        val listOfFiles = this.listOfFilesFragment
-        if (listOfFiles != null) { // should never be null, indeed
+        listOfFilesFragment?.let {
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
-            listOfFiles.resetSearchAttributes()
-            file = listOfFiles.currentFile
+            it.resetSearchAttributes()
+            file = it.currentFile
             startSyncFolderOperation(root, false)
         }
+
         binding.fabMain.setImageResource(R.drawable.ic_plus)
         resetScrollingAndUpdateActionBar()
     }

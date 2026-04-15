@@ -227,7 +227,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
     public static boolean isMultipleFileSelectedForCopyOrMove = false;
-    private final ParentFolderFinder parentFolderFinder = new ParentFolderFinder();
+    public final ParentFolderFinder parentFolderFinder = new ParentFolderFinder();
 
     private static final Intent scanIntentExternalApp = new Intent("org.fairscan.app.action.SCAN_TO_PDF");
 
