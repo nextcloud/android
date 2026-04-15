@@ -122,7 +122,6 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -1570,7 +1569,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(directory, file, onlyOnDevice, () -> Unit.INSTANCE);
     }
 
-    public void listDirectory(@Nullable OCFile directory, boolean onlyOnDevice, @NotNull Function0<@NotNull Unit> onComplete) {
+    public void listDirectory(@Nullable OCFile directory, boolean onlyOnDevice, @NonNull Function0<Unit> onComplete) {
         listDirectory(directory, null, onlyOnDevice, onComplete);
     }
 
@@ -1601,7 +1600,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void listDirectory(@Nullable OCFile directory,
                               OCFile file,
                               boolean onlyOnDevice,
-                              @NotNull Function0<@NotNull Unit> onComplete) {
+                              @NonNull Function0<Unit> onComplete) {
         if (!searchFragment) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             if (storageManager == null) {
