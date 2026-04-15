@@ -21,7 +21,6 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
@@ -40,13 +39,13 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
-import com.owncloud.android.lib.common.operations.OnRemoteOperationListener
-import com.owncloud.android.lib.common.operations.RemoteOperation
-import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.adapter.progressListener.UploadProgressListener
+import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterHelper
+import com.owncloud.android.ui.adapter.uploadList.helper.UploadListItemOnClick
+import com.owncloud.android.ui.adapter.uploadList.model.UploadListSection
+import com.owncloud.android.ui.adapter.uploadList.model.UploadListType
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -69,12 +68,12 @@ import java.util.function.Consumer
 class UploadListAdapter(
     private val activity: FileActivity,
     private val uploadsStorageManager: UploadsStorageManager,
-    private val storageManager: FileDataStorageManager,
     private val accountManager: UserAccountManager,
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
-    private val clock: Clock,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val itemOnClick: UploadListItemOnClick,
+    private val helper: UploadListAdapterHelper
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
 
     private val uploadListSections = UploadListSection.sections()
@@ -82,7 +81,6 @@ class UploadListAdapter(
     private val uploadHelper = FileUploadHelper.instance()
     private var uploadProgressListener: UploadProgressListener? = null
     private var notificationManager: NotificationManager? = null
-    private val helper = UploadListAdapterHelper(activity)
 
     init {
         Log_OC.d(TAG, "UploadListAdapter")
@@ -390,11 +388,6 @@ class UploadListAdapter(
     private fun bindItemActions(holder: ItemViewHolder, item: OCUpload) {
         holder.binding.run {
             val optionalUser = accountManager.getUser(item.accountName)
-            val status = item.getStatusText(
-                activity,
-                activity.appPreferences.isGlobalUploadPaused,
-                uploadHelper.isUploadingNow(item)
-            )
 
             // Right-side button
             when (item.uploadStatus) {
@@ -422,9 +415,7 @@ class UploadListAdapter(
                         if (item.isLastResultConflictError()) {
                             setImageResource(R.drawable.ic_dots_vertical)
                             setOnClickListener { view ->
-                                optionalUser.ifPresent { user ->
-                                    showItemConflictPopup(user, holder, item, status, view)
-                                }
+                                showItemConflictPopup(item, view)
                             }
                         } else {
                             setImageResource(R.drawable.ic_action_delete_grey)
@@ -444,7 +435,7 @@ class UploadListAdapter(
                     UploadsStorageManager.UploadStatus.UPLOAD_FAILED,
                     UploadsStorageManager.UploadStatus.UPLOAD_CANCELLED ->
                         setOnClickListener {
-                            onFailedOrCancelledItemClick(item, optionalUser, holder, status)
+                            onFailedOrCancelledItemClick(item, optionalUser)
                         }
 
                     UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED ->
@@ -461,12 +452,7 @@ class UploadListAdapter(
         }
     }
 
-    private fun onFailedOrCancelledItemClick(
-        item: OCUpload,
-        optionalUser: Optional<User>,
-        holder: ItemViewHolder,
-        status: String
-    ) {
+    private fun onFailedOrCancelledItemClick(item: OCUpload, optionalUser: Optional<User>) {
         if (optionalUser.isEmpty) {
             return
         }
@@ -475,10 +461,7 @@ class UploadListAdapter(
         if (item.lastResult == UploadResult.CREDENTIAL_ERROR) {
             activity.fileOperationsHelper.checkCurrentCredentials(user)
         } else if (item.isLastResultConflictError()) {
-            if (checkAndOpenConflictResolutionDialog(user, holder, item, status)) {
-                return
-            }
-            retryOrShowError(item)
+            itemOnClick.onLastUploadResultConflictClick(item)
         } else {
             retryOrShowError(item)
         }
@@ -611,78 +594,12 @@ class UploadListAdapter(
         itemViewHolder.binding.thumbnail.setImageDrawable(drawable)
     }
 
-    private fun checkAndOpenConflictResolutionDialog(
-        user: User?,
-        itemViewHolder: ItemViewHolder,
-        item: OCUpload,
-        status: String?
-    ): Boolean {
-        val remotePath = item.remotePath
-        val localFile = storageManager.getFileByEncryptedRemotePath(remotePath)
-
-        if (localFile == null) {
-            // Remote file doesn't exist, try to refresh folder
-            val folder = storageManager.getFileByEncryptedRemotePath(File(remotePath).getParent() + "/")
-
-            if (folder != null && folder.isFolder) {
-                refreshFolderAndUpdateUI(itemViewHolder, user, folder, remotePath, item, status)
-                return true
-            }
-
-            // Destination folder doesn't exist anymore
-        }
-
-        if (localFile != null) {
-            helper.openConflictActivity(localFile, item)
-            return true
-        }
-
-        // Remote file doesn't exist anymore = there is no more conflict
-        return false
-    }
-
-    private fun refreshFolderAndUpdateUI(
-        holder: ItemViewHolder,
-        user: User?,
-        folder: OCFile?,
-        remotePath: String?,
-        item: OCUpload,
-        status: String?
-    ) {
-        refreshFolder(
-            holder,
-            user,
-            folder
-        ) { _: RemoteOperation<*>?, result: RemoteOperationResult<*>? ->
-            holder.binding.uploadStatus.text = status
-            if (result?.isSuccess == true) {
-                val fileOnServer = storageManager.getFileByEncryptedRemotePath(remotePath)
-                if (fileOnServer != null) {
-                    helper.openConflictActivity(fileOnServer, item)
-                } else {
-                    displayFileNotFoundError(holder.itemView, activity)
-                }
-            }
-        }
-    }
-
-    private fun displayFileNotFoundError(itemView: View?, context: Context) {
-        val message = context.getString(R.string.uploader_file_not_found_message)
-        DisplayUtils.showSnackMessage(itemView, message)
-    }
-
-    private fun showItemConflictPopup(
-        user: User?,
-        holder: ItemViewHolder,
-        item: OCUpload,
-        status: String?,
-        view: View?
-    ) {
+    private fun showItemConflictPopup(item: OCUpload, view: View) {
         PopupMenu(activity, view).apply {
             inflate(R.menu.upload_list_item_file_conflict)
             setOnMenuItemClickListener { menuItem ->
                 if (menuItem.itemId == R.id.action_upload_list_resolve_conflict) {
-                    checkAndOpenConflictResolutionDialog(user, holder, item, status)
+                    itemOnClick.onLastUploadResultConflictClick(item)
                 } else {
                     removeUpload(item)
                 }
@@ -696,25 +613,6 @@ class UploadListAdapter(
         uploadsStorageManager.removeUpload(item)
         cancelOldErrorNotification(item)
         loadUploadItemsFromDb()
-    }
-
-    private fun refreshFolder(view: ItemViewHolder, user: User?, folder: OCFile?, listener: OnRemoteOperationListener) {
-        view.binding.uploadListItemLayout.isClickable = false
-        view.binding.uploadStatus.setText(R.string.uploads_view_upload_status_fetching_server_version)
-        RefreshFolderOperation(
-            folder,
-            clock.currentTime,
-            false,
-            false,
-            true,
-            storageManager,
-            user,
-            activity
-        )
-            .execute(user, activity, { caller, result ->
-                view.binding.uploadListItemLayout.isClickable = true
-                listener.onRemoteOperationFinish(caller, result)
-            }, activity.handler)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder =

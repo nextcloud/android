@@ -28,7 +28,6 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.utils.ErrorMessageAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.File
 
 object UploadErrorNotificationManager {
     private const val TAG = "UploadErrorNotificationManager"
@@ -76,7 +75,7 @@ object UploadErrorNotificationManager {
             val isSameFile = withContext(Dispatchers.IO) {
                 FileUploadHelper.instance().isSameFileOnRemote(
                     operation.user,
-                    File(operation.storagePath),
+                    operation.storagePath,
                     operation.remotePath,
                     context
                 )
