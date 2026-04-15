@@ -80,7 +80,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.Type;
@@ -148,6 +147,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG;
@@ -228,6 +228,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
     public static boolean isMultipleFileSelectedForCopyOrMove = false;
+    private static boolean isBrowseUp = false;
 
     private static final Intent scanIntentExternalApp = new Intent("org.fairscan.app.action.SCAN_TO_PDF");
 
@@ -245,6 +246,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
     private static OCFileDepth fileDepth = OCFileDepth.Root;
+
+    public boolean isBrowseUp() {
+        return isBrowseUp;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1042,6 +1047,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             searchFragment = true;
         }
 
+        isBrowseUp = true;
         updateFileList();
         return result.first;
     }
@@ -1088,9 +1094,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void updateFileList() {
-        listDirectory(mFile, MainApp.isOnlyOnDevice());
-        onRefresh(false);
-        restoreIndexAndTopPosition();
+        listDirectory(mFile, MainApp.isOnlyOnDevice(), () -> {
+            Log_OC.d(TAG, "list directory completed");
+            onRefresh(false);
+            return Unit.INSTANCE;
+        });
     }
 
     /**
@@ -1306,6 +1314,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(file, MainApp.isOnlyOnDevice());
         // then, notify parent activity to let it update its state and view
         mContainerActivity.onBrowsedDownTo(file);
+
+        isBrowseUp = false;
+
         // save index and top position
         saveIndexAndTopPosition(position);
     }
@@ -1551,7 +1562,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public void listDirectory(@Nullable OCFile directory, boolean onlyOnDevice) {
-        listDirectory(directory, null, onlyOnDevice);
+        listDirectory(directory, null, onlyOnDevice, () -> Unit.INSTANCE);
+    }
+
+    public void listDirectory(@Nullable OCFile directory, OCFile file, boolean onlyOnDevice) {
+        listDirectory(directory, file, onlyOnDevice, () -> Unit.INSTANCE);
+    }
+
+    public void listDirectory(@Nullable OCFile directory, boolean onlyOnDevice, @NonNull Function0<Unit> onComplete) {
+        listDirectory(directory, null, onlyOnDevice, onComplete);
     }
 
     private OCFile getDirectoryForListDirectory(@Nullable OCFile directory, FileDataStorageManager storageManager) {
@@ -1578,7 +1597,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @param directory File to be listed
      */
-    public void listDirectory(@Nullable OCFile directory, OCFile file, boolean onlyOnDevice) {
+    public void listDirectory(@Nullable OCFile directory,
+                              OCFile file,
+                              boolean onlyOnDevice,
+                              @NonNull Function0<Unit> onComplete) {
         if (!searchFragment) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             if (storageManager == null) {
@@ -1607,7 +1629,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 directory,
                 storageManager,
                 onlyOnDevice,
-                mLimitToMimeType);
+                mLimitToMimeType,
+                onComplete);
 
             OCFile previousDirectory = mFile;
             mFile = directory;

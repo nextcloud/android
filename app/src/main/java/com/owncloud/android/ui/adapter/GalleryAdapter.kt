@@ -387,7 +387,8 @@ class GalleryAdapter(
         directory: OCFile,
         storageManager: FileDataStorageManager,
         onlyOnDevice: Boolean,
-        mLimitToMimeType: String
+        mLimitToMimeType: String,
+        onComplete: () -> Unit
     ) = Unit
 
     override fun setHighlightedItem(file: OCFile) = Unit

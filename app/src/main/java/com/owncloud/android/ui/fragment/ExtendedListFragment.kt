@@ -415,10 +415,6 @@ open class ExtendedListFragment :
         if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && recyclerView?.adapter != null) {
             switchToGridView()
         }
-
-        val referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION)
-        Log_OC.v(TAG, "Setting grid position $referencePosition")
-        scrollToPosition(referencePosition)
     }
 
     override fun onSaveInstanceState(savedInstanceState: Bundle) {
@@ -445,16 +441,12 @@ open class ExtendedListFragment :
             return mScale.roundToInt()
         }
 
-    /*
-     * Restore index and position
-     */
-    protected fun restoreIndexAndTopPosition() {
+    fun restoreIndexAndTopPosition() {
         if (mIndexes.isEmpty()) {
             Log_OC.d(TAG, "Indexes is null or empty")
             return
         }
 
-        // needs to be checked; not every browse-up had a browse-down before
         val index = mIndexes.removeAt(mIndexes.size - 1)
         val firstPosition = mFirstPositions.removeAt(mFirstPositions.size - 1)
         val top = mTops.removeAt(mTops.size - 1)
@@ -467,30 +459,41 @@ open class ExtendedListFragment :
                 )
         )
 
-        firstPosition?.let { scrollToPosition(it) }
-    }
-
-    private fun scrollToPosition(position: Int) {
-        val layoutManager = mRecyclerView?.layoutManager
-
-        if (layoutManager is LinearLayoutManager) {
-            val visibleItemCount = layoutManager.findLastCompletelyVisibleItemPosition() -
-                layoutManager.findFirstCompletelyVisibleItemPosition()
-            layoutManager.scrollToPositionWithOffset(position, (visibleItemCount / 2) * mHeightCell)
+        if (firstPosition != null && firstPosition >= 0) {
+            mainThread(delay = 0L) {
+                scrollToPosition(firstPosition, top ?: 0)
+            }
         }
     }
 
-    /*
-     * Save index and top position
-     */
+    private fun scrollToPosition(position: Int, top: Int = 0) {
+        val layoutManager = mRecyclerView?.layoutManager
+
+        if (position < 0) {
+            return
+        }
+
+        when (layoutManager) {
+            is GridLayoutManager -> {
+                layoutManager.scrollToPositionWithOffset(position, top)
+            }
+
+            is LinearLayoutManager -> {
+                val visibleItemCount = layoutManager.findLastCompletelyVisibleItemPosition() -
+                    layoutManager.findFirstCompletelyVisibleItemPosition()
+                val offsetTop = if (top != 0) top else (visibleItemCount / 2) * mHeightCell
+                layoutManager.scrollToPositionWithOffset(position, offsetTop)
+            }
+        }
+    }
+
     protected fun saveIndexAndTopPosition(index: Int) {
         mIndexes.add(index)
 
-        val layoutManager = mRecyclerView?.layoutManager
-        val firstPosition: Int = if (layoutManager is GridLayoutManager) {
-            layoutManager.findFirstCompletelyVisibleItemPosition()
-        } else {
-            (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+        val firstPosition: Int = when (val layoutManager = mRecyclerView?.layoutManager) {
+            is GridLayoutManager -> layoutManager.findFirstCompletelyVisibleItemPosition()
+            is LinearLayoutManager -> layoutManager.findFirstCompletelyVisibleItemPosition()
+            else -> RecyclerView.NO_POSITION
         }
 
         mFirstPositions.add(firstPosition)
@@ -504,9 +507,7 @@ open class ExtendedListFragment :
         mHeightCell = if (view == null || mHeightCell != 0) mHeightCell else view.height
     }
 
-    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        // to be @overridden
-    }
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) = Unit
 
     override fun onRefresh() {
         if (searchView != null) {
@@ -802,8 +803,6 @@ open class ExtendedListFragment :
 
     companion object {
         protected val TAG: String = ExtendedListFragment::class.java.getSimpleName()
-
-        protected const val KEY_SAVED_LIST_POSITION: String = "SAVED_LIST_POSITION"
 
         private const val KEY_INDEXES = "INDEXES"
         private const val KEY_FIRST_POSITIONS = "FIRST_POSITIONS"
