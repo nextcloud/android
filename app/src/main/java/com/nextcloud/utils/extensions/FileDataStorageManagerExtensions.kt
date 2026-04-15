@@ -7,9 +7,11 @@
 
 package com.nextcloud.utils.extensions
 
+import com.nextcloud.client.database.entity.toOCCapability
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.lib.resources.status.OCCapability
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -48,3 +50,6 @@ fun FileDataStorageManager.getNonEncryptedSubfolders(id: Long, accountName: Stri
     fileDao.getNonEncryptedSubfolders(id, accountName).map {
         createFileInstance(it)
     }
+
+suspend fun FileDataStorageManager.getCapabilitiesByAccountName(accountName: String): OCCapability =
+    capabilityDao.getByAccountName(accountName).toOCCapability()

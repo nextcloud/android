@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 99;
+    public static final int DB_VERSION = 100;
 
     private ProviderMeta() {
         // No instance
