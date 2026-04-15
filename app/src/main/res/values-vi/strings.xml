@@ -835,7 +835,9 @@
     <string name="user_icon">Người dùng</string>
     <string name="user_info_address">Địa chỉ</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">Nhóm</string>
     <string name="user_info_phone">Số điện thoại</string>
+    <string name="user_info_profile">Hồ sơ</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Lỗi khi truy xuất thông tin người dùng</string>

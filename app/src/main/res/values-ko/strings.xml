@@ -1036,7 +1036,9 @@
     <string name="user_icon">사용자</string>
     <string name="user_info_address">주소</string>
     <string name="user_info_email">이메일</string>
+    <string name="user_info_groups">그룹</string>
     <string name="user_info_phone">전화번호</string>
+    <string name="user_info_profile">프로필</string>
     <string name="user_info_twitter">트위터</string>
     <string name="user_info_website">웹사이트</string>
     <string name="user_information_retrieval_error">사용자 정보를 불러오는 중 오류 발생</string>

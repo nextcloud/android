@@ -1166,6 +1166,7 @@
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefonní číslo</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">X (Twitter)</string>
     <string name="user_info_website">Webové stránky</string>
     <string name="user_information_retrieval_error">Chyba při načítání informací o uživateli</string>

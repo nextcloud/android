@@ -1013,7 +1013,9 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="user_icon">Käyttäjä</string>
     <string name="user_info_address">Osoite</string>
     <string name="user_info_email">Sähköposti</string>
+    <string name="user_info_groups">Ryhmät</string>
     <string name="user_info_phone">Puhelinnumero</string>
+    <string name="user_info_profile">Profiili</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Verkkosivusto</string>
     <string name="user_information_retrieval_error">Virhe käyttäjän tietoja haettaessa</string>

@@ -1156,7 +1156,9 @@
     <string name="user_icon">Użytkownik</string>
     <string name="user_info_address">Adres</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Grupy</string>
     <string name="user_info_phone">Numer telefonu</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Strona internetowa</string>
     <string name="user_information_retrieval_error">Błąd pobierania informacji użytkownika</string>

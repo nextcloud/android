@@ -629,6 +629,7 @@
     <string name="user_icon">Uzanto</string>
     <string name="user_info_address">Adreso</string>
     <string name="user_info_email">Retpoŝtadreso</string>
+    <string name="user_info_groups">Grupoj</string>
     <string name="user_info_phone">Telefonnumero</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Retejo</string>

@@ -1170,7 +1170,9 @@
     <string name="user_icon">Používateľ</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">Skupiny</string>
     <string name="user_info_phone">Telefónne číslo</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Web stránka</string>
     <string name="user_information_retrieval_error">Chyba počas získavania informácií o používateľovi</string>

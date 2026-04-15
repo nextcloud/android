@@ -893,7 +893,9 @@
     <string name="user_icon">User</string>
     <string name="user_info_address">Address</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">ჯგუფები</string>
     <string name="user_info_phone">Phone number</string>
+    <string name="user_info_profile">Profile</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Error retrieving user information</string>

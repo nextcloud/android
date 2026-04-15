@@ -1170,7 +1170,9 @@
     <string name="user_icon">Úsáideoir</string>
     <string name="user_info_address">Seoladh</string>
     <string name="user_info_email">Ríomhphost</string>
+    <string name="user_info_groups">Grúpaí</string>
     <string name="user_info_phone">Uimhir teileafón</string>
+    <string name="user_info_profile">Próifíl</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Suíomh Gréasáin</string>
     <string name="user_information_retrieval_error">Earráid agus faisnéis úsáideora á fáil</string>
