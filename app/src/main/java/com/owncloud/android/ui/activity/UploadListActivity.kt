@@ -51,7 +51,6 @@ import com.owncloud.android.utils.FilesSyncHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.apache.commons.io.FilenameUtils
 import javax.inject.Inject
 
 @Suppress("MagicNumber")
