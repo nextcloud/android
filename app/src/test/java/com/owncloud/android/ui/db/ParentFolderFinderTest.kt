@@ -153,4 +153,53 @@ class ParentFolderFinderTest {
         assertEquals(1, result.first)
         assertEquals(rootFolder, result.second)
     }
+
+    @Test
+    fun getParentWhenInFolderCAndCIsRemovedRemotelyShouldReturnFolderB() {
+        val folderB = OCFile("/A/B/").apply {
+            fileId = 20
+            mimeType = MimeType.DIRECTORY
+        }
+        val folderC = OCFile("/A/B/C/").apply {
+            fileId = 30
+            parentId = 20
+            remotePath = "/A/B/C/"
+        }
+
+        // Even if C is deleted remotely, we still have its object in memory,
+        // and its parentId still correctly maps to B in the local database.
+        every { storageManager.getFileById(20L) } returns folderB
+
+        val result = finder.getParent(folderC, storageManager)
+
+        assertEquals(1, result.first)
+        assertEquals(folderB, result.second)
+    }
+
+    @Test
+    fun getParentWhenInFolderCAndBIsRemovedRemotelyShouldReturnFolderA() {
+        val folderA = OCFile("/A/").apply {
+            fileId = 10
+            mimeType = MimeType.DIRECTORY
+        }
+        val folderC = OCFile("/A/B/C/").apply {
+            fileId = 30
+            parentId = 20 // Points to B
+            remotePath = "/A/B/C/"
+        }
+
+        // ID lookup for B fails because it was removed
+        every { storageManager.getFileById(20L) } returns null
+
+        // Iteration 1: Tries to find /A/B/ -> also fails
+        every { storageManager.getFileByEncryptedRemotePath("/A/B/") } returns null
+
+        // Iteration 2: Tries to find /A/ -> Succeeds!
+        every { storageManager.getFileByEncryptedRemotePath("/A/") } returns folderA
+
+        val result = finder.getParent(folderC, storageManager)
+
+        assertEquals(2, result.first)
+        assertEquals(folderA, result.second)
+    }
 }
