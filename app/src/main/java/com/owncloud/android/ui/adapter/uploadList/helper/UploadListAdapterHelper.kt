@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.adapter.uploadList
+package com.owncloud.android.ui.adapter.uploadList.helper
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -32,7 +32,7 @@ class UploadListAdapterHelper(private val activity: FileActivity) {
         file.setStoragePath(upload.localPath)
         val user = activity.accountManager.getUser(upload.accountName)
         if (user.isPresent) {
-            val intent = ConflictsResolveActivity.createIntent(
+            val intent = ConflictsResolveActivity.Companion.createIntent(
                 file,
                 user.get(),
                 upload.uploadId,
@@ -61,16 +61,16 @@ class UploadListAdapterHelper(private val activity: FileActivity) {
         }
 
         val optionalUser = activity.user
-        if (PreviewImageFragment.canBePreviewed(file) && optionalUser.isPresent) {
+        if (PreviewImageFragment.Companion.canBePreviewed(file) && optionalUser.isPresent) {
             // show image preview and stay in uploads tab
-            val intent = FileDisplayActivity.openFileIntent(activity, optionalUser.get(), file)
+            val intent = FileDisplayActivity.Companion.openFileIntent(activity, optionalUser.get(), file)
             activity.startActivity(intent)
             return
         }
 
         val intent = Intent(activity, FileDisplayActivity::class.java).apply {
             setAction(Intent.ACTION_VIEW)
-            putExtra(FileDisplayActivity.KEY_FILE_PATH, upload.remotePath)
+            putExtra(FileDisplayActivity.Companion.KEY_FILE_PATH, upload.remotePath)
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
         activity.startActivity(intent)

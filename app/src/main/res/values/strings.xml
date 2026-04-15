@@ -310,7 +310,6 @@
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for non-metered Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Waiting to exit power save mode</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_group_header" translatable="false">%1$s (%2$d)</string>
 
@@ -1097,7 +1096,11 @@
     <string name="upload_lock_failed">Locking folder failed</string>
     <string name="upload_local_storage_full">Local storage full</string>
     <string name="upload_old_android">Encryption is only possible with &gt;= Android 5.0</string>
-    <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
+    <string name="upload_sync_conflict_checking">Checking for upload conflicts…</string>
+    <string name="upload_sync_conflict_not_exists">Conflict resolved.</string>
+    <string name="upload_sync_conflict_same_file">No conflict detected. Same file.</string>
+    <string name="upload_sync_conflict_check_error">Could not check for upload conflicts. Please try again.</string>
+    <string name="upload_sync_conflict_check">There might be a conflict from your last upload. Tap to check.</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
     <string name="upload_global_pause_title">All uploads are paused</string>
