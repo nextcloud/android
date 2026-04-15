@@ -1012,6 +1012,10 @@
     <string name="create_new_encrypted_folder">New encrypted folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
     <string name="tags">Tags</string>
+    <string name="manage_tags">Manage tags</string>
+    <string name="search_tags">Search tags</string>
+    <string name="create_tag_format">Create tag: \"%1$s\"</string>
+    <string name="error_managing_tags">Error managing tags</string>
     <string name="error_fetching_sharees">Unable to fetch sharees.</string>
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="sharee_already_added_to_file">Adding share failed. This file or folder has already been shared with this person or group.</string>
@@ -1514,6 +1518,7 @@
     <string name="editor_web_view_cannot_open_file">Cannot open file chooser</string>
     <string name="send_copy_to">Send copy to</string>
     <string name="failed_to_start_action">Failed to start action!</string>
+    <string name="failed_to_load_tags">Failed to load tags</string>
     <string name="action_triggered">Action triggered</string>
 
     <string name="sync_conflict_notification_title">File upload conflicts</string>

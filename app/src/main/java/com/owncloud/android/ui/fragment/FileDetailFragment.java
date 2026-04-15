@@ -32,11 +32,10 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.model.WorkerState;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.ui.tags.TagManagementBottomSheet;
 import com.nextcloud.utils.MenuUtils;
-import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -84,7 +83,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
-import kotlin.Unit;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -244,29 +242,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             return null;
         }
 
-        if (getFile().getTags().isEmpty()) {
-            binding.tagsGroup.setVisibility(View.GONE);
-        } else {
-            for (Tag tag : getFile().getTags()) {
-                Chip chip = new Chip(context);
-                chip.setText(tag.getName());
-                chip.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.bg_default,
-                                                                                           context.getTheme())));
-                chip.setShapeAppearanceModel(chip.getShapeAppearanceModel().toBuilder().setAllCornerSizes((100.0f))
-                                                 .build());
-                chip.setEnsureMinTouchTargetSize(false);
-                chip.setClickable(false);
-                viewThemeUtils.material.themeChipSuggestion(chip);
-
-                if (tag.getColor() != null) {
-                    int color = Color.parseColor(tag.getColor());
-                    chip.setChipStrokeColor(ColorStateList.valueOf(color));
-                    chip.setTextColor(color);
-                }
-
-                binding.tagsGroup.addView(chip);
-            }
-        }
+        refreshTagChips(context);
 
         return view;
     }
@@ -285,6 +261,22 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
             updateFileDetails(false, false);
         }
+
+        getChildFragmentManager().setFragmentResultListener(
+            TagManagementBottomSheet.REQUEST_KEY,
+            getViewLifecycleOwner(),
+            (requestKey, result) -> {
+                ArrayList<Tag> updatedTags = result.getParcelableArrayList(TagManagementBottomSheet.RESULT_KEY_TAGS);
+                if (updatedTags != null) {
+                    getFile().setTags(updatedTags);
+                    storageManager.saveFile(getFile());
+                    Context ctx = getContext();
+                    if (ctx != null) {
+                        refreshTagChips(ctx);
+                    }
+                }
+            }
+        );
     }
 
     @Override
@@ -302,6 +294,50 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         FileActionsBottomSheet.newInstance(file, true, additionalFilter)
             .setResultListener(fragmentManager, this, this::optionsItemSelected)
             .show(fragmentManager, "actions");
+    }
+
+    private void refreshTagChips(Context context) {
+        binding.tagsGroup.removeAllViews();
+        binding.tagsGroup.setVisibility(View.VISIBLE);
+
+        for (Tag tag : getFile().getTags()) {
+            Chip chip = new Chip(context);
+            chip.setText(tag.getName());
+            chip.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.bg_default,
+                                                                                       context.getTheme())));
+            chip.setShapeAppearanceModel(chip.getShapeAppearanceModel().toBuilder().setAllCornerSizes((100.0f))
+                                             .build());
+            chip.setEnsureMinTouchTargetSize(false);
+            chip.setClickable(false);
+            viewThemeUtils.material.themeChipSuggestion(chip);
+
+            if (tag.getColor() != null) {
+                int color = Color.parseColor(tag.getColor());
+                chip.setChipStrokeColor(ColorStateList.valueOf(color));
+                chip.setTextColor(color);
+            }
+
+            binding.tagsGroup.addView(chip);
+        }
+
+        Chip editChip = new Chip(context);
+        editChip.setChipIconResource(R.drawable.ic_edit);
+        editChip.setText(R.string.manage_tags);
+        editChip.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.bg_default,
+                                                                                       context.getTheme())));
+        editChip.setShapeAppearanceModel(editChip.getShapeAppearanceModel().toBuilder().setAllCornerSizes(100.0f)
+                                             .build());
+        editChip.setEnsureMinTouchTargetSize(false);
+        viewThemeUtils.material.themeChipSuggestion(editChip);
+        editChip.setOnClickListener(v -> {
+            TagManagementBottomSheet bottomSheet = TagManagementBottomSheet.Companion.newInstance(
+                getFile().getLocalId(),
+                getFile().getTags()
+            );
+//            FileActionsBottomSheet bottomSheet =  FileActionsBottomSheet.Companion.newInstance(getFile(), false);
+            bottomSheet.show(getChildFragmentManager(), "tag_management");
+        });
+        binding.tagsGroup.addView(editChip);
     }
 
     private void setupViewPager() {
