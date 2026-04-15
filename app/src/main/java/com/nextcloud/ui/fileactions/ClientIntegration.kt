@@ -106,6 +106,7 @@ class ClientIntegration(
         return itemBinding.root
     }
 
+    @Suppress("ReturnCount")
     private fun prepareDrawableForTinting(drawable: Drawable?): Drawable? {
         if (drawable == null) {
             return null
