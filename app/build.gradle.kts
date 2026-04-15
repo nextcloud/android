@@ -6,7 +6,6 @@
  */
 @file:Suppress("UnstableApiUsage", "DEPRECATION")
 
-import com.android.build.gradle.internal.api.ApkVariantOutputImpl
 import com.github.spotbugs.snom.Confidence
 import com.github.spotbugs.snom.Effort
 import com.github.spotbugs.snom.SpotBugsTask
@@ -27,7 +26,6 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.spotbugs)
     alias(libs.plugins.detekt)
     // needed to make renovate run without shot, as shot requires Android SDK
@@ -164,12 +162,6 @@ android {
                 versionCode = 1
                 versionName = "1"
             }
-        }
-    }
-
-    applicationVariants.configureEach {
-        outputs.configureEach {
-            if (this is ApkVariantOutputImpl) this.outputFileName = "${this.baseName}-${this.versionCode}.apk"
         }
     }
 
