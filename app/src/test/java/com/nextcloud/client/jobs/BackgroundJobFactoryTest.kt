@@ -107,6 +107,9 @@ class BackgroundJobFactoryTest {
     private lateinit var syncedFolderProvider: SyncedFolderProvider
 
     @Mock
+    private lateinit var uploadFileOperationFactory: UploadFileOperationFactory
+
+    @Mock
     private lateinit var db: NextcloudDatabase
 
     @Mock private lateinit var fileSystemDao: FileSystemDao

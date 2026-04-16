@@ -1711,7 +1711,13 @@ public class UploadFileOperation extends SyncOperation {
         OCFile file = mFile;
         if (file.fileExists()) {
             file = getStorageManager().getFileById(file.getFileId());
+        } else {
+            OCFile fileFromDb = getStorageManager().getFileByDecryptedRemotePath(mFile.getDecryptedRemotePath());
+            if (fileFromDb != null) {
+                file = fileFromDb;
+            }
         }
+
         if (file == null) {
             // this can happen e.g. when the file gets deleted during upload
             return;

@@ -31,15 +31,18 @@ class UploadListAdapterHelper(private val activity: FileActivity) {
     fun openConflictActivity(file: OCFile, upload: OCUpload) {
         file.setStoragePath(upload.localPath)
         val user = activity.accountManager.getUser(upload.accountName)
-        if (user.isPresent) {
-            val intent = ConflictsResolveActivity.Companion.createIntent(
-                file,
-                user.get(),
-                upload.uploadId,
-                Intent.FLAG_ACTIVITY_NEW_TASK,
-                activity
-            )
-            activity.startActivity(intent)
+        if (user.isEmpty) {
+            return
+        }
+
+        ConflictsResolveActivity.createIntent(
+            file,
+            user.get(),
+            upload.uploadId,
+            Intent.FLAG_ACTIVITY_NEW_TASK,
+            activity
+        ).also {
+            activity.startActivity(it)
         }
     }
 

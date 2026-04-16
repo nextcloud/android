@@ -153,6 +153,10 @@ class ConflictsResolveActivity :
 
     private fun handleFile(file: OCFile?, upload: OCUpload?, user: User, policy: NameCollisionPolicy) {
         upload?.let { uploadHelper.removeFileUpload(it.remotePath, it.accountName) }
+
+        val entity = file?.remotePath?.let { storageManager.fileDao.getFileByDecryptedRemotePath(it, user.accountName) }
+        entity?.copy(etagInConflict = null)?.let { storageManager.fileDao.update(it) }
+
         uploadHelper.uploadUpdatedFile(
             user,
             arrayOf(file),
