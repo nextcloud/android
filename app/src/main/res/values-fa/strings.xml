@@ -881,7 +881,6 @@
     <string name="upload_query_move_foreign_files">کمبود فضای کافی مانع کپی کردن پرونده‌های انتخاب شده در داخل پوشه می‌شود %1$s. آیا می‌خواهید به جای کپی کردن آنها را انتقال دهید؟</string>
     <string name="upload_quota_exceeded">از سهمیه فضای ذخیره سازی فراتر رفت</string>
     <string name="upload_scan_doc_upload">اسکن سند از دوربین</string>
-    <string name="upload_sync_conflict">برخورد در همگام‌سازی، لطفاً به صورت دستی برطرف کنید</string>
     <string name="upload_unknown_error">خطای نامشخص</string>
     <string name="uploader_btn_alternative_text">انتخاب کنید</string>
     <string name="uploader_btn_upload_text">آپلوده</string>
@@ -928,7 +927,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">فایل محلی یافت نشد</string>
     <string name="uploads_view_upload_status_failed_permission_error">خطای دسترسی</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">گواهی‌نامهٔ نامطمئن کارساز</string>
-    <string name="uploads_view_upload_status_fetching_server_version">در حال دریافت نسخه سرور</string>
     <string name="uploads_view_upload_status_service_interrupted">اپلیکیشن خاتمه یافته</string>
     <string name="uploads_view_upload_status_succeeded">نکمیل شده</string>
     <string name="uploads_view_upload_status_succeeded_same_file">فایل مشابه در سرویس‌دهنده شناسایی شد، آپلود این فایل نادیده گرفته می‌شود</string>

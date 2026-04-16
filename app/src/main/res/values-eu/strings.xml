@@ -1002,7 +1002,6 @@
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
     <string name="upload_quota_exceeded">Biltegiratze kuota gainditu da</string>
     <string name="upload_scan_doc_upload">Eskaneatu dokumentua kamararekin</string>
-    <string name="upload_sync_conflict">Sinkronizazio gatazka, ebatzi eskuz</string>
     <string name="upload_unknown_error">Akats ezezaguna</string>
     <string name="uploader_btn_alternative_text">Aukeratu</string>
     <string name="uploader_btn_upload_text">Kargatu</string>
@@ -1049,7 +1048,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Fitxategi lokala ez da topatu</string>
     <string name="uploads_view_upload_status_failed_permission_error">Baimen errorea.</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Zerbitzariaren ziurtagiria ez da fidagarria</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Zerbitzariko bertsioa ekartzen...</string>
     <string name="uploads_view_upload_status_service_interrupted">App-ak bukatu du</string>
     <string name="uploads_view_upload_status_succeeded">Betea</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Fitxategi bera aurkitu da zerbitzarian, igoera saltatu da</string>

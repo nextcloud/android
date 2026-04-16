@@ -246,6 +246,8 @@
     <string name="could_not_retrieve_url">Impossible de récupérer l\'URL</string>
     <string name="create">Créer</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
+    <string name="create_end_to_end_encrypted_share">Lien de partage</string>
+    <string name="create_end_to_end_encrypted_share_title">Lien de partages chiffrés de bout en bout</string>
     <string name="create_link">Créer un lien</string>
     <string name="create_new">Nouveau</string>
     <string name="create_new_document">Nouveau document</string>
@@ -319,6 +321,7 @@
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
     <string name="drawer_item_personal_files">Fichiers personnels</string>
+    <string name="drawer_item_recent_files">Fichiers récents</string>
     <string name="drawer_item_shared">Partagé</string>
     <string name="drawer_item_trashbin">Fichiers supprimés</string>
     <string name="drawer_item_uploads_list">Téléversements</string>
@@ -404,6 +407,7 @@
     <string name="etm_transfer_type">Transfert</string>
     <string name="etm_transfer_type_download">Téléchargement</string>
     <string name="etm_transfer_type_upload">Téléverser</string>
+    <string name="export_in_progress">Exportation %1$d sur %2$d</string>
     <string name="extension_cannot_be_changed">L\'extension ne peut pas être modifiée</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Vous n\'avez pas le droit de créer ou de téléverser des fichiers dans ce dossier.</string>
     <string name="external_shares">Partages externes</string>
@@ -558,6 +562,8 @@
     <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Téléverser uniquement lors de la recharge</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_description_end_to_end_encrypted">Les destinataires du partage ont toujours accès à l\'intégralité du dossier chiffré. Le partage est uniquement possible pour les comptes ayant déjà configuré le chiffrement de bout en bout.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Partages chiffrés de bout en bout</string>
     <string name="internal_shares">Partages internes</string>
     <string name="internal_two_way_sync">Synchronisation interne bidirectionnelle</string>
     <string name="internal_two_way_sync_not_yet">Pas encore, bientôt synchronisé</string>
@@ -1103,7 +1109,6 @@
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="upload_quota_exceeded">Quota de stockage dépassé</string>
     <string name="upload_scan_doc_upload">Scanner un document depuis l\'appareil photo</string>
-    <string name="upload_sync_conflict">Conflit de synchronisation, veuillez le résoudre manuellement</string>
     <string name="upload_unknown_error">Erreur inconnue </string>
     <string name="uploader_btn_alternative_text">Sélectionner</string>
     <string name="uploader_btn_upload_text">Téléverser</string>
@@ -1150,7 +1155,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Fichier local non trouvé</string>
     <string name="uploads_view_upload_status_failed_permission_error">Erreur de permissions</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat du serveur non approuvé</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Récupération de la version serveur …</string>
     <string name="uploads_view_upload_status_service_interrupted">L\'application s\'est arrêtée</string>
     <string name="uploads_view_upload_status_skip">Ignoré</string>
     <string name="uploads_view_upload_status_skip_reason">Un fichier portant le même nom existe déjà.</string>

@@ -703,7 +703,6 @@
     <string name="upload_lock_failed">נעילת התיקייה נכשלה</string>
     <string name="upload_old_android">הצפנה אפשרית רק עם &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">מחסור במקום מונע את העתקת הקבצים הנבחרים לתוך התיקייה %1$s. להעביר אותם לשם במקום?</string>
-    <string name="upload_sync_conflict">סתירת סנכרון, נא לפתור ידנית</string>
     <string name="upload_unknown_error">שגיאה בלתי ידועה</string>
     <string name="uploader_btn_alternative_text">בחר</string>
     <string name="uploader_btn_upload_text">העלאה</string>
@@ -747,7 +746,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">קובץ מקומי לא נמצא</string>
     <string name="uploads_view_upload_status_failed_permission_error">שגיאת הרשאה</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">אישור השרת אינו מהימן</string>
-    <string name="uploads_view_upload_status_fetching_server_version">גרסת השרת מתושאלת…</string>
     <string name="uploads_view_upload_status_service_interrupted">היישומון הופסק</string>
     <string name="uploads_view_upload_status_succeeded">הושלם</string>
     <string name="uploads_view_upload_status_unknown_fail">שגיאה בלתי ידועה</string>

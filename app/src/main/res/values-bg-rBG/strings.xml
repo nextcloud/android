@@ -827,7 +827,6 @@
     <string name="upload_old_android">Шифроването е възможно само с > = Android 5.0</string>
     <string name="upload_query_move_foreign_files">В папка %1$s няма достатъчно място за копиране на избраните файлове. Желаете ли да бъдат преместени?</string>
     <string name="upload_scan_doc_upload">Сканиране на документ от камера</string>
-    <string name="upload_sync_conflict">Конфликт при синхронизирането, необходимо е да го отстраните ръчно</string>
     <string name="upload_unknown_error">Неизвестна грешка</string>
     <string name="uploader_btn_alternative_text">Избиране</string>
     <string name="uploader_btn_upload_text">Качване</string>
@@ -872,7 +871,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Локалният фаил не е намерен</string>
     <string name="uploads_view_upload_status_failed_permission_error">Грешка в правата</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Недоверен сървърен сертификат</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Извлича се версията на сървъра ...</string>
     <string name="uploads_view_upload_status_service_interrupted">Приложението бе терминирано</string>
     <string name="uploads_view_upload_status_succeeded">Завършено</string>
     <string name="uploads_view_upload_status_unknown_fail">Неизвестна грешка</string>

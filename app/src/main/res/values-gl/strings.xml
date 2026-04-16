@@ -1101,7 +1101,6 @@
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. En troques, gustaríalle movelos?</string>
     <string name="upload_quota_exceeded">Superouse a cota de almacenamento</string>
     <string name="upload_scan_doc_upload">Escanear o documento desde a cámara</string>
-    <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
     <string name="upload_unknown_error">Produciuse un erro descoñecido</string>
     <string name="uploader_btn_alternative_text">Escoller</string>
     <string name="uploader_btn_upload_text">Enviar</string>
@@ -1148,7 +1147,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Non se atopou o ficheiro local</string>
     <string name="uploads_view_upload_status_failed_permission_error"> Produciuse un erro de permisos</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">O certificado do servidor non é fiábel</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Recuperando a versión do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicación finalizada</string>
     <string name="uploads_view_upload_status_skip">Omitido</string>
     <string name="uploads_view_upload_status_skip_reason">Xa existe un ficheiro co mesmo nome</string>
