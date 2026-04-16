@@ -1104,7 +1104,6 @@
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do složky %1$s není dostatek volného místa. Chcete je tam namísto toho přesunout?</string>
     <string name="upload_quota_exceeded">Kvóta úložiště překročena</string>
     <string name="upload_scan_doc_upload">Naskenovat dokument kamerou</string>
-    <string name="upload_sync_conflict">Konflikt synchronizace – vyřešte ručně</string>
     <string name="upload_unknown_error">Neznámá chyba</string>
     <string name="uploader_btn_alternative_text">Vybrat</string>
     <string name="uploader_btn_upload_text">Nahrát</string>
@@ -1151,7 +1150,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Místní soubor nenalezen</string>
     <string name="uploads_view_upload_status_failed_permission_error">Chyba oprávnění</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Nedůvěryhodný certifikát serveru</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Zjišťování verze serveru …</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikace ukončena</string>
     <string name="uploads_view_upload_status_skip">Přeskočeno</string>
     <string name="uploads_view_upload_status_skip_reason">Takto nazvaný soubor už existuje.</string>
@@ -1165,6 +1163,7 @@
     <string name="user_icon">Uživatel</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Skupiny</string>
     <string name="user_info_phone">Telefonní číslo</string>
     <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">X (Twitter)</string>

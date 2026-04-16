@@ -744,7 +744,6 @@
     <string name="upload_lock_failed">C\'hwitet eo bet prenna an teuliad</string>
     <string name="upload_old_android">Ar sifrañ a zo posupl gant &gt; = Android 5.0 nemetken</string>
     <string name="upload_query_move_foreign_files">Re neubeut a blas evit eilan ar restr en teuliad %1$s. C\'hoant o peus diblasañ anezhan amañ kentoc\'h ?</string>
-    <string name="upload_sync_conflict">Stourm kemprenn, diskoulmit gant an dorn mar-plij.</string>
     <string name="upload_unknown_error">Fazi dizanv</string>
     <string name="uploader_btn_alternative_text">Dibab</string>
     <string name="uploader_btn_upload_text">Pellkas</string>
@@ -788,7 +787,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">N\'eo ket bet kavet ar restr diabarzh</string>
     <string name="uploads_view_upload_status_failed_permission_error">Fazi aotre</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Sertifikad servijour difiziet</string>
-    <string name="uploads_view_upload_status_fetching_server_version">O tapoout stumm ar servijour...</string>
     <string name="uploads_view_upload_status_service_interrupted">Meziant achuet</string>
     <string name="uploads_view_upload_status_succeeded">Achuet</string>
     <string name="uploads_view_upload_status_unknown_fail">Fazi dianav</string>
@@ -798,7 +796,9 @@
     <string name="user_icon">Implijer</string>
     <string name="user_info_address">Chom-lec\'h</string>
     <string name="user_info_email">Postel</string>
+    <string name="user_info_groups">Strolladoù</string>
     <string name="user_info_phone">Niverenn bellgomz</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Lec\'hienn web</string>
     <string name="user_information_retrieval_error">Ur fazi a zo bet en ur adtapout tutourioù an implijer</string>

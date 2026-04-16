@@ -582,7 +582,6 @@
     <string name="upload_files">อัพโหลดไฟล์จากเครื่อง</string>
     <string name="upload_list_delete">ลบ</string>
     <string name="upload_scan_doc_upload">แสกนเอกสารโดยใช้กล้อง</string>
-    <string name="upload_sync_conflict">เกิดข้อขัดแย้งของการซิงค์ โปรดแก้ไขด้วยตนเอง</string>
     <string name="upload_unknown_error">ข้อผิดพลาดที่ไม่รู้จัก</string>
     <string name="uploader_btn_alternative_text">เลือก</string>
     <string name="uploader_btn_upload_text">อัปโหลด</string>

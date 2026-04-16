@@ -1109,7 +1109,6 @@
     <string name="upload_query_move_foreign_files">O espaço insuficiente está impedindo a cópia dos arquivos selecionados para a pasta %1$s. Em vez de copiá-los, gostaria de movê-los para lá?</string>
     <string name="upload_quota_exceeded">Cota de armazenamento excedida</string>
     <string name="upload_scan_doc_upload">Digitalizar documento com a câmera</string>
-    <string name="upload_sync_conflict">Conflito na sincronização, resolva manualmente</string>
     <string name="upload_unknown_error">Erro desconhecido</string>
     <string name="uploader_btn_alternative_text">Escolher</string>
     <string name="uploader_btn_upload_text">Enviar</string>
@@ -1156,7 +1155,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Arquivo local não encontrado</string>
     <string name="uploads_view_upload_status_failed_permission_error">Erro de permissão</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificado de servidor não confiável</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Buscando versão do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicativo finalizado</string>
     <string name="uploads_view_upload_status_skip">Ignorado</string>
     <string name="uploads_view_upload_status_skip_reason">Um arquivo com o mesmo nome já existe.</string>

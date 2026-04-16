@@ -1109,7 +1109,6 @@
     <string name="upload_query_move_foreign_files">空間不足以將選擇的檔案複製到 %1$s 資料夾。是否要改成移動它們？</string>
     <string name="upload_quota_exceeded">超過儲存空間容量限制</string>
     <string name="upload_scan_doc_upload">使用相機掃描文件</string>
-    <string name="upload_sync_conflict">同步發生衝突，請手動解決</string>
     <string name="upload_unknown_error">未知的錯誤</string>
     <string name="uploader_btn_alternative_text">選擇</string>
     <string name="uploader_btn_upload_text">上傳</string>
@@ -1156,7 +1155,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">找不到本機檔案</string>
     <string name="uploads_view_upload_status_failed_permission_error">權限錯誤</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">不信任的伺服器憑證</string>
-    <string name="uploads_view_upload_status_fetching_server_version">正在擷取伺服器版本…</string>
     <string name="uploads_view_upload_status_service_interrupted">應用程式已終止</string>
     <string name="uploads_view_upload_status_skip">略過</string>
     <string name="uploads_view_upload_status_skip_reason">已有相同名稱的檔案。</string>
