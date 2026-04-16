@@ -37,7 +37,7 @@ fun Path.toLocalPath(): String = toAbsolutePath().toString()
  * @return [File] instance if the file exists, or `null` if the path is null, empty, or non-existent.
  */
 @Suppress("ReturnCount")
-fun String.toFile(): File? {
+fun String?.toFile(): File? {
     if (isNullOrEmpty()) {
         Log_OC.w(TAG, "given path is null or empty: $this")
         return null
