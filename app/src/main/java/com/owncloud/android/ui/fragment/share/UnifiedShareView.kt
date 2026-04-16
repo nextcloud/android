@@ -18,7 +18,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
@@ -27,15 +29,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -88,9 +89,9 @@ sealed class UnifiedSharePermission {
 
     fun getText(): String {
         return when(this) {
-            FileDrop -> "FileDrop"
-            CanView -> "CanView"
-            CanEdit -> "CanEdit"
+            FileDrop -> "File drop"
+            CanView -> "Can view"
+            CanEdit -> "Can edit"
             is Custom -> "Custom permissions"
         }
     }
@@ -246,21 +247,27 @@ fun UnifiedShareView() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AddShareBottomSheet(filename: String, onDismiss: () -> Unit) {
-    val sheetState = rememberModalBottomSheetState()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val scrollState = rememberScrollState()
 
     var category by remember { mutableStateOf(UnifiedShareCategory.Invited) }
-    var permission by remember { mutableStateOf(UnifiedSharePermission.CanView) }
-    var categoryDropDownExpanded by remember { mutableStateOf(false) }
-    var permissionDropDownExpanded by remember { mutableStateOf(false) }
+    var permission by remember { mutableStateOf<UnifiedSharePermission>(UnifiedSharePermission.CanView) }
+    var searchQuery by remember { mutableStateOf("") }
+    var note by remember { mutableStateOf("") }
+
+    var viewFiles by remember { mutableStateOf(false) }
+    var editFiles by remember { mutableStateOf(false) }
+    var createFiles by remember { mutableStateOf(false) }
+    var deleteFiles by remember { mutableStateOf(false) }
+
     val availablePermissions = remember {
         listOf(
             UnifiedSharePermission.CanView,
             UnifiedSharePermission.CanEdit,
-            UnifiedSharePermission.FileDrop
+            UnifiedSharePermission.FileDrop,
+            UnifiedSharePermission.Custom(false, false, false, false)
         )
     }
-    var searchQuery by remember { mutableStateOf("") }
-    var note by remember { mutableStateOf("") }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -271,140 +278,313 @@ private fun AddShareBottomSheet(filename: String, onDismiss: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
-                .padding(bottom = 48.dp) // Extra padding for bottom navigation bars
+                .padding(bottom = 32.dp)
+                .verticalScroll(scrollState),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text(
-                text = "Share $filename",
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onSurface
+            ShareBottomSheetHeader(filename)
+
+            ShareCategoryDropdown(
+                selectedCategory = category,
+                onCategoryChange = { category = it }
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            ExposedDropdownMenuBox(
-                expanded = categoryDropDownExpanded,
-                onExpandedChange = { categoryDropDownExpanded = !categoryDropDownExpanded },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                OutlinedTextField(
-                    value = category.name,
-                    onValueChange = {},
-                    readOnly = true,
-                    label = { Text("Share type") },
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = categoryDropDownExpanded) },
-                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
-                    modifier = Modifier
-                        .menuAnchor()
-                        .fillMaxWidth()
-                )
-
-                ExposedDropdownMenu(
-                    expanded = categoryDropDownExpanded,
-                    onDismissRequest = { categoryDropDownExpanded = false }
-                ) {
-                    UnifiedShareCategory.entries.forEach { selectionOption ->
-                        DropdownMenuItem(
-                            text = { Text(selectionOption.name) },
-                            onClick = {
-                                category = selectionOption
-                                categoryDropDownExpanded = false
-                            },
-                            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
-                        )
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
             if (category == UnifiedShareCategory.Invited) {
-                OutlinedTextField(
-                    value = searchQuery,
-                    onValueChange = { searchQuery = it },
-                    modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Add people") },
-                    placeholder = { Text("Name, team, email or federated cloud ID") },
-                    singleLine = true,
-                    shape = RoundedCornerShape(8.dp)
+                InvitedShareContent(
+                    searchQuery = searchQuery,
+                    onSearchChange = { searchQuery = it },
+                    permission = permission,
+                    availablePermissions = availablePermissions,
+                    onPermissionChange = { permission = it },
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                InvitedInlineSettings()
 
-                ExposedDropdownMenuBox(
-                    expanded = permissionDropDownExpanded,
-                    onExpandedChange = { permissionDropDownExpanded = !permissionDropDownExpanded },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    OutlinedTextField(
-                        value = permission.getText(),
-                        onValueChange = {},
-                        readOnly = true,
-                        label = { Text("Participants") },
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = permissionDropDownExpanded) },
-                        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
-                        modifier = Modifier.menuAnchor().fillMaxWidth()
-                    )
-
-                    ExposedDropdownMenu(
-                        expanded = permissionDropDownExpanded,
-                        onDismissRequest = { permissionDropDownExpanded = false }
-                    ) {
-                        availablePermissions.forEach { selectionOption ->
-                            DropdownMenuItem(
-                                text = { Text(selectionOption.getText()) },
-                                onClick = {
-                                    // permission = selectionOption
-                                    permissionDropDownExpanded = false
-                                }
-                            )
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                OutlinedTextField(
-                    value = note,
-                    onValueChange = { note = it },
-                    modifier = Modifier.fillMaxWidth(),
-                    placeholder = { Text("Note to recipients") },
-                    singleLine = true,
-                    shape = RoundedCornerShape(8.dp)
-                )
+                NoteToRecipients(note = note, onNoteChange = { note = it })
             } else {
-                Text(
-                    text = "Creating a public link will allow anyone with the link to access this file.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(vertical = 8.dp)
+                AnyoneShareContent(
+                    permission = permission,
+                    availablePermissions = availablePermissions,
+                    onPermissionChange = { permission = it },
                 )
 
-                Button(
-                    onClick = { /* TODO: Create Public Link Logic */ },
-                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
-                ) {
-                    Text("Create public link")
+                if (permission is UnifiedSharePermission.Custom) {
+                    SettingsSwitchRow("View files", viewFiles) { viewFiles = it }
+                    SettingsSwitchRow("Edit files", editFiles) { editFiles = it }
+                    SettingsSwitchRow("Create files", createFiles) { createFiles = it }
+                    SettingsSwitchRow("Delete files", deleteFiles) { deleteFiles = it }
                 }
+
+                AnyoneInlineSettings()
+
+                NoteToRecipients(note = note, onNoteChange = { note = it })
             }
 
-            Row(modifier = Modifier.fillMaxWidth()) {
-                FilledTonalIconButton(onClick = {
+            ShareActionButtons(
+                category = category,
+                isSendEnabled = searchQuery.isNotBlank(),
+                onCopyClick = { /* TODO */ },
+                onSendClick = { /* TODO */ }
+            )
+        }
+    }
+}
 
-                }) {
-                    Text("Copy link")
-                }
+@Composable
+private fun ShareBottomSheetHeader(filename: String) {
+    Text(
+        text = "Share $filename",
+        style = MaterialTheme.typography.headlineSmall,
+        color = MaterialTheme.colorScheme.onSurface,
+        modifier = Modifier.padding(bottom = 8.dp)
+    )
+}
 
-                Spacer(modifier = Modifier.width(16.dp))
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ShareCategoryDropdown(
+    selectedCategory: UnifiedShareCategory,
+    onCategoryChange: (UnifiedShareCategory) -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
 
-                FilledTonalIconButton(onClick = {
-
-                }) {
-                    Text("Send")
-                }
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        OutlinedTextField(
+            value = selectedCategory.name,
+            onValueChange = {},
+            readOnly = true,
+            label = { Text("Share type") },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
+            modifier = Modifier
+                .menuAnchor()
+                .fillMaxWidth()
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            UnifiedShareCategory.entries.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(option.name) },
+                    onClick = {
+                        onCategoryChange(option)
+                        expanded = false
+                    }
+                )
             }
         }
     }
 }
+
+@Composable
+private fun InvitedShareContent(
+    searchQuery: String,
+    onSearchChange: (String) -> Unit,
+    permission: UnifiedSharePermission,
+    availablePermissions: List<UnifiedSharePermission>,
+    onPermissionChange: (UnifiedSharePermission) -> Unit,
+
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        OutlinedTextField(
+            value = searchQuery,
+            onValueChange = onSearchChange,
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text("Add people") },
+            placeholder = { Text("Name, team, email or federated ID") },
+            singleLine = true,
+            shape = RoundedCornerShape(8.dp)
+        )
+
+        PermissionDropdown(
+            label = "Participants",
+            selectedPermission = permission,
+            availablePermissions = availablePermissions,
+            onPermissionChange = onPermissionChange
+        )
+    }
+}
+
+@Composable
+private fun NoteToRecipients(
+    note: String,
+    onNoteChange: (String) -> Unit
+) {
+    OutlinedTextField(
+        value = note,
+        onValueChange = onNoteChange,
+        modifier = Modifier.fillMaxWidth(),
+        placeholder = { Text("Note to recipients") },
+        shape = RoundedCornerShape(8.dp)
+    )
+}
+
+@Composable
+private fun AnyoneShareContent(
+    permission: UnifiedSharePermission,
+    availablePermissions: List<UnifiedSharePermission>,
+    onPermissionChange: (UnifiedSharePermission) -> Unit,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        PermissionDropdown(
+            label = "Anyone with the link",
+            selectedPermission = permission,
+            availablePermissions = availablePermissions,
+            onPermissionChange = onPermissionChange
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun PermissionDropdown(
+    label: String,
+    selectedPermission: UnifiedSharePermission,
+    availablePermissions: List<UnifiedSharePermission>,
+    onPermissionChange: (UnifiedSharePermission) -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        OutlinedTextField(
+            value = selectedPermission.getText(),
+            onValueChange = {},
+            readOnly = true,
+            label = { Text(label) },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
+            modifier = Modifier
+                .menuAnchor()
+                .fillMaxWidth()
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            availablePermissions.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(option.getText()) },
+                    onClick = {
+                        onPermissionChange(option)
+                        expanded = false
+                    }
+                )
+            }
+        }
+    }
+}
+
+
+@Composable
+private fun InvitedInlineSettings() {
+    var shareWithOthers by remember { mutableStateOf(false) }
+    var editFile by remember { mutableStateOf(false) }
+    var hasExpiration by remember { mutableStateOf(false) }
+    var hideDownload by remember { mutableStateOf(false) }
+
+    Column {
+        SettingsSwitchRow("Share with others", shareWithOthers) { shareWithOthers = it }
+        SettingsSwitchRow("Edit file", editFile) { editFile = it }
+        SettingsSwitchRow("Expiration date", hasExpiration) { hasExpiration = it }
+        SettingsSwitchRow("Hide download and sync options", hideDownload) { hideDownload = it }
+    }
+}
+
+@Composable
+private fun AnyoneInlineSettings() {
+    var hasPassword by remember { mutableStateOf(false) }
+    var hasExpiration by remember { mutableStateOf(false) }
+    var limitDownloads by remember { mutableStateOf(false) }
+
+    var hideDownloads by remember { mutableStateOf(false) }
+    var videoVerification by remember { mutableStateOf(false) }
+    var showFilesInGridView by remember { mutableStateOf(false) }
+
+    Column {
+        OutlinedTextField(
+            value = "",
+            onValueChange = {},
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            label = { Text("Label") },
+            placeholder = { Text("Optional name for this link") },
+            singleLine = true
+        )
+
+        SettingsSwitchRow("Expiration date", hasExpiration) { hasExpiration = it }
+        SettingsSwitchRow("Password", hasPassword) { hasPassword = it }
+        SettingsSwitchRow("Limit downloads", limitDownloads) { limitDownloads = it }
+
+        SettingsSwitchRow("Hide downloads", hideDownloads) { hideDownloads = it }
+        SettingsSwitchRow("Video verification", videoVerification) { videoVerification = it }
+        SettingsSwitchRow("Show files in grid view", showFilesInGridView) { showFilesInGridView = it }
+
+    }
+}
+
+@Composable
+private fun SettingsSwitchRow(label: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(text = label, style = MaterialTheme.typography.bodyLarge)
+        Switch(checked = checked, onCheckedChange = onCheckedChange)
+    }
+}
+
+// --- ACTION BUTTONS ---
+
+@Composable
+private fun ShareActionButtons(
+    category: UnifiedShareCategory,
+    isSendEnabled: Boolean,
+    onCopyClick: () -> Unit,
+    onSendClick: () -> Unit
+) {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(top = 16.dp)) {
+        if (category == UnifiedShareCategory.Invited) {
+            FilledTonalButton(
+                onClick = onCopyClick,
+                modifier = Modifier.weight(1f)
+            ) {
+                Text("Copy link")
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(
+                onClick = onSendClick,
+                modifier = Modifier.weight(1f),
+                enabled = isSendEnabled // Disabled if search query is empty
+            ) {
+                Text("Send")
+            }
+        } else {
+            // For "Anyone" (Public link), usually just one big action to create/copy
+            Button(
+                onClick = onCopyClick,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Create public link")
+            }
+        }
+    }
+}
+
 enum class UnifiedSharesListItemType {
     Top, Mid, Bottom;
 
