@@ -10,6 +10,7 @@ package com.nextcloud.ui.fileactions
 import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -81,47 +82,59 @@ class ClientIntegration(
                 }
                 text.text = endpoint.name
 
-                if (endpoint.icon != null) {
-                    sheet.lifecycleScope.launch(Dispatchers.IO) {
-                        val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                            .getNextcloudClientFor(user.toOwnCloudAccount(), context)
+                sheet.lifecycleScope.launch(Dispatchers.IO) {
+                    val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                        .getNextcloudClientFor(user.toOwnCloudAccount(), context)
 
-                        val drawable =
-                            GlideHelper.getDrawable(context, client, client.baseUri.toString() + endpoint.icon)
-                                ?.mutate()
+                    val rawDrawable = if (endpoint.icon != null) {
+                        GlideHelper.getDrawable(context, client, client.baseUri.toString() + endpoint.icon)?.mutate()
+                    } else {
+                        null
+                    }
 
-                        val px = DisplayUtils.convertDpToPixel(
-                            context.resources.getDimension(R.dimen.iconized_single_line_item_icon_size),
-                            context
-                        )
-                        val returnedBitmap =
-                            createBitmap(drawable?.intrinsicWidth ?: px, drawable?.intrinsicHeight ?: px)
+                    val tintableDrawable = prepareDrawableForTinting(rawDrawable) ?: getDefaultIconDrawable()
 
-                        val canvas = Canvas(returnedBitmap)
-                        canvas.drawPicture((drawable as PictureDrawable).picture)
-
-                        val d = returnedBitmap.toDrawable(context.resources)
-
-                        val tintedDrawable = viewThemeUtils.platform.tintDrawable(
-                            context,
-                            d
-                        )
-
-                        withContext(Dispatchers.Main) {
-                            icon.setImageDrawable(tintedDrawable)
+                    withContext(Dispatchers.Main) {
+                        tintableDrawable?.let {
+                            val tinted = viewThemeUtils.platform.tintDrawable(context, it)
+                            icon.setImageDrawable(tinted)
                         }
                     }
-                } else {
-                    val tintedDrawable = viewThemeUtils.platform.tintDrawable(
-                        context,
-                        AppCompatResources.getDrawable(context, R.drawable.ic_activity)!!
-                    )
-
-                    icon.setImageDrawable(tintedDrawable)
                 }
             }
+
         return itemBinding.root
     }
+
+    @Suppress("ReturnCount")
+    private fun prepareDrawableForTinting(drawable: Drawable?): Drawable? {
+        if (drawable == null) {
+            return null
+        }
+
+        if (drawable is PictureDrawable) {
+            val defaultSize = DisplayUtils.convertDpToPixel(
+                context.resources.getDimension(R.dimen.iconized_single_line_item_icon_size),
+                context
+            ).toInt().coerceAtLeast(1)
+
+            val width = if (drawable.intrinsicWidth > 0) drawable.intrinsicWidth else defaultSize
+            val height = if (drawable.intrinsicHeight > 0) drawable.intrinsicHeight else defaultSize
+
+            val safeWidth = width.coerceAtLeast(1)
+            val safeHeight = height.coerceAtLeast(1)
+
+            val bitmap = createBitmap(safeWidth, safeHeight)
+            val canvas = Canvas(bitmap)
+            canvas.drawPicture(drawable.picture)
+
+            return bitmap.toDrawable(context.resources)
+        }
+
+        return drawable
+    }
+
+    private fun getDefaultIconDrawable(): Drawable? = AppCompatResources.getDrawable(context, R.drawable.ic_activity)
 
     private fun requestClientIntegration(endpoint: Endpoint, fileId: String, filePath: String) {
         sheet.lifecycleScope.launch(Dispatchers.IO) {

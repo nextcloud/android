@@ -41,7 +41,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.utils.theme.CapabilityUtils
-import java.io.File
 import java.util.Calendar
 import java.util.Locale
 import java.util.Observable
@@ -485,7 +484,7 @@ class UploadsStorageManager(
         } else if (code.isConflict()) {
             val isSame = FileUploadHelper().isSameFileOnRemote(
                 upload.user,
-                File(upload.storagePath),
+                upload.storagePath,
                 upload.remotePath,
                 upload.context
             )

@@ -16,31 +16,47 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.utils.Throttler
+import com.nextcloud.utils.extensions.webDavParentPath
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadListLayoutBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation
+import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.ui.adapter.uploadList.UploadListAdapter
+import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
+import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterAction
+import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterActionHandler
+import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterHelper
+import com.owncloud.android.ui.adapter.uploadList.helper.UploadListItemOnClick
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
 import com.owncloud.android.utils.FilesSyncHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @Suppress("MagicNumber")
-class UploadListActivity : FileActivity() {
+class UploadListActivity :
+    FileActivity(),
+    UploadListItemOnClick {
     @Inject lateinit var uploadsStorageManager: UploadsStorageManager
 
     @Inject lateinit var powerManagementService: PowerManagementService
@@ -53,10 +69,15 @@ class UploadListActivity : FileActivity() {
 
     @Inject lateinit var throttler: Throttler
 
+    @Inject lateinit var uploadFileOperationFactory: UploadFileOperationFactory
+
     private var swipeListRefreshLayout: SwipeRefreshLayout? = null
     private var binding: UploadListLayoutBinding? = null
-    private var uploadListAdapter: UploadListAdapter? = null
+
     private var uploadFinishReceiver: UploadFinishReceiver? = null
+    private lateinit var uploadListAdapter: UploadListAdapter
+    private lateinit var adapterActionHandler: UploadListAdapterAction
+    private lateinit var adapterHelper: UploadListAdapterHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,19 +103,21 @@ class UploadListActivity : FileActivity() {
 
     private fun setupContent() {
         setupEmptyList()
+        adapterActionHandler = UploadListAdapterActionHandler()
+        adapterHelper = UploadListAdapterHelper(this)
         uploadListAdapter = UploadListAdapter(
             this,
             uploadsStorageManager,
-            storageManager,
             userAccountManager,
             connectivityService,
             powerManagementService,
-            clock,
-            viewThemeUtils
+            viewThemeUtils,
+            this,
+            adapterHelper
         )
 
         val lm = GridLayoutManager(this, 1)
-        uploadListAdapter?.setLayoutManager(lm)
+        uploadListAdapter.setLayoutManager(lm)
 
         val spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_spacing)
         binding?.list?.run {
@@ -133,7 +156,7 @@ class UploadListActivity : FileActivity() {
 
     private fun loadItems() {
         swipeListRefreshLayout?.isRefreshing = true
-        uploadListAdapter?.loadUploadItemsFromDb { swipeListRefreshLayout?.isRefreshing = false }
+        uploadListAdapter.loadUploadItemsFromDb { swipeListRefreshLayout?.isRefreshing = false }
     }
 
     private fun refresh() {
@@ -145,7 +168,7 @@ class UploadListActivity : FileActivity() {
         )
 
         if (!isUploadStarted) {
-            uploadListAdapter?.loadUploadItemsFromDb { swipeListRefreshLayout?.isRefreshing = false }
+            uploadListAdapter.loadUploadItemsFromDb { swipeListRefreshLayout?.isRefreshing = false }
         }
     }
 
@@ -203,7 +226,7 @@ class UploadListActivity : FileActivity() {
             val ids = uploadsStorageManager.getCurrentUploadIds(user.accountName)
             uploadHelper.cancelAndRestartUploadJob(user, ids)
         }
-        uploadListAdapter?.notifyDataSetChanged()
+        uploadListAdapter.notifyDataSetChanged()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
@@ -240,7 +263,7 @@ class UploadListActivity : FileActivity() {
 
         fileOperationsHelper.opIdWaitingFor = Long.MAX_VALUE
         dismissLoadingDialog()
-        val account = result.getData()[0] as? Account
+        val account = result.data[0] as? Account
         if (!result.isSuccess) {
             requestCredentialsUpdate(account)
         } else {
@@ -253,9 +276,90 @@ class UploadListActivity : FileActivity() {
         }
     }
 
+    private var conflictSnackbar: Snackbar? = null
+
+    override fun onLastUploadResultConflictClick(upload: OCUpload) {
+        val rootView = binding?.root ?: return
+
+        conflictSnackbar = Snackbar.make(
+            rootView,
+            R.string.upload_sync_conflict_checking,
+            Snackbar.LENGTH_INDEFINITE
+        ).apply { show() }
+
+        lifecycleScope.launch {
+            val client = clientRepository.getOwncloudClient() ?: return@launch
+            val result = adapterActionHandler.handleConflict(upload, client, uploadsStorageManager)
+
+            withContext(Dispatchers.Main) {
+                when (result) {
+                    is ConflictHandlingResult.ConflictNotExistsRemoteFileNotFound -> {
+                        showConflictSnackbar(R.string.upload_sync_conflict_not_exists)
+                        retryUpload(upload)
+                    }
+
+                    is ConflictHandlingResult.CannotCheckConflict -> {
+                        showConflictSnackbar(R.string.upload_sync_conflict_check_error)
+                    }
+
+                    is ConflictHandlingResult.ShowConflictResolveDialog -> {
+                        conflictSnackbar?.dismiss()
+                        adapterHelper.openConflictActivity(result.file, result.upload)
+                    }
+
+                    is ConflictHandlingResult.ConflictNotExistsSameFile -> {
+                        showConflictSnackbar(R.string.upload_sync_conflict_same_file)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun retryUpload(upload: OCUpload) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val client = clientRepository.getOwncloudClient()
+
+            // Check parent folder exists
+            val parentPath = storageManager
+                .getFileByPath(upload.remotePath)
+                .parentRemotePath
+                ?: upload.remotePath.webDavParentPath()
+
+            val checkOp = ExistenceCheckRemoteOperation(parentPath, false)
+            val checkResult = checkOp.execute(client)
+
+            if (!checkResult.isSuccess &&
+                checkResult.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND
+            ) {
+                withContext(Dispatchers.Main) {
+                    showConflictSnackbar(R.string.uploader_file_not_found_message)
+                }
+                return@launch
+            }
+
+            val result = uploadFileOperationFactory
+                .create(upload)
+                .execute(client)
+
+            if (result.isSuccess) {
+                withContext(Dispatchers.Main) {
+                    uploadListAdapter.loadUploadItemsFromDb()
+                }
+            }
+        }
+    }
+
+    private fun showConflictSnackbar(messageId: Int) {
+        conflictSnackbar?.apply {
+            setText(messageId)
+            setDuration(Snackbar.LENGTH_LONG)
+            show()
+        }
+    }
+
     private inner class UploadFinishReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            throttler.run("update_upload_list") { uploadListAdapter?.loadUploadItemsFromDb() }
+            throttler.run("update_upload_list") { uploadListAdapter.loadUploadItemsFromDb() }
         }
     }
 

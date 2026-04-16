@@ -17,6 +17,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.dao.ArbitraryDataDao
 import com.nextcloud.client.database.dao.AssistantDao
+import com.nextcloud.client.database.dao.CapabilityDao
 import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.dao.OfflineOperationDao
@@ -39,6 +40,7 @@ import com.nextcloud.client.database.entity.VirtualEntity
 import com.nextcloud.client.database.migrations.DatabaseMigrationUtil
 import com.nextcloud.client.database.migrations.MIGRATION_88_89
 import com.nextcloud.client.database.migrations.MIGRATION_97_98
+import com.nextcloud.client.database.migrations.MIGRATION_99_100
 import com.nextcloud.client.database.migrations.Migration67to68
 import com.nextcloud.client.database.migrations.RoomMigration
 import com.nextcloud.client.database.migrations.addLegacyMigrations
@@ -96,6 +98,7 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 96, to = 97, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
         // manual migration used for 97 to 98
         AutoMigration(from = 98, to = 99)
+        // manual migration used for 99 to 100
     ],
     exportSchema = true
 )
@@ -112,6 +115,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
     abstract fun syncedFolderDao(): SyncedFolderDao
     abstract fun assistantDao(): AssistantDao
     abstract fun shareDao(): ShareDao
+    abstract fun capabilityDao(): CapabilityDao
 
     companion object {
         const val FIRST_ROOM_DB_VERSION = 65
@@ -134,6 +138,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                     .addMigrations(Migration67to68())
                     .addMigrations(MIGRATION_88_89)
                     .addMigrations(MIGRATION_97_98)
+                    .addMigrations(MIGRATION_99_100)
                     .build()
             }
             return instance!!

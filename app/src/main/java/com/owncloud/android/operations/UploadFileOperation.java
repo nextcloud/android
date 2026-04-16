@@ -1298,13 +1298,8 @@ public class UploadFileOperation extends SyncOperation {
                     // check if its real SYNC_CONFLICT
                     boolean isSameFileOnRemote = false;
                     if (mFile != null) {
-                        String localPath = mFile.getStoragePath();
-
-                        if (localPath != null) {
-                            File localFile = new File(localPath);
-                            isSameFileOnRemote = FileUploadHelper.Companion.instance()
-                                .isSameFileOnRemote(user, localFile, mRemotePath, mContext);
-                        }
+                        isSameFileOnRemote = FileUploadHelper.Companion.instance()
+                            .isSameFileOnRemote(user, mFile.getStoragePath(), mRemotePath, mContext);
                     }
 
                     if (isSameFileOnRemote) {

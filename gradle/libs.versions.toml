@@ -5,8 +5,8 @@
 androidCommonLibraryVersion = "0.33.2"
 androidGifDrawableVersion = "1.2.31"
 androidImageCropperVersion = "4.7.0"
-androidLibraryVersion = "2c18d1db4a06bad82f2aab589f9bc9dc07c30c9d"
-androidPluginVersion = "9.1.0"
+androidLibraryVersion ="83b68e9ee3c91e146585ea4dff8872bacfce160a"
+androidPluginVersion = "9.1.1"
 androidsvgVersion = "1.4"
 androidxMediaVersion = "1.5.1"
 androidxTestVersion = "1.7.0"
@@ -288,7 +288,6 @@ spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugsGradlePlugin" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektGradlePlugin" }
 shot = { id = "shot", version.ref = "shotVersion" }
