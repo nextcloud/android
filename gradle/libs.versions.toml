@@ -285,7 +285,6 @@ android-application = { id = "com.android.application", version.ref = "androidPl
 android-library = { id = "com.android.library", version.ref = "androidPluginVersion" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugsGradlePlugin" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
