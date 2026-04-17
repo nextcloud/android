@@ -1756,14 +1756,6 @@ public class UploadFileOperation extends SyncOperation {
             // coincidence; nothing else is needed, the storagePath is right
             // in the instance returned by mCurrentUpload.getFile()
         }
-        // TODO: MUST SAVE CORRECT E-TAG and REFRESH FODLER OPERATION SHOULD NOT EXECUTE FOLLOWING LOGIC
-        /*
-         // eTag will not be updated unless file CONTENTS are synchronized
-            if (!updatedFile.isFolder() && localFile.isDown() &&
-                !updatedFile.getEtag().equals(localFile.getEtag())) {
-                updatedFile.setEtagInConflict(updatedFile.getEtag());
-            }
-         */
         file.setUpdateThumbnailNeeded(true);
         getStorageManager().saveFile(file);
         getStorageManager().saveConflict(file, null);
