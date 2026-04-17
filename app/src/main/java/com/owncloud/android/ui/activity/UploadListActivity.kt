@@ -320,21 +320,21 @@ class UploadListActivity :
             val client = clientRepository.getOwncloudClient()
 
             // Check parent folder exists
-            val parentPath = storageManager
-                .getFileByPath(upload.remotePath)
-                .parentRemotePath
-                ?: upload.remotePath.webDavParentPath()
+            val file = storageManager.getFileByPath(upload.remotePath)
+            val parentPath = (file?.parentRemotePath ?: upload.remotePath?.webDavParentPath())
 
-            val checkOp = ExistenceCheckRemoteOperation(parentPath, false)
-            val checkResult = checkOp.execute(client)
+            parentPath?.let {
+                val checkOp = ExistenceCheckRemoteOperation(it, false)
+                val checkResult = checkOp.execute(client)
 
-            if (!checkResult.isSuccess &&
-                checkResult.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND
-            ) {
-                withContext(Dispatchers.Main) {
-                    showConflictSnackbar(R.string.uploader_file_not_found_message)
+                if (!checkResult.isSuccess &&
+                    checkResult.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND
+                ) {
+                    withContext(Dispatchers.Main) {
+                        showConflictSnackbar(R.string.uploader_file_not_found_message)
+                    }
+                    return@launch
                 }
-                return@launch
             }
 
             val result = uploadFileOperationFactory
