@@ -72,8 +72,14 @@ class OfflineSyncWork(
         if (files != null) {
             for (file in files) {
                 val ocFile = storageManager.getFileByLocalPath(file.path)
+                val remotePath = ocFile?.remotePath
+                if (remotePath == null) {
+                    Log_OC.w(TAG, "remote path is null can't sync")
+                    continue
+                }
+
                 val synchronizeFileOperation = SynchronizeFileOperation(
-                    ocFile?.remotePath,
+                    remotePath,
                     user,
                     true,
                     context,
