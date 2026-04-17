@@ -11,15 +11,19 @@ import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -29,13 +33,16 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
@@ -56,7 +63,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -586,8 +595,6 @@ private fun SettingsSwitchRow(label: String, checked: Boolean, onCheckedChange: 
     }
 }
 
-// --- ACTION BUTTONS ---
-
 @Composable
 private fun ShareActionButtons(
     category: UnifiedShareCategory,
@@ -638,22 +645,36 @@ enum class UnifiedSharesListItemType {
     }
 }
 
-// TODO: - Show avatar, email group or user in the leading content as a one rounded ICON
-// TODO: - Add more icon end of the list item to access options we have before, delete, send email ...
-// TODO: - Add context menu just does same thing like more icon
-// TODO: - When user taps the list item it should show share detail bottom sheet
-
 // NOTE: To just create a public link anyone tab + just send DOES SAME THING
 @Composable
 private fun UnifiedSharesListItem(share: UnifiedShares, type: UnifiedSharesListItemType) {
+    var showContextMenu by remember { mutableStateOf(false) }
+    var showDetailSheet by remember { mutableStateOf(false) }
+    val haptics = LocalHapticFeedback.current
+
     ListItem(
         modifier = Modifier
             .fillMaxWidth()
             .clip(type.getShape())
-            .clickable(
-                onClick = { }
+            .combinedClickable(
+                onClick = { showDetailSheet = true },
+                onLongClick = {
+                    haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                    showContextMenu = true
+                },
             )
             .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)),
+        leadingContent = {
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primaryContainer),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = share.type.icon())
+            }
+        },
         headlineContent = {
             Text(
                 text = share.label,
@@ -668,12 +689,49 @@ private fun UnifiedSharesListItem(share: UnifiedShares, type: UnifiedSharesListI
             )
         },
         trailingContent = {
-            Icon(Icons.Default.MoreVert, contentDescription = "More")
+            Box {
+                IconButton(onClick = { showContextMenu = true }) {
+                    Icon(Icons.Default.MoreVert, contentDescription = "More options")
+                }
+
+                DropdownMenu(
+                    expanded = showContextMenu,
+                    onDismissRequest = { showContextMenu = false }
+                ) {
+                    DropdownMenuItem(
+                        text = { Text("Edit") },
+                        onClick = {
+                            showContextMenu = false
+                            showDetailSheet = true
+                        }
+                    )
+
+                    DropdownMenuItem(
+                        text = { Text("Send email") },
+                        onClick = { showContextMenu = false }
+                    )
+
+                    HorizontalDivider()
+
+                    DropdownMenuItem(
+                        text = { Text("Delete", color = MaterialTheme.colorScheme.error) },
+                        onClick = { showContextMenu = false }
+                    )
+                }
+            }
         },
         colors = ListItemDefaults.colors(
             containerColor = Color.Transparent
         )
     )
+
+    // TODO: USE EXISTING SHARE DETAILS
+    if (showDetailSheet) {
+        AddShareBottomSheet(
+            filename = share.label,
+            onDismiss = { showDetailSheet = false }
+        )
+    }
 }
 
 fun ComposeView.setupUnifiedShare(viewThemeUtils: ViewThemeUtils, context: Context) {
