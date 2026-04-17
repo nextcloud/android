@@ -6,445 +6,431 @@
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
  * SPDX-License-Identifier: GPL-3.0-or-later AND AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.fragment;
+package com.owncloud.android.ui.fragment
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.res.Configuration;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.res.Configuration
+import android.os.AsyncTask
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getTypedActivity
+import com.owncloud.android.BuildConfig
+import com.owncloud.android.R
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.EmptyRecyclerView
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.activity.FolderPickerActivity
+import com.owncloud.android.ui.activity.ToolbarActivity
+import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface
+import com.owncloud.android.ui.adapter.GalleryAdapter
+import com.owncloud.android.ui.asynctasks.GallerySearchTask
+import com.owncloud.android.ui.events.ChangeMenuEvent
+import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
 
-import com.nextcloud.utils.extensions.IntentExtensionsKt;
-import com.owncloud.android.BuildConfig;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.EmptyRecyclerView;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.FolderPickerActivity;
-import com.owncloud.android.ui.activity.ToolbarActivity;
-import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
-import com.owncloud.android.ui.adapter.GalleryAdapter;
-import com.owncloud.android.ui.asynctasks.GallerySearchTask;
-import com.owncloud.android.ui.events.ChangeMenuEvent;
+@Suppress("ForbiddenComment", "ReturnCount", "MagicNumber", "MaxLineLength")
+class GalleryFragment :
+    OCFileListFragment(),
+    GalleryFragmentBottomSheetActions {
+    var isPhotoSearchQueryRunning: Boolean = false
+    private var photoSearchTask: AsyncTask<Void, Void, GallerySearchTask.Result>? = null
+    private var endDate: Long = 0
+    private val limit = 150
+    private var adapter: GalleryAdapter? = null
 
-import javax.inject.Inject;
+    private var bottomSheet: GalleryFragmentBottomSheetDialog? = null
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+    override var columnsCount: Int = 0
+        private set
 
-/**
- * A Fragment that lists all files and folders in a given path
- */
-public class GalleryFragment extends OCFileListFragment implements GalleryFragmentBottomSheetActions {
-    private static final int MAX_ITEMS_PER_ROW = 10;
-    private static final String FRAGMENT_TAG_BOTTOM_SHEET = "data";
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        searchFragment = true
 
-    private static Integer lastMediaItemPosition = null;
-    public static final String REFRESH_SEARCH_EVENT_RECEIVER = "refreshSearchEventReceiver";
-
-    private boolean photoSearchQueryRunning = false;
-    private AsyncTask<Void, Void, GallerySearchTask.Result> photoSearchTask;
-    private long endDate;
-    private int limit = 150;
-    private GalleryAdapter mAdapter;
-
-    private static final int SELECT_LOCATION_REQUEST_CODE = 212;
-    private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
-
-    private final static int maxColumnSizeLandscape = 5;
-    private final static int maxColumnSizePortrait = 2;
-    private int columnSize;
-
-    protected void setPhotoSearchQueryRunning(boolean value) {
-        this.photoSearchQueryRunning = value;
+        setupBottomSheet()
+        setupColumnCount()
+        registerRefreshSearchEventReceiver()
     }
 
-    public boolean isPhotoSearchQueryRunning() {
-        return this.photoSearchQueryRunning;
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        addMenuProvider()
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        searchFragment = true;
-
-        setHasOptionsMenu(true);
-
-        if (galleryFragmentBottomSheetDialog == null) {
-            galleryFragmentBottomSheetDialog = new GalleryFragmentBottomSheetDialog(this);
-        }
-
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            columnSize = maxColumnSizeLandscape;
-        } else {
-            columnSize = maxColumnSizePortrait;
-        }
-
-        registerRefreshSearchEventReceiver();
-
-    }
-
-    private void registerRefreshSearchEventReceiver() {
-        IntentFilter filter = new IntentFilter(REFRESH_SEARCH_EVENT_RECEIVER);
-        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(refreshSearchEventReceiver, filter);
-    }
-
-    private final BroadcastReceiver refreshSearchEventReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (getActivity() instanceof FileDisplayActivity fileDisplayActivity) {
-                fileDisplayActivity.startPhotoSearch(R.id.nav_gallery);
-            }
-        }
-    };
-
-    public static void setLastMediaItemPosition(Integer position) {
-        lastMediaItemPosition = position;
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (photoSearchTask != null) {
-            photoSearchTask.cancel(true);
-            photoSearchTask = null;
-        }
-
-        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(refreshSearchEventReceiver);
-
-        setLastMediaItemPosition(null);
-
-        mAdapter.cleanup();
-
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (photoSearchTask != null) {
-            photoSearchTask.cancel(true);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = super.onCreateView(inflater, container, savedInstanceState);
-
-        if (getRecyclerView() != null) {
-            getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                    loadMoreWhenEndReached(recyclerView, dy);
+    private fun addMenuProvider() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.fragment_gallery_three_dots, menu)
+                    val menuItem = menu.findItem(R.id.action_three_dot_icon)
+                    viewThemeUtils.platform.colorMenuItemText(requireContext(), menuItem)
                 }
-            });
-        }
 
-        Log_OC.i(this, "onCreateView() in GalleryFragment end");
-        return v;
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    if (menuItem.itemId == R.id.action_three_dot_icon && bottomSheet != null) {
+                        showBottomSheet()
+                        return true
+                    }
+
+                    return false
+                }
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED
+        )
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        currentSearchType = SearchType.GALLERY_SEARCH;
-
-        menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
-        requireActivity().invalidateOptionsMenu();
-
-        updateSubtitle(galleryFragmentBottomSheetDialog.getCurrMediaState());
-
-        handleSearchEvent();
+    private fun setupBottomSheet() {
+        if (bottomSheet == null) {
+            bottomSheet = GalleryFragmentBottomSheetDialog(this)
+        }
     }
 
-    @Override
-    protected void setAdapter(Bundle args) {
-        mAdapter = new GalleryAdapter(requireContext(),
-                                      accountManager.getUser(),
-                                      this,
-                                      preferences,
-                                      mContainerActivity,
-                                      viewThemeUtils,
-                                      columnSize,
-                                      ThumbnailsCacheManager.getThumbnailDimension());
-        mAdapter.setHasStableIds(true);
-        setRecyclerViewAdapter(mAdapter);
+    private fun setupColumnCount() {
+        columnsCount = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            MAX_LANDSCAPE_COLUMN_SIZE
+        } else {
+            MAX_PORTRAIT_COLUMN_SIZE
+        }
+    }
 
-        //update the footer as there is no footer shown in media view
-        if (getRecyclerView() instanceof EmptyRecyclerView) {
-            ((EmptyRecyclerView) getRecyclerView()).setHasFooter(false);
+    private fun registerRefreshSearchEventReceiver() {
+        val filter = IntentFilter(REFRESH_SEARCH_EVENT_RECEIVER)
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(refreshSearchEventReceiver, filter)
+    }
+
+    private val refreshSearchEventReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            getTypedActivity(FileDisplayActivity::class.java)?.startPhotoSearch(R.id.nav_gallery)
+        }
+    }
+
+    override fun onDestroyView() {
+        if (photoSearchTask != null) {
+            photoSearchTask?.cancel(true)
+            photoSearchTask = null
         }
 
-        if (getRecyclerView() != null) {
-            GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
-            mAdapter.setLayoutManager(layoutManager);
-            getRecyclerView().setLayoutManager(layoutManager);
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(refreshSearchEventReceiver)
+
+        setLastMediaItemPosition(null)
+
+        adapter?.cleanup()
+
+        super.onDestroyView()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        photoSearchTask?.cancel(true)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val v = super.onCreateView(inflater, container, savedInstanceState)
+
+        recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                loadMoreWhenEndReached(recyclerView, dy)
+            }
+        })
+
+        Log_OC.i(this, "onCreateView() in GalleryFragment end")
+        return v
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        currentSearchType = SearchType.GALLERY_SEARCH
+
+        menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT
+        requireActivity().invalidateOptionsMenu()
+
+        updateSubtitle(bottomSheet?.currMediaState)
+
+        handleSearchEvent()
+    }
+
+    override fun setAdapter(args: Bundle?) {
+        adapter = GalleryAdapter(
+            requireContext(),
+            accountManager.user,
+            this,
+            preferences,
+            mContainerActivity,
+            viewThemeUtils,
+            this.columnsCount,
+            ThumbnailsCacheManager.getThumbnailDimension()
+        )
+        adapter?.setHasStableIds(true)
+        setRecyclerViewAdapter(adapter)
+
+        // update the footer as there is no footer shown in media view
+        if (recyclerView is EmptyRecyclerView) {
+            (recyclerView as EmptyRecyclerView).setHasFooter(false)
+        }
+
+        if (recyclerView != null) {
+            val layoutManager = GridLayoutManager(context, 1)
+            adapter?.setLayoutManager(layoutManager)
+            recyclerView?.setLayoutManager(layoutManager)
 
             if (lastMediaItemPosition != null) {
-                layoutManager.scrollToPosition(lastMediaItemPosition);
+                layoutManager.scrollToPosition(lastMediaItemPosition!!)
             }
         }
     }
 
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
 
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            columnSize = maxColumnSizeLandscape;
+            columnsCount = MAX_LANDSCAPE_COLUMN_SIZE
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            columnSize = maxColumnSizePortrait;
+            columnsCount = MAX_PORTRAIT_COLUMN_SIZE
         }
-        mAdapter.changeColumn(columnSize);
-        showAllGalleryItems();
+
+        adapter?.changeColumn(columnsCount)
+        showAllGalleryItems()
     }
 
-    @Override
-    public int getColumnsCount() {
-        return columnSize;
+    override fun onRefresh() {
+        super.onRefresh()
+        handleSearchEvent()
     }
 
-    @Override
-    public void onRefresh() {
-        super.onRefresh();
-        handleSearchEvent();
+    override fun getCommonAdapter(): CommonOCFileListAdapterInterface? = adapter
+
+    override fun onResume() {
+        super.onResume()
+
+        val fda = getTypedActivity(FileDisplayActivity::class.java)
+        fda?.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery))
+        fda?.setMainFabVisible(false)
     }
 
-    @Override
-    public CommonOCFileListAdapterInterface getCommonAdapter() {
-        return mAdapter;
+    override fun onMessageEvent(changeMenuEvent: ChangeMenuEvent) {
+        super.onMessageEvent(changeMenuEvent)
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (getActivity() instanceof FileDisplayActivity fileDisplayActivity) {
-            fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
-            fileDisplayActivity.setMainFabVisible(false);
-        }
-    }
-
-    @Override
-    public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
-        super.onMessageEvent(changeMenuEvent);
-    }
-
-    private void handleSearchEvent() {
-        prepareCurrentSearch(searchEvent);
-        setEmptyListMessage(EmptyListState.LOADING);
+    private fun handleSearchEvent() {
+        prepareCurrentSearch(searchEvent)
+        setEmptyListMessage(EmptyListState.LOADING)
 
         // always show first stored items
-        showAllGalleryItems();
+        showAllGalleryItems()
 
-        setFabVisible(false);
+        setFabVisible(false)
 
-        searchAndDisplay();
+        searchAndDisplay()
     }
 
-    private void searchAndDisplay() {
-        if (!this.isPhotoSearchQueryRunning() && this.endDate <= 0) {
+    private fun searchAndDisplay() {
+        if (!isPhotoSearchQueryRunning && endDate <= 0) {
             // fix an issue when the method is called after loading the gallery and pressing play on a movie (--> endDate <= 0)
             // to avoid reloading the gallery, check if endDate has already a value which is not -1 or 0 (which generally means some kind of reset/init)
-            endDate = System.currentTimeMillis() / 1000;
-            this.setPhotoSearchQueryRunning(true);
-            runGallerySearchTask();
+            endDate = System.currentTimeMillis() / 1000
+            isPhotoSearchQueryRunning = true
+            runGallerySearchTask()
         }
     }
 
-    public void searchCompleted(boolean emptySearch, long lastTimeStamp) {
-        if (!isAdded()) return;
+    fun searchCompleted(emptySearch: Boolean, lastTimeStamp: Long) {
+        if (!isAdded) return
 
-        this.setPhotoSearchQueryRunning(false);
+        this.isPhotoSearchQueryRunning = false
 
         if (lastTimeStamp > -1) {
-            endDate = lastTimeStamp;
+            endDate = lastTimeStamp
         }
 
-        if (mAdapter.isEmpty()) {
-            setEmptyListMessage(SearchType.GALLERY_SEARCH);
+        if (adapter?.isEmpty() == true) {
+            setEmptyListMessage(SearchType.GALLERY_SEARCH)
         }
 
         if (!emptySearch) {
-            this.showAllGalleryItems();
+            showAllGalleryItems()
         }
 
-        Log_OC.d(this, "End gallery search");
+        Log_OC.d(this, "End gallery search")
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        inflater.inflate(R.menu.fragment_gallery_three_dots, menu);
-
-        MenuItem menuItem = menu.findItem(R.id.action_three_dot_icon);
-
-        if (menuItem != null) {
-            viewThemeUtils.platform.colorMenuItemText(requireContext(), menuItem);
-        }
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        if (item.getItemId() == R.id.action_three_dot_icon && galleryFragmentBottomSheetDialog != null) {
-            showBottomSheet();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void showBottomSheet() {
-        if (!galleryFragmentBottomSheetDialog.isVisible()) {
-            galleryFragmentBottomSheetDialog.show(getChildFragmentManager(), FRAGMENT_TAG_BOTTOM_SHEET);
+    private fun showBottomSheet() {
+        if (bottomSheet?.isVisible == false) {
+            bottomSheet?.show(getChildFragmentManager(), FRAGMENT_TAG_BOTTOM_SHEET)
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == SELECT_LOCATION_REQUEST_CODE && data != null && FolderPickerActivity.EXTRA_FOLDER != null) {
-            OCFile chosenFolder = IntentExtensionsKt.getParcelableArgument(data, FolderPickerActivity.EXTRA_FOLDER, OCFile.class);
+    override fun selectMediaFolder() {
+        val intent = Intent(requireActivity(), FolderPickerActivity::class.java).apply {
+            putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION)
+        }
+        folderPickerLauncher.launch(intent)
+    }
+
+    private val folderPickerLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == android.app.Activity.RESULT_OK) {
+            val data = result.data
+            val chosenFolder = data?.getParcelableArgument(FolderPickerActivity.EXTRA_FOLDER, OCFile::class.java)
 
             if (chosenFolder != null) {
-                preferences.setLastSelectedMediaFolder(chosenFolder.getRemotePath());
-                searchAndDisplayAfterChangingFolder();
+                preferences.setLastSelectedMediaFolder(chosenFolder.remotePath)
+                searchAndDisplayAfterChangingFolder()
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void searchAndDisplayAfterChangingFolder() {
-        //TODO: Fix folder change, it seems it doesn't work at all
-        this.endDate = System.currentTimeMillis() / 1000;
-        this.setPhotoSearchQueryRunning(true);
-        runGallerySearchTask();
+    private fun searchAndDisplayAfterChangingFolder() {
+        // TODO: Fix folder change, it seems it doesn't work at all
+        endDate = System.currentTimeMillis() / 1000
+        isPhotoSearchQueryRunning = true
+        runGallerySearchTask()
     }
 
-    private void runGallerySearchTask() {
-        if (mContainerActivity != null) {
-            photoSearchTask = new GallerySearchTask(this,
-                                                    accountManager.getUser(),
-                                                    mContainerActivity.getStorageManager(),
-                                                    endDate,
-                                                    limit)
-                .execute();
+    private fun runGallerySearchTask() {
+        if (mContainerActivity == null) {
+            Log_OC.w(TAG, "container activity is null, can't run search task")
+            return
+        }
+
+        photoSearchTask = GallerySearchTask(
+            this,
+            accountManager.user,
+            mContainerActivity.getStorageManager(),
+            endDate,
+            limit
+        )
+            .execute()
+    }
+
+    private fun loadMoreWhenEndReached(recyclerView: RecyclerView, dy: Int) {
+        if (dy > 0 && !isPhotoSearchQueryRunning) {
+            // scrolled vertical space not bigger than 0 or still searching
+            return
+        }
+
+        if (recyclerView.layoutManager !is GridLayoutManager) {
+            Log_OC.e(TAG, "can't load more layout manager is not grid")
+            return
+        }
+
+        val gridLayoutManager = recyclerView.layoutManager as GridLayoutManager
+        val totalItemCount: Int = gridLayoutManager.getItemCount()
+        val lastVisibleItem: Int = gridLayoutManager.findLastCompletelyVisibleItemPosition()
+        val visibleItemCount: Int = gridLayoutManager.childCount
+
+        if (lastVisibleItem == RecyclerView.NO_POSITION) {
+            return
+        }
+
+        val lastFile = adapter?.getItem(lastVisibleItem - 1) ?: return
+        val lastItemTimestamp = lastFile.modificationTimestamp / 1000
+
+        // if we have already older media in the gallery then retrieve file in chronological order to fill the gap
+        if (lastItemTimestamp < this.endDate) {
+            if (BuildConfig.DEBUG) {
+                Log_OC.d(this, "Gallery swipe: retrieve items to check the chronology")
+            }
+
+            this.isPhotoSearchQueryRunning = true
+            runGallerySearchTask()
+            // no more files in the gallery, retrieve the next ones
+        } else if ((totalItemCount - visibleItemCount) <= (lastVisibleItem + MAX_ITEMS_PER_ROW) &&
+            (totalItemCount - visibleItemCount) > 0
+        ) {
+            if (BuildConfig.DEBUG) {
+                Log_OC.d(this, "Gallery swipe: retrieve items because end of gallery display")
+            }
+
+            // Almost reached the end, continue to load new photos
+            endDate = lastItemTimestamp
+            isPhotoSearchQueryRunning = true
+            runGallerySearchTask()
         }
     }
 
-    private void loadMoreWhenEndReached(@NonNull RecyclerView recyclerView, int dy) {
-        if (recyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
+    override fun updateMediaContent(mediaState: MediaState) {
+        showAllGalleryItems()
+    }
 
-            // scroll down
-            if (dy > 0 && !this.isPhotoSearchQueryRunning()) {
-                int totalItemCount = gridLayoutManager.getItemCount();
-                int lastVisibleItem = gridLayoutManager.findLastCompletelyVisibleItemPosition();
-                int visibleItemCount = gridLayoutManager.getChildCount();
+    fun showAllGalleryItems() {
+        val mediaState = bottomSheet?.currMediaState ?: return
 
-                if (lastVisibleItem == RecyclerView.NO_POSITION) {
-                    return;
+        adapter?.showAllGalleryItems(
+            preferences.getLastSelectedMediaFolder(),
+            mediaState,
+            this
+        )
+        updateSubtitle(mediaState)
+    }
+
+    private fun updateSubtitle(mediaState: MediaState?) {
+        val toolbarActivity = getTypedActivity(ToolbarActivity::class.java)
+        if (!isAdded || toolbarActivity == null) {
+            return
+        }
+
+        toolbarActivity.runOnUiThread {
+            if (!isAdded) {
+                return@runOnUiThread
+            }
+
+            val subTitle = when (mediaState) {
+                MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
+                    resources.getString(R.string.subtitle_photos_only)
                 }
 
-                OCFile lastFile = mAdapter.getItem(lastVisibleItem - 1);
-                if (lastFile == null) {
-                    return;
+                MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
+                    resources.getString(R.string.subtitle_videos_only)
                 }
-                long lastItemTimestamp = lastFile.getModificationTimestamp() / 1000;
 
-                // if we have already older media in the gallery then retrieve file in chronological order to fill the gap
-                if (lastItemTimestamp < this.endDate) {
-
-                    if (BuildConfig.DEBUG) {
-                        Log_OC.d(this, "Gallery swipe: retrieve items to check the chronology");
-                    }
-
-                    this.setPhotoSearchQueryRunning(true);
-                    runGallerySearchTask();
-                } else if ((totalItemCount - visibleItemCount) <= (lastVisibleItem + MAX_ITEMS_PER_ROW) //no more files in the gallery, retrieve the next ones
-                    && (totalItemCount - visibleItemCount) > 0) {
-
-                    if (BuildConfig.DEBUG) {
-                        Log_OC.d(this, "Gallery swipe: retrieve items because end of gallery display");
-                    }
-
-                    // Almost reached the end, continue to load new photos
-                    endDate = lastItemTimestamp;
-                    this.setPhotoSearchQueryRunning(true);
-                    runGallerySearchTask();
+                else -> {
+                    resources.getString(R.string.subtitle_photos_videos)
                 }
             }
+
+            toolbarActivity.updateToolbarSubtitle(subTitle)
         }
     }
 
-    @Override
-    public void updateMediaContent(GalleryFragmentBottomSheetDialog.MediaState mediaState) {
-        showAllGalleryItems();
+    override fun setGridViewColumns(scaleFactor: Float) = Unit
+
+    fun markAsFavorite(remotePath: String, favorite: Boolean) {
+        adapter?.markAsFavorite(remotePath, favorite)
     }
 
-    @Override
-    public void selectMediaFolder() {
-        Intent action = new Intent(requireActivity(), FolderPickerActivity.class);
-        action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION);
-        startActivityForResult(action, SELECT_LOCATION_REQUEST_CODE);
-    }
+    companion object {
+        private const val MAX_ITEMS_PER_ROW = 10
+        private const val FRAGMENT_TAG_BOTTOM_SHEET = "data"
 
-    public void showAllGalleryItems() {
-        mAdapter.showAllGalleryItems(preferences.getLastSelectedMediaFolder(),
-                                     galleryFragmentBottomSheetDialog.getCurrMediaState(),
-                                     this);
+        private var lastMediaItemPosition: Int? = null
+        const val REFRESH_SEARCH_EVENT_RECEIVER: String = "refreshSearchEventReceiver"
 
-        updateSubtitle(galleryFragmentBottomSheetDialog.getCurrMediaState());
-    }
+        private const val MAX_LANDSCAPE_COLUMN_SIZE = 5
+        private const val MAX_PORTRAIT_COLUMN_SIZE = 2
 
-    private void updateSubtitle(GalleryFragmentBottomSheetDialog.MediaState mediaState) {
-        final var activity = getActivity();
-        if (!isAdded() || activity == null) {
-            return;
+        fun setLastMediaItemPosition(position: Int?) {
+            lastMediaItemPosition = position
         }
-
-        activity.runOnUiThread(() -> {
-            if (!isAdded()) {
-                return;
-            }
-
-            String subTitle = getResources().getString(R.string.subtitle_photos_videos);
-            if (mediaState == GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY) {
-                subTitle = getResources().getString(R.string.subtitle_photos_only);
-            } else if (mediaState == GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY) {
-                subTitle = getResources().getString(R.string.subtitle_videos_only);
-            }
-
-            if (activity instanceof ToolbarActivity toolbarActivity) {
-                toolbarActivity.updateToolbarSubtitle(subTitle);
-            }
-        });
-    }
-
-    @Override
-    protected void setGridViewColumns(float scaleFactor) {
-        // do nothing
-    }
-
-    public void markAsFavorite(String remotePath, boolean favorite) {
-        mAdapter.markAsFavorite(remotePath, favorite);
     }
 }
