@@ -100,7 +100,6 @@ class TrashbinFragment :
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            isEnabled = false
             trashbinPresenter?.navigateUp()
         }
     }
@@ -176,6 +175,7 @@ class TrashbinFragment :
             FileSortOrder.SORT_NEW_TO_OLD
         )
 
+        activity?.findViewById<View>(R.id.sort_list_button_group)?.visibility = View.VISIBLE
         activity?.findViewById<MaterialButton>(R.id.sort_button)?.run {
             setOnClickListener {
                 DisplayUtils.openSortingOrderDialogFragment(
