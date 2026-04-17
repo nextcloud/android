@@ -1112,6 +1112,11 @@
     <string name="upload_query_move_foreign_files">Nepakankamas vietos kiekis neleidžia kopijuoti pasirinktų failų į %1$s aplanką. Ar norėtumėte vietoje to juos perkelti?</string>
     <string name="upload_quota_exceeded">Viršyta saugyklos kvota</string>
     <string name="upload_scan_doc_upload">Nuskaityti dokumentą iš fotoaparato</string>
+    <string name="upload_sync_conflict_check">Gali būti, kad dėl paskutinio įkėlimo yra konfliktas. Palieskite, kad patikrintumėte.</string>
+    <string name="upload_sync_conflict_check_error">Nepavyko patikrinti, ar nėra įkėlimo konfliktų. Bandykite dar kartą.</string>
+    <string name="upload_sync_conflict_checking">Tikrinama, ar nėra įkėlimo konfliktų…</string>
+    <string name="upload_sync_conflict_not_exists">Konfliktas išspręstas.</string>
+    <string name="upload_sync_conflict_same_file">Nerasta konfliktų. Tas pats failas.</string>
     <string name="upload_unknown_error">Nežinoma klaida</string>
     <string name="uploader_btn_alternative_text">Pasirinkite</string>
     <string name="uploader_btn_upload_text">Įkelti</string>
