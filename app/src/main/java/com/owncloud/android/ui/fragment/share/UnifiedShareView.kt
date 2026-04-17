@@ -26,6 +26,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
@@ -638,13 +639,11 @@ enum class UnifiedSharesListItemType {
 }
 
 // TODO: - Show avatar, email group or user in the leading content as a one rounded ICON
-// TODO: - Replace supporting content with share permission but without editing option
 // TODO: - Add more icon end of the list item to access options we have before, delete, send email ...
 // TODO: - Add context menu just does same thing like more icon
 // TODO: - When user taps the list item it should show share detail bottom sheet
 
 // NOTE: To just create a public link anyone tab + just send DOES SAME THING
-
 @Composable
 private fun UnifiedSharesListItem(share: UnifiedShares, type: UnifiedSharesListItemType) {
     ListItem(
@@ -663,10 +662,13 @@ private fun UnifiedSharesListItem(share: UnifiedShares, type: UnifiedSharesListI
         },
         supportingContent = {
             Text(
-                text = share.sharedTo,
+                text = share.permission.getText(),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+        },
+        trailingContent = {
+            Icon(Icons.Default.MoreVert, contentDescription = "More")
         },
         colors = ListItemDefaults.colors(
             containerColor = Color.Transparent
