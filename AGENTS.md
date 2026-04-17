@@ -21,11 +21,15 @@ Java, Kotlin, XML, Jetpack Compose are the key technologies used for building th
 
 ## Project Structure: AI Agent Handling Guidelines
 
-'./app/src/main/java/com' main package of the project.
-'.app/src/main/java/com/nextcloud/utils/extensions' package used for creating extensions.
-'./app/src/main/res/values' used for translations. Only update
-'./app/src/main/res/values/strings.xml'. Do not modify any other translation files or folders. Ignore all values- 
-directories (e.g., values-es, values-fr).
+- `./app/src/main/java/com/owncloud/android/` Legacy components (Activities, datamodel, operations)
+- `./app/src/main/java/com/nextcloud/` Modern components (client APIs, DI, repositories, UI with Compose)
+- `./app/src/main/java/com/nextcloud/utils/extensions/` Extension functions for common types
+- `./app/src/main/java/com/nextcloud/ui/` Jetpack Compose UI components and screens
+- `./app/src/main/java/com/nextcloud/client/di/` Dependency injection configuration (Dagger 2)
+- `./app/src/main/java/com/nextcloud/client/assistant/` AI features (Assistant screen, chat, conversations, translations)
+- `./app/src/test/` Unit tests (small, isolated tests without Android SDK)
+- `./app/src/androidTest/` Instrumented tests (require Android SDK)
+- `./app/src/main/res/values/` Translations. Only update `./app/src/main/res/values/strings.xml`. Do not modify any other translation files or folders. Ignore all `values-*` directories (e.g., `values-es`, `values-fr`).
 
 ## General Guidance
 
@@ -33,10 +37,13 @@ Every new file needs to get a SPDX header in the first rows according to this te
 The year in the first line must be replaced with the year when the file is created (for example, 2026 for files first added in 2026).
 The commenting signs need to be used depending on the file type.
 
+New contributions use AGPL-3.0-or-later license. Files may also have `OR GPL-2.0-only` in the license if they originated from GPL-licensed code.
+
 ```plaintext
 SPDX-FileCopyrightText: <YEAR> Nextcloud GmbH and Nextcloud contributors
 SPDX-License-Identifier: AGPL-3.0-or-later
 ```
+
 Kotlin/Java:
 ```kotlin
 /*
@@ -65,6 +72,57 @@ Avoid creating source files that implement multiple types; instead, place each t
 - In addition to any Material Design wording guidelines, follow the Nextcloud wording guidelines at https://docs.nextcloud.com/server/latest/developer_manual/design/foundations.html#wording
 - Ensure the app works in both light and dark theme
 - Ensure the app works with different server primary colors by using the colorTheme of viewThemeUtils
+
+## Architecture & Patterns
+
+### Jetpack Compose
+
+Modern UI is built with Jetpack Compose (Material 3). Key directories:
+- `com.nextcloud.ui.composeActivity` - Activities hosting Compose content
+- `com.nextcloud.ui.composeComponents` - Reusable Compose components
+- `com.nextcloud.client.assistant` - Compose-based Assistant screens and features
+
+Use `StateFlow` and `MutableStateFlow` in ViewModels for state management. Collect state in Compose functions with `collectAsState()`.
+
+### Dependency Injection
+
+Uses Dagger 2 for major Android components (`Activity`, `Fragment`, `Service`, `BroadcastReceiver`, `ContentProvider`). Manual constructor injection for other components.
+
+### Extension Functions
+
+The `com.nextcloud.utils.extensions` package contains helper extensions organized by type (e.g., `FileExtensions.kt`, `StringExtensions.kt`, `ViewExtensions.kt`). Create focused extension files rather than putting multiple types in one file.
+
+## Testing
+
+### Unit Tests (`./app/src/test/`)
+- Small, isolated tests without Android SDK
+- Use Mockito with `mockito-kotlin` for easier mocking
+- Recommended command: `./gradlew jacocoTestGplayDebugUnitTest`
+- Tests use JUnit 4 with `@Test`, `@Before`, `@After` annotations
+
+### Instrumented Tests (`./app/src/androidTest/`)
+- Tests requiring Android SDK (Activities, Fragments, database access)
+- Use Espresso for UI testing
+- Tests should inherit from `AbstractOnServerIT` if they need server communication
+- Always create a separate test user on test server to avoid data interference
+- Run with: `./gradlew createGplayDebugCoverageReport -Pcoverage=true`
+- Run specific test class: `./gradlew createGplayDebugCoverageReport -Pcoverage=true -Pandroid.testInstrumentationRunnerArguments.class=<fully.qualified.ClassName>`
+- Run one test method: `./gradlew createGplayDebugCoverageReport -Pcoverage=true -Pandroid.testInstrumentationRunnerArguments.class=<fully.qualified.ClassName>#methodName`
+
+### Screenshot Tests (Shot)
+- Enabled via `SHOT_TEST=true` environment variable
+- Use: `scripts/androidScreenshotTest` to check, `scripts/updateScreenshots.sh` to regenerate
+- CI renders shadows differently; 0.5% tolerance is configured
+
+## Code Quality Tools
+
+All code is validated with the following tools. Fix findings in modified files:
+- **lint** - Android linting (configured in `app/lint.xml`)
+- **spotbugsGplayDebug** - Bug detection for Gplay variant
+- **detekt** - Kotlin code analysis (configured in `app/detekt.yml`)
+- **spotlessKotlinCheck** - Code formatting with ktlint
+
+Run all checks with: `./gradlew check`
 
 ## Commit and Pull Request Guidelines
 
@@ -98,7 +156,7 @@ Avoid creating source files that implement multiple types; instead, place each t
 
 ## Code Style
 
-- Do not exceed 300 line of code per file.
+- Do not exceed 300 lines of code per file.
 - Line length: **120 characters**
 - Standard Android Studio formatter with EditorConfig.
 - Kotlin preferred for new code; legacy Java still present.
@@ -106,7 +164,7 @@ Avoid creating source files that implement multiple types; instead, place each t
 - Every new file must end with exactly one empty trailing line (no more, no less).
 - Do not add comments, documentation for every function you created instead make it self explanatory as much as possible.
 - Create models, states in different files instead of doing it one single file.
-- Do not use magic number.
+- Do not use magic numbers.
 - Apply fail fast principle instead of using nested if-else statements.
 - Do not use multiple boolean flags to determine states instead use enums or sealed classes.
 - Use modern Java for Java classes. Optionals, virtual threads, records, streams if necessary.
