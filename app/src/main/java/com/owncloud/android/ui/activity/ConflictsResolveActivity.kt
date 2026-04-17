@@ -10,7 +10,6 @@
 package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
-import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -24,6 +23,7 @@ import com.nextcloud.client.jobs.operation.FileOperationHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadNotificationManager
+import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getDecryptedPath
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -141,7 +141,10 @@ class ConflictsResolveActivity :
                 }
 
                 withContext(Dispatchers.Main) {
-                    dismissConflictResolveNotification()
+                    UploadErrorNotificationManager.dismissConflictResolveNotification(
+                        this@ConflictsResolveActivity,
+                        conflictUploadId
+                    )
                     finish()
                 }
             }
@@ -330,10 +333,6 @@ class ConflictsResolveActivity :
 
         file?.isUpdateThumbnailNeeded = true
         fileDataStorageManager.saveFile(file)
-    }
-
-    private fun dismissConflictResolveNotification() {
-        (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).cancel(conflictUploadId.toInt())
     }
 
     private fun showErrorAndFinish(code: Int? = null) {

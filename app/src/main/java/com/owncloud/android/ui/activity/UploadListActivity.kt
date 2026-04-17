@@ -26,6 +26,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.utils.extensions.webDavParentPath
 import com.owncloud.android.R
@@ -343,6 +344,10 @@ class UploadListActivity :
 
             if (result.isSuccess) {
                 withContext(Dispatchers.Main) {
+                    UploadErrorNotificationManager.dismissConflictResolveNotification(
+                        this@UploadListActivity,
+                        upload.uploadId
+                    )
                     uploadListAdapter.loadUploadItemsFromDb()
                 }
             }
