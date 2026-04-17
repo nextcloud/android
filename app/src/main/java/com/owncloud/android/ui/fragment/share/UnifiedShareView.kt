@@ -244,6 +244,13 @@ fun UnifiedShareView() {
     }
 }
 
+// TODO: Instead of showing all options in the bottom sheet collect extra sharing options inside the expadable/collable sub-menu
+
+// TODO: Use conntected button group for invited and anyone type
+
+// TODO: Use like inner tags whenever user add a new people to the search and it should look like User 1, Group 1 etc.
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AddShareBottomSheet(filename: String, onDismiss: () -> Unit) {
@@ -597,6 +604,13 @@ enum class UnifiedSharesListItemType {
         }
     }
 }
+
+// TODO: - Show avatar, email group or user in the leading content as a one rounded ICON
+// TODO: - Replace supporting content with share permission but without editing option
+// TODO: - Add right arrow icon end of the list item to access share detail and change share settings
+// TODO: - Add context menu to access copy link, delete, and other actions u have with previous 3 dot menu
+
+// NOTE: To just create a public link anyone tab + just send DOES SAME THING
 
 @Composable
 private fun UnifiedSharesListItem(share: UnifiedShares, type: UnifiedSharesListItemType) {
