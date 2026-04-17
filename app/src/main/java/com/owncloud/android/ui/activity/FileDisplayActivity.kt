@@ -2267,8 +2267,8 @@ class FileDisplayActivity :
                 fileOperationsHelper.removeFiles(list, true, true)
 
                 // download new version, only if file was previously download
-                showSyncLoadingDialog(file.isFolder == true)
-                fileOperationsHelper.syncFile(file)
+                showSyncLoadingDialog(file.isFolder)
+                fileOperationsHelper.syncFileOrFolder(file)
             }
 
             val parent = file?.let { storageManager.getFileById(it.parentId) }
@@ -2388,8 +2388,8 @@ class FileDisplayActivity :
         operation: SynchronizeFileOperation,
         result: RemoteOperationResult<*>
     ) {
-        if (result.isSuccess && operation.transferWasRequested()) {
-            val syncedFile = operation.localFile
+        if (result.isSuccess && operation.transferWasRequested) {
+            val syncedFile = operation.localFile ?: return
             onTransferStateChanged(syncedFile, true, true)
             supportInvalidateOptionsMenu()
             refreshShowDetails()

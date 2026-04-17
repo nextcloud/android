@@ -107,6 +107,7 @@ public class FileIT extends AbstractOnServerIT {
                                                   folderPath,
                                                   user,
                                                   fileDataStorageManager,
+                                                  false,
                                                   false)
                        .execute(targetContext)
                        .isSuccess());

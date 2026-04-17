@@ -183,7 +183,7 @@ public class FileOperationsHelper {
 
             // check if file is in conflict (this is known due to latest folder refresh)
             if (file.isInConflict()) {
-                syncFile(file, user, storageManager);
+                syncFileOrFolder(file, user, storageManager);
                 EventBus.getDefault().post(new SyncEventFinished(intent));
 
                 return;
@@ -212,14 +212,14 @@ public class FileOperationsHelper {
 
             // eTag changed, sync file
             if (result.getCode() == RemoteOperationResult.ResultCode.ETAG_CHANGED) {
-                syncFile(file, user, storageManager);
+                syncFileOrFolder(file, user, storageManager);
             }
 
             EventBus.getDefault().post(new SyncEventFinished(intent));
         }).start();
     }
 
-    private void syncFile(OCFile file, User user, FileDataStorageManager storageManager) {
+    private void syncFileOrFolder(OCFile file, User user, FileDataStorageManager storageManager) {
         fileActivity.runOnUiThread(() -> fileActivity.showLoadingDialog(fileActivity.getResources()
                                                                             .getString(R.string.sync_in_progress)));
 
@@ -868,49 +868,44 @@ public class FileOperationsHelper {
         }
     }
 
-    /**
-     * Request the synchronization of a file or folder with the OC server, including its contents.
-     *
-     * @param file The file or folder to synchronize
-     */
-    public void syncFile(OCFile file) {
+    // region sync file or folder
+    public void syncFileOrFolder(OCFile file, boolean postDialogEvent, boolean syncAll) {
         if (file.isFolder()) {
-            Intent intent = getSyncFolderIntent(file);
-            fileActivity.startService(intent);
+            startSyncFolderIntent(file, syncAll);
         } else {
-            Intent intent = getSyncFileIntent(file);
-            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
+            queueSyncFileIntent(file, postDialogEvent);
         }
     }
 
-    private Intent getSyncFolderIntent(ServerFileInterface file) {
-        Intent intent = new Intent(fileActivity, OperationsService.class);
+    public void syncFileOrFolder(OCFile file) {
+        syncFileOrFolder(file, false, false);
+    }
+
+    public void syncFolderIncludingNestedFiles(OCFile file) {
+        syncFileOrFolder(file, false, true);
+    }
+
+    private void startSyncFolderIntent(ServerFileInterface file, boolean syncAll) {
+        final var intent = new Intent(fileActivity, OperationsService.class);
         intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-        return intent;
+        intent.putExtra(OperationsService.EXTRA_SYNC_ALL, syncAll);
+
+        fileActivity.startService(intent);
     }
 
-    private Intent getSyncFileIntent(ServerFileInterface file) {
-        Intent intent = new Intent(fileActivity, OperationsService.class);
+    private void queueSyncFileIntent(ServerFileInterface file, boolean postDialog) {
+        final var intent = new Intent(fileActivity, OperationsService.class);
         intent.setAction(OperationsService.ACTION_SYNC_FILE);
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
-        return intent;
-    }
+        intent.putExtra(OperationsService.EXTRA_POST_DIALOG_EVENT, postDialog);
 
-
-    public void syncFile(OCFile file, boolean postDialogEvent) {
-        if (file.isFolder()) {
-            Intent intent = getSyncFolderIntent(file);
-            fileActivity.startService(intent);
-        } else {
-            Intent intent = getSyncFileIntent(file);
-            intent.putExtra(OperationsService.EXTRA_POST_DIALOG_EVENT, postDialogEvent);
-            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
-        }
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
     }
+    // endregion
 
     public void toggleFavoriteFiles(Collection<OCFile> files, boolean shouldBeFavorite) {
         List<OCFile> toToggle = new ArrayList<>();

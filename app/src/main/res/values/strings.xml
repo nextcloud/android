@@ -238,6 +238,7 @@
     <string name="file_upload_worker_error_notification_title">Upload failed. No internet connection</string>
     <string name="filedetails_download">Download</string>
     <string name="filedetails_sync_file">Sync</string>
+    <string name="filedetails_sync_all_files">Sync all</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed %1$s during upload</string>
     <string name="list_layout">Listed layout</string>
     <string name="action_send_share">Send/share</string>
@@ -280,7 +281,7 @@
     <string name="folder_download_error_notification_title">An error occurred during synchronization of the %s folder</string>
     <string name="folder_download_counter">%1$d of %2$d &#183; %3$s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Insufficient disk space, synchronization canceled</string>
-
+    <string name="sync_file_notification_progress">%1$d%%</string>
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
@@ -327,6 +328,10 @@
     <string name="common_choose_account">Choose account</string>
     <string name="common_switch_account">Switch account</string>
     <string name="common_switch_to_account">Switch to account</string>
+    <string name="sync_all_action_dialog_title">Sync entire folder?</string>
+    <string name="sync_all_action_dialog_description">
+    All contained files and folders will be downloaded. This may require a significant amount of storage and take some time depending on your connection.
+    </string>
     <string name="sync_fail_ticker">Sync failed</string>
     <string name="sync_fail_ticker_unauthorized">Sync failed, log in again</string>
     <string name="sync_fail_content">Could not sync %1$s</string>

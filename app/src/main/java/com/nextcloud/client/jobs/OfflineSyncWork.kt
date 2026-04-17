@@ -71,14 +71,15 @@ class OfflineSyncWork(
         val files = folder.listFiles { obj: File -> obj.isFile }
         if (files != null) {
             for (file in files) {
-                val ocFile = storageManager.getFileByLocalPath(file.path)
+                val ocFile = storageManager.getFileByLocalPath(file.path) ?: continue
+
                 val synchronizeFileOperation = SynchronizeFileOperation(
-                    ocFile?.remotePath,
+                    ocFile.remotePath,
                     user,
                     true,
                     context,
                     storageManager,
-                    true,
+                    false,
                     false
                 )
                 synchronizeFileOperation.execute(context)

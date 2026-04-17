@@ -118,7 +118,7 @@ public final class ErrorMessageAdapter {
             message = getMessageForRenameFileOperation(result, res);
 
         } else if (operation instanceof SynchronizeFileOperation) {
-            if (!((SynchronizeFileOperation) operation).transferWasRequested()) {
+            if (!((SynchronizeFileOperation) operation).getTransferWasRequested()) {
                 message = res.getString(R.string.sync_file_nothing_to_do_msg);
             }
 
