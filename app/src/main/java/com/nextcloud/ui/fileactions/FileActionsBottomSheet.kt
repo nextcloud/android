@@ -18,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.os.BundleCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isEmpty
 import androidx.core.view.isVisible
@@ -102,7 +103,9 @@ class FileActionsBottomSheet :
 
         viewModel.load(requireArguments(), componentsGetter)
 
-        endpoints = arguments?.getParcelableArrayList(FileActionsViewModel.ARG_ENDPOINTS)
+        endpoints = arguments?.let { bundle ->
+            BundleCompat.getParcelableArrayList(bundle, FileActionsViewModel.ARG_ENDPOINTS, Endpoint::class.java)
+        } ?: mutableListOf()
 
         val bottomSheetDialog = dialog as BottomSheetDialog
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -368,7 +371,7 @@ class FileActionsBottomSheet :
                 FileActionsViewModel.ARG_FILES to ArrayList<OCFile>(files),
                 FileActionsViewModel.ARG_IS_OVERFLOW to isOverflow,
                 FileActionsViewModel.ARG_IN_SINGLE_FILE_FRAGMENT to inSingleFileFragment,
-                FileActionsViewModel.ARG_ENDPOINTS to endpoints
+                FileActionsViewModel.ARG_ENDPOINTS to java.util.ArrayList(endpoints)
             )
             additionalToHide?.let {
                 argsBundle.putIntArray(FileActionsViewModel.ARG_ADDITIONAL_FILTER, additionalToHide.toIntArray())
