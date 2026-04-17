@@ -188,6 +188,11 @@ class TrashbinFragment :
             }
 
             setText(DisplayUtils.getSortOrderStringId(sortOrder))
+            visibility = View.VISIBLE
+        }
+
+        activity?.findViewById<MaterialButton>(R.id.switch_grid_view_button)?.run {
+            visibility = View.GONE
         }
 
         loadFolder()
