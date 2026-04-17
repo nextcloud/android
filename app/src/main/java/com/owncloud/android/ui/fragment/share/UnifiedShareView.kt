@@ -8,6 +8,7 @@
 package com.owncloud.android.ui.fragment.share
 
 import android.content.Context
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +24,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,6 +40,9 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -235,7 +242,7 @@ fun UnifiedShareView() {
                 .align(Alignment.End)
                 .padding(top = 16.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add")
+            Icon(Icons.Default.Person, contentDescription = "Add")
         }
 
         if (showAddShare) {
@@ -244,13 +251,7 @@ fun UnifiedShareView() {
     }
 }
 
-// TODO: Instead of showing all options in the bottom sheet collect extra sharing options inside the expadable/collable sub-menu
-
-// TODO: Use conntected button group for invited and anyone type
-
 // TODO: Use like inner tags whenever user add a new people to the search and it should look like User 1, Group 1 etc.
-
-// TODO: Replace FAB with person icon
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -262,6 +263,10 @@ private fun AddShareBottomSheet(filename: String, onDismiss: () -> Unit) {
     var permission by remember { mutableStateOf<UnifiedSharePermission>(UnifiedSharePermission.CanView) }
     var searchQuery by remember { mutableStateOf("") }
     var note by remember { mutableStateOf("") }
+
+    // Toggle states for collapse/expand
+    var showInvitedSettings by remember { mutableStateOf(false) }
+    var showAnyoneSettings by remember { mutableStateOf(false) }
 
     var viewFiles by remember { mutableStateOf(false) }
     var editFiles by remember { mutableStateOf(false) }
@@ -292,7 +297,7 @@ private fun AddShareBottomSheet(filename: String, onDismiss: () -> Unit) {
         ) {
             ShareBottomSheetHeader(filename)
 
-            ShareCategoryDropdown(
+            ShareCategoryButtonGroup(
                 selectedCategory = category,
                 onCategoryChange = { category = it }
             )
@@ -306,9 +311,12 @@ private fun AddShareBottomSheet(filename: String, onDismiss: () -> Unit) {
                     onPermissionChange = { permission = it },
                 )
 
-                InvitedInlineSettings()
-
-                NoteToRecipients(note = note, onNoteChange = { note = it })
+                CollapsibleSettingsSection(
+                    isExpanded = showInvitedSettings,
+                    onToggle = { showInvitedSettings = !showInvitedSettings }
+                ) {
+                    InvitedInlineSettings()
+                }
             } else {
                 AnyoneShareContent(
                     permission = permission,
@@ -323,10 +331,16 @@ private fun AddShareBottomSheet(filename: String, onDismiss: () -> Unit) {
                     SettingsSwitchRow("Delete files", deleteFiles) { deleteFiles = it }
                 }
 
-                AnyoneInlineSettings()
-
-                NoteToRecipients(note = note, onNoteChange = { note = it })
+                CollapsibleSettingsSection(
+                    isExpanded = showAnyoneSettings,
+                    onToggle = { showAnyoneSettings = !showAnyoneSettings }
+                ) {
+                    AnyoneInlineSettings()
+                }
             }
+
+            NoteToRecipients(note = note, onNoteChange = { note = it })
+
 
             ShareActionButtons(
                 category = category,
@@ -334,6 +348,41 @@ private fun AddShareBottomSheet(filename: String, onDismiss: () -> Unit) {
                 onCopyClick = { /* TODO */ },
                 onSendClick = { /* TODO */ }
             )
+        }
+    }
+}
+
+@Composable
+private fun CollapsibleSettingsSection(
+    isExpanded: Boolean,
+    onToggle: () -> Unit,
+    content: @Composable () -> Unit
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onToggle() }
+                .padding(vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "Settings",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Icon(
+                imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary
+            )
+        }
+
+        AnimatedVisibility(visible = isExpanded) {
+            Column {
+                content()
+            }
         }
     }
 }
@@ -350,40 +399,23 @@ private fun ShareBottomSheetHeader(filename: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ShareCategoryDropdown(
+private fun ShareCategoryButtonGroup(
     selectedCategory: UnifiedShareCategory,
     onCategoryChange: (UnifiedShareCategory) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
-
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
+    SingleChoiceSegmentedButtonRow(
         modifier = Modifier.fillMaxWidth()
     ) {
-        OutlinedTextField(
-            value = selectedCategory.name,
-            onValueChange = {},
-            readOnly = true,
-            label = { Text("Share type") },
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
-            modifier = Modifier
-                .menuAnchor()
-                .fillMaxWidth()
-        )
-        ExposedDropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
-            UnifiedShareCategory.entries.forEach { option ->
-                DropdownMenuItem(
-                    text = { Text(option.name) },
-                    onClick = {
-                        onCategoryChange(option)
-                        expanded = false
-                    }
+        UnifiedShareCategory.entries.forEachIndexed { index, option ->
+            SegmentedButton(
+                selected = selectedCategory == option,
+                onClick = { onCategoryChange(option) },
+                shape = SegmentedButtonDefaults.itemShape(
+                    index = index,
+                    count = UnifiedShareCategory.entries.size
                 )
+            ) {
+                Text(option.name)
             }
         }
     }
@@ -490,7 +522,6 @@ private fun PermissionDropdown(
         }
     }
 }
-
 
 @Composable
 private fun InvitedInlineSettings() {
