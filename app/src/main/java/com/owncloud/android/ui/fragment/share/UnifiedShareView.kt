@@ -250,6 +250,7 @@ fun UnifiedShareView() {
 
 // TODO: Use like inner tags whenever user add a new people to the search and it should look like User 1, Group 1 etc.
 
+// TODO: Replace FAB with person icon
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
