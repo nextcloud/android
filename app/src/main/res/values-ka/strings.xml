@@ -835,7 +835,6 @@
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>
     <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
-    <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_unknown_error">Unknown error</string>
     <string name="uploader_btn_alternative_text">Choose</string>
     <string name="uploader_btn_upload_text">Upload</string>
@@ -882,7 +881,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Local file not found</string>
     <string name="uploads_view_upload_status_failed_permission_error">Permission error</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Untrusted server certificate</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_upload_status_service_interrupted">App terminated</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>

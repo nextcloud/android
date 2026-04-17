@@ -943,7 +943,6 @@
     <string name="upload_query_move_foreign_files">Det er ikke nok plass til å kopiere de valgte filene inn i mappen %1$s. Vil du flytte dem i stedet? </string>
     <string name="upload_quota_exceeded">Overskredet lagringskvote</string>
     <string name="upload_scan_doc_upload">Skann dokument med kamera</string>
-    <string name="upload_sync_conflict">Synkroniseringskonflikt, vennligst fiks manuelt</string>
     <string name="upload_unknown_error">Ukjent feil</string>
     <string name="uploader_btn_alternative_text">Velg</string>
     <string name="uploader_btn_upload_text">Last opp</string>
@@ -990,7 +989,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Finner ikke lokal fil</string>
     <string name="uploads_view_upload_status_failed_permission_error">Tillatelsesfeil</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Ubetrodd serversertifikat</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Henter serverversjon...</string>
     <string name="uploads_view_upload_status_service_interrupted">Appen ble avsluttet</string>
     <string name="uploads_view_upload_status_succeeded">Ferdig</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Samme fil funnet på ekstern, dropper opplasting</string>

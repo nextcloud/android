@@ -676,7 +676,6 @@
     <string name="upload_lock_failed">Dh’fhàillig glasadh a’ phasgain</string>
     <string name="upload_old_android">Cha ghabh a chrioptachadh ach le &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Cha ghabh lethbhreac dhe na faidhlichean a thagh thu a chur dhan phasgan %1$s air sgàth ’s nach eil àite gu leòr ann. Am bu mhiann leat an gluasad a-null ’na àite?</string>
-    <string name="upload_sync_conflict">Còmhstri leis an t-sioncronachadh, am fuasgail thu a làimh i?</string>
     <string name="upload_unknown_error">Mearachd nach aithne dhuinn</string>
     <string name="uploader_btn_alternative_text">Tagh</string>
     <string name="uploader_btn_upload_text">Luchdaich suas</string>
@@ -721,7 +720,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Cha deach am faidhle ionadail a lorg</string>
     <string name="uploads_view_upload_status_failed_permission_error">Mearachd le cead</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Teisteanas frithealaiche gun earbsa</string>
-    <string name="uploads_view_upload_status_fetching_server_version">A’ faighinn tionndadh an fhrithealaiche…</string>
     <string name="uploads_view_upload_status_service_interrupted">Chaidh an aplacaid a chrìochnachadh</string>
     <string name="uploads_view_upload_status_succeeded">Coileanta</string>
     <string name="uploads_view_upload_status_unknown_fail">Mearachd nach aithne dhuinn</string>

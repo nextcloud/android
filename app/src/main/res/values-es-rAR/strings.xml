@@ -883,7 +883,6 @@
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Le gustaría moverlos ahí en su lugar?</string>
     <string name="upload_quota_exceeded">Se excedió la cuota de almacenamiento</string>
     <string name="upload_scan_doc_upload">Escanear documento desde la cámara</string>
-    <string name="upload_sync_conflict">Conflicto de sincronización, por favor resolver manualmente</string>
     <string name="upload_unknown_error">Error desconocido</string>
     <string name="uploader_btn_alternative_text">Elige</string>
     <string name="uploader_btn_upload_text">Cargar</string>
@@ -930,7 +929,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">No se encontró el archivo local</string>
     <string name="uploads_view_upload_status_failed_permission_error">Error de permisos</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificado de servidor no confiable</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Obteniendo la versión del servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">La aplicación ha sido terminada</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Se encontró el mismo archivo en el remoto, omitiendo carga</string>

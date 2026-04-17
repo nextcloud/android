@@ -1096,7 +1096,6 @@
     <string name="upload_query_move_foreign_files">Nafasi haitoshi huzuia kunakili faili zilizochaguliwa kwenye folda ya %1$s. Je, ungependa kuzihamishia hapo badala yake?</string>
     <string name="upload_quota_exceeded">Kiasi cha hifadhi kimepitwa</string>
     <string name="upload_scan_doc_upload">Changanua hati kutoka kwa kamera</string>
-    <string name="upload_sync_conflict">awazisha mzozo, tafadhali suluhisha wewe mwenyewe</string>
     <string name="upload_unknown_error">Hitilafu isiyojulikana</string>
     <string name="uploader_btn_alternative_text">Chagua</string>
     <string name="uploader_btn_upload_text">Pakia</string>
@@ -1143,7 +1142,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Faili ya ndani haipatikani</string>
     <string name="uploads_view_upload_status_failed_permission_error">Hitilafu ya ruhusa</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Cheti cha seva isiyoaminika</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Inaleta toleo la seva...</string>
     <string name="uploads_view_upload_status_service_interrupted">Programu imekatishwa</string>
     <string name="uploads_view_upload_status_skip">Imerukwa</string>
     <string name="uploads_view_upload_status_skip_reason">Faili yenye jina sawa sawa tayari ipo.</string>

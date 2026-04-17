@@ -1043,7 +1043,6 @@
     <string name="upload_query_move_foreign_files">Utilstrækkelig plads til, at kopiere de valgte filer ind i %1$s mappen. Vil du flytte dem i stedet?</string>
     <string name="upload_quota_exceeded">Lagringskvote overskredet</string>
     <string name="upload_scan_doc_upload">Scan dokument fra kamera</string>
-    <string name="upload_sync_conflict">Synkroniserings konflikt, udred venligst manuelt</string>
     <string name="upload_unknown_error">Ukendt fejl</string>
     <string name="uploader_btn_alternative_text">Vælg</string>
     <string name="uploader_btn_upload_text">Upload</string>
@@ -1090,7 +1089,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokal fil blev ikke fundet</string>
     <string name="uploads_view_upload_status_failed_permission_error">Manglende rettigheder</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Upålideligt server certifikat</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Henter server version …</string>
     <string name="uploads_view_upload_status_service_interrupted">App afsluttet</string>
     <string name="uploads_view_upload_status_succeeded">Fuldført</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Samme fil fundet på fjern. Springer over upload</string>
@@ -1102,6 +1100,7 @@
     <string name="user_icon">Bruger</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">Grupper</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
