@@ -11,7 +11,7 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import com.owncloud.android.ui.trashbin.TrashbinRepository.LoadFolderCallback
 
-class TrashbinLocalRepository(private val testCase: TrashbinActivityIT.TestCase) : TrashbinRepository {
+class TrashbinLocalRepository(private val testCase: TrashbinFragmentIT.TestCase) : TrashbinRepository {
     override fun emptyTrashbin(callback: TrashbinRepository.OperationCallback?) {
         TODO("Not yet implemented")
     }
@@ -27,9 +27,9 @@ class TrashbinLocalRepository(private val testCase: TrashbinActivityIT.TestCase)
     @Suppress("MagicNumber")
     override fun getFolder(remotePath: String?, callback: LoadFolderCallback?) {
         when (testCase) {
-            TrashbinActivityIT.TestCase.ERROR -> callback?.onError(R.string.trashbin_loading_failed)
+            TrashbinFragmentIT.TestCase.ERROR -> callback?.onError(R.string.trashbin_loading_failed)
 
-            TrashbinActivityIT.TestCase.FILES -> {
+            TrashbinFragmentIT.TestCase.FILES -> {
                 val files = ArrayList<TrashbinFile>()
                 files.add(
                     TrashbinFile(
@@ -71,7 +71,7 @@ class TrashbinLocalRepository(private val testCase: TrashbinActivityIT.TestCase)
                 callback?.onSuccess(files)
             }
 
-            TrashbinActivityIT.TestCase.EMPTY -> callback?.onSuccess(ArrayList<TrashbinFile>())
+            TrashbinFragmentIT.TestCase.EMPTY -> callback?.onSuccess(ArrayList<TrashbinFile>())
         }
     }
 }

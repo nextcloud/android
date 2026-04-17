@@ -12,10 +12,12 @@ package com.owncloud.android.ui.trashbin
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -24,56 +26,63 @@ import androidx.annotation.IdRes
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet
+import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.R
-import com.owncloud.android.databinding.TrashbinActivityBinding
+import com.owncloud.android.databinding.FragmentTrashbinBinding
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
-import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.adapter.TrashbinListAdapter
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
 import com.owncloud.android.ui.interfaces.TrashbinActivityInterface
+import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-/**
- * Presenting trashbin data, received from presenter
- */
-class TrashbinActivity :
-    DrawerActivity(),
+class TrashbinFragment :
+    Fragment(),
     TrashbinActivityInterface,
     OnSortingOrderListener,
     TrashbinContract.View,
     Injectable {
 
-    @JvmField
     @Inject
-    var preferences: AppPreferences? = null
+    lateinit var preferences: AppPreferences
 
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
-    @JvmField
     @Inject
-    var accountProvider: CurrentAccountProvider? = null
+    lateinit var accountProvider: CurrentAccountProvider
 
-    @JvmField
     @Inject
-    var clientFactory: ClientFactory? = null
+    lateinit var userAccountManager: UserAccountManager
+
+    @Inject
+    lateinit var clientFactory: ClientFactory
 
     @Inject
     lateinit var throttler: Throttler
+
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
     lateinit var connectivityService: ConnectivityService
@@ -84,9 +93,10 @@ class TrashbinActivity :
     var trashbinPresenter: TrashbinPresenter? = null
 
     private var active = false
-    lateinit var binding: TrashbinActivityBinding
 
-    private var mMultiChoiceModeListener: MultiChoiceModeListener? = null
+    private var binding: FragmentTrashbinBinding? = null
+
+    private var multiChoiceModeListener: MultiChoiceModeListener? = null
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -95,57 +105,44 @@ class TrashbinActivity :
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentTrashbinBinding.inflate(inflater, container, false)
+        val binding = binding!!
+        return binding.root
+    }
 
-        val currentUser = user.orElse(accountProvider!!.user)
-        val targetAccount = intent.getStringExtra(Intent.EXTRA_USER)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        if (targetAccount != null && !currentUser.nameEquals(targetAccount)) {
+        val navigatorActivity = getTypedActivity(NavigatorActivity::class.java)
+
+        val currentUser = navigatorActivity?.user?.orElse(accountProvider.user)
+        val targetAccount = activity?.intent?.getStringExtra(Intent.EXTRA_USER)
+
+        if (targetAccount != null && currentUser?.nameEquals(targetAccount) == false) {
             val targetUser = userAccountManager.getUser(targetAccount)
             if (targetUser.isPresent) {
-                setUser(targetUser.get())
+                navigatorActivity.setUser(targetUser.get())
             } else {
                 DisplayUtils.showSnackMessage(this, R.string.associated_account_not_found)
-                finish()
+                activity?.finish()
                 return
             }
         }
 
-        clientFactory?.let {
-            val trashRepository = RemoteTrashbinRepository(user.orElse(accountProvider!!.user), it)
-            trashbinPresenter = TrashbinPresenter(trashRepository, this)
-        }
-
-        binding = TrashbinActivityBinding.inflate(layoutInflater)
-
-        setContentView(binding.root)
-        setupToolbar()
-
-        findViewById<View>(R.id.sort_list_button_group).visibility = View.VISIBLE
-        findViewById<View>(R.id.switch_grid_view_button).visibility =
-            View.GONE
-
-        updateActionBarTitleAndHomeButtonByString(getString(R.string.trashbin_activity_title))
-        setupDrawer(menuItemId)
+        val trashRepository = RemoteTrashbinRepository(accountProvider.user, clientFactory)
+        trashbinPresenter = TrashbinPresenter(trashRepository, this)
         handleBackPress()
-    }
-
-    override fun getMenuItemId(): Int = R.id.nav_trashbin
-
-    override fun onResume() {
-        super.onResume()
-        highlightNavigationViewItem(menuItemId)
-    }
-
-    override fun onStart() {
-        super.onStart()
-
         active = true
         setupContent()
+        addMenuProvider()
     }
 
     private fun setupContent() {
+        val binding = binding ?: return
+
+        val navigatorActivity = getTypedActivity(NavigatorActivity::class.java)
+
         val recyclerView = binding.list
         recyclerView.setEmptyView(binding.emptyList.emptyListView)
 
@@ -158,33 +155,32 @@ class TrashbinActivity :
 
         trashbinListAdapter = TrashbinListAdapter(
             this,
-            storageManager,
+            navigatorActivity?.storageManager,
             preferences,
             syncedFolderProvider,
-            this,
-            user.orElse(accountProvider!!.user),
+            requireContext(),
+            navigatorActivity?.user?.orElse(accountProvider.user),
             viewThemeUtils
         )
 
         recyclerView.adapter = trashbinListAdapter
         recyclerView.setHasFixedSize(true)
         recyclerView.setHasFooter(true)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewThemeUtils?.androidx?.themeSwipeRefreshLayout(binding.swipeContainingList)
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList)
         binding.swipeContainingList.setOnRefreshListener { loadFolder() }
-        viewThemeUtils?.material?.colorMaterialTextButton(findViewById(R.id.sort_button))
 
-        val sortOrder = preferences?.getSortOrderByType(
+        val sortOrder = preferences.getSortOrderByType(
             FileSortOrder.Type.trashBinView,
             FileSortOrder.SORT_NEW_TO_OLD
         )
 
-        findViewById<TextView>(R.id.sort_button).apply {
+        activity?.findViewById<MaterialButton>(R.id.sort_button)?.run {
             setOnClickListener {
                 DisplayUtils.openSortingOrderDialogFragment(
-                    supportFragmentManager,
-                    preferences?.getSortOrderByType(
+                    activity?.supportFragmentManager,
+                    preferences.getSortOrderByType(
                         FileSortOrder.Type.trashBinView,
                         FileSortOrder.SORT_NEW_TO_OLD
                     )
@@ -196,27 +192,30 @@ class TrashbinActivity :
 
         loadFolder()
 
-        mMultiChoiceModeListener = MultiChoiceModeListener(
-            this,
+        multiChoiceModeListener = MultiChoiceModeListener(
+            navigatorActivity,
             trashbinListAdapter,
             viewThemeUtils
         ) { filesCount, checkedFiles -> openActionsMenu(filesCount, checkedFiles) }
-        addDrawerListener(mMultiChoiceModeListener)
+
+        multiChoiceModeListener?.let { listener ->
+            activity?.findViewById<DrawerLayout>(R.id.drawer_layout)?.addDrawerListener(listener)
+        }
     }
 
     private fun handleBackPress() {
-        onBackPressedDispatcher.addCallback(
-            this,
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
             onBackPressedCallback
         )
     }
 
     fun loadFolder(onComplete: () -> Unit = {}, onError: () -> Unit = {}) {
         // exit action mode on data refresh
-        mMultiChoiceModeListener?.exitSelectionMode()
+        multiChoiceModeListener?.exitSelectionMode()
         trashbinListAdapter?.let {
             if (it.itemCount > EMPTY_LIST_COUNT) {
-                binding.swipeContainingList.isRefreshing = true
+                binding?.swipeContainingList?.isRefreshing = true
             } else {
                 showInitialLoading()
             }
@@ -225,33 +224,48 @@ class TrashbinActivity :
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var retval = true
-        val itemId = item.itemId
-        if (itemId == android.R.id.home) {
-            if (isDrawerOpen) {
-                closeDrawer()
-            } else if (trashbinPresenter?.isRoot == false) {
-                trashbinPresenter?.navigateUp()
-            } else {
-                openDrawer()
-            }
-        } else if (itemId == R.id.action_empty_trashbin) {
-            trashbinPresenter?.emptyTrashbin()
-        } else {
-            retval = super.onOptionsItemSelected(item)
-        }
-        return retval
+    private fun addMenuProvider() {
+        val menuHost: MenuHost = requireActivity()
+        val navigatorActivity = getTypedActivity(NavigatorActivity::class.java)
+
+        menuHost.addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.activity_trashbin, menu)
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    val itemId = menuItem.itemId
+
+                    if (itemId == android.R.id.home) {
+                        if (navigatorActivity?.isDrawerOpen == true) {
+                            navigatorActivity.closeDrawer()
+                        } else if (trashbinPresenter?.isRoot == false) {
+                            trashbinPresenter?.navigateUp()
+                        } else {
+                            navigatorActivity?.openDrawer()
+                        }
+                    } else if (itemId == R.id.action_empty_trashbin) {
+                        trashbinPresenter?.emptyTrashbin()
+                    }
+
+                    return false
+                }
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED
+        )
     }
 
     override fun onOverflowIconClicked(file: TrashbinFile, view: View) {
-        val popup = PopupMenu(this, view)
-        popup.inflate(R.menu.item_trashbin)
-        popup.setOnMenuItemClickListener {
-            onFileActionChosen(it.itemId, setOf(file))
-            true
+        PopupMenu(requireContext(), view).apply {
+            inflate(R.menu.item_trashbin)
+            setOnMenuItemClickListener {
+                onFileActionChosen(it.itemId, setOf(file))
+                true
+            }
+            show()
         }
-        popup.show()
     }
 
     override fun onItemClicked(file: TrashbinFile) {
@@ -267,22 +281,20 @@ class TrashbinActivity :
     }
 
     override fun onLongItemClicked(file: TrashbinFile): Boolean {
+        val navigatorActivity = getTypedActivity(NavigatorActivity::class.java)
+
+
         // Create only once instance of action mode
-        if (mMultiChoiceModeListener?.mActiveActionMode != null) {
+        if (multiChoiceModeListener?.activeActionMode != null) {
             toggleItemToCheckedList(file)
         } else {
-            startActionMode(mMultiChoiceModeListener)
+            navigatorActivity?.startActionMode(multiChoiceModeListener)
             trashbinListAdapter?.addCheckedFile(file)
         }
-        mMultiChoiceModeListener?.updateActionModeFile(file)
+        multiChoiceModeListener?.updateActionModeFile(file)
         return true
     }
 
-    /**
-     * Will toggle a file selection status from the action mode
-     *
-     * @param file The concerned TrashbinFile by the selection/deselection
-     */
     private fun toggleItemToCheckedList(file: TrashbinFile) {
         trashbinListAdapter?.run {
             if (isCheckedFile(file)) {
@@ -291,12 +303,7 @@ class TrashbinActivity :
                 addCheckedFile(file)
             }
         }
-        mMultiChoiceModeListener?.updateActionModeFile(file)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.activity_trashbin, menu)
-        return true
+        multiChoiceModeListener?.updateActionModeFile(file)
     }
 
     override fun onPause() {
@@ -310,18 +317,21 @@ class TrashbinActivity :
     }
 
     override fun atRoot(isRoot: Boolean) {
-        mDrawerToggle.isDrawerIndicatorEnabled = isRoot
+        val navigatorActivity = getTypedActivity(NavigatorActivity::class.java)
+        navigatorActivity?.setDrawerIndicatorEnabled(isRoot)
         onBackPressedCallback.isEnabled = !isRoot
     }
 
     override fun onSortingOrderChosen(selection: FileSortOrder?) {
-        val sortButton = findViewById<TextView>(R.id.sort_button)
-        sortButton.setText(DisplayUtils.getSortOrderStringId(selection))
+        val navigatorActivity = getTypedActivity(NavigatorActivity::class.java)
+        val sortButton = navigatorActivity?.findViewById<TextView>(R.id.sort_button)
+        sortButton?.setText(DisplayUtils.getSortOrderStringId(selection))
         trashbinListAdapter?.setSortOrder(selection)
     }
 
     override fun showTrashbinFolder(trashbinFiles: List<TrashbinFile?>?) {
         if (active) {
+            val binding = binding ?: return
             trashbinListAdapter?.setTrashbinFiles(trashbinFiles, true)
             binding.swipeContainingList.isRefreshing = false
             binding.loadingContent.visibility = View.GONE
@@ -344,6 +354,7 @@ class TrashbinActivity :
 
     override fun showSnackbarError(message: Int, file: TrashbinFile?) {
         if (active) {
+            val binding = binding ?: return
             binding.swipeContainingList.isRefreshing = false
             Snackbar.make(binding.list, String.format(getString(message), file?.fileName), Snackbar.LENGTH_LONG)
                 .show()
@@ -352,6 +363,7 @@ class TrashbinActivity :
 
     @VisibleForTesting
     fun showInitialLoading() {
+        val binding = binding ?: return
         binding.emptyList.emptyListView.visibility = View.GONE
         binding.list.visibility = View.GONE
         binding.loadingContent.visibility = View.VISIBLE
@@ -359,16 +371,19 @@ class TrashbinActivity :
 
     @VisibleForTesting
     fun showUser() {
+        val navigatorActivity = getTypedActivity(NavigatorActivity::class.java)
+        val binding = binding ?: return
         binding.loadingContent.visibility = View.GONE
         binding.list.visibility = View.VISIBLE
         binding.swipeContainingList.isRefreshing = false
-        binding.emptyList.emptyListViewText.text = user.get().accountName
+        binding.emptyList.emptyListViewText.text = navigatorActivity?.user?.get()?.accountName
         binding.emptyList.emptyListViewText.visibility = View.VISIBLE
         binding.emptyList.emptyListView.visibility = View.VISIBLE
     }
 
     override fun showError(message: Int) {
         if (active) {
+            val binding = binding ?: return
             connectivityService.isNetworkAndServerAvailable { result: Boolean? ->
                 if (result == true) {
                     trashbinListAdapter?.removeAllFiles()
@@ -398,6 +413,7 @@ class TrashbinActivity :
     }
 
     private fun showEmptyContent(headline: String, message: String) {
+        val binding = binding ?: return
         binding.emptyList.emptyListViewHeadline.text = headline
         binding.emptyList.emptyListViewText.text = message
         binding.loadingContent.visibility = View.GONE
@@ -410,7 +426,8 @@ class TrashbinActivity :
 
     private fun openActionsMenu(filesCount: Int, checkedFiles: Set<TrashbinFile>) {
         throttler.run("overflowClick") {
-            val supportFragmentManager = supportFragmentManager
+            val navigatorActivity = getTypedActivity(NavigatorActivity::class.java)
+            val supportFragmentManager = navigatorActivity?.supportFragmentManager ?: return@run
 
             TrashbinFileActionsBottomSheet.newInstance(filesCount, checkedFiles)
                 .setResultListener(
@@ -435,13 +452,13 @@ class TrashbinActivity :
         when (itemId) {
             R.id.action_delete -> {
                 trashbinPresenter?.removeTrashbinFile(checkedFiles)
-                mMultiChoiceModeListener?.exitSelectionMode()
+                multiChoiceModeListener?.exitSelectionMode()
                 return true
             }
 
             R.id.restore -> {
                 trashbinPresenter?.restoreTrashbinFile(checkedFiles)
-                mMultiChoiceModeListener?.exitSelectionMode()
+                multiChoiceModeListener?.exitSelectionMode()
                 return true
             }
 
@@ -459,11 +476,6 @@ class TrashbinActivity :
         }
     }
 
-    /**
-     * De-/select all elements in the current list view.
-     *
-     * @param select `true` to select all, `false` to deselect all
-     */
     private fun selectAllFiles(select: Boolean) {
         trashbinListAdapter?.let {
             if (select) {
@@ -475,7 +487,7 @@ class TrashbinActivity :
                 it.notifyItemChanged(i)
             }
 
-            mMultiChoiceModeListener?.invalidateActionMode()
+            multiChoiceModeListener?.invalidateActionMode()
         }
     }
 
@@ -483,129 +495,87 @@ class TrashbinActivity :
         const val EMPTY_LIST_COUNT = 1
     }
 
-    /**
-     * Handler for multiple selection mode.
-     *
-     *
-     * Manages input from the user when one or more files or folders are selected in the list.
-     *
-     *
-     * Also listens to changes in navigation drawer to hide and recover multiple selection when it's opened and closed.
-     */
     internal class MultiChoiceModeListener(
-        val activity: TrashbinActivity,
+        val activity: NavigatorActivity?,
         val adapter: TrashbinListAdapter?,
         val viewThemeUtils: ViewThemeUtils,
         val openActionsMenu: (Int, Set<TrashbinFile>) -> Unit
     ) : AbsListView.MultiChoiceModeListener,
         DrawerLayout.DrawerListener {
 
-        var mActiveActionMode: ActionMode? = null
+        var activeActionMode: ActionMode? = null
         private var mIsActionModeNew = false
 
-        /**
-         * True when action mode is finished because the drawer was opened
-         */
-        private var mActionModeClosedByDrawer = false
+        private var actionModeClosedByDrawer = false
+        private val selectionWhenActionModeClosedByDrawer: MutableSet<TrashbinFile> = HashSet()
 
-        /**
-         * Selected items in list when action mode is closed by drawer
-         */
-        private val mSelectionWhenActionModeClosedByDrawer: MutableSet<TrashbinFile> = HashSet()
+        override fun onItemCheckedStateChanged(mode: ActionMode, position: Int, id: Long, checked: Boolean) = Unit
+        override fun onDrawerSlide(drawerView: View, slideOffset: Float) = Unit
+        override fun onDrawerOpened(drawerView: View) = Unit
 
-        override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-            // nothing to do
-        }
-
-        override fun onDrawerOpened(drawerView: View) {
-            // nothing to do
-        }
-
-        /**
-         * When the navigation drawer is closed, action mode is recovered in the same state as was when the drawer was
-         * (started to be) opened.
-         *
-         * @param drawerView Navigation drawer just closed.
-         */
         override fun onDrawerClosed(drawerView: View) {
-            if (mActionModeClosedByDrawer && mSelectionWhenActionModeClosedByDrawer.size > 0) {
-                activity.startActionMode(this)
+            if (actionModeClosedByDrawer && selectionWhenActionModeClosedByDrawer.isNotEmpty()) {
+                activity?.startActionMode(this)
 
-                adapter?.setCheckedItem(mSelectionWhenActionModeClosedByDrawer)
+                adapter?.setCheckedItem(selectionWhenActionModeClosedByDrawer)
 
-                mActiveActionMode?.invalidate()
+                activeActionMode?.invalidate()
 
-                mSelectionWhenActionModeClosedByDrawer.clear()
+                selectionWhenActionModeClosedByDrawer.clear()
             }
         }
 
-        /**
-         * If the action mode is active when the navigation drawer starts to move, the action mode is closed and the
-         * selection stored to be recovered when the drawer is closed.
-         *
-         * @param newState One of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
-         */
         override fun onDrawerStateChanged(newState: Int) {
-            if (DrawerLayout.STATE_DRAGGING == newState && mActiveActionMode != null) {
+            if (DrawerLayout.STATE_DRAGGING == newState && activeActionMode != null) {
                 adapter?.let {
-                    mSelectionWhenActionModeClosedByDrawer.addAll(
+                    selectionWhenActionModeClosedByDrawer.addAll(
                         it.checkedItems
                     )
                 }
 
-                mActiveActionMode?.finish()
-                mActionModeClosedByDrawer = true
+                activeActionMode?.finish()
+                actionModeClosedByDrawer = true
             }
         }
 
-        /**
-         * Update action mode bar when an item is selected / unselected in the list
-         */
-        override fun onItemCheckedStateChanged(mode: ActionMode, position: Int, id: Long, checked: Boolean) {
-            // nothing to do here
-        }
-
-        /**
-         * Load menu and customize UI when action mode is started.
-         */
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-            mActiveActionMode = mode
+            activeActionMode = mode
             // Determine if actionMode is "new" or not (already affected by item-selection)
             mIsActionModeNew = true
 
             // fake menu to be able to use bottom sheet instead
-            val inflater: MenuInflater = activity.menuInflater
-            inflater.inflate(R.menu.custom_menu_placeholder, menu)
+            val inflater: MenuInflater? = activity?.menuInflater
+            inflater?.inflate(R.menu.custom_menu_placeholder, menu)
             val item = menu.findItem(R.id.custom_menu_placeholder_item)
             item.icon?.let {
                 item.setIcon(
-                    viewThemeUtils.platform.colorDrawable(
-                        it,
-                        ContextCompat.getColor(activity, R.color.white)
-                    )
+                    activity?.let { it1 ->
+                        viewThemeUtils.platform.colorDrawable(
+                            it,
+                            ContextCompat.getColor(it1, R.color.white)
+                        )
+                    }
                 )
             }
 
             mode.invalidate()
 
-            // set actionMode color
-            viewThemeUtils.platform.colorStatusBar(
-                activity,
-                ContextCompat.getColor(activity, R.color.action_mode_background)
-            )
+            if (activity != null) {
+                viewThemeUtils.platform.colorStatusBar(
+                    activity,
+                    ContextCompat.getColor(activity, R.color.action_mode_background)
+                )
+            }
 
             adapter?.setMultiSelect(true)
             return true
         }
 
-        /**
-         * Updates available action in menu depending on current selection.
-         */
         override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
             val checkedFiles: Set<TrashbinFile> = adapter?.checkedItems ?: emptySet()
             val checkedCount = checkedFiles.size
-            val title: String =
-                activity.getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount)
+            val title: String? =
+                activity?.getResources()?.getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount)
             mode.title = title
 
             // Determine if we need to finish the action mode because there are no items selected
@@ -616,35 +586,24 @@ class TrashbinActivity :
             return true
         }
 
-        /**
-         * Exits the multi file selection mode.
-         */
         fun exitSelectionMode() {
-            mActiveActionMode?.run {
+            activeActionMode?.run {
                 finish()
             }
         }
 
-        /**
-         * Will update (invalidate) the action mode adapter/mode to refresh an item selection change
-         *
-         * @param file The concerned TrashbinFile to refresh in adapter
-         */
         fun updateActionModeFile(file: TrashbinFile) {
             mIsActionModeNew = false
-            mActiveActionMode?.let {
+            activeActionMode?.let {
                 it.invalidate()
                 adapter?.notifyItemChanged(file)
             }
         }
 
         fun invalidateActionMode() {
-            mActiveActionMode?.invalidate()
+            activeActionMode?.invalidate()
         }
 
-        /**
-         * Starts the corresponding action when a menu item is tapped by the user.
-         */
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
             adapter?.let {
                 val checkedFiles: Set<TrashbinFile> = it.checkedItems
@@ -656,13 +615,12 @@ class TrashbinActivity :
             return false
         }
 
-        /**
-         * Restores UI.
-         */
         override fun onDestroyActionMode(mode: ActionMode) {
-            mActiveActionMode = null
+            activeActionMode = null
 
-            viewThemeUtils.platform.resetStatusBar(activity)
+            if (activity != null) {
+                viewThemeUtils.platform.resetStatusBar(activity)
+            }
 
             adapter?.setMultiSelect(false)
             adapter?.clearCheckedItems()

@@ -13,6 +13,7 @@ import com.owncloud.android.R
 import com.owncloud.android.ui.fragment.ActivitiesFragment
 import com.owncloud.android.ui.fragment.community.CommunityFragment
 import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
+import com.owncloud.android.ui.trashbin.TrashbinFragment
 import kotlinx.parcelize.Parcelize
 
 sealed class NavigatorScreen(val tag: String, val hasDrawer: Boolean = true) : Parcelable {
@@ -26,7 +27,11 @@ sealed class NavigatorScreen(val tag: String, val hasDrawer: Boolean = true) : P
     @Parcelize
     object Notifications : NavigatorScreen(NOTIFICATIONS_TAG, hasDrawer = false)
 
+    @Parcelize
+    object Trashbin: NavigatorScreen(TRASHBIN_TAG)
+
     companion object {
+        private const val TRASHBIN_TAG = "Trashbin"
         private const val ACTIVITIES_TAG = "Activities"
         private const val COMMUNITY_TAG = "Community"
         private const val NOTIFICATIONS_TAG = "Notifications"
@@ -42,12 +47,14 @@ sealed class NavigatorScreen(val tag: String, val hasDrawer: Boolean = true) : P
     fun menuItemId(): Int = when (this) {
         Community -> R.id.nav_community
         Activities -> R.id.nav_activity
+        Trashbin -> R.id.nav_trashbin
         Notifications -> -1
     }
 
     fun actionBarStyle(): Pair<ActionBarStyle, Int> = when (this) {
         Community -> ActionBarStyle.Plain to R.string.drawer_community
         Activities -> ActionBarStyle.Plain to R.string.drawer_item_activities
+        Trashbin -> ActionBarStyle.Plain to R.string.drawer_item_trashbin
         Notifications -> ActionBarStyle.Plain to R.string.drawer_item_notifications
     }
 
@@ -55,5 +62,6 @@ sealed class NavigatorScreen(val tag: String, val hasDrawer: Boolean = true) : P
         Community -> CommunityFragment()
         Activities -> ActivitiesFragment()
         Notifications -> NotificationsFragment()
+        Trashbin -> TrashbinFragment()
     }
 }

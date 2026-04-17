@@ -21,8 +21,8 @@ import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Test
 
-class TrashbinActivityIT : AbstractIT() {
-    private val testClassName = "com.owncloud.android.ui.trashbin.TrashbinActivityIT"
+class TrashbinFragmentIT : AbstractIT() {
+    private val testClassName = "com.owncloud.android.ui.trashbin.TrashbinFragmentIT"
 
     enum class TestCase {
         ERROR,
@@ -33,8 +33,8 @@ class TrashbinActivityIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun error() {
-        launchActivity<TrashbinActivity>().use { scenario ->
-            var sut: TrashbinActivity? = null
+        launchActivity<TrashbinFragment>().use { scenario ->
+            var sut: TrashbinFragment? = null
             scenario.onActivity { activity ->
                 sut = activity
                 val trashbinRepository = TrashbinLocalRepository(TestCase.ERROR)
@@ -54,8 +54,8 @@ class TrashbinActivityIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun files() {
-        launchActivity<TrashbinActivity>().use { scenario ->
-            var sut: TrashbinActivity? = null
+        launchActivity<TrashbinFragment>().use { scenario ->
+            var sut: TrashbinFragment? = null
             scenario.onActivity { activity ->
                 sut = activity
                 val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
@@ -75,8 +75,8 @@ class TrashbinActivityIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun empty() {
-        launchActivity<TrashbinActivity>().use { scenario ->
-            var sut: TrashbinActivity? = null
+        launchActivity<TrashbinFragment>().use { scenario ->
+            var sut: TrashbinFragment? = null
             scenario.onActivity { activity ->
                 sut = activity
                 val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
@@ -96,8 +96,8 @@ class TrashbinActivityIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun loading() {
-        launchActivity<TrashbinActivity>().use { scenario ->
-            var sut: TrashbinActivity? = null
+        launchActivity<TrashbinFragment>().use { scenario ->
+            var sut: TrashbinFragment? = null
             scenario.onActivity { activity ->
                 sut = activity
                 val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
@@ -114,8 +114,8 @@ class TrashbinActivityIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun normalUser() {
-        launchActivity<TrashbinActivity>().use { scenario ->
-            var sut: TrashbinActivity? = null
+        launchActivity<TrashbinFragment>().use { scenario ->
+            var sut: TrashbinFragment? = null
             scenario.onActivity { activity ->
                 sut = activity
                 val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
@@ -140,12 +140,12 @@ class TrashbinActivityIT : AbstractIT() {
             setUserData(temp, AccountUtils.Constants.KEY_USER_ID, "differentUser")
         }
 
-        val intent = Intent(targetContext, TrashbinActivity::class.java).apply {
+        val intent = Intent(targetContext, TrashbinFragment::class.java).apply {
             putExtra(Intent.EXTRA_USER, "differentUser@https://nextcloud.localhost")
         }
 
-        launchActivity<TrashbinActivity>().use { scenario ->
-            var sut: TrashbinActivity? = null
+        launchActivity<TrashbinFragment>().use { scenario ->
+            var sut: TrashbinFragment? = null
             scenario.onActivity { activity ->
                 sut = activity
                 val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)

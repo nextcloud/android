@@ -150,7 +150,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         sessionMixin.setAccount(account);
     }
 
-    protected void setUser(User user) {
+    public void setUser(User user) {
         sessionMixin.setUser(user);
     }
 

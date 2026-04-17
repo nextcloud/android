@@ -96,7 +96,7 @@ import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.navigation.NavigatorActivity;
 import com.owncloud.android.ui.navigation.NavigatorScreen;
-import com.owncloud.android.ui.trashbin.TrashbinActivity;
+import com.owncloud.android.ui.trashbin.TrashbinFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawableUtil;
@@ -603,7 +603,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             startActivity(UploadListActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_trashbin) {
             resetOnlyPersonalAndOnDevice();
-            startActivity(TrashbinActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pushFragment(NavigatorScreen.Trashbin.INSTANCE);
         } else if (itemId == R.id.nav_activity) {
             resetOnlyPersonalAndOnDevice();
             pushFragment(NavigatorScreen.Activities.INSTANCE);
