@@ -176,7 +176,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     private OCFileDepth getCurrentDirDepth() {
         OCFileListFragment fragment = getOCFileListFragment();
         if (fragment != null) {
-            return fragment.getFileDepth();
+            return fragment.fileDepth;
         }
 
         return null;

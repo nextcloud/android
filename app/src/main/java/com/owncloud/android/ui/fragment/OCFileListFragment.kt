@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2018-2023 Tobias Kaminsky <tobias@kaminsky.me>
@@ -13,2355 +14,2359 @@
  * SPDX-FileCopyrightText: 2011-2012 Bartosz Przybylski
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.fragment;
+package com.owncloud.android.ui.fragment
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.Pair;
-import android.view.ActionMode;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.nextcloud.android.lib.resources.clientintegration.Endpoint;
-import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.device.DeviceInfo;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.documentscan.AppScanOptionalFeature;
-import com.nextcloud.client.documentscan.DocumentScanActivity;
-import com.nextcloud.client.editimage.EditImageActivity;
-import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.client.utils.Throttler;
-import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.ui.fileactions.FileAction;
-import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
-import com.nextcloud.utils.EditorUtils;
-import com.nextcloud.utils.ShortcutUtil;
-import com.nextcloud.utils.e2ee.E2EVersionHelper;
-import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.FileExtensionsKt;
-import com.nextcloud.utils.extensions.FragmentExtensionsKt;
-import com.nextcloud.utils.extensions.IntentExtensionsKt;
-import com.nextcloud.utils.extensions.OCFileExtensionsKt;
-import com.nextcloud.utils.extensions.ViewExtensionsKt;
-import com.nextcloud.utils.fileNameValidator.FileNameValidator;
-import com.nextcloud.utils.view.FastScrollUtils;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.OCFileDepth;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
-import com.owncloud.android.lib.common.Creator;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
-import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
-import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
-import com.owncloud.android.lib.resources.status.E2EVersion;
-import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.Type;
-import com.owncloud.android.ui.activity.DrawerActivity;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.FolderPickerActivity;
-import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
-import com.owncloud.android.ui.activity.UploadFilesActivity;
-import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
-import com.owncloud.android.ui.adapter.OCFileListAdapter;
-import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
-import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
-import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
-import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
-import com.owncloud.android.ui.events.ChangeMenuEvent;
-import com.owncloud.android.ui.events.CommentsEvent;
-import com.owncloud.android.ui.events.EncryptionEvent;
-import com.owncloud.android.ui.events.FavoriteEvent;
-import com.owncloud.android.ui.events.FileLockEvent;
-import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.ui.fragment.helper.ParentFolderFinder;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.ui.preview.PreviewMediaActivity;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.EncryptionUtils;
-import com.owncloud.android.utils.EncryptionUtilsV2;
-import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.overlay.OverlayManager;
-import com.owncloud.android.utils.theme.ThemeUtils;
-
-import org.apache.commons.httpclient.HttpStatus;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.inject.Inject;
-
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.OptIn;
-import androidx.core.content.ContextCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.media3.common.util.UnstableApi;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import kotlin.Unit;
-
-import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
-import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG;
-import static com.owncloud.android.ui.fragment.SearchType.FAVORITE_SEARCH;
-import static com.owncloud.android.ui.fragment.SearchType.FILE_SEARCH;
-import static com.owncloud.android.ui.fragment.SearchType.NO_SEARCH;
-import static com.owncloud.android.ui.fragment.SearchType.RECENT_FILES_SEARCH;
-import static com.owncloud.android.ui.fragment.SearchType.SHARED_FILTER;
-import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.TextUtils
+import android.util.Log
+import android.util.Pair
+import android.view.ActionMode
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.AbsListView
+import androidx.annotation.IdRes
+import androidx.annotation.OptIn
+import androidx.core.content.ContextCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentResultListener
+import androidx.media3.common.util.UnstableApi
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.android.lib.resources.clientintegration.Endpoint
+import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation
+import com.nextcloud.client.account.User
+import com.nextcloud.client.device.DeviceInfo
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.documentscan.AppScanOptionalFeature
+import com.nextcloud.client.documentscan.DocumentScanActivity
+import com.nextcloud.client.editimage.EditImageActivity
+import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.client.network.ConnectivityService.GenericCallback
+import com.nextcloud.client.utils.Throttler
+import com.nextcloud.ui.fileactions.FileAction.Companion.getFileListActionsToHide
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet.setResultListener
+import com.nextcloud.utils.EditorUtils
+import com.nextcloud.utils.ShortcutUtil
+import com.nextcloud.utils.e2ee.E2EVersionHelper.isV1
+import com.nextcloud.utils.e2ee.E2EVersionHelper.isV2Plus
+import com.nextcloud.utils.extensions.getDepth
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.isDialogFragmentReady
+import com.nextcloud.utils.extensions.slideHideBottomBehavior
+import com.nextcloud.utils.extensions.typedActivity
+import com.nextcloud.utils.fileNameValidator.FileNameValidator
+import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFileName
+import com.nextcloud.utils.view.FastScrollUtils
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.OCFileDepth
+import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.lib.common.Creator
+import com.owncloud.android.lib.common.operations.RemoteOperation
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation
+import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation
+import com.owncloud.android.lib.resources.status.E2EVersion
+import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.lib.resources.status.Type
+import com.owncloud.android.ui.CompletionCallback
+import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.activity.FolderPickerActivity
+import com.owncloud.android.ui.activity.OnEnforceableRefreshListener
+import com.owncloud.android.ui.activity.UploadFilesActivity
+import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface
+import com.owncloud.android.ui.adapter.OCFileListAdapter
+import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment
+import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
+import com.owncloud.android.ui.dialog.RenameFileDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment
+import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.events.ChangeMenuEvent
+import com.owncloud.android.ui.events.CommentsEvent
+import com.owncloud.android.ui.events.EncryptionEvent
+import com.owncloud.android.ui.events.FavoriteEvent
+import com.owncloud.android.ui.events.FileLockEvent
+import com.owncloud.android.ui.events.SearchEvent
+import com.owncloud.android.ui.fragment.helper.ParentFolderFinder
+import com.owncloud.android.ui.helpers.FileOperationsHelper
+import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.preview.PreviewImageFragment
+import com.owncloud.android.ui.preview.PreviewMediaActivity
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.EncryptionUtilsV2
+import com.owncloud.android.utils.FileSortOrder
+import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.PermissionUtil
+import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
+import com.owncloud.android.utils.PermissionUtil.requestCameraPermission
+import com.owncloud.android.utils.overlay.OverlayManager
+import com.owncloud.android.utils.theme.ThemeUtils
+import org.apache.commons.httpclient.HttpStatus
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import java.util.Objects
+import java.util.Optional
+import java.util.function.Supplier
+import javax.inject.Inject
 
 /**
  * A Fragment that lists all files and folders in a given path.
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
-public class OCFileListFragment extends ExtendedListFragment implements
-    OCFileListFragmentInterface,
-    OCFileListBottomSheetActions,
+open class OCFileListFragment : ExtendedListFragment(), OCFileListFragmentInterface, OCFileListBottomSheetActions,
     Injectable {
 
-    protected static final String TAG = OCFileListFragment.class.getSimpleName();
+    @Inject
+    lateinit var clientFactory: ClientFactory
 
-    private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
-        OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
+    @Inject
+    lateinit var throttler: Throttler
 
-    public final static String ARG_ONLY_FOLDERS_CLICKABLE = MY_PACKAGE + ".ONLY_FOLDERS_CLICKABLE";
-    public final static String ARG_FILE_SELECTABLE = MY_PACKAGE + ".FILE_SELECTABLE";
-    public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
-    public final static String ARG_HIDE_FAB = MY_PACKAGE + ".HIDE_FAB";
-    public final static String ARG_HIDE_ITEM_OPTIONS = MY_PACKAGE + ".HIDE_ITEM_OPTIONS";
-    public final static String ARG_SEARCH_ONLY_FOLDER = MY_PACKAGE + ".SEARCH_ONLY_FOLDER";
-    public final static String ARG_MIMETYPE = MY_PACKAGE + ".MIMETYPE";
+    @Inject
+    lateinit var themeUtils: ThemeUtils
 
-    public static final String DOWNLOAD_SEND = "DOWNLOAD_SEND";
+    @Inject
+    lateinit var arbitraryDataProvider: ArbitraryDataProvider
 
+    @Inject
+    lateinit var backgroundJobManager: BackgroundJobManager
 
-    public static final String FOLDER_LAYOUT_LIST = "LIST";
-    public static final String FOLDER_LAYOUT_GRID = "GRID";
+    @Inject
+    lateinit var fastScrollUtils: FastScrollUtils
 
-    public static final String SEARCH_EVENT = "SEARCH_EVENT";
-    private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
-    public static final String KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE";
+    @Inject
+    lateinit var editorUtils: EditorUtils
 
-    private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
-    private static final String DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT";
-    private static final String DIALOG_BOTTOM_SHEET = "DIALOG_BOTTOM_SHEET";
+    @Inject
+    lateinit var shortcutUtil: ShortcutUtil
 
-    private static final int SINGLE_SELECTION = 1;
-    private static final int NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE = 2;
+    @Inject
+    lateinit var syncedFolderProvider: SyncedFolderProvider
 
-    @Inject ClientFactory clientFactory;
-    @Inject Throttler throttler;
-    @Inject ThemeUtils themeUtils;
-    @Inject ArbitraryDataProvider arbitraryDataProvider;
-    @Inject BackgroundJobManager backgroundJobManager;
-    @Inject FastScrollUtils fastScrollUtils;
-    @Inject EditorUtils editorUtils;
-    @Inject ShortcutUtil shortcutUtil;
-    @Inject SyncedFolderProvider syncedFolderProvider;
-    @Inject AppScanOptionalFeature appScanOptionalFeature;
-    @Inject OverlayManager overlayManager;
+    @Inject
+    lateinit var appScanOptionalFeature: AppScanOptionalFeature
 
-    protected FileFragment.ContainerActivity mContainerActivity;
+    @Inject
+    lateinit var overlayManager: OverlayManager
 
-    protected OCFile mFile;
-    private OCFileListAdapter mAdapter;
-    protected boolean mOnlyFoldersClickable;
-    protected boolean mFileSelectable;
+    @Inject
+    lateinit var deviceInfo: DeviceInfo
 
-    protected boolean mHideFab = true;
-    protected ActionMode mActiveActionMode;
-    protected boolean mIsActionModeNew;
-    protected MultiChoiceModeListener mMultiChoiceModeListener;
+    @JvmField
+    protected var containerActivity: FileFragment.ContainerActivity? = null
 
-    protected SearchType currentSearchType;
-    protected boolean searchFragment;
-    protected SearchEvent searchEvent;
-    private OCFileListSearchTask searchTask;
-    protected String mLimitToMimeType;
-    private FloatingActionButton mFabMain;
-    public static boolean isMultipleFileSelectedForCopyOrMove = false;
-    public final ParentFolderFinder parentFolderFinder = new ParentFolderFinder();
+    /**
+     * Use this to query the [OCFile] that is currently being displayed by this fragment
+     * 
+     * @return The currently viewed OCFile
+     */
+    var currentFile: OCFile? = null
+        protected set
 
-    private static final Intent scanIntentExternalApp = new Intent("org.fairscan.app.action.SCAN_TO_PDF");
+    var adapter: OCFileListAdapter? = null
+        private set
 
-    @Inject DeviceInfo deviceInfo;
+    protected var onlyFoldersClickable: Boolean = false
+    protected var fileSelectable: Boolean = false
 
-    protected enum MenuItemAddRemove {
+    protected var hideFab: Boolean = true
+    protected var activeActionMode: ActionMode? = null
+    protected var isActionModeNew: Boolean = false
+
+    var multiChoiceModeListener: MultiChoiceModeListener? = null
+
+    var currentSearchType: SearchType? = null
+        protected set
+    var isSearchFragment: Boolean = false
+    var searchEvent: SearchEvent? = null
+        protected set
+
+    private var searchTask: OCFileListSearchTask? = null
+    protected var mLimitToMimeType: String? = null
+    private var floatingActionButton: FloatingActionButton? = null
+    val parentFolderFinder: ParentFolderFinder = ParentFolderFinder()
+
+    protected enum class MenuItemAddRemove {
         DO_NOTHING,
         REMOVE_SORT,
         REMOVE_GRID_AND_SORT,
         ADD_GRID_AND_SORT_WITH_SEARCH
     }
 
-    protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
+    @JvmField
+    protected var menuItemAddRemoveValue: MenuItemAddRemove = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH
 
-    private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
+    private val mOriginalMenuItems: MutableList<MenuItem> = ArrayList()
 
-    private static OCFileDepth fileDepth = OCFileDepth.Root;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        multiChoiceModeListener = MultiChoiceModeListener()
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        mMultiChoiceModeListener = new MultiChoiceModeListener();
+        val state = savedInstanceState ?: arguments
 
-        final Bundle state = savedInstanceState != null ? savedInstanceState : getArguments();
-        setSearchArgs(state);
-        mFile = BundleExtensionsKt.getParcelableArgument(state, KEY_FILE, OCFile.class);
-        searchFragment = currentSearchType != null && isSearchEventSet(searchEvent);
+        setSearchArgs(state)
+        this.currentFile = state.getParcelableArgument(KEY_FILE, OCFile::class.java)
+        this.isSearchFragment = currentSearchType != null && isSearchEventSet(searchEvent)
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        listenSetupEncryptionDialogResult();
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listenSetupEncryptionDialogResult()
     }
 
-    @Override
-    public void onResume() {
+    override fun onResume() {
         // Don't handle search events if we're coming back from back stack
         // The fragment has already been properly restored in onCreate/onActivityCreated
-        if (mFile != null) {
-            super.onResume();
-            return;
+        if (this.currentFile != null) {
+            super.onResume()
+            return
         }
 
-        final var activity = getActivity();
-        if (activity == null) {
-            return;
-        }
+        val activity = activity ?: return
 
-        final Intent intent = activity.getIntent();
-        if (IntentExtensionsKt.getParcelableArgument(intent, SEARCH_EVENT, SearchEvent.class) != null) {
-            searchEvent = IntentExtensionsKt.getParcelableArgument(intent, SEARCH_EVENT, SearchEvent.class);
+        val intent = activity.intent
+        if (intent.getParcelableArgument(SEARCH_EVENT, SearchEvent::class.java) != null) {
+            searchEvent = intent.getParcelableArgument(SEARCH_EVENT, SearchEvent::class.java)
         }
 
         if (isSearchEventSet(searchEvent)) {
-            handleSearchEvent(searchEvent);
+            handleSearchEvent(searchEvent)
         }
 
-        super.onResume();
+        super.onResume()
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (getAdapter() != null) {
-            getAdapter().cleanup();
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        adapter?.cleanup()
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        Log_OC.i(TAG, "onAttach");
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log_OC.i(TAG, "onAttach")
+
         try {
-            mContainerActivity = (FileFragment.ContainerActivity) context;
-        } catch (ClassCastException e) {
-            throw new IllegalArgumentException(context.toString() + " must implement " +
-                                                   FileFragment.ContainerActivity.class.getSimpleName(), e);
+            containerActivity = context as FileFragment.ContainerActivity
+        } catch (e: ClassCastException) {
+            throw IllegalArgumentException(
+                context.toString() + " must implement " +
+                    FileFragment.ContainerActivity::class.java.getSimpleName(), e
+            )
         }
         try {
-            setOnRefreshListener((OnEnforceableRefreshListener) context);
-
-        } catch (ClassCastException e) {
-            throw new IllegalArgumentException(context.toString() + " must implement " +
-                                                   OnEnforceableRefreshListener.class.getSimpleName(), e);
+            setOnRefreshListener(context as OnEnforceableRefreshListener)
+        } catch (e: ClassCastException) {
+            throw IllegalArgumentException(
+                context.toString() + " must implement " +
+                    OnEnforceableRefreshListener::class.java.getSimpleName(), e
+            )
         }
     }
 
-    public void setSearchArgs(Bundle state) {
-        SearchType argSearchType = NO_SEARCH;
-        SearchEvent argSearchEvent = null;
+    fun setSearchArgs(state: Bundle?) {
+        var argSearchType: SearchType? = SearchType.NO_SEARCH
+        var argSearchEvent: SearchEvent? = null
 
         if (state != null) {
-            argSearchType = BundleExtensionsKt.getParcelableArgument(state, KEY_CURRENT_SEARCH_TYPE, SearchType.class);
-            argSearchEvent = BundleExtensionsKt.getParcelableArgument(state, SEARCH_EVENT, SearchEvent.class);
+            argSearchType = state.getParcelableArgument(KEY_CURRENT_SEARCH_TYPE, SearchType::class.java)
+            argSearchEvent = state.getParcelableArgument(SEARCH_EVENT, SearchEvent::class.java)
         }
 
-        currentSearchType = Objects.requireNonNullElse(argSearchType, NO_SEARCH);
+        currentSearchType = Objects.requireNonNullElse(argSearchType, SearchType.NO_SEARCH)
 
         if (argSearchEvent != null) {
-            searchEvent = argSearchEvent;
+            searchEvent = argSearchEvent
         }
 
-        if (searchEvent != null && currentSearchType != NO_SEARCH) {
-            searchFragment = true;
+        if (searchEvent != null && currentSearchType != SearchType.NO_SEARCH) {
+            this.isSearchFragment = true
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log_OC.i(TAG, "onCreateView() start");
-        View v = super.onCreateView(inflater, container, savedInstanceState);
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        Log_OC.i(TAG, "onCreateView() start")
+        val v = super.onCreateView(inflater, container, savedInstanceState)
 
-        final Bundle state = savedInstanceState != null ? savedInstanceState : getArguments();
-        setSearchArgs(state);
+        val state = savedInstanceState ?: arguments
+        setSearchArgs(state)
 
-        boolean allowContextualActions = (state != null && state.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, false));
+        val allowContextualActions = (state != null && state.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, false))
         if (allowContextualActions) {
-            setChoiceModeAsMultipleModal(state);
+            setChoiceModeAsMultipleModal(state)
         }
 
-        mFabMain = requireActivity().findViewById(R.id.fab_main);
+        floatingActionButton = activity?.findViewById(R.id.fab_main)
 
-        if (mFabMain != null) {
-            // is not available in FolderPickerActivity
-            viewThemeUtils.material.themeFAB(mFabMain);
-        }
+        // is not available in FolderPickerActivity
+        floatingActionButton?.let { viewThemeUtils.material.themeFAB(it) }
 
-        Log_OC.i(TAG, "onCreateView() end");
-        return v;
+        Log_OC.i(TAG, "onCreateView() end")
+        return v
     }
 
-    @Override
-    public void onDetach() {
-        setOnRefreshListener(null);
-        mContainerActivity = null;
-
-        if (searchTask != null) {
-            searchTask.cancel();
-        }
-        super.onDetach();
+    override fun onDetach() {
+        setOnRefreshListener(null)
+        containerActivity = null
+        searchTask?.cancel()
+        super.onDetach()
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mAdapter != null) {
-            mAdapter.cancelAllPendingTasks();
-        }
-
-        if (getActivity() != null) {
-            getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
-        }
+    override fun onPause() {
+        super.onPause()
+        adapter?.cancelAllPendingTasks()
+        activity?.intent?.removeExtra(SEARCH_EVENT)
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log_OC.i(TAG, "onActivityCreated() start");
-        prepareOCFileList(savedInstanceState);
-        listDirectory(MainApp.isOnlyOnDevice());
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log_OC.i(TAG, "onActivityCreated() start")
+        prepareOCFileList(savedInstanceState)
+        listDirectory(MainApp.isOnlyOnDevice())
     }
 
-    public void prepareOCFileList(Bundle savedInstanceState) {
+    fun prepareOCFileList(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
-            mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_FILE, OCFile.class);
+            this.currentFile = savedInstanceState.getParcelableArgument(KEY_FILE, OCFile::class.java)
         }
 
-        Bundle args = getArguments();
-        mOnlyFoldersClickable = args != null && args.getBoolean(ARG_ONLY_FOLDERS_CLICKABLE, false);
-        mFileSelectable = args != null && args.getBoolean(ARG_FILE_SELECTABLE, false);
-        mLimitToMimeType = args != null ? args.getString(ARG_MIMETYPE, "") : "";
+        val args = arguments
+        onlyFoldersClickable = args != null && args.getBoolean(ARG_ONLY_FOLDERS_CLICKABLE, false)
+        fileSelectable = args != null && args.getBoolean(ARG_FILE_SELECTABLE, false)
+        mLimitToMimeType = if (args != null) args.getString(ARG_MIMETYPE, "") else ""
 
-        setAdapter(args);
+        setAdapter(args)
 
-        mHideFab = args != null && args.getBoolean(ARG_HIDE_FAB, false);
+        hideFab = args != null && args.getBoolean(ARG_HIDE_FAB, false)
 
-        if (mHideFab) {
-            setFabVisible(false);
+        if (hideFab) {
+            setFabVisible(false)
         } else {
-            if (mFile != null) {
-                setFabVisible(mFile.canCreateFileAndFolder());
+            if (this.currentFile != null) {
+                setFabVisible(currentFile?.canCreateFileAndFolder() == true)
             } else {
-                setFabVisible(true);
+                setFabVisible(true)
             }
 
-            registerFabListener();
+            registerFabListener()
         }
 
-        if (!searchFragment) {
+        if (!this.isSearchFragment) {
             // do not touch search event if previously searched
-            if (getArguments() == null) {
-                searchEvent = null;
+            searchEvent = if (arguments == null) {
+                null
             } else {
-                searchEvent = BundleExtensionsKt.getParcelableArgument(getArguments(), SEARCH_EVENT, SearchEvent.class);
+                arguments.getParcelableArgument(SEARCH_EVENT, SearchEvent::class.java)
             }
         }
-        prepareCurrentSearch(searchEvent);
-        setEmptyView(searchEvent);
+        prepareCurrentSearch(searchEvent)
+        setEmptyView(searchEvent)
 
-        if (mSortButton != null) {
-            mSortButton.setOnClickListener(v -> openSortingOrderDialogFragment(requireFragmentManager(),
-                                                                               preferences.getSortOrderByFolder(mFile)));
+        mSortButton?.setOnClickListener {
+            DisplayUtils.openSortingOrderDialogFragment(
+                parentFragmentManager,
+                preferences.getSortOrderByFolder(this.currentFile)
+            )
         }
 
-        if (mSwitchGridViewButton != null) {
-            mSwitchGridViewButton.setOnClickListener(v -> {
-                if (isGridEnabled()) {
-                    setListAsPreferred();
-                } else {
-                    setGridAsPreferred();
-                }
-                setLayoutSwitchButton();
-            });
+        mSwitchGridViewButton?.setOnClickListener {
+            if (isGridEnabled) {
+                setListAsPreferred()
+            } else {
+                setGridAsPreferred()
+            }
+            setLayoutSwitchButton()
         }
 
-        if (getActivity() instanceof FileDisplayActivity fda) {
-            fda.updateActionBarTitleAndHomeButton(fda.getCurrentDir());
-        }
+        val fda = typedActivity<FileDisplayActivity>()
+        fda?.updateActionBarTitleAndHomeButton(fda.getCurrentDir())
     }
 
-    protected void setAdapter(Bundle args) {
-        boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
+    protected open fun setAdapter(args: Bundle?) {
+        val hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false)
 
-        mAdapter = new OCFileListAdapter(
-            getActivity(),
-            accountManager.getUser(),
+        this.adapter = OCFileListAdapter(
+            activity,
+            accountManager.user,
             preferences,
             syncedFolderProvider,
-            mContainerActivity,
+            containerActivity,
             this,
             hideItemOptions,
-            isGridViewPreferred(mFile),
+            isGridViewPreferred(this.currentFile),
             viewThemeUtils,
             overlayManager
-        );
+        )
 
-        setRecyclerViewAdapter(mAdapter);
-
-        if (getRecyclerView() != null) {
-            fastScrollUtils.applyFastScroll(getRecyclerView());
-        }
+        setRecyclerViewAdapter(this.adapter)
+        recyclerView?.let { fastScrollUtils.applyFastScroll(it) }
     }
 
-    protected void prepareCurrentSearch(SearchEvent event) {
+    protected fun prepareCurrentSearch(event: SearchEvent?) {
         if (isSearchEventSet(event)) {
-            setCurrentSearchType(event);
-            prepareActionBarItems(event);
+            setCurrentSearchType(event)
+            prepareActionBarItems(event)
         }
     }
 
     /**
      * register listener on FAB.
      */
-    public void registerFabListener() {
-        if (!(getActivity() instanceof FileActivity fileActivity)) {
-            Log_OC.w(TAG, "activity is null cannot register fab listener");
-            return;
+    fun registerFabListener() {
+        if (activity !is FileActivity) {
+            Log_OC.w(TAG, "activity is null cannot register fab listener")
+            return
         }
 
-        if (mFabMain == null) {
-            Log_OC.w(TAG, "mFabMain is null cannot register fab listener");
-            return;
+        val fileActivity = typedActivity<FileActivity>()
+
+        if (floatingActionButton == null) {
+            Log_OC.w(TAG, "mFabMain is null cannot register fab listener")
+            return
         }
 
         // is not available in FolderPickerActivity
-        viewThemeUtils.material.themeFAB(mFabMain);
-        mFabMain.setOnClickListener(v -> {
-            var currentDir = getCurrentFile();
-            if (currentDir == null) {
-                Log_OC.w(TAG, "currentDir is null cannot open bottom sheet dialog");
-                return;
-            }
-            
-            final OCFileListBottomSheetDialog dialog = new OCFileListBottomSheetDialog(fileActivity,
-                                                                                       this,
-                                                                                       deviceInfo,
-                                                                                       accountManager.getUser(),
-                                                                                       currentDir,
-                                                                                       themeUtils,
-                                                                                       viewThemeUtils,
-                                                                                       editorUtils,
-                                                                                       appScanOptionalFeature);
+        floatingActionButton?.let {
+            viewThemeUtils.material.themeFAB(it)
+        }
 
-            dialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-            dialog.getBehavior().setSkipCollapsed(true);
-            dialog.show();
-        });
+        floatingActionButton?.setOnClickListener {
+            val currentDir = this.currentFile
+            if (currentDir == null) {
+                Log_OC.w(TAG, "currentDir is null cannot open bottom sheet dialog")
+                return@setOnClickListener
+            }
+
+            val dialog = OCFileListBottomSheetDialog(
+                fileActivity!!,
+                this,
+                deviceInfo,
+                accountManager.user,
+                currentDir,
+                themeUtils,
+                viewThemeUtils,
+                editorUtils,
+                appScanOptionalFeature
+            )
+
+            dialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED)
+            dialog.getBehavior().skipCollapsed = true
+            dialog.show()
+        }
     }
 
-    @Override
-    public void createFolder(boolean encrypted) {
-        final var activity = getActivity();
+    override fun createFolder(encrypted: Boolean) {
+        val activity = getActivity()
         if (activity == null) {
-            Log_OC.e(TAG, "activity is null, cannot create a folder");
-            return;
+            Log_OC.e(TAG, "activity is null, cannot create a folder")
+            return
         }
 
         if (encrypted) {
-            User user = accountManager.getUser();
-            String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
-            String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
+            val user = accountManager.user
+            val publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY)
+            val privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY)
 
             if (publicKey.isEmpty() || privateKey.isEmpty()) {
-                Log_OC.w(TAG,"cannot create encrypted folder directly, needs to setup encryption first");
+                Log_OC.w(TAG, "cannot create encrypted folder directly, needs to setup encryption first")
 
-                activity.runOnUiThread(() -> {
-                    final var dialog = SetupEncryptionDialogFragment.newInstance(user, mFile.getRemotePath());
-                    dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
-                });
-                return;
+                activity.runOnUiThread {
+                    val dialog = newInstance(user, currentFile?.remotePath)
+                    dialog.show(
+                        getParentFragmentManager(),
+                        SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG
+                    )
+                }
+                return
             }
         }
 
-        CreateFolderDialogFragment.newInstance(mFile, encrypted)
-            .show(activity.getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
+        newInstance(this.currentFile, encrypted)
+            .show(activity.supportFragmentManager, DIALOG_CREATE_FOLDER)
     }
 
-    @Override
-    public void uploadFromApp() {
-        Intent action = new Intent(Intent.ACTION_GET_CONTENT);
-        action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
-        action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+    override fun uploadFromApp() {
+        var action = Intent(Intent.ACTION_GET_CONTENT)
+        action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE)
+        action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
 
-        getActivity().startActivityForResult(
+        activity?.startActivityForResult(
             Intent.createChooser(action, getString(R.string.upload_chooser_title)),
             FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS
-                                            );
+        )
     }
 
-    @Override
-    public void directCameraUpload() {
-        FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+    override fun directCameraUpload() {
+        val fileDisplayActivity = activity as FileDisplayActivity?
 
         if (fileDisplayActivity == null) {
-            DisplayUtils.showSnackMessage(getView(), getString(R.string.error_starting_direct_camera_upload));
-            return;
+            DisplayUtils.showSnackMessage(view, getString(R.string.error_starting_direct_camera_upload))
+            return
         }
 
-        if (!PermissionUtil.checkSelfPermission(fileDisplayActivity, Manifest.permission.CAMERA)) {
-            PermissionUtil.requestCameraPermission(fileDisplayActivity, PermissionUtil.PERMISSIONS_CAMERA);
-            return;
+        if (!checkSelfPermission(fileDisplayActivity, Manifest.permission.CAMERA)) {
+            requestCameraPermission(fileDisplayActivity, PermissionUtil.PERMISSIONS_CAMERA)
+            return
         }
 
-        showDirectCameraUploadAlertDialog(fileDisplayActivity);
+        showDirectCameraUploadAlertDialog(fileDisplayActivity)
     }
 
-    private void showDirectCameraUploadAlertDialog(FileDisplayActivity fileDisplayActivity) {
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(fileDisplayActivity)
+    private fun showDirectCameraUploadAlertDialog(fileDisplayActivity: FileDisplayActivity) {
+        val builder = MaterialAlertDialogBuilder(fileDisplayActivity)
             .setTitle(R.string.upload_direct_camera_promt)
             .setIcon(R.mipmap.ic_launcher)
-            .setPositiveButton(R.string.upload_direct_camera_video, (dialog, which) -> fileDisplayActivity.getFileOperationsHelper().uploadFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA, true))
-            .setNegativeButton(R.string.upload_direct_camera_photo, (dialog, which) -> fileDisplayActivity.getFileOperationsHelper().uploadFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA, false));
+            .setPositiveButton(
+                R.string.upload_direct_camera_video
+            ) { _, _ ->
+                fileDisplayActivity.fileOperationsHelper.uploadFromCamera(
+                    fileDisplayActivity,
+                    FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA,
+                    true
+                )
+            }
+            .setNegativeButton(
+                R.string.upload_direct_camera_photo
+            ) { _, _ ->
+                fileDisplayActivity.fileOperationsHelper.uploadFromCamera(
+                    fileDisplayActivity,
+                    FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA,
+                    false
+                )
+            }
 
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(fileDisplayActivity, builder);
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(fileDisplayActivity, builder)
 
-        builder.create();
-        builder.show();
+        builder.create()
+        builder.show()
     }
 
-    @Override
-    public void scanDocUpload() {
-        FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+    override fun scanDocUpload() {
+        val fileDisplayActivity = activity as FileDisplayActivity?
 
-        final OCFile currentFile = getCurrentFile();
-        if (fileDisplayActivity != null && currentFile != null && currentFile.isFolder()) {
-
-            Intent intent = new Intent(requireContext(), DocumentScanActivity.class);
-            intent.putExtra(DocumentScanActivity.EXTRA_FOLDER, currentFile.getRemotePath());
-            startActivity(intent);
+        val currentFile = this.currentFile
+        if (fileDisplayActivity != null && currentFile != null && currentFile.isFolder) {
+            val intent = Intent(requireContext(), DocumentScanActivity::class.java).apply {
+                putExtra(DocumentScanActivity.EXTRA_FOLDER, currentFile.remotePath)
+            }
+            startActivity(intent)
         } else {
-            Log.w(TAG, "scanDocUpload: Failed to start doc scanning, fileDisplayActivity=" + fileDisplayActivity +
-                ", currentFile=" + currentFile);
-            DisplayUtils.showSnackMessage(this, R.string.error_starting_doc_scan);
+            Log.w(
+                TAG, "scanDocUpload: Failed to start doc scanning, fileDisplayActivity=" + fileDisplayActivity +
+                    ", currentFile=" + currentFile
+            )
+            DisplayUtils.showSnackMessage(this, R.string.error_starting_doc_scan)
         }
     }
 
-    @Override
-    public void scanDocUploadFromApp() {
+    override fun scanDocUploadFromApp() {
         requireActivity().startActivityForResult(
             scanIntentExternalApp,
-            FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME);
+            FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME
+        )
     }
 
-    @Override
-    public boolean isScanDocUploadFromAppAvailable() {
-        var context = getActivity();
-        if (context == null) {
-            return false;
-        }
-        return scanIntentExternalApp.resolveActivity(context.getPackageManager()) != null;
-    }
-
-    @Override
-    public void uploadFiles() {
-        if (!(getActivity() instanceof FileActivity fileActivity)) {
-            Log_OC.w(TAG,"Activity is null, cant upload files");
-            return;
+    override val isScanDocUploadFromAppAvailable: Boolean
+        get() {
+            val context = activity ?: return false
+            return scanIntentExternalApp.resolveActivity(context.packageManager) != null
         }
 
-        final var user = fileActivity.getUser();
-        if (user.isEmpty()) {
-            Log_OC.w(TAG,"User not exist, cant upload files");
-            return;
+    override fun uploadFiles() {
+        if (activity !is FileActivity) {
+            Log_OC.w(TAG, "Activity is null, cant upload files")
+            return
         }
 
-        final var file = getCurrentFile();
+        val fileActivity = typedActivity<FileActivity>()
+
+        val user: Optional<User> = fileActivity!!.getUser()
+        if (user.isEmpty) {
+            Log_OC.w(TAG, "User not exist, cant upload files")
+            return
+        }
+
+        val file = this.currentFile
         if (file == null) {
-            Log_OC.w(TAG,"File is null cannot determine isWithinEncryptedFolder, cant upload files");
-            return;
+            Log_OC.w(TAG, "File is null cannot determine isWithinEncryptedFolder, cant upload files")
+            return
         }
 
-        boolean isWithinEncryptedFolder = file.isEncrypted();
-        UploadFilesActivity.startUploadActivityForResult(fileActivity, user.get(), FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM, isWithinEncryptedFolder);
+        val isWithinEncryptedFolder = file.isEncrypted
+        UploadFilesActivity.startUploadActivityForResult(
+            fileActivity,
+            user.get(),
+            FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM,
+            isWithinEncryptedFolder
+        )
     }
 
-    @Override
-    public void createRichWorkspace() {
-        if (!(getActivity() instanceof FileActivity fileActivity)) {
-            return;
-        }
-
-        fileActivity.getFilesRepository().createRichWorkspace(mFile.getRemotePath(), url -> {
-            mContainerActivity.getFileOperationsHelper().openRichWorkspaceWithTextEditor(mFile, url, requireContext());
-            return Unit.INSTANCE;
-        }, () -> {
-            DisplayUtils.showSnackMessage(getView(), R.string.failed_to_start_editor);
-            return Unit.INSTANCE;
-        });
-    }
-
-    @Override
-    public void onShareIconClick(OCFile file) {
-        mContainerActivity.showDetails(file, 1);
-    }
-
-    @Override
-    public void showShareDetailView(OCFile file) {
-        mContainerActivity.showDetails(file, 1);
-    }
-
-    @Override
-    public void showActivityDetailView(OCFile file) {
-        mContainerActivity.showDetails(file, 0);
-    }
-
-    @Override
-    public void onOverflowIconClicked(OCFile file, View view) {
-        final Set<OCFile> checkedFiles = new HashSet<>();
-        checkedFiles.add(file);
-        openActionsMenu(1, checkedFiles, true);
-    }
-
-    public void openActionsMenu(final int filesCount, final Set<OCFile> checkedFiles, final boolean isOverflow) {
-        throttler.run("overflowClick", () -> {
-            final var actionsToHide = FileAction.Companion.getFileListActionsToHide(checkedFiles);
-
-            List<Endpoint> endpoints = getCapabilities().getClientIntegrationEndpoints(Type.CONTEXT_MENU, checkedFiles.iterator().next().getMimeType());
-
-            final var childFragmentManager = getChildFragmentManager();
-            final var actionBottomSheet = FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, actionsToHide, endpoints)
-                .setResultListener(childFragmentManager, this, (id) -> onFileActionChosen(id, checkedFiles));
-
-            if (FragmentExtensionsKt.isDialogFragmentReady(this)) {
-                actionBottomSheet.show(childFragmentManager, "actions");
+    override fun createRichWorkspace() {
+        typedActivity<FileActivity>()?.let { activity ->
+            currentFile?.remotePath?.let { remotePath ->
+                activity.filesRepository.createRichWorkspace(remotePath, { url: String? ->
+                    containerActivity?.getFileOperationsHelper()
+                        ?.openRichWorkspaceWithTextEditor(this.currentFile, url, requireContext())
+                }, {
+                    DisplayUtils.showSnackMessage(activity, R.string.failed_to_start_editor)
+                })
             }
-        });
+        }
     }
 
-    @Override
-    public void newDocument() {
-        ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
-                                                              ChooseRichDocumentsTemplateDialogFragment.Type.DOCUMENT)
-            .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
+    override fun onShareIconClick(file: OCFile?) {
+        containerActivity?.showDetails(file, 1)
     }
 
-    @Override
-    public void newSpreadsheet() {
-        ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
-                                                              ChooseRichDocumentsTemplateDialogFragment.Type.SPREADSHEET)
-            .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
+    override fun showShareDetailView(file: OCFile?) {
+        containerActivity?.showDetails(file, 1)
     }
 
-    @Override
-    public void newPresentation() {
-        ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
-                                                              ChooseRichDocumentsTemplateDialogFragment.Type.PRESENTATION)
-            .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
+    override fun showActivityDetailView(file: OCFile?) {
+        containerActivity?.showDetails(file, 0)
     }
 
-    @Override
-    public void onHeaderClicked() {
-        final OCFile file = getCurrentFile();
-        if (file == null) {
-            return;
+    override fun onOverflowIconClicked(file: OCFile, view: View) {
+        val checkedFiles: MutableSet<OCFile> = HashSet()
+        checkedFiles.add(file)
+        openActionsMenu(1, checkedFiles, true)
+    }
+
+    fun openActionsMenu(filesCount: Int, checkedFiles: MutableSet<OCFile>, isOverflow: Boolean) {
+        throttler.run("overflowClick") {
+            val actionsToHide = getFileListActionsToHide(checkedFiles)
+            val endpoints = this.capabilities.getClientIntegrationEndpoints(
+                Type.CONTEXT_MENU,
+                checkedFiles.iterator().next().mimeType
+            )
+
+            val childFragmentManager = getChildFragmentManager()
+            val actionBottomSheet: FileActionsBottomSheet =
+                FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, actionsToHide, endpoints)
+                    .setResultListener(
+                        childFragmentManager,
+                        this,
+                        FileActionsBottomSheet.ResultListener { id: Int -> onFileActionChosen(id, checkedFiles) })
+            if (this.isDialogFragmentReady()) {
+                actionBottomSheet.show(childFragmentManager, "actions")
+            }
+        }
+    }
+
+    override fun newDocument() {
+        newInstance(
+            this.currentFile,
+            ChooseRichDocumentsTemplateDialogFragment.Type.DOCUMENT
+        )
+            .show(requireActivity().supportFragmentManager, DIALOG_CREATE_DOCUMENT)
+    }
+
+    override fun newSpreadsheet() {
+        newInstance(
+            this.currentFile,
+            ChooseRichDocumentsTemplateDialogFragment.Type.SPREADSHEET
+        )
+            .show(requireActivity().supportFragmentManager, DIALOG_CREATE_DOCUMENT)
+    }
+
+    override fun newPresentation() {
+        newInstance(
+            this.currentFile,
+            ChooseRichDocumentsTemplateDialogFragment.Type.PRESENTATION
+        )
+            .show(requireActivity().supportFragmentManager, DIALOG_CREATE_DOCUMENT)
+    }
+
+    override fun onHeaderClicked() {
+        val file = this.currentFile ?: return
+
+        if (TextUtils.isEmpty(file.richWorkspace)) {
+            return
         }
 
-        if (TextUtils.isEmpty(file.getRichWorkspace())) {
-            return;
-        }
-
-        final var adapter = getAdapter();
+        val adapter = this.adapter
         if (adapter == null || adapter.isMultiSelect()) {
-            return;
+            return
         }
 
-        if (!(mContainerActivity instanceof FileDisplayActivity fda)) {
-            return;
-        }
-
-        fda.startRichWorkspacePreview(file);
+        getTypedActivity(FileDisplayActivity::class.java)?.startRichWorkspacePreview(file)
     }
 
-    @Override
-    public void showTemplate(@NonNull Creator creator, @NonNull String headline) {
-        ChooseTemplateDialogFragment.newInstance(mFile, creator, headline).show(requireActivity().getSupportFragmentManager(),
-                                                                                DIALOG_CREATE_DOCUMENT);
+    override fun showTemplate(creator: Creator?, headline: String?) {
+        newInstance(this.currentFile, creator, headline).show(
+            requireActivity().supportFragmentManager,
+            DIALOG_CREATE_DOCUMENT
+        )
     }
 
     /**
      * Handler for multiple selection mode.
-     * <p>
+     * 
+     * 
      * Manages input from the user when one or more files or folders are selected in the list.
-     * <p>
+     * 
+     * 
      * Also listens to changes in navigation drawer to hide and recover multiple selection when it's opened and closed.
      */
-    private class MultiChoiceModeListener implements AbsListView.MultiChoiceModeListener, DrawerLayout.DrawerListener {
-
-        private static final String KEY_ACTION_MODE_CLOSED_BY_DRAWER = "KILLED_ACTION_MODE";
-
+    inner class MultiChoiceModeListener : AbsListView.MultiChoiceModeListener, DrawerLayout.DrawerListener {
         /**
          * True when action mode is finished because the drawer was opened
          */
-        private boolean mActionModeClosedByDrawer;
+        private var mActionModeClosedByDrawer = false
 
         /**
          * Selected items in list when action mode is closed by drawer
          */
-        private final Set<OCFile> mSelectionWhenActionModeClosedByDrawer = new HashSet<>();
-
-        @Override
-        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-            // nothing to do
-        }
-
-        @Override
-        public void onDrawerOpened(@NonNull View drawerView) {
-            // nothing to do
-        }
+        private val mSelectionWhenActionModeClosedByDrawer = HashSet<OCFile>()
+        override fun onDrawerSlide(drawerView: View, slideOffset: Float) = Unit
+        override fun onDrawerOpened(drawerView: View) = Unit
 
         /**
          * When the navigation drawer is closed, action mode is recovered in the same state as was when the drawer was
          * (started to be) opened.
-         *
+         * 
          * @param drawerView Navigation drawer just closed.
          */
-        @Override
-        public void onDrawerClosed(@NonNull View drawerView) {
+        override fun onDrawerClosed(drawerView: View) {
             if (!mActionModeClosedByDrawer || mSelectionWhenActionModeClosedByDrawer.isEmpty()) {
-                return;
+                return
             }
 
-            FragmentActivity actionBarActivity = getActivity();
-            if (actionBarActivity != null) {
-                actionBarActivity.startActionMode(mMultiChoiceModeListener);
-            }
-
-            getAdapter().setCheckedItem(mSelectionWhenActionModeClosedByDrawer);
-
-            if (mActiveActionMode != null) {
-                mActiveActionMode.invalidate();
-            }
-
-            mSelectionWhenActionModeClosedByDrawer.clear();
+            activity?.startActionMode(multiChoiceModeListener)
+            adapter?.setCheckedItem(mSelectionWhenActionModeClosedByDrawer)
+            activeActionMode?.invalidate()
+            mSelectionWhenActionModeClosedByDrawer.clear()
         }
 
         /**
          * If the action mode is active when the navigation drawer starts to move, the action mode is closed and the
          * selection stored to be recovered when the drawer is closed.
-         *
+         * 
          * @param newState One of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
          */
-        @Override
-        public void onDrawerStateChanged(int newState) {
-            if (DrawerLayout.STATE_DRAGGING != newState || mActiveActionMode == null) {
-                return;
+        override fun onDrawerStateChanged(newState: Int) {
+            if (DrawerLayout.STATE_DRAGGING != newState || activeActionMode == null) {
+                return
             }
 
-            if (getRecyclerView() != null && getRecyclerView().getAdapter() instanceof OCFileListAdapter fileListAdapter) {
-                mSelectionWhenActionModeClosedByDrawer.addAll(fileListAdapter.getCheckedItems());
+            if (recyclerView != null && recyclerView?.adapter is OCFileListAdapter) {
+                mSelectionWhenActionModeClosedByDrawer.addAll(fileListAdapter.getCheckedItems())
             }
 
-            mActiveActionMode.finish();
-            mActionModeClosedByDrawer = true;
+            activeActionMode?.finish()
+            mActionModeClosedByDrawer = true
         }
 
         /**
          * Update action mode bar when an item is selected / unselected in the list
          */
-        @Override
-        public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-            // nothing to do here
-        }
+        override fun onItemCheckedStateChanged(mode: ActionMode?, position: Int, id: Long, checked: Boolean) = Unit
 
         /**
          * Load menu and customize UI when action mode is started.
          */
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mActiveActionMode = mode;
+        override fun onCreateActionMode(mode: ActionMode?, menu: Menu): Boolean {
+            activeActionMode = mode
             // Determine if actionMode is "new" or not (already affected by item-selection)
-            mIsActionModeNew = true;
+            isActionModeNew = true
 
             // fake menu to be able to use bottom sheet instead
-            MenuInflater inflater = requireActivity().getMenuInflater();
-            inflater.inflate(R.menu.custom_menu_placeholder, menu);
+            val inflater = requireActivity().getMenuInflater()
+            inflater.inflate(R.menu.custom_menu_placeholder, menu)
 
-            final MenuItem item = menu.findItem(R.id.custom_menu_placeholder_item);
-            if (item.getIcon() != null) {
-                item.setIcon(viewThemeUtils.platform.colorDrawable(item.getIcon(), ContextCompat.getColor(requireContext(), R.color.white)));
+            val item = menu.findItem(R.id.custom_menu_placeholder_item)
+            if (item.icon != null) {
+                item.icon = viewThemeUtils.platform.colorDrawable(
+                    item.icon!!,
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
             }
 
-            mActiveActionMode.invalidate();
+            activeActionMode?.invalidate()
 
             //set actionMode color
-            int statusBarColor = ContextCompat.getColor(requireContext(), R.color.action_mode_background);
-            viewThemeUtils.platform.colorStatusBar(requireActivity(), statusBarColor);
+            val statusBarColor = ContextCompat.getColor(requireContext(), R.color.action_mode_background)
+            viewThemeUtils.platform.colorStatusBar(requireActivity(), statusBarColor)
 
             // hide FAB in multi selection mode
-            setFabVisible(false);
+            setFabVisible(false)
 
-            getCommonAdapter().setMultiSelect(true);
-            return true;
+            commonAdapter?.setMultiSelect(true)
+            return true
         }
-
 
         /**
          * Updates available action in menu depending on current selection.
          */
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            Set<OCFile> checkedFiles = getCommonAdapter().getCheckedItems();
-            final int checkedCount = checkedFiles.size();
+        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            val checkedFiles = commonAdapter?.getCheckedItems()
+            val checkedCount = checkedFiles?.size
 
-            if (mActiveActionMode != null) {
-                String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
-                mActiveActionMode.setTitle(title);
+            if (activeActionMode != null) {
+                val title = resources.getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount)
+                activeActionMode?.title = title
             }
 
             // Determine if we need to finish the action mode because there are no items selected
-            if (checkedCount == 0 && !mIsActionModeNew) {
-                exitSelectionMode();
+            if (checkedCount == 0 && !isActionModeNew) {
+                exitSelectionMode()
             }
 
-            isMultipleFileSelectedForCopyOrMove = (checkedCount > 0);
+            isMultipleFileSelectedForCopyOrMove = (checkedCount > 0)
 
-            return true;
+            return true
         }
 
         /**
          * Starts the corresponding action when a menu item is tapped by the user.
          */
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            final Set<OCFile> checkedFiles = getCommonAdapter().getCheckedItems();
-            if (item.getItemId() == R.id.custom_menu_placeholder_item) {
-                openActionsMenu(getCommonAdapter().getFilesCount(), checkedFiles, false);
+        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem): Boolean {
+            val checkedFiles = commonAdapter?.getCheckedItems()
+            if (item.itemId == R.id.custom_menu_placeholder_item) {
+                openActionsMenu(commonAdapter?.getFilesCount(), checkedFiles, false)
             }
-            return true;
+            return true
         }
 
         /**
          * Restores UI.
          */
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            mActiveActionMode = null;
+        override fun onDestroyActionMode(mode: ActionMode?) {
+            activeActionMode = null
 
             // show FAB on multi selection mode exit
-            if (!mHideFab && !searchFragment) {
-                final var file = mFile;
+            if (!hideFab && !isSearchFragment) {
+                val file: OCFile? = currentFile
                 if (file != null) {
-                    setFabVisible(file.canCreateFileAndFolder());
+                    setFabVisible(file.canCreateFileAndFolder())
                 }
             }
 
-            final var activity = getActivity();
+            val activity = getActivity()
             if (activity != null) {
-                viewThemeUtils.platform.resetStatusBar(activity);
+                viewThemeUtils.platform.resetStatusBar(activity)
             }
 
-            final var adapter = getCommonAdapter();
-            if (adapter != null) {
-                adapter.setMultiSelect(false);
-                adapter.clearCheckedItems();
-            }
+            val adapter: CommonOCFileListAdapterInterface? = commonAdapter
+            adapter?.setMultiSelect(false)
+            adapter?.clearCheckedItems()
 
-            isMultipleFileSelectedForCopyOrMove = false;
+            isMultipleFileSelectedForCopyOrMove = false
         }
 
-        public void storeStateIn(Bundle outState) {
-            outState.putBoolean(KEY_ACTION_MODE_CLOSED_BY_DRAWER, mActionModeClosedByDrawer);
+        fun storeStateIn(outState: Bundle) {
+            outState.putBoolean(KEY_ACTION_MODE_CLOSED_BY_DRAWER, mActionModeClosedByDrawer)
         }
 
-        public void loadStateFrom(Bundle savedInstanceState) {
-            mActionModeClosedByDrawer = savedInstanceState.getBoolean(KEY_ACTION_MODE_CLOSED_BY_DRAWER,
-                                                                      mActionModeClosedByDrawer);
+        fun loadStateFrom(savedInstanceState: Bundle) {
+            mActionModeClosedByDrawer = savedInstanceState.getBoolean(
+                KEY_ACTION_MODE_CLOSED_BY_DRAWER,
+                mActionModeClosedByDrawer
+            )
         }
+
+        private val KEY_ACTION_MODE_CLOSED_BY_DRAWER = "KILLED_ACTION_MODE"
     }
 
     /**
      * Init listener that will handle interactions in multiple selection mode.
      */
-    protected void setChoiceModeAsMultipleModal(Bundle savedInstanceState) {
+    protected fun setChoiceModeAsMultipleModal(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
-            mMultiChoiceModeListener.loadStateFrom(savedInstanceState);
+            multiChoiceModeListener?.loadStateFrom(savedInstanceState)
         }
-        ((FileActivity) getActivity()).addDrawerListener(mMultiChoiceModeListener);
+        (activity as FileActivity).addDrawerListener(multiChoiceModeListener)
     }
 
-    /**
-     * Saves the current listed folder.
-     */
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        FileExtensionsKt.logFileSize(mFile, TAG);
-        outState.putParcelable(KEY_FILE, mFile);
-        if (searchFragment) {
-            outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, currentSearchType);
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(KEY_FILE, this.currentFile)
+        if (this.isSearchFragment) {
+            outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, currentSearchType)
             if (isSearchEventSet(searchEvent)) {
-                outState.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
+                outState.putParcelable(SEARCH_EVENT, searchEvent)
             }
         }
-        mMultiChoiceModeListener.storeStateIn(outState);
+        multiChoiceModeListener?.storeStateIn(outState)
     }
 
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+    override fun onPrepareOptionsMenu(menu: Menu) {
         if (mOriginalMenuItems.isEmpty()) {
-            mOriginalMenuItems.add(menu.findItem(R.id.action_search));
+            mOriginalMenuItems.add(menu.findItem(R.id.action_search))
         }
 
         if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_GRID_AND_SORT) {
-            menu.removeItem(R.id.action_search);
+            menu.removeItem(R.id.action_search)
         }
 
-        if (currentSearchType == FAVORITE_SEARCH) {
-            resetMenuItems();
+        if (currentSearchType == SearchType.FAVORITE_SEARCH) {
+            resetMenuItems()
         } else {
-            updateSortAndGridMenuItems();
+            updateSortAndGridMenuItems()
         }
     }
 
-    private void updateSortAndGridMenuItems() {
+    private fun updateSortAndGridMenuItems() {
         if (mSwitchGridViewButton == null || mSortButton == null) {
-            return;
+            return
         }
 
-        switch (menuItemAddRemoveValue) {
-            case ADD_GRID_AND_SORT_WITH_SEARCH:
-                mSwitchGridViewButton.setVisibility(View.VISIBLE);
-                mSortButton.setVisibility(View.VISIBLE);
-                break;
+        when (menuItemAddRemoveValue) {
+            MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH -> {
+                mSwitchGridViewButton?.visibility = View.VISIBLE
+                mSortButton?.visibility = View.VISIBLE
+            }
 
-            case REMOVE_SORT:
-                mSortButton.setVisibility(View.GONE);
-                break;
+            MenuItemAddRemove.REMOVE_SORT -> mSortButton?.visibility = View.GONE
+            MenuItemAddRemove.REMOVE_GRID_AND_SORT -> {
+                mSortButton?.visibility = View.GONE
+                mSwitchGridViewButton?.visibility = View.GONE
+            }
 
-            case REMOVE_GRID_AND_SORT:
-                mSortButton.setVisibility(View.GONE);
-                mSwitchGridViewButton.setVisibility(View.GONE);
-                break;
-
-            case DO_NOTHING:
-            default:
-                Log_OC.v(TAG, "Kept the options menu default structure");
-                break;
+            MenuItemAddRemove.DO_NOTHING -> Log_OC.v(TAG, "Kept the options menu default structure")
         }
     }
 
     /**
      * Call this, when the user presses the up button.
-     * <p>
+     * 
+     * 
      * Tries to move up the current folder one level. If the parent folder was removed from the database, it continues
      * browsing up until finding an existing folders.
-     * <p>
+     * 
+     * 
      * return Count of folder levels browsed up.
      */
-    public int onBrowseUp() {
-        if (mFile == null || mFile.isRootDirectory()) {
-            return 0;
+    fun onBrowseUp(): Int {
+        if (this.currentFile == null || currentFile?.isRootDirectory == true) {
+            return 0
         }
 
-        final var result = parentFolderFinder.getParent(mFile, mContainerActivity.getStorageManager());
-        OCFile target = result.getSecond();
+        val result =
+            parentFolderFinder.getParent(this.currentFile, containerActivity!!.getStorageManager())
+        val target = result.second
 
         if (target == null) {
-            Log_OC.e(TAG, "onBrowseUp: could not resolve parent, staying put");
-            return 0;
+            Log_OC.e(TAG, "onBrowseUp: could not resolve parent, staying put")
+            return 0
         }
 
-        mFile = target;
-        setFileDepth(mFile);
+        this.currentFile = target
+        setFileDepth(this.currentFile)
 
-        if (mFile.isRootDirectory() && currentSearchType != NO_SEARCH) {
-            searchFragment = true;
+        if (currentFile?.isRootDirectory == true && currentSearchType != SearchType.NO_SEARCH) {
+            this.isSearchFragment = true
         }
 
-        updateFileList();
-        return result.getFirst();
+        updateFileList()
+        return result.first
     }
 
-    private void updateFileList() {
-        listDirectory(mFile, MainApp.isOnlyOnDevice());
-        onRefresh(false);
-        restoreIndexAndTopPosition();
+    private fun updateFileList() {
+        listDirectory(this.currentFile, MainApp.isOnlyOnDevice())
+        onRefresh(false)
+        restoreIndexAndTopPosition()
     }
 
     /**
      * Will toggle a file selection status from the action mode
-     *
+     * 
      * @param file The concerned OCFile by the selection/deselection
      */
-    private void toggleItemToCheckedList(OCFile file) {
-        if (getCommonAdapter().isCheckedFile(file)) {
-            getCommonAdapter().removeCheckedFile(file);
+    private fun toggleItemToCheckedList(file: OCFile) {
+        if (commonAdapter?.isCheckedFile(file) == true) {
+            commonAdapter?.removeCheckedFile(file)
         } else {
-            getCommonAdapter().addCheckedFile(file);
+            commonAdapter?.addCheckedFile(file)
         }
-        updateActionModeFile(file);
+        updateActionModeFile(file)
     }
 
     /**
      * Will update (invalidate) the action mode adapter/mode to refresh an item selection change
-     *
+     * 
      * @param file The concerned OCFile to refresh in adapter
      */
-    private void updateActionModeFile(OCFile file) {
-        mIsActionModeNew = false;
-        if (mActiveActionMode != null) {
-            mActiveActionMode.invalidate();
-            getCommonAdapter().notifyItemChanged(file);
+    private fun updateActionModeFile(file: OCFile) {
+        isActionModeNew = false
+        if (activeActionMode != null) {
+            activeActionMode?.invalidate()
+            commonAdapter?.notifyItemChanged(file)
         }
     }
 
-    @Override
-    public boolean onLongItemClicked(OCFile file) {
-        FragmentActivity actionBarActivity = getActivity();
+    override fun onLongItemClicked(file: OCFile): Boolean {
+        val actionBarActivity = activity
         if (actionBarActivity != null) {
             // Create only once instance of action mode
-            if (mActiveActionMode != null) {
-                toggleItemToCheckedList(file);
+            if (activeActionMode != null) {
+                toggleItemToCheckedList(file)
             } else {
-                actionBarActivity.startActionMode(mMultiChoiceModeListener);
-                getCommonAdapter().addCheckedFile(file);
+                actionBarActivity.startActionMode(multiChoiceModeListener)
+                this.commonAdapter?.addCheckedFile(file)
             }
-            updateActionModeFile(file);
+            updateActionModeFile(file)
         }
 
-        return true;
+        return true
     }
 
-    private void folderOnItemClick(OCFile file, int position) {
-        if (requireActivity() instanceof FolderPickerActivity fpa) {
-            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), requireContext(), null);
+    private fun folderOnItemClick(file: OCFile, position: Int) {
+        if (requireActivity() is FolderPickerActivity) {
+            val filenameErrorMessage = checkFileName(
+                file.fileName,
+                this.capabilities, requireContext(), null
+            )
             if (filenameErrorMessage != null) {
-                DisplayUtils.showSnackMessage(fpa, filenameErrorMessage);
-                return;
+                DisplayUtils.showSnackMessage(activity, filenameErrorMessage)
+                return
             }
         }
 
-        if (file.isEncrypted()) {
-            User user = ((FileActivity) mContainerActivity).getUser().orElseThrow(RuntimeException::new);
+        if (file.isEncrypted) {
+            val user = (containerActivity as FileActivity).user
+                .orElseThrow(Supplier { RuntimeException() })
 
             // check if e2e app is enabled
-            OCCapability ocCapability = mContainerActivity.getStorageManager()
-                .getCapability(user.getAccountName());
+            val ocCapability = containerActivity?.getStorageManager()
+                ?.getCapability(user.accountName)
 
-            if (ocCapability.getEndToEndEncryption().isFalse() ||
-                ocCapability.getEndToEndEncryption().isUnknown()) {
-
-                if (getRecyclerView() != null) {
-                    Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_enabled,
-                                  Snackbar.LENGTH_LONG).show();
+            if (ocCapability?.endToEndEncryption?.isFalse == true ||
+                ocCapability?.endToEndEncryption?.isUnknown == true
+            ) {
+                recyclerView?.let {
+                    Snackbar.make(
+                        it, R.string.end_to_end_encryption_not_enabled,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
 
-                return;
+                return
             }
             // check if keys are stored
             if (FileOperationsHelper.isEndToEndEncryptionSetup(requireContext(), user)) {
                 // update state and view of this fragment
-                searchFragment = false;
-                mHideFab = false;
+                this.isSearchFragment = false
+                hideFab = false
 
-                if (mContainerActivity instanceof FolderPickerActivity &&
-                    ((FolderPickerActivity) mContainerActivity)
-                        .isDoNotEnterEncryptedFolder()) {
-
-                    if (getRecyclerView() != null) {
-                        Snackbar.make(getRecyclerView(),
-                                      R.string.copy_move_to_encrypted_folder_not_supported,
-                                      Snackbar.LENGTH_LONG).show();
+                if (containerActivity is FolderPickerActivity &&
+                    (containerActivity as FolderPickerActivity)
+                        .isDoNotEnterEncryptedFolder
+                ) {
+                    if (recyclerView != null) {
+                        Snackbar.make(
+                            recyclerView!!,
+                            R.string.copy_move_to_encrypted_folder_not_supported,
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     }
                 } else {
-                    browseToFolder(file, position);
+                    browseToFolder(file, position)
                 }
             } else {
-                Log_OC.d(TAG, "no public key for " + user.getAccountName());
+                Log_OC.d(TAG, "no public key for " + user.accountName)
+                val fileActivity = getTypedActivity(FileActivity::class.java)
 
-                FragmentManager fragmentManager = getParentFragmentManager();
-                if (fragmentManager.findFragmentByTag(SETUP_ENCRYPTION_DIALOG_TAG) == null && requireActivity() instanceof FileActivity fileActivity) {
-                    fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
-                        if (result) {
-                            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, file.getRemotePath());
-                            dialog.show(fragmentManager, SETUP_ENCRYPTION_DIALOG_TAG);
+                val fragmentManager = getParentFragmentManager()
+                if (fragmentManager.findFragmentByTag(SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG) == null && requireActivity() is FileActivity) {
+                    fileActivity?.connectivityService?.isNetworkAndServerAvailable { result: Boolean? ->
+                        if (result == true) {
+                            val dialog = newInstance(user, file.remotePath)
+                            dialog.show(
+                                fragmentManager,
+                                SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG
+                            )
                         } else {
-                            DisplayUtils.showSnackMessage(fileActivity, R.string.internet_connection_required_for_encrypted_folder_setup);
+                            DisplayUtils.showSnackMessage(
+                                fileActivity,
+                                R.string.internet_connection_required_for_encrypted_folder_setup
+                            )
                         }
-                    });
+                    }
                 }
             }
         } else {
             // update state and view of this fragment
-            searchFragment = false;
-            setEmptyListMessage(EmptyListState.LOADING);
-            browseToFolder(file, position);
+            this.isSearchFragment = false
+            setEmptyListMessage(EmptyListState.LOADING)
+            browseToFolder(file, position)
         }
     }
 
-    private Integer checkFileBeforeOpen(OCFile file) {
-        if (file.isAPKorAAB()) {
-            return R.string.gplay_restriction;
-        } else if (file.isOfflineOperation()) {
-            return R.string.offline_operations_file_does_not_exists_yet;
+    private fun checkFileBeforeOpen(file: OCFile): Int? {
+        return if (file.isAPKorAAB) {
+            R.string.gplay_restriction
+        } else if (file.isOfflineOperation) {
+            R.string.offline_operations_file_does_not_exists_yet
         } else {
-            return null;
+            null
         }
     }
 
-    private void fileOnItemClick(OCFile file) {
-        Integer errorMessageId = checkFileBeforeOpen(file);
-        if (getRecyclerView() != null && errorMessageId != null) {
-            Snackbar.make(getRecyclerView(), errorMessageId, Snackbar.LENGTH_LONG).show();
-            return;
+    private fun fileOnItemClick(file: OCFile) {
+        val errorMessageId = checkFileBeforeOpen(file)
+        if (recyclerView != null && errorMessageId != null) {
+            Snackbar.make(recyclerView!!, errorMessageId, Snackbar.LENGTH_LONG).show()
+            return
         }
 
-        if (PreviewImageFragment.canBePreviewed(file) && mContainerActivity instanceof FileDisplayActivity fda) {
-            fda.previewImageWithSearchContext(file, searchFragment, currentSearchType);
-        } else if (file.isDown() && mContainerActivity instanceof FileDisplayActivity fda) {
-            fda.previewFile(file, this::setFabVisible);
+        if (PreviewImageFragment.canBePreviewed(file) && containerActivity is FileDisplayActivity) {
+            containerActivity.previewImageWithSearchContext(file, this.isSearchFragment, currentSearchType)
+        } else if (file.isDown && containerActivity is FileDisplayActivity) {
+            containerActivity.previewFile(file, CompletionCallback { visible: Boolean -> this.setFabVisible(visible) })
         } else {
-            handlePendingDownloadFile(file);
+            handlePendingDownloadFile(file)
         }
     }
 
-    private void handlePendingDownloadFile(OCFile file) {
+    private fun handlePendingDownloadFile(file: OCFile) {
         if (!isAccountManagerInitialized()) {
-            Log_OC.e(TAG, "AccountManager not yet initialized");
-            return;
+            Log_OC.e(TAG, "AccountManager not yet initialized")
+            return
         }
 
-        User account = accountManager.getUser();
-        OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.getAccountName());
+        val account = accountManager.getUser()
+        val capability = containerActivity!!.getStorageManager().getCapability(account.accountName)
 
-        if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
-            setFabVisible(false);
-            fda.startMediaPreview(file, 0, true, true, true, true);
-        } else if (editorUtils.isEditorAvailable(accountManager.getUser(), file.getMimeType()) && !file.isEncrypted()) {
-            mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
-        } else if (capability.getRichDocumentsMimeTypeList() != null &&
-            capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-            capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
-            mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
-        } else if (mContainerActivity instanceof FileDisplayActivity fda) {
-            fda.startDownloadForPreview(file, mFile);
+        if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted() && containerActivity is FileDisplayActivity) {
+            setFabVisible(false)
+            containerActivity.startMediaPreview(file, 0, true, true, true, true)
+        } else if (editorUtils!!.isEditorAvailable(
+                accountManager.getUser(),
+                file.getMimeType()
+            ) && !file.isEncrypted()
+        ) {
+            containerActivity!!.getFileOperationsHelper().openFileWithTextEditor(file, getContext())
+        } else if (capability.richDocumentsMimeTypeList != null &&
+            capability.richDocumentsMimeTypeList!!.contains(file.getMimeType()) &&
+            capability.richDocumentsDirectEditing.isTrue && !file.isEncrypted()
+        ) {
+            containerActivity!!.getFileOperationsHelper().openFileAsRichDocument(file, getContext())
+        } else if (containerActivity is FileDisplayActivity) {
+            containerActivity.startDownloadForPreview(file, this.currentFile)
 
             // Checks if the file is small enough to be previewed immediately without showing progress.
             // If the file is smaller than or equal to 1MB, it can be displayed directly.
             if (file.isFileEligibleForImmediatePreview()) {
-                fda.setFileIDForImmediatePreview(file.getFileId());
+                containerActivity.setFileIDForImmediatePreview(file.getFileId())
             }
         }
     }
 
-    @Override
-    @OptIn(markerClass = UnstableApi.class)
-    public void onItemClicked(OCFile file) {
-        if (getCommonAdapter() != null && getCommonAdapter().isMultiSelect()) {
-            toggleItemToCheckedList(file);
+    @OptIn(markerClass = UnstableApi::class)
+    override fun onItemClicked(file: OCFile?) {
+        if (this.commonAdapter != null && this.commonAdapter!!.isMultiSelect()) {
+            toggleItemToCheckedList(file!!)
         } else {
             if (file == null) {
-                Log_OC.d(TAG, "Null object in ListAdapter!");
-                return;
+                Log_OC.d(TAG, "Null object in ListAdapter!")
+                return
             }
 
-            if (getCommonAdapter() != null && file.isFolder()) {
-                int position = getCommonAdapter().getItemPosition(file);
-                folderOnItemClick(file, position);
-            } else if (mFileSelectable) {
-                Intent intent = new Intent();
-                intent.putExtra(FolderPickerActivity.EXTRA_FILES, file);
-                requireActivity().setResult(Activity.RESULT_OK, intent);
-                requireActivity().finish();
-            } else if (!mOnlyFoldersClickable) {
-                fileOnItemClick(file);
+            if (this.commonAdapter != null && file.isFolder()) {
+                val position = this.commonAdapter!!.getItemPosition(file)
+                folderOnItemClick(file, position)
+            } else if (fileSelectable) {
+                val intent = Intent()
+                intent.putExtra(FolderPickerActivity.EXTRA_FILES, file)
+                requireActivity().setResult(Activity.RESULT_OK, intent)
+                requireActivity().finish()
+            } else if (!onlyFoldersClickable) {
+                fileOnItemClick(file)
             }
         }
     }
 
-    private void setFileDepth(OCFile file) {
-        fileDepth = OCFileExtensionsKt.getDepth(file);
+    private fun setFileDepth(file: OCFile?) {
+        Companion.fileDepth = file.getDepth()
     }
 
-    public void resetFileDepth() {
-        fileDepth = OCFileDepth.Root;
+    fun resetFileDepth() {
+        Companion.fileDepth = OCFileDepth.Root
     }
 
-    public OCFileDepth getFileDepth() {
-        return fileDepth;
-    }
+    val fileDepth: OCFileDepth?
+        get() = Companion.fileDepth
 
-    private void browseToFolder(OCFile file, int position) {
-        setFileDepth(file);
+    private fun browseToFolder(file: OCFile?, position: Int) {
+        setFileDepth(file)
 
-        if (currentSearchType == FAVORITE_SEARCH) {
-            resetMenuItems();
+        if (currentSearchType == SearchType.FAVORITE_SEARCH) {
+            resetMenuItems()
         }
 
-        listDirectory(file, MainApp.isOnlyOnDevice());
+        listDirectory(file, MainApp.isOnlyOnDevice())
         // then, notify parent activity to let it update its state and view
-        mContainerActivity.onBrowsedDownTo(file);
+        containerActivity!!.onBrowsedDownTo(file)
         // save index and top position
-        saveIndexAndTopPosition(position);
+        saveIndexAndTopPosition(position)
     }
 
-    private void listenSetupEncryptionDialogResult() {
+    private fun listenSetupEncryptionDialogResult() {
         getParentFragmentManager().setFragmentResultListener(
             SetupEncryptionDialogFragment.RESULT_REQUEST_KEY,
             this,
-            (requestKey, bundle) -> {
-                boolean result = bundle.getBoolean(SetupEncryptionDialogFragment.SUCCESS, false);
+            FragmentResultListener { requestKey: String?, bundle: Bundle? ->
+                val result = bundle!!.getBoolean(SetupEncryptionDialogFragment.SUCCESS, false)
                 if (!result) {
-                    Log_OC.d(TAG, "setup encryption dialog is dismissed");
-                    return;
+                    Log_OC.d(TAG, "setup encryption dialog is dismissed")
+                    return@setFragmentResultListener
                 }
 
-                String fileRemotePath = bundle.getString(SetupEncryptionDialogFragment.ARG_FILE_PATH, null);
+                val fileRemotePath = bundle.getString(SetupEncryptionDialogFragment.ARG_FILE_PATH, null)
                 if (fileRemotePath == null) {
-                    Log_OC.e(TAG, "file path is null");
-                    return;
+                    Log_OC.e(TAG, "file path is null")
+                    return@setFragmentResultListener
                 }
 
-                OCFile file = mContainerActivity.getStorageManager().getFileByDecryptedRemotePath(fileRemotePath);
+                val file = containerActivity!!.getStorageManager().getFileByDecryptedRemotePath(fileRemotePath)
                 if (file == null) {
-                    Log_OC.e(TAG,"file is null, cannot toggle encryption");
-                    return;
+                    Log_OC.e(TAG, "file is null, cannot toggle encryption")
+                    return@setFragmentResultListener
                 }
 
                 if (file.isRootDirectory()) {
-                    Log_OC.d(TAG, "result of setup encryption triggered in root directory, this call is for " +
-                        "creating encrypted folder");
-                    createFolder(true);
-                    return;
+                    Log_OC.d(
+                        TAG, "result of setup encryption triggered in root directory, this call is for " +
+                            "creating encrypted folder"
+                    )
+                    createFolder(true)
+                    return@setFragmentResultListener
                 }
 
-                mContainerActivity.getFileOperationsHelper().toggleEncryption(file, true);
-                mAdapter.updateFileEncryptionById(file.getRemoteId(), true);
-                searchFragment = false;
-                setFileDepth(file);
-                listDirectory(file, MainApp.isOnlyOnDevice());
-                mContainerActivity.onBrowsedDownTo(file);
+                containerActivity!!.getFileOperationsHelper().toggleEncryption(file, true)
+                adapter!!.updateFileEncryptionById(file.getRemoteId(), true)
+                this.isSearchFragment = false
+                setFileDepth(file)
+                listDirectory(file, MainApp.isOnlyOnDevice())
+                containerActivity!!.onBrowsedDownTo(file)
 
-                int position = mAdapter.getItemPosition(file);
-                saveIndexAndTopPosition(position);
-            });
+                val position = adapter!!.getItemPosition(file)
+                saveIndexAndTopPosition(position)
+            })
     }
 
     /**
      * Start the appropriate action(s) on the currently selected files given menu selected by the user.
-     *
+     * 
      * @param checkedFiles List of files selected by the user on which the action should be performed
      * @return 'true' if the menu selection started any action, 'false' otherwise.
      */
-    public boolean onFileActionChosen(@IdRes final int itemId, Set<OCFile> checkedFiles) {
+    open fun onFileActionChosen(@IdRes itemId: Int, checkedFiles: MutableSet<OCFile>): Boolean {
         if (checkedFiles.isEmpty()) {
-            return false;
+            return false
         }
 
-        if (checkedFiles.size() == SINGLE_SELECTION) {
-            /// action only possible on a single file
-            OCFile singleFile = checkedFiles.iterator().next();
+        if (checkedFiles.size == SINGLE_SELECTION) {
+            /** action only possible on a single file */
+            val singleFile = checkedFiles.iterator().next()
 
             if (itemId == R.id.action_send_share_file) {
-                mContainerActivity.showDetails(singleFile, 1);
-                return true;
+                containerActivity!!.showDetails(singleFile, 1)
+                return true
             } else if (itemId == R.id.action_open_file_with) {
-                mContainerActivity.getFileOperationsHelper().openFile(singleFile);
-                return true;
+                containerActivity!!.getFileOperationsHelper().openFile(singleFile)
+                return true
             } else if (itemId == R.id.action_stream_media) {
-                mContainerActivity.getFileOperationsHelper().streamMediaFile(singleFile);
-                return true;
+                containerActivity!!.getFileOperationsHelper().streamMediaFile(singleFile)
+                return true
             } else if (itemId == R.id.action_edit) {
                 // should not be necessary, as menu item is filtered, but better play safe
-                if (editorUtils.isEditorAvailable(accountManager.getUser(),
-                                                  singleFile.getMimeType())) {
-                    mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
+                if (editorUtils!!.isEditorAvailable(
+                        accountManager.getUser(),
+                        singleFile.getMimeType()
+                    )
+                ) {
+                    containerActivity!!.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext())
                 } else if (EditImageActivity.Companion.canBePreviewed(singleFile)) {
-                    ((FileDisplayActivity) mContainerActivity).startImageEditor(singleFile);
+                    (containerActivity as FileDisplayActivity).startImageEditor(singleFile)
                 } else {
-                    mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext());
+                    containerActivity!!.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext())
                 }
 
-                return true;
+                return true
             } else if (itemId == R.id.action_rename_file) {
-                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(singleFile, mFile);
-                dialog.show(getFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
-                return true;
+                val dialog = newInstance(
+                    singleFile,
+                    this.currentFile
+                )
+                dialog.show(getFragmentManager()!!, FileDetailFragment.FTAG_RENAME_FILE)
+                return true
             } else if (itemId == R.id.action_see_details) {
-                if (mActiveActionMode != null) {
-                    mActiveActionMode.finish();
+                if (activeActionMode != null) {
+                    activeActionMode!!.finish()
                 }
 
-                mContainerActivity.showDetails(singleFile);
-                mContainerActivity.showSortListGroup(false);
-                return true;
+                containerActivity!!.showDetails(singleFile)
+                containerActivity!!.showSortListGroup(false)
+                return true
             } else if (itemId == R.id.action_set_as_wallpaper) {
-                mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile, getView());
-                return true;
+                containerActivity!!.getFileOperationsHelper().setPictureAs(singleFile, getView())
+                return true
             } else if (itemId == R.id.action_encrypted) {
-                mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, true);
-                return true;
+                containerActivity!!.getFileOperationsHelper().toggleEncryption(singleFile, true)
+                return true
             } else if (itemId == R.id.action_unset_encrypted) {
-                mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, false);
-                return true;
+                containerActivity!!.getFileOperationsHelper().toggleEncryption(singleFile, false)
+                return true
             } else if (itemId == R.id.action_lock_file) {
-                mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, true);
+                containerActivity!!.getFileOperationsHelper().toggleFileLock(singleFile, true)
             } else if (itemId == R.id.action_unlock_file) {
-                mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, false);
+                containerActivity!!.getFileOperationsHelper().toggleFileLock(singleFile, false)
             } else if (itemId == R.id.action_pin_to_homescreen) {
-                shortcutUtil.addShortcutToHomescreen(singleFile, viewThemeUtils, accountManager.getUser(), syncedFolderProvider);
-                return true;
+                shortcutUtil!!.addShortcutToHomescreen(
+                    singleFile,
+                    viewThemeUtils,
+                    accountManager.getUser(),
+                    syncedFolderProvider!!
+                )
+                return true
             } else if (itemId == R.id.action_retry) {
-                backgroundJobManager.startOfflineOperations();
-                return true;
+                backgroundJobManager!!.startOfflineOperations()
+                return true
             }
         }
 
-        /// actions possible on a batch of files
+        /** actions possible on a batch of files */
         if (itemId == R.id.action_remove_file) {
-            RemoveFilesDialogFragment dialog =
-                RemoveFilesDialogFragment.newInstance(new ArrayList<>(checkedFiles), mActiveActionMode);
-            dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-            return true;
+            val dialog =
+                RemoveFilesDialogFragment.newInstance(ArrayList<OCFile?>(checkedFiles), activeActionMode)
+            dialog.show(getFragmentManager()!!, ConfirmationDialogFragment.FTAG_CONFIRMATION)
+            return true
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
-            syncAndCheckFiles(checkedFiles);
-            exitSelectionMode();
-            return true;
+            syncAndCheckFiles(checkedFiles)
+            exitSelectionMode()
+            return true
         } else if (itemId == R.id.action_export_file) {
-            mContainerActivity.getFileOperationsHelper().exportFiles(checkedFiles,
-                                                                     getContext(),
-                                                                     getView(),
-                                                                     backgroundJobManager);
-            exitSelectionMode();
-            return true;
+            containerActivity!!.getFileOperationsHelper().exportFiles(
+                checkedFiles,
+                getContext(),
+                getView(),
+                backgroundJobManager
+            )
+            exitSelectionMode()
+            return true
         } else if (itemId == R.id.action_cancel_sync) {
-            ((FileDisplayActivity) mContainerActivity).cancelTransference(checkedFiles);
-            return true;
+            (containerActivity as FileDisplayActivity).cancelTransference(checkedFiles)
+            return true
         } else if (itemId == R.id.action_favorite) {
-            mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, true);
-            exitSelectionMode();
-            return true;
+            containerActivity!!.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, true)
+            exitSelectionMode()
+            return true
         } else if (itemId == R.id.action_unset_favorite) {
-            mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
-            exitSelectionMode();
-            return true;
+            containerActivity!!.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false)
+            exitSelectionMode()
+            return true
         } else if (itemId == R.id.action_move_or_copy) {
-            String invalidFilename = checkInvalidFilenames(checkedFiles);
+            val invalidFilename = checkInvalidFilenames(checkedFiles)
 
             if (invalidFilename != null) {
-                DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.file_name_validator_rename_before_move_or_copy, invalidFilename));
-                return false;
+                DisplayUtils.showSnackMessage(
+                    requireActivity(),
+                    getString(R.string.file_name_validator_rename_before_move_or_copy, invalidFilename)
+                )
+                return false
             }
 
-            if (!FileNameValidator.INSTANCE.checkParentRemotePaths(new ArrayList<>(checkedFiles), getCapabilities(), requireContext())) {
-                browseToRoot();
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.file_name_validator_current_path_is_invalid);
-                return false;
+            if (!FileNameValidator.checkParentRemotePaths(
+                    ArrayList<OCFile?>(checkedFiles),
+                    this.capabilities, requireContext()
+                )
+            ) {
+                browseToRoot()
+                DisplayUtils.showSnackMessage(requireActivity(), R.string.file_name_validator_current_path_is_invalid)
+                return false
             }
 
-            pickFolderForMoveOrCopy(checkedFiles);
-            return true;
+            pickFolderForMoveOrCopy(checkedFiles)
+            return true
         } else if (itemId == R.id.action_select_all_action_menu) {
-            selectAllFiles(true);
-            return true;
+            selectAllFiles(true)
+            return true
         } else if (itemId == R.id.action_deselect_all_action_menu) {
-            selectAllFiles(false);
-            return true;
+            selectAllFiles(false)
+            return true
         } else if (itemId == R.id.action_send_file) {
-            mContainerActivity.getFileOperationsHelper().sendFiles(checkedFiles);
-            return true;
+            containerActivity!!.getFileOperationsHelper().sendFiles(checkedFiles)
+            return true
         } else if (itemId == R.id.action_lock_file) {
             // TODO call lock API
         }
 
-        return false;
+        return false
     }
 
-    private void browseToRoot() {
-        OCFile root = mContainerActivity.getStorageManager().getFileByEncryptedRemotePath(ROOT_PATH);
-        browseToFolder(root,0);
+    private fun browseToRoot() {
+        val root = containerActivity!!.getStorageManager().getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
+        browseToFolder(root, 0)
     }
 
-    private OCCapability getCapabilities() {
-        final User currentUser = accountManager.getUser();
-        return mContainerActivity.getStorageManager().getCapability(currentUser.getAccountName());
-    }
+    private val capabilities: OCCapability
+        get() {
+            val currentUser = accountManager.getUser()
+            return containerActivity!!.getStorageManager().getCapability(currentUser.accountName)
+        }
 
-    private String checkInvalidFilenames(Set<OCFile> checkedFiles) {
-        for (OCFile file : checkedFiles) {
-            String errorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), requireContext(), null);
+    private fun checkInvalidFilenames(checkedFiles: MutableSet<OCFile>): String? {
+        for (file in checkedFiles) {
+            val errorMessage = checkFileName(
+                file.getFileName(),
+                this.capabilities, requireContext(), null
+            )
             if (errorMessage != null) {
-                return errorMessage;
+                return errorMessage
             }
         }
 
-        return null;
+        return null
     }
 
-    private void pickFolderForMoveOrCopy(final Set<OCFile> checkedFiles) {
-        int requestCode = FileDisplayActivity.REQUEST_CODE__MOVE_OR_COPY_FILES;
-        String extraAction = FolderPickerActivity.MOVE_OR_COPY;
+    private fun pickFolderForMoveOrCopy(checkedFiles: MutableSet<OCFile>) {
+        val requestCode = FileDisplayActivity.REQUEST_CODE__MOVE_OR_COPY_FILES
+        val extraAction = FolderPickerActivity.MOVE_OR_COPY
 
-        final Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-        final ArrayList<String> paths = new ArrayList<>(checkedFiles.size());
-        for (OCFile file : checkedFiles) {
-            paths.add(file.getRemotePath());
+        val action = Intent(getActivity(), FolderPickerActivity::class.java)
+        val paths = ArrayList<String?>(checkedFiles.size)
+        for (file in checkedFiles) {
+            paths.add(file.getRemotePath())
         }
-        action.putStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS, paths);
-        action.putExtra(FolderPickerActivity.EXTRA_FOLDER, getCurrentFile());
-        action.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION); // No animation since we stay in the same folder
-        action.putExtra(FolderPickerActivity.EXTRA_ACTION, extraAction);
-        getActivity().startActivityForResult(action, requestCode);
-    }
-
-
-    /**
-     * Use this to query the {@link OCFile} that is currently being displayed by this fragment
-     *
-     * @return The currently viewed OCFile
-     */
-    @Nullable
-    public OCFile getCurrentFile() {
-        return mFile;
+        action.putStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS, paths)
+        action.putExtra(FolderPickerActivity.EXTRA_FOLDER, this.currentFile)
+        action.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION) // No animation since we stay in the same folder
+        action.putExtra(FolderPickerActivity.EXTRA_ACTION, extraAction)
+        getActivity()!!.startActivityForResult(action, requestCode)
     }
 
     /**
-     * Calls {@link OCFileListFragment#listDirectory(OCFile, boolean)} with a null parameter
+     * Calls [OCFileListFragment.listDirectory] with a null parameter
      */
-    public void listDirectory(boolean onlyOnDevice) {
-        listDirectory(null, onlyOnDevice);
+    fun listDirectory(onlyOnDevice: Boolean) {
+        listDirectory(null, onlyOnDevice)
     }
 
-    public void refreshDirectory() {
-        searchFragment = false;
+    fun refreshDirectory() {
+        this.isSearchFragment = false
 
-        if (mFile != null) {
-            setFabVisible(mFile.canCreateFileAndFolder());
+        if (this.currentFile != null) {
+            setFabVisible(currentFile!!.canCreateFileAndFolder())
         }
 
-        final var currentFile = getCurrentFile();
+        val currentFile = this.currentFile
         if (currentFile != null) {
-            listDirectory(currentFile, MainApp.isOnlyOnDevice());
+            listDirectory(currentFile, MainApp.isOnlyOnDevice())
         }
     }
 
-    public void listDirectory(@Nullable OCFile directory, boolean onlyOnDevice) {
-        listDirectory(directory, null, onlyOnDevice);
+    fun listDirectory(directory: OCFile?, onlyOnDevice: Boolean) {
+        listDirectory(directory, null, onlyOnDevice)
     }
 
-    private OCFile getDirectoryForListDirectory(@Nullable OCFile directory, FileDataStorageManager storageManager) {
+    private fun getDirectoryForListDirectory(directory: OCFile?, storageManager: FileDataStorageManager): OCFile? {
+        var directory = directory
         if (directory == null) {
-            if (mFile != null) {
-                directory = mFile;
+            if (this.currentFile != null) {
+                directory = this.currentFile
             } else {
-                directory = storageManager.getFileByPath(ROOT_PATH);
+                directory = storageManager.getFileByPath(OCFile.ROOT_PATH)
             }
         }
 
         // If that's not a directory -> List its parent
-        if (!directory.isFolder()) {
-            Log_OC.w(TAG, "You see, that is not a directory -> " + directory);
-            directory = storageManager.getFileById(directory.getParentId());
+        if (!directory!!.isFolder()) {
+            Log_OC.w(TAG, "You see, that is not a directory -> " + directory)
+            directory = storageManager.getFileById(directory.getParentId())
         }
 
-        return directory;
+        return directory
     }
 
     /**
      * Lists the given directory on the view. When the input parameter is null, it will either refresh the last known
      * directory. list the root if there never was a directory.
-     *
+     * 
      * @param directory File to be listed
      */
-    public void listDirectory(@Nullable OCFile directory, OCFile file, boolean onlyOnDevice) {
-        if (!searchFragment) {
-            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+    fun listDirectory(directory: OCFile?, file: OCFile?, onlyOnDevice: Boolean) {
+        var directory = directory
+        if (!this.isSearchFragment) {
+            val storageManager = containerActivity!!.getStorageManager()
             if (storageManager == null) {
-                Log_OC.d(TAG, "fileDataStorageManager is null");
-                return;
+                Log_OC.d(TAG, "fileDataStorageManager is null")
+                return
             }
 
-            directory = getDirectoryForListDirectory(directory, storageManager);
+            directory = getDirectoryForListDirectory(directory, storageManager)
             if (directory == null) {
-                Log_OC.e(TAG, "directory is null, no files, wait for sync");
-                return;
+                Log_OC.e(TAG, "directory is null, no files, wait for sync")
+                return
             }
 
             if (mLimitToMimeType == null) {
-                Log_OC.w(TAG, "mLimitToMimeType is null");
-                return;
+                Log_OC.w(TAG, "mLimitToMimeType is null")
+                return
             }
 
-            if (mAdapter == null) {
-                Log_OC.e(TAG, "❗" + "oc file list adapter is null, cannot list directory" + "❗");
-                return;
+            if (this.adapter == null) {
+                Log_OC.e(TAG, "❗" + "oc file list adapter is null, cannot list directory" + "❗")
+                return
             }
 
-            mAdapter.swapDirectory(
+            adapter!!.swapDirectory(
                 accountManager.getUser(),
                 directory,
                 storageManager,
                 onlyOnDevice,
-                mLimitToMimeType);
+                mLimitToMimeType!!
+            )
 
-            OCFile previousDirectory = mFile;
-            mFile = directory;
+            val previousDirectory = this.currentFile
+            this.currentFile = directory
 
-            updateLayout();
+            updateLayout()
 
             if (file != null) {
-                mAdapter.setHighlightedItem(file);
-                int position = mAdapter.getItemPosition(file);
-                if (position != -1 && getRecyclerView() != null) {
-                    getRecyclerView().scrollToPosition(position);
+                adapter!!.setHighlightedItem(file)
+                val position = adapter!!.getItemPosition(file)
+                if (position != -1 && recyclerView != null) {
+                    recyclerView!!.scrollToPosition(position)
                 }
-            } else if (getRecyclerView() != null && (previousDirectory == null || !previousDirectory.equals(directory))) {
-                getRecyclerView().scrollToPosition(0);
+            } else if (recyclerView != null && (previousDirectory == null || previousDirectory != directory)) {
+                recyclerView!!.scrollToPosition(0)
             }
         } else if (isSearchEventSet(searchEvent)) {
-            handleSearchEvent(searchEvent);
+            handleSearchEvent(searchEvent!!)
             if (mRefreshListLayout != null) {
-                mRefreshListLayout.setRefreshing(false);
+                mRefreshListLayout!!.setRefreshing(false)
             }
         }
     }
 
-    public List<OCFile> getAdapterFiles() {
-        return mAdapter.getFiles();
-    }
+    val adapterFiles: MutableList<OCFile?>
+        get() = adapter!!.getFiles()
 
-    public void updateOCFile(@NonNull OCFile file) {
-        List<OCFile> mFiles = mAdapter.getFiles();
-        int index = mFiles.indexOf(file);
+    fun updateOCFile(file: OCFile) {
+        val mFiles = adapter!!.getFiles()
+        val index = mFiles.indexOf(file)
         if (index == -1) {
-            Log_OC.d(TAG, "File cannot be found in adapter's files");
-            return;
+            Log_OC.d(TAG, "File cannot be found in adapter's files")
+            return
         }
 
-        mFiles.set(index, file);
-        mAdapter.notifyItemChanged(file);
+        mFiles.set(index, file)
+        adapter!!.notifyItemChanged(file)
     }
 
-    private void updateLayout() {
-        setLayoutViewMode();
-        updateSortButton();
-        setLayoutSwitchButton();
+    private fun updateLayout() {
+        setLayoutViewMode()
+        updateSortButton()
+        setLayoutSwitchButton()
 
-        setFabVisible(!mHideFab);
-        slideHideBottomBehaviourForBottomNavigationView(!mHideFab);
-        setFabEnabled(mFile != null && (mFile.canCreateFileAndFolder() || mFile.isOfflineOperation()));
+        setFabVisible(!hideFab)
+        slideHideBottomBehaviourForBottomNavigationView(!hideFab)
+        setFabEnabled(this.currentFile != null && (currentFile!!.canCreateFileAndFolder() || currentFile!!.isOfflineOperation()))
 
-        invalidateActionMode();
+        invalidateActionMode()
     }
-    
-    private void updateSortButton() {
+
+    private fun updateSortButton() {
         if (mSortButton != null) {
-            FileSortOrder sortOrder;
-            if (currentSearchType == FAVORITE_SEARCH) {
-                sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView, FileSortOrder.SORT_A_TO_Z);
+            val sortOrder: FileSortOrder
+            if (currentSearchType == SearchType.FAVORITE_SEARCH) {
+                sortOrder =
+                    preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView, FileSortOrder.SORT_A_TO_Z)
             } else {
-                sortOrder = preferences.getSortOrderByFolder(mFile);
+                sortOrder = preferences.getSortOrderByFolder(this.currentFile)
             }
 
-            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+            mSortButton!!.setText(DisplayUtils.getSortOrderStringId(sortOrder))
         }
     }
 
-    private void invalidateActionMode() {
-        if (mActiveActionMode != null) {
-            mActiveActionMode.invalidate();
+    private fun invalidateActionMode() {
+        if (activeActionMode != null) {
+            activeActionMode!!.invalidate()
         }
     }
 
-    public void sortFiles(FileSortOrder sortOrder) {
+    fun sortFiles(sortOrder: FileSortOrder) {
         if (mSortButton != null) {
-            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+            mSortButton!!.setText(DisplayUtils.getSortOrderStringId(sortOrder))
         }
-        mAdapter.setSortOrder(mFile, sortOrder);
+        adapter!!.setSortOrder(this.currentFile, sortOrder)
     }
 
     /**
      * Determines whether a folder should be displayed in grid or list view.
-     * <p>
+     * 
+     * 
      * The preference is checked for the given folder. If the folder itself does not have a preference set,
      * it will fall back to its parent folder recursively until a preference is found (root folder is always set).
-     * Additionally, if a search event is active and is of type {@code SHARED_FILTER}, grid view is disabled.
-     *
-     * @param folder The folder to check, or {@code null} to refer to the root folder.
-     * @return {@code true} if the folder should be displayed in grid mode, {@code false} if list mode is preferred.
+     * Additionally, if a search event is active and is of type `SHARED_FILTER`, grid view is disabled.
+     * 
+     * @param folder The folder to check, or `null` to refer to the root folder.
+     * @return `true` if the folder should be displayed in grid mode, `false` if list mode is preferred.
      */
-    private boolean isGridViewPreferred(@Nullable OCFile folder) {
+    private fun isGridViewPreferred(folder: OCFile?): Boolean {
         if (searchEvent != null) {
-            return (searchEvent.toSearchType() != SHARED_FILTER) &&
-                FOLDER_LAYOUT_GRID.equals(preferences.getFolderLayout(folder));
+            return (searchEvent!!.toSearchType() != SearchType.SHARED_FILTER) &&
+                FOLDER_LAYOUT_GRID == preferences.getFolderLayout(folder)
         } else {
-            return FOLDER_LAYOUT_GRID.equals(preferences.getFolderLayout(folder));
+            return FOLDER_LAYOUT_GRID == preferences.getFolderLayout(folder)
         }
     }
 
-    private void setLayoutViewMode() {
-        boolean isGrid = isGridViewPreferred(mFile);
+    private fun setLayoutViewMode() {
+        val isGrid = isGridViewPreferred(this.currentFile)
 
         if (isGrid) {
-            switchToGridView();
+            switchToGridView()
         } else {
-            switchToListView();
+            switchToListView()
         }
 
-        setLayoutSwitchButton(isGrid);
+        setLayoutSwitchButton(isGrid)
     }
 
-    public void setListAsPreferred() {
-        preferences.setFolderLayout(mFile, FOLDER_LAYOUT_LIST);
-        switchToListView();
+    fun setListAsPreferred() {
+        preferences.setFolderLayout(this.currentFile, FOLDER_LAYOUT_LIST)
+        switchToListView()
     }
 
-    public void switchToListView() {
-        if (isGridEnabled()) {
-            switchLayoutManager(false);
+    public override fun switchToListView() {
+        if (isGridEnabled) {
+            switchLayoutManager(false)
         }
     }
 
-    public void setGridAsPreferred() {
-        preferences.setFolderLayout(mFile, FOLDER_LAYOUT_GRID);
-        switchToGridView();
+    fun setGridAsPreferred() {
+        preferences.setFolderLayout(this.currentFile, FOLDER_LAYOUT_GRID)
+        switchToGridView()
     }
 
-    public void switchToGridView() {
-        if (!isGridEnabled()) {
-            switchLayoutManager(true);
+    public override fun switchToGridView() {
+        if (!isGridEnabled) {
+            switchLayoutManager(true)
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void switchLayoutManager(boolean grid) {
-        final var recyclerView = getRecyclerView();
-        final var adapter = getAdapter();
-        final var context = getContext();
+    fun switchLayoutManager(grid: Boolean) {
+        val recyclerView = recyclerView
+        val adapter = this.adapter
+        val context = getContext()
 
         if (context == null || adapter == null || recyclerView == null) {
-            Log_OC.e(TAG, "cannot switch layout, arguments are null");
-            return;
+            Log_OC.e(TAG, "cannot switch layout, arguments are null")
+            return
         }
 
-        int position = 0;
+        var position = 0
 
-        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager linearLayoutManager) {
-            position = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+        if (recyclerView.getLayoutManager() is LinearLayoutManager) {
+            position = linearLayoutManager.findFirstCompletelyVisibleItemPosition()
         }
 
-        RecyclerView.LayoutManager layoutManager;
+        val layoutManager: RecyclerView.LayoutManager?
         if (grid) {
-            layoutManager = new GridLayoutManager(context, getColumnsCount());
-            GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
-            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    if (position == getAdapter().getItemCount() - 1 ||
-                        position == 0 && getAdapter().shouldShowHeader()) {
-                        return gridLayoutManager.getSpanCount();
+            layoutManager = GridLayoutManager(context, columnsCount)
+            val gridLayoutManager = layoutManager
+            gridLayoutManager.setSpanSizeLookup(object : SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    if (position == this.adapter.getItemCount() - 1 ||
+                        position == 0 && this.adapter.shouldShowHeader()
+                    ) {
+                        return gridLayoutManager.getSpanCount()
                     } else {
-                        return 1;
+                        return 1
                     }
                 }
-            });
+            })
         } else {
-            layoutManager = new LinearLayoutManager(context);
+            layoutManager = LinearLayoutManager(context)
         }
 
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.scrollToPosition(position);
-        adapter.setGridView(grid);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        recyclerView.setLayoutManager(layoutManager)
+        recyclerView.scrollToPosition(position)
+        adapter.setGridView(grid)
+        recyclerView.setAdapter(adapter)
+        adapter.notifyDataSetChanged()
     }
 
-    public CommonOCFileListAdapterInterface getCommonAdapter() {
-        return mAdapter;
-    }
+    open val commonAdapter: CommonOCFileListAdapterInterface?
+        get() = this.adapter
 
-    public OCFileListAdapter getAdapter() {
-        return mAdapter;
-    }
-
-    public void setCurrentSearchType(SearchEvent event) {
-        final var searchType = event.toSearchType();
+    fun setCurrentSearchType(event: SearchEvent) {
+        val searchType = event.toSearchType()
         if (searchType != null) {
-            currentSearchType = searchType;
+            currentSearchType = searchType
         }
     }
 
-    public void setCurrentSearchType(SearchType searchType) {
-        currentSearchType = searchType;
+    fun setCurrentSearchType(searchType: SearchType?) {
+        currentSearchType = searchType
     }
 
-    public SearchType getCurrentSearchType() {
-        return currentSearchType;
-    }
-
-    protected void prepareActionBarItems(SearchEvent event) {
+    protected fun prepareActionBarItems(event: SearchEvent?) {
         if (event != null) {
-            switch (event.getSearchType()) {
-                case FAVORITE_SEARCH:
-                case RECENTLY_MODIFIED_SEARCH:
-                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-                    break;
+            when (event.searchType) {
+                SearchRemoteOperation.SearchType.FAVORITE_SEARCH, SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH -> menuItemAddRemoveValue =
+                    MenuItemAddRemove.REMOVE_SORT
 
-                default:
-                    // do nothing
-                    break;
+                else -> {}
             }
         }
 
-        if (FILE_SEARCH != currentSearchType && getActivity() != null) {
-            getActivity().invalidateOptionsMenu();
+        if (SearchType.FILE_SEARCH != currentSearchType && getActivity() != null) {
+            getActivity()!!.invalidateOptionsMenu()
         }
     }
 
-    protected void setEmptyView(SearchEvent event) {
+    protected fun setEmptyView(event: SearchEvent?) {
         if (event != null) {
-            switch (event.getSearchType()) {
-                case FILE_SEARCH:
-                    setEmptyListMessage(FILE_SEARCH);
-                    break;
-
-                case FAVORITE_SEARCH:
-                    setEmptyListMessage(FAVORITE_SEARCH);
-                    break;
-
-                case RECENTLY_MODIFIED_SEARCH:
-                    setEmptyListMessage(RECENT_FILES_SEARCH);
-                    break;
-
-                case SHARED_FILTER:
-                    setEmptyListMessage(SHARED_FILTER);
-                    break;
-
-                default:
-                    setEmptyListMessage(NO_SEARCH);
-                    break;
+            when (event.searchType) {
+                SearchRemoteOperation.SearchType.FILE_SEARCH -> setEmptyListMessage(SearchType.FILE_SEARCH)
+                SearchRemoteOperation.SearchType.FAVORITE_SEARCH -> setEmptyListMessage(SearchType.FAVORITE_SEARCH)
+                SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH -> setEmptyListMessage(SearchType.RECENT_FILES_SEARCH)
+                SearchRemoteOperation.SearchType.SHARED_FILTER -> setEmptyListMessage(SearchType.SHARED_FILTER)
+                else -> setEmptyListMessage(SearchType.NO_SEARCH)
             }
         } else {
-            setEmptyListMessage(NO_SEARCH);
+            setEmptyListMessage(SearchType.NO_SEARCH)
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
-        Log_OC.d(TAG, "event bus --- change menu event triggered");
+    open fun onMessageEvent(changeMenuEvent: ChangeMenuEvent?) {
+        Log_OC.d(TAG, "event bus --- change menu event triggered")
 
-        final var arguments = getArguments();
+        val arguments = getArguments()
         if (arguments != null) {
-            arguments.clear();
+            arguments.clear()
         }
-        resetSearchAttributes();
-        resetMenuItems();
+        resetSearchAttributes()
+        resetMenuItems()
 
-        if (getActivity() instanceof FileDisplayActivity fda) {
-            fda.invalidateOptionsMenu();
-            fda.getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
-            fda.setupHomeSearchToolbarWithSortAndListButtons();
-            fda.updateActionBarTitleAndHomeButton(null);
-        }
-
-        if (mFile != null) {
-            setFabVisible(mFile.canCreateFileAndFolder());
+        if (getActivity() is FileDisplayActivity) {
+            fda.invalidateOptionsMenu()
+            fda.getIntent().removeExtra(SEARCH_EVENT)
+            fda.setupHomeSearchToolbarWithSortAndListButtons()
+            fda.updateActionBarTitleAndHomeButton(null)
         }
 
-        slideHideBottomBehaviourForBottomNavigationView(true);
+        if (this.currentFile != null) {
+            setFabVisible(currentFile!!.canCreateFileAndFolder())
+        }
+
+        slideHideBottomBehaviourForBottomNavigationView(true)
     }
 
-    private void resetMenuItems() {
-        menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
-        updateSortAndGridMenuItems();
+    private fun resetMenuItems() {
+        menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH
+        updateSortAndGridMenuItems()
     }
 
-    public void resetSearchAttributes() {
-        searchFragment = false;
-        searchEvent = null;
-        currentSearchType = NO_SEARCH;
+    fun resetSearchAttributes() {
+        this.isSearchFragment = false
+        searchEvent = null
+        currentSearchType = SearchType.NO_SEARCH
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEvent(CommentsEvent event) {
-        mAdapter.refreshCommentsCount(event.getRemoteId());
+    fun onMessageEvent(event: CommentsEvent) {
+        adapter!!.refreshCommentsCount(event.remoteId)
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEvent(FavoriteEvent event) {
+    fun onMessageEvent(event: FavoriteEvent) {
         try {
-            User user = accountManager.getUser();
-            OwnCloudClient client = clientFactory.create(user);
+            val user = accountManager.getUser()
+            val client = clientFactory!!.create(user)
 
-            ToggleFavoriteRemoteOperation toggleFavoriteOperation = new ToggleFavoriteRemoteOperation(
-                event.getShouldFavorite(), event.getRemotePath());
-            RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(client);
+            val toggleFavoriteOperation = ToggleFavoriteRemoteOperation(
+                event.shouldFavorite, event.remotePath
+            )
+            val remoteOperationResult = toggleFavoriteOperation.execute(client)
 
             if (remoteOperationResult.isSuccess()) {
-                boolean removeFromList = currentSearchType == FAVORITE_SEARCH && !event.getShouldFavorite();
-                setEmptyListMessage(FAVORITE_SEARCH);
-                if (this instanceof GalleryFragment galleryFragment) {
-                    galleryFragment.markAsFavorite(event.getRemotePath(), event.getShouldFavorite());
+                val removeFromList = currentSearchType == SearchType.FAVORITE_SEARCH && !event.shouldFavorite
+                setEmptyListMessage(SearchType.FAVORITE_SEARCH)
+                if (this is GalleryFragment) {
+                    galleryFragment.markAsFavorite(event.remotePath, event.shouldFavorite)
                 } else {
-                    mAdapter.setFavoriteAttributeForItemID(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
+                    adapter!!.setFavoriteAttributeForItemID(event.remotePath, event.shouldFavorite, removeFromList)
                 }
             }
-
-        } catch (ClientFactory.CreationException e) {
-            Log_OC.e(TAG, "Error processing event", e);
+        } catch (e: CreationException) {
+            Log_OC.e(TAG, "Error processing event", e)
         }
     }
 
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
 
         if (savedInstanceState != null) {
-            searchEvent = BundleExtensionsKt.getParcelableArgument(savedInstanceState, SEARCH_EVENT, SearchEvent.class);
+            searchEvent = savedInstanceState.getParcelableArgument<SearchEvent?>(SEARCH_EVENT, SearchEvent::class.java)
         }
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEvent(final SearchEvent event) {
-        handleSearchEvent(event);
+    fun onMessageEvent(event: SearchEvent) {
+        handleSearchEvent(event)
     }
 
-    protected void handleSearchEvent(SearchEvent event) {
-        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.getSearchType()) {
-            return;
+    protected fun handleSearchEvent(event: SearchEvent) {
+        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
+            return
         }
 
         // avoid calling api multiple times if task is already executing
-        if (searchTask != null && !searchTask.isFinished()) {
+        if (searchTask != null && !searchTask!!.isFinished()) {
             if (searchEvent != null) {
-                Log_OC.d(TAG, "OCFileListSearchTask already running skipping new api call for search event: " + searchEvent.getSearchType());
+                Log_OC.d(
+                    TAG,
+                    "OCFileListSearchTask already running skipping new api call for search event: " + searchEvent!!.searchType
+                )
             }
 
-            return;
+            return
         }
 
-        final var activity = getActivity();
+        val activity = getActivity()
         if (activity != null) {
-            activity.runOnUiThread(() -> {
-                getAdapter().removeAllFiles();
-                setEmptyListMessage(EmptyListState.LOADING);
-            });
+            activity.runOnUiThread(Runnable {
+                this.adapter!!.removeAllFiles()
+                setEmptyListMessage(EmptyListState.LOADING)
+            })
         }
 
-        prepareCurrentSearch(event);
-        searchFragment = true;
-        setFabVisible(false);
+        prepareCurrentSearch(event)
+        this.isSearchFragment = true
+        setFabVisible(false)
 
-        new Handler(Looper.getMainLooper()).post(() -> {
-            updateSortButton();
-            setLayoutViewMode();
-        });
+        Handler(Looper.getMainLooper()).post(Runnable {
+            updateSortButton()
+            setLayoutViewMode()
+        })
 
-        final User currentUser = accountManager.getUser();
-        RemoteOperation remoteOperation;
-        if (currentSearchType == RECENT_FILES_SEARCH) {
-            remoteOperation = getRecentFilesSearchRemoteOperation();
+        val currentUser = accountManager.getUser()
+        val remoteOperation: RemoteOperation<*>
+        if (currentSearchType == SearchType.RECENT_FILES_SEARCH) {
+            remoteOperation = this.recentFilesSearchRemoteOperation
         } else {
-            remoteOperation = getSearchRemoteOperation(currentUser, event);
+            remoteOperation = getSearchRemoteOperation(currentUser, event)
         }
 
-        var storageManager = mContainerActivity.getStorageManager();
+        var storageManager = containerActivity!!.getStorageManager()
         if (storageManager == null) {
-            storageManager = new FileDataStorageManager(currentUser, requireContext().getContentResolver());
+            storageManager = FileDataStorageManager(currentUser, requireContext().getContentResolver())
         }
 
-        searchTask = new OCFileListSearchTask(this,
-                                              remoteOperation,
-                                              currentUser, event,
-                                              SharedListFragment.TASK_TIMEOUT,
-                                              preferences,
-                                              storageManager);
-        searchTask.execute();
+        searchTask = OCFileListSearchTask(
+            this,
+            remoteOperation,
+            currentUser, event,
+            SharedListFragment.TASK_TIMEOUT.toLong(),
+            preferences,
+            storageManager
+        )
+        searchTask!!.execute()
     }
 
-    protected RemoteOperation getSearchRemoteOperation(final User currentUser, final SearchEvent event) {
-        boolean searchOnlyFolders = (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false));
+    protected open fun getSearchRemoteOperation(currentUser: User, event: SearchEvent): RemoteOperation<*> {
+        val searchOnlyFolders = (getArguments() != null && getArguments()!!.getBoolean(ARG_SEARCH_ONLY_FOLDER, false))
 
-        OCCapability ocCapability = mContainerActivity.getStorageManager()
-            .getCapability(currentUser.getAccountName());
+        val ocCapability = containerActivity!!.getStorageManager()
+            .getCapability(currentUser.accountName)
 
-        return new SearchRemoteOperation(event.getSearchQuery(),
-                                         event.getSearchType(),
-                                         searchOnlyFolders,
-                                         ocCapability);
+        return SearchRemoteOperation(
+            event.searchQuery,
+            event.searchType,
+            searchOnlyFolders,
+            ocCapability
+        )
     }
 
-    private RemoteOperation getRecentFilesSearchRemoteOperation() {
-        String accountName = accountManager.getUser().getAccountName();
-        OCCapability capability = mContainerActivity.getStorageManager().getCapability(accountName);
-        String searchQuery = "";
+    private val recentFilesSearchRemoteOperation: RemoteOperation<*>
+        get() {
+            val accountName = accountManager.getUser().accountName
+            val capability = containerActivity!!.getStorageManager().getCapability(accountName)
+            val searchQuery = ""
 
-        SearchRemoteOperation remoteOperation = new SearchRemoteOperation(
-            searchQuery,
-            SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH,
-            false,
-            capability
-        );
+            val remoteOperation = SearchRemoteOperation(
+                searchQuery,
+                SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH,
+                false,
+                capability
+            )
 
-        long nowSeconds = System.currentTimeMillis() / 1000L;
-        long last14DaysTimestamp = nowSeconds - 14L * 24 * 60 * 60;
+            val nowSeconds = System.currentTimeMillis() / 1000L
+            val last14DaysTimestamp = nowSeconds - 14L * 24 * 60 * 60
 
-        remoteOperation.setStartDate(last14DaysTimestamp);
-        remoteOperation.setEndDate(nowSeconds);
-        remoteOperation.setLimit(100);
+            remoteOperation.setStartDate(last14DaysTimestamp)
+            remoteOperation.setEndDate(nowSeconds)
+            remoteOperation.setLimit(100)
 
-        return remoteOperation;
-    }
+            return remoteOperation
+        }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(EncryptionEvent event) {
-        new Thread(() -> {{
-            final User user = accountManager.getUser();
+    fun onMessageEvent(event: EncryptionEvent) {
+        Thread(Runnable {
+            run {
+                val user = accountManager.getUser()
+                // check if keys are stored
+                val publicKey = arbitraryDataProvider!!.getValue(user, EncryptionUtils.PUBLIC_KEY)
+                val privateKey = arbitraryDataProvider!!.getValue(user, EncryptionUtils.PRIVATE_KEY)
 
-            // check if keys are stored
-            String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
-            String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
-
-            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-            OCFile file = storageManager.getFileByRemoteId(event.getRemoteId());
-
-            if (publicKey.isEmpty() || privateKey.isEmpty()) {
-                Log_OC.d(TAG, "no public key for " + user.getAccountName());
+                val storageManager = containerActivity!!.getStorageManager()
+                val file = storageManager.getFileByRemoteId(event.remoteId)
+                if (publicKey.isEmpty() || privateKey.isEmpty()) {
+                    Log_OC.d(TAG, "no public key for " + user.accountName)
 
 
-                requireActivity().runOnUiThread(() -> {
-                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, file.getRemotePath());
-                    dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
-                });
-            } else {
-                // TODO E2E: if encryption fails, to not set it as encrypted!
-                encryptFolder(file,
-                              event.getLocalId(),
-                              event.getRemoteId(),
-                              event.getRemotePath(),
-                              event.getShouldBeEncrypted(),
-                              publicKey,
-                              privateKey,
-                              storageManager);
+                    requireActivity().runOnUiThread(Runnable {
+                        val dialog = newInstance(user, file!!.getRemotePath())
+                        dialog.show(
+                            getParentFragmentManager(),
+                            SetupEncryptionDialogFragment.Companion.SETUP_ENCRYPTION_DIALOG_TAG
+                        )
+                    })
+                } else {
+                    // TODO E2E: if encryption fails, to not set it as encrypted!
+                    encryptFolder(
+                        file!!,
+                        event.localId,
+                        event.remoteId,
+                        event.remotePath,
+                        event.shouldBeEncrypted,
+                        publicKey,
+                        privateKey,
+                        storageManager
+                    )
+                }
             }
-        }}).start();
+        }).start()
     }
 
-    private void encryptFolder(OCFile folder,
-                               long localId,
-                               String remoteId,
-                               String remotePath,
-                               boolean shouldBeEncrypted,
-                               String publicKeyString,
-                               String privateKeyString,
-                               FileDataStorageManager storageManager) {
+    private fun encryptFolder(
+        folder: OCFile,
+        localId: Long,
+        remoteId: String?,
+        remotePath: String?,
+        shouldBeEncrypted: Boolean,
+        publicKeyString: String?,
+        privateKeyString: String?,
+        storageManager: FileDataStorageManager
+    ) {
         try {
-            Log_OC.d(TAG, "encrypt folder " + folder.getRemoteId());
-            User user = accountManager.getUser();
-            OwnCloudClient client = clientFactory.create(user);
-            final var remoteOperationResult = new ToggleEncryptionRemoteOperation(localId,
-                                                                                              remotePath,
-                                                                                              shouldBeEncrypted)
-                .execute(client);
+            Log_OC.d(TAG, "encrypt folder " + folder.getRemoteId())
+            val user = accountManager.getUser()
+            val client = clientFactory!!.create(user)
+            val remoteOperationResult = ToggleEncryptionRemoteOperation(
+                localId,
+                remotePath,
+                shouldBeEncrypted
+            )
+                .execute(client)
 
             if (remoteOperationResult.isSuccess()) {
                 // lock folder
-                String token = EncryptionUtils.lockFolder(folder, client);
+                val token = EncryptionUtils.lockFolder(folder, client)
 
-                OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(user.getAccountName());
-                if (E2EVersionHelper.INSTANCE.isV2Plus(ocCapability)) {
+                val ocCapability = containerActivity!!.getStorageManager().getCapability(user.accountName)
+                if (isV2Plus(ocCapability)) {
                     // Update metadata
-                    Pair<Boolean, DecryptedFolderMetadataFile> metadataPair = EncryptionUtils.retrieveMetadata(folder,
-                                                                                                               client,
-                                                                                                               privateKeyString,
-                                                                                                               publicKeyString,
-                                                                                                               storageManager,
-                                                                                                               user,
-                                                                                                               requireContext(),
-                                                                                                               arbitraryDataProvider);
+                    val metadataPair = EncryptionUtils.retrieveMetadata(
+                        folder,
+                        client,
+                        privateKeyString,
+                        publicKeyString,
+                        storageManager,
+                        user,
+                        requireContext(),
+                        arbitraryDataProvider
+                    )
 
-                    boolean metadataExists = metadataPair.first;
-                    DecryptedFolderMetadataFile metadata = metadataPair.second;
+                    val metadataExists: Boolean = metadataPair.first!!
+                    val metadata = metadataPair.second
 
-                    new EncryptionUtilsV2().serializeAndUploadMetadata(folder,
-                                                                       metadata,
-                                                                       token,
-                                                                       client,
-                                                                       metadataExists,
-                                                                       requireContext(),
-                                                                       user,
-                                                                       storageManager);
+                    EncryptionUtilsV2().serializeAndUploadMetadata(
+                        folder,
+                        metadata,
+                        token,
+                        client,
+                        metadataExists,
+                        requireContext(),
+                        user,
+                        storageManager
+                    )
 
                     // unlock folder
-                    EncryptionUtils.unlockFolder(folder, client, token);
-
-
-                } else if (E2EVersionHelper.INSTANCE.isV1(ocCapability)) {
+                    EncryptionUtils.unlockFolder(folder, client, token)
+                } else if (isV1(ocCapability)) {
                     // unlock folder
-                    EncryptionUtils.unlockFolderV1(folder, client, token);
-                } else if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.UNKNOWN) {
-                    throw new IllegalArgumentException("Unknown E2E version");
-                }
+                    EncryptionUtils.unlockFolderV1(folder, client, token)
+                } else require(ocCapability.endToEndEncryptionApiVersion != E2EVersion.UNKNOWN) { "Unknown E2E version" }
 
-                requireActivity().runOnUiThread(() -> {
-                    boolean isFileExists = (mAdapter.getFileByRemoteId(remoteId) != null);
+                requireActivity().runOnUiThread(Runnable {
+                    val isFileExists = (adapter!!.getFileByRemoteId(remoteId) != null)
                     if (!isFileExists) {
-                        OCFile newFile = storageManager.getFileByRemoteId(remoteId);
-                        mAdapter.insertFile(newFile);
+                        val newFile = storageManager.getFileByRemoteId(remoteId)
+                        adapter!!.insertFile(newFile)
                     }
-
-                    mAdapter.updateFileEncryptionById(remoteId, shouldBeEncrypted);
-                });
-            } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN && getRecyclerView() != null) {
-                requireActivity().runOnUiThread(() -> Snackbar.make(getRecyclerView(),
-                                                            R.string.end_to_end_encryption_folder_not_empty,
-                                                            Snackbar.LENGTH_LONG).show());
+                    adapter!!.updateFileEncryptionById(remoteId, shouldBeEncrypted)
+                })
+            } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN && recyclerView != null) {
+                requireActivity().runOnUiThread(Runnable {
+                    Snackbar.make(
+                        recyclerView!!,
+                        R.string.end_to_end_encryption_folder_not_empty,
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                })
             } else {
-                requireActivity().runOnUiThread(() -> {{
-                    if (getRecyclerView() != null) {
-                        Snackbar.make(getRecyclerView(),
-                                      R.string.common_error_unknown,
-                                      Snackbar.LENGTH_LONG).show();
+                requireActivity().runOnUiThread(Runnable {
+                    run {
+                        if (recyclerView != null) {
+                            Snackbar.make(
+                                recyclerView!!,
+                                R.string.common_error_unknown,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
                     }
-                }});
+                })
             }
-
-        } catch (Throwable e) {
-            Log_OC.e(TAG, "Error creating encrypted folder", e);
+        } catch (e: Throwable) {
+            Log_OC.e(TAG, "Error creating encrypted folder", e)
         }
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEvent(FileLockEvent event) {
-        final User user = accountManager.getUser();
+    fun onMessageEvent(event: FileLockEvent) {
+        val user = accountManager.getUser()
 
         try {
-            NextcloudClient client = clientFactory.createNextcloudClient(user);
-            ToggleFileLockRemoteOperation operation = new ToggleFileLockRemoteOperation(event.getShouldLock(), event.getFilePath());
-            RemoteOperationResult<Void> result = operation.execute(client);
+            val client = clientFactory!!.createNextcloudClient(user)
+            val operation = ToggleFileLockRemoteOperation(event.shouldLock, event.filePath)
+            val result = operation.execute(client)
 
             if (result.isSuccess()) {
                 // TODO only refresh the modified file?
-                new Handler(Looper.getMainLooper()).post(this::onRefresh);
-            } else if (getRecyclerView() != null) {
-                Snackbar.make(getRecyclerView(),
-                              R.string.error_file_lock,
-                              Snackbar.LENGTH_LONG).show();
+                Handler(Looper.getMainLooper()).post(Runnable { this.onRefresh() })
+            } else if (recyclerView != null) {
+                Snackbar.make(
+                    recyclerView!!,
+                    R.string.error_file_lock,
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
+        } catch (e: CreationException) {
+            Log_OC.e(TAG, "Cannot create client", e)
 
-        } catch (ClientFactory.CreationException e) {
-            Log_OC.e(TAG, "Cannot create client", e);
-
-            if (getRecyclerView() != null) {
-                Snackbar.make(getRecyclerView(),
-                              R.string.error_file_lock,
-                              Snackbar.LENGTH_LONG).show();
+            if (recyclerView != null) {
+                Snackbar.make(
+                    recyclerView!!,
+                    R.string.error_file_lock,
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
     }
 
-    @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
+    override fun onStop() {
+        EventBus.getDefault().unregister(this)
+        super.onStop()
     }
 
-
-    @Override
-    public void onRefresh() {
-        if (searchFragment && isSearchEventSet(searchEvent)) {
-            handleSearchEvent(searchEvent);
+    public override fun onRefresh() {
+        if (this.isSearchFragment && isSearchEventSet(searchEvent)) {
+            handleSearchEvent(searchEvent!!)
 
             if (mRefreshListLayout != null) {
-                mRefreshListLayout.setRefreshing(false);
+                mRefreshListLayout!!.setRefreshing(false)
             }
         } else {
-            searchFragment = false;
-            super.onRefresh();
+            this.isSearchFragment = false
+            super.onRefresh()
         }
-    }
-
-    public void setSearchFragment(boolean searchFragment) {
-        this.searchFragment = searchFragment;
-    }
-
-    public boolean isSearchFragment() {
-        return searchFragment;
     }
 
     /**
      * De-/select all elements in the current list view.
-     *
-     * @param select <code>true</code> to select all, <code>false</code> to deselect all
+     * 
+     * @param select `true` to select all, `false` to deselect all
      */
     @SuppressLint("NotifyDataSetChanged")
-    public void selectAllFiles(boolean select) {
-        if (getRecyclerView() == null) {
-            return;
+    fun selectAllFiles(select: Boolean) {
+        if (recyclerView == null) {
+            return
         }
 
-        final var adapter = getRecyclerView().getAdapter();
-        if (adapter instanceof  CommonOCFileListAdapterInterface commonInterface) {
-            commonInterface.selectAll(select);
-            adapter.notifyDataSetChanged();
-            mActiveActionMode.invalidate();
+        val adapter = recyclerView!!.getAdapter()
+        if (adapter is CommonOCFileListAdapterInterface) {
+            adapter.selectAll(select)
+            adapter.notifyDataSetChanged()
+            activeActionMode!!.invalidate()
         }
     }
 
     /**
      * Exits the multi file selection mode.
      */
-    public void exitSelectionMode() {
-        if (mActiveActionMode != null) {
-            mActiveActionMode.finish();
+    fun exitSelectionMode() {
+        if (activeActionMode != null) {
+            activeActionMode!!.finish()
         }
     }
 
-    private boolean isSearchEventSet(SearchEvent event) {
+    private fun isSearchEventSet(event: SearchEvent?): Boolean {
         if (event == null) {
-            return false;
+            return false
         }
-        SearchRemoteOperation.SearchType searchType = event.getSearchType();
-        return !TextUtils.isEmpty(event.getSearchQuery()) ||
-            searchType == SearchRemoteOperation.SearchType.SHARED_FILTER ||
-            searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH ||
-            searchType == SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH;
+        val searchType = event.searchType
+        return !TextUtils.isEmpty(event.searchQuery) || searchType == SearchRemoteOperation.SearchType.SHARED_FILTER || searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH || searchType == SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH
     }
 
-    private void syncAndCheckFiles(Collection<OCFile> files) {
-        boolean isAnyFileFolder = false;
-        for (OCFile file: files) {
+    private fun syncAndCheckFiles(files: MutableCollection<OCFile>) {
+        var isAnyFileFolder = false
+        for (file in files) {
             if (file.isFolder()) {
-                isAnyFileFolder = true;
-                break;
+                isAnyFileFolder = true
+                break
             }
         }
 
-        if (mContainerActivity instanceof FileActivity activity && !files.isEmpty()) {
-            activity.showSyncLoadingDialog(isAnyFileFolder);
+        if (containerActivity is FileActivity && !files.isEmpty()) {
+            containerActivity.showSyncLoadingDialog(isAnyFileFolder)
         }
 
-        Iterator<OCFile> iterator = files.iterator();
+        val iterator = files.iterator()
         while (iterator.hasNext()) {
-            OCFile file = iterator.next();
+            val file = iterator.next()
 
-            long availableSpaceOnDevice = FileOperationsHelper.getAvailableSpaceOnDevice();
+            val availableSpaceOnDevice = FileOperationsHelper.getAvailableSpaceOnDevice()
 
             if (FileStorageUtils.checkIfEnoughSpace(file)) {
-                boolean isLastItem = !iterator.hasNext();
-                mContainerActivity.getFileOperationsHelper().syncFile(file, isLastItem);
+                val isLastItem = !iterator.hasNext()
+                containerActivity!!.getFileOperationsHelper().syncFile(file, isLastItem)
             } else {
-                showSpaceErrorDialog(file, availableSpaceOnDevice);
+                showSpaceErrorDialog(file, availableSpaceOnDevice)
             }
         }
     }
 
-    private void showSpaceErrorDialog(OCFile file, long availableSpaceOnDevice) {
-        SyncFileNotEnoughSpaceDialogFragment dialog =
-            SyncFileNotEnoughSpaceDialogFragment.newInstance(file, availableSpaceOnDevice);
-        dialog.setTargetFragment(this, NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE);
+    private fun showSpaceErrorDialog(file: OCFile, availableSpaceOnDevice: Long) {
+        val dialog =
+            newInstance(file, availableSpaceOnDevice)
+        dialog.setTargetFragment(this, NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE)
 
         if (getFragmentManager() != null) {
-            dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+            dialog.show(getFragmentManager()!!, ConfirmationDialogFragment.FTAG_CONFIRMATION)
         }
     }
 
-    @Override
-    public boolean isLoading() {
-        return false;
+    override fun isLoading(): Boolean {
+        return false
     }
 
     /**
      * Sets the 'visibility' state of the FAB contained in the fragment.
-     * <p>
+     * 
+     * 
      * When 'false' is set, FAB visibility is set to View.GONE programmatically.
-     *
+     * 
      * @param visible Desired visibility for the FAB.
      */
-    public void setFabVisible(final boolean visible) {
-        if (mFabMain == null) {
+    fun setFabVisible(visible: Boolean) {
+        if (floatingActionButton == null) {
             // is not available in FolderPickerActivity
-            return;
+            return
         }
 
-        final var activity = getActivity();
+        val activity = getActivity()
         if (activity == null) {
-            return;
+            return
         }
 
-        activity.runOnUiThread(() -> {
+        activity.runOnUiThread(Runnable {
             if (visible) {
-                mFabMain.show();
-                viewThemeUtils.material.themeFAB(mFabMain);
+                floatingActionButton!!.show()
+                viewThemeUtils.material.themeFAB(floatingActionButton!!)
             } else {
-                mFabMain.hide();
+                floatingActionButton!!.hide()
             }
-
-            ViewExtensionsKt.slideHideBottomBehavior(mFabMain, visible);
-        });
+            floatingActionButton.slideHideBottomBehavior<FloatingActionButton?>(visible)
+        })
     }
 
-    public void slideHideBottomBehaviourForBottomNavigationView(boolean visible) {
-        if (getActivity() instanceof DrawerActivity drawerActivity) {
-            ViewExtensionsKt.slideHideBottomBehavior(drawerActivity.getBottomNavigationView(), visible);
+    fun slideHideBottomBehaviourForBottomNavigationView(visible: Boolean) {
+        if (getActivity() is DrawerActivity) {
+            drawerActivity.getBottomNavigationView().slideHideBottomBehavior<BottomNavigationView?>(visible)
         }
     }
 
     /**
      * Sets the 'visibility' state of the FAB contained in the fragment.
-     * <p>
+     * 
+     * 
      * When 'false' is set, FAB is greyed out
-     *
+     * 
      * @param enabled Desired visibility for the FAB.
      */
-    public void setFabEnabled(final boolean enabled) {
-        if (mFabMain == null) {
+    fun setFabEnabled(enabled: Boolean) {
+        if (floatingActionButton == null) {
             // is not available in FolderPickerActivity
-            return;
+            return
         }
 
         if (getActivity() != null) {
-            getActivity().runOnUiThread(() -> {
+            getActivity()!!.runOnUiThread(Runnable {
                 if (enabled) {
-                    mFabMain.setEnabled(true);
-                    viewThemeUtils.material.themeFAB(mFabMain);
+                    floatingActionButton!!.setEnabled(true)
+                    viewThemeUtils.material.themeFAB(floatingActionButton!!)
                 } else {
-                    mFabMain.setEnabled(false);
-                    viewThemeUtils.material.themeFAB(mFabMain);
+                    floatingActionButton!!.setEnabled(false)
+                    viewThemeUtils.material.themeFAB(floatingActionButton!!)
                 }
-            });
+            })
         }
     }
 
-    /**
-     * Returns the navigation drawer menu item corresponding to this fragment.
-     *
-     * <p>
-     * OCFileListFragment is the parent for GalleryFragment, SharedListFragment,
-     * and GroupfolderListFragment. It also internally handles listing favorites,
-     * shared files, or recently modified items via search events. This method
-     * checks the current fragment type and search state to give correct drawer menu ID.
-     * </p>
-     *
-     * @return the menu item ID to highlight in the navigation drawer
-     */
-    public int getMenuItemId() {
-        if (getClass() == GalleryFragment.class) {
-            return R.id.nav_gallery;
-        } else if (getClass() == SharedListFragment.class || isSearchEventShared() || currentSearchType == SHARED_FILTER) {
-            return R.id.nav_shared;
-        } else if (getClass() == GroupfolderListFragment.class || currentSearchType == SearchType.GROUPFOLDER) {
-            return R.id.nav_groupfolders;
-        } else if (isSearchEventFavorite() || currentSearchType == FAVORITE_SEARCH) {
-            return R.id.nav_favorites;
-        } else if (currentSearchType == RECENT_FILES_SEARCH) {
-            return R.id.nav_recent_files;
-        } else {
-            return R.id.nav_all_files;
+    val menuItemId: Int
+        /**
+         * Returns the navigation drawer menu item corresponding to this fragment.
+         * 
+         * 
+         * 
+         * OCFileListFragment is the parent for GalleryFragment, SharedListFragment,
+         * and GroupfolderListFragment. It also internally handles listing favorites,
+         * shared files, or recently modified items via search events. This method
+         * checks the current fragment type and search state to give correct drawer menu ID.
+         * 
+         * 
+         * @return the menu item ID to highlight in the navigation drawer
+         */
+        get() {
+            if (javaClass == GalleryFragment::class.java) {
+                return R.id.nav_gallery
+            } else if (javaClass == SharedListFragment::class.java || this.isSearchEventShared || currentSearchType == SearchType.SHARED_FILTER) {
+                return R.id.nav_shared
+            } else if (javaClass == GroupfolderListFragment::class.java || currentSearchType == SearchType.GROUPFOLDER) {
+                return R.id.nav_groupfolders
+            } else if (this.isSearchEventFavorite || currentSearchType == SearchType.FAVORITE_SEARCH) {
+                return R.id.nav_favorites
+            } else if (currentSearchType == SearchType.RECENT_FILES_SEARCH) {
+                return R.id.nav_recent_files
+            } else {
+                return R.id.nav_all_files
+            }
         }
-    }
 
-    public boolean isEmpty() {
-        return mAdapter == null || mAdapter.isEmpty();
-    }
+    val isEmpty: Boolean
+        get() = this.adapter == null || adapter!!.isEmpty()
 
-    public SearchEvent getSearchEvent() {
-        return searchEvent;
-    }
+    val isSearchEventFavorite: Boolean
+        get() = isSearchEvent(SearchRemoteOperation.SearchType.FAVORITE_SEARCH)
 
-    public boolean isSearchEventFavorite() {
-        return isSearchEvent(SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
-    }
+    val isSearchEventShared: Boolean
+        get() = isSearchEvent(SearchRemoteOperation.SearchType.SHARED_FILTER)
 
-    public boolean isSearchEventShared() {
-        return isSearchEvent(SearchRemoteOperation.SearchType.SHARED_FILTER);
-    }
-
-    private boolean isSearchEvent(SearchRemoteOperation.SearchType givenEvent) {
+    private fun isSearchEvent(givenEvent: SearchRemoteOperation.SearchType?): Boolean {
         if (searchEvent == null) {
-            return false;
+            return false
         }
-        return searchEvent.getSearchType() == givenEvent;
+        return searchEvent!!.searchType == givenEvent
     }
 
-    public boolean shouldNavigateBackToAllFiles() {
-        return this instanceof GalleryFragment ||
-            isSearchEventFavorite() ||
-            isSearchEventShared();
+    fun shouldNavigateBackToAllFiles(): Boolean {
+        return this is GalleryFragment ||
+            this.isSearchEventFavorite ||
+            this.isSearchEventShared
+    }
+
+    companion object {
+        protected val TAG: String = OCFileListFragment::class.java.getSimpleName()
+
+        private val MY_PACKAGE: String? =
+            if (OCFileListFragment::class.java.getPackage() != null) OCFileListFragment::class.java.getPackage()
+                .getName() else "com.owncloud.android.ui.fragment"
+
+        val ARG_ONLY_FOLDERS_CLICKABLE: String = MY_PACKAGE + ".ONLY_FOLDERS_CLICKABLE"
+        val ARG_FILE_SELECTABLE: String = MY_PACKAGE + ".FILE_SELECTABLE"
+        val ARG_ALLOW_CONTEXTUAL_ACTIONS: String = MY_PACKAGE + ".ALLOW_CONTEXTUAL"
+        val ARG_HIDE_FAB: String = MY_PACKAGE + ".HIDE_FAB"
+        val ARG_HIDE_ITEM_OPTIONS: String = MY_PACKAGE + ".HIDE_ITEM_OPTIONS"
+        val ARG_SEARCH_ONLY_FOLDER: String = MY_PACKAGE + ".SEARCH_ONLY_FOLDER"
+        val ARG_MIMETYPE: String = MY_PACKAGE + ".MIMETYPE"
+
+        const val DOWNLOAD_SEND: String = "DOWNLOAD_SEND"
+
+        const val FOLDER_LAYOUT_LIST: String = "LIST"
+        const val FOLDER_LAYOUT_GRID: String = "GRID"
+
+        const val SEARCH_EVENT: String = "SEARCH_EVENT"
+        private val KEY_FILE: String = MY_PACKAGE + ".extra.FILE"
+        const val KEY_CURRENT_SEARCH_TYPE: String = "CURRENT_SEARCH_TYPE"
+
+        private const val DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER"
+        private const val DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT"
+        private const val DIALOG_BOTTOM_SHEET = "DIALOG_BOTTOM_SHEET"
+
+        private const val SINGLE_SELECTION = 1
+        private const val NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE = 2
+
+        @JvmField
+        var isMultipleFileSelectedForCopyOrMove: Boolean = false
+        private val scanIntentExternalApp = Intent("org.fairscan.app.action.SCAN_TO_PDF")
+
+        @JvmField
+        private var fileDepth: OCFileDepth? = OCFileDepth.Root
     }
 }

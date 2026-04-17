@@ -44,7 +44,7 @@ class SharedListFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        searchFragment = true
+        isSearchFragment = true
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -75,7 +75,7 @@ class SharedListFragment :
         val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
         if (fetchResult.isSuccess) {
             val remoteFile = (fetchResult.data[0] as RemoteFile).apply {
-                val existingFile = mContainerActivity.storageManager.getFileByDecryptedRemotePath(remotePath)
+                val existingFile = containerActivity.storageManager.getFileByDecryptedRemotePath(remotePath)
 
                 // Use previous eTag if exists to prevent break checkForChanges logic in RefreshFolderOperation.
                 // Otherwise RefreshFolderOperation will show empty list
@@ -85,7 +85,7 @@ class SharedListFragment :
             }
             val file = FileStorageUtils.fillOCFile(remoteFile)
             FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
-            val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)
+            val savedFile = containerActivity.storageManager.saveFileWithParent(file, context)
             savedFile.apply {
                 isSharedViaLink = partialFile.isSharedViaLink
                 isSharedWithSharee = partialFile.isSharedWithSharee

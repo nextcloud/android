@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -37,8 +36,6 @@ import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
-
-import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -80,7 +77,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        searchFragment = true;
+        isSearchFragment = true;
 
         setHasOptionsMenu(true);
 
@@ -181,7 +178,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                       accountManager.getUser(),
                                       this,
                                       preferences,
-                                      mContainerActivity,
+                                      containerActivity,
                                       viewThemeUtils,
                                       columnSize,
                                       ThumbnailsCacheManager.getThumbnailDimension());
@@ -341,10 +338,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     private void runGallerySearchTask() {
-        if (mContainerActivity != null) {
+        if (containerActivity != null) {
             photoSearchTask = new GallerySearchTask(this,
                                                     accountManager.getUser(),
-                                                    mContainerActivity.getStorageManager(),
+                                                    containerActivity.getStorageManager(),
                                                     endDate,
                                                     limit)
                 .execute();

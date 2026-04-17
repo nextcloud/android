@@ -40,7 +40,7 @@ class GroupfolderListFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        searchFragment = true
+        isSearchFragment = true
     }
 
     @Deprecated("Deprecated in Java")
@@ -67,7 +67,7 @@ class GroupfolderListFragment :
         GroupfoldersSearchTask(
             this,
             accountManager.user,
-            mContainerActivity.storageManager
+            containerActivity.storageManager
         ).execute()
     }
 

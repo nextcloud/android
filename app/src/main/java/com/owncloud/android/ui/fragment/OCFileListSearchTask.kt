@@ -147,7 +147,7 @@ class OCFileListSearchTask(
 
     private suspend fun updateAdapterData(fragment: OCFileListFragment, newList: List<OCFile>) =
         withContext(Dispatchers.Main) {
-            if (!fragment.isAdded || !fragment.searchFragment) {
+            if (!fragment.isAdded || !fragment.isSearchFragment) {
                 Log_OC.e(TAG, "cannot update adapter data, fragment is not ready")
                 return@withContext
             }
