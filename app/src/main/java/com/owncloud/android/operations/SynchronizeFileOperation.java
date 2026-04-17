@@ -186,18 +186,8 @@ public class SynchronizeFileOperation extends SyncOperation {
         mTransferWasRequested = false;
 
         if (mLocalFile == null) {
-            if (mRemotePath == null) {
-                Log_OC.e(TAG, "Cannot synchronize file: remotePath is null");
-                return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
-            }
-
             // Get local file from the DB
             mLocalFile = getStorageManager().getFileByPath(mRemotePath);
-        }
-
-        if (mLocalFile == null) {
-            Log_OC.e(TAG, "Cannot synchronize file: local file not found in database for path: " + mRemotePath);
-            return new RemoteOperationResult(ResultCode.FILE_NOT_FOUND);
         }
 
         if (!mLocalFile.isDown()) {
