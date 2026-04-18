@@ -372,7 +372,7 @@
     <string name="error_crash_title">%1$s a planté</string>
     <string name="error_creating_file_from_template">Erreur lors de la création du fichier à partir du modèle</string>
     <string name="error_fetching_sharees">Impossible de récupérer les partages.</string>
-    <string name="error_file_actions">Erreur d\'affichage des actions de fichier</string>
+    <string name="error_file_actions">Erreur d\'affichage des actions sur les fichiers</string>
     <string name="error_file_lock">Erreur lors de la modification de l\'état de verrouillage du fichier</string>
     <string name="error_report_issue_action">Signaler</string>
     <string name="error_report_issue_text">Signaler le problème au traqueur ? (nécessite un compte GitHub)</string>

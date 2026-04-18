@@ -26,6 +26,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.utils.extensions.webDavParentPath
 import com.owncloud.android.R
@@ -320,21 +321,21 @@ class UploadListActivity :
             val client = clientRepository.getOwncloudClient()
 
             // Check parent folder exists
-            val parentPath = storageManager
-                .getFileByPath(upload.remotePath)
-                .parentRemotePath
-                ?: upload.remotePath.webDavParentPath()
+            val file = storageManager.getFileByPath(upload.remotePath)
+            val parentPath = (file?.parentRemotePath ?: upload.remotePath?.webDavParentPath())
 
-            val checkOp = ExistenceCheckRemoteOperation(parentPath, false)
-            val checkResult = checkOp.execute(client)
+            parentPath?.let {
+                val checkOp = ExistenceCheckRemoteOperation(it, false)
+                val checkResult = checkOp.execute(client)
 
-            if (!checkResult.isSuccess &&
-                checkResult.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND
-            ) {
-                withContext(Dispatchers.Main) {
-                    showConflictSnackbar(R.string.uploader_file_not_found_message)
+                if (!checkResult.isSuccess &&
+                    checkResult.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND
+                ) {
+                    withContext(Dispatchers.Main) {
+                        showConflictSnackbar(R.string.uploader_file_not_found_message)
+                    }
+                    return@launch
                 }
-                return@launch
             }
 
             val result = uploadFileOperationFactory
@@ -343,6 +344,10 @@ class UploadListActivity :
 
             if (result.isSuccess) {
                 withContext(Dispatchers.Main) {
+                    UploadErrorNotificationManager.dismissConflictResolveNotification(
+                        this@UploadListActivity,
+                        upload.uploadId
+                    )
                     uploadListAdapter.loadUploadItemsFromDb()
                 }
             }

@@ -8,6 +8,7 @@
 package com.nextcloud.client.jobs.utils
 
 import android.app.Notification
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -31,6 +32,11 @@ import kotlinx.coroutines.withContext
 
 object UploadErrorNotificationManager {
     private const val TAG = "UploadErrorNotificationManager"
+
+    fun dismissConflictResolveNotification(context: Context, id: Long) {
+        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.cancel(id.toInt())
+    }
 
     /**
      * Processes the result of an upload operation and manages error notifications.
