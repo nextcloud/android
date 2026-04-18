@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Tente enviar uma mensagem para iniciar uma conversa.</string>
     <string name="assistant_screen_empty_content_title">Oi! Em que posso ajudá-lo hoje?</string>
     <string name="assistant_screen_retry_response_generation">Retentar geração de resposta</string>
-    <string name="assistant_screen_select_task">Selecione uma tarefa</string>
     <string name="assistant_screen_send_message">Enviar mensagem</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Abrir lista de conversas</string>
     <string name="assistant_screen_task_create_fail_message">Ocorreu um erro ao criar a tarefa</string>
@@ -114,6 +113,8 @@
     <string name="authenticator_activity_no_web_browser_found">Não há nenhum navegador disponível para abrir este link.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, conclua o processo de login no seu navegador</string>
     <string name="auto_upload_battery_saver_mode_warning">O upload automático está pausado porque o Economizador de Bateria está ativado.</string>
+    <string name="auto_upload_delete_dialog_description">Isso removerá a pasta e a configuração de envio automático. Quaisquer envios em andamento serão cancelados.</string>
+    <string name="auto_upload_delete_dialog_title">Excluir a pasta de upload automático?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
     <string name="auto_upload_low_battery_warning_info">Bateria fraca, o upload pode demorar mais tempo</string>
     <string name="auto_upload_on_wifi">Enviar só por Wi-Fi não medida</string>
@@ -245,6 +246,8 @@
     <string name="could_not_retrieve_url">Não foi possível recuperar a URL</string>
     <string name="create">Criar</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
+    <string name="create_end_to_end_encrypted_share">Compartilhamento por link</string>
+    <string name="create_end_to_end_encrypted_share_title">Compartilhamentos por link criptografados de ponta-a-ponta</string>
     <string name="create_link">Criar link</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
@@ -253,7 +256,6 @@
     <string name="create_new_presentation">Nova apresentação</string>
     <string name="create_new_spreadsheet">Nova planilha</string>
     <string name="create_rich_workspace">Adicionar descrição da pasta</string>
-    <string name="creates_rich_workspace">Adiciona descrição da pasta</string>
     <string name="credentials_disabled">Credenciais desabilitadas</string>
     <string name="daily_backup">Backup diário </string>
     <string name="data_to_back_up">Dados para backup </string>
@@ -320,7 +322,6 @@
     <string name="drawer_item_on_device">No dispositivo</string>
     <string name="drawer_item_personal_files">Arquivos pessoais</string>
     <string name="drawer_item_recent_files">Arquivos recentes</string>
-    <string name="drawer_item_recently_modified">Modificados recentemente</string>
     <string name="drawer_item_shared">Compartilhado</string>
     <string name="drawer_item_trashbin">Arquivos excluídos</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -441,7 +442,6 @@
     <string name="file_list_empty_on_device">Os arquivos e pastas baixados aparecerão aqui.</string>
     <string name="file_list_empty_recent_files_description">Arquivos e pastas que você modificou recentemente aparecerão aqui.</string>
     <string name="file_list_empty_recent_files_headline">Nenhum arquivo modificado recentemente</string>
-    <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
     <string name="file_list_empty_search">Talvez seja uma pasta diferente?</string>
     <string name="file_list_empty_shared">Arquivos e pastas que você compartilhar serão exibidos aqui.</string>
     <string name="file_list_empty_shared_headline">Você ainda não compartilhou nada!</string>
@@ -562,6 +562,8 @@
     <string name="instant_upload_existing">Enviar arquivos existentes também</string>
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/UploadInstantâneo</string>
+    <string name="internal_share_description_end_to_end_encrypted">Os destinatários do compartilhamento sempre têm acesso à pasta criptografada na íntegra. Só é possível compartilhar com contas que já tenham configurado a criptografia de ponta a ponta.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Compartilhamentos criptografados de ponta-a-ponta</string>
     <string name="internal_shares">Compartilhamentos internos</string>
     <string name="internal_two_way_sync">Sincronização bidirecional interna</string>
     <string name="internal_two_way_sync_not_yet">Ainda não, em breve será sincronizado</string>
@@ -854,7 +856,6 @@
     <string name="send">Enviar</string>
     <string name="send_copy_to">Enviar cópia para</string>
     <string name="send_share">Enviar compartilhamento</string>
-    <string name="sendbutton_description">Ícone do botão Enviar</string>
     <string name="server_not_reachable">Não foi possível carregar o conteúdo</string>
     <string name="server_not_reachable_content">O dispositivo provavelmente não está conectado à Internet</string>
     <string name="set_as">Definir como</string>
@@ -896,7 +897,6 @@
     <string name="share_option_required">Selecione pelo menos uma opção de compartilhamento antes de continuar.</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_file_request">Solicitação de arquivo</string>
-    <string name="share_permission_secure_file_drop">Depósito de arquivos seguro</string>
     <string name="share_permission_view_only">Somente visualização </string>
     <string name="share_permissions">Permissões do compartilhamento</string>
     <string name="share_re_share_permission">Compartilhar</string>
@@ -1109,7 +1109,11 @@
     <string name="upload_query_move_foreign_files">O espaço insuficiente está impedindo a cópia dos arquivos selecionados para a pasta %1$s. Em vez de copiá-los, gostaria de movê-los para lá?</string>
     <string name="upload_quota_exceeded">Cota de armazenamento excedida</string>
     <string name="upload_scan_doc_upload">Digitalizar documento com a câmera</string>
-    <string name="upload_sync_conflict">Conflito na sincronização, resolva manualmente</string>
+    <string name="upload_sync_conflict_check">Pode haver um conflito com o seu último envio. Toque para verificar.</string>
+    <string name="upload_sync_conflict_check_error">Não foi possível verificar se há conflitos de upload. Tente novamente.</string>
+    <string name="upload_sync_conflict_checking">Verificando se há conflitos de upload…</string>
+    <string name="upload_sync_conflict_not_exists">Conflito resolvido.</string>
+    <string name="upload_sync_conflict_same_file">Não foi detectado nenhum conflito. Mesmo arquivo.</string>
     <string name="upload_unknown_error">Erro desconhecido</string>
     <string name="uploader_btn_alternative_text">Escolher</string>
     <string name="uploader_btn_upload_text">Enviar</string>
@@ -1156,7 +1160,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Arquivo local não encontrado</string>
     <string name="uploads_view_upload_status_failed_permission_error">Erro de permissão</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificado de servidor não confiável</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Buscando versão do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicativo finalizado</string>
     <string name="uploads_view_upload_status_skip">Ignorado</string>
     <string name="uploads_view_upload_status_skip_reason">Um arquivo com o mesmo nome já existe.</string>
@@ -1170,7 +1173,9 @@
     <string name="user_icon">Usuário</string>
     <string name="user_info_address">Endereço</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Grupos</string>
     <string name="user_info_phone">Número do telefone</string>
+    <string name="user_info_profile">Perfil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Erro ao recuperar informação do usuário</string>

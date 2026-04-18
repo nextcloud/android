@@ -10,15 +10,24 @@ package com.owncloud.android.ui.adapter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.databinding.FileDetailsShareSecureFileDropAddNewItemBinding
+import com.owncloud.android.utils.theme.ViewThemeUtils
 
-internal class NewSecureFileDropViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class NewSecureFileDropViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var binding: FileDetailsShareSecureFileDropAddNewItemBinding? = null
+    private var viewThemeUtils: ViewThemeUtils? = null
 
-    constructor(binding: FileDetailsShareSecureFileDropAddNewItemBinding) : this(binding.root) {
+    constructor(
+        binding: FileDetailsShareSecureFileDropAddNewItemBinding,
+        viewThemeUtils: ViewThemeUtils
+    ) : this(binding.root) {
         this.binding = binding
+        this.viewThemeUtils = viewThemeUtils
     }
 
     fun bind(listener: ShareeListAdapterListener) {
-        binding!!.addNewSecureFileDrop.setOnClickListener { v: View? -> listener.createSecureFileDrop() }
+        binding?.addPublicShare?.let {
+            it.setOnClickListener { listener.createSecureFileDrop() }
+            viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(it)
+        }
     }
 }

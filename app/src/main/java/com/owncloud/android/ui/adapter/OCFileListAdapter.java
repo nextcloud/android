@@ -131,7 +131,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final long footerId = UUID.randomUUID().getLeastSignificantBits();
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
 
-    private ArrayList<OCFile> recommendedFiles = new ArrayList<>();
+    private List<OCFile> recommendedFiles = new ArrayList<>();
     private RecommendedFilesAdapter recommendedFilesAdapter;
     private final OCFileListAdapterHelper helper = new OCFileListAdapterHelper();
     private final OverlayManager overlayManager;
@@ -703,14 +703,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateRecommendedFiles(ArrayList<OCFile> recommendedFiles) {
-        this.recommendedFiles = recommendedFiles;
-
-        if (recommendedFiles == null || recommendedFiles.isEmpty()) {
-            notifyDataSetChanged();
-        } else {
-            notifyItemChanged(0);
-        }
+    public void updateRecommendedFiles(@NonNull List<OCFile> value) {
+        recommendedFiles.clear();
+        recommendedFiles.addAll(value);
+        notifyDataSetChanged();
     }
 
     private void applyChipVisuals(Chip chip, Tag tag) {

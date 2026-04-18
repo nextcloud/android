@@ -132,7 +132,7 @@
     <string name="community_release_candidate_text">Šis laidiena kandidāts (RC) ir gaidāma laidiena momentuzņēmums, un tam vajadzētu būt noturīgam. Savas iestatnes pārbaudīšana varētu palīdzēt par to pārliecināties. Pārbaudīšanai var pieteikties Play veikalā vai pašrocīgi, apskatot F-Droid sadaļu \"Versija\". </string>
     <string name="community_testing_bug_text">Atradi kļūdu vai nepilnību?</string>
     <string name="community_testing_headline">Palīdzi testējot</string>
-    <string name="community_testing_report_text">Ziņojiet par problēmu Github</string>
+    <string name="community_testing_report_text">Ziņot par nepilnību Github</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurēt</string>
     <string name="confirmation_remove_file_alert">Vai tiešām izdzēst %1$s?</string>
     <string name="confirmation_remove_files_alert">Vai tiešām izdzēst atlasītos vienumus?</string>
@@ -162,7 +162,6 @@
     <string name="create_new_presentation">Jauna prezentācija</string>
     <string name="create_new_spreadsheet">Jauna izklājlapa</string>
     <string name="create_rich_workspace">Pievienot mapes aprakstu</string>
-    <string name="creates_rich_workspace">Pievieno mapes aprakstu</string>
     <string name="credentials_disabled">Akreditācijas dati atspējoti</string>
     <string name="default_credentials_wrong">Nepareizi akreditācijas dati</string>
     <string name="delete_account">Noņemt kontu</string>
@@ -202,7 +201,6 @@
     <string name="drawer_item_notifications">Paziņojumi</string>
     <string name="drawer_item_on_device">Ierīcē</string>
     <string name="drawer_item_personal_files">Personīgās datnes</string>
-    <string name="drawer_item_recently_modified">Nesen mainītie</string>
     <string name="drawer_item_shared">Koplietots</string>
     <string name="drawer_item_trashbin">Izdzēstās datnes</string>
     <string name="drawer_item_uploads_list">Augšupielādes</string>
@@ -246,7 +244,6 @@
     <string name="file_list_empty_headline_server_search">Nav iznākuma</string>
     <string name="file_list_empty_local_search">Nav datņu vai mapju, kas atbilstu meklētajam</string>
     <string name="file_list_empty_moving">Šeit nekā nav. Var pievienot mapi.</string>
-    <string name="file_list_empty_recently_modified">Neatrada nevienu datni, kas izmainīta pēdējās 7 dienās</string>
     <string name="file_list_empty_search">Varbūt tas atrodas citā mapē?</string>
     <string name="file_list_empty_shared_headline">Nekas vēl nav koplietots</string>
     <string name="file_list_folder">mape</string>
@@ -465,7 +462,7 @@
     <string name="preview_image_description">Attēla priekšskatījums</string>
     <string name="preview_image_error_no_local_file">Nav vietējās datnes, ko priekšskatīt</string>
     <string name="preview_image_error_unknown_format">Nevar attēlot attēlu</string>
-    <string name="preview_sorry">Atvainojiet</string>
+    <string name="preview_sorry">Atvainojamies</string>
     <string name="privacy">Privātums</string>
     <string name="recommend_subject">Izmēģini %1$s savā ierīcē!</string>
     <string name="recommend_text">Izmanto %1$s lietotni arī Tu.\nLejuplādē to šeit: %2$s</string>
@@ -611,7 +608,6 @@
     <string name="upload_list_empty_text_auto_upload">Augšupielādē kaut ko vai ieslēdz automātisko augšupielādi!</string>
     <string name="upload_list_resolve_conflict">Atrisināt nesaderību</string>
     <string name="upload_query_move_foreign_files">Nepietiekama vieta liedz izvēlētās datnes kopēt mapē %1$s. Vai tās pārvietot tur?</string>
-    <string name="upload_sync_conflict">Sinhronizēšanas nesaderība, lūgums to pašrocīgi atrisināt</string>
     <string name="upload_unknown_error">Nezināma kļūda</string>
     <string name="uploader_btn_alternative_text">Izvēlēties</string>
     <string name="uploader_btn_upload_text">Augšupielādēt</string>
@@ -653,7 +649,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Vietējā datne nav atrasta</string>
     <string name="uploads_view_upload_status_failed_permission_error">Tiesību kļūda</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Neuzticams servera sertifikāts</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Iegūst servera versiju…</string>
     <string name="uploads_view_upload_status_service_interrupted">Lietotne aizvērta</string>
     <string name="uploads_view_upload_status_succeeded">Pabeigts</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Atrasta tāda pati attālā datne, izlaiž augšupielādi</string>
@@ -664,7 +659,9 @@
     <string name="user_icon">Lietotājs</string>
     <string name="user_info_address">Adrese</string>
     <string name="user_info_email">E-pasts</string>
+    <string name="user_info_groups">Grupas</string>
     <string name="user_info_phone">Tālruņa numurs</string>
+    <string name="user_info_profile">Profils</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Mājaslapa</string>
     <string name="userinfo_no_info_headline">Personiskā informācija nav uzstādīta</string>

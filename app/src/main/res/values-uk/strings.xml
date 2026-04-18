@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Спробуйте надіслати повідомлення, щоб розпочати розмову.</string>
     <string name="assistant_screen_empty_content_title">Вітаю! Чим я можу вам сьогодні допомогти?</string>
     <string name="assistant_screen_retry_response_generation">Повторна спроба генерації відповіді</string>
-    <string name="assistant_screen_select_task">Виберіть завдання</string>
     <string name="assistant_screen_send_message">Надіслати повідомлення</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Відкрити список розмов</string>
     <string name="assistant_screen_task_create_fail_message">Помилка під час додавання завдання</string>
@@ -114,6 +113,8 @@
     <string name="authenticator_activity_no_web_browser_found">Відсутній бравзер для відкриття цього посилання.</string>
     <string name="authenticator_activity_please_complete_login_process">Завершити авторизацію у бравзері</string>
     <string name="auto_upload_battery_saver_mode_warning">Автозавантаження призупинено, оскільки увімкнено заощадження батареї.</string>
+    <string name="auto_upload_delete_dialog_description">Таким чином буде вилучено каталог та налаштування автоматичного завантаження. Всі незавершені завантаження буде скасовано.</string>
+    <string name="auto_upload_delete_dialog_title">Вилучити каталог автозавантаження?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">залишено у вихідному каталозі, оскільки він доступний лише для читання</string>
     <string name="auto_upload_low_battery_warning_info">Низький заряд батареї, завантаження може тривати доше</string>
     <string name="auto_upload_on_wifi">Завантаження тільки через WiFi</string>
@@ -245,6 +246,8 @@
     <string name="could_not_retrieve_url">Неможливо отримати посилання</string>
     <string name="create">Створити</string>
     <string name="create_dir_fail_msg">Неможливо створити каталог</string>
+    <string name="create_end_to_end_encrypted_share">Спільне посилання</string>
+    <string name="create_end_to_end_encrypted_share_title">Наскрізно зашифровані спільні посилання</string>
     <string name="create_link">Створити посилання</string>
     <string name="create_new">Створити</string>
     <string name="create_new_document">Новий документ</string>
@@ -253,7 +256,6 @@
     <string name="create_new_presentation">Нова презентація</string>
     <string name="create_new_spreadsheet">Нова електронна таблиця</string>
     <string name="create_rich_workspace">Додати опис каталогу</string>
-    <string name="creates_rich_workspace">Додає опис каталогу</string>
     <string name="credentials_disabled">Дані авторизації не активні</string>
     <string name="daily_backup">Щоденне резервне збереження</string>
     <string name="data_to_back_up">Дані користувача для резервного збереження</string>
@@ -320,7 +322,6 @@
     <string name="drawer_item_on_device">На пристрої</string>
     <string name="drawer_item_personal_files">Мої документи</string>
     <string name="drawer_item_recent_files">Нещодавні файли</string>
-    <string name="drawer_item_recently_modified">Нещодавно змінені</string>
     <string name="drawer_item_shared">Спільні</string>
     <string name="drawer_item_trashbin">Кошик</string>
     <string name="drawer_item_uploads_list">Завантаження</string>
@@ -441,7 +442,6 @@
     <string name="file_list_empty_on_device">Тут ти можете знайти каталоги та файли, які було звантажено.</string>
     <string name="file_list_empty_recent_files_description">Тут показуватимуться файли та каталоги, які було нещодавно змінено.</string>
     <string name="file_list_empty_recent_files_headline">Відсутні файли, які було нещодавно змінено</string>
-    <string name="file_list_empty_recently_modified">Відсутні зміни серед файлів за останні 7 днів</string>
     <string name="file_list_empty_search">Можливо, це інший каталог?</string>
     <string name="file_list_empty_shared">Тут можна буде знайти файли та каталоги, якими ви поділилися.</string>
     <string name="file_list_empty_shared_headline">Жодного спільного файлу</string>
@@ -562,6 +562,8 @@
     <string name="instant_upload_existing">Також завантажити існуючі файли</string>
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_description_end_to_end_encrypted">Отримувачі спільних ресурсів завжди матимуть доступ до зашифрованого каталогу. Ним можна поділитися буде тільки з тими користувачами, які собі налаштували наскрізне шифрування.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Спільні ресурси з наскрізним шифруванням</string>
     <string name="internal_shares">Внутрішні спільні ресурси</string>
     <string name="internal_two_way_sync">Внутрішня двостороння синхронізація</string>
     <string name="internal_two_way_sync_not_yet">Поки не впроваджено</string>
@@ -854,7 +856,6 @@
     <string name="send">Надіслати</string>
     <string name="send_copy_to">Надіслати копію до</string>
     <string name="send_share">Надати у спільний доступ</string>
-    <string name="sendbutton_description">Зображення кнопки надсилання</string>
     <string name="server_not_reachable">Не вдалося завантажити вміст</string>
     <string name="server_not_reachable_content">Схоже, пристрій не під\'єднано до Інтернету</string>
     <string name="set_as">Встановити як</string>
@@ -896,7 +897,6 @@
     <string name="share_option_required">Перед продовженням виберіть щонайменше одну опцію надання у спільний доступ.</string>
     <string name="share_permission_can_edit">Може редагувати</string>
     <string name="share_permission_file_request">Запит на файл</string>
-    <string name="share_permission_secure_file_drop">Захищене додавання файлу</string>
     <string name="share_permission_view_only">Лише перегляд</string>
     <string name="share_permissions">Права доступу на спільний ресурс</string>
     <string name="share_re_share_permission">Спільний доступ</string>
@@ -1109,7 +1109,6 @@
     <string name="upload_query_move_foreign_files">Нестача місця не дозволяє скопіювати файли до каталогу%1$s. Чи бажаєте перемістити їх замість копіювання?</string>
     <string name="upload_quota_exceeded">Перевищено дозволений обсяг даних для збереження</string>
     <string name="upload_scan_doc_upload">Сканувати документ з камери</string>
-    <string name="upload_sync_conflict">Конфлікт синхронізації, будь ласка, вирішіть вручну</string>
     <string name="upload_unknown_error">Невідома помилка</string>
     <string name="uploader_btn_alternative_text">Вибрати</string>
     <string name="uploader_btn_upload_text">Завантажити</string>
@@ -1156,7 +1155,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Файл на пристрої не знайдено</string>
     <string name="uploads_view_upload_status_failed_permission_error">Помилка доступу</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Недовірений сертифікат сервера</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Отримую версію сервера...</string>
     <string name="uploads_view_upload_status_service_interrupted">Застосунок зупинено</string>
     <string name="uploads_view_upload_status_skip">Пропущено</string>
     <string name="uploads_view_upload_status_skip_reason">Файл з таким саме ім\'ям вже присутній</string>
@@ -1170,7 +1168,9 @@
     <string name="user_icon">Користувач</string>
     <string name="user_info_address">Адреса</string>
     <string name="user_info_email">Електронна пошта</string>
+    <string name="user_info_groups">Групи</string>
     <string name="user_info_phone">Номер телефону</string>
+    <string name="user_info_profile">Профіль</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Вебсайт</string>
     <string name="user_information_retrieval_error">Помилка під час отримання інформації про користувача</string>

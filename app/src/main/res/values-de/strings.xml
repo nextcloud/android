@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Versuchen Sie, eine Nachricht zu senden, um eine Unterhaltung anzustoßen.</string>
     <string name="assistant_screen_empty_content_title">Hallo! Womit kann ich Ihnen heute helfen?</string>
     <string name="assistant_screen_retry_response_generation">Antwortgenerierung wiederholen</string>
-    <string name="assistant_screen_select_task">Bitte eine Aufgabe auswählen</string>
     <string name="assistant_screen_send_message">Nachricht senden</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Liste der Unterhaltungen öffnen</string>
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
@@ -114,6 +113,8 @@
     <string name="authenticator_activity_no_web_browser_found">Es ist kein Browser verfügbar, um diesen Link zu öffnen.</string>
     <string name="authenticator_activity_please_complete_login_process">Bitte schließen Sie den Anmeldevorgang in Ihrem Browser ab</string>
     <string name="auto_upload_battery_saver_mode_warning">Der automatische Upload wurde angehalten, da Battery-Saver eingeschaltet ist.</string>
+    <string name="auto_upload_delete_dialog_description">Dadurch werden der Ordner und die Konfiguration für das \"Automatische Hochladen\" entfernt. Alle noch nicht abgeschlossenen Uploads werden abgebrochen.</string>
+    <string name="auto_upload_delete_dialog_title">Ordner für \"Automatisches Hochladen\" löschen?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
     <string name="auto_upload_low_battery_warning_info">Niedriger Akkustand, das Hochladen kann länger dauern</string>
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
@@ -245,6 +246,8 @@
     <string name="could_not_retrieve_url">URL konnte nicht abgerufen werden</string>
     <string name="create">Erstellen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
+    <string name="create_end_to_end_encrypted_share">Linkfreigabe</string>
+    <string name="create_end_to_end_encrypted_share_title">Ende-zu-Ende-verschlüsselte Linkfreigaben</string>
     <string name="create_link">Link erstellen</string>
     <string name="create_new">Neu</string>
     <string name="create_new_document">Neues Dokument</string>
@@ -253,7 +256,6 @@
     <string name="create_new_presentation">Neue Präsentation</string>
     <string name="create_new_spreadsheet">Neue Tabelle</string>
     <string name="create_rich_workspace">Ordnerbeschreibung hinzufügen</string>
-    <string name="creates_rich_workspace">Fügt eine Ordnerbeschreibung hinzu</string>
     <string name="credentials_disabled">Zugangsdaten ausgeschaltet</string>
     <string name="daily_backup">Tägliche Sicherung</string>
     <string name="data_to_back_up">Zu sichernde Daten</string>
@@ -320,7 +322,6 @@
     <string name="drawer_item_on_device">Auf dem Gerät</string>
     <string name="drawer_item_personal_files">Persönliche Dateien</string>
     <string name="drawer_item_recent_files">Aktuelle Dateien</string>
-    <string name="drawer_item_recently_modified">Kürzlich geändert</string>
     <string name="drawer_item_shared">Geteilt</string>
     <string name="drawer_item_trashbin">Gelöschte Dateien</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -441,7 +442,6 @@
     <string name="file_list_empty_on_device">Heruntergeladene Dateien und Ordner werden hier angezeigt werden.</string>
     <string name="file_list_empty_recent_files_description">Vor kurzem geänderten Dateien und Ordner werden hier angezeigt.</string>
     <string name="file_list_empty_recent_files_headline">Keine kürzlich geänderten Dateien</string>
-    <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
     <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
     <string name="file_list_empty_shared">Von Ihnen geteilte Dateien und Ordner werden hier angezeigt.</string>
     <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
@@ -562,6 +562,8 @@
     <string name="instant_upload_existing">Vorhandene Dateien ebenfalls hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
+    <string name="internal_share_description_end_to_end_encrypted">Die Empfänger der Freigabe haben stets Zugriff auf den vollständigen verschlüsselten Ordner. Die Freigabe ist nur mit Konten möglich, die bereits eine Ende-zu-Ende-Verschlüsselung eingerichtet haben.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Ende-zu-Ende-verschlüsselte Freigaben</string>
     <string name="internal_shares">Interne Freigaben</string>
     <string name="internal_two_way_sync">Interne 2-Wege-Synchronisierung</string>
     <string name="internal_two_way_sync_not_yet">Bislang nicht, wird demnächst synchronisiert</string>
@@ -854,7 +856,6 @@
     <string name="send">Senden</string>
     <string name="send_copy_to">Kopie senden an</string>
     <string name="send_share">Freigabe senden</string>
-    <string name="sendbutton_description">Icon für die Senden-Schaltfläche</string>
     <string name="server_not_reachable">Inhalt konnte nicht geladen werden</string>
     <string name="server_not_reachable_content">Das Gerät scheint nicht mit dem Internet verbunden zu sein</string>
     <string name="set_as">Setze als</string>
@@ -896,7 +897,6 @@
     <string name="share_option_required">Bitte mindestens eine Freigabeoption wählen, bevor Sie fortfahren.</string>
     <string name="share_permission_can_edit">Kann bearbeiten</string>
     <string name="share_permission_file_request">Dateianfrage</string>
-    <string name="share_permission_secure_file_drop">Sichere Dateiablage</string>
     <string name="share_permission_view_only">Nur anzeigen</string>
     <string name="share_permissions">Berechtigungen zum Teilen</string>
     <string name="share_re_share_permission">Teilen</string>
@@ -1109,7 +1109,11 @@
     <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in das Verzeichnis %1$s zu kopieren. Sollen diese stattdessen verschoben werden?</string>
     <string name="upload_quota_exceeded">Speicherkontingent überschritten</string>
     <string name="upload_scan_doc_upload">Dokument von der Kamera scannen</string>
-    <string name="upload_sync_conflict">Synchronisierungskonflikt, bitte manuell beheben</string>
+    <string name="upload_sync_conflict_check">Möglicherweise liegt ein Konflikt bezüglich des letzten Uploads vor. Bitte Tippen, um zu überprüfen.</string>
+    <string name="upload_sync_conflict_check_error">Es konnte nicht auf Hochlade-Konflikte überprüft werden. Bitte erneut versuchen.</string>
+    <string name="upload_sync_conflict_checking">Prüfe auf Konflikte beim Hochladen …</string>
+    <string name="upload_sync_conflict_not_exists">Konflikt gelöst.</string>
+    <string name="upload_sync_conflict_same_file">Keine Konflikte gefunden. Gleiche Datei.</string>
     <string name="upload_unknown_error">Unbekannter Fehler</string>
     <string name="uploader_btn_alternative_text">Auswählen</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
@@ -1156,7 +1160,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokale Datei nicht gefunden</string>
     <string name="uploads_view_upload_status_failed_permission_error">Berechtigungsfehler</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Serverzertifikat ist nicht vertrauenswürdig</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Serverversion wird abgerufen …</string>
     <string name="uploads_view_upload_status_service_interrupted">App beendet</string>
     <string name="uploads_view_upload_status_skip">Übersprungen</string>
     <string name="uploads_view_upload_status_skip_reason">Eine Datei mit demselben Namen ist bereits vorhanden.</string>
@@ -1170,7 +1173,9 @@
     <string name="user_icon">Nutzer</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-Mail</string>
+    <string name="user_info_groups">Gruppen</string>
     <string name="user_info_phone">Telefonnummer</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">X</string>
     <string name="user_info_website">Webseite</string>
     <string name="user_information_retrieval_error">Fehler beim Laden der Nutzer-Informationen</string>

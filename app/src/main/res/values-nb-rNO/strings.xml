@@ -216,7 +216,6 @@
     <string name="create_new_presentation">Ny presentasjon</string>
     <string name="create_new_spreadsheet">Nytt regneark</string>
     <string name="create_rich_workspace">Legg til mappebeskrivelse</string>
-    <string name="creates_rich_workspace">Legger til mappebeskrivelse</string>
     <string name="credentials_disabled">Legitimasjon deaktivert</string>
     <string name="daily_backup">Daglig sikkerhetskopi</string>
     <string name="data_to_back_up">Data å sikkerhetskopiere</string>
@@ -274,7 +273,6 @@
     <string name="drawer_item_notifications">Varsler</string>
     <string name="drawer_item_on_device">På enheten</string>
     <string name="drawer_item_personal_files">Personlige filer</string>
-    <string name="drawer_item_recently_modified">Nylig endret</string>
     <string name="drawer_item_shared">Delt</string>
     <string name="drawer_item_trashbin">Slettede filer</string>
     <string name="drawer_item_uploads_list">Opplastinger</string>
@@ -375,7 +373,6 @@
     <string name="file_list_empty_on_device">Nedlastede filer og mapper vil vises her.</string>
     <string name="file_list_empty_recent_files_description">Filer og mapper du nylig har endret, vises her.</string>
     <string name="file_list_empty_recent_files_headline">Ingen nylig endrede filer</string>
-    <string name="file_list_empty_recently_modified">Fant ingen filer endret de siste 7 dagene</string>
     <string name="file_list_empty_search">Vil du prøve i en annen mappe?</string>
     <string name="file_list_empty_shared">Filer og mapper du deler vil dukke opp her.</string>
     <string name="file_list_empty_shared_headline">Ingenting delt enda</string>
@@ -732,7 +729,6 @@
     <string name="select_one_template">Velg en mal</string>
     <string name="select_template">Velg mal</string>
     <string name="send">Send</string>
-    <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
     <string name="set_as">Bruk som</string>
     <string name="set_online_status">Online-status</string>
     <string name="set_picture_as">Bruk bilde som</string>
@@ -765,7 +761,6 @@
     <string name="share_not_allowed_when_file_drop">Videredeling er ikke tillatt under sikker filslipp</string>
     <string name="share_permission_can_edit">Kan endre</string>
     <string name="share_permission_file_request">Filforespørsel</string>
-    <string name="share_permission_secure_file_drop">Sikker filkasse</string>
     <string name="share_permission_view_only">Kun se</string>
     <string name="share_re_share_permission">Dele</string>
     <string name="share_read_permission">Les</string>
@@ -948,7 +943,6 @@
     <string name="upload_query_move_foreign_files">Det er ikke nok plass til å kopiere de valgte filene inn i mappen %1$s. Vil du flytte dem i stedet? </string>
     <string name="upload_quota_exceeded">Overskredet lagringskvote</string>
     <string name="upload_scan_doc_upload">Skann dokument med kamera</string>
-    <string name="upload_sync_conflict">Synkroniseringskonflikt, vennligst fiks manuelt</string>
     <string name="upload_unknown_error">Ukjent feil</string>
     <string name="uploader_btn_alternative_text">Velg</string>
     <string name="uploader_btn_upload_text">Last opp</string>
@@ -995,7 +989,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Finner ikke lokal fil</string>
     <string name="uploads_view_upload_status_failed_permission_error">Tillatelsesfeil</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Ubetrodd serversertifikat</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Henter serverversjon...</string>
     <string name="uploads_view_upload_status_service_interrupted">Appen ble avsluttet</string>
     <string name="uploads_view_upload_status_succeeded">Ferdig</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Samme fil funnet på ekstern, dropper opplasting</string>
@@ -1007,7 +1000,9 @@
     <string name="user_icon">Bruker</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-post</string>
+    <string name="user_info_groups">Grupper</string>
     <string name="user_info_phone">Telefonnummer</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Nettsted</string>
     <string name="user_information_retrieval_error">Feil ved innhenting av brukerinformasjon</string>

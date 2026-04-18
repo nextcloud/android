@@ -25,6 +25,13 @@ fun String.removeFileExtension(): String {
     }
 }
 
+fun String.webDavParentPath(): String {
+    val normalized = this.trimEnd('/')
+    if (normalized.isEmpty()) return "/"
+    val parent = normalized.substringBeforeLast('/', "")
+    return if (parent.isEmpty()) "/" else "$parent/"
+}
+
 @Suppress("ComplexCondition")
 fun String?.eTagChanged(eTagOnServer: String?): Boolean {
     if (this == null || this.isEmpty() || eTagOnServer == null || eTagOnServer.isEmpty()) {

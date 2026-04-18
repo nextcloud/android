@@ -51,13 +51,16 @@ import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SharesType;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -285,7 +288,16 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         searchConfig.reset();
     }
 
+    private void resetSearchView() {
+        toggleSearchViewEnable(binding.searchView, true);
+        binding.searchView.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        binding.searchView.setQueryHint(null);
+        binding.searchView.setQuery("", false);
+        binding.pickContactEmailBtn.setVisibility(View.VISIBLE);
+    }
+
     private void setupView() {
+        resetSearchView();
         setShareWithYou();
 
         OCFile parentFile = fileDataStorageManager.getFileById(file.getParentId());
@@ -321,20 +333,26 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         if (file.canReshare() && !FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities)) {
             if (file.isEncrypted() || (parentFile != null && parentFile.isEncrypted())) {
-                if (file.getE2eCounter() == -1) {
-                    // V1 cannot share
-                    binding.searchContainer.setVisibility(View.GONE);
-                    binding.createLink.setVisibility(View.GONE);
-                } else {
-                    binding.createLink.setText(R.string.add_new_secure_file_drop);
-                    binding.searchView.setQueryHint(getResources().getString(R.string.secure_share_search));
+               binding.internalShareHeadline.setText(getResources().getString(R.string.internal_share_headline_end_to_end_encrypted));
+               binding.internalShareDescription.setVisibility(View.VISIBLE);
+               binding.externalSharesHeadline.setText(getResources().getString(R.string.create_end_to_end_encrypted_share_title));
 
-                    if (file.isSharedViaLink()) {
-                        binding.searchView.setQueryHint(getResources().getString(R.string.share_not_allowed_when_file_drop));
-                        binding.searchView.setInputType(InputType.TYPE_NULL);
-                        disableSearchView(binding.searchView);
-                    }
-                }
+               fetchE2EECounter(() -> {
+                   if (file.getE2eCounter() == -1) {
+                       // V1 cannot share
+                       binding.searchContainer.setVisibility(View.GONE);
+                       binding.createLink.setVisibility(View.GONE);
+                   } else {
+                       binding.createLink.setText(R.string.add_new_secure_file_drop);
+                       binding.searchView.setQueryHint(getResources().getString(R.string.secure_share_search));
+
+                       if (file.isSharedViaLink()) {
+                           binding.searchView.setQueryHint(getResources().getString(R.string.share_not_allowed_when_file_drop));
+                           binding.searchView.setInputType(InputType.TYPE_NULL);
+                           toggleSearchViewEnable(binding.searchView, false);
+                       }
+                   }
+               });
             } else {
                 binding.createLink.setText(R.string.create_link);
                 binding.searchView.setQueryHint(getResources().getString(R.string.share_search_internal));
@@ -348,7 +366,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             binding.externalSharesHeadline.setVisibility(View.GONE);
             binding.searchView.setInputType(InputType.TYPE_NULL);
             binding.pickContactEmailBtn.setVisibility(View.GONE);
-            disableSearchView(binding.searchView);
+            toggleSearchViewEnable(binding.searchView, false);
             binding.createLink.setOnClickListener(null);
         }
 
@@ -363,18 +381,34 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                   );
     }
 
+    private void fetchE2EECounter(Runnable onComplete) {
+        new Thread(() -> {
+            try {
+                OwnCloudClient client = clientFactory.create(user);
+                Object metadata = RefreshFolderOperation.getDecryptedFolderMetadata(true, file, client, user, requireContext());
+                if (metadata instanceof DecryptedFolderMetadataFile decryptedMetadata) {
+                    file.setE2eCounter(decryptedMetadata.getMetadata().getCounter());
+                    fileDataStorageManager.saveFile(file);
+                }
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Error refreshing E2E counter: " + e.getMessage());
+            }
+
+            requireActivity().runOnUiThread(onComplete);
+        }).start();
+    }
+
     private void checkShareViaUser() {
         if (!MDMConfig.INSTANCE.shareViaUser(requireContext())) {
             binding.searchContainer.setVisibility(View.GONE);
         }
     }
 
-    private void disableSearchView(View view) {
-        view.setEnabled(false);
-
+    private void toggleSearchViewEnable(View view, boolean enable) {
+        view.setEnabled(enable);
         if (view instanceof ViewGroup viewGroup) {
             for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                disableSearchView(viewGroup.getChildAt(i));
+                toggleSearchViewEnable(viewGroup.getChildAt(i), enable);
             }
         }
     }

@@ -34,6 +34,7 @@ import com.google.gson.JsonSyntaxException;
 import com.nextcloud.android.lib.resources.files.FileDownloadLimit;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
+import com.nextcloud.client.database.dao.CapabilityDao;
 import com.nextcloud.client.database.dao.FileDao;
 import com.nextcloud.client.database.dao.OfflineOperationDao;
 import com.nextcloud.client.database.dao.RecommendedFileDao;
@@ -47,6 +48,8 @@ import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -110,6 +113,7 @@ public class FileDataStorageManager {
     public final OfflineOperationDao offlineOperationDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).offlineOperationDao();
     public final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
     public final ShareDao shareDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).shareDao();
+    public final CapabilityDao capabilityDao = NextcloudDatabase.instance().capabilityDao();
 
     private final Gson gson = new Gson();
     public final OfflineOperationsRepositoryType offlineOperationsRepository;
@@ -356,8 +360,12 @@ public class FileDataStorageManager {
         offlineOperationsRepository.updateNextOperations(entity);
     }
 
-    private @Nullable
-    OCFile getFileByPath(String type, String path) {
+    @Nullable
+    private OCFile getFileByPath(String type, String path) {
+        if (path == null) {
+            return null;
+        }
+
         final boolean shouldUseEncryptedPath = ProviderTableMeta.FILE_PATH.equals(type);
         FileEntity fileEntity = shouldUseEncryptedPath ?
             fileDao.getFileByEncryptedRemotePath(path, user.getAccountName()) :
@@ -912,26 +920,36 @@ public class FileDataStorageManager {
     }
 
     private boolean removeLocalCopyIfNeeded(OCFile ocFile, boolean removeLocalCopy, boolean removeDBData) {
-        String localPath = ocFile.getStoragePath();
-
         if (!removeLocalCopy) {
-            Log_OC.d(TAG, "removeLocalCopyIfNeeded: removeLocalCopy=false");
+            Log_OC.w(TAG, "removeLocalCopyIfNeeded: removeLocalCopy=false");
             return true;
         }
 
-        if (!ocFile.isDown()) {
-            Log_OC.d(TAG, "removeLocalCopyIfNeeded: file not downloaded -> skip");
+        String localPath = ocFile.getStoragePath();
+        final var file = FileExtensionsKt.toFile(localPath);
+        if (file == null) {
+            Log_OC.w(TAG, "removeLocalCopyIfNeeded: file exists -> skip");
             return true;
         }
 
-        if (localPath == null) {
-            Log_OC.d(TAG, "removeLocalCopyIfNeeded: localPath is null -> skip");
+        if (ocFile.isFolder()) {
+            Log_OC.w(TAG, "removeLocalCopyIfNeeded: file is folder -> skip");
             return true;
+        }
+
+        String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), ocFile);
+        if (!localPath.equalsIgnoreCase(expectedPath)) {
+            Log_OC.w(TAG, "removeLocalCopyIfNeeded: Path mismatch! Expected " + expectedPath
+                + " but found " + localPath + ". Skipping deletion to prevent data loss.");
         }
 
         Log_OC.d(TAG, "removeLocalCopyIfNeeded: deleting local file -> " + localPath);
-
-        boolean success = new File(localPath).delete();
+        boolean success = false;
+        try {
+            success = new File(expectedPath).delete();
+        } catch (Exception e) {
+            Log_OC.e(TAG, "removeLocalCopyIfNeeded: deletion error: ", e);
+        }
         Log_OC.d(TAG, "removeLocalCopyIfNeeded: file deletion result=" + success);
 
         if (!success) {

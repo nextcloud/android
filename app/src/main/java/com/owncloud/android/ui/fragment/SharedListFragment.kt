@@ -75,12 +75,12 @@ class SharedListFragment :
         val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
         if (fetchResult.isSuccess) {
             val remoteFile = (fetchResult.data[0] as RemoteFile).apply {
-                val prevETag = mContainerActivity.storageManager.getFileByDecryptedRemotePath(remotePath)
+                val existingFile = mContainerActivity.storageManager.getFileByDecryptedRemotePath(remotePath)
 
                 // Use previous eTag if exists to prevent break checkForChanges logic in RefreshFolderOperation.
                 // Otherwise RefreshFolderOperation will show empty list
-                prevETag?.etag?.let {
-                    etag = prevETag.etag
+                existingFile?.etag?.let {
+                    etag = it
                 }
             }
             val file = FileStorageUtils.fillOCFile(remoteFile)

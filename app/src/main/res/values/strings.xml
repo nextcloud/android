@@ -310,7 +310,6 @@
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for non-metered Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Waiting to exit power save mode</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_group_header" translatable="false">%1$s (%2$d)</string>
 
@@ -850,6 +849,8 @@
     <string name="user_info_address">Address</string>
     <string name="user_info_website">Website</string>
     <string name="user_info_twitter">Twitter</string>
+    <string name="user_info_profile">Profile</string>
+    <string name="user_info_groups">Groups</string>
 
     <string name="user_information_retrieval_error">Error retrieving user information</string>
 
@@ -1106,7 +1107,11 @@
     <string name="upload_lock_failed">Locking folder failed</string>
     <string name="upload_local_storage_full">Local storage full</string>
     <string name="upload_old_android">Encryption is only possible with &gt;= Android 5.0</string>
-    <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
+    <string name="upload_sync_conflict_checking">Checking for upload conflicts…</string>
+    <string name="upload_sync_conflict_not_exists">Conflict resolved.</string>
+    <string name="upload_sync_conflict_same_file">No conflict detected. Same file.</string>
+    <string name="upload_sync_conflict_check_error">Could not check for upload conflicts. Please try again.</string>
+    <string name="upload_sync_conflict_check">There might be a conflict from your last upload. Tap to check.</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
     <string name="upload_global_pause_title">All uploads are paused</string>
@@ -1210,8 +1215,10 @@
     <string name="share_permission_file_request">File request</string>
     <string name="share_permission_view_only">View only</string>
     <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
-
+    <string name="create_end_to_end_encrypted_share_title">End-to-end encrypted link shares</string>
+    <string name="create_end_to_end_encrypted_share">Link share</string>
+    <string name="internal_share_headline_end_to_end_encrypted">End-to-end encrypted shares</string>
+    <string name="internal_share_description_end_to_end_encrypted">Share recipients always have access to the full encrypted folder. It is only possible to share with accounts that have already setup end-to-end encryption.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Choose what to sync</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
@@ -1484,6 +1491,8 @@
     <string name="create_link">Create link</string>
     <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="open_in_app">Open in %1$s</string>
+    <string name="auto_upload_delete_dialog_title">Delete auto-upload folder?</string>
+    <string name="auto_upload_delete_dialog_description">This will remove the folder and auto-upload configuration. Any unfinished uploads will be canceled.</string>
     <string name="auto_upload_battery_saver_mode_warning">Auto-upload is paused because Battery Saver is on.</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="sync_anyway">Sync anyway</string>

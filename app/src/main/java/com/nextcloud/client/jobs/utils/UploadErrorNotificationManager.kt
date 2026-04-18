@@ -8,6 +8,7 @@
 package com.nextcloud.client.jobs.utils
 
 import android.app.Notification
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -28,10 +29,14 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.utils.ErrorMessageAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.File
 
 object UploadErrorNotificationManager {
     private const val TAG = "UploadErrorNotificationManager"
+
+    fun dismissConflictResolveNotification(context: Context, id: Long) {
+        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.cancel(id.toInt())
+    }
 
     /**
      * Processes the result of an upload operation and manages error notifications.
@@ -76,7 +81,7 @@ object UploadErrorNotificationManager {
             val isSameFile = withContext(Dispatchers.IO) {
                 FileUploadHelper.instance().isSameFileOnRemote(
                     operation.user,
-                    File(operation.storagePath),
+                    operation.storagePath,
                     operation.remotePath,
                     context
                 )

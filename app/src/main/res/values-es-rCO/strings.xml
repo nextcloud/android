@@ -206,7 +206,6 @@
     <string name="create_new_presentation">Nueva presentación</string>
     <string name="create_new_spreadsheet">Nueva hoja de cálculo</string>
     <string name="create_rich_workspace">Agregar una descripción a la carpeta</string>
-    <string name="creates_rich_workspace">Añade la descripción de la carpeta</string>
     <string name="credentials_disabled">Credenciales desactivadas</string>
     <string name="daily_backup">Copia de seguridad diaria</string>
     <string name="data_to_back_up">Datos a respaldar</string>
@@ -264,7 +263,6 @@
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">Disponibles sin conexión</string>
     <string name="drawer_item_personal_files">Archivos personales</string>
-    <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Papelera</string>
     <string name="drawer_item_uploads_list">Cargas</string>
@@ -374,7 +372,6 @@
     <string name="file_list_empty_local_search">No hay archivos o carpetas que coincidan con tu búsqueda</string>
     <string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
     <string name="file_list_empty_on_device">Los archivos y carpetas descargados se mostrarán aquí.</string>
-    <string name="file_list_empty_recently_modified">No se encontraron archivos modificados dentro de los últimos 7 días</string>
     <string name="file_list_empty_search">¿Tal vez está dentro de una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que comparta se mostrarán aquí.</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
@@ -557,7 +554,6 @@
     <string name="retry">Reintentar</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="send">Enviar</string>
-    <string name="sendbutton_description">Ícono de botón de envío</string>
     <string name="set_as">Establecer Como</string>
     <string name="set_picture_as">Usar imagen como</string>
     <string name="share">Compartir</string>
@@ -713,6 +709,7 @@
     <string name="user_icon">Usuario</string>
     <string name="user_info_address">Dirección</string>
     <string name="user_info_email">Correo electrónico</string>
+    <string name="user_info_groups">Grupos</string>
     <string name="user_info_phone">Número telefónico</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Sitio web</string>

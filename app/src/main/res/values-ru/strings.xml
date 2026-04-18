@@ -53,7 +53,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Удалить задачу</string>
     <string name="assistant_screen_empty_content_description">Попробуйте отправить сообщение, чтобы начать беседу.</string>
     <string name="assistant_screen_empty_content_title">Здравствуйте! Чем я могу вам помочь сегодня?</string>
-    <string name="assistant_screen_select_task">Выберите задачу</string>
     <string name="assistant_screen_send_message">ОТправить сообщение</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Открыть список обсуждений</string>
     <string name="assistant_screen_task_create_fail_message">Произошла ошибка при создании задачи</string>
@@ -250,7 +249,6 @@
     <string name="create_new_presentation">Новая презентация</string>
     <string name="create_new_spreadsheet">Новая таблица</string>
     <string name="create_rich_workspace">Добавить описание папки</string>
-    <string name="creates_rich_workspace">Добавляет описание папки</string>
     <string name="credentials_disabled">Учётная запись отключена</string>
     <string name="daily_backup">Ежедневное резервное копирование</string>
     <string name="data_to_back_up">Данные для резервного копирования</string>
@@ -316,7 +314,6 @@
     <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_item_on_device">На устройстве</string>
     <string name="drawer_item_personal_files">Личные файлы</string>
-    <string name="drawer_item_recently_modified">Недавно изменённые</string>
     <string name="drawer_item_shared">Опубликованное</string>
     <string name="drawer_item_trashbin">Удалённые файлы</string>
     <string name="drawer_item_uploads_list">Состояние передачи</string>
@@ -435,7 +432,6 @@
     <string name="file_list_empty_on_device">Здесь будут показаны загруженные файлы и папки</string>
     <string name="file_list_empty_recent_files_description">Здесь будут показаны недавно изменённые файлы и папки</string>
     <string name="file_list_empty_recent_files_headline">Нет недавно измененных файлов</string>
-    <string name="file_list_empty_recently_modified">Изменённых за последние 7 дней файлов не найдено</string>
     <string name="file_list_empty_search">Искать в другом каталоге?</string>
     <string name="file_list_empty_shared">Здесь будут показаны опубликованные вами папки и файлы.</string>
     <string name="file_list_empty_shared_headline">Вы ничем не поделились</string>
@@ -844,7 +840,6 @@
     <string name="send">Отправить</string>
     <string name="send_copy_to">Отправить копию</string>
     <string name="send_share">Отправить ссылку</string>
-    <string name="sendbutton_description">Значок кнопки «отправить»</string>
     <string name="server_not_reachable">Не удалось загрузить содержимое.</string>
     <string name="server_not_reachable_content">Возможно, устройство не подключено к интернету.</string>
     <string name="set_as">Установить как</string>
@@ -886,7 +881,6 @@
     <string name="share_option_required">Пожалуйста, выберите хотя бы один вариант общего доступа перед продолжением.</string>
     <string name="share_permission_can_edit">Разрешено редактировать</string>
     <string name="share_permission_file_request">Запрос файла</string>
-    <string name="share_permission_secure_file_drop">Защищенный очиститель файлов</string>
     <string name="share_permission_view_only">Только просмотр</string>
     <string name="share_permissions">Права на публикацию</string>
     <string name="share_re_share_permission">Поделиться</string>
@@ -1097,7 +1091,6 @@
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку «%1$s». Выполнить перемещение вместо копирования?</string>
     <string name="upload_quota_exceeded">Превышена квота хранилища</string>
     <string name="upload_scan_doc_upload">Сканировать документ через камеру</string>
-    <string name="upload_sync_conflict">Требуется вмешательство для разрешения конфликта синхронизации</string>
     <string name="upload_unknown_error">Неизвестная ошибка</string>
     <string name="uploader_btn_alternative_text">Выберите</string>
     <string name="uploader_btn_upload_text">Отправить</string>
@@ -1144,7 +1137,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Файл не найден на устройстве</string>
     <string name="uploads_view_upload_status_failed_permission_error">Ошибка прав доступа</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Сертификат сервера не является доверенным</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Получение версия сервера…</string>
     <string name="uploads_view_upload_status_service_interrupted">Работа приложения была прекращена</string>
     <string name="uploads_view_upload_status_skip">Пропущенно</string>
     <string name="uploads_view_upload_status_skip_reason">Объект с таким же именем уже существует.</string>
@@ -1158,7 +1150,9 @@
     <string name="user_icon">Пользователь</string>
     <string name="user_info_address">Адрес</string>
     <string name="user_info_email">Эл. почта</string>
+    <string name="user_info_groups">Группы</string>
     <string name="user_info_phone">Номер телефона</string>
+    <string name="user_info_profile">Профиль</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Сайт</string>
     <string name="user_information_retrieval_error">При получении информации о пользователе произошла ошибка</string>

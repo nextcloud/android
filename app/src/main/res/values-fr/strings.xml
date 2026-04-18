@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Essayez d\'envoyer un message pour déclencher une conversation.</string>
     <string name="assistant_screen_empty_content_title">Bonjour ! En quoi puis-je vous aider aujourd’hui ?</string>
     <string name="assistant_screen_retry_response_generation">Réessayer la génération de réponse</string>
-    <string name="assistant_screen_select_task">Veuillez sélectionner une tâche</string>
     <string name="assistant_screen_send_message">Envoyer un message</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Ouvrir la liste des conversations</string>
     <string name="assistant_screen_task_create_fail_message">Une erreur est survenue lors de la création de la tâche</string>
@@ -114,6 +113,8 @@
     <string name="authenticator_activity_no_web_browser_found">Aucun navigateur n\'est disponible pour ouvrir ce lien.</string>
     <string name="authenticator_activity_please_complete_login_process">Veuillez finaliser la connexion dans votre navigateur</string>
     <string name="auto_upload_battery_saver_mode_warning">Le téléversement automatique est suspendu, car l\'économiseur de batterie est activé.</string>
+    <string name="auto_upload_delete_dialog_description">Cette action supprimera le dossier et la configuration de téléchargement automatique. Tout téléchargement inachevé sera annulé.</string>
+    <string name="auto_upload_delete_dialog_title">Supprimer le dossier de téléchargement automatique ?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
     <string name="auto_upload_low_battery_warning_info">Batterie faible, le téléversement peut prendre plus de temps</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
@@ -245,6 +246,8 @@
     <string name="could_not_retrieve_url">Impossible de récupérer l\'URL</string>
     <string name="create">Créer</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
+    <string name="create_end_to_end_encrypted_share">Lien de partage</string>
+    <string name="create_end_to_end_encrypted_share_title">Lien de partages chiffrés de bout en bout</string>
     <string name="create_link">Créer un lien</string>
     <string name="create_new">Nouveau</string>
     <string name="create_new_document">Nouveau document</string>
@@ -253,7 +256,6 @@
     <string name="create_new_presentation">Nouvelle présentation</string>
     <string name="create_new_spreadsheet">Nouvelle feuille de calcul</string>
     <string name="create_rich_workspace">Ajouter une description du dossier</string>
-    <string name="creates_rich_workspace">Ajoute une description du dossier</string>
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
     <string name="daily_backup">Sauvegarde journalière</string>
     <string name="data_to_back_up">Données à sauvegarder</string>
@@ -319,7 +321,7 @@
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
     <string name="drawer_item_personal_files">Fichiers personnels</string>
-    <string name="drawer_item_recently_modified">Modifiés récemment</string>
+    <string name="drawer_item_recent_files">Fichiers récents</string>
     <string name="drawer_item_shared">Partagé</string>
     <string name="drawer_item_trashbin">Fichiers supprimés</string>
     <string name="drawer_item_uploads_list">Téléversements</string>
@@ -370,7 +372,7 @@
     <string name="error_crash_title">%1$s a planté</string>
     <string name="error_creating_file_from_template">Erreur lors de la création du fichier à partir du modèle</string>
     <string name="error_fetching_sharees">Impossible de récupérer les partages.</string>
-    <string name="error_file_actions">Erreur d\'affichage des actions de fichier</string>
+    <string name="error_file_actions">Erreur d\'affichage des actions sur les fichiers</string>
     <string name="error_file_lock">Erreur lors de la modification de l\'état de verrouillage du fichier</string>
     <string name="error_report_issue_action">Signaler</string>
     <string name="error_report_issue_text">Signaler le problème au traqueur ? (nécessite un compte GitHub)</string>
@@ -405,6 +407,7 @@
     <string name="etm_transfer_type">Transfert</string>
     <string name="etm_transfer_type_download">Téléchargement</string>
     <string name="etm_transfer_type_upload">Téléverser</string>
+    <string name="export_in_progress">Exportation %1$d sur %2$d</string>
     <string name="extension_cannot_be_changed">L\'extension ne peut pas être modifiée</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Vous n\'avez pas le droit de créer ou de téléverser des fichiers dans ce dossier.</string>
     <string name="external_shares">Partages externes</string>
@@ -439,7 +442,6 @@
     <string name="file_list_empty_on_device">Les fichiers/dossiers téléchargés apparaîtront ici.</string>
     <string name="file_list_empty_recent_files_description">Les fichiers et dossiers que vous avez récemment modifiés apparaîtront ici</string>
     <string name="file_list_empty_recent_files_headline">Pas de fichiers récemment modifiés</string>
-    <string name="file_list_empty_recently_modified">Aucun fichier modifié n\'a été trouvé dans les 7 derniers jours</string>
     <string name="file_list_empty_search">Il se trouve peut-être dans un autre dossier ?</string>
     <string name="file_list_empty_shared">Les fichiers et dossiers que vous partagez apparaîtront ici.</string>
     <string name="file_list_empty_shared_headline">Aucun partage</string>
@@ -560,6 +562,8 @@
     <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Téléverser uniquement lors de la recharge</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_description_end_to_end_encrypted">Les destinataires du partage ont toujours accès à l\'intégralité du dossier chiffré. Le partage est uniquement possible pour les comptes ayant déjà configuré le chiffrement de bout en bout.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Partages chiffrés de bout en bout</string>
     <string name="internal_shares">Partages internes</string>
     <string name="internal_two_way_sync">Synchronisation interne bidirectionnelle</string>
     <string name="internal_two_way_sync_not_yet">Pas encore, bientôt synchronisé</string>
@@ -852,7 +856,6 @@
     <string name="send">Envoyer</string>
     <string name="send_copy_to">Envoyer une copie à</string>
     <string name="send_share">Envoyer Partager</string>
-    <string name="sendbutton_description">Icône du bouton d\'envoi</string>
     <string name="server_not_reachable">Impossible de charger le contenu</string>
     <string name="server_not_reachable_content">Il semble que l\'appareil ne soit pas connecté à internet</string>
     <string name="set_as">Utiliser comme</string>
@@ -894,7 +897,6 @@
     <string name="share_option_required">Veuillez sélectionner au moins une option de partage avant de poursuivre.</string>
     <string name="share_permission_can_edit">Peut modifier</string>
     <string name="share_permission_file_request">Demande de fichier</string>
-    <string name="share_permission_secure_file_drop">Dépôt sécurisé de fichiers</string>
     <string name="share_permission_view_only">Afficher seulement</string>
     <string name="share_permissions">Autorisations pour le partage</string>
     <string name="share_re_share_permission">Partager</string>
@@ -1107,7 +1109,6 @@
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="upload_quota_exceeded">Quota de stockage dépassé</string>
     <string name="upload_scan_doc_upload">Scanner un document depuis l\'appareil photo</string>
-    <string name="upload_sync_conflict">Conflit de synchronisation, veuillez le résoudre manuellement</string>
     <string name="upload_unknown_error">Erreur inconnue </string>
     <string name="uploader_btn_alternative_text">Sélectionner</string>
     <string name="uploader_btn_upload_text">Téléverser</string>
@@ -1154,7 +1155,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Fichier local non trouvé</string>
     <string name="uploads_view_upload_status_failed_permission_error">Erreur de permissions</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat du serveur non approuvé</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Récupération de la version serveur …</string>
     <string name="uploads_view_upload_status_service_interrupted">L\'application s\'est arrêtée</string>
     <string name="uploads_view_upload_status_skip">Ignoré</string>
     <string name="uploads_view_upload_status_skip_reason">Un fichier portant le même nom existe déjà.</string>
@@ -1168,7 +1168,9 @@
     <string name="user_icon">Utilisateur</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Groupes</string>
     <string name="user_info_phone">Numéro de téléphone</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site web</string>
     <string name="user_information_retrieval_error">Erreur de récupération des informations utilisateur</string>

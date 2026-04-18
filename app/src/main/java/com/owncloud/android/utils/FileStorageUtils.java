@@ -173,6 +173,8 @@ public final class FileStorageUtils {
      * Get local path where OCFile file is to be stored after upload. That is,
      * corresponding local path (in local owncloud storage) to remote uploaded
      * file.
+     * <p>
+     * e.g. /storage/emulated/0/Android/media/com.nextcloud.client/nextcloud/admin@example.cloud/folder/file.txt
      */
     public static String getDefaultSavePathFor(String accountName, OCFile file) {
         return getSavePath(accountName) + file.getDecryptedRemotePath();
@@ -791,16 +793,6 @@ public final class FileStorageUtils {
         return checkIfEnoughSpace(availableSpaceOnDevice, file);
     }
     
-    public static boolean isFolderWritable(File folder) {
-        File[] children = folder.listFiles();
-        
-        if (children != null && children.length > 0) {
-            return children[0].canWrite();
-        } else {
-            return folder.canWrite();
-        }
-    }
-
     @VisibleForTesting
     public static boolean checkIfEnoughSpace(long availableSpaceOnDevice, OCFile file) {
         if (file.isFolder()) {

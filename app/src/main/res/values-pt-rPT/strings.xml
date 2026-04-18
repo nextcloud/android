@@ -207,7 +207,6 @@
     <string name="create_new_presentation">Nova apresentação</string>
     <string name="create_new_spreadsheet">Nova folha de calculo</string>
     <string name="create_rich_workspace">Adicionar descrição da pasta</string>
-    <string name="creates_rich_workspace">Adiciona uma descrição à pasta</string>
     <string name="credentials_disabled">Credenciais desativadas</string>
     <string name="daily_backup">Cópia de segurança diária </string>
     <string name="data_to_back_up">Dados para a cópia de segurança</string>
@@ -265,7 +264,6 @@
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_item_on_device">No dispositivo</string>
     <string name="drawer_item_personal_files">Ficheiros pessoais</string>
-    <string name="drawer_item_recently_modified">Modificados recentemente</string>
     <string name="drawer_item_shared">Partilhados</string>
     <string name="drawer_item_trashbin">Ficheiros eliminados</string>
     <string name="drawer_item_uploads_list">Envios</string>
@@ -363,7 +361,6 @@
     <string name="file_list_empty_headline_server_search">Sem resultados</string>
     <string name="file_list_empty_moving">Não está aqui nada. Pode adicionar uma pasta.</string>
     <string name="file_list_empty_on_device">Os ficheiros e as pastas que foram transferidos serão mostrados aqui.</string>
-    <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
     <string name="file_list_empty_search">Poderá estar numa pasta diferente?</string>
     <string name="file_list_empty_shared">Os ficheiros e as pastas que partilhou serão mostrados aqui.</string>
     <string name="file_list_empty_shared_headline">Ainda sem partilhas</string>
@@ -688,7 +685,6 @@
     <string name="select_one_template">Por favor, selecione um modelo</string>
     <string name="select_template">Seleccionar modelo</string>
     <string name="send">Enviar</string>
-    <string name="sendbutton_description">Botão de envio</string>
     <string name="set_as">Definir como</string>
     <string name="set_note">Definir nota</string>
     <string name="set_online_status">Estado on-line</string>
@@ -883,7 +879,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="upload_old_android">A encriptação só está disponível com > = Android 5.0</string>
     <string name="upload_query_move_foreign_files">Espaço insuficiente não permite que a cópia dos ficheiros selecionados seja efetuada para a pasta %1$s. Pretende mover os ficheiros?</string>
     <string name="upload_scan_doc_upload">Digitalizar o documento com a câmara</string>
-    <string name="upload_sync_conflict">Conflito de sincronização, por favor, resolva-o manualmente</string>
     <string name="upload_unknown_error">Erro desconhecido</string>
     <string name="uploader_btn_alternative_text">Escolher</string>
     <string name="uploader_btn_upload_text">Enviar</string>
@@ -928,7 +923,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Ficheiro local não encontrado</string>
     <string name="uploads_view_upload_status_failed_permission_error">Erro de permissão</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificado de servidor desconfiável</string>
-    <string name="uploads_view_upload_status_fetching_server_version">A obter a versão do servidor...</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicação terminada</string>
     <string name="uploads_view_upload_status_succeeded">Concluído</string>
     <string name="uploads_view_upload_status_unknown_fail">Erro desconhecido</string>
@@ -939,6 +933,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="user_icon">Utilizador</string>
     <string name="user_info_address">Endereço</string>
     <string name="user_info_email">Correio eletrónico</string>
+    <string name="user_info_groups">Grupos</string>
     <string name="user_info_phone">Número de telefone</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site da Internet</string>

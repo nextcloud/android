@@ -239,7 +239,6 @@
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">Disponibles sin conexión</string>
-    <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Papelera</string>
     <string name="drawer_item_uploads_list">Cargas</string>
@@ -327,7 +326,6 @@
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
     <string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
     <string name="file_list_empty_on_device">Los archivos y carpetas descargados se mostrarán aquí.</string>
-    <string name="file_list_empty_recently_modified">No se encontraron archivos modificados dentro de los últimos 7 días</string>
     <string name="file_list_empty_search">¿Tal vez está dentro de una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que compartas se mostrarán aquí.</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
@@ -633,7 +631,6 @@
     <string name="select_one_template">Por favor, selecciona una plantilla</string>
     <string name="select_template">Seleccionar plantilla</string>
     <string name="send">Enviar</string>
-    <string name="sendbutton_description">Ícono de botón de envío</string>
     <string name="set_as">Establecer Como</string>
     <string name="set_online_status">Estado en línea</string>
     <string name="set_picture_as">Usar imagen como</string>
@@ -663,7 +660,6 @@
     <string name="share_no_expiration_date_label">Establecer fecha de expiración</string>
     <string name="share_no_password_title">Establecer contraseña</string>
     <string name="share_permission_can_edit">Puede editar</string>
-    <string name="share_permission_secure_file_drop">Soltar archivo seguro</string>
     <string name="share_permission_view_only">Solo vista</string>
     <string name="share_read_permission">Leer</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
@@ -820,7 +816,6 @@
     <string name="upload_old_android">La encriptación sólo es posible con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Te gustaría moverlos ahí en su lugar?</string>
     <string name="upload_scan_doc_upload">Escanear documento desde la cámara</string>
-    <string name="upload_sync_conflict">Conflicto de sincronización, por favor, resuelve manualmente</string>
     <string name="upload_unknown_error">Error desconocido</string>
     <string name="uploader_btn_alternative_text">Seleccionar</string>
     <string name="uploader_btn_upload_text">Cargar</string>
@@ -865,7 +860,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">No se encontró el archivo local</string>
     <string name="uploads_view_upload_status_failed_permission_error">Error de permisos</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">El certificado del servidor no es de confianza</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Obteniendo la versión del servidor...</string>
     <string name="uploads_view_upload_status_service_interrupted">La aplicación ha sido terminada</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
     <string name="uploads_view_upload_status_unknown_fail">Error desconocido</string>
@@ -876,7 +870,9 @@
     <string name="user_icon">Usuario</string>
     <string name="user_info_address">Dirección</string>
     <string name="user_info_email">Correo electrónico</string>
+    <string name="user_info_groups">Grupos</string>
     <string name="user_info_phone">Número telefónico</string>
+    <string name="user_info_profile">Perfil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Sitio web</string>
     <string name="user_information_retrieval_error">Error al extraer la información del usuario</string>

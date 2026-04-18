@@ -179,7 +179,6 @@
     <string name="drawer_item_home">Hejmo</string>
     <string name="drawer_item_notifications">Sciigoj</string>
     <string name="drawer_item_on_device">Sur aparato</string>
-    <string name="drawer_item_recently_modified">Modifitaj antaŭ nelonge</string>
     <string name="drawer_item_shared">Kunhavataj</string>
     <string name="drawer_item_trashbin">Forigitaj dosieroj</string>
     <string name="drawer_item_uploads_list">Alŝutoj</string>
@@ -228,7 +227,6 @@
     <string name="file_list_empty_headline_search">Neniu rezulto en tiu dosierujo</string>
     <string name="file_list_empty_headline_server_search">Neniu rezulto</string>
     <string name="file_list_empty_moving">Nenio ĉi tie. Vi povas aldoni dosierujon.</string>
-    <string name="file_list_empty_recently_modified">Troviĝis neniu dosiero modifita dum la lastaj 7 tagoj</string>
     <string name="file_list_empty_search">Ĉu eble ĝi estas en alia dosierujo?</string>
     <string name="file_list_empty_shared_headline">Ankoraŭ neniu kunhavo</string>
     <string name="file_list_folder">dosierujo</string>
@@ -439,7 +437,6 @@
     <string name="select_all">Elekti ĉion</string>
     <string name="select_template">Elekti ŝablonon</string>
     <string name="send">Sendi</string>
-    <string name="sendbutton_description">Piktogramo de sendo-butono</string>
     <string name="set_as">Uzi kiel</string>
     <string name="set_picture_as">Uzi la bildon kiel</string>
     <string name="share">Kunhavigi</string>
@@ -581,7 +578,6 @@
     <string name="upload_local_storage_not_copied">Dosiero ne eblis kopiiĝi al loka konservejo</string>
     <string name="upload_lock_failed">Ŝlosado de dosierujo malsukcesis</string>
     <string name="upload_query_move_foreign_files">Nesufiĉa spaco malebligis kopiadon de la elektitaj dosieroj al dosierujo %1$s. Ĉu vi volas movi ilin tien anstataŭe?</string>
-    <string name="upload_sync_conflict">Sinkroniga konflikto; bv. solvi ĝin permane</string>
     <string name="upload_unknown_error">Nekonata eraro</string>
     <string name="uploader_btn_alternative_text">Elekti</string>
     <string name="uploader_btn_upload_text">Alŝuti</string>
@@ -632,6 +628,7 @@
     <string name="user_icon">Uzanto</string>
     <string name="user_info_address">Adreso</string>
     <string name="user_info_email">Retpoŝtadreso</string>
+    <string name="user_info_groups">Grupoj</string>
     <string name="user_info_phone">Telefonnumero</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Retejo</string>

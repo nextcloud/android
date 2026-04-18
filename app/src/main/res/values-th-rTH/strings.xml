@@ -222,7 +222,6 @@
     <string name="drawer_item_notifications">การแจ้งเตือน</string>
     <string name="drawer_item_on_device">บนอุปกรณ์</string>
     <string name="drawer_item_personal_files">ไฟล์ส่วนตัว</string>
-    <string name="drawer_item_recently_modified">แก้ไขล่าสุด</string>
     <string name="drawer_item_shared">ถูกแชร์</string>
     <string name="drawer_item_trashbin">ไฟล์ที่ถูกลบ</string>
     <string name="drawer_item_uploads_list">อัปโหลด</string>
@@ -271,7 +270,6 @@
     <string name="file_list_empty_headline_server_search">ไม่มีผลลัพธ์</string>
     <string name="file_list_empty_moving">ไม่มีอะไรในนี้ คุณสามารถเพิ่มโฟลเดอร์ได้</string>
     <string name="file_list_empty_on_device">ไฟล์และโฟลเดอร์ที่ดาวน์โหลดจะปรากฏที่นี่</string>
-    <string name="file_list_empty_recently_modified">ไม่พบไฟล์ที่มีการแก้ไขในช่วง 7 วันที่ผ่านมา</string>
     <string name="file_list_empty_search">มันอาจจะอยู่ในโฟลเดอร์อื่น</string>
     <string name="file_list_empty_shared">ไฟล์และโฟลเดอร์ที่คุณแชร์จะปรากฏที่นี่</string>
     <string name="file_list_empty_shared_headline">ยังไม่มีการแชร์</string>
@@ -584,7 +582,6 @@
     <string name="upload_files">อัพโหลดไฟล์จากเครื่อง</string>
     <string name="upload_list_delete">ลบ</string>
     <string name="upload_scan_doc_upload">แสกนเอกสารโดยใช้กล้อง</string>
-    <string name="upload_sync_conflict">เกิดข้อขัดแย้งของการซิงค์ โปรดแก้ไขด้วยตนเอง</string>
     <string name="upload_unknown_error">ข้อผิดพลาดที่ไม่รู้จัก</string>
     <string name="uploader_btn_alternative_text">เลือก</string>
     <string name="uploader_btn_upload_text">อัปโหลด</string>
@@ -626,6 +623,7 @@
     <string name="user_icon">ผู้ใช้</string>
     <string name="user_info_address">ที่อยู่</string>
     <string name="user_info_email">อีเมล</string>
+    <string name="user_info_groups">กลุ่ม</string>
     <string name="user_info_phone">หมายเลขโทรศัพท์</string>
     <string name="user_info_twitter">ทวิตเตอร์</string>
     <string name="user_info_website">เว็บไซต์</string>

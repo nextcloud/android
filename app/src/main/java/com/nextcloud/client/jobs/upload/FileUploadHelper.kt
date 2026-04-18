@@ -13,6 +13,7 @@ import android.content.Context
 import android.content.Intent
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
@@ -24,7 +25,9 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.getUploadIds
+import com.nextcloud.utils.extensions.isAnonymous
 import com.nextcloud.utils.extensions.isLastResultConflictError
+import com.nextcloud.utils.extensions.isSame
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -35,16 +38,19 @@ import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
+import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterActionHandler
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.FileUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -165,25 +171,36 @@ class FileUploadHelper {
     }
 
     @Suppress("ComplexCondition")
-    private fun retryUploads(
+    private suspend fun retryUploads(
         uploadsStorageManager: UploadsStorageManager,
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService,
         uploads: List<OCUpload>
-    ): Boolean {
+    ): Boolean = withContext(Dispatchers.IO) {
         var showNotExistMessage = false
-        var showSyncConflictNotification = false
+        var conflictHandlingResult: ConflictHandlingResult? = null
         val isOnline = checkConnectivity(connectivityService)
         val connectivity = connectivityService.connectivity
         val batteryStatus = powerManagementService.battery
 
         val uploadsToRetry = mutableListOf<Long>()
 
+        val currentAccount = accountManager.currentAccount
+        val context = MainApp.getAppContext()
+        var ownCloudClient: OwnCloudClient? = null
+        if (!currentAccount.isAnonymous(context)) {
+            ownCloudClient =
+                OwnCloudClientFactory.createOwnCloudClient(accountManager.currentAccount, MainApp.getAppContext())
+        }
+        val uploadActionHandler = UploadListAdapterActionHandler()
+
         for (upload in uploads) {
             if (upload.isLastResultConflictError()) {
-                Log_OC.d(TAG, "retry upload skipped, sync conflict: ${upload.remotePath}")
-                showSyncConflictNotification = true
+                ownCloudClient?.let {
+                    conflictHandlingResult =
+                        uploadActionHandler.handleConflict(upload, ownCloudClient, uploadsStorageManager)
+                }
                 continue
             }
 
@@ -224,11 +241,12 @@ class FileUploadHelper {
             )
         }
 
-        if (showSyncConflictNotification) {
+        if (conflictHandlingResult is ConflictHandlingResult.ShowConflictResolveDialog) {
+            Log_OC.d(TAG, "retry upload skipped, sync conflict: ${conflictHandlingResult.file.remotePath}")
             AppWideNotificationManager.showSyncConflictNotification(MainApp.getAppContext())
         }
 
-        return showNotExistMessage
+        return@withContext showNotExistMessage
     }
 
     @JvmOverloads
@@ -561,25 +579,17 @@ class FileUploadHelper {
     }
 
     @Suppress("MagicNumber", "ReturnCount", "ComplexCondition")
-    fun isSameFileOnRemote(user: User?, localFile: File?, remotePath: String?, context: Context?): Boolean {
-        if (user == null || localFile == null || remotePath == null || context == null) {
+    fun isSameFileOnRemote(user: User?, localPath: String?, remotePath: String?, context: Context?): Boolean {
+        if (user == null || localPath == null || remotePath == null || context == null) {
             Log_OC.e(TAG, "cannot compare remote and local file")
             return false
         }
-
-        // Compare remote file to local file
-        val localLastModifiedTimestamp = localFile.lastModified() / 1000 // remote file timestamp in milli not micro sec
-        val localCreationTimestamp = FileUtil.getCreationTimestamp(localFile)
-        val localSize: Long = localFile.length()
 
         val operation = ReadFileRemoteOperation(remotePath)
         val result: RemoteOperationResult<*> = operation.execute(user, context)
         if (result.isSuccess) {
             val remoteFile = result.data[0] as RemoteFile
-            return remoteFile.size == localSize &&
-                localCreationTimestamp != null &&
-                localCreationTimestamp == remoteFile.creationTimestamp &&
-                remoteFile.modifiedTimestamp == localLastModifiedTimestamp * 1000
+            return remoteFile.isSame(localPath)
         }
         return false
     }
@@ -613,5 +623,58 @@ class FileUploadHelper {
                 })
             }
         }
+    }
+
+    /**
+     * When a synced folder is disabled or deleted, its associated OCUpload entries in the uploads
+     * table must be cleaned up. Without this, stale upload entries outlive the folder config that
+     * created them, causing FileUploadWorker to keep retrying uploads for a folder that no longer
+     * exists or is intentionally turned off, and AutoUploadWorker to re-queue already handled files
+     * on its next scan via FileSystemRepository.getFilePathsWithIds.
+     */
+    suspend fun removeEntityFromUploadEntities(id: Long) {
+        uploadsStorageManager.fileSystemDao.getBySyncedFolderId(id.toString())
+            .filter { it.localPath != null && it.remotePath != null }
+            .forEach {
+                Log_OC.d(
+                    TAG,
+                    "deleting upload entity localPath: ${it.localPath}, " + "remotePath: ${it.remotePath}"
+                )
+                uploadsStorageManager.uploadDao.deleteByLocalRemotePath(
+                    localPath = it.localPath!!,
+                    remotePath = it.remotePath!!
+                )
+            }
+    }
+
+    /**
+     * Splits a list of files into:
+     * 1. Files that have an auto-upload folder configured.
+     * 2. Files that don't.
+     */
+    suspend fun splitFilesByAutoUpload(
+        files: List<OCFile>,
+        accountName: String
+    ): Pair<List<SyncedFolderEntity>, List<OCFile>> {
+        val autoUploadFolders = mutableListOf<SyncedFolderEntity>()
+        val nonAutoUploadFiles = mutableListOf<OCFile>()
+
+        for (file in files) {
+            val entity = getAutoUploadFolderEntity(file, accountName)
+            if (entity != null) {
+                autoUploadFolders.add(entity)
+            } else {
+                nonAutoUploadFiles.add(file)
+            }
+        }
+
+        return autoUploadFolders to nonAutoUploadFiles
+    }
+
+    suspend fun getAutoUploadFolderEntity(file: ServerFileInterface, accountName: String): SyncedFolderEntity? {
+        val dao = uploadsStorageManager.syncedFolderDao
+        val normalizedRemotePath = file.remotePath.trimEnd()
+        if (normalizedRemotePath.isEmpty()) return null
+        return dao.findByRemotePathAndAccount(normalizedRemotePath, accountName)
     }
 }

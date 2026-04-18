@@ -223,7 +223,6 @@
     <string name="create_new_presentation">عرض تقديمي جديد</string>
     <string name="create_new_spreadsheet">جدول بيانات جديد</string>
     <string name="create_rich_workspace">إضافة وصف للمجلد</string>
-    <string name="creates_rich_workspace">إضافة وصف للمجلد</string>
     <string name="credentials_disabled">التصريح غير مفعل</string>
     <string name="daily_backup">النسخ الاحتياطي اليومي</string>
     <string name="data_to_back_up">البيانات التي سيتم نسخها احتياطيا</string>
@@ -282,7 +281,6 @@
     <string name="drawer_item_notifications">الإخطارات</string>
     <string name="drawer_item_on_device">على الجهاز</string>
     <string name="drawer_item_personal_files">ملفات شخصية</string>
-    <string name="drawer_item_recently_modified">تغيرت مؤخراً</string>
     <string name="drawer_item_shared">المشاركات</string>
     <string name="drawer_item_trashbin">الملفات المحذوفة</string>
     <string name="drawer_item_uploads_list">التحميلات</string>
@@ -393,7 +391,6 @@
     <string name="file_list_empty_on_device">الملفات والمجلدات التي تم تنزيلها سوف تظهر هنا.</string>
     <string name="file_list_empty_recent_files_description">الملفات و المجلدات التي تمّ تعديلها مؤخراً ستظهر هنا.</string>
     <string name="file_list_empty_recent_files_headline">لا توجد أي ملفات تمّ تعديلها مؤخراً</string>
-    <string name="file_list_empty_recently_modified">لا يوجد ملفات معدلة خلال 7 أيام ماضية</string>
     <string name="file_list_empty_search">ربما كنت تنوي البحث داخل مجلد آخر ؟</string>
     <string name="file_list_empty_shared">الملفات والمجلدات التي تم مشاركتها سوف تظهر هنا.</string>
     <string name="file_list_empty_shared_headline">لم تقم بمشاركة أية بيانات بعد</string>
@@ -778,7 +775,6 @@
     <string name="select_template">حدد قالب</string>
     <string name="send">إرسال</string>
     <string name="send_share">أرسِل المشاركة</string>
-    <string name="sendbutton_description">أيقونة زر الإرسال</string>
     <string name="set_as">حفظ كـ</string>
     <string name="set_note">عيِّن الملاحظة</string>
     <string name="set_online_status">حالة الاتصال</string>
@@ -813,7 +809,6 @@
     <string name="share_not_allowed_when_file_drop">إعادة المشاركة غير مسموح بها خلال الإفلات الآمن للملف</string>
     <string name="share_permission_can_edit">يمكن تعديله</string>
     <string name="share_permission_file_request">طلب الملف</string>
-    <string name="share_permission_secure_file_drop">إسقاط آمن للملف</string>
     <string name="share_permission_view_only">للعرض فقط</string>
     <string name="share_permissions">أذونات المشاركة</string>
     <string name="share_re_share_permission">مُشارَكة</string>
@@ -1008,7 +1003,6 @@
     <string name="upload_query_move_foreign_files">يمنع وجود مساحة غير كافية نسخ الملفات المحددة إلى المجلد %1$s. هل ترغب في نقلهم إلى هناك بدلاً من ذلك؟</string>
     <string name="upload_quota_exceeded">الحصة التخزينية تمّ استنفاذها</string>
     <string name="upload_scan_doc_upload">مسح مستند عبر الكاميرا</string>
-    <string name="upload_sync_conflict">تعارض المزامنة ، يرجى حلها يدويًا</string>
     <string name="upload_unknown_error">خطأ غير معروف</string>
     <string name="uploader_btn_alternative_text">إختر</string>
     <string name="uploader_btn_upload_text">رفع</string>
@@ -1056,7 +1050,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">لم يتم العثور على الملف المحلّي</string>
     <string name="uploads_view_upload_status_failed_permission_error">خطأ في الإذن</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">شهادة خادم غير موثوق بها</string>
-    <string name="uploads_view_upload_status_fetching_server_version">جارٍ جلب إصدار الخادم…</string>
     <string name="uploads_view_upload_status_service_interrupted">توقف التطبيق</string>
     <string name="uploads_view_upload_status_succeeded">مكتمل</string>
     <string name="uploads_view_upload_status_succeeded_same_file">نفس الملف موجود على موقع قَصِي. سيتم تخطِّي الرفع</string>
@@ -1068,7 +1061,9 @@
     <string name="user_icon">المستخدم</string>
     <string name="user_info_address"> العنوان</string>
     <string name="user_info_email">البريد الإلكتروني</string>
+    <string name="user_info_groups">المجموعات</string>
     <string name="user_info_phone"> رقم الهاتف</string>
+    <string name="user_info_profile">لمحة تعريفية</string>
     <string name="user_info_twitter">تويتر</string>
     <string name="user_info_website"> الموقع الإلكتروني</string>
     <string name="user_information_retrieval_error">خطأ في استرداد معلومات المستخدم</string>

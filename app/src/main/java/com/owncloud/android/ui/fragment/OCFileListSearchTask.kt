@@ -44,24 +44,19 @@ import java.lang.ref.WeakReference
 @Suppress("LongParameterList", "ReturnCount", "TooGenericExceptionCaught")
 @SuppressLint("NotifyDataSetChanged")
 class OCFileListSearchTask(
-    containerActivity: FileFragment.ContainerActivity,
     fragment: OCFileListFragment,
     private val remoteOperation: RemoteOperation<List<Any>>,
     private val currentUser: User,
     private val event: SearchEvent,
     private val taskTimeout: Long,
-    private val preferences: AppPreferences
+    private val preferences: AppPreferences,
+    private val storageManager: FileDataStorageManager
 ) {
     companion object {
         private const val TAG = "OCFileListSearchTask"
     }
 
-    private val activityReference: WeakReference<FileFragment.ContainerActivity> = WeakReference(containerActivity)
     private val fragmentReference: WeakReference<OCFileListFragment> = WeakReference(fragment)
-
-    private val fileDataStorageManager: FileDataStorageManager?
-        get() = activityReference.get()?.storageManager
-
     private var job: Job? = null
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION", "ReturnCount")
@@ -91,13 +86,13 @@ class OCFileListSearchTask(
                     return@launch
                 }
 
-                fragment.adapter.prepareForSearchData(fileDataStorageManager, fragment.currentSearchType)
+                fragment.adapter.prepareForSearchData(storageManager, fragment.currentSearchType)
 
                 val newList = if (searchType == SearchType.SHARED_FILTER) {
                     OCShareToOCFileConverter.parseAndSaveShares(
                         sortedFilesInDb,
                         result.resultData ?: listOf(),
-                        fileDataStorageManager,
+                        storageManager,
                         currentUser.accountName
                     )
                 } else {
@@ -126,16 +121,14 @@ class OCFileListSearchTask(
 
     fun isFinished(): Boolean = job?.isCompleted == true
 
-    private suspend fun loadCachedDbFiles(searchType: SearchRemoteOperation.SearchType): List<OCFile> {
-        val storage = fileDataStorageManager ?: return emptyList()
-        return if (searchType == SearchRemoteOperation.SearchType.SHARED_FILTER) {
-            storage.fileDao
+    private suspend fun loadCachedDbFiles(searchType: SearchRemoteOperation.SearchType): List<OCFile> =
+        if (searchType == SearchRemoteOperation.SearchType.SHARED_FILTER) {
+            storageManager.fileDao
                 .getSharedFiles(currentUser.accountName)
         } else {
-            storage.fileDao
+            storageManager.fileDao
                 .getFavoriteFiles(currentUser.accountName)
-        }.mapNotNull { storage.createFileInstance(it) }
-    }
+        }.mapNotNull { storageManager.createFileInstance(it) }
 
     @Suppress("DEPRECATION")
     private suspend fun fetchRemoteResults(): RemoteOperationResult<List<Any>>? {
@@ -202,7 +195,6 @@ class OCFileListSearchTask(
     @Suppress("DEPRECATION")
     private suspend fun parseAndSaveVirtuals(data: List<Any>, fragment: OCFileListFragment) =
         withContext(Dispatchers.IO) {
-            val fileDataStorageManager = fileDataStorageManager ?: return@withContext
             val activity = fragment.activity ?: return@withContext
             val now = System.currentTimeMillis()
 
@@ -219,8 +211,8 @@ class OCFileListSearchTask(
                     val remoteFile = obj as? RemoteFile ?: continue
                     var ocFile = FileStorageUtils.fillOCFile(remoteFile)
                     FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, currentUser.accountName)
-                    ocFile = fileDataStorageManager.saveFileWithParent(ocFile, activity)
-                    ocFile = handleEncryptionIfNeeded(ocFile, fileDataStorageManager, activity)
+                    ocFile = storageManager.saveFileWithParent(ocFile, activity)
+                    ocFile = handleEncryptionIfNeeded(ocFile, storageManager, activity)
 
                     if (fragment.currentSearchType != SearchType.GALLERY_SEARCH && ocFile.isFolder) {
                         RefreshFolderOperation(
@@ -228,7 +220,7 @@ class OCFileListSearchTask(
                             now,
                             true,
                             false,
-                            fileDataStorageManager,
+                            storageManager,
                             currentUser,
                             activity
                         ).execute(currentUser, activity)
@@ -253,7 +245,7 @@ class OCFileListSearchTask(
 
             // Save timestamp + virtual entries
             preferences.setPhotoSearchTimestamp(System.currentTimeMillis())
-            fileDataStorageManager.saveVirtuals(contentValuesList)
+            storageManager.saveVirtuals(contentValuesList)
         }
 
     @Suppress("DEPRECATION")

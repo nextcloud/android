@@ -235,7 +235,6 @@
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
     <string name="create_rich_workspace">Add folder description</string>
-    <string name="creates_rich_workspace">Adds folder description</string>
     <string name="credentials_disabled">ຂໍ້ມູນປະຈໍາຕົວຖືກປິດ</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
@@ -301,7 +300,6 @@
     <string name="drawer_item_notifications">ການເເຈ້ງເຕືອນ</string>
     <string name="drawer_item_on_device">ເທິງອຸປະກອນ</string>
     <string name="drawer_item_personal_files">Personal files</string>
-    <string name="drawer_item_recently_modified">ແປງລ່າສຸດ</string>
     <string name="drawer_item_shared">ແບ່ງປັນ</string>
     <string name="drawer_item_trashbin">ລຶບຟາຍ</string>
     <string name="drawer_item_uploads_list">ອັບໂຫຼດ</string>
@@ -416,7 +414,6 @@
     <string name="file_list_empty_on_device">ຟາຍແລະ ໂຟນ ເດີທີ່ດາວໂຫຼດ  ຈະສະແດງໃຫ້ເຫັນຢູ່ທີ່ນີ້ .</string>
     <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
     <string name="file_list_empty_recent_files_headline">No recently modified files</string>
-    <string name="file_list_empty_recently_modified">ບໍ່ພົບຟາຍດັດແປງພາຍໃນ 7 ວັນລ່າສຸດ</string>
     <string name="file_list_empty_search">ບາງທີອາດຢູ່ໃນໂຟນເດີທີ່ແຕກຕ່າງກັນ?</string>
     <string name="file_list_empty_shared">ຟາຍ ແລະ ໂຟນເດີ ທີ່ ທ່ານແບ່ງປັນຈະສະແດງ ໃຫ້ເຫັນຢູ່ທີ່ນີ້</string>
     <string name="file_list_empty_shared_headline">ຍັງບໍ່ມີການແບ່ງປັນເທື່ອ</string>
@@ -819,7 +816,6 @@
     <string name="select_template">ເລືອກຕົວຢ່າງ</string>
     <string name="send">ສົ່ງ</string>
     <string name="send_share">Send share</string>
-    <string name="sendbutton_description">ສົ່ງປຸ່ມ icon</string>
     <string name="server_not_reachable">Could not load content</string>
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="set_as">ຕັ້ງຄ່າເປັນ</string>
@@ -861,7 +857,6 @@
     <string name="share_option_required">Please select at least one sharing option before continuing.</string>
     <string name="share_permission_can_edit">ແກ້ໄຂໄດ້</string>
     <string name="share_permission_file_request">ຄຳຂໍໄຟລ໌</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">ເບິ່ງເທົ່ານັ້ນ</string>
     <string name="share_permissions">Share permissions</string>
     <string name="share_re_share_permission">ແບ່ງປັນ</string>
@@ -1060,7 +1055,6 @@
     <string name="upload_query_move_foreign_files">ພື້ນທີ່ບໍ່ພຽງພໍ ໃນການສໍາເນົາຟາຍທີ່ເລືອກເຂົ້າໄປໃນໂຟນເດີ %1$s. ທ່ານຕ້ອງຍ້າຍໄປຢູ່ຫັ້ນແທນບໍ?</string>
     <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
-    <string name="upload_sync_conflict">Syncຜິດພາດ, ກະລຸນາແກ້ໄຂດ້ວຍມື</string>
     <string name="upload_unknown_error">ຜິດພາດທີ່ບໍ່ຮູ້ຈັກ</string>
     <string name="uploader_btn_alternative_text">ເລືອກ</string>
     <string name="uploader_btn_upload_text">ອັບໂຫຼດ</string>
@@ -1107,7 +1101,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">ບໍ່ພົບຟາຍ</string>
     <string name="uploads_view_upload_status_failed_permission_error">ການອະນຸຍາດຜິດພາດ</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">ໃບຢັ້ງຢືນເຊີເວີ ບໍ່ໜ້າເຊື່ອຖື</string>
-    <string name="uploads_view_upload_status_fetching_server_version">ກຳລັງນໍາເອົາເວີຊັ້ນເຊີເວີມາ</string>
     <string name="uploads_view_upload_status_service_interrupted">ແອັບ ໄດ້ຖືກຍົກເລີກ</string>
     <string name="uploads_view_upload_status_skip">Skipped</string>
     <string name="uploads_view_upload_status_skip_reason">A file with the same name already exists.</string>
@@ -1121,7 +1114,9 @@
     <string name="user_icon">ຜູ້ໃຊ້</string>
     <string name="user_info_address">ທີ່ຢູ່</string>
     <string name="user_info_email">ອິເມວ</string>
+    <string name="user_info_groups">ກຸ່ມ</string>
     <string name="user_info_phone">ເບີໂທລະສັບ</string>
+    <string name="user_info_profile">Profile</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">ເວັບໄຊ</string>
     <string name="user_information_retrieval_error">ຂໍ້ຜິດພາດໃນດຶງຂໍ້ມູນຂອງຜູ້ໃຊ້</string>

@@ -60,6 +60,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.files.DeepLinkHandler
@@ -78,6 +79,7 @@ import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
+import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.navigateToAllFiles
@@ -115,6 +117,7 @@ import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask.CheckAvailableSpaceListener
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.DeleteBatchTracker
 import com.owncloud.android.ui.dialog.SendShareDialog.SendShareDialogDownloader
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
@@ -136,6 +139,7 @@ import com.owncloud.android.ui.fragment.UnifiedSearchFragment
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.TransactionInterface
+import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.ui.preview.PreviewImageFragment
 import com.owncloud.android.ui.preview.PreviewMediaActivity
@@ -331,7 +335,9 @@ class FileDisplayActivity :
         setupHomeSearchToolbarWithSortAndListButtons()
         mMenuButton.setOnClickListener { v: View? -> openDrawer() }
         mSwitchAccountButton.setOnClickListener { v: View? -> showManageAccountsDialog() }
-        mNotificationButton.setOnClickListener { v: View? -> startActivity(NotificationsActivity::class.java) }
+        mNotificationButton.setOnClickListener {
+            pushFragment(NavigatorScreen.Notifications)
+        }
         fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout)
 
         // reset ui states when file display activity created/recrated
@@ -675,41 +681,28 @@ class FileDisplayActivity :
     // endregion
 
     private fun onOpenFileIntent(intent: Intent) {
-        val file = getFileFromIntent(intent)
-        if (file == null) {
+        val file = getFileFromIntent(intent) ?: run {
             Log_OC.e(TAG, "Can't open file intent, file is null")
             return
         }
 
-        val currentFragment = leftFragment
-
-        if (currentFragment == null) {
-            Log_OC.e(TAG, "Can't open file intent, left fragment is null")
-            return
+        // Ensure we have the correct fragment type
+        if (leftFragment !is OCFileListFragment || leftFragment is GalleryFragment) {
+            Log_OC.w(
+                TAG,
+                "Invalid fragment (${leftFragment?.let { it::class.simpleName } ?: "null"}). " +
+                    "Replacing."
+            )
+            setLeftFragment(OCFileListFragment(), false)
         }
 
-        val fileListFragment: OCFileListFragment = when {
-            currentFragment is OCFileListFragment && currentFragment !is GalleryFragment -> {
-                currentFragment
-            }
-
-            else -> {
-                Log_OC.w(
-                    TAG,
-                    "Left fragment is not a valid OCFileListFragment " +
-                        "(was ${currentFragment::class.simpleName}). " +
-                        "Replacing with OCFileListFragment."
-                )
-                val newFragment = OCFileListFragment()
-                setLeftFragment(newFragment, false)
-                setupHomeSearchToolbarWithSortAndListButtons()
-                newFragment
-            }
-        }
-
-        // Post to main thread to ensure fragment is fully attached before interacting
+        // Ensure fragment is attached before interaction
         Handler(Looper.getMainLooper()).post {
-            fileListFragment.onItemClicked(file)
+            (supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES) as? OCFileListFragment)?.let { fragment ->
+                leftFragment = fragment
+                setupHomeSearchToolbarWithSortAndListButtons()
+                fragment.onItemClicked(file)
+            }
         }
     }
 
@@ -1582,7 +1575,13 @@ class FileDisplayActivity :
 
     private fun handleRemovedFolder(syncFolderRemotePath: String?) {
         DisplayUtils.showSnackMessage(this, R.string.sync_current_folder_was_removed, syncFolderRemotePath)
-        browseToRoot()
+        fileListFragment?.let {
+            it.parentFolderFinder.getParentOnFirstParentRemoved(syncFolderRemotePath, storageManager)?.let { target ->
+                it.listDirectory(target, MainApp.isOnlyOnDevice())
+                updateActionBarTitleAndHomeButton(target)
+                file = target
+            }
+        }
     }
 
     private fun updateFileList(
@@ -1906,13 +1905,13 @@ class FileDisplayActivity :
     // endregion
 
     fun browseToRoot() {
-        val listOfFiles = this.listOfFilesFragment
-        if (listOfFiles != null) { // should never be null, indeed
+        listOfFilesFragment?.let {
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
-            listOfFiles.resetSearchAttributes()
-            file = listOfFiles.currentFile
+            it.resetSearchAttributes()
+            file = it.currentFile
             startSyncFolderOperation(root, false)
         }
+
         binding.fabMain.setImageResource(R.drawable.ic_plus)
         resetScrollingAndUpdateActionBar()
     }
@@ -2197,6 +2196,63 @@ class FileDisplayActivity :
                 mLastSslUntrustedServerResult = result
                 showUntrustedCertDialog(mLastSslUntrustedServerResult)
             }
+        }
+    }
+
+    override fun onAutoUploadFolderRemoved(
+        entities: List<SyncedFolderEntity>,
+        filesToRemove: List<OCFile>,
+        onlyLocalCopy: Boolean
+    ) {
+        val dialog = ConfirmationDialogFragment.newInstance(
+            messageResId = R.string.auto_upload_delete_dialog_description,
+            messageArguments = null,
+            titleResId = R.string.auto_upload_delete_dialog_title,
+            titleIconId = R.drawable.ic_info,
+            positiveButtonTextId = R.string.common_delete,
+            negativeButtonTextId = R.string.common_cancel,
+            neutralButtonTextId = -1
+        )
+
+        dialog.setOnConfirmationListener(object : ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
+            override fun onConfirmation(callerTag: String?) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    entities.forEach { entity ->
+                        entity.id?.toLong()?.let {
+                            fileUploadHelper.removeEntityFromUploadEntities(it)
+                            syncedFolderProvider.deleteSyncedFolder(it)
+                        }
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        connectivityService.isNetworkAndServerAvailable { isAvailable ->
+                            if (isAvailable) {
+                                fileOperationsHelper?.removeFiles(
+                                    filesToRemove,
+                                    onlyLocalCopy,
+                                    true
+                                )
+                            } else {
+                                if (onlyLocalCopy) {
+                                    fileOperationsHelper?.removeFiles(filesToRemove, true, true)
+                                } else {
+                                    filesToRemove.forEach { file ->
+                                        fileDataStorageManager.addRemoveFileOfflineOperation(file)
+                                    }
+                                }
+                            }
+                            onFilesRemoved()
+                        }
+                    }
+                }
+            }
+
+            override fun onNeutral(callerTag: String?) = Unit
+            override fun onCancel(callerTag: String?) = Unit
+        })
+
+        if (isDialogFragmentReady(dialog)) {
+            dialog.show(supportFragmentManager, null)
         }
     }
 

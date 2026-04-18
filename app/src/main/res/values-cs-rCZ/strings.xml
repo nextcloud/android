@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Zkuste poslat zprávu pro rozproudění konverzace.</string>
     <string name="assistant_screen_empty_content_title">Zdravím! Jak vám mohu pomoci?</string>
     <string name="assistant_screen_retry_response_generation">Znovu zkusit vytvořit odpověď</string>
-    <string name="assistant_screen_select_task">Vyberte úkol</string>
     <string name="assistant_screen_send_message">Poslat zprávu</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Otevřít seznam konverzací</string>
     <string name="assistant_screen_task_create_fail_message">Při vytváření úlohy se vyskytla chyba</string>
@@ -245,6 +244,8 @@
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create">Vytvořit</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
+    <string name="create_end_to_end_encrypted_share">Sdílení odkazu</string>
+    <string name="create_end_to_end_encrypted_share_title">Sdílení odkazem, šifrovaná mezi koncovými body</string>
     <string name="create_link">Vytvořit odkaz</string>
     <string name="create_new">Nové</string>
     <string name="create_new_document">Nový dokument</string>
@@ -253,7 +254,6 @@
     <string name="create_new_presentation">Nová prezentace</string>
     <string name="create_new_spreadsheet">Nová tabulka</string>
     <string name="create_rich_workspace">Přidat popis složky</string>
-    <string name="creates_rich_workspace">Přidá popis složky</string>
     <string name="credentials_disabled">Přihlašovací údaje znepřístupněny</string>
     <string name="daily_backup">Každodenní záloha</string>
     <string name="data_to_back_up">Data k zálohování</string>
@@ -319,7 +319,6 @@
     <string name="drawer_item_notifications">Upozornění</string>
     <string name="drawer_item_on_device">Na přístroji</string>
     <string name="drawer_item_personal_files">Osobní soubory</string>
-    <string name="drawer_item_recently_modified">Nedávno změněné</string>
     <string name="drawer_item_shared">Sdíleno</string>
     <string name="drawer_item_trashbin">Smazané soubory</string>
     <string name="drawer_item_uploads_list">Nahrání</string>
@@ -439,7 +438,6 @@
     <string name="file_list_empty_on_device">Stažené soubory a složky se zobrazí zde.</string>
     <string name="file_list_empty_recent_files_description">Zde budou zobrazeny soubory a složky, které jste nedávno změnili.</string>
     <string name="file_list_empty_recent_files_headline">Žádné nedávno změněné soubory.</string>
-    <string name="file_list_empty_recently_modified">Nenalezeny žádné soubory změněné za uplynulých 7 dnů</string>
     <string name="file_list_empty_search">Možná se nachází v jiné složce?</string>
     <string name="file_list_empty_shared">Zde budou zobrazeny vámi nasdílené soubory a složky.</string>
     <string name="file_list_empty_shared_headline">Zatím nic nenasdíleno</string>
@@ -560,6 +558,7 @@
     <string name="instant_upload_existing">Také nahrát už existující soubory</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Sdílení šifrovaná mezi koncovými body</string>
     <string name="internal_shares">Vnitřní sdílení</string>
     <string name="internal_two_way_sync">Interní obousměrná synchronizace</string>
     <string name="internal_two_way_sync_not_yet">Zatím ještě ne, brzy bude synchronizováno</string>
@@ -852,7 +851,6 @@
     <string name="send">Odeslat</string>
     <string name="send_copy_to">Poslat kopii uživateli</string>
     <string name="send_share">Poslat sdílení</string>
-    <string name="sendbutton_description">Ikona tlačítka pro odesílání</string>
     <string name="server_not_reachable">Nepodařilo se načíst obsah</string>
     <string name="server_not_reachable_content">Zařízení pravděpodobně není připojené k Internetu</string>
     <string name="set_as">Nastavit jako</string>
@@ -894,7 +892,6 @@
     <string name="share_option_required">Aby bylo možné pokračovat, vyberte alespoň jednu možnost sdílení</string>
     <string name="share_permission_can_edit">Může upravovat</string>
     <string name="share_permission_file_request">Žádost o soubor</string>
-    <string name="share_permission_secure_file_drop">Bezpečné předání souborů</string>
     <string name="share_permission_view_only">Pouze prohlížet</string>
     <string name="share_permissions">Oprávnění pro sdílení</string>
     <string name="share_re_share_permission">Nasdílet</string>
@@ -1107,7 +1104,6 @@
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do složky %1$s není dostatek volného místa. Chcete je tam namísto toho přesunout?</string>
     <string name="upload_quota_exceeded">Kvóta úložiště překročena</string>
     <string name="upload_scan_doc_upload">Naskenovat dokument kamerou</string>
-    <string name="upload_sync_conflict">Konflikt synchronizace – vyřešte ručně</string>
     <string name="upload_unknown_error">Neznámá chyba</string>
     <string name="uploader_btn_alternative_text">Vybrat</string>
     <string name="uploader_btn_upload_text">Nahrát</string>
@@ -1154,7 +1150,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Místní soubor nenalezen</string>
     <string name="uploads_view_upload_status_failed_permission_error">Chyba oprávnění</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Nedůvěryhodný certifikát serveru</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Zjišťování verze serveru …</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikace ukončena</string>
     <string name="uploads_view_upload_status_skip">Přeskočeno</string>
     <string name="uploads_view_upload_status_skip_reason">Takto nazvaný soubor už existuje.</string>
@@ -1168,7 +1163,9 @@
     <string name="user_icon">Uživatel</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Skupiny</string>
     <string name="user_info_phone">Telefonní číslo</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">X (Twitter)</string>
     <string name="user_info_website">Webové stránky</string>
     <string name="user_information_retrieval_error">Chyba při načítání informací o uživateli</string>

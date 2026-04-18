@@ -61,7 +61,6 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.InternalTwoWaySyncActivity;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 import com.owncloud.android.ui.activity.ManageSpaceActivity;
-import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.activity.RequestCredentialsActivity;
@@ -118,6 +117,7 @@ import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.fragment.community.CommunityFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
+import com.owncloud.android.ui.fragment.notifications.NotificationsFragment;
 import com.owncloud.android.ui.navigation.NavigatorActivity;
 import com.owncloud.android.ui.preview.FileDownloadFragment;
 import com.owncloud.android.ui.preview.PreviewBitmapActivity;
@@ -143,6 +143,9 @@ import dagger.android.ContributesAndroidInjector;
 abstract class ComponentsModule {
     @ContributesAndroidInjector
     abstract ActivitiesFragment activitiesFragment();
+
+    @ContributesAndroidInjector
+    abstract NotificationsFragment notificationFragment();
 
     @ContributesAndroidInjector
     abstract AuthenticatorActivity authenticatorActivity();
@@ -191,9 +194,6 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract ManageSpaceActivity manageSpaceActivity();
-
-    @ContributesAndroidInjector
-    abstract NotificationsActivity notificationsActivity();
 
     @ContributesAndroidInjector
     abstract ComposeActivity composeActivity();

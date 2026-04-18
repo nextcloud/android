@@ -50,7 +50,6 @@
     <string name="assistant_screen_empty_content_description">メッセージを送って会話を始めてみましょう。</string>
     <string name="assistant_screen_empty_content_title"> こんにちは！何かお手伝いできることはありますか？</string>
     <string name="assistant_screen_retry_response_generation">応答の生成を再試行</string>
-    <string name="assistant_screen_select_task">タスクを選択して下さい</string>
     <string name="assistant_screen_send_message">メッセージを送信する</string>
     <string name="assistant_screen_task_create_fail_message">タスクの作成中にエラーが発生しました。</string>
     <string name="assistant_screen_task_create_success_message">タスクを作成しました</string>
@@ -233,6 +232,8 @@
     <string name="could_not_retrieve_url">URL を取得できませんでした</string>
     <string name="create">作成</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
+    <string name="create_end_to_end_encrypted_share">リンク共有</string>
+    <string name="create_end_to_end_encrypted_share_title">End-to-End暗号化リンク共有</string>
     <string name="create_link">リンクを作成する</string>
     <string name="create_new">新規作成</string>
     <string name="create_new_document">新規ドキュメント</string>
@@ -241,7 +242,6 @@
     <string name="create_new_presentation">新規プレゼンテーション</string>
     <string name="create_new_spreadsheet">新規スプレッドシート</string>
     <string name="create_rich_workspace">フォルダの説明を追加</string>
-    <string name="creates_rich_workspace">フォルダーの説明を追加</string>
     <string name="credentials_disabled">資格情報が無効です</string>
     <string name="daily_backup">毎日のバックアップ</string>
     <string name="data_to_back_up">バックアップするデータ</string>
@@ -307,7 +307,6 @@
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">デバイス上</string>
     <string name="drawer_item_personal_files">個人ファイル</string>
-    <string name="drawer_item_recently_modified">最近更新</string>
     <string name="drawer_item_shared">共有中</string>
     <string name="drawer_item_trashbin">ゴミ箱</string>
     <string name="drawer_item_uploads_list">アップロード</string>
@@ -422,7 +421,6 @@
     <string name="file_list_empty_on_device">ダウンロードされたファイルやフォルダーがここに表示されます。</string>
     <string name="file_list_empty_recent_files_description">最近変更したファイルやフォルダーがここに表示されます。</string>
     <string name="file_list_empty_recent_files_headline">最近更新されたファイルはありません</string>
-    <string name="file_list_empty_recently_modified">ここ7日間に更新されたファイルが見つかりません</string>
     <string name="file_list_empty_search">別のフォルダーにありませんか？</string>
     <string name="file_list_empty_shared">共有したファイルやフォルダーがここに表示されます。</string>
     <string name="file_list_empty_shared_headline">まだ何も共有されていません</string>
@@ -539,6 +537,7 @@
     <string name="instant_upload_existing">既存のファイルもアップロード</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_headline_end_to_end_encrypted">End-to-End暗号化共有</string>
     <string name="internal_shares">内部共有</string>
     <string name="internal_two_way_sync">内部的な双方向同期</string>
     <string name="internal_two_way_sync_not_yet">まだ同期されていませんが、間もなく同期されます</string>
@@ -821,7 +820,6 @@
     <string name="select_template">テンプレートを選択する</string>
     <string name="send">送信</string>
     <string name="send_share">送信/共有</string>
-    <string name="sendbutton_description">送信ボタンアイコン</string>
     <string name="server_not_reachable">コンテンツをロードできませんでした</string>
     <string name="server_not_reachable_content">デバイスがインターネットに接続されていないようです</string>
     <string name="set_as">として設定され</string>
@@ -862,7 +860,6 @@
     <string name="share_option_required">最低1つのオプションを選んでください。</string>
     <string name="share_permission_can_edit">編集可能</string>
     <string name="share_permission_file_request">ファイルリクエスト</string>
-    <string name="share_permission_secure_file_drop">セキュアなファイルドロップ</string>
     <string name="share_permission_view_only">閲覧のみ</string>
     <string name="share_permissions">共有権限</string>
     <string name="share_re_share_permission">共有</string>
@@ -1062,7 +1059,6 @@
     <string name="upload_query_move_foreign_files">十分な空き容量が無い場合、選択したファイルは%1$sにコピーできません。コピーせず移動にしますか？</string>
     <string name="upload_quota_exceeded">ストレージの割り当てを超過しました</string>
     <string name="upload_scan_doc_upload">カメラから書類をスキャン</string>
-    <string name="upload_sync_conflict">同期の競合が発生しました。手動で解決してください。</string>
     <string name="upload_unknown_error">不明なエラー</string>
     <string name="uploader_btn_alternative_text">選択</string>
     <string name="uploader_btn_upload_text">アップロード</string>
@@ -1109,7 +1105,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">ローカルファイルがありません</string>
     <string name="uploads_view_upload_status_failed_permission_error">権限エラー</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">信頼できないサーバー証明書</string>
-    <string name="uploads_view_upload_status_fetching_server_version">サーバーのバージョンを取得中…</string>
     <string name="uploads_view_upload_status_service_interrupted">アプリが終了しました</string>
     <string name="uploads_view_upload_status_succeeded">完了</string>
     <string name="uploads_view_upload_status_succeeded_same_file">同じファイルがリモートに見つかったため、アップロードをスキップします</string>
@@ -1121,7 +1116,9 @@
     <string name="user_icon">ユーザー</string>
     <string name="user_info_address">住所</string>
     <string name="user_info_email">メール</string>
+    <string name="user_info_groups">グループ</string>
     <string name="user_info_phone">電話番号</string>
+    <string name="user_info_profile">プロフィール</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">ウェブサイト</string>
     <string name="user_information_retrieval_error">ユーザー情報を取得中にエラーが発生しました</string>

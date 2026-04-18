@@ -29,6 +29,7 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import java.lang.ref.WeakReference
 
+@Suppress("TooGenericExceptionCaught")
 class CopyAndUploadContentUrisTask(
     listener: OnCopyTmpFilesTaskListener?,
     context: Context,

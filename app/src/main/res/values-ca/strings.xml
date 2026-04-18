@@ -221,7 +221,6 @@
     <string name="create_new_presentation">Nova presentació</string>
     <string name="create_new_spreadsheet">Nou full de càlcul</string>
     <string name="create_rich_workspace">Afegeix una descripció per a la carpeta</string>
-    <string name="creates_rich_workspace">Afegeix la descripció de la carpeta</string>
     <string name="credentials_disabled">Credencials inhabilitades</string>
     <string name="daily_backup">Còpia de seguretat diària</string>
     <string name="data_to_back_up">Dades a fer una còpia de seguretat</string>
@@ -279,7 +278,6 @@
     <string name="drawer_item_notifications">Notificacions</string>
     <string name="drawer_item_on_device">Al dispositiu</string>
     <string name="drawer_item_personal_files">Fitxers personals</string>
-    <string name="drawer_item_recently_modified">Modificat recentment</string>
     <string name="drawer_item_shared">Compartit</string>
     <string name="drawer_item_trashbin">Fitxers suprimits</string>
     <string name="drawer_item_uploads_list">Fitxers carregats</string>
@@ -384,7 +382,6 @@
     <string name="file_list_empty_on_device">Els fitxers i les carpetes que baixeu es mostraran aquí.</string>
     <string name="file_list_empty_recent_files_description">Els fitxers i les carpetes que heu modificat recentment es mostraran aquí.</string>
     <string name="file_list_empty_recent_files_headline">No hi ha cap fitxer modificat recentment</string>
-    <string name="file_list_empty_recently_modified">No s\'han trobat fitxers modificats els darrers 7 dies</string>
     <string name="file_list_empty_search">Potser és a una altra carpeta?</string>
     <string name="file_list_empty_shared">Els fitxers i les carpetes que compartiu es mostraran aquí.</string>
     <string name="file_list_empty_shared_headline">Encara no s\'ha compartit res</string>
@@ -745,7 +742,6 @@
     <string name="select_one_template">Seleccioneu una plantilla</string>
     <string name="select_template">Selecciona una plantilla</string>
     <string name="send">Envia</string>
-    <string name="sendbutton_description">Icona de botó d\'enviar</string>
     <string name="set_as">Configura com</string>
     <string name="set_online_status">Estat en línia</string>
     <string name="set_picture_as">Fes servir la foto com</string>
@@ -943,7 +939,6 @@
     <string name="upload_old_android">El xifratge només és possible amb &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">L\'espai insuficient evita la còpia dels fitxers seleccionats a la carpeta %1$s. Els hi voleu moure?</string>
     <string name="upload_scan_doc_upload">Escaneja el document des de la càmera</string>
-    <string name="upload_sync_conflict">Conflicte de sincronització. Si us plau, resoleu manualment.</string>
     <string name="upload_unknown_error">Error desconegut</string>
     <string name="uploader_btn_alternative_text">Escull</string>
     <string name="uploader_btn_upload_text">Pujada</string>
@@ -988,7 +983,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">No s\'ha trobat el fitxer local</string>
     <string name="uploads_view_upload_status_failed_permission_error">Error de permisos</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat de servidor no fiable</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Obtenint la versió del servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">L\'aplicació s\'ha tancat</string>
     <string name="uploads_view_upload_status_succeeded">Completat</string>
     <string name="uploads_view_upload_status_unknown_fail">Error desconegut</string>
@@ -999,6 +993,7 @@
     <string name="user_icon">Usuari</string>
     <string name="user_info_address">Adreça</string>
     <string name="user_info_email">Correu electrònic</string>
+    <string name="user_info_groups">Grups</string>
     <string name="user_info_phone">Número de telèfon</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Pàgina web</string>

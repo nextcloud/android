@@ -40,7 +40,7 @@ import com.owncloud.android.lib.resources.notifications.DeleteNotificationRemote
 import com.owncloud.android.lib.resources.notifications.GetNotificationRemoteOperation
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.activity.NotificationsActivity
+import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -137,7 +137,7 @@ class NotificationWork constructor(
         } else {
             val intent: Intent
             if (file == null) {
-                intent = Intent(context, NotificationsActivity::class.java)
+                intent = Intent(context, NavigatorActivity::class.java)
             } else {
                 intent = Intent(context, FileDisplayActivity::class.java)
                 intent.action = Intent.ACTION_VIEW

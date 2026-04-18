@@ -6,7 +6,6 @@
  */
 @file:Suppress("UnstableApiUsage", "DEPRECATION")
 
-import com.android.build.gradle.internal.api.ApkVariantOutputImpl
 import com.github.spotbugs.snom.Confidence
 import com.github.spotbugs.snom.Effort
 import com.github.spotbugs.snom.SpotBugsTask
@@ -24,11 +23,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.spotless)
-    alias(libs.plugins.kapt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.spotbugs)
     alias(libs.plugins.detekt)
     // needed to make renovate run without shot, as shot requires Android SDK
@@ -63,7 +60,7 @@ configurations.configureEach {
 
 // semantic versioning for version code
 val versionMajor = 33
-val versionMinor = 1
+val versionMinor = 2
 val versionPatch = 0
 val versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -168,12 +165,6 @@ android {
         }
     }
 
-    applicationVariants.configureEach {
-        outputs.configureEach {
-            if (this is ApkVariantOutputImpl) this.outputFileName = "${this.baseName}-${this.versionCode}.apk"
-        }
-    }
-
     testOptions {
         unitTests.isReturnDefaultValues = true
         animationsDisabled = true
@@ -232,8 +223,6 @@ android {
     }
 
 }
-
-kapt.useBuildCache = true
 
 ksp.arg("room.schemaLocation", "$projectDir/schemas")
 
@@ -457,7 +446,6 @@ dependencies {
 
     // region Markdown rendering
     implementation(libs.bundles.markdown.rendering)
-    kapt(libs.prism4j.bundler)
     // endregion
 
     // region Image cropping / rotation

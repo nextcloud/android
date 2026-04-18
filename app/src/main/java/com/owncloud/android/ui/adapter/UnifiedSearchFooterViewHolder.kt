@@ -12,14 +12,17 @@ import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.owncloud.android.databinding.UnifiedSearchFooterBinding
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
+import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class UnifiedSearchFooterViewHolder(
     val binding: UnifiedSearchFooterBinding,
     val context: Context,
+    private val viewThemeUtils: ViewThemeUtils,
     private val listInterface: UnifiedSearchListInterface
 ) : SectionedViewHolder(binding.root) {
 
     fun bind(section: UnifiedSearchSection) {
+        viewThemeUtils.material.colorMaterialTextButton(binding.unifiedSearchFooterLayout)
         binding.unifiedSearchFooterLayout.setOnClickListener {
             listInterface.onLoadMoreClicked(section.providerID)
         }

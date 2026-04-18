@@ -54,7 +54,6 @@
     <string name="assistant_screen_empty_content_description">Probe a enviar unha mensaxe para iniciar unha conversa.</string>
     <string name="assistant_screen_empty_content_title">Ola! En que podo axudarlle hoxe?</string>
     <string name="assistant_screen_retry_response_generation">Volver tentar a xeración de respostas</string>
-    <string name="assistant_screen_select_task">Seleccione a tarefa</string>
     <string name="assistant_screen_send_message">Enviar a mensaxe</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Lista de conversas abertas</string>
     <string name="assistant_screen_task_create_fail_message">Produciuse un erro ao crear a tarefa</string>
@@ -244,6 +243,8 @@
     <string name="could_not_retrieve_url">Non foi posíbel recuperar o URL</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">Non foi posíbel crear o cartafol</string>
+    <string name="create_end_to_end_encrypted_share">Ligazón para compartir</string>
+    <string name="create_end_to_end_encrypted_share_title">Ligazóns para compartir cifradas de extremo a extremo</string>
     <string name="create_link">Crear ligazón</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
@@ -252,7 +253,6 @@
     <string name="create_new_presentation">Nova presentación</string>
     <string name="create_new_spreadsheet">Nova folla de cálculo</string>
     <string name="create_rich_workspace">Engadir a descrición do cartafol</string>
-    <string name="creates_rich_workspace">Engade a descrición do cartafol</string>
     <string name="credentials_disabled">Credenciais eliminadas</string>
     <string name="daily_backup">Copia de seguranza diaria</string>
     <string name="data_to_back_up">Datos para facer a copia de seguranza</string>
@@ -318,7 +318,6 @@
     <string name="drawer_item_notifications">Notificacións</string>
     <string name="drawer_item_on_device">No dispositivo</string>
     <string name="drawer_item_personal_files">Ficheiros persoais</string>
-    <string name="drawer_item_recently_modified">Modificado recentemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Ficheiros eliminados</string>
     <string name="drawer_item_uploads_list">Envíos</string>
@@ -438,7 +437,6 @@
     <string name="file_list_empty_on_device">Aquí amosaranse os ficheiros e cartafoles descargados</string>
     <string name="file_list_empty_recent_files_description">Os ficheiros e cartafoles que modificou recentemente amosaranse aquí.</string>
     <string name="file_list_empty_recent_files_headline">Non hai ficheiros modificados recentemente</string>
-    <string name="file_list_empty_recently_modified">Non se atopou ningún ficheiro modificado nos últimos 7 días.</string>
     <string name="file_list_empty_search">Quizáis estea nun cartafol diferente?</string>
     <string name="file_list_empty_shared">Aquí amosaranse os ficheiros e cartafoles que comparta.</string>
     <string name="file_list_empty_shared_headline">Aínda non hai ren compartido</string>
@@ -559,6 +557,7 @@
     <string name="instant_upload_existing">Envíar tamén os ficheiros existentes</string>
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Comparticións cifradas de extremo a extremo</string>
     <string name="internal_shares">Comparticións internas</string>
     <string name="internal_two_way_sync">Sincronización interna bidireccional</string>
     <string name="internal_two_way_sync_not_yet">Aínda non, pronto se sincronizará</string>
@@ -849,7 +848,6 @@
     <string name="send">Enviar</string>
     <string name="send_copy_to">Enviar copia a</string>
     <string name="send_share">Enviar o compartido</string>
-    <string name="sendbutton_description">Icona do botón de envío</string>
     <string name="server_not_reachable">Non foi posíbel cargar o contido</string>
     <string name="server_not_reachable_content">É probábel que o dispositivo non estea conectado a Internet</string>
     <string name="set_as">Definir como</string>
@@ -891,7 +889,6 @@
     <string name="share_option_required">Seleccione polo menos unha opción de compartir antes de continuar.</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_file_request">Solicitude de ficheiro</string>
-    <string name="share_permission_secure_file_drop">Entrega segura de ficheiros</string>
     <string name="share_permission_view_only">Só ver</string>
     <string name="share_permissions">Permisos de compartir</string>
     <string name="share_re_share_permission">Compartir</string>
@@ -1104,7 +1101,6 @@
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. En troques, gustaríalle movelos?</string>
     <string name="upload_quota_exceeded">Superouse a cota de almacenamento</string>
     <string name="upload_scan_doc_upload">Escanear o documento desde a cámara</string>
-    <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
     <string name="upload_unknown_error">Produciuse un erro descoñecido</string>
     <string name="uploader_btn_alternative_text">Escoller</string>
     <string name="uploader_btn_upload_text">Enviar</string>
@@ -1151,7 +1147,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Non se atopou o ficheiro local</string>
     <string name="uploads_view_upload_status_failed_permission_error"> Produciuse un erro de permisos</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">O certificado do servidor non é fiábel</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Recuperando a versión do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicación finalizada</string>
     <string name="uploads_view_upload_status_skip">Omitido</string>
     <string name="uploads_view_upload_status_skip_reason">Xa existe un ficheiro co mesmo nome</string>
@@ -1165,7 +1160,9 @@
     <string name="user_icon">Usuario</string>
     <string name="user_info_address">Enderezo</string>
     <string name="user_info_email">Correo-e</string>
+    <string name="user_info_groups">Grupos</string>
     <string name="user_info_phone">Número de teléfono</string>
+    <string name="user_info_profile">Perfil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Sitio web</string>
     <string name="user_information_retrieval_error">Produciuse un erro ao recuperar a información do usuario</string>

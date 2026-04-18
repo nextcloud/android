@@ -31,6 +31,7 @@
     <string name="add_to_cloud">Add to %1$s</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
+    <string name="appear_offline">ხაზგარეშე გამოჩენა</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
     <string name="assistant_screen_send_message">Send message</string>
     <string name="assistant_screen_task_create_success_message">Task created</string>
@@ -236,7 +237,6 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">On device</string>
-    <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_trashbin">Deleted files</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -329,7 +329,6 @@
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
     <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
     <string name="file_list_empty_recent_files_headline">No recently modified files</string>
-    <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
@@ -479,6 +478,7 @@
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
+    <string name="mute_all_notifications">ყველა გაფრთხილების დადუმება</string>
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
     <string name="network_error_socket_exception">An error occurred during connection to the server</string>
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
@@ -552,6 +552,7 @@
     <string name="prefs_category_about">About</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">ფაილები</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_category_sync">Sync</string>
@@ -648,7 +649,6 @@
     <string name="select_one_template">Please select one template</string>
     <string name="select_template">Select template</string>
     <string name="send">Send</string>
-    <string name="sendbutton_description">Send button icon</string>
     <string name="set_as">Set As</string>
     <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Use picture as</string>
@@ -677,7 +677,6 @@
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_no_password_title">Set password</string>
     <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
     <string name="share_re_share_permission">გაზიარება</string>
     <string name="share_read_permission">Read</string>
@@ -836,7 +835,6 @@
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>
     <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
-    <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_unknown_error">Unknown error</string>
     <string name="uploader_btn_alternative_text">Choose</string>
     <string name="uploader_btn_upload_text">Upload</string>
@@ -883,7 +881,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Local file not found</string>
     <string name="uploads_view_upload_status_failed_permission_error">Permission error</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Untrusted server certificate</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_upload_status_service_interrupted">App terminated</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
@@ -894,7 +891,9 @@
     <string name="user_icon">User</string>
     <string name="user_info_address">Address</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">ჯგუფები</string>
     <string name="user_info_phone">Phone number</string>
+    <string name="user_info_profile">Profile</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Error retrieving user information</string>

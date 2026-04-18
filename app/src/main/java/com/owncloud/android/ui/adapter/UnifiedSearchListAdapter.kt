@@ -120,7 +120,7 @@ class UnifiedSearchListAdapter(
                     parent,
                     false
                 )
-                UnifiedSearchFooterViewHolder(binding, context, listInterface)
+                UnifiedSearchFooterViewHolder(binding, context, viewThemeUtils, listInterface)
             }
 
             VIEW_TYPE_ITEM -> {

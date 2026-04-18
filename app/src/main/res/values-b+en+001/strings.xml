@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Try sending a message to spark a conversation.</string>
     <string name="assistant_screen_empty_content_title">Hello there! What can I help you with today?</string>
     <string name="assistant_screen_retry_response_generation">Retry response generation</string>
-    <string name="assistant_screen_select_task">Please select task</string>
     <string name="assistant_screen_send_message">Send message</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Open conversation list</string>
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
@@ -114,6 +113,8 @@
     <string name="authenticator_activity_no_web_browser_found">No browser is available to open this link.</string>
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
     <string name="auto_upload_battery_saver_mode_warning">Auto-upload is paused because Battery Saver is on.</string>
+    <string name="auto_upload_delete_dialog_description">This will remove the folder and auto-upload configuration. Any unfinished uploads will be canceled.</string>
+    <string name="auto_upload_delete_dialog_title">Delete auto-upload folder?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
     <string name="auto_upload_low_battery_warning_info">Low battery, upload might take longer</string>
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
@@ -245,6 +246,8 @@
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="create">Create</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
+    <string name="create_end_to_end_encrypted_share">Link share</string>
+    <string name="create_end_to_end_encrypted_share_title">End-to-end encrypted link shares</string>
     <string name="create_link">Create link</string>
     <string name="create_new">New</string>
     <string name="create_new_document">New document</string>
@@ -253,7 +256,6 @@
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
     <string name="create_rich_workspace">Add folder description</string>
-    <string name="creates_rich_workspace">Adds folder description</string>
     <string name="credentials_disabled">Credentials disabled</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
@@ -320,7 +322,6 @@
     <string name="drawer_item_on_device">On device</string>
     <string name="drawer_item_personal_files">Personal files</string>
     <string name="drawer_item_recent_files">Recent files</string>
-    <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_trashbin">Deleted files</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -441,7 +442,6 @@
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
     <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
     <string name="file_list_empty_recent_files_headline">No recently modified files</string>
-    <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
@@ -562,6 +562,8 @@
     <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_description_end_to_end_encrypted">Share recipients always have access to the full encrypted folder. It is only possible to share with accounts that have already setup end-to-end encryption.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">End-to-end encrypted shares</string>
     <string name="internal_shares">Internal shares</string>
     <string name="internal_two_way_sync">Internal two way sync</string>
     <string name="internal_two_way_sync_not_yet">Not yet, soon to be synced</string>
@@ -854,7 +856,6 @@
     <string name="send">Send</string>
     <string name="send_copy_to">Send copy to</string>
     <string name="send_share">Send share</string>
-    <string name="sendbutton_description">Send button icon</string>
     <string name="server_not_reachable">Could not load content</string>
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="set_as">Set As</string>
@@ -896,7 +897,6 @@
     <string name="share_option_required">Please select at least one sharing option before continuing.</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_request">File request</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
     <string name="share_permissions">Share permissions</string>
     <string name="share_re_share_permission">Share</string>
@@ -1109,7 +1109,6 @@
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>
     <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
-    <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_unknown_error">Unknown error</string>
     <string name="uploader_btn_alternative_text">Choose</string>
     <string name="uploader_btn_upload_text">Upload</string>
@@ -1156,7 +1155,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Local file not found</string>
     <string name="uploads_view_upload_status_failed_permission_error">Permission error</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Untrusted server certificate</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_upload_status_service_interrupted">App terminated</string>
     <string name="uploads_view_upload_status_skip">Skipped</string>
     <string name="uploads_view_upload_status_skip_reason">A file with the same name already exists.</string>
@@ -1170,7 +1168,9 @@
     <string name="user_icon">User</string>
     <string name="user_info_address">Address</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">Groups</string>
     <string name="user_info_phone">Phone number</string>
+    <string name="user_info_profile">Profile</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Error retrieving user information</string>

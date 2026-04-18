@@ -58,6 +58,7 @@
     <string name="assistant_screen_task_list_error_state_message">Impossibile recuperare la lista dei Task, verifica la tua connessione a internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Elimina attività</string>
     <string name="assistant_screen_task_output_empty_text">Il risultato del task non è ancora pronto.</string>
+    <string name="assistant_screen_text_selected">Testo copiato da un\'altra app</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
@@ -237,7 +238,6 @@
     <string name="create_new_presentation">Nuova presentazione</string>
     <string name="create_new_spreadsheet">Nuovo foglio elettronico</string>
     <string name="create_rich_workspace">Aggiungi descrizione cartella</string>
-    <string name="creates_rich_workspace">Aggiungi una descrizione della cartella</string>
     <string name="credentials_disabled">Credenziali disabilitate</string>
     <string name="daily_backup">Backup giornaliero</string>
     <string name="data_to_back_up">Dati di cui eseguire il backup</string>
@@ -296,7 +296,6 @@
     <string name="drawer_item_notifications">Notifiche</string>
     <string name="drawer_item_on_device">Su dispositivo</string>
     <string name="drawer_item_personal_files">File personali</string>
-    <string name="drawer_item_recently_modified">Modificato di recente</string>
     <string name="drawer_item_shared">Condiviso</string>
     <string name="drawer_item_trashbin">File eliminati</string>
     <string name="drawer_item_uploads_list">Caricamenti</string>
@@ -404,7 +403,6 @@
     <string name="file_list_empty_on_device">I file e le cartelle scaricati saranno mostrati qui.</string>
     <string name="file_list_empty_recent_files_description">I file e le cartelle che hai modificato di recente saranno mostrati qui.</string>
     <string name="file_list_empty_recent_files_headline">Nessun file modificato di recente</string>
-    <string name="file_list_empty_recently_modified">Non è stato trovato alcun file modificato negli ultimi 7 giorni</string>
     <string name="file_list_empty_search">Forse è in una cartella diversa?</string>
     <string name="file_list_empty_shared">I file e le cartelle che condividi saranno mostrati qui.</string>
     <string name="file_list_empty_shared_headline">Ancora nessuna condivisione</string>
@@ -787,7 +785,6 @@
     <string name="send">Invia</string>
     <string name="send_copy_to">Invia copia a</string>
     <string name="send_share">Invia condivisione</string>
-    <string name="sendbutton_description">Icona pulsante di invio</string>
     <string name="server_not_reachable">Impossibile caricare il contenuto</string>
     <string name="server_not_reachable_content">È probabile che il dispositivo non sia connesso a Internet</string>
     <string name="set_as">Imposta come</string>
@@ -826,7 +823,6 @@
     <string name="share_option_required">Seleziona almeno un\'opzione di condivisione prima di continuare.</string>
     <string name="share_permission_can_edit">Può modificare</string>
     <string name="share_permission_file_request">Richiesta file</string>
-    <string name="share_permission_secure_file_drop">File drop sicuro</string>
     <string name="share_permission_view_only">Sola lettura</string>
     <string name="share_permissions">Permessi di condivisione</string>
     <string name="share_re_share_permission">Condividi</string>
@@ -858,7 +854,7 @@
     <string name="single_sign_on_request_token" formatted="true">Vuoi consentire a %1$s di accedere al tuo account Nextcloud %2$s?</string>
     <string name="sort_by">Ordina per</string>
     <string name="sort_favorites_first">Ordina prima i preferiti</string>
-    <string name="sort_folders_before_files">Ordina cartelle prima dei files</string>
+    <string name="sort_folders_before_files">Ordina cartelle prima dei file</string>
     <string name="ssl_validator_btn_details_hide">Nascondi</string>
     <string name="ssl_validator_btn_details_see">Dettagli</string>
     <string name="ssl_validator_header">L\'identità del server non può essere verificata</string>
@@ -1023,7 +1019,6 @@
     <string name="upload_query_move_foreign_files">La mancanza di spazio impedisce di copiare i file selezionati nella cartella %1$s. Vuoi spostarli in quella cartella?</string>
     <string name="upload_quota_exceeded">Quota di archiviazione superata</string>
     <string name="upload_scan_doc_upload">Scansiona il documento dalla fotocamera</string>
-    <string name="upload_sync_conflict">Conflitto di sincronizzazione, risolvi manualmente</string>
     <string name="upload_unknown_error">Errore sconosciuto</string>
     <string name="uploader_btn_alternative_text">Scegli</string>
     <string name="uploader_btn_upload_text">Carica</string>
@@ -1070,9 +1065,9 @@
     <string name="uploads_view_upload_status_failed_localfile_error">File locale non trovato</string>
     <string name="uploads_view_upload_status_failed_permission_error">Errore di permessi</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificato server non fidato</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Recupero versione del server…</string>
     <string name="uploads_view_upload_status_service_interrupted">Applicazione terminata</string>
     <string name="uploads_view_upload_status_skip">Saltato</string>
+    <string name="uploads_view_upload_status_skip_reason">Esiste già un file con lo stesso nome.</string>
     <string name="uploads_view_upload_status_succeeded">Completati</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Stesso file trovato in remoto, salto il caricamento</string>
     <string name="uploads_view_upload_status_unknown_fail">Errore sconosciuto</string>
@@ -1083,7 +1078,9 @@
     <string name="user_icon">Utente</string>
     <string name="user_info_address">Indirizzo</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">Gruppi</string>
     <string name="user_info_phone">Numero di telefono</string>
+    <string name="user_info_profile">Profilo</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Sito web</string>
     <string name="user_information_retrieval_error">Errore durante il recupero delle informazioni utente</string>
