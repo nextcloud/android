@@ -43,7 +43,7 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/zero"
         android:contentDescription="@string/preview_image_description"
-        android:src="@drawable/image_fail" />
+        android:src="@drawable/file_image" />
 
     <LinearLayout
         android:id="@+id/empty_list_view"
