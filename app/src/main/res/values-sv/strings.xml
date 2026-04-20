@@ -81,7 +81,7 @@
     <string name="auth_account_does_not_exist">Kontot har ännu inte lagts till på den här enheten</string>
     <string name="auth_account_not_new">Ett konto för samma användare och server finns redan på enheten</string>
     <string name="auth_account_not_the_same">Den angivna användaren matchar inte användaren för detta konto</string>
-    <string name="auth_bad_oc_version_title">Okänd server serverversion</string>
+    <string name="auth_bad_oc_version_title">Okänd serverversion</string>
     <string name="auth_connection_established">Anslutning etablerad</string>
     <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användar-ID, kontakta en administratör.</string>
     <string name="auth_host_url">Serveradress https://…</string>
@@ -117,7 +117,7 @@
     <string name="auto_upload_delete_dialog_title">Ta bort mapp för automatisk uppladdning?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
     <string name="auto_upload_low_battery_warning_info">Låg batterinivå, uppladdningen kan ta längre tid</string>
-    <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
+    <string name="auto_upload_on_wifi">Ladda endast upp på obegränsat Wi-Fi</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
     <string name="auto_upload_sub_folder_warning">Denna mapp ingår redan i synkroniseringen av den överordnade mappen, vilket kan orsaka dubbla uppladdningar</string>
     <string name="auto_upload_wifi_only_warning_info">Väntar på Wi-Fi för att starta uppladdning</string>
@@ -219,7 +219,7 @@
     <string name="contact_backup_title">Backup av kontakter</string>
     <string name="contact_no_permission">Rättighet till kontakt krävs.</string>
     <string name="contactlist_item_icon">Användarikon för kontaktlista</string>
-    <string name="contactlist_no_permission">Ingen tillstått givet, ingen importerat!</string>
+    <string name="contactlist_no_permission">Ingen behörighet beviljad, inget importerades!</string>
     <string name="contacts">Kontakter</string>
     <string name="contacts_backup_button">Gör backup nu</string>
     <string name="contacts_preferences_backup_scheduled">Backup schemalagt och kommer starta inom kort</string>
@@ -238,7 +238,7 @@
     <string name="copy_file_error">Ett fel uppstod, kunde inte kopiera filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det är inte möjligt att kopiera mappen till en av dess undermappar</string>
     <string name="copy_file_invalid_overwrite">Filen finns redan i målmappen</string>
-    <string name="copy_file_not_found">Kunde inte kopiera. Vänligen kontrollera om filen existerar.</string>
+    <string name="copy_file_not_found">Kunde inte kopiera. Vänligen kontrollera om filen finns.</string>
     <string name="copy_link">Kopiera länk</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiera/flytta till krypterad mapp stöds för närvarande inte.</string>
     <string name="could_not_download_image">Kunde inte hämta hela bilden</string>
@@ -644,7 +644,7 @@
     <string name="new_version_was_created">Ny version skapades</string>
     <string name="no_actions">Inga tillgängliga åtgärder för användaren</string>
     <string name="no_browser_available">Ingen app tillgänglig för att hantera länkar</string>
-    <string name="no_calendar_exists">Inga kalendrar existerar</string>
+    <string name="no_calendar_exists">Inga kalendrar finns</string>
     <string name="no_email_app_available">Ingen tillgänglig applikation kan hantera e-postadresser</string>
     <string name="no_items">Inga poster</string>
     <string name="no_map_app_availble">Ingen app tillgänglig för att hantera kartor</string>
@@ -716,9 +716,9 @@
     <string name="player_stop">stopp</string>
     <string name="player_toggle">växla</string>
     <string name="please_select_a_server">Välj en server...</string>
-    <string name="power_save_check_dialog_message">Inaktivera strömsparningskontroll kan resultera i att filer laddas upp i lågt batteriläge!</string>
+    <string name="power_save_check_dialog_message">Att inaktivera strömsparningskontrollen kan leda till att filer laddas upp trots låg batterinivå.</string>
     <string name="pref_behaviour_entries_delete_file">raderas</string>
-    <string name="pref_behaviour_entries_keep_file">behållas i orginalmapp</string>
+    <string name="pref_behaviour_entries_keep_file">behållas i originalmapp</string>
     <string name="pref_behaviour_entries_move">flyttas till Nextcloud-mapp</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Vad ska göras om filen redan finns?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Fråga mig varje gång</string>
@@ -730,7 +730,7 @@
     <string name="prefs_all_files_access_summary">Tillåt appen att få åtkomst till och hantera alla filer på din enhet</string>
     <string name="prefs_all_files_access_title">Åtkomst till alla filer</string>
     <string name="prefs_calendar_contacts">Synkronisera kalender och kontakter</string>
-    <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerad</string>
+    <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerade</string>
     <string name="prefs_calendar_contacts_summary">Sätt upp DAVx⁵ (tidigare DAVdroid) (v1.3.0 +) för nuvarande konto</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synkronisera kalender och kontakter</string>
     <string name="prefs_category_about">Om</string>
@@ -1124,7 +1124,7 @@
     <string name="uploader_error_message_source_file_not_found">Filen vald för uppladdning hittades inte. Vänligen kontrollera om filen finns.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Filen kan inte laddas upp</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil att ladda upp</string>
-    <string name="uploader_file_not_found_message">Filen hittades inte. Är du säker på att denna fil existerar eller har en tidigare konflikt inte blivit löst?</string>
+    <string name="uploader_file_not_found_message">Filen hittades inte. Är du säker på att denna fil finns eller har en tidigare konflikt inte blivit löst?</string>
     <string name="uploader_file_not_found_on_server_message">Vi kunde inte hitta filen på servern. En annan användare kan ha raderat filen.</string>
     <string name="uploader_info_dirname">Mappnamn</string>
     <string name="uploader_top_message">Välj mapp för uppladdning</string>
