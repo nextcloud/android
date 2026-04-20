@@ -87,6 +87,8 @@ class SharedListFragment :
             FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
             val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)
             savedFile.apply {
+                ownerId = partialFile.ownerId
+                ownerDisplayName = partialFile.ownerDisplayName
                 isSharedViaLink = partialFile.isSharedViaLink
                 isSharedWithSharee = partialFile.isSharedWithSharee
                 sharees = partialFile.sharees
