@@ -169,6 +169,8 @@ class PreviewImageActivityIT : AbstractOnServerIT() {
             }
             onView(isRoot()).check(matches(isDisplayed()))
 
+            assertTrue("Do not merge - just testing test failures", false)
+
             for (testFile in expectedFileOrder) {
                 veryImageThenDelete(testFile)
                 assertTrue(
