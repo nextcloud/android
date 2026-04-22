@@ -24,12 +24,10 @@ class UploadFileOperationFactory @Inject constructor(
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
-    private val context: Context,
-    private val accountManager: UserAccountManager,
-    private val fileDataStorageManager: FileDataStorageManager
+    private val accountManager: UserAccountManager
 ) {
-
     fun create(
+        context: Context,
         upload: OCUpload,
         progressListener: OnDatatransferProgressListener? = null,
         disableRetries: Boolean = true
@@ -46,7 +44,7 @@ class UploadFileOperationFactory @Inject constructor(
         upload.isUseWifiOnly,
         upload.isWhileChargingOnly,
         disableRetries,
-        fileDataStorageManager
+        FileDataStorageManager(accountManager.user, context.contentResolver)
     ).apply {
         progressListener?.let { addDataTransferProgressListener(it) }
     }
