@@ -271,7 +271,7 @@ class FileUploadWorker(
             }
 
             fileUploadEventBroadcaster.sendUploadEnqueued(context)
-            val operation = uploadFileOperationFactory.create(upload, this@FileUploadWorker)
+            val operation = uploadFileOperationFactory.create(context, upload, this@FileUploadWorker)
             activeOperations[upload.uploadId] = operation
 
             val currentIndex = (index + 1)
