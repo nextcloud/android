@@ -36,6 +36,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import androidx.activity.OnBackPressedCallback
 
 @Suppress("TooManyFunctions", "MagicNumber")
 class PassCodeActivity :
@@ -90,6 +91,20 @@ class PassCodeActivity :
         setSoftInputMode()
         setupUI(savedInstanceState)
         setTextListeners()
+        handleOnBackPressed()
+    }
+
+    private fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (intent.action == ACTION_CHECK) return
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        )
     }
 
     private fun applyTint() {
