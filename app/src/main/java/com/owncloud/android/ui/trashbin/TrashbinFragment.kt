@@ -288,7 +288,6 @@ class TrashbinFragment :
     override fun onLongItemClicked(file: TrashbinFile): Boolean {
         val navigatorActivity = getTypedActivity(NavigatorActivity::class.java)
 
-
         // Create only once instance of action mode
         if (multiChoiceModeListener?.activeActionMode != null) {
             toggleItemToCheckedList(file)

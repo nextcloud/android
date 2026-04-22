@@ -28,7 +28,7 @@ sealed class NavigatorScreen(val tag: String, val hasDrawer: Boolean = true) : P
     object Notifications : NavigatorScreen(NOTIFICATIONS_TAG, hasDrawer = false)
 
     @Parcelize
-    object Trashbin: NavigatorScreen(TRASHBIN_TAG)
+    object Trashbin : NavigatorScreen(TRASHBIN_TAG)
 
     companion object {
         private const val TRASHBIN_TAG = "Trashbin"
