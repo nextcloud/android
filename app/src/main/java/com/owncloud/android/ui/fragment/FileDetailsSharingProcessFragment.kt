@@ -139,6 +139,7 @@ class FileDetailsSharingProcessFragment :
 
     private var expirationDatePickerFragment: ExpirationDatePickerDialogFragment? = null
     private var downloadAttribute: String? = null
+    private var passwordModified = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -362,17 +363,20 @@ class FileDetailsSharingProcessFragment :
         maskPasswordInput()
     }
 
+    /**
+     * When a share already has a password, mask the field with placeholder dots.
+     * The first time the user focuses the field, its contents are cleared and
+     * [passwordModified] is set so we know to send the new value to the server.
+     */
     private fun maskPasswordInput() {
-        if (share?.isPasswordProtected == false) {
-            return
-        }
+        if (share?.isPasswordProtected == false) return
 
-        binding.shareProcessEnterPassword.run {
-            setText("••••••")
-            setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) {
-                    text?.clear()
-                }
+        binding.shareProcessEnterPasswordContainer.hint = "••••••"
+        binding.shareProcessEnterPasswordContainer.placeholderText = "••••••"
+        binding.shareProcessEnterPassword.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus && !passwordModified) {
+                binding.shareProcessEnterPassword.text?.clear()
+                passwordModified = true
             }
         }
     }
@@ -756,11 +760,15 @@ class FileDetailsSharingProcessFragment :
             return
         }
 
-        if (binding.shareProcessSetPasswordSwitch.isChecked &&
-            binding.shareProcessEnterPassword.text?.isBlank() == true
-        ) {
-            DisplayUtils.showSnackMessage(this, R.string.share_link_empty_password)
-            return
+        if (binding.shareProcessSetPasswordSwitch.isChecked) {
+            val enteredPassword = binding.shareProcessEnterPassword.text?.toString()?.trim().orEmpty()
+            val hasExistingPassword = (share?.isPasswordProtected == true)
+            val needsPasswordEntry = (!hasExistingPassword || passwordModified)
+
+            if (needsPasswordEntry && enteredPassword.isBlank()) {
+                DisplayUtils.showSnackMessage(this, R.string.share_link_empty_password)
+                return
+            }
         }
 
         if (binding.shareProcessSetExpDateSwitch.isChecked &&
@@ -825,11 +833,17 @@ class FileDetailsSharingProcessFragment :
             share?.attributes = null
         }
 
+        val password = when {
+            !binding.shareProcessSetPasswordSwitch.isChecked -> ""
+            share?.isPasswordProtected == true && !passwordModified -> null
+            else -> binding.shareProcessEnterPassword.text.toString().trim()
+        }
+
         fileOperationsHelper?.updateShareInformation(
             share,
             permission,
             binding.shareProcessHideDownloadCheckbox.isChecked,
-            binding.shareProcessEnterPassword.text.toString().trim(),
+            password,
             chosenExpDateInMills,
             binding.shareProcessChangeName.text.toString().trim()
         )
