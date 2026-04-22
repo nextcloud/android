@@ -25,6 +25,7 @@ import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFi
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.util.EncryptionTestIT
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
@@ -404,11 +405,9 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             arbitraryDataProvider
         )
 
-        val signature = encryptionUtilsV2.getMessageSignature(enc1Cert, enc1PrivateKey, encrypted)
+        encryptionUtilsV2.verifyMetadata(enc1PrivateKey, encrypted, metadataFile, 0)
 
-        encryptionUtilsV2.verifyMetadata(encrypted, metadataFile, 0, signature)
-
-        assertTrue(true) // if we reach this, test is successful
+        assertTrue(true)
     }
 
     private fun generateDecryptedFileV1(): com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile =
@@ -641,76 +640,172 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         assertEquals("this is a test.\n", gunzip)
     }
 
-//     @Test
-//     fun validate() {
-//         // ALEX
-//         val metadata1 = """{
-// "metadata": {
-// "authenticationTag": "zMozev5R09UopLrq7Je1lw==",
-// "ciphertext": "j0OBtUrEt4IveGiexjmGK7eKEaWrY70ZkteA5KxHDaZT/t2wwGy9j2FPQGpqXnW6OO3iAYPNgwFikI1smnfNvqdxzVDvhavl/IXa9Kg2niWyqK3D9zpz0YD6mDvl0XsOgTNVyGXNVREdWgzGEERCQoyHI1xowt/swe3KCXw+lf+XPF/t1PfHv0DiDVk70AeWGpPPPu6yggAIxB4Az6PEZhaQWweTC0an48l2FHj2MtB2PiMHtW2v7RMuE8Al3PtE4gOA8CMFrB+Npy6rKcFCXOgTZm5bp7q+J1qkhBDbiBYtvdsYujJ52Xa5SifTpEhGeWWLFnLLgPAQ8o6bXcWOyCoYfLfp4Jpft/Y7H8qzHbPewNSyD6maEv+xljjfU7hxibbszz5A4JjMdQy2BDGoTmJx7Mas+g6l6ZuHLVbdmgQOvD3waJBy6rOg0euux0Cn4bB4bIFEF2KvbhdGbY1Uiq9DYa7kEmSEnlcAYaHyroTkDg4ew7ER0vIBBMzKM3r+UdPVKKS66uyXtZc=",
-// "nonce": "W+lxQJeGq7XAJiGfcDohkg=="
-// },
-// "users": [{
-// "certificate": "-----BEGIN CERTIFICATE-----\nMIIDkDCCAnigAwIBAgIBADANBgkqhkiG9w0BAQUFADBhMQswCQYDVQQGEwJERTEb\nMBkGA1UECAwSQmFkZW4tV3VlcnR0ZW1iZXJnMRIwEAYDVQQHDAlTdHV0dGdhcnQx\nEjAQBgNVBAoMCU5leHRjbG91ZDENMAsGA1UEAwwEam9objAeFw0yMzA3MTQwNzM0\nNTZaFw00MzA3MDkwNzM0NTZaMGExCzAJBgNVBAYTAkRFMRswGQYDVQQIDBJCYWRl\nbi1XdWVydHRlbWJlcmcxEjAQBgNVBAcMCVN0dXR0Z2FydDESMBAGA1UECgwJTmV4\ndGNsb3VkMQ0wCwYDVQQDDARqb2huMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB\nCgKCAQEA7j3Er5YahJT0LAnSRLhpqbRo+E1AVnt98rvp3DmEfBHNzNB+DS9IBDkS\nSXM/YtfAci6Tcw8ujVBjrZX/WEmrf8ynQHxYmSaJSnP8uAT306/MceZpdpruEc9/\nS10a7vp54Zbld4NYdmfS71oVFVKgM7c/Vthx+rgu48fuxzbWAvVYLFcx47hz0DJT\nnjz2Za/R68uXpxfz7J9uEXYiqsAs/FobDsLZluT3RyywVRwKBed1EZxUeLIJiyxp\nUthhGfIb8b3Vf9jZoUVi3m5gmc4spJQHvYAkfZYHzd9ras8jBu1abQRxcu2CYnVo\n6Y0mTxhKhQS/n5gjv3ExiQF3wp/XYwIDAQABo1MwUTAdBgNVHQ4EFgQUmTeILVuB\ntv70fTGkXWGAueDp5kAwHwYDVR0jBBgwFoAUmTeILVuBtv70fTGkXWGAueDp5kAw\nDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQUFAAOCAQEAyVtq9XAvW7nxSW/8\nhp30z6xbzGiuviXhy/Jo91VEa8IRsWCCn3OmDFiVduTEowx76tf8clJP0gk7Pozi\n6dg/7Fin+FqQGXfCk8bLAh9gXKAikQ2GK8yRN3slRFwYC2mm23HrLdKXZHUqJcpB\nMz2zsSrOGPj1YsYOl/U8FU6KA7Yj7U3q7kDMYTAgzUPZAH+d1DISGWpZsMa0RYid\nvigCCLByiccmS/Co4Sb1esF58H+YtV5+nFBRwx881U2g2TgDKF1lPMK/y3d8B8mh\nUtW+lFxRpvyNUDpsMjOErOrtNFEYbgoUJLtqwBMmyGR+nmmh6xna331QWcRAmw0P\nnDO4ew==\n-----END CERTIFICATE-----\n",
-// "encryptedMetadataKey": "HVT49bYmwXbGs/dJ2avgU9unrKnPf03MYUI5ZysSR1Bz5pqz64gzH2GBAuUJ+Q4VmHtEfcMaWW7VXgzfCQv5xLBrk+RSgcLOKnlIya8jaDlfttWxbe8jJK+/0+QVPOc6ycA/t5HNCPg09hzj+gnb2L89UHxL5accZD0iEzb5cQbGrc/N6GthjgGrgFKtFf0HhDVplUr+DL9aTyKuKLBPjrjuZbv8M6ZfXO93mOMwSZH3c3rwDUHb/KEaTR/Og4pWQmrqr1VxGLqeV/+GKWhzMYThrOZAUz+5gsbckU2M5V9i+ph0yBI5BjOZVhNuDwW8yP8WtyRJwQc+UBRei/RGBQ==",
-// "userId": "john"
-// }],
-// "version": "2"
-// }
-//
-// """
-//
-//         val signature1 =
-//             "ewogICAgIm1ldGFkYXRhIjogewogICAgICAgICJhdXRoZW50aWNhdGlvblRhZyI6ICJ6TW96ZXY1UjA5VW9wTHJxN0plMWx3PT0iLAogICAgICAgICJjaXBoZXJ0ZXh0IjogImowT0J0VXJFdDRJdmVHaWV4am1HSzdlS0VhV3JZNzBaa3RlQTVLeEhEYVpUL3Qyd3dHeTlqMkZQUUdwcVhuVzZPTzNpQVlQTmd3RmlrSTFzbW5mTnZxZHh6VkR2aGF2bC9JWGE5S2cybmlXeXFLM0Q5enB6MFlENm1EdmwwWHNPZ1ROVnlHWE5WUkVkV2d6R0VFUkNRb3lISTF4b3d0L3N3ZTNLQ1h3K2xmK1hQRi90MVBmSHYwRGlEVms3MEFlV0dwUFBQdTZ5Z2dBSXhCNEF6NlBFWmhhUVd3ZVRDMGFuNDhsMkZIajJNdEIyUGlNSHRXMnY3Uk11RThBbDNQdEU0Z09BOENNRnJCK05weTZyS2NGQ1hPZ1RabTVicDdxK0oxcWtoQkRiaUJZdHZkc1l1ako1MlhhNVNpZlRwRWhHZVdXTEZuTExnUEFROG82YlhjV095Q29ZZkxmcDRKcGZ0L1k3SDhxekhiUGV3TlN5RDZtYUV2K3hsampmVTdoeGliYnN6ejVBNEpqTWRReTJCREdvVG1KeDdNYXMrZzZsNlp1SExWYmRtZ1FPdkQzd2FKQnk2ck9nMGV1dXgwQ240YkI0YklGRUYyS3ZiaGRHYlkxVWlxOURZYTdrRW1TRW5sY0FZYUh5cm9Ua0RnNGV3N0VSMHZJQkJNektNM3IrVWRQVktLUzY2dXlYdFpjPSIsCiAgICAgICAgIm5vbmNlIjogIlcrbHhRSmVHcTdYQUppR2ZjRG9oa2c9PSIKICAgIH0sCiAgICAidXNlcnMiOiB7CiAgICAgICAgImNlcnRpZmljYXRlIjogIi0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLVxuTUlJRGtEQ0NBbmlnQXdJQkFnSUJBREFOQmdrcWhraUc5dzBCQVFVRkFEQmhNUXN3Q1FZRFZRUUdFd0pFUlRFYlxuTUJrR0ExVUVDQXdTUW1Ga1pXNHRWM1ZsY25SMFpXMWlaWEpuTVJJd0VBWURWUVFIREFsVGRIVjBkR2RoY25ReFxuRWpBUUJnTlZCQW9NQ1U1bGVIUmpiRzkxWkRFTk1Bc0dBMVVFQXd3RWFtOW9iakFlRncweU16QTNNVFF3TnpNMFxuTlRaYUZ3MDBNekEzTURrd056TTBOVFphTUdFeEN6QUpCZ05WQkFZVEFrUkZNUnN3R1FZRFZRUUlEQkpDWVdSbFxuYmkxWGRXVnlkSFJsYldKbGNtY3hFakFRQmdOVkJBY01DVk4wZFhSMFoyRnlkREVTTUJBR0ExVUVDZ3dKVG1WNFxuZEdOc2IzVmtNUTB3Q3dZRFZRUUREQVJxYjJodU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQlxuQ2dLQ0FRRUE3ajNFcjVZYWhKVDBMQW5TUkxocHFiUm8rRTFBVm50OThydnAzRG1FZkJITnpOQitEUzlJQkRrU1xuU1hNL1l0ZkFjaTZUY3c4dWpWQmpyWlgvV0VtcmY4eW5RSHhZbVNhSlNuUDh1QVQzMDYvTWNlWnBkcHJ1RWM5L1xuUzEwYTd2cDU0WmJsZDROWWRtZlM3MW9WRlZLZ003Yy9WdGh4K3JndTQ4ZnV4emJXQXZWWUxGY3g0N2h6MERKVFxubmp6MlphL1I2OHVYcHhmejdKOXVFWFlpcXNBcy9Gb2JEc0xabHVUM1J5eXdWUndLQmVkMUVaeFVlTElKaXl4cFxuVXRoaEdmSWI4YjNWZjlqWm9VVmkzbTVnbWM0c3BKUUh2WUFrZlpZSHpkOXJhczhqQnUxYWJRUnhjdTJDWW5Wb1xuNlkwbVR4aEtoUVMvbjVnanYzRXhpUUYzd3AvWFl3SURBUUFCbzFNd1VUQWRCZ05WSFE0RUZnUVVtVGVJTFZ1QlxudHY3MGZUR2tYV0dBdWVEcDVrQXdId1lEVlIwakJCZ3dGb0FVbVRlSUxWdUJ0djcwZlRHa1hXR0F1ZURwNWtBd1xuRHdZRFZSMFRBUUgvQkFVd0F3RUIvekFOQmdrcWhraUc5dzBCQVFVRkFBT0NBUUVBeVZ0cTlYQXZXN254U1cvOFxuaHAzMHo2eGJ6R2l1dmlYaHkvSm85MVZFYThJUnNXQ0NuM09tREZpVmR1VEVvd3g3NnRmOGNsSlAwZ2s3UG96aVxuNmRnLzdGaW4rRnFRR1hmQ2s4YkxBaDlnWEtBaWtRMkdLOHlSTjNzbFJGd1lDMm1tMjNIckxkS1haSFVxSmNwQlxuTXoyenNTck9HUGoxWXNZT2wvVThGVTZLQTdZajdVM3E3a0RNWVRBZ3pVUFpBSCtkMURJU0dXcFpzTWEwUllpZFxudmlnQ0NMQnlpY2NtUy9DbzRTYjFlc0Y1OEgrWXRWNStuRkJSd3g4ODFVMmcyVGdES0YxbFBNSy95M2Q4QjhtaFxuVXRXK2xGeFJwdnlOVURwc01qT0VyT3J0TkZFWWJnb1VKTHRxd0JNbXlHUitubW1oNnhuYTMzMVFXY1JBbXcwUFxubkRPNGV3PT1cbi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS1cbiIsCiAgICAgICAgImVuY3J5cHRlZE1ldGFkYXRhS2V5IjogIkhWVDQ5Ylltd1hiR3MvZEoyYXZnVTl1bnJLblBmMDNNWVVJNVp5c1NSMUJ6NXBxejY0Z3pIMkdCQXVVSitRNFZtSHRFZmNNYVdXN1ZYZ3pmQ1F2NXhMQnJrK1JTZ2NMT0tubEl5YThqYURsZnR0V3hiZThqSksrLzArUVZQT2M2eWNBL3Q1SE5DUGcwOWh6aitnbmIyTDg5VUh4TDVhY2NaRDBpRXpiNWNRYkdyYy9ONkd0aGpnR3JnRkt0RmYwSGhEVnBsVXIrREw5YVR5S3VLTEJQanJqdVpidjhNNlpmWE85M21PTXdTWkgzYzNyd0RVSGIvS0VhVFIvT2c0cFdRbXJxcjFWeEdMcWVWLytHS1doek1ZVGhyT1pBVXorNWdzYmNrVTJNNVY5aStwaDB5Qkk1QmpPWlZoTnVEd1c4eVA4V3R5Ukp3UWMrVUJSZWkvUkdCUT09IiwKICAgICAgICAidXNlcklkIjogImpvaG4iCiAgICB9LAogICAgInZlcnNpb24iOiAiMiIKfQo="
-//
-//         // TOBI
-//         val metadata =
-//             """{"metadata":{"authenticationTag":"qDcJnAAGtGDlHWiQMBfXgw\u003d\u003d","ciphertext":"3zUhwIgJWMB7DvrbsDaMvh8MbJdoTxL0OMPCCdYSfBt7gB+V/hwqelL1IOaLto3avhHGSebnrotF06iEP/jZwWg9hApIPTHc8B4XTOY0/kezqYyVqTyquTUZpDpqgVAheQskZZ8I4Ir0seajUkt4KtVRfzO6v8CePRrEg6uKwdYsqDcJnAAGtGDlHWiQMBfXgw\u003d\u003d|4hbOyn1ykQL+9D6SnPY3cQ\u003d\u003d","nonce":"4hbOyn1ykQL+9D6SnPY3cQ\u003d\u003d"},"users":[{"certificate":"-----BEGIN CERTIFICATE-----\nMIIC6DCCAdCgAwIBAgIBADANBgkqhkiG9w0BAQUFADANMQswCQYDVQQDDAJ0MTAe\nFw0yMzA3MjUwNzU3MTJaFw00MzA3MjAwNzU3MTJaMA0xCzAJBgNVBAMMAnQxMIIB\nIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtafHmDBcBqIu4HmMxMDW3j0S\ny+S0YaKwHnBRt85KSwcEov0B5FOLuLknoBGx4Dn3u93ilThXXxacPMHeXL7WPuAs\n21/G7vsqwvrRRnCduf+FUO/AZeDCNErzpsQ8LmTa4PUloLPUcImpSjrHwhMs9Ekv\nEbLRjbeSmSp9XvM+1fV/3jkT5jkOSnCFx5TGwGN5uHqwUir4UWXasvg253NK2XmW\nipKCDCR9TmH1baP3pNdoiChdmErT1c6E4DbBXpTw8XgP5ZbYH+qg1UQ/hC8nRJ3D\nyCcHL+dg/GYraBMhDn4w2Vvq77xNNoNWQ9cT5Ay6cJbQLBQoJQirygQFrobYRQID\nAQABo1MwUTAdBgNVHQ4EFgQUE9zCeA9/QMAtVgLxD23X6ZcodhMwHwYDVR0jBBgw\nFoAUE9zCeA9/QMAtVgLxD23X6ZcodhMwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG\n9w0BAQUFAAOCAQEAZdy/YjJlvnz3FQwxp6oVtMJccpdxveEPfLzgaverhtd/vP8O\nAvDzOLgQJHmrDS91SG503eU4cYGyuNKwd77OyTnqMg+GUEmJhGfPpSVrEIdh65jv\nq61T4oqBdehevVmBq54rGiwL0DGv1DlXQlwiJZP4qni2KnOEFcnvL3gVtRnQjXQ+\nkHvlMshkK6w021EMV5NfjG2zg67wC65rLaej5f6Ssp2S7g2VtmE4aXq1bjAuEbqk\n4TiyZHLDdsJuqzyGyyOpMV7i9ucXDoaZt9cGS9hT2vRxTrSH63vKR8Xeig9+stLw\nt9ONcUqCKP7hd8rajtxM4JIIRExwD8OkgARWGg\u003d\u003d\n-----END CERTIFICATE-----\n","encryptedMetadataKey":"s4kDkkLpk1mSmXedP7huiCNC4DYmDAmA2VYGem5M8jIGPC6miVQoo4WXZrEBhdsLw7Msf5iT3A3fTaHhwsI8Jf4McsFyM9/FXT1mCEaGOEpNjbKOlJY1uPUFNOhLqUfFiBos6oBT53hWwoXWjytYvLBbXuXY5YLOysjgBh6URrgFUZAJAmcOJ6OFKgfIIthoqkQc7CQUY97VsRzAXzeYTANBc2yW1pSN51HqftvMzvewFRsJQLcu7a9NjpTdG9LiLhn5eLXOLymXEE/aaPHKXeprlXLzrdWU1xwZRJqV+to2FEiH6CQNsO4+9h5m0VjXekiNeAFrsXB5cJgUipGuzQ\u003d\u003d","userId":"t1"}],"version":"2.0"}"""
-//
-//         val base = EncryptionUtils.encodeStringToBase64String(metadata)
-//
-//         val signature =
-//             "MIAGCSqGSIb3DQEHAqCAMIACAQExDTALBglghkgBZQMEAgEwCwYJKoZIhvcNAQcBoIAwggLoMIIB0KADAgECAgEAMA0GCSqGSIb3DQEBBQUAMA0xCzAJBgNVBAMMAnQxMB4XDTIzMDcyNTA3NTcxMloXDTQzMDcyMDA3NTcxMlowDTELMAkGA1UEAwwCdDEwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC1p8eYMFwGoi7geYzEwNbePRLL5LRhorAecFG3zkpLBwSi/QHkU4u4uSegEbHgOfe73eKVOFdfFpw8wd5cvtY+4CzbX8bu+yrC+tFGcJ25/4VQ78Bl4MI0SvOmxDwuZNrg9SWgs9RwialKOsfCEyz0SS8RstGNt5KZKn1e8z7V9X/eORPmOQ5KcIXHlMbAY3m4erBSKvhRZdqy+Dbnc0rZeZaKkoIMJH1OYfVto/ek12iIKF2YStPVzoTgNsFelPDxeA/lltgf6qDVRD+ELydEncPIJwcv52D8ZitoEyEOfjDZW+rvvE02g1ZD1xPkDLpwltAsFCglCKvKBAWuhthFAgMBAAGjUzBRMB0GA1UdDgQWBBQT3MJ4D39AwC1WAvEPbdfplyh2EzAfBgNVHSMEGDAWgBQT3MJ4D39AwC1WAvEPbdfplyh2EzAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQBl3L9iMmW+fPcVDDGnqhW0wlxyl3G94Q98vOBq96uG13+8/w4C8PM4uBAkeasNL3VIbnTd5ThxgbK40rB3vs7JOeoyD4ZQSYmEZ8+lJWsQh2HrmO+rrVPiioF16F69WYGrnisaLAvQMa/UOVdCXCIlk/iqeLYqc4QVye8veBW1GdCNdD6Qe+UyyGQrrDTbUQxXk1+MbbODrvALrmstp6Pl/pKynZLuDZW2YThperVuMC4RuqThOLJkcsN2wm6rPIbLI6kxXuL25xcOhpm31wZL2FPa9HFOtIfre8pHxd6KD36y0vC3041xSoIo/uF3ytqO3EzgkghETHAPw6SABFYaAAAxggHUMIIB0AIBATASMA0xCzAJBgNVBAMMAnQxAgEAMAsGCWCGSAFlAwQCAaCBljAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0yMzA3MjgwNzMwMTJaMCsGCSqGSIb3DQEJNDEeMBwwCwYJYIZIAWUDBAIBoQ0GCSqGSIb3DQEBCwUAMC8GCSqGSIb3DQEJBDEiBCAx7RTJg7hbY5Mkzjw3f6qhX7k/J0FdVz2cL3ow0AmyYjANBgkqhkiG9w0BAQsFAASCAQAbUmb9e7eoIcPNzDSmnzbrueBzgT8YszNGEI+1YCq8XdWN4kDztvP1ZNV21VCO6BvcbfUAnXXgcX5BPeLZNsgXPj3c8TbD59GQl3oT/tIchgMsA20RdAtIwvItlZKh+X6sp0OHkRPYSk/mEYKCKPqrKdJicRWex8ItCwpDR91KSOiKJrN/+DKOGG0sVI9gjzbtrHsN8HmVKxOoNV+wwipcLsWsEmuV+wvPCQ9HJidLX9Q17Bgfc+qJg19aB6iKLWPhjgnfpKGbK5VJuQTdDWPUJ2O4G3W/iwxJ0hAJ7tks4zIATmgGzhgTWYx5LVXbKcuL04xhIOjqwedHeCSBZSSaAAAAAAAA"
-//
-//         val metadataFile = EncryptionUtils.deserializeJSON(
-//             metadata,
-//             object : TypeToken<EncryptedFolderMetadataFile>() {}
-//         )
-//         assertNotNull(metadataFile)
-//
-//         val certJohnString = metadataFile.users[0].certificate
-//         val certJohn = EncryptionUtils.convertCertFromString(certJohnString)
-//
-//         val t1String = """-----BEGIN CERTIFICATE-----
-// MIIC6DCCAdCgAwIBAgIBADANBgkqhkiG9w0BAQUFADANMQswCQYDVQQDDAJ0MTAe
-// Fw0yMzA3MjUwNzU3MTJaFw00MzA3MjAwNzU3MTJaMA0xCzAJBgNVBAMMAnQxMIIB
-// IjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtafHmDBcBqIu4HmMxMDW3j0S
-// y+S0YaKwHnBRt85KSwcEov0B5FOLuLknoBGx4Dn3u93ilThXXxacPMHeXL7WPuAs
-// 21/G7vsqwvrRRnCduf+FUO/AZeDCNErzpsQ8LmTa4PUloLPUcImpSjrHwhMs9Ekv
-// EbLRjbeSmSp9XvM+1fV/3jkT5jkOSnCFx5TGwGN5uHqwUir4UWXasvg253NK2XmW
-// ipKCDCR9TmH1baP3pNdoiChdmErT1c6E4DbBXpTw8XgP5ZbYH+qg1UQ/hC8nRJ3D
-// yCcHL+dg/GYraBMhDn4w2Vvq77xNNoNWQ9cT5Ay6cJbQLBQoJQirygQFrobYRQID
-// AQABo1MwUTAdBgNVHQ4EFgQUE9zCeA9/QMAtVgLxD23X6ZcodhMwHwYDVR0jBBgw
-// FoAUE9zCeA9/QMAtVgLxD23X6ZcodhMwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG
-// 9w0BAQUFAAOCAQEAZdy/YjJlvnz3FQwxp6oVtMJccpdxveEPfLzgaverhtd/vP8O
-// AvDzOLgQJHmrDS91SG503eU4cYGyuNKwd77OyTnqMg+GUEmJhGfPpSVrEIdh65jv
-// q61T4oqBdehevVmBq54rGiwL0DGv1DlXQlwiJZP4qni2KnOEFcnvL3gVtRnQjXQ+
-// kHvlMshkK6w021EMV5NfjG2zg67wC65rLaej5f6Ssp2S7g2VtmE4aXq1bjAuEbqk
-// 4TiyZHLDdsJuqzyGyyOpMV7i9ucXDoaZt9cGS9hT2vRxTrSH63vKR8Xeig9+stLw
-// t9ONcUqCKP7hd8rajtxM4JIIRExwD8OkgARWGg==
-// -----END CERTIFICATE-----"""
-//
-//         val t1cert = EncryptionUtils.convertCertFromString(t1String)
-//         val t1PrivateKeyKey = EncryptionUtils.PEMtoPrivateKey(encryptionTestUtils.t1PrivateKey)
-//
-//         // val signed = encryptionUtilsV2.getMessageSignature(
-//         //     t1cert,
-//         //     t1PrivateKeyKey,
-//         //     metadataFile
-//         // )
-//
-//         assertTrue(encryptionUtilsV2.verifySignedMessage(signature1, metadata1, listOf(certJohn, t1cert)))
-//     }
+    @Test
+    fun verifyMetadataEmptyFolder() {
+        val folder = OCFile("/e/")
+        val enc1 = MockUser("enc1", "Nextcloud")
+
+        val metadataKey = EncryptionUtils.generateKey()
+        val metadata = DecryptedMetadata(
+            mutableListOf(),
+            false,
+            0,
+            mutableMapOf(),
+            mutableMapOf(),
+            metadataKey
+        )
+        // checksum must be present before encrypting, otherwise verifyMetadata returns false
+        metadata.keyChecksums.add(encryptionUtilsV2.hashMetadataKey(metadataKey))
+
+        val metadataFile = DecryptedFolderMetadataFile(
+            metadata,
+            mutableListOf(DecryptedUser(enc1.accountName, enc1Cert, null)),
+            mutableMapOf()
+        )
+
+        val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(
+            metadataFile,
+            enc1UserId,
+            folder,
+            storageManager,
+            client,
+            enc1PrivateKey,
+            user,
+            targetContext,
+            arbitraryDataProvider
+        )
+
+        val result = encryptionUtilsV2.verifyMetadata(enc1PrivateKey, encrypted, metadataFile, 0)
+
+        assertTrue(result)
+        assertEquals(0, metadataFile.metadata.files.size)
+        assertEquals(0, metadataFile.metadata.folders.size)
+        assertEquals(0, metadataFile.metadata.counter)
+    }
+
+    @Test
+    fun verifyMetadataWithOneFile() {
+        val folder = OCFile("/e/")
+        val enc1 = MockUser("enc1", "Nextcloud")
+
+        val metadata = DecryptedMetadata(
+            mutableListOf(),
+            false,
+            1,
+            mutableMapOf(),
+            mutableMapOf(
+                Pair(
+                    EncryptionUtils.generateUid(),
+                    DecryptedFile(
+                        "document.pdf",
+                        "application/pdf",
+                        "initializationVector",
+                        "authenticationTag",
+                        "key1"
+                    )
+                )
+            ),
+            EncryptionUtils.generateKey()
+        )
+        metadata.keyChecksums.add(encryptionUtilsV2.hashMetadataKey(metadata.metadataKey))
+
+        val metadataFile = DecryptedFolderMetadataFile(
+            metadata,
+            mutableListOf(DecryptedUser(enc1.accountName, enc1Cert, null)),
+            mutableMapOf()
+        )
+
+        val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(
+            metadataFile,
+            enc1UserId,
+            folder,
+            storageManager,
+            client,
+            enc1PrivateKey,
+            user,
+            targetContext,
+            arbitraryDataProvider
+        )
+
+        val result = encryptionUtilsV2.verifyMetadata(enc1PrivateKey, encrypted, metadataFile, 0)
+
+        assertTrue(result)
+        assertEquals(1, metadataFile.metadata.files.size)
+        assertEquals("document.pdf", metadataFile.metadata.files.values.first().filename)
+    }
+
+    @Test
+    fun verifyMetadataCounterTooOld() {
+        val folder = OCFile("/e/")
+        val enc1 = MockUser("enc1", "Nextcloud")
+        val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
+
+        val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(
+            metadataFile,
+            enc1UserId,
+            folder,
+            storageManager,
+            client,
+            enc1PrivateKey,
+            user,
+            targetContext,
+            arbitraryDataProvider
+        )
+
+        // counter in metadata is 1, passing oldCounter=2 should fail
+        val result = encryptionUtilsV2.verifyMetadata(enc1PrivateKey, encrypted, metadataFile, 2)
+
+        assertFalse(result)
+    }
+
+    @Test
+    fun verifyMetadataInvalidSignature() {
+        val folder = OCFile("/e/")
+        val enc1 = MockUser("enc1", "Nextcloud")
+        val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
+
+        val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(
+            metadataFile,
+            enc1UserId,
+            folder,
+            storageManager,
+            client,
+            enc1PrivateKey,
+            user,
+            targetContext,
+            arbitraryDataProvider
+        )
+
+        val result = encryptionUtilsV2.verifyMetadata(enc2PrivateKey, encrypted, metadataFile, 0)
+
+        assertFalse(result)
+    }
+
+    @Test
+    fun verifyMetadataChecksumMismatch() {
+        val folder = OCFile("/e/")
+        val enc1 = MockUser("enc1", "Nextcloud")
+        val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
+
+        val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(
+            metadataFile,
+            enc1UserId,
+            folder,
+            storageManager,
+            client,
+            enc1PrivateKey,
+            user,
+            targetContext,
+            arbitraryDataProvider
+        )
+
+        // Replace the metadata key with a new one whose hash is NOT in keyChecksums
+        metadataFile.metadata.metadataKey = EncryptionUtils.generateKey()
+
+        val result = encryptionUtilsV2.verifyMetadata(enc1PrivateKey, encrypted, metadataFile, 0)
+
+        assertFalse(result)
+    }
 
     @Throws(Throwable::class)
     @Test
@@ -744,22 +839,15 @@ class EncryptionUtilsV2IT : EncryptionIT() {
                 |Rei/RGBQ==","userId": "john"}],"version": "2"}
             """.trimMargin()
 
-        val privateKey = EncryptionUtils.PEMtoPrivateKey(encryptionTestUtils.t1PrivateKey)
         val certificateT1 = EncryptionUtils.convertCertFromString(encryptionTestUtils.t1PublicKey)
         val certificateEnc2 = EncryptionUtils.convertCertFromString(enc2Cert)
-
-        val signed = encryptionUtilsV2.signMessage(
-            certificateT1,
-            privateKey,
-            metadata
-        )
 
         val certs = listOf(
             certificateEnc2,
             certificateT1
         )
 
-        assertTrue(encryptionUtilsV2.verifySignedData(signed, certs))
+        assertTrue(encryptionUtilsV2.verifySignedData(metadata, encryptionTestUtils.t1PrivateKey, certs))
     }
 
     @Throws(Throwable::class)
@@ -767,21 +855,14 @@ class EncryptionUtilsV2IT : EncryptionIT() {
     fun sign() {
         val sut = "randomstring123"
 
-        val privateKey = EncryptionUtils.PEMtoPrivateKey(encryptionTestUtils.t1PrivateKey)
         val certificate = EncryptionUtils.convertCertFromString(encryptionTestUtils.t1PublicKey)
-
-        val signed = encryptionUtilsV2.signMessage(
-            certificate,
-            privateKey,
-            sut
-        )
 
         val certs = listOf(
             EncryptionUtils.convertCertFromString(enc2Cert),
             certificate
         )
 
-        assertTrue(encryptionUtilsV2.verifySignedData(signed, certs))
+        assertTrue(encryptionUtilsV2.verifySignedData(sut, encryptionTestUtils.t1PrivateKey, certs))
     }
 
     @Test
@@ -858,6 +939,9 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         )
 
         // V1 doesn't have decryptedMetadataKey so that we can ignore it for comparison
+        for (user in decryptedFolderMetadata1.users) {
+            user.decryptedMetadataKey = null
+        }
         for (user in decryptedFolderMetadata2.users) {
             user.decryptedMetadataKey = null
         }
@@ -865,8 +949,8 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         // compare
         assertTrue(
             EncryptionTestIT.compareJsonStrings(
-                EncryptionUtils.serializeJSON(decryptedFolderMetadata1),
-                EncryptionUtils.serializeJSON(decryptedFolderMetadata2)
+                EncryptionUtils.serializeJSON(decryptedFolderMetadata1, true),
+                EncryptionUtils.serializeJSON(decryptedFolderMetadata2, true)
             )
         )
     }
