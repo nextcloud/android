@@ -142,8 +142,8 @@ class GalleryFragmentIT : AbstractIT() {
                     .perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(pos, longClickAllThumbnailsInRow()))
             }
 
-            val checked = galleryFragment.commonAdapter.getCheckedItems()
-            assertEquals(imageCount, checked.size)
+            val checked = galleryFragment.commonAdapter?.getCheckedItems()
+            assertEquals(imageCount, checked?.size)
         }
     }
 
