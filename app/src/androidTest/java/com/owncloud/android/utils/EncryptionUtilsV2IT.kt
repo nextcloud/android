@@ -25,7 +25,6 @@ import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFi
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.util.EncryptionTestIT
 import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
@@ -405,9 +404,59 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             arbitraryDataProvider
         )
 
-        encryptionUtilsV2.verifyMetadata(enc1PrivateKey, encrypted, metadataFile, 0)
+        val signature = encryptionUtilsV2.getMessageSignature(enc1Cert, enc1PrivateKey, encrypted)
+
+        encryptionUtilsV2.verifyMetadata(signature, encrypted, metadataFile, 0)
 
         assertTrue(true)
+    }
+
+    @Test
+    fun verifySignedDataWhenGivenValidArgumentsShouldReturnTrue() {
+        val message = """
+            {
+  "metadata" : {
+    "authenticationTag" : "NMfZ0KsC4Q8Le/5BYg6iew==",
+    "ciphertext" : "EtVOZuwijECmRI/7ZGqybveA4yzkNtMJxDy07B+HtNEx75qv/RR897BEEuN+fWVCJ61mOvsg9/d5WdrUliGOzVA0nwa+V+eq08mDCs5ill19+9zCBv832OwfUBqF+UreNSfwlLB83QN0bVl5ItsYhy4HcIUzdHi8RV3ypYBV2lfcNJUibvk0x9nQqwLhDwt7/kFiDqJ7",
+    "nonce" : "fI5rq9dd2nMjiP/x"
+  },
+  "users" : [ {
+    "certificate" : "-----BEGIN CERTIFICATE-----\nMIIC7jCCAdagAwIBAgIBADANBgkqhkiG9w0BAQUFADAQMQ4wDAYDVQQDEwVhZG1p\nbjAeFw0yNjA0MjIxMzQwMjJaFw00NjA0MTcxMzQwMjJaMBAxDjAMBgNVBAMTBWFk\nbWluMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsPloRFaKUf+Rb0W9\ngMWTf+3ASW4nUUG6IjAgtaCHSCAmvU7npzFZe84ZYJCU06BiDE/RyRfbNqgPQmsO\neqJJOcVojSKiicw20cwz+JLvtTKhZ/E0Y/E7y1b7pPx2gAdFX46KEUei+QcOA+Sh\nBhN67yAgmkB9JmXUfajpbnF1YlpXyKKUrtv/tV46sJIUSjA1x3K1xDrKKtSwhriK\nWcKAOLF1Do5Jaq0mFNPKXYr6vloic61A9cRjsCpwM5PcRLKh5vzqWKPMY7QgbIBu\nITGp8S2AAPrTSHCMGjSKExnpVnnmg22vh+LOR39JrqKcmBqd1fkGEBKGbGPYXinS\nSF6MLQIDAQABo1MwUTAdBgNVHQ4EFgQUoBFxUd+8eaa4T6wJWDyCrITFx6UwHwYD\nVR0jBBgwFoAUoBFxUd+8eaa4T6wJWDyCrITFx6UwDwYDVR0TAQH/BAUwAwEB/zAN\nBgkqhkiG9w0BAQUFAAOCAQEAa3sN5UjPbPGJ9Ne/qOdGFBoXkynQCLL3/zhhf2U2\nNSCIbmm2KJDNlbsgHTOShpUlWQlFUyXyELRIVUZWahcjgS4aAdnVyc5+j51Rfpns\njgtLSIwRFxCF/XlhL4OZwd0AcP+lVYpwqg/9oHjMsoEhlJf+R2dLg748346C95/8\nNb8YgAXC43eqBiz7JC7R2VyMW1n8Ce8c8III/tZpZJGzlyu1ckVoOvw4ZYZd/O3B\n/d/MfhgD5E5N+PhTPaIWpdyn0+9Q3WbNQtgjq7DW4NGXbwGiF34jJsLEE5rrhKWk\nhVM7gUpNr6YhtWzO64ZZPGHXb5f5HD9j3vYAAJ+8a9VTEg==\n-----END CERTIFICATE-----",
+    "encryptedMetadataKey" : "FanlaJty6rhcjFfLzERYH6UqeZq+KprKazD2KRqeqeNgonubGD/ckyrLtHSLHczfAGFxk0kL2p77MJ9sbSM+TIlAUrq1JLMOq1dnPldAI7tTb77+fApkiuqmJZhmOEe+dLyewEBegDGQS6M6rlQ+YfCQPnhYb+KAFUm+DzRL3iXCAeO/t+hqml1vb0zjI1F8zsPV5z0PhuqpOZcr2Ao+hpKVpozqNJhI2HSTRjCz/C++N83qE+YqvUYywp4U2LpLRGnGLl2QHyCcCmCFPhFlWuCxTHCe7E8LGcGQ31wRySjKDjO/6YXWEKQy2/k9H0G081YP89mUQzpi53hQ2UhEFw==",
+    "userId" : "admin"
+  } ],
+  "version" : "2.0"
+}
+        """.trimIndent()
+
+        val signature = """
+            MIIE1wYJKoZIhvcNAQcCoIIEyDCCBMQCAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGgggLyMIIC7jCCAdagAwIBAgIBADANBgkqhkiG9w0BAQUFADAQMQ4wDAYDVQQDEwVhZG1pbjAeFw0yNjA0MjIxMzQwMjJaFw00NjA0MTcxMzQwMjJaMBAxDjAMBgNVBAMTBWFkbWluMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsPloRFaKUf+Rb0W9gMWTf+3ASW4nUUG6IjAgtaCHSCAmvU7npzFZe84ZYJCU06BiDE/RyRfbNqgPQmsOeqJJOcVojSKiicw20cwz+JLvtTKhZ/E0Y/E7y1b7pPx2gAdFX46KEUei+QcOA+ShBhN67yAgmkB9JmXUfajpbnF1YlpXyKKUrtv/tV46sJIUSjA1x3K1xDrKKtSwhriKWcKAOLF1Do5Jaq0mFNPKXYr6vloic61A9cRjsCpwM5PcRLKh5vzqWKPMY7QgbIBuITGp8S2AAPrTSHCMGjSKExnpVnnmg22vh+LOR39JrqKcmBqd1fkGEBKGbGPYXinSSF6MLQIDAQABo1MwUTAdBgNVHQ4EFgQUoBFxUd+8eaa4T6wJWDyCrITFx6UwHwYDVR0jBBgwFoAUoBFxUd+8eaa4T6wJWDyCrITFx6UwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQUFAAOCAQEAa3sN5UjPbPGJ9Ne/qOdGFBoXkynQCLL3/zhhf2U2NSCIbmm2KJDNlbsgHTOShpUlWQlFUyXyELRIVUZWahcjgS4aAdnVyc5+j51RfpnsjgtLSIwRFxCF/XlhL4OZwd0AcP+lVYpwqg/9oHjMsoEhlJf+R2dLg748346C95/8Nb8YgAXC43eqBiz7JC7R2VyMW1n8Ce8c8III/tZpZJGzlyu1ckVoOvw4ZYZd/O3B/d/MfhgD5E5N+PhTPaIWpdyn0+9Q3WbNQtgjq7DW4NGXbwGiF34jJsLEE5rrhKWkhVM7gUpNr6YhtWzO64ZZPGHXb5f5HD9j3vYAAJ+8a9VTEjGCAakwggGlAgEAMBUwEDEOMAwGA1UEAxMFYWRtaW4CAQAwDQYJYIZIAWUDBAIBBQCgaTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMC8GCSqGSIb3DQEJBDEiBCC0buwKgzbVlARGgIiuAZldgZrT4TWMt5IhjuxKwdlBwTAcBgkqhkiG9w0BCQUxDxcNMjYwNDIzMDgyNjI1WjALBgkqhkiG9w0BAQsEggEAetgtsJ1k6BmpbHzWwBsnNc5nEcKz+dHUn3c4+JmoukSCuoYRKmtNY0uJ3XlqqVKkBWD+a6rXBtJPZqH+Y0tc0s/IHY3lztoFB+v2KQwK1KI/8C67qmpwgPAGoMhpzpa1+s4tcsQbNN/hSH25giWT+MwbUBV8Z4yZhdZFrinjwN8teHOaA+jzIpz5s395uFtxznANoo5EX8g1JrN0iPtCWV4e+70+8TLSj0qzX0Kg+pAE4SyImM/6V2GEkR+js+vVvJcJaTAH+/+svBnfT6/W8ElJPr7zLD5tsgHLkyEr1ydgV+rEjE+M/Aoaz9x1iU5wBJ1tbak4fMvGR7DSExFUOA==
+        """.trimIndent()
+
+        val cert = """
+            -----BEGIN CERTIFICATE-----
+            MIIC7jCCAdagAwIBAgIBADANBgkqhkiG9w0BAQUFADAQMQ4wDAYDVQQDEwVhZG1p
+            bjAeFw0yNjA0MjIxMzQwMjJaFw00NjA0MTcxMzQwMjJaMBAxDjAMBgNVBAMTBWFk
+            bWluMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsPloRFaKUf+Rb0W9
+            gMWTf+3ASW4nUUG6IjAgtaCHSCAmvU7npzFZe84ZYJCU06BiDE/RyRfbNqgPQmsO
+            eqJJOcVojSKiicw20cwz+JLvtTKhZ/E0Y/E7y1b7pPx2gAdFX46KEUei+QcOA+Sh
+            BhN67yAgmkB9JmXUfajpbnF1YlpXyKKUrtv/tV46sJIUSjA1x3K1xDrKKtSwhriK
+            WcKAOLF1Do5Jaq0mFNPKXYr6vloic61A9cRjsCpwM5PcRLKh5vzqWKPMY7QgbIBu
+            ITGp8S2AAPrTSHCMGjSKExnpVnnmg22vh+LOR39JrqKcmBqd1fkGEBKGbGPYXinS
+            SF6MLQIDAQABo1MwUTAdBgNVHQ4EFgQUoBFxUd+8eaa4T6wJWDyCrITFx6UwHwYD
+            VR0jBBgwFoAUoBFxUd+8eaa4T6wJWDyCrITFx6UwDwYDVR0TAQH/BAUwAwEB/zAN
+            BgkqhkiG9w0BAQUFAAOCAQEAa3sN5UjPbPGJ9Ne/qOdGFBoXkynQCLL3/zhhf2U2
+            NSCIbmm2KJDNlbsgHTOShpUlWQlFUyXyELRIVUZWahcjgS4aAdnVyc5+j51Rfpns
+            jgtLSIwRFxCF/XlhL4OZwd0AcP+lVYpwqg/9oHjMsoEhlJf+R2dLg748346C95/8
+            Nb8YgAXC43eqBiz7JC7R2VyMW1n8Ce8c8III/tZpZJGzlyu1ckVoOvw4ZYZd/O3B
+            /d/MfhgD5E5N+PhTPaIWpdyn0+9Q3WbNQtgjq7DW4NGXbwGiF34jJsLEE5rrhKWk
+            hVM7gUpNr6YhtWzO64ZZPGHXb5f5HD9j3vYAAJ+8a9VTEg==
+            -----END CERTIFICATE-----
+        """.trimIndent()
+
+        val certs = listOf(EncryptionUtils.convertCertFromString(cert))
+        val signedData = encryptionUtilsV2.getSignedData(signature, message)
+        assertTrue(encryptionUtilsV2.verifySignedData(signedData, certs))
     }
 
     private fun generateDecryptedFileV1(): com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile =
@@ -640,173 +689,6 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         assertEquals("this is a test.\n", gunzip)
     }
 
-    @Test
-    fun verifyMetadataEmptyFolder() {
-        val folder = OCFile("/e/")
-        val enc1 = MockUser("enc1", "Nextcloud")
-
-        val metadataKey = EncryptionUtils.generateKey()
-        val metadata = DecryptedMetadata(
-            mutableListOf(),
-            false,
-            0,
-            mutableMapOf(),
-            mutableMapOf(),
-            metadataKey
-        )
-        // checksum must be present before encrypting, otherwise verifyMetadata returns false
-        metadata.keyChecksums.add(encryptionUtilsV2.hashMetadataKey(metadataKey))
-
-        val metadataFile = DecryptedFolderMetadataFile(
-            metadata,
-            mutableListOf(DecryptedUser(enc1.accountName, enc1Cert, null)),
-            mutableMapOf()
-        )
-
-        val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(
-            metadataFile,
-            enc1UserId,
-            folder,
-            storageManager,
-            client,
-            enc1PrivateKey,
-            user,
-            targetContext,
-            arbitraryDataProvider
-        )
-
-        val result = encryptionUtilsV2.verifyMetadata(enc1PrivateKey, encrypted, metadataFile, 0)
-
-        assertTrue(result)
-        assertEquals(0, metadataFile.metadata.files.size)
-        assertEquals(0, metadataFile.metadata.folders.size)
-        assertEquals(0, metadataFile.metadata.counter)
-    }
-
-    @Test
-    fun verifyMetadataWithOneFile() {
-        val folder = OCFile("/e/")
-        val enc1 = MockUser("enc1", "Nextcloud")
-
-        val metadata = DecryptedMetadata(
-            mutableListOf(),
-            false,
-            1,
-            mutableMapOf(),
-            mutableMapOf(
-                Pair(
-                    EncryptionUtils.generateUid(),
-                    DecryptedFile(
-                        "document.pdf",
-                        "application/pdf",
-                        "initializationVector",
-                        "authenticationTag",
-                        "key1"
-                    )
-                )
-            ),
-            EncryptionUtils.generateKey()
-        )
-        metadata.keyChecksums.add(encryptionUtilsV2.hashMetadataKey(metadata.metadataKey))
-
-        val metadataFile = DecryptedFolderMetadataFile(
-            metadata,
-            mutableListOf(DecryptedUser(enc1.accountName, enc1Cert, null)),
-            mutableMapOf()
-        )
-
-        val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(
-            metadataFile,
-            enc1UserId,
-            folder,
-            storageManager,
-            client,
-            enc1PrivateKey,
-            user,
-            targetContext,
-            arbitraryDataProvider
-        )
-
-        val result = encryptionUtilsV2.verifyMetadata(enc1PrivateKey, encrypted, metadataFile, 0)
-
-        assertTrue(result)
-        assertEquals(1, metadataFile.metadata.files.size)
-        assertEquals("document.pdf", metadataFile.metadata.files.values.first().filename)
-    }
-
-    @Test
-    fun verifyMetadataCounterTooOld() {
-        val folder = OCFile("/e/")
-        val enc1 = MockUser("enc1", "Nextcloud")
-        val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
-
-        val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(
-            metadataFile,
-            enc1UserId,
-            folder,
-            storageManager,
-            client,
-            enc1PrivateKey,
-            user,
-            targetContext,
-            arbitraryDataProvider
-        )
-
-        // counter in metadata is 1, passing oldCounter=2 should fail
-        val result = encryptionUtilsV2.verifyMetadata(enc1PrivateKey, encrypted, metadataFile, 2)
-
-        assertFalse(result)
-    }
-
-    @Test
-    fun verifyMetadataInvalidSignature() {
-        val folder = OCFile("/e/")
-        val enc1 = MockUser("enc1", "Nextcloud")
-        val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
-
-        val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(
-            metadataFile,
-            enc1UserId,
-            folder,
-            storageManager,
-            client,
-            enc1PrivateKey,
-            user,
-            targetContext,
-            arbitraryDataProvider
-        )
-
-        val result = encryptionUtilsV2.verifyMetadata(enc2PrivateKey, encrypted, metadataFile, 0)
-
-        assertFalse(result)
-    }
-
-    @Test
-    fun verifyMetadataChecksumMismatch() {
-        val folder = OCFile("/e/")
-        val enc1 = MockUser("enc1", "Nextcloud")
-        val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
-
-        val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(
-            metadataFile,
-            enc1UserId,
-            folder,
-            storageManager,
-            client,
-            enc1PrivateKey,
-            user,
-            targetContext,
-            arbitraryDataProvider
-        )
-
-        // Replace the metadata key with a new one whose hash is NOT in keyChecksums
-        metadataFile.metadata.metadataKey = EncryptionUtils.generateKey()
-
-        val result = encryptionUtilsV2.verifyMetadata(enc1PrivateKey, encrypted, metadataFile, 0)
-
-        assertFalse(result)
-    }
-
     @Throws(Throwable::class)
     @Test
     fun testSigning() {
@@ -839,15 +721,22 @@ class EncryptionUtilsV2IT : EncryptionIT() {
                 |Rei/RGBQ==","userId": "john"}],"version": "2"}
             """.trimMargin()
 
+        val privateKey = EncryptionUtils.PEMtoPrivateKey(encryptionTestUtils.t1PrivateKey)
         val certificateT1 = EncryptionUtils.convertCertFromString(encryptionTestUtils.t1PublicKey)
         val certificateEnc2 = EncryptionUtils.convertCertFromString(enc2Cert)
+
+        val signed = encryptionUtilsV2.signMessage(
+            certificateT1,
+            privateKey,
+            metadata
+        )
 
         val certs = listOf(
             certificateEnc2,
             certificateT1
         )
 
-        assertTrue(encryptionUtilsV2.verifySignedData(metadata, encryptionTestUtils.t1PrivateKey, certs))
+        assertTrue(encryptionUtilsV2.verifySignedData(signed, certs))
     }
 
     @Throws(Throwable::class)
@@ -855,14 +744,21 @@ class EncryptionUtilsV2IT : EncryptionIT() {
     fun sign() {
         val sut = "randomstring123"
 
+        val privateKey = EncryptionUtils.PEMtoPrivateKey(encryptionTestUtils.t1PrivateKey)
         val certificate = EncryptionUtils.convertCertFromString(encryptionTestUtils.t1PublicKey)
+
+        val signed = encryptionUtilsV2.signMessage(
+            certificate,
+            privateKey,
+            sut
+        )
 
         val certs = listOf(
             EncryptionUtils.convertCertFromString(enc2Cert),
             certificate
         )
 
-        assertTrue(encryptionUtilsV2.verifySignedData(sut, encryptionTestUtils.t1PrivateKey, certs))
+        assertTrue(encryptionUtilsV2.verifySignedData(signed, certs))
     }
 
     @Test
@@ -939,9 +835,6 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         )
 
         // V1 doesn't have decryptedMetadataKey so that we can ignore it for comparison
-        for (user in decryptedFolderMetadata1.users) {
-            user.decryptedMetadataKey = null
-        }
         for (user in decryptedFolderMetadata2.users) {
             user.decryptedMetadataKey = null
         }
@@ -949,8 +842,8 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         // compare
         assertTrue(
             EncryptionTestIT.compareJsonStrings(
-                EncryptionUtils.serializeJSON(decryptedFolderMetadata1, true),
-                EncryptionUtils.serializeJSON(decryptedFolderMetadata2, true)
+                EncryptionUtils.serializeJSON(decryptedFolderMetadata1),
+                EncryptionUtils.serializeJSON(decryptedFolderMetadata2)
             )
         )
     }

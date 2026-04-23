@@ -41,6 +41,8 @@ import com.owncloud.android.lib.resources.e2ee.StoreMetadataV2RemoteOperation
 import com.owncloud.android.lib.resources.e2ee.UpdateMetadataV2RemoteOperation
 import com.owncloud.android.operations.UploadException
 import org.apache.commons.httpclient.HttpStatus
+import org.bouncycastle.asn1.ASN1Sequence
+import org.bouncycastle.asn1.cms.ContentInfo
 import org.bouncycastle.cert.jcajce.JcaCertStore
 import org.bouncycastle.cms.CMSProcessableByteArray
 import org.bouncycastle.cms.CMSSignedData
@@ -229,7 +231,7 @@ class EncryptionUtilsV2 {
             )
         }
 
-        if (!verifyMetadata(privateKey, metadataFile, decryptedFolderMetadataFile, oldCounter)) {
+        if (!verifyMetadata(signature, metadataFile, decryptedFolderMetadataFile, oldCounter)) {
             throw IllegalStateException("Metadata is corrupt!")
         }
 
@@ -850,7 +852,7 @@ class EncryptionUtilsV2 {
 
     @Suppress("ReturnCount")
     fun verifyMetadata(
-        privateKey: String,
+        signature: String,
         encryptedFolderMetadataFile: EncryptedFolderMetadataFile,
         decryptedFolderMetadataFile: DecryptedFolderMetadataFile,
         oldCounter: Long
@@ -860,10 +862,11 @@ class EncryptionUtilsV2 {
             return false
         }
 
-        val folderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadataFile, true)
+        val message = EncryptionUtils.serializeJSON(encryptedFolderMetadataFile, true)
         val certs = decryptedFolderMetadataFile.users.map { EncryptionUtils.convertCertFromString(it.certificate) }
+        val signedData = getSignedData(signature, message)
 
-        if (certs.isNotEmpty() && !verifySignedData(folderMetadata, privateKey, certs)) {
+        if (certs.isNotEmpty() && !verifySignedData(signedData, certs)) {
             MainApp.showMessage(R.string.e2e_signature_does_not_match)
             return false
         }
@@ -876,34 +879,31 @@ class EncryptionUtilsV2 {
         return true
     }
 
-    @Suppress("TooGenericExceptionCaught")
-    fun verifySignedData(folderMetadata: String, privateKey: String, certs: List<X509Certificate>): Boolean {
-        for (cert in certs) {
-            try {
-                val privateKey = EncryptionUtils.PEMtoPrivateKey(privateKey)
-                val data = signMessage(
-                    cert,
-                    privateKey,
-                    folderMetadata
-                )
-                val signers = data.signerInfos.signers
-                if (signers.isEmpty()) {
-                    Log_OC.e(TAG, "verifySignedData: no signers found in CMSSignedData")
-                    continue
-                }
+    fun getSignedData(base64encodedSignature: String, message: String): CMSSignedData {
+        val signature = EncryptionUtils.decodeStringToBase64Bytes(base64encodedSignature)
+        val asn1Signature = ASN1Sequence.fromByteArray(signature)
+        val contentInfo = ContentInfo.getInstance(asn1Signature)
 
-                val signer = signers.first() as SignerInformation
-                val verifierBuilder = JcaSimpleSignerInfoVerifierBuilder()
-                if (signer.verify(verifierBuilder.build(cert.publicKey))) {
-                    return true
-                }
-            } catch (e: Exception) {
-                Log_OC.e(TAG, "exception verifySignedData: $e")
-                continue
+        val encodedMessage = EncryptionUtils.encodeStringToBase64String(message)
+        val messageData = encodedMessage.toByteArray()
+        val cmsProcessableByteArray = CMSProcessableByteArray(messageData)
+
+        return CMSSignedData(cmsProcessableByteArray, contentInfo)
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    fun verifySignedData(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
+        val signer = data.signerInfos.signers.first() as SignerInformation
+        val verifierBuilder = JcaSimpleSignerInfoVerifierBuilder()
+
+        return certs.any { cert ->
+            runCatching {
+                signer.verify(verifierBuilder.build(cert.publicKey))
+            }.getOrElse {
+                Log_OC.e(TAG, "Exception verifySignedData: $it")
+                false
             }
         }
-
-        return false
     }
 
     private fun signMessage(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
