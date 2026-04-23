@@ -770,7 +770,6 @@ public class FileOperationsHelper {
         Log_OC.i(TAG, "Label: " + label);
         Log_OC.i(TAG, "Attributes: " + attributes);
 
-
         Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE_INFO);
         updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
@@ -778,7 +777,7 @@ public class FileOperationsHelper {
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_REMOTE_ID, share.getRemoteId());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
-        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, password);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ATTRIBUTES, attributes);

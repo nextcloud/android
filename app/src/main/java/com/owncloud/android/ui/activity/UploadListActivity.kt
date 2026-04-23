@@ -339,7 +339,7 @@ class UploadListActivity :
             }
 
             val result = uploadFileOperationFactory
-                .create(upload)
+                .create(this@UploadListActivity, upload)
                 .execute(client)
 
             if (result.isSuccess) {
