@@ -17,6 +17,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.player.model.PlaybackModel
 import com.nextcloud.client.player.model.error.SourceException
 import com.nextcloud.client.player.model.file.PlaybackFile
@@ -28,12 +29,13 @@ import com.nextcloud.client.player.ui.pager.PlayerPagerMode
 import com.nextcloud.client.player.util.WindowWrapper
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
-import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.jvm.optionals.getOrNull
 
@@ -104,35 +106,32 @@ abstract class PlayerView @JvmOverloads constructor(
 
     override fun onPlaybackError(error: Throwable) {
         if (error is SourceException) {
-            // TODO: - REMOVE OR HANDLE BETTER
-            val currentFile = playbackModel.state.getOrNull()?.currentItemState?.file
-            Log_OC.d(TAG, "current file, id: " + currentFile?.id + " _ name: " + currentFile?.name)
-
-            playerPager.getItems().forEach {
-                Log_OC.d(TAG, "pager file, id: " + it.id + " _ name: " + it.name)
-            }
-
-            playbackModel.state.getOrNull()?.currentFiles?.forEach {
-                Log_OC.d(TAG, "files, id: " + it.id + " _ name: " + it.name)
-            }
-
-            val storageManager = FileDataStorageManager(userAccountManager.user, context.contentResolver)
-            val file = currentFile?.id?.toLong()?.let { storageManager.getFileByLocalId(it) }
-            Log_OC.d(TAG, "oc_file: " + file?.decryptedRemotePath)
-
-            activity.lifecycleScope.launch(Dispatchers.IO) {
-                val operation = ReadFileRemoteOperation(file?.decryptedRemotePath)
-                val result = operation.execute(userAccountManager.user, context)
-                if (result.isSuccess) {
-                    val remoteFile = result.data[0] as RemoteFile
-                    Log_OC.d(TAG, "file is successfully read::: " + remoteFile.remotePath)
-                } else {
-                    Log_OC.e(TAG, "cannot read file")
-                }
-            }
-            DisplayUtils.showSnackMessage(this, R.string.player_error_source_not_found)
+            downloadFile()
         } else {
             DisplayUtils.showSnackMessage(this, R.string.common_error_unknown)
+        }
+    }
+
+    private fun downloadFile() {
+        val currentFile = playbackModel.state.getOrNull()?.currentItemState?.file
+        val storageManager = FileDataStorageManager(userAccountManager.user, context.contentResolver)
+        val file = currentFile?.id?.toLong()?.let { storageManager.getFileByLocalId(it) }
+
+        activity.lifecycleScope.launch(Dispatchers.IO) {
+            val operation = DownloadFileOperation(userAccountManager.user, file, context)
+            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                .getClientFor(userAccountManager.currentOwnCloudAccount, context)
+            val result = operation.execute(client)
+            if (result.isSuccess) {
+                Log_OC.d(TAG, "file is successfully downloaded")
+                val helper = FileDownloadHelper()
+                file?.let { helper.saveFile(it, operation, storageManager) }
+            } else {
+                Log_OC.e(TAG, "cannot download file")
+                withContext(Dispatchers.Main) {
+                    DisplayUtils.showSnackMessage(this@PlayerView, R.string.player_error_source_not_found)
+                }
+            }
         }
     }
 
