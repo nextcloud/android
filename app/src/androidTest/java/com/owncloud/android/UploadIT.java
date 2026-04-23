@@ -27,6 +27,7 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeType;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -512,6 +513,101 @@ public class UploadIT extends AbstractOnServerIT {
         assertEquals(remotePath, ocFile.getRemotePath());
         assertEquals(new GeoLocation(64, -46), ocFile.getGeoLocation());
         assertEquals(new ImageDimension(300f, 200f), ocFile.getImageDimension());
+    }
+
+    @Test
+    public void testEncryptedUploadCallsEncryptedUploadNotNormalUpload() {
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
+                                         FOLDER + "nonEmpty.txt",
+                                         account.name);
+
+        OCFile encryptedFile = new OCFile(FOLDER + "nonEmpty.txt");
+        encryptedFile.setEncrypted(true);
+        encryptedFile.setStoragePath(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
+
+        UploadFileOperation newUpload = new UploadFileOperation(
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            encryptedFile,
+            ocUpload,
+            NameCollisionPolicy.DEFAULT,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            false,
+            false,
+            getStorageManager()
+        );
+        newUpload.setRemoteFolderToBeCreated();
+        newUpload.addRenameUploadListener(() -> {});
+
+        newUpload.execute(client);
+
+        assertNotNull(newUpload.getDecryptedRemotePath());
+        assertFalse(newUpload.getDecryptedRemotePath().isEmpty());
+        assertTrue(newUpload.getFile().isEncrypted());
+    }
+
+    @Test
+    public void testEncryptedAncestorTriggerEncryptedUpload() {
+        OCFile encryptedParentFolder = new OCFile(FOLDER);
+        encryptedParentFolder.setMimeType(MimeType.DIRECTORY);
+        encryptedParentFolder.setEncrypted(true);
+        encryptedParentFolder.setDecryptedRemotePath(FOLDER);
+        encryptedParentFolder.setParentId(getStorageManager().getFileByDecryptedRemotePath("/").getFileId());
+        getStorageManager().saveFile(encryptedParentFolder);
+
+        // Reload so we get the assigned fileId back from the DB
+        encryptedParentFolder = getStorageManager().getFileByDecryptedRemotePath(FOLDER);
+        assertNotNull("Encrypted parent folder must exist in storage manager", encryptedParentFolder);
+        assertTrue("Parent folder must be marked encrypted", encryptedParentFolder.isEncrypted());
+
+        // Create the child file pointing at the encrypted parent
+        OCFile childFile = new OCFile(FOLDER + "nonEmpty.txt");
+        childFile.setStoragePath(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
+        childFile.setParentId(encryptedParentFolder.getFileId());
+        childFile.setEncrypted(false); // explicitly NOT encrypted itself; ancestor is
+        getStorageManager().saveFile(childFile);
+
+        OCUpload ocUpload = new OCUpload(
+            FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
+            FOLDER + "nonEmpty.txt",
+            account.name
+        );
+
+        UploadFileOperation newUpload = new UploadFileOperation(
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            childFile,
+            ocUpload,
+            NameCollisionPolicy.DEFAULT,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            false,
+            false,
+            getStorageManager()
+        );
+        newUpload.setRemoteFolderToBeCreated();
+        newUpload.addRenameUploadListener(() -> { });
+
+        newUpload.execute(client);
+
+        assertTrue(
+            "mFile must be marked encrypted, proving encryptedUpload() was called not normalUpload()",
+            newUpload.getFile().isEncrypted()
+                  );
+
+        assertNotNull(
+            "decryptedRemotePath must be set, which only encryptedUpload() does",
+            newUpload.getDecryptedRemotePath()
+                     );
+        assertFalse(
+            "decryptedRemotePath must be non-empty, which only encryptedUpload() does",
+            newUpload.getDecryptedRemotePath().isEmpty()
+                   );
     }
 
     private void verifyStoragePath(OCFile file) {
