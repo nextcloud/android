@@ -17,6 +17,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.StreamMediaFileOperation
 import com.owncloud.android.lib.common.OwnCloudClient
 import java.io.IOException
+import androidx.core.net.toUri
 
 @UnstableApi
 class DefaultDataSource(
@@ -47,7 +48,8 @@ class DefaultDataSource(
         val streamMediaFileOperation = streamOperationFactory.create(fileId)
         val result = streamMediaFileOperation.execute(ownCloudClient)
         return if (result.isSuccess) {
-            val uri = Uri.parse(result.data[0] as String)
+            val uri = (result.data[0] as? String)?.toUri()
+                ?: throw IllegalStateException("url is not valid, cannot stream")
             delegate.open(dataSpec.buildUpon(uri))
         } else {
             throw IOException("Failed to retrieve streaming uri", result.exception)
