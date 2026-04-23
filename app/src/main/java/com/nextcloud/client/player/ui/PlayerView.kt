@@ -112,6 +112,7 @@ abstract class PlayerView @JvmOverloads constructor(
         }
     }
 
+    // TODO: HANDLE OR NEEDED AT ALL?
     private fun downloadFile() {
         val currentFile = playbackModel.state.getOrNull()?.currentItemState?.file
         val storageManager = FileDataStorageManager(userAccountManager.user, context.contentResolver)
