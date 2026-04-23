@@ -85,7 +85,7 @@ class DefaultDataSourceTest {
         val streamOperation = mockk<StreamMediaFileOperation>()
         every { streamOperationFactory.create(id) } returns streamOperation
 
-        val result = RemoteOperationResult<Any>(RemoteOperationResult.ResultCode.OK)
+        val result = RemoteOperationResult<ArrayList<String>>(RemoteOperationResult.ResultCode.OK)
         result.data = arrayListOf("https://stream/url.m3u8")
         every { streamOperation.execute(client) } returns result
         every { delegate.open(any()) } returns 777L
@@ -109,7 +109,7 @@ class DefaultDataSourceTest {
         val streamOperation = mockk<StreamMediaFileOperation>()
         every { streamOperationFactory.create(id) } returns streamOperation
 
-        val result = mockk<RemoteOperationResult<Any>>()
+        val result = mockk<RemoteOperationResult<ArrayList<String>>>()
         every { result.isSuccess } returns false
         every { result.exception } returns RuntimeException("boom")
         every { streamOperation.execute(client) } returns result
