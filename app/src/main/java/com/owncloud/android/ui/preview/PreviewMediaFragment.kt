@@ -470,7 +470,7 @@ class PreviewMediaFragment :
             return null
         }
 
-        return (result?.data?.get(0) as String).toUri()
+        return (result?.data?.get(0) as? String)?.toUri()
     }
 
     private fun playVideoUri(uri: Uri) {
