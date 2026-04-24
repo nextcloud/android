@@ -1,11 +1,11 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 ZetaTom <70907959+ZetaTom@users.noreply.github.com>
+ * SPDX-FileCopyrightText: 2026 Your Name <your@email.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.ui
+package com.nextcloud.ui.dialog.chooseStorage
 
 import android.app.Dialog
 import android.content.DialogInterface
@@ -25,8 +25,6 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogDataStorageLocationBinding
 import com.owncloud.android.datastorage.DataStorageProvider
 import com.owncloud.android.datastorage.StoragePoint
-import com.owncloud.android.datastorage.StoragePoint.PrivacyType
-import com.owncloud.android.datastorage.StoragePoint.StorageType
 import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -45,9 +43,9 @@ class ChooseStorageLocationDialogFragment :
     private val storagePoints = DataStorageProvider.getInstance().availableStoragePoints
 
     private val selectedStorageType
-        get() = if (!binding.storageExternalRadio.isChecked) StorageType.INTERNAL else StorageType.EXTERNAL
+        get() = if (!binding.storageExternalRadio.isChecked) StoragePoint.StorageType.INTERNAL else StoragePoint.StorageType.EXTERNAL
     private val selectedPrivacyType
-        get() = if (binding.allowMediaIndexSwitch.isChecked) PrivacyType.PUBLIC else PrivacyType.PRIVATE
+        get() = if (binding.allowMediaIndexSwitch.isChecked) StoragePoint.PrivacyType.PUBLIC else StoragePoint.PrivacyType.PRIVATE
 
     override fun onStart() {
         super.onStart()
@@ -103,7 +101,7 @@ class ChooseStorageLocationDialogFragment :
         val currentStorageLocation = getCurrentStorageLocation() ?: return
 
         val radioButton = when (currentStorageLocation.storageType) {
-            StorageType.EXTERNAL -> binding.storageExternalRadio
+            StoragePoint.StorageType.EXTERNAL -> binding.storageExternalRadio
             else -> binding.storageInternalRadio
         }
 
@@ -111,10 +109,10 @@ class ChooseStorageLocationDialogFragment :
         updateMediaIndexSwitch()
     }
 
-    private fun getStoragePointLabel(storageType: StorageType, privacyType: PrivacyType): String {
+    private fun getStoragePointLabel(storageType: StoragePoint.StorageType, privacyType: StoragePoint.PrivacyType): String {
         val typeString = when (storageType) {
-            StorageType.INTERNAL -> getString(R.string.storage_internal_storage)
-            StorageType.EXTERNAL -> getString(R.string.storage_external_storage)
+            StoragePoint.StorageType.INTERNAL -> getString(R.string.storage_internal_storage)
+            StoragePoint.StorageType.EXTERNAL -> getString(R.string.storage_external_storage)
         }
 
         val storagePath =
@@ -137,18 +135,18 @@ class ChooseStorageLocationDialogFragment :
         val privacyTypes =
             storagePoints.filter { it.storageType == selectedStorageType }.map { it.privacyType }.distinct()
         binding.allowMediaIndexSwitch.isEnabled = privacyTypes.size > 1
-        binding.allowMediaIndexSwitch.isChecked = privacyTypes.contains(PrivacyType.PUBLIC)
+        binding.allowMediaIndexSwitch.isChecked = privacyTypes.contains(StoragePoint.PrivacyType.PUBLIC)
     }
 
     private fun updateStorageTypeSelection() {
-        val hasInternalStorage = storagePoints.any { it.storageType == StorageType.INTERNAL }
-        val hasExternalStorage = storagePoints.any { it.storageType == StorageType.EXTERNAL }
+        val hasInternalStorage = storagePoints.any { it.storageType == StoragePoint.StorageType.INTERNAL }
+        val hasExternalStorage = storagePoints.any { it.storageType == StoragePoint.StorageType.EXTERNAL }
 
         binding.storageInternalRadio.isEnabled = hasInternalStorage
-        binding.storageInternalRadio.text = getStoragePointLabel(StorageType.INTERNAL, selectedPrivacyType)
+        binding.storageInternalRadio.text = getStoragePointLabel(StoragePoint.StorageType.INTERNAL, selectedPrivacyType)
 
         binding.storageExternalRadio.isEnabled = hasExternalStorage
-        binding.storageExternalRadio.text = getStoragePointLabel(StorageType.EXTERNAL, selectedPrivacyType)
+        binding.storageExternalRadio.text = getStoragePointLabel(StoragePoint.StorageType.EXTERNAL, selectedPrivacyType)
     }
 
     private fun getCurrentStorageLocation(): StoragePoint? {

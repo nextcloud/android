@@ -5,7 +5,8 @@
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.nextcloud.ui
+
+package com.nextcloud.ui.dialog.account.statusMessage.task
 
 import android.accounts.Account
 import android.content.Context
@@ -14,7 +15,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.users.SetUserDefinedCustomStatusMessageRemoteOperation
 
-public class SetUserDefinedCustomStatusTask(
+class SetUserDefinedCustomStatusTask(
     val message: String,
     val icon: String,
     val clearAt: Long?,

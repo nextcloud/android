@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.ui
+package com.nextcloud.ui.dialog.account
 
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory

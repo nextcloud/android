@@ -16,6 +16,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.GrantPermissionRule
+import com.nextcloud.ui.dialog.account.statusMessage.SetStatusMessageBottomSheet
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.users.ClearAt
