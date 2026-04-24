@@ -50,7 +50,7 @@ import com.owncloud.android.ui.adapter.TrashbinListAdapter
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
 import com.owncloud.android.ui.interfaces.TrashbinActivityInterface
 import com.owncloud.android.ui.navigation.NavigatorActivity
-import com.owncloud.android.ui.navigation.`interface`.NavigatorOnBackPressListener
+import com.owncloud.android.ui.navigation.listener.NavigatorOnBackPressListener
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.theme.ViewThemeUtils

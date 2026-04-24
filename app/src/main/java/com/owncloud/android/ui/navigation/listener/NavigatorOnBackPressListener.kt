@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.navigation.`interface`
+package com.owncloud.android.ui.navigation.listener
 
 interface NavigatorOnBackPressListener {
     fun canInterceptBackPress(): Boolean

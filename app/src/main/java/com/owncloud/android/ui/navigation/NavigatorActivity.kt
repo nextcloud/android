@@ -18,7 +18,7 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityNavigatorBinding
 import com.owncloud.android.ui.activity.DrawerActivity
-import com.owncloud.android.ui.navigation.`interface`.NavigatorOnBackPressListener
+import com.owncloud.android.ui.navigation.listener.NavigatorOnBackPressListener
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import dagger.android.support.AndroidSupportInjection
 
@@ -80,7 +80,6 @@ class NavigatorActivity : DrawerActivity() {
 
             return true
         }
-
 
         return super.onOptionsItemSelected(item)
     }

@@ -41,6 +41,7 @@ sealed class NavigatorScreen(val tag: String, val hasDrawer: Boolean = true) : P
             ACTIVITIES_TAG -> Activities
             COMMUNITY_TAG -> Community
             NOTIFICATIONS_TAG -> Notifications
+            TRASHBIN_TAG -> Trashbin
             else -> null
         }
     }
