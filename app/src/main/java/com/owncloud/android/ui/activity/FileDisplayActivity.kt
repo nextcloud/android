@@ -1482,7 +1482,7 @@ class FileDisplayActivity :
 
     override fun onSortingOrderChosen(selection: FileSortOrder?) {
         val ocFileListFragment = this.listOfFilesFragment
-        ocFileListFragment?.sortFiles(selection)
+        ocFileListFragment?.fileListLayoutManager?.sortFiles(selection)
     }
 
     override fun downloadFile(file: OCFile?, packageName: String?, activityName: String?) {
