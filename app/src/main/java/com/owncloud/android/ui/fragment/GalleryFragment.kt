@@ -13,7 +13,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Configuration
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -29,6 +28,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.utils.extensions.getParcelableArgument
+import kotlinx.coroutines.Job
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
@@ -50,7 +50,7 @@ class GalleryFragment :
     OCFileListFragment(),
     GalleryFragmentBottomSheetActions {
     var isPhotoSearchQueryRunning: Boolean = false
-    private var photoSearchTask: AsyncTask<Void, Void, GallerySearchTask.Result>? = null
+    private var photoSearchTask: Job? = null
     private var endDate: Long = 0
     private val limit = 150
     private var adapter: GalleryAdapter? = null
@@ -125,7 +125,7 @@ class GalleryFragment :
 
     override fun onDestroyView() {
         if (photoSearchTask != null) {
-            photoSearchTask?.cancel(true)
+            photoSearchTask?.cancel()
             photoSearchTask = null
         }
 
@@ -140,7 +140,7 @@ class GalleryFragment :
 
     override fun onPause() {
         super.onPause()
-        photoSearchTask?.cancel(true)
+        photoSearchTask?.cancel()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -245,8 +245,8 @@ class GalleryFragment :
 
     private fun searchAndDisplay() {
         if (!isPhotoSearchQueryRunning && endDate <= 0) {
-            // fix an issue when the method is called after loading the gallery and pressing play on a movie (--> endDate <= 0)
-            // to avoid reloading the gallery, check if endDate has already a value which is not -1 or 0 (which generally means some kind of reset/init)
+            // fix an issue when the method is called after loading the gallery and pressing play on a movie
+            // to avoid reloading, check if endDate has already a value which is not -1 or 0
             endDate = System.currentTimeMillis() / 1000
             isPhotoSearchQueryRunning = true
             runGallerySearchTask()
@@ -319,8 +319,7 @@ class GalleryFragment :
             mContainerActivity.getStorageManager(),
             endDate,
             limit
-        )
-            .execute()
+        ).execute()
     }
 
     private fun loadMoreWhenEndReached(recyclerView: RecyclerView, dy: Int) {
