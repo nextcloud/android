@@ -6,7 +6,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.nextcloud.ui
+package com.nextcloud.ui.dialog.account
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -24,6 +24,8 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.ui.dialog.account.onlineStatus.SetOnlineStatusBottomSheet
+import com.nextcloud.ui.dialog.account.statusMessage.SetStatusMessageBottomSheet
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
