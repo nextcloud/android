@@ -21,7 +21,6 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.PopupMenu
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.IdRes
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
@@ -51,6 +50,7 @@ import com.owncloud.android.ui.adapter.TrashbinListAdapter
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
 import com.owncloud.android.ui.interfaces.TrashbinActivityInterface
 import com.owncloud.android.ui.navigation.NavigatorActivity
+import com.owncloud.android.ui.navigation.`interface`.NavigatorOnBackPressListener
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -61,6 +61,7 @@ class TrashbinFragment :
     TrashbinActivityInterface,
     OnSortingOrderListener,
     TrashbinContract.View,
+    NavigatorOnBackPressListener,
     Injectable {
 
     @Inject
@@ -98,12 +99,6 @@ class TrashbinFragment :
 
     private var multiChoiceModeListener: MultiChoiceModeListener? = null
 
-    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            trashbinPresenter?.navigateUp()
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTrashbinBinding.inflate(inflater, container, false)
         val binding = binding!!
@@ -131,7 +126,6 @@ class TrashbinFragment :
 
         val trashRepository = RemoteTrashbinRepository(accountProvider.user, clientFactory)
         trashbinPresenter = TrashbinPresenter(trashRepository, this)
-        handleBackPress()
         active = true
         setupContent()
         addMenuProvider()
@@ -206,13 +200,6 @@ class TrashbinFragment :
         multiChoiceModeListener?.let { listener ->
             activity?.findViewById<DrawerLayout>(R.id.drawer_layout)?.addDrawerListener(listener)
         }
-    }
-
-    private fun handleBackPress() {
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            onBackPressedCallback
-        )
     }
 
     fun loadFolder(onComplete: () -> Unit = {}, onError: () -> Unit = {}) {
@@ -323,7 +310,6 @@ class TrashbinFragment :
     override fun atRoot(isRoot: Boolean) {
         val navigatorActivity = getTypedActivity(NavigatorActivity::class.java)
         navigatorActivity?.setDrawerIndicatorEnabled(isRoot)
-        onBackPressedCallback.isEnabled = !isRoot
     }
 
     override fun onSortingOrderChosen(selection: FileSortOrder?) {
@@ -493,6 +479,12 @@ class TrashbinFragment :
 
             multiChoiceModeListener?.invalidateActionMode()
         }
+    }
+
+    override fun canInterceptBackPress(): Boolean = (trashbinPresenter?.isRoot == false)
+
+    override fun interceptBackPress() {
+        trashbinPresenter?.navigateUp()
     }
 
     companion object {

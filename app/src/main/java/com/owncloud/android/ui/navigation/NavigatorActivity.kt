@@ -18,6 +18,8 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityNavigatorBinding
 import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.navigation.`interface`.NavigatorOnBackPressListener
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import dagger.android.support.AndroidSupportInjection
 
 class NavigatorActivity : DrawerActivity() {
@@ -50,21 +52,36 @@ class NavigatorActivity : DrawerActivity() {
         super.onAttachFragment(fragment)
     }
 
+    /**
+     * Handles action bar leading button action
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            val currentScreen = navigator.getTopScreen()
+            val onBackPressListener =
+                supportFragmentManager.fragments
+                    .filterIsInstance<NavigatorOnBackPressListener>()
+                    .firstOrNull()
 
-            if (currentScreen?.hasDrawer == false) {
-                onBackPressedDispatcher.onBackPressed()
+            if (onBackPressListener != null && onBackPressListener.canInterceptBackPress()) {
+                onBackPressListener.interceptBackPress()
             } else {
-                if (isDrawerOpen) {
-                    closeDrawer()
+                val currentScreen = navigator.getTopScreen()
+
+                if (currentScreen?.hasDrawer == false) {
+                    onBackPressedDispatcher.onBackPressed()
                 } else {
-                    openDrawer()
+                    if (isDrawerOpen) {
+                        closeDrawer()
+                    } else {
+                        openDrawer()
+                    }
                 }
             }
+
             return true
         }
+
+
         return super.onOptionsItemSelected(item)
     }
 

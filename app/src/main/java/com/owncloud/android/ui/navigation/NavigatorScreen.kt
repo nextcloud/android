@@ -13,6 +13,7 @@ import com.owncloud.android.R
 import com.owncloud.android.ui.fragment.ActivitiesFragment
 import com.owncloud.android.ui.fragment.community.CommunityFragment
 import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.ui.trashbin.TrashbinFragment
 import kotlinx.parcelize.Parcelize
 

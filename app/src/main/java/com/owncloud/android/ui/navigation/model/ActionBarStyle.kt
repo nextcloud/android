@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.navigation
+package com.owncloud.android.ui.navigation.model
 
 enum class ActionBarStyle {
     Plain,
