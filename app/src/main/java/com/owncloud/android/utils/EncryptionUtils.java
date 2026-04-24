@@ -1274,6 +1274,7 @@ public final class EncryptionUtils {
                                                                                 client,
                                                                                 parentFile.getE2eCounter(),
                                                                                 getMetadataOperationResult.getResultData().getSignature(),
+                                                                                getMetadataOperationResult.getResultData().getMetadata(),
                                                                                 user,
                                                                                 context,
                                                                                 arbitraryDataProvider)

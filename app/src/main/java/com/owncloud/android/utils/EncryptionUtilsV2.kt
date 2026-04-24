@@ -150,6 +150,7 @@ class EncryptionUtilsV2 {
         client: OwnCloudClient,
         oldCounter: Long,
         signature: String,
+        rawMetadata: String,
         user: User,
         context: Context,
         arbitraryDataProvider: ArbitraryDataProvider
@@ -231,7 +232,7 @@ class EncryptionUtilsV2 {
             )
         }
 
-        if (!verifyMetadata(signature, metadataFile, decryptedFolderMetadataFile, oldCounter)) {
+        if (!verifyMetadata(signature, rawMetadata, decryptedFolderMetadataFile, oldCounter)) {
             throw IllegalStateException("Metadata is corrupt!")
         }
 
@@ -335,6 +336,7 @@ class EncryptionUtilsV2 {
                 client,
                 topMost.e2eCounter,
                 result.resultData.signature,
+                result.resultData.metadata,
                 user,
                 context,
                 arbitraryDataProvider
@@ -606,6 +608,7 @@ class EncryptionUtilsV2 {
                 client,
                 folder.e2eCounter,
                 metadataResponse.signature,
+                metadataResponse.metadata,
                 user,
                 context,
                 arbitraryDataProvider
@@ -853,7 +856,7 @@ class EncryptionUtilsV2 {
     @Suppress("ReturnCount")
     fun verifyMetadata(
         signature: String,
-        encryptedFolderMetadataFile: EncryptedFolderMetadataFile,
+        rawMetadata: String,
         decryptedFolderMetadataFile: DecryptedFolderMetadataFile,
         oldCounter: Long
     ): Boolean {
@@ -862,9 +865,14 @@ class EncryptionUtilsV2 {
             return false
         }
 
-        val message = EncryptionUtils.serializeJSON(encryptedFolderMetadataFile, true)
-        val certs = decryptedFolderMetadataFile.users.map { EncryptionUtils.convertCertFromString(it.certificate) }
-        val signedData = getSignedData(signature, message)
+        val prepared = prepareRawMetadata(rawMetadata)
+        val base64Json = EncryptionUtils.encodeStringToBase64String(prepared)
+        val messageData = base64Json.toByteArray(Charsets.ISO_8859_1)
+
+        val certs = decryptedFolderMetadataFile.users
+            .map { EncryptionUtils.convertCertFromString(it.certificate) }
+
+        val signedData = getSignedData(signature, messageData)
 
         if (certs.isNotEmpty() && !verifySignedData(signedData, certs)) {
             MainApp.showMessage(R.string.e2e_signature_does_not_match)
@@ -876,26 +884,67 @@ class EncryptionUtilsV2 {
             MainApp.showMessage(R.string.e2e_hash_not_found)
             return false
         }
+
         return true
     }
 
-    fun getSignedData(base64encodedSignature: String, message: String): CMSSignedData {
+    @VisibleForTesting
+    fun prepareRawMetadata(rawMetadata: String): String {
+        val parsed = com.google.gson.JsonParser.parseString(rawMetadata)
+        val sorted = sortJsonElement(parsed)
+        return com.google.gson.GsonBuilder()
+            .disableHtmlEscaping()
+            .serializeNulls()
+            .create()
+            .toJson(sorted)
+    }
+
+    private fun sortJsonElement(element: com.google.gson.JsonElement): com.google.gson.JsonElement = when {
+        element.isJsonObject -> {
+            val sortedObj = com.google.gson.JsonObject()
+            element.asJsonObject.entrySet()
+                .filter { it.key != "filedrop" }
+                .sortedBy { it.key }
+                .forEach { (key, value) -> sortedObj.add(key, sortJsonElement(value)) }
+            sortedObj
+        }
+        element.isJsonArray -> {
+            val sortedArr = com.google.gson.JsonArray()
+            element.asJsonArray.forEach { sortedArr.add(sortJsonElement(it)) }
+            sortedArr
+        }
+        else -> element
+    }
+
+    fun getSignedData(base64encodedSignature: String, messageData: ByteArray): CMSSignedData {
         val signature = EncryptionUtils.decodeStringToBase64Bytes(base64encodedSignature)
         val asn1Signature = ASN1Sequence.fromByteArray(signature)
         val contentInfo = ContentInfo.getInstance(asn1Signature)
-
-        val encodedMessage = EncryptionUtils.encodeStringToBase64String(message)
-        val messageData = encodedMessage.toByteArray()
-        val cmsProcessableByteArray = CMSProcessableByteArray(messageData)
-
-        return CMSSignedData(cmsProcessableByteArray, contentInfo)
+        return CMSSignedData(CMSProcessableByteArray(messageData), contentInfo)
     }
 
     @Suppress("TooGenericExceptionCaught")
     fun verifySignedData(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
         val signer = data.signerInfos.signers.first() as SignerInformation
-        val verifierBuilder = JcaSimpleSignerInfoVerifierBuilder()
 
+        val signedAttrs = signer.signedAttributes
+        if (signedAttrs != null) {
+            val messageDigestAttr = signedAttrs.get(org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers.pkcs_9_at_messageDigest)
+            if (messageDigestAttr != null) {
+                val digestValue = (messageDigestAttr.attrValues.getObjectAt(0) as org.bouncycastle.asn1.DEROctetString).octets
+                Log_OC.d(TAG, "Expected message digest (from signature): ${EncryptionUtils.encodeBytesToBase64String(digestValue)}")
+            }
+        }
+
+        val contentDigest = java.security.MessageDigest.getInstance("SHA-256")
+            .digest((data.signedContent as CMSProcessableByteArray).let {
+                val out = ByteArrayOutputStream()
+                it.write(out)
+                out.toByteArray()
+            })
+        Log_OC.d(TAG, "Actual content digest: ${EncryptionUtils.encodeBytesToBase64String(contentDigest)}")
+
+        val verifierBuilder = JcaSimpleSignerInfoVerifierBuilder()
         return certs.any { cert ->
             runCatching {
                 signer.verify(verifierBuilder.build(cert.publicKey))
