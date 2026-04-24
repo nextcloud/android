@@ -93,6 +93,7 @@ import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
+import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.navigation.NavigatorActivity;
 import com.owncloud.android.ui.navigation.NavigatorScreen;
@@ -330,6 +331,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void openMediaTab(int menuItemId) {
+        GalleryFragment.Companion.setLastMediaItemPosition(null);
         resetOnlyPersonalAndOnDevice();
         setupToolbar();
         startPhotoSearch(menuItemId);
