@@ -866,15 +866,48 @@ class EncryptionUtilsV2 {
         }
 
         val prepared = prepareRawMetadata(rawMetadata)
-        val base64Json = EncryptionUtils.encodeStringToBase64String(prepared)
-        val messageData = base64Json.toByteArray(Charsets.ISO_8859_1)
-
-        val certs = decryptedFolderMetadataFile.users
-            .map { EncryptionUtils.convertCertFromString(it.certificate) }
-
+        val messageData = EncryptionUtils.encodeStringToBase64String(prepared).toByteArray(Charsets.ISO_8859_1)
+        val users = decryptedFolderMetadataFile.users
         val signedData = getSignedData(signature, messageData)
 
-        if (certs.isNotEmpty() && !verifySignedData(signedData, certs)) {
+        val signerInfo = signedData.signerInfos.signers.first() as SignerInformation
+        val issuer = org.bouncycastle.asn1.x500.X500Name.getInstance(
+            (signerInfo.sid as org.bouncycastle.cms.SignerId).issuer
+        )
+        val rdns = issuer.getRDNs(org.bouncycastle.asn1.x500.style.BCStyle.CN)
+        val signerUserId = rdns.firstOrNull()?.first?.value?.toString()
+
+
+        Log_OC.d(TAG, "Signer userId from CMS: $signerUserId")
+
+        val signerUser = users.find { it.userId == signerUserId }
+        if (signerUser == null) {
+            Log_OC.e(TAG, "Signer not found in users array: $signerUserId")
+            MainApp.showMessage(R.string.e2e_signature_does_not_match)
+            return false
+        }
+
+        val signerCert = EncryptionUtils.convertCertFromString(signerUser.certificate)
+
+        val bcProvider = org.bouncycastle.jce.provider.BouncyCastleProvider()
+        java.security.Security.removeProvider("BC")
+        java.security.Security.insertProviderAt(bcProvider, 1)
+
+        val verifier = JcaSimpleSignerInfoVerifierBuilder()
+            .setProvider(bcProvider)
+            .build(signerCert)
+
+        val directResult = runCatching {
+            signerInfo.verify(verifier)
+        }.getOrElse {
+            Log_OC.e(TAG, "signerInfo.verify() exception: ${it.javaClass.name}: ${it.message}")
+            it.cause?.let { c -> Log_OC.e(TAG, "  caused by: ${c.javaClass.name}: ${c.message}") }
+            false
+        }
+        Log_OC.d(TAG, "signerInfo.verify() result: $directResult")
+
+        if (!directResult) {
+            Log_OC.e(TAG, "Signature verification failed for user: $signerUserId")
             MainApp.showMessage(R.string.e2e_signature_does_not_match)
             return false
         }
