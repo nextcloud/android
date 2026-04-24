@@ -794,6 +794,7 @@
     <string name="preview_image_file_is_not_downloaded">檔案未下載</string>
     <string name="preview_media_unhandled_http_code_message">檔案目前已被其他使用者或處理程序鎖定，因此無法刪除。請稍後再試。</string>
     <string name="preview_sorry">很抱歉</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">開啟文字編輯器失敗</string>
     <string name="privacy">隱私權</string>
     <string name="push_notifications_not_implemented">因為依賴於專有的 Google Play 服務的關係，所以推播通知已停用。</string>
     <string name="push_notifications_old_login">因為登入工作階段已過期，故無推播通知。請考慮重新加入您的帳號。</string>

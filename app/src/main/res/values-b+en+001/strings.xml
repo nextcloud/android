@@ -794,6 +794,7 @@
     <string name="preview_image_file_is_not_downloaded">File is not downloaded</string>
     <string name="preview_media_unhandled_http_code_message">File is currently locked by another user or process and therefore not deletable. Please try again later.</string>
     <string name="preview_sorry">Sorry</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Failed to open text editor</string>
     <string name="privacy">Privacy</string>
     <string name="push_notifications_not_implemented">Push notifications disabled due to dependencies on proprietary Google Play services.</string>
     <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
