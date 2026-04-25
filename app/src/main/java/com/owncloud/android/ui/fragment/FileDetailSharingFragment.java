@@ -70,6 +70,7 @@ import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.share.RemoteShareRepository;
 import com.owncloud.android.ui.fragment.share.ShareRepository;
+import com.owncloud.android.ui.fragment.share.UnifiedShareViewKt;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
@@ -92,6 +93,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 
 public class FileDetailSharingFragment extends Fragment implements ShareeListAdapterListener,
     DisplayUtils.AvatarGenerationListener,
@@ -162,7 +164,33 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
 
         fileDataStorageManager = fileActivity.getStorageManager();
-        fetchSharees();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // TODO: REPLACE FAKE CONDITION
+        if (user.getServer().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_34) || 2 < 4) {
+            showUnifiedShare();
+        } else {
+            fetchSharees();
+        }
+    }
+
+    private void showUnifiedShare() {
+        if (binding == null) {
+            return;
+        }
+
+        binding.shareContainer.setVisibility(View.GONE);
+        binding.unifiedShare.setVisibility(View.VISIBLE);
+
+        final LinearLayout shimmerLayout = binding.shimmerLayout.getRoot();
+        shimmerLayout.clearAnimation();
+        shimmerLayout.setVisibility(View.GONE);
+
+        UnifiedShareViewKt.setupUnifiedShare(binding.unifiedShare, viewThemeUtils, requireContext());
     }
 
     private void fetchSharees() {
