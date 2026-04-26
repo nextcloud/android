@@ -224,6 +224,16 @@ android {
 
 }
 
+androidComponents {
+    onVariants { variant ->
+        variant.outputs.forEach { output ->
+            if (output is com.android.build.api.variant.impl.VariantOutputImpl) {
+                output.outputFileName.set("${variant.name}-${output.versionCode.orNull}.apk")
+            }
+        }
+    }
+}
+
 ksp.arg("room.schemaLocation", "$projectDir/schemas")
 
 // Configure KSP for test variants
