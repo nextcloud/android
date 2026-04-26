@@ -129,7 +129,7 @@ import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
-import com.owncloud.android.ui.trashbin.TrashbinActivity;
+import com.owncloud.android.ui.trashbin.TrashbinFragment;
 
 import androidx.annotation.OptIn;
 import androidx.media3.common.util.UnstableApi;
@@ -141,6 +141,9 @@ import dagger.android.ContributesAndroidInjector;
  */
 @Module
 abstract class ComponentsModule {
+    @ContributesAndroidInjector
+    abstract TrashbinFragment trashbinFragment();
+
     @ContributesAndroidInjector
     abstract ActivitiesFragment activitiesFragment();
 
@@ -224,9 +227,6 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract SyncedFoldersActivity syncedFoldersActivity();
-
-    @ContributesAndroidInjector
-    abstract TrashbinActivity trashbinActivity();
 
     @ContributesAndroidInjector
     abstract TrashbinFileActionsBottomSheet trashbinFileActionsBottomSheet();

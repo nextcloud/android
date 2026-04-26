@@ -13,7 +13,7 @@ import android.view.View;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 
 /**
- * Interface for communication between {@link com.owncloud.android.ui.trashbin.TrashbinActivity}
+ * Interface for communication between {@link com.owncloud.android.ui.trashbin.TrashbinFragment}
  * and {@link com.owncloud.android.ui.adapter.TrashbinListAdapter}
  */
 
