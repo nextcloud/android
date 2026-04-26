@@ -67,6 +67,7 @@ class AutoUploadFileMatchingTests {
         "account@server",
         0,
         NameCollisionPolicy.SKIP.serialize(),
+        0,
         true,
         System.currentTimeMillis(),
         type,
