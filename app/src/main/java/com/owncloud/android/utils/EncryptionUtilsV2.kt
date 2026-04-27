@@ -977,7 +977,7 @@ class EncryptionUtilsV2 {
         return true
     }
 
-    private fun getSignedData(base64encodedSignature: String, message: String): CMSSignedData {
+    fun getSignedData(base64encodedSignature: String, message: String): CMSSignedData {
         val signature = EncryptionUtils.decodeStringToBase64Bytes(base64encodedSignature)
         val asn1Signature = ASN1Sequence.fromByteArray(signature)
         val contentInfo = ContentInfo.getInstance(asn1Signature)
