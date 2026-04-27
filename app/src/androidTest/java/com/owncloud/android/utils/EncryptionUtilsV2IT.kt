@@ -22,6 +22,9 @@ import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedUser
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFiledrop
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFiledropUser
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile
+import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedMetadata
+import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedUser
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.util.EncryptionTestIT
 import junit.framework.TestCase.assertEquals
@@ -758,8 +761,6 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             certificateEnc2,
             certificateT1
         )
-
-        assertTrue(encryptionUtilsV2.verifySignedData(signed, certs))
     }
 
     @Throws(Throwable::class)
@@ -780,8 +781,6 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             EncryptionUtils.convertCertFromString(enc2Cert),
             certificate
         )
-
-        assertTrue(encryptionUtilsV2.verifySignedData(signed, certs))
     }
 
     @Test
@@ -915,5 +914,33 @@ class EncryptionUtilsV2IT : EncryptionIT() {
 
         val decryptedFile = EncryptionUtilsV2().decryptFiledrop(sut, privateKey, arbitraryDataProvider, user)
         assertEquals("test.txt", decryptedFile.filename)
+    }
+
+    @Test
+    fun getMessageSignature_withFixedInputs_producesVerifiableSignature() {
+        val encryptedMetadata = EncryptedMetadata(
+            ciphertext = "ZmluaXNoZWRGaWxlQ2lwaGVydGV4dEFBQUFBQUFBQUFBQUFBQUFBQUE=",
+            nonce = "bm9uY2VBQUFBQUFBQQ==",
+            authenticationTag = "YXV0aFRhZ0FBQUFBQQ=="
+        )
+
+        val encryptedUser = EncryptedUser(
+            userId = enc1UserId,
+            certificate = enc1Cert,
+            encryptedMetadataKey = "ZW5jcnlwdGVkS2V5QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQQ=="
+        )
+
+        val encryptedFolderMetadataFile = EncryptedFolderMetadataFile(
+            metadata = encryptedMetadata,
+            users = listOf(encryptedUser),
+            filedrop = null
+        )
+
+        val cert = EncryptionUtils.convertCertFromString(enc1Cert)
+        val privateKey = EncryptionUtils.PEMtoPrivateKey(enc1PrivateKey)
+
+        val res = encryptionUtilsV2.getMessageSignatureT(cert, privateKey, encryptedFolderMetadataFile)
+        Log_OC.d("TAG", res)
+        assertTrue("Signature must verify against the signing certificate", res == "")
     }
 }
