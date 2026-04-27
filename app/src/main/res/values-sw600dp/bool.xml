@@ -7,6 +7,5 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <resources>
-    <bool name="show_push_warning">true</bool>
-    <bool name="is_support_drawer">true</bool>
+    <bool name="is_support_drawer">false</bool>
 </resources>

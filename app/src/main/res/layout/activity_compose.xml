@@ -8,35 +8,61 @@
 -->
 <androidx.drawerlayout.widget.DrawerLayout android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    android:focusable="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:focusable="true">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/toolbar_standard" />
-
-        <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/compose_view"
-            android:layout_width="match_parent"
+        <FrameLayout
+            android:id="@+id/sidebar_menu"
+            android:layout_width="@dimen/drawer_width"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/bottom_navigation_menu"
-            app:layout_behavior="com.nextcloud.ui.behavior.OnScrollBehavior" />
+            <include
+                layout="@layout/sidebar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start" />
 
-    </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sidebar_menu"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include layout="@layout/toolbar_standard" />
+
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/compose_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/bottom_navigation_menu"
+                app:layout_behavior="com.nextcloud.ui.behavior.OnScrollBehavior" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         layout="@layout/drawer"

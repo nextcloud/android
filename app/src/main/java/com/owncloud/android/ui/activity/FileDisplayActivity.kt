@@ -400,6 +400,16 @@ class FileDisplayActivity :
                 }
             }
         }
+
+        if (isDrawerLayout) {
+            mMenuButton.visibility = View.VISIBLE
+        } else {
+            if (isRoot(currentDir)) {
+                mMenuButton.visibility = View.GONE
+            } else {
+                mMenuButton.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -1052,6 +1062,9 @@ class FileDisplayActivity :
     private fun exitSelectionMode() {
         val ocFileListFragment = this.listOfFilesFragment
         ocFileListFragment?.exitSelectionMode()
+
+        // Update toolbar with current directory
+        updateActionBarTitleAndHomeButton(currentDir)
     }
 
     private fun requestUploadOfFilesFromFileSystem(data: Intent, resultCode: Int) {
@@ -1980,6 +1993,16 @@ class FileDisplayActivity :
             chosenFile = file // if no file is passed, current file decides
         }
         super.updateActionBarTitleAndHomeButton(chosenFile)
+
+        if (isDrawerLayout) {
+            mMenuButton.visibility = View.VISIBLE
+        } else {
+            if (isRoot(currentDir)) {
+                mMenuButton.visibility = View.GONE
+            } else {
+                mMenuButton.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun isDrawerIndicatorAvailable(): Boolean = isRoot(getCurrentDir())

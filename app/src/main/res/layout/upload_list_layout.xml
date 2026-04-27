@@ -8,47 +8,75 @@
   ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true">
 
-    <!-- The main content view -->
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include layout="@layout/toolbar_standard" />
+        android:layout_height="match_parent">
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/appbar">
-
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_containing_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:footerDividersEnabled="false"
-                android:visibility="visible">
-
-                <com.owncloud.android.ui.EmptyRecyclerView
-                    android:id="@android:id/list"
-                    android:padding="@dimen/standard_half_padding"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            android:id="@+id/sidebar_menu"
+            android:layout_width="@dimen/drawer_width"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <include
-                android:id="@+id/empty_list"
-                layout="@layout/empty_list" />
+                layout="@layout/sidebar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start" />
 
         </FrameLayout>
 
-    </RelativeLayout>
+        <!-- The main content view -->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sidebar_menu"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include layout="@layout/toolbar_standard" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/appbar">
+
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/swipe_containing_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:footerDividersEnabled="false"
+                    android:visibility="visible">
+
+                    <com.owncloud.android.ui.EmptyRecyclerView
+                        android:id="@android:id/list"
+                        android:padding="@dimen/standard_half_padding"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                <include
+                    android:id="@+id/empty_list"
+                    layout="@layout/empty_list" />
+
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         layout="@layout/drawer"

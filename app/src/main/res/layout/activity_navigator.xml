@@ -10,21 +10,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/appbar"
-            layout="@layout/toolbar_standard" />
+        <FrameLayout
+            android:id="@+id/sidebar_menu"
+            android:layout_width="@dimen/drawer_width"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment_container_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            <include
+                layout="@layout/sidebar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </FrameLayout>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sidebar_menu"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/appbar"
+                layout="@layout/toolbar_standard" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_container_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         layout="@layout/drawer"
