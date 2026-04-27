@@ -758,6 +758,8 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             certificateEnc2,
             certificateT1
         )
+
+        assertTrue(encryptionUtilsV2.verifySignedData(signed, certs))
     }
 
     @Throws(Throwable::class)
@@ -778,6 +780,8 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             EncryptionUtils.convertCertFromString(enc2Cert),
             certificate
         )
+
+        assertTrue(encryptionUtilsV2.verifySignedData(signed, certs))
     }
 
     @Test
