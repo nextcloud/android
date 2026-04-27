@@ -103,7 +103,7 @@ open class ExtendedListFragment :
     protected var mRefreshListLayout: SwipeRefreshLayout? = null
 
     @JvmField
-    protected var mSortButton: MaterialButton? = null
+    public var mSortButton: MaterialButton? = null
 
     @JvmField
     protected var mSwitchGridViewButton: MaterialButton? = null
@@ -137,7 +137,7 @@ open class ExtendedListFragment :
         mRecyclerView?.setAdapter(recyclerViewAdapter)
     }
 
-    protected val recyclerView: RecyclerView?
+    public val recyclerView: RecyclerView?
         get() = mRecyclerView
 
     open fun setLoading(enabled: Boolean) {
@@ -784,7 +784,7 @@ open class ExtendedListFragment :
         setLayoutSwitchButton(isGridEnabled)
     }
 
-    protected fun setLayoutSwitchButton(isGrid: Boolean) {
+    fun setLayoutSwitchButton(isGrid: Boolean) {
         mSwitchGridViewButton?.let {
             if (isGrid) {
                 it.setContentDescription(getString(R.string.action_switch_list_view))

@@ -143,9 +143,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.media3.common.util.UnstableApi;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import kotlin.Unit;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -211,7 +208,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected FileFragment.ContainerActivity mContainerActivity;
 
     protected OCFile mFile;
-    private OCFileListAdapter mAdapter;
+    protected OCFileListAdapter mAdapter;
     protected boolean mOnlyFoldersClickable;
     protected boolean mFileSelectable;
 
@@ -228,6 +225,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private FloatingActionButton mFabMain;
     public static boolean isMultipleFileSelectedForCopyOrMove = false;
     public final ParentFolderFinder parentFolderFinder = new ParentFolderFinder();
+    public FileListLayoutManager fileListLayoutManager;
 
     private static final Intent scanIntentExternalApp = new Intent("org.fairscan.app.action.SCAN_TO_PDF");
 
@@ -251,6 +249,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mMultiChoiceModeListener = new MultiChoiceModeListener();
+        fileListLayoutManager = new FileListLayoutManager(this, preferences);
 
         final Bundle state = savedInstanceState != null ? savedInstanceState : getArguments();
         setSearchArgs(state);
@@ -445,10 +444,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (mSwitchGridViewButton != null) {
             mSwitchGridViewButton.setOnClickListener(v -> {
-                if (isGridEnabled()) {
-                    setListAsPreferred();
-                } else {
-                    setGridAsPreferred();
+                if (fileListLayoutManager != null) {
+                    if (isGridEnabled()) {
+                        fileListLayoutManager.setListAsPreferred();
+                    } else {
+                        fileListLayoutManager.setGridAsPreferred();
+                    }
                 }
                 setLayoutSwitchButton();
             });
@@ -461,6 +462,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     protected void setAdapter(Bundle args) {
         boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
+        boolean isGridViewPreferred = false;
+        if (fileListLayoutManager != null) {
+            isGridViewPreferred = fileListLayoutManager.isGridViewPreferred(mFile);
+        }
 
         mAdapter = new OCFileListAdapter(
             getActivity(),
@@ -470,7 +475,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mContainerActivity,
             this,
             hideItemOptions,
-            isGridViewPreferred(mFile),
+            isGridViewPreferred,
             viewThemeUtils,
             overlayManager
         );
@@ -1612,7 +1617,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void updateLayout() {
-        setLayoutViewMode();
+        if (fileListLayoutManager != null) {
+            fileListLayoutManager.setLayoutViewMode();
+        }
         updateSortButton();
         setLayoutSwitchButton();
 
@@ -1640,109 +1647,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (mActiveActionMode != null) {
             mActiveActionMode.invalidate();
         }
-    }
-
-    public void sortFiles(FileSortOrder sortOrder) {
-        if (mSortButton != null) {
-            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
-        }
-        mAdapter.setSortOrder(mFile, sortOrder);
-    }
-
-    /**
-     * Determines whether a folder should be displayed in grid or list view.
-     * <p>
-     * The preference is checked for the given folder. If the folder itself does not have a preference set,
-     * it will fall back to its parent folder recursively until a preference is found (root folder is always set).
-     * Additionally, if a search event is active and is of type {@code SHARED_FILTER}, grid view is disabled.
-     *
-     * @param folder The folder to check, or {@code null} to refer to the root folder.
-     * @return {@code true} if the folder should be displayed in grid mode, {@code false} if list mode is preferred.
-     */
-    private boolean isGridViewPreferred(@Nullable OCFile folder) {
-        if (searchEvent != null) {
-            return (searchEvent.toSearchType() != SHARED_FILTER) &&
-                FOLDER_LAYOUT_GRID.equals(preferences.getFolderLayout(folder));
-        } else {
-            return FOLDER_LAYOUT_GRID.equals(preferences.getFolderLayout(folder));
-        }
-    }
-
-    private void setLayoutViewMode() {
-        boolean isGrid = isGridViewPreferred(mFile);
-
-        if (isGrid) {
-            switchToGridView();
-        } else {
-            switchToListView();
-        }
-
-        setLayoutSwitchButton(isGrid);
-    }
-
-    public void setListAsPreferred() {
-        preferences.setFolderLayout(mFile, FOLDER_LAYOUT_LIST);
-        switchToListView();
-    }
-
-    public void switchToListView() {
-        if (isGridEnabled()) {
-            switchLayoutManager(false);
-        }
-    }
-
-    public void setGridAsPreferred() {
-        preferences.setFolderLayout(mFile, FOLDER_LAYOUT_GRID);
-        switchToGridView();
-    }
-
-    public void switchToGridView() {
-        if (!isGridEnabled()) {
-            switchLayoutManager(true);
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void switchLayoutManager(boolean grid) {
-        final var recyclerView = getRecyclerView();
-        final var adapter = getAdapter();
-        final var context = getContext();
-
-        if (context == null || adapter == null || recyclerView == null) {
-            Log_OC.e(TAG, "cannot switch layout, arguments are null");
-            return;
-        }
-
-        int position = 0;
-
-        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager linearLayoutManager) {
-            position = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
-        }
-
-        RecyclerView.LayoutManager layoutManager;
-        if (grid) {
-            layoutManager = new GridLayoutManager(context, getColumnsCount());
-            GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
-            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    if (position == getAdapter().getItemCount() - 1 ||
-                        position == 0 && getAdapter().shouldShowHeader()) {
-                        return gridLayoutManager.getSpanCount();
-                    } else {
-                        return 1;
-                    }
-                }
-            });
-        } else {
-            layoutManager = new LinearLayoutManager(context);
-        }
-
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.scrollToPosition(position);
-        adapter.setGridView(grid);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
     }
 
     public CommonOCFileListAdapterInterface getCommonAdapter() {
@@ -1923,7 +1827,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         new Handler(Looper.getMainLooper()).post(() -> {
             updateSortButton();
-            setLayoutViewMode();
+            if (fileListLayoutManager != null) {
+                fileListLayoutManager.setLayoutViewMode();
+            }
         });
 
         final User currentUser = accountManager.getUser();
