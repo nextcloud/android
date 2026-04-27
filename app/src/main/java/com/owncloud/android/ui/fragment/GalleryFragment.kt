@@ -131,8 +131,6 @@ class GalleryFragment :
 
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(refreshSearchEventReceiver)
 
-        setLastMediaItemPosition(null)
-
         adapter?.cleanup()
 
         super.onDestroyView()
@@ -188,13 +186,12 @@ class GalleryFragment :
             (recyclerView as EmptyRecyclerView).setHasFooter(false)
         }
 
-        if (recyclerView != null) {
-            val layoutManager = GridLayoutManager(context, 1)
-            adapter?.setLayoutManager(layoutManager)
-            recyclerView?.setLayoutManager(layoutManager)
-
-            if (lastMediaItemPosition != null) {
-                layoutManager.scrollToPosition(lastMediaItemPosition!!)
+        val layoutManager = GridLayoutManager(context, 1)
+        adapter?.setLayoutManager(layoutManager)
+        recyclerView?.setLayoutManager(layoutManager)
+        recyclerView?.post {
+            lastMediaItemPosition?.let { position ->
+                recyclerView?.layoutManager?.scrollToPosition(position)
             }
         }
     }
