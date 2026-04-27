@@ -67,7 +67,6 @@ import com.nextcloud.common.PlainClient;
 import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
-import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
@@ -128,6 +127,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
+import androidx.browser.auth.AuthTabIntent;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -492,20 +493,30 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             return;
         }
 
-        try {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            PackageManager packageManager = getPackageManager();
+        Uri uri = Uri.parse(url);
+        String loginScheme = getString(R.string.login_data_own_scheme);
 
+        try {
+            int toolbarColor = ContextCompat.getColor(this, R.color.primary);
+            AuthTabIntent authTabIntent = new AuthTabIntent.Builder().setColorScheme(toolbarColor).build();
+            authTabIntent.launch(authTabResultLauncher, uri, loginScheme);
+            return;
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Auth Tab login URL launch failed: " + e);
+        }
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            PackageManager packageManager = getPackageManager();
             if (intent.resolveActivity(packageManager) != null) {
                 startActivity(intent);
-            } else {
-                DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_no_web_browser_found);
+                return;
             }
         } catch (Exception e) {
-            Log_OC.e(TAG, "Exception launchDefaultWebBrowser: " + e);
-            DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
+            Log_OC.e(TAG, "External browser launch failed: " + e);
         }
+
+        DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_no_web_browser_found);
     }
 
     private Pair<String, String> extractPollUrlAndToken() {
@@ -1557,6 +1568,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Intent intent = new Intent(this, QrCodeActivity.class);
         qrScanResultLauncher.launch(intent);
     }
+
+    private final ActivityResultLauncher<Intent> authTabResultLauncher = AuthTabIntent.registerActivityResultLauncher(
+        this,
+        result -> Log_OC.d(TAG, "Auth Tab result code: " + result.resultCode)
+    );
 
     private final ActivityResultLauncher<Intent> qrScanResultLauncher = registerForActivityResult(
         new ActivityResultContracts.StartActivityForResult(),
