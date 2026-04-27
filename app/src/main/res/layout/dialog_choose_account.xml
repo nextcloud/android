@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.nextcloud.ui.ChooseAccountDialogFragment">
+    tools:context="com.nextcloud.ui.dialog.account.ChooseAccountDialogFragment">
 
     <include
         android:id="@+id/current_account"
