@@ -22,10 +22,20 @@
 
         <include layout="@layout/toolbar_standard" />
 
+        <include
+            android:id="@+id/auto_upload_battery_saver_warning_card"
+            layout="@layout/auto_upload_battery_saver_warning_banner"
+            android:layout_marginHorizontal="@dimen/standard_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appbar" />
+
         <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/appbar">
+            android:layout_below="@id/auto_upload_battery_saver_warning_card">
+
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_containing_list"
@@ -36,9 +46,9 @@
 
                 <com.owncloud.android.ui.EmptyRecyclerView
                     android:id="@android:id/list"
-                    android:padding="@dimen/standard_half_padding"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/standard_half_padding" />
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

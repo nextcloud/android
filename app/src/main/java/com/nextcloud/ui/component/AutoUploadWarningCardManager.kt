@@ -7,33 +7,33 @@
 
 package com.nextcloud.ui.component
 
-import android.content.Context
+import android.view.View
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.utils.extensions.setVisibleIf
-import com.owncloud.android.R
 import com.owncloud.android.databinding.AutoUploadBatterySaverWarningBannerBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class AutoUploadWarningCardManager(
     private val powerManagementService: PowerManagementService,
-    private val viewThemeUtils: ViewThemeUtils,
-    private val context: Context
+    private val viewThemeUtils: ViewThemeUtils
 ) {
-
     fun bind(binding: AutoUploadBatterySaverWarningBannerBinding) {
         val isBatterySaver = powerManagementService.isPowerSavingEnabled
         val isIgnoringOptimization = powerManagementService.isIgnoringOptimization
 
         binding.root.setVisibleIf(isBatterySaver || isIgnoringOptimization)
 
-        val messages = listOfNotNull(
-            if (isBatterySaver) context
-                .getString(R.string.auto_upload_battery_saver_mode_warning) else null,
-            if (isIgnoringOptimization) context
-                .getString(R.string.auto_upload_battery_ignore_optimization_mode_warning) else null
-        )
-
-        binding.message.text = messages.joinToString("\n")
+        if (isBatterySaver && isIgnoringOptimization) {
+            binding.title.visibility = View.VISIBLE
+            binding.batterySaverReason.visibility = View.VISIBLE
+            binding.batteryOptimizationReason.visibility = View.VISIBLE
+        } else if (isBatterySaver) {
+            binding.title.visibility = View.VISIBLE
+            binding.batterySaverReason.visibility = View.VISIBLE
+        } else if (isIgnoringOptimization) {
+            binding.title.visibility = View.VISIBLE
+            binding.batteryOptimizationReason.visibility = View.VISIBLE
+        }
 
         viewThemeUtils.material.themeCardView(binding.root)
     }

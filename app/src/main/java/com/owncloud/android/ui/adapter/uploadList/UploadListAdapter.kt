@@ -25,7 +25,6 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.ui.component.AutoUploadWarningCardManager
 import com.nextcloud.utils.extensions.getStatusText
 import com.nextcloud.utils.extensions.isLastResultConflictError
 import com.nextcloud.utils.extensions.setVisibleIf
@@ -68,7 +67,6 @@ import java.util.function.Consumer
 )
 class UploadListAdapter(
     private val activity: FileActivity,
-    private val autoUploadWarningCardManager: AutoUploadWarningCardManager,
     private val uploadsStorageManager: UploadsStorageManager,
     private val accountManager: UserAccountManager,
     private val connectivityService: ConnectivityService,
@@ -104,7 +102,6 @@ class UploadListAdapter(
 
         bindHeaderTitle(headerViewHolder, group, section)
         bindHeaderActionButton(headerViewHolder, group)
-        autoUploadWarningCardManager.bind(holder.binding.autoUploadBatterySaverWarningCard)
         bindHeaderActionClickListener(headerViewHolder, group)
     }
 
