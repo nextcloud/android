@@ -73,9 +73,6 @@ class UploadListActivity :
 
     @Inject lateinit var uploadFileOperationFactory: UploadFileOperationFactory
 
-    @Inject
-    lateinit var autoUploadWarningCardManager: AutoUploadWarningCardManager
-
     private var swipeListRefreshLayout: SwipeRefreshLayout? = null
     private var binding: UploadListLayoutBinding? = null
 
@@ -112,7 +109,7 @@ class UploadListActivity :
         adapterHelper = UploadListAdapterHelper(this)
         uploadListAdapter = UploadListAdapter(
             this,
-            autoUploadWarningCardManager,
+            AutoUploadWarningCardManager(powerManagementService, viewThemeUtils, this),
             uploadsStorageManager,
             userAccountManager,
             connectivityService,

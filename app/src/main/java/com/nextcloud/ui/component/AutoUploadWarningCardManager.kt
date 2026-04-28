@@ -9,18 +9,16 @@ package com.nextcloud.ui.component
 
 import android.content.Context
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AutoUploadBatterySaverWarningBannerBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import javax.inject.Inject
 
-class AutoUploadWarningCardManager @Inject constructor(
+class AutoUploadWarningCardManager(
     private val powerManagementService: PowerManagementService,
     private val viewThemeUtils: ViewThemeUtils,
     private val context: Context
-) : Injectable {
+) {
 
     fun bind(binding: AutoUploadBatterySaverWarningBannerBinding) {
         val isBatterySaver = powerManagementService.isPowerSavingEnabled
