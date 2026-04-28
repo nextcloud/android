@@ -250,7 +250,6 @@ class SyncedFoldersActivity :
         val gridWidth = resources.getInteger(R.integer.media_grid_width)
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
         adapter = SyncedFolderAdapter(
-            autoUploadWarningCardManager,
             lifecycleScope,
             this,
             clock,
@@ -261,6 +260,7 @@ class SyncedFoldersActivity :
             powerManagementService,
             connectivityService
         )
+        autoUploadWarningCardManager.bind(binding.autoUploadBatterySaverWarningCard)
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.emptyList.emptyListViewAction)
         val lm = GridLayoutManager(this, gridWidth)

@@ -11,7 +11,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.PowerManager
-import androidx.core.content.ContextCompat.getSystemService
 import com.nextcloud.utils.extensions.registerBroadcastReceiver
 import com.owncloud.android.datamodel.ReceiverFlag
 
