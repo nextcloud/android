@@ -56,7 +56,6 @@ import java.util.concurrent.TimeUnit
  */
 @Suppress("LongParameterList", "TooManyFunctions")
 class SyncedFolderAdapter(
-    private val autoUploadWarningCardManager: AutoUploadWarningCardManager,
     private val lifecycleScope: LifecycleCoroutineScope,
     private val context: Context,
     private val clock: Clock,
@@ -264,10 +263,6 @@ class SyncedFolderAdapter(
 
             holder.binding.run {
                 headerContainer.visibility = View.VISIBLE
-
-                if (section == 0) {
-                    autoUploadWarningCardManager.bind(autoUploadBatterySaverWarningCard)
-                }
 
                 val syncedFolder = filteredSyncFolderItems[section]
 
