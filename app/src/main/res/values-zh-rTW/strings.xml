@@ -55,6 +55,7 @@
     <string name="assistant_screen_empty_content_description">嘗試傳送訊息來引發對話。</string>
     <string name="assistant_screen_empty_content_title">嗨！我現在能怎麼協助您呢？</string>
     <string name="assistant_screen_retry_response_generation">重試回應產生</string>
+    <string name="assistant_screen_select_task">請選取任務</string>
     <string name="assistant_screen_send_message">傳送訊息</string>
     <string name="assistant_screen_task_bar_open_conversation_list">開啟對話清單</string>
     <string name="assistant_screen_task_create_fail_message">建立工作項目時發生錯誤</string>
@@ -256,6 +257,7 @@
     <string name="create_new_presentation">新增投影片</string>
     <string name="create_new_spreadsheet">新增試算表</string>
     <string name="create_rich_workspace">新增資料夾資訊</string>
+    <string name="creates_rich_workspace">建立資料夾資訊</string>
     <string name="credentials_disabled">憑證已停用</string>
     <string name="daily_backup">每日備份</string>
     <string name="data_to_back_up">要備份的資料</string>
@@ -322,6 +324,7 @@
     <string name="drawer_item_on_device">在裝置上</string>
     <string name="drawer_item_personal_files">個人檔案</string>
     <string name="drawer_item_recent_files">近期檔案</string>
+    <string name="drawer_item_recently_modified">最近修改</string>
     <string name="drawer_item_shared">已分享</string>
     <string name="drawer_item_trashbin">刪除的檔案</string>
     <string name="drawer_item_uploads_list">上傳</string>
@@ -442,6 +445,7 @@
     <string name="file_list_empty_on_device">已下載的檔案跟資料夾會顯示在這裡。</string>
     <string name="file_list_empty_recent_files_description">您最近修改的檔案與資料夾將會顯示在此處。</string>
     <string name="file_list_empty_recent_files_headline">最近無修改檔案</string>
+    <string name="file_list_empty_recently_modified">沒有找到最近 7 天修改的檔案</string>
     <string name="file_list_empty_search">也許在其他資料夾中？</string>
     <string name="file_list_empty_shared">您分享的檔案跟資料夾會顯示在這裡。</string>
     <string name="file_list_empty_shared_headline">還沒有分享的資料</string>
@@ -857,6 +861,7 @@
     <string name="send">傳送</string>
     <string name="send_copy_to">傳送副本至</string>
     <string name="send_share">傳送分享</string>
+    <string name="sendbutton_description">傳送按鈕圖示</string>
     <string name="server_not_reachable">無法載入內容</string>
     <string name="server_not_reachable_content">裝置似乎無法連線至網際網路</string>
     <string name="set_as">設定為</string>
@@ -898,6 +903,7 @@
     <string name="share_option_required">請在繼續前至少選取一個分享選項。</string>
     <string name="share_permission_can_edit">可以編輯</string>
     <string name="share_permission_file_request">檔案請求</string>
+    <string name="share_permission_secure_file_drop">安全檔案投遞</string>
     <string name="share_permission_view_only">僅供檢視</string>
     <string name="share_permissions">分享權限</string>
     <string name="share_re_share_permission">分享</string>
@@ -1110,6 +1116,7 @@
     <string name="upload_query_move_foreign_files">空間不足以將選擇的檔案複製到 %1$s 資料夾。是否要改成移動它們？</string>
     <string name="upload_quota_exceeded">超過儲存空間容量限制</string>
     <string name="upload_scan_doc_upload">使用相機掃描文件</string>
+    <string name="upload_sync_conflict">同步發生衝突，請手動解決</string>
     <string name="upload_sync_conflict_check">您的上次上傳可能存在衝突。點擊檢查。</string>
     <string name="upload_sync_conflict_check_error">無法檢查上傳衝突。請重試。</string>
     <string name="upload_sync_conflict_checking">正在檢查上傳衝突……</string>
@@ -1161,6 +1168,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">找不到本機檔案</string>
     <string name="uploads_view_upload_status_failed_permission_error">權限錯誤</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">不信任的伺服器憑證</string>
+    <string name="uploads_view_upload_status_fetching_server_version">正在擷取伺服器版本…</string>
     <string name="uploads_view_upload_status_service_interrupted">應用程式已終止</string>
     <string name="uploads_view_upload_status_skip">略過</string>
     <string name="uploads_view_upload_status_skip_reason">已有相同名稱的檔案。</string>

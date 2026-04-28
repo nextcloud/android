@@ -246,6 +246,7 @@
     <string name="drawer_item_notifications">Obvestila</string>
     <string name="drawer_item_on_device">Na napravi</string>
     <string name="drawer_item_personal_files">Osebne datoteke</string>
+    <string name="drawer_item_recently_modified">Nedavno spremenjeno</string>
     <string name="drawer_item_shared">V souporabi</string>
     <string name="drawer_item_trashbin">Izbrisane datoteke</string>
     <string name="drawer_item_uploads_list">Poslano</string>
@@ -337,6 +338,7 @@
     <string name="file_list_empty_on_device">Prejete datoteke in mape bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_recent_files_description">Nedavno spremenjene datoteke ali mape, bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_recent_files_headline">Ni nedavno spremenjenih datotek</string>
+    <string name="file_list_empty_recently_modified">Ni datotek, spremenjenih v zadnjih 7. dneh</string>
     <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
     <string name="file_list_empty_shared">Datoteke in mape v souporabi bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_shared_headline">Ni še datotek v souporabi</string>
@@ -656,6 +658,7 @@
     <string name="select_one_template">Izbor predloge</string>
     <string name="select_template">Izbor predloge</string>
     <string name="send">Pošlji</string>
+    <string name="sendbutton_description">Ikona gumba za pošiljanje</string>
     <string name="set_as">Nastavi kot</string>
     <string name="set_picture_as">Uporabi sliko kot</string>
     <string name="setup_e2e">Med nastavitvijo šifriranja E2E boste prejeli naključno 12-mestno besedno geslo, brez katerega na drugih napravah datotek ne bo mogoče odpreti. To geslo bo shranjeno izključno na tej napravi in ga bo mogoče ponovno prikazati na tem zaslonu. Priporočljivo ga je zabeležiti na varno mesto!</string>
@@ -684,6 +687,7 @@
     <string name="share_no_expiration_date_label">Nastavi datum preteka</string>
     <string name="share_no_password_title">Nastavi geslo</string>
     <string name="share_permission_can_edit">Lahko ureja</string>
+    <string name="share_permission_secure_file_drop">Varno pošiljanje daottek</string>
     <string name="share_permission_view_only">Le ogled</string>
     <string name="share_re_share_permission">Souporaba</string>
     <string name="share_read_permission">Branje</string>
@@ -847,6 +851,7 @@
     <string name="upload_old_android">Šifriranje je podprto z različico &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želiš datoteke premakniti na novo mesto?</string>
     <string name="upload_scan_doc_upload">Optično preberi dokument s fotoaparatom</string>
+    <string name="upload_sync_conflict">Zaznan je spor usklajevanja, ki ga je treba razrešiti ročno</string>
     <string name="upload_unknown_error">Neznana napaka</string>
     <string name="uploader_btn_alternative_text">Izberi</string>
     <string name="uploader_btn_upload_text">Pošlji</string>
@@ -891,6 +896,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Krajevne datoteke ni mogoče najti</string>
     <string name="uploads_view_upload_status_failed_permission_error">Napaka dovoljenj</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Potrdilo strežnika ni vredno zaupanja</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Poteka pridobivanje različice strežnika…</string>
     <string name="uploads_view_upload_status_service_interrupted">Program je vsiljeno končan</string>
     <string name="uploads_view_upload_status_succeeded">Končano</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznana napaka</string>
