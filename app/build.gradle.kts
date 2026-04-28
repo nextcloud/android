@@ -81,7 +81,6 @@ val ncTestServerPassword = configProps["NC_TEST_SERVER_PASSWORD"]
 val ncTestServerBaseUrl = configProps["NC_TEST_SERVER_BASEURL"]
 
 android {
-    // install this NDK version and Cmake to produce smaller APKs. Build will still work if not installed
     ndkVersion = "${ndkEnv["NDK_VERSION"]}"
 
     namespace = "com.owncloud.android"
@@ -113,6 +112,16 @@ android {
             versionBuild > 89 -> "${versionMajor}.${versionMinor}.${versionPatch}"
             versionBuild > 50 -> "${versionMajor}.${versionMinor}.${versionPatch} RC" + (versionBuild - 50)
             else -> "${versionMajor}.${versionMinor}.${versionPatch} Alpha" + (versionBuild + 1)
+        }
+
+        ndk {
+            abiFilters += setOf("arm64-v8a", "armeabi-v7a", "x86_64")
+        }
+
+        externalNativeBuild {
+            cmake {
+                arguments += "-DANDROID_STL=c++_shared"
+            }
         }
 
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
@@ -183,6 +192,7 @@ android {
         viewBinding = true
         aidl = true
         compose = true
+        prefab = true
     }
 
     compileOptions {
@@ -219,6 +229,12 @@ android {
         // Adds exported schema location as test app assets.
         getByName("androidTest") {
             assets.srcDirs(files("$projectDir/schemas"))
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
         }
     }
 
@@ -434,6 +450,7 @@ dependencies {
 
     // region Crypto
     implementation(libs.conscrypt.android)
+    implementation(libs.openssl)
     // endregion
 
     // region Library

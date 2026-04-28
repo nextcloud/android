@@ -12,6 +12,7 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.CmsSignatureVerifier
 import com.nextcloud.utils.autoRename.AutoRename
 import com.nextcloud.utils.e2ee.E2EVersionHelper
 import com.nextcloud.utils.extensions.showToast
@@ -47,9 +48,7 @@ import org.bouncycastle.cert.jcajce.JcaCertStore
 import org.bouncycastle.cms.CMSProcessableByteArray
 import org.bouncycastle.cms.CMSSignedData
 import org.bouncycastle.cms.CMSSignedDataGenerator
-import org.bouncycastle.cms.SignerInformation
 import org.bouncycastle.cms.jcajce.JcaSignerInfoGeneratorBuilder
-import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder
 import java.io.BufferedReader
@@ -978,7 +977,7 @@ class EncryptionUtilsV2 {
         return true
     }
 
-    private fun getSignedData(base64encodedSignature: String, message: String): CMSSignedData {
+    fun getSignedData(base64encodedSignature: String, message: String): CMSSignedData {
         val signature = EncryptionUtils.decodeStringToBase64Bytes(base64encodedSignature)
         val asn1Signature = ASN1Sequence.fromByteArray(signature)
         val contentInfo = ContentInfo.getInstance(asn1Signature)
@@ -990,19 +989,24 @@ class EncryptionUtilsV2 {
         return CMSSignedData(cmsProcessableByteArray, contentInfo)
     }
 
-    @Suppress("TooGenericExceptionCaught")
     fun verifySignedData(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
-        val signer = data.signerInfos.signers.first() as SignerInformation
-        val verifierBuilder = JcaSimpleSignerInfoVerifierBuilder()
+        val cmsBytes = data.toASN1Structure().encoded
 
-        return certs.any { cert ->
-            runCatching {
-                signer.verify(verifierBuilder.build(cert.publicKey))
-            }.getOrElse {
-                Log_OC.e(TAG, "Exception verifySignedData: $it")
-                false
-            }
+        val messageBytes = ByteArrayOutputStream().also { data.signedContent.write(it) }.toByteArray()
+
+        val certificatesAsPEMs = certs.map { cert -> toPemString(cert) }.toTypedArray()
+
+        return runCatching {
+            CmsSignatureVerifier().verifySignedData(cmsBytes, messageBytes, certificatesAsPEMs)
+        }.getOrElse {
+            Log_OC.e(TAG, "Exception verifySignedData: $it")
+            false
         }
+    }
+
+    private fun toPemString(cert: X509Certificate): String {
+        val encoded = java.util.Base64.getMimeEncoder(PEM_LINE_LENGTH, "\n".toByteArray()).encodeToString(cert.encoded)
+        return "-----BEGIN CERTIFICATE-----\n$encoded\n-----END CERTIFICATE-----\n"
     }
 
     private fun signMessage(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
@@ -1096,5 +1100,6 @@ class EncryptionUtilsV2 {
 
     companion object {
         private val TAG = EncryptionUtils::class.java.simpleName
+        private const val PEM_LINE_LENGTH = 64
     }
 }
