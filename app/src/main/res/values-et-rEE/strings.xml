@@ -794,6 +794,7 @@
     <string name="preview_image_file_is_not_downloaded">Fail pole alla laaditud</string>
     <string name="preview_media_unhandled_http_code_message">Fail on hetkel lukustatud teise kasutaja või protsessi poolt ja seega pole kustutatav. Palun proovi hiljem uuesti.</string>
     <string name="preview_sorry">Vabandame</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Tekstiredaktori avamine ei õnnestunud</string>
     <string name="privacy">Privaatsus</string>
     <string name="push_notifications_not_implemented">Tõuketeavitused pole hetkel kasutusel, sest nad sõltuvad Google Play mittevabadest teenustest.</string>
     <string name="push_notifications_old_login">Tõuketeavitused ei toimi, sest sisselogimissessioon on aegunud. Palun lisa oma kasutajakonto uuesti.</string>

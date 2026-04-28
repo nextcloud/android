@@ -794,6 +794,7 @@
     <string name="preview_image_file_is_not_downloaded">Níl an comhad a íoslódáil</string>
     <string name="preview_media_unhandled_http_code_message">Tá an comhad faoi ghlas faoi láthair ag úsáideoir nó próiseas eile agus mar sin ní féidir é a scriosadh. Bain triail eile as ar ball le do thoil.</string>
     <string name="preview_sorry">Tá brón orm</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Theip ar an eagarthóir téacs a oscailt</string>
     <string name="privacy">Príobháideacht</string>
     <string name="push_notifications_not_implemented">Díchumasaíodh fógraí brú de bharr spleáchais ar sheirbhísí dílseánaigh Google Play.</string>
     <string name="push_notifications_old_login">Níl aon bhrúfhógraí mar gheall ar sheisiún logáil isteach atá as dáta. Smaoinigh ar do chuntas a chur leis arís le do thoil.</string>

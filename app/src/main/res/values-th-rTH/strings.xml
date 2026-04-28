@@ -581,6 +581,7 @@
     <string name="upload_file_dialog_filetype">ประเภทไฟล์</string>
     <string name="upload_files">อัพโหลดไฟล์จากเครื่อง</string>
     <string name="upload_list_delete">ลบ</string>
+    <string name="upload_local_storage_full">พื้นที่จัดเก็บข้อมูลภายในเครื่องเต็ม</string>
     <string name="upload_scan_doc_upload">แสกนเอกสารโดยใช้กล้อง</string>
     <string name="upload_unknown_error">ข้อผิดพลาดที่ไม่รู้จัก</string>
     <string name="uploader_btn_alternative_text">เลือก</string>
