@@ -54,6 +54,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -63,6 +64,7 @@ import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.e2e.E2EDeletionService;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
@@ -78,7 +80,6 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -91,7 +92,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 import static com.owncloud.android.ui.activity.DrawerActivity.REQ_ALL_FILES_ACCESS;
 
@@ -138,6 +138,8 @@ public class SettingsActivity extends PreferenceActivity
     private String storagePath;
     private String pendingLock;
 
+    private E2EDeletionService e2EDeletionService;
+
     private User user;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
     @Inject AppPreferences preferences;
@@ -164,6 +166,7 @@ public class SettingsActivity extends PreferenceActivity
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
         user = accountManager.getUser();
+        e2EDeletionService = new E2EDeletionService(clientFactory);
 
         // retrieve user's base uri
         setupBaseUri();
@@ -535,6 +538,31 @@ public class SettingsActivity extends PreferenceActivity
                 });
             }
         }
+
+        if (BuildConfig.DEBUG) {
+            Preference removeKeysAndFilesPreference = findPreference("remove_e2eremove_e2e_files_and_keys");
+            if (removeKeysAndFilesPreference != null) {
+                removeKeysAndFilesPreference.setOnPreferenceClickListener(p -> {
+                    showRemoveE2EKeysAndFilesAlertDialog(preferenceCategoryMore, removeKeysAndFilesPreference);
+                    return true;
+                });
+            }
+        }
+    }
+
+    private void showRemoveE2EKeysAndFilesAlertDialog(PreferenceCategory preferenceCategoryMore, Preference preference) {
+        e2EDeletionService.showRemoveE2EKeysAndFilesAlertDialog(this, user, success -> {
+            if (success) {
+                EncryptionUtils.removeE2E(arbitraryDataProvider, user);
+                preferenceCategoryMore.removePreference(preference);
+
+                Preference pMnemonic = findPreference("mnemonic");
+                if (pMnemonic != null) {
+                    preferenceCategoryMore.removePreference(pMnemonic);
+                }
+            }
+            return Unit.INSTANCE;
+        });
     }
 
     private void showRemoveE2EAlertDialog(PreferenceCategory preferenceCategoryMore, Preference preference) {

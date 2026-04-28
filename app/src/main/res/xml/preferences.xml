@@ -113,6 +113,10 @@
             android:title="@string/prefs_remove_e2e"
             android:key="remove_e2e"
             android:summary="@string/remove_e2e" />
+        <Preference
+            android:title="@string/prefs_remove_e2e_keys_and_files"
+            android:key="remove_e2e_files_and_keys"
+            android:summary="@string/remove_e2e_keys_and_files" />
 
         <Preference
             android:title="@string/prefs_help"
