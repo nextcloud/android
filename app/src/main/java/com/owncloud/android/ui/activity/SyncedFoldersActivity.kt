@@ -166,7 +166,7 @@ class SyncedFoldersActivity :
         super.onCreate(savedInstanceState)
         binding = SyncedFoldersLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        autoUploadWarningCardManager = AutoUploadWarningCardManager(powerManagementService, viewThemeUtils, this)
+        autoUploadWarningCardManager = AutoUploadWarningCardManager(powerManagementService, viewThemeUtils)
         if (intent != null && intent.extras != null) {
             val accountName = intent.extras!!.getString(NotificationWork.KEY_NOTIFICATION_ACCOUNT)
             val optionalUser = user

@@ -109,7 +109,6 @@ class UploadListActivity :
         adapterHelper = UploadListAdapterHelper(this)
         uploadListAdapter = UploadListAdapter(
             this,
-            AutoUploadWarningCardManager(powerManagementService, viewThemeUtils, this),
             uploadsStorageManager,
             userAccountManager,
             connectivityService,
@@ -118,6 +117,9 @@ class UploadListActivity :
             this,
             adapterHelper
         )
+
+        val autoUploadWarningCardManager = AutoUploadWarningCardManager(powerManagementService, viewThemeUtils)
+        binding?.autoUploadBatterySaverWarningCard?.let { autoUploadWarningCardManager.bind(it) }
 
         val lm = GridLayoutManager(this, 1)
         uploadListAdapter.setLayoutManager(lm)
