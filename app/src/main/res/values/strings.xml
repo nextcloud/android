@@ -1387,7 +1387,6 @@
     <string name="prefs_remove_e2e_keys_and_files">Remove encrypted files and keys</string>
     <string name="prefs_remove_e2e">Remove encryption locally</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">This operation will remove all encrypted files, private and public keys. Are you sure?</string>
-    <string name="remove_e2e_keys_and_files">Remove encrypted files, private and public keys</string>
     <string name="remove_e2e">You can remove end-to-end encryption locally on this client</string>
     <string name="confirm_removal">Remove local encryption</string>
     <string name="remove_e2e_message">You can remove end-to-end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>

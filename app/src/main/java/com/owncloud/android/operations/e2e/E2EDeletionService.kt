@@ -15,23 +15,18 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
 
-class E2EDeletionService(
-    private val clientFactory: ClientFactory
-) {
+class E2EDeletionService(private val clientFactory: ClientFactory) {
     private val mainHandler = Handler(Looper.getMainLooper())
 
-    fun showRemoveE2EKeysAndFilesAlertDialog(
-        context: Context,
-        user: User,
-        onResult: (Boolean) -> Unit
-    ) {
+    fun showRemoveE2EKeysAndFilesAlertDialog(context: Context, user: User, onResult: (Boolean) -> Unit) {
         MaterialAlertDialogBuilder(context, R.style.FallbackTheming_Dialog)
             .setTitle(R.string.prefs_remove_e2e_keys_and_files)
             .setMessage(R.string.remove_e2e_keys_and_files_dialog_warning)
             .setCancelable(true)
             .setNegativeButton(R.string.common_cancel) { dialog, _ -> dialog.dismiss() }
-            .setPositiveButton(R.string.confirm_removal) { dialog, _ ->
+            .setPositiveButton(R.string.common_ok) { dialog, _ ->
                 deleteKeysAndFiles(user) {
                     dialog.dismiss()
                     onResult(it)
@@ -49,13 +44,19 @@ class E2EDeletionService(
                     return@runCatching false
                 }
 
+                Log_OC.i(TAG, "🔑" + "private key is deleted")
+
                 if (!DeletePublicKeyRemoteOperation().execute(client).isSuccess) {
                     return@runCatching false
                 }
 
+                Log_OC.i(TAG, "🗝" + "public key is deleted")
+
                 if (!DeleteEncryptedFilesRemoteOperation().execute(client).isSuccess) {
                     return@runCatching false
                 }
+
+                Log_OC.i(TAG, "🗂️" + "encrypted files are deleted")
 
                 true
             }.getOrElse { e ->

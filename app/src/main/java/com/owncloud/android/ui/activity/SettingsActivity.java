@@ -371,6 +371,8 @@ public class SettingsActivity extends PreferenceActivity
 
         removeE2E(preferenceCategoryMore);
 
+        removeE2EFilesAndKeys(preferenceCategoryMore);
+
         setupHelpPreference(preferenceCategoryMore);
 
         setupRecommendPreference(preferenceCategoryMore);
@@ -538,19 +540,29 @@ public class SettingsActivity extends PreferenceActivity
                 });
             }
         }
+    }
 
+    private void removeE2EFilesAndKeys(PreferenceCategory preferenceCategoryMore) {
         if (BuildConfig.DEBUG) {
-            Preference removeKeysAndFilesPreference = findPreference("remove_e2eremove_e2e_files_and_keys");
+            Preference removeKeysAndFilesPreference = findPreference("remove_e2e_files_and_keys");
             if (removeKeysAndFilesPreference != null) {
-                removeKeysAndFilesPreference.setOnPreferenceClickListener(p -> {
-                    showRemoveE2EKeysAndFilesAlertDialog(preferenceCategoryMore, removeKeysAndFilesPreference);
-                    return true;
-                });
+                if (!FileOperationsHelper.isEndToEndEncryptionSetup(this, user)) {
+                    preferenceCategoryMore.removePreference(removeKeysAndFilesPreference);
+                } else {
+                    removeKeysAndFilesPreference.setOnPreferenceClickListener(p -> {
+                        showRemoveE2EKeysAndFilesAlertDialog(preferenceCategoryMore, removeKeysAndFilesPreference);
+                        return true;
+                    });
+                }
             }
         }
     }
 
     private void showRemoveE2EKeysAndFilesAlertDialog(PreferenceCategory preferenceCategoryMore, Preference preference) {
+        if (e2EDeletionService == null) {
+            return;
+        }
+
         e2EDeletionService.showRemoveE2EKeysAndFilesAlertDialog(this, user, success -> {
             if (success) {
                 EncryptionUtils.removeE2E(arbitraryDataProvider, user);
