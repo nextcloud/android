@@ -1483,6 +1483,7 @@
     <string name="auto_upload_delete_dialog_title">Delete auto-upload folder?</string>
     <string name="auto_upload_delete_dialog_description">This will remove the folder and auto-upload configuration. Any unfinished uploads will be canceled.</string>
     <string name="auto_upload_battery_saver_mode_warning">Auto-upload is paused because Battery Saver is on.</string>
+    <string name="auto_upload_battery_ignore_optimization_mode_warning">Auto-upload might not work reliably because battery optimization is enabled for the Nextcloud app.</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="sync_anyway">Sync anyway</string>
     <string name="sync_duplication">Sync duplication</string>

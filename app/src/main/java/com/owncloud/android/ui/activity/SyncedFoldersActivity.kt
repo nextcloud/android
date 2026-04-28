@@ -33,6 +33,7 @@ import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.SubFolderRule
+import com.nextcloud.ui.component.AutoUploadWarningCardManager
 import com.nextcloud.utils.BatteryOptimizationHelper
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isDialogFragmentReady
@@ -152,6 +153,9 @@ class SyncedFoldersActivity :
     @Inject
     lateinit var appInfo: AppInfo
 
+    @Inject
+    lateinit var autoUploadWarningCardManager: AutoUploadWarningCardManager
+
     lateinit var binding: SyncedFoldersLayoutBinding
     lateinit var adapter: SyncedFolderAdapter
 
@@ -246,6 +250,7 @@ class SyncedFoldersActivity :
         val gridWidth = resources.getInteger(R.integer.media_grid_width)
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
         adapter = SyncedFolderAdapter(
+            autoUploadWarningCardManager,
             lifecycleScope,
             this,
             clock,

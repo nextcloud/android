@@ -11,6 +11,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.PowerManager
+import androidx.core.content.ContextCompat.getSystemService
 import com.nextcloud.utils.extensions.registerBroadcastReceiver
 import com.owncloud.android.datamodel.ReceiverFlag
 
@@ -26,6 +27,12 @@ internal class PowerManagementServiceImpl(
             return PowerManagementServiceImpl(context, powerManager)
         }
     }
+
+    override val isIgnoringOptimization: Boolean
+        get() {
+            val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+            return powerManager.isIgnoringBatteryOptimizations(context.packageName)
+        }
 
     override val isPowerSavingEnabled: Boolean
         get() {
