@@ -225,6 +225,11 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         };
 
         PowerManagementService powerManagementServiceMock = new PowerManagementService() {
+            @Override
+            public boolean isIgnoringOptimization() {
+                return true;
+            }
+
             @NonNull
             @Override
             public BatteryStatus getBattery() {

@@ -28,6 +28,7 @@ import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.utils.Throttler
+import com.nextcloud.ui.component.AutoUploadWarningCardManager
 import com.nextcloud.utils.extensions.webDavParentPath
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadListLayoutBinding
@@ -72,6 +73,9 @@ class UploadListActivity :
 
     @Inject lateinit var uploadFileOperationFactory: UploadFileOperationFactory
 
+    @Inject
+    lateinit var autoUploadWarningCardManager: AutoUploadWarningCardManager
+
     private var swipeListRefreshLayout: SwipeRefreshLayout? = null
     private var binding: UploadListLayoutBinding? = null
 
@@ -108,6 +112,7 @@ class UploadListActivity :
         adapterHelper = UploadListAdapterHelper(this)
         uploadListAdapter = UploadListAdapter(
             this,
+            autoUploadWarningCardManager,
             uploadsStorageManager,
             userAccountManager,
             connectivityService,

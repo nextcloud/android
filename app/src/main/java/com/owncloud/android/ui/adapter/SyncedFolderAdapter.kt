@@ -25,6 +25,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.ui.component.AutoUploadWarningCardManager
 import com.nextcloud.utils.extensions.calculateScanInterval
 import com.nextcloud.utils.extensions.filterEnabledOrWithoutEnabledParent
 import com.nextcloud.utils.extensions.hasEnabledParent
@@ -55,6 +56,7 @@ import java.util.concurrent.TimeUnit
  */
 @Suppress("LongParameterList", "TooManyFunctions")
 class SyncedFolderAdapter(
+    private val autoUploadWarningCardManager: AutoUploadWarningCardManager,
     private val lifecycleScope: LifecycleCoroutineScope,
     private val context: Context,
     private val clock: Clock,
@@ -264,10 +266,7 @@ class SyncedFolderAdapter(
                 headerContainer.visibility = View.VISIBLE
 
                 if (section == 0) {
-                    autoUploadBatterySaverWarningCard.root.run {
-                        setVisibleIf(powerManagementService.isPowerSavingEnabled)
-                        viewThemeUtils.material.themeCardView(this)
-                    }
+                    autoUploadWarningCardManager.bind(autoUploadBatterySaverWarningCard)
                 }
 
                 val syncedFolder = filteredSyncFolderItems[section]
