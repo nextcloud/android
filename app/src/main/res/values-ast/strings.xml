@@ -231,6 +231,8 @@
     <string name="file_list_empty_headline_search">Ensin resultaos nesta carpeta</string>
     <string name="file_list_empty_headline_server_search">Ensin resultaos</string>
     <string name="file_list_empty_moving">Equí nun hai nada. Pes amestar una carpeta</string>
+    <string name="file_list_empty_recent_files_description">Equí apaecen los ficheros y les carpetes modificaes de recién.</string>
+    <string name="file_list_empty_recent_files_headline">Nun hai nengún ficheru modificáu de recién</string>
     <string name="file_list_empty_search">¿Quiciabes tea nuna carpeta diferente?</string>
     <string name="file_list_empty_shared_headline">Entá nun se compartió nada</string>
     <string name="file_list_empty_unified_search_no_results">Nun s\'atopó nengún resultáu pa la to consulta</string>
@@ -632,7 +634,9 @@
     <string name="user_icon">Usuariu</string>
     <string name="user_info_address">Direición</string>
     <string name="user_info_email">Corréu electrónicu</string>
+    <string name="user_info_groups">Grupos</string>
     <string name="user_info_phone">Númberu telefónicu</string>
+    <string name="user_info_profile">Perfil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Sitiu web</string>
     <string name="user_information_retrieval_error">Hebo un error al recuperar la información del usuariu</string>

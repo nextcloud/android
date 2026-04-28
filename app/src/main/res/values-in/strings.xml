@@ -1124,7 +1124,9 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="user_icon">Pengguna</string>
     <string name="user_info_address">Alamat</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">Grup</string>
     <string name="user_info_phone">Nomor telepon</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Situs web</string>
     <string name="user_information_retrieval_error">Kesalahan saat mendapatkan informasi pengguna</string>

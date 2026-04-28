@@ -545,6 +545,7 @@
     <string name="instant_upload_existing">مەۋجۇت ھۆججەتلەرنىمۇ يۈكلەڭ</string>
     <string name="instant_upload_on_charging">توك قاچىلىغاندا ئاندىن يۈكلەڭ</string>
     <string name="instant_upload_path">/ InstantUpload</string>
+    <string name="internal_share_headline_end_to_end_encrypted">باشتىن-ئاخىر شىفىرلانغان ھەمبەھىر</string>
     <string name="internal_shares">ئىچكى ھەمبەھىر</string>
     <string name="internal_two_way_sync">ئىچكى ئىككى خىل ماسقەدەملەش</string>
     <string name="internal_two_way_sync_not_yet">تېخى ئەمەس ، ئۇزۇن ئۆتمەي ماسقەدەملىنىدۇ</string>
@@ -1138,7 +1139,9 @@
     <string name="user_icon">ئىشلەتكۈچى</string>
     <string name="user_info_address">ئادرېس</string>
     <string name="user_info_email">ئېلخەت</string>
+    <string name="user_info_groups">گۇرۇپپىلار</string>
     <string name="user_info_phone">تېلېفون نومۇرى</string>
+    <string name="user_info_profile">ئارخىپ</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">تور بېكەت</string>
     <string name="user_information_retrieval_error">ئىشلەتكۈچى ئۇچۇرىنى ئەسلىگە كەلتۈرۈشتە خاتالىق</string>

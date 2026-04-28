@@ -740,7 +740,9 @@
     <string name="user_icon">Aseqdac</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">Imayl</string>
+    <string name="user_info_groups">Igrawen</string>
     <string name="user_info_phone">Uṭṭun n tiliɣri</string>
+    <string name="user_info_profile">Amaɣnu</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Asmel web</string>
     <string name="username">Isem n useqdac</string>

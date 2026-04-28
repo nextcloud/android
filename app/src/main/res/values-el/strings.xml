@@ -898,7 +898,9 @@
     <string name="user_icon">Χρήστης</string>
     <string name="user_info_address">Διεύθυνση</string>
     <string name="user_info_email">Ηλεκτρονική αλληλογγραφία</string>
+    <string name="user_info_groups">Ομάδες</string>
     <string name="user_info_phone">Αριθμός τηλεφώνου</string>
+    <string name="user_info_profile">Προφίλ</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Ιστοσελίδα</string>
     <string name="user_information_retrieval_error">Σφάλμα ανάκτησης πληροφοριών χρήστη</string>

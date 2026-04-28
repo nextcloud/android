@@ -114,6 +114,8 @@
     <string name="authenticator_activity_no_web_browser_found">没有浏览器可以打开此链接。</string>
     <string name="authenticator_activity_please_complete_login_process">请在浏览器中完成登录流程</string>
     <string name="auto_upload_battery_saver_mode_warning">自动上传已暂停，因为省电模式已开启。</string>
+    <string name="auto_upload_delete_dialog_description">这将移除文件夹和自动上传配置。任何未完成的上传都将被取消。</string>
+    <string name="auto_upload_delete_dialog_title">删除自动上传文件夹？</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
     <string name="auto_upload_low_battery_warning_info">电池电量低，上传可能需要更长时间</string>
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
@@ -245,6 +247,8 @@
     <string name="could_not_retrieve_url">无法获取地址</string>
     <string name="create">创建</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
+    <string name="create_end_to_end_encrypted_share">链接共享</string>
+    <string name="create_end_to_end_encrypted_share_title">端到端加密链接共享</string>
     <string name="create_link">创建链接</string>
     <string name="create_new">新建</string>
     <string name="create_new_document">新文档</string>
@@ -319,6 +323,7 @@
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">此设备上的</string>
     <string name="drawer_item_personal_files">个人文件</string>
+    <string name="drawer_item_recent_files">最近的文件</string>
     <string name="drawer_item_recently_modified">最近修改</string>
     <string name="drawer_item_shared">已共享</string>
     <string name="drawer_item_trashbin">回收站</string>
@@ -405,6 +410,7 @@
     <string name="etm_transfer_type">传输</string>
     <string name="etm_transfer_type_download">下载</string>
     <string name="etm_transfer_type_upload">上传</string>
+    <string name="export_in_progress">正在导出第 %1$d 个（共 %2$d 个）</string>
     <string name="extension_cannot_be_changed">无法更改扩展名</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">您没有在此文件夹中创建或上传文件的权限。</string>
     <string name="external_shares">外部共享</string>
@@ -437,7 +443,7 @@
     <string name="file_list_empty_local_search">没有文件或文件夹匹配你的搜索</string>
     <string name="file_list_empty_moving">这里空无一物。你可以添加一个文件夹。</string>
     <string name="file_list_empty_on_device">已下载的文件和文件夹将显示在此处</string>
-    <string name="file_list_empty_recent_files_description">你最近修改的文件与文件夹将会显示在此处。</string>
+    <string name="file_list_empty_recent_files_description">您最近修改的文件和文件夹将显示在此处。</string>
     <string name="file_list_empty_recent_files_headline">近期无修改文件</string>
     <string name="file_list_empty_recently_modified">在过去的7天内没有被修改过的文件</string>
     <string name="file_list_empty_search">也许它在其他文件夹中？</string>
@@ -560,6 +566,8 @@
     <string name="instant_upload_existing">同时上传现有文件</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>
+    <string name="internal_share_description_end_to_end_encrypted">共享对象始终可以访问完整的加密文件夹。但只能与已设置端到端加密的账号共享。</string>
+    <string name="internal_share_headline_end_to_end_encrypted">端到端加密共享</string>
     <string name="internal_shares">内部共享</string>
     <string name="internal_two_way_sync">内部双向同步</string>
     <string name="internal_two_way_sync_not_yet">还没有，很快就会同步</string>
@@ -790,6 +798,7 @@
     <string name="preview_image_file_is_not_downloaded">文件未下载</string>
     <string name="preview_media_unhandled_http_code_message">文件当前被其他用户或进程锁定，因此无法删除。请稍后再试。</string>
     <string name="preview_sorry">抱歉</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">无法打开文本编辑器</string>
     <string name="privacy">隐私</string>
     <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
     <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。请考虑重新添加你的账号。</string>
@@ -1111,6 +1120,11 @@
     <string name="upload_quota_exceeded">超出存储限额</string>
     <string name="upload_scan_doc_upload">使用相机扫描文档</string>
     <string name="upload_sync_conflict">同步时发生异常，请手动同步</string>
+    <string name="upload_sync_conflict_check">可能与您上次上传的文件存在冲突。点击查看。</string>
+    <string name="upload_sync_conflict_check_error">无法检查上传冲突。请重试。</string>
+    <string name="upload_sync_conflict_checking">正在检查上传冲突…</string>
+    <string name="upload_sync_conflict_not_exists">冲突已解决。</string>
+    <string name="upload_sync_conflict_same_file">未检测到冲突。相同的文件。</string>
     <string name="upload_unknown_error">未知错误</string>
     <string name="uploader_btn_alternative_text">选择</string>
     <string name="uploader_btn_upload_text">上传</string>
@@ -1171,7 +1185,9 @@
     <string name="user_icon">用户</string>
     <string name="user_info_address">地址</string>
     <string name="user_info_email">电子邮箱</string>
+    <string name="user_info_groups">群组</string>
     <string name="user_info_phone">电话号码</string>
+    <string name="user_info_profile">个人资料</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">网站</string>
     <string name="user_information_retrieval_error">检索用户信息时报错</string>

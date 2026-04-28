@@ -1093,6 +1093,7 @@
     <string name="user_icon">Notandi</string>
     <string name="user_info_address">Vistfang</string>
     <string name="user_info_email">Tölvupóstur</string>
+    <string name="user_info_groups">Hópar</string>
     <string name="user_info_phone">Símanúmer</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Vefsvæði</string>

@@ -666,6 +666,7 @@
     <string name="user_icon">Korisnik </string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">email</string>
+    <string name="user_info_groups">Grupe</string>
     <string name="user_info_phone">Broj telefona</string>
     <string name="user_info_twitter">Tviter</string>
     <string name="user_info_website">Sajt</string>

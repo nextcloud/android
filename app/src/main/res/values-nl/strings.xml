@@ -1108,7 +1108,9 @@
     <string name="user_icon">Gebruiker</string>
     <string name="user_info_address">Adres</string>
     <string name="user_info_email">E-mailadres</string>
+    <string name="user_info_groups">Groepen</string>
     <string name="user_info_phone">Telefoonnummer</string>
+    <string name="user_info_profile">Profiel</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Fout bij ophalen gebruikersinformatie</string>

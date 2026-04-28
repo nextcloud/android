@@ -583,6 +583,7 @@
     <string name="upload_file_dialog_filetype">ประเภทไฟล์</string>
     <string name="upload_files">อัพโหลดไฟล์จากเครื่อง</string>
     <string name="upload_list_delete">ลบ</string>
+    <string name="upload_local_storage_full">พื้นที่จัดเก็บข้อมูลภายในเครื่องเต็ม</string>
     <string name="upload_scan_doc_upload">แสกนเอกสารโดยใช้กล้อง</string>
     <string name="upload_sync_conflict">เกิดข้อขัดแย้งของการซิงค์ โปรดแก้ไขด้วยตนเอง</string>
     <string name="upload_unknown_error">ข้อผิดพลาดที่ไม่รู้จัก</string>
@@ -626,6 +627,7 @@
     <string name="user_icon">ผู้ใช้</string>
     <string name="user_info_address">ที่อยู่</string>
     <string name="user_info_email">อีเมล</string>
+    <string name="user_info_groups">กลุ่ม</string>
     <string name="user_info_phone">หมายเลขโทรศัพท์</string>
     <string name="user_info_twitter">ทวิตเตอร์</string>
     <string name="user_info_website">เว็บไซต์</string>

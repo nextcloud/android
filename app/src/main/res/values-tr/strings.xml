@@ -245,6 +245,8 @@
     <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create">Ekle</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
+    <string name="create_end_to_end_encrypted_share">Bağlantı paylaşımı</string>
+    <string name="create_end_to_end_encrypted_share_title">Uçtan uca şifrelenmiş bağlantı paylaşımları</string>
     <string name="create_link">Bağlantı oluştur</string>
     <string name="create_new">Yeni</string>
     <string name="create_new_document">Yeni belge</string>
@@ -560,6 +562,7 @@
     <string name="instant_upload_existing">Var olan dosyalar da yüklensin</string>
     <string name="instant_upload_on_charging">Yalnızca şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Uçtan uca şifrelenmiş paylaşımlar</string>
     <string name="internal_shares">İç paylaşımlar</string>
     <string name="internal_two_way_sync">İç iki yönlü eşitleme</string>
     <string name="internal_two_way_sync_not_yet">Henüz değil, yakında eşitlenecek</string>
@@ -1168,7 +1171,9 @@
     <string name="user_icon">Kullanıcı</string>
     <string name="user_info_address">Adres</string>
     <string name="user_info_email">E-posta</string>
+    <string name="user_info_groups">Gruplar</string>
     <string name="user_info_phone">Telefon numarası</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site</string>
     <string name="user_information_retrieval_error">Kullanıcı bilgileri alınırken sorun çıktı</string>

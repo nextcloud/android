@@ -1085,7 +1085,9 @@
     <string name="user_icon">Utente</string>
     <string name="user_info_address">Indirizzo</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">Gruppi</string>
     <string name="user_info_phone">Numero di telefono</string>
+    <string name="user_info_profile">Profilo</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Sito web</string>
     <string name="user_information_retrieval_error">Errore durante il recupero delle informazioni utente</string>

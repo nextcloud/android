@@ -114,6 +114,8 @@
     <string name="authenticator_activity_no_web_browser_found">沒有瀏覽器可以開啟此連結。</string>
     <string name="authenticator_activity_please_complete_login_process">請在瀏覽器中完成登入流程</string>
     <string name="auto_upload_battery_saver_mode_warning">因為省電模式已開啟，因此暫停自動上傳。</string>
+    <string name="auto_upload_delete_dialog_description">此操作將刪除該資料夾及自動上傳設定。任何尚未完成的上傳作業都將被取消。</string>
+    <string name="auto_upload_delete_dialog_title">刪除自動上傳資料夾？</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
     <string name="auto_upload_low_battery_warning_info">低電量，上傳可能會需要較長時間</string>
     <string name="auto_upload_on_wifi">僅在未計量的Wi-Fi上傳</string>
@@ -245,6 +247,8 @@
     <string name="could_not_retrieve_url">不能取得網址</string>
     <string name="create">建立</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
+    <string name="create_end_to_end_encrypted_share">連結分享</string>
+    <string name="create_end_to_end_encrypted_share_title">端到端加密的連結分享</string>
     <string name="create_link">創建連結</string>
     <string name="create_new">新</string>
     <string name="create_new_document">新文件</string>
@@ -562,6 +566,8 @@
     <string name="instant_upload_existing">一併上傳存在的檔案</string>
     <string name="instant_upload_on_charging">只在充電時上傳</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_description_end_to_end_encrypted">分享對象總是能存取完整的加密資料夾。僅能與已設定端到端加密的帳號進行分享。</string>
+    <string name="internal_share_headline_end_to_end_encrypted">端到端加密分享</string>
     <string name="internal_shares">內部分享</string>
     <string name="internal_two_way_sync">內部雙向同步</string>
     <string name="internal_two_way_sync_not_yet">還沒有，即將同步</string>
@@ -792,6 +798,7 @@
     <string name="preview_image_file_is_not_downloaded">檔案未下載</string>
     <string name="preview_media_unhandled_http_code_message">檔案目前已被其他用戶或進程鎖定，因此無法刪除。 請稍後再試。</string>
     <string name="preview_sorry">很抱歉</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">開啟文字編輯器失敗</string>
     <string name="privacy">私隱政策</string>
     <string name="push_notifications_not_implemented">由於依賴專有的Google Play服務，推送通知已停用。</string>
     <string name="push_notifications_old_login">由於登入已過期，因此沒有推送通知。請考慮重新添加您的帳戶。</string>
@@ -1110,6 +1117,11 @@
     <string name="upload_quota_exceeded">超過儲存空間配額</string>
     <string name="upload_scan_doc_upload">使用相機掃描文件</string>
     <string name="upload_sync_conflict">同步發生抵觸，請手動處理</string>
+    <string name="upload_sync_conflict_check">您的上次上傳可能存在衝突。點擊檢查。</string>
+    <string name="upload_sync_conflict_check_error">無法檢查上傳衝突。請重試。</string>
+    <string name="upload_sync_conflict_checking">正在檢查上傳衝突……</string>
+    <string name="upload_sync_conflict_not_exists">衝突已解決。</string>
+    <string name="upload_sync_conflict_same_file">未偵測到衝突。相同的檔案。</string>
     <string name="upload_unknown_error">錯誤不詳</string>
     <string name="uploader_btn_alternative_text">選擇</string>
     <string name="uploader_btn_upload_text">上傳</string>
@@ -1170,7 +1182,9 @@
     <string name="user_icon">用戶</string>
     <string name="user_info_address">地址</string>
     <string name="user_info_email">電郵地址</string>
+    <string name="user_info_groups">群組</string>
     <string name="user_info_phone">電話號碼</string>
+    <string name="user_info_profile">個人設定</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">網站</string>
     <string name="user_information_retrieval_error">檢索用戶信息時發生錯誤</string>

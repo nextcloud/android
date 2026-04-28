@@ -944,7 +944,9 @@
     <string name="user_icon">کاربر</string>
     <string name="user_info_address">نشانی</string>
     <string name="user_info_email">رایانامه</string>
+    <string name="user_info_groups">گروه ها</string>
     <string name="user_info_phone">شماره تلفن</string>
+    <string name="user_info_profile">نمایه</string>
     <string name="user_info_twitter">توییتر</string>
     <string name="user_info_website">وب‌ سایت</string>
     <string name="user_information_retrieval_error">خطا در بازیابی اطلاعات کاربر</string>

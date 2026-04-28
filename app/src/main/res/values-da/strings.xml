@@ -1107,7 +1107,9 @@
     <string name="user_icon">Bruger</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">Grupper</string>
     <string name="user_info_phone">Telefonnummer</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Fejl ved indlæsning af brugeroplysninger</string>

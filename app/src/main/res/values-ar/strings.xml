@@ -13,6 +13,7 @@
     <string name="action_send_share">إرسال/مشاركة</string>
     <string name="action_switch_grid_view">عرض شبكي</string>
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
+    <string name="action_triggered">تم التشغيل</string>
     <string name="actionbar_calendar_contacts_restore">إستعادة جهات الاتصال و التقويم</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
     <string name="actionbar_move_or_copy">نقل أو نسخ</string>
@@ -44,11 +45,13 @@
     <string name="app_widget_description">عرض أداة واحدة من لوحة المعلومات</string>
     <string name="appbar_search_in">بحث في %s</string>
     <string name="appear_offline">الحالة غير متصل</string>
+    <string name="assistant_output_generation_warning_text">إرسل رسالة</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">هل أنت متأكد أنك ترغب بحذف هذه المهمة؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">حذف المهمّة</string>
     <string name="assistant_screen_empty_content_description">حاول إرسالة رسالة لإثارة محادثة.</string>
     <string name="assistant_screen_empty_content_title">أهلاً بك! كيف يمكنني مساعدتك اليوم؟</string>
     <string name="assistant_screen_retry_response_generation">إعادة توليد الاستجابة</string>
+    <string name="assistant_screen_send_message">إرسل رسالة</string>
     <string name="assistant_screen_task_create_fail_message">حدث خطأ أثناء إنشاء المهمة</string>
     <string name="assistant_screen_task_create_success_message">تمّ إنشاء المُهِمَّة task</string>
     <string name="assistant_screen_task_delete_fail_message">حدث خطأ أثناء حذف المهمة</string>
@@ -91,6 +94,7 @@
     <string name="auth_unsupported_multiaccount">%1$s لا يدعم الحسابات المتعددة </string>
     <string name="auth_wrong_connection_title">لا يمكن إنشاء إتصال</string>
     <string name="authenticator_activity_cancel_login">إلغاء تسجيل الدخول</string>
+    <string name="authenticator_activity_empty_base_url">يرجى إدخال خادم صحيح.</string>
     <string name="authenticator_activity_login_error">حدث إشكال عند معالجة طلبك للدخول. يُرجى المحاولة مرةً أخرى.</string>
     <string name="authenticator_activity_please_complete_login_process">يرجى إكمال عملية تسجيل الدخول في المتصفح الخاص بك</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ترك في مجلد الأصل، بسبب كونه للقرائة فقط</string>
@@ -1068,7 +1072,9 @@
     <string name="user_icon">المستخدم</string>
     <string name="user_info_address"> العنوان</string>
     <string name="user_info_email">البريد الإلكتروني</string>
+    <string name="user_info_groups">المجموعات</string>
     <string name="user_info_phone"> رقم الهاتف</string>
+    <string name="user_info_profile">لمحة تعريفية</string>
     <string name="user_info_twitter">تويتر</string>
     <string name="user_info_website"> الموقع الإلكتروني</string>
     <string name="user_information_retrieval_error">خطأ في استرداد معلومات المستخدم</string>

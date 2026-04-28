@@ -1066,7 +1066,9 @@
     <string name="user_icon">Erabiltzailea</string>
     <string name="user_info_address">Helbidea</string>
     <string name="user_info_email">Posta elektronikoa</string>
+    <string name="user_info_groups">Taldeak</string>
     <string name="user_info_phone">Telefono zenbakia</string>
+    <string name="user_info_profile">Profila</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Webgunea</string>
     <string name="user_information_retrieval_error">Akatsa erabiltzailearen informazioa eskuratzerakoan</string>

@@ -694,6 +694,7 @@
     <string name="user_icon">Përdorues</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">Grupet</string>
     <string name="user_info_phone">Numri i telefonit</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>

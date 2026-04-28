@@ -48,11 +48,13 @@
     <string name="assistant_output_generation_warning_text">Utdata som visas här genereras av AI. Se till att alltid dubbelkolla.</string>
     <string name="assistant_screen_chat_create_error">Kunde inte skicka ett meddelande</string>
     <string name="assistant_screen_chat_fetch_error">Kunde inte hämta chattmeddelanden</string>
+    <string name="assistant_screen_chat_generate_error">Kunde inte generera svar</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Gå tillbaka till assistentsidan</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Är du säker på att du vill ta bort den här uppgiften?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ta bort uppgift</string>
     <string name="assistant_screen_empty_content_description">Försök att skicka ett meddelande för att få igång en konversation.</string>
     <string name="assistant_screen_empty_content_title">Hej! Vad kan jag hjälpa dig med idag?</string>
+    <string name="assistant_screen_retry_response_generation">Försök att generera svar igen</string>
     <string name="assistant_screen_select_task">Vänligen välj uppgift</string>
     <string name="assistant_screen_send_message">Skicka meddelande</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Öppna konversationslista</string>
@@ -80,7 +82,7 @@
     <string name="auth_account_does_not_exist">Kontot har ännu inte lagts till på den här enheten</string>
     <string name="auth_account_not_new">Ett konto för samma användare och server finns redan på enheten</string>
     <string name="auth_account_not_the_same">Den angivna användaren matchar inte användaren för detta konto</string>
-    <string name="auth_bad_oc_version_title">Okänd server serverversion</string>
+    <string name="auth_bad_oc_version_title">Okänd serverversion</string>
     <string name="auth_connection_established">Anslutning etablerad</string>
     <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användar-ID, kontakta en administratör.</string>
     <string name="auth_host_url">Serveradress https://…</string>
@@ -112,9 +114,11 @@
     <string name="authenticator_activity_no_web_browser_found">Ingen webbläsare finns tillgänglig för att öppna denna länk.</string>
     <string name="authenticator_activity_please_complete_login_process">Slutför inloggningsprocessen i din webbläsare</string>
     <string name="auto_upload_battery_saver_mode_warning">Automatisk uppladdning är pausad eftersom batterisparläge är aktiverat.</string>
+    <string name="auto_upload_delete_dialog_description">Detta tar bort mappen och konfigurationen för automatisk uppladdning. Alla pågående uppladdningar avbryts.</string>
+    <string name="auto_upload_delete_dialog_title">Ta bort mapp för automatisk uppladdning?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
     <string name="auto_upload_low_battery_warning_info">Låg batterinivå, uppladdningen kan ta längre tid</string>
-    <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
+    <string name="auto_upload_on_wifi">Ladda endast upp på obegränsat Wi-Fi</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
     <string name="auto_upload_sub_folder_warning">Denna mapp ingår redan i synkroniseringen av den överordnade mappen, vilket kan orsaka dubbla uppladdningar</string>
     <string name="auto_upload_wifi_only_warning_info">Väntar på Wi-Fi för att starta uppladdning</string>
@@ -216,7 +220,7 @@
     <string name="contact_backup_title">Backup av kontakter</string>
     <string name="contact_no_permission">Rättighet till kontakt krävs.</string>
     <string name="contactlist_item_icon">Användarikon för kontaktlista</string>
-    <string name="contactlist_no_permission">Ingen tillstått givet, ingen importerat!</string>
+    <string name="contactlist_no_permission">Ingen behörighet beviljad, inget importerades!</string>
     <string name="contacts">Kontakter</string>
     <string name="contacts_backup_button">Gör backup nu</string>
     <string name="contacts_preferences_backup_scheduled">Backup schemalagt och kommer starta inom kort</string>
@@ -235,7 +239,7 @@
     <string name="copy_file_error">Ett fel uppstod, kunde inte kopiera filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det är inte möjligt att kopiera mappen till en av dess undermappar</string>
     <string name="copy_file_invalid_overwrite">Filen finns redan i målmappen</string>
-    <string name="copy_file_not_found">Kunde inte kopiera. Vänligen kontrollera om filen existerar.</string>
+    <string name="copy_file_not_found">Kunde inte kopiera. Vänligen kontrollera om filen finns.</string>
     <string name="copy_link">Kopiera länk</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiera/flytta till krypterad mapp stöds för närvarande inte.</string>
     <string name="could_not_download_image">Kunde inte hämta hela bilden</string>
@@ -243,6 +247,8 @@
     <string name="could_not_retrieve_url">Kunde inte hämta URL</string>
     <string name="create">Skapa</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
+    <string name="create_end_to_end_encrypted_share">Dela länken</string>
+    <string name="create_end_to_end_encrypted_share_title">Delning av länkar med end-to-end-kryptering</string>
     <string name="create_link">Skapa länk</string>
     <string name="create_new">Ny</string>
     <string name="create_new_document">Nytt dokument</string>
@@ -317,6 +323,7 @@
     <string name="drawer_item_notifications">Aviseringar</string>
     <string name="drawer_item_on_device">Filer på enheten</string>
     <string name="drawer_item_personal_files">Personliga filer</string>
+    <string name="drawer_item_recent_files">Senaste filer</string>
     <string name="drawer_item_recently_modified">Nyligen ändrad</string>
     <string name="drawer_item_shared">Delat</string>
     <string name="drawer_item_trashbin">Borttagna filer</string>
@@ -403,6 +410,7 @@
     <string name="etm_transfer_type">Överför</string>
     <string name="etm_transfer_type_download">Ladda ner</string>
     <string name="etm_transfer_type_upload">Ladda upp</string>
+    <string name="export_in_progress">Exporterar %1$d av %2$d</string>
     <string name="extension_cannot_be_changed">Filändelsen kan inte ändras.</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Du har inte behörighet att skapa eller ladda upp filer i den här mappen.</string>
     <string name="external_shares">Externa delningar</string>
@@ -558,6 +566,8 @@
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
+    <string name="internal_share_description_end_to_end_encrypted">Mottagare av delningar har alltid åtkomst till hela den krypterade mappen. Det går endast att dela med konton som redan har konfigurerat end-to-end-kryptering.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">End-to-end-krypterade delningar</string>
     <string name="internal_shares">Interna delningar</string>
     <string name="internal_two_way_sync">Intern tvåvägssynk</string>
     <string name="internal_two_way_sync_not_yet">Inte än, synkroniseras snart</string>
@@ -609,6 +619,9 @@
     <string name="media_play_pause_description">Spela- / Pausknapp</string>
     <string name="media_player_pause">Pausa</string>
     <string name="media_player_play">Spela</string>
+    <string name="media_player_playing">Spelar upp media</string>
+    <string name="media_player_seek_backward">Spola bakåt</string>
+    <string name="media_player_seek_forward">Spola framåt</string>
     <string name="media_rewind_description">Bakåtspolningsknapp</string>
     <string name="media_state_playing">%1$s (spelar)</string>
     <string name="menu_item_sort_by_date_newest_first">Nyaste först</string>
@@ -635,7 +648,7 @@
     <string name="new_version_was_created">Ny version skapades</string>
     <string name="no_actions">Inga tillgängliga åtgärder för användaren</string>
     <string name="no_browser_available">Ingen app tillgänglig för att hantera länkar</string>
-    <string name="no_calendar_exists">Inga kalendrar existerar</string>
+    <string name="no_calendar_exists">Inga kalendrar finns</string>
     <string name="no_email_app_available">Ingen tillgänglig applikation kan hantera e-postadresser</string>
     <string name="no_items">Inga poster</string>
     <string name="no_map_app_availble">Ingen app tillgänglig för att hantera kartor</string>
@@ -707,9 +720,9 @@
     <string name="player_stop">stopp</string>
     <string name="player_toggle">växla</string>
     <string name="please_select_a_server">Välj en server...</string>
-    <string name="power_save_check_dialog_message">Inaktivera strömsparningskontroll kan resultera i att filer laddas upp i lågt batteriläge!</string>
+    <string name="power_save_check_dialog_message">Att inaktivera strömsparningskontrollen kan leda till att filer laddas upp trots låg batterinivå.</string>
     <string name="pref_behaviour_entries_delete_file">raderas</string>
-    <string name="pref_behaviour_entries_keep_file">behållas i orginalmapp</string>
+    <string name="pref_behaviour_entries_keep_file">behållas i originalmapp</string>
     <string name="pref_behaviour_entries_move">flyttas till Nextcloud-mapp</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Vad ska göras om filen redan finns?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Fråga mig varje gång</string>
@@ -721,7 +734,7 @@
     <string name="prefs_all_files_access_summary">Tillåt appen att få åtkomst till och hantera alla filer på din enhet</string>
     <string name="prefs_all_files_access_title">Åtkomst till alla filer</string>
     <string name="prefs_calendar_contacts">Synkronisera kalender och kontakter</string>
-    <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerad</string>
+    <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerade</string>
     <string name="prefs_calendar_contacts_summary">Sätt upp DAVx⁵ (tidigare DAVdroid) (v1.3.0 +) för nuvarande konto</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synkronisera kalender och kontakter</string>
     <string name="prefs_category_about">Om</string>
@@ -786,6 +799,7 @@
     <string name="preview_image_file_is_not_downloaded">Filen laddas inte ned</string>
     <string name="preview_media_unhandled_http_code_message">Filen är för närvarande låst av en annan användare eller process och kan därför inte raderas. Försök igen senare.</string>
     <string name="preview_sorry">Tyvärr</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Kunde inte öppna textredigeraren</string>
     <string name="privacy">Privat</string>
     <string name="push_notifications_not_implemented">Push-aviseringar har inaktiverats på grund av beroenden till skyddade Google Play-tjänster</string>
     <string name="push_notifications_old_login">Inga push-aviseringar på grund av utgången inloggningssession. Överväg att lägga till ditt konto på nytt.</string>
@@ -1104,6 +1118,11 @@
     <string name="upload_quota_exceeded">Lagringskvot överskriden</string>
     <string name="upload_scan_doc_upload">Slams dokument från kamera</string>
     <string name="upload_sync_conflict">Synkroniseringskonflikt, lös problemet manuellt</string>
+    <string name="upload_sync_conflict_check">Det kan finnas en konflikt från din senaste uppladdning. Tryck för att kontrollera.</string>
+    <string name="upload_sync_conflict_check_error">Kunde inte kontrollera uppladdningskonflikter. Försök igen.</string>
+    <string name="upload_sync_conflict_checking">Kontrollerar uppladdningskonflikter…</string>
+    <string name="upload_sync_conflict_not_exists">Konflikten är löst.</string>
+    <string name="upload_sync_conflict_same_file">Ingen konflikt upptäcktes. Samma fil.</string>
     <string name="upload_unknown_error">Okänt fel</string>
     <string name="uploader_btn_alternative_text">Välj</string>
     <string name="uploader_btn_upload_text">Ladda upp</string>
@@ -1113,7 +1132,7 @@
     <string name="uploader_error_message_source_file_not_found">Filen vald för uppladdning hittades inte. Vänligen kontrollera om filen finns.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Filen kan inte laddas upp</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil att ladda upp</string>
-    <string name="uploader_file_not_found_message">Filen hittades inte. Är du säker på att denna fil existerar eller har en tidigare konflikt inte blivit löst?</string>
+    <string name="uploader_file_not_found_message">Filen hittades inte. Är du säker på att denna fil finns eller har en tidigare konflikt inte blivit löst?</string>
     <string name="uploader_file_not_found_on_server_message">Vi kunde inte hitta filen på servern. En annan användare kan ha raderat filen.</string>
     <string name="uploader_info_dirname">Mappnamn</string>
     <string name="uploader_top_message">Välj mapp för uppladdning</string>
@@ -1164,7 +1183,9 @@
     <string name="user_icon">Användare</string>
     <string name="user_info_address">Adress</string>
     <string name="user_info_email">E-post</string>
+    <string name="user_info_groups">Grupper</string>
     <string name="user_info_phone">Telefonnummer</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Webbplats</string>
     <string name="user_information_retrieval_error">Fel uppstod när användarinformation skulle hämtas</string>

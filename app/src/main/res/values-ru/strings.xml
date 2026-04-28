@@ -1158,7 +1158,9 @@
     <string name="user_icon">Пользователь</string>
     <string name="user_info_address">Адрес</string>
     <string name="user_info_email">Эл. почта</string>
+    <string name="user_info_groups">Группы</string>
     <string name="user_info_phone">Номер телефона</string>
+    <string name="user_info_profile">Профиль</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Сайт</string>
     <string name="user_information_retrieval_error">При получении информации о пользователе произошла ошибка</string>

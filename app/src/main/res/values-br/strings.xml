@@ -802,7 +802,9 @@
     <string name="user_icon">Implijer</string>
     <string name="user_info_address">Chom-lec\'h</string>
     <string name="user_info_email">Postel</string>
+    <string name="user_info_groups">Strolladoù</string>
     <string name="user_info_phone">Niverenn bellgomz</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Lec\'hienn web</string>
     <string name="user_information_retrieval_error">Ur fazi a zo bet en ur adtapout tutourioù an implijer</string>

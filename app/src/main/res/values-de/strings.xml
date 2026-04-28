@@ -114,6 +114,8 @@
     <string name="authenticator_activity_no_web_browser_found">Es ist kein Browser verfügbar, um diesen Link zu öffnen.</string>
     <string name="authenticator_activity_please_complete_login_process">Bitte schließen Sie den Anmeldevorgang in Ihrem Browser ab</string>
     <string name="auto_upload_battery_saver_mode_warning">Der automatische Upload wurde angehalten, da Battery-Saver eingeschaltet ist.</string>
+    <string name="auto_upload_delete_dialog_description">Dadurch werden der Ordner und die Konfiguration für das \"Automatische Hochladen\" entfernt. Alle noch nicht abgeschlossenen Uploads werden abgebrochen.</string>
+    <string name="auto_upload_delete_dialog_title">Ordner für \"Automatisches Hochladen\" löschen?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
     <string name="auto_upload_low_battery_warning_info">Niedriger Akkustand, das Hochladen kann länger dauern</string>
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
@@ -245,6 +247,8 @@
     <string name="could_not_retrieve_url">URL konnte nicht abgerufen werden</string>
     <string name="create">Erstellen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
+    <string name="create_end_to_end_encrypted_share">Linkfreigabe</string>
+    <string name="create_end_to_end_encrypted_share_title">Ende-zu-Ende-verschlüsselte Linkfreigaben</string>
     <string name="create_link">Link erstellen</string>
     <string name="create_new">Neu</string>
     <string name="create_new_document">Neues Dokument</string>
@@ -562,6 +566,8 @@
     <string name="instant_upload_existing">Vorhandene Dateien ebenfalls hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
+    <string name="internal_share_description_end_to_end_encrypted">Die Empfänger der Freigabe haben stets Zugriff auf den vollständigen verschlüsselten Ordner. Die Freigabe ist nur mit Konten möglich, die bereits eine Ende-zu-Ende-Verschlüsselung eingerichtet haben.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Ende-zu-Ende-verschlüsselte Freigaben</string>
     <string name="internal_shares">Interne Freigaben</string>
     <string name="internal_two_way_sync">Interne 2-Wege-Synchronisierung</string>
     <string name="internal_two_way_sync_not_yet">Bislang nicht, wird demnächst synchronisiert</string>
@@ -792,6 +798,7 @@
     <string name="preview_image_file_is_not_downloaded">Datei nicht heruntergeladen</string>
     <string name="preview_media_unhandled_http_code_message">Die Datei ist derzeit von einem anderen Benutzer oder Prozess gesperrt und kann daher nicht gelöscht werden. Bitte später noch einmal versuchen.</string>
     <string name="preview_sorry">Entschuldigung</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Editor konnte nicht geöffnet werden</string>
     <string name="privacy">Datenschutz</string>
     <string name="push_notifications_not_implemented">Push Benachrichtigungen deaktiviert aufgrund der Abhängigkeiten zu proprietären Google Play Diensten.</string>
     <string name="push_notifications_old_login">Keine Push Benachrichtigungen aufgrund veralteter Benutzersitzung. Bitte erwägen Sie das erneute Hinzufügen Ihres Kontos.</string>
@@ -1110,6 +1117,11 @@
     <string name="upload_quota_exceeded">Speicherkontingent überschritten</string>
     <string name="upload_scan_doc_upload">Dokument von der Kamera scannen</string>
     <string name="upload_sync_conflict">Synchronisierungskonflikt, bitte manuell beheben</string>
+    <string name="upload_sync_conflict_check">Möglicherweise liegt ein Konflikt bezüglich des letzten Uploads vor. Bitte Tippen, um zu überprüfen.</string>
+    <string name="upload_sync_conflict_check_error">Es konnte nicht auf Hochlade-Konflikte überprüft werden. Bitte erneut versuchen.</string>
+    <string name="upload_sync_conflict_checking">Prüfe auf Konflikte beim Hochladen …</string>
+    <string name="upload_sync_conflict_not_exists">Konflikt gelöst.</string>
+    <string name="upload_sync_conflict_same_file">Keine Konflikte gefunden. Gleiche Datei.</string>
     <string name="upload_unknown_error">Unbekannter Fehler</string>
     <string name="uploader_btn_alternative_text">Auswählen</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
@@ -1170,7 +1182,9 @@
     <string name="user_icon">Nutzer</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-Mail</string>
+    <string name="user_info_groups">Gruppen</string>
     <string name="user_info_phone">Telefonnummer</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">X</string>
     <string name="user_info_website">Webseite</string>
     <string name="user_information_retrieval_error">Fehler beim Laden der Nutzer-Informationen</string>

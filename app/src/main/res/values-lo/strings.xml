@@ -1121,7 +1121,9 @@
     <string name="user_icon">ຜູ້ໃຊ້</string>
     <string name="user_info_address">ທີ່ຢູ່</string>
     <string name="user_info_email">ອິເມວ</string>
+    <string name="user_info_groups">ກຸ່ມ</string>
     <string name="user_info_phone">ເບີໂທລະສັບ</string>
+    <string name="user_info_profile">Profile</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">ເວັບໄຊ</string>
     <string name="user_information_retrieval_error">ຂໍ້ຜິດພາດໃນດຶງຂໍ້ມູນຂອງຜູ້ໃຊ້</string>

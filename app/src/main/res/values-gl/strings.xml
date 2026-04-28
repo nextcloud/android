@@ -244,6 +244,8 @@
     <string name="could_not_retrieve_url">Non foi posíbel recuperar o URL</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">Non foi posíbel crear o cartafol</string>
+    <string name="create_end_to_end_encrypted_share">Ligazón para compartir</string>
+    <string name="create_end_to_end_encrypted_share_title">Ligazóns para compartir cifradas de extremo a extremo</string>
     <string name="create_link">Crear ligazón</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
@@ -559,6 +561,7 @@
     <string name="instant_upload_existing">Envíar tamén os ficheiros existentes</string>
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Comparticións cifradas de extremo a extremo</string>
     <string name="internal_shares">Comparticións internas</string>
     <string name="internal_two_way_sync">Sincronización interna bidireccional</string>
     <string name="internal_two_way_sync_not_yet">Aínda non, pronto se sincronizará</string>
@@ -1165,7 +1168,9 @@
     <string name="user_icon">Usuario</string>
     <string name="user_info_address">Enderezo</string>
     <string name="user_info_email">Correo-e</string>
+    <string name="user_info_groups">Grupos</string>
     <string name="user_info_phone">Número de teléfono</string>
+    <string name="user_info_profile">Perfil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Sitio web</string>
     <string name="user_information_retrieval_error">Produciuse un erro ao recuperar a información do usuario</string>

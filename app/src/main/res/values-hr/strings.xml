@@ -1172,7 +1172,9 @@
     <string name="user_icon">Korisnik</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">E-pošta</string>
+    <string name="user_info_groups">Grupe</string>
     <string name="user_info_phone">Broj telefona</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Web-mjesto</string>
     <string name="user_information_retrieval_error">Pogreška pri dohvaćanju korisničkih podataka</string>

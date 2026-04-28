@@ -245,6 +245,8 @@
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create">Vytvořit</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
+    <string name="create_end_to_end_encrypted_share">Sdílení odkazu</string>
+    <string name="create_end_to_end_encrypted_share_title">Sdílení odkazem, šifrovaná mezi koncovými body</string>
     <string name="create_link">Vytvořit odkaz</string>
     <string name="create_new">Nové</string>
     <string name="create_new_document">Nový dokument</string>
@@ -319,6 +321,7 @@
     <string name="drawer_item_notifications">Upozornění</string>
     <string name="drawer_item_on_device">Na přístroji</string>
     <string name="drawer_item_personal_files">Osobní soubory</string>
+    <string name="drawer_item_recent_files">Nedávné soubory</string>
     <string name="drawer_item_recently_modified">Nedávno změněné</string>
     <string name="drawer_item_shared">Sdíleno</string>
     <string name="drawer_item_trashbin">Smazané soubory</string>
@@ -560,6 +563,7 @@
     <string name="instant_upload_existing">Také nahrát už existující soubory</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Sdílení šifrovaná mezi koncovými body</string>
     <string name="internal_shares">Vnitřní sdílení</string>
     <string name="internal_two_way_sync">Interní obousměrná synchronizace</string>
     <string name="internal_two_way_sync_not_yet">Zatím ještě ne, brzy bude synchronizováno</string>
@@ -1108,6 +1112,7 @@
     <string name="upload_quota_exceeded">Kvóta úložiště překročena</string>
     <string name="upload_scan_doc_upload">Naskenovat dokument kamerou</string>
     <string name="upload_sync_conflict">Konflikt synchronizace – vyřešte ručně</string>
+    <string name="upload_sync_conflict_not_exists">Konflikt vyřešen.</string>
     <string name="upload_unknown_error">Neznámá chyba</string>
     <string name="uploader_btn_alternative_text">Vybrat</string>
     <string name="uploader_btn_upload_text">Nahrát</string>
@@ -1168,7 +1173,9 @@
     <string name="user_icon">Uživatel</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Skupiny</string>
     <string name="user_info_phone">Telefonní číslo</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">X (Twitter)</string>
     <string name="user_info_website">Webové stránky</string>
     <string name="user_information_retrieval_error">Chyba při načítání informací o uživateli</string>

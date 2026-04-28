@@ -48,6 +48,7 @@
     <string name="assistant_output_generation_warning_text">Ten wynik został wygenerowany przez AI. Upewnij się, że został sprawdzony i odpowiednio dostosowany.</string>
     <string name="assistant_screen_chat_create_error">Nie udało się wysłać wiadomości</string>
     <string name="assistant_screen_chat_fetch_error">Nie udało się pobrać wiadomości czatu</string>
+    <string name="assistant_screen_chat_generate_error">Nie udało się wygenerować odpowiedzi</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Wróć do strony asystenta</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Czy na pewno chcesz usunąć to zadanie?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Usuń zadanie</string>
@@ -113,6 +114,8 @@
     <string name="authenticator_activity_no_web_browser_found">Brak dostępnej przeglądarki do otwarcia tego linku.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokończ proces logowania w przeglądarce</string>
     <string name="auto_upload_battery_saver_mode_warning">Automatyczna aktualizacja jest wstrzymana, ponieważ tryb oszczędzania baterii jest włączony.</string>
+    <string name="auto_upload_delete_dialog_description">Spowoduje to usunięcie folderu i konfiguracji automatycznego przesyłania. Niezakończone przesyłania zostaną anulowane.</string>
+    <string name="auto_upload_delete_dialog_title">Usunąć folder automatycznego przesyłania?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">zachowany w oryginalnym katalogu, jak jest tylko do odczytu</string>
     <string name="auto_upload_low_battery_warning_info">Niski poziom baterii, aktualizacja może potrwać dłużej.</string>
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
@@ -244,9 +247,12 @@
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
     <string name="create">Utwórz</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
+    <string name="create_end_to_end_encrypted_share">Udostępnianie linkiem</string>
+    <string name="create_end_to_end_encrypted_share_title">Udostępnianie linków szyfrowanych end-to-end</string>
     <string name="create_link">Utwórz link</string>
     <string name="create_new">Nowy</string>
     <string name="create_new_document">Nowy dokument</string>
+    <string name="create_new_encrypted_folder">Nowy zaszyfrowany folder</string>
     <string name="create_new_folder">Nowy katalog</string>
     <string name="create_new_presentation">Nowa prezentacja</string>
     <string name="create_new_spreadsheet">Nowy arkusz kalkulacyjny</string>
@@ -317,6 +323,7 @@
     <string name="drawer_item_notifications">Powiadomienia</string>
     <string name="drawer_item_on_device">Na urządzeniu</string>
     <string name="drawer_item_personal_files">Pliki osobiste</string>
+    <string name="drawer_item_recent_files">Ostatnie pliki</string>
     <string name="drawer_item_recently_modified">Ostatnio modyfikowane</string>
     <string name="drawer_item_shared">Udostępnione</string>
     <string name="drawer_item_trashbin">Usunięte pliki</string>
@@ -403,6 +410,8 @@
     <string name="etm_transfer_type">Transfer</string>
     <string name="etm_transfer_type_download">Pobierz</string>
     <string name="etm_transfer_type_upload">Wyślij</string>
+    <string name="export_in_progress">Eksportowanie %1$d z %2$d</string>
+    <string name="extension_cannot_be_changed">Rozszerzenie nie może zostać zmienione</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Nie masz uprawnień do tworzenia ani przesyłania plików w tym folderze.</string>
     <string name="external_shares">Udostępnienia zewnętrzne</string>
     <string name="fab_label">Dodaj lub wyślij</string>
@@ -557,6 +566,8 @@
     <string name="instant_upload_existing">Wyślij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_description_end_to_end_encrypted">Odbiorcy udostępnienia zawsze mają dostęp do całego zaszyfrowanego folderu. Udostępnianie jest możliwe tylko kontom, które mają już skonfigurowane szyfrowanie end-to-end.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Udostępnienia szyfrowane end-to-end</string>
     <string name="internal_shares">Udostępnianie wewnętrzne</string>
     <string name="internal_two_way_sync">Synchronizacja dwukierunkowa wewnętrzna</string>
     <string name="internal_two_way_sync_not_yet">Jeszcze nie, niebawem będzie zsynchronizowane</string>
@@ -608,6 +619,9 @@
     <string name="media_play_pause_description">Przycisk odtwarzania/pauzowania</string>
     <string name="media_player_pause">Wstrzymaj</string>
     <string name="media_player_play">Odtwarzaj</string>
+    <string name="media_player_playing">Odtwarzanie multimediów</string>
+    <string name="media_player_seek_backward">Szukaj wstecz</string>
+    <string name="media_player_seek_forward">Szukaj w przód</string>
     <string name="media_rewind_description">Przycisk przewijania do tyłu</string>
     <string name="media_state_playing">%1$s (odtwarzanie)</string>
     <string name="menu_item_sort_by_date_newest_first">Od najnowszych</string>
@@ -784,6 +798,7 @@
     <string name="preview_image_file_is_not_downloaded">Plik nie został pobrany</string>
     <string name="preview_media_unhandled_http_code_message">Plik jest obecnie zablokowany przez innego użytkownika lub proces i dlatego nie można go usunąć. Spróbuj ponownie później.</string>
     <string name="preview_sorry">Przykro nam</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Nie udało się otworzyć edytora tekstu</string>
     <string name="privacy">Prywatność</string>
     <string name="push_notifications_not_implemented">Powiadomienia Push zostały wyłączone ze względu na zastrzeżenia prawne usług Google Play.</string>
     <string name="push_notifications_old_login">Brak powiadomień Push z powodu nieaktualnej sesji logowania. Rozważ ponowne dodanie swojego konta.</string>
@@ -1102,6 +1117,11 @@
     <string name="upload_quota_exceeded">Limit przekroczony</string>
     <string name="upload_scan_doc_upload">Zeskanuj dokument z aparatu</string>
     <string name="upload_sync_conflict">Konflikt synchronizacji, proszę rozwiązać ręcznie</string>
+    <string name="upload_sync_conflict_check">Może występować konflikt z ostatniego przesyłania. Dotknij, aby sprawdzić.</string>
+    <string name="upload_sync_conflict_check_error">Nie udało się sprawdzić konfliktów przesyłania. Spróbuj ponownie.</string>
+    <string name="upload_sync_conflict_checking">Sprawdzanie konfliktów przesyłania...</string>
+    <string name="upload_sync_conflict_not_exists">Konflikt rozwiązany.</string>
+    <string name="upload_sync_conflict_same_file">Brak konfliktu. Ten sam plik.</string>
     <string name="upload_unknown_error">Nieznany błąd</string>
     <string name="uploader_btn_alternative_text">Wybierz</string>
     <string name="uploader_btn_upload_text">Wyślij</string>
@@ -1162,7 +1182,9 @@
     <string name="user_icon">Użytkownik</string>
     <string name="user_info_address">Adres</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Grupy</string>
     <string name="user_info_phone">Numer telefonu</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Strona internetowa</string>
     <string name="user_information_retrieval_error">Błąd pobierania informacji użytkownika</string>

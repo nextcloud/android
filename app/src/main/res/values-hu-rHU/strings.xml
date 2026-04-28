@@ -114,6 +114,8 @@
     <string name="authenticator_activity_no_web_browser_found">Nem érhető el böngésző a hivatkozás megnyitásához.</string>
     <string name="authenticator_activity_please_complete_login_process">Fejezze be a bejelentkezési folyamatot a böngészőben</string>
     <string name="auto_upload_battery_saver_mode_warning">Az automatikus feltöltés az akkumulátorkímélő mód miatt szünetel.</string>
+    <string name="auto_upload_delete_dialog_description">Ez eltávolítja a mappát és az automatikus feltöltési beállításokat. A befejezetlen feltöltések meg lesznek szakítva.</string>
+    <string name="auto_upload_delete_dialog_title">Törli az automatikus feltöltési mappát?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">megtartva az eredeti mappában, mivel csak olvasható</string>
     <string name="auto_upload_low_battery_warning_info">Alacsony akkumulátortöltöttség, a feltöltés tovább tarthat</string>
     <string name="auto_upload_on_wifi">Feltöltés csak forgalomkorlát nélküli Wi-Fin</string>
@@ -242,9 +244,11 @@
     <string name="copy_move_to_encrypted_folder_not_supported">A titkosított mappába másolás/áthelyezés jelenleg nem támogatott.</string>
     <string name="could_not_download_image">Nem sikerült letölteni a teljes képet</string>
     <string name="could_not_retrieve_shares">Nem sikerült lekérni a megosztásokat</string>
-    <string name="could_not_retrieve_url">Az URL nem kérhető le</string>
+    <string name="could_not_retrieve_url">A webcím nem kérhető le</string>
     <string name="create">Létrehozás</string>
     <string name="create_dir_fail_msg">A mappa létrehozása sikertelen</string>
+    <string name="create_end_to_end_encrypted_share">Megosztási hivatkozás</string>
+    <string name="create_end_to_end_encrypted_share_title">Végpontok közti titkosítással rendelkező megosztási hivatkozások</string>
     <string name="create_link">Hivatkozás létrehozása</string>
     <string name="create_new">Új</string>
     <string name="create_new_document">Új dokumentum</string>
@@ -562,6 +566,8 @@
     <string name="instant_upload_existing">A meglévő fájlokat is töltse fel</string>
     <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_description_end_to_end_encrypted">A megosztás címzettjei mindig hozzáférhetnek a teljes titkosított mappához. A megosztás csak olyan fiókokkal lehetséges, amelyeknél már be van állítva a végpontok közti titkosítás.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Végpontok közti titkosítással rendelkező megosztások</string>
     <string name="internal_shares">Belső megosztások</string>
     <string name="internal_two_way_sync">Belső kétirányú szinkronizálás</string>
     <string name="internal_two_way_sync_not_yet">Még nem, hamarosan szinkronizálva lesz</string>
@@ -1128,6 +1134,11 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_quota_exceeded">Tárhelykvóta túllépve</string>
     <string name="upload_scan_doc_upload">Dokumentum beolvasása a kamerával</string>
     <string name="upload_sync_conflict">Szinkronizálási ütközés, javítsa kézzel</string>
+    <string name="upload_sync_conflict_check">Ütközés lehet a legutóbbi feltöltéséből. Koppintson az ellenőrzéshez.</string>
+    <string name="upload_sync_conflict_check_error">Nem sikerült a feltöltési ütközések ellenőrzése. Próbálja újra később.</string>
+    <string name="upload_sync_conflict_checking">Feltöltési ütközések ellenőrzése…</string>
+    <string name="upload_sync_conflict_not_exists">Ütközés feloldva.</string>
+    <string name="upload_sync_conflict_same_file">Nincs ütközés észlelve. Ugyanaz a fájl.</string>
     <string name="upload_unknown_error">Ismeretlen hiba</string>
     <string name="uploader_btn_alternative_text">Válasszon</string>
     <string name="uploader_btn_upload_text">Feltöltés</string>
@@ -1188,7 +1199,9 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="user_icon">Felhasználó</string>
     <string name="user_info_address">Cím</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Csoportok</string>
     <string name="user_info_phone">Telefonszám</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Weboldal</string>
     <string name="user_information_retrieval_error">Hiba a felhasználói adatok lekérésekor</string>

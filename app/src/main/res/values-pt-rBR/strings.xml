@@ -114,6 +114,8 @@
     <string name="authenticator_activity_no_web_browser_found">Não há nenhum navegador disponível para abrir este link.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, conclua o processo de login no seu navegador</string>
     <string name="auto_upload_battery_saver_mode_warning">O upload automático está pausado porque o Economizador de Bateria está ativado.</string>
+    <string name="auto_upload_delete_dialog_description">Isso removerá a pasta e a configuração de upload automático. Quaisquer envios em andamento serão cancelados.</string>
+    <string name="auto_upload_delete_dialog_title">Excluir a pasta de upload automático?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
     <string name="auto_upload_low_battery_warning_info">Bateria fraca, o upload pode demorar mais tempo</string>
     <string name="auto_upload_on_wifi">Enviar só por Wi-Fi não medida</string>
@@ -245,6 +247,8 @@
     <string name="could_not_retrieve_url">Não foi possível recuperar a URL</string>
     <string name="create">Criar</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
+    <string name="create_end_to_end_encrypted_share">Compartilhamento por link</string>
+    <string name="create_end_to_end_encrypted_share_title">Compartilhamentos por link criptografados de ponta-a-ponta</string>
     <string name="create_link">Criar link</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
@@ -562,6 +566,8 @@
     <string name="instant_upload_existing">Enviar arquivos existentes também</string>
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/UploadInstantâneo</string>
+    <string name="internal_share_description_end_to_end_encrypted">Os destinatários do compartilhamento sempre têm acesso à pasta criptografada na íntegra. Só é possível compartilhar com contas que já tenham configurado a criptografia de ponta-a-ponta.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Compartilhamentos criptografados de ponta-a-ponta</string>
     <string name="internal_shares">Compartilhamentos internos</string>
     <string name="internal_two_way_sync">Sincronização bidirecional interna</string>
     <string name="internal_two_way_sync_not_yet">Ainda não, em breve será sincronizado</string>
@@ -792,6 +798,7 @@
     <string name="preview_image_file_is_not_downloaded">O arquivo não foi baixado</string>
     <string name="preview_media_unhandled_http_code_message">O arquivo está atualmente trancado por outro usuário ou processo e, portanto, não pode ser excluído. Por favor, tente novamente mais tarde.</string>
     <string name="preview_sorry">Desculpe</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Não foi possível abrir o editor de texto</string>
     <string name="privacy">Privacidade</string>
     <string name="push_notifications_not_implemented">Notificações push desativadas devido a dependências de serviços proprietários do Google Play.</string>
     <string name="push_notifications_old_login">Não há notificações push devido a uma sessão de login desatualizada. Considere a possibilidade de adicionar sua conta novamente.</string>
@@ -1110,6 +1117,11 @@
     <string name="upload_quota_exceeded">Cota de armazenamento excedida</string>
     <string name="upload_scan_doc_upload">Digitalizar documento com a câmera</string>
     <string name="upload_sync_conflict">Conflito na sincronização, resolva manualmente</string>
+    <string name="upload_sync_conflict_check">Pode haver um conflito com o seu último envio. Toque para verificar.</string>
+    <string name="upload_sync_conflict_check_error">Não foi possível verificar se há conflitos de upload. Tente novamente.</string>
+    <string name="upload_sync_conflict_checking">Verificando se há conflitos de upload…</string>
+    <string name="upload_sync_conflict_not_exists">Conflito resolvido.</string>
+    <string name="upload_sync_conflict_same_file">Não foi detectado nenhum conflito. Mesmo arquivo.</string>
     <string name="upload_unknown_error">Erro desconhecido</string>
     <string name="uploader_btn_alternative_text">Escolher</string>
     <string name="uploader_btn_upload_text">Enviar</string>
@@ -1170,7 +1182,9 @@
     <string name="user_icon">Usuário</string>
     <string name="user_info_address">Endereço</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Grupos</string>
     <string name="user_info_phone">Número do telefone</string>
+    <string name="user_info_profile">Perfil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Erro ao recuperar informação do usuário</string>

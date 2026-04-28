@@ -233,6 +233,8 @@
     <string name="could_not_retrieve_url">URL を取得できませんでした</string>
     <string name="create">作成</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
+    <string name="create_end_to_end_encrypted_share">リンク共有</string>
+    <string name="create_end_to_end_encrypted_share_title">End-to-End暗号化リンク共有</string>
     <string name="create_link">リンクを作成する</string>
     <string name="create_new">新規作成</string>
     <string name="create_new_document">新規ドキュメント</string>
@@ -539,6 +541,7 @@
     <string name="instant_upload_existing">既存のファイルもアップロード</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_headline_end_to_end_encrypted">End-to-End暗号化共有</string>
     <string name="internal_shares">内部共有</string>
     <string name="internal_two_way_sync">内部的な双方向同期</string>
     <string name="internal_two_way_sync_not_yet">まだ同期されていませんが、間もなく同期されます</string>
@@ -1121,7 +1124,9 @@
     <string name="user_icon">ユーザー</string>
     <string name="user_info_address">住所</string>
     <string name="user_info_email">メール</string>
+    <string name="user_info_groups">グループ</string>
     <string name="user_info_phone">電話番号</string>
+    <string name="user_info_profile">プロフィール</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">ウェブサイト</string>
     <string name="user_information_retrieval_error">ユーザー情報を取得中にエラーが発生しました</string>
