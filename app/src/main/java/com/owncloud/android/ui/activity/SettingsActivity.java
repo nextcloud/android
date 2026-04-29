@@ -572,6 +572,11 @@ public class SettingsActivity extends PreferenceActivity
                 if (pMnemonic != null) {
                     preferenceCategoryMore.removePreference(pMnemonic);
                 }
+
+                Preference pRemoveE2E = findPreference("remove_e2e");
+                if (pRemoveE2E != null) {
+                    preferenceCategoryMore.removePreference(pRemoveE2E);
+                }
             }
             return Unit.INSTANCE;
         });

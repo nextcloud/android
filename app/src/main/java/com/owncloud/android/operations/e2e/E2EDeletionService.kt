@@ -16,6 +16,9 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.e2ee.DeleteEncryptedFilesRemoteOperation
+import com.owncloud.android.lib.resources.users.DeletePrivateKeyRemoteOperation
+import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation
 
 class E2EDeletionService(private val clientFactory: ClientFactory) {
     private val mainHandler = Handler(Looper.getMainLooper())
@@ -39,26 +42,27 @@ class E2EDeletionService(private val clientFactory: ClientFactory) {
         Thread {
             val result = runCatching {
                 val client = clientFactory.createNextcloudClient(user)
+                var successfulOperationResultCount = 3
 
                 if (!DeletePrivateKeyRemoteOperation().execute(client).isSuccess) {
-                    return@runCatching false
+                    successfulOperationResultCount -= 1
                 }
 
                 Log_OC.i(TAG, "🔑" + "private key is deleted")
 
                 if (!DeletePublicKeyRemoteOperation().execute(client).isSuccess) {
-                    return@runCatching false
+                    successfulOperationResultCount -= 1
                 }
 
                 Log_OC.i(TAG, "🗝" + "public key is deleted")
 
                 if (!DeleteEncryptedFilesRemoteOperation().execute(client).isSuccess) {
-                    return@runCatching false
+                    successfulOperationResultCount -= 1
                 }
 
                 Log_OC.i(TAG, "🗂️" + "encrypted files are deleted")
 
-                true
+                successfulOperationResultCount == 3
             }.getOrElse { e ->
                 Log.e(TAG, "Cannot delete E2E keys and files", e)
                 false
