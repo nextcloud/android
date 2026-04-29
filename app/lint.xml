@@ -25,6 +25,7 @@
             regexp="screenshot_01_gridView|screenshot_02_listView|screenshot_03_drawer|screenshot_04_accounts|screenshot_05_autoUpload|screenshot_06_davdroid" />
         <ignore path="**/drawable/zdc_*.xml" />
 		<ignore path="**/drawable/iconclose.xml" />
+        <ignore regexp="trashbin_activity_title" />
     </issue>
 
     <issue id="ImpliedQuantity">
@@ -88,5 +89,9 @@
 
 	<issue id="Aligned16KB">
         <ignore path="**/arm64-v8a/libmockkjvmtiagent.so" />
+    </issue>
+
+    <issue id="OldTargetApi">
+        <ignore path="build.gradle.kts" />
     </issue>
 </lint>
