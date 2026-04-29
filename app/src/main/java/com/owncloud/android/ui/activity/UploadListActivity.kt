@@ -73,6 +73,8 @@ class UploadListActivity :
 
     @Inject lateinit var uploadFileOperationFactory: UploadFileOperationFactory
 
+    private var autoUploadWarningCardManager: AutoUploadWarningCardManager? = null
+
     private var swipeListRefreshLayout: SwipeRefreshLayout? = null
     private var binding: UploadListLayoutBinding? = null
 
@@ -88,6 +90,7 @@ class UploadListActivity :
         binding = UploadListLayoutBinding.inflate(layoutInflater)
         val binding = binding!!
         setContentView(binding.getRoot())
+        autoUploadWarningCardManager = AutoUploadWarningCardManager(powerManagementService, viewThemeUtils)
         swipeListRefreshLayout = binding.swipeContainingList
 
         // this activity has no file really bound, it's for multiple accounts at the same time; should no inherit
@@ -118,8 +121,10 @@ class UploadListActivity :
             adapterHelper
         )
 
-        val autoUploadWarningCardManager = AutoUploadWarningCardManager(powerManagementService, viewThemeUtils)
-        binding?.autoUploadBatterySaverWarningCard?.let { autoUploadWarningCardManager.bind(it) }
+        binding?.autoUploadBatterySaverWarningCard?.let {
+            autoUploadWarningCardManager?.register(this, it)
+            autoUploadWarningCardManager?.bind(it)
+        }
 
         val lm = GridLayoutManager(this, 1)
         uploadListAdapter.setLayoutManager(lm)
@@ -370,6 +375,11 @@ class UploadListActivity :
         override fun onReceive(context: Context?, intent: Intent?) {
             throttler.run("update_upload_list") { uploadListAdapter.loadUploadItemsFromDb() }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        autoUploadWarningCardManager?.unregister(this)
     }
 
     companion object {

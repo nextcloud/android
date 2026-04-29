@@ -153,7 +153,7 @@ class SyncedFoldersActivity :
     @Inject
     lateinit var appInfo: AppInfo
 
-    lateinit var autoUploadWarningCardManager: AutoUploadWarningCardManager
+    private var autoUploadWarningCardManager: AutoUploadWarningCardManager? = null
 
     lateinit var binding: SyncedFoldersLayoutBinding
     lateinit var adapter: SyncedFolderAdapter
@@ -260,7 +260,9 @@ class SyncedFoldersActivity :
             powerManagementService,
             connectivityService
         )
-        autoUploadWarningCardManager.bind(binding.autoUploadBatterySaverWarningCard)
+        autoUploadWarningCardManager?.bind(binding.autoUploadBatterySaverWarningCard)
+        autoUploadWarningCardManager?.register(this, binding.autoUploadBatterySaverWarningCard)
+
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.emptyList.emptyListViewAction)
         val lm = GridLayoutManager(this, gridWidth)
@@ -278,6 +280,11 @@ class SyncedFoldersActivity :
             binding.emptyList.emptyListView.visibility = View.GONE
             binding.list.visibility = View.VISIBLE
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        autoUploadWarningCardManager?.unregister(this)
     }
 
     /**
