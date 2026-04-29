@@ -20,6 +20,7 @@ import com.owncloud.android.lib.resources.e2ee.DeleteEncryptedFilesRemoteOperati
 import com.owncloud.android.lib.resources.users.DeletePrivateKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation
 
+@Suppress("MagicNumber")
 class E2EDeletionService(private val clientFactory: ClientFactory) {
     private val mainHandler = Handler(Looper.getMainLooper())
 
