@@ -76,14 +76,12 @@ class UriUploader @JvmOverloads constructor(
                 code = UriUploaderResultCode.ERROR_SENSITIVE_PATH
             } else {
                 val uris = mUrisToUpload
-                    .filterNotNull()
-                    .map { it as Uri }
-                    .map { Pair(it, getRemotePathForUri(it)) }
+                    .mapNotNull { (it as? Uri)?.let { sourceUri -> Pair(sourceUri, getRemotePathForUri(sourceUri)) } }
 
                 val fileUris = uris.filter { it.first.scheme == ContentResolver.SCHEME_FILE }
                 if (fileUris.isNotEmpty()) {
-                    val localPaths = Array<String>(fileUris.size) { "" }
-                    val remotePaths = Array<String>(fileUris.size) { "" }
+                    val localPaths = Array(fileUris.size) { "" }
+                    val remotePaths = Array(fileUris.size) { "" }
 
                     for (i in 0..<fileUris.size) {
                         val uri = fileUris[i]

@@ -118,28 +118,27 @@ class OCFileListAdapterHelper {
 
     @Suppress("NestedBlockDepth")
     private fun mergeOCFilesForLivePhoto(files: List<OCFile>): List<OCFile> {
+        val localIdMap: Map<String, OCFile> = files
+            .filter { it.localId != 0L && it.localId != -1L }
+            .associateBy { it.localId.toString() }
+
         val filesToRemove = mutableSetOf<OCFile>()
 
-        for (i in files.indices) {
-            val file = files[i]
+        for (file in files) {
+            val linkedId = file.linkedFileIdForLivePhoto ?: continue
 
-            for (j in i + 1 until files.size) {
-                val nextFile = files[j]
-                val fileLocalId = file.localId.toString()
-                val nextFileLinkedLocalId = nextFile.linkedFileIdForLivePhoto
+            // no match, skip
+            val linkedFile = localIdMap[linkedId] ?: continue
 
-                if (fileLocalId == nextFileLinkedLocalId) {
-                    when {
-                        MimeTypeUtil.isVideo(file.mimeType) -> {
-                            nextFile.livePhotoVideo = file
-                            filesToRemove.add(file)
-                        }
+            when {
+                MimeTypeUtil.isVideo(linkedFile.mimeType) -> {
+                    file.livePhotoVideo = linkedFile
+                    filesToRemove.add(linkedFile)
+                }
 
-                        MimeTypeUtil.isVideo(nextFile.mimeType) -> {
-                            file.livePhotoVideo = nextFile
-                            filesToRemove.add(nextFile)
-                        }
-                    }
+                MimeTypeUtil.isVideo(file.mimeType) -> {
+                    linkedFile.livePhotoVideo = file
+                    filesToRemove.add(file)
                 }
             }
         }

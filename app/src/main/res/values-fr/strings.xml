@@ -55,6 +55,7 @@
     <string name="assistant_screen_empty_content_description">Essayez d\'envoyer un message pour déclencher une conversation.</string>
     <string name="assistant_screen_empty_content_title">Bonjour ! En quoi puis-je vous aider aujourd’hui ?</string>
     <string name="assistant_screen_retry_response_generation">Réessayer la génération de réponse</string>
+    <string name="assistant_screen_select_task">Veuillez sélectionner une tâche</string>
     <string name="assistant_screen_send_message">Envoyer un message</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Ouvrir la liste des conversations</string>
     <string name="assistant_screen_task_create_fail_message">Une erreur est survenue lors de la création de la tâche</string>
@@ -256,6 +257,7 @@
     <string name="create_new_presentation">Nouvelle présentation</string>
     <string name="create_new_spreadsheet">Nouvelle feuille de calcul</string>
     <string name="create_rich_workspace">Ajouter une description du dossier</string>
+    <string name="creates_rich_workspace">Ajoute une description du dossier</string>
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
     <string name="daily_backup">Sauvegarde journalière</string>
     <string name="data_to_back_up">Données à sauvegarder</string>
@@ -322,6 +324,7 @@
     <string name="drawer_item_on_device">Sur l\'appareil</string>
     <string name="drawer_item_personal_files">Fichiers personnels</string>
     <string name="drawer_item_recent_files">Fichiers récents</string>
+    <string name="drawer_item_recently_modified">Modifiés récemment</string>
     <string name="drawer_item_shared">Partagé</string>
     <string name="drawer_item_trashbin">Fichiers supprimés</string>
     <string name="drawer_item_uploads_list">Téléversements</string>
@@ -442,6 +445,7 @@
     <string name="file_list_empty_on_device">Les fichiers/dossiers téléchargés apparaîtront ici.</string>
     <string name="file_list_empty_recent_files_description">Les fichiers et dossiers que vous avez récemment modifiés apparaîtront ici</string>
     <string name="file_list_empty_recent_files_headline">Pas de fichiers récemment modifiés</string>
+    <string name="file_list_empty_recently_modified">Aucun fichier modifié n\'a été trouvé dans les 7 derniers jours</string>
     <string name="file_list_empty_search">Il se trouve peut-être dans un autre dossier ?</string>
     <string name="file_list_empty_shared">Les fichiers et dossiers que vous partagez apparaîtront ici.</string>
     <string name="file_list_empty_shared_headline">Aucun partage</string>
@@ -856,6 +860,7 @@
     <string name="send">Envoyer</string>
     <string name="send_copy_to">Envoyer une copie à</string>
     <string name="send_share">Envoyer Partager</string>
+    <string name="sendbutton_description">Icône du bouton d\'envoi</string>
     <string name="server_not_reachable">Impossible de charger le contenu</string>
     <string name="server_not_reachable_content">Il semble que l\'appareil ne soit pas connecté à internet</string>
     <string name="set_as">Utiliser comme</string>
@@ -897,6 +902,7 @@
     <string name="share_option_required">Veuillez sélectionner au moins une option de partage avant de poursuivre.</string>
     <string name="share_permission_can_edit">Peut modifier</string>
     <string name="share_permission_file_request">Demande de fichier</string>
+    <string name="share_permission_secure_file_drop">Dépôt sécurisé de fichiers</string>
     <string name="share_permission_view_only">Afficher seulement</string>
     <string name="share_permissions">Autorisations pour le partage</string>
     <string name="share_re_share_permission">Partager</string>
@@ -1109,6 +1115,7 @@
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="upload_quota_exceeded">Quota de stockage dépassé</string>
     <string name="upload_scan_doc_upload">Scanner un document depuis l\'appareil photo</string>
+    <string name="upload_sync_conflict">Conflit de synchronisation, veuillez le résoudre manuellement</string>
     <string name="upload_unknown_error">Erreur inconnue </string>
     <string name="uploader_btn_alternative_text">Sélectionner</string>
     <string name="uploader_btn_upload_text">Téléverser</string>
@@ -1155,6 +1162,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Fichier local non trouvé</string>
     <string name="uploads_view_upload_status_failed_permission_error">Erreur de permissions</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat du serveur non approuvé</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Récupération de la version serveur …</string>
     <string name="uploads_view_upload_status_service_interrupted">L\'application s\'est arrêtée</string>
     <string name="uploads_view_upload_status_skip">Ignoré</string>
     <string name="uploads_view_upload_status_skip_reason">Un fichier portant le même nom existe déjà.</string>

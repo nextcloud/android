@@ -185,6 +185,7 @@
     <string name="drawer_item_home">Kryefaqja</string>
     <string name="drawer_item_notifications">Njoftime</string>
     <string name="drawer_item_on_device">Në pajisjen</string>
+    <string name="drawer_item_recently_modified">Modifikuar së fundmi</string>
     <string name="drawer_item_shared">U nda</string>
     <string name="drawer_item_trashbin">Skedar të fshirë</string>
     <string name="drawer_item_uploads_list">Ngarkimet</string>
@@ -252,6 +253,7 @@
     <string name="file_list_empty_headline_search">Nuk ka rezultate në këtë dosje</string>
     <string name="file_list_empty_headline_server_search">Asnjë rezultat</string>
     <string name="file_list_empty_moving">S’ka gjë këtu. Mund të shtoni një dosje.</string>
+    <string name="file_list_empty_recently_modified">Nuk u gjetë asnjë skedar i modifikuar 7 ditët e fundit</string>
     <string name="file_list_empty_search">Përpiquni të shikoni në një dosje tjetër</string>
     <string name="file_list_empty_shared_headline">Asgjë e shpërndarë akoma</string>
     <string name="file_list_folder">dosje</string>
@@ -482,6 +484,7 @@
     <string name="select_all">Zgjidhi të gjitha</string>
     <string name="select_template">Zgjidh shabllonin</string>
     <string name="send">Dërgo</string>
+    <string name="sendbutton_description">Ikona e butonit dërgo</string>
     <string name="set_as">Vendos Si</string>
     <string name="set_picture_as">Vendos fotografinë</string>
     <string name="share">Ndaje</string>
@@ -637,6 +640,7 @@
     <string name="upload_lock_failed">Deshtoi kyçja e dosjes</string>
     <string name="upload_old_android">Kriptimi është i mundur vetëm me &gt; = Android 5.0</string>
     <string name="upload_query_move_foreign_files">Nuk ka hapësirë të mjaftueshme për të kopjuar fotografitë e zgjedhura në %1$s  dosje. Dëshironi ti lëvizni ata në vend që ti kopjoni?</string>
+    <string name="upload_sync_conflict">Konflik në sinkronizim, ju lutemi zgjidheni manualisht</string>
     <string name="upload_unknown_error">Gabim i panjohur</string>
     <string name="uploader_btn_alternative_text">Zgjidhni</string>
     <string name="uploader_btn_upload_text">Ngarkoni</string>
@@ -680,6 +684,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">S’u gjet skedari vendor</string>
     <string name="uploads_view_upload_status_failed_permission_error">Gabim lejesh</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certifikatë serveri e dyshimtë</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Duke tërhequr versionin e serverit…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikacioni u ndërpre</string>
     <string name="uploads_view_upload_status_succeeded">Të plotësuara</string>
     <string name="uploads_view_upload_status_unknown_fail">Gabim i panjohur</string>

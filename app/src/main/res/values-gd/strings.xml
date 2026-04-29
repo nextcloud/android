@@ -190,6 +190,7 @@
     <string name="drawer_item_home">Dachaigh</string>
     <string name="drawer_item_notifications">Brathan</string>
     <string name="drawer_item_on_device">Air an uidheam</string>
+    <string name="drawer_item_recently_modified">Air atharrachadh o chionn goirid</string>
     <string name="drawer_item_shared">Co-roinnte</string>
     <string name="drawer_item_trashbin">Faidhlichean air an sguabadh às</string>
     <string name="drawer_item_uploads_list">Na chaidh a luchdadh suas</string>
@@ -264,6 +265,7 @@
     <string name="file_list_empty_headline_server_search">Gun toradh</string>
     <string name="file_list_empty_moving">Chan eil dad an-seo. ’S urrainn dhut pasgan a chur ris.</string>
     <string name="file_list_empty_on_device">Nochdaidh na faidhlichean ’s pasganan a luchdaich thu a-nuas an-seo.</string>
+    <string name="file_list_empty_recently_modified">Cha do lorg sinn faidhle a chaidh atharrachadh sna 7 làithean seo chaidh</string>
     <string name="file_list_empty_search">Saoil a bheil e ann am pasgan eile?</string>
     <string name="file_list_empty_shared">Nochdaidh na faidhlichean ’s pasganan cho-roinn thu an-seo.</string>
     <string name="file_list_empty_shared_headline">Chan eil dad ’ga cho-roinneadh fhathast</string>
@@ -516,6 +518,7 @@
     <string name="select_one_template">Tagh teamplaid</string>
     <string name="select_template">Tagh teamplaid</string>
     <string name="send">Cuir</string>
+    <string name="sendbutton_description">Ìomhaigheag putan a’ chuir</string>
     <string name="set_as">Suidhich mar</string>
     <string name="set_online_status">Staid air loidhne</string>
     <string name="set_picture_as">Cleachd an dealbh mar</string>
@@ -676,6 +679,7 @@
     <string name="upload_lock_failed">Dh’fhàillig glasadh a’ phasgain</string>
     <string name="upload_old_android">Cha ghabh a chrioptachadh ach le &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Cha ghabh lethbhreac dhe na faidhlichean a thagh thu a chur dhan phasgan %1$s air sgàth ’s nach eil àite gu leòr ann. Am bu mhiann leat an gluasad a-null ’na àite?</string>
+    <string name="upload_sync_conflict">Còmhstri leis an t-sioncronachadh, am fuasgail thu a làimh i?</string>
     <string name="upload_unknown_error">Mearachd nach aithne dhuinn</string>
     <string name="uploader_btn_alternative_text">Tagh</string>
     <string name="uploader_btn_upload_text">Luchdaich suas</string>
@@ -720,6 +724,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Cha deach am faidhle ionadail a lorg</string>
     <string name="uploads_view_upload_status_failed_permission_error">Mearachd le cead</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Teisteanas frithealaiche gun earbsa</string>
+    <string name="uploads_view_upload_status_fetching_server_version">A’ faighinn tionndadh an fhrithealaiche…</string>
     <string name="uploads_view_upload_status_service_interrupted">Chaidh an aplacaid a chrìochnachadh</string>
     <string name="uploads_view_upload_status_succeeded">Coileanta</string>
     <string name="uploads_view_upload_status_unknown_fail">Mearachd nach aithne dhuinn</string>

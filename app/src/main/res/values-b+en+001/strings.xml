@@ -55,6 +55,7 @@
     <string name="assistant_screen_empty_content_description">Try sending a message to spark a conversation.</string>
     <string name="assistant_screen_empty_content_title">Hello there! What can I help you with today?</string>
     <string name="assistant_screen_retry_response_generation">Retry response generation</string>
+    <string name="assistant_screen_select_task">Please select task</string>
     <string name="assistant_screen_send_message">Send message</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Open conversation list</string>
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
@@ -322,6 +323,7 @@
     <string name="drawer_item_on_device">On device</string>
     <string name="drawer_item_personal_files">Personal files</string>
     <string name="drawer_item_recent_files">Recent files</string>
+    <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_trashbin">Deleted files</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -857,6 +859,7 @@
     <string name="send">Send</string>
     <string name="send_copy_to">Send copy to</string>
     <string name="send_share">Send share</string>
+    <string name="sendbutton_description">Send button icon</string>
     <string name="server_not_reachable">Could not load content</string>
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="set_as">Set As</string>
@@ -898,6 +901,7 @@
     <string name="share_option_required">Please select at least one sharing option before continuing.</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_request">File request</string>
+    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
     <string name="share_permissions">Share permissions</string>
     <string name="share_re_share_permission">Share</string>
@@ -1110,6 +1114,7 @@
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>
     <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
+    <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_sync_conflict_check">There might be a conflict from your last upload. Tap to check.</string>
     <string name="upload_sync_conflict_check_error">Could not check for upload conflicts. Please try again.</string>
     <string name="upload_sync_conflict_checking">Checking for upload conflicts…</string>
@@ -1161,6 +1166,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Local file not found</string>
     <string name="uploads_view_upload_status_failed_permission_error">Permission error</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Untrusted server certificate</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_upload_status_service_interrupted">App terminated</string>
     <string name="uploads_view_upload_status_skip">Skipped</string>
     <string name="uploads_view_upload_status_skip_reason">A file with the same name already exists.</string>

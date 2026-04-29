@@ -55,6 +55,7 @@
     <string name="assistant_screen_empty_content_description">Spróbuj wysłać wiadomość, aby rozpocząć rozmowę.</string>
     <string name="assistant_screen_empty_content_title">Cześć! W czym mogę Ci dziś pomóc?</string>
     <string name="assistant_screen_retry_response_generation">Ponów generowanie odpowiedzi</string>
+    <string name="assistant_screen_select_task">Wybierz zadanie</string>
     <string name="assistant_screen_send_message">Wyślij wiadomość</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Otwórz listę rozmowy</string>
     <string name="assistant_screen_task_create_fail_message">Wystąpił błąd podczas tworzenia zadania</string>
@@ -256,6 +257,7 @@
     <string name="create_new_presentation">Nowa prezentacja</string>
     <string name="create_new_spreadsheet">Nowy arkusz kalkulacyjny</string>
     <string name="create_rich_workspace">Dodaj opis katalogu</string>
+    <string name="creates_rich_workspace">Dodaj opis katalogu</string>
     <string name="credentials_disabled">Poświadczenia wyłączone</string>
     <string name="daily_backup">Codzienna kopia zapasowa</string>
     <string name="data_to_back_up">Dane dla kopii zapasowej</string>
@@ -322,6 +324,7 @@
     <string name="drawer_item_on_device">Na urządzeniu</string>
     <string name="drawer_item_personal_files">Pliki osobiste</string>
     <string name="drawer_item_recent_files">Ostatnie pliki</string>
+    <string name="drawer_item_recently_modified">Ostatnio modyfikowane</string>
     <string name="drawer_item_shared">Udostępnione</string>
     <string name="drawer_item_trashbin">Usunięte pliki</string>
     <string name="drawer_item_uploads_list">Wysłane</string>
@@ -442,6 +445,7 @@
     <string name="file_list_empty_on_device">Tutaj pojawią się pobrane pliki i katalogi.</string>
     <string name="file_list_empty_recent_files_description">Tutaj pojawią się pliki i katalogi, które ostatnio zmodyfikowałeś.</string>
     <string name="file_list_empty_recent_files_headline">Brak ostatnio zmodyfikowanych plików</string>
+    <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
     <string name="file_list_empty_search">Może jest w innym katalogu?</string>
     <string name="file_list_empty_shared">Tutaj pojawią się pliki i katalogi, które udostępnisz.</string>
     <string name="file_list_empty_shared_headline">Nic nie udostępniasz</string>
@@ -857,6 +861,7 @@
     <string name="send">Wyślij</string>
     <string name="send_copy_to">Wyślij kopię do</string>
     <string name="send_share">Wyślij udostępnienie</string>
+    <string name="sendbutton_description">Ikona przycisku wysyłania</string>
     <string name="server_not_reachable">Nie można załadować zawartości</string>
     <string name="server_not_reachable_content">Urządzenie prawdopodobnie nie jest połączone z Internetem</string>
     <string name="set_as">Ustaw jako</string>
@@ -898,6 +903,7 @@
     <string name="share_option_required">Wybierz co najmniej jedną opcję udostępniania przed kontynuacją.</string>
     <string name="share_permission_can_edit">Może modyfikować</string>
     <string name="share_permission_file_request">Prośba o plik</string>
+    <string name="share_permission_secure_file_drop">Bezpieczne upuszczenie pliku</string>
     <string name="share_permission_view_only">Tylko podgląd</string>
     <string name="share_permissions">Uprawnienia udostępniania</string>
     <string name="share_re_share_permission">Udostępnij</string>
@@ -1110,6 +1116,7 @@
     <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do katalogu %1$s. Czy chcesz je tam przenieść?</string>
     <string name="upload_quota_exceeded">Limit przekroczony</string>
     <string name="upload_scan_doc_upload">Zeskanuj dokument z aparatu</string>
+    <string name="upload_sync_conflict">Konflikt synchronizacji, proszę rozwiązać ręcznie</string>
     <string name="upload_sync_conflict_check">Może występować konflikt z ostatniego przesyłania. Dotknij, aby sprawdzić.</string>
     <string name="upload_sync_conflict_check_error">Nie udało się sprawdzić konfliktów przesyłania. Spróbuj ponownie.</string>
     <string name="upload_sync_conflict_checking">Sprawdzanie konfliktów przesyłania...</string>
@@ -1161,6 +1168,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Nie odnaleziono pliku lokalnego</string>
     <string name="uploads_view_upload_status_failed_permission_error">Błąd uprawnień</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certyfikat serwera nie jest zaufany</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Pobieram wersję serwera…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikacja została zatrzymana</string>
     <string name="uploads_view_upload_status_skip">Pominięto</string>
     <string name="uploads_view_upload_status_skip_reason">Plik o tej samej nazwie już istnieje.</string>

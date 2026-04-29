@@ -53,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Kkes tawuri</string>
     <string name="assistant_screen_empty_content_description">Ɛreḍ ad tazneḍ izen akken ad tessenkreḍ adiwenni.</string>
     <string name="assistant_screen_empty_content_title">Azul dagi! Deg wacu i zemreɣ ad ak-d-muddeɣ tallelt ass-a?</string>
+    <string name="assistant_screen_select_task">Ttxil-k·m fren tawuri</string>
     <string name="assistant_screen_send_message">Azen izen</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Ldi tabdert n udiwenni</string>
     <string name="assistant_screen_task_create_fail_message">Teḍra-d tuccḍa di tmerna n twuri</string>
@@ -225,6 +226,7 @@
     <string name="create_new_presentation">Asenkid amaynut</string>
     <string name="create_new_spreadsheet">Ambellez amaynut </string>
     <string name="create_rich_workspace">Rnu aglam i ukaram</string>
+    <string name="creates_rich_workspace">Rnu aglam n ukaram</string>
     <string name="credentials_disabled">Isulay n tuqqna ttwasensen</string>
     <string name="daily_backup">Aḥraz n yal ass</string>
     <string name="data_to_back_up">Isefka i wuḥraz</string>
@@ -286,6 +288,7 @@
     <string name="drawer_item_notifications">Ilɣa</string>
     <string name="drawer_item_on_device">Ɣef yibenk</string>
     <string name="drawer_item_personal_files">Ifuyla udmawanen</string>
+    <string name="drawer_item_recently_modified">Yettwasenfel melmi kan</string>
     <string name="drawer_item_shared">Yettwabḍa</string>
     <string name="drawer_item_trashbin">Ifuyla yettwaksen</string>
     <string name="drawer_item_uploads_list">Ifuyla yettwaznen</string>
@@ -387,6 +390,7 @@
     <string name="file_list_empty_local_search">Ulac afaylu neɣ akaram inmeɣran akked unadi-ik·im.</string>
     <string name="file_list_empty_moving">Ulac d acu yellan da. Tzemreḍ ad ternuḍ akaram.</string>
     <string name="file_list_empty_on_device">Ifuyla d ikaramen yettwasidren ad d-banen da.</string>
+    <string name="file_list_empty_recently_modified">Ur d-nufi ara ifuyla ittwabeddelen di 7 wussan-a ineggura</string>
     <string name="file_list_empty_search">Ahat deg ukaram nniḍen?</string>
     <string name="file_list_empty_shared">Ifuyla akked ikaramen ara tebḍuḍ ad d-banen da.</string>
     <string name="file_list_empty_shared_headline">Ulac acu yettwabḍan yakan</string>

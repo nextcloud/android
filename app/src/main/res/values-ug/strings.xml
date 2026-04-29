@@ -241,6 +241,7 @@
     <string name="create_new_presentation">يېڭى تونۇشتۇرۇش</string>
     <string name="create_new_spreadsheet">يېڭى ئېلېكترونلۇق جەدۋەل</string>
     <string name="create_rich_workspace">ھۆججەت قىسقۇچ چۈشەندۈرۈشىنى قوشۇڭ</string>
+    <string name="creates_rich_workspace">ھۆججەت قىسقۇچ چۈشەندۈرۈشىنى قوشىدۇ</string>
     <string name="credentials_disabled">كىنىشكىسى چەكلەنگەن</string>
     <string name="daily_backup">كۈندىلىك زاپاسلاش</string>
     <string name="data_to_back_up">زاپاسلاش ئۈچۈن سانلىق مەلۇمات</string>
@@ -306,6 +307,7 @@
     <string name="drawer_item_notifications">ئۇقتۇرۇش</string>
     <string name="drawer_item_on_device">ئۈسكۈنىدە</string>
     <string name="drawer_item_personal_files">شەخسىي ھۆججەتلەر</string>
+    <string name="drawer_item_recently_modified">يېقىندا ئۆزگەرتىلدى</string>
     <string name="drawer_item_shared">ئورتاقلاشتى</string>
     <string name="drawer_item_trashbin">ئۆچۈرۈلگەن ھۆججەتلەر</string>
     <string name="drawer_item_uploads_list">يۈكلەش</string>
@@ -423,6 +425,7 @@
     <string name="file_list_empty_on_device">چۈشۈرۈلگەن ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
     <string name="file_list_empty_recent_files_description">سىز يېقىندا ئۆزگەرتكەن ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
     <string name="file_list_empty_recent_files_headline">يېقىندا ئۆزگەرتىلگەن ھۆججەت يوق</string>
+    <string name="file_list_empty_recently_modified">يېقىنقى 7 كۈن ئىچىدە ئۆزگەرتىلگەن ھۆججەت تېپىلمىدى</string>
     <string name="file_list_empty_search">بەلكىم ئۇ باشقا ھۆججەت قىسقۇچتا بولۇشى مۇمكىن؟</string>
     <string name="file_list_empty_shared">سىز ئورتاقلاشقان ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
     <string name="file_list_empty_shared_headline">ھازىرچە ھېچقانداق نەرسە ئورتاقلاشمىدى</string>
@@ -830,6 +833,7 @@
     <string name="send">ئەۋەتىڭ</string>
     <string name="send_copy_to">كۆچۈرمىسىنى ئەۋەت</string>
     <string name="send_share">ھەمبەھىر ئەۋەتىش</string>
+    <string name="sendbutton_description">كۇنۇپكا سىنبەلگىسىنى ئەۋەتىڭ</string>
     <string name="server_not_reachable">مەزمۇننى يۈكلىيەلمىدى</string>
     <string name="server_not_reachable_content">بۇ ئۈسكۈنە ئىنتىرنېتقا ئۇلانمىغاندەك تۇرىدۇ</string>
     <string name="set_as">تەڭشەك</string>
@@ -871,6 +875,7 @@
     <string name="share_option_required">داۋاملاشتۇرۇشتىن بۇرۇن ئەڭ كەمدە بىر ئورتاقلىشىش تاللانمىسىنى تاللاڭ.</string>
     <string name="share_permission_can_edit">تەھرىرلىيەلەيدۇ</string>
     <string name="share_permission_file_request">ھۆججەت تەلىپى</string>
+    <string name="share_permission_secure_file_drop">بىخەتەر ھۆججەت چۈشۈرۈش</string>
     <string name="share_permission_view_only">پەقەت كۆرۈش</string>
     <string name="share_permissions">ھەمبەھىرلەش ئىجازەتلىرى</string>
     <string name="share_re_share_permission">ھەمبەھىرلەش</string>
@@ -1073,6 +1078,7 @@
     <string name="upload_query_move_foreign_files">بوشلۇق يېتەرلىك بولمىسا تاللانغان ھۆججەتلەرنى%1$s ھۆججەت قىسقۇچىغا كۆچۈرۈپ كېتىشنىڭ ئالدىنى ئالىدۇ. ئۇلارنىڭ ئورنىغا ئۇلارنى يۆتكىمەكچىمۇ؟</string>
     <string name="upload_quota_exceeded">ساقلاش نورمىسى ئېشىپ كەتتى</string>
     <string name="upload_scan_doc_upload">كامېرادىن ھۆججەتنى سايىلەڭ</string>
+    <string name="upload_sync_conflict">ماس قەدەملىك توقۇنۇشنى قولدا ھەل قىلىڭ</string>
     <string name="upload_unknown_error">نامەلۇم خاتالىق</string>
     <string name="uploader_btn_alternative_text">تاللاڭ</string>
     <string name="uploader_btn_upload_text">يۈكلە</string>
@@ -1119,6 +1125,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">يەرلىك ھۆججەت تېپىلمىدى</string>
     <string name="uploads_view_upload_status_failed_permission_error">ئىجازەت خاتالىقى</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">ئىشەنچسىز مۇلازىمېتىر گۇۋاھنامىسى</string>
+    <string name="uploads_view_upload_status_fetching_server_version">مۇلازىمېتىر نۇسخىسىنى ئېلىش…</string>
     <string name="uploads_view_upload_status_service_interrupted">ئەپ ئاخىرلاشتى</string>
     <string name="uploads_view_upload_status_skip">ئاتلا</string>
     <string name="uploads_view_upload_status_skip_reason">ئوخشاش ئىسىمدىكى ھۆججەت ئاللىبۇرۇن مەۋجۇت</string>

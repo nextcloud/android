@@ -54,6 +54,7 @@
     <string name="assistant_screen_empty_content_description">Jaribu kutuma ujumbe ili kuzua mazungumzo.</string>
     <string name="assistant_screen_empty_content_title">Hujambo! Nikusaidie nini leo?</string>
     <string name="assistant_screen_retry_response_generation">Jaribu kutengeneza majibu tena</string>
+    <string name="assistant_screen_select_task">Tafadhali chagua kazi</string>
     <string name="assistant_screen_send_message">Tuma ujumbe</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Fungua orodha ya mazungumzo</string>
     <string name="assistant_screen_task_create_fail_message">Hitilafu ilitokea wakati wa kuunda jukumu</string>
@@ -251,6 +252,7 @@
     <string name="create_new_presentation">Wasilisho jipya</string>
     <string name="create_new_spreadsheet">Lahajedwali mpya</string>
     <string name="create_rich_workspace">Ongeza maelezo ya folda</string>
+    <string name="creates_rich_workspace">Inaongeza maelezo ya folda</string>
     <string name="credentials_disabled">Kitambulisho kimezimwa</string>
     <string name="daily_backup">Hifadhi nakala ya kila siku</string>
     <string name="data_to_back_up">Data ya kuhifadhi nakala</string>
@@ -316,6 +318,7 @@
     <string name="drawer_item_notifications">Arifa</string>
     <string name="drawer_item_on_device">Kwenye kifaa</string>
     <string name="drawer_item_personal_files">Faili binafsi</string>
+    <string name="drawer_item_recently_modified">Iliyorekebishwa hivi karibuni</string>
     <string name="drawer_item_shared">Shirikisha</string>
     <string name="drawer_item_trashbin">Faili zilizofutwa</string>
     <string name="drawer_item_uploads_list">Vipakiwa</string>
@@ -434,6 +437,7 @@
     <string name="file_list_empty_on_device">Faili na folda zilizopakuliwa zitaonekana hapa.</string>
     <string name="file_list_empty_recent_files_description">Faili na vikasha ulivyoboresha hivi karibuni vitaonekana hapa</string>
     <string name="file_list_empty_recent_files_headline">Hakuna faili zilizoboreshwa hivi karibuni</string>
+    <string name="file_list_empty_recently_modified">Haijapata faili zilizobadilishwa ndani ya siku 7 zilizopita</string>
     <string name="file_list_empty_search">Labda iko kwenye folda tofauti?</string>
     <string name="file_list_empty_shared">Faili na folda unazoshiriki zitaonekana hapa.</string>
     <string name="file_list_empty_shared_headline">Bado hakuna kilichoshirikiwa</string>
@@ -843,6 +847,7 @@
     <string name="send">Tuma</string>
     <string name="send_copy_to">Tuma nakala kwa</string>
     <string name="send_share">Tuma ushiriki</string>
+    <string name="sendbutton_description">Aikoni ya kitufe cha kutuma</string>
     <string name="server_not_reachable">Haikuweza kupakia maudhui</string>
     <string name="server_not_reachable_content">Huenda kifaa hakijaunganishwa kwenye mtandao</string>
     <string name="set_as">Weka Kama</string>
@@ -884,6 +889,7 @@
     <string name="share_option_required">Tafadhali chagua angalau chaguo moja la kushiriki kabla ya kuendelea.</string>
     <string name="share_permission_can_edit">Inaweza kuhariri</string>
     <string name="share_permission_file_request">Ombi la faili</string>
+    <string name="share_permission_secure_file_drop">Linda kushuka kwa faili</string>
     <string name="share_permission_view_only">Tazama pekee</string>
     <string name="share_permissions">Shiriki ruhusa</string>
     <string name="share_re_share_permission">Shirikisha</string>
@@ -1096,6 +1102,7 @@
     <string name="upload_query_move_foreign_files">Nafasi haitoshi huzuia kunakili faili zilizochaguliwa kwenye folda ya %1$s. Je, ungependa kuzihamishia hapo badala yake?</string>
     <string name="upload_quota_exceeded">Kiasi cha hifadhi kimepitwa</string>
     <string name="upload_scan_doc_upload">Changanua hati kutoka kwa kamera</string>
+    <string name="upload_sync_conflict">awazisha mzozo, tafadhali suluhisha wewe mwenyewe</string>
     <string name="upload_unknown_error">Hitilafu isiyojulikana</string>
     <string name="uploader_btn_alternative_text">Chagua</string>
     <string name="uploader_btn_upload_text">Pakia</string>
@@ -1142,6 +1149,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Faili ya ndani haipatikani</string>
     <string name="uploads_view_upload_status_failed_permission_error">Hitilafu ya ruhusa</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Cheti cha seva isiyoaminika</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Inaleta toleo la seva...</string>
     <string name="uploads_view_upload_status_service_interrupted">Programu imekatishwa</string>
     <string name="uploads_view_upload_status_skip">Imerukwa</string>
     <string name="uploads_view_upload_status_skip_reason">Faili yenye jina sawa sawa tayari ipo.</string>

@@ -865,7 +865,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (mStreamsToUpload == null || mStreamsToUpload.size() != 1) {
             return;
         }
-        final String fileName = getDisplayNameForUri((Uri) mStreamsToUpload.get(0), getActivity());
+
+        if (!(mStreamsToUpload.get(0) instanceof Uri source)) {
+            return;
+        }
+
+        final String fileName = getDisplayNameForUri(source, getActivity());
         if (fileName == null) {
             return;
         }

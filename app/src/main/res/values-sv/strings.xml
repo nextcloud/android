@@ -55,6 +55,7 @@
     <string name="assistant_screen_empty_content_description">Försök att skicka ett meddelande för att få igång en konversation.</string>
     <string name="assistant_screen_empty_content_title">Hej! Vad kan jag hjälpa dig med idag?</string>
     <string name="assistant_screen_retry_response_generation">Försök att generera svar igen</string>
+    <string name="assistant_screen_select_task">Vänligen välj uppgift</string>
     <string name="assistant_screen_send_message">Skicka meddelande</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Öppna konversationslista</string>
     <string name="assistant_screen_task_create_fail_message">Ett fel uppstod när uppgiften skapades</string>
@@ -256,6 +257,7 @@
     <string name="create_new_presentation">Ny presentation</string>
     <string name="create_new_spreadsheet">Nytt kalkylblad</string>
     <string name="create_rich_workspace">Lägg till mappbeskrivning</string>
+    <string name="creates_rich_workspace">Lägger till mappbeskrivning</string>
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="daily_backup">Daglig säkerhetskopiering</string>
     <string name="data_to_back_up">Data att säkerhetskopiera</string>
@@ -322,6 +324,7 @@
     <string name="drawer_item_on_device">Filer på enheten</string>
     <string name="drawer_item_personal_files">Personliga filer</string>
     <string name="drawer_item_recent_files">Senaste filer</string>
+    <string name="drawer_item_recently_modified">Nyligen ändrad</string>
     <string name="drawer_item_shared">Delat</string>
     <string name="drawer_item_trashbin">Borttagna filer</string>
     <string name="drawer_item_uploads_list">Uppladdningar</string>
@@ -442,6 +445,7 @@
     <string name="file_list_empty_on_device">Nedladdade filer och mappar kommer att visas här.</string>
     <string name="file_list_empty_recent_files_description">Filer och mappar som du nyligen ändrat kommer att visas här.</string>
     <string name="file_list_empty_recent_files_headline">Inga nyligen ändrade filer</string>
+    <string name="file_list_empty_recently_modified">Hittade inga ändrade filer de senaste 7 dagarna</string>
     <string name="file_list_empty_search">Kanske finns den i en annan mapp?</string>
     <string name="file_list_empty_shared">Filer och mappar som du delar kommer visas här.</string>
     <string name="file_list_empty_shared_headline">Inget delat ännu</string>
@@ -858,6 +862,7 @@
     <string name="send">Skicka</string>
     <string name="send_copy_to">Skicka kopia till</string>
     <string name="send_share">Skicka delning</string>
+    <string name="sendbutton_description">Ikonen för Skicka-knapp</string>
     <string name="server_not_reachable">Kunde inte ladda innehåll</string>
     <string name="server_not_reachable_content">Den här enheten är troligen inte ansluten till internet</string>
     <string name="set_as">Sätt som</string>
@@ -899,6 +904,7 @@
     <string name="share_option_required">Välj minst ett delningsalternativ innan du fortsätter.</string>
     <string name="share_permission_can_edit">Kan ändra</string>
     <string name="share_permission_file_request">Filförfrågan</string>
+    <string name="share_permission_secure_file_drop">Säkert filinkast</string>
     <string name="share_permission_view_only">Skrivskyddat läge</string>
     <string name="share_permissions">Delningsbehörigheter</string>
     <string name="share_re_share_permission">Dela</string>
@@ -1111,6 +1117,7 @@
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s -mappen. Vill du flytta dem dit i stället?</string>
     <string name="upload_quota_exceeded">Lagringskvot överskriden</string>
     <string name="upload_scan_doc_upload">Slams dokument från kamera</string>
+    <string name="upload_sync_conflict">Synkroniseringskonflikt, lös problemet manuellt</string>
     <string name="upload_sync_conflict_check">Det kan finnas en konflikt från din senaste uppladdning. Tryck för att kontrollera.</string>
     <string name="upload_sync_conflict_check_error">Kunde inte kontrollera uppladdningskonflikter. Försök igen.</string>
     <string name="upload_sync_conflict_checking">Kontrollerar uppladdningskonflikter…</string>
@@ -1162,6 +1169,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokal fil hittades inte</string>
     <string name="uploads_view_upload_status_failed_permission_error">Behörighetsfel</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Otillförlitligt servercertifikat</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Hämtar serverversion</string>
     <string name="uploads_view_upload_status_service_interrupted">App avslutad</string>
     <string name="uploads_view_upload_status_skip">Överhoppad</string>
     <string name="uploads_view_upload_status_skip_reason">En fil med samma namn finns redan.</string>
