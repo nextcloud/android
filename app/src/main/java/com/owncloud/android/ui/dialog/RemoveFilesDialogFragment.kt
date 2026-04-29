@@ -35,10 +35,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-/**
- * Dialog requiring confirmation before removing a collection of given OCFiles.
- * Triggers the removal according to the user response.
- */
 class RemoveFilesDialogFragment :
     ConfirmationDialogFragment(),
     ConfirmationDialogFragmentListener,
@@ -110,8 +106,9 @@ class RemoveFilesDialogFragment :
         offlineFiles.forEach(fileDataStorageManager::deleteOfflineOperation)
 
         val listener = getTypedActivity(OnFilesRemovedListener::class.java)
+        val fileActivity = getTypedActivity(FileActivity::class.java)
 
-        lifecycleScope.launch(Dispatchers.IO) {
+        fileActivity?.lifecycleScope?.launch(Dispatchers.IO) {
             val (autoUploadEntities, filesToRemove) =
                 FileUploadHelper.instance().splitFilesByAutoUpload(files, userAccountManager.user.accountName)
             withContext(Dispatchers.Main) {
@@ -123,10 +120,11 @@ class RemoveFilesDialogFragment :
                     )
                 }
 
-                val fileActivity = getTypedActivity(FileActivity::class.java)
-                fileActivity?.removeFiles(offlineFiles, filesToRemove, onlyLocalCopy, listener)
+                fileActivity.removeFiles(offlineFiles, filesToRemove, onlyLocalCopy, listener)
                 finishActionMode()
             }
+        } ?: run {
+            finishActionMode()
         }
     }
 
@@ -222,6 +220,7 @@ class RemoveFilesDialogFragment :
             val list = ArrayList<OCFile>().apply {
                 add(file)
             }
+
             return newInstance(list)
         }
     }

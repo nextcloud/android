@@ -514,7 +514,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private String checkFileName(String filename) {
-        return FileNameValidator.INSTANCE.checkFileName(filename, getCapabilities(), getNonNullContext(),null);
+        return FileNameValidator.INSTANCE.checkFileName(filename, getCapabilities(), getNonNullContext());
     }
 
     @Override

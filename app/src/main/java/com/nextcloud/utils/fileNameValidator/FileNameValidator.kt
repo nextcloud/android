@@ -34,6 +34,7 @@ object FileNameValidator {
      * @return An error message if the filename is invalid, null otherwise.
      */
     @Suppress("ReturnCount", "NestedBlockDepth")
+    @JvmOverloads
     fun checkFileName(
         filename: String,
         capability: OCCapability,
