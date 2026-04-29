@@ -67,6 +67,7 @@ fastlane/Fastfile
 obj/
 *.o
 *.a
+.cxx/
 
 # Testing & coverage
 .kotlin/
