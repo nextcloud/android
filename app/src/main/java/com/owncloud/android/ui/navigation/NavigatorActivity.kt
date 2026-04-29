@@ -56,32 +56,32 @@ class NavigatorActivity : DrawerActivity() {
      * Handles action bar leading button action
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            val onBackPressListener =
-                supportFragmentManager.fragments
-                    .filterIsInstance<NavigatorOnBackPressListener>()
-                    .firstOrNull()
-
-            if (onBackPressListener != null && onBackPressListener.canInterceptBackPress()) {
-                onBackPressListener.interceptBackPress()
-            } else {
-                val currentScreen = navigator.getTopScreen()
-
-                if (currentScreen?.hasDrawer == false) {
-                    onBackPressedDispatcher.onBackPressed()
-                } else {
-                    if (isDrawerOpen) {
-                        closeDrawer()
-                    } else {
-                        openDrawer()
-                    }
-                }
-            }
-
-            return true
+        if (item.itemId != android.R.id.home) {
+            return super.onOptionsItemSelected(item)
         }
 
-        return super.onOptionsItemSelected(item)
+        val onBackPressListener =
+            supportFragmentManager.fragments
+                .filterIsInstance<NavigatorOnBackPressListener>()
+                .firstOrNull()
+
+        if (onBackPressListener != null && onBackPressListener.canInterceptBackPress()) {
+            onBackPressListener.interceptBackPress()
+        } else {
+            val currentScreen = navigator.getTopScreen()
+
+            if (currentScreen?.hasDrawer == false) {
+                onBackPressedDispatcher.onBackPressed()
+            } else {
+                if (isDrawerOpen) {
+                    closeDrawer()
+                } else {
+                    openDrawer()
+                }
+            }
+        }
+
+        return true
     }
 
     override fun getMenuItemId(): Int {
