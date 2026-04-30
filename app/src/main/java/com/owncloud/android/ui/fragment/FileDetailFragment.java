@@ -316,9 +316,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.selector_tab_share));
         }
 
-        if (MimeTypeUtil.isImage(getFile())) {
-            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.filedetails_details).setIcon(R.drawable.selector_media));
-        }
+        // TODO - Change detail tab icon?
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.filedetails_details).setIcon(R.drawable.selector_media));
 
         viewThemeUtils.material.themeTabLayout(binding.tabLayout);
 
