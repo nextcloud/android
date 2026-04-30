@@ -1159,10 +1159,6 @@ public final class EncryptionUtils {
         return hashWithSalt.equals(newHash);
     }
 
-    public static String lockFolder(ServerFileInterface parentFile, OwnCloudClient client) throws UploadException {
-        return lockFolder(parentFile, client, -1);
-    }
-
     public static String lockFolder(ServerFileInterface parentFile, OwnCloudClient client, long counter) throws UploadException {
         // Lock folder
         LockFileRemoteOperation lockFileOperation = new LockFileRemoteOperation(parentFile.getLocalId(),

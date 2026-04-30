@@ -7,12 +7,13 @@
  */
 package com.owncloud.android.datamodel.e2e.v2.decrypted
 
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.EncryptionUtils
 
 data class DecryptedMetadata(
     val keyChecksums: MutableList<String> = mutableListOf(),
     val deleted: Boolean = false,
-    var counter: Long = 0,
+    var counter: Long = OCFile.FIRST_E2EE_COUNTER,
     val folders: MutableMap<String, String> = mutableMapOf(),
     val files: MutableMap<String, DecryptedFile> = mutableMapOf(),
     @Transient

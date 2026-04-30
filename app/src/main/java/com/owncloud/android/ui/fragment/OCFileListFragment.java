@@ -1945,7 +1945,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             if (remoteOperationResult.isSuccess()) {
                 // lock folder
-                String token = EncryptionUtils.lockFolder(folder, client);
+                String token = EncryptionUtils.lockFolder(folder, client, OCFile.FIRST_E2EE_COUNTER);
 
                 OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(user.getAccountName());
                 if (E2EVersionHelper.INSTANCE.isV2Plus(ocCapability)) {

@@ -260,7 +260,7 @@ class EncryptionUtilsV2 {
 
         if (transferredFiledrop) {
             // lock folder
-            val token = EncryptionUtils.lockFolder(ocFile, client)
+            val token = EncryptionUtils.lockFolder(ocFile, client, ocFile.e2eCounter)
 
             serializeAndUploadMetadata(
                 ocFile,
@@ -697,7 +697,7 @@ class EncryptionUtilsV2 {
             storageManager
         )
         // lock
-        val token = EncryptionUtils.lockFolder(folder, client)
+        val token = EncryptionUtils.lockFolder(folder, client, folder.e2eCounter)
 
         // upload
         serializeAndUploadMetadata(
