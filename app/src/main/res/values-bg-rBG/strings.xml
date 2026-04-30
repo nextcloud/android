@@ -249,6 +249,7 @@
     <string name="drawer_item_notifications">Известия</string>
     <string name="drawer_item_on_device">На устройството</string>
     <string name="drawer_item_personal_files">Лични файлове</string>
+    <string name="drawer_item_recently_modified">Последно преработени</string>
     <string name="drawer_item_shared">Споделени</string>
     <string name="drawer_item_trashbin">Изтрити файлове</string>
     <string name="drawer_item_uploads_list">Качени</string>
@@ -339,6 +340,7 @@
     <string name="file_list_empty_on_device">Свалените файлове и папки ще се показват тук.</string>
     <string name="file_list_empty_recent_files_description">Файловете и папките, които наскоро сте променили, ще се покажат тук.</string>
     <string name="file_list_empty_recent_files_headline">Няма наскоро модифицирани файлове</string>
+    <string name="file_list_empty_recently_modified">Няма модифицирани файлове през последните 7 дни</string>
     <string name="file_list_empty_search">Вероятно е в друга директория?</string>
     <string name="file_list_empty_shared">Споделените файлове и папки ще се показват тук.</string>
     <string name="file_list_empty_shared_headline">Все още нищо не е споделено</string>
@@ -638,6 +640,7 @@
     <string name="select_one_template">Моля, изберете един шаблон </string>
     <string name="select_template">Изберете шаблон</string>
     <string name="send">Изпрати</string>
+    <string name="sendbutton_description">Икона на бутон за изпращане</string>
     <string name="set_as">Задай като</string>
     <string name="set_online_status">Състояние</string>
     <string name="set_picture_as">Задай като</string>
@@ -667,6 +670,7 @@
     <string name="share_no_expiration_date_label">Срок на валидност</string>
     <string name="share_no_password_title">Задайте парола</string>
     <string name="share_permission_can_edit">Може да редактира</string>
+    <string name="share_permission_secure_file_drop">Защитено пускане на файлове</string>
     <string name="share_permission_view_only">Само изглед</string>
     <string name="share_re_share_permission">Споделяне</string>
     <string name="share_read_permission">Прочитане</string>
@@ -827,6 +831,7 @@
     <string name="upload_old_android">Шифроването е възможно само с > = Android 5.0</string>
     <string name="upload_query_move_foreign_files">В папка %1$s няма достатъчно място за копиране на избраните файлове. Желаете ли да бъдат преместени?</string>
     <string name="upload_scan_doc_upload">Сканиране на документ от камера</string>
+    <string name="upload_sync_conflict">Конфликт при синхронизирането, необходимо е да го отстраните ръчно</string>
     <string name="upload_unknown_error">Неизвестна грешка</string>
     <string name="uploader_btn_alternative_text">Избиране</string>
     <string name="uploader_btn_upload_text">Качване</string>
@@ -871,6 +876,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Локалният фаил не е намерен</string>
     <string name="uploads_view_upload_status_failed_permission_error">Грешка в правата</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Недоверен сървърен сертификат</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Извлича се версията на сървъра ...</string>
     <string name="uploads_view_upload_status_service_interrupted">Приложението бе терминирано</string>
     <string name="uploads_view_upload_status_succeeded">Завършено</string>
     <string name="uploads_view_upload_status_unknown_fail">Неизвестна грешка</string>

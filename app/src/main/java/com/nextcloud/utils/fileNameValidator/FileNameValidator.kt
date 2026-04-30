@@ -38,16 +38,14 @@ object FileNameValidator {
         filename: String,
         capability: OCCapability,
         context: Context,
-        existingFileNames: Set<String>? = null
+        existingFileNames: Set<String> = setOf()
     ): String? {
         if (filename.isBlank()) {
             return context.getString(R.string.filename_empty)
         }
 
-        existingFileNames?.let {
-            if (isFileNameAlreadyExist(filename, existingFileNames)) {
-                return context.getString(R.string.file_already_exists)
-            }
+        if (isFileNameAlreadyExist(filename, existingFileNames)) {
+            return context.getString(R.string.file_already_exists)
         }
 
         if (!capability.checkWCFRestrictions()) {

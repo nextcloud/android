@@ -100,7 +100,7 @@
     <string name="auth_testing_connection">Testar anslutning</string>
     <string name="auth_timeout_title">Servern svarar inte</string>
     <string name="auth_trying_to_login">Försöker logga in…</string>
-    <string name="auth_unauthorized">Felaktigt användarnamn eller lösenord</string>
+    <string name="auth_unauthorized">Fel användarnamn eller lösenord</string>
     <string name="auth_unknown_error_exception_title">Okänt fel: %1$s</string>
     <string name="auth_unknown_error_http_title">Okänt HTTP-fel uppstod!</string>
     <string name="auth_unknown_error_title">Okänt fel inträffade!</string>
@@ -134,7 +134,7 @@
     <string name="backup_title">Säkerhetskopiering av kontakter och kalender</string>
     <string name="battery_optimization_close">Stäng</string>
     <string name="battery_optimization_disable">Inaktivera</string>
-    <string name="battery_optimization_message">Din enhet kan ha batterioptimering aktiverad. För att auto-uppladdning ska fungera måste du utesluta denna app från batterioptimering.</string>
+    <string name="battery_optimization_message">Din enhet kan ha batterioptimering aktiverad. För att automatisk uppladdning ska fungera måste du utesluta denna app från batterioptimering.</string>
     <string name="battery_optimization_title">Batterioptimering</string>
     <string name="bottom_navigation_menu_assistant_label">Assistent</string>
     <string name="bottom_navigation_menu_favorites_label">Favoriter</string>
@@ -355,7 +355,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Den här mappen är inte tom.</string>
     <string name="end_to_end_encryption_generating_keys">Generera nya nycklar…</string>
     <string name="end_to_end_encryption_keywords_description">Alla 12 ord tillsammans utgör ett mycket starkt lösenord, så att bara du kan visa och använda dina krypterade filer. Vänligen spara det och förvara det på ett säkert sätt. </string>
-    <string name="end_to_end_encryption_not_enabled">End-to-end-kryptering är inte aktiverat på servern.</string>
+    <string name="end_to_end_encryption_not_enabled">Ände-till-ände-kryptering är inte aktiverat på servern.</string>
     <string name="end_to_end_encryption_passphrase_title">Notera ditt 12 ord långa krypteringslösenord</string>
     <string name="end_to_end_encryption_password">Lösenord…</string>
     <string name="end_to_end_encryption_retrieving_keys">Hämta nycklar…</string>
@@ -402,7 +402,7 @@
     <string name="etm_background_jobs_stop_test_job">Stoppa ett provuppdrag</string>
     <string name="etm_migrations">Sammanslagningar (appuppgradering)</string>
     <string name="etm_preferences">Inställningar</string>
-    <string name="etm_title">Teknisk testläge</string>
+    <string name="etm_title">Tekniskt testläge</string>
     <string name="etm_transfer">Filöverföring</string>
     <string name="etm_transfer_enqueue_test_download">Köa testnedladdning</string>
     <string name="etm_transfer_enqueue_test_upload">Köa testuppladdning</string>
@@ -566,7 +566,7 @@
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
-    <string name="internal_share_description_end_to_end_encrypted">Mottagare av delningar har alltid åtkomst till hela den krypterade mappen. Det går endast att dela med konton som redan har konfigurerat end-to-end-kryptering.</string>
+    <string name="internal_share_description_end_to_end_encrypted">Mottagare av delningar har alltid åtkomst till hela den krypterade mappen. Det går endast att dela med konton som redan har konfigurerat ände-till-ände-kryptering.</string>
     <string name="internal_share_headline_end_to_end_encrypted">End-to-end-krypterade delningar</string>
     <string name="internal_shares">Interna delningar</string>
     <string name="internal_two_way_sync">Intern tvåvägssynk</string>
@@ -749,7 +749,7 @@
     <string name="prefs_data_storage_location">Datalagringsplats</string>
     <string name="prefs_data_storage_location_summary">Hantera plats för datalagring</string>
     <string name="prefs_davx5_setup_error">Oväntat fel vid installation av DAVx⁵ (tidigare känd som DAVdroid)</string>
-    <string name="prefs_e2e_active">End-to-end-kryptering är inställd!</string>
+    <string name="prefs_e2e_active">Ände-till-ände-kryptering är inställd!</string>
     <string name="prefs_e2e_mnemonic">E2E krypteringsord</string>
     <string name="prefs_e2e_no_device_credentials">För att visa krypteringsord vänligen aktivera enhetsuppgifter.</string>
     <string name="prefs_enable_media_scan_notifications">Visa aviseringar om mediescanning</string>
@@ -764,7 +764,7 @@
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Lagra i undermappar baserat på datum</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Använd undermappar</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Alternativ för undermapp</string>
-    <string name="prefs_keys_exist">Lägg till end-to-end-kryptering för denna klient</string>
+    <string name="prefs_keys_exist">Lägg till ände-till-ände-kryptering för denna klient</string>
     <string name="prefs_license">Licens</string>
     <string name="prefs_lock">Applösenkod</string>
     <string name="prefs_lock_device_credentials_enabled">Enhetens inloggningsuppgifter aktiverade</string>
@@ -777,12 +777,12 @@
     <string name="prefs_manage_accounts">Hantera konton</string>
     <string name="prefs_recommend">Rekommendera till en vän</string>
     <string name="prefs_remove_e2e">Ta bort kryptering lokalt</string>
-    <string name="prefs_setup_e2e">Sätt upp end-to-end-kryptering</string>
+    <string name="prefs_setup_e2e">Ställ in ände-till-ände-kryptering</string>
     <string name="prefs_show_ecosystem_apps">Visa appväxlare</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud-appförslag i navigeringsrubriken</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
     <string name="prefs_sourcecode">Hämta källkod</string>
-    <string name="prefs_sycned_folders_summary">Hantera mappar för automatiskt uppladdning</string>
+    <string name="prefs_sycned_folders_summary">Hantera mappar för automatisk uppladdning</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mapp</string>
     <string name="prefs_synced_folders_remote_path_title">Extern mapp</string>
     <string name="prefs_theme_title">Tema</string>
@@ -813,10 +813,10 @@
     <string name="recommended_files_title">Rekommenderade filer</string>
     <string name="refresh_content">Återinläs innhåll</string>
     <string name="reload">Uppdatera</string>
-    <string name="remote">(avlägsen)</string>
+    <string name="remote">(fjärr)</string>
     <string name="remote_file_fetch_failed">Kunde inte hitta filen!</string>
-    <string name="remove_e2e">Du kan ta bort end-to-end-kryptering lokalt på denna klient</string>
-    <string name="remove_e2e_message">Du kan ta bort end-to-end-kryptering lokalt på denna klienten. Krypterade filer kommer finnas kvar på servern, men kommer inte synkroniseras med denna enheten längre.</string>
+    <string name="remove_e2e">Du kan ta bort ände-till-ände-kryptering lokalt på denna klient</string>
+    <string name="remove_e2e_message">Du kan ta bort ände-till-ände-kryptering lokalt på denna klienten. Krypterade filer kommer finnas kvar på servern, men kommer inte synkroniseras med denna enheten längre.</string>
     <string name="remove_fail_msg">Radering misslyckades</string>
     <string name="remove_local_account">Ta bort lokalt konto</string>
     <string name="remove_local_account_details">Ta bort kontot från enheten och radera alla lokala filer</string>
@@ -872,7 +872,7 @@
     <string name="set_online_status">Online-status</string>
     <string name="set_online_status_bottom_sheet_error_message">Kunde inte sätta status!</string>
     <string name="set_picture_as">Använd bild som</string>
-    <string name="setup_e2e">Under inställningen av end-to-end-kryptering kommer du att få en slumpmässig lista med 12 krypteringsord, som du behöver för att öppna dina filer på andra enheter. Orden kommer endast att lagras på den här enheten och kan visas igen på den här skärmen. Vänligen notera krypteringsorden på ett säkert ställe!</string>
+    <string name="setup_e2e">Under inställningen av ände-till-ände-kryptering kommer du att få en slumpmässig lista med 12 krypteringsord, som du behöver för att öppna dina filer på andra enheter. Orden kommer endast att lagras på den här enheten och kan visas igen på den här skärmen. Vänligen notera krypteringsorden på ett säkert ställe!</string>
     <string name="share">Dela</string>
     <string name="share_allow_download_and_sync_permission">Tillåt nedladdning och synkronisering</string>
     <string name="share_cannot_update_empty_note">Vi kunde inte uppdatera delningen. Lägg till en anteckning och försök igen.</string>
@@ -973,7 +973,7 @@
     <string name="storage_movies">Filmer</string>
     <string name="storage_music">Musik</string>
     <string name="storage_permission_all_files_access">Åtkomst till alla filer</string>
-    <string name="storage_permission_banner_auto_upload_text">Lagringsbehörighet krävs för auto-uppladdning.</string>
+    <string name="storage_permission_banner_auto_upload_text">Lagringsbehörighet krävs för automatisk uppladdning.</string>
     <string name="storage_permission_banner_upload_text">Lagringsbehörighet krävs för filuppladdningar.</string>
     <string name="storage_permission_dont_ask">Fråga inte</string>
     <string name="storage_permission_media_read_only">En läsåtkomst till media</string>
@@ -1189,12 +1189,12 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Webbplats</string>
     <string name="user_information_retrieval_error">Fel uppstod när användarinformation skulle hämtas</string>
-    <string name="userinfo_no_info_headline">Ingen personlig info inställd</string>
+    <string name="userinfo_no_info_headline">Ingen personlig info angiven</string>
     <string name="userinfo_no_info_text">Lägg till namn, bild och kontaktuppgifter på din profilsida.</string>
     <string name="username">Användarnamn</string>
     <string name="version_dev_download">Hämta</string>
     <string name="video_overlay_icon">Videoöverlagringsikon</string>
-    <string name="wait_a_moment">Vänligen vänta…</string>
+    <string name="wait_a_moment">Vänta…</string>
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
     <string name="warn_rename_extension">Att ändra tillägg kan göra att filen öppnas i en annan app</string>
@@ -1286,7 +1286,7 @@
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d vald</item>
-        <item quantity="other">%d vald</item>
+        <item quantity="other">%d valda</item>
     </plurals>
     <plurals name="delay_message">
         <item quantity="one">Fördröjd %d sekund på grund av för många felaktiga försök</item>

@@ -93,7 +93,9 @@ class OCFileListBottomSheetDialog(
     }
 
     private fun checkCreateEncryptedFolderVisibility() {
-        binding.menuEncryptedMkdir.setVisibleIf(file.isRootDirectory)
+        fileActivity.capabilities.ifPresent { capabilities ->
+            binding.menuEncryptedMkdir.setVisibleIf(!file.isEncrypted && capabilities.endToEndEncryption.isTrue)
+        }
     }
 
     private fun applyBranding() {

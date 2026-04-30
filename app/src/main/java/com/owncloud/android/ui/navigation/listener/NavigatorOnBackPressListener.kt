@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.navigation
+package com.owncloud.android.ui.navigation.listener
 
-enum class ActionBarStyle {
-    Plain,
-    Search
+interface NavigatorOnBackPressListener {
+    fun canInterceptBackPress(): Boolean
+    fun interceptBackPress()
 }

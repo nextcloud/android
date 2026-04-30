@@ -155,6 +155,7 @@
     <string name="drawer_item_notifications">Avisos</string>
     <string name="drawer_item_on_device">Nel preséu</string>
     <string name="drawer_item_personal_files">Ficheros personales</string>
+    <string name="drawer_item_recently_modified">Modificao apocayá</string>
     <string name="drawer_item_shared">Compartío</string>
     <string name="drawer_item_trashbin">Ficheros desaniciaos</string>
     <string name="drawer_item_uploads_list">Xubes </string>
@@ -625,6 +626,7 @@
     <string name="uploads_view_upload_status_failed_folder_error">Fallu de carpeta</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Ficheru llocal nun s\'atopó</string>
     <string name="uploads_view_upload_status_failed_permission_error">Fallu de permisu</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Diendo en cata de la versión del sirvidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicación finada</string>
     <string name="uploads_view_upload_status_succeeded">Completáu</string>
     <string name="uploads_view_upload_status_unknown_fail">Fallu desconocíu</string>

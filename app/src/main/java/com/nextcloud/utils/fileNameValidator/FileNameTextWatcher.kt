@@ -17,15 +17,12 @@ import com.nextcloud.utils.fileNameValidator.FileNameValidator.isFileHidden
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.status.OCCapability
 
-/**
- * A TextWatcher which wraps around [FileNameValidator]
- */
 @Suppress("LongParameterList")
 class FileNameTextWatcher(
     private val previousFileName: String?,
     private val context: Context,
     private val capabilitiesProvider: () -> OCCapability,
-    private val existingFileNamesProvider: () -> Set<String>?,
+    private val existingFileNamesProvider: () -> Set<String>,
     private val onValidationError: Consumer<String>,
     private val onValidationWarning: Consumer<String>,
     private val onValidationSuccess: Runnable

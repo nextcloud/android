@@ -228,6 +228,7 @@
     <string name="create_new_presentation">Ny præsentation</string>
     <string name="create_new_spreadsheet">Nyt regneark</string>
     <string name="create_rich_workspace">Tilføj mappebeskrivelse</string>
+    <string name="creates_rich_workspace">Tilføjer en mappebeskrivelse</string>
     <string name="credentials_disabled">Legitimationsoplysninger deaktiverede</string>
     <string name="daily_backup">Daglig backup</string>
     <string name="data_to_back_up">Data at sikkerhedskopiere</string>
@@ -293,6 +294,7 @@
     <string name="drawer_item_notifications">Notifikationer</string>
     <string name="drawer_item_on_device">På enhed</string>
     <string name="drawer_item_personal_files">Personlige filer</string>
+    <string name="drawer_item_recently_modified">Ændret for nylig</string>
     <string name="drawer_item_shared">Delt</string>
     <string name="drawer_item_trashbin">Slettede filer</string>
     <string name="drawer_item_uploads_list">Uploadede filer</string>
@@ -407,6 +409,7 @@
     <string name="file_list_empty_on_device">Hentede filer og mapper vil blive vist her.</string>
     <string name="file_list_empty_recent_files_description">Filer og mapper som du har ændret for nyligt, vil blive vist her.</string>
     <string name="file_list_empty_recent_files_headline">Ingen filer er ændret for nyligt</string>
+    <string name="file_list_empty_recently_modified">Fandt ikke nogen filer ændre inden for de sidste 7 dage</string>
     <string name="file_list_empty_search">Måske den er i en anden mappe?</string>
     <string name="file_list_empty_shared">Filer og mapper du deler vil blive vist her.</string>
     <string name="file_list_empty_shared_headline">Intet er delt endnu</string>
@@ -846,6 +849,7 @@
     <string name="share_option_required">Vælg venligst mindst én delingsmulighed inden du fortsætter.</string>
     <string name="share_permission_can_edit">Kan redigere</string>
     <string name="share_permission_file_request">Filforespørgsler</string>
+    <string name="share_permission_secure_file_drop">Sikkert fil drop</string>
     <string name="share_permission_view_only">Kun visning</string>
     <string name="share_permissions">Delingstilladelser</string>
     <string name="share_re_share_permission">Del</string>

@@ -55,6 +55,7 @@
     <string name="assistant_screen_empty_content_description">Versuchen Sie, eine Nachricht zu senden, um eine Unterhaltung anzustoßen.</string>
     <string name="assistant_screen_empty_content_title">Hallo! Womit kann ich Ihnen heute helfen?</string>
     <string name="assistant_screen_retry_response_generation">Antwortgenerierung wiederholen</string>
+    <string name="assistant_screen_select_task">Bitte eine Aufgabe auswählen</string>
     <string name="assistant_screen_send_message">Nachricht senden</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Liste der Unterhaltungen öffnen</string>
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
@@ -256,6 +257,7 @@
     <string name="create_new_presentation">Neue Präsentation</string>
     <string name="create_new_spreadsheet">Neue Tabelle</string>
     <string name="create_rich_workspace">Ordnerbeschreibung hinzufügen</string>
+    <string name="creates_rich_workspace">Fügt eine Ordnerbeschreibung hinzu</string>
     <string name="credentials_disabled">Zugangsdaten ausgeschaltet</string>
     <string name="daily_backup">Tägliche Sicherung</string>
     <string name="data_to_back_up">Zu sichernde Daten</string>
@@ -322,6 +324,7 @@
     <string name="drawer_item_on_device">Auf dem Gerät</string>
     <string name="drawer_item_personal_files">Persönliche Dateien</string>
     <string name="drawer_item_recent_files">Aktuelle Dateien</string>
+    <string name="drawer_item_recently_modified">Kürzlich geändert</string>
     <string name="drawer_item_shared">Geteilt</string>
     <string name="drawer_item_trashbin">Gelöschte Dateien</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -442,6 +445,7 @@
     <string name="file_list_empty_on_device">Heruntergeladene Dateien und Ordner werden hier angezeigt werden.</string>
     <string name="file_list_empty_recent_files_description">Vor kurzem geänderten Dateien und Ordner werden hier angezeigt.</string>
     <string name="file_list_empty_recent_files_headline">Keine kürzlich geänderten Dateien</string>
+    <string name="file_list_empty_recently_modified">Es wurden keine Dateien gefunden, die innerhalb der letzten 7 Tage geändert wurden</string>
     <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
     <string name="file_list_empty_shared">Von Ihnen geteilte Dateien und Ordner werden hier angezeigt.</string>
     <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
@@ -899,6 +903,7 @@
     <string name="share_option_required">Bitte mindestens eine Freigabeoption wählen, bevor Sie fortfahren.</string>
     <string name="share_permission_can_edit">Kann bearbeiten</string>
     <string name="share_permission_file_request">Dateianfrage</string>
+    <string name="share_permission_secure_file_drop">Sichere Dateiablage</string>
     <string name="share_permission_view_only">Nur anzeigen</string>
     <string name="share_permissions">Berechtigungen zum Teilen</string>
     <string name="share_re_share_permission">Teilen</string>

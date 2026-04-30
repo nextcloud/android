@@ -42,7 +42,6 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.OCShareExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -160,9 +159,58 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         if (fileActivity == null) {
             throw new IllegalArgumentException("FileActivity may not be null");
         }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (fileActivity == null) {
+            return;
+        }
 
         fileDataStorageManager = fileActivity.getStorageManager();
+        fileOperationsHelper = fileActivity.getFileOperationsHelper();
+
+        // start animation before loading process
+        final Animation blinkAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.blink);
+        binding.shimmerLayout.getRoot().startAnimation(blinkAnimation);
+
+        AccountManager accountManager = AccountManager.get(requireContext());
+        String userId = accountManager.getUserData(user.toPlatformAccount(),
+                                                   com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+
+        // internal shares
+        internalShareeListAdapter = new ShareeListAdapter(fileActivity,
+                                                          new ArrayList<>(),
+                                                          this,
+                                                          userId,
+                                                          user,
+                                                          viewThemeUtils,
+                                                          file.isEncrypted(),
+                                                          SharesType.INTERNAL);
+        internalShareeListAdapter.setHasStableIds(true);
+        binding.sharesListInternal.setAdapter(internalShareeListAdapter);
+        binding.sharesListInternal.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        // external shares
+        externalShareeListAdapter = new ShareeListAdapter(fileActivity,
+                                                          new ArrayList<>(),
+                                                          this,
+                                                          userId,
+                                                          user,
+                                                          viewThemeUtils,
+                                                          file.isEncrypted(),
+                                                          SharesType.EXTERNAL);
+        externalShareeListAdapter.setHasStableIds(true);
+        binding.sharesListExternal.setAdapter(externalShareeListAdapter);
+        binding.sharesListExternal.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.pickContactEmailBtn.setOnClickListener(v -> checkContactPermission());
+
+        // start loading process
         fetchSharees();
+
+        setupView();
     }
 
     private void fetchSharees() {
@@ -183,18 +231,27 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         ShareRepository shareRepository = new RemoteShareRepository(clientRepository, activity, storageManager);
         shareRepository.fetchSharees(file.getRemotePath(), () -> {
+            if (binding == null) {
+                return Unit.INSTANCE;
+            }
+
             refreshCapabilitiesFromDB();
             refreshSharesFromDB();
-            showShareContainer();
+            stopLoadingAnimationAndShowShareContainer();
             return Unit.INSTANCE;
         }, () -> {
-            showShareContainer();
+            if (binding == null) {
+                return Unit.INSTANCE;
+            }
+
+            stopLoadingAnimationAndShowShareContainer();
             DisplayUtils.showSnackMessage(this, R.string.error_fetching_sharees);
             return Unit.INSTANCE;
         });
     }
 
-    private void showShareContainer() {
+    // stop loading animation
+    private void stopLoadingAnimationAndShowShareContainer() {
         if (binding == null) {
             return;
         }
@@ -209,50 +266,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FileDetailsSharingFragmentBinding.inflate(inflater, container, false);
-
-        final Animation blinkAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.blink);
-        binding.shimmerLayout.getRoot().startAnimation(blinkAnimation);
-
-        fileOperationsHelper = fileActivity.getFileOperationsHelper();
-
-        AccountManager accountManager = AccountManager.get(requireContext());
-        String userId = accountManager.getUserData(user.toPlatformAccount(),
-                                                   com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
-
-        internalShareeListAdapter = new ShareeListAdapter(fileActivity,
-                                                      new ArrayList<>(),
-                                                      this,
-                                                      userId,
-                                                      user,
-                                                      viewThemeUtils,
-                                                      file.isEncrypted(),
-                                                      SharesType.INTERNAL);
-
-        internalShareeListAdapter.setHasStableIds(true);
-
-        binding.sharesListInternal.setAdapter(internalShareeListAdapter);
-
-        binding.sharesListInternal.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-        externalShareeListAdapter = new ShareeListAdapter(fileActivity,
-                              new ArrayList<>(),
-                              this,
-                              userId,
-                              user,
-                              viewThemeUtils,
-                              file.isEncrypted(),
-                              SharesType.EXTERNAL);
-
-        externalShareeListAdapter.setHasStableIds(true);
-
-        binding.sharesListExternal.setAdapter(externalShareeListAdapter);
-
-        binding.sharesListExternal.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-        binding.pickContactEmailBtn.setOnClickListener(v -> checkContactPermission());
-
-        setupView();
-
         return binding.getRoot();
     }
 
@@ -338,6 +351,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                binding.externalSharesHeadline.setText(getResources().getString(R.string.create_end_to_end_encrypted_share_title));
 
                fetchE2EECounter(() -> {
+                   if (binding == null) {
+                        return;
+                   }
+
                    if (file.getE2eCounter() == -1) {
                        // V1 cannot share
                        binding.searchContainer.setVisibility(View.GONE);
@@ -382,10 +399,12 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private void fetchE2EECounter(Runnable onComplete) {
+        final Context context = requireContext();
+
         new Thread(() -> {
             try {
                 OwnCloudClient client = clientFactory.create(user);
-                Object metadata = RefreshFolderOperation.getDecryptedFolderMetadata(true, file, client, user, requireContext());
+                Object metadata = RefreshFolderOperation.getDecryptedFolderMetadata(true, file, client, user, context);
                 if (metadata instanceof DecryptedFolderMetadataFile decryptedMetadata) {
                     file.setE2eCounter(decryptedMetadata.getMetadata().getCounter());
                     fileDataStorageManager.saveFile(file);
@@ -394,7 +413,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 Log_OC.e(TAG, "Error refreshing E2E counter: " + e.getMessage());
             }
 
-            requireActivity().runOnUiThread(onComplete);
+            final var activity = getActivity();
+            if (activity != null) {
+                activity.runOnUiThread(onComplete);
+            }
         }).start();
     }
 
@@ -539,6 +561,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      * @see #onUpdateShareInformation(RemoteOperationResult, OCFile)
      */
     public void onUpdateShareInformation(RemoteOperationResult result) {
+        if (binding == null) {
+            return;
+        }
+
         if (result.isSuccess()) {
             refreshUiFromDB();
         } else {
@@ -590,9 +616,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
     }
 
-    /**
-     * Get known server capabilities from DB
-     */
     public void refreshCapabilitiesFromDB() {
         capabilities = fileDataStorageManager.getCapability(user.getAccountName());
     }
@@ -603,6 +626,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     @SuppressFBWarnings("PSC")
     public void refreshSharesFromDB() {
+        if (binding == null) {
+            return;
+        }
+
         OCFile newFile = fileDataStorageManager.getFileById(file.getFileId());
         if (newFile != null) {
             file = newFile;
@@ -686,6 +713,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                     // email variable contains the selected contact's email address.
                     String email = cursor.getString(columnIndex);
                     binding.searchView.post(() -> {
+                        if (binding == null) {
+                            return;
+                        }
+
                         binding.searchView.setQuery(email, false);
                         binding.searchView.requestFocus();
                     });
@@ -707,13 +738,15 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        FileExtensionsKt.logFileSize(file, TAG);
         outState.putParcelable(ARG_FILE, file);
         outState.putParcelable(ARG_USER, user);
     }
 
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
+        if (binding == null) {
+            return;
+        }
         binding.sharedWithYouAvatar.setImageDrawable(avatarDrawable);
     }
 
@@ -745,6 +778,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Override
     public void unShare(OCShare share) {
+        if (binding == null) {
+            return;
+        }
+
         unShareWith(share);
 
         FileEntity entity = fileDataStorageManager.getFileEntity(file);

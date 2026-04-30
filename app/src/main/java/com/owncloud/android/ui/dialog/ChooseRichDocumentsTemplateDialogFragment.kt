@@ -251,7 +251,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
             name,
             fileDataStorageManager.getCapability(currentAccount.user),
             requireContext(),
-            fileNames
+            fileNames ?: setOf()
         )
 
         if (selectedTemplate == null) {
@@ -301,7 +301,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
             name,
             fileDataStorageManager.getCapability(currentAccount.user),
             requireContext(),
-            fileNames
+            fileNames ?: setOf()
         )
         val isExtension = (
             selectedTemplate == null ||

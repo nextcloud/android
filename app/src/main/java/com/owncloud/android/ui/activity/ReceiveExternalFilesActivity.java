@@ -99,6 +99,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
@@ -909,7 +910,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
             fileName,
             this,
             () -> capability,
-            () -> receiveExternalFilesAdapter.getFileNames(),
+            () -> receiveExternalFilesAdapter != null
+                ? receiveExternalFilesAdapter.getFileNames()
+                : Collections.emptySet(),
             validationError -> {
                 binding.userInputContainer.setError(validationError);
                 binding.uploaderChooseFolder.setEnabled(false);

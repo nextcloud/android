@@ -100,7 +100,7 @@ class RenameFileDialogFragment :
                 previousFileName = mTargetFile?.fileName,
                 context = binding.userInputContainer.context,
                 capabilitiesProvider = { oCCapability },
-                existingFileNamesProvider = { fileNames },
+                existingFileNamesProvider = { fileNames ?: setOf() },
                 onValidationError = { validationError: String ->
                     binding.userInputContainer.error = validationError
                     positiveButton?.isEnabled = false
@@ -162,7 +162,7 @@ class RenameFileDialogFragment :
                 newFileName = binding.userInput.text.toString()
             }
 
-            val errorMessage = checkFileName(newFileName, oCCapability, requireContext(), null)
+            val errorMessage = checkFileName(newFileName, oCCapability, requireContext())
             if (errorMessage != null) {
                 DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
                 return
