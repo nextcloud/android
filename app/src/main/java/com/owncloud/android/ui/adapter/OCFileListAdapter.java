@@ -296,7 +296,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             .findFirst()
             .ifPresent(file -> {
                 file.setEncrypted(encrypted);
-                file.setE2eCounter(0L);
+                file.setE2eCounter(OCFile.FIRST_E2EE_COUNTER);
                 mStorageManager.saveFile(file);
 
                 int position = getItemPosition(file);
