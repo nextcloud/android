@@ -46,6 +46,7 @@ import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 
+    public final static long FIRST_E2EE_COUNTER = 1L;
     public final static String PERMISSION_CAN_RESHARE = "R";
     public final static String PERMISSION_SHARED = "S";
     public final static String PERMISSION_MOUNTED = "M";
