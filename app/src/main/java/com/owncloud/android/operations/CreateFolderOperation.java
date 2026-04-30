@@ -137,7 +137,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
         try {
             // lock folder
-            token = EncryptionUtils.lockFolder(parent, client, OCFile.FIRST_E2EE_COUNTER);
+            token = EncryptionUtils.lockFolder(parent, client, OCFile.getFirstE2EECounter(false));
 
             // get metadata
             Pair<Boolean, DecryptedFolderMetadataFileV1> metadataPair = EncryptionUtils.retrieveMetadataV1(parent,
@@ -275,7 +275,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
         try {
             // lock folder
-            token = EncryptionUtils.lockFolder(parent, client, OCFile.FIRST_E2EE_COUNTER);
+            token = EncryptionUtils.lockFolder(parent, client, OCFile.getFirstE2EECounter(true));
 
             // get metadata
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();

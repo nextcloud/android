@@ -33,6 +33,7 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -296,9 +297,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             .findFirst()
             .ifPresent(file -> {
                 file.setEncrypted(encrypted);
-                file.setE2eCounter(OCFile.FIRST_E2EE_COUNTER);
+                final var isE2EEV2 = E2EVersionHelper.INSTANCE.isV2Plus(capability);
+                file.setE2eCounter(OCFile.getFirstE2EECounter(isE2EEV2));
                 mStorageManager.saveFile(file);
-
                 int position = getItemPosition(file);
                 if (position != -1) {
                     notifyItemChanged(position);
