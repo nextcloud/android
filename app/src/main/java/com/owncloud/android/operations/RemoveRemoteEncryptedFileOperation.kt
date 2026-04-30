@@ -176,6 +176,10 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             encryptionUtilsV2.removeFileFromMetadata(fileName, metadata)
         }
 
+        parentFolder.setE2eCounter(metadata.metadata.counter)
+        val storageManager = FileDataStorageManager(user, context.contentResolver)
+        storageManager.saveFile(parentFolder)
+
         encryptionUtilsV2.serializeAndUploadMetadata(
             parentFolder,
             metadata,
@@ -184,7 +188,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             metadataExists,
             context,
             user,
-            FileDataStorageManager(user, context.contentResolver)
+            storageManager
         )
 
         return Pair(result, delete)

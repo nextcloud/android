@@ -528,6 +528,7 @@ class EncryptionUtilsV2 {
         metadataFile: DecryptedFolderMetadataFile
     ): DecryptedFolderMetadataFile {
         metadataFile.metadata.folders.remove(encryptedFileName)
+        metadataFile.metadata.counter++
 
         return metadataFile
     }
@@ -536,6 +537,7 @@ class EncryptionUtilsV2 {
     fun removeFileFromMetadata(fileName: String, metadata: DecryptedFolderMetadataFile) {
         metadata.metadata.files.remove(fileName)
             ?: throw IllegalStateException("File $fileName not found in metadata!")
+        metadata.metadata.counter++
     }
 
     @Throws(IllegalStateException::class)
