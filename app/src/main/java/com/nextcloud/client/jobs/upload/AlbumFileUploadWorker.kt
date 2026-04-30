@@ -9,6 +9,7 @@ package com.nextcloud.client.jobs.upload
 
 import android.app.Notification
 import android.content.Context
+import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
@@ -18,6 +19,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
+import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
@@ -39,11 +41,13 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.operations.albums.CopyFileToAlbumOperation
+import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
 
 /**
@@ -68,16 +72,43 @@ class AlbumFileUploadWorker(
     companion object {
         val TAG: String = AlbumFileUploadWorker::class.java.simpleName
 
-        var currentUploadFileOperation: UploadFileOperation? = null
-
-        private const val BATCH_SIZE = 100
-
         const val ALBUM_NAME = "album_name"
 
         const val ACCOUNT = "data_account"
         const val UPLOAD_IDS = "uploads_ids"
         const val CURRENT_BATCH_INDEX = "batch_index"
         const val TOTAL_UPLOAD_SIZE = "total_upload_size"
+        private const val BATCH_SIZE = 100
+
+        private val activeOperations = ConcurrentHashMap<Long, UploadFileOperation>()
+
+        @JvmOverloads
+        fun cancelUpload(remotePath: String?, accountName: String?, onCompleted: () -> Unit = {}) {
+            val operation =
+                activeOperations.values.find { it.remotePath == remotePath && it.user.accountName == accountName }
+
+            operation?.let {
+                Log_OC.d(TAG, "upload operation is cancelled: $remotePath")
+                operation.cancel(ResultCode.USER_CANCELLED)
+                activeOperations.remove(operation.ocUploadId)
+            }
+
+            onCompleted()
+        }
+
+        suspend fun cancelUploads(remotePaths: List<String>, accountName: String) {
+            withContext(Dispatchers.IO) {
+                remotePaths.forEach {
+                    cancelUpload(it, accountName)
+                }
+            }
+        }
+
+        fun getCurrentUpload(id: Long?): UploadFileOperation? = activeOperations[id]
+
+        fun isUploading(remotePath: String?, accountName: String?): Boolean = activeOperations.values.any {
+            it.remotePath == remotePath && it.user.accountName == accountName
+        }
     }
 
     private var lastPercent = 0
@@ -87,11 +118,11 @@ class AlbumFileUploadWorker(
     private val fileUploadEventBroadcaster = FileUploadEventBroadcaster(localBroadcastManager)
 
     override suspend fun doWork(): Result = try {
+        trySetForeground()
+
         Log_OC.d(TAG, "AlbumFileUploadWorker started")
         val workerName = BackgroundJobManagerImpl.formatClassTag(this::class)
         backgroundJobManager.logStartOfWorker(workerName)
-
-        trySetForeground()
 
         val result = uploadFiles()
         backgroundJobManager.logEndOfWorker(workerName, result)
@@ -99,7 +130,8 @@ class AlbumFileUploadWorker(
         result
     } catch (t: Throwable) {
         Log_OC.e(TAG, "exception $t")
-        currentUploadFileOperation?.cancel(null)
+        activeOperations.values.forEach { it.cancel(null) }
+        activeOperations.clear()
         Result.failure()
     } finally {
         // Ensure all database operations are complete before signaling completion
@@ -111,8 +143,7 @@ class AlbumFileUploadWorker(
         try {
             val notificationTitle = notificationManager.currentOperationTitle
                 ?: context.getString(R.string.foreground_service_upload)
-
-            val notification = notificationManager.createSilentNotification(notificationTitle, R.drawable.uploads)
+            val notification = createNotification(notificationTitle)
             updateForegroundInfo(notification)
         } catch (e: Exception) {
             // Continue without foreground service - uploads will still work
@@ -123,7 +154,7 @@ class AlbumFileUploadWorker(
     override suspend fun getForegroundInfo(): ForegroundInfo {
         val notificationTitle = notificationManager.currentOperationTitle
             ?: context.getString(R.string.foreground_service_upload)
-        val notification = notificationManager.createSilentNotification(notificationTitle, R.drawable.uploads)
+        val notification = createNotification(notificationTitle)
 
         return ForegroundServiceHelper.createWorkerForegroundInfo(
             notificationId,
@@ -140,6 +171,18 @@ class AlbumFileUploadWorker(
         )
         setForeground(foregroundInfo)
     }
+
+    private fun createNotification(title: String): Notification =
+        NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
+            .setContentTitle(title)
+            .setSmallIcon(R.drawable.uploads)
+            .setOngoing(true)
+            .setSound(null)
+            .setVibrate(null)
+            .setOnlyAlertOnce(true)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setSilent(true)
+            .build()
 
     @Suppress("ReturnCount", "LongMethod", "DEPRECATION")
     private suspend fun uploadFiles(): Result = withContext(Dispatchers.IO) {
@@ -204,7 +247,7 @@ class AlbumFileUploadWorker(
 
             fileUploadEventBroadcaster.sendUploadEnqueued(context)
             val operation = createUploadFileOperation(upload, user)
-            currentUploadFileOperation = operation
+            activeOperations[upload.uploadId] = operation
 
             val currentIndex = (index + 1)
             val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
@@ -216,11 +259,9 @@ class AlbumFileUploadWorker(
             )
 
             val result = withContext(Dispatchers.IO) {
-                upload(operation, albumName, user, client)
+                upload(upload, operation, albumName, user, client)
             }
-            val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
-            uploadsStorageManager.updateStatus(entity, result.isSuccess)
-            currentUploadFileOperation = null
+            activeOperations.remove(upload.uploadId)
 
             if (result.code == ResultCode.QUOTA_EXCEEDED) {
                 Log_OC.w(TAG, "Quota exceeded, stopping uploads")
@@ -289,6 +330,7 @@ class AlbumFileUploadWorker(
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
     private suspend fun upload(
+        upload: OCUpload,
         operation: UploadFileOperation,
         albumName: String,
         user: User,
@@ -314,35 +356,43 @@ class AlbumFileUploadWorker(
             fileUploadEventBroadcaster.sendUploadStarted(operation, context)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
-            result = RemoteOperationResult(e)
-        } finally {
-            if (!isStopped) {
-                uploadsStorageManager.updateDatabaseUploadResult(result, operation)
-                // resolving file conflict will trigger normal file upload and shows two upload process
-                // one for normal and one for Album upload
-                // as customizing conflict can break normal upload
-                // so we are removing the upload if it's a conflict
-                // Note: this is fallback logic because default policy while uploading is RENAME
-                // if in some case code reach here it will remove the upload
-                // so we are checking it first and removing the upload
-                if (result.code == ResultCode.SYNC_CONFLICT) {
-                    uploadsStorageManager.removeUpload(
-                        operation.user.accountName,
-                        operation.remotePath
+            uploadsStorageManager.run {
+                uploadDao.getUploadById(upload.uploadId, user.accountName)?.let { entity ->
+                    updateStatus(
+                        entity,
+                        UploadsStorageManager.UploadStatus.UPLOAD_FAILED
                     )
-                } else {
-                    UploadErrorNotificationManager.handleResult(
-                        context,
-                        notificationManager,
-                        operation,
-                        result,
-                        onSameFileConflict = {
-                            withContext(Dispatchers.Main) {
+                }
+            }
+            result = RemoteOperationResult(e)
+        }
+
+        if (!isStopped) {
+            // resolving file conflict will trigger normal file upload and shows two upload process
+            // one for normal and one for Album upload
+            // as customizing conflict can break normal upload
+            // so we are removing the upload if it's a conflict
+            // Note: this is fallback logic because default policy while uploading is RENAME
+            // if in some case code reach here it will remove the upload
+            // so we are checking it first and removing the upload
+            if (result.code == ResultCode.SYNC_CONFLICT) {
+                activeOperations.remove(upload.uploadId)
+            } else {
+                UploadErrorNotificationManager.handleResult(
+                    context,
+                    notificationManager,
+                    operation,
+                    result,
+                    onSameFileConflict = {
+                        withContext(Dispatchers.Main) {
+                            val showSameFileAlreadyExistsNotification =
+                                inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
+                            if (showSameFileAlreadyExistsNotification) {
                                 notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
                             }
                         }
-                    )
-                }
+                    }
+                )
             }
         }
 
@@ -368,6 +418,9 @@ class AlbumFileUploadWorker(
 
         if (percent != lastPercent && (currentTime - lastUpdateTime) >= minProgressUpdateInterval) {
             notificationManager.run {
+                val currentUploadFileOperation =
+                    activeOperations.values.find { it.originalStoragePath == fileAbsoluteName }
+
                 val accountName = currentUploadFileOperation?.user?.accountName
                 val remotePath = currentUploadFileOperation?.remotePath
 
@@ -376,7 +429,7 @@ class AlbumFileUploadWorker(
                 if (accountName != null && remotePath != null) {
                     val key: String = FileUploadHelper.buildRemoteName(accountName, remotePath)
                     val boundListener = FileUploadHelper.mBoundListeners[key]
-                    val filename = currentUploadFileOperation?.fileName ?: ""
+                    val filename = currentUploadFileOperation.fileName ?: ""
 
                     boundListener?.onTransferProgress(
                         progressRate,
