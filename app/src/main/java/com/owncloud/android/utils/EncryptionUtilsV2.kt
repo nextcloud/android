@@ -48,7 +48,9 @@ import org.bouncycastle.cert.jcajce.JcaCertStore
 import org.bouncycastle.cms.CMSProcessableByteArray
 import org.bouncycastle.cms.CMSSignedData
 import org.bouncycastle.cms.CMSSignedDataGenerator
+import org.bouncycastle.cms.SignerInformation
 import org.bouncycastle.cms.jcajce.JcaSignerInfoGeneratorBuilder
+import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder
 import java.io.BufferedReader
@@ -667,97 +669,12 @@ class EncryptionUtilsV2 {
             }
         }
 
-        // TODO verify metadata
-        // if (!verifyMetadata(decryptedFolderMetadata)) {
-        //     throw IllegalStateException("Metadata is corrupt!")
-        // }
-
         // Auto rename if oc capability enabled for windows compatibility
         decryptedFolderMetadata.metadata.files.values.forEach { file ->
             file.filename = AutoRename.rename(file.filename, storageManager.getCapability(user))
         }
 
         return decryptedFolderMetadata
-
-        // handle filesDrops
-        // TODO re-add
-//        try {
-//            int filesDropCountBefore = encryptedFolderMetadata.getFiledrop().size();
-//            DecryptedFolderMetadataFile decryptedFolderMetadata = new EncryptionUtilsV2().decryptFolderMetadataFile(
-//                encryptedFolderMetadata,
-//                privateKey);
-//
-//            boolean transferredFiledrop = filesDropCountBefore > 0 && decryptedFolderMetadata.getFiles().size() ==
-//                encryptedFolderMetadata.getFiles().size() + filesDropCountBefore;
-//
-//            if (transferredFiledrop) {
-//                // lock folder, only if not already locked
-//                String token;
-//                if (existingLockToken == null) {
-//                    token = EncryptionUtils.lockFolder(folder, client);
-//                } else {
-//                    token = existingLockToken;
-//                }
-//
-//                // upload metadata
-//                EncryptedFolderMetadataFile encryptedFolderMetadataNew =
-//                encryptFolderMetadata(decryptedFolderMetadata, privateKey);
-//
-//                String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadataNew);
-//
-//                EncryptionUtils.uploadMetadata(folder,
-//                                               serializedFolderMetadata,
-//                                               token,
-//                                               client,
-//                                               true);
-//
-//                // unlock folder, only if not previously locked
-//                if (existingLockToken == null) {
-//                    RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(folder, client, token);
-//
-//                    if (!unlockFolderResult.isSuccess()) {
-//                        Log_OC.e(TAG, unlockFolderResult.getMessage());
-//
-//                        return null;
-//                    }
-//                }
-//            }
-//
-//            return decryptedFolderMetadata;
-//        } catch (Exception e) {
-//            Log_OC.e(TAG, e.getMessage());
-//            return null;
-//        }
-
-        // TODO to check
-//                try {
-//                    int filesDropCountBefore = 0;
-//                    if (encryptedFolderMetadata.getFiledrop() != null) {
-//                        filesDropCountBefore = encryptedFolderMetadata.getFiledrop().size();
-//                    }
-//                    DecryptedFolderMetadataFile decryptedFolderMetadata = EncryptionUtils.decryptFolderMetaData(
-//                        encryptedFolderMetadata,
-//                        privateKey,
-//                        arbitraryDataProvider,
-//                        user,
-//                        folder.getLocalId());
-//
-//                    boolean transferredFiledrop = filesDropCountBefore > 0 &&
-//                    decryptedFolderMetadata.getFiles().size() ==
-//                        encryptedFolderMetadata.getFiles().size() + filesDropCountBefore;
-//
-//                    if (transferredFiledrop) {
-//                        // lock folder
-//                        String token = EncryptionUtils.lockFolder(folder, client);
-//
-//                        // upload metadata
-//                        EncryptedFolderMetadata encryptedFolderMetadataNew =
-//                        encryptFolderMetadata(decryptedFolderMetadata,
-//                                              publicKey,
-//                                              arbitraryDataProvider,
-//                                              user,
-//                                              folder.getLocalId());
-//
     }
 
     @Throws(UploadException::class)
@@ -999,8 +916,35 @@ class EncryptionUtilsV2 {
         return runCatching {
             CmsSignatureVerifier().verifySignedData(cmsBytes, messageBytes, certificatesAsPEMs)
         }.getOrElse {
-            Log_OC.e(TAG, "Exception verifySignedData: $it")
-            false
+            Log_OC.w(TAG, "Exception verifySignedData: $it, trying bouncy castle")
+            verifySignedDataViaBouncyCastle(data, certs)
+        }
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    private fun verifySignedDataViaBouncyCastle(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
+        val signers = data.signerInfos.signers
+        if (signers.isEmpty()) {
+            Log_OC.e(TAG, "signers are empty")
+            return false
+        }
+
+        val signer: SignerInformation? = signers.first()
+        if (signer == null) {
+            Log_OC.e(TAG, "signer is null")
+            return false
+        }
+
+        val verifierBuilder = JcaSimpleSignerInfoVerifierBuilder()
+
+        return certs.any { cert ->
+            runCatching {
+                val verifier = verifierBuilder.build(cert.publicKey)
+                signer.verify(verifier)
+            }.getOrElse {
+                Log_OC.e(TAG, "Exception verifySignedDataViaBouncyCastle: $it")
+                false
+            }
         }
     }
 
