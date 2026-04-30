@@ -1,13 +1,14 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
  * SPDX-License-Identifier: GPL-3.0-or-later AND AGPL-3.0-or-later
  */
 package com.owncloud.android.ui.fragment
 
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -20,6 +21,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -27,8 +30,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.getParcelableArgument
-import kotlinx.coroutines.Job
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
@@ -36,6 +39,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.EmptyRecyclerView
+import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.activity.ToolbarActivity
@@ -44,11 +48,18 @@ import com.owncloud.android.ui.adapter.GalleryAdapter
 import com.owncloud.android.ui.asynctasks.GallerySearchTask
 import com.owncloud.android.ui.events.ChangeMenuEvent
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment
+import com.owncloud.android.utils.DisplayUtils
+import kotlinx.coroutines.Job
+import javax.inject.Inject
 
 @Suppress("ForbiddenComment", "ReturnCount", "MagicNumber", "MaxLineLength")
 class GalleryFragment :
     OCFileListFragment(),
     GalleryFragmentBottomSheetActions {
+
+    @Inject
+    lateinit var connectivityService: ConnectivityService
     var isPhotoSearchQueryRunning: Boolean = false
     private var photoSearchTask: Job? = null
     private var endDate: Long = 0
@@ -60,9 +71,17 @@ class GalleryFragment :
     override var columnsCount: Int = 0
         private set
 
+    // required for Albums
+    private var checkedFiles = setOf<OCFile>()
+    private var isFromAlbum = false // when opened from Albums to add items
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         searchFragment = true
+
+        arguments?.let {
+            isFromAlbum = it.getBoolean(AlbumsPickerActivity.EXTRA_FROM_ALBUM, false)
+        }
 
         setupBottomSheet()
         setupColumnCount()
@@ -71,7 +90,10 @@ class GalleryFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addMenuProvider()
+        // only show menu when not opened from media picker
+        if (!isFromAlbum) {
+            addMenuProvider()
+        }
     }
 
     private fun addMenuProvider() {
@@ -386,6 +408,11 @@ class GalleryFragment :
             return
         }
 
+        // NMC Customization: while picking media don't show subtitle
+        if (isFromAlbum) {
+            return
+        }
+
         toolbarActivity.runOnUiThread {
             if (!isAdded) {
                 return@runOnUiThread
@@ -413,6 +440,64 @@ class GalleryFragment :
 
     fun markAsFavorite(remotePath: String, favorite: Boolean) {
         adapter?.markAsFavorite(remotePath, favorite)
+    }
+
+    private val activityResult: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intentResult: ActivityResult ->
+            if (Activity.RESULT_OK == intentResult.resultCode) {
+                if (Activity.RESULT_OK == intentResult.resultCode) {
+                    intentResult.data?.let {
+                        val albumName = it.getStringExtra(AlbumsFragment.ARG_SELECTED_ALBUM_NAME)
+                        Log_OC.e(TAG, "Selected album name: $albumName")
+                        addFilesToAlbum(albumName)
+                    }
+                }
+            }
+        }
+
+    fun addImagesToAlbum(checkedFiles: Set<OCFile>) {
+        this.checkedFiles = checkedFiles
+        if (isFromAlbum) {
+            addFilesToAlbum(null)
+        } else {
+            activityResult.launch(AlbumsPickerActivity.intentForPickingAlbum(requireActivity()))
+        }
+    }
+
+    private fun addFilesToAlbum(albumName: String?) {
+        connectivityService.isNetworkAndServerAvailable { result ->
+            if (result) {
+                val files = checkedFiles
+                if (files.isEmpty()) {
+                    return@isNetworkAndServerAvailable
+                }
+
+                val paths = files.map { it.remotePath }.toCollection(ArrayList())
+
+                checkedFiles = emptySet()
+                exitSelectionMode()
+
+                if (!albumName.isNullOrEmpty()) {
+                    mContainerActivity
+                        .getFileOperationsHelper()
+                        .albumCopyFiles(paths, albumName)
+                } else {
+                    val resultIntent = Intent().apply {
+                        putStringArrayListExtra(
+                            AlbumsPickerActivity.EXTRA_MEDIA_FILES_PATH,
+                            paths
+                        )
+                    }
+                    requireActivity().setResult(Activity.RESULT_OK, resultIntent)
+                    requireActivity().finish()
+                }
+            } else {
+                DisplayUtils.showSnackMessage(
+                    requireActivity(),
+                    getString(R.string.offline_mode)
+                )
+            }
+        }
     }
 
     companion object {
