@@ -1180,7 +1180,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         if (useV2) {
             return 1L;
         } else {
-            return -1;
+            return 0L;
         }
     }
 }
