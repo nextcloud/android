@@ -38,13 +38,11 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
      * @param folder The folder to check, or `null` to refer to the root folder.
      * @return `true` if the folder should be displayed in grid mode, `false` if list mode is preferred.
      */
-    fun isGridViewPreferred(folder: OCFile?): Boolean {
-        return if (fragment.searchEvent != null) {
-            (fragment.searchEvent.toSearchType() != SearchType.SHARED_FILTER) &&
-                OCFileListFragment.FOLDER_LAYOUT_GRID == preferences.getFolderLayout(folder)
-        } else {
-            OCFileListFragment.FOLDER_LAYOUT_GRID == preferences.getFolderLayout(folder)
-        }
+    fun isGridViewPreferred(folder: OCFile?): Boolean = if (fragment.searchEvent != null) {
+        (fragment.searchEvent.toSearchType() != SearchType.SHARED_FILTER) &&
+            (OCFileListFragment.FOLDER_LAYOUT_GRID == preferences.getFolderLayout(folder))
+    } else {
+        OCFileListFragment.FOLDER_LAYOUT_GRID == preferences.getFolderLayout(folder)
     }
 
     fun setLayoutViewMode() {
@@ -104,14 +102,12 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
             layoutManager = GridLayoutManager(context, fragment.columnsCount)
             val gridLayoutManager = layoutManager
             gridLayoutManager.spanSizeLookup = object : SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    return if (position == fragment.adapter.itemCount - 1 ||
-                        position == 0 && fragment.adapter.shouldShowHeader()
-                    ) {
-                        gridLayoutManager.spanCount
-                    } else {
-                        1
-                    }
+                override fun getSpanSize(position: Int): Int = if (position == fragment.adapter.itemCount - 1 ||
+                    (position == 0 && fragment.adapter.shouldShowHeader())
+                ) {
+                    gridLayoutManager.spanCount
+                } else {
+                    1
                 }
             }
         } else {

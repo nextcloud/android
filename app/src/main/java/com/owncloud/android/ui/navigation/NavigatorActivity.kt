@@ -55,6 +55,7 @@ class NavigatorActivity : DrawerActivity() {
     /**
      * Handles action bar leading button action
      */
+    @Suppress("NestedBlockDepth")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             val onBackPressListener =

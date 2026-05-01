@@ -1043,7 +1043,6 @@
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="dismiss">Dismiss</string>
     <string name="drawer_item_trashbin">Deleted files</string>
-    <string name="trashbin_activity_title">Deleted files</string>
     <string name="action_empty_trashbin">Empty trash bin</string>
     <string name="trashbin_loading_failed">Loading trash bin failed!</string>
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>

@@ -317,7 +317,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 return;
             }
 
-            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), optionalCapabilities.get(), this, null);
+            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), optionalCapabilities.get(), this);
             if (filenameErrorMessage != null) {
                 DisplayUtils.showSnackMessage(this, filenameErrorMessage);
                 return;

@@ -1108,7 +1108,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void folderOnItemClick(OCFile file, int position) {
         if (requireActivity() instanceof FolderPickerActivity fpa) {
-            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), requireContext(), null);
+            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), requireContext());
             if (filenameErrorMessage != null) {
                 DisplayUtils.showSnackMessage(fpa, filenameErrorMessage);
                 return;
@@ -1463,7 +1463,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private String checkInvalidFilenames(Set<OCFile> checkedFiles) {
         for (OCFile file : checkedFiles) {
-            String errorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), requireContext(), null);
+            String errorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), requireContext());
             if (errorMessage != null) {
                 return errorMessage;
             }

@@ -217,7 +217,8 @@ android {
                 "MissingQuantity",
                 "IconXmlAndPng",
                 "SelectedPhotoAccess",
-                "UnsafeIntentLaunch"
+                "UnsafeIntentLaunch",
+                "OldTargetApi"
             )
         )
         htmlOutput = layout.buildDirectory.file("reports/lint/lint.html").get().asFile
