@@ -861,7 +861,7 @@
     <string name="send">Senden</string>
     <string name="send_copy_to">Kopie senden an</string>
     <string name="send_share">Freigabe senden</string>
-    <string name="sendbutton_description">Icon für die Senden-Schaltfläche</string>
+    <string name="sendbutton_description">Symbol für die Senden-Schaltfläche</string>
     <string name="server_not_reachable">Inhalt konnte nicht geladen werden</string>
     <string name="server_not_reachable_content">Das Gerät scheint nicht mit dem Internet verbunden zu sein</string>
     <string name="set_as">Setze als</string>
