@@ -123,7 +123,7 @@ class UploadListAdapter(
 
     private fun bindHeaderActionButton(holder: HeaderViewHolder, group: UploadListSection) {
         val iconRes = when (group.type) {
-            UploadListType.CURRENT, UploadListType.COMPLETED -> R.drawable.ic_close
+            UploadListType.CURRENT, UploadListType.COMPLETED, UploadListType.SKIPPED -> R.drawable.ic_close
             UploadListType.CANCELLED, UploadListType.FAILED -> R.drawable.ic_dots_vertical
             else -> return
         }
@@ -143,6 +143,11 @@ class UploadListAdapter(
 
                 UploadListType.COMPLETED -> {
                     uploadsStorageManager.clearSuccessfulUploads()
+                    loadUploadItemsFromDb()
+                }
+
+                UploadListType.SKIPPED -> {
+                    uploadsStorageManager.clearSkippedUploads()
                     loadUploadItemsFromDb()
                 }
 
