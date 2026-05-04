@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2023 Parneet Singh <gurayaparneet@gmail.com>
  * SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
@@ -461,6 +461,10 @@ class PreviewMediaFragment :
 
             R.id.action_download_file -> {
                 instance().downloadFileIfNotStartedBefore(user!!, file)
+            }
+
+            R.id.action_add_to_album -> {
+                containerActivity.fileOperationsHelper.addFileToAlbum(listOf<OCFile>(file))
             }
         }
     }

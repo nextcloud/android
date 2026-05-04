@@ -2,6 +2,7 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
   ~ SPDX-FileCopyrightText: 2022 Nextcloud GmbH
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -35,4 +36,6 @@
     <item name="action_retry" type="id"/>
     <item name="action_upload_from_camera_roll" type="id"/>
     <item name="action_select_images_from_account" type="id"/>
+    <item name="action_add_to_album" type="id"/>
+    <item name="action_share_album" type="id"/>
 </resources>

@@ -2,6 +2,7 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-FileCopyrightText: 2022 Álvaro Brey  <alvaro@alvarobrey.com>
   ~ SPDX-FileCopyrightText: 2015-2022 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
@@ -160,4 +161,5 @@
     <dimen name="adaptive_icon_padding">18dp</dimen>
     <dimen name="tag_height">18dp</dimen>
     <dimen name="search_bar_icon_size">24dp</dimen>
+    <dimen name="album_list_image_corner_radius">4dp</dimen>
 </resources>

@@ -17,6 +17,7 @@ import android.content.ComponentName
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -87,6 +88,7 @@ import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.operations.FetchRemoteFileOperation
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.SynchronizeFileOperation
+import com.owncloud.android.operations.albums.CopyFileToAlbumOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
@@ -647,6 +649,12 @@ class PreviewMediaActivity :
             R.id.action_download_file -> {
                 requestForDownload(file, null)
             }
+
+            R.id.action_add_to_album -> {
+                file?.let {
+                    fileOperationsHelper.addFileToAlbum(listOf(it))
+                }
+            }
         }
     }
 
@@ -666,12 +674,30 @@ class PreviewMediaActivity :
             }
         } else if (operation is SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result)
+        } else if (operation is CopyFileToAlbumOperation) {
+            onCopyAlbumFileOperationFinish(operation, result)
         }
     }
 
     private fun onSynchronizeFileOperationFinish(result: RemoteOperationResult<*>?) {
         result?.let {
             invalidateOptionsMenu()
+        }
+    }
+
+    private fun onCopyAlbumFileOperationFinish(operation: CopyFileToAlbumOperation, result: RemoteOperationResult<*>?) {
+        if (result?.isSuccess == true) {
+            DisplayUtils.showSnackMessage(this, getResources().getString(R.string.album_file_added_message))
+            Log_OC.e(PreviewImageActivity.TAG, "Files copied successfully")
+        } else {
+            try {
+                DisplayUtils.showSnackMessage(
+                    this,
+                    ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                )
+            } catch (e: Resources.NotFoundException) {
+                Log_OC.e(PreviewImageActivity.TAG, "Error while trying to show fail message ", e)
+            }
         }
     }
 

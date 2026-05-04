@@ -7,9 +7,7 @@
 
 package com.owncloud.android.ui.fragment.albums
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Parcelable
@@ -32,11 +30,13 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
+import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AlbumsFragmentBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 import com.owncloud.android.lib.resources.albums.ReadAlbumsRemoteOperation
+import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.albums.AlbumFragmentInterface
@@ -323,8 +323,6 @@ class AlbumsFragment :
     companion object {
         val TAG: String = AlbumsFragment::class.java.simpleName
         private const val ARG_IS_SELECTION_MODE = "is_selection_mode"
-        const val ARG_SELECTED_ALBUM_NAME = "selected_album_name"
-
         private const val MAX_COLUMN_SIZE_LANDSCAPE: Int = 4
         private const val MAX_COLUMN_SIZE_PORTRAIT: Int = 2
 
@@ -339,11 +337,10 @@ class AlbumsFragment :
 
     override fun onItemClick(album: PhotoAlbumEntry) {
         if (isSelectionMode) {
-            val resultIntent = Intent().apply {
-                putExtra(ARG_SELECTED_ALBUM_NAME, album.albumName)
+            getTypedActivity(AlbumsPickerActivity::class.java)?.let {
+                it.addFilesToAlbum(album.albumName)
+                it.finish()
             }
-            requireActivity().setResult(Activity.RESULT_OK, resultIntent)
-            requireActivity().finish()
             return
         }
         navigateToAlbumItemsFragment(album.albumName)

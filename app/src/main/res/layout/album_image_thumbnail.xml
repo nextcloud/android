@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/album_thumb_card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="@dimen/album_list_image_corner_radius"
+    app:strokeColor="@android:color/transparent"
+    app:strokeWidth="0dp"
+    tools:showIn="@layout/album_sharing_bottom_sheet">
+
+    <com.elyeproj.loaderviewlibrary.LoaderImageView
+        android:id="@+id/thumbnail_shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/file_image"
+        tools:visibility="visible" />
+</com.google.android.material.card.MaterialCardView>
+
+                        

@@ -99,6 +99,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.albums.CreateNewAlbumRemoteOperation
+import com.owncloud.android.lib.resources.albums.PublicShareLinkAlbumRemoteOperation
 import com.owncloud.android.lib.resources.albums.RemoveAlbumRemoteOperation
 import com.owncloud.android.lib.resources.albums.RenameAlbumRemoteOperation
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation
@@ -1394,7 +1395,6 @@ class FileDisplayActivity :
             highlightNavigationViewItem(menuItemId)
         }
 
-
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
             return
@@ -2165,6 +2165,10 @@ class FileDisplayActivity :
 
             is RemoveAlbumRemoteOperation -> {
                 albumOperationListener.onRemoveAlbumOperationFinish(operation, result)
+            }
+
+            is PublicShareLinkAlbumRemoteOperation -> {
+                albumOperationListener.onAlbumPublicLinkOperationFinish(operation, result)
             }
         }
     }

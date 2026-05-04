@@ -13,6 +13,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.albums.CreateNewAlbumRemoteOperation
+import com.owncloud.android.lib.resources.albums.PublicShareLinkAlbumRemoteOperation
 import com.owncloud.android.lib.resources.albums.RemoveAlbumRemoteOperation
 import com.owncloud.android.lib.resources.albums.RenameAlbumRemoteOperation
 import com.owncloud.android.operations.albums.CopyFileToAlbumOperation
@@ -73,10 +74,7 @@ class AlbumOperationListener(private val activity: FileDisplayActivity) {
         }
     }
 
-    fun onCreateAlbumOperationFinish(
-        operation: CreateNewAlbumRemoteOperation,
-        result: RemoteOperationResult<*>
-    ) {
+    fun onCreateAlbumOperationFinish(operation: CreateNewAlbumRemoteOperation, result: RemoteOperationResult<*>) {
         if (result.isSuccess) {
             val fragment = activity.supportFragmentManager.findFragmentByTag(AlbumsFragment.TAG)
             if (fragment is AlbumsFragment) {
@@ -92,6 +90,21 @@ class AlbumOperationListener(private val activity: FileDisplayActivity) {
             } catch (e: Resources.NotFoundException) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e)
             }
+        }
+    }
+
+    fun onAlbumPublicLinkOperationFinish(
+        operation: PublicShareLinkAlbumRemoteOperation,
+        result: RemoteOperationResult<*>
+    ) {
+        if (result.isSuccess) {
+            val fragment = activity.supportFragmentManager.findFragmentByTag(AlbumItemsFragment.TAG)
+            if (fragment is AlbumItemsFragment) {
+                fragment.refreshAlbumMetaData()
+            }
+        } else {
+            showErrorMessage(operation, result)
+            showUntrustedCertDialog(result)
         }
     }
 

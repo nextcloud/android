@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2024-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -118,6 +118,7 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumSharingBottomSheet;
 import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.fragment.community.CommunityFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
@@ -536,4 +537,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract AlbumItemActionsBottomSheet albumItemActionsBottomSheet();
+
+    @ContributesAndroidInjector
+    abstract AlbumSharingBottomSheet albumSharingBottomSheet();
 }

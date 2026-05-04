@@ -34,10 +34,12 @@
     <string name="hidden_album_name">Album name cannot start with invalid character</string>
     <string name="add_more">Add more</string>
     <string name="album_rename">Rename album</string>
+    <string name="album_share">Share Album</string>
     <string name="rename_dialog_button">Rename</string>
     <string name="album_delete">Delete album</string>
     <string name="album_delete_failed_message">Failed to delete few of the files.</string>
     <string name="album_items_text">%d Items — %s</string>
+    <string name="album_elements_text">%d Items</string>
     <string name="album_already_exists">Album already exists</string>
     <string name="album_picker_toolbar_title">Pick album</string>
     <string name="media_picker_toolbar_title">Pick media files</string>
@@ -1549,4 +1551,9 @@
     <string name="sync_conflict_notification_description">Upload conflicts detected. Open uploads to resolve.</string>
     <string name="sync_conflict_notification_action_title">Resolve conflicts</string>
     <string name="extension_cannot_be_changed">Extension cannot be changed</string>
+
+    <string name="album_create_new_link">Create new link</string>
+    <string name="album_share_link">Share link to album</string>
+    <string name="album_stop_sharing">Stop sharing</string>
+    <string name="album_default_sharing_text">Everyone can only view</string>
 </resources>
