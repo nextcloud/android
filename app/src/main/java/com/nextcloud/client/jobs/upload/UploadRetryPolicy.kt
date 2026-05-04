@@ -8,16 +8,22 @@
 package com.nextcloud.client.jobs.upload
 
 import com.nextcloud.utils.TimeConstants
+import kotlin.random.Random
 
 class UploadRetryPolicy {
     private var delayInMs: Long = 0
+
+    companion object {
+        private const val MAX_RANDOM_DELAY = 200L
+    }
 
     fun increase() {
         if (delayInMs >= TimeConstants.ONE_SECOND.times(10)) {
             return
         }
 
-        delayInMs += TimeConstants.ONE_SECOND
+        // random next long used for prevent retrying at the same time if uploads are in parallel
+        delayInMs += (TimeConstants.ONE_SECOND + Random.nextLong(MAX_RANDOM_DELAY))
     }
 
     fun getDelay(): Long = delayInMs
