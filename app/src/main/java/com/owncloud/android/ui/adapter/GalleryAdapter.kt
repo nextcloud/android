@@ -23,25 +23,19 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.toGalleryItems
 import com.owncloud.android.databinding.GalleryHeaderBinding
 import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
-import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
-import com.owncloud.android.ui.fragment.GalleryFragment
-import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog
-import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
-import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import me.zhanghai.android.fastscroll.PopupTextProvider
-import java.util.Calendar
-import java.util.Date
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class GalleryAdapter(
@@ -210,56 +204,9 @@ class GalleryAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun showAllGalleryItems(
-        remotePath: String,
-        mediaState: GalleryFragmentBottomSheetDialog.MediaState,
-        photoFragment: GalleryFragment
-    ) {
-        val items = storageManager.allGalleryItems
-
-        val filteredList = items.filter { it != null && it.remotePath.startsWith(remotePath) }
-
-        setMediaFilter(
-            filteredList,
-            mediaState,
-            photoFragment
-        )
-    }
-
-    // Set Image/Video List According to Selection of Hide/Show Image/Video
-    @SuppressLint("NotifyDataSetChanged")
-    private fun setMediaFilter(
-        items: List<OCFile>,
-        mediaState: GalleryFragmentBottomSheetDialog.MediaState,
-        photoFragment: GalleryFragment
-    ) {
-        val finalSortedList: List<OCFile> = when (mediaState) {
-            GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
-                items.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
-            }
-
-            GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
-                items.filter { MimeTypeUtil.isVideo(it.mimeType) }.distinct()
-            }
-
-            else -> items
-        }
-
-        if (finalSortedList.isEmpty()) {
-            photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
-        }
-
-        files = finalSortedList.toGalleryItems()
+    fun updateList(items: List<GalleryItems>, ) {
+        files = items
         notifyDataSetChanged()
-    }
-
-    private fun transformToRows(list: List<OCFile>): List<GalleryRow> {
-        if (list.isEmpty()) return emptyList()
-
-        return list
-            .sortedByDescending { it.modificationTimestamp }
-            .chunked(columns)
-            .map { chunk -> GalleryRow(chunk, defaultThumbnailSize, defaultThumbnailSize) }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -267,14 +214,6 @@ class GalleryAdapter(
         files = emptyList()
         notifyDataSetChanged()
     }
-
-    private fun firstOfMonth(timestamp: Long): Long = Calendar.getInstance().apply {
-        time = Date(timestamp)
-        set(Calendar.DAY_OF_MONTH, getActualMinimum(Calendar.DAY_OF_MONTH))
-        set(Calendar.HOUR_OF_DAY, 0)
-        set(Calendar.MINUTE, 0)
-        set(Calendar.SECOND, 0)
-    }.timeInMillis
 
     fun isEmpty(): Boolean = files.isEmpty()
 
@@ -365,19 +304,9 @@ class GalleryAdapter(
         val allFiles = getAllFiles()
         allFiles.firstOrNull { it.remotePath == remotePath }?.also { file ->
             file.isFavorite = favorite
-            files = allFiles.toGalleryItems()
+            files = allFiles.toGalleryItems(columns, defaultThumbnailSize)
             notifyItemChanged(file)
         }
-    }
-
-    private fun List<OCFile>.toGalleryItems(): List<GalleryItems> {
-        if (isEmpty()) return emptyList()
-
-        return groupBy { firstOfMonth(it.modificationTimestamp) }
-            .map { (date, filesList) ->
-                GalleryItems(date, transformToRows(filesList))
-            }
-            .sortedByDescending { it.date }
     }
 
     override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) = Unit

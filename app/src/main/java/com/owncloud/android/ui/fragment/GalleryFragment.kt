@@ -24,12 +24,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.utils.extensions.getAllGalleryItemsSuspended
 import com.nextcloud.utils.extensions.getParcelableArgument
 import kotlinx.coroutines.Job
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.toGalleryItems
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -44,6 +47,10 @@ import com.owncloud.android.ui.adapter.GalleryAdapter
 import com.owncloud.android.ui.asynctasks.GallerySearchTask
 import com.owncloud.android.ui.events.ChangeMenuEvent
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
+import com.owncloud.android.utils.MimeTypeUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Suppress("ForbiddenComment", "ReturnCount", "MagicNumber", "MaxLineLength")
 class GalleryFragment :
@@ -372,12 +379,34 @@ class GalleryFragment :
     fun showAllGalleryItems() {
         val mediaState = bottomSheet?.currMediaState ?: return
 
-        adapter?.showAllGalleryItems(
-            preferences.getLastSelectedMediaFolder(),
-            mediaState,
-            this
-        )
-        updateSubtitle(mediaState)
+        lifecycleScope.launch(Dispatchers.IO) {
+            val items = mContainerActivity.storageManager.getAllGalleryItemsSuspended()
+            val remotePath = preferences.getLastSelectedMediaFolder()
+            val filteredItems = items.filter { it.remotePath.startsWith(remotePath) }
+            val sortedFilteredItems: List<OCFile> = when (mediaState) {
+                MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
+                    filteredItems.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
+                }
+
+                MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
+                    filteredItems.filter { MimeTypeUtil.isVideo(it.mimeType) }.distinct()
+                }
+
+                else -> filteredItems
+            }
+
+            if (sortedFilteredItems.isEmpty()) {
+                setEmptyListMessage(SearchType.GALLERY_SEARCH)
+            }
+
+            val galleryItems =
+                sortedFilteredItems.toGalleryItems(columnsCount, ThumbnailsCacheManager.getThumbnailDimension())
+
+            withContext(Dispatchers.Main) {
+                adapter?.updateList(galleryItems)
+                updateSubtitle(mediaState)
+            }
+        }
     }
 
     private fun updateSubtitle(mediaState: MediaState?) {

@@ -8,12 +8,16 @@
 package com.nextcloud.utils.extensions
 
 import com.owncloud.android.MainApp
+import com.owncloud.android.datamodel.GalleryItems
+import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.OCFileDepth
 import com.owncloud.android.datamodel.OCFileDepth.DeepLevel
 import com.owncloud.android.datamodel.OCFileDepth.FirstLevel
 import com.owncloud.android.datamodel.OCFileDepth.Root
 import com.owncloud.android.utils.FileStorageUtils
+import java.util.Calendar
+import java.util.Date
 
 fun List<OCFile>.filterFilenames(): List<OCFile> = distinctBy { it.fileName }
 
@@ -49,4 +53,31 @@ fun OCFile?.getDepth(): OCFileDepth? {
 
     // Otherwise, it's a subdirectory of a subdirectory
     return DeepLevel
+}
+
+fun List<OCFile>.toGalleryItems(columns: Int, defaultSize: Int): List<GalleryItems> {
+    if (isEmpty()) return emptyList()
+
+    return groupBy { firstOfMonth(it.modificationTimestamp) }
+        .map { (date, filesList) ->
+            GalleryItems(date, transformToRows(filesList, columns, defaultSize))
+        }
+        .sortedByDescending { it.date }
+}
+
+private fun firstOfMonth(timestamp: Long): Long = Calendar.getInstance().apply {
+    time = Date(timestamp)
+    set(Calendar.DAY_OF_MONTH, getActualMinimum(Calendar.DAY_OF_MONTH))
+    set(Calendar.HOUR_OF_DAY, 0)
+    set(Calendar.MINUTE, 0)
+    set(Calendar.SECOND, 0)
+}.timeInMillis
+
+private fun transformToRows(list: List<OCFile>, columns: Int, defaultSize: Int): List<GalleryRow> {
+    if (list.isEmpty()) return emptyList()
+
+    return list
+        .sortedByDescending { it.modificationTimestamp }
+        .chunked(columns)
+        .map { chunk -> GalleryRow(chunk, defaultSize, defaultSize) }
 }
