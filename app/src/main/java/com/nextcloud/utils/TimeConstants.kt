@@ -8,5 +8,6 @@
 package com.nextcloud.utils
 
 object TimeConstants {
+    const val ONE_SECOND = 1000L
     const val MILLIS_PER_SECOND = 1000
 }
