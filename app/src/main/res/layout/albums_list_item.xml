@@ -63,10 +63,13 @@
             android:id="@+id/Filename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/standard_half_padding"
             android:ellipsize="middle"
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textSize="@dimen/two_line_primary_text_size"
+            app:drawableTint="@color/text_color"
+            tools:drawableEndCompat="@drawable/ic_share"
             tools:text="@string/placeholder_filename" />
 
         <TextView

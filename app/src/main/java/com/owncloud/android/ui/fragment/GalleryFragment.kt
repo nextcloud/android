@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.fragment
 
-import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -21,8 +20,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -30,7 +27,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.BuildConfig
@@ -48,18 +44,12 @@ import com.owncloud.android.ui.adapter.GalleryAdapter
 import com.owncloud.android.ui.asynctasks.GallerySearchTask
 import com.owncloud.android.ui.events.ChangeMenuEvent
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
-import com.owncloud.android.ui.fragment.albums.AlbumsFragment
-import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.Job
-import javax.inject.Inject
 
-@Suppress("ForbiddenComment", "ReturnCount", "MagicNumber", "MaxLineLength")
+@Suppress("ForbiddenComment", "ReturnCount", "MagicNumber", "MaxLineLength", "TooManyFunctions")
 class GalleryFragment :
     OCFileListFragment(),
     GalleryFragmentBottomSheetActions {
-
-    @Inject
-    lateinit var connectivityService: ConnectivityService
     var isPhotoSearchQueryRunning: Boolean = false
     private var photoSearchTask: Job? = null
     private var endDate: Long = 0
@@ -72,7 +62,6 @@ class GalleryFragment :
         private set
 
     // required for Albums
-    private var checkedFiles = setOf<OCFile>()
     private var isFromAlbum = false // when opened from Albums to add items
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -442,61 +431,11 @@ class GalleryFragment :
         adapter?.markAsFavorite(remotePath, favorite)
     }
 
-    private val activityResult: ActivityResultLauncher<Intent> =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intentResult: ActivityResult ->
-            if (Activity.RESULT_OK == intentResult.resultCode) {
-                if (Activity.RESULT_OK == intentResult.resultCode) {
-                    intentResult.data?.let {
-                        val albumName = it.getStringExtra(AlbumsFragment.ARG_SELECTED_ALBUM_NAME)
-                        Log_OC.e(TAG, "Selected album name: $albumName")
-                        addFilesToAlbum(albumName)
-                    }
-                }
-            }
-        }
-
     fun addImagesToAlbum(checkedFiles: Set<OCFile>) {
-        this.checkedFiles = checkedFiles
         if (isFromAlbum) {
-            addFilesToAlbum(null)
-        } else {
-            activityResult.launch(AlbumsPickerActivity.intentForPickingAlbum(requireActivity()))
-        }
-    }
-
-    private fun addFilesToAlbum(albumName: String?) {
-        connectivityService.isNetworkAndServerAvailable { result ->
-            if (result) {
-                val files = checkedFiles
-                if (files.isEmpty()) {
-                    return@isNetworkAndServerAvailable
-                }
-
-                val paths = files.map { it.remotePath }.toCollection(ArrayList())
-
-                checkedFiles = emptySet()
-                exitSelectionMode()
-
-                if (!albumName.isNullOrEmpty()) {
-                    mContainerActivity
-                        .getFileOperationsHelper()
-                        .albumCopyFiles(paths, albumName)
-                } else {
-                    val resultIntent = Intent().apply {
-                        putStringArrayListExtra(
-                            AlbumsPickerActivity.EXTRA_MEDIA_FILES_PATH,
-                            paths
-                        )
-                    }
-                    requireActivity().setResult(Activity.RESULT_OK, resultIntent)
-                    requireActivity().finish()
-                }
-            } else {
-                DisplayUtils.showSnackMessage(
-                    requireActivity(),
-                    getString(R.string.offline_mode)
-                )
-            }
+            getTypedActivity(AlbumsPickerActivity::class.java)?.addFilesToAlbum(checkedFiles)
+            exitSelectionMode()
+            requireActivity().finish()
         }
     }
 

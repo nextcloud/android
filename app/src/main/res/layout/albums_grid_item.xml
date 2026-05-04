@@ -50,14 +50,17 @@
 
             <TextView
                 android:id="@+id/Filename"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorOnSurface"
-                android:textStyle="bold"
-                android:textSize="14sp"
+                android:drawablePadding="@dimen/standard_half_padding"
+                android:ellipsize="end"
                 android:maxLines="1"
-                tools:text="Album"
-                android:ellipsize="end"/>
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:drawableTint="@color/text_color"
+                tools:drawableEndCompat="@drawable/ic_share"
+                tools:text="Album" />
 
             <TextView
                 android:id="@+id/file_info"

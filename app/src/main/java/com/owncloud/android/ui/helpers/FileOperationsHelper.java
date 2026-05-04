@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023-2025 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2023-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018-2020 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018-2020 Andy Scherzinger <info@andy-scherzinger.de>
@@ -55,6 +55,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.ui.activity.AlbumsPickerActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -1072,20 +1073,36 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
     }
 
+    public void addFileToAlbum(Collection<OCFile> files) {
+        final ArrayList<String> paths = new ArrayList<>(files.size());
+        for (OCFile file : files) {
+            paths.add(file.getRemotePath());
+        }
+
+        fileActivity.startActivity(AlbumsPickerActivity.Companion.intentForPickingAlbum(fileActivity, paths));
+    }
+
     public void albumCopyFiles(final List<String> filePaths, final String targetFolder) {
         if (filePaths == null || filePaths.isEmpty()) {
             return;
         }
 
-        for (String path : filePaths) {
-            Intent service = new Intent(fileActivity, OperationsService.class);
-            service.setAction(OperationsService.ACTION_ALBUM_COPY_FILE);
-            service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder);
-            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
-        }
-        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+        connectivityService.isNetworkAndServerAvailable(result -> {
+            if (result) {
+                for (String path : filePaths) {
+                    Intent service = new Intent(fileActivity, OperationsService.class);
+                    service.setAction(OperationsService.ACTION_ALBUM_COPY_FILE);
+                    service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder);
+                    service.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
+                    service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+                    mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+                }
+                fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+            } else {
+                DisplayUtils.showSnackMessage(fileActivity, fileActivity.getString(R.string.offline_mode));
+
+            }
+        });
     }
 
     public void renameAlbum(String oldAlbumName, String newAlbumName) {
@@ -1105,6 +1122,17 @@ public class FileOperationsHelper {
         service.setAction(OperationsService.ACTION_REMOVE_ALBUM);
         service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_ALBUM_NAME, albumName);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+    }
+
+    public void albumPublicShareLink(String albumName, boolean isCreateShare) {
+        Intent service = new Intent(fileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_PUBLIC_SHARE_LINK_ALBUM);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_ALBUM_NAME, albumName);
+        service.putExtra(OperationsService.EXTRA_CREATE_ALBUM_SHARE, isCreateShare);
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));

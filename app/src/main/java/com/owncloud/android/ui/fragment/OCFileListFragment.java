@@ -2,7 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2018-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2020 Joris Bodin <joris.bodin@infomaniak.com>
@@ -876,13 +876,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
             setFabVisible(false);
 
             if (OCFileListFragment.this instanceof GalleryFragment) {
-                final MenuItem addAlbumItem = menu.findItem(R.id.add_to_album);
-                // show add to album button for gallery to add media to Album
-                addAlbumItem.setVisible(true);
-
                 // hide the 3 dot menu icon while picking media for Albums
                 if (requireActivity() instanceof AlbumsPickerActivity) {
                     item.setVisible(false);
+
+                    final MenuItem addAlbumItem = menu.findItem(R.id.add_to_album);
+                    // show add to album button when picking files from media to add to album
+                    addAlbumItem.setVisible(true);
                 }
             }
 
@@ -1460,6 +1460,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return true;
         } else if (itemId == R.id.action_lock_file) {
             // TODO call lock API
+        } else if (itemId == R.id.action_add_to_album) {
+            mContainerActivity.getFileOperationsHelper().addFileToAlbum(checkedFiles);
+            exitSelectionMode();
+            return true;
         }
 
         return false;
