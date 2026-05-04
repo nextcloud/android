@@ -58,20 +58,21 @@ fun OCFile?.getDepth(): OCFileDepth? {
 fun List<OCFile>.toGalleryItems(columns: Int, defaultSize: Int): List<GalleryItems> {
     if (isEmpty()) return emptyList()
 
-    return groupBy { firstOfMonth(it.modificationTimestamp) }
+    val calendar = Calendar.getInstance()
+    return groupBy {
+        calendar.timeInMillis = it.modificationTimestamp
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        calendar.timeInMillis
+    }
         .map { (date, filesList) ->
             GalleryItems(date, transformToRows(filesList, columns, defaultSize))
         }
         .sortedByDescending { it.date }
 }
-
-private fun firstOfMonth(timestamp: Long): Long = Calendar.getInstance().apply {
-    time = Date(timestamp)
-    set(Calendar.DAY_OF_MONTH, getActualMinimum(Calendar.DAY_OF_MONTH))
-    set(Calendar.HOUR_OF_DAY, 0)
-    set(Calendar.MINUTE, 0)
-    set(Calendar.SECOND, 0)
-}.timeInMillis
 
 private fun transformToRows(list: List<OCFile>, columns: Int, defaultSize: Int): List<GalleryRow> {
     if (list.isEmpty()) return emptyList()

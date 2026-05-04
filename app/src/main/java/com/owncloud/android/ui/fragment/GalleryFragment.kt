@@ -382,32 +382,25 @@ class GalleryFragment :
         val mediaState = bottomSheet?.currMediaState ?: return
 
         showGalleryJob?.cancel()
-        showGalleryJob = lifecycleScope.launch(Dispatchers.IO) {
+        showGalleryJob = lifecycleScope.launch(Dispatchers.Default) {
             val remotePath = preferences.getLastSelectedMediaFolder()
             val items = mContainerActivity.storageManager.getAllGalleryItemsSuspended()
 
-            val predicate: (OCFile) -> Boolean = {
-                when (mediaState) {
-                    MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
-                        it.remotePath.startsWith(remotePath) && MimeTypeUtil.isImage(it.mimeType)
-                    }
+            val isPhotosOnly = mediaState == MediaState.MEDIA_STATE_PHOTOS_ONLY
+            val isVideosOnly = mediaState == MediaState.MEDIA_STATE_VIDEOS_ONLY
 
-                    MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
-                        it.remotePath.startsWith(remotePath) && MimeTypeUtil.isVideo(it.mimeType)
-                    }
-
-                    else -> {
-                        it.remotePath.startsWith(remotePath)
-                    }
-                }
+            val filteredItems = items.filter {
+                if (!it.remotePath.startsWith(remotePath)) return@filter false
+                if (isPhotosOnly) return@filter MimeTypeUtil.isImage(it.mimeType)
+                if (isVideosOnly) return@filter MimeTypeUtil.isVideo(it.mimeType)
+                true
             }
 
-            val filteredItems = items.filter(predicate)
             val galleryItems =
                 filteredItems.toGalleryItems(columnsCount, ThumbnailsCacheManager.getThumbnailDimension())
 
             withContext(Dispatchers.Main) {
-                if (filteredItems.isEmpty()) {
+                if (galleryItems.isEmpty()) {
                     setEmptyListMessage(SearchType.GALLERY_SEARCH)
                 }
                 adapter?.updateList(galleryItems)
