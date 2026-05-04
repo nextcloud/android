@@ -10,6 +10,7 @@ package com.nextcloud.client.jobs.upload
 import com.nextcloud.utils.TimeConstants
 import kotlin.random.Random
 
+@Suppress("MagicNumber")
 class UploadRetryPolicy {
     private var delayInMs: Long = 0
 
