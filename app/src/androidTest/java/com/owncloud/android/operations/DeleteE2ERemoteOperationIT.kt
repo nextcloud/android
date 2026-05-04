@@ -14,6 +14,8 @@ import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetPrivateKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
+import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.crypto.CryptoHelper
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -29,7 +31,17 @@ class DeleteE2ERemoteOperationIT : AbstractOnServerIT() {
 
     @Test
     fun testDeletePrivateKey() {
-        StorePrivateKeyRemoteOperation("private_key").execute(nextcloudClient)
+        val keyPair = EncryptionUtils.generateKeyPair()
+        val privateKey = keyPair.private
+        val keyPhrase = "moreovertelevisionfactorytendencyindependenceinternationalintellectualimpress" +
+            "interestvolunteer"
+        val privatePemKeyString = EncryptionUtils.privateKeyToPEM(privateKey)
+        val encryptedPrivateKey = CryptoHelper.encryptPrivateKey(
+            privatePemKeyString,
+            keyPhrase
+        )
+
+        StorePrivateKeyRemoteOperation(encryptedPrivateKey).execute(nextcloudClient)
 
         val sut = DeletePrivateKeyRemoteOperation()
         val result = sut.execute(nextcloudClient)
