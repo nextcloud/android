@@ -58,6 +58,7 @@ class GalleryFragment :
     GalleryFragmentBottomSheetActions {
     var isPhotoSearchQueryRunning: Boolean = false
     private var photoSearchTask: Job? = null
+    private var showGalleryJob: Job? = null
     private var endDate: Long = 0
     private val limit = 150
     private var adapter: GalleryAdapter? = null
@@ -131,10 +132,11 @@ class GalleryFragment :
     }
 
     override fun onDestroyView() {
-        if (photoSearchTask != null) {
-            photoSearchTask?.cancel()
-            photoSearchTask = null
-        }
+        showGalleryJob?.cancel()
+        showGalleryJob = null
+
+        photoSearchTask?.cancel()
+        photoSearchTask = null
 
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(refreshSearchEventReceiver)
 
@@ -379,30 +381,35 @@ class GalleryFragment :
     fun showAllGalleryItems() {
         val mediaState = bottomSheet?.currMediaState ?: return
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            val items = mContainerActivity.storageManager.getAllGalleryItemsSuspended()
+        showGalleryJob?.cancel()
+        showGalleryJob = lifecycleScope.launch(Dispatchers.IO) {
             val remotePath = preferences.getLastSelectedMediaFolder()
-            val filteredItems = items.filter { it.remotePath.startsWith(remotePath) }
-            val sortedFilteredItems: List<OCFile> = when (mediaState) {
-                MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
-                    filteredItems.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
-                }
+            val items = mContainerActivity.storageManager.getAllGalleryItemsSuspended()
 
-                MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
-                    filteredItems.filter { MimeTypeUtil.isVideo(it.mimeType) }.distinct()
-                }
+            val predicate: (OCFile) -> Boolean = {
+                when (mediaState) {
+                    MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
+                        it.remotePath.startsWith(remotePath) && MimeTypeUtil.isImage(it.mimeType)
+                    }
 
-                else -> filteredItems
+                    MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
+                        it.remotePath.startsWith(remotePath) && MimeTypeUtil.isVideo(it.mimeType)
+                    }
+
+                    else -> {
+                        it.remotePath.startsWith(remotePath)
+                    }
+                }
             }
 
-            if (sortedFilteredItems.isEmpty()) {
-                setEmptyListMessage(SearchType.GALLERY_SEARCH)
-            }
-
+            val filteredItems = items.filter(predicate)
             val galleryItems =
-                sortedFilteredItems.toGalleryItems(columnsCount, ThumbnailsCacheManager.getThumbnailDimension())
+                filteredItems.toGalleryItems(columnsCount, ThumbnailsCacheManager.getThumbnailDimension())
 
             withContext(Dispatchers.Main) {
+                if (filteredItems.isEmpty()) {
+                    setEmptyListMessage(SearchType.GALLERY_SEARCH)
+                }
                 adapter?.updateList(galleryItems)
                 updateSubtitle(mediaState)
             }

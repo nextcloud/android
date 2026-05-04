@@ -204,7 +204,7 @@ class GalleryAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateList(items: List<GalleryItems>, ) {
+    fun updateList(items: List<GalleryItems>) {
         files = items
         notifyDataSetChanged()
     }
