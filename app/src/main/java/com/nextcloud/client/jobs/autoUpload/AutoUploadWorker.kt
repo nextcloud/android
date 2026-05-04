@@ -21,6 +21,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.client.jobs.upload.UploadRetryPolicy
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.getLog
@@ -46,6 +47,7 @@ import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
@@ -79,6 +81,7 @@ class AutoUploadWorker(
     private lateinit var syncedFolder: SyncedFolder
     private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
     private val fileUploadHelper = FileUploadHelper.instance()
+    private val retryPolicy = UploadRetryPolicy()
 
     @Suppress("ReturnCount")
     override suspend fun doWork(): Result {
@@ -115,6 +118,8 @@ class AutoUploadWorker(
         } catch (e: Exception) {
             Log_OC.e(TAG, "❌ failed: ${e.message}")
             Result.failure()
+        } finally {
+            retryPolicy.reset()
         }
     }
 
@@ -269,6 +274,8 @@ class AutoUploadWorker(
             filePathsWithIds.forEachIndexed { batchIndex, (path, id) ->
                 ensureActive()
 
+                delay(retryPolicy.getDelay())
+
                 val file = File(path)
                 val localPath = file.absolutePath
                 val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, file)
@@ -308,7 +315,10 @@ class AutoUploadWorker(
                             context,
                             notificationManager,
                             operation,
-                            result
+                            result,
+                            onLocked = {
+                                retryPolicy.increase()
+                            }
                         )
 
                         if (result.isSuccess) {
