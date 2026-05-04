@@ -1201,7 +1201,7 @@
     <string name="create_new">New</string>
     <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
     <string name="upload_locked_title">Upload in progress</string>
-    <string name="upload_locked_message">The server is still working on a previous upload. Retrying…</string>
+    <string name="upload_locked_message">The server is busy. Retrying…</string>
     <string name="share_permission_file_request">File request</string>
     <string name="share_permission_view_only">View only</string>
     <string name="share_permission_can_edit">Can edit</string>
