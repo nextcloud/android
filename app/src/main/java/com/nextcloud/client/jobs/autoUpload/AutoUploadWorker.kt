@@ -21,7 +21,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
-import com.nextcloud.client.jobs.upload.UploadRetryPolicy
+import com.nextcloud.client.jobs.upload.UploadDelayPolicy
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.getLog
@@ -81,7 +81,7 @@ class AutoUploadWorker(
     private lateinit var syncedFolder: SyncedFolder
     private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
     private val fileUploadHelper = FileUploadHelper.instance()
-    private val retryPolicy = UploadRetryPolicy()
+    private val retryPolicy = UploadDelayPolicy()
 
     @Suppress("ReturnCount")
     override suspend fun doWork(): Result {
