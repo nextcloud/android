@@ -71,6 +71,9 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.OCFileDepth;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedMetadata;
+import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -126,6 +129,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -1972,6 +1976,39 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
 
                 } else if (E2EVersionHelper.INSTANCE.isV1(ocCapability)) {
+                    // new metadata
+                    String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
+                    
+                    DecryptedFolderMetadataFileV1 metadata = new DecryptedFolderMetadataFileV1();
+                    metadata.setMetadata(new DecryptedMetadata());
+
+                    final var latestV1E2EEVersion = E2EVersionHelper.INSTANCE.latestVersion(false);
+
+                    metadata.getMetadata().setVersion(Double.parseDouble(latestV1E2EEVersion.getValue()));
+                    metadata.getMetadata().setMetadataKeys(new HashMap<>());
+                    String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
+                    String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
+                    metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
+
+                    EncryptedFolderMetadataFileV1 encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
+                                                                                                                  publicKey,
+                                                                                                                  folder.getLocalId(),
+                                                                                                                  user,
+                                                                                                                  arbitraryDataProvider
+                                                                                                                 );
+                    String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+
+                    // upload metadata
+                    EncryptionUtils.uploadMetadata(folder,
+                                                   serializedFolderMetadata,
+                                                   token,
+                                                   client,
+                                                   false,
+                                                   E2EVersionHelper.INSTANCE.latestVersion(false),
+                                                   "",
+                                                   arbitraryDataProvider,
+                                                   user);
+                    
                     // unlock folder
                     EncryptionUtils.unlockFolderV1(folder, client, token);
                 } else if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.UNKNOWN) {
