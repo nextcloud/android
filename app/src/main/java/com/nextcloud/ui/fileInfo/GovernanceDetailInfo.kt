@@ -25,6 +25,8 @@ class GovernanceDetailInfo(
 ) {
 
     fun init() {
+        viewThemeUtils.material.themeCardView(binding.governanceLayout)
+
         val items = listOf(
             SensitivityLabel("Option 1", R.drawable.outline_camera_24),
             SensitivityLabel("Option 2", R.drawable.outline_image_24),
@@ -69,5 +71,8 @@ class GovernanceDetailInfo(
             binding.sensitivityLabelAutoComplete.compoundDrawablePadding =
                 fragment.resources.getDimensionPixelSize(R.dimen.standard_padding)
         }
+
+        viewThemeUtils.material.colorTextInputLayout(binding.sensitivityLabel)
+        viewThemeUtils.material.colorTextInputLayout(binding.fileDetentionLabel)
     }
 }
