@@ -316,8 +316,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.selector_tab_share));
         }
 
-        // TODO - Change detail tab icon?
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.filedetails_details).setIcon(R.drawable.selector_media));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.filedetails_details).setIcon(R.drawable.selector_file_info));
 
         viewThemeUtils.material.themeTabLayout(binding.tabLayout);
 
@@ -384,7 +383,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        FileExtensionsKt.logFileSize(getFile(), TAG);
         outState.putParcelable(ARG_FILE, getFile());
         outState.putParcelable(ARG_USER, user);
     }
