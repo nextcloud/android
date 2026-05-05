@@ -6,10 +6,9 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
   -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:padding="@dimen/standard_padding"
     android:textAppearance="?attr/textAppearanceSubtitle1"
-    android:drawablePadding="16dp"
+    android:drawablePadding="@dimen/standard_padding"
     android:gravity="center_vertical" />
