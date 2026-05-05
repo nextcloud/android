@@ -169,6 +169,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
+import java.lang.ref.WeakReference
 import java.util.function.Supplier
 import javax.inject.Inject
 
@@ -3071,8 +3072,23 @@ class FileDisplayActivity :
             storageManager = FileDataStorageManager(user, contentResolver)
         }
 
-        val fetchRemoteFileTask = FetchRemoteFileTask(user, fileId, storageManager, this)
-        fetchRemoteFileTask.execute()
+        if (user == null) {
+            Log_OC.e(TAG, "cannot fetch remote file, user is null")
+            return
+        }
+
+        if (capabilities.isEmpty) {
+            Log_OC.e(TAG, "cannot fetch remote file, capabilities is empty")
+            return
+        }
+
+        val weakContext: WeakReference<Context> = WeakReference(this)
+        val task = FetchRemoteFileTask(user, fileId, storageManager, lifecycleScope, capabilities.get(), weakContext)
+        task.run(onComplete = {
+            file = it
+        }, showFile = { (ocFile, message) ->
+            showFile(ocFile, message)
+        })
     }
 
     private fun openFileByPath(user: User, filepath: String?) {

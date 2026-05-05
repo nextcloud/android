@@ -1,122 +1,105 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
- * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.asynctasks;
+package com.owncloud.android.ui.asynctasks
 
-import android.annotation.SuppressLint;
-import android.os.AsyncTask;
+import android.content.Context
+import com.nextcloud.client.account.User
+import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.operations.RefreshFolderOperation
+import com.owncloud.android.utils.FileStorageUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.ref.WeakReference
 
-import com.nextcloud.client.account.User;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
-import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.utils.FileStorageUtils;
+class FetchRemoteFileTask(
+    private val user: User,
+    private val fileId: String,
+    private val storageManager: FileDataStorageManager,
+    private val lifecycleScope: CoroutineScope,
+    private val capabilities: OCCapability,
+    private val context: WeakReference<Context>
+) {
+    @Suppress("DEPRECATION")
+    fun run(onComplete: (OCFile) -> Unit, showFile: (Pair<OCFile?, String?>) -> Unit) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val context = context.get() ?: return@launch
+            var ocFile: OCFile? = null
+            var message: String
 
-import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.FILE_ID_SEARCH;
+            val searchRemoteOperation = SearchRemoteOperation(
+                fileId,
+                SearchRemoteOperation.SearchType.FILE_ID_SEARCH,
+                false,
+                capabilities
+            )
+            val searchResult: RemoteOperationResult<*> = searchRemoteOperation.execute(user, context)
 
-public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
-    private static final String TAG = "FetchRemoteFileTask";
-    private final User user;
-    private final String fileId;
-    private final FileDataStorageManager storageManager;
-    @SuppressLint("StaticFieldLeak") private final FileDisplayActivity fileDisplayActivity;
-    private OCFile ocFile;
+            if (!searchResult.isSuccess || searchResult.data.isNullOrEmpty()) {
+                message = searchResult.getLogMessage(context)
+            } else {
+                val remotePath = (searchResult.data[0] as? RemoteFile)?.remotePath
 
-    public FetchRemoteFileTask(User user,
-                               String fileId,
-                               FileDataStorageManager storageManager,
-                               FileDisplayActivity fileDisplayActivity) {
-        this.user = user;
-        this.fileId = fileId;
-        this.storageManager = storageManager;
-        this.fileDisplayActivity = fileDisplayActivity;
-    }
-
-    @Override
-    protected String doInBackground(Void... voids) {
-        final var optionalCapabilities = fileDisplayActivity.getCapabilities();
-        if (optionalCapabilities.isEmpty()) {
-            Log_OC.e(TAG, "cannot fetch remote file capability is null");
-            return "";
-        }
-
-
-        SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation(fileId,
-                                                                                FILE_ID_SEARCH,
-                                                                                false,
-                                                                                optionalCapabilities.get());
-        RemoteOperationResult remoteOperationResult = searchRemoteOperation.execute(user, fileDisplayActivity);
-
-        if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
-            if (remoteOperationResult.getData().isEmpty()) {
-                return fileDisplayActivity.getString(R.string.remote_file_fetch_failed);
-            }
-            String remotePath = ((RemoteFile) remoteOperationResult.getData().get(0)).getRemotePath();
-
-            ReadFileRemoteOperation operation = new ReadFileRemoteOperation(remotePath);
-            RemoteOperationResult result = operation.execute(user, fileDisplayActivity);
-
-            if (!result.isSuccess()) {
-                Exception exception = result.getException();
-                String message = "Fetching file " + remotePath + " fails with: " + result.getLogMessage(MainApp.getAppContext());
-
-                if (exception != null) {
-                    return exception.getMessage();
+                if (remotePath == null) {
+                    message = context.getString(R.string.remote_file_fetch_failed)
                 } else {
-                    return message;
+                    val readFileResult = ReadFileRemoteOperation(remotePath).execute(user, context)
+
+                    if (!readFileResult.isSuccess) {
+                        val exception = readFileResult.exception
+                        message = exception?.message ?: "Fetching file $remotePath fails with: ${
+                            readFileResult.getLogMessage(context)
+                        }"
+                    } else {
+                        val remoteFile = readFileResult.data[0] as? RemoteFile
+
+                        if (remoteFile == null) {
+                            message = context.getString(R.string.remote_file_fetch_failed)
+                        } else {
+                            ocFile = FileStorageUtils.fillOCFile(remoteFile)
+                            FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.accountName)
+                            ocFile = storageManager.saveFileWithParent(ocFile, context)
+
+                            val fileToSync = if (ocFile?.isFolder == true) {
+                                ocFile
+                            } else {
+                                ocFile?.parentId?.let {
+                                    storageManager.getFileById(it)
+                                }
+                            }
+                            RefreshFolderOperation(
+                                fileToSync,
+                                System.currentTimeMillis(),
+                                true,
+                                true,
+                                storageManager,
+                                user,
+                                context
+                            )
+                                .execute(user, context)
+
+                            onComplete(ocFile)
+                            message = ""
+                        }
+                    }
                 }
             }
 
-            RemoteFile remoteFile = (RemoteFile) result.getData().get(0);
-
-            ocFile = FileStorageUtils.fillOCFile(remoteFile);
-            FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.getAccountName());
-            ocFile = storageManager.saveFileWithParent(ocFile, fileDisplayActivity);
-
-            // also sync folder content
-            OCFile toSync;
-            if (ocFile.isFolder()) {
-                toSync = ocFile;
-            } else {
-                toSync = storageManager.getFileById(ocFile.getParentId());
+            withContext(Dispatchers.Main) {
+                showFile(ocFile to message)
             }
-
-            long currentSyncTime = System.currentTimeMillis();
-            RemoteOperation refreshFolderOperation = new RefreshFolderOperation(toSync,
-                                                                                currentSyncTime,
-                                                                                true,
-                                                                                true,
-                                                                                storageManager,
-                                                                                user,
-                                                                                fileDisplayActivity);
-            refreshFolderOperation.execute(user, fileDisplayActivity);
-
-            fileDisplayActivity.setFile(ocFile);
-        } else {
-            return remoteOperationResult.getLogMessage(MainApp.getAppContext());
         }
-
-        return "";
-    }
-
-    @Override
-    protected void onPostExecute(String message) {
-        super.onPostExecute(message);
-
-        fileDisplayActivity.showFile(ocFile, message);
     }
 }
