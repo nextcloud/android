@@ -34,6 +34,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
+import com.nextcloud.android.common.ui.share.ShareViewKt;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -43,6 +44,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.OCShareExtensionsKt;
+import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
@@ -69,7 +71,6 @@ import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.share.RemoteShareRepository;
 import com.owncloud.android.ui.fragment.share.ShareRepository;
-import com.owncloud.android.ui.fragment.share.UnifiedShareViewKt;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
@@ -230,7 +231,22 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         shimmerLayout.clearAnimation();
         shimmerLayout.setVisibility(View.GONE);
 
-        UnifiedShareViewKt.setupUnifiedShare(binding.unifiedShare, viewThemeUtils, requireContext());
+        new Thread(() -> {{
+            try {
+                final var baseURL = user.getServer().getUri().toString();
+                final var client = clientFactory.create(user);
+                final var apiCredentials = OwnCloudClientExtensionsKt.toApiCredentials(client, baseURL);
+                final var activity = getActivity();
+                if (activity != null) {
+                    activity.runOnUiThread(() -> ShareViewKt.setupUnifiedShare(binding.unifiedShare,
+                                                                       viewThemeUtils.files.getColorScheme(requireContext()),
+                                                                       apiCredentials));
+
+                }
+            } catch (ClientFactory.CreationException e) {
+                Log_OC.e(TAG, "client creation failed");
+            }
+        }}).start();
     }
 
     private void fetchSharees() {
