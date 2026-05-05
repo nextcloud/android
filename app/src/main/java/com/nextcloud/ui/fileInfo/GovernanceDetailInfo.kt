@@ -30,7 +30,7 @@ class GovernanceDetailInfo(
     fun init() {
         viewThemeUtils.material.themeCardView(binding.governanceLayout)
         initSensitivityLabel()
-        initFileDetentionLabel()
+        initFileRetentionLabel()
     }
 
     private fun initSensitivityLabel() {
@@ -45,10 +45,10 @@ class GovernanceDetailInfo(
         )
     }
 
-    private fun initFileDetentionLabel() {
+    private fun initFileRetentionLabel() {
         initDropdown(
-            textInputLayout = binding.fileDetentionLabel,
-            autoComplete = binding.fileDetentionAutoComplete,
+            textInputLayout = binding.fileRetentionLabel,
+            autoComplete = binding.fileRetentionAutoComplete,
             items = listOf(
                 GovernanceLabel("Public", R.drawable.file_link),
                 GovernanceLabel("Internal use only", R.drawable.ic_group),
