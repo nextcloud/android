@@ -22,34 +22,27 @@ class FileDetailTabAdapter(
     private val user: User,
     private val showSharingTab: Boolean
 ) : FragmentStateAdapter(fragmentActivity) {
+
+    private enum class Tab(val position: Int) {
+        Activities(0),
+        Sharing(1),
+        Details(2)
+    }
+
     var fileDetailSharingFragment: FileDetailSharingFragment? = null
         private set
     var fileDetailActivitiesFragment: FileDetailActivitiesFragment? = null
         private set
 
-    override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            1 -> {
-                fileDetailSharingFragment = FileDetailSharingFragment.newInstance(file, user)
-                fileDetailSharingFragment
-            }
+    override fun createFragment(position: Int): Fragment = when (position) {
+        Tab.Sharing.position -> FileDetailSharingFragment.newInstance(file, user)
+            .also { fileDetailSharingFragment = it }
 
-            2 -> {
-                FileInfoFragment.newInstance(file, user)
-            }
+        Tab.Details.position -> FileInfoFragment.newInstance(file, user)
 
-            else -> {
-                fileDetailActivitiesFragment = FileDetailActivitiesFragment.newInstance(file, user)
-                fileDetailActivitiesFragment
-            }
-        }!!
+        else -> FileDetailActivitiesFragment.newInstance(file, user)
+            .also { fileDetailActivitiesFragment = it }
     }
 
-    override fun getItemCount(): Int {
-        return if (showSharingTab) {
-            3
-        } else {
-            2
-        }
-    }
+    override fun getItemCount(): Int = if (showSharingTab) Tab.entries.size else Tab.entries.size - 1
 }
