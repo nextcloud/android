@@ -41,8 +41,8 @@ class FileInfoFragment :
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FileInfoFragmentBinding.inflate(layoutInflater, container, false)
 
-        val imageDetailInfo = ImageDetailInfo(this, viewThemeUtils)
         if (MimeTypeUtil.isImage(file)) {
+            val imageDetailInfo = ImageDetailInfo(this, viewThemeUtils)
             file?.let { imageDetailInfo.init(it, binding) }
         }
 
