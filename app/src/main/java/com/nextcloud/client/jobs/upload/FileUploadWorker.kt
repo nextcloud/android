@@ -135,7 +135,7 @@ class FileUploadWorker(
     private val notificationManager = UploadNotificationManager(context, viewThemeUtils, notificationId)
     private val intents = FileUploaderIntents(context)
     private val fileUploadEventBroadcaster = FileUploadEventBroadcaster(localBroadcastManager)
-    private val retryPolicy = UploadRetryPolicy()
+    private val retryPolicy = UploadDelayPolicy()
 
     override suspend fun doWork(): Result = try {
         trySetForeground()
