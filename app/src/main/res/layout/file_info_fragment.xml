@@ -15,164 +15,190 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dropdownMenu"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="Option">
-
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                android:id="@+id/dropdownMenuAutoComplete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+        android:padding="@dimen/standard_padding">
 
         <LinearLayout
+            android:id="@+id/governance_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/fileInformation"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sensitivity_label"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingBottom="16dp"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:layout_marginBottom="16dp"
+                android:hint="@string/governance_sensitivity_label">
 
-                <ImageView
-                    android:id="@+id/file_details_icon"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:contentDescription="@string/image_preview_filedetails"
-                    android:padding="6dp"
-
-                    android:src="@drawable/outline_image_24" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/sensitivity_label_auto_complete"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="12dp">
+                    android:inputType="none" />
 
-                    <TextView
-                        android:id="@+id/fileInformation_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp"
-                        android:textStyle="bold"
-                        tools:text="@string/placeholder_image_detail_date" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:id="@+id/fileInformation_details"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp"
-                        tools:text="@string/placeholder_image_details" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/imgTC"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/file_detention_label"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingBottom="16dp"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:layout_marginBottom="16dp"
+                android:hint="@string/governance_file_detention_label">
 
-                <ImageView
-                    android:id="@+id/camera_information_icon"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:contentDescription="@string/image_preview_image_taking_conditions"
-                    android:padding="6dp"
-                    android:src="@drawable/outline_camera_24" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/file_detention_auto_complete"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="12dp">
+                    android:inputType="none" />
 
-                    <TextView
-                        android:id="@+id/imgTC_makeModel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp"
-                        android:textStyle="bold"
-                        tools:text="@string/placeholder_image_detail_model" />
-
-                    <TextView
-                        android:id="@+id/imgTC_conditions"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp"
-                        tools:text="@string/placeholder_image_detail_condition" />
-                </LinearLayout>
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/imageLocation"
+
+        <LinearLayout
+            android:id="@+id/image_detail_layout"
+            android:layout_marginTop="@dimen/standard_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="330dp"
-                android:background="@drawable/rounded_rect"
-                android:elevation="1dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/imageLocation_text"
+                <LinearLayout
+                    android:id="@+id/fileInformation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="6dp"
-                    android:textAlignment="center"
-                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:visibility="gone"
-                    tools:text="@string/placeholder_image_detail_location"
-                    tools:visibility="visible" />
+                    tools:visibility="visible">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/file_details_icon"
+                        android:layout_width="@dimen/minimum_size_for_touchable_area"
+                        android:layout_height="@dimen/minimum_size_for_touchable_area"
+                        android:contentDescription="@string/image_preview_filedetails"
+                        android:padding="@dimen/standard_half_padding"
+                        android:src="@drawable/outline_image_24" />
 
-                    <org.osmdroid.views.MapView
-                        android:id="@+id/imageLocation_map"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                    <TextView
-                        android:id="@+id/imageLocation_map_copyright"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|end"
-                        android:padding="5dp"
-                        tools:text="@string/placeholder_image_detail_example_copyright" />
-                </FrameLayout>
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/fileInformation_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            tools:text="@string/placeholder_image_detail_date" />
+
+                        <TextView
+                            android:id="@+id/fileInformation_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="@string/placeholder_image_details" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/imgTC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/camera_information_icon"
+                        android:layout_width="@dimen/minimum_size_for_touchable_area"
+                        android:layout_height="@dimen/minimum_size_for_touchable_area"
+                        android:contentDescription="@string/image_preview_image_taking_conditions"
+                        android:padding="@dimen/standard_half_padding"
+                        android:src="@drawable/outline_camera_24" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/imgTC_makeModel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            tools:text="@string/placeholder_image_detail_model" />
+
+                        <TextView
+                            android:id="@+id/imgTC_conditions"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="@string/placeholder_image_detail_condition" />
+                    </LinearLayout>
+                </LinearLayout>
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/imageLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/standard_margin"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_detail_map_height"
+                    android:background="@drawable/rounded_rect"
+                    android:elevation="1dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/imageLocation_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        tools:text="@string/placeholder_image_detail_location"
+                        tools:visibility="visible" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <org.osmdroid.views.MapView
+                            android:id="@+id/imageLocation_map"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:id="@+id/imageLocation_map_copyright"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|end"
+                            android:padding="5dp"
+                            tools:text="@string/placeholder_image_detail_example_copyright" />
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

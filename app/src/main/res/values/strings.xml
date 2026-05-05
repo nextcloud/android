@@ -7,6 +7,9 @@
 -->
 <resources>
     <string name="backup_list_adapter_local_contacts">Local contacts</string>
+    <string name="governance_sensitivity_label">Sensitivity label</string>
+    <string name="governance_file_detention_label">File detention</string>
+
     <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Failed to open text editor</string>
     <string name="bottom_navigation_menu_files_label">All files</string>
     <string name="bottom_navigation_menu_favorites_label">Favorites</string>

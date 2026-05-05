@@ -47,26 +47,26 @@ class GovernanceDetailInfo(
                 return view
             }
         }
-        binding.dropdownMenuAutoComplete.setAdapter(adapter)
+        binding.sensitivityLabelAutoComplete.setAdapter(adapter)
 
         val defaultSelectedItem = items.firstOrNull()
         if (defaultSelectedItem != null) {
-            binding.dropdownMenuAutoComplete.setText(defaultSelectedItem.text, false)
+            binding.sensitivityLabelAutoComplete.setText(defaultSelectedItem.text, false)
             val drawable = ContextCompat.getDrawable(fragment.requireContext(), defaultSelectedItem.iconRes)?.mutate()
             drawable?.let {
                 viewThemeUtils.platform.tintDrawable(fragment.requireContext(), it, ColorRole.ON_SURFACE)
             }
-            binding.dropdownMenuAutoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
-            binding.dropdownMenuAutoComplete.compoundDrawablePadding =
+            binding.sensitivityLabelAutoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
+            binding.sensitivityLabelAutoComplete.compoundDrawablePadding =
                 fragment.resources.getDimensionPixelSize(R.dimen.standard_padding)
         }
 
-        binding.dropdownMenuAutoComplete.setOnItemClickListener { _, _, position, _ ->
+        binding.sensitivityLabelAutoComplete.setOnItemClickListener { _, _, position, _ ->
             val selected = items[position]
-            binding.dropdownMenuAutoComplete.setText(selected.text, false)
+            binding.sensitivityLabelAutoComplete.setText(selected.text, false)
             val drawable = ContextCompat.getDrawable(fragment.requireContext(), selected.iconRes)?.mutate()
-            binding.dropdownMenuAutoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
-            binding.dropdownMenuAutoComplete.compoundDrawablePadding =
+            binding.sensitivityLabelAutoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
+            binding.sensitivityLabelAutoComplete.compoundDrawablePadding =
                 fragment.resources.getDimensionPixelSize(R.dimen.standard_padding)
         }
     }
