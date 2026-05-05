@@ -301,6 +301,28 @@ class FileDisplayActivity :
         setupDrawer(menuItemId)
     }
 
+    @Suppress("DEPRECATION")
+    private fun logOcsCredentials() {
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val user = accountManager.user
+            val serverUrl = user.server.uri.toString()
+            val accountName = user.accountName
+
+            try {
+                val client = clientFactory.create(user)
+                val username = client.userIdPlain
+                val authToken = client.credentials.authToken
+                Log_OC.d(TAG, "OCS credentials — serverUrl=$serverUrl")
+                Log_OC.d(TAG, "OCS credentials — accountName=$accountName username=$username authToken=$authToken")
+
+            } catch (e: CreationException) {
+                Log_OC.e(TAG, "OCS credentials — serverUrl=$serverUrl accountName=$accountName (client creation failed)", e)
+            }
+        }
+
+    }
+
     /**
      * Determines which navigation drawer item should be selected.
      *
