@@ -5,7 +5,6 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-
 package com.owncloud.android.ui.asynctasks
 
 import android.content.Context
@@ -26,7 +25,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "TooGenericExceptionCaught", "TooGenericExceptionThrown")
 class FetchRemoteFileTask(
     private val user: User,
     private val fileId: String,
@@ -91,28 +90,26 @@ class FetchRemoteFileTask(
             ?: throw Exception(context.getString(R.string.remote_file_fetch_failed))
     }
 
-    private fun syncAndReturnFile(remoteFile: RemoteFile, context: Context): OCFile? {
+    private fun syncAndReturnFile(remoteFile: RemoteFile, context: Context): OCFile {
         var ocFile = FileStorageUtils.fillOCFile(remoteFile)
         FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.accountName)
         ocFile = storageManager.saveFileWithParent(ocFile, context)
+            ?: throw Exception(context.getString(R.string.remote_file_fetch_failed))
 
-        val fileToSync = if (ocFile?.isFolder == true) {
-            ocFile
-        } else {
-            ocFile?.parentId?.let { storageManager.getFileById(it) }
-        }
-
+        val fileToSync = if (ocFile.isFolder) ocFile else storageManager.getFileById(ocFile.parentId)
 
         if (fileToSync != null) {
-            val refreshFolderOperation = RefreshFolderOperation(
+            val result = RefreshFolderOperation(
                 fileToSync,
                 System.currentTimeMillis(),
                 true,
                 true,
-                storageManager, user, context
+                storageManager,
+                user,
+                context
             )
-            val refreshFolderOperationResult = refreshFolderOperation.execute(user, context)
-            if (refreshFolderOperationResult.isSuccess) {
+                .execute(user, context)
+            if (result.isSuccess) {
                 Log_OC.i(TAG, "folder is refreshed")
             } else {
                 Log_OC.e(TAG, "an error occurred during folder refresh")
