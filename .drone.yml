@@ -28,19 +28,19 @@ steps:
       - ./gradlew assembleGplayDebugAndroidTest
       - scripts/wait_for_emulator.sh
       - ./gradlew installGplayDebugAndroidTest
-      - scripts/wait_for_server.sh "server-latest"
+      - scripts/wait_for_server.sh "server"
       - scripts/deleteOldComments.sh "stable-latest" "IT" $DRONE_PULL_REQUEST
       - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable-latest" "IT" $DRONE_PULL_REQUEST
 
 services:
-  - name: server-latest
+  - name: server
     image: ghcr.io/nextcloud/continuous-integration-shallow-server:latest # also change in updateScreenshots.sh
     environment:
       EVAL: true
       SERVER_VERSION: 'stable30'
     commands:
       - BRANCH="$SERVER_VERSION" /usr/local/bin/initnc.sh
-      - echo 127.0.0.1 server-latest >> /etc/hosts
+      - echo 127.0.0.1 server >> /etc/hosts
       - rm /etc/apt/sources.list.d/php.list
       - apt-get update && apt-get install -y composer
       - su www-data -c "OC_PASS=user1 php /var/www/html/occ user:add --password-from-env --display-name='User One' user1"
@@ -98,19 +98,19 @@ steps:
       - ./gradlew assembleGplayDebugAndroidTest
       - scripts/wait_for_emulator.sh
       - ./gradlew installGplayDebugAndroidTest
-      - scripts/wait_for_server.sh "server-oldest"
+      - scripts/wait_for_server.sh "server"
       - scripts/deleteOldComments.sh "stable-oldest" "IT" $DRONE_PULL_REQUEST
       - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable-oldest" "IT" $DRONE_PULL_REQUEST
 
 services:
-  - name: server-oldest
+  - name: server
     image: ghcr.io/nextcloud/continuous-integration-shallow-server-php7.4:1
     environment:
       EVAL: true
       SERVER_VERSION: 'stable20'
     commands:
       - BRANCH="$SERVER_VERSION" /usr/local/bin/initnc.sh
-      - echo 127.0.0.1 server-oldest >> /etc/hosts
+      - echo 127.0.0.1 server >> /etc/hosts
       - rm /etc/apt/sources.list.d/php.list
       - apt-get update && apt-get install -y composer
       - su www-data -c "OC_PASS=user1 php /var/www/html/occ user:add --password-from-env --display-name='User One' user1"
