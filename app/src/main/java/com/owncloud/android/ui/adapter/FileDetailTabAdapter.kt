@@ -1,88 +1,55 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.adapter;
+package com.owncloud.android.ui.adapter
 
-import com.nextcloud.client.account.User;
-import com.nextcloud.ui.ImageDetailFragment;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
-import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
-import com.owncloud.android.utils.MimeTypeUtil;
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.nextcloud.client.account.User
+import com.nextcloud.ui.fileInfo.FileInfoFragment
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment
+import com.owncloud.android.ui.fragment.FileDetailSharingFragment
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
+class FileDetailTabAdapter(
+    fragmentActivity: FragmentActivity,
+    private val file: OCFile,
+    private val user: User,
+    private val showSharingTab: Boolean
+) : FragmentStateAdapter(fragmentActivity) {
+    var fileDetailSharingFragment: FileDetailSharingFragment? = null
+        private set
+    var fileDetailActivitiesFragment: FileDetailActivitiesFragment? = null
+        private set
 
-/**
- * File details pager adapter.
- */
-public class FileDetailTabAdapter extends FragmentStateAdapter {
-    private final OCFile file;
-    private final User user;
-    private final boolean showSharingTab;
-
-    private FileDetailSharingFragment fileDetailSharingFragment;
-    private FileDetailActivitiesFragment fileDetailActivitiesFragment;
-    private ImageDetailFragment imageDetailFragment;
-
-    public FileDetailTabAdapter(FragmentActivity fragmentActivity,
-                                OCFile file,
-                                User user,
-                                boolean showSharingTab) {
-        super(fragmentActivity);
-        this.file = file;
-        this.user = user;
-        this.showSharingTab = showSharingTab;
-    }
-
-    public FileDetailSharingFragment getFileDetailSharingFragment() {
-        return fileDetailSharingFragment;
-    }
-
-    public FileDetailActivitiesFragment getFileDetailActivitiesFragment() {
-        return fileDetailActivitiesFragment;
-    }
-
-    public ImageDetailFragment getImageDetailFragment() {
-        return imageDetailFragment;
-    }
-
-    @NonNull
-    @Override
-    public Fragment createFragment(int position) {
-        return switch (position) {
-            case 1 -> {
-                fileDetailSharingFragment = FileDetailSharingFragment.newInstance(file, user);
-                yield fileDetailSharingFragment;
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            1 -> {
+                fileDetailSharingFragment = FileDetailSharingFragment.newInstance(file, user)
+                fileDetailSharingFragment
             }
-            case 2 -> {
-                imageDetailFragment = ImageDetailFragment.newInstance(file, user);
-                yield imageDetailFragment;
+
+            2 -> {
+                FileInfoFragment.newInstance(file, user)
             }
-            default -> {
-                fileDetailActivitiesFragment = FileDetailActivitiesFragment.newInstance(file, user);
-                yield fileDetailActivitiesFragment;
+
+            else -> {
+                fileDetailActivitiesFragment = FileDetailActivitiesFragment.newInstance(file, user)
+                fileDetailActivitiesFragment
             }
-        };
+        }!!
     }
 
-    @Override
-    public int getItemCount() {
-        if (showSharingTab) {
-            if (MimeTypeUtil.isImage(file)) {
-                return 3;
-            }
-            return 2;
+    override fun getItemCount(): Int {
+        return if (showSharingTab) {
+            3
         } else {
-            if (MimeTypeUtil.isImage(file)) {
-                return 2;
-            }
-            return 1;
+            2
         }
     }
 }
