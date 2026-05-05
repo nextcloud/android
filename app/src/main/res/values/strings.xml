@@ -8,6 +8,8 @@
 <resources>
     <string name="governance_sensitivity_label">Sensitivity label</string>
     <string name="governance_file_detention_label">File detention</string>
+    <string name="file_info_governance_section_title">Governance</string>
+    <string name="file_info_image_details_section_title">Image details</string>
 
     <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Failed to open text editor</string>
     <string name="bottom_navigation_menu_files_label">All files</string>

@@ -50,6 +50,9 @@ class ImageDetailInfo(private val fragment: FileInfoFragment, private val viewTh
     }
 
     fun init(file: OCFile, binding: FileInfoFragmentBinding) {
+        viewThemeUtils.material.themeCardView(binding.imageDetailLayout)
+        binding.imageDetailLayout.visibility = View.VISIBLE
+
         val metadata = gatherMetadata(file)
         binding.fileInformationTime.text = metadata.date
         binding.fileDetailsIcon.setImageDrawable(
