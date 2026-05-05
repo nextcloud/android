@@ -3084,9 +3084,8 @@ class FileDisplayActivity :
 
         val weakContext: WeakReference<Context> = WeakReference(this)
         val task = FetchRemoteFileTask(user, fileId, storageManager, lifecycleScope, capabilities.get(), weakContext)
-        task.run(onComplete = {
-            file = it
-        }, showFile = { (ocFile, message) ->
+        task.run(showFile = { (ocFile, message) ->
+            ocFile?.let { file = it }
             showFile(ocFile, message)
         })
     }

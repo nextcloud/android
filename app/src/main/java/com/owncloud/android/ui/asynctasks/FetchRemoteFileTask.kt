@@ -4,6 +4,8 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
+
 package com.owncloud.android.ui.asynctasks
 
 import android.content.Context
@@ -11,7 +13,7 @@ import com.nextcloud.client.account.User
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
@@ -24,6 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
 
+@Suppress("DEPRECATION")
 class FetchRemoteFileTask(
     private val user: User,
     private val fileId: String,
@@ -32,74 +35,94 @@ class FetchRemoteFileTask(
     private val capabilities: OCCapability,
     private val context: WeakReference<Context>
 ) {
-    @Suppress("DEPRECATION")
-    fun run(onComplete: (OCFile) -> Unit, showFile: (Pair<OCFile?, String?>) -> Unit) {
+    fun run(showFile: (Pair<OCFile?, String?>) -> Unit) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val context = context.get() ?: return@launch
-            var ocFile: OCFile? = null
-            var message: String
-
-            val searchRemoteOperation = SearchRemoteOperation(
-                fileId,
-                SearchRemoteOperation.SearchType.FILE_ID_SEARCH,
-                false,
-                capabilities
-            )
-            val searchResult: RemoteOperationResult<*> = searchRemoteOperation.execute(user, context)
-
-            if (!searchResult.isSuccess || searchResult.data.isNullOrEmpty()) {
-                message = searchResult.getLogMessage(context)
-            } else {
-                val remotePath = (searchResult.data[0] as? RemoteFile)?.remotePath
-
-                if (remotePath == null) {
-                    message = context.getString(R.string.remote_file_fetch_failed)
-                } else {
-                    val readFileResult = ReadFileRemoteOperation(remotePath).execute(user, context)
-
-                    if (!readFileResult.isSuccess) {
-                        val exception = readFileResult.exception
-                        message = exception?.message ?: "Fetching file $remotePath fails with: ${
-                            readFileResult.getLogMessage(context)
-                        }"
-                    } else {
-                        val remoteFile = readFileResult.data[0] as? RemoteFile
-
-                        if (remoteFile == null) {
-                            message = context.getString(R.string.remote_file_fetch_failed)
-                        } else {
-                            ocFile = FileStorageUtils.fillOCFile(remoteFile)
-                            FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.accountName)
-                            ocFile = storageManager.saveFileWithParent(ocFile, context)
-
-                            val fileToSync = if (ocFile?.isFolder == true) {
-                                ocFile
-                            } else {
-                                ocFile?.parentId?.let {
-                                    storageManager.getFileById(it)
-                                }
-                            }
-                            RefreshFolderOperation(
-                                fileToSync,
-                                System.currentTimeMillis(),
-                                true,
-                                true,
-                                storageManager,
-                                user,
-                                context
-                            )
-                                .execute(user, context)
-
-                            onComplete(ocFile)
-                            message = ""
-                        }
-                    }
-                }
+            val result = try {
+                Log_OC.i(TAG, "fetching remote file")
+                val context = context.get() ?: throw Exception("context not reachable")
+                fetchRemoteFile(context)
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "Unexpected error during fetching remote file", e)
+                null to e.message
             }
 
             withContext(Dispatchers.Main) {
-                showFile(ocFile to message)
+                if (result.first != null) {
+                    Log_OC.i(TAG, "remote file is fetched")
+                }
+                showFile(result)
             }
         }
+    }
+
+    private fun fetchRemoteFile(context: Context): Pair<OCFile?, String?> {
+        val remotePath = searchRemoteFile(context)
+        val remoteFile = readRemoteFile(remotePath, context)
+        return syncAndReturnFile(remoteFile, context) to null
+    }
+
+    private fun searchRemoteFile(context: Context): String {
+        val result = SearchRemoteOperation(
+            fileId,
+            SearchRemoteOperation.SearchType.FILE_ID_SEARCH,
+            false,
+            capabilities
+        ).execute(user, context)
+
+        if (!result.isSuccess || result.data.isNullOrEmpty()) {
+            throw Exception("Search operation failed: ${result.getLogMessage(context)}")
+        }
+
+        return (result.data[0] as? RemoteFile)?.remotePath
+            ?: throw Exception(context.getString(R.string.remote_file_fetch_failed))
+    }
+
+    private fun readRemoteFile(remotePath: String, context: Context): RemoteFile {
+        val result = ReadFileRemoteOperation(remotePath).execute(user, context)
+
+        if (!result.isSuccess) {
+            throw Exception(
+                result.exception?.message
+                    ?: "Fetching file $remotePath fails with: ${result.getLogMessage(context)}"
+            )
+        }
+
+        return (result.data[0] as? RemoteFile)
+            ?: throw Exception(context.getString(R.string.remote_file_fetch_failed))
+    }
+
+    private fun syncAndReturnFile(remoteFile: RemoteFile, context: Context): OCFile? {
+        var ocFile = FileStorageUtils.fillOCFile(remoteFile)
+        FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.accountName)
+        ocFile = storageManager.saveFileWithParent(ocFile, context)
+
+        val fileToSync = if (ocFile?.isFolder == true) {
+            ocFile
+        } else {
+            ocFile?.parentId?.let { storageManager.getFileById(it) }
+        }
+
+
+        if (fileToSync != null) {
+            val refreshFolderOperation = RefreshFolderOperation(
+                fileToSync,
+                System.currentTimeMillis(),
+                true,
+                true,
+                storageManager, user, context
+            )
+            val refreshFolderOperationResult = refreshFolderOperation.execute(user, context)
+            if (refreshFolderOperationResult.isSuccess) {
+                Log_OC.i(TAG, "folder is refreshed")
+            } else {
+                Log_OC.e(TAG, "an error occurred during folder refresh")
+            }
+        }
+
+        return ocFile
+    }
+
+    companion object {
+        private const val TAG = "FetchRemoteFileTask"
     }
 }
