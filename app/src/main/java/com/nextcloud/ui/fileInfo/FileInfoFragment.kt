@@ -46,7 +46,6 @@ class FileInfoFragment :
             file?.let { imageDetailInfo.init(it, binding) }
         }
 
-
         val governanceDetailInfo = GovernanceDetailInfo(binding, viewThemeUtils, this)
         governanceDetailInfo.init()
 

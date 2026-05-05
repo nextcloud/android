@@ -12,8 +12,10 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
+import com.google.android.material.textfield.TextInputLayout
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
-import com.nextcloud.ui.fileInfo.model.SensitivityLabel
+import com.nextcloud.ui.fileInfo.model.GovernanceLabel
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileInfoFragmentBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -23,56 +25,75 @@ class GovernanceDetailInfo(
     private val viewThemeUtils: ViewThemeUtils,
     private val fragment: FileInfoFragment
 ) {
+    private val context get() = fragment.requireContext()
 
     fun init() {
         viewThemeUtils.material.themeCardView(binding.governanceLayout)
+        initSensitivityLabel()
+        initFileDetentionLabel()
+    }
 
-        val items = listOf(
-            SensitivityLabel("Option 1", R.drawable.outline_camera_24),
-            SensitivityLabel("Option 2", R.drawable.outline_image_24),
-            SensitivityLabel("Option 3", R.drawable.ic_information_outline)
+    private fun initSensitivityLabel() {
+        initDropdown(
+            textInputLayout = binding.sensitivityLabel,
+            autoComplete = binding.sensitivityLabelAutoComplete,
+            items = listOf(
+                GovernanceLabel("Sharing restricted", R.drawable.ic_share),
+                GovernanceLabel("Download restricted", R.drawable.ic_download_grey600),
+                GovernanceLabel("Upload restricted", R.drawable.uploads)
+            )
         )
+    }
 
-        val adapter = object :
-            ArrayAdapter<SensitivityLabel>(fragment.requireContext(), R.layout.item_dropdown_with_icon, items) {
+    private fun initFileDetentionLabel() {
+        initDropdown(
+            textInputLayout = binding.fileDetentionLabel,
+            autoComplete = binding.fileDetentionAutoComplete,
+            items = listOf(
+                GovernanceLabel("Public", R.drawable.file_link),
+                GovernanceLabel("Internal use only", R.drawable.ic_group),
+                GovernanceLabel("Restricted", R.drawable.ic_cancel)
+            )
+        )
+    }
+
+    private fun initDropdown(
+        textInputLayout: TextInputLayout,
+        autoComplete: MaterialAutoCompleteTextView,
+        items: List<GovernanceLabel>
+    ) {
+        viewThemeUtils.material.colorTextInputLayout(textInputLayout)
+        viewThemeUtils.files.themeAutoCompleteTextView(autoComplete)
+
+        autoComplete.setAdapter(buildAdapter(items))
+
+        items.firstOrNull()?.let { applySelection(autoComplete, it) }
+
+        autoComplete.setOnItemClickListener { _, _, position, _ ->
+            applySelection(autoComplete, items[position])
+        }
+    }
+
+    private fun buildAdapter(items: List<GovernanceLabel>) =
+        object : ArrayAdapter<GovernanceLabel>(context, R.layout.item_dropdown_with_icon, items) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent) as TextView
-                val item = getItem(position)
-                if (item != null) {
+                getItem(position)?.let { item ->
                     view.text = item.text
-                    val drawable = ContextCompat.getDrawable(context, item.iconRes)?.mutate()
-                    drawable?.let {
-                        viewThemeUtils.platform.tintDrawable(fragment.requireContext(), it, ColorRole.ON_SURFACE)
-                    }
-                    view.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+                    view.setCompoundDrawablesWithIntrinsicBounds(tintedDrawable(item), null, null, null)
                 }
                 return view
             }
         }
-        binding.sensitivityLabelAutoComplete.setAdapter(adapter)
 
-        val defaultSelectedItem = items.firstOrNull()
-        if (defaultSelectedItem != null) {
-            binding.sensitivityLabelAutoComplete.setText(defaultSelectedItem.text, false)
-            val drawable = ContextCompat.getDrawable(fragment.requireContext(), defaultSelectedItem.iconRes)?.mutate()
-            drawable?.let {
-                viewThemeUtils.platform.tintDrawable(fragment.requireContext(), it, ColorRole.ON_SURFACE)
-            }
-            binding.sensitivityLabelAutoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
-            binding.sensitivityLabelAutoComplete.compoundDrawablePadding =
-                fragment.resources.getDimensionPixelSize(R.dimen.standard_padding)
-        }
-
-        binding.sensitivityLabelAutoComplete.setOnItemClickListener { _, _, position, _ ->
-            val selected = items[position]
-            binding.sensitivityLabelAutoComplete.setText(selected.text, false)
-            val drawable = ContextCompat.getDrawable(fragment.requireContext(), selected.iconRes)?.mutate()
-            binding.sensitivityLabelAutoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
-            binding.sensitivityLabelAutoComplete.compoundDrawablePadding =
-                fragment.resources.getDimensionPixelSize(R.dimen.standard_padding)
-        }
-
-        viewThemeUtils.material.colorTextInputLayout(binding.sensitivityLabel)
-        viewThemeUtils.material.colorTextInputLayout(binding.fileDetentionLabel)
+    private fun applySelection(autoComplete: MaterialAutoCompleteTextView, item: GovernanceLabel) {
+        autoComplete.setText(item.text, false)
+        autoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(tintedDrawable(item), null, null, null)
+        autoComplete.compoundDrawablePadding = fragment.resources.getDimensionPixelSize(R.dimen.standard_padding)
     }
+
+    private fun tintedDrawable(item: GovernanceLabel) =
+        ContextCompat.getDrawable(context, item.iconRes)?.mutate()?.also {
+            viewThemeUtils.platform.tintDrawable(context, it, ColorRole.ON_SURFACE)
+        }
 }

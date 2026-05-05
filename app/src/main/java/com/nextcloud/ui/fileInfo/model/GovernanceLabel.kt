@@ -7,4 +7,4 @@
 
 package com.nextcloud.ui.fileInfo.model
 
-data class SensitivityLabel(val text: String, val iconRes: Int)
+data class GovernanceLabel(val text: String, val iconRes: Int)
