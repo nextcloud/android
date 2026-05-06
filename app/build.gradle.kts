@@ -192,6 +192,7 @@ android {
         viewBinding = true
         aidl = true
         compose = true
+        prefab = true
     }
 
     compileOptions {
@@ -445,6 +446,7 @@ dependencies {
 
     // region Crypto
     implementation(libs.conscrypt.android)
+    implementation("com.nextcloud:openssl:3.5.6")
     // endregion
 
     // region Library
