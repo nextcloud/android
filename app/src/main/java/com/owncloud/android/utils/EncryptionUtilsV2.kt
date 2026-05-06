@@ -921,7 +921,7 @@ class EncryptionUtilsV2 {
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "ReturnCount")
     private fun verifySignedDataViaBouncyCastle(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
         val signers = data.signerInfos.signers
         if (signers.isEmpty()) {

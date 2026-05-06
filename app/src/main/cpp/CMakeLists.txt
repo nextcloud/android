@@ -10,14 +10,6 @@ project(cms_verifier VERSION 1.0)
 set(OPENSSL_SO_DIR ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI})
 set(OPENSSL_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/openssl_headers)
 
-add_library(openssl_crypto SHARED IMPORTED)
-set_target_properties(openssl_crypto PROPERTIES
-    IMPORTED_LOCATION ${OPENSSL_SO_DIR}/libcrypto.so)
-
-add_library(openssl_ssl SHARED IMPORTED)
-set_target_properties(openssl_ssl PROPERTIES
-    IMPORTED_LOCATION ${OPENSSL_SO_DIR}/libssl.so)
-
 add_library(
     cms_verifier
     SHARED
@@ -28,8 +20,9 @@ target_include_directories(cms_verifier PRIVATE ${OPENSSL_INCLUDE_DIR})
 
 target_link_libraries(
     cms_verifier
-    openssl_ssl
-    openssl_crypto
+    -L${OPENSSL_SO_DIR}
+    ssl
+    crypto
     android
     log
 )
