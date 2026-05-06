@@ -22,7 +22,7 @@ fun Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?.getErrorMessage(): Str
 }
 
 fun ResultCode.isFileSpecificError(): Boolean {
-    val errorCodes = listOf(
+    val generalErrorCodes = listOf(
         ResultCode.INSTANCE_NOT_CONFIGURED,
         ResultCode.QUOTA_EXCEEDED,
         ResultCode.LOCAL_STORAGE_FULL,
@@ -37,10 +37,11 @@ fun ResultCode.isFileSpecificError(): Boolean {
         ResultCode.ACCOUNT_NOT_FOUND,
         ResultCode.ACCOUNT_USES_STANDARD_PASSWORD,
         ResultCode.INCORRECT_ADDRESS,
-        ResultCode.BAD_OC_VERSION
+        ResultCode.BAD_OC_VERSION,
+        ResultCode.LOCKED // most likely following upload will fail as well, server still in progress
     )
 
-    return !errorCodes.contains(this)
+    return !generalErrorCodes.contains(this)
 }
 
 fun ResultCode.isConflict(): Boolean {
