@@ -235,12 +235,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             try {
                 final var baseURL = user.getServer().getUri().toString();
                 final var client = clientFactory.create(user);
-                final var apiCredentials = OwnCloudClientExtensionsKt.toApiCredentials(client, baseURL);
+                final var serverCredentials = OwnCloudClientExtensionsKt.toServerCredentials(client, baseURL);
                 final var activity = getActivity();
                 if (activity != null) {
-                    activity.runOnUiThread(() -> ShareViewKt.setupUnifiedShare(binding.unifiedShare,
-                                                                       viewThemeUtils.files.getColorScheme(requireContext()),
-                                                                       apiCredentials));
+                    activity.runOnUiThread(() -> ShareViewKt.setupUnifiedShare(
+                                               binding.unifiedShare,
+                                               viewThemeUtils.files.getColorScheme(activity),
+                                               serverCredentials)
+                                          );
 
                 }
             } catch (ClientFactory.CreationException e) {
