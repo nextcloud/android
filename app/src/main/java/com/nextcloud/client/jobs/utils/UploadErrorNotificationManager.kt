@@ -52,7 +52,8 @@ object UploadErrorNotificationManager {
         notificationManager: WorkerNotificationManager,
         operation: UploadFileOperation,
         result: RemoteOperationResult<Any?>,
-        onSameFileConflict: suspend () -> Unit = {}
+        onSameFileConflict: suspend () -> Unit = {},
+        onLocked: () -> Unit = {}
     ) {
         Log_OC.d(TAG, "handle upload result with result code: " + result.code)
 
@@ -107,6 +108,10 @@ object UploadErrorNotificationManager {
         Log_OC.d(TAG, "🔔" + "notification created")
 
         withContext(Dispatchers.Main) {
+            if (result.code == ResultCode.LOCKED) {
+                onLocked()
+            }
+
             // if error code is file specific show new notification for each file
             if (result.code.isFileSpecificError()) {
                 notificationManager.showNotification(operation.ocUploadId.toInt(), notification)
@@ -163,6 +168,7 @@ object UploadErrorNotificationManager {
         ResultCode.UNAUTHORIZED -> R.string.uploader_upload_failed_credentials_error
         ResultCode.SYNC_CONFLICT -> R.string.uploader_upload_failed_sync_conflict_error
         ResultCode.CONFLICT -> R.string.uploader_upload_failed_sync_conflict_error
+        ResultCode.LOCKED -> R.string.upload_locked_title
         else -> R.string.uploader_upload_failed_ticker
     }
 

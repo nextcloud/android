@@ -47,6 +47,7 @@ import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -134,6 +135,7 @@ class FileUploadWorker(
     private val notificationManager = UploadNotificationManager(context, viewThemeUtils, notificationId)
     private val intents = FileUploaderIntents(context)
     private val fileUploadEventBroadcaster = FileUploadEventBroadcaster(localBroadcastManager)
+    private val retryPolicy = UploadDelayPolicy()
 
     override suspend fun doWork(): Result = try {
         trySetForeground()
@@ -155,6 +157,7 @@ class FileUploadWorker(
         // Ensure all database operations are complete before signaling completion
         uploadsStorageManager.notifyObserversNow()
         notificationManager.dismissNotification()
+        retryPolicy.reset()
     }
 
     private suspend fun trySetForeground() {
@@ -247,6 +250,8 @@ class FileUploadWorker(
 
         for ((index, upload) in uploads.withIndex()) {
             ensureActive()
+
+            delay(retryPolicy.getDelay())
 
             if (!skipAutoUploadCheck && isBelongToAnySyncedFolder(upload, syncFolderHelper, syncedFolders)) {
                 Log_OC.d(TAG, "skipping upload, will be handled by AutoUploadWorker: ${upload.localPath}")
@@ -393,6 +398,9 @@ class FileUploadWorker(
                             notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
                         }
                     }
+                },
+                onLocked = {
+                    retryPolicy.increase()
                 }
             )
         }
