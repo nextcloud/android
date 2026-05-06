@@ -446,7 +446,7 @@ dependencies {
 
     // region Crypto
     implementation(libs.conscrypt.android)
-    implementation("com.nextcloud:openssl:3.5.6")
+    implementation(libs.openssl)
     // endregion
 
     // region Library
