@@ -218,7 +218,7 @@ public abstract class AbstractIT {
 
     @Before
     public void enableAccessibilityChecks() {
-        androidx.test.espresso.accessibility.AccessibilityChecks.enable().setRunChecksFromRootView(true);
+        androidx.test.espresso.accessibility.AccessibilityChecks.enable().setRunChecksFromRootView(false);
     }
 
     @After

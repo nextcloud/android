@@ -940,13 +940,13 @@ public class FileDataStorageManager {
         String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), ocFile);
         if (!localPath.equalsIgnoreCase(expectedPath)) {
             Log_OC.w(TAG, "removeLocalCopyIfNeeded: Path mismatch! Expected " + expectedPath
-                + " but found " + localPath + ". Skipping deletion to prevent data loss.");
+                + " but found " + localPath + ". Deleting from actual local path.");
         }
 
         Log_OC.d(TAG, "removeLocalCopyIfNeeded: deleting local file -> " + localPath);
         boolean success = false;
         try {
-            success = new File(expectedPath).delete();
+            success = new File(localPath).delete();
         } catch (Exception e) {
             Log_OC.e(TAG, "removeLocalCopyIfNeeded: deletion error: ", e);
         }

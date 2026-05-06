@@ -233,7 +233,11 @@ class UploadStorageManagerTest : AbstractIT() {
 
     @After
     fun tearDown() {
-        deleteAllUploads()
-        userAccountManager.removeUser(user2)
+        if (::uploadsStorageManager.isInitialized) {
+            deleteAllUploads()
+        }
+        if (::userAccountManager.isInitialized && ::user2.isInitialized) {
+            userAccountManager.removeUser(user2)
+        }
     }
 }
