@@ -34,7 +34,7 @@ extern "C" {
  * 64-bit processor with LP64 ABI
  */
 #ifdef SIXTY_FOUR_BIT_LONG
-typedef unsigned long BN_ULONG;
+#define BN_ULONG unsigned long
 #define BN_BYTES 8
 #endif
 
@@ -42,12 +42,12 @@ typedef unsigned long BN_ULONG;
  * 64-bit processor other than LP64 ABI
  */
 #ifdef SIXTY_FOUR_BIT
-typedef unsigned long long BN_ULONG;
+#define BN_ULONG unsigned long long
 #define BN_BYTES 8
 #endif
 
 #ifdef THIRTY_TWO_BIT
-typedef unsigned int BN_ULONG;
+#define BN_ULONG unsigned int
 #define BN_BYTES 4
 #endif
 

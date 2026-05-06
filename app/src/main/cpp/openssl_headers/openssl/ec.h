@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2026 The OpenSSL Project Authors. All Rights Reserved.
+ * Copyright 2002-2023 The OpenSSL Project Authors. All Rights Reserved.
  * Copyright (c) 2002, Oracle and/or its affiliates. All rights reserved
  *
  * Licensed under the Apache License 2.0 (the "License").  You may not use
@@ -252,14 +252,6 @@ const BIGNUM *EC_GROUP_get0_order(const EC_GROUP *group);
  *  \return number of bits of group order.
  */
 int EC_GROUP_order_bits(const EC_GROUP *group);
-
-/** Gets the symmetric-equivalent security bit size an EC_GROUP.
- * This is rounded down to one of the standard sizes, (80, 112,
- * 128, 192, 256) or reported as-is when smaller than 80.
- *  \param  group  EC_GROUP object
- *  \return symmetric-equivalent security bits.
- */
-int EC_GROUP_security_bits(const EC_GROUP *group);
 
 /** Gets the cofactor of a EC_GROUP
  *  \param  group     EC_GROUP object
@@ -1039,6 +1031,12 @@ OSSL_DEPRECATEDIN_3_0 EC_KEY *EC_KEY_dup(const EC_KEY *src);
  *  \return 1 on success and 0 if an error occurred.
  */
 OSSL_DEPRECATEDIN_3_0 int EC_KEY_up_ref(EC_KEY *key);
+
+/** Returns the ENGINE object of a EC_KEY object
+ *  \param  eckey  EC_KEY object
+ *  \return the ENGINE object (possibly NULL).
+ */
+OSSL_DEPRECATEDIN_3_0 ENGINE *EC_KEY_get0_engine(const EC_KEY *eckey);
 
 /** Returns the EC_GROUP object of a EC_KEY object
  *  \param  key  EC_KEY object

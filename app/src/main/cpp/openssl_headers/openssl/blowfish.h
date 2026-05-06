@@ -36,7 +36,7 @@ extern "C" {
  * ! BF_LONG has to be at least 32 bits wide.                     !
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
-typedef unsigned int BF_LONG;
+#define BF_LONG unsigned int
 
 #define BF_ROUNDS 16
 

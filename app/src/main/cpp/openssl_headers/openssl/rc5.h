@@ -30,7 +30,7 @@ extern "C" {
 #define RC5_ENCRYPT 1
 #define RC5_DECRYPT 0
 
-typedef unsigned int RC5_32_INT;
+#define RC5_32_INT unsigned int
 
 /*
  * This are the only values supported.  Tweak the code if you want more The

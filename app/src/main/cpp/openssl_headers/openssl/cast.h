@@ -31,7 +31,7 @@ extern "C" {
 #define CAST_ENCRYPT 1
 #define CAST_DECRYPT 0
 
-typedef unsigned int CAST_LONG;
+#define CAST_LONG unsigned int
 
 typedef struct cast_key_st {
     CAST_LONG data[32];
