@@ -55,6 +55,7 @@ import java.io.IOException
 import java.security.GeneralSecurityException
 import java.security.PrivateKey
 import java.security.SecureRandom
+import javax.crypto.BadPaddingException
 import javax.crypto.Cipher
 import javax.inject.Inject
 
@@ -96,9 +97,7 @@ class NotificationWork constructor(
                         base64DecodedSubject
                     )
                     if (signatureVerification != null && signatureVerification.signatureValid) {
-                        val cipher = Cipher.getInstance("RSA/None/PKCS1Padding")
-                        cipher.init(Cipher.DECRYPT_MODE, privateKey)
-                        val decryptedSubject = cipher.doFinal(base64DecodedSubject)
+                        val decryptedSubject = decryptSubject(privateKey, base64DecodedSubject)
                         val gson = Gson()
                         val decryptedPushMessage = gson.fromJson(
                             String(decryptedSubject),
@@ -122,6 +121,17 @@ class NotificationWork constructor(
             }
         }
         return Result.success()
+    }
+
+    private fun decryptSubject(privateKey: PrivateKey, base64DecodedSubject: ByteArray): ByteArray = try {
+        val cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-1AndMGF1Padding")
+        cipher.init(Cipher.DECRYPT_MODE, privateKey)
+        cipher.doFinal(base64DecodedSubject)
+    } catch (e: BadPaddingException) {
+        Log_OC.e(TAG, "OAEP padding failed, trying PKCS1 for compatibility", e)
+        val cipher = Cipher.getInstance("RSA/None/PKCS1Padding")
+        cipher.init(Cipher.DECRYPT_MODE, privateKey)
+        cipher.doFinal(base64DecodedSubject)
     }
 
     @Suppress("LongMethod") // legacy code
