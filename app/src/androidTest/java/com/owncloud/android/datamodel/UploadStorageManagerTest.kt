@@ -32,10 +32,12 @@ import com.owncloud.android.operations.UploadFileOperation
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnit
+import org.mockito.junit.MockitoRule
 import java.io.File
 import java.util.Random
 import java.util.UUID
@@ -47,6 +49,9 @@ import java.util.function.Supplier
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class UploadStorageManagerTest : AbstractIT() {
+    @get:Rule
+    val mockitoRule: MockitoRule = MockitoJUnit.rule()
+
     private lateinit var uploadsStorageManager: UploadsStorageManager
 
     @Mock
@@ -58,8 +63,6 @@ class UploadStorageManagerTest : AbstractIT() {
 
     @Before
     fun setUp() {
-        MockitoAnnotations.openMocks(this)
-
         val instrumentationCtx = ApplicationProvider.getApplicationContext<Context>()
         val contentResolver = instrumentationCtx.contentResolver
         uploadsStorageManager = UploadsStorageManager(currentAccountProvider, contentResolver)

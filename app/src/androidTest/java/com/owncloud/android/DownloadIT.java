@@ -8,8 +8,6 @@
  */
 package com.owncloud.android;
 
-import android.net.Uri;
-
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -97,12 +95,7 @@ public class DownloadIT extends AbstractOnServerIT {
         assertTrue(new File(file1.getStoragePath()).exists());
         assertTrue(new File(file2.getStoragePath()).exists());
 
-        // test against hardcoded path to make sure that it is correct
-        assertEquals("/storage/emulated/0/Android/media/"+targetContext.getPackageName()+"/nextcloud/" +
-                         Uri.encode(account.name, "@") + "/testUpload/nonEmpty.txt",
-                     file1.getStoragePath());
-        assertEquals("/storage/emulated/0/Android/media/"+targetContext.getPackageName()+"/nextcloud/" +
-                         Uri.encode(account.name, "@") + "/testUpload/nonEmpty2.txt",
-                     file2.getStoragePath());
+        assertEquals(FileStorageUtils.getDefaultSavePathFor(account.name, file1), file1.getStoragePath());
+        assertEquals(FileStorageUtils.getDefaultSavePathFor(account.name, file2), file2.getStoragePath());
     }
 }
