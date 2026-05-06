@@ -5,25 +5,25 @@
   ~ SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/standard_eight_padding">
+    android:layout_below="@id/appbar">
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/appbar">
+        android:paddingTop="@dimen/standard_eight_padding">
 
         <LinearLayout
             android:id="@+id/shareContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:visibility="gone"
-            tools:visibility="visible"
-            android:orientation="vertical">
+            tools:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/shared_with_you_container"
@@ -139,33 +139,33 @@
                 android:layout_marginHorizontal="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_half_padding"
                 android:layout_marginBottom="@dimen/standard_half_padding"
+                android:text="@string/send_copy_to"
                 app:icon="@drawable/file_link"
-                app:iconGravity="textStart"
-                android:text="@string/send_copy_to" />
+                app:iconGravity="textStart" />
 
             <TextView
                 android:id="@+id/internal_share_headline"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/zero"
-                android:paddingTop="@dimen/standard_half_padding"
-                android:paddingBottom="@dimen/standard_half_padding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_half_padding"
+                android:paddingEnd="@dimen/zero"
+                android:paddingBottom="@dimen/standard_half_padding"
                 android:text="@string/internal_shares"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/internal_share_description"
-                android:paddingStart="@dimen/standard_padding"
-                android:visibility="gone"
-                tools:visibility="visible"
-                android:paddingEnd="@dimen/zero"
-                android:paddingTop="@dimen/standard_half_padding"
-                android:paddingBottom="@dimen/standard_half_padding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_half_padding"
+                android:paddingEnd="@dimen/zero"
+                android:paddingBottom="@dimen/standard_half_padding"
                 android:text="@string/internal_share_description_end_to_end_encrypted"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -193,12 +193,12 @@
 
             <TextView
                 android:id="@+id/external_shares_headline"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/zero"
-                android:paddingTop="@dimen/standard_half_padding"
-                android:paddingBottom="@dimen/standard_half_padding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_half_padding"
+                android:paddingEnd="@dimen/zero"
+                android:paddingBottom="@dimen/standard_half_padding"
                 android:text="@string/external_shares"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -209,9 +209,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginEnd="@dimen/standard_margin"
+                android:text="@string/create_link"
                 app:icon="@drawable/file_link"
-                app:iconGravity="textStart"
-                android:text="@string/create_link" />
+                app:iconGravity="textStart" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/sharesList_external"
@@ -231,17 +231,16 @@
                 android:text="@string/show_all" />
         </LinearLayout>
 
-        <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/unifiedShare"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
+    </androidx.core.widget.NestedScrollView>
 
-        <include
-            layout="@layout/file_details_sharing_shimmer"
-            android:id="@+id/shimmer_layout"/>
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/unifiedShare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
-    </FrameLayout>
+    <include
+        android:id="@+id/shimmer_layout"
+        layout="@layout/file_details_sharing_shimmer" />
 
-
-</androidx.core.widget.NestedScrollView>
+</FrameLayout>

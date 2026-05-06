@@ -9,7 +9,7 @@
 package com.nextcloud.utils.extensions
 
 import android.content.Context
-import com.nextcloud.android.common.ui.network.api.ApiCredentials
+import com.nextcloud.android.common.ui.network.auth.ServerCredentials
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientFactory
@@ -29,5 +29,8 @@ fun OwnCloudClient.getPreviewEndpoint(localFileId: Long, x: Int, y: Int): String
     "&x=" + (x / 2) + "&y=" + (y / 2) +
     "&a=1&mode=cover&forceIcon=0"
 
-fun OwnCloudClient.toApiCredentials(baseURL: String): ApiCredentials =
-    ApiCredentials(baseURL, userIdPlain, credentials.authToken)
+/**
+ * Used in Android Common
+ */
+fun OwnCloudClient.toServerCredentials(baseURL: String): ServerCredentials =
+    ServerCredentials(baseURL, userIdPlain, credentials.authToken)
