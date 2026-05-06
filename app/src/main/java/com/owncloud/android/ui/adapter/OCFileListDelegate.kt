@@ -32,6 +32,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.fragment.GalleryFragment
+import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
@@ -206,6 +207,7 @@ class OCFileListDelegate(
         viewHolder: ListViewHolder,
         file: OCFile,
         currentDirectory: OCFile?,
+        searchType: SearchType?,
         overlayManager: OverlayManager
     ) {
         // thumbnail
@@ -241,12 +243,13 @@ class OCFileListDelegate(
                         file.isEncrypted &&
                             !EncryptionUtils.supportsSecureFiledrop(file, user)
                         ) ||
+                    (searchType == SearchType.FAVORITE_SEARCH) ||
                     (
                         file.isFolder &&
                             (currentDirectory?.isEncrypted ?: false)
                         )
                 )
-            )
+            ) // sharing an encrypted subfolder is not possible
         if (shouldHideShare) {
             viewHolder.shared.visibility = View.GONE
         } else {
@@ -402,28 +405,18 @@ class OCFileListDelegate(
             return null
         }
 
-        if (file.isOfflineOperation) {
-            return null
-        }
+        if (file.isOfflineOperation) return null
 
-        if (holder !is OCFileListItemViewHolder && file.unreadCommentsCount != 0) {
-            return null
-        }
+        if (holder !is OCFileListItemViewHolder && file.unreadCommentsCount != 0) return null
 
         return when {
             file.isSharedWithSharee || file.isSharedWithMe -> {
-                if (showShareAvatar) {
-                    null
-                } else {
-                    R.drawable.shared_via_users to R.string.shared_icon_shared
-                }
+                if (showShareAvatar) null else R.drawable.shared_via_users to R.string.shared_icon_shared
             }
 
             file.isSharedViaLink -> R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
 
-            else -> {
-                R.drawable.ic_unshared to R.string.shared_icon_share
-            }
+            else -> R.drawable.ic_unshared to R.string.shared_icon_share
         }
     }
 
