@@ -62,6 +62,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.activity.TextEditorWebView;
+import com.owncloud.android.ui.activity.WhiteboardWebView;
 import com.owncloud.android.ui.dialog.SendFilesDialog;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.events.EncryptionEvent;
@@ -354,6 +355,14 @@ public class FileOperationsHelper {
                 }
             });
         }).start();
+    }
+    
+    public void openFileAsWhiteboard(OCFile file, Context context) {
+        Intent collaboraWebViewIntent = new Intent(context, WhiteboardWebView.class);
+        collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Whiteboard");
+        collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
+        collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        context.startActivity(collaboraWebViewIntent);
     }
 
     public void openFileAsRichDocument(OCFile file, Context context) {

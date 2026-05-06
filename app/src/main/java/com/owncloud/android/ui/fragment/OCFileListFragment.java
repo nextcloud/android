@@ -1352,6 +1352,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
                 } else if (EditImageActivity.Companion.canBePreviewed(singleFile)) {
                     ((FileDisplayActivity) mContainerActivity).startImageEditor(singleFile);
+                } else if (singleFile.getFileName().endsWith(".whiteboard")) {
+                    mContainerActivity.getFileOperationsHelper().openFileAsWhiteboard(singleFile, getContext());
                 } else {
                     mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext());
                 }
