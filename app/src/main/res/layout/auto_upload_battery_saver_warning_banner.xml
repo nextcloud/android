@@ -78,14 +78,14 @@
         android:layout_marginHorizontal="@dimen/standard_half_margin"
         android:background="@drawable/rounded_rect_8dp"
         android:backgroundTint="@color/task_container"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:elevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible"
             android:padding="@dimen/standard_padding">
 
             <LinearLayout

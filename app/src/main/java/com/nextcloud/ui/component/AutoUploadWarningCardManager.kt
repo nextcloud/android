@@ -30,7 +30,7 @@ class AutoUploadWarningCardManager(
         val isBatterySaver = powerManagementService.isPowerSavingEnabled
         val isIgnoringOptimization = powerManagementService.isIgnoringOptimization
 
-        binding.root.setVisibleIf(isBatterySaver || isIgnoringOptimization)
+        binding.root.setVisibleIf(isBatterySaver || !isIgnoringOptimization)
 
         if (isBatterySaver) {
             viewThemeUtils.material.themeCardView(binding.batterySaverLayout)
@@ -38,14 +38,18 @@ class AutoUploadWarningCardManager(
             binding.batterySaverButton.setOnClickListener {
                 openBatterySaverPage()
             }
+        } else {
+            binding.batterySaverLayout.visibility = View.GONE
         }
 
-        if (isIgnoringOptimization) {
+        if (!isIgnoringOptimization) {
             viewThemeUtils.material.themeCardView(binding.backgroundActivityLimitedLayout)
             binding.backgroundActivityLimitedLayout.visibility = View.VISIBLE
             binding.backgroundActivityLimitedButton.setOnClickListener {
                 showIgnoreBatteryOptimizationDialog()
             }
+        } else {
+            binding.backgroundActivityLimitedLayout.visibility = View.GONE
         }
     }
 
