@@ -12,10 +12,6 @@ package com.owncloud.android.datamodel
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.ActivityNotFoundException
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SmallTest
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -33,24 +29,15 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.Mock
+import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 import java.io.File
 import java.util.Random
 import java.util.UUID
 import java.util.function.Supplier
 
-/**
- * Created by JARP on 6/7/17.
- */
-@RunWith(AndroidJUnit4::class)
-@SmallTest
 class UploadStorageManagerTest : AbstractIT() {
     private lateinit var uploadsStorageManager: UploadsStorageManager
-
-    @Mock
-    private lateinit var currentAccountProvider: CurrentAccountProvider
 
     private lateinit var userAccountManager: UserAccountManager
 
@@ -60,9 +47,8 @@ class UploadStorageManagerTest : AbstractIT() {
     fun setUp() {
         MockitoAnnotations.openMocks(this)
 
-        val instrumentationCtx = ApplicationProvider.getApplicationContext<Context>()
-        val contentResolver = instrumentationCtx.contentResolver
-        uploadsStorageManager = UploadsStorageManager(currentAccountProvider, contentResolver)
+        val currentAccountProvider = mock(CurrentAccountProvider::class.java)
+        uploadsStorageManager = UploadsStorageManager(currentAccountProvider, targetContext.contentResolver)
         userAccountManager = UserAccountManagerImpl.fromContext(targetContext)
 
         val temp = Account("test2@test.com", MainApp.getAccountType(targetContext))
