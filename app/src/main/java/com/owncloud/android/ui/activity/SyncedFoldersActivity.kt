@@ -211,6 +211,7 @@ class SyncedFoldersActivity :
     override fun onResume() {
         super.onResume()
         highlightNavigationViewItem(menuItemId)
+        autoUploadWarningCardManager?.bind(binding.autoUploadBatterySaverWarningCard)
     }
 
     fun setupStoragePermissionWarningBanner() {
@@ -260,7 +261,6 @@ class SyncedFoldersActivity :
             powerManagementService,
             connectivityService
         )
-        autoUploadWarningCardManager?.bind(binding.autoUploadBatterySaverWarningCard)
         autoUploadWarningCardManager?.register(this, binding.autoUploadBatterySaverWarningCard)
 
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)
