@@ -7,18 +7,22 @@
 
 package com.nextcloud.ui.component
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.PowerManager
+import android.provider.Settings
 import android.view.View
+import androidx.core.net.toUri
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.databinding.AutoUploadBatterySaverWarningBannerBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class AutoUploadWarningCardManager(
+    private val context: Context,
     private val powerManagementService: PowerManagementService,
     private val viewThemeUtils: ViewThemeUtils
 ) {
@@ -28,19 +32,21 @@ class AutoUploadWarningCardManager(
 
         binding.root.setVisibleIf(isBatterySaver || isIgnoringOptimization)
 
-        if (isBatterySaver && isIgnoringOptimization) {
-            binding.title.visibility = View.VISIBLE
-            binding.batterySaverReason.visibility = View.VISIBLE
-            binding.batteryOptimizationReason.visibility = View.VISIBLE
-        } else if (isBatterySaver) {
-            binding.title.visibility = View.VISIBLE
-            binding.batterySaverReason.visibility = View.VISIBLE
-        } else if (isIgnoringOptimization) {
-            binding.title.visibility = View.VISIBLE
-            binding.batteryOptimizationReason.visibility = View.VISIBLE
+        if (isBatterySaver) {
+            viewThemeUtils.material.themeCardView(binding.batterySaverLayout)
+            binding.batterySaverLayout.visibility = View.VISIBLE
+            binding.batterySaverButton.setOnClickListener {
+                openBatterySaverPage()
+            }
         }
 
-        viewThemeUtils.material.themeCardView(binding.root)
+        if (isIgnoringOptimization) {
+            viewThemeUtils.material.themeCardView(binding.backgroundActivityLimitedLayout)
+            binding.backgroundActivityLimitedLayout.visibility = View.VISIBLE
+            binding.backgroundActivityLimitedButton.setOnClickListener {
+                showIgnoreBatteryOptimizationDialog()
+            }
+        }
     }
 
     // region listen power mode changes
@@ -65,4 +71,21 @@ class AutoUploadWarningCardManager(
         binding = null
     }
     // endregion
+
+    /**
+     * Opens page for OS's battery saver screen.
+     */
+    private fun openBatterySaverPage() {
+        context.startActivity(Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS))
+    }
+
+    /**
+     * Shows dialog to allow background usage for app.
+     */
+    @SuppressLint("BatteryLife")
+    private fun showIgnoreBatteryOptimizationDialog() {
+        val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+        intent.data = "package:${context.packageName}".toUri()
+        context.startActivity(intent)
+    }
 }

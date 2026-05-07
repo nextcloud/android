@@ -90,7 +90,7 @@ class UploadListActivity :
         binding = UploadListLayoutBinding.inflate(layoutInflater)
         val binding = binding!!
         setContentView(binding.getRoot())
-        autoUploadWarningCardManager = AutoUploadWarningCardManager(powerManagementService, viewThemeUtils)
+        autoUploadWarningCardManager = AutoUploadWarningCardManager(this, powerManagementService, viewThemeUtils)
         swipeListRefreshLayout = binding.swipeContainingList
 
         // this activity has no file really bound, it's for multiple accounts at the same time; should no inherit

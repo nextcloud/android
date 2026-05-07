@@ -1481,10 +1481,11 @@
     <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="open_in_app">Open in %1$s</string>
     <string name="auto_upload_delete_dialog_title">Delete auto-upload folder?</string>
+    <string name="auto_upload_battery_saver_reason">Battery Saver is active and may pause uploads</string>
+    <string name="auto_upload_battery_optimization_reason">Nextcloud\'s background activity is limited by battery optimization</string>
+    <string name="auto_upload_battery_saver_action">Open battery saver settings</string>
+    <string name="auto_upload_background_activity_action">Allow</string>
     <string name="auto_upload_delete_dialog_description">This will remove the folder and auto-upload configuration. Any unfinished uploads will be canceled.</string>
-    <string name="auto_upload_battery_combined_warning">Auto-upload may be limited:</string>
-    <string name="auto_upload_battery_saver_reason">\t \u2022 Battery Saver is active and may pause uploads</string>
-    <string name="auto_upload_battery_optimization_reason">\t \u2022 Nextcloud\'s background activity is limited by battery optimization</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="sync_anyway">Sync anyway</string>
     <string name="sync_duplication">Sync duplication</string>
