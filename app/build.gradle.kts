@@ -86,7 +86,12 @@ val ncTestServerBaseUrl = configProps["NC_TEST_SERVER_BASEURL"]
 android {
     // install this NDK version and Cmake to produce smaller APKs. Build will still work if not installed
     ndkVersion = "${ndkEnv["NDK_VERSION"]}"
-
+    externalNativeBuild {
+        cmake {
+            version = "${ndkEnv["CMAKE_VERSION"]}"
+            path = file("src/main/cpp/CMakeLists.txt")
+        }
+    }
     namespace = "com.owncloud.android"
     testNamespace = "${namespace}.test"
 
@@ -103,6 +108,10 @@ android {
         minSdk = 28
         targetSdk = 36
         compileSdk = 36
+
+        ndk {
+            abiFilters += listOf("arm64-v8a", "x86_64")
+        }
 
         buildConfigField("boolean", "CI", ciBuild.toString())
         buildConfigField("boolean", "RUNTIME_PERF_ANALYSIS", perfAnalysis.toString())
@@ -192,6 +201,7 @@ android {
         viewBinding = true
         aidl = true
         compose = true
+        prefab = true
     }
 
     compileOptions {
@@ -445,6 +455,7 @@ dependencies {
 
     // region Crypto
     implementation(libs.conscrypt.android)
+    implementation(libs.openssl)
     // endregion
 
     // region Library
