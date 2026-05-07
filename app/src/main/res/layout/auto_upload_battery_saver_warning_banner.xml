@@ -44,7 +44,7 @@
                     android:layout_width="@dimen/standard_icon_size"
                     android:layout_height="@dimen/standard_icon_size"
                     android:contentDescription="@null"
-                    android:src="@drawable/ic_warning"
+                    android:src="@drawable/ic_battery_alert"
                     app:tint="@color/log_level_warning" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -98,7 +98,7 @@
                     android:layout_width="@dimen/standard_icon_size"
                     android:layout_height="@dimen/standard_icon_size"
                     android:contentDescription="@null"
-                    android:src="@drawable/ic_warning"
+                    android:src="@drawable/ic_history"
                     app:tint="@color/log_level_warning" />
 
                 <com.google.android.material.textview.MaterialTextView
