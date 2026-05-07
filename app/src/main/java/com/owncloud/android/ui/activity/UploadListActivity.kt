@@ -123,7 +123,6 @@ class UploadListActivity :
 
         binding?.autoUploadBatterySaverWarningCard?.let {
             autoUploadWarningCardManager?.register(this, it)
-            autoUploadWarningCardManager?.bind(it)
         }
 
         val lm = GridLayoutManager(this, 1)
@@ -262,6 +261,13 @@ class UploadListActivity :
                 connectivityService,
                 powerManagementService
             )
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding?.autoUploadBatterySaverWarningCard?.let {
+            autoUploadWarningCardManager?.bind(it)
         }
     }
 
