@@ -32,7 +32,7 @@
 
             <include
                 android:id="@+id/auto_upload_battery_saver_warning_card"
-                layout="@layout/auto_upload_battery_saver_warning_banner"
+                layout="@layout/upload_warning_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_margin"

@@ -33,7 +33,7 @@ import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.SubFolderRule
-import com.nextcloud.ui.component.AutoUploadWarningCardManager
+import com.nextcloud.ui.component.UploadWarningCard
 import com.nextcloud.utils.BatteryOptimizationHelper
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isDialogFragmentReady
@@ -153,7 +153,7 @@ class SyncedFoldersActivity :
     @Inject
     lateinit var appInfo: AppInfo
 
-    private var autoUploadWarningCardManager: AutoUploadWarningCardManager? = null
+    private var uploadWarningCard: UploadWarningCard? = null
 
     lateinit var binding: SyncedFoldersLayoutBinding
     lateinit var adapter: SyncedFolderAdapter
@@ -166,7 +166,7 @@ class SyncedFoldersActivity :
         super.onCreate(savedInstanceState)
         binding = SyncedFoldersLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        autoUploadWarningCardManager = AutoUploadWarningCardManager(this, powerManagementService, viewThemeUtils)
+        uploadWarningCard = UploadWarningCard(this, powerManagementService, viewThemeUtils)
         if (intent != null && intent.extras != null) {
             val accountName = intent.extras!!.getString(NotificationWork.KEY_NOTIFICATION_ACCOUNT)
             val optionalUser = user
@@ -211,7 +211,7 @@ class SyncedFoldersActivity :
     override fun onResume() {
         super.onResume()
         highlightNavigationViewItem(menuItemId)
-        autoUploadWarningCardManager?.bind(binding.autoUploadBatterySaverWarningCard)
+        uploadWarningCard?.bind(binding.autoUploadBatterySaverWarningCard)
     }
 
     fun setupStoragePermissionWarningBanner() {
@@ -261,7 +261,7 @@ class SyncedFoldersActivity :
             powerManagementService,
             connectivityService
         )
-        autoUploadWarningCardManager?.register(this, binding.autoUploadBatterySaverWarningCard)
+        uploadWarningCard?.register(this, binding.autoUploadBatterySaverWarningCard)
 
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.emptyList.emptyListViewAction)
@@ -284,7 +284,7 @@ class SyncedFoldersActivity :
 
     override fun onDestroy() {
         super.onDestroy()
-        autoUploadWarningCardManager?.unregister(this)
+        uploadWarningCard?.unregister(this)
     }
 
     /**

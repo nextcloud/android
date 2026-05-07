@@ -18,15 +18,15 @@ import android.view.View
 import androidx.core.net.toUri
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.utils.extensions.setVisibleIf
-import com.owncloud.android.databinding.AutoUploadBatterySaverWarningBannerBinding
+import com.owncloud.android.databinding.UploadWarningCardBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class AutoUploadWarningCardManager(
+class UploadWarningCard(
     private val context: Context,
     private val powerManagementService: PowerManagementService,
     private val viewThemeUtils: ViewThemeUtils
 ) {
-    fun bind(binding: AutoUploadBatterySaverWarningBannerBinding) {
+    fun bind(binding: UploadWarningCardBinding) {
         val isBatterySaver = powerManagementService.isPowerSavingEnabled
         val isIgnoringOptimization = powerManagementService.isIgnoringOptimization
 
@@ -54,7 +54,7 @@ class AutoUploadWarningCardManager(
     }
 
     // region listen power mode changes
-    private var binding: AutoUploadBatterySaverWarningBannerBinding? = null
+    private var binding: UploadWarningCardBinding? = null
 
     private val batterySaverReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -64,7 +64,7 @@ class AutoUploadWarningCardManager(
         }
     }
 
-    fun register(context: Context, binding: AutoUploadBatterySaverWarningBannerBinding) {
+    fun register(context: Context, binding: UploadWarningCardBinding) {
         this.binding = binding
         bind(binding)
         context.registerReceiver(batterySaverReceiver, IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED))

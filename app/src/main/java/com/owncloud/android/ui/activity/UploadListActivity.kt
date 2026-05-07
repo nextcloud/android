@@ -28,7 +28,7 @@ import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.utils.Throttler
-import com.nextcloud.ui.component.AutoUploadWarningCardManager
+import com.nextcloud.ui.component.UploadWarningCard
 import com.nextcloud.utils.extensions.webDavParentPath
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadListLayoutBinding
@@ -73,7 +73,7 @@ class UploadListActivity :
 
     @Inject lateinit var uploadFileOperationFactory: UploadFileOperationFactory
 
-    private var autoUploadWarningCardManager: AutoUploadWarningCardManager? = null
+    private var uploadWarningCard: UploadWarningCard? = null
 
     private var swipeListRefreshLayout: SwipeRefreshLayout? = null
     private var binding: UploadListLayoutBinding? = null
@@ -90,7 +90,7 @@ class UploadListActivity :
         binding = UploadListLayoutBinding.inflate(layoutInflater)
         val binding = binding!!
         setContentView(binding.getRoot())
-        autoUploadWarningCardManager = AutoUploadWarningCardManager(this, powerManagementService, viewThemeUtils)
+        uploadWarningCard = UploadWarningCard(this, powerManagementService, viewThemeUtils)
         swipeListRefreshLayout = binding.swipeContainingList
 
         // this activity has no file really bound, it's for multiple accounts at the same time; should no inherit
@@ -122,7 +122,7 @@ class UploadListActivity :
         )
 
         binding?.autoUploadBatterySaverWarningCard?.let {
-            autoUploadWarningCardManager?.register(this, it)
+            uploadWarningCard?.register(this, it)
         }
 
         val lm = GridLayoutManager(this, 1)
@@ -267,7 +267,7 @@ class UploadListActivity :
     override fun onResume() {
         super.onResume()
         binding?.autoUploadBatterySaverWarningCard?.let {
-            autoUploadWarningCardManager?.bind(it)
+            uploadWarningCard?.bind(it)
         }
     }
 
@@ -385,7 +385,7 @@ class UploadListActivity :
 
     override fun onDestroy() {
         super.onDestroy()
-        autoUploadWarningCardManager?.unregister(this)
+        uploadWarningCard?.unregister(this)
     }
 
     companion object {

@@ -25,7 +25,6 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.ui.component.AutoUploadWarningCardManager
 import com.nextcloud.utils.extensions.calculateScanInterval
 import com.nextcloud.utils.extensions.filterEnabledOrWithoutEnabledParent
 import com.nextcloud.utils.extensions.hasEnabledParent
