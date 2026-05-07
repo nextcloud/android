@@ -156,6 +156,7 @@ class FileDeletionTests : AbstractIT() {
             mimeType = mime
             modificationTimestamp = now
             permissions = "RWDNV"
+            storagePath = FileStorageUtils.getDefaultSavePathFor(user.accountName, this)
         }
 
         val list = mutableListOf<OCFile>()
@@ -184,8 +185,12 @@ class FileDeletionTests : AbstractIT() {
 
         list.forEach { ocFile ->
             if (!ocFile.isFolder) {
-                val localFile = createFileAtExpectedPath(ocFile, "test content")
-                ocFile.storagePath = localFile.absolutePath
+                val localFile = File(ocFile.storagePath).apply {
+                    parentFile?.mkdirs()
+                    createNewFile()
+                    writeText("test content")
+                }
+                createdFilePaths.add(localFile.absolutePath)
                 storageManager.saveFile(ocFile)
             } else {
                 storageManager.saveFile(ocFile)
