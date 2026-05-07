@@ -179,15 +179,33 @@ class FileDeletionTests : AbstractIT() {
 
         val allEntries = mutableListOf(root, documents, photos, temp, projects, vacation, archive, nested, emptyFolder)
 
-        allEntries.add(saveFileWithLocalCopy(projects.fileId, "/Documents/Projects/spec.txt", 12000,
-            MimeType.TEXT_PLAIN))
+        allEntries.add(
+            saveFileWithLocalCopy(
+                projects.fileId,
+                "/Documents/Projects/spec.txt",
+                12000,
+                MimeType.TEXT_PLAIN
+            )
+        )
         allEntries.add(saveFileWithLocalCopy(vacation.fileId, "/Photos/Vacation/img2.jpg", 300000, MimeType.JPEG))
         allEntries.add(saveFileWithLocalCopy(documents.fileId, "/Documents/example.pdf", 150000, MimeType.PDF))
         allEntries.add(saveFileWithLocalCopy(photos.fileId, "/Photos/cover.png", 80000, MimeType.PNG))
-        allEntries.add(saveFileWithLocalCopy(projects.fileId, "/Documents/Projects/readme.txt", 2000,
-            MimeType.TEXT_PLAIN))
-        allEntries.add(saveFileWithLocalCopy(archive.fileId, "/Documents/Projects/Archive/old.bmp", 900000,
-            MimeType.BMP))
+        allEntries.add(
+            saveFileWithLocalCopy(
+                projects.fileId,
+                "/Documents/Projects/readme.txt",
+                2000,
+                MimeType.TEXT_PLAIN
+            )
+        )
+        allEntries.add(
+            saveFileWithLocalCopy(
+                archive.fileId,
+                "/Documents/Projects/Archive/old.bmp",
+                900000,
+                MimeType.BMP
+            )
+        )
         allEntries.add(saveFileWithLocalCopy(vacation.fileId, "/Photos/Vacation/img1.jpg", 250000, MimeType.JPEG))
         allEntries.add(saveFileWithLocalCopy(temp.fileId, "/Temp/tmp_file_1.txt", 400, MimeType.TEXT_PLAIN))
         allEntries.add(saveFileWithLocalCopy(temp.fileId, "/Temp/tmp_file_2.txt", 800, MimeType.TEXT_PLAIN))
