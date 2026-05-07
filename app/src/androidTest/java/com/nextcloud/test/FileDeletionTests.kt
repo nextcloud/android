@@ -25,25 +25,34 @@ import kotlin.random.Random
 @Suppress("TooManyFunctions", "MagicNumber")
 class FileDeletionTests : AbstractIT() {
 
-    private lateinit var tempDir: File
+    private val createdFilePaths = mutableListOf<String>()
 
     @Before
     fun setup() {
-        val parent = System.getProperty("java.io.tmpdir")
-        val childPath = "file_deletion_test_${System.currentTimeMillis()}"
-        tempDir = File(parent, childPath)
-        tempDir.mkdirs()
+        createdFilePaths.clear()
     }
 
     @After
     fun cleanup() {
-        tempDir.deleteRecursively()
+        createdFilePaths.forEach { File(it).delete() }
+        createdFilePaths.clear()
     }
 
     private fun getRandomRemoteId(): String = Random
         .nextLong(10_000_000L, 99_999_999L)
         .toString()
         .padEnd(32, '0')
+
+    private fun createFileAtExpectedPath(ocFile: OCFile, content: String = "Temporary test content"): File {
+        val expectedPath = FileStorageUtils.getDefaultSavePathFor(user.accountName, ocFile)
+        val localFile = File(expectedPath).apply {
+            parentFile?.mkdirs()
+            createNewFile()
+            writeText(content)
+        }
+        createdFilePaths.add(localFile.absolutePath)
+        return localFile
+    }
 
     private fun createAndSaveSingleFileWithLocalCopy(): OCFile {
         val now = System.currentTimeMillis()
@@ -59,11 +68,7 @@ class FileDeletionTests : AbstractIT() {
             permissions = "RWDNV"
         }
 
-        val localFile = File(tempDir, "TestFile_${file.fileId}.txt").apply {
-            parentFile?.mkdirs()
-            createNewFile()
-            writeText("Temporary test content")
-        }
+        val localFile = createFileAtExpectedPath(file)
         file.storagePath = localFile.absolutePath
 
         storageManager.saveFile(file)
@@ -117,11 +122,11 @@ class FileDeletionTests : AbstractIT() {
 
         listOf(rootFolder, subFolder, file1, file2).forEach { storageManager.saveFile(it) }
 
-        val file1Path = File(tempDir, "file1_${file1.fileId}.txt").apply { createNewFile() }
-        val file2Path = File(tempDir, "file2_${file2.fileId}.txt").apply { createNewFile() }
+        val localFile1 = createFileAtExpectedPath(file1)
+        val localFile2 = createFileAtExpectedPath(file2)
 
-        file1.storagePath = file1Path.absolutePath
-        file2.storagePath = file2Path.absolutePath
+        file1.storagePath = localFile1.absolutePath
+        file2.storagePath = localFile2.absolutePath
 
         storageManager.saveFile(file1)
         storageManager.saveFile(file2)
@@ -179,22 +184,18 @@ class FileDeletionTests : AbstractIT() {
 
         list.forEach { ocFile ->
             if (!ocFile.isFolder) {
-                val localFile = File(tempDir, ocFile.remoteId).apply {
-                    parentFile?.mkdirs()
-                    createNewFile()
-                    writeText("test content")
-                }
+                val localFile = createFileAtExpectedPath(ocFile, "test content")
                 ocFile.storagePath = localFile.absolutePath
                 storageManager.saveFile(ocFile)
             } else {
-                // For folders, create the folder in tempDir
-                val localFolder = File(tempDir, ocFile.remoteId).apply { mkdirs() }
-                ocFile.storagePath = localFolder.absolutePath
                 storageManager.saveFile(ocFile)
             }
         }
 
-        return list
+        return list.sortedWith(
+            compareBy<OCFile> { it.isFolder }
+                .thenByDescending { it.remotePath.count { c -> c == '/' } }
+        )
     }
 
     @Test
