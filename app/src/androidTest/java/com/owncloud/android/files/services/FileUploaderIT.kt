@@ -16,6 +16,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.model.OCUploadLocalPathData
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -123,7 +124,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepLocalAndOverwriteRemoteStatic() {
         val file = getDummyFile("chunkedFile.txt")
 
-        FileUploadHelper().uploadNewFiles(
+        val data = OCUploadLocalPathData(
             user,
             arrayOf(file.absolutePath),
             arrayOf("/testFile.txt"),
@@ -134,6 +135,8 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             false,
             NameCollisionPolicy.DEFAULT
         )
+
+        FileUploadHelper().uploadNewFiles(data)
 
         longSleep()
 
@@ -239,7 +242,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepBothStatic() {
         val file = getDummyFile("nonEmpty.txt")
 
-        FileUploadHelper().uploadNewFiles(
+        val data = OCUploadLocalPathData(
             user,
             arrayOf(file.absolutePath),
             arrayOf("/testFile.txt"),
@@ -250,6 +253,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             false,
             NameCollisionPolicy.DEFAULT
         )
+        FileUploadHelper().uploadNewFiles(data)
 
         longSleep()
 
@@ -347,7 +351,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepServerStatic() {
         val file = getDummyFile("chunkedFile.txt")
 
-        FileUploadHelper().uploadNewFiles(
+        val data = OCUploadLocalPathData(
             user,
             arrayOf(file.absolutePath),
             arrayOf("/testFile.txt"),
@@ -358,6 +362,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             false,
             NameCollisionPolicy.DEFAULT
         )
+        FileUploadHelper().uploadNewFiles(data)
 
         longSleep()
 
@@ -451,7 +456,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepCancelStatic() {
         val file = getDummyFile("chunkedFile.txt")
 
-        FileUploadHelper().uploadNewFiles(
+        val data = OCUploadLocalPathData(
             user,
             arrayOf(file.absolutePath),
             arrayOf("/testFile.txt"),
@@ -462,6 +467,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             false,
             NameCollisionPolicy.DEFAULT
         )
+        FileUploadHelper().uploadNewFiles(data)
 
         longSleep()
 

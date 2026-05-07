@@ -22,6 +22,7 @@ import com.canhub.cropper.CropImageView
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityEditImageBinding
@@ -95,17 +96,18 @@ class EditImageActivity :
             resultUri?.substring(resultUri.lastIndexOf('.'))
 
         resultUri?.let {
-            FileUploadHelper().uploadNewFiles(
+            val data = OCUploadLocalPathData(
                 user = storageManager.user,
                 localPaths = arrayOf(it),
                 remotePaths = arrayOf(file.parentRemotePath + File.separator + newFileName),
                 createRemoteFolder = false,
-                createdBy = UploadFileOperation.CREATED_BY_USER,
+                creationType = UploadFileOperation.CREATED_BY_USER,
                 requiresWifi = false,
                 requiresCharging = false,
-                nameCollisionPolicy = NameCollisionPolicy.RENAME,
+                collisionPolicy = NameCollisionPolicy.RENAME,
                 localBehavior = FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
             )
+            FileUploadHelper().uploadNewFiles(data)
         }
     }
 
