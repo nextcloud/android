@@ -5,75 +5,122 @@
   ~ SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
   -->
-<com.google.android.material.card.MaterialCardView android:id="@+id/root"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/rounded_rect_8dp"
-    android:layout_marginTop="@dimen/standard_half_margin"
-    android:layout_marginHorizontal="@dimen/standard_half_margin"
-    android:backgroundTint="@color/task_container"
-    android:elevation="4dp"
-    android:padding="@dimen/standard_double_margin"
+
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    tools:visibility="visible"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/battery_saver_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/standard_padding"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="@dimen/standard_icon_size"
-            android:layout_height="@dimen/standard_icon_size"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_warning"
-            app:tint="@color/log_level_warning" />
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_marginHorizontal="@dimen/standard_half_margin"
+        android:background="@drawable/rounded_rect_8dp"
+        android:backgroundTint="@color/task_container"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:elevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/standard_padding">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/title"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/standard_icon_size"
+                    android:layout_height="@dimen/standard_icon_size"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_warning"
+                    app:tint="@color/log_level_warning" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/auto_upload_battery_saver_reason"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textColor="@color/text_color"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/battery_saver_button"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="@string/auto_upload_battery_combined_warning"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/text_color"
-                tools:visibility="visible"
-                android:visibility="gone"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/battery_saver_reason"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="@string/auto_upload_battery_saver_reason"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/text_color"
-                tools:visibility="visible"
-                android:visibility="gone"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/battery_optimization_reason"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="@string/auto_upload_battery_optimization_reason"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/text_color"
-                tools:visibility="visible"
-                android:visibility="gone"/>
-
+                android:layout_gravity="end"
+                android:layout_marginTop="12dp"
+                android:textAllCaps="false"
+                android:text="@string/auto_upload_battery_saver_action" />
         </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/background_activity_limited_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_marginHorizontal="@dimen/standard_half_margin"
+        android:background="@drawable/rounded_rect_8dp"
+        android:backgroundTint="@color/task_container"
+        android:elevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:padding="@dimen/standard_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/standard_icon_size"
+                    android:layout_height="@dimen/standard_icon_size"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_warning"
+                    app:tint="@color/log_level_warning" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/auto_upload_battery_optimization_reason"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textColor="@color/text_color"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/background_activity_limited_button"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textAllCaps="false"
+                android:layout_marginTop="12dp"
+                android:text="@string/auto_upload_background_activity_action" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

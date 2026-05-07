@@ -6,14 +6,11 @@
  */
 package com.nextcloud.client.device
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.PowerManager
-import android.provider.Settings
-import androidx.core.net.toUri
 import com.nextcloud.utils.extensions.registerBroadcastReceiver
 import com.owncloud.android.datamodel.ReceiverFlag
 
@@ -28,23 +25,6 @@ internal class PowerManagementServiceImpl(
             val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
             return PowerManagementServiceImpl(context, powerManager)
         }
-    }
-
-    /**
-     * Opens page for OS's battery saver screen.
-     */
-    fun openBatterySaverPage() {
-        context.startActivity(Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS))
-    }
-
-    /**
-     * Shows dialog to allow background usage for app.
-     */
-    @SuppressLint("BatteryLife")
-    fun showIgnoreBatteryOptimizationDialog() {
-        val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-        intent.data = "package:${context.packageName}".toUri()
-        context.startActivity(intent)
     }
 
     override val isIgnoringOptimization: Boolean
