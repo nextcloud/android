@@ -202,15 +202,8 @@ class OCFileListSearchTask(
 
             for (obj in data) {
                 try {
-                    val remoteFile = obj as? RemoteFile ?: continue
-                    val newFile = FileStorageUtils.fillOCFile(remoteFile)
-
-                    val existingFile = storageManager.getFileByPath(newFile.remotePath)
-                    if (existingFile != null) {
-                        preserveLocalFieldsOverEmptyRemoteFile(newFile, existingFile)
-                    }
-
-                    var ocFile = newFile
+                    val remoteFile = (obj as? RemoteFile) ?: continue
+                    var ocFile = FileStorageUtils.fillOCFile(remoteFile)
                     FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, currentUser.accountName)
                     resolveLocalFileId(ocFile)
                     ocFile = storageManager.saveFileWithParent(ocFile, activity)
@@ -244,30 +237,6 @@ class OCFileListSearchTask(
 
             return@withContext resultFiles
         }
-
-    /**
-     * Needed to prevent overwriting the valid local fields.
-     */
-    private fun preserveLocalFieldsOverEmptyRemoteFile(newFile: OCFile, existingFile: OCFile) {
-        if (newFile.sharees.isNullOrEmpty()) {
-            newFile.sharees = existingFile.sharees
-        }
-        if (!newFile.isSharedViaLink) {
-            newFile.isSharedViaLink = existingFile.isSharedViaLink
-        }
-        if (!newFile.isSharedWithSharee) {
-            newFile.isSharedWithSharee = existingFile.isSharedWithSharee
-        }
-        if (newFile.firstShareTimestamp == 0L) {
-            newFile.firstShareTimestamp = existingFile.firstShareTimestamp
-        }
-        if (newFile.tags.isNullOrEmpty()) {
-            newFile.tags = existingFile.tags
-        }
-        if (newFile.imageDimension == null) {
-            newFile.imageDimension = existingFile.imageDimension
-        }
-    }
 
     @Suppress("DEPRECATION")
     private fun handleEncryptionIfNeeded(
