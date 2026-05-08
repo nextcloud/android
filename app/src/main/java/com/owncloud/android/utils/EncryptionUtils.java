@@ -129,6 +129,10 @@ public final class EncryptionUtils {
     @VisibleForTesting
     public static final String MIGRATED_FOLDER_IDS = "MIGRATED_FOLDER_IDS";
 
+    public static final long E2E_V1_INITIAL_COUNTER = 0L;
+    public static final long E2E_V2_INITIAL_COUNTER = 1L;
+
+
     private EncryptionUtils() {
         // utility class -> private constructor
     }

@@ -137,7 +137,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
         try {
             // lock folder
-            token = EncryptionUtils.lockFolder(parent, client, OCFile.getFirstE2EECounter(false));
+            token = EncryptionUtils.lockFolder(parent, client, EncryptionUtils.E2E_V1_INITIAL_COUNTER);
 
             // get metadata
             Pair<Boolean, DecryptedFolderMetadataFileV1> metadataPair = EncryptionUtils.retrieveMetadataV1(parent,
@@ -153,7 +153,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
             // check if filename already exists
             if (isFileExisting(metadata, filename)) {
-                return new RemoteOperationResult(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS);
+                return new RemoteOperationResult<>(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS);
             }
 
             // generate new random file name, check if it exists in metadata
@@ -275,7 +275,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
         try {
             // lock folder
-            token = EncryptionUtils.lockFolder(parent, client, OCFile.getFirstE2EECounter(true));
+            token = EncryptionUtils.lockFolder(parent, client, EncryptionUtils.E2E_V2_INITIAL_COUNTER);
 
             // get metadata
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();

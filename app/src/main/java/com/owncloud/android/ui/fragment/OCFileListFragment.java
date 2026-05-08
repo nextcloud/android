@@ -2040,9 +2040,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (remoteOperationResult.isSuccess()) {
                 OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(user.getAccountName());
                 final var isE2EEV2 = E2EVersionHelper.INSTANCE.isV2Plus(ocCapability);
+                long e2eCounter = EncryptionUtils.E2E_V1_INITIAL_COUNTER;
+                if (isE2EEV2) {
+                    e2eCounter = EncryptionUtils.E2E_V2_INITIAL_COUNTER;
+                }
 
                 // lock folder
-                String token = EncryptionUtils.lockFolder(folder, client, OCFile.getFirstE2EECounter(isE2EEV2));
+                String token = EncryptionUtils.lockFolder(folder, client, e2eCounter);
 
                 if (E2EVersionHelper.INSTANCE.isV2Plus(ocCapability)) {
                     // Update metadata
