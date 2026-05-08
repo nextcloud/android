@@ -57,7 +57,6 @@ import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.PrivateKey
 import java.security.cert.X509Certificate
@@ -260,7 +259,7 @@ class EncryptionUtilsV2 {
 
         if (transferredFiledrop) {
             // lock folder
-            val token = EncryptionUtils.lockFolder(ocFile, client)
+            val token = EncryptionUtils.lockFolder(ocFile, client, ocFile.e2eCounter)
 
             serializeAndUploadMetadata(
                 ocFile,
@@ -528,6 +527,7 @@ class EncryptionUtilsV2 {
         metadataFile: DecryptedFolderMetadataFile
     ): DecryptedFolderMetadataFile {
         metadataFile.metadata.folders.remove(encryptedFileName)
+        metadataFile.metadata.counter++
 
         return metadataFile
     }
@@ -536,6 +536,7 @@ class EncryptionUtilsV2 {
     fun removeFileFromMetadata(fileName: String, metadata: DecryptedFolderMetadataFile) {
         metadata.metadata.files.remove(fileName)
             ?: throw IllegalStateException("File $fileName not found in metadata!")
+        metadata.metadata.counter++
     }
 
     @Throws(IllegalStateException::class)
@@ -697,7 +698,7 @@ class EncryptionUtilsV2 {
             storageManager
         )
         // lock
-        val token = EncryptionUtils.lockFolder(folder, client)
+        val token = EncryptionUtils.lockFolder(folder, client, folder.e2eCounter)
 
         // upload
         serializeAndUploadMetadata(
@@ -1009,17 +1010,10 @@ class EncryptionUtilsV2 {
         return DecryptedFolderMetadataFile(metadata)
     }
 
-    /**
-     * SHA-256 hash of metadata-key
-     */
-    @Suppress("MagicNumber")
-    fun hashMetadataKey(metadataKey: ByteArray): String {
-        val bytes = MessageDigest
-            .getInstance("SHA-256")
-            .digest(metadataKey)
-
-        return BigInteger(1, bytes).toString(16).padStart(32, '0')
-    }
+    fun hashMetadataKey(metadataKey: ByteArray): String = MessageDigest
+        .getInstance("SHA-256")
+        .digest(metadataKey)
+        .joinToString("") { "%02x".format(it) }
 
     fun getMessageSignature(cert: String, privateKey: String, metadataFile: EncryptedFolderMetadataFile): String =
         getMessageSignature(
