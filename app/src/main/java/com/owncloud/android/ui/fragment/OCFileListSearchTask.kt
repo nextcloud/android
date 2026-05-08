@@ -97,7 +97,6 @@ class OCFileListSearchTask(
                     )
                 } else {
                     parseAndSaveVirtuals(result.resultData ?: listOf(), fragment)
-                    fragment.adapter.files
                 }
 
                 val sortedNewList = sortSearchData(newList, searchType, null, setNewSortOrder = {
@@ -193,9 +192,9 @@ class OCFileListSearchTask(
     }
 
     @Suppress("DEPRECATION")
-    private suspend fun parseAndSaveVirtuals(data: List<Any>, fragment: OCFileListFragment) =
+    private suspend fun parseAndSaveVirtuals(data: List<Any>, fragment: OCFileListFragment): List<OCFile> =
         withContext(Dispatchers.IO) {
-            val activity = fragment.activity ?: return@withContext
+            val activity = fragment.activity ?: return@withContext emptyList()
             val now = System.currentTimeMillis()
 
             val (virtualType, onlyMedia) = when (fragment.currentSearchType) {
@@ -205,6 +204,7 @@ class OCFileListSearchTask(
             }
 
             val contentValuesList = ArrayList<ContentValues>()
+            val resultFiles = ArrayList<OCFile>()
 
             for (obj in data) {
                 try {
@@ -215,37 +215,28 @@ class OCFileListSearchTask(
                     ocFile = handleEncryptionIfNeeded(ocFile, storageManager, activity)
 
                     if (fragment.currentSearchType != SearchType.GALLERY_SEARCH && ocFile.isFolder) {
-                        RefreshFolderOperation(
-                            ocFile,
-                            now,
-                            true,
-                            false,
-                            storageManager,
-                            currentUser,
-                            activity
-                        ).execute(currentUser, activity)
+                        RefreshFolderOperation(ocFile, now, true, false, storageManager, currentUser, activity)
+                            .execute(currentUser, activity)
                     }
 
-                    val isMediaAllowed =
-                        !onlyMedia || MimeTypeUtil.isImage(ocFile) || MimeTypeUtil.isVideo(ocFile)
-
+                    val isMediaAllowed = !onlyMedia || MimeTypeUtil.isImage(ocFile) || MimeTypeUtil.isVideo(ocFile)
                     if (isMediaAllowed) {
-                        fragment.adapter.addVirtualFile(ocFile)
+                        resultFiles.add(ocFile)
                     }
 
-                    val cv = ContentValues().apply {
+                    contentValuesList.add(ContentValues().apply {
                         put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, virtualType.toString())
                         put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
-                    }
-                    contentValuesList.add(cv)
+                    })
                 } catch (e: Exception) {
                     Log_OC.e(TAG, "parseAndSaveVirtuals():", e)
                 }
             }
 
-            // Save timestamp + virtual entries
             preferences.setPhotoSearchTimestamp(System.currentTimeMillis())
             storageManager.saveVirtuals(contentValuesList)
+
+            return@withContext resultFiles
         }
 
     @Suppress("DEPRECATION")

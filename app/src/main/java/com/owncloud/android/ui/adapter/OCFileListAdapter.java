@@ -875,7 +875,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void updateAdapter(List<OCFile> newFiles, OCFile directory) {
         Log_OC.d(TAG, "updating the adapter");
 
-        mFiles = new ArrayList<>(newFiles);
+        mFiles.clear();
+        mFiles.addAll(newFiles);
+
         mFilesAll.clear();
         mFilesAll.addAll(mFiles);
 
@@ -979,12 +981,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         int position = getItemPosition(file);
         if (position != -1) {
             notifyItemInserted(position);
-        }
-    }
-
-    public void addVirtualFile(@NonNull OCFile file) {
-        if (mFiles.isEmpty() || !mFiles.contains(file)) {
-            mFiles.add(file);
         }
     }
 
