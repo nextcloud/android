@@ -22,6 +22,7 @@ steps:
         from_secret: GIT_TOKEN
     commands:
       - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
+      - sdkmanager "cmake;4.1.2"
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
       - ./gradlew assembleGplayDebugAndroidTest
@@ -88,6 +89,7 @@ steps:
         from_secret: GIT_TOKEN
     commands:
       - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
+      - sdkmanager "cmake;4.1.2"
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
       - scripts/runCombinedTest.sh $DRONE_PULL_REQUEST $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER
@@ -187,6 +189,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: de23b70b660e9f78e936d89699fd24777a83c8caaad97d086bbc0c8a0373aa91
+hmac: e8d113e2208bae860dd54f60386114ba6841cc5de4e4d6e4606fda82d99103e0
 
 ...

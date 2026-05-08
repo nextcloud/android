@@ -86,6 +86,7 @@ android {
     externalNativeBuild {
         cmake {
             version = "${ndkEnv["CMAKE_VERSION"]}"
+            path = file("src/main/cpp/CMakeLists.txt")
         }
     }
 
@@ -107,7 +108,7 @@ android {
         compileSdk = 36
 
         ndk {
-            abiFilters += listOf("arm64-v8a", "x86_64", "x86")
+            abiFilters += listOf("arm64-v8a", "x86_64")
         }
 
         buildConfigField("boolean", "CI", ciBuild.toString())
@@ -192,6 +193,7 @@ android {
         viewBinding = true
         aidl = true
         compose = true
+        prefab = true
     }
 
     compileOptions {
@@ -444,6 +446,7 @@ dependencies {
 
     // region Crypto
     implementation(libs.conscrypt.android)
+    implementation(libs.openssl)
     // endregion
 
     // region Library
