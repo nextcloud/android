@@ -37,19 +37,19 @@ import java.util.UUID
 import java.util.function.Supplier
 
 class UploadStorageManagerTest : AbstractIT() {
-    private lateinit var uploadsStorageManager: UploadsStorageManager
+    private val uploadsStorageManager: UploadsStorageManager by lazy {
+        UploadsStorageManager(mock(CurrentAccountProvider::class.java), targetContext.contentResolver)
+    }
 
-    private lateinit var userAccountManager: UserAccountManager
+    private val userAccountManager: UserAccountManager by lazy {
+        UserAccountManagerImpl.fromContext(targetContext)
+    }
 
     private lateinit var user2: User
 
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
-
-        val currentAccountProvider = mock(CurrentAccountProvider::class.java)
-        uploadsStorageManager = UploadsStorageManager(currentAccountProvider, targetContext.contentResolver)
-        userAccountManager = UserAccountManagerImpl.fromContext(targetContext)
 
         val temp = Account("test2@test.com", MainApp.getAccountType(targetContext))
         if (!userAccountManager.exists(temp)) {
@@ -65,7 +65,6 @@ class UploadStorageManagerTest : AbstractIT() {
             platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, "test") // same as userId
         }
 
-        val userAccountManager: UserAccountManager = UserAccountManagerImpl.fromContext(targetContext)
         user2 = userAccountManager.getUser("test2@test.com")
             .orElseThrow(Supplier { ActivityNotFoundException() })
     }
@@ -220,6 +219,8 @@ class UploadStorageManagerTest : AbstractIT() {
     @After
     fun tearDown() {
         deleteAllUploads()
-        userAccountManager.removeUser(user2)
+        if (::user2.isInitialized) {
+            userAccountManager.removeUser(user2)
+        }
     }
 }
