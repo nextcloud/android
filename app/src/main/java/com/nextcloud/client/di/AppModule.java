@@ -137,7 +137,7 @@ class AppModule {
     @Provides
     UploadsStorageManager uploadsStorageManager(CurrentAccountProvider currentAccountProvider,
                                                 Context context) {
-        return new UploadsStorageManager(currentAccountProvider, context.getContentResolver());
+        return new UploadsStorageManager(currentAccountProvider.getUser(), context.getContentResolver());
     }
 
     @Provides

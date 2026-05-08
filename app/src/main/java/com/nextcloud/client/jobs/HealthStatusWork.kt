@@ -98,7 +98,7 @@ class HealthStatusWork(
     }
 
     private fun collectUploadProblems(user: User, errorCodes: List<UploadResult>): List<Problem> {
-        val uploadsStorageManager = UploadsStorageManager(userAccountManager, context.contentResolver)
+        val uploadsStorageManager = UploadsStorageManager(userAccountManager.user, context.contentResolver)
 
         val problems = uploadsStorageManager
             .getUploadsForAccount(user.accountName)
