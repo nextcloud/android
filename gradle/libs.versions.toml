@@ -5,7 +5,7 @@
 androidCommonLibraryVersion = "0.33.2"
 androidGifDrawableVersion = "1.2.31"
 androidImageCropperVersion = "4.7.0"
-androidLibraryVersion ="313455ebde7ed7b8ad7488d126c7024ceb00c99d"
+androidLibraryVersion = "d16acf5fb513616450e047b84234f344ffbb6eda"
 androidPluginVersion = "9.2.0"
 androidsvgVersion = "1.4"
 androidxMediaVersion = "1.5.1"
