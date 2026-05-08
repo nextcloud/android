@@ -1105,6 +1105,8 @@
     <string name="upload_local_storage_full">Локальне сховище заповнено</string>
     <string name="upload_local_storage_not_copied">Неможливо скопіювати файл до внутрішнього сховища</string>
     <string name="upload_lock_failed">Неможливо заблокувати каталог</string>
+    <string name="upload_locked_message">Сервер зайнятий. Повторна спроба...</string>
+    <string name="upload_locked_title">Триває завантаження</string>
     <string name="upload_manually_cancelled">Завантаження скасовано користувачем</string>
     <string name="upload_missing_storage_permission_allow_file_access">Дозволити повний доступ до файлів</string>
     <string name="upload_missing_storage_permission_app_permissions">Дозволи застосунків</string>

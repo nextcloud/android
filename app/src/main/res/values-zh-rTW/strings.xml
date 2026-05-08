@@ -1105,6 +1105,8 @@
     <string name="upload_local_storage_full">本機儲存空間已滿</string>
     <string name="upload_local_storage_not_copied">無法複製檔案到本機儲存空間</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
+    <string name="upload_locked_message">伺服器忙碌。正在重試……</string>
+    <string name="upload_locked_title">正在上傳</string>
     <string name="upload_manually_cancelled">使用者已取消上傳</string>
     <string name="upload_missing_storage_permission_allow_file_access">允許存取所有檔案</string>
     <string name="upload_missing_storage_permission_app_permissions">應用程式權限</string>

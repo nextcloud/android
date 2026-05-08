@@ -1108,6 +1108,8 @@
     <string name="upload_local_storage_full">Vietinė saugykla pilna</string>
     <string name="upload_local_storage_not_copied">Nepavyko nukopijuoti failo į vietinę saugyklą</string>
     <string name="upload_lock_failed">Nepavyko užrakinti aplanko</string>
+    <string name="upload_locked_message">Serveris užimtas. Bandoma dar kartą…</string>
+    <string name="upload_locked_title">Įkeliama…</string>
     <string name="upload_manually_cancelled">Įkelimas buvo atšauktas vartotojo</string>
     <string name="upload_missing_storage_permission_allow_file_access">Leisti pasiekti visus failus</string>
     <string name="upload_missing_storage_permission_app_permissions">Leidimai programėlei</string>
