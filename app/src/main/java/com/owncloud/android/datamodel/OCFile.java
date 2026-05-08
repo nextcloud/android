@@ -46,7 +46,6 @@ import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 
-    public final static long FIRST_E2EE_COUNTER = 1L;
     public final static String PERMISSION_CAN_RESHARE = "R";
     public final static String PERMISSION_SHARED = "S";
     public final static String PERMISSION_MOUNTED = "M";
@@ -1174,14 +1173,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
             return getParentId() == 0;
         } else {
             return getParentId() != 0;
-        }
-    }
-
-    public static long getFirstE2EECounter(boolean useV2) {
-        if (useV2) {
-            return 1L;
-        } else {
-            return 0L;
         }
     }
 }

@@ -64,6 +64,7 @@ import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -298,7 +299,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             .ifPresent(file -> {
                 file.setEncrypted(encrypted);
                 final var isE2EEV2 = E2EVersionHelper.INSTANCE.isV2Plus(capability);
-                file.setE2eCounter(OCFile.getFirstE2EECounter(isE2EEV2));
+                long e2eCounter = EncryptionUtils.E2E_V1_INITIAL_COUNTER;
+                if (isE2EEV2) {
+                    e2eCounter = EncryptionUtils.E2E_V2_INITIAL_COUNTER;
+                }
+
+                file.setE2eCounter(e2eCounter);
                 mStorageManager.saveFile(file);
                 int position = getItemPosition(file);
                 if (position != -1) {
