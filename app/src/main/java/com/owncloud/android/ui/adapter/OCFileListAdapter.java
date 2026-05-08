@@ -33,6 +33,7 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -63,6 +64,7 @@ import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -296,9 +298,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             .findFirst()
             .ifPresent(file -> {
                 file.setEncrypted(encrypted);
-                file.setE2eCounter(0L);
-                mStorageManager.saveFile(file);
+                final var isE2EEV2 = E2EVersionHelper.INSTANCE.isV2Plus(capability);
+                long e2eCounter = EncryptionUtils.E2E_V1_INITIAL_COUNTER;
+                if (isE2EEV2) {
+                    e2eCounter = EncryptionUtils.E2E_V2_INITIAL_COUNTER;
+                }
 
+                file.setE2eCounter(e2eCounter);
+                mStorageManager.saveFile(file);
                 int position = getItemPosition(file);
                 if (position != -1) {
                     notifyItemChanged(position);

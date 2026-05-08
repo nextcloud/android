@@ -59,7 +59,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         val isE2EVersionAtLeast2 = (E2EVersionHelper.isV2Plus(capability))
 
         try {
-            token = EncryptionUtils.lockFolder(parentFolder, client)
+            token = EncryptionUtils.lockFolder(parentFolder, client, parentFolder.e2eCounter + 1)
 
             return if (isE2EVersionAtLeast2) {
                 val deleteResult = deleteForV2(client, token)
@@ -176,6 +176,10 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             encryptionUtilsV2.removeFileFromMetadata(fileName, metadata)
         }
 
+        parentFolder.setE2eCounter(metadata.metadata.counter)
+        val storageManager = FileDataStorageManager(user, context.contentResolver)
+        storageManager.saveFile(parentFolder)
+
         encryptionUtilsV2.serializeAndUploadMetadata(
             parentFolder,
             metadata,
@@ -184,7 +188,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             metadataExists,
             context,
             user,
-            FileDataStorageManager(user, context.contentResolver)
+            storageManager
         )
 
         return Pair(result, delete)
