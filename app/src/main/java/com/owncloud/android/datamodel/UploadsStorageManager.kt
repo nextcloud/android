@@ -45,10 +45,7 @@ import java.util.Locale
 import java.util.Observable
 
 @Suppress("TooManyFunctions", "TooGenericExceptionCaught", "MagicNumber", "ReturnCount")
-class UploadsStorageManager(
-    private val user: User,
-    private val contentResolver: ContentResolver
-) : Observable() {
+class UploadsStorageManager(private val user: User, private val contentResolver: ContentResolver) : Observable() {
 
     private var capability: OCCapability? = null
 
