@@ -21,6 +21,7 @@ import android.database.Cursor
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.VisibleForTesting
+import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.account.User
 import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.database.dao.UploadDao
@@ -45,7 +46,10 @@ import java.util.Locale
 import java.util.Observable
 
 @Suppress("TooManyFunctions", "TooGenericExceptionCaught", "MagicNumber", "ReturnCount")
-class UploadsStorageManager(private val user: User, private val contentResolver: ContentResolver) : Observable() {
+class UploadsStorageManager(
+    private val currentAccountProvider: CurrentAccountProvider,
+    private val contentResolver: ContentResolver
+) : Observable() {
 
     private var capability: OCCapability? = null
 
@@ -413,6 +417,7 @@ class UploadsStorageManager(private val user: User, private val contentResolver:
         getUploads(ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, accountName)
 
     fun clearFailedButNotDelayedUploads() {
+        val user = currentAccountProvider.user
         val deleted = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_FAILED.value +
@@ -431,6 +436,7 @@ class UploadsStorageManager(private val user: User, private val contentResolver:
     }
 
     fun clearCancelledUploadsForCurrentAccount() {
+        val user = currentAccountProvider.user
         val deleted = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_CANCELLED.value +
@@ -442,6 +448,7 @@ class UploadsStorageManager(private val user: User, private val contentResolver:
     }
 
     fun clearSuccessfulUploads() {
+        val user = currentAccountProvider.user
         val deleted = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_SUCCEEDED.value +
@@ -453,6 +460,7 @@ class UploadsStorageManager(private val user: User, private val contentResolver:
     }
 
     fun clearSkippedUploads() {
+        val user = currentAccountProvider.user
         val deleted = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_SUCCEEDED.value +

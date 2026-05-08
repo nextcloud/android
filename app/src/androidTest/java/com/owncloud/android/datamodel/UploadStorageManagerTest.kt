@@ -58,7 +58,11 @@ class UploadStorageManagerTest : AbstractIT() {
         }
         user2 = userAccountManager.getUser("test2@test.com")
             .orElseThrow(Supplier { ActivityNotFoundException() })
-        uploadsStorageManager = UploadsStorageManager(user2, targetContext.contentResolver)
+        uploadsStorageManager =
+            UploadsStorageManager(
+                UserAccountManagerImpl.fromContext(targetContext),
+                targetContext.contentResolver
+            )
     }
 
     @Test
