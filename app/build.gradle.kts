@@ -30,13 +30,136 @@ plugins {
     alias(libs.plugins.detekt)
     // needed to make renovate run without shot, as shot requires Android SDK
     // https://github.com/pedrovgs/Shot/issues/300
-    if (System.getenv("SHOT_TEST") == "true") alias(libs.plugins.shot)
+    alias(libs.plugins.shot)
     id("checkstyle")
     id("pmd")
 }
 apply(from = "${rootProject.projectDir}/jacoco.gradle.kts")
 
 println("Gradle uses Java ${Jvm.current()}")
+
+// Shot 6.1.0 is incompatible with AGP 9 - it tries to use the removed AppExtension API.
+// Manually register Shot tasks using the new ApplicationExtension API.
+run {
+    val androidExt = extensions.getByType(com.android.build.api.dsl.ApplicationExtension::class.java)
+    val shotExt by lazy { extensions.getByType(ShotExtension::class.java) }
+
+    // Configure ShotTask properties via reflection (Scala var setters aren't accessible from Kotlin)
+    fun configureShotTask(
+        task: com.karumi.shot.tasks.ShotTask,
+        flavorOpt: Any, buildTypeName: String, appId: String, adbPath: String
+    ) {
+        val cls = com.karumi.shot.tasks.ShotTask::class.java
+        fun setField(name: String, value: Any?) {
+            cls.getDeclaredField(name).apply { isAccessible = true; set(task, value) }
+        }
+        setField("flavor", flavorOpt)
+        setField("buildTypeName", buildTypeName)
+        setField("appId", appId)
+        setField("orchestrated", false)
+        setField("projectPath", projectDir.absolutePath)
+        setField("buildPath", layout.buildDirectory.get().asFile.absolutePath)
+        setField("shotExtension", shotExt)
+        setField("directorySuffix",
+            if (project.hasProperty("directorySuffix"))
+                scala.Some(project.property("directorySuffix").toString())
+            else scala.Option.empty<String>())
+        setField("recordScreenshots", project.hasProperty("record"))
+        setField("printBase64", project.hasProperty("printBase64"))
+        setField("projectName", project.name)
+        setField("adbPath", adbPath)
+    }
+
+    afterEvaluate {
+        // Only register if Shot's own registration failed (no executeScreenshotTests task)
+        if (tasks.names.none { it == "executeScreenshotTests" }) {
+            val baseTask = tasks.register(
+                "executeScreenshotTests",
+                com.karumi.shot.tasks.ExecuteScreenshotTestsForEveryFlavor::class.java
+            )
+
+            val adbPath = try {
+                com.karumi.shot.AdbPathExtractor.extractPath(project) ?: ""
+            } catch (_: Throwable) {
+                val sdkDir = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT") ?: ""
+                "$sdkDir/platform-tools/adb"
+            }
+
+            val flavors = androidExt.productFlavors.map { it.name }
+            val buildTypes = androidExt.buildTypes.map { it.name }
+
+            for (buildTypeName in buildTypes) {
+                val flavorList = flavors.ifEmpty { listOf("") }
+                for (flavorName in flavorList) {
+                    val prefix = if (flavorName.isEmpty()) buildTypeName
+                    else "$flavorName${buildTypeName.replaceFirstChar { it.uppercase() }}"
+
+                    val flavorOpt: Any = if (flavorName.isNotEmpty())
+                        scala.Some(flavorName) else scala.Option.empty<String>()
+                    val appId = (androidExt.defaultConfig.testApplicationId
+                        ?: "${androidExt.defaultConfig.applicationId ?: androidExt.namespace}.test")
+
+                    val instrTaskName =
+                        "connected${flavorName.replaceFirstChar { it.uppercase() }}${buildTypeName.replaceFirstChar { it.uppercase() }}AndroidTest"
+
+                    // Skip variants where the instrumentation task doesn't exist
+                    val instrTask = try { tasks.named(instrTaskName) } catch (_: Throwable) { continue }
+
+                    val removeBefore = tasks.register(
+                        "${prefix}RemoveScreenshotsBefore",
+                        com.karumi.shot.tasks.RemoveScreenshotsTask::class.java
+                    )
+                    removeBefore.configure(Action<com.karumi.shot.tasks.RemoveScreenshotsTask> {
+                        configureShotTask(this, flavorOpt, buildTypeName, appId, adbPath)
+                    })
+
+                    val removeAfter = tasks.register(
+                        "${prefix}RemoveScreenshotsAfter",
+                        com.karumi.shot.tasks.RemoveScreenshotsTask::class.java
+                    )
+                    removeAfter.configure(Action<com.karumi.shot.tasks.RemoveScreenshotsTask> {
+                        configureShotTask(this, flavorOpt, buildTypeName, appId, adbPath)
+                    })
+
+                    val download = tasks.register(
+                        "${prefix}DownloadScreenshots",
+                        com.karumi.shot.tasks.DownloadScreenshotsTask::class.java
+                    )
+                    download.configure(Action<com.karumi.shot.tasks.DownloadScreenshotsTask> {
+                        configureShotTask(this, flavorOpt, buildTypeName, appId, adbPath)
+                    })
+
+                    val execute = tasks.register(
+                        "${prefix}ExecuteScreenshotTests",
+                        com.karumi.shot.tasks.ExecuteScreenshotTests::class.java
+                    )
+                    execute.configure(Action<com.karumi.shot.tasks.ExecuteScreenshotTests> {
+                        configureShotTask(this, flavorOpt, buildTypeName, appId, adbPath)
+                    })
+
+                    if (shotExt.runInstrumentation) {
+                        execute.configure(Action<com.karumi.shot.tasks.ExecuteScreenshotTests> {
+                            dependsOn(instrTask)
+                            dependsOn(download)
+                            dependsOn(removeAfter)
+                        })
+                        download.configure(Action<com.karumi.shot.tasks.DownloadScreenshotsTask> {
+                            mustRunAfter(instrTask)
+                        })
+                        instrTask.configure { dependsOn(removeBefore) }
+                        removeAfter.configure(Action<com.karumi.shot.tasks.RemoveScreenshotsTask> {
+                            mustRunAfter(download)
+                        })
+                    }
+
+                    baseTask.configure(Action<com.karumi.shot.tasks.ExecuteScreenshotTestsForEveryFlavor> {
+                        dependsOn(execute)
+                    })
+                }
+            }
+        }
+    }
+}
 
 configurations.configureEach {
     // via prism4j, already using annotations explicitly
@@ -115,8 +238,7 @@ android {
         buildConfigField("boolean", "RUNTIME_PERF_ANALYSIS", perfAnalysis.toString())
 
         // arguments to be passed to functional tests
-        testInstrumentationRunner = if (shotTest) "com.karumi.shot.ShotTestRunner"
-        else "com.nextcloud.client.TestRunner"
+        testInstrumentationRunner = "com.karumi.shot.ShotTestRunner"
 
         versionCode = versionMajor * 10000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
         versionName = when {
