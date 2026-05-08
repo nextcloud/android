@@ -1510,6 +1510,8 @@ public class UploadFileOperation extends SyncOperation {
         int count = 2;
         boolean exists;
         String newPath;
+
+        // FIXME: Causing infinite loop during tests due to ExistenceCheckRemoteOperation result
         do {
             suffix = " (" + count + ")";
             newPath = extPos >= 0 ? remotePathWithoutExtension + suffix + "." + extension : remotePath + suffix;

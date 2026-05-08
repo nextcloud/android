@@ -18,7 +18,8 @@ import com.owncloud.android.utils.FileStorageUtils
 import org.junit.After
 import org.junit.Assert
 import org.junit.Test
-import java.io.File
+import kotlin.io.path.Path
+import kotlin.io.path.exists
 
 class DownloadIT : AbstractOnServerIT() {
     @After
@@ -91,8 +92,8 @@ class DownloadIT : AbstractOnServerIT() {
         Assert.assertNotNull(file2)
         Assert.assertNotSame(file1!!.storagePath, file2!!.storagePath)
 
-        Assert.assertTrue(File(file1.storagePath).exists())
-        Assert.assertTrue(File(file2.storagePath).exists())
+        Assert.assertTrue(Path(file1.storagePath).exists())
+        Assert.assertTrue(Path(file2.storagePath).exists())
 
         // test against hardcoded path to make sure that it is correct
         Assert.assertEquals(
