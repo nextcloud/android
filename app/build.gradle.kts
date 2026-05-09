@@ -220,7 +220,8 @@ android {
                 "IconXmlAndPng",
                 "SelectedPhotoAccess",
                 "UnsafeIntentLaunch",
-                "OldTargetApi"
+                "OldTargetApi",
+                "AndroidGradlePluginVersion"
             )
         )
         htmlOutput = layout.buildDirectory.file("reports/lint/lint.html").get().asFile

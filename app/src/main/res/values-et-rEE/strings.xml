@@ -139,7 +139,7 @@
     <string name="bottom_navigation_menu_assistant_label">Abiline</string>
     <string name="bottom_navigation_menu_favorites_label">Lemmikud</string>
     <string name="bottom_navigation_menu_files_label">Kõik failid</string>
-    <string name="bottom_navigation_menu_media_label">Meedia</string>
+    <string name="bottom_navigation_menu_media_label">Meedium</string>
     <string name="busy">Hõivatud</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendrid</string>
@@ -850,7 +850,7 @@
     <string name="screenshot_05_autoUpload_heading">Automaatne üleslaadimine</string>
     <string name="screenshot_05_autoUpload_subline">sinu fotode ja videode jaoks</string>
     <string name="screenshot_06_davdroid_heading">Kalender ja kontaktid</string>
-    <string name="screenshot_06_davdroid_subline">Sünkroniseeri DAVx⁵ rakendusega</string>
+    <string name="screenshot_06_davdroid_subline">Sünkrooni DAVx⁵ rakendusega</string>
     <string name="search_error">Viga otsingutulemuste laadimisel</string>
     <string name="secure_share_not_set_up">Selle kasutaja jaoks pole turvaline jagamine seadistatud</string>
     <string name="secure_share_search">Turvaline jagamine…</string>
@@ -1105,6 +1105,8 @@
     <string name="upload_local_storage_full">Kohalik andmeruum on täis</string>
     <string name="upload_local_storage_not_copied">Faili ei õnnestunud kopeerida kohalikku andmeruumi</string>
     <string name="upload_lock_failed">Kasuta lukustamine ei õnnestunud</string>
+    <string name="upload_locked_message">Server on hõivatud. Proovin uuesti…</string>
+    <string name="upload_locked_title">Üleslaadimine on töös</string>
     <string name="upload_manually_cancelled">Kasutaja katkestas üleslaadimise</string>
     <string name="upload_missing_storage_permission_allow_file_access">Luba juurdepääs kõikidele failidele</string>
     <string name="upload_missing_storage_permission_app_permissions">Rakenduse õigused</string>
@@ -1116,7 +1118,7 @@
     <string name="upload_query_move_foreign_files">Piisava ruumi puudumisel pole võimalik kopeerida valitud faile „%1$s“ kausta. Kas pigem tahaksid nad sinna teisaldada?</string>
     <string name="upload_quota_exceeded">Andmeruumi kvoot on ületatud</string>
     <string name="upload_scan_doc_upload">Skaneeri dokument kaameraga</string>
-    <string name="upload_sync_conflict">Sünkroniseerimiskonfikt, palun lahenda see käsitsi</string>
+    <string name="upload_sync_conflict">Sünkroonimiskonfikt, palun lahenda see käsitsi</string>
     <string name="upload_sync_conflict_check">Viimasest üleslaadimisest võib olla failikonflikte. Kontrollimiseks klõpsa.</string>
     <string name="upload_sync_conflict_check_error">Failide üleslaadimiskonfliktide kontrollimine ei õnnestunud. Palun proovi uuesti.</string>
     <string name="upload_sync_conflict_checking">Kontrollin failide üleslaadimiskonflikte…</string>
