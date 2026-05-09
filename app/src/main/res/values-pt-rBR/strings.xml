@@ -1105,6 +1105,8 @@
     <string name="upload_local_storage_full">O armazenamento local está cheio.</string>
     <string name="upload_local_storage_not_copied">O arquivo não pôde ser copiado para o armazenamento local</string>
     <string name="upload_lock_failed">Falha ao trancar pasta</string>
+    <string name="upload_locked_message">O servidor está ocupado. Tentando novamente…</string>
+    <string name="upload_locked_title">Carregamento em andamento</string>
     <string name="upload_manually_cancelled">O upload foi cancelado pelo usuário</string>
     <string name="upload_missing_storage_permission_allow_file_access">Permitir acesso a todos os arquivos</string>
     <string name="upload_missing_storage_permission_app_permissions">Permissões do aplicativo</string>
