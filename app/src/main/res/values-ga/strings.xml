@@ -776,6 +776,7 @@
     <string name="prefs_manage_accounts">Bainistigh cuntais</string>
     <string name="prefs_recommend">Mol do chara</string>
     <string name="prefs_remove_e2e">Bain criptiú go háitiúil</string>
+    <string name="prefs_remove_e2e_keys_and_files">Bain comhaid agus eochracha criptithe</string>
     <string name="prefs_setup_e2e">Socraigh criptiú ceann go ceann</string>
     <string name="prefs_show_ecosystem_apps">Taispeáin athróir aip</string>
     <string name="prefs_show_ecosystem_apps_summary">Moltaí aip Nextcloud sa cheannteideal nascleanúna</string>
@@ -815,6 +816,7 @@
     <string name="remote">(iargúlta)</string>
     <string name="remote_file_fetch_failed">Theip ar an gcomhad a aimsiú!</string>
     <string name="remove_e2e">Is féidir leat criptiú ceann go ceann a bhaint go háitiúil ar an gcliant seo</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Bainfear gach comhad criptithe, eochracha príobháideacha agus poiblí leis an oibríocht seo. An bhfuil tú cinnte?</string>
     <string name="remove_e2e_message">Is féidir leat criptiú ceann go ceann a bhaint go háitiúil ar an gcliant seo. Fanfaidh na comhaid criptithe ar an bhfreastalaí, ach ní shioncronófar iad leis an ríomhaire seo a thuilleadh.</string>
     <string name="remove_fail_msg">Theip ar an scriosadh</string>
     <string name="remove_local_account">Bain an cuntas áitiúil</string>
@@ -1105,6 +1107,8 @@
     <string name="upload_local_storage_full">Stóráil áitiúil lán</string>
     <string name="upload_local_storage_not_copied">Níorbh fhéidir an comhad a chóipeáil go dtí an stóras áitiúil</string>
     <string name="upload_lock_failed">Theip ar ghlasáil an fhillteáin</string>
+    <string name="upload_locked_message">Tá an freastalaí gnóthach. Ag iarraidh arís…</string>
+    <string name="upload_locked_title">Uaslódáil ar siúl</string>
     <string name="upload_manually_cancelled">Chuir an t-úsáideoir an uaslódáil ar ceal</string>
     <string name="upload_missing_storage_permission_allow_file_access">Ceadaigh rochtain ar chomhaid uile</string>
     <string name="upload_missing_storage_permission_app_permissions">Ceadanna aipeanna</string>

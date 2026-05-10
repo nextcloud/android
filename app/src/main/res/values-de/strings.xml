@@ -776,6 +776,7 @@
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_remove_e2e">Verschlüsselung lokal entfernen</string>
+    <string name="prefs_remove_e2e_keys_and_files">Verschlüsselte Dateien und Schlüssel entfernen</string>
     <string name="prefs_setup_e2e">Ende-zu-Ende-Verschlüsselung einrichten</string>
     <string name="prefs_show_ecosystem_apps">App-Umschalter anzeigen</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud-App-Vorschläge in der Navigationsüberschrift</string>
@@ -815,6 +816,7 @@
     <string name="remote">(entfernt)</string>
     <string name="remote_file_fetch_failed">Datei nicht gefunden!</string>
     <string name="remove_e2e">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Durch diesen Vorgang werden alle verschlüsselten Dateien sowie privaten und öffentlichen Schlüssel entfernt. Sind Sie sicher?</string>
     <string name="remove_e2e_message">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen. Die verschlüsselten Dateien bleiben auf dem Server, werden aber nicht mehr mit diesem Computer synchronisiert.</string>
     <string name="remove_fail_msg">Löschung fehlgeschlagen</string>
     <string name="remove_local_account">Lokales Konto entfernen</string>

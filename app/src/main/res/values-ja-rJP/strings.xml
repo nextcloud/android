@@ -13,6 +13,7 @@
     <string name="action_send_share">送信/共有</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
+    <string name="action_triggered">アクションをきっかけに</string>
     <string name="actionbar_calendar_contacts_restore">連絡先とカレンダーを復元する</string>
     <string name="actionbar_mkdir">新しいフォルダー</string>
     <string name="actionbar_move_or_copy">移動またはコピー</string>
@@ -45,6 +46,8 @@
     <string name="appbar_search_in">%s の中を検索</string>
     <string name="appear_offline">オフライン</string>
     <string name="assistant_output_generation_warning_text">ここに表示されている出力はAIによって生成されます。必ず二重チェックを行ってください。</string>
+    <string name="assistant_screen_chat_create_error">メッセージの送信に失敗しました:</string>
+    <string name="assistant_screen_chat_fetch_error">チャットメッセージの取得に失敗しました</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">本当にこのタスクを削除しますか？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">タスクを削除</string>
     <string name="assistant_screen_empty_content_description">メッセージを送って会話を始めてみましょう。</string>

@@ -779,6 +779,7 @@
     <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
     <string name="prefs_recommend">Rekomenduoti draugui</string>
     <string name="prefs_remove_e2e">Pašalinkite šifravimą vietoje</string>
+    <string name="prefs_remove_e2e_keys_and_files">Pašalinti užšifruotus failus ir raktus</string>
     <string name="prefs_setup_e2e">Nustatyti ištisinį šifravimą</string>
     <string name="prefs_show_ecosystem_apps">Rodyti programėllių perjungiklį</string>
     <string name="prefs_show_ecosystem_apps_summary">„Nextcloud“ programėlės pasiūlymai naršymo antraštėje</string>
@@ -818,6 +819,7 @@
     <string name="remote">(nuotolinis)</string>
     <string name="remote_file_fetch_failed">Nepavyko rasti failo!</string>
     <string name="remove_e2e">Šiame kliente galite pašalinti visą šifravimą vietoje</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Ši operacija pašalins visus užšifruotus failus, privačius ir viešuosius raktus. Ar tikrai norite tai padaryti?</string>
     <string name="remove_e2e_message">Šiame kliente galite pašalinti ištisinį šifravimą. Užšifruoti failai liks serveryje, bet nebebus sinchronizuojami su šiuo kompiuteriu.</string>
     <string name="remove_fail_msg">Ištrynimas nepavyko</string>
     <string name="remove_local_account">Šalinti vietinę paskyrą</string>

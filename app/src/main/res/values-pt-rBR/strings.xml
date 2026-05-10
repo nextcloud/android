@@ -324,7 +324,7 @@
     <string name="drawer_item_on_device">No dispositivo</string>
     <string name="drawer_item_personal_files">Arquivos pessoais</string>
     <string name="drawer_item_recent_files">Arquivos recentes</string>
-    <string name="drawer_item_recently_modified">Modificados recentemente</string>
+    <string name="drawer_item_recently_modified">Modificado recentemente</string>
     <string name="drawer_item_shared">Compartilhado</string>
     <string name="drawer_item_trashbin">Arquivos excluídos</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -776,6 +776,7 @@
     <string name="prefs_manage_accounts">Gerenciar contas</string>
     <string name="prefs_recommend">Recomendar a um amigo</string>
     <string name="prefs_remove_e2e">Remover criptografia localmente</string>
+    <string name="prefs_remove_e2e_keys_and_files">Remover arquivos criptografados e chaves</string>
     <string name="prefs_setup_e2e">Configurar criptografia de ponta-a-ponta</string>
     <string name="prefs_show_ecosystem_apps">Mostrar alternador de aplicativos</string>
     <string name="prefs_show_ecosystem_apps_summary">Sugestões de aplicativos Nextcloud no título de navegação</string>
@@ -815,6 +816,7 @@
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Erro ao encontrar arquivo!</string>
     <string name="remove_e2e">Você pode remover a criptografia de ponta-a-ponta localmente neste cliente</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Esta operação irá remover todos os arquivos criptografados, bem como as chaves privadas e públicas. Tem certeza?</string>
     <string name="remove_e2e_message">Você pode remover a criptografia de ponta-a-ponta localmente neste cliente. Os arquivos criptografados permanecerão no servidor, mas não será mais sincronizados com este computador.</string>
     <string name="remove_fail_msg">Falha na exclusão</string>
     <string name="remove_local_account">Remover conta local</string>
