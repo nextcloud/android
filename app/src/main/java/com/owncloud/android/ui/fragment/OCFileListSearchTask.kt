@@ -10,6 +10,7 @@ package com.owncloud.android.ui.fragment
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.accounts.Account
 import android.content.ContentValues
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
@@ -67,13 +68,12 @@ class OCFileListSearchTask(
         job = fragment.lifecycleScope.launch(Dispatchers.IO) {
             val searchType = fragment.currentSearchType
 
-            if (!refreshCurrentDir(fragment)) {
-                Log_OC.e(TAG, "folder refresh failed")
-                return@launch
-            }
+            refreshCurrentDir(fragment)
 
             val cachedFiles = loadSortedCachedDbFiles(event.searchType, searchType, fragment)
-            updateAdapterData(fragment, cachedFiles)
+            if (cachedFiles.isNotEmpty()) {
+                updateAdapterData(fragment, cachedFiles)
+            }
 
             val result = fetchRemoteResults()?.takeIf { it.isSuccess } ?: run {
                 showSnackbarError(fragment)
@@ -162,18 +162,16 @@ class OCFileListSearchTask(
             fragment.adapter.updateAdapter(newList, null)
         }
 
-    private suspend fun sortSearchData(
+    private fun sortSearchData(
         list: List<OCFile>,
         searchType: SearchType,
         folder: OCFile?,
         setNewSortOrder: (FileSortOrder) -> Unit
-    ): List<OCFile> = withContext(Dispatchers.IO) {
-        var newList = list.toMutableList()
-
+    ): List<OCFile> {
         if (searchType == SearchType.GALLERY_SEARCH ||
             searchType == SearchType.RECENT_FILES_SEARCH
         ) {
-            return@withContext FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(newList)
+            return FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(list)
         }
 
         val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
@@ -194,9 +192,7 @@ class OCFileListSearchTask(
         }
 
         setNewSortOrder(sortOrder)
-        newList = sortOrder.sortCloudFiles(newList, foldersBeforeFiles, favoritesFirst)
-
-        return@withContext newList
+        return sortOrder.sortCloudFiles(list.toMutableList(), foldersBeforeFiles, favoritesFirst)
     }
 
     @Suppress("DEPRECATION")
@@ -213,6 +209,7 @@ class OCFileListSearchTask(
 
             val contentValuesList = ArrayList<ContentValues>()
             val resultFiles = ArrayList<OCFile>()
+            var cachedClient: Account? = null
 
             for (obj in data) {
                 try {
@@ -220,7 +217,9 @@ class OCFileListSearchTask(
                     var ocFile = FileStorageUtils.fillOCFile(remoteFile)
                     FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, currentUser.accountName)
                     ocFile = storageManager.saveFileWithParent(ocFile, activity)
-                    ocFile = handleEncryptionIfNeeded(ocFile, storageManager, activity)
+                    ocFile = handleEncryptionIfNeeded(ocFile, storageManager, activity) {
+                        cachedClient ?: currentUser.toPlatformAccount().also { cachedClient = it }
+                    }
 
                     if (fragment.currentSearchType != SearchType.GALLERY_SEARCH && ocFile.isFolder) {
                         RefreshFolderOperation(ocFile, now, true, false, storageManager, currentUser, activity)
@@ -251,17 +250,15 @@ class OCFileListSearchTask(
     private fun handleEncryptionIfNeeded(
         ocFile: OCFile,
         fileDataStorage: FileDataStorageManager,
-        activity: Activity
+        activity: Activity,
+        accountProvider: () -> Account
     ): OCFile {
         val parent = fileDataStorage.getFileById(ocFile.parentId)
             ?: return ocFile
 
         if (!ocFile.isEncrypted && !parent.isEncrypted) return ocFile
 
-        val client = OwnCloudClientFactory.createOwnCloudClient(
-            currentUser.toPlatformAccount(),
-            activity
-        )
+        val client = OwnCloudClientFactory.createOwnCloudClient(accountProvider(), activity)
 
         val metadata = RefreshFolderOperation.getDecryptedFolderMetadata(
             true,
