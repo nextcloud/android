@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
@@ -44,7 +45,6 @@ import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 import com.owncloud.android.utils.theme.ThemeUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -61,138 +61,128 @@ class BackupFragment :
     FileFragment(),
     OnDateSetListener,
     Injectable {
+
+    @Inject lateinit var backgroundJobManager: BackgroundJobManager
+
+    @Inject lateinit var themeUtils: ThemeUtils
+
+    @Inject lateinit var arbitraryDataProvider: ArbitraryDataProvider
+
+    @Inject lateinit var viewThemeUtils: ViewThemeUtils
+
     private lateinit var binding: BackupFragmentBinding
-
-    @Inject
-    lateinit var backgroundJobManager: BackgroundJobManager
-
-    @Inject
-    lateinit var themeUtils: ThemeUtils
-
-    @Inject
-    lateinit var arbitraryDataProvider: ArbitraryDataProvider
-
-    @Inject
-    lateinit var viewThemeUtils: ViewThemeUtils
+    private lateinit var user: User
+    private lateinit var contactsBackupFolderPath: String
+    private lateinit var calendarBackupFolderPath: String
+    private lateinit var contactsCheckedListener: CompoundButton.OnCheckedChangeListener
+    private lateinit var calendarCheckedListener: CompoundButton.OnCheckedChangeListener
 
     private var selectedDate: Calendar? = null
     private var calendarPickerOpen = false
     private var datePickerDialog: DatePickerDialog? = null
-    private lateinit var contactsCheckedListener: CompoundButton.OnCheckedChangeListener
-    private lateinit var calendarCheckedListener: CompoundButton.OnCheckedChangeListener
-    private lateinit var user: User
     private var showSidebar = true
-
-    // flag to check if calendar backup should be shown and backup should be done or not
     private var showCalendarBackup = true
+
     private var isCalendarBackupEnabled: Boolean
         get() = arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CALENDAR_BACKUP_ENABLED)
-        set(enabled) {
-            arbitraryDataProvider.storeOrUpdateKeyValue(
-                user.accountName,
-                PREFERENCE_CALENDAR_BACKUP_ENABLED,
-                enabled
-            )
-        }
+        set(enabled) = arbitraryDataProvider.storeOrUpdateKeyValue(
+            user.accountName,
+            PREFERENCE_CALENDAR_BACKUP_ENABLED,
+            enabled
+        )
 
     private var isContactsBackupEnabled: Boolean
         get() = arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_BACKUP_ENABLED)
-        set(enabled) {
-            arbitraryDataProvider.storeOrUpdateKeyValue(
-                user.accountName,
-                PREFERENCE_CONTACTS_BACKUP_ENABLED,
-                enabled
-            )
-        }
+        set(enabled) = arbitraryDataProvider.storeOrUpdateKeyValue(
+            user.accountName,
+            PREFERENCE_CONTACTS_BACKUP_ENABLED,
+            enabled
+        )
 
-    private lateinit var contactsBackupFolderPath: String
-    private lateinit var calendarBackupFolderPath: String
+    //region Lifecycle
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        // use grey as fallback for elements where custom theming is not available
-        if (themeUtils.themingEnabled(context)) {
-            requireContext().theme.applyStyle(R.style.FallbackThemingTheme, true)
-        }
+        if (themeUtils.themingEnabled(context)) requireContext().theme.applyStyle(R.style.FallbackThemingTheme, true)
 
         binding = BackupFragmentBinding.inflate(inflater, container, false)
-
         contactsBackupFolderPath = getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR
         calendarBackupFolderPath = getString(R.string.calendar_backup_folder) + OCFile.PATH_SEPARATOR
-
-        val view: View = binding.root
-
-        if (arguments != null) {
-            showSidebar = requireArguments().getBoolean(ARG_SHOW_SIDEBAR)
-        }
-
+        showSidebar = arguments?.getBoolean(ARG_SHOW_SIDEBAR) ?: true
         showCalendarBackup = resources.getBoolean(R.bool.show_calendar_backup)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val contactsPreferenceActivity = requireActivity() as ContactsPreferenceActivity
         user = contactsPreferenceActivity.user.orElseThrow { RuntimeException() }
 
         setupSwitches(user)
-
         setupCheckListeners()
         setBackupNowButtonVisibility()
-
         setOnClickListeners()
-
         displayLastBackup(contactsPreferenceActivity)
         applyUserColorToActionBar(contactsPreferenceActivity)
-
         setupDates(savedInstanceState)
         applyUserColor()
         addMenuProvider()
-        return view
     }
+
+    override fun onResume() {
+        super.onResume()
+        if (calendarPickerOpen) openDate(selectedDate)
+        (activity as? ContactsPreferenceActivity)?.let { refreshBackupFolder(it.storageManager) }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        datePickerDialog?.dismiss()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val dialog = datePickerDialog?.takeIf { it.isShowing } ?: return
+        outState.putBoolean(KEY_CALENDAR_PICKER_OPEN, true)
+        dialog.datePicker.let {
+            outState.putSerializable(KEY_CALENDAR_DATE, GregorianCalendar(it.year, it.month, it.dayOfMonth))
+        }
+    }
+
+    //endregion
+
+    //region Setup
 
     private fun setupSwitches(user: User) {
         binding.dailyBackup.isChecked = arbitraryDataProvider.getBooleanValue(
             user,
             ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP
         )
-
         binding.contacts.isChecked = isContactsBackupEnabled && checkContactBackupPermission()
         binding.calendar.isChecked = isCalendarBackupEnabled && checkCalendarBackupPermission(requireContext())
         binding.calendar.visibility = if (showCalendarBackup) View.VISIBLE else View.GONE
     }
 
     private fun setupCheckListeners() {
-        binding.dailyBackup.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-            if (checkAndAskForContactsReadPermission()) {
-                setAutomaticBackup(isChecked)
-            }
+        binding.dailyBackup.setOnCheckedChangeListener { _, isChecked ->
+            if (checkAndAskForContactsReadPermission()) setAutomaticBackup(isChecked)
         }
-
-        initContactsCheckedListener()
+        contactsCheckedListener = CompoundButton.OnCheckedChangeListener { _, isChecked ->
+            isContactsBackupEnabled = isChecked && checkAndAskForContactsReadPermission()
+            setBackupNowButtonVisibility()
+            setAutomaticBackup(binding.dailyBackup.isChecked)
+        }
+        calendarCheckedListener = CompoundButton.OnCheckedChangeListener { _, isChecked ->
+            isCalendarBackupEnabled = isChecked && checkAndAskForCalendarReadPermission()
+            setBackupNowButtonVisibility()
+            setAutomaticBackup(binding.dailyBackup.isChecked)
+        }
         binding.contacts.setOnCheckedChangeListener(contactsCheckedListener)
-
-        initCalendarCheckedListener()
         binding.calendar.setOnCheckedChangeListener(calendarCheckedListener)
     }
 
-    private fun initContactsCheckedListener() {
-        contactsCheckedListener =
-            CompoundButton.OnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-                isContactsBackupEnabled = isChecked && checkAndAskForContactsReadPermission()
-                setBackupNowButtonVisibility()
-                setAutomaticBackup(binding.dailyBackup.isChecked)
-            }
-    }
-
-    private fun initCalendarCheckedListener() {
-        calendarCheckedListener =
-            CompoundButton.OnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-                isCalendarBackupEnabled = isChecked && checkAndAskForCalendarReadPermission()
-                setBackupNowButtonVisibility()
-                setAutomaticBackup(binding.dailyBackup.isChecked)
-            }
-    }
-
     private fun setBackupNowButtonVisibility() {
-        binding.run {
-            backupNow.isEnabled = (contacts.isChecked || calendar.isChecked)
-        }
+        binding.backupNow.isEnabled = binding.contacts.isChecked || binding.calendar.isChecked
     }
 
     private fun setOnClickListeners() {
@@ -205,19 +195,18 @@ class BackupFragment :
             user,
             ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP
         )
-
         if (lastBackupTimestamp == -1L) {
             binding.lastBackupWithDate.visibility = View.GONE
-        } else {
-            binding.lastBackupWithDate.text = String.format(
-                getString(R.string.last_backup),
-                DisplayUtils.getRelativeTimestamp(contactsPreferenceActivity, lastBackupTimestamp)
-            )
+            return
         }
+        binding.lastBackupWithDate.text = getString(
+            R.string.last_backup,
+            DisplayUtils.getRelativeTimestamp(contactsPreferenceActivity, lastBackupTimestamp)
+        )
     }
 
-    private fun applyUserColorToActionBar(contactsPreferenceActivity: ContactsPreferenceActivity) {
-        contactsPreferenceActivity.supportActionBar?.let { actionBar ->
+    private fun applyUserColorToActionBar(activity: ContactsPreferenceActivity) {
+        activity.supportActionBar?.let { actionBar ->
             actionBar.setDisplayHomeAsUpEnabled(true)
             viewThemeUtils.files.themeActionBar(
                 requireContext(),
@@ -228,127 +217,37 @@ class BackupFragment :
     }
 
     private fun setupDates(savedInstanceState: Bundle?) {
-        if (savedInstanceState != null && savedInstanceState.getBoolean(KEY_CALENDAR_PICKER_OPEN, false)) {
-            savedInstanceState.getSerializableArgument(KEY_CALENDAR_DATE, Calendar::class.java)?.let {
-                selectedDate = it
-            }
+        savedInstanceState?.takeIf { it.getBoolean(KEY_CALENDAR_PICKER_OPEN, false) }?.let {
+            selectedDate = it.getSerializableArgument(KEY_CALENDAR_DATE, Calendar::class.java)
             calendarPickerOpen = true
         }
     }
 
     private fun applyUserColor() {
-        viewThemeUtils.androidx.colorSwitchCompat(binding.contacts)
-        viewThemeUtils.androidx.colorSwitchCompat(binding.calendar)
-        viewThemeUtils.androidx.colorSwitchCompat(binding.dailyBackup)
-
-        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.backupNow)
-        viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.contactsDatepicker)
-
-        viewThemeUtils.platform.colorTextView(binding.dataToBackUpTitle)
-        viewThemeUtils.platform.colorTextView(binding.backupSettingsTitle)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        if (calendarPickerOpen) {
-            openDate(selectedDate)
+        viewThemeUtils.androidx.run {
+            colorSwitchCompat(binding.contacts)
+            colorSwitchCompat(binding.calendar)
+            colorSwitchCompat(binding.dailyBackup)
         }
 
-        (activity as? ContactsPreferenceActivity)?.let {
-            refreshBackupFolder(it.storageManager)
+        viewThemeUtils.material.run {
+            colorMaterialButtonPrimaryFilled(binding.backupNow)
+            colorMaterialButtonPrimaryOutlined(binding.contactsDatepicker)
+        }
+
+        viewThemeUtils.platform.run {
+            colorTextView(binding.dataToBackUpTitle)
+            colorTextView(binding.backupSettingsTitle)
         }
     }
-
-    private fun refreshBackupFolder(storageManager: FileDataStorageManager) {
-        lifecycleScope.launch {
-            val backupFiles = listOf(calendarBackupFolderPath, contactsBackupFolderPath)
-                .mapNotNull { path -> storageManager.getFileByDecryptedRemotePath(path) }
-                .flatMap { folder -> fetchBackupFiles(folder, storageManager) }
-                .toMutableList()
-                .also {
-                    it.sortWith(AlphanumComparator())
-                }
-
-            withContext(Dispatchers.Main) {
-                binding.contactsDatepicker.setVisibleIf(backupFiles.isNotEmpty())
-            }
-        }
-    }
-
-    /**
-     * Returns backup files from database
-     */
-    private fun getBackupFiles(): List<OCFile> {
-        val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
-        val storageManager = contactsPreferenceActivity?.storageManager ?: return listOf()
-        val contactsBackupFolder = storageManager.getFileByDecryptedRemotePath(contactsBackupFolderPath)
-        val calendarBackupFolder = storageManager.getFileByDecryptedRemotePath(calendarBackupFolderPath)
-
-        val backupFiles = storageManager.getFolderContent(contactsBackupFolder, false)
-        backupFiles.addAll(storageManager.getFolderContent(calendarBackupFolder, false))
-        return backupFiles
-    }
-
-    /**
-     * Refreshes the folder and returns updated backup files
-     */
-    @Suppress("TooGenericExceptionCaught")
-    private suspend fun fetchBackupFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =
-        withContext(Dispatchers.IO) {
-            try {
-                val operation = RefreshFolderOperation(
-                    folder,
-                    System.currentTimeMillis(),
-                    false,
-                    false,
-                    storageManager,
-                    user,
-                    context
-                )
-
-                @Suppress("DEPRECATION")
-                val result = operation.execute(user, context)
-
-                if (result.isSuccess) {
-                    Log_OC.d(TAG, "Backup files fetched")
-                    storageManager.getFolderContent(folder, false)
-                } else {
-                    Log_OC.d(TAG, "Backup files cannot be fetched")
-                    listOf()
-                }
-            } catch (e: Exception) {
-                Log_OC.d(TAG, "Exception fetchBackupFiles: $e")
-                listOf()
-            }
-        }
 
     private fun addMenuProvider() {
         requireActivity().addMenuProvider(
             object : MenuProvider {
-                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                }
-
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) = Unit
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    val activity = getTypedActivity(ContactsPreferenceActivity::class.java)
-
-                    if (menuItem.itemId == android.R.id.home) {
-                        if (showSidebar) {
-                            if (activity?.isDrawerOpen == true) {
-                                activity.closeDrawer()
-                            } else {
-                                activity?.openDrawer()
-                            }
-                        } else if (activity != null) {
-                            activity.finish()
-                        } else {
-                            val settingsIntent = Intent(context, SettingsActivity::class.java)
-                            startActivity(settingsIntent)
-                        }
-                        return true
-                    }
-
-                    return false
+                    if (menuItem.itemId != android.R.id.home) return false
+                    return handleHomeMenuAction(getTypedActivity(ContactsPreferenceActivity::class.java))
                 }
             },
             viewLifecycleOwner,
@@ -356,59 +255,18 @@ class BackupFragment :
         )
     }
 
-    // region permission handling
-    private fun checkAndAskForContactsReadPermission(): Boolean {
-        return if (checkSelfPermission(requireActivity(), Manifest.permission.READ_CONTACTS)) {
-            true
-        } else {
-            requestContactsPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
-            false
+    private fun handleHomeMenuAction(activity: ContactsPreferenceActivity?): Boolean {
+        when {
+            showSidebar -> if (activity?.isDrawerOpen == true) activity.closeDrawer() else activity?.openDrawer()
+            activity != null -> activity.finish()
+            else -> startActivity(Intent(context, SettingsActivity::class.java))
         }
+        return true
     }
 
-    private fun checkAndAskForCalendarReadPermission(): Boolean {
-        return if (checkCalendarBackupPermission(requireActivity())) {
-            true
-        } else {
-            requestCalendarPermissionLauncher.launch(
-                arrayOf(
-                    Manifest.permission.READ_CALENDAR,
-                    Manifest.permission.WRITE_CALENDAR
-                )
-            )
-            false
-        }
-    }
+    //endregion
 
-    private val requestContactsPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                isContactsBackupEnabled = true
-            } else {
-                binding.contacts.setOnCheckedChangeListener(null)
-                binding.contacts.isChecked = false
-                binding.contacts.setOnCheckedChangeListener(contactsCheckedListener)
-            }
-            setBackupNowButtonVisibility()
-            setAutomaticBackup(binding.dailyBackup.isChecked)
-        }
-
-    private val requestCalendarPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            val readGranted = permissions[Manifest.permission.READ_CALENDAR] == true
-            val writeGranted = permissions[Manifest.permission.WRITE_CALENDAR] == true
-
-            if (readGranted && writeGranted) {
-                isCalendarBackupEnabled = true
-            } else {
-                binding.calendar.setOnCheckedChangeListener(null)
-                binding.calendar.isChecked = false
-                binding.calendar.setOnCheckedChangeListener(calendarCheckedListener)
-            }
-            setBackupNowButtonVisibility()
-            setAutomaticBackup(binding.dailyBackup.isChecked)
-        }
-    // endregion
+    //region Backup operations
 
     private fun backupNow() {
         val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return
@@ -417,15 +275,10 @@ class BackupFragment :
         if (isContactsBackupEnabled && checkContactBackupPermission()) {
             backgroundJobManager.startImmediateContactsBackup(user)
         }
-
         if (showCalendarBackup && isCalendarBackupEnabled && checkCalendarBackupPermission(requireContext())) {
             backgroundJobManager.startImmediateCalendarBackup(user)
         }
-
-        DisplayUtils.showSnackMessage(
-            this,
-            R.string.contacts_preferences_backup_scheduled
-        )
+        DisplayUtils.showSnackMessage(this, R.string.contacts_preferences_backup_scheduled)
     }
 
     private fun setAutomaticBackup(enabled: Boolean) {
@@ -459,155 +312,195 @@ class BackupFragment :
         )
     }
 
+    private fun refreshBackupFolder(storageManager: FileDataStorageManager) {
+        lifecycleScope.launch {
+            val backupFiles = listOf(calendarBackupFolderPath, contactsBackupFolderPath)
+                .mapNotNull { path -> storageManager.getFileByDecryptedRemotePath(path) }
+                .flatMap { folder -> fetchBackupFiles(folder, storageManager) }
+                .sortedWith(AlphanumComparator())
+            withContext(Dispatchers.Main) {
+                binding.contactsDatepicker.setVisibleIf(backupFiles.isNotEmpty())
+            }
+        }
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    private suspend fun fetchBackupFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =
+        withContext(Dispatchers.IO) {
+            try {
+                @Suppress("DEPRECATION")
+                val result = RefreshFolderOperation(
+                    folder,
+                    System.currentTimeMillis(),
+                    false,
+                    false,
+                    storageManager,
+                    user,
+                    context
+                ).execute(user, context)
+                if (result.isSuccess) storageManager.getFolderContent(folder, false) else emptyList()
+            } catch (e: Exception) {
+                Log_OC.d(TAG, "Exception fetchBackupFiles: $e")
+                emptyList()
+            }
+        }
+
+    private fun getBackupFiles(): List<OCFile> {
+        val storageManager = (activity as? ContactsPreferenceActivity)?.storageManager ?: return emptyList()
+        val contactsFolder = storageManager.getFileByDecryptedRemotePath(contactsBackupFolderPath)
+        val calendarFolder = storageManager.getFileByDecryptedRemotePath(calendarBackupFolderPath)
+        return buildList {
+            addAll(storageManager.getFolderContent(contactsFolder, false))
+            addAll(storageManager.getFolderContent(calendarFolder, false))
+        }
+    }
+
+    //endregion
+
+    //region Date picker
+
+    private fun openCleanDate() {
+        if (checkAndAskForCalendarReadPermission() && checkAndAskForContactsReadPermission()) openDate(null)
+    }
+
+    private fun openDate(savedDate: Calendar?) {
+        val contactsPreferenceActivity = activity as? ContactsPreferenceActivity ?: run {
+            activity?.let { DisplayUtils.showSnackMessage(it, R.string.error_choosing_date) }
+            return
+        }
+        val backupFiles = getBackupFiles().sortedBy { it.modificationTimestamp }
+        if (backupFiles.isEmpty()) {
+            DisplayUtils.showSnackMessage(
+                this,
+                R.string.contacts_preferences_something_strange_happened
+            )
+            return
+        }
+        val cal = savedDate ?: Calendar.getInstance()
+        datePickerDialog = DatePickerDialog(
+            contactsPreferenceActivity,
+            this,
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
+        ).apply {
+            datePicker.maxDate = backupFiles.last().modificationTimestamp
+            datePicker.minDate = backupFiles.first().modificationTimestamp
+            setOnDismissListener { selectedDate = null }
+            setTitle("")
+            show()
+
+            viewThemeUtils.platform.colorTextButtons(
+                getButton(DatePickerDialog.BUTTON_NEGATIVE),
+                getButton(DatePickerDialog.BUTTON_POSITIVE)
+            )
+        }
+    }
+
+    @Suppress("ComplexMethod", "MagicNumber")
+    override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
+        val contactsPreferenceActivity = activity as? ContactsPreferenceActivity ?: run {
+            activity?.let { DisplayUtils.showSnackMessage(it, R.string.error_choosing_date) }
+            return
+        }
+        selectedDate = GregorianCalendar(year, month, dayOfMonth)
+        val backupFiles = getBackupFiles()
+        val (start, end) = calculateDayRange(year, month, dayOfMonth)
+        val backupToRestore = collectFilesForRestore(backupFiles, start, end)
+
+        if (backupToRestore.isEmpty()) {
+            DisplayUtils.showSnackMessage(
+                this,
+                R.string.contacts_preferences_no_file_found
+            )
+            return
+        }
+        val user = contactsPreferenceActivity.user.orElseThrow { RuntimeException() }
+        val fragment = BackupListFragment.newInstance(backupToRestore.toTypedArray(), user)
+        contactsPreferenceActivity.supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_container, fragment, BackupListFragment.TAG)
+            .addToBackStack(ContactsPreferenceActivity.BACKUP_TO_LIST)
+            .commit()
+    }
+
+    @Suppress("MagicNumber")
+    private fun calculateDayRange(year: Int, month: Int, dayOfMonth: Int): Pair<Long, Long> {
+        val date = Calendar.getInstance().apply { set(year, month, dayOfMonth) }.apply {
+            set(Calendar.HOUR, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 1)
+            set(Calendar.MILLISECOND, 0)
+            set(Calendar.AM_PM, Calendar.AM)
+        }
+
+        val start = date.timeInMillis
+
+        date.set(Calendar.HOUR, 23)
+        date.set(Calendar.MINUTE, 59)
+        date.set(Calendar.SECOND, 59)
+
+        return start to date.timeInMillis
+    }
+
+    private fun collectFilesForRestore(backupFiles: List<OCFile>, start: Long, end: Long): List<OCFile> {
+        val inRange = backupFiles.filter { it.modificationTimestamp in (start + 1)..<end }
+        val contactBackup = inRange.filter { MimeTypeUtil.isVCard(it) }.maxByOrNull { it.modificationTimestamp }
+        val calendarBackups = if (showCalendarBackup) inRange.filter { MimeTypeUtil.isCalendar(it) } else emptyList()
+        return listOfNotNull(contactBackup) + calendarBackups
+    }
+
+    //endregion
+
+    //region Permissions
+
+    private fun checkAndAskForContactsReadPermission(): Boolean {
+        if (checkSelfPermission(requireActivity(), Manifest.permission.READ_CONTACTS)) return true
+        requestContactsPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
+        return false
+    }
+
+    private fun checkAndAskForCalendarReadPermission(): Boolean {
+        if (checkCalendarBackupPermission(requireActivity())) return true
+        requestCalendarPermissionLauncher.launch(
+            arrayOf(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR)
+        )
+        return false
+    }
+
     private fun checkCalendarBackupPermission(context: Context): Boolean =
         checkSelfPermission(context, Manifest.permission.READ_CALENDAR) &&
-            checkSelfPermission(
-                context,
-                Manifest.permission.WRITE_CALENDAR
-            )
+            checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR)
 
     private fun checkContactBackupPermission(): Boolean =
         checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS)
 
-    private fun openCleanDate() {
-        if (checkAndAskForCalendarReadPermission() && checkAndAskForContactsReadPermission()) {
-            openDate(null)
-        }
+    private fun resetSwitch(switch: CompoundButton, listener: CompoundButton.OnCheckedChangeListener) {
+        switch.setOnCheckedChangeListener(null)
+        switch.isChecked = false
+        switch.setOnCheckedChangeListener(listener)
     }
 
-    private fun openDate(savedDate: Calendar?) {
-        val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
-        if (contactsPreferenceActivity == null) {
-            activity?.let {
-                DisplayUtils.showSnackMessage(it, R.string.error_choosing_date)
+    private val requestContactsPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) isContactsBackupEnabled = true else resetSwitch(binding.contacts, contactsCheckedListener)
+            setBackupNowButtonVisibility()
+            setAutomaticBackup(binding.dailyBackup.isChecked)
+        }
+
+    private val requestCalendarPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val readGranted = permissions[Manifest.permission.READ_CALENDAR] == true
+            val writeGranted = permissions[Manifest.permission.WRITE_CALENDAR] == true
+            if (readGranted && writeGranted) {
+                isCalendarBackupEnabled = true
+            } else {
+                resetSwitch(binding.calendar, calendarCheckedListener)
             }
-            return
+            setBackupNowButtonVisibility()
+            setAutomaticBackup(binding.dailyBackup.isChecked)
         }
 
-        val backupFiles = getBackupFiles().toMutableList()
-        backupFiles.sortBy { it.modificationTimestamp }
-
-        if (backupFiles.isNotEmpty() && backupFiles.last() != null) {
-            val cal = savedDate ?: Calendar.getInstance()
-
-            datePickerDialog = DatePickerDialog(
-                contactsPreferenceActivity,
-                this,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-            )
-
-            datePickerDialog?.apply {
-                datePicker.maxDate = backupFiles.last().modificationTimestamp
-                datePicker.minDate = backupFiles.first().modificationTimestamp
-                setOnDismissListener { selectedDate = null }
-                setTitle("")
-                show()
-            }
-
-            viewThemeUtils.platform.colorTextButtons(
-                datePickerDialog!!.getButton(DatePickerDialog.BUTTON_NEGATIVE),
-                datePickerDialog!!.getButton(DatePickerDialog.BUTTON_POSITIVE)
-            )
-        } else {
-            DisplayUtils.showSnackMessage(
-                requireView().findViewById<View>(R.id.contacts_linear_layout),
-                R.string.contacts_preferences_something_strange_happened
-            )
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        datePickerDialog?.dismiss()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        datePickerDialog?.let { dialog ->
-            outState.putBoolean(KEY_CALENDAR_PICKER_OPEN, dialog.isShowing)
-
-            if (dialog.isShowing) {
-                dialog.datePicker.let {
-                    outState.putSerializable(KEY_CALENDAR_DATE, GregorianCalendar(it.year, it.month, it.dayOfMonth))
-                }
-            }
-        }
-    }
-
-    @Suppress("TooGenericExceptionCaught", "NestedBlockDepth", "ComplexMethod", "LongMethod", "MagicNumber")
-    override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
-        val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
-        if (contactsPreferenceActivity == null) {
-            activity?.let {
-                DisplayUtils.showSnackMessage(it, R.string.error_choosing_date)
-            }
-            return
-        }
-
-        selectedDate = GregorianCalendar(year, month, dayOfMonth)
-        val backupFiles = getBackupFiles()
-
-        // find file with modification with date and time between 00:00 and 23:59
-        // if more than one file exists, take oldest
-        val date = Calendar.getInstance()
-        date[year, month] = dayOfMonth
-
-        // start
-        date[Calendar.HOUR] = 0
-        date[Calendar.MINUTE] = 0
-        date[Calendar.SECOND] = 1
-        date[Calendar.MILLISECOND] = 0
-        date[Calendar.AM_PM] = Calendar.AM
-        val start = date.timeInMillis
-
-        // end
-        date[Calendar.HOUR] = 23
-        date[Calendar.MINUTE] = 59
-        date[Calendar.SECOND] = 59
-        val end = date.timeInMillis
-        var contactsBackupToRestore: OCFile? = null
-        val calendarBackupsToRestore: MutableList<OCFile> = ArrayList()
-        for (file in backupFiles) {
-            if (file.modificationTimestamp in (start + 1)..<end) {
-                // contact
-                if (MimeTypeUtil.isVCard(file)) {
-                    if (contactsBackupToRestore == null) {
-                        contactsBackupToRestore = file
-                    } else if (contactsBackupToRestore.modificationTimestamp < file.modificationTimestamp) {
-                        contactsBackupToRestore = file
-                    }
-                }
-
-                // calendars
-                if (showCalendarBackup && MimeTypeUtil.isCalendar(file)) {
-                    calendarBackupsToRestore.add(file)
-                }
-            }
-        }
-        val backupToRestore: MutableList<OCFile> = ArrayList()
-        if (contactsBackupToRestore != null) {
-            backupToRestore.add(contactsBackupToRestore)
-        }
-        backupToRestore.addAll(calendarBackupsToRestore)
-        if (backupToRestore.isEmpty()) {
-            DisplayUtils.showSnackMessage(
-                requireView().findViewById<View>(R.id.contacts_linear_layout),
-                R.string.contacts_preferences_no_file_found
-            )
-        } else {
-            val user = contactsPreferenceActivity.user.orElseThrow { RuntimeException() }
-            val contactListFragment = BackupListFragment.newInstance(backupToRestore.toTypedArray(), user)
-
-            contactsPreferenceActivity.supportFragmentManager.beginTransaction()
-                .replace(R.id.frame_container, contactListFragment, BackupListFragment.TAG)
-                .addToBackStack(ContactsPreferenceActivity.BACKUP_TO_LIST)
-                .commit()
-        }
-    }
+    //endregion
 
     companion object {
         val TAG: String = BackupFragment::class.java.simpleName
@@ -619,9 +512,7 @@ class BackupFragment :
 
         @JvmStatic
         fun create(showSidebar: Boolean): BackupFragment = BackupFragment().apply {
-            arguments = Bundle().apply {
-                putBoolean(ARG_SHOW_SIDEBAR, showSidebar)
-            }
+            arguments = Bundle().apply { putBoolean(ARG_SHOW_SIDEBAR, showSidebar) }
         }
     }
 }
