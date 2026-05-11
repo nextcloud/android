@@ -410,60 +410,6 @@ class BackupFragment :
         }
     // endregion
 
-    @Deprecated("Deprecated in Java")
-    @Suppress("NestedBlockDepth")
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC) {
-            for (index in permissions.indices) {
-                if (Manifest.permission.READ_CONTACTS.equals(permissions[index], ignoreCase = true)) {
-                    if (grantResults[index] >= 0) {
-                        // if approved, exit for loop
-                        isContactsBackupEnabled = true
-                        break
-                    }
-
-                    // if not accepted, disable again
-                    binding.contacts.setOnCheckedChangeListener(null)
-                    binding.contacts.isChecked = false
-                    binding.contacts.setOnCheckedChangeListener(contactsCheckedListener)
-                }
-            }
-        }
-        if (requestCode == PermissionUtil.PERMISSIONS_READ_CALENDAR_AUTOMATIC) {
-            var readGranted = false
-            var writeGranted = false
-            for (index in permissions.indices) {
-                if (Manifest.permission.WRITE_CALENDAR.equals(
-                        permissions[index],
-                        ignoreCase = true
-                    ) &&
-                    grantResults[index] >= 0
-                ) {
-                    writeGranted = true
-                } else if (Manifest.permission.READ_CALENDAR.equals(
-                        permissions[index],
-                        ignoreCase = true
-                    ) &&
-                    grantResults[index] >= 0
-                ) {
-                    readGranted = true
-                }
-            }
-            if (!readGranted || !writeGranted) {
-                // if not accepted, disable again
-                binding.calendar.setOnCheckedChangeListener(null)
-                binding.calendar.isChecked = false
-                binding.calendar.setOnCheckedChangeListener(calendarCheckedListener)
-            } else {
-                isCalendarBackupEnabled = true
-            }
-        }
-        setBackupNowButtonVisibility()
-        setAutomaticBackup(binding.dailyBackup.isChecked)
-    }
-
     private fun backupNow() {
         val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return
         val user = activity.user?.takeIf { it.isPresent }?.get() ?: return
