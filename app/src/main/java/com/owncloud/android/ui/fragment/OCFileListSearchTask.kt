@@ -68,8 +68,6 @@ class OCFileListSearchTask(
         job = fragment.lifecycleScope.launch(Dispatchers.IO) {
             val searchType = fragment.currentSearchType
 
-            refreshCurrentDir(fragment)
-
             val cachedFiles = loadSortedCachedDbFiles(event.searchType, searchType, fragment)
             if (cachedFiles.isNotEmpty()) {
                 updateAdapterData(fragment, cachedFiles)
@@ -110,9 +108,7 @@ class OCFileListSearchTask(
             storageManager.fileDao.getFavoriteFiles(currentUser.accountName)
         }.mapNotNull { storageManager.createFileInstance(it) }
 
-        return sortSearchData(files, fragmentSearchType, null, setNewSortOrder = {
-            fragment.adapter.setSortOrder(it)
-        })
+        return sortSearchData(files, fragmentSearchType, fragment)
     }
 
     private suspend fun fetchAndSortRemoteFiles(
@@ -132,9 +128,7 @@ class OCFileListSearchTask(
             parseAndSaveVirtuals(resultData, fragment)
         }
 
-        return sortSearchData(newList, searchType, null, setNewSortOrder = {
-            fragment.adapter.setSortOrder(it)
-        })
+        return sortSearchData(newList, searchType, fragment)
     }
 
     @Suppress("DEPRECATION")
@@ -165,8 +159,7 @@ class OCFileListSearchTask(
     private fun sortSearchData(
         list: List<OCFile>,
         searchType: SearchType,
-        folder: OCFile?,
-        setNewSortOrder: (FileSortOrder) -> Unit
+        fragment: OCFileListFragment
     ): List<OCFile> {
         if (searchType == SearchType.GALLERY_SEARCH ||
             searchType == SearchType.RECENT_FILES_SEARCH
@@ -187,11 +180,11 @@ class OCFileListSearchTask(
             }
 
             else -> {
-                preferences.getSortOrderByFolder(folder)
+                preferences.getSortOrderByFolder(null)
             }
         }
 
-        setNewSortOrder(sortOrder)
+        fragment.adapter.setSortOrder(sortOrder)
         return sortOrder.sortCloudFiles(list.toMutableList(), foldersBeforeFiles, favoritesFirst)
     }
 
@@ -216,6 +209,7 @@ class OCFileListSearchTask(
                     val remoteFile = obj as? RemoteFile ?: continue
                     var ocFile = FileStorageUtils.fillOCFile(remoteFile)
                     FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, currentUser.accountName)
+                    resolveLocalFileId(ocFile)
                     ocFile = storageManager.saveFileWithParent(ocFile, activity)
                     ocFile = handleEncryptionIfNeeded(ocFile, storageManager, activity) {
                         cachedClient ?: currentUser.toPlatformAccount().also { cachedClient = it }
@@ -287,16 +281,10 @@ class OCFileListSearchTask(
         return fileDataStorage.saveFileWithParent(ocFile, activity)
     }
 
-    private fun refreshCurrentDir(fragment: OCFileListFragment): Boolean {
-        val folder = fragment.currentFile ?: storageManager.getFileByDecryptedRemotePath(OCFile.ROOT_PATH)
-        val operation =
-            RefreshFolderOperation(
-                folder,
-                storageManager,
-                currentUser,
-                fragment.context
-            )
-        return operation.execute(currentUser, fragment.context).isSuccess
+    private fun resolveLocalFileId(ocFile: OCFile) {
+        if (ocFile.fileId != -1L) return
+        val localFile = storageManager.getFileByLocalId(ocFile.localId) ?: return
+        ocFile.fileId = localFile.fileId
     }
 
     // region public methods
