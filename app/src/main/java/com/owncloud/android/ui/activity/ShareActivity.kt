@@ -123,7 +123,12 @@ class ShareActivity :
             val isAutoUploadFolder = SyncedFolderObserver.isAutoUploadFolder(file, user)
             val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
             binding.shareFileIcon.setImageDrawable(
-                MimeTypeUtil.getFolderIcon(preferences.isDarkModeEnabled(), overlayIconId, this, viewThemeUtils)
+                MimeTypeUtil.getFolderIcon(
+                    preferences.isDarkModeEnabled(),
+                    overlayIconId,
+                    this,
+                    viewThemeUtils
+                )
             )
         } else {
             DisplayUtils.setThumbnail(
