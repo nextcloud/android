@@ -15,17 +15,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.DatePicker
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.BackupFragmentBinding
@@ -116,8 +121,6 @@ class BackupFragment :
 
         val view: View = binding.root
 
-        setHasOptionsMenu(true)
-
         if (arguments != null) {
             showSidebar = requireArguments().getBoolean(ARG_SHOW_SIDEBAR)
         }
@@ -139,7 +142,7 @@ class BackupFragment :
 
         setupDates(savedInstanceState)
         applyUserColor()
-
+        addMenuProvider()
         return view
     }
 
@@ -320,28 +323,92 @@ class BackupFragment :
             }
         }
 
-    @Deprecated("Deprecated in Java")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
-
-        if (item.itemId == android.R.id.home) {
-            if (showSidebar) {
-                if (contactsPreferenceActivity!!.isDrawerOpen) {
-                    contactsPreferenceActivity.closeDrawer()
-                } else {
-                    contactsPreferenceActivity.openDrawer()
+    private fun addMenuProvider() {
+        requireActivity().addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 }
-            } else if (contactsPreferenceActivity != null) {
-                contactsPreferenceActivity.finish()
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    val activity = getTypedActivity(ContactsPreferenceActivity::class.java)
+
+                    if (menuItem.itemId == android.R.id.home) {
+                        if (showSidebar) {
+                            if (activity?.isDrawerOpen == true) {
+                                activity.closeDrawer()
+                            } else {
+                                activity?.openDrawer()
+                            }
+                        } else if (activity != null) {
+                            activity.finish()
+                        } else {
+                            val settingsIntent = Intent(context, SettingsActivity::class.java)
+                            startActivity(settingsIntent)
+                        }
+                        return true
+                    }
+
+                    return false
+                }
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED
+        )
+    }
+
+    // region permission handling
+    private fun checkAndAskForContactsReadPermission(): Boolean {
+        return if (checkSelfPermission(requireActivity(), Manifest.permission.READ_CONTACTS)) {
+            true
+        } else {
+            requestContactsPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
+            false
+        }
+    }
+
+    private fun checkAndAskForCalendarReadPermission(): Boolean {
+        return if (checkCalendarBackupPermission(requireActivity())) {
+            true
+        } else {
+            requestCalendarPermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.READ_CALENDAR,
+                    Manifest.permission.WRITE_CALENDAR
+                )
+            )
+            false
+        }
+    }
+
+    private val requestContactsPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                isContactsBackupEnabled = true
             } else {
-                val settingsIntent = Intent(context, SettingsActivity::class.java)
-                startActivity(settingsIntent)
+                binding.contacts.setOnCheckedChangeListener(null)
+                binding.contacts.isChecked = false
+                binding.contacts.setOnCheckedChangeListener(contactsCheckedListener)
             }
-            return true
+            setBackupNowButtonVisibility()
+            setAutomaticBackup(binding.dailyBackup.isChecked)
         }
 
-        return super.onOptionsItemSelected(item)
-    }
+    private val requestCalendarPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val readGranted = permissions[Manifest.permission.READ_CALENDAR] == true
+            val writeGranted = permissions[Manifest.permission.WRITE_CALENDAR] == true
+
+            if (readGranted && writeGranted) {
+                isCalendarBackupEnabled = true
+            } else {
+                binding.calendar.setOnCheckedChangeListener(null)
+                binding.calendar.isChecked = false
+                binding.calendar.setOnCheckedChangeListener(calendarCheckedListener)
+            }
+            setBackupNowButtonVisibility()
+            setAutomaticBackup(binding.dailyBackup.isChecked)
+        }
+    // endregion
 
     @Deprecated("Deprecated in Java")
     @Suppress("NestedBlockDepth")
@@ -398,45 +465,27 @@ class BackupFragment :
     }
 
     private fun backupNow() {
+        val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return
+        val user = activity.user?.takeIf { it.isPresent }?.get() ?: return
+
         if (isContactsBackupEnabled && checkContactBackupPermission()) {
-            startContactsBackupJob()
+            backgroundJobManager.startImmediateContactsBackup(user)
         }
+
         if (showCalendarBackup && isCalendarBackupEnabled && checkCalendarBackupPermission(requireContext())) {
-            startCalendarBackupJob()
+            backgroundJobManager.startImmediateCalendarBackup(user)
         }
+
         DisplayUtils.showSnackMessage(
-            requireView().findViewById<View>(R.id.contacts_linear_layout),
+            this,
             R.string.contacts_preferences_backup_scheduled
         )
     }
 
-    private fun startContactsBackupJob() {
-        val activity = activity as ContactsPreferenceActivity?
-        if (activity != null) {
-            val optionalUser = activity.user
-            if (optionalUser.isPresent) {
-                backgroundJobManager.startImmediateContactsBackup(optionalUser.get())
-            }
-        }
-    }
-
-    private fun startCalendarBackupJob() {
-        val activity = activity as ContactsPreferenceActivity?
-        if (activity != null) {
-            val optionalUser = activity.user
-            if (optionalUser.isPresent) {
-                backgroundJobManager.startImmediateCalendarBackup(optionalUser.get())
-            }
-        }
-    }
-
     private fun setAutomaticBackup(enabled: Boolean) {
-        val activity = activity as ContactsPreferenceActivity? ?: return
-        val optionalUser = activity.user
-        if (!optionalUser.isPresent) {
-            return
-        }
-        val user = optionalUser.get()
+        val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return
+        val user = activity.user?.takeIf { it.isPresent }?.get() ?: return
+
         if (enabled) {
             if (isContactsBackupEnabled) {
                 Log_OC.d(TAG, "Scheduling contacts backup job")
@@ -462,43 +511,6 @@ class BackupFragment :
             ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
             enabled.toString()
         )
-    }
-
-    private fun checkAndAskForContactsReadPermission(): Boolean {
-        val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
-
-        // check permissions
-        return if (checkSelfPermission(contactsPreferenceActivity!!, Manifest.permission.READ_CONTACTS)) {
-            true
-        } else {
-            // No explanation needed, request the permission.
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.READ_CONTACTS),
-                PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC
-            )
-            false
-        }
-    }
-
-    private fun checkAndAskForCalendarReadPermission(): Boolean {
-        val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
-
-        // check permissions
-        return if (contactsPreferenceActivity?.let { checkCalendarBackupPermission(it) } == true) {
-            true
-        } else {
-            // No explanation needed, request the permission.
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(
-                    Manifest.permission.READ_CALENDAR,
-                    Manifest.permission.WRITE_CALENDAR
-                ),
-                PermissionUtil.PERMISSIONS_READ_CALENDAR_AUTOMATIC
-            )
-            false
-        }
     }
 
     private fun checkCalendarBackupPermission(context: Context): Boolean =
@@ -660,12 +672,10 @@ class BackupFragment :
         const val PREFERENCE_CALENDAR_BACKUP_ENABLED = "PREFERENCE_CALENDAR_BACKUP_ENABLED"
 
         @JvmStatic
-        fun create(showSidebar: Boolean): BackupFragment {
-            val fragment = BackupFragment()
-            val bundle = Bundle()
-            bundle.putBoolean(ARG_SHOW_SIDEBAR, showSidebar)
-            fragment.arguments = bundle
-            return fragment
+        fun create(showSidebar: Boolean): BackupFragment = BackupFragment().apply {
+            arguments = Bundle().apply {
+                putBoolean(ARG_SHOW_SIDEBAR, showSidebar)
+            }
         }
     }
 }
