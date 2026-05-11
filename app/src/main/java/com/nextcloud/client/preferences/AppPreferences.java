@@ -135,7 +135,7 @@ public interface AppPreferences {
      * @return preference value, default is
      * {@link com.owncloud.android.ui.fragment.OCFileListFragment#FOLDER_LAYOUT_LIST}
      */
-    String getFolderLayout(OCFile folder);
+    String getFolderLayout(OCFile folder, String defaultLayout);
 
     /**
      * Set preferred folder display type.

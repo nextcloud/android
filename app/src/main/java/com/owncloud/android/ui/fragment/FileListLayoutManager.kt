@@ -22,6 +22,10 @@ import com.owncloud.android.utils.FileSortOrder
 
 class FileListLayoutManager(private val fragment: OCFileListFragment, private val preferences: AppPreferences) {
 
+    companion object {
+        private var lastLayout = OCFileListFragment.FOLDER_LAYOUT_LIST
+    }
+
     fun sortFiles(sortOrder: FileSortOrder?) {
         fragment.mSortButton?.setText(DisplayUtils.getSortOrderStringId(sortOrder))
         sortOrder?.let { fragment.mAdapter.setSortOrder(fragment.mFile, it) }
@@ -40,9 +44,9 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
      */
     fun isGridViewPreferred(folder: OCFile?): Boolean = if (fragment.searchEvent != null) {
         (fragment.searchEvent.toSearchType() != SearchType.SHARED_FILTER) &&
-            (OCFileListFragment.FOLDER_LAYOUT_GRID == preferences.getFolderLayout(folder))
+            (OCFileListFragment.FOLDER_LAYOUT_GRID == preferences.getFolderLayout(folder, lastLayout))
     } else {
-        OCFileListFragment.FOLDER_LAYOUT_GRID == preferences.getFolderLayout(folder)
+        OCFileListFragment.FOLDER_LAYOUT_GRID == preferences.getFolderLayout(folder, lastLayout)
     }
 
     fun setLayoutViewMode() {
@@ -65,6 +69,7 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
     fun switchToListView() {
         if (fragment.isGridEnabled) {
             switchLayoutManager(false)
+            lastLayout = OCFileListFragment.FOLDER_LAYOUT_LIST
         }
     }
 
@@ -76,6 +81,7 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
     fun switchToGridView() {
         if (!fragment.isGridEnabled) {
             switchLayoutManager(true)
+            lastLayout = OCFileListFragment.FOLDER_LAYOUT_GRID
         }
     }
 
@@ -100,12 +106,11 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
         val layoutManager: RecyclerView.LayoutManager?
         if (grid) {
             layoutManager = GridLayoutManager(context, fragment.columnsCount)
-            val gridLayoutManager = layoutManager
-            gridLayoutManager.spanSizeLookup = object : SpanSizeLookup() {
+            layoutManager.spanSizeLookup = object : SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int = if (position == fragment.adapter.itemCount - 1 ||
                     (position == 0 && fragment.adapter.shouldShowHeader())
                 ) {
-                    gridLayoutManager.spanCount
+                    layoutManager.spanCount
                 } else {
                     1
                 }

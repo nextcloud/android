@@ -336,12 +336,12 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public String getFolderLayout(OCFile folder) {
+    public String getFolderLayout(OCFile folder, String defaultLayout) {
         return getFolderPreference(context,
                                    userAccountManager.getUser(),
                                    PREF__FOLDER_LAYOUT,
                                    folder,
-                                   FOLDER_LAYOUT_LIST);
+                                   defaultLayout);
     }
 
     @Override
