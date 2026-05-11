@@ -1691,6 +1691,10 @@ class FileDisplayActivity :
                     it.setEmptyListMessage(EmptyListState.ONLY_ON_DEVICE)
                 }
 
+                it.searchEvent?.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH -> {
+                    it.setEmptyListMessage(SearchType.FAVORITE_SEARCH)
+                }
+
                 else -> it.setEmptyListMessage(SearchType.NO_SEARCH)
             }
         }
@@ -2174,41 +2178,34 @@ class FileDisplayActivity :
      */
     private fun onRemoveFileOperationFinish(operation: RemoveFileOperation, result: RemoteOperationResult<*>) {
         deleteBatchTracker.onSingleDeleteFinished()
+        if (!result.isSuccess && result.isSslRecoverableException) {
+            mLastSslUntrustedServerResult = result
+            showUntrustedCertDialog(mLastSslUntrustedServerResult)
+            return
+        }
 
-        if (result.isSuccess) {
-            val removedFile = operation.file
-            tryStopPlaying(removedFile)
-            val leftFragment = this.leftFragment
+        val removedFile = operation.file
+        tryStopPlaying(removedFile)
+        val leftFragment = this.leftFragment
 
-            // check if file is still available, if so do nothing
-            val fileAvailable = storageManager.fileExists(removedFile.fileId)
-            if (leftFragment is FileFragment && !fileAvailable && removedFile == leftFragment.file) {
-                file = storageManager.getFileById(removedFile.parentId)
-                resetScrollingAndUpdateActionBar()
-            }
-            val parentFile = storageManager.getFileById(removedFile.parentId)
-            if (parentFile != null && parentFile == getCurrentDir()) {
-                updateListOfFilesFragment()
-            } else if (leftFragment is OCFileListFragment &&
-                SearchRemoteOperation.SearchType.FAVORITE_SEARCH == leftFragment.searchEvent?.searchType
-            ) {
-                leftFragment.adapter?.run {
-                    val file = files.find { it.fileId == removedFile.fileId }
-                    if (file != null) {
-                        val pos = getItemPosition(file)
-                        files.remove(file)
-                        notifyItemRemoved(pos)
-                    }
-                }
-            }
-            supportInvalidateOptionsMenu()
-            fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
-        } else {
-            if (result.isSslRecoverableException) {
-                mLastSslUntrustedServerResult = result
-                showUntrustedCertDialog(mLastSslUntrustedServerResult)
+        // check if file is still available, if so do nothing
+        val fileAvailable = storageManager.fileExists(removedFile.fileId)
+        if (leftFragment is FileFragment && !fileAvailable && removedFile == leftFragment.file) {
+            file = storageManager.getFileById(removedFile.parentId)
+            resetScrollingAndUpdateActionBar()
+        }
+
+        if (leftFragment is OCFileListFragment) {
+            leftFragment.adapter?.removeFile(removedFile)
+
+            if (leftFragment.adapter?.isEmpty == true) {
+                val emptyState = leftFragment.searchEvent?.toSearchType() ?: SearchType.NO_SEARCH
+                leftFragment.setEmptyListMessage(emptyState)
             }
         }
+
+        supportInvalidateOptionsMenu()
+        fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
     }
 
     override fun onAutoUploadFolderRemoved(

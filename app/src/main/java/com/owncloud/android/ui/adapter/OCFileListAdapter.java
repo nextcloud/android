@@ -1108,4 +1108,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mFilesAll.clear();
         notifyDataSetChanged();
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void removeFile(@NonNull OCFile file) {
+        int position = getItemPosition(file);
+
+        mFiles.remove(file);
+        mFilesAll.remove(file);
+
+        if (position != -1) {
+            notifyItemRemoved(position);
+        } else {
+            notifyDataSetChanged();
+        }
+    }
 }
