@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2018-2022 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017 Andy Scherzinger <info@andy-scherzinger.de>
@@ -10,183 +11,177 @@
  * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.activity
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.drawable.LayerDrawable;
-import android.os.Bundle;
+import android.content.Intent
+import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
+import com.nextcloud.client.account.User
+import com.owncloud.android.R
+import com.owncloud.android.databinding.ShareActivityBinding
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderObserver
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.lib.common.operations.RemoteOperation
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.operations.GetSharesForFileOperation
+import com.owncloud.android.ui.fragment.FileDetailSharingFragment
+import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.MimeTypeUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-import com.nextcloud.client.account.User;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.ShareActivityBinding;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolderObserver;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.operations.GetSharesForFileOperation;
-import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
-import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
+class ShareActivity : FileActivity() {
 
-import java.util.Optional;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-import javax.inject.Inject;
+        val binding = ShareActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-/**
- * Activity for sharing files.
- */
-public class ShareActivity extends FileActivity {
-
-    private static final String TAG = ShareActivity.class.getSimpleName();
-
-    static final String TAG_SHARE_FRAGMENT = "SHARE_FRAGMENT";
-
-    @Inject
-    SyncedFolderProvider syncedFolderProvider;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        ShareActivityBinding binding = ShareActivityBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        OCFile file = getFile();
-        Optional<User> optionalUser = getUser();
-        if (optionalUser.isEmpty()) {
-            finish();
-            return;
+        val currentUser = user.orElse(null) ?: run {
+            finish()
+            return
+        }
+        val file = file ?: run {
+            finish()
+            return
         }
 
-        // Icon
-        if (file.isFolder()) {
-            boolean isAutoUploadFolder = SyncedFolderObserver.INSTANCE.isAutoUploadFolder(file, optionalUser.get());
+        setupHeader(binding, file, currentUser)
+        fetchRemoteFileSize(file, currentUser, binding)
 
-            Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
-            LayerDrawable drawable = MimeTypeUtil.getFolderIcon(preferences.isDarkModeEnabled(), overlayIconId, this, viewThemeUtils);
-            binding.shareFileIcon.setImageDrawable(drawable);
+        if (savedInstanceState == null) {
+            showSharingFragment(file, currentUser)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log_OC.d(TAG, "Refreshing lists on account set")
+        refreshSharesFromStorageManager()
+    }
+
+    override fun doShareWith(shareeName: String, shareType: ShareType) {
+        val file = file ?: return
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.share_fragment_container,
+                FileDetailsSharingProcessFragment.newInstance(file, shareeName, shareType, false),
+                FileDetailsSharingProcessFragment.TAG
+            )
+            .commit()
+    }
+
+    override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {
+        super.onRemoteOperationFinish(operation, result)
+
+        val isShareNotFound = operation is GetSharesForFileOperation &&
+            result.code == RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
+
+        if (result.isSuccess || isShareNotFound) {
+            Log_OC.d(TAG, "Refreshing view on successful operation or finished refresh")
+            refreshSharesFromStorageManager()
+        }
+    }
+
+    override fun onShareProcessClosed() {
+        finish()
+    }
+
+    private fun setupHeader(binding: ShareActivityBinding, file: OCFile, user: User) {
+        binding.shareBackButton.setOnClickListener { navigateToParentFolder(user) }
+        setupFileIcon(binding, file, user)
+        with(binding) {
+            shareFileName.text = getString(R.string.share_file, file.fileName)
+            viewThemeUtils.platform.colorViewBackground(shareHeaderDivider)
+            shareFileSize.text = DisplayUtils.bytesToHumanReadable(file.fileLength)
+        }
+    }
+
+    private fun setupFileIcon(binding: ShareActivityBinding, file: OCFile, user: User) {
+        if (file.isFolder) {
+            val isAutoUploadFolder = SyncedFolderObserver.isAutoUploadFolder(file, user)
+            val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
+            binding.shareFileIcon.setImageDrawable(
+                MimeTypeUtil.getFolderIcon(preferences.isDarkModeEnabled(), overlayIconId, this, viewThemeUtils)
+            )
         } else {
-            binding.shareFileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
-                                                                                file.getFileName(),
-                                                                                this,
-                                                                                viewThemeUtils));
+            binding.shareFileIcon.setImageDrawable(
+                MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, this, viewThemeUtils)
+            )
             if (MimeTypeUtil.isImage(file)) {
-                String remoteId = String.valueOf(file.getRemoteId());
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(remoteId);
-                if (thumbnail != null) {
-                    binding.shareFileIcon.setImageBitmap(thumbnail);
+                ThumbnailsCacheManager.getBitmapFromDiskCache(file.remoteId.toString())?.let {
+                    binding.shareFileIcon.setImageBitmap(it)
                 }
             }
         }
+    }
 
-        // Name
-        binding.shareFileName.setText(getResources().getString(R.string.share_file, file.getFileName()));
-
-        viewThemeUtils.platform.colorViewBackground(binding.shareHeaderDivider);
-
-        // Size
-        binding.shareFileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
-
-        Activity activity = this;
-        new Thread(() -> {
-            RemoteOperationResult result = new ReadFileRemoteOperation(getFile().getRemotePath())
-                .execute(optionalUser.get(),
-                         activity);
-
-            if (result.isSuccess()) {
-                RemoteFile remoteFile = (RemoteFile) result.getData().get(0);
-                long length = remoteFile.getLength();
-
-                getFile().setFileLength(length);
-                runOnUiThread(() -> binding.shareFileSize.setText(DisplayUtils.bytesToHumanReadable(length)));
+    private fun fetchRemoteFileSize(file: OCFile, user: User, binding: ShareActivityBinding) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val result = ReadFileRemoteOperation(file.remotePath).execute(user, this@ShareActivity)
+            if (result.isSuccess) {
+                val length = (result.data.first() as RemoteFile).length
+                file.fileLength = length
+                withContext(Dispatchers.Main) {
+                    binding.shareFileSize.text = DisplayUtils.bytesToHumanReadable(length)
+                }
             }
-        }).start();
-
-        if (savedInstanceState == null) {
-            // Add Share fragment on first creation
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            Fragment fragment = FileDetailSharingFragment.newInstance(getFile(), optionalUser.get());
-            ft.replace(R.id.share_fragment_container, fragment, TAG_SHARE_FRAGMENT);
-            ft.commit();
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        // Load data into the list
-        Log_OC.d(TAG, "Refreshing lists on account set");
-        refreshSharesFromStorageManager();
+    private fun showSharingFragment(file: OCFile, user: User) {
+        val fragment = FileDetailSharingFragment.newInstance(file, user)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.share_fragment_container, fragment, TAG_SHARE_FRAGMENT)
+            .commit()
     }
 
-    @Override
-    protected void doShareWith(String shareeName, ShareType shareType) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.share_fragment_container,
-                                                               FileDetailsSharingProcessFragment.newInstance(getFile(),
-                                                                                                             shareeName,
-                                                                                                             shareType,
-                                                                                                             false),
-                                                               FileDetailsSharingProcessFragment.TAG)
-            .commit();
-    }
-
-    /**
-     * Updates the view associated to the activity after the finish of some operation over files in the current
-     * account.
-     *
-     * @param operation Removal operation performed.
-     * @param result    Result of the removal.
-     */
-    @Override
-    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        super.onRemoteOperationFinish(operation, result);
-
-        if (result.isSuccess() ||
-                (operation instanceof GetSharesForFileOperation &&
-                        result.getCode() == RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
-                )
-                ) {
-            Log_OC.d(TAG, "Refreshing view on successful operation or finished refresh");
-            refreshSharesFromStorageManager();
+    private fun refreshSharesFromStorageManager() {
+        shareFileFragment?.takeIf { it.isAdded }?.run {
+            refreshCapabilitiesFromDB()
+            refreshSharesFromDB()
         }
     }
 
-    /**
-     * Updates the view, reading data from {@link com.owncloud.android.datamodel.FileDataStorageManager}.
-     */
-    private void refreshSharesFromStorageManager() {
+    private val shareFileFragment: FileDetailSharingFragment?
+        get() = supportFragmentManager.findFragmentByTag(TAG_SHARE_FRAGMENT) as? FileDetailSharingFragment
 
-        FileDetailSharingFragment shareFileFragment = getShareFileFragment();
-        if (shareFileFragment != null
-                && shareFileFragment.isAdded()) {   // only if added to the view hierarchy!!
-            shareFileFragment.refreshCapabilitiesFromDB();
-            shareFileFragment.refreshSharesFromDB();
+    private fun navigateToParentFolder(user: User) {
+        val file = file ?: run {
+            finish()
+            return
+        }
+        val parentFolder = if (file.isFolder) {
+            file
+        } else {
+            storageManager.getFileByDecryptedRemotePath(file.parentRemotePath)
+        }
+
+        if (parentFolder == null) {
+            finish()
+            return
+        }
+
+        Intent(this, FileDisplayActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            putExtra(EXTRA_FILE, parentFolder)
+            putExtra(EXTRA_USER, user)
+        }.also {
+            startActivity(it)
+            finish()
         }
     }
 
-    /**
-     * Shortcut to get access to the {@link FileDetailSharingFragment} instance, if any
-     *
-     * @return A {@link FileDetailSharingFragment} instance, or null
-     */
-    private FileDetailSharingFragment getShareFileFragment() {
-        return (FileDetailSharingFragment) getSupportFragmentManager().findFragmentByTag(TAG_SHARE_FRAGMENT);
-    }
-
-    @Override
-    public void onShareProcessClosed() {
-        finish();
+    companion object {
+        private val TAG: String = ShareActivity::class.java.simpleName
+        const val TAG_SHARE_FRAGMENT: String = "SHARE_FRAGMENT"
     }
 }

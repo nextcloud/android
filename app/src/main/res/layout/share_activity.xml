@@ -21,12 +21,24 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/standard_padding">
 
+        <ImageButton
+            android:id="@+id/shareBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/common_back"
+            android:src="@drawable/ic_arrow_back" />
+
         <ImageView
             android:id="@+id/shareFileIcon"
             android:layout_width="@dimen/file_icon_size"
             android:layout_height="@dimen/file_icon_size"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/standard_half_margin"
             android:layout_marginEnd="@dimen/standard_half_margin"
+            android:layout_toEndOf="@+id/shareBackButton"
             android:contentDescription="@null"
             android:src="@drawable/file" />
 
