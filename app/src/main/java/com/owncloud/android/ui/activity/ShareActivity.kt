@@ -16,12 +16,14 @@ package com.owncloud.android.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
+import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ShareActivityBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderObserver
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -33,11 +35,21 @@ import com.owncloud.android.ui.fragment.FileDetailSharingFragment
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.overlay.OverlayManager
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ShareActivity : FileActivity() {
+class ShareActivity :
+    FileActivity(),
+    Injectable {
+
+    @Inject
+    lateinit var syncedFolderProvider: SyncedFolderProvider
+
+    @Inject
+    lateinit var overlayManager: OverlayManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,6 +109,7 @@ class ShareActivity : FileActivity() {
 
     private fun setupHeader(binding: ShareActivityBinding, file: OCFile, user: User) {
         binding.shareBackButton.setOnClickListener { navigateToParentFolder(user) }
+        viewThemeUtils.platform.colorImageView(binding.shareBackButton, ColorRole.ON_SURFACE)
         setupFileIcon(binding, file, user)
         with(binding) {
             shareFileName.text = getString(R.string.share_file, file.fileName)
@@ -113,14 +126,19 @@ class ShareActivity : FileActivity() {
                 MimeTypeUtil.getFolderIcon(preferences.isDarkModeEnabled(), overlayIconId, this, viewThemeUtils)
             )
         } else {
-            binding.shareFileIcon.setImageDrawable(
-                MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, this, viewThemeUtils)
+            DisplayUtils.setThumbnail(
+                file,
+                binding.shareFileIcon,
+                user,
+                storageManager,
+                mutableListOf(),
+                false,
+                this,
+                null,
+                preferences,
+                viewThemeUtils,
+                overlayManager
             )
-            if (MimeTypeUtil.isImage(file)) {
-                ThumbnailsCacheManager.getBitmapFromDiskCache(file.remoteId.toString())?.let {
-                    binding.shareFileIcon.setImageBitmap(it)
-                }
-            }
         }
     }
 
