@@ -37,10 +37,6 @@ import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-/**
- * Dialog to input a new name for an [OCFile] being renamed.
- * Triggers the rename operation.
- */
 class RenameFileDialogFragment :
     DialogFragment(),
     DialogInterface.OnClickListener,
@@ -58,7 +54,7 @@ class RenameFileDialogFragment :
     lateinit var currentAccount: CurrentAccountProvider
 
     private lateinit var binding: EditBoxDialogBinding
-    private var mTargetFile: OCFile? = null
+    private var targetFile: OCFile? = null
     private var positiveButton: MaterialButton? = null
     private var fileNames: MutableSet<String>? = null
 
@@ -73,15 +69,15 @@ class RenameFileDialogFragment :
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        mTargetFile = requireArguments().getParcelableArgument(ARG_TARGET_FILE, OCFile::class.java)
+        targetFile = requireArguments().getParcelableArgument(ARG_TARGET_FILE, OCFile::class.java)
 
         val inflater = requireActivity().layoutInflater
         binding = EditBoxDialogBinding.inflate(inflater, null, false)
 
-        val currentName = mTargetFile?.fileName
+        val currentName = targetFile?.fileName
         binding.userInput.setText(currentName)
         viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer)
-        val extensionStart = if (mTargetFile?.isFolder == true) -1 else currentName?.lastIndexOf('.')
+        val extensionStart = if (targetFile?.isFolder == true) -1 else currentName?.lastIndexOf('.')
         val selectionEnd = if ((extensionStart ?: -1) >= 0) extensionStart else currentName?.length
         if (selectionEnd != null) {
             binding.userInput.setSelection(0, selectionEnd)
@@ -97,7 +93,7 @@ class RenameFileDialogFragment :
 
         binding.userInput.addTextChangedListener(
             FileNameTextWatcher(
-                previousFileName = mTargetFile?.fileName,
+                previousFileName = targetFile?.fileName,
                 context = binding.userInputContainer.context,
                 capabilitiesProvider = { oCCapability },
                 existingFileNamesProvider = { fileNames ?: setOf() },
@@ -168,17 +164,24 @@ class RenameFileDialogFragment :
                 return
             }
 
-            if (mTargetFile?.isOfflineOperation == true) {
-                fileDataStorageManager.renameOfflineOperation(mTargetFile, newFileName)
-                typedActivity<FileDisplayActivity>()?.refreshCurrentDirectory()
-            } else {
-                typedActivity<FileDisplayActivity>()?.connectivityService?.isNetworkAndServerAvailable { result ->
-                    if (result) {
-                        typedActivity<ComponentsGetter>()?.fileOperationsHelper?.renameFile(mTargetFile, newFileName)
-                    } else {
-                        fileDataStorageManager.addRenameFileOfflineOperation(mTargetFile, newFileName)
-                        typedActivity<FileDisplayActivity>()?.refreshCurrentDirectory()
-                    }
+            val fda = typedActivity<FileDisplayActivity>()
+
+            if (targetFile?.isOfflineOperation == true) {
+                fileDataStorageManager.renameOfflineOperation(targetFile, newFileName)
+                fda?.refreshCurrentDirectory()
+                return
+            }
+
+            fda?.connectivityService?.isNetworkAndServerAvailable { result ->
+                if (result) {
+                    /**
+                     *  result of it triggered by
+                     *  [com.owncloud.android.ui.activity.FileDisplayActivity.onRemoteOperationFinish]
+                     */
+                    typedActivity<ComponentsGetter>()?.fileOperationsHelper?.renameFile(targetFile, newFileName)
+                } else {
+                    fileDataStorageManager.addRenameFileOfflineOperation(targetFile, newFileName)
+                    fda.refreshCurrentDirectory()
                 }
             }
         }
@@ -188,22 +191,13 @@ class RenameFileDialogFragment :
         private const val ARG_TARGET_FILE = "TARGET_FILE"
         private const val ARG_PARENT_FOLDER = "PARENT_FOLDER"
 
-        /**
-         * Public factory method to create new RenameFileDialogFragment instances.
-         *
-         * @param file File to rename.
-         * @return Dialog ready to show.
-         */
         @JvmStatic
-        fun newInstance(file: OCFile?, parentFolder: OCFile?): RenameFileDialogFragment {
-            val bundle = Bundle().apply {
-                putParcelable(ARG_TARGET_FILE, file)
-                putParcelable(ARG_PARENT_FOLDER, parentFolder)
+        fun newInstance(file: OCFile?, parentFolder: OCFile?): RenameFileDialogFragment =
+            RenameFileDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_TARGET_FILE, file)
+                    putParcelable(ARG_PARENT_FOLDER, parentFolder)
+                }
             }
-
-            return RenameFileDialogFragment().apply {
-                arguments = bundle
-            }
-        }
     }
 }

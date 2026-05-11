@@ -2352,38 +2352,7 @@ class FileDisplayActivity :
     private fun onRenameFileOperationFinish(operation: RenameFileOperation, result: RemoteOperationResult<*>) {
         val optionalUser = user
         val renamedFile = operation.file
-        if (result.isSuccess && optionalUser.isPresent) {
-            val currentUser = optionalUser.get()
-            val leftFragment = this.leftFragment
-            if (leftFragment is FileFragment) {
-                if (leftFragment is FileDetailFragment && renamedFile == leftFragment.file) {
-                    leftFragment.updateFileDetails(renamedFile, currentUser)
-                    showDetails(renamedFile)
-                } else if (leftFragment is PreviewMediaFragment && renamedFile == leftFragment.file) {
-                    leftFragment.updateFile(renamedFile)
-                    if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
-                        val position = leftFragment.position
-                        startMediaPreview(renamedFile, position, true, true, true, false)
-                    } else {
-                        fileOperationsHelper.openFile(renamedFile)
-                    }
-                } else if (leftFragment is PreviewTextFragment && renamedFile == leftFragment.file) {
-                    (leftFragment as PreviewTextFileFragment).updateFile(renamedFile)
-                    if (PreviewTextFileFragment.canBePreviewed(renamedFile)) {
-                        startTextPreview(renamedFile, true)
-                    } else {
-                        fileOperationsHelper.openFile(renamedFile)
-                    }
-                }
-            }
-
-            val file = storageManager.getFileById(renamedFile.parentId)
-            if (file != null && file == getCurrentDir()) {
-                updateListOfFilesFragment()
-            }
-            refreshGalleryFragmentIfNeeded()
-            fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
-        } else {
+        if (!result.isSuccess || optionalUser.isEmpty) {
             DisplayUtils.showSnackMessage(
                 this,
                 ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
@@ -2392,6 +2361,58 @@ class FileDisplayActivity :
             if (result.isSslRecoverableException) {
                 mLastSslUntrustedServerResult = result
                 showUntrustedCertDialog(mLastSslUntrustedServerResult)
+            }
+            return
+        }
+
+        val currentUser = optionalUser.get()
+        val leftFragment = this.leftFragment
+        if (leftFragment is FileFragment) {
+            onRenameFileOperationFinishForFileFragment(leftFragment, renamedFile, currentUser)
+        }
+
+        val file = storageManager.getFileById(renamedFile.parentId)
+        if (file != null && file == getCurrentDir()) {
+            updateListOfFilesFragment()
+        }
+        refreshGalleryFragmentIfNeeded()
+        fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+    }
+
+    private fun onRenameFileOperationFinishForFileFragment(
+        fragment: FileFragment,
+        ocFile: OCFile,
+        user: User
+    ) {
+        if (fragment.file != ocFile) return
+
+        when (fragment) {
+            is FileDetailFragment -> {
+                fragment.updateFileDetails(ocFile, user)
+                showDetails(ocFile)
+            }
+            is PreviewMediaFragment -> {
+                fragment.updateFile(ocFile)
+                if (PreviewMediaFragment.canBePreviewed(ocFile)) {
+                    startMediaPreview(
+                        ocFile,
+                        fragment.position,
+                        true,
+                        true,
+                        true,
+                        false
+                    )
+                } else {
+                    fileOperationsHelper.openFile(ocFile)
+                }
+            }
+            is PreviewTextFileFragment -> {
+                fragment.updateFile(ocFile)
+                if (PreviewTextFileFragment.canBePreviewed(ocFile)) {
+                    startTextPreview(ocFile, true)
+                } else {
+                    fileOperationsHelper.openFile(ocFile)
+                }
             }
         }
     }
