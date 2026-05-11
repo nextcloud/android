@@ -174,7 +174,7 @@ class RenameFileDialogFragment :
 
             fda?.connectivityService?.isNetworkAndServerAvailable { result ->
                 if (result) {
-                    /**
+                    /*
                      *  result of it triggered by
                      *  [com.owncloud.android.ui.activity.FileDisplayActivity.onRemoteOperationFinish]
                      */

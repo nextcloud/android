@@ -156,11 +156,7 @@ class OCFileListSearchTask(
             fragment.adapter.updateAdapter(newList, null)
         }
 
-    private fun sortSearchData(
-        list: List<OCFile>,
-        searchType: SearchType,
-        fragment: OCFileListFragment
-    ): List<OCFile> {
+    private fun sortSearchData(list: List<OCFile>, searchType: SearchType, fragment: OCFileListFragment): List<OCFile> {
         if (searchType == SearchType.GALLERY_SEARCH ||
             searchType == SearchType.RECENT_FILES_SEARCH
         ) {
@@ -225,10 +221,12 @@ class OCFileListSearchTask(
                         resultFiles.add(ocFile)
                     }
 
-                    contentValuesList.add(ContentValues().apply {
-                        put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, virtualType.toString())
-                        put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
-                    })
+                    contentValuesList.add(
+                        ContentValues().apply {
+                            put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, virtualType.toString())
+                            put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
+                        }
+                    )
                 } catch (e: Exception) {
                     Log_OC.e(TAG, "parseAndSaveVirtuals():", e)
                 }

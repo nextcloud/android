@@ -2376,11 +2376,7 @@ class FileDisplayActivity :
         fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
     }
 
-    private fun onRenameFileOperationFinishForFileFragment(
-        fragment: FileFragment,
-        ocFile: OCFile,
-        user: User
-    ) {
+    private fun onRenameFileOperationFinishForFileFragment(fragment: FileFragment, ocFile: OCFile, user: User) {
         if (fragment.file != ocFile) return
 
         when (fragment) {
@@ -2388,6 +2384,7 @@ class FileDisplayActivity :
                 fragment.updateFileDetails(ocFile, user)
                 showDetails(ocFile)
             }
+
             is PreviewMediaFragment -> {
                 fragment.updateFile(ocFile)
                 if (PreviewMediaFragment.canBePreviewed(ocFile)) {
@@ -2403,6 +2400,7 @@ class FileDisplayActivity :
                     fileOperationsHelper.openFile(ocFile)
                 }
             }
+
             is PreviewTextFileFragment -> {
                 fragment.updateFile(ocFile)
                 if (PreviewTextFileFragment.canBePreviewed(ocFile)) {
