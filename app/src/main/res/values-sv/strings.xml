@@ -777,6 +777,7 @@
     <string name="prefs_manage_accounts">Hantera konton</string>
     <string name="prefs_recommend">Rekommendera till en vän</string>
     <string name="prefs_remove_e2e">Ta bort kryptering lokalt</string>
+    <string name="prefs_remove_e2e_keys_and_files">Ta bort krypterade filer och nycklar</string>
     <string name="prefs_setup_e2e">Ställ in ände-till-ände-kryptering</string>
     <string name="prefs_show_ecosystem_apps">Visa appväxlare</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud-appförslag i navigeringsrubriken</string>
@@ -816,6 +817,7 @@
     <string name="remote">(fjärr)</string>
     <string name="remote_file_fetch_failed">Kunde inte hitta filen!</string>
     <string name="remove_e2e">Du kan ta bort ände-till-ände-kryptering lokalt på denna klient</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Den här åtgärden tar bort alla krypterade filer, privata och publika nycklar. Är du säker?</string>
     <string name="remove_e2e_message">Du kan ta bort ände-till-ände-kryptering lokalt på denna klienten. Krypterade filer kommer finnas kvar på servern, men kommer inte synkroniseras med denna enheten längre.</string>
     <string name="remove_fail_msg">Radering misslyckades</string>
     <string name="remove_local_account">Ta bort lokalt konto</string>
@@ -1106,6 +1108,8 @@
     <string name="upload_local_storage_full">Lokal lagring full</string>
     <string name="upload_local_storage_not_copied">Filen kunde inte kopieras till lokal lagringsplats</string>
     <string name="upload_lock_failed">Misslyckades låsa mappen</string>
+    <string name="upload_locked_message">Servern är upptagen. Försöker igen…</string>
+    <string name="upload_locked_title">Uppladdning pågår</string>
     <string name="upload_manually_cancelled">Uppladdningen avbröts av användaren</string>
     <string name="upload_missing_storage_permission_allow_file_access">Tillåt åtkomst till alla filer</string>
     <string name="upload_missing_storage_permission_app_permissions">App-behörigheter</string>

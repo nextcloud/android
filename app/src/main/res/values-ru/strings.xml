@@ -776,6 +776,7 @@
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
     <string name="prefs_recommend">Рекомендовать приложение</string>
     <string name="prefs_remove_e2e">Удалить шифрование локально</string>
+    <string name="prefs_remove_e2e_keys_and_files">Удалить зашифрованные файлы и ключи</string>
     <string name="prefs_setup_e2e">Настройка сквозного шифрования</string>
     <string name="prefs_show_ecosystem_apps">Показать переключатель приложений</string>
     <string name="prefs_show_ecosystem_apps_summary">Рекомендации по приложению Nextcloud в заголовке навигации</string>
@@ -815,6 +816,7 @@
     <string name="remote">(удалённо)</string>
     <string name="remote_file_fetch_failed">Не удалось найти файл.</string>
     <string name="remove_e2e">Вы можете удалить сквозное шифрование локально на этом клиенте</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Эта операция удалит все зашифрованные файлы, закрытые и открытые ключи. Вы уверены?</string>
     <string name="remove_e2e_message">Вы можете удалить сквозное шифрование локально на этом клиенте. Зашифрованные файлы останутся на сервере, но больше не будут синхронизироваться с этим компьютером.</string>
     <string name="remove_fail_msg">Ошибка при удалении</string>
     <string name="remove_local_account">Удалить локальную учетную запись</string>
