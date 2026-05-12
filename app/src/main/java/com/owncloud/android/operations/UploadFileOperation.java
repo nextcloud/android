@@ -57,6 +57,7 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
 import com.owncloud.android.operations.e2e.E2EData;
+import com.owncloud.android.operations.e2e.E2EECounterFetchOperation;
 import com.owncloud.android.operations.e2e.E2EFiles;
 import com.owncloud.android.operations.upload.UploadFileException;
 import com.owncloud.android.operations.upload.UploadFileOperationExtensionsKt;
@@ -516,6 +517,7 @@ public class UploadFileOperation extends SyncOperation {
         FileChannel channel = null;
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(getContext());
         String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
+        E2EECounterFetchOperation e2eeCounterFetchOperation = new E2EECounterFetchOperation();
 
         try {
             result = checkConditions(e2eFiles.getOriginalFile());
@@ -524,7 +526,7 @@ public class UploadFileOperation extends SyncOperation {
                 return result;
             }
 
-            long counter = getE2ECounter(parentFile);
+            long counter = e2eeCounterFetchOperation.resolveE2EECounter(parentFile, getStorageManager(), mContext);
 
             try {
                 token = getFolderUnlockTokenOrLockFolder(client, parentFile, counter);
@@ -619,16 +621,6 @@ public class UploadFileOperation extends SyncOperation {
     private boolean isEndToEndVersionAtLeastV2() {
         final var capability = CapabilityUtils.getCapability(mContext);
         return E2EVersionHelper.INSTANCE.isV2Plus(capability);
-    }
-
-    private long getE2ECounter(OCFile parentFile) {
-        long counter = -1;
-
-        if (isEndToEndVersionAtLeastV2()) {
-            counter = parentFile.getE2eCounter() + 1;
-        }
-
-        return counter;
     }
 
     private String getFolderUnlockTokenOrLockFolder(OwnCloudClient client, OCFile parentFile, long counter) throws UploadException {

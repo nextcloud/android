@@ -50,16 +50,14 @@ import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SharesType;
-import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.e2e.E2EECounterFetchOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -116,6 +114,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     
     private ShareeListAdapter externalShareeListAdapter;
 
+    private E2EECounterFetchOperation e2eeCounterFetchOperation;
+
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject ViewThemeUtils viewThemeUtils;
@@ -155,6 +155,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
 
         fileActivity = (FileActivity) getActivity();
+        e2eeCounterFetchOperation = new E2EECounterFetchOperation();
 
         if (fileActivity == null) {
             throw new IllegalArgumentException("FileActivity may not be null");
@@ -272,6 +273,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        e2eeCounterFetchOperation.stop();
         binding = null;
     }
 
@@ -349,27 +351,28 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                binding.internalShareHeadline.setText(getResources().getString(R.string.internal_share_headline_end_to_end_encrypted));
                binding.internalShareDescription.setVisibility(View.VISIBLE);
                binding.externalSharesHeadline.setText(getResources().getString(R.string.create_end_to_end_encrypted_share_title));
+                final Context context = requireContext();
+                e2eeCounterFetchOperation.fetchAsync(file, fileDataStorageManager, context, counter -> {
+                    if (binding == null) {
+                        return Unit.INSTANCE;
+                    }
 
-               fetchE2EECounter(() -> {
-                   if (binding == null) {
-                        return;
-                   }
+                    if (file.getE2eCounter() == -1) {
+                        // V1 cannot share
+                        binding.searchContainer.setVisibility(View.GONE);
+                        binding.createLink.setVisibility(View.GONE);
+                    } else {
+                        binding.createLink.setText(R.string.add_new_secure_file_drop);
+                        binding.searchView.setQueryHint(getResources().getString(R.string.secure_share_search));
 
-                   if (file.getE2eCounter() == -1) {
-                       // V1 cannot share
-                       binding.searchContainer.setVisibility(View.GONE);
-                       binding.createLink.setVisibility(View.GONE);
-                   } else {
-                       binding.createLink.setText(R.string.add_new_secure_file_drop);
-                       binding.searchView.setQueryHint(getResources().getString(R.string.secure_share_search));
-
-                       if (file.isSharedViaLink()) {
-                           binding.searchView.setQueryHint(getResources().getString(R.string.share_not_allowed_when_file_drop));
-                           binding.searchView.setInputType(InputType.TYPE_NULL);
-                           toggleSearchViewEnable(binding.searchView, false);
-                       }
-                   }
-               });
+                        if (file.isSharedViaLink()) {
+                            binding.searchView.setQueryHint(getResources().getString(R.string.share_not_allowed_when_file_drop));
+                            binding.searchView.setInputType(InputType.TYPE_NULL);
+                            toggleSearchViewEnable(binding.searchView, false);
+                        }
+                    }
+                    return Unit.INSTANCE;
+                });
             } else {
                 binding.createLink.setText(R.string.create_link);
                 binding.searchView.setQueryHint(getResources().getString(R.string.share_search_internal));
@@ -396,28 +399,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                        startActivity(Intent.createChooser(IntentUtil.createSendIntent(requireContext(), file), 
                                                                                           requireContext().getString(R.string.activity_chooser_send_file_title)))
                                                   );
-    }
-
-    private void fetchE2EECounter(Runnable onComplete) {
-        final Context context = requireContext();
-
-        new Thread(() -> {
-            try {
-                OwnCloudClient client = clientFactory.create(user);
-                Object metadata = RefreshFolderOperation.getDecryptedFolderMetadata(true, file, client, user, context);
-                if (metadata instanceof DecryptedFolderMetadataFile decryptedMetadata) {
-                    file.setE2eCounter(decryptedMetadata.getMetadata().getCounter());
-                    fileDataStorageManager.saveFile(file);
-                }
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Error refreshing E2E counter: " + e.getMessage());
-            }
-
-            final var activity = getActivity();
-            if (activity != null) {
-                activity.runOnUiThread(onComplete);
-            }
-        }).start();
     }
 
     private void checkShareViaUser() {
