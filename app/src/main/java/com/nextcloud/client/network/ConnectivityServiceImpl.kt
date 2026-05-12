@@ -35,6 +35,10 @@ class ConnectivityServiceImpl(
     private var availabilityCheckJob: Job? = null
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val listeners = mutableSetOf<NetworkChangeListener>()
+
+    @Volatile
+    private var currentConnectivity: Connectivity = Connectivity.DISCONNECTED
+
     private val key: ConnectivityKey
         get() = ConnectivityKey.getBy(accountManager)
 
@@ -71,6 +75,7 @@ class ConnectivityServiceImpl(
     }
 
     class GetRequestBuilder : Function1<String, GetMethod> {
+        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
         override fun invoke(url: String) = GetMethod(url, false)
     }
 
@@ -82,13 +87,12 @@ class ConnectivityServiceImpl(
 
     fun updateConnectivity() {
         val currentKey = key
-        val previous = walledCheckCache.getConnectivity(currentKey) ?: Connectivity.DISCONNECTED
+        val previous = currentConnectivity
 
-        val capabilities = connectivityManager.activeNetwork
-            ?.let { connectivityManager.getNetworkCapabilities(it) }
+        val capabilities = resolveNetworkCapabilities()
 
         val newConnectivity = if (capabilities == null) {
-            Log_OC.w(TAG, "no active network or capabilities, connectivity is disconnected")
+            Log_OC.w(TAG, "no network capabilities found, connectivity is disconnected")
             Connectivity.DISCONNECTED
         } else {
             val hasTransport = isSupportedTransport(capabilities)
@@ -105,9 +109,9 @@ class ConnectivityServiceImpl(
         }
 
         if (previous != newConnectivity) {
+            currentConnectivity = newConnectivity
             walledCheckCache.putConnectivityValue(currentKey, newConnectivity)
 
-            // only clear server cache if structural change happened
             val isStructural = (
                 previous.isConnected != newConnectivity.isConnected ||
                     previous.isWifi != newConnectivity.isWifi
@@ -118,6 +122,17 @@ class ConnectivityServiceImpl(
             }
             notifyListeners()
         }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun resolveNetworkCapabilities(): NetworkCapabilities? {
+        connectivityManager.activeNetwork
+            ?.let { connectivityManager.getNetworkCapabilities(it) }
+            ?.also { return it }
+
+        return connectivityManager.allNetworks
+            .mapNotNull { connectivityManager.getNetworkCapabilities(it) }
+            .firstOrNull { isSupportedTransport(it) }
     }
 
     private fun isSupportedTransport(capabilities: NetworkCapabilities) =
@@ -143,8 +158,7 @@ class ConnectivityServiceImpl(
         }
     }
 
-    override fun isConnected() =
-        walledCheckCache.getConnectivity(key)?.isConnected ?: Connectivity.DISCONNECTED.isConnected
+    override fun isConnected() = currentConnectivity.isConnected
 
     override fun isInternetWalled(): Boolean {
         val currentKey = key
@@ -160,27 +174,10 @@ class ConnectivityServiceImpl(
             return true
         }
 
-        val activeCapabilities = connectivityManager.activeNetwork
-            ?.let { connectivityManager.getNetworkCapabilities(it) }
-
-        if (activeCapabilities == null) {
-            Log_OC.e(TAG, "no active network capabilities at check time, treating as walled")
+        val resolvedCapabilities = resolveNetworkCapabilities()
+        if (resolvedCapabilities == null || !isSupportedTransport(resolvedCapabilities)) {
+            Log_OC.e(TAG, "no usable network transport at check time, treating as walled")
             return true
-        }
-
-        val hasLiveTransport = isSupportedTransport(activeCapabilities)
-        if (!hasLiveTransport) {
-            Log_OC.e(TAG, "no supported transport at check time, treating as walled")
-            return true
-        }
-
-        val currentConnectivity =
-            walledCheckCache.getConnectivity(key) ?: Connectivity.DISCONNECTED
-
-        val isMeteredNonWifi = !currentConnectivity.isWifi && currentConnectivity.isMetered
-        if (isMeteredNonWifi) {
-            Log_OC.w(TAG, "skipping server reachability check, internet is metered and not Wi-Fi")
-            return false
         }
 
         val get = requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE)
@@ -189,7 +186,7 @@ class ConnectivityServiceImpl(
         val isWalled = try {
             val status = get.execute(client)
             (!(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0)).also {
-                if (it) Log_OC.w(TAG, "server returned unexpected response")
+                if (it) Log_OC.w(TAG, "server returned unexpected response, status: $status")
             }
         } catch (e: Exception) {
             Log_OC.e(TAG, "exception during server check", e)
@@ -198,40 +195,23 @@ class ConnectivityServiceImpl(
             get.releaseConnection()
         }
 
-        walledCheckCache.setValue(currentKey, isWalled)
+        // only cache a successful reachability result.
+        if (!isWalled) {
+            walledCheckCache.setValue(currentKey, false)
+        }
+
         Log_OC.d(TAG, "server check, isWalled: $isWalled")
         return isWalled
     }
 
-    override fun getConnectivity() = walledCheckCache.getConnectivity(key) ?: Connectivity.DISCONNECTED
+    override fun getConnectivity() = currentConnectivity
 
-    private fun getWalledValueFromException(e: Exception): Boolean = when (e) {
-        is java.net.UnknownHostException -> {
-            Log_OC.w(TAG, "UnknownHostException")
-            false
-        }
-
-        is javax.net.ssl.SSLException -> {
-            Log_OC.w(TAG, "SSLException")
-            false
-        }
-
-        is java.net.SocketTimeoutException -> {
-            Log_OC.w(TAG, "SocketTimeoutException")
-            false
-        }
-
-        is java.io.IOException -> {
-            Log_OC.w(TAG, "IOException")
-            false
-        }
-
-        else -> {
-            Log_OC.w(TAG, "Unknown error, fallback to walled assumption")
-            true
-        }
+    private fun getWalledValueFromException(e: Exception): Boolean {
+        Log_OC.w(TAG, "exception during server check (${e::class.simpleName}), assuming reachable")
+        return false
     }
 
+    @Suppress("unused")
     fun unregisterCallback() {
         connectivityManager.unregisterNetworkCallback(networkCallback)
     }

@@ -50,7 +50,8 @@ import java.net.URI
     ConnectivityServiceTest.Disconnected::class,
     ConnectivityServiceTest.IsConnected::class,
     ConnectivityServiceTest.WifiConnectionWalledStatusOnLegacyServer::class,
-    ConnectivityServiceTest.WifiConnectionWalledStatus::class
+    ConnectivityServiceTest.WifiConnectionWalledStatus::class,
+    ConnectivityServiceTest.LocalNetworkFallback::class
 )
 class ConnectivityServiceTest {
 
@@ -314,6 +315,35 @@ class ConnectivityServiceTest {
             assertEquals(false, result)
         }
 
+        @Test
+        fun `request IS sent when cellular is metered`() {
+            // GIVEN
+            //      network is cellular (metered, not WiFi)
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI))
+                .thenReturn(false)
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
+                .thenReturn(true)
+            whenever(
+                networkCapabilities
+                    .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+            )
+                .thenReturn(false)
+            connectivityService.updateConnectivity()
+
+            connectivityService.connectivity.let {
+                assertTrue("should be connected", it.isConnected)
+                assertFalse("should not be wifi", it.isWifi)
+                assertTrue("should be metered", it.isMetered)
+            }
+            mockResponse(contentLength = 0, status = HttpStatus.SC_NO_CONTENT)
+
+            // WHEN
+            val result = connectivityService.isInternetWalled
+
+            // THEN server reachability check is always performed, even on metered cellular
+            assertEquals(false, result)
+        }
+
         fun mockResponse(contentLength: Long = 0, status: Int = HttpStatus.SC_OK) {
             whenever(getRequest.getStatusCode()).thenReturn(status)
             whenever(getRequest.getResponseContentLength()).thenReturn(contentLength)
@@ -352,6 +382,52 @@ class ConnectivityServiceTest {
                 urlCaptor.firstValue.endsWith("/index.php/204")
             )
             verify(getRequest, times(1)).execute(client)
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    internal class LocalNetworkFallback : Base() {
+        @Before
+        fun setUp() {
+            // Simulate: activeNetwork is null (no validated internet network) but the WiFi
+            // network is still visible in allNetworks (local-only WiFi, no cellular).
+            whenever(platformConnectivityManager.activeNetwork).thenReturn(null)
+            whenever(platformConnectivityManager.allNetworks).thenReturn(arrayOf(network))
+        }
+
+        @Test
+        fun `local wifi detected via allNetworks when activeNetwork is null`() {
+            connectivityService.updateConnectivity()
+
+            connectivityService.connectivity.let {
+                assertTrue("should be connected via local wifi", it.isConnected)
+                assertTrue("should be detected as wifi", it.isWifi)
+            }
+        }
+
+        @Test
+        fun `server reachability check runs over local wifi`() {
+            connectivityService.updateConnectivity()
+            assertTrue("precondition: should be connected", connectivityService.isConnected)
+
+            whenever(walledCheckCache.getValue(any())).thenReturn(null)
+            whenever(requestBuilder.invoke(any())).thenReturn(getRequest)
+            whenever(clientFactory.createPlainClient()).thenReturn(client)
+            whenever(getRequest.execute(client)).thenReturn(HttpStatus.SC_NO_CONTENT)
+            whenever(getRequest.getResponseContentLength()).thenReturn(0L)
+
+            assertFalse("server should be reachable over local wifi", connectivityService.isInternetWalled)
+            verify(getRequest, times(1)).execute(client)
+        }
+
+        @Test
+        fun `no networks at all is treated as disconnected`() {
+            whenever(platformConnectivityManager.allNetworks).thenReturn(emptyArray())
+            connectivityService.updateConnectivity()
+
+            assertFalse(connectivityService.isConnected)
+            assertTrue(connectivityService.isInternetWalled)
+            verify(requestBuilder, never()).invoke(any())
         }
     }
 }
