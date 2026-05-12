@@ -358,7 +358,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                         return Unit.INSTANCE;
                     }
 
-                    if (file.getE2eCounter() == -1) {
+                    if (counter == -1) {
                         // V1 cannot share
                         binding.searchContainer.setVisibility(View.GONE);
                         binding.createLink.setVisibility(View.GONE);
