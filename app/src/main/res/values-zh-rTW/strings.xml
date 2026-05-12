@@ -776,6 +776,7 @@
     <string name="prefs_manage_accounts">管理帳號</string>
     <string name="prefs_recommend">推薦給朋友</string>
     <string name="prefs_remove_e2e">移除本機加密</string>
+    <string name="prefs_remove_e2e_keys_and_files">移除加密的檔案與金鑰</string>
     <string name="prefs_setup_e2e">設置端對端加密</string>
     <string name="prefs_show_ecosystem_apps">顯示應用程式切換器</string>
     <string name="prefs_show_ecosystem_apps_summary">導覽標頭中的 Nextcloud 應用程式建議</string>
@@ -815,6 +816,7 @@
     <string name="remote">（遠端）</string>
     <string name="remote_file_fetch_failed">找不到檔案！</string>
     <string name="remove_e2e">您可以在此客戶端上移除本機的端對端加密</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">此操作將會移除所有加密檔案、私鑰、公鑰。您確定嗎？</string>
     <string name="remove_e2e_message">您可以在此客戶端上移除本機的端對端加密。已加密的檔案將會保留在伺服器上，但不會再同步到此電腦。</string>
     <string name="remove_fail_msg">刪除失敗</string>
     <string name="remove_local_account">移除本機帳號</string>

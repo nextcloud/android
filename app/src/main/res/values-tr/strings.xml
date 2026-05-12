@@ -114,6 +114,7 @@
     <string name="authenticator_activity_no_web_browser_found">Bu bağlantıyı açabilecek bir tarayıcı bulunamadı.</string>
     <string name="authenticator_activity_please_complete_login_process">Lütfen oturum açma işlemini tarayıcınızdan tamamlayın</string>
     <string name="auto_upload_battery_saver_mode_warning">Pil koruma modu açık olduğundan otomatik yükleme duraklatıldı</string>
+    <string name="auto_upload_delete_dialog_title">Otomatik yükleme klasörünü sil</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
     <string name="auto_upload_low_battery_warning_info">Pil azaldı. Yükleme işlemi uzun sürebilir</string>
     <string name="auto_upload_on_wifi">Yalnızca kotasız kablosuz ağda yüklensin</string>
@@ -321,6 +322,7 @@
     <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_item_on_device">Aygıt üzerinde</string>
     <string name="drawer_item_personal_files">Kişisel dosyalar</string>
+    <string name="drawer_item_recent_files">Son dosyalar</string>
     <string name="drawer_item_recently_modified">Son değiştirilenler</string>
     <string name="drawer_item_shared">Paylaşılan</string>
     <string name="drawer_item_trashbin">Silinmiş dosyalar</string>
@@ -1099,6 +1101,7 @@
     <string name="upload_local_storage_full">Yerel depolama alanı doldu</string>
     <string name="upload_local_storage_not_copied">Dosya yerel depolamaya kopyalanamadı</string>
     <string name="upload_lock_failed">Klasör kilitlenemedi</string>
+    <string name="upload_locked_title">Yükleniyor…</string>
     <string name="upload_manually_cancelled">Kullanıcı yüklemeyi iptal etti</string>
     <string name="upload_missing_storage_permission_allow_file_access">Tüm dosyalara erişmeye izin ver</string>
     <string name="upload_missing_storage_permission_app_permissions">Uygulama izinleri</string>
