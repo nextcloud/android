@@ -352,7 +352,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                binding.internalShareDescription.setVisibility(View.VISIBLE);
                binding.externalSharesHeadline.setText(getResources().getString(R.string.create_end_to_end_encrypted_share_title));
                 final Context context = requireContext();
-                e2eeCounterFetchOperation.fetchAsync(file, fileDataStorageManager, context, counter -> {
+
+                e2eeCounterFetchOperation.fetchAsync(context, file, fileDataStorageManager, user, clientFactory, counter -> {
                     if (binding == null) {
                         return Unit.INSTANCE;
                     }

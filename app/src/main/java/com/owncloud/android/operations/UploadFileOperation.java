@@ -526,7 +526,8 @@ public class UploadFileOperation extends SyncOperation {
                 return result;
             }
 
-            long counter = e2eeCounterFetchOperation.resolveE2EECounter(parentFile, getStorageManager(), mContext);
+            long lastCounter = e2eeCounterFetchOperation.fetch(mContext, parentFile, getStorageManager(), user, client);
+            long counter = lastCounter + 1;
 
             try {
                 token = getFolderUnlockTokenOrLockFolder(client, parentFile, counter);
