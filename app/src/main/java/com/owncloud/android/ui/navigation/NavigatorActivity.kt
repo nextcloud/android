@@ -105,13 +105,8 @@ class NavigatorActivity : DrawerActivity() {
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    val onBackPressListener = supportFragmentManager.fragments
-                        .filterIsInstance<NavigatorOnBackPressListener>()
-                        .firstOrNull()
-
                     when {
                         isDrawerOpen -> closeDrawer()
-                        onBackPressListener?.canInterceptBackPress() == true -> onBackPressListener.interceptBackPress()
                         supportFragmentManager.backStackEntryCount == 1 -> finish()
                         else -> pop()
                     }

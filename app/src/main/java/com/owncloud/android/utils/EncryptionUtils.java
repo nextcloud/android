@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
+import com.nextcloud.common.SessionTimeOutKt;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -42,7 +43,6 @@ import com.owncloud.android.lib.resources.e2ee.MetadataResponse;
 import com.owncloud.android.lib.resources.e2ee.StoreMetadataRemoteOperation;
 import com.owncloud.android.lib.resources.e2ee.StoreMetadataV2RemoteOperation;
 import com.owncloud.android.lib.resources.e2ee.UnlockFileRemoteOperation;
-import com.owncloud.android.lib.resources.e2ee.UnlockFileV1RemoteOperation;
 import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation;
 import com.owncloud.android.lib.resources.e2ee.UpdateMetadataV2RemoteOperation;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
@@ -1166,7 +1166,8 @@ public final class EncryptionUtils {
     public static String lockFolder(ServerFileInterface parentFile, OwnCloudClient client, long counter) throws UploadException {
         // Lock folder
         LockFileRemoteOperation lockFileOperation = new LockFileRemoteOperation(parentFile.getLocalId(),
-                                                                                counter);
+                                                                                counter,
+                                                                                SessionTimeOutKt.getDefaultSessionTimeOut());
         RemoteOperationResult<String> lockFileOperationResult = lockFileOperation.execute(client);
 
         if (lockFileOperationResult.isSuccess() &&
@@ -1366,7 +1367,7 @@ public final class EncryptionUtils {
 
     public static RemoteOperationResult<Void> unlockFolderV1(ServerFileInterface parentFolder, OwnCloudClient client, String token) {
         if (token != null) {
-            return new UnlockFileV1RemoteOperation(parentFolder.getLocalId(), token).execute(client);
+            return new UnlockFileRemoteOperation(parentFolder.getLocalId(), token, SessionTimeOutKt.getDefaultSessionTimeOut(), false).execute(client);
         } else {
             return new RemoteOperationResult<>(new Exception("No token available"));
         }
