@@ -84,7 +84,7 @@
     <string name="auth_account_not_the_same">Sisestatud kasutaja ei kattu selle konto kasutajaga</string>
     <string name="auth_bad_oc_version_title">Tundmatu serveri versioon</string>
     <string name="auth_connection_established">Ühendus on loodud</string>
-    <string name="auth_fail_get_user_name">Server ei tagasta korrektset kasutaja ID-d, palun võta ühendust administraatoriga.</string>
+    <string name="auth_fail_get_user_name">Päringuvastuses serverist pole korrektset kasutajatunnust, palun võta ühendust peakasutajaga.</string>
     <string name="auth_host_url">Serveri aadress https://…</string>
     <string name="auth_incorrect_address_title">Serveri aadressi vale vorming</string>
     <string name="auth_incorrect_path_title">Serverit ei leitud</string>
@@ -158,7 +158,7 @@
     <string name="clear_status_after">Eemalda olekuteade peale</string>
     <string name="clipboard_label">Tekst on kopeeritud siit: %1$s</string>
     <string name="clipboard_no_text_to_copy">Ei leidunud teksti, mida lõikelauale kopeerida</string>
-    <string name="clipboard_text_copied">Link kopeeritud</string>
+    <string name="clipboard_text_copied">Link on kopeeritud</string>
     <string name="clipboard_unexpected_error">Ootamatu viga lõikelauale kopeerimisel </string>
     <string name="common_back">Tagasi</string>
     <string name="common_cancel">Katkesta</string>
@@ -447,7 +447,7 @@
     <string name="file_list_empty_recent_files_headline">Hiljuti muudetud faile pole.</string>
     <string name="file_list_empty_recently_modified">Viimase 7 päeva jooksul muudetud faile ei leidu</string>
     <string name="file_list_empty_search">Võibolla on see teises kaustas?</string>
-    <string name="file_list_empty_shared">Sinu poolt jagatud failid ja kaustad saavad olema siin nähtavad</string>
+    <string name="file_list_empty_shared">Sinu poolt jagatud failid ja kaustad saavad olema nähtavad siin.</string>
     <string name="file_list_empty_shared_headline">Midagi pole veel jagatud</string>
     <string name="file_list_empty_unified_search_no_results">Sinu päringul pole tulemusi</string>
     <string name="file_list_empty_unified_search_start_search">Alusta otsingut</string>
@@ -776,6 +776,7 @@
     <string name="prefs_manage_accounts">Halda kontosid</string>
     <string name="prefs_recommend">Soovita sõbrale</string>
     <string name="prefs_remove_e2e">Eemalda krüptimine kohalikus seadmes</string>
+    <string name="prefs_remove_e2e_keys_and_files">Eemalda krüptitud failid ja võtmed</string>
     <string name="prefs_setup_e2e">Võta läbiv krüptimine kasutusele</string>
     <string name="prefs_show_ecosystem_apps">Näita rakenduste vahetajat</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloudi rakenduse soovitused päises</string>
@@ -815,6 +816,7 @@
     <string name="remote">(kaugseade)</string>
     <string name="remote_file_fetch_failed">Faili ei õnnestunud leida!</string>
     <string name="remove_e2e">Sa võid läbiva krüptimise sellest kohalikust klientrakendusest eemaldada</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Järgnevaga eemaldad kõik krüptitud failid ning oma privaatvõtmed ja avalikud võtmed. Kas oled kindel, et soovid jätkata?</string>
     <string name="remove_e2e_message">Sa võid läbiva krüptimise sellest kohalikust klientrakendusest eemaldada. Krüptitud failid jäävad serverisse alles, aga neid enam siia arvutisse või seadmesse ei sünkroniseerita.</string>
     <string name="remove_fail_msg">Kustutamine ei õnnestunud</string>
     <string name="remove_local_account">Eemalda kohalik kasutajakonto</string>

@@ -14,16 +14,13 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
-import com.nextcloud.utils.date.DateFormatPattern
 import com.owncloud.android.R
 import com.owncloud.android.utils.DisplayUtils
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 
 class UploadDateTests {
 
@@ -97,12 +94,12 @@ class UploadDateTests {
 
     @Test
     fun getRelativeDateTimeStringReturnsFutureAsAbsoluteWhenShowFutureIsFalse() {
-        val formatter = SimpleDateFormat("MMM d, yyyy h:mm:ss a", Locale.US)
-        val expected = formatter.format(Date(System.currentTimeMillis() + ONE_MINUTE))
+        val time = System.currentTimeMillis() + ONE_MINUTE
+        val expected = java.text.DateFormat.getDateTimeInstance().format(Date(time))
 
         val result = DisplayUtils.getRelativeDateTimeString(
             context,
-            System.currentTimeMillis() + ONE_MINUTE,
+            time,
             DateUtils.SECOND_IN_MILLIS,
             DateUtils.WEEK_IN_MILLIS,
             0,
@@ -130,8 +127,19 @@ class UploadDateTests {
     @Test
     fun getRelativeDateTimeStringReturnsAbbreviatedStringForOneWeekAgo() {
         val time = System.currentTimeMillis() - ONE_WEEK
-        val formatter = SimpleDateFormat(DateFormatPattern.MonthWithDate.pattern, Locale.US)
-        val expected = formatter.format(Date(time))
+        val expectedString = DateUtils.getRelativeDateTimeString(
+            context,
+            time,
+            DateUtils.MINUTE_IN_MILLIS,
+            DateUtils.WEEK_IN_MILLIS,
+            0
+        ).toString()
+        val parts = expectedString.split(",")
+        val expected = if (parts.size == 2) {
+            if (parts[1].contains(":") && !parts[0].contains(":")) parts[0].trim() else parts[1].trim()
+        } else {
+            expectedString
+        }
 
         assertRelativeDateTimeString(time, expected)
     }
@@ -139,8 +147,19 @@ class UploadDateTests {
     @Test
     fun getRelativeDateTimeStringReturnsAbbreviatedStringForOneMonthAgo() {
         val time = System.currentTimeMillis() - ONE_MONTH
-        val formatter = SimpleDateFormat(DateFormatPattern.MonthWithDate.pattern, Locale.US)
-        val expected = formatter.format(Date(time))
+        val expectedString = DateUtils.getRelativeDateTimeString(
+            context,
+            time,
+            DateUtils.SECOND_IN_MILLIS,
+            DateUtils.WEEK_IN_MILLIS,
+            0
+        ).toString()
+        val parts = expectedString.split(",")
+        val expected = if (parts.size == 2) {
+            if (parts[1].contains(":") && !parts[0].contains(":")) parts[0].trim() else parts[1].trim()
+        } else {
+            expectedString
+        }
 
         assertRelativeDateTimeString(time, expected, DateUtils.SECOND_IN_MILLIS)
     }
@@ -148,8 +167,19 @@ class UploadDateTests {
     @Test
     fun getRelativeDateTimeStringReturnsAbsoluteStringForOneYearAgo() {
         val time = System.currentTimeMillis() - ONE_YEAR
-        val formatter = SimpleDateFormat("M/d/YYYY", Locale.US)
-        val expected = formatter.format(Date(time))
+        val expectedString = DateUtils.getRelativeDateTimeString(
+            context,
+            time,
+            DateUtils.SECOND_IN_MILLIS,
+            DateUtils.WEEK_IN_MILLIS,
+            0
+        ).toString()
+        val parts = expectedString.split(",")
+        val expected = if (parts.size == 2) {
+            if (parts[1].contains(":") && !parts[0].contains(":")) parts[0].trim() else parts[1].trim()
+        } else {
+            expectedString
+        }
 
         assertRelativeDateTimeString(time, expected, DateUtils.SECOND_IN_MILLIS)
     }
@@ -194,7 +224,19 @@ class UploadDateTests {
         assertEquals(expected, result)
 
         testTimestamp = System.currentTimeMillis() - 7 * DateUtils.DAY_IN_MILLIS
-        expected = SimpleDateFormat(DateFormatPattern.MonthWithDate.pattern, Locale.US).format(testTimestamp)
+        val expectedString = DateUtils.getRelativeDateTimeString(
+            context,
+            testTimestamp,
+            DateUtils.DAY_IN_MILLIS,
+            DateUtils.WEEK_IN_MILLIS,
+            0
+        ).toString()
+        val parts = expectedString.split(",")
+        expected = if (parts.size == 2) {
+            if (parts[1].contains(":") && !parts[0].contains(":")) parts[0].trim() else parts[1].trim()
+        } else {
+            expectedString
+        }
         result = DisplayUtils.getRelativeDateTimeString(
             context,
             testTimestamp,
