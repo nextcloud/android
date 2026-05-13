@@ -28,6 +28,7 @@ import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.utils.Throttler
+import com.nextcloud.ui.component.UploadWarningCard
 import com.nextcloud.utils.extensions.webDavParentPath
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadListLayoutBinding
@@ -72,6 +73,8 @@ class UploadListActivity :
 
     @Inject lateinit var uploadFileOperationFactory: UploadFileOperationFactory
 
+    private var uploadWarningCard: UploadWarningCard? = null
+
     private var swipeListRefreshLayout: SwipeRefreshLayout? = null
     private var binding: UploadListLayoutBinding? = null
 
@@ -87,6 +90,7 @@ class UploadListActivity :
         binding = UploadListLayoutBinding.inflate(layoutInflater)
         val binding = binding!!
         setContentView(binding.getRoot())
+        uploadWarningCard = UploadWarningCard(this, powerManagementService, viewThemeUtils)
         swipeListRefreshLayout = binding.swipeContainingList
 
         // this activity has no file really bound, it's for multiple accounts at the same time; should no inherit
@@ -116,6 +120,10 @@ class UploadListActivity :
             this,
             adapterHelper
         )
+
+        binding?.autoUploadBatterySaverWarningCard?.let {
+            uploadWarningCard?.register(this, it)
+        }
 
         val lm = GridLayoutManager(this, 1)
         uploadListAdapter.setLayoutManager(lm)
@@ -256,6 +264,13 @@ class UploadListActivity :
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding?.autoUploadBatterySaverWarningCard?.let {
+            uploadWarningCard?.bind(it)
+        }
+    }
+
     override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {
         if (operation !is CheckCurrentCredentialsOperation) {
             super.onRemoteOperationFinish(operation, result)
@@ -366,6 +381,11 @@ class UploadListActivity :
         override fun onReceive(context: Context?, intent: Intent?) {
             throttler.run("update_upload_list") { uploadListAdapter.loadUploadItemsFromDb() }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        uploadWarningCard?.unregister(this)
     }
 
     companion object {

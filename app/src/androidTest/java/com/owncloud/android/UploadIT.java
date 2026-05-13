@@ -79,6 +79,11 @@ public class UploadIT extends AbstractOnServerIT {
 
     private PowerManagementService powerManagementServiceMock = new PowerManagementService() {
         @Override
+        public boolean isIgnoringOptimization() {
+            return true;
+        }
+
+        @Override
         public boolean isPowerSavingEnabled() {
             return false;
         }
@@ -226,6 +231,11 @@ public class UploadIT extends AbstractOnServerIT {
     @Test
     public void testUploadOnChargingOnlyAndCharging() {
         PowerManagementService powerManagementServiceMock = new PowerManagementService() {
+            @Override
+            public boolean isIgnoringOptimization() {
+                return true;
+            }
+
             @Override
             public boolean isPowerSavingEnabled() {
                 return false;
