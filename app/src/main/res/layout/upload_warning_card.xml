@@ -98,7 +98,7 @@
                     android:layout_width="@dimen/standard_icon_size"
                     android:layout_height="@dimen/standard_icon_size"
                     android:contentDescription="@null"
-                    android:src="@drawable/ic_history"
+                    android:src="@drawable/ic_sync"
                     app:tint="@color/log_level_warning" />
 
                 <com.google.android.material.textview.MaterialTextView
