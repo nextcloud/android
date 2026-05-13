@@ -15,7 +15,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.app.Activity;
 import android.content.ComponentName;
@@ -53,9 +52,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -479,37 +475,6 @@ public abstract class FileActivity extends DrawerActivity
         }
 
         new CheckRemoteWipeTask(backgroundJobManager, account, new WeakReference<>(this)).execute();
-    }
-
-    public void performCredentialsUpdate(Account account, Context context) {
-        try {
-            /// step 1 - invalidate credentials of current account
-            OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-            OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount);
-
-            if (client != null) {
-                OwnCloudCredentials credentials = client.getCredentials();
-                if (credentials != null) {
-                    AccountManager accountManager = AccountManager.get(context);
-                    if (credentials.authTokenExpires()) {
-                        accountManager.invalidateAuthToken(account.type, credentials.getAuthToken());
-                    } else {
-                        accountManager.clearPassword(account);
-                    }
-                }
-            }
-
-            /// step 2 - request credentials to user
-            Intent updateAccountCredentials = new Intent(context, AuthenticatorActivity.class);
-            updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
-            updateAccountCredentials.putExtra(
-                AuthenticatorActivity.EXTRA_ACTION,
-                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
-            updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-            startActivityForResult(updateAccountCredentials, REQUEST_CODE__UPDATE_CREDENTIALS);
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            DisplayUtils.showSnackMessage(this, R.string.auth_account_does_not_exist);
-        }
     }
 
     /**
