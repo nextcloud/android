@@ -20,22 +20,6 @@
     android:paddingStart="@dimen/standard_quarter_padding"
     android:paddingTop="@dimen/alternate_half_padding">
 
-    <include
-        android:id="@+id/auto_upload_battery_saver_warning_card"
-        layout="@layout/auto_upload_battery_saver_warning_banner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/standard_quadruple_margin"
-        android:visibility="gone"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginStart="@dimen/standard_half_margin"
-        app:layout_constraintBottom_toBottomOf="@id/type"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
     <ImageView
         android:id="@+id/type"
         android:layout_width="@dimen/minimum_size_for_touchable_area"

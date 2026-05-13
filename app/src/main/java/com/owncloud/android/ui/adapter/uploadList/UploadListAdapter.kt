@@ -102,7 +102,6 @@ class UploadListAdapter(
 
         bindHeaderTitle(headerViewHolder, group, section)
         bindHeaderActionButton(headerViewHolder, group)
-        bindHeaderBatterySaverWarning(headerViewHolder)
         bindHeaderActionClickListener(headerViewHolder, group)
     }
 
@@ -128,12 +127,6 @@ class UploadListAdapter(
             else -> return
         }
         holder.binding.uploadListAction.setImageResource(iconRes)
-    }
-
-    private fun bindHeaderBatterySaverWarning(holder: HeaderViewHolder) {
-        holder.binding.autoUploadBatterySaverWarningCard.root
-            .setVisibleIf(powerManagementService.isPowerSavingEnabled)
-        viewThemeUtils.material.themeCardView(holder.binding.autoUploadBatterySaverWarningCard.root)
     }
 
     private fun bindHeaderActionClickListener(holder: HeaderViewHolder, group: UploadListSection) {
