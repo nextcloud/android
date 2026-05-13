@@ -1484,7 +1484,7 @@
     <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="open_in_app">Open in %1$s</string>
     <string name="auto_upload_delete_dialog_title">Delete auto-upload folder?</string>
-    <string name="auto_upload_battery_saver_reason">Battery Saver is active and may pause uploads</string>
+    <string name="auto_upload_battery_saver_reason">Battery saver is active and may pause uploads.</string>
     <string name="auto_upload_battery_optimization_reason">Nextcloud\'s background activity is limited by battery optimization</string>
     <string name="auto_upload_battery_saver_action">Open battery saver settings</string>
     <string name="auto_upload_background_activity_action">Allow</string>
