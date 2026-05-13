@@ -850,6 +850,7 @@ class FileDisplayActivity :
                 leftFragment.listenForTransferProgress()
                 leftFragment.updateFileDetails(true, false)
             }
+
             FileDownloadEventBroadcaster.ACTION_DOWNLOAD_COMPLETED -> {
                 val waitedPreview = mWaitingToPreview?.remotePath == downloadedRemotePath
                 val previewStarted = waitedPreview && tryStartWaitingPreview(success)
@@ -872,18 +873,22 @@ class FileDisplayActivity :
                 startMediaPreview(file, 0, true, true, true, true)
                 true
             }
+
             MimeTypeUtil.isVCard(file.mimeType) -> {
                 startContactListFragment(file)
                 true
             }
+
             PreviewTextFileFragment.canBePreviewed(file) -> {
                 startTextPreview(file, true)
                 true
             }
+
             MimeTypeUtil.isPDF(file) -> {
                 startPdfPreview(file)
                 true
             }
+
             else -> {
                 fileOperationsHelper.openFile(file)
                 false
