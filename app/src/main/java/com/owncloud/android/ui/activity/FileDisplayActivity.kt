@@ -833,50 +833,56 @@ class FileDisplayActivity :
         downloadedRemotePath: String,
         success: Boolean
     ) {
-        val leftFragment = this.leftFragment
-        if (leftFragment is FileDetailFragment) {
-            val waitedPreview = mWaitingToPreview != null && mWaitingToPreview?.remotePath == downloadedRemotePath
-            val fileInFragment = leftFragment.file
-            if (fileInFragment != null && downloadedRemotePath != fileInFragment.remotePath) {
-                // the user browsed to other file ; forget the automatic preview
-                mWaitingToPreview = null
-            } else if (downloadEvent == FileDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED) {
-                // grant that the details fragment updates the progress bar
+        val leftFragment = this.leftFragment as? FileDetailFragment ?: return
+        val fileInFragment = leftFragment.file
+
+        if (fileInFragment != null && downloadedRemotePath != fileInFragment.remotePath) {
+            mWaitingToPreview = null
+            return
+        }
+
+        when (downloadEvent) {
+            FileDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED -> {
                 leftFragment.listenForTransferProgress()
                 leftFragment.updateFileDetails(true, false)
-            } else if (downloadEvent == FileDownloadEventBroadcaster.ACTION_DOWNLOAD_COMPLETED) {
-                //  update the details panel
-                var detailsFragmentChanged = false
-                if (waitedPreview) {
-                    if (success) {
-                        // update the file from database, for the local storage path
-                        mWaitingToPreview = mWaitingToPreview?.fileId?.let { storageManager.getFileById(it) }
-
-                        if (PreviewMediaActivity.Companion.canBePreviewed(mWaitingToPreview)) {
-                            mWaitingToPreview?.let {
-                                startMediaPreview(it, 0, true, true, true, true)
-                                detailsFragmentChanged = true
-                            }
-                        } else if (MimeTypeUtil.isVCard(mWaitingToPreview?.mimeType)) {
-                            startContactListFragment(mWaitingToPreview)
-                            detailsFragmentChanged = true
-                        } else if (PreviewTextFileFragment.canBePreviewed(mWaitingToPreview)) {
-                            startTextPreview(mWaitingToPreview, true)
-                            detailsFragmentChanged = true
-                        } else if (MimeTypeUtil.isPDF(mWaitingToPreview)) {
-                            mWaitingToPreview?.let {
-                                startPdfPreview(it)
-                                detailsFragmentChanged = true
-                            }
-                        } else {
-                            fileOperationsHelper.openFile(mWaitingToPreview)
-                        }
-                    }
-                    mWaitingToPreview = null
-                }
-                if (!detailsFragmentChanged) {
+            }
+            FileDownloadEventBroadcaster.ACTION_DOWNLOAD_COMPLETED -> {
+                val waitedPreview = mWaitingToPreview?.remotePath == downloadedRemotePath
+                val previewStarted = waitedPreview && tryStartWaitingPreview(success)
+                mWaitingToPreview = null
+                if (!previewStarted) {
                     leftFragment.updateFileDetails(false, success)
                 }
+            }
+        }
+    }
+
+    private fun tryStartWaitingPreview(success: Boolean): Boolean {
+        if (!success) return false
+
+        mWaitingToPreview = mWaitingToPreview?.fileId?.let { storageManager.getFileById(it) }
+        val file = mWaitingToPreview ?: return false
+
+        return when {
+            PreviewMediaActivity.canBePreviewed(file) -> {
+                startMediaPreview(file, 0, true, true, true, true)
+                true
+            }
+            MimeTypeUtil.isVCard(file.mimeType) -> {
+                startContactListFragment(file)
+                true
+            }
+            PreviewTextFileFragment.canBePreviewed(file) -> {
+                startTextPreview(file, true)
+                true
+            }
+            MimeTypeUtil.isPDF(file) -> {
+                startPdfPreview(file)
+                true
+            }
+            else -> {
+                fileOperationsHelper.openFile(file)
+                false
             }
         }
     }
