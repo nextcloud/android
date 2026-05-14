@@ -263,13 +263,6 @@ class SyncedFolderAdapter(
             holder.binding.run {
                 headerContainer.visibility = View.VISIBLE
 
-                if (section == 0) {
-                    autoUploadBatterySaverWarningCard.root.run {
-                        setVisibleIf(powerManagementService.isPowerSavingEnabled)
-                        viewThemeUtils.material.themeCardView(this)
-                    }
-                }
-
                 val syncedFolder = filteredSyncFolderItems[section]
 
                 title.text = syncedFolder.folderName

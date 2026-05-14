@@ -31,6 +31,14 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <include
+                android:id="@+id/auto_upload_battery_saver_warning_card"
+                layout="@layout/upload_warning_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginHorizontal="@dimen/standard_margin" />
+
+            <include
                 android:id="@+id/storage_permission_warning_banner"
                 layout="@layout/storage_permission_warning_banner"
                 android:layout_width="match_parent"

@@ -45,8 +45,8 @@ class TextEditorWebView : EditorWebView() {
 
         val editor = editorUtils.getEditor(user.get(), file?.mimeType)
 
-        if (editor != null && editor.id == "onlyoffice") {
-            webView.settings.userAgentString = generateOnlyOfficeUserAgent()
+        if (editorUtils.usesOfficeUserAgent(editor)) {
+            webView.settings.userAgentString = generateOfficeUserAgent()
         }
 
         webView.addJavascriptInterface(MobileInterface(), "DirectEditingMobileInterface")
@@ -72,8 +72,8 @@ class TextEditorWebView : EditorWebView() {
         }
     }
 
-    private fun generateOnlyOfficeUserAgent(): String {
-        val userAgent = applicationContext.resources.getString(R.string.only_office_user_agent)
+    private fun generateOfficeUserAgent(): String {
+        val userAgent = applicationContext.resources.getString(R.string.office_user_agent)
 
         return String.format(userAgent, deviceInfo.androidVersion, appInfo.getAppVersion(this))
     }

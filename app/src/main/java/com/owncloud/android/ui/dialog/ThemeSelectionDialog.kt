@@ -98,4 +98,9 @@ class ThemeSelectionDialog :
             bundleOf(ExtendedSettingsActivityDialog.ThemeSelection.key to mode.name)
         )
     }
+
+    override fun onDismiss(dialog: android.content.DialogInterface) {
+        super.onDismiss(dialog)
+        activity?.finish()
+    }
 }
