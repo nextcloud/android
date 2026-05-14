@@ -1329,30 +1329,6 @@
         <item quantity="many">%d вибрано</item>
         <item quantity="other">%d вибрано</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Павза у %d секунду внаслідок багатьох неправильних спроб</item>
-        <item quantity="few">Павза у %d секунди внаслідок багатьох неправильних спроб</item>
-        <item quantity="many">Павза у %d секунд внаслідок багатьох неправильних спроб</item>
-        <item quantity="other">Павза у %d секунд внаслідок багатьох неправильних спроб</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Павза у %d хвилину внаслідок багатьох неправильних спроб</item>
-        <item quantity="few">Павза у %d хвилини внаслідок багатьох неправильних спроб</item>
-        <item quantity="many">Павза у %d хвилин внаслідок багатьох неправильних спроб</item>
-        <item quantity="other">Павза у %d хвилин внаслідок багатьох неправильних спроб</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Павза у %d хвилину</item>
-        <item quantity="few">Павза у %d хвилини</item>
-        <item quantity="many">Павза у %d хвилин</item>
-        <item quantity="other">Павза у %d хвилин</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d секунда</item>
-        <item quantity="few">%d секунди</item>
-        <item quantity="many">%d секунд</item>
-        <item quantity="other">%d секунд</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d залишилося завантажити</item>
         <item quantity="few">%1$d залишилося завантажити</item>

@@ -1279,22 +1279,6 @@
         <item quantity="one">%d seçilmiş</item>
         <item quantity="other">%d seçilmiş</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Çok sayıda hatalı deneme nedeniyle %d saniye geciktirildi</item>
-        <item quantity="other">Çok sayıda hatalı deneme nedeniyle %d saniye geciktirildi</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Çok sayıda hatalı deneme nedeniyle %d dakika geciktirildi</item>
-        <item quantity="other">Çok sayıda hatalı deneme nedeniyle %d dakika geciktirildi</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">%d dakika geciktirildi</item>
-        <item quantity="other">%d dakika geciktirildi</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d saniye</item>
-        <item quantity="other">%d saniye</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d indirme kaldı</item>
         <item quantity="other">%1$d indirme kaldı</item>

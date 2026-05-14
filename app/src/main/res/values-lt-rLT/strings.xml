@@ -1334,30 +1334,6 @@
         <item quantity="many">%d pasirinkti</item>
         <item quantity="other">%d pasirinkti</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Uždelsiama %d sekundę dėl per daug neteisingų bandymų</item>
-        <item quantity="few">Uždelsiama %d sekundės dėl per daug neteisingų bandymų</item>
-        <item quantity="many">Uždelsiama %d sekundžių dėl per daug neteisingų bandymų</item>
-        <item quantity="other">Uždelsiama %d sekundžių dėl per daug neteisingų bandymų</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Uždelsiama %d minutę dėl per daug neteisingų bandymų</item>
-        <item quantity="few">Uždelsiama %d minutes dėl per daug neteisingų bandymų</item>
-        <item quantity="many">Uždelsiama %d minučių dėl per daug neteisingų bandymų</item>
-        <item quantity="other">Uždelsiama %d minučių dėl per daug neteisingų bandymų</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Uždelsta %d minutė</item>
-        <item quantity="few">Uždelsta %d minutes</item>
-        <item quantity="many">Uždelsta %d minučių</item>
-        <item quantity="other">Uždelsta %d minučių</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d sekundė</item>
-        <item quantity="few">%d sekundės</item>
-        <item quantity="many">%d sekundžių</item>
-        <item quantity="other">%d sekundžių</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Liko %1$d atsisiuntimas</item>
         <item quantity="few">Liko %1$d atsisiuntimai</item>

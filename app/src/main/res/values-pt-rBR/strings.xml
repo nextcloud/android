@@ -1311,26 +1311,6 @@
         <item quantity="many">%d selecionados</item>
         <item quantity="other">%d selecionados</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Adiado por %d segundo devido a muitas tentativas erradas</item>
-        <item quantity="many">Adiado por %d segundos devido a muitas tentativas erradas</item>
-        <item quantity="other">Adiado por %d segundos devido a muitas tentativas erradas</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Adiado por %d minuto devido a muitas tentativas erradas</item>
-        <item quantity="many">Adiado por %d minutos devido a muitas tentativas erradas</item>
-        <item quantity="other">Adiado por %d minutos devido a muitas tentativas erradas</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Adiado por %d minuto</item>
-        <item quantity="many">Adiado por %d minutos</item>
-        <item quantity="other">Adiado por %d minutos</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d segundo</item>
-        <item quantity="many">%d segundos</item>
-        <item quantity="other">%d segundos</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d download restante</item>
         <item quantity="many">%1$d downloads restantes</item>

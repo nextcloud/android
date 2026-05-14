@@ -1206,18 +1206,6 @@
     <plurals name="items_selected_count">
         <item quantity="other">ເລືອກ%d</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="other">Delayed %d seconds due to too many wrong attempts</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="other">Delayed %d minutes due to too many wrong attempts</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="other">Delayed %d minutes</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="other">%d seconds</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">%1$d downloads remaining</item>
     </plurals>

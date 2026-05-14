@@ -1351,34 +1351,6 @@
         <item quantity="many">%d roghnaithe</item>
         <item quantity="other">%d roghnaithe</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="two">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="few">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="many">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="other">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="two">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="few">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="many">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="other">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Moill %d nóiméad</item>
-        <item quantity="two">Moill %d nóiméad</item>
-        <item quantity="few">Moill %d nóiméad</item>
-        <item quantity="many">Moill %d nóiméad</item>
-        <item quantity="other">Moill %d nóiméad</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d soicind</item>
-        <item quantity="two">%d soicind</item>
-        <item quantity="few">%d soicind</item>
-        <item quantity="many">%d soicind</item>
-        <item quantity="other">%d soicind</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d íosluchtú fágtha</item>
         <item quantity="two">%1$d íoslódálacha fágtha</item>

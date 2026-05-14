@@ -1298,26 +1298,6 @@
         <item quantity="many">%d seleccionados</item>
         <item quantity="other">%d seleccionados</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Retrasado por %d segundo debido a múltiples intentos fallidos</item>
-        <item quantity="many">Retrasado por %d segundos debido a múltiples intentos fallidos</item>
-        <item quantity="other">Retrasado por %d segundos debido a múltiples intentos fallidos</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Retrasado por %d minuto debido a múltiples intentos fallidos</item>
-        <item quantity="many">Retrasado por %d minutos debido a múltiples intentos fallidos</item>
-        <item quantity="other">Retrasado por %d minutos debido a múltiples intentos fallidos</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Retrasado por %d minuto</item>
-        <item quantity="many">Retrasado por %d minutos</item>
-        <item quantity="other">Retrasado por %d minutos</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%dsegundo</item>
-        <item quantity="many">%dsegundos</item>
-        <item quantity="other">%dsegundos</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Queda %1$d descarga</item>
         <item quantity="many">Quedan %1$d descargas</item>

@@ -1321,30 +1321,6 @@
         <item quantity="many">%d vybraných</item>
         <item quantity="other">%d vybraných</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Oneskorené o %d sekundu v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
-        <item quantity="few">Oneskorené o %d sekundy v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
-        <item quantity="many">Oneskorené o %d sekúnd v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
-        <item quantity="other">Oneskorené o %d sekúnd v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Oneskorené o %d minútu v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
-        <item quantity="few">Oneskorené o %d minúty v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
-        <item quantity="many">Oneskorené o %d minút v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
-        <item quantity="other">Oneskorené o %d minút v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Oneskorené o %d minútu</item>
-        <item quantity="few">Oneskorené o %d minúty</item>
-        <item quantity="many">Oneskorené o %d minút</item>
-        <item quantity="other">Oneskorené o %d minút</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d sekunda</item>
-        <item quantity="few">%d sekundy</item>
-        <item quantity="many">%d sekúnd</item>
-        <item quantity="other">%d sekúnd</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d zostáva stiahnuť</item>
         <item quantity="few">%1$d zostáva stiahnuť</item>

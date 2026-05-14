@@ -1209,22 +1209,6 @@
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">%d seconde vertraagd vanwege te veel onjuiste pogingen</item>
-        <item quantity="other">%d seconden vertraagd vanwege te veel onjuiste pogingen</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">%d minuut vertraagt vanwege te veel onjuiste pogingen</item>
-        <item quantity="other">%d minuten vertraagd vanwege te veel onjuiste pogingen</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">%d minuut vertraagd</item>
-        <item quantity="other">%d minuten vertraagd</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d seconde</item>
-        <item quantity="other">%d seconden</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d download resterend</item>
         <item quantity="other">%1$d downloads resterend</item>

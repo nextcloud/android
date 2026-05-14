@@ -1233,26 +1233,6 @@
         <item quantity="few">%d одабрана</item>
         <item quantity="other">%d одабраних</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Задржано %d секунду услед превише неуспелих покушаја</item>
-        <item quantity="few">Задржано %d секунде услед превише неуспелих покушаја</item>
-        <item quantity="other">Задржано %d секунди услед превише неуспелих покушаја</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Задржано %d минут услед превише неуспелих покушаја</item>
-        <item quantity="few">Задржано %d минута услед превише неуспелих покушаја</item>
-        <item quantity="other">Задржано %d минута услед превише неуспелих покушаја</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Задржано %d минут</item>
-        <item quantity="few">Задржано %d минута</item>
-        <item quantity="other">Задржано %d минута</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d секунда</item>
-        <item quantity="few">%d секунди</item>
-        <item quantity="other">%d секунди</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">преостаје још %1$d преузимање</item>
         <item quantity="few">преостаје још %1$d преузимања</item>

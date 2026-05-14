@@ -1291,22 +1291,6 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Um %d Sekunde verzögert aufgrund zu vieler Fehlversuche</item>
-        <item quantity="other">Um %d Sekunden verzögert aufgrund zu vieler Fehlversuche</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Um %d Minute verzögert aufgrund zu vieler Fehlversuche</item>
-        <item quantity="other">Um %d Minuten verzögert aufgrund zu vieler Fehlversuche</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">%d Minute verzögert</item>
-        <item quantity="other">%d Minuten verzögert</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d Sekunde</item>
-        <item quantity="other">%d Sekunden</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d verbleibender Download</item>
         <item quantity="other">%1$d verbleibende Downloads</item>

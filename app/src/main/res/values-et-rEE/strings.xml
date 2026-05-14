@@ -1291,22 +1291,6 @@
         <item quantity="one">%d valitud</item>
         <item quantity="other">%d valitud</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Edasi lükatud %d sekundi võrra liiga paljude ebaõnnestunud katsete tõttu</item>
-        <item quantity="other">Edasi lükatud %d sekundit liiga paljude ebaõnnestunud katsete tõttu</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Edasi lükatud %d minuti võrra liiga paljude ebaõnnestunud katsete tõttu</item>
-        <item quantity="other">Edasi lükatud %d minutit liiga paljude ebaõnnestunud katsete tõttu</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Edasi lükatud %d minuti võrra</item>
-        <item quantity="other">Edasi lükatud %d minutit</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d sekund</item>
-        <item quantity="other">%d sekundit</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Jäänud on %1$d allalaadimine</item>
         <item quantity="other">Jäänud on %1$d allalaadimist</item>

@@ -1331,30 +1331,6 @@
         <item quantity="many">%d выбрано</item>
         <item quantity="other">%d выбрано</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Задержка %d секунда из-за слишком большого количества неудачных попыток</item>
-        <item quantity="few">Задержка %d секунды из-за слишком большого количества неудачных попыток</item>
-        <item quantity="many">Задержка %d секунд из-за слишком большого количества неудачных попыток</item>
-        <item quantity="other">Задержка %d секунд из-за слишком большого количества неудачных попыток</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Задержка %d минута из-за слишком большого количества неудачных попыток</item>
-        <item quantity="few">Задержка %d минуты из-за слишком большого количества неудачных попыток</item>
-        <item quantity="many">Задержка %d минут из-за слишком большого количества неудачных попыток</item>
-        <item quantity="other">Задержка %d минут из-за слишком большого количества неудачных попыток</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Задержка %d минута</item>
-        <item quantity="few">Задержка %d минуты</item>
-        <item quantity="many">Задержка %d минут</item>
-        <item quantity="other">Задержка %d минут</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d секунда</item>
-        <item quantity="few">%d секунды</item>
-        <item quantity="many">%d секунд</item>
-        <item quantity="other">%d секунд</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d загрузка осталась</item>
         <item quantity="few">%1$d  загрузки осталось</item>

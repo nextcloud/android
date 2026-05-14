@@ -1292,22 +1292,6 @@
         <item quantity="one">%d vald</item>
         <item quantity="other">%d valda</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Fördröjd %d sekund på grund av för många felaktiga försök</item>
-        <item quantity="other">Fördröjd %d sekunder på grund av för många felaktiga försök</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Fördröjd %d minut på grund av för många felaktiga försök</item>
-        <item quantity="other">Fördröjd %d minuter på grund av för många felaktiga försök</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Fördröjd %d minut</item>
-        <item quantity="other">Fördröjd %d minuter</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d sekund</item>
-        <item quantity="other">%d sekunder</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d återstående nedladdning</item>
         <item quantity="other">%1$d återstående nedladdningar</item>
