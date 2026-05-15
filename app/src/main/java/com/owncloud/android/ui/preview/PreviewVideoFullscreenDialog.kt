@@ -23,6 +23,7 @@ import androidx.media3.ui.PlayerView
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer
 import com.nextcloud.common.NextcloudClient
+import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogPreviewVideoBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 
@@ -40,7 +41,7 @@ class PreviewVideoFullscreenDialog(
     nextcloudClient: NextcloudClient,
     private val sourceExoPlayer: ExoPlayer,
     private val sourceView: PlayerView
-) : Dialog(sourceView.context, android.R.style.Theme_Black_NoTitleBar_Fullscreen) {
+) : Dialog(sourceView.context, R.style.Dialog_FullscreenVideo) {
 
     private val binding: DialogPreviewVideoBinding = DialogPreviewVideoBinding.inflate(layoutInflater)
     private var playingStateListener: androidx.media3.common.Player.Listener? = null
