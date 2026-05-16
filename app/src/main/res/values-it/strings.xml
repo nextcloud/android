@@ -1205,9 +1205,4 @@
         <item quantity="many">%d selezionati</item>
         <item quantity="other">%d selezionati</item>
     </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d secondo</item>
-        <item quantity="many">%d secondi</item>
-        <item quantity="other">%d secondi</item>
-    </plurals>
     </resources>

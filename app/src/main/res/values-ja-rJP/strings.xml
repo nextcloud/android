@@ -1209,18 +1209,6 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d 選択</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="other">失敗回数が多いため%d秒後にお試しください</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="other">失敗回数が多いため%d分後にお試しください</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="other">%d分後</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="other">%d秒</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">%1$dが未ダウンロード</item>
     </plurals>

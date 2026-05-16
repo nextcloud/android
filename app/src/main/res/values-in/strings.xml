@@ -1206,18 +1206,6 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <plurals name="items_selected_count">
         <item quantity="other">%d dipilih</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="other">Ditunda selama %d detik akibat terlalu banyak percobaan yang gagal</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="other">Ditunda selama %d menit akibat terlalu banyak percobaan yang gagal</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="other">Ditunda selama %d menit</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="other">%d detik</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">%1$d unduhan tersisa</item>
     </plurals>

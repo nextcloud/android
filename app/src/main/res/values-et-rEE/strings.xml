@@ -113,7 +113,11 @@
     <string name="authenticator_activity_login_error">Sinu sisselogimispäringu töötlemisel tekkis viga. Palun proovi hiljem uuesti.</string>
     <string name="authenticator_activity_no_web_browser_found">Selle lingi avamiseks ei leidu ühtegi brauserit.</string>
     <string name="authenticator_activity_please_complete_login_process">Palun lõpeta sisselogimisprotsess oma veebibrauseris</string>
+    <string name="auto_upload_background_activity_action">Luba rakenduse töö taustal</string>
+    <string name="auto_upload_battery_optimization_reason">Nextcloudi tegevus taustateenusena on piiratud akukasutuse optimeerimise poolt</string>
+    <string name="auto_upload_battery_saver_action">Ava akukasutuse seadistused</string>
     <string name="auto_upload_battery_saver_mode_warning">Kuna akukasutuse optimeerimine on lülitatud sisse, siis automaatne üleslaadimine pole töös.</string>
+    <string name="auto_upload_battery_saver_reason">Akukasutuse optimeerimine on aktiivne ja see võib üleslaadimisi peatada.</string>
     <string name="auto_upload_delete_dialog_description">Järgnevaga eemaldad kausta ja automaatse üleslaadimise seadistused. Kõik lõpetamata üleslaadimised katkestatakse.</string>
     <string name="auto_upload_delete_dialog_title">Kas kustutad automaatse üleslaadimise kausta?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">säilitatud lugemisõigustega algkaustas</string>
@@ -154,7 +158,7 @@
     <string name="choose_which_file">Vali, milline fail alles jätta!</string>
     <string name="choose_widget">Vali vidin</string>
     <string name="clear">Tühjenda</string>
-    <string name="clear_notifications_failed">Teavituste kustutamine ebaõnnestus.</string>
+    <string name="clear_notifications_failed">Teavituste kustutamine ei õnnestunud.</string>
     <string name="clear_status_after">Eemalda olekuteade peale</string>
     <string name="clipboard_label">Tekst on kopeeritud siit: %1$s</string>
     <string name="clipboard_no_text_to_copy">Ei leidunud teksti, mida lõikelauale kopeerida</string>
@@ -1291,21 +1295,17 @@
         <item quantity="one">%d valitud</item>
         <item quantity="other">%d valitud</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Edasi lükatud %d sekundi võrra liiga paljude ebaõnnestunud katsete tõttu</item>
-        <item quantity="other">Edasi lükatud %d sekundit liiga paljude ebaõnnestunud katsete tõttu</item>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Liiga paljude vigaste katsete tõttu palun proovi uuesti %d sekundi pärast</item>
+        <item quantity="other">Liiga paljude vigaste katsete tõttu palun proovi uuesti %d sekundi pärast</item>
     </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Edasi lükatud %d minuti võrra liiga paljude ebaõnnestunud katsete tõttu</item>
-        <item quantity="other">Edasi lükatud %d minutit liiga paljude ebaõnnestunud katsete tõttu</item>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Liiga paljude vigaste katsete tõttu palun proovi uuesti %d minuti pärast</item>
+        <item quantity="other">Liiga paljude vigaste katsete tõttu palun proovi uuesti %d minuti pärast</item>
     </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Edasi lükatud %d minuti võrra</item>
-        <item quantity="other">Edasi lükatud %d minutit</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d sekund</item>
-        <item quantity="other">%d sekundit</item>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Liiga paljude vigaste katsete tõttu palun proovi uuesti %1$d minuti ja %2$d sekundi pärast</item>
+        <item quantity="other">Liiga paljude vigaste katsete tõttu palun proovi uuesti %1$d minuti ja %2$d sekundi pärast</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Jäänud on %1$d allalaadimine</item>

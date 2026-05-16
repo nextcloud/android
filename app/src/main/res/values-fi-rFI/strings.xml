@@ -1103,14 +1103,6 @@ GNU yleinen lisenssi, versio 2</string>
         <item quantity="one">%d valittu</item>
         <item quantity="other">%d valittu</item>
     </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Viivästetty %d minuutin</item>
-        <item quantity="other">Viivästetty %d minuuttia</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d sekunti</item>
-        <item quantity="other">%d sekuntia</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d lataus jäljellä</item>
         <item quantity="other">%1$d latausta jäljellä</item>

@@ -1297,26 +1297,6 @@
         <item quantity="few">Odabrano je %d</item>
         <item quantity="other">Odabrano je %d</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Pričekajte %d sekundu</item>
-        <item quantity="few">Pričekajte %d sekunde</item>
-        <item quantity="other">Pričekajte %d sekundi</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Pričekajte %d minutu</item>
-        <item quantity="few">Pričekajte %d minute</item>
-        <item quantity="other">Pričekajte %d minuta</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">%d minuta</item>
-        <item quantity="few">%d minute</item>
-        <item quantity="other">%d minuta</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d sekunda</item>
-        <item quantity="few">%d sekunde</item>
-        <item quantity="other">%d sekundi</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Ova poveznica dopušta još %d preuzimanje.</item>
         <item quantity="few">Ova poveznica dopušta još %d preuzimanja.</item>

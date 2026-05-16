@@ -1270,18 +1270,6 @@
     <plurals name="items_selected_count">
         <item quantity="other">已选择 %d 个</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="other">由于错误尝试太多，延迟了 %d 秒</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="other">由于错误尝试太多，延迟了 %d 分钟</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="other">延迟了 %d 分钟</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="other">%d 秒</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">剩余 %1$d 个下载</item>
     </plurals>

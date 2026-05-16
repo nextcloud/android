@@ -43,7 +43,7 @@
     <string name="app_config_proxy_host_title">Nom d\'hôte du proxy</string>
     <string name="app_config_proxy_port_title">Port Proxy</string>
     <string name="app_widget_description">Affiche un widget du tableau de bord</string>
-    <string name="appbar_search_in">Recherche dans %s</string>
+    <string name="appbar_search_in">Rechercher dans %s</string>
     <string name="appear_offline">Apparaître hors-ligne</string>
     <string name="assistant_output_generation_warning_text">Les résultats affichés ici sont générés par l\'IA. Veillez à toujours les vérifier.</string>
     <string name="assistant_screen_chat_create_error">Échec de l\'envoi du message</string>
@@ -342,7 +342,7 @@
     <string name="e2e_signature_is_empty">Impossible de vérifier les métadonnées, la signature est vide.</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="ecosystem_apps_display_more">Plus</string>
-    <string name="ecosystem_apps_more">Plus d\'applications Nextcloud</string>
+    <string name="ecosystem_apps_more">Plus d\'applis Nextcloud</string>
     <string name="editor_web_view_cannot_open_file">Impossible d\'ouvrir le sélecteur de fichiers</string>
     <string name="email_pick_failed">Le choix de l\'adresse e-mail a échoué.</string>
     <string name="encrypted">Définir comme chiffré</string>
@@ -1300,26 +1300,6 @@
         <item quantity="one">%d sélectionné</item>
         <item quantity="many">%d sélectionnés</item>
         <item quantity="other">%d sélectionnés</item>
-    </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Retardé de %d seconde à cause de trop d\'essais infructueux</item>
-        <item quantity="many">Retardé de %d secondes à cause de trop d\'essais infructueux</item>
-        <item quantity="other">Retardé de %d secondes à cause d\'un nombre trop important d\'essais infructueux</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Retardé de %d minute en raison d\'un trop grand nombre de tentatives infructueuses</item>
-        <item quantity="many">Retardé de %d minutes en raison d\'un trop grand nombre de tentatives infructueuses</item>
-        <item quantity="other">Retardé de %d minutes en raison d\'un trop grand nombre de tentatives infructueuses</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Retardé de %d minute</item>
-        <item quantity="many">Retardé de %d minutes</item>
-        <item quantity="other">Retardé de %d minutes</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d seconde</item>
-        <item quantity="many">%d secondes</item>
-        <item quantity="other">%d secondes</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d téléchargement restant</item>

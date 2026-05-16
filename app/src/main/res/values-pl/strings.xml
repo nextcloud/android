@@ -1327,30 +1327,6 @@
         <item quantity="many">%d wybranych</item>
         <item quantity="other">%d wybranych</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Opóźnienie %d sekunda z powodu zbyt wielu błędnych prób</item>
-        <item quantity="few">Opóźnienie %d sekundy z powodu zbyt wielu błędnych prób</item>
-        <item quantity="many">Opóźnienie %d sekund z powodu zbyt wielu błędnych prób</item>
-        <item quantity="other">Opóźnienie %d sekund z powodu zbyt wielu błędnych prób</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Opóźnienie %d minuta z powodu zbyt wielu błędnych prób</item>
-        <item quantity="few">Opóźnienie %d minuty z powodu zbyt wielu błędnych prób</item>
-        <item quantity="many">Opóźnienie %d minut z powodu zbyt wielu błędnych prób</item>
-        <item quantity="other">Opóźnienie %d minut z powodu zbyt wielu błędnych prób</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Opóźnienie %d minuta</item>
-        <item quantity="few">Opóźnienie %d minuty</item>
-        <item quantity="many">Opóźnienie %d minut</item>
-        <item quantity="other">Opóźnienie %d minut</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d sekunda</item>
-        <item quantity="few">%d sekundy</item>
-        <item quantity="many">%d sekund</item>
-        <item quantity="other">%d sekund</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Pozostało %1$d pobranie</item>
         <item quantity="few">Pozostało %1$d pobrania</item>

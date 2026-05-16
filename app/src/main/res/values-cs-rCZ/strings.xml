@@ -1318,30 +1318,6 @@
         <item quantity="many">%d vybraných</item>
         <item quantity="other">%d vybrané</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Pozdrženo %d sekundu kvůli příliš mnoha chybným pokusům</item>
-        <item quantity="few">Pozdrženo %d sekundy kvůli příliš mnoha chybným pokusům</item>
-        <item quantity="many">Pozdrženo %d sekund kvůli příliš mnoha chybným pokusům</item>
-        <item quantity="other">Pozdrženo %d sekundy kvůli příliš mnoha chybným pokusům</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Pozdrženo %d minutu kvůli příliš mnoha chybným pokusům</item>
-        <item quantity="few">Pozdrženo %d minut kvůli příliš mnoha chybným pokusům</item>
-        <item quantity="many">Pozdrženo %d minuty kvůli příliš mnoha chybným pokusům</item>
-        <item quantity="other">Pozdrženo %d minut kvůli příliš mnoha chybným pokusům</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Odloženo o %d minutu</item>
-        <item quantity="few">Odloženo o %d minuty</item>
-        <item quantity="many">Odloženo o %d minut</item>
-        <item quantity="other">Odloženo o %d minuty</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d sekunda</item>
-        <item quantity="few">%d sekundy</item>
-        <item quantity="many">%d sekund</item>
-        <item quantity="other">%d sekundy</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Zbývá %1$d stažení</item>
         <item quantity="few">Zbývají %1$d stažení</item>
