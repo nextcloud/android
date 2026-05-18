@@ -113,7 +113,11 @@
     <string name="authenticator_activity_login_error">處理您的登入請求時出現問題。請稍後再試。</string>
     <string name="authenticator_activity_no_web_browser_found">沒有瀏覽器可以開啟此連結。</string>
     <string name="authenticator_activity_please_complete_login_process">請在瀏覽器中完成登入流程</string>
+    <string name="auto_upload_background_activity_action">允許背景活動</string>
+    <string name="auto_upload_battery_optimization_reason">Nextcloud 的背景活動受到電池優化限制。</string>
+    <string name="auto_upload_battery_saver_action">開啟省電模式設定</string>
     <string name="auto_upload_battery_saver_mode_warning">因為省電模式已開啟，因此暫停自動上傳。</string>
+    <string name="auto_upload_battery_saver_reason">省電模式已啟用，可能會暫停上傳。</string>
     <string name="auto_upload_delete_dialog_description">此操作將刪除該資料夾及自動上傳設定。任何尚未完成的上傳作業都將被取消。</string>
     <string name="auto_upload_delete_dialog_title">刪除自動上傳資料夾？</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
@@ -776,6 +780,7 @@
     <string name="prefs_manage_accounts">管理帳戶</string>
     <string name="prefs_recommend">向朋友推薦</string>
     <string name="prefs_remove_e2e">移除近端加密</string>
+    <string name="prefs_remove_e2e_keys_and_files">移除已加密檔案和密鑰</string>
     <string name="prefs_setup_e2e">設置端對端加密</string>
     <string name="prefs_show_ecosystem_apps">顯示應用程式切換器</string>
     <string name="prefs_show_ecosystem_apps_summary">導覽列中的 Nextcloud 應用程式建議</string>
@@ -815,6 +820,7 @@
     <string name="remote">﹙遠端﹚</string>
     <string name="remote_file_fetch_failed">找不到檔案！</string>
     <string name="remove_e2e">您可以在此客戶端上本地刪除端到端加密</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">此操作將會移除所有加密檔案、私鑰、公鑰。您確定嗎？</string>
     <string name="remove_e2e_message">您可以在此客戶端上本地刪除端到端加密。加密檔案將保留在伺服器上，但不會再同步到此電腦。</string>
     <string name="remove_fail_msg">刪除失敗</string>
     <string name="remove_local_account">移除近端帳戶</string>
@@ -1105,6 +1111,8 @@
     <string name="upload_local_storage_full">近端儲存空間已滿</string>
     <string name="upload_local_storage_not_copied">無法複製檔案到近端資料夾</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
+    <string name="upload_locked_message">伺服器忙碌。正在重試 …</string>
+    <string name="upload_locked_title">上傳進行中</string>
     <string name="upload_manually_cancelled">用戶已取消上傳</string>
     <string name="upload_missing_storage_permission_allow_file_access">允許所有檔案存取</string>
     <string name="upload_missing_storage_permission_app_permissions">應用程式權限</string>
@@ -1266,6 +1274,15 @@
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="other">已選擇%d個</item>
+    </plurals>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="other">由於錯誤嘗試次數過多，請於 %d 秒後再試。</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="other">由於錯誤嘗試次數過多，請於 %d 分鐘後再試。</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="other">由於錯誤嘗試次數過多，請於%1$d分%2$d秒後再試。</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">剩 %1$d 個下載</item>

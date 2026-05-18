@@ -554,7 +554,7 @@
     <string name="host_not_available">Serveris neprieinamas</string>
     <string name="host_your_own_server">Administruoti savo serverį</string>
     <string name="icon_for_empty_list">Tuščio sąrašo piktograma</string>
-    <string name="icon_of_dashboard_widget">Prietaisų skydelio valdiklio piktograma</string>
+    <string name="icon_of_dashboard_widget">Skydelio valdiklio piktograma</string>
     <string name="icon_of_widget_entry">Valdiklio įvedimo piktograma</string>
     <string name="image_editor_file_edited_suffix">redaguota</string>
     <string name="image_editor_flip_horizontal">Apversti horizontaliai</string>
