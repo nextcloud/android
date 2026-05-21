@@ -355,7 +355,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public void setFolderLayout(FolderLayout layout, String layoutName) {
+    public void setFolderLayout(@NonNull FolderLayout layout, String layoutName) {
         if (layout instanceof FolderLayout.Child child) {
             setFolderPreference(context,
                                 userAccountManager.getUser(),

@@ -13,7 +13,6 @@ package com.nextcloud.client.preferences;
 import com.nextcloud.appReview.AppReviewShownModel;
 import com.nextcloud.client.jobs.LogEntry;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.fragment.FileListLayoutManager;
 import com.owncloud.android.ui.fragment.FolderLayout;
 import com.owncloud.android.utils.FileSortOrder;
 
@@ -145,7 +144,7 @@ public interface AppPreferences {
      * @param layout FolderLayout which layout is being set
      * @param layoutName preference value
      */
-    void setFolderLayout(@Nullable FolderLayout layout, String layoutName);
+    void setFolderLayout(@NonNull FolderLayout layout, String layoutName);
 
     /**
      * Saves the path where the user selected to do the last upload of a file shared from other app.
