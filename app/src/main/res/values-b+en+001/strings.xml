@@ -257,6 +257,7 @@
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
     <string name="create_rich_workspace">Add folder description</string>
+    <string name="creates_rich_workspace">Adds folder description</string>
     <string name="credentials_disabled">Credentials disabled</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
@@ -444,6 +445,7 @@
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
     <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
     <string name="file_list_empty_recent_files_headline">No recently modified files</string>
+    <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
@@ -1284,22 +1286,6 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
-    </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Delayed %d second due to too many wrong attempts</item>
-        <item quantity="other">Delayed %d seconds due to too many wrong attempts</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Delayed %d minute due to too many wrong attempts</item>
-        <item quantity="other">Delayed %d minutes due to too many wrong attempts</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Delayed %d minute</item>
-        <item quantity="other">Delayed %d minutes</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d second</item>
-        <item quantity="other">%d seconds</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d download remaining</item>

@@ -1304,22 +1304,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
         <item quantity="one">%d kiválasztva</item>
         <item quantity="other">%d kiválasztva</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">A túl sok próbálkozás miatt %d másodpercre elhalasztva</item>
-        <item quantity="other">A túl sok próbálkozás miatt %d másodpercre elhalasztva</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">A túl sok próbálkozás miatt %d percre elhalasztva</item>
-        <item quantity="other">A túl sok próbálkozás miatt %d percre elhalasztva</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">%d percre elhalasztva</item>
-        <item quantity="other">%d percre elhalasztva</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d másodperc</item>
-        <item quantity="other">%d másodperc</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d letöltés maradt</item>
         <item quantity="other">%1$d letöltés maradt</item>

@@ -1225,38 +1225,6 @@
         <item quantity="many">%d محددين</item>
         <item quantity="other">%d محددين</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="zero">تأخير مقداره %d ثانية بسبب تجاوز الحد من المحاولات الفاشلة</item>
-        <item quantity="one">تأخير مقداره %d ثانية بسبب تجاوز الحد من المحاولات الفاشلة</item>
-        <item quantity="two">تأخير مقداره %d ثانية بسبب تجاوز الحد من المحاولات الفاشلة</item>
-        <item quantity="few">تأخير مقداره %d ثوانٍ بسبب تجاوز الحد من المحاولات الفاشلة</item>
-        <item quantity="many">تأخير مقداره %d ثانية بسبب تجاوز الحد من المحاولات الفاشلة</item>
-        <item quantity="other">تأخير مقداره %d ثانية بسبب تجاوز الحد من المحاولات الفاشلة</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="zero">تأخير مقداره %d دقيقة بسبب تجاوز الحد من المحاولات الفاشلة</item>
-        <item quantity="one">تأخير مقداره %d دقيقة بسبب تجاوز الحد من المحاولات الفاشلة</item>
-        <item quantity="two">تأخير مقداره %d دقيقة بسبب تجاوز الحد من المحاولات الفاشلة</item>
-        <item quantity="few">تأخير مقداره %d دقائق بسبب تجاوز الحد من المحاولات الفاشلة</item>
-        <item quantity="many">تأخير مقداره%d دقيقة بسبب تجاوز الحد من المحاولات الفاشلة</item>
-        <item quantity="other">تأخير مقداره %d دقيقة بسبب تجاوز الحد من المحاولات الفاشلة</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="zero">تأخير قدره %d دقيقة</item>
-        <item quantity="one">تأخير قدره %d دقيقة</item>
-        <item quantity="two">تأخير قدره %d دقيقة</item>
-        <item quantity="few">تأخير قدره %d دقائق</item>
-        <item quantity="many">تأخير قدره %d دقيقة</item>
-        <item quantity="other">تأخير قدره %d دقيقة</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="zero">%d ثانية</item>
-        <item quantity="one">%d ثانية</item>
-        <item quantity="two">%d ثانيةب</item>
-        <item quantity="few">%d ثوانٍ</item>
-        <item quantity="many">%d ثانية</item>
-        <item quantity="other">%d ثانية</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="zero">متبقي %1$d تنزيل</item>
         <item quantity="one">متبقي %1$d تنزيل</item>

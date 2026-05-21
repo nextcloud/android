@@ -113,7 +113,11 @@
     <string name="authenticator_activity_login_error">Fehler bei der Verarbeitung Ihrer Anmeldeanforderung. Bitte versuchen Sie es später erneut.</string>
     <string name="authenticator_activity_no_web_browser_found">Es ist kein Browser verfügbar, um diesen Link zu öffnen.</string>
     <string name="authenticator_activity_please_complete_login_process">Bitte schließen Sie den Anmeldevorgang in Ihrem Browser ab</string>
+    <string name="auto_upload_background_activity_action">Hintergrundaktivität zulassen</string>
+    <string name="auto_upload_battery_optimization_reason">Die Hintergrundaktivität von Nextcloud wird durch die Akkuoptimierung eingeschränkt.</string>
+    <string name="auto_upload_battery_saver_action">Akkuspareinstellungen öffnen</string>
     <string name="auto_upload_battery_saver_mode_warning">Der automatische Upload wurde angehalten, da Battery-Saver eingeschaltet ist.</string>
+    <string name="auto_upload_battery_saver_reason">Die Akkusparfunktion ist aktiv und kann Uploads unterbrechen.</string>
     <string name="auto_upload_delete_dialog_description">Dadurch werden der Ordner und die Konfiguration für das \"Automatische Hochladen\" entfernt. Alle noch nicht abgeschlossenen Uploads werden abgebrochen.</string>
     <string name="auto_upload_delete_dialog_title">Ordner für \"Automatisches Hochladen\" löschen?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
@@ -776,6 +780,7 @@
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_remove_e2e">Verschlüsselung lokal entfernen</string>
+    <string name="prefs_remove_e2e_keys_and_files">Verschlüsselte Dateien und Schlüssel entfernen</string>
     <string name="prefs_setup_e2e">Ende-zu-Ende-Verschlüsselung einrichten</string>
     <string name="prefs_show_ecosystem_apps">App-Umschalter anzeigen</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud-App-Vorschläge in der Navigationsüberschrift</string>
@@ -815,6 +820,7 @@
     <string name="remote">(entfernt)</string>
     <string name="remote_file_fetch_failed">Datei nicht gefunden!</string>
     <string name="remove_e2e">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Durch diesen Vorgang werden alle verschlüsselten Dateien sowie privaten und öffentlichen Schlüssel entfernt. Sind Sie sicher?</string>
     <string name="remove_e2e_message">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen. Die verschlüsselten Dateien bleiben auf dem Server, werden aber nicht mehr mit diesem Computer synchronisiert.</string>
     <string name="remove_fail_msg">Löschung fehlgeschlagen</string>
     <string name="remove_local_account">Lokales Konto entfernen</string>
@@ -1105,6 +1111,8 @@
     <string name="upload_local_storage_full">Lokaler Speicher voll</string>
     <string name="upload_local_storage_not_copied">Datei konnte nicht in den lokalen Speicher kopiert werden</string>
     <string name="upload_lock_failed">Fehler beim Sperren des Ordners</string>
+    <string name="upload_locked_message">Der Server ist ausgelastet. Erneuter Versuch …</string>
+    <string name="upload_locked_title">Hochladen läuft</string>
     <string name="upload_manually_cancelled">Der Upload wurde manuell abgebrochen</string>
     <string name="upload_missing_storage_permission_allow_file_access">Zugriff auf alle Dateien zulassen</string>
     <string name="upload_missing_storage_permission_app_permissions">App-Berechtigungen</string>
@@ -1287,21 +1295,17 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Um %d Sekunde verzögert aufgrund zu vieler Fehlversuche</item>
-        <item quantity="other">Um %d Sekunden verzögert aufgrund zu vieler Fehlversuche</item>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">In %d Sekunde erneut versuchen, da zu viele Fehlversuche erfolgt sind</item>
+        <item quantity="other">In %d Sekunden erneut versuchen, da zu viele Fehlversuche erfolgt sind</item>
     </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Um %d Minute verzögert aufgrund zu vieler Fehlversuche</item>
-        <item quantity="other">Um %d Minuten verzögert aufgrund zu vieler Fehlversuche</item>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">In %d Minute erneut versuchen, da zu viele Fehlversuche erfolgt sind</item>
+        <item quantity="other">In %d Minuten erneut versuchen, da zu viele Fehlversuche erfolgt sind</item>
     </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">%d Minute verzögert</item>
-        <item quantity="other">%d Minuten verzögert</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d Sekunde</item>
-        <item quantity="other">%d Sekunden</item>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">In %1$d Minute und %2$d Sekunden erneut versuchen, da zu viele Fehlversuche erfolgt sind</item>
+        <item quantity="other">In %1$d Minuten und %2$d Sekunden erneut versuchen, da zu viele Fehlversuche erfolgt sind</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d verbleibender Download</item>

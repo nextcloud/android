@@ -1167,22 +1167,6 @@
         <item quantity="one">aukeratuta %d</item>
         <item quantity="other">%d aukeratuta</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Segundo %d-ez atzeratua saiakera oker gehiegi direla eta</item>
-        <item quantity="other">%dsegundoz atzeratua saiakera oker gehiegi direla eta</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Segundo %d-ez atzeratua saiakera oker gehiegi direla eta</item>
-        <item quantity="other">%d segundoz atzeratua saiakera oker gehiegi direla eta</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Minutu %d-ez atzeratua</item>
-        <item quantity="other">%d minutuz atzeratua</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">Segundo %d</item>
-        <item quantity="other">%d segundo</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Deskarga %1$d falta da</item>
         <item quantity="other">%1$d deskarga falta dira</item>

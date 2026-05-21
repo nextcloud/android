@@ -48,11 +48,13 @@
     <string name="assistant_output_generation_warning_text">Выходные данные, показанные здесь, сгенерированы с помощью искусственного интеллекта. Обязательно всегда перепроверяйте.</string>
     <string name="assistant_screen_chat_create_error">Не удалось отправить сообщение</string>
     <string name="assistant_screen_chat_fetch_error">Не удалось загрузить сообщения чата</string>
+    <string name="assistant_screen_chat_generate_error">Не удалось сгенерировать ответ</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Вернуться на страницу помощника</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Вы уверены, что хотите удалить эту задачу?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Удалить задачу</string>
     <string name="assistant_screen_empty_content_description">Попробуйте отправить сообщение, чтобы начать беседу.</string>
     <string name="assistant_screen_empty_content_title">Здравствуйте! Чем я могу вам помочь сегодня?</string>
+    <string name="assistant_screen_retry_response_generation">Повторить генерацию ответа</string>
     <string name="assistant_screen_select_task">Выберите задачу</string>
     <string name="assistant_screen_send_message">ОТправить сообщение</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Открыть список обсуждений</string>
@@ -112,6 +114,8 @@
     <string name="authenticator_activity_no_web_browser_found">Ни один браузер не доступен для открытия этой ссылки.</string>
     <string name="authenticator_activity_please_complete_login_process">Пожалуйста, завершите процесс входа в вашем браузере</string>
     <string name="auto_upload_battery_saver_mode_warning">Автозагрузка приостановлена из-за включенного режима энергосбережения.</string>
+    <string name="auto_upload_delete_dialog_description">Это приведет к удалению папки и автоматической загрузке конфигурации. Любые незавершенные загрузки будут отменены.</string>
+    <string name="auto_upload_delete_dialog_title">Удалить папку автозагрузки?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
     <string name="auto_upload_low_battery_warning_info">Батарея разряжена, загрузка может занять больше времени</string>
     <string name="auto_upload_on_wifi">Только через безлимит или Wi-Fi</string>
@@ -243,9 +247,12 @@
     <string name="could_not_retrieve_url">Не удалось получить URL</string>
     <string name="create">Создать</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
+    <string name="create_end_to_end_encrypted_share">Поделиться ссылкой</string>
+    <string name="create_end_to_end_encrypted_share_title">Сквозное зашифрованное совместное использование ссылок</string>
     <string name="create_link">Создать ссылку</string>
     <string name="create_new">Новый</string>
     <string name="create_new_document">Новый документ</string>
+    <string name="create_new_encrypted_folder">Новая зашифрованная папка</string>
     <string name="create_new_folder">Новая папка</string>
     <string name="create_new_presentation">Новая презентация</string>
     <string name="create_new_spreadsheet">Новая таблица</string>
@@ -316,6 +323,7 @@
     <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_item_on_device">На устройстве</string>
     <string name="drawer_item_personal_files">Личные файлы</string>
+    <string name="drawer_item_recent_files">Последние файлы</string>
     <string name="drawer_item_recently_modified">Недавно изменённые</string>
     <string name="drawer_item_shared">Опубликованное</string>
     <string name="drawer_item_trashbin">Удалённые файлы</string>
@@ -402,6 +410,8 @@
     <string name="etm_transfer_type">Передача</string>
     <string name="etm_transfer_type_download">Скачать</string>
     <string name="etm_transfer_type_upload">Отправить</string>
+    <string name="export_in_progress">Экспортировано %1$d из %2$d</string>
+    <string name="extension_cannot_be_changed">Расширение не может быть изменено</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">У вас нет разрешения на создание или загрузку файлов в эту папку.</string>
     <string name="external_shares">Внешние ссылки</string>
     <string name="fab_label">Добавить или выгрузить</string>
@@ -505,6 +515,7 @@
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_best_viewed_in">Эту папку лучше всего просматривать в %1$s.</string>
     <string name="folder_confirm_create">Создать</string>
+    <string name="folder_download_counter">%1$d из %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">При синхронизации папки %s произошла ошибка</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Недостаточно места на диске, синхронизация отменена</string>
     <string name="folder_download_success_notification_title">Синхронизировано папок: %s</string>
@@ -555,6 +566,8 @@
     <string name="instant_upload_existing">Также загрузить существующие файлы</string>
     <string name="instant_upload_on_charging">Только во время зарядки</string>
     <string name="instant_upload_path">/Автозагрузка</string>
+    <string name="internal_share_description_end_to_end_encrypted">Получатели общего доступа всегда имеют доступ к полностью зашифрованной папке. Поделиться можно только с учётными записями, в которых уже настроено сквозное шифрование.</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Сквозные зашифрованные общие ресурсы</string>
     <string name="internal_shares">Внутренние ссылки</string>
     <string name="internal_two_way_sync">Внутренняя двусторонняя синхронизация</string>
     <string name="internal_two_way_sync_not_yet">Пока нет, но скоро будет синхронизирован</string>
@@ -606,6 +619,9 @@
     <string name="media_play_pause_description">Воспроизведение или пауза</string>
     <string name="media_player_pause">Пауза</string>
     <string name="media_player_play">Играть</string>
+    <string name="media_player_playing">Воспроизведение мультимедиа</string>
+    <string name="media_player_seek_backward">Искать назад</string>
+    <string name="media_player_seek_forward">Искать вперёд</string>
     <string name="media_rewind_description">Перемотка назад</string>
     <string name="media_state_playing">%1$s (проигрывается)</string>
     <string name="menu_item_sort_by_date_newest_first">Сначала новые</string>
@@ -760,6 +776,7 @@
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
     <string name="prefs_recommend">Рекомендовать приложение</string>
     <string name="prefs_remove_e2e">Удалить шифрование локально</string>
+    <string name="prefs_remove_e2e_keys_and_files">Удалить зашифрованные файлы и ключи</string>
     <string name="prefs_setup_e2e">Настройка сквозного шифрования</string>
     <string name="prefs_show_ecosystem_apps">Показать переключатель приложений</string>
     <string name="prefs_show_ecosystem_apps_summary">Рекомендации по приложению Nextcloud в заголовке навигации</string>
@@ -782,6 +799,7 @@
     <string name="preview_image_file_is_not_downloaded">Файл не скачан</string>
     <string name="preview_media_unhandled_http_code_message">Файл в настоящее время заблокирован другим пользователем или процессом и поэтому не может быть удален. Пожалуйста, повторите попытку позже.</string>
     <string name="preview_sorry">Приносим извинения</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Не удалось открыть текстовый редактор</string>
     <string name="privacy">Конфиденциальность</string>
     <string name="push_notifications_not_implemented">Всплывающие уведомления отключены, так как зависят от Google Play сервисов</string>
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
@@ -798,6 +816,7 @@
     <string name="remote">(удалённо)</string>
     <string name="remote_file_fetch_failed">Не удалось найти файл.</string>
     <string name="remove_e2e">Вы можете удалить сквозное шифрование локально на этом клиенте</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Эта операция удалит все зашифрованные файлы, закрытые и открытые ключи. Вы уверены?</string>
     <string name="remove_e2e_message">Вы можете удалить сквозное шифрование локально на этом клиенте. Зашифрованные файлы останутся на сервере, но больше не будут синхронизироваться с этим компьютером.</string>
     <string name="remove_fail_msg">Ошибка при удалении</string>
     <string name="remove_local_account">Удалить локальную учетную запись</string>
@@ -1020,6 +1039,8 @@
     <string name="timeout_richDocuments">Загрузка занимает больше времени, чем ожидалось</string>
     <string name="today">Сегодня</string>
     <string name="translation_screen_hint_source">Введите текст для перевода…</string>
+    <string name="translation_screen_label_from">Перевод с:</string>
+    <string name="translation_screen_label_to">Перевести на:</string>
     <string name="translation_screen_start_to_translate_task">Нажмите для перевода</string>
     <string name="translation_screen_task_processing">Перевод занимает больше времени, чем ожидалось.</string>
     <string name="translation_screen_translating">Перевод…</string>
@@ -1086,6 +1107,8 @@
     <string name="upload_local_storage_full">Закончилось свободное место в локальном хранилище</string>
     <string name="upload_local_storage_not_copied">Невозможно скопировать файл в локальное хранилище</string>
     <string name="upload_lock_failed">Не удалось заблокировать папку</string>
+    <string name="upload_locked_message">Сервер занят. Повторная попытка…</string>
+    <string name="upload_locked_title">Идет загрузка</string>
     <string name="upload_manually_cancelled">Загрузка была отменена пользователем</string>
     <string name="upload_missing_storage_permission_allow_file_access">Разрешить доступ ко всем файлам</string>
     <string name="upload_missing_storage_permission_app_permissions">Разрешения для приложения</string>
@@ -1098,6 +1121,11 @@
     <string name="upload_quota_exceeded">Превышена квота хранилища</string>
     <string name="upload_scan_doc_upload">Сканировать документ через камеру</string>
     <string name="upload_sync_conflict">Требуется вмешательство для разрешения конфликта синхронизации</string>
+    <string name="upload_sync_conflict_check">Возможно, произошел конфликт с вашей последней загрузкой. Нажмите, чтобы проверить.</string>
+    <string name="upload_sync_conflict_check_error">Не удалось проверить наличие конфликтов загрузки. Пожалуйста, попробуйте ещё раз.</string>
+    <string name="upload_sync_conflict_checking">Проверка конфликтов загрузки…</string>
+    <string name="upload_sync_conflict_not_exists">Конфликт разрешён.</string>
+    <string name="upload_sync_conflict_same_file">Конфликт не обнаружен. Тот же файл.</string>
     <string name="upload_unknown_error">Неизвестная ошибка</string>
     <string name="uploader_btn_alternative_text">Выберите</string>
     <string name="uploader_btn_upload_text">Отправить</string>
@@ -1267,6 +1295,12 @@
         <item quantity="many">Экспортирован %d файлов, остальные были пропущены из-за ошибок</item>
         <item quantity="other">Экспортирован %d файла, остальные были пропущены из-за ошибок</item>
     </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Вы можете загрузить только %d файл одновременно.</item>
+        <item quantity="few">Вы можете загружать до %d файлов одновременно.</item>
+        <item quantity="many">Вы можете загружать до %d файлов одновременно.</item>
+        <item quantity="other">Вы можете загружать до %d файлов одновременно.</item>
+    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d каталог</item>
         <item quantity="few">%1$d каталога</item>
@@ -1296,30 +1330,6 @@
         <item quantity="few">%d выбрано</item>
         <item quantity="many">%d выбрано</item>
         <item quantity="other">%d выбрано</item>
-    </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Задержка %d секунда из-за слишком большого количества неудачных попыток</item>
-        <item quantity="few">Задержка %d секунды из-за слишком большого количества неудачных попыток</item>
-        <item quantity="many">Задержка %d секунд из-за слишком большого количества неудачных попыток</item>
-        <item quantity="other">Задержка %d секунд из-за слишком большого количества неудачных попыток</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Задержка %d минута из-за слишком большого количества неудачных попыток</item>
-        <item quantity="few">Задержка %d минуты из-за слишком большого количества неудачных попыток</item>
-        <item quantity="many">Задержка %d минут из-за слишком большого количества неудачных попыток</item>
-        <item quantity="other">Задержка %d минут из-за слишком большого количества неудачных попыток</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Задержка %d минута</item>
-        <item quantity="few">Задержка %d минуты</item>
-        <item quantity="many">Задержка %d минут</item>
-        <item quantity="other">Задержка %d минут</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d секунда</item>
-        <item quantity="few">%d секунды</item>
-        <item quantity="many">%d секунд</item>
-        <item quantity="other">%d секунд</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d загрузка осталась</item>

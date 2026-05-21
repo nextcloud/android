@@ -1193,22 +1193,6 @@
         <item quantity="one">%d valið</item>
         <item quantity="other">%d valið</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Tafið um %d sekúndu vegna of margra rangra tilrauna</item>
-        <item quantity="other">Tafið um %d sekúndur vegna of margra rangra tilrauna</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Tafið um %d mínútu vegna of margra rangra tilrauna</item>
-        <item quantity="other">Tafið um %d mínútur vegna of margra rangra tilrauna</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Tafið um %d mínútu</item>
-        <item quantity="other">Tafið um %d mínútur</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%dsekúnda</item>
-        <item quantity="other">%d sekúndur </item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d niðurhal eftir</item>
         <item quantity="other">%1$d niðurhöl eftir</item>

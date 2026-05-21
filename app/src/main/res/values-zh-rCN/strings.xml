@@ -113,7 +113,11 @@
     <string name="authenticator_activity_login_error">处理您的登录请求时出现问题。请稍后重试。</string>
     <string name="authenticator_activity_no_web_browser_found">没有浏览器可以打开此链接。</string>
     <string name="authenticator_activity_please_complete_login_process">请在浏览器中完成登录流程</string>
+    <string name="auto_upload_background_activity_action">允许后台活动</string>
+    <string name="auto_upload_battery_optimization_reason">Nextcloud 的后台活动受到电池优化的限制。</string>
+    <string name="auto_upload_battery_saver_action">打开省电模式设置</string>
     <string name="auto_upload_battery_saver_mode_warning">自动上传已暂停，因为省电模式已开启。</string>
+    <string name="auto_upload_battery_saver_reason">省电模式已开启，可能会暂停上传。</string>
     <string name="auto_upload_delete_dialog_description">这将移除文件夹和自动上传配置。任何未完成的上传都将被取消。</string>
     <string name="auto_upload_delete_dialog_title">删除自动上传文件夹？</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
@@ -445,7 +449,7 @@
     <string name="file_list_empty_on_device">已下载的文件和文件夹将显示在此处</string>
     <string name="file_list_empty_recent_files_description">您最近修改的文件和文件夹将显示在此处。</string>
     <string name="file_list_empty_recent_files_headline">近期无修改文件</string>
-    <string name="file_list_empty_recently_modified">在过去的7天内没有被修改过的文件</string>
+    <string name="file_list_empty_recently_modified">未找到过去 7 天内修改过的文件</string>
     <string name="file_list_empty_search">也许它在其他文件夹中？</string>
     <string name="file_list_empty_shared">你共享的文件和文件夹将显示在此处</string>
     <string name="file_list_empty_shared_headline">暂无共享</string>
@@ -776,6 +780,7 @@
     <string name="prefs_manage_accounts">管理账号</string>
     <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_remove_e2e">在本地删除加密</string>
+    <string name="prefs_remove_e2e_keys_and_files">移除加密文件和密钥</string>
     <string name="prefs_setup_e2e">设置端对端加密</string>
     <string name="prefs_show_ecosystem_apps">显示应用切换器</string>
     <string name="prefs_show_ecosystem_apps_summary">导航栏中的 Nextcloud 应用推荐</string>
@@ -815,6 +820,7 @@
     <string name="remote">(远程)</string>
     <string name="remote_file_fetch_failed">查找文件失败！</string>
     <string name="remove_e2e">您可以在该客户端上本地删除端对端加密</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">此操作将移除所有加密文件、私钥和公钥。您确定吗？</string>
     <string name="remove_e2e_message">您可以在该客户端上本地删除端对端加密。加密文件将保留在服务器上，但不会再同步到该电脑。</string>
     <string name="remove_fail_msg">删除失败</string>
     <string name="remove_local_account">移除本地帐户</string>
@@ -1108,6 +1114,8 @@
     <string name="upload_local_storage_full">本地存储已满</string>
     <string name="upload_local_storage_not_copied">文件无法被复制到本地存储</string>
     <string name="upload_lock_failed">锁定文件夹失败</string>
+    <string name="upload_locked_message">服务器正忙。正在重试…</string>
+    <string name="upload_locked_title">上传正在进行中</string>
     <string name="upload_manually_cancelled">用户已取消上传</string>
     <string name="upload_missing_storage_permission_allow_file_access">允许所有文件访问</string>
     <string name="upload_missing_storage_permission_app_permissions">应用权限</string>
@@ -1270,17 +1278,14 @@
     <plurals name="items_selected_count">
         <item quantity="other">已选择 %d 个</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="other">由于错误尝试太多，延迟了 %d 秒</item>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="other">由于错误尝试太多，请在 %d 秒后重试</item>
     </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="other">由于错误尝试太多，延迟了 %d 分钟</item>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="other">由于错误尝试太多，请在 %d 分钟后重试</item>
     </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="other">延迟了 %d 分钟</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="other">%d 秒</item>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="other">由于错误尝试太多，请在 %1$d 分 %2$d 秒后重试</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">剩余 %1$d 个下载</item>

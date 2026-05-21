@@ -255,6 +255,7 @@
     <string name="create_new_presentation">Nueva presentación</string>
     <string name="create_new_spreadsheet">Nueva hoja de cálculo</string>
     <string name="create_rich_workspace">Añadir una descripción a la carpeta</string>
+    <string name="creates_rich_workspace">Añade una descripción a la carpeta</string>
     <string name="credentials_disabled">Credenciales desactivadas</string>
     <string name="daily_backup">Copia de seguridad diaria</string>
     <string name="data_to_back_up">Datos a respaldar</string>
@@ -442,6 +443,7 @@
     <string name="file_list_empty_on_device">Los archivos y carpetas que descargues aparecerán aquí.</string>
     <string name="file_list_empty_recent_files_description">Los archivos y carpetas que ha modificado recientemente aparecerán aquí.</string>
     <string name="file_list_empty_recent_files_headline">No hay archivos modificados recientemente.</string>
+    <string name="file_list_empty_recently_modified">No se han encontrado archivos modificados en los últimos 7 días</string>
     <string name="file_list_empty_search">¿Quizás está en una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que compartas aparecerán aquí.</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
@@ -1295,26 +1297,6 @@
         <item quantity="one">%d seleccionado</item>
         <item quantity="many">%d seleccionados</item>
         <item quantity="other">%d seleccionados</item>
-    </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Retrasado por %d segundo debido a múltiples intentos fallidos</item>
-        <item quantity="many">Retrasado por %d segundos debido a múltiples intentos fallidos</item>
-        <item quantity="other">Retrasado por %d segundos debido a múltiples intentos fallidos</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Retrasado por %d minuto debido a múltiples intentos fallidos</item>
-        <item quantity="many">Retrasado por %d minutos debido a múltiples intentos fallidos</item>
-        <item quantity="other">Retrasado por %d minutos debido a múltiples intentos fallidos</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Retrasado por %d minuto</item>
-        <item quantity="many">Retrasado por %d minutos</item>
-        <item quantity="other">Retrasado por %d minutos</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%dsegundo</item>
-        <item quantity="many">%dsegundos</item>
-        <item quantity="other">%dsegundos</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Queda %1$d descarga</item>

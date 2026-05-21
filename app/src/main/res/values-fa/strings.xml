@@ -1043,22 +1043,6 @@
         <item quantity="one">%d انتخاب شده</item>
         <item quantity="other">%d انتخاب شده</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">تأخیر: %1$d ساعت</item>
-        <item quantity="other">تأخیر: %1$d ساعت</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">تأخیر: %1$d دقیقه</item>
-        <item quantity="other">تأخیر: %1$d دقیقه</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">%1$d دقیقه</item>
-        <item quantity="other">%1$d دقیقه</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%1$d ثانیه</item>
-        <item quantity="other">%1$d ثانیه</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">محدودیت دانلود: %d بار</item>
         <item quantity="other">محدودیت دانلود: %d بار</item>

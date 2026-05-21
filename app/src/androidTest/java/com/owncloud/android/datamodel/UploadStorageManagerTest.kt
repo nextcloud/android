@@ -12,11 +12,6 @@ package com.owncloud.android.datamodel
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.ActivityNotFoundException
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SmallTest
-import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
@@ -33,38 +28,21 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import java.io.File
 import java.util.Random
 import java.util.UUID
 import java.util.function.Supplier
 
-/**
- * Created by JARP on 6/7/17.
- */
-@RunWith(AndroidJUnit4::class)
-@SmallTest
 class UploadStorageManagerTest : AbstractIT() {
     private lateinit var uploadsStorageManager: UploadsStorageManager
-
-    @Mock
-    private lateinit var currentAccountProvider: CurrentAccountProvider
-
     private lateinit var userAccountManager: UserAccountManager
-
     private lateinit var user2: User
 
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
-
-        val instrumentationCtx = ApplicationProvider.getApplicationContext<Context>()
-        val contentResolver = instrumentationCtx.contentResolver
-        uploadsStorageManager = UploadsStorageManager(currentAccountProvider, contentResolver)
         userAccountManager = UserAccountManagerImpl.fromContext(targetContext)
-
         val temp = Account("test2@test.com", MainApp.getAccountType(targetContext))
         if (!userAccountManager.exists(temp)) {
             val platformAccountManager = AccountManager.get(targetContext)
@@ -78,10 +56,13 @@ class UploadStorageManagerTest : AbstractIT() {
             platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "test.com")
             platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, "test") // same as userId
         }
-
-        val userAccountManager: UserAccountManager = UserAccountManagerImpl.fromContext(targetContext)
         user2 = userAccountManager.getUser("test2@test.com")
             .orElseThrow(Supplier { ActivityNotFoundException() })
+        uploadsStorageManager =
+            UploadsStorageManager(
+                UserAccountManagerImpl.fromContext(targetContext),
+                targetContext.contentResolver
+            )
     }
 
     @Test
@@ -227,13 +208,14 @@ class UploadStorageManagerTest : AbstractIT() {
 
     private fun deleteAllUploads() {
         uploadsStorageManager.removeAllUploads()
-
         Assert.assertEquals(0, uploadsStorageManager.getAllStoredUploads().size.toLong())
     }
 
     @After
     fun tearDown() {
-        deleteAllUploads()
-        userAccountManager.removeUser(user2)
+        if (::user2.isInitialized) {
+            deleteAllUploads()
+            userAccountManager.removeUser(user2)
+        }
     }
 }

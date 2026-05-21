@@ -115,7 +115,11 @@
     <string name="authenticator_activity_no_web_browser_found">Nėra naršyklės, kuria būtų galima atidaryti šią nuorodą.
  </string>
     <string name="authenticator_activity_please_complete_login_process">Prašome užbaikite prisijungimo procesą savo naršyklėje</string>
+    <string name="auto_upload_background_activity_action">Leisti foninę veiklą</string>
+    <string name="auto_upload_battery_optimization_reason">„Nextcloud“ foninę veiklą riboja baterijos optimizavimas.</string>
+    <string name="auto_upload_battery_saver_action">Atidarykite baterijos tausojimo nustatymus</string>
     <string name="auto_upload_battery_saver_mode_warning">Automatinis įkėlimas pristabdytas, nes įjungtas akumuliatoriaus tausojimo režimas.</string>
+    <string name="auto_upload_battery_saver_reason">Baterijos tausojimo režimas aktyvus ir gali pristabdyti įkėlimus.</string>
     <string name="auto_upload_delete_dialog_description">Tai pašalins aplanką ir automatinio įkėlimo konfigūraciją. Visi nebaigti įkėlimai bus atšaukti.</string>
     <string name="auto_upload_delete_dialog_title">Ištrinti automatinio įkėlimo aplanką?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">saugomi originaliame aplanke, nes jis yra tik skaitomas</string>
@@ -550,7 +554,7 @@
     <string name="host_not_available">Serveris neprieinamas</string>
     <string name="host_your_own_server">Administruoti savo serverį</string>
     <string name="icon_for_empty_list">Tuščio sąrašo piktograma</string>
-    <string name="icon_of_dashboard_widget">Prietaisų skydelio valdiklio piktograma</string>
+    <string name="icon_of_dashboard_widget">Skydelio valdiklio piktograma</string>
     <string name="icon_of_widget_entry">Valdiklio įvedimo piktograma</string>
     <string name="image_editor_file_edited_suffix">redaguota</string>
     <string name="image_editor_flip_horizontal">Apversti horizontaliai</string>
@@ -779,6 +783,7 @@
     <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
     <string name="prefs_recommend">Rekomenduoti draugui</string>
     <string name="prefs_remove_e2e">Pašalinkite šifravimą vietoje</string>
+    <string name="prefs_remove_e2e_keys_and_files">Pašalinti užšifruotus failus ir raktus</string>
     <string name="prefs_setup_e2e">Nustatyti ištisinį šifravimą</string>
     <string name="prefs_show_ecosystem_apps">Rodyti programėllių perjungiklį</string>
     <string name="prefs_show_ecosystem_apps_summary">„Nextcloud“ programėlės pasiūlymai naršymo antraštėje</string>
@@ -818,6 +823,7 @@
     <string name="remote">(nuotolinis)</string>
     <string name="remote_file_fetch_failed">Nepavyko rasti failo!</string>
     <string name="remove_e2e">Šiame kliente galite pašalinti visą šifravimą vietoje</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Ši operacija pašalins visus užšifruotus failus, privačius ir viešuosius raktus. Ar tikrai norite tai padaryti?</string>
     <string name="remove_e2e_message">Šiame kliente galite pašalinti ištisinį šifravimą. Užšifruoti failai liks serveryje, bet nebebus sinchronizuojami su šiuo kompiuteriu.</string>
     <string name="remove_fail_msg">Ištrynimas nepavyko</string>
     <string name="remove_local_account">Šalinti vietinę paskyrą</string>
@@ -1108,6 +1114,8 @@
     <string name="upload_local_storage_full">Vietinė saugykla pilna</string>
     <string name="upload_local_storage_not_copied">Nepavyko nukopijuoti failo į vietinę saugyklą</string>
     <string name="upload_lock_failed">Nepavyko užrakinti aplanko</string>
+    <string name="upload_locked_message">Serveris užimtas. Bandoma dar kartą…</string>
+    <string name="upload_locked_title">Įkeliama…</string>
     <string name="upload_manually_cancelled">Įkelimas buvo atšauktas vartotojo</string>
     <string name="upload_missing_storage_permission_allow_file_access">Leisti pasiekti visus failus</string>
     <string name="upload_missing_storage_permission_app_permissions">Leidimai programėlei</string>
@@ -1330,29 +1338,23 @@
         <item quantity="many">%d pasirinkti</item>
         <item quantity="other">%d pasirinkti</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Uždelsiama %d sekundę dėl per daug neteisingų bandymų</item>
-        <item quantity="few">Uždelsiama %d sekundės dėl per daug neteisingų bandymų</item>
-        <item quantity="many">Uždelsiama %d sekundžių dėl per daug neteisingų bandymų</item>
-        <item quantity="other">Uždelsiama %d sekundžių dėl per daug neteisingų bandymų</item>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Bandykite dar kartą po %d sekundės dėl per daug neteisingų bandymų</item>
+        <item quantity="few">Bandykite dar kartą po %d sekundžių dėl per daug neteisingų bandymų</item>
+        <item quantity="many">Bandykite dar kartą po %d sekundžių dėl per daug neteisingų bandymų</item>
+        <item quantity="other">Bandykite dar kartą po %d sekundžių dėl per daug neteisingų bandymų</item>
     </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Uždelsiama %d minutę dėl per daug neteisingų bandymų</item>
-        <item quantity="few">Uždelsiama %d minutes dėl per daug neteisingų bandymų</item>
-        <item quantity="many">Uždelsiama %d minučių dėl per daug neteisingų bandymų</item>
-        <item quantity="other">Uždelsiama %d minučių dėl per daug neteisingų bandymų</item>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Bandykite dar kartą po %d minutės dėl per daug neteisingų bandymų</item>
+        <item quantity="few">Bandykite dar kartą po %d minučių dėl per daug neteisingų bandymų</item>
+        <item quantity="many">Bandykite dar kartą po %d minučių dėl per daug neteisingų bandymų</item>
+        <item quantity="other">Bandykite dar kartą po %d minučių dėl per daug neteisingų bandymų</item>
     </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Uždelsta %d minutė</item>
-        <item quantity="few">Uždelsta %d minutes</item>
-        <item quantity="many">Uždelsta %d minučių</item>
-        <item quantity="other">Uždelsta %d minučių</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d sekundė</item>
-        <item quantity="few">%d sekundės</item>
-        <item quantity="many">%d sekundžių</item>
-        <item quantity="other">%d sekundžių</item>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Bandykite dar kartą po %1$d minutės ir %2$d sekundžių dėl per daug neteisingų bandymų</item>
+        <item quantity="few">Bandykite dar kartą po %1$d minučių ir %2$d sekundžių dėl per daug neteisingų bandymų</item>
+        <item quantity="many">Bandykite dar kartą po %1$d minučių ir %2$d sekundžių dėl per daug neteisingų bandymų</item>
+        <item quantity="other">Bandykite dar kartą po %1$d minučių ir %2$d sekundžių dėl per daug neteisingų bandymų</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Liko %1$d atsisiuntimas</item>

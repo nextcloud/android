@@ -459,6 +459,19 @@ class UploadsStorageManager(
         if (deleted > 0) notifyObserversNow()
     }
 
+    fun clearSkippedUploads() {
+        val user = currentAccountProvider.user
+        val deleted = contentResolver.delete(
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_SUCCEEDED.value +
+                AND + ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY + EQUAL + NameCollisionPolicy.SKIP.serialize() +
+                AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL,
+            arrayOf(user.accountName)
+        )
+        Log_OC.d(TAG, "delete all skipped uploads")
+        if (deleted > 0) notifyObserversNow()
+    }
+
     fun updateDatabaseUploadResult(uploadResult: RemoteOperationResult<*>, upload: UploadFileOperation) {
         Log_OC.d(TAG, "updateDatabaseUploadResult uploadResult: $uploadResult upload: $upload")
 

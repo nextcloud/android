@@ -113,7 +113,11 @@
     <string name="authenticator_activity_login_error">Bhí fadhb ann d\'iarratas logáil isteach a phróiseáil. Bain triail eile as ar ball le do thoil.</string>
     <string name="authenticator_activity_no_web_browser_found">Níl aon bhrabhsálaí ar fáil chun an nasc seo a oscailt.</string>
     <string name="authenticator_activity_please_complete_login_process">Críochnaigh an próiseas logáil isteach i do bhrabhsálaí le do thoil</string>
+    <string name="auto_upload_background_activity_action">Ceadaigh gníomhaíocht chúlra</string>
+    <string name="auto_upload_battery_optimization_reason">Tá gníomhaíocht chúlra Nextcloud teoranta ag optamú ceallraí.</string>
+    <string name="auto_upload_battery_saver_action">Oscail socruithe coigilte ceallraí</string>
     <string name="auto_upload_battery_saver_mode_warning">Tá an uaslódáil uathoibríoch ar sos mar go bhfuil Coigilteoir Ceallraí ar siúl.</string>
+    <string name="auto_upload_battery_saver_reason">Tá an coigilteoir ceallraí gníomhach agus d’fhéadfadh sé go gcuirfí sos ar uaslódálacha.</string>
     <string name="auto_upload_delete_dialog_description">This will remove the folder and auto-upload configuration. Any unfinished uploads will be canceled.</string>
     <string name="auto_upload_delete_dialog_title">Scrios an fillteán uath-uaslódála?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">coinnithe sa bhunfhillteán, mar atá sé inléite amháin</string>
@@ -776,6 +780,7 @@
     <string name="prefs_manage_accounts">Bainistigh cuntais</string>
     <string name="prefs_recommend">Mol do chara</string>
     <string name="prefs_remove_e2e">Bain criptiú go háitiúil</string>
+    <string name="prefs_remove_e2e_keys_and_files">Bain comhaid agus eochracha criptithe</string>
     <string name="prefs_setup_e2e">Socraigh criptiú ceann go ceann</string>
     <string name="prefs_show_ecosystem_apps">Taispeáin athróir aip</string>
     <string name="prefs_show_ecosystem_apps_summary">Moltaí aip Nextcloud sa cheannteideal nascleanúna</string>
@@ -815,6 +820,7 @@
     <string name="remote">(iargúlta)</string>
     <string name="remote_file_fetch_failed">Theip ar an gcomhad a aimsiú!</string>
     <string name="remove_e2e">Is féidir leat criptiú ceann go ceann a bhaint go háitiúil ar an gcliant seo</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Bainfear gach comhad criptithe, eochracha príobháideacha agus poiblí leis an oibríocht seo. An bhfuil tú cinnte?</string>
     <string name="remove_e2e_message">Is féidir leat criptiú ceann go ceann a bhaint go háitiúil ar an gcliant seo. Fanfaidh na comhaid criptithe ar an bhfreastalaí, ach ní shioncronófar iad leis an ríomhaire seo a thuilleadh.</string>
     <string name="remove_fail_msg">Theip ar an scriosadh</string>
     <string name="remove_local_account">Bain an cuntas áitiúil</string>
@@ -1105,6 +1111,8 @@
     <string name="upload_local_storage_full">Stóráil áitiúil lán</string>
     <string name="upload_local_storage_not_copied">Níorbh fhéidir an comhad a chóipeáil go dtí an stóras áitiúil</string>
     <string name="upload_lock_failed">Theip ar ghlasáil an fhillteáin</string>
+    <string name="upload_locked_message">Tá an freastalaí gnóthach. Ag iarraidh arís…</string>
+    <string name="upload_locked_title">Uaslódáil ar siúl</string>
     <string name="upload_manually_cancelled">Chuir an t-úsáideoir an uaslódáil ar ceal</string>
     <string name="upload_missing_storage_permission_allow_file_access">Ceadaigh rochtain ar chomhaid uile</string>
     <string name="upload_missing_storage_permission_app_permissions">Ceadanna aipeanna</string>
@@ -1347,33 +1355,26 @@
         <item quantity="many">%d roghnaithe</item>
         <item quantity="other">%d roghnaithe</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="two">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="few">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="many">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="other">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Déan iarracht arís i %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="two">Déan iarracht arís i %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="few">Déan iarracht arís i %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="many">Déan iarracht arís i %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="other">Déan iarracht arís i %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
     </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="two">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="few">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="many">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
-        <item quantity="other">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Déan iarracht arís i %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="two">Déan iarracht arís i %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="few">Déan iarracht arís i %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="many">Déan iarracht arís i %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="other">Déan iarracht arís i %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
     </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Moill %d nóiméad</item>
-        <item quantity="two">Moill %d nóiméad</item>
-        <item quantity="few">Moill %d nóiméad</item>
-        <item quantity="many">Moill %d nóiméad</item>
-        <item quantity="other">Moill %d nóiméad</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d soicind</item>
-        <item quantity="two">%d soicind</item>
-        <item quantity="few">%d soicind</item>
-        <item quantity="many">%d soicind</item>
-        <item quantity="other">%d soicind</item>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Déan iarracht eile i %1$d nóiméad agus %2$d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="two">Déan iarracht eile i %1$d nóiméad agus %2$d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="few">Déan iarracht eile i %1$d nóiméad agus %2$d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="many">Déan iarracht eile i %1$d nóiméad agus %2$d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="other">Déan iarracht eile i %1$d nóiméad agus %2$d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d íosluchtú fágtha</item>

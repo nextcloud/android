@@ -1114,18 +1114,6 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d개 선택됨</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="other">너무 많은 잘못된 시도로 %d초 지연</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="other">너무 많은 잘못된 시도로 %d분 지연</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="other">%d분 지연됨</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="other">%d초</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">%1$d 다운로드가 남았습니다</item>
     </plurals>

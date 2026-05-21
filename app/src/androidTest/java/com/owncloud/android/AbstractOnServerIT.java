@@ -205,12 +205,12 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
             public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
-
+                callback.onComplete(true);
             }
 
             @Override
             public boolean isConnected() {
-                return false;
+                return true;
             }
 
             @Override
@@ -225,6 +225,11 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         };
 
         PowerManagementService powerManagementServiceMock = new PowerManagementService() {
+            @Override
+            public boolean isIgnoringOptimization() {
+                return true;
+            }
+
             @NonNull
             @Override
             public BatteryStatus getBattery() {
@@ -248,7 +253,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             user,
             null,
             ocUpload,
-            NameCollisionPolicy.DEFAULT,
+            NameCollisionPolicy.OVERWRITE,
             localBehaviour,
             targetContext,
             false,

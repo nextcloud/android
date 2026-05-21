@@ -113,7 +113,11 @@
     <string name="authenticator_activity_login_error">Помилка під час обробки запиту на вхід. Спробуйте пізніше.</string>
     <string name="authenticator_activity_no_web_browser_found">Відсутній бравзер для відкриття цього посилання.</string>
     <string name="authenticator_activity_please_complete_login_process">Завершити авторизацію у бравзері</string>
+    <string name="auto_upload_background_activity_action">Дозволити фонову активність</string>
+    <string name="auto_upload_battery_optimization_reason">Фонова активність Nextcloud обмежено оптимізацією батареї</string>
+    <string name="auto_upload_battery_saver_action">Відкрити налаштування заощадження батареї</string>
     <string name="auto_upload_battery_saver_mode_warning">Автозавантаження призупинено, оскільки увімкнено заощадження батареї.</string>
+    <string name="auto_upload_battery_saver_reason">Увімкнено заощадження батареї, що може призвести до призупинення завантаження.</string>
     <string name="auto_upload_delete_dialog_description">Таким чином буде вилучено каталог та налаштування автоматичного завантаження. Всі незавершені завантаження буде скасовано.</string>
     <string name="auto_upload_delete_dialog_title">Вилучити каталог автозавантаження?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">залишено у вихідному каталозі, оскільки він доступний лише для читання</string>
@@ -776,6 +780,7 @@
     <string name="prefs_manage_accounts">Облікові записи</string>
     <string name="prefs_recommend">Рекомендувати застосунок</string>
     <string name="prefs_remove_e2e">Вилучити шифрування на пристрої</string>
+    <string name="prefs_remove_e2e_keys_and_files">Вилучити зашифровані файли та ключі шифрування</string>
     <string name="prefs_setup_e2e">Налаштувати наскрізне шифрування</string>
     <string name="prefs_show_ecosystem_apps">Показувати перемикач застосунків</string>
     <string name="prefs_show_ecosystem_apps_summary">Пропозиції застосунків Nextcloud у заголовку навігації</string>
@@ -815,6 +820,7 @@
     <string name="remote">(віддалено)</string>
     <string name="remote_file_fetch_failed">Не знайдено файл!</string>
     <string name="remove_e2e">Ви можете вилучити наскрізне шифрування на пристрої на цьому клієнті</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">У результаті цієї дії всі зашировані файли, приватні та публічні ключі буде вилучено. Продовжити?</string>
     <string name="remove_e2e_message">Ви можете вилучити наскрізне шифрування на пристрої на цьому клієнті. Зашифровані файли залишатимуться на сервері, але більше не синхронізуватимуться з цим комп\'ютером.</string>
     <string name="remove_fail_msg">Помилка під час вилучення</string>
     <string name="remove_local_account">Вилучити обліковий запис на пристрої</string>
@@ -1105,6 +1111,8 @@
     <string name="upload_local_storage_full">Локальне сховище заповнено</string>
     <string name="upload_local_storage_not_copied">Неможливо скопіювати файл до внутрішнього сховища</string>
     <string name="upload_lock_failed">Неможливо заблокувати каталог</string>
+    <string name="upload_locked_message">Сервер зайнятий. Повторна спроба...</string>
+    <string name="upload_locked_title">Триває завантаження</string>
     <string name="upload_manually_cancelled">Завантаження скасовано користувачем</string>
     <string name="upload_missing_storage_permission_allow_file_access">Дозволити повний доступ до файлів</string>
     <string name="upload_missing_storage_permission_app_permissions">Дозволи застосунків</string>
@@ -1327,29 +1335,23 @@
         <item quantity="many">%d вибрано</item>
         <item quantity="other">%d вибрано</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Павза у %d секунду внаслідок багатьох неправильних спроб</item>
-        <item quantity="few">Павза у %d секунди внаслідок багатьох неправильних спроб</item>
-        <item quantity="many">Павза у %d секунд внаслідок багатьох неправильних спроб</item>
-        <item quantity="other">Павза у %d секунд внаслідок багатьох неправильних спроб</item>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Спробувати знову за %d секунду через багато невдалих спроб</item>
+        <item quantity="few">Спробувати знову за %d секунди через багато невдалих спроб</item>
+        <item quantity="many">Спробувати знову за %d секунд через багато невдалих спроб</item>
+        <item quantity="other">Спробувати знову за %d секунд через багато невдалих спроб</item>
     </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Павза у %d хвилину внаслідок багатьох неправильних спроб</item>
-        <item quantity="few">Павза у %d хвилини внаслідок багатьох неправильних спроб</item>
-        <item quantity="many">Павза у %d хвилин внаслідок багатьох неправильних спроб</item>
-        <item quantity="other">Павза у %d хвилин внаслідок багатьох неправильних спроб</item>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Спробувати знову за %d хвилину через багато невдалих спроб</item>
+        <item quantity="few">Спробувати знову за %d хвилини через багато невдалих спроб</item>
+        <item quantity="many">Спробувати знову за %d хвилин через багато невдалих спроб</item>
+        <item quantity="other">Спробувати знову за %d хвилин через багато невдалих спроб</item>
     </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Павза у %d хвилину</item>
-        <item quantity="few">Павза у %d хвилини</item>
-        <item quantity="many">Павза у %d хвилин</item>
-        <item quantity="other">Павза у %d хвилин</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d секунда</item>
-        <item quantity="few">%d секунди</item>
-        <item quantity="many">%d секунд</item>
-        <item quantity="other">%d секунд</item>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Спробувати знову за %1$d хвилину %2$d секунд через багато невдалих спроб</item>
+        <item quantity="few">Спробувати знову за %1$d хвилини %2$d секунд через багато невдалих спроб</item>
+        <item quantity="many">Спробувати знову за %1$d хвилин %2$d секунд через багато невдалих спроб</item>
+        <item quantity="other">Спробувати знову за %1$d хвилин %2$d секунд через багато невдалих спроб</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d залишилося завантажити</item>

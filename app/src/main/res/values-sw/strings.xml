@@ -1268,22 +1268,6 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d imechaguliwa </item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Delayed %d second due to too many wrong attempts</item>
-        <item quantity="other">Imechelewa kwa sekunde %d kwa sababu ya majaribio mengi yasiyo sahihi</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Delayed %d minute due to too many wrong attempts</item>
-        <item quantity="other">Imechelewa kwa dakika %d kwa sababu ya majaribio mengi yasiyo sahihi</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Delayed %d minute</item>
-        <item quantity="other">Imechelewa kwa dakika %d</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d second</item>
-        <item quantity="other">%d sekunde</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d download remaining</item>
         <item quantity="other">%1$dvipakuliwa vilivyosalia</item>

@@ -434,6 +434,8 @@ public final class ErrorMessageAdapter {
             } else if (result.getCode() == ResultCode.QUOTA_EXCEEDED) {
                 message = res.getString(R.string.upload_quota_exceeded);
 
+            } else if (result.getCode() == ResultCode.LOCKED) {
+                message = res.getString(R.string.upload_locked_message);
             }
 
             else if (!TextUtils.isEmpty(result.getHttpPhrase())) {

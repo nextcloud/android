@@ -27,4 +27,10 @@ class EditorUtils @Inject constructor(private val arbitraryDataProvider: Arbitra
     }
 
     fun isEditorAvailable(user: User?, mimeType: String?): Boolean = getEditor(user, mimeType) != null
+
+    fun usesOfficeUserAgent(editor: Editor?): Boolean = editor?.id in OFFICE_EDITOR_IDS
+
+    companion object {
+        private val OFFICE_EDITOR_IDS = setOf("onlyoffice", "eurooffice")
+    }
 }

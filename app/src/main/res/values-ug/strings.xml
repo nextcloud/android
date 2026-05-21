@@ -1244,22 +1244,6 @@
         <item quantity="one">%d تاللاندى</item>
         <item quantity="other">%d تاللاندى</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %d سىكۇنت كېچىكتۈرۈلدى</item>
-        <item quantity="other">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %d سىكۇنت كېچىكتۈرۈلدى</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %d مىنۇت كېچىكتۈرۈلدى</item>
-        <item quantity="other">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %d مىنۇت كېچىكتۈرۈلدى</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">%d مىنۇت كېچىكتۈرۈلدى</item>
-        <item quantity="other">%d مىنۇت كېچىكتۈرۈلدى</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d سېكۇنت</item>
-        <item quantity="other">%d سېكۇنت</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d چۈشۈرۈش قالدى</item>
         <item quantity="other">%1$d چۈشۈرۈش قالدى</item>

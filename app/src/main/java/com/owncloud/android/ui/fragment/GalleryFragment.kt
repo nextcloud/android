@@ -24,12 +24,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.utils.extensions.getAllGalleryItemsSuspended
 import com.nextcloud.utils.extensions.getParcelableArgument
 import kotlinx.coroutines.Job
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.toGalleryItems
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -44,6 +47,10 @@ import com.owncloud.android.ui.adapter.GalleryAdapter
 import com.owncloud.android.ui.asynctasks.GallerySearchTask
 import com.owncloud.android.ui.events.ChangeMenuEvent
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
+import com.owncloud.android.utils.MimeTypeUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Suppress("ForbiddenComment", "ReturnCount", "MagicNumber", "MaxLineLength")
 class GalleryFragment :
@@ -51,6 +58,7 @@ class GalleryFragment :
     GalleryFragmentBottomSheetActions {
     var isPhotoSearchQueryRunning: Boolean = false
     private var photoSearchTask: Job? = null
+    private var showGalleryJob: Job? = null
     private var endDate: Long = 0
     private val limit = 150
     private var adapter: GalleryAdapter? = null
@@ -124,10 +132,11 @@ class GalleryFragment :
     }
 
     override fun onDestroyView() {
-        if (photoSearchTask != null) {
-            photoSearchTask?.cancel()
-            photoSearchTask = null
-        }
+        showGalleryJob?.cancel()
+        showGalleryJob = null
+
+        photoSearchTask?.cancel()
+        photoSearchTask = null
 
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(refreshSearchEventReceiver)
 
@@ -372,12 +381,32 @@ class GalleryFragment :
     fun showAllGalleryItems() {
         val mediaState = bottomSheet?.currMediaState ?: return
 
-        adapter?.showAllGalleryItems(
-            preferences.getLastSelectedMediaFolder(),
-            mediaState,
-            this
-        )
-        updateSubtitle(mediaState)
+        showGalleryJob?.cancel()
+        showGalleryJob = lifecycleScope.launch(Dispatchers.Default) {
+            val remotePath = preferences.getLastSelectedMediaFolder()
+            val items = mContainerActivity.storageManager.getAllGalleryItemsSuspended()
+
+            val isPhotosOnly = mediaState == MediaState.MEDIA_STATE_PHOTOS_ONLY
+            val isVideosOnly = mediaState == MediaState.MEDIA_STATE_VIDEOS_ONLY
+
+            val filteredItems = items.filter {
+                if (!it.remotePath.startsWith(remotePath)) return@filter false
+                if (isPhotosOnly) return@filter MimeTypeUtil.isImage(it.mimeType)
+                if (isVideosOnly) return@filter MimeTypeUtil.isVideo(it.mimeType)
+                true
+            }
+
+            val galleryItems =
+                filteredItems.toGalleryItems(columnsCount, ThumbnailsCacheManager.getThumbnailDimension())
+
+            withContext(Dispatchers.Main) {
+                if (galleryItems.isEmpty()) {
+                    setEmptyListMessage(SearchType.GALLERY_SEARCH)
+                }
+                adapter?.updateList(galleryItems)
+                updateSubtitle(mediaState)
+            }
+        }
     }
 
     private fun updateSubtitle(mediaState: MediaState?) {

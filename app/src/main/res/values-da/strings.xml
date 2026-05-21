@@ -1208,22 +1208,6 @@
         <item quantity="one">%d valgt</item>
         <item quantity="other">%d valgt</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Forsinket %d sekund på grund af for mange forkerte forsøg</item>
-        <item quantity="other">Forsinket %d sekunder på grund af for mange forkerte forsøg</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Forsinket %d minut på grund af for mange forkerte forsøg</item>
-        <item quantity="other">Forsinket %d minutter på grund af for mange forkerte forsøg</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Forsinket %d minut</item>
-        <item quantity="other">Forsinket %d minutter</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d sekund</item>
-        <item quantity="other">%d sekunder</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d resterende downloads</item>
         <item quantity="other">%1$d resterende downloads</item>

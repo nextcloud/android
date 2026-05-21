@@ -1273,22 +1273,6 @@
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionados</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Atrasado %d segundo por mor de demasiados intentos errados</item>
-        <item quantity="other">Atrasado %d segundos por mor de demasiados intentos errados</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Atrasado %d minuto por mor de demasiados intentos errados</item>
-        <item quantity="other">Atrasado %d minutos por mor de demasiados intentos errados</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Atrasado %d minuto</item>
-        <item quantity="other">Atrasado %d minutos</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d segundo</item>
-        <item quantity="other">%d segundos</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d descarga restante</item>
         <item quantity="other">%1$d descargas restantes</item>

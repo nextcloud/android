@@ -102,7 +102,6 @@ class UploadListAdapter(
 
         bindHeaderTitle(headerViewHolder, group, section)
         bindHeaderActionButton(headerViewHolder, group)
-        bindHeaderBatterySaverWarning(headerViewHolder)
         bindHeaderActionClickListener(headerViewHolder, group)
     }
 
@@ -123,17 +122,11 @@ class UploadListAdapter(
 
     private fun bindHeaderActionButton(holder: HeaderViewHolder, group: UploadListSection) {
         val iconRes = when (group.type) {
-            UploadListType.CURRENT, UploadListType.COMPLETED -> R.drawable.ic_close
+            UploadListType.CURRENT, UploadListType.COMPLETED, UploadListType.SKIPPED -> R.drawable.ic_close
             UploadListType.CANCELLED, UploadListType.FAILED -> R.drawable.ic_dots_vertical
             else -> return
         }
         holder.binding.uploadListAction.setImageResource(iconRes)
-    }
-
-    private fun bindHeaderBatterySaverWarning(holder: HeaderViewHolder) {
-        holder.binding.autoUploadBatterySaverWarningCard.root
-            .setVisibleIf(powerManagementService.isPowerSavingEnabled)
-        viewThemeUtils.material.themeCardView(holder.binding.autoUploadBatterySaverWarningCard.root)
     }
 
     private fun bindHeaderActionClickListener(holder: HeaderViewHolder, group: UploadListSection) {
@@ -143,6 +136,11 @@ class UploadListAdapter(
 
                 UploadListType.COMPLETED -> {
                     uploadsStorageManager.clearSuccessfulUploads()
+                    loadUploadItemsFromDb()
+                }
+
+                UploadListType.SKIPPED -> {
+                    uploadsStorageManager.clearSkippedUploads()
                     loadUploadItemsFromDb()
                 }
 
