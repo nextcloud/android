@@ -338,6 +338,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public String getFolderLayout(FolderLayout layout) {
         if (layout instanceof FolderLayout.Child child) {
+            // keep existing logic for child directories
             return getFolderPreference(context,
                                        userAccountManager.getUser(),
                                        layout.getKey(),
@@ -364,6 +365,7 @@ public final class AppPreferencesImpl implements AppPreferences {
             return;
         }
 
+        // only use new way for root shared, favorite and all files
         preferences.edit()
             .putString(layout.getPrefKey(userAccountManager.getUser()), layoutName)
             .apply();
