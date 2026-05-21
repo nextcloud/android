@@ -1275,27 +1275,20 @@
 
     <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
 
-    <plurals name="delay_message">
-        <item quantity="one">Delayed %d second due to too many wrong attempts</item>
-        <item quantity="other">Delayed %d seconds due to too many wrong attempts</item>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Try again in %d second due to too many wrong attempts</item>
+        <item quantity="other">Try again in %d seconds due to too many wrong attempts</item>
     </plurals>
 
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Delayed %d minute due to too many wrong attempts</item>
-        <item quantity="other">Delayed %d minutes due to too many wrong attempts</item>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Try again in %d minute due to too many wrong attempts</item>
+        <item quantity="other">Try again in %d minutes due to too many wrong attempts</item>
     </plurals>
 
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Delayed %d minute</item>
-        <item quantity="other">Delayed %d minutes</item>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Try again in %1$d minute and %2$d seconds due to too many wrong attempts</item>
+        <item quantity="other">Try again in %1$d minutes and %2$d seconds due to too many wrong attempts</item>
     </plurals>
-
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d second</item>
-        <item quantity="other">%d seconds</item>
-    </plurals>
-
-    <string name="due_to_too_many_wrong_attempts">%s due to too many wrong attempts</string>
 
 
     <string name="create">Create</string>
