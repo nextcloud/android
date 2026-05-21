@@ -181,7 +181,7 @@ class RenameFileDialogFragment :
                     typedActivity<ComponentsGetter>()?.fileOperationsHelper?.renameFile(targetFile, newFileName)
                 } else {
                     fileDataStorageManager.addRenameFileOfflineOperation(targetFile, newFileName)
-                    fda.refreshCurrentDirectory()
+                    fda?.refreshCurrentDirectory()
                 }
             }
         }
