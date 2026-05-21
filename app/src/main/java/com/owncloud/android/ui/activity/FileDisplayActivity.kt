@@ -2184,6 +2184,11 @@ class FileDisplayActivity :
             return
         }
 
+        if (!result.isSuccess) {
+            Log_OC.e(TAG, "deletion failed")
+            return
+        }
+
         val removedFile = operation.file
         tryStopPlaying(removedFile)
         val leftFragment = this.leftFragment
