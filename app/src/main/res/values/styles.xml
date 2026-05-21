@@ -294,6 +294,13 @@
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
+    <style name="Theme.ownCloud.ShareDialog" parent="@style/Theme.ownCloud.Dialog.NoTitle">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
     <style name="NavigationView_ItemTextAppearance">
         <item name="android:ellipsize">end</item>
         <item name="android:listDivider">@color/transparent</item>

@@ -24,7 +24,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 class OverlayManager @Inject constructor(
-    private val syncedFolderProvider: SyncedFolderProvider,
     private val preferences: AppPreferences,
     private val viewThemeUtils: ViewThemeUtils,
     private val context: Context,

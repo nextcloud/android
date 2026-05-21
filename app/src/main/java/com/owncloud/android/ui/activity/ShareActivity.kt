@@ -13,7 +13,6 @@
  */
 package com.owncloud.android.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
@@ -36,10 +35,10 @@ import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.overlay.OverlayManager
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class ShareActivity :
     FileActivity(),
@@ -56,6 +55,7 @@ class ShareActivity :
 
         val binding = ShareActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        configureDialogWindow()
 
         val currentUser = user.orElse(null) ?: run {
             finish()
@@ -72,6 +72,14 @@ class ShareActivity :
         if (savedInstanceState == null) {
             showSharingFragment(file, currentUser)
         }
+    }
+
+    private fun configureDialogWindow() {
+        val displayMetrics = resources.displayMetrics
+        window?.setLayout(
+            (displayMetrics.widthPixels * DIALOG_RATIO).toInt(),
+            (displayMetrics.heightPixels * DIALOG_RATIO).toInt()
+        )
     }
 
     override fun onStart() {
@@ -108,8 +116,8 @@ class ShareActivity :
     }
 
     private fun setupHeader(binding: ShareActivityBinding, file: OCFile, user: User) {
-        binding.shareBackButton.setOnClickListener { navigateToParentFolder(user) }
-        viewThemeUtils.platform.colorImageView(binding.shareBackButton, ColorRole.ON_SURFACE)
+        binding.shareCloseButton.setOnClickListener { finish() }
+        viewThemeUtils.platform.colorImageView(binding.shareCloseButton, ColorRole.ON_SURFACE)
         setupFileIcon(binding, file, user)
         with(binding) {
             shareFileName.text = getString(R.string.share_file, file.fileName)
@@ -151,7 +159,7 @@ class ShareActivity :
         lifecycleScope.launch(Dispatchers.IO) {
             val result = ReadFileRemoteOperation(file.remotePath).execute(user, this@ShareActivity)
             if (result.isSuccess) {
-                val length = (result.data.first() as RemoteFile).length
+                val length = (result.data.first() as? RemoteFile)?.length ?: return@launch
                 file.fileLength = length
                 withContext(Dispatchers.Main) {
                     binding.shareFileSize.text = DisplayUtils.bytesToHumanReadable(length)
@@ -177,34 +185,9 @@ class ShareActivity :
     private val shareFileFragment: FileDetailSharingFragment?
         get() = supportFragmentManager.findFragmentByTag(TAG_SHARE_FRAGMENT) as? FileDetailSharingFragment
 
-    private fun navigateToParentFolder(user: User) {
-        val file = file ?: run {
-            finish()
-            return
-        }
-        val parentFolder = if (file.isFolder) {
-            file
-        } else {
-            storageManager.getFileByDecryptedRemotePath(file.parentRemotePath)
-        }
-
-        if (parentFolder == null) {
-            finish()
-            return
-        }
-
-        Intent(this, FileDisplayActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            putExtra(EXTRA_FILE, parentFolder)
-            putExtra(EXTRA_USER, user)
-        }.also {
-            startActivity(it)
-            finish()
-        }
-    }
-
     companion object {
         private val TAG: String = ShareActivity::class.java.simpleName
         const val TAG_SHARE_FRAGMENT: String = "SHARE_FRAGMENT"
+        private const val DIALOG_RATIO = 1.0
     }
 }

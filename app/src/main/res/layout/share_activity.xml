@@ -7,76 +7,92 @@
   ~ SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
   ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/standard_padding"
+    android:padding="@dimen/standard_padding"
     tools:context="com.owncloud.android.ui.activity.ShareActivity">
 
-    <RelativeLayout
-        android:id="@+id/shareHeaderContainer"
+    <LinearLayout
+        android:id="@+id/actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/standard_padding">
-
-        <ImageButton
-            android:id="@+id/shareBackButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/common_back"
-            android:src="@drawable/ic_arrow_back" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/standard_padding"
+        android:paddingVertical="@dimen/standard_half_padding"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/shareFileIcon"
             android:layout_width="@dimen/file_icon_size"
             android:layout_height="@dimen/file_icon_size"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/standard_half_margin"
-            android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_toEndOf="@+id/shareBackButton"
             android:contentDescription="@null"
+            android:scaleType="centerCrop"
             android:src="@drawable/file" />
 
-        <TextView
-            android:id="@+id/shareFileName"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/standard_quarter_margin"
-            android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_toEndOf="@+id/shareFileIcon"
-            android:ellipsize="middle"
-            android:singleLine="true"
-            android:text="@string/placeholder_filename"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/two_line_primary_text_size" />
+            android:layout_weight="1"
+            android:layout_marginHorizontal="@dimen/standard_half_margin"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/shareFileSize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/shareFileName"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/standard_quarter_margin"
-            android:layout_toEndOf="@+id/shareFileIcon"
-            android:text="@string/placeholder_fileSize"
-            android:textSize="@dimen/share_file_layout_text_size" />
+            <TextView
+                android:id="@+id/shareFileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:text="@string/placeholder_filename"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/two_line_primary_text_size" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/shareFileSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_fileSize"
+                android:textSize="@dimen/share_file_layout_text_size" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/shareCloseButton"
+            android:layout_width="@dimen/notification_icon_width"
+            android:layout_height="@dimen/notification_icon_width"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/common_back"
+            android:src="@drawable/ic_close" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/shareHeaderBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="actionbar" />
 
     <View
         android:id="@+id/share_header_divider"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/standard_eighth_margin"
-        android:background="@color/primary" />
+        android:background="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shareHeaderBarrier" />
 
     <FrameLayout
         android:id="@+id/share_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/share_header_divider" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
