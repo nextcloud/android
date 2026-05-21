@@ -65,7 +65,7 @@ class OCFileListBottomSheetDialog(
             themeUtils.getDefaultDisplayNameForRootFolder(context)
         )
 
-        checkTemplateVisibility()
+        // checkTemplateVisibility()
         initCreatorContainer()
 
         if (!deviceInfo.hasCamera(context)) {
@@ -126,23 +126,6 @@ class OCFileListBottomSheetDialog(
         }
     }
 
-    @Suppress("ComplexCondition")
-    private fun checkTemplateVisibility() {
-        val optionalCapability = fileActivity.capabilities
-        if (optionalCapability.isPresent) {
-            val capability = optionalCapability.get()
-            if (capability.richDocuments.isTrue &&
-                capability.richDocumentsDirectEditing.isTrue &&
-                capability.richDocumentsTemplatesAvailable.isTrue &&
-                !file.isEncrypted
-            ) {
-                binding.menuNewDocument.visibility = View.VISIBLE
-                binding.menuNewSpreadsheet.visibility = View.VISIBLE
-                binding.menuNewPresentation.visibility = View.VISIBLE
-            }
-        }
-    }
-
     @Suppress("DEPRECATION", "LongMethod", "MagicNumber")
     private fun initCreatorContainer() {
         val json = ArbitraryDataProviderImpl(context)
@@ -179,12 +162,7 @@ class OCFileListBottomSheetDialog(
                     gravity = Gravity.START or Gravity.CENTER_VERTICAL
                     setPaddingRelative(standardPadding, 0, standardPadding, 0)
 
-                    val buttonText = String.format(
-                        fileActivity.getString(R.string.editor_placeholder),
-                        fileActivity.getString(R.string.create_new),
-                        creator.name
-                    )
-                    text = buttonText
+                    text = creator.name
                     setTextColor(ContextCompat.getColor(context, R.color.text_color))
                     textSize = 16f
                     isAllCaps = false
@@ -201,7 +179,7 @@ class OCFileListBottomSheetDialog(
                     iconTint = null
 
                     setOnClickListener {
-                        actions.showTemplate(creator, buttonText)
+                        actions.showTemplate(creator, creator.name)
                         dismiss()
                     }
                 }
@@ -275,21 +253,6 @@ class OCFileListBottomSheetDialog(
                 actions.uploadFiles()
                 dismiss()
             }
-
-            menuNewDocument.setOnClickListener {
-                actions.newDocument()
-                dismiss()
-            }
-
-            menuNewSpreadsheet.setOnClickListener {
-                actions.newSpreadsheet()
-                dismiss()
-            }
-
-            menuNewPresentation.setOnClickListener {
-                actions.newPresentation()
-                dismiss()
-            }
         }
     }
 
@@ -305,9 +268,6 @@ class OCFileListBottomSheetDialog(
                     menuUploadFromApp.visibility = View.GONE
                     menuDirectCameraUpload.visibility = View.GONE
                     menuScanDocUpload.visibility = View.GONE
-                    menuNewDocument.visibility = View.GONE
-                    menuNewSpreadsheet.visibility = View.GONE
-                    menuNewPresentation.visibility = View.GONE
                     creatorsContainer.visibility = View.GONE
                 }
             }
