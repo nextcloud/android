@@ -2368,7 +2368,11 @@ class FileDisplayActivity :
             onRenameFileOperationFinishForFileFragment(leftFragment, renamedFile, currentUser)
         }
 
-        updateListOfFilesFragment()
+        val file = storageManager.getFileById(renamedFile.parentId)
+        if (file != null && file == getCurrentDir()) {
+            updateListOfFilesFragment()
+        }
+
         refreshGalleryFragmentIfNeeded()
         fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
     }
