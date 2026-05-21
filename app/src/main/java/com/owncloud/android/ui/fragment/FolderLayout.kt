@@ -30,10 +30,9 @@ sealed class FolderLayout(val key: String) {
                 return Child(folder)
             }
 
-            return when {
-                searchType == SearchType.SHARED_FILTER -> Shared
-                searchType == SearchType.FAVORITE_SEARCH -> Favorites
-                folder == null || folder.isRootDirectory -> AllFiles
+            return when (searchType) {
+                SearchType.SHARED_FILTER -> Shared
+                SearchType.FAVORITE_SEARCH -> Favorites
                 else -> AllFiles
             }
         }
