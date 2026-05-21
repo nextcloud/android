@@ -56,6 +56,15 @@ interface FileDao {
     )
     fun getGalleryItems(startDate: Long, endDate: Long, fileOwner: String): List<FileEntity>
 
+    @Query(
+        "SELECT * FROM filelist WHERE modified >= :startDate" +
+            " AND modified < :endDate" +
+            " AND (content_type LIKE 'image/%' OR content_type LIKE 'video/%')" +
+            " AND file_owner = :fileOwner" +
+            " ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}"
+    )
+    suspend fun getGalleryItemsSuspended(startDate: Long, endDate: Long, fileOwner: String): List<FileEntity>
+
     @Query("SELECT * FROM filelist WHERE file_owner = :fileOwner ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
     fun getAllFiles(fileOwner: String): List<FileEntity>
 
