@@ -21,27 +21,15 @@ import com.owncloud.android.utils.FileSortOrder
 
 class FileListLayoutManager(private val fragment: OCFileListFragment, private val preferences: AppPreferences) {
 
-    enum class FolderLayout {
-        Shared,
-        Favorites,
-        AllFiles,
-        Child
-    }
-
     fun sortFiles(sortOrder: FileSortOrder?) {
         fragment.mSortButton?.setText(DisplayUtils.getSortOrderStringId(sortOrder))
         sortOrder?.let { fragment.mAdapter.setSortOrder(fragment.mFile, it) }
     }
 
-    private fun resolveLayoutType(): FolderLayout = when {
-        fragment.getCurrentSearchType() == SearchType.SHARED_FILTER -> FolderLayout.Shared
-        fragment.getCurrentSearchType() == SearchType.FAVORITE_SEARCH -> FolderLayout.Favorites
-        fragment.mFile == null || fragment.mFile.isRootDirectory -> FolderLayout.AllFiles
-        else -> FolderLayout.Child
+    fun isGridViewPreferred(): Boolean {
+        val layout = FolderLayout.get(fragment.mFile, fragment.currentSearchType)
+        return preferences.getFolderLayout(layout) == OCFileListFragment.FOLDER_LAYOUT_GRID
     }
-
-    fun isGridViewPreferred(): Boolean =
-        OCFileListFragment.FOLDER_LAYOUT_GRID == preferences.getFolderLayout(resolveLayoutType())
 
     fun setLayoutViewMode() {
         val isGrid = isGridViewPreferred()
@@ -56,7 +44,8 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
     }
 
     fun setListAsPreferred() {
-        preferences.setFolderLayout(resolveLayoutType(), OCFileListFragment.FOLDER_LAYOUT_LIST)
+        val layout = FolderLayout.get(fragment.mFile, fragment.currentSearchType)
+        preferences.setFolderLayout(layout, OCFileListFragment.FOLDER_LAYOUT_LIST)
         switchToListView()
     }
 
@@ -67,7 +56,8 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
     }
 
     fun setGridAsPreferred() {
-        preferences.setFolderLayout(resolveLayoutType(), OCFileListFragment.FOLDER_LAYOUT_GRID)
+        val layout = FolderLayout.get(fragment.mFile, fragment.currentSearchType)
+        preferences.setFolderLayout(layout, OCFileListFragment.FOLDER_LAYOUT_GRID)
         switchToGridView()
     }
 
