@@ -468,7 +468,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
         boolean isGridViewPreferred = false;
         if (fileListLayoutManager != null) {
-            isGridViewPreferred = fileListLayoutManager.isGridViewPreferred(mFile);
+            isGridViewPreferred = fileListLayoutManager.isGridViewPreferred();
         }
 
         mAdapter = new OCFileListAdapter(

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.preferences.AppPreferences
-import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.OCFileListAdapter
 import com.owncloud.android.utils.DisplayUtils
@@ -22,8 +21,11 @@ import com.owncloud.android.utils.FileSortOrder
 
 class FileListLayoutManager(private val fragment: OCFileListFragment, private val preferences: AppPreferences) {
 
-    companion object {
-        private var lastLayout = OCFileListFragment.FOLDER_LAYOUT_LIST
+    enum class FolderLayout {
+        Shared,
+        Favorites,
+        AllFiles,
+        Child
     }
 
     fun sortFiles(sortOrder: FileSortOrder?) {
@@ -31,26 +33,18 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
         sortOrder?.let { fragment.mAdapter.setSortOrder(fragment.mFile, it) }
     }
 
-    /**
-     * Determines whether a folder should be displayed in grid or list view.
-     *
-     *
-     * The preference is checked for the given folder. If the folder itself does not have a preference set,
-     * it will fall back to its parent folder recursively until a preference is found (root folder is always set).
-     * Additionally, if a search event is active and is of type `SHARED_FILTER`, grid view is disabled.
-     *
-     * @param folder The folder to check, or `null` to refer to the root folder.
-     * @return `true` if the folder should be displayed in grid mode, `false` if list mode is preferred.
-     */
-    fun isGridViewPreferred(folder: OCFile?): Boolean = if (fragment.searchEvent != null) {
-        (fragment.searchEvent.toSearchType() != SearchType.SHARED_FILTER) &&
-            (OCFileListFragment.FOLDER_LAYOUT_GRID == preferences.getFolderLayout(folder, lastLayout))
-    } else {
-        OCFileListFragment.FOLDER_LAYOUT_GRID == preferences.getFolderLayout(folder, lastLayout)
+    private fun resolveLayoutType(): FolderLayout = when {
+        fragment.getCurrentSearchType() == SearchType.SHARED_FILTER -> FolderLayout.Shared
+        fragment.getCurrentSearchType() == SearchType.FAVORITE_SEARCH -> FolderLayout.Favorites
+        fragment.mFile == null || fragment.mFile.isRootDirectory -> FolderLayout.AllFiles
+        else -> FolderLayout.Child
     }
 
+    fun isGridViewPreferred(): Boolean =
+        OCFileListFragment.FOLDER_LAYOUT_GRID == preferences.getFolderLayout(resolveLayoutType())
+
     fun setLayoutViewMode() {
-        val isGrid = isGridViewPreferred(fragment.mFile)
+        val isGrid = isGridViewPreferred()
 
         if (isGrid) {
             switchToGridView()
@@ -62,26 +56,24 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
     }
 
     fun setListAsPreferred() {
-        preferences.setFolderLayout(fragment.mFile, OCFileListFragment.FOLDER_LAYOUT_LIST)
+        preferences.setFolderLayout(resolveLayoutType(), OCFileListFragment.FOLDER_LAYOUT_LIST)
         switchToListView()
     }
 
     fun switchToListView() {
         if (fragment.isGridEnabled) {
             switchLayoutManager(false)
-            lastLayout = OCFileListFragment.FOLDER_LAYOUT_LIST
         }
     }
 
     fun setGridAsPreferred() {
-        preferences.setFolderLayout(fragment.mFile, OCFileListFragment.FOLDER_LAYOUT_GRID)
+        preferences.setFolderLayout(resolveLayoutType(), OCFileListFragment.FOLDER_LAYOUT_GRID)
         switchToGridView()
     }
 
     fun switchToGridView() {
         if (!fragment.isGridEnabled) {
             switchLayoutManager(true)
-            lastLayout = OCFileListFragment.FOLDER_LAYOUT_GRID
         }
     }
 

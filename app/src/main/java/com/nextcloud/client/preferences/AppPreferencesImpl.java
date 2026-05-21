@@ -28,6 +28,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
+import com.owncloud.android.ui.fragment.FileListLayoutManager;
 import com.owncloud.android.utils.FileSortOrder;
 
 import java.lang.reflect.Type;
@@ -336,12 +337,12 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public String getFolderLayout(OCFile folder, String defaultLayout) {
+    public String getFolderLayout(OCFile folder) {
         return getFolderPreference(context,
                                    userAccountManager.getUser(),
                                    PREF__FOLDER_LAYOUT,
                                    folder,
-                                   defaultLayout);
+                                   FOLDER_LAYOUT_LIST);
     }
 
     @Override
@@ -351,6 +352,24 @@ public final class AppPreferencesImpl implements AppPreferences {
                             PREF__FOLDER_LAYOUT,
                             folder,
                             layoutName);
+    }
+
+    @Override
+    public String getFolderLayout(FileListLayoutManager.FolderLayout type) {
+        User user = userAccountManager.getUser();
+        if (user.isAnonymous()) {
+            return FOLDER_LAYOUT_LIST;
+        }
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
+        String value = dataProvider.getValue(user.getAccountName(), PREF__FOLDER_LAYOUT + "_" + type);
+        return value.isEmpty() ? FOLDER_LAYOUT_LIST : value;
+    }
+
+    @Override
+    public void setFolderLayout(FileListLayoutManager.FolderLayout type, String layoutName) {
+        User user = userAccountManager.getUser();
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
+        dataProvider.storeOrUpdateKeyValue(user.getAccountName(), PREF__FOLDER_LAYOUT + "_" + type, layoutName);
     }
 
     @Override
