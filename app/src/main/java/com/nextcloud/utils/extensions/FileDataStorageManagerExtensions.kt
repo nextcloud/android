@@ -25,6 +25,11 @@ suspend fun FileDataStorageManager.saveShares(shares: List<OCShare>, accountName
     }
 }
 
+suspend fun FileDataStorageManager.getAllGalleryItemsSuspended(): List<OCFile> {
+    val fileEntities = fileDao.getGalleryItemsSuspended(0, Long.MAX_VALUE, user.accountName)
+    return fileEntities.map { createFileInstance(it) }
+}
+
 fun FileDataStorageManager.searchFilesByName(file: OCFile, accountName: String, query: String): List<OCFile> =
     fileDao.searchFilesInFolder(file.fileId, accountName, query).map {
         createFileInstance(it)
