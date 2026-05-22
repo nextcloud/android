@@ -28,6 +28,8 @@ import com.owncloud.android.operations.RichDocumentsCreateAssetOperation
 import com.owncloud.android.ui.asynctasks.PrintAsyncTask
 import com.owncloud.android.ui.asynctasks.RichDocumentsLoadUrlTask
 import com.owncloud.android.ui.fragment.OCFileListFragment
+import com.owncloud.android.ui.model.DownloadAsV1
+import com.owncloud.android.ui.model.DownloadAsV2
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
@@ -163,22 +165,24 @@ class RichDocumentsEditorWebView : EditorWebView() {
 
         @JavascriptInterface
         fun downloadAs(json: String?) {
-            try {
-                json ?: return
-                val downloadJson = JSONObject(json)
-                val url = downloadJson.getString(URL).toUri()
-                when (downloadJson.getString(TYPE)) {
-                    PRINT -> printFile(url)
+            if (json.isNullOrBlank()) return
 
-                    SLIDESHOW -> showSlideShow(url)
+            var result = DownloadAsV2.tryDeserialize(json)
+            if (result == null) {
+                result = DownloadAsV1.tryDeserialize(json)
+            }
 
-                    else -> {
-                        val downloadFileName = downloadJson.optString(FILENAME, fileName)
-                        downloadFile(url, downloadFileName)
-                    }
+            if (result == null) {
+                return
+            }
+
+            val url = result.url.toUri()
+            when (result.format) {
+                PRINT -> printFile(url)
+                SLIDESHOW -> showSlideShow(url)
+                else -> {
+                    downloadFile(url, result.fileName)
                 }
-            } catch (e: JSONException) {
-                Log_OC.e(this, "Failed to parse download json message: $e")
             }
         }
 
