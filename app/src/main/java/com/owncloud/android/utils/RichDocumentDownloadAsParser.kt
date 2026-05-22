@@ -28,6 +28,7 @@ object RichDocumentDownloadAsParser {
 
     private val json = Json { ignoreUnknownKeys = true }
 
+    @Suppress("TooGenericExceptionCaught")
     fun parse(jsonString: String?): DownloadAs? {
         if (jsonString.isNullOrBlank()) return null
 
