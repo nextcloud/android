@@ -1111,7 +1111,7 @@ public class FileDataStorageManager {
      * Updates database and file system for a file or folder that was moved to a different location.
      */
     public void moveLocalFile(OCFile ocFile, String targetPath, String targetParentPath) {
-        FileDataStorageManagerExtensionsKt.moveLocalFile(this, ocFile, targetPath, targetParentPath);
+        FileDataStorageManagerExtensionsKt.moveFiles(this, ocFile, targetPath, targetParentPath);
     }
 
     public void copyLocalFile(OCFile ocFile, String targetPath) {

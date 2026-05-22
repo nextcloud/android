@@ -64,7 +64,7 @@ fun FileDataStorageManager.getNonEncryptedSubfolders(id: Long, accountName: Stri
 suspend fun FileDataStorageManager.getCapabilitiesByAccountName(accountName: String): OCCapability =
     capabilityDao.getByAccountName(accountName).toOCCapability()
 
-fun FileDataStorageManager.moveLocalFile(ocFile: OCFile?, targetPath: String, targetParentPath: String) {
+fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, targetParentPath: String) {
     Log_OC.d(
         FileDataStorageManager.TAG,
         ("moveLocalFile ==> ocFile: "
@@ -111,11 +111,23 @@ fun FileDataStorageManager.moveLocalFile(ocFile: OCFile?, targetPath: String, ta
     val defaultSavePath = FileStorageUtils.getSavePath(accountName)
 
     val originalMediaPaths =
-        fileDao.moveFileEntities(oldPath, targetPath, defaultSavePath, targetParent.getFileId(), accountName)
+        fileDao.moveFilesInDb(oldPath, targetPath, defaultSavePath, targetParent.fileId, accountName)
 
+    moveLocalFiles(accountName, ocFile, defaultSavePath, targetPath)
+
+    for (originalMediaPath in originalMediaPaths) {
+        deleteFileInMediaScan(originalMediaPath)
+        val newMediaPath = defaultSavePath + targetPath + originalMediaPath.substring(
+            (defaultSavePath + oldPath).length
+        )
+        FileDataStorageManager.triggerMediaScan(newMediaPath)
+    }
+}
+
+private fun moveLocalFiles(accountName: String, ocFile: OCFile, defaultSavePath: String, targetPath: String) {
     val localFile = File(FileStorageUtils.getDefaultSavePathFor(accountName, ocFile))
     if (!localFile.exists()) {
-        Log_OC.d(FileDataStorageManager.TAG, "moveLocalFile: no local file to move at " + localFile.getAbsolutePath())
+        Log_OC.d(FileDataStorageManager.TAG, "moveLocalFile: no local file to move at " + localFile.absolutePath)
         return
     }
 
@@ -135,18 +147,9 @@ fun FileDataStorageManager.moveLocalFile(ocFile: OCFile?, targetPath: String, ta
         )
         return
     }
-
-    for (originalMediaPath in originalMediaPaths) {
-        deleteFileInMediaScan(originalMediaPath)
-        val newMediaPath = defaultSavePath + targetPath + originalMediaPath.substring(
-            (defaultSavePath + oldPath).length
-        )
-        FileDataStorageManager.triggerMediaScan(newMediaPath)
-    }
 }
 
-
-private fun FileDao.moveFileEntities(
+private fun FileDao.moveFilesInDb(
     oldPath: String,
     targetPath: String,
     defaultSavePath: String,
