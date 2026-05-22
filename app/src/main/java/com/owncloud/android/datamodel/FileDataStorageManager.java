@@ -96,7 +96,7 @@ import kotlin.Pair;
 
 @SuppressFBWarnings("CE")
 public class FileDataStorageManager {
-    private static final String TAG = FileDataStorageManager.class.getSimpleName();
+    public static final String TAG = FileDataStorageManager.class.getSimpleName();
 
     private static final String AND = " = ? AND ";
     private static final String FAILED_TO_INSERT_MSG = "Fail to insert insert file to database ";
@@ -1127,58 +1127,9 @@ public class FileDataStorageManager {
 
     /**
      * Updates database and file system for a file or folder that was moved to a different location.
-     * <p>
-     * TODO explore better (faster) implementations TODO throw exceptions up !
      */
     public void moveLocalFile(OCFile ocFile, String targetPath, String targetParentPath) {
-        if (!ocFile.fileExists() || OCFile.ROOT_PATH.equals(ocFile.getFileName())) {
-            return;
-        }
-
-        OCFile targetParent = getFileByPath(targetParentPath);
-        if (targetParent == null) {
-            throw new IllegalStateException("Parent folder of the target path does not exist!!");
-        }
-
-        String oldPath = ocFile.getRemotePath();
-        String accountName = user.getAccountName();
-        String oldPathPattern = oldPath + "%";
-        String defaultSavePath = FileStorageUtils.getSavePath(accountName);
-        String oldStoragePrefix = defaultSavePath + oldPath;
-        String newStoragePrefix = defaultSavePath + targetPath;
-
-        List<String> originalMediaPaths = fileDao.getMediaPathsUnderPath(oldPathPattern, accountName);
-
-        fileDao.moveDescendantDecryptedPaths(oldPathPattern, oldPath.length(), targetPath, accountName);
-        fileDao.moveDescendantPaths(oldPathPattern, oldPath.length(), targetPath, accountName);
-        fileDao.moveDescendantStoragePaths(
-            targetPath + "%", oldStoragePrefix, oldStoragePrefix.length(), newStoragePrefix, accountName
-        );
-        fileDao.updateParent(targetPath, accountName, targetParent.getFileId());
-
-        String originalLocalPath = FileStorageUtils.getDefaultSavePathFor(accountName, ocFile);
-        File localFile = new File(originalLocalPath);
-
-        if (!localFile.exists()) {
-            return;
-        }
-
-        File targetFile = new File(defaultSavePath + targetPath);
-        File targetFolder = targetFile.getParentFile();
-        if (targetFolder != null && !targetFolder.exists() && !targetFolder.mkdirs()) {
-            Log_OC.e(TAG, "Unable to create parent folder " + targetFolder.getAbsolutePath());
-        }
-
-        boolean renamed = localFile.renameTo(targetFile);
-        if (!renamed) {
-            return;
-        }
-
-        for (String originalMediaPath : originalMediaPaths) {
-            deleteFileInMediaScan(originalMediaPath);
-            String newMediaPath = newStoragePrefix + originalMediaPath.substring(oldStoragePrefix.length());
-            triggerMediaScan(newMediaPath);
-        }
+        FileDataStorageManagerExtensionsKt.moveLocalFile(this, ocFile, targetPath, targetParentPath);
     }
 
     public void copyLocalFile(OCFile ocFile, String targetPath) {
