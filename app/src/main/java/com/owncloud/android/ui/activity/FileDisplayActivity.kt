@@ -2375,7 +2375,7 @@ class FileDisplayActivity :
 
         val file = storageManager.getFileById(renamedFile.parentId)
         if (file != null && file == getCurrentDir()) {
-            updateListOfFilesFragment()
+            fileListFragment?.adapter?.updateFile(renamedFile)
         }
 
         refreshGalleryFragmentIfNeeded()

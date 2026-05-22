@@ -81,6 +81,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1122,4 +1123,53 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             notifyDataSetChanged();
         }
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateFile(@NonNull OCFile updatedFile) {
+        long fileId = updatedFile.getFileId();
+
+        IntStream.range(0, mFilesAll.size())
+            .filter(i -> mFilesAll.get(i).getFileId() == fileId)
+            .findFirst()
+            .ifPresent(i -> mFilesAll.set(i, updatedFile));
+
+        int oldIndex = IntStream.range(0, mFiles.size())
+            .filter(i -> mFiles.get(i).getFileId() == fileId)
+            .findFirst()
+            .orElse(-1);
+        if (oldIndex == -1) return;
+
+        mFiles.remove(oldIndex);
+        mFiles.add(updatedFile);
+
+        FileSortOrder currentSortOrder = preferences.getSortOrderByFolder(currentDirectory);
+        if (searchType == SearchType.SHARED_FILTER) {
+            mFiles.sort((o1, o2) -> Long.compare(o2.getFirstShareTimestamp(), o1.getFirstShareTimestamp()));
+        } else {
+            boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
+            boolean favoritesFirst = preferences.isSortFavoritesFirst();
+            mFiles = currentSortOrder.sortCloudFiles(mFiles, foldersBeforeFiles, favoritesFirst);
+        }
+
+        int newIndex = mFiles.indexOf(updatedFile);
+        if (newIndex == -1) {
+            notifyDataSetChanged();
+            return;
+        }
+
+        int headerOffset = shouldShowHeader() ? 1 : 0;
+        int oldAdapterPos = oldIndex + headerOffset;
+        int newAdapterPos = newIndex + headerOffset;
+
+        if (oldAdapterPos != newAdapterPos) {
+            notifyItemMoved(oldAdapterPos, newAdapterPos);
+        }
+        notifyItemChanged(newAdapterPos);
+
+        if (shouldShowRecommendedFiles() && recommendedFilesAdapter != null && updatedFile.isRecommendedFile()) {
+            int pos = recommendedFilesAdapter.getItemPosition(updatedFile);
+            if (pos != -1) recommendedFilesAdapter.notifyItemChanged(pos);
+        }
+    }
+
 }
