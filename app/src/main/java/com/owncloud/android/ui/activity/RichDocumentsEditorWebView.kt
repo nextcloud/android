@@ -28,10 +28,9 @@ import com.owncloud.android.operations.RichDocumentsCreateAssetOperation
 import com.owncloud.android.ui.asynctasks.PrintAsyncTask
 import com.owncloud.android.ui.asynctasks.RichDocumentsLoadUrlTask
 import com.owncloud.android.ui.fragment.OCFileListFragment
-import com.owncloud.android.ui.model.DownloadAsV1
-import com.owncloud.android.ui.model.DownloadAsV2
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.RichDocumentDownloadAsParser
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import org.json.JSONException
 import org.json.JSONObject
@@ -165,17 +164,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
 
         @JavascriptInterface
         fun downloadAs(json: String?) {
-            if (json.isNullOrBlank()) return
-
-            var result = DownloadAsV2.tryDeserialize(json)
-            if (result == null) {
-                result = DownloadAsV1.tryDeserialize(json)
-            }
-
-            if (result == null) {
-                return
-            }
-
+            val result = RichDocumentDownloadAsParser.parse(json) ?: return
             val url = result.url.toUri()
             when (result.format) {
                 PRINT -> printFile(url)
