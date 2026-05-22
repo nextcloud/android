@@ -64,15 +64,18 @@ fun FileDataStorageManager.getNonEncryptedSubfolders(id: Long, accountName: Stri
 suspend fun FileDataStorageManager.getCapabilitiesByAccountName(accountName: String): OCCapability =
     capabilityDao.getByAccountName(accountName).toOCCapability()
 
+@Suppress("ReturnCount")
 fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, targetParentPath: String) {
     Log_OC.d(
         FileDataStorageManager.TAG,
-        ("moveLocalFile ==> ocFile: "
-            + (ocFile?.remotePath)
-            + " targetPath: "
-            + targetPath
-            + " targetParentPath: "
-            + targetParentPath)
+        (
+            "moveLocalFile ==> ocFile: " +
+                (ocFile?.remotePath) +
+                " targetPath: " +
+                targetPath +
+                " targetParentPath: " +
+                targetParentPath
+            )
     )
 
     if (ocFile == null) {
@@ -113,7 +116,8 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
     val originalMediaPaths =
         fileDao.moveFilesInDb(oldPath, targetPath, defaultSavePath, targetParent.fileId, accountName)
 
-    moveLocalFiles(accountName, ocFile, defaultSavePath, targetPath)
+    val moved = moveLocalFiles(accountName, ocFile, defaultSavePath, targetPath)
+    if (!moved) return
 
     for (originalMediaPath in originalMediaPaths) {
         deleteFileInMediaScan(originalMediaPath)
@@ -124,11 +128,12 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
     }
 }
 
-private fun moveLocalFiles(accountName: String, ocFile: OCFile, defaultSavePath: String, targetPath: String) {
+@Suppress("ReturnCount")
+private fun moveLocalFiles(accountName: String, ocFile: OCFile, defaultSavePath: String, targetPath: String): Boolean {
     val localFile = File(FileStorageUtils.getDefaultSavePathFor(accountName, ocFile))
     if (!localFile.exists()) {
         Log_OC.d(FileDataStorageManager.TAG, "moveLocalFile: no local file to move at " + localFile.absolutePath)
-        return
+        return false
     }
 
     val targetFile = File(defaultSavePath + targetPath)
@@ -142,11 +147,16 @@ private fun moveLocalFiles(accountName: String, ocFile: OCFile, defaultSavePath:
 
     if (!localFile.renameTo(targetFile)) {
         Log_OC.e(
-            FileDataStorageManager.TAG, ("moveLocalFile: failed to rename " + localFile.absolutePath
-                + " to " + targetFile.absolutePath)
+            FileDataStorageManager.TAG,
+            (
+                "moveLocalFile: failed to rename " + localFile.absolutePath +
+                    " to " + targetFile.absolutePath
+                )
         )
-        return
+        return false
     }
+
+    return true
 }
 
 private fun FileDao.moveFilesInDb(

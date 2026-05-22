@@ -11,6 +11,9 @@ import com.owncloud.android.utils.FileStorageUtils
 import io.mockk.every
 import io.mockk.verify
 import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import java.io.File
@@ -47,35 +50,39 @@ class MoveFilesFilesystemAndMediaTest : MoveFilesTestBase() {
 
     @Test
     fun testMoveLocalFileWhenNoLocalFilePresentShouldSkipRenameAndMediaScan() {
+        val expectedSourcePath = "${tempDir.absolutePath}$OLD_PATH"
+        val expectedTargetPath = "${tempDir.absolutePath}$TARGET_PATH"
+
         doMove()
 
+        assertFalse(File(expectedSourcePath).exists())
+        assertFalse(File(expectedTargetPath).exists())
         verify(exactly = 0) { manager.deleteFileInMediaScan(any()) }
         verify(exactly = 0) { MediaScannerConnection.scanFile(any(), any(), any(), any()) }
     }
 
     @Test
     fun testMoveLocalFileWhenLocalFilePresentShouldRenameToTargetLocation() {
-        val sourceFile = File("${tempDir.absolutePath}$OLD_PATH").also {
+        val expectedSourcePath = "${tempDir.absolutePath}$OLD_PATH"
+        val expectedTargetPath = "${tempDir.absolutePath}$TARGET_PATH"
+        File(expectedSourcePath).also {
             it.parentFile?.mkdirs()
             it.createNewFile()
         }
-        val targetFile = File("${tempDir.absolutePath}$TARGET_PATH")
 
         doMove()
 
-        assert(!sourceFile.exists()) { "Source file should have been moved" }
-        assert(targetFile.exists()) { "Target file should exist after rename" }
+        assertFalse("Source at $expectedSourcePath should no longer exist", File(expectedSourcePath).exists())
+        assertTrue("Target at $expectedTargetPath should exist after move", File(expectedTargetPath).exists())
+        assertEquals(expectedTargetPath, File(expectedTargetPath).absolutePath)
     }
 
     @Test
     fun testMoveLocalFileWhenRenameFailsShouldNotTriggerMediaScan() {
         val oldStoragePath = "${tempDir.absolutePath}$OLD_PATH"
-        // Source file is NOT created → renameTo returns false
-        val mediaEntity = createFileEntity(
-            path = OLD_PATH,
-            storagePath = oldStoragePath,
-            contentType = "image/jpeg"
-        )
+        val mediaEntity = createFileEntity(path = OLD_PATH, storagePath = oldStoragePath, contentType = "image/jpeg")
+        // Source file intentionally NOT created → renameTo returns false
+
         doMove(entities = listOf(mediaEntity))
 
         verify(exactly = 0) { manager.deleteFileInMediaScan(any()) }
@@ -84,35 +91,42 @@ class MoveFilesFilesystemAndMediaTest : MoveFilesTestBase() {
 
     @Test
     fun testMoveLocalFileWhenMediaFileIsMovedShouldDeleteFromMediaScanAtOriginalPath() {
-        val oldStoragePath = "${tempDir.absolutePath}$OLD_PATH"
-        File(oldStoragePath).also { it.parentFile?.mkdirs(); it.createNewFile() }
+        val expectedDeletedPath = "${tempDir.absolutePath}$OLD_PATH"
+        File(expectedDeletedPath).also {
+            it.parentFile?.mkdirs()
+            it.createNewFile()
+        }
         val mediaEntity = createFileEntity(
             path = OLD_PATH,
-            storagePath = oldStoragePath,
+            storagePath = expectedDeletedPath,
             contentType = "image/jpeg"
         )
+
         doMove(entities = listOf(mediaEntity))
 
-        verify(exactly = 1) { manager.deleteFileInMediaScan(oldStoragePath) }
+        verify(exactly = 1) { manager.deleteFileInMediaScan(expectedDeletedPath) }
     }
 
     @Test
     fun testMoveLocalFileWhenMediaFileIsMovedShouldTriggerMediaScanAtNewStoragePath() {
-        val savePath = tempDir.absolutePath
-        val oldStoragePath = "$savePath$OLD_PATH"
-        val expectedNewStoragePath = "$savePath$TARGET_PATH"
-        File(oldStoragePath).also { it.parentFile?.mkdirs(); it.createNewFile() }
+        val oldStoragePath = "${tempDir.absolutePath}$OLD_PATH"
+        val expectedNewStoragePath = "${tempDir.absolutePath}$TARGET_PATH"
+        File(oldStoragePath).also {
+            it.parentFile?.mkdirs()
+            it.createNewFile()
+        }
         val mediaEntity = createFileEntity(
             path = OLD_PATH,
             storagePath = oldStoragePath,
             contentType = "image/jpeg"
         )
+
         doMove(entities = listOf(mediaEntity))
 
         verify {
             MediaScannerConnection.scanFile(
                 any(),
-                match { paths -> paths.any { it == expectedNewStoragePath } },
+                match { paths -> paths.single() == expectedNewStoragePath },
                 any(),
                 any()
             )
@@ -122,12 +136,16 @@ class MoveFilesFilesystemAndMediaTest : MoveFilesTestBase() {
     @Test
     fun testMoveLocalFileWhenNonMediaFileIsMovedShouldNotTriggerAnyMediaScan() {
         val oldStoragePath = "${tempDir.absolutePath}$OLD_PATH"
-        File(oldStoragePath).also { it.parentFile?.mkdirs(); it.createNewFile() }
+        File(oldStoragePath).also {
+            it.parentFile?.mkdirs()
+            it.createNewFile()
+        }
         val docEntity = createFileEntity(
             path = OLD_PATH,
             storagePath = oldStoragePath,
             contentType = "application/pdf"
         )
+
         doMove(entities = listOf(docEntity))
 
         verify(exactly = 0) { manager.deleteFileInMediaScan(any()) }
