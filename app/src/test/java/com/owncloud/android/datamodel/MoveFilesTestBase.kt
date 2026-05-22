@@ -21,6 +21,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkConstructor
+import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.runs
 import io.mockk.spyk
@@ -53,7 +54,7 @@ abstract class MoveFilesTestBase {
         every { MainApp.getAppContext() } returns mockk(relaxed = true)
 
         val mockDb = mockk<NextcloudDatabase>(relaxed = true)
-        mockkStatic(NextcloudDatabase::class)
+        mockkObject(NextcloudDatabase.Companion)
         every { NextcloudDatabase.getInstance(any()) } returns mockDb
         every { NextcloudDatabase.instance() } returns mockDb
         every { mockDb.fileDao() } returns mockFileDao
