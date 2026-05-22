@@ -5,867 +5,814 @@
  * @author Chris Narkiewicz <hello@ezaquarii.com>
  * @author TSI-mc
  *
+ * Copyright (C) 2026 Alper Öztürk
  * Copyright (C) 2018 Andy Scherzinger
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * Copyright (C) 2023 TSI-mc
  *
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
+package com.owncloud.android.ui.fragment
 
-package com.owncloud.android.ui.fragment;
+import android.Manifest
+import android.accounts.AccountManager
+import android.app.Activity
+import android.app.SearchManager
+import android.content.Context
+import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Bundle
+import android.provider.ContactsContract
+import android.text.InputType
+import android.text.TextUtils
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.VisibleForTesting
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.size
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.mergeDistinctByToken
+import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.mdm.MDMConfig.shareViaUser
+import com.owncloud.android.R
+import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SharesType
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
+import com.owncloud.android.lib.common.OwnCloudAccount
+import com.owncloud.android.lib.common.accounts.AccountUtils
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.lib.resources.status.NextcloudVersion
+import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.operations.RefreshFolderOperation
+import com.owncloud.android.providers.UsersAndGroupsSearchConfig
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.adapter.ShareeListAdapter
+import com.owncloud.android.ui.adapter.ShareeListAdapterListener
+import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask
+import com.owncloud.android.ui.dialog.SharePasswordDialogFragment
+import com.owncloud.android.ui.dialog.SharePasswordDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.fragment.QuickSharingPermissionsBottomSheetDialog.QuickPermissionSharingBottomSheetActions
+import com.owncloud.android.ui.fragment.share.RemoteShareRepository
+import com.owncloud.android.ui.fragment.share.ShareRepository
+import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper
+import com.owncloud.android.ui.helpers.FileOperationsHelper
+import com.owncloud.android.utils.ClipboardUtil.copyToClipboard
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
+import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import javax.inject.Inject
 
-import android.Manifest;
-import android.accounts.AccountManager;
-import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.InputType;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.LinearLayout;
+class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarGenerationListener, Injectable,
+    FileDetailsSharingMenuBottomSheetActions, QuickPermissionSharingBottomSheetActions {
+    private var file: OCFile? = null
+    private var user: User? = null
+    private var capabilities: OCCapability? = null
 
-import com.nextcloud.android.common.ui.theme.utils.ColorRole;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.database.entity.FileEntity;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.client.utils.IntentUtil;
-import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.OCShareExtensionsKt;
-import com.nextcloud.utils.extensions.ViewExtensionsKt;
-import com.nextcloud.utils.mdm.MDMConfig;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SharesType;
-import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.status.NextcloudVersion;
-import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.adapter.ShareeListAdapter;
-import com.owncloud.android.ui.adapter.ShareeListAdapterListener;
-import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask;
-import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
-import com.owncloud.android.ui.fragment.share.RemoteShareRepository;
-import com.owncloud.android.ui.fragment.share.ShareRepository;
-import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.utils.ClipboardUtil;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+    private var fileOperationsHelper: FileOperationsHelper? = null
+    private var fileActivity: FileActivity? = null
+    private var fileDataStorageManager: FileDataStorageManager? = null
 
-import java.util.ArrayList;
-import java.util.List;
+    private var binding: FileDetailsSharingFragmentBinding? = null
 
-import javax.inject.Inject;
+    private var onEditShareListener: OnEditShareListener? = null
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import kotlin.Unit;
+    private var internalShareeListAdapter: ShareeListAdapter? = null
 
-public class FileDetailSharingFragment extends Fragment implements ShareeListAdapterListener,
-    DisplayUtils.AvatarGenerationListener,
-    Injectable, FileDetailsSharingMenuBottomSheetActions, QuickSharingPermissionsBottomSheetDialog.QuickPermissionSharingBottomSheetActions {
+    private var externalShareeListAdapter: ShareeListAdapter? = null
 
-    private static final String TAG = "FileDetailSharingFragment";
-    private static final String ARG_FILE = "FILE";
-    private static final String ARG_USER = "USER";
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
-    private OCFile file;
-    private User user;
-    private OCCapability capabilities;
+    @Inject
+    lateinit var clientFactory: ClientFactory
 
-    private FileOperationsHelper fileOperationsHelper;
-    private FileActivity fileActivity;
-    private FileDataStorageManager fileDataStorageManager;
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-    private FileDetailsSharingFragmentBinding binding;
+    @Inject
+    lateinit var searchConfig: UsersAndGroupsSearchConfig
 
-    private OnEditShareListener onEditShareListener;
-    
-    private ShareeListAdapter internalShareeListAdapter;
-    
-    private ShareeListAdapter externalShareeListAdapter;
-
-    @Inject UserAccountManager accountManager;
-    @Inject ClientFactory clientFactory;
-    @Inject ViewThemeUtils viewThemeUtils;
-    @Inject UsersAndGroupsSearchConfig searchConfig;
-
-    public static FileDetailSharingFragment newInstance(OCFile file, User user) {
-        FileDetailSharingFragment fragment = new FileDetailSharingFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_FILE, file);
-        args.putParcelable(ARG_USER, user);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         if (savedInstanceState != null) {
-            file = BundleExtensionsKt.getParcelableArgument(savedInstanceState, ARG_FILE, OCFile.class);
-            user = BundleExtensionsKt.getParcelableArgument(savedInstanceState, ARG_USER, User.class);
+            file = savedInstanceState.getParcelableArgument(ARG_FILE, OCFile::class.java)
+            user = savedInstanceState.getParcelableArgument(ARG_USER, User::class.java)
         } else {
-            Bundle arguments = getArguments();
+            val arguments = getArguments()
 
             if (arguments != null) {
-                file = BundleExtensionsKt.getParcelableArgument(arguments, ARG_FILE, OCFile.class);
-                user = BundleExtensionsKt.getParcelableArgument(arguments, ARG_USER, User.class);
+                file = arguments.getParcelableArgument(ARG_FILE, OCFile::class.java)
+                user = arguments.getParcelableArgument(ARG_USER, User::class.java)
             }
         }
 
-        if (file == null) {
-            throw new IllegalArgumentException("File may not be null");
-        }
+        requireNotNull(file) { "File may not be null" }
+        requireNotNull(user) { "Account may not be null" }
 
-        if (user == null) {
-            throw new IllegalArgumentException("Account may not be null");
-        }
-
-        fileActivity = (FileActivity) getActivity();
-
-        if (fileActivity == null) {
-            throw new IllegalArgumentException("FileActivity may not be null");
-        }
+        fileActivity = activity as FileActivity?
+        requireNotNull(fileActivity) { "FileActivity may not be null" }
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         if (fileActivity == null) {
-            return;
+            return
         }
 
-        fileDataStorageManager = fileActivity.getStorageManager();
-        fileOperationsHelper = fileActivity.getFileOperationsHelper();
+        fileDataStorageManager = fileActivity?.storageManager
+        fileOperationsHelper = fileActivity?.fileOperationsHelper
 
         // start animation before loading process
-        final Animation blinkAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.blink);
-        binding.shimmerLayout.getRoot().startAnimation(blinkAnimation);
+        val blinkAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.blink)
+        binding?.shimmerLayout?.getRoot()?.startAnimation(blinkAnimation)
 
-        AccountManager accountManager = AccountManager.get(requireContext());
-        String userId = accountManager.getUserData(user.toPlatformAccount(),
-                                                   com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+        val accountManager = AccountManager.get(requireContext())
+        val userId = accountManager.getUserData(
+            user?.toPlatformAccount(),
+            AccountUtils.Constants.KEY_USER_ID
+        )
 
         // internal shares
-        internalShareeListAdapter = new ShareeListAdapter(fileActivity,
-                                                          new ArrayList<>(),
-                                                          this,
-                                                          userId,
-                                                          user,
-                                                          viewThemeUtils,
-                                                          file.isEncrypted(),
-                                                          SharesType.INTERNAL);
-        internalShareeListAdapter.setHasStableIds(true);
-        binding.sharesListInternal.setAdapter(internalShareeListAdapter);
-        binding.sharesListInternal.setLayoutManager(new LinearLayoutManager(requireContext()));
+        internalShareeListAdapter = ShareeListAdapter(
+            fileActivity!!,
+            ArrayList(),
+            this,
+            userId,
+            user,
+            viewThemeUtils,
+            file?.isEncrypted == true,
+            SharesType.INTERNAL
+        )
+        internalShareeListAdapter?.setHasStableIds(true)
+        binding?.sharesListInternal?.setAdapter(internalShareeListAdapter)
+        binding?.sharesListInternal?.setLayoutManager(LinearLayoutManager(requireContext()))
 
         // external shares
-        externalShareeListAdapter = new ShareeListAdapter(fileActivity,
-                                                          new ArrayList<>(),
-                                                          this,
-                                                          userId,
-                                                          user,
-                                                          viewThemeUtils,
-                                                          file.isEncrypted(),
-                                                          SharesType.EXTERNAL);
-        externalShareeListAdapter.setHasStableIds(true);
-        binding.sharesListExternal.setAdapter(externalShareeListAdapter);
-        binding.sharesListExternal.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.pickContactEmailBtn.setOnClickListener(v -> checkContactPermission());
+        externalShareeListAdapter = ShareeListAdapter(
+            fileActivity!!,
+            ArrayList(),
+            this,
+            userId,
+            user,
+            viewThemeUtils,
+            file?.isEncrypted == true,
+            SharesType.EXTERNAL
+        )
+        externalShareeListAdapter!!.setHasStableIds(true)
+        binding?.sharesListExternal?.setAdapter(externalShareeListAdapter)
+        binding?.sharesListExternal?.setLayoutManager(LinearLayoutManager(requireContext()))
+        binding?.pickContactEmailBtn?.setOnClickListener { checkContactPermission() }
 
         // start loading process
-        fetchSharees();
+        fetchSharees()
 
-        setupView();
+        setupView()
     }
 
-    private void fetchSharees() {
-        final var activity = fileActivity;
-        if (activity == null) {
-            return;
-        }
+    private fun fetchSharees() {
+        val activity = fileActivity ?: return
+        val clientRepository = activity.clientRepository ?: return
+        val storageManager = fileDataStorageManager ?: return
+        val remotePath = file?.remotePath ?: return
 
-        final var clientRepository = activity.getClientRepository();
-        if (clientRepository == null) {
-            return;
-        }
-
-        final var storageManager = fileDataStorageManager;
-        if (storageManager == null) {
-            return;
-        }
-
-        ShareRepository shareRepository = new RemoteShareRepository(clientRepository, activity, storageManager);
-        shareRepository.fetchSharees(file.getRemotePath(), () -> {
+        val shareRepository: ShareRepository = RemoteShareRepository(clientRepository, activity, storageManager)
+        shareRepository.fetchSharees(remotePath, {
             if (binding == null) {
-                return Unit.INSTANCE;
+                return@fetchSharees
             }
-
-            refreshCapabilitiesFromDB();
-            refreshSharesFromDB();
-            stopLoadingAnimationAndShowShareContainer();
-            return Unit.INSTANCE;
-        }, () -> {
+            refreshCapabilitiesFromDB()
+            refreshSharesFromDB()
+            stopLoadingAnimationAndShowShareContainer()
+        }, {
             if (binding == null) {
-                return Unit.INSTANCE;
+                return@fetchSharees
             }
-
-            stopLoadingAnimationAndShowShareContainer();
-            DisplayUtils.showSnackMessage(this, R.string.error_fetching_sharees);
-            return Unit.INSTANCE;
-        });
+            stopLoadingAnimationAndShowShareContainer()
+            DisplayUtils.showSnackMessage(this, R.string.error_fetching_sharees)
+        })
     }
 
     // stop loading animation
-    private void stopLoadingAnimationAndShowShareContainer() {
+    private fun stopLoadingAnimationAndShowShareContainer() {
         if (binding == null) {
-            return;
+            return
         }
 
-        final LinearLayout shimmerLayout = binding.shimmerLayout.getRoot();
-        shimmerLayout.clearAnimation();
-        shimmerLayout.setVisibility(View.GONE);
+        val shimmerLayout = binding!!.shimmerLayout.getRoot()
+        shimmerLayout.clearAnimation()
+        shimmerLayout.visibility = View.GONE
 
-        binding.shareContainer.setVisibility(View.VISIBLE);
+        binding?.shareContainer?.visibility = View.VISIBLE
     }
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FileDetailsSharingFragmentBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FileDetailsSharingFragmentBinding.inflate(inflater, container, false)
+        return binding!!.getRoot()
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (!(getActivity() instanceof FileActivity)) {
-            throw new IllegalArgumentException("Calling activity must be of type FileActivity");
-        }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        require(activity is FileActivity) { "Calling activity must be of type FileActivity" }
 
         try {
-            onEditShareListener = (OnEditShareListener) context;
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Calling activity must implement the interface" + e);
+            onEditShareListener = context as OnEditShareListener
+        } catch (e: Exception) {
+            throw IllegalArgumentException("Calling activity must implement the interface$e")
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        searchConfig.setSearchOnlyUsers(file.isEncrypted());
+    override fun onStart() {
+        super.onStart()
+        searchConfig.searchOnlyUsers = (file?.isEncrypted == true)
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        searchConfig.reset();
+    override fun onStop() {
+        super.onStop()
+        searchConfig.reset()
     }
 
-    private void resetSearchView() {
-        toggleSearchViewEnable(binding.searchView, true);
-        binding.searchView.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        binding.searchView.setQueryHint(null);
-        binding.searchView.setQuery("", false);
-        binding.pickContactEmailBtn.setVisibility(View.VISIBLE);
+    private fun resetSearchView() {
+        binding?.run {
+            toggleSearchViewEnable(searchView, true)
+            searchView.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+            searchView.setQueryHint(null)
+            searchView.setQuery("", false)
+            pickContactEmailBtn.setVisibility(View.VISIBLE)
+        }
     }
 
-    private void setupView() {
-        resetSearchView();
-        setShareWithYou();
+    private fun setupView() {
+        resetSearchView()
+        setShareWithYou()
 
-        OCFile parentFile = fileDataStorageManager.getFileById(file.getParentId());
+        binding?.run {
+            val parentFile = file?.parentId?.let { fileDataStorageManager?.getFileById(it) }
 
-        FileDetailSharingFragmentHelper.setupSearchView(
-            (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
-            binding.searchView,
-            fileActivity.getComponentName());
-        viewThemeUtils.material.themeSearchCardView(binding.searchCardWrapper);
-        viewThemeUtils.files.themeContentSearchView(binding.searchView);
-        viewThemeUtils.platform.colorImageView(binding.searchViewIcon, ColorRole.ON_SURFACE_VARIANT);
-        viewThemeUtils.platform.colorImageView(binding.pickContactEmailBtn, ColorRole.ON_SURFACE_VARIANT);
+            FileDetailSharingFragmentHelper.setupSearchView(
+                fileActivity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager?,
+                searchView,
+                fileActivity?.componentName
+            )
 
-        viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.sendCopyBtn);
+            viewThemeUtils.material.themeSearchCardView(searchCardWrapper)
+            viewThemeUtils.files.themeContentSearchView(searchView)
+            viewThemeUtils.platform.colorImageView(searchViewIcon, ColorRole.ON_SURFACE_VARIANT)
+            viewThemeUtils.platform.colorImageView(pickContactEmailBtn, ColorRole.ON_SURFACE_VARIANT)
 
-        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.sharesListInternalShowAll);
-        viewThemeUtils.material.colorMaterialTextButton(binding.sharesListInternalShowAll);
-        binding.sharesListInternalShowAll.setOnClickListener(view -> {
-            internalShareeListAdapter.toggleShowAll();
-            int textRes = internalShareeListAdapter.isShowAll() ? R.string.show_less : R.string.show_all;
-            binding.sharesListInternalShowAll.setText(textRes);
-        });
+            viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(sendCopyBtn)
 
-        viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.createLink);
-
-        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.sharesListExternalShowAll);
-        viewThemeUtils.material.colorMaterialTextButton(binding.sharesListExternalShowAll);
-        binding.sharesListExternalShowAll.setOnClickListener(view -> {
-            externalShareeListAdapter.toggleShowAll();
-            int textRes = externalShareeListAdapter.isShowAll() ? R.string.show_less : R.string.show_all;
-            binding.sharesListExternalShowAll.setText(textRes);
-        });
-
-        if (file.canReshare() && !FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities)) {
-            if (file.isEncrypted() || (parentFile != null && parentFile.isEncrypted())) {
-               binding.internalShareHeadline.setText(getResources().getString(R.string.internal_share_headline_end_to_end_encrypted));
-               binding.internalShareDescription.setVisibility(View.VISIBLE);
-               binding.externalSharesHeadline.setText(getResources().getString(R.string.create_end_to_end_encrypted_share_title));
-
-               fetchE2EECounter(() -> {
-                   if (binding == null) {
-                        return;
-                   }
-
-                   if (file.getE2eCounter() == -1) {
-                       // V1 cannot share
-                       binding.searchContainer.setVisibility(View.GONE);
-                       binding.createLink.setVisibility(View.GONE);
-                   } else {
-                       binding.createLink.setText(R.string.add_new_secure_file_drop);
-                       binding.searchView.setQueryHint(getResources().getString(R.string.secure_share_search));
-
-                       if (file.isSharedViaLink()) {
-                           binding.searchView.setQueryHint(getResources().getString(R.string.share_not_allowed_when_file_drop));
-                           binding.searchView.setInputType(InputType.TYPE_NULL);
-                           toggleSearchViewEnable(binding.searchView, false);
-                       }
-                   }
-               });
-            } else {
-                binding.createLink.setText(R.string.create_link);
-                binding.searchView.setQueryHint(getResources().getString(R.string.share_search_internal));
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(sharesListInternalShowAll)
+            viewThemeUtils.material.colorMaterialTextButton(sharesListInternalShowAll)
+            sharesListInternalShowAll.setOnClickListener {
+                internalShareeListAdapter?.toggleShowAll()
+                val textRes = if (internalShareeListAdapter?.isShowAll == true) R.string.show_less else R.string.show_all
+                sharesListInternalShowAll.setText(textRes)
             }
 
-            binding.createLink.setOnClickListener(v -> createPublicShareLink());
-            
-        } else {
-            binding.searchView.setQueryHint(getResources().getString(R.string.resharing_is_not_allowed));
-            binding.createLink.setVisibility(View.GONE);
-            binding.externalSharesHeadline.setVisibility(View.GONE);
-            binding.searchView.setInputType(InputType.TYPE_NULL);
-            binding.pickContactEmailBtn.setVisibility(View.GONE);
-            toggleSearchViewEnable(binding.searchView, false);
-            binding.createLink.setOnClickListener(null);
-        }
+            viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(createLink)
 
-        checkShareViaUser();
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(sharesListExternalShowAll)
+            sharesListExternalShowAll.let { viewThemeUtils.material.colorMaterialTextButton(it) }
+            sharesListExternalShowAll.setOnClickListener {
+                externalShareeListAdapter!!.toggleShowAll()
+                val textRes = if (externalShareeListAdapter?.isShowAll == true) R.string.show_less else R.string.show_all
+                sharesListExternalShowAll.setText(textRes)
+            }
 
-        if (file.isFolder()) {
-            binding.sendCopyBtn.setVisibility(View.GONE);
-        }
-            binding.sendCopyBtn.setOnClickListener(v ->
-                                                       startActivity(Intent.createChooser(IntentUtil.createSendIntent(requireContext(), file), 
-                                                                                          requireContext().getString(R.string.activity_chooser_send_file_title)))
-                                                  );
-    }
+            if (file?.canReshare() == true && !FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities)) {
+                if (file?.isEncrypted == true || (parentFile != null && parentFile.isEncrypted)) {
+                    internalShareHeadline.text = resources.getString(R.string.internal_share_headline_end_to_end_encrypted)
+                    internalShareDescription.visibility = View.VISIBLE
+                    externalSharesHeadline.text = resources.getString(R.string.create_end_to_end_encrypted_share_title)
 
-    private void fetchE2EECounter(Runnable onComplete) {
-        final Context context = requireContext();
+                    fetchE2EECounter {
+                        if (binding == null) {
+                            return@fetchE2EECounter
+                        }
+                        if (file?.e2eCounter == -1L) {
+                            // V1 cannot share
+                            searchContainer.visibility = View.GONE
+                            createLink.visibility = View.GONE
+                        } else {
+                            createLink.setText(R.string.add_new_secure_file_drop)
+                            searchView.setQueryHint(resources.getString(R.string.secure_share_search))
 
-        new Thread(() -> {
-            try {
-                OwnCloudClient client = clientFactory.create(user);
-                Object metadata = RefreshFolderOperation.getDecryptedFolderMetadata(true, file, client, user, context);
-                if (metadata instanceof DecryptedFolderMetadataFile decryptedMetadata) {
-                    file.setE2eCounter(decryptedMetadata.getMetadata().getCounter());
-                    fileDataStorageManager.saveFile(file);
+                            if (file?.isSharedViaLink == true) {
+                                searchView.setQueryHint(resources.getString(R.string.share_not_allowed_when_file_drop))
+                                searchView.inputType = InputType.TYPE_NULL
+                                toggleSearchViewEnable(searchView, false)
+                            }
+                        }
+                    }
+                } else {
+                    createLink.setText(R.string.create_link)
+                    searchView.setQueryHint(getResources().getString(R.string.share_search_internal))
                 }
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Error refreshing E2E counter: " + e.getMessage());
-            }
 
-            final var activity = getActivity();
-            if (activity != null) {
-                activity.runOnUiThread(onComplete);
-            }
-        }).start();
-    }
-
-    private void checkShareViaUser() {
-        if (!MDMConfig.INSTANCE.shareViaUser(requireContext())) {
-            binding.searchContainer.setVisibility(View.GONE);
-        }
-    }
-
-    private void toggleSearchViewEnable(View view, boolean enable) {
-        view.setEnabled(enable);
-        if (view instanceof ViewGroup viewGroup) {
-            for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                toggleSearchViewEnable(viewGroup.getChildAt(i), enable);
-            }
-        }
-    }
-
-    private void setShareWithYou() {
-        if (accountManager.userOwnsFile(file, user)) {
-            binding.sharedWithYouContainer.setVisibility(View.GONE);
-        } else {
-            binding.sharedWithYouUsername.setText(
-                String.format(getString(R.string.shared_with_you_by), file.getOwnerDisplayName()));
-            DisplayUtils.setAvatar(user,
-                                   file.getOwnerId(),
-                                   this,
-                                   getResources().getDimension(
-                                       R.dimen.file_list_item_avatar_icon_radius),
-                                   getResources(),
-                                   binding.sharedWithYouAvatar,
-                                   getContext());
-            binding.sharedWithYouAvatar.setVisibility(View.VISIBLE);
-
-            String note = file.getNote();
-
-            if (!TextUtils.isEmpty(note)) {
-                binding.sharedWithYouNote.setText(file.getNote());
-                binding.sharedWithYouNoteContainer.setVisibility(View.VISIBLE);
+                createLink.setOnClickListener(View.OnClickListener { v: View? -> createPublicShareLink() })
             } else {
-                binding.sharedWithYouNoteContainer.setVisibility(View.GONE);
+                searchView.setQueryHint(getResources().getString(R.string.resharing_is_not_allowed))
+                createLink.visibility = View.GONE
+                externalSharesHeadline.visibility = View.GONE
+                searchView.inputType = InputType.TYPE_NULL
+                pickContactEmailBtn.setVisibility(View.GONE)
+                toggleSearchViewEnable(searchView, false)
+                createLink.setOnClickListener(null)
+            }
+
+            checkShareViaUser()
+
+            if (file?.isFolder == true) {
+                sendCopyBtn.visibility = View.GONE
+            }
+            sendCopyBtn.setOnClickListener {
+                startActivity(
+                    Intent.createChooser(
+                        IntentUtil.createSendIntent(requireContext(), file!!),
+                        requireContext().getString(R.string.activity_chooser_send_file_title)
+                    )
+                )
+            }
+        }
+
+
+    }
+
+    private fun fetchE2EECounter(onComplete: Runnable?) {
+        val context = requireContext()
+
+        Thread {
+            try {
+                val client = clientFactory.create(user)
+                val metadata = RefreshFolderOperation.getDecryptedFolderMetadata(true, file, client, user, context)
+                if (metadata is DecryptedFolderMetadataFile) {
+                    file?.setE2eCounter(metadata.metadata.counter)
+                    fileDataStorageManager?.saveFile(file)
+                }
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "Error refreshing E2E counter: " + e.message)
+            }
+            val activity = getActivity()
+            activity?.runOnUiThread(onComplete)
+        }.start()
+    }
+
+    private fun checkShareViaUser() {
+        if (!shareViaUser(requireContext())) {
+            binding?.searchContainer?.visibility = View.GONE
+        }
+    }
+
+    private fun toggleSearchViewEnable(view: View, enable: Boolean) {
+        view.setEnabled(enable)
+        if (view is ViewGroup) {
+            for (i in 0..<view.size) {
+                toggleSearchViewEnable(view.getChildAt(i), enable)
             }
         }
     }
 
-    @Override
-    public void copyInternalLink() {
-        OwnCloudAccount account = accountManager.getCurrentOwnCloudAccount();
+    private fun setShareWithYou() {
+        binding?.run {
+            if (accountManager.userOwnsFile(file, user)) {
+                sharedWithYouContainer.visibility = View.GONE
+            } else {
+                sharedWithYouUsername.text = String.format(getString(R.string.shared_with_you_by), file?.ownerDisplayName)
+                user?.let {
+                    file?.ownerId?.let { userId ->
+                        DisplayUtils.setAvatar(
+                            it,
+                            userId,
+                            this@FileDetailSharingFragment,
+                            resources.getDimension(
+                                R.dimen.file_list_item_avatar_icon_radius
+                            ),
+                            resources,
+                            sharedWithYouAvatar,
+                            context
+                        )
+                    }
+                }
+                sharedWithYouAvatar.setVisibility(View.VISIBLE)
+
+                val note = file?.getNote()
+
+                if (!TextUtils.isEmpty(note)) {
+                    sharedWithYouNote.text = file?.getNote()
+                    sharedWithYouNoteContainer.visibility = View.VISIBLE
+                } else {
+                    sharedWithYouNoteContainer.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    override fun copyInternalLink() {
+        val account = accountManager.getCurrentOwnCloudAccount()
 
         if (account == null) {
-            DisplayUtils.showSnackMessage(this, R.string.could_not_retrieve_url);
-            return;
+            DisplayUtils.showSnackMessage(this, R.string.could_not_retrieve_url)
+            return
         }
 
-        FileDisplayActivity.showShareLinkDialog(fileActivity, file, createInternalLink(account, file));
+        file?.let { FileActivity.showShareLinkDialog(fileActivity, file, createInternalLink(account, it)) }
     }
 
-    private String createInternalLink(OwnCloudAccount account, OCFile file) {
-        return account.getBaseUri() + "/index.php/f/" + file.getLocalId();
+    private fun createInternalLink(account: OwnCloudAccount, file: OCFile): String {
+        return account.baseUri.toString() + "/index.php/f/" + file.localId
     }
 
-    @Override
-    public void createPublicShareLink() {
-        if (capabilities != null && (capabilities.getFilesSharingPublicPasswordEnforced().isTrue() ||
-            capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue())) {
+    override fun createPublicShareLink() {
+        if (capabilities != null && (capabilities?.filesSharingPublicPasswordEnforced?.isTrue == true ||
+                capabilities?.filesSharingPublicAskForOptionalPassword?.isTrue == true)
+        ) {
             // password enforced by server, request to the user before trying to create
-            requestPasswordForShareViaLink(true,
-                                           capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
-
+            requestPasswordForShareViaLink(
+                true,
+                capabilities!!.filesSharingPublicAskForOptionalPassword.isTrue
+            )
         } else {
             // create without password if not enforced by server or we don't know if enforced;
-            fileOperationsHelper.shareFileViaPublicShare(file, null);
+            fileOperationsHelper?.shareFileViaPublicShare(file, null)
         }
     }
 
-    @Override
-    public void createSecureFileDrop() {
-        fileOperationsHelper.shareFolderViaSecureFileDrop(file);
+    override fun createSecureFileDrop() {
+        fileOperationsHelper?.shareFolderViaSecureFileDrop(file!!)
     }
 
-    private void showSendLinkTo(OCShare publicShare) {
-        if (file.isSharedViaLink()) {
-            if (TextUtils.isEmpty(publicShare.getShareLink())) {
-                fileOperationsHelper.getFileWithLink(file, viewThemeUtils);
+    private fun showSendLinkTo(publicShare: OCShare) {
+        if (file?.isSharedViaLink == true) {
+            if (TextUtils.isEmpty(publicShare.shareLink)) {
+                fileOperationsHelper?.getFileWithLink(file!!, viewThemeUtils)
             } else {
-                FileDisplayActivity.showShareLinkDialog(fileActivity, file, publicShare.getShareLink());
+                FileActivity.showShareLinkDialog(fileActivity, file, publicShare.shareLink)
             }
         }
     }
 
-    public void copyLink(OCShare share) {
-        if (file.isSharedViaLink()) {
-            if (TextUtils.isEmpty(share.getShareLink())) {
-                fileOperationsHelper.getFileWithLink(file, viewThemeUtils);
+    override fun copyLink(share: OCShare) {
+        if (file?.isSharedViaLink == true) {
+            if (TextUtils.isEmpty(share.shareLink)) {
+                fileOperationsHelper?.getFileWithLink(file!!, viewThemeUtils)
             } else {
-                ClipboardUtil.copyToClipboard(requireActivity(), share.getShareLink());
+                copyToClipboard(requireActivity(), share.shareLink)
             }
         }
     }
 
-    /**
-     * show share action bottom sheet
-     *
-     * @param share
-     */
-    @Override
     @VisibleForTesting
-    public void showSharingMenuActionSheet(OCShare share) {
-        if (fileActivity != null && !fileActivity.isFinishing()) {
-            new FileDetailSharingMenuBottomSheetDialog(fileActivity, this, share, viewThemeUtils, file.isEncrypted()).show();
+    override fun showSharingMenuActionSheet(share: OCShare?) {
+        if (fileActivity != null && fileActivity?.isFinishing == false) {
+            FileDetailSharingMenuBottomSheetDialog(
+                fileActivity,
+                this,
+                share,
+                viewThemeUtils,
+                file?.isEncrypted == true
+            ).show()
         }
     }
 
-    /**
-     * show quick sharing permission dialog
-     *
-     * @param share
-     */
-    @Override
-    public void showPermissionsDialog(OCShare share) {
-        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils, file.isEncrypted()).show();
+    override fun showPermissionsDialog(share: OCShare?) {
+        QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils, file?.isEncrypted == true).show()
     }
 
-    /**
-     * Updates the UI after the result of an update operation on the edited {@link OCFile}.
-     *
-     * @param result {@link RemoteOperationResult} of an update on the edited {@link OCFile} sharing information.
-     * @param file   the edited {@link OCFile}
-     * @see #onUpdateShareInformation(RemoteOperationResult)
-     */
-    public void onUpdateShareInformation(RemoteOperationResult result, OCFile file) {
-        this.file = file;
+    fun onUpdateShareInformation(result: RemoteOperationResult<*>, file: OCFile?) {
+        this.file = file
 
-        onUpdateShareInformation(result);
+        onUpdateShareInformation(result)
     }
 
-    /**
-     * Updates the UI after the result of an update operation on the edited {@link OCFile}. Keeps the current {@link
-     * OCFile held by this fragment}.
-     *
-     * @param result {@link RemoteOperationResult} of an update on the edited {@link OCFile} sharing information.
-     * @see #onUpdateShareInformation(RemoteOperationResult, OCFile)
-     */
-    public void onUpdateShareInformation(RemoteOperationResult result) {
+    fun onUpdateShareInformation(result: RemoteOperationResult<*>) {
         if (binding == null) {
-            return;
+            return
         }
 
-        if (result.isSuccess()) {
-            refreshUiFromDB();
+        if (result.isSuccess) {
+            refreshUiFromDB()
         } else {
-            setupView();
+            setupView()
         }
     }
 
-    /**
-     * Get {@link OCShare} instance from DB and updates the UI.
-     */
-    private void refreshUiFromDB() {
-        refreshSharesFromDB();
-        // Updates UI with new state
-        setupView();
+    private fun refreshUiFromDB() {
+        refreshSharesFromDB()
+        setupView()
     }
 
-    private void unShareWith(OCShare share) {
-        fileOperationsHelper.unShareShare(file, share.getId());
+    private fun unShareWith(share: OCShare) {
+        fileOperationsHelper?.unShareShare(file, share.id)
     }
 
-    /**
-     * Starts a dialog that requests a password to the user to protect a share link.
-     *
-     * @param createShare    When 'true', the request for password will be followed by the creation of a new public
-     *                       link; when 'false', a public share is assumed to exist, and the password is bound to it.
-     * @param askForPassword if true, password is optional
-     */
-    public void requestPasswordForShareViaLink(boolean createShare, boolean askForPassword) {
-        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(file,
-                                                                                     createShare,
-                                                                                     askForPassword);
-        dialog.show(getChildFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
+    fun requestPasswordForShareViaLink(createShare: Boolean, askForPassword: Boolean) {
+        val dialog = newInstance(
+            file,
+            createShare,
+            askForPassword
+        )
+        dialog.show(getChildFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT)
     }
 
-    @Override
-    public void requestPasswordForShare(OCShare share, boolean askForPassword) {
-        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(share, askForPassword);
-        dialog.show(getChildFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
+    override fun requestPasswordForShare(share: OCShare?, askForPassword: Boolean) {
+        val dialog = newInstance(share, askForPassword)
+        dialog.show(getChildFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT)
     }
 
-    @Override
-    public void showProfileBottomSheet(User user, String shareWith) {
-        if (user.getServer().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_23)) {
-            new RetrieveHoverCardAsyncTask(user,
-                                           shareWith,
-                                           fileActivity,
-                                           clientFactory,
-                                           viewThemeUtils).execute();
+    override fun showProfileBottomSheet(user: User, shareWith: String?) {
+        if (user.server.version.isNewerOrEqual(NextcloudVersion.nextcloud_23)) {
+            RetrieveHoverCardAsyncTask(
+                user,
+                shareWith,
+                fileActivity,
+                clientFactory,
+                viewThemeUtils
+            ).execute()
         }
     }
 
-    public void refreshCapabilitiesFromDB() {
-        capabilities = fileDataStorageManager.getCapability(user.getAccountName());
+    fun refreshCapabilitiesFromDB() {
+        capabilities = fileDataStorageManager?.getCapability(user?.accountName)
     }
 
-    /**
-     * Get public link from the DB to fill in the "Share link" section in the UI. Takes into account server capabilities
-     * before reading database.
-     */
     @SuppressFBWarnings("PSC")
-    public void refreshSharesFromDB() {
+    fun refreshSharesFromDB() {
         if (binding == null) {
-            return;
+            return
         }
 
-        OCFile newFile = fileDataStorageManager.getFileById(file.getFileId());
+        val newFile = file?.fileId?.let { fileDataStorageManager?.getFileById(it) }
         if (newFile != null) {
-            file = newFile;
+            file = newFile
         }
 
         if (internalShareeListAdapter == null) {
-            DisplayUtils.showSnackMessage(this, R.string.could_not_retrieve_shares);
-            return;
+            DisplayUtils.showSnackMessage(this, R.string.could_not_retrieve_shares)
+            return
         }
 
-        internalShareeListAdapter.removeAll();
+        internalShareeListAdapter!!.removeAll()
 
         // to show share with users/groups info
-        List<OCShare> shares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(),
-                                                                            user.getAccountName());
+        val shares = fileDataStorageManager?.getSharesWithForAFile(
+            file?.remotePath,
+            user?.accountName
+        ) ?: listOf<OCShare>()
 
-        List<OCShare> internalShares = new ArrayList<>();
-        List<OCShare> externalShares = new ArrayList<>();
+        val internalShares = ArrayList<OCShare>()
+        val externalShares = ArrayList<OCShare>()
 
-        for (OCShare share : shares) {
-            if (share.getShareType() != null) {
-                switch (share.getShareType()) {
-                    case PUBLIC_LINK:
-                    case FEDERATED_GROUP:
-                    case FEDERATED:
-                    case EMAIL:
-                        externalShares.add(share);
-                        break;
+        for (share in shares) {
+            if (share.shareType != null) {
+                when (share.shareType) {
+                    ShareType.PUBLIC_LINK, ShareType.FEDERATED_GROUP, ShareType.FEDERATED, ShareType.EMAIL -> externalShares.add(
+                        share
+                    )
 
-                    default:
-                        internalShares.add(share);
-                        break;
+                    else -> internalShares.add(share)
                 }
             }
         }
-        
-        internalShareeListAdapter.addShares(internalShares);
-        ViewExtensionsKt.setVisibleIf(binding.sharesListInternalShowAll, internalShareeListAdapter.shares.size() > 3);
 
-        addExternalAndPublicShares(externalShares);
-        ViewExtensionsKt.setVisibleIf(binding.sharesListExternalShowAll, externalShareeListAdapter.shares.size() > 3);
+        internalShareeListAdapter?.addShares(internalShares)
+        internalShareeListAdapter?.shares?.size?.let { binding?.sharesListInternalShowAll?.setVisibleIf(it > 3) }
+
+        addExternalAndPublicShares(externalShares)
+        externalShareeListAdapter?.shares?.size?.let { binding?.sharesListExternalShowAll?.setVisibleIf(it > 3) }
     }
 
-    private void addExternalAndPublicShares(List<OCShare> externalShares) {
-        final var publicShares = fileDataStorageManager.getSharesByPathAndType(file.getRemotePath(), ShareType.PUBLIC_LINK, "");
-        externalShareeListAdapter.removeAll();
-        final var shares = OCShareExtensionsKt.mergeDistinctByToken(externalShares, publicShares);
-        externalShareeListAdapter.addShares(shares);
-    }
-
-    private void checkContactPermission() {
-        if (PermissionUtil.checkSelfPermission(requireActivity(), Manifest.permission.READ_CONTACTS)) {
-            pickContactEmail();
-        } else {
-            requestContactPermissionLauncher.launch(Manifest.permission.READ_CONTACTS);
+    private fun addExternalAndPublicShares(externalShares: MutableList<OCShare>) {
+        val publicShares =
+            fileDataStorageManager?.getSharesByPathAndType(file?.remotePath, ShareType.PUBLIC_LINK, "")
+        externalShareeListAdapter?.removeAll()
+        publicShares?.let {
+            externalShares.mergeDistinctByToken(it)
+            externalShareeListAdapter?.addShares(it)
         }
     }
 
-    private void pickContactEmail() {
-        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Email.CONTENT_URI);
-
-        if (intent.resolveActivity(requireContext().getPackageManager()) != null) {
-            onContactSelectionResultLauncher.launch(intent);
+    private fun checkContactPermission() {
+        if (checkSelfPermission(requireActivity(), Manifest.permission.READ_CONTACTS)) {
+            pickContactEmail()
         } else {
-            DisplayUtils.showSnackMessage(this, R.string.file_detail_sharing_fragment_no_contact_app_message);
+            requestContactPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
         }
     }
 
-    private void handleContactResult(@NonNull Uri contactUri) {
+    private fun pickContactEmail() {
+        val intent = Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Email.CONTENT_URI)
+
+        if (intent.resolveActivity(requireContext().packageManager) != null) {
+            onContactSelectionResultLauncher.launch(intent)
+        } else {
+            DisplayUtils.showSnackMessage(this, R.string.file_detail_sharing_fragment_no_contact_app_message)
+        }
+    }
+
+    private fun handleContactResult(contactUri: Uri) {
         // Define the projection to get all email addresses.
-        String[] projection = {ContactsContract.CommonDataKinds.Email.ADDRESS};
+        val projection = arrayOf<String?>(ContactsContract.CommonDataKinds.Email.ADDRESS)
 
-        Cursor cursor = fileActivity.getContentResolver().query(contactUri, projection, null, null, null);
+        val cursor = fileActivity?.contentResolver?.query(contactUri, projection, null, null, null)
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 // The contact has only one email address, use it.
-                int columnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS);
+                val columnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)
                 if (columnIndex != -1) {
                     // Use the email address as needed.
                     // email variable contains the selected contact's email address.
-                    String email = cursor.getString(columnIndex);
-                    binding.searchView.post(() -> {
+                    val email = cursor.getString(columnIndex)
+                    binding!!.searchView.post(Runnable {
                         if (binding == null) {
-                            return;
+                            return@Runnable
                         }
-
-                        binding.searchView.setQuery(email, false);
-                        binding.searchView.requestFocus();
-                    });
+                        binding?.searchView?.setQuery(email, false)
+                        binding?.searchView?.requestFocus()
+                    })
                 } else {
-                    DisplayUtils.showSnackMessage(this, R.string.email_pick_failed);
-                    Log_OC.e(FileDetailSharingFragment.class.getSimpleName(), "Failed to pick email address.");
+                    DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
+                    Log_OC.e(FileDetailSharingFragment::class.java.getSimpleName(), "Failed to pick email address.")
                 }
             } else {
-                DisplayUtils.showSnackMessage(this, R.string.email_pick_failed);
-                Log_OC.e(FileDetailSharingFragment.class.getSimpleName(), "Failed to pick email address as no Email found.");
+                DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
+                Log_OC.e(
+                    FileDetailSharingFragment::class.java.getSimpleName(),
+                    "Failed to pick email address as no Email found."
+                )
             }
-            cursor.close();
+            cursor.close()
         } else {
-            DisplayUtils.showSnackMessage(this, R.string.email_pick_failed);
-            Log_OC.e(FileDetailSharingFragment.class.getSimpleName(), "Failed to pick email address as Cursor is null.");
+            DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
+            Log_OC.e(
+                FileDetailSharingFragment::class.java.getSimpleName(),
+                "Failed to pick email address as Cursor is null."
+            )
         }
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(ARG_FILE, file);
-        outState.putParcelable(ARG_USER, user);
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(ARG_FILE, file)
+        outState.putParcelable(ARG_USER, user)
     }
 
-    @Override
-    public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
+    override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
         if (binding == null) {
-            return;
+            return
         }
-        binding.sharedWithYouAvatar.setImageDrawable(avatarDrawable);
+        binding?.sharedWithYouAvatar?.setImageDrawable(avatarDrawable)
     }
 
-    @Override
-    public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
-        return false;
+    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
+        return false
     }
 
-    private boolean isReshareForbidden(OCShare share) {
-        return ShareType.FEDERATED == share.getShareType() ||
-            capabilities != null && capabilities.getFilesSharingResharing().isFalse();
+    private fun isReshareForbidden(share: OCShare): Boolean {
+        return ShareType.FEDERATED == share.shareType ||
+            capabilities != null && capabilities!!.filesSharingResharing.isFalse
     }
 
     @VisibleForTesting
-    public void search(String query) {
-        SearchView searchView = requireView().findViewById(R.id.searchView);
-        searchView.setQuery(query, true);
+    fun search(query: String?) {
+        val searchView = requireView().findViewById<SearchView>(R.id.searchView)
+        searchView.setQuery(query, true)
     }
 
-    @Override
-    public void advancedPermissions(OCShare share) {
-        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_PERMISSION);
+    override fun advancedPermissions(share: OCShare) {
+        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_PERMISSION)
     }
 
-    @Override
-    public void sendNewEmail(OCShare share) {
-        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_NOTE);
+    override fun sendNewEmail(share: OCShare) {
+        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_NOTE)
     }
 
-    @Override
-    public void unShare(OCShare share) {
+    override fun unShare(share: OCShare) {
         if (binding == null) {
-            return;
+            return
         }
 
-        unShareWith(share);
+        unShareWith(share)
 
-        FileEntity entity = fileDataStorageManager.getFileEntity(file);
+        val entity = fileDataStorageManager!!.getFileEntity(file)
 
-        if (binding.sharesListInternal.getAdapter() instanceof ShareeListAdapter adapter) {
-            adapter.remove(share);
+        if (binding?.sharesListInternal?.adapter is ShareeListAdapter) {
+            val adapter = binding?.sharesListInternal?.adapter as ShareeListAdapter
+            adapter.remove(share)
             if (entity != null && adapter.isAdapterEmpty()) {
-                entity.setSharedWithSharee(0);
-                fileDataStorageManager.updateFileEntity(entity);
+                entity.sharedWithSharee = 0
+                fileDataStorageManager?.updateFileEntity(entity)
             }
-        } else if (binding.sharesListExternal.getAdapter() instanceof ShareeListAdapter adapter) {
-            adapter.remove(share);
+        } else if (binding?.sharesListExternal?.adapter is ShareeListAdapter) {
+            val adapter = binding?.sharesListExternal?.adapter as ShareeListAdapter
+            adapter.remove(share)
             if (entity != null && adapter.isAdapterEmpty()) {
-                entity.setSharedViaLink(0);
-                fileDataStorageManager.updateFileEntity(entity);
+                entity.sharedViaLink = 0
+                fileDataStorageManager?.updateFileEntity(entity)
             }
         } else {
-            DisplayUtils.showSnackMessage(this, R.string.failed_update_ui);
+            DisplayUtils.showSnackMessage(this, R.string.failed_update_ui)
         }
     }
 
-    @Override
-    public void sendLink(OCShare share) {
-        if (file.isSharedViaLink() && !TextUtils.isEmpty(share.getShareLink())) {
-            FileDisplayActivity.showShareLinkDialog(fileActivity, file, share.getShareLink());
+    override fun sendLink(share: OCShare) {
+        if (file?.isSharedViaLink == true && !TextUtils.isEmpty(share.shareLink)) {
+            FileActivity.showShareLinkDialog(fileActivity, file, share.shareLink)
         } else {
-            showSendLinkTo(share);
+            showSendLinkTo(share)
         }
     }
 
-    @Override
-    public void addAnotherLink(OCShare share) {
-        createPublicShareLink();
+    override fun addAnotherLink(share: OCShare?) {
+        createPublicShareLink()
     }
 
-    private void modifyExistingShare(OCShare share, int screenTypePermission) {
-        onEditShareListener.editExistingShare(share, screenTypePermission, !isReshareForbidden(share));
+    private fun modifyExistingShare(share: OCShare, screenTypePermission: Int) {
+        onEditShareListener?.editExistingShare(share, screenTypePermission, !isReshareForbidden(share))
     }
 
-    @Override
-    public void onQuickPermissionChanged(OCShare share, int permission) {
-        fileOperationsHelper.setPermissionsToShare(share, permission);
+    override fun onQuickPermissionChanged(share: OCShare, permission: Int) {
+        fileOperationsHelper?.setPermissionsToShare(share, permission)
     }
 
-    @Override
-    public void openShareDetailWithCustomPermissions(OCShare share) {
-        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_PERMISSION_WITH_CUSTOM_PERMISSION);
+    override fun openShareDetailWithCustomPermissions(share: OCShare) {
+        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_PERMISSION_WITH_CUSTOM_PERMISSION)
     }
 
-    //launcher for contact permission
-    private final ActivityResultLauncher<String> requestContactPermissionLauncher =
-        registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-            if (isGranted) {
-                pickContactEmail();
-            } else {
-                DisplayUtils.showSnackMessage(this, R.string.contact_no_permission);
+    private val requestContactPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            pickContactEmail()
+        } else {
+            DisplayUtils.showSnackMessage(this, R.string.contact_no_permission)
+        }
+    }
+
+    private val onContactSelectionResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+            if (intent == null) {
+                DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
+                return@registerForActivityResult
             }
-        });
 
-    //launcher to handle contact selection
-    private final ActivityResultLauncher<Intent> onContactSelectionResultLauncher =
-        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                                  result -> {
-                                      if (result.getResultCode() == Activity.RESULT_OK) {
-                                          Intent intent = result.getData();
-                                          if (intent == null) {
-                                              DisplayUtils.showSnackMessage(this, R.string.email_pick_failed);
-                                              return;
-                                          }
+            val contactUri = intent.data
+            if (contactUri == null) {
+                DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
+                return@registerForActivityResult
+            }
 
-                                          Uri contactUri = intent.getData();
-                                          if (contactUri == null) {
-                                              DisplayUtils.showSnackMessage(this, R.string.email_pick_failed);
-                                              return;
-                                          }
+            handleContactResult(contactUri)
+        }
+    }
 
-                                          handleContactResult(contactUri);
+    interface OnEditShareListener {
+        fun editExistingShare(share: OCShare?, screenTypePermission: Int, isReshareShown: Boolean)
 
-                                      }
-                                  });
+        fun onShareProcessClosed()
+    }
 
-    public interface OnEditShareListener {
-        void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown);
+    companion object {
+        private const val TAG = "FileDetailSharingFragment"
+        private const val ARG_FILE = "FILE"
+        private const val ARG_USER = "USER"
 
-        void onShareProcessClosed();
+        @JvmStatic
+        fun newInstance(file: OCFile?, user: User?): FileDetailSharingFragment = FileDetailSharingFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(ARG_FILE, file)
+                putParcelable(ARG_USER, user)
+            }
+        }
     }
 }
