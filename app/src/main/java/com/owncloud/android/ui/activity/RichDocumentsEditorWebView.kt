@@ -168,7 +168,9 @@ class RichDocumentsEditorWebView : EditorWebView() {
             val url = result.url.toUri()
             when (result.format) {
                 PRINT -> printFile(url)
+
                 SLIDESHOW -> showSlideShow(url)
+
                 else -> {
                     downloadFile(url, result.fileName)
                 }
@@ -211,12 +213,9 @@ class RichDocumentsEditorWebView : EditorWebView() {
     }
 
     companion object {
-        private const val URL = "URL"
         private const val HYPERLINK = "Url"
-        private const val TYPE = "Type"
         private const val PRINT = "print"
         private const val SLIDESHOW = "slideshow"
         private const val NEW_NAME = "NewName"
-        private const val FILENAME = "filename"
     }
 }
