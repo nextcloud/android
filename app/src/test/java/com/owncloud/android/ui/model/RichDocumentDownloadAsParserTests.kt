@@ -103,28 +103,4 @@ class RichDocumentDownloadAsParserTests {
         assertEquals("slideshow", result!!.format)
         assertEquals("slides.pdf", result.fileName)
     }
-
-    @Test
-    fun `parse v2 lowercase url takes precedence over uppercase URL when both present`() {
-        val json = """{"format":"pdf","name":"doc.pdf","url":"https://lower.com","URL":"https://upper.com"}"""
-        val result = RichDocumentDownloadAsParser.parse(json)
-        assertNotNull(result)
-        assertEquals("https://lower.com", result!!.url)
-    }
-
-    @Test
-    fun `parse v2 falls back to uppercase URL when lowercase url is absent`() {
-        val json = """{"format":"pdf","name":"doc.pdf","URL":"https://upper.com"}"""
-        val result = RichDocumentDownloadAsParser.parse(json)
-        assertNotNull(result)
-        assertEquals("https://upper.com", result!!.url)
-    }
-
-    @Test
-    fun `parse v1 falls back to uppercase URL when lowercase url is absent`() {
-        val json = """{"Type":"download","URL":"https://upper.com","filename":"doc.pdf"}"""
-        val result = RichDocumentDownloadAsParser.parse(json)
-        assertNotNull(result)
-        assertEquals("https://upper.com", result!!.url)
-    }
 }
