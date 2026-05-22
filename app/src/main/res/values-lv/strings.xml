@@ -9,7 +9,7 @@
     <string name="account_not_found">Konts nav atrasts!</string>
     <string name="action_edit">Labot</string>
     <string name="action_empty_notifications">Notīrīt visus paziņojumus</string>
-    <string name="action_empty_trashbin">Izdzēst miskastes saturu</string>
+    <string name="action_empty_trashbin">Iztīrīt atkritni</string>
     <string name="action_send_share">Nosūtīt/kopīgot</string>
     <string name="action_switch_grid_view">Režģa izkārtojums</string>
     <string name="action_switch_list_view">Saraksta izkārtojums</string>
