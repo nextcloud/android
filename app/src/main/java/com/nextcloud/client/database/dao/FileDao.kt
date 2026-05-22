@@ -171,4 +171,58 @@ interface FileDao {
 
     @Query("DELETE FROM filelist WHERE file_owner = :fileOwner AND path = :remotePath")
     fun deleteFileByRemotePath(fileOwner: String, remotePath: String): Int
+
+    @Query(
+        """
+        UPDATE filelist
+        SET path = :newPathPrefix || SUBSTR(path, :oldPrefixLength + 1)
+        WHERE path LIKE :oldPathPattern AND file_owner = :fileOwner
+        """
+    )
+    fun moveDescendantPaths(oldPathPattern: String, oldPrefixLength: Int, newPathPrefix: String, fileOwner: String)
+
+    @Query(
+        """
+        UPDATE filelist
+        SET path_decrypted = :newPathPrefix || SUBSTR(path_decrypted, :oldPrefixLength + 1)
+        WHERE path LIKE :oldPathPattern AND file_owner = :fileOwner AND is_encrypted = 0
+        """
+    )
+    fun moveDescendantDecryptedPaths(
+        oldPathPattern: String,
+        oldPrefixLength: Int,
+        newPathPrefix: String,
+        fileOwner: String
+    )
+
+    @Query(
+        """
+        UPDATE filelist
+        SET media_path = :newStoragePrefix || SUBSTR(media_path, :oldStoragePrefixLength + 1)
+        WHERE path LIKE :oldPathPattern AND file_owner = :fileOwner
+          AND media_path IS NOT NULL AND media_path LIKE :oldStoragePrefix || '%'
+        """
+    )
+    fun moveDescendantStoragePaths(
+        oldPathPattern: String,
+        oldStoragePrefix: String,
+        oldStoragePrefixLength: Int,
+        newStoragePrefix: String,
+        fileOwner: String
+    )
+
+    @Query(
+        "UPDATE filelist SET parent = :newParentId WHERE path = :filePath AND file_owner = :fileOwner"
+    )
+    fun updateParent(filePath: String, fileOwner: String, newParentId: Long)
+
+    @Query(
+        """
+        SELECT media_path FROM filelist
+        WHERE path LIKE :oldPathPattern AND file_owner = :fileOwner
+          AND media_path IS NOT NULL AND media_path != ''
+          AND (content_type LIKE 'image/%' OR content_type LIKE 'video/%')
+        """
+    )
+    fun getMediaPathsUnderPath(oldPathPattern: String, fileOwner: String): List<String>
 }

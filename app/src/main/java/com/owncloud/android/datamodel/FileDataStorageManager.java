@@ -1113,108 +1113,53 @@ public class FileDataStorageManager {
      * TODO explore better (faster) implementations TODO throw exceptions up !
      */
     public void moveLocalFile(OCFile ocFile, String targetPath, String targetParentPath) {
-        if (ocFile.fileExists() && !OCFile.ROOT_PATH.equals(ocFile.getFileName())) {
+        if (!ocFile.fileExists() || OCFile.ROOT_PATH.equals(ocFile.getFileName())) {
+            return;
+        }
 
-            OCFile targetParent = getFileByPath(targetParentPath);
-            if (targetParent == null) {
-                throw new IllegalStateException("Parent folder of the target path does not exist!!");
-            }
+        OCFile targetParent = getFileByPath(targetParentPath);
+        if (targetParent == null) {
+            throw new IllegalStateException("Parent folder of the target path does not exist!!");
+        }
 
-            String oldPath = ocFile.getRemotePath();
+        String oldPath = ocFile.getRemotePath();
+        String accountName = user.getAccountName();
+        String oldPathPattern = oldPath + "%";
+        String defaultSavePath = FileStorageUtils.getSavePath(accountName);
+        String oldStoragePrefix = defaultSavePath + oldPath;
+        String newStoragePrefix = defaultSavePath + targetPath;
 
-            /// 1. get all the descendants of the moved element in a single QUERY
-            List<FileEntity> fileEntities =
-                fileDao.getFolderWithDescendants(oldPath + "%", user.getAccountName());
+        List<String> originalMediaPaths = fileDao.getMediaPathsUnderPath(oldPathPattern, accountName);
 
-            /// 2. prepare a batch of update operations to change all the descendants
-            ArrayList<ContentProviderOperation> operations = new ArrayList<>(fileEntities.size());
-            String defaultSavePath = FileStorageUtils.getSavePath(user.getAccountName());
-            List<String> originalPathsToTriggerMediaScan = new ArrayList<>();
-            List<String> newPathsToTriggerMediaScan = new ArrayList<>();
+        fileDao.moveDescendantDecryptedPaths(oldPathPattern, oldPath.length(), targetPath, accountName);
+        fileDao.moveDescendantPaths(oldPathPattern, oldPath.length(), targetPath, accountName);
+        fileDao.moveDescendantStoragePaths(
+            targetPath + "%", oldStoragePrefix, oldStoragePrefix.length(), newStoragePrefix, accountName
+        );
+        fileDao.updateParent(targetPath, accountName, targetParent.getFileId());
 
-            int lengthOfOldPath = oldPath.length();
-            int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
-            for (FileEntity fileEntity : fileEntities) {
-                ContentValues contentValues = new ContentValues(); // keep construction in the loop
-                OCFile childFile = createFileInstance(fileEntity);
-                contentValues.put(
-                    ProviderTableMeta.FILE_PATH,
-                    targetPath + childFile.getRemotePath().substring(lengthOfOldPath)
-                                 );
+        String originalLocalPath = FileStorageUtils.getDefaultSavePathFor(accountName, ocFile);
+        File localFile = new File(originalLocalPath);
 
-                if (!childFile.isEncrypted()) {
-                    contentValues.put(
-                        ProviderTableMeta.FILE_PATH_DECRYPTED,
-                        targetPath + childFile.getRemotePath().substring(lengthOfOldPath)
-                                     );
-                }
+        if (!localFile.exists()) {
+            return;
+        }
 
-                if (childFile.getStoragePath() != null && childFile.getStoragePath().startsWith(defaultSavePath)) {
-                    // update link to downloaded content - but local move is not done here!
-                    String targetLocalPath = defaultSavePath + targetPath +
-                        childFile.getStoragePath().substring(lengthOfOldStoragePath);
+        File targetFile = new File(defaultSavePath + targetPath);
+        File targetFolder = targetFile.getParentFile();
+        if (targetFolder != null && !targetFolder.exists() && !targetFolder.mkdirs()) {
+            Log_OC.e(TAG, "Unable to create parent folder " + targetFolder.getAbsolutePath());
+        }
 
-                    contentValues.put(ProviderTableMeta.FILE_STORAGE_PATH, targetLocalPath);
+        boolean renamed = localFile.renameTo(targetFile);
+        if (!renamed) {
+            return;
+        }
 
-                    if (MimeTypeUtil.isMedia(childFile.getMimeType())) {
-                        originalPathsToTriggerMediaScan.add(childFile.getStoragePath());
-                        newPathsToTriggerMediaScan.add(targetLocalPath);
-                    }
-
-                }
-
-                if (childFile.getRemotePath().equals(ocFile.getRemotePath())) {
-                    contentValues.put(ProviderTableMeta.FILE_PARENT, targetParent.getFileId());
-                }
-
-                operations.add(
-                    ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
-                        .withValues(contentValues)
-                        .withSelection(ProviderTableMeta._ID + " = ?", new String[]{String.valueOf(childFile.getFileId())})
-                        .build());
-
-            }
-
-            /// 3. apply updates in batch
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Fail to update " + ocFile.getFileId() + " and descendants in database", e);
-            }
-
-            /// 4. move in local file system
-            String originalLocalPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), ocFile);
-            String targetLocalPath = defaultSavePath + targetPath;
-            File localFile = new File(originalLocalPath);
-            boolean renamed = false;
-
-            if (localFile.exists()) {
-                File targetFile = new File(targetLocalPath);
-                File targetFolder = targetFile.getParentFile();
-                if (targetFolder != null && !targetFolder.exists() && !targetFolder.mkdirs()) {
-                    Log_OC.e(TAG, "Unable to create parent folder " + targetFolder.getAbsolutePath());
-                }
-                renamed = localFile.renameTo(targetFile);
-            }
-
-            if (renamed) {
-                Iterator<String> pathIterator = originalPathsToTriggerMediaScan.iterator();
-                while (pathIterator.hasNext()) {
-                    // Notify MediaScanner about removed file
-                    deleteFileInMediaScan(pathIterator.next());
-                }
-
-                pathIterator = newPathsToTriggerMediaScan.iterator();
-                while (pathIterator.hasNext()) {
-                    // Notify MediaScanner about new file/folder
-                    triggerMediaScan(pathIterator.next());
-                }
-            }
+        for (String originalMediaPath : originalMediaPaths) {
+            deleteFileInMediaScan(originalMediaPath);
+            String newMediaPath = newStoragePrefix + originalMediaPath.substring(oldStoragePrefix.length());
+            triggerMediaScan(newMediaPath);
         }
     }
 
