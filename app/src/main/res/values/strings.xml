@@ -526,6 +526,7 @@
     <string name="placeholder_random_link" translatable="false">https://nextcloud.localhost/nextcloud</string>
     <string name="placeholder_random_account" translatable="false">firstname@example.nextcloud.com</string>
     <string name="placeholder_date" translatable="false">12. Dec 2020 - 23:10:20</string>
+    <string name="placeholder_auto_upload_folder" translatable="false">This is a very long folder name as you can see</string>
     <string name="placeholder_date_2" translatable="false">10. Dec 2020 - 10:10:10</string>
     <string name="placeholder_sso" translatable="false">Grant Nextcloud News access to your Nextcloud account incrediblyLong_username_with_123456789_number@Nextcloud_dummy.com?</string>
     <string name="placeholder_example_phone_number" translatable="false">+49 123 456 789 12</string>
