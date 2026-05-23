@@ -172,8 +172,8 @@
     <string name="contacts_preferences_import_scheduled">Uvoz je načrtovan in se bo kmalu začel.</string>
     <string name="contacts_preferences_no_file_found">Ne najdem datoteke</string>
     <string name="contacts_preferences_something_strange_happened">Zadnje varnostne kopije ni mogoče najti!</string>
-    <string name="conversation_screen_delete_button_title">Razumem tveganje, izbriši pogovor</string>
-    <string name="conversation_screen_empty_content_title">Pogovora ni mogoče najti</string>
+    <string name="conversation_screen_delete_button_title">Izbriši pogovor</string>
+    <string name="conversation_screen_empty_content_title">Ni najdenih pogovorov</string>
     <string name="conversation_screen_empty_conversation_list_title">Ni še začetih pogovorov</string>
     <string name="conversation_screen_title">Pogovori</string>
     <string name="copied">Kopirano</string>
@@ -244,7 +244,7 @@
     <string name="drawer_item_assistant">Pomočnik</string>
     <string name="drawer_item_favorites">Priljubljene</string>
     <string name="drawer_item_gallery">Predstavna vsebina</string>
-    <string name="drawer_item_groupfolders">Ekipne mape</string>
+    <string name="drawer_item_groupfolders">Skupne mape</string>
     <string name="drawer_item_home">Začetna stran</string>
     <string name="drawer_item_notifications">Obvestila</string>
     <string name="drawer_item_on_device">Na napravi</string>
@@ -691,7 +691,7 @@
     <string name="share_no_expiration_date_label">Nastavi datum preteka</string>
     <string name="share_no_password_title">Nastavi geslo</string>
     <string name="share_permission_can_edit">Lahko ureja</string>
-    <string name="share_permission_secure_file_drop">Varno pošiljanje daottek</string>
+    <string name="share_permission_secure_file_drop">Varno pošiljanje datotek</string>
     <string name="share_permission_view_only">Le ogled</string>
     <string name="share_re_share_permission">Souporaba</string>
     <string name="share_read_permission">Branje</string>

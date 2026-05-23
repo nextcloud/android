@@ -59,7 +59,7 @@
     <string name="assistant_screen_send_message">İleti gönder</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Açık görüşmeler listesi</string>
     <string name="assistant_screen_task_create_fail_message">Görev oluşturulurken bir sorun çıktı</string>
-    <string name="assistant_screen_task_create_success_message">Görev eklendi</string>
+    <string name="assistant_screen_task_create_success_message">Görev oluşturuldu</string>
     <string name="assistant_screen_task_delete_fail_message">Görev silinirken bir sorun çıktı</string>
     <string name="assistant_screen_task_delete_success_message">Görev silindi</string>
     <string name="assistant_screen_task_list_empty_warning">Görev listesi boş. Yardımcı uygulamasının yapılandırmasını denetleyin.</string>
@@ -113,8 +113,13 @@
     <string name="authenticator_activity_login_error">Oturum açma isteğiniz işlenirken bir sorun çıktı. Lütfen bir süre sonra yeniden deneyin.</string>
     <string name="authenticator_activity_no_web_browser_found">Bu bağlantıyı açabilecek bir tarayıcı bulunamadı.</string>
     <string name="authenticator_activity_please_complete_login_process">Lütfen oturum açma işlemini tarayıcınızdan tamamlayın</string>
+    <string name="auto_upload_background_activity_action">Arka planda işlem yapılabilsin</string>
+    <string name="auto_upload_battery_optimization_reason">Nextcloud arka plan işlemleri pil optimizasyonu ile sınırlanır.</string>
+    <string name="auto_upload_battery_saver_action">Pil koruma ayarlarını aç</string>
     <string name="auto_upload_battery_saver_mode_warning">Pil koruma modu açık olduğundan otomatik yükleme duraklatıldı</string>
-    <string name="auto_upload_delete_dialog_title">Otomatik yükleme klasörünü sil</string>
+    <string name="auto_upload_battery_saver_reason">Pil koruması etkin ve yükleme işlemlerini duraklatabilir.</string>
+    <string name="auto_upload_delete_dialog_description">Bu işlem, klasörü ve otomatik yükleme yapılandırmasını kaldırır. Tamamlanmamış yüklemeler iptal edilir.</string>
+    <string name="auto_upload_delete_dialog_title">Otomatik yükleme klasörü silinsin mi?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
     <string name="auto_upload_low_battery_warning_info">Pil azaldı. Yükleme işlemi uzun sürebilir</string>
     <string name="auto_upload_on_wifi">Yalnızca kotasız kablosuz ağda yüklensin</string>
@@ -123,7 +128,7 @@
     <string name="auto_upload_wifi_only_warning_info">Yüklemenin başlatılması için Wi-Fi bağlantısı bekleniyor</string>
     <string name="auto_upload_worker_start_text">%1$s üzerindeki dosyalar %2$s üzerine yükleniyor</string>
     <string name="autoupload_configure">Yapılandır</string>
-    <string name="autoupload_create_new_custom_folder">Özel klasör kurulumu ekle</string>
+    <string name="autoupload_create_new_custom_folder">Özel klasör kurulumu oluştur</string>
     <string name="autoupload_custom_folder">Bir özel klasör kurun</string>
     <string name="autoupload_disable_power_save_check">Güç koruma denetimini kapat</string>
     <string name="autoupload_hide_folder">Klasörü gizle</string>
@@ -244,7 +249,7 @@
     <string name="could_not_download_image">Tam boyuttaki görsel indirilemedi</string>
     <string name="could_not_retrieve_shares">Paylaşımlar alınamadı</string>
     <string name="could_not_retrieve_url">Adres alınamadı</string>
-    <string name="create">Ekle</string>
+    <string name="create">Oluştur</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="create_end_to_end_encrypted_share">Bağlantı paylaşımı</string>
     <string name="create_end_to_end_encrypted_share_title">Uçtan uca şifrelenmiş bağlantı paylaşımları</string>
@@ -254,7 +259,7 @@
     <string name="create_new_encrypted_folder">Yeni şifrelenmiş klasör</string>
     <string name="create_new_folder">Yeni klasör</string>
     <string name="create_new_presentation">Yeni sunum</string>
-    <string name="create_new_spreadsheet">Yeni çalışma sayfası</string>
+    <string name="create_new_spreadsheet">Yeni elektronik tablo</string>
     <string name="create_rich_workspace">Klasör açıklaması ekle</string>
     <string name="creates_rich_workspace">Klasör açıklaması ekler</string>
     <string name="credentials_disabled">Kimlik doğrulama bilgileri kullanılmıyor</string>
@@ -409,6 +414,7 @@
     <string name="etm_transfer_type">Aktarım</string>
     <string name="etm_transfer_type_download">İndirme</string>
     <string name="etm_transfer_type_upload">Yükleme</string>
+    <string name="export_in_progress">%1$d / %2$d dışa aktarılıyor</string>
     <string name="extension_cannot_be_changed">Uzantı değiştirilemez</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Bu klasörde dosya oluşturma ya da yükleme izniniz yok.</string>
     <string name="external_shares">Dış paylaşımlar</string>
@@ -512,7 +518,7 @@
     <string name="first_run_4_text">Ekran paylaşımı, çevrim içi görüşmeler ve İnternet toplantıları</string>
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="folder_best_viewed_in">Bu klasör en iyi %1$s ile görüntülenir.</string>
-    <string name="folder_confirm_create">Ekle</string>
+    <string name="folder_confirm_create">Oluştur</string>
     <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">%s klasörü eşitlenirken bir sorun çıktı</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Disk alanı yetersiz. Eşitleme iptal edildi</string>
@@ -564,6 +570,7 @@
     <string name="instant_upload_existing">Var olan dosyalar da yüklensin</string>
     <string name="instant_upload_on_charging">Yalnızca şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
+    <string name="internal_share_description_end_to_end_encrypted">Paylaşım alıcıları her zaman tam şifrelenmiş klasöre erişebilir. Yalnızca uçtan uca şifrelemeyi zaten ayarlamış hesaplarla paylaşılabilir.</string>
     <string name="internal_share_headline_end_to_end_encrypted">Uçtan uca şifrelenmiş paylaşımlar</string>
     <string name="internal_shares">İç paylaşımlar</string>
     <string name="internal_two_way_sync">İç iki yönlü eşitleme</string>
@@ -637,7 +644,7 @@
     <string name="network_error_socket_exception">Sunucu ile bağlantı kurulurken bir sorun çıktı</string>
     <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı.</string>
     <string name="network_host_not_available">İşlem tamamlanamadı, sunucu kullanılamıyor.</string>
-    <string name="new_comment">Yorum ekle …</string>
+    <string name="new_comment">Yeni yorum…</string>
     <string name="new_media_folder_detected">Yeni %1$s ortam klasörü bulundu.</string>
     <string name="new_media_folder_photos">fotoğraf</string>
     <string name="new_media_folder_videos">görüntü</string>
@@ -670,7 +677,7 @@
     <string name="notification_channel_media_name">Ortam oynatıcı</string>
     <string name="notification_channel_offline_operations_description">Çevrim dışı dosya işlemlerinin ilerlemesini görüntüler</string>
     <string name="notification_channel_offline_operations_name_short">Çevrim dışı işlemler</string>
-    <string name="notification_channel_push_description">Yorumlarda anılmanız, yeni bir uzak paylaşım almanız ya da bir yönetici tarafından bir duyuru yapıması gibi durumlarda sunucu tarafından gönderilen anında bildirimler görüntülenir.</string>
+    <string name="notification_channel_push_description">Yorumlarda anılmanız, yeni bir uzak paylaşım almanız ya da bir yönetici tarafından bir duyuru yapılması gibi durumlarda sunucu tarafından gönderilen anında bildirimler görüntülenir.</string>
     <string name="notification_channel_push_name">Anında bildirimler</string>
     <string name="notification_channel_upload_description">Yükleme ilerlemesini görüntüler</string>
     <string name="notification_channel_upload_name_short">Yüklemeler</string>
@@ -773,6 +780,7 @@
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
     <string name="prefs_recommend">Arkadaşına öner</string>
     <string name="prefs_remove_e2e">Şifrelemeyi yerel olarak kaldır</string>
+    <string name="prefs_remove_e2e_keys_and_files">Şifrelenmiş dosyaları ve anahtarları kaldırın</string>
     <string name="prefs_setup_e2e">Uçtan uca şifrelemeyi kur</string>
     <string name="prefs_show_ecosystem_apps">Uygulama değiştiriciyi görüntüle</string>
     <string name="prefs_show_ecosystem_apps_summary">Gezinme başlığında Nextcloud uygulama önerileri</string>
@@ -795,6 +803,7 @@
     <string name="preview_image_file_is_not_downloaded">Dosya indirilmedi</string>
     <string name="preview_media_unhandled_http_code_message">Dosya şu anda başka bir kullanıcı veya işlem tarafından kilitlenmiş olduğundan silinemez. Lütfen bir süre sonra yeniden deneyin.</string>
     <string name="preview_sorry">Ne yazık ki</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Yazı düzenleyici açılamadı</string>
     <string name="privacy">Gizlilik</string>
     <string name="push_notifications_not_implemented">Anında bildirimler Google Play hizmetlerine olan bağımlılıklar nedeniyle kapatıldı.</string>
     <string name="push_notifications_old_login">Oturumunuzun süresi dolduğundan anında bildirimler gönderilemez. Lütfen hesabınızı yeniden eklemeyi düşünün.</string>
@@ -811,6 +820,7 @@
     <string name="remote">(uzak)</string>
     <string name="remote_file_fetch_failed">Dosya bulunamadı!</string>
     <string name="remove_e2e">Bu istemciden uçtan uca şifrelemeyi yerel olarak kaldırabilirsiniz</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Bu işlem tüm şifrelenmiş dosyaları, kişisel ve herkese açık anahtarları kaldıracak. Emin misiniz?</string>
     <string name="remove_e2e_message">Bu istemcide yerel olarak uçtan uca şifrelemeyi kaldırabilirsiniz. Şifrelenmiş dosyalar sunucuda kalır, ancak artık bu bilgisayarla eşitlenmez.</string>
     <string name="remove_fail_msg">Silinemedi</string>
     <string name="remove_local_account">Yerel hesabı sil</string>
@@ -872,7 +882,7 @@
     <string name="share_allow_download_and_sync_permission">İndirmeye izin ver ve eşitle</string>
     <string name="share_cannot_update_empty_note">Paylaşım güncellenemedi. Lütfen bir not ekleyip yeniden deneyin.</string>
     <string name="share_copy_link">Paylaş ve bağlantıyı kopyala</string>
-    <string name="share_create_permission">Ekleme</string>
+    <string name="share_create_permission">Oluşturma</string>
     <string name="share_custom_permission">Özel izinler</string>
     <string name="share_delete_permission">Silme</string>
     <string name="share_dialog_title">Paylaşım</string>
@@ -949,7 +959,7 @@
     <string name="ssl_validator_label_validity">Geçerlilik:</string>
     <string name="ssl_validator_label_validity_from">Başlangıç:</string>
     <string name="ssl_validator_label_validity_to">Bitiş:</string>
-    <string name="ssl_validator_no_info_about_error">- Hata hakkında bir bilgi yok</string>
+    <string name="ssl_validator_no_info_about_error">- Hata ile ilgili bir bilgi yok</string>
     <string name="ssl_validator_not_saved">Sertifika kaydedilemedi</string>
     <string name="ssl_validator_null_cert">Sertifika görüntülenemedi.</string>
     <string name="ssl_validator_question">Yine de bu sertifikaya güvenmek istiyor musunuz?</string>
@@ -973,7 +983,7 @@
     <string name="storage_permission_dont_ask">Sorulmasın</string>
     <string name="storage_permission_media_read_only">Ortam dosyalarına salt okunur erişim</string>
     <string name="storage_pictures">Fotoğraflar</string>
-    <string name="store_full_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\n\nÖzellikleri:\n* Sunucunuzun temasına uygun, kolay kullanılan, modern arayüz\n* Dosyaları Nextcloud sunucunuza yükleme\n* Başkaları ile paylaşma\n* İstediğiniz dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama\n* Aygıtınızdaki fotoğraf ve görüntüleri otomatik olarak yükleme\n* Güncelleme bildirimleri\n* Birden çok hesap desteği\n* Verilere parmak izi ya da PIN kodu ile güvenli erişim\n* Kolay takvim ve kişi eşitleme kurulumu için DAVx⁵ bütünleştirmesi (eski adı DAVdroid)\n\nLütfen olabilecek sorunları https://github.com/nextcloud/android/issues adresine bildirin ve uygulama ile ilgili görüşlerinizi https://help.nextcloud.com/c/clients/android adresine yazın\n\nNextcloud kullanmaya yeni mi başladınız? Nextcloud kişisel dosyaları eşitlemek ve paylaşmak için kullanılan bir iletişim sunucusudur. Özgür bir yazılımdır ve kendiniz barındırabileceğiniz gibi bir kuruluş üzerinde ücretli olarak barındırabilirsiniz. Böylece fotoğraflarınız, takviminiz, kişi bilgileriniz ve belgeleriniz gibi pek çok veriyi kendi kontrolunuz altında tutabilirsiniz.\n\nNextcloud hakkında bilgi almak için https://nextcloud.com sitesine bakabilirsiniz.</string>
+    <string name="store_full_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\n\nÖzellikleri:\n* Sunucunuzun temasına uygun, kolay kullanılan, modern arayüz\n* Dosyaları Nextcloud sunucunuza yükleme\n* Başkaları ile paylaşma\n* İstediğiniz dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama\n* Aygıtınızdaki fotoğraf ve görüntüleri otomatik olarak yükleme\n* Güncelleme bildirimleri\n* Birden çok hesap desteği\n* Verilere parmak izi ya da PIN kodu ile güvenli erişim\n* Kolay takvim ve kişi eşitleme kurulumu için DAVx⁵ bütünleştirmesi (eski adı DAVdroid)\n\nLütfen olabilecek sorunları https://github.com/nextcloud/android/issues adresine bildirin ve uygulama ile ilgili görüşlerinizi https://help.nextcloud.com/c/clients/android adresine yazın\n\nNextcloud kullanmaya yeni mi başladınız? Nextcloud kişisel dosyaları eşitlemek ve paylaşmak için kullanılan bir iletişim sunucusudur. Özgür bir yazılımdır ve kendiniz barındırabileceğiniz gibi bir kuruluş üzerinde ücretli olarak barındırabilirsiniz. Böylece fotoğraflarınız, takviminiz, kişi bilgileriniz ve belgeleriniz gibi pek çok veriyi kendi kontrolunuz altında tutabilirsiniz.\n\nNextcloud ile ilgili bilgi almak için https://nextcloud.com sitesine bakabilirsiniz.</string>
     <string name="store_full_dev_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\nBu sürüm resmi Nextcloud uygulamasının geliştirici sürümü olduğundan, kararsız çalışabilir ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikler bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük işleriniz için kullanmayın!\n\nNormal ve Geliştirici sürümleri F-Droid üzerinde bulunur ve aynı anda kurulup kullanılabilir.</string>
     <string name="store_short_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu</string>
     <string name="store_short_dev_desc">Sizin denetiminiz altında barındırılan üretkenlik platformu (geliştirici ön izlemesi)</string>
@@ -1101,7 +1111,8 @@
     <string name="upload_local_storage_full">Yerel depolama alanı doldu</string>
     <string name="upload_local_storage_not_copied">Dosya yerel depolamaya kopyalanamadı</string>
     <string name="upload_lock_failed">Klasör kilitlenemedi</string>
-    <string name="upload_locked_title">Yükleniyor…</string>
+    <string name="upload_locked_message">Sunucu meşgul. Yeniden deneniyor…</string>
+    <string name="upload_locked_title">Yükleniyor</string>
     <string name="upload_manually_cancelled">Kullanıcı yüklemeyi iptal etti</string>
     <string name="upload_missing_storage_permission_allow_file_access">Tüm dosyalara erişmeye izin ver</string>
     <string name="upload_missing_storage_permission_app_permissions">Uygulama izinleri</string>
@@ -1114,6 +1125,11 @@
     <string name="upload_quota_exceeded">Depolama sınırına ulaşıldı</string>
     <string name="upload_scan_doc_upload">Kamera ile belge tarama</string>
     <string name="upload_sync_conflict">Eşitleme çakışması, lütfen sorunu el ile çözümleyin</string>
+    <string name="upload_sync_conflict_check">Son yüklemenizden kaynaklanan bir çakışma olabilir. Kontrol etmek için dokunun.</string>
+    <string name="upload_sync_conflict_check_error">Yükleme çakışmaları kontrol edilemedi. Lütfen yeniden deneyin.</string>
+    <string name="upload_sync_conflict_checking">Yükleme çakışmaları kontrol ediliyor...</string>
+    <string name="upload_sync_conflict_not_exists">Çakışma çözümlendi.</string>
+    <string name="upload_sync_conflict_same_file">Herhangi bir çakışma bulunamadı. Dosya aynı.</string>
     <string name="upload_unknown_error">Bilinmeyen sorun</string>
     <string name="uploader_btn_alternative_text">Seçin</string>
     <string name="uploader_btn_upload_text">Yükle</string>
@@ -1278,6 +1294,18 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d seçilmiş</item>
         <item quantity="other">%d seçilmiş</item>
+    </plurals>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Çok sayıda hatalı deneme nedeniyle %d saniye sonra yeniden deneyin</item>
+        <item quantity="other">Çok sayıda hatalı deneme nedeniyle %d saniye sonra yeniden deneyin</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Çok sayıda hatalı deneme nedeniyle %d dakika sonra yeniden deneyin</item>
+        <item quantity="other">Çok sayıda hatalı deneme nedeniyle %d dakika sonra yeniden deneyin</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Çok sayıda hatalı deneme nedeniyle %1$d dakika %2$d saniye sonra yeniden deneyin</item>
+        <item quantity="other">Çok sayıda hatalı deneme nedeniyle %1$d dakika %2$d saniye sonra yeniden deneyin</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d indirme kaldı</item>
