@@ -36,6 +36,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
@@ -80,6 +81,7 @@ import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarGenerationListener, Injectable,
@@ -197,21 +199,25 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         val storageManager = fileDataStorageManager ?: return
         val remotePath = file?.remotePath ?: return
 
-        val shareRepository: ShareRepository = RemoteShareRepository(clientRepository, activity, storageManager)
-        shareRepository.fetchSharees(remotePath, {
+        val shareRepository: ShareRepository = RemoteShareRepository(clientRepository, storageManager)
+        lifecycleScope.launch {
+            val result =  shareRepository.fetchSharees(remotePath)
             if (binding == null) {
-                return@fetchSharees
+                return@launch
             }
-            refreshCapabilitiesFromDB()
-            refreshSharesFromDB()
-            stopLoadingAnimationAndShowShareContainer()
-        }, {
-            if (binding == null) {
-                return@fetchSharees
+
+            // success
+            if (result) {
+                refreshCapabilitiesFromDB()
+                refreshSharesFromDB()
+                stopLoadingAnimationAndShowShareContainer()
+                return@launch
             }
+
+            // fail
             stopLoadingAnimationAndShowShareContainer()
-            DisplayUtils.showSnackMessage(this, R.string.error_fetching_sharees)
-        })
+            DisplayUtils.showSnackMessage(this@FileDetailSharingFragment, R.string.error_fetching_sharees)
+        }
     }
 
     // stop loading animation
