@@ -241,6 +241,7 @@
     <string name="file_keep">Paturēt</string>
     <string name="file_list_empty">Augšupielādē kaut ko vai sinhronizē saturu ar savām ierīcēm!</string>
     <string name="file_list_empty_favorite_headline">Izlasē vēl nekā nav</string>
+    <string name="file_list_empty_favorites_filter_list">Datnes un mapes, ko pievienosi izlasei, tiks rādītas šeit.</string>
     <string name="file_list_empty_headline">Šeit nav datņu</string>
     <string name="file_list_empty_headline_search">Šajā mapē nav iznākuma</string>
     <string name="file_list_empty_headline_server_search">Nav iznākuma</string>
