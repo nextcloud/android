@@ -38,7 +38,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
-import androidx.core.view.GestureDetectorCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -138,7 +137,6 @@ class PreviewMediaActivity :
     private var mediaControllerFuture: ListenableFuture<MediaController>? = null
     private lateinit var windowInsetsController: WindowInsetsControllerCompat
 
-    private var swipeGestureDetector: GestureDetectorCompat? = null
     private var isHorizontalSwipeActive = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -525,10 +523,9 @@ class PreviewMediaActivity :
             }
         }
 
-        swipeGestureDetector = GestureDetectorCompat(this, gestureListener)
-
+        val swipeGestureDetector = GestureDetector(this, gestureListener)
         binding.exoplayerView.setOnTouchListener { _, event ->
-            swipeGestureDetector?.onTouchEvent(event)
+            swipeGestureDetector.onTouchEvent(event)
 
             when (event.action) {
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
