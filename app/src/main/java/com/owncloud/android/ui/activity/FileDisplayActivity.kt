@@ -701,7 +701,14 @@ class FileDisplayActivity :
         Handler(Looper.getMainLooper()).post {
             (supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES) as? OCFileListFragment)?.let { fragment ->
                 leftFragment = fragment
-                setupHomeSearchToolbarWithSortAndListButtons()
+                if (file.isFolder) {
+                    // TODO MAKE home is back button
+                    // unify this logic
+                    setupToolbar()
+                    updateActionBarTitleAndHomeButtonByString(file.fileName)
+                } else {
+                    setupHomeSearchToolbarWithSortAndListButtons()
+                }
                 fragment.onItemClicked(file)
             }
         }
