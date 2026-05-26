@@ -516,9 +516,12 @@ class PreviewMediaActivity :
 
                 if (!isHorizontalSwipeActive) {
                     isHorizontalSwipeActive = true
+                    // decide direction and open next/previous media in same folder
+                    // distanceX > 0 -> user swiped left -> show next
+                    // distanceX < 0 -> user swiped right -> show previous
+                    handleHorizontalSwipe(distanceX)
                 }
 
-                // TODO CALL PAGER
                 return true
             }
         }
@@ -530,12 +533,54 @@ class PreviewMediaActivity :
             when (event.action) {
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                     if (isHorizontalSwipeActive) {
+                        // reset flag after gesture completed
+                        isHorizontalSwipeActive = false
                         return@setOnTouchListener true
                     }
                 }
             }
 
             false
+        }
+    }
+
+    private fun handleHorizontalSwipe(distanceX: Float) {
+        val currentFile = file ?: return
+
+        val parentFolder = storageManager.getFileById(currentFile.parentId) ?: return
+
+        val folderContent = storageManager.getFolderContent(parentFolder, false)
+        val mediaItems = folderContent.filter { MimeTypeUtil.isImageOrVideo(it) }
+
+        if (mediaItems.isEmpty()) return
+
+        val currentIndex = mediaItems.indexOfFirst { it.fileId == currentFile.fileId }
+        if (currentIndex == -1) return
+
+        val targetIndex = if (distanceX > 0) currentIndex + 1 else currentIndex - 1
+        if (targetIndex < 0 || targetIndex >= mediaItems.size) return
+
+        val targetFile = mediaItems[targetIndex]
+        openPreviewForFile(targetFile)
+    }
+
+    private fun openPreviewForFile(targetFile: OCFile) {
+        stopPreview(false)
+
+        if (MimeTypeUtil.isImage(targetFile)) {
+            val intent = PreviewImageActivity.previewFileIntent(this, user, targetFile)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            finish()
+        } else if (MimeTypeUtil.isVideo(targetFile) || MimeTypeUtil.isAudio(targetFile)) {
+            val intent = Intent(this, PreviewMediaActivity::class.java).apply {
+                putExtra(FILE, targetFile)
+                putExtra(USER, user)
+                putExtra(AUTOPLAY, true)
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            finish()
         }
     }
 
