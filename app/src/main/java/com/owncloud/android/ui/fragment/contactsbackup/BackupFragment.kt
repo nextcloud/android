@@ -83,24 +83,7 @@ class BackupFragment :
     private var showSidebar = true
     private var showCalendarBackup = true
 
-    private var isCalendarBackupEnabled: Boolean
-        get() = arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CALENDAR_BACKUP_ENABLED)
-        set(enabled) = arbitraryDataProvider.storeOrUpdateKeyValue(
-            user.accountName,
-            PREFERENCE_CALENDAR_BACKUP_ENABLED,
-            enabled
-        )
-
-    private var isContactsBackupEnabled: Boolean
-        get() = arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_BACKUP_ENABLED)
-        set(enabled) = arbitraryDataProvider.storeOrUpdateKeyValue(
-            user.accountName,
-            PREFERENCE_CONTACTS_BACKUP_ENABLED,
-            enabled
-        )
-
-    //region Lifecycle
-
+    // region Lifecycle
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         if (themeUtils.themingEnabled(context)) requireContext().theme.applyStyle(R.style.FallbackThemingTheme, true)
 
@@ -118,7 +101,7 @@ class BackupFragment :
         val contactsPreferenceActivity = requireActivity() as ContactsPreferenceActivity
         user = contactsPreferenceActivity.user.orElseThrow { RuntimeException() }
 
-        setupSwitches(user)
+        setupSwitches()
         setupCheckListeners()
         setBackupNowButtonVisibility()
         setOnClickListeners()
@@ -148,19 +131,41 @@ class BackupFragment :
             outState.putSerializable(KEY_CALENDAR_DATE, GregorianCalendar(it.year, it.month, it.dayOfMonth))
         }
     }
+    // endregion
 
-    //endregion
+    // region Setup
+    private fun setupSwitches() {
+        val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return
+        val user = activity.user?.takeIf { it.isPresent }?.get() ?: return
 
-    //region Setup
-
-    private fun setupSwitches(user: User) {
         binding.dailyBackup.isChecked = arbitraryDataProvider.getBooleanValue(
             user,
             ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP
         )
-        binding.contacts.isChecked = isContactsBackupEnabled && checkContactBackupPermission()
-        binding.calendar.isChecked = isCalendarBackupEnabled && checkCalendarBackupPermission(requireContext())
+        binding.contacts.isChecked = isBackupEnabled(BackupType.Contacts) && checkContactBackupPermission()
+        binding.calendar.isChecked = isBackupEnabled(BackupType.Calendar) && checkCalendarBackupPermission(requireContext())
         binding.calendar.visibility = if (showCalendarBackup) View.VISIBLE else View.GONE
+    }
+
+    private enum class BackupType(val key: String) {
+        Calendar(PREFERENCE_CALENDAR_BACKUP_ENABLED),
+        Contacts(PREFERENCE_CONTACTS_BACKUP_ENABLED)
+    }
+
+    private fun isBackupEnabled(type: BackupType): Boolean {
+        val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return false
+        val user = activity.user?.takeIf { it.isPresent }?.get() ?: return false
+        return arbitraryDataProvider.getBooleanValue(user, type.key)
+    }
+
+    private fun setBackup(type: BackupType, value: Boolean) {
+        val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return
+        val user = activity.user?.takeIf { it.isPresent }?.get() ?: return
+        arbitraryDataProvider.storeOrUpdateKeyValue(
+            user.accountName,
+            type.key,
+            value
+        )
     }
 
     private fun setupCheckListeners() {
@@ -168,12 +173,12 @@ class BackupFragment :
             if (checkAndAskForContactsReadPermission()) setAutomaticBackup(isChecked)
         }
         contactsCheckedListener = CompoundButton.OnCheckedChangeListener { _, isChecked ->
-            isContactsBackupEnabled = isChecked && checkAndAskForContactsReadPermission()
+            setBackup(BackupType.Contacts, (isChecked && checkAndAskForContactsReadPermission()))
             setBackupNowButtonVisibility()
             setAutomaticBackup(binding.dailyBackup.isChecked)
         }
         calendarCheckedListener = CompoundButton.OnCheckedChangeListener { _, isChecked ->
-            isCalendarBackupEnabled = isChecked && checkAndAskForCalendarReadPermission()
+            setBackup(BackupType.Calendar, (isChecked && checkAndAskForCalendarReadPermission()))
             setBackupNowButtonVisibility()
             setAutomaticBackup(binding.dailyBackup.isChecked)
         }
@@ -263,19 +268,17 @@ class BackupFragment :
         }
         return true
     }
-
     //endregion
 
     //region Backup operations
-
     private fun backupNow() {
         val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return
         val user = activity.user?.takeIf { it.isPresent }?.get() ?: return
 
-        if (isContactsBackupEnabled && checkContactBackupPermission()) {
+        if (isBackupEnabled(BackupType.Contacts) && checkContactBackupPermission()) {
             backgroundJobManager.startImmediateContactsBackup(user)
         }
-        if (showCalendarBackup && isCalendarBackupEnabled && checkCalendarBackupPermission(requireContext())) {
+        if (showCalendarBackup && isBackupEnabled(BackupType.Calendar) && checkCalendarBackupPermission(requireContext())) {
             backgroundJobManager.startImmediateCalendarBackup(user)
         }
         DisplayUtils.showSnackMessage(this, R.string.contacts_preferences_backup_scheduled)
@@ -286,14 +289,14 @@ class BackupFragment :
         val user = activity.user?.takeIf { it.isPresent }?.get() ?: return
 
         if (enabled) {
-            if (isContactsBackupEnabled) {
+            if (isBackupEnabled(BackupType.Contacts)) {
                 Log_OC.d(TAG, "Scheduling contacts backup job")
                 backgroundJobManager.schedulePeriodicContactsBackup(user)
             } else {
                 Log_OC.d(TAG, "Cancelling contacts backup job")
                 backgroundJobManager.cancelPeriodicContactsBackup(user)
             }
-            if (isCalendarBackupEnabled) {
+            if (isBackupEnabled(BackupType.Calendar)) {
                 Log_OC.d(TAG, "Scheduling calendar backup job")
                 backgroundJobManager.schedulePeriodicCalendarBackup(user)
             } else {
@@ -354,11 +357,9 @@ class BackupFragment :
             addAll(storageManager.getFolderContent(calendarFolder, false))
         }
     }
-
     //endregion
 
     //region Date picker
-
     private fun openCleanDate() {
         if (checkAndAskForCalendarReadPermission() && checkAndAskForContactsReadPermission()) openDate(null)
     }
@@ -448,11 +449,9 @@ class BackupFragment :
         val calendarBackups = if (showCalendarBackup) inRange.filter { MimeTypeUtil.isCalendar(it) } else emptyList()
         return listOfNotNull(contactBackup) + calendarBackups
     }
-
     //endregion
 
     //region Permissions
-
     private fun checkAndAskForContactsReadPermission(): Boolean {
         if (checkSelfPermission(requireActivity(), Manifest.permission.READ_CONTACTS)) return true
         requestContactsPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
@@ -482,7 +481,11 @@ class BackupFragment :
 
     private val requestContactsPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) isContactsBackupEnabled = true else resetSwitch(binding.contacts, contactsCheckedListener)
+            if (isGranted) {
+                setBackup(BackupType.Contacts, true)
+            } else {
+                resetSwitch(binding.contacts, contactsCheckedListener)
+            }
             setBackupNowButtonVisibility()
             setAutomaticBackup(binding.dailyBackup.isChecked)
         }
@@ -492,14 +495,13 @@ class BackupFragment :
             val readGranted = permissions[Manifest.permission.READ_CALENDAR] == true
             val writeGranted = permissions[Manifest.permission.WRITE_CALENDAR] == true
             if (readGranted && writeGranted) {
-                isCalendarBackupEnabled = true
+                setBackup(BackupType.Calendar, true)
             } else {
                 resetSwitch(binding.calendar, calendarCheckedListener)
             }
             setBackupNowButtonVisibility()
             setAutomaticBackup(binding.dailyBackup.isChecked)
         }
-
     //endregion
 
     companion object {
