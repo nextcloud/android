@@ -18,7 +18,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.CheckedTextView
 import android.widget.ImageView
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
@@ -57,6 +56,8 @@ class BackupListAdapter(
     private val contacts = mutableListOf<VCard>()
     private val availableContactAccounts: List<ContactsAccount> = getAccountsForImport()
 
+    private var cachedAndroidCalendars: List<AndroidCalendar> = emptyList()
+
     companion object {
         const val SECTION_CALENDAR = 0
         const val SECTION_CONTACTS = 1
@@ -67,6 +68,7 @@ class BackupListAdapter(
     init {
         shouldShowHeadersForEmptySections(false)
         shouldShowFooters(false)
+        cachedAndroidCalendars = AndroidCalendar.loadAll(context.contentResolver)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder = when (viewType) {
@@ -139,6 +141,7 @@ class BackupListAdapter(
 
     fun hasCalendarEntry(): Boolean = calendarFiles.isNotEmpty()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun selectAll(selectAll: Boolean) {
         if (selectAll) {
             checkedVCards.addAll(contacts.indices)
@@ -147,6 +150,7 @@ class BackupListAdapter(
             checkedCalendars.clear()
         }
         showRestoreButton()
+        notifyDataSetChanged()
     }
 
     private fun bindCalendarHeader(holder: BackupListHeaderViewHolder) {
@@ -163,7 +167,6 @@ class BackupListAdapter(
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     backupListFragment.setSelectedAccount(availableContactAccounts[position])
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     backupListFragment.setSelectedAccount(null)
                 }
@@ -179,7 +182,7 @@ class BackupListAdapter(
         val rawName = getDisplayName(vCard)
         val displayName = rawName?.takeIf { it.isNotBlank() } ?: context.getString(android.R.string.unknownName)
 
-        setChecked(checkedVCards.contains(position), holder.binding.name)
+        holder.binding.name.isChecked = checkedVCards.contains(position)
         holder.binding.name.text = displayName
         viewThemeUtils.platform.themeCheckedTextView(holder.binding.name)
 
@@ -196,21 +199,19 @@ class BackupListAdapter(
         val ocFile = calendarFiles[position]
         val storagePath = ocFile.storagePath
 
-        setChecked(checkedCalendars.containsKey(storagePath), holder.binding.name)
-
+        holder.binding.name.isChecked = checkedCalendars.containsKey(storagePath)
         val fileName = ocFile.fileName
         val calendarName = fileName.substringBefore("_")
         val date = fileName.substringAfterLast("_").replace(".ics", "").replace("-", ":")
 
         holder.binding.name.text = context.getString(R.string.calendar_name_linewrap, calendarName, date)
         viewThemeUtils.platform.themeCheckedTextView(holder.binding.name)
-        holder.setCalendars(AndroidCalendar.loadAll(context.contentResolver))
+        holder.setCalendars(cachedAndroidCalendars)
 
         holder.binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, calendarPosition: Int, id: Long) {
                 checkedCalendars[storagePath] = calendarPosition
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 checkedCalendars[storagePath] = -1
             }
@@ -231,24 +232,24 @@ class BackupListAdapter(
                 override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                     imageView.setImageDrawable(resource)
                 }
-
                 override fun onLoadCleared(placeholder: Drawable?) {
                     imageView.setImageDrawable(placeholder)
                 }
-
                 override fun onLoadFailed(errorDrawable: Drawable?) {
                     super.onLoadFailed(errorDrawable)
                     imageView.setImageDrawable(errorDrawable)
                 }
             }
 
-            GlideHelper.loadIntoTarget(
-                backupListFragment.requireActivity(),
-                accountManager.currentOwnCloudAccount,
-                url,
-                target,
-                R.drawable.ic_user_outline
-            )
+            backupListFragment.activity?.let {
+                GlideHelper.loadIntoTarget(
+                    it,
+                    accountManager.currentOwnCloudAccount,
+                    url,
+                    target,
+                    R.drawable.ic_user_outline
+                )
+            }
         }
     }
 
@@ -269,6 +270,7 @@ class BackupListAdapter(
         val isChecked = !holder.binding.name.isChecked
         holder.binding.name.isChecked = isChecked
 
+        val wasEmpty = checkedVCards.isEmpty()
         if (isChecked) {
             checkedVCards.add(position)
         } else {
@@ -276,7 +278,11 @@ class BackupListAdapter(
         }
 
         showRestoreButton()
-        notifySectionChanged(SECTION_CONTACTS)
+
+        val isNowEmpty = checkedVCards.isEmpty()
+        if (wasEmpty != isNowEmpty) {
+            notifySectionChanged(SECTION_CONTACTS)
+        }
     }
 
     private fun toggleCalendar(holder: CalendarItemViewHolder, position: Int) {
@@ -291,19 +297,13 @@ class BackupListAdapter(
         } else {
             checkedCalendars.remove(storagePath)
         }
-
         showRestoreButton()
-    }
-
-    private fun setChecked(checked: Boolean, checkedTextView: CheckedTextView) {
-        checkedTextView.isChecked = checked
     }
 
     private fun showRestoreButton() {
         val hasSelection = checkedCalendars.isNotEmpty() || checkedVCards.isNotEmpty()
         val hasAvailableCalendar =
-            checkedCalendars.isEmpty() || AndroidCalendar.loadAll(context.contentResolver).isNotEmpty()
-
+            checkedCalendars.isEmpty() || cachedAndroidCalendars.isNotEmpty()
         backupListFragment.showRestoreButton(hasSelection && hasAvailableCalendar)
     }
 
@@ -333,6 +333,6 @@ class BackupListAdapter(
             Log_OC.d(BackupListFragment.TAG, e.message)
         }
 
-        return accounts.distinct()
+        return accounts.distinctBy { it.name to it.type }
     }
 }
