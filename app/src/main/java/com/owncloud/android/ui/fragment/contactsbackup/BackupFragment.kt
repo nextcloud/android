@@ -62,16 +62,19 @@ class BackupFragment :
     OnDateSetListener,
     Injectable {
 
-    @Inject lateinit var backgroundJobManager: BackgroundJobManager
+    @Inject
+    lateinit var backgroundJobManager: BackgroundJobManager
 
-    @Inject lateinit var themeUtils: ThemeUtils
+    @Inject
+    lateinit var themeUtils: ThemeUtils
 
-    @Inject lateinit var arbitraryDataProvider: ArbitraryDataProvider
+    @Inject
+    lateinit var arbitraryDataProvider: ArbitraryDataProvider
 
-    @Inject lateinit var viewThemeUtils: ViewThemeUtils
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     private lateinit var binding: BackupFragmentBinding
-    private lateinit var user: User
     private lateinit var contactsBackupFolderPath: String
     private lateinit var calendarBackupFolderPath: String
     private lateinit var contactsCheckedListener: CompoundButton.OnCheckedChangeListener
@@ -99,7 +102,6 @@ class BackupFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val contactsPreferenceActivity = requireActivity() as ContactsPreferenceActivity
-        user = contactsPreferenceActivity.user.orElseThrow { RuntimeException() }
 
         setupSwitches()
         setupCheckListeners()
@@ -134,16 +136,21 @@ class BackupFragment :
     // endregion
 
     // region Setup
+    private fun getUser(): User? {
+        val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return null
+        return activity.user?.takeIf { it.isPresent }?.get()
+    }
+
     private fun setupSwitches() {
-        val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return
-        val user = activity.user?.takeIf { it.isPresent }?.get() ?: return
+        val user = getUser() ?: return
 
         binding.dailyBackup.isChecked = arbitraryDataProvider.getBooleanValue(
             user,
             ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP
         )
         binding.contacts.isChecked = isBackupEnabled(BackupType.Contacts) && checkContactBackupPermission()
-        binding.calendar.isChecked = isBackupEnabled(BackupType.Calendar) && checkCalendarBackupPermission(requireContext())
+        binding.calendar.isChecked =
+            isBackupEnabled(BackupType.Calendar) && checkCalendarBackupPermission(requireContext())
         binding.calendar.visibility = if (showCalendarBackup) View.VISIBLE else View.GONE
     }
 
@@ -153,14 +160,12 @@ class BackupFragment :
     }
 
     private fun isBackupEnabled(type: BackupType): Boolean {
-        val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return false
-        val user = activity.user?.takeIf { it.isPresent }?.get() ?: return false
+        val user = getUser() ?: return false
         return arbitraryDataProvider.getBooleanValue(user, type.key)
     }
 
     private fun setBackup(type: BackupType, value: Boolean) {
-        val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return
-        val user = activity.user?.takeIf { it.isPresent }?.get() ?: return
+        val user = getUser() ?: return
         arbitraryDataProvider.storeOrUpdateKeyValue(
             user.accountName,
             type.key,
@@ -196,6 +201,8 @@ class BackupFragment :
     }
 
     private fun displayLastBackup(contactsPreferenceActivity: ContactsPreferenceActivity) {
+        val user = getUser() ?: return
+
         val lastBackupTimestamp = arbitraryDataProvider.getLongValue(
             user,
             ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP
@@ -272,21 +279,22 @@ class BackupFragment :
 
     //region Backup operations
     private fun backupNow() {
-        val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return
-        val user = activity.user?.takeIf { it.isPresent }?.get() ?: return
+        val user = getUser() ?: return
 
         if (isBackupEnabled(BackupType.Contacts) && checkContactBackupPermission()) {
             backgroundJobManager.startImmediateContactsBackup(user)
         }
-        if (showCalendarBackup && isBackupEnabled(BackupType.Calendar) && checkCalendarBackupPermission(requireContext())) {
+        if (showCalendarBackup &&
+            isBackupEnabled(BackupType.Calendar) &&
+            checkCalendarBackupPermission(requireContext())
+        ) {
             backgroundJobManager.startImmediateCalendarBackup(user)
         }
         DisplayUtils.showSnackMessage(this, R.string.contacts_preferences_backup_scheduled)
     }
 
     private fun setAutomaticBackup(enabled: Boolean) {
-        val activity = getTypedActivity(ContactsPreferenceActivity::class.java) ?: return
-        val user = activity.user?.takeIf { it.isPresent }?.get() ?: return
+        val user = getUser() ?: return
 
         if (enabled) {
             if (isBackupEnabled(BackupType.Contacts)) {
@@ -331,6 +339,8 @@ class BackupFragment :
     private suspend fun fetchBackupFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =
         withContext(Dispatchers.IO) {
             try {
+                val user = getUser() ?: return@withContext emptyList()
+
                 @Suppress("DEPRECATION")
                 val result = RefreshFolderOperation(
                     folder,
@@ -416,7 +426,8 @@ class BackupFragment :
             )
             return
         }
-        val user = contactsPreferenceActivity.user.orElseThrow { RuntimeException() }
+        val user = getUser() ?: return
+
         val fragment = BackupListFragment.newInstance(backupToRestore.toTypedArray(), user)
         contactsPreferenceActivity.supportFragmentManager.beginTransaction()
             .replace(R.id.frame_container, fragment, BackupListFragment.TAG)
