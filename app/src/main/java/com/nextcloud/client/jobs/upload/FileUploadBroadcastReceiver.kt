@@ -11,8 +11,11 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.nextcloud.client.account.UserAccountManagerImpl
 import com.owncloud.android.MainApp
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.lib.common.utils.Log_OC
 import javax.inject.Inject
 
 class FileUploadBroadcastReceiver : BroadcastReceiver() {
@@ -21,12 +24,12 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
     lateinit var uploadsStorageManager: UploadsStorageManager
 
     companion object {
-        // region cancel or remove actions
+        private const val TAG = "FileUploadBroadcastReceiver"
+
         const val UPLOAD_ID = "UPLOAD_ID"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val REMOTE_PATH = "REMOTE_PATH"
         const val REMOVE = "REMOVE"
-        // endregion
     }
 
     @Suppress("ReturnCount")
@@ -57,9 +60,12 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
 
         val remove = intent.getBooleanExtra(REMOVE, false)
 
+        Log_OC.d(TAG, "upload: $remotePath removed: $remove")
+
         FileUploadWorker.cancelUpload(remotePath, accountName)
 
         if (remove) {
+            removeFileIfAlreadyUploaded(context, remotePath)
             uploadsStorageManager.removeUpload(uploadId)
         } else {
             FileUploadHelper.instance().updateUploadStatus(
@@ -72,5 +78,14 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
         // dismiss notification
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(uploadId.toInt())
+    }
+
+    @Suppress("DEPRECATION")
+    private fun removeFileIfAlreadyUploaded(context: Context, remotePath: String) {
+        val userAccountManager = UserAccountManagerImpl.fromContext(context)
+        val user = userAccountManager.user
+        val storageManager = FileDataStorageManager(user, context.contentResolver)
+        val ocFile = storageManager.getFileByPath(remotePath) ?: return
+        storageManager.removeFile(ocFile, true, false)
     }
 }
