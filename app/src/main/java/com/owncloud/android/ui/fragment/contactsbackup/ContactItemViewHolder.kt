@@ -17,7 +17,7 @@ class ContactItemViewHolder internal constructor(var binding: ContactlistListIte
         binding.root.tag = this
     }
 
-    fun setVCardListener(onClickListener: View.OnClickListener?) {
+    fun setVCardListener(onClickListener: View.OnClickListener) {
         itemView.setOnClickListener(onClickListener)
     }
 }

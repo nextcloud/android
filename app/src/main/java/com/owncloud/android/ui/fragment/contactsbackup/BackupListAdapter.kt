@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2021 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -10,7 +11,6 @@ package com.owncloud.android.ui.fragment.contactsbackup
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
-import android.database.Cursor
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.provider.ContactsContract
@@ -24,6 +24,7 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.GlideHelper
@@ -45,66 +46,43 @@ import third_parties.sufficientlysecure.AndroidCalendar
 class BackupListAdapter(
     val accountManager: UserAccountManager,
     val clientFactory: ClientFactory,
-    private val checkedVCards: HashSet<Int> = HashSet(),
-    private val checkedCalendars: HashMap<String, Int> = HashMap(),
+    private val checkedVCards: MutableSet<Int> = mutableSetOf(),
+    private val checkedCalendars: MutableMap<String, Int> = mutableMapOf(),
     val backupListFragment: BackupListFragment,
     val context: Context,
     private val viewThemeUtils: ViewThemeUtils
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
-    private val calendarFiles = arrayListOf<OCFile>()
-    private val contacts = arrayListOf<VCard>()
-    private var availableContactAccounts = listOf<ContactsAccount>()
+
+    private val calendarFiles = mutableListOf<OCFile>()
+    private val contacts = mutableListOf<VCard>()
+    private val availableContactAccounts: List<ContactsAccount> = getAccountsForImport()
 
     companion object {
         const val SECTION_CALENDAR = 0
         const val SECTION_CONTACTS = 1
-
         const val VIEW_TYPE_CALENDAR = 2
         const val VIEW_TYPE_CONTACTS = 3
-
-        const val SINGLE_SELECTION = 1
-
-        const val SINGLE_ACCOUNT = 1
     }
 
     init {
         shouldShowHeadersForEmptySections(false)
         shouldShowFooters(false)
-        availableContactAccounts = getAccountForImport()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder = when (viewType) {
-        VIEW_TYPE_HEADER -> {
-            BackupListHeaderViewHolder(
-                BackupListItemHeaderBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                ),
-                context
-            )
-        }
+        VIEW_TYPE_HEADER -> BackupListHeaderViewHolder(
+            BackupListItemHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            context
+        )
 
-        VIEW_TYPE_CONTACTS -> {
-            ContactItemViewHolder(
-                ContactlistListItemBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-            )
-        }
+        VIEW_TYPE_CONTACTS -> ContactItemViewHolder(
+            ContactlistListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
 
-        else -> {
-            CalendarItemViewHolder(
-                CalendarlistListItemBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                ),
-                context
-            )
-        }
+        else -> CalendarItemViewHolder(
+            CalendarlistListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            context
+        )
     }
 
     override fun onBindViewHolder(
@@ -113,128 +91,142 @@ class BackupListAdapter(
         relativePosition: Int,
         absolutePosition: Int
     ) {
-        if (section == SECTION_CALENDAR) {
-            bindCalendarViewHolder(holder as CalendarItemViewHolder, relativePosition)
-        }
-
-        if (section == SECTION_CONTACTS) {
-            bindContactViewHolder(holder as ContactItemViewHolder, relativePosition)
+        when (section) {
+            SECTION_CALENDAR -> bindCalendarViewHolder(holder as CalendarItemViewHolder, relativePosition)
+            SECTION_CONTACTS -> bindContactViewHolder(holder as ContactItemViewHolder, relativePosition)
         }
     }
 
-    override fun getItemCount(section: Int): Int = if (section == SECTION_CALENDAR) {
-        calendarFiles.size
-    } else {
-        contacts.size
+    override fun getItemCount(section: Int): Int = when (section) {
+        SECTION_CALENDAR -> calendarFiles.size
+        else -> contacts.size
     }
 
     override fun getSectionCount(): Int = 2
 
     override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int =
-        if (section == SECTION_CALENDAR) {
-            VIEW_TYPE_CALENDAR
-        } else {
-            VIEW_TYPE_CONTACTS
-        }
+        if (section == SECTION_CALENDAR) VIEW_TYPE_CALENDAR else VIEW_TYPE_CONTACTS
 
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder?, section: Int, expanded: Boolean) {
-        val headerViewHolder = holder as BackupListHeaderViewHolder
-
-        viewThemeUtils.platform.colorPrimaryTextViewElement(headerViewHolder.binding.name)
-
-        if (section == SECTION_CALENDAR) {
-            headerViewHolder.binding.name.text = context.resources.getString(R.string.calendars)
-            headerViewHolder.binding.spinner.visibility = View.GONE
-        } else {
-            headerViewHolder.binding.name.text = context.resources.getString(R.string.contacts)
-            if (checkedVCards.isNotEmpty()) {
-                headerViewHolder.binding.spinner.visibility = View.VISIBLE
-
-                holder.binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                        backupListFragment.setSelectedAccount(availableContactAccounts[position])
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                        backupListFragment.setSelectedAccount(null)
-                    }
-                }
-
-                headerViewHolder.setContactsAccount(availableContactAccounts)
+        (holder as? BackupListHeaderViewHolder)?.let { headerHolder ->
+            viewThemeUtils.platform.colorTextView(headerHolder.binding.name, ColorRole.PRIMARY)
+            when (section) {
+                SECTION_CALENDAR -> bindCalendarHeader(headerHolder)
+                SECTION_CONTACTS -> bindContactsHeader(headerHolder)
             }
         }
     }
 
-    override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) {
-        // not needed
-    }
+    override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) = Unit
 
     fun addCalendar(file: OCFile) {
         calendarFiles.add(file)
-        notifyItemInserted(calendarFiles.size - 1)
+        notifyItemInserted(calendarFiles.lastIndex)
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun replaceVcards(vCards: MutableList<VCard>) {
+    fun replaceVcards(vCards: List<VCard>) {
         contacts.clear()
         contacts.addAll(vCards)
         notifyDataSetChanged()
     }
 
-    fun bindContactViewHolder(holder: ContactItemViewHolder, position: Int) {
+    fun getCheckedCalendarStringArray(): Array<String> = checkedCalendars.keys.toTypedArray()
+
+    fun getCheckedContactsIntArray(): IntArray = checkedVCards.toIntArray()
+
+    fun getCheckedCalendarPathsArray(): Map<String, Int> = checkedCalendars
+
+    fun hasCalendarEntry(): Boolean = calendarFiles.isNotEmpty()
+
+    fun selectAll(selectAll: Boolean) {
+        if (selectAll) {
+            checkedVCards.addAll(contacts.indices)
+        } else {
+            checkedVCards.clear()
+            checkedCalendars.clear()
+        }
+        showRestoreButton()
+    }
+
+    private fun bindCalendarHeader(holder: BackupListHeaderViewHolder) {
+        holder.binding.name.text = context.getString(R.string.calendars)
+        holder.binding.spinner.visibility = View.GONE
+    }
+
+    private fun bindContactsHeader(holder: BackupListHeaderViewHolder) {
+        holder.binding.name.text = context.getString(R.string.contacts)
+
+        if (checkedVCards.isNotEmpty()) {
+            holder.binding.spinner.visibility = View.VISIBLE
+            holder.binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    backupListFragment.setSelectedAccount(availableContactAccounts[position])
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    backupListFragment.setSelectedAccount(null)
+                }
+            }
+            holder.setContactsAccount(availableContactAccounts)
+        } else {
+            holder.binding.spinner.visibility = View.GONE
+        }
+    }
+
+    private fun bindContactViewHolder(holder: ContactItemViewHolder, position: Int) {
         val vCard = contacts[position]
+        val rawName = getDisplayName(vCard)
+        val displayName = rawName?.takeIf { it.isNotBlank() } ?: context.getString(android.R.string.unknownName)
 
         setChecked(checkedVCards.contains(position), holder.binding.name)
-
-        holder.binding.name.text = getDisplayName(vCard)
+        holder.binding.name.text = displayName
         viewThemeUtils.platform.themeCheckedTextView(holder.binding.name)
 
-        // photo
-        if (vCard.photos.size > 0) {
-            setPhoto(holder.binding.icon, vCard.photos[0])
+        if (vCard.photos.isNotEmpty()) {
+            loadContactPhoto(holder.binding.icon, vCard.photos.first())
         } else {
-            try {
-                holder.binding.icon.setImageDrawable(
-                    TextDrawable.createNamedAvatar(
-                        holder.binding.name.text.toString(),
-                        context.resources.getDimension(R.dimen.list_item_avatar_icon_radius)
-                    )
-                )
-            } catch (e: Resources.NotFoundException) {
-                holder.binding.icon.setImageResource(R.drawable.ic_user_outline)
-            }
+            loadPlaceholderAvatar(holder.binding.icon, displayName)
         }
 
         holder.setVCardListener { toggleVCard(holder, position) }
     }
 
-    private fun setChecked(checked: Boolean, checkedTextView: CheckedTextView) {
-        checkedTextView.isChecked = checked
-    }
+    private fun bindCalendarViewHolder(holder: CalendarItemViewHolder, position: Int) {
+        val ocFile = calendarFiles[position]
+        val storagePath = ocFile.storagePath
 
-    private fun toggleVCard(holder: ContactItemViewHolder, position: Int) {
-        holder.binding.name.isChecked = !holder.binding.name.isChecked
-        if (holder.binding.name.isChecked) {
-            checkedVCards.add(position)
-        } else {
-            checkedVCards.remove(position)
+        setChecked(checkedCalendars.containsKey(storagePath), holder.binding.name)
+
+        val fileName = ocFile.fileName
+        val calendarName = fileName.substringBefore("_")
+        val date = fileName.substringAfterLast("_").replace(".ics", "").replace("-", ":")
+
+        holder.binding.name.text = context.getString(R.string.calendar_name_linewrap, calendarName, date)
+        viewThemeUtils.platform.themeCheckedTextView(holder.binding.name)
+        holder.setCalendars(AndroidCalendar.loadAll(context.contentResolver))
+
+        holder.binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, calendarPosition: Int, id: Long) {
+                checkedCalendars[storagePath] = calendarPosition
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                checkedCalendars[storagePath] = -1
+            }
         }
 
-        showRestoreButton()
-        notifySectionChanged(SECTION_CONTACTS)
+        holder.setListener { toggleCalendar(holder, position) }
     }
 
-    private fun setPhoto(imageView: ImageView, firstPhoto: Photo) {
-        val url = firstPhoto.url
-        val data = firstPhoto.data
-        if (data != null && data.isNotEmpty()) {
+    private fun loadContactPhoto(imageView: ImageView, firstPhoto: Photo) {
+        firstPhoto.data?.takeIf { it.isNotEmpty() }?.let { data ->
             val thumbnail = BitmapFactory.decodeByteArray(data, 0, data.size)
-            val drawable = BitmapUtils.bitmapToCircularBitmapDrawable(
-                context.resources,
-                thumbnail
-            )
-            imageView.setImageDrawable(drawable)
-        } else if (url != null) {
+            imageView.setImageDrawable(BitmapUtils.bitmapToCircularBitmapDrawable(context.resources, thumbnail))
+            return
+        }
+
+        firstPhoto.url?.let { url ->
             val target = object : CustomTarget<Drawable>() {
                 override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                     imageView.setImageDrawable(resource)
@@ -260,110 +252,87 @@ class BackupListAdapter(
         }
     }
 
-    private fun bindCalendarViewHolder(holder: CalendarItemViewHolder, position: Int) {
-        val ocFile: OCFile = calendarFiles[position]
+    private fun loadPlaceholderAvatar(imageView: ImageView, displayName: String) {
+        try {
+            imageView.setImageDrawable(
+                TextDrawable.createNamedAvatar(
+                    displayName,
+                    context.resources.getDimension(R.dimen.list_item_avatar_icon_radius)
+                )
+            )
+        } catch (_: Resources.NotFoundException) {
+            imageView.setImageResource(R.drawable.ic_user_outline)
+        }
+    }
 
-        setChecked(checkedCalendars.containsValue(position), holder.binding.name)
-        val name = ocFile.fileName
-        val calendarName = name.substring(0, name.indexOf("_"))
-        val date = name.substring(name.lastIndexOf("_") + 1).replace(".ics", "").replace("-", ":")
-        holder.binding.name.text = context.resources.getString(R.string.calendar_name_linewrap, calendarName, date)
-        viewThemeUtils.platform.themeCheckedTextView(holder.binding.name)
-        holder.setCalendars(ArrayList(AndroidCalendar.loadAll(context.contentResolver)))
-        holder.binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, calendarPosition: Int, id: Long) {
-                checkedCalendars[calendarFiles[position].storagePath] = calendarPosition
-            }
+    private fun toggleVCard(holder: ContactItemViewHolder, position: Int) {
+        val isChecked = !holder.binding.name.isChecked
+        holder.binding.name.isChecked = isChecked
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                checkedCalendars[calendarFiles[position].storagePath] = -1
-            }
+        if (isChecked) {
+            checkedVCards.add(position)
+        } else {
+            checkedVCards.remove(position)
         }
 
-        holder.setListener { toggleCalendar(holder, position) }
+        showRestoreButton()
+        notifySectionChanged(SECTION_CONTACTS)
     }
 
     private fun toggleCalendar(holder: CalendarItemViewHolder, position: Int) {
-        val checkedTextView = holder.binding.name
-        checkedTextView.isChecked = !checkedTextView.isChecked
-        if (checkedTextView.isChecked) {
-            holder.showCalendars(true)
-            checkedCalendars[calendarFiles[position].storagePath] = 0
+        val isChecked = !holder.binding.name.isChecked
+        val storagePath = calendarFiles[position].storagePath
+
+        holder.binding.name.isChecked = isChecked
+        holder.showCalendars(isChecked)
+
+        if (isChecked) {
+            checkedCalendars[storagePath] = 0
         } else {
-            checkedCalendars.remove(calendarFiles[position].storagePath)
-            holder.showCalendars(false)
+            checkedCalendars.remove(storagePath)
         }
 
         showRestoreButton()
+    }
+
+    private fun setChecked(checked: Boolean, checkedTextView: CheckedTextView) {
+        checkedTextView.isChecked = checked
     }
 
     private fun showRestoreButton() {
-        val checkedEmpty = checkedCalendars.isEmpty() && checkedVCards.isEmpty()
-        val noCalendarAvailable =
-            checkedCalendars.isNotEmpty() && AndroidCalendar.loadAll(context.contentResolver).isEmpty()
+        val hasSelection = checkedCalendars.isNotEmpty() || checkedVCards.isNotEmpty()
+        val hasAvailableCalendar =
+            checkedCalendars.isEmpty() || AndroidCalendar.loadAll(context.contentResolver).isNotEmpty()
 
-        if (checkedEmpty || noCalendarAvailable) {
-            backupListFragment.showRestoreButton(false)
-        } else {
-            backupListFragment.showRestoreButton(true)
-        }
+        backupListFragment.showRestoreButton(hasSelection && hasAvailableCalendar)
     }
-
-    fun getCheckedCalendarStringArray(): Array<String> = checkedCalendars.keys.toTypedArray()
-
-    fun getCheckedContactsIntArray(): IntArray = checkedVCards.toIntArray()
-
-    fun selectAll(selectAll: Boolean) {
-        if (selectAll) {
-            contacts.forEachIndexed { index, _ -> checkedVCards.add(index) }
-        } else {
-            checkedVCards.clear()
-            checkedCalendars.clear()
-        }
-
-        showRestoreButton()
-    }
-
-    fun getCheckedCalendarPathsArray(): Map<String, Int> = checkedCalendars
-
-    fun hasCalendarEntry(): Boolean = calendarFiles.isNotEmpty()
 
     @Suppress("NestedBlockDepth", "TooGenericExceptionCaught")
-    private fun getAccountForImport(): List<ContactsAccount> {
-        val contactsAccounts = ArrayList<ContactsAccount>()
+    private fun getAccountsForImport(): List<ContactsAccount> {
+        val accounts =
+            mutableListOf(ContactsAccount(context.getString(R.string.backup_list_adapter_local_contacts), null, null))
 
-        // add local one
-        contactsAccounts.add(ContactsAccount("Local contacts", null, null))
-
-        var cursor: Cursor? = null
         try {
-            cursor = context.contentResolver.query(
+            context.contentResolver.query(
                 ContactsContract.RawContacts.CONTENT_URI,
-                arrayOf(
-                    ContactsContract.RawContacts.ACCOUNT_NAME,
-                    ContactsContract.RawContacts.ACCOUNT_TYPE
-                ),
+                arrayOf(ContactsContract.RawContacts.ACCOUNT_NAME, ContactsContract.RawContacts.ACCOUNT_TYPE),
                 null,
                 null,
                 null
-            )
-            if (cursor != null && cursor.count > 0) {
+            )?.use { cursor ->
+                val nameIndex = cursor.getColumnIndexOrThrow(ContactsContract.RawContacts.ACCOUNT_NAME)
+                val typeIndex = cursor.getColumnIndexOrThrow(ContactsContract.RawContacts.ACCOUNT_TYPE)
+
                 while (cursor.moveToNext()) {
-                    val name = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.RawContacts.ACCOUNT_NAME))
-                    val type = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.RawContacts.ACCOUNT_TYPE))
-                    val account = ContactsAccount(name, name, type)
-                    if (!contactsAccounts.contains(account)) {
-                        contactsAccounts.add(account)
-                    }
+                    val name = cursor.getString(nameIndex)
+                    val type = cursor.getString(typeIndex)
+                    accounts.add(ContactsAccount(name, name, type))
                 }
-                cursor.close()
             }
         } catch (e: Exception) {
             Log_OC.d(BackupListFragment.TAG, e.message)
-        } finally {
-            cursor?.close()
         }
 
-        return contactsAccounts
+        return accounts.distinct()
     }
 }
