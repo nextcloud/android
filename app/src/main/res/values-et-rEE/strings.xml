@@ -134,7 +134,7 @@
     <string name="autoupload_hide_folder">Peida kaust</string>
     <string name="avatar">Avatar</string>
     <string name="away">Eemal</string>
-    <string name="backup_settings">Varunduse seaded</string>
+    <string name="backup_settings">Varunduse seadistused</string>
     <string name="backup_title">Kontaktide ja kalendri varundus</string>
     <string name="battery_optimization_close">Sulge</string>
     <string name="battery_optimization_disable">Lülita välja</string>
@@ -390,7 +390,7 @@
     <string name="error_starting_direct_camera_upload">Viga kaamera käivitamisel</string>
     <string name="error_starting_doc_scan">Ei õnnestu alustada dokumendi skaneerimist</string>
     <string name="error_uploading_direct_camera_upload">Ei õnnestu üles laadida salvestatud meediat</string>
-    <string name="etm_accounts">Kontod</string>
+    <string name="etm_accounts">Kasutajakontod</string>
     <string name="etm_background_execution_count">Käivituskordi 48 tunni jooksul</string>
     <string name="etm_background_job_created">Loodud</string>
     <string name="etm_background_job_name">Haldustoimingu nimi</string>
@@ -920,7 +920,7 @@
     <string name="share_search_internal">Lisa kasutajaid või tiime</string>
     <string name="share_send_new_email">Saada uus e-kiri</string>
     <string name="share_send_note">Märge saajale</string>
-    <string name="share_settings">Seaded</string>
+    <string name="share_settings">Seadistused</string>
     <string name="share_via_link_hide_download">Peida allalaaditu</string>
     <string name="share_via_link_section_title">Jaga linki</string>
     <string name="share_via_link_send_link_label">Saada link</string>
