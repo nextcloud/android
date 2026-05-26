@@ -12,6 +12,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 
 sealed class UploadBroadcastAction {
@@ -48,7 +49,10 @@ sealed class UploadBroadcastAction {
                 setPackage(context.packageName)
             }
 
-            val requestCode = if (remove) operation.ocUploadId.toInt() + 1000 else operation.ocUploadId.toInt()
+            val uploadId = operation.ocUploadId.toInt()
+            val requestCode = if (remove) uploadId + 1000 else uploadId
+
+            Log_OC.i("UploadBroadcastAction", "broadcast action code: $requestCode")
 
             return PendingIntent.getBroadcast(
                 context,
