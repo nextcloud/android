@@ -263,6 +263,10 @@ class FileUploadHelper {
         nameCollisionPolicy: NameCollisionPolicy,
         showSameFileAlreadyExistsNotification: Boolean = true
     ) {
+        // TODO
+        localPaths.forEach {
+            Log_OC.e("CHECK", "ORDER: " + it)
+        }
         val uploads = localPaths.mapIndexed { index, localPath ->
             fun createOCUpload(): OCUpload {
                 val result = OCUpload(localPath, remotePaths[index], user.accountName).apply {
