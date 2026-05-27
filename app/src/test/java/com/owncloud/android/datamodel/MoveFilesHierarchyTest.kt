@@ -56,6 +56,23 @@ class MoveFilesHierarchyTest : MoveFilesTestBase() {
             fileId = 1
             mimeType = MimeType.DIRECTORY
         }
+
+        try {
+            for (entity in entities) {
+                // entity.path may be nullable; treat as empty string if so
+                val path = entity.path.orEmpty()
+                val relative = path.removePrefix("/")
+                val local = File(tempDir, relative)
+                if (path.endsWith("/")) {
+                    local.mkdirs()
+                } else {
+                    local.parentFile?.mkdirs()
+                    if (!local.exists()) local.createNewFile()
+                }
+            }
+        } catch (_: Exception) {
+        }
+
         manager.moveLocalFile(folder, targetFolderPath, targetParentPath)
     }
 
