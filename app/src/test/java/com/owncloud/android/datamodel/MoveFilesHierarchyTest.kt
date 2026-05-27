@@ -39,6 +39,7 @@ class MoveFilesHierarchyTest : MoveFilesTestBase() {
         tempDir.deleteRecursively()
     }
 
+    @Suppress("NestedBlockDepth")
     private fun arrangeFolderMove(
         folderPath: String,
         targetFolderPath: String,
