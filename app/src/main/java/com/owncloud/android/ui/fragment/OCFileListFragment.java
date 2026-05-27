@@ -1257,7 +1257,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void setFileDepth(OCFile file) {
+    public void setFileDepth(OCFile file) {
         fileDepth = OCFileExtensionsKt.getDepth(file);
     }
 
