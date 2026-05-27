@@ -29,12 +29,12 @@ import io.mockk.unmockkAll
 import org.junit.After
 import org.junit.Before
 
-@Suppress("LongParameterList","TooManyFunctions", "DEPRECATION")
+@Suppress("LongParameterList", "TooManyFunctions", "DEPRECATION")
 abstract class MoveFilesTestBase {
 
     companion object {
         const val ACCOUNT_NAME = "user@nextcloud.example.com"
-        const val SAVE_PATH = "/storage/emulated/0/nextcloud/$ACCOUNT_NAME"
+        val SAVE_PATH: String = (System.getProperty("java.io.tmpdir") ?: "") + "/nextcloud/" + ACCOUNT_NAME
         const val OLD_PATH = "/documents/report.pdf"
         const val TARGET_PATH = "/archive/report.pdf"
         const val TARGET_PARENT_PATH = "/archive/"
@@ -71,6 +71,15 @@ abstract class MoveFilesTestBase {
             SAVE_PATH + secondArg<OCFile>().remotePath
         }
 
+        try {
+            val localOldFile = java.io.File(SAVE_PATH + OLD_PATH)
+            localOldFile.parentFile?.mkdirs()
+            if (!localOldFile.exists()) {
+                localOldFile.createNewFile()
+            }
+        } catch (_: Exception) {
+        }
+
         mockkStatic(TextUtils::class)
         every { TextUtils.isEmpty(any()) } answers { arg<CharSequence?>(0).isNullOrEmpty() }
 
@@ -86,6 +95,11 @@ abstract class MoveFilesTestBase {
     @After
     fun tearDownBase() {
         unmockkAll()
+        try {
+            val tmp = java.io.File(SAVE_PATH)
+            if (tmp.exists()) tmp.deleteRecursively()
+        } catch (_: Exception) {
+        }
     }
 
     fun stubTargetParent(path: String = TARGET_PARENT_PATH, id: Long = 99L): OCFile {
