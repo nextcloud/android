@@ -24,7 +24,7 @@ class MoveFilesGuardTest : MoveFilesTestBase() {
 
     @Test
     fun testMoveLocalFileWhenFileDoesNotExistShouldReturnEarlyWithoutInteractingWithDatabase() {
-        val file = OCFile(OLD_PATH).apply { fileId = 0 }
+        val file = OCFile(OLD_PATH).apply { fileId = -1 }
 
         manager.moveLocalFile(file, TARGET_PATH, TARGET_PARENT_PATH)
 
