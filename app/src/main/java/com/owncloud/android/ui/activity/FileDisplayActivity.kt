@@ -51,6 +51,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -1965,10 +1966,14 @@ class FileDisplayActivity :
      */
     @VisibleForTesting
     fun lockScrolling() {
-        binding.appbar.appbar.setExpanded(true, false)
         val appbarParams = binding.appbar.toolbarFrame.layoutParams as AppBarLayout.LayoutParams
         appbarParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL)
         binding.appbar.toolbarFrame.layoutParams = appbarParams
+        binding.appbar.appbar.setExpanded(true, false)
+        // Directly reset the CoordinatorLayout behavior offset so the toolbar is not behind the
+        // status bar when it was previously scrolled off-screen by the file list scroll.
+        (binding.appbar.appbar.layoutParams as? CoordinatorLayout.LayoutParams)
+            ?.let { (it.behavior as? AppBarLayout.Behavior)?.setTopAndBottomOffset(0) }
     }
 
     /**
