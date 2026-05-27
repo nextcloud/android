@@ -89,12 +89,12 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
     }
 
     if (OCFile.ROOT_PATH == ocFile.fileName) {
-        Log_OC.e(FileDataStorageManager.TAG, "moveLocalFile: cannot move root path")
+        Log_OC.w(FileDataStorageManager.TAG, "moveLocalFile: cannot move root path")
         return
     }
 
     if (ocFile.remotePath == targetPath) {
-        Log_OC.e(FileDataStorageManager.TAG, "moveLocalFile: source and target paths are identical, skipping")
+        Log_OC.w(FileDataStorageManager.TAG, "moveLocalFile: source and target paths are identical, skipping")
         return
     }
 
@@ -113,11 +113,11 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
     val accountName = user.accountName
     val defaultSavePath = FileStorageUtils.getSavePath(accountName)
 
-    val originalMediaPaths =
-        fileDao.moveFilesInDb(oldPath, targetPath, defaultSavePath, targetParent.fileId, accountName)
-
     val moved = moveLocalFiles(accountName, ocFile, defaultSavePath, targetPath)
     if (!moved) return
+
+    val originalMediaPaths =
+        fileDao.moveFilesInDb(oldPath, targetPath, defaultSavePath, targetParent.fileId, accountName)
 
     for (originalMediaPath in originalMediaPaths) {
         deleteFileInMediaScan(originalMediaPath)
