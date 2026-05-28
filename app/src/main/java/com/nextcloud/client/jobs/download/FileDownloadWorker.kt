@@ -174,6 +174,11 @@ class FileDownloadWorker(
 
         val requestedDownloads: AbstractList<String> = Vector()
 
+        val user = user ?: run {
+            Log_OC.e(TAG, "user cannot be null")
+            return requestedDownloads
+        }
+
         return try {
             files.forEach { file ->
                 val operation = DownloadFileOperation(
@@ -188,7 +193,7 @@ class FileDownloadWorker(
 
                 operation.addDownloadDataTransferProgressListener(this)
                 val (downloadKey, _) = pendingDownloads.putIfAbsent(
-                    user?.accountName,
+                    user.accountName,
                     file.remotePath,
                     operation
                 ) ?: Pair(null, null)
