@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2025 Jimly Asshiddiqy <jimly.asshiddiqy@accenture.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -42,16 +43,31 @@ dependencyResolutionManagement {
         maven("https://jitpack.io")
     }
 }
-// includeBuild("../android-common") {
-//    dependencySubstitution {
-//        substitute(module("com.github.nextcloud.android-common:ui")).using(project(":ui"))
-//    }
-// }
 
-// includeBuild("../android-library") {
-//    dependencySubstitution {
-//        substitute(module("com.github.nextcloud:android-library")).using(project(":library")) // broken on gradle 8.14.2, so use 8.13 if needed
-//    }
-// }
+/*
+Needed for local android library
+
+includeBuild("../android_library") {
+    dependencySubstitution {
+        substitute(module("com.github.nextcloud:android-library"))
+            .using(project(":library"))
+    }
+}
+*/
+
+
+/*
+Needed for local android common library
+
+includeBuild("../android_common") {
+    dependencySubstitution {
+        substitute(module("com.github.nextcloud.android-common:core"))
+            .using(project(":core"))
+
+        substitute(module("com.github.nextcloud.android-common:ui"))
+            .using(project(":ui"))
+    }
+}
+*/
 
 include(":app", ":appscan")
