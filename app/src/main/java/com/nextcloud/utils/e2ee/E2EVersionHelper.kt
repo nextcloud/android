@@ -38,17 +38,6 @@ object E2EVersionHelper {
         version == E2EVersion.V1_0 || version == E2EVersion.V1_1 || version == E2EVersion.V1_2
 
     /**
-     * Returns the latest supported E2EE version.
-     *
-     * @param isV2 indicates whether the E2EE v2 series should be used
-     */
-    fun latestVersion(isV2: Boolean): E2EVersion = if (isV2) {
-        E2EVersion.V2_1
-    } else {
-        E2EVersion.V1_2
-    }
-
-    /**
      * Determines the E2EE version by inspecting encrypted folder metadata.
      *
      * Supports both V1 and V2 metadata formats and falls back safely
