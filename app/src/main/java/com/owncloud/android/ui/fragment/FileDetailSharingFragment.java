@@ -242,8 +242,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 if (activity != null && sharingCapabilities != null) {
                     activity.runOnUiThread(() -> ShareViewKt.setupUnifiedShare(
                                                binding.unifiedShare,
-                                               sharingCapabilities,
                                                String.valueOf(file.getRemoteId()),
+                                               sharingCapabilities,
                                                serverCredentials,
                                                viewThemeUtils.files.getColorScheme(activity))
                                           );
