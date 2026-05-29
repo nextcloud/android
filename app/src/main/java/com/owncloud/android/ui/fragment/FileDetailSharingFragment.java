@@ -237,10 +237,13 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 final var client = clientFactory.create(user);
                 final var serverCredentials = OwnCloudClientExtensionsKt.toServerCredentials(client, baseURL);
                 final var activity = getActivity();
-                if (activity != null) {
+                final var sharingCapabilities = fileDataStorageManager.getCapability(user).getSharingJson();
+
+                if (activity != null && sharingCapabilities != null) {
                     activity.runOnUiThread(() -> ShareViewKt.setupUnifiedShare(
                                                binding.unifiedShare,
-                                                String.valueOf(file.getRemoteId()),
+                                               sharingCapabilities,
+                                               String.valueOf(file.getRemoteId()),
                                                serverCredentials,
                                                viewThemeUtils.files.getColorScheme(activity))
                                           );
