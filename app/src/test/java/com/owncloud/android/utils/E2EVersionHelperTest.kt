@@ -159,19 +159,19 @@ class E2EVersionHelperTest {
 
     @Test
     fun `determineE2EFromVersionString maps versions correctly`() {
-        assertEquals(E2EVersion.V1_0, E2EVersionHelper.fromVersionString("1.0"))
-        assertEquals(E2EVersion.V1_1, E2EVersionHelper.fromVersionString("1.1"))
-        assertEquals(E2EVersion.V1_2, E2EVersionHelper.fromVersionString("1.2"))
-        assertEquals(E2EVersion.V2_0, E2EVersionHelper.fromVersionString("2"))
-        assertEquals(E2EVersion.V2_0, E2EVersionHelper.fromVersionString("2.0"))
-        assertEquals(E2EVersion.V2_1, E2EVersionHelper.fromVersionString("2.1"))
+        assertEquals(E2EVersion.V1_0, E2EVersion.fromValue("1.0"))
+        assertEquals(E2EVersion.V1_1, E2EVersion.fromValue("1.1"))
+        assertEquals(E2EVersion.V1_2, E2EVersion.fromValue("1.2"))
+        assertEquals(E2EVersion.V2_0, E2EVersion.fromValue("2"))
+        assertEquals(E2EVersion.V2_0, E2EVersion.fromValue("2.0"))
+        assertEquals(E2EVersion.V2_1, E2EVersion.fromValue("2.1"))
     }
 
     @Test
     fun `determineE2EFromVersionString returns UNKNOWN for invalid input`() {
-        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.fromVersionString(null))
-        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.fromVersionString(""))
-        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.fromVersionString("3.0"))
+        assertEquals(E2EVersion.UNKNOWN, E2EVersion.fromValue(null))
+        assertEquals(E2EVersion.UNKNOWN, E2EVersion.fromValue(""))
+        assertEquals(E2EVersion.UNKNOWN, E2EVersion.fromValue("3.0"))
     }
 
     private fun mockV1(version: String) {
