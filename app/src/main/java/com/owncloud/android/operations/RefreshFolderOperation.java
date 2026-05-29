@@ -549,12 +549,10 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         // get current data about local contents of the folder to synchronize
         Map<String, OCFile> localFilesMap;
-        E2EVersion e2EVersion;
+        E2EVersion e2EVersion = fileDataStorageManager.getE2EEVersionObject(user);
         if (object instanceof DecryptedFolderMetadataFileV1 metadataFileV1) {
-            e2EVersion = E2EVersionHelper.INSTANCE.latestVersion(false);
             localFilesMap = prefillLocalFilesMap(metadataFileV1, fileDataStorageManager.getFolderContent(mLocalFolder, false));
         } else {
-            e2EVersion = E2EVersionHelper.INSTANCE.latestVersion(true);
             localFilesMap = prefillLocalFilesMap(object, fileDataStorageManager.getFolderContent(mLocalFolder, false));
 
             // update counter
@@ -601,7 +599,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.getAccountName());
 
             // update file name for encrypted files
-            if (e2EVersion == E2EVersionHelper.INSTANCE.latestVersion(false)) {
+            if (e2EVersion == E2EVersion.V1_2) {
                 updateFileNameForEncryptedFileV1(fileDataStorageManager,
                                                  (DecryptedFolderMetadataFileV1) object,
                                                  updatedFile);
@@ -624,7 +622,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         // save updated contents in local database
         // update file name for encrypted files
-        if (e2EVersion == E2EVersionHelper.INSTANCE.latestVersion(false)) {
+        if (e2EVersion == E2EVersion.V1_2) {
             updateFileNameForEncryptedFileV1(fileDataStorageManager,
                                              (DecryptedFolderMetadataFileV1) object,
                                              mLocalFolder);

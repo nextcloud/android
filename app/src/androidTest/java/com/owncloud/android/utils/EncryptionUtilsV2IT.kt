@@ -22,6 +22,7 @@ import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedUser
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFiledrop
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFiledropUser
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile
+import com.owncloud.android.lib.resources.status.E2EVersion
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.util.EncryptionTestIT
 import junit.framework.TestCase.assertEquals
@@ -469,6 +470,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         val v2 = encryptionUtilsV2.migrateV1ToV2(
             v1,
             enc1UserId,
+            storageManager.user,
             enc1Cert,
             folder,
             storageManager
@@ -601,7 +603,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
 
         metadata.keyChecksums.add(encryptionUtilsV2.hashMetadataKey(metadata.metadataKey))
 
-        return DecryptedFolderMetadataFile(metadata, users, mutableMapOf())
+        return DecryptedFolderMetadataFile(metadata, users, mutableMapOf(), E2EVersion.V2_1.value)
     }
 
     @Test

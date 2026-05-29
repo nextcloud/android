@@ -20,6 +20,7 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.E2EVersion
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.EncryptionUtilsV2
 import com.owncloud.android.utils.theme.CapabilityUtils
@@ -124,7 +125,8 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             privateKey,
             publicKey,
             arbitraryDataProvider,
-            user
+            user,
+            E2EVersion.V1_2.value
         )
 
         val (result, delete) = deleteRemoteFile(client, token)
@@ -149,7 +151,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             token,
             client,
             metadataExists,
-            E2EVersionHelper.latestVersion(false),
+            E2EVersion.V1_2,
             "",
             arbitraryDataProvider,
             user

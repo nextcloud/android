@@ -1189,7 +1189,8 @@ public final class EncryptionUtils {
                                                                                   String privateKey,
                                                                                   String publicKey,
                                                                                   ArbitraryDataProvider arbitraryDataProvider,
-                                                                                  User user)
+                                                                                  User user,
+                                                                                  String e2eeVersion)
         throws UploadException,
         InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException,
         IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, CertificateException {
@@ -1220,10 +1221,7 @@ public final class EncryptionUtils {
             // new metadata
             metadata = new DecryptedFolderMetadataFileV1();
             metadata.setMetadata(new DecryptedMetadata());
-
-            final var latestV1E2EEVersion = E2EVersionHelper.INSTANCE.latestVersion(false);
-
-            metadata.getMetadata().setVersion(Double.parseDouble(latestV1E2EEVersion.getValue()));
+            metadata.getMetadata().setVersion(Double.parseDouble(e2eeVersion));
             metadata.getMetadata().setMetadataKeys(new HashMap<>());
             String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
             String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
@@ -1282,13 +1280,13 @@ public final class EncryptionUtils {
 
         } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND ||
             getMetadataOperationResult.getHttpCode() == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
-            final var latestE2EEV2Version = E2EVersionHelper.INSTANCE.latestVersion(true);
+            final var latestE2EEV2Version = storageManager.getE2EEVersion(user);
 
             // new metadata
             metadata = new DecryptedFolderMetadataFile(new com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata(),
                                                        new ArrayList<>(),
                                                        new HashMap<>(),
-                                                       latestE2EEV2Version.getValue());
+                                                       latestE2EEV2Version);
             metadata.getUsers().add(new DecryptedUser(client.getUserId(), publicKey, null));
             byte[] metadataKey = EncryptionUtils.generateKey();
 
