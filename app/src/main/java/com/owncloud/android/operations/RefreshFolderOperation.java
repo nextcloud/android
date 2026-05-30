@@ -569,6 +569,8 @@ public class RefreshFolderOperation extends RemoteOperation {
         OCFile updatedFile;
         RemoteFile remote;
 
+        final boolean skipGetFileByPath = localFilesMap.isEmpty();
+
         for (int i = 1; i < folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server
             remote = (RemoteFile) folderAndFiles.get(i);
@@ -582,7 +584,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             localFile = localFilesMap.remove(remoteFile.getRemotePath());
 
             // TODO better implementation is needed
-            if (localFile == null) {
+            if (localFile == null && !skipGetFileByPath) {
                 localFile = fileDataStorageManager.getFileByPath(updatedFile.getRemotePath());
             }
 
