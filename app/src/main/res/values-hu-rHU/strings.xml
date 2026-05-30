@@ -113,6 +113,8 @@
     <string name="authenticator_activity_login_error">Probléma volt a bejelentkezési kérés feldolgozása során. Próbálja újra később.</string>
     <string name="authenticator_activity_no_web_browser_found">Nem érhető el böngésző a hivatkozás megnyitásához.</string>
     <string name="authenticator_activity_please_complete_login_process">Fejezze be a bejelentkezési folyamatot a böngészőben</string>
+    <string name="auto_upload_background_activity_action">Háttérfolyamatok futásának engedélyezése</string>
+    <string name="auto_upload_battery_saver_action">Akkumulátorkímélő beállítások megnyitása</string>
     <string name="auto_upload_battery_saver_mode_warning">Az automatikus feltöltés az akkumulátorkímélő mód miatt szünetel.</string>
     <string name="auto_upload_delete_dialog_description">Ez eltávolítja a mappát és az automatikus feltöltési beállításokat. A befejezetlen feltöltések meg lesznek szakítva.</string>
     <string name="auto_upload_delete_dialog_title">Törli az automatikus feltöltési mappát?</string>
@@ -776,6 +778,7 @@
     <string name="prefs_manage_accounts">Fiókok kezelése</string>
     <string name="prefs_recommend">Ajánlás egy barátnak</string>
     <string name="prefs_remove_e2e">Titkosítás eltávolítása helyileg</string>
+    <string name="prefs_remove_e2e_keys_and_files">Titkosított fájlok és kulcsok eltávolítása</string>
     <string name="prefs_setup_e2e">Végpontok közti titkosítás beállítása</string>
     <string name="prefs_show_ecosystem_apps">Alkalmazásváltó megjelenítése</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud alkalmazásjavaslatok a navigációs fejlécben</string>
@@ -798,6 +801,7 @@
     <string name="preview_image_file_is_not_downloaded">A fájl nincs letöltve</string>
     <string name="preview_media_unhandled_http_code_message">A fájlt jelenleg egy másik felhasználó vagy folyamat zárolja, ezért nem törölhető. Próbálja újra később.</string>
     <string name="preview_sorry">Sajnáljuk</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Szövegszerkesztő megnyitása sikertelen</string>
     <string name="privacy">Adatvédelem</string>
     <string name="push_notifications_not_implemented">A leküldéses üzenetek ki vannak kapcsolva, mert azok a zárt Google Play szolgáltatásoktól függenek.</string>
     <string name="push_notifications_old_login">Nincsenek leküldéses értesítések, mert a munkamenet lejárt. Adja hozzá újra a fiókját.</string>
@@ -1122,6 +1126,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_local_storage_full">A helyi tároló megtelt</string>
     <string name="upload_local_storage_not_copied">A fájlt nem lehet a helyi tárolóra másolni</string>
     <string name="upload_lock_failed">A mappa zárolása sikertelen</string>
+    <string name="upload_locked_title">Feltöltés folyamatban</string>
     <string name="upload_manually_cancelled">Feltöltés megszakítva a felhasználó által</string>
     <string name="upload_missing_storage_permission_allow_file_access">Összes fájl elérésének engedélyezése</string>
     <string name="upload_missing_storage_permission_app_permissions">Alkalmazásengedélyek</string>
