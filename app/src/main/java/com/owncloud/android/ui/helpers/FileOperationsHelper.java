@@ -416,7 +416,7 @@ public class FileOperationsHelper {
         final User user = currentAccount.getUser();
         new Thread(() -> {
             StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
-            RemoteOperationResult result = sfo.execute(user, fileActivity);
+            final var result = sfo.execute(user, fileActivity);
 
             fileActivity.dismissLoadingDialog();
 
