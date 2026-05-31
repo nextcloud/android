@@ -408,7 +408,7 @@ class BackupFragment :
         }
     }
 
-    @Suppress("ComplexMethod", "MagicNumber")
+    @Suppress("ComplexMethod", "MagicNumber", "ReturnCount")
     override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
         val contactsPreferenceActivity = activity as? ContactsPreferenceActivity ?: run {
             activity?.let { DisplayUtils.showSnackMessage(it, R.string.error_choosing_date) }

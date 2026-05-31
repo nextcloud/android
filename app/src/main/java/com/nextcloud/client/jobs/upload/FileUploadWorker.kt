@@ -52,6 +52,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("LongParameterList", "TooGenericExceptionCaught")
 class FileUploadWorker(
@@ -250,7 +251,7 @@ class FileUploadWorker(
         for ((index, upload) in uploads.withIndex()) {
             ensureActive()
 
-            delay(retryPolicy.getDelay())
+            delay(retryPolicy.getDelay().milliseconds)
 
             if (!skipAutoUploadCheck && isBelongToAnySyncedFolder(upload, syncFolderHelper, syncedFolders)) {
                 Log_OC.d(TAG, "skipping upload, will be handled by AutoUploadWorker: ${upload.localPath}")
@@ -368,7 +369,7 @@ class FileUploadWorker(
             result = operation.execute(client)
             val task = ThumbnailsCacheManager.ThumbnailGenerationTask(storageManager, user)
             val file = File(operation.originalStoragePath)
-            val remoteId: String? = operation.file.remoteId
+            val remoteId: String? = operation.file!!.remoteId
             task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId))
             fileUploadEventBroadcaster.sendUploadStarted(operation, context)
         } catch (e: Exception) {
@@ -387,7 +388,7 @@ class FileUploadWorker(
                         val showSameFileAlreadyExistsNotification =
                             inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
                         if (showSameFileAlreadyExistsNotification) {
-                            notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
+                            notificationManager.showSameFileAlreadyExistsNotification(operation.fileName!!)
                         }
                     }
                 },

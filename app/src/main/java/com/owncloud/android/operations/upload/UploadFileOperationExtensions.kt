@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.owncloud.android.R
 import com.owncloud.android.operations.UploadFileOperation
-import com.owncloud.android.operations.UploadFileOperation.MISSING_FILE_PERMISSION_NOTIFICATION_ID
+import com.owncloud.android.operations.UploadFileOperation.Companion.MISSING_FILE_PERMISSION_NOTIFICATION_ID
 import com.owncloud.android.ui.notifications.NotificationUtils
 
 fun UploadFileOperation.showStoragePermissionNotification() {
