@@ -114,8 +114,10 @@
     <string name="authenticator_activity_no_web_browser_found">Nem érhető el böngésző a hivatkozás megnyitásához.</string>
     <string name="authenticator_activity_please_complete_login_process">Fejezze be a bejelentkezési folyamatot a böngészőben</string>
     <string name="auto_upload_background_activity_action">Háttérfolyamatok futásának engedélyezése</string>
+    <string name="auto_upload_battery_optimization_reason">A Nextcloud háttértevékenységét az akkumulátor optimalizálása korlátozza.</string>
     <string name="auto_upload_battery_saver_action">Akkumulátorkímélő beállítások megnyitása</string>
     <string name="auto_upload_battery_saver_mode_warning">Az automatikus feltöltés az akkumulátorkímélő mód miatt szünetel.</string>
+    <string name="auto_upload_battery_saver_reason">Akkumulátorkímélő mód aktív és szüneteltetheti a feltöltéseket.</string>
     <string name="auto_upload_delete_dialog_description">Ez eltávolítja a mappát és az automatikus feltöltési beállításokat. A befejezetlen feltöltések meg lesznek szakítva.</string>
     <string name="auto_upload_delete_dialog_title">Törli az automatikus feltöltési mappát?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">megtartva az eredeti mappában, mivel csak olvasható</string>
@@ -818,6 +820,7 @@
     <string name="remote">(távoli)</string>
     <string name="remote_file_fetch_failed">A fájl nem található.</string>
     <string name="remove_e2e">Helyileg eltávolíthatja a végpontok közti titkosítást ennél a kliensnél</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Ez a művelet eltávolítja az összes titkosított fájlt, privát és nyilvános kulcsot. Biztos benne?</string>
     <string name="remove_e2e_message">Helyileg eltávolíthatja a végpontok közti titkosítást ennél a kliensnél. A titkosított fájlok továbbra is a kiszolgálón maradnak, de már nem lesznek szinkronizálva erre a számítógépre.</string>
     <string name="remove_fail_msg">Törlés sikertelen</string>
     <string name="remove_local_account">Helyi fiók eltávolítása</string>
@@ -1126,6 +1129,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_local_storage_full">A helyi tároló megtelt</string>
     <string name="upload_local_storage_not_copied">A fájlt nem lehet a helyi tárolóra másolni</string>
     <string name="upload_lock_failed">A mappa zárolása sikertelen</string>
+    <string name="upload_locked_message">Szerver foglalt. Újrapróbálkozás…</string>
     <string name="upload_locked_title">Feltöltés folyamatban</string>
     <string name="upload_manually_cancelled">Feltöltés megszakítva a felhasználó által</string>
     <string name="upload_missing_storage_permission_allow_file_access">Összes fájl elérésének engedélyezése</string>
@@ -1308,6 +1312,18 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d kiválasztva</item>
         <item quantity="other">%d kiválasztva</item>
+    </plurals>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Próbálja újra %d másodperc múlva, mert túl sok hibás próbálkozás történt</item>
+        <item quantity="other">Próbálja újra %d másodperc múlva, mert túl sok hibás próbálkozás történt</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Próbálja újra %d perc múlva, mert túl sok hibás próbálkozás történt</item>
+        <item quantity="other">Próbálja újra %d perc múlva, mert túl sok hibás próbálkozás történt</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Próbálja újra %1$d perc és %2$d másodperc múlva, mert túl sok hibás próbálkozás történt</item>
+        <item quantity="other">Próbálja újra %1$d perc és %2$d másodperc múlva, mert túl sok hibás próbálkozás történt</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d letöltés maradt</item>
