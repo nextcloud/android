@@ -34,7 +34,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
-import com.nextcloud.android.common.ui.share.ShareViewKt;
+import com.nextcloud.android.common.ui.share.ShareScreenKt;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -240,7 +240,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 final var sharingCapabilities = fileDataStorageManager.getCapability(user).getSharingJson();
 
                 if (activity != null && sharingCapabilities != null) {
-                    activity.runOnUiThread(() -> ShareViewKt.setupUnifiedShare(
+                    activity.runOnUiThread(() -> ShareScreenKt.initShareScreen(
                                                binding.unifiedShare,
                                                String.valueOf(file.getRemoteId()),
                                                sharingCapabilities,
