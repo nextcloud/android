@@ -352,11 +352,33 @@ private fun TypingAnimation() {
 }
 
 @Composable
-private fun AssistantMessageItem(message: ChatMessage) {
+private fun CopyableMessageBubble(text: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     var showMenu by remember { mutableStateOf(false) }
     val clipboard = LocalClipboard.current
     val scope = rememberCoroutineScope()
 
+    Box(
+        modifier = modifier
+            .combinedClickable(onClick = {}, onLongClick = { showMenu = true })
+    ) {
+        content()
+        DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.common_copy)) },
+                onClick = {
+                    scope.launch {
+                        val plainText = ClipData.newPlainText(null, text).toClipEntry()
+                        clipboard.setClipEntry(plainText)
+                    }
+                    showMenu = false
+                }
+            )
+        }
+    }
+}
+
+@Composable
+private fun AssistantMessageItem(message: ChatMessage) {
     Box(
         modifier = Modifier
             .padding(vertical = 12.dp)
@@ -378,7 +400,8 @@ private fun AssistantMessageItem(message: ChatMessage) {
                     alignment = Alignment.Center
                 )
             }
-            Box(
+            CopyableMessageBubble(
+                text = message.content,
                 modifier = Modifier
                     .padding(start = 8.dp, end = 16.dp)
                     .defaultMinSize(minHeight = MIN_CHAT_HEIGHT)
@@ -390,28 +413,8 @@ private fun AssistantMessageItem(message: ChatMessage) {
                         )
                     )
                     .background(color = colorResource(R.color.bg_message_bubble))
-                    .combinedClickable(
-                        onClick = {},
-                        onLongClick = { showMenu = true }
-                    )
             ) {
                 MessageTextItem(message)
-                DropdownMenu(
-                    expanded = showMenu,
-                    onDismissRequest = { showMenu = false }
-                ) {
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.common_copy)) },
-                        onClick = {
-                            scope.launch {
-                                clipboard.setClipEntry(
-                                    ClipData.newPlainText(null, message.content).toClipEntry()
-                                )
-                            }
-                            showMenu = false
-                        }
-                    )
-                }
             }
         }
     }
@@ -419,17 +422,14 @@ private fun AssistantMessageItem(message: ChatMessage) {
 
 @Composable
 private fun UserMessageItem(message: ChatMessage) {
-    var showMenu by remember { mutableStateOf(false) }
-    val clipboard = LocalClipboard.current
-    val scope = rememberCoroutineScope()
-
     Box(
         modifier = Modifier
             .padding(vertical = 12.dp)
             .fillMaxWidth(),
         contentAlignment = Alignment.CenterEnd
     ) {
-        Box(
+        CopyableMessageBubble(
+            text = message.content,
             modifier = Modifier
                 .padding(start = 16.dp, end = 8.dp)
                 .defaultMinSize(minHeight = MIN_CHAT_HEIGHT)
@@ -441,28 +441,8 @@ private fun UserMessageItem(message: ChatMessage) {
                     )
                 )
                 .background(color = colorResource(R.color.bg_message_bubble))
-                .combinedClickable(
-                    onClick = {},
-                    onLongClick = { showMenu = true }
-                )
         ) {
             MessageTextItem(message)
-            DropdownMenu(
-                expanded = showMenu,
-                onDismissRequest = { showMenu = false }
-            ) {
-                DropdownMenuItem(
-                    text = { Text(stringResource(R.string.common_copy)) },
-                    onClick = {
-                        scope.launch {
-                            clipboard.setClipEntry(
-                                ClipData.newPlainText(null, message.content).toClipEntry()
-                            )
-                        }
-                        showMenu = false
-                    }
-                )
-            }
         }
     }
 }
