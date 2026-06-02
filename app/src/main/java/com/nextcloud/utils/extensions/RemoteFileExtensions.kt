@@ -29,14 +29,13 @@ fun RemoteFile.isSame(path: String?): Boolean {
         this.areImageDimensionsSame(path)
 }
 
-fun RemoteFile.sharedViaLink(): Boolean  = sharees?.any { it.shareType?.isLink == true } ?: false
+fun RemoteFile.sharedViaLink(): Boolean = sharees?.any { it.shareType?.isLink == true } ?: false
 
-fun RemoteFile.sharedWithSharee(): Boolean =  sharees?.isNotEmpty() ?: false
+fun RemoteFile.sharedWithSharee(): Boolean = sharees?.isNotEmpty() ?: false
 
-fun RemoteFile.getShareeList(): List<ShareeUser> =  sharees?.toList() ?: emptyList()
+fun RemoteFile.getShareeList(): List<ShareeUser> = sharees?.toList() ?: emptyList()
 
-fun RemoteFile.tags(): List<Tag> =
-    tags?.mapNotNull { it } ?: emptyList()
+fun RemoteFile.tags(): List<Tag> = tags?.mapNotNull { it } ?: emptyList()
 
 @Suppress("ReturnCount")
 private fun RemoteFile.areImageDimensionsSame(path: String): Boolean {
