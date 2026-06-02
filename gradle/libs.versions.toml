@@ -6,6 +6,7 @@ androidCommonLibraryVersion = "0.33.2"
 androidGifDrawableVersion = "1.2.31"
 androidImageCropperVersion = "4.7.0"
 androidLibraryVersion ="1c847678482c739d0b92e27a445d2f5f168f7d33"
+androidOpensslVersion = "946ebdad00"
 androidPluginVersion = "9.2.1"
 androidsvgVersion = "1.4"
 androidxMediaVersion = "1.5.1"
@@ -65,7 +66,6 @@ mockitoVersion = "5.22.0"
 mockkVersion = "1.14.9"
 nnioVersion = "0.3.1"
 objenesis = "3.5"
-opensslVersion = "3.5.6"
 orchestratorVersion = "1.6.1"
 orgJbundleUtilOsgiWrappedOrgApacheHttpClientVersion = "4.1.2"
 osmdroidAndroidVersion = "6.1.20"
@@ -90,6 +90,7 @@ foundationVersion = "1.11.2"
 [libraries]
 # Crypto
 android-library = { module = "com.github.nextcloud:android-library", version.ref = "androidLibraryVersion" }
+android-openssl = { module = "com.github.nextcloud-releases:android-openssl", version.ref = "androidOpensslVersion" }
 conscrypt-android = { module = "org.conscrypt:conscrypt-android", version.ref = "conscryptAndroidVersion" }
 bcpkix-jdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bcpkixJdk18onVersion" }
 
@@ -101,7 +102,6 @@ document-scanning-android-sdk = { module = "com.github.Hazzatur:Document-Scannin
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtxVersion" }
 exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterfaceVersion" }
 material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "materialIconsCoreVersion" }
-openssl = { module = "com.nextcloud:openssl", version.ref = "opensslVersion" }
 webkit = { module = "androidx.webkit:webkit", version.ref = "webkitVersion" }
 splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen" }
 sectioned-recyclerview = { module = "com.github.nextcloud-deps:sectioned-recyclerview", version.ref = "sectionedRecyclerviewVersion" }

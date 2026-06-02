@@ -447,7 +447,7 @@ dependencies {
 
     // region Crypto
     implementation(libs.conscrypt.android)
-    implementation(libs.openssl)
+    implementation(libs.android.openssl)
     // endregion
 
     // region Library
