@@ -83,16 +83,18 @@ class SharedListFragment :
                     etag = it
                 }
             }
-            val file = FileStorageUtils.fillOCFile(remoteFile)
-            FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
-            val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)
-            savedFile.apply {
+            // todo: ideally remote operation must return valid values via webdav entry
+            val file = FileStorageUtils.fillOCFile(remoteFile).apply {
+                fileId = partialFile.fileId
+                parentId = partialFile.parentId
                 ownerId = partialFile.ownerId
                 ownerDisplayName = partialFile.ownerDisplayName
                 isSharedViaLink = partialFile.isSharedViaLink
                 isSharedWithSharee = partialFile.isSharedWithSharee
                 sharees = partialFile.sharees
             }
+            FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
+            val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)
             savedFile
         } else {
             logger.e(SHARED_TAG, "Error fetching file")
