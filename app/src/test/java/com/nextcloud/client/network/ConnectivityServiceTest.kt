@@ -128,7 +128,7 @@ class ConnectivityServiceTest {
             whenever(user.server).thenReturn(newServer)
             whenever(accountManager.user).thenReturn(user)
 
-            val key = ConnectivityKey(user.accountName,newServer.uri.toString())
+            val key = ConnectivityKey(user.accountName, newServer.uri.toString())
             whenever(walledCheckCache.getValue(key)).thenReturn(null)
 
             connectivityService = ConnectivityServiceImpl(
