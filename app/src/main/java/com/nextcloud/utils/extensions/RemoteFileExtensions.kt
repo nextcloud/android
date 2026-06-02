@@ -9,6 +9,8 @@ package com.nextcloud.utils.extensions
 
 import com.nextcloud.utils.TimeConstants
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.lib.resources.shares.ShareeUser
+import com.owncloud.android.lib.resources.tags.Tag
 import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.MimeTypeUtil
 
@@ -26,6 +28,15 @@ fun RemoteFile.isSame(path: String?): Boolean {
         modifiedTimestamp == localLastModifiedTimestamp * TimeConstants.MILLIS_PER_SECOND &&
         this.areImageDimensionsSame(path)
 }
+
+fun RemoteFile.sharedViaLink(): Boolean  = sharees?.any { it.shareType?.isLink == true } ?: false
+
+fun RemoteFile.sharedWithSharee(): Boolean =  sharees?.isNotEmpty() ?: false
+
+fun RemoteFile.getShareeList(): List<ShareeUser> =  sharees?.toList() ?: emptyList()
+
+fun RemoteFile.tags(): List<Tag> =
+    tags?.mapNotNull { it } ?: emptyList()
 
 @Suppress("ReturnCount")
 private fun RemoteFile.areImageDimensionsSame(path: String): Boolean {
