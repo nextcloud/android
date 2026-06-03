@@ -27,7 +27,6 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
 import com.nextcloud.utils.extensions.toFile
-import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.SyncedFolder
@@ -374,14 +373,6 @@ class FileUploadWorker(
             fileUploadEventBroadcaster.sendUploadStarted(operation, context)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
-            uploadsStorageManager.run {
-                uploadDao.getUploadById(upload.uploadId, user.accountName)?.let { entity ->
-                    updateStatus(
-                        entity,
-                        UploadsStorageManager.UploadStatus.UPLOAD_FAILED
-                    )
-                }
-            }
             result = RemoteOperationResult(e)
         }
 
