@@ -202,7 +202,7 @@ class OCFileListSearchTask(
 
             for (obj in data) {
                 try {
-                    val remoteFile = obj as? RemoteFile ?: continue
+                    val remoteFile = (obj as? RemoteFile) ?: continue
                     var ocFile = FileStorageUtils.fillOCFile(remoteFile)
                     FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, currentUser.accountName)
                     resolveLocalFileId(ocFile)
