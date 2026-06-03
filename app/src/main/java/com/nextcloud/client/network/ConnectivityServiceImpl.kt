@@ -37,15 +37,17 @@ class ConnectivityServiceImpl(
     private val requestBuilder: GetRequestBuilder,
     private val walledCheckCache: WalledCheckCache
 ) : ConnectivityService {
+
     private val scope = CoroutineScope(Dispatchers.IO)
+
     private var availabilityCheckJob: Job? = null
+    private var notifyJob: Job? = null
+
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val listeners = mutableSetOf<NetworkChangeListener>()
 
     @Volatile
     private var currentConnectivity: Connectivity = Connectivity.DISCONNECTED
-
-    private var notifyJob: Job? = null
 
     private val key: ConnectivityKey
         get() = ConnectivityKey.getBy(accountManager)
@@ -218,33 +220,31 @@ class ConnectivityServiceImpl(
 
     override fun getConnectivity() = currentConnectivity
 
-    private fun getWalledValueFromException(e: Exception): Boolean {
-        return when (e) {
-            is UnknownHostException,
-            is ConnectException -> {
-                Log_OC.w(TAG, "offline exception (${e::class.simpleName}), treating as walled")
-                true
-            }
+    private fun getWalledValueFromException(e: Exception): Boolean = when (e) {
+        is UnknownHostException,
+        is ConnectException -> {
+            Log_OC.w(TAG, "offline exception (${e::class.simpleName}), treating as walled")
+            true
+        }
 
-            is SocketTimeoutException -> {
-                Log_OC.w(TAG, "timeout during server check, treating as walled")
-                true
-            }
+        is SocketTimeoutException -> {
+            Log_OC.w(TAG, "timeout during server check, treating as walled")
+            true
+        }
 
-            is SSLException -> {
-                Log_OC.w(TAG, "SSL exception during server check, assuming reachable")
-                false
-            }
+        is SSLException -> {
+            Log_OC.w(TAG, "SSL exception during server check, assuming reachable")
+            false
+        }
 
-            is IOException -> {
-                Log_OC.w(TAG, "I/O exception (${e::class.simpleName}), treating as walled")
-                true
-            }
+        is IOException -> {
+            Log_OC.w(TAG, "I/O exception (${e::class.simpleName}), treating as walled")
+            true
+        }
 
-            else -> {
-                Log_OC.e(TAG, "unexpected exception type (${e::class.simpleName}), using previous state")
-                currentConnectivity.isServerAvailable?.let { !it } ?: true
-            }
+        else -> {
+            Log_OC.e(TAG, "unexpected exception type (${e::class.simpleName}), using previous state")
+            currentConnectivity.isServerAvailable?.let { !it } ?: true
         }
     }
 

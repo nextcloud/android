@@ -112,6 +112,7 @@ class ConnectivityServiceTest {
                 .thenReturn(platformConnectivityManager)
 
             whenever(platformConnectivityManager.activeNetwork).thenReturn(network)
+            whenever(platformConnectivityManager.allNetworks).thenReturn(arrayOf(network))
             whenever(platformConnectivityManager.getNetworkCapabilities(network))
                 .thenReturn(networkCapabilities)
 
@@ -126,6 +127,7 @@ class ConnectivityServiceTest {
             whenever(requestBuilder.invoke(any())).thenReturn(getRequest)
             whenever(clientFactory.createPlainClient()).thenReturn(client)
             whenever(user.server).thenReturn(newServer)
+            whenever(user.accountName).thenReturn("test@nextcloud.localhost")
             whenever(accountManager.user).thenReturn(user)
 
             val key = ConnectivityKey(user.accountName, newServer.uri.toString())
@@ -152,6 +154,7 @@ class ConnectivityServiceTest {
         fun `no active network`() {
             // GIVEN
             whenever(platformConnectivityManager.activeNetwork).thenReturn(null)
+            whenever(platformConnectivityManager.allNetworks).thenReturn(emptyArray())
             // WHEN
             connectivityService.updateConnectivity()
             // THEN
@@ -271,6 +274,7 @@ class ConnectivityServiceTest {
             // GIVEN
             //      network is not connected
             whenever(platformConnectivityManager.activeNetwork).thenReturn(null)
+            whenever(platformConnectivityManager.allNetworks).thenReturn(emptyArray())
             connectivityService.updateConnectivity()
             assertFalse("Precondition failed", connectivityService.isConnected)
 
