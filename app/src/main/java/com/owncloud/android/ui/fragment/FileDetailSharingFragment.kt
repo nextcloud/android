@@ -184,7 +184,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
             file?.isEncrypted == true,
             SharesType.EXTERNAL
         )
-        externalShareeListAdapter!!.setHasStableIds(true)
+        externalShareeListAdapter?.setHasStableIds(true)
         binding?.sharesListExternal?.setAdapter(externalShareeListAdapter)
         binding?.sharesListExternal?.setLayoutManager(LinearLayoutManager(requireContext()))
         binding?.pickContactEmailBtn?.setOnClickListener { checkContactPermission() }
@@ -536,15 +536,17 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
 
     @VisibleForTesting
     override fun showSharingMenuActionSheet(share: OCShare?) {
-        if (fileActivity != null && fileActivity?.isFinishing == false) {
-            FileDetailSharingMenuBottomSheetDialog(
-                fileActivity,
-                this,
-                share,
-                viewThemeUtils,
-                file?.isEncrypted == true
-            ).show()
+        if (fileActivity == null || fileActivity?.isFinishing == true) {
+            return
         }
+
+        FileDetailSharingMenuBottomSheetDialog(
+            fileActivity,
+            this,
+            share,
+            viewThemeUtils,
+            file?.isEncrypted == true
+        ).show()
     }
 
     override fun showPermissionsDialog(share: OCShare?) {
@@ -593,15 +595,17 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
     }
 
     override fun showProfileBottomSheet(user: User, shareWith: String?) {
-        if (user.server.version.isNewerOrEqual(NextcloudVersion.nextcloud_23)) {
-            RetrieveHoverCardAsyncTask(
-                user,
-                shareWith,
-                fileActivity,
-                clientFactory,
-                viewThemeUtils
-            ).execute()
+        if (!user.server.version.isNewerOrEqual(NextcloudVersion.nextcloud_23)) {
+            return
         }
+
+        RetrieveHoverCardAsyncTask(
+            user,
+            shareWith,
+            fileActivity,
+            clientFactory,
+            viewThemeUtils
+        ).execute()
     }
 
     fun refreshCapabilitiesFromDB() {
@@ -624,7 +628,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
             return
         }
 
-        internalShareeListAdapter!!.removeAll()
+        internalShareeListAdapter?.removeAll()
 
         // to show share with users/groups info
         val shares = fileDataStorageManager?.getSharesWithForAFile(
@@ -687,41 +691,44 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         val projection = arrayOf<String?>(ContactsContract.CommonDataKinds.Email.ADDRESS)
 
         val cursor = fileActivity?.contentResolver?.query(contactUri, projection, null, null, null)
-
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                // The contact has only one email address, use it.
-                val columnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)
-                if (columnIndex != -1) {
-                    // Use the email address as needed.
-                    // email variable contains the selected contact's email address.
-                    val email = cursor.getString(columnIndex)
-                    binding!!.searchView.post(Runnable {
-                        if (binding == null) {
-                            return@Runnable
-                        }
-                        binding?.searchView?.setQuery(email, false)
-                        binding?.searchView?.requestFocus()
-                    })
-                } else {
-                    DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
-                    Log_OC.e(FileDetailSharingFragment::class.java.getSimpleName(), "Failed to pick email address.")
-                }
-            } else {
-                DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
-                Log_OC.e(
-                    FileDetailSharingFragment::class.java.getSimpleName(),
-                    "Failed to pick email address as no Email found."
-                )
-            }
-            cursor.close()
-        } else {
+        if (cursor == null) {
             DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
             Log_OC.e(
                 FileDetailSharingFragment::class.java.getSimpleName(),
                 "Failed to pick email address as Cursor is null."
             )
+            return
         }
+
+        if (!cursor.moveToFirst()) {
+            DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
+            Log_OC.e(
+                FileDetailSharingFragment::class.java.getSimpleName(),
+                "Failed to pick email address as no Email found."
+            )
+            return
+        }
+
+        // The contact has only one email address, use it.
+        val columnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)
+        if (columnIndex == -1) {
+            DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
+            Log_OC.e(FileDetailSharingFragment::class.java.getSimpleName(), "Failed to pick email address.")
+            cursor.close()
+            return
+        }
+
+        // Use the email address as needed.
+        // email variable contains the selected contact's email address.
+        val email = cursor.getString(columnIndex)
+        binding!!.searchView.post(Runnable {
+            if (binding == null) {
+                return@Runnable
+            }
+            binding?.searchView?.setQuery(email, false)
+            binding?.searchView?.requestFocus()
+        })
+        cursor.close()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -767,7 +774,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
 
         unShareWith(share)
 
-        val entity = fileDataStorageManager!!.getFileEntity(file)
+        val entity = fileDataStorageManager?.getFileEntity(file)
 
         if (binding?.sharesListInternal?.adapter is ShareeListAdapter) {
             val adapter = binding?.sharesListInternal?.adapter as ShareeListAdapter
