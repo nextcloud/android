@@ -1257,7 +1257,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void setFileDepth(OCFile file) {
+    public void setFileDepth(OCFile file) {
         fileDepth = OCFileExtensionsKt.getDepth(file);
     }
 
@@ -1291,6 +1291,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 boolean result = bundle.getBoolean(SetupEncryptionDialogFragment.SUCCESS, false);
                 if (!result) {
                     Log_OC.d(TAG, "setup encryption dialog is dismissed");
+                    boolean cancelled = bundle.getBoolean(SetupEncryptionDialogFragment.RESULT_KEY_CANCELLED, false);
+                    if (cancelled) {
+                        browseToRoot();
+                    }
                     return;
                 }
 
