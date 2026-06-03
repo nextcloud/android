@@ -273,11 +273,10 @@ class AppModule {
     @Provides
     @Singleton
     OverlayManager overlayManager(
-        SyncedFolderProvider syncedFolderProvider,
         AppPreferences appPreferences,
         ViewThemeUtils viewThemeUtils,
         Context context,
         UserAccountManager accountManager) {
-        return new OverlayManager(syncedFolderProvider, appPreferences, viewThemeUtils, context, accountManager);
+        return new OverlayManager(appPreferences, viewThemeUtils, context, accountManager);
     }
 }
