@@ -15,7 +15,6 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
@@ -133,16 +132,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
         currentDirItems: List<OCFile> = emptyList(),
         supportsCalendarContacts: Boolean = false
     ): UnifiedSearchListAdapter {
-        val syncedFolderProvider = SyncedFolderProvider(
-            targetContext.contentResolver,
-            preferences,
-            sut.clock
-        )
-
         val accountManager = UserAccountManagerImpl.fromContext(targetContext)
 
         overlayManager = OverlayManager(
-            syncedFolderProvider = syncedFolderProvider,
             preferences = preferences,
             viewThemeUtils = sut.viewThemeUtils,
             context = targetContext,
