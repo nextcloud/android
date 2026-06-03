@@ -81,7 +81,9 @@ import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarGenerationListener, Injectable,
@@ -279,78 +281,21 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         setShareWithYou()
 
         binding?.run {
-            val parentFile = file?.parentId?.let { fileDataStorageManager?.getFileById(it) }
-
             FileDetailSharingFragmentHelper.setupSearchView(
                 fileActivity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager?,
                 searchView,
                 fileActivity?.componentName
             )
 
-            viewThemeUtils.material.themeSearchCardView(searchCardWrapper)
-            viewThemeUtils.files.themeContentSearchView(searchView)
-            viewThemeUtils.platform.colorImageView(searchViewIcon, ColorRole.ON_SURFACE_VARIANT)
-            viewThemeUtils.platform.colorImageView(pickContactEmailBtn, ColorRole.ON_SURFACE_VARIANT)
+            themeView(this)
+            setupShareList(this)
 
-            viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(sendCopyBtn)
-
-            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(sharesListInternalShowAll)
-            viewThemeUtils.material.colorMaterialTextButton(sharesListInternalShowAll)
-            sharesListInternalShowAll.setOnClickListener {
-                internalShareeListAdapter?.toggleShowAll()
-                val textRes = if (internalShareeListAdapter?.isShowAll == true) R.string.show_less else R.string.show_all
-                sharesListInternalShowAll.setText(textRes)
-            }
-
-            viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(createLink)
-
-            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(sharesListExternalShowAll)
-            sharesListExternalShowAll.let { viewThemeUtils.material.colorMaterialTextButton(it) }
-            sharesListExternalShowAll.setOnClickListener {
-                externalShareeListAdapter!!.toggleShowAll()
-                val textRes = if (externalShareeListAdapter?.isShowAll == true) R.string.show_less else R.string.show_all
-                sharesListExternalShowAll.setText(textRes)
-            }
 
             if (file?.canReshare() == true && !FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities)) {
-                if (file?.isEncrypted == true || (parentFile != null && parentFile.isEncrypted)) {
-                    internalShareHeadline.text = resources.getString(R.string.internal_share_headline_end_to_end_encrypted)
-                    internalShareDescription.visibility = View.VISIBLE
-                    externalSharesHeadline.text = resources.getString(R.string.create_end_to_end_encrypted_share_title)
-
-                    fetchE2EECounter {
-                        if (binding == null) {
-                            return@fetchE2EECounter
-                        }
-                        if (file?.e2eCounter == -1L) {
-                            // V1 cannot share
-                            searchContainer.visibility = View.GONE
-                            createLink.visibility = View.GONE
-                        } else {
-                            createLink.setText(R.string.add_new_secure_file_drop)
-                            searchView.setQueryHint(resources.getString(R.string.secure_share_search))
-
-                            if (file?.isSharedViaLink == true) {
-                                searchView.setQueryHint(resources.getString(R.string.share_not_allowed_when_file_drop))
-                                searchView.inputType = InputType.TYPE_NULL
-                                toggleSearchViewEnable(searchView, false)
-                            }
-                        }
-                    }
-                } else {
-                    createLink.setText(R.string.create_link)
-                    searchView.setQueryHint(getResources().getString(R.string.share_search_internal))
-                }
-
-                createLink.setOnClickListener(View.OnClickListener { v: View? -> createPublicShareLink() })
+                val parentFile = file?.parentId?.let { fileDataStorageManager?.getFileById(it) }
+                setupShareView(this, parentFile)
             } else {
-                searchView.setQueryHint(getResources().getString(R.string.resharing_is_not_allowed))
-                createLink.visibility = View.GONE
-                externalSharesHeadline.visibility = View.GONE
-                searchView.inputType = InputType.TYPE_NULL
-                pickContactEmailBtn.setVisibility(View.GONE)
-                toggleSearchViewEnable(searchView, false)
-                createLink.setOnClickListener(null)
+                setupDisabledShareView(this)
             }
 
             checkShareViaUser()
@@ -358,6 +303,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
             if (file?.isFolder == true) {
                 sendCopyBtn.visibility = View.GONE
             }
+
             sendCopyBtn.setOnClickListener {
                 startActivity(
                     Intent.createChooser(
@@ -367,27 +313,117 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
                 )
             }
         }
-
-
     }
 
-    private fun fetchE2EECounter(onComplete: Runnable?) {
-        val context = requireContext()
-
-        Thread {
-            try {
-                val client = clientFactory.create(user)
-                val metadata = RefreshFolderOperation.getDecryptedFolderMetadata(true, file, client, user, context)
-                if (metadata is DecryptedFolderMetadataFile) {
-                    file?.setE2eCounter(metadata.metadata.counter)
-                    fileDataStorageManager?.saveFile(file)
-                }
-            } catch (e: Exception) {
-                Log_OC.e(TAG, "Error refreshing E2E counter: " + e.message)
+    private fun themeView(binding: FileDetailsSharingFragmentBinding) {
+        binding.run {
+            viewThemeUtils.material.run {
+                themeSearchCardView(searchCardWrapper)
+                colorMaterialButtonPrimaryOutlined(sendCopyBtn)
+                colorMaterialButtonPrimaryBorderless(sharesListInternalShowAll)
+                colorMaterialTextButton(sharesListInternalShowAll)
+                colorMaterialButtonPrimaryOutlined(createLink)
+                colorMaterialButtonPrimaryBorderless(sharesListExternalShowAll)
             }
-            val activity = getActivity()
-            activity?.runOnUiThread(onComplete)
-        }.start()
+
+            viewThemeUtils.platform.run {
+                colorImageView(searchViewIcon, ColorRole.ON_SURFACE_VARIANT)
+                colorImageView(pickContactEmailBtn, ColorRole.ON_SURFACE_VARIANT)
+            }
+
+            viewThemeUtils.files.run {
+                themeContentSearchView(searchView)
+            }
+        }
+    }
+
+    private fun setupShareList(binding: FileDetailsSharingFragmentBinding) {
+        binding.run {
+            sharesListInternalShowAll.setOnClickListener {
+                internalShareeListAdapter?.toggleShowAll()
+                val textRes = if (internalShareeListAdapter?.isShowAll == true) R.string.show_less else R.string.show_all
+                sharesListInternalShowAll.setText(textRes)
+            }
+            sharesListExternalShowAll.let { viewThemeUtils.material.colorMaterialTextButton(it) }
+            sharesListExternalShowAll.setOnClickListener {
+                externalShareeListAdapter?.toggleShowAll()
+                val textRes = if (externalShareeListAdapter?.isShowAll == true) R.string.show_less else R.string.show_all
+                sharesListExternalShowAll.setText(textRes)
+            }
+        }
+    }
+
+    private fun setupViewForEncryptedShare(binding: FileDetailsSharingFragmentBinding) {
+        binding.run {
+            internalShareHeadline.text = resources.getString(R.string.internal_share_headline_end_to_end_encrypted)
+            internalShareDescription.visibility = View.VISIBLE
+            externalSharesHeadline.text = resources.getString(R.string.create_end_to_end_encrypted_share_title)
+
+            lifecycleScope.launch {
+                val result = fetchE2EECounter()
+                if (!result) {
+                    return@launch
+                }
+
+                withContext(Dispatchers.Main) {
+                    if (file?.e2eCounter == -1L) {
+                        // V1 cannot share
+                        searchContainer.visibility = View.GONE
+                        createLink.visibility = View.GONE
+                    } else {
+                        createLink.setText(R.string.add_new_secure_file_drop)
+                        searchView.setQueryHint(resources.getString(R.string.secure_share_search))
+
+                        if (file?.isSharedViaLink == true) {
+                            searchView.setQueryHint(resources.getString(R.string.share_not_allowed_when_file_drop))
+                            searchView.inputType = InputType.TYPE_NULL
+                            toggleSearchViewEnable(searchView, false)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupShareView(binding: FileDetailsSharingFragmentBinding, parentFile: OCFile?) {
+        binding.run {
+            if (file?.isEncrypted == true || (parentFile != null && parentFile.isEncrypted)) {
+                setupViewForEncryptedShare(this)
+            } else {
+                createLink.setText(R.string.create_link)
+                searchView.setQueryHint(getResources().getString(R.string.share_search_internal))
+            }
+
+            createLink.setOnClickListener { createPublicShareLink() }
+        }
+    }
+
+    private fun setupDisabledShareView(binding: FileDetailsSharingFragmentBinding) {
+        binding.run {
+            searchView.setQueryHint(getResources().getString(R.string.resharing_is_not_allowed))
+            createLink.visibility = View.GONE
+            externalSharesHeadline.visibility = View.GONE
+            searchView.inputType = InputType.TYPE_NULL
+            pickContactEmailBtn.setVisibility(View.GONE)
+            toggleSearchViewEnable(searchView, false)
+            createLink.setOnClickListener(null)
+        }
+    }
+
+    private suspend fun fetchE2EECounter(): Boolean = withContext(Dispatchers.IO) {
+        return@withContext try {
+            val context = requireContext()
+            val client = clientFactory.create(user)
+            val metadata = RefreshFolderOperation.getDecryptedFolderMetadata(true, file, client, user, context)
+            if (metadata is DecryptedFolderMetadataFile) {
+                file?.setE2eCounter(metadata.metadata.counter)
+                fileDataStorageManager?.saveFile(file)
+            }
+            true
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Error refreshing E2E counter: " + e.message)
+            false
+        }
     }
 
     private fun checkShareViaUser() {
@@ -485,13 +521,17 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
     }
 
     override fun copyLink(share: OCShare) {
-        if (file?.isSharedViaLink == true) {
-            if (TextUtils.isEmpty(share.shareLink)) {
-                fileOperationsHelper?.getFileWithLink(file!!, viewThemeUtils)
-            } else {
-                copyToClipboard(requireActivity(), share.shareLink)
-            }
+        val file = file ?: return
+        if (!file.isSharedViaLink) {
+            return
         }
+
+        if (TextUtils.isEmpty(share.shareLink)) {
+            fileOperationsHelper?.getFileWithLink(file, viewThemeUtils)
+            return
+        }
+
+        copyToClipboard(requireActivity(), share.shareLink)
     }
 
     @VisibleForTesting
