@@ -23,7 +23,6 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
 import java.io.IOException
 import java.net.ConnectException
-import java.net.NoRouteToHostException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLException
