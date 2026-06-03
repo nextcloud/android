@@ -28,9 +28,6 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven {
-            url = uri("${rootProject.projectDir}/app/libs/local-maven")
-        }
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
