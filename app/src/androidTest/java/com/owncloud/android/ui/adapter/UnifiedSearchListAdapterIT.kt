@@ -133,16 +133,9 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
         currentDirItems: List<OCFile> = emptyList(),
         supportsCalendarContacts: Boolean = false
     ): UnifiedSearchListAdapter {
-        val syncedFolderProvider = SyncedFolderProvider(
-            targetContext.contentResolver,
-            preferences,
-            sut.clock
-        )
-
         val accountManager = UserAccountManagerImpl.fromContext(targetContext)
 
         overlayManager = OverlayManager(
-            syncedFolderProvider = syncedFolderProvider,
             preferences = preferences,
             viewThemeUtils = sut.viewThemeUtils,
             context = targetContext,
