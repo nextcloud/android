@@ -172,7 +172,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
                 SLIDESHOW -> showSlideShow(url)
 
                 else -> {
-                    downloadFile(url, result.fileName)
+                    downloadFile(url, result.filename)
                 }
             }
         }

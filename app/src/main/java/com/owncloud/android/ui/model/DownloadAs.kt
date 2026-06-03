@@ -7,4 +7,4 @@
 
 package com.owncloud.android.ui.model
 
-data class DownloadAs(val format: String, val fileName: String, val url: String)
+data class DownloadAs(val format: String, val filename: String, val url: String)

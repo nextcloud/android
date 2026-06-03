@@ -45,7 +45,7 @@ class RichDocumentDownloadAsParserTests {
         val result = RichDocumentDownloadAsParser.parse(json)
         assertNotNull(result)
         assertEquals("pdf", result!!.format)
-        assertEquals("document.pdf", result.fileName)
+        assertEquals("document.pdf", result.filename)
         assertEquals("https://example.com/file.pdf", result.url)
     }
 
@@ -55,7 +55,7 @@ class RichDocumentDownloadAsParserTests {
         val result = RichDocumentDownloadAsParser.parse(json)
         assertNotNull(result)
         assertEquals("pdf", result!!.format)
-        assertEquals("document.pdf", result.fileName)
+        assertEquals("document.pdf", result.filename)
         assertEquals("https://example.com/file.pdf", result.url)
     }
 
@@ -81,7 +81,7 @@ class RichDocumentDownloadAsParserTests {
         val result = RichDocumentDownloadAsParser.parse(json)
         assertNotNull(result)
         assertEquals("print", result!!.format)
-        assertEquals("file.pdf", result.fileName)
+        assertEquals("file.pdf", result.filename)
         assertEquals("https://example.com/file.pdf", result.url)
     }
 
@@ -91,7 +91,7 @@ class RichDocumentDownloadAsParserTests {
         val result = RichDocumentDownloadAsParser.parse(json)
         assertNotNull(result)
         assertEquals("print", result!!.format)
-        assertEquals("file.pdf", result.fileName)
+        assertEquals("file.pdf", result.filename)
         assertEquals("https://example.com/file.pdf", result.url)
     }
 
@@ -101,6 +101,6 @@ class RichDocumentDownloadAsParserTests {
         val result = RichDocumentDownloadAsParser.parse(json)
         assertNotNull(result)
         assertEquals("slideshow", result!!.format)
-        assertEquals("slides.pdf", result.fileName)
+        assertEquals("slides.pdf", result.filename)
     }
 }
