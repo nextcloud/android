@@ -36,20 +36,21 @@ public interface ConnectivityService {
     void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback);
 
     /**
-     * Checks whether the device currently has an active, validated Internet connection
-     * via a recognized transport type.
+     * Checks whether the device currently has an active connection using a recognized
+     * transport type.
      *
-     * <p>This method queries the Android {@link ConnectivityManager} to determine
-     * whether there is an active {@link Network} with Internet capability and an
-     * acceptable transport such as Wi-Fi, Cellular, Ethernet, VPN, or Bluetooth.</p>
+     * <p>This method reflects the current connectivity state as exposed by this service
+     * and indicates whether a supported transport such as Wi-Fi, Cellular, Ethernet,
+     * VPN, or Bluetooth is active.</p>
      *
-     * <p>For Android 12 (API 31) and newer, USB network transport is also considered valid.</p>
+     * <p>For Android 12 (API 31) and newer, USB network transport is also considered supported.</p>
      *
-     * <p>Note: This only confirms that the Android system has validated Internet access,
-     * not necessarily that the Nextcloud server itself is reachable.</p>
+     * <p>Note: This does <strong>not</strong> guarantee that the active network has
+     * Android Internet capability, has been system-validated for Internet access, or
+     * that the Nextcloud server itself is reachable.</p>
      *
-     * @return {@code true} if the device is connected to the Internet through a supported
-     *         transport type; {@code false} otherwise.
+     * @return {@code true} if the device is connected through a supported transport
+     *         type; {@code false} otherwise.
      */
     boolean isConnected();
 
