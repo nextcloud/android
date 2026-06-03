@@ -467,7 +467,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
         boolean isGridViewPreferred = false;
         if (fileListLayoutManager != null) {
-            isGridViewPreferred = fileListLayoutManager.isGridViewPreferred(mFile);
+            isGridViewPreferred = fileListLayoutManager.isGridViewPreferred();
         }
 
         mAdapter = new OCFileListAdapter(
@@ -1824,7 +1824,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         final var activity = getActivity();
-        if (activity != null) {
+
+        // only show loading state first time if app doesn't have active search task
+        if (activity != null && searchTask == null) {
             activity.runOnUiThread(() -> {
                 getAdapter().removeAllFiles();
                 setEmptyListMessage(EmptyListState.LOADING);

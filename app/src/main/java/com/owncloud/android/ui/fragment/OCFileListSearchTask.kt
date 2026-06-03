@@ -10,6 +10,7 @@ package com.owncloud.android.ui.fragment
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.accounts.Account
 import android.content.ContentValues
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
@@ -67,68 +68,68 @@ class OCFileListSearchTask(
         job = fragment.lifecycleScope.launch(Dispatchers.IO) {
             val searchType = fragment.currentSearchType
 
-            // using cached data
-            val filesInDb = loadCachedDbFiles(event.searchType)
-            val sortedFilesInDb = sortSearchData(filesInDb, searchType, null, setNewSortOrder = {
-                fragment.adapter.setSortOrder(it)
-            })
-            updateAdapterData(fragment, sortedFilesInDb)
+            val cachedFiles = loadSortedCachedDbFiles(event.searchType, searchType, fragment)
+            if (cachedFiles.isNotEmpty()) {
+                updateAdapterData(fragment, cachedFiles)
+            }
 
-            // updating cache and refreshing adapter
-            val result = fetchRemoteResults()
-            if (result?.isSuccess == true) {
-                if (result.resultData?.isEmpty() == true) {
-                    withContext(Dispatchers.Main) {
-                        fragment.setEmptyListMessage(fragment.currentSearchType)
-                        return@withContext
-                    }
-
-                    return@launch
-                }
-
-                fragment.adapter.prepareForSearchData(storageManager, fragment.currentSearchType)
-
-                val newList = if (searchType == SearchType.SHARED_FILTER) {
-                    OCShareToOCFileConverter.parseAndSaveShares(
-                        sortedFilesInDb,
-                        result.resultData ?: listOf(),
-                        storageManager,
-                        currentUser.accountName
-                    )
-                } else {
-                    parseAndSaveVirtuals(result.resultData ?: listOf(), fragment)
-                    fragment.adapter.files
-                }
-
-                val sortedNewList = sortSearchData(newList, searchType, null, setNewSortOrder = {
-                    fragment.adapter.setSortOrder(it)
-                })
-
-                updateAdapterData(fragment, sortedNewList)
-
+            val result = fetchRemoteResults()?.takeIf { it.isSuccess } ?: run {
+                showSnackbarError(fragment)
                 return@launch
             }
 
-            withContext(Dispatchers.Main) {
-                fragment.activity?.let {
-                    DisplayUtils.showSnackMessage(it, R.string.error_fetching_sharees)
-                }
+            val resultData = result.resultData?.takeIf { it.isNotEmpty() } ?: run {
+                withContext(Dispatchers.Main) { fragment.setEmptyListMessage(fragment.currentSearchType) }
+                return@launch
+            }
+
+            fragment.adapter.prepareForSearchData(storageManager, fragment.currentSearchType)
+            val remoteFiles = fetchAndSortRemoteFiles(searchType, cachedFiles, resultData, fragment)
+            updateAdapterData(fragment, remoteFiles)
+        }
+    }
+
+    private suspend fun showSnackbarError(fragment: OCFileListFragment) {
+        withContext(Dispatchers.Main) {
+            fragment.activity?.let {
+                DisplayUtils.showSnackMessage(it, R.string.error_fetching_sharees)
             }
         }
     }
 
-    fun cancel() = job?.cancel(null)
-
-    fun isFinished(): Boolean = job?.isCompleted == true
-
-    private suspend fun loadCachedDbFiles(searchType: SearchRemoteOperation.SearchType): List<OCFile> =
-        if (searchType == SearchRemoteOperation.SearchType.SHARED_FILTER) {
-            storageManager.fileDao
-                .getSharedFiles(currentUser.accountName)
+    private suspend fun loadSortedCachedDbFiles(
+        searchType: SearchRemoteOperation.SearchType,
+        fragmentSearchType: SearchType,
+        fragment: OCFileListFragment
+    ): List<OCFile> {
+        val files = if (searchType == SearchRemoteOperation.SearchType.SHARED_FILTER) {
+            storageManager.fileDao.getSharedFiles(currentUser.accountName)
         } else {
-            storageManager.fileDao
-                .getFavoriteFiles(currentUser.accountName)
+            storageManager.fileDao.getFavoriteFiles(currentUser.accountName)
         }.mapNotNull { storageManager.createFileInstance(it) }
+
+        return sortSearchData(files, fragmentSearchType, fragment)
+    }
+
+    private suspend fun fetchAndSortRemoteFiles(
+        searchType: SearchType,
+        sortedFilesInDb: List<OCFile>,
+        resultData: List<Any>,
+        fragment: OCFileListFragment
+    ): List<OCFile> {
+        val newList = if (searchType == SearchType.SHARED_FILTER) {
+            OCShareToOCFileConverter.parseAndSaveShares(
+                sortedFilesInDb,
+                resultData,
+                storageManager,
+                currentUser.accountName
+            )
+        } else {
+            parseAndSaveVirtuals(resultData, fragment)
+        }
+
+        return sortSearchData(newList, searchType, fragment)
+    }
 
     @Suppress("DEPRECATION")
     private suspend fun fetchRemoteResults(): RemoteOperationResult<List<Any>>? {
@@ -155,18 +156,11 @@ class OCFileListSearchTask(
             fragment.adapter.updateAdapter(newList, null)
         }
 
-    private suspend fun sortSearchData(
-        list: List<OCFile>,
-        searchType: SearchType,
-        folder: OCFile?,
-        setNewSortOrder: (FileSortOrder) -> Unit
-    ): List<OCFile> = withContext(Dispatchers.IO) {
-        var newList = list.toMutableList()
-
+    private fun sortSearchData(list: List<OCFile>, searchType: SearchType, fragment: OCFileListFragment): List<OCFile> {
         if (searchType == SearchType.GALLERY_SEARCH ||
             searchType == SearchType.RECENT_FILES_SEARCH
         ) {
-            return@withContext FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(newList)
+            return FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(list)
         }
 
         val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
@@ -182,20 +176,18 @@ class OCFileListSearchTask(
             }
 
             else -> {
-                preferences.getSortOrderByFolder(folder)
+                preferences.getSortOrderByFolder(null)
             }
         }
 
-        setNewSortOrder(sortOrder)
-        newList = sortOrder.sortCloudFiles(newList, foldersBeforeFiles, favoritesFirst)
-
-        return@withContext newList
+        fragment.adapter.setSortOrder(sortOrder)
+        return sortOrder.sortCloudFiles(list.toMutableList(), foldersBeforeFiles, favoritesFirst)
     }
 
     @Suppress("DEPRECATION")
-    private suspend fun parseAndSaveVirtuals(data: List<Any>, fragment: OCFileListFragment) =
+    private suspend fun parseAndSaveVirtuals(data: List<Any>, fragment: OCFileListFragment): List<OCFile> =
         withContext(Dispatchers.IO) {
-            val activity = fragment.activity ?: return@withContext
+            val activity = fragment.activity ?: return@withContext emptyList()
             val now = System.currentTimeMillis()
 
             val (virtualType, onlyMedia) = when (fragment.currentSearchType) {
@@ -205,64 +197,60 @@ class OCFileListSearchTask(
             }
 
             val contentValuesList = ArrayList<ContentValues>()
+            val resultFiles = ArrayList<OCFile>()
+            var cachedClient: Account? = null
 
             for (obj in data) {
                 try {
                     val remoteFile = obj as? RemoteFile ?: continue
                     var ocFile = FileStorageUtils.fillOCFile(remoteFile)
                     FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, currentUser.accountName)
+                    resolveLocalFileId(ocFile)
                     ocFile = storageManager.saveFileWithParent(ocFile, activity)
-                    ocFile = handleEncryptionIfNeeded(ocFile, storageManager, activity)
+                    ocFile = handleEncryptionIfNeeded(ocFile, storageManager, activity) {
+                        cachedClient ?: currentUser.toPlatformAccount().also { cachedClient = it }
+                    }
 
                     if (fragment.currentSearchType != SearchType.GALLERY_SEARCH && ocFile.isFolder) {
-                        RefreshFolderOperation(
-                            ocFile,
-                            now,
-                            true,
-                            false,
-                            storageManager,
-                            currentUser,
-                            activity
-                        ).execute(currentUser, activity)
+                        RefreshFolderOperation(ocFile, now, true, false, storageManager, currentUser, activity)
+                            .execute(currentUser, activity)
                     }
 
-                    val isMediaAllowed =
-                        !onlyMedia || MimeTypeUtil.isImage(ocFile) || MimeTypeUtil.isVideo(ocFile)
-
+                    val isMediaAllowed = !onlyMedia || MimeTypeUtil.isImage(ocFile) || MimeTypeUtil.isVideo(ocFile)
                     if (isMediaAllowed) {
-                        fragment.adapter.addVirtualFile(ocFile)
+                        resultFiles.add(ocFile)
                     }
 
-                    val cv = ContentValues().apply {
-                        put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, virtualType.toString())
-                        put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
-                    }
-                    contentValuesList.add(cv)
+                    contentValuesList.add(
+                        ContentValues().apply {
+                            put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, virtualType.toString())
+                            put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
+                        }
+                    )
                 } catch (e: Exception) {
                     Log_OC.e(TAG, "parseAndSaveVirtuals():", e)
                 }
             }
 
-            // Save timestamp + virtual entries
             preferences.setPhotoSearchTimestamp(System.currentTimeMillis())
             storageManager.saveVirtuals(contentValuesList)
+
+            return@withContext resultFiles
         }
 
     @Suppress("DEPRECATION")
     private fun handleEncryptionIfNeeded(
         ocFile: OCFile,
         fileDataStorage: FileDataStorageManager,
-        activity: Activity
+        activity: Activity,
+        accountProvider: () -> Account
     ): OCFile {
         val parent = fileDataStorage.getFileById(ocFile.parentId)
             ?: return ocFile
 
         if (!ocFile.isEncrypted && !parent.isEncrypted) return ocFile
 
-        val client = OwnCloudClientFactory.createOwnCloudClient(
-            currentUser.toPlatformAccount(),
-            activity
-        )
+        val client = OwnCloudClientFactory.createOwnCloudClient(accountProvider(), activity)
 
         val metadata = RefreshFolderOperation.getDecryptedFolderMetadata(
             true,
@@ -290,4 +278,16 @@ class OCFileListSearchTask(
 
         return fileDataStorage.saveFileWithParent(ocFile, activity)
     }
+
+    private fun resolveLocalFileId(ocFile: OCFile) {
+        if (ocFile.fileId != -1L) return
+        val localFile = storageManager.getFileByLocalId(ocFile.localId) ?: return
+        ocFile.fileId = localFile.fileId
+    }
+
+    // region public methods
+    fun cancel() = job?.cancel(null)
+
+    fun isFinished(): Boolean = job?.isCompleted == true
+    // endregion
 }
