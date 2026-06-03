@@ -257,7 +257,7 @@ class ConnectivityServiceTest {
         @Before
         fun setUp() {
             connectivityService.updateConnectivity()
-            Thread.sleep(200)
+            StandardTestDispatcher().scheduler.advanceUntilIdle()
             clearInvocations(requestBuilder, client, getRequest)
             connectivityService.connectivity.let {
                 assertTrue(it.isConnected)

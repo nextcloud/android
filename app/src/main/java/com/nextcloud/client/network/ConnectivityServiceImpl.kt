@@ -21,6 +21,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
+import java.io.IOException
+import java.net.ConnectException
+import java.net.NoRouteToHostException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+import javax.net.ssl.SSLException
 import kotlin.jvm.functions.Function1
 
 @Suppress("TooGenericExceptionCaught", "ReturnCount")
@@ -39,6 +45,8 @@ class ConnectivityServiceImpl(
     @Volatile
     private var currentConnectivity: Connectivity = Connectivity.DISCONNECTED
 
+    private var notifyJob: Job? = null
+
     private val key: ConnectivityKey
         get() = ConnectivityKey.getBy(accountManager)
 
@@ -51,11 +59,15 @@ class ConnectivityServiceImpl(
     }
 
     private fun notifyListeners() {
-        scope.launch {
+        if (listeners.isEmpty()) {
+            return
+        }
+
+        notifyJob?.cancel()
+        notifyJob = scope.launch {
             val available = !isInternetWalled()
             withContext(Dispatchers.Main) {
                 listeners.forEach {
-                    Log_OC.d(TAG, "notifying listeners")
                     it.networkAndServerConnectionListener(available)
                 }
             }
@@ -207,8 +219,33 @@ class ConnectivityServiceImpl(
     override fun getConnectivity() = currentConnectivity
 
     private fun getWalledValueFromException(e: Exception): Boolean {
-        Log_OC.w(TAG, "exception during server check (${e::class.simpleName}), assuming reachable")
-        return false
+        return when (e) {
+            is UnknownHostException,
+            is ConnectException -> {
+                Log_OC.w(TAG, "offline exception (${e::class.simpleName}), treating as walled")
+                true
+            }
+
+            is SocketTimeoutException -> {
+                Log_OC.w(TAG, "timeout during server check, treating as walled")
+                true
+            }
+
+            is SSLException -> {
+                Log_OC.w(TAG, "SSL exception during server check, assuming reachable")
+                false
+            }
+
+            is IOException -> {
+                Log_OC.w(TAG, "I/O exception (${e::class.simpleName}), treating as walled")
+                true
+            }
+
+            else -> {
+                Log_OC.e(TAG, "unexpected exception type (${e::class.simpleName}), using previous state")
+                currentConnectivity.isServerAvailable?.let { !it } ?: true
+            }
+        }
     }
 
     @Suppress("unused")
