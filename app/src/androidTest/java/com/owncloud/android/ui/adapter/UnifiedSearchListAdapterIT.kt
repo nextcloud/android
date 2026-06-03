@@ -15,7 +15,6 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
