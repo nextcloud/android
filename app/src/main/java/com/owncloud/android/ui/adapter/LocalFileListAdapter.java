@@ -39,7 +39,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -88,7 +88,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         mContext = context;
         mLocalFolderPicker = localFolderPickerMode;
         this.localFileListFragmentInterface = localFileListFragmentInterface;
-        checkedFiles = new HashSet<>();
+        checkedFiles = new LinkedHashSet<>();
         this.viewThemeUtils = viewThemeUtils;
         this.isWithinEncryptedFolder = isWithinEncryptedFolder;
         setHasStableIds(true);

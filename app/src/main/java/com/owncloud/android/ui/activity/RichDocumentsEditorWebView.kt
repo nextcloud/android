@@ -30,6 +30,7 @@ import com.owncloud.android.ui.asynctasks.RichDocumentsLoadUrlTask
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.RichDocumentDownloadAsParser
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import org.json.JSONException
 import org.json.JSONObject
@@ -163,22 +164,16 @@ class RichDocumentsEditorWebView : EditorWebView() {
 
         @JavascriptInterface
         fun downloadAs(json: String?) {
-            try {
-                json ?: return
-                val downloadJson = JSONObject(json)
-                val url = downloadJson.getString(URL).toUri()
-                when (downloadJson.getString(TYPE)) {
-                    PRINT -> printFile(url)
+            val result = RichDocumentDownloadAsParser.parse(json) ?: return
+            val url = result.url.toUri()
+            when (result.format) {
+                PRINT -> printFile(url)
 
-                    SLIDESHOW -> showSlideShow(url)
+                SLIDESHOW -> showSlideShow(url)
 
-                    else -> {
-                        val downloadFileName = downloadJson.optString(FILENAME, fileName)
-                        downloadFile(url, downloadFileName)
-                    }
+                else -> {
+                    downloadFile(url, result.filename)
                 }
-            } catch (e: JSONException) {
-                Log_OC.e(this, "Failed to parse download json message: $e")
             }
         }
 
@@ -218,12 +213,9 @@ class RichDocumentsEditorWebView : EditorWebView() {
     }
 
     companion object {
-        private const val URL = "URL"
         private const val HYPERLINK = "Url"
-        private const val TYPE = "Type"
         private const val PRINT = "print"
         private const val SLIDESHOW = "slideshow"
         private const val NEW_NAME = "NewName"
-        private const val FILENAME = "filename"
     }
 }
