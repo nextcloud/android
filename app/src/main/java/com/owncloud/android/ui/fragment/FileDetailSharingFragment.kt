@@ -211,7 +211,7 @@ class FileDetailSharingFragment :
     private fun setupExternalShares(userId: String) {
         externalShareeListAdapter = createShareListAdapter(userId, SharesType.EXTERNAL)
         binding?.sharesListExternal?.run {
-            adapter = internalShareeListAdapter
+            adapter = externalShareeListAdapter
             layoutManager = createShareListLayoutManager()
         }
     }
