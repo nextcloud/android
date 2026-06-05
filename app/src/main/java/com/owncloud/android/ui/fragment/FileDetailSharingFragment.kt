@@ -1,6 +1,7 @@
 /*
  * Nextcloud Android client application
  *
+ * @author Alper Öztürk
  * @author Andy Scherzinger
  * @author Chris Narkiewicz <hello@ezaquarii.com>
  * @author TSI-mc
