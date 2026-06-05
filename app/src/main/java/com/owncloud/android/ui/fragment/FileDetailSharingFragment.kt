@@ -30,6 +30,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.VisibleForTesting
@@ -38,6 +39,7 @@ import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -293,7 +295,6 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
             themeView(this)
             setupShareList(this)
 
-
             if (file?.canReshare() == true && !FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities)) {
                 val parentFile = file?.parentId?.let { fileDataStorageManager?.getFileById(it) }
                 setupShareView(this, parentFile)
@@ -343,17 +344,21 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
     private fun setupShareList(binding: FileDetailsSharingFragmentBinding) {
         binding.run {
             sharesListInternalShowAll.setOnClickListener {
-                internalShareeListAdapter?.toggleShowAll()
-                val textRes = if (internalShareeListAdapter?.isShowAll == true) R.string.show_less else R.string.show_all
-                sharesListInternalShowAll.setText(textRes)
+                expandOrCollapseAdapter(internalShareeListAdapter, sharesListInternalShowAll)
             }
-            sharesListExternalShowAll.let { viewThemeUtils.material.colorMaterialTextButton(it) }
+
             sharesListExternalShowAll.setOnClickListener {
-                externalShareeListAdapter?.toggleShowAll()
-                val textRes = if (externalShareeListAdapter?.isShowAll == true) R.string.show_less else R.string.show_all
-                sharesListExternalShowAll.setText(textRes)
+                expandOrCollapseAdapter(externalShareeListAdapter, sharesListExternalShowAll)
             }
+            viewThemeUtils.material.colorMaterialTextButton(sharesListExternalShowAll)
         }
+    }
+
+    private fun expandOrCollapseAdapter(adapter: ShareeListAdapter?, button: MaterialButton) {
+        adapter ?: return
+        adapter.toggleShowAll()
+        val actionTextId = adapter.getExpandOrCollapseActionTextId()
+        button.setText(actionTextId)
     }
 
     private fun setupViewForEncryptedShare(binding: FileDetailsSharingFragmentBinding) {
@@ -370,22 +375,30 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
 
                 withContext(Dispatchers.Main) {
                     if (file?.e2eCounter == -1L) {
-                        // V1 cannot share
-                        searchContainer.visibility = View.GONE
-                        createLink.visibility = View.GONE
-                    } else {
-                        createLink.setText(R.string.add_new_secure_file_drop)
-                        searchView.setQueryHint(resources.getString(R.string.secure_share_search))
+                        disableE2EEShareForV1(binding)
+                        return@withContext
+                    }
 
-                        if (file?.isSharedViaLink == true) {
-                            searchView.setQueryHint(resources.getString(R.string.share_not_allowed_when_file_drop))
-                            searchView.inputType = InputType.TYPE_NULL
-                            toggleSearchViewEnable(searchView, false)
-                        }
+                    createLink.setText(R.string.add_new_secure_file_drop)
+                    searchView.setQueryHint(resources.getString(R.string.secure_share_search))
+
+                    if (file?.isSharedViaLink == true) {
+                        setupSearchViewForSharedLink(searchView)
                     }
                 }
             }
         }
+    }
+
+    private fun disableE2EEShareForV1(binding: FileDetailsSharingFragmentBinding) {
+        binding.searchContainer.visibility = View.GONE
+        binding.createLink.visibility = View.GONE
+    }
+
+    private fun setupSearchViewForSharedLink(searchView: SearchView) {
+        searchView.setQueryHint(resources.getString(R.string.share_not_allowed_when_file_drop))
+        searchView.inputType = InputType.TYPE_NULL
+        toggleSearchViewEnable(searchView, false)
     }
 
     private fun setupShareView(binding: FileDetailsSharingFragmentBinding, parentFile: OCFile?) {
@@ -430,9 +443,11 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
     }
 
     private fun checkShareViaUser() {
-        if (!shareViaUser(requireContext())) {
-            binding?.searchContainer?.visibility = View.GONE
+        if (shareViaUser(requireContext())) {
+            return
         }
+
+        binding?.searchContainer?.visibility = View.GONE
     }
 
     private fun toggleSearchViewEnable(view: View, enable: Boolean) {
@@ -448,35 +463,44 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         binding?.run {
             if (accountManager.userOwnsFile(file, user)) {
                 sharedWithYouContainer.visibility = View.GONE
-            } else {
-                sharedWithYouUsername.text = String.format(getString(R.string.shared_with_you_by), file?.ownerDisplayName)
-                user?.let {
-                    file?.ownerId?.let { userId ->
-                        DisplayUtils.setAvatar(
-                            it,
-                            userId,
-                            this@FileDetailSharingFragment,
-                            resources.getDimension(
-                                R.dimen.file_list_item_avatar_icon_radius
-                            ),
-                            resources,
-                            sharedWithYouAvatar,
-                            context
-                        )
-                    }
-                }
-                sharedWithYouAvatar.setVisibility(View.VISIBLE)
-
-                val note = file?.getNote()
-
-                if (!TextUtils.isEmpty(note)) {
-                    sharedWithYouNote.text = file?.getNote()
-                    sharedWithYouNoteContainer.visibility = View.VISIBLE
-                } else {
-                    sharedWithYouNoteContainer.visibility = View.GONE
-                }
+                return
             }
+
+            sharedWithYouUsername.text = String.format(getString(R.string.shared_with_you_by), file?.ownerDisplayName)
+            setupUserAvatar(sharedWithYouAvatar)
+            setupNote(this)
         }
+    }
+
+    private fun setupUserAvatar(sharedWithYouAvatar: ImageView) {
+        val user = user ?: return
+        val userId = file?.ownerId ?: return
+
+        DisplayUtils.setAvatar(
+            user,
+            userId,
+            this@FileDetailSharingFragment,
+            resources.getDimension(
+                R.dimen.file_list_item_avatar_icon_radius
+            ),
+            resources,
+            sharedWithYouAvatar,
+            context
+        )
+
+        sharedWithYouAvatar.setVisibility(View.VISIBLE)
+    }
+
+    private fun setupNote(binding: FileDetailsSharingFragmentBinding) {
+        val note = file?.getNote()
+
+        if (!note.isNullOrEmpty()) {
+            binding.sharedWithYouNote.text = file?.getNote()
+            binding.sharedWithYouNoteContainer.visibility = View.VISIBLE
+            return
+        }
+
+        binding.sharedWithYouNoteContainer.visibility = View.GONE
     }
 
     private fun createInternalLink(account: OwnCloudAccount, file: OCFile): String {
@@ -513,11 +537,13 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
     }
 
     private fun checkContactPermission() {
-        if (checkSelfPermission(requireActivity(), Manifest.permission.READ_CONTACTS)) {
+        val canReadContacts = (checkSelfPermission(requireActivity(), Manifest.permission.READ_CONTACTS))
+        if (canReadContacts) {
             pickContactEmail()
-        } else {
-            requestContactPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
+            return
         }
+
+        requestContactPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
     }
 
     private fun pickContactEmail() {
@@ -525,9 +551,10 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
 
         if (intent.resolveActivity(requireContext().packageManager) != null) {
             onContactSelectionResultLauncher.launch(intent)
-        } else {
-            DisplayUtils.showSnackMessage(this, R.string.file_detail_sharing_fragment_no_contact_app_message)
+            return
         }
+
+        DisplayUtils.showSnackMessage(this, R.string.file_detail_sharing_fragment_no_contact_app_message)
     }
 
     private fun handleContactResult(contactUri: Uri) {
@@ -538,7 +565,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         if (cursor == null) {
             DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
             Log_OC.e(
-                FileDetailSharingFragment::class.java.getSimpleName(),
+                TAG,
                 "Failed to pick email address as Cursor is null."
             )
             return
@@ -547,7 +574,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         if (!cursor.moveToFirst()) {
             DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
             Log_OC.e(
-                FileDetailSharingFragment::class.java.getSimpleName(),
+                TAG,
                 "Failed to pick email address as no Email found."
             )
             return
@@ -557,7 +584,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         val columnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)
         if (columnIndex == -1) {
             DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
-            Log_OC.e(FileDetailSharingFragment::class.java.getSimpleName(), "Failed to pick email address.")
+            Log_OC.e(TAG, "Failed to pick email address.")
             cursor.close()
             return
         }
@@ -565,7 +592,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         // Use the email address as needed.
         // email variable contains the selected contact's email address.
         val email = cursor.getString(columnIndex)
-        binding!!.searchView.post(Runnable {
+        binding?.searchView?.post(Runnable {
             if (binding == null) {
                 return@Runnable
             }
@@ -577,7 +604,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
 
     private fun isReshareForbidden(share: OCShare): Boolean {
         return ShareType.FEDERATED == share.shareType ||
-            capabilities != null && capabilities!!.filesSharingResharing.isFalse
+            capabilities != null && (capabilities?.filesSharingResharing?.isFalse == true)
     }
 
     private fun modifyExistingShare(share: OCShare, screenTypePermission: Int) {
@@ -631,7 +658,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
     }
 
     override fun sendLink(share: OCShare) {
-        if (file?.isSharedViaLink == true && !TextUtils.isEmpty(share.shareLink)) {
+        if (file?.isSharedViaLink == true && !share.shareLink.isNullOrEmpty()) {
             FileActivity.showShareLinkDialog(fileActivity, file, share.shareLink)
         } else {
             showSendLinkTo(share)
@@ -653,19 +680,21 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         file?.let { FileActivity.showShareLinkDialog(fileActivity, file, createInternalLink(account, it)) }
     }
 
+    private fun OCCapability?.isPasswordEnforced(): Boolean {
+        return this?.filesSharingPublicPasswordEnforced?.isTrue == true && filesSharingPublicAskForOptionalPassword.isTrue
+    }
+
     override fun createPublicShareLink() {
-        if (capabilities != null && (capabilities?.filesSharingPublicPasswordEnforced?.isTrue == true ||
-                capabilities?.filesSharingPublicAskForOptionalPassword?.isTrue == true)
-        ) {
-            // password enforced by server, request to the user before trying to create
+        if (capabilities?.isPasswordEnforced() == true) {
             requestPasswordForShareViaLink(
                 true,
-                capabilities!!.filesSharingPublicAskForOptionalPassword.isTrue
+                (capabilities?.filesSharingPublicAskForOptionalPassword?.isTrue == true)
             )
-        } else {
-            // create without password if not enforced by server or we don't know if enforced;
-            fileOperationsHelper?.shareFileViaPublicShare(file, null)
+            return
         }
+
+        // create without password
+        fileOperationsHelper?.shareFileViaPublicShare(file, null)
     }
 
     override fun createSecureFileDrop() {
@@ -678,7 +707,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
             return
         }
 
-        if (TextUtils.isEmpty(share.shareLink)) {
+        if (share.shareLink.isNullOrEmpty()) {
             fileOperationsHelper?.getFileWithLink(file, viewThemeUtils)
             return
         }
@@ -725,14 +754,13 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(ARG_FILE, file)
-        outState.putParcelable(ARG_USER, user)
+        outState.run {
+            putParcelable(ARG_FILE, file)
+            putParcelable(ARG_USER, user)
+        }
     }
 
     override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
-        if (binding == null) {
-            return
-        }
         binding?.sharedWithYouAvatar?.setImageDrawable(avatarDrawable)
     }
 
@@ -742,15 +770,12 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
     // endregion
 
     // region public methods
-    @VisibleForTesting
     fun search(query: String?) {
-        val searchView = requireView().findViewById<SearchView>(R.id.searchView)
-        searchView.setQuery(query, true)
+        binding?.searchView?.setQuery(query, true)
     }
 
     fun onUpdateShareInformation(result: RemoteOperationResult<*>, file: OCFile?) {
         this.file = file
-
         onUpdateShareInformation(result)
     }
 
