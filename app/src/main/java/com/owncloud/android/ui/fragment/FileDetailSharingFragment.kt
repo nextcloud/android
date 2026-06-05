@@ -25,7 +25,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.InputType
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,14 +80,19 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarGenerationListener, Injectable,
-    FileDetailsSharingMenuBottomSheetActions, QuickPermissionSharingBottomSheetActions {
+@Suppress("TooManyFunctions", "LargeClass", "TooGenericExceptionCaught", "ReturnCount")
+class FileDetailSharingFragment :
+    Fragment(),
+    ShareeListAdapterListener,
+    AvatarGenerationListener,
+    Injectable,
+    FileDetailsSharingMenuBottomSheetActions,
+    QuickPermissionSharingBottomSheetActions {
     private var file: OCFile? = null
     private var user: User? = null
     private var capabilities: OCCapability? = null
@@ -212,24 +216,20 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         }
     }
 
-    private fun createShareListAdapter(userId: String, type: SharesType): ShareeListAdapter {
-        return ShareeListAdapter(
-            fileActivity!!,
-            ArrayList(),
-            this,
-            userId,
-            user,
-            viewThemeUtils,
-            (file?.isEncrypted == true),
-            type
-        ).apply {
-            setHasStableIds(true)
-        }
+    private fun createShareListAdapter(userId: String, type: SharesType): ShareeListAdapter = ShareeListAdapter(
+        fileActivity!!,
+        ArrayList(),
+        this,
+        userId,
+        user,
+        viewThemeUtils,
+        (file?.isEncrypted == true),
+        type
+    ).apply {
+        setHasStableIds(true)
     }
 
-    private fun createShareListLayoutManager(): LinearLayoutManager {
-        return LinearLayoutManager(requireContext())
-    }
+    private fun createShareListLayoutManager(): LinearLayoutManager = LinearLayoutManager(requireContext())
 
     private fun startAnimation() {
         val blinkAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.blink)
@@ -244,7 +244,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
 
         val shareRepository = RemoteShareRepository(clientRepository, storageManager)
         lifecycleScope.launch {
-            val result =  shareRepository.fetchSharees(remotePath)
+            val result = shareRepository.fetchSharees(remotePath)
             if (binding == null) {
                 return@launch
             }
@@ -503,18 +503,22 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         binding.sharedWithYouNoteContainer.visibility = View.GONE
     }
 
-    private fun createInternalLink(account: OwnCloudAccount, file: OCFile): String {
-        return account.baseUri.toString() + "/index.php/f/" + file.localId
-    }
+    private fun createInternalLink(account: OwnCloudAccount, file: OCFile): String =
+        account.baseUri.toString() + "/index.php/f/" + file.localId
 
     private fun showSendLinkTo(publicShare: OCShare) {
-        if (file?.isSharedViaLink == true) {
-            if (TextUtils.isEmpty(publicShare.shareLink)) {
-                fileOperationsHelper?.getFileWithLink(file!!, viewThemeUtils)
-            } else {
-                FileActivity.showShareLinkDialog(fileActivity, file, publicShare.shareLink)
-            }
+        val file = file ?: return
+
+        if (!file.isSharedViaLink) {
+            return
         }
+
+        if (publicShare.shareLink.isNullOrEmpty()) {
+            fileOperationsHelper?.getFileWithLink(file, viewThemeUtils)
+            return
+        }
+
+        FileActivity.showShareLinkDialog(fileActivity, file, publicShare.shareLink)
     }
 
     private fun refreshUiFromDB() {
@@ -526,7 +530,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         fileOperationsHelper?.unShareShare(file, share.id)
     }
 
-    private fun addExternalAndPublicShares(externalShares: MutableList<OCShare>) {
+    private fun addExternalAndPublicShares(externalShares: List<OCShare>) {
         val publicShares =
             fileDataStorageManager?.getSharesByPathAndType(file?.remotePath, ShareType.PUBLIC_LINK, "")
         externalShareeListAdapter?.removeAll()
@@ -592,23 +596,44 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         // Use the email address as needed.
         // email variable contains the selected contact's email address.
         val email = cursor.getString(columnIndex)
-        binding?.searchView?.post(Runnable {
-            if (binding == null) {
-                return@Runnable
+        binding?.searchView?.post(
+            Runnable {
+                if (binding == null) {
+                    return@Runnable
+                }
+                binding?.searchView?.setQuery(email, false)
+                binding?.searchView?.requestFocus()
             }
-            binding?.searchView?.setQuery(email, false)
-            binding?.searchView?.requestFocus()
-        })
+        )
         cursor.close()
     }
 
-    private fun isReshareForbidden(share: OCShare): Boolean {
-        return ShareType.FEDERATED == share.shareType ||
-            capabilities != null && (capabilities?.filesSharingResharing?.isFalse == true)
-    }
+    private fun isReshareForbidden(share: OCShare): Boolean = (
+        ShareType.FEDERATED == share.shareType ||
+            capabilities?.filesSharingResharing?.isFalse == true
+        )
 
     private fun modifyExistingShare(share: OCShare, screenTypePermission: Int) {
         onEditShareListener?.editExistingShare(share, screenTypePermission, !isReshareForbidden(share))
+    }
+
+    private val externalShareTypes = setOf(
+        ShareType.PUBLIC_LINK,
+        ShareType.FEDERATED_GROUP,
+        ShareType.FEDERATED,
+        ShareType.EMAIL
+    )
+
+    private suspend fun loadAndPartitionShares(): Pair<List<OCShare>, List<OCShare>> = withContext(Dispatchers.IO) {
+        val shares = fileDataStorageManager
+            ?.getSharesWithForAFile(file?.remotePath, user?.accountName)
+            ?: emptyList()
+
+        val (external, internal) = shares
+            .filter { it.shareType != null }
+            .partition { it.shareType in externalShareTypes }
+
+        return@withContext internal to external
     }
     // endregion
 
@@ -680,9 +705,9 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         file?.let { FileActivity.showShareLinkDialog(fileActivity, file, createInternalLink(account, it)) }
     }
 
-    private fun OCCapability?.isPasswordEnforced(): Boolean {
-        return this?.filesSharingPublicPasswordEnforced?.isTrue == true && filesSharingPublicAskForOptionalPassword.isTrue
-    }
+    private fun OCCapability?.isPasswordEnforced(): Boolean =
+        this?.filesSharingPublicPasswordEnforced?.isTrue == true &&
+            filesSharingPublicAskForOptionalPassword.isTrue
 
     override fun createPublicShareLink() {
         if (capabilities?.isPasswordEnforced() == true) {
@@ -731,7 +756,13 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
     }
 
     override fun showPermissionsDialog(share: OCShare?) {
-        QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils, file?.isEncrypted == true).show()
+        QuickSharingPermissionsBottomSheetDialog(
+            fileActivity,
+            this,
+            share,
+            viewThemeUtils,
+            file?.isEncrypted == true
+        ).show()
     }
     override fun requestPasswordForShare(share: OCShare?, askForPassword: Boolean) {
         val dialog = newInstance(share, askForPassword)
@@ -764,9 +795,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         binding?.sharedWithYouAvatar?.setImageDrawable(avatarDrawable)
     }
 
-    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
-        return false
-    }
+    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean = false
     // endregion
 
     // region public methods
@@ -804,50 +833,27 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         capabilities = fileDataStorageManager?.getCapability(user?.accountName)
     }
 
-    @SuppressFBWarnings("PSC")
     fun refreshSharesFromDB() {
-        if (binding == null) {
-            return
-        }
+        val binding = binding ?: return
 
-        val newFile = file?.fileId?.let { fileDataStorageManager?.getFileById(it) }
-        if (newFile != null) {
-            file = newFile
-        }
+        file = file?.fileId?.let { fileDataStorageManager?.getFileById(it) } ?: file
 
-        if (internalShareeListAdapter == null) {
+        internalShareeListAdapter?.removeAll() ?: run {
             DisplayUtils.showSnackMessage(this, R.string.could_not_retrieve_shares)
             return
         }
 
-        internalShareeListAdapter?.removeAll()
+        lifecycleScope.launch {
+            val (internalShares, externalShares) = loadAndPartitionShares()
 
-        // to show share with users/groups info
-        val shares = fileDataStorageManager?.getSharesWithForAFile(
-            file?.remotePath,
-            user?.accountName
-        ) ?: listOf<OCShare>()
+            withContext(Dispatchers.Main) {
+                internalShareeListAdapter?.addShares(internalShares)
+                binding.sharesListInternalShowAll.setVisibleIf(internalShares.size > MIN_SHOW_ALL_VISIBLE_ITEM_COUNT)
 
-        val internalShares = ArrayList<OCShare>()
-        val externalShares = ArrayList<OCShare>()
-
-        for (share in shares) {
-            if (share.shareType != null) {
-                when (share.shareType) {
-                    ShareType.PUBLIC_LINK, ShareType.FEDERATED_GROUP, ShareType.FEDERATED, ShareType.EMAIL -> externalShares.add(
-                        share
-                    )
-
-                    else -> internalShares.add(share)
-                }
+                addExternalAndPublicShares(externalShares)
+                binding.sharesListExternalShowAll.setVisibleIf(externalShares.size > MIN_SHOW_ALL_VISIBLE_ITEM_COUNT)
             }
         }
-
-        internalShareeListAdapter?.addShares(internalShares)
-        internalShareeListAdapter?.shares?.size?.let { binding?.sharesListInternalShowAll?.setVisibleIf(it > 3) }
-
-        addExternalAndPublicShares(externalShares)
-        externalShareeListAdapter?.shares?.size?.let { binding?.sharesListExternalShowAll?.setVisibleIf(it > 3) }
     }
     // endregion
 
@@ -893,6 +899,7 @@ class FileDetailSharingFragment : Fragment(), ShareeListAdapterListener, AvatarG
         private const val TAG = "FileDetailSharingFragment"
         private const val ARG_FILE = "FILE"
         private const val ARG_USER = "USER"
+        private const val MIN_SHOW_ALL_VISIBLE_ITEM_COUNT = 3
 
         @JvmStatic
         fun newInstance(file: OCFile?, user: User?): FileDetailSharingFragment = FileDetailSharingFragment().apply {
