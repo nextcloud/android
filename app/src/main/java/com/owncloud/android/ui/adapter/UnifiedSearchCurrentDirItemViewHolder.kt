@@ -62,6 +62,8 @@ class UnifiedSearchCurrentDirItemViewHolder(
             overlayManager
         )
 
+        binding.favoriteAction.visibility = if (file.isFavorite) View.VISIBLE else View.GONE
+
         binding.more.setOnClickListener {
             action.openFile(file.decryptedRemotePath, true)
         }

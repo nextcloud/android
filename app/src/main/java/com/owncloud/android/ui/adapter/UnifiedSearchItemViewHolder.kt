@@ -61,6 +61,7 @@ class UnifiedSearchItemViewHolder(
         bindTextView(binding.title, entry.title)
         bindTextView(binding.subline, entry.subline)
         bindLocalFileIndicator(entry)
+        bindFavoriteIndicator(entry)
 
         val entryType = entry.getType()
         bindThumbnail(entry, entryType)
@@ -83,6 +84,11 @@ class UnifiedSearchItemViewHolder(
         val showLocalFileIndicator =
             (entry.isFile && storageManager.getFileByDecryptedRemotePath(entry.remotePath()) != null)
         binding.localFileIndicator.setVisibleIf(showLocalFileIndicator)
+    }
+
+    private fun bindFavoriteIndicator(entry: SearchResultEntry) {
+        val file = storageManager.getFileByRemotePath(entry.remotePath())
+        binding.favoriteAction.setVisibleIf(file?.isFavorite == true)
     }
 
     private fun bindThumbnail(entry: SearchResultEntry, entryType: SearchResultEntryType) {
