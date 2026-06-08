@@ -62,7 +62,7 @@ configurations.configureEach {
 val versionMajor = 34
 val versionMinor = 0
 val versionPatch = 0
-val versionBuild = 51 // 0-50=Alpha / 51-98=RC / 90-99=stable
+val versionBuild = 90 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 val ndkEnv = buildMap {
     file("${project.rootDir}/ndk.env").readLines().forEach {
