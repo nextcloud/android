@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Попробуйте отправить сообщение, чтобы начать беседу.</string>
     <string name="assistant_screen_empty_content_title">Здравствуйте! Чем я могу вам помочь сегодня?</string>
     <string name="assistant_screen_retry_response_generation">Повторить генерацию ответа</string>
-    <string name="assistant_screen_select_task">Выберите задачу</string>
     <string name="assistant_screen_send_message">Отправить сообщение</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Открыть список обсуждений</string>
     <string name="assistant_screen_task_create_fail_message">Произошла ошибка при создании задачи</string>
@@ -116,7 +115,6 @@
     <string name="auto_upload_background_activity_action">Разрешить фоновую активность</string>
     <string name="auto_upload_battery_optimization_reason">Оптимизация батареи может мешать автозагрузке</string>
     <string name="auto_upload_battery_saver_action">Отключить режим энергосбережения</string>
-    <string name="auto_upload_battery_saver_mode_warning">Автозагрузка приостановлена из-за включённого режима энергосбережения.</string>
     <string name="auto_upload_battery_saver_reason">Режим энергосбережения может мешать автозагрузке</string>
     <string name="auto_upload_delete_dialog_description">Это удалит папку и конфигурацию автозагрузки. Все незавершённые загрузки будут отменены.</string>
     <string name="auto_upload_delete_dialog_title">Удалить папку автозагрузки?</string>
@@ -261,7 +259,6 @@
     <string name="create_new_presentation">Новая презентация</string>
     <string name="create_new_spreadsheet">Новая таблица</string>
     <string name="create_rich_workspace">Добавить описание папки</string>
-    <string name="creates_rich_workspace">Добавляет описание папки</string>
     <string name="credentials_disabled">Учётная запись отключена</string>
     <string name="daily_backup">Ежедневное резервное копирование</string>
     <string name="data_to_back_up">Данные для резервного копирования</string>
@@ -328,7 +325,6 @@
     <string name="drawer_item_on_device">На устройстве</string>
     <string name="drawer_item_personal_files">Личные файлы</string>
     <string name="drawer_item_recent_files">Последние файлы</string>
-    <string name="drawer_item_recently_modified">Недавно изменённые</string>
     <string name="drawer_item_shared">Опубликованное</string>
     <string name="drawer_item_trashbin">Удалённые файлы</string>
     <string name="drawer_item_uploads_list">Состояние передачи</string>
@@ -337,7 +333,6 @@
     <string name="drawer_quota">использовано %1$s из %2$s </string>
     <string name="drawer_quota_unlimited">%1$s использовано</string>
     <string name="drawer_synced_folders">Автоматическая передача</string>
-    <string name="due_to_too_many_wrong_attempts">%s из-за слишком большого количества неудачных попыток</string>
     <string name="e2e_counter_too_old">Счётчик слишком старый</string>
     <string name="e2e_hash_not_found">Хэш не найден</string>
     <string name="e2e_not_yet_setup">Сквозное шифрование не настроено</string>
@@ -449,7 +444,6 @@
     <string name="file_list_empty_on_device">Здесь будут показаны загруженные файлы и папки</string>
     <string name="file_list_empty_recent_files_description">Здесь будут показаны недавно изменённые файлы и папки</string>
     <string name="file_list_empty_recent_files_headline">Нет недавно изменённых файлов</string>
-    <string name="file_list_empty_recently_modified">Изменённых за последние 7 дней файлов не найдено</string>
     <string name="file_list_empty_search">Искать в другом каталоге?</string>
     <string name="file_list_empty_shared">Здесь будут показаны опубликованные вами папки и файлы.</string>
     <string name="file_list_empty_shared_headline">Вы ничем не поделились</string>
@@ -867,7 +861,6 @@
     <string name="send">Отправить</string>
     <string name="send_copy_to">Отправить копию</string>
     <string name="send_share">Отправить ссылку</string>
-    <string name="sendbutton_description">Значок кнопки «отправить»</string>
     <string name="server_not_reachable">Не удалось загрузить содержимое.</string>
     <string name="server_not_reachable_content">Возможно, устройство не подключено к интернету.</string>
     <string name="set_as">Установить как</string>
@@ -909,7 +902,6 @@
     <string name="share_option_required">Пожалуйста, выберите хотя бы один вариант общего доступа перед продолжением.</string>
     <string name="share_permission_can_edit">Разрешено редактировать</string>
     <string name="share_permission_file_request">Запрос файла</string>
-    <string name="share_permission_secure_file_drop">Защищённая передача файлов</string>
     <string name="share_permission_view_only">Только просмотр</string>
     <string name="share_permissions">Права на публикацию</string>
     <string name="share_re_share_permission">Поделиться</string>
@@ -1048,7 +1040,6 @@
     <string name="translation_screen_start_to_translate_task">Нажмите для перевода</string>
     <string name="translation_screen_task_processing">Перевод занимает больше времени, чем ожидалось.</string>
     <string name="translation_screen_translating">Перевод…</string>
-    <string name="trashbin_activity_title">Удалённые файлы</string>
     <string name="trashbin_empty_headline">Нет удалённых файлов</string>
     <string name="trashbin_empty_message">Отсюда могут быть восстановлены удалённые файлы.</string>
     <string name="trashbin_file_not_deleted">Файл «%1$s» не может быть удалён!</string>
@@ -1124,7 +1115,6 @@
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку «%1$s». Выполнить перемещение вместо копирования?</string>
     <string name="upload_quota_exceeded">Превышена квота хранилища</string>
     <string name="upload_scan_doc_upload">Сканировать документ через камеру</string>
-    <string name="upload_sync_conflict">Требуется вмешательство для разрешения конфликта синхронизации</string>
     <string name="upload_sync_conflict_check">Возможно, произошел конфликт с вашей последней загрузкой. Нажмите, чтобы проверить.</string>
     <string name="upload_sync_conflict_check_error">Не удалось проверить наличие конфликтов загрузки. Пожалуйста, попробуйте ещё раз.</string>
     <string name="upload_sync_conflict_checking">Проверка конфликтов загрузки…</string>
@@ -1176,7 +1166,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Файл не найден на устройстве</string>
     <string name="uploads_view_upload_status_failed_permission_error">Ошибка прав доступа</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Сертификат сервера не является доверенным</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Получение версии сервера…</string>
     <string name="uploads_view_upload_status_service_interrupted">Работа приложения была прекращена</string>
     <string name="uploads_view_upload_status_skip">Пропущено</string>
     <string name="uploads_view_upload_status_skip_reason">Объект с таким же именем уже существует.</string>
