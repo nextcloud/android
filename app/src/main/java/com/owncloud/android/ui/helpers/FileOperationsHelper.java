@@ -1135,15 +1135,16 @@ public class FileOperationsHelper {
     /**
      * @return -1 if no space could computed, otherwise available space in bytes
      */
-    public static Long getAvailableSpaceOnDevice() {
-        StatFs stat;
+    public static long getAvailableSpaceOnDevice() {
         try {
-            stat = new StatFs(MainApp.getStoragePath());
-        } catch (NullPointerException | IllegalArgumentException e) {
+            StatFs statFs = new StatFs(Environment.getDataDirectory().getPath());
+            long availableBlocks = statFs.getAvailableBlocksLong();
+            long blockSize = statFs.getBlockSizeLong();
+            return availableBlocks * blockSize;
+        } catch (Exception e) {
+            Log_OC.e(TAG, "getAvailableSpaceOnDevice: " + e);
             return -1L;
         }
-
-        return stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
     }
 
     public static boolean isEndToEndEncryptionSetup(Context context, User user) {
