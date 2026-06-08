@@ -61,10 +61,11 @@ class UnifiedSearchItemViewHolder(
         bindTextView(binding.title, entry.title)
         bindTextView(binding.subline, entry.subline)
         bindLocalFileIndicator(entry)
-        bindFavoriteIndicator(entry)
 
         val entryType = entry.getType()
-        bindThumbnail(entry, entryType)
+        val file = storageManager.getFileByRemotePath(entry.remotePath())
+        bindThumbnail(file, entry, entryType)
+        bindFavoriteIndicator(file)
         bindMoreButton(entry)
         binding.unifiedSearchItemLayout.setOnClickListener {
             searchEntryOnClick(entry, entryType)
@@ -86,13 +87,11 @@ class UnifiedSearchItemViewHolder(
         binding.localFileIndicator.setVisibleIf(showLocalFileIndicator)
     }
 
-    private fun bindFavoriteIndicator(entry: SearchResultEntry) {
-        val file = storageManager.getFileByRemotePath(entry.remotePath())
+    private fun bindFavoriteIndicator(file: OCFile?) {
         binding.favoriteAction.setVisibleIf(file?.isFavorite == true)
     }
 
-    private fun bindThumbnail(entry: SearchResultEntry, entryType: SearchResultEntryType) {
-        val file = storageManager.getFileByRemotePath(entry.remotePath())
+    private fun bindThumbnail(file: OCFile?, entry: SearchResultEntry, entryType: SearchResultEntryType) {
         Glide.with(context).clear(binding.thumbnail)
         binding.thumbnailOverlayIcon.setVisibleIf(false)
 
