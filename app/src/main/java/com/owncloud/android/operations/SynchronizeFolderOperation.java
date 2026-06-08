@@ -16,6 +16,8 @@ import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerNotificationManager;
+import com.nextcloud.utils.extensions.ExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
@@ -42,6 +44,7 @@ import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Unit;
 
 /**
  *  Remote operation performing the synchronization of the list of files contained
@@ -81,12 +84,16 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private List<OCFile> mFilesForDirectDownload;
     // to avoid extra PROPFINDs when there was no change in the folder
 
-    private List<SyncOperation> mFilesToSyncContents;
+    private List<SynchronizeFileOperation> mFilesToSyncContents;
     // this will be used for every file when 'folder synchronization' replaces 'folder download'
 
     private final AtomicBoolean mCancellationRequested;
 
-    private final boolean syncInBackgroundWorker;
+    private final boolean useWorkerWithNotification;
+
+    private final boolean syncAll;
+
+    final FolderDownloadWorkerNotificationManager notificationManager;
 
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
@@ -99,7 +106,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                                       String remotePath,
                                       User user,
                                       FileDataStorageManager storageManager,
-                                      boolean syncInBackgroundWorker) {
+                                      boolean useWorkerWithNotification,
+                                      boolean syncAll) {
         super(storageManager);
 
         mRemotePath = remotePath;
@@ -109,7 +117,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFilesForDirectDownload = new Vector<>();
         mFilesToSyncContents = new Vector<>();
         mCancellationRequested = new AtomicBoolean(false);
-        this.syncInBackgroundWorker = syncInBackgroundWorker;
+        this.useWorkerWithNotification = useWorkerWithNotification;
+        this.syncAll = syncAll;
+        notificationManager = new FolderDownloadWorkerNotificationManager(context, false,null);
     }
 
 
@@ -135,7 +145,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             result = checkForChanges(client);
 
             if (result.isSuccess()) {
-                if (mRemoteFolderChanged) {
+                if (mRemoteFolderChanged || syncAll) {
                     result = fetchAndSyncRemoteFolder(client);
                 } else {
                     prepareOpsFromLocalKnowledge();
@@ -204,14 +214,14 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         ReadFolderRemoteOperation operation = new ReadFolderRemoteOperation(mRemotePath);
-        RemoteOperationResult result = operation.execute(client);
+        var result = operation.execute(client);
         Log_OC.d(TAG, "Synchronizing " + user.getAccountName() + mRemotePath);
         Log_OC.d(TAG, "Synchronizing remote id" + mLocalFolder.getRemoteId());
 
         if (result.isSuccess()) {
             synchronizeData(result.getData());
             if (mConflictsFound > 0  || mFailsInFileSyncsFound > 0) {
-                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+                result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
                     // should be a different result code, but will do the job
             }
         } else {
@@ -326,8 +336,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             boolean encrypted = updatedFile.isEncrypted() || mLocalFolder.isEncrypted();
             updatedFile.setEncrypted(encrypted);
 
-            /// classify file to sync/download contents later
-            classifyFileForLaterSyncOrDownload(remoteFile, localFile);
+            syncFileOrFolder(remoteFile, localFile);
 
             updatedFiles.add(updatedFile);
         }
@@ -374,19 +383,29 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
     }
 
+    /**
+     * Schedules synchronization for the given remote file or folder.
+     * <p>
+     * If the remote file is a regular file, a {@link SynchronizeFileOperation} is created
+     * and added to the list of pending file synchronizations.
+     * If the remote file is a folder, the method triggers a folder synchronization operation,
+     * which recursively synchronizes all nested files and subfolders.
+     * </p>
+     *
+     * @param remoteFile the remote file or folder to synchronize
+     * @param localFile the corresponding local file or folder
+     * @throws OperationCancelledException if the synchronization was cancelled
+     */
     @SuppressFBWarnings("JLM")
-    private void classifyFileForLaterSyncOrDownload(OCFile remoteFile, OCFile localFile) throws OperationCancelledException {
+    private void syncFileOrFolder(OCFile remoteFile, OCFile localFile) throws OperationCancelledException {
         if (remoteFile.isFolder()) {
-            /// to download children files recursively
             synchronized (mCancellationRequested) {
                 if (mCancellationRequested.get()) {
                     throw new OperationCancelledException();
                 }
                 startSyncFolderOperation(remoteFile.getRemotePath());
             }
-
         } else {
-            /// prepare content synchronization for files (any file, not just favorites)
             SynchronizeFileOperation operation = new SynchronizeFileOperation(
                 localFile,
                 remoteFile,
@@ -394,12 +413,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 true,
                 mContext,
                 getStorageManager(),
-                syncInBackgroundWorker
+                useWorkerWithNotification
             );
             mFilesToSyncContents.add(operation);
         }
     }
-
 
     private void prepareOpsFromLocalKnowledge() throws OperationCancelledException {
         List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder, false);
@@ -416,7 +434,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                         true,
                         mContext,
                         getStorageManager(),
-                        syncInBackgroundWorker
+                        useWorkerWithNotification
                     );
                     mFilesToSyncContents.add(operation);
                 }
@@ -455,8 +473,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     private void startDirectDownloads() {
         final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
-        
-        if (syncInBackgroundWorker) {
+
+        if (useWorkerWithNotification) {
+            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName());
+        } else {
             try {
                 for (OCFile file: mFilesForDirectDownload) {
                     synchronized (mCancellationRequested) {
@@ -487,62 +507,59 @@ public class SynchronizeFolderOperation extends SyncOperation {
             } catch (Exception e) {
                 Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
             }
-        } else {
-            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName());
         }
     }
+
 
     /**
      * Performs a list of synchronization operations, determining if a download or upload is needed
      * or if exists conflict due to changes both in local and remote contents of the each file.
-     *
+     * <p>
      * If download or upload is needed, request the operation to the corresponding service and goes on.
      *
      * @param filesToSyncContents       Synchronization operations to execute.
      */
-    private void startContentSynchronizations(List<SyncOperation> filesToSyncContents)
-            throws OperationCancelledException {
-
+    private void startContentSynchronizations(List<SynchronizeFileOperation> filesToSyncContents) throws OperationCancelledException {
         Log_OC.v(TAG, "Starting content synchronization... ");
-        RemoteOperationResult contentsResult;
-        for (SyncOperation op: filesToSyncContents) {
+
+        int total = filesToSyncContents.size();
+        String folderName = mLocalFolder.getFileName();
+
+        for (int current = 0; current < filesToSyncContents.size(); current++) {
             if (mCancellationRequested.get()) {
                 throw new OperationCancelledException();
             }
-            contentsResult = op.execute(mContext);
-            if (!contentsResult.isSuccess()) {
-                if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
+
+            final var synchronizeFileOperation = filesToSyncContents.get(current);
+            final var result = synchronizeFileOperation.execute(mContext);
+            final var file = synchronizeFileOperation.getLocalFile();
+
+            if (result.isSuccess() && file != null) {
+                notificationManager.showProgressNotification(folderName, file.getFileName(), current, total);
+            } else {
+                if (result.getCode() == ResultCode.SYNC_CONFLICT) {
                     mConflictsFound++;
                 } else {
                     mFailsInFileSyncsFound++;
-                    if (contentsResult.getException() != null) {
-                        Log_OC.e(TAG, "Error while synchronizing file : "
-                                +  contentsResult.getLogMessage(), contentsResult.getException());
-                    } else {
-                        Log_OC.e(TAG, "Error while synchronizing file : "
-                                + contentsResult.getLogMessage());
-                    }
-                }
-                // TODO - use the errors count in notifications
-            }   // won't let these fails break the synchronization process
-        }
-    }
 
-    /**
-     * Scans the default location for saving local copies of files searching for
-     * a 'lost' file with the same full name as the {@link com.owncloud.android.datamodel.OCFile}
-     * received as parameter.
-     *
-     * @param file      File to associate a possible 'lost' local file.
-     */
-    private void searchForLocalFileInDefaultPath(OCFile file) {
-        if (file.getStoragePath() == null && !file.isFolder()) {
-            File f = new File(FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), file));
-            if (f.exists()) {
-                file.setStoragePath(f.getAbsolutePath());
-                file.setLastSyncDateForData(f.lastModified());
+                    String message = "Error while synchronizing file : ";
+
+                    if (result.getException() != null) {
+                        message = message + result.getLogMessage() + " Exception: "
+                            + result.getException().getMessage();
+                    } else {
+                        message = message + result.getLogMessage();
+                    }
+
+                    Log_OC.e(TAG, message);
+                }
             }
         }
+
+        ExtensionsKt.mainThread(0L, () -> {
+            notificationManager.dismiss();
+            return Unit.INSTANCE;
+        });
     }
 
 
@@ -569,11 +586,12 @@ public class SynchronizeFolderOperation extends SyncOperation {
         return Optional.of(folder.getName());
     }
 
-    private void startSyncFolderOperation(String path){
+    private void startSyncFolderOperation(String path) {
         Intent intent = new Intent(mContext, OperationsService.class);
         intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, user.toPlatformAccount());
         intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
+        intent.putExtra(OperationsService.EXTRA_SYNC_ALL, syncAll);
         mContext.startService(intent);
     }
 

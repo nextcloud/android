@@ -414,7 +414,7 @@ class OCFileListDelegate(
                 if (showShareAvatar) null else R.drawable.shared_via_users to R.string.shared_icon_shared
             }
 
-            file.isSharedViaLink -> R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
+            file.isShared || file.isSharedViaLink -> R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
 
             else -> R.drawable.ic_unshared to R.string.shared_icon_share
         }

@@ -30,7 +30,7 @@ SPDX-FileCopyrightText = "2015-2016 ownCloud Inc."
 SPDX-License-Identifier = "GPL-2.0-only"
 
 [[annotations]]
-path = ["app/libs/local-maven/**/*.aar", "app/libs/local-maven/**/*.pom"]
+path = ["CLAUDE.md", "app/libs/local-maven/**/*.aar", "app/libs/local-maven/**/*.pom"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Nextcloud GmbH and Nextcloud contributors"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
