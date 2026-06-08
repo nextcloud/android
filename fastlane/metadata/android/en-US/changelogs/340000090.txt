@@ -1,0 +1,10 @@
+## 34.0.0 (June 8, 2026)
+
+- Sync all folder
+- Faster gallery search, navigation
+- Better end-to-end encryption support
+- Bug fixes and performance improvements
+
+Minimum: NC 20 Server, Android 9 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/125
