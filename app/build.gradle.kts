@@ -352,7 +352,6 @@ dependencies {
     implementation(libs.compose.activity)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.foundation)
-    implementation(libs.material3)
     debugImplementation(libs.compose.ui.tooling)
     // endregion
 
