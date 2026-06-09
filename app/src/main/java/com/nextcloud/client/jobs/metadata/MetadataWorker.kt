@@ -42,28 +42,21 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
 
         val storageManager = FileDataStorageManager(user, context.contentResolver)
         val currentDir = storageManager.getFileByDecryptedRemotePath(filePath)
-        if (currentDir == null) {
-            Log_OC.e(TAG, "❌ Current directory is null. Aborting metadata sync. $filePath")
-            return Result.failure()
-        }
-        if (!currentDir.hasValidParentId()) {
-            Log_OC.e(TAG, "❌ Current directory has invalid ID: ${currentDir.fileId}. Path: $filePath")
+        if (!currentDir.canFetch()) {
             return Result.failure()
         }
 
-        Log_OC.d(TAG, "🕒 Starting metadata sync for folder: $filePath, id: ${currentDir.fileId}")
+        Log_OC.d(TAG, "🕒 Starting metadata sync for folder: $filePath, id: ${currentDir?.fileId}")
 
         // First check current dir
-        val currentRefreshResult = refreshFolder(currentDir, storageManager)
+        val currentRefreshResult = refreshFolder(currentDir!!, storageManager)
         if (!currentRefreshResult) {
-            Log_OC.e(TAG, "❌ Failed to refresh current directory: $filePath")
             return Result.failure()
         }
 
         // Re-fetch the folder after refresh to get updated data
         val refreshedDir = storageManager.getFileByPath(filePath)
-        if (refreshedDir == null || !refreshedDir.hasValidParentId()) {
-            Log_OC.e(TAG, "❌ Directory invalid after refresh. Path: $filePath")
+        if (!refreshedDir.canFetch()) {
             return Result.failure()
         }
 
@@ -72,14 +65,8 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
         Log_OC.d(TAG, "Found ${subfolders.size} subfolders to sync")
 
         var failedCount = 0
-        subfolders.forEach { subFolder ->
-            if (!subFolder.hasValidParentId()) {
-                Log_OC.e(TAG, "❌ Skipping subfolder with invalid ID: ${subFolder.remotePath}")
-                failedCount++
-                return@forEach
-            }
-
-            val success = refreshFolder(subFolder, storageManager)
+        for (subfolder in subfolders) {
+            val success = refreshFolder(subfolder, storageManager)
             if (!success) {
                 failedCount++
             }
@@ -88,6 +75,25 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
         Log_OC.d(TAG, "🏁 Metadata sync completed for folder: $filePath. Failed: $failedCount/${subfolders.size}")
 
         return Result.success()
+    }
+
+    private fun OCFile?.canFetch(): Boolean {
+        if (this == null) {
+            Log_OC.e(TAG, "file is null")
+            return false
+        }
+
+        if (!hasValidParentId()) {
+            Log_OC.e(TAG, "❌ Folder has invalid ID: $remotePath")
+            return false
+        }
+
+        if (isEncrypted) {
+            Log_OC.d(TAG, "skipping encrypted folder")
+            return false
+        }
+
+        return true
     }
 
     @Suppress("DEPRECATION")
@@ -100,8 +106,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
                     "  eTag:         " + folder.etag + "\n" +
                     "  eTagOnServer: " + folder.etagOnServer
             )
-            if (!folder.hasValidParentId()) {
-                Log_OC.e(TAG, "❌ Folder has invalid ID: ${folder.remotePath}")
+            if (!folder.canFetch()) {
                 return@withContext false
             }
 
