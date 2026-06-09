@@ -48,13 +48,13 @@
     <string name="assistant_output_generation_warning_text">O resultado que se amosa aquí foi xerado por IA. Asegúrese de facer sempre unha dobre comprobación</string>
     <string name="assistant_screen_chat_create_error">Produciuse un fallo ao enviar unha mensaxe</string>
     <string name="assistant_screen_chat_fetch_error">Produciuse un fallo ao recuperar as mensaxes da parola</string>
+    <string name="assistant_screen_chat_generate_error">Produciuse un erro ao xerar a resposta</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Volver á páxina do asistente</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Confirma que quere eliminar esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
     <string name="assistant_screen_empty_content_description">Probe a enviar unha mensaxe para iniciar unha conversa.</string>
     <string name="assistant_screen_empty_content_title">Ola! En que podo axudarlle hoxe?</string>
     <string name="assistant_screen_retry_response_generation">Volver tentar a xeración de respostas</string>
-    <string name="assistant_screen_select_task">Seleccione a tarefa</string>
     <string name="assistant_screen_send_message">Enviar a mensaxe</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Lista de conversas abertas</string>
     <string name="assistant_screen_task_create_fail_message">Produciuse un erro ao crear a tarefa</string>
@@ -112,7 +112,12 @@
     <string name="authenticator_activity_login_error">Houbo un problema ao procesar a súa solicitude de acceso. Ténteo de novo máis tarde.</string>
     <string name="authenticator_activity_no_web_browser_found">Non hai ningún navegador dispoñíbel para abrir esta ligazón.</string>
     <string name="authenticator_activity_please_complete_login_process">Complete o proceso de acceso no seu navegador</string>
-    <string name="auto_upload_battery_saver_mode_warning">O envío automático está en pausa porque o aforro de batería está activado.</string>
+    <string name="auto_upload_background_activity_action">Permitir a actividade en segundo plano</string>
+    <string name="auto_upload_battery_optimization_reason">A actividade en segundo plano de Nextcloud está limitada pola optimización da batería.</string>
+    <string name="auto_upload_battery_saver_action">Abrir os axustes do aforro de batería</string>
+    <string name="auto_upload_battery_saver_reason">O aforro de batería está activo e pode pausar as subidas.</string>
+    <string name="auto_upload_delete_dialog_description">Isto eliminará a carpeta e a configuración de carga automática. Calquera subida non rematada será cancelada.</string>
+    <string name="auto_upload_delete_dialog_title">Eliminar a carpeta de carga automática?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
     <string name="auto_upload_low_battery_warning_info">Batería baixa, o envío pode levar máis tempo</string>
     <string name="auto_upload_on_wifi">Enviar só con wifi sen límite de datos</string>
@@ -254,7 +259,6 @@
     <string name="create_new_presentation">Nova presentación</string>
     <string name="create_new_spreadsheet">Nova folla de cálculo</string>
     <string name="create_rich_workspace">Engadir a descrición do cartafol</string>
-    <string name="creates_rich_workspace">Engade a descrición do cartafol</string>
     <string name="credentials_disabled">Credenciais eliminadas</string>
     <string name="daily_backup">Copia de seguranza diaria</string>
     <string name="data_to_back_up">Datos para facer a copia de seguranza</string>
@@ -320,7 +324,7 @@
     <string name="drawer_item_notifications">Notificacións</string>
     <string name="drawer_item_on_device">No dispositivo</string>
     <string name="drawer_item_personal_files">Ficheiros persoais</string>
-    <string name="drawer_item_recently_modified">Modificado recentemente</string>
+    <string name="drawer_item_recent_files">Ficheiros recentes</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Ficheiros eliminados</string>
     <string name="drawer_item_uploads_list">Envíos</string>
@@ -329,7 +333,6 @@
     <string name="drawer_quota">Usado %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">Usado %1$s</string>
     <string name="drawer_synced_folders">Envío automático</string>
-    <string name="due_to_too_many_wrong_attempts">%s por mor de demasiados intentos errados</string>
     <string name="e2e_counter_too_old">O contador é demasiado antigo</string>
     <string name="e2e_hash_not_found">Non se atopou o resumo criptográfico</string>
     <string name="e2e_not_yet_setup">E2E aínda non está configurado</string>
@@ -406,6 +409,7 @@
     <string name="etm_transfer_type">Transferencia</string>
     <string name="etm_transfer_type_download">Descargar</string>
     <string name="etm_transfer_type_upload">Enviar</string>
+    <string name="export_in_progress">Exportando %1$d de %2$d</string>
     <string name="extension_cannot_be_changed">Non é posíbel cambiar a extensión</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Non ten permiso para ou crear ou enviar os ficheiros neste cartafol.</string>
     <string name="external_shares">Comparticións externas</string>
@@ -440,7 +444,6 @@
     <string name="file_list_empty_on_device">Aquí amosaranse os ficheiros e cartafoles descargados</string>
     <string name="file_list_empty_recent_files_description">Os ficheiros e cartafoles que modificou recentemente amosaranse aquí.</string>
     <string name="file_list_empty_recent_files_headline">Non hai ficheiros modificados recentemente</string>
-    <string name="file_list_empty_recently_modified">Non se atopou ningún ficheiro modificado nos últimos 7 días.</string>
     <string name="file_list_empty_search">Quizáis estea nun cartafol diferente?</string>
     <string name="file_list_empty_shared">Aquí amosaranse os ficheiros e cartafoles que comparta.</string>
     <string name="file_list_empty_shared_headline">Aínda non hai ren compartido</string>
@@ -561,6 +564,7 @@
     <string name="instant_upload_existing">Envíar tamén os ficheiros existentes</string>
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
+    <string name="internal_share_description_end_to_end_encrypted">Os destinatarios do recurso compartido sempre teñen acceso á carpeta cifrada completa. Só é posible compartir con contas que xa teñan configurado o cifrado de extremo a extremo.</string>
     <string name="internal_share_headline_end_to_end_encrypted">Comparticións cifradas de extremo a extremo</string>
     <string name="internal_shares">Comparticións internas</string>
     <string name="internal_two_way_sync">Sincronización interna bidireccional</string>
@@ -613,6 +617,9 @@
     <string name="media_play_pause_description">Botón de reprodución ou pausa</string>
     <string name="media_player_pause">Pausa</string>
     <string name="media_player_play">Reproducir</string>
+    <string name="media_player_playing">Reproducindo multimedia</string>
+    <string name="media_player_seek_backward">Rebobinar</string>
+    <string name="media_player_seek_forward">Avanzar</string>
     <string name="media_rewind_description">Botón de retroceso</string>
     <string name="media_state_playing">%1$s (reproducindo)</string>
     <string name="menu_item_sort_by_date_newest_first">Os máis recentes primeiro</string>
@@ -768,6 +775,7 @@
     <string name="prefs_manage_accounts">Xestionar contas</string>
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_remove_e2e">Retirar a cifraxe localmente</string>
+    <string name="prefs_remove_e2e_keys_and_files">Eliminar ficheiros e claves cifrados</string>
     <string name="prefs_setup_e2e">Configurar a cifraxe de extremo a extremo</string>
     <string name="prefs_show_ecosystem_apps">Amosar o conmutador de aplicacións</string>
     <string name="prefs_show_ecosystem_apps_summary">Suxestión de aplicacións de Nextcloud na cabeceira de navegación</string>
@@ -790,6 +798,7 @@
     <string name="preview_image_file_is_not_downloaded">O ficheiro non está descargado</string>
     <string name="preview_media_unhandled_http_code_message">O ficheiro está bloqueado actualmente por outro usuario ou proceso e, por tanto, non é posíbel eliminalo. Ténteo de novo máis tarde.</string>
     <string name="preview_sorry">Desculpe.</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Produciuse un erro ao abrir o editor de texto</string>
     <string name="privacy">Privacidade</string>
     <string name="push_notifications_not_implemented">Foron desactivadas as notificacións emerxentes por depender de servizos propietarios de Google Play.</string>
     <string name="push_notifications_old_login">Non dispón de notificacións emerxentes por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
@@ -806,6 +815,7 @@
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Produciuse un fallo ao atopar o ficheiro!</string>
     <string name="remove_e2e">Pode retirar a cifraxe de extremo a extremo localmente neste cliente</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Esta operación eliminará todos os ficheiros cifrados e as claves privadas e públicas. Seguro que queres continuar?</string>
     <string name="remove_e2e_message">Pode retirar a cifraxe de extremo a extremo localmente neste cliente. Os ficheiros cifrados permanecerán no servidor, mais xa non se sincronizarán con este computador.</string>
     <string name="remove_fail_msg">Produciuse un fallo na eliminación</string>
     <string name="remove_local_account">Retirar a conta local</string>
@@ -852,7 +862,6 @@
     <string name="send">Enviar</string>
     <string name="send_copy_to">Enviar copia a</string>
     <string name="send_share">Enviar o compartido</string>
-    <string name="sendbutton_description">Icona do botón de envío</string>
     <string name="server_not_reachable">Non foi posíbel cargar o contido</string>
     <string name="server_not_reachable_content">É probábel que o dispositivo non estea conectado a Internet</string>
     <string name="set_as">Definir como</string>
@@ -894,7 +903,6 @@
     <string name="share_option_required">Seleccione polo menos unha opción de compartir antes de continuar.</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_file_request">Solicitude de ficheiro</string>
-    <string name="share_permission_secure_file_drop">Entrega segura de ficheiros</string>
     <string name="share_permission_view_only">Só ver</string>
     <string name="share_permissions">Permisos de compartir</string>
     <string name="share_re_share_permission">Compartir</string>
@@ -1033,7 +1041,6 @@
     <string name="translation_screen_start_to_translate_task">Prema no botón para traducir</string>
     <string name="translation_screen_task_processing">A tradución está a levar máis tempo do agardado.</string>
     <string name="translation_screen_translating">Traducindo…</string>
-    <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Non hai ficheiros eliminados</string>
     <string name="trashbin_empty_message">Poderá recuperar ficheiros eliminados de aquí.</string>
     <string name="trashbin_file_not_deleted">Non foi posíbel eliminar o ficheiro %1$s!</string>
@@ -1096,6 +1103,8 @@
     <string name="upload_local_storage_full">O almacenamento local está cheo</string>
     <string name="upload_local_storage_not_copied">Non foi posíbel copiar o ficheiro no almacenamento local</string>
     <string name="upload_lock_failed">Produciuse un fallo ao bloquear o cartafol</string>
+    <string name="upload_locked_message">O servidor está ocupado. Reintentando…</string>
+    <string name="upload_locked_title">Subida en progreso</string>
     <string name="upload_manually_cancelled">O envío foi cancelado polo usuario</string>
     <string name="upload_missing_storage_permission_allow_file_access">Permitir o acceso a todos os ficheiros</string>
     <string name="upload_missing_storage_permission_app_permissions">Permisos da aplicación</string>
@@ -1107,7 +1116,11 @@
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. En troques, gustaríalle movelos?</string>
     <string name="upload_quota_exceeded">Superouse a cota de almacenamento</string>
     <string name="upload_scan_doc_upload">Escanear o documento desde a cámara</string>
-    <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
+    <string name="upload_sync_conflict_check">Pode haber un conflito coa túa última subida. Toca para comprobar.</string>
+    <string name="upload_sync_conflict_check_error">Non foi posible comprobar se hai conflitos de subida. Téntao de novo.</string>
+    <string name="upload_sync_conflict_checking">Comprobando se hai conflitos de subida…</string>
+    <string name="upload_sync_conflict_not_exists">Conflito resolto.</string>
+    <string name="upload_sync_conflict_same_file">Non se detectou ningún conflito. É o mesmo ficheiro.</string>
     <string name="upload_unknown_error">Produciuse un erro descoñecido</string>
     <string name="uploader_btn_alternative_text">Escoller</string>
     <string name="uploader_btn_upload_text">Enviar</string>
@@ -1154,7 +1167,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Non se atopou o ficheiro local</string>
     <string name="uploads_view_upload_status_failed_permission_error"> Produciuse un erro de permisos</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">O certificado do servidor non é fiábel</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Recuperando a versión do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicación finalizada</string>
     <string name="uploads_view_upload_status_skip">Omitido</string>
     <string name="uploads_view_upload_status_skip_reason">Xa existe un ficheiro co mesmo nome</string>
@@ -1272,6 +1284,18 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionados</item>
+    </plurals>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Téntao de novo en %d segundo por demasiados intentos fallidos</item>
+        <item quantity="other">Téntao de novo en %d segundos por demasiados intentos fallidos</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Téntao de novo en %d minuto por demasiados intentos fallidos</item>
+        <item quantity="other">Téntao de novo en %d minutos por demasiados intentos fallidos</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Téntao de novo en %1$d minuto e %2$d segundos por demasiados intentos fallidos</item>
+        <item quantity="other">Téntao de novo en %1$d minutos e %2$d segundos por demasiados intentos fallidos</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d descarga restante</item>

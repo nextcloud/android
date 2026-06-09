@@ -541,7 +541,7 @@ public abstract class FileActivity extends DrawerActivity
             }
 
         } else {
-            if (!operation.transferWasRequested()) {
+            if (!operation.getTransferWasRequested()) {
                 DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result,
                                                                                              operation, getResources()));
             }

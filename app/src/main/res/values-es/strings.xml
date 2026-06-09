@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Intente enviar un mensaje para iniciar una conversación.</string>
     <string name="assistant_screen_empty_content_title">¡Hola!, ¿En qué te puedo ayudar hoy?</string>
     <string name="assistant_screen_retry_response_generation">Reintentar la generación de respuesta</string>
-    <string name="assistant_screen_select_task">Selecciona una tarea</string>
     <string name="assistant_screen_send_message">Enviar mensaje</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Abrir la lista de chats</string>
     <string name="assistant_screen_task_create_fail_message">Ocurrió un error al crear la tarea</string>
@@ -113,7 +112,12 @@
     <string name="authenticator_activity_login_error">Ha habido un problema al procesar su petición de acceso. Por favor, vuelva a intentarlo más tarde.</string>
     <string name="authenticator_activity_no_web_browser_found">No hay un navegador disponible para abrir este enlace.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, complete el proceso de inicio de sesión en su navegador</string>
-    <string name="auto_upload_battery_saver_mode_warning">Auto-Subida está pausada porque el Ahorro de Batería está activo.</string>
+    <string name="auto_upload_background_activity_action">Permitir actividad en segundo plano</string>
+    <string name="auto_upload_battery_optimization_reason">La actividad en segundo plano de Nextcloud está limitada por la optimización de la batería.</string>
+    <string name="auto_upload_battery_saver_action">Abrir la configuración del ahorro de batería</string>
+    <string name="auto_upload_battery_saver_reason">El ahorro de batería está activo y puede pausar las subidas.</string>
+    <string name="auto_upload_delete_dialog_description">Esto eliminará la carpeta y la configuración de subida automática. Las subidas en curso se cancelarán.</string>
+    <string name="auto_upload_delete_dialog_title">¿Eliminar carpeta de subida automática?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">se mantiene en la carpeta original, pues es de solo lectura</string>
     <string name="auto_upload_low_battery_warning_info">Batería baja, la subida podría tomar más tiempo</string>
     <string name="auto_upload_on_wifi">Subir sólo con conexión Wi-Fi sin límite de datos</string>
@@ -255,7 +259,6 @@
     <string name="create_new_presentation">Nueva presentación</string>
     <string name="create_new_spreadsheet">Nueva hoja de cálculo</string>
     <string name="create_rich_workspace">Añadir una descripción a la carpeta</string>
-    <string name="creates_rich_workspace">Añade una descripción a la carpeta</string>
     <string name="credentials_disabled">Credenciales desactivadas</string>
     <string name="daily_backup">Copia de seguridad diaria</string>
     <string name="data_to_back_up">Datos a respaldar</string>
@@ -322,7 +325,6 @@
     <string name="drawer_item_on_device">En el dispositivo</string>
     <string name="drawer_item_personal_files">Archivos personales</string>
     <string name="drawer_item_recent_files">Archivos recientes</string>
-    <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Archivos eliminados</string>
     <string name="drawer_item_uploads_list">Subidas</string>
@@ -331,7 +333,6 @@
     <string name="drawer_quota">%1$s de %2$s utilizados</string>
     <string name="drawer_quota_unlimited">usado %1$s</string>
     <string name="drawer_synced_folders">Carga automática</string>
-    <string name="due_to_too_many_wrong_attempts">%s debido a múltiples intentos fallidos</string>
     <string name="e2e_counter_too_old">El contador es demasiado antiguo</string>
     <string name="e2e_hash_not_found">Hash no encontrado</string>
     <string name="e2e_not_yet_setup">El cifrado de extremo a extremo (E2E) todavía no está configurado</string>
@@ -443,7 +444,6 @@
     <string name="file_list_empty_on_device">Los archivos y carpetas que descargues aparecerán aquí.</string>
     <string name="file_list_empty_recent_files_description">Los archivos y carpetas que ha modificado recientemente aparecerán aquí.</string>
     <string name="file_list_empty_recent_files_headline">No hay archivos modificados recientemente.</string>
-    <string name="file_list_empty_recently_modified">No se han encontrado archivos modificados en los últimos 7 días</string>
     <string name="file_list_empty_search">¿Quizás está en una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que compartas aparecerán aquí.</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
@@ -564,6 +564,7 @@
     <string name="instant_upload_existing">Subir también archivos existentes</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
+    <string name="internal_share_description_end_to_end_encrypted">Los destinatarios del recurso compartido siempre tienen acceso a la carpeta cifrada completa. Solo es posible compartir con cuentas que ya hayan configurado el cifrado de extremo a extremo.</string>
     <string name="internal_share_headline_end_to_end_encrypted">Compartidos los recursos de extremo a extremo</string>
     <string name="internal_shares">Recursos compartidos internos</string>
     <string name="internal_two_way_sync">Sincronización interna bidireccional</string>
@@ -773,6 +774,7 @@
     <string name="prefs_manage_accounts">Gestionar cuentas</string>
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_remove_e2e">Eliminar cifrado localmente</string>
+    <string name="prefs_remove_e2e_keys_and_files">Eliminar archivos cifrados y claves</string>
     <string name="prefs_setup_e2e">Configurar el cifrado de extremo a extremo</string>
     <string name="prefs_show_ecosystem_apps">Mostrar conmutador de apps</string>
     <string name="prefs_show_ecosystem_apps_summary">Sugerencias de Nextcloud app en encabezado de navegación</string>
@@ -795,6 +797,7 @@
     <string name="preview_image_file_is_not_downloaded">El archivo no está descargado</string>
     <string name="preview_media_unhandled_http_code_message">El archivo se encuentra actualmente bloqueado por otro usuario o proceso y por tanto no es posible eliminarlo. Por favor, intente de nuevo más tarde.</string>
     <string name="preview_sorry">¡Lo sentimos</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Error al abrir el editor de texto</string>
     <string name="privacy">Privacidad</string>
     <string name="push_notifications_not_implemented">Notificaciones push deshabilitadas debido a que depende de servicios propietarios de Google Play.</string>
     <string name="push_notifications_old_login">No hay notificaciones push debido a que la sesión está caducada. Por favor, considera volver a añadir la cuenta.</string>
@@ -811,6 +814,7 @@
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">¡No se pudo encontrar el archivo!</string>
     <string name="remove_e2e">Puede eliminar el cifrado de extremo a extremo localmente en este cliente</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Esta operación eliminará todos los archivos cifrados y las claves privadas y públicas. ¿Estás seguro?</string>
     <string name="remove_e2e_message">Puede quitar el cifrado de un extremo a otro localmente en este cliente. Los archivos cifrados permanecerán en el servidor, pero ya no se sincronizarán con esta computadora.</string>
     <string name="remove_fail_msg">Ha fallado el borrado</string>
     <string name="remove_local_account">Quitar cuenta local</string>
@@ -857,7 +861,6 @@
     <string name="send">Mandar</string>
     <string name="send_copy_to">Enviar copia a</string>
     <string name="send_share">Enviar recurso compartido</string>
-    <string name="sendbutton_description">Icono del botón de enviar</string>
     <string name="server_not_reachable">No se pudo cargar el contenido</string>
     <string name="server_not_reachable_content">El dispositivo parece no estar conectado a la internet</string>
     <string name="set_as">Establecer como</string>
@@ -899,7 +902,6 @@
     <string name="share_option_required">Por favor, seleccione al menos una opción de uso compartido antes de continuar.</string>
     <string name="share_permission_can_edit">Puede editar</string>
     <string name="share_permission_file_request">Solicitud de archivo</string>
-    <string name="share_permission_secure_file_drop">Entrega de archivos segura</string>
     <string name="share_permission_view_only">Solo lectura</string>
     <string name="share_permissions">Permisos del recurso compartido</string>
     <string name="share_re_share_permission">Compartir</string>
@@ -1038,7 +1040,6 @@
     <string name="translation_screen_start_to_translate_task">Pulsa el botón para traducir</string>
     <string name="translation_screen_task_processing">La traducción está tardando más de lo esperado.</string>
     <string name="translation_screen_translating">Traduciendo…</string>
-    <string name="trashbin_activity_title">Archivos eliminados</string>
     <string name="trashbin_empty_headline">No hay archivos eliminados</string>
     <string name="trashbin_empty_message">Podrás recuperar los archivos eliminados desde aquí.</string>
     <string name="trashbin_file_not_deleted">No se ha podido eliminar el archivo %1$s.</string>
@@ -1101,6 +1102,8 @@
     <string name="upload_local_storage_full">Almacenamiento local lleno</string>
     <string name="upload_local_storage_not_copied">No se ha podido copiar el archivo al almacenamiento local</string>
     <string name="upload_lock_failed">Fallo al bloquear la carpeta</string>
+    <string name="upload_locked_message">El servidor está ocupado. Reintentando…</string>
+    <string name="upload_locked_title">Subida en curso</string>
     <string name="upload_manually_cancelled">La carga fue cancelada por el usuario</string>
     <string name="upload_missing_storage_permission_allow_file_access">Permitir el acceso a todos los archivos</string>
     <string name="upload_missing_storage_permission_app_permissions">Permisos de la App</string>
@@ -1112,7 +1115,11 @@
     <string name="upload_query_move_foreign_files">No hay suficiente espacio para copiar los archivos seleccionados en la carpeta %1$s. En su lugar, ¿le gustaría moverlos?</string>
     <string name="upload_quota_exceeded">Se excedió la cuota de almacenamiento</string>
     <string name="upload_scan_doc_upload">Escanear un documento desde la cámara</string>
-    <string name="upload_sync_conflict">Conflicto al sincronizar. Por favor, resuélvelo manualmente</string>
+    <string name="upload_sync_conflict_check">Puede haber un conflicto de tu última subida. Toca para comprobar.</string>
+    <string name="upload_sync_conflict_check_error">No se pudo comprobar si hay conflictos de subida. Inténtalo de nuevo.</string>
+    <string name="upload_sync_conflict_checking">Comprobando si hay conflictos de subida…</string>
+    <string name="upload_sync_conflict_not_exists">Conflicto resuelto.</string>
+    <string name="upload_sync_conflict_same_file">No se detectó ningún conflicto. Mismo archivo.</string>
     <string name="upload_unknown_error">Error desconocido</string>
     <string name="uploader_btn_alternative_text">Selecciona</string>
     <string name="uploader_btn_upload_text">Subir</string>
@@ -1159,7 +1166,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Archivo local no encontrado</string>
     <string name="uploads_view_upload_status_failed_permission_error">Error de permisos</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">El certificado del servidor no es de confianza</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Obteniendo la versión del servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">La aplicación se ha interrumpido</string>
     <string name="uploads_view_upload_status_skip">Saltado</string>
     <string name="uploads_view_upload_status_skip_reason">Un archivo con el mismo nombre ya existe.</string>
@@ -1297,6 +1303,21 @@
         <item quantity="one">%d seleccionado</item>
         <item quantity="many">%d seleccionados</item>
         <item quantity="other">%d seleccionados</item>
+    </plurals>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Inténtalo de nuevo en %d segundo por demasiados intentos fallidos</item>
+        <item quantity="many">Inténtalo de nuevo en %d segundos por demasiados intentos fallidos</item>
+        <item quantity="other">Inténtalo de nuevo en %d segundos por demasiados intentos fallidos</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Inténtalo de nuevo en %d minuto por demasiados intentos fallidos</item>
+        <item quantity="many">Inténtalo de nuevo en %d minutos por demasiados intentos fallidos</item>
+        <item quantity="other">Inténtalo de nuevo en %d minutos por demasiados intentos fallidos</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Inténtalo de nuevo en %1$d minuto y %2$d segundos por demasiados intentos fallidos</item>
+        <item quantity="many">Inténtalo de nuevo en %1$d minutos y %2$d segundos por demasiados intentos fallidos</item>
+        <item quantity="other">Inténtalo de nuevo en %1$d minutos y %2$d segundos por demasiados intentos fallidos</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Queda %1$d descarga</item>

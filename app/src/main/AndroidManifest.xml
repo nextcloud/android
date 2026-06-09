@@ -635,8 +635,7 @@
             android:exported="false"
             android:label="@string/share_dialog_title"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.ownCloud.Dialog.NoTitle"
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/Theme.ownCloud.ShareDialog">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

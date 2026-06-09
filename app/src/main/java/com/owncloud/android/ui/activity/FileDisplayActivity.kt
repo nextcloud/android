@@ -701,7 +701,8 @@ class FileDisplayActivity :
         Handler(Looper.getMainLooper()).post {
             (supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES) as? OCFileListFragment)?.let { fragment ->
                 leftFragment = fragment
-                setupHomeSearchToolbarWithSortAndListButtons()
+                fragment.setFileDepth(file)
+                updateActionBarTitleAndHomeButton(file)
                 fragment.onItemClicked(file)
             }
         }
@@ -1691,6 +1692,10 @@ class FileDisplayActivity :
                     it.setEmptyListMessage(EmptyListState.ONLY_ON_DEVICE)
                 }
 
+                it.searchEvent?.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH -> {
+                    it.setEmptyListMessage(SearchType.FAVORITE_SEARCH)
+                }
+
                 else -> it.setEmptyListMessage(SearchType.NO_SEARCH)
             }
         }
@@ -2174,41 +2179,39 @@ class FileDisplayActivity :
      */
     private fun onRemoveFileOperationFinish(operation: RemoveFileOperation, result: RemoteOperationResult<*>) {
         deleteBatchTracker.onSingleDeleteFinished()
+        if (!result.isSuccess && result.isSslRecoverableException) {
+            mLastSslUntrustedServerResult = result
+            showUntrustedCertDialog(mLastSslUntrustedServerResult)
+            return
+        }
 
-        if (result.isSuccess) {
-            val removedFile = operation.file
-            tryStopPlaying(removedFile)
-            val leftFragment = this.leftFragment
+        if (!result.isSuccess) {
+            Log_OC.e(TAG, "deletion failed")
+            return
+        }
 
-            // check if file is still available, if so do nothing
-            val fileAvailable = storageManager.fileExists(removedFile.fileId)
-            if (leftFragment is FileFragment && !fileAvailable && removedFile == leftFragment.file) {
-                file = storageManager.getFileById(removedFile.parentId)
-                resetScrollingAndUpdateActionBar()
-            }
-            val parentFile = storageManager.getFileById(removedFile.parentId)
-            if (parentFile != null && parentFile == getCurrentDir()) {
-                updateListOfFilesFragment()
-            } else if (leftFragment is OCFileListFragment &&
-                SearchRemoteOperation.SearchType.FAVORITE_SEARCH == leftFragment.searchEvent?.searchType
-            ) {
-                leftFragment.adapter?.run {
-                    val file = files.find { it.fileId == removedFile.fileId }
-                    if (file != null) {
-                        val pos = getItemPosition(file)
-                        files.remove(file)
-                        notifyItemRemoved(pos)
-                    }
-                }
-            }
-            supportInvalidateOptionsMenu()
-            fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
-        } else {
-            if (result.isSslRecoverableException) {
-                mLastSslUntrustedServerResult = result
-                showUntrustedCertDialog(mLastSslUntrustedServerResult)
+        val removedFile = operation.file
+        tryStopPlaying(removedFile)
+        val leftFragment = this.leftFragment
+
+        // check if file is still available, if so do nothing
+        val fileAvailable = storageManager.fileExists(removedFile.fileId)
+        if (leftFragment is FileFragment && !fileAvailable && removedFile == leftFragment.file) {
+            file = storageManager.getFileById(removedFile.parentId)
+            resetScrollingAndUpdateActionBar()
+        }
+
+        if (leftFragment is OCFileListFragment) {
+            leftFragment.adapter?.removeFile(removedFile)
+
+            if (leftFragment.adapter?.isEmpty == true) {
+                val emptyState = leftFragment.searchEvent?.toSearchType() ?: SearchType.NO_SEARCH
+                leftFragment.setEmptyListMessage(emptyState)
             }
         }
+
+        supportInvalidateOptionsMenu()
+        fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
     }
 
     override fun onAutoUploadFolderRemoved(
@@ -2279,8 +2282,8 @@ class FileDisplayActivity :
                 fileOperationsHelper.removeFiles(list, true, true)
 
                 // download new version, only if file was previously download
-                showSyncLoadingDialog(file.isFolder == true)
-                fileOperationsHelper.syncFile(file)
+                showSyncLoadingDialog(file.isFolder)
+                fileOperationsHelper.syncFileOrFolder(file)
             }
 
             val parent = file?.let { storageManager.getFileById(it.parentId) }
@@ -2352,38 +2355,7 @@ class FileDisplayActivity :
     private fun onRenameFileOperationFinish(operation: RenameFileOperation, result: RemoteOperationResult<*>) {
         val optionalUser = user
         val renamedFile = operation.file
-        if (result.isSuccess && optionalUser.isPresent) {
-            val currentUser = optionalUser.get()
-            val leftFragment = this.leftFragment
-            if (leftFragment is FileFragment) {
-                if (leftFragment is FileDetailFragment && renamedFile == leftFragment.file) {
-                    leftFragment.updateFileDetails(renamedFile, currentUser)
-                    showDetails(renamedFile)
-                } else if (leftFragment is PreviewMediaFragment && renamedFile == leftFragment.file) {
-                    leftFragment.updateFile(renamedFile)
-                    if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
-                        val position = leftFragment.position
-                        startMediaPreview(renamedFile, position, true, true, true, false)
-                    } else {
-                        fileOperationsHelper.openFile(renamedFile)
-                    }
-                } else if (leftFragment is PreviewTextFragment && renamedFile == leftFragment.file) {
-                    (leftFragment as PreviewTextFileFragment).updateFile(renamedFile)
-                    if (PreviewTextFileFragment.canBePreviewed(renamedFile)) {
-                        startTextPreview(renamedFile, true)
-                    } else {
-                        fileOperationsHelper.openFile(renamedFile)
-                    }
-                }
-            }
-
-            val file = storageManager.getFileById(renamedFile.parentId)
-            if (file != null && file == getCurrentDir()) {
-                updateListOfFilesFragment()
-            }
-            refreshGalleryFragmentIfNeeded()
-            fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
-        } else {
+        if (!result.isSuccess || optionalUser.isEmpty) {
             DisplayUtils.showSnackMessage(
                 this,
                 ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
@@ -2393,6 +2365,57 @@ class FileDisplayActivity :
                 mLastSslUntrustedServerResult = result
                 showUntrustedCertDialog(mLastSslUntrustedServerResult)
             }
+            return
+        }
+
+        val currentUser = optionalUser.get()
+        val leftFragment = this.leftFragment
+        if (leftFragment is FileFragment) {
+            onRenameFileOperationFinishForFileFragment(leftFragment, renamedFile, currentUser)
+        }
+
+        val file = storageManager.getFileById(renamedFile.parentId)
+        if (file != null && file == getCurrentDir()) {
+            fileListFragment?.adapter?.updateFile(renamedFile)
+        }
+
+        refreshGalleryFragmentIfNeeded()
+        fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+    }
+
+    private fun onRenameFileOperationFinishForFileFragment(fragment: FileFragment, ocFile: OCFile, user: User) {
+        if (fragment.file != ocFile) return
+
+        when (fragment) {
+            is FileDetailFragment -> {
+                fragment.updateFileDetails(ocFile, user)
+                showDetails(ocFile)
+            }
+
+            is PreviewMediaFragment -> {
+                fragment.updateFile(ocFile)
+                if (PreviewMediaFragment.canBePreviewed(ocFile)) {
+                    startMediaPreview(
+                        ocFile,
+                        fragment.position,
+                        true,
+                        true,
+                        true,
+                        false
+                    )
+                } else {
+                    fileOperationsHelper.openFile(ocFile)
+                }
+            }
+
+            is PreviewTextFileFragment -> {
+                fragment.updateFile(ocFile)
+                if (PreviewTextFileFragment.canBePreviewed(ocFile)) {
+                    startTextPreview(ocFile, true)
+                } else {
+                    fileOperationsHelper.openFile(ocFile)
+                }
+            }
         }
     }
 
@@ -2400,8 +2423,8 @@ class FileDisplayActivity :
         operation: SynchronizeFileOperation,
         result: RemoteOperationResult<*>
     ) {
-        if (result.isSuccess && operation.transferWasRequested()) {
-            val syncedFile = operation.localFile
+        if (result.isSuccess && operation.transferWasRequested) {
+            val syncedFile = operation.localFile ?: return
             onTransferStateChanged(syncedFile, true, true)
             supportInvalidateOptionsMenu()
             refreshShowDetails()
