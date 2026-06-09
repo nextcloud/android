@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Bir görüşme başlatacak bir ileti göndermeyi dene.</string>
     <string name="assistant_screen_empty_content_title">Merhaba! Bugün size nasıl yardımcı olabilirim?</string>
     <string name="assistant_screen_retry_response_generation">Yanıt oluşturmayı yeniden dene</string>
-    <string name="assistant_screen_select_task">Lütfen görevi seçin</string>
     <string name="assistant_screen_send_message">İleti gönder</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Açık görüşmeler listesi</string>
     <string name="assistant_screen_task_create_fail_message">Görev oluşturulurken bir sorun çıktı</string>
@@ -116,7 +115,6 @@
     <string name="auto_upload_background_activity_action">Arka planda işlem yapılabilsin</string>
     <string name="auto_upload_battery_optimization_reason">Nextcloud arka plan işlemleri pil optimizasyonu ile sınırlanır.</string>
     <string name="auto_upload_battery_saver_action">Pil koruma ayarlarını aç</string>
-    <string name="auto_upload_battery_saver_mode_warning">Pil koruma modu açık olduğundan otomatik yükleme duraklatıldı</string>
     <string name="auto_upload_battery_saver_reason">Pil koruması etkin ve yükleme işlemlerini duraklatabilir.</string>
     <string name="auto_upload_delete_dialog_description">Bu işlem, klasörü ve otomatik yükleme yapılandırmasını kaldırır. Tamamlanmamış yüklemeler iptal edilir.</string>
     <string name="auto_upload_delete_dialog_title">Otomatik yükleme klasörü silinsin mi?</string>
@@ -261,7 +259,6 @@
     <string name="create_new_presentation">Yeni sunum</string>
     <string name="create_new_spreadsheet">Yeni elektronik tablo</string>
     <string name="create_rich_workspace">Klasör açıklaması ekle</string>
-    <string name="creates_rich_workspace">Klasör açıklaması ekler</string>
     <string name="credentials_disabled">Kimlik doğrulama bilgileri kullanılmıyor</string>
     <string name="daily_backup">Günlük yedek</string>
     <string name="data_to_back_up">Yedeklenecek veriler</string>
@@ -328,7 +325,6 @@
     <string name="drawer_item_on_device">Aygıt üzerinde</string>
     <string name="drawer_item_personal_files">Kişisel dosyalar</string>
     <string name="drawer_item_recent_files">Son dosyalar</string>
-    <string name="drawer_item_recently_modified">Son değiştirilenler</string>
     <string name="drawer_item_shared">Paylaşılan</string>
     <string name="drawer_item_trashbin">Silinmiş dosyalar</string>
     <string name="drawer_item_uploads_list">Yüklemeler</string>
@@ -337,7 +333,6 @@
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
     <string name="drawer_quota_unlimited">%1$s kullanılıyor</string>
     <string name="drawer_synced_folders">Otomatik yükleme</string>
-    <string name="due_to_too_many_wrong_attempts">Çok sayıda hatalı deneme nedeniyle %s</string>
     <string name="e2e_counter_too_old">Sayaç çok eski</string>
     <string name="e2e_hash_not_found">Karma bulunamadı</string>
     <string name="e2e_not_yet_setup">Uçtan uca şifreleme henüz kurulmamış</string>
@@ -449,7 +444,6 @@
     <string name="file_list_empty_on_device">İndirilmiş dosya ve klasörler burada görüntülenir.</string>
     <string name="file_list_empty_recent_files_description">Son zamanlarda değiştirdiğiniz dosya ve klasörler burada görüntülenir.</string>
     <string name="file_list_empty_recent_files_headline">Yakınlarda değiştirilmiş bir dosya yok</string>
-    <string name="file_list_empty_recently_modified">Son 7 gün içinde düzenlenmiş bir dosya bulunamadı</string>
     <string name="file_list_empty_search">Başka bir klasöre bakılmasını ister misiniz?</string>
     <string name="file_list_empty_shared">Paylaştığınız dosya ve klasörler burada görüntülenir.</string>
     <string name="file_list_empty_shared_headline">Henüz hiçbir şey paylaşılmamış</string>
@@ -867,7 +861,6 @@
     <string name="send">Gönder</string>
     <string name="send_copy_to">Kopyasını şuraya gönder</string>
     <string name="send_share">Paylaşım gönder</string>
-    <string name="sendbutton_description">Gönderme düğmesi simgesi</string>
     <string name="server_not_reachable">İçerik yüklenemedi</string>
     <string name="server_not_reachable_content">Bu aygıtın internet bağlantısı yok gibi görünüyor</string>
     <string name="set_as">Farklı ayarla</string>
@@ -909,7 +902,6 @@
     <string name="share_option_required">İlerlemeden önce lütfen en az bir paylaşım seçeneği seçin.</string>
     <string name="share_permission_can_edit">Düzenleyebilir</string>
     <string name="share_permission_file_request">Dosya isteme</string>
-    <string name="share_permission_secure_file_drop">Güvenli dosya bırakma</string>
     <string name="share_permission_view_only">Yalnızca görüntüleme</string>
     <string name="share_permissions">Paylaşım izinleri</string>
     <string name="share_re_share_permission">Paylaşma</string>
@@ -1048,7 +1040,6 @@
     <string name="translation_screen_start_to_translate_task">Çevirmek için düğmeye tıklayın</string>
     <string name="translation_screen_task_processing">Çeviri beklenenden uzun sürüyor.</string>
     <string name="translation_screen_translating">Çevriliyor...</string>
-    <string name="trashbin_activity_title">Silinmiş dosyalar</string>
     <string name="trashbin_empty_headline">Silinmiş bir dosya yok</string>
     <string name="trashbin_empty_message">Silinmiş dosyalarınızı buradan geri yükleyebilirsiniz.</string>
     <string name="trashbin_file_not_deleted">%1$s dosyası silinemedi!</string>
@@ -1124,7 +1115,6 @@
     <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>
     <string name="upload_quota_exceeded">Depolama sınırına ulaşıldı</string>
     <string name="upload_scan_doc_upload">Kamera ile belge tarama</string>
-    <string name="upload_sync_conflict">Eşitleme çakışması, lütfen sorunu el ile çözümleyin</string>
     <string name="upload_sync_conflict_check">Son yüklemenizden kaynaklanan bir çakışma olabilir. Kontrol etmek için dokunun.</string>
     <string name="upload_sync_conflict_check_error">Yükleme çakışmaları kontrol edilemedi. Lütfen yeniden deneyin.</string>
     <string name="upload_sync_conflict_checking">Yükleme çakışmaları kontrol ediliyor...</string>
@@ -1176,7 +1166,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Yerel dosya bulunamadı</string>
     <string name="uploads_view_upload_status_failed_permission_error">İzin sorunu</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Sunucu sertifikasına güvenilmiyor</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Sunucu sürümü alınıyor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Uygulama sonlandırıldı</string>
     <string name="uploads_view_upload_status_skip">Atlandı</string>
     <string name="uploads_view_upload_status_skip_reason">Aynı adlı bir dosya zaten var.</string>

@@ -330,9 +330,7 @@
     <string name="common_switch_account">Switch account</string>
     <string name="common_switch_to_account">Switch to account</string>
     <string name="sync_all_action_dialog_title">Sync entire folder?</string>
-    <string name="sync_all_action_dialog_description">
-    All contained files and folders will be downloaded. This may require a significant amount of storage and take some time depending on your connection.
-    </string>
+    <string name="sync_all_action_dialog_description">All contained files and folders will be downloaded. This may require a significant amount of storage and take some time depending on your connection.</string>
     <string name="sync_fail_ticker">Sync failed</string>
     <string name="sync_fail_ticker_unauthorized">Sync failed, log in again</string>
     <string name="sync_fail_content">Could not sync %1$s</string>
@@ -880,7 +878,7 @@
     <string name="autoupload_configure">Configure</string>
     <string name="synced_folders_configure_folders">Configure folders</string>
 
-    <string name="empty" translatable="false" />
+    <string name="empty" translatable="false"></string>
     <string name="test_server_button">Test server connection</string>
     <string name="info_separator" translatable="false">&#160;&#x2022;</string>
     <string name="resharing_is_not_allowed">Policy or permissions prevent resharing</string>

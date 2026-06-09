@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Bain triail as teachtaireacht a sheoladh chun tús a chur le comhrá.</string>
     <string name="assistant_screen_empty_content_title">Dia duit ann! Cad is féidir liom cabhrú leat inniu?</string>
     <string name="assistant_screen_retry_response_generation">Bain triail eile as giniúint freagartha</string>
-    <string name="assistant_screen_select_task">Roghnaigh tasc le do thoil</string>
     <string name="assistant_screen_send_message">Seol teachtaireacht</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Oscail an liosta comhrá</string>
     <string name="assistant_screen_task_create_fail_message">Tharla earráid agus an tasc á chruthú</string>
@@ -116,7 +115,6 @@
     <string name="auto_upload_background_activity_action">Ceadaigh gníomhaíocht chúlra</string>
     <string name="auto_upload_battery_optimization_reason">Tá gníomhaíocht chúlra Nextcloud teoranta ag optamú ceallraí.</string>
     <string name="auto_upload_battery_saver_action">Oscail socruithe coigilte ceallraí</string>
-    <string name="auto_upload_battery_saver_mode_warning">Tá an uaslódáil uathoibríoch ar sos mar go bhfuil Coigilteoir Ceallraí ar siúl.</string>
     <string name="auto_upload_battery_saver_reason">Tá an coigilteoir ceallraí gníomhach agus d’fhéadfadh sé go gcuirfí sos ar uaslódálacha.</string>
     <string name="auto_upload_delete_dialog_description">This will remove the folder and auto-upload configuration. Any unfinished uploads will be canceled.</string>
     <string name="auto_upload_delete_dialog_title">Scrios an fillteán uath-uaslódála?</string>
@@ -261,7 +259,6 @@
     <string name="create_new_presentation">Cur i láthair nua</string>
     <string name="create_new_spreadsheet">Scarbhileog nua</string>
     <string name="create_rich_workspace">Cuir cur síos ar fhillteán leis</string>
-    <string name="creates_rich_workspace">Cuireann sé seo síos ar fhillteán</string>
     <string name="credentials_disabled">Dintiúir díchumasaithe</string>
     <string name="daily_backup">Cúltaca laethúil</string>
     <string name="data_to_back_up">Sonraí le cúltaca</string>
@@ -328,7 +325,6 @@
     <string name="drawer_item_on_device">Ar gléas</string>
     <string name="drawer_item_personal_files">Comhaid phearsanta</string>
     <string name="drawer_item_recent_files">Comhaid le déanaí</string>
-    <string name="drawer_item_recently_modified">Athraithe le déanaí</string>
     <string name="drawer_item_shared">Roinnte</string>
     <string name="drawer_item_trashbin">Comhaid scriosta</string>
     <string name="drawer_item_uploads_list">Uaslódálacha</string>
@@ -337,7 +333,6 @@
     <string name="drawer_quota">Úsáideadh %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">%1$s in úsáid</string>
     <string name="drawer_synced_folders">Uaslódáil uathoibríoch</string>
-    <string name="due_to_too_many_wrong_attempts">%s mar gheall ar an iomarca iarrachtaí míchearta</string>
     <string name="e2e_counter_too_old">Tá cuntar ró-shean</string>
     <string name="e2e_hash_not_found">Níor aimsíodh hash</string>
     <string name="e2e_not_yet_setup">E2E gan socrú fós</string>
@@ -449,7 +444,6 @@
     <string name="file_list_empty_on_device">Taispeánfar comhaid agus fillteáin íosluchtaithe anseo.</string>
     <string name="file_list_empty_recent_files_description">Taispeánfar comhaid agus fillteáin a d\'athraigh tú le déanaí anseo.</string>
     <string name="file_list_empty_recent_files_headline">Níl aon chomhaid athraithe le déanaí</string>
-    <string name="file_list_empty_recently_modified">Níor aimsíodh aon chomhad a athraíodh le 7 lá anuas</string>
     <string name="file_list_empty_search">B\'fhéidir go bhfuil sé i bhfillteán eile?</string>
     <string name="file_list_empty_shared">Taispeánfar na comhaid agus na fillteáin a roinneann tú anseo.</string>
     <string name="file_list_empty_shared_headline">Ní dhéanfaidh aon ní roinnte go fóill</string>
@@ -867,7 +861,6 @@
     <string name="send">Seol</string>
     <string name="send_copy_to">Seol cóip chuig</string>
     <string name="send_share">Seol sciar</string>
-    <string name="sendbutton_description">Seol deilbhín cnaipe</string>
     <string name="server_not_reachable">Níorbh fhéidir an t-ábhar a lódáil</string>
     <string name="server_not_reachable_content">Is dócha nach bhfuil an gléas ceangailte leis an idirlíon</string>
     <string name="set_as">Socraigh Mar</string>
@@ -909,7 +902,6 @@
     <string name="share_option_required">Roghnaigh rogha comhroinnte amháin ar a laghad sula leanann tú ar aghaidh.</string>
     <string name="share_permission_can_edit">Is féidir eagarthóireacht a dhéanamh</string>
     <string name="share_permission_file_request">Iarratas comhad</string>
-    <string name="share_permission_secure_file_drop">Titim comhad slán</string>
     <string name="share_permission_view_only">Amharc amháin</string>
     <string name="share_permissions">Ceadanna a roinnt</string>
     <string name="share_re_share_permission">Comhroinn</string>
@@ -1048,7 +1040,6 @@
     <string name="translation_screen_start_to_translate_task">Brúigh an cnaipe chun aistriúchán a dhéanamh</string>
     <string name="translation_screen_task_processing">Tá an t-aistriúchán ag glacadh níos faide ná mar a bhíothas ag súil leis.</string>
     <string name="translation_screen_translating">Ag aistriú…</string>
-    <string name="trashbin_activity_title">Comhaid scriosta</string>
     <string name="trashbin_empty_headline">Níl aon chomhaid scriosta</string>
     <string name="trashbin_empty_message">Beidh tú in ann comhaid a scriosadh a ghnóthú ó anseo.</string>
     <string name="trashbin_file_not_deleted">Níorbh fhéidir comhad %1$s a scriosadh!</string>
@@ -1124,7 +1115,6 @@
     <string name="upload_query_move_foreign_files">Ní bheidh dóthain spáis ann na comhaid roghnaithe a chóipeáil isteach san fhillteán %1$s. Ar mhaith leat iad a bhogadh ansin ina n-ionad?</string>
     <string name="upload_quota_exceeded">Sáraíodh an cuóta stórála</string>
     <string name="upload_scan_doc_upload">Doiciméad a scanadh ó ceamara</string>
-    <string name="upload_sync_conflict">Sioncronaigh coinbhleacht, réitigh de láimh le do thoil</string>
     <string name="upload_sync_conflict_check">B’fhéidir go bhfuil coimhlint ann idir é agus an uaslódáil dheireanach a rinne tú. Tapáil le seiceáil.</string>
     <string name="upload_sync_conflict_check_error">Níorbh fhéidir seiceáil le haghaidh coinbhleachtaí uaslódála. Déan iarracht arís.</string>
     <string name="upload_sync_conflict_checking">Ag seiceáil le haghaidh coinbhleachtaí uaslódála…</string>
@@ -1176,7 +1166,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Níor aimsíodh an comhad áitiúil</string>
     <string name="uploads_view_upload_status_failed_permission_error">Earráid cheada</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Teastas freastalaí neamhiontaofa</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Leagan an fhreastalaí á fháil…</string>
     <string name="uploads_view_upload_status_service_interrupted">Cuireadh deireadh leis an aip</string>
     <string name="uploads_view_upload_status_skip">Scipeáilte</string>
     <string name="uploads_view_upload_status_skip_reason">Tá comhad leis an ainm céanna ann cheana féin.</string>
