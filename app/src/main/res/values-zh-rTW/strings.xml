@@ -132,6 +132,7 @@
     <string name="autoupload_hide_folder">隱藏資料夾</string>
     <string name="avatar">頭像</string>
     <string name="away">離開</string>
+    <string name="backup_list_adapter_local_contacts">本機聯絡人</string>
     <string name="backup_settings">備份設定</string>
     <string name="backup_title">聯絡人與行事曆備份</string>
     <string name="battery_optimization_close">關閉</string>
@@ -500,6 +501,7 @@
     <string name="filedetails_download">下載</string>
     <string name="filedetails_export">匯出</string>
     <string name="filedetails_renamed_in_upload_msg">檔案在上傳過程中被重新命名為 %1$s</string>
+    <string name="filedetails_sync_all_files">同步全部</string>
     <string name="filedetails_sync_file">同步</string>
     <string name="filedisplay_no_file_selected">未選取任何檔案</string>
     <string name="filename_empty">檔案名稱不可為空白</string>
@@ -992,6 +994,8 @@
     <string name="subtitle_videos_only">僅限影片</string>
     <string name="suggest">建議</string>
     <string name="sync">同步</string>
+    <string name="sync_all_action_dialog_description">將會下載所有包含的檔案和資料夾。這可能會佔用大量儲存空間，並根據您的網路連線速度而耗費一些時間。</string>
+    <string name="sync_all_action_dialog_title">同步整個資料夾？</string>
     <string name="sync_anyway">仍要同步</string>
     <string name="sync_conflict_notification_action_title">解決衝突</string>
     <string name="sync_conflict_notification_description">偵測到上傳衝突。請開啟上傳檔案以解決問題。</string>
