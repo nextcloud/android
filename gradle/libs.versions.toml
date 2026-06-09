@@ -115,7 +115,7 @@ photoview = { module = "com.github.Baseflow:PhotoView", version.ref = "photoview
 material = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version.ref = "androidGifDrawableVersion" }
 android-image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "androidImageCropperVersion" }
-androidsvg = { module = "com.caverock:androidsvg", version.ref = "androidsvgVersion" }
+androidsvg = { module = "com.caverock:androidsvg-aar", version.ref = "androidsvgVersion" }
 coil = { module = "io.coil-kt:coil", version.ref = "coilVersion" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayoutVersion" }
 emoji-google = { module = "com.vanniktech:emoji-google", version.ref = "emojiGoogleVersion" }
