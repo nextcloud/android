@@ -149,6 +149,8 @@ class NotificationListAdapter(
         viewThemeUtils.material.run {
             colorMaterialButtonText(holder.binding.dismiss)
         }
+
+        viewThemeUtils.platform.colorTextView(holder.binding.dismiss, ColorRole.SECONDARY)
     }
     // endregion
 
