@@ -323,18 +323,17 @@ class NotificationsFragment :
     }
 
     // region Callbacks
-    override fun onRemovedNotification(isSuccess: Boolean, client: NextcloudClient) {
-        if (!isSuccess) {
+    override fun removeNotification(id: Int, success: Boolean, client: NextcloudClient) {
+        if (success) {
+            adapter?.removeNotification(id)
+            if (adapter?.itemCount == 0) {
+                state = NotificationsUIState.Empty
+            }
+        } else {
             DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.remove_notification_failed))
-            fetchAndSetData(client)
         }
-    }
 
-    override fun removeNotification(holder: NotificationListAdapter.NotificationViewHolder) {
-        adapter?.removeNotification(holder)
-        if (adapter?.itemCount == 0) {
-            state = NotificationsUIState.Empty
-        }
+        fetchAndSetData(client)
     }
 
     override fun onRemovedAllNotifications(isSuccess: Boolean) {
@@ -352,7 +351,7 @@ class NotificationsFragment :
         holder: NotificationListAdapter.NotificationViewHolder
     ) {
         if (isSuccess) {
-            adapter?.removeNotification(holder)
+            adapter?.removeNotification(notification.notificationId)
         } else {
             adapter?.bindButtons(holder, notification)
             DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.notification_action_failed))
@@ -379,7 +378,7 @@ class NotificationsFragment :
         lifecycleScope.launch(Dispatchers.IO) {
             val result = DeleteNotificationRemoteOperation(id).execute(client)
             withContext(Dispatchers.Main) {
-                onRemovedNotification(result?.isSuccess == true, client)
+                removeNotification(id, success = (result?.isSuccess == true), client)
             }
         }
     }
