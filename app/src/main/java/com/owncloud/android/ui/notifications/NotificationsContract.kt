@@ -16,8 +16,12 @@ interface NotificationsContract {
     interface View {
         fun removeNotification(id: Int, success: Boolean, client: NextcloudClient)
 
-        fun onRemovedAllNotifications(isSuccess: Boolean)
+        fun removeAllNotifications(isSuccess: Boolean)
 
-        fun onActionCallback(isSuccess: Boolean, notification: Notification, holder: NotificationViewHolder)
+        fun onNotificationActionCompletion(
+            isSuccess: Boolean,
+            notification: Notification,
+            holder: NotificationViewHolder
+        )
     }
 }

@@ -42,7 +42,7 @@ class NotificationExecuteActionTask(
                 performRequest(action)
             }
 
-            fragment.onActionCallback(isSuccess, notification, holder)
+            fragment.onNotificationActionCompletion(isSuccess, notification, holder)
         }
     }
 

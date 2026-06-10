@@ -2,7 +2,8 @@
 <!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2018-2024 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-FileCopyrightText: 2018-2026 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
   ~ SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-FileCopyrightText: 2023 TSI-mc
   ~ SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
@@ -12,6 +13,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:paddingStart="@dimen/standard_padding"
     android:paddingTop="@dimen/standard_padding"
@@ -77,11 +79,13 @@
 
     </LinearLayout>
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/dismiss"
-        android:layout_width="14dp"
-        android:layout_height="wrap_content"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/minimum_size_for_touchable_area"
         android:contentDescription="@string/dismiss_notification_description"
-        android:src="@drawable/ic_close" />
+        app:iconPadding="@dimen/minimum_size_for_touchable_area_icon_padding"
+        app:icon="@drawable/ic_close" />
 
 </LinearLayout>
