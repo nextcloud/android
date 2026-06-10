@@ -271,7 +271,6 @@ class NotificationsFragment :
     // region Data loading
     private fun fetchAndSetData(client: NextcloudClient) {
         lifecycleScope.launch(Dispatchers.IO) {
-            initializeAdapter()
             val result = GetNotificationsRemoteOperation().execute(client)
             withContext(Dispatchers.Main) {
                 state = when {
