@@ -79,7 +79,7 @@
 
     <ImageView
         android:id="@+id/dismiss"
-        android:layout_width="wrap_content"
+        android:layout_width="14dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/dismiss_notification_description"
         android:src="@drawable/ic_close" />

@@ -279,9 +279,9 @@ class NotificationListAdapter(
         notifyDataSetChanged()
     }
 
-    fun removeNotification(holder: NotificationViewHolder) {
-        val position = holder.bindingAdapterPosition
-        if (position in 0 until notificationsList.size) {
+    fun removeNotification(id: Int) {
+        val position = notificationsList.indexOfFirst { it.notificationId == id }
+        if (position != -1) {
             notificationsList.removeAt(position)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, notificationsList.size)
