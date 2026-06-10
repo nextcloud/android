@@ -146,11 +146,7 @@ class NotificationListAdapter(
             }
         }
 
-        viewThemeUtils.material.run {
-            colorMaterialButtonText(holder.binding.dismiss)
-        }
-
-        viewThemeUtils.platform.colorTextView(holder.binding.dismiss, ColorRole.SECONDARY)
+        viewThemeUtils.material.colorMaterialButtonContent(holder.binding.dismiss, ColorRole.ON_SURFACE)
     }
     // endregion
 
