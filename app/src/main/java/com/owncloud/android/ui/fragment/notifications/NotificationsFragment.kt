@@ -230,7 +230,7 @@ class NotificationsFragment :
                     if (item.itemId != R.id.action_empty_notifications) return false
                     lifecycleScope.launch(Dispatchers.IO) {
                         val result = DeleteAllNotificationsRemoteOperation().execute(client)
-                        withContext(Dispatchers.Main) { onRemovedAllNotifications(result.isSuccess) }
+                        withContext(Dispatchers.Main) { removeAllNotifications(result.isSuccess) }
                     }
                     return true
                 }
@@ -336,7 +336,7 @@ class NotificationsFragment :
         fetchAndSetData(client)
     }
 
-    override fun onRemovedAllNotifications(isSuccess: Boolean) {
+    override fun removeAllNotifications(isSuccess: Boolean) {
         if (isSuccess) {
             adapter?.removeAllNotifications()
             state = NotificationsUIState.Empty
@@ -345,11 +345,12 @@ class NotificationsFragment :
         }
     }
 
-    override fun onActionCallback(
+    override fun onNotificationActionCompletion(
         isSuccess: Boolean,
         notification: Notification,
         holder: NotificationListAdapter.NotificationViewHolder
     ) {
+        // after any action successfully completed remove the notification
         if (isSuccess) {
             adapter?.removeNotification(notification.notificationId)
         } else {

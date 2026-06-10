@@ -16,7 +16,6 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableStringBuilder
-import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.Gravity
@@ -91,7 +90,7 @@ class NotificationListAdapter(
 
     private fun bindSubject(holder: NotificationViewHolder, notification: Notification) {
         val file = notification.subjectRichParameters[FILE]
-        if (file == null && !TextUtils.isEmpty(notification.getLink())) {
+        if (file == null && !notification.getLink().isNullOrEmpty()) {
             val subject = "${notification.getSubject()} ↗"
             holder.binding.subject.run {
                 setTypeface(typeface, Typeface.BOLD)
@@ -102,7 +101,7 @@ class NotificationListAdapter(
             }
         } else {
             holder.binding.subject.run {
-                text = if (!TextUtils.isEmpty(notification.subjectRich)) {
+                text = if (!notification.subjectRich.isNullOrEmpty()) {
                     makeSpecialPartsBold(notification)
                 } else {
                     notification.getSubject()
@@ -139,14 +138,18 @@ class NotificationListAdapter(
 
     private fun colorViewHolder(holder: NotificationViewHolder) {
         viewThemeUtils.platform.run {
-            colorImageView(holder.binding.icon, ColorRole.ON_SURFACE_VARIANT)
-            colorImageView(holder.binding.dismiss, ColorRole.ON_SURFACE_VARIANT)
-            colorTextView(holder.binding.subject, ColorRole.ON_SURFACE)
-            colorTextView(holder.binding.message, ColorRole.ON_SURFACE_VARIANT)
-            colorTextView(holder.binding.datetime, ColorRole.ON_SURFACE_VARIANT)
+            holder.binding.run {
+                colorImageView(icon, ColorRole.ON_SURFACE_VARIANT)
+                colorTextView(subject, ColorRole.ON_SURFACE)
+                colorTextView(message, ColorRole.ON_SURFACE_VARIANT)
+                colorTextView(datetime, ColorRole.ON_SURFACE_VARIANT)
+            }
+        }
+
+        viewThemeUtils.material.run {
+            colorMaterialButtonText(holder.binding.dismiss)
         }
     }
-
     // endregion
 
     // region Button binding
@@ -271,7 +274,6 @@ class NotificationListAdapter(
     // endregion
 
     // region Data manipulation
-
     @SuppressLint("NotifyDataSetChanged")
     fun setNotificationItems(notificationItems: List<Notification>) {
         notificationsList.clear()
@@ -299,7 +301,6 @@ class NotificationListAdapter(
             holder.binding.buttons.getChildAt(i).isEnabled = enabled
         }
     }
-
     // endregion
 
     private fun makeSpecialPartsBold(notification: Notification): SpannableStringBuilder {
