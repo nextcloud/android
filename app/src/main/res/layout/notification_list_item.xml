@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Nextcloud - Android Client
   ~
@@ -9,75 +8,24 @@
   ~ SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-License-Identifier: GPL-3.0-or-later AND AGPL-3.0-or-later
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
     android:paddingStart="@dimen/standard_padding"
     android:paddingTop="@dimen/standard_padding"
     android:paddingEnd="@dimen/standard_padding"
-    android:paddingBottom="@dimen/standard_padding"
-    tools:ignore="UseCompoundDrawables">
+    android:paddingBottom="@dimen/standard_padding">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="@dimen/notification_icon_width"
         android:layout_height="@dimen/notification_icon_height"
-        android:layout_marginEnd="@dimen/notification_icon_layout_right_end_margin"
         android:contentDescription="@string/notification_icon"
-        android:src="@drawable/ic_notification" />
-
-    <LinearLayout
-        android:id="@+id/notification_content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/subject"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:ellipsize="end"
-            android:paddingBottom="@dimen/standard_half_padding"
-            android:textAppearance="?android:attr/textAppearanceListItem"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/txt_size_16sp"
-            tools:text="@string/placeholder_filename" />
-
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:paddingBottom="@dimen/standard_quarter_padding"
-            android:textAppearance="?android:attr/textAppearanceListItem"
-            android:textColor="@color/secondary_text_color"
-            android:textSize="@dimen/txt_size_14sp"
-            tools:text="@string/placeholder_sentence" />
-
-        <TextView
-            android:id="@+id/datetime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:textColor="@color/secondary_text_color"
-            android:textSize="@dimen/text_size_13sp"
-            tools:text="@string/placeholder_sentence" />
-
-        <LinearLayout
-            android:id="@+id/buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_quarter_margin"
-            android:layout_marginEnd="@dimen/notification_list_item_grid_layout_left_start_margin"
-            android:columnCount="3"
-            android:gravity="start"
-            android:orientation="horizontal" />
-
-    </LinearLayout>
+        android:src="@drawable/ic_notification"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/dismiss"
@@ -85,7 +33,62 @@
         android:layout_width="@dimen/minimum_size_for_touchable_area"
         android:layout_height="@dimen/minimum_size_for_touchable_area"
         android:contentDescription="@string/dismiss_notification_description"
+        app:icon="@drawable/ic_close"
         app:iconPadding="@dimen/minimum_size_for_touchable_area_icon_padding"
-        app:icon="@drawable/ic_close" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/subject"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/notification_icon_layout_right_end_margin"
+        android:ellipsize="end"
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:textAppearance="?attr/textAppearanceTitleSmall"
+        android:textColor="@color/text_color"
+        app:layout_constraintEnd_toStartOf="@id/dismiss"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/placeholder_filename" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/notification_icon_layout_right_end_margin"
+        android:ellipsize="end"
+        android:paddingBottom="@dimen/standard_quarter_padding"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="@color/secondary_text_color"
+        app:layout_constraintEnd_toStartOf="@id/dismiss"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintTop_toBottomOf="@id/subject"
+        tools:text="@string/placeholder_sentence" />
+
+    <TextView
+        android:id="@+id/datetime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/notification_icon_layout_right_end_margin"
+        android:ellipsize="end"
+        android:textAppearance="?attr/textAppearanceBodySmall"
+        android:textColor="@color/secondary_text_color"
+        app:layout_constraintEnd_toStartOf="@id/dismiss"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintTop_toBottomOf="@id/message"
+        tools:text="@string/placeholder_sentence" />
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/notification_icon_layout_right_end_margin"
+        android:layout_marginTop="@dimen/standard_quarter_margin"
+        android:gravity="start"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@id/dismiss"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintTop_toBottomOf="@id/datetime" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
