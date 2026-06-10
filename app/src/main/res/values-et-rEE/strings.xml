@@ -132,6 +132,7 @@
     <string name="autoupload_hide_folder">Peida kaust</string>
     <string name="avatar">Avatar</string>
     <string name="away">Eemal</string>
+    <string name="backup_list_adapter_local_contacts">Kohalikud kontaktid</string>
     <string name="backup_settings">Varunduse seadistused</string>
     <string name="backup_title">Kontaktide ja kalendri varundus</string>
     <string name="battery_optimization_close">Sulge</string>
@@ -500,6 +501,7 @@
     <string name="filedetails_download">Laadi alla</string>
     <string name="filedetails_export">Ekspordi</string>
     <string name="filedetails_renamed_in_upload_msg">Üleslaadimisel failinimi muutus: „%1$s“</string>
+    <string name="filedetails_sync_all_files">Sünkrooni kõik</string>
     <string name="filedetails_sync_file">Sünkrooni</string>
     <string name="filedisplay_no_file_selected">Faile ei ole valitud</string>
     <string name="filename_empty">Failinimi ei tohi olla tühi</string>
@@ -992,6 +994,8 @@
     <string name="subtitle_videos_only">Vaid videod</string>
     <string name="suggest">Soovita</string>
     <string name="sync">Sünkrooni</string>
+    <string name="sync_all_action_dialog_description">Kõik sisalduvad kaustad ja failid laaditakse alla. Selle jaoks võib kuluda märgatav kogus andmeruumi ja sõltuvalt sinu internetiühendusest aega/ribalaiust.</string>
+    <string name="sync_all_action_dialog_title">Kas sünkroonid kogu kausta?</string>
     <string name="sync_anyway">Sünkrooni ikkagi</string>
     <string name="sync_conflict_notification_action_title">Lahenda failikonfliktid</string>
     <string name="sync_conflict_notification_description">Tuvastasin failide üleslaadimiskonflikte. Lahendamiseks ava üleslaadimiste vaade.</string>

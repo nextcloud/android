@@ -134,6 +134,7 @@
     <string name="autoupload_hide_folder">Slėpti aplanką</string>
     <string name="avatar">Avataras</string>
     <string name="away">Atsitraukęs</string>
+    <string name="backup_list_adapter_local_contacts">Vietiniai kontaktai</string>
     <string name="backup_settings">Atsarginių kopijų nustatymai</string>
     <string name="backup_title">Kontaktų ir kalendoriaus atsarginė kopija</string>
     <string name="battery_optimization_close">Užverti</string>
@@ -502,6 +503,7 @@
     <string name="filedetails_download">Atsisiųsti</string>
     <string name="filedetails_export">Eksportuoti</string>
     <string name="filedetails_renamed_in_upload_msg">Failas pervadintas kaip %1$s įkėlimo metu</string>
+    <string name="filedetails_sync_all_files">Sinchronizuoti viską</string>
     <string name="filedetails_sync_file">Sinchronizuoti</string>
     <string name="filedisplay_no_file_selected">Neįkeltas joks failas</string>
     <string name="filename_empty">Failo pavadinimas negali būti tuščias</string>
@@ -995,6 +997,8 @@
     <string name="subtitle_videos_only">Tik vaizdo įrašai</string>
     <string name="suggest">Siūlyti</string>
     <string name="sync">Sinchronizuoti</string>
+    <string name="sync_all_action_dialog_description">Bus atsisiųsti visi esantys failai ir aplankai. Tam gali prireikti daug vietos saugykloje ir tai gali užtrukti, priklausomai nuo jūsų ryšio.</string>
+    <string name="sync_all_action_dialog_title">Sinchronizuoti visą aplanką?</string>
     <string name="sync_anyway">Vis tiek sinchronizuoti</string>
     <string name="sync_conflict_notification_action_title">Išspręsti konfliktus</string>
     <string name="sync_conflict_notification_description">Aptikti įkėlimo nesuderinamumai. Atidarykite įkėlimus, kad juos išspręstumėte.</string>
