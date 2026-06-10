@@ -219,6 +219,7 @@
                         app:icon="@drawable/ic_notification"
                         app:iconSize="@dimen/search_bar_icon_size"
                         app:iconTint="@color/fontAppbar"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/switch_account_button"
                         app:layout_constraintTop_toTopOf="parent" />
