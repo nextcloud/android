@@ -1,9 +1,8 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.nextcloud.client.jobs.download
 
@@ -42,6 +41,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.AbstractList
 import java.util.Optional
 import java.util.Vector
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
 
 @Suppress("LongParameterList", "TooManyFunctions", "TooGenericExceptionCaught")
@@ -415,11 +415,8 @@ class FileDownloadWorker(
         downloadProgressListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, filePath)
     }
 
-    // CHECK: Is this class still needed after conversion from Foreground Services to Worker?
     inner class FileDownloadProgressListener : OnDatatransferProgressListener {
-        private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
-
-        fun isDownloading(user: User?, file: OCFile?): Boolean = FileDownloadHelper.instance().isDownloading(user, file)
+        private val boundListeners = ConcurrentHashMap<Long, OnDatatransferProgressListener>()
 
         fun addDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
             if (file == null || listener == null) {
