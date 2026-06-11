@@ -13,7 +13,6 @@ import android.content.Intent
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.utils.numberFormatter.NumberFormatter
 import com.owncloud.android.R
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -31,7 +30,6 @@ class DownloadNotificationManager(id: Int, private val context: Context, viewThe
 
     fun prepareForStart(operation: DownloadFileOperation) {
         currentOperationTitle = operation.file.fileName
-
 
         notificationBuilder.run {
             setContentTitle(currentOperationTitle)
@@ -54,7 +52,6 @@ class DownloadNotificationManager(id: Int, private val context: Context, viewThe
         setProgress(percent, progressText, totalToTransfer < 0)
         showNotification()
     }
-
 
     fun dismissNotification() {
         dismissNotification(2000)
