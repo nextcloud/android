@@ -524,28 +524,30 @@ public class UploadFileOperation extends SyncOperation {
                 return result;
             }
 
-            long counter = getE2ECounter(parentFile);
-
-            try {
-                token = getFolderUnlockTokenOrLockFolder(client, parentFile, counter);
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Failed to lock folder", e);
-                return new RemoteOperationResult<>(e);
-            }
-
-            // Update metadata
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
             object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
             if (object instanceof DecryptedFolderMetadataFileV1 decrypted && decrypted.getMetadata() != null) {
                 metadataExists = true;
             }
 
-            if (isEndToEndVersionAtLeastV2()) {
+            boolean isEndToEndVersionAtLeastV2 = isEndToEndVersionAtLeastV2();
+
+            if (isEndToEndVersionAtLeastV2) {
                 if (object == null) {
                     return new RemoteOperationResult<>(new IllegalStateException("Metadata does not exist"));
                 }
             } else {
                 object = getDecryptedFolderMetadataV1(publicKey, object);
+            }
+
+            long counter = getE2ECounter(parentFile, object, isEndToEndVersionAtLeastV2);
+            Log_OC.d(TAG, "counter: " + counter);
+
+            try {
+                token = getFolderUnlockTokenOrLockFolder(client, parentFile, counter);
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Failed to lock folder", e);
+                return new RemoteOperationResult<>(e);
             }
 
             E2EClientData clientData = new E2EClientData(client, token, publicKey);
@@ -621,14 +623,16 @@ public class UploadFileOperation extends SyncOperation {
         return E2EVersionHelper.INSTANCE.isV2Plus(capability);
     }
 
-    private long getE2ECounter(OCFile parentFile) {
-        long counter = -1;
-
-        if (isEndToEndVersionAtLeastV2()) {
-            counter = parentFile.getE2eCounter() + 1;
+    private long getE2ECounter(OCFile parentFile, Object metadata, boolean isEndToEndVersionAtLeastV2) {
+        if (!isEndToEndVersionAtLeastV2) {
+            return -1;
         }
 
-        return counter;
+        if (metadata instanceof DecryptedFolderMetadataFile decrypted) {
+            return decrypted.getMetadata().getCounter() + 1;
+        }
+
+        return parentFile.getE2eCounter() + 1;
     }
 
     private String getFolderUnlockTokenOrLockFolder(OwnCloudClient client, OCFile parentFile, long counter) throws UploadException {
@@ -899,6 +903,9 @@ public class UploadFileOperation extends SyncOperation {
             e2eData.getKey(),
             metadata,
             getStorageManager());
+
+        parentFile.setE2eCounter(metadata.getMetadata().getCounter());
+        getStorageManager().saveFile(parentFile);
 
         // upload metadata
         encryptionUtilsV2.serializeAndUploadMetadata(parentFile,
