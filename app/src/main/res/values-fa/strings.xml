@@ -35,9 +35,14 @@
     <string name="app_widget_description">نمایش یک ابزارک از پیشخوان</string>
     <string name="appbar_search_in">جستجو در %s</string>
     <string name="appear_offline">نمایش آفلاین</string>
+    <string name="assistant_output_generation_warning_text">خروجی نمایش‌داده‌شده در اینجا توسط هوش مصنوعی تولید شده است؛ حتماً آن را بازبینی کنید.</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">وظیفه را حذف کنید</string>
+    <string name="assistant_screen_empty_content_description">برای شروع مکالمه، پیامی بفرستید.</string>
+    <string name="assistant_screen_empty_content_title">سلام! امروز چه کمکی از من برمی‌آید؟</string>
+    <string name="assistant_screen_retry_response_generation">تلاش دوباره برای تولید پاسخ</string>
     <string name="assistant_screen_send_message">فرستادن پیام</string>
     <string name="assistant_screen_task_create_success_message">Task created</string>
+    <string name="assistant_screen_top_bar_title">دستیار</string>
     <string name="assistant_task_status_running">running</string>
     <string name="assistant_task_status_unknown">نامشخص</string>
     <string name="associated_account_not_found">حساب مرتبط یافت نشد!</string>
@@ -86,6 +91,7 @@
     <string name="battery_optimization_disable">غیرفعال کردن</string>
     <string name="battery_optimization_message">ممکن است وسیله شما بهینه ساز باطری را فعال کرده باشد.  بارگذاری خودکار به درستی کار می کند اگر این برنامه را از آن حذف کنید.</string>
     <string name="battery_optimization_title">بهینه سازی باتری</string>
+    <string name="bottom_navigation_menu_assistant_label">دستیار</string>
     <string name="bottom_navigation_menu_favorites_label">مورد علاقه‌ها</string>
     <string name="bottom_navigation_menu_files_label">تمامی فایل‌ها</string>
     <string name="bottom_navigation_menu_media_label">رسانه‌ها</string>
@@ -174,6 +180,7 @@
     <string name="contacts_preferences_no_file_found">هیچ فایلی یافت نشد</string>
     <string name="contacts_preferences_something_strange_happened">آخرین نسخه پشتیبان شما پیدا نشد!</string>
     <string name="conversation_screen_empty_content_title">No conversations found</string>
+    <string name="conversation_screen_empty_conversation_list_title">هنوز مکالمه‌ای وجود ندارد</string>
     <string name="conversation_screen_title">گفتگو</string>
     <string name="copied">کپی شد</string>
     <string name="copy_file_error">یک خطا در زمان تلاش برای کپی این فایل یا شاخه رخ داد</string>
@@ -187,9 +194,12 @@
     <string name="could_not_retrieve_url">امکان بازیابی URL وجود ندارد</string>
     <string name="create">ساخت</string>
     <string name="create_dir_fail_msg">امکان ساخت پوشه وجود ندارد</string>
+    <string name="create_end_to_end_encrypted_share">اشتراک پیوندی</string>
+    <string name="create_end_to_end_encrypted_share_title">اشتراک‌های پیوندی با رمزنگاری سرتاسری</string>
     <string name="create_link">ایجاد پیوند</string>
     <string name="create_new">جدید</string>
     <string name="create_new_document">سند جدید</string>
+    <string name="create_new_encrypted_folder">پوشه رمزنگاری‌شده جدید</string>
     <string name="create_new_folder">پوشه جدید</string>
     <string name="create_new_presentation">ارائه جدید</string>
     <string name="create_new_spreadsheet">صفحهٔ گستردهٔ جدید</string>
@@ -244,6 +254,7 @@
     <string name="drawer_header_background">تصویر پس زمینه سرتیتر کشو</string>
     <string name="drawer_item_activities">فعالیت ها</string>
     <string name="drawer_item_all_files">تمامی فایل‌ها</string>
+    <string name="drawer_item_assistant">دستیار</string>
     <string name="drawer_item_favorites">مورد علاقه</string>
     <string name="drawer_item_gallery">رسانه‌ها</string>
     <string name="drawer_item_groupfolders">پوشه‌های تیم</string>
@@ -261,6 +272,7 @@
     <string name="drawer_synced_folders">بارگذاری خودکار</string>
     <string name="e2e_not_yet_setup">E2E هنوز راه اندازی نشده است.</string>
     <string name="e2e_offline">بدون اتصال به اینترنت امکان پذیر نیست.</string>
+    <string name="ecosystem_apps_display_assistant">دستیار</string>
     <string name="ecosystem_apps_display_more">بیشتر</string>
     <string name="ecosystem_apps_more">برنامه‌های بیشتر Nextcloud</string>
     <string name="email_pick_failed">خطا در گرفتن نشانی رایانامه</string>
@@ -398,6 +410,7 @@
     <string name="folder_already_exists">پوشه از قبل موجود است</string>
     <string name="folder_confirm_create">ایجاد کردن</string>
     <string name="folder_list_empty_headline">هیچ  پوشه ای اینجا وجود ندارد</string>
+    <string name="folder_name_empty">نام پوشه نمی‌تواند خالی باشد</string>
     <string name="folder_picker_choose_button_text">انتخاب کنید</string>
     <string name="folder_picker_choose_caption_text">پوشهٔ هدف را انتخاب کنید</string>
     <string name="folder_picker_copy_button_text">رونوشت</string>
@@ -441,6 +454,7 @@
     <string name="instant_upload_existing">فایل های موجود را نیز بارگذاری کنید</string>
     <string name="instant_upload_on_charging">فقط هنگامی که گوشی شارژ می شود آپلود کنید</string>
     <string name="instant_upload_path">آپلود فوری</string>
+    <string name="internal_share_headline_end_to_end_encrypted">اشتراک‌های رمزنگاری‌شده سرتاسری</string>
     <string name="internal_shares">اشتراک داخلی</string>
     <string name="invalid_url">نشانی وب نامعتبر است</string>
     <string name="invisible">نامرئی</string>
@@ -714,6 +728,7 @@
     <string name="share_permission_can_edit">توانایی ویرایش</string>
     <string name="share_permission_file_request">درخواست فایل</string>
     <string name="share_permission_view_only">تنها مشاهده</string>
+    <string name="share_permissions">مجوزهای اشتراک‌گذاری</string>
     <string name="share_re_share_permission">اشتراک‌گذاری</string>
     <string name="share_read_permission">خواندن</string>
     <string name="share_remote_clarification">%1$s (دوردست)</string>

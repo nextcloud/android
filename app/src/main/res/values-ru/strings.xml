@@ -132,6 +132,7 @@
     <string name="autoupload_hide_folder">Скрыть папку</string>
     <string name="avatar">Аватар</string>
     <string name="away">Отсутствует</string>
+    <string name="backup_list_adapter_local_contacts">Локальные контакты</string>
     <string name="backup_settings">Настройки резервного копирования</string>
     <string name="backup_title">Резервное копирование контактов и календаря</string>
     <string name="battery_optimization_close">Закрыть</string>
@@ -500,6 +501,7 @@
     <string name="filedetails_download">Скачать</string>
     <string name="filedetails_export">Экспорт</string>
     <string name="filedetails_renamed_in_upload_msg">При передаче на сервер файл был переименован в «%1$s»</string>
+    <string name="filedetails_sync_all_files">Синхронизировать все</string>
     <string name="filedetails_sync_file">Синхронизировать</string>
     <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
     <string name="filename_empty">Имя файла не может быть пустым</string>
@@ -992,6 +994,8 @@
     <string name="subtitle_videos_only">Только видео</string>
     <string name="suggest">Посоветовать</string>
     <string name="sync">Синхронизировать</string>
+    <string name="sync_all_action_dialog_description">Все содержащиеся файлы и папки будут скачаны. Может потребоваться значительный объём для хранения  данных,  время скачивания зависит от скорости вашего соединения.</string>
+    <string name="sync_all_action_dialog_title">Синхронизировать всю папку?</string>
     <string name="sync_anyway">Всё равно синхронизировать</string>
     <string name="sync_conflict_notification_action_title">Разрешить конфликты</string>
     <string name="sync_conflict_notification_description">Обнаружены конфликты загрузки. Откройте раздел загрузок для разрешения.</string>

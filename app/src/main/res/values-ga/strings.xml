@@ -116,7 +116,7 @@
     <string name="auto_upload_battery_optimization_reason">Tá gníomhaíocht chúlra Nextcloud teoranta ag optamú ceallraí.</string>
     <string name="auto_upload_battery_saver_action">Oscail socruithe coigilte ceallraí</string>
     <string name="auto_upload_battery_saver_reason">Tá an coigilteoir ceallraí gníomhach agus d’fhéadfadh sé go gcuirfí sos ar uaslódálacha.</string>
-    <string name="auto_upload_delete_dialog_description">This will remove the folder and auto-upload configuration. Any unfinished uploads will be canceled.</string>
+    <string name="auto_upload_delete_dialog_description">Bainfear an fillteán agus an chumraíocht uath-uaslódála leis seo. Cuirfear ar ceal aon uaslódálacha neamhchríochnaithe.</string>
     <string name="auto_upload_delete_dialog_title">Scrios an fillteán uath-uaslódála?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">coinnithe sa bhunfhillteán, mar atá sé inléite amháin</string>
     <string name="auto_upload_low_battery_warning_info">Ceallraí íseal, d\'fhéadfadh sé go dtógfadh an uaslódáil níos faide</string>
@@ -132,6 +132,7 @@
     <string name="autoupload_hide_folder">Folaigh fillteán</string>
     <string name="avatar">Abhatár</string>
     <string name="away">Amach</string>
+    <string name="backup_list_adapter_local_contacts">Teagmhálaithe áitiúla</string>
     <string name="backup_settings">Socruithe cúltaca</string>
     <string name="backup_title">Teagmhálacha agus cúltaca féilire</string>
     <string name="battery_optimization_close">Dún</string>
@@ -500,6 +501,7 @@
     <string name="filedetails_download">Íoslódáil</string>
     <string name="filedetails_export">Easpórtáil</string>
     <string name="filedetails_renamed_in_upload_msg">Athainmníodh an comhad %1$s le linn uaslódála</string>
+    <string name="filedetails_sync_all_files">Sioncrónaigh gach rud</string>
     <string name="filedetails_sync_file">Sioncrónaigh</string>
     <string name="filedisplay_no_file_selected">Níor roghnaíodh aon chomhad</string>
     <string name="filename_empty">Ní féidir leis an ainm comhaid a bheith folamh</string>
@@ -564,7 +566,7 @@
     <string name="instant_upload_existing">Uaslódáil comhaid atá ann cheana féin freisin</string>
     <string name="instant_upload_on_charging">Íoslódáil ach amháin nuair a mhuirearú</string>
     <string name="instant_upload_path">/Uaslódáil Meandaracha</string>
-    <string name="internal_share_description_end_to_end_encrypted">Share recipients always have access to the full encrypted folder. It is only possible to share with accounts that have already setup end-to-end encryption.</string>
+    <string name="internal_share_description_end_to_end_encrypted">Bíonn rochtain ag faighteoirí comhroinnte i gcónaí ar an bhfillteán criptithe iomlán. Ní féidir comhroinnt ach le cuntais a bhfuil criptiú foirceann go foirceann socraithe acu cheana féin.</string>
     <string name="internal_share_headline_end_to_end_encrypted">Scaireanna criptithe ó cheann ceann go ceann</string>
     <string name="internal_shares">Scaireanna inmheánacha</string>
     <string name="internal_two_way_sync">Sioncronú inmheánach dhá bhealach</string>
@@ -992,6 +994,8 @@
     <string name="subtitle_videos_only">Físeáin amháin</string>
     <string name="suggest">Mol</string>
     <string name="sync">Sioncrónaigh</string>
+    <string name="sync_all_action_dialog_description">Íoslódálfar na comhaid agus na fillteáin go léir atá ann. D’fhéadfadh go mbeadh méid suntasach stórála ag teastáil agus go dtógfadh sé seo roinnt ama ag brath ar do nasc.</string>
+    <string name="sync_all_action_dialog_title">An bhfuil an fillteán iomlán sioncrónaithe?</string>
     <string name="sync_anyway">Sioncrónaigh ar aon nós</string>
     <string name="sync_conflict_notification_action_title">Réiteach coinbhleachtaí</string>
     <string name="sync_conflict_notification_description">Coimhlintí uaslódála braite. Oscail uaslódálacha le réiteach.</string>

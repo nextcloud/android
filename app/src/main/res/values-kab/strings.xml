@@ -634,6 +634,7 @@
     <string name="prefs_help">Tallalt</string>
     <string name="prefs_license">Licence</string>
     <string name="prefs_lock_none">Ula d yiwen</string>
+    <string name="prefs_show_hidden_files">Sken-d ifuyla yeffren</string>
     <string name="prefs_sourcecode">Awi-d tangalt taɣbalut</string>
     <string name="prefs_synced_folders_local_path_title">Akaram adigan</string>
     <string name="prefs_theme_title">Asentel</string>
@@ -666,6 +667,7 @@
     <string name="share_re_share_permission">Bḍu</string>
     <string name="share_read_permission">Taɣuri</string>
     <string name="share_settings">Iɣewwaṛen</string>
+    <string name="share_via_link_hide_download">Ffer asader</string>
     <string name="share_via_link_section_title">Fren aseɣwen</string>
     <string name="share_via_link_send_link_label">Azen aseɣwen</string>
     <string name="share_via_link_unset_password">Non défini</string>
