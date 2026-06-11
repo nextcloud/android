@@ -200,7 +200,7 @@ public class DownloadFileOperation extends RemoteOperation {
 
         String tmpFolder = getTmpFolder();
 
-        downloadOperation = new DownloadFileRemoteOperation(file.getRemotePath(), tmpFolder);
+        downloadOperation = new DownloadFileRemoteOperation(file.getRemotePath(), tmpFolder, file.getFileLength());
 
         if (downloadType == DownloadType.DOWNLOAD) {
             dataTransferListeners.forEach(downloadOperation::addProgressListener);
