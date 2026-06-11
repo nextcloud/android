@@ -209,8 +209,6 @@ public class DownloadFileOperation extends RemoteOperation {
         NextcloudClient nextcloudClient = OwnCloudClientExtensionsKt.toNextcloudClient(client, operationContext);
         result = downloadOperation.execute(nextcloudClient);
 
-
-
         if (result.isSuccess()) {
             modificationTimestamp = downloadOperation.getModificationTimestamp();
             etag = downloadOperation.getEtag();
