@@ -187,7 +187,6 @@ class FileDownloadWorker(
                 )
 
                 operation.addDownloadDataTransferProgressListener(this)
-                operation.addDownloadDataTransferProgressListener(downloadProgressListener)
                 val (downloadKey, _) = pendingDownloads.putIfAbsent(
                     user?.accountName,
                     file.remotePath,
@@ -401,7 +400,7 @@ class FileDownloadWorker(
         totalToTransfer: Long,
         filePath: String
     ) {
-        val percent: Int = downloadProgressListener.getPercent(totalTransferredSoFar, totalToTransfer)
+        val percent: Int = getPercent(totalTransferredSoFar, totalToTransfer)
         val currentTime = System.currentTimeMillis()
 
         if (percent != lastPercent && (currentTime - lastUpdateTime) >= minProgressUpdateInterval) {
@@ -413,6 +412,7 @@ class FileDownloadWorker(
 
         lastPercent = percent
         EventBusFactory.downloadProgressEventBus.post(FileDownloadProgressEvent(percent))
+        downloadProgressListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, filePath)
     }
 
     // CHECK: Is this class still needed after conversion from Foreground Services to Worker?
