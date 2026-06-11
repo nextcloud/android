@@ -83,6 +83,11 @@ open class WorkerNotificationManager(
 
     fun getNotification(): Notification = notificationBuilder.build()
 
+    fun getNotification(title: String): Notification {
+        notificationBuilder.setContentTitle(title)
+        return notificationBuilder.build()
+    }
+
     fun getForegroundInfo(notification: Notification): ForegroundInfo =
         ForegroundServiceHelper.createWorkerForegroundInfo(
             id,
