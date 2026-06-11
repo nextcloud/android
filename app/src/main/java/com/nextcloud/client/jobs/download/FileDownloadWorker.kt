@@ -105,8 +105,6 @@ class FileDownloadWorker(
 
     @Suppress("ReturnCount")
     override suspend fun doWork(): Result {
-        trySetForeground()
-
         return try {
             setUser()
             val remotePath = inputData.keyValueMap[FILE_REMOTE_PATH] as? String? ?: return Result.failure()
@@ -144,20 +142,21 @@ class FileDownloadWorker(
         )
     }
 
-    private suspend fun trySetForeground() {
+    private suspend fun trySetForeground(filename: String) {
         try {
-            val foregroundInfo = createWorkerForegroundInfo()
+            val foregroundInfo = createWorkerForegroundInfo(filename)
             setForeground(foregroundInfo)
         } catch (e: Exception) {
             Log_OC.w(TAG, "⚠️ Could not set foreground service: ${e.message}")
         }
     }
 
-    private fun createWorkerForegroundInfo(): ForegroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
-        notificationManager.getId(),
-        notificationManager.getNotification(),
-        ForegroundServiceType.DataSync
-    )
+    private fun createWorkerForegroundInfo(filename: String): ForegroundInfo =
+        ForegroundServiceHelper.createWorkerForegroundInfo(
+            notificationManager.getId(),
+            notificationManager.getNotification(filename),
+            ForegroundServiceType.DataSync
+        )
 
     private fun removePendingDownload(accountName: String?) {
         pendingDownloads.remove(accountName)
@@ -246,7 +245,7 @@ class FileDownloadWorker(
     }
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
-    private fun downloadFile(downloadKey: String) {
+    private suspend fun downloadFile(downloadKey: String) {
         currentDownload = pendingDownloads.get(downloadKey)
 
         if (currentDownload == null) {
@@ -262,6 +261,7 @@ class FileDownloadWorker(
         }
 
         lastPercent = 0
+        trySetForeground(currentDownload?.file?.fileName ?: "")
         notificationManager.run {
             prepareForStart(currentDownload!!)
             setContentIntent(intents.detailsIntent(currentDownload!!), PendingIntent.FLAG_IMMUTABLE)
