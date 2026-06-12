@@ -882,13 +882,15 @@ public class UploadFileOperation extends SyncOperation {
             serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
         }
 
+        final var e2eeVersion = getStorageManager().getE2EEVersionObject(user);
+
         // upload metadata
         EncryptionUtils.uploadMetadata(parentFile,
                                        serializedFolderMetadata,
                                        clientData.getToken(),
                                        clientData.getClient(),
                                        metadataExists,
-                                       E2EVersion.V1_2,
+                                       e2eeVersion,
                                        "",
                                        arbitraryDataProvider,
                                        user);
