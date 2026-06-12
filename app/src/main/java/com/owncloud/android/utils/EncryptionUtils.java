@@ -1280,13 +1280,13 @@ public final class EncryptionUtils {
 
         } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND ||
             getMetadataOperationResult.getHttpCode() == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
-            final var latestE2EEV2Version = storageManager.getE2EEVersion(user);
+            final var e2eeVersion = storageManager.getE2EEVersion(user);
 
             // new metadata
             metadata = new DecryptedFolderMetadataFile(new com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata(),
                                                        new ArrayList<>(),
                                                        new HashMap<>(),
-                                                       latestE2EEV2Version);
+                                                       e2eeVersion);
             metadata.getUsers().add(new DecryptedUser(client.getUserId(), publicKey, null));
             byte[] metadataKey = EncryptionUtils.generateKey();
 
