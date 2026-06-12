@@ -599,7 +599,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.getAccountName());
 
             // update file name for encrypted files
-            if (e2EVersion == E2EVersion.V1_2) {
+            if (E2EVersionHelper.INSTANCE.isV1(e2EVersion)) {
                 updateFileNameForEncryptedFileV1(fileDataStorageManager,
                                                  (DecryptedFolderMetadataFileV1) object,
                                                  updatedFile);
@@ -622,7 +622,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         // save updated contents in local database
         // update file name for encrypted files
-        if (e2EVersion == E2EVersion.V1_2) {
+        if (E2EVersionHelper.INSTANCE.isV1(e2EVersion)) {
             updateFileNameForEncryptedFileV1(fileDataStorageManager,
                                              (DecryptedFolderMetadataFileV1) object,
                                              mLocalFolder);

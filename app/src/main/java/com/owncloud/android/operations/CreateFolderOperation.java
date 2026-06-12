@@ -140,6 +140,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             // lock folder
             token = EncryptionUtils.lockFolder(parent, client, EncryptionUtils.E2E_V1_INITIAL_COUNTER);
 
+            final var e2eeVersion  = getStorageManager().getE2EEVersion(user);
+
             // get metadata
             Pair<Boolean, DecryptedFolderMetadataFileV1> metadataPair = EncryptionUtils.retrieveMetadataV1(parent,
                                                                                                            client,
@@ -147,7 +149,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                                                                            publicKey,
                                                                                                            arbitraryDataProvider,
                                                                                                            user,
-                                                                                                           E2EVersion.V1_2.getValue());
+                                                                                                           e2eeVersion);
 
             metadataExists = metadataPair.first;
             metadata = metadataPair.second;
@@ -178,13 +180,15 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                                                                              );
                 String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
 
+                final var e2eeVersionAsObject = getStorageManager().getE2EEVersionObject(user);
+
                 // upload metadata
                 EncryptionUtils.uploadMetadata(parent,
                                                serializedFolderMetadata,
                                                token,
                                                client,
                                                metadataExists,
-                                               E2EVersion.V1_2,
+                                               e2eeVersionAsObject,
                                                "",
                                                arbitraryDataProvider,
                                                user);

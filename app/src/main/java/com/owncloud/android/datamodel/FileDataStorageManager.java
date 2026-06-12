@@ -2453,8 +2453,7 @@ public class FileDataStorageManager {
     }
 
     public String getE2EEVersion(@NonNull User user) {
-        final var capabilities = getCapability(user);
-        return capabilities.getEndToEndEncryptionApiVersion().getValue();
+        return getE2EEVersionObject(user).getValue();
     }
 
     public E2EVersion getE2EEVersionObject(@NonNull User user) {
