@@ -114,7 +114,11 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         return Pair(result, delete)
     }
 
-    private fun deleteForV1(client: OwnCloudClient, token: String?, e2eeVersion: E2EVersion): Pair<RemoteOperationResult<Void>, DeleteMethod> {
+    private fun deleteForV1(
+        client: OwnCloudClient,
+        token: String?,
+        e2eeVersion: E2EVersion
+    ): Pair<RemoteOperationResult<Void>, DeleteMethod> {
         @Suppress("DEPRECATION")
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
         val privateKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
