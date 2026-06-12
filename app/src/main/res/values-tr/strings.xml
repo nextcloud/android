@@ -132,7 +132,7 @@
     <string name="autoupload_hide_folder">Klasörü gizle</string>
     <string name="avatar">Avatar</string>
     <string name="away">Uzakta</string>
-    <string name="backup_list_adapter_local_contacts">Yerel kişilerle iletişim</string>
+    <string name="backup_list_adapter_local_contacts">Yerel kişiler</string>
     <string name="backup_settings">Ayarları yedekle</string>
     <string name="backup_title">Kişiler ve takvim yedeği</string>
     <string name="battery_optimization_close">Kapat</string>
@@ -501,7 +501,7 @@
     <string name="filedetails_download">İndir</string>
     <string name="filedetails_export">Dışa aktar</string>
     <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
-    <string name="filedetails_sync_all_files">Tümünü senkronize et</string>
+    <string name="filedetails_sync_all_files">Tümünü eşitle</string>
     <string name="filedetails_sync_file">Eşitle</string>
     <string name="filedisplay_no_file_selected">Herhangi bir dosya seçilmemiş</string>
     <string name="filename_empty">Dosya adı boş olamaz</string>
@@ -994,8 +994,8 @@
     <string name="subtitle_videos_only">Yalnızca görüntüler</string>
     <string name="suggest">Öner</string>
     <string name="sync">Eşitle</string>
-    <string name="sync_all_action_dialog_description">İçerilen tüm dosya ve klasörler indirilecektir. Bu işlem, bağlantı hızınıza bağlı olarak önemli miktarda depolama alanı gerektirebilir ve biraz zaman alabilir.</string>
-    <string name="sync_all_action_dialog_title">Tüm klasörü senkronize et?</string>
+    <string name="sync_all_action_dialog_description">İçindeki tüm dosya ve klasörler indirilecek. Bu işlem, bağlantı hızınıza bağlı olarak önemli miktarda depolama alanı gerektirebilir ve biraz zaman alabilir.</string>
+    <string name="sync_all_action_dialog_title">Tüm klasör eşitlensin mi?</string>
     <string name="sync_anyway">Yine de eşitle</string>
     <string name="sync_conflict_notification_action_title">Çakışmaları çözümle</string>
     <string name="sync_conflict_notification_description">Yükleme çakışmaları bulundu. Çözümlemek için yüklemeleri açın.</string>

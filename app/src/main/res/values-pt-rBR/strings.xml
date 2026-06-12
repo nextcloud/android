@@ -132,6 +132,7 @@
     <string name="autoupload_hide_folder">Ocultar pasta</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
+    <string name="backup_list_adapter_local_contacts">Contatos locais</string>
     <string name="backup_settings">Configurações de backup </string>
     <string name="backup_title">Backup de contatos e calendário</string>
     <string name="battery_optimization_close">Fechar</string>
@@ -500,6 +501,7 @@
     <string name="filedetails_download">Baixar</string>
     <string name="filedetails_export">Exportar</string>
     <string name="filedetails_renamed_in_upload_msg">Arquivo %1$s renomeado durante o upload</string>
+    <string name="filedetails_sync_all_files">Sincronizar tudo</string>
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedisplay_no_file_selected">Nenhum arquivo selecionado</string>
     <string name="filename_empty">O nome de arquivo não pode ser vazio</string>
@@ -992,6 +994,8 @@
     <string name="subtitle_videos_only">Somente vídeos</string>
     <string name="suggest">Sugerir </string>
     <string name="sync">Sincronizar</string>
+    <string name="sync_all_action_dialog_description">Todos os arquivos e pastas incluídos serão baixados. Isso pode exigir uma quantidade significativa de espaço de armazenamento e levar algum tempo, dependendo da sua conexão.</string>
+    <string name="sync_all_action_dialog_title">Sincronizar a pasta inteira?</string>
     <string name="sync_anyway">Sincronizar mesmo assim</string>
     <string name="sync_conflict_notification_action_title">Resolver conflitos</string>
     <string name="sync_conflict_notification_description">Conflitos de upload detectados. Abra os uploads para resolver.</string>
