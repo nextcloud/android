@@ -37,12 +37,15 @@ object E2EVersionHelper {
     fun isV1(version: E2EVersion): Boolean =
         version == E2EVersion.V1_0 || version == E2EVersion.V1_1 || version == E2EVersion.V1_2
 
-    /**
-     * Determines the E2EE version by inspecting encrypted folder metadata.
-     *
-     * Supports both V1 and V2 metadata formats and falls back safely
-     * to [E2EVersion.UNKNOWN] if parsing fails.
-     */
+    fun getMaxCompatibleE2EEVersion(serverE2EEVersion: E2EVersion): E2EVersion {
+        if (serverE2EEVersion == E2EVersion.UNKNOWN) {
+            return E2EVersion.UNKNOWN
+        }
+
+        val clientMax = E2EVersion.V2_1
+        return minOf(serverE2EEVersion, clientMax)
+    }
+
     fun fromMetadata(metadata: String): E2EVersion = runCatching {
         val v1 = EncryptionUtils.deserializeJSON(
             metadata,

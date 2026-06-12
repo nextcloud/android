@@ -60,8 +60,6 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.core.Clock
-import com.nextcloud.operations.GetMethod
-import org.json.JSONObject
 import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
@@ -303,58 +301,6 @@ class FileDisplayActivity :
         handleBackPress()
         setupDrawer(menuItemId)
         logOcsCredentials()
-        // Debug helper: fetch raw capabilities JSON and dump `ocs`, `meta` and `data` nodes to logs
-        // This is temporary and used for debugging backend responses on activity create.
-        debugDumpCapabilities()
-    }
-
-    private fun debugDumpCapabilities() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val user = accountManager.user
-                val client = try {
-                    clientFactory.createNextcloudClient(user)
-                } catch (e: Exception) {
-                    Log_OC.e(this@FileDisplayActivity, "debugDumpCapabilities: failed creating client", e)
-                    return@launch
-                }
-
-                val requestUri = client.baseUri
-                val uriBuilder = requestUri.buildUpon()
-                uriBuilder.appendEncodedPath("ocs/v2.php/cloud/capabilities")
-                uriBuilder.appendQueryParameter("format", "json")
-
-                val get = GetMethod(uriBuilder.build().toString(), true)
-
-                val status = try {
-                    client.execute(get)
-                } catch (e: Exception) {
-                    Log_OC.e(this@FileDisplayActivity, "debugDumpCapabilities: execute failed", e)
-                    return@launch
-                }
-
-                if (status == 200) {
-                    val response = get.getResponseBodyAsString()
-                    try {
-                        val respJSON = JSONObject(response)
-                        val respOCS = respJSON.getJSONObject("ocs")
-                        val respMeta = respOCS.getJSONObject("meta")
-                        val respData = respOCS.getJSONObject("data")
-
-                        Log_OC.d(this@FileDisplayActivity, "[dbg] respOCS: $respOCS")
-                        Log_OC.d(this@FileDisplayActivity, "[dbg] respMeta: $respMeta")
-                        Log_OC.d(this@FileDisplayActivity, "[dbg] respData: $respData")
-                    } catch (e: Exception) {
-                        Log_OC.e(this@FileDisplayActivity, "debugDumpCapabilities: parsing failed", e)
-                        Log_OC.d(this@FileDisplayActivity, "debugDumpCapabilities: raw response: $response")
-                    }
-                } else {
-                    Log_OC.e(this@FileDisplayActivity, "debugDumpCapabilities: unexpected status=$status")
-                }
-            } catch (e: Exception) {
-                Log_OC.e(this@FileDisplayActivity, "debugDumpCapabilities: unexpected error", e)
-            }
-        }
     }
 
     @Suppress("DEPRECATION")
