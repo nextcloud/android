@@ -5,7 +5,7 @@
 androidCommonLibraryVersion = "0.33.2"
 androidGifDrawableVersion = "1.2.31"
 androidImageCropperVersion = "4.7.0"
-androidLibraryVersion ="dd85553abaea1c05dc514268a3cf4a976535bc2b"
+androidLibraryVersion ="1f476c0ab14fb280172be2aefd70db80e50bb17b"
 androidOpensslVersion = "3.5.6"
 androidPluginVersion = "9.2.1"
 androidsvgVersion = "1.4"
@@ -86,6 +86,7 @@ stateless4jVersion = "2.6.0"
 webkitVersion = "1.16.0"
 workRuntime = "2.11.2"
 foundationVersion = "1.11.2"
+browserVersion = "1.10.0"
 
 [libraries]
 # Crypto
@@ -95,6 +96,7 @@ conscrypt-android = { module = "org.conscrypt:conscrypt-android", version.ref = 
 bcpkix-jdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bcpkixJdk18onVersion" }
 
 # UI
+browser = { module = "androidx.browser:browser", version.ref = "browserVersion" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompatVersion" }
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardviewVersion" }
 core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidxTestVersion" }

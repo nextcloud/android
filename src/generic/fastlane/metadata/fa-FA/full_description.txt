@@ -1,1 +1,19 @@
-"بستر خودمیزبانی که به شما اختیارات کامل می‌دهد. امکانات: * سهولت، رابط مدرن، مناسب برای زمینه سرور شما * بارگذاری فایل‌ها در سرور نکست‌کلود شما * اشتراک‌گذاری آن‌ها با دیگران * همگام‌سازی فایل‌ها و پوشه‌های مورد‌علاقه شما * جستجو در تمامی پوشه‌های سرور شما * بارگذاری خودکار فیلم‌ها و عکس‌های گرفته شده توسط دستگاه شما * همواره به‌روز بودن توسط اعلان‌ها * پشتیبانی از چند حساب * دسترسی امن به داده‌‌های شما توسط اثر انگشت یا رمز پین * یکپارچه‌سازی با برنامک DAVx5(که قبلاً با نام DAVdroid شناخته می‌شد) برای راحتی در قرار دادن تقویم & همگام‌سازی مخاطبین. لطفاً تمامی مسائل و مشکلات خود را در  https://github.com/nextcloud/android/issues گزارش دهید و برای بحث در مورد این برنامک به آدرس https://help.nextcloud.com/c/clients/android مراجعه کنید. کاربر جدید نکست‌کلود هستید؟ نکست‌کلود یک سرور شخصی برای همگام‌سازی & به‌اشتراک‌گذاری و ارتباطات است. این یک نرم‌افزار آزاد است، که شما می‌توانید خودتان میزبانی آن را انجام دهید و یا با پرداخت هزینه، از یک شرکت درخواست میزبانی کنید. به این ترتیب، شما کنترل عکس‌‌ها و فیلم‌هایتان، تقدیم و اطلاعات مخاطبین شما، فایل‌‌ها و اسنادتان و هرچیز دیگری را دارید. برای بررسی نکست‌کلود به  https://nextcloud.com مراجعه کنید.   "
+The self-hosted productivity platform that keeps you in control.
+
+Features:
+* Easy, modern interface, suited to the theme of your server
+* Upload files to your Nextcloud server
+* Share them with others
+* Keep your favorite files and folders synced
+* Search across all folders on your server
+* Auto Upload for photos and videos taken by your device
+* Keep up to date with notifications
+* Multi-account support
+* Secure access to your data with fingerprint or PIN
+* Integration with DAVx⁵ (formerly known as DAVdroid) for easy setup of calendar and contacts synchronization
+
+Please report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android
+
+New to Nextcloud? Nextcloud is a private file sync and share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.
+
+Check out Nextcloud at https://nextcloud.com

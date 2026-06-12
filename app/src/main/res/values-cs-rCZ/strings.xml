@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Zkuste poslat zprávu pro rozproudění konverzace.</string>
     <string name="assistant_screen_empty_content_title">Zdravím! Jak vám mohu pomoci?</string>
     <string name="assistant_screen_retry_response_generation">Znovu zkusit vytvořit odpověď</string>
-    <string name="assistant_screen_select_task">Vyberte úkol</string>
     <string name="assistant_screen_send_message">Poslat zprávu</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Otevřít seznam konverzací</string>
     <string name="assistant_screen_task_create_fail_message">Při vytváření úlohy se vyskytla chyba</string>
@@ -113,7 +112,6 @@
     <string name="authenticator_activity_login_error">Došlo k problému při zpracovávání vašeho požadavku na přihlášení se. Zkuste to prosím později.</string>
     <string name="authenticator_activity_no_web_browser_found">Není k dispozici žádný webový prohlížeč pro otevření tohoto odkazu.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokončete proces přihlášení prostřednictvím webového prohlížeče</string>
-    <string name="auto_upload_battery_saver_mode_warning">Automatické nahrávání je pozastaveno, protože je zapnuté šetření energií z akumulátoru.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechán v původní složce, protože je pouze pro čtení</string>
     <string name="auto_upload_low_battery_warning_info">Téměř vybitý akumulátor – nahrávání může trvat déle</string>
     <string name="auto_upload_on_wifi">Nahrávat pouze přes neúčtované Wi-Fi připojení</string>
@@ -255,7 +253,6 @@
     <string name="create_new_presentation">Nová prezentace</string>
     <string name="create_new_spreadsheet">Nová tabulka</string>
     <string name="create_rich_workspace">Přidat popis složky</string>
-    <string name="creates_rich_workspace">Přidá popis složky</string>
     <string name="credentials_disabled">Přihlašovací údaje znepřístupněny</string>
     <string name="daily_backup">Každodenní záloha</string>
     <string name="data_to_back_up">Data k zálohování</string>
@@ -322,7 +319,6 @@
     <string name="drawer_item_on_device">Na přístroji</string>
     <string name="drawer_item_personal_files">Osobní soubory</string>
     <string name="drawer_item_recent_files">Nedávné soubory</string>
-    <string name="drawer_item_recently_modified">Nedávno změněné</string>
     <string name="drawer_item_shared">Sdíleno</string>
     <string name="drawer_item_trashbin">Smazané soubory</string>
     <string name="drawer_item_uploads_list">Nahrání</string>
@@ -331,7 +327,6 @@
     <string name="drawer_quota">%1$s z %2$s použito</string>
     <string name="drawer_quota_unlimited">%1$s použito</string>
     <string name="drawer_synced_folders">Automatické nahrávání</string>
-    <string name="due_to_too_many_wrong_attempts">%s z důvodu příliš mnoha nezdařených pokusů</string>
     <string name="e2e_counter_too_old">Čítač je příliš starý</string>
     <string name="e2e_hash_not_found">Otisk nenalezen</string>
     <string name="e2e_not_yet_setup">Šifrování mezi koncovými body doposud není nastavené</string>
@@ -442,7 +437,6 @@
     <string name="file_list_empty_on_device">Stažené soubory a složky se zobrazí zde.</string>
     <string name="file_list_empty_recent_files_description">Zde budou zobrazeny soubory a složky, které jste nedávno změnili.</string>
     <string name="file_list_empty_recent_files_headline">Žádné nedávno změněné soubory.</string>
-    <string name="file_list_empty_recently_modified">Nenalezeny žádné soubory změněné za uplynulých 7 dnů</string>
     <string name="file_list_empty_search">Možná se nachází v jiné složce?</string>
     <string name="file_list_empty_shared">Zde budou zobrazeny vámi nasdílené soubory a složky.</string>
     <string name="file_list_empty_shared_headline">Zatím nic nenasdíleno</string>
@@ -856,7 +850,6 @@
     <string name="send">Odeslat</string>
     <string name="send_copy_to">Poslat kopii uživateli</string>
     <string name="send_share">Poslat sdílení</string>
-    <string name="sendbutton_description">Ikona tlačítka pro odesílání</string>
     <string name="server_not_reachable">Nepodařilo se načíst obsah</string>
     <string name="server_not_reachable_content">Zařízení pravděpodobně není připojené k Internetu</string>
     <string name="set_as">Nastavit jako</string>
@@ -898,7 +891,6 @@
     <string name="share_option_required">Aby bylo možné pokračovat, vyberte alespoň jednu možnost sdílení</string>
     <string name="share_permission_can_edit">Může upravovat</string>
     <string name="share_permission_file_request">Žádost o soubor</string>
-    <string name="share_permission_secure_file_drop">Bezpečné předání souborů</string>
     <string name="share_permission_view_only">Pouze prohlížet</string>
     <string name="share_permissions">Oprávnění pro sdílení</string>
     <string name="share_re_share_permission">Nasdílet</string>
@@ -1037,7 +1029,6 @@
     <string name="translation_screen_start_to_translate_task">Přeložíte kliknutím na tlačítko</string>
     <string name="translation_screen_task_processing">Překládání trvá déle než očekáváno.</string>
     <string name="translation_screen_translating">Překládání…</string>
-    <string name="trashbin_activity_title">Smazané soubory</string>
     <string name="trashbin_empty_headline">Žádné smazané soubory</string>
     <string name="trashbin_empty_message">Odsud je možné obnovit smazané soubory.</string>
     <string name="trashbin_file_not_deleted">Soubor %1$s se nepodařilo smazat!</string>
@@ -1111,7 +1102,6 @@
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do složky %1$s není dostatek volného místa. Chcete je tam namísto toho přesunout?</string>
     <string name="upload_quota_exceeded">Kvóta úložiště překročena</string>
     <string name="upload_scan_doc_upload">Naskenovat dokument kamerou</string>
-    <string name="upload_sync_conflict">Konflikt synchronizace – vyřešte ručně</string>
     <string name="upload_sync_conflict_not_exists">Konflikt vyřešen.</string>
     <string name="upload_unknown_error">Neznámá chyba</string>
     <string name="uploader_btn_alternative_text">Vybrat</string>
@@ -1159,7 +1149,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Místní soubor nenalezen</string>
     <string name="uploads_view_upload_status_failed_permission_error">Chyba oprávnění</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Nedůvěryhodný certifikát serveru</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Zjišťování verze serveru …</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikace ukončena</string>
     <string name="uploads_view_upload_status_skip">Přeskočeno</string>
     <string name="uploads_view_upload_status_skip_reason">Takto nazvaný soubor už existuje.</string>
