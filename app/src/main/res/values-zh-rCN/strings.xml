@@ -132,6 +132,7 @@
     <string name="autoupload_hide_folder">隐藏文件夹</string>
     <string name="avatar">头像</string>
     <string name="away">离开</string>
+    <string name="backup_list_adapter_local_contacts">本地联系人</string>
     <string name="backup_settings">备份设置</string>
     <string name="backup_title">通讯录和日历备份</string>
     <string name="battery_optimization_close">关闭</string>
@@ -500,6 +501,7 @@
     <string name="filedetails_download">下载</string>
     <string name="filedetails_export">导出</string>
     <string name="filedetails_renamed_in_upload_msg">文件在上传时被重命名为%1$s</string>
+    <string name="filedetails_sync_all_files">全部同步</string>
     <string name="filedetails_sync_file">同步</string>
     <string name="filedisplay_no_file_selected">没有选择文件</string>
     <string name="filename_empty">文件名不能为空。</string>
@@ -995,6 +997,8 @@
     <string name="subtitle_videos_only">仅视频</string>
     <string name="suggest">建议</string>
     <string name="sync">同步</string>
+    <string name="sync_all_action_dialog_description">将会下载所有包含的文件和文件夹。这可能需要大量的存储空间，并且需要一些时间，具体取决于您的连接。</string>
+    <string name="sync_all_action_dialog_title">同步整个文件夹？</string>
     <string name="sync_anyway">仍要同步</string>
     <string name="sync_conflict_notification_action_title">解决冲突</string>
     <string name="sync_conflict_notification_description">检测到上传冲突。请打开上传进行解决。</string>
