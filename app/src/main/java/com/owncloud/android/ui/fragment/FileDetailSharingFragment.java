@@ -34,6 +34,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
+import com.nextcloud.android.common.ui.share.ShareScreenKt;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -43,6 +44,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.OCShareExtensionsKt;
+import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
@@ -208,9 +210,49 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         binding.pickContactEmailBtn.setOnClickListener(v -> checkContactPermission());
 
         // start loading process
-        fetchSharees();
-
+        // TODO: REPLACE FAKE CONDITION
+        if (user.getServer().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_34) || 2 < 4) {
+            showUnifiedShare();
+        } else {
+            fetchSharees();
+        }
         setupView();
+    }
+
+    private void showUnifiedShare() {
+        if (binding == null) {
+            return;
+        }
+
+        binding.shareContainer.setVisibility(View.GONE);
+        binding.unifiedShare.setVisibility(View.VISIBLE);
+
+        final LinearLayout shimmerLayout = binding.shimmerLayout.getRoot();
+        shimmerLayout.clearAnimation();
+        shimmerLayout.setVisibility(View.GONE);
+
+        new Thread(() -> {{
+            try {
+                final var baseURL = user.getServer().getUri().toString();
+                final var client = clientFactory.create(user);
+                final var serverCredentials = OwnCloudClientExtensionsKt.toServerCredentials(client, baseURL);
+                final var activity = getActivity();
+                final var sharingCapabilities = fileDataStorageManager.getCapability(user).getSharingJson();
+
+                if (activity != null && sharingCapabilities != null) {
+                    activity.runOnUiThread(() -> ShareScreenKt.initShareScreen(
+                                               binding.unifiedShare,
+                                               String.valueOf(file.getRemoteId()),
+                                               sharingCapabilities,
+                                               serverCredentials,
+                                               viewThemeUtils.files.getColorScheme(activity))
+                                          );
+
+                }
+            } catch (ClientFactory.CreationException e) {
+                Log_OC.e(TAG, "client creation failed");
+            }
+        }}).start();
     }
 
     private void fetchSharees() {

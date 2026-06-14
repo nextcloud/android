@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 100;
+    public static final int DB_VERSION = 101;
 
     private ProviderMeta() {
         // No instance
@@ -293,6 +293,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_DEFAULT_PERMISSIONS = "default_permissions";
         public static final String CAPABILITIES_HAS_VALID_SUBSCRIPTION = "has_valid_subscription";
         public static final String CAPABILITIES_CLIENT_INTEGRATION_JSON = "client_integration_json";
+        public static final String CAPABILITIES_SHARING_JSON = "sharing_json";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";
