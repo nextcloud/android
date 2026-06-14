@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 
-package com.nextcloud.ui
+package com.nextcloud.ui.dialog.account.onlineStatus
 
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +24,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.ui.dialog.account.statusMessage.task.SetStatusTask
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SetOnlineStatusBottomSheetBinding
