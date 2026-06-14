@@ -70,7 +70,7 @@ public class CopyFileOperation extends SyncOperation {
             if (file.isFolder()) {
                 targetPath = targetParentPath + file.getFileName();
             }
-            targetPath = UploadFileOperation.getNewAvailableRemotePath(client, targetPath, null, false);
+            targetPath = UploadFileOperation.Companion.getNewAvailableRemotePath(client, targetPath, null, false);
 
             if (file.isFolder()) {
                 targetPath += OCFile.PATH_SEPARATOR;

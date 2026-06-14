@@ -99,7 +99,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             setProgress(0, 0, false)
         }.build()
 
-        showNotification(operation.file.fileId.toInt(), notification)
+        showNotification(operation.file!!.fileId.toInt(), notification)
     }
 
     fun showConnectionErrorNotification() {

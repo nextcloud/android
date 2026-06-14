@@ -57,7 +57,7 @@ object UploadErrorNotificationManager {
     ) {
         Log_OC.d(TAG, "handle upload result with result code: " + result.code)
 
-        if (result.isSuccess || operation.isMissingPermissionThrown) {
+        if (result.isSuccess || operation.isMissingPermissionThrown()) {
             Log_OC.d(TAG, "operation is successful, cancelled or lack of storage permission, notification skipped")
             return
         }

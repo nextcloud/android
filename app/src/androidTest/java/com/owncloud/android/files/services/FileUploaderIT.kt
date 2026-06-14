@@ -71,7 +71,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     //
     //     assertTrue(
     //         UploadFileOperation(
-    //             uploadsStorageManager,
+    //             uploadsStorageManager!!,
     //             connectivityServiceMock,
     //             powerManagementServiceMock,
     //             user,
@@ -97,7 +97,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     //
     //     assertTrue(
     //         UploadFileOperation(
-    //             uploadsStorageManager,
+    //             uploadsStorageManager!!,
     //             connectivityServiceMock,
     //             powerManagementServiceMock,
     //             user,
@@ -175,7 +175,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         assertTrue(
             UploadFileOperation(
-                uploadsStorageManager,
+                uploadsStorageManager!!,
                 connectivityServiceMock,
                 powerManagementServiceMock,
                 user,
@@ -203,7 +203,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         assertTrue(
             UploadFileOperation(
-                uploadsStorageManager,
+                uploadsStorageManager!!,
                 connectivityServiceMock,
                 powerManagementServiceMock,
                 user,
@@ -215,10 +215,11 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 false,
                 false,
                 storageManager
-            )
-                .addRenameUploadListener {
+            ).addRenameUploadListener(object : UploadFileOperation.OnRenameListener {
+                override fun onRenameUpload() {
                     renameListenerWasTriggered = true
                 }
+            })
                 .execute(client)
                 .isSuccess
         )
@@ -294,7 +295,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         assertTrue(
             UploadFileOperation(
-                uploadsStorageManager,
+                uploadsStorageManager!!,
                 connectivityServiceMock,
                 powerManagementServiceMock,
                 user,
@@ -321,7 +322,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         assertFalse(
             UploadFileOperation(
-                uploadsStorageManager,
+                uploadsStorageManager!!,
                 connectivityServiceMock,
                 powerManagementServiceMock,
                 user,
@@ -397,7 +398,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         assertTrue(
             UploadFileOperation(
-                uploadsStorageManager,
+                uploadsStorageManager!!,
                 connectivityServiceMock,
                 powerManagementServiceMock,
                 user,
@@ -423,7 +424,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val ocUpload2 = OCUpload(getDummyFile("empty.txt").absolutePath, "/testFile.txt", account.name)
 
         val uploadResult = UploadFileOperation(
-            uploadsStorageManager,
+            uploadsStorageManager!!,
             connectivityServiceMock,
             powerManagementServiceMock,
             user,
