@@ -132,6 +132,7 @@
     <string name="autoupload_hide_folder">Приховати каталог</string>
     <string name="avatar">Світлина</string>
     <string name="away">Відсутній(-я)</string>
+    <string name="backup_list_adapter_local_contacts">Контакти на пристрої</string>
     <string name="backup_settings">Налаштування резервного збереження</string>
     <string name="backup_title">Резервна копія контактів та календаря</string>
     <string name="battery_optimization_close">Закрити</string>
@@ -500,6 +501,7 @@
     <string name="filedetails_download">Отримати</string>
     <string name="filedetails_export">Експортувати</string>
     <string name="filedetails_renamed_in_upload_msg">Під час завантаження назву файлу було змінено %1$s</string>
+    <string name="filedetails_sync_all_files">Синхронізувати все</string>
     <string name="filedetails_sync_file">Синхронізація</string>
     <string name="filedisplay_no_file_selected">Жодного файлу обрано</string>
     <string name="filename_empty">Ім\'я файлу не може бути порожнім</string>
@@ -992,6 +994,8 @@
     <string name="subtitle_videos_only">Лише відео</string>
     <string name="suggest">Запропонувати</string>
     <string name="sync">Синхронізація</string>
+    <string name="sync_all_action_dialog_description">Усі каталоги та файли в них буде завантажено. Для цього може знадобитися істотних обсяг сховища даних, а також час залежно від вашого з\'єднання.</string>
+    <string name="sync_all_action_dialog_title">Синхронізувати весь каталог?</string>
     <string name="sync_anyway">Синхронізувати попри все</string>
     <string name="sync_conflict_notification_action_title">Вирішити конфлікти</string>
     <string name="sync_conflict_notification_description">Знайдено конфлікти при завантаженні. Відкрийте завантаження для вирішення.</string>
