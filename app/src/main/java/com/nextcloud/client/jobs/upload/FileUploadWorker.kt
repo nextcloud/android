@@ -318,10 +318,11 @@ class FileUploadWorker(
             val uploadResult = UploadResult.fromOperationResult(result)
             if (!result.isSuccess) {
                 Log_OC.e(TAG, "upload failed for ${upload.remotePath}: ${result.code}")
-                uploadFilesResult = if (uploadResult.isNonRetryable()) {
-                    UploadFilesResult.Error
-                } else {
-                    UploadFilesResult.Retry
+                if (uploadResult.isNonRetryable()) {
+                    uploadFilesResult = UploadFilesResult.Error
+                } else if (uploadFilesResult != UploadFilesResult.Error) {
+                    // only set retry if any other not failed before
+                    uploadFilesResult = UploadFilesResult.Retry
                 }
             }
 
