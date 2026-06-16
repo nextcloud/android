@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.owncloud.android.ui.dialog
@@ -20,13 +20,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.common.collect.Sets
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
-import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -36,10 +35,10 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.Template
 import com.owncloud.android.files.CreateFileFromTemplateOperation
 import com.owncloud.android.files.FetchTemplateOperation
-import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.ExternalSiteWebView
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView
 import com.owncloud.android.ui.adapter.RichDocumentsTemplateAdapter
@@ -54,15 +53,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-/**
- * Dialog to show templates for new documents/spreadsheets/presentations.
- */
+@Suppress("TooManyFunctions")
 class ChooseRichDocumentsTemplateDialogFragment :
     DialogFragment(),
     View.OnClickListener,
     RichDocumentsTemplateAdapter.ClickListener,
     Injectable {
-    private var fileNames: MutableSet<String>? = null
+
+    private var fileNames: Set<String> = emptySet()
     private var hasUserInteracted = false
 
     @Inject
@@ -82,7 +80,6 @@ class ChooseRichDocumentsTemplateDialogFragment :
 
     private var adapter: RichDocumentsTemplateAdapter? = null
     private var parentFolder: OCFile? = null
-    private var client: OwnCloudClient? = null
     private var positiveButton: MaterialButton? = null
     private var waitDialog: DialogFragment? = null
 
@@ -132,7 +129,6 @@ class ChooseRichDocumentsTemplateDialogFragment :
         val arguments = arguments ?: throw IllegalArgumentException("Arguments may not be null")
         val activity = activity ?: throw IllegalArgumentException("Activity may not be null")
 
-        initClient()
         initFilenames(arguments)
         viewThemeUtils.material.colorTextInputLayout(binding.filenameContainer)
 
@@ -150,23 +146,11 @@ class ChooseRichDocumentsTemplateDialogFragment :
         return builder.create()
     }
 
-    @Suppress("DEPRECATION", "TooGenericExceptionThrown")
-    private fun initClient() {
-        try {
-            client = clientFactory.create(currentAccount.user)
-        } catch (e: CreationException) {
-            throw RuntimeException(e)
-        }
-    }
-
     private fun initFilenames(arguments: Bundle) {
         parentFolder = arguments.getParcelableArgument(ARG_PARENT_FOLDER, OCFile::class.java)
-        val folderContent = fileDataStorageManager.getFolderContent(parentFolder, false)
-        fileNames = Sets.newHashSetWithExpectedSize(folderContent.size)
-
-        for (file in folderContent) {
-            fileNames?.add(file.fileName)
-        }
+        fileNames = fileDataStorageManager
+            .getFolderContent(parentFolder, false)
+            .mapTo(HashSet()) { it.fileName }
     }
 
     private fun initList(type: Type) {
@@ -252,28 +236,28 @@ class ChooseRichDocumentsTemplateDialogFragment :
         }
 
     override fun onClick(v: View) {
-        val name = fileNameText
-        val path = parentFolder?.remotePath + name
-
         val selectedTemplate = adapter?.selectedTemplate
+            ?: return DisplayUtils.showSnackMessage(binding.list, R.string.select_one_template)
 
-        val errorMessage = FileNameValidator.checkFileName(
-            name,
-            fileDataStorageManager.getCapability(currentAccount.user),
-            requireContext(),
-            fileNames ?: setOf()
-        )
+        val state = resolveFilenameState()
+        when (state) {
+            is FilenameState.Invalid ->
+                DisplayUtils.showSnackMessage(requireActivity(), state.errorMessage)
 
-        if (selectedTemplate == null) {
-            DisplayUtils.showSnackMessage(binding.list, R.string.select_one_template)
-        } else if (errorMessage != null) {
-            DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
-        } else if (name.equals(DOT + selectedTemplate.extension, ignoreCase = true)) {
-            DisplayUtils.showSnackMessage(binding.list, R.string.enter_filename)
-        } else if (!name.endsWith(selectedTemplate.extension)) {
-            createFromTemplate(selectedTemplate, path + DOT + selectedTemplate.extension)
-        } else {
-            createFromTemplate(selectedTemplate, path)
+            is FilenameState.JustExtension ->
+                DisplayUtils.showSnackMessage(binding.list, R.string.enter_filename)
+
+            is FilenameState.Valid -> {
+                val name = fileNameText
+                val path = parentFolder?.remotePath + name
+                if (!name.endsWith(selectedTemplate.extension)) {
+                    createFromTemplate(selectedTemplate, path + DOT + selectedTemplate.extension)
+                } else {
+                    createFromTemplate(selectedTemplate, path)
+                }
+            }
+
+            else -> Unit
         }
     }
 
@@ -294,17 +278,17 @@ class ChooseRichDocumentsTemplateDialogFragment :
             binding.filename.setText(String.format("%s.%s", template.name, template.extension))
         }
 
-        val dotIndex = fileNameText.lastIndexOf('.')
+        val dotIndex = binding.filename.text?.lastIndexOf('.') ?: -1
         if (dotIndex >= 0) {
             binding.filename.setSelection(dotIndex)
         }
     }
 
     // region filename state
-    private sealed class FilenameState(val isError: Boolean, val errorMessage: CharSequence?) {
+    private sealed class FilenameState(val isError: Boolean, val errorMessage: String?) {
         data object Valid : FilenameState(isError = false, errorMessage = null)
         data object NoTemplateSelected : FilenameState(isError = false, errorMessage = null)
-        class JustExtension(message: CharSequence) : FilenameState(isError = true, errorMessage = message)
+        class JustExtension(message: String) : FilenameState(isError = true, errorMessage = message)
         class ChangedExtension(message: String) : FilenameState(isError = true, errorMessage = message)
         class Invalid(message: String) : FilenameState(isError = true, errorMessage = message)
     }
@@ -322,12 +306,15 @@ class ChooseRichDocumentsTemplateDialogFragment :
 
         return when {
             errorMessage != null -> FilenameState.Invalid(errorMessage)
+
             name.equals(DOT + selectedTemplate.extension, ignoreCase = true) ->
-                FilenameState.JustExtension(getText(R.string.filename_empty))
+                FilenameState.JustExtension(getString(R.string.filename_empty))
+
             name.contains(DOT) &&
                 name.substringAfterLast(DOT).isNotEmpty() &&
                 name.substringAfterLast(DOT) != selectedTemplate.extension ->
                 FilenameState.ChangedExtension(getString(R.string.extension_cannot_be_changed))
+
             else -> FilenameState.Valid
         }
     }
@@ -351,6 +338,9 @@ class ChooseRichDocumentsTemplateDialogFragment :
     @Suppress("DEPRECATION")
     private suspend fun createFileFromTemplate(template: Template, path: String, user: User) =
         withContext(Dispatchers.IO) {
+            val activity = getTypedActivity(BaseActivity::class.java)
+            val client = activity?.clientRepository?.getOwncloudClient() ?: return@withContext
+
             val url = CreateFileFromTemplateOperation(path, template.id)
                 .execute(client)
                 .takeIf { it.isSuccess }
@@ -403,7 +393,8 @@ class ChooseRichDocumentsTemplateDialogFragment :
     @Suppress("DEPRECATION")
     @SuppressLint("SetTextI18n")
     private suspend fun fetchTemplate(type: Type) = withContext(Dispatchers.IO) {
-        val client = client ?: return@withContext
+        val activity = getTypedActivity(BaseActivity::class.java)
+        val client = activity?.clientRepository?.getOwncloudClient() ?: return@withContext
 
         val templateList = FetchTemplateOperation(type)
             .execute(client)
