@@ -126,6 +126,8 @@ data class CapabilityEntity(
     val dropAccount: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SECURITY_GUARD)
     val securityGuard: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_GOVERNANCE)
+    val governance: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS)
     val forbiddenFileNameCharacters: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES)
@@ -222,6 +224,7 @@ fun CapabilityEntity?.toOCCapability(): OCCapability {
     capability.groupfolders = intToBoolean(this.groupfolders)
     capability.dropAccount = intToBoolean(this.dropAccount)
     capability.securityGuard = intToBoolean(this.securityGuard)
+    capability.governance = intToBoolean(this.governance)
     capability.forbiddenFilenameCharactersJson = this.forbiddenFileNameCharacters
     capability.forbiddenFilenamesJson = this.forbiddenFileNames
     capability.forbiddenFilenameExtensionJson = this.forbiddenFileNameExtensions

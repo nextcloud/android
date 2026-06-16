@@ -36,7 +36,6 @@ import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -65,6 +64,7 @@ import com.owncloud.android.ui.events.FileDownloadProgressEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -316,14 +316,17 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.selector_tab_share));
         }
 
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.filedetails_details).setIcon(R.drawable.selector_file_info));
+        if (showDetailsTab()) {
+            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.filedetails_details).setIcon(R.drawable.selector_file_info));
+        }
 
         viewThemeUtils.material.themeTabLayout(binding.tabLayout);
 
         final FileDetailTabAdapter adapter = new FileDetailTabAdapter(requireActivity(),
                                                                       getFile(),
                                                                       user,
-                                                                      showSharingTab());
+                                                                      showSharingTab(),
+                                                                      showDetailsTab());
         binding.pager.setAdapter(adapter);
 
         binding.pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -897,5 +900,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             // unencrypted files/folders
             return true;
         }
+    }
+
+    private boolean showDetailsTab() {
+        return CapabilityUtils.getCapability(getContext()).getGovernance().isTrue() ||
+            MimeTypeUtil.isMedia(getFile().getMimeType());
     }
 }
