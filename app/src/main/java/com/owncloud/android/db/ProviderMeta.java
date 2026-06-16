@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 100;
+    public static final int DB_VERSION = 101;
 
     private ProviderMeta() {
         // No instance
@@ -282,6 +282,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_GROUPFOLDERS = "groupfolders";
         public static final String CAPABILITIES_DROP_ACCOUNT = "drop_account";
         public static final String CAPABILITIES_SECURITY_GUARD = "security_guard";
+        public static final String CAPABILITIES_GOVERNANCE = "governance";
         public static final String CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS = "forbidden_filename_characters";
         public static final String CAPABILITIES_FORBIDDEN_FILENAMES = "forbidden_filenames";
         public static final String CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS = "forbidden_filename_extensions";

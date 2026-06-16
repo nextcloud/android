@@ -17,10 +17,11 @@ import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment
 
 class FileDetailTabAdapter(
-    fragmentActivity: FragmentActivity,
+    private val fragmentActivity: FragmentActivity,
     private val file: OCFile,
     private val user: User,
-    private val showSharingTab: Boolean
+    private val showSharingTab: Boolean,
+    private val showDetailsTab: Boolean
 ) : FragmentStateAdapter(fragmentActivity) {
 
     private enum class Tab(val position: Int) {
@@ -44,5 +45,18 @@ class FileDetailTabAdapter(
             .also { fileDetailActivitiesFragment = it }
     }
 
-    override fun getItemCount(): Int = if (showSharingTab) Tab.entries.size else Tab.entries.size - 1
+    override fun getItemCount(): Int {
+        // always show Activities
+        var count = 1
+
+        if (showSharingTab) {
+            count++
+        }
+
+        if (showDetailsTab) {
+            count++
+        }
+
+        return count
+    }
 }

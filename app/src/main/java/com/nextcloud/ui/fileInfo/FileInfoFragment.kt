@@ -19,6 +19,7 @@ import com.nextcloud.client.di.Injectable
 import com.owncloud.android.databinding.FileInfoFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -46,8 +47,12 @@ class FileInfoFragment :
             file?.let { imageDetailInfo.init(it, binding) }
         }
 
-        val governanceDetailInfo = GovernanceDetailInfo(binding, viewThemeUtils, this)
-        governanceDetailInfo.init()
+        if (CapabilityUtils.getCapability(context).governance.isTrue) {
+            val governanceDetailInfo = GovernanceDetailInfo(binding, viewThemeUtils, this)
+            governanceDetailInfo.init()
+        } else {
+            binding.governanceLayout.visibility = View.GONE
+        }
 
         return binding.root
     }
