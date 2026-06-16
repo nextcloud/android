@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">試著發送一條訊息來引發對話。</string>
     <string name="assistant_screen_empty_content_title">你好！今天我能幫你什麼忙呢？</string>
     <string name="assistant_screen_retry_response_generation">請重試回應生成</string>
-    <string name="assistant_screen_select_task">請選擇任務</string>
     <string name="assistant_screen_send_message">傳送訊息</string>
     <string name="assistant_screen_task_bar_open_conversation_list">打開對話清單</string>
     <string name="assistant_screen_task_create_fail_message">建立任務項目時發生錯誤</string>
@@ -113,7 +112,10 @@
     <string name="authenticator_activity_login_error">處理您的登入請求時出現問題。請稍後再試。</string>
     <string name="authenticator_activity_no_web_browser_found">沒有瀏覽器可以開啟此連結。</string>
     <string name="authenticator_activity_please_complete_login_process">請在瀏覽器中完成登入流程</string>
-    <string name="auto_upload_battery_saver_mode_warning">因為省電模式已開啟，因此暫停自動上傳。</string>
+    <string name="auto_upload_background_activity_action">允許背景活動</string>
+    <string name="auto_upload_battery_optimization_reason">Nextcloud 的背景活動受到電池優化限制。</string>
+    <string name="auto_upload_battery_saver_action">開啟省電模式設定</string>
+    <string name="auto_upload_battery_saver_reason">省電模式已啟用，可能會暫停上傳。</string>
     <string name="auto_upload_delete_dialog_description">此操作將刪除該資料夾及自動上傳設定。任何尚未完成的上傳作業都將被取消。</string>
     <string name="auto_upload_delete_dialog_title">刪除自動上傳資料夾？</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
@@ -257,7 +259,6 @@
     <string name="create_new_presentation">新簡報</string>
     <string name="create_new_spreadsheet">新試算表</string>
     <string name="create_rich_workspace">添加資料夾描述</string>
-    <string name="creates_rich_workspace">添加資料夾描述</string>
     <string name="credentials_disabled">認證方式已取消</string>
     <string name="daily_backup">每日備份</string>
     <string name="data_to_back_up">要備份的數據</string>
@@ -324,7 +325,6 @@
     <string name="drawer_item_on_device">在裝置上</string>
     <string name="drawer_item_personal_files">個人檔案</string>
     <string name="drawer_item_recent_files">最近的檔案</string>
-    <string name="drawer_item_recently_modified">最近修改</string>
     <string name="drawer_item_shared">已分享</string>
     <string name="drawer_item_trashbin">回收桶</string>
     <string name="drawer_item_uploads_list">上傳</string>
@@ -333,7 +333,6 @@
     <string name="drawer_quota">已用 %2$s 中的 %1$s</string>
     <string name="drawer_quota_unlimited">使用了 %1$s 的存儲空間</string>
     <string name="drawer_synced_folders">自動上傳</string>
-    <string name="due_to_too_many_wrong_attempts">由於嘗試過多而 %s</string>
     <string name="e2e_counter_too_old">計數器太舊</string>
     <string name="e2e_hash_not_found">未找到哈希值</string>
     <string name="e2e_not_yet_setup">尚未設定端到端加密</string>
@@ -445,7 +444,6 @@
     <string name="file_list_empty_on_device">下載的檔案跟資料夾會顯示這裡。</string>
     <string name="file_list_empty_recent_files_description">您最近修改的檔案和資料夾將顯示在此處。</string>
     <string name="file_list_empty_recent_files_headline">近期無修改檔案</string>
-    <string name="file_list_empty_recently_modified">沒有找到最近 7 日修改的檔案</string>
     <string name="file_list_empty_search">說不定它在其他的資料夾?</string>
     <string name="file_list_empty_shared">您分享的檔案跟資料夾會顯示在這裡。</string>
     <string name="file_list_empty_shared_headline">還沒有分享任何資料</string>
@@ -776,6 +774,7 @@
     <string name="prefs_manage_accounts">管理帳戶</string>
     <string name="prefs_recommend">向朋友推薦</string>
     <string name="prefs_remove_e2e">移除近端加密</string>
+    <string name="prefs_remove_e2e_keys_and_files">移除已加密檔案和密鑰</string>
     <string name="prefs_setup_e2e">設置端對端加密</string>
     <string name="prefs_show_ecosystem_apps">顯示應用程式切換器</string>
     <string name="prefs_show_ecosystem_apps_summary">導覽列中的 Nextcloud 應用程式建議</string>
@@ -815,6 +814,7 @@
     <string name="remote">﹙遠端﹚</string>
     <string name="remote_file_fetch_failed">找不到檔案！</string>
     <string name="remove_e2e">您可以在此客戶端上本地刪除端到端加密</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">此操作將會移除所有加密檔案、私鑰、公鑰。您確定嗎？</string>
     <string name="remove_e2e_message">您可以在此客戶端上本地刪除端到端加密。加密檔案將保留在伺服器上，但不會再同步到此電腦。</string>
     <string name="remove_fail_msg">刪除失敗</string>
     <string name="remove_local_account">移除近端帳戶</string>
@@ -861,7 +861,6 @@
     <string name="send">傳送</string>
     <string name="send_copy_to">傳送副本至</string>
     <string name="send_share">傳送分享</string>
-    <string name="sendbutton_description">傳送按鈕圖示</string>
     <string name="server_not_reachable">無法載入內容</string>
     <string name="server_not_reachable_content">裝置似乎無法連線至互聯網</string>
     <string name="set_as">設定為</string>
@@ -903,7 +902,6 @@
     <string name="share_option_required">請在繼續之前至少選擇一個分享選項。</string>
     <string name="share_permission_can_edit">可編輯</string>
     <string name="share_permission_file_request">檔案請求</string>
-    <string name="share_permission_secure_file_drop">安全檔案投放</string>
     <string name="share_permission_view_only">僅檢視</string>
     <string name="share_permissions">分享權限</string>
     <string name="share_re_share_permission">分享</string>
@@ -1042,7 +1040,6 @@
     <string name="translation_screen_start_to_translate_task">按下按鈕翻譯</string>
     <string name="translation_screen_task_processing">翻譯時間比預期長。</string>
     <string name="translation_screen_translating">正在翻譯 ...</string>
-    <string name="trashbin_activity_title">已刪除檔案</string>
     <string name="trashbin_empty_headline">無已刪除檔案</string>
     <string name="trashbin_empty_message">您可以從這裡還原已刪除的檔案</string>
     <string name="trashbin_file_not_deleted">檔案 %1$s 無法被刪除！</string>
@@ -1105,6 +1102,8 @@
     <string name="upload_local_storage_full">近端儲存空間已滿</string>
     <string name="upload_local_storage_not_copied">無法複製檔案到近端資料夾</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
+    <string name="upload_locked_message">伺服器忙碌。正在重試 …</string>
+    <string name="upload_locked_title">上傳進行中</string>
     <string name="upload_manually_cancelled">用戶已取消上傳</string>
     <string name="upload_missing_storage_permission_allow_file_access">允許所有檔案存取</string>
     <string name="upload_missing_storage_permission_app_permissions">應用程式權限</string>
@@ -1116,7 +1115,6 @@
     <string name="upload_query_move_foreign_files">空間不足導致無法將所選檔案複製到 %1$s 資料夾中。您想改為將檔案移到那裡嗎？</string>
     <string name="upload_quota_exceeded">超過儲存空間配額</string>
     <string name="upload_scan_doc_upload">使用相機掃描文件</string>
-    <string name="upload_sync_conflict">同步發生抵觸，請手動處理</string>
     <string name="upload_sync_conflict_check">您的上次上傳可能存在衝突。點擊檢查。</string>
     <string name="upload_sync_conflict_check_error">無法檢查上傳衝突。請重試。</string>
     <string name="upload_sync_conflict_checking">正在檢查上傳衝突……</string>
@@ -1168,7 +1166,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">找不到近端的檔案</string>
     <string name="uploads_view_upload_status_failed_permission_error">權限錯誤</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">不信任的伺服器憑證</string>
-    <string name="uploads_view_upload_status_fetching_server_version">取得伺服器的版本中...</string>
     <string name="uploads_view_upload_status_service_interrupted">App 中斷運作</string>
     <string name="uploads_view_upload_status_skip">略過</string>
     <string name="uploads_view_upload_status_skip_reason">已存在同名檔案。</string>
@@ -1267,17 +1264,14 @@
     <plurals name="items_selected_count">
         <item quantity="other">已選擇%d個</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="other">由於嘗試過多而延遲 %d 秒</item>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="other">由於錯誤嘗試次數過多，請於 %d 秒後再試。</item>
     </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="other">由於嘗試過多而延遲 %d 分鐘</item>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="other">由於錯誤嘗試次數過多，請於 %d 分鐘後再試。</item>
     </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="other">延遲 %d 分鐘</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="other">%d 秒</item>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="other">由於錯誤嘗試次數過多，請於%1$d分%2$d秒後再試。</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">剩 %1$d 個下載</item>

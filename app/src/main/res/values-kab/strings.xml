@@ -53,7 +53,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Kkes tawuri</string>
     <string name="assistant_screen_empty_content_description">Ɛreḍ ad tazneḍ izen akken ad tessenkreḍ adiwenni.</string>
     <string name="assistant_screen_empty_content_title">Azul dagi! Deg wacu i zemreɣ ad ak-d-muddeɣ tallelt ass-a?</string>
-    <string name="assistant_screen_select_task">Ttxil-k·m fren tawuri</string>
     <string name="assistant_screen_send_message">Azen izen</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Ldi tabdert n udiwenni</string>
     <string name="assistant_screen_task_create_fail_message">Teḍra-d tuccḍa di tmerna n twuri</string>
@@ -226,7 +225,6 @@
     <string name="create_new_presentation">Asenkid amaynut</string>
     <string name="create_new_spreadsheet">Ambellez amaynut </string>
     <string name="create_rich_workspace">Rnu aglam i ukaram</string>
-    <string name="creates_rich_workspace">Rnu aglam n ukaram</string>
     <string name="credentials_disabled">Isulay n tuqqna ttwasensen</string>
     <string name="daily_backup">Aḥraz n yal ass</string>
     <string name="data_to_back_up">Isefka i wuḥraz</string>
@@ -288,7 +286,6 @@
     <string name="drawer_item_notifications">Ilɣa</string>
     <string name="drawer_item_on_device">Ɣef yibenk</string>
     <string name="drawer_item_personal_files">Ifuyla udmawanen</string>
-    <string name="drawer_item_recently_modified">Yettwasenfel melmi kan</string>
     <string name="drawer_item_shared">Yettwabḍa</string>
     <string name="drawer_item_trashbin">Ifuyla yettwaksen</string>
     <string name="drawer_item_uploads_list">Ifuyla yettwaznen</string>
@@ -297,7 +294,6 @@
     <string name="drawer_quota">%1$s ɣef %2$s i yettwasqedcen</string>
     <string name="drawer_quota_unlimited">yettwaseqdec %1$s</string>
     <string name="drawer_synced_folders">Asali awurman</string>
-    <string name="due_to_too_many_wrong_attempts">%s ɣef sebba n ddeqs n uɛraḍ ur neddi ara</string>
     <string name="e2e_counter_too_old">Amsiḍen d aqbur aṭas</string>
     <string name="e2e_hash_not_found">Adway ur yettwaf ara</string>
     <string name="e2e_not_yet_setup">Ulac asbadu n E2E</string>
@@ -390,7 +386,6 @@
     <string name="file_list_empty_local_search">Ulac afaylu neɣ akaram inmeɣran akked unadi-ik·im.</string>
     <string name="file_list_empty_moving">Ulac d acu yellan da. Tzemreḍ ad ternuḍ akaram.</string>
     <string name="file_list_empty_on_device">Ifuyla d ikaramen yettwasidren ad d-banen da.</string>
-    <string name="file_list_empty_recently_modified">Ur d-nufi ara ifuyla ittwabeddelen di 7 wussan-a ineggura</string>
     <string name="file_list_empty_search">Ahat deg ukaram nniḍen?</string>
     <string name="file_list_empty_shared">Ifuyla akked ikaramen ara tebḍuḍ ad d-banen da.</string>
     <string name="file_list_empty_shared_headline">Ulac acu yettwabḍan yakan</string>
@@ -547,6 +542,7 @@
     <string name="media_notif_ticker">%1$s imeɣri n uẓawan</string>
     <string name="media_play_pause_description">Taqeffalt n tɣuṛi neɣ usarǧu</string>
     <string name="media_player_pause">Aḥbas</string>
+    <string name="media_player_play">Urar</string>
     <string name="media_rewind_description">Taqeffalt n tuɣalin </string>
     <string name="media_state_playing">%1$s (taɣuṛi)</string>
     <string name="menu_item_sort_by_date_newest_first">Imaynuten d imezwura</string>
@@ -633,12 +629,14 @@
     <string name="prefs_add_account">Rnu amiḍan</string>
     <string name="prefs_category_about">Γef</string>
     <string name="prefs_category_details">Talqayt</string>
+    <string name="prefs_category_files">Ifuyla</string>
     <string name="prefs_category_general">Amatu</string>
     <string name="prefs_category_more">Ugar</string>
     <string name="prefs_category_sync">Mtawi</string>
     <string name="prefs_help">Tallalt</string>
     <string name="prefs_license">Licence</string>
     <string name="prefs_lock_none">Ula d yiwen</string>
+    <string name="prefs_show_hidden_files">Sken-d ifuyla yeffren</string>
     <string name="prefs_sourcecode">Awi-d tangalt taɣbalut</string>
     <string name="prefs_synced_folders_local_path_title">Akaram adigan</string>
     <string name="prefs_theme_title">Asentel</string>
@@ -647,9 +645,11 @@
     <string name="prefs_value_theme_system">Am unagraw</string>
     <string name="privacy">Vie privée</string>
     <string name="recommend_urls">%1$s neɣ %2$s</string>
+    <string name="reload">Smiren</string>
     <string name="remove_push_notification">Kkes</string>
     <string name="remove_success_msg">Yettwakkes</string>
     <string name="rename_dialog_title">Sekcem isem amaynut</string>
+    <string name="restore_item">Err-it-id</string>
     <string name="retry">Ɛreḍ tikkelt-nniḍen</string>
     <string name="screenshot_04_accounts_heading">Akk imiḍan-ik·im</string>
     <string name="select_all">Fren akk</string>
@@ -668,20 +668,25 @@
     <string name="share_link_password_title">Sekcem awal n uɛeddi</string>
     <string name="share_link_with_label">Bḍu aseɣwen (%1$s)</string>
     <string name="share_no_password_title">Sbadu awal uffir</string>
+    <string name="share_permission_view_only">Askan kan</string>
     <string name="share_re_share_permission">Bḍu</string>
     <string name="share_read_permission">Taɣuri</string>
     <string name="share_settings">Iɣewwaṛen</string>
+    <string name="share_via_link_hide_download">Ffer asader</string>
     <string name="share_via_link_section_title">Fren aseɣwen</string>
     <string name="share_via_link_send_link_label">Azen aseɣwen</string>
     <string name="share_via_link_unset_password">Non défini</string>
     <string name="show_all">Sken-iten-id akk</string>
     <string name="show_images">Sken-d tiwlafin</string>
+    <string name="show_less">Ssken cwiṭ</string>
     <string name="show_video">Sken-d tividyutin</string>
     <string name="sort_by">Trier par</string>
     <string name="ssl_validator_btn_details_hide">Ffer</string>
     <string name="ssl_validator_btn_details_see">Talqayt</string>
     <string name="ssl_validator_label_C">Tamurt</string>
     <string name="ssl_validator_label_L">Adig:</string>
+    <string name="ssl_validator_label_issuer">Yettwasgel sɣur:</string>
+    <string name="ssl_validator_label_signature">Azmul:</string>
     <string name="ssl_validator_label_signature_algorithm">Awarzim:</string>
     <string name="ssl_validator_label_validity_from">Sɣur:</string>
     <string name="ssl_validator_label_validity_to">Ɣer:</string>
@@ -707,7 +712,6 @@
     <string name="thisWeek">Dduṛt agi</string>
     <string name="thumbnail">Aqmamaḍ</string>
     <string name="today">Ass-a</string>
-    <string name="trashbin_activity_title">Ifuyla yettwaksen</string>
     <string name="trashbin_file_remove">Kkes-it i lebda</string>
     <string name="two_way_sync_activity_title">Beṭṭu adigan asnilan</string>
     <string name="unknown">Arussin</string>
@@ -722,6 +726,7 @@
     <string name="uploader_btn_alternative_text">Fren</string>
     <string name="uploader_btn_upload_text">Sili</string>
     <string name="uploader_info_dirname">Isem n ukaram</string>
+    <string name="uploader_upload_failed_ticker">Tuccḍa deg usili</string>
     <string name="uploader_upload_in_progress_ticker">Asali …</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quitter</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Sbadu</string>
@@ -749,6 +754,7 @@
     <string name="version_dev_download">Sider</string>
     <string name="whats_new_skip">Ttu</string>
     <string name="whats_new_title">Amaynut deg %1$s</string>
+    <string name="widgets_not_available_title">Ulac</string>
     <string name="write_email">Azen imayl</string>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d n ukaram</item>

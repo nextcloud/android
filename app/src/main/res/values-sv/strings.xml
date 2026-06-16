@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Försök att skicka ett meddelande för att få igång en konversation.</string>
     <string name="assistant_screen_empty_content_title">Hej! Vad kan jag hjälpa dig med idag?</string>
     <string name="assistant_screen_retry_response_generation">Försök att generera svar igen</string>
-    <string name="assistant_screen_select_task">Vänligen välj uppgift</string>
     <string name="assistant_screen_send_message">Skicka meddelande</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Öppna konversationslista</string>
     <string name="assistant_screen_task_create_fail_message">Ett fel uppstod när uppgiften skapades</string>
@@ -113,7 +112,10 @@
     <string name="authenticator_activity_login_error">Det uppstod ett problem när din inloggningsförfrågan behandlades. Försök igen senare.</string>
     <string name="authenticator_activity_no_web_browser_found">Ingen webbläsare finns tillgänglig för att öppna denna länk.</string>
     <string name="authenticator_activity_please_complete_login_process">Slutför inloggningsprocessen i din webbläsare</string>
-    <string name="auto_upload_battery_saver_mode_warning">Automatisk uppladdning är pausad eftersom batterisparläge är aktiverat.</string>
+    <string name="auto_upload_background_activity_action">Tillåt bakgrundsaktivitet</string>
+    <string name="auto_upload_battery_optimization_reason">Nextcloud bakgrundsaktivitet begränsas av batterioptimering.</string>
+    <string name="auto_upload_battery_saver_action">Öppna inställningar för batterisparläge</string>
+    <string name="auto_upload_battery_saver_reason">Batterisparläge är aktivt och kan pausa uppladdningar.</string>
     <string name="auto_upload_delete_dialog_description">Detta tar bort mappen och konfigurationen för automatisk uppladdning. Alla pågående uppladdningar avbryts.</string>
     <string name="auto_upload_delete_dialog_title">Ta bort mapp för automatisk uppladdning?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
@@ -257,7 +259,6 @@
     <string name="create_new_presentation">Ny presentation</string>
     <string name="create_new_spreadsheet">Nytt kalkylblad</string>
     <string name="create_rich_workspace">Lägg till mappbeskrivning</string>
-    <string name="creates_rich_workspace">Lägger till mappbeskrivning</string>
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="daily_backup">Daglig säkerhetskopiering</string>
     <string name="data_to_back_up">Data att säkerhetskopiera</string>
@@ -324,7 +325,6 @@
     <string name="drawer_item_on_device">Filer på enheten</string>
     <string name="drawer_item_personal_files">Personliga filer</string>
     <string name="drawer_item_recent_files">Senaste filer</string>
-    <string name="drawer_item_recently_modified">Nyligen ändrad</string>
     <string name="drawer_item_shared">Delat</string>
     <string name="drawer_item_trashbin">Borttagna filer</string>
     <string name="drawer_item_uploads_list">Uppladdningar</string>
@@ -333,7 +333,6 @@
     <string name="drawer_quota">%1$s av %2$s använt</string>
     <string name="drawer_quota_unlimited">%1$s använt</string>
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
-    <string name="due_to_too_many_wrong_attempts">%s på grund av för många felaktiga försök</string>
     <string name="e2e_counter_too_old">Räknaren är för gammal</string>
     <string name="e2e_hash_not_found">Hash kunde inte hittas</string>
     <string name="e2e_not_yet_setup">E2E ej inställt än</string>
@@ -445,7 +444,6 @@
     <string name="file_list_empty_on_device">Nedladdade filer och mappar kommer att visas här.</string>
     <string name="file_list_empty_recent_files_description">Filer och mappar som du nyligen ändrat kommer att visas här.</string>
     <string name="file_list_empty_recent_files_headline">Inga nyligen ändrade filer</string>
-    <string name="file_list_empty_recently_modified">Hittade inga ändrade filer de senaste 7 dagarna</string>
     <string name="file_list_empty_search">Kanske finns den i en annan mapp?</string>
     <string name="file_list_empty_shared">Filer och mappar som du delar kommer visas här.</string>
     <string name="file_list_empty_shared_headline">Inget delat ännu</string>
@@ -777,6 +775,7 @@
     <string name="prefs_manage_accounts">Hantera konton</string>
     <string name="prefs_recommend">Rekommendera till en vän</string>
     <string name="prefs_remove_e2e">Ta bort kryptering lokalt</string>
+    <string name="prefs_remove_e2e_keys_and_files">Ta bort krypterade filer och nycklar</string>
     <string name="prefs_setup_e2e">Ställ in ände-till-ände-kryptering</string>
     <string name="prefs_show_ecosystem_apps">Visa appväxlare</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud-appförslag i navigeringsrubriken</string>
@@ -816,6 +815,7 @@
     <string name="remote">(fjärr)</string>
     <string name="remote_file_fetch_failed">Kunde inte hitta filen!</string>
     <string name="remove_e2e">Du kan ta bort ände-till-ände-kryptering lokalt på denna klient</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Den här åtgärden tar bort alla krypterade filer, privata och publika nycklar. Är du säker?</string>
     <string name="remove_e2e_message">Du kan ta bort ände-till-ände-kryptering lokalt på denna klienten. Krypterade filer kommer finnas kvar på servern, men kommer inte synkroniseras med denna enheten längre.</string>
     <string name="remove_fail_msg">Radering misslyckades</string>
     <string name="remove_local_account">Ta bort lokalt konto</string>
@@ -862,7 +862,6 @@
     <string name="send">Skicka</string>
     <string name="send_copy_to">Skicka kopia till</string>
     <string name="send_share">Skicka delning</string>
-    <string name="sendbutton_description">Ikonen för Skicka-knapp</string>
     <string name="server_not_reachable">Kunde inte ladda innehåll</string>
     <string name="server_not_reachable_content">Den här enheten är troligen inte ansluten till internet</string>
     <string name="set_as">Sätt som</string>
@@ -904,7 +903,6 @@
     <string name="share_option_required">Välj minst ett delningsalternativ innan du fortsätter.</string>
     <string name="share_permission_can_edit">Kan ändra</string>
     <string name="share_permission_file_request">Filförfrågan</string>
-    <string name="share_permission_secure_file_drop">Säkert filinkast</string>
     <string name="share_permission_view_only">Skrivskyddat läge</string>
     <string name="share_permissions">Delningsbehörigheter</string>
     <string name="share_re_share_permission">Dela</string>
@@ -1043,7 +1041,6 @@
     <string name="translation_screen_start_to_translate_task">Tryck på knappen för att översätta</string>
     <string name="translation_screen_task_processing">Översättningen tar längre tid än väntat.</string>
     <string name="translation_screen_translating">Översätter...</string>
-    <string name="trashbin_activity_title">Borttagna filer</string>
     <string name="trashbin_empty_headline">Inga borttagna filer</string>
     <string name="trashbin_empty_message">Du kan återställa borttagna filer här.</string>
     <string name="trashbin_file_not_deleted">Filen %1$s kunde inte tas bort!</string>
@@ -1106,6 +1103,8 @@
     <string name="upload_local_storage_full">Lokal lagring full</string>
     <string name="upload_local_storage_not_copied">Filen kunde inte kopieras till lokal lagringsplats</string>
     <string name="upload_lock_failed">Misslyckades låsa mappen</string>
+    <string name="upload_locked_message">Servern är upptagen. Försöker igen…</string>
+    <string name="upload_locked_title">Uppladdning pågår</string>
     <string name="upload_manually_cancelled">Uppladdningen avbröts av användaren</string>
     <string name="upload_missing_storage_permission_allow_file_access">Tillåt åtkomst till alla filer</string>
     <string name="upload_missing_storage_permission_app_permissions">App-behörigheter</string>
@@ -1117,7 +1116,6 @@
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s -mappen. Vill du flytta dem dit i stället?</string>
     <string name="upload_quota_exceeded">Lagringskvot överskriden</string>
     <string name="upload_scan_doc_upload">Slams dokument från kamera</string>
-    <string name="upload_sync_conflict">Synkroniseringskonflikt, lös problemet manuellt</string>
     <string name="upload_sync_conflict_check">Det kan finnas en konflikt från din senaste uppladdning. Tryck för att kontrollera.</string>
     <string name="upload_sync_conflict_check_error">Kunde inte kontrollera uppladdningskonflikter. Försök igen.</string>
     <string name="upload_sync_conflict_checking">Kontrollerar uppladdningskonflikter…</string>
@@ -1169,7 +1167,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokal fil hittades inte</string>
     <string name="uploads_view_upload_status_failed_permission_error">Behörighetsfel</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Otillförlitligt servercertifikat</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Hämtar serverversion</string>
     <string name="uploads_view_upload_status_service_interrupted">App avslutad</string>
     <string name="uploads_view_upload_status_skip">Överhoppad</string>
     <string name="uploads_view_upload_status_skip_reason">En fil med samma namn finns redan.</string>
@@ -1288,21 +1285,17 @@
         <item quantity="one">%d vald</item>
         <item quantity="other">%d valda</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Fördröjd %d sekund på grund av för många felaktiga försök</item>
-        <item quantity="other">Fördröjd %d sekunder på grund av för många felaktiga försök</item>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Försök igen om %d sekund på grund av för många felaktiga försök</item>
+        <item quantity="other">Försök igen om %d sekunder på grund av för många felaktiga försök</item>
     </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Fördröjd %d minut på grund av för många felaktiga försök</item>
-        <item quantity="other">Fördröjd %d minuter på grund av för många felaktiga försök</item>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Försök igen om %d minut på grund av för många felaktiga försök</item>
+        <item quantity="other">Försök igen om %d minuter på grund av för många felaktiga försök</item>
     </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Fördröjd %d minut</item>
-        <item quantity="other">Fördröjd %d minuter</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d sekund</item>
-        <item quantity="other">%d sekunder</item>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Försök igen om %1$d minut och %2$d sekunder på grund av för många felaktiga försök</item>
+        <item quantity="other">Försök igen om %1$d minuter och %2$d sekunder på grund av för många felaktiga försök</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d återstående nedladdning</item>

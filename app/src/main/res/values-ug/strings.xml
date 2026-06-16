@@ -102,7 +102,6 @@
     <string name="authenticator_activity_login_error">كىرىش تەلىپىڭىزنى بىر تەرەپ قىلىشتا مەسىلە كۆرۈلدى. كېيىن قايتا سىناڭ.</string>
     <string name="authenticator_activity_no_web_browser_found">بۇ ئۇلىنىشنى ئاچىدىغان تور كۆرگۈ تېپىلمىدى.</string>
     <string name="authenticator_activity_please_complete_login_process">تور كۆرگۈچىڭىزدە كىرىش جەريانىنى تاماملاڭ</string>
-    <string name="auto_upload_battery_saver_mode_warning">باتارىيە تېجىگۈچ ئۇچۇق بولغانلىقتىن ئاپتۇماتىك چىقىرىش توختىتىپ قۇيۇلدى.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ئەسلى ھۆججەت قىسقۇچتا ساقلىنىدۇ</string>
     <string name="auto_upload_low_battery_warning_info">باتارىيە تۆۋەن، چىقىرىشقا ئۇزۇنراق ۋاقىت كىتىشى مۇمكىن</string>
     <string name="auto_upload_on_wifi">پەقەت ئۆلچەمسىز Wi-Fi غا يۈكلەڭ</string>
@@ -241,7 +240,6 @@
     <string name="create_new_presentation">يېڭى تونۇشتۇرۇش</string>
     <string name="create_new_spreadsheet">يېڭى ئېلېكترونلۇق جەدۋەل</string>
     <string name="create_rich_workspace">ھۆججەت قىسقۇچ چۈشەندۈرۈشىنى قوشۇڭ</string>
-    <string name="creates_rich_workspace">ھۆججەت قىسقۇچ چۈشەندۈرۈشىنى قوشىدۇ</string>
     <string name="credentials_disabled">كىنىشكىسى چەكلەنگەن</string>
     <string name="daily_backup">كۈندىلىك زاپاسلاش</string>
     <string name="data_to_back_up">زاپاسلاش ئۈچۈن سانلىق مەلۇمات</string>
@@ -307,7 +305,6 @@
     <string name="drawer_item_notifications">ئۇقتۇرۇش</string>
     <string name="drawer_item_on_device">ئۈسكۈنىدە</string>
     <string name="drawer_item_personal_files">شەخسىي ھۆججەتلەر</string>
-    <string name="drawer_item_recently_modified">يېقىندا ئۆزگەرتىلدى</string>
     <string name="drawer_item_shared">ئورتاقلاشتى</string>
     <string name="drawer_item_trashbin">ئۆچۈرۈلگەن ھۆججەتلەر</string>
     <string name="drawer_item_uploads_list">يۈكلەش</string>
@@ -316,7 +313,6 @@
     <string name="drawer_quota">ئىشلىتىلگەن %2$s نىڭ%1$s</string>
     <string name="drawer_quota_unlimited">%1$s ئىشلىتىلگەن</string>
     <string name="drawer_synced_folders">ئاپتوماتىك يوللاش</string>
-    <string name="due_to_too_many_wrong_attempts">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %s</string>
     <string name="e2e_counter_too_old">Counter بەك كونا</string>
     <string name="e2e_hash_not_found">Hash تېپىلمىدى</string>
     <string name="e2e_not_yet_setup">E2E تېخى تەڭشەلمىدى</string>
@@ -425,7 +421,6 @@
     <string name="file_list_empty_on_device">چۈشۈرۈلگەن ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
     <string name="file_list_empty_recent_files_description">سىز يېقىندا ئۆزگەرتكەن ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
     <string name="file_list_empty_recent_files_headline">يېقىندا ئۆزگەرتىلگەن ھۆججەت يوق</string>
-    <string name="file_list_empty_recently_modified">يېقىنقى 7 كۈن ئىچىدە ئۆزگەرتىلگەن ھۆججەت تېپىلمىدى</string>
     <string name="file_list_empty_search">بەلكىم ئۇ باشقا ھۆججەت قىسقۇچتا بولۇشى مۇمكىن؟</string>
     <string name="file_list_empty_shared">سىز ئورتاقلاشقان ھۆججەت ۋە ھۆججەت قىسقۇچلار بۇ يەردە كۆرۈنىدۇ.</string>
     <string name="file_list_empty_shared_headline">ھازىرچە ھېچقانداق نەرسە ئورتاقلاشمىدى</string>
@@ -833,7 +828,6 @@
     <string name="send">ئەۋەتىڭ</string>
     <string name="send_copy_to">كۆچۈرمىسىنى ئەۋەت</string>
     <string name="send_share">ھەمبەھىر ئەۋەتىش</string>
-    <string name="sendbutton_description">كۇنۇپكا سىنبەلگىسىنى ئەۋەتىڭ</string>
     <string name="server_not_reachable">مەزمۇننى يۈكلىيەلمىدى</string>
     <string name="server_not_reachable_content">بۇ ئۈسكۈنە ئىنتىرنېتقا ئۇلانمىغاندەك تۇرىدۇ</string>
     <string name="set_as">تەڭشەك</string>
@@ -875,7 +869,6 @@
     <string name="share_option_required">داۋاملاشتۇرۇشتىن بۇرۇن ئەڭ كەمدە بىر ئورتاقلىشىش تاللانمىسىنى تاللاڭ.</string>
     <string name="share_permission_can_edit">تەھرىرلىيەلەيدۇ</string>
     <string name="share_permission_file_request">ھۆججەت تەلىپى</string>
-    <string name="share_permission_secure_file_drop">بىخەتەر ھۆججەت چۈشۈرۈش</string>
     <string name="share_permission_view_only">پەقەت كۆرۈش</string>
     <string name="share_permissions">ھەمبەھىرلەش ئىجازەتلىرى</string>
     <string name="share_re_share_permission">ھەمبەھىرلەش</string>
@@ -1005,7 +998,6 @@
     <string name="thumbnail_for_new_file_desc">يېڭى ھۆججەتنىڭ كىچىك كۆرۈنۈشى</string>
     <string name="timeout_richDocuments">يۈكلەش مۆلچەردىكىدىن ئۇزۇنراق</string>
     <string name="today">بۈگۈن</string>
-    <string name="trashbin_activity_title">ئۆچۈرۈلگەن ھۆججەتلەر</string>
     <string name="trashbin_empty_headline">ئۆچۈرۈلگەن ھۆججەت يوق</string>
     <string name="trashbin_empty_message">ئۆچۈرۈلگەن ھۆججەتلەرنى بۇ يەردىن ئەسلىگە كەلتۈرەلەيسىز.</string>
     <string name="trashbin_file_not_deleted">%1$s ھۆججەتنى ئۆچۈرگىلى بولمايدۇ!</string>
@@ -1078,7 +1070,6 @@
     <string name="upload_query_move_foreign_files">بوشلۇق يېتەرلىك بولمىسا تاللانغان ھۆججەتلەرنى%1$s ھۆججەت قىسقۇچىغا كۆچۈرۈپ كېتىشنىڭ ئالدىنى ئالىدۇ. ئۇلارنىڭ ئورنىغا ئۇلارنى يۆتكىمەكچىمۇ؟</string>
     <string name="upload_quota_exceeded">ساقلاش نورمىسى ئېشىپ كەتتى</string>
     <string name="upload_scan_doc_upload">كامېرادىن ھۆججەتنى سايىلەڭ</string>
-    <string name="upload_sync_conflict">ماس قەدەملىك توقۇنۇشنى قولدا ھەل قىلىڭ</string>
     <string name="upload_unknown_error">نامەلۇم خاتالىق</string>
     <string name="uploader_btn_alternative_text">تاللاڭ</string>
     <string name="uploader_btn_upload_text">يۈكلە</string>
@@ -1125,7 +1116,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">يەرلىك ھۆججەت تېپىلمىدى</string>
     <string name="uploads_view_upload_status_failed_permission_error">ئىجازەت خاتالىقى</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">ئىشەنچسىز مۇلازىمېتىر گۇۋاھنامىسى</string>
-    <string name="uploads_view_upload_status_fetching_server_version">مۇلازىمېتىر نۇسخىسىنى ئېلىش…</string>
     <string name="uploads_view_upload_status_service_interrupted">ئەپ ئاخىرلاشتى</string>
     <string name="uploads_view_upload_status_skip">ئاتلا</string>
     <string name="uploads_view_upload_status_skip_reason">ئوخشاش ئىسىمدىكى ھۆججەت ئاللىبۇرۇن مەۋجۇت</string>
@@ -1243,22 +1233,6 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d تاللاندى</item>
         <item quantity="other">%d تاللاندى</item>
-    </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %d سىكۇنت كېچىكتۈرۈلدى</item>
-        <item quantity="other">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %d سىكۇنت كېچىكتۈرۈلدى</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %d مىنۇت كېچىكتۈرۈلدى</item>
-        <item quantity="other">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن %d مىنۇت كېچىكتۈرۈلدى</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">%d مىنۇت كېچىكتۈرۈلدى</item>
-        <item quantity="other">%d مىنۇت كېچىكتۈرۈلدى</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d سېكۇنت</item>
-        <item quantity="other">%d سېكۇنت</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d چۈشۈرۈش قالدى</item>

@@ -179,7 +179,6 @@
     <string name="drawer_item_home">Hejmo</string>
     <string name="drawer_item_notifications">Sciigoj</string>
     <string name="drawer_item_on_device">Sur aparato</string>
-    <string name="drawer_item_recently_modified">Modifitaj antaŭ nelonge</string>
     <string name="drawer_item_shared">Kunhavataj</string>
     <string name="drawer_item_trashbin">Forigitaj dosieroj</string>
     <string name="drawer_item_uploads_list">Alŝutoj</string>
@@ -438,7 +437,6 @@
     <string name="select_all">Elekti ĉion</string>
     <string name="select_template">Elekti ŝablonon</string>
     <string name="send">Sendi</string>
-    <string name="sendbutton_description">Piktogramo de sendo-butono</string>
     <string name="set_as">Uzi kiel</string>
     <string name="set_picture_as">Uzi la bildon kiel</string>
     <string name="share">Kunhavigi</string>
@@ -544,7 +542,6 @@
     <string name="thisWeek">Ĉi semajno</string>
     <string name="thumbnail">Miniaturo</string>
     <string name="today">Hodiaŭ</string>
-    <string name="trashbin_activity_title">Forigitaj dosieroj</string>
     <string name="trashbin_empty_headline">Neniu forigita dosiero</string>
     <string name="trashbin_file_not_deleted">Dosiero %1$s ne povis esti forigita!</string>
     <string name="trashbin_file_not_restored">Dosiero %1$s ne povis esti restaŭrita!</string>
@@ -580,7 +577,6 @@
     <string name="upload_local_storage_not_copied">Dosiero ne eblis kopiiĝi al loka konservejo</string>
     <string name="upload_lock_failed">Ŝlosado de dosierujo malsukcesis</string>
     <string name="upload_query_move_foreign_files">Nesufiĉa spaco malebligis kopiadon de la elektitaj dosieroj al dosierujo %1$s. Ĉu vi volas movi ilin tien anstataŭe?</string>
-    <string name="upload_sync_conflict">Sinkroniga konflikto; bv. solvi ĝin permane</string>
     <string name="upload_unknown_error">Nekonata eraro</string>
     <string name="uploader_btn_alternative_text">Elekti</string>
     <string name="uploader_btn_upload_text">Alŝuti</string>

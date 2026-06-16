@@ -48,7 +48,6 @@
     <string name="assistant_screen_empty_content_description">ลองส่งข้อความเพื่อเริ่มต้นบทสนทนาดูสิ</string>
     <string name="assistant_screen_empty_content_title">สวัสดี! วันนี้ฉันสามารถช่วยอะไรคุณได้บ้าง?</string>
     <string name="assistant_screen_retry_response_generation">ลองสร้างการตอบสนองใหม่อีกครั้ง</string>
-    <string name="assistant_screen_select_task">โปรดเลือกงาน</string>
     <string name="assistant_screen_send_message">ส่งข้อความ</string>
     <string name="assistant_task_status_unknown">ไม่รู้จัก</string>
     <string name="associated_account_not_found">ไม่พบบัญชีที่เกี่ยวข้อง!</string>
@@ -242,7 +241,6 @@
     <string name="drawer_item_notifications">การแจ้งเตือน</string>
     <string name="drawer_item_on_device">บนอุปกรณ์</string>
     <string name="drawer_item_personal_files">ไฟล์ส่วนตัว</string>
-    <string name="drawer_item_recently_modified">แก้ไขล่าสุด</string>
     <string name="drawer_item_shared">ถูกแชร์</string>
     <string name="drawer_item_trashbin">ไฟล์ที่ถูกลบ</string>
     <string name="drawer_item_uploads_list">อัปโหลด</string>
@@ -291,7 +289,6 @@
     <string name="file_list_empty_headline_server_search">ไม่มีผลลัพธ์</string>
     <string name="file_list_empty_moving">ไม่มีอะไรในนี้ คุณสามารถเพิ่มโฟลเดอร์ได้</string>
     <string name="file_list_empty_on_device">ไฟล์และโฟลเดอร์ที่ดาวน์โหลดจะปรากฏที่นี่</string>
-    <string name="file_list_empty_recently_modified">ไม่พบไฟล์ที่มีการแก้ไขในช่วง 7 วันที่ผ่านมา</string>
     <string name="file_list_empty_search">มันอาจจะอยู่ในโฟลเดอร์อื่น</string>
     <string name="file_list_empty_shared">ไฟล์และโฟลเดอร์ที่คุณแชร์จะปรากฏที่นี่</string>
     <string name="file_list_empty_shared_headline">ยังไม่มีการแชร์</string>
@@ -586,7 +583,6 @@
     <string name="thumbnail_for_existing_file_description">ภาพขนาดย่อสำหรับไฟล์ที่มีอยู่</string>
     <string name="thumbnail_for_new_file_desc">ภาพขนาดย่อสำหรับไฟล์ใหม่</string>
     <string name="today">วันนี้</string>
-    <string name="trashbin_activity_title">ไฟล์ที่ถูกลบ</string>
     <string name="trashbin_empty_headline">ไม่มีไฟล์ที่ถูกลบ</string>
     <string name="trashbin_file_remove">ลบแบบถาวร</string>
     <string name="unknown">ไม่ทราบ</string>
@@ -605,7 +601,6 @@
     <string name="upload_list_delete">ลบ</string>
     <string name="upload_local_storage_full">พื้นที่จัดเก็บข้อมูลภายในเครื่องเต็ม</string>
     <string name="upload_scan_doc_upload">แสกนเอกสารโดยใช้กล้อง</string>
-    <string name="upload_sync_conflict">เกิดข้อขัดแย้งของการซิงค์ โปรดแก้ไขด้วยตนเอง</string>
     <string name="upload_unknown_error">ข้อผิดพลาดที่ไม่รู้จัก</string>
     <string name="uploader_btn_alternative_text">เลือก</string>
     <string name="uploader_btn_upload_text">อัปโหลด</string>

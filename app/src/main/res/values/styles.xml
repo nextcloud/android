@@ -247,6 +247,7 @@
 
     <style name="Theme.ownCloud.Media" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:colorControlHighlight">@color/primary</item>
     </style>
 
     <style name="ToolbarStyle.Overflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
@@ -291,6 +292,13 @@
     <style name="Theme.ownCloud.Dialog.NoTitle" parent="@style/Theme.ownCloud.Dialog">
         <item name="windowNoTitle">true</item>
         <item name="colorAccent">@color/color_accent</item>
+    </style>
+
+    <style name="Theme.ownCloud.ShareDialog" parent="@style/Theme.ownCloud.Dialog.NoTitle">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
     </style>
 
     <style name="NavigationView_ItemTextAppearance">
@@ -491,4 +499,9 @@
         <item name="postSplashScreenTheme">@style/Theme.ownCloud.Launcher</item>
     </style>
 
+
+    <style name="Dialog.FullscreenVideo" parent="android:Theme.Material.NoActionBar.Fullscreen">
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:colorControlHighlight">@color/primary</item>
+    </style>
 </resources>

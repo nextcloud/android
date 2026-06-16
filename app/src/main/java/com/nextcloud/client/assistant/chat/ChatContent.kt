@@ -9,6 +9,7 @@
 
 package com.nextcloud.client.assistant.chat
 
+import android.content.ClipData
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -17,6 +18,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,6 +38,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -43,11 +47,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalClipboard
+import androidx.compose.ui.platform.toClipEntry
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -60,6 +70,7 @@ import com.nextcloud.utils.TimeConstants
 import com.nextcloud.utils.extensions.time
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
+import kotlinx.coroutines.launch
 import java.time.Instant
 
 private val MIN_CHAT_HEIGHT = 60.dp
@@ -341,6 +352,32 @@ private fun TypingAnimation() {
 }
 
 @Composable
+private fun CopyableMessageBubble(text: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    var showMenu by remember { mutableStateOf(false) }
+    val clipboard = LocalClipboard.current
+    val scope = rememberCoroutineScope()
+
+    Box(
+        modifier = modifier
+            .combinedClickable(onClick = {}, onLongClick = { showMenu = true })
+    ) {
+        content()
+        DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.common_copy)) },
+                onClick = {
+                    scope.launch {
+                        val plainText = ClipData.newPlainText(null, text).toClipEntry()
+                        clipboard.setClipEntry(plainText)
+                    }
+                    showMenu = false
+                }
+            )
+        }
+    }
+}
+
+@Composable
 private fun AssistantMessageItem(message: ChatMessage) {
     Box(
         modifier = Modifier
@@ -363,7 +400,8 @@ private fun AssistantMessageItem(message: ChatMessage) {
                     alignment = Alignment.Center
                 )
             }
-            Box(
+            CopyableMessageBubble(
+                text = message.content,
                 modifier = Modifier
                     .padding(start = 8.dp, end = 16.dp)
                     .defaultMinSize(minHeight = MIN_CHAT_HEIGHT)
@@ -390,7 +428,8 @@ private fun UserMessageItem(message: ChatMessage) {
             .fillMaxWidth(),
         contentAlignment = Alignment.CenterEnd
     ) {
-        Box(
+        CopyableMessageBubble(
+            text = message.content,
             modifier = Modifier
                 .padding(start = 16.dp, end = 8.dp)
                 .defaultMinSize(minHeight = MIN_CHAT_HEIGHT)

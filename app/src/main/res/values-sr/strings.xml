@@ -97,7 +97,6 @@
     <string name="authenticator_activity_login_error">Дошло је до проблема при обради вашег захтева за пријаву. Молимо вас да касније покушате поново.</string>
     <string name="authenticator_activity_no_web_browser_found">Ниједан прегледач не може да отвори овај линк.</string>
     <string name="authenticator_activity_please_complete_login_process">Молимо вас да довршите процес пријаве у интернет прегледачу</string>
-    <string name="auto_upload_battery_saver_mode_warning">Ауто-отпремање је паузирано јер је укључена Штедња батерије.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">остављен у оригиналној фасцикли јер је само за читање</string>
     <string name="auto_upload_low_battery_warning_info">Низак ниво батерије, отпремање би могло да потраје дуже</string>
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама без ограничења</string>
@@ -232,7 +231,6 @@
     <string name="create_new_presentation">Нова презентација</string>
     <string name="create_new_spreadsheet">Нова табела</string>
     <string name="create_rich_workspace">Додај опис фолдера</string>
-    <string name="creates_rich_workspace">Додаје опис фолдера</string>
     <string name="credentials_disabled">Акредитиви искључени</string>
     <string name="daily_backup">Дневна резервна копија</string>
     <string name="data_to_back_up">Подаци који се чувају</string>
@@ -298,7 +296,6 @@
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_item_on_device">На уређају</string>
     <string name="drawer_item_personal_files">Лични фајлови</string>
-    <string name="drawer_item_recently_modified">Недавно измењено</string>
     <string name="drawer_item_shared">Дељено</string>
     <string name="drawer_item_trashbin">Обрисани фајлови</string>
     <string name="drawer_item_uploads_list">Отпремања</string>
@@ -307,7 +304,6 @@
     <string name="drawer_quota">%1$s од %2$s заузето</string>
     <string name="drawer_quota_unlimited">%1$s искоришћено</string>
     <string name="drawer_synced_folders">Аутоматска отпремања</string>
-    <string name="due_to_too_many_wrong_attempts">%s услед превише неуспелих покушаја</string>
     <string name="e2e_counter_too_old">Бројач је сувише стар</string>
     <string name="e2e_hash_not_found">Није пронађен хеш</string>
     <string name="e2e_not_yet_setup">E2E још увек није подешено</string>
@@ -413,7 +409,6 @@
     <string name="file_list_empty_on_device">Преузети фајлови и фасцикле ће се појавити овде.</string>
     <string name="file_list_empty_recent_files_description">Овде ће се појавити фајлови и фолдери које сте недавно изменили.</string>
     <string name="file_list_empty_recent_files_headline">Нема недавно промењених фајлова</string>
-    <string name="file_list_empty_recently_modified">Нема фајлова измењених у последњих 7 дана</string>
     <string name="file_list_empty_search">Можда су у некој другој фасцикли?</string>
     <string name="file_list_empty_shared">Фајлови и фасцикле које делите појавиће се овде.</string>
     <string name="file_list_empty_shared_headline">Још се ништа не дели</string>
@@ -813,7 +808,6 @@
     <string name="select_template">Одаберите шаблон</string>
     <string name="send">Пошаљи</string>
     <string name="send_share">Пошаљи дељење</string>
-    <string name="sendbutton_description">Икона за слање</string>
     <string name="server_not_reachable">Није могао да се учита садржај</string>
     <string name="server_not_reachable_content">Изгледа да уређај није повезан са интернетом</string>
     <string name="set_as">Постави као</string>
@@ -855,7 +849,6 @@
     <string name="share_option_required">Пре него што наставите, молимо вас да изаберете барем једну опцију дељења.</string>
     <string name="share_permission_can_edit">Може да уређује</string>
     <string name="share_permission_file_request">Захтев за фајл</string>
-    <string name="share_permission_secure_file_drop">Сигурно место за упуштање фајлова</string>
     <string name="share_permission_view_only">Само преглед</string>
     <string name="share_permissions">Дозволе за дељење</string>
     <string name="share_re_share_permission">Пдели</string>
@@ -981,7 +974,6 @@
     <string name="thumbnail_for_new_file_desc">Сличица за нови фајл</string>
     <string name="timeout_richDocuments">Учитавање траје дуже него што се то очекује</string>
     <string name="today">Данас</string>
-    <string name="trashbin_activity_title">Обрисани фајлови</string>
     <string name="trashbin_empty_headline">Нема обрисаних фајлова</string>
     <string name="trashbin_empty_message">Одавде ћете моћи да повратите обрисане фајлове.</string>
     <string name="trashbin_file_not_deleted">Фајл %1$s не може да се обрише!</string>
@@ -1054,7 +1046,6 @@
     <string name="upload_query_move_foreign_files">Недостатак простора  спречава копирање фајлова у фасциклу %1$s. Желите ли да их преместите тамо?</string>
     <string name="upload_quota_exceeded">Прекорачена је квота за складиште</string>
     <string name="upload_scan_doc_upload">Скенирање документа камером</string>
-    <string name="upload_sync_conflict">Сукоб синхронизације. Разрешите га ручно</string>
     <string name="upload_unknown_error">Непозната грешка</string>
     <string name="uploader_btn_alternative_text">Одабери</string>
     <string name="uploader_btn_upload_text">Отпреми</string>
@@ -1101,7 +1092,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Локални фајл није нађен</string>
     <string name="uploads_view_upload_status_failed_permission_error">Грешка дозвола</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Серверски сертификат није од поверења</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Добављам серверску верзију…</string>
     <string name="uploads_view_upload_status_service_interrupted">Апликација прекинута</string>
     <string name="uploads_view_upload_status_succeeded">Завршено</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Исти фајл је пронађен на удаљеном серверу, отпремање се прескаче</string>
@@ -1232,26 +1222,6 @@
         <item quantity="one">%d одабран</item>
         <item quantity="few">%d одабрана</item>
         <item quantity="other">%d одабраних</item>
-    </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Задржано %d секунду услед превише неуспелих покушаја</item>
-        <item quantity="few">Задржано %d секунде услед превише неуспелих покушаја</item>
-        <item quantity="other">Задржано %d секунди услед превише неуспелих покушаја</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Задржано %d минут услед превише неуспелих покушаја</item>
-        <item quantity="few">Задржано %d минута услед превише неуспелих покушаја</item>
-        <item quantity="other">Задржано %d минута услед превише неуспелих покушаја</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Задржано %d минут</item>
-        <item quantity="few">Задржано %d минута</item>
-        <item quantity="other">Задржано %d минута</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d секунда</item>
-        <item quantity="few">%d секунди</item>
-        <item quantity="other">%d секунди</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">преостаје још %1$d преузимање</item>

@@ -99,7 +99,6 @@
     <string name="authenticator_activity_login_error">There was an issue processing your login request. Please try again later.</string>
     <string name="authenticator_activity_no_web_browser_found">No browser is available to open this link.</string>
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
-    <string name="auto_upload_battery_saver_mode_warning">Auto-upload is paused because Battery Saver is on.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ເກັບໄວ້ໃນໂຟນເດີດັ້ງເດີມ, ເປັນຮຸບແບບອ່ານຢ່າງດຽວ</string>
     <string name="auto_upload_low_battery_warning_info">Low battery, upload might take longer</string>
     <string name="auto_upload_on_wifi">ພຽງແຕ່ອັບໂຫຼດໃນ Wi-Fi ເທົ່ານັ້ນ</string>
@@ -235,7 +234,6 @@
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
     <string name="create_rich_workspace">Add folder description</string>
-    <string name="creates_rich_workspace">Adds folder description</string>
     <string name="credentials_disabled">ຂໍ້ມູນປະຈໍາຕົວຖືກປິດ</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
@@ -301,7 +299,6 @@
     <string name="drawer_item_notifications">ການເເຈ້ງເຕືອນ</string>
     <string name="drawer_item_on_device">ເທິງອຸປະກອນ</string>
     <string name="drawer_item_personal_files">Personal files</string>
-    <string name="drawer_item_recently_modified">ແປງລ່າສຸດ</string>
     <string name="drawer_item_shared">ແບ່ງປັນ</string>
     <string name="drawer_item_trashbin">ລຶບຟາຍ</string>
     <string name="drawer_item_uploads_list">ອັບໂຫຼດ</string>
@@ -310,7 +307,6 @@
     <string name="drawer_quota">ນຳໃຊ້ %1$sຂອງ%2$s</string>
     <string name="drawer_quota_unlimited">ນຳໃຊ້%1$s</string>
     <string name="drawer_synced_folders">ອັບໂຫຼດອັດຕະໂນມັດ</string>
-    <string name="due_to_too_many_wrong_attempts">%s due to too many wrong attempts</string>
     <string name="e2e_counter_too_old">Counter is too old</string>
     <string name="e2e_hash_not_found">Hash not found</string>
     <string name="e2e_not_yet_setup">E2E not yet setup</string>
@@ -416,7 +412,6 @@
     <string name="file_list_empty_on_device">ຟາຍແລະ ໂຟນ ເດີທີ່ດາວໂຫຼດ  ຈະສະແດງໃຫ້ເຫັນຢູ່ທີ່ນີ້ .</string>
     <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
     <string name="file_list_empty_recent_files_headline">No recently modified files</string>
-    <string name="file_list_empty_recently_modified">ບໍ່ພົບຟາຍດັດແປງພາຍໃນ 7 ວັນລ່າສຸດ</string>
     <string name="file_list_empty_search">ບາງທີອາດຢູ່ໃນໂຟນເດີທີ່ແຕກຕ່າງກັນ?</string>
     <string name="file_list_empty_shared">ຟາຍ ແລະ ໂຟນເດີ ທີ່ ທ່ານແບ່ງປັນຈະສະແດງ ໃຫ້ເຫັນຢູ່ທີ່ນີ້</string>
     <string name="file_list_empty_shared_headline">ຍັງບໍ່ມີການແບ່ງປັນເທື່ອ</string>
@@ -819,7 +814,6 @@
     <string name="select_template">ເລືອກຕົວຢ່າງ</string>
     <string name="send">ສົ່ງ</string>
     <string name="send_share">Send share</string>
-    <string name="sendbutton_description">ສົ່ງປຸ່ມ icon</string>
     <string name="server_not_reachable">Could not load content</string>
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="set_as">ຕັ້ງຄ່າເປັນ</string>
@@ -861,7 +855,6 @@
     <string name="share_option_required">Please select at least one sharing option before continuing.</string>
     <string name="share_permission_can_edit">ແກ້ໄຂໄດ້</string>
     <string name="share_permission_file_request">ຄຳຂໍໄຟລ໌</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">ເບິ່ງເທົ່ານັ້ນ</string>
     <string name="share_permissions">Share permissions</string>
     <string name="share_re_share_permission">ແບ່ງປັນ</string>
@@ -987,7 +980,6 @@
     <string name="thumbnail_for_new_file_desc">ຮຸບຂະໜາດຫຍໍ້ຂອງຟາຍໃໝ່</string>
     <string name="timeout_richDocuments">Loading is taking longer than expected</string>
     <string name="today">ມື້ນີ້</string>
-    <string name="trashbin_activity_title">ຟາຍທີ່ ຖືກ ລຶບ</string>
     <string name="trashbin_empty_headline">ບໍ່ມີຟາຍທີ່ຖືກລຶບອອກ</string>
     <string name="trashbin_empty_message">ທ່ານຈະສາມາດກຸ້ຟາຍທີ່ຖືກລຶບອອກຈາກທີ່ນີ້.</string>
     <string name="trashbin_file_not_deleted">ຟາຍ%1$sບໍ່ສາມາດລຶບໄດ້!</string>
@@ -1060,7 +1052,6 @@
     <string name="upload_query_move_foreign_files">ພື້ນທີ່ບໍ່ພຽງພໍ ໃນການສໍາເນົາຟາຍທີ່ເລືອກເຂົ້າໄປໃນໂຟນເດີ %1$s. ທ່ານຕ້ອງຍ້າຍໄປຢູ່ຫັ້ນແທນບໍ?</string>
     <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
-    <string name="upload_sync_conflict">Syncຜິດພາດ, ກະລຸນາແກ້ໄຂດ້ວຍມື</string>
     <string name="upload_unknown_error">ຜິດພາດທີ່ບໍ່ຮູ້ຈັກ</string>
     <string name="uploader_btn_alternative_text">ເລືອກ</string>
     <string name="uploader_btn_upload_text">ອັບໂຫຼດ</string>
@@ -1107,7 +1098,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">ບໍ່ພົບຟາຍ</string>
     <string name="uploads_view_upload_status_failed_permission_error">ການອະນຸຍາດຜິດພາດ</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">ໃບຢັ້ງຢືນເຊີເວີ ບໍ່ໜ້າເຊື່ອຖື</string>
-    <string name="uploads_view_upload_status_fetching_server_version">ກຳລັງນໍາເອົາເວີຊັ້ນເຊີເວີມາ</string>
     <string name="uploads_view_upload_status_service_interrupted">ແອັບ ໄດ້ຖືກຍົກເລີກ</string>
     <string name="uploads_view_upload_status_skip">Skipped</string>
     <string name="uploads_view_upload_status_skip_reason">A file with the same name already exists.</string>
@@ -1205,18 +1195,6 @@
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="other">ເລືອກ%d</item>
-    </plurals>
-    <plurals name="delay_message">
-        <item quantity="other">Delayed %d seconds due to too many wrong attempts</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="other">Delayed %d minutes due to too many wrong attempts</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="other">Delayed %d minutes</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="other">%d seconds</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">%1$d downloads remaining</item>

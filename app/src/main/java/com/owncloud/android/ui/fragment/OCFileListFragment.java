@@ -131,7 +131,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -468,7 +467,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
         boolean isGridViewPreferred = false;
         if (fileListLayoutManager != null) {
-            isGridViewPreferred = fileListLayoutManager.isGridViewPreferred(mFile);
+            isGridViewPreferred = fileListLayoutManager.isGridViewPreferred();
         }
 
         mAdapter = new OCFileListAdapter(
@@ -1257,7 +1256,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void setFileDepth(OCFile file) {
+    public void setFileDepth(OCFile file) {
         fileDepth = OCFileExtensionsKt.getDepth(file);
     }
 
@@ -1291,6 +1290,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 boolean result = bundle.getBoolean(SetupEncryptionDialogFragment.SUCCESS, false);
                 if (!result) {
                     Log_OC.d(TAG, "setup encryption dialog is dismissed");
+                    boolean cancelled = bundle.getBoolean(SetupEncryptionDialogFragment.RESULT_KEY_CANCELLED, false);
+                    if (cancelled) {
+                        browseToRoot();
+                    }
                     return;
                 }
 
@@ -1391,6 +1394,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 return true;
             } else if (itemId == R.id.action_retry) {
                 backgroundJobManager.startOfflineOperations();
+                return true;
+            } else if (itemId == R.id.action_sync_all_files) {
+                syncFolderIncludingAllNestedFiles(singleFile);
                 return true;
             }
         }
@@ -1818,7 +1824,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         final var activity = getActivity();
-        if (activity != null) {
+
+        // only show loading state first time if app doesn't have active search task
+        if (activity != null && searchTask == null) {
             activity.runOnUiThread(() -> {
                 getAdapter().removeAllFiles();
                 setEmptyListMessage(EmptyListState.LOADING);
@@ -1944,10 +1952,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 .execute(client);
 
             if (remoteOperationResult.isSuccess()) {
-                // lock folder
-                String token = EncryptionUtils.lockFolder(folder, client);
-
                 OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(user.getAccountName());
+                final var isE2EEV2 = E2EVersionHelper.INSTANCE.isV2Plus(ocCapability);
+                long e2eCounter = EncryptionUtils.E2E_V1_INITIAL_COUNTER;
+                if (isE2EEV2) {
+                    e2eCounter = EncryptionUtils.E2E_V2_INITIAL_COUNTER;
+                }
+
+                // lock folder
+                String token = EncryptionUtils.lockFolder(folder, client, e2eCounter);
+
                 if (E2EVersionHelper.INSTANCE.isV2Plus(ocCapability)) {
                     // Update metadata
                     Pair<Boolean, DecryptedFolderMetadataFile> metadataPair = EncryptionUtils.retrieveMetadata(folder,
@@ -2146,42 +2160,83 @@ public class OCFileListFragment extends ExtendedListFragment implements
             searchType == SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH;
     }
 
-    private void syncAndCheckFiles(Collection<OCFile> files) {
-        boolean isAnyFileFolder = false;
-        for (OCFile file: files) {
-            if (file.isFolder()) {
-                isAnyFileFolder = true;
-                break;
+    private void syncFolderIncludingAllNestedFiles(OCFile folder) {
+        if (FileStorageUtils.checkIfEnoughSpace(folder)) {
+            informUserForSyncAllAction(folder);
+        } else {
+            SyncFileNotEnoughSpaceDialogFragment
+                .newInstance(folder, FileOperationsHelper.getAvailableSpaceOnDevice())
+                .show(getParentFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+        }
+    }
+
+    private void informUserForSyncAllAction(OCFile folder) {
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
+            R.string.sync_all_action_dialog_description,
+            null,
+            R.string.sync_all_action_dialog_title,
+            R.drawable.ic_sync_all,
+            R.string.common_ok,
+            R.string.common_cancel,
+            -1);
+
+        dialog.setCancelable(false);
+
+        dialog.setOnConfirmationListener(new ConfirmationDialogFragment.ConfirmationDialogFragmentListener() {
+            @Override
+            public void onConfirmation(String callerTag) {
+                mContainerActivity.getFileOperationsHelper().syncFolderIncludingNestedFiles(folder);
             }
+
+            @Override
+            public void onNeutral(String callerTag) {
+            }
+
+            @Override
+            public void onCancel(String callerTag) {
+            }
+        });
+
+        dialog.show(getParentFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+    }
+
+    private void syncAndCheckFiles(Collection<OCFile> files) {
+        if (files.isEmpty()) return;
+
+        boolean hasFolder = files.stream().anyMatch(OCFile::isFolder);
+
+        if (mContainerActivity instanceof FileActivity activity) {
+            activity.showSyncLoadingDialog(hasFolder);
         }
 
-        if (mContainerActivity instanceof FileActivity activity && !files.isEmpty()) {
-            activity.showSyncLoadingDialog(isAnyFileFolder);
-        }
-
-        Iterator<OCFile> iterator = files.iterator();
-        while (iterator.hasNext()) {
-            OCFile file = iterator.next();
-
-            long availableSpaceOnDevice = FileOperationsHelper.getAvailableSpaceOnDevice();
+        List<OCFile> fileList = new ArrayList<>(files);
+        for (int i = 0; i < fileList.size(); i++) {
+            OCFile file = fileList.get(i);
+            boolean isLast = i == fileList.size() - 1;
 
             if (FileStorageUtils.checkIfEnoughSpace(file)) {
-                boolean isLastItem = !iterator.hasNext();
-                mContainerActivity.getFileOperationsHelper().syncFile(file, isLastItem);
+                mContainerActivity.getFileOperationsHelper().syncFileOrFolder(file, isLast, false);
             } else {
-                showSpaceErrorDialog(file, availableSpaceOnDevice);
+                showSpaceErrorDialog(file, FileOperationsHelper.getAvailableSpaceOnDevice());
             }
         }
     }
 
     private void showSpaceErrorDialog(OCFile file, long availableSpaceOnDevice) {
-        SyncFileNotEnoughSpaceDialogFragment dialog =
-            SyncFileNotEnoughSpaceDialogFragment.newInstance(file, availableSpaceOnDevice);
-        dialog.setTargetFragment(this, NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE);
+        getParentFragmentManager().setFragmentResultListener(
+            SyncFileNotEnoughSpaceDialogFragment.REQUEST_KEY,
+            getViewLifecycleOwner(),
+            (requestKey, result) -> {
+                OCFile resultFile = result.getParcelable(SyncFileNotEnoughSpaceDialogFragment.RESULT_FILE);
+                String action = result.getString(SyncFileNotEnoughSpaceDialogFragment.RESULT_ACTION);
+                if (SyncFileNotEnoughSpaceDialogFragment.ACTION_CHOOSE.equals(action) && resultFile != null) {
+                    this.onItemClicked(resultFile);
+                }
+            });
 
-        if (getFragmentManager() != null) {
-            dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-        }
+        SyncFileNotEnoughSpaceDialogFragment
+            .newInstance(file, availableSpaceOnDevice)
+            .show(getParentFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
     }
 
     @Override

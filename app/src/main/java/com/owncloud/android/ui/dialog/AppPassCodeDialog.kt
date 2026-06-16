@@ -145,6 +145,11 @@ class AppPassCodeDialog :
         )
     }
 
+    override fun onDismiss(dialog: android.content.DialogInterface) {
+        super.onDismiss(dialog)
+        activity?.finish()
+    }
+
     companion object {
         private const val ARG_DISMISSABLE = "dismissable"
 

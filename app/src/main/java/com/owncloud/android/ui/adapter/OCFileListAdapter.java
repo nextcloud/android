@@ -33,6 +33,7 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -63,6 +64,7 @@ import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -79,6 +81,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -296,9 +299,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             .findFirst()
             .ifPresent(file -> {
                 file.setEncrypted(encrypted);
-                file.setE2eCounter(0L);
-                mStorageManager.saveFile(file);
+                final var isE2EEV2 = E2EVersionHelper.INSTANCE.isV2Plus(capability);
+                long e2eCounter = EncryptionUtils.E2E_V1_INITIAL_COUNTER;
+                if (isE2EEV2) {
+                    e2eCounter = EncryptionUtils.E2E_V2_INITIAL_COUNTER;
+                }
 
+                file.setE2eCounter(e2eCounter);
+                mStorageManager.saveFile(file);
                 int position = getItemPosition(file);
                 if (position != -1) {
                     notifyItemChanged(position);
@@ -868,7 +876,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void updateAdapter(List<OCFile> newFiles, OCFile directory) {
         Log_OC.d(TAG, "updating the adapter");
 
-        mFiles = new ArrayList<>(newFiles);
+        mFiles.clear();
+        mFiles.addAll(newFiles);
+
         mFilesAll.clear();
         mFilesAll.addAll(mFiles);
 
@@ -972,12 +982,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         int position = getItemPosition(file);
         if (position != -1) {
             notifyItemInserted(position);
-        }
-    }
-
-    public void addVirtualFile(@NonNull OCFile file) {
-        if (mFiles.isEmpty() || !mFiles.contains(file)) {
-            mFiles.add(file);
         }
     }
 
@@ -1105,4 +1109,67 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mFilesAll.clear();
         notifyDataSetChanged();
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void removeFile(@NonNull OCFile file) {
+        int position = getItemPosition(file);
+
+        mFiles.remove(file);
+        mFilesAll.remove(file);
+
+        if (position != -1) {
+            notifyItemRemoved(position);
+        } else {
+            notifyDataSetChanged();
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateFile(@NonNull OCFile updatedFile) {
+        long fileId = updatedFile.getFileId();
+
+        IntStream.range(0, mFilesAll.size())
+            .filter(i -> mFilesAll.get(i).getFileId() == fileId)
+            .findFirst()
+            .ifPresent(i -> mFilesAll.set(i, updatedFile));
+
+        int oldIndex = IntStream.range(0, mFiles.size())
+            .filter(i -> mFiles.get(i).getFileId() == fileId)
+            .findFirst()
+            .orElse(-1);
+        if (oldIndex == -1) return;
+
+        mFiles.remove(oldIndex);
+        mFiles.add(updatedFile);
+
+        FileSortOrder currentSortOrder = preferences.getSortOrderByFolder(currentDirectory);
+        if (searchType == SearchType.SHARED_FILTER) {
+            mFiles.sort((o1, o2) -> Long.compare(o2.getFirstShareTimestamp(), o1.getFirstShareTimestamp()));
+        } else {
+            boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
+            boolean favoritesFirst = preferences.isSortFavoritesFirst();
+            mFiles = currentSortOrder.sortCloudFiles(mFiles, foldersBeforeFiles, favoritesFirst);
+        }
+
+        int newIndex = mFiles.indexOf(updatedFile);
+        if (newIndex == -1) {
+            notifyDataSetChanged();
+            return;
+        }
+
+        int headerOffset = shouldShowHeader() ? 1 : 0;
+        int oldAdapterPos = oldIndex + headerOffset;
+        int newAdapterPos = newIndex + headerOffset;
+
+        if (oldAdapterPos != newAdapterPos) {
+            notifyItemMoved(oldAdapterPos, newAdapterPos);
+        }
+        notifyItemChanged(newAdapterPos);
+
+        if (shouldShowRecommendedFiles() && recommendedFilesAdapter != null && updatedFile.isRecommendedFile()) {
+            int pos = recommendedFilesAdapter.getItemPosition(updatedFile);
+            if (pos != -1) recommendedFilesAdapter.notifyItemChanged(pos);
+        }
+    }
+
 }

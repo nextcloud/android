@@ -1629,7 +1629,7 @@ vvzB6IAo6+u3AQDURXWfVKKr73oZFosnOt63VHnW6BV9mMqjj3wenu9FlQ==
 -----END PGP PUBLIC KEY BLOCK-----
 
 pub    B0F3710FA64900E7
-uid    ?amonn McManus <eamonn@mcmanus.net>
+uid    Eamonn McManus <eamonn@mcmanus.net>
 
 sub    7892707E9657EBD4
 -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -4344,7 +4344,7 @@ qZX7clnN1w2ISQQYEQIACQUCSijcFgIbDAAKCRAFasp01GAAv6p0AKCP/EDLrjxq
 -----END PGP PUBLIC KEY BLOCK-----
 
 pub    066235F925255750
-uid    Karol Wr?tniak <karol.wrotniak@droidsonroids.pl>
+uid    Karol Wrótniak <karol.wrotniak@droidsonroids.pl>
 
 sub    88518C11ADAEFC68
 -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -4952,7 +4952,7 @@ GSJf
 -----END PGP PUBLIC KEY BLOCK-----
 
 pub    15C71C0A4E0B8EDD
-uid    Matthias Bl?sing <mblaesing@doppel-helix.eu>
+uid    Matthias Bläsing <mblaesing@doppel-helix.eu>
 
 sub    891E4C2D471515FE
 -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -7392,6 +7392,18 @@ Eq/0QAoo6ZBLTyhMHEx96p4akwxOyNhUiOv0QsxtUQw=
 =Rppe
 -----END PGP PUBLIC KEY BLOCK-----
 
+pub    530AA5F25C25011F
+sub    7DFE92929805E309
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xjMEaP9I0xYJKwYBBAHaRw8BAQdAOUBgNeJu8Xe4w2IE+22aMEiVvJRcY6Gwx8s/
+mfadmLrOOARo/0jTEgorBgEEAZdVAQUBAQdAyPaT/8w88+/NA4o6ovcnWTqveOIh
+A3IIVYOlys0o7A8DAQgHwngEGBYKACAWIQT03VnJAUi9xSvrkKRTCqXyXCUBHwUC
+aP9I0wIbDAAKCRBTCqXyXCUBHySfAPwPXyiSs7i0yaZetG2b+UgRcTJ9mp2BSshg
+HyFHTHouJgD/WCbrAssv7MmNDjfS39AgWpkpr2dbNFIVY5cQlbXHNgo=
+=7dAb
+-----END PGP PUBLIC KEY BLOCK-----
+
 pub    5365A8A69292AF1A
 uid    Seth Tisue <seth.tisue@lightbend.com>
 
@@ -7991,7 +8003,7 @@ uAngfd6DOtCKYtNKP7xqDu/2bMU23cxGaRj2ToH4RfCClg1B
 -----END PGP PUBLIC KEY BLOCK-----
 
 pub    67AB3C2A8FC5C42E
-uid    Cl?ment Fournier (sonatype signing key) <clement.fournier76@gmail.com>
+uid    Clément Fournier (sonatype signing key) <clement.fournier76@gmail.com>
 
 sub    96725015DF9CFD68
 -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -8648,7 +8660,7 @@ PxnB/ZP6BiDIRsXsLtZriE8EGBECAA8FAkqXMWkCGwwFCQPCZwAACgkQeXUttslm
 -----END PGP PUBLIC KEY BLOCK-----
 
 pub    79E193516BE7998F
-uid    Filip Jirs?k <filip@jirsak.org>
+uid    Filip Jirsák <filip@jirsak.org>
 
 sub    9F7335D63326E7F9
 -----BEGIN PGP PUBLIC KEY BLOCK-----

@@ -37,6 +37,7 @@
     <string name="appear_offline">Pokaže kot brez povezave</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Izbriši nalogo</string>
     <string name="assistant_screen_task_create_success_message">Naloga je ustvarjena</string>
+    <string name="assistant_screen_top_bar_title">Pomočnik</string>
     <string name="assistant_task_status_running">zagnano</string>
     <string name="assistant_task_status_unknown">neznano</string>
     <string name="associated_account_not_found">Povezanega računa ni mogoče najti!</string>
@@ -86,6 +87,7 @@
     <string name="battery_optimization_disable">Onemogoči</string>
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
+    <string name="bottom_navigation_menu_assistant_label">Pomočnik</string>
     <string name="bottom_navigation_menu_favorites_label">Priljubljeno</string>
     <string name="bottom_navigation_menu_files_label">Vse datoteke</string>
     <string name="busy">Zasedeno</string>
@@ -122,6 +124,7 @@
     <string name="common_loading">Poteka nalaganje …</string>
     <string name="common_next">Naprej </string>
     <string name="common_no">Ne</string>
+    <string name="common_now">Zdaj</string>
     <string name="common_ok">V redu</string>
     <string name="common_pending">Na čakanju</string>
     <string name="common_remove">Izbriši</string>
@@ -170,8 +173,8 @@
     <string name="contacts_preferences_import_scheduled">Uvoz je načrtovan in se bo kmalu začel.</string>
     <string name="contacts_preferences_no_file_found">Ne najdem datoteke</string>
     <string name="contacts_preferences_something_strange_happened">Zadnje varnostne kopije ni mogoče najti!</string>
-    <string name="conversation_screen_delete_button_title">Razumem tveganje, izbriši pogovor</string>
-    <string name="conversation_screen_empty_content_title">Pogovora ni mogoče najti</string>
+    <string name="conversation_screen_delete_button_title">Izbriši pogovor</string>
+    <string name="conversation_screen_empty_content_title">Ni najdenih pogovorov</string>
     <string name="conversation_screen_empty_conversation_list_title">Ni še začetih pogovorov</string>
     <string name="conversation_screen_title">Pogovori</string>
     <string name="copied">Kopirano</string>
@@ -207,7 +210,7 @@
     <string name="dialog_close">Zapri</string>
     <string name="did_not_check_for_dupes">Ne preverjaj za podvojene.</string>
     <string name="digest_algorithm_not_available">Ta algoritem na tej napravi ni podprt.</string>
-    <string name="direct_login_failed">Prijava prek neposredne povezave je spodletela.</string>
+    <string name="direct_login_failed">Prijava po po povezavi je spodletela.</string>
     <string name="direct_login_text">Prijava z %1$s v %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Onemogoči</string>
     <string name="dismiss">Opusti</string>
@@ -239,14 +242,14 @@
     <string name="drawer_header_background">Slika ozadja glave bočnega okna</string>
     <string name="drawer_item_activities">Dejavnosti</string>
     <string name="drawer_item_all_files">Vse datoteke</string>
+    <string name="drawer_item_assistant">Pomočnik</string>
     <string name="drawer_item_favorites">Priljubljene</string>
     <string name="drawer_item_gallery">Predstavna vsebina</string>
-    <string name="drawer_item_groupfolders">Ekipne mape</string>
+    <string name="drawer_item_groupfolders">Skupne mape</string>
     <string name="drawer_item_home">Začetna stran</string>
     <string name="drawer_item_notifications">Obvestila</string>
     <string name="drawer_item_on_device">Na napravi</string>
     <string name="drawer_item_personal_files">Osebne datoteke</string>
-    <string name="drawer_item_recently_modified">Nedavno spremenjeno</string>
     <string name="drawer_item_shared">V souporabi</string>
     <string name="drawer_item_trashbin">Izbrisane datoteke</string>
     <string name="drawer_item_uploads_list">Poslano</string>
@@ -257,6 +260,7 @@
     <string name="drawer_synced_folders">Samodejno pošiljanje</string>
     <string name="e2e_not_yet_setup">Celovito šifriranje E2E ni še nastavljeno.</string>
     <string name="e2e_offline">Opravila ni mogoče izvesti brez vzpostavljene internetne povezave</string>
+    <string name="ecosystem_apps_display_assistant">Pomočnik</string>
     <string name="ecosystem_apps_display_more">Več</string>
     <string name="ecosystem_apps_more">Več programov Nexcloud</string>
     <string name="email_pick_failed">Elektronskega naslova ni mogoče izbrati.</string>
@@ -338,7 +342,6 @@
     <string name="file_list_empty_on_device">Prejete datoteke in mape bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_recent_files_description">Nedavno spremenjene datoteke ali mape, bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_recent_files_headline">Ni nedavno spremenjenih datotek</string>
-    <string name="file_list_empty_recently_modified">Ni datotek, spremenjenih v zadnjih 7. dneh</string>
     <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
     <string name="file_list_empty_shared">Datoteke in mape v souporabi bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_shared_headline">Ni še datotek v souporabi</string>
@@ -658,7 +661,6 @@
     <string name="select_one_template">Izbor predloge</string>
     <string name="select_template">Izbor predloge</string>
     <string name="send">Pošlji</string>
-    <string name="sendbutton_description">Ikona gumba za pošiljanje</string>
     <string name="set_as">Nastavi kot</string>
     <string name="set_picture_as">Uporabi sliko kot</string>
     <string name="setup_e2e">Med nastavitvijo šifriranja E2E boste prejeli naključno 12-mestno besedno geslo, brez katerega na drugih napravah datotek ne bo mogoče odpreti. To geslo bo shranjeno izključno na tej napravi in ga bo mogoče ponovno prikazati na tem zaslonu. Priporočljivo ga je zabeležiti na varno mesto!</string>
@@ -687,7 +689,6 @@
     <string name="share_no_expiration_date_label">Nastavi datum preteka</string>
     <string name="share_no_password_title">Nastavi geslo</string>
     <string name="share_permission_can_edit">Lahko ureja</string>
-    <string name="share_permission_secure_file_drop">Varno pošiljanje daottek</string>
     <string name="share_permission_view_only">Le ogled</string>
     <string name="share_re_share_permission">Souporaba</string>
     <string name="share_read_permission">Branje</string>
@@ -802,7 +803,6 @@
     <string name="thumbnail_for_new_file_desc">Sličica za novo datoteko</string>
     <string name="timeout_richDocuments">Nalaganje traja dlje, kot je bilo pričakovano.</string>
     <string name="today">enkrat danes</string>
-    <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Ni izbrisanih datotek</string>
     <string name="trashbin_empty_message">Izbrisane datoteke je mogoče povrniti na tem mestu.</string>
     <string name="trashbin_file_not_deleted">Datoteke %1$s ni mogoče izbrisati!</string>
@@ -851,7 +851,6 @@
     <string name="upload_old_android">Šifriranje je podprto z različico &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želiš datoteke premakniti na novo mesto?</string>
     <string name="upload_scan_doc_upload">Optično preberi dokument s fotoaparatom</string>
-    <string name="upload_sync_conflict">Zaznan je spor usklajevanja, ki ga je treba razrešiti ročno</string>
     <string name="upload_unknown_error">Neznana napaka</string>
     <string name="uploader_btn_alternative_text">Izberi</string>
     <string name="uploader_btn_upload_text">Pošlji</string>
@@ -896,7 +895,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Krajevne datoteke ni mogoče najti</string>
     <string name="uploads_view_upload_status_failed_permission_error">Napaka dovoljenj</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Potrdilo strežnika ni vredno zaupanja</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Poteka pridobivanje različice strežnika…</string>
     <string name="uploads_view_upload_status_service_interrupted">Program je vsiljeno končan</string>
     <string name="uploads_view_upload_status_succeeded">Končano</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznana napaka</string>

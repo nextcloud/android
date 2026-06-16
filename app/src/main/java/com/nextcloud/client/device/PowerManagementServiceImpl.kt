@@ -27,6 +27,12 @@ internal class PowerManagementServiceImpl(
         }
     }
 
+    override val isIgnoringOptimization: Boolean
+        get() {
+            val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+            return powerManager.isIgnoringBatteryOptimizations(context.packageName)
+        }
+
     override val isPowerSavingEnabled: Boolean
         get() {
             return platformPowerManager.isPowerSaveMode

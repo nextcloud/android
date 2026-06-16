@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Tente enviar uma mensagem para iniciar uma conversa.</string>
     <string name="assistant_screen_empty_content_title">Oi! Em que posso ajudá-lo hoje?</string>
     <string name="assistant_screen_retry_response_generation">Retentar geração de resposta</string>
-    <string name="assistant_screen_select_task">Selecione uma tarefa</string>
     <string name="assistant_screen_send_message">Enviar mensagem</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Abrir lista de conversas</string>
     <string name="assistant_screen_task_create_fail_message">Ocorreu um erro ao criar a tarefa</string>
@@ -113,7 +112,10 @@
     <string name="authenticator_activity_login_error">Houve um problema ao processar sua solicitação de login. Tente novamente mais tarde.</string>
     <string name="authenticator_activity_no_web_browser_found">Não há nenhum navegador disponível para abrir este link.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, conclua o processo de login no seu navegador</string>
-    <string name="auto_upload_battery_saver_mode_warning">O upload automático está pausado porque o Economizador de Bateria está ativado.</string>
+    <string name="auto_upload_background_activity_action">Permitir atividades em segundo plano</string>
+    <string name="auto_upload_battery_optimization_reason">A atividade em segundo plano do Nextcloud é limitada pela otimização da bateria.</string>
+    <string name="auto_upload_battery_saver_action">Abrir as configurações do economizador de bateria</string>
+    <string name="auto_upload_battery_saver_reason">O modo de economia de bateria está ativado e pode interromper os envios.</string>
     <string name="auto_upload_delete_dialog_description">Isso removerá a pasta e a configuração de upload automático. Quaisquer envios em andamento serão cancelados.</string>
     <string name="auto_upload_delete_dialog_title">Excluir a pasta de upload automático?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
@@ -130,6 +132,7 @@
     <string name="autoupload_hide_folder">Ocultar pasta</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
+    <string name="backup_list_adapter_local_contacts">Contatos locais</string>
     <string name="backup_settings">Configurações de backup </string>
     <string name="backup_title">Backup de contatos e calendário</string>
     <string name="battery_optimization_close">Fechar</string>
@@ -257,7 +260,6 @@
     <string name="create_new_presentation">Nova apresentação</string>
     <string name="create_new_spreadsheet">Nova planilha</string>
     <string name="create_rich_workspace">Adicionar descrição da pasta</string>
-    <string name="creates_rich_workspace">Adiciona descrição da pasta</string>
     <string name="credentials_disabled">Credenciais desabilitadas</string>
     <string name="daily_backup">Backup diário </string>
     <string name="data_to_back_up">Dados para backup </string>
@@ -324,7 +326,6 @@
     <string name="drawer_item_on_device">No dispositivo</string>
     <string name="drawer_item_personal_files">Arquivos pessoais</string>
     <string name="drawer_item_recent_files">Arquivos recentes</string>
-    <string name="drawer_item_recently_modified">Modificados recentemente</string>
     <string name="drawer_item_shared">Compartilhado</string>
     <string name="drawer_item_trashbin">Arquivos excluídos</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -333,7 +334,6 @@
     <string name="drawer_quota">%1$s de %2$s usados</string>
     <string name="drawer_quota_unlimited">%1$s usados</string>
     <string name="drawer_synced_folders">Upload automático</string>
-    <string name="due_to_too_many_wrong_attempts">%s devido a muitas tentativas erradas</string>
     <string name="e2e_counter_too_old">O contador é muito antigo</string>
     <string name="e2e_hash_not_found">Hash não encontrado</string>
     <string name="e2e_not_yet_setup">Criptografia de ponta-a-ponta ainda não configurada</string>
@@ -445,7 +445,6 @@
     <string name="file_list_empty_on_device">Os arquivos e pastas baixados aparecerão aqui.</string>
     <string name="file_list_empty_recent_files_description">Arquivos e pastas que você modificou recentemente aparecerão aqui.</string>
     <string name="file_list_empty_recent_files_headline">Nenhum arquivo modificado recentemente</string>
-    <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
     <string name="file_list_empty_search">Talvez seja uma pasta diferente?</string>
     <string name="file_list_empty_shared">Arquivos e pastas que você compartilhar serão exibidos aqui.</string>
     <string name="file_list_empty_shared_headline">Você ainda não compartilhou nada!</string>
@@ -502,6 +501,7 @@
     <string name="filedetails_download">Baixar</string>
     <string name="filedetails_export">Exportar</string>
     <string name="filedetails_renamed_in_upload_msg">Arquivo %1$s renomeado durante o upload</string>
+    <string name="filedetails_sync_all_files">Sincronizar tudo</string>
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedisplay_no_file_selected">Nenhum arquivo selecionado</string>
     <string name="filename_empty">O nome de arquivo não pode ser vazio</string>
@@ -776,6 +776,7 @@
     <string name="prefs_manage_accounts">Gerenciar contas</string>
     <string name="prefs_recommend">Recomendar a um amigo</string>
     <string name="prefs_remove_e2e">Remover criptografia localmente</string>
+    <string name="prefs_remove_e2e_keys_and_files">Remover arquivos criptografados e chaves</string>
     <string name="prefs_setup_e2e">Configurar criptografia de ponta-a-ponta</string>
     <string name="prefs_show_ecosystem_apps">Mostrar alternador de aplicativos</string>
     <string name="prefs_show_ecosystem_apps_summary">Sugestões de aplicativos Nextcloud no título de navegação</string>
@@ -815,6 +816,7 @@
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Erro ao encontrar arquivo!</string>
     <string name="remove_e2e">Você pode remover a criptografia de ponta-a-ponta localmente neste cliente</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Esta operação irá remover todos os arquivos criptografados, bem como as chaves privadas e públicas. Tem certeza?</string>
     <string name="remove_e2e_message">Você pode remover a criptografia de ponta-a-ponta localmente neste cliente. Os arquivos criptografados permanecerão no servidor, mas não será mais sincronizados com este computador.</string>
     <string name="remove_fail_msg">Falha na exclusão</string>
     <string name="remove_local_account">Remover conta local</string>
@@ -861,7 +863,6 @@
     <string name="send">Enviar</string>
     <string name="send_copy_to">Enviar cópia para</string>
     <string name="send_share">Enviar compartilhamento</string>
-    <string name="sendbutton_description">Ícone do botão Enviar</string>
     <string name="server_not_reachable">Não foi possível carregar o conteúdo</string>
     <string name="server_not_reachable_content">O dispositivo provavelmente não está conectado à Internet</string>
     <string name="set_as">Definir como</string>
@@ -903,7 +904,6 @@
     <string name="share_option_required">Selecione pelo menos uma opção de compartilhamento antes de continuar.</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_file_request">Solicitação de arquivo</string>
-    <string name="share_permission_secure_file_drop">Depósito de arquivos seguro</string>
     <string name="share_permission_view_only">Somente visualização </string>
     <string name="share_permissions">Permissões do compartilhamento</string>
     <string name="share_re_share_permission">Compartilhar</string>
@@ -994,6 +994,8 @@
     <string name="subtitle_videos_only">Somente vídeos</string>
     <string name="suggest">Sugerir </string>
     <string name="sync">Sincronizar</string>
+    <string name="sync_all_action_dialog_description">Todos os arquivos e pastas incluídos serão baixados. Isso pode exigir uma quantidade significativa de espaço de armazenamento e levar algum tempo, dependendo da sua conexão.</string>
+    <string name="sync_all_action_dialog_title">Sincronizar a pasta inteira?</string>
     <string name="sync_anyway">Sincronizar mesmo assim</string>
     <string name="sync_conflict_notification_action_title">Resolver conflitos</string>
     <string name="sync_conflict_notification_description">Conflitos de upload detectados. Abra os uploads para resolver.</string>
@@ -1042,7 +1044,6 @@
     <string name="translation_screen_start_to_translate_task">Pressione o botão para traduzir</string>
     <string name="translation_screen_task_processing">A tradução está demorando mais do que o esperado.</string>
     <string name="translation_screen_translating">Traduzindo…</string>
-    <string name="trashbin_activity_title">Arquivos excluídos</string>
     <string name="trashbin_empty_headline">Nenhum arquivo excluído</string>
     <string name="trashbin_empty_message">Você poderá recuperar arquivos excluídos aqui.</string>
     <string name="trashbin_file_not_deleted">O arquivo %1$s não pôde ser excluído!</string>
@@ -1105,6 +1106,8 @@
     <string name="upload_local_storage_full">O armazenamento local está cheio.</string>
     <string name="upload_local_storage_not_copied">O arquivo não pôde ser copiado para o armazenamento local</string>
     <string name="upload_lock_failed">Falha ao trancar pasta</string>
+    <string name="upload_locked_message">O servidor está ocupado. Tentando novamente…</string>
+    <string name="upload_locked_title">Carregamento em andamento</string>
     <string name="upload_manually_cancelled">O upload foi cancelado pelo usuário</string>
     <string name="upload_missing_storage_permission_allow_file_access">Permitir acesso a todos os arquivos</string>
     <string name="upload_missing_storage_permission_app_permissions">Permissões do aplicativo</string>
@@ -1116,7 +1119,6 @@
     <string name="upload_query_move_foreign_files">O espaço insuficiente está impedindo a cópia dos arquivos selecionados para a pasta %1$s. Em vez de copiá-los, gostaria de movê-los para lá?</string>
     <string name="upload_quota_exceeded">Cota de armazenamento excedida</string>
     <string name="upload_scan_doc_upload">Digitalizar documento com a câmera</string>
-    <string name="upload_sync_conflict">Conflito na sincronização, resolva manualmente</string>
     <string name="upload_sync_conflict_check">Pode haver um conflito com o seu último envio. Toque para verificar.</string>
     <string name="upload_sync_conflict_check_error">Não foi possível verificar se há conflitos de upload. Tente novamente.</string>
     <string name="upload_sync_conflict_checking">Verificando se há conflitos de upload…</string>
@@ -1168,7 +1170,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Arquivo local não encontrado</string>
     <string name="uploads_view_upload_status_failed_permission_error">Erro de permissão</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificado de servidor não confiável</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Buscando versão do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicativo finalizado</string>
     <string name="uploads_view_upload_status_skip">Ignorado</string>
     <string name="uploads_view_upload_status_skip_reason">Um arquivo com o mesmo nome já existe.</string>
@@ -1307,25 +1308,20 @@
         <item quantity="many">%d selecionados</item>
         <item quantity="other">%d selecionados</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Adiado por %d segundo devido a muitas tentativas erradas</item>
-        <item quantity="many">Adiado por %d segundos devido a muitas tentativas erradas</item>
-        <item quantity="other">Adiado por %d segundos devido a muitas tentativas erradas</item>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Tente novamente em %d segundo, pois houve muitas tentativas incorretas</item>
+        <item quantity="many">Tente novamente em %d de segundos, pois houve muitas tentativas incorretas</item>
+        <item quantity="other">Tente novamente em %d segundos, pois houve muitas tentativas incorretas</item>
     </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Adiado por %d minuto devido a muitas tentativas erradas</item>
-        <item quantity="many">Adiado por %d minutos devido a muitas tentativas erradas</item>
-        <item quantity="other">Adiado por %d minutos devido a muitas tentativas erradas</item>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Tente novamente em %d minuto, pois houve muitas tentativas incorretas</item>
+        <item quantity="many">Tente novamente em %d de minutos, pois houve muitas tentativas incorretas</item>
+        <item quantity="other">Tente novamente em %d minutos, pois houve muitas tentativas incorretas</item>
     </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Adiado por %d minuto</item>
-        <item quantity="many">Adiado por %d minutos</item>
-        <item quantity="other">Adiado por %d minutos</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d segundo</item>
-        <item quantity="many">%d segundos</item>
-        <item quantity="other">%d segundos</item>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Tente novamente em %1$d minuto e %2$d segundos, pois houve muitas tentativas incorretas</item>
+        <item quantity="many">Tente novamente em %1$d de minutos e %2$d segundos, pois houve muitas tentativas incorretas</item>
+        <item quantity="other">Tente novamente em %1$d minutos e %2$d segundos, pois houve muitas tentativas incorretas</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d download restante</item>

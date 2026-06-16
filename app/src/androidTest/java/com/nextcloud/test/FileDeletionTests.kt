@@ -25,25 +25,34 @@ import kotlin.random.Random
 @Suppress("TooManyFunctions", "MagicNumber")
 class FileDeletionTests : AbstractIT() {
 
-    private lateinit var tempDir: File
+    private val createdFilePaths = mutableListOf<String>()
 
     @Before
     fun setup() {
-        val parent = System.getProperty("java.io.tmpdir")
-        val childPath = "file_deletion_test_${System.currentTimeMillis()}"
-        tempDir = File(parent, childPath)
-        tempDir.mkdirs()
+        createdFilePaths.clear()
     }
 
     @After
     fun cleanup() {
-        tempDir.deleteRecursively()
+        createdFilePaths.forEach { File(it).delete() }
+        createdFilePaths.clear()
     }
 
     private fun getRandomRemoteId(): String = Random
         .nextLong(10_000_000L, 99_999_999L)
         .toString()
         .padEnd(32, '0')
+
+    private fun createFileAtExpectedPath(ocFile: OCFile, content: String = "Temporary test content"): File {
+        val expectedPath = FileStorageUtils.getDefaultSavePathFor(user.accountName, ocFile)
+        val localFile = File(expectedPath).apply {
+            parentFile?.mkdirs()
+            createNewFile()
+            writeText(content)
+        }
+        createdFilePaths.add(localFile.absolutePath)
+        return localFile
+    }
 
     private fun createAndSaveSingleFileWithLocalCopy(): OCFile {
         val now = System.currentTimeMillis()
@@ -59,11 +68,7 @@ class FileDeletionTests : AbstractIT() {
             permissions = "RWDNV"
         }
 
-        val localFile = File(tempDir, "TestFile_${file.fileId}.txt").apply {
-            parentFile?.mkdirs()
-            createNewFile()
-            writeText("Temporary test content")
-        }
+        val localFile = createFileAtExpectedPath(file)
         file.storagePath = localFile.absolutePath
 
         storageManager.saveFile(file)
@@ -117,11 +122,11 @@ class FileDeletionTests : AbstractIT() {
 
         listOf(rootFolder, subFolder, file1, file2).forEach { storageManager.saveFile(it) }
 
-        val file1Path = File(tempDir, "file1_${file1.fileId}.txt").apply { createNewFile() }
-        val file2Path = File(tempDir, "file2_${file2.fileId}.txt").apply { createNewFile() }
+        val localFile1 = createFileAtExpectedPath(file1)
+        val localFile2 = createFileAtExpectedPath(file2)
 
-        file1.storagePath = file1Path.absolutePath
-        file2.storagePath = file2Path.absolutePath
+        file1.storagePath = localFile1.absolutePath
+        file2.storagePath = localFile2.absolutePath
 
         storageManager.saveFile(file1)
         storageManager.saveFile(file2)
@@ -132,69 +137,85 @@ class FileDeletionTests : AbstractIT() {
     private fun getMixedOcFiles(): List<OCFile> {
         val now = System.currentTimeMillis()
 
-        fun createFolder(id: Long, parentId: Long, path: String): OCFile = OCFile(path).apply {
-            fileId = id
+        fun saveFolder(parentId: Long, path: String): OCFile = OCFile(path).apply {
             this.parentId = parentId
             remoteId = getRandomRemoteId()
             mimeType = MimeType.DIRECTORY
             creationTimestamp = now
             modificationTimestamp = now
             permissions = "RWDNVCK"
-        }
+        }.also { storageManager.saveFile(it) }
 
-        fun createFile(id: Long, parentId: Long, path: String, size: Long, mime: String): OCFile = OCFile(path).apply {
-            fileId = id
-            this.parentId = parentId
-            remoteId = getRandomRemoteId()
-            fileLength = size
-            creationTimestamp = now
-            mimeType = mime
-            modificationTimestamp = now
-            permissions = "RWDNV"
-        }
-
-        val list = mutableListOf<OCFile>()
-
-        list.add(createFolder(1, 0, "/"))
-
-        list.add(createFolder(5, 2, "/Documents/Projects"))
-        list.add(createFile(9, 5, "/Documents/Projects/spec.txt", 12000, MimeType.TEXT_PLAIN))
-        list.add(createFolder(2, 1, "/Documents"))
-        list.add(createFile(11, 7, "/Photos/Vacation/img2.jpg", 300000, MimeType.JPEG))
-        list.add(createFolder(7, 3, "/Photos/Vacation"))
-        list.add(createFile(4, 2, "/Documents/example.pdf", 150000, MimeType.PDF))
-        list.add(createFolder(3, 1, "/Photos"))
-        list.add(createFile(12, 3, "/Photos/cover.png", 80000, MimeType.PNG))
-        list.add(createFile(6, 5, "/Documents/Projects/readme.txt", 2000, MimeType.TEXT_PLAIN))
-        list.add(createFolder(8, 5, "/Documents/Projects/Archive"))
-        list.add(createFile(13, 8, "/Documents/Projects/Archive/old.bmp", 900000, MimeType.BMP))
-        list.add(createFile(10, 7, "/Photos/Vacation/img1.jpg", 250000, MimeType.JPEG))
-        list.add(createFolder(14, 1, "/Temp"))
-        list.add(createFile(15, 14, "/Temp/tmp_file_1.txt", 400, MimeType.TEXT_PLAIN))
-        list.add(createFile(16, 14, "/Temp/tmp_file_2.txt", 800, MimeType.TEXT_PLAIN))
-        list.add(createFolder(17, 14, "/Temp/Nested"))
-        list.add(createFile(18, 17, "/Temp/Nested/deep.txt", 100, MimeType.TEXT_PLAIN))
-        list.add(createFile(19, 2, "/Documents/notes.txt", 1500, MimeType.TEXT_PLAIN))
-        list.add(createFolder(20, 3, "/Photos/EmptyFolder"))
-
-        list.forEach { ocFile ->
-            if (!ocFile.isFolder) {
-                val localFile = File(tempDir, ocFile.remoteId).apply {
-                    parentFile?.mkdirs()
-                    createNewFile()
-                    writeText("test content")
-                }
-                ocFile.storagePath = localFile.absolutePath
-                storageManager.saveFile(ocFile)
-            } else {
-                // For folders, create the folder in tempDir
-                val localFolder = File(tempDir, ocFile.remoteId).apply { mkdirs() }
-                ocFile.storagePath = localFolder.absolutePath
-                storageManager.saveFile(ocFile)
+        fun saveFileWithLocalCopy(parentId: Long, path: String, size: Long, mime: String): OCFile {
+            val ocFile = OCFile(path).apply {
+                this.parentId = parentId
+                remoteId = getRandomRemoteId()
+                fileLength = size
+                creationTimestamp = now
+                mimeType = mime
+                modificationTimestamp = now
+                permissions = "RWDNV"
+                storagePath = FileStorageUtils.getDefaultSavePathFor(user.accountName, this)
             }
+            val localFile = File(ocFile.storagePath).apply {
+                parentFile?.mkdirs()
+                createNewFile()
+                writeText("test content")
+            }
+            createdFilePaths.add(localFile.absolutePath)
+            storageManager.saveFile(ocFile)
+            return ocFile
         }
 
-        return list
+        val root = saveFolder(0, "/")
+        val documents = saveFolder(root.fileId, "/Documents")
+        val photos = saveFolder(root.fileId, "/Photos")
+        val temp = saveFolder(root.fileId, "/Temp")
+        val projects = saveFolder(documents.fileId, "/Documents/Projects")
+        val vacation = saveFolder(photos.fileId, "/Photos/Vacation")
+        val archive = saveFolder(projects.fileId, "/Documents/Projects/Archive")
+        val nested = saveFolder(temp.fileId, "/Temp/Nested")
+        val emptyFolder = saveFolder(photos.fileId, "/Photos/EmptyFolder")
+
+        val allEntries = mutableListOf(root, documents, photos, temp, projects, vacation, archive, nested, emptyFolder)
+
+        allEntries.add(
+            saveFileWithLocalCopy(
+                projects.fileId,
+                "/Documents/Projects/spec.txt",
+                12000,
+                MimeType.TEXT_PLAIN
+            )
+        )
+        allEntries.add(saveFileWithLocalCopy(vacation.fileId, "/Photos/Vacation/img2.jpg", 300000, MimeType.JPEG))
+        allEntries.add(saveFileWithLocalCopy(documents.fileId, "/Documents/example.pdf", 150000, MimeType.PDF))
+        allEntries.add(saveFileWithLocalCopy(photos.fileId, "/Photos/cover.png", 80000, MimeType.PNG))
+        allEntries.add(
+            saveFileWithLocalCopy(
+                projects.fileId,
+                "/Documents/Projects/readme.txt",
+                2000,
+                MimeType.TEXT_PLAIN
+            )
+        )
+        allEntries.add(
+            saveFileWithLocalCopy(
+                archive.fileId,
+                "/Documents/Projects/Archive/old.bmp",
+                900000,
+                MimeType.BMP
+            )
+        )
+        allEntries.add(saveFileWithLocalCopy(vacation.fileId, "/Photos/Vacation/img1.jpg", 250000, MimeType.JPEG))
+        allEntries.add(saveFileWithLocalCopy(temp.fileId, "/Temp/tmp_file_1.txt", 400, MimeType.TEXT_PLAIN))
+        allEntries.add(saveFileWithLocalCopy(temp.fileId, "/Temp/tmp_file_2.txt", 800, MimeType.TEXT_PLAIN))
+        allEntries.add(saveFileWithLocalCopy(nested.fileId, "/Temp/Nested/deep.txt", 100, MimeType.TEXT_PLAIN))
+        allEntries.add(saveFileWithLocalCopy(documents.fileId, "/Documents/notes.txt", 1500, MimeType.TEXT_PLAIN))
+
+        return allEntries.sortedWith(
+            compareBy<OCFile> { it.isFolder }
+                .thenByDescending { it.remotePath.count { c -> c == '/' } }
+        )
     }
 
     @Test

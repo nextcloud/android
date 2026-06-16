@@ -118,7 +118,7 @@ public final class ErrorMessageAdapter {
             message = getMessageForRenameFileOperation(result, res);
 
         } else if (operation instanceof SynchronizeFileOperation) {
-            if (!((SynchronizeFileOperation) operation).transferWasRequested()) {
+            if (!((SynchronizeFileOperation) operation).getTransferWasRequested()) {
                 message = res.getString(R.string.sync_file_nothing_to_do_msg);
             }
 
@@ -434,6 +434,8 @@ public final class ErrorMessageAdapter {
             } else if (result.getCode() == ResultCode.QUOTA_EXCEEDED) {
                 message = res.getString(R.string.upload_quota_exceeded);
 
+            } else if (result.getCode() == ResultCode.LOCKED) {
+                message = res.getString(R.string.upload_locked_message);
             }
 
             else if (!TextUtils.isEmpty(result.getHttpPhrase())) {

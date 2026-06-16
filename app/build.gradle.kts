@@ -59,10 +59,10 @@ configurations.configureEach {
 }
 
 // semantic versioning for version code
-val versionMajor = 33
-val versionMinor = 2
+val versionMajor = 34
+val versionMinor = 1
 val versionPatch = 0
-val versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
+val versionBuild = 50 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 val ndkEnv = buildMap {
     file("${project.rootDir}/ndk.env").readLines().forEach {
@@ -86,6 +86,7 @@ android {
     externalNativeBuild {
         cmake {
             version = "${ndkEnv["CMAKE_VERSION"]}"
+            path = file("src/main/cpp/CMakeLists.txt")
         }
     }
 
@@ -107,7 +108,7 @@ android {
         compileSdk = 36
 
         ndk {
-            abiFilters += listOf("arm64-v8a", "x86_64", "x86")
+            abiFilters += listOf("arm64-v8a", "x86_64")
         }
 
         buildConfigField("boolean", "CI", ciBuild.toString())
@@ -192,6 +193,7 @@ android {
         viewBinding = true
         aidl = true
         compose = true
+        prefab = true
     }
 
     compileOptions {
@@ -218,7 +220,8 @@ android {
                 "IconXmlAndPng",
                 "SelectedPhotoAccess",
                 "UnsafeIntentLaunch",
-                "OldTargetApi"
+                "OldTargetApi",
+                "AndroidGradlePluginVersion"
             )
         )
         htmlOutput = layout.buildDirectory.file("reports/lint/lint.html").get().asFile
@@ -373,6 +376,7 @@ dependencies {
 
     // region UI
     implementation(libs.bundles.ui)
+    implementation(libs.browser)
     // endregion
 
     // region Worker
@@ -444,6 +448,7 @@ dependencies {
 
     // region Crypto
     implementation(libs.conscrypt.android)
+    implementation(libs.android.openssl)
     // endregion
 
     // region Library

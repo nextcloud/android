@@ -83,16 +83,12 @@ class SharedListFragment :
                     etag = it
                 }
             }
-            val file = FileStorageUtils.fillOCFile(remoteFile)
+            val file = FileStorageUtils.fillOCFile(remoteFile).apply {
+                fileId = partialFile.fileId
+                parentId = partialFile.parentId
+            }
             FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
             val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)
-            savedFile.apply {
-                ownerId = partialFile.ownerId
-                ownerDisplayName = partialFile.ownerDisplayName
-                isSharedViaLink = partialFile.isSharedViaLink
-                isSharedWithSharee = partialFile.isSharedWithSharee
-                sharees = partialFile.sharees
-            }
             savedFile
         } else {
             logger.e(SHARED_TAG, "Error fetching file")
