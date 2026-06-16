@@ -61,6 +61,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
     RichDocumentsTemplateAdapter.ClickListener,
     Injectable {
     private var fileNames: MutableSet<String>? = null
+    private var hasUserInteracted = false
 
     @Inject
     lateinit var currentAccount: CurrentAccountProvider
@@ -181,6 +182,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
             override fun afterTextChanged(s: Editable) {
+                hasUserInteracted = true
                 checkEnablingCreateButton()
             }
         })
@@ -303,32 +305,46 @@ class ChooseRichDocumentsTemplateDialogFragment :
             requireContext(),
             fileNames ?: setOf()
         )
-        val isExtension = (
-            selectedTemplate == null ||
-                !name.equals(
-                    DOT + selectedTemplate.extension,
-                    ignoreCase = true
-                )
-            )
-        val isChangedExtension = name.substringAfterLast(DOT) != selectedTemplate?.extension
+        val isJustExtension = selectedTemplate != null &&
+            name.equals(DOT + selectedTemplate.extension, ignoreCase = true)
 
-        val isEnable = isExtension && !isChangedExtension && errorMessage == null
+        val isChangedExtension = selectedTemplate != null &&
+            name.contains(DOT) &&
+            name.substringAfterLast(DOT).isNotEmpty() &&
+            name.substringAfterLast(DOT) != selectedTemplate.extension
+
+        val isEnable = selectedTemplate != null && errorMessage == null && !isJustExtension
 
         positiveButton?.let {
             it.isEnabled = isEnable
             it.isClickable = isEnable
         }
 
+        if (!hasUserInteracted) {
+            return
+        }
+
         binding.filenameContainer.run {
-            isErrorEnabled = !isEnable
-            error = if (!isEnable) {
-                when {
-                    errorMessage != null -> errorMessage
-                    isChangedExtension -> getString(R.string.extension_cannot_be_changed)
-                    else -> getText(R.string.filename_empty)
+            when {
+                errorMessage != null -> {
+                    isErrorEnabled = true
+                    error = errorMessage
                 }
-            } else {
-                null
+
+                isChangedExtension -> {
+                    isErrorEnabled = true
+                    error = getString(R.string.extension_cannot_be_changed)
+                }
+
+                isJustExtension -> {
+                    isErrorEnabled = true
+                    error = getText(R.string.filename_empty)
+                }
+
+                else -> {
+                    isErrorEnabled = false
+                    error = null
+                }
             }
         }
     }
@@ -455,8 +471,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
                     onTemplateChosen(templateList[0])
                     binding.list.visibility = View.GONE
                 } else {
-                    val name = DOT + templateList[0].extension
-                    binding.filename.setText(name)
+                    binding.filename.setText(DOT + templateList[0].extension)
                     binding.helperText.visibility = View.VISIBLE
                 }
 
