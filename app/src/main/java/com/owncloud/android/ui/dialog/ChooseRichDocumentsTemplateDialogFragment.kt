@@ -17,6 +17,7 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -49,6 +50,9 @@ import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.NextcloudServer
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
@@ -135,7 +139,10 @@ class ChooseRichDocumentsTemplateDialogFragment :
         viewThemeUtils.material.colorTextInputLayout(binding.filenameContainer)
 
         val type = Type.valueOf(arguments.getString(ARG_TYPE) ?: "")
-        FetchTemplateTask(this, client).execute(type)
+
+        lifecycleScope.launch {
+            fetchTemplate(type)
+        }
 
         initList(type)
         addTextChangeListener()
@@ -428,55 +435,42 @@ class ChooseRichDocumentsTemplateDialogFragment :
         }
     }
 
-    @Suppress("DEPRECATION")
-    private class FetchTemplateTask(
-        chooseTemplateDialogFragment: ChooseRichDocumentsTemplateDialogFragment,
-        private val client: OwnCloudClient?
-    ) : AsyncTask<Type?, Void?, List<Template>>() {
-        private val chooseTemplateDialogFragmentWeakReference = WeakReference(chooseTemplateDialogFragment)
+    @SuppressLint("SetTextI18n")
+    private suspend fun fetchTemplate(type: Type) = withContext(Dispatchers.IO) {
+        client ?: return@withContext
 
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg type: Type?): List<Template> {
-            val fetchTemplateOperation = FetchTemplateOperation(type[0])
-            val result = fetchTemplateOperation.execute(client)
+        val templateList = mutableListOf<Template>()
 
-            if (!result.isSuccess) {
-                return ArrayList()
+        val fetchTemplateOperation = FetchTemplateOperation(type)
+        val result = fetchTemplateOperation.execute(client)
+
+        if (result.isSuccess) {
+            for (data in result.data) {
+                templateList.add(data as Template)
             }
-
-            val templateList: MutableList<Template> = ArrayList()
-            for (`object` in result.data) {
-                templateList.add(`object` as Template)
-            }
-
-            return templateList
         }
 
-        @Deprecated("Deprecated in Java")
-        override fun onPostExecute(templateList: List<Template>) {
-            val fragment = chooseTemplateDialogFragmentWeakReference.get()
-            if (fragment == null || !fragment.isAdded) {
-                Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!")
-                return
+        if (!isAdded) {
+            Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!")
+            return@withContext
+        }
+
+        withContext(Dispatchers.Main) {
+            if (templateList.isEmpty()) {
+                dismiss()
+                DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_templates)
+                return@withContext
             }
 
-            fragment.run {
-                if (templateList.isEmpty()) {
-                    dismiss()
-                    DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_templates)
-                    return
-                }
-
-                if (templateList.size == SINGLE_TEMPLATE) {
-                    onTemplateChosen(templateList[0])
-                    binding.list.visibility = View.GONE
-                } else {
-                    binding.filename.setText(DOT + templateList[0].extension)
-                    binding.helperText.visibility = View.VISIBLE
-                }
-
-                setTemplateList(templateList)
+            if (templateList.size == SINGLE_TEMPLATE) {
+                onTemplateChosen(templateList[0])
+                binding.list.visibility = View.GONE
+            } else {
+                binding.filename.setText(DOT + templateList[0].extension)
+                binding.helperText.visibility = View.VISIBLE
             }
+
+            setTemplateList(templateList)
         }
     }
 
