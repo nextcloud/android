@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -13,12 +14,14 @@ import com.owncloud.android.ui.adapter.NotificationListAdapter.NotificationViewH
 
 interface NotificationsContract {
     interface View {
-        fun onRemovedNotification(isSuccess: Boolean, client: NextcloudClient)
+        fun removeNotification(id: Int, success: Boolean, client: NextcloudClient)
 
-        fun removeNotification(holder: NotificationViewHolder)
+        fun removeAllNotifications(isSuccess: Boolean)
 
-        fun onRemovedAllNotifications(isSuccess: Boolean)
-
-        fun onActionCallback(isSuccess: Boolean, notification: Notification, holder: NotificationViewHolder)
+        fun onNotificationActionCompletion(
+            isSuccess: Boolean,
+            notification: Notification,
+            holder: NotificationViewHolder
+        )
     }
 }
