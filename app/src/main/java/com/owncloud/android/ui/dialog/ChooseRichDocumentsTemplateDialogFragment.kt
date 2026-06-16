@@ -300,62 +300,52 @@ class ChooseRichDocumentsTemplateDialogFragment :
         }
     }
 
-    private fun checkEnablingCreateButton() {
-        if (positiveButton == null) {
-            return
-        }
+    // region filename state
+    private sealed class FilenameState(val isError: Boolean, val errorMessage: CharSequence?) {
+        data object Valid : FilenameState(isError = false, errorMessage = null)
+        data object NoTemplateSelected : FilenameState(isError = false, errorMessage = null)
+        class JustExtension(message: CharSequence) : FilenameState(isError = true, errorMessage = message)
+        class ChangedExtension(message: String) : FilenameState(isError = true, errorMessage = message)
+        class Invalid(message: String) : FilenameState(isError = true, errorMessage = message)
+    }
 
-        val selectedTemplate = adapter?.selectedTemplate
+    private fun resolveFilenameState(): FilenameState {
+        val selectedTemplate = adapter?.selectedTemplate ?: return FilenameState.NoTemplateSelected
         val name = fileNameText
+
         val errorMessage = FileNameValidator.checkFileName(
             name,
             fileDataStorageManager.getCapability(currentAccount.user),
             requireContext(),
             fileNames ?: setOf()
         )
-        val isJustExtension = selectedTemplate != null &&
-            name.equals(DOT + selectedTemplate.extension, ignoreCase = true)
 
-        val isChangedExtension = selectedTemplate != null &&
+        return when {
+            errorMessage != null -> FilenameState.Invalid(errorMessage)
+            name.equals(DOT + selectedTemplate.extension, ignoreCase = true) ->
+                FilenameState.JustExtension(getText(R.string.filename_empty))
             name.contains(DOT) &&
-            name.substringAfterLast(DOT).isNotEmpty() &&
-            name.substringAfterLast(DOT) != selectedTemplate.extension
-
-        val isEnable = selectedTemplate != null && errorMessage == null && !isJustExtension
-
-        positiveButton?.let {
-            it.isEnabled = isEnable
-            it.isClickable = isEnable
-        }
-
-        if (!hasUserInteracted) {
-            return
-        }
-
-        binding.filenameContainer.run {
-            when {
-                errorMessage != null -> {
-                    isErrorEnabled = true
-                    error = errorMessage
-                }
-
-                isChangedExtension -> {
-                    isErrorEnabled = true
-                    error = getString(R.string.extension_cannot_be_changed)
-                }
-
-                isJustExtension -> {
-                    isErrorEnabled = true
-                    error = getText(R.string.filename_empty)
-                }
-
-                else -> {
-                    isErrorEnabled = false
-                    error = null
-                }
-            }
+                name.substringAfterLast(DOT).isNotEmpty() &&
+                name.substringAfterLast(DOT) != selectedTemplate.extension ->
+                FilenameState.ChangedExtension(getString(R.string.extension_cannot_be_changed))
+            else -> FilenameState.Valid
         }
     }
+
+    private fun checkEnablingCreateButton() {
+        val positiveButton = positiveButton ?: return
+        val state = resolveFilenameState()
+
+        val isEnabled = state is FilenameState.Valid
+        positiveButton.isEnabled = isEnabled
+        positiveButton.isClickable = isEnabled
+
+        if (!hasUserInteracted) return
+
+        binding.filenameContainer.isErrorEnabled = state.isError
+        binding.filenameContainer.error = state.errorMessage
+    }
+    // endregion
 
     // region remote operations
     @Suppress("DEPRECATION")
