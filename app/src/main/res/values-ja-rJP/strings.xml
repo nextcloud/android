@@ -219,6 +219,9 @@
     <string name="contacts_preferences_import_scheduled_fail">インポートを開始できませんでした。もう一度やり直してください</string>
     <string name="contacts_preferences_no_file_found">ファイルが見つかりません</string>
     <string name="contacts_preferences_something_strange_happened">あなたの最後のバックアップを見つけることができませんでした！</string>
+    <string name="conversation_screen_create_error_title">会話を作成できませんでした</string>
+    <string name="conversation_screen_delete_button_title">会話を削除</string>
+    <string name="conversation_screen_delete_error_title">会話を削除できませんでした</string>
     <string name="conversation_screen_empty_content_title">会話が見つかりません</string>
     <string name="conversation_screen_empty_conversation_list_title">まだ会話はありません</string>
     <string name="conversation_screen_title">会話</string>
@@ -476,6 +479,7 @@
     <string name="filedetails_download">ダウンロード</string>
     <string name="filedetails_export">エクスポート</string>
     <string name="filedetails_renamed_in_upload_msg">ファイルはアップロード処理で %1$s に変更されましした</string>
+    <string name="filedetails_sync_all_files">すべてを同期</string>
     <string name="filedetails_sync_file">同期</string>
     <string name="filedisplay_no_file_selected">ファイル未選択</string>
     <string name="filename_empty">ファイル名は空にできません</string>
