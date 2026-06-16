@@ -437,18 +437,14 @@ class ChooseRichDocumentsTemplateDialogFragment :
 
     @SuppressLint("SetTextI18n")
     private suspend fun fetchTemplate(type: Type) = withContext(Dispatchers.IO) {
-        client ?: return@withContext
+        val client = client ?: return@withContext
 
-        val templateList = mutableListOf<Template>()
-
-        val fetchTemplateOperation = FetchTemplateOperation(type)
-        val result = fetchTemplateOperation.execute(client)
-
-        if (result.isSuccess) {
-            for (data in result.data) {
-                templateList.add(data as Template)
-            }
-        }
+        val templateList = FetchTemplateOperation(type)
+            .execute(client)
+            .takeIf { it.isSuccess }
+            ?.data
+            ?.filterIsInstance<Template>()
+            ?: return@withContext
 
         if (!isAdded) {
             Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!")
@@ -462,12 +458,15 @@ class ChooseRichDocumentsTemplateDialogFragment :
                 return@withContext
             }
 
-            if (templateList.size == SINGLE_TEMPLATE) {
-                onTemplateChosen(templateList[0])
-                binding.list.visibility = View.GONE
-            } else {
-                binding.filename.setText(DOT + templateList[0].extension)
-                binding.helperText.visibility = View.VISIBLE
+            when (templateList.size) {
+                SINGLE_TEMPLATE -> {
+                    onTemplateChosen(templateList[0])
+                    binding.list.visibility = View.GONE
+                }
+                else -> {
+                    binding.filename.setText(DOT + templateList[0].extension)
+                    binding.helperText.visibility = View.VISIBLE
+                }
             }
 
             setTemplateList(templateList)
