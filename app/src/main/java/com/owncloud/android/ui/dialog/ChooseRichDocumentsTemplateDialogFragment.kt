@@ -10,7 +10,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -53,7 +52,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 /**
@@ -226,7 +224,10 @@ class ChooseRichDocumentsTemplateDialogFragment :
         waitDialog = newInstance(R.string.wait_a_moment, false).also {
             it.show(parentFragmentManager, WAIT_DIALOG_TAG)
         }
-        CreateFileFromTemplateTask(this, client, template, path, currentAccount.user).execute()
+
+        lifecycleScope.launch {
+            createFileFromTemplate(template, path, currentAccount.user)
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -356,68 +357,43 @@ class ChooseRichDocumentsTemplateDialogFragment :
         }
     }
 
-    @Suppress("DEPRECATION")
-    private class CreateFileFromTemplateTask(
-        chooseTemplateDialogFragment: ChooseRichDocumentsTemplateDialogFragment?,
-        private val client: OwnCloudClient?,
-        private val template: Template,
-        private val path: String,
-        private val user: User
-    ) : AsyncTask<Void?, Void?, String>() {
-        private val chooseTemplateDialogFragmentWeakReference = WeakReference(chooseTemplateDialogFragment)
-        private var file: OCFile? = null
-
-        @Suppress("ReturnCount")
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg voids: Void?): String {
-            val result = CreateFileFromTemplateOperation(path, template.id).execute(client)
-
-            if (!result.isSuccess) {
-                return ""
-            }
-
-            // get file
-            val newFileResult = ReadFileRemoteOperation(path).execute(client)
-
-            if (!newFileResult.isSuccess) {
-                return ""
-            }
-
-            val temp = FileStorageUtils.fillOCFile(newFileResult.data[0] as RemoteFile)
-
-            if (chooseTemplateDialogFragmentWeakReference.get() == null) {
-                return ""
-            }
-
-            val storageManager = FileDataStorageManager(
-                user,
-                chooseTemplateDialogFragmentWeakReference.get()!!.requireContext().contentResolver
-            )
-            storageManager.saveFile(temp)
-            file = storageManager.getFileByPath(path)
-
-            return result.data[0].toString()
+    private suspend fun createFileFromTemplate(template: Template, path: String, user: User) = withContext(Dispatchers.IO) {
+        val result = CreateFileFromTemplateOperation(path, template.id).execute(client)
+        if (!result.isSuccess) {
+            return@withContext
         }
 
-        @Deprecated("Deprecated in Java")
-        override fun onPostExecute(url: String) {
-            val fragment = chooseTemplateDialogFragmentWeakReference.get()
+        // get file
+        val newFileResult = ReadFileRemoteOperation(path).execute(client)
+        if (!newFileResult.isSuccess) {
+            return@withContext
+        }
 
-            if (fragment == null || !fragment.isAdded) {
+        val temp = FileStorageUtils.fillOCFile(newFileResult.data[0] as RemoteFile)
+        val storageManager = FileDataStorageManager(
+            user,
+            requireContext().contentResolver
+        )
+        storageManager.saveFile(temp)
+
+        val file = storageManager.getFileByPath(path)
+        val url = result.data[0].toString()
+
+        withContext(Dispatchers.Main) {
+            if (!isAdded) {
                 Log_OC.e(TAG, "Error creating file from template!")
-                return
+                return@withContext
             }
 
-            fragment.waitDialog?.dismiss()
+            waitDialog?.dismiss()
 
             if (url.isEmpty()) {
-                fragment.dismiss()
+                dismiss()
                 DisplayUtils.showSnackMessage(
-                    fragment.requireActivity(),
+                    requireActivity(),
                     R.string.error_creating_file_from_template
                 )
-
-                return
+                return@withContext
             }
 
             val intent = Intent(MainApp.getAppContext(), RichDocumentsEditorWebView::class.java).apply {
@@ -428,10 +404,8 @@ class ChooseRichDocumentsTemplateDialogFragment :
                 putExtra(ExternalSiteWebView.EXTRA_TEMPLATE, template)
             }
 
-            fragment.run {
-                startActivity(intent)
-                dismiss()
-            }
+            startActivity(intent)
+            dismiss()
         }
     }
 
@@ -463,6 +437,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
                     onTemplateChosen(templateList[0])
                     binding.list.visibility = View.GONE
                 }
+
                 else -> {
                     binding.filename.setText(DOT + templateList[0].extension)
                     binding.helperText.visibility = View.VISIBLE
@@ -483,15 +458,12 @@ class ChooseRichDocumentsTemplateDialogFragment :
 
         @JvmStatic
         @NextcloudServer(max = 18) // will be removed in favor of generic direct editing
-        fun newInstance(parentFolder: OCFile?, type: Type): ChooseRichDocumentsTemplateDialogFragment {
-            val bundle = Bundle().apply {
-                putParcelable(ARG_PARENT_FOLDER, parentFolder)
-                putString(ARG_TYPE, type.name)
+        fun newInstance(parentFolder: OCFile?, type: Type): ChooseRichDocumentsTemplateDialogFragment =
+            ChooseRichDocumentsTemplateDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_PARENT_FOLDER, parentFolder)
+                    putString(ARG_TYPE, type.name)
+                }
             }
-
-            return ChooseRichDocumentsTemplateDialogFragment().apply {
-                arguments = bundle
-            }
-        }
     }
 }
