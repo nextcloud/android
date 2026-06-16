@@ -358,26 +358,26 @@ class ChooseRichDocumentsTemplateDialogFragment :
     }
 
     private suspend fun createFileFromTemplate(template: Template, path: String, user: User) = withContext(Dispatchers.IO) {
-        val result = CreateFileFromTemplateOperation(path, template.id).execute(client)
-        if (!result.isSuccess) {
-            return@withContext
-        }
+        val url = CreateFileFromTemplateOperation(path, template.id)
+            .execute(client)
+            .takeIf { it.isSuccess }
+            ?.data?.get(0)?.toString()
+            ?: run {
+                showErrorOnMain(R.string.error_creating_file_from_template)
+                return@withContext
+            }
 
-        // get file
-        val newFileResult = ReadFileRemoteOperation(path).execute(client)
-        if (!newFileResult.isSuccess) {
-            return@withContext
-        }
-
-        val temp = FileStorageUtils.fillOCFile(newFileResult.data[0] as RemoteFile)
-        val storageManager = FileDataStorageManager(
-            user,
-            requireContext().contentResolver
-        )
-        storageManager.saveFile(temp)
-
-        val file = storageManager.getFileByPath(path)
-        val url = result.data[0].toString()
+        val file = ReadFileRemoteOperation(path)
+            .execute(client)
+            .takeIf { it.isSuccess }
+            ?.data?.get(0)
+            ?.let { FileStorageUtils.fillOCFile(it as RemoteFile) }
+            ?.also { FileDataStorageManager(user, requireContext().contentResolver).saveFile(it) }
+            ?.let { FileDataStorageManager(user, requireContext().contentResolver).getFileByPath(path) }
+            ?: run {
+                showErrorOnMain(R.string.error_creating_file_from_template)
+                return@withContext
+            }
 
         withContext(Dispatchers.Main) {
             if (!isAdded) {
@@ -386,15 +386,6 @@ class ChooseRichDocumentsTemplateDialogFragment :
             }
 
             waitDialog?.dismiss()
-
-            if (url.isEmpty()) {
-                dismiss()
-                DisplayUtils.showSnackMessage(
-                    requireActivity(),
-                    R.string.error_creating_file_from_template
-                )
-                return@withContext
-            }
 
             val intent = Intent(MainApp.getAppContext(), RichDocumentsEditorWebView::class.java).apply {
                 putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora")
@@ -407,6 +398,13 @@ class ChooseRichDocumentsTemplateDialogFragment :
             startActivity(intent)
             dismiss()
         }
+    }
+
+    private suspend fun showErrorOnMain(stringRes: Int) = withContext(Dispatchers.Main) {
+        if (!isAdded) return@withContext
+        waitDialog?.dismiss()
+        dismiss()
+        DisplayUtils.showSnackMessage(requireActivity(), stringRes)
     }
 
     @SuppressLint("SetTextI18n")
