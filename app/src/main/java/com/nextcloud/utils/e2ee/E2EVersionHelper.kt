@@ -7,7 +7,6 @@
 
 package com.nextcloud.utils.e2ee
 
-import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile
@@ -39,25 +38,16 @@ object E2EVersionHelper {
         version == E2EVersion.V1_0 || version == E2EVersion.V1_1 || version == E2EVersion.V1_2
 
     fun getMaxCompatibleE2EEVersion(serverE2EEVersion: E2EVersion): E2EVersion {
-        if (serverE2EEVersion == E2EVersion.UNKNOWN) {
+        if (serverE2EEVersion == E2EVersion.UNKNOWN && serverE2EEVersion.unknownValue.isNullOrEmpty()) {
             return E2EVersion.UNKNOWN
+        }
+
+        E2EVersion.entries.forEach {
+            it.unknownValue = null
         }
 
         val clientMax = E2EVersion.max()
         return minOf(serverE2EEVersion, clientMax)
-    }
-
-    /**
-     * Use only for test
-     */
-    @VisibleForTesting
-    fun getMaxCompatibleE2EEVersionFromString(value: String): E2EVersion {
-        if (value == E2EVersion.UNKNOWN.value) {
-            return E2EVersion.UNKNOWN
-        }
-
-        val clientMax = E2EVersion.max().value
-        return E2EVersion.fromValue(minOf(value, clientMax))
     }
 
     fun fromMetadata(metadata: String): E2EVersion = runCatching {

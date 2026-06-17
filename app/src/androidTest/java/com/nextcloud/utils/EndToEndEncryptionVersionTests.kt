@@ -90,7 +90,7 @@ class EndToEndEncryptionVersionTests {
     fun testGetMaxCompatibleE2EEVersionWhenGivenV3_0ShouldReturnV2_1() {
         assertEquals(
             E2EVersion.V2_1,
-            E2EVersionHelper.getMaxCompatibleE2EEVersionFromString("3.0")
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.fromValue("3.0"))
         )
     }
 }
