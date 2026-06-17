@@ -169,6 +169,86 @@ class E2EVersionHelperTest {
         assertEquals(E2EVersion.UNKNOWN, E2EVersion.fromValue("3.0"))
     }
 
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns UNKNOWN when given UNKNOWN`() {
+        assertEquals(
+            E2EVersion.UNKNOWN,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.UNKNOWN)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns V1_0 when given V1_0`() {
+        assertEquals(
+            E2EVersion.V1_0,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V1_0)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns V1_1 when given V1_1`() {
+        assertEquals(
+            E2EVersion.V1_1,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V1_1)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns V1_2 when given V1_2`() {
+        assertEquals(
+            E2EVersion.V1_2,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V1_2)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns client V1 max when given V1 above client max`() {
+        assertEquals(
+            E2EVersion.V1_2,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V1_2)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns V2_0 when given V2_0`() {
+        assertEquals(
+            E2EVersion.V2_0,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V2_0)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns V2_1 when given V2_1`() {
+        assertEquals(
+            E2EVersion.V2_1,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V2_1)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion does not apply V2 ceiling when given V1_2`() {
+        assertEquals(
+            E2EVersion.V1_2,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V1_2)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion does not apply V1 ceiling when given V2_0`() {
+        assertEquals(
+            E2EVersion.V2_0,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V2_0)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns V2_1 when given unsupported V3_0`() {
+        assertEquals(
+            E2EVersion.V2_1,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.fromValue("3.0"))
+        )
+    }
+
     private fun mockV1(version: String) {
         val v1 = mockk<EncryptedFolderMetadataFileV1> {
             every { metadata.version } returns version.toDouble()
