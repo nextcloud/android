@@ -32,6 +32,7 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.NetworkChangeListener;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.common.NextcloudClient;
@@ -371,6 +372,16 @@ public abstract class AbstractIT {
 
     public void uploadOCUpload(OCUpload ocUpload) {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
+            @Override
+            public void addListener(@NonNull NetworkChangeListener listener) {
+
+            }
+
+            @Override
+            public void removeListener(@NonNull NetworkChangeListener listener) {
+
+            }
+
             @Override
             public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
 
