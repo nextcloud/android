@@ -98,7 +98,7 @@ class ConnectivityServiceImpl(
         val baseServerAddress = accountManager.user.server.uri.toString()
         if (baseServerAddress.isEmpty()) {
             Log_OC.e(TAG, "no base server address, internet is walled")
-            return true
+            return !currentConnectivity.isConnected
         }
 
         val resolvedCapabilities = resolveNetworkCapabilities()
