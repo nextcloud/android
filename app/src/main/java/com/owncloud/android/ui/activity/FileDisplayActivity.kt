@@ -84,6 +84,7 @@ import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.navigateToAllFiles
 import com.nextcloud.utils.extensions.observeWorker
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFolderPath
 import com.nextcloud.utils.view.FastScrollUtils
 import com.owncloud.android.MainApp
@@ -481,10 +482,9 @@ class FileDisplayActivity :
                 val result = GetNotificationsRemoteOperation()
                     .execute(clientFactory.createNextcloudClient(accountManager.user))
 
-                if (result.isSuccess && result.getResultData()?.isEmpty() == false) {
-                    runOnUiThread { mNotificationButton.visibility = View.VISIBLE }
-                } else {
-                    runOnUiThread { mNotificationButton.visibility = View.GONE }
+                val isVisible = (result.isSuccess && result.getResultData()?.isEmpty() == false)
+                withContext(Dispatchers.Main) {
+                    mNotificationButton.setVisibleIf(isVisible)
                 }
             } catch (_: CreationException) {
                 Log_OC.e(TAG, "Could not fetch notifications!")
