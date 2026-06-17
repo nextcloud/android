@@ -208,10 +208,7 @@ class ConnectivityServiceImpl(
             get.releaseConnection()
         }
 
-        // only cache a successful reachability result.
-        if (!isWalled) {
-            walledCheckCache.setValue(currentKey, false)
-        }
+        walledCheckCache.setValue(currentKey, isWalled)
 
         Log_OC.d(TAG, "server check, isWalled: $isWalled")
         return isWalled

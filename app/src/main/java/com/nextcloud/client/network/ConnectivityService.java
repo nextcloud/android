@@ -7,8 +7,6 @@
 package com.nextcloud.client.network;
 
 
-import android.net.ConnectivityManager;
-import android.net.Network;
 import androidx.annotation.NonNull;
 
 /**
