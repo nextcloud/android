@@ -8,16 +8,19 @@
 package com.owncloud.android.operations
 
 import androidx.lifecycle.lifecycleScope
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.CheckEtagRemoteOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.fragment.OCFileListFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.time.Duration.Companion.milliseconds
 
 class FolderRefreshScheduler(private val activity: FileDisplayActivity) {
     companion object {
@@ -32,7 +35,7 @@ class FolderRefreshScheduler(private val activity: FileDisplayActivity) {
 
         job = activity.lifecycleScope.launch {
             while (isActive) {
-                delay(ETAG_POLL_INTERVAL_MS)
+                delay(ETAG_POLL_INTERVAL_MS.milliseconds)
                 checkAndRefreshIfETagChanged()
             }
         }
@@ -53,15 +56,22 @@ class FolderRefreshScheduler(private val activity: FileDisplayActivity) {
             return
         }
 
-        val currentDir = activity.getCurrentDir()
-        if (currentDir == null) {
-            Log_OC.w(TAG, "current directory is null")
+        val fragment = (activity.leftFragment)
+        if (fragment !is OCFileListFragment) {
+            Log_OC.w(TAG, "OCFileListFragment not active")
             return
         }
 
         val currentUser = activity.user.orElse(null)
         if (currentUser == null) {
             Log_OC.w(TAG, "current user is null")
+            return
+        }
+
+        val currentDir =
+            activity.getCurrentDir() ?: activity.storageManager.getFileByDecryptedRemotePath(OCFile.ROOT_PATH)
+        if (currentDir == null) {
+            Log_OC.w(TAG, "current directory is null")
             return
         }
 
