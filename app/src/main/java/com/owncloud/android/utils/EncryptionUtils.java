@@ -1184,7 +1184,7 @@ public final class EncryptionUtils {
      * @param parentFile file metadata should be retrieved for
      * @return Pair: boolean: true: metadata already exists, false: metadata new created
      */
-    public static Pair<Boolean, DecryptedFolderMetadataFileV1> retrieveMetadataV1(OCFile parentFile,
+    public static Pair<Boolean, DecryptedFolderMetadataFileV1> retrieveMetadataV1(ServerFileInterface parentFile,
                                                                                   OwnCloudClient client,
                                                                                   String privateKey,
                                                                                   String publicKey,
