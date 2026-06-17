@@ -36,11 +36,15 @@ class ConnectivityServiceImpl(
     private val walledCheckCache: WalledCheckCache
 ) : ConnectivityService {
 
-    private val scope = CoroutineScope(Dispatchers.IO)
+    companion object {
+        private const val TAG = "ConnectivityServiceImpl"
+        private const val CONNECTIVITY_CHECK_ROUTE = "/index.php/204"
+    }
 
+    // region private values
+    private val scope = CoroutineScope(Dispatchers.IO)
     private var availabilityCheckJob: Job? = null
     private var notifyJob: Job? = null
-
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val listeners = mutableSetOf<NetworkChangeListener>()
 
@@ -49,30 +53,6 @@ class ConnectivityServiceImpl(
 
     private val key: ConnectivityKey
         get() = ConnectivityKey.getBy(accountManager)
-
-    override fun addListener(listener: NetworkChangeListener) {
-        listeners.add(listener)
-    }
-
-    override fun removeListener(listener: NetworkChangeListener) {
-        listeners.remove(listener)
-    }
-
-    private fun notifyListeners() {
-        if (listeners.isEmpty()) {
-            return
-        }
-
-        notifyJob?.cancel()
-        notifyJob = scope.launch {
-            val available = !isInternetWalled()
-            withContext(Dispatchers.Main) {
-                listeners.forEach {
-                    it.networkAndServerConnectionListener(available)
-                }
-            }
-        }
-    }
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onLost(network: Network) {
@@ -85,10 +65,7 @@ class ConnectivityServiceImpl(
             updateConnectivity()
         }
     }
-
-    fun interface GetRequestBuilder {
-        operator fun invoke(url: String): GetMethod
-    }
+    // endregion
 
     init {
         connectivityManager.registerDefaultNetworkCallback(networkCallback)
@@ -96,68 +73,7 @@ class ConnectivityServiceImpl(
         Log_OC.d(TAG, "connectivity service constructed")
     }
 
-    fun updateConnectivity() {
-        val currentKey = key
-        val previous = currentConnectivity
-
-        val capabilities = resolveNetworkCapabilities()
-
-        val newConnectivity = if (capabilities == null) {
-            Log_OC.w(TAG, "no network capabilities found, connectivity is disconnected")
-            Connectivity.DISCONNECTED
-        } else {
-            val hasTransport = isSupportedTransport(capabilities)
-            val hasInternetCapability = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-
-            Connectivity(
-                isConnected = hasTransport || hasInternetCapability,
-                isMetered = !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED),
-                isWifi = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET),
-                isServerAvailable = previous.isServerAvailable,
-                isVPN = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
-            )
-        }
-
-        if (previous != newConnectivity) {
-            currentConnectivity = newConnectivity
-            walledCheckCache.putConnectivityValue(currentKey, newConnectivity)
-
-            val isStructural = (
-                previous.isConnected != newConnectivity.isConnected ||
-                    previous.isWifi != newConnectivity.isWifi
-                )
-
-            if (isStructural) {
-                walledCheckCache.clear(currentKey)
-            }
-            notifyListeners()
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    private fun resolveNetworkCapabilities(): NetworkCapabilities? {
-        connectivityManager.activeNetwork
-            ?.let { connectivityManager.getNetworkCapabilities(it) }
-            ?.also { return it }
-
-        return connectivityManager.allNetworks
-            .mapNotNull { connectivityManager.getNetworkCapabilities(it) }
-            .firstOrNull { isSupportedTransport(it) }
-    }
-
-    private fun isSupportedTransport(capabilities: NetworkCapabilities) =
-        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE) ||
-            (
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_USB)
-                )
-
+    // region overridden methods
     override fun isNetworkAndServerAvailable(callback: GenericCallback<Boolean>) {
         availabilityCheckJob?.cancel()
         availabilityCheckJob = scope.launch {
@@ -214,6 +130,105 @@ class ConnectivityServiceImpl(
 
     override fun getConnectivity() = currentConnectivity
 
+    override fun addListener(listener: NetworkChangeListener) {
+        listeners.add(listener)
+    }
+
+    override fun removeListener(listener: NetworkChangeListener) {
+        listeners.remove(listener)
+    }
+    // endregion
+
+    // region public methods
+    fun updateConnectivity() {
+        val currentKey = key
+        val previous = currentConnectivity
+
+        val capabilities = resolveNetworkCapabilities()
+
+        val newConnectivity = if (capabilities == null) {
+            Log_OC.w(TAG, "no network capabilities found, connectivity is disconnected")
+            Connectivity.DISCONNECTED
+        } else {
+            val hasTransport = isSupportedTransport(capabilities)
+            val hasInternetCapability = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+
+            Connectivity(
+                isConnected = hasTransport || hasInternetCapability,
+                isMetered = !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED),
+                isWifi = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET),
+                isServerAvailable = previous.isServerAvailable,
+                isVPN = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+            )
+        }
+
+        if (previous != newConnectivity) {
+            currentConnectivity = newConnectivity
+            walledCheckCache.putConnectivityValue(currentKey, newConnectivity)
+
+            val isStructural = (
+                previous.isConnected != newConnectivity.isConnected ||
+                    previous.isWifi != newConnectivity.isWifi
+                )
+
+            if (isStructural) {
+                walledCheckCache.clear(currentKey)
+            }
+            notifyListeners()
+        }
+    }
+
+    @Suppress("unused")
+    fun unregisterCallback() {
+        connectivityManager.unregisterNetworkCallback(networkCallback)
+    }
+
+    fun interface GetRequestBuilder {
+        operator fun invoke(url: String): GetMethod
+    }
+    // endregion
+
+    // region private methods
+    private fun notifyListeners() {
+        if (listeners.isEmpty()) {
+            return
+        }
+
+        notifyJob?.cancel()
+        notifyJob = scope.launch {
+            val available = !isInternetWalled()
+            withContext(Dispatchers.Main) {
+                listeners.forEach {
+                    it.networkAndServerConnectionListener(available)
+                }
+            }
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun resolveNetworkCapabilities(): NetworkCapabilities? {
+        connectivityManager.activeNetwork
+            ?.let { connectivityManager.getNetworkCapabilities(it) }
+            ?.also { return it }
+
+        return connectivityManager.allNetworks
+            .mapNotNull { connectivityManager.getNetworkCapabilities(it) }
+            .firstOrNull { isSupportedTransport(it) }
+    }
+
+    private fun isSupportedTransport(capabilities: NetworkCapabilities) =
+        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ||
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE) ||
+            (
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_USB)
+                )
+
     private fun getWalledValueFromException(e: Exception): Boolean = when (e) {
         is UnknownHostException,
         is ConnectException -> {
@@ -241,14 +256,5 @@ class ConnectivityServiceImpl(
             currentConnectivity.isServerAvailable?.let { !it } ?: true
         }
     }
-
-    @Suppress("unused")
-    fun unregisterCallback() {
-        connectivityManager.unregisterNetworkCallback(networkCallback)
-    }
-
-    companion object {
-        private const val TAG = "ConnectivityServiceImpl"
-        private const val CONNECTIVITY_CHECK_ROUTE = "/index.php/204"
-    }
+    // endregion
 }
