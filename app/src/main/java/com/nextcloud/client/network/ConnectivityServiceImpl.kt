@@ -97,7 +97,7 @@ class ConnectivityServiceImpl(
 
         val baseServerAddress = accountManager.user.server.uri.toString()
         if (baseServerAddress.isEmpty()) {
-            Log_OC.e(TAG, "no base server address, internet is walled")
+            Log_OC.e(TAG, "no base server address, relying on current connectivity")
             return !currentConnectivity.isConnected
         }
 
@@ -105,6 +105,11 @@ class ConnectivityServiceImpl(
         if (resolvedCapabilities == null || !isSupportedTransport(resolvedCapabilities)) {
             Log_OC.e(TAG, "no usable network transport at check time, treating as walled")
             return true
+        }
+
+        if (currentConnectivity.isMetered) {
+            Log_OC.e(TAG, "metered connection, relying on current connectivity")
+            return !currentConnectivity.isConnected
         }
 
         val get = requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE)
