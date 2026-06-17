@@ -110,7 +110,6 @@
     <dimen name="notification_icon_width">24dp</dimen>
     <dimen name="notification_icon_height">24dp</dimen>
     <dimen name="notification_icon_layout_right_end_margin">21dp</dimen>
-    <dimen name="notification_list_item_grid_layout_left_start_margin">-8dp</dimen>
     <dimen name="contactlist_item_icon_layout_width">40dp</dimen>
     <dimen name="contactlist_item_icon_layout_height">40dp</dimen>
     <dimen name="empty_list_icon_layout_width">72dp</dimen>
@@ -149,7 +148,6 @@
     <integer name="small_margin">5</integer>
     <integer name="zero">0</integer>
     <dimen name="txt_size_16sp">16sp</dimen>
-    <dimen name="txt_size_14sp">14sp</dimen>
     <!--Adaptive Icon size specified here:  https://developer.android.com/develop/ui/views/launch/icon_design_adaptive -->
     <dimen name="adaptive_icon_size">108dp</dimen>
     <dimen name="adaptive_icon_padding">18dp</dimen>
