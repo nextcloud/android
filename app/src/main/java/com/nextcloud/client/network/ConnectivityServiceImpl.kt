@@ -26,7 +26,6 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLException
-import kotlin.jvm.functions.Function1
 
 @Suppress("TooGenericExceptionCaught", "ReturnCount")
 class ConnectivityServiceImpl(
@@ -87,9 +86,8 @@ class ConnectivityServiceImpl(
         }
     }
 
-    class GetRequestBuilder : Function1<String, GetMethod> {
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
-        override fun invoke(url: String) = GetMethod(url, false)
+    fun interface GetRequestBuilder {
+        operator fun invoke(url: String): GetMethod
     }
 
     init {

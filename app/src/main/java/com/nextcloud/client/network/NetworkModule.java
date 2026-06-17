@@ -9,6 +9,7 @@ package com.nextcloud.client.network;
 import android.content.Context;
 
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.operations.GetMethod;
 
 import javax.inject.Singleton;
 
@@ -26,7 +27,7 @@ public class NetworkModule {
         return new ConnectivityServiceImpl(context,
                                            accountManager,
                                            clientFactory,
-                                           new ConnectivityServiceImpl.GetRequestBuilder(),
+                                           url -> new GetMethod(url, false),
                                            walledCheckCache
         );
     }
