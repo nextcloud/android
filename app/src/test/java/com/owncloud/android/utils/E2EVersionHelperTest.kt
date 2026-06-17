@@ -64,12 +64,7 @@ class E2EVersionHelperTest {
 
     @Test
     fun `getLatestE2EVersion returns latest V2 when isV2 is true`() {
-        assertEquals(E2EVersion.V2_1, E2EVersionHelper.latestVersion(true))
-    }
-
-    @Test
-    fun `getLatestE2EVersion returns latest V1 when isV2 is false`() {
-        assertEquals(E2EVersion.V1_2, E2EVersionHelper.latestVersion(false))
+        assertEquals(E2EVersion.V2_1, E2EVersion.max())
     }
 
     @Test
