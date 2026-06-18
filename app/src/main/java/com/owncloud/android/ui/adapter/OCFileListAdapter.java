@@ -593,34 +593,34 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
-        if ((file.isSharedWithMe() || file.isSharedWithSharee()) && !isMultiSelect() && !gridView &&
-            !hideItemOptions) {
-            holder.getSharedAvatars().setVisibility(View.VISIBLE);
-            holder.getSharedAvatars().removeAllViews();
-
-            String fileOwner = file.getOwnerId();
-            List<ShareeUser> sharees = file.getSharees();
-
-            // use fileOwner if not oneself, then add at first
-            ShareeUser fileOwnerSharee = new ShareeUser(fileOwner, file.getOwnerDisplayName(), ShareType.USER);
-            if (!TextUtils.isEmpty(fileOwner) &&
-                !fileOwner.equals(userId) &&
-                !sharees.contains(fileOwnerSharee)) {
-                sharees.add(fileOwnerSharee);
-            }
-
-            Collections.reverse(sharees);
-
-            Log_OC.d(this, "sharees of " + file.getFileName() + ": " + sharees);
-
-            holder.getSharedAvatars().setAvatars(user, sharees, viewThemeUtils);
-            holder.getSharedAvatars().setOnClickListener(
-                view -> ocFileListFragmentInterface.onShareIconClick(file));
-        } else {
+    private void bindSharedAvatars(ListItemViewHolder holder, OCFile file) {
+        if (!(file.isSharedWithMe() || file.isSharedWithSharee()) || isMultiSelect() || gridView || hideItemOptions) {
             holder.getSharedAvatars().setVisibility(View.GONE);
             holder.getSharedAvatars().removeAllViews();
+            return;
         }
+
+        final var sharees = new ArrayList<>(file.getSharees());
+
+        final String ownerId = file.getOwnerId();
+        if (!TextUtils.isEmpty(ownerId) && !ownerId.equals(userId)) {
+            final var ownerSharee = new ShareeUser(ownerId, file.getOwnerDisplayName(), ShareType.USER);
+            if (!sharees.contains(ownerSharee)) {
+                sharees.add(ownerSharee);
+            }
+        }
+
+        Collections.reverse(sharees);
+
+        final var sharedAvatars = holder.getSharedAvatars();
+        sharedAvatars.setVisibility(View.VISIBLE);
+        sharedAvatars.removeAllViews();
+        sharedAvatars.setAvatars(user, sharees, viewThemeUtils);
+        sharedAvatars.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
+    }
+
+    private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
+        bindSharedAvatars(holder, file);
 
         // tags
         if (file.getTags().isEmpty()) {

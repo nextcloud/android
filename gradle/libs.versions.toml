@@ -87,6 +87,7 @@ webkitVersion = "1.16.0"
 workRuntime = "2.11.2"
 foundationVersion = "1.11.2"
 browserVersion = "1.10.0"
+kotlinxCoroutinesTestVersion = "1.11.0"
 
 [libraries]
 # Crypto
@@ -121,6 +122,7 @@ emoji-google = { module = "com.vanniktech:emoji-google", version.ref = "emojiGoo
 
 # kotlinx
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTestVersion" }
 
 # Other
 annotation = { module = "androidx.annotation:annotation", version.ref = "annotationVersion" }
