@@ -64,12 +64,7 @@ class E2EVersionHelperTest {
 
     @Test
     fun `getLatestE2EVersion returns latest V2 when isV2 is true`() {
-        assertEquals(E2EVersion.V2_1, E2EVersionHelper.latestVersion(true))
-    }
-
-    @Test
-    fun `getLatestE2EVersion returns latest V1 when isV2 is false`() {
-        assertEquals(E2EVersion.V1_2, E2EVersionHelper.latestVersion(false))
+        assertEquals(E2EVersion.V2_1, E2EVersion.max())
     }
 
     @Test
@@ -159,19 +154,99 @@ class E2EVersionHelperTest {
 
     @Test
     fun `determineE2EFromVersionString maps versions correctly`() {
-        assertEquals(E2EVersion.V1_0, E2EVersionHelper.fromVersionString("1.0"))
-        assertEquals(E2EVersion.V1_1, E2EVersionHelper.fromVersionString("1.1"))
-        assertEquals(E2EVersion.V1_2, E2EVersionHelper.fromVersionString("1.2"))
-        assertEquals(E2EVersion.V2_0, E2EVersionHelper.fromVersionString("2"))
-        assertEquals(E2EVersion.V2_0, E2EVersionHelper.fromVersionString("2.0"))
-        assertEquals(E2EVersion.V2_1, E2EVersionHelper.fromVersionString("2.1"))
+        assertEquals(E2EVersion.V1_0, E2EVersion.fromValue("1.0"))
+        assertEquals(E2EVersion.V1_1, E2EVersion.fromValue("1.1"))
+        assertEquals(E2EVersion.V1_2, E2EVersion.fromValue("1.2"))
+        assertEquals(E2EVersion.V2_0, E2EVersion.fromValue("2"))
+        assertEquals(E2EVersion.V2_0, E2EVersion.fromValue("2.0"))
+        assertEquals(E2EVersion.V2_1, E2EVersion.fromValue("2.1"))
     }
 
     @Test
     fun `determineE2EFromVersionString returns UNKNOWN for invalid input`() {
-        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.fromVersionString(null))
-        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.fromVersionString(""))
-        assertEquals(E2EVersion.UNKNOWN, E2EVersionHelper.fromVersionString("3.0"))
+        assertEquals(E2EVersion.UNKNOWN, E2EVersion.fromValue(null))
+        assertEquals(E2EVersion.UNKNOWN, E2EVersion.fromValue(""))
+        assertEquals(E2EVersion.UNKNOWN, E2EVersion.fromValue("3.0"))
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns UNKNOWN when given UNKNOWN`() {
+        assertEquals(
+            E2EVersion.UNKNOWN,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.UNKNOWN)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns V1_0 when given V1_0`() {
+        assertEquals(
+            E2EVersion.V1_0,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V1_0)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns V1_1 when given V1_1`() {
+        assertEquals(
+            E2EVersion.V1_1,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V1_1)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns V1_2 when given V1_2`() {
+        assertEquals(
+            E2EVersion.V1_2,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V1_2)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns client V1 max when given V1 above client max`() {
+        assertEquals(
+            E2EVersion.V1_2,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V1_2)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns V2_0 when given V2_0`() {
+        assertEquals(
+            E2EVersion.V2_0,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V2_0)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns V2_1 when given V2_1`() {
+        assertEquals(
+            E2EVersion.V2_1,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V2_1)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion does not apply V2 ceiling when given V1_2`() {
+        assertEquals(
+            E2EVersion.V1_2,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V1_2)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion does not apply V1 ceiling when given V2_0`() {
+        assertEquals(
+            E2EVersion.V2_0,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.V2_0)
+        )
+    }
+
+    @Test
+    fun `getMaxCompatibleE2EEVersion returns V2_1 when given unsupported V3_0`() {
+        assertEquals(
+            E2EVersion.V2_1,
+            E2EVersionHelper.getMaxCompatibleE2EEVersion(E2EVersion.fromValue("3.0"))
+        )
     }
 
     private fun mockV1(version: String) {

@@ -47,6 +47,7 @@ import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.date.DateFormatPattern;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
@@ -2450,6 +2451,16 @@ public class FileDataStorageManager {
         }
 
         return cursor;
+    }
+
+    public String getE2EEVersion(@NonNull User user) {
+        return getE2EEVersionObject(user).getValue();
+    }
+
+    public E2EVersion getE2EEVersionObject(@NonNull User user) {
+        final var capabilities = getCapability(user);
+        final var serverE2EEVersion = capabilities.getEndToEndEncryptionApiVersion();
+        return E2EVersionHelper.INSTANCE.getMaxCompatibleE2EEVersion(serverE2EEVersion);
     }
 
     @NonNull
