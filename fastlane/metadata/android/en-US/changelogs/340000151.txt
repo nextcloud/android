@@ -1,0 +1,8 @@
+## 34.0.1 RC1 (June 18, 2026)
+
+- Fix download of very big files
+- Fix E2E version check
+
+Minimum: NC 20 Server, Android 9 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/129
