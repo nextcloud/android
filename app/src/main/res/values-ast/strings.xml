@@ -312,6 +312,7 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nun hai más carpetes.</string>
     <string name="lock_expiration_info">Data de caducidá: %1$s</string>
+    <string name="lock_file">Lock file</string>
     <string name="log_send_mail_subject">Aplicación de rexistros d\'Android %1$s</string>
     <string name="login">Aniciar la sesión</string>
     <string name="logs_menu_refresh">Anovar</string>
@@ -549,6 +550,7 @@
     <string name="sync_fail_ticker_unauthorized">La sincronización fallo, volvi aniciar la sesión</string>
     <string name="sync_file_nothing_to_do_msg">El conteníu del ficheru yá ta sincronizáu</string>
     <string name="sync_foreign_files_forgotten_ticker">Dexáronse dalgunos ficheros llocales.</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_not_enough_space_dialog_title">Nun hai abondu espaciu</string>
     <string name="sync_string_files">Ficheros</string>
     <string name="synced_folder_settings_button">Botón de Configuración</string>

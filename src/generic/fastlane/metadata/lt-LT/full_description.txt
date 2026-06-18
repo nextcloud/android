@@ -1,4 +1,4 @@
-Nuolat talpinama produktyvumo platforma, leidžianti jums viską kontroliuoti.
+Savarankiškai talpinama produktyvumo platforma, leidžianti jums viską kontroliuoti.
 
 Funkcijos:
 * Paprasta, moderni sąsaja, pritaikyta prie jūsų serverio temos

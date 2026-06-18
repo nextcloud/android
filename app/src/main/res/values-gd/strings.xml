@@ -342,6 +342,7 @@
     <string name="local_file_not_found_message">Cha deach faidhle a lorg san t-siostam fhaidhlichean ionadail</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Chan eil pasgan eile ann.</string>
+    <string name="lock_file">Lock file</string>
     <string name="log_send_mail_subject">Logaichean aplacaid Android %1$s</string>
     <string name="log_send_no_mail_app">Cha deach aplacaid a lorg airson logaichean a chur. Stàlaich cliant puist-d.</string>
     <string name="login">Clàraich a-steach</string>
@@ -642,6 +643,7 @@
     <string name="trashbin_loading_failed">Dh’fhàillig luchdadh an sgudail!</string>
     <string name="trashbin_not_emptied">Cha b’ urrainn dhuinn na faidhlichean a sguabadh às gu buan!</string>
     <string name="unknown">Chan eil fhios</string>
+    <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Tha beachd gun leughadh ann</string>
     <string name="unset_encrypted">Neo-shuidhich an crioptachadh</string>
     <string name="unshare_link_file_error">Thachair mearachd le crìochnachadh co-roinneadh an fhaidhle no pasgain seo.</string>
