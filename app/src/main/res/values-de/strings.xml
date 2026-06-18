@@ -55,7 +55,6 @@
     <string name="assistant_screen_empty_content_description">Versuchen Sie, eine Nachricht zu senden, um eine Unterhaltung anzustoßen.</string>
     <string name="assistant_screen_empty_content_title">Hallo! Womit kann ich Ihnen heute helfen?</string>
     <string name="assistant_screen_retry_response_generation">Antwortgenerierung wiederholen</string>
-    <string name="assistant_screen_select_task">Bitte eine Aufgabe auswählen</string>
     <string name="assistant_screen_send_message">Nachricht senden</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Liste der Unterhaltungen öffnen</string>
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
@@ -116,7 +115,6 @@
     <string name="auto_upload_background_activity_action">Hintergrundaktivität zulassen</string>
     <string name="auto_upload_battery_optimization_reason">Die Hintergrundaktivität von Nextcloud wird durch die Akkuoptimierung eingeschränkt.</string>
     <string name="auto_upload_battery_saver_action">Akkuspareinstellungen öffnen</string>
-    <string name="auto_upload_battery_saver_mode_warning">Der automatische Upload wurde angehalten, da Battery-Saver eingeschaltet ist.</string>
     <string name="auto_upload_battery_saver_reason">Die Akkusparfunktion ist aktiv und kann Uploads unterbrechen.</string>
     <string name="auto_upload_delete_dialog_description">Dadurch werden der Ordner und die Konfiguration für das \"Automatische Hochladen\" entfernt. Alle noch nicht abgeschlossenen Uploads werden abgebrochen.</string>
     <string name="auto_upload_delete_dialog_title">Ordner für \"Automatisches Hochladen\" löschen?</string>
@@ -134,6 +132,7 @@
     <string name="autoupload_hide_folder">Ordner verstecken</string>
     <string name="avatar">Avatar</string>
     <string name="away">Abwesend</string>
+    <string name="backup_list_adapter_local_contacts">Lokale Kontakte</string>
     <string name="backup_settings">Sicherungseinstellungen</string>
     <string name="backup_title">Kontakte- und Kalender-Sicherung</string>
     <string name="battery_optimization_close">Schliessen</string>
@@ -261,7 +260,6 @@
     <string name="create_new_presentation">Neue Präsentation</string>
     <string name="create_new_spreadsheet">Neue Tabelle</string>
     <string name="create_rich_workspace">Ordnerbeschreibung hinzufügen</string>
-    <string name="creates_rich_workspace">Fügt eine Ordnerbeschreibung hinzu</string>
     <string name="credentials_disabled">Zugangsdaten ausgeschaltet</string>
     <string name="daily_backup">Tägliche Sicherung</string>
     <string name="data_to_back_up">Zu sichernde Daten</string>
@@ -328,7 +326,6 @@
     <string name="drawer_item_on_device">Auf dem Gerät</string>
     <string name="drawer_item_personal_files">Persönliche Dateien</string>
     <string name="drawer_item_recent_files">Aktuelle Dateien</string>
-    <string name="drawer_item_recently_modified">Kürzlich geändert</string>
     <string name="drawer_item_shared">Geteilt</string>
     <string name="drawer_item_trashbin">Gelöschte Dateien</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -337,7 +334,6 @@
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
     <string name="drawer_quota_unlimited">%1$s verwendet</string>
     <string name="drawer_synced_folders">Automatisches Hochladen</string>
-    <string name="due_to_too_many_wrong_attempts">%s aufgrund zu vieler Fehlversuche</string>
     <string name="e2e_counter_too_old">Zähler ist zu alt</string>
     <string name="e2e_hash_not_found">Hash nicht gefunden</string>
     <string name="e2e_not_yet_setup">E2E bislang nicht eingerichtet</string>
@@ -449,7 +445,6 @@
     <string name="file_list_empty_on_device">Heruntergeladene Dateien und Ordner werden hier angezeigt werden.</string>
     <string name="file_list_empty_recent_files_description">Vor kurzem geänderten Dateien und Ordner werden hier angezeigt.</string>
     <string name="file_list_empty_recent_files_headline">Keine kürzlich geänderten Dateien</string>
-    <string name="file_list_empty_recently_modified">Es wurden keine Dateien gefunden, die innerhalb der letzten 7 Tage geändert wurden</string>
     <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
     <string name="file_list_empty_shared">Von Ihnen geteilte Dateien und Ordner werden hier angezeigt.</string>
     <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
@@ -506,6 +501,7 @@
     <string name="filedetails_download">Herunterladen</string>
     <string name="filedetails_export">Exportieren</string>
     <string name="filedetails_renamed_in_upload_msg">Datei während des Hochladens in %1$s umbenannt</string>
+    <string name="filedetails_sync_all_files">Alle synchronisieren</string>
     <string name="filedetails_sync_file">Synchronisieren</string>
     <string name="filedisplay_no_file_selected">Keine Datei gewählt</string>
     <string name="filename_empty">Dateiname darf nicht leer sein</string>
@@ -867,7 +863,6 @@
     <string name="send">Senden</string>
     <string name="send_copy_to">Kopie senden an</string>
     <string name="send_share">Freigabe senden</string>
-    <string name="sendbutton_description">Symbol für die Senden-Schaltfläche</string>
     <string name="server_not_reachable">Inhalt konnte nicht geladen werden</string>
     <string name="server_not_reachable_content">Das Gerät scheint nicht mit dem Internet verbunden zu sein</string>
     <string name="set_as">Setze als</string>
@@ -909,7 +904,6 @@
     <string name="share_option_required">Bitte mindestens eine Freigabeoption wählen, bevor Sie fortfahren.</string>
     <string name="share_permission_can_edit">Kann bearbeiten</string>
     <string name="share_permission_file_request">Dateianfrage</string>
-    <string name="share_permission_secure_file_drop">Sichere Dateiablage</string>
     <string name="share_permission_view_only">Nur anzeigen</string>
     <string name="share_permissions">Berechtigungen zum Teilen</string>
     <string name="share_re_share_permission">Teilen</string>
@@ -1000,6 +994,8 @@
     <string name="subtitle_videos_only">Nur Videos</string>
     <string name="suggest">Vorschlagen</string>
     <string name="sync">Synchronisieren</string>
+    <string name="sync_all_action_dialog_description">Alle enthaltenen Dateien und Ordner werden heruntergeladen. Dies kann je nach Ihrer Internetverbindung viel Speicherplatz beanspruchen und einige Zeit in Anspruch nehmen.</string>
+    <string name="sync_all_action_dialog_title">Kompletten Ordner synchronisieren?</string>
     <string name="sync_anyway">Trotzdem synchronisieren</string>
     <string name="sync_conflict_notification_action_title">Konflikte lösen</string>
     <string name="sync_conflict_notification_description">Datei-Konflikte beim Hochladen erkannt. \"Uploads\" öffen, um sie aufzulösen.</string>
@@ -1048,7 +1044,6 @@
     <string name="translation_screen_start_to_translate_task">Zum Übersetzen den Knopf drücken</string>
     <string name="translation_screen_task_processing">Die Übersetzung dauert länger als erwartet.</string>
     <string name="translation_screen_translating">Übersetze …</string>
-    <string name="trashbin_activity_title">Gelöschte Dateien</string>
     <string name="trashbin_empty_headline">Keine gelöschten Dateien</string>
     <string name="trashbin_empty_message">Hier können Sie gelöschte Dateien wiederherstellen.</string>
     <string name="trashbin_file_not_deleted">Datei %1$s konnte nicht gelöscht werden!</string>
@@ -1124,7 +1119,6 @@
     <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in das Verzeichnis %1$s zu kopieren. Sollen diese stattdessen verschoben werden?</string>
     <string name="upload_quota_exceeded">Speicherkontingent überschritten</string>
     <string name="upload_scan_doc_upload">Dokument von der Kamera scannen</string>
-    <string name="upload_sync_conflict">Synchronisierungskonflikt, bitte manuell beheben</string>
     <string name="upload_sync_conflict_check">Möglicherweise liegt ein Konflikt bezüglich des letzten Uploads vor. Bitte Tippen, um zu überprüfen.</string>
     <string name="upload_sync_conflict_check_error">Es konnte nicht auf Hochlade-Konflikte überprüft werden. Bitte erneut versuchen.</string>
     <string name="upload_sync_conflict_checking">Prüfe auf Konflikte beim Hochladen …</string>
@@ -1176,7 +1170,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokale Datei nicht gefunden</string>
     <string name="uploads_view_upload_status_failed_permission_error">Berechtigungsfehler</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Serverzertifikat ist nicht vertrauenswürdig</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Serverversion wird abgerufen …</string>
     <string name="uploads_view_upload_status_service_interrupted">App beendet</string>
     <string name="uploads_view_upload_status_skip">Übersprungen</string>
     <string name="uploads_view_upload_status_skip_reason">Eine Datei mit demselben Namen ist bereits vorhanden.</string>

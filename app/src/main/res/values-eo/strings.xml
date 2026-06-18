@@ -179,7 +179,6 @@
     <string name="drawer_item_home">Hejmo</string>
     <string name="drawer_item_notifications">Sciigoj</string>
     <string name="drawer_item_on_device">Sur aparato</string>
-    <string name="drawer_item_recently_modified">Modifitaj antaŭ nelonge</string>
     <string name="drawer_item_shared">Kunhavataj</string>
     <string name="drawer_item_trashbin">Forigitaj dosieroj</string>
     <string name="drawer_item_uploads_list">Alŝutoj</string>
@@ -228,7 +227,6 @@
     <string name="file_list_empty_headline_search">Neniu rezulto en tiu dosierujo</string>
     <string name="file_list_empty_headline_server_search">Neniu rezulto</string>
     <string name="file_list_empty_moving">Nenio ĉi tie. Vi povas aldoni dosierujon.</string>
-    <string name="file_list_empty_recently_modified">Troviĝis neniu dosiero modifita dum la lastaj 7 tagoj</string>
     <string name="file_list_empty_search">Ĉu eble ĝi estas en alia dosierujo?</string>
     <string name="file_list_empty_shared_headline">Ankoraŭ neniu kunhavo</string>
     <string name="file_list_folder">dosierujo</string>
@@ -301,6 +299,7 @@
     <string name="local_file_list_empty">Estas neniu dosiero en ĉi tiu dosierujo.</string>
     <string name="local_file_not_found_message">Dosiero ne trovita en loka dosiersistemo</string>
     <string name="local_folder_list_empty">Ne estas plia dosierujo.</string>
+    <string name="lock_file">Lock file</string>
     <string name="log_send_mail_subject">Protokoloj de Android-aplikaĵo %1$s</string>
     <string name="login">Ensaluti</string>
     <string name="logs_menu_refresh">Aktualigi</string>
@@ -439,7 +438,6 @@
     <string name="select_all">Elekti ĉion</string>
     <string name="select_template">Elekti ŝablonon</string>
     <string name="send">Sendi</string>
-    <string name="sendbutton_description">Piktogramo de sendo-butono</string>
     <string name="set_as">Uzi kiel</string>
     <string name="set_picture_as">Uzi la bildon kiel</string>
     <string name="share">Kunhavigi</string>
@@ -530,6 +528,7 @@
     <string name="sync_foreign_files_forgotten_explanation">De la versio 1.3.16, dosieroj alŝutitaj el tiu aparato estas kopiitaj en loka dosierujo %1$s por antaŭmalhelpi perdon de datumoj, kiam unuopa dosiero sinkroniĝas kun pluraj kontoj.\n\nPro tiu ŝanĝo, ĉiuj dosieroj alŝutitaj per antaŭaj versioj de tiu aplikaĵo kopiiĝis en la dosierujo %2$s. Tamen, eraro malebligis plenumigon de tiu operacio dum la konta sinkronigo. Vi povas aŭ lasi la dosiero(j)n, kie ili estas, kaj forigi la ligilon al %3$s, aŭ transigi la dosiero(j)n al la dosierujo %1$s kaj konservi la ligilon al %4$s.\n\nĈi-sube, vi trovos la loka(j)n dosiero(j)n kaj la fora(j)n dosiero(j)n en %5$s, al kiuj ili estis ligitaj.</string>
     <string name="sync_foreign_files_forgotten_ticker">Iuj lokaj dosieroj forgesiĝis</string>
     <string name="sync_in_progress">Prenante plej freŝa versio de la dosiero.</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_status_button">Butono pri la sinkroniga stato</string>
     <string name="sync_string_files">Dosieroj</string>
     <string name="synced_folder_settings_button">Butono pri agordoj</string>
@@ -545,13 +544,13 @@
     <string name="thisWeek">Ĉi semajno</string>
     <string name="thumbnail">Miniaturo</string>
     <string name="today">Hodiaŭ</string>
-    <string name="trashbin_activity_title">Forigitaj dosieroj</string>
     <string name="trashbin_empty_headline">Neniu forigita dosiero</string>
     <string name="trashbin_file_not_deleted">Dosiero %1$s ne povis esti forigita!</string>
     <string name="trashbin_file_not_restored">Dosiero %1$s ne povis esti restaŭrita!</string>
     <string name="trashbin_file_remove">Forigi por ĉiam</string>
     <string name="trashbin_not_emptied">Dosieroj ne povis esti porĉiame forigitaj!</string>
     <string name="unknown">Nekonata</string>
+    <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Ekzistas nelegataj komentoj</string>
     <string name="unset_encrypted">Malĉifrigi</string>
     <string name="unset_favorite">Malpliŝatigi</string>
@@ -581,7 +580,6 @@
     <string name="upload_local_storage_not_copied">Dosiero ne eblis kopiiĝi al loka konservejo</string>
     <string name="upload_lock_failed">Ŝlosado de dosierujo malsukcesis</string>
     <string name="upload_query_move_foreign_files">Nesufiĉa spaco malebligis kopiadon de la elektitaj dosieroj al dosierujo %1$s. Ĉu vi volas movi ilin tien anstataŭe?</string>
-    <string name="upload_sync_conflict">Sinkroniga konflikto; bv. solvi ĝin permane</string>
     <string name="upload_unknown_error">Nekonata eraro</string>
     <string name="uploader_btn_alternative_text">Elekti</string>
     <string name="uploader_btn_upload_text">Alŝuti</string>

@@ -185,7 +185,6 @@
     <string name="drawer_item_home">Kryefaqja</string>
     <string name="drawer_item_notifications">Njoftime</string>
     <string name="drawer_item_on_device">Në pajisjen</string>
-    <string name="drawer_item_recently_modified">Modifikuar së fundmi</string>
     <string name="drawer_item_shared">U nda</string>
     <string name="drawer_item_trashbin">Skedar të fshirë</string>
     <string name="drawer_item_uploads_list">Ngarkimet</string>
@@ -253,7 +252,6 @@
     <string name="file_list_empty_headline_search">Nuk ka rezultate në këtë dosje</string>
     <string name="file_list_empty_headline_server_search">Asnjë rezultat</string>
     <string name="file_list_empty_moving">S’ka gjë këtu. Mund të shtoni një dosje.</string>
-    <string name="file_list_empty_recently_modified">Nuk u gjetë asnjë skedar i modifikuar 7 ditët e fundit</string>
     <string name="file_list_empty_search">Përpiquni të shikoni në një dosje tjetër</string>
     <string name="file_list_empty_shared_headline">Asgjë e shpërndarë akoma</string>
     <string name="file_list_folder">dosje</string>
@@ -328,6 +326,7 @@
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
     <string name="local_file_not_found_message">Skedari s’u gjet te sistemi vendor i skedarëve</string>
     <string name="local_folder_list_empty">Nuk ka më dosje më tej.</string>
+    <string name="lock_file">Lock file</string>
     <string name="log_send_mail_subject">Regjistra aplikacioni %1$s për Android</string>
     <string name="login">Hyni</string>
     <string name="logs_menu_delete">Fshini shkrimet</string>
@@ -484,7 +483,6 @@
     <string name="select_all">Zgjidhi të gjitha</string>
     <string name="select_template">Zgjidh shabllonin</string>
     <string name="send">Dërgo</string>
-    <string name="sendbutton_description">Ikona e butonit dërgo</string>
     <string name="set_as">Vendos Si</string>
     <string name="set_picture_as">Vendos fotografinë</string>
     <string name="share">Ndaje</string>
@@ -602,13 +600,13 @@
     <string name="thumbnail_for_existing_file_description">Pamje e vogël për skedarin ekzistues</string>
     <string name="thumbnail_for_new_file_desc">Pamje e vogël për skedarin e ri</string>
     <string name="today">Sot</string>
-    <string name="trashbin_activity_title">Skedar të fshirë</string>
     <string name="trashbin_empty_headline">Pa kartela të fshira</string>
     <string name="trashbin_file_not_deleted">Skeda %1$snuk mund të fshihej!</string>
     <string name="trashbin_file_not_restored">Skeda %1$snuk mund të rikthehej!</string>
     <string name="trashbin_file_remove">Fshije përgjithmonë</string>
     <string name="trashbin_not_emptied">Skedarët nuk mund të fshihen përgjithmonë!</string>
     <string name="unknown">I panjohur</string>
+    <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Ekzistojnë komente të palexuara</string>
     <string name="unset_encrypted">Hiq enkriptimin</string>
     <string name="unset_favorite">Hiqeni nga të parapëlqyerat</string>
@@ -640,7 +638,6 @@
     <string name="upload_lock_failed">Deshtoi kyçja e dosjes</string>
     <string name="upload_old_android">Kriptimi është i mundur vetëm me &gt; = Android 5.0</string>
     <string name="upload_query_move_foreign_files">Nuk ka hapësirë të mjaftueshme për të kopjuar fotografitë e zgjedhura në %1$s  dosje. Dëshironi ti lëvizni ata në vend që ti kopjoni?</string>
-    <string name="upload_sync_conflict">Konflik në sinkronizim, ju lutemi zgjidheni manualisht</string>
     <string name="upload_unknown_error">Gabim i panjohur</string>
     <string name="uploader_btn_alternative_text">Zgjidhni</string>
     <string name="uploader_btn_upload_text">Ngarkoni</string>
@@ -684,7 +681,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">S’u gjet skedari vendor</string>
     <string name="uploads_view_upload_status_failed_permission_error">Gabim lejesh</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certifikatë serveri e dyshimtë</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Duke tërhequr versionin e serverit…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikacioni u ndërpre</string>
     <string name="uploads_view_upload_status_succeeded">Të plotësuara</string>
     <string name="uploads_view_upload_status_unknown_fail">Gabim i panjohur</string>
