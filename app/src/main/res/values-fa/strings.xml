@@ -3,7 +3,7 @@
     <string name="about_android">%1$s اپلیکیشن اندروید</string>
     <string name="about_title">درباره</string>
     <string name="about_version">%1$s نسخه</string>
-    <string name="about_version_with_build">نسخه '%1$s'، بیلد '%2$s</string>
+    <string name="about_version_with_build">نسخه %1$s، بیلد %2$s</string>
     <string name="account_creation_failed">ایجاد حساب ناموفق بود</string>
     <string name="account_icon">آیکون حساب</string>
     <string name="account_not_found">حساب پیدا نشد!</string>
