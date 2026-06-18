@@ -117,29 +117,30 @@ class TagManagementViewModel @Inject constructor(
                 val nextcloudClient = clientFactory.createNextcloudClient(currentAccountProvider.user)
                 val createResult = CreateTagRemoteOperation(name).execute(nextcloudClient)
 
-                if (createResult.isSuccess) {
-                    val ownCloudClient = clientFactory.create(currentAccountProvider.user)
-                    val tagsResult = GetTagsRemoteOperation().execute(ownCloudClient)
+                if (!createResult.isSuccess) {
+                    return@launch
+                }
+                val ownCloudClient = clientFactory.create(currentAccountProvider.user)
+                val tagsResult = GetTagsRemoteOperation().execute(ownCloudClient)
 
-                    if (tagsResult.isSuccess) {
-                        val allTags = tagsResult.resultData
-                        val newTag = allTags.find { it.name == name }
+                if (tagsResult.isSuccess) {
+                    val allTags = tagsResult.resultData
+                    val newTag = allTags.find { it.name == name }
 
-                        if (newTag != null) {
-                            PutTagRemoteOperation(newTag.id, fileId).execute(nextcloudClient)
+                    if (newTag != null) {
+                        PutTagRemoteOperation(newTag.id, fileId).execute(nextcloudClient)
 
-                            _uiState.update { state ->
-                                if (state is TagUiState.Loaded) {
-                                    state.copy(
-                                        allTags = allTags,
-                                        assignedTagIds = state.assignedTagIds + newTag.id
-                                    )
-                                } else {
-                                    TagUiState.Loaded(
-                                        allTags = allTags,
-                                        assignedTagIds = setOf(newTag.id)
-                                    )
-                                }
+                        _uiState.update { state ->
+                            if (state is TagUiState.Loaded) {
+                                state.copy(
+                                    allTags = allTags,
+                                    assignedTagIds = state.assignedTagIds + newTag.id
+                                )
+                            } else {
+                                TagUiState.Loaded(
+                                    allTags = allTags,
+                                    assignedTagIds = setOf(newTag.id)
+                                )
                             }
                         }
                     }
