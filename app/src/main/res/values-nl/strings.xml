@@ -13,6 +13,7 @@
     <string name="action_send_share">Versturen/delen</string>
     <string name="action_switch_grid_view">Rasterindeling </string>
     <string name="action_switch_list_view">Lijstindeling</string>
+    <string name="action_triggered">Actie geactiveerd</string>
     <string name="actionbar_calendar_contacts_restore">Contacten en kalender terugzetten</string>
     <string name="actionbar_mkdir">Nieuwe map</string>
     <string name="actionbar_move_or_copy">Verplaatsen of kopiëren</string>

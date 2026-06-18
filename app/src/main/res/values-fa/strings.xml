@@ -561,7 +561,7 @@
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_megapixel">%s مگاپیکسل</string>
-    <string name="image_preview_unit_millimetres">% میلی‌متر</string>
+    <string name="image_preview_unit_millimetres">%s میلی‌متر</string>
     <string name="image_preview_unit_seconds">%s ثانیه</string>
     <string name="instant_upload_existing">فایل‌های موجود را نیز بارگذاری کنید</string>
     <string name="instant_upload_on_charging">فقط هنگامی که گوشی در حال شارژ است، آپلود کن</string>
