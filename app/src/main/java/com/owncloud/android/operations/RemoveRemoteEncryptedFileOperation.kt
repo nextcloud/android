@@ -20,6 +20,7 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.E2EVersion
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.EncryptionUtilsV2
 import com.owncloud.android.utils.theme.CapabilityUtils
@@ -57,6 +58,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         var token: String? = null
         val capability = CapabilityUtils.getCapability(context)
         val isE2EVersionAtLeast2 = (E2EVersionHelper.isV2Plus(capability))
+        val e2eeVersion = capability.endToEndEncryptionApiVersion
 
         try {
             token = EncryptionUtils.lockFolder(parentFolder, client, parentFolder.e2eCounter + 1)
@@ -67,7 +69,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
                 delete = deleteResult.second
                 result
             } else {
-                val deleteResult = deleteForV1(client, token)
+                val deleteResult = deleteForV1(client, token, e2eeVersion)
                 result = deleteResult.first
                 delete = deleteResult.second
                 result
@@ -112,7 +114,11 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         return Pair(result, delete)
     }
 
-    private fun deleteForV1(client: OwnCloudClient, token: String?): Pair<RemoteOperationResult<Void>, DeleteMethod> {
+    private fun deleteForV1(
+        client: OwnCloudClient,
+        token: String?,
+        e2eeVersion: E2EVersion
+    ): Pair<RemoteOperationResult<Void>, DeleteMethod> {
         @Suppress("DEPRECATION")
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
         val privateKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
@@ -124,7 +130,8 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             privateKey,
             publicKey,
             arbitraryDataProvider,
-            user
+            user,
+            e2eeVersion.value
         )
 
         val (result, delete) = deleteRemoteFile(client, token)
@@ -149,7 +156,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             token,
             client,
             metadataExists,
-            E2EVersionHelper.latestVersion(false),
+            e2eeVersion,
             "",
             arbitraryDataProvider,
             user

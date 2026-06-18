@@ -53,6 +53,7 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
@@ -881,13 +882,15 @@ public class UploadFileOperation extends SyncOperation {
             serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
         }
 
+        final var e2eeVersion = getStorageManager().getE2EEVersionObject(user);
+
         // upload metadata
         EncryptionUtils.uploadMetadata(parentFile,
                                        serializedFolderMetadata,
                                        clientData.getToken(),
                                        clientData.getClient(),
                                        metadataExists,
-                                       E2EVersionHelper.INSTANCE.latestVersion(false),
+                                       e2eeVersion,
                                        "",
                                        arbitraryDataProvider,
                                        user);
