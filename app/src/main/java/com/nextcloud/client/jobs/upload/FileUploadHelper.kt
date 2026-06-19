@@ -39,6 +39,7 @@ import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientFactory
+import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -170,6 +171,18 @@ class FileUploadHelper {
         )
     }
 
+    private fun createOwnCloudClientOrNull(accountManager: UserAccountManager): OwnCloudClient? {
+        val currentAccount = accountManager.currentAccount
+        val context = MainApp.getAppContext()
+        if (currentAccount.isAnonymous(context)) return null
+        return try {
+            OwnCloudClientFactory.createOwnCloudClient(currentAccount, context)
+        } catch (e: AccountUtils.AccountNotFoundException) {
+            Log_OC.w(TAG, "Account not found when retrying uploads, skipping conflict check: ${e.message}")
+            null
+        }
+    }
+
     @Suppress("ComplexCondition")
     private suspend fun retryUploads(
         uploadsStorageManager: UploadsStorageManager,
@@ -185,14 +198,7 @@ class FileUploadHelper {
         val batteryStatus = powerManagementService.battery
 
         val uploadsToRetry = mutableListOf<Long>()
-
-        val currentAccount = accountManager.currentAccount
-        val context = MainApp.getAppContext()
-        var ownCloudClient: OwnCloudClient? = null
-        if (!currentAccount.isAnonymous(context)) {
-            ownCloudClient =
-                OwnCloudClientFactory.createOwnCloudClient(accountManager.currentAccount, MainApp.getAppContext())
-        }
+        val ownCloudClient = createOwnCloudClientOrNull(accountManager)
         val uploadActionHandler = UploadListAdapterActionHandler()
 
         for (upload in uploads) {
