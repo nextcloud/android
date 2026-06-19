@@ -620,6 +620,8 @@
     <string name="media_player_pause">Pauze</string>
     <string name="media_player_play">Spelen</string>
     <string name="media_player_playing">Media afspelen</string>
+    <string name="media_player_seek_backward">Achteruitspoelen</string>
+    <string name="media_player_seek_forward">Vooruitspoelen</string>
     <string name="media_rewind_description">Terugspoelknop</string>
     <string name="media_state_playing">%1$s (speelt)</string>
     <string name="menu_item_sort_by_date_newest_first">Nieuwste eerst</string>
@@ -660,6 +662,7 @@
     <string name="notification_channel_background_operations_description">Meldingen met de resultaten van achtergrondoperaties tonen</string>
     <string name="notification_channel_background_operations_name">Achtergrondtaken</string>
     <string name="notification_channel_content_observer_description">Detecteer lokale bestandswijzigingen</string>
+    <string name="notification_channel_content_observer_name_short">Inhoudsbeoordelaar</string>
     <string name="notification_channel_download_description">Geef download voortgang weer</string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Geeft bestand sync voortgang en resultaten weer</string>
