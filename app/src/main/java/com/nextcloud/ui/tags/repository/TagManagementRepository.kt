@@ -13,8 +13,5 @@ interface TagManagementRepository {
     suspend fun fetch(fileId: Long, currentTags: List<Tag>): List<Tag>
     suspend fun assignTag(fileId: Long, tag: Tag): Boolean
     suspend fun unassignTag(fileId: Long, tag: Tag): Boolean
-    suspend fun createAndAssignTag(
-        fileId: Long,
-        name: String,
-    ): Pair<List<Tag>,String>?
+    suspend fun createAndAssignTag(fileId: Long, name: String): Pair<List<Tag>, String>?
 }

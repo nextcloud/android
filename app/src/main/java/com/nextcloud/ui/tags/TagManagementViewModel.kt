@@ -45,6 +45,7 @@ class TagManagementViewModel(private val repository: TagManagementRepository) : 
 
     fun unassignTag(tag: Tag) = setTagAssigned(tag, assign = false)
 
+    // TODO: handle error ui state
     private fun setTagAssigned(tag: Tag, assign: Boolean) {
         val loaded = _uiState.value as? TagUiState.Loaded ?: return
         if ((tag.id in loaded.assignedTagIds) == assign) return

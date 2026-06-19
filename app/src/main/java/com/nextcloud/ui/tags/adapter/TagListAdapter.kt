@@ -49,9 +49,11 @@ class TagListAdapter(private val onTagChecked: (Tag, Boolean) -> Unit, private v
         notifyDataSetChanged()
     }
 
-    override fun getItemId(position: Int): Long =
-        if (getItemViewType(position) == VIEW_TYPE_CREATE) Long.MIN_VALUE
-        else tags[position].id.hashCode().toLong()
+    override fun getItemId(position: Int): Long = if (getItemViewType(position) == VIEW_TYPE_CREATE) {
+        Long.MIN_VALUE
+    } else {
+        tags[position].id.hashCode().toLong()
+    }
 
     override fun getItemCount(): Int = tags.size + if (showCreateItem) 1 else 0
 

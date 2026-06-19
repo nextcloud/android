@@ -69,7 +69,7 @@ class TagManagementBottomSheet :
         observeState()
 
         val fileId = requireArguments().getLong(ARG_FILE_ID)
-        val currentTags = BundleCompat.getParcelableArrayList(requireArguments(),ARG_CURRENT_TAGS, Tag::class.java)
+        val currentTags = BundleCompat.getParcelableArrayList(requireArguments(), ARG_CURRENT_TAGS, Tag::class.java)
             ?: arrayListOf()
         viewModel.fetch(fileId, currentTags)
 
