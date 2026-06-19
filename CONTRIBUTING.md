@@ -224,9 +224,9 @@ Source code of app:
 - small, isolated tests, with no need of Android SDK
 - code coverage can be directly shown via right click on test and select "Run Test with Coverage"
 
-```
-./gradlew jacocoTestGplayDebugUnitTest
 ```bash
+./gradlew jacocoTestGplayDebugUnitTest
+```
 
 #### Instrumented tests
 - tests to see larger code working in correct way

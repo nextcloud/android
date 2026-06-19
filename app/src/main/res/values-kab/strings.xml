@@ -702,6 +702,7 @@
     <string name="subtitle_photos_videos">Tiwlafin akked tividyutin</string>
     <string name="subtitle_videos_only">Tividyutin kan</string>
     <string name="sync">Mtawi</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_string_files">Ifuyla</string>
     <string name="synced_folders_configure_folders">Swel ikaramen</string>
     <string name="synced_folders_preferences_folder_path">I %1$s</string>
@@ -715,6 +716,7 @@
     <string name="trashbin_file_remove">Kkes-it i lebda</string>
     <string name="two_way_sync_activity_title">Beṭṭu adigan asnilan</string>
     <string name="unknown">Arussin</string>
+    <string name="unlock_file">Unlock file</string>
     <string name="unset_favorite">Kkes-it seg ismal</string>
     <string name="upload_cannot_create_file">Ulamek asnulfu n ufaylu adigan</string>
     <string name="upload_direct_camera_photo">Tawlaft</string>

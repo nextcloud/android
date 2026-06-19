@@ -1996,9 +1996,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     DecryptedFolderMetadataFileV1 metadata = new DecryptedFolderMetadataFileV1();
                     metadata.setMetadata(new DecryptedMetadata());
 
-                    final var latestV1E2EEVersion = E2EVersionHelper.INSTANCE.latestVersion(false);
+                    final var e2eeVersion = storageManager.getE2EEVersionObject(user);
+                    final var e2eeVersionAsString = e2eeVersion.getValue();
+                    metadata.getMetadata().setVersion(Double.parseDouble(e2eeVersionAsString));
 
-                    metadata.getMetadata().setVersion(Double.parseDouble(latestV1E2EEVersion.getValue()));
                     metadata.getMetadata().setMetadataKeys(new HashMap<>());
                     String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
                     String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
@@ -2018,7 +2019,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                    token,
                                                    client,
                                                    false,
-                                                   E2EVersionHelper.INSTANCE.latestVersion(false),
+                                                   e2eeVersion,
                                                    "",
                                                    arbitraryDataProvider,
                                                    user);

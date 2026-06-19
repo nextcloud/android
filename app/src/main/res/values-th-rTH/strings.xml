@@ -518,6 +518,7 @@
     <string name="share_read_permission">อ่าน</string>
     <string name="share_remote_clarification">%1$s (รีโมท)</string>
     <string name="share_settings">การตั้งค่า</string>
+    <string name="share_via_link_hide_download">Hide download</string>
     <string name="share_via_link_section_title">แชร์ลิงค์</string>
     <string name="shared_icon_share">แชร์</string>
     <string name="shared_icon_shared">แชร์แล้ว</string>
@@ -586,6 +587,7 @@
     <string name="trashbin_empty_headline">ไม่มีไฟล์ที่ถูกลบ</string>
     <string name="trashbin_file_remove">ลบแบบถาวร</string>
     <string name="unknown">ไม่ทราบ</string>
+    <string name="unlock_file">Unlock file</string>
     <string name="unset_favorite">เอาออกจากรายการโปรด</string>
     <string name="unshare_link_forbidden_permissions">เพื่อเลิกแชร์ไฟล์นี้</string>
     <string name="update_link_forbidden_permissions">เพื่ออัปเดตการแชร์นี้</string>

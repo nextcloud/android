@@ -1,19 +1,19 @@
-The self-hosted productivity platform that keeps you in control.
+پلتفرم بهره‌وری خودمیزبان که کنترل را در دست شما می‌گذارد.
 
-Features:
-* Easy, modern interface, suited to the theme of your server
-* Upload files to your Nextcloud server
-* Share them with others
-* Keep your favorite files and folders synced
-* Search across all folders on your server
-* Auto Upload for photos and videos taken by your device
-* Keep up to date with notifications
-* Multi-account support
-* Secure access to your data with fingerprint or PIN
-* Integration with DAVx⁵ (formerly known as DAVdroid) for easy setup of calendar and contacts synchronization
+ویژگی‌ها:
+* رابط کاربری آسان و مدرن، متناسب با تم سرور شما
+* آپلود فایل‌ها در سرور نکست‌کلود خود
+* اشتراک‌گذاری آن‌ها با دیگران
+* همگام‌سازی فایل‌ها و پوشه‌های مورد علاقه
+* جستجو در تمام پوشه‌های سرور
+* آپلود خودکار عکس‌ها و ویدیوهای گرفته‌شده با دستگاه شما
+* به‌روز ماندن با اعلان‌ها
+* پشتیبانی از چند حساب کاربری
+* دسترسی امن به داده‌ها با اثر انگشت یا PIN
+* یکپارچه‌سازی با DAVx⁵ (که پیش‌تر DAVdroid نام داشت) برای تنظیم آسان همگام‌سازی تقویم و مخاطبین
 
-Please report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android
+لطفاً تمام مشکلات را در https://github.com/nextcloud/android/issues گزارش دهید و درباره این برنامه در https://help.nextcloud.com/c/clients/android بحث کنید.
 
-New to Nextcloud? Nextcloud is a private file sync and share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.
+تازه وارد نکست‌کلود شده‌اید؟ نکست‌کلود یک سرور خصوصی برای همگام‌سازی و اشتراک‌گذاری فایل‌ها و ارتباطات است. این نرم‌افزار آزاد است و می‌توانید خودتان آن را میزبانی کنید یا به شرکتی برای انجام این کار هزینه دهید. به این ترتیب، شما کنترل عکس‌ها، داده‌های تقویم و مخاطبین، اسناد و هر چیز دیگری را در دست دارید.
 
-Check out Nextcloud at https://nextcloud.com
+نکست‌کلود را در https://nextcloud.com ببینید.

@@ -299,6 +299,7 @@
     <string name="local_file_list_empty">Estas neniu dosiero en ĉi tiu dosierujo.</string>
     <string name="local_file_not_found_message">Dosiero ne trovita en loka dosiersistemo</string>
     <string name="local_folder_list_empty">Ne estas plia dosierujo.</string>
+    <string name="lock_file">Lock file</string>
     <string name="log_send_mail_subject">Protokoloj de Android-aplikaĵo %1$s</string>
     <string name="login">Ensaluti</string>
     <string name="logs_menu_refresh">Aktualigi</string>
@@ -527,6 +528,7 @@
     <string name="sync_foreign_files_forgotten_explanation">De la versio 1.3.16, dosieroj alŝutitaj el tiu aparato estas kopiitaj en loka dosierujo %1$s por antaŭmalhelpi perdon de datumoj, kiam unuopa dosiero sinkroniĝas kun pluraj kontoj.\n\nPro tiu ŝanĝo, ĉiuj dosieroj alŝutitaj per antaŭaj versioj de tiu aplikaĵo kopiiĝis en la dosierujo %2$s. Tamen, eraro malebligis plenumigon de tiu operacio dum la konta sinkronigo. Vi povas aŭ lasi la dosiero(j)n, kie ili estas, kaj forigi la ligilon al %3$s, aŭ transigi la dosiero(j)n al la dosierujo %1$s kaj konservi la ligilon al %4$s.\n\nĈi-sube, vi trovos la loka(j)n dosiero(j)n kaj la fora(j)n dosiero(j)n en %5$s, al kiuj ili estis ligitaj.</string>
     <string name="sync_foreign_files_forgotten_ticker">Iuj lokaj dosieroj forgesiĝis</string>
     <string name="sync_in_progress">Prenante plej freŝa versio de la dosiero.</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_status_button">Butono pri la sinkroniga stato</string>
     <string name="sync_string_files">Dosieroj</string>
     <string name="synced_folder_settings_button">Butono pri agordoj</string>
@@ -548,6 +550,7 @@
     <string name="trashbin_file_remove">Forigi por ĉiam</string>
     <string name="trashbin_not_emptied">Dosieroj ne povis esti porĉiame forigitaj!</string>
     <string name="unknown">Nekonata</string>
+    <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Ekzistas nelegataj komentoj</string>
     <string name="unset_encrypted">Malĉifrigi</string>
     <string name="unset_favorite">Malpliŝatigi</string>

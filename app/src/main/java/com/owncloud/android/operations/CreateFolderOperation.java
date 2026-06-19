@@ -34,6 +34,7 @@ import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
@@ -139,14 +140,16 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             // lock folder
             token = EncryptionUtils.lockFolder(parent, client, EncryptionUtils.E2E_V1_INITIAL_COUNTER);
 
+            final var e2eeVersion  = getStorageManager().getE2EEVersion(user);
+
             // get metadata
             Pair<Boolean, DecryptedFolderMetadataFileV1> metadataPair = EncryptionUtils.retrieveMetadataV1(parent,
                                                                                                            client,
                                                                                                            privateKey,
                                                                                                            publicKey,
                                                                                                            arbitraryDataProvider,
-                                                                                                           user
-                                                                                                          );
+                                                                                                           user,
+                                                                                                           e2eeVersion);
 
             metadataExists = metadataPair.first;
             metadata = metadataPair.second;
@@ -177,13 +180,15 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                                                                              );
                 String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
 
+                final var e2eeVersionAsObject = getStorageManager().getE2EEVersionObject(user);
+
                 // upload metadata
                 EncryptionUtils.uploadMetadata(parent,
                                                serializedFolderMetadata,
                                                token,
                                                client,
                                                metadataExists,
-                                               E2EVersionHelper.INSTANCE.latestVersion(false),
+                                               e2eeVersionAsObject,
                                                "",
                                                arbitraryDataProvider,
                                                user);
@@ -304,7 +309,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             String remoteId = result.getResultData();
 
             if (result.isSuccess()) {
-                DecryptedFolderMetadataFile subFolderMetadata = encryptionUtilsV2.createDecryptedFolderMetadataFile();
+                String e2eeVersion = getStorageManager().getE2EEVersion(user);
+                DecryptedFolderMetadataFile subFolderMetadata = encryptionUtilsV2.createDecryptedFolderMetadataFile(e2eeVersion);
 
                 // upload metadata
                 encryptionUtilsV2.serializeAndUploadMetadata(remoteId,
