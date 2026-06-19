@@ -55,10 +55,10 @@ class TagManagementViewModel @Inject constructor(
                         )
                     }
                 } else {
-                    _uiState.update { TagUiState.Error("Failed to load tags") }
+                    _uiState.update { TagUiState.Error }
                 }
             } catch (e: ClientFactory.CreationException) {
-                _uiState.update { TagUiState.Error("Failed to create client") }
+                _uiState.update { TagUiState.Error }
             }
         }
     }

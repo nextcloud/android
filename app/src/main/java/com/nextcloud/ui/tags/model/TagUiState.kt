@@ -12,6 +12,5 @@ import com.owncloud.android.lib.resources.tags.Tag
 sealed interface TagUiState {
     object Loading : TagUiState
     data class Loaded(val allTags: List<Tag>, val assignedTagIds: Set<String>, val query: String = "") : TagUiState
-
-    data class Error(val message: String) : TagUiState
+    object Error : TagUiState
 }
