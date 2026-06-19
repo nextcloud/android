@@ -31,7 +31,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
-import com.nextcloud.ui.tags.TagChipsHelper;
+import com.nextcloud.ui.tags.util.TagChipsHelper;
 import com.nextcloud.ui.tags.TagManagementBottomSheet;
 import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;

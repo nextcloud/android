@@ -24,6 +24,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.ui.tags.adapter.TagListAdapter
+import com.nextcloud.ui.tags.model.TagUiState
 import com.owncloud.android.databinding.TagManagementBottomSheetBinding
 import com.owncloud.android.lib.resources.tags.Tag
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -99,18 +101,18 @@ class TagManagementBottomSheet :
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
                     when (state) {
-                        is TagManagementViewModel.TagUiState.Loading -> {
+                        is TagUiState.Loading -> {
                             binding.loadingIndicator.visibility = View.VISIBLE
                             binding.tagList.visibility = View.GONE
                         }
 
-                        is TagManagementViewModel.TagUiState.Loaded -> {
+                        is TagUiState.Loaded -> {
                             binding.loadingIndicator.visibility = View.GONE
                             binding.tagList.visibility = View.VISIBLE
                             tagAdapter.update(state.allTags, state.assignedTagIds, state.query)
                         }
 
-                        is TagManagementViewModel.TagUiState.Error -> {
+                        is TagUiState.Error -> {
                             binding.loadingIndicator.visibility = View.GONE
                             binding.tagList.visibility = View.GONE
                         }

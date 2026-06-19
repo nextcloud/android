@@ -1,14 +1,16 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2026 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.nextcloud.ui.tags
+
+package com.nextcloud.ui.tags.util
 
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.view.View
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.owncloud.android.R
@@ -25,7 +27,7 @@ class TagChipsHelper(
         onEditClicked: Runnable
     ) {
         chipGroup.removeAllViews()
-        chipGroup.visibility = android.view.View.VISIBLE
+        chipGroup.visibility = View.VISIBLE
 
         for (tag in tags) {
             val chip = Chip(context).apply {
