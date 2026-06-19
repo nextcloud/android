@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.BundleCompat
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
@@ -63,7 +64,8 @@ class TagManagementBottomSheet :
         observeState()
 
         val fileId = requireArguments().getLong(ARG_FILE_ID)
-        val currentTags = requireArguments().getParcelableArrayList<Tag>(ARG_CURRENT_TAGS) ?: arrayListOf()
+        val currentTags = BundleCompat.getParcelableArrayList(requireArguments(),ARG_CURRENT_TAGS, Tag::class.java)
+            ?: arrayListOf()
         viewModel.load(fileId, currentTags)
 
         return binding.root
