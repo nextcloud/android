@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.nextcloud.ui.tags.model.TagUiState
 import com.nextcloud.ui.tags.model.toLoaded
 import com.nextcloud.ui.tags.repository.TagManagementRepository
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.tags.Tag
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,6 +19,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class TagManagementViewModel(private val repository: TagManagementRepository) : ViewModel() {
+
+    companion object {
+        private const val TAG = "TagManagementViewModel"
+    }
 
     private val _uiState = MutableStateFlow<TagUiState>(TagUiState.Loading)
     val uiState: StateFlow<TagUiState> = _uiState
@@ -36,32 +41,31 @@ class TagManagementViewModel(private val repository: TagManagementRepository) : 
         }
     }
 
-    fun assignTag(tag: Tag) {
-        viewModelScope.launch {
-            val result = repository.assignTag(fileId, tag)
-            if (result) {
-                _uiState.update { state ->
-                    if (state is TagUiState.Loaded) {
-                        state.copy(assignedTagIds = state.assignedTagIds + tag.id)
-                    } else {
-                        state
-                    }
-                }
+    fun assignTag(tag: Tag) = setTagAssigned(tag, assign = true)
+
+    fun unassignTag(tag: Tag) = setTagAssigned(tag, assign = false)
+
+    private fun setTagAssigned(tag: Tag, assign: Boolean) {
+        val loaded = _uiState.value as? TagUiState.Loaded ?: return
+        if ((tag.id in loaded.assignedTagIds) == assign) return
+
+        fun apply(assigned: Boolean) = _uiState.update { state ->
+            if (state is TagUiState.Loaded) {
+                state.copy(
+                    assignedTagIds = if (assigned) state.assignedTagIds + tag.id else state.assignedTagIds - tag.id
+                )
+            } else {
+                state
             }
         }
-    }
 
-    fun unassignTag(tag: Tag) {
+        apply(assign)
+
         viewModelScope.launch {
-            val result = repository.unassignTag(fileId, tag)
-            if (result) {
-                _uiState.update { state ->
-                    if (state is TagUiState.Loaded) {
-                        state.copy(assignedTagIds = state.assignedTagIds - tag.id)
-                    } else {
-                        state
-                    }
-                }
+            val success = if (assign) repository.assignTag(fileId, tag) else repository.unassignTag(fileId, tag)
+            if (!success) {
+                Log_OC.e(TAG, "cannot ${if (assign) "assign" else "unassign"} tag")
+                apply(!assign)
             }
         }
     }
