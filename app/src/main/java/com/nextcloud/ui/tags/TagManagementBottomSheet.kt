@@ -23,7 +23,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.ui.tags.adapter.TagListAdapter
 import com.nextcloud.ui.tags.model.TagUiState
 import com.nextcloud.ui.tags.repository.TagManagementRepositoryImpl
@@ -40,9 +39,6 @@ class TagManagementBottomSheet :
     Injectable {
 
     @Inject
-    lateinit var vmFactory: ViewModelFactory
-
-    @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
     private var _binding: TagManagementBottomSheetBinding? = null
@@ -53,18 +49,10 @@ class TagManagementBottomSheet :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val activity = getTypedActivity(BaseActivity::class.java)
-        lifecycleScope.launch {
-            val ocClient =
-                activity?.clientRepository?.getOwncloudClient() ?: throw Exception("oc client cannot constructed")
-
-            val ncClient =
-                activity.clientRepository?.getNextcloudClient() ?: throw Exception("nc client cannot constructed")
-
-            val repository = TagManagementRepositoryImpl(ocClient, ncClient)
-            viewModel = TagManagementViewModel(repository)
-
-        }
+        val clientRepository = getTypedActivity(BaseActivity::class.java)?.clientRepository
+            ?: error("clientRepository not available")
+        val repository = TagManagementRepositoryImpl(clientRepository)
+        viewModel = TagManagementViewModel(repository)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

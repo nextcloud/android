@@ -7,8 +7,7 @@
 
 package com.nextcloud.ui.tags.repository
 
-import com.nextcloud.common.NextcloudClient
-import com.owncloud.android.lib.common.OwnCloudClient
+import com.nextcloud.repository.ClientRepository
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.tags.CreateTagRemoteOperation
 import com.owncloud.android.lib.resources.tags.DeleteTagRemoteOperation
@@ -18,8 +17,7 @@ import com.owncloud.android.lib.resources.tags.Tag
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class TagManagementRepositoryImpl(private val ocClient: OwnCloudClient, private val ncClient: NextcloudClient) :
-    TagManagementRepository {
+class TagManagementRepositoryImpl(private val clientRepository: ClientRepository) : TagManagementRepository {
 
     companion object {
         private const val TAG = "TagManagementRepositoryImpl"
@@ -30,12 +28,9 @@ class TagManagementRepositoryImpl(private val ocClient: OwnCloudClient, private 
         currentTags: List<Tag>
     ): List<Tag> = withContext(Dispatchers.IO) {
         return@withContext try {
+            val ocClient = clientRepository.getOwncloudClient() ?: return@withContext listOf()
             val result = GetTagsRemoteOperation().execute(ocClient)
-            if (result.isSuccess) {
-                result.resultData
-            } else {
-                listOf()
-            }
+            if (result.isSuccess) result.resultData else listOf()
         } catch (e: Exception) {
             Log_OC.e(TAG, "cannot fetch tags: $e")
             listOf()
@@ -44,6 +39,7 @@ class TagManagementRepositoryImpl(private val ocClient: OwnCloudClient, private 
 
     override suspend fun assignTag(fileId: Long, tag: Tag): Boolean = withContext(Dispatchers.IO) {
         return@withContext try {
+            val ncClient = clientRepository.getNextcloudClient() ?: return@withContext false
             val result = PutTagRemoteOperation(tag.id, fileId).execute(ncClient)
             result.isSuccess
         } catch (e: Exception) {
@@ -54,6 +50,7 @@ class TagManagementRepositoryImpl(private val ocClient: OwnCloudClient, private 
 
     override suspend fun unassignTag(fileId: Long, tag: Tag): Boolean = withContext(Dispatchers.IO) {
         return@withContext try {
+            val ncClient = clientRepository.getNextcloudClient() ?: return@withContext false
             val result = DeleteTagRemoteOperation(tag.id, fileId).execute(ncClient)
             result.isSuccess
         } catch (e: Exception) {
@@ -65,36 +62,29 @@ class TagManagementRepositoryImpl(private val ocClient: OwnCloudClient, private 
     override suspend fun createAndAssignTag(
         fileId: Long,
         name: String
-    ): Pair<List<Tag>,String>? =
-        withContext(Dispatchers.IO) {
-            return@withContext try {
-                val createResult = CreateTagRemoteOperation(name).execute(ncClient)
-                if (!createResult.isSuccess) {
-                    return@withContext null
-                }
+    ): Pair<List<Tag>, String>? = withContext(Dispatchers.IO) {
+        return@withContext try {
+            val ncClient = clientRepository.getNextcloudClient() ?: return@withContext null
+            val ocClient = clientRepository.getOwncloudClient() ?: return@withContext null
 
-                val tagsResult = GetTagsRemoteOperation().execute(ocClient)
-                if (!tagsResult.isSuccess) {
-                    return@withContext null
-                }
-
-                val allTags = tagsResult.resultData
-                val newTag = allTags.find { it.name == name }
-
-                if (newTag == null) {
-                    return@withContext null
-                }
-
-                val result = PutTagRemoteOperation(newTag.id, fileId).execute(ncClient)
-
-                if (result.isSuccess) {
-                    allTags to newTag.id
-                } else {
-                    null
-                }
-            } catch (e: Exception) {
-                Log_OC.e(TAG, "cannot create and assign tag: $e")
-                null
+            val createResult = CreateTagRemoteOperation(name).execute(ncClient)
+            if (!createResult.isSuccess) {
+                return@withContext null
             }
+
+            val tagsResult = GetTagsRemoteOperation().execute(ocClient)
+            if (!tagsResult.isSuccess) {
+                return@withContext null
+            }
+
+            val allTags = tagsResult.resultData
+            val newTag = allTags.find { it.name == name } ?: return@withContext null
+
+            val result = PutTagRemoteOperation(newTag.id, fileId).execute(ncClient)
+            if (result.isSuccess) allTags to newTag.id else null
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "cannot create and assign tag: $e")
+            null
         }
+    }
 }
