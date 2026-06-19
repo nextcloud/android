@@ -1,8 +1,8 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2025 Nextcloud GmbH and Nextcloud contributors
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.nextcloud.ui.tags
 
@@ -15,7 +15,6 @@ import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,8 +26,11 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.ui.tags.adapter.TagListAdapter
 import com.nextcloud.ui.tags.model.TagUiState
+import com.nextcloud.ui.tags.repository.TagManagementRepositoryImpl
+import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.databinding.TagManagementBottomSheetBinding
 import com.owncloud.android.lib.resources.tags.Tag
+import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -49,8 +51,23 @@ class TagManagementBottomSheet :
     private lateinit var viewModel: TagManagementViewModel
     private lateinit var tagAdapter: TagListAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val activity = getTypedActivity(BaseActivity::class.java)
+        lifecycleScope.launch {
+            val ocClient =
+                activity?.clientRepository?.getOwncloudClient() ?: throw Exception("oc client cannot constructed")
+
+            val ncClient =
+                activity.clientRepository?.getNextcloudClient() ?: throw Exception("nc client cannot constructed")
+
+            val repository = TagManagementRepositoryImpl(ocClient, ncClient)
+            viewModel = TagManagementViewModel(repository)
+
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        viewModel = ViewModelProvider(this, vmFactory)[TagManagementViewModel::class.java]
         _binding = TagManagementBottomSheetBinding.inflate(inflater, container, false)
 
         val bottomSheetDialog = dialog as BottomSheetDialog
@@ -66,7 +83,7 @@ class TagManagementBottomSheet :
         val fileId = requireArguments().getLong(ARG_FILE_ID)
         val currentTags = BundleCompat.getParcelableArrayList(requireArguments(),ARG_CURRENT_TAGS, Tag::class.java)
             ?: arrayListOf()
-        viewModel.load(fileId, currentTags)
+        viewModel.fetch(fileId, currentTags)
 
         return binding.root
     }

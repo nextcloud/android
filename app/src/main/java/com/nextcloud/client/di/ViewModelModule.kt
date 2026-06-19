@@ -13,7 +13,6 @@ import com.nextcloud.client.documentscan.DocumentScanViewModel
 import com.nextcloud.client.etm.EtmViewModel
 import com.nextcloud.client.logger.ui.LogsViewModel
 import com.nextcloud.ui.fileactions.FileActionsViewModel
-import com.nextcloud.ui.tags.TagManagementViewModel
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsViewModel
 import com.owncloud.android.ui.preview.pdf.PreviewPdfViewModel
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
@@ -57,11 +56,6 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TrashbinFileActionsViewModel::class)
     abstract fun trashbinFileActionsViewModel(vm: TrashbinFileActionsViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(TagManagementViewModel::class)
-    abstract fun tagManagementViewModel(vm: TagManagementViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
