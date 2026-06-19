@@ -2122,6 +2122,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return searchFragment;
     }
 
+    public void cancelAndRetriggerSearch() {
+        if (searchTask != null) {
+            searchTask.cancel();
+            searchTask = null;
+        }
+        if (searchEvent != null) {
+            handleSearchEvent(searchEvent);
+        }
+    }
+
     /**
      * De-/select all elements in the current list view.
      *
