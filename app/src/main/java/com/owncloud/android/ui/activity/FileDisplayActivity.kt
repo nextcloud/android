@@ -2375,7 +2375,11 @@ class FileDisplayActivity :
         }
 
         val file = storageManager.getFileById(renamedFile.parentId)
-        if (file != null && file == getCurrentDir()) {
+        val isCurrentDirParentDirOfGivenFile = (file != null && file == currentDir)
+
+        // if current dir is root user may be in shared root or favorite root thus
+        // checking parent of current dir will always fail
+        if (currentDir?.isRootDirectory == true || isCurrentDirParentDirOfGivenFile) {
             fileListFragment?.adapter?.updateFile(renamedFile)
         }
 
