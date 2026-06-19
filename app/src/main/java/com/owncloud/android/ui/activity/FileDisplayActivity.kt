@@ -2380,7 +2380,12 @@ class FileDisplayActivity :
         // if current dir is root user may be in shared root or favorite root thus
         // checking parent of current dir will always fail
         if (currentDir?.isRootDirectory == true || isCurrentDirParentDirOfGivenFile) {
-            fileListFragment?.adapter?.updateFile(renamedFile)
+            val fragment = fileListFragment
+            if (fragment?.isSearchFragment == true) {
+                fragment.cancelAndRetriggerSearch()
+            } else {
+                fragment?.adapter?.updateFile(renamedFile)
+            }
         }
 
         refreshGalleryFragmentIfNeeded()
