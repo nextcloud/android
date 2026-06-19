@@ -54,6 +54,7 @@
             <trusting group="androidx.databinding"/>
             <trusting group="androidx.media3"/>
             <trusting group="androidx.work"/>
+            <trusting group="com.google.firebase"/>
             <trusting group="^androidx[.]compose($|([.].*))" regex="true"/>
             <trusting group="^com[.]android($|([.].*))" regex="true"/>
          </trusted-key>
