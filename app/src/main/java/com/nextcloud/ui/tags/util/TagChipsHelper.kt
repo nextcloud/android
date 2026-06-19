@@ -17,15 +17,12 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.resources.tags.Tag
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class TagChipsHelper(
-    private val viewThemeUtils: ViewThemeUtils
-) {
-    fun refresh(
-        context: Context,
-        chipGroup: ChipGroup,
-        tags: List<Tag>,
-        onEditClicked: Runnable
-    ) {
+class TagChipsHelper(private val viewThemeUtils: ViewThemeUtils) {
+    companion object {
+        private const val CORNER_SIZE = 100.0f
+    }
+
+    fun refresh(context: Context, chipGroup: ChipGroup, tags: List<Tag>, onEditClicked: Runnable) {
         chipGroup.removeAllViews()
         chipGroup.visibility = View.VISIBLE
 
@@ -36,7 +33,7 @@ class TagChipsHelper(
                     context.resources.getColor(R.color.bg_default, context.theme)
                 )
                 shapeAppearanceModel = shapeAppearanceModel.toBuilder()
-                    .setAllCornerSizes(100.0f)
+                    .setAllCornerSizes(CORNER_SIZE)
                     .build()
                 isClickable = false
             }
@@ -59,7 +56,7 @@ class TagChipsHelper(
                 context.resources.getColor(R.color.bg_default, context.theme)
             )
             shapeAppearanceModel = shapeAppearanceModel.toBuilder()
-                .setAllCornerSizes(100.0f)
+                .setAllCornerSizes(CORNER_SIZE)
                 .build()
             setOnClickListener { onEditClicked.run() }
         }
