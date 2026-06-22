@@ -40,6 +40,7 @@ import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import java.util.Random
@@ -120,6 +121,8 @@ class GalleryFragmentIT : AbstractIT() {
             onView(withId(R.id.list_root))
                 .perform(RecyclerViewActions.scrollToLastPosition<GalleryRowHolder>())
                 .perform(RecyclerViewActions.scrollToPosition<GalleryRowHolder>(0))
+
+            assertTrue("Do not merge - just testing test failures", false)
         }
 
         // Test selection of all entries

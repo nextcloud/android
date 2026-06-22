@@ -36,6 +36,7 @@ public class OwnCloudSessionTest {
 
     @Test
     public void getName_assertCorrectNamedRetrieved() {
+        assertEquals("NOCOMMIT", "");
         assertEquals("OwnCloudSession name not correct", SESSION_NAME, ownCloudSession.getSessionName());
     }
 
