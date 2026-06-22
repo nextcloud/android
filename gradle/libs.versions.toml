@@ -3,7 +3,7 @@
 
 [versions]
 androidCommonLibraryVersion = "0.33.2"
-androidGifDrawableVersion = "1.2.31"
+androidGifDrawableVersion = "1.2.32"
 androidImageCropperVersion = "4.7.0"
 androidLibraryVersion ="11c1f0d68c55d7537e2ebae5da40d13b1b93c729"
 androidOpensslVersion = "3.5.6"
