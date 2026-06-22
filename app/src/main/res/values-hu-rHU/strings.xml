@@ -113,9 +113,9 @@
     <string name="authenticator_activity_no_web_browser_found">Nem érhető el böngésző a hivatkozás megnyitásához.</string>
     <string name="authenticator_activity_please_complete_login_process">Fejezze be a bejelentkezési folyamatot a böngészőben</string>
     <string name="auto_upload_background_activity_action">Háttérfolyamatok futásának engedélyezése</string>
-    <string name="auto_upload_battery_optimization_reason">A Nextcloud háttértevékenységét az akkumulátor optimalizálása korlátozza.</string>
+    <string name="auto_upload_battery_optimization_reason">A Nextcloud háttértevékenységét az akkumulátoroptimalizálás korlátozza.</string>
     <string name="auto_upload_battery_saver_action">Akkumulátorkímélő beállítások megnyitása</string>
-    <string name="auto_upload_battery_saver_reason">Akkumulátorkímélő mód aktív és szüneteltetheti a feltöltéseket.</string>
+    <string name="auto_upload_battery_saver_reason">Az akkumulátorkímélő mód aktív, és szüneteltetheti a feltöltéseket.</string>
     <string name="auto_upload_delete_dialog_description">Ez eltávolítja a mappát és az automatikus feltöltési beállításokat. A befejezetlen feltöltések meg lesznek szakítva.</string>
     <string name="auto_upload_delete_dialog_title">Törli az automatikus feltöltési mappát?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">megtartva az eredeti mappában, mivel csak olvasható</string>
@@ -132,6 +132,7 @@
     <string name="autoupload_hide_folder">Mappa elrejtése</string>
     <string name="avatar">Avatár</string>
     <string name="away">Távol</string>
+    <string name="backup_list_adapter_local_contacts">Helyi névjegyek</string>
     <string name="backup_settings">Biztonsági mentés beállításai</string>
     <string name="backup_title">Névjegyek és naptár biztonsági mentése</string>
     <string name="battery_optimization_close">Bezárás</string>
@@ -500,6 +501,7 @@
     <string name="filedetails_download">Letöltés</string>
     <string name="filedetails_export">Exportálás</string>
     <string name="filedetails_renamed_in_upload_msg">A fájl feltöltés közben átnevezve erre: %1$s</string>
+    <string name="filedetails_sync_all_files">Összes szinkronizálása</string>
     <string name="filedetails_sync_file">Szinkronizálás</string>
     <string name="filedisplay_no_file_selected">Nincs fájl kiválasztva</string>
     <string name="filename_empty">A fájlnév nem lehet üres</string>
@@ -797,7 +799,7 @@
     <string name="preview_image_file_is_not_downloaded">A fájl nincs letöltve</string>
     <string name="preview_media_unhandled_http_code_message">A fájlt jelenleg egy másik felhasználó vagy folyamat zárolja, ezért nem törölhető. Próbálja újra később.</string>
     <string name="preview_sorry">Sajnáljuk</string>
-    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Szövegszerkesztő megnyitása sikertelen</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">A szövegszerkesztő megnyitása sikertelen</string>
     <string name="privacy">Adatvédelem</string>
     <string name="push_notifications_not_implemented">A leküldéses üzenetek ki vannak kapcsolva, mert azok a zárt Google Play szolgáltatásoktól függenek.</string>
     <string name="push_notifications_old_login">Nincsenek leküldéses értesítések, mert a munkamenet lejárt. Adja hozzá újra a fiókját.</string>
@@ -1010,6 +1012,8 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="subtitle_videos_only">Csak videók</string>
     <string name="suggest">Javaslat</string>
     <string name="sync">Szinkronizálás</string>
+    <string name="sync_all_action_dialog_description">Az összes tartalmazott fájl és mappa le lesz töltve. Ez jelentős mennyiségű tárhelyet igényelhet, és a kapcsolatától függően eltarthat egy ideig.</string>
+    <string name="sync_all_action_dialog_title">Teljes mappa szinkronizálása?</string>
     <string name="sync_anyway">Szinkronizálás mindenképpen</string>
     <string name="sync_conflict_notification_action_title">Ütközések feloldása</string>
     <string name="sync_conflict_notification_description">Feltöltési ütközések észlelve. A megoldáshoz nyissa meg a feltöltéseket.</string>
@@ -1120,7 +1124,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_local_storage_full">A helyi tároló megtelt</string>
     <string name="upload_local_storage_not_copied">A fájlt nem lehet a helyi tárolóra másolni</string>
     <string name="upload_lock_failed">A mappa zárolása sikertelen</string>
-    <string name="upload_locked_message">Szerver foglalt. Újrapróbálkozás…</string>
+    <string name="upload_locked_message">A kiszolgáló foglalt. Újrapróbálkozás…</string>
     <string name="upload_locked_title">Feltöltés folyamatban</string>
     <string name="upload_manually_cancelled">Feltöltés megszakítva a felhasználó által</string>
     <string name="upload_missing_storage_permission_allow_file_access">Összes fájl elérésének engedélyezése</string>

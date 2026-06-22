@@ -105,7 +105,7 @@ android {
         applicationId = "com.nextcloud.client"
         minSdk = 28
         targetSdk = 36
-        compileSdk = 36
+        compileSdk = 37
 
         ndk {
             abiFilters += listOf("arm64-v8a", "x86_64")
