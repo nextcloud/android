@@ -1286,7 +1286,7 @@ public final class ThumbnailsCacheManager {
             GetMethod getMethod = null;
 
             try {
-                String uri = OwnCloudClientExtensionsKt.getPreviewEndpoint(mClient, file.getRemoteId(), pxW, pxH);
+                String uri = OwnCloudClientExtensionsKt.getPreviewEndpoint(mClient, file.getLocalId(), pxW, pxH);
                 Log_OC.d(TAG, "generating resized image: " + file.getFileName() + " URI: " + uri);
 
                 getMethod = new GetMethod(uri);
