@@ -247,6 +247,7 @@
 
     <style name="Theme.ownCloud.Media" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:colorControlHighlight">@color/primary</item>
     </style>
 
     <style name="ToolbarStyle.Overflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
@@ -485,4 +486,9 @@
         <item name="postSplashScreenTheme">@style/Theme.ownCloud.Launcher</item>
     </style>
 
+
+    <style name="Dialog.FullscreenVideo" parent="android:Theme.Material.NoActionBar.Fullscreen">
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:colorControlHighlight">@color/primary</item>
+    </style>
 </resources>
