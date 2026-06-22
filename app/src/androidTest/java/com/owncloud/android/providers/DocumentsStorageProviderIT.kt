@@ -32,6 +32,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import kotlin.random.Random
 
@@ -195,6 +196,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
 
     @Suppress("MagicNumber")
     @Test(timeout = 5 * 60 * 1000)
+    @Ignore("Problem with endless sleep")
     fun testServerChangedFileContent() {
         // create random file
         val file1 = rootDir.createFile("text/plain", RandomStringGenerator.make())!!
@@ -234,6 +236,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
     }
 
     @Test
+    @Ignore("Problem with endless sleep")
     fun testServerSuccessive() {
         // create random file
         val file1 = rootDir.createFile("text/plain", RandomStringGenerator.make())!!

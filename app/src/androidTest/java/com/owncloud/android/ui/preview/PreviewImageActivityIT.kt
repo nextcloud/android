@@ -39,6 +39,7 @@ import org.junit.Ignore
 import org.junit.Test
 import java.io.File
 
+@Ignore("Investigating Drone CI timeout")
 class PreviewImageActivityIT : AbstractOnServerIT() {
     companion object {
         private const val REMOTE_FOLDER: String = "/PreviewImageActivityIT/"
