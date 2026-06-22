@@ -1220,7 +1220,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
             setFabVisible(false);
             fda.startMediaPreview(file, 0, true, true, true, true);
-        } else if (editorUtils.isEditorAvailable(accountManager.getUser(), file.getMimeType()) && !file.isEncrypted()) {
+        } else if (editorUtils.getEditor(accountManager.getUser(), file.getMimeType()) != null && !file.isEncrypted()) {
             mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
         } else if (capability.getRichDocumentsMimeTypeList() != null &&
             capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
