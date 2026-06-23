@@ -14,9 +14,10 @@ import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.core.os.BundleCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.databinding.FileInfoFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.MimeTypeUtil
@@ -41,7 +42,17 @@ class FileInfoFragment :
     lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
-    lateinit var clientFactory: ClientFactory
+    lateinit var vmFactory: ViewModelFactory
+
+    private lateinit var viewModel: FileInfoViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, vmFactory)[FileInfoViewModel::class.java]
+        val file = file ?: return
+        val user = user ?: return
+        viewModel.load(file, user)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FileInfoFragmentBinding.inflate(layoutInflater, container, false)
@@ -56,7 +67,7 @@ class FileInfoFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (CapabilityUtils.getCapability(context).governance.isTrue) {
-            val governanceDetailInfo = GovernanceDetailInfo(binding, viewThemeUtils, this)
+            val governanceDetailInfo = GovernanceDetailInfo(binding, viewThemeUtils, this, viewModel)
             governanceDetailInfo.init()
         } else {
             binding.governanceLayout.visibility = View.GONE

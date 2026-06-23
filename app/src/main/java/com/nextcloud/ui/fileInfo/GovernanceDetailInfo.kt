@@ -18,110 +18,57 @@ import androidx.core.graphics.toColorInt
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
-import com.nextcloud.android.lib.resources.governance.GetAvailableRetentionLabelsRemoteOperation
-import com.nextcloud.android.lib.resources.governance.GetAvailableSensitivityLabelsRemoteOperation
-import com.nextcloud.android.lib.resources.governance.RetentionLabelInfo
-import com.nextcloud.android.lib.resources.governance.SensitivityLabelInfo
-import com.nextcloud.client.network.ClientFactoryImpl
 import com.nextcloud.ui.fileInfo.model.GovernanceLabel
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileInfoFragmentBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class GovernanceDetailInfo(
     private val binding: FileInfoFragmentBinding,
     private val viewThemeUtils: ViewThemeUtils,
-    private val fragment: FileInfoFragment
+    private val fragment: FileInfoFragment,
+    private val viewModel: FileInfoViewModel
 ) {
     private val context get() = fragment.requireContext()
 
     fun init() {
         viewThemeUtils.material.themeCardView(binding.governanceLayout)
-        initSensitivityLabel()
-        initFileRetentionLabel()
+        collectSensitivityLabels()
+        collectRetentionLabels()
     }
 
-    private fun initSensitivityLabel() {
+    private fun collectSensitivityLabels() {
         fragment.lifecycleScope.launch {
-            val labels = withContext(Dispatchers.IO) { fetchAvailableSensitivityLabels() }
-
+            val labels = viewModel.sensitivityLabels.filterNotNull().first()
             if (labels.isEmpty()) {
                 binding.sensitivityLabel.visibility = View.GONE
-                return@launch
+            } else {
+                initDropdown(binding.sensitivityLabel, binding.sensitivityLabelAutoComplete, labels)
             }
-
-            initDropdown(
-                textInputLayout = binding.sensitivityLabel,
-                autoComplete = binding.sensitivityLabelAutoComplete,
-                items = labels
-            )
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
-    private fun fetchAvailableSensitivityLabels(): List<GovernanceLabel> = try {
-        val user = fragment.user ?: return emptyList()
-        val file = fragment.file ?: return emptyList()
-        val client = ClientFactoryImpl(context).createNextcloudClient(user)
-        val result = GetAvailableSensitivityLabelsRemoteOperation(ENTITY_TYPE_FILES, file.localId).execute(client)
-
-        if (result.isSuccess) {
-            result.resultData.orEmpty().map { it.toGovernanceLabel() }
-        } else {
-            emptyList()
-        }
-    } catch (e: Exception) {
-        Log_OC.e(TAG, "Could not fetch available sensitivity labels", e)
-        emptyList()
-    }
-
-    private fun SensitivityLabelInfo.toGovernanceLabel() = GovernanceLabel(name, color)
-
-    private fun initFileRetentionLabel() {
+    private fun collectRetentionLabels() {
         fragment.lifecycleScope.launch {
-            val labels = withContext(Dispatchers.IO) { fetchAvailableRetentionLabels() }
-
+            val labels = viewModel.retentionLabels.filterNotNull().first()
             if (labels.isEmpty()) {
                 binding.fileRetentionLabel.visibility = View.GONE
-                return@launch
+            } else {
+                initDropdown(binding.fileRetentionLabel, binding.fileRetentionAutoComplete, labels)
             }
-
-            initDropdown(
-                textInputLayout = binding.fileRetentionLabel,
-                autoComplete = binding.fileRetentionAutoComplete,
-                items = labels
-            )
         }
     }
-
-    @Suppress("TooGenericExceptionCaught")
-    private fun fetchAvailableRetentionLabels(): List<GovernanceLabel> = try {
-        val user = fragment.user ?: return emptyList()
-        val file = fragment.file ?: return emptyList()
-        val client = ClientFactoryImpl(context).createNextcloudClient(user)
-        val result = GetAvailableRetentionLabelsRemoteOperation(ENTITY_TYPE_FILES, file.localId).execute(client)
-
-        if (result.isSuccess) {
-            result.resultData.orEmpty().map { it.toGovernanceLabel() }
-        } else {
-            emptyList()
-        }
-    } catch (e: Exception) {
-        Log_OC.e(TAG, "Could not fetch available retention labels", e)
-        emptyList()
-    }
-
-    private fun RetentionLabelInfo.toGovernanceLabel() = GovernanceLabel(name, color)
 
     private fun initDropdown(
         textInputLayout: TextInputLayout,
         autoComplete: MaterialAutoCompleteTextView,
         items: List<GovernanceLabel>
     ) {
+        textInputLayout.visibility = View.VISIBLE
         viewThemeUtils.material.colorTextInputLayout(textInputLayout)
         viewThemeUtils.files.themeAutoCompleteTextView(autoComplete)
 
@@ -169,6 +116,5 @@ class GovernanceDetailInfo(
 
     companion object {
         private val TAG = GovernanceDetailInfo::class.java.simpleName
-        private const val ENTITY_TYPE_FILES = "FILES"
     }
 }
