@@ -39,6 +39,8 @@ import com.owncloud.android.utils.MimeType;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -50,6 +52,7 @@ import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
+import kotlin.coroutines.Continuation;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -203,38 +206,6 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     }
 
     public void uploadOCUpload(OCUpload ocUpload, int localBehaviour) {
-        ConnectivityService connectivityServiceMock = new ConnectivityService() {
-            @Override
-            public void addListener(@NonNull NetworkChangeListener listener) {
-
-            }
-
-            @Override
-            public void removeListener(@NonNull NetworkChangeListener listener) {
-
-            }
-
-            @Override
-            public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
-                callback.onComplete(true);
-            }
-
-            @Override
-            public boolean isConnected() {
-                return true;
-            }
-
-            @Override
-            public boolean isInternetWalled() {
-                return false;
-            }
-
-            @Override
-            public Connectivity getConnectivity() {
-                return Connectivity.CONNECTED_WIFI;
-            }
-        };
-
         PowerManagementService powerManagementServiceMock = new PowerManagementService() {
             @Override
             public boolean isIgnoringOptimization() {

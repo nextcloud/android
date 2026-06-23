@@ -12,7 +12,6 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.os.Build
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.network.ConnectivityService.GenericCallback
 import com.nextcloud.operations.GetMethod
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.CoroutineScope
@@ -74,18 +73,19 @@ class ConnectivityServiceImpl(
     }
 
     // region overridden methods
-    override fun isNetworkAndServerAvailable(callback: GenericCallback<Boolean>) {
+    override fun isNetworkAndServerAvailable(onCompleted: (Boolean) -> Unit) {
         availabilityCheckJob?.cancel()
         availabilityCheckJob = scope.launch {
             val available = !isInternetWalled()
             Log_OC.d(TAG, "isNetworkAndServerAvailable: $available")
             withContext(Dispatchers.Main) {
-                callback.onComplete(available)
+                onCompleted(available)
             }
         }
     }
 
-    override fun isConnected() = currentConnectivity.isConnected
+    override val isConnected: Boolean
+        get() = currentConnectivity.isConnected
 
     override fun isInternetWalled(): Boolean {
         val currentKey = key
@@ -133,7 +133,8 @@ class ConnectivityServiceImpl(
         return isWalled
     }
 
-    override fun getConnectivity() = currentConnectivity
+    override val connectivity: Connectivity
+        get() = currentConnectivity
 
     override fun addListener(listener: NetworkChangeListener) {
         listeners.add(listener)
