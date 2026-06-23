@@ -7,4 +7,6 @@
 
 package com.nextcloud.ui.fileInfo.model
 
-data class GovernanceLabel(val text: String, val color: String)
+data class GovernanceLabel(val id: String, val text: String, val color: String) {
+    override fun toString(): String = text
+}

@@ -9,10 +9,15 @@ package com.nextcloud.ui.fileInfo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nextcloud.android.lib.resources.governance.EntityLabels
 import com.nextcloud.android.lib.resources.governance.GetAvailableRetentionLabelsRemoteOperation
 import com.nextcloud.android.lib.resources.governance.GetAvailableSensitivityLabelsRemoteOperation
+import com.nextcloud.android.lib.resources.governance.GetEntityLabelsRemoteOperation
+import com.nextcloud.android.lib.resources.governance.LabelType
+import com.nextcloud.android.lib.resources.governance.RemoveLabelRemoteOperation
 import com.nextcloud.android.lib.resources.governance.RetentionLabelInfo
 import com.nextcloud.android.lib.resources.governance.SensitivityLabelInfo
+import com.nextcloud.android.lib.resources.governance.SetLabelRemoteOperation
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.ui.fileInfo.model.GovernanceLabel
@@ -34,12 +39,46 @@ class FileInfoViewModel @Inject constructor(
     private val _retentionLabels = MutableStateFlow<List<GovernanceLabel>?>(null)
     val retentionLabels: StateFlow<List<GovernanceLabel>?> = _retentionLabels
 
+    private val _currentSensitivityLabelId = MutableStateFlow<String?>(null)
+    val currentSensitivityLabelId: StateFlow<String?> = _currentSensitivityLabelId
+
+    private var cachedFile: OCFile? = null
+    private var cachedUser: User? = null
+
     fun load(file: OCFile, user: User) {
+        cachedFile = file
+        cachedUser = user
         viewModelScope.launch(Dispatchers.IO) {
             _sensitivityLabels.value = fetchSensitivityLabels(file, user)
         }
         viewModelScope.launch(Dispatchers.IO) {
             _retentionLabels.value = fetchRetentionLabels(file, user)
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            _currentSensitivityLabelId.value = fetchEntityLabels(file, user)?.sensitivity?.id ?: ""
+        }
+    }
+
+    fun setSensitivityLabel(labelId: String) {
+        val file = cachedFile ?: return
+        val user = cachedUser ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = applyLabel(file, user, LabelType.SENSITIVITY, labelId)
+            if (result) {
+                _currentSensitivityLabelId.value = labelId
+            }
+        }
+    }
+
+    fun removeSensitivityLabel() {
+        val labelId = _currentSensitivityLabelId.value?.takeIf { it.isNotEmpty() } ?: return
+        val file = cachedFile ?: return
+        val user = cachedUser ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = removeLabel(file, user, LabelType.SENSITIVITY, labelId)
+            if (result) {
+                _currentSensitivityLabelId.value = ""
+            }
         }
     }
 
@@ -63,9 +102,37 @@ class FileInfoViewModel @Inject constructor(
         emptyList()
     }
 
-    private fun SensitivityLabelInfo.toGovernanceLabel() = GovernanceLabel(name, color)
+    @Suppress("TooGenericExceptionCaught")
+    private fun fetchEntityLabels(file: OCFile, user: User): EntityLabels? = try {
+        val client = clientFactory.createNextcloudClient(user)
+        val result = GetEntityLabelsRemoteOperation(ENTITY_TYPE_FILES, file.localId.toString()).execute(client)
+        if (result.isSuccess) result.resultData else null
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "Could not fetch entity labels", e)
+        null
+    }
 
-    private fun RetentionLabelInfo.toGovernanceLabel() = GovernanceLabel(name, color)
+    @Suppress("TooGenericExceptionCaught")
+    private fun applyLabel(file: OCFile, user: User, labelType: LabelType, labelId: String): Boolean = try {
+        val client = clientFactory.createNextcloudClient(user)
+        SetLabelRemoteOperation(ENTITY_TYPE_FILES, file.localId, labelType, labelId).execute(client).isSuccess
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "Could not set label", e)
+        false
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    private fun removeLabel(file: OCFile, user: User, labelType: LabelType, labelId: String): Boolean = try {
+        val client = clientFactory.createNextcloudClient(user)
+        RemoveLabelRemoteOperation(ENTITY_TYPE_FILES, file.localId, labelType, labelId).execute(client).isSuccess
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "Could not remove label", e)
+        false
+    }
+
+    private fun SensitivityLabelInfo.toGovernanceLabel() = GovernanceLabel(id, name, color)
+
+    private fun RetentionLabelInfo.toGovernanceLabel() = GovernanceLabel(id, name, color)
 
     companion object {
         private val TAG = FileInfoViewModel::class.java.simpleName

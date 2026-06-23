@@ -46,8 +46,22 @@ class GovernanceDetailInfo(
             val labels = viewModel.sensitivityLabels.filterNotNull().first()
             if (labels.isEmpty()) {
                 binding.sensitivityLabel.visibility = View.GONE
-            } else {
-                initDropdown(binding.sensitivityLabel, binding.sensitivityLabelAutoComplete, labels)
+                return@launch
+            }
+            val currentId = viewModel.currentSensitivityLabelId.filterNotNull().first()
+            val items = listOf(GovernanceLabel("", "", "")) + labels
+            val initialItem = items.find { it.id == currentId } ?: items.first()
+            initDropdown(
+                textInputLayout = binding.sensitivityLabel,
+                autoComplete = binding.sensitivityLabelAutoComplete,
+                items = items,
+                initialItem = initialItem
+            ) { label ->
+                if (label.id.isEmpty()) {
+                    viewModel.removeSensitivityLabel()
+                } else {
+                    viewModel.setSensitivityLabel(label.id)
+                }
             }
         }
     }
@@ -57,27 +71,34 @@ class GovernanceDetailInfo(
             val labels = viewModel.retentionLabels.filterNotNull().first()
             if (labels.isEmpty()) {
                 binding.fileRetentionLabel.visibility = View.GONE
-            } else {
-                initDropdown(binding.fileRetentionLabel, binding.fileRetentionAutoComplete, labels)
+                return@launch
             }
+            initDropdown(
+                textInputLayout = binding.fileRetentionLabel,
+                autoComplete = binding.fileRetentionAutoComplete,
+                items = labels
+            )
         }
     }
 
     private fun initDropdown(
         textInputLayout: TextInputLayout,
         autoComplete: MaterialAutoCompleteTextView,
-        items: List<GovernanceLabel>
+        items: List<GovernanceLabel>,
+        initialItem: GovernanceLabel? = items.firstOrNull(),
+        onSelect: (GovernanceLabel) -> Unit = {}
     ) {
         textInputLayout.visibility = View.VISIBLE
         viewThemeUtils.material.colorTextInputLayout(textInputLayout)
         viewThemeUtils.files.themeAutoCompleteTextView(autoComplete)
 
         autoComplete.setAdapter(buildAdapter(items))
-
-        items.firstOrNull()?.let { applySelection(autoComplete, it) }
+        initialItem?.let { applySelection(autoComplete, it) }
 
         autoComplete.setOnItemClickListener { _, _, position, _ ->
-            applySelection(autoComplete, items[position])
+            val item = items[position]
+            applySelection(autoComplete, item)
+            onSelect(item)
         }
     }
 
@@ -87,7 +108,8 @@ class GovernanceDetailInfo(
                 val view = super.getView(position, convertView, parent) as TextView
                 getItem(position)?.let { item ->
                     view.text = item.text
-                    view.setCompoundDrawablesWithIntrinsicBounds(colorDot(item.color), null, null, null)
+                    val dot = if (item.color.isNotEmpty()) colorDot(item.color) else null
+                    view.setCompoundDrawablesWithIntrinsicBounds(dot, null, null, null)
                 }
                 return view
             }
@@ -95,8 +117,12 @@ class GovernanceDetailInfo(
 
     private fun applySelection(autoComplete: MaterialAutoCompleteTextView, item: GovernanceLabel) {
         autoComplete.setText(item.text, false)
-        autoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(colorDot(item.color), null, null, null)
-        autoComplete.compoundDrawablePadding = fragment.resources.getDimensionPixelSize(R.dimen.standard_padding)
+        if (item.color.isNotEmpty()) {
+            autoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(colorDot(item.color), null, null, null)
+            autoComplete.compoundDrawablePadding = fragment.resources.getDimensionPixelSize(R.dimen.standard_padding)
+        } else {
+            autoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+        }
     }
 
     private fun colorDot(color: String): Drawable {
