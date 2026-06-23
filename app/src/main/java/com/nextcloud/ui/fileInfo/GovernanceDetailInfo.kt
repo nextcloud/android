@@ -7,18 +7,30 @@
 
 package com.nextcloud.ui.fileInfo
 
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
-import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.android.lib.resources.governance.GetAvailableRetentionLabelsRemoteOperation
+import com.nextcloud.android.lib.resources.governance.GetAvailableSensitivityLabelsRemoteOperation
+import com.nextcloud.android.lib.resources.governance.RetentionLabelInfo
+import com.nextcloud.android.lib.resources.governance.SensitivityLabelInfo
+import com.nextcloud.client.network.ClientFactoryImpl
 import com.nextcloud.ui.fileInfo.model.GovernanceLabel
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileInfoFragmentBinding
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GovernanceDetailInfo(
     private val binding: FileInfoFragmentBinding,
@@ -34,28 +46,76 @@ class GovernanceDetailInfo(
     }
 
     private fun initSensitivityLabel() {
-        initDropdown(
-            textInputLayout = binding.sensitivityLabel,
-            autoComplete = binding.sensitivityLabelAutoComplete,
-            items = listOf(
-                GovernanceLabel("Sharing restricted", R.drawable.ic_share),
-                GovernanceLabel("Download restricted", R.drawable.ic_download_grey600),
-                GovernanceLabel("Upload restricted", R.drawable.uploads)
+        fragment.lifecycleScope.launch {
+            val labels = withContext(Dispatchers.IO) { fetchAvailableSensitivityLabels() }
+
+            if (labels.isEmpty()) {
+                binding.sensitivityLabel.visibility = View.GONE
+                return@launch
+            }
+
+            initDropdown(
+                textInputLayout = binding.sensitivityLabel,
+                autoComplete = binding.sensitivityLabelAutoComplete,
+                items = labels
             )
-        )
+        }
     }
 
-    private fun initFileRetentionLabel() {
-        initDropdown(
-            textInputLayout = binding.fileRetentionLabel,
-            autoComplete = binding.fileRetentionAutoComplete,
-            items = listOf(
-                GovernanceLabel("Public", R.drawable.file_link),
-                GovernanceLabel("Internal use only", R.drawable.ic_group),
-                GovernanceLabel("Restricted", R.drawable.ic_cancel)
-            )
-        )
+    @Suppress("TooGenericExceptionCaught")
+    private fun fetchAvailableSensitivityLabels(): List<GovernanceLabel> = try {
+        val user = fragment.user ?: return emptyList()
+        val file = fragment.file ?: return emptyList()
+        val client = ClientFactoryImpl(context).createNextcloudClient(user)
+        val result = GetAvailableSensitivityLabelsRemoteOperation(ENTITY_TYPE_FILES, file.localId).execute(client)
+
+        if (result.isSuccess) {
+            result.resultData.orEmpty().map { it.toGovernanceLabel() }
+        } else {
+            emptyList()
+        }
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "Could not fetch available sensitivity labels", e)
+        emptyList()
     }
+
+    private fun SensitivityLabelInfo.toGovernanceLabel() = GovernanceLabel(name, color)
+
+    private fun initFileRetentionLabel() {
+        fragment.lifecycleScope.launch {
+            val labels = withContext(Dispatchers.IO) { fetchAvailableRetentionLabels() }
+
+            if (labels.isEmpty()) {
+                binding.fileRetentionLabel.visibility = View.GONE
+                return@launch
+            }
+
+            initDropdown(
+                textInputLayout = binding.fileRetentionLabel,
+                autoComplete = binding.fileRetentionAutoComplete,
+                items = labels
+            )
+        }
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    private fun fetchAvailableRetentionLabels(): List<GovernanceLabel> = try {
+        val user = fragment.user ?: return emptyList()
+        val file = fragment.file ?: return emptyList()
+        val client = ClientFactoryImpl(context).createNextcloudClient(user)
+        val result = GetAvailableRetentionLabelsRemoteOperation(ENTITY_TYPE_FILES, file.localId).execute(client)
+
+        if (result.isSuccess) {
+            result.resultData.orEmpty().map { it.toGovernanceLabel() }
+        } else {
+            emptyList()
+        }
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "Could not fetch available retention labels", e)
+        emptyList()
+    }
+
+    private fun RetentionLabelInfo.toGovernanceLabel() = GovernanceLabel(name, color)
 
     private fun initDropdown(
         textInputLayout: TextInputLayout,
@@ -80,7 +140,7 @@ class GovernanceDetailInfo(
                 val view = super.getView(position, convertView, parent) as TextView
                 getItem(position)?.let { item ->
                     view.text = item.text
-                    view.setCompoundDrawablesWithIntrinsicBounds(tintedDrawable(item), null, null, null)
+                    view.setCompoundDrawablesWithIntrinsicBounds(colorDot(item.color), null, null, null)
                 }
                 return view
             }
@@ -88,12 +148,27 @@ class GovernanceDetailInfo(
 
     private fun applySelection(autoComplete: MaterialAutoCompleteTextView, item: GovernanceLabel) {
         autoComplete.setText(item.text, false)
-        autoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(tintedDrawable(item), null, null, null)
+        autoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(colorDot(item.color), null, null, null)
         autoComplete.compoundDrawablePadding = fragment.resources.getDimensionPixelSize(R.dimen.standard_padding)
     }
 
-    private fun tintedDrawable(item: GovernanceLabel) =
-        ContextCompat.getDrawable(context, item.iconRes)?.mutate()?.also {
-            viewThemeUtils.platform.tintDrawable(context, it, ColorRole.ON_SURFACE)
+    private fun colorDot(color: String): Drawable {
+        val size = context.resources.getDimensionPixelSize(R.dimen.governance_color_dot_size)
+        return GradientDrawable().apply {
+            shape = GradientDrawable.OVAL
+            setSize(size, size)
+            setColor(parseColor(color))
         }
+    }
+
+    private fun parseColor(color: String): Int = runCatching { color.toColorInt() }
+        .getOrElse {
+            Log_OC.w(TAG, "Could not parse label color: $color")
+            ContextCompat.getColor(context, R.color.grey_600)
+        }
+
+    companion object {
+        private val TAG = GovernanceDetailInfo::class.java.simpleName
+        private const val ENTITY_TYPE_FILES = "FILES"
+    }
 }
