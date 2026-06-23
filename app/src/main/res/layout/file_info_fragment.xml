@@ -49,6 +49,8 @@
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:layout_marginBottom="@dimen/standard_margin"
                     android:hint="@string/governance_sensitivity_label">
 
@@ -65,6 +67,8 @@
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:hint="@string/governance_file_retention_label">
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
