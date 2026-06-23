@@ -19,9 +19,6 @@ import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
-import com.nextcloud.client.network.Connectivity;
-import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.client.network.NetworkChangeListener;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
@@ -39,8 +36,6 @@ import com.owncloud.android.utils.MimeType;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -52,7 +47,6 @@ import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
-import kotlin.coroutines.Continuation;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
