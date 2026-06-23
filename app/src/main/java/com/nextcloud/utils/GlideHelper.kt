@@ -10,12 +10,17 @@ package com.nextcloud.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.PictureDrawable
 import android.widget.ImageView
 import androidx.activity.ComponentActivity
 import androidx.annotation.DrawableRes
+import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.graphics.scale
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -27,7 +32,9 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.BitmapImageViewTarget
+import com.bumptech.glide.request.target.CustomViewTarget
 import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.LinkHelper.validateAndGetURL
 import com.owncloud.android.lib.common.OwnCloudAccount
@@ -110,6 +117,67 @@ object GlideHelper {
             Log_OC.e(TAG, "exception loadIntoImageView: $e")
             imageView.setImageResource(placeholder)
         }
+    }
+
+    /**
+     * Loads an image into an [ImageView], rasterizing the result into a tintable drawable so a tint set on the view
+     * takes effect. SVGs decode into a [PictureDrawable] that ignores color filters and tint lists; rasterizing
+     * works around that.
+     *
+     * @param context context used to build the Glide request and the rasterized drawable.
+     * @param client authenticated client whose credentials are attached to the request; the load is skipped when null.
+     * @param url image URL to load; an invalid or null URL leaves the [placeholder] in place.
+     * @param imageView target view that receives the loaded drawable.
+     * @param placeholder drawable resource shown while loading and on failure.
+     * @param sizePx width and height, in pixels, of the rasterized square drawable.
+     */
+    fun loadTintableIconIntoImageView(
+        context: Context,
+        client: NextcloudClient?,
+        url: String?,
+        imageView: ImageView,
+        @DrawableRes placeholder: Int,
+        sizePx: Int
+    ) {
+        imageView.setImageResource(placeholder)
+        try {
+            createRequestBuilder<Drawable>(context, client, url)
+                ?.error(placeholder)
+                ?.withLogging("loadTintableIconIntoImageView", url ?: "null")
+                ?.into(object : CustomViewTarget<ImageView, Drawable>(imageView) {
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                        imageView.setImageDrawable(rasterizeToTintableDrawable(context, resource, sizePx))
+                    }
+
+                    override fun onLoadFailed(errorDrawable: Drawable?) {
+                        errorDrawable?.let { imageView.setImageDrawable(it) }
+                    }
+
+                    override fun onResourceCleared(placeholderDrawable: Drawable?) = Unit
+                })
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "exception loadTintableIconIntoImageView: $e")
+            imageView.setImageResource(placeholder)
+        }
+    }
+
+    private fun rasterizeToTintableDrawable(context: Context, drawable: Drawable, sizePx: Int): Drawable {
+        if (drawable is BitmapDrawable) {
+            return drawable.bitmap.scale(sizePx, sizePx).toDrawable(context.resources)
+        }
+
+        val width = drawable.intrinsicWidth
+        val height = drawable.intrinsicHeight
+        val bitmap = createBitmap(sizePx, sizePx)
+        val canvas = Canvas(bitmap)
+        if (width > 0 && height > 0) {
+            canvas.scale(sizePx / width.toFloat(), sizePx / height.toFloat())
+            drawable.setBounds(0, 0, width, height)
+        } else {
+            drawable.setBounds(0, 0, sizePx, sizePx)
+        }
+        drawable.draw(canvas)
+        return bitmap.toDrawable(context.resources)
     }
 
     fun getDrawable(context: Context, client: NextcloudClient?, urlString: String?): Drawable? = try {
