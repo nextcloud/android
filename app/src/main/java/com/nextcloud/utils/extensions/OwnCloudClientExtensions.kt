@@ -21,9 +21,9 @@ fun OwnCloudClient.toNextcloudClient(context: Context): NextcloudClient = OwnClo
     isFollowRedirects
 )
 
-fun OwnCloudClient.getPreviewEndpoint(remoteId: String, x: Int, y: Int): String = baseUri
+fun OwnCloudClient.getPreviewEndpoint(fileId: Long, x: Int, y: Int): String = baseUri
     .toString() +
     "/index.php/core/preview?fileId=" +
-    remoteId +
+    fileId +
     "&x=" + (x / 2) + "&y=" + (y / 2) +
     "&a=1&mode=cover&forceIcon=0"

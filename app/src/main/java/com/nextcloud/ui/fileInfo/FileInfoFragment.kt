@@ -16,6 +16,7 @@ import androidx.core.os.BundleCompat
 import androidx.fragment.app.Fragment
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.databinding.FileInfoFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.MimeTypeUtil
@@ -28,16 +29,19 @@ class FileInfoFragment :
     Injectable {
     private lateinit var binding: FileInfoFragmentBinding
 
-    private val file: OCFile? by lazy {
+    val file: OCFile? by lazy {
         arguments?.let { BundleCompat.getParcelable(it, ARG_FILE, OCFile::class.java) }
     }
 
-    private val user: User? by lazy {
+    val user: User? by lazy {
         arguments?.let { BundleCompat.getParcelable(it, ARG_USER, User::class.java) }
     }
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+
+    @Inject
+    lateinit var clientFactory: ClientFactory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FileInfoFragmentBinding.inflate(layoutInflater, container, false)
@@ -47,14 +51,16 @@ class FileInfoFragment :
             file?.let { imageDetailInfo.init(it, binding) }
         }
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (CapabilityUtils.getCapability(context).governance.isTrue) {
             val governanceDetailInfo = GovernanceDetailInfo(binding, viewThemeUtils, this)
             governanceDetailInfo.init()
         } else {
             binding.governanceLayout.visibility = View.GONE
         }
-
-        return binding.root
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
