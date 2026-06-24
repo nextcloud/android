@@ -30,9 +30,8 @@ import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
-import com.nextcloud.client.network.Connectivity;
+import com.nextcloud.client.network.ConnectivityManagerFactory;
 import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.client.network.NetworkChangeListener;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.common.NextcloudClient;
@@ -100,6 +99,8 @@ public abstract class AbstractIT {
 
     @Rule
     public GrantPermissionRule notificationsPermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS);
+
+    protected ConnectivityService connectivityServiceMock = ConnectivityManagerFactory.INSTANCE.getMock();
 
     protected static OwnCloudClient client;
     protected static NextcloudClient nextcloudClient;
@@ -371,38 +372,6 @@ public abstract class AbstractIT {
     }
 
     public void uploadOCUpload(OCUpload ocUpload) {
-        ConnectivityService connectivityServiceMock = new ConnectivityService() {
-            @Override
-            public void addListener(@NonNull NetworkChangeListener listener) {
-
-            }
-
-            @Override
-            public void removeListener(@NonNull NetworkChangeListener listener) {
-
-            }
-
-            @Override
-            public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
-
-            }
-
-            @Override
-            public boolean isConnected() {
-                return false;
-            }
-
-            @Override
-            public boolean isInternetWalled() {
-                return false;
-            }
-
-            @Override
-            public Connectivity getConnectivity() {
-                return Connectivity.CONNECTED_WIFI;
-            }
-        };
-
         PowerManagementService powerManagementServiceMock = new PowerManagementService() {
             @Override
             public boolean isIgnoringOptimization() {

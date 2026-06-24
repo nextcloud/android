@@ -139,7 +139,7 @@ class OfflineSyncWork(
                 result?.data?.get(0) as? String
             }
 
-            else -> if (connectivityService.isInternetWalled) {
+            else -> if (connectivityService.isInternetWalled()) {
                 Log_OC.d(TAG, "No connectivity, skipping sync")
                 null
             } else {

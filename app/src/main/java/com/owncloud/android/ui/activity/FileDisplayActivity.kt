@@ -2239,25 +2239,23 @@ class FileDisplayActivity :
                         }
                     }
 
-                    withContext(Dispatchers.Main) {
-                        connectivityService.isNetworkAndServerAvailable { isAvailable ->
-                            if (isAvailable) {
-                                fileOperationsHelper?.removeFiles(
-                                    filesToRemove,
-                                    onlyLocalCopy,
-                                    true
-                                )
+                    connectivityService.isNetworkAndServerAvailable { isAvailable ->
+                        if (isAvailable) {
+                            fileOperationsHelper?.removeFiles(
+                                filesToRemove,
+                                onlyLocalCopy,
+                                true
+                            )
+                        } else {
+                            if (onlyLocalCopy) {
+                                fileOperationsHelper?.removeFiles(filesToRemove, true, true)
                             } else {
-                                if (onlyLocalCopy) {
-                                    fileOperationsHelper?.removeFiles(filesToRemove, true, true)
-                                } else {
-                                    filesToRemove.forEach { file ->
-                                        fileDataStorageManager.addRemoveFileOfflineOperation(file)
-                                    }
+                                filesToRemove.forEach { file ->
+                                    fileDataStorageManager.addRemoveFileOfflineOperation(file)
                                 }
                             }
-                            onFilesRemoved()
                         }
+                        onFilesRemoved()
                     }
                 }
             }

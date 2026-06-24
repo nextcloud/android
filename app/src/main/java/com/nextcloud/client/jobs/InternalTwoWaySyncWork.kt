@@ -43,7 +43,7 @@ class InternalTwoWaySyncWork(
         if (!appPreferences.isTwoWaySyncEnabled ||
             powerManagementService.isPowerSavingEnabled ||
             !connectivityService.isConnected ||
-            connectivityService.isInternetWalled ||
+            connectivityService.isInternetWalled() ||
             !connectivityService.connectivity.isWifi
         ) {
             Log_OC.d(TAG, "Not starting due to constraints!")

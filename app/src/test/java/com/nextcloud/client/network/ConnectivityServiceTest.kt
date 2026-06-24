@@ -242,13 +242,13 @@ class ConnectivityServiceTest {
         @Test
         fun `true maintenance status flag is used`() {
             mockResponse(maintenance = true, httpStatus = HttpStatus.SC_OK)
-            assertTrue(connectivityService.isInternetWalled)
+            assertTrue(connectivityService.isInternetWalled())
         }
 
         @Test
         fun `maintenance flag is ignored when non-200 HTTP code is returned`() {
             mockResponse(maintenance = false, httpStatus = HttpStatus.SC_NO_CONTENT)
-            assertTrue(connectivityService.isInternetWalled)
+            assertTrue(connectivityService.isInternetWalled())
         }
 
         // `status endpoint is used to determine internet state` removed: the new impl
@@ -280,7 +280,7 @@ class ConnectivityServiceTest {
 
             // WHEN
             //      connectivity is checked
-            val result = connectivityService.isInternetWalled
+            val result = connectivityService.isInternetWalled()
 
             // THEN
             //      connection is walled
@@ -311,7 +311,7 @@ class ConnectivityServiceTest {
 
             // WHEN
             //      connectivity is checked
-            val result = connectivityService.isInternetWalled
+            val result = connectivityService.isInternetWalled()
 
             // THEN
             //      assume internet is not walled
@@ -342,7 +342,7 @@ class ConnectivityServiceTest {
             mockResponse(contentLength = 0, status = HttpStatus.SC_NO_CONTENT)
 
             // WHEN
-            val result = connectivityService.isInternetWalled
+            val result = connectivityService.isInternetWalled()
 
             // THEN server reachability check is always performed, even on metered cellular
             assertEquals(false, result)
@@ -357,28 +357,28 @@ class ConnectivityServiceTest {
         @Test
         fun `status 204 means internet is not walled`() {
             mockResponse(contentLength = 0, status = HttpStatus.SC_NO_CONTENT)
-            assertFalse(connectivityService.isInternetWalled)
+            assertFalse(connectivityService.isInternetWalled())
             verify(getRequest, times(1)).execute(client)
         }
 
         @Test
         fun `status 204 and no content length means internet is not walled`() {
             mockResponse(contentLength = -1, status = HttpStatus.SC_NO_CONTENT)
-            assertFalse(connectivityService.isInternetWalled)
+            assertFalse(connectivityService.isInternetWalled())
             verify(getRequest, times(1)).execute(client)
         }
 
         @Test
         fun `other status than 204 means internet is walled`() {
             mockResponse(contentLength = 0, status = HttpStatus.SC_GONE)
-            assertTrue(connectivityService.isInternetWalled)
+            assertTrue(connectivityService.isInternetWalled())
             verify(getRequest, times(1)).execute(client)
         }
 
         @Test
         fun `index endpoint is used to determine internet state`() {
             mockResponse()
-            connectivityService.isInternetWalled
+            connectivityService.isInternetWalled()
             val urlCaptor = argumentCaptor<String>()
             verify(requestBuilder).invoke(urlCaptor.capture())
             assertTrue(
@@ -420,7 +420,7 @@ class ConnectivityServiceTest {
             whenever(getRequest.execute(client)).thenReturn(HttpStatus.SC_NO_CONTENT)
             whenever(getRequest.getResponseContentLength()).thenReturn(0L)
 
-            assertFalse("server should be reachable over local wifi", connectivityService.isInternetWalled)
+            assertFalse("server should be reachable over local wifi", connectivityService.isInternetWalled())
             verify(getRequest, times(1)).execute(client)
         }
 
@@ -430,7 +430,7 @@ class ConnectivityServiceTest {
             connectivityService.updateConnectivity()
 
             assertFalse(connectivityService.isConnected)
-            assertTrue(connectivityService.isInternetWalled)
+            assertTrue(connectivityService.isInternetWalled())
             verify(requestBuilder, never()).invoke(any())
         }
     }

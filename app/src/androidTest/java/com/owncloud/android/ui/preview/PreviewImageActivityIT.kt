@@ -21,7 +21,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import com.nextcloud.test.ConnectivityServiceOfflineMock
 import com.nextcloud.test.FileRemovedIdlingResource
 import com.nextcloud.test.LoopFailureHandler
 import com.owncloud.android.AbstractOnServerIT
@@ -164,7 +163,7 @@ class PreviewImageActivityIT : AbstractOnServerIT() {
         launchActivity<PreviewImageActivity>(intent).use { scenario ->
             if (offline) {
                 scenario.onActivity { activity ->
-                    activity.connectivityService = ConnectivityServiceOfflineMock()
+                    activity.connectivityService = connectivityServiceMock
                 }
             }
             onView(isRoot()).check(matches(isDisplayed()))
