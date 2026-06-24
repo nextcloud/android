@@ -38,6 +38,7 @@ class ConnectivityServiceImpl(
     companion object {
         var instance: ConnectivityServiceImpl? = null
 
+        // todo: remove
         private var initCount = 0
         private const val TAG = "ConnectivityServiceImpl"
         private const val CONNECTIVITY_CHECK_ROUTE = "/index.php/204"
