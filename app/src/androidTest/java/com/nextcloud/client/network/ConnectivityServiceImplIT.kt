@@ -36,6 +36,6 @@ class ConnectivityServiceImplIT : AbstractOnServerIT() {
         )
 
         assertTrue(sut.connectivity.isConnected)
-        assertFalse(sut.isInternetWalled)
+        assertFalse(sut.isInternetWalled())
     }
 }
