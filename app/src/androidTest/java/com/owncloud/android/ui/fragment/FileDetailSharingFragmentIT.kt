@@ -38,6 +38,8 @@ import com.owncloud.android.lib.resources.shares.OCShare.Companion.NO_PERMISSION
 import com.owncloud.android.lib.resources.shares.OCShare.Companion.READ_PERMISSION_FLAG
 import com.owncloud.android.lib.resources.shares.OCShare.Companion.SHARE_PERMISSION_FLAG
 import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.lib.resources.status.CapabilityBooleanType
+import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.util.SharePermissionManager
 import com.owncloud.android.utils.ScreenshotTest
@@ -46,6 +48,8 @@ import org.hamcrest.CoreMatchers.anyOf
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.not
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -890,6 +894,57 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         for ((permission, expected) in testCases) {
             share.permissions = permission
             assertEquals("Failed for permission: $permission", expected, SharePermissionManager.isFileRequest(share))
+        }
+    }
+
+    @Test
+    fun internalLinkUsesPrettyPathWhenModRewriteWorking() {
+        launchActivity<TestActivity>().use { scenario ->
+            var sut: FileDetailSharingFragment? = null
+            scenario.onActivity { activity ->
+                sut = FileDetailSharingFragment.newInstance(file, user)
+                activity.addFragment(sut)
+                activity.supportFragmentManager.executePendingTransactions()
+            }
+
+            val capabilities = OCCapability().apply { modRewriteWorking = CapabilityBooleanType.TRUE }
+            val link = sut!!.createInternalLink(user, file, capabilities)
+
+            assertTrue(link.endsWith("/f/" + file.localId))
+            assertFalse(link.contains("/index.php/"))
+        }
+    }
+
+    @Test
+    fun internalLinkUsesDefaultPathWhenModRewriteNotWorking() {
+        launchActivity<TestActivity>().use { scenario ->
+            var sut: FileDetailSharingFragment? = null
+            scenario.onActivity { activity ->
+                sut = FileDetailSharingFragment.newInstance(file, user)
+                activity.addFragment(sut)
+                activity.supportFragmentManager.executePendingTransactions()
+            }
+
+            val capabilities = OCCapability().apply { modRewriteWorking = CapabilityBooleanType.FALSE }
+            val link = sut!!.createInternalLink(user, file, capabilities)
+
+            assertTrue(link.endsWith("/index.php/f/" + file.localId))
+        }
+    }
+
+    @Test
+    fun internalLinkFallsBackToDefaultPathWhenCapabilitiesNull() {
+        launchActivity<TestActivity>().use { scenario ->
+            var sut: FileDetailSharingFragment? = null
+            scenario.onActivity { activity ->
+                sut = FileDetailSharingFragment.newInstance(file, user)
+                activity.addFragment(sut)
+                activity.supportFragmentManager.executePendingTransactions()
+            }
+
+            val link = sut!!.createInternalLink(user, file, null)
+
+            assertTrue(link.endsWith("/index.php/f/" + file.localId))
         }
     }
 }
