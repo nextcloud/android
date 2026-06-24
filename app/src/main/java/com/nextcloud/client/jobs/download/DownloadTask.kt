@@ -74,8 +74,8 @@ class DownloadTask(
             lastSyncDateForProperties = syncDate
             lastSyncDateForData = syncDate
             isUpdateThumbnailNeeded = true
-            modificationTimestamp = op.modificationTimestamp
-            modificationTimestampAtLastSyncForData = op.modificationTimestamp
+            modificationTimestamp = op.getModificationTimestamp()
+            modificationTimestampAtLastSyncForData = op.getModificationTimestamp()
             etag = op.etag
             mimeType = op.mimeType
             storagePath = op.savePath

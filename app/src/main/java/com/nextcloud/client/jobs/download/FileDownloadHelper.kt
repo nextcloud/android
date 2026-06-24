@@ -79,8 +79,8 @@ class FileDownloadHelper {
             lastSyncDateForProperties = syncDate
             lastSyncDateForData = syncDate
             isUpdateThumbnailNeeded = true
-            modificationTimestamp = currentDownload?.modificationTimestamp ?: 0L
-            modificationTimestampAtLastSyncForData = currentDownload?.modificationTimestamp ?: 0L
+            modificationTimestamp = currentDownload?.getModificationTimestamp() ?: 0L
+            modificationTimestampAtLastSyncForData = currentDownload?.getModificationTimestamp() ?: 0L
             etag = currentDownload?.etag
             mimeType = currentDownload?.mimeType
             storagePath = currentDownload?.savePath
