@@ -36,6 +36,9 @@ class ConnectivityServiceImpl(
 ) : ConnectivityService {
 
     companion object {
+        var instance: ConnectivityServiceImpl? = null
+
+        private var initCount = 0
         private const val TAG = "ConnectivityServiceImpl"
         private const val CONNECTIVITY_CHECK_ROUTE = "/index.php/204"
     }
@@ -66,10 +69,13 @@ class ConnectivityServiceImpl(
     }
     // endregion
 
+
+
     init {
+        initCount += 1
         connectivityManager.registerDefaultNetworkCallback(networkCallback)
         updateConnectivity()
-        Log_OC.d(TAG, "connectivity service constructed")
+        Log_OC.d(TAG, "connectivity service constructed: " + initCount)
     }
 
     // region overridden methods
