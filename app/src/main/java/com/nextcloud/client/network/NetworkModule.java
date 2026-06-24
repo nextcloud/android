@@ -19,17 +19,26 @@ import dagger.Provides;
 @Module
 public class NetworkModule {
 
+    // todo: check 429, remove manual instance...
     @Provides
+    @Singleton
     ConnectivityService connectivityService(Context context,
                                             UserAccountManager accountManager,
                                             ClientFactory clientFactory,
                                             WalledCheckCache walledCheckCache) {
-        return new ConnectivityServiceImpl(context,
-                                           accountManager,
-                                           clientFactory,
-                                           url -> new GetMethod(url, false),
-                                           walledCheckCache
+        var instance = ConnectivityServiceImpl.Companion.getInstance();
+        if (instance != null) {
+            return instance;
+        }
+
+        instance = new ConnectivityServiceImpl(context,
+                                               accountManager,
+                                               clientFactory,
+                                               url -> new GetMethod(url, false),
+                                               walledCheckCache
         );
+        ConnectivityServiceImpl.Companion.setInstance(instance);
+        return instance;
     }
 
     @Provides
