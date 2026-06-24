@@ -191,7 +191,7 @@ class FileDownloadWorker(
                     downloadType
                 )
 
-                operation.addDownloadDataTransferProgressListener(this)
+                operation.addProgressListener(this)
                 val (downloadKey, _) = pendingDownloads.putIfAbsent(
                     user.accountName,
                     file.remotePath,
