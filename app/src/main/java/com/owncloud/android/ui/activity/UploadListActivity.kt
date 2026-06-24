@@ -137,7 +137,6 @@ class UploadListActivity :
 
         swipeListRefreshLayout?.let { viewThemeUtils.androidx.themeSwipeRefreshLayout(it) }
         swipeListRefreshLayout?.setOnRefreshListener { this.refresh() }
-        loadItems()
     }
 
     private fun setupEmptyList() {
@@ -269,6 +268,7 @@ class UploadListActivity :
         binding?.autoUploadBatterySaverWarningCard?.let {
             uploadWarningCard?.bind(it)
         }
+        loadItems()
     }
 
     override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {
@@ -372,7 +372,7 @@ class UploadListActivity :
     private fun showConflictSnackbar(messageId: Int) {
         conflictSnackbar?.apply {
             setText(messageId)
-            setDuration(Snackbar.LENGTH_LONG)
+            duration = Snackbar.LENGTH_LONG
             show()
         }
     }
@@ -391,11 +391,9 @@ class UploadListActivity :
     companion object {
         private val TAG: String = UploadListActivity::class.java.getSimpleName()
 
-        fun createIntent(file: OCFile?, user: User?, flag: Int?, context: Context?): Intent =
+        fun createIntent(file: OCFile?, user: User?, flag: Int, context: Context): Intent =
             Intent(context, UploadListActivity::class.java).apply {
-                if (flag != null) {
-                    setFlags(flags or flag)
-                }
+                setFlags(flags or flag)
                 putExtra(EXTRA_FILE, file)
                 putExtra(EXTRA_USER, user)
             }

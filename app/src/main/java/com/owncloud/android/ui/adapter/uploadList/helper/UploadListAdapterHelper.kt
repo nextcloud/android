@@ -32,7 +32,7 @@ class UploadListAdapterHelper(private val activity: FileActivity) {
         file.setStoragePath(upload.localPath)
         val user = activity.accountManager.getUser(upload.accountName)
         if (user.isPresent) {
-            val intent = ConflictsResolveActivity.Companion.createIntent(
+            val intent = ConflictsResolveActivity.createIntent(
                 file,
                 user.get(),
                 upload.uploadId,
@@ -61,16 +61,16 @@ class UploadListAdapterHelper(private val activity: FileActivity) {
         }
 
         val optionalUser = activity.user
-        if (PreviewImageFragment.Companion.canBePreviewed(file) && optionalUser.isPresent) {
+        if (PreviewImageFragment.canBePreviewed(file) && optionalUser.isPresent) {
             // show image preview and stay in uploads tab
-            val intent = FileDisplayActivity.Companion.openFileIntent(activity, optionalUser.get(), file)
+            val intent = FileDisplayActivity.openFileIntent(activity, optionalUser.get(), file)
             activity.startActivity(intent)
             return
         }
 
         val intent = Intent(activity, FileDisplayActivity::class.java).apply {
             setAction(Intent.ACTION_VIEW)
-            putExtra(FileDisplayActivity.Companion.KEY_FILE_PATH, upload.remotePath)
+            putExtra(FileDisplayActivity.KEY_FILE_PATH, upload.remotePath)
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
         activity.startActivity(intent)
