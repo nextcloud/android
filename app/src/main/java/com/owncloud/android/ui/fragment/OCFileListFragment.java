@@ -700,6 +700,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
         openActionsMenu(1, checkedFiles, true);
     }
 
+    /**
+     * Opens the same actions menu used for a single list item, but for the folder that is currently being browsed.
+     * This lets the user share, rename, move and run other actions on the open folder without navigating back out.
+     */
+    public void showCurrentFolderActions() {
+        final OCFile currentFolder = getCurrentFile();
+        if (currentFolder == null || currentFolder.isRootDirectory()) {
+            return;
+        }
+
+        final Set<OCFile> checkedFiles = new HashSet<>();
+        checkedFiles.add(currentFolder);
+        openActionsMenu(1, checkedFiles, true);
+    }
+
     public void openActionsMenu(final int filesCount, final Set<OCFile> checkedFiles, final boolean isOverflow) {
         throttler.run("overflowClick", () -> {
             final var actionsToHide = FileAction.Companion.getFileListActionsToHide(checkedFiles);
@@ -1331,6 +1346,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     /**
+     * Returns the folder whose content is checked for name collisions while renaming.
+     * When the target is the folder currently being browsed, its sibling names live in the parent folder, not in
+     * {@link #mFile} (which would be the folder itself).
+     */
+    private OCFile getRenameParentFolder(OCFile target) {
+        if (mFile != null && target.getFileId() == mFile.getFileId()) {
+            return mContainerActivity.getStorageManager().getFileById(target.getParentId());
+        }
+        return mFile;
+    }
+
+    /**
      * Start the appropriate action(s) on the currently selected files given menu selected by the user.
      *
      * @param checkedFiles List of files selected by the user on which the action should be performed
@@ -1367,7 +1394,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                 return true;
             } else if (itemId == R.id.action_rename_file) {
-                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(singleFile, mFile);
+                OCFile parentFolder = getRenameParentFolder(singleFile);
+                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(singleFile, parentFolder);
                 dialog.show(getFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
                 return true;
             } else if (itemId == R.id.action_see_details) {

@@ -25,4 +25,12 @@
         android:orderInCategory="1"
         android:title="@string/select_all"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_current_folder"
+        android:contentDescription="@string/actionbar_current_folder_actions"
+        android:icon="@drawable/ic_dots_vertical"
+        android:orderInCategory="2"
+        android:title="@string/actionbar_current_folder_actions"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -905,7 +905,17 @@ class FileDisplayActivity :
             }
         }
 
+        menu?.findItem(R.id.action_current_folder)?.isVisible = isCurrentFolderActionsAvailable()
+
         return super.onPrepareOptionsMenu(menu)
+    }
+
+    private fun isCurrentFolderActionsAvailable(): Boolean {
+        val listFragment = leftFragment as? OCFileListFragment ?: return false
+        return !isDrawerOpen &&
+            !isSearchOpen() &&
+            !listFragment.isSearchFragment &&
+            !isRoot(getCurrentDir())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -913,6 +923,7 @@ class FileDisplayActivity :
         inflater.inflate(R.menu.activity_file_display, menu)
 
         menu.findItem(R.id.action_select_all).isVisible = false
+        menu.findItem(R.id.action_current_folder).isVisible = false
         val searchMenuItem = menu.findItem(R.id.action_search)
         searchView = MenuItemCompat.getActionView(searchMenuItem) as SearchView?
         searchMenuItem.isVisible = false
@@ -1291,6 +1302,11 @@ class FileDisplayActivity :
 
         R.id.action_select_all -> {
             listOfFilesFragment?.selectAllFiles(true)
+            true
+        }
+
+        R.id.action_current_folder -> {
+            listOfFilesFragment?.showCurrentFolderActions()
             true
         }
 
@@ -1997,6 +2013,7 @@ class FileDisplayActivity :
             chosenFile = file // if no file is passed, current file decides
         }
         super.updateActionBarTitleAndHomeButton(chosenFile)
+        supportInvalidateOptionsMenu()
     }
 
     override fun isDrawerIndicatorAvailable(): Boolean = isRoot(getCurrentDir())
@@ -2201,6 +2218,11 @@ class FileDisplayActivity :
             resetScrollingAndUpdateActionBar()
         }
 
+        // the folder being browsed was deleted from its own header actions: navigate up to its parent
+        if (leftFragment is OCFileListFragment && !fileAvailable && currentDir?.fileId == removedFile.fileId) {
+            browseUp(leftFragment)
+        }
+
         if (leftFragment is OCFileListFragment && !operation.onlyLocalCopy) {
             leftFragment.adapter?.removeFile(removedFile)
 
@@ -2370,6 +2392,13 @@ class FileDisplayActivity :
         val leftFragment = this.leftFragment
         if (leftFragment is FileFragment) {
             onRenameFileOperationFinishForFileFragment(leftFragment, renamedFile, currentUser)
+        }
+
+        // the folder being browsed was renamed from its own header actions: re-bind the open folder and its title
+        if (leftFragment is OCFileListFragment && currentDir?.fileId == renamedFile.fileId) {
+            file = renamedFile
+            leftFragment.listDirectory(renamedFile, MainApp.isOnlyOnDevice())
+            updateActionBarTitleAndHomeButton(renamedFile)
         }
 
         val file = storageManager.getFileById(renamedFile.parentId)
