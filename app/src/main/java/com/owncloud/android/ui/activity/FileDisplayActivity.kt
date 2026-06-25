@@ -2239,25 +2239,23 @@ class FileDisplayActivity :
                         }
                     }
 
-                    withContext(Dispatchers.Main) {
-                        connectivityService.isNetworkAndServerAvailable { isAvailable ->
-                            if (isAvailable) {
-                                fileOperationsHelper?.removeFiles(
-                                    filesToRemove,
-                                    onlyLocalCopy,
-                                    true
-                                )
+                    connectivityService.isNetworkAndServerAvailable { isAvailable ->
+                        if (isAvailable) {
+                            fileOperationsHelper?.removeFiles(
+                                filesToRemove,
+                                onlyLocalCopy,
+                                true
+                            )
+                        } else {
+                            if (onlyLocalCopy) {
+                                fileOperationsHelper?.removeFiles(filesToRemove, true, true)
                             } else {
-                                if (onlyLocalCopy) {
-                                    fileOperationsHelper?.removeFiles(filesToRemove, true, true)
-                                } else {
-                                    filesToRemove.forEach { file ->
-                                        fileDataStorageManager.addRemoveFileOfflineOperation(file)
-                                    }
+                                filesToRemove.forEach { file ->
+                                    fileDataStorageManager.addRemoveFileOfflineOperation(file)
                                 }
                             }
-                            onFilesRemoved()
                         }
+                        onFilesRemoved()
                     }
                 }
             }
@@ -2375,8 +2373,20 @@ class FileDisplayActivity :
         }
 
         val file = storageManager.getFileById(renamedFile.parentId)
-        if (file != null && file == getCurrentDir()) {
-            fileListFragment?.adapter?.updateFile(renamedFile)
+        val isCurrentDirParentDirOfGivenFile = (file != null && file == currentDir)
+
+        // checking current dir against renamed file's parent will always fail when user is in Shared/Favorites root.
+        // thus check is current dir is root or not as well
+        if (currentDir?.isRootDirectory == true || isCurrentDirParentDirOfGivenFile) {
+            val fragment = fileListFragment
+
+            // OCFileSearchTask may still run during rename, so use a single refresh path to avoid
+            // flicker/inconsistent filenames.
+            if (fragment?.isSearchFragment == true) {
+                fragment.cancelAndRetriggerSearch()
+            } else {
+                fragment?.adapter?.updateFile(renamedFile)
+            }
         }
 
         refreshGalleryFragmentIfNeeded()

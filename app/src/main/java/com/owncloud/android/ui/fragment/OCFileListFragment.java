@@ -147,6 +147,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.media3.common.util.UnstableApi;
 import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG;
@@ -1165,6 +1166,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         } else {
                             DisplayUtils.showSnackMessage(fileActivity, R.string.internet_connection_required_for_encrypted_folder_setup);
                         }
+                        return Unit.INSTANCE;
                     });
                 }
             }
@@ -2120,6 +2122,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public boolean isSearchFragment() {
         return searchFragment;
+    }
+
+    public void cancelAndRetriggerSearch() {
+        if (searchTask != null) {
+            searchTask.cancel();
+            searchTask = null;
+        }
+        if (searchEvent != null) {
+            handleSearchEvent(searchEvent);
+        }
     }
 
     /**

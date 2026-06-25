@@ -190,9 +190,12 @@ class CreateFolderDialogFragment :
             newFolderName = AutoRename.rename(newFolderName, capabilities, isFolderPath = true)
 
             val path = parentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
-            connectivityService.isNetworkAndServerAvailable { result ->
-                if (result) {
-                    typedActivity<ComponentsGetter>()?.fileOperationsHelper?.createFolder(path, encrypted)
+
+            val componentGetter = typedActivity<ComponentsGetter>()
+            val fda = typedActivity<FileDisplayActivity>()
+            connectivityService.isNetworkAndServerAvailable {
+                if (it) {
+                    componentGetter?.fileOperationsHelper?.createFolder(path, encrypted)
                 } else {
                     Log_OC.d(TAG, "Network not available, creating offline operation")
                     fileDataStorageManager.addCreateFolderOfflineOperation(
@@ -201,7 +204,7 @@ class CreateFolderDialogFragment :
                         parentFolder?.fileId
                     )
 
-                    typedActivity<FileDisplayActivity>()?.refreshCurrentDirectory()
+                    fda?.refreshCurrentDirectory()
                 }
             }
         }

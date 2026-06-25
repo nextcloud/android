@@ -64,7 +64,6 @@ class FileMenuFilterIT : AbstractIT() {
         MockKAnnotations.init(this)
         every { mockFileUploaderBinder.isUploading(any(), any()) } returns false
         every { mockComponentsGetter.fileUploaderHelper } returns mockFileUploaderBinder
-        every { mockFileDownloadProgressListener.isDownloading(any(), any()) } returns false
         every { mockComponentsGetter.fileDownloadProgressListener } returns mockFileDownloadProgressListener
         every { mockOperationsServiceBinder.isSynchronizing(any(), any()) } returns false
         every { mockComponentsGetter.operationsServiceBinder } returns mockOperationsServiceBinder
