@@ -193,6 +193,7 @@ class SyncedFolderProvider(
             str(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT),
             int(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION),
             int(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY),
+            long(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_MIN_FILE_AGE_MS),
             bool(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED),
             long(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS),
             getById(int(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE)),
@@ -212,6 +213,7 @@ class SyncedFolderProvider(
         put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED, syncedFolder.isEnabled)
         put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS, syncedFolder.enabledTimestampMs)
         put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE, syncedFolder.isSubfolderByDate)
+        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_MIN_FILE_AGE_MS, syncedFolder.uploadMinFileAgeMs)
         put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT, syncedFolder.account)
         put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION, syncedFolder.uploadAction)
         put(

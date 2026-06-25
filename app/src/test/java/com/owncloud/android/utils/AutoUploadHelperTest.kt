@@ -71,6 +71,7 @@ class AutoUploadHelperTest {
         accountName,
         1,
         1,
+        0,
         true,
         enabledTimestamp,
         type,
