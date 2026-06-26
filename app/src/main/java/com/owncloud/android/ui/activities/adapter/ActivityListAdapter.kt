@@ -7,9 +7,6 @@
 package com.owncloud.android.ui.activities.adapter
 
 import android.content.Context
-import android.content.res.Configuration
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -30,6 +27,7 @@ import androidx.annotation.DrawableRes
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.GlideHelper
@@ -134,20 +132,20 @@ open class ActivityListAdapter(
         }
 
         if (activity.icon.isNotEmpty()) {
-            loadImageAsync(activity.icon, holder.binding.icon, R.drawable.ic_activity)
+            GlideHelper.loadTintableIconIntoImageView(
+                context,
+                client,
+                activity.icon,
+                holder.binding.icon,
+                R.drawable.ic_activity,
+                context.resources.getDimensionPixelSize(R.dimen.activity_icon_width)
+            )
         }
 
-        val isNightMode =
-            (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
-                Configuration.UI_MODE_NIGHT_YES
-        val isFileCreatedOrDeleted = activity.type.equals("file_created", ignoreCase = true) ||
-            activity.type.equals("file_deleted", ignoreCase = true)
-
-        if (!isFileCreatedOrDeleted) {
-            holder.binding.icon.setColorFilter(
-                if (isNightMode) Color.WHITE else Color.BLACK,
-                PorterDuff.Mode.SRC_IN
-            )
+        if (activity.icon.endsWith(COLORED_ICON_SUFFIX, ignoreCase = true)) {
+            holder.binding.icon.imageTintList = null
+        } else {
+            viewThemeUtils.platform.colorImageView(holder.binding.icon, ColorRole.ON_SURFACE_VARIANT)
         }
 
         val richObjectList = activity.richSubjectElement.richObjectList
@@ -178,14 +176,15 @@ open class ActivityListAdapter(
         }
     }
 
+    private suspend fun nextcloudClient(): NextcloudClient = withContext(Dispatchers.IO) {
+        OwnCloudClientManagerFactory.getDefaultSingleton()
+            .getNextcloudClientFor(currentAccountProvider.user.toOwnCloudAccount(), context)
+    }
+
     private fun loadImageAsync(url: String, imageView: ImageView, @DrawableRes placeholder: Int) {
         context.lifecycleScope.launch {
             runCatching {
-                val client = withContext(Dispatchers.IO) {
-                    OwnCloudClientManagerFactory.getDefaultSingleton()
-                        .getNextcloudClientFor(currentAccountProvider.user.toOwnCloudAccount(), context)
-                }
-                GlideHelper.loadIntoImageView(context, client, url, imageView, placeholder, false)
+                GlideHelper.loadIntoImageView(context, nextcloudClient(), url, imageView, placeholder, false)
             }.onFailure {
                 Log_OC.e(TAG, "Exception loading image: $it")
             }
@@ -318,6 +317,7 @@ open class ActivityListAdapter(
     companion object {
         const val HEADER_TYPE = 100
         const val ACTIVITY_TYPE = 101
+        private const val COLORED_ICON_SUFFIX = "-color.svg"
         private val TAG: String = ActivityListAdapter::class.java.simpleName
     }
 }
