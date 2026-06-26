@@ -291,6 +291,7 @@ public class FileOperationsHelper {
         List<ResolveInfo> availableApps = fileActivity.getPackageManager().
             queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
 
+        // first always try to use available apps
         if (availableApps.isEmpty()) {
             Optional<User> optionalUser = fileActivity.getUser();
 
