@@ -319,7 +319,7 @@
     <string name="drawer_item_all_files">Kõik failid</string>
     <string name="drawer_item_assistant">Abiline</string>
     <string name="drawer_item_favorites">Lemmikud</string>
-    <string name="drawer_item_gallery">Meedia</string>
+    <string name="drawer_item_gallery">Meedium</string>
     <string name="drawer_item_groupfolders">Tiimi kaustad</string>
     <string name="drawer_item_home">Avaleht</string>
     <string name="drawer_item_notifications">Märguanded</string>
@@ -424,7 +424,7 @@
     <string name="favorite">Lisa lemmikutesse</string>
     <string name="favorite_icon">Lemmik</string>
     <string name="fifteenMinutes">15 minutit</string>
-    <string name="file_activity_shared_file_cannot_be_updated">Jaosfaili ei saa uuendada</string>
+    <string name="file_activity_shared_file_cannot_be_updated">Jagatud faili ei saa uuendada</string>
     <string name="file_already_exists">Failinimi on juba olemas</string>
     <string name="file_delete">Kustuta</string>
     <string name="file_detail_activity_error">Failiga tehtud tegevuste laadimine ei õnnestunud</string>
