@@ -8,7 +8,6 @@
 package com.owncloud.android.datamodel
 
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
 class OCFileTest {
@@ -22,9 +21,8 @@ class OCFileTest {
         sut.remoteId = "00000008ocjycgrudn78"
         assertEquals(8, sut.localId)
 
-        // this will fail as fileId is too large
         sut.remoteId = "1234567891011ocjycgrudn78"
-        assertNotEquals(1234567891011L, sut.localId)
+        assertEquals(1234567891011L, sut.localId)
 
         sut.localId = 1234567891011L
         assertEquals(1234567891011L, sut.localId)
