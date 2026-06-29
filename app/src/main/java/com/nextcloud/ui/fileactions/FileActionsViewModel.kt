@@ -9,6 +9,7 @@ package com.nextcloud.ui.fileactions
 
 import android.os.Bundle
 import androidx.annotation.IdRes
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -125,7 +126,8 @@ class FileActionsViewModel @Inject constructor(
         }
     }
 
-    private fun getLockedUntil(file: OCFile): Long? = if (file.lockTimestamp == 0L || file.lockTimeout == 0L) {
+    @VisibleForTesting
+    internal fun getLockedUntil(file: OCFile): Long? = if (file.lockTimestamp == 0L || file.lockTimeout <= 0L) {
         null
     } else {
         (file.lockTimestamp + file.lockTimeout) * TimeConstants.MILLIS_PER_SECOND
