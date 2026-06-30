@@ -45,6 +45,7 @@
     <string name="app_widget_description">Mostra um \'\'widget\'\' do painel</string>
     <string name="appbar_search_in">Procurar em %s</string>
     <string name="appear_offline">Aparecer offline</string>
+    <string name="assistant_output_generation_warning_text">A saída mostrada aqui é gerada por IA. Certifique-se de sempre verificar novamente.</string>
     <string name="assistant_screen_chat_create_error">Falha ao enviar uma mensagem</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Voltar à página de assistente</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem a certeza que deseja eliminar esta tarefa?</string>
@@ -210,6 +211,7 @@
     <string name="contacts_preferences_no_file_found">Nenhum ficheiro encontrado</string>
     <string name="contacts_preferences_something_strange_happened">Não foi encontrada a sua última cópia de segurança!</string>
     <string name="conversation_screen_empty_content_title">Nenhuma conversa encontrada</string>
+    <string name="conversation_screen_empty_conversation_list_title">Sem conversas ainda</string>
     <string name="conversation_screen_fetch_error_title">Falha ao buscar a lista de conversas</string>
     <string name="conversation_screen_title">Conversações</string>
     <string name="copied">Copiado</string>
@@ -777,6 +779,7 @@
     <string name="set_message">Definir mensagem</string>
     <string name="set_note">Definir nota</string>
     <string name="set_online_status">Estado on-line</string>
+    <string name="set_online_status_bottom_sheet_error_message">Falha ao definir o status!</string>
     <string name="set_picture_as">Usar imagem como</string>
     <string name="setup_e2e">Durante a configuração da encriptação ponta-a-ponta, receberá uma mnemónica aleatória de 12 palavras, de que necessitará para abrir os seus ficheiros noutros dispositivos. Ela só será guardada neste dispositivo e pode ser mostrada novamente neste ecrã. Por favor, anote-a num local seguro!</string>
     <string name="share">Partilhar</string>
