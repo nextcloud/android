@@ -171,4 +171,7 @@ interface FileDao {
 
     @Query("DELETE FROM filelist WHERE file_owner = :fileOwner AND path = :remotePath")
     fun deleteFileByRemotePath(fileOwner: String, remotePath: String): Int
+
+    @Update
+    fun updateAll(entities: List<FileEntity>)
 }
