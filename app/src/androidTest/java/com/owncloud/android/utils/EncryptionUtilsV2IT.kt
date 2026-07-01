@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -341,7 +342,6 @@ class EncryptionUtilsV2IT : EncryptionIT() {
 
     @Test
     fun addFolder() {
-        val folder = OCFile("/e/")
         val enc1 = MockUser("enc1", "Nextcloud")
         val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
         assertEquals(2, metadataFile.metadata.files.size)
@@ -350,9 +350,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         val updatedMetadata = encryptionUtilsV2.addFolderToMetadata(
             EncryptionUtils.generateUid(),
             "new subfolder",
-            metadataFile,
-            folder,
-            storageManager
+            metadataFile
         )
 
         assertEquals(2, updatedMetadata.metadata.files.size)
@@ -361,7 +359,6 @@ class EncryptionUtilsV2IT : EncryptionIT() {
 
     @Test
     fun removeFolder() {
-        val folder = OCFile("/e/")
         val enc1 = MockUser("enc1", "Nextcloud")
         val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
         assertEquals(2, metadataFile.metadata.files.size)
@@ -371,9 +368,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         var updatedMetadata = encryptionUtilsV2.addFolderToMetadata(
             encryptedFileName,
             "new subfolder",
-            metadataFile,
-            folder,
-            storageManager
+            metadataFile
         )
 
         assertEquals(2, updatedMetadata.metadata.files.size)

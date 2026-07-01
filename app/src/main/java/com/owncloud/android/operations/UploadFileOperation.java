@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2021 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017-2018 Andy Scherzinger <info@andy-scherzinger.de>
@@ -907,9 +908,6 @@ public class UploadFileOperation extends SyncOperation {
             metadata,
             getStorageManager());
 
-        parentFile.setE2eCounter(metadata.getMetadata().getCounter());
-        getStorageManager().saveFile(parentFile);
-
         // upload metadata
         encryptionUtilsV2.serializeAndUploadMetadata(parentFile,
                                                      metadata,
@@ -919,6 +917,11 @@ public class UploadFileOperation extends SyncOperation {
                                                      mContext,
                                                      user,
                                                      getStorageManager());
+
+        // only persist the new counter locally once the server confirms it, otherwise a concurrent
+        // folder refresh can see server metadata that looks "older" than the local counter
+        parentFile.setE2eCounter(metadata.getMetadata().getCounter());
+        getStorageManager().saveFile(parentFile);
     }
 
     private void completeE2EUpload(RemoteOperationResult result, E2EFiles e2eFiles, OwnCloudClient client) {
