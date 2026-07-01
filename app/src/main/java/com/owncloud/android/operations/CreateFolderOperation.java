@@ -349,7 +349,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                              user,
                                                              getStorageManager());
 
-                getStorageManager().incrementE2ECounter(parent, metadata);
+                getStorageManager().updateE2EECounter(parent, metadata);
 
                 // unlock folder
                 RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parent, client, token);
