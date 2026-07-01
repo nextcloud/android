@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2021 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017-2018 Andy Scherzinger <info@andy-scherzinger.de>
@@ -53,7 +54,6 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
@@ -904,11 +904,7 @@ public class UploadFileOperation extends SyncOperation {
             e2eData.getIv(),
             e2eData.getEncryptedFile().getAuthenticationTag(),
             e2eData.getKey(),
-            metadata,
-            getStorageManager());
-
-        parentFile.setE2eCounter(metadata.getMetadata().getCounter());
-        getStorageManager().saveFile(parentFile);
+            metadata);
 
         // upload metadata
         encryptionUtilsV2.serializeAndUploadMetadata(parentFile,
@@ -919,6 +915,8 @@ public class UploadFileOperation extends SyncOperation {
                                                      mContext,
                                                      user,
                                                      getStorageManager());
+
+        getStorageManager().updateE2EECounter(parentFile, metadata);
     }
 
     private void completeE2EUpload(RemoteOperationResult result, E2EFiles e2eFiles, OwnCloudClient client) {

@@ -21,9 +21,9 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.media.MediaScannerConnection;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.RemoteException;
 import android.provider.MediaStore;
@@ -50,8 +50,8 @@ import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
-import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -2896,5 +2896,14 @@ public class FileDataStorageManager {
 
     public void updateFileEntity(@NonNull FileEntity entity) {
         fileDao.update(entity);
+    }
+
+    public void updateE2EECounter(OCFile file, DecryptedFolderMetadataFile metadata) {
+        updateE2EECounter(file, metadata.getMetadata().getCounter());
+    }
+
+    public void updateE2EECounter(OCFile file, long counter) {
+        file.setE2eCounter(counter);
+        saveFile(file);
     }
 }

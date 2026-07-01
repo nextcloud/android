@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
@@ -34,7 +35,6 @@ import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
@@ -328,9 +328,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                 // update metadata
                 DecryptedFolderMetadataFile updatedMetadataFile = encryptionUtilsV2.addFolderToMetadata(encryptedFileName,
                                                                                                         filename,
-                                                                                                        metadata,
-                                                                                                        parent,
-                                                                                                        getStorageManager());
+                                                                                                        metadata);
 
                 // upload metadata
                 encryptionUtilsV2.serializeAndUploadMetadata(parent,
@@ -341,6 +339,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                              context,
                                                              user,
                                                              getStorageManager());
+
+                getStorageManager().updateE2EECounter(parent, metadata);
 
                 // unlock folder
                 RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parent, client, token);
