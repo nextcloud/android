@@ -1308,13 +1308,13 @@ public final class EncryptionUtils {
                                       String serializedFolderMetadata,
                                       String token,
                                       OwnCloudClient client,
-                                      boolean metadataExists,
+                                      boolean isV1MetadataExists,
                                       E2EVersion version,
                                       String signature,
                                       ArbitraryDataProvider arbitraryDataProvider,
                                       User user) throws UploadException {
         RemoteOperationResult<String> uploadMetadataOperationResult;
-        if (metadataExists) {
+        if (isV1MetadataExists) {
             // update metadata
             if (E2EVersionHelper.INSTANCE.isV2Plus(version)) {
                 uploadMetadataOperationResult = new UpdateMetadataV2RemoteOperation(
