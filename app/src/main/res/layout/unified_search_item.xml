@@ -58,6 +58,19 @@
             android:src="@drawable/ic_synced"
             android:visibility="gone" />
 
+        <ImageView
+            android:id="@+id/favorite_action"
+            android:layout_width="@dimen/list_item_favorite_action_layout_width"
+            android:layout_height="@dimen/list_item_favorite_action_layout_height"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="@dimen/standard_half_padding"
+            android:layout_marginEnd="@dimen/standard_quarter_padding"
+            android:contentDescription="@string/favorite"
+            android:scaleType="fitCenter"
+            android:src="@drawable/favorite"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
     </FrameLayout>
 
     <LinearLayout
