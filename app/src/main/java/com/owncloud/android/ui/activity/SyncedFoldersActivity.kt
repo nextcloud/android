@@ -198,12 +198,12 @@ class SyncedFoldersActivity :
             mDrawerToggle.isDrawerIndicatorEnabled = false
         }
 
+        PermissionUtil.requestStoragePermissionIfNeeded(this)
         setupContent()
         if (themeUtils.themingEnabled(this)) {
             setTheme(R.style.FallbackThemingTheme)
         }
         binding.emptyList.emptyListViewAction.setOnClickListener { showHiddenItems() }
-        setupStoragePermissionWarningBanner()
     }
 
     override fun getMenuItemId(): Int = R.id.nav_settings
@@ -211,6 +211,12 @@ class SyncedFoldersActivity :
     override fun onResume() {
         super.onResume()
         highlightNavigationViewItem(menuItemId)
+
+        setupStoragePermissionWarningBanner()
+        PermissionUtil.dismissStoragePermissionDialogFragment(this)
+        if (PermissionUtil.checkStoragePermission(this)) {
+            load(getItemsDisplayedPerFolder(), false)
+        }
         uploadWarningCard?.bind(binding.autoUploadBatterySaverWarningCard)
     }
 
@@ -271,7 +277,6 @@ class SyncedFoldersActivity :
         binding.list.addItemDecoration(MediaGridItemDecoration(spacing))
         binding.list.layoutManager = lm
         binding.list.adapter = adapter
-        load(getItemsDisplayedPerFolder(), false)
     }
 
     private fun showHiddenItems() {
@@ -860,7 +865,6 @@ class SyncedFoldersActivity :
             PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE -> {
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted
                     load(getItemsDisplayedPerFolder(), true)
                 }
             }
