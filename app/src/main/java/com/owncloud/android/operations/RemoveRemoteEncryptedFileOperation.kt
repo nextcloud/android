@@ -196,7 +196,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             storageManager
         )
 
-        storageManager.incrementE2ECounter(parentFolder, metadata)
+        storageManager.updateE2EECounter(parentFolder, metadata)
 
         return Pair(result, delete)
     }

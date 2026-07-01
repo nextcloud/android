@@ -620,7 +620,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         // update file name for encrypted files
         if (E2EVersionHelper.INSTANCE.isV1(e2EVersion) && object instanceof DecryptedFolderMetadataFileV1 metadata) {
             updateFileNameForEncryptedFileV1(fileDataStorageManager, metadata, mLocalFolder);
-        } else if (object instanceof DecryptedFolderMetadataFile metadata){
+        } else if (object instanceof DecryptedFolderMetadataFile metadata) {
             updateFileNameForEncryptedFile(fileDataStorageManager, metadata, mLocalFolder);
         }
 

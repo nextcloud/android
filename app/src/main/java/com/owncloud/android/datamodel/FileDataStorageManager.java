@@ -2898,11 +2898,11 @@ public class FileDataStorageManager {
         fileDao.update(entity);
     }
 
-    public void incrementE2ECounter(OCFile file, DecryptedFolderMetadataFile metadata) {
-        incrementE2ECounter(file, metadata.getMetadata().getCounter());
+    public void updateE2EECounter(OCFile file, DecryptedFolderMetadataFile metadata) {
+        updateE2EECounter(file, metadata.getMetadata().getCounter());
     }
 
-    public void incrementE2ECounter(OCFile file, long counter) {
+    public void updateE2EECounter(OCFile file, long counter) {
         file.setE2eCounter(counter);
         saveFile(file);
     }
