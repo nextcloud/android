@@ -1,0 +1,107 @@
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: MIT
+
+name: "Garm"
+
+on:
+    pull_request:
+        branches: [ master, stable-* ]
+
+permissions:
+    contents: read
+    pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+    test:
+        runs-on: ubuntu-24.04
+        services:
+            server:
+                image: ${{ matrix.server == 'stable22' && 'ghcr.io/nextcloud/continuous-integration-shallow-server-php8.0:1' || 'ghcr.io/nextcloud/continuous-integration-shallow-server-php8.3:latest' }}
+                options: --name server
+                ports:
+                    - 80:80
+        strategy:
+            fail-fast: false
+            matrix:
+                server: [ master ] # [ stable22, stable33, master ]
+                api-level: [ 29 ] # [ 21, 36 ]
+        steps:
+            -   uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            -   name: configure server
+                run: |
+                    sudo apt-get update && sudo apt-get install unzip cpu-checker qemu-kvm --yes
+                    sudo chmod 666 /dev/kvm
+                    docker cp .github/workflows/configServer.sh server:/tmp/
+                    docker exec server chmod +x /tmp/configServer.sh
+                    docker exec server /tmp/configServer.sh ${{ matrix.server }}
+                    docker cp .github/workflows/configNC.sh server:/tmp/
+                    docker exec server chmod +x /tmp/configNC.sh
+                    docker exec --user www-data server /tmp/configNC.sh ${{ matrix.server }}
+                    docker exec server /usr/local/bin/run.sh
+
+            -   name: set up JDK 21
+                uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+                with:
+                    distribution: "temurin"
+                    java-version: 21
+
+            -   name: Enable KVM group perms
+                run: |
+                    echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+                    sudo udevadm control --reload-rules
+                    sudo udevadm trigger --name-match=kvm
+
+            -   name: Configure gradle daemon
+                run: |
+                    mkdir -p $HOME/.gradle
+                    echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> $HOME/.gradle/gradle.properties
+                    echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties
+                    echo "org.gradle.parallel=true" >> $HOME/.gradle/gradle.properties
+                    echo "org.gradle.configureondemand=true" >> $HOME/.gradle/gradle.properties
+
+            -   name: Config gplay
+                run: |
+                    sed -i s#http://server#http://10.0.2.2# gradle.properties
+                    sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
+
+            -   name: wait and ping server
+                run: |
+                    while ! curl http://localhost/status.php 2>&1 | grep installed; do
+                        echo "wait…"
+                        sleep 5
+                    done
+
+            -   name: gplay
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+                uses: reactivecircus/android-emulator-runner@b530d96654c385303d652368551fb075bc2f0b6b # v2.35.0
+                with:
+                    api-level: ${{ matrix.api-level }}
+                    cmake: 4.1.2
+                    force-avd-creation: false
+                    arch: x86_64
+                    sdcard-path-or-size: 100M
+                    target: google_apis
+                    emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
+                    script: scripts/runCombinedTest.sh ${{github.event.number}} ${{ secrets.LOG_USERNAME }} ${{ secrets.LOG_PASSWORD }} ${{github.event.number}} ${{ matrix.server }}
+
+            -   name: upload failing results
+                if: ${{ failure() }}
+                env:
+                    LOG_USERNAME: ${{ secrets.LOG_USERNAME }}
+                    LOG_PASSWORD: ${{ secrets.LOG_PASSWORD }}
+                    GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                run: scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}"  "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} ${{ matrix.server }} "IT" ${{github.event.number}}
+            -   name: Archive Espresso results
+                uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+                if: ${{ always() }}
+                with:
+                    name: Report-${{ matrix.server }}-${{ matrix.api-level }}
+                    path: app/build/reports
+                    retention-days: 4

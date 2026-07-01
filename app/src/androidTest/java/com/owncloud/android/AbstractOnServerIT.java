@@ -156,6 +156,11 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
                     assertTrue(operationResult);
                 }
+                
+                if (remoteFile.getPermissions().contains("M")) {
+                    // skip Teamfolders
+                    continue;
+                }
 
                 boolean removeResult = false;
                 for (int i = 0; i < 5; i++) {
@@ -170,7 +175,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                     shortSleep();
                 }
 
-                assertTrue(removeResult);
+                assertTrue("Remove of " + remoteFile.getRemotePath() + " failed", removeResult);
             }
         }
     }
