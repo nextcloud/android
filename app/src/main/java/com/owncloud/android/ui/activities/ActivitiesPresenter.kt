@@ -34,17 +34,21 @@ class ActivitiesPresenter internal constructor(
             lastGiven,
             object : LoadActivitiesCallback {
                 override fun onActivitiesLoaded(activities: List<Any>, client: NextcloudClient, lastGiven: Long) {
-                    if (!activityStopped) {
-                        activitiesView.setProgressIndicatorState(false)
-                        activitiesView.showActivities(activities, client, lastGiven)
+                    if (activityStopped) {
+                        return
                     }
+
+                    activitiesView.setProgressIndicatorState(false)
+                    activitiesView.showActivities(activities, client, lastGiven)
                 }
 
                 override fun onActivitiesLoadedError(error: String) {
-                    if (!activityStopped) {
-                        activitiesView.setProgressIndicatorState(false)
-                        activitiesView.showActivitiesLoadError(error)
+                    if (activityStopped) {
+                        return
                     }
+
+                    activitiesView.setProgressIndicatorState(false)
+                    activitiesView.showActivitiesLoadError(error)
                 }
             }
         )
@@ -57,6 +61,10 @@ class ActivitiesPresenter internal constructor(
             baseActivity,
             object : ReadRemoteFileCallback {
                 override fun onFileLoaded(ocFile: OCFile?) {
+                    if (activityStopped) {
+                        return
+                    }
+
                     activitiesView.setProgressIndicatorState(false)
                     if (ocFile != null) {
                         activitiesView.showActivityDetailUI(ocFile)
@@ -66,6 +74,10 @@ class ActivitiesPresenter internal constructor(
                 }
 
                 override fun onFileLoadError(error: String) {
+                    if (activityStopped) {
+                        return
+                    }
+
                     activitiesView.setProgressIndicatorState(false)
                     activitiesView.showActivityDetailError(error)
                 }

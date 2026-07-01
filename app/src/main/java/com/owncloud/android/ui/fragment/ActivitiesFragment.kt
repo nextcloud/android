@@ -158,7 +158,8 @@ class ActivitiesFragment :
         val binding = binding ?: return
         connectivityService.isNetworkAndServerAvailable {
             if (it) {
-                DisplayUtils.showSnackMessage(requireView(), error)
+                val view = view ?: return@isNetworkAndServerAvailable
+                DisplayUtils.showSnackMessage(view, error)
             } else {
                 showEmptyContent(
                     getString(R.string.server_not_reachable),
@@ -170,11 +171,12 @@ class ActivitiesFragment :
     }
 
     override fun showActivityDetailUI(ocFile: OCFile) {
+        val context = context ?: return
         val user = userAccountManager.user
         val intent = if (canBePreviewed(ocFile)) {
-            Intent(requireContext(), PreviewImageActivity::class.java)
+            Intent(context, PreviewImageActivity::class.java)
         } else {
-            Intent(requireContext(), FileDisplayActivity::class.java)
+            Intent(context, FileDisplayActivity::class.java)
         }.apply {
             putExtra(FileActivity.EXTRA_FILE, ocFile)
             putExtra(FileActivity.EXTRA_USER, user)
@@ -183,11 +185,13 @@ class ActivitiesFragment :
     }
 
     override fun showActivityDetailUIIsNull() {
-        DisplayUtils.showSnackMessage(requireView(), R.string.file_not_found)
+        val view = view ?: return
+        DisplayUtils.showSnackMessage(view, R.string.file_not_found)
     }
 
     override fun showActivityDetailError(error: String) {
-        DisplayUtils.showSnackMessage(requireView(), error)
+        val view = view ?: return
+        DisplayUtils.showSnackMessage(view, error)
     }
 
     override fun showLoadingMessage() {
