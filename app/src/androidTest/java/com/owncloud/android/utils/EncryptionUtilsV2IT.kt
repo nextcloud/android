@@ -301,8 +301,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             // random string, not real tag
             EncryptionUtils.generateUid(),
             EncryptionUtils.generateKey(),
-            metadataFile,
-            storageManager
+            metadataFile
         )
 
         assertEquals(3, updatedMetadata.metadata.files.size)
