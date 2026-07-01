@@ -15,9 +15,11 @@ import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
+import com.nextcloud.utils.extensions.WorkManagerExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -57,6 +59,7 @@ import java.util.Vector;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.work.WorkManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
@@ -532,6 +535,24 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         Object object = null;
         if (mLocalFolder.isEncrypted()) {
+            final var workManager =  WorkManager.getInstance(mContext);
+            final var tag = BackgroundJobManagerImpl.JOB_FILES_UPLOAD + user.getAccountName();
+            boolean isWorkScheduled = WorkManagerExtensionsKt.isWorkScheduled(workManager, tag);
+
+            Log_OC.d(TAG, "file upload worker status: " + isWorkScheduled);
+
+            // wait until current uploads finish then verify metadata
+            while (isWorkScheduled) {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+                isWorkScheduled = WorkManagerExtensionsKt.isWorkScheduled(workManager, tag);
+                Log_OC.d(TAG, "file upload worker updated status: " + isWorkScheduled);
+            }
+
             object = getDecryptedFolderMetadata(encryptedAncestor,
                                                 mLocalFolder,
                                                 getClient(),
