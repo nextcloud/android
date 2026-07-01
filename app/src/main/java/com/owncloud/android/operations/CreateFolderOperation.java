@@ -349,10 +349,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                              user,
                                                              getStorageManager());
 
-                // only persist the new counter locally once the server confirms it, otherwise a concurrent
-                // folder refresh can see server metadata that looks "older" than the local counter
-                parent.setE2eCounter(updatedMetadataFile.getMetadata().getCounter());
-                getStorageManager().saveFile(parent);
+                getStorageManager().incrementE2ECounter(parent, metadata);
 
                 // unlock folder
                 RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parent, client, token);

@@ -474,8 +474,7 @@ class EncryptionUtilsV2 {
         initializationVector: ByteArray,
         authenticationTag: String,
         key: ByteArray,
-        metadataFile: DecryptedFolderMetadataFile,
-        fileDataStorageManager: FileDataStorageManager
+        metadataFile: DecryptedFolderMetadataFile
     ): DecryptedFolderMetadataFile {
         val decryptedFile = DecryptedFile(
             ocFile.decryptedFileName,
@@ -487,8 +486,6 @@ class EncryptionUtilsV2 {
 
         metadataFile.metadata.files[encryptedFileName] = decryptedFile
         metadataFile.metadata.counter++
-        ocFile.setE2eCounter(metadataFile.metadata.counter)
-        fileDataStorageManager.saveFile(ocFile)
 
         return metadataFile
     }
