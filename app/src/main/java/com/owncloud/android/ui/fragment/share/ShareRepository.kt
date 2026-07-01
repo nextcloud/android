@@ -8,5 +8,5 @@
 package com.owncloud.android.ui.fragment.share
 
 interface ShareRepository {
-    fun fetchSharees(remotePath: String, onCompleted: () -> Unit, onError: () -> Unit)
+    suspend fun fetchSharees(remotePath: String): Boolean
 }

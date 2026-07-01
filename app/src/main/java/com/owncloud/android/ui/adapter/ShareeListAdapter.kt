@@ -186,4 +186,6 @@ class ShareeListAdapter(
             shares.add(OCShare().apply { shareType = ShareType.INTERNAL })
         }
     }
+
+    fun getExpandOrCollapseActionTextId(): Int = (if (isShowAll) R.string.show_less else R.string.show_all)
 }
