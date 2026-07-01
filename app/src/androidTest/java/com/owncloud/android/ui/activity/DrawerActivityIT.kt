@@ -40,8 +40,7 @@ class DrawerActivityIT : AbstractIT() {
 
     @get:Rule
     val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.POST_NOTIFICATIONS
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
 
     @Test
