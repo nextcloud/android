@@ -893,8 +893,7 @@ public class UploadFileOperation extends SyncOperation {
             e2eData.getIv(),
             e2eData.getEncryptedFile().getAuthenticationTag(),
             e2eData.getKey(),
-            metadata,
-            getStorageManager());
+            metadata);
 
         // upload metadata
         encryptionUtilsV2.serializeAndUploadMetadata(parentFile,
@@ -906,10 +905,7 @@ public class UploadFileOperation extends SyncOperation {
                                                      user,
                                                      getStorageManager());
 
-        // only persist the new counter locally once the server confirms it, otherwise a concurrent
-        // folder refresh can see server metadata that looks "older" than the local counter
-        parentFile.setE2eCounter(metadata.getMetadata().getCounter());
-        getStorageManager().saveFile(parentFile);
+        getStorageManager().incrementE2ECounter(parentFile, metadata);
     }
 
     private void completeE2EUpload(RemoteOperationResult result, E2EFiles e2eFiles, OwnCloudClient client) {
