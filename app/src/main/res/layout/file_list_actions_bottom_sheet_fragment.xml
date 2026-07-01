@@ -161,11 +161,13 @@
                 android:text="@string/create_new_document"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/bottom_sheet_text_size"
+                android:visibility="gone"
                 app:icon="@drawable/file_doc"
                 app:iconGravity="start"
                 app:iconPadding="@dimen/standard_padding"
                 app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@null" />
+                app:iconTint="@null"
+                tools:visibility="visible" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_new_spreadsheet"
@@ -179,11 +181,13 @@
                 android:text="@string/create_new_spreadsheet"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/bottom_sheet_text_size"
+                android:visibility="gone"
                 app:icon="@drawable/file_xls"
                 app:iconGravity="start"
                 app:iconPadding="@dimen/standard_padding"
                 app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@null" />
+                app:iconTint="@null"
+                tools:visibility="visible" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_new_presentation"
@@ -197,11 +201,13 @@
                 android:text="@string/create_new_presentation"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/bottom_sheet_text_size"
+                android:visibility="gone"
                 app:icon="@drawable/file_ppt"
                 app:iconGravity="start"
                 app:iconPadding="@dimen/standard_padding"
                 app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@null" />
+                app:iconTint="@null"
+                tools:visibility="visible" />
 
             <LinearLayout
                 android:id="@+id/creators_container"
@@ -222,8 +228,8 @@
                 android:id="@+id/menu_create_rich_workspace_divider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/bottom_sheet_menu_item_divider_standard_margin"
                 android:layout_marginVertical="@dimen/standard_half_margin"
+                android:layout_marginStart="@dimen/bottom_sheet_menu_item_divider_standard_margin"
                 app:dividerColor="@color/list_divider_background" />
 
             <com.google.android.material.button.MaterialButton
