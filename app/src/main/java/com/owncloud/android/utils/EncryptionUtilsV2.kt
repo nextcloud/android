@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -495,14 +496,10 @@ class EncryptionUtilsV2 {
     fun addFolderToMetadata(
         encryptedFileName: String,
         fileName: String,
-        metadataFile: DecryptedFolderMetadataFile,
-        ocFile: OCFile,
-        fileDataStorageManager: FileDataStorageManager
+        metadataFile: DecryptedFolderMetadataFile
     ): DecryptedFolderMetadataFile {
         metadataFile.metadata.folders[encryptedFileName] = fileName
         metadataFile.metadata.counter++
-        ocFile.setE2eCounter(metadataFile.metadata.counter)
-        fileDataStorageManager.saveFile(ocFile)
 
         return metadataFile
     }

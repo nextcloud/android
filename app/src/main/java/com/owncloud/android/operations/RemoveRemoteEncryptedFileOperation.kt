@@ -183,9 +183,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             encryptionUtilsV2.removeFileFromMetadata(fileName, metadata)
         }
 
-        parentFolder.setE2eCounter(metadata.metadata.counter)
         val storageManager = FileDataStorageManager(user, context.contentResolver)
-        storageManager.saveFile(parentFolder)
 
         encryptionUtilsV2.serializeAndUploadMetadata(
             parentFolder,
@@ -197,6 +195,11 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             user,
             storageManager
         )
+
+        // only persist the new counter locally once the server confirms it, otherwise a concurrent
+        // folder refresh can see server metadata that looks "older" than the local counter
+        parentFolder.setE2eCounter(metadata.metadata.counter)
+        storageManager.saveFile(parentFolder)
 
         return Pair(result, delete)
     }
