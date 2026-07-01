@@ -968,6 +968,9 @@ public final class DisplayUtils {
 
     public static void stopShimmer(@Nullable LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
         if (thumbnailShimmer != null) {
+            if (thumbnailShimmer.getVisibility() == View.VISIBLE) {
+                thumbnailShimmer.setImageDrawable(null);
+            }
             thumbnailShimmer.setVisibility(View.GONE);
         }
 
