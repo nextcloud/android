@@ -151,7 +151,9 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_HAS_VALID_SUBSCRIPTION)
     val hasValidSubscription: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_CLIENT_INTEGRATION_JSON)
-    val clientIntegrationJson: String?
+    val clientIntegrationJson: String?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_MOD_REWRITE_WORKING)
+    val modRewriteWorking: Int?
 )
 
 @Suppress("LongMethod", "ReturnCount")
@@ -232,6 +234,7 @@ fun CapabilityEntity?.toOCCapability(): OCCapability {
     capability.defaultPermissions = this.defaultPermissions ?: 0
     capability.hasValidSubscription = intToBoolean(this.hasValidSubscription)
     capability.clientIntegrationJson = this.clientIntegrationJson
+    capability.modRewriteWorking = intToBoolean(this.modRewriteWorking)
 
     return capability
 }

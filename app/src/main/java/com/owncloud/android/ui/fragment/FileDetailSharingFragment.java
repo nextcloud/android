@@ -51,7 +51,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SharesType;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -99,6 +98,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private static final String TAG = "FileDetailSharingFragment";
     private static final String ARG_FILE = "FILE";
     private static final String ARG_USER = "USER";
+    private static final String INTERNAL_LINK_PATH_PRETTY = "/f/";
+    private static final String INTERNAL_LINK_PATH_DEFAULT = "/index.php/f/";
 
     private OCFile file;
     private User user;
@@ -464,18 +465,20 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Override
     public void copyInternalLink() {
-        OwnCloudAccount account = accountManager.getCurrentOwnCloudAccount();
-
-        if (account == null) {
+        if (user == null) {
             DisplayUtils.showSnackMessage(this, R.string.could_not_retrieve_url);
             return;
         }
 
-        FileDisplayActivity.showShareLinkDialog(fileActivity, file, createInternalLink(account, file));
+        FileDisplayActivity.showShareLinkDialog(fileActivity, file, createInternalLink(user, file, capabilities));
     }
 
-    private String createInternalLink(OwnCloudAccount account, OCFile file) {
-        return account.getBaseUri() + "/index.php/f/" + file.getLocalId();
+    @VisibleForTesting
+    String createInternalLink(User user, OCFile file, OCCapability capabilities) {
+        final String linkPath = (capabilities != null && capabilities.getModRewriteWorking().isTrue())
+            ? INTERNAL_LINK_PATH_PRETTY
+            : INTERNAL_LINK_PATH_DEFAULT;
+        return user.getServer().getUri() + linkPath + file.getLocalId();
     }
 
     @Override
