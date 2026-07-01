@@ -406,7 +406,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 OwnCloudClient client = clientFactory.create(user);
                 Object metadata = RefreshFolderOperation.getDecryptedFolderMetadata(true, file, client, user, context);
                 if (metadata instanceof DecryptedFolderMetadataFile decryptedMetadata) {
-                    fileDataStorageManager.incrementE2ECounter(file, decryptedMetadata);
+                    fileDataStorageManager.updateE2EECounter(file, decryptedMetadata);
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error refreshing E2E counter: " + e.getMessage());
