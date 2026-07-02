@@ -1,49 +1,41 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.nextcloud.client.network;
+package com.nextcloud.client.network
 
-import android.content.Context;
-
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.operations.GetMethod;
-
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
+import android.content.Context
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.operations.GetMethod
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
 
 @Module
-public class NetworkModule {
+class NetworkModule {
 
-    // todo: check 429, remove manual instance...
     @Provides
     @Singleton
-    ConnectivityService connectivityService(Context context,
-                                            UserAccountManager accountManager,
-                                            ClientFactory clientFactory,
-                                            WalledCheckCache walledCheckCache) {
-        var instance = ConnectivityServiceImpl.Companion.getInstance();
-        if (instance != null) {
-            return instance;
-        }
-
-        instance = new ConnectivityServiceImpl(context,
-                                               accountManager,
-                                               clientFactory,
-                                               url -> new GetMethod(url, false),
-                                               walledCheckCache
-        );
-        ConnectivityServiceImpl.Companion.setInstance(instance);
-        return instance;
+    fun connectivityService(
+        context: Context,
+        accountManager: UserAccountManager,
+        clientFactory: ClientFactory,
+        walledCheckCache: WalledCheckCache
+    ): ConnectivityService {
+        return ConnectivityServiceImpl(
+            context,
+            accountManager,
+            clientFactory,
+            { GetMethod(it, false) },
+            walledCheckCache
+        )
     }
 
     @Provides
     @Singleton
-    ClientFactory clientFactory(Context context) {
-        return new ClientFactoryImpl(context);
+    fun clientFactory(context: Context?): ClientFactory {
+        return ClientFactoryImpl(context)
     }
 }
