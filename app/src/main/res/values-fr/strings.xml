@@ -112,6 +112,10 @@
     <string name="authenticator_activity_login_error">Un problème est survenu lors du traitement de votre demande de connexion. Veuillez réessayer plus tard.</string>
     <string name="authenticator_activity_no_web_browser_found">Aucun navigateur n\'est disponible pour ouvrir ce lien.</string>
     <string name="authenticator_activity_please_complete_login_process">Veuillez finaliser la connexion dans votre navigateur</string>
+    <string name="auto_upload_background_activity_action">Autoriser l’activité en arrière-plan</string>
+    <string name="auto_upload_battery_optimization_reason">L’activité en arrière-plan de Nextcloud est limitée par l’optimisation de la batterie.</string>
+    <string name="auto_upload_battery_saver_action">Ouvrir les paramètres d’économie de batterie</string>
+    <string name="auto_upload_battery_saver_reason">L’économiseur de batterie est activé et peut interrompre les téléversements.</string>
     <string name="auto_upload_delete_dialog_description">Cette action supprimera le dossier et la configuration de téléchargement automatique. Tout téléchargement inachevé sera annulé.</string>
     <string name="auto_upload_delete_dialog_title">Supprimer le dossier de téléchargement automatique ?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
@@ -128,6 +132,7 @@
     <string name="autoupload_hide_folder">Masquer le dossier</string>
     <string name="avatar">Avatar</string>
     <string name="away">Absent</string>
+    <string name="backup_list_adapter_local_contacts">Contacts locaux</string>
     <string name="backup_settings">Paramètres de sauvegarde</string>
     <string name="backup_title">Sauvegarder les contacts et l\'agenda</string>
     <string name="battery_optimization_close">Fermer</string>
@@ -496,6 +501,7 @@
     <string name="filedetails_download">Télécharger</string>
     <string name="filedetails_export">Exporter</string>
     <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant le téléversement</string>
+    <string name="filedetails_sync_all_files">Tous synchroniser</string>
     <string name="filedetails_sync_file">Synchroniser</string>
     <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
     <string name="filename_empty">Le nom du fichier ne peut pas être vide</string>
@@ -770,6 +776,7 @@
     <string name="prefs_manage_accounts">Gestion des comptes</string>
     <string name="prefs_recommend">Recommander à un ami</string>
     <string name="prefs_remove_e2e">Retirer le chiffrement localement</string>
+    <string name="prefs_remove_e2e_keys_and_files">Supprimer les fichiers chiffrés et les clés</string>
     <string name="prefs_setup_e2e">Configurer le chiffrement de bout en bout</string>
     <string name="prefs_show_ecosystem_apps">Afficher le sélecteur d\'applications</string>
     <string name="prefs_show_ecosystem_apps_summary">Suggestions d\'applications Nextcloud dans l\'en-tête de navigation</string>
@@ -792,6 +799,7 @@
     <string name="preview_image_file_is_not_downloaded">Le fichier n\'est pas téléchargé</string>
     <string name="preview_media_unhandled_http_code_message">Ce fichier est actuellement vérouillé par un autre utilisateur ou processus et ne peut donc pas être supprimé. Veuillez réessayer plus tard.</string>
     <string name="preview_sorry">Désolé</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Impossible d’ouvrir l’éditeur de texte</string>
     <string name="privacy">Vie privée</string>
     <string name="push_notifications_not_implemented">L\'envoi de notifications push est désactivé à cause des dépendances propriétaires des services Google Play.</string>
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
@@ -808,6 +816,7 @@
     <string name="remote">(distant)</string>
     <string name="remote_file_fetch_failed">Impossible de trouver le fichier</string>
     <string name="remove_e2e">Vous pouvez retirer le chiffrement de bout en bout localement sur ce client</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Cette opération supprimera tous les fichiers chiffrés ainsi que les clés privées et publiques. Voulez-vous vraiment continuer ?</string>
     <string name="remove_e2e_message">Vous pouvez retirer le chiffrement de bout en bout localement sur ce client. Les fichiers chiffrés resteront sur le serveur, mais ne seront plus synchronisés avec cet ordinateur.</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="remove_local_account">Supprimer le compte local</string>
@@ -985,6 +994,8 @@
     <string name="subtitle_videos_only">Vidéos uniquement</string>
     <string name="suggest">Suggérer</string>
     <string name="sync">Synchroniser</string>
+    <string name="sync_all_action_dialog_description">Tous les fichiers et dossiers contenus seront téléchargés. Cette opération peut nécessiter un espace de stockage important et prendre un certain temps, selon votre connexion.</string>
+    <string name="sync_all_action_dialog_title">Synchroniser l’intégralité du dossier ?</string>
     <string name="sync_anyway">Synchroniser quand même</string>
     <string name="sync_conflict_notification_action_title">Résoudre les conflits</string>
     <string name="sync_conflict_notification_description">Des conflits de téléversement ont été détectés. Ouvrez les téléversements pour les résoudre.</string>
@@ -1095,6 +1106,8 @@
     <string name="upload_local_storage_full">Stockage local plein</string>
     <string name="upload_local_storage_not_copied">Le fichier n\'a pas pu être copié sur le stockage local</string>
     <string name="upload_lock_failed">Impossible de verrouiller le dossier</string>
+    <string name="upload_locked_message">Le serveur est occupé. Nouvelle tentative…</string>
+    <string name="upload_locked_title">Téléversement en cours</string>
     <string name="upload_manually_cancelled">Le téléversement a été annulé par l\'utilisateur</string>
     <string name="upload_missing_storage_permission_allow_file_access">Autoriser l\'accès à tous les fichiers</string>
     <string name="upload_missing_storage_permission_app_permissions">Autorisations de l\'application</string>
@@ -1106,6 +1119,11 @@
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="upload_quota_exceeded">Quota de stockage dépassé</string>
     <string name="upload_scan_doc_upload">Scanner un document depuis l\'appareil photo</string>
+    <string name="upload_sync_conflict_check">Un conflit a peut-être eu lieu lors de votre dernier téléversement. Appuyez pour vérifier.</string>
+    <string name="upload_sync_conflict_check_error">Impossible de vérifier les conflits de téléversement. Veuillez réessayer.</string>
+    <string name="upload_sync_conflict_checking">Vérification des conflits de téléversement…</string>
+    <string name="upload_sync_conflict_not_exists">Conflit résolu.</string>
+    <string name="upload_sync_conflict_same_file">Aucun conflit détecté. Il s’agit du même fichier.</string>
     <string name="upload_unknown_error">Erreur inconnue </string>
     <string name="uploader_btn_alternative_text">Sélectionner</string>
     <string name="uploader_btn_upload_text">Téléverser</string>
@@ -1289,6 +1307,21 @@
         <item quantity="one">%d sélectionné</item>
         <item quantity="many">%d sélectionnés</item>
         <item quantity="other">%d sélectionnés</item>
+    </plurals>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Réessayez dans %d seconde en raison d’un trop grand nombre de tentatives incorrectes.</item>
+        <item quantity="many">Réessayez dans %d secondes en raison d’un trop grand nombre de tentatives incorrectes.</item>
+        <item quantity="other">Réessayez dans %d secondes en raison d’un trop grand nombre de tentatives incorrectes.</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Réessayez dans %d minute en raison d’un trop grand nombre de tentatives incorrectes.</item>
+        <item quantity="many">Réessayez dans %d minutes en raison d’un trop grand nombre de tentatives incorrectes.</item>
+        <item quantity="other">Réessayez dans %d minutes en raison d’un trop grand nombre de tentatives incorrectes.</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Réessayez dans %1$d minute et %2$d secondes en raison d’un trop grand nombre de tentatives incorrectes.</item>
+        <item quantity="many">Réessayez dans %1$d minutes et %2$d secondes en raison d’un trop grand nombre de tentatives incorrectes.</item>
+        <item quantity="other">Réessayez dans %1$d minute et %2$d secondes en raison d’un trop grand nombre de tentatives incorrectes.</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d téléchargement restant</item>

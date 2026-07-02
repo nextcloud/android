@@ -1,9 +1,8 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.nextcloud.client.jobs.download
 
@@ -42,6 +41,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.AbstractList
 import java.util.Optional
 import java.util.Vector
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
 
 @Suppress("LongParameterList", "TooManyFunctions", "TooGenericExceptionCaught")
@@ -105,8 +105,6 @@ class FileDownloadWorker(
 
     @Suppress("ReturnCount")
     override suspend fun doWork(): Result {
-        trySetForeground()
-
         return try {
             setUser()
             val remotePath = inputData.keyValueMap[FILE_REMOTE_PATH] as? String? ?: return Result.failure()
@@ -144,20 +142,21 @@ class FileDownloadWorker(
         )
     }
 
-    private suspend fun trySetForeground() {
+    private suspend fun trySetForeground(filename: String) {
         try {
-            val foregroundInfo = createWorkerForegroundInfo()
+            val foregroundInfo = createWorkerForegroundInfo(filename)
             setForeground(foregroundInfo)
         } catch (e: Exception) {
             Log_OC.w(TAG, "⚠️ Could not set foreground service: ${e.message}")
         }
     }
 
-    private fun createWorkerForegroundInfo(): ForegroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
-        notificationManager.getId(),
-        notificationManager.getNotification(),
-        ForegroundServiceType.DataSync
-    )
+    private fun createWorkerForegroundInfo(filename: String): ForegroundInfo =
+        ForegroundServiceHelper.createWorkerForegroundInfo(
+            notificationManager.getId(),
+            notificationManager.getNotification(filename),
+            ForegroundServiceType.DataSync
+        )
 
     private fun removePendingDownload(accountName: String?) {
         pendingDownloads.remove(accountName)
@@ -175,6 +174,11 @@ class FileDownloadWorker(
 
         val requestedDownloads: AbstractList<String> = Vector()
 
+        val user = user ?: run {
+            Log_OC.e(TAG, "user cannot be null")
+            return requestedDownloads
+        }
+
         return try {
             files.forEach { file ->
                 val operation = DownloadFileOperation(
@@ -187,10 +191,9 @@ class FileDownloadWorker(
                     downloadType
                 )
 
-                operation.addDownloadDataTransferProgressListener(this)
-                operation.addDownloadDataTransferProgressListener(downloadProgressListener)
+                operation.addProgressListener(this)
                 val (downloadKey, _) = pendingDownloads.putIfAbsent(
-                    user?.accountName,
+                    user.accountName,
                     file.remotePath,
                     operation
                 ) ?: Pair(null, null)
@@ -246,7 +249,7 @@ class FileDownloadWorker(
     }
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
-    private fun downloadFile(downloadKey: String) {
+    private suspend fun downloadFile(downloadKey: String) {
         currentDownload = pendingDownloads.get(downloadKey)
 
         if (currentDownload == null) {
@@ -262,6 +265,7 @@ class FileDownloadWorker(
         }
 
         lastPercent = 0
+        trySetForeground(currentDownload?.file?.fileName ?: "")
         notificationManager.run {
             prepareForStart(currentDownload!!)
             setContentIntent(intents.detailsIntent(currentDownload!!), PendingIntent.FLAG_IMMUTABLE)
@@ -401,7 +405,7 @@ class FileDownloadWorker(
         totalToTransfer: Long,
         filePath: String
     ) {
-        val percent: Int = downloadProgressListener.getPercent(totalTransferredSoFar, totalToTransfer)
+        val percent: Int = getPercent(totalTransferredSoFar, totalToTransfer)
         val currentTime = System.currentTimeMillis()
 
         if (percent != lastPercent && (currentTime - lastUpdateTime) >= minProgressUpdateInterval) {
@@ -413,13 +417,11 @@ class FileDownloadWorker(
 
         lastPercent = percent
         EventBusFactory.downloadProgressEventBus.post(FileDownloadProgressEvent(percent))
+        downloadProgressListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, filePath)
     }
 
-    // CHECK: Is this class still needed after conversion from Foreground Services to Worker?
     inner class FileDownloadProgressListener : OnDatatransferProgressListener {
-        private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
-
-        fun isDownloading(user: User?, file: OCFile?): Boolean = FileDownloadHelper.instance().isDownloading(user, file)
+        private val boundListeners = ConcurrentHashMap<Long, OnDatatransferProgressListener>()
 
         fun addDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
             if (file == null || listener == null) {

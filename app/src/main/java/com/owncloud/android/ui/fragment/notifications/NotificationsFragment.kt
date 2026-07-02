@@ -359,13 +359,13 @@ class NotificationsFragment :
     }
 
     override fun onBindIcon(imageView: ImageView, url: String) {
-        GlideHelper.loadIntoImageView(
+        GlideHelper.loadTintableIconIntoImageView(
             requireContext(),
             client,
             url,
             imageView,
             R.drawable.ic_notification,
-            false
+            resources.getDimensionPixelSize(R.dimen.notification_icon_width)
         )
     }
 

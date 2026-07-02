@@ -407,7 +407,7 @@ class FileUploadHelper {
 
     private fun checkConnectivity(connectivityService: ConnectivityService): Boolean {
         // check that connection isn't walled off and that the server is reachable
-        return connectivityService.getConnectivity().isConnected && !connectivityService.isInternetWalled()
+        return connectivityService.connectivity.isConnected && !connectivityService.isInternetWalled()
     }
 
     /**

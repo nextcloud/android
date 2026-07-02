@@ -14,9 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
-import com.nextcloud.client.network.Connectivity
-import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.client.network.NetworkChangeListener
+import com.nextcloud.client.network.ConnectivityManagerFactory
 import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.R
 import com.owncloud.android.databinding.TestLayoutBinding
@@ -43,14 +41,7 @@ class TestActivity :
     private lateinit var fileOperation: FileOperationsHelper
     private lateinit var binding: TestLayoutBinding
 
-    val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
-        override fun addListener(listener: NetworkChangeListener) = Unit
-        override fun removeListener(listener: NetworkChangeListener) = Unit
-        override fun isNetworkAndServerAvailable(callback: ConnectivityService.GenericCallback<Boolean>) = Unit
-        override fun isConnected(): Boolean = false
-        override fun isInternetWalled(): Boolean = false
-        override fun getConnectivity(): Connectivity = Connectivity.CONNECTED_WIFI
-    }
+    val connectivityServiceMock = ConnectivityManagerFactory.mock
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

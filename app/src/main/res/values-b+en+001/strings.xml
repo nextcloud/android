@@ -112,6 +112,10 @@
     <string name="authenticator_activity_login_error">There was an issue processing your login request. Please try again later.</string>
     <string name="authenticator_activity_no_web_browser_found">No browser is available to open this link.</string>
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
+    <string name="auto_upload_background_activity_action">Allow background activity</string>
+    <string name="auto_upload_battery_optimization_reason">Nextcloud\'s background activity is limited by battery optimisation.</string>
+    <string name="auto_upload_battery_saver_action">Open battery saver settings</string>
+    <string name="auto_upload_battery_saver_reason">Battery saver is active and may pause uploads.</string>
     <string name="auto_upload_delete_dialog_description">This will remove the folder and auto-upload configuration. Any unfinished uploads will be canceled.</string>
     <string name="auto_upload_delete_dialog_title">Delete auto-upload folder?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
@@ -128,6 +132,7 @@
     <string name="autoupload_hide_folder">Hide folder</string>
     <string name="avatar">Avatar</string>
     <string name="away">Away</string>
+    <string name="backup_list_adapter_local_contacts">Local contacts</string>
     <string name="backup_settings">Backup settings</string>
     <string name="backup_title">Contacts and calendar backup</string>
     <string name="battery_optimization_close">Close</string>
@@ -496,6 +501,7 @@
     <string name="filedetails_download">Download</string>
     <string name="filedetails_export">Export</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed %1$s during upload</string>
+    <string name="filedetails_sync_all_files">Sync all</string>
     <string name="filedetails_sync_file">Sync</string>
     <string name="filedisplay_no_file_selected">No file selected</string>
     <string name="filename_empty">Filename cannot be empty</string>
@@ -770,6 +776,7 @@
     <string name="prefs_manage_accounts">Manage accounts</string>
     <string name="prefs_recommend">Recommend to a friend</string>
     <string name="prefs_remove_e2e">Remove encryption locally</string>
+    <string name="prefs_remove_e2e_keys_and_files">Remove encrypted files and keys</string>
     <string name="prefs_setup_e2e">Set up end-to-end encryption</string>
     <string name="prefs_show_ecosystem_apps">Show app switcher</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggestions in navigation heading</string>
@@ -809,6 +816,7 @@
     <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
     <string name="remove_e2e">You can remove end-to-end encryption locally on this client</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">This operation will remove all encrypted files, private and public keys. Are you sure?</string>
     <string name="remove_e2e_message">You can remove end-to-end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
     <string name="remove_fail_msg">Deletion failed</string>
     <string name="remove_local_account">Remove local account</string>
@@ -986,6 +994,8 @@
     <string name="subtitle_videos_only">Videos only</string>
     <string name="suggest">Suggest</string>
     <string name="sync">Sync</string>
+    <string name="sync_all_action_dialog_description">All contained files and folders will be downloaded. This may require a significant amount of storage and take some time depending on your connection.</string>
+    <string name="sync_all_action_dialog_title">Sync entire folder?</string>
     <string name="sync_anyway">Sync anyway</string>
     <string name="sync_conflict_notification_action_title">Resolve conflicts</string>
     <string name="sync_conflict_notification_description">Upload conflicts detected. Open uploads to resolve.</string>
@@ -1096,6 +1106,8 @@
     <string name="upload_local_storage_full">Local storage full</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
     <string name="upload_lock_failed">Locking folder failed</string>
+    <string name="upload_locked_message">The server is busy. Retrying…</string>
+    <string name="upload_locked_title">Upload in progress</string>
     <string name="upload_manually_cancelled">Upload was cancelled by user</string>
     <string name="upload_missing_storage_permission_allow_file_access">Allow all file access</string>
     <string name="upload_missing_storage_permission_app_permissions">App permissions</string>
@@ -1275,6 +1287,18 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
+    </plurals>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Try again in %d second due to too many wrong attempts</item>
+        <item quantity="other">Try again in %d seconds due to too many wrong attempts</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Try again in %d minute due to too many wrong attempts</item>
+        <item quantity="other">Try again in %d minutes due to too many wrong attempts</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Try again in %1$d minute and %2$d seconds due to too many wrong attempts</item>
+        <item quantity="other">Try again in %1$d minutes and %2$d seconds due to too many wrong attempts</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d download remaining</item>

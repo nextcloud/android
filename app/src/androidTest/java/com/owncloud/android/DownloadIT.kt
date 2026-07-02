@@ -17,6 +17,7 @@ import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.utils.FileStorageUtils
 import org.junit.After
 import org.junit.Assert
+import org.junit.Assert.fail
 import org.junit.Test
 import kotlin.io.path.Path
 import kotlin.io.path.exists
@@ -72,11 +73,17 @@ class DownloadIT : AbstractOnServerIT() {
         var file1 = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt")
         var file2 = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty2.txt")
 
-        val operation1 = DownloadFileOperation(user, file1, targetContext)
+        if (file1 == null) {
+            fail("file 1 cannot be null")
+        }
+        val operation1 = DownloadFileOperation(user, file1!!, targetContext)
         val operation1Result = operation1.execute(client)
         Assert.assertTrue(operation1Result.isSuccess)
 
-        val operation2 = DownloadFileOperation(user, file2, targetContext)
+        if (file2 == null) {
+            fail("file 2 cannot be null")
+        }
+        val operation2 = DownloadFileOperation(user, file2!!, targetContext)
         val operation2Result = operation2.execute(client)
         Assert.assertTrue(operation2Result.isSuccess)
 
