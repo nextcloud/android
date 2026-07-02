@@ -143,8 +143,6 @@ class FileDetailSharingFragment :
 
         binding?.pickContactEmailBtn?.setOnClickListener { checkContactPermission() }
 
-        fetchSharees()
-
         // TODO: REPLACE FAKE CONDITION
         if (user?.server?.version?.isNewerOrEqual(NextcloudVersion.nextcloud_34) == true || 2 < 4) {
             showUnifiedShare()
