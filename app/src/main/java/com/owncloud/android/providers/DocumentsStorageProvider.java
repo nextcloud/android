@@ -18,6 +18,7 @@ import android.database.Cursor;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.os.Handler;
@@ -373,21 +374,26 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             return null;
         }
 
-        final var result = new RenameFileOperation(document.getRemotePath(),
-                                                               displayName,
-                                                               document.getStorageManager())
-            .execute(document.getClient());
+        final long token = Binder.clearCallingIdentity();
+        try {
+            final var result = new RenameFileOperation(document.getRemotePath(),
+                                                                   displayName,
+                                                                   document.getStorageManager())
+                .execute(document.getClient());
 
-        if (!result.isSuccess()) {
-            Log_OC.e(TAG, result.toString());
-            throw new FileNotFoundException("Failed to rename document with documentId " + documentId + ": " +
-                                                result.getException());
+            if (!result.isSuccess()) {
+                Log_OC.e(TAG, result.toString());
+                throw new FileNotFoundException("Failed to rename document with documentId " + documentId + ": " +
+                                                    result.getException());
+            }
+
+            Context context = getNonNullContext();
+            context.getContentResolver().notifyChange(toNotifyUri(document.getParent()), null, false);
+
+            return null;
+        } finally {
+            Binder.restoreCallingIdentity(token);
         }
-
-        Context context = getNonNullContext();
-        context.getContentResolver().notifyChange(toNotifyUri(document.getParent()), null, false);
-
-        return null;
     }
 
     @Override
@@ -405,46 +411,52 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         Document document = toDocument(sourceDocumentId);
         FileDataStorageManager storageManager = document.getStorageManager();
-        final var result = new CopyFileOperation(document.getRemotePath(),
-                                                             targetFolder.getRemotePath(),
-                                                             document.getStorageManager())
-            .execute(document.getClient());
 
-        if (!result.isSuccess()) {
-            Log_OC.e(TAG, result.toString());
-            throw new FileNotFoundException("Failed to copy document with documentId " + sourceDocumentId
-                                                + " to " + targetParentDocumentId);
+        final long token = Binder.clearCallingIdentity();
+        try {
+            final var result = new CopyFileOperation(document.getRemotePath(),
+                                                                 targetFolder.getRemotePath(),
+                                                                 document.getStorageManager())
+                .execute(document.getClient());
+
+            if (!result.isSuccess()) {
+                Log_OC.e(TAG, result.toString());
+                throw new FileNotFoundException("Failed to copy document with documentId " + sourceDocumentId
+                                                    + " to " + targetParentDocumentId);
+            }
+
+            Context context = getNonNullContext();
+            User user = document.getUser();
+
+            final var updateParent = new RefreshFolderOperation(targetFolder.getFile(),
+                                                                            System.currentTimeMillis(),
+                                                                            false,
+                                                                            false,
+                                                                            true,
+                                                                            storageManager,
+                                                                            user,
+                                                                            context)
+                .execute(targetFolder.getClient());
+
+            if (!updateParent.isSuccess()) {
+                Log_OC.e(TAG, updateParent.toString());
+                throw new FileNotFoundException("Failed to copy document with documentId " + sourceDocumentId
+                                                    + " to " + targetParentDocumentId);
+            }
+
+            String newPath = targetFolder.getRemotePath() + document.getFile().getFileName();
+
+            if (document.getFile().isFolder()) {
+                newPath = newPath + PATH_SEPARATOR;
+            }
+            Document newFile = new Document(storageManager, newPath);
+
+            context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
+
+            return newFile.getDocumentId();
+        } finally {
+            Binder.restoreCallingIdentity(token);
         }
-
-        Context context = getNonNullContext();
-        User user = document.getUser();
-
-        final var updateParent = new RefreshFolderOperation(targetFolder.getFile(),
-                                                                        System.currentTimeMillis(),
-                                                                        false,
-                                                                        false,
-                                                                        true,
-                                                                        storageManager,
-                                                                        user,
-                                                                        context)
-            .execute(targetFolder.getClient());
-
-        if (!updateParent.isSuccess()) {
-            Log_OC.e(TAG, updateParent.toString());
-            throw new FileNotFoundException("Failed to copy document with documentId " + sourceDocumentId
-                                                + " to " + targetParentDocumentId);
-        }
-
-        String newPath = targetFolder.getRemotePath() + document.getFile().getFileName();
-
-        if (document.getFile().isFolder()) {
-            newPath = newPath + PATH_SEPARATOR;
-        }
-        Document newFile = new Document(storageManager, newPath);
-
-        context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
-
-        return newFile.getDocumentId();
     }
 
     @Override
@@ -467,24 +479,29 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             return null;
         }
 
-        final var result = new MoveFileOperation(document.getRemotePath(),
-                                                             targetFolder.getRemotePath(),
-                                                             document.getStorageManager())
-            .execute(document.getClient());
+        final long token = Binder.clearCallingIdentity();
+        try {
+            final var result = new MoveFileOperation(document.getRemotePath(),
+                                                                 targetFolder.getRemotePath(),
+                                                                 document.getStorageManager())
+                .execute(document.getClient());
 
-        if (!result.isSuccess()) {
-            Log_OC.e(TAG, result.toString());
-            throw new FileNotFoundException("Failed to move document with documentId " + sourceDocumentId
-                                                + " to " + targetParentDocumentId);
+            if (!result.isSuccess()) {
+                Log_OC.e(TAG, result.toString());
+                throw new FileNotFoundException("Failed to move document with documentId " + sourceDocumentId
+                                                    + " to " + targetParentDocumentId);
+            }
+
+            Document sourceFolder = toDocument(sourceParentDocumentId);
+
+            Context context = getNonNullContext();
+            context.getContentResolver().notifyChange(toNotifyUri(sourceFolder), null, false);
+            context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
+
+            return sourceDocumentId;
+        } finally {
+            Binder.restoreCallingIdentity(token);
         }
-
-        Document sourceFolder = toDocument(sourceParentDocumentId);
-
-        Context context = getNonNullContext();
-        context.getContentResolver().notifyChange(toNotifyUri(sourceFolder), null, false);
-        context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
-
-        return sourceDocumentId;
     }
 
     @Override
@@ -533,10 +550,15 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             return null;
         }
 
-        if (DocumentsContract.Document.MIME_TYPE_DIR.equalsIgnoreCase(mimeType)) {
-            return createFolder(folderDocument, displayName);
-        } else {
-            return createFile(folderDocument, displayName, mimeType);
+        final long token = Binder.clearCallingIdentity();
+        try {
+            if (DocumentsContract.Document.MIME_TYPE_DIR.equalsIgnoreCase(mimeType)) {
+                return createFolder(folderDocument, displayName);
+            } else {
+                return createFile(folderDocument, displayName, mimeType);
+            }
+        } finally {
+            Binder.restoreCallingIdentity(token);
         }
     }
 
@@ -675,18 +697,24 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         recursiveRevokePermission(document);
 
         OCFile file = document.getStorageManager().getFileByPath(document.getRemotePath());
-        final var result = new RemoveFileOperation(file,
-                                                               false,
-                                                               document.getUser(),
-                                                               true,
-                                                               context,
-                                                               document.getStorageManager())
-            .execute(document.getClient());
 
-        if (!result.isSuccess()) {
-            throw new FileNotFoundException("Failed to delete document with documentId " + documentId);
+        final long token = Binder.clearCallingIdentity();
+        try {
+            final var result = new RemoveFileOperation(file,
+                                                                   false,
+                                                                   document.getUser(),
+                                                                   true,
+                                                                   context,
+                                                                   document.getStorageManager())
+                .execute(document.getClient());
+
+            if (!result.isSuccess()) {
+                throw new FileNotFoundException("Failed to delete document with documentId " + documentId);
+            }
+            context.getContentResolver().notifyChange(toNotifyUri(parentFolder), null, false);
+        } finally {
+            Binder.restoreCallingIdentity(token);
         }
-        context.getContentResolver().notifyChange(toNotifyUri(parentFolder), null, false);
     }
 
     private void recursiveRevokePermission(Document document) {
