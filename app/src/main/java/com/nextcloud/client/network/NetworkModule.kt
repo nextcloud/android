@@ -23,19 +23,15 @@ class NetworkModule {
         accountManager: UserAccountManager,
         clientFactory: ClientFactory,
         walledCheckCache: WalledCheckCache
-    ): ConnectivityService {
-        return ConnectivityServiceImpl(
-            context,
-            accountManager,
-            clientFactory,
-            { GetMethod(it, false) },
-            walledCheckCache
-        )
-    }
+    ): ConnectivityService = ConnectivityServiceImpl(
+        context,
+        accountManager,
+        clientFactory,
+        { GetMethod(it, false) },
+        walledCheckCache
+    )
 
     @Provides
     @Singleton
-    fun clientFactory(context: Context?): ClientFactory {
-        return ClientFactoryImpl(context)
-    }
+    fun clientFactory(context: Context?): ClientFactory = ClientFactoryImpl(context)
 }
