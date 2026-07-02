@@ -8,12 +8,14 @@
  */
 package com.nextcloud.client.network
 
-import com.nextcloud.client.core.Clock
+import com.nextcloud.client.core.ClockImpl
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class WalledCheckCache @Inject constructor(private val clock: Clock) {
+class WalledCheckCache @Inject constructor() {
+    private val clock = ClockImpl()
+
     private var connectivityCache = mutableMapOf<ConnectivityKey, Connectivity>()
     private val walledStatusCache = mutableMapOf<ConnectivityKey, Pair<Long, Boolean>>()
 
