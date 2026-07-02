@@ -226,6 +226,7 @@
     <string name="could_not_retrieve_url">Não foi possível obter o URL</string>
     <string name="create">Criar</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
+    <string name="create_end_to_end_encrypted_share">Compartilhamento por link</string>
     <string name="create_end_to_end_encrypted_share_title">Compartilhamentos por link criptografados de ponta-a-ponta</string>
     <string name="create_link">Criar hiperligação</string>
     <string name="create_new">Novo</string>
@@ -466,6 +467,7 @@
     <string name="folder_download_error_notification_title">Ocorreu um erro durante a sincronização da pasta %s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Espaço em disco insuficiente, sincronização cancelada</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
+    <string name="folder_name_empty">O nome da pasta não pode ficar vazio</string>
     <string name="folder_picker_choose_button_text">Escolher</string>
     <string name="folder_picker_choose_caption_text">Escolher pasta de destino</string>
     <string name="folder_picker_copy_button_text">Copiar</string>
@@ -589,6 +591,7 @@
     <string name="no_actions">Sem ações para este utilizador</string>
     <string name="no_browser_available">Nenhuma aplicação disponível para lidar com links</string>
     <string name="no_calendar_exists">O calendário não existe</string>
+    <string name="no_email_app_available">Nenhum aplicativo disponível para lidar com endereço de e-mail </string>
     <string name="no_items">Sem itens</string>
     <string name="no_map_app_availble">Nenhum aplicativo disponível para lidar com mapas</string>
     <string name="no_mutliple_accounts_allowed">Só é permitida uma conta.</string>
