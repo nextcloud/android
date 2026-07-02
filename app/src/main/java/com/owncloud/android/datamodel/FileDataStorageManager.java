@@ -521,6 +521,22 @@ public class FileDataStorageManager {
         return imageList;
     }
 
+    public List<OCFile> getFolderImagesAndVideos(OCFile folder, boolean onlyOnDevice) {
+        List<OCFile> mediaList = new ArrayList<>();
+
+        if (folder != null) {
+            List<OCFile> folderContent = getFolderContent(folder, onlyOnDevice);
+
+            for (OCFile ocFile : folderContent) {
+                if (MimeTypeUtil.isImageOrVideo(ocFile)) {
+                    mediaList.add(ocFile);
+                }
+            }
+        }
+
+        return mediaList;
+    }
+
     public boolean saveFile(OCFile ocFile) {
         Log_OC.d(TAG, "saving file: " + ocFile.getRemotePath());
 

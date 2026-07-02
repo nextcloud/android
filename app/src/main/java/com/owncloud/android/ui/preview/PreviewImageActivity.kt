@@ -12,9 +12,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.view.GestureDetector
 import android.view.MenuItem
-import android.view.MotionEvent
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
@@ -88,8 +86,6 @@ class PreviewImageActivity :
 
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager
-
-    private var backSwipeGestureDetector: GestureDetector? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -210,50 +206,11 @@ class PreviewImageActivity :
             viewPager?.setCurrentItem(position, false)
         }
 
-        initPreviousMediaSwipeGesture()
         if (position == 0 && file?.isDown == false) {
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the
             // adapter does not result in a call to #onPageSelected(0)
             screenState = PreviewImageActivityState.WaitingForBinder
         }
-    }
-
-    @Suppress("ReturnCount")
-    private fun initPreviousMediaSwipeGesture() {
-        val previousMediaFile: OCFile? = intent.getParcelableArgument(EXTRA_PREVIOUS_MEDIA_FILE, OCFile::class.java)
-        if (previousMediaFile != null) {
-            val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
-                override fun onDown(e: MotionEvent): Boolean = true
-
-                override fun onScroll(e1: MotionEvent?, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
-                    if (kotlin.math.abs(distanceX) < kotlin.math.abs(distanceY)) return false
-
-                    // only trigger for swipe to left since this logic is needed for previous item
-                    if ((viewPager?.currentItem ?: 0) == 0 && distanceX < 0) {
-                        backSwipeGestureDetector = null
-                        val mediaIntent = Intent(this@PreviewImageActivity, PreviewMediaActivity::class.java).apply {
-                            putExtra(PreviewMediaActivity.EXTRA_FILE, previousMediaFile)
-
-                            user.ifPresent {
-                                putExtra(PreviewMediaActivity.EXTRA_USER, it)
-                            }
-
-                            putExtra(PreviewMediaActivity.EXTRA_AUTOPLAY, true)
-                        }
-                        startActivity(mediaIntent)
-                        finish()
-                        return true
-                    }
-                    return false
-                }
-            }
-            backSwipeGestureDetector = GestureDetector(this, gestureListener)
-        }
-    }
-
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        backSwipeGestureDetector?.onTouchEvent(ev)
-        return super.dispatchTouchEvent(ev)
     }
 
     override fun onFilesRemoved() {
@@ -321,8 +278,8 @@ class PreviewImageActivity :
         val optionalUser = user
         if (optionalUser.isPresent) {
             var file: OCFile? = file ?: throw IllegalStateException("Instanced with a NULL OCFile")
-            // / Validate handled file (first image to preview)
-            require(MimeTypeUtil.isImage(file)) { "Non-image file passed as argument" }
+            // / Validate handled file (first media item to preview)
+            require(MimeTypeUtil.isImageOrVideo(file)) { "Non-image/video file passed as argument" }
 
             // Update file according to DB file, if it is possible
             if (file!!.fileId > FileDataStorageManager.ROOT_PARENT_ID) {
@@ -611,7 +568,6 @@ class PreviewImageActivity :
         const val EXTRA_VIRTUAL_TYPE: String = "EXTRA_VIRTUAL_TYPE"
         private const val KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER"
         private const val KEY_SYSTEM_VISIBLE = "TRUE"
-        const val EXTRA_PREVIOUS_MEDIA_FILE = "EXTRA_PREVIOUS_MEDIA_FILE"
 
         fun previewFileIntent(context: Context?, user: User?, file: OCFile?): Intent =
             Intent(context, PreviewImageActivity::class.java).apply {

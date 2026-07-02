@@ -12,7 +12,6 @@
  */
 package com.owncloud.android.ui.preview
 
-import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.DialogInterface
 import android.content.Intent
@@ -23,10 +22,8 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
-import android.view.GestureDetector
 import android.view.Menu
 import android.view.MenuItem
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -102,7 +99,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
-import kotlin.math.abs
 
 /**
  * This activity shows a preview of a downloaded media file (audio or video).
@@ -114,7 +110,7 @@ import kotlin.math.abs
  * By now, if the [OCFile] passed is not downloaded, an [IllegalStateException] is generated on
  * instantiation too.
  */
-@Suppress("TooManyFunctions", "LargeClass", "ReturnCount")
+@Suppress("TooManyFunctions")
 @OptIn(UnstableApi::class)
 class PreviewMediaActivity :
     FileActivity(),
@@ -137,9 +133,6 @@ class PreviewMediaActivity :
     private var mediaControllerFuture: ListenableFuture<MediaController>? = null
     private lateinit var windowInsetsController: WindowInsetsControllerCompat
 
-    private var mediaItemsInSameDirectory: List<OCFile> = listOf()
-    private var isHorizontalSwipeActive = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -149,7 +142,6 @@ class PreviewMediaActivity :
         WindowCompat.setDecorFitsSystemWindows(window, false)
         applyWindowInsets()
         initArguments(savedInstanceState)
-        prepareMediaItemsInSameDirectory()
         if (MimeTypeUtil.isVideo(file)) {
             // release any background media session if exists
             sendAudioSessionReleaseBroadcast()
@@ -497,95 +489,6 @@ class PreviewMediaActivity :
             )
             it.player = videoPlayer
             it.setFullscreenButtonClickListener { startFullScreenVideo() }
-        }
-
-        setupSwipeGestures()
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun setupSwipeGestures() {
-        val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
-            override fun onDown(e: MotionEvent): Boolean = true
-
-            override fun onScroll(e1: MotionEvent?, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
-                if (abs(distanceX) < abs(distanceY)) return false
-
-                if (!isHorizontalSwipeActive) {
-                    isHorizontalSwipeActive = true
-                    handleHorizontalSwipe(distanceX)
-                }
-
-                return true
-            }
-        }
-
-        val swipeGestureDetector = GestureDetector(this, gestureListener)
-        binding.exoplayerView.setOnTouchListener { _, event ->
-            swipeGestureDetector.onTouchEvent(event)
-
-            when (event.action) {
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    if (isHorizontalSwipeActive) {
-                        isHorizontalSwipeActive = false
-                        return@setOnTouchListener true
-                    }
-                }
-            }
-
-            false
-        }
-    }
-
-    private fun prepareMediaItemsInSameDirectory() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val currentFile = file ?: return@launch
-            val parentFolder = storageManager.getFileById(currentFile.parentId) ?: return@launch
-            val folderContent = storageManager.getFolderContent(parentFolder, false)
-            mediaItemsInSameDirectory = folderContent.filter { MimeTypeUtil.isImageOrVideo(it) }
-        }
-    }
-
-    private fun handleHorizontalSwipe(distanceX: Float) {
-        val currentFile = file ?: return
-        if (mediaItemsInSameDirectory.isEmpty()) return
-        val currentIndex = mediaItemsInSameDirectory.indexOfFirst { it.fileId == currentFile.fileId }
-        if (currentIndex == -1) return
-
-        val targetIndex = if (distanceX > 0) currentIndex + 1 else currentIndex - 1
-        if (targetIndex < 0 || targetIndex >= mediaItemsInSameDirectory.size) return
-
-        val targetFile = mediaItemsInSameDirectory[targetIndex]
-        openPreviewForFile(targetFile)
-    }
-
-    private fun openPreviewForFile(targetFile: OCFile) {
-        stopPreview(false)
-
-        if (MimeTypeUtil.isImage(targetFile)) {
-            val intent = PreviewImageActivity.previewFileIntent(this, user, targetFile)
-            file?.let { intent.putExtra(PreviewImageActivity.EXTRA_PREVIOUS_MEDIA_FILE, it) }
-            startActivity(intent)
-            finish()
-            return
-        }
-
-        if (MimeTypeUtil.isVideo(targetFile) || MimeTypeUtil.isAudio(targetFile)) {
-            updateVideoFile(targetFile)
-        }
-    }
-
-    private fun updateVideoFile(targetFile: OCFile) {
-        file = targetFile
-        savedPlaybackPosition = 0L
-        autoplay = true
-        showMediaTypeViews()
-        configureSystemBars()
-        showProgressLayout()
-
-        if (MimeTypeUtil.isVideo(file)) {
-            initializeVideoPlayer()
-        } else if (MimeTypeUtil.isAudio(file)) {
-            initializeAudioPlayer()
         }
     }
 

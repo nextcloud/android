@@ -60,7 +60,7 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         this.user = user
         this.selectedFile = selectedFile
         mStorageManager = storageManager
-        imageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice)
+        imageFiles = mStorageManager.getFolderImagesAndVideos(parentFolder, onlyOnDevice)
 
         val sortOrder = preferences.getSortOrderByFolder(parentFolder)
         val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
