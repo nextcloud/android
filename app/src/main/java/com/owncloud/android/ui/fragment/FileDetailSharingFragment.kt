@@ -524,12 +524,10 @@ class FileDetailSharingFragment :
 
     private fun addExternalAndPublicShares(externalShares: List<OCShare>) {
         val publicShares =
-            fileDataStorageManager?.getSharesByPathAndType(file?.remotePath, ShareType.PUBLIC_LINK, "")
+            fileDataStorageManager?.getSharesByPathAndType(file?.remotePath, ShareType.PUBLIC_LINK, "") ?: emptyList()
         externalShareeListAdapter?.removeAll()
-        publicShares?.let {
-            externalShares.mergeDistinctByToken(it)
-            externalShareeListAdapter?.addShares(it)
-        }
+        val shares = externalShares.mergeDistinctByToken(publicShares)
+        externalShareeListAdapter?.addShares(shares)
     }
 
     private fun checkContactPermission() {
@@ -843,7 +841,8 @@ class FileDetailSharingFragment :
                 binding.sharesListInternalShowAll.setVisibleIf(internalShares.size > MIN_SHOW_ALL_VISIBLE_ITEM_COUNT)
 
                 addExternalAndPublicShares(externalShares)
-                binding.sharesListExternalShowAll.setVisibleIf(externalShares.size > MIN_SHOW_ALL_VISIBLE_ITEM_COUNT)
+                val externalCount = externalShareeListAdapter?.shares?.size ?: 0
+                binding.sharesListExternalShowAll.setVisibleIf(externalCount > MIN_SHOW_ALL_VISIBLE_ITEM_COUNT)
             }
         }
     }
