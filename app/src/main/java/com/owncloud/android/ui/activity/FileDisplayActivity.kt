@@ -1925,7 +1925,8 @@ class FileDisplayActivity :
         listOfFilesFragment?.let {
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
             it.resetSearchAttributes()
-            file = it.currentFile
+            file = root
+            it.listDirectory(root, MainApp.isOnlyOnDevice())
             startSyncFolderOperation(root, false)
         }
 

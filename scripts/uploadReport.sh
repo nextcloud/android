@@ -30,9 +30,9 @@ upload() {
 #5: TYPE (IT or Unit)
 #6: DRONE_PULL_REQUEST
 
-ID=$3
 USER=$1
 PASS=$2
+ID=$3
 BRANCH=$4
 TYPE=$5
 PR=$6
