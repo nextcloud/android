@@ -33,5 +33,5 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun clientFactory(context: Context?): ClientFactory = ClientFactoryImpl(context)
+    fun clientFactory(context: Context): ClientFactory = ClientFactoryImpl(context)
 }
