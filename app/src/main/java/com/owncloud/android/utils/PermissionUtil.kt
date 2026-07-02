@@ -121,6 +121,19 @@ object PermissionUtil {
         }
     }
 
+    fun dismissStoragePermissionDialogFragment(activity: AppCompatActivity) {
+        if (!checkStoragePermission(activity)) {
+            Log_OC.d(TAG, "Storage permissions are not granted, cannot dismiss")
+            return
+        }
+
+        (
+            activity.supportFragmentManager
+                .findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG) as? StoragePermissionDialogFragment
+            )
+            ?.dismissAllowingStateLoss()
+    }
+
     @RequiresApi(Build.VERSION_CODES.R)
     fun getManageAllFilesIntent(context: Context) = Intent().apply {
         action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
