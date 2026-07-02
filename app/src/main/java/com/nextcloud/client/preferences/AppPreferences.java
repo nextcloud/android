@@ -64,6 +64,11 @@ public interface AppPreferences {
 
     boolean isShowHiddenFilesEnabled();
     void setShowHiddenFilesEnabled(boolean enabled);
+
+    boolean isPushInitialized();
+
+    boolean isUnifiedPushEnabled();
+    void setUnifiedPushEnabled(boolean enabled);
     
     boolean isSortFoldersBeforeFiles();
     void setSortFoldersBeforeFiles(boolean enabled);

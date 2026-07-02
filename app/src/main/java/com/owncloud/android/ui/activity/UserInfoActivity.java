@@ -46,6 +46,7 @@ import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
+import com.owncloud.android.utils.CommonPushUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -368,7 +369,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(TokenPushEvent event) {
-        PushUtils.pushRegistrationToServer(getUserAccountManager(), preferences.getPushToken());
+        CommonPushUtils.registerCurrentPushConfiguration(this, getUserAccountManager(), preferences);
     }
 
 }

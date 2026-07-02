@@ -20,7 +20,10 @@ data class DecryptedPushMessage(
     val subject: String,
     val id: String,
     val nid: Int,
+    val nids: List<Int>,
     val delete: Boolean,
+    @SerializedName("delete-multiple")
+    val deleteMultiple: Boolean,
     @SerializedName("delete-all")
     val deleteAll: Boolean
 ) : Parcelable

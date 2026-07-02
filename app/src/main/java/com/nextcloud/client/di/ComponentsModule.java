@@ -45,6 +45,7 @@ import com.owncloud.android.providers.FileContentProvider;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.services.AccountManagerService;
 import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.services.UnifiedPushService;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
@@ -343,6 +344,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract OperationsService operationsService();
+
+    @ContributesAndroidInjector
+    abstract UnifiedPushService unifiedPushService();
 
     @ContributesAndroidInjector
     abstract PlayerService playerService();
