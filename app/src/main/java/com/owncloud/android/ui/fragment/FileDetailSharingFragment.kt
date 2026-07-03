@@ -202,13 +202,11 @@ class FileDetailSharingFragment :
             val client = fileActivity?.clientRepository?.getOwncloudClient() ?: return@launch
             val baseURL = user?.server?.uri?.toString() ?: return@launch
             val serverCredentials = client.toServerCredentials(baseURL)
-            val sharingCapabilities = fileDataStorageManager?.getCapability(user)?.sharingJson ?: return@launch
             val sourceId = file?.remoteId ?: return@launch
 
             withContext(Dispatchers.Main) {
                 binding.unifiedShare.initShareScreen(
                     sourceId,
-                    sharingCapabilities,
                     serverCredentials,
                     viewThemeUtils.files.getColorScheme(fileActivity)
                 )
