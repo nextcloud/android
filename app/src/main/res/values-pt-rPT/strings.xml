@@ -51,6 +51,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem a certeza que deseja eliminar esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
     <string name="assistant_screen_empty_content_description">Tente enviar uma mensagem para iniciar uma conversa.</string>
+    <string name="assistant_screen_empty_content_title">Oi! Em que posso ajudá-lo hoje?</string>
     <string name="assistant_screen_retry_response_generation">Retentar geração de resposta</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Abrir lista de conversas</string>
     <string name="assistant_screen_task_create_fail_message">Ocorreu um erro enquanto criava a tarefa</string>
@@ -952,6 +953,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="two_way_sync_activity_empty_list_desc">Para configurar uma pasta de sincronização bidirecional, ative-a na aba de detalhes da pasta em questão.</string>
     <string name="two_way_sync_activity_empty_list_title">Sincronização bidirecional não configurada</string>
     <string name="two_way_sync_activity_title">Sincronização bidirecional interna</string>
+    <string name="unexpected_error_occurred">Ocorreu um erro inesperado</string>
     <string name="unified_search_fragment_calendar_event_not_found">Evento não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para a web…</string>
     <string name="unified_search_fragment_permission_needed">São necessárias permissões para abrir o resultado da pesquisa, caso contrário, ele será redirecionado para a web…</string>
     <string name="unified_search_fragment_search_in_this_folder">Nesta pasta</string>
@@ -1065,6 +1067,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="user_info_email">Correio eletrónico</string>
     <string name="user_info_groups">Grupos</string>
     <string name="user_info_phone">Número de telefone</string>
+    <string name="user_info_profile">Perfil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site da Internet</string>
     <string name="user_information_retrieval_error">Erro ao obter informação do utilizador</string>
