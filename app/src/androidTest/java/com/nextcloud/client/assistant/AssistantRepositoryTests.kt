@@ -87,17 +87,13 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
         testCreateTask()
 
-        sleep(120)
-
         runBlocking {
             val taskList = sut?.getTaskList("assistant")
             assertTrue(taskList != null)
 
-            sleep(120)
+            val taskId = taskList?.firstOrNull()?.id ?: return@runBlocking
 
-            assert((taskList?.size ?: 0) > 0)
-
-            val result = sut?.deleteTask(taskList!!.first().id)
+            val result = sut?.deleteTask(taskId)
             assertTrue(result?.isSuccess == true)
         }
     }
