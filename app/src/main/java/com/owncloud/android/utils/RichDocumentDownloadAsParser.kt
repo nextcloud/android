@@ -14,6 +14,8 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 
 object RichDocumentDownloadAsParser {
 
@@ -25,6 +27,17 @@ object RichDocumentDownloadAsParser {
     private const val NAME = "name"
     private const val TYPE = "Type"
     private const val FILENAME = "filename"
+
+    private const val EXTENSION_SEPARATOR = "."
+    private const val DEFAULT_FILENAME_PREFIX = "document_"
+
+    private val CONTROL_FORMATS = setOf("print", "slideshow", "export")
+    private val EXTENSION_PATTERN = Regex("^[A-Za-z0-9]{1,10}$")
+
+    private val CONTENT_DISPOSITION_FILENAME_STAR =
+        Regex("""filename\*\s*=\s*[^']*''([^;]+)""", RegexOption.IGNORE_CASE)
+    private val CONTENT_DISPOSITION_FILENAME =
+        Regex("""filename\s*=\s*"?([^";]+)"?""", RegexOption.IGNORE_CASE)
 
     private val json = Json { ignoreUnknownKeys = true }
 
@@ -43,6 +56,38 @@ object RichDocumentDownloadAsParser {
         }
     }
 
+    fun hasExtension(name: String): Boolean {
+        val dotIndex = name.lastIndexOf(EXTENSION_SEPARATOR)
+        return dotIndex in 1 until name.length - 1
+    }
+
+    fun filenameFromContentDisposition(contentDisposition: String?): String? {
+        if (contentDisposition.isNullOrBlank()) return null
+        return encodedFilename(contentDisposition) ?: plainFilename(contentDisposition)
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    private fun encodedFilename(contentDisposition: String): String? {
+        val encoded = CONTENT_DISPOSITION_FILENAME_STAR.find(contentDisposition)
+            ?.groupValues?.get(1) ?: return null
+
+        val decoded = try {
+            URLDecoder.decode(encoded, StandardCharsets.UTF_8.name())
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "filename* decode failed: $e")
+            null
+        }
+
+        return decoded?.trim()?.takeIf { it.isNotBlank() }
+    }
+
+    private fun plainFilename(contentDisposition: String): String? =
+        CONTENT_DISPOSITION_FILENAME.find(contentDisposition)
+            ?.groupValues?.get(1)
+            ?.trim()
+            ?.trim('"')
+            ?.takeIf { it.isNotBlank() }
+
     private fun tryParseV2(obj: JsonObject, url: String?): DownloadAs? {
         val format = obj[FORMAT]?.jsonPrimitive?.contentOrNull
         val name = obj[NAME]?.jsonPrimitive?.contentOrNull
@@ -57,8 +102,18 @@ object RichDocumentDownloadAsParser {
         return DownloadAs(format = type, filename = createFilename(filename, type), url = url)
     }
 
-    // TODO: add correct file format
     private fun createFilename(filename: String?, format: String?): String {
-        return filename ?: ("document_${System.currentTimeMillis()}")
+        val name = filename?.takeIf { it.isNotBlank() }
+            ?: "$DEFAULT_FILENAME_PREFIX${System.currentTimeMillis()}"
+
+        val extension = extensionFromFormat(format)
+        return when {
+            hasExtension(name) || extension == null -> name
+            else -> "$name$EXTENSION_SEPARATOR$extension"
+        }
     }
+
+    private fun extensionFromFormat(format: String?): String? = format?.lowercase()
+        ?.takeUnless { it in CONTROL_FORMATS }
+        ?.takeIf { EXTENSION_PATTERN.matches(it) }
 }
