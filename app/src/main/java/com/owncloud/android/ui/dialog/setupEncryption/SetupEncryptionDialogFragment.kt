@@ -41,6 +41,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.apache.commons.httpclient.HttpStatus
 import java.io.IOException
 import java.lang.ref.WeakReference
 import javax.inject.Inject
@@ -309,11 +310,10 @@ class SetupEncryptionDialogFragment :
 
             val certificateOperation = GetPublicKeyRemoteOperation()
             val certificateResult = certificateOperation.executeNextcloudClient(user, weakContext)
-            val savedPrivateKey = dataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
             if (!certificateResult.isSuccess) {
                 // The certificate might not be available on the server yet.
-                // Therefore, the user needs to generate a new passphrase first.
-                return@withContext if (savedPrivateKey.isEmpty()) {
+                // Therefore, the user needs to generate a new passphrase first, send csr.
+                return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
                     DownloadKeyResult.Success(null)
                 } else {
                     DownloadKeyResult.CertificateUnavailable()

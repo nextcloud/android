@@ -3,7 +3,7 @@
 
 [versions]
 androidCommonLibraryVersion = "0.33.2"
-androidGifDrawableVersion = "1.2.31"
+androidGifDrawableVersion = "1.2.32"
 androidImageCropperVersion = "4.7.0"
 androidLibraryVersion = "a2f176cc5abd944b6bc88de1c99eec9a8e8057fb"
 androidOpensslVersion = "3.5.6"
@@ -85,7 +85,7 @@ spotless = "8.4.0"
 stateless4jVersion = "2.6.0"
 webkitVersion = "1.16.0"
 workRuntime = "2.11.2"
-foundationVersion = "1.11.2"
+foundationVersion = "1.11.4"
 browserVersion = "1.10.0"
 kotlinxCoroutinesTestVersion = "1.11.0"
 
