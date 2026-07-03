@@ -43,7 +43,11 @@ object CommonPushUtils {
      * Push notifications are set up for the first time with this function
      */
     @JvmStatic
-    fun registerCurrentPushConfiguration(activity: Activity, accountManager: UserAccountManager, preferences: AppPreferences) {
+    fun registerCurrentPushConfiguration(
+        activity: Activity,
+        accountManager: UserAccountManager,
+        preferences: AppPreferences
+    ) {
         if (
             (!preferences.isPushInitialized && BuildConfig.DEFAULT_PUSH_UNIFIEDPUSH)
             || preferences.isUnifiedPushEnabled
@@ -224,7 +228,8 @@ object CommonPushUtils {
      *
      * Web push is registered on the nc server when the push endpoint is received
      *
-     * Proxy push is unregistered for accounts on server with web push support, if a server doesn't support web push, proxy push is re-registered
+     * Proxy push is unregistered for accounts on server with web push support,
+     * if a server doesn't support web push, proxy push is re-registered
      */
     fun registerUnifiedPushForAllAccounts(
         context: Context,

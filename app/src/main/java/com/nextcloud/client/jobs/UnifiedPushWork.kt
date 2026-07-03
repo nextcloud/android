@@ -54,6 +54,7 @@ class UnifiedPushWork(
         return Result.success()
     }
 
+    @Suppress("ReturnCount")
     private fun register() {
         val url = inputData.getString(EXTRA_URL) ?: run {
             Log.w(TAG, "No url supplied")

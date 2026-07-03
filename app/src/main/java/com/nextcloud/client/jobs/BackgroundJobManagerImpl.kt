@@ -119,6 +119,7 @@ internal class BackgroundJobManagerImpl(
         const val OFFLINE_OPERATIONS_PERIODIC_JOB_INTERVAL_MINUTES = 5L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
         const val DEFAULT_BACKOFF_CRITERIA_DELAY_SEC = 300L
+        const val UNIFIEDPUSH_WORK_DELAY_SEC = 10
 
         private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
@@ -660,7 +661,7 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         val work = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
-            .setInitialDelay(10, TimeUnit.SECONDS)
+            .setInitialDelay(UNIFIEDPUSH_WORK_DELAY_SEC, TimeUnit.SECONDS)
             .setInputData(data)
             .build()
 
