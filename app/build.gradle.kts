@@ -53,6 +53,12 @@ configurations.configureEach {
                 useVersion(libs.versions.jacoco.get())
             } else if (requested.group == "commons-logging" && requested.name == "commons-logging") {
                 useTarget(libs.slfj)
+            } else if (requested.group == "org.hamcrest") {
+                useVersion("2.2")
+                because(
+                    "Align hamcrest on compile and runtime. 1.3 (via junit) exposes fixed-arity " +
+                        "anyOf/allOf overloads that 2.2 (via androidx.test) removed, causing NoSuchMethodError."
+                )
             }
         }
     }
