@@ -47,6 +47,7 @@
     <string name="appear_offline">Aparecer offline</string>
     <string name="assistant_output_generation_warning_text">A saída mostrada aqui é gerada por IA. Certifique-se de sempre verificar novamente.</string>
     <string name="assistant_screen_chat_create_error">Falha ao enviar uma mensagem</string>
+    <string name="assistant_screen_chat_generate_error">Falha ao gerar a resposta</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Voltar à página de assistente</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem a certeza que deseja eliminar esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
@@ -64,8 +65,11 @@
     <string name="assistant_screen_top_bar_title">Assistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Saída</string>
+    <string name="assistant_task_status_failed">falhou</string>
+    <string name="assistant_task_status_running">executando</string>
     <string name="assistant_task_status_text">Status da tarefa: %1$s</string>
     <string name="assistant_task_status_unknown">desconhecido</string>
+    <string name="assistant_thinking">Pensando …</string>
     <string name="associated_account_not_found">Conta associada não encontrada!</string>
     <string name="auth_access_failed">Acesso falhou: %1$s</string>
     <string name="auth_account_does_not_exist">A conta ainda não foi adicionada a este dispositivo</string>
@@ -98,11 +102,13 @@
     <string name="auth_wrong_connection_title">Não foi possível estabelecer ligação</string>
     <string name="authenticator_activity_cancel_login">Cancelar Autenticação</string>
     <string name="authenticator_activity_empty_base_url">Insira um endereço de servidor válido.</string>
+    <string name="authenticator_activity_no_web_browser_found">Não há nenhum navegador disponível para abrir este link.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, conclua o processo de login no seu navegador</string>
     <string name="auto_upload_battery_optimization_reason">A atividade em segundo plano do Nextcloud é limitada pela otimização da bateria.</string>
     <string name="auto_upload_battery_saver_reason">O modo de economia de bateria está ativado e pode interromper os envios.</string>
     <string name="auto_upload_delete_dialog_description">Isso removerá a pasta e a configuração de upload automático. Quaisquer envios em andamento serão cancelados.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, dado ser readonly</string>
+    <string name="auto_upload_low_battery_warning_info">Bateria fraca, o upload pode demorar mais tempo</string>
     <string name="auto_upload_on_wifi">Carregar ficheiros apenas em redes Wi-Fi sem contagem do tráfego</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Esta pasta já está incluída na sincronização da pasta pai, o que pode causar uploads duplicados</string>
@@ -195,6 +201,7 @@
     <string name="confirmation_remove_folder_alert">Deseja realmente apagar %1$s e o seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente apagar os itens seleccionados e os seus conteúdos?</string>
     <string name="confirmation_remove_local">Apenas localmente</string>
+    <string name="conflict_dialog_error">A caixa de diálogo de resolução de conflitos não pode ser criada</string>
     <string name="conflict_folder_headline">Conflito de pasta</string>
     <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se selecionou ambas as versões, o ficheiro local terá um número acrescentado ao seu nome.</string>
@@ -211,6 +218,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Falha ao iniciar a importação. Por favor, tente novamente.</string>
     <string name="contacts_preferences_no_file_found">Nenhum ficheiro encontrado</string>
     <string name="contacts_preferences_something_strange_happened">Não foi encontrada a sua última cópia de segurança!</string>
+    <string name="conversation_screen_delete_error_title">Falha ao excluir conversa</string>
     <string name="conversation_screen_empty_content_title">Nenhuma conversa encontrada</string>
     <string name="conversation_screen_empty_conversation_list_title">Sem conversas ainda</string>
     <string name="conversation_screen_fetch_error_title">Falha ao buscar a lista de conversas</string>
@@ -266,6 +274,7 @@
     <string name="document_storage_provider_cannot_create_file_and_folder">Não é possível criar itens aqui: falta permissão para criar.</string>
     <string name="document_storage_provider_cannot_create_file_inside_folder">Não é possível criar o arquivo: falta permissão.</string>
     <string name="document_storage_provider_cannot_delete">Não é possível excluir o item: falta permissão para excluir.</string>
+    <string name="document_storage_provider_cannot_read">Não é possível abrir o item: falta permissão para ler.</string>
     <string name="done">Concluído</string>
     <string name="dontClear">Não limpar</string>
     <string name="download_cannot_create_file">Não é possível criar o ficheiro local</string>
@@ -344,6 +353,7 @@
     <string name="error_comment_file">Erro ao comentar ficheiro</string>
     <string name="error_crash_title">%1$s crachou</string>
     <string name="error_creating_file_from_template">Erro ao criar o ficheiro com o modelo</string>
+    <string name="error_fetching_sharees">Não é possível obter os destinatários do compartilhamento.</string>
     <string name="error_file_actions">Erro ao mostrar as ações do ficheiro</string>
     <string name="error_file_lock">Erro ao alterar o status de trancamento do arquivo</string>
     <string name="error_report_issue_action">Relatório</string>
@@ -369,6 +379,7 @@
     <string name="etm_background_jobs_stop_test_job">Para o trabalho de teste</string>
     <string name="etm_migrations">Migrações (atualização da aplicação)</string>
     <string name="etm_preferences">Preferências</string>
+    <string name="etm_title">Modo de teste de engenharia</string>
     <string name="etm_transfer">Transferência de ficheiros</string>
     <string name="etm_transfer_enqueue_test_download">Coloca na fila de transferência de teste</string>
     <string name="etm_transfer_enqueue_test_upload">Coloca na fila de envio de teste</string>
@@ -388,6 +399,7 @@
     <string name="favorite">Adicionar aos favoritos</string>
     <string name="favorite_icon">Favorito</string>
     <string name="fifteenMinutes">15 minutos</string>
+    <string name="file_activity_shared_file_cannot_be_updated">O arquivo compartilhado não pode ser atualizado</string>
     <string name="file_already_exists">O nome do ficheiro já existe</string>
     <string name="file_delete">Apagar</string>
     <string name="file_detail_activity_error">Erro ao obter as atividades para o ficheiro</string>
@@ -411,6 +423,7 @@
     <string name="file_list_empty_shared">Os ficheiros e as pastas que partilhou serão mostrados aqui.</string>
     <string name="file_list_empty_shared_headline">Ainda sem partilhas</string>
     <string name="file_list_empty_unified_search_no_results">Não foram encontrados resultados para a sua consulta</string>
+    <string name="file_list_empty_unified_search_start_search_description">Digite na barra de pesquisa acima para encontrar arquivos, contatos, eventos do calendário e muito mais em sua conta.</string>
     <string name="file_list_error_headline">Conexão fraca</string>
     <string name="file_list_folder">pasta</string>
     <string name="file_list_live">LIVE</string>
@@ -443,12 +456,14 @@
     <string name="file_migration_waiting_for_unfinished_sync">Aguardando que a sincronização termine…</string>
     <string name="file_name_validator_current_path_is_invalid">O nome da pasta atual é inválido. Por favor, renomeie a pasta. Redirecionando para a página inicial…</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">O caminho da pasta contém nomes reservados ou caracteres inválidos</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Os nomes de arquivos não devem conter espaços no início ou no final</string>
     <string name="file_name_validator_error_invalid_character">O nome contém caracteres inválidos: %s</string>
     <string name="file_not_found">Ficheiro não encontrado</string>
     <string name="file_not_found_cannot_share">Arquivo não encontrado. Não é possível criar um compartilhamento.</string>
     <string name="file_not_synced">O ficheiro não pôde ser sincronizado. Está a ser exibida a última versão disponível.</string>
     <string name="file_rename">Renomear</string>
     <string name="file_upload_worker_error_notification_title">O upload falhou. Sem conexão com a Internet</string>
+    <string name="file_upload_worker_same_file_already_exists">%s já existe, nenhum conflito detectado</string>
     <string name="file_version_restored_error">Erro ao restaurar a versão do ficheiro!</string>
     <string name="filedetails_details">Detalhes</string>
     <string name="filedetails_download">Transferir</string>
@@ -464,6 +479,7 @@
     <string name="first_run_1_text">Mantenha os seus dados seguros e sob o seu controlo</string>
     <string name="first_run_3_text">Webmail, calendário e contatos fáceis de usar</string>
     <string name="folder_already_exists">A pasta já existe</string>
+    <string name="folder_best_viewed_in">Esta pasta é melhor visualizada em %1$s.</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_download_error_notification_title">Ocorreu um erro durante a sincronização da pasta %s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Espaço em disco insuficiente, sincronização cancelada</string>
@@ -487,6 +503,7 @@
     <string name="forward">Avançar</string>
     <string name="fourHours">4 horas</string>
     <string name="gplay_restriction">Google restringiu a transferência dos ficheiros APK/AAB!</string>
+    <string name="grid_file_features_live_photo_content_description">Este ícone indica a disponibilidade de foto ao vivo</string>
     <string name="hidden_file_name_warning">O nome resultará num ficheiro oculto</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Nota</string>
@@ -563,6 +580,7 @@
     <string name="media_play_pause_description">Botão de Reproduzir/Pausar</string>
     <string name="media_player_pause">Pausar</string>
     <string name="media_player_play">Reproduzir</string>
+    <string name="media_player_playing">Reproduzindo mídia</string>
     <string name="media_player_seek_backward">Buscar para trás</string>
     <string name="media_player_seek_forward">Buscar para a frente</string>
     <string name="media_rewind_description">Botão de Retroceder</string>
@@ -602,6 +620,7 @@
     <string name="note_could_not_sent">Não foi possível enviar a nota</string>
     <string name="note_icon_hint">Ícone de nota</string>
     <string name="notification_action_failed">Falha ao executar a acção.</string>
+    <string name="notification_channel_content_observer_description">Detecta alterações em arquivos locais</string>
     <string name="notification_channel_content_observer_name_short">Observador de conteúdo</string>
     <string name="notification_channel_download_description">Mostra o progresso da transferência</string>
     <string name="notification_channel_download_name_short">Transferências</string>
@@ -624,9 +643,11 @@
     <string name="offline_mode">Sem ligação à Internet</string>
     <string name="offline_mode_info_description">Mesmo sem conexão com a Internet, você pode organizar suas pastas e criar arquivos. Quando você estiver on-line novamente, suas ações pendentes serão sincronizadas automaticamente.</string>
     <string name="offline_operations_file_does_not_exists_yet">O arquivo ainda não existe. Por favor, faça o upload do arquivo primeiro.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Não foi possível criar %s. Existe um arquivo com o mesmo nome no servidor.</string>
     <string name="offline_operations_worker_notification_error_text">A operação off-line não pode ser concluída. %s</string>
     <string name="offline_operations_worker_notification_remove_conflict_text">A exclusão de %s foi canelada. O arquivo foi modificado no servidor.</string>
     <string name="offline_operations_worker_notification_rename_conflict_text">A renomeação de %s foi cancelada. Existe um arquivo com o mesmo nome no servidor.</string>
+    <string name="offline_operations_worker_notification_start_text">Iniciando operações off-line</string>
     <string name="oneHour">1 hora</string>
     <string name="online">On-line</string>
     <string name="online_status">Estado on-line</string>
@@ -646,6 +667,7 @@
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Negar</string>
     <string name="picture_set_as_no_app">Nenhuma aplicação encontrada para definir a imagem</string>
+    <string name="pin_home">Fixar na tela inicial</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="player_stop">parar</string>
     <string name="player_toggle">alternar</string>
@@ -664,6 +686,7 @@
     <string name="prefs_all_files_access_summary">Permita que o aplicativo acesse e gerencie todos os arquivos do seu dispositivo</string>
     <string name="prefs_all_files_access_title">Acesso a todos os arquivos</string>
     <string name="prefs_calendar_contacts_no_store_error">As aplicações F-Droid e Google Play não estão instaladas</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Sincronização de calendário e contatos configurada</string>
     <string name="prefs_category_about">Sobre</string>
     <string name="prefs_category_details">Detalhes</string>
     <string name="prefs_category_dev">Desenvolvimento</string>
@@ -712,6 +735,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Intervalo</string>
     <string name="prefs_two_way_sync_summary">Gerenciar pastas internas para sincronização bidirecional</string>
+    <string name="prefs_two_way_sync_title">Sincronização bidirecional</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir sistema</string>
@@ -740,6 +764,7 @@
     <string name="remove_e2e_keys_and_files_dialog_warning">Esta operação irá remover todos os arquivos criptografados, bem como as chaves privadas e públicas. Tem certeza?</string>
     <string name="remove_e2e_message">Pode remover a encriptação ponta-a-ponta localmente neste cliente. Os ficheiros encriptados permanecerão no servidor, mas deixarão de ser sincronizados com este computador.</string>
     <string name="remove_fail_msg">Eliminação falhou</string>
+    <string name="remove_local_account">Remover conta local</string>
     <string name="remove_notification_failed">Falha ao remover notificação.</string>
     <string name="remove_push_notification">Remover</string>
     <string name="remove_success_msg">Eliminado</string>
@@ -769,6 +794,7 @@
     <string name="screenshot_04_accounts_subline">num único lugar</string>
     <string name="screenshot_05_autoUpload_heading">Envio automático</string>
     <string name="screenshot_05_autoUpload_subline">para suas fotos e vídeos</string>
+    <string name="screenshot_06_davdroid_heading">Calendário e contatos</string>
     <string name="search_error">Erro ao obter resultados da pesquisa</string>
     <string name="secure_share_not_set_up">O compartilhamento seguro não está configurado para este usuário</string>
     <string name="select_all">Selecionar tudo</string>
@@ -780,6 +806,7 @@
     <string name="server_not_reachable">Não foi possível carregar o conteúdo</string>
     <string name="server_not_reachable_content">O dispositivo provavelmente não está conectado à Internet</string>
     <string name="set_as">Definir como</string>
+    <string name="set_download_limit_failed">Não foi possível definir o limite de download. Verifique as capacidades.</string>
     <string name="set_message">Definir mensagem</string>
     <string name="set_note">Definir nota</string>
     <string name="set_online_status">Estado on-line</string>
@@ -789,6 +816,7 @@
     <string name="share">Partilhar</string>
     <string name="share_allow_download_and_sync_permission">Permitir transferência e sincronizar</string>
     <string name="share_cannot_update_empty_note">Não foi possível atualizar o compartilhamento. Adicione uma nota e tente novamente.</string>
+    <string name="share_copy_link">Compartilhar e copiar link</string>
     <string name="share_create_permission">Criar</string>
     <string name="share_custom_permission">Permissões personalizadas</string>
     <string name="share_delete_permission">Eliminar</string>
@@ -814,6 +842,7 @@
     <string name="share_no_password_title">Defina a senha</string>
     <string name="share_option_required">Selecione pelo menos uma opção de compartilhamento antes de continuar.</string>
     <string name="share_permission_can_edit">Pode editar</string>
+    <string name="share_permission_file_request">Solicitação de arquivo</string>
     <string name="share_permission_view_only">Visualizar apenas</string>
     <string name="share_permissions">Permissões do compartilhamento</string>
     <string name="share_re_share_permission">Partilhar</string>
@@ -821,6 +850,7 @@
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversação)</string>
     <string name="share_search">Nome, ID de Nuvem Federada ou endereço de e-mail…</string>
+    <string name="share_search_internal">Adicionar usuários e equipes</string>
     <string name="share_send_new_email">Enviar nova mensagem</string>
     <string name="share_send_note">Nota para o destinatário</string>
     <string name="share_settings">Definições</string>
@@ -834,6 +864,7 @@
     <string name="shared_icon_shared_via_link">Partilhado via hiperligação</string>
     <string name="shared_with_you_by">Partilhado consigo por %1$s</string>
     <string name="sharee_add_failed">Adição de destinatário da partilha falhou</string>
+    <string name="sharee_already_added_to_file">Falha ao adicionar compartilhamento. Este arquivo ou pasta já foi compartilhado com esta pessoa ou este grupo.</string>
     <string name="show_all">Mostrar tudo</string>
     <string name="show_images">Mostrar fotografias</string>
     <string name="show_less">Mostrar menos</string>
@@ -896,10 +927,12 @@
     <string name="subject_shared_with_you">\"%1$s\" foi partilhado consigo</string>
     <string name="subject_user_shared_with_you">%1$s partilhou \"%2$s\" consigo</string>
     <string name="subtitle_photos_only">Apenas fotografias</string>
+    <string name="subtitle_photos_videos">Fotos e vídeos</string>
     <string name="subtitle_videos_only">Apenas vídeos</string>
     <string name="suggest">Sugerir </string>
     <string name="sync">Sincronizar</string>
     <string name="sync_all_action_dialog_description">Todos os arquivos e pastas incluídos serão baixados. Isso pode exigir uma quantidade significativa de espaço de armazenamento e levar algum tempo, dependendo da sua conexão.</string>
+    <string name="sync_all_action_dialog_title">Sincronizar a pasta inteira?</string>
     <string name="sync_anyway">Sincronizar mesmo assim</string>
     <string name="sync_conflict_notification_action_title">Resolver conflitos</string>
     <string name="sync_conflict_notification_title">Conflitos de upload de arquivos</string>
@@ -922,6 +955,7 @@
     <string name="sync_not_enough_space_dialog_title">Espaço insuficiente</string>
     <string name="sync_status_button">Botão de estado de sincronização</string>
     <string name="sync_string_files">Ficheiros</string>
+    <string name="sync_warning_button">Botão de aviso de sincronização</string>
     <string name="synced_folder_settings_button">Botão de Configurações</string>
     <string name="synced_folders_configure_folders">Configurar pastas</string>
     <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure o seu envio automático a partir do menu principal.
@@ -942,7 +976,9 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="timeout_richDocuments">O carregamento está a demorar mais tempo do que o previsto</string>
     <string name="today">Hoje</string>
     <string name="translation_screen_label_from">Traduzir do:</string>
+    <string name="translation_screen_start_to_translate_task">Pressione o botão para traduzir</string>
     <string name="translation_screen_task_processing">A tradução está demorando mais do que o esperado.</string>
+    <string name="translation_screen_translating">Traduzindo…</string>
     <string name="trashbin_empty_headline">Sem ficheiros eliminados.</string>
     <string name="trashbin_empty_message">Você poderá recuperar os ficheiros eliminados a partir daqui.</string>
     <string name="trashbin_file_not_deleted">Ficheiro %1$s não pôde ser apagado!</string>
@@ -962,6 +998,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Encriptação não definida</string>
     <string name="unset_favorite">Remover dos favoritos</string>
+    <string name="unset_internal_two_way_sync_description">Remover a pasta da sincronização bidirecional interna</string>
     <string name="unshare_link_file_error">Ocorreu um erro enquanto tentava remover a partilha deste ficheiro ou pasta. </string>
     <string name="unshare_link_file_no_exist">Não é possível remover a partilha. Por favor, verifique se o ficheiro existe.</string>
     <string name="unshare_link_forbidden_permissions">para cancelar a partilha deste ficheiro</string>
@@ -971,6 +1008,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="update_link_file_no_exist">Não é possível atualizar. Por favor, verifique se o ficheiro existe.</string>
     <string name="update_link_forbidden_permissions">para atualizar esta partilha</string>
     <string name="updating_share_failed">Actualização da partilha falhou</string>
+    <string name="upload_action_cancelled_clear">Limpar uploads cancelados</string>
     <string name="upload_action_cancelled_resume">Retomar uploads cancelados</string>
     <string name="upload_action_failed_clear">Limpar envios falhados</string>
     <string name="upload_action_failed_retry">Repetir envios falhados</string>
@@ -980,6 +1018,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="upload_chooser_title">Enviar de…</string>
     <string name="upload_content_from_other_apps">Envie conteúdo a partir de outras aplicações</string>
     <string name="upload_direct_camera_photo">Fotografia</string>
+    <string name="upload_direct_camera_promt">Deseja tirar uma foto ou gravar um vídeo?</string>
     <string name="upload_direct_camera_upload">Enviar pela camâra</string>
     <string name="upload_direct_camera_video">Vídeo</string>
     <string name="upload_file_dialog_filename">Nome do ficheiro</string>
@@ -998,15 +1037,19 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="upload_local_storage_full">Armazenamento local cheio</string>
     <string name="upload_local_storage_not_copied">O ficheiro não pôde ser copiado para o armazenamento local</string>
     <string name="upload_lock_failed">Falha ao trancar pasta</string>
+    <string name="upload_locked_message">O servidor está ocupado. Tentando novamente…</string>
     <string name="upload_manually_cancelled">O upload foi cancelado pelo usuário</string>
     <string name="upload_missing_storage_permission_allow_file_access">Permitir acesso a todos os arquivos</string>
     <string name="upload_missing_storage_permission_app_permissions">Permissões do aplicativo</string>
+    <string name="upload_missing_storage_permission_description">Seus arquivos não podem ser enviados sem acesso ao armazenamento local. Toque para conceder permissão.</string>
     <string name="upload_missing_storage_permission_title">Upload Interrompido – Permissão de Armazenamento Necessária</string>
     <string name="upload_old_android">A encriptação só está disponível com > = Android 5.0</string>
     <string name="upload_query_move_foreign_files">Espaço insuficiente não permite que a cópia dos ficheiros selecionados seja efetuada para a pasta %1$s. Pretende mover os ficheiros?</string>
     <string name="upload_quota_exceeded">Cota de armazenamento excedida</string>
     <string name="upload_scan_doc_upload">Digitalizar o documento com a câmara</string>
     <string name="upload_sync_conflict_check">Pode haver um conflito com o seu último envio. Toque para verificar.</string>
+    <string name="upload_sync_conflict_check_error">Não foi possível verificar se há conflitos de upload. Tente novamente.</string>
+    <string name="upload_sync_conflict_checking">Verificando se há conflitos de upload…</string>
     <string name="upload_sync_conflict_not_exists">Conflito resolvido.</string>
     <string name="upload_sync_conflict_same_file">Não foi detectado nenhum conflito. Mesmo arquivo.</string>
     <string name="upload_unknown_error">Erro desconhecido</string>
@@ -1055,6 +1098,8 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="uploads_view_upload_status_failed_permission_error">Erro de permissão</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificado de servidor desconfiável</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicação terminada</string>
+    <string name="uploads_view_upload_status_skip">Ignorado</string>
+    <string name="uploads_view_upload_status_skip_reason">Um arquivo com o mesmo nome já existe.</string>
     <string name="uploads_view_upload_status_succeeded">Concluído</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Mesmo arquivo encontrado no servidor remoto, pulando o upload</string>
     <string name="uploads_view_upload_status_unknown_fail">Erro desconhecido</string>
