@@ -36,6 +36,7 @@
         android:layout_marginTop="@dimen/standard_half_margin"
         android:contentDescription="@null"
         android:src="@drawable/folder"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
