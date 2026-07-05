@@ -13,7 +13,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/grid_container_height"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/grid_container_margin">
 
     <com.elyeproj.loaderviewlibrary.LoaderImageView
@@ -31,8 +31,8 @@
 
     <com.owncloud.android.ui.SquareImageView
         android:id="@+id/thumbnail"
-        android:layout_width="@dimen/standard_list_item_size"
-        android:layout_height="@dimen/standard_list_item_size"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/standard_half_margin"
         android:contentDescription="@null"
         android:src="@drawable/folder"
@@ -149,6 +149,7 @@
         android:visibility="gone"
         android:gravity="center"
         android:orientation="horizontal"
+        android:layout_marginTop="@dimen/standard_quarter_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -201,6 +202,7 @@
         android:id="@+id/Filename"
         android:layout_width="0dp"
         android:layout_height="@dimen/grid_bottom_view_height"
+        android:layout_marginTop="@dimen/standard_quarter_margin"
         android:layout_gravity="center"
         android:ellipsize="middle"
         android:gravity="center"
@@ -219,6 +221,7 @@
         android:id="@+id/more"
         android:layout_width="24dp"
         android:layout_height="@dimen/grid_bottom_view_height"
+        android:layout_marginTop="@dimen/standard_quarter_margin"
         android:layout_gravity="center"
         android:background="@color/transparent"
         android:contentDescription="@string/overflow_menu"

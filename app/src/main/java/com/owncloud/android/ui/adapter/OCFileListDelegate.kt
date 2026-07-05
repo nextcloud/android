@@ -213,6 +213,16 @@ class OCFileListDelegate(
         // thumbnail
         viewHolder.imageFileName?.text = file.fileName
         viewHolder.thumbnail.tag = file.fileId
+        if (gridView) {
+            if (MimeTypeUtil.isImageOrVideo(file)) {
+                viewHolder.thumbnail.scaleType = ImageView.ScaleType.CENTER_CROP
+                viewHolder.thumbnail.setPadding(0, 0, 0, 0)
+            } else {
+                viewHolder.thumbnail.scaleType = ImageView.ScaleType.FIT_CENTER
+                val padding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
+                viewHolder.thumbnail.setPadding(padding, padding, padding, padding)
+            }
+        }
         setThumbnail(viewHolder.thumbnail, viewHolder.shimmerThumbnail, file, overlayManager)
 
         // item layout + click listeners
