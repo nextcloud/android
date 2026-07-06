@@ -14,9 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
@@ -44,8 +42,6 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
-import androidx.annotation.Nullable;
-
 public abstract class EditorWebView extends ExternalSiteWebView {
     public static final int REQUEST_LOCAL_FILE = 101;
     public ValueCallback<Uri[]> uploadMessage;
@@ -54,8 +50,6 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     protected String fileName;
 
     RichdocumentsWebviewBinding binding;
-
-    private RichDocumentDownloader richDocumentDownloader;
 
     @Inject SyncedFolderProvider syncedFolderProvider;
 
@@ -130,12 +124,6 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     @Override
     protected void bindView() {
         binding = RichdocumentsWebviewBinding.inflate(getLayoutInflater());
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        richDocumentDownloader = new RichDocumentDownloader(this);
     }
 
     @Override
@@ -296,8 +284,12 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     }
 
     protected void downloadFile(Uri uri, String filename) {
-        String userAgent = getWebView().getSettings().getUserAgentString();
-        richDocumentDownloader.download(uri, filename, userAgent);
+        // downloadAs is invoked from the WebView JavaScript bridge thread, but WebView methods
+        // (getSettings) must run on the main thread, so read the user agent there.
+        runOnUiThread(() -> {
+            String userAgent = getWebView().getSettings().getUserAgentString();
+            new RichDocumentDownloader(this).download(uri, filename, userAgent);
+        });
     }
 
     public void setLoadingSnackbar(Snackbar loadingSnackbar) {

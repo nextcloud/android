@@ -32,9 +32,10 @@ class RichDocumentDownloader(private val activity: AppCompatActivity) {
     fun download(uri: Uri, filename: String?, userAgent: String?) {
         activity.lifecycleScope.launch(Dispatchers.IO) {
             runCatching {
+                // if filename not provided get filename from header
                 if (filename == null) {
                     val url = uri.toString()
-                    downloadWithOkHttp(url, filename, userAgent)
+                    downloadWithOkHttp(url, userAgent)
                 } else {
                     downloadWithDownloadManager(uri, filename)
                 }
@@ -45,24 +46,18 @@ class RichDocumentDownloader(private val activity: AppCompatActivity) {
     }
 
     private suspend fun downloadWithDownloadManager(url: Uri, filename: String) = withContext(Dispatchers.Main) {
-        val downloadManager = activity.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager?
+        val downloadManager = activity.getSystemService(Context.DOWNLOAD_SERVICE) as? DownloadManager
+            ?: return@withContext showMessage(false)
 
-        if (downloadManager == null) {
-            showMessage(false)
-            return@withContext
-        }
-
-        val request = DownloadManager.Request(url)
-        request.allowScanningByMediaScanner()
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-
-        // change the name file and your current activity.
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename)
-
-        downloadManager.enqueue(request)
+        DownloadManager.Request(url).apply {
+            @Suppress("DEPRECATION")
+            allowScanningByMediaScanner()
+            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename)
+        }.let(downloadManager::enqueue)
     }
 
-    private fun downloadWithOkHttp(url: String, filename: String?, userAgent: String?) {
+    private fun downloadWithOkHttp(url: String, userAgent: String?) {
         val requestBuilder = Request.Builder().url(url).get()
 
         CookieManager.getInstance().getCookie(url)?.let { requestBuilder.header(COOKIE_HEADER, it) }
@@ -76,7 +71,8 @@ class RichDocumentDownloader(private val activity: AppCompatActivity) {
                 return
             }
 
-            val resolvedName = resolveFileName(filename, response.header(CONTENT_DISPOSITION_HEADER))
+            val disposition = response.header(CONTENT_DISPOSITION_HEADER)
+            val resolvedName = resolveFileName(disposition)
             val result = saveToDownloads(body, resolvedName)
             showMessage(result)
         }
@@ -84,10 +80,11 @@ class RichDocumentDownloader(private val activity: AppCompatActivity) {
 
     private fun showMessage(success: Boolean) {
         activity.runOnUiThread {
-            val message = if (success)
+            val message = if (success) {
                 R.string.downloader_download_succeeded_ticker
-            else
+            } else {
                 R.string.failed_to_download
+            }
 
             DisplayUtils.showSnackMessage(activity, message)
         }
@@ -106,9 +103,8 @@ class RichDocumentDownloader(private val activity: AppCompatActivity) {
         }
     }
 
-    private fun resolveFileName(provided: String?, disposition: String?): String = provided?.takeIf { it.isNotBlank() }
-        ?: extractFilenameFromDisposition(disposition)
-        ?: randomFilename()
+    private fun resolveFileName(disposition: String?): String =
+        extractFilenameFromDisposition(disposition) ?: randomFilename()
 
     private fun extractFilenameFromDisposition(disposition: String?): String? {
         if (disposition.isNullOrBlank()) return null
@@ -116,13 +112,13 @@ class RichDocumentDownloader(private val activity: AppCompatActivity) {
     }
 
     private fun extractExtendedFilename(disposition: String): String? {
-        val regex = """filename\*\s*=\s*[^']*''([^;]+)""".toRegex(RegexOption.IGNORE_CASE)
+        val regex = EXTENDED_FILENAME_REGEX.toRegex(RegexOption.IGNORE_CASE)
         val value = regex.find(disposition)?.groupValues?.get(1)?.trim() ?: return null
-        return runCatching { URLDecoder.decode(value, "UTF-8") }.getOrNull()
+        return runCatching { URLDecoder.decode(value, EXTENDED_FILENAME_ENCODER) }.getOrNull()
     }
 
     private fun extractPlainFilename(disposition: String): String? {
-        val regex = """filename\s*=\s*"?([^";]+)"?""".toRegex(RegexOption.IGNORE_CASE)
+        val regex = PLAIN_FILENAME_REGEX.toRegex(RegexOption.IGNORE_CASE)
         return regex.find(disposition)?.groupValues?.get(1)?.trim()
     }
 
@@ -136,5 +132,8 @@ class RichDocumentDownloader(private val activity: AppCompatActivity) {
         private const val DEFAULT_MIME_TYPE = "application/octet-stream"
         private const val TEMP_PREFIX = "richdocument_download"
         private const val RANDOM_NAME_LENGTH = 8
+        private const val EXTENDED_FILENAME_REGEX = """filename\*\s*=\s*[^']*''([^;]+)"""
+        private const val PLAIN_FILENAME_REGEX = """filename\s*=\s*"?([^";]+)"?"""
+        private const val EXTENDED_FILENAME_ENCODER = "UTF-8"
     }
 }
