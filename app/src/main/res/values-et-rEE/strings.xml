@@ -130,7 +130,7 @@
     <string name="autoupload_custom_folder">Seadista kohandatud kaust</string>
     <string name="autoupload_disable_power_save_check">Lülita akusääste kontroll välja</string>
     <string name="autoupload_hide_folder">Peida kaust</string>
-    <string name="avatar">Avatar</string>
+    <string name="avatar">Tunnuspilt ehk avatar</string>
     <string name="away">Eemal</string>
     <string name="backup_list_adapter_local_contacts">Kohalikud kontaktid</string>
     <string name="backup_settings">Varunduse seadistused</string>
@@ -642,7 +642,7 @@
     <string name="network_host_not_available">Toimingut pole võimalik lõpetada. Server pole leitav.</string>
     <string name="new_comment">Uus kommentaar...</string>
     <string name="new_media_folder_detected">Tuvastasin uue meediakausta „%1$s“</string>
-    <string name="new_media_folder_photos">photo</string>
+    <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
     <string name="new_notification">Uus teavitus</string>
     <string name="new_version_was_created">Uus versioon on loodud</string>
