@@ -53,19 +53,19 @@ object RichDocumentDownloadAsParser {
         val format = obj[FORMAT]?.jsonPrimitive?.contentOrNull
         val name = obj[NAME]?.jsonPrimitive?.contentOrNull
         if (format == null || url == null) return null
-        return DownloadAs(format = format, filename = createFilename(url, name, format), url = url)
+        return DownloadAs(format = format, filename = createFilename(url, name), url = url)
     }
 
     private fun tryParseV1(obj: JsonObject, url: String?): DownloadAs? {
         val type = obj[TYPE]?.jsonPrimitive?.contentOrNull
         val filename = obj[FILENAME]?.jsonPrimitive?.contentOrNull
         if (type == null || url == null) return null
-        return DownloadAs(format = type, filename = createFilename(url, filename, type), url = url)
+        return DownloadAs(format = type, filename = createFilename(url, filename), url = url)
     }
 
-    private fun createFilename(url: String, filename: String?, format: String?): String {
-        if (filename != null && format != null) {
-            return filename + format
+    private fun createFilename(url: String, filename: String?): String {
+        if (filename != null) {
+            return filename
         }
 
         val request = Request.Builder().url(url).head().build()
@@ -73,11 +73,11 @@ object RichDocumentDownloadAsParser {
         return try {
             client.newCall(request).execute().use { response ->
                 val disposition = response.header(CONTENT_DISPOSITION_HEADER)
-                extractFilenameFromDisposition(disposition) ?: randomFilename(format)
+                extractFilenameFromDisposition(disposition) ?: randomFilename()
             }
         } catch (e: Exception) {
             Log_OC.e(TAG, "createFilename failed: $e")
-            randomFilename(format)
+            randomFilename()
         }
     }
 
@@ -93,9 +93,8 @@ object RichDocumentDownloadAsParser {
         return regex.find(disposition)?.groupValues?.get(1)?.trim()
     }
 
-    private fun randomFilename(format: String? = null): String {
+    private fun randomFilename(): String {
         val random = java.util.UUID.randomUUID().toString().take(8)
-        val extension = format?.removePrefix(".")?.let { ".$it" } ?: ""
-        return "file_$random$extension"
+        return "file_$random"
     }
 }
