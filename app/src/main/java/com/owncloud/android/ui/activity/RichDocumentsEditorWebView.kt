@@ -32,12 +32,9 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.RichDocumentDownloadAsParser
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
-import java.io.IOException
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
@@ -54,8 +51,6 @@ class RichDocumentsEditorWebView : EditorWebView() {
     var clientFactory: ClientFactory? = null
 
     private var activityResult: ActivityResultLauncher<Intent>? = null
-
-    private val okHttpClient by lazy { OkHttpClient() }
 
     @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT_INTERFACE")
     override fun postOnCreate() {
@@ -156,31 +151,6 @@ class RichDocumentsEditorWebView : EditorWebView() {
         startActivity(intent)
     }
 
-    private fun downloadExport(url: Uri, fallbackFilename: String) {
-        if (RichDocumentDownloadAsParser.hasExtension(fallbackFilename)) {
-            downloadFile(url, fallbackFilename)
-            return
-        }
-
-        Thread {
-            val filename = resolveFilenameFromHeaders(url) ?: fallbackFilename
-            runOnUiThread { downloadFile(url, filename) }
-        }.start()
-    }
-
-    private fun resolveFilenameFromHeaders(url: Uri): String? {
-        val request = Request.Builder().url(url.toString()).head().build()
-        return try {
-            okHttpClient.newCall(request).execute().use { response ->
-                val disposition = response.header(CONTENT_DISPOSITION_HEADER)
-                RichDocumentDownloadAsParser.filenameFromContentDisposition(disposition)
-            }
-        } catch (e: IOException) {
-            Log_OC.e(this, "Failed to resolve download filename from headers: $e")
-            null
-        }
-    }
-
     private inner class RichDocumentsMobileInterface : MobileInterface() {
         @JavascriptInterface
         fun insertGraphic() {
@@ -199,7 +169,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
             when (result.format) {
                 PRINT -> printFile(url)
                 SLIDESHOW -> showSlideShow(url)
-                else -> downloadExport(url, result.filename)
+                else -> downloadFile(url, result.filename)
             }
         }
 
@@ -243,6 +213,5 @@ class RichDocumentsEditorWebView : EditorWebView() {
         private const val PRINT = "print"
         private const val SLIDESHOW = "slideshow"
         private const val NEW_NAME = "NewName"
-        private const val CONTENT_DISPOSITION_HEADER = "Content-Disposition"
     }
 }
