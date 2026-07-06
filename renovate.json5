@@ -19,6 +19,12 @@
             "groupName": "org.apache.jackrabbit",
             "matchCurrentVersion": "< 2.13.99",
             "enabled": false
+        },
+        {
+            "matchPackageNames": ["com.google.code.findbugs:annotations"],
+            "groupName": "com.google.code.findbugs",
+            "matchCurrentVersion": "= 3.0.1u2",
+            "enabled": false
         }
     ]
 }
