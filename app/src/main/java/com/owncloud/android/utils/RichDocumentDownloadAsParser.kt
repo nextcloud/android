@@ -14,8 +14,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import okhttp3.OkHttpClient
-import okhttp3.Request
 
 object RichDocumentDownloadAsParser {
 
@@ -28,11 +26,7 @@ object RichDocumentDownloadAsParser {
     private const val TYPE = "Type"
     private const val FILENAME = "filename"
 
-    private const val CONTENT_DISPOSITION_HEADER = "Content-Disposition"
-
     private val json = Json { ignoreUnknownKeys = true }
-
-    private val client = OkHttpClient()
 
     @Suppress("TooGenericExceptionCaught")
     fun parse(jsonString: String?): DownloadAs? {
@@ -53,48 +47,13 @@ object RichDocumentDownloadAsParser {
         val format = obj[FORMAT]?.jsonPrimitive?.contentOrNull
         val name = obj[NAME]?.jsonPrimitive?.contentOrNull
         if (format == null || url == null) return null
-        return DownloadAs(format = format, filename = createFilename(url, name), url = url)
+        return DownloadAs(format = format, filename = name, url = url)
     }
 
     private fun tryParseV1(obj: JsonObject, url: String?): DownloadAs? {
         val type = obj[TYPE]?.jsonPrimitive?.contentOrNull
         val filename = obj[FILENAME]?.jsonPrimitive?.contentOrNull
         if (type == null || url == null) return null
-        return DownloadAs(format = type, filename = createFilename(url, filename), url = url)
-    }
-
-    private fun createFilename(url: String, filename: String?): String {
-        if (filename != null) {
-            return filename
-        }
-
-        val request = Request.Builder().url(url).head().build()
-
-        return try {
-            client.newCall(request).execute().use { response ->
-                val disposition = response.header(CONTENT_DISPOSITION_HEADER)
-                extractFilenameFromDisposition(disposition) ?: randomFilename()
-            }
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "createFilename failed: $e")
-            randomFilename()
-        }
-    }
-
-    private fun extractFilenameFromDisposition(disposition: String?): String? {
-        if (disposition.isNullOrBlank()) return null
-
-        val extendedRegex = """filename\*\s*=\s*[^']*''([^;]+)""".toRegex(RegexOption.IGNORE_CASE)
-        extendedRegex.find(disposition)?.groupValues?.get(1)?.let {
-            return runCatching { java.net.URLDecoder.decode(it.trim(), "UTF-8") }.getOrNull()
-        }
-
-        val regex = """filename\s*=\s*"?([^";]+)"?""".toRegex(RegexOption.IGNORE_CASE)
-        return regex.find(disposition)?.groupValues?.get(1)?.trim()
-    }
-
-    private fun randomFilename(): String {
-        val random = java.util.UUID.randomUUID().toString().take(8)
-        return "file_$random"
+        return DownloadAs(format = type, filename = filename, url = url)
     }
 }
