@@ -12,5 +12,13 @@
 	"rebaseWhen": "conflicted",
     "autoApprove": true,
     "automerge": true,
-    "automergeType": "pr"
+    "automergeType": "pr",
+    "packageRules": [
+        {
+            "matchPackageNames": ["org.apache.jackrabbit:jackrabbit-webdav"],
+            "groupName": "org.apache.jackrabbit",
+            "matchCurrentVersion": "< 2.13.99",
+            "enabled": false
+        }
+    ]
 }
