@@ -1730,6 +1730,11 @@ public class UploadFileOperation extends SyncOperation {
         if (result.isSuccess()) {
             updateOCFile(file, (RemoteFile) result.getData().get(0));
             file.setLastSyncDateForProperties(syncDate);
+
+            // remember which server version this upload produced, so later collision checks
+            // can tell "remote is still our own upload" apart from a real conflict
+            mUpload.setEtag(file.getEtag());
+            uploadsStorageManager.updateUploadEtag(mUpload);
         } else {
             Log_OC.e(TAG, "Error reading properties of file after successful upload; this is gonna hurt...");
         }

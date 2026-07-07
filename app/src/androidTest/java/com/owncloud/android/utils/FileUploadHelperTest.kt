@@ -81,7 +81,8 @@ class FileUploadHelperTest {
         isWhileChargingOnly = isWhileChargingOnly,
         isWifiOnly = isWifiOnly,
         createdBy = createdBy,
-        folderUnlockToken = folderUnlockToken
+        folderUnlockToken = folderUnlockToken,
+        etag = null
     )
 
     private fun buildOCUpload(
@@ -406,7 +407,8 @@ class FileUploadHelperTest {
             isWhileChargingOnly = null,
             isWifiOnly = null,
             createdBy = null,
-            folderUnlockToken = null
+            folderUnlockToken = null,
+            etag = null
         )
 
         // should not throw; optional fields simply stay at OCUpload defaults

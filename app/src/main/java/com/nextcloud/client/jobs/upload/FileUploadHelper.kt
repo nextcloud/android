@@ -602,7 +602,8 @@ class FileUploadHelper {
         val result = operation.execute(client)
         if (result.isSuccess) {
             val remoteFile = result.data[0] as RemoteFile
-            val result = (remoteFile.isSame(localPath) || isETagUnchangedSinceLastSync(remoteFile, remotePath))
+            val result = remoteFile.isSame(localPath) ||
+                isETagUnchangedSinceLastUpload(remoteFile, localPath, remotePath)
             if (result) {
                 Log_OC.d(TAG, "local file and remote file are same")
             } else {
@@ -616,12 +617,14 @@ class FileUploadHelper {
         return false
     }
 
-    private fun isETagUnchangedSinceLastSync(
-        remoteFile: RemoteFile,
-        remotePath: String,
-    ): Boolean {
-        val knownEtag = fileStorageManager.getFileByEncryptedRemotePath(remotePath)?.etag
-        return !knownEtag.isNullOrEmpty() && knownEtag == remoteFile.etag
+    private fun isETagUnchangedSinceLastUpload(remoteFile: RemoteFile, localPath: String, remotePath: String): Boolean {
+        val accountName = accountManager.user.accountName
+        val lastUploadedEtag = getUploadByPaths(accountName, localPath, remotePath)?.etag
+        val isUnchanged = !lastUploadedEtag.isNullOrEmpty() && lastUploadedEtag == remoteFile.etag
+        if (isUnchanged) {
+            Log_OC.d(TAG, "remote file is the version this client uploaded")
+        }
+        return isUnchanged
     }
 
     private fun RemoteFile.isSame(path: String?): Boolean {
@@ -655,7 +658,6 @@ class FileUploadHelper {
         return localFileImageDimension.first.toFloat() == imageDimension?.width &&
             localFileImageDimension.second.toFloat() == imageDimension?.height
     }
-
 
     fun showFileUploadLimitMessage(activity: Activity) {
         val message = activity.resources.getQuantityString(

@@ -62,7 +62,8 @@ class UploadDateTests {
             isWhileChargingOnly = 1,
             isWifiOnly = 1,
             createdBy = 5,
-            folderUnlockToken = "token123"
+            folderUnlockToken = "token123",
+            etag = null
         )
 
         val upload = entity.toOCUpload()
