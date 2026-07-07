@@ -149,60 +149,6 @@
                 app:iconSize="@dimen/iconized_single_line_item_icon_size"
                 app:iconTint="@color/primary" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_new_document"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/create_new_document"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/create_new_document"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/file_doc"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@null" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_new_spreadsheet"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/create_new_spreadsheet"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/create_new_spreadsheet"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/file_xls"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@null" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_new_presentation"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/create_new_presentation"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/create_new_presentation"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/file_ppt"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@null" />
-
             <LinearLayout
                 android:id="@+id/creators_container"
                 android:layout_width="match_parent"
