@@ -80,12 +80,7 @@ object UploadErrorNotificationManager {
         // do not show an error notification when uploading the same file again
         if (result.code.isConflict()) {
             val isSameFile = withContext(Dispatchers.IO) {
-                FileUploadHelper.instance().isSameFileOnRemote(
-                    operation.user,
-                    operation.storagePath,
-                    operation.remotePath,
-                    context
-                )
+                FileUploadHelper.instance().isSameFileOnRemote(operation.storagePath, operation.remotePath)
             }
 
             if (isSameFile) {

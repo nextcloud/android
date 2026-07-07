@@ -23,11 +23,14 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
+import com.nextcloud.utils.TimeConstants
 import com.nextcloud.utils.extensions.checkWCFRestrictions
+import com.nextcloud.utils.extensions.getBitmapSize
+import com.nextcloud.utils.extensions.getExifSize
 import com.nextcloud.utils.extensions.getUploadIds
 import com.nextcloud.utils.extensions.isAnonymous
 import com.nextcloud.utils.extensions.isLastResultConflictError
-import com.nextcloud.utils.extensions.isSame
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -40,7 +43,6 @@ import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
-import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
@@ -51,6 +53,8 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterActionHandler
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.FileUtil
+import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -185,21 +189,17 @@ class FileUploadHelper {
         val batteryStatus = powerManagementService.battery
 
         val uploadsToRetry = mutableListOf<Long>()
-
-        val currentAccount = accountManager.currentAccount
-        val context = MainApp.getAppContext()
-        var ownCloudClient: OwnCloudClient? = null
-        if (!currentAccount.isAnonymous(context)) {
-            ownCloudClient =
-                OwnCloudClientFactory.createOwnCloudClient(accountManager.currentAccount, MainApp.getAppContext())
-        }
+        val ownCloudClient = createClientForCurrentAccount(accountManager)
         val uploadActionHandler = UploadListAdapterActionHandler()
 
         for (upload in uploads) {
             if (upload.isLastResultConflictError()) {
                 ownCloudClient?.let {
-                    conflictHandlingResult =
-                        uploadActionHandler.handleConflict(upload, ownCloudClient, uploadsStorageManager)
+                    conflictHandlingResult = uploadActionHandler.handleConflict(
+                        upload,
+                        ownCloudClient,
+                        uploadsStorageManager
+                    )
                 }
                 continue
             }
@@ -247,6 +247,16 @@ class FileUploadHelper {
         }
 
         return@withContext showNotExistMessage
+    }
+
+    private fun createClientForCurrentAccount(accountManager: UserAccountManager): OwnCloudClient? {
+        val context = MainApp.getAppContext()
+        val currentAccount = accountManager.currentAccount
+        return if (currentAccount.isAnonymous(context)) {
+            null
+        } else {
+            OwnCloudClientFactory.createOwnCloudClient(currentAccount, context)
+        }
     }
 
     @JvmOverloads
@@ -578,21 +588,74 @@ class FileUploadHelper {
         }
     }
 
-    @Suppress("MagicNumber", "ReturnCount", "ComplexCondition")
-    fun isSameFileOnRemote(user: User?, localPath: String?, remotePath: String?, context: Context?): Boolean {
-        if (user == null || localPath == null || remotePath == null || context == null) {
+    @Suppress("ReturnCount")
+    fun isSameFileOnRemote(localPath: String?, remotePath: String?): Boolean {
+        if (localPath == null || remotePath == null) {
             Log_OC.e(TAG, "cannot compare remote and local file")
             return false
         }
 
+        Log_OC.d(TAG, "comparing local file against remote file")
+
+        val client = createClientForCurrentAccount(accountManager)
         val operation = ReadFileRemoteOperation(remotePath)
-        val result: RemoteOperationResult<*> = operation.execute(user, context)
+        val result = operation.execute(client)
         if (result.isSuccess) {
             val remoteFile = result.data[0] as RemoteFile
-            return remoteFile.isSame(localPath)
+            val result = (remoteFile.isSame(localPath) || isETagUnchangedSinceLastSync(remoteFile, remotePath))
+            if (result) {
+                Log_OC.d(TAG, "local file and remote file are same")
+            } else {
+                Log_OC.d(TAG, "local file different than remote file")
+            }
+            return result
         }
+
+        Log_OC.d(TAG, "local file different than remote file")
+
         return false
     }
+
+    private fun isETagUnchangedSinceLastSync(
+        remoteFile: RemoteFile,
+        remotePath: String,
+    ): Boolean {
+        val knownEtag = fileStorageManager.getFileByEncryptedRemotePath(remotePath)?.etag
+        return !knownEtag.isNullOrEmpty() && knownEtag == remoteFile.etag
+    }
+
+    private fun RemoteFile.isSame(path: String?): Boolean {
+        val localFile = path?.toFile() ?: return false
+
+        // remote file timestamp in millisecond not microsecond
+        val localLastModifiedTimestamp = localFile.lastModified() / TimeConstants.MILLIS_PER_SECOND
+        val localCreationTimestamp = FileUtil.getCreationTimestamp(localFile)
+        val localSize: Long = localFile.length()
+
+        return size == localSize &&
+            localCreationTimestamp != null &&
+            localCreationTimestamp == creationTimestamp &&
+            modifiedTimestamp == localLastModifiedTimestamp * TimeConstants.MILLIS_PER_SECOND &&
+            this.areImageDimensionsSame(path)
+    }
+
+    @Suppress("ReturnCount")
+    private fun RemoteFile.areImageDimensionsSame(path: String): Boolean {
+        if (!MimeTypeUtil.isImage(mimeType)) {
+            // can't compare it's not image
+            return true
+        }
+
+        val localFileImageDimension = path.getExifSize() ?: path.getBitmapSize()
+        if (localFileImageDimension == null) {
+            // can't compare local file image dimension is not determined
+            return true
+        }
+
+        return localFileImageDimension.first.toFloat() == imageDimension?.width &&
+            localFileImageDimension.second.toFloat() == imageDimension?.height
+    }
+
 
     fun showFileUploadLimitMessage(activity: Activity) {
         val message = activity.resources.getQuantityString(

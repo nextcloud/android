@@ -495,12 +495,7 @@ class UploadsStorageManager(
             status = UploadStatus.UPLOAD_SUCCEEDED
             result = UploadResult.UPLOADED
         } else if (code.isConflict()) {
-            val isSame = FileUploadHelper().isSameFileOnRemote(
-                upload.user,
-                upload.storagePath,
-                upload.remotePath,
-                upload.context
-            )
+            val isSame = FileUploadHelper().isSameFileOnRemote(upload.storagePath, upload.remotePath)
 
             if (isSame) {
                 result = UploadResult.SAME_FILE_CONFLICT

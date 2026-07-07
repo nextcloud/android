@@ -1292,14 +1292,14 @@ public class UploadFileOperation extends SyncOperation {
                     boolean isSameFileOnRemote = false;
                     if (mFile != null) {
                         isSameFileOnRemote = FileUploadHelper.Companion.instance()
-                            .isSameFileOnRemote(user, mFile.getStoragePath(), mRemotePath, mContext);
+                            .isSameFileOnRemote(mFile.getStoragePath(), mRemotePath);
                     }
 
                     if (isSameFileOnRemote) {
                         return new RemoteOperationResult<>(ResultCode.OK);
-                    } else {
-                        return new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
                     }
+
+                    return new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
             }
         }
 
