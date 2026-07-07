@@ -115,9 +115,9 @@ object FileNameValidator {
 
     fun checkParentRemotePaths(filePaths: List<OCFile>, capability: OCCapability, context: Context): Boolean =
         filePaths.all {
-            if (it.parentRemotePath != StringConstants.SLASH) {
-                val parentFolderName = it.parentRemotePath.replace(StringConstants.SLASH, "")
-                checkFileName(parentFolderName, capability, context) == null
+            val parentRemotePath = it.parentRemotePath
+            if (parentRemotePath != null && parentRemotePath != StringConstants.SLASH) {
+                checkFolderPath(parentRemotePath, capability, context)
             } else {
                 true
             }

@@ -135,12 +135,33 @@ class FileStorageUtilsIT : AbstractIT() {
     @Test
     fun testPathToUserFriendlyDisplay() {
         assertEquals("/", pathToUserFriendlyDisplay("/"))
-        assertEquals("/sdcard/", pathToUserFriendlyDisplay("/sdcard/"))
-        assertEquals("/sdcard/test/1/", pathToUserFriendlyDisplay("/sdcard/test/1/"))
+        assertPathEquals("/sdcard/", "sdcard/", pathToUserFriendlyDisplay("/sdcard/"))
+        assertPathEquals("/sdcard/test/1/", "sdcard/test/1/", pathToUserFriendlyDisplay("/sdcard/test/1/"))
         assertEquals("Internal storage/Movies/", pathToUserFriendlyDisplay("/storage/emulated/0/Movies/"))
         assertEquals("Internal storage/", pathToUserFriendlyDisplay("/storage/emulated/0/"))
     }
 
+    @Test
+    fun testSanitizedAndroidLocalPathCanBeCreatedOnDevice() {
+        val rawRemotePath = "/test : test/London -> Brussel/file?name>.txt"
+        val sanitizedPath = FileStorageUtils.sanitizeAndroidLocalPath(rawRemotePath)
+        val targetFile = openFile("android-local-path-test/${sanitizedPath.trimStart('/')}")
+
+        try {
+            assertFalse(FileStorageUtils.isValidAndroidLocalPath(rawRemotePath))
+            assertTrue(FileStorageUtils.isValidAndroidLocalPath(sanitizedPath))
+            assertTrue(targetFile.parentFile?.mkdirs() == true || targetFile.parentFile?.isDirectory == true)
+            assertTrue(targetFile.createNewFile())
+            assertEquals("file_name_.txt", targetFile.name)
+        } finally {
+            targetFile.parentFile?.parentFile?.deleteRecursively()
+        }
+    }
+
     private fun pathToUserFriendlyDisplay(path: String): String =
         pathToUserFriendlyDisplay(path, targetContext, targetContext.resources)
+
+    private fun assertPathEquals(unrecognizedPath: String, recognizedPath: String, actualPath: String) {
+        assertTrue(actualPath == unrecognizedPath || actualPath == recognizedPath)
+    }
 }

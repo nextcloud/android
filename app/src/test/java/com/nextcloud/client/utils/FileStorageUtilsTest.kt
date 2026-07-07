@@ -39,6 +39,26 @@ class FileStorageUtilsTest {
     }
 
     @Test
+    fun testValidAndroidLocalPath() {
+        assertTrue(FileStorageUtils.isValidAndroidLocalPath("/Documents/Holidays/file.txt"))
+        assertTrue(FileStorageUtils.isValidAndroidLocalPath("Documents/Holidays/file.txt"))
+    }
+
+    @Test
+    fun testInvalidAndroidLocalPathWithInvalidParentSegment() {
+        assertFalse(FileStorageUtils.isValidAndroidLocalPath("/test : test/file.txt"))
+        assertFalse(FileStorageUtils.isValidAndroidLocalPath("/Documents/London -> Brussel/file.txt"))
+    }
+
+    @Test
+    fun testSanitizeAndroidLocalPathReplacesInvalidFilenameCharacters() {
+        assertEquals(
+            "/test _ test/London -_ Brussel/file_name_.txt",
+            FileStorageUtils.sanitizeAndroidLocalPath("/test : test/London -> Brussel/file?name>.txt")
+        )
+    }
+
+    @Test
     fun testFilenamesWithControlCharacters() {
         assertFalse(FileStorageUtils.isValidExtFilename("file\u0001name"))
         assertFalse(FileStorageUtils.isValidExtFilename("file\u001Fname"))

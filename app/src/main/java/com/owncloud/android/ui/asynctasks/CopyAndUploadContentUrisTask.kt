@@ -87,7 +87,7 @@ class CopyAndUploadContentUrisTask(
                 val remotePath = remotePaths[index]
                 val lastModified = queryLastModified(contentResolver, uri)
 
-                currentTempPath = "${FileStorageUtils.getTemporalPath(user.accountName)}$remotePath"
+                currentTempPath = FileStorageUtils.getTemporalPathForRemotePath(user.accountName, remotePath)
                 val cacheFile = File(currentTempPath)
 
                 cacheFile.parentFile?.takeIf { !it.exists() }?.let {
