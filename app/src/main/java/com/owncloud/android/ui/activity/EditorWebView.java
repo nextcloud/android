@@ -46,6 +46,7 @@ import javax.inject.Inject;
 
 public abstract class EditorWebView extends ExternalSiteWebView {
     public static final int REQUEST_LOCAL_FILE = 101;
+    protected static final int REQUEST_SAVE_BASE64_FILE = 102;
     public ValueCallback<Uri[]> uploadMessage;
     protected Snackbar loadingSnackbar;
 
