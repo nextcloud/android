@@ -15,6 +15,9 @@
     "automergeType": "pr",
     "packageRules": [
         {
+            "minimumReleaseAge": "4 days"
+        },
+        {
             "matchPackageNames": ["org.apache.jackrabbit:jackrabbit-webdav"],
             "groupName": "org.apache.jackrabbit",
             "matchCurrentVersion": "< 2.13.99",
