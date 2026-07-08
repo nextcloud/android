@@ -203,10 +203,15 @@ class FileDetailSharingFragment :
             val baseURL = user?.server?.uri?.toString() ?: return@launch
             val serverCredentials = client.toServerCredentials(baseURL)
             val sourceId = file?.remoteId ?: return@launch
+            var internalLink = ""
+            if (accountManager.currentOwnCloudAccount != null && file != null) {
+                internalLink = createInternalLink(accountManager.currentOwnCloudAccount!!, file!!)
+            }
 
             withContext(Dispatchers.Main) {
                 binding.unifiedShare.initShareScreen(
                     sourceId,
+                    internalLink,
                     serverCredentials,
                     viewThemeUtils.files.getColorScheme(fileActivity)
                 )
