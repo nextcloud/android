@@ -142,20 +142,20 @@ class NotificationWork constructor(
         cipher.doFinal(base64DecodedSubject)
     }
 
-    private fun handlePushMessage(accountName: String?, decryptedPushMessage: DecryptedPushMessage) {
-        if (decryptedPushMessage.delete) {
+    private fun handlePushMessage(accountName: String?, decryptedPushMessage: DecryptedPushMessage) = when {
+        decryptedPushMessage.delete ->
             notificationManager.cancel(decryptedPushMessage.nid)
-        } else if (decryptedPushMessage.deleteMultiple) {
+        decryptedPushMessage.deleteMultiple ->
             decryptedPushMessage.nids.forEach {
                 notificationManager.cancel(it)
             }
-        } else if (decryptedPushMessage.deleteAll) {
+        decryptedPushMessage.deleteAll ->
             notificationManager.cancelAll()
-        } else {
-            val user = accountManager.getUser(accountName)
-                .orElseThrow { RuntimeException() }
-            fetchCompleteNotification(user, decryptedPushMessage)
-        }
+        else ->
+            fetchCompleteNotification(
+                accountManager.getUser(accountName).orElseThrow { RuntimeException() },
+                decryptedPushMessage
+            )
     }
 
     @Suppress("LongMethod") // legacy code
