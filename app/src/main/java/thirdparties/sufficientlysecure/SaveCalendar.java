@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2015 Jon Griffiths (jon_p_griffiths@yahoo.com)
  * SPDX-FileCopyrightText: 2013 Dominik Schürmann <dominik@dominikschuermann.de>
  * SPDX-FileCopyrightText: 2010-2011 Lukas Aichbauer
@@ -24,7 +25,6 @@ import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.text.format.DateUtils;
 import android.view.WindowManager;
 import android.widget.EditText;
 
@@ -36,6 +36,7 @@ import com.nextcloud.client.jobs.transfer.TransferManagerConnection;
 import com.nextcloud.client.jobs.upload.PostUploadAction;
 import com.nextcloud.client.jobs.upload.UploadTrigger;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.extensions.TemporalExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.NameCollisionPolicy;
@@ -43,9 +44,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.Date;
-import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.Period;
+import net.fortuna.ical4j.model.ParameterList;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.PropertyFactoryImpl;
 import net.fortuna.ical4j.model.PropertyFactoryRegistry;
@@ -56,29 +55,36 @@ import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
 import net.fortuna.ical4j.model.component.VAlarm;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.parameter.FbType;
-import net.fortuna.ical4j.model.property.Action;
-import net.fortuna.ical4j.model.property.CalScale;
 import net.fortuna.ical4j.model.property.Description;
 import net.fortuna.ical4j.model.property.DtEnd;
 import net.fortuna.ical4j.model.property.DtStamp;
 import net.fortuna.ical4j.model.property.DtStart;
 import net.fortuna.ical4j.model.property.Duration;
 import net.fortuna.ical4j.model.property.FreeBusy;
-import net.fortuna.ical4j.model.property.Method;
 import net.fortuna.ical4j.model.property.Organizer;
 import net.fortuna.ical4j.model.property.ProdId;
-import net.fortuna.ical4j.model.property.Transp;
-import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.model.property.XProperty;
+import net.fortuna.ical4j.model.property.immutable.ImmutableAction;
+import net.fortuna.ical4j.model.property.immutable.ImmutableCalScale;
+import net.fortuna.ical4j.model.property.immutable.ImmutableMethod;
+import net.fortuna.ical4j.model.property.immutable.ImmutableTransp;
+import net.fortuna.ical4j.model.property.immutable.ImmutableVersion;
 import net.fortuna.ical4j.util.CompatibilityHints;
+
+import org.threeten.extra.Interval;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.text.ParseException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAmount;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -153,16 +159,16 @@ public class SaveCalendar {
 
         String prodId = "-//" + selectedCal.mOwner + "//iCal Import/Export " + ver + "//EN";
         Calendar cal = new Calendar();
-        cal.getProperties().add(new ProdId(prodId));
-        cal.getProperties().add(Version.VERSION_2_0);
-        cal.getProperties().add(Method.PUBLISH);
-        cal.getProperties().add(CalScale.GREGORIAN);
+        cal.add(new ProdId(prodId));
+        cal.add(ImmutableVersion.VERSION_2_0);
+        cal.add(ImmutableMethod.PUBLISH);
+        cal.add(ImmutableCalScale.GREGORIAN);
 
         if (selectedCal.mTimezone != null) {
             // We don't write any events with floating times, but export this
             // anyway so the default timezone for new events is correct when
             // the file is imported into a system that supports it.
-            cal.getProperties().add(new XProperty("X-WR-TIMEZONE", selectedCal.mTimezone));
+            cal.add(new XProperty("X-WR-TIMEZONE", selectedCal.mTimezone));
         }
 
         // query events
@@ -176,7 +182,7 @@ public class SaveCalendar {
         List<VEvent> events = getEvents(resolver, selectedCal, cal);
 
         for (VEvent v : events) {
-            cal.getComponents().add(v);
+            cal.add(v);
         }
 
         if (!cal.getComponents().isEmpty()) {
@@ -298,7 +304,7 @@ public class SaveCalendar {
             return null;
         }
 
-        PropertyList<Property> l = new PropertyList<>();
+        List<Property> l = new ArrayList<>();
         l.add(timestamp);
         copyProperty(l, Property.UID, cur, Events.UID_2445);
 
@@ -314,7 +320,7 @@ public class SaveCalendar {
             }
             try {
                 l.add(new Organizer(organizer));
-            } catch (URISyntaxException ignored) {
+            } catch (IllegalArgumentException ignored) {
                 if (!mFailedOrganisers.contains(organizer)) {
                     Log_OC.e(TAG, "Failed to create mailTo for organizer " + organizer);
                     mFailedOrganisers.add(organizer);
@@ -327,41 +333,50 @@ public class SaveCalendar {
 
         boolean allDay = TextUtils.equals(getString(cur, Events.ALL_DAY), "1");
         boolean isTransparent;
-        DtEnd dtEnd = null;
+        DtEnd<Temporal> dtEnd = null;
+        Temporal dtStartValue;
+        TemporalAmount durationValue = null;
 
         if (allDay) {
             // All day event
             isTransparent = true;
-            Date start = getDateTime(cur, Events.DTSTART, null, null);
-            Date end = getDateTime(cur, Events.DTEND, null, null);
-            l.add(new DtStart(new Date(start)));
+            LocalDate start = (LocalDate) getDateTime(cur, Events.DTSTART, null, null);
+            LocalDate end = (LocalDate) getDateTime(cur, Events.DTEND, null, null);
+            dtStartValue = start;
+            l.add(new DtStart<>(start));
 
             if (end != null) {
-                dtEnd = new DtEnd(new Date(end));
+                dtEnd = new DtEnd<>(end);
             } else {
-                dtEnd = new DtEnd(utcDateFromMs(start.getTime() + DateUtils.DAY_IN_MILLIS));
+                dtEnd = new DtEnd<>(start.plusDays(1));
             }
 
             l.add(dtEnd);
         } else {
             // Regular or zero-time event. Start date must be a date-time
-            Date startDate = getDateTime(cur, Events.DTSTART, Events.EVENT_TIMEZONE, cal);
-            l.add(new DtStart(startDate));
+            Temporal startDate = getDateTime(cur, Events.DTSTART, Events.EVENT_TIMEZONE, cal);
+            dtStartValue = startDate;
+            l.add(new DtStart<>(startDate));
 
             // Use duration if we have one, otherwise end date
             if (hasStringValue(cur, Events.DURATION)) {
-                isTransparent = getString(cur, Events.DURATION).equals("PT0S");
+                String durationString = getString(cur, Events.DURATION);
+                isTransparent = "PT0S".equals(durationString);
                 if (!isTransparent) {
-                    copyProperty(l, Property.DURATION, cur, Events.DURATION);
+                    Duration durationProperty = new Duration(durationString);
+                    durationValue = durationProperty.getDuration();
+                    l.add(durationProperty);
                 }
             } else {
                 String endTz = Events.EVENT_END_TIMEZONE;
                 if (endTz == null) {
                     endTz = Events.EVENT_TIMEZONE;
                 }
-                Date end = getDateTime(cur, Events.DTEND, endTz, cal);
-                dtEnd = new DtEnd(end);
-                isTransparent = startDate.getTime() == end.getTime();
+                Temporal end = getDateTime(cur, Events.DTEND, endTz, cal);
+                dtEnd = new DtEnd<>(end);
+                final var startEpochMilli = TemporalExtensionsKt.toEpochMilli(startDate);
+                final var endEpochMilli = TemporalExtensionsKt.toEpochMilli(end);
+                isTransparent = startEpochMilli == endEpochMilli;
                 if (!isTransparent) {
                     l.add(dtEnd);
                 }
@@ -379,22 +394,23 @@ public class SaveCalendar {
             // This event is ordinarily transparent. If availability shows that its
             // not free, then mark it opaque.
             if (availability >= 0 && availability != Events.AVAILABILITY_FREE) {
-                l.add(Transp.OPAQUE);
+                l.add(ImmutableTransp.OPAQUE);
             }
 
         } else if (availability > Events.AVAILABILITY_BUSY) {
             // This event is ordinarily busy but differs, so output a FREEBUSY
             // period covering the time of the event
-            FreeBusy fb = new FreeBusy();
-            fb.getParameters().add(new FbType(AVAIL_ENUM.get(availability)));
-            DateTime start = new DateTime(((DtStart) l.getProperty(Property.DTSTART)).getDate());
 
+            Instant startInstant = TemporalExtensionsKt.toInstant(dtStartValue);
+            Interval interval;
             if (dtEnd != null) {
-                fb.getPeriods().add(new Period(start, new DateTime(dtEnd.getDate())));
+                interval = Interval.of(startInstant, TemporalExtensionsKt.toInstant(dtEnd.getDate()));
             } else {
-                Duration d = (Duration) l.getProperty(Property.DURATION);
-                fb.getPeriods().add(new Period(start, d.getDuration()));
+                interval = Interval.of(startInstant, toJavaDuration(durationValue));
             }
+            FbType fbType = new FbType(AVAIL_ENUM.get(availability));
+            ParameterList fbParams = new ParameterList(Collections.singletonList(fbType));
+            FreeBusy fb = new FreeBusy(fbParams, Collections.singletonList(interval));
             l.add(fb);
         }
 
@@ -407,7 +423,7 @@ public class SaveCalendar {
             copyProperty(l, Property.URL, cur, Events.CUSTOM_APP_URI);
         }
 
-        VEvent e = new VEvent(l);
+        VEvent e = new VEvent(new PropertyList(l));
 
         if (getInt(cur, Events.HAS_ALARM) == 1) {
             // Add alarms
@@ -429,9 +445,9 @@ public class SaveCalendar {
                 int method = getInt(alarmCur, Reminders.METHOD);
                 if (method == Reminders.METHOD_DEFAULT || method == Reminders.METHOD_ALERT) {
                     VAlarm alarm = new VAlarm(java.time.Duration.ofMinutes(-mins));
-                    alarm.getProperties().add(Action.DISPLAY);
-                    alarm.getProperties().add(desc);
-                    e.getAlarms().add(alarm);
+                    alarm.add(ImmutableAction.DISPLAY);
+                    alarm.add(desc);
+                    e.add(alarm);
                 }
             }
             alarmCur.close();
@@ -464,12 +480,6 @@ public class SaveCalendar {
         return i != -1 && !TextUtils.isEmpty(cur.getString(i));
     }
 
-    private Date utcDateFromMs(long ms) {
-        // This date will be UTC provided the default false value of the iCal4j property
-        // "net.fortuna.ical4j.timezone.date.floating" has not been changed.
-        return new Date(ms);
-    }
-
     private boolean isUtcTimeZone(final String tz) {
         if (TextUtils.isEmpty(tz)) {
             return true;
@@ -478,15 +488,19 @@ public class SaveCalendar {
         return "UTC".equals(utz) || "UTC-0".equals(utz) || "UTC+0".equals(utz) || utz.endsWith("/UTC");
     }
 
-    private Date getDateTime(Cursor cur, String dbName, String dbTzName, Calendar cal) {
+    private Temporal getDateTime(Cursor cur, String dbName, String dbTzName, Calendar cal) {
         int i = getColumnIndex(cur, dbName);
         if (i == -1 || cur.isNull(i)) {
             Log_OC.e(TAG, "No valid " + dbName + " column found, index: " + Integer.toString(i));
             return null;
         }
 
+        final long millis = cur.getLong(i);
+
         if (cal == null) {
-            return utcDateFromMs(cur.getLong(i));     // Ignore timezone for date-only dates
+            // Ignore timezone for date-only dates. This date will be UTC provided the default false
+            // value of the iCal4j property "net.fortuna.ical4j.timezone.date.floating" has not been changed.
+            return Instant.ofEpochMilli(millis).atZone(ZoneOffset.UTC).toLocalDate();
         } else if (dbTzName == null) {
             Log_OC.e(TAG, "No valid tz " + dbName + " column given");
         }
@@ -494,37 +508,39 @@ public class SaveCalendar {
         String tz = getString(cur, dbTzName);
         final boolean isUtc = isUtcTimeZone(tz);
 
-        DateTime dt = new DateTime(isUtc);
-        if (dt.isUtc() != isUtc) {
-            throw new RuntimeException("UTC mismatch after construction");
-        }
-        dt.setTime(cur.getLong(i));
-        if (dt.isUtc() != isUtc) {
-            throw new RuntimeException("UTC mismatch after setTime");
+        if (isUtc) {
+            return Instant.ofEpochMilli(millis);
         }
 
-        if (!isUtc) {
+        if (mTzRegistry == null) {
+            mTzRegistry = TimeZoneRegistryFactory.getInstance().createRegistry();
             if (mTzRegistry == null) {
-                mTzRegistry = TimeZoneRegistryFactory.getInstance().createRegistry();
-                if (mTzRegistry == null) {
-                    throw new RuntimeException("Failed to create TZ registry");
-                }
-            }
-            TimeZone t = mTzRegistry.getTimeZone(tz);
-            if (t == null) {
-                Log_OC.e(TAG, "Unknown TZ " + tz + ", assuming UTC");
-            } else {
-                dt.setTimeZone(t);
-                if (!mInsertedTimeZones.contains(t)) {
-                    cal.getComponents().add(t.getVTimeZone());
-                    mInsertedTimeZones.add(t);
-                }
+                throw new RuntimeException("Failed to create TZ registry");
             }
         }
-        return dt;
+        TimeZone t = mTzRegistry.getTimeZone(tz);
+        if (t == null) {
+            Log_OC.e(TAG, "Unknown TZ " + tz + ", assuming UTC");
+            return Instant.ofEpochMilli(millis);
+        }
+
+        ZoneId zoneId = t.toZoneId();
+        if (!mInsertedTimeZones.contains(t)) {
+            cal.add(t.getVTimeZone());
+            mInsertedTimeZones.add(t);
+        }
+        return Instant.ofEpochMilli(millis).atZone(zoneId);
     }
 
-    private String copyProperty(PropertyList<Property> l, String evName, Cursor cur, String dbName) {
+    private static java.time.Duration toJavaDuration(TemporalAmount amount) {
+        long ms = 0;
+        for (TemporalUnit unit : amount.getUnits()) {
+            ms += amount.get(unit) * unit.getDuration().toMillis();
+        }
+        return java.time.Duration.ofMillis(ms);
+    }
+
+    private String copyProperty(List<Property> l, String evName, Cursor cur, String dbName) {
         // None of the exceptions caught below should be able to be thrown AFAICS.
         try {
             String value = getString(cur, dbName);
@@ -534,12 +550,12 @@ public class SaveCalendar {
                 l.add(p);
                 return value;
             }
-        } catch (IOException | URISyntaxException | ParseException ignored) {
+        } catch (RuntimeException ignored) {
         }
         return null;
     }
 
-    private void copyEnumProperty(PropertyList<Property> l, String evName, Cursor cur, String dbName,
+    private void copyEnumProperty(List<Property> l, String evName, Cursor cur, String dbName,
                                   List<String> vals) {
         // None of the exceptions caught below should be able to be thrown AFAICS.
         try {
@@ -552,7 +568,7 @@ public class SaveCalendar {
                     l.add(p);
                 }
             }
-        } catch (IOException | URISyntaxException | ParseException ignored) {
+        } catch (RuntimeException ignored) {
         }
     }
 

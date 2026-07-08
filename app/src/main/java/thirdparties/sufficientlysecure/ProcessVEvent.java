@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2015 Jon Griffiths (jon_p_griffiths@yahoo.com)
  * SPDX-FileCopyrightText: 2013 Dominik Schürmann <dominik@dominikschuermann.de>
  * SPDX-FileCopyrightText: 2010-2011 Lukas Aichbauer
@@ -23,11 +24,11 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.extensions.TemporalExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.component.CalendarComponent;
@@ -37,17 +38,25 @@ import net.fortuna.ical4j.model.parameter.FbType;
 import net.fortuna.ical4j.model.parameter.Related;
 import net.fortuna.ical4j.model.property.Action;
 import net.fortuna.ical4j.model.property.DateProperty;
+import net.fortuna.ical4j.model.property.DtEnd;
+import net.fortuna.ical4j.model.property.DtStart;
 import net.fortuna.ical4j.model.property.Duration;
 import net.fortuna.ical4j.model.property.FreeBusy;
 import net.fortuna.ical4j.model.property.Transp;
 import net.fortuna.ical4j.model.property.Trigger;
+import net.fortuna.ical4j.model.property.immutable.ImmutableAction;
+import net.fortuna.ical4j.model.property.immutable.ImmutableTransp;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -110,13 +119,8 @@ public class ProcessVEvent {
         }
 
         public DuplicateHandlingEnum getDuplicateHandling() {
-//            return DuplicateHandlingEnum.values()[getEnumInt(PREF_DUPLICATE_HANDLING, 0)]; 
             return DuplicateHandlingEnum.values()[0]; // TODO is option needed?
         }
-
-//        private int getEnumInt(final String key, final int def) {
-//            return Integer.parseInt(getString(key, String.valueOf(def)));
-//        }
     }
 
     public ProcessVEvent(Context context, Calendar iCalCalendar, AndroidCalendar selectedCal, boolean isInserter) {
@@ -275,7 +279,8 @@ public class ProcessVEvent {
         reminders.clear();
 
         boolean allDay = false;
-        boolean startIsDate = !(e.getStartDate().getDate() instanceof DateTime);
+        Temporal startTemporal = e.<Temporal>getStartDate().map(DtStart::getDate).orElse(null);
+        boolean startIsDate = startTemporal instanceof LocalDate;
         boolean isRecurring = hasProperty(e, Property.RRULE) || hasProperty(e, Property.RDATE);
 
         if (startIsDate) {
@@ -288,25 +293,27 @@ public class ProcessVEvent {
             // No end date or duration given.
             // Since we added a duration above when the start date is a DATE:
             // - The start date is a DATETIME, the event lasts no time at all (RFC 2445).
-            e.getProperties().add(ZERO_SECONDS);
+            e.add(ZERO_SECONDS);
             // Zero time events are always free (RFC 2445), so override/set TRANSP accordingly.
             removeProperty(e, Property.TRANSP);
-            e.getProperties().add(Transp.TRANSPARENT);
+            e.add(ImmutableTransp.TRANSPARENT);
         }
 
         if (isRecurring) {
             // Recurring event. Android insists on a duration.
             if (!hasProperty(e, Property.DURATION)) {
                 // Calculate duration from start to end date
-                Duration d = new Duration(e.getStartDate().getDate(), e.getEndDate().getDate());
-                e.getProperties().add(d);
+                Temporal endTemporal = e.<Temporal>getEndDate().map(DtEnd::getDate).orElse(null);
+                Duration d = new Duration(startTemporal, endTemporal);
+                e.add(d);
             }
             removeProperty(e, Property.DTEND);
         } else {
             // Non-recurring event. Android insists on an end date.
             if (!hasProperty(e, Property.DTEND)) {
                 // Calculate end date from duration, set it and remove the duration.
-                e.getProperties().add(e.getEndDate());
+                Optional<DtEnd<Temporal>> derivedEnd = e.getEndDate();
+                derivedEnd.ifPresent(e::add);
             }
             removeProperty(e, Property.DURATION);
         }
@@ -331,8 +338,9 @@ public class ProcessVEvent {
 
         copyProperty(c, Events.EVENT_LOCATION, e, Property.LOCATION);
 
-        if (hasProperty(e, Property.STATUS)) {
-            String status = e.getProperty(Property.STATUS).getValue();
+        Optional<Property> statusProperty = e.getProperty(Property.STATUS);
+        if (statusProperty.isPresent()) {
+            String status = statusProperty.get().getValue();
             switch (status) {
                 case "TENTATIVE":
                     c.put(Events.STATUS, Events.STATUS_TENTATIVE);
@@ -352,13 +360,14 @@ public class ProcessVEvent {
             c.put(Events.ALL_DAY, 1);
         }
 
-        copyDateProperty(c, Events.DTSTART, Events.EVENT_TIMEZONE, e.getStartDate());
+        e.<Temporal>getStartDate().ifPresent(dtStart -> copyDateProperty(c, Events.DTSTART, Events.EVENT_TIMEZONE, dtStart));
         if (hasProperty(e, Property.DTEND)) {
-            copyDateProperty(c, Events.DTEND, Events.EVENT_END_TIMEZONE, e.getEndDate());
+            e.<Temporal>getEndDate().ifPresent(dtEnd -> copyDateProperty(c, Events.DTEND, Events.EVENT_END_TIMEZONE, dtEnd));
         }
 
-        if (hasProperty(e, Property.CLASS)) {
-            String access = e.getProperty(Property.CLASS).getValue();
+        Optional<Property> classProperty = e.getProperty(Property.CLASS);
+        if (classProperty.isPresent()) {
+            String access = classProperty.get().getValue();
             int accessLevel = switch (access) {
                 case "CONFIDENTIAL" -> Events.ACCESS_CONFIDENTIAL;
                 case "PRIVATE" -> Events.ACCESS_PRIVATE;
@@ -372,16 +381,17 @@ public class ProcessVEvent {
         // Work out availability. This is confusing as FREEBUSY and TRANSP overlap.
         int availability = Events.AVAILABILITY_BUSY;
         if (hasProperty(e, Property.TRANSP)) {
-            if (e.getTransparency() == Transp.TRANSPARENT) {
+            Optional<Transp> transparency = e.getTransparency();
+            if (transparency.isPresent() && Transp.VALUE_TRANSPARENT.equals(transparency.get().getValue())) {
                 availability = Events.AVAILABILITY_FREE;
             }
 
         } else if (hasProperty(e, Property.FREEBUSY)) {
-            FreeBusy fb = e.getProperty(Property.FREEBUSY);
-            FbType fbType = fb.getParameter(Parameter.FBTYPE);
-            if (fbType != null && fbType == FbType.FREE) {
+            Optional<FreeBusy> fb = e.getProperty(Property.FREEBUSY);
+            Optional<FbType> fbType = fb.isPresent() ? fb.get().getParameter(Parameter.FBTYPE) : Optional.empty();
+            if (fbType.isPresent() && fbType.get().equals(FbType.FREE)) {
                 availability = Events.AVAILABILITY_FREE;
-            } else if (fbType != null && fbType == FbType.BUSY_TENTATIVE) {
+            } else if (fbType.isPresent() && fbType.get().equals(FbType.BUSY_TENTATIVE)) {
                 availability = Events.AVAILABILITY_TENTATIVE;
             }
         }
@@ -400,23 +410,31 @@ public class ProcessVEvent {
 
         for (VAlarm a : e.getAlarms()) {
 
-            if (a.getAction() != Action.AUDIO && a.getAction() != Action.DISPLAY) {
+            Optional<Action> action = a.getAction();
+            if (action.isEmpty() || (!ImmutableAction.AUDIO.equals(action.get()) && !ImmutableAction.DISPLAY.equals(action.get()))) {
                 continue; // Ignore email and procedure alarms
             }
 
-            Trigger t = a.getTrigger();
-            final long startMs = e.getStartDate().getDate().getTime();
+            Optional<Trigger> triggerProperty = a.getTrigger();
+            if (triggerProperty.isEmpty()) {
+                continue;
+            }
+            Trigger t = triggerProperty.get();
+
+            final long startMs = TemporalExtensionsKt.toEpochMilli(startTemporal);
             long alarmStartMs = startMs;
             long alarmMs;
 
             // FIXME: - Support for repeating alarms
             //        - Check the calendars max number of alarms
-            if (t.getDateTime() != null)
-                alarmMs = t.getDateTime().getTime(); // Absolute
+            if (t.isAbsolute())
+                alarmMs = t.getDate().toEpochMilli(); // Absolute
             else if (t.getDuration() != null) {
-                Related rel = t.getParameter(Parameter.RELATED);
-                if (rel != null && rel == Related.END)
-                    alarmStartMs = e.getEndDate().getDate().getTime();
+                Optional<Related> rel = t.getParameter(Parameter.RELATED);
+                if (rel.isPresent() && rel.get().equals(Related.END)) {
+                    Temporal endTemporal = e.<Temporal>getEndDate().map(DtEnd::getDate).orElse(null);
+                    alarmStartMs = TemporalExtensionsKt.toEpochMilli(endTemporal);
+                }
                 alarmMs = alarmStartMs + durationToMs(t.getDuration());
             } else {
                 continue;
@@ -452,33 +470,31 @@ public class ProcessVEvent {
     }
 
     private boolean hasProperty(VEvent e, String name) {
-        return e.getProperty(name) != null;
+        return e.getProperty(name).isPresent();
     }
 
     private void removeProperty(VEvent e, String name) {
-        Property p = e.getProperty(name);
-        if (p != null) {
-            e.getProperties().remove(p);
-        }
+        e.removeAll(name);
     }
 
     private void copyProperty(ContentValues c, String dbName, VEvent e, String evName) {
         if (dbName != null) {
-            Property p = e.getProperty(evName);
-            if (p != null) {
-                c.put(dbName, p.getValue());
+            Optional<Property> p = e.getProperty(evName);
+            if (p.isPresent()) {
+                c.put(dbName, p.get().getValue());
             }
         }
     }
 
-    private void copyDateProperty(ContentValues c, String dbName, String dbTzName, DateProperty date) {
-        if (dbName != null && date.getDate() != null) {
-            c.put(dbName, date.getDate().getTime()); // ms since epoc in GMT
+    private void copyDateProperty(ContentValues c, String dbName, String dbTzName, DateProperty<? extends Temporal> date) {
+        Temporal temporal = date.getDate();
+        if (dbName != null && temporal != null) {
+            c.put(dbName, TemporalExtensionsKt.toEpochMilli(temporal)); // ms since epoc in GMT
             if (dbTzName != null) {
-                if (date.isUtc() || date.getTimeZone() == null) {
+                if (date.isUtc() || !(temporal instanceof ZonedDateTime)) {
                     c.put(dbTzName, "UTC");
                 } else {
-                    c.put(dbTzName, date.getTimeZone().getID());
+                    c.put(dbTzName, ((ZonedDateTime) temporal).getZone().getId());
                 }
             }
         }
@@ -566,10 +582,11 @@ public class ProcessVEvent {
 
     private void processEventTests(VEvent e, ContentValues c, List<Integer> reminders) {
 
-        Property testName = e.getProperty("X-TEST-NAME");
-        if (testName == null) {
+        Optional<Property> testNameProperty = e.getProperty("X-TEST-NAME");
+        if (testNameProperty.isEmpty()) {
             return; // Not a test case
         }
+        Property testName = testNameProperty.get();
 
         // This is a test event. Verify it using the embedded meta data.
         Log_OC.i(TAG, "Processing test case " + testName.getValue() + "...");
