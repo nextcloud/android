@@ -7,6 +7,7 @@
 package com.nextcloud.client.jobs
 
 import androidx.lifecycle.LiveData
+import androidx.work.Data
 import androidx.work.ListenableWorker
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
@@ -131,9 +132,45 @@ interface BackgroundJobManager {
 
     fun startNotificationJob(subject: String, signature: String)
     fun startDecryptedNotificationJob(accountName: String, message: String)
-    fun registerWebPush(accountName: String, url: String, uaPublicKey: String, auth: String)
-    fun activateWebPush(accountName: String, token: String)
-    fun unregisterWebPush(accountName: String)
+
+    sealed class WebPushJobData() {
+        abstract val inputData: Data
+
+        data class Register(
+            val accountName: String,
+            val url: String,
+            val uaPublicKey: String,
+            val auth: String
+        ): WebPushJobData() {
+            override val inputData = Data.Builder()
+                .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_REGISTER)
+                .putString(UnifiedPushWork.EXTRA_ACCOUNT, accountName)
+                .putString(UnifiedPushWork.EXTRA_URL, url)
+                .putString(UnifiedPushWork.EXTRA_UA_PUBKEY, uaPublicKey)
+                .putString(UnifiedPushWork.EXTRA_AUTH, auth)
+                .build()
+        }
+        data class Activate(val accountName: String, val token: String): WebPushJobData() {
+            override val inputData = Data.Builder()
+                .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_ACTIVATE)
+                .putString(UnifiedPushWork.EXTRA_ACCOUNT, accountName)
+                .putString(UnifiedPushWork.EXTRA_TOKEN, token)
+                .build()
+        }
+        data class Unregister(val accountName: String): WebPushJobData() {
+            override val inputData = Data.Builder()
+                .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_UNREGISTER)
+                .putString(UnifiedPushWork.EXTRA_ACCOUNT, accountName)
+                .build()
+        }
+    }
+
+    fun startWebPushJob(jobData: WebPushJobData)
+
+    /**
+     * Schedule a unique job, for all accounts, to either reconnect to the distributor
+     * or show a notification to open the app
+     */
     fun mayResetUnifiedPush()
 
     fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)

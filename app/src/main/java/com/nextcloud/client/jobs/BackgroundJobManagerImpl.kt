@@ -119,7 +119,7 @@ internal class BackgroundJobManagerImpl(
         const val OFFLINE_OPERATIONS_PERIODIC_JOB_INTERVAL_MINUTES = 5L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
         const val DEFAULT_BACKOFF_CRITERIA_DELAY_SEC = 300L
-        const val UNIFIEDPUSH_WORK_DELAY_SEC = 10
+        const val UNIFIEDPUSH_WORK_DELAY_SEC = 10L
 
         private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
@@ -608,44 +608,9 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueue(request)
     }
 
-    override fun registerWebPush(accountName: String, url: String, uaPublicKey: String, auth: String) {
-        val data = Data.Builder()
-            .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_REGISTER)
-            .putString(UnifiedPushWork.EXTRA_ACCOUNT, accountName)
-            .putString(UnifiedPushWork.EXTRA_URL, url)
-            .putString(UnifiedPushWork.EXTRA_UA_PUBKEY, uaPublicKey)
-            .putString(UnifiedPushWork.EXTRA_AUTH, auth)
-            .build()
-
+    override fun startWebPushJob(jobData: BackgroundJobManager.WebPushJobData) {
         val request = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
-            .setInputData(data)
-            .build()
-
-        workManager.enqueue(request)
-    }
-
-    override fun activateWebPush(accountName: String, token: String) {
-        val data = Data.Builder()
-            .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_ACTIVATE)
-            .putString(UnifiedPushWork.EXTRA_ACCOUNT, accountName)
-            .putString(UnifiedPushWork.EXTRA_TOKEN, token)
-            .build()
-
-        val request = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
-            .setInputData(data)
-            .build()
-
-        workManager.enqueue(request)
-    }
-
-    override fun unregisterWebPush(accountName: String) {
-        val data = Data.Builder()
-            .putString(UnifiedPushWork.ACTION, UnifiedPushWork.ACTION_UNREGISTER)
-            .putString(UnifiedPushWork.EXTRA_ACCOUNT, accountName)
-            .build()
-
-        val request = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
-            .setInputData(data)
+            .setInputData(jobData.inputData)
             .build()
 
         workManager.enqueue(request)

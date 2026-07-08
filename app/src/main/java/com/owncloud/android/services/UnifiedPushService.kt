@@ -34,15 +34,19 @@ class UnifiedPushService: PushService() {
         Log.d(TAG, "Received new endpoint for $instance")
         // No reason to fail with the default key manager
         val key = endpoint.pubKeySet ?: return
-        backgroundJobManager.registerWebPush(instance, endpoint.url,key.pubKey, key.auth)
+        backgroundJobManager.startWebPushJob(
+            BackgroundJobManager.WebPushJobData.Register(instance, endpoint.url,key.pubKey, key.auth)
+        )
     }
 
     override fun onMessage(message: PushMessage, instance: String) {
         Log.d(TAG, "Received new message for $instance")
         try {
-            val mObj = JSONObject(message.content.toString(Charsets.UTF_8))
-            val token = mObj.getString("activationToken")
-            backgroundJobManager.activateWebPush(instance, token)
+            val token = JSONObject(message.content.toString(Charsets.UTF_8))
+                .getString("activationToken")
+            backgroundJobManager.startWebPushJob(
+                BackgroundJobManager.WebPushJobData.Activate(instance, token)
+            )
         } catch (_: JSONException) {
             // Messages are encrypted following RFC8291, and UnifiedPush lib handle the decryption itself:
             // message.content is the cleartext
@@ -56,7 +60,7 @@ class UnifiedPushService: PushService() {
 
     override fun onUnregistered(instance: String) {
         Log.d(TAG, "Unregistered: $instance")
-        backgroundJobManager.unregisterWebPush(instance)
+        backgroundJobManager.startWebPushJob(BackgroundJobManager.WebPushJobData.Unregister(instance))
         backgroundJobManager.mayResetUnifiedPush()
     }
 
