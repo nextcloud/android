@@ -18,7 +18,7 @@ import javax.inject.Inject
 class EditorUtils @Inject constructor(private val arbitraryDataProvider: ArbitraryDataProvider) {
 
     /**
-     * Returns only supported mimetypes
+     * Returns an editor matching only the strictly supported mimetypes.
      */
     fun getEditor(user: User?, mimeType: String?): Editor? {
         val editors = getEditors(user) ?: return null
@@ -26,11 +26,26 @@ class EditorUtils @Inject constructor(private val arbitraryDataProvider: Arbitra
     }
 
     /**
+     * Returns an editor matching the supported mimetypes or, as a fallback, the optional ones.
+     */
+    fun getAvailableEditor(user: User?, mimeType: String?): Editor? {
+        val editors = getEditors(user) ?: return null
+        return editors.firstOrNull { mimeType in it.mimetypes }
+            ?: editors.firstOrNull { mimeType in it.optionalMimetypes }
+    }
+
+    /**
      * Returns supported mimetypes along with optional ones
      */
-    fun isEditorAvailable(user: User?, mimeType: String?): Boolean {
+    fun isEditorAvailable(user: User?, mimeType: String?): Boolean = getAvailableEditor(user, mimeType) != null
+
+    /**
+     * Returns true when an office editor (e.g. OnlyOffice) can open the mimetype,
+     * either as a supported or optional mimetype.
+     */
+    fun isOfficeEditorAvailable(user: User?, mimeType: String?): Boolean {
         val editors = getEditors(user) ?: return false
-        return editors.any { mimeType in it.mimetypes || mimeType in it.optionalMimetypes }
+        return editors.any { usesOfficeUserAgent(it) && (mimeType in it.mimetypes || mimeType in it.optionalMimetypes) }
     }
 
     private fun getEditors(user: User?): Collection<Editor>? {

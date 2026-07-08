@@ -148,7 +148,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.media3.common.util.UnstableApi;
 import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG;
@@ -1354,6 +1353,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 return true;
             } else if (itemId == R.id.action_open_file_with) {
                 mContainerActivity.getFileOperationsHelper().openFile(singleFile);
+                return true;
+            } else if (itemId == R.id.action_open_with_office) {
+                mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
                 return true;
             } else if (itemId == R.id.action_stream_media) {
                 mContainerActivity.getFileOperationsHelper().streamMediaFile(singleFile);

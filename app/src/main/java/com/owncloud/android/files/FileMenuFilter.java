@@ -158,6 +158,7 @@ public class FileMenuFilter {
         filterSelectAll(toHide, inSingleFileFragment);
         filterDeselectAll(toHide, inSingleFileFragment);
         filterOpenWith(toHide, synchronizing);
+        filterOpenWithOffice(toHide);
         filterCancelSync(toHide, synchronizing);
         filterSync(toHide, synchronizing);
         filterShareFile(toHide, capability);
@@ -336,6 +337,19 @@ public class FileMenuFilter {
     private void filterOpenWith(Collection<Integer> toHide, boolean synchronizing) {
         if (!isSingleFile() || !anyFileDown() || synchronizing) {
             toHide.add(R.id.action_open_file_with);
+        }
+    }
+
+    private void filterOpenWithOffice(Collection<Integer> toHide) {
+        if (!isSingleFile()) {
+            toHide.add(R.id.action_open_with_office);
+            return;
+        }
+
+        OCFile file = files.iterator().next();
+        boolean canOpenLocally = file.isDown() && !file.isEncrypted();
+        if (!canOpenLocally || !editorUtils.isOfficeEditorAvailable(user, file.getMimeType())) {
+            toHide.add(R.id.action_open_with_office);
         }
     }
 

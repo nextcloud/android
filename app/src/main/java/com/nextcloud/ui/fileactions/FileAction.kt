@@ -48,6 +48,7 @@ enum class FileAction(
     SEND_SHARE_FILE(R.id.action_send_share_file, R.string.action_send_share, R.drawable.ic_share),
     SEND_FILE(R.id.action_send_file, R.string.common_send, R.drawable.ic_share),
     OPEN_FILE_WITH(R.id.action_open_file_with, R.string.actionbar_open_with, R.drawable.ic_external),
+    OPEN_WITH_OFFICE(R.id.action_open_with_office, R.string.action_open_with_office, R.drawable.file_doc),
     STREAM_MEDIA(R.id.action_stream_media, R.string.stream, R.drawable.ic_play_arrow),
     SET_AS_WALLPAPER(R.id.action_set_as_wallpaper, R.string.set_picture_as, R.drawable.ic_wallpaper),
 
@@ -87,6 +88,7 @@ enum class FileAction(
                 SEND_SHARE_FILE,
                 SEND_FILE,
                 OPEN_FILE_WITH,
+                OPEN_WITH_OFFICE,
                 SYNC_FOLDER
             )
 
