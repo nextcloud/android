@@ -314,9 +314,15 @@ public class FileMenuFilter {
      */
     @NextcloudServer(max = 18)
     private boolean isRichDocumentEditingSupported(OCCapability capability, String mimeType) {
+        final var mimeTypeList = capability.getRichDocumentsMimeTypeList();
+        final var isMimeTypeListContainsMimeType = (mimeTypeList != null && mimeTypeList.contains(mimeType));
+
+        final var optionalMimeTypeList = capability.getRichDocumentsOptionalMimeTypeList();
+        final var isOptionalMimeTypeListContainsMimeType = (optionalMimeTypeList != null &&
+            optionalMimeTypeList.contains(mimeType));
+
         return isSingleFile() &&
-            (capability.getRichDocumentsMimeTypeList().contains(mimeType) ||
-                capability.getRichDocumentsOptionalMimeTypeList().contains(mimeType)) &&
+            (isMimeTypeListContainsMimeType || isOptionalMimeTypeListContainsMimeType) &&
             capability.getRichDocumentsDirectEditing().isTrue();
     }
 
