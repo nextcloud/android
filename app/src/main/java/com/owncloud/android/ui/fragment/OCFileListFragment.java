@@ -91,6 +91,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
@@ -1220,7 +1221,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             setFabVisible(false);
             fda.startMediaPreview(file, 0, true, true, true, true);
         } else if (editorUtils.getEditor(accountManager.getUser(), file.getMimeType()) != null && !file.isEncrypted()) {
-            mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
+            TextEditorWebView.Companion.startTextEditor(file, getContext());
         } else if (capability.getRichDocumentsMimeTypeList() != null &&
             capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
             capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
@@ -1355,16 +1356,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mContainerActivity.getFileOperationsHelper().openFile(singleFile);
                 return true;
             } else if (itemId == R.id.action_open_with_office) {
-                mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
+                TextEditorWebView.Companion.startTextEditor(singleFile, getContext());
                 return true;
             } else if (itemId == R.id.action_stream_media) {
                 mContainerActivity.getFileOperationsHelper().streamMediaFile(singleFile);
                 return true;
             } else if (itemId == R.id.action_edit) {
                 // should not be necessary, as menu item is filtered, but better play safe
-                if (editorUtils.isEditorAvailable(accountManager.getUser(),
-                                                  singleFile.getMimeType())) {
-                    mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
+                if (editorUtils.isEditorAvailable(accountManager.getUser(), singleFile.getMimeType())) {
+                    TextEditorWebView.Companion.startTextEditor(singleFile,getContext());
                 } else if (EditImageActivity.Companion.canBePreviewed(singleFile)) {
                     ((FileDisplayActivity) mContainerActivity).startImageEditor(singleFile);
                 } else {

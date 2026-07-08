@@ -296,7 +296,7 @@ public class FileOperationsHelper {
             Optional<User> optionalUser = fileActivity.getUser();
 
             if (optionalUser.isPresent() && editorUtils.isEditorAvailable(optionalUser.get(), file.getMimeType())) {
-                openFileWithTextEditor(file, fileActivity);
+                TextEditorWebView.Companion.startTextEditor(file, fileActivity);
                 return;
             }
 
@@ -363,14 +363,6 @@ public class FileOperationsHelper {
         collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
         collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
         context.startActivity(collaboraWebViewIntent);
-    }
-
-    public void openFileWithTextEditor(OCFile file, Context context) {
-        Intent textEditorIntent = new Intent(context, TextEditorWebView.class);
-        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text");
-        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
-        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-        context.startActivity(textEditorIntent);
     }
 
     public void openRichWorkspaceWithTextEditor(OCFile file, String url, Context context) {
