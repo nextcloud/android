@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
@@ -28,7 +29,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.nextcloud.utils.extensions.getAllGalleryItemsSuspended
+import com.nextcloud.utils.extensions.getGalleryItemsPageSuspended
 import com.nextcloud.utils.extensions.getParcelableArgument
 import kotlinx.coroutines.Job
 import com.nextcloud.utils.extensions.getTypedActivity
@@ -47,7 +48,6 @@ import com.owncloud.android.ui.adapter.GalleryAdapter
 import com.owncloud.android.ui.asynctasks.GallerySearchTask
 import com.owncloud.android.ui.events.ChangeMenuEvent
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
-import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -61,6 +61,7 @@ class GalleryFragment :
     private var showGalleryJob: Job? = null
     private var endDate: Long = 0
     private val limit = 150
+    private var loadedItemCount = INITIAL_GALLERY_WINDOW
     private var adapter: GalleryAdapter? = null
 
     private var bottomSheet: GalleryFragmentBottomSheetDialog? = null
@@ -241,6 +242,8 @@ class GalleryFragment :
         prepareCurrentSearch(searchEvent)
         setEmptyListMessage(EmptyListState.LOADING)
 
+        loadedItemCount = INITIAL_GALLERY_WINDOW
+
         // always show first stored items
         showAllGalleryItems()
 
@@ -367,8 +370,10 @@ class GalleryFragment :
                 Log_OC.d(this, "Gallery swipe: retrieve items because end of gallery display")
             }
 
-            // Almost reached the end, continue to load new photos
+            // Almost reached the end, widen the display window and continue to load new photos
             endDate = lastItemTimestamp
+            loadedItemCount += GALLERY_WINDOW_INCREMENT
+            showAllGalleryItems()
             isPhotoSearchQueryRunning = true
             runGallerySearchTask()
         }
@@ -381,23 +386,22 @@ class GalleryFragment :
     fun showAllGalleryItems() {
         val mediaState = bottomSheet?.currMediaState ?: return
 
+        val mimeFilter = when (mediaState) {
+            MediaState.MEDIA_STATE_PHOTOS_ONLY -> IMAGE_MIME_FILTER
+            MediaState.MEDIA_STATE_VIDEOS_ONLY -> VIDEO_MIME_FILTER
+            else -> null
+        }
+
         showGalleryJob?.cancel()
         showGalleryJob = lifecycleScope.launch(Dispatchers.Default) {
             val remotePath = preferences.getLastSelectedMediaFolder()
-            val items = mContainerActivity.storageManager.getAllGalleryItemsSuspended()
+            val items = mContainerActivity.storageManager.getGalleryItemsPageSuspended(
+                remotePath,
+                mimeFilter,
+                loadedItemCount
+            )
 
-            val isPhotosOnly = mediaState == MediaState.MEDIA_STATE_PHOTOS_ONLY
-            val isVideosOnly = mediaState == MediaState.MEDIA_STATE_VIDEOS_ONLY
-
-            val filteredItems = items.filter {
-                if (!it.remotePath.startsWith(remotePath)) return@filter false
-                if (isPhotosOnly) return@filter MimeTypeUtil.isImage(it.mimeType)
-                if (isVideosOnly) return@filter MimeTypeUtil.isVideo(it.mimeType)
-                true
-            }
-
-            val galleryItems =
-                filteredItems.toGalleryItems(columnsCount, ThumbnailsCacheManager.getThumbnailDimension())
+            val galleryItems = items.toGalleryItems(columnsCount, ThumbnailsCacheManager.getThumbnailDimension())
 
             withContext(Dispatchers.Main) {
                 if (galleryItems.isEmpty()) {
@@ -447,6 +451,11 @@ class GalleryFragment :
     companion object {
         private const val MAX_ITEMS_PER_ROW = 10
         private const val FRAGMENT_TAG_BOTTOM_SHEET = "data"
+
+        private const val INITIAL_GALLERY_WINDOW = 500
+        private const val GALLERY_WINDOW_INCREMENT = 500
+        private const val IMAGE_MIME_FILTER = "image/%"
+        private const val VIDEO_MIME_FILTER = "video/%"
 
         private var lastMediaItemPosition: Int? = null
         const val REFRESH_SEARCH_EVENT_RECEIVER: String = "refreshSearchEventReceiver"
