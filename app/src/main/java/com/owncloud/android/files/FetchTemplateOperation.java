@@ -7,6 +7,8 @@
  */
 package com.owncloud.android.files;
 
+import android.net.Uri;
+
 import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -26,14 +28,15 @@ public class FetchTemplateOperation extends RemoteOperation {
     private static final String TAG = FetchTemplateOperation.class.getSimpleName();
     private static final int SYNC_READ_TIMEOUT = 40000;
     private static final int SYNC_CONNECTION_TIMEOUT = 5000;
-    private static final String TEMPLATE_URL = "/ocs/v2.php/apps/richdocuments/api/v1/templates/";
+    private static final String TEMPLATE_ROUTE = "ocs/v2.php/apps/richdocuments/api/v1/templates";
+    private static final String PARAM_FORMAT = "format";
+    private static final String VALUE_FORMAT_JSON = "json";
 
     private ChooseRichDocumentsTemplateDialogFragment.Type type;
 
     // JSON node names
     private static final String NODE_OCS = "ocs";
     private static final String NODE_DATA = "data";
-    private static final String JSON_FORMAT = "?format=json";
 
     public FetchTemplateOperation(ChooseRichDocumentsTemplateDialogFragment.Type type) {
         this.type = type;
@@ -44,9 +47,14 @@ public class FetchTemplateOperation extends RemoteOperation {
         GetMethod getMethod = null;
 
         try {
+            Uri uri = client.getBaseUri()
+                .buildUpon()
+                .appendEncodedPath(TEMPLATE_ROUTE)
+                .appendEncodedPath(type.toString().toLowerCase(Locale.ENGLISH))
+                .appendQueryParameter(PARAM_FORMAT, VALUE_FORMAT_JSON)
+                .build();
 
-            getMethod = new GetMethod(client.getBaseUri() + TEMPLATE_URL + type.toString().toLowerCase(Locale.ENGLISH) +
-                JSON_FORMAT);
+            getMethod = new GetMethod(uri.toString());
 
             // remote request
             getMethod.addRequestHeader(OCS_API_HEADER, OCS_API_HEADER_VALUE);
@@ -76,8 +84,9 @@ public class FetchTemplateOperation extends RemoteOperation {
                 result = new RemoteOperationResult(true, getMethod);
                 result.setData(templateArray);
             } else {
+                String errorBody = getMethod.getResponseBodyAsString();
                 result = new RemoteOperationResult(false, getMethod);
-                client.exhaustResponse(getMethod.getResponseBodyAsStream());
+                Log_OC.e(TAG, "Get templates for type " + type + " failed with status " + status + ": " + errorBody);
             }
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
