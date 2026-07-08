@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2026 Your Name <your@email.com>
+ * SPDX-FileCopyrightText: 2026 Simon Gougeon <git@sgougeon.fr>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
