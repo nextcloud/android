@@ -34,6 +34,7 @@ import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
+import com.owncloud.android.ui.dialog.setupEncryption.model.DownloadKeyResult
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.crypto.CryptoHelper
@@ -46,9 +47,6 @@ import java.io.IOException
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
-/*
- *  Dialog to setup encryption
- */
 class SetupEncryptionDialogFragment :
     DialogFragment(),
     Injectable {
@@ -170,10 +168,6 @@ class SetupEncryptionDialogFragment :
                 }
 
                 val privateKey = (downloadKeyResult as DownloadKeyResult.Success).privateKey
-                if (privateKey.isNullOrEmpty()) {
-                    Log_OC.e(TAG, "privateKey is null or empty")
-                    return@launch
-                }
                 val mnemonicUnchanged = binding.encryptionPasswordInput.text.toString().trim()
                 val mnemonic =
                     binding.encryptionPasswordInput.text.toString().replace("\\s".toRegex(), "")
@@ -275,30 +269,6 @@ class SetupEncryptionDialogFragment :
         super.onSaveInstanceState(outState)
     }
 
-    sealed class DownloadKeyResult(open val descriptionId: Int? = null) {
-        data class CertificateVerificationFailed(
-            override val descriptionId: Int = R.string.end_to_end_encryption_certificate_verification_failed
-        ) : DownloadKeyResult(descriptionId)
-
-        data class ServerPublicKeyUnavailable(
-            override val descriptionId: Int = R.string.end_to_end_encryption_server_public_key_unavailable
-        ) : DownloadKeyResult(descriptionId)
-
-        data class ServerPrivateKeyUnavailable(
-            override val descriptionId: Int = R.string.end_to_end_encryption_server_private_key_unavailable
-        ) : DownloadKeyResult(descriptionId)
-
-        data class CertificateUnavailable(
-            override val descriptionId: Int = R.string.end_to_end_encryption_certificate_unavailable
-        ) : DownloadKeyResult(descriptionId)
-
-        data class UnexpectedError(
-            override val descriptionId: Int = R.string.end_to_end_encryption_unexpected_error_occurred
-        ) : DownloadKeyResult(descriptionId)
-
-        data class Success(val privateKey: String?) : DownloadKeyResult()
-    }
-
     private suspend fun downloadKeys() {
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_retrieving_keys)
         positiveButton?.visibility = View.INVISIBLE
@@ -314,7 +284,7 @@ class SetupEncryptionDialogFragment :
                 // The certificate might not be available on the server yet.
                 // Therefore, the user needs to generate a new passphrase first, send csr.
                 return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
-                    DownloadKeyResult.Success(null)
+                    DownloadKeyResult.GeneratePassphraseSendCSR
                 } else {
                     DownloadKeyResult.CertificateUnavailable()
                 }
@@ -346,15 +316,19 @@ class SetupEncryptionDialogFragment :
                 Log_OC.d(TAG, "private key successful downloaded for " + user.accountName)
                 keyResult = KEY_EXISTING_USED
                 val privateKey = privateKeyResult.resultData?.getKey()
-                DownloadKeyResult.Success(privateKey)
+                if (privateKey == null) {
+                    DownloadKeyResult.ServerPrivateKeyUnavailable()
+                } else {
+                    DownloadKeyResult.Success(privateKey)
+                }
             } else {
                 DownloadKeyResult.ServerPrivateKeyUnavailable()
             }
         }
 
         downloadKeyResult?.let { result ->
-            if (result is DownloadKeyResult.Success) {
-                handlePrivateKey(result.privateKey)
+            if (result is DownloadKeyResult.Success || result is DownloadKeyResult.GeneratePassphraseSendCSR) {
+                handlePrivateKey(result)
             } else {
                 val descriptionId = result.descriptionId ?: return
                 val description = getString(descriptionId)
@@ -364,23 +338,28 @@ class SetupEncryptionDialogFragment :
         }
     }
 
-    private fun handlePrivateKey(privateKey: String?) {
-        if (privateKey == null) {
-            // first show info
-            try {
-                if (keyWords == null || keyWords!!.isEmpty()) {
-                    keyWords = EncryptionUtils.getRandomWords(NUMBER_OF_WORDS, context)
-                }
-                showMnemonicInfo()
-            } catch (e: IOException) {
-                binding.encryptionStatus.setText(R.string.common_error)
+    private fun handlePrivateKey(result: DownloadKeyResult) {
+        when (result) {
+            is DownloadKeyResult.Success -> {
+                binding.encryptionStatus.setText(R.string.end_to_end_encryption_enter_passphrase_to_access_files)
+                binding.encryptionPasswordInputContainer.visibility = View.VISIBLE
+                positiveButton?.visibility = View.VISIBLE
             }
-        } else if (privateKey.isNotEmpty()) {
-            binding.encryptionStatus.setText(R.string.end_to_end_encryption_enter_passphrase_to_access_files)
-            binding.encryptionPasswordInputContainer.visibility = View.VISIBLE
-            positiveButton?.visibility = View.VISIBLE
-        } else {
-            Log_OC.e(TAG, "Got empty private key string")
+
+            is DownloadKeyResult.GeneratePassphraseSendCSR -> {
+                try {
+                    if (keyWords == null || keyWords!!.isEmpty()) {
+                        keyWords = EncryptionUtils.getRandomWords(NUMBER_OF_WORDS, context)
+                    }
+                    showMnemonicInfo()
+                } catch (_: IOException) {
+                    binding.encryptionStatus.setText(R.string.common_error)
+                }
+            }
+
+            else -> {
+                Log_OC.e(TAG, "Got empty private key string")
+            }
         }
     }
 
@@ -552,15 +531,12 @@ class SetupEncryptionDialogFragment :
         private const val KEY_GENERATE = "KEY_GENERATE"
 
         @JvmStatic
-        fun newInstance(user: User?, filePath: String?): SetupEncryptionDialogFragment {
-            val bundle = Bundle().apply {
-                putParcelable(ARG_USER, user)
-                putString(ARG_FILE_PATH, filePath)
+        fun newInstance(user: User?, filePath: String?): SetupEncryptionDialogFragment =
+            SetupEncryptionDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_USER, user)
+                    putString(ARG_FILE_PATH, filePath)
+                }
             }
-
-            return SetupEncryptionDialogFragment().apply {
-                arguments = bundle
-            }
-        }
     }
 }
