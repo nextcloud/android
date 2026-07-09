@@ -21,6 +21,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
@@ -54,6 +55,11 @@ class UnifiedPushWork(
         return Result.success()
     }
 
+    private fun ncClient(accountName: String): NextcloudClient {
+        val ocAccount = OwnCloudAccount(accountManager.getAccountByName(accountName), context)
+        return OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(ocAccount, context)
+    }
+
     @Suppress("ReturnCount")
     private fun register() {
         val url = inputData.getString(EXTRA_URL) ?: run {
@@ -72,8 +78,7 @@ class UnifiedPushWork(
             Log.w(TAG, "No auth supplied")
             return
         }
-        val ocAccount = OwnCloudAccount(accountManager.getAccountByName(accountName), context)
-        val mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(ocAccount, context)
+        val mClient = ncClient(accountName)
         RegisterAccountDeviceForWebPushOperation(
             endpoint = url,
             auth = auth,
@@ -97,8 +102,7 @@ class UnifiedPushWork(
             Log.w(TAG, "No account supplied")
             return
         }
-        val ocAccount = OwnCloudAccount(accountManager.getAccountByName(accountName), context)
-        val mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(ocAccount, context)
+        val mClient = ncClient(accountName)
         ActivateWebPushRegistrationOperation(token)
             .execute(mClient)
     }
@@ -108,8 +112,7 @@ class UnifiedPushWork(
             Log.w(TAG, "No account supplied")
             return
         }
-        val ocAccount = OwnCloudAccount(accountManager.getAccountByName(accountName), context)
-        val mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(ocAccount, context)
+        val mClient = ncClient(accountName)
         UnregisterAccountDeviceForWebPushOperation()
             .execute(mClient)
     }
