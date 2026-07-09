@@ -25,6 +25,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 import org.unifiedpush.android.connector.UnifiedPush
 import org.unifiedpush.android.connector.data.ResolvedDistributor
 
@@ -237,16 +238,22 @@ object CommonPushUtils {
         proxyPushToken: String?
     ) {
         CoroutineScope(Dispatchers.IO).launch {
-            val jobs = accountManager.accounts.map { account ->
-                CoroutineScope(Dispatchers.IO).launch {
-                    val ocAccount = OwnCloudAccount(account, context)
-                    val res = registerUnifiedPushForAccount(context, accountManager, ocAccount)
-                    if (res) {
-                        PushUtils.setRegistrationForAccountEnabled(account, false)
+            supervisorScope {
+                val jobs = accountManager.accounts.map { account ->
+                    launch {
+                        try {
+                            val ocAccount = OwnCloudAccount(account, context)
+                            val res = registerUnifiedPushForAccount(context, accountManager, ocAccount)
+                            if (res) {
+                                PushUtils.setRegistrationForAccountEnabled(account, false)
+                            }
+                        } catch (e: Exception) {
+                            Log_OC.e(TAG, "Failed to register push for ${account.name}", e)
+                        }
                     }
                 }
+                jobs.joinAll()
             }
-            jobs.joinAll()
             proxyPushToken?.let {
                 PushUtils.pushRegistrationToServer(accountManager, it)
             }
