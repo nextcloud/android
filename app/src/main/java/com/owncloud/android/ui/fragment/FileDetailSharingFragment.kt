@@ -199,14 +199,14 @@ class FileDetailSharingFragment :
         val fileActivity = getTypedActivity(FileActivity::class.java)
 
         lifecycleScope.launch(Dispatchers.IO) {
+            val user = user ?: return@launch
+            val file = file ?: return@launch
             val client = fileActivity?.clientRepository?.getOwncloudClient() ?: return@launch
-            val baseURL = user?.server?.uri?.toString() ?: return@launch
+            val sourceId = file.remoteId ?: return@launch
+
+            val baseURL = user.server.uri.toString()
             val serverCredentials = client.toServerCredentials(baseURL)
-            val sourceId = file?.remoteId ?: return@launch
-            var internalLink = ""
-            if (accountManager.currentOwnCloudAccount != null && file != null) {
-                internalLink = createInternalLink(accountManager.currentOwnCloudAccount!!, file!!)
-            }
+            val internalLink = createInternalLink(user, file, capabilities)
 
             withContext(Dispatchers.Main) {
                 binding.unifiedShare.initShareScreen(
