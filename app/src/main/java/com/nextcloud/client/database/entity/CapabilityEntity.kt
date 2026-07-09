@@ -155,7 +155,9 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_CLIENT_INTEGRATION_JSON)
     val clientIntegrationJson: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_MOD_REWRITE_WORKING)
-    val modRewriteWorking: Int?
+    val modRewriteWorking: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_JSON)
+    val sharingJson: String?
 )
 
 @Suppress("LongMethod", "ReturnCount")
@@ -238,6 +240,7 @@ fun CapabilityEntity?.toOCCapability(): OCCapability {
     capability.hasValidSubscription = intToBoolean(this.hasValidSubscription)
     capability.clientIntegrationJson = this.clientIntegrationJson
     capability.modRewriteWorking = intToBoolean(this.modRewriteWorking)
+    capability.sharingJson = this.sharingJson
 
     return capability
 }
