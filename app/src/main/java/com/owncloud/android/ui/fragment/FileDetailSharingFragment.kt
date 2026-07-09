@@ -47,7 +47,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SharesType
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
-import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -495,8 +494,15 @@ class FileDetailSharingFragment :
         binding.sharedWithYouNoteContainer.visibility = View.GONE
     }
 
-    private fun createInternalLink(account: OwnCloudAccount, file: OCFile): String =
-        account.baseUri.toString() + "/index.php/f/" + file.localId
+    @VisibleForTesting
+    internal fun createInternalLink(user: User, file: OCFile, capabilities: OCCapability?): String {
+        val linkPath = if (capabilities?.modRewriteWorking?.isTrue == true) {
+            INTERNAL_LINK_PATH_PRETTY
+        } else {
+            INTERNAL_LINK_PATH_DEFAULT
+        }
+        return user.server.uri.toString() + linkPath + file.localId
+    }
 
     private fun showSendLinkTo(publicShare: OCShare) {
         val file = file ?: return
@@ -685,14 +691,14 @@ class FileDetailSharingFragment :
     }
 
     override fun copyInternalLink() {
-        val account = accountManager.getCurrentOwnCloudAccount()
+        val user = user
 
-        if (account == null) {
+        if (user == null) {
             DisplayUtils.showSnackMessage(this, R.string.could_not_retrieve_url)
             return
         }
 
-        file?.let { FileActivity.showShareLinkDialog(fileActivity, file, createInternalLink(account, it)) }
+        file?.let { FileActivity.showShareLinkDialog(fileActivity, file, createInternalLink(user, it, capabilities)) }
     }
 
     private fun OCCapability?.isPasswordEnforced(): Boolean =
@@ -891,6 +897,8 @@ class FileDetailSharingFragment :
         private const val ARG_FILE = "FILE"
         private const val ARG_USER = "USER"
         private const val MIN_SHOW_ALL_VISIBLE_ITEM_COUNT = 3
+        private const val INTERNAL_LINK_PATH_PRETTY = "/f/"
+        private const val INTERNAL_LINK_PATH_DEFAULT = "/index.php/f/"
 
         @JvmStatic
         fun newInstance(file: OCFile?, user: User?): FileDetailSharingFragment = FileDetailSharingFragment().apply {
