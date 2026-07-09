@@ -786,7 +786,7 @@
     <string name="prefs_show_hidden_files">Rodyti paslėptus failus</string>
     <string name="prefs_sourcecode">Gauti pirminį kodą</string>
     <string name="prefs_sycned_folders_summary">Tvarkykite automatinio įkėlimo aplankus</string>
-    <string name="prefs_synced_folders_local_path_title">Aplankas vietinis</string>
+    <string name="prefs_synced_folders_local_path_title">Vietinis aplankas</string>
     <string name="prefs_synced_folders_remote_path_title">Nuotolinis aplankas</string>
     <string name="prefs_theme_title">Apipavidalinimas</string>
     <string name="prefs_two_way_sync_interval">Intervalas</string>
