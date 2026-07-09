@@ -13,6 +13,7 @@ import android.content.DialogInterface
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.TimeoutScope
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudAccount
@@ -21,13 +22,13 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.notifications.GetVAPIDOperation
 import com.owncloud.android.lib.resources.notifications.UnregisterAccountDeviceForWebPushOperation
 import com.owncloud.android.utils.theme.CapabilityUtils
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import org.unifiedpush.android.connector.UnifiedPush
 import org.unifiedpush.android.connector.data.ResolvedDistributor
+import java.time.Duration
 
 /**
  * Handle UnifiedPush (web push server side) and proxy push ([PushUtils]) registrations
@@ -55,7 +56,7 @@ object CommonPushUtils {
             ){
             tryUseUnifiedPush(activity, accountManager, preferences) {}
         } else {
-            CoroutineScope(Dispatchers.IO).launch {
+            TimeoutScope(Duration.ofMinutes(1L), Dispatchers.IO).launch {
                 PushUtils.pushRegistrationToServer(accountManager, preferences.pushToken)
             }
         }
@@ -199,7 +200,7 @@ object CommonPushUtils {
         accountManager: UserAccountManager,
         proxyPushToken: String?
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
+        TimeoutScope(Duration.ofMinutes(1L), Dispatchers.IO).launch {
             for (account in accountManager.getAccounts()) {
                 PushUtils.setRegistrationForAccountEnabled(account, true)
                 unregisterUnifiedPushForAccount(context, accountManager, OwnCloudAccount(account, context))
@@ -214,7 +215,7 @@ object CommonPushUtils {
         accountManager: UserAccountManager,
         account: OwnCloudAccount
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
+        TimeoutScope(Duration.ofMinutes(1L), Dispatchers.IO).launch {
             if (supportsWebPush(context, accountManager, account.name)) {
                 val mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(account, context)
                 UnregisterAccountDeviceForWebPushOperation()
@@ -237,7 +238,7 @@ object CommonPushUtils {
         accountManager: UserAccountManager,
         proxyPushToken: String?
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
+        TimeoutScope(Duration.ofMinutes(1L), Dispatchers.IO).launch {
             supervisorScope {
                 val jobs = accountManager.accounts.map { account ->
                     launch {
