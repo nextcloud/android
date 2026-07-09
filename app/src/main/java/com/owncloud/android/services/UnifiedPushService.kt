@@ -7,10 +7,10 @@
 
 package com.owncloud.android.services
 
-import android.util.Log
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.datamodel.WebPushJobData
+import com.owncloud.android.lib.common.utils.Log_OC
 import dagger.android.AndroidInjection
 import org.json.JSONException
 import org.json.JSONObject
@@ -32,7 +32,7 @@ class UnifiedPushService: PushService() {
     }
 
     override fun onNewEndpoint(endpoint: PushEndpoint, instance: String) {
-        Log.d(TAG, "Received new endpoint for $instance")
+        Log_OC.d(TAG, "Received new endpoint for $instance")
         // No reason to fail with the default key manager
         val key = endpoint.pubKeySet ?: return
         backgroundJobManager.startWebPushJob(
@@ -41,14 +41,15 @@ class UnifiedPushService: PushService() {
     }
 
     override fun onMessage(message: PushMessage, instance: String) {
-        Log.d(TAG, "Received new message for $instance")
         try {
             val token = JSONObject(message.content.toString(Charsets.UTF_8))
                 .getString("activationToken")
+            Log_OC.d(TAG, "Received activation push notification for $instance")
             backgroundJobManager.startWebPushJob(
                 WebPushJobData.Activate(instance, token)
             )
         } catch (_: JSONException) {
+            Log_OC.d(TAG, "Received push notification for $instance")
             // Messages are encrypted following RFC8291, and UnifiedPush lib handle the decryption itself:
             // message.content is the cleartext
             backgroundJobManager.startDecryptedNotificationJob(instance, message.content.toString(Charsets.UTF_8))
@@ -56,11 +57,11 @@ class UnifiedPushService: PushService() {
     }
 
     override fun onRegistrationFailed(reason: FailedReason, instance: String) {
-        Log.d(TAG, "Registration failed for $instance: $reason")
+        Log_OC.d(TAG, "Registration failed for $instance: $reason")
     }
 
     override fun onUnregistered(instance: String) {
-        Log.d(TAG, "Unregistered: $instance")
+        Log_OC.d(TAG, "Unregistered: $instance")
         backgroundJobManager.startWebPushJob(WebPushJobData.Unregister(instance))
         backgroundJobManager.mayResetUnifiedPush()
     }
