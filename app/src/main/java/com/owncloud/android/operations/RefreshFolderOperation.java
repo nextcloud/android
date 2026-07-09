@@ -538,19 +538,9 @@ public class RefreshFolderOperation extends RemoteOperation {
             final var workManager =  WorkManager.getInstance(mContext);
             final var tag = BackgroundJobManagerImpl.JOB_FILES_UPLOAD + user.getAccountName();
             boolean isWorkScheduled = WorkManagerExtensionsKt.isWorkScheduled(workManager, tag);
-
-            Log_OC.d(TAG, "file upload worker status: " + isWorkScheduled);
-
-            // wait until current uploads finish then verify metadata
-            while (isWorkScheduled) {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
-                isWorkScheduled = WorkManagerExtensionsKt.isWorkScheduled(workManager, tag);
-                Log_OC.d(TAG, "file upload worker updated status: " + isWorkScheduled);
+            if (isWorkScheduled) {
+                Log_OC.d(TAG, "Upload worker running for " + user.getAccountName() + "; deferring metadata/counter update to next refresh");
+                return;
             }
 
             object = getDecryptedFolderMetadata(encryptedAncestor,
