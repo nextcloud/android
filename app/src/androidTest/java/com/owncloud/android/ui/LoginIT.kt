@@ -28,6 +28,7 @@ import com.owncloud.android.authentication.AuthenticatorActivity
 import org.junit.AfterClass
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
@@ -53,6 +54,7 @@ class LoginIT : AbstractIT() {
     @Throws(InterruptedException::class)
     @Suppress("MagicNumber", "SwallowedException")
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.Q)
+    @Ignore("Login no longer uses an in-app WebView, so espresso-web (Espresso.onWebView) cannot drive it. ")
     fun login() {
         val arguments = InstrumentationRegistry.getArguments()
         val baseUrl = arguments.getString("TEST_SERVER_URL")!!
