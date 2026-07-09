@@ -40,34 +40,38 @@ class DrawerActivityIT : AbstractIT() {
 
     @get:Rule
     val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.POST_NOTIFICATIONS
     )
 
     @Test
     fun switchAccountViaAccountList() {
-        launchActivity<FileDisplayActivity>().use { scenario ->
-            var sut: FileDisplayActivity? = null
-            scenario.onActivity { activity ->
-                sut = activity
-            }
-
-            Assert.assertEquals(account1, sut!!.user.get().toPlatformAccount())
-
-            onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
-            onView(
-                Matchers.anyOf(
-                    ViewMatchers.withText(account2Name),
-                    ViewMatchers.withText(
-                        account2DisplayName
-                    )
-                )
-            ).perform(ViewActions.click())
-
-            Assert.assertEquals(account2, sut.user.get().toPlatformAccount())
-
-            onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
-            onView(ViewMatchers.withText(account1?.name)).perform(ViewActions.click())
+        // Switching accounts finishes and relaunches FileDisplayActivity (see
+        // FileDisplayActivity.handleRestartIntent). That self-relaunch is incompatible with
+        // ActivityScenario#close(), which cannot drive its tracked instance to DESTROYED, so the
+        // scenario is launched without auto-closing.
+        val scenario = launchActivity<FileDisplayActivity>()
+        lateinit var sut: FileDisplayActivity
+        scenario.onActivity { activity ->
+            sut = activity
         }
+
+        Assert.assertEquals(account1, sut.user.get().toPlatformAccount())
+
+        onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
+        onView(
+            Matchers.anyOf(
+                ViewMatchers.withText(account2Name),
+                ViewMatchers.withText(
+                    account2DisplayName
+                )
+            )
+        ).perform(ViewActions.click())
+
+        Assert.assertEquals(account2, sut.user.get().toPlatformAccount())
+
+        onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
+        onView(ViewMatchers.withText(account1?.name)).perform(ViewActions.click())
     }
 
     companion object {
