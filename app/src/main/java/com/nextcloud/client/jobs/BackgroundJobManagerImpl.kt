@@ -40,6 +40,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.WebPushJobData
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadType
 import kotlinx.coroutines.CoroutineScope
@@ -608,7 +609,7 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueue(request)
     }
 
-    override fun startWebPushJob(jobData: BackgroundJobManager.WebPushJobData) {
+    override fun startWebPushJob(jobData: WebPushJobData) {
         val request = oneTimeRequestBuilder(UnifiedPushWork::class, JOB_UNIFIEDPUSH)
             .setInputData(jobData.inputData)
             .build()

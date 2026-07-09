@@ -10,6 +10,7 @@ package com.owncloud.android.services
 import android.util.Log
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.owncloud.android.datamodel.WebPushJobData
 import dagger.android.AndroidInjection
 import org.json.JSONException
 import org.json.JSONObject
@@ -35,7 +36,7 @@ class UnifiedPushService: PushService() {
         // No reason to fail with the default key manager
         val key = endpoint.pubKeySet ?: return
         backgroundJobManager.startWebPushJob(
-            BackgroundJobManager.WebPushJobData.Register(instance, endpoint.url,key.pubKey, key.auth)
+            WebPushJobData.Register(instance, endpoint.url,key.pubKey, key.auth)
         )
     }
 
@@ -45,7 +46,7 @@ class UnifiedPushService: PushService() {
             val token = JSONObject(message.content.toString(Charsets.UTF_8))
                 .getString("activationToken")
             backgroundJobManager.startWebPushJob(
-                BackgroundJobManager.WebPushJobData.Activate(instance, token)
+                WebPushJobData.Activate(instance, token)
             )
         } catch (_: JSONException) {
             // Messages are encrypted following RFC8291, and UnifiedPush lib handle the decryption itself:
@@ -60,7 +61,7 @@ class UnifiedPushService: PushService() {
 
     override fun onUnregistered(instance: String) {
         Log.d(TAG, "Unregistered: $instance")
-        backgroundJobManager.startWebPushJob(BackgroundJobManager.WebPushJobData.Unregister(instance))
+        backgroundJobManager.startWebPushJob(WebPushJobData.Unregister(instance))
         backgroundJobManager.mayResetUnifiedPush()
     }
 
