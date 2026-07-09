@@ -42,6 +42,8 @@
     <string name="app_widget_description">Показва един изпълним модул от таблото за управление</string>
     <string name="appbar_search_in">Търсене в %s</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Изтрива задача</string>
+    <string name="assistant_screen_send_message">Изпрати съобщение</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">Отвори списък с разговори</string>
     <string name="assistant_screen_top_bar_title">Асистент</string>
     <string name="assistant_task_status_running">в процес</string>
     <string name="assistant_task_status_unknown">неясна</string>
