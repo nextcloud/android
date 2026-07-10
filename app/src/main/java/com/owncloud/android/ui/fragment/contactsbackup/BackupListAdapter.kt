@@ -127,6 +127,12 @@ class BackupListAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
+    fun reloadCalendars() {
+        cachedAndroidCalendars = AndroidCalendar.loadAll(context.contentResolver)
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
     fun replaceVcards(vCards: List<VCard>) {
         contacts.clear()
         contacts.addAll(vCards)
