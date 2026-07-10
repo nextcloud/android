@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.activity
 
-import android.Manifest
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.net.Uri
@@ -21,7 +20,7 @@ import androidx.test.rule.GrantPermissionRule
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
-import com.nextcloud.test.GrantPostNotificationsPermissionRule
+import com.nextcloud.test.GrantTestPermissionRule
 import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.MainApp
@@ -40,8 +39,7 @@ class DrawerActivityIT : AbstractIT() {
     val retryTestRule = RetryTestRule()
 
     @get:Rule
-    val permissionRule: GrantPermissionRule =
-        GrantPostNotificationsPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    val permissionRule: GrantPermissionRule = GrantTestPermissionRule.grantStorageAndNotification()
 
     @Test
     fun switchAccountViaAccountList() {
