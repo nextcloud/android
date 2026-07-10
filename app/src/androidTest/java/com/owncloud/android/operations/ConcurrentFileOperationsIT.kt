@@ -10,9 +10,8 @@ import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadWorker
-import com.nextcloud.client.network.Connectivity
+import com.nextcloud.client.network.ConnectivityManagerFactory
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.client.network.NetworkChangeListener
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -34,14 +33,7 @@ class ConcurrentFileOperationsIT : AbstractOnServerIT() {
         private const val FILE_COUNT = 3
     }
 
-    private val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
-        override fun addListener(listener: NetworkChangeListener) = Unit
-        override fun removeListener(listener: NetworkChangeListener) = Unit
-        override fun isNetworkAndServerAvailable(callback: ConnectivityService.GenericCallback<Boolean>) = Unit
-        override fun isConnected(): Boolean = true
-        override fun isInternetWalled(): Boolean = false
-        override fun getConnectivity(): Connectivity = Connectivity.CONNECTED_WIFI
-    }
+    private val connectivityServiceMock: ConnectivityService = ConnectivityManagerFactory.wifi
 
     private val powerManagementServiceMock: PowerManagementService = object : PowerManagementService {
         override val isIgnoringOptimization: Boolean get() = true
@@ -152,7 +144,7 @@ class ConcurrentFileOperationsIT : AbstractOnServerIT() {
                     ).execute(client)
 
                     if (!result.isSuccess) {
-                        errors.add("Upload INSTANCE_NOT_CONFIGURED for $remotePath")
+                        errors.add("Upload ${result.code} for $remotePath")
                     }
                 }
             } finally {
@@ -171,7 +163,7 @@ class ConcurrentFileOperationsIT : AbstractOnServerIT() {
                 ocFiles.forEach { ocFile ->
                     val result = DownloadFileOperation(user, ocFile, targetContext).execute(client)
                     if (!result.isSuccess) {
-                        errors.add("Download INSTANCE_NOT_CONFIGURED for ${ocFile.remotePath}")
+                        errors.add("Download ${result.code} for ${ocFile.remotePath}")
                     }
                 }
             } finally {
@@ -199,7 +191,7 @@ class ConcurrentFileOperationsIT : AbstractOnServerIT() {
                         storageManager
                     ).execute(client)
                     if (!result.isSuccess) {
-                        errors.add("DeleteLocalOnly INSTANCE_NOT_CONFIGURED for ${ocFile.remotePath}")
+                        errors.add("DeleteLocalOnly ${result.code} for ${ocFile.remotePath}")
                     }
                 }
             } finally {
