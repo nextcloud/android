@@ -27,10 +27,11 @@
 
     <ProgressBar
         android:id="@+id/login_webview_progress_bar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
+        style="@style/Widget.Material3.CircularProgressIndicator"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:indeterminate="true" />
+        android:indeterminate="true"
+        android:indeterminateTint="@color/login_text_color" />
 
 </FrameLayout>
