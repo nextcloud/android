@@ -112,9 +112,14 @@ public class AndroidCalendar {
     }
 
     private static boolean missing(ContentResolver resolver, Uri uri) {
-        // Determine if a provider is missing
+        // Determine if a provider is missing or inaccessible.
+        // acquireContentProviderClient throws SecurityException when the calendar
+        // permission has not been granted, so treat that as missing too.
         try (ContentProviderClient provider = resolver.acquireContentProviderClient(uri)) {
             return provider == null;
+        } catch (SecurityException e) {
+            Log_OC.w(TAG, "Calendar provider is not accessible: " + e.getMessage());
+            return true;
         }
     }
 
