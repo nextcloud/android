@@ -23,7 +23,7 @@ class FileExportUtilsIT : AbstractIT() {
         val sut = FileExportUtils()
 
         val expectedFile = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-            File("/sdcard/Downloads/export.txt")
+            File("/sdcard/Download/export.txt")
         } else {
             File("/storage/emulated/0/Download/export.txt")
         }
@@ -47,7 +47,7 @@ class FileExportUtilsIT : AbstractIT() {
         val sut = FileExportUtils()
 
         val expectedFile = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-            File("/sdcard/Downloads/export.txt")
+            File("/sdcard/Download/export.txt")
         } else {
             File("/storage/emulated/0/Download/export.txt")
         }
