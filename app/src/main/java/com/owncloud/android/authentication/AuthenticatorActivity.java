@@ -97,7 +97,6 @@ import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.NextcloudWebViewClient;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
-import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.DisplayUtils;
@@ -1014,16 +1013,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * server.
      */
     private void checkBasicAuthorization(@Nullable String webViewUsername, @Nullable String webViewPassword) {
-        // be gentle with the user
-        IndeterminateProgressDialog dialog = IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login,
-                                                                                     true);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(dialog, WAIT_DIALOG_TAG);
-        ft.commitAllowingStateLoss();
-
-        // validate credentials accessing the root folder
-        OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(webViewUsername,
-                                                                                         webViewPassword);
+        OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(webViewUsername, webViewPassword);
         accessRootFolder(credentials);
     }
 
@@ -1132,7 +1122,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         MaterialButton cancelButton = accountSetupWebviewBinding.loginFlowV2.cancelButton;
         loginFlowLayout.setVisibility(View.VISIBLE);
 
-        // add margin bottom to prevent overlapping with system bars
+        // add bottom padding to prevent overlapping with system bars
         ViewCompat.setOnApplyWindowInsetsListener(loginFlowLayout, (view, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             view.setPadding(
@@ -1142,6 +1132,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 systemBars.bottom);
             return insets;
         });
+        // the listener is attached after the initial insets dispatch, so request a fresh pass
+        ViewCompat.requestApplyInsets(loginFlowLayout);
 
         cancelButton.setOnClickListener(v -> {
             loginFlowExecutorService.shutdown();
