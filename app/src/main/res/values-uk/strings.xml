@@ -499,7 +499,7 @@
     <string name="file_version_restored_error">Помилка під час відновлення версії файлу!</string>
     <string name="filedetails_details">Деталі</string>
     <string name="filedetails_download">Отримати</string>
-    <string name="filedetails_export">Експортувати</string>
+    <string name="filedetails_export">Експорт</string>
     <string name="filedetails_renamed_in_upload_msg">Під час завантаження назву файлу було змінено %1$s</string>
     <string name="filedetails_sync_all_files">Синхронізувати все</string>
     <string name="filedetails_sync_file">Синхронізація</string>
