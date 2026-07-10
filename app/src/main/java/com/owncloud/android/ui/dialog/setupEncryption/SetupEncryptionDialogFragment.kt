@@ -21,6 +21,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SetupEncryptionDialogBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -34,6 +35,7 @@ import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
+import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.crypto.CryptoHelper
@@ -237,6 +239,7 @@ class SetupEncryptionDialogFragment :
     }
 
     private fun generateKey() {
+        binding.copyPassphraseButton.visibility = View.GONE
         binding.encryptionPassphrase.visibility = View.GONE
         positiveButton?.visibility = View.GONE
         negativeButton?.visibility = View.GONE
@@ -499,6 +502,8 @@ class SetupEncryptionDialogFragment :
         binding.encryptionPassphrase.text = generateMnemonicString(true)
         binding.encryptionPassphrase.visibility = View.VISIBLE
 
+        setupCopyPassphraseButton()
+
         positiveButton?.setText(R.string.end_to_end_encryption_confirm_button)
         positiveButton?.visibility = View.VISIBLE
         negativeButton?.visibility = View.VISIBLE
@@ -510,6 +515,17 @@ class SetupEncryptionDialogFragment :
         }
 
         keyResult = KEY_GENERATE
+    }
+
+    private fun setupCopyPassphraseButton() {
+        if (!BuildConfig.DEBUG) {
+            return
+        }
+
+        binding.copyPassphraseButton.visibility = View.VISIBLE
+        binding.copyPassphraseButton.setOnClickListener {
+            ClipboardUtil.copyToClipboard(requireActivity(), binding.encryptionPassphrase.text.toString())
+        }
     }
 
     @VisibleForTesting
