@@ -1130,7 +1130,9 @@ class FileDisplayActivity :
                         )
                     }
                 } else {
-                    fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths)
+                    }
                 }
             }
         } else {
