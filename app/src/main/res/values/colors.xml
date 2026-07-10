@@ -61,7 +61,6 @@
     <color name="task_container">#F4F4F4</color>
     <color name="icon_on_nc_grey">#000000</color>
     <color name="foreground_highlight">#1D1B1E</color>
-    <color name="process_dialog_background">#ffffff</color>
     <color name="indicator_dot_selected">#ffffff</color>
     <color name="drawer_shadow">#000000</color>
     <color name="online">#2D7B41</color>
