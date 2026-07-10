@@ -145,6 +145,7 @@ public class UploadFileOperation extends SyncOperation {
     private final boolean mDisableRetries;
 
     private boolean mWasRenamed;
+    private boolean mWasSkipped;
     private long mOCUploadId;
     /**
      * Local path to file which is to be uploaded (before any possible renaming or moving).
@@ -343,6 +344,10 @@ public class UploadFileOperation extends SyncOperation {
 
     public boolean wasRenamed() {
         return mWasRenamed;
+    }
+
+    public boolean wasSkipped() {
+        return mWasSkipped;
     }
 
     public void setCreatedBy(int createdBy) {
@@ -1285,6 +1290,7 @@ public class UploadFileOperation extends SyncOperation {
             switch (mNameCollisionPolicy) {
                 case SKIP:
                     Log_OC.d(TAG, "user choose to skip upload if same file exists");
+                    mWasSkipped = true;
                     return new RemoteOperationResult<>(ResultCode.OK);
                 case RENAME:
                     mRemotePath = getNewAvailableRemotePath(client, mRemotePath, fileNames, encrypted);

@@ -635,13 +635,18 @@ class UploadListAdapter(
         val capabilities = optionalCapabilities.get()
 
         activity.lifecycleScope.launch(Dispatchers.IO) {
+            val succeededUploads = uploadHelper.getUploadsByStatus(
+                accountName,
+                UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED,
+                capabilities
+            )
+
             val updatedSections = uploadListSections.map { sec ->
-                val uploads = uploadHelper.getUploadsByStatus(
-                    accountName,
-                    sec.status,
-                    capabilities,
-                    sec.collisionPolicy
-                )
+                val uploads = when (sec.type) {
+                    UploadListType.COMPLETED -> succeededUploads.filter { it.lastResult != UploadResult.SKIPPED }
+                    UploadListType.SKIPPED -> succeededUploads.filter { it.lastResult == UploadResult.SKIPPED }
+                    else -> uploadHelper.getUploadsByStatus(accountName, sec.status, capabilities)
+                }
                 uploads.forEach { it.setDataFixed(uploadHelper) }
                 sec.withItems(uploads.sortedByUploadOrder())
             }

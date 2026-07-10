@@ -452,6 +452,7 @@ class UploadsStorageManager(
         val deleted = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_SUCCEEDED.value +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.SKIPPED.value +
                 AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL,
             arrayOf(user.accountName)
         )
@@ -464,7 +465,7 @@ class UploadsStorageManager(
         val deleted = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_SUCCEEDED.value +
-                AND + ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY + EQUAL + NameCollisionPolicy.SKIP.serialize() +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + EQUAL + UploadResult.SKIPPED.value +
                 AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL,
             arrayOf(user.accountName)
         )
@@ -493,7 +494,7 @@ class UploadsStorageManager(
 
         if (uploadResult.isSuccess) {
             status = UploadStatus.UPLOAD_SUCCEEDED
-            result = UploadResult.UPLOADED
+            result = if (upload.wasSkipped()) UploadResult.SKIPPED else UploadResult.UPLOADED
         } else if (code.isConflict()) {
             val isSame = FileUploadHelper().isSameFileOnRemote(
                 upload.user,

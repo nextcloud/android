@@ -8,16 +8,12 @@
 package com.nextcloud.utils.extensions
 
 import android.content.Context
-import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
-import com.owncloud.android.files.services.NameCollisionPolicy
 
 fun List<OCUpload>.getUploadIds(): LongArray = map { it.uploadId }.toLongArray()
-
-fun Array<OCUpload>.getUploadIds(): LongArray = map { it.uploadId }.toLongArray()
 
 fun List<OCUpload>.sortedByUploadOrder(): List<OCUpload> = sortedWith(
     compareBy<OCUpload> { it.fixedUploadStatus }
@@ -41,14 +37,19 @@ fun OCUpload.getStatusText(activity: Context, isGlobalUploadPaused: Boolean, isU
         }
 
         UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED -> {
-            status = if (lastResult == UploadResult.SAME_FILE_CONFLICT) {
-                res.getString(R.string.uploads_view_upload_status_succeeded_same_file)
-            } else if (lastResult == UploadResult.FILE_NOT_FOUND) {
-                lastResult.getFailedStatusText(activity)
-            } else if (nameCollisionPolicy == NameCollisionPolicy.SKIP) {
-                res.getString(R.string.uploads_view_upload_status_skip_reason)
-            } else {
-                res.getString(R.string.uploads_view_upload_status_succeeded)
+            status = when (lastResult) {
+                UploadResult.SAME_FILE_CONFLICT -> {
+                    res.getString(R.string.uploads_view_upload_status_succeeded_same_file)
+                }
+                UploadResult.FILE_NOT_FOUND -> {
+                    lastResult.getFailedStatusText(activity)
+                }
+                UploadResult.SKIPPED -> {
+                    res.getString(R.string.uploads_view_upload_status_skip_reason)
+                }
+                else -> {
+                    res.getString(R.string.uploads_view_upload_status_succeeded)
+                }
             }
         }
 
