@@ -69,7 +69,6 @@ class ConnectivityServiceImpl(
     init {
         connectivityManager.registerDefaultNetworkCallback(networkCallback)
         updateConnectivity()
-        Log_OC.d(TAG, "connectivity service constructed")
     }
 
     // region overridden methods
