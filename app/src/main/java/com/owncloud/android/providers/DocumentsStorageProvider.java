@@ -362,20 +362,20 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String renameDocument(String documentId, String displayName) throws FileNotFoundException {
         Log_OC.d(TAG, "renameDocument(), id=" + documentId);
 
-        String errorMessage = checkFileName(displayName);
-        if (errorMessage != null) {
-            showToast(errorMessage);
-            return null;
-        }
-
-        Document document = toDocument(documentId);
-        if (!document.getFile().canRename()) {
-            showToast(R.string.document_storage_provider_cannot_rename);
-            return null;
-        }
-
         final long token = Binder.clearCallingIdentity();
         try {
+            String errorMessage = checkFileName(displayName);
+            if (errorMessage != null) {
+                showToast(errorMessage);
+                return null;
+            }
+
+            Document document = toDocument(documentId);
+            if (!document.getFile().canRename()) {
+                showToast(R.string.document_storage_provider_cannot_rename);
+                return null;
+            }
+
             final var result = new RenameFileOperation(document.getRemotePath(),
                                                                    displayName,
                                                                    document.getStorageManager())
@@ -400,20 +400,20 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String copyDocument(String sourceDocumentId, String targetParentDocumentId) throws FileNotFoundException {
         Log_OC.d(TAG, "copyDocument(), id=" + sourceDocumentId);
 
-        Document targetFolder = toDocument(targetParentDocumentId);
-
-        String filename = targetFolder.getFile().getFileName();
-        isFolderPathValid = checkFolderPath(filename);
-        if (!isFolderPathValid) {
-            showToast(R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
-            return null;
-        }
-
-        Document document = toDocument(sourceDocumentId);
-        FileDataStorageManager storageManager = document.getStorageManager();
-
         final long token = Binder.clearCallingIdentity();
         try {
+            Document targetFolder = toDocument(targetParentDocumentId);
+
+            String filename = targetFolder.getFile().getFileName();
+            isFolderPathValid = checkFolderPath(filename);
+            if (!isFolderPathValid) {
+                showToast(R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
+                return null;
+            }
+
+            Document document = toDocument(sourceDocumentId);
+            FileDataStorageManager storageManager = document.getStorageManager();
+
             final var result = new CopyFileOperation(document.getRemotePath(),
                                                                  targetFolder.getRemotePath(),
                                                                  document.getStorageManager())
@@ -464,23 +464,23 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         throws FileNotFoundException {
         Log_OC.d(TAG, "moveDocument(), id=" + sourceDocumentId);
 
-        Document targetFolder = toDocument(targetParentDocumentId);
-
-        String filename = targetFolder.getFile().getFileName();
-        isFolderPathValid = checkFolderPath(filename);
-        if (!isFolderPathValid) {
-            showToast(R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
-            return null;
-        }
-
-        Document document = toDocument(sourceDocumentId);
-        if (!document.getFile().canMove()) {
-            showToast(R.string.document_storage_provider_cannot_move);
-            return null;
-        }
-
         final long token = Binder.clearCallingIdentity();
         try {
+            Document targetFolder = toDocument(targetParentDocumentId);
+
+            String filename = targetFolder.getFile().getFileName();
+            isFolderPathValid = checkFolderPath(filename);
+            if (!isFolderPathValid) {
+                showToast(R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
+                return null;
+            }
+
+            Document document = toDocument(sourceDocumentId);
+            if (!document.getFile().canMove()) {
+                showToast(R.string.document_storage_provider_cannot_move);
+                return null;
+            }
+
             final var result = new MoveFileOperation(document.getRemotePath(),
                                                                  targetFolder.getRemotePath(),
                                                                  document.getStorageManager())
@@ -538,20 +538,20 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String createDocument(String documentId, String mimeType, String displayName) throws FileNotFoundException {
         Log_OC.d(TAG, "createDocument(), id=" + documentId);
 
-        String errorMessage = checkFileName(displayName);
-        if (errorMessage != null) {
-            showToast(errorMessage);
-            return null;
-        }
-
-        Document folderDocument = toDocument(documentId);
-        if (!folderDocument.getFile().canCreateFileAndFolder()) {
-            showToast(R.string.document_storage_provider_cannot_create_file_and_folder);
-            return null;
-        }
-
         final long token = Binder.clearCallingIdentity();
         try {
+            String errorMessage = checkFileName(displayName);
+            if (errorMessage != null) {
+                showToast(errorMessage);
+                return null;
+            }
+
+            Document folderDocument = toDocument(documentId);
+            if (!folderDocument.getFile().canCreateFileAndFolder()) {
+                showToast(R.string.document_storage_provider_cannot_create_file_and_folder);
+                return null;
+            }
+
             if (DocumentsContract.Document.MIME_TYPE_DIR.equalsIgnoreCase(mimeType)) {
                 return createFolder(folderDocument, displayName);
             } else {
