@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 101;
+    public static final int DB_VERSION = 102;
 
     private ProviderMeta() {
         // No instance
@@ -209,6 +209,7 @@ public class ProviderMeta {
         public static final String OCSHARES_ID_REMOTE_SHARED = "id_remote_shared";
         public static final String OCSHARES_ACCOUNT_OWNER = "owner_share";
         public static final String OCSHARES_IS_PASSWORD_PROTECTED = "is_password_protected";
+        public static final String OCSHARES_SEND_PASSWORD_BY_TALK = "send_password_by_talk";
         public static final String OCSHARES_NOTE = "note";
         public static final String OCSHARES_HIDE_DOWNLOAD = "hide_download";
         public static final String OCSHARES_SHARE_LINK = "share_link";

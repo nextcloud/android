@@ -1687,6 +1687,7 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
         contentValues.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, user.getAccountName());
         contentValues.put(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED, share.isPasswordProtected() ? 1 : 0);
+        contentValues.put(ProviderTableMeta.OCSHARES_SEND_PASSWORD_BY_TALK, share.isSendPasswordByTalk() ? 1 : 0);
         contentValues.put(ProviderTableMeta.OCSHARES_NOTE, share.getNote());
         contentValues.put(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD, share.isHideFileDownload());
         contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LINK, share.getShareLink());
@@ -1717,6 +1718,7 @@ public class FileDataStorageManager {
         share.setUserId(getString(cursor, ProviderTableMeta.OCSHARES_USER_ID));
         share.setRemoteId(getLong(cursor, ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED));
         share.setPasswordProtected(getInt(cursor, ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED) == 1);
+        share.setSendPasswordByTalk(getInt(cursor, ProviderTableMeta.OCSHARES_SEND_PASSWORD_BY_TALK) == 1);
         share.setNote(getString(cursor, ProviderTableMeta.OCSHARES_NOTE));
         share.setHideFileDownload(getInt(cursor, ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD) == 1);
         share.setShareLink(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));

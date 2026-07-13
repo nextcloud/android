@@ -536,6 +536,7 @@ public class FileOperationsHelper {
                                     int permissions,
                                     boolean hideFileDownload,
                                     String password,
+                                    boolean isVideoVerification,
                                     long expirationTimeInMillis,
                                     String note,
                                     String attributes,
@@ -557,6 +558,7 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
             service.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
             service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
+            service.putExtra(OperationsService.EXTRA_VIDEO_VERIFICATION, isVideoVerification);
             service.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
             service.putExtra(OperationsService.EXTRA_SHARE_NOTE, (note == null) ? "" : note);
             service.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
@@ -758,6 +760,7 @@ public class FileOperationsHelper {
                                        int permissions,
                                        boolean hideFileDownload,
                                        String password,
+                                       boolean isVideoVerification,
                                        long expirationTimeInMillis,
                                        String label) {
         final var id = share.getId();
@@ -778,6 +781,7 @@ public class FileOperationsHelper {
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, password);
+        updateShareIntent.putExtra(OperationsService.EXTRA_VIDEO_VERIFICATION, isVideoVerification);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ATTRIBUTES, attributes);
