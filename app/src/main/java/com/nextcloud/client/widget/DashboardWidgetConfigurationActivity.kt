@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -32,7 +33,6 @@ import com.owncloud.android.ui.adapter.DashboardWidgetListAdapter
 import com.owncloud.android.ui.dialog.AccountChooserInterface
 import com.owncloud.android.ui.dialog.MultipleAccountsDialog
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -43,7 +43,7 @@ class DashboardWidgetConfigurationActivity :
     DashboardWidgetConfigurationInterface,
     Injectable,
     AccountChooserInterface {
-    private lateinit var mAdapter: DashboardWidgetListAdapter
+    private lateinit var adapter: DashboardWidgetListAdapter
     private lateinit var binding: DashboardWidgetConfigurationLayoutBinding
     private lateinit var currentUser: User
 
@@ -78,7 +78,7 @@ class DashboardWidgetConfigurationActivity :
 
         val layoutManager = LinearLayoutManager(this)
         // TODO follow our new architecture
-        mAdapter = DashboardWidgetListAdapter(
+        adapter = DashboardWidgetListAdapter(
             lifecycleScope,
             accountManager,
             clientFactory,
@@ -87,7 +87,7 @@ class DashboardWidgetConfigurationActivity :
         )
         binding.list.apply {
             setHasFooter(false)
-            setAdapter(mAdapter)
+            adapter = this@DashboardWidgetConfigurationActivity.adapter
             setLayoutManager(layoutManager)
             setEmptyView(binding.emptyView.emptyListView)
         }
@@ -112,9 +112,11 @@ class DashboardWidgetConfigurationActivity :
                 visibility = View.VISIBLE
                 text = currentUser.accountName
                 setOnClickListener {
-                    val dialog = MultipleAccountsDialog()
-                    dialog.highlightCurrentlyActiveAccount = false
-                    dialog.show(supportFragmentManager, null)
+                    MultipleAccountsDialog().apply {
+                        highlightCurrentlyActiveAccount = false
+                    }.also {
+                        it.show(supportFragmentManager, null)
+                    }
                 }
             }
         }
@@ -141,48 +143,72 @@ class DashboardWidgetConfigurationActivity :
             binding.accountName.text = user.accountName
         }
 
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
-                val client = clientFactory.createNextcloudClient(user)
-                val result = DashboardListWidgetsRemoteOperation().execute(client)
-
-                withContext(Dispatchers.Main) {
-                    if (result.isSuccess) {
-                        mAdapter.setWidgetList(result.resultData)
-                    } else if (result.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND) {
-                        mAdapter.setWidgetList(null)
-                        binding.emptyView.root.visibility = View.VISIBLE
-                        binding.emptyView.emptyListViewHeadline.setText(R.string.widgets_not_available_title)
-
-                        binding.emptyView.emptyListIcon.apply {
-                            setImageResource(R.drawable.ic_list_empty_error)
-                            visibility = View.VISIBLE
-                        }
-                        binding.emptyView.emptyListViewText.apply {
-                            text = String.format(
-                                getString(R.string.widgets_not_available),
-                                getString(R.string.app_name)
-                            )
-                            visibility = View.VISIBLE
-                        }
-                    }
-                }
+        lifecycleScope.launch {
+            val result = fetchWidgets(user)
+            if (result == null) {
+                showErrorState(user)
+                return@launch
             }
-        } catch (e: CreationException) {
-            Log_OC.e(this, "Error loading widgets for user $user", e)
 
-            mAdapter.setWidgetList(null)
-            binding.emptyView.root.visibility = View.VISIBLE
+            handleResult(result)
+        }
+    }
 
-            binding.emptyView.emptyListIcon.apply {
+    @Suppress("DEPRECATION")
+    private suspend fun fetchWidgets(user: User): RemoteOperationResult<Map<String, DashboardWidget>>? =
+        withContext(Dispatchers.IO) {
+            try {
+                val client = clientFactory.createNextcloudClient(user)
+                DashboardListWidgetsRemoteOperation().execute(client)
+            } catch (e: CreationException) {
+                Log_OC.e(this@DashboardWidgetConfigurationActivity, "Error loading widgets for user $user", e)
+                null
+            }
+        }
+
+    private fun handleResult(result: RemoteOperationResult<Map<String, DashboardWidget>>) {
+        if (result.isSuccess) {
+            adapter.setWidgetList(result.resultData)
+            return
+        }
+
+        if (result.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND) {
+            showWidgetsNotAvailableState()
+        }
+    }
+
+    private fun showWidgetsNotAvailableState() {
+        adapter.setWidgetList(null)
+        binding.emptyView.root.visibility = View.VISIBLE
+        binding.emptyView.emptyListViewHeadline.setText(R.string.widgets_not_available_title)
+
+        binding.emptyView.emptyListIcon.apply {
+            setImageResource(R.drawable.ic_list_empty_error)
+            visibility = View.VISIBLE
+        }
+        binding.emptyView.emptyListViewText.apply {
+            text = String.format(
+                getString(R.string.widgets_not_available),
+                getString(R.string.app_name)
+            )
+            visibility = View.VISIBLE
+        }
+    }
+
+    private fun showErrorState(user: User) {
+        adapter.setWidgetList(null)
+        binding.emptyView.run {
+            root.visibility = View.VISIBLE
+
+            emptyListIcon.apply {
                 setImageResource(R.drawable.ic_list_empty_error)
                 visibility = View.VISIBLE
             }
-            binding.emptyView.emptyListViewText.apply {
+            emptyListViewText.apply {
                 setText(R.string.common_error)
                 visibility = View.VISIBLE
             }
-            binding.emptyView.emptyListViewAction.apply {
+            emptyListViewAction.apply {
                 visibility = View.VISIBLE
                 setText(R.string.reload)
                 setOnClickListener {
