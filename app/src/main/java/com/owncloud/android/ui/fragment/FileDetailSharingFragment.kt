@@ -770,10 +770,13 @@ class FileDetailSharingFragment :
             return
         }
 
+        val userId = shareWith ?: return
+        val activity = fileActivity ?: return
+
         RetrieveHoverCardAsyncTask(
             user,
-            shareWith,
-            fileActivity,
+            userId,
+            activity,
             clientFactory,
             viewThemeUtils
         ).execute()

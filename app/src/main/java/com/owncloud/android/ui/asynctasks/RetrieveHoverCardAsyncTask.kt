@@ -1,78 +1,67 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2021 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2021 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.asynctasks;
+package com.owncloud.android.ui.asynctasks
 
-import android.os.AsyncTask;
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
+import com.nextcloud.android.lib.resources.profile.GetHoverCardRemoteOperation
+import com.nextcloud.client.account.User
+import com.nextcloud.client.network.ClientFactory
+import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-import com.nextcloud.android.lib.resources.profile.GetHoverCardRemoteOperation;
-import com.nextcloud.android.lib.resources.profile.HoverCard;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.common.NextcloudClient;
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.lang.ref.WeakReference;
-
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Lifecycle;
-
-public class RetrieveHoverCardAsyncTask extends AsyncTask<Void, Void, HoverCard> {
-    private final User user;
-    private final String userId;
-    private final WeakReference<FragmentActivity> activityWeakReference;
-    private final ClientFactory clientFactory;
-    private final ViewThemeUtils viewThemeUtils;
-
-    public RetrieveHoverCardAsyncTask(User user,
-                                      String userId,
-                                      FragmentActivity activity,
-                                      ClientFactory clientFactory,
-                                      ViewThemeUtils viewThemeUtils) {
-        this.user = user;
-        this.userId = userId;
-        this.activityWeakReference = new WeakReference<>(activity);
-        this.clientFactory = clientFactory;
-        this.viewThemeUtils = viewThemeUtils;
+class RetrieveHoverCardAsyncTask(
+    private val user: User,
+    private val userId: String,
+    private val activity: FragmentActivity,
+    private val clientFactory: ClientFactory,
+    private val viewThemeUtils: ViewThemeUtils
+) {
+    companion object {
+        private const val TAG = "RetrieveHoverCardAsyncTask"
     }
 
-    @Override
-    protected HoverCard doInBackground(Void... voids) {
-        try {
-            NextcloudClient client = clientFactory.createNextcloudClient(user);
-            RemoteOperationResult<HoverCard> result = new GetHoverCardRemoteOperation(userId).execute(client);
-
-            if (result.isSuccess()) {
-                return result.getResultData();
-            } else {
-                return null;
+    @Suppress("TooGenericExceptionCaught")
+    fun execute() {
+        activity.lifecycleScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                val client = clientFactory.createNextcloudClient(user)
+                val operationResult = GetHoverCardRemoteOperation(userId).execute(client)
+                return@withContext try {
+                    if (operationResult.isSuccess) {
+                        operationResult.getResultData()
+                    } else {
+                        null
+                    }
+                } catch (e: Exception) {
+                    Log_OC.e(TAG, "exception: $e")
+                    null
+                }
             }
-        } catch (ClientFactory.CreationException | NullPointerException e) {
-            return null;
-        }
-    }
 
-    @Override
-    protected void onPostExecute(HoverCard hoverCard) {
-        FragmentActivity activity = this.activityWeakReference.get();
+            withContext(Dispatchers.Main) {
+                if (result?.actions.isNullOrEmpty()) {
+                    DisplayUtils.showSnackMessage(activity, R.string.no_actions)
+                    return@withContext
+                }
 
-        if (activity != null && activity.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
-            if (hoverCard.getActions().size() > 0) {
-                new ProfileBottomSheetDialog(activity,
-                                             user,
-                                             hoverCard,
-                                             viewThemeUtils)
-                    .show();
-            } else {
-                DisplayUtils.showSnackMessage(activity, R.string.no_actions);
+                ProfileBottomSheetDialog(
+                    activity,
+                    user,
+                    result,
+                    viewThemeUtils
+                )
+                    .show()
             }
         }
     }
