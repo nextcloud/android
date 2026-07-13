@@ -26,10 +26,20 @@ until [[ "$bootanim" =~ "stopped" ]]; do
 done
 echo "($checkcounter) Done"
 
+# The bootanim service can stop before the system is fully booted; wait for it so the
+# settings below actually stick.
+until [[ "$(adb -e shell getprop sys.boot_completed 2>&1 | tr -d '[:space:]')" == "1" ]]; do
+   sleep 2
+done
+
 # Keep the screen awake and unlocked for the whole run. On a headless emulator the
 # screen can sleep or keep the keyguard up, which leaves the app window without focus
 # and makes Espresso fail with RootViewWithoutFocusException.
+# stayon only prevents future sleep, so we also wake the screen and drop the keyguard.
+adb -e shell settings put system screen_off_timeout 2147483647
 adb -e shell svc power stayon true
+adb -e shell input keyevent 224          # KEYCODE_WAKEUP: turn a sleeping screen back on
+adb -e shell locksettings set-disabled true
 adb -e shell wm dismiss-keyguard
 adb -e shell input keyevent 82
 
