@@ -135,17 +135,17 @@ public class UploadFileOperation extends SyncOperation {
     private OCFile mOldFile;
     private String mRemotePath;
     private String mFolderUnlockToken;
-    private boolean mRemoteFolderToBeCreated;
+    private volatile boolean mRemoteFolderToBeCreated;
     private NameCollisionPolicy mNameCollisionPolicy;
     private int mLocalBehaviour;
-    private int mCreatedBy;
+    private volatile int mCreatedBy;
     private boolean mOnWifiOnly;
     private boolean mWhileChargingOnly;
     private boolean mIgnoringPowerSaveMode;
     private final boolean mDisableRetries;
 
-    private boolean mWasRenamed;
-    private boolean mWasSkipped;
+    private volatile boolean mWasRenamed;
+    private volatile boolean mWasSkipped;
     private long mOCUploadId;
     /**
      * Local path to file which is to be uploaded (before any possible renaming or moving).
@@ -169,7 +169,7 @@ public class UploadFileOperation extends SyncOperation {
     private final ConnectivityService connectivityService;
     private final PowerManagementService powerManagementService;
 
-    private boolean encryptedAncestor;
+    private volatile boolean encryptedAncestor;
     private OCFile duplicatedEncryptedFile;
     private AtomicBoolean missingPermissionThrown = new AtomicBoolean(false);
 
