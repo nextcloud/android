@@ -16,7 +16,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColorInt
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.nextcloud.ui.fileInfo.model.GovernanceLabel
 import com.owncloud.android.R
@@ -39,6 +41,7 @@ class GovernanceDetailInfo(
         viewThemeUtils.material.themeCardView(binding.governanceLayout)
         collectSensitivityLabels()
         collectRetentionLabels()
+        collectHoldLabels()
     }
 
     private fun collectSensitivityLabels() {
@@ -73,12 +76,95 @@ class GovernanceDetailInfo(
                 binding.fileRetentionLabel.visibility = View.GONE
                 return@launch
             }
-            initDropdown(
+            val currentIds = viewModel.currentRetentionLabelIds.filterNotNull().first()
+            setupMultiSelectField(
                 textInputLayout = binding.fileRetentionLabel,
-                autoComplete = binding.fileRetentionAutoComplete,
-                items = labels
-            )
+                labelText = binding.fileRetentionLabelText,
+                items = labels,
+                title = context.getString(R.string.governance_file_retention_label),
+                getCurrentIds = { viewModel.currentRetentionLabelIds.value ?: currentIds }
+            ) { newIds ->
+                viewModel.updateRetentionLabels(newIds)
+            }
         }
+    }
+
+    private fun collectHoldLabels() {
+        fragment.lifecycleScope.launch {
+            val labels = viewModel.holdLabels.filterNotNull().first()
+            if (labels.isEmpty()) {
+                binding.fileHoldLabel.visibility = View.GONE
+                return@launch
+            }
+            val currentIds = viewModel.currentHoldLabelIds.filterNotNull().first()
+            setupMultiSelectField(
+                textInputLayout = binding.fileHoldLabel,
+                labelText = binding.fileHoldLabelText,
+                items = labels,
+                title = context.getString(R.string.governance_legal_hold_label),
+                getCurrentIds = { viewModel.currentHoldLabelIds.value ?: currentIds }
+            ) { newIds ->
+                viewModel.updateHoldLabels(newIds)
+            }
+        }
+    }
+
+    private fun setupMultiSelectField(
+        textInputLayout: TextInputLayout,
+        labelText: TextInputEditText,
+        items: List<GovernanceLabel>,
+        title: String,
+        getCurrentIds: () -> Set<String>,
+        onUpdate: (Set<String>) -> Unit
+    ) {
+        textInputLayout.visibility = View.VISIBLE
+        viewThemeUtils.material.colorTextInputLayout(textInputLayout)
+        updateMultiSelectText(labelText, items, getCurrentIds())
+
+        val clickListener = View.OnClickListener {
+            showMultiSelectDialog(title, items, getCurrentIds()) { newIds ->
+                onUpdate(newIds)
+                updateMultiSelectText(labelText, items, newIds)
+            }
+        }
+        textInputLayout.setEndIconOnClickListener(clickListener)
+        labelText.setOnClickListener(clickListener)
+    }
+
+    private fun showMultiSelectDialog(
+        title: String,
+        items: List<GovernanceLabel>,
+        currentIds: Set<String>,
+        onConfirm: (Set<String>) -> Unit
+    ) {
+        val itemNames = items.map { it.text }.toTypedArray()
+        val checkedItems = items.map { it.id in currentIds }.toBooleanArray()
+        val newSelection = currentIds.toMutableSet()
+
+        MaterialAlertDialogBuilder(context)
+            .setTitle(title)
+            .setMultiChoiceItems(itemNames, checkedItems) { _, which, isChecked ->
+                val labelId = items[which].id
+                if (isChecked) newSelection.add(labelId) else newSelection.remove(labelId)
+            }
+            .setPositiveButton(android.R.string.ok) { _, _ -> onConfirm(newSelection) }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun updateMultiSelectText(
+        labelText: TextInputEditText,
+        items: List<GovernanceLabel>,
+        selectedIds: Set<String>
+    ) {
+        val selectedNames = items.filter { it.id in selectedIds }.map { it.text }
+        labelText.setText(
+            when {
+                selectedNames.isEmpty() -> ""
+                selectedNames.size == 1 -> selectedNames.first()
+                else -> context.getString(R.string.governance_n_selected, selectedNames.size)
+            }
+        )
     }
 
     private fun initDropdown(

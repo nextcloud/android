@@ -64,17 +64,45 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/file_retention_label"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     tools:visibility="visible"
+                    android:layout_marginBottom="@dimen/standard_margin"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
                     android:hint="@string/governance_file_retention_label">
 
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/file_retention_auto_complete"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/file_retention_label_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/file_hold_label"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
+                    android:hint="@string/governance_legal_hold_label">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/file_hold_label_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>

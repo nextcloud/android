@@ -1530,4 +1530,10 @@
     <string name="sync_conflict_notification_description">Upload conflicts detected. Open uploads to resolve.</string>
     <string name="sync_conflict_notification_action_title">Resolve conflicts</string>
     <string name="extension_cannot_be_changed">Extension cannot be changed</string>
+    <string name="governance_sensitivity_label">Sensitivity label</string>
+    <string name="governance_file_retention_label">File retention</string>
+    <string name="governance_legal_hold_label">Legal hold</string>
+    <string name="governance_n_selected">%d selected</string>
+    <string name="file_info_governance_section_title">Governance</string>
+    <string name="file_info_image_details_section_title">Image details</string>
 </resources>
