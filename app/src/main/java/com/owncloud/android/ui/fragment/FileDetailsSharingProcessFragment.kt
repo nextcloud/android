@@ -250,6 +250,7 @@ class FileDetailsSharingProcessFragment :
         viewThemeUtils.androidx.run {
             binding.run {
                 colorSwitchCompat(shareProcessSetPasswordSwitch)
+                colorSwitchCompat(shareProcessSetVideoVerificationSwitch)
                 colorSwitchCompat(shareProcessSetExpDateSwitch)
                 colorSwitchCompat(shareProcessSetDownloadLimitSwitch)
                 colorSwitchCompat(shareProcessHideDownloadCheckbox)
@@ -316,6 +317,7 @@ class FileDetailsSharingProcessFragment :
         binding.shareProcessBtnNext.text = getString(R.string.common_next)
         updateViewAccordingToFile()
         showPasswordInput(binding.shareProcessSetPasswordSwitch.isChecked)
+        showVideoVerificationSwitch(binding.shareProcessSetPasswordSwitch.isChecked)
         showExpirationDateInput(binding.shareProcessSetExpDateSwitch.isChecked)
         showFileDownloadLimitInput(binding.shareProcessSetDownloadLimitSwitch.isChecked)
         setMaxPermissionsIfDefaultPermissionExists()
@@ -356,6 +358,8 @@ class FileDetailsSharingProcessFragment :
         updateViewForShareType()
         binding.shareProcessSetPasswordSwitch.isChecked = share?.isPasswordProtected == true
         showPasswordInput(binding.shareProcessSetPasswordSwitch.isChecked)
+        binding.shareProcessSetVideoVerificationSwitch.isChecked = share?.isSendPasswordByTalk == true
+        showVideoVerificationSwitch(binding.shareProcessSetPasswordSwitch.isChecked)
         updateExpirationDateView()
         showExpirationDateInput(binding.shareProcessSetExpDateSwitch.isChecked)
         updateFileDownloadLimitView()
@@ -564,6 +568,7 @@ class FileDetailsSharingProcessFragment :
             }
             shareProcessSetPasswordSwitch.setOnCheckedChangeListener { _, isChecked ->
                 showPasswordInput(isChecked)
+                showVideoVerificationSwitch(isChecked)
             }
             shareProcessSetExpDateSwitch.setOnCheckedChangeListener { _, isChecked ->
                 showExpirationDateInput(isChecked)
@@ -745,6 +750,13 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
+    private fun showVideoVerificationSwitch(isChecked: Boolean) {
+        binding.shareProcessSetVideoVerificationSwitch.setVisibleIf(isChecked)
+        if (!isChecked) {
+            binding.shareProcessSetVideoVerificationSwitch.isChecked = false
+        }
+    }
+
     private fun removeCurrentFragment() {
         onEditShareListener.onShareProcessClosed()
         fileActivity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
@@ -844,6 +856,7 @@ class FileDetailsSharingProcessFragment :
             permission,
             binding.shareProcessHideDownloadCheckbox.isChecked,
             password,
+            binding.shareProcessSetVideoVerificationSwitch.isChecked,
             chosenExpDateInMills,
             binding.shareProcessChangeName.text.toString().trim()
         )
@@ -878,6 +891,7 @@ class FileDetailsSharingProcessFragment :
             permission,
             binding.shareProcessHideDownloadCheckbox.isChecked,
             binding.shareProcessEnterPassword.text.toString().trim(),
+            binding.shareProcessSetVideoVerificationSwitch.isChecked,
             chosenExpDateInMills,
             noteText,
             downloadAttribute,

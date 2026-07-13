@@ -748,6 +748,7 @@
     <string name="share_via_link_section_title">Share link</string>
     <string name="share_via_link_send_link_label">Send link</string>
     <string name="share_no_password_title">Set password</string>
+    <string name="share_no_video_verification_label">Video verification</string>
     <string name="share_via_link_unset_password">Unset</string>
 
     <string name="share_search">Name, Federated Cloud ID or email address…</string>
