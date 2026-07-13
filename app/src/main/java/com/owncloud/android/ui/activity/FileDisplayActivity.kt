@@ -714,12 +714,7 @@ class FileDisplayActivity :
         }
 
         prepareFragmentBeforeCommit(showSortListGroup)
-        commitFragment(fragment) {
-            Log_OC.d(
-                TAG,
-                "Left fragment committed: $it"
-            )
-        }
+        commitFragment(fragment)
     }
 
     private fun prepareFragmentBeforeCommit(showSortListGroup: Boolean) {
@@ -732,20 +727,21 @@ class FileDisplayActivity :
         showSortListGroup(showSortListGroup)
     }
 
-    private fun commitFragment(fragment: Fragment, callback: (Boolean) -> Unit) {
+    private fun commitFragment(fragment: Fragment): Boolean {
         val fragmentManager = supportFragmentManager
         if (!isActive() || fragmentManager.isDestroyed || fragmentManager.isStateSaved) {
-            callback(false)
-            return
+            Log_OC.d(TAG, "${fragment.javaClass.simpleName} not committed, skipping")
+            return false
         }
 
-        fragmentManager.beginTransaction().run {
-            addToBackStack(null)
-            replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES)
-            commit()
-        }
+        fragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES)
+            .commit()
 
-        callback(true)
+        Log_OC.d(TAG, "${fragment.javaClass.simpleName} committed, pending transaction")
+
+        return true
     }
 
     private fun getOCFileListFragmentFromFile(transaction: TransactionInterface) {
@@ -765,18 +761,9 @@ class FileDisplayActivity :
             val fm = supportFragmentManager
             if (!fm.isStateSaved && !fm.isDestroyed) {
                 prepareFragmentBeforeCommit(true)
-                commitFragment(listOfFiles) {
-                    if (it) {
-                        Log_OC.d(TAG, "OCFileListFragment committed, executing pending transaction")
-                        fm.executePendingTransactions()
-                        transaction.onOCFileListFragmentComplete(listOfFiles)
-                    } else {
-                        Log_OC.d(
-                            TAG,
-                            "OCFileListFragment not committed, skipping executing " +
-                                "pending transaction"
-                        )
-                    }
+                if (commitFragment(listOfFiles)) {
+                    fm.executePendingTransactions()
+                    transaction.onOCFileListFragmentComplete(listOfFiles)
                 }
             }
         }
