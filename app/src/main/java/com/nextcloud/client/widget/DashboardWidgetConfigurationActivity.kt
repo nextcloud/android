@@ -179,19 +179,20 @@ class DashboardWidgetConfigurationActivity :
 
     private fun showWidgetsNotAvailableState() {
         adapter.setWidgetList(null)
-        binding.emptyView.root.visibility = View.VISIBLE
-        binding.emptyView.emptyListViewHeadline.setText(R.string.widgets_not_available_title)
-
-        binding.emptyView.emptyListIcon.apply {
-            setImageResource(R.drawable.ic_list_empty_error)
-            visibility = View.VISIBLE
-        }
-        binding.emptyView.emptyListViewText.apply {
-            text = String.format(
-                getString(R.string.widgets_not_available),
-                getString(R.string.app_name)
-            )
-            visibility = View.VISIBLE
+        binding.emptyView.run {
+            root.visibility = View.VISIBLE
+            emptyListViewHeadline.setText(R.string.widgets_not_available_title)
+            emptyListIcon.apply {
+                setImageResource(R.drawable.ic_list_empty_error)
+                visibility = View.VISIBLE
+            }
+            emptyListViewText.apply {
+                text = String.format(
+                    getString(R.string.widgets_not_available),
+                    getString(R.string.app_name)
+                )
+                visibility = View.VISIBLE
+            }
         }
     }
 
@@ -199,7 +200,6 @@ class DashboardWidgetConfigurationActivity :
         adapter.setWidgetList(null)
         binding.emptyView.run {
             root.visibility = View.VISIBLE
-
             emptyListIcon.apply {
                 setImageResource(R.drawable.ic_list_empty_error)
                 visibility = View.VISIBLE
