@@ -7,15 +7,32 @@
  */
 package com.owncloud.android.utils
 
+import android.os.Environment
+import android.provider.MediaStore
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 import java.io.File
 
 class FileExportUtilsIT : AbstractIT() {
+    @Before
+    fun clearExistingDownload() {
+        val fileName = "export.txt"
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            targetContext.contentResolver.delete(
+                MediaStore.Downloads.EXTERNAL_CONTENT_URI,
+                "${MediaStore.MediaColumns.DISPLAY_NAME} = ?",
+                arrayOf(fileName)
+            )
+        } else {
+            File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName).delete()
+        }
+    }
+
     @Test
     fun exportFile() {
         val file = createFile("export.txt", 10)
