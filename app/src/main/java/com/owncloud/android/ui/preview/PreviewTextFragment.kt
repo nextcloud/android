@@ -162,11 +162,9 @@ abstract class PreviewTextFragment :
         }
     }
 
-    /**
-     * Finishes the preview
-     */
     protected fun finish() {
-        requireActivity().runOnUiThread { requireActivity().onBackPressedDispatcher.onBackPressed() }
+        val activity = activity ?: return
+        activity.runOnUiThread { activity.onBackPressedDispatcher.onBackPressed() }
     }
 
     companion object {
