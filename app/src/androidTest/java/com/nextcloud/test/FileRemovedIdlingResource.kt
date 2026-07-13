@@ -9,7 +9,6 @@ package com.nextcloud.test
 import androidx.test.espresso.IdlingResource
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.atomic.AtomicReference
 
 /**
