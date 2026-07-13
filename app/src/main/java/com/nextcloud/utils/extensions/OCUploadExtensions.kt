@@ -41,12 +41,15 @@ fun OCUpload.getStatusText(activity: Context, isGlobalUploadPaused: Boolean, isU
                 UploadResult.SAME_FILE_CONFLICT -> {
                     res.getString(R.string.uploads_view_upload_status_succeeded_same_file)
                 }
+
                 UploadResult.FILE_NOT_FOUND -> {
                     lastResult.getFailedStatusText(activity)
                 }
+
                 UploadResult.SKIPPED -> {
                     res.getString(R.string.uploads_view_upload_status_skip_reason)
                 }
+
                 else -> {
                     res.getString(R.string.uploads_view_upload_status_succeeded)
                 }
