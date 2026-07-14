@@ -44,6 +44,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
+import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -53,6 +54,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.coroutines.cancellation.CancellationException
+import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("LongParameterList", "TooManyFunctions", "TooGenericExceptionCaught")
 class AutoUploadWorker(
@@ -93,6 +95,13 @@ class AutoUploadWorker(
                 ?.takeIf { it.isEnabled } ?: return Result.failure()
 
             Log_OC.d(TAG, syncedFolder.getLog())
+
+            if (!PermissionUtil.checkStoragePermission(context)) {
+                Log_OC.w(
+                    TAG,
+                    "⚠️ storage/media permission missing or partial — MediaStore scan may return no files"
+                )
+            }
 
             if (canExitEarly(syncFolderId)) {
                 return Result.success()
@@ -274,7 +283,7 @@ class AutoUploadWorker(
             filePathsWithIds.forEachIndexed { batchIndex, (path, id) ->
                 ensureActive()
 
-                delay(retryPolicy.getDelay())
+                delay(retryPolicy.getDelay().milliseconds)
 
                 val file = File(path)
                 val localPath = file.absolutePath
@@ -308,8 +317,8 @@ class AutoUploadWorker(
                         val operation = createUploadFileOperation(upload, user)
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
-                        val result = operation.execute(client)
                         fileUploadEventBroadcaster.sendUploadStarted(operation, context)
+                        val result = operation.execute(client)
 
                         UploadErrorNotificationManager.handleResult(
                             context,
@@ -330,10 +339,14 @@ class AutoUploadWorker(
                                 "❌ upload failed $localPath (${upload.accountName}): ${result.logMessage}"
                             )
 
-                            // Mark CONFLICT files as handled to prevent retries
-                            if (result.code.isConflict()) {
+                            // Only SKIP-policy collisions are terminal. For other policies the recorded
+                            // conflict result and its resolve notification must keep the file resolvable
+                            // instead of silently marking it handled.
+                            if (result.code.isConflict() &&
+                                syncedFolder.nameCollisionPolicy == NameCollisionPolicy.SKIP
+                            ) {
                                 repository.markFileAsHandled(localPath, syncedFolder)
-                                Log_OC.w(TAG, "Marked CONFLICT file as handled: $localPath")
+                                Log_OC.w(TAG, "Marked CONFLICT file as handled (SKIP policy): $localPath")
                             }
                         }
 

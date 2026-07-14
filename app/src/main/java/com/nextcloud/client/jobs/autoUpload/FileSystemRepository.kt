@@ -8,6 +8,7 @@
 package com.nextcloud.client.jobs.autoUpload
 
 import android.content.Context
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
@@ -59,22 +60,39 @@ class FileSystemRepository(
         val syncedFolderId = syncedFolder.id.toString()
         Log_OC.d(TAG, "Fetching candidate files for syncedFolderId = $syncedFolderId")
 
-        val entities = dao.getAutoUploadFilesEntities(syncedFolderId, BATCH_SIZE, lastId)
         val filtered = mutableListOf<Pair<String, Int>>()
+        var currentLastId = lastId
 
-        for (entity in entities) {
-            val file = SyncedFolderUtils.validateForAutoUpload(entity.localPath)
-            if (file == null) {
-                deleteAutoUploadAndUploadEntity(syncedFolder, entity.localPath ?: "", entity)
-                continue
+        // Keep scanning past batches whose rows are all invalid so valid files with higher ids are not
+        // skipped when an early batch consists entirely of stale/unqualified entries.
+        while (filtered.size < BATCH_SIZE) {
+            val entities = dao.getAutoUploadFilesEntities(syncedFolderId, BATCH_SIZE, currentLastId)
+            if (entities.isEmpty()) {
+                break
             }
 
-            Log_OC.d(TAG, "Adding path to upload: ${entity.localPath}")
+            val batchStartId = currentLastId
 
-            if (entity.id != null) {
-                filtered.add(entity.localPath!! to entity.id)
-            } else {
-                Log_OC.w(TAG, "cant adding path to upload, id is null")
+            for (entity in entities) {
+                entity.id?.let { currentLastId = maxOf(currentLastId, it) }
+
+                val file = SyncedFolderUtils.validateForAutoUpload(entity.localPath)
+                if (file == null) {
+                    deleteAutoUploadAndUploadEntity(syncedFolder, entity.localPath ?: "", entity)
+                    continue
+                }
+
+                Log_OC.d(TAG, "Adding path to upload: ${entity.localPath}")
+
+                if (entity.id != null) {
+                    filtered.add(entity.localPath!! to entity.id)
+                } else {
+                    Log_OC.w(TAG, "cant adding path to upload, id is null")
+                }
+            }
+
+            if (currentLastId == batchStartId) {
+                break
             }
         }
 
@@ -142,38 +160,32 @@ class FileSystemRepository(
             null
         )
 
-        cursor?.use {
-            val idxData = cursor.getColumnIndex(MediaStore.MediaColumns.DATA)
-            val idxModified = cursor.getColumnIndex(MediaStore.MediaColumns.DATE_MODIFIED)
-            val idxAdded = cursor.getColumnIndex(MediaStore.MediaColumns.DATE_ADDED)
+        if (cursor == null) {
+            Log_OC.w(TAG, "MediaStore query returned null (missing permission or unavailable provider): $uri")
+            return
+        }
 
-            if (idxData == -1) {
-                Log_OC.e(TAG, "MediaStore column DATA missing — cannot process URI: $uri")
-                return
-            }
+        cursor.use { insertFromCursor(it, uri, syncedFolder, checkFileType) }
+    }
 
-            while (cursor.moveToNext()) {
-                val filePath = cursor.getString(idxData)
+    private fun insertFromCursor(cursor: Cursor, uri: Uri, syncedFolder: SyncedFolder, checkFileType: Boolean) {
+        val idxData = cursor.getColumnIndex(MediaStore.MediaColumns.DATA)
+        val idxModified = cursor.getColumnIndex(MediaStore.MediaColumns.DATE_MODIFIED)
+        val idxAdded = cursor.getColumnIndex(MediaStore.MediaColumns.DATE_ADDED)
 
-                val lastModifiedMs = if (idxModified != -1) {
-                    cursor.getLong(idxModified) * 1000
-                } else {
-                    null
-                }
+        if (idxData == -1) {
+            Log_OC.e(TAG, "MediaStore column DATA missing — cannot process URI: $uri")
+            return
+        }
 
-                val creationTimeMs = if (idxAdded != -1) {
-                    cursor.getLong(idxAdded) * 1000
-                } else {
-                    null
-                }
+        while (cursor.moveToNext()) {
+            val filePath = cursor.getString(idxData)
+            val lastModifiedMs = if (idxModified != -1) cursor.getLong(idxModified) * 1000 else null
+            val creationTimeMs = if (idxAdded != -1) cursor.getLong(idxAdded) * 1000 else null
 
-                Log_OC.d(
-                    TAG,
-                    "Found file: $filePath (created=$creationTimeMs, modified=$lastModifiedMs)"
-                )
+            Log_OC.d(TAG, "Found file: $filePath (created=$creationTimeMs, modified=$lastModifiedMs)")
 
-                insertOrReplace(filePath, lastModifiedMs, creationTimeMs, syncedFolder, checkFileType)
-            }
+            insertOrReplace(filePath, lastModifiedMs, creationTimeMs, syncedFolder, checkFileType)
         }
     }
 
