@@ -60,39 +60,22 @@ class FileSystemRepository(
         val syncedFolderId = syncedFolder.id.toString()
         Log_OC.d(TAG, "Fetching candidate files for syncedFolderId = $syncedFolderId")
 
+        val entities = dao.getAutoUploadFilesEntities(syncedFolderId, BATCH_SIZE, lastId)
         val filtered = mutableListOf<Pair<String, Int>>()
-        var currentLastId = lastId
 
-        // Keep scanning past batches whose rows are all invalid so valid files with higher ids are not
-        // skipped when an early batch consists entirely of stale/unqualified entries.
-        while (filtered.size < BATCH_SIZE) {
-            val entities = dao.getAutoUploadFilesEntities(syncedFolderId, BATCH_SIZE, currentLastId)
-            if (entities.isEmpty()) {
-                break
+        for (entity in entities) {
+            val file = SyncedFolderUtils.validateForAutoUpload(entity.localPath)
+            if (file == null) {
+                deleteAutoUploadAndUploadEntity(syncedFolder, entity.localPath ?: "", entity)
+                continue
             }
 
-            val batchStartId = currentLastId
+            Log_OC.d(TAG, "Adding path to upload: ${entity.localPath}")
 
-            for (entity in entities) {
-                entity.id?.let { currentLastId = maxOf(currentLastId, it) }
-
-                val file = SyncedFolderUtils.validateForAutoUpload(entity.localPath)
-                if (file == null) {
-                    deleteAutoUploadAndUploadEntity(syncedFolder, entity.localPath ?: "", entity)
-                    continue
-                }
-
-                Log_OC.d(TAG, "Adding path to upload: ${entity.localPath}")
-
-                if (entity.id != null) {
-                    filtered.add(entity.localPath!! to entity.id)
-                } else {
-                    Log_OC.w(TAG, "cant adding path to upload, id is null")
-                }
-            }
-
-            if (currentLastId == batchStartId) {
-                break
+            if (entity.id != null) {
+                filtered.add(entity.localPath!! to entity.id)
+            } else {
+                Log_OC.w(TAG, "cant adding path to upload, id is null")
             }
         }
 

@@ -190,30 +190,7 @@ object PermissionUtil {
     fun checkAllFilesAccess(): Boolean =
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()
 
-    fun checkMediaAccess(context: Context): Boolean = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> hasVisualMediaAccess(context)
-
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ->
-            checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
-
-        else -> checkPermissions(context, getLegacyStoragePermissions())
-    }
-
-    /**
-     * ACCESS_MEDIA_LOCATION only exposes EXIF GPS metadata and must never gate media access, and image-only
-     * access is enough to read images. Requiring every permission together previously disabled media access
-     * (and auto-upload) whenever the user declined location-in-media or granted only one media type.
-     *
-     * Partial access (READ_MEDIA_VISUAL_USER_SELECTED) is intentionally excluded: MediaStore then only exposes
-     * the user-selected subset, which cannot back reliable browsing or auto-upload of newly created files.
-     */
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private fun hasVisualMediaAccess(context: Context): Boolean {
-        val hasImages = checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES)
-        val hasVideo = checkSelfPermission(context, Manifest.permission.READ_MEDIA_VIDEO)
-
-        return hasImages || hasVideo
-    }
+    fun checkMediaAccess(context: Context): Boolean = checkPermissions(context, getRequiredStoragePermissions())
 
     private fun getRequiredStoragePermissions() = when {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> getApiLevel34StoragePermissions()

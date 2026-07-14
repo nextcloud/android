@@ -341,7 +341,7 @@ class AutoUploadWorker(
 
                             if (result.code.isConflict()) {
                                 repository.markFileAsHandled(localPath, syncedFolder)
-                                Log_OC.w(TAG, "Marked CONFLICT file as handled (SKIP policy): $localPath")
+                                Log_OC.w(TAG, "Marked CONFLICT file as handled: $localPath")
                             }
                         }
 
