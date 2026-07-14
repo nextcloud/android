@@ -32,6 +32,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.share.initShareScreen
+import com.nextcloud.android.common.ui.share.model.api.capabilities.SharingCapabilitiesParser
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -50,11 +51,13 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SharesType
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
+import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.RefreshFolderOperation
@@ -207,16 +210,26 @@ class FileDetailSharingFragment :
             val baseURL = user.server.uri.toString()
             val serverCredentials = client.toServerCredentials(baseURL)
             val internalLink = createInternalLink(user, file, capabilities)
+            val sharingJson = capabilities?.sharingJson ?: fetchFreshSharingJson(client)
+            val permissionPresets =
+                SharingCapabilitiesParser.parse(sharingJson)?.permissionPresets ?: emptyList()
 
             withContext(Dispatchers.Main) {
                 binding.unifiedShare.initShareScreen(
                     sourceId,
                     internalLink,
                     serverCredentials,
-                    viewThemeUtils.files.getColorScheme(fileActivity)
+                    viewThemeUtils.files.getColorScheme(fileActivity),
+                    permissionPresets
                 )
             }
         }
+    }
+
+    private fun fetchFreshSharingJson(client: OwnCloudClient): String? {
+        val capability = GetCapabilitiesRemoteOperation().execute(client).resultData ?: return null
+        fileDataStorageManager?.saveCapabilities(capability)
+        return capability.sharingJson
     }
 
     private fun initArguments(savedInstanceState: Bundle?) {
