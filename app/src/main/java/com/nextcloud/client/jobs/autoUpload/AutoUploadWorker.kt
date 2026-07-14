@@ -339,12 +339,7 @@ class AutoUploadWorker(
                                 "❌ upload failed $localPath (${upload.accountName}): ${result.logMessage}"
                             )
 
-                            // Only SKIP-policy collisions are terminal. For other policies the recorded
-                            // conflict result and its resolve notification must keep the file resolvable
-                            // instead of silently marking it handled.
-                            if (result.code.isConflict() &&
-                                syncedFolder.nameCollisionPolicy == NameCollisionPolicy.SKIP
-                            ) {
+                            if (result.code.isConflict()) {
                                 repository.markFileAsHandled(localPath, syncedFolder)
                                 Log_OC.w(TAG, "Marked CONFLICT file as handled (SKIP policy): $localPath")
                             }
