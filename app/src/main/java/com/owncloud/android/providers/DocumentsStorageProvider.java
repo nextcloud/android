@@ -227,6 +227,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             Context context = getNonNullContext();
 
             OCFile ocFile = document.getFile();
+            if (ocFile.isFolder()) {
+                Log_OC.w(TAG, "openDocument called on a folder, which is not openable: " + documentId);
+                return null;
+            }
+
             User user = document.getUser();
 
             int accessMode = ParcelFileDescriptor.parseMode(mode);
