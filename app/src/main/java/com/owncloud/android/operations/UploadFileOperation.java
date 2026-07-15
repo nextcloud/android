@@ -735,7 +735,7 @@ public class UploadFileOperation extends SyncOperation {
             // this basically means that the file is on SD card
             // try to copy file to temporary dir if it doesn't exist
             String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) +
-                mFile.getRemotePath();
+                FileStorageUtils.sanitizeAndroidLocalPath(mFile.getRemotePath());
             mFile.setStoragePath(temporalPath);
             e2eFiles.setTemporalFile(new File(temporalPath));
 

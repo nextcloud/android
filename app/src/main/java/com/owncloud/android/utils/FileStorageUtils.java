@@ -139,16 +139,41 @@ public final class FileStorageUtils {
     }
 
     /**
-     * Checks whether the given character is valid in an extended file name.
-     * <p>
-     * Reference: <a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/FileUtils.java;l=997">
-     * android.os.FileUtils#isValidExtFilenameChar(char)
-     * </a> from the Android Open Source Project.
-     *
-     * @param c the character to validate
-     * @return true if the character is valid in a filename, false otherwise
+     * Validate each path segment before using a remote path as a local Android path.
      */
+    public static boolean isValidAndroidLocalPath(String path) {
+        String[] segments = path.split(OCFile.PATH_SEPARATOR, -1);
+        for (String segment : segments) {
+            if (!segment.isEmpty() && !isValidExtFilename(segment)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static String sanitizeAndroidLocalPath(String path) {
+        StringBuilder sanitizedPath = new StringBuilder(path.length());
+        String[] segments = path.split(OCFile.PATH_SEPARATOR, -1);
+        for (int segmentIndex = 0; segmentIndex < segments.length; segmentIndex++) {
+            if (segmentIndex > 0) {
+                sanitizedPath.append(OCFile.PATH_SEPARATOR);
+            }
+            sanitizedPath.append(sanitizeAndroidLocalFilename(segments[segmentIndex]));
+        }
+        return sanitizedPath.toString();
+    }
+
+    private static String sanitizeAndroidLocalFilename(String name) {
+        StringBuilder sanitizedName = new StringBuilder(name.length());
+        for (int i = 0; i < name.length(); i++) {
+            char c = name.charAt(i);
+            sanitizedName.append(isValidExtFilenameChar(c) ? c : '_');
+        }
+        return sanitizedName.toString();
+    }
+
     private static boolean isValidExtFilenameChar(char c) {
+        // Match Android's hidden FAT filename rules for external storage.
         if ((int) c <= 0x1F) {
             return false;
         }
@@ -197,6 +222,14 @@ public final class FileStorageUtils {
                 + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
         // that can be in the accountName since 0.1.190B
+    }
+
+    public static String getTemporalPathForRemotePath(String accountName, String remotePath) {
+        String sanitizedRemotePath = sanitizeAndroidLocalPath(remotePath);
+        if (sanitizedRemotePath.startsWith(OCFile.PATH_SEPARATOR)) {
+            return getTemporalPath(accountName) + sanitizedRemotePath;
+        }
+        return getTemporalPath(accountName) + OCFile.PATH_SEPARATOR + sanitizedRemotePath;
     }
 
     public static String getTemporalEncryptedFolderPath(String accountName) {

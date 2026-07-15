@@ -120,7 +120,7 @@ class DownloadFileOperation(
             if (cancellationRequested.get()) return RemoteOperationResult(OperationCancelledException())
         }
 
-        if (!FileStorageUtils.isValidExtFilename(file.fileName)) {
+        if (!FileStorageUtils.isValidAndroidLocalPath(file.remotePath)) {
             mainThreadHandler.post { context.get()?.showToast(R.string.download_download_invalid_local_file_name) }
             return RemoteOperationResult(RemoteOperationResult.ResultCode.INVALID_CHARACTER_IN_NAME)
         }
