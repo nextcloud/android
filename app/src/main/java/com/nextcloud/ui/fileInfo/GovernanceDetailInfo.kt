@@ -13,9 +13,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColorInt
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputEditText
@@ -136,7 +138,7 @@ class GovernanceDetailInfo(
         val checkedItems = items.map { it.id in currentIds }.toBooleanArray()
         val newSelection = currentIds.toMutableSet()
 
-        MaterialAlertDialogBuilder(context)
+        val dialog = MaterialAlertDialogBuilder(context)
             .setTitle(title)
             .setMultiChoiceItems(itemNames, checkedItems) { _, which, isChecked ->
                 val labelId = items[which].id
@@ -145,6 +147,10 @@ class GovernanceDetailInfo(
             .setPositiveButton(android.R.string.ok) { _, _ -> onConfirm(newSelection) }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
+
+        (dialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton)?.let {
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
+        }
     }
 
     private fun updateMultiSelectText(
