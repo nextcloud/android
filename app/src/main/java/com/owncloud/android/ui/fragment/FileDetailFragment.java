@@ -317,7 +317,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         if (showDetailsTab()) {
-            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.filedetails_details).setIcon(R.drawable.selector_file_info));
+            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.filedetails_details).setIcon(R.drawable.info_24));
         }
 
         viewThemeUtils.material.themeTabLayout(binding.tabLayout);

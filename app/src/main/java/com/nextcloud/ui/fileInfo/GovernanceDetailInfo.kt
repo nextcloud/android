@@ -158,13 +158,7 @@ class GovernanceDetailInfo(
         selectedIds: Set<String>
     ) {
         val selectedNames = items.filter { it.id in selectedIds }.map { it.text }
-        labelText.setText(
-            when {
-                selectedNames.isEmpty() -> ""
-                selectedNames.size == 1 -> selectedNames.first()
-                else -> context.getString(R.string.governance_n_selected, selectedNames.size)
-            }
-        )
+        labelText.setText(selectedNames.joinToString(", "))
     }
 
     private fun initDropdown(
@@ -220,7 +214,7 @@ class GovernanceDetailInfo(
         }
     }
 
-    private fun parseColor(color: String): Int = runCatching { color.toColorInt() }
+    private fun parseColor(color: String): Int = runCatching { "#$color".toColorInt() }
         .getOrElse {
             Log_OC.w(TAG, "Could not parse label color: $color")
             ContextCompat.getColor(context, R.color.grey_600)
