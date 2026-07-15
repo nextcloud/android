@@ -27,17 +27,6 @@ suspend fun FileDataStorageManager.saveShares(shares: List<OCShare>, accountName
 
 private const val GALLERY_DB_CHUNK_SIZE = 500
 
-/**
- * Loads gallery items ordered by modification date (newest first), bounded to [limit] entries.
- *
- * The database is read in chunks of [GALLERY_DB_CHUNK_SIZE] rows so that a single query never
- * materializes a result set larger than the Android [android.database.CursorWindow] can hold,
- * which otherwise crashes on very large galleries.
- *
- * @param pathPrefix only items whose remote path starts with this prefix are returned ("/" matches all)
- * @param mimeFilter optional content-type LIKE pattern (e.g. "image/%" or "video/%"); null keeps images and videos
- * @param limit maximum number of items to load
- */
 suspend fun FileDataStorageManager.getGalleryItemsPageSuspended(
     pathPrefix: String,
     mimeFilter: String?,
