@@ -12,7 +12,6 @@
  */
 package com.owncloud.android.ui.preview
 
-import android.app.Activity
 import android.content.ComponentName
 import android.content.DialogInterface
 import android.content.Intent
@@ -143,7 +142,6 @@ class PreviewMediaActivity :
         WindowCompat.setDecorFitsSystemWindows(window, false)
         applyWindowInsets()
         initArguments(savedInstanceState)
-
         if (MimeTypeUtil.isVideo(file)) {
             // release any background media session if exists
             sendAudioSessionReleaseBroadcast()
@@ -799,13 +797,8 @@ class PreviewMediaActivity :
         showDetails(file)
     }
 
-    override fun onBrowsedDownTo(folder: OCFile?) {
-        // TODO Auto-generated method stub
-    }
-
-    override fun onTransferStateChanged(file: OCFile?, downloading: Boolean, uploading: Boolean) {
-        // TODO Auto-generated method stub
-    }
+    override fun onBrowsedDownTo(folder: OCFile?) = Unit
+    override fun onTransferStateChanged(file: OCFile?, downloading: Boolean, uploading: Boolean) = Unit
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -818,15 +811,12 @@ class PreviewMediaActivity :
         Log_OC.v(TAG, "onActivityResult $this")
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             savedPlaybackPosition = data?.getLongExtra(EXTRA_START_POSITION, 0) ?: 0
             autoplay = data?.getBooleanExtra(EXTRA_AUTOPLAY, false) ?: false
         }
     }
 
-    /**
-     * Opens the previewed file with an external application.
-     */
     private fun openFile() {
         stopPreview(true)
         fileOperationsHelper.openFile(file)
@@ -855,12 +845,6 @@ class PreviewMediaActivity :
         private const val PLAYBACK_POSITION = "PLAYBACK_POSITION"
         private const val AUTOPLAY = "AUTOPLAY"
 
-        /**
-         * Helper method to test if an [OCFile] can be passed to a [PreviewMediaActivity] to be previewed.
-         *
-         * @param file File to test if can be previewed.
-         * @return 'True' if the file can be handled by the activity.
-         */
         fun canBePreviewed(file: OCFile?): Boolean =
             file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
     }

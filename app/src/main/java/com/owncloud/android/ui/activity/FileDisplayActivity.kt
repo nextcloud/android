@@ -870,6 +870,11 @@ class FileDisplayActivity :
         val file = mWaitingToPreview ?: return false
 
         return when {
+            MimeTypeUtil.isVideo(file) -> {
+                startImagePreview(file, true)
+                true
+            }
+
             PreviewMediaActivity.canBePreviewed(file) -> {
                 startMediaPreview(file, 0, true, true, true, true)
                 true
@@ -2041,6 +2046,9 @@ class FileDisplayActivity :
         } else if (PreviewTextFileFragment.canBePreviewed(file)) {
             setFabVisible?.onComplete(false)
             startTextPreview(file, false)
+        } else if (MimeTypeUtil.isVideo(file)) {
+            setFabVisible?.onComplete(false)
+            startImagePreview(file, true)
         } else if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
             setFabVisible?.onComplete(false)
             startMediaPreview(file, 0, true, true, false, true)
