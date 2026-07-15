@@ -145,20 +145,6 @@
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
     </style>
 
-    <style name="ownCloud.Dialog" parent="Theme.Material3.DayNight.Dialog">
-        <item name="searchViewStyle">@style/ownCloud.SearchView</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
-    </style>
-
-    <style name="ProgressDialogTheme" parent="ownCloud.Dialog">
-        <item name="colorAccent">@color/color_accent</item>
-        <item name="android:textColor">@color/login_text_color</item>
-        <item name="android:windowFrame">@color/transparent</item>
-        <item name="android:windowBackground">@color/transparent</item>
-        <item name="android:windowTitleBackgroundStyle">@drawable/process_dialog_background</item>
-    </style>
-
     <style name="ownCloud.SearchView" parent="Widget.AppCompat.SearchView">
         <!-- Close button icon -->
         <item name="closeIcon">@drawable/ic_close</item>
