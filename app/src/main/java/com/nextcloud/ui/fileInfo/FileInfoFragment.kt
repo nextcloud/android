@@ -51,7 +51,7 @@ class FileInfoFragment :
         viewModel = ViewModelProvider(this, vmFactory)[FileInfoViewModel::class.java]
         val file = file ?: return
         val user = user ?: return
-        viewModel.load(file, user)
+        viewModel.init(file, user)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
