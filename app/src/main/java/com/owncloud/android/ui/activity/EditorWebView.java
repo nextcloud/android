@@ -7,16 +7,13 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -37,6 +34,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.RichDocumentDownloader;
 import com.owncloud.android.utils.WebViewUtil;
 
 import java.util.ArrayList;
@@ -285,23 +283,13 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         }
     }
 
-    protected void downloadFile(Uri url, String fileName) {
-        DownloadManager downloadmanager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-
-        if (downloadmanager == null) {
-            DisplayUtils.showSnackMessage(getWebView(), getString(R.string.failed_to_download));
-            return;
-        }
-
-        DownloadManager.Request request = new DownloadManager.Request(url);
-        request.allowScanningByMediaScanner();
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-        // change the name file and your current activity.
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
-
-
-        downloadmanager.enqueue(request);
+    protected void downloadFile(Uri uri, String filename) {
+        // downloadAs is invoked from the WebView JavaScript bridge thread, but WebView methods
+        // (getSettings) must run on the main thread, so read the user agent there.
+        runOnUiThread(() -> {
+            String userAgent = getWebView().getSettings().getUserAgentString();
+            new RichDocumentDownloader(this).download(uri, filename, userAgent);
+        });
     }
 
     public void setLoadingSnackbar(Snackbar loadingSnackbar) {
