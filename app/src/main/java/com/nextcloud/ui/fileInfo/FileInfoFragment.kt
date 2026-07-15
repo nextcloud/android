@@ -14,10 +14,10 @@ import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.core.os.BundleCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.databinding.FileInfoFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.MimeTypeUtil
@@ -42,16 +42,20 @@ class FileInfoFragment :
     lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
-    lateinit var vmFactory: ViewModelFactory
+    lateinit var viewModelFactory: FileInfoViewModel.Factory
 
     private lateinit var viewModel: FileInfoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this, vmFactory)[FileInfoViewModel::class.java]
         val file = file ?: return
         val user = user ?: return
-        viewModel.init(file, user)
+        viewModel = ViewModelProvider(this, provideViewModelFactory(file, user))[FileInfoViewModel::class.java]
+    }
+
+    private fun provideViewModelFactory(file: OCFile, user: User) = object : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T = viewModelFactory.create(file, user) as T
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -66,6 +70,10 @@ class FileInfoFragment :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        if (!::viewModel.isInitialized) {
+            binding.governanceLayout.visibility = View.GONE
+            return
+        }
         if (CapabilityUtils.getCapability(context).governance.isTrue) {
             val governanceDetailInfo = GovernanceDetailInfo(binding, viewThemeUtils, this, viewModel)
             governanceDetailInfo.init()

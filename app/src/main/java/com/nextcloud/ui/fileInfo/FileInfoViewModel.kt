@@ -13,24 +13,29 @@ import com.nextcloud.android.lib.resources.governance.LabelType
 import com.nextcloud.client.account.User
 import com.nextcloud.ui.fileInfo.model.GovernanceUiState
 import com.owncloud.android.datamodel.OCFile
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class FileInfoViewModel @Inject constructor(private val repository: FileInfoRepository) : ViewModel() {
+class FileInfoViewModel @AssistedInject constructor(
+    private val repository: FileInfoRepository,
+    @Assisted private val file: OCFile,
+    @Assisted private val user: User
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow<GovernanceUiState>(GovernanceUiState.Loading)
     val uiState: StateFlow<GovernanceUiState> = _uiState
 
-    private lateinit var file: OCFile
-    private lateinit var user: User
+    init {
+        loadGovernance()
+    }
 
-    fun init(file: OCFile, user: User) {
-        this.file = file
-        this.user = user
+    private fun loadGovernance() {
         viewModelScope.launch {
             val sensitivityLabels = async { repository.fetchSensitivityLabels(file, user) }
             val retentionLabels = async { repository.fetchRetentionLabels(file, user) }
@@ -91,5 +96,10 @@ class FileInfoViewModel @Inject constructor(private val repository: FileInfoRepo
         _uiState.update { state ->
             if (state is GovernanceUiState.Loaded) transform(state) else state
         }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(file: OCFile, user: User): FileInfoViewModel
     }
 }
