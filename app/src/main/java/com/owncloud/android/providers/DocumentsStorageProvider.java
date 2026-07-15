@@ -678,45 +678,59 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         // FIXME we need to update the mimeType somewhere else as well
 
-        // perform the upload, no need for chunked operation as we have a empty file
-        OwnCloudClient client = targetFolder.getClient();
-        final var result = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
-                                                                     newFilePath,
-                                                                     mimeType,
-                                                                     "",
-                                                                     System.currentTimeMillis() / 1000,
-                                                                     FileUtil.getCreationTimestamp(emptyFile),
-                                                                     false)
-            .execute(client);
+        try {
+            // perform the upload, no need for chunked operation as we have a empty file
+            OwnCloudClient client = targetFolder.getClient();
+            final var result = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
+                                                                         newFilePath,
+                                                                         mimeType,
+                                                                         "",
+                                                                         System.currentTimeMillis() / 1000,
+                                                                         FileUtil.getCreationTimestamp(emptyFile),
+                                                                         false)
+                .execute(client);
 
-        if (!result.isSuccess()) {
-            Log_OC.e(TAG, result.toString());
-            throw new FileNotFoundException("Failed to upload document with path " + newFilePath);
+            if (!result.isSuccess()) {
+                Log_OC.e(TAG, result.toString());
+                notifyRemoteOperationError(result);
+                throw new FileNotFoundException("Failed to upload document with path " + newFilePath);
+            }
+
+            Context context = getNonNullContext();
+
+            final var updateParent = new RefreshFolderOperation(targetFolder.getFile(),
+                                                                            System.currentTimeMillis(),
+                                                                            false,
+                                                                            false,
+                                                                            true,
+                                                                            targetFolder.getStorageManager(),
+                                                                            user,
+                                                                            context)
+                .execute(client);
+
+            if (!updateParent.isSuccess()) {
+                Log_OC.e(TAG, updateParent.toString());
+                notifyRemoteOperationError(updateParent);
+                throw new FileNotFoundException("Failed to create document with documentId "
+                                                    + targetFolder.getDocumentId());
+            }
+
+            Document newFile = new Document(targetFolder.getStorageManager(), newFilePath);
+
+            context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
+
+            return newFile.getDocumentId();
+        } finally {
+            if (emptyFile.exists() && !emptyFile.delete()) {
+                Log_OC.w(TAG, "Temp file could not be deleted: " + emptyFile.getAbsolutePath());
+            }
         }
+    }
 
-        Context context = getNonNullContext();
-
-        final var updateParent = new RefreshFolderOperation(targetFolder.getFile(),
-                                                                        System.currentTimeMillis(),
-                                                                        false,
-                                                                        false,
-                                                                        true,
-                                                                        targetFolder.getStorageManager(),
-                                                                        user,
-                                                                        context)
-            .execute(client);
-
-        if (!updateParent.isSuccess()) {
-            Log_OC.e(TAG, updateParent.toString());
-            throw new FileNotFoundException("Failed to create document with documentId "
-                                                + targetFolder.getDocumentId());
+    private void notifyRemoteOperationError(RemoteOperationResult result) {
+        if (result.getCode() == RemoteOperationResult.ResultCode.MAINTENANCE_MODE) {
+            showToast(R.string.maintenance_mode);
         }
-
-        Document newFile = new Document(targetFolder.getStorageManager(), newFilePath);
-
-        context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
-
-        return newFile.getDocumentId();
     }
 
     @Override
