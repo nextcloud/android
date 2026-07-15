@@ -24,6 +24,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.autoRename.AutoRename;
+import com.nextcloud.utils.e2ee.E2ECounterHelper;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -53,7 +54,6 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
@@ -511,7 +511,7 @@ public class UploadFileOperation extends SyncOperation {
         E2EFiles e2eFiles = new E2EFiles(parentFile, null, new File(mOriginalStoragePath), null, null);
         FileLock fileLock = null;
         long size;
-        boolean metadataExists = false;
+        boolean isV1MetadataExists = false;
         String token = null;
         Object object = null;
         FileChannel channel = null;
@@ -528,10 +528,10 @@ public class UploadFileOperation extends SyncOperation {
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
             object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
             if (object instanceof DecryptedFolderMetadataFileV1 decrypted && decrypted.getMetadata() != null) {
-                metadataExists = true;
+                isV1MetadataExists = true;
             }
 
-            boolean isEndToEndVersionAtLeastV2 = isEndToEndVersionAtLeastV2();
+            boolean isEndToEndVersionAtLeastV2 = E2EVersionHelper.INSTANCE.isV2Plus(mContext);
 
             if (isEndToEndVersionAtLeastV2) {
                 if (object == null) {
@@ -541,7 +541,7 @@ public class UploadFileOperation extends SyncOperation {
                 object = getDecryptedFolderMetadataV1(publicKey, object);
             }
 
-            long counter = getE2ECounter(parentFile, object, isEndToEndVersionAtLeastV2);
+            long counter = E2ECounterHelper.INSTANCE.getCounter(mContext, parentFile, object);
             Log_OC.d(TAG, "counter: " + counter);
 
             try {
@@ -596,7 +596,7 @@ public class UploadFileOperation extends SyncOperation {
             result = performE2EUpload(clientData);
 
             if (result.isSuccess()) {
-                updateMetadataForE2E(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, metadataExists);
+                updateMetadataForE2E(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, isV1MetadataExists);
             }
         } catch (FileNotFoundException e) {
             Log_OC.e(TAG, mFile.getStoragePath() + " does not exist anymore");
@@ -617,23 +617,6 @@ public class UploadFileOperation extends SyncOperation {
         completeE2EUpload(result, e2eFiles, client);
 
         return result;
-    }
-
-    private boolean isEndToEndVersionAtLeastV2() {
-        final var capability = CapabilityUtils.getCapability(mContext);
-        return E2EVersionHelper.INSTANCE.isV2Plus(capability);
-    }
-
-    private long getE2ECounter(OCFile parentFile, Object metadata, boolean isEndToEndVersionAtLeastV2) {
-        if (!isEndToEndVersionAtLeastV2) {
-            return -1;
-        }
-
-        if (metadata instanceof DecryptedFolderMetadataFile decrypted) {
-            return decrypted.getMetadata().getCounter() + 1;
-        }
-
-        return parentFile.getE2eCounter() + 1;
     }
 
     private String getFolderUnlockTokenOrLockFolder(OwnCloudClient client, OCFile parentFile, long counter) throws UploadException {
@@ -823,7 +806,7 @@ public class UploadFileOperation extends SyncOperation {
         return new E2EData(key, iv, encryptedFile, encryptedFileName);
     }
 
-    private void updateMetadataForE2E(Object object, E2EData e2eData, E2EClientData clientData, E2EFiles e2eFiles, ArbitraryDataProvider arbitraryDataProvider, EncryptionUtilsV2 encryptionUtilsV2, boolean metadataExists)
+    private void updateMetadataForE2E(Object object, E2EData e2eData, E2EClientData clientData, E2EFiles e2eFiles, ArbitraryDataProvider arbitraryDataProvider, EncryptionUtilsV2 encryptionUtilsV2, boolean isV1MetadataExists)
 
         throws InvalidAlgorithmParameterException, UploadException, NoSuchPaddingException, IllegalBlockSizeException, CertificateException,
         NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
@@ -839,7 +822,7 @@ public class UploadFileOperation extends SyncOperation {
                                 clientData,
                                 e2eFiles.getParentFile(),
                                 arbitraryDataProvider,
-                                metadataExists);
+                                isV1MetadataExists);
         } else if (object instanceof DecryptedFolderMetadataFile metadata) {
             updateMetadataForV2(metadata,
                                 encryptionUtilsV2,
@@ -850,7 +833,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private void updateMetadataForV1(DecryptedFolderMetadataFileV1 metadata, E2EData e2eData, E2EClientData clientData,
-                                     OCFile parentFile, ArbitraryDataProvider arbitraryDataProvider, boolean metadataExists)
+                                     OCFile parentFile, ArbitraryDataProvider arbitraryDataProvider, boolean isV1MetadataExists)
 
         throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException,
         CertificateException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, UploadException {
@@ -889,7 +872,7 @@ public class UploadFileOperation extends SyncOperation {
                                        serializedFolderMetadata,
                                        clientData.getToken(),
                                        clientData.getClient(),
-                                       metadataExists,
+                                       isV1MetadataExists,
                                        e2eeVersion,
                                        "",
                                        arbitraryDataProvider,
