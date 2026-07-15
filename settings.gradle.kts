@@ -44,7 +44,7 @@ dependencyResolutionManagement {
 /*
 Needed for local android library
 
-includeBuild("../android-library") {
+includeBuild("../android_library") {
     dependencySubstitution {
         substitute(module("com.github.nextcloud:android-library"))
             .using(project(":library"))
@@ -52,10 +52,11 @@ includeBuild("../android-library") {
 }
 */
 
+
 /*
 Needed for local android common library
 
-includeBuild("../android-common") {
+includeBuild("../android_common") {
     dependencySubstitution {
         substitute(module("com.github.nextcloud.android-common:core"))
             .using(project(":core"))
