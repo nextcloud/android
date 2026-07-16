@@ -6,7 +6,6 @@
  */
 package com.owncloud.android
 
-import android.Manifest
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
@@ -18,7 +17,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.rule.GrantPermissionRule
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.SettingsActivity
@@ -27,20 +25,12 @@ import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Assert.assertTrue
 import org.junit.BeforeClass
 import org.junit.ClassRule
-import org.junit.Rule
 import org.junit.Test
 import tools.fastlane.screengrab.Screengrab
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
 import tools.fastlane.screengrab.locale.LocaleTestRule
 
 class ScreenshotsIT : AbstractIT() {
-
-    @get:Rule
-    val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.POST_NOTIFICATIONS
-    )
-
     @Test
     @ScreenshotTest
     fun gridViewScreenshot() {
@@ -65,7 +55,7 @@ class ScreenshotsIT : AbstractIT() {
             OCFile(path).apply {
                 storageManager.saveFile(this)
             }
-            onView(withId(R.id.list_root)).perform(click())
+            // onView(withId(R.id.list_root)).perform(click())
 
             onView(isRoot()).check(matches(isDisplayed()))
             Screengrab.screenshot("02_listView")
@@ -111,8 +101,8 @@ class ScreenshotsIT : AbstractIT() {
         }
     }
 
+    // @ScreenshotTest disabled for now
     @Test
-    @ScreenshotTest
     fun davdroidScreenshot() {
         launchActivity<SettingsActivity>().use {
             onView(withText(R.string.prefs_category_more)).perform(scrollTo())

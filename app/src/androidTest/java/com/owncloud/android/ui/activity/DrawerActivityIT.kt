@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.activity
 
-import android.Manifest
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.net.Uri
@@ -17,7 +16,6 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.rule.GrantPermissionRule
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
@@ -37,12 +35,6 @@ class DrawerActivityIT : AbstractIT() {
     @Rule
     @JvmField
     val retryTestRule = RetryTestRule()
-
-    @get:Rule
-    val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.POST_NOTIFICATIONS
-    )
 
     @Test
     fun switchAccountViaAccountList() {

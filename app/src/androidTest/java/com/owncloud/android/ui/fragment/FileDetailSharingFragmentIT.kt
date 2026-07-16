@@ -87,7 +87,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun listSharesFileNone() {
-        show(file)
+        show(file, "listSharesFileNone")
     }
 
     @Test
@@ -95,7 +95,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     fun listSharesFileResharingNotAllowed() {
         file.permissions = ""
 
-        show(file)
+        show(file, "listSharesFileResharingNotAllowed")
     }
 
     @Test
@@ -143,7 +143,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
                 }
             }
 
-            show(file)
+            show(file, "listSharesDownloadLimit")
         }
     }
 
@@ -260,11 +260,11 @@ class FileDetailSharingFragmentIT : AbstractIT() {
                 }
             }
 
-            show(file)
+            show(file, "listSharesFileAllShareTypes")
         }
     }
 
-    private fun show(file: OCFile) {
+    private fun show(file: OCFile, testName: String) {
         launchActivity<TestActivity>().use { scenario ->
             var activity: TestActivity? = null
             scenario.onActivity { sut ->
@@ -273,7 +273,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
                 sut.addFragment(fragment)
             }
 
-            val screenShotName = createName(testClassName + "_" + "show", "")
+            val screenShotName = createName(testClassName + "_" + testName, "")
             onView(isRoot()).check(matches(isDisplayed()))
             screenshotViaName(activity, screenShotName)
         }

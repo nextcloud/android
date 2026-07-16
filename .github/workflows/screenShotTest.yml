@@ -23,7 +23,7 @@ jobs:
             matrix:
                 scheme: [ Light ]
                 color: [ blue ]
-                api-level: [ 28 ]
+                api-level: [ 29 ]
         steps:
             -   uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
@@ -60,10 +60,10 @@ jobs:
                 with:
                     api-level: ${{ matrix.api-level }}
                     force-avd-creation: false
-                    arch: x86
+                    arch: x86_64
                     sdcard-path-or-size: 100M
                     target: google_apis
-                    emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
+                    emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
                     script: echo "Generated AVD snapshot for caching."
 
             -   name: Configure gradle daemon
@@ -90,11 +90,11 @@ jobs:
                 with:
                     api-level: ${{ matrix.api-level }}
                     force-avd-creation: false
-                    arch: x86
+                    arch: x86_64
                     sdcard-path-or-size: 100M
                     target: google_apis
-                    emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
-                    script: ./gradlew uninstallAll genericDebugExecuteScreenshotTests -Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED" -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=${{ matrix.color }} -Pandroid.testInstrumentationRunnerArguments.DARKMODE=${{ matrix.scheme }}
+                    emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
+                    script: SHOT_TEST=true ./gradlew uninstallAll app:executeScreenshotTests -Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED" -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=${{ matrix.color }} -Pandroid.testInstrumentationRunnerArguments.DARKMODE=${{ matrix.scheme }}
             -   name: upload failing results
                 if: ${{ failure() }}
                 env:
