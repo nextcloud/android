@@ -41,7 +41,8 @@ class FileActionsViewModel @Inject constructor(
             val lockInfo: LockInfo? = null
         ) : UiState
 
-        data class LoadedForMultipleFiles(val actions: List<FileAction>, val fileCount: Int) : UiState
+        data class LoadedForMultipleFiles(val firstFile: OCFile, val actions: List<FileAction>, val fileCount: Int) :
+            UiState
     }
 
     private val _uiState: MutableLiveData<UiState> = MutableLiveData(UiState.Loading)
@@ -110,7 +111,10 @@ class FileActionsViewModel @Inject constructor(
                 UiState.LoadedForSingleFile(availableActions, file, getLockInfo(file))
             }
 
-            else -> UiState.LoadedForMultipleFiles(availableActions, files.size)
+            else -> {
+                val file = files.first()
+                UiState.LoadedForMultipleFiles(file, availableActions, files.size)
+            }
         }
         _uiState.postValue(state)
     }

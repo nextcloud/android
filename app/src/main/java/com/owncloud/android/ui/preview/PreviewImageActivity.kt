@@ -278,8 +278,8 @@ class PreviewImageActivity :
         val optionalUser = user
         if (optionalUser.isPresent) {
             var file: OCFile? = file ?: throw IllegalStateException("Instanced with a NULL OCFile")
-            // / Validate handled file (first image to preview)
-            require(MimeTypeUtil.isImage(file)) { "Non-image file passed as argument" }
+            // / Validate handled file (first media item to preview)
+            require(MimeTypeUtil.isImageOrVideo(file)) { "Non-image/video file passed as argument" }
 
             // Update file according to DB file, if it is possible
             if (file!!.fileId > FileDataStorageManager.ROOT_PARENT_ID) {

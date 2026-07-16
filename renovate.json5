@@ -15,6 +15,7 @@
     "automergeType": "pr",
     "packageRules": [
         {
+            "matchDatasources": ["*"],
             "minimumReleaseAge": "4 days"
         },
         {

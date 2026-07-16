@@ -47,13 +47,13 @@ object RichDocumentDownloadAsParser {
         val format = obj[FORMAT]?.jsonPrimitive?.contentOrNull
         val name = obj[NAME]?.jsonPrimitive?.contentOrNull
         if (format == null || url == null) return null
-        return DownloadAs(format = format, filename = name ?: "", url = url)
+        return DownloadAs(format = format, filename = name, url = url)
     }
 
     private fun tryParseV1(obj: JsonObject, url: String?): DownloadAs? {
         val type = obj[TYPE]?.jsonPrimitive?.contentOrNull
         val filename = obj[FILENAME]?.jsonPrimitive?.contentOrNull
         if (type == null || url == null) return null
-        return DownloadAs(format = type, filename = filename ?: "", url = url)
+        return DownloadAs(format = type, filename = filename, url = url)
     }
 }

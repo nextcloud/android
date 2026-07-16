@@ -168,12 +168,8 @@ class RichDocumentsEditorWebView : EditorWebView() {
             val url = result.url.toUri()
             when (result.format) {
                 PRINT -> printFile(url)
-
                 SLIDESHOW -> showSlideShow(url)
-
-                else -> {
-                    downloadFile(url, result.filename)
-                }
+                else -> downloadFile(url, result.filename)
             }
         }
 

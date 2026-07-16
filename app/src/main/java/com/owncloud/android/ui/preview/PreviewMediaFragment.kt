@@ -185,6 +185,7 @@ class PreviewMediaFragment :
     override fun onResume() {
         super.onResume()
         applyWindowInsets()
+        prepareMedia()
     }
 
     @OptIn(UnstableApi::class)
@@ -238,16 +239,11 @@ class PreviewMediaFragment :
             putParcelable(EXTRA_FILE, file)
             putParcelable(EXTRA_USER, user)
 
-            savedPlaybackPosition = exoPlayer?.currentPosition ?: 0L
-            autoplay = exoPlayer?.isPlaying ?: false
+            savedPlaybackPosition = exoPlayer?.currentPosition ?: savedPlaybackPosition
+            autoplay = exoPlayer?.isPlaying ?: autoplay
             putLong(EXTRA_PLAY_POSITION, savedPlaybackPosition)
             putBoolean(EXTRA_PLAYING, autoplay)
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        prepareMedia()
     }
 
     private fun prepareMedia() {
@@ -499,12 +495,11 @@ class PreviewMediaFragment :
         autoplay = false
     }
 
-    override fun onStop() {
+    override fun onPause() {
         if (!isFullscreenActive) {
             releaseVideoPlayer()
         }
-        releaseVideoPlayer()
-        super.onStop()
+        super.onPause()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -583,11 +578,6 @@ class PreviewMediaFragment :
         }
 
         super.onDetach()
-    }
-
-    override fun onPause() {
-        exoPlayer?.pause()
-        super.onPause()
     }
 
     companion object {

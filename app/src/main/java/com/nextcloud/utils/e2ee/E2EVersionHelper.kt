@@ -7,14 +7,24 @@
 
 package com.nextcloud.utils.e2ee
 
+import android.content.Context
 import com.google.gson.reflect.TypeToken
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile
 import com.owncloud.android.lib.resources.status.E2EVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.theme.CapabilityUtils
 
 object E2EVersionHelper {
+
+    /**
+     * Returns true if the given E2EE version is v2 or newer.
+     */
+    fun isV2Plus(context: Context): Boolean {
+        val capability = CapabilityUtils.getCapability(context)
+        return isV2Plus(capability)
+    }
 
     /**
      * Returns true if the given E2EE version is v2 or newer.
@@ -24,7 +34,7 @@ object E2EVersionHelper {
     /**
      * Returns true if the given E2EE version is v2 or newer.
      */
-    fun isV2Plus(version: E2EVersion): Boolean = version == E2EVersion.V2_0 || version == E2EVersion.V2_1
+    fun isV2Plus(version: E2EVersion): Boolean = (version == E2EVersion.V2_0 || version == E2EVersion.V2_1)
 
     /**
      * Returns true if the given E2EE version is v1.x.
