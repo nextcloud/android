@@ -58,7 +58,7 @@ class FileInfoRepository @Inject constructor(private val clientFactory: ClientFa
             val result = GetEntityLabelsRemoteOperation(ENTITY_TYPE_FILES, file.localId.toString()).execute(client)
             val labels = if (result.isSuccess) result.resultData else null
             CurrentEntityLabels(
-                sensitivityId = labels?.sensitivity?.id ?: "",
+                sensitivityId = labels?.sensitivity?.map { it.id }?.toSet()?.first() ?: "",
                 retentionIds = labels?.retention?.map { it.id }?.toSet() ?: emptySet(),
                 holdIds = labels?.hold?.map { it.id }?.toSet() ?: emptySet()
             )
