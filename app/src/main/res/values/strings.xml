@@ -1530,6 +1530,7 @@
     <string name="governance_file_retention_label">File retention</string>
     <string name="governance_legal_hold_label">Legal hold</string>
     <string name="governance_no_label">None</string>
+    <string name="governance_permission_denied">You do not have permission to change this label</string>
     <string name="file_info_governance_section_title">Governance</string>
     <string name="file_info_image_details_section_title">Image details</string>
 </resources>

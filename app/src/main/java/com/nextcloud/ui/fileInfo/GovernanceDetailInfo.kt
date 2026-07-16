@@ -22,11 +22,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.nextcloud.ui.fileInfo.model.GovernanceEvent
 import com.nextcloud.ui.fileInfo.model.GovernanceLabel
 import com.nextcloud.ui.fileInfo.model.GovernanceUiState
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileInfoFragmentBinding
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
@@ -45,18 +47,59 @@ class GovernanceDetailInfo(
         fragment.lifecycleScope.launch {
             val state = viewModel.uiState.filterIsInstance<GovernanceUiState.Loaded>().first()
             setupSensitivityLabels(state.sensitivityLabels, state.currentSensitivityLabelId)
-            setupRetentionLabels(state.retentionLabels)
-            setupHoldLabels(state.holdLabels)
+            setupMultiSelectField(
+                textInputLayout = binding.fileRetentionLabel,
+                labelText = binding.fileRetentionLabelText,
+                items = state.retentionLabels,
+                title = context.getString(R.string.governance_file_retention_label),
+                getCurrentIds = { currentLoadedState()?.currentRetentionLabelIds.orEmpty() }
+            ) { newIds -> viewModel.updateRetentionLabels(newIds) }
+            setupMultiSelectField(
+                textInputLayout = binding.fileHoldLabel,
+                labelText = binding.fileHoldLabelText,
+                items = state.holdLabels,
+                title = context.getString(R.string.governance_legal_hold_label),
+                getCurrentIds = { currentLoadedState()?.currentHoldLabelIds.orEmpty() }
+            ) { newIds -> viewModel.updateHoldLabels(newIds) }
+        }
+        observeEvents()
+    }
+
+    private fun observeEvents() {
+        fragment.lifecycleScope.launch {
+            viewModel.events.collect { event ->
+                when (event) {
+                    GovernanceEvent.PermissionDenied -> {
+                        DisplayUtils.showSnackMessage(fragment, R.string.governance_permission_denied)
+                        currentLoadedState()?.let { refresh(it) }
+                    }
+                }
+            }
         }
     }
+
+    private fun refresh(state: GovernanceUiState.Loaded) {
+        if (state.retentionLabels.isNotEmpty()) {
+            updateMultiSelectText(binding.fileRetentionLabelText, state.retentionLabels, state.currentRetentionLabelIds)
+        }
+        if (state.holdLabels.isNotEmpty()) {
+            updateMultiSelectText(binding.fileHoldLabelText, state.holdLabels, state.currentHoldLabelIds)
+        }
+        if (state.sensitivityLabels.isNotEmpty()) {
+            val items = listOf(noneLabel()) + state.sensitivityLabels
+            val item = items.find { it.id == state.currentSensitivityLabelId } ?: items.first()
+            applySelection(binding.sensitivityLabelAutoComplete, item)
+        }
+    }
+
+    private fun noneLabel() = GovernanceLabel("", context.getString(R.string.governance_no_label), "")
 
     private fun setupSensitivityLabels(labels: List<GovernanceLabel>, currentId: String) {
         if (labels.isEmpty()) {
             binding.sensitivityLabel.visibility = View.GONE
             return
         }
-        val noneLabel = GovernanceLabel("", context.getString(R.string.governance_no_label), "")
-        val items = listOf(noneLabel) + labels
+        val items = listOf(noneLabel()) + labels
         val initialItem = items.find { it.id == currentId } ?: items.first()
         initDropdown(
             textInputLayout = binding.sensitivityLabel,
@@ -72,38 +115,6 @@ class GovernanceDetailInfo(
         }
     }
 
-    private fun setupRetentionLabels(labels: List<GovernanceLabel>) {
-        if (labels.isEmpty()) {
-            binding.fileRetentionLabel.visibility = View.GONE
-            return
-        }
-        setupMultiSelectField(
-            textInputLayout = binding.fileRetentionLabel,
-            labelText = binding.fileRetentionLabelText,
-            items = labels,
-            title = context.getString(R.string.governance_file_retention_label),
-            getCurrentIds = { currentLoadedState()?.currentRetentionLabelIds.orEmpty() }
-        ) { newIds ->
-            viewModel.updateRetentionLabels(newIds)
-        }
-    }
-
-    private fun setupHoldLabels(labels: List<GovernanceLabel>) {
-        if (labels.isEmpty()) {
-            binding.fileHoldLabel.visibility = View.GONE
-            return
-        }
-        setupMultiSelectField(
-            textInputLayout = binding.fileHoldLabel,
-            labelText = binding.fileHoldLabelText,
-            items = labels,
-            title = context.getString(R.string.governance_legal_hold_label),
-            getCurrentIds = { currentLoadedState()?.currentHoldLabelIds.orEmpty() }
-        ) { newIds ->
-            viewModel.updateHoldLabels(newIds)
-        }
-    }
-
     private fun currentLoadedState(): GovernanceUiState.Loaded? = viewModel.uiState.value as? GovernanceUiState.Loaded
 
     private fun setupMultiSelectField(
@@ -114,6 +125,10 @@ class GovernanceDetailInfo(
         getCurrentIds: () -> Set<String>,
         onUpdate: (Set<String>) -> Unit
     ) {
+        if (items.isEmpty()) {
+            textInputLayout.visibility = View.GONE
+            return
+        }
         textInputLayout.visibility = View.VISIBLE
         viewThemeUtils.material.colorTextInputLayout(textInputLayout)
         updateMultiSelectText(labelText, items, getCurrentIds())

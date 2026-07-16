@@ -20,13 +20,16 @@ import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.fileInfo.model.CurrentEntityLabels
 import com.nextcloud.ui.fileInfo.model.GovernanceLabel
+import com.nextcloud.ui.fileInfo.model.LabelOperationResult
 import com.nextcloud.ui.fileInfo.model.SelectableLabels
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import org.apache.commons.httpclient.HttpStatus
 import javax.inject.Inject
 
 class FileInfoRepository @Inject constructor(private val clientFactory: ClientFactory) {
@@ -56,21 +59,31 @@ class FileInfoRepository @Inject constructor(private val clientFactory: ClientFa
             val result = GetEntityLabelsRemoteOperation(ENTITY_TYPE_FILES, file.localId.toString()).execute(client)
             val labels = if (result.isSuccess) result.resultData else null
             CurrentEntityLabels(
-                sensitivityId = labels?.sensitivity?.map { it.id }?.toSet()?.first() ?: "",
+                sensitivityId = labels?.sensitivity?.firstOrNull()?.id ?: "",
                 retentionIds = labels?.retention?.map { it.id }?.toSet() ?: emptySet(),
                 holdIds = labels?.hold?.map { it.id }?.toSet() ?: emptySet()
             )
         }
 
-    suspend fun setLabel(file: OCFile, user: User, labelType: LabelType, labelId: String): Boolean =
-        execute(user, false, "Could not set label") { client ->
-            SetLabelRemoteOperation(ENTITY_TYPE_FILES, file.localId, labelType, labelId).execute(client).isSuccess
+    suspend fun setLabel(file: OCFile, user: User, labelType: LabelType, labelId: String): LabelOperationResult =
+        execute(user, LabelOperationResult.Failure, "Could not set label") { client ->
+            SetLabelRemoteOperation(ENTITY_TYPE_FILES, file.localId, labelType, labelId)
+                .execute(client)
+                .toLabelOperationResult()
         }
 
-    suspend fun removeLabel(file: OCFile, user: User, labelType: LabelType, labelId: String): Boolean =
-        execute(user, false, "Could not remove label") { client ->
-            RemoveLabelRemoteOperation(ENTITY_TYPE_FILES, file.localId, labelType, labelId).execute(client).isSuccess
+    suspend fun removeLabel(file: OCFile, user: User, labelType: LabelType, labelId: String): LabelOperationResult =
+        execute(user, LabelOperationResult.Failure, "Could not remove label") { client ->
+            RemoveLabelRemoteOperation(ENTITY_TYPE_FILES, file.localId, labelType, labelId)
+                .execute(client)
+                .toLabelOperationResult()
         }
+
+    private fun RemoteOperationResult<*>.toLabelOperationResult(): LabelOperationResult = when {
+        isSuccess -> LabelOperationResult.Success
+        httpCode == HttpStatus.SC_FORBIDDEN -> LabelOperationResult.Forbidden
+        else -> LabelOperationResult.Failure
+    }
 
     @Suppress("TooGenericExceptionCaught")
     private suspend fun <T> execute(user: User, default: T, errorMessage: String, block: (NextcloudClient) -> T): T =

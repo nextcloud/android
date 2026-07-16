@@ -11,13 +11,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.android.lib.resources.governance.model.LabelType
 import com.nextcloud.client.account.User
+import com.nextcloud.ui.fileInfo.model.GovernanceEvent
 import com.nextcloud.ui.fileInfo.model.GovernanceUiState
+import com.nextcloud.ui.fileInfo.model.LabelOperationResult
 import com.owncloud.android.datamodel.OCFile
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -30,6 +34,9 @@ class FileInfoViewModel @AssistedInject constructor(
 
     private val _uiState = MutableStateFlow<GovernanceUiState>(GovernanceUiState.Loading)
     val uiState: StateFlow<GovernanceUiState> = _uiState
+
+    private val _events = MutableSharedFlow<GovernanceEvent>()
+    val events: SharedFlow<GovernanceEvent> = _events
 
     init {
         loadGovernance()
@@ -53,7 +60,7 @@ class FileInfoViewModel @AssistedInject constructor(
 
     fun setSensitivityLabel(labelId: String) {
         viewModelScope.launch {
-            if (repository.setLabel(file, user, LabelType.SENSITIVITY, labelId)) {
+            handleResult(repository.setLabel(file, user, LabelType.SENSITIVITY, labelId)) {
                 updateLoaded { it.copy(currentSensitivityLabelId = labelId) }
             }
         }
@@ -62,7 +69,7 @@ class FileInfoViewModel @AssistedInject constructor(
     fun removeSensitivityLabel() {
         viewModelScope.launch {
             val labelId = loaded()?.currentSensitivityLabelId?.takeIf { it.isNotEmpty() } ?: return@launch
-            if (repository.removeLabel(file, user, LabelType.SENSITIVITY, labelId)) {
+            handleResult(repository.removeLabel(file, user, LabelType.SENSITIVITY, labelId)) {
                 updateLoaded { it.copy(currentSensitivityLabelId = "") }
             }
         }
@@ -71,22 +78,43 @@ class FileInfoViewModel @AssistedInject constructor(
     fun updateRetentionLabels(newLabelIds: Set<String>) {
         val currentIds = loaded()?.currentRetentionLabelIds ?: return
         viewModelScope.launch {
-            applyDiff(LabelType.RETENTION, currentIds, newLabelIds)
-            updateLoaded { it.copy(currentRetentionLabelIds = newLabelIds) }
+            handleResult(applyDiff(LabelType.RETENTION, currentIds, newLabelIds)) {
+                updateLoaded { it.copy(currentRetentionLabelIds = newLabelIds) }
+            }
         }
     }
 
     fun updateHoldLabels(newLabelIds: Set<String>) {
         val currentIds = loaded()?.currentHoldLabelIds ?: return
         viewModelScope.launch {
-            applyDiff(LabelType.HOLD, currentIds, newLabelIds)
-            updateLoaded { it.copy(currentHoldLabelIds = newLabelIds) }
+            handleResult(applyDiff(LabelType.HOLD, currentIds, newLabelIds)) {
+                updateLoaded { it.copy(currentHoldLabelIds = newLabelIds) }
+            }
         }
     }
 
-    private suspend fun applyDiff(labelType: LabelType, currentIds: Set<String>, newLabelIds: Set<String>) {
-        (newLabelIds - currentIds).forEach { repository.setLabel(file, user, labelType, it) }
-        (currentIds - newLabelIds).forEach { repository.removeLabel(file, user, labelType, it) }
+    private suspend fun applyDiff(
+        labelType: LabelType,
+        currentIds: Set<String>,
+        newLabelIds: Set<String>
+    ): LabelOperationResult {
+        val results =
+            (newLabelIds - currentIds).map { repository.setLabel(file, user, labelType, it) } +
+                (currentIds - newLabelIds).map { repository.removeLabel(file, user, labelType, it) }
+
+        return when {
+            results.any { it is LabelOperationResult.Forbidden } -> LabelOperationResult.Forbidden
+            results.any { it is LabelOperationResult.Failure } -> LabelOperationResult.Failure
+            else -> LabelOperationResult.Success
+        }
+    }
+
+    private suspend fun handleResult(result: LabelOperationResult, onSuccess: () -> Unit) {
+        when (result) {
+            LabelOperationResult.Success -> onSuccess()
+            LabelOperationResult.Forbidden -> _events.emit(GovernanceEvent.PermissionDenied)
+            LabelOperationResult.Failure -> Unit
+        }
     }
 
     private fun loaded(): GovernanceUiState.Loaded? = _uiState.value as? GovernanceUiState.Loaded
