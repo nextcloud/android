@@ -421,10 +421,10 @@ class UploadsStorageManager(
         val deleted = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_FAILED.value +
-                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.LOCK_FAILED.value +
-                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.DELAYED_FOR_WIFI.value +
-                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.DELAYED_FOR_CHARGING.value +
-                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + NOT_EQUAL + UploadResult.LOCK_FAILED.value +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + NOT_EQUAL + UploadResult.DELAYED_FOR_WIFI.value +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + NOT_EQUAL + UploadResult.DELAYED_FOR_CHARGING.value +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + NOT_EQUAL +
                 UploadResult.DELAYED_IN_POWER_SAVE_MODE.value +
                 AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL,
             arrayOf(user.accountName)
@@ -452,6 +452,7 @@ class UploadsStorageManager(
         val deleted = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_SUCCEEDED.value +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + NOT_EQUAL + UploadResult.SKIPPED.value +
                 AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL,
             arrayOf(user.accountName)
         )
@@ -464,7 +465,7 @@ class UploadsStorageManager(
         val deleted = contentResolver.delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_SUCCEEDED.value +
-                AND + ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY + EQUAL + NameCollisionPolicy.SKIP.serialize() +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT + EQUAL + UploadResult.SKIPPED.value +
                 AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL,
             arrayOf(user.accountName)
         )
@@ -493,7 +494,7 @@ class UploadsStorageManager(
 
         if (uploadResult.isSuccess) {
             status = UploadStatus.UPLOAD_SUCCEEDED
-            result = UploadResult.UPLOADED
+            result = if (upload.wasSkipped()) UploadResult.SKIPPED else UploadResult.UPLOADED
         } else if (code.isConflict()) {
             val isSame = FileUploadHelper().isSameFileOnRemote(
                 upload.user,
@@ -600,7 +601,7 @@ class UploadsStorageManager(
         private const val EQUAL = "=="
         private const val OR = " OR "
         private const val AND = " AND "
-        private const val ANGLE_BRACKETS = "<>"
+        private const val NOT_EQUAL = "<>"
         private const val SINGLE_RESULT = 1
 
         private const val QUERY_PAGE_SIZE: Long = 100

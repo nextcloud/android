@@ -411,10 +411,9 @@ class AutoUploadWorker(
         }
 
         // only valid for skip collision policy other scenarios will be handled in UploadFileOperation.java
-        if (upload.lastResult == UploadResult.UPLOADED &&
-            syncedFolder.nameCollisionPolicy == NameCollisionPolicy.SKIP
-        ) {
-            Log_OC.d(TAG, "no need to create and process this entity file is already uploaded")
+        val alreadyHandled = upload.lastResult == UploadResult.UPLOADED || upload.lastResult == UploadResult.SKIPPED
+        if (alreadyHandled && syncedFolder.nameCollisionPolicy == NameCollisionPolicy.SKIP) {
+            Log_OC.d(TAG, "no need to create and process this entity file is already uploaded or skipped")
             return AutoUploadEntityResult.Uploaded
         }
 
