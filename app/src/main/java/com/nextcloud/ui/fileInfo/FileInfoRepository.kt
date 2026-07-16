@@ -9,12 +9,12 @@ package com.nextcloud.ui.fileInfo
 
 import com.nextcloud.android.lib.resources.governance.GetAllSelectableLabelsRemoteOperation
 import com.nextcloud.android.lib.resources.governance.GetEntityLabelsRemoteOperation
-import com.nextcloud.android.lib.resources.governance.HoldLabelInfo
-import com.nextcloud.android.lib.resources.governance.LabelType
 import com.nextcloud.android.lib.resources.governance.RemoveLabelRemoteOperation
-import com.nextcloud.android.lib.resources.governance.RetentionLabelInfo
-import com.nextcloud.android.lib.resources.governance.SensitivityLabelInfo
 import com.nextcloud.android.lib.resources.governance.SetLabelRemoteOperation
+import com.nextcloud.android.lib.resources.governance.model.HoldLabelInfo
+import com.nextcloud.android.lib.resources.governance.model.LabelType
+import com.nextcloud.android.lib.resources.governance.model.RetentionLabelInfo
+import com.nextcloud.android.lib.resources.governance.model.SensitivityLabelInfo
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.common.NextcloudClient

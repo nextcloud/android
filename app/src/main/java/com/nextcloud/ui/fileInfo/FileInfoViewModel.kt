@@ -9,7 +9,7 @@ package com.nextcloud.ui.fileInfo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nextcloud.android.lib.resources.governance.LabelType
+import com.nextcloud.android.lib.resources.governance.model.LabelType
 import com.nextcloud.client.account.User
 import com.nextcloud.ui.fileInfo.model.GovernanceUiState
 import com.owncloud.android.datamodel.OCFile
