@@ -96,6 +96,7 @@ class UploadsStorageManager(
             put(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP_LONG, uploadEndTimestamp)
             put(ProviderTableMeta.UPLOADS_FILE_SIZE, ocUpload.fileSize)
             put(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN, ocUpload.folderUnlockToken)
+            put(ProviderTableMeta.UPLOADS_ETAG, ocUpload.etag)
         }
 
         val result = contentResolver.update(
@@ -114,6 +115,26 @@ class UploadsStorageManager(
         }
 
         return result
+    }
+
+    fun updateUploadEtag(ocUpload: OCUpload) {
+        val etag = ocUpload.etag
+        if (etag.isNullOrEmpty()) {
+            return
+        }
+
+        val cv = ContentValues().apply {
+            put(ProviderTableMeta.UPLOADS_ETAG, etag)
+        }
+
+        val result = contentResolver.update(
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            cv,
+            ProviderTableMeta._ID + "=? AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
+            arrayOf(ocUpload.uploadId.toString(), ocUpload.accountName)
+        )
+
+        Log_OC.d(TAG, "updateUploadEtag returns with: $result for file: ${ocUpload.localPath}")
     }
 
     private fun updateUploadInternal(
@@ -404,6 +425,11 @@ class UploadsStorageManager(
             isUseWifiOnly = c.int(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY) == 1
             isWhileChargingOnly = c.int(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY) == 1
             folderUnlockToken = c.str(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN)
+
+            val etagIndex = c.getColumnIndex(ProviderTableMeta.UPLOADS_ETAG)
+            if (etagIndex > -1) {
+                etag = c.getString(etagIndex)
+            }
         }
     }
 
@@ -495,12 +521,7 @@ class UploadsStorageManager(
             status = UploadStatus.UPLOAD_SUCCEEDED
             result = UploadResult.UPLOADED
         } else if (code.isConflict()) {
-            val isSame = FileUploadHelper().isSameFileOnRemote(
-                upload.user,
-                upload.storagePath,
-                upload.remotePath,
-                upload.context
-            )
+            val isSame = FileUploadHelper().isSameFileOnRemote(upload.storagePath, upload.remotePath)
 
             if (isSame) {
                 result = UploadResult.SAME_FILE_CONFLICT

@@ -115,6 +115,13 @@ public class OCUpload implements Parcelable {
     private String folderUnlockToken;
 
     /**
+     * Server etag of the file created by the last successful upload of this record.
+     * Written only by the upload machinery; unlike the etag in the files table it is
+     * never refreshed by browse/search/sync operations.
+     */
+    private String etag;
+
+    /**
      * temporary values, used for sorting
      */
     private UploadStatus fixedUploadStatus;
@@ -175,6 +182,7 @@ public class OCUpload implements Parcelable {
         useWifiOnly = true;
         whileChargingOnly = false;
         folderUnlockToken = "";
+        etag = null;
     }
 
     public void setDataFixed(FileUploadHelper uploadHelper) {
@@ -286,6 +294,7 @@ public class OCUpload implements Parcelable {
         useWifiOnly = source.readInt() == 1;
         whileChargingOnly = source.readInt() == 1;
         folderUnlockToken = source.readString();
+        etag = source.readString();
     }
 
     @Override
@@ -335,6 +344,7 @@ public class OCUpload implements Parcelable {
         dest.writeInt(useWifiOnly ? 1 : 0);
         dest.writeInt(whileChargingOnly ? 1 : 0);
         dest.writeString(folderUnlockToken);
+        dest.writeString(etag);
     }
 
     public long getUploadId() {
@@ -447,5 +457,13 @@ public class OCUpload implements Parcelable {
 
     public void setFolderUnlockToken(String folderUnlockToken) {
         this.folderUnlockToken = folderUnlockToken;
+    }
+
+    public String getEtag() {
+        return this.etag;
+    }
+
+    public void setEtag(String etag) {
+        this.etag = etag;
     }
 }

@@ -7,7 +7,7 @@
 
 package com.owncloud.android.ui.adapter.uploadList.helper
 
-import com.nextcloud.utils.extensions.isSame
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
@@ -46,20 +46,19 @@ class UploadListAdapterActionHandler : UploadListAdapterAction {
             }
         }
 
+        if (FileUploadHelper.instance().isSameFileOnRemote(upload.localPath, upload.remotePath)) {
+            updateStatus(upload, storageManager, success = true)
+            return@withContext ConflictHandlingResult.ConflictNotExistsSameFile
+        }
+
         val remoteFile = operationResult.data[0] as? RemoteFile
             ?: run {
                 Log_OC.e(TAG, "cannot check conflict, operation result cannot be cast to RemoteFile")
                 return@withContext ConflictHandlingResult.CannotCheckConflict
             }
-
         val ocFile = FileStorageUtils.fillOCFile(remoteFile)
 
-        if (remoteFile.isSame(ocFile.storagePath)) {
-            updateStatus(upload, storageManager, success = true)
-            ConflictHandlingResult.ConflictNotExistsSameFile
-        } else {
-            ConflictHandlingResult.ShowConflictResolveDialog(ocFile, upload)
-        }
+        ConflictHandlingResult.ShowConflictResolveDialog(ocFile, upload)
     }
 
     private fun updateStatus(upload: OCUpload, storageManager: UploadsStorageManager, success: Boolean) {

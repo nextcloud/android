@@ -60,7 +60,9 @@ data class UploadEntity(
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_CREATED_BY)
     val createdBy: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN)
-    val folderUnlockToken: String?
+    val folderUnlockToken: String?,
+    @ColumnInfo(name = ProviderTableMeta.UPLOADS_ETAG)
+    val etag: String?
 )
 
 fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload? {
@@ -88,6 +90,7 @@ fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload? {
     isWifiOnly?.let { upload.isUseWifiOnly = it == 1 }
     isWhileChargingOnly?.let { upload.isWhileChargingOnly = it == 1 }
     folderUnlockToken?.let { upload.folderUnlockToken = it }
+    etag?.let { upload.etag = it }
 
     return upload
 }
@@ -129,6 +132,7 @@ fun OCUpload.toUploadEntity(): UploadEntity {
         isWifiOnly = if (isUseWifiOnly) 1 else 0,
         isWhileChargingOnly = if (isWhileChargingOnly) 1 else 0,
         folderUnlockToken = folderUnlockToken,
-        uploadTime = null
+        uploadTime = null,
+        etag = etag
     )
 }

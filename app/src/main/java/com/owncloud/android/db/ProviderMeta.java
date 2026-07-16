@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 101;
+    public static final int DB_VERSION = 102;
 
     private ProviderMeta() {
         // No instance
@@ -314,6 +314,7 @@ public class ProviderMeta {
         public static final String UPLOADS_IS_WHILE_CHARGING_ONLY = "is_while_charging_only";
         public static final String UPLOADS_IS_WIFI_ONLY = "is_wifi_only";
         public static final String UPLOADS_FOLDER_UNLOCK_TOKEN = "folder_unlock_token";
+        public static final String UPLOADS_ETAG = "etag";
 
         // Columns of offline operation table
         public static final String OFFLINE_OPERATION_PARENT_OC_FILE_ID = "offline_operations_parent_oc_file_id";
