@@ -37,14 +37,13 @@ class FileInfoViewModel @AssistedInject constructor(
 
     private fun loadGovernance() {
         viewModelScope.launch {
-            val sensitivityLabels = async { repository.fetchSensitivityLabels(file, user) }
-            val retentionLabels = async { repository.fetchRetentionLabels(file, user) }
-            val holdLabels = async { repository.fetchHoldLabels(file, user) }
+            val selectableLabels = async { repository.fetchAllSelectableLabels(file, user) }
             val entityLabels = repository.fetchEntityLabels(file, user)
+            val labels = selectableLabels.await()
             _uiState.value = GovernanceUiState.Loaded(
-                sensitivityLabels = sensitivityLabels.await(),
-                retentionLabels = retentionLabels.await(),
-                holdLabels = holdLabels.await(),
+                sensitivityLabels = labels.sensitivityLabels,
+                retentionLabels = labels.retentionLabels,
+                holdLabels = labels.holdLabels,
                 currentSensitivityLabelId = entityLabels.sensitivityId,
                 currentRetentionLabelIds = entityLabels.retentionIds,
                 currentHoldLabelIds = entityLabels.holdIds

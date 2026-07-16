@@ -7,9 +7,7 @@
 
 package com.nextcloud.ui.fileInfo
 
-import com.nextcloud.android.lib.resources.governance.GetAvailableHoldLabelsRemoteOperation
-import com.nextcloud.android.lib.resources.governance.GetAvailableRetentionLabelsRemoteOperation
-import com.nextcloud.android.lib.resources.governance.GetAvailableSensitivityLabelsRemoteOperation
+import com.nextcloud.android.lib.resources.governance.GetAllSelectableLabelsRemoteOperation
 import com.nextcloud.android.lib.resources.governance.GetEntityLabelsRemoteOperation
 import com.nextcloud.android.lib.resources.governance.HoldLabelInfo
 import com.nextcloud.android.lib.resources.governance.LabelType
@@ -22,6 +20,7 @@ import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.fileInfo.model.CurrentEntityLabels
 import com.nextcloud.ui.fileInfo.model.GovernanceLabel
+import com.nextcloud.ui.fileInfo.model.SelectableLabels
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.Dispatchers
@@ -35,23 +34,22 @@ class FileInfoRepository @Inject constructor(private val clientFactory: ClientFa
     private val clientMutex = Mutex()
     private var client: NextcloudClient? = null
 
-    suspend fun fetchSensitivityLabels(file: OCFile, user: User): List<GovernanceLabel> =
-        execute(user, emptyList(), "Could not fetch available sensitivity labels") { client ->
-            val result = GetAvailableSensitivityLabelsRemoteOperation(ENTITY_TYPE_FILES, file.localId).execute(client)
-            if (result.isSuccess) result.resultData.orEmpty().map { it.toGovernanceLabel() } else emptyList()
+    suspend fun fetchAllSelectableLabels(file: OCFile, user: User): SelectableLabels {
+        val empty = SelectableLabels(emptyList(), emptyList(), emptyList())
+        return execute(user, empty, "Could not fetch selectable labels") { client ->
+            val result = GetAllSelectableLabelsRemoteOperation(ENTITY_TYPE_FILES, file.localId).execute(client)
+            if (result.isSuccess) {
+                val data = result.resultData
+                SelectableLabels(
+                    sensitivityLabels = data?.sensitivity?.map { it.toGovernanceLabel() } ?: emptyList(),
+                    retentionLabels = data?.retention?.map { it.toGovernanceLabel() } ?: emptyList(),
+                    holdLabels = data?.hold?.map { it.toGovernanceLabel() } ?: emptyList()
+                )
+            } else {
+                empty
+            }
         }
-
-    suspend fun fetchRetentionLabels(file: OCFile, user: User): List<GovernanceLabel> =
-        execute(user, emptyList(), "Could not fetch available retention labels") { client ->
-            val result = GetAvailableRetentionLabelsRemoteOperation(ENTITY_TYPE_FILES, file.localId).execute(client)
-            if (result.isSuccess) result.resultData.orEmpty().map { it.toGovernanceLabel() } else emptyList()
-        }
-
-    suspend fun fetchHoldLabels(file: OCFile, user: User): List<GovernanceLabel> =
-        execute(user, emptyList(), "Could not fetch available hold labels") { client ->
-            val result = GetAvailableHoldLabelsRemoteOperation(ENTITY_TYPE_FILES, file.localId).execute(client)
-            if (result.isSuccess) result.resultData.orEmpty().map { it.toGovernanceLabel() } else emptyList()
-        }
+    }
 
     suspend fun fetchEntityLabels(file: OCFile, user: User): CurrentEntityLabels =
         execute(user, CurrentEntityLabels(), "Could not fetch entity labels") { client ->
@@ -91,9 +89,7 @@ class FileInfoRepository @Inject constructor(private val clientFactory: ClientFa
     }
 
     private fun SensitivityLabelInfo.toGovernanceLabel() = GovernanceLabel(id, name, color)
-
     private fun RetentionLabelInfo.toGovernanceLabel() = GovernanceLabel(id, name, color)
-
     private fun HoldLabelInfo.toGovernanceLabel() = GovernanceLabel(id, name, color)
 
     companion object {
