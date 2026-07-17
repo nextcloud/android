@@ -17,10 +17,12 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputLayout
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SetupEncryptionDialogBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -117,6 +119,10 @@ class SetupEncryptionDialogFragment :
         // Setup layout
         viewThemeUtils.material.colorTextInputLayout(binding.encryptionPasswordInputContainer)
         viewThemeUtils.material.colorProgressBar(binding.progressBar)
+
+        if (BuildConfig.DEBUG) {
+            binding.encryptionPasswordInputContainer.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+        }
 
         val builder = buildMaterialAlertDialog(binding.root)
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(requireContext(), builder)
