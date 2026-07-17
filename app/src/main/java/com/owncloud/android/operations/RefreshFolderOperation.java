@@ -601,6 +601,9 @@ public class RefreshFolderOperation extends RemoteOperation {
                 updateFileNameForEncryptedFileV1(fileDataStorageManager, metadata, updatedFile);
             } else if (object instanceof DecryptedFolderMetadataFile metadata) {
                 updateFileNameForEncryptedFile(fileDataStorageManager, metadata, updatedFile);
+                if (localFile != null) {
+                    updatedFile.setE2eCounter(localFile.getE2eCounter());
+                }
             }
 
             // we parse content, so either the folder itself or its direct parent (which we check) must be encrypted
