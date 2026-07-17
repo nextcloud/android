@@ -596,12 +596,6 @@ public class RefreshFolderOperation extends RemoteOperation {
             // check and fix, if needed, local storage path
             FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.getAccountName());
 
-            // the e2e counter is client-side state that WebDAV never returns; always carry it forward
-            // so refreshing a (possibly unencrypted) parent never resets an encrypted child's counter
-            if (localFile != null) {
-                updatedFile.setE2eCounter(localFile.getE2eCounter());
-            }
-
             // update file name for encrypted files
             if (E2EVersionHelper.INSTANCE.isV1(e2EVersion) && object instanceof DecryptedFolderMetadataFileV1 metadata) {
                 updateFileNameForEncryptedFileV1(fileDataStorageManager, metadata, updatedFile);
