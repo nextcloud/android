@@ -854,7 +854,9 @@ class EncryptionUtilsV2 {
         oldCounter: Long,
         signature: String
     ): Boolean {
-        if (decryptedFolderMetadataFile.metadata.counter < oldCounter) {
+        val metadataCounter = decryptedFolderMetadataFile.metadata.counter
+        if (metadataCounter < oldCounter) {
+            Log_OC.e(TAG, "old counter: $oldCounter, metadata counter $metadataCounter")
             MainApp.showMessage(R.string.e2e_counter_too_old)
             return false
         }
