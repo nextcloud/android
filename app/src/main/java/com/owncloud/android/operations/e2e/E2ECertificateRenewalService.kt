@@ -87,6 +87,7 @@ class E2ECertificateRenewalService(
 
         val client = clientFactory.createNextcloudClient(user)
 
+        // Actually deletes certificate remote operation name is wrong
         if (!DeletePublicKeyRemoteOperation().execute(client).isSuccess) {
             return E2ECertificateRenewalResult.Failure(R.string.renew_e2e_certificate_error)
         }

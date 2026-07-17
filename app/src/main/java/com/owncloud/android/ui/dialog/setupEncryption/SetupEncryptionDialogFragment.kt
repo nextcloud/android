@@ -308,6 +308,7 @@ class SetupEncryptionDialogFragment :
             val user = user ?: return@withContext DownloadKeyResult.UnexpectedError()
             val dataProvider = arbitraryDataProvider ?: return@withContext DownloadKeyResult.UnexpectedError()
 
+            // GetPublicKeyRemoteOperation is wrong naming it actually fetches certificate
             val certificateOperation = GetPublicKeyRemoteOperation()
             val certificateResult = certificateOperation.executeNextcloudClient(user, weakContext)
             if (!certificateResult.isSuccess) {
@@ -392,7 +393,7 @@ class SetupEncryptionDialogFragment :
             //  - create CSR, push to server, store returned public key in database
             //  - encrypt private key, push key to server, store unencrypted private key in database
             try {
-                val publicKeyString: String
+                val certificate: String
 
                 // Create public/private key pair
                 val keyPair = EncryptionUtils.generateKeyPair()
@@ -407,8 +408,8 @@ class SetupEncryptionDialogFragment :
                 val result = operation.executeNextcloudClient(user, context)
 
                 if (result.isSuccess) {
-                    publicKeyString = result.resultData
-                    if (!EncryptionUtils.isMatchingKeys(keyPair, publicKeyString)) {
+                    certificate = result.resultData
+                    if (!EncryptionUtils.isMatchingKeys(keyPair, certificate)) {
                         EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
                         throw RuntimeException("Wrong CSR returned")
                     }
@@ -439,7 +440,7 @@ class SetupEncryptionDialogFragment :
                     arbitraryDataProvider?.storeOrUpdateKeyValue(
                         user.accountName,
                         EncryptionUtils.PUBLIC_KEY,
-                        publicKeyString
+                        certificate
                     )
                     arbitraryDataProvider?.storeOrUpdateKeyValue(
                         user.accountName,
