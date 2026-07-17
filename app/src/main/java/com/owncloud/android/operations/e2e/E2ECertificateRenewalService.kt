@@ -25,6 +25,7 @@ import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.utils.EncryptionUtils
 import java.security.KeyFactory
 import java.security.KeyPair
+import java.security.interfaces.RSAPrivateKey
 import java.security.spec.PKCS8EncodedKeySpec
 
 /**
@@ -96,7 +97,7 @@ class E2ECertificateRenewalService(
             return E2ECertificateRenewalResult.Failure(R.string.renew_e2e_certificate_error)
         }
 
-        if (!EncryptionUtils.isMatchingKeys(keyPair, renewedCertificate)) {
+        if (!isMatchingKeys(keyPair, renewedCertificate)) {
             EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
             return E2ECertificateRenewalResult.Failure(R.string.renew_e2e_certificate_error)
         }
@@ -105,6 +106,12 @@ class E2ECertificateRenewalService(
         Log_OC.i(TAG, "E2E certificate renewed successfully for " + user.accountName)
 
         return E2ECertificateRenewalResult.Success
+    }
+
+    private fun isMatchingKeys(keyPair: KeyPair, certificate: String): Boolean {
+        val privateKey = keyPair.private as? RSAPrivateKey ?: return false
+        val publicKey = EncryptionUtils.convertPublicKeyFromString(certificate)
+        return privateKey.modulus == publicKey.modulus
     }
 
     private fun reconstructKeyPair(user: User): KeyPair? {
