@@ -554,11 +554,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             localFilesMap = prefillLocalFilesMap(metadataFileV1, fileDataStorageManager.getFolderContent(mLocalFolder, false));
         } else {
             localFilesMap = prefillLocalFilesMap(object, fileDataStorageManager.getFolderContent(mLocalFolder, false));
-
-            // the metadata counter is the atomic source of truth on the server; persist it so the
-            // local copy never lags behind (verifyMetadata already ensured it is not older)
-            if (object != null) {
-                long serverCounter = ((DecryptedFolderMetadataFile) object).getMetadata().getCounter();
+            if (object instanceof DecryptedFolderMetadataFile metadataFile) {
+                long serverCounter = metadataFile.getMetadata().getCounter();
                 fileDataStorageManager.updateE2EECounter(mLocalFolder, serverCounter);
             }
         }
