@@ -120,6 +120,11 @@ class DownloadFileOperation(
             if (cancellationRequested.get()) return RemoteOperationResult(OperationCancelledException())
         }
 
+        if (file.isFolder) {
+            Log_OC.e(TAG, "Cannot download a folder as a file: ${file.remotePath}")
+            return RemoteOperationResult(RemoteOperationResult.ResultCode.CANNOT_CREATE_FILE)
+        }
+
         if (!FileStorageUtils.isValidExtFilename(file.fileName)) {
             mainThreadHandler.post { context.get()?.showToast(R.string.download_download_invalid_local_file_name) }
             return RemoteOperationResult(RemoteOperationResult.ResultCode.INVALID_CHARACTER_IN_NAME)
@@ -213,11 +218,21 @@ class DownloadFileOperation(
         )
     }
 
+    private fun ensureParentDirectory(target: File) {
+        val parent = target.parentFile ?: return
+
+        if (parent.exists() && !parent.isDirectory && !parent.delete()) {
+            Log_OC.e(TAG, "Unable to delete file blocking parent folder ${parent.absolutePath}")
+        }
+
+        if (!parent.exists() && !parent.mkdirs()) {
+            Log_OC.e(TAG, "Unable to create parent folder ${parent.absolutePath}")
+        }
+    }
+
     private fun handleFileMove(tmpFile: File, currentResult: RemoteOperationResult<Unit>): RemoteOperationResult<Unit> {
         val newFile = File(savePath)
-        newFile.parentFile?.takeIf { !it.exists() }?.also {
-            if (!it.mkdirs()) Log_OC.e(TAG, "Unable to create parent folder ${it.absolutePath}")
-        }
+        ensureParentDirectory(newFile)
 
         val tempFilePath = tmpFile.toPath()
         val newFilePath = newFile.toPath()

@@ -135,16 +135,17 @@ public class UploadFileOperation extends SyncOperation {
     private OCFile mOldFile;
     private String mRemotePath;
     private String mFolderUnlockToken;
-    private boolean mRemoteFolderToBeCreated;
+    private volatile boolean mRemoteFolderToBeCreated;
     private NameCollisionPolicy mNameCollisionPolicy;
     private int mLocalBehaviour;
-    private int mCreatedBy;
+    private volatile int mCreatedBy;
     private boolean mOnWifiOnly;
     private boolean mWhileChargingOnly;
     private boolean mIgnoringPowerSaveMode;
     private final boolean mDisableRetries;
 
-    private boolean mWasRenamed;
+    private volatile boolean mWasRenamed;
+    private volatile boolean mWasSkipped;
     private long mOCUploadId;
     /**
      * Local path to file which is to be uploaded (before any possible renaming or moving).
@@ -168,7 +169,7 @@ public class UploadFileOperation extends SyncOperation {
     private final ConnectivityService connectivityService;
     private final PowerManagementService powerManagementService;
 
-    private boolean encryptedAncestor;
+    private volatile boolean encryptedAncestor;
     private OCFile duplicatedEncryptedFile;
     private AtomicBoolean missingPermissionThrown = new AtomicBoolean(false);
 
@@ -343,6 +344,10 @@ public class UploadFileOperation extends SyncOperation {
 
     public boolean wasRenamed() {
         return mWasRenamed;
+    }
+
+    public boolean wasSkipped() {
+        return mWasSkipped;
     }
 
     public void setCreatedBy(int createdBy) {
@@ -1268,6 +1273,7 @@ public class UploadFileOperation extends SyncOperation {
             switch (mNameCollisionPolicy) {
                 case SKIP:
                     Log_OC.d(TAG, "user choose to skip upload if same file exists");
+                    mWasSkipped = true;
                     return new RemoteOperationResult<>(ResultCode.OK);
                 case RENAME:
                     mRemotePath = getNewAvailableRemotePath(client, mRemotePath, fileNames, encrypted);

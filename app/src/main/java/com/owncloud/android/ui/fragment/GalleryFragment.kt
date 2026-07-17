@@ -108,7 +108,7 @@ class GalleryFragment :
 
     private fun setupBottomSheet() {
         if (bottomSheet == null) {
-            bottomSheet = GalleryFragmentBottomSheetDialog(this)
+            bottomSheet = GalleryFragmentBottomSheetDialog()
         }
     }
 
