@@ -555,8 +555,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         } else {
             localFilesMap = prefillLocalFilesMap(object, fileDataStorageManager.getFolderContent(mLocalFolder, false));
             if (object instanceof DecryptedFolderMetadataFile metadataFile) {
-                long serverCounter = metadataFile.getMetadata().getCounter();
-                fileDataStorageManager.updateE2EECounter(mLocalFolder, serverCounter);
+                mLocalFolder.setE2eCounter(metadataFile.getMetadata().getCounter());
             }
         }
 
