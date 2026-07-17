@@ -64,6 +64,9 @@ import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.e2e.E2ECertificateRenewalResult;
+import com.owncloud.android.operations.e2e.E2ECertificateRenewalService;
+import com.owncloud.android.operations.e2e.E2ECertificateValidity;
 import com.owncloud.android.operations.e2e.E2EDeletionService;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
@@ -80,6 +83,7 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
+import java.text.DateFormat;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -139,6 +143,7 @@ public class SettingsActivity extends PreferenceActivity
     private String pendingLock;
 
     private E2EDeletionService e2EDeletionService;
+    private E2ECertificateRenewalService e2eCertificateRenewalService;
 
     private User user;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
@@ -167,6 +172,7 @@ public class SettingsActivity extends PreferenceActivity
 
         user = accountManager.getUser();
         e2EDeletionService = new E2EDeletionService(clientFactory);
+        e2eCertificateRenewalService = new E2ECertificateRenewalService(clientFactory, arbitraryDataProvider);
 
         // retrieve user's base uri
         setupBaseUri();
@@ -372,6 +378,8 @@ public class SettingsActivity extends PreferenceActivity
         removeE2E(preferenceCategoryMore);
 
         removeE2EFilesAndKeys(preferenceCategoryMore);
+
+        setupRenewE2ECertificate(preferenceCategoryMore);
 
         setupHelpPreference(preferenceCategoryMore);
 
@@ -580,6 +588,53 @@ public class SettingsActivity extends PreferenceActivity
             }
             return Unit.INSTANCE;
         });
+    }
+
+    private void setupRenewE2ECertificate(PreferenceCategory preferenceCategoryMore) {
+        Preference preference = findPreference("renew_e2e_certificate");
+        if (preference == null) {
+            return;
+        }
+
+        if (!BuildConfig.DEBUG || !FileOperationsHelper.isEndToEndEncryptionSetup(this, user)) {
+            preferenceCategoryMore.removePreference(preference);
+            return;
+        }
+
+        updateRenewE2ECertificateSummary(preference);
+
+        preference.setOnPreferenceClickListener(p -> {
+            if (!connectivityService.getConnectivity().isConnected()) {
+                DisplayUtils.showSnackMessage(this, R.string.e2e_offline);
+                return true;
+            }
+
+            e2eCertificateRenewalService.showRenewCertificateDialog(this, user, result -> {
+                onRenewE2ECertificateResult(preference, result);
+                return Unit.INSTANCE;
+            });
+            return true;
+        });
+    }
+
+    private void updateRenewE2ECertificateSummary(Preference preference) {
+        E2ECertificateValidity validity = e2eCertificateRenewalService.getCertificateValidity(user);
+        if (validity == null) {
+            preference.setSummary(R.string.renew_e2e_certificate_summary);
+            return;
+        }
+
+        String validUntil = DateFormat.getDateInstance().format(validity.getNotAfter());
+        preference.setSummary(getString(R.string.renew_e2e_certificate_valid_until, validUntil));
+    }
+
+    private void onRenewE2ECertificateResult(Preference preference, E2ECertificateRenewalResult result) {
+        if (result instanceof E2ECertificateRenewalResult.Success) {
+            updateRenewE2ECertificateSummary(preference);
+            DisplayUtils.showSnackMessage(this, R.string.renew_e2e_certificate_success);
+        } else if (result instanceof E2ECertificateRenewalResult.Failure) {
+            DisplayUtils.showSnackMessage(this, ((E2ECertificateRenewalResult.Failure) result).getMessageId());
+        }
     }
 
     private void showRemoveE2EAlertDialog(PreferenceCategory preferenceCategoryMore, Preference preference) {

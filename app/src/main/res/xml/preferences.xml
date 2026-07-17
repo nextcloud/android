@@ -116,6 +116,9 @@
         <Preference
             android:title="@string/prefs_remove_e2e_keys_and_files"
             android:key="remove_e2e_files_and_keys" />
+        <Preference
+            android:title="@string/prefs_renew_e2e_certificate"
+            android:key="renew_e2e_certificate" />
 
         <Preference
             android:title="@string/prefs_help"
