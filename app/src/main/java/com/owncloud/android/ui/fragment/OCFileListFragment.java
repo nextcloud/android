@@ -1355,7 +1355,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             } else if (itemId == R.id.action_open_file_with) {
                 mContainerActivity.getFileOperationsHelper().openFile(singleFile);
                 return true;
-            } else if (itemId == R.id.action_open_with_office) {
+            } else if (itemId == R.id.action_open_in_web_editor) {
                 TextEditorWebView.Companion.startTextEditor(singleFile, getContext());
                 return true;
             } else if (itemId == R.id.action_stream_media) {

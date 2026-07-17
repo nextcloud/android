@@ -348,14 +348,14 @@ public class FileMenuFilter {
 
     private void filterOpenWithOffice(Collection<Integer> toHide) {
         if (!isSingleFile()) {
-            toHide.add(R.id.action_open_with_office);
+            toHide.add(R.id.action_open_in_web_editor);
             return;
         }
 
         OCFile file = files.iterator().next();
         boolean canOpenLocally = file.isDown() && !file.isEncrypted();
         if (!canOpenLocally || !editorUtils.isOfficeEditorAvailable(user, file.getMimeType())) {
-            toHide.add(R.id.action_open_with_office);
+            toHide.add(R.id.action_open_in_web_editor);
         }
     }
 

@@ -353,12 +353,12 @@ class FileMenuFilterIT : AbstractIT() {
                 val downloadedToHide = filterFactory
                     .newInstance(downloadedFile, mockComponentsGetter, true, user)
                     .getToHide(false)
-                assertFalse(downloadedToHide.contains(R.id.action_open_with_office))
+                assertFalse(downloadedToHide.contains(R.id.action_open_in_web_editor))
 
                 val onlineToHide = filterFactory
                     .newInstance(onlineOnlyFile, mockComponentsGetter, true, user)
                     .getToHide(false)
-                assertTrue(onlineToHide.contains(R.id.action_open_with_office))
+                assertTrue(onlineToHide.contains(R.id.action_open_in_web_editor))
             }
         }
     }
