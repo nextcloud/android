@@ -158,7 +158,7 @@ public class FileMenuFilter {
         filterSelectAll(toHide, inSingleFileFragment);
         filterDeselectAll(toHide, inSingleFileFragment);
         filterOpenWith(toHide, synchronizing);
-        filterOpenWithOffice(toHide);
+        filterOpenInWebEditor(toHide);
         filterCancelSync(toHide, synchronizing);
         filterSync(toHide, synchronizing);
         filterShareFile(toHide, capability);
@@ -346,7 +346,7 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterOpenWithOffice(Collection<Integer> toHide) {
+    private void filterOpenInWebEditor(Collection<Integer> toHide) {
         if (!isSingleFile()) {
             toHide.add(R.id.action_open_in_web_editor);
             return;
