@@ -15,11 +15,9 @@ import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
-import com.nextcloud.utils.extensions.WorkManagerExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -59,7 +57,6 @@ import java.util.Vector;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.work.WorkManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
@@ -535,14 +532,6 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         Object object = null;
         if (mLocalFolder.isEncrypted()) {
-            final var workManager =  WorkManager.getInstance(mContext);
-            final var tag = BackgroundJobManagerImpl.JOB_FILES_UPLOAD + user.getAccountName();
-            boolean isWorkScheduled = WorkManagerExtensionsKt.isWorkScheduled(workManager, tag);
-            if (isWorkScheduled) {
-                Log_OC.d(TAG, "Upload worker running for " + user.getAccountName() + "; deferring metadata/counter update to next refresh");
-                return;
-            }
-
             object = getDecryptedFolderMetadata(encryptedAncestor,
                                                 mLocalFolder,
                                                 getClient(),
@@ -566,9 +555,11 @@ public class RefreshFolderOperation extends RemoteOperation {
         } else {
             localFilesMap = prefillLocalFilesMap(object, fileDataStorageManager.getFolderContent(mLocalFolder, false));
 
-            // update counter
+            // the metadata counter is the atomic source of truth on the server; persist it so the
+            // local copy never lags behind (verifyMetadata already ensured it is not older)
             if (object != null) {
-                mLocalFolder.setE2eCounter(((DecryptedFolderMetadataFile) object).getMetadata().getCounter());
+                long serverCounter = ((DecryptedFolderMetadataFile) object).getMetadata().getCounter();
+                fileDataStorageManager.updateE2EECounter(mLocalFolder, serverCounter);
             }
         }
 
@@ -609,14 +600,17 @@ public class RefreshFolderOperation extends RemoteOperation {
             // check and fix, if needed, local storage path
             FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.getAccountName());
 
+            // the e2e counter is client-side state that WebDAV never returns; always carry it forward
+            // so refreshing a (possibly unencrypted) parent never resets an encrypted child's counter
+            if (localFile != null) {
+                updatedFile.setE2eCounter(localFile.getE2eCounter());
+            }
+
             // update file name for encrypted files
             if (E2EVersionHelper.INSTANCE.isV1(e2EVersion) && object instanceof DecryptedFolderMetadataFileV1 metadata) {
                 updateFileNameForEncryptedFileV1(fileDataStorageManager, metadata, updatedFile);
             } else if (object instanceof DecryptedFolderMetadataFile metadata) {
                 updateFileNameForEncryptedFile(fileDataStorageManager, metadata, updatedFile);
-                if (localFile != null) {
-                    updatedFile.setE2eCounter(localFile.getE2eCounter());
-                }
             }
 
             // we parse content, so either the folder itself or its direct parent (which we check) must be encrypted
