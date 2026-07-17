@@ -8,12 +8,13 @@ package com.owncloud.android.ui.activities.adapter
 
 import android.content.Context
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextPaint
+import android.text.TextUtils
 import android.text.format.DateFormat
 import android.text.format.DateUtils
-import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
@@ -27,10 +28,12 @@ import androidx.annotation.DrawableRes
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.ChipDrawable
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.GlideHelper
+import com.nextcloud.utils.text.Spans.MentionChipSpan
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityListItemBinding
@@ -49,6 +52,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import thirdparties.fresco.BetterImageSpan
 import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.log
@@ -62,7 +66,8 @@ open class ActivityListAdapter(
     private val isDetailView: Boolean,
     private val viewThemeUtils: ViewThemeUtils
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
-    StickyHeaderAdapter {
+    StickyHeaderAdapter,
+    DisplayUtils.AvatarGenerationListener {
 
     protected var client: NextcloudClient? = null
     val values: MutableList<Any> = mutableListOf()
@@ -113,9 +118,10 @@ open class ActivityListAdapter(
 
         when {
             activity.richSubjectElement.richSubject.isNotEmpty() -> holder.binding.subject.apply {
-                visibility = View.VISIBLE
-                movementMethod = LinkMovementMethod.getInstance()
-                setText(addClickablePart(activity.richSubjectElement), TextView.BufferType.SPANNABLE)
+                text = addClickablePart(activity.richSubjectElement)
+                // visibility = View.VISIBLE
+                // movementMethod = LinkMovementMethod.getInstance()
+                // setText(addClickablePart(activity.richSubjectElement), TextView.BufferType.SPANNABLE)
             }
 
             activity.subject.isNotEmpty() -> holder.binding.subject.apply {
@@ -176,6 +182,19 @@ open class ActivityListAdapter(
         }
     }
 
+    fun getDrawableForMentionChipSpan(chipResource: Int, text: String): ChipDrawable {
+        val chip = ChipDrawable.createFromResource(context, chipResource).apply {
+            setEllipsize(TextUtils.TruncateAt.MIDDLE)
+            setLayoutDirection(context.getResources().getConfiguration().getLayoutDirection())
+            setText(text)
+            setChipIconResource(R.drawable.accent_circle)
+        }
+
+        chip.setBounds(0, 0, chip.getIntrinsicWidth(), chip.getIntrinsicHeight())
+
+        return chip
+    }
+
     private suspend fun nextcloudClient(): NextcloudClient = withContext(Dispatchers.IO) {
         OwnCloudClientManagerFactory.getDefaultSingleton()
             .getNextcloudClientFor(currentAccountProvider.user.toOwnCloudAccount(), context)
@@ -224,6 +243,7 @@ open class ActivityListAdapter(
         return imageView
     }
 
+    @Suppress("NestedBlockDepth")
     private fun addClickablePart(richElement: RichElement): SpannableStringBuilder {
         var text = richElement.richSubject
         val ssb = SpannableStringBuilder(text)
@@ -236,29 +256,57 @@ open class ActivityListAdapter(
             }
 
             if (richObject != null) {
-                val name = richObject.name.orEmpty()
-                ssb.replace(idx1, idx2, name)
-                text = ssb.toString()
-                idx2 = idx1 + name.length
+                if ("user".equals(richObject.type)) {
+                    val name = richObject.name
 
-                ssb.setSpan(
-                    object : ClickableSpan() {
-                        override fun onClick(widget: View) = activityListInterface.onActivityClicked(richObject)
-                        override fun updateDrawState(ds: TextPaint) {
-                            ds.isUnderlineText = false
-                        }
-                    },
-                    idx1,
-                    idx2,
-                    0
-                )
-                ssb.setSpan(StyleSpan(Typeface.BOLD), idx1, idx2, 0)
-                ssb.setSpan(
-                    ForegroundColorSpan(context.resources.getColor(R.color.text_color)),
-                    idx1,
-                    idx2,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
+                    val drawableForChip = getDrawableForMentionChipSpan(R.xml.chip_others, name ?: "")
+
+                    val mentionChipSpan = MentionChipSpan(
+                        drawableForChip,
+                        BetterImageSpan.ALIGN_CENTER,
+                        richObject.id ?: "",
+                        name
+                    )
+
+                    if (richObject.id != null) {
+                        DisplayUtils.setAvatar(
+                            currentAccountProvider.user,
+                            richObject.id!!,
+                            name,
+                            this,
+                            context.resources.getDimension(R.dimen.avatar_icon_radius),
+                            context.resources,
+                            drawableForChip,
+                            context
+                        )
+                    }
+
+                    ssb.setSpan(mentionChipSpan, idx1, idx2, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+                } else {
+                    val name = richObject.name.orEmpty()
+                    ssb.replace(idx1, idx2, name)
+                    text = ssb.toString()
+                    idx2 = idx1 + name.length
+
+                    ssb.setSpan(
+                        object : ClickableSpan() {
+                            override fun onClick(widget: View) = activityListInterface.onActivityClicked(richObject)
+                            override fun updateDrawState(ds: TextPaint) {
+                                ds.isUnderlineText = false
+                            }
+                        },
+                        idx1,
+                        idx2,
+                        0
+                    )
+                    ssb.setSpan(StyleSpan(Typeface.BOLD), idx1, idx2, 0)
+                    ssb.setSpan(
+                        ForegroundColorSpan(context.resources.getColor(R.color.text_color)),
+                        idx1,
+                        idx2,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
             }
             idx1 = text.indexOf('{', idx2)
         }
@@ -307,6 +355,12 @@ open class ActivityListAdapter(
 
     override fun isHeader(itemPosition: Int) =
         itemPosition in values.indices && getItemViewType(itemPosition) == HEADER_TYPE
+
+    override fun avatarGenerated(avatarDrawable: Drawable, callContext: Any) {
+        (callContext as ChipDrawable).chipIcon = avatarDrawable
+    }
+
+    override fun shouldCallGeneratedCallback(tag: String, callContext: Any): Boolean = true
 
     protected class ActivityViewHolder(val binding: ActivityListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
