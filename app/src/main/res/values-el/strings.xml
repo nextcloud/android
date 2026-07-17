@@ -65,7 +65,6 @@
     <string name="auth_ssl_unverified_server_title">Αδυναμία επιβεβαίωσης της ταυτότητας του διακομιστή SSL </string>
     <string name="auth_testing_connection">Έλεγχος σύνδεσης</string>
     <string name="auth_timeout_title">Ο διακομιστής αργεί πολύ να απαντήσει</string>
-    <string name="auth_trying_to_login">Προσπάθεια σύνδεσης…</string>
     <string name="auth_unauthorized">Εσφαλμένο όνομα χρήστη ή συνθηματικό</string>
     <string name="auth_unknown_error_exception_title">Άγνωστο σφάλμα: %1$s</string>
     <string name="auth_unknown_error_http_title">Παρουσιάστηκε άγνωστο σφάλμα HTTP!</string>
@@ -411,6 +410,7 @@
     <string name="foreign_files_remote_text">Απομακρυσμένα: %1$s</string>
     <string name="forward">Προώθηση</string>
     <string name="fourHours">4 ώρες</string>
+    <string name="governance_file_retention_label">Διατήρηση αρχείου</string>
     <string name="hidden_file_name_warning">Το όνομα θα δημιουργήσει ένα κρυφό αρχείο</string>
     <string name="hint_name">Όνομα</string>
     <string name="hint_note">Σημείωση</string>

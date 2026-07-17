@@ -64,7 +64,6 @@
     <string name="auth_ssl_unverified_server_title">N\'eus ket bet gallet gwiriañ identelezh ar servijer SSL</string>
     <string name="auth_testing_connection">Oc\'h amprouiñ ar gevreadenn</string>
     <string name="auth_timeout_title">Re bell eo bet ar servijer o respont</string>
-    <string name="auth_trying_to_login">O klask kevreañ...</string>
     <string name="auth_unauthorized">Fall eo an anv-implijer pe ar ger-tremen</string>
     <string name="auth_unknown_error_exception_title">Fazi dianav : %1$s</string>
     <string name="auth_unknown_error_http_title">C\'hoarvezet ez eus ur fazi HTTP dianav !</string>

@@ -50,7 +50,6 @@
     <string name="auth_ssl_unverified_server_title">Cha b’ urrainn dhuinn dearbh-aithne an fhrithealaiche SSL a dhearbhadh</string>
     <string name="auth_testing_connection">A’ cur a’ cheangail fo dheuchainn</string>
     <string name="auth_timeout_title">Thug am frithealaiche ro fhada a’ freagairt</string>
-    <string name="auth_trying_to_login">A’ feuchainn ri do chlàradh a-steach…</string>
     <string name="auth_unauthorized">Ainm-cleachdaiche no facal-faire ceàrr</string>
     <string name="auth_unknown_error_exception_title">Mearachd nach aithne dhuinn: %1$s</string>
     <string name="auth_unknown_error_http_title">Thachair mearachd HTTP nach aithne dhuinn!</string>
@@ -325,6 +324,7 @@
     <string name="foreign_files_remote_text">Cèin: %1$s</string>
     <string name="forward">Sìn air adhart</string>
     <string name="fourHours">4 uairean a thìde</string>
+    <string name="governance_no_label">Chan eil gin</string>
     <string name="hint_name">Ainm</string>
     <string name="hint_note">Nòta</string>
     <string name="hint_password">Facal-faire</string>

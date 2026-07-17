@@ -55,7 +55,6 @@
     <string name="auth_ssl_unverified_server_title">Nevar pārbaudīt SSL servera identitāti</string>
     <string name="auth_testing_connection">Notiek savienojuma testēšana</string>
     <string name="auth_timeout_title">Serveris pārāk ilgi neatbildēja</string>
-    <string name="auth_trying_to_login">Mēģina pieteikties…</string>
     <string name="auth_unauthorized">Nepareizs lietotājvārds vai parole</string>
     <string name="auth_unknown_error_exception_title">Nezināma kļūda: %1$s</string>
     <string name="auth_unknown_error_http_title">Nezināma HTTP kļūda!</string>
@@ -307,6 +306,8 @@
     <string name="foreign_files_remote_text">Attāli: %1$s</string>
     <string name="forward">Turpināt</string>
     <string name="fourHours">4 stundas</string>
+    <string name="governance_file_retention_label">Datņu glabāšana</string>
+    <string name="governance_no_label">Nekas</string>
     <string name="hint_name">Vārds</string>
     <string name="hint_note">Piezīme</string>
     <string name="hint_password">Parole</string>

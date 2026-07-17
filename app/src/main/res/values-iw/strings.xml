@@ -58,7 +58,6 @@
     <string name="auth_ssl_unverified_server_title">לא ניתן לאמת את זהות שרת ה־SSL</string>
     <string name="auth_testing_connection">בדיקת חיבור</string>
     <string name="auth_timeout_title">לשרת לקח יותר מדי זמן להגיב</string>
-    <string name="auth_trying_to_login">מנסה להתחבר…</string>
     <string name="auth_unauthorized">שם משתמש או סימא שגויים</string>
     <string name="auth_unknown_error_exception_title">שגיאה לא ידועה: %1$s</string>
     <string name="auth_unknown_error_http_title">אירעה שגיאת HTTP לא ידועה!</string>
@@ -350,6 +349,8 @@
     <string name="foreign_files_remote_text">מרוחק: %1$s</string>
     <string name="forward">העברה</string>
     <string name="fourHours">4 שעות</string>
+    <string name="governance_file_retention_label">שמירת קבצים</string>
+    <string name="governance_no_label">ללא</string>
     <string name="hint_name">שם</string>
     <string name="hint_note">מסר</string>
     <string name="hint_password">ססמה</string>
