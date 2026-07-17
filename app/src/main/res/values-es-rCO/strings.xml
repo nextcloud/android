@@ -73,7 +73,6 @@
     <string name="auth_ssl_unverified_server_title">No fue posible verificar la identidad del servidor SSL</string>
     <string name="auth_testing_connection">Probando conexión</string>
     <string name="auth_timeout_title">El servidor tardó demasiado en responder</string>
-    <string name="auth_trying_to_login">Intentando iniciar sesión…</string>
     <string name="auth_unauthorized">Nombre de usuario o contraseña incorrecto</string>
     <string name="auth_unknown_error_exception_title">Error desconocido: %1$s</string>
     <string name="auth_unknown_error_http_title">¡Se presentó un error HTTP desconocido!</string>
@@ -436,6 +435,7 @@
     <string name="foreign_files_move">Mover todos</string>
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="forward">Adelante</string>
+    <string name="governance_no_label">Ninguno</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_password">Contraseña</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>

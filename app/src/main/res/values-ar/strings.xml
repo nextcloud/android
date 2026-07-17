@@ -85,7 +85,6 @@
     <string name="auth_ssl_unverified_server_title">لا يمكن التأكد من هوية الخادم الأمنية SSL</string>
     <string name="auth_testing_connection">تجريب الإتصال</string>
     <string name="auth_timeout_title">الخادم أخذ كثيرا من الوقت للرد</string>
-    <string name="auth_trying_to_login">محاولة الدخول…</string>
     <string name="auth_unauthorized">اسم المستخدم أو كلمة المرور خاطئة</string>
     <string name="auth_unknown_error_exception_title">خطأ غير معروف: %1$s</string>
     <string name="auth_unknown_error_http_title">خطأ غير معروف حدث في بروتوكول HTTP!</string>
@@ -476,6 +475,7 @@
     <string name="foreign_files_remote_text">عن بعد : %1$s</string>
     <string name="forward">إعادة توجيه </string>
     <string name="fourHours">4 ساعات</string>
+    <string name="governance_no_label">لا شيء</string>
     <string name="gplay_restriction">قامت Google بتقييد تنزيل ملفات APK/AAB!</string>
     <string name="grid_file_features_live_photo_content_description">تشير الأيقونه إلى توافر صور حيَّة</string>
     <string name="hidden_file_name_warning">الاسم سيقود إلى ملف مخفي</string>

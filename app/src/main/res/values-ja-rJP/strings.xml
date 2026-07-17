@@ -93,7 +93,6 @@
     <string name="auth_ssl_unverified_server_title">SSLサーバーのIDを確認できませんでした</string>
     <string name="auth_testing_connection">接続のテスト中</string>
     <string name="auth_timeout_title">サーバからの応答がありません</string>
-    <string name="auth_trying_to_login">ログインする…</string>
     <string name="auth_unauthorized">ユーザー名またはパスワードが間違っています</string>
     <string name="auth_unknown_error_exception_title">不明なエラー: %1$s</string>
     <string name="auth_unknown_error_http_title">不明な HTTP エラーが発生しました</string>
@@ -515,6 +514,8 @@
     <string name="foreign_files_remote_text">リモート: %1$s</string>
     <string name="forward">転送</string>
     <string name="fourHours">4時間</string>
+    <string name="governance_file_retention_label">ファイル保持</string>
+    <string name="governance_no_label">なし</string>
     <string name="gplay_restriction">GoogleがAPK/AABファイルのダウンロードを制限！</string>
     <string name="grid_file_features_live_photo_content_description">このアイコンはライブ写真の有無を示します</string>
     <string name="hidden_file_name_warning">名前を付けると隠しファイルになります</string>

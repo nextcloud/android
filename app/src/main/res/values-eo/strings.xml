@@ -48,7 +48,6 @@
     <string name="auth_ssl_unverified_server_title">Ne eblis kontroli SSL-servilan identecon</string>
     <string name="auth_testing_connection">Provado de la konekto</string>
     <string name="auth_timeout_title">La servilo tro malfruis por respondi</string>
-    <string name="auth_trying_to_login">Provo ensaluti...</string>
     <string name="auth_unauthorized">Malĝusta uzantonomo aŭ pasvorto</string>
     <string name="auth_unknown_error_exception_title">Nekonata eraro: %1$s</string>
     <string name="auth_unknown_error_http_title">Nekonata HTTP-eraro okazis!</string>
@@ -286,6 +285,7 @@
     <string name="foreign_files_remote_text">Fora: %1$s</string>
     <string name="forward">Antaŭen</string>
     <string name="fourHours">4 horoj</string>
+    <string name="governance_no_label">Nenio</string>
     <string name="hint_name">Nomo</string>
     <string name="hint_note">Noto</string>
     <string name="hint_password">Pasvorto</string>

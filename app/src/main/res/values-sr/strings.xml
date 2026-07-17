@@ -83,7 +83,6 @@
     <string name="auth_ssl_unverified_server_title">Не могу да проверим идентитет ССЛ сервера</string>
     <string name="auth_testing_connection">Проверавам везу</string>
     <string name="auth_timeout_title">Одзив сервера траје предуго</string>
-    <string name="auth_trying_to_login">Покушавам пријављивање…</string>
     <string name="auth_unauthorized">Погрешно корисничко име или лозинка</string>
     <string name="auth_unknown_error_exception_title">Непозната грешка: %1$s</string>
     <string name="auth_unknown_error_http_title">Дошло је до непознате ХТТП грешке!</string>
@@ -499,6 +498,8 @@
     <string name="foreign_files_remote_text">Удаљени: %1$s</string>
     <string name="forward">Проследи</string>
     <string name="fourHours">4 сата</string>
+    <string name="governance_file_retention_label">Задржавање фајла</string>
+    <string name="governance_no_label">Ништа</string>
     <string name="gplay_restriction">Google је забранио преузимање APK/AAB фајлова!</string>
     <string name="grid_file_features_live_photo_content_description">Ова икона означава доступност фотографије уживо</string>
     <string name="hidden_file_name_warning">Резултат имена ће бити скирвени фајл</string>
