@@ -417,6 +417,8 @@
     <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
     <string name="forward">Напред</string>
     <string name="fourHours">4 чàса</string>
+    <string name="governance_file_retention_label">Запазване на файлове</string>
+    <string name="governance_no_label">Няма</string>
     <string name="grid_file_features_live_photo_content_description">Иконата служи за индикация дали \"live photo\" е налична</string>
     <string name="hidden_file_name_warning">Името ще доведе до скрит файл</string>
     <string name="hint_name">Име</string>

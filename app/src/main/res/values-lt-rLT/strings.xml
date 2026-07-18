@@ -433,6 +433,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Nėra programėlės, kuria būtų galima pasirinkti kontaktus</string>
     <string name="file_details_no_content">Nepavyko įkelti išsamesnės informacijos</string>
     <string name="file_icon">Failas</string>
+    <string name="file_info_governance_section_title">Valdysena</string>
+    <string name="file_info_image_details_section_title">Paveikslo išsamesnė informacija</string>
     <string name="file_keep">Palikti</string>
     <string name="file_list_empty">Įkelkite tam tikrą turinį (medžiagą) arba sinchronizuokite su savo įrenginiais.</string>
     <string name="file_list_empty_favorite_headline">Kol kas nėra mėgstamų</string>
@@ -540,7 +542,11 @@
     <string name="foreign_files_remote_text">Nuotolinis: %1$s</string>
     <string name="forward">Persiųsti</string>
     <string name="fourHours">4 valandos</string>
+    <string name="governance_file_retention_label">Failų saugojimas</string>
+    <string name="governance_legal_hold_label">Teisinis informacijos išsaugojimas</string>
     <string name="governance_no_label">Nėra</string>
+    <string name="governance_permission_denied">Neturite teisės keisti šios etiketės.</string>
+    <string name="governance_sensitivity_label">Jautrumo žyma</string>
     <string name="gplay_restriction">„Google“ apribojo APK/AAB failų atsisiuntimą!</string>
     <string name="grid_file_features_live_photo_content_description">Ši piktograma rodo tiesioginės nuotraukos prieinamumą</string>
     <string name="hidden_file_name_warning">Pasirinktas pavadinimo tipas sukurs paslėptą failą</string>
@@ -913,7 +919,7 @@
     <string name="share_read_permission">Skaityti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_room_clarification">%1$s (pokalbis)</string>
-    <string name="share_search">Vardas, „Federated Cloud“ ID arba el. pašto adresas…</string>
+    <string name="share_search">Vardas, federacinės debesijos ID arba el. pašto adresas…</string>
     <string name="share_search_internal">Pridėkite vartotojų ir komandų</string>
     <string name="share_send_new_email">Siųsti naują elektroninį laišką</string>
     <string name="share_send_note">Pastaba gavėjui</string>

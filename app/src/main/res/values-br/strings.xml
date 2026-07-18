@@ -403,6 +403,8 @@
     <string name="foreign_files_move">Dblasañ pep tra</string>
     <string name="foreign_files_remote_text">Pell : %1$s</string>
     <string name="forward">War-raok</string>
+    <string name="governance_file_retention_label">Gwarn restr</string>
+    <string name="governance_no_label">Hini ebet</string>
     <string name="hint_name">Anv</string>
     <string name="hint_note">Notenn</string>
     <string name="hint_password">Ger-tremen</string>

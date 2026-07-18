@@ -475,6 +475,7 @@
     <string name="foreign_files_remote_text">عن بعد : %1$s</string>
     <string name="forward">إعادة توجيه </string>
     <string name="fourHours">4 ساعات</string>
+    <string name="governance_no_label">لا شيء</string>
     <string name="gplay_restriction">قامت Google بتقييد تنزيل ملفات APK/AAB!</string>
     <string name="grid_file_features_live_photo_content_description">تشير الأيقونه إلى توافر صور حيَّة</string>
     <string name="hidden_file_name_warning">الاسم سيقود إلى ملف مخفي</string>
