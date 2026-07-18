@@ -431,6 +431,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Keine App zum Auswählen von Kontakten verfügbar</string>
     <string name="file_details_no_content">Details konnten nicht geladen werden</string>
     <string name="file_icon">Datei</string>
+    <string name="file_info_governance_section_title">Governance</string>
+    <string name="file_info_image_details_section_title">Bilddetails</string>
     <string name="file_keep">Behalten</string>
     <string name="file_list_empty">Laden Sie Inhalt hoch oder synchronisieren Sie mit Ihren Geräten.</string>
     <string name="file_list_empty_favorite_headline">Noch keine Favoriten vorhanden</string>
@@ -539,6 +541,10 @@
     <string name="forward">Weiterleiten</string>
     <string name="fourHours">4 Stunden</string>
     <string name="governance_file_retention_label">Dateiaufbewahrung</string>
+    <string name="governance_legal_hold_label">Aufbewahrungspflicht:</string>
+    <string name="governance_no_label">Keine</string>
+    <string name="governance_permission_denied">Sie haben nicht die Berechtigung, dieses Label zu ändern</string>
+    <string name="governance_sensitivity_label">Empfindlichkeit-Label</string>
     <string name="gplay_restriction">Google hat das Herunterladen von APK/AAB-Dateien eingeschränkt!</string>
     <string name="grid_file_features_live_photo_content_description">Dieses Symbol zeigt die Verfügbarkeit von Live-Fotos an</string>
     <string name="hidden_file_name_warning">Dateiname führt dazu, das die Datei versteckt sein wird.</string>
