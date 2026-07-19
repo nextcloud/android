@@ -98,7 +98,6 @@
     <string name="auth_ssl_unverified_server_title">無法有效驗證 SSL 伺服器的身分</string>
     <string name="auth_testing_connection">測試連線</string>
     <string name="auth_timeout_title">伺服器回應逾時</string>
-    <string name="auth_trying_to_login">正在嘗試登入…</string>
     <string name="auth_unauthorized">錯誤的用戶名或密碼</string>
     <string name="auth_unknown_error_exception_title">錯誤不詳：%1$s</string>
     <string name="auth_unknown_error_http_title">發生未知的HTTP錯誤！</string>
@@ -537,6 +536,8 @@
     <string name="foreign_files_remote_text">遠端： %1$s</string>
     <string name="forward">向前</string>
     <string name="fourHours">4 小時</string>
+    <string name="governance_file_retention_label">保留檔案</string>
+    <string name="governance_no_label">無</string>
     <string name="gplay_restriction">Google 限制 APK/AAB 檔案下載！</string>
     <string name="grid_file_features_live_photo_content_description">此圖示表示原況照片的可得性</string>
     <string name="hidden_file_name_warning">此名稱會將檔案變成隱藏檔案</string>

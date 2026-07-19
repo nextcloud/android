@@ -62,7 +62,6 @@
     <string name="auth_ssl_unverified_server_title">Ni mogoče overiti istovetnosti strežnika SSL</string>
     <string name="auth_testing_connection">Preizkusna povezava</string>
     <string name="auth_timeout_title">Odziv s strežnika je časovno pretekel</string>
-    <string name="auth_trying_to_login">Poteka poskus prijave…</string>
     <string name="auth_unauthorized">Napačno uporabniško ime ali geslo</string>
     <string name="auth_unknown_error_exception_title">Neznana napaka: %1$s</string>
     <string name="auth_unknown_error_http_title">Prišlo je do neznane napake HTTP!</string>
@@ -408,6 +407,8 @@
     <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
     <string name="forward">Naprej</string>
     <string name="fourHours">po 4 urah</string>
+    <string name="governance_file_retention_label">Samodejno brisanje datotek</string>
+    <string name="governance_no_label">Brez</string>
     <string name="hidden_file_name_warning">Ima bo označeno kot skrita datoteka</string>
     <string name="hint_name">Ime</string>
     <string name="hint_note">Opomba</string>

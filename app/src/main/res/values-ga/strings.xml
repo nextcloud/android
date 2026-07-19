@@ -98,7 +98,6 @@
     <string name="auth_ssl_unverified_server_title">Níorbh fhéidir aitheantas an fhreastalaí SSL a fhíorú</string>
     <string name="auth_testing_connection">Tástáil nasc</string>
     <string name="auth_timeout_title">Thóg an freastalaí ró-fhada chun freagra a thabhairt</string>
-    <string name="auth_trying_to_login">Ag iarraidh logáil isteach…</string>
     <string name="auth_unauthorized">Ainm úsáideora nó ar do phasfhocal mícheart</string>
     <string name="auth_unknown_error_exception_title">Earráid anaithnid: %1$s</string>
     <string name="auth_unknown_error_http_title">Tharla earráid anaithnid HTTP!</string>
@@ -539,6 +538,7 @@
     <string name="foreign_files_remote_text">Cianda: %1$s</string>
     <string name="forward">Ar aghaidh</string>
     <string name="fourHours">4 uair an chloig</string>
+    <string name="governance_no_label">aon cheann</string>
     <string name="gplay_restriction">Chuir Google cosc ar chomhaid APK/AAB a íoslódáil!</string>
     <string name="grid_file_features_live_photo_content_description">Léiríonn an deilbhín seo infhaighteacht grianghraf beo</string>
     <string name="hidden_file_name_warning">Beidh comhad folaithe mar thoradh ar an ainm</string>
