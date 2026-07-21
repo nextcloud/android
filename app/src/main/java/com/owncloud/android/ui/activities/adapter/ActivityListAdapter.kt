@@ -21,6 +21,7 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -58,7 +59,7 @@ import kotlin.math.floor
 import kotlin.math.log
 import kotlin.math.pow
 
-@Suppress("MagicNumber")
+@Suppress("MagicNumber", "TooManyFunctions")
 open class ActivityListAdapter(
     protected val context: FragmentActivity,
     private val currentAccountProvider: CurrentAccountProvider,
@@ -77,18 +78,21 @@ open class ActivityListAdapter(
     fun setActivityItems(activityItems: List<Any>, client: NextcloudClient, clear: Boolean) {
         this.client = client
         if (clear) values.clear()
-
-        var sTime = ""
-        for (o in activityItems) {
-            val activity = o as Activity
-            val time = getHeaderDateString(context, activity.datetime.time).toString()
-            if (!sTime.equals(time, ignoreCase = true)) {
-                sTime = time
-                values.add(sTime)
-            }
-            values.add(activity)
-        }
+        appendGroupedByHeader(activityItems) { (it as Activity).datetime.time }
         notifyDataSetChanged()
+    }
+
+    private fun appendGroupedByHeader(items: List<Any>, timestampOf: (Any) -> Long?) {
+        var currentHeader: String? = null
+        for (item in items) {
+            val timestamp = timestampOf(item) ?: continue
+            val header = getHeaderDateString(context, timestamp).toString()
+            if (!header.equals(currentHeader, ignoreCase = true)) {
+                currentHeader = header
+                values.add(header)
+            }
+            values.add(item)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -107,88 +111,103 @@ open class ActivityListAdapter(
         }
     }
 
-    @Suppress("LongMethod")
     private fun bindActivityViewHolder(holder: ActivityViewHolder, position: Int) {
         val activity = values[position] as Activity
+        holder.bindDateTime(activity)
+        holder.bindSubject(activity)
+        holder.bindMessage(activity)
+        holder.bindIcon(activity)
+        holder.bindPreviews(activity)
+    }
 
-        holder.binding.datetime.apply {
+    private fun ActivityViewHolder.bindDateTime(activity: Activity) {
+        binding.datetime.apply {
             visibility = View.VISIBLE
             text = DateFormat.format("HH:mm", activity.datetime.time)
         }
+    }
 
+    private fun ActivityViewHolder.bindSubject(activity: Activity) {
         when {
-            activity.richSubjectElement.richSubject.isNotEmpty() -> holder.binding.subject.apply {
-                text = addClickablePart(activity.richSubjectElement)
-            }
+            activity.richSubjectElement.richSubject.isNotEmpty() ->
+                binding.subject.text = addClickablePart(activity.richSubjectElement)
 
-            activity.subject.isNotEmpty() -> holder.binding.subject.apply {
+            activity.subject.isNotEmpty() -> binding.subject.apply {
                 visibility = View.VISIBLE
                 text = activity.subject
             }
 
-            else -> holder.binding.subject.visibility = View.GONE
+            else -> binding.subject.visibility = View.GONE
         }
+    }
 
-        holder.binding.message.apply {
+    private fun ActivityViewHolder.bindMessage(activity: Activity) {
+        binding.message.apply {
             text = activity.message
             visibility = if (activity.message.isNotEmpty()) View.VISIBLE else View.GONE
         }
+    }
 
+    private fun ActivityViewHolder.bindIcon(activity: Activity) {
         if (activity.icon.isNotEmpty()) {
             GlideHelper.loadTintableIconIntoImageView(
                 context,
                 client,
                 activity.icon,
-                holder.binding.icon,
+                binding.icon,
                 R.drawable.ic_activity,
                 context.resources.getDimensionPixelSize(R.dimen.activity_icon_width)
             )
         }
 
         if (activity.icon.endsWith(COLORED_ICON_SUFFIX, ignoreCase = true)) {
-            holder.binding.icon.imageTintList = null
+            binding.icon.imageTintList = null
         } else {
-            viewThemeUtils.platform.colorImageView(holder.binding.icon, ColorRole.ON_SURFACE_VARIANT)
-        }
-
-        val richObjectList = activity.richSubjectElement.richObjectList
-        if (richObjectList.isNotEmpty()) {
-            holder.binding.list.apply {
-                visibility = View.VISIBLE
-                removeAllViews()
-                post {
-                    val totalColumnCount = measuredWidth / (px + 20)
-                    try {
-                        columnCount = totalColumnCount
-                    } catch (e: IllegalArgumentException) {
-                        Log_OC.e(TAG, "error setting column count to $totalColumnCount")
-                    }
-                }
-                activity.previews
-                    .filter {
-                        !isDetailView || MimeTypeUtil.isImageOrVideo(it.mimeType) ||
-                            MimeTypeUtil.isVideo(it.mimeType)
-                    }
-                    .forEach { addView(createThumbnail(it, richObjectList)) }
-            }
-        } else {
-            holder.binding.list.apply {
-                removeAllViews()
-                visibility = View.GONE
-            }
+            viewThemeUtils.platform.colorImageView(binding.icon, ColorRole.ON_SURFACE_VARIANT)
         }
     }
 
-    fun getDrawableForMentionChipSpan(chipResource: Int, text: String): ChipDrawable {
+    private fun ActivityViewHolder.bindPreviews(activity: Activity) {
+        val richObjectList = activity.richSubjectElement.richObjectList
+
+        if (richObjectList.isEmpty()) {
+            binding.list.apply {
+                removeAllViews()
+                visibility = View.GONE
+            }
+            return
+        }
+
+        binding.list.apply {
+            visibility = View.VISIBLE
+            removeAllViews()
+            post { adjustColumnCount() }
+            activity.previews
+                .filter { shouldShowPreview(it) }
+                .forEach { addView(createThumbnail(it, richObjectList)) }
+        }
+    }
+
+    private fun shouldShowPreview(preview: PreviewObject): Boolean =
+        !isDetailView || MimeTypeUtil.isImageOrVideo(preview.mimeType) || MimeTypeUtil.isVideo(preview.mimeType)
+
+    private fun GridLayout.adjustColumnCount() {
+        val columns = measuredWidth / (px + PREVIEW_COLUMN_SPACING)
+        try {
+            columnCount = columns
+        } catch (e: IllegalArgumentException) {
+            Log_OC.e(TAG, "error setting column count to $columns")
+        }
+    }
+
+    private fun getDrawableForMentionChipSpan(chipResource: Int, text: String): ChipDrawable {
         val chip = ChipDrawable.createFromResource(context, chipResource).apply {
             setEllipsize(TextUtils.TruncateAt.MIDDLE)
-            setLayoutDirection(context.getResources().getConfiguration().getLayoutDirection())
+            layoutDirection = context.resources.configuration.layoutDirection
             setText(text)
             setChipIconResource(R.drawable.accent_circle)
         }
-
-        chip.setBounds(0, 0, chip.getIntrinsicWidth(), chip.getIntrinsicHeight())
-
+        chip.setBounds(0, 0, chip.intrinsicWidth, chip.intrinsicHeight)
         return chip
     }
 
@@ -209,7 +228,9 @@ open class ActivityListAdapter(
 
     private fun createThumbnail(previewObject: PreviewObject, richObjectList: List<RichObject>): ImageView {
         val imageView = ImageView(context).apply {
-            layoutParams = LinearLayout.LayoutParams(px, px).apply { setMargins(10, 10, 10, 10) }
+            layoutParams = LinearLayout.LayoutParams(px, px).apply {
+                setMargins(PREVIEW_CELL_MARGIN, PREVIEW_CELL_MARGIN, PREVIEW_CELL_MARGIN, PREVIEW_CELL_MARGIN)
+            }
         }
 
         richObjectList.firstOrNull { it.id?.toIntOrNull() == previewObject.fileId }?.let { richObject ->
@@ -228,87 +249,90 @@ open class ActivityListAdapter(
 
             else ->
                 imageView.setImageDrawable(
-                    MimeTypeUtil.getFileTypeIcon(
-                        previewObject.mimeType,
-                        "",
-                        context,
-                        viewThemeUtils
-                    )
+                    MimeTypeUtil.getFileTypeIcon(previewObject.mimeType, "", context, viewThemeUtils)
                 )
         }
 
         return imageView
     }
 
-    @Suppress("NestedBlockDepth")
     private fun addClickablePart(richElement: RichElement): SpannableStringBuilder {
         var text = richElement.richSubject
         val ssb = SpannableStringBuilder(text)
 
-        var idx1 = text.indexOf('{')
-        while (idx1 != -1) {
-            var idx2 = text.indexOf('}', idx1) + 1
-            val richObject = richElement.richObjectList.firstOrNull {
-                it.tag.equals(text.substring(idx1 + 1, idx2 - 1), ignoreCase = true)
-            }
+        var start = text.indexOf('{')
+        while (start != -1) {
+            val end = text.indexOf('}', start) + 1
+            val tag = text.substring(start + 1, end - 1)
+            val richObject = richElement.richObjectList.firstOrNull { it.tag.equals(tag, ignoreCase = true) }
 
-            if (richObject != null) {
-                if ("user".equals(richObject.type)) {
-                    val name = richObject.name
+            val nextSearchStart = when {
+                richObject == null -> end
 
-                    val drawableForChip = getDrawableForMentionChipSpan(R.xml.chip_others, name ?: "")
+                richObject.type == "user" -> {
+                    ssb.applyMentionSpan(richObject, start, end)
+                    end
+                }
 
-                    val mentionChipSpan = MentionChipSpan(
-                        drawableForChip,
-                        BetterImageSpan.ALIGN_CENTER,
-                        richObject.id ?: "",
-                        name
-                    )
-
-                    if (richObject.id != null) {
-                        DisplayUtils.setAvatar(
-                            currentAccountProvider.user,
-                            richObject.id!!,
-                            name,
-                            this,
-                            context.resources.getDimension(R.dimen.avatar_icon_radius),
-                            context.resources,
-                            drawableForChip,
-                            context
-                        )
-                    }
-
-                    ssb.setSpan(mentionChipSpan, idx1, idx2, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
-                } else {
-                    val name = richObject.name.orEmpty()
-                    ssb.replace(idx1, idx2, name)
+                else -> {
+                    val nameEnd = ssb.applyClickableNameSpan(richObject, start, end)
                     text = ssb.toString()
-                    idx2 = idx1 + name.length
-
-                    ssb.setSpan(
-                        object : ClickableSpan() {
-                            override fun onClick(widget: View) = activityListInterface.onActivityClicked(richObject)
-                            override fun updateDrawState(ds: TextPaint) {
-                                ds.isUnderlineText = false
-                            }
-                        },
-                        idx1,
-                        idx2,
-                        0
-                    )
-                    ssb.setSpan(StyleSpan(Typeface.BOLD), idx1, idx2, 0)
-                    ssb.setSpan(
-                        ForegroundColorSpan(context.resources.getColor(R.color.text_color)),
-                        idx1,
-                        idx2,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
+                    nameEnd
                 }
             }
-            idx1 = text.indexOf('{', idx2)
+
+            start = text.indexOf('{', nextSearchStart)
         }
 
         return ssb
+    }
+
+    private fun SpannableStringBuilder.applyMentionSpan(richObject: RichObject, start: Int, end: Int) {
+        val name = richObject.name
+        val chip = getDrawableForMentionChipSpan(R.xml.chip_others, name ?: "")
+        val span = MentionChipSpan(chip, BetterImageSpan.ALIGN_CENTER, richObject.id ?: "", name)
+
+        richObject.id?.let { id ->
+            DisplayUtils.setAvatar(
+                currentAccountProvider.user,
+                id,
+                name,
+                this@ActivityListAdapter,
+                context.resources.getDimension(R.dimen.avatar_icon_radius),
+                context.resources,
+                chip,
+                context
+            )
+        }
+
+        setSpan(span, start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+    }
+
+    private fun SpannableStringBuilder.applyClickableNameSpan(richObject: RichObject, start: Int, end: Int): Int {
+        val name = richObject.name.orEmpty()
+        replace(start, end, name)
+        val nameEnd = start + name.length
+
+        setSpan(
+            object : ClickableSpan() {
+                override fun onClick(widget: View) = activityListInterface.onActivityClicked(richObject)
+                override fun updateDrawState(ds: TextPaint) {
+                    ds.isUnderlineText = false
+                }
+            },
+            start,
+            nameEnd,
+            0
+        )
+        setSpan(StyleSpan(Typeface.BOLD), start, nameEnd, 0)
+        setSpan(
+            ForegroundColorSpan(context.resources.getColor(R.color.text_color)),
+            start,
+            nameEnd,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        return nameEnd
     }
 
     override fun getItemViewType(position: Int) = if (values[position] is Activity) ACTIVITY_TYPE else HEADER_TYPE
@@ -369,6 +393,8 @@ open class ActivityListAdapter(
         const val HEADER_TYPE = 100
         const val ACTIVITY_TYPE = 101
         private const val COLORED_ICON_SUFFIX = "-color.svg"
+        private const val PREVIEW_COLUMN_SPACING = 20
+        private const val PREVIEW_CELL_MARGIN = 10
         private val TAG: String = ActivityListAdapter::class.java.simpleName
     }
 }
