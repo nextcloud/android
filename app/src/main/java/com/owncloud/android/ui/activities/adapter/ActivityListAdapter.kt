@@ -53,7 +53,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import thirdparties.fresco.BetterImageSpan
+import third_parties.fresco.BetterImageSpan
 import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.log

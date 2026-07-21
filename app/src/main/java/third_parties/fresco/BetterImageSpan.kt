@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-package thirdparties.fresco
+package third_parties.fresco
 
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.text.style.ReplacementSpan
 import androidx.annotation.IntDef
@@ -26,25 +25,21 @@ import androidx.annotation.IntDef
  */
 open class BetterImageSpan @JvmOverloads constructor(
     val drawable: Drawable,
-    @param:BetterImageSpanAlignment private val mAlignment: Int = ALIGN_BASELINE
+    @param:BetterImageSpanAlignment private val alignment: Int = ALIGN_BASELINE
 ) : ReplacementSpan() {
     @Suppress("Detekt.SpreadOperator")
     @IntDef(*[ALIGN_BASELINE, ALIGN_BOTTOM, ALIGN_CENTER])
     @Retention(AnnotationRetention.SOURCE)
     annotation class BetterImageSpanAlignment
 
-    private var mWidth = 0
-    private var mHeight = 0
-    private var mBounds: Rect? = null
-    private val mFontMetricsInt = Paint.FontMetricsInt()
+    private var width = 0
+    private var height = 0
+    private val fontMetricsInt = Paint.FontMetricsInt()
 
     init {
         updateBounds()
     }
 
-    /**
-     * Returns the width of the image span and increases the height if font metrics are available.
-     */
     override fun getSize(
         paint: Paint,
         text: CharSequence,
@@ -54,10 +49,11 @@ open class BetterImageSpan @JvmOverloads constructor(
     ): Int {
         updateBounds()
         if (fontMetrics == null) {
-            return mWidth
+            return width
         }
+
         val offsetAbove = getOffsetAboveBaseline(fontMetrics)
-        val offsetBelow = mHeight + offsetAbove
+        val offsetBelow = height + offsetAbove
         if (offsetAbove < fontMetrics.ascent) {
             fontMetrics.ascent = offsetAbove
         }
@@ -70,7 +66,7 @@ open class BetterImageSpan @JvmOverloads constructor(
         if (offsetBelow > fontMetrics.bottom) {
             fontMetrics.bottom = offsetBelow
         }
-        return mWidth
+        return width
     }
 
     override fun draw(
@@ -84,31 +80,29 @@ open class BetterImageSpan @JvmOverloads constructor(
         bottom: Int,
         paint: Paint
     ) {
-        paint.getFontMetricsInt(mFontMetricsInt)
-        val iconTop = y + getOffsetAboveBaseline(mFontMetricsInt)
+        paint.getFontMetricsInt(fontMetricsInt)
+        val iconTop = y + getOffsetAboveBaseline(fontMetricsInt)
         canvas.translate(x, iconTop.toFloat())
         drawable.draw(canvas)
         canvas.translate(-x, -iconTop.toFloat())
     }
 
     private fun updateBounds() {
-        mBounds = drawable.bounds
-        mWidth = mBounds!!.width()
-        mHeight = mBounds!!.height()
+        val bounds = drawable.bounds
+        width = bounds.width()
+        height = bounds.height()
     }
 
-    private fun getOffsetAboveBaseline(fm: Paint.FontMetricsInt): Int = when (mAlignment) {
-        ALIGN_BOTTOM -> fm.descent - mHeight
+    private fun getOffsetAboveBaseline(fm: Paint.FontMetricsInt): Int = when (alignment) {
+        ALIGN_BOTTOM -> fm.descent - height
 
         ALIGN_CENTER -> {
             val textHeight = fm.descent - fm.ascent
-            val offset = (textHeight - mHeight) / 2
+            val offset = (textHeight - height) / 2
             fm.ascent + offset
         }
 
-        ALIGN_BASELINE -> -mHeight
-
-        else -> -mHeight
+        else -> -height
     }
 
     companion object {
