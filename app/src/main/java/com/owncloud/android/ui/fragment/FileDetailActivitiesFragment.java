@@ -143,11 +143,13 @@ public class FileDetailActivitiesFragment extends Fragment implements
         binding.swipeContainingList.setOnRefreshListener(() -> {
             setLoadingMessage();
             binding.swipeContainingList.setRefreshing(true);
+            isLoadingActivities = true;
             fetchAndSetData(-1);
         });
 
         binding.swipeContainingEmpty.setOnRefreshListener(() -> {
             setLoadingMessageEmpty();
+            isLoadingActivities = true;
             fetchAndSetData(-1);
         });
 
