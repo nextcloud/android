@@ -9,9 +9,14 @@ package com.nextcloud.ui.fileInfo
 
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ImageSpan
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -149,13 +154,13 @@ class GovernanceDetailInfo(
         currentIds: Set<String>,
         onConfirm: (Set<String>) -> Unit
     ) {
-        val itemNames = items.map { it.text }.toTypedArray()
+        val itemSpannables = items.map { buildLabelSpannable(it) }.toTypedArray<CharSequence>()
         val checkedItems = items.map { it.id in currentIds }.toBooleanArray()
         val newSelection = currentIds.toMutableSet()
 
         val dialog = MaterialAlertDialogBuilder(context)
             .setTitle(title)
-            .setMultiChoiceItems(itemNames, checkedItems) { _, which, isChecked ->
+            .setMultiChoiceItems(itemSpannables, checkedItems) { _, which, isChecked ->
                 val labelId = items[which].id
                 if (isChecked) newSelection.add(labelId) else newSelection.remove(labelId)
             }
@@ -168,13 +173,34 @@ class GovernanceDetailInfo(
         }
     }
 
+    private fun buildLabelSpannable(label: GovernanceLabel): CharSequence {
+        if (label.color.isEmpty()) return label.text
+        val dotSize = context.resources.getDimensionPixelSize(R.dimen.governance_color_dot_size)
+
+        val align = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ImageSpan.ALIGN_CENTER
+        } else {
+            ImageSpan.ALIGN_BOTTOM
+        }
+
+        val dot = colorDot(label.color).also { it.setBounds(0, 0, dotSize, dotSize) }
+        return SpannableString("  ${label.text}").apply {
+            setSpan(ImageSpan(dot, align), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+    }
+
     private fun updateMultiSelectText(
         labelText: TextInputEditText,
         items: List<GovernanceLabel>,
         selectedIds: Set<String>
     ) {
-        val selectedNames = items.filter { it.id in selectedIds }.map { it.text }
-        labelText.setText(selectedNames.joinToString(", "))
+        val selected = items.filter { it.id in selectedIds }
+        val builder = SpannableStringBuilder()
+        selected.forEachIndexed { index, item ->
+            if (index > 0) builder.append(", ")
+            builder.append(buildLabelSpannable(item))
+        }
+        labelText.setText(builder)
     }
 
     private fun initDropdown(
@@ -222,19 +248,18 @@ class GovernanceDetailInfo(
     }
 
     private fun colorDot(color: String): Drawable {
+        val parsedColor = runCatching { "#$color".toColorInt() }
+            .getOrElse {
+                Log_OC.w(TAG, "Could not parse label color: $color")
+                ContextCompat.getColor(context, R.color.grey_600)
+            }
         val size = context.resources.getDimensionPixelSize(R.dimen.governance_color_dot_size)
         return GradientDrawable().apply {
             shape = GradientDrawable.OVAL
             setSize(size, size)
-            setColor(parseColor(color))
+            setColor(parsedColor)
         }
     }
-
-    private fun parseColor(color: String): Int = runCatching { "#$color".toColorInt() }
-        .getOrElse {
-            Log_OC.w(TAG, "Could not parse label color: $color")
-            ContextCompat.getColor(context, R.color.grey_600)
-        }
 
     companion object {
         private val TAG = GovernanceDetailInfo::class.java.simpleName
