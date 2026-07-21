@@ -33,7 +33,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.GlideHelper
-import com.nextcloud.utils.text.Spans.MentionChipSpan
+import com.nextcloud.utils.text.MentionChipSpan
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityListItemBinding
@@ -119,9 +119,6 @@ open class ActivityListAdapter(
         when {
             activity.richSubjectElement.richSubject.isNotEmpty() -> holder.binding.subject.apply {
                 text = addClickablePart(activity.richSubjectElement)
-                // visibility = View.VISIBLE
-                // movementMethod = LinkMovementMethod.getInstance()
-                // setText(addClickablePart(activity.richSubjectElement), TextView.BufferType.SPANNABLE)
             }
 
             activity.subject.isNotEmpty() -> holder.binding.subject.apply {
