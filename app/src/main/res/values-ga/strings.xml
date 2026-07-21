@@ -431,6 +431,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Níl aip ar fáil chun teagmhálaithe a roghnú</string>
     <string name="file_details_no_content">Theip ar lódáil na sonraí</string>
     <string name="file_icon">Comhad</string>
+    <string name="file_info_governance_section_title">Rialachas</string>
+    <string name="file_info_image_details_section_title">Sonraí íomhá</string>
     <string name="file_keep">Coinnigh</string>
     <string name="file_list_empty">Uaslódáil roinnt inneachair nó sioncronaigh le do ghléasanna.</string>
     <string name="file_list_empty_favorite_headline">Ní dhéanfaidh aon ní is fearr leat go fóill</string>
@@ -538,7 +540,11 @@
     <string name="foreign_files_remote_text">Cianda: %1$s</string>
     <string name="forward">Ar aghaidh</string>
     <string name="fourHours">4 uair an chloig</string>
+    <string name="governance_file_retention_label">Coinneáil comhad</string>
+    <string name="governance_legal_hold_label">Sealbh dlíthiúil</string>
     <string name="governance_no_label">aon cheann</string>
+    <string name="governance_permission_denied">Níl cead agat an lipéad seo a athrú</string>
+    <string name="governance_sensitivity_label">Lipéad íogaireachta</string>
     <string name="gplay_restriction">Chuir Google cosc ar chomhaid APK/AAB a íoslódáil!</string>
     <string name="grid_file_features_live_photo_content_description">Léiríonn an deilbhín seo infhaighteacht grianghraf beo</string>
     <string name="hidden_file_name_warning">Beidh comhad folaithe mar thoradh ar an ainm</string>

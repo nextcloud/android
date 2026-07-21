@@ -431,6 +431,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">沒有應用程式可選取聯絡人</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
     <string name="file_icon">檔案</string>
+    <string name="file_info_governance_section_title">治理</string>
+    <string name="file_info_image_details_section_title">影像詳細資訊</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上傳一些內容或與您的裝置同步。</string>
     <string name="file_list_empty_favorite_headline">還沒有喜愛的項目</string>
@@ -539,7 +541,10 @@
     <string name="forward">往前</string>
     <string name="fourHours">4 小時</string>
     <string name="governance_file_retention_label">保留檔案</string>
+    <string name="governance_legal_hold_label">法律保留</string>
     <string name="governance_no_label">無</string>
+    <string name="governance_permission_denied">您無權變更此標籤</string>
+    <string name="governance_sensitivity_label">敏感度標籤</string>
     <string name="gplay_restriction">Google 限制 APK/AAB 檔案的下載！</string>
     <string name="grid_file_features_live_photo_content_description">此圖示表示原況照片的可得性</string>
     <string name="hidden_file_name_warning">此名稱會將檔案轉變為隱藏</string>

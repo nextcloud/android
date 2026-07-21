@@ -846,7 +846,7 @@
     <string name="retry">Proovi uuesti</string>
     <string name="richdocuments_failed_to_load_document">Dokumendi laadimine ei õnnestunud!</string>
     <string name="scanQR_description">Logi sisse QR-koodiga</string>
-    <string name="scan_page">Skaneei leht</string>
+    <string name="scan_page">Skaneeri lehte</string>
     <string name="screenshot_01_gridView_heading">Kaitstes sinu andmeid</string>
     <string name="screenshot_01_gridView_subline">tarbetarkvara sinu serveris</string>
     <string name="screenshot_02_listView_heading">Sirvi ja jaga</string>
@@ -854,7 +854,7 @@
     <string name="screenshot_03_drawer_heading">Tegevused, jaosmeedia, …</string>
     <string name="screenshot_03_drawer_subline">kõik on ligipääsetav kiiresti</string>
     <string name="screenshot_04_accounts_heading">Kõik sinu kasutajakontod</string>
-    <string name="screenshot_04_accounts_subline">kõik ühes kohas</string>
+    <string name="screenshot_04_accounts_subline">on ühes kohas</string>
     <string name="screenshot_05_autoUpload_heading">Automaatne üleslaadimine</string>
     <string name="screenshot_05_autoUpload_subline">sinu fotode ja videode jaoks</string>
     <string name="screenshot_06_davdroid_heading">Kalender ja kontaktid</string>
