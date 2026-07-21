@@ -73,7 +73,9 @@ open class ActivityListAdapter(
     protected var client: NextcloudClient? = null
     val values: MutableList<Any> = mutableListOf()
     private val px = getThumbnailDimension()
+    private var cachedNextcloudClient: NextcloudClient? = null
 
+    // region Public Methods
     @Suppress("NotifyDataSetChanged")
     fun setActivityItems(activityItems: List<Any>, client: NextcloudClient, clear: Boolean) {
         this.client = client
@@ -82,19 +84,26 @@ open class ActivityListAdapter(
         notifyDataSetChanged()
     }
 
-    private fun appendGroupedByHeader(items: List<Any>, timestampOf: (Any) -> Long?) {
-        var currentHeader: String? = null
-        for (item in items) {
-            val timestamp = timestampOf(item) ?: continue
-            val header = getHeaderDateString(context, timestamp).toString()
-            if (!header.equals(currentHeader, ignoreCase = true)) {
-                currentHeader = header
-                values.add(header)
-            }
-            values.add(item)
-        }
-    }
+    fun isEmpty() = values.isEmpty()
 
+    fun getHeaderDateString(context: Context, modificationTimestamp: Long): CharSequence =
+        if ((System.currentTimeMillis() - modificationTimestamp) < DateUtils.WEEK_IN_MILLIS) {
+            DisplayUtils.getRelativeDateTimeString(
+                context,
+                modificationTimestamp,
+                DateUtils.DAY_IN_MILLIS,
+                DateUtils.WEEK_IN_MILLIS,
+                0
+            )
+        } else {
+            DateFormat.format(
+                DateFormat.getBestDateTimePattern(Locale.getDefault(), HEADER_DATE_SKELETON),
+                modificationTimestamp
+            )
+        }
+    // endregion
+
+    // region Overridden Methods
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return if (viewType == ACTIVITY_TYPE) {
@@ -111,6 +120,45 @@ open class ActivityListAdapter(
         }
     }
 
+    override fun getItemViewType(position: Int) = if (values[position] is Activity) ACTIVITY_TYPE else HEADER_TYPE
+
+    override fun getItemCount() = values.size
+
+    override fun getHeaderPositionForItem(itemPosition: Int): Int {
+        var pos = itemPosition
+        while (pos >= 0 && !isHeader(pos)) pos--
+        return pos
+    }
+
+    override fun getHeaderLayout(headerPosition: Int) = R.layout.activity_list_item_header
+
+    override fun bindHeaderData(header: View?, headerPosition: Int) {
+        header?.findViewById<TextView>(R.id.header)?.text = values[headerPosition] as String
+    }
+
+    override fun isHeader(itemPosition: Int) =
+        itemPosition in values.indices && getItemViewType(itemPosition) == HEADER_TYPE
+
+    override fun avatarGenerated(avatarDrawable: Drawable, callContext: Any) {
+        (callContext as ChipDrawable).chipIcon = avatarDrawable
+    }
+
+    override fun shouldCallGeneratedCallback(tag: String, callContext: Any): Boolean = true
+    // endregion
+
+    // region Private Methods
+    private fun appendGroupedByHeader(items: List<Any>, timestampOf: (Any) -> Long?) {
+        var currentHeader: String? = null
+        for (item in items) {
+            val header = getHeaderDateString(context, timestampOf(item) ?: continue).toString()
+            if (!header.equals(currentHeader, ignoreCase = true)) {
+                currentHeader = header
+                values.add(header)
+            }
+            values.add(item)
+        }
+    }
+
     private fun bindActivityViewHolder(holder: ActivityViewHolder, position: Int) {
         val activity = values[position] as Activity
         holder.bindDateTime(activity)
@@ -123,7 +171,7 @@ open class ActivityListAdapter(
     private fun ActivityViewHolder.bindDateTime(activity: Activity) {
         binding.datetime.apply {
             visibility = View.VISIBLE
-            text = DateFormat.format("HH:mm", activity.datetime.time)
+            text = DateFormat.format(TIME_PATTERN, activity.datetime.time)
         }
     }
 
@@ -195,26 +243,24 @@ open class ActivityListAdapter(
         val columns = measuredWidth / (px + PREVIEW_COLUMN_SPACING)
         try {
             columnCount = columns
-        } catch (e: IllegalArgumentException) {
+        } catch (_: IllegalArgumentException) {
             Log_OC.e(TAG, "error setting column count to $columns")
         }
     }
 
-    private fun getDrawableForMentionChipSpan(chipResource: Int, text: String): ChipDrawable {
-        val chip = ChipDrawable.createFromResource(context, chipResource).apply {
+    private fun getDrawableForMentionChipSpan(chipResource: Int, text: String): ChipDrawable =
+        ChipDrawable.createFromResource(context, chipResource).apply {
             setEllipsize(TextUtils.TruncateAt.MIDDLE)
             layoutDirection = context.resources.configuration.layoutDirection
             setText(text)
             setChipIconResource(R.drawable.accent_circle)
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
         }
-        chip.setBounds(0, 0, chip.intrinsicWidth, chip.intrinsicHeight)
-        return chip
-    }
 
-    private suspend fun nextcloudClient(): NextcloudClient = withContext(Dispatchers.IO) {
+    private suspend fun nextcloudClient(): NextcloudClient = cachedNextcloudClient ?: withContext(Dispatchers.IO) {
         OwnCloudClientManagerFactory.getDefaultSingleton()
             .getNextcloudClientFor(currentAccountProvider.user.toOwnCloudAccount(), context)
-    }
+    }.also { cachedNextcloudClient = it }
 
     private fun loadImageAsync(url: String, imageView: ImageView, @DrawableRes placeholder: Int) {
         context.lifecycleScope.launch {
@@ -260,16 +306,16 @@ open class ActivityListAdapter(
         var text = richElement.richSubject
         val ssb = SpannableStringBuilder(text)
 
-        var start = text.indexOf('{')
+        var start = text.indexOf(PLACEHOLDER_START)
         while (start != -1) {
-            val end = text.indexOf('}', start) + 1
+            val end = text.indexOf(PLACEHOLDER_END, start) + 1
             val tag = text.substring(start + 1, end - 1)
             val richObject = richElement.richObjectList.firstOrNull { it.tag.equals(tag, ignoreCase = true) }
 
             val nextSearchStart = when {
                 richObject == null -> end
 
-                richObject.type == "user" -> {
+                richObject.type == USER_TYPE -> {
                     ssb.applyMentionSpan(richObject, start, end)
                     end
                 }
@@ -281,7 +327,7 @@ open class ActivityListAdapter(
                 }
             }
 
-            start = text.indexOf('{', nextSearchStart)
+            start = text.indexOf(PLACEHOLDER_START, nextSearchStart)
         }
 
         return ssb
@@ -335,53 +381,11 @@ open class ActivityListAdapter(
         return nameEnd
     }
 
-    override fun getItemViewType(position: Int) = if (values[position] is Activity) ACTIVITY_TYPE else HEADER_TYPE
-
-    override fun getItemCount() = values.size
-
-    fun isEmpty() = values.isEmpty()
-
     private fun getThumbnailDimension(): Int {
         val dimension = MainApp.getAppContext().resources.getDimension(R.dimen.file_icon_size_grid)
         return (2.0.pow(floor(log(dimension.toDouble(), 2.0))) / 2).toInt()
     }
-
-    fun getHeaderDateString(context: Context, modificationTimestamp: Long): CharSequence =
-        if ((System.currentTimeMillis() - modificationTimestamp) < DateUtils.WEEK_IN_MILLIS) {
-            DisplayUtils.getRelativeDateTimeString(
-                context,
-                modificationTimestamp,
-                DateUtils.DAY_IN_MILLIS,
-                DateUtils.WEEK_IN_MILLIS,
-                0
-            )
-        } else {
-            DateFormat.format(
-                DateFormat.getBestDateTimePattern(Locale.getDefault(), "EEEE, MMMM d"),
-                modificationTimestamp
-            )
-        }
-
-    override fun getHeaderPositionForItem(itemPosition: Int): Int {
-        var pos = itemPosition
-        while (pos >= 0 && !isHeader(pos)) pos--
-        return pos
-    }
-
-    override fun getHeaderLayout(headerPosition: Int) = R.layout.activity_list_item_header
-
-    override fun bindHeaderData(header: View?, headerPosition: Int) {
-        header?.findViewById<TextView>(R.id.header)?.text = values[headerPosition] as String
-    }
-
-    override fun isHeader(itemPosition: Int) =
-        itemPosition in values.indices && getItemViewType(itemPosition) == HEADER_TYPE
-
-    override fun avatarGenerated(avatarDrawable: Drawable, callContext: Any) {
-        (callContext as ChipDrawable).chipIcon = avatarDrawable
-    }
-
-    override fun shouldCallGeneratedCallback(tag: String, callContext: Any): Boolean = true
+    // endregion
 
     protected class ActivityViewHolder(val binding: ActivityListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -393,6 +397,11 @@ open class ActivityListAdapter(
         const val HEADER_TYPE = 100
         const val ACTIVITY_TYPE = 101
         private const val COLORED_ICON_SUFFIX = "-color.svg"
+        private const val PLACEHOLDER_START = '{'
+        private const val PLACEHOLDER_END = '}'
+        private const val USER_TYPE = "user"
+        private const val TIME_PATTERN = "HH:mm"
+        private const val HEADER_DATE_SKELETON = "EEEE, MMMM d"
         private const val PREVIEW_COLUMN_SPACING = 20
         private const val PREVIEW_CELL_MARGIN = 10
         private val TAG: String = ActivityListAdapter::class.java.simpleName
