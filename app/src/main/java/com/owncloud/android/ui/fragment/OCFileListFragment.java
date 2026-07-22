@@ -154,6 +154,7 @@ import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG;
 import static com.owncloud.android.ui.fragment.SearchType.FAVORITE_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.FILE_SEARCH;
+import static com.owncloud.android.ui.fragment.SearchType.GALLERY_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.NO_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.RECENT_FILES_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.SHARED_FILTER;
@@ -1196,13 +1197,23 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        if (PreviewImageFragment.canBePreviewed(file) && mContainerActivity instanceof FileDisplayActivity fda) {
+        if (canPreviewInVirtualFolderPager(file) && mContainerActivity instanceof FileDisplayActivity fda) {
             fda.previewImageWithSearchContext(file, searchFragment, currentSearchType);
         } else if (file.isDown() && mContainerActivity instanceof FileDisplayActivity fda) {
             fda.previewFile(file, this::setFabVisible);
         } else {
             handlePendingDownloadFile(file);
         }
+    }
+
+    private boolean canPreviewInVirtualFolderPager(OCFile file) {
+        if (PreviewImageFragment.canBePreviewed(file)) {
+            return true;
+        }
+
+        boolean virtualFolderSearch = searchFragment
+            && (currentSearchType == GALLERY_SEARCH || currentSearchType == FAVORITE_SEARCH);
+        return virtualFolderSearch && MimeTypeUtil.isVideo(file);
     }
 
     private void handlePendingDownloadFile(OCFile file) {
