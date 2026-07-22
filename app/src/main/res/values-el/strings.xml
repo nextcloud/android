@@ -425,6 +425,7 @@
     <string name="icon_for_empty_list">Εικονίδιο για κενή λίστα</string>
     <string name="icon_of_dashboard_widget">Εικονίδιο πίνακα γραφικού στοιχείου</string>
     <string name="icon_of_widget_entry">Εικονίδιο κενού γραφικού στοιχείου</string>
+    <string name="image_editor_file_edited_suffix">τροποποιήθηκε</string>
     <string name="image_editor_flip_horizontal">Οριζόντια περιστροφή</string>
     <string name="image_editor_flip_vertical">Κάθετη περιστροφή</string>
     <string name="instant_upload_existing">Μεταφόρτωση, επίσης, υπαρχόντων αρχείων</string>
@@ -925,6 +926,10 @@
     <plurals name="hours">
         <item quantity="one">%d ώρα</item>
         <item quantity="other">%d ώρες</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d λεπτό πριν</item>
+        <item quantity="other">%d λεπτά πριν</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Αδύνατος συγχρονισμός %1$d αρχείου (διενέξεις: %2$d)</item>
