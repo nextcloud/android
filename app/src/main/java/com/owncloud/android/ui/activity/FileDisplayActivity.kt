@@ -89,6 +89,7 @@ import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFolderPath
 import com.nextcloud.utils.view.FastScrollUtils
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
+import com.owncloud.android.authentication.PassCodeManager
 import com.owncloud.android.databinding.FilesBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -252,6 +253,9 @@ class FileDisplayActivity :
 
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
+
+    @Inject
+    lateinit var passCodeManager: PassCodeManager
 
     /**
      * Indicates whether the downloaded file should be previewed immediately. Since `FileDownloadWorker` can be
@@ -628,6 +632,10 @@ class FileDisplayActivity :
 
     @SuppressLint("UnsafeIntentLaunch")
     private fun handleCommonIntents(intent: Intent) {
+        if (passCodeManager.isPassCodeEnabled() && passCodeManager.isLocked(this)) {
+            return
+        }
+
         when (intent.action) {
             Intent.ACTION_VIEW -> handleOpenFileViaIntent(intent)
 
