@@ -48,7 +48,7 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import androidx.sqlite.db.SupportSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteQueryBuilder;
 import dagger.android.AndroidInjection;
-import third_parties.aosp.SQLiteTokenizer;
+import thirdparties.aosp.SQLiteTokenizer;
 
 /**
  * The ContentProvider for the Nextcloud App.

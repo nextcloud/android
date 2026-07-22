@@ -7,7 +7,7 @@
 package com.nextcloud.utils.text
 
 import android.graphics.drawable.Drawable
-import third_parties.fresco.BetterImageSpan
+import thirdparties.fresco.BetterImageSpan
 import java.util.Objects
 
 class MentionChipSpan(drawable: Drawable, verticalAlignment: Int, var id: String, var label: CharSequence?) :
