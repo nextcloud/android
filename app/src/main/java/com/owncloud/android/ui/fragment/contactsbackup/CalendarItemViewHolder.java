@@ -19,7 +19,7 @@ import com.owncloud.android.databinding.CalendarlistListItemBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-import third_parties.sufficientlysecure.AndroidCalendar;
+import thirdparties.sufficientlysecure.AndroidCalendar;
 
 class CalendarItemViewHolder extends SectionedViewHolder {
     public CalendarlistListItemBinding binding;

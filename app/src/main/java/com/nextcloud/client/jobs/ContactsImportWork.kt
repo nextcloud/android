@@ -23,7 +23,7 @@ import com.owncloud.android.ui.fragment.contactsbackup.VCardComparator
 import ezvcard.Ezvcard
 import ezvcard.VCard
 import org.apache.commons.io.FileUtils
-import third_parties.ezvcard_android.ContactOperations
+import thirdparties.ezvcardAndroid.ContactOperations
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream

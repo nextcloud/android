@@ -15,8 +15,8 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.lib.common.utils.Log_OC
-import third_parties.sufficientlysecure.AndroidCalendar
-import third_parties.sufficientlysecure.SaveCalendar
+import thirdparties.sufficientlysecure.AndroidCalendar
+import thirdparties.sufficientlysecure.SaveCalendar
 import java.util.Calendar
 
 class CalendarBackupWork(

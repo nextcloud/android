@@ -11,7 +11,7 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import third_parties.daveKoeller.AlphanumComparator
+import thirdparties.daveKoeller.AlphanumComparator
 
 /**
  * Adapted on 2022/02/04 from https://github.com/nextcloud/server/blob/caff1023ea72bb2ea94130e18a2a6e2ccf819e5f/tests/lib/NaturalSortTest.php
