@@ -1206,6 +1206,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    /**
+     * In a gallery or favorites search the preview pager is built from the whole virtual folder, so a directly
+     * tapped video must open through the same pager as the images.
+     */
     private boolean canPreviewInVirtualFolderPager(OCFile file) {
         if (PreviewImageFragment.canBePreviewed(file)) {
             return true;
