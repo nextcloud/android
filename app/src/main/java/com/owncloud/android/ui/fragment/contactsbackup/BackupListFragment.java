@@ -220,10 +220,6 @@ public class BackupListFragment extends FileFragment implements Injectable {
             }
         }
 
-        if (listAdapter.hasCalendarEntry()) {
-            checkAndAskForCalendarReadPermission();
-        }
-
         binding.restoreSelected.setOnClickListener(v -> {
             if (checkAndAskForCalendarWritePermission()) {
                 importCalendar();
@@ -456,7 +452,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
         return true;
     }
 
-    private void checkAndAskForCalendarReadPermission() {
+    public void checkAndAskForCalendarReadPermission() {
         final var context = getContext();
         if (context == null) {
             return;

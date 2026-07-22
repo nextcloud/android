@@ -7,8 +7,11 @@
  */
 package thirdparties.sufficientlysecure;
 
+import android.Manifest;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract.Calendars;
@@ -18,6 +21,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.core.content.ContextCompat;
 
 
 public class AndroidCalendar {
@@ -48,7 +53,16 @@ public class AndroidCalendar {
     private static final String[] CAL_ID_COLS = new String[]{Events._ID};
     private static final String CAL_ID_WHERE = Events.CALENDAR_ID + "=?";
 
-    // Load all available calendars.
+    public static List<AndroidCalendar> loadAll(Context context) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR)
+            != PackageManager.PERMISSION_GRANTED) {
+            Log_OC.w(TAG, "Cannot load calendars, READ_CALENDAR permission is not granted");
+            return new ArrayList<>();
+        }
+
+        return loadAll(context.getContentResolver());
+    }
+
     // If an empty list is returned the caller probably needs to enable calendar
     // read permissions in App Ops/XPrivacy etc.
     public static List<AndroidCalendar> loadAll(ContentResolver resolver) {

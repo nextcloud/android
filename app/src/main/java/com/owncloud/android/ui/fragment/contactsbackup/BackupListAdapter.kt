@@ -8,6 +8,7 @@
  */
 package com.owncloud.android.ui.fragment.contactsbackup
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
@@ -36,6 +37,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.TextDrawable
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment.getDisplayName
 import com.owncloud.android.utils.BitmapUtils
+import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import ezvcard.VCard
 import ezvcard.property.Photo
@@ -68,7 +70,17 @@ class BackupListAdapter(
     init {
         shouldShowHeadersForEmptySections(false)
         shouldShowFooters(false)
-        cachedAndroidCalendars = AndroidCalendar.loadAll(context.contentResolver)
+        cachedAndroidCalendars = loadCalendarsIfPermitted()
+    }
+
+    private fun loadCalendarsIfPermitted(): List<AndroidCalendar> {
+        if (!PermissionUtil.checkSelfPermission(context, Manifest.permission.READ_CALENDAR)) {
+            Log_OC.d(BackupListFragment.TAG, "READ_CALENDAR permission is not granted, requesting it")
+            backupListFragment.checkAndAskForCalendarReadPermission()
+            return emptyList()
+        }
+
+        return AndroidCalendar.loadAll(context)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder = when (viewType) {
@@ -128,7 +140,7 @@ class BackupListAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun reloadCalendars() {
-        cachedAndroidCalendars = AndroidCalendar.loadAll(context.contentResolver)
+        cachedAndroidCalendars = loadCalendarsIfPermitted()
         notifyDataSetChanged()
     }
 
