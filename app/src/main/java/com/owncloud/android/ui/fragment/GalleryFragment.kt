@@ -15,6 +15,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -62,6 +63,7 @@ class GalleryFragment :
     private var endDate: Long = 0
     private val limit = 150
     private var loadedItemCount = INITIAL_GALLERY_WINDOW
+    private var restoreScrollPending = false
     private var adapter: GalleryAdapter? = null
 
     private var bottomSheet: GalleryFragmentBottomSheetDialog? = null
@@ -149,6 +151,8 @@ class GalleryFragment :
     override fun onPause() {
         super.onPause()
         photoSearchTask?.cancel()
+        savedScrollState = recyclerView?.layoutManager?.onSaveInstanceState()
+        savedLoadedItemCount = loadedItemCount
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -173,6 +177,10 @@ class GalleryFragment :
         requireActivity().invalidateOptionsMenu()
 
         updateSubtitle(bottomSheet?.currMediaState)
+
+        // Restore the previously loaded window so a saved scroll position still resolves to a valid item.
+        loadedItemCount = savedLoadedItemCount ?: INITIAL_GALLERY_WINDOW
+        restoreScrollPending = savedScrollState != null
 
         handleSearchEvent()
     }
@@ -199,11 +207,6 @@ class GalleryFragment :
         val layoutManager = GridLayoutManager(context, 1)
         adapter?.setLayoutManager(layoutManager)
         recyclerView?.setLayoutManager(layoutManager)
-        recyclerView?.post {
-            lastMediaItemPosition?.let { position ->
-                recyclerView?.layoutManager?.scrollToPosition(position)
-            }
-        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -241,8 +244,6 @@ class GalleryFragment :
     private fun handleSearchEvent() {
         prepareCurrentSearch(searchEvent)
         setEmptyListMessage(EmptyListState.LOADING)
-
-        loadedItemCount = INITIAL_GALLERY_WINDOW
 
         // always show first stored items
         showAllGalleryItems()
@@ -311,6 +312,9 @@ class GalleryFragment :
 
     private fun searchAndDisplayAfterChangingFolder() {
         // TODO: Fix folder change, it seems it doesn't work at all
+        loadedItemCount = INITIAL_GALLERY_WINDOW
+        restoreScrollPending = false
+        clearSavedScrollState()
         endDate = System.currentTimeMillis() / 1000
         isPhotoSearchQueryRunning = true
         runGallerySearchTask()
@@ -380,6 +384,9 @@ class GalleryFragment :
     }
 
     override fun updateMediaContent(mediaState: MediaState) {
+        loadedItemCount = INITIAL_GALLERY_WINDOW
+        restoreScrollPending = false
+        clearSavedScrollState()
         showAllGalleryItems()
     }
 
@@ -409,6 +416,14 @@ class GalleryFragment :
                 }
                 adapter?.updateList(galleryItems)
                 updateSubtitle(mediaState)
+
+                if (restoreScrollPending && galleryItems.isNotEmpty()) {
+                    restoreScrollPending = false
+                    savedScrollState?.let { state ->
+                        savedScrollState = null
+                        recyclerView?.layoutManager?.onRestoreInstanceState(state)
+                    }
+                }
             }
         }
     }
@@ -457,14 +472,19 @@ class GalleryFragment :
         private const val IMAGE_MIME_FILTER = "image/%"
         private const val VIDEO_MIME_FILTER = "video/%"
 
-        private var lastMediaItemPosition: Int? = null
         const val REFRESH_SEARCH_EVENT_RECEIVER: String = "refreshSearchEventReceiver"
 
         private const val MAX_LANDSCAPE_COLUMN_SIZE = 5
         private const val MAX_PORTRAIT_COLUMN_SIZE = 2
 
-        fun setLastMediaItemPosition(position: Int?) {
-            lastMediaItemPosition = position
+        // Kept across the activity recreation that happens when returning from the media preview,
+        // so the grid reopens at the same scroll position and with the same loaded window.
+        private var savedScrollState: Parcelable? = null
+        private var savedLoadedItemCount: Int? = null
+
+        fun clearSavedScrollState() {
+            savedScrollState = null
+            savedLoadedItemCount = null
         }
     }
 }
