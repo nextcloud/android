@@ -476,7 +476,7 @@ dependencies {
 
     // region iCal4j
     implementation(libs.ical4j) {
-        listOf("org.apache.commons", "commons-logging").forEach { groupName -> exclude(group = groupName) }
+        exclude(group = "commons-logging")
     }
     // endregion
 
