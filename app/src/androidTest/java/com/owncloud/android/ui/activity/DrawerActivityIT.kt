@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.activity
 
-import android.Manifest
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.net.Uri
@@ -21,6 +20,7 @@ import androidx.test.rule.GrantPermissionRule
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
+import com.nextcloud.test.GrantTestPermissionRule
 import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.MainApp
@@ -39,36 +39,36 @@ class DrawerActivityIT : AbstractIT() {
     val retryTestRule = RetryTestRule()
 
     @get:Rule
-    val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.POST_NOTIFICATIONS
-    )
+    val permissionRule: GrantPermissionRule = GrantTestPermissionRule.grantStorageAndNotification()
 
     @Test
     fun switchAccountViaAccountList() {
-        launchActivity<FileDisplayActivity>().use { scenario ->
-            var sut: FileDisplayActivity? = null
-            scenario.onActivity { activity ->
-                sut = activity
-            }
-
-            Assert.assertEquals(account1, sut!!.user.get().toPlatformAccount())
-
-            onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
-            onView(
-                Matchers.anyOf(
-                    ViewMatchers.withText(account2Name),
-                    ViewMatchers.withText(
-                        account2DisplayName
-                    )
-                )
-            ).perform(ViewActions.click())
-
-            Assert.assertEquals(account2, sut.user.get().toPlatformAccount())
-
-            onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
-            onView(ViewMatchers.withText(account1?.name)).perform(ViewActions.click())
+        // Switching accounts finishes and relaunches FileDisplayActivity (see
+        // FileDisplayActivity.handleRestartIntent). That self-relaunch is incompatible with
+        // ActivityScenario#close(), which cannot drive its tracked instance to DESTROYED, so the
+        // scenario is launched without auto-closing.
+        val scenario = launchActivity<FileDisplayActivity>()
+        lateinit var sut: FileDisplayActivity
+        scenario.onActivity { activity ->
+            sut = activity
         }
+
+        Assert.assertEquals(account1, sut.user.get().toPlatformAccount())
+
+        onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
+        onView(
+            Matchers.anyOf(
+                ViewMatchers.withText(account2Name),
+                ViewMatchers.withText(
+                    account2DisplayName
+                )
+            )
+        ).perform(ViewActions.click())
+
+        Assert.assertEquals(account2, sut.user.get().toPlatformAccount())
+
+        onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
+        onView(ViewMatchers.withText(account1?.name)).perform(ViewActions.click())
     }
 
     companion object {

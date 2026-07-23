@@ -23,19 +23,28 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.client.onboarding.FirstRunActivity
+import com.nextcloud.test.DisableAnimationsRule
+import com.nextcloud.test.RetryTestRule
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
 import org.hamcrest.Matchers.anyOf
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 
 class SnackbarTests {
 
     class NormalTestFragment : Fragment()
     class DialogTestFragment : DialogFragment()
     class BottomSheetTestFragment : BottomSheetDialogFragment()
+
+    @get:Rule
+    val ruleChain: RuleChain = RuleChain
+        .outerRule(DisableAnimationsRule())
+        .around(RetryTestRule())
 
     @Before
     fun setUp() {

@@ -12,6 +12,7 @@ package com.owncloud.android.ui.activity
 import android.content.Intent
 import android.net.Uri
 import android.view.KeyEvent
+import android.view.View
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
@@ -32,6 +33,8 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.ScreenshotTest
 import org.hamcrest.Matchers.not
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -229,18 +232,22 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
         val preferences = AppPreferencesImpl.fromContext(targetContext)
         preferences.setLastUploadPath(mainFolder.remotePath)
 
-        launchActivity<ReceiveExternalFilesActivity>(intent).use {
-            val expectedMainFolderTitle = (getCurrentActivity() as ToolbarActivity).getActionBarTitle(mainFolder, false)
-            // Verify that the test starts in the expected folder. If this fails, change the setup calls above
-            onView(withId(R.id.toolbar))
-                .check(matches(hasDescendant(withText(expectedMainFolderTitle))))
+        // In the multi-upload case the rename field is hidden and no view requests focus, so the
+        // activity window never gains focus on the CI emulator and Espresso's onView(...) fails with
+        // RootViewWithoutFocusException. The view state is therefore asserted directly via
+        // onActivity, which does not depend on window focus.
+        launchActivity<ReceiveExternalFilesActivity>(intent).use { scenario ->
+            scenario.onActivity { sut ->
+                // Verify that the test starts in the expected folder. If this fails, change the setup calls above
+                val expectedMainFolderTitle = sut.getActionBarTitle(mainFolder, false)
+                assertEquals(expectedMainFolderTitle, sut.supportActionBar?.title?.toString())
 
-            onView(withText(R.string.uploader_btn_upload_text))
-                .check(matches(isDisplayed()))
-                .check(matches(isEnabled()))
+                val uploadButton = sut.findViewById<View>(R.id.uploader_choose_folder)
+                assertEquals(View.VISIBLE, uploadButton.visibility)
+                assertTrue(uploadButton.isEnabled)
 
-            onView(withId(R.id.user_input))
-                .check(matches(not(isDisplayed())))
+                assertEquals(View.GONE, sut.findViewById<View>(R.id.user_input).visibility)
+            }
         }
     }
 }

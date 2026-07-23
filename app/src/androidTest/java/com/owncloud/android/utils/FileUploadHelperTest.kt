@@ -19,8 +19,11 @@ import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.resources.status.OCCapability
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkStatic
 import io.mockk.spyk
+import io.mockk.unmockkStatic
 import io.mockk.verify
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -43,9 +46,7 @@ class FileUploadHelperTest {
         val mockFileStorageManager = mockk<com.owncloud.android.datamodel.FileDataStorageManager>(relaxed = true)
         every { mockFileStorageManager.getCapability(any<com.nextcloud.client.account.User>()) } returns mockCapability
 
-        val field = FileUploadHelper::class.java.getDeclaredField("fileStorageManager")
-        field.isAccessible = true
-        field.set(fileUploadHelper, mockFileStorageManager)
+        fileUploadHelper.fileStorageManager = mockFileStorageManager
     }
 
     @Suppress("LongParameterList")
@@ -104,19 +105,25 @@ class FileUploadHelperTest {
 
     @Before
     fun setUp() {
+        mockkStatic("com.nextcloud.utils.extensions.OCCapabilityExtensionsKt")
+
         uploadDao = mockk(relaxed = true)
-        fileUploadHelper = spyk(FileUploadHelper(), recordPrivateCalls = true)
+
         val uploadsStorageManager = mockk<com.owncloud.android.datamodel.UploadsStorageManager>(relaxed = true)
+        every { uploadsStorageManager.uploadDao } returns uploadDao
 
-        val daoField = com.owncloud.android.datamodel.UploadsStorageManager::class.java
-            .declaredFields
-            .first { it.type == UploadDao::class.java }
-        daoField.isAccessible = true
-        daoField.set(uploadsStorageManager, uploadDao)
+        val accountManager = mockk<com.nextcloud.client.account.UserAccountManager>(relaxed = true)
 
-        val field = FileUploadHelper::class.java.getDeclaredField("uploadsStorageManager")
-        field.isAccessible = true
-        field.set(fileUploadHelper, uploadsStorageManager)
+        fileUploadHelper = spyk(FileUploadHelper(), recordPrivateCalls = true)
+        fileUploadHelper.uploadsStorageManager = uploadsStorageManager
+        fileUploadHelper.accountManager = accountManager
+
+        toggleWCFRestrictions(false)
+    }
+
+    @After
+    fun tearDown() {
+        unmockkStatic("com.nextcloud.utils.extensions.OCCapabilityExtensionsKt")
     }
 
     @Test

@@ -29,6 +29,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
+import com.owncloud.android.utils.FileStorageUtils
 import org.hamcrest.Matchers.allOf
 import org.junit.After
 import org.junit.Assert.assertFalse
@@ -49,29 +50,20 @@ class PreviewImageActivityIT : AbstractOnServerIT() {
     private fun createLocalMockedImageFiles(count: Int): List<OCFile> {
         val srcPngFile = getFile("imageFile.png")
         return (0 until count).map { i ->
-            val pngFile = File(srcPngFile.parent ?: ".", "image$i.png")
-            srcPngFile.copyTo(pngFile, overwrite = true)
-
-            OCFile("/${pngFile.name}").apply {
-                storagePath = pngFile.absolutePath
+            OCFile("/image$i.png").apply {
                 mimeType = "image/png"
                 modificationTimestamp = 1000000
-                permissions = "D" // OCFile.PERMISSION_CAN_DELETE_OR_LEAVE_SHARE. Required for deletion button to show
+                permissions = OCFile.PERMISSION_CAN_DELETE_OR_LEAVE_SHARE
+                val localCopy = File(FileStorageUtils.getDefaultSavePathFor(user.accountName, this))
+                localCopy.parentFile?.mkdirs()
+                srcPngFile.copyTo(localCopy, overwrite = true)
+                storagePath = localCopy.absolutePath
             }.also {
                 storageManager.saveNewFile(it)
             }
         }
     }
 
-    /**
-     * Create image files and upload them to the connected server.
-     *
-     * This function relies on the images not existing beforehand, as AbstractOnServerIT#deleteAllFilesOnServer()
-     * should clean up. If it does fail, likely because that clean up didn't work and there are leftovers from
-     * a previous run
-     * @param count Number of files to create
-     * @param folder Parent folder to which to upload. Must start and end with a slash
-     */
     private fun createAndUploadImageFiles(count: Int, folder: String = REMOTE_FOLDER): List<OCFile> {
         val srcPngFile = getFile("imageFile.png")
         return (0 until count).map { i ->

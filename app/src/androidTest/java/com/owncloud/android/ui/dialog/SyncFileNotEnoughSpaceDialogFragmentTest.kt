@@ -6,13 +6,13 @@
  */
 package com.owncloud.android.ui.dialog
 
-import android.Manifest
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.rule.GrantPermissionRule
+import com.nextcloud.test.GrantTestPermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -25,10 +25,7 @@ class SyncFileNotEnoughSpaceDialogFragmentTest : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragmentTest"
 
     @get:Rule
-    val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.POST_NOTIFICATIONS
-    )
+    val permissionRule: GrantPermissionRule = GrantTestPermissionRule.grantStorageAndNotification()
 
     @Test
     @ScreenshotTest
