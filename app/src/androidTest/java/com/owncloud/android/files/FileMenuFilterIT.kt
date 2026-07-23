@@ -330,6 +330,39 @@ class FileMenuFilterIT : AbstractIT() {
         }
     }
 
+    @Test
+    fun filter_openWithOnlyOffice_onlyForDownloadedFiles() {
+        every {
+            mockArbitraryDataProvider.getValue(any<User>(), ArbitraryDataProvider.DIRECT_EDITING)
+        } returns ONLYOFFICE_DIRECT_EDITING_JSON
+
+        configureCapability(OCCapability())
+
+        val downloadedFile = OCFile("/downloaded.docx").apply {
+            mimeType = OFFICE_MIMETYPE
+            storagePath = getDummyFile("downloaded.docx").absolutePath
+        }
+        val onlineOnlyFile = OCFile("/online.docx").apply {
+            mimeType = OFFICE_MIMETYPE
+        }
+
+        launchActivity<TestActivity>().use {
+            it.onActivity { activity ->
+                val filterFactory = FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+
+                val downloadedToHide = filterFactory
+                    .newInstance(downloadedFile, mockComponentsGetter, true, user)
+                    .getToHide(false)
+                assertFalse(downloadedToHide.contains(R.id.action_open_in_web_editor))
+
+                val onlineToHide = filterFactory
+                    .newInstance(onlineOnlyFile, mockComponentsGetter, true, user)
+                    .getToHide(false)
+                assertTrue(onlineToHide.contains(R.id.action_open_in_web_editor))
+            }
+        }
+    }
+
     private data class ExpectedLockVisibilities(val lockFile: Boolean, val unlockFile: Boolean)
 
     private fun configureCapability(capability: OCCapability) {
@@ -362,5 +395,26 @@ class FileMenuFilterIT : AbstractIT() {
                 )
             }
         }
+    }
+
+    companion object {
+        private const val OFFICE_MIMETYPE =
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
+        private val ONLYOFFICE_DIRECT_EDITING_JSON =
+            """
+            {
+              "editors": {
+                "onlyoffice": {
+                  "id": "onlyoffice",
+                  "name": "OnlyOffice",
+                  "mimetypes": [],
+                  "optionalMimetypes": ["$OFFICE_MIMETYPE"],
+                  "secure": false
+                }
+              },
+              "creators": {}
+            }
+            """.trimIndent()
     }
 }
