@@ -14,7 +14,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 metadata:
   author: Nextcloud Android
   version: "1.0.0"
-  based-on: JetBrains kotlin-tooling-java-to-kotlin (Apache-2.0)
 ---
 
 # Android Java to Kotlin Conversion (Second Pass)
@@ -42,8 +41,7 @@ digraph android_j2k {
 
 The **developer** runs the mechanical IDE conversion (`Code > Convert Java File to Kotlin
 File`, or ⌥⇧⌘K). **You (Claude)** complete everything after that. If you are handed a
-`.java` file instead, first apply the faithful 1:1 translation in
-[CONVERSION-METHODOLOGY.md](references/CONVERSION-METHODOLOGY.md) to reach the same
+`.java` file instead, first apply the faithful 1:1 translation to reach the same
 starting point, then continue.
 
 ## The Prime Directive: Behaviour Must Not Change
@@ -53,10 +51,6 @@ readability, safety, and modern API usage — not adding features or fixing bugs
 spot a real bug, surface it to the developer; do not silently "fix" it inside a
 conversion. The behaviour-locking test in Step 3 exists to keep you honest.
 
-The 5 invariants from [CONVERSION-METHODOLOGY.md](references/CONVERSION-METHODOLOGY.md)
-still apply: no new side-effects, preserve annotations/targets, preserve package,
-preserve documentation (as KDoc), output valid Kotlin.
-
 ## Step 0: Establish Baseline
 
 Before editing anything:
@@ -64,33 +58,18 @@ Before editing anything:
 1. Read the whole `.kt` file (and, if you can, the original `.java` via
    `git show <rev>:<path>.java` or the IDE's local history) to understand *what it does*.
 2. Write down the **public/observable surface** you must keep intact:
-   - Public and `@VisibleForTesting` method signatures called from other classes (Java
-     callers especially — see `@JvmStatic`/`@JvmField` in
-     [KNOWN-ISSUES.md](references/KNOWN-ISSUES.md)).
    - Lifecycle callbacks (`onCreate`, `onViewCreated`, `onSaveInstanceState`, …) and their
      ordering of side-effects.
    - Any Parcelable/Bundle keys, intent extras, and `newInstance(...)` factory shapes.
 3. Note threading: which work runs off the main thread today (`Thread`, `AsyncTask`,
    `runOnUiThread`, executors) — this maps to coroutines in Step 2.
 
-## Step 1: Detect Frameworks
-
-Scan imports and load ONLY the matching guides.
-
-| Import prefix | Guide |
-|---|---|
-| `dagger.*`, `javax.inject.*` | [DAGGER-HILT.md](references/frameworks/DAGGER-HILT.md) |
-| `retrofit2.*`, `okhttp3.*` | [RETROFIT.md](references/frameworks/RETROFIT.md) |
-| `org.junit.*` (test files) | [JUNIT.md](references/frameworks/JUNIT.md) |
-| `org.mockito.*` (test files) | [MOCKITO.md](references/frameworks/MOCKITO.md) |
-
-## Step 2: Idiomatic Pass
+## Step 1: Idiomatic Pass
 
 Apply, in this order, then re-check the invariants:
 
 1. **Kill platform types.** Give every `!` platform type an explicit nullable/non-null
-   type based on the Java source and call sites. See "Platform Types" in
-   [KNOWN-ISSUES.md](references/KNOWN-ISSUES.md).
+   type based on the Java source and call sites.
 2. **Fail fast.** Replace nested `if`/`else` pyramids and null-checks with guard clauses
    and `require`/`requireNotNull`/`?: return`. See [FAIL-FAST.md](references/FAIL-FAST.md).
 3. **Decompose.** Break each oversized lifecycle callback / `setupView`-style method into
@@ -111,7 +90,7 @@ Apply, in this order, then re-check the invariants:
 
 Do NOT expand scope. Unrelated files stay untouched (AGENTS.md / AI policy).
 
-## Step 3: Write a Behaviour-Locking Test (Mandatory)
+## Step 2: Write a Behaviour-Locking Test (Mandatory)
 
 A conversion is not complete until a test proves behaviour is unchanged. See
 [TESTING.md](references/TESTING.md) for the decision tree. In short:
@@ -125,7 +104,7 @@ A conversion is not complete until a test proves behaviour is unchanged. See
 
 Every test file gets the SPDX header and follows the project's test conventions.
 
-## Step 4: Verify
+## Step 3: Verify
 
 Run and report real output — never claim green without evidence:
 
@@ -140,9 +119,6 @@ Run and report real output — never claim green without evidence:
 ./gradlew createGplayDebugCoverageReport -Pcoverage=true \
   -Pandroid.testInstrumentationRunnerArguments.class=<fully.qualified.TestClass>
 ```
-
-Then walk [assets/android-checklist.md](assets/android-checklist.md). If anything fails or
-behaviour drifted, return to Step 2.
 
 ## Worked Example
 
