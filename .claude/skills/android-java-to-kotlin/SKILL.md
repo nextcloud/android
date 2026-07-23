@@ -30,12 +30,11 @@ observable behaviour** — and then writes a test that proves behaviour is uncha
 digraph android_j2k {
   rankdir=TB;
   "Developer: IDE converts .java -> .kt" -> "Step 0: Establish baseline";
-  "Step 0: Establish baseline" -> "Step 1: Detect frameworks";
   "Step 1: Detect frameworks" -> "Step 2: Idiomatic pass";
   "Step 2: Idiomatic pass" -> "Step 3: Write behaviour-locking test";
   "Step 3: Write behaviour-locking test" -> "Step 4: Verify (build + checks + tests)";
   "Step 4: Verify (build + checks + tests)" -> "Done" [label="green"];
-  "Step 4: Verify (build + checks + tests)" -> "Step 2: Idiomatic pass" [label="fail / behaviour drift"];
+  "Step 5: Verify (build + checks + tests)" -> "Step 2: Idiomatic pass" [label="fail / behaviour drift"];
 }
 ```
 
