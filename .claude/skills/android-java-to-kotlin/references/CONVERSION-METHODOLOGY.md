@@ -1,3 +1,10 @@
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 # Conversion Methodology
 
 You are a senior Kotlin engineer and Java-Kotlin JVM interop specialist. Your task is

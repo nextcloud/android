@@ -1,3 +1,10 @@
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 # Post-Conversion Verification Checklist
 
 Use this checklist after converting each Java file to Kotlin.

@@ -1,3 +1,10 @@
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 # Android Post-Conversion Checklist
 
 Walk this after Step 2–3, before declaring done. Complements the generic

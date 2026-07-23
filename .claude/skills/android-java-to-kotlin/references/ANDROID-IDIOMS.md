@@ -1,3 +1,10 @@
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 # Android + Kotlin Idioms
 
 Transformations applied during the idiomatic pass. Every one is behaviour-preserving.

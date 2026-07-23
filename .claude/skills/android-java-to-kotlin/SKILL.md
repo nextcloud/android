@@ -9,6 +9,8 @@ description: >
   second pass: idiomatic cleanup, fail-fast control flow, coroutines/lifecycleScope,
   modern Android APIs, function decomposition, and a behaviour-locking test.
 license: AGPL-3.0-or-later
+SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+SPDX-License-Identifier: AGPL-3.0-or-later
 metadata:
   author: Nextcloud Android
   version: "1.0.0"

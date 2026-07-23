@@ -1,3 +1,10 @@
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 # Known Issues and Common Pitfalls
 
 A reference of common issues encountered during Java-to-Kotlin conversion, with solutions.
