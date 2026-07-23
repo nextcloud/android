@@ -10,9 +10,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,7 +18,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.User;
@@ -34,6 +31,8 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.ui.tags.util.TagChipsHelper;
+import com.nextcloud.ui.tags.TagManagementBottomSheet;
 import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -112,6 +111,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject FileDataStorageManager storageManager;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject BackgroundJobManager backgroundJobManager;
+
+    private TagChipsHelper tagChipsHelper;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -241,29 +242,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             return null;
         }
 
-        if (getFile().getTags().isEmpty()) {
-            binding.tagsGroup.setVisibility(View.GONE);
-        } else {
-            for (Tag tag : getFile().getTags()) {
-                Chip chip = new Chip(context);
-                chip.setText(tag.getName());
-                chip.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.bg_default,
-                                                                                           context.getTheme())));
-                chip.setShapeAppearanceModel(chip.getShapeAppearanceModel().toBuilder().setAllCornerSizes((100.0f))
-                                                 .build());
-                chip.setEnsureMinTouchTargetSize(false);
-                chip.setClickable(false);
-                viewThemeUtils.material.themeChipSuggestion(chip);
-
-                if (tag.getColor() != null) {
-                    int color = Color.parseColor(tag.getColor());
-                    chip.setChipStrokeColor(ColorStateList.valueOf(color));
-                    chip.setTextColor(color);
-                }
-
-                binding.tagsGroup.addView(chip);
-            }
-        }
+        refreshTagChips(context);
 
         return view;
     }
@@ -282,6 +261,22 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
             updateFileDetails(false, false);
         }
+
+        getChildFragmentManager().setFragmentResultListener(
+            TagManagementBottomSheet.REQUEST_KEY,
+            getViewLifecycleOwner(),
+            (requestKey, result) -> {
+                ArrayList<Tag> updatedTags = result.getParcelableArrayList(TagManagementBottomSheet.RESULT_KEY_TAGS);
+                if (updatedTags != null) {
+                    getFile().setTags(updatedTags);
+                    storageManager.saveFile(getFile());
+                    Context ctx = getContext();
+                    if (ctx != null) {
+                        refreshTagChips(ctx);
+                    }
+                }
+            }
+        );
     }
 
     @Override
@@ -299,6 +294,21 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         FileActionsBottomSheet.newInstance(file, true, additionalFilter)
             .setResultListener(fragmentManager, this, this::optionsItemSelected)
             .show(fragmentManager, "actions");
+    }
+
+    private void refreshTagChips(Context context) {
+        new TagChipsHelper(viewThemeUtils).refresh(
+            context,
+            binding.tagsGroup,
+            getFile().getTags(),
+            () -> {
+                TagManagementBottomSheet bottomSheet = TagManagementBottomSheet.Companion.newInstance(
+                    getFile().getLocalId(),
+                    getFile().getTags()
+                );
+                bottomSheet.show(getChildFragmentManager(), "tag_management");
+            }
+        );
     }
 
     private void setupViewPager() {
