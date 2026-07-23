@@ -25,9 +25,33 @@ suspend fun FileDataStorageManager.saveShares(shares: List<OCShare>, accountName
     }
 }
 
-suspend fun FileDataStorageManager.getAllGalleryItemsSuspended(): List<OCFile> {
-    val fileEntities = fileDao.getGalleryItemsSuspended(0, Long.MAX_VALUE, user.accountName)
-    return fileEntities.map { createFileInstance(it) }
+private const val GALLERY_DB_CHUNK_SIZE = 500
+
+suspend fun FileDataStorageManager.getGalleryItemsPageSuspended(
+    pathPrefix: String,
+    mimeFilter: String?,
+    limit: Int
+): List<OCFile> {
+    val result = ArrayList<OCFile>(minOf(limit, GALLERY_DB_CHUNK_SIZE))
+    var offset = 0
+
+    while (offset < limit) {
+        val chunkLimit = minOf(GALLERY_DB_CHUNK_SIZE, limit - offset)
+        val entities = fileDao.getGalleryItemsPageSuspended(
+            user.accountName,
+            pathPrefix,
+            mimeFilter,
+            chunkLimit,
+            offset
+        )
+
+        entities.mapTo(result) { createFileInstance(it) }
+        offset += entities.size
+
+        if (entities.size < chunkLimit) break
+    }
+
+    return result
 }
 
 fun FileDataStorageManager.searchFilesByName(file: OCFile, accountName: String, query: String): List<OCFile> =
