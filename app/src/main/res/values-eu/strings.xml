@@ -83,7 +83,6 @@
     <string name="auth_ssl_unverified_server_title">Ezin izan da SSL zerbitzariaren identitatea egiaztatu</string>
     <string name="auth_testing_connection">Konexioa probatzen</string>
     <string name="auth_timeout_title">Zerbitzariak denbora gehiegi hartu du erantzuteko</string>
-    <string name="auth_trying_to_login">Saioa hasten saiatzen…</string>
     <string name="auth_unauthorized">Erabiltzaile edo pasahitz okerra</string>
     <string name="auth_unknown_error_exception_title">Errore ezezaguna: %1$s</string>
     <string name="auth_unknown_error_http_title">HTTP errore ezezaguna gertatu da!</string>
@@ -474,6 +473,8 @@
     <string name="foreign_files_remote_text">Urrunekoa: %1$s</string>
     <string name="forward">Birbidali</string>
     <string name="fourHours">4 ordu</string>
+    <string name="governance_file_retention_label">Fitxategiak mantentzea</string>
+    <string name="governance_no_label">Bat ere ez</string>
     <string name="gplay_restriction">Google-k muga jarri die APK/AAB fitxategien deskargei!</string>
     <string name="grid_file_features_live_photo_content_description">Ikono honek zuzeneko argazkiaren erabilgarritasuna adierazten du</string>
     <string name="hidden_file_name_warning">Izen honek ezkutuko fitxategi bat sortzea eragingo du</string>

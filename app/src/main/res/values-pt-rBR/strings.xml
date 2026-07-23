@@ -40,7 +40,7 @@
     <string name="app_config_disable_multiaccount_title">Desativar múltiplas contas</string>
     <string name="app_config_disable_sharing_title">Desativar compartilhamento</string>
     <string name="app_config_enforce_protection_title">Impor proteção</string>
-    <string name="app_config_proxy_host_title">Nome do host de proxy</string>
+    <string name="app_config_proxy_host_title">Nome do hospedeiro de proxy</string>
     <string name="app_config_proxy_port_title">Porta do proxy</string>
     <string name="app_widget_description">Mostra um widget do painel</string>
     <string name="appbar_search_in">Pesquisar em %s</string>
@@ -98,12 +98,11 @@
     <string name="auth_ssl_unverified_server_title">Não foi possível verificar a identidade do servidor SSL</string>
     <string name="auth_testing_connection">Testando conexão</string>
     <string name="auth_timeout_title">O servidor demorou demais para responder</string>
-    <string name="auth_trying_to_login">Tentando logar…</string>
     <string name="auth_unauthorized">Nome de usuário ou senha errado</string>
     <string name="auth_unknown_error_exception_title">Erro desconhecido: %1$s</string>
     <string name="auth_unknown_error_http_title">Um erro HTTP desconhecido ocorreu!</string>
     <string name="auth_unknown_error_title">Ocorreu um erro desconhecido!</string>
-    <string name="auth_unknown_host_title">Não foi possível encontrar o host</string>
+    <string name="auth_unknown_host_title">Não foi possível encontrar o hospedeiro</string>
     <string name="auth_unsupported_multiaccount">%1$s não tem suporte a múltiplas contas</string>
     <string name="auth_wrong_connection_title">Não foi possível estabelecer a conexão</string>
     <string name="authenticator_activity_cancel_login">Cancelar login</string>
@@ -432,6 +431,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Nenhum aplicativo disponível para selecionar contatos</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
     <string name="file_icon">Arquivo</string>
+    <string name="file_info_governance_section_title">Governança</string>
+    <string name="file_info_image_details_section_title">Detalhes da imagem</string>
     <string name="file_keep">Manter</string>
     <string name="file_list_empty">Envie um arquivo ou sincronize com seus dispositivos.</string>
     <string name="file_list_empty_favorite_headline">Nenhum favorito ainda</string>
@@ -539,6 +540,11 @@
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="forward">Adiante</string>
     <string name="fourHours">4 horas</string>
+    <string name="governance_file_retention_label">Retenção de arquivo</string>
+    <string name="governance_legal_hold_label">Retenção legal</string>
+    <string name="governance_no_label">Nenhum</string>
+    <string name="governance_permission_denied">Você não tem permissão para alterar este rótulo</string>
+    <string name="governance_sensitivity_label">Rótulo de confidencialidade</string>
     <string name="gplay_restriction">Google restringiu o download de arquivos APK/AAB!</string>
     <string name="grid_file_features_live_photo_content_description">Este ícone indica a disponibilidade de foto ao vivo</string>
     <string name="hidden_file_name_warning">O nome resultará em um arquivo oculto</string>
@@ -842,7 +848,7 @@
     <string name="scanQR_description">Entrar via código QR</string>
     <string name="scan_page">Digitalizar página</string>
     <string name="screenshot_01_gridView_heading">Protegendo seus dados</string>
-    <string name="screenshot_01_gridView_subline">produtividade auto hospedada</string>
+    <string name="screenshot_01_gridView_subline">produtividade auto-hospedada</string>
     <string name="screenshot_02_listView_heading">Navegar e compartilhar</string>
     <string name="screenshot_02_listView_subline">todas as ações ao seu alcance</string>
     <string name="screenshot_03_drawer_heading">Atividades, compartilhamentos, ...</string>
@@ -960,7 +966,7 @@
     <string name="ssl_validator_reason_cert_expired">- O certificado do servidor expirou</string>
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é confiável</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- A data de expiração do certificado do servidor está no futuro</string>
-    <string name="ssl_validator_reason_hostname_not_verified">- A URL do host não confere com o host do certificado</string>
+    <string name="ssl_validator_reason_hostname_not_verified">- O URL não corresponde ao nome do hospedeiro indicado no certificado</string>
     <string name="status_message">Mensagem de status</string>
     <string name="storage_camera">Câmera</string>
     <string name="storage_choose_location">Escolher o local de armazenamento</string>

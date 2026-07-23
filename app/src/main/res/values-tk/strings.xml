@@ -52,7 +52,6 @@
     <string name="auth_ssl_unverified_server_title">SSL serweriniň şahsyýetini barlap bolmady</string>
     <string name="auth_testing_connection">Baglanyşyk synagy</string>
     <string name="auth_timeout_title">Serwer jogap bermek üçin gaty köp wagt aldy</string>
-    <string name="auth_trying_to_login">Girmäge synanyşýan…</string>
     <string name="auth_unauthorized">Ulanyjynyň ady ýa-da paroly nädogry </string>
     <string name="auth_unknown_error_exception_title">Näbelli ýalňyşlyk:%1$s</string>
     <string name="auth_unknown_error_http_title">Näbelli HTTP ýalňyşlygy ýüze çykdy!</string>
@@ -324,6 +323,7 @@
     <string name="foreign_files_remote_text">Uzakdan:%1$s</string>
     <string name="forward">Öňe</string>
     <string name="fourHours">4 sagat</string>
+    <string name="governance_no_label">Hiç</string>
     <string name="hint_name">Ady</string>
     <string name="hint_note">Bellik</string>
     <string name="hint_password">Açarsöz</string>

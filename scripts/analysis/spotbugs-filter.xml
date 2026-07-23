@@ -59,12 +59,12 @@
 	<Match>
 	    <Or>
 	        <Package name="~io\.noties\..*" />
-			<Package name="~third_parties\.ezvcard_android\..*" />
+			<Package name="~thirdparties\.ezvcardAndroid\..*" />
 			<Package name="~com\.afollestad\.sectionedrecyclerview\..*" />
 			<Package name="~butterknife\..*" />
 			<Package name="~de\.cotech\..*" />
 			<Package name="~pl\.droidsonroids\..*" />
-            <Package name="~third_parties\..*" />
+            <Package name="~thirdparties\..*" />
 		</Or>
 	</Match>
 	 <Match>

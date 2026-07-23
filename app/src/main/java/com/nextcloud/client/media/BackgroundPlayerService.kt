@@ -124,6 +124,10 @@ class BackgroundPlayerService :
 
         MainApp.getAppComponent().inject(this)
 
+        if (userAccountManager.allUsers.isEmpty()) {
+            return
+        }
+
         seekForward = CommandButton.Builder()
             .setDisplayName(getString(R.string.media_player_seek_forward))
             .setIconResId(R.drawable.ic_skip_next)

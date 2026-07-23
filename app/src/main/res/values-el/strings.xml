@@ -65,7 +65,6 @@
     <string name="auth_ssl_unverified_server_title">Αδυναμία επιβεβαίωσης της ταυτότητας του διακομιστή SSL </string>
     <string name="auth_testing_connection">Έλεγχος σύνδεσης</string>
     <string name="auth_timeout_title">Ο διακομιστής αργεί πολύ να απαντήσει</string>
-    <string name="auth_trying_to_login">Προσπάθεια σύνδεσης…</string>
     <string name="auth_unauthorized">Εσφαλμένο όνομα χρήστη ή συνθηματικό</string>
     <string name="auth_unknown_error_exception_title">Άγνωστο σφάλμα: %1$s</string>
     <string name="auth_unknown_error_http_title">Παρουσιάστηκε άγνωστο σφάλμα HTTP!</string>
@@ -190,8 +189,11 @@
     <string name="could_not_retrieve_url">Αδυναμία ανάκτησης URL</string>
     <string name="create">Δημιουργία</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
+    <string name="create_end_to_end_encrypted_share">Διαμοιρασμός συνδέσμου</string>
+    <string name="create_end_to_end_encrypted_share_title">Σύνδεσμοι διαμοιρασμού με κρυπτογράφηση από άκρο σε άκρο</string>
     <string name="create_new">Νέα</string>
     <string name="create_new_document">Νέο έγγραφο</string>
+    <string name="create_new_encrypted_folder">Νέος κρυπτογραφημένος φάκελος</string>
     <string name="create_new_folder">Νέος φάκελος</string>
     <string name="create_new_presentation">Νέα παρουσίαση</string>
     <string name="create_new_spreadsheet">Νέο λογιστικό φύλλο</string>
@@ -394,6 +396,7 @@
     <string name="folder_already_exists">Ο φάκελος υπάρχει ήδη</string>
     <string name="folder_confirm_create">Δημιουργία</string>
     <string name="folder_list_empty_headline">Δεν υπάρχουν φάκελοι εδώ</string>
+    <string name="folder_name_empty">Το όνομα του φακέλου δεν μπορεί να είναι κενό</string>
     <string name="folder_picker_choose_button_text">Επιλογή</string>
     <string name="folder_picker_choose_caption_text">Επιλογή φακέλου προορισμού</string>
     <string name="folder_picker_copy_button_text">Αντιγραφή</string>
@@ -411,6 +414,8 @@
     <string name="foreign_files_remote_text">Απομακρυσμένα: %1$s</string>
     <string name="forward">Προώθηση</string>
     <string name="fourHours">4 ώρες</string>
+    <string name="governance_file_retention_label">Διατήρηση αρχείου</string>
+    <string name="governance_no_label">Καμία</string>
     <string name="hidden_file_name_warning">Το όνομα θα δημιουργήσει ένα κρυφό αρχείο</string>
     <string name="hint_name">Όνομα</string>
     <string name="hint_note">Σημείωση</string>
@@ -420,11 +425,13 @@
     <string name="icon_for_empty_list">Εικονίδιο για κενή λίστα</string>
     <string name="icon_of_dashboard_widget">Εικονίδιο πίνακα γραφικού στοιχείου</string>
     <string name="icon_of_widget_entry">Εικονίδιο κενού γραφικού στοιχείου</string>
+    <string name="image_editor_file_edited_suffix">τροποποιήθηκε</string>
     <string name="image_editor_flip_horizontal">Οριζόντια περιστροφή</string>
     <string name="image_editor_flip_vertical">Κάθετη περιστροφή</string>
     <string name="instant_upload_existing">Μεταφόρτωση, επίσης, υπαρχόντων αρχείων</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_share_headline_end_to_end_encrypted">Διαμοιρασμοί με κρυπτογράφηση από άκρο σε άκρο</string>
     <string name="internal_shares">Εσωτερικοί διαμοιρασμοί</string>
     <string name="invalid_url">Μη έγκυρη διεύθυνση URL</string>
     <string name="invisible">Αόρατος</string>
@@ -679,6 +686,7 @@
     <string name="share_permission_can_edit">Μπορεί να επεξεργαστεί</string>
     <string name="share_permission_file_request">Αίτημα αρχείου</string>
     <string name="share_permission_view_only">Μόνο προβολή</string>
+    <string name="share_permissions">Δικαιώματα διαμοιρασμού</string>
     <string name="share_re_share_permission">Διαμοιρασμός</string>
     <string name="share_read_permission">Ανάγνωση</string>
     <string name="share_remote_clarification">%1$s (απομακρυσμένα)</string>
@@ -918,6 +926,14 @@
     <plurals name="hours">
         <item quantity="one">%d ώρα</item>
         <item quantity="other">%d ώρες</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d λεπτό</item>
+        <item quantity="other">%d λεπτά</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d λεπτό πριν</item>
+        <item quantity="other">%d λεπτά πριν</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Αδύνατος συγχρονισμός %1$d αρχείου (διενέξεις: %2$d)</item>

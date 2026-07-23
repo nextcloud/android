@@ -59,8 +59,8 @@ configurations.configureEach {
 }
 
 // semantic versioning for version code
-val versionMajor = 34
-val versionMinor = 1
+val versionMajor = 35
+val versionMinor = 0
 val versionPatch = 0
 val versionBuild = 51 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -476,7 +476,7 @@ dependencies {
 
     // region iCal4j
     implementation(libs.ical4j) {
-        listOf("org.apache.commons", "commons-logging").forEach { groupName -> exclude(group = groupName) }
+        exclude(group = "commons-logging")
     }
     // endregion
 

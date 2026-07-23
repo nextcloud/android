@@ -11,7 +11,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
-import third_parties.daveKoeller.AlphanumComparator
+import thirdparties.daveKoeller.AlphanumComparator
 import java.io.File
 import java.util.Locale
 

@@ -39,7 +39,7 @@ import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import ezvcard.VCard
 import ezvcard.property.Photo
-import third_parties.sufficientlysecure.AndroidCalendar
+import thirdparties.sufficientlysecure.AndroidCalendar
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class BackupListAdapter(

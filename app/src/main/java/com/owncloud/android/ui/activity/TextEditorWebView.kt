@@ -9,6 +9,8 @@
 package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import androidx.core.net.toUri
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
@@ -16,6 +18,7 @@ import com.nextcloud.android.common.ui.util.PlatformThemeUtil
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.device.DeviceInfo
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
 import com.owncloud.android.utils.DisplayUtils
 import javax.inject.Inject
@@ -27,6 +30,21 @@ class TextEditorWebView : EditorWebView() {
     @Inject
     lateinit var deviceInfo: DeviceInfo
 
+    companion object {
+        fun startTextEditor(file: OCFile?, context: Context?) {
+            val context = context ?: return
+            val file = file ?: return
+
+            Intent(context, TextEditorWebView::class.java).apply {
+                putExtra(EXTRA_TITLE, "Text")
+                putExtra(EXTRA_FILE, file)
+                putExtra(EXTRA_SHOW_SIDEBAR, false)
+            }.also {
+                context.startActivity(it)
+            }
+        }
+    }
+
     @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used > Lollipop
     override fun postOnCreate() {
         super.postOnCreate()
@@ -37,7 +55,7 @@ class TextEditorWebView : EditorWebView() {
         }
 
         user.ifPresent {
-            val editor = editorUtils.getEditor(it, file?.mimeType)
+            val editor = editorUtils.getAvailableEditor(it, file?.mimeType)
 
             if (editorUtils.usesOfficeUserAgent(editor)) {
                 webView.settings.userAgentString = generateOfficeUserAgent()
