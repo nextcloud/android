@@ -52,8 +52,7 @@ asks for; default to the "Nextcloud GmbH and Nextcloud contributors" line.
 
 When the file still has Java callers, keep the Java-facing API clean:
 `@JvmStatic` for factory/companion functions, `@JvmField` for exposed constants,
-`@JvmOverloads` for defaulted params, `@Throws` for checked exceptions. See
-[KNOWN-ISSUES.md](KNOWN-ISSUES.md).
+`@JvmOverloads` for defaulted params, `@Throws` for checked exceptions.
 
 ## Git & Commits (developer-driven)
 
