@@ -151,7 +151,7 @@ class EncryptionUtilsV2 {
         ocFile: OCFile,
         storageManager: FileDataStorageManager,
         client: OwnCloudClient,
-        oldCounter: Long,
+        counterInDatabase: Long,
         signature: String,
         user: User,
         context: Context,
@@ -236,7 +236,7 @@ class EncryptionUtilsV2 {
             )
         }
 
-        if (!verifyMetadata(metadataFile, decryptedFolderMetadataFile, oldCounter, signature)) {
+        if (!verifyMetadata(metadataFile, decryptedFolderMetadataFile, counterInDatabase, signature)) {
             throw IllegalStateException("Metadata is corrupt!")
         }
 
@@ -851,12 +851,12 @@ class EncryptionUtilsV2 {
     fun verifyMetadata(
         encryptedFolderMetadataFile: EncryptedFolderMetadataFile,
         decryptedFolderMetadataFile: DecryptedFolderMetadataFile,
-        oldCounter: Long,
+        counterInDatabase: Long,
         signature: String
     ): Boolean {
-        val metadataCounter = decryptedFolderMetadataFile.metadata.counter
-        if (metadataCounter < oldCounter) {
-            Log_OC.e(TAG, "old counter: $oldCounter, metadata counter $metadataCounter")
+        val counterInServer = decryptedFolderMetadataFile.metadata.counter
+        if (counterInServer < counterInDatabase) {
+            Log_OC.e(TAG, "counter in: $counterInDatabase, metadata counter $counterInServer")
             MainApp.showMessage(R.string.e2e_counter_too_old)
             return false
         }
