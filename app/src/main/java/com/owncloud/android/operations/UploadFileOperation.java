@@ -124,6 +124,9 @@ public class UploadFileOperation extends SyncOperation {
     public static final int CREATED_AS_INSTANT_VIDEO = 2;
     public static final int MISSING_FILE_PERMISSION_NOTIFICATION_ID = 2501;
 
+    private static final int E2EE_METADATA_SYNC_MAX_ATTEMPTS = 3;
+    private static final long E2EE_METADATA_SYNC_DELAY_MS = 3000L;
+
     /**
      * OCFile which is to be uploaded.
      */
@@ -905,7 +908,60 @@ public class UploadFileOperation extends SyncOperation {
                                                      user,
                                                      getStorageManager());
 
-        getStorageManager().updateE2EECounter(parentFile, metadata);
+
+        awaitServerMetadataSyncThenUpdateCounter(metadata, encryptionUtilsV2, parentFile, clientData);
+    }
+
+    /**
+     * The backend may take a moment to persist the metadata we just uploaded via
+     * {@link EncryptionUtilsV2#serializeAndUploadMetadata}. To keep the local database consistent with the server we
+     * poll the server metadata and only store the counter locally once the server reports the same counter we uploaded.
+     */
+    private void awaitServerMetadataSyncThenUpdateCounter(DecryptedFolderMetadataFile metadata,
+                                                          EncryptionUtilsV2 encryptionUtilsV2,
+                                                          OCFile parentFile,
+                                                          E2EClientData clientData) {
+        final long expectedCounter = metadata.getMetadata().getCounter();
+
+        try {
+            for (int attempt = 1; attempt <= E2EE_METADATA_SYNC_MAX_ATTEMPTS; attempt++) {
+                final Long serverCounter = retrieveServerMetadataCounter(encryptionUtilsV2, parentFile, clientData);
+
+                if (serverCounter != null && serverCounter == expectedCounter) {
+                    Log_OC.d(TAG, "Server metadata counter matches local after " + attempt + " attempt(s)");
+                    getStorageManager().updateE2EECounter(parentFile, metadata);
+                    return;
+                }
+
+                Log_OC.d(TAG, "Server metadata counter " + serverCounter + " != expected " + expectedCounter
+                    + ", retrying (" + attempt + "/" + E2EE_METADATA_SYNC_MAX_ATTEMPTS + ")");
+
+                if (attempt < E2EE_METADATA_SYNC_MAX_ATTEMPTS) {
+                    Thread.sleep(E2EE_METADATA_SYNC_DELAY_MS);
+                }
+            }
+
+            Log_OC.w(TAG, "Server metadata counter did not match expected " + expectedCounter + " after "
+                + E2EE_METADATA_SYNC_MAX_ATTEMPTS + " attempts, counter not stored locally");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // restore interrupted status
+            Log_OC.e(TAG, "Interrupted while waiting for server metadata sync", e);
+        }
+    }
+
+    private Long retrieveServerMetadataCounter(EncryptionUtilsV2 encryptionUtilsV2,
+                                               OCFile parentFile,
+                                               E2EClientData clientData) {
+        try {
+            return encryptionUtilsV2
+                .retrieveMetadata(parentFile, clientData.getClient(), user, mContext)
+                .getSecond()
+                .getMetadata()
+                .getCounter();
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Failed to retrieve server metadata while waiting for sync", e);
+            return null;
+        }
     }
 
     private void completeE2EUpload(RemoteOperationResult result, E2EFiles e2eFiles, OwnCloudClient client) {

@@ -2925,6 +2925,7 @@ public class FileDataStorageManager {
     }
 
     public void updateE2EECounter(OCFile file, long counter) {
+        Log_OC.d(TAG, "counter stored: " + counter + " for " + file.getDecryptedRemotePath());
         file.setE2eCounter(counter);
         saveFile(file);
     }
