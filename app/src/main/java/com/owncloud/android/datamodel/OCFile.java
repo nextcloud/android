@@ -42,7 +42,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import third_parties.daveKoeller.AlphanumComparator;
+import thirdparties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 

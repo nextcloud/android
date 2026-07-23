@@ -51,7 +51,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import third_parties.daveKoeller.AlphanumComparator
+import thirdparties.daveKoeller.AlphanumComparator
 import java.util.Calendar
 import java.util.GregorianCalendar
 import javax.inject.Inject
@@ -408,7 +408,7 @@ class BackupFragment :
         }
     }
 
-    @Suppress("ComplexMethod", "MagicNumber")
+    @Suppress("ComplexMethod", "MagicNumber", "ReturnCount")
     override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
         val contactsPreferenceActivity = activity as? ContactsPreferenceActivity ?: run {
             activity?.let { DisplayUtils.showSnackMessage(it, R.string.error_choosing_date) }

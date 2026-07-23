@@ -143,11 +143,13 @@ public class FileDetailActivitiesFragment extends Fragment implements
         binding.swipeContainingList.setOnRefreshListener(() -> {
             setLoadingMessage();
             binding.swipeContainingList.setRefreshing(true);
+            isLoadingActivities = true;
             fetchAndSetData(-1);
         });
 
         binding.swipeContainingEmpty.setOnRefreshListener(() -> {
             setLoadingMessageEmpty();
+            isLoadingActivities = true;
             fetchAndSetData(-1);
         });
 
@@ -459,7 +461,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
             if (binding != null && getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
                 binding.swipeContainingList.setRefreshing(false);
                 binding.swipeContainingEmpty.setRefreshing(false);
-                binding.emptyList.emptyListView.setVisibility(View.GONE);
                 isLoadingActivities = false;
             }
         });
