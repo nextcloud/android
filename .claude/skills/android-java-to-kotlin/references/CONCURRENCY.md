@@ -105,12 +105,6 @@ private suspend fun loadAndPartitionShares(): Pair<List<OCShare>, List<OCShare>>
     }
 ```
 
-## RxJava Present?
-
-If the file uses `io.reactivex.*`/`rx.*`, load
-[frameworks/RXJAVA.md](frameworks/RXJAVA.md) for the reactive-type → Flow/coroutine
-mapping instead of hand-rolling.
-
 ## Pitfalls
 
 - Never launch on `GlobalScope` — it outlives the screen and leaks.
