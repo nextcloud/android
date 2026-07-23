@@ -12,7 +12,6 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
-import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.utils.CmsSignatureVerifier
 import com.nextcloud.utils.autoRename.AutoRename
 import com.nextcloud.utils.e2ee.E2EVersionHelper
