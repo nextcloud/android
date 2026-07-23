@@ -1387,6 +1387,13 @@
     <string name="remove_e2e">You can remove end-to-end encryption locally on this client</string>
     <string name="confirm_removal">Remove local encryption</string>
     <string name="remove_e2e_message">You can remove end-to-end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
+    <string name="prefs_renew_e2e_certificate">Renew encryption certificate</string>
+    <string name="renew_e2e_certificate_summary">Renew your end-to-end encryption certificate while keeping your existing keys</string>
+    <string name="renew_e2e_certificate_valid_until">Valid until %1$s. Tap to renew while keeping your existing keys.</string>
+    <string name="renew_e2e_certificate_dialog_message">This will renew your end-to-end encryption certificate. Your existing keys and encrypted files remain unchanged. Continue?</string>
+    <string name="renew_e2e_certificate_success">Encryption certificate renewed</string>
+    <string name="renew_e2e_certificate_error">Could not renew encryption certificate</string>
+    <string name="renew_e2e_certificate_private_key_missing">Encryption private key not found</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="error_showing_encryption_dialog">Error showing encryption setup dialog!</string>
     <string name="prefs_keys_exist">Add end-to-end encryption to this client</string>
