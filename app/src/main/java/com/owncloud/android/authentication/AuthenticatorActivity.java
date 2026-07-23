@@ -153,6 +153,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     AuthenticatorAsyncTask.OnAuthenticatorTaskListener, Injectable {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
+    private static final String LOGIN_FLOW_LOG = "LoginFlowV2 |";
 
     public static final String EXTRA_ACTION = "ACTION";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -256,6 +257,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Lifecycle onCreate (recreated=" + (savedInstanceState != null) + ")");
         viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
         viewThemeUtils.platform.colorStatusBar(this, getResources().getColor(R.color.primary));
 
@@ -406,7 +408,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private String baseUrl;
 
     private void poolLogin() {
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 6: Polling started (interval=30s)");
         loginFlowExecutorService.scheduleWithFixedDelay(() -> {
+            Log_OC.d(TAG, LOGIN_FLOW_LOG + " Poll tick (completed=" + isLoginProcessCompleted + ")");
             if (!isLoginProcessCompleted) {
                 performLoginFlowV2();
             }
@@ -429,9 +433,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             return;
         }
         baseUrl = url;
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 1: POST /login/v2 -> " + url);
 
         singleThreadExecutor.execute(() -> {
             String response = getResponseOfAnonymouslyPostLoginRequest();
+            Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 2: /login/v2 response received (empty="
+                + TextUtils.isEmpty(response) + ")");
             if (TextUtils.isEmpty(response)) {
                 DisplayUtils.showSnackMessage(AuthenticatorActivity.this, R.string.authenticator_activity_empty_response_message);
                 return;
@@ -449,6 +456,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         try {
             authObject = gson.fromJson(response, AuthObject.class);
             if (authObject != null && !TextUtils.isEmpty(authObject.getLogin())) {
+                Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 3: login URL + poll token extracted");
                 return authObject.getLogin();
             } else {
                 Log_OC.e(TAG, "AuthObject parsing failed or login empty, trying JSONObject fallback");
@@ -498,6 +506,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         try {
             int toolbarColor = ContextCompat.getColor(this, R.color.primary);
             AuthTabIntent authTabIntent = new AuthTabIntent.Builder().setColorScheme(toolbarColor).build();
+            Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 5: launching browser via Auth Tab (scheme=" + loginScheme + ")");
             authTabIntent.launch(authTabResultLauncher, uri, loginScheme);
             return;
         } catch (Exception e) {
@@ -508,6 +517,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             PackageManager packageManager = getPackageManager();
             if (intent.resolveActivity(packageManager) != null) {
+                Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 5 (fallback): launching external browser");
                 startActivity(intent);
                 return;
             }
@@ -515,6 +525,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Log_OC.e(TAG, "External browser launch failed: " + e);
         }
 
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 5 (failed): no web browser found");
         DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_no_web_browser_found);
     }
 
@@ -548,18 +559,22 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         PlainClient client = clientFactory.createPlainClient();
         PostMethod post = new PostMethod(pollUrlAndToken.first, false, requestBody);
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 7: Poll request -> " + pollUrlAndToken.first);
         int status = post.execute(client);
         String response = post.getResponseBodyAsString();
 
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 8: Poll response status=" + status + " empty=" + response.isEmpty());
         Log_OC.d(TAG, "performLoginFlowV2 status: " + status);
         Log_OC.d(TAG, "performLoginFlowV2 response: " + response);
 
         if (!response.isEmpty()) {
+            Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 8: non-empty poll response -> completeLoginFlow()");
             runOnUiThread(() -> completeLoginFlow(response, status));
         }
     }
 
     private void completeLoginFlow(String response, int status) {
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 9: completeLoginFlow (status=" + status + ")");
         try {
             LoginUrlInfo loginUrlInfo = gson.fromJson(response, LoginUrlInfo.class);
             if (loginUrlInfo == null) {
@@ -567,6 +582,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 return;
             }
             isLoginProcessCompleted = loginUrlInfo.isValid(status);
+            Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 9: credentials received (valid=" + isLoginProcessCompleted
+                + ", loginName=" + !TextUtils.isEmpty(loginUrlInfo.getLoginName())
+                + ", appPassword=" + !TextUtils.isEmpty(loginUrlInfo.getAppPassword()) + ")");
 
             if (accountSetupBinding != null) {
                 accountSetupBinding.hostUrlInput.setText("");
@@ -585,12 +603,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         checkOcServer();
         loginFlowExecutorService.shutdown();
         ProcessLifecycleOwner.get().getLifecycle().removeObserver(lifecycleEventObserver);
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 9: polling stopped and lifecycle observer removed");
     }
 
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
         if (event == Lifecycle.Event.ON_START && authObject != null && !TextUtils.isEmpty(authObject.getPoll().getToken())) {
-            Log_OC.d(TAG, "Start poolLogin");
+            Log_OC.d(TAG, LOGIN_FLOW_LOG + " ProcessLifecycleOwner ON_START -> starting polling");
             poolLogin();
+        } else if (event == Lifecycle.Event.ON_START) {
+            Log_OC.d(TAG, LOGIN_FLOW_LOG + " ProcessLifecycleOwner ON_START ignored (authObject="
+                + (authObject != null) + ")");
         }
     });
     // endregion
@@ -840,6 +862,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Lifecycle onNewIntent (browser return candidate)");
         Log_OC.d(TAG, "onNewIntent()");
 
         if (intent.getBooleanExtra(FirstRunActivity.EXTRA_EXIT, false)) {
@@ -859,6 +882,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 finish();
                 return;
             } else {
+                Log_OC.d(TAG, LOGIN_FLOW_LOG
+                    + " Browser returned via onNewIntent deep link (nc://) -> parsing credentials");
                 parseAndLoginFromWebView(data.toString());
             }
         }
@@ -907,6 +932,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Lifecycle onStart");
+    }
+
     /**
      * The redirection triggered by the OAuth authentication server as response to the GET AUTHORIZATION, and deferred
      * in {@link #onNewIntent(Intent)}, is processed here.
@@ -914,6 +945,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     protected void onResume() {
         super.onResume();
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Lifecycle onResume");
 
         // bind to Operations Service
         mOperationsServiceConnection = new OperationsServiceConnection();
@@ -932,6 +964,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     @Override
     protected void onPause() {
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Lifecycle onPause");
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
@@ -946,6 +979,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mOperationsServiceBinder = null;
         }
 
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Lifecycle onDestroy (isFinishing=" + isFinishing() + ")");
         Log_OC.d(TAG, "AuthenticatorActivity onDestroy called");
         singleThreadExecutor.shutdown();
         super.onDestroy();
@@ -1118,6 +1152,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     // region LoginInfoView
     private void initLoginInfoView() {
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " Step 4: 'Waiting for browser' UI shown");
         LinearLayout loginFlowLayout = accountSetupWebviewBinding.loginFlowV2.getRoot();
         MaterialButton cancelButton = accountSetupWebviewBinding.loginFlowV2.cancelButton;
         loginFlowLayout.setVisibility(View.VISIBLE);
@@ -1136,6 +1171,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         ViewCompat.requestApplyInsets(loginFlowLayout);
 
         cancelButton.setOnClickListener(v -> {
+            Log_OC.d(TAG, LOGIN_FLOW_LOG + " Polling cancelled by user (cancel button)");
             loginFlowExecutorService.shutdown();
             ProcessLifecycleOwner.get().getLifecycle().removeObserver(lifecycleEventObserver);
             recreate();
@@ -1563,7 +1599,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private final ActivityResultLauncher<Intent> authTabResultLauncher = AuthTabIntent.registerActivityResultLauncher(
         this,
-        result -> Log_OC.d(TAG, "Auth Tab result code: " + result.resultCode)
+        result -> Log_OC.d(TAG, LOGIN_FLOW_LOG + " Browser returned via Auth Tab (resultCode=" + result.resultCode
+            + ", hasUri=" + (result.resultUri != null) + ")")
     );
 
     private final ActivityResultLauncher<Intent> qrScanResultLauncher = registerForActivityResult(
