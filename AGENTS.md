@@ -30,6 +30,13 @@ Java, Kotlin, XML, Jetpack Compose are the key technologies used for building th
 - `./app/src/test/` Unit tests (small, isolated tests without Android SDK)
 - `./app/src/androidTest/` Instrumented tests (require Android SDK)
 - `./app/src/main/res/values/` Translations. Only update `./app/src/main/res/values/strings.xml`. Do not modify any other translation files or folders. Ignore all `values-*` directories (e.g., `values-es`, `values-fr`).
+- `./.claude/skills/` Reusable agent skills. Each subdirectory is one skill with a `SKILL.md` entry point plus `references/` and `assets/`.
+
+## Agent Skills
+
+Project-specific skills live in `./.claude/skills/<skill-name>/`. Load a skill when the task matches its trigger.
+
+- **`android-java-to-kotlin`** (`./.claude/skills/android-java-to-kotlin/SKILL.md`) — Completes a Java-to-Kotlin conversion in this Android app. Use it when finishing a conversion, when the user mentions "java to kotlin", "j2k", "convert java", or "make it idiomatic", or when a freshly IDE-converted `.kt` file needs cleanup. The workflow is two-person: the developer first runs the Android Studio converter (`Code > Convert Java File to Kotlin File`), then the agent drives the idiomatic second pass — fail-fast control flow, function decomposition, `lifecycleScope`/coroutines instead of Java threads, modern Android APIs, and project conventions (SPDX headers, no magic numbers, `@JvmStatic`). The conversion must preserve behaviour, and the agent must write a behaviour-locking test before declaring it done. Builds on the JetBrains java-to-kotlin methodology.
 
 ## General Guidance
 
