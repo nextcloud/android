@@ -162,7 +162,7 @@ If a legacy god-class genuinely cannot be split within the conversion's scope, a
 file/class-level `@Suppress("TooManyFunctions", "LargeClass", ...)` is acceptable — but
 prefer real decomposition and tell the developer what you suppressed and why.
 
-## 8. Optional: `// region` Organization
+## 8. `// region` Organization
 
 For large classes, grouping members under `// region <name>` / `// endregion` (lifecycle,
 private methods, overrides, companion) aids IDE folding. This is IDE structure, not a
