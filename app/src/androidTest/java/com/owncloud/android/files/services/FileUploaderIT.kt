@@ -12,13 +12,10 @@ package com.owncloud.android.files.services
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.owncloud.android.AbstractOnServerIT
-import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
-import com.owncloud.android.lib.common.operations.OperationCancelledException
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.UploadFileOperation
@@ -27,6 +24,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import java.io.File
 
 class FileUploaderIT : AbstractOnServerIT() {
 
@@ -45,34 +43,26 @@ class FileUploaderIT : AbstractOnServerIT() {
     }
 
     @Test
-    fun uploadUpdatedFileWithOverwritePolicyReplacesRemoteFile() {
+    fun uploadWithOverwritePolicyReplacesRemoteFile() {
         val originalFile = getDummyFile(CHUNKED_FILE)
-        uploadNewTestFile(originalFile.absolutePath)
-        assertRemoteFileLength(REMOTE_PATH, originalFile.length())
+        uploadOriginalFile(originalFile)
 
-        uploadUpdatedTestFile(updatedTestFile(EMPTY_FILE), NameCollisionPolicy.OVERWRITE)
+        val replacement = getDummyFile(EMPTY_FILE)
+        assertTrue(uploadOperation(replacement, NameCollisionPolicy.OVERWRITE).execute(client).isSuccess)
+
         assertRemoteFileLength(REMOTE_PATH, EMPTY_LENGTH)
     }
 
     @Test
     fun uploadWithRenamePolicyKeepsBothFiles() {
         val originalFile = getDummyFile(CHUNKED_FILE)
-        assertTrue(
-            uploadOperation(OCUpload(originalFile.absolutePath, REMOTE_PATH, account.name), NameCollisionPolicy.DEFAULT)
-                .setRemoteFolderToBeCreated()
-                .execute(client)
-                .isSuccess
-        )
-        assertRemoteFileLength(REMOTE_PATH, originalFile.length())
+        uploadOriginalFile(originalFile)
 
         val renamedFile = getDummyFile(EMPTY_FILE)
         var renameListenerTriggered = false
-        assertTrue(
-            uploadOperation(OCUpload(renamedFile.absolutePath, REMOTE_PATH, account.name), NameCollisionPolicy.RENAME)
-                .addRenameUploadListener { renameListenerTriggered = true }
-                .execute(client)
-                .isSuccess
-        )
+        val operation = uploadOperation(renamedFile, NameCollisionPolicy.RENAME)
+            .addRenameUploadListener { renameListenerTriggered = true }
+        assertTrue(operation.execute(client).isSuccess)
 
         assertRemoteFileLength(REMOTE_PATH, originalFile.length())
         assertRemoteFileLength(REMOTE_PATH_RENAMED, renamedFile.length())
@@ -80,74 +70,60 @@ class FileUploaderIT : AbstractOnServerIT() {
     }
 
     @Test
-    fun uploadUpdatedFileWithRenamePolicyKeepsBothFiles() {
+    fun uploadWithRenamePolicyKeepsBothFilesForNonEmptyOriginal() {
         val originalFile = getDummyFile(NON_EMPTY_FILE)
-        uploadNewTestFile(originalFile.absolutePath)
-        assertRemoteFileLength(REMOTE_PATH, originalFile.length())
+        uploadOriginalFile(originalFile)
 
-        val updatedFile = updatedTestFile(EMPTY_FILE)
-        uploadUpdatedTestFile(updatedFile, NameCollisionPolicy.RENAME)
+        val renamedFile = getDummyFile(EMPTY_FILE)
+        assertTrue(uploadOperation(renamedFile, NameCollisionPolicy.RENAME).execute(client).isSuccess)
 
         assertRemoteFileLength(REMOTE_PATH, originalFile.length())
-        assertRemoteFileLength(REMOTE_PATH_RENAMED, updatedFile.fileLength)
+        assertRemoteFileLength(REMOTE_PATH_RENAMED, renamedFile.length())
     }
 
     @Test
     fun uploadWithSkipPolicyKeepsRemoteFileUnchanged() {
         val originalFile = getDummyFile(CHUNKED_FILE)
-        assertTrue(
-            uploadOperation(OCUpload(originalFile.absolutePath, REMOTE_PATH, account.name), NameCollisionPolicy.DEFAULT)
-                .setRemoteFolderToBeCreated()
-                .execute(client)
-                .isSuccess
-        )
-        assertRemoteFileLength(REMOTE_PATH, originalFile.length())
+        uploadOriginalFile(originalFile)
 
-        val skippedUpload = OCUpload(getDummyFile(EMPTY_FILE).absolutePath, REMOTE_PATH, account.name)
-        assertFalse(
-            uploadOperation(skippedUpload, NameCollisionPolicy.SKIP)
-                .execute(client)
-                .isSuccess
-        )
+        val skippedFile = getDummyFile(EMPTY_FILE)
+        val operation = uploadOperation(skippedFile, NameCollisionPolicy.SKIP)
+        assertTrue(operation.execute(client).isSuccess)
+        assertTrue(operation.wasSkipped())
+
         assertRemoteFileLength(REMOTE_PATH, originalFile.length())
     }
 
     @Test
-    fun uploadUpdatedFileWithSkipPolicyKeepsRemoteFileUnchanged() {
+    fun uploadWithSkipPolicyUploadsWhenNoRemoteFileExists() {
         val originalFile = getDummyFile(CHUNKED_FILE)
-        uploadNewTestFile(originalFile.absolutePath)
+        val operation = uploadOperation(originalFile, NameCollisionPolicy.SKIP).setRemoteFolderToBeCreated()
+        assertTrue(operation.execute(client).isSuccess)
+        assertFalse(operation.wasSkipped())
+
         assertRemoteFileLength(REMOTE_PATH, originalFile.length())
 
-        uploadUpdatedTestFile(updatedTestFile(EMPTY_FILE), NameCollisionPolicy.SKIP)
+        val skippedFile = getDummyFile(EMPTY_FILE)
+        val skippedOperation = uploadOperation(skippedFile, NameCollisionPolicy.SKIP)
+        assertTrue(skippedOperation.execute(client).isSuccess)
+        assertTrue(skippedOperation.wasSkipped())
+
         assertRemoteFileLength(REMOTE_PATH, originalFile.length())
     }
 
-    @Test
-    fun uploadWithSkipPolicyIsCancelledWhenRemoteFileExists() {
-        val originalFile = getDummyFile(CHUNKED_FILE)
-        assertTrue(
-            uploadOperation(OCUpload(originalFile.absolutePath, REMOTE_PATH, account.name), NameCollisionPolicy.SKIP)
-                .setRemoteFolderToBeCreated()
-                .execute(client)
-                .isSuccess
-        )
-        assertRemoteFileLength(REMOTE_PATH, originalFile.length())
-
-        val skippedUpload = OCUpload(getDummyFile(EMPTY_FILE).absolutePath, REMOTE_PATH, account.name)
-        val uploadResult = uploadOperation(skippedUpload, NameCollisionPolicy.SKIP).execute(client)
-
-        assertFalse(uploadResult.isSuccess)
-        assertTrue(uploadResult.exception is OperationCancelledException)
+    private fun uploadOriginalFile(originalFile: File) {
+        val operation = uploadOperation(originalFile, NameCollisionPolicy.DEFAULT).setRemoteFolderToBeCreated()
+        assertTrue(operation.execute(client).isSuccess)
         assertRemoteFileLength(REMOTE_PATH, originalFile.length())
     }
 
-    private fun uploadOperation(upload: OCUpload, nameCollisionPolicy: NameCollisionPolicy) = UploadFileOperation(
+    private fun uploadOperation(localFile: File, nameCollisionPolicy: NameCollisionPolicy) = UploadFileOperation(
         uploadsStorageManager,
         connectivityServiceMock,
         powerManagementServiceMock,
         user,
         null,
-        upload,
+        OCUpload(localFile.absolutePath, REMOTE_PATH, account.name),
         nameCollisionPolicy,
         FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
         targetContext,
@@ -155,33 +131,6 @@ class FileUploaderIT : AbstractOnServerIT() {
         false,
         storageManager
     )
-
-    private fun uploadNewTestFile(localPath: String) {
-        FileUploadHelper().uploadNewFiles(
-            user,
-            arrayOf(localPath),
-            arrayOf(REMOTE_PATH),
-            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
-            true,
-            UploadFileOperation.CREATED_BY_USER,
-            false,
-            false,
-            NameCollisionPolicy.DEFAULT
-        )
-    }
-
-    private fun uploadUpdatedTestFile(file: OCFile, nameCollisionPolicy: NameCollisionPolicy) {
-        FileUploadHelper().uploadUpdatedFile(
-            user,
-            arrayOf(file),
-            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
-            nameCollisionPolicy
-        )
-    }
-
-    private fun updatedTestFile(dummyFileName: String) = OCFile(REMOTE_PATH).apply {
-        storagePath = getDummyFile(dummyFileName).absolutePath
-    }
 
     private fun assertRemoteFileLength(remotePath: String, expectedLength: Long) {
         val result = ReadFileRemoteOperation(remotePath).execute(client)
