@@ -602,7 +602,7 @@ public class UploadFileOperation extends SyncOperation {
             result = performE2EUpload(clientData);
 
             if (result.isSuccess()) {
-                updateMetadataForE2E(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, isV1MetadataExists);
+                upsertMetadata(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, isV1MetadataExists);
             }
         } catch (FileNotFoundException e) {
             Log_OC.e(TAG, mFile.getStoragePath() + " does not exist anymore");
@@ -614,13 +614,13 @@ public class UploadFileOperation extends SyncOperation {
             Log_OC.e(TAG, "UploadFileOperation exception: " + e.getLocalizedMessage());
             result = new RemoteOperationResult<>(e);
         } finally {
-            result = cleanupE2EUpload(fileLock, channel, e2eFiles, result, object, client, token);
+            result = releaseLocksAndUnlockE2EFolder(fileLock, channel, e2eFiles, result, object, client, token);
 
             // update upload status
             uploadsStorageManager.updateDatabaseUploadResult(result, this);
         }
 
-        completeE2EUpload(result, e2eFiles, client);
+        handleLocalBehaviourOrSaveConflictAndDeleteTemporalFile(result, e2eFiles, client);
 
         return result;
     }
@@ -812,7 +812,10 @@ public class UploadFileOperation extends SyncOperation {
         return new E2EData(key, iv, encryptedFile, encryptedFileName);
     }
 
-    private void updateMetadataForE2E(Object object, E2EData e2eData, E2EClientData clientData, E2EFiles e2eFiles, ArbitraryDataProvider arbitraryDataProvider, EncryptionUtilsV2 encryptionUtilsV2, boolean isV1MetadataExists)
+    /**
+     * Stores or updates metadata of the encrypted file along with e2ee counter.
+     */
+    private void upsertMetadata(Object object, E2EData e2eData, E2EClientData clientData, E2EFiles e2eFiles, ArbitraryDataProvider arbitraryDataProvider, EncryptionUtilsV2 encryptionUtilsV2, boolean isV1MetadataExists)
 
         throws InvalidAlgorithmParameterException, UploadException, NoSuchPaddingException, IllegalBlockSizeException, CertificateException,
         NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
@@ -906,7 +909,7 @@ public class UploadFileOperation extends SyncOperation {
                                                      getStorageManager());
     }
 
-    private void completeE2EUpload(RemoteOperationResult result, E2EFiles e2eFiles, OwnCloudClient client) {
+    private void handleLocalBehaviourOrSaveConflictAndDeleteTemporalFile(RemoteOperationResult result, E2EFiles e2eFiles, OwnCloudClient client) {
         if (result.isSuccess()) {
             handleLocalBehaviour(e2eFiles.getTemporalFile(), e2eFiles.getExpectedFile(), e2eFiles.getOriginalFile(), client);
         } else if (RemoteOperationResultExtensionsKt.isConflict(result.getCode())) {
@@ -916,7 +919,7 @@ public class UploadFileOperation extends SyncOperation {
         e2eFiles.deleteTemporalFile();
     }
 
-    private RemoteOperationResult cleanupE2EUpload(FileLock fileLock, FileChannel channel, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
+    private RemoteOperationResult releaseLocksAndUnlockE2EFolder(FileLock fileLock, FileChannel channel, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
         mUploadStarted.set(false);
 
         if (fileLock != null) {
