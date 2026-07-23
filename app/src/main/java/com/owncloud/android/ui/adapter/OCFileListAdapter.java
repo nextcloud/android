@@ -305,8 +305,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     e2eCounter = EncryptionUtils.E2E_V2_INITIAL_COUNTER;
                 }
 
-                file.setE2eCounter(e2eCounter);
-                mStorageManager.saveFile(file);
+                mStorageManager.updateE2EECounter(file, e2eCounter);
+
                 int position = getItemPosition(file);
                 if (position != -1) {
                     notifyItemChanged(position);

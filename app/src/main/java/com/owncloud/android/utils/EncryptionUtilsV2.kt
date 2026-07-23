@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -150,7 +151,7 @@ class EncryptionUtilsV2 {
         ocFile: OCFile,
         storageManager: FileDataStorageManager,
         client: OwnCloudClient,
-        oldCounter: Long,
+        counterInDatabase: Long,
         signature: String,
         user: User,
         context: Context,
@@ -235,7 +236,7 @@ class EncryptionUtilsV2 {
             )
         }
 
-        if (!verifyMetadata(metadataFile, decryptedFolderMetadataFile, oldCounter, signature)) {
+        if (!verifyMetadata(metadataFile, decryptedFolderMetadataFile, counterInDatabase, signature)) {
             throw IllegalStateException("Metadata is corrupt!")
         }
 
@@ -473,8 +474,7 @@ class EncryptionUtilsV2 {
         initializationVector: ByteArray,
         authenticationTag: String,
         key: ByteArray,
-        metadataFile: DecryptedFolderMetadataFile,
-        fileDataStorageManager: FileDataStorageManager
+        metadataFile: DecryptedFolderMetadataFile
     ): DecryptedFolderMetadataFile {
         val decryptedFile = DecryptedFile(
             ocFile.decryptedFileName,
@@ -486,8 +486,6 @@ class EncryptionUtilsV2 {
 
         metadataFile.metadata.files[encryptedFileName] = decryptedFile
         metadataFile.metadata.counter++
-        ocFile.setE2eCounter(metadataFile.metadata.counter)
-        fileDataStorageManager.saveFile(ocFile)
 
         return metadataFile
     }
@@ -495,14 +493,10 @@ class EncryptionUtilsV2 {
     fun addFolderToMetadata(
         encryptedFileName: String,
         fileName: String,
-        metadataFile: DecryptedFolderMetadataFile,
-        ocFile: OCFile,
-        fileDataStorageManager: FileDataStorageManager
+        metadataFile: DecryptedFolderMetadataFile
     ): DecryptedFolderMetadataFile {
         metadataFile.metadata.folders[encryptedFileName] = fileName
         metadataFile.metadata.counter++
-        ocFile.setE2eCounter(metadataFile.metadata.counter)
-        fileDataStorageManager.saveFile(ocFile)
 
         return metadataFile
     }
@@ -857,10 +851,12 @@ class EncryptionUtilsV2 {
     fun verifyMetadata(
         encryptedFolderMetadataFile: EncryptedFolderMetadataFile,
         decryptedFolderMetadataFile: DecryptedFolderMetadataFile,
-        oldCounter: Long,
+        counterInDatabase: Long,
         signature: String
     ): Boolean {
-        if (decryptedFolderMetadataFile.metadata.counter < oldCounter) {
+        val counterInServer = decryptedFolderMetadataFile.metadata.counter
+        if (counterInServer < counterInDatabase) {
+            Log_OC.e(TAG, "counter in: $counterInDatabase, metadata counter $counterInServer")
             MainApp.showMessage(R.string.e2e_counter_too_old)
             return false
         }

@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
@@ -336,9 +337,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                 // update metadata
                 DecryptedFolderMetadataFile updatedMetadataFile = encryptionUtilsV2.addFolderToMetadata(encryptedFileName,
                                                                                                         filename,
-                                                                                                        metadata,
-                                                                                                        parent,
-                                                                                                        getStorageManager());
+                                                                                                        metadata);
 
                 // upload metadata
                 encryptionUtilsV2.serializeAndUploadMetadata(parent,
@@ -351,9 +350,10 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                              getStorageManager());
 
                 // unlock folder
-                RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parent, client, token);
+                final var unlockFolderResult = EncryptionUtils.unlockFolder(parent, client, token);
 
                 if (unlockFolderResult.isSuccess()) {
+                    getStorageManager().updateE2EECounter(parent, metadata);
                     token = null;
                 } else {
                     // TODO E2E: do better
