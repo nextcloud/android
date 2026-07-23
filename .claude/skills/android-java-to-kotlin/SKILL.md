@@ -26,22 +26,17 @@ observable behaviour** — and then writes a test that proves behaviour is uncha
 
 ## The Two-Person Workflow
 
-```dot
-digraph android_j2k {
-  rankdir=TB;
-  "Developer: IDE converts .java -> .kt" -> "Step 0: Establish baseline";
-  "Step 1: Detect frameworks" -> "Step 2: Idiomatic pass";
-  "Step 2: Idiomatic pass" -> "Step 3: Write behaviour-locking test";
-  "Step 3: Write behaviour-locking test" -> "Step 4: Verify (build + checks + tests)";
-  "Step 4: Verify (build + checks + tests)" -> "Done" [label="green"];
-  "Step 5: Verify (build + checks + tests)" -> "Step 2: Idiomatic pass" [label="fail / behaviour drift"];
-}
-```
+This skill assumes a hand-off:
 
-The **developer** runs the mechanical IDE conversion (`Code > Convert Java File to Kotlin
-File`, or ⌥⇧⌘K). **You (Claude)** complete everything after that. If you are handed a
-`.java` file instead, first apply the faithful 1:1 translation to reach the same
-starting point, then continue.
+1. **Developer** runs the mechanical IDE conversion (`Code > Convert Java File to Kotlin
+   File`, or ⌥⇧⌘K), producing a `.kt` file that compiles but is not idiomatic.
+2. **You (Claude)** drive everything after that:
+
+   Step 0 Baseline → Step 1 Idiomatic pass → Step 2 Behaviour-locking test → Step 3
+   Verify. If Step 3 fails or behaviour drifts, loop back to Step 1.
+
+If you are handed a `.java` file instead, first apply a faithful 1:1 translation to reach
+the same starting point, then continue.
 
 ## The Prime Directive: Behaviour Must Not Change
 
@@ -79,7 +74,9 @@ Apply, in this order, then re-check the invariants:
    [CONCURRENCY.md](references/CONCURRENCY.md).
 5. **Modern Android + Kotlin idioms.** Scope functions (`run`/`apply`/`let`), extension
    functions, `when`/`partition`/`filter` over `switch`, string templates, `isNullOrEmpty`,
-   view/KTX extensions. See [ANDROID-IDIOMS.md](references/ANDROID-IDIOMS.md).
+   view/KTX extensions. See [ANDROID-IDIOMS.md](references/ANDROID-IDIOMS.md). Retire
+   deprecated Android APIs (`onActivityResult`, options-menu overrides,
+   `java.util.Observable`) — see [DEPRECATED-APIS.md](references/DEPRECATED-APIS.md).
 6. **Project conventions.** SPDX header, no magic numbers (`companion object` +
    `const val`), resources not hardcoded strings, ≤300 lines/file, ≤120 cols. See
    [PROJECT-CONVENTIONS.md](references/PROJECT-CONVENTIONS.md).

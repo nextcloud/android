@@ -100,6 +100,8 @@ Import members directly and lean on AndroidX KTX instead of verbose Java utiliti
 | `BundleExtensionsKt.getParcelableArgument(b, k, T.class)` | `b.getParcelableArgument(k, T::class.java)` |
 | `for (int i = 0; i < vg.getChildCount(); i++)` | `for (i in 0..<view.size)` (`androidx.core.view.size`) |
 | manual getter/setter methods | Kotlin property access (`view.visibility = View.GONE`) |
+| `private int x; public int getX()` (read-only to callers) | `var columnsCount = 0; private set` |
+| empty override method body | `= Unit` single-expression body |
 | free-standing util call | receiver extension (`externalShares.mergeDistinctByToken(publicShares)`) |
 
 Domain-specific extensions read best as receivers on the relevant type:
