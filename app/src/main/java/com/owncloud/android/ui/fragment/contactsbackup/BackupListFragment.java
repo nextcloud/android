@@ -58,6 +58,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -408,58 +410,72 @@ public class BackupListFragment extends FileFragment implements Injectable {
         }
     }
 
+    // region permission check result listener
+    private final ActivityResultLauncher<String> contactsWritePermissionLauncher =
+        registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+                importContacts(selectedAccount);
+            } else {
+                showPermissionErrorMessage();
+            }
+        });
+
+    private final ActivityResultLauncher<String> calendarReadPermissionLauncher =
+        registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+                listAdapter.reloadCalendars();
+            }
+        });
+
+    private final ActivityResultLauncher<String> calendarWritePermissionLauncher =
+        registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+                importCalendar();
+            } else {
+                showPermissionErrorMessage();
+            }
+        });
+    // endregion
+
+    // region permission checks
     private boolean checkAndAskForContactsWritePermission() {
-        // check permissions
-        if (!PermissionUtil.checkSelfPermission(getContext(), Manifest.permission.WRITE_CONTACTS)) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_CONTACTS},
-                               PermissionUtil.PERMISSIONS_WRITE_CONTACTS);
+        final var context = getContext();
+        if (context == null) {
             return false;
-        } else {
-            return true;
+        }
+
+        if (!PermissionUtil.checkSelfPermission(context, Manifest.permission.WRITE_CONTACTS)) {
+            contactsWritePermissionLauncher.launch(Manifest.permission.WRITE_CONTACTS);
+            return false;
+        }
+
+        return true;
+    }
+
+    public void checkAndAskForCalendarReadPermission() {
+        final var context = getContext();
+        if (context == null) {
+            return;
+        }
+
+        if (!PermissionUtil.checkSelfPermission(context, Manifest.permission.READ_CALENDAR)) {
+            calendarReadPermissionLauncher.launch(Manifest.permission.READ_CALENDAR);
         }
     }
 
     private boolean checkAndAskForCalendarWritePermission() {
-        // check permissions
-        if (!PermissionUtil.checkSelfPermission(getContext(), Manifest.permission.WRITE_CALENDAR)) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_CALENDAR},
-                               PermissionUtil.PERMISSIONS_WRITE_CALENDAR);
+        final var context = getContext();
+        if (context == null) {
             return false;
-        } else {
-            return true;
         }
+
+        if (!PermissionUtil.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR)) {
+            calendarWritePermissionLauncher.launch(Manifest.permission.WRITE_CALENDAR);
+            return false;
+        }
+        return true;
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == PermissionUtil.PERMISSIONS_WRITE_CONTACTS) {
-            for (int index = 0; index < permissions.length; index++) {
-                if (Manifest.permission.WRITE_CONTACTS.equalsIgnoreCase(permissions[index])) {
-                    if (grantResults[index] >= 0) {
-                        importContacts(selectedAccount);
-                    } else {
-                        showPermissionErrorMessage();
-                    }
-                    break;
-                }
-            }
-        }
-
-        if (requestCode == PermissionUtil.PERMISSIONS_WRITE_CALENDAR) {
-            for (int index = 0; index < permissions.length; index++) {
-                if (Manifest.permission.WRITE_CALENDAR.equalsIgnoreCase(permissions[index])) {
-                    if (grantResults[index] >= 0) {
-                        importContacts(selectedAccount);
-                    } else {
-                        showPermissionErrorMessage();
-                    }
-                    break;
-                }
-            }
-        }
-    }
+    // endregion
 
     private void showPermissionErrorMessage() {
         DisplayUtils.showSnackMessage(this, R.string.contactlist_no_permission);
