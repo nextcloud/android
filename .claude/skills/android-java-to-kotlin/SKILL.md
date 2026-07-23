@@ -79,11 +79,8 @@ Scan imports and load ONLY the matching guides.
 |---|---|
 | `dagger.*`, `javax.inject.*` | [DAGGER-HILT.md](references/frameworks/DAGGER-HILT.md) |
 | `retrofit2.*`, `okhttp3.*` | [RETROFIT.md](references/frameworks/RETROFIT.md) |
-| `io.reactivex.*`, `rx.*` | [RXJAVA.md](references/frameworks/RXJAVA.md) |
 | `org.junit.*` (test files) | [JUNIT.md](references/frameworks/JUNIT.md) |
 | `org.mockito.*` (test files) | [MOCKITO.md](references/frameworks/MOCKITO.md) |
-| `com.fasterxml.jackson.*` | [JACKSON.md](references/frameworks/JACKSON.md) |
-| `org.springframework.*` / `lombok.*` / `*.persistence.*` / `io.micronaut.*` / `io.quarkus.*` / `com.google.inject.*` | see `references/frameworks/` (rare in Android app code) |
 
 ## Step 2: Idiomatic Pass
 
