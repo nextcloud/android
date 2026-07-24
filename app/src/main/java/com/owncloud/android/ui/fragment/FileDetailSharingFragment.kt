@@ -31,6 +31,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
+import com.nextcloud.android.common.ui.share.initShareScreen
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -38,8 +39,10 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.mergeDistinctByToken
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.extensions.toServerCredentials
 import com.nextcloud.utils.mdm.MDMConfig.shareViaUser
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding
@@ -140,11 +143,17 @@ class FileDetailSharingFragment :
 
         binding?.pickContactEmailBtn?.setOnClickListener { checkContactPermission() }
 
-        fetchSharees()
+        // TODO: REPLACE FAKE CONDITION
+        if (user?.server?.version?.isNewerOrEqual(NextcloudVersion.nextcloud_34) == true || 2 < 4) {
+            showUnifiedShare()
+        } else {
+            fetchSharees()
+        }
+
         setupView()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FileDetailsSharingFragmentBinding.inflate(inflater, container, false)
         return binding!!.getRoot()
     }
@@ -177,6 +186,39 @@ class FileDetailSharingFragment :
     // endregion
 
     // region private methods
+    private fun showUnifiedShare() {
+        val binding = binding ?: return
+
+        binding.shareContainer.visibility = View.GONE
+        binding.unifiedShare.visibility = View.VISIBLE
+
+        val shimmerLayout = binding.shimmerLayout.root
+        shimmerLayout.clearAnimation()
+        shimmerLayout.visibility = View.GONE
+
+        val fileActivity = getTypedActivity(FileActivity::class.java)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val user = user ?: return@launch
+            val file = file ?: return@launch
+            val client = fileActivity?.clientRepository?.getOwncloudClient() ?: return@launch
+            val sourceId = file.remoteId ?: return@launch
+
+            val baseURL = user.server.uri.toString()
+            val serverCredentials = client.toServerCredentials(baseURL)
+            val internalLink = createInternalLink(user, file, capabilities)
+
+            withContext(Dispatchers.Main) {
+                binding.unifiedShare.initShareScreen(
+                    sourceId,
+                    internalLink,
+                    serverCredentials,
+                    viewThemeUtils.files.getColorScheme(fileActivity)
+                )
+            }
+        }
+    }
+
     private fun initArguments(savedInstanceState: Bundle?) {
         val args = (savedInstanceState ?: arguments) ?: return
         file = args.getParcelableArgument(ARG_FILE, OCFile::class.java)
