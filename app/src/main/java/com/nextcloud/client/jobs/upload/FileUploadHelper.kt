@@ -39,6 +39,7 @@ import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientFactory
+import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -51,8 +52,10 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterActionHandler
 import com.owncloud.android.utils.DisplayUtils
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -74,7 +77,13 @@ class FileUploadHelper {
     @Inject
     lateinit var fileStorageManager: FileDataStorageManager
 
-    private val ioScope = CoroutineScope(Dispatchers.IO)
+    private val ioScope = CoroutineScope(
+        SupervisorJob() +
+            Dispatchers.IO +
+            CoroutineExceptionHandler { _, throwable ->
+                Log_OC.e(TAG, "Uncaught exception in FileUploadHelper coroutine", throwable)
+            }
+    )
 
     init {
         MainApp.getAppComponent().inject(this)
@@ -131,8 +140,8 @@ class FileUploadHelper {
         var isUploadStarted = false
         val capability = fileStorageManager.getCapability(accountManager.user)
 
-        try {
-            ioScope.launch {
+        ioScope.launch {
+            try {
                 val uploads = getUploadsByStatus(null, UploadStatus.UPLOAD_FAILED, capability)
                 if (uploads.isNotEmpty()) {
                     isUploadStarted = true
@@ -145,9 +154,11 @@ class FileUploadHelper {
                     powerManagementService,
                     uploads
                 )
+            } finally {
+                // Release only after retry processing has completely finished so the semaphore guards
+                // coroutine execution, not just its launch. This keeps a single retry running at a time.
+                retryFailedUploadsSemaphore.release()
             }
-        } finally {
-            retryFailedUploadsSemaphore.release()
         }
 
         return isUploadStarted
@@ -190,8 +201,12 @@ class FileUploadHelper {
         val context = MainApp.getAppContext()
         var ownCloudClient: OwnCloudClient? = null
         if (!currentAccount.isAnonymous(context)) {
-            ownCloudClient =
+            ownCloudClient = try {
                 OwnCloudClientFactory.createOwnCloudClient(accountManager.currentAccount, MainApp.getAppContext())
+            } catch (e: AccountUtils.AccountNotFoundException) {
+                Log_OC.e(TAG, "Cannot create client, account not found; skipping conflict handling", e)
+                null
+            }
         }
         val uploadActionHandler = UploadListAdapterActionHandler()
 
