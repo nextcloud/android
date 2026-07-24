@@ -91,13 +91,11 @@ class FileUploadHelper {
 
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
 
-        private var instance: FileUploadHelper? = null
-
         private val retryFailedUploadsSemaphore = Semaphore(1)
 
-        fun instance(): FileUploadHelper = instance ?: synchronized(this) {
-            instance ?: FileUploadHelper().also { instance = it }
-        }
+        private val sharedInstance: FileUploadHelper by lazy { FileUploadHelper() }
+
+        fun instance(): FileUploadHelper = sharedInstance
 
         fun buildRemoteName(accountName: String, remotePath: String): String = accountName + remotePath
     }
