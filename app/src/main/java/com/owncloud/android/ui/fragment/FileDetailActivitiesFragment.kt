@@ -1,555 +1,490 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.fragment;
+package com.owncloud.android.ui.fragment
 
-import android.content.ContentResolver;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.text.Editable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.ContentResolver
+import android.graphics.drawable.Drawable
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.DrawableRes
+import androidx.annotation.VisibleForTesting
+import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.owncloud.android.R
+import com.owncloud.android.databinding.FileDetailsActivitiesFragmentBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.activities.GetActivitiesRemoteOperation
+import com.owncloud.android.lib.resources.activities.model.RichObject
+import com.owncloud.android.lib.resources.comments.MarkCommentsAsReadRemoteOperation
+import com.owncloud.android.lib.resources.files.ReadFileVersionsRemoteOperation
+import com.owncloud.android.lib.resources.files.model.FileVersion
+import com.owncloud.android.operations.CommentFileOperation
+import com.owncloud.android.ui.activities.adapter.ActivityAndVersionListAdapter
+import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.events.CommentsEvent
+import com.owncloud.android.ui.helpers.FileOperationsHelper
+import com.owncloud.android.ui.interfaces.ActivityListInterface
+import com.owncloud.android.ui.interfaces.VersionListInterface
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.apache.commons.httpclient.HttpStatus
+import org.greenrobot.eventbus.EventBus
+import javax.inject.Inject
 
-import com.google.android.material.snackbar.Snackbar;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.FileExtensionsKt;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.FileDetailsActivitiesFragmentBinding;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.activities.GetActivitiesRemoteOperation;
-import com.owncloud.android.lib.resources.activities.model.RichObject;
-import com.owncloud.android.lib.resources.comments.MarkCommentsAsReadRemoteOperation;
-import com.owncloud.android.lib.resources.files.ReadFileVersionsRemoteOperation;
-import com.owncloud.android.lib.resources.files.model.FileVersion;
-import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.operations.CommentFileOperation;
-import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.activities.adapter.ActivityAndVersionListAdapter;
-import com.owncloud.android.ui.events.CommentsEvent;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.ui.interfaces.ActivityListInterface;
-import com.owncloud.android.ui.interfaces.VersionListInterface;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import org.apache.commons.httpclient.HttpStatus;
-import org.greenrobot.eventbus.EventBus;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Lifecycle;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-public class FileDetailActivitiesFragment extends Fragment implements
+@Suppress("TooManyFunctions", "ReturnCount")
+class FileDetailActivitiesFragment :
+    Fragment(),
     ActivityListInterface,
-    DisplayUtils.AvatarGenerationListener,
+    AvatarGenerationListener,
     VersionListInterface.View,
     Injectable {
 
-    private static final String TAG = FileDetailActivitiesFragment.class.getSimpleName();
+    private var adapter: ActivityAndVersionListAdapter? = null
+    private var ownCloudClient: OwnCloudClient? = null
+    private var nextcloudClient: NextcloudClient? = null
 
-    private static final String ARG_FILE = "FILE";
-    private static final String ARG_USER = "USER";
-    private static final int END_REACHED = 0;
+    private var file: OCFile? = null
+    private var user: User? = null
 
-    private ActivityAndVersionListAdapter adapter;
-    private OwnCloudClient ownCloudClient;
-    private NextcloudClient nextcloudClient;
+    private var lastGiven: Long = 0
+    private var isLoadingActivities = false
+    private var isDataFetched = false
 
-    private OCFile file;
-    private User user;
+    private var restoreFileVersionSupported = false
+    private var operationsHelper: FileOperationsHelper? = null
+    private var callback: VersionListInterface.CommentCallback? = null
 
-    private long lastGiven;
-    private boolean isLoadingActivities;
-    private boolean isDataFetched = false;
+    private var submitCommentJob: Job? = null
 
-    private boolean restoreFileVersionSupported;
-    private FileOperationsHelper operationsHelper;
-    private VersionListInterface.CommentCallback callback;
+    private var binding: FileDetailsActivitiesFragmentBinding? = null
 
-    private SubmitCommentTask submitCommentTask;
-    
-    FileDetailsActivitiesFragmentBinding binding;
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
-    @Inject UserAccountManager accountManager;
-    @Inject ClientFactory clientFactory;
-    @Inject ContentResolver contentResolver;
-    @Inject ViewThemeUtils viewThemeUtils;
+    @Inject
+    lateinit var clientFactory: ClientFactory
 
-    public static FileDetailActivitiesFragment newInstance(OCFile file, User user) {
-        FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_FILE, file);
-        args.putParcelable(ARG_USER, user);
-        fragment.setArguments(args);
-        return fragment;
+    @Inject
+    lateinit var contentResolver: ContentResolver
+
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
+
+    // region Lifecycle
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val arguments = checkNotNull(arguments) { "arguments are mandatory" }
+        val source = savedInstanceState ?: arguments
+        file = source.getParcelableArgument(ARG_FILE, OCFile::class.java)
+        user = source.getParcelableArgument(ARG_USER, User::class.java)
+
+        val binding = FileDetailsActivitiesFragmentBinding.inflate(inflater, container, false)
+        this.binding = binding
+
+        setupView()
+
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingEmpty)
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList)
+
+        isLoadingActivities = true
+        fetchAndSetData(-1)
+
+        setupRefreshListeners(binding)
+        callback = createCommentCallback()
+
+        binding.submitComment.setOnClickListener { submitComment() }
+        viewThemeUtils.material.colorTextInputLayout(binding.commentInputFieldContainer)
+
+        DisplayUtils.setAvatar(
+            user!!,
+            this,
+            resources.getDimension(R.dimen.activity_icon_radius),
+            resources,
+            binding.avatar,
+            context
+        )
+
+        return binding.root
     }
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    override fun onDestroyView() {
+        super.onDestroyView()
+        submitCommentJob?.cancel()
+        submitCommentJob = null
+        callback = null
+        binding = null
+    }
 
-        final Bundle arguments = getArguments();
-        if (arguments == null) {
-            throw new IllegalStateException("arguments are mandatory");
-        }
-        file = BundleExtensionsKt.getParcelableArgument(arguments, ARG_FILE, OCFile.class);
-        user = BundleExtensionsKt.getParcelableArgument(arguments, ARG_USER, User.class);
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(ARG_FILE, file)
+        outState.putParcelable(ARG_USER, user)
+    }
+    // endregion
 
-        if (savedInstanceState != null) {
-            file = BundleExtensionsKt.getParcelableArgument(savedInstanceState, ARG_FILE, OCFile.class);
-            user = BundleExtensionsKt.getParcelableArgument(savedInstanceState, ARG_USER, User.class);
-        }
+    // region Setup
+    private fun setupView() {
+        val binding = binding ?: return
+        val storageManager = FileDataStorageManager(user, contentResolver)
+        operationsHelper = (requireActivity() as ComponentsGetter).fileOperationsHelper
 
-        binding = FileDetailsActivitiesFragmentBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
+        val capability = storageManager.getCapability(user?.accountName)
+        restoreFileVersionSupported = capability.filesVersioning.isTrue
 
-        setupView();
+        binding.emptyList.emptyListIcon.setImageDrawable(
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_activity, null)
+        )
+        binding.emptyList.emptyListView.visibility = View.GONE
 
-        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingEmpty);
-        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList);
+        adapter = ActivityAndVersionListAdapter(requireActivity(), accountManager, this, this, viewThemeUtils)
+        binding.list.adapter = adapter
 
-        isLoadingActivities = true;
-        fetchAndSetData(-1);
+        val layoutManager = LinearLayoutManager(context)
+        binding.list.layoutManager = layoutManager
+        binding.list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
 
-        binding.swipeContainingList.setOnRefreshListener(() -> {
-            setLoadingMessage();
-            binding.swipeContainingList.setRefreshing(true);
-            isLoadingActivities = true;
-            fetchAndSetData(-1);
-        });
+                val visibleItemCount = recyclerView.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemIndex = layoutManager.findFirstVisibleItemPosition()
 
-        binding.swipeContainingEmpty.setOnRefreshListener(() -> {
-            setLoadingMessageEmpty();
-            isLoadingActivities = true;
-            fetchAndSetData(-1);
-        });
-
-        callback = new VersionListInterface.CommentCallback() {
-
-            @Override
-            public void onSuccess() {
-                if (binding != null && getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
-                    binding.commentInputField.getText().clear();
-                    fetchAndSetData(-1);
+                val reachedEnd = (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + LOAD_MORE_THRESHOLD)
+                if (!isLoadingActivities && reachedEnd && lastGiven > 0) {
+                    fetchAndSetData(lastGiven)
                 }
             }
+        })
+    }
 
-            @Override
-            public void onError(int error) {
-                View view = getView();
-                if (view != null && isAdded()) {
-                    Snackbar.make(view, error, Snackbar.LENGTH_LONG).show();
-                }
+    private fun setupRefreshListeners(binding: FileDetailsActivitiesFragmentBinding) {
+        binding.swipeContainingList.setOnRefreshListener {
+            setLoadingMessage()
+            binding.swipeContainingList.isRefreshing = true
+            isLoadingActivities = true
+            fetchAndSetData(-1)
+        }
+
+        binding.swipeContainingEmpty.setOnRefreshListener {
+            setLoadingMessageEmpty()
+            isLoadingActivities = true
+            fetchAndSetData(-1)
+        }
+    }
+
+    private fun createCommentCallback() = object : VersionListInterface.CommentCallback {
+        override fun onSuccess() {
+            if (binding != null && lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                binding?.commentInputField?.text?.clear()
+                fetchAndSetData(-1)
             }
-        };
-
-        binding.submitComment.setOnClickListener(v -> submitComment());
-
-        viewThemeUtils.material.colorTextInputLayout(binding.commentInputFieldContainer);
-
-        DisplayUtils.setAvatar(user,
-                               this,
-                               getResources().getDimension(R.dimen.activity_icon_radius),
-                               getResources(),
-                               binding.avatar,
-                               getContext());
-
-        return view;
-    }
-
-    public void submitComment() {
-        if (binding == null) {
-            return;
         }
 
-        Editable commentField = binding.commentInputField.getText();
-
-        if (commentField == null) {
-            return;
-        }
-
-        String trimmedComment = commentField.toString().trim();
-
-        if (!trimmedComment.isEmpty() && nextcloudClient != null && isDataFetched) {
-            // Cancel previous task
-            if (submitCommentTask != null) {
-                submitCommentTask.cancel(true);
+        override fun onError(error: Int) {
+            val view = view ?: return
+            if (isAdded) {
+                Snackbar.make(view, error, Snackbar.LENGTH_LONG).show()
             }
-
-            submitCommentTask = new SubmitCommentTask(
-                trimmedComment,
-                file.getLocalId(),
-                callback,
-                nextcloudClient
-            );
-            submitCommentTask.execute();
         }
     }
+    // endregion
 
-    private void setLoadingMessage() {
-        if (binding != null) {
-            binding.swipeContainingEmpty.setVisibility(View.GONE);
-        }
-    }
-
-    @VisibleForTesting
-    public void setLoadingMessageEmpty() {
-        if (binding != null) {
-            binding.swipeContainingList.setVisibility(View.GONE);
-            binding.emptyList.emptyListView.setVisibility(View.GONE);
-            binding.loadingContent.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        // Cancel any pending async operations
-        if (submitCommentTask != null) {
-            submitCommentTask.cancel(true);
-            submitCommentTask = null;
-        }
-
-        callback = null;  // Clear callback reference
-        binding = null;
-    }
-
-    private void setupView() {
-        FileDataStorageManager storageManager = new FileDataStorageManager(user,
-                                                                           contentResolver);
-        operationsHelper = ((ComponentsGetter) requireActivity()).getFileOperationsHelper();
-
-        OCCapability capability = storageManager.getCapability(user.getAccountName());
-        restoreFileVersionSupported = capability.getFilesVersioning().isTrue();
-
-        binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_activity, null));
-        binding.emptyList.emptyListView.setVisibility(View.GONE);
-
-        adapter = new ActivityAndVersionListAdapter(requireActivity(),
-                                                    accountManager,
-                                                    this,
-                                                    this,
-                                                    viewThemeUtils
-        );
-        binding.list.setAdapter(adapter);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-
-        binding.list.setLayoutManager(layoutManager);
-        binding.list.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                int visibleItemCount = recyclerView.getChildCount();
-                int totalItemCount = layoutManager.getItemCount();
-                int firstVisibleItemIndex = layoutManager.findFirstVisibleItemPosition();
-
-                // synchronize loading state when item count changes
-                if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)
-                    && lastGiven > 0) {
-                    // Almost reached the end, continue to load new activities
-                    fetchAndSetData(lastGiven);
-                }
-            }
-        });
-    }
-
-    public void reload() {
-        fetchAndSetData(-1);
+    // region Data loading
+    fun reload() {
+        fetchAndSetData(-1)
     }
 
     /**
      * @param lastGiven long; -1 to disable
      */
-    private void fetchAndSetData(long lastGiven) {
-        final FragmentActivity activity = getActivity();
-
+    private fun fetchAndSetData(lastGiven: Long) {
+        val activity = activity
         if (activity == null) {
-            Log_OC.e(this, "Activity is null, aborting!");
-            return;
+            Log_OC.e(this, "Activity is null, aborting!")
+            return
         }
 
-        final User user = accountManager.getUser();
-
-        if (user.isAnonymous()) {
-            activity.runOnUiThread(() -> setEmptyContent(getString(R.string.common_error), getString(R.string.file_detail_activity_error)));
-            return;
+        val user = accountManager.user
+        if (user.isAnonymous) {
+            setEmptyContent(
+                getString(R.string.common_error),
+                getString(R.string.file_detail_activity_error)
+            )
+            return
         }
-        
+
         if (!isLoadingActivities) {
-            return;
+            return
         }
 
-        Thread t = new Thread(() -> {
+        val file = file ?: return
+
+        lifecycleScope.launch {
             try {
-                ownCloudClient = clientFactory.create(user);
-                nextcloudClient = clientFactory.createNextcloudClient(user);
-
-                isLoadingActivities = true;
-
-                GetActivitiesRemoteOperation getRemoteNotificationOperation;
-
-                if (lastGiven > 0) {
-                    getRemoteNotificationOperation = new GetActivitiesRemoteOperation(file.getLocalId(), lastGiven);
-                } else {
-                    getRemoteNotificationOperation = new GetActivitiesRemoteOperation(file.getLocalId());
+                val (result, versions) = withContext(Dispatchers.IO) {
+                    loadActivities(user, file, lastGiven)
                 }
-
-                Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
-                final var result = nextcloudClient.execute(getRemoteNotificationOperation);
-
-                ArrayList<Object> versions = null;
-                if (restoreFileVersionSupported) {
-                    ReadFileVersionsRemoteOperation readFileVersionsOperation = new ReadFileVersionsRemoteOperation(
-                        file.getLocalId());
-
-                    final var result1 = readFileVersionsOperation.execute(ownCloudClient);
-
-                    if (result1.isSuccess()) {
-                        versions = result1.getData();
-                    }
-                }
-
-                if (result.isSuccess() && result.getData() != null) {
-                    final List<Object> data = result.getData();
-                    final List<Object> activitiesAndVersions = (ArrayList) data.get(0);
-
-                    this.lastGiven = (long) data.get(1);
-
-                    if (activitiesAndVersions.isEmpty()) {
-                        this.lastGiven = END_REACHED;
-                    }
-
-                    if (restoreFileVersionSupported && versions != null) {
-                        activitiesAndVersions.addAll(versions);
-                    }
-
-                    activity.runOnUiThread(() -> {
-                        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-                            populateList(activitiesAndVersions, lastGiven == -1);
-                        }
-                    });
-
-                    isDataFetched = true;
-                } else {
-                    Log_OC.d(TAG, result.getLogMessage());
-
-                    String logMessage = result.getLogMessage(activity);
-                    if (result.getHttpCode() == HttpStatus.SC_NOT_MODIFIED) {
-                        logMessage = getString(R.string.activities_no_results_message);
-                    }
-                    final String finalLogMessage = logMessage;
-                    activity.runOnUiThread(() -> {
-                        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
-                            setErrorContent(finalLogMessage);
-                            isLoadingActivities = false;
-                        }
-                    });
-
-                    isDataFetched = false;
-                }
-
-                hideRefreshLayoutLoader(activity);
-            } catch (ClientFactory.CreationException e) {
-                isDataFetched = false;
-                Log_OC.e(TAG, "Error fetching file details activities", e);
+                handleActivitiesResult(activity, result, versions, lastGiven)
+                hideRefreshLayoutLoader()
+            } catch (e: CreationException) {
+                isDataFetched = false
+                Log_OC.e(TAG, "Error fetching file details activities", e)
             }
-        });
-
-        t.start();
+        }
     }
 
-    public void markCommentsAsRead() {
-        new Thread(() -> {
-            if (file.getUnreadCommentsCount() > 0) {
-                MarkCommentsAsReadRemoteOperation unreadOperation = new MarkCommentsAsReadRemoteOperation(
-                    file.getLocalId());
-                RemoteOperationResult remoteOperationResult = unreadOperation.execute(ownCloudClient);
+    private fun loadActivities(
+        user: User,
+        file: OCFile,
+        lastGiven: Long
+    ): Pair<RemoteOperationResult<Any?>, ArrayList<Any?>?> {
+        val ownCloudClient = clientFactory.create(user)
+        this.ownCloudClient = ownCloudClient
+        val nextcloudClient = clientFactory.createNextcloudClient(user)
+        this.nextcloudClient = nextcloudClient
+        isLoadingActivities = true
 
-                if (remoteOperationResult.isSuccess()) {
-                    EventBus.getDefault().post(new CommentsEvent(file.getRemoteId()));
-                }
+        val operation = if (lastGiven > 0) {
+            GetActivitiesRemoteOperation(file.localId, lastGiven)
+        } else {
+            GetActivitiesRemoteOperation(file.localId)
+        }
+
+        Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute")
+        val result = nextcloudClient.execute<Any?>(operation)
+
+        val versions = when {
+            !restoreFileVersionSupported -> null
+
+            else -> ReadFileVersionsRemoteOperation(file.localId).execute(ownCloudClient)
+                .takeIf { it.isSuccess }
+                ?.data
+        }
+
+        return result to versions
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun handleActivitiesResult(
+        activity: FragmentActivity,
+        result: RemoteOperationResult<Any?>,
+        versions: ArrayList<Any?>?,
+        lastGiven: Long
+    ) {
+        val data = result.data
+        if (result.isSuccess && data != null) {
+            val activitiesAndVersions = data[0] as ArrayList<Any?>
+            this.lastGiven = data[1] as Long
+
+            if (activitiesAndVersions.isEmpty()) {
+                this.lastGiven = END_REACHED.toLong()
             }
-        }).start();
+
+            if (restoreFileVersionSupported && versions != null) {
+                activitiesAndVersions.addAll(versions)
+            }
+
+            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                populateList(activitiesAndVersions, lastGiven == -1L)
+            }
+
+            isDataFetched = true
+            return
+        }
+
+        Log_OC.d(TAG, result.logMessage)
+        val logMessage = if (result.httpCode == HttpStatus.SC_NOT_MODIFIED) {
+            getString(R.string.activities_no_results_message)
+        } else {
+            result.getLogMessage(activity)
+        }
+
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            setErrorContent(logMessage)
+            isLoadingActivities = false
+        }
+
+        isDataFetched = false
+    }
+    // endregion
+
+    // region Comments
+    fun submitComment() {
+        val binding = binding ?: return
+        val client = nextcloudClient
+        val comment = binding.commentInputField.text?.toString()?.trim().orEmpty()
+        if (comment.isEmpty() || client == null || !isDataFetched) {
+            return
+        }
+        val fileId = file?.localId ?: return
+
+        submitCommentJob?.cancel()
+        submitCommentJob = lifecycleScope.launch {
+            val success = withContext(Dispatchers.IO) {
+                CommentFileOperation(comment, fileId).execute(client).isSuccess
+            }
+            if (success) {
+                callback?.onSuccess()
+            } else {
+                callback?.onError(R.string.error_comment_file)
+            }
+        }
+    }
+
+    fun markCommentsAsRead() {
+        val file = file ?: return
+        if (file.unreadCommentsCount <= 0) {
+            return
+        }
+        val client = ownCloudClient
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val result = MarkCommentsAsReadRemoteOperation(file.localId).execute(client)
+            if (result.isSuccess) {
+                EventBus.getDefault().post(CommentsEvent(file.remoteId))
+            }
+        }
+    }
+    // endregion
+
+    // region View state
+    private fun setLoadingMessage() {
+        binding?.swipeContainingEmpty?.visibility = View.GONE
     }
 
     @VisibleForTesting
-    public void populateList(List<Object> activities, boolean clear) {
-        adapter.setActivityAndVersionItems(activities, nextcloudClient, clear);
+    fun setLoadingMessageEmpty() {
+        val binding = binding ?: return
+        binding.swipeContainingList.visibility = View.GONE
+        binding.emptyList.emptyListView.visibility = View.GONE
+        binding.loadingContent.visibility = View.VISIBLE
+    }
 
-        if (binding == null) {
-            return;
-        }
+    @VisibleForTesting
+    fun populateList(activities: List<Any?>?, clear: Boolean) {
+        val items = ArrayList<Any?>(activities ?: emptyList())
+        adapter?.setActivityAndVersionItems(items, nextcloudClient, clear)
 
-        if (adapter.getItemCount() == 0) {
+        val binding = binding ?: return
+
+        if (adapter?.itemCount == 0) {
             setEmptyContent(
                 getString(R.string.activities_no_results_headline),
                 getString(R.string.activities_no_results_message)
-                           );
+            )
         } else {
-            binding.swipeContainingList.setVisibility(View.VISIBLE);
-            binding.swipeContainingEmpty.setVisibility(View.GONE);
-            binding.emptyList.emptyListView.setVisibility(View.GONE);
+            binding.swipeContainingList.visibility = View.VISIBLE
+            binding.swipeContainingEmpty.visibility = View.GONE
+            binding.emptyList.emptyListView.visibility = View.GONE
         }
-        isLoadingActivities = false;
+        isLoadingActivities = false
     }
 
-    private void setEmptyContent(String headline, String message) {
-        setInfoContent(R.drawable.ic_activity, headline, message);
+    private fun setEmptyContent(headline: String?, message: String?) {
+        setInfoContent(R.drawable.ic_activity, headline, message)
     }
 
     @VisibleForTesting
-    public void setErrorContent(String message) {
-        setInfoContent(R.drawable.ic_list_empty_error, getString(R.string.common_error), message);
+    fun setErrorContent(message: String?) {
+        setInfoContent(R.drawable.ic_list_empty_error, getString(R.string.common_error), message)
     }
 
-    private void setInfoContent(@DrawableRes int icon, String headline, String message) {
-        if (binding == null) {
-            return;
+    private fun setInfoContent(@DrawableRes icon: Int, headline: String?, message: String?) {
+        val binding = binding ?: return
+
+        binding.emptyList.emptyListIcon.setImageDrawable(
+            ResourcesCompat.getDrawable(requireContext().resources, icon, null)
+        )
+        binding.emptyList.emptyListViewHeadline.text = headline
+        binding.emptyList.emptyListViewText.text = message
+
+        binding.swipeContainingList.visibility = View.GONE
+        binding.loadingContent.visibility = View.GONE
+
+        binding.emptyList.emptyListViewHeadline.visibility = View.VISIBLE
+        binding.emptyList.emptyListViewText.visibility = View.VISIBLE
+        binding.emptyList.emptyListIcon.visibility = View.VISIBLE
+        binding.emptyList.emptyListView.visibility = View.VISIBLE
+        binding.swipeContainingEmpty.visibility = View.VISIBLE
+    }
+
+    private fun hideRefreshLayoutLoader() {
+        val binding = binding ?: return
+        if (!lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            return
         }
-
-        binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
-                                                                                     icon,
-                                                                                     null));
-        binding.emptyList.emptyListViewHeadline.setText(headline);
-        binding.emptyList.emptyListViewText.setText(message);
-
-        binding.swipeContainingList.setVisibility(View.GONE);
-        binding.loadingContent.setVisibility(View.GONE);
-
-        binding.emptyList.emptyListViewHeadline.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
-        binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
+        binding.swipeContainingList.isRefreshing = false
+        binding.swipeContainingEmpty.isRefreshing = false
+        isLoadingActivities = false
     }
+    // endregion
 
-    private void hideRefreshLayoutLoader(FragmentActivity activity) {
-        activity.runOnUiThread(() -> {
-            if (binding != null && getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
-                binding.swipeContainingList.setRefreshing(false);
-                binding.swipeContainingEmpty.setRefreshing(false);
-                isLoadingActivities = false;
-            }
-        });
-    }
-
-    @Override
-    public void onActivityClicked(RichObject richObject) {
+    // region Interface callbacks
+    override fun onActivityClicked(richObject: RichObject?) {
         // TODO implement activity click
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        FileExtensionsKt.logFileSize(file, TAG);
-        outState.putParcelable(ARG_FILE, file);
-        outState.putParcelable(ARG_USER, user);
+    override fun onRestoreClicked(fileVersion: FileVersion?) {
+        operationsHelper?.restoreFileVersion(fileVersion)
     }
 
-    @Override
-    public void onRestoreClicked(FileVersion fileVersion) {
-        operationsHelper.restoreFileVersion(fileVersion);
+    override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
+        binding?.avatar?.setImageDrawable(avatarDrawable)
     }
 
-    @Override
-    public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
-        if (binding != null) {
-            binding.avatar.setImageDrawable(avatarDrawable);
-        }
-    }
+    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean = false
+    // endregion
 
-    @Override
-    public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
-        return false;
-    }
-    
     @VisibleForTesting
-    public void disableLoadingActivities() {
-        isLoadingActivities = false;
+    fun disableLoadingActivities() {
+        isLoadingActivities = false
     }
 
-    private static class SubmitCommentTask extends AsyncTask<Void, Void, Boolean> {
+    companion object {
+        private val TAG: String = FileDetailActivitiesFragment::class.java.simpleName
 
-        private final String message;
-        private final long fileId;
-        private final WeakReference<VersionListInterface.CommentCallback> callbackRef;
-        private final NextcloudClient client;
+        private const val ARG_FILE = "FILE"
+        private const val ARG_USER = "USER"
+        private const val END_REACHED = 0
+        private const val LOAD_MORE_THRESHOLD = 5
 
-        private SubmitCommentTask(String message,
-                                  long fileId,
-                                  VersionListInterface.CommentCallback callback,
-                                  NextcloudClient client) {
-            this.message = message;
-            this.fileId = fileId;
-            this.callbackRef = new WeakReference<>(callback);
-            this.client = client;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            if (isCancelled()) {
-                return false;
+        @JvmStatic
+        fun newInstance(file: OCFile?, user: User?): FileDetailActivitiesFragment =
+            FileDetailActivitiesFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_FILE, file)
+                    putParcelable(ARG_USER, user)
+                }
             }
-
-            CommentFileOperation commentFileOperation = new CommentFileOperation(message, fileId);
-            RemoteOperationResult<Void> result = commentFileOperation.execute(client);
-            return result.isSuccess();
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-
-            // Don't call callback if task was cancelled
-            if (isCancelled()) {
-                return;
-            }
-
-            VersionListInterface.CommentCallback callback = callbackRef.get();
-            if (callback == null) {
-                // Fragment was destroyed, callback was GC'd
-                return;
-            }
-            
-            if (success) {
-                callback.onSuccess();
-            } else {
-                callback.onError(R.string.error_comment_file);
-
-            }
-        }
     }
 }
