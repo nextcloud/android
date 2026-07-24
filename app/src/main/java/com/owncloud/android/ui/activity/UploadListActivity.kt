@@ -168,16 +168,12 @@ class UploadListActivity :
     }
 
     private fun refresh() {
-        val isUploadStarted = FileUploadHelper.instance().retryFailedUploads(
+        FileUploadHelper.instance().retryFailedUploads(
             uploadsStorageManager,
             connectivityService,
             accountManager,
             powerManagementService
         )
-
-        if (!isUploadStarted) {
-            uploadListAdapter.loadUploadItemsFromDb { swipeListRefreshLayout?.isRefreshing = false }
-        }
     }
 
     override fun onStart() {

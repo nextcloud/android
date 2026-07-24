@@ -58,7 +58,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
-import java.util.concurrent.Semaphore
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions")
@@ -91,7 +91,7 @@ class FileUploadHelper {
 
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
 
-        private val retryFailedUploadsSemaphore = Semaphore(1)
+        private val retryInProgress = AtomicBoolean(false)
 
         private val sharedInstance: FileUploadHelper by lazy { FileUploadHelper() }
 
@@ -124,21 +124,17 @@ class FileUploadHelper {
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService
-    ): Boolean {
-        if (!retryFailedUploadsSemaphore.tryAcquire()) {
+    ) {
+        if (!retryInProgress.compareAndSet(false, true)) {
             Log_OC.d(TAG, "skipping retryFailedUploads, already running")
-            return true
+            return
         }
 
-        var isUploadStarted = false
         val capability = fileStorageManager.getCapability(accountManager.user)
 
         appScope.launch {
             try {
                 val uploads = getUploadsByStatus(null, UploadStatus.UPLOAD_FAILED, capability)
-                if (uploads.isNotEmpty()) {
-                    isUploadStarted = true
-                }
 
                 retryUploads(
                     uploadsStorageManager,
@@ -148,13 +144,11 @@ class FileUploadHelper {
                     uploads
                 )
             } finally {
-                // Release only after retry processing has completely finished so the semaphore guards
+                // Reset only after retry processing has completely finished so the guard covers
                 // coroutine execution, not just its launch. This keeps a single retry running at a time.
-                retryFailedUploadsSemaphore.release()
+                retryInProgress.set(false)
             }
         }
-
-        return isUploadStarted
     }
 
     suspend fun retryCancelledUploads(
