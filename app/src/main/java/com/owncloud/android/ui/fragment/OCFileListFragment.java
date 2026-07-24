@@ -91,6 +91,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
@@ -148,7 +149,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.media3.common.util.UnstableApi;
 import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG;
@@ -1220,8 +1220,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
             setFabVisible(false);
             fda.startMediaPreview(file, 0, true, true, true, true);
-        } else if (editorUtils.isEditorAvailable(accountManager.getUser(), file.getMimeType()) && !file.isEncrypted()) {
-            mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
+        } else if (editorUtils.getEditor(accountManager.getUser(), file.getMimeType()) != null && !file.isEncrypted()) {
+            TextEditorWebView.Companion.startTextEditor(file, getContext());
         } else if (capability.getRichDocumentsMimeTypeList() != null &&
             capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
             capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
@@ -1355,14 +1355,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
             } else if (itemId == R.id.action_open_file_with) {
                 mContainerActivity.getFileOperationsHelper().openFile(singleFile);
                 return true;
+            } else if (itemId == R.id.action_open_in_web_editor) {
+                TextEditorWebView.Companion.startTextEditor(singleFile, getContext());
+                return true;
             } else if (itemId == R.id.action_stream_media) {
                 mContainerActivity.getFileOperationsHelper().streamMediaFile(singleFile);
                 return true;
             } else if (itemId == R.id.action_edit) {
                 // should not be necessary, as menu item is filtered, but better play safe
-                if (editorUtils.isEditorAvailable(accountManager.getUser(),
-                                                  singleFile.getMimeType())) {
-                    mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
+                if (editorUtils.isEditorAvailable(accountManager.getUser(), singleFile.getMimeType())) {
+                    TextEditorWebView.Companion.startTextEditor(singleFile,getContext());
                 } else if (EditImageActivity.Companion.canBePreviewed(singleFile)) {
                     ((FileDisplayActivity) mContainerActivity).startImageEditor(singleFile);
                 } else {

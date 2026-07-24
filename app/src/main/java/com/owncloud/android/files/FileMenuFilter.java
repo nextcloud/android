@@ -158,6 +158,7 @@ public class FileMenuFilter {
         filterSelectAll(toHide, inSingleFileFragment);
         filterDeselectAll(toHide, inSingleFileFragment);
         filterOpenWith(toHide, synchronizing);
+        filterOpenInWebEditor(toHide);
         filterCancelSync(toHide, synchronizing);
         filterSync(toHide, synchronizing);
         filterShareFile(toHide, capability);
@@ -313,9 +314,15 @@ public class FileMenuFilter {
      */
     @NextcloudServer(max = 18)
     private boolean isRichDocumentEditingSupported(OCCapability capability, String mimeType) {
+        final var mimeTypeList = capability.getRichDocumentsMimeTypeList();
+        final var isMimeTypeListContainsMimeType = (mimeTypeList != null && mimeTypeList.contains(mimeType));
+
+        final var optionalMimeTypeList = capability.getRichDocumentsOptionalMimeTypeList();
+        final var isOptionalMimeTypeListContainsMimeType = (optionalMimeTypeList != null &&
+            optionalMimeTypeList.contains(mimeType));
+
         return isSingleFile() &&
-            (capability.getRichDocumentsMimeTypeList().contains(mimeType) ||
-                capability.getRichDocumentsOptionalMimeTypeList().contains(mimeType)) &&
+            (isMimeTypeListContainsMimeType || isOptionalMimeTypeListContainsMimeType) &&
             capability.getRichDocumentsDirectEditing().isTrue();
     }
 
@@ -336,6 +343,19 @@ public class FileMenuFilter {
     private void filterOpenWith(Collection<Integer> toHide, boolean synchronizing) {
         if (!isSingleFile() || !anyFileDown() || synchronizing) {
             toHide.add(R.id.action_open_file_with);
+        }
+    }
+
+    private void filterOpenInWebEditor(Collection<Integer> toHide) {
+        if (!isSingleFile()) {
+            toHide.add(R.id.action_open_in_web_editor);
+            return;
+        }
+
+        OCFile file = files.iterator().next();
+        boolean canOpenLocally = file.isDown() && !file.isEncrypted();
+        if (!canOpenLocally || !editorUtils.isOfficeEditorAvailable(user, file.getMimeType())) {
+            toHide.add(R.id.action_open_in_web_editor);
         }
     }
 
