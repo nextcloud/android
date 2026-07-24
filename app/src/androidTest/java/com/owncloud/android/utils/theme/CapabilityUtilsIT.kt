@@ -18,7 +18,7 @@ class CapabilityUtilsIT : AbstractIT() {
     @Test
     fun checkOutdatedWarning() {
         assertFalse(test(NextcloudVersion.nextcloud_31))
-        assertFalse(test(NextcloudVersion.nextcloud_30))
+        assertTrue(test(NextcloudVersion.nextcloud_30))
 
         assertTrue(test(NextcloudVersion.nextcloud_29))
         assertTrue(test(NextcloudVersion.nextcloud_28))
@@ -35,7 +35,7 @@ class CapabilityUtilsIT : AbstractIT() {
     @Test
     fun checkOutdatedWarningWithSubscription() {
         assertFalse(test(NextcloudVersion.nextcloud_31))
-        assertFalse(test(NextcloudVersion.nextcloud_30))
+        assertTrue(test(NextcloudVersion.nextcloud_30))
 
         assertFalse(test(OwnCloudVersion.nextcloud_20, true))
     }
