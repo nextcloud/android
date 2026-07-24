@@ -19,6 +19,7 @@ import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.di.ApplicationScope
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
@@ -52,10 +53,8 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterActionHandler
 import com.owncloud.android.utils.DisplayUtils
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -77,13 +76,9 @@ class FileUploadHelper {
     @Inject
     lateinit var fileStorageManager: FileDataStorageManager
 
-    private val ioScope = CoroutineScope(
-        SupervisorJob() +
-            Dispatchers.IO +
-            CoroutineExceptionHandler { _, throwable ->
-                Log_OC.e(TAG, "Uncaught exception in FileUploadHelper coroutine", throwable)
-            }
-    )
+    @Inject
+    @ApplicationScope
+    lateinit var appScope: CoroutineScope
 
     init {
         MainApp.getAppComponent().inject(this)
@@ -140,7 +135,7 @@ class FileUploadHelper {
         var isUploadStarted = false
         val capability = fileStorageManager.getCapability(accountManager.user)
 
-        ioScope.launch {
+        appScope.launch {
             try {
                 val uploads = getUploadsByStatus(null, UploadStatus.UPLOAD_FAILED, capability)
                 if (uploads.isNotEmpty()) {
@@ -360,7 +355,7 @@ class FileUploadHelper {
         status: UploadStatus,
         onCompleted: () -> Unit = {}
     ) {
-        ioScope.launch {
+        appScope.launch {
             uploadsStorageManager.uploadDao.updateStatus(remotePath, accountName, status.value)
             onCompleted()
         }
@@ -546,7 +541,7 @@ class FileUploadHelper {
      * @param user Needed for creating client
      */
     fun removeDuplicatedFile(duplicatedFile: OCFile, client: OwnCloudClient, user: User, onCompleted: () -> Unit) {
-        ioScope.launch {
+        appScope.launch {
             val removeFileOperation = RemoveFileOperation(
                 duplicatedFile,
                 false,
