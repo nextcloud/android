@@ -30,6 +30,7 @@ object GrantTestPermissionRule {
                 add(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
+        @Suppress("SpreadOperator")
         return GrantPermissionRule.grant(*permissions.toTypedArray())
     }
 }

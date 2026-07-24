@@ -46,19 +46,24 @@ configurations.configureEach {
         force(libs.objenesis)
 
         eachDependency {
-            if (requested.group == "org.checkerframework" && requested.name != "checker-compat-qual") {
-                useVersion(libs.versions.checker.get())
-                because("https://github.com/google/ExoPlayer/issues/10007")
-            } else if (requested.group == "org.jacoco") {
-                useVersion(libs.versions.jacoco.get())
-            } else if (requested.group == "commons-logging" && requested.name == "commons-logging") {
-                useTarget(libs.slfj)
-            } else if (requested.group == "org.hamcrest") {
-                useVersion("2.2")
-                because(
-                    "Align hamcrest on compile and runtime. 1.3 (via junit) exposes fixed-arity " +
-                        "anyOf/allOf overloads that 2.2 (via androidx.test) removed, causing NoSuchMethodError."
-                )
+            when (requested.group) {
+                "org.checkerframework" if requested.name != "checker-compat-qual" -> {
+                    useVersion(libs.versions.checker.get())
+                    because("https://github.com/google/ExoPlayer/issues/10007")
+                }
+                "org.jacoco" -> {
+                    useVersion(libs.versions.jacoco.get())
+                }
+                "commons-logging" if requested.name == "commons-logging" -> {
+                    useTarget(libs.slfj)
+                }
+                "org.hamcrest" -> {
+                    useVersion("2.2")
+                    because(
+                        "Align hamcrest on compile and runtime. 1.3 (via junit) exposes fixed-arity " +
+                            "anyOf/allOf overloads that 2.2 (via androidx.test) removed, causing NoSuchMethodError."
+                    )
+                }
             }
         }
     }
@@ -272,6 +277,7 @@ spotbugs {
 }
 
 tasks.register<Checkstyle>("checkstyle") {
+    description = "checks style"
     configFile = file("${rootProject.projectDir}/checkstyle.xml")
     setConfigProperties(
         "checkstyleSuppressionsPath" to file("${rootProject.rootDir}/suppressions.xml").absolutePath
@@ -283,6 +289,7 @@ tasks.register<Checkstyle>("checkstyle") {
 }
 
 tasks.register<Pmd>("pmd") {
+    description = "pmd"
     ruleSetFiles = files("${rootProject.rootDir}/ruleset.xml")
     ignoreFailures = true // should continue checking
     ruleSets = emptyList()
